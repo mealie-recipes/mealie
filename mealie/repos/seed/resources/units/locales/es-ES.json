@@ -137,5 +137,11 @@
         "plural_name": "pellizcos",
         "description": "",
         "abbreviation": ""
+    },
+    "sprig": {
+        "name": "ramita",
+        "plural_name": "ramitas",
+        "description": "",
+        "abbreviation": ""
     }
 }

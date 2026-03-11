@@ -16,7 +16,7 @@ Recipes extras are a key feature of the Mealie API. They allow you to create cus
 For example you could add `{"message": "Remember to thaw the chicken"}` to a recipe and use the webhooks built into mealie to send that message payload to a destination to be processed.
 
 #### Shopping List and Food Extras
-Similarly to recipes, extras are supported on shopping lists, shopping list items, and foods. At this time they are only accessible through the API. Extras for these objects allow for rich integrations between the Mealie shopping list and your favorite list manager, such as Alexa, ToDoist, Trello, or any other list manager with an API.
+Similarly to recipes, extras are supported on shopping lists, shopping list items, and foods. At this time they are only accessible through the API. Extras for these objects allow for rich integrations between the Mealie shopping list and your favorite list manager, such as Todoist, Trello, or any other list manager with an API.
 
 To keep shopping lists in sync, for instance, you can store your Trello list id on your Mealie shopping list: <br />
 `{"trello_list_id": "5abbe4b7ddc1b351ef961414"}`
@@ -52,6 +52,7 @@ Many applications will keep track of the query and adjust the page parameter app
 Notice that the route does not contain the baseurl (e.g. `https://mymealieapplication.com/api`).
 
 There are a few shorthands available to reduce the number of calls for certain common requests:
+
 - if you want to return _all_ results, effectively disabling pagination, set `perPage = -1` (and fetch the first page)
 - if you want to fetch the _last_ page, set `page = -1`
 
@@ -78,8 +79,8 @@ This filter will find all foods that are not named "carrot": <br>
 ##### Keyword Filters
 The API supports many SQL keywords, such as `IS NULL` and `IN`, as well as their negations (e.g. `IS NOT NULL` and `NOT IN`).
 
-Here is an example of a filter that returns all recipes where the "last made" value is not null: <br>
-`lastMade IS NOT NULL`
+Here is an example of a filter that returns all shopping list items without a food: <br>
+`foodId IS NULL`
 
 This filter will find all recipes that don't start with the word "Test": <br>
 `name NOT LIKE "Test%"`
@@ -89,6 +90,28 @@ This filter will find all recipes that don't start with the word "Test": <br>
 This filter will find all recipes that have particular slugs: <br>
 `slug IN ["pasta-fagioli", "delicious-ramen"]`
 
+##### Placeholder Keywords
+You can use placeholders to insert dynamic values as opposed to static values. Currently the only supported placeholder keyword is `$NOW`, to insert the current date/time.
+
+`$NOW` can optionally be paired with basic offsets. Here is an example of a filter which gives you recipes not made within the past 30 days: <br>
+`lastMade <= "$NOW-30d"`
+
+Supported offset operations include:
+
+- `-` for subtracting a time (i.e. in the past)
+- `+` for adding a time (i.e. in the future)
+
+Supported offset intervals include:
+
+- `y` for years
+- `m` for months
+- `d` for days
+- `H` for hours
+- `M` for minutes
+- `S` for seconds
+
+Note that intervals are _case sensitive_ (e.g. `s` is an invalid interval).
+
 ##### Nested Property filters
 When querying tables with relationships, you can filter properties on related tables. For instance, if you want to query all recipes owned by a particular user: <br>
 `user.username = "SousChef20220320"`
@@ -96,7 +119,7 @@ When querying tables with relationships, you can filter properties on related ta
 This timeline event filter will return all timeline events for recipes that were created after a particular date: <br>
 `recipe.createdAt >= "2023-02-25"`
 
-This recipe filter will return all recipes that contains a particular set of tags: <br>
+This recipe filter will return all recipes that contain a particular set of tags: <br>
 `tags.name CONTAINS ALL ["Easy", "Cajun"]`
 
 ##### Compound Filters

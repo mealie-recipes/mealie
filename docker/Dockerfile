@@ -1,7 +1,7 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:24@sha256:0ab63cafa05b4c1db52959b40b7ea1f52753fe65f27a1b84f3991c296b1c16e6 \
+FROM node:24@sha256:3a09aa6354567619221ef6c45a5051b671f953f0a1924d1f819ffb236e520e6b \
     AS frontend-builder
 
 WORKDIR /frontend
@@ -91,6 +91,7 @@ RUN apt-get update \
     build-essential \
     libpq-dev \
     libwebp-dev \
+    ffmpeg \
     # LDAP Dependencies
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1 \
@@ -111,7 +112,6 @@ RUN . $VENV_PATH/bin/activate \
 # Production Image
 ###############################################
 FROM python-base AS production
-LABEL org.opencontainers.image.source="https://github.com/mealie-recipes/mealie"
 ENV PRODUCTION=true
 ENV TESTING=false
 
@@ -120,6 +120,7 @@ ENV GIT_COMMIT_HASH=$COMMIT
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
+    curl \
     gosu \
     iproute2 \
     libldap-common \
@@ -142,7 +143,9 @@ ENV APP_PORT=9000
 
 EXPOSE ${APP_PORT}
 
-HEALTHCHECK CMD python -m mealie.scripts.healthcheck || exit 1
+COPY ./docker/healthcheck.sh $MEALIE_HOME/healthcheck.sh
+RUN chmod +x $MEALIE_HOME/healthcheck.sh
+HEALTHCHECK CMD $MEALIE_HOME/healthcheck.sh
 
 ENV HOST 0.0.0.0
 

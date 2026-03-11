@@ -67,6 +67,7 @@ from .recipe_ingredient import (
     RegisteredParser,
     SaveIngredientFood,
     SaveIngredientUnit,
+    StandardizedUnitType,
     UnitFoodBase,
 )
 from .recipe_notes import RecipeNote
@@ -159,6 +160,7 @@ __all__ = [
     "RegisteredParser",
     "SaveIngredientFood",
     "SaveIngredientUnit",
+    "StandardizedUnitType",
     "UnitFoodBase",
     "RecipeSuggestionQuery",
     "RecipeSuggestionResponse",

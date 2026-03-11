@@ -168,13 +168,13 @@ export default defineNuxtComponent({
   },
   emits: ["update:modelValue"],
   setup(props, context) {
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const { loggedIn, isOwnGroup } = useLoggedInState();
-    const isAdmin = computed(() => $auth.user.value?.admin);
-    const canManage = computed(() => $auth.user.value?.canManage);
+    const isAdmin = computed(() => auth.user.value?.admin);
+    const canManage = computed(() => auth.user.value?.canManage);
 
-    const userFavoritesLink = computed(() => $auth.user.value ? `/user/${$auth.user.value.id}/favorites` : undefined);
-    const userProfileLink = computed(() => $auth.user.value ? "/user/profile" : undefined);
+    const userFavoritesLink = computed(() => auth.user.value ? `/user/${auth.user.value.id}/favorites` : undefined);
+    const userProfileLink = computed(() => auth.user.value ? "/user/profile" : undefined);
 
     const toggleDark = useToggleDarkMode();
 
@@ -217,7 +217,7 @@ export default defineNuxtComponent({
       isAdmin,
       canManage,
       isOwnGroup,
-      sessionUser: $auth.user,
+      sessionUser: auth.user,
       toggleDark,
     };
   },

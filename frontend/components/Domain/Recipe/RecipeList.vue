@@ -73,10 +73,10 @@ const props = withDefaults(defineProps<Props>(), {
   disabled: false,
 });
 
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const { frac } = useFraction();
 const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug || $auth.user?.value?.groupSlug || "");
+const groupSlug = computed(() => route.params.groupSlug || auth.user?.value?.groupSlug || "");
 
 const attrs = computed(() => {
   return props.small

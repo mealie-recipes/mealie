@@ -137,5 +137,11 @@
         "plural_name": "štipky",
         "description": "",
         "abbreviation": ""
+    },
+    "sprig": {
+        "name": "vetvička",
+        "plural_name": "vetvičky",
+        "description": "",
+        "abbreviation": ""
     }
 }

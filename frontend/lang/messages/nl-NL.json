@@ -4,7 +4,7 @@
     "about-mealie": "Over Mealie",
     "api-docs": "API-documentatie",
     "api-port": "API-poort",
-    "application-mode": "Toepassingsmodus",
+    "application-mode": "Applicatiemodus",
     "database-type": "Databasetype",
     "database-url": "Database URL",
     "default-group": "Standaardgroep",
@@ -212,6 +212,8 @@
     "upload-file": "Bestand uploaden",
     "created-on-date": "Gemaakt op: {0}",
     "unsaved-changes": "Er zijn niet-opgeslagen wijzigingen. Wil je eerst opslaan voordat je vertrekt? Oké om op te slaan, Annuleren om wijzigingen ongedaan te maken.",
+    "discard-changes": "Sla wijzigingen niet op",
+    "discard-changes-description": "Je wilt je wijzigingen niet opslaan. Weet je het zeker?",
     "clipboard-copy-failure": "Kopiëren naar klembord mislukt.",
     "confirm-delete-generic-items": "Weet je zeker dat je de volgende items wilt verwijderen?",
     "organizers": "Organisatoren",
@@ -367,7 +369,9 @@
     "recipe-rules": "Receptregels",
     "applies-to-all-days": "Van toepassing op alle dagen",
     "applies-on-days": "Van toepassing op {0}s",
-    "meal-plan-settings": "Maaltijdplan-instellingen"
+    "meal-plan-settings": "Maaltijdplan-instellingen",
+    "add-all-to-list": "Alles aan lijst toevoegen",
+    "add-day-to-list": "Dag aan lijst toevoegen"
   },
   "migration": {
     "migration-data-removed": "Migratiegegevens verwijderd",
@@ -632,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Maak een recept door het een naam te geven. Alle recepten moeten unieke namen hebben.",
     "new-recipe-names-must-be-unique": "Nieuwe receptnamen moeten uniek zijn",
     "scrape-recipe": "Scrape recept",
-    "scrape-recipe-description": "Voeg een recept toe via een URL. Geef de URL op van de site die je wil scannen voor een recept en Mealie zal proberen het recept vanaf die plek te scannen en aan je collectie toe te voegen.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Heb je veel recepten die je in één keer wil importeren?",
     "scrape-recipe-suggest-bulk-importer": "Probeer importeren in bulk",
     "scrape-recipe-have-raw-html-or-json-data": "Heb je onbewerkte HTML of JSON gegevens?",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Wordt de website geblokkeerd?",
     "scrape-recipe-try-importing-raw-html-instead": "Probeer de HTML broncode te importeren.",
     "import-original-keywords-as-tags": "Importeer oorspronkelijke trefwoorden als labels",
+    "import-original-categories": "Importeer oorspronkelijke categorieën",
     "stay-in-edit-mode": "Blijf in bewerkingsmodus",
     "parse-recipe-ingredients-after-import": "Ontleed de ingrediënten van het recept na importeren",
     "import-from-zip": "Importeren uit zip",
@@ -1129,7 +1135,22 @@
       "example-unit-singular": "Bv: eetlepel ",
       "example-unit-plural": "Bv: eetlepels ",
       "example-unit-abbreviation-singular": "Bv: el",
-      "example-unit-abbreviation-plural": "bijv: els"
+      "example-unit-abbreviation-plural": "bijv: els",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Vul de database aan met veelvoorkomende labels, gebaseerd op je lokale taal.",
@@ -1163,7 +1184,11 @@
       "recipe-actions-data": "Gegevens voor acties met recepten",
       "new-recipe-action": "Nieuwe actie met recept",
       "edit-recipe-action": "Pas actie met recept aan",
-      "action-type": "Soort actie"
+      "action-type": "Soort actie",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Maak alias",
     "manage-aliases": "Beheer aliassen ",
@@ -1417,7 +1442,9 @@
       "is-greater-than": "is groter dan",
       "is-greater-than-or-equal-to": "is groter dan of gelijk aan",
       "is-less-than": "is kleiner dan",
-      "is-less-than-or-equal-to": "is kleiner dan of gelijk aan"
+      "is-less-than-or-equal-to": "is kleiner dan of gelijk aan",
+      "is-older-than": "is ouder dan",
+      "is-newer-than": "is nieuwer dan"
     },
     "relational-keywords": {
       "is": "is",
@@ -1427,6 +1454,9 @@
       "contains-all-of": "bevat alles van",
       "is-like": "is zoals",
       "is-not-like": "is niet zoals"
+    },
+    "dates": {
+      "days-ago": "dagen geleden|dag geleden|dagen geleden"
     }
   },
   "validators": {
@@ -1435,6 +1465,6 @@
     "invalid-url": "Moet een geldige URL zijn",
     "no-whitespace": "Geen spaties toegestaan",
     "min-length": "Moet minimaal {min} tekens bevatten",
-    "max-length": "Zorg dat je {max} tekens gebruikt"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

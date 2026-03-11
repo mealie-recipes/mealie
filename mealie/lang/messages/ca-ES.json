@@ -17,7 +17,9 @@
             "servings": "Serveis",
             "yield": "Ració",
             "yields": "Racions"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Cap recepta coincideix amb les teves regles"

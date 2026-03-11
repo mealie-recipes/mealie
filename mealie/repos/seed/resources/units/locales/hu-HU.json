@@ -137,5 +137,11 @@
         "plural_name": "csipet",
         "description": "",
         "abbreviation": ""
+    },
+    "sprig": {
+        "name": "ág",
+        "plural_name": "ág",
+        "description": "",
+        "abbreviation": ""
     }
 }

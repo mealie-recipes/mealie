@@ -6,18 +6,18 @@
     "api-port": "API-portti",
     "application-mode": "Sovellustila",
     "database-type": "Tietokannan tyyppi",
-    "database-url": "Tietokannan URL",
+    "database-url": "Tietokannan URL-osoite",
     "default-group": "Oletusryhmä",
     "default-household": "Oletuskotitalous",
-    "demo": "Demo",
-    "demo-status": "Demon tila",
+    "demo": "Esittelytila",
+    "demo-status": "Esittelytila",
     "development": "Kehitys",
     "docs": "Dokumentit",
     "download-log": "Latausloki",
     "download-recipe-json": "Viimeisin haettu JSON",
     "github": "GitHub",
     "log-lines": "Lokirivit",
-    "not-demo": "Ei demotilassa",
+    "not-demo": "Ei käytössä",
     "portfolio": "Portfolio",
     "production": "Tuotanto",
     "support": "Tuki",
@@ -138,7 +138,7 @@
     "print": "Tulosta",
     "print-preferences": "Tulostusasetukset",
     "random": "Satunnainen",
-    "rating": "Arvio",
+    "rating": "Arvosana",
     "recent": "Viimeisimmät",
     "recipe": "Resepti",
     "recipes": "Reseptit",
@@ -153,7 +153,7 @@
     "sort": "Järjestä",
     "sort-ascending": "Järjestä nousevasti",
     "sort-descending": "Järjestä laskevasti",
-    "sort-alphabetically": "Aakkosjärjestyksessä",
+    "sort-alphabetically": "Aakkosjärjestys",
     "status": "Tila",
     "subject": "Aihe",
     "submit": "Lähetä",
@@ -205,13 +205,15 @@
     "copied-to-clipboard": "Kopioitu leikepöydälle",
     "your-browser-does-not-support-clipboard": "Selaimesi ei tue leikepöytää",
     "copied-items-to-clipboard": "Mitään ei kopioitu leikepöydälle|Kohde kopioitu leikepöydälle|{count} kohdetta kopioitu leikepöydälle",
-    "actions": "Toimet",
+    "actions": "Toiminnot",
     "selected-count": "Valittu {count}",
     "export-all": "Vie kaikki",
     "refresh": "Päivitä",
     "upload-file": "Tuo tiedosto",
     "created-on-date": "Luotu {0}",
-    "unsaved-changes": "Et ole tallentanut tekemiäsi muutoksia. Tallennetaanko ne? Paina \"ok\" tallentaaksesi ja \"peruuta\", jos et halua tallentaa.",
+    "unsaved-changes": "Tallenna muutokset? ”Ok” tallentaa, ”Peruuta” hylkää muutokset.",
+    "discard-changes": "Hylkää muutokset",
+    "discard-changes-description": "Muutoksia ei ole tallennettu. Hylätäänkö muutokset?",
     "clipboard-copy-failure": "Kopioiminen leikepöydälle epäonnistui.",
     "confirm-delete-generic-items": "Haluatko varmasti poistaa seuraavat kohteet?",
     "organizers": "Järjestäjät",
@@ -367,7 +369,9 @@
     "recipe-rules": "Reseptimääritykset",
     "applies-to-all-days": "Sovelletaan kaikkiin päiviin",
     "applies-on-days": "Käytetään {0}",
-    "meal-plan-settings": "Ateriasuunnitelman asetukset"
+    "meal-plan-settings": "Ateriasuunnitelman asetukset",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Tuodut tiedot poistettu",
@@ -632,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Luo resepti antamalla nimi. Kaikilla resepteillä on oltava yksilölliset nimet.",
     "new-recipe-names-must-be-unique": "Reseptin nimen on oltava yksilöllinen",
     "scrape-recipe": "Reseptin kaappain",
-    "scrape-recipe-description": "Kaappaa resepti urlin avulla. Anna sen reseptin url-osoite, jonka haluat kaapata, ja Mealie yrittää kaapata reseptin kyseiseltä sivustolta ja lisätä sen kokoelmaasi.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Haluatko kerätä useamman reseptin kerralla?",
     "scrape-recipe-suggest-bulk-importer": "Kokeile massasiirtotyökalua",
     "scrape-recipe-have-raw-html-or-json-data": "Onko sinulla raakaa HTML- tai JSON-dataa?",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Onko sivusto estetty?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Tuo alkuperäiset avainsanat tunnisteiksi",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Pysy muokkaustilassa",
     "parse-recipe-ingredients-after-import": "Jäsennä reseptin ainesosat tuonnin jälkeen",
     "import-from-zip": "Tuo zip-arkistosta",
@@ -707,8 +713,8 @@
     "toggle-recipe": "Vaihda osio"
   },
   "recipe-finder": {
-    "recipe-finder": "Reseptin etsijä",
-    "recipe-finder-description": "Etsi sopivia reseptejä saatavilla olevien ainesosien perusteella. Voit myös suodattaa tulokset saatavilla olevien ruoanvalmistusvälineiden perusteella, ja asettaa enimmäismäärän puuttuvia ainesosia tai välineitä.",
+    "recipe-finder": "Reseptihaku",
+    "recipe-finder-description": "Etsi sopivia reseptejä saatavilla olevien ainesosien perusteella. Voit myös suodattaa tulokset saatavilla olevien keittiövälineiden perusteella, ja asettaa enimmäismäärän puuttuvia ainesosia tai välineitä.",
     "selected-ingredients": "Valitut ainesosat",
     "no-ingredients-selected": "Ei valittuja ainesosia",
     "missing": "Puuttuu",
@@ -718,7 +724,7 @@
     "include-tools-on-hand": "Sisällytä saatavilla olevat välineet",
     "max-missing-ingredients": "Puuttuvien ainesten enimmäismäärä",
     "max-missing-tools": "Puuttuvien välineiden enimmäismäärä",
-    "selected-tools": "Valitut välineet",
+    "selected-tools": "Valitut keittiövälineet",
     "other-filters": "Muut suodattimet",
     "ready-to-make": "Valmis tekemään",
     "almost-ready-to-make": "Melkein valmis tekemään"
@@ -975,14 +981,14 @@
     "tag": "Tunniste"
   },
   "tool": {
-    "tools": "Työkalut",
-    "on-hand": "Minulla on tämä työkalu",
-    "create-a-tool": "Luo työkalu",
-    "tool-name": "Työkalun Nimi",
-    "create-new-tool": "Luo Uusi Työkalu",
-    "on-hand-checkbox-label": "Näytä työkalut, jotka omistan jo (valittu)",
-    "required-tools": "Tarvittavat Työkalut",
-    "tool": "Työkalu"
+    "tools": "Keittiövälineet",
+    "on-hand": "Omistan välineen",
+    "create-a-tool": "Lisää keittiöväline",
+    "tool-name": "Keittiöväline",
+    "create-new-tool": "Lisää keittiöväline",
+    "on-hand-checkbox-label": "Näytä keittiövälineeni (valittu)",
+    "required-tools": "Tarvittavat keittiövälineet",
+    "tool": "Keittiöväline"
   },
   "user": {
     "admin": "Ylläpitäjä",
@@ -1129,7 +1135,22 @@
       "example-unit-singular": "esim. ruokalusikka",
       "example-unit-plural": "esim. ruokalusikat",
       "example-unit-abbreviation-singular": "esim. rkl",
-      "example-unit-abbreviation-plural": "esim. rkl"
+      "example-unit-abbreviation-plural": "esim. rkl",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Lisää tietokantaan yleiset tunnisteet paikallisen kielen perusteella.",
@@ -1163,7 +1184,11 @@
       "recipe-actions-data": "Reseptin toimintojen käyttötiedot",
       "new-recipe-action": "Uusi reseptin toiminto",
       "edit-recipe-action": "Muuta reseptin toimintoa",
-      "action-type": "Toiminnon tyyppi"
+      "action-type": "Toiminnon tyyppi",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Luo alias",
     "manage-aliases": "Hallitse aliaksia",
@@ -1186,9 +1211,9 @@
       "tag-data": "Tunnisteen tiedot"
     },
     "tools": {
-      "new-tool": "Uusi työkalu",
-      "edit-tool": "Muokkaa työkalua",
-      "tool-data": "Työkalun tiedot"
+      "new-tool": "Lisää keittiöväline",
+      "edit-tool": "Muokkaa keittiövälinettä",
+      "tool-data": "Keittiövälineen tiedot"
     }
   },
   "user-registration": {
@@ -1234,7 +1259,7 @@
     "preview-markdown-button-label": "Esikatsele Markdownia"
   },
   "demo": {
-    "info_message_with_version": "Tämä on demo: {version}",
+    "info_message_with_version": "Mealie on esittelytilassa. Mealien versio: {version}",
     "demo_username": "Käyttäjätunnus: {username}",
     "demo_password": "Salasana: {password}"
   },
@@ -1399,7 +1424,7 @@
     "filter-options-description": "Kun vaaditaan kaikki on valittu, keittokirja sisältää vain reseptejä, joissa on kaikki valitut tuotteet. Tämä koskee jokaista valitsimien osajoukkoa, ei valittujen kohteiden poikkileikkausta.",
     "require-all-categories": "Vaadi Kaikki Kategoriat",
     "require-all-tags": "Vaadi Kaikki Tunnisteet",
-    "require-all-tools": "Vaadi Kaikki Työkalut",
+    "require-all-tools": "Kaikki keittiövälineet tulee löytyä",
     "cookbook-name": "Keittokirjan Nimi",
     "cookbook-with-name": "Keittokirja {0}",
     "household-cookbook-name": "{0} Keittokirja {1}",
@@ -1417,7 +1442,9 @@
       "is-greater-than": "on suurempi kuin",
       "is-greater-than-or-equal-to": "on suurempi tai yhtäsuuri kuin",
       "is-less-than": "on vähemmän kuin",
-      "is-less-than-or-equal-to": "on vähemmän tai yhtäsuuri kuin"
+      "is-less-than-or-equal-to": "on vähemmän tai yhtäsuuri kuin",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "on",
@@ -1427,14 +1454,17 @@
       "contains-all-of": "sisältää kaikki nämä",
       "is-like": "on kuin",
       "is-not-like": "ei ole kuin"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
     "required": "Tämä kenttä on pakollinen",
     "invalid-email": "Sähköpostiosoite ei ole kelvollinen",
     "invalid-url": "URL ei ole kelvollinen",
-    "no-whitespace": "No Whitespace Allowed",
+    "no-whitespace": "Tekstissä ei saa olla välilyöntejä",
     "min-length": "Vähimmäispituus on {min} merkkiä",
-    "max-length": "Enimmäispituus on {max} merkkiä"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import StrEnum
 
 from fastapi import APIRouter, HTTPException, status
 from pydantic import UUID4
@@ -10,7 +10,7 @@ from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 router = APIRouter(prefix="/recipes")
 
 
-class ImageType(str, Enum):
+class ImageType(StrEnum):
     original = "original.webp"
     small = "min-original.webp"
     tiny = "tiny-original.webp"
@@ -53,7 +53,7 @@ async def get_recipe_asset(recipe_id: UUID4, file_name: str):
     """Returns a recipe asset"""
     file = Recipe.directory_from_id(recipe_id).joinpath("assets", file_name)
 
-    try:
-        return FileResponse(file, content_disposition_type="attachment", filename=file_name)
-    except Exception as e:
-        raise HTTPException(status.HTTP_404_NOT_FOUND) from e
+    if file.exists():
+        return FileResponse(file)
+    else:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)

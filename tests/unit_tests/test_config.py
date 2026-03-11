@@ -23,7 +23,6 @@ def test_non_default_settings(monkeypatch):
     assert app_settings.API_PORT == 8000
     assert app_settings.API_DOCS is False
 
-    assert app_settings.REDOC_URL is None
     assert app_settings.DOCS_URL is None
 
 

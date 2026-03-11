@@ -62,7 +62,7 @@
     "notification": "Notifiering",
     "refresh": "Uppdatera",
     "scheduled": "Schemalagd",
-    "something-went-wrong": "Någonting gick fel",
+    "something-went-wrong": "Någonting gick fel!",
     "subscribed-events": "Prenumererade händelser",
     "test-message-sent": "Testmeddelande Skickat",
     "message-sent": "Meddelandet skickat",
@@ -212,6 +212,8 @@
     "upload-file": "Ladda upp fil",
     "created-on-date": "Skapad {0}",
     "unsaved-changes": "Du har osparade ändringar. Vill du spara innan du lämnar? Tryck Okej att spara, Avbryt för att ignorera ändringar.",
+    "discard-changes": "Överge ändringar",
+    "discard-changes-description": "Du har osparade ändringar. Är du säker på att du vill överge dem?",
     "clipboard-copy-failure": "Det gick inte att kopiera till urklipp.",
     "confirm-delete-generic-items": "Är du säker på att du vill radera följande objekt?",
     "organizers": "Organisatörer",
@@ -367,7 +369,9 @@
     "recipe-rules": "Receptregler",
     "applies-to-all-days": "Gäller för alla dagar",
     "applies-on-days": "Gäller på {0}s",
-    "meal-plan-settings": "Inställningar för måltidsplanering"
+    "meal-plan-settings": "Inställningar för måltidsplanering",
+    "add-all-to-list": "Lägg till alla i inköpslista",
+    "add-day-to-list": "Lägg till dag i inköpslista"
   },
   "migration": {
     "migration-data-removed": "Importerad data borttagen",
@@ -445,7 +449,7 @@
     "upload-a-recipe": "Ladda upp ett recept",
     "upload-individual-zip-file": "Ladda upp en individuell .zip-fil som exporteras från en annan Mealie-instans.",
     "url-form-hint": "Kopiera och klistra in en länk från din favorit recept webbplats",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Kopiera och klistra in länk för din data (frivilligt)",
     "view-scraped-data": "Visa skrapade data",
     "trim-whitespace-description": "Ta bort inledande och avslutande blanksteg samt tomma rader",
     "trim-prefix-description": "Ta bort första tecknet från varje rad",
@@ -632,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Skapa ett recept genom att ange namnet. Alla recept måste ha unika namn.",
     "new-recipe-names-must-be-unique": "Nya receptnamn måste vara unika",
     "scrape-recipe": "Skrapa Recept",
-    "scrape-recipe-description": "Hämta ett recept med webbadress. Ange URL:en för webbplatsen du vill hämta, och Mealie kommer att försöka hämta receptet från den webbplatsen och lägga till det i din samling.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Har du många recept som du vill skrapa på en gång?",
     "scrape-recipe-suggest-bulk-importer": "Testa massimportören",
     "scrape-recipe-have-raw-html-or-json-data": "Har rå HTML eller JSON-data?",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Är websidan blockerad?",
     "scrape-recipe-try-importing-raw-html-instead": "Prova att importera HTML istället.",
     "import-original-keywords-as-tags": "Importera ursprungliga sökord som taggar",
+    "import-original-categories": "Importera ursprungliga kategorier",
     "stay-in-edit-mode": "Stanna kvar i redigeringsläge",
     "parse-recipe-ingredients-after-import": "Tolka receptingredienser efter import",
     "import-from-zip": "Importera från zip",
@@ -1129,7 +1135,22 @@
       "example-unit-singular": "ex: Matsked",
       "example-unit-plural": "ex: matskedar",
       "example-unit-abbreviation-singular": "ex: msk",
-      "example-unit-abbreviation-plural": "ex: msk"
+      "example-unit-abbreviation-plural": "ex: msk",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Fyll databasen med vanliga etiketter baserade på ditt språk.",
@@ -1163,7 +1184,11 @@
       "recipe-actions-data": "Data för receptåtgärder",
       "new-recipe-action": "Ny receptåtgärd",
       "edit-recipe-action": "Redigera receptåtgärd",
-      "action-type": "Åtgärdstyp"
+      "action-type": "Åtgärdstyp",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Skapa alias",
     "manage-aliases": "Hantera alias",
@@ -1417,7 +1442,9 @@
       "is-greater-than": "är större än",
       "is-greater-than-or-equal-to": "är större än eller lika med",
       "is-less-than": "är mindre än",
-      "is-less-than-or-equal-to": "är mindre eller lika med"
+      "is-less-than-or-equal-to": "är mindre eller lika med",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "är",
@@ -1427,14 +1454,17 @@
       "contains-all-of": "innehåller alla",
       "is-like": "är som",
       "is-not-like": "är inte som"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Detta Fält Krävs",
+    "invalid-email": "E-post Måste Vara Giltig",
+    "invalid-url": "Måste var en giltig länk",
+    "no-whitespace": "Ingen blanksteg tillåten",
+    "min-length": "Måste vara minst {min} tecken",
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

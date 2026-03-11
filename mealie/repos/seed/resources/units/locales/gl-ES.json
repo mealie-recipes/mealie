@@ -137,5 +137,11 @@
         "plural_name": "areiñas",
         "description": "",
         "abbreviation": ""
+    },
+    "sprig": {
+        "name": "sprig",
+        "plural_name": "sprigs",
+        "description": "",
+        "abbreviation": ""
     }
 }

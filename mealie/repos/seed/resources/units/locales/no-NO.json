@@ -137,5 +137,11 @@
         "plural_name": "klyper",
         "description": "",
         "abbreviation": ""
+    },
+    "sprig": {
+        "name": "kvist",
+        "plural_name": "kvistmengde",
+        "description": "",
+        "abbreviation": ""
     }
 }

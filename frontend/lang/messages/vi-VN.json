@@ -212,6 +212,8 @@
     "upload-file": "Upload File",
     "created-on-date": "Created on: {0}",
     "unsaved-changes": "You have unsaved changes. Do you want to save before leaving? Okay to save, Cancel to discard changes.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Failed to copy to the clipboard.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
     "organizers": "Organizers",
@@ -367,7 +369,9 @@
     "recipe-rules": "Recipe Rules",
     "applies-to-all-days": "Applies to all days",
     "applies-on-days": "Applies on {0}s",
-    "meal-plan-settings": "Meal Plan Settings"
+    "meal-plan-settings": "Meal Plan Settings",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Migration data removed",
@@ -633,6 +637,7 @@
     "new-recipe-names-must-be-unique": "New recipe names must be unique",
     "scrape-recipe": "Scrape Recipe",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
     "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Website being blocked?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Import original keywords as tags",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Stay in Edit mode",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Import from Zip",
@@ -1129,7 +1135,22 @@
       "example-unit-singular": "ex: Tablespoon",
       "example-unit-plural": "ex: Tablespoons",
       "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-abbreviation-plural": "ex: Tbsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Seed the database with common labels based on your local language.",
@@ -1163,7 +1184,11 @@
       "recipe-actions-data": "Recipe Actions Data",
       "new-recipe-action": "New Recipe Action",
       "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "action-type": "Action Type",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Create Alias",
     "manage-aliases": "Manage Aliases",
@@ -1417,7 +1442,9 @@
       "is-greater-than": "is greater than",
       "is-greater-than-or-equal-to": "is greater than or equal to",
       "is-less-than": "is less than",
-      "is-less-than-or-equal-to": "is less than or equal to"
+      "is-less-than-or-equal-to": "is less than or equal to",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "is",
@@ -1427,6 +1454,9 @@
       "contains-all-of": "contains all of",
       "is-like": "is like",
       "is-not-like": "is not like"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
@@ -1435,6 +1465,6 @@
     "invalid-url": "Must Be A Valid URL",
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

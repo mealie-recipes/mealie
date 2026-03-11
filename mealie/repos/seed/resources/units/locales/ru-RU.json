@@ -137,5 +137,11 @@
         "plural_name": "щепотки",
         "description": "",
         "abbreviation": ""
+    },
+    "sprig": {
+        "name": "веточка",
+        "plural_name": "веточки",
+        "description": "",
+        "abbreviation": ""
     }
 }

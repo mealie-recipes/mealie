@@ -114,14 +114,14 @@ export default defineNuxtComponent({
   middleware: ["advanced-only"],
   setup() {
     const i18n = useI18n();
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
 
     useSeoMeta({
       title: i18n.t("settings.token.api-tokens"),
     });
 
     const user = computed(() => {
-      return $auth.user.value;
+      return auth.user.value;
     });
 
     const api = useUserApi();
@@ -136,7 +136,7 @@ export default defineNuxtComponent({
       createdToken.value = "";
       loading.value = false;
       name.value = "";
-      $auth.refresh();
+      auth.refresh();
     }
 
     async function createToken(name: string) {
@@ -161,7 +161,7 @@ export default defineNuxtComponent({
 
     async function deleteToken(id: number) {
       const { data } = await api.users.deleteAPIToken(id);
-      $auth.refresh();
+      auth.refresh();
       return data;
     }
 

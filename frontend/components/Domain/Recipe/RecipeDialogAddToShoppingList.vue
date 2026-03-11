@@ -217,7 +217,7 @@ const props = withDefaults(defineProps<Props>(), {
 const dialog = defineModel<boolean>({ default: false });
 
 const i18n = useI18n();
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const api = useUserApi();
 const preferences = useShoppingListPreferences();
 const ready = ref(false);
@@ -227,7 +227,7 @@ const currentHouseholdSlug = ref("");
 const filteredShoppingLists = ref<ShoppingListSummary[]>([]);
 
 const state = reactive({
-  shoppingListDialog: true,
+  shoppingListDialog: false,
   shoppingListIngredientDialog: false,
   shoppingListShowAllToggled: false,
 });
@@ -237,11 +237,11 @@ const { shoppingListDialog, shoppingListIngredientDialog, shoppingListShowAllTog
 const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
 const selectedShoppingList = ref<ShoppingListSummary | null>(null);
 
-watch(dialog, (newVal, oldVal) => {
-  if (newVal && !oldVal) {
-    currentHouseholdSlug.value = $auth.user.value?.householdSlug || "";
+watch([dialog, () => preferences.value.viewAllLists], () => {
+  if (dialog.value) {
+    currentHouseholdSlug.value = auth.user.value?.householdSlug || "";
     filteredShoppingLists.value = props.shoppingLists.filter(
-      list => preferences.value.viewAllLists || list.userId === $auth.user.value?.id,
+      list => preferences.value.viewAllLists || list.userId === auth.user.value?.id,
     );
 
     if (filteredShoppingLists.value.length === 1 && !state.shoppingListShowAllToggled) {
@@ -249,10 +249,11 @@ watch(dialog, (newVal, oldVal) => {
       openShoppingListIngredientDialog(selectedShoppingList.value);
     }
     else {
+      state.shoppingListDialog = true;
       ready.value = true;
     }
   }
-  else if (!newVal) {
+  else if (!dialog.value) {
     initState();
   }
 });
@@ -371,7 +372,7 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
 }
 
 function initState() {
-  state.shoppingListDialog = true;
+  state.shoppingListDialog = false;
   state.shoppingListIngredientDialog = false;
   state.shoppingListShowAllToggled = false;
   recipeIngredientSections.value = [];

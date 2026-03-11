@@ -212,6 +212,8 @@
     "upload-file": "Transférer un fichier",
     "created-on-date": "Créé le {0}",
     "unsaved-changes": "Vous avez des modifications non enregistrées. Voulez-vous enregistrer avant de partir ? OK pour enregistrer, Annuler pour ignorer les modifications.",
+    "discard-changes": "Annuler les modifications",
+    "discard-changes-description": "Vous avez des changements non sauvegardés. Êtes-vous sûr de vouloir les annuler ?",
     "clipboard-copy-failure": "Échec de la copie dans le presse-papiers.",
     "confirm-delete-generic-items": "Êtes-vous sûr de vouloir supprimer les éléments suivants ?",
     "organizers": "Classification",
@@ -367,7 +369,9 @@
     "recipe-rules": "Règles de recette",
     "applies-to-all-days": "S'applique à tous les jours",
     "applies-on-days": "S'applique les {0}s",
-    "meal-plan-settings": "Paramètres des menus"
+    "meal-plan-settings": "Paramètres des menus",
+    "add-all-to-list": "Tout ajouter a une liste",
+    "add-day-to-list": "Ajouter un jour à la liste"
   },
   "migration": {
     "migration-data-removed": "Données de migration supprimées",
@@ -632,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Créer une recette en fournissant le nom. Toutes les recettes doivent avoir des noms uniques.",
     "new-recipe-names-must-be-unique": "Les noms de nouvelles recettes doivent être uniques",
     "scrape-recipe": "Récupérer une recette",
-    "scrape-recipe-description": "Récupérer une recette par URL. Fournissez l'URL de la page que vous voulez récupérer, et Mealie essaiera d'en extraire la recette pour l'ajouter à votre collection.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Vous avez un tas de recettes à récupérer d’un coup ?",
     "scrape-recipe-suggest-bulk-importer": "Essayez l’importateur de masse",
     "scrape-recipe-have-raw-html-or-json-data": "Vous avez des données brutes en HTML ou JSON ?",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Le site web est bloqué ?",
     "scrape-recipe-try-importing-raw-html-instead": "Essayez plutôt d'importer le code HTML brut.",
     "import-original-keywords-as-tags": "Importer les mots-clés d'origine en tant que tags",
+    "import-original-categories": "Importer les catégories originales",
     "stay-in-edit-mode": "Rester en mode édition",
     "parse-recipe-ingredients-after-import": "Analyser les ingrédients de la recette après l'import",
     "import-from-zip": "Importer depuis un zip",
@@ -1129,7 +1135,22 @@
       "example-unit-singular": "ex : Cuillère à soupe",
       "example-unit-plural": "ex : Cuillères à soupe",
       "example-unit-abbreviation-singular": "ex : CàS",
-      "example-unit-abbreviation-plural": "ex : CàS"
+      "example-unit-abbreviation-plural": "ex : CàS",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Initialisez la base de données avec des étiquettes communes basées sur votre langue locale.",
@@ -1163,7 +1184,11 @@
       "recipe-actions-data": "Données des actions de recette",
       "new-recipe-action": "Nouvelle action de recette",
       "edit-recipe-action": "Modifier l'action de recette",
-      "action-type": "Type d'action"
+      "action-type": "Type d'action",
+      "action-types": {
+        "link": "Lien",
+        "post": "Publier"
+      }
     },
     "create-alias": "Créer un alias",
     "manage-aliases": "Gérer les alias",
@@ -1417,7 +1442,9 @@
       "is-greater-than": "est supérieur à",
       "is-greater-than-or-equal-to": "est plus grand que ou égal à",
       "is-less-than": "est inférieur à",
-      "is-less-than-or-equal-to": "est inférieur ou égal à"
+      "is-less-than-or-equal-to": "est inférieur ou égal à",
+      "is-older-than": "est plus ancien que",
+      "is-newer-than": "est plus récent que"
     },
     "relational-keywords": {
       "is": "est",
@@ -1427,6 +1454,9 @@
       "contains-all-of": "contient tout",
       "is-like": "est comme",
       "is-not-like": "n'est pas similaire à"
+    },
+    "dates": {
+      "days-ago": "jours|jour|jours"
     }
   },
   "validators": {
@@ -1435,6 +1465,6 @@
     "invalid-url": "Doit être une URL valide",
     "no-whitespace": "Aucun espace n'est autorisé",
     "min-length": "Doit contenir au moins {min} caractères",
-    "max-length": "Doit contenir au maximum {max} caractères"
+    "max-length": "Doit comporter au maximum {max} caractère|Doit comporter au maximum {max} caractères"
   }
 }

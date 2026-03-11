@@ -125,7 +125,7 @@ export default defineNuxtComponent({
     UserAvatar,
   },
   setup() {
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const api = useUserApi();
     const i18n = useI18n();
 
@@ -169,7 +169,7 @@ export default defineNuxtComponent({
       await refreshMembers();
     });
 
-    return { members, headers, setPermissions, sessionUser: $auth.user };
+    return { members, headers, setPermissions, sessionUser: auth.user };
   },
 });
 </script>

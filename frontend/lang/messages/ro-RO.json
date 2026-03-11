@@ -212,6 +212,8 @@
     "upload-file": "Încărcă fișier",
     "created-on-date": "Creat pe {0}",
     "unsaved-changes": "Aveți modificări nesalvate. Doriți să salvați înainte de a închide aplicația? Apăsați \"OK\" pentru a salva sau \"Anulare\" pentru a renunța la modificări.",
+    "discard-changes": "Renunțați la modificări",
+    "discard-changes-description": "Ai modificări nesalvate. Sigur dorești să le abandonezi?",
     "clipboard-copy-failure": "Copierea în clipboard a eșuat.",
     "confirm-delete-generic-items": "Sunteți sigur că doriți să ștergeți următoarele?",
     "organizers": "Organizatori",
@@ -367,7 +369,9 @@
     "recipe-rules": "Reguli rețetă",
     "applies-to-all-days": "Se aplică pentru toate zilele",
     "applies-on-days": "Aplică pe {0}s",
-    "meal-plan-settings": "Setările Planului de Masă"
+    "meal-plan-settings": "Setările Planului de Masă",
+    "add-all-to-list": "Adaugă toate în Listă",
+    "add-day-to-list": "Adaugă Ziua la Listă"
   },
   "migration": {
     "migration-data-removed": "Datele migrării au fost șterse",
@@ -632,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Creează o rețetă furnizând numele. Toate rețetele trebuie să aibă nume unice.",
     "new-recipe-names-must-be-unique": "Numele rețetei trebuie să fie unic",
     "scrape-recipe": "Importare rețetă",
-    "scrape-recipe-description": "Importa o rețetă prin url. Oferiți url-ul pentru site-ul pe care doriți să îl importați, și Mealie va încerca să importe rețeta de pe acel site și să o adauge la colecția ta.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Ai mai multe rețete pe care vrei să le imporți simultan?",
     "scrape-recipe-suggest-bulk-importer": "Încearcă importatorul în bulk",
     "scrape-recipe-have-raw-html-or-json-data": "Ai date de tip HTML sau JSON?",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Site-ul este blocat?",
     "scrape-recipe-try-importing-raw-html-instead": "Încercați în schimb să importați HTML-ul brut.",
     "import-original-keywords-as-tags": "Importă cuvintele cheie originale ca tag-uri",
+    "import-original-categories": "Importă categoriile originale",
     "stay-in-edit-mode": "Rămâi în modul Editare",
     "parse-recipe-ingredients-after-import": "Analizează ingredientele rețetei după import",
     "import-from-zip": "Importă din zip",
@@ -1129,7 +1135,22 @@
       "example-unit-singular": "ex: Lingură",
       "example-unit-plural": "ex: Linguri",
       "example-unit-abbreviation-singular": "ex: Lg",
-      "example-unit-abbreviation-plural": "ex: Lg"
+      "example-unit-abbreviation-plural": "ex: Lg",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Populează baza de date cu unități comune în funcție de limba ta locală.",
@@ -1163,7 +1184,11 @@
       "recipe-actions-data": "Date acțiuni rețetă",
       "new-recipe-action": "Acțiune rețetă nouă",
       "edit-recipe-action": "Editează Acțiune Rețetă",
-      "action-type": "Tip de acțiune"
+      "action-type": "Tip de acțiune",
+      "action-types": {
+        "link": "Link",
+        "post": "Postare"
+      }
     },
     "create-alias": "Creează Alias",
     "manage-aliases": "Gestionare Aliasuri",
@@ -1417,7 +1442,9 @@
       "is-greater-than": "este mai mare ca",
       "is-greater-than-or-equal-to": "este mai mare sau egală cu",
       "is-less-than": "este mai mic decât",
-      "is-less-than-or-equal-to": "este mai mic sau egal cu"
+      "is-less-than-or-equal-to": "este mai mic sau egal cu",
+      "is-older-than": "este mai vechi de",
+      "is-newer-than": "este mai nou decât"
     },
     "relational-keywords": {
       "is": "este",
@@ -1427,6 +1454,9 @@
       "contains-all-of": "conţine toate din",
       "is-like": "este similar",
       "is-not-like": "nu este similar"
+    },
+    "dates": {
+      "days-ago": "zile în urmă|zi în urmă|zile în urmă"
     }
   },
   "validators": {
@@ -1435,6 +1465,6 @@
     "invalid-url": "Trebuie Să Fie Un URL Valid",
     "no-whitespace": "Niciun Spațiu Alb Permis",
     "min-length": "Trebuie Să Aibă Cel Puțin {min} Caractere",
-    "max-length": "Trebuie Să Aibă Cel Mult {max} Caractere"
+    "max-length": "Trebuie să aibă cel mult {max} caracter | Trebuie să aibă cel mult {max} caractere"
   }
 }

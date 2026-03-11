@@ -16,6 +16,10 @@
   max-width: 950px !important;
 }
 
+.lg-container {
+  max-width: 1100px !important;
+}
+
 .theme--dark.v-application {
   background-color: rgb(var(--v-theme-background, 30, 30, 30)) !important;
 }

@@ -5,15 +5,23 @@ import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 from textwrap import dedent
+from typing import TypeVar
 
-from openai import NOT_GIVEN, AsyncOpenAI
+import openai
+from openai import AsyncOpenAI
 from openai.types.chat import ChatCompletion
 from pydantic import BaseModel, field_validator
 
+from mealie.core import exceptions, root_logger
 from mealie.core.config import get_app_settings
 from mealie.pkgs import img
+from mealie.schema.openai._base import OpenAIBase
+from mealie.schema.openai.general import OpenAIText
 
 from .._base_service import BaseService
+
+T = TypeVar("T", bound=OpenAIBase)
+logger = root_logger.get_logger(__name__)
 
 
 class OpenAIDataInjection(BaseModel):
@@ -42,7 +50,12 @@ class OpenAIDataInjection(BaseModel):
             return value
 
 
-class OpenAIImageBase(BaseModel, ABC):
+class OpenAIAttachment(BaseModel, ABC):
+    @abstractmethod
+    def build_message(self) -> dict: ...
+
+
+class OpenAIImageBase(OpenAIAttachment):
     @abstractmethod
     def get_image_url(self) -> str: ...
 
@@ -73,6 +86,17 @@ class OpenAILocalImage(OpenAIImageBase):
         return f"data:image/jpeg;base64,{b64content}"
 
 
+class OpenAILocalAudio(OpenAIAttachment):
+    data: str
+    format: str
+
+    def build_message(self) -> dict:
+        return {
+            "type": "input_audio",
+            "input_audio": {"data": self.data, "format": self.format},
+        }
+
+
 class OpenAIService(BaseService):
     PROMPTS_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "prompts"
 
@@ -82,9 +106,10 @@ class OpenAIService(BaseService):
             raise ValueError("OpenAI is not enabled")
 
         self.model = settings.OPENAI_MODEL
+        self.audio_model = settings.OPENAI_AUDIO_MODEL
         self.workers = settings.OPENAI_WORKERS
         self.send_db_data = settings.OPENAI_SEND_DATABASE_DATA
-        self.enable_image_services = settings.OPENAI_ENABLE_IMAGE_SERVICES
+        self.custom_prompt_dir = settings.OPENAI_CUSTOM_PROMPT_DIR
 
         self.get_client = lambda: AsyncOpenAI(
             base_url=settings.OPENAI_BASE_URL,
@@ -96,8 +121,64 @@ class OpenAIService(BaseService):
 
         super().__init__()
 
-    @classmethod
-    def get_prompt(cls, name: str, data_injections: list[OpenAIDataInjection] | None = None) -> str:
+    def _get_prompt_file_candidates(self, name: str) -> list[Path]:
+        """
+        Returns a list of prompt file path candidates.
+        First optional entry is the users custom prompt file, if configured and existing,
+        second one (or only one) is the systems default prompt file
+        """
+        tree = name.split(".")
+        relative_path = Path(*tree[:-1], tree[-1] + ".txt")
+        default_prompt_file = Path(self.PROMPTS_DIR, relative_path)
+
+        try:
+            # Only include custom files if the custom_dir is configured, is a directory, and the prompt file exists
+            custom_dir = Path(self.custom_prompt_dir) if self.custom_prompt_dir else None
+            if custom_dir and not custom_dir.is_dir():
+                custom_dir = None
+        except Exception:
+            custom_dir = None
+
+        if custom_dir:
+            custom_prompt_file = Path(custom_dir, relative_path)
+            if custom_prompt_file.exists():
+                logger.debug(f"Found valid custom prompt file: {custom_prompt_file}")
+                return [custom_prompt_file, default_prompt_file]
+            else:
+                logger.debug(f"Custom prompt file doesn't exist: {custom_prompt_file}")
+        else:
+            logger.debug(f"Custom prompt dir doesn't exist: {custom_dir}")
+
+        # Otherwise, only return the default internal prompt file
+        return [default_prompt_file]
+
+    def _load_prompt_from_file(self, name: str) -> str:
+        """Attempts to load custom prompt, otherwise falling back to the default"""
+        prompt_file_candidates = self._get_prompt_file_candidates(name)
+        content = None
+        last_error = None
+        for prompt_file in prompt_file_candidates:
+            try:
+                logger.debug(f"Trying to load prompt file: {prompt_file}")
+                with open(prompt_file) as f:
+                    content = f.read()
+                    if content:
+                        logger.debug(f"Successfully read prompt from {prompt_file}")
+                        break
+            except OSError as e:
+                last_error = e
+
+        if not content:
+            if last_error:
+                raise OSError(f"Unable to load prompt {name}") from last_error
+            else:
+                # This handles the case where the list was empty (no existing candidates found)
+                attempted_paths = ", ".join(map(str, prompt_file_candidates))
+                raise OSError(f"Unable to load prompt '{name}'. No valid content found in files: {attempted_paths}")
+
+        return content
+
+    def get_prompt(self, name: str, data_injections: list[OpenAIDataInjection] | None = None) -> str:
         """
         Load stored prompt and inject data into it.
 
@@ -109,13 +190,7 @@ class OpenAIService(BaseService):
         if not name:
             raise ValueError("Prompt name cannot be empty")
 
-        tree = name.split(".")
-        prompt_dir = os.path.join(cls.PROMPTS_DIR, *tree[:-1], tree[-1] + ".txt")
-        try:
-            with open(prompt_dir) as f:
-                content = f.read()
-        except OSError as e:
-            raise OSError(f"Unable to load prompt {name}") from e
+        content = self._load_prompt_from_file(name)
 
         if not data_injections:
             return content
@@ -135,9 +210,9 @@ class OpenAIService(BaseService):
             )
         return "\n".join(content_parts)
 
-    async def _get_raw_response(self, prompt: str, content: list[dict], force_json_response=True) -> ChatCompletion:
+    async def _get_raw_response(self, prompt: str, content: list[dict], response_schema: type[T]) -> ChatCompletion:
         client = self.get_client()
-        return await client.chat.completions.create(
+        return await client.chat.completions.parse(
             messages=[
                 {
                     "role": "system",
@@ -149,7 +224,7 @@ class OpenAIService(BaseService):
                 },
             ],
             model=self.model,
-            response_format={"type": "json_object"} if force_json_response else NOT_GIVEN,
+            response_format=response_schema,
         )
 
     async def get_response(
@@ -157,22 +232,57 @@ class OpenAIService(BaseService):
         prompt: str,
         message: str,
         *,
-        images: list[OpenAIImageBase] | None = None,
-        force_json_response=True,
-    ) -> str | None:
+        response_schema: type[T],
+        attachments: list[OpenAIAttachment] | None = None,
+    ) -> T | None:
         """Send data to OpenAI and return the response message content"""
-        if images and not self.enable_image_services:
-            self.logger.warning("OpenAI image services are disabled, ignoring images")
-            images = None
 
         try:
             user_messages = [{"type": "text", "text": message}]
-            for image in images or []:
-                user_messages.append(image.build_message())
+            for attachment in attachments or []:
+                user_messages.append(attachment.build_message())
 
-            response = await self._get_raw_response(prompt, user_messages, force_json_response)
+            response = await self._get_raw_response(prompt, user_messages, response_schema)
             if not response.choices:
                 return None
-            return response.choices[0].message.content
+
+            response_text = response.choices[0].message.content
+            return response_schema.parse_openai_response(response_text)
+        except openai.RateLimitError as e:
+            raise exceptions.RateLimitError(str(e)) from e
         except Exception as e:
             raise Exception(f"OpenAI Request Failed. {e.__class__.__name__}: {e}") from e
+
+    async def transcribe_audio(self, audio_file_path: Path) -> str | None:
+        client = self.get_client()
+
+        # Create a transcription from the audio
+        try:
+            with open(audio_file_path, "rb") as audio_file:
+                transcript = await client.audio.transcriptions.create(
+                    model=self.audio_model,
+                    file=audio_file,
+                )
+            return transcript.text
+        except openai.RateLimitError as e:
+            raise exceptions.RateLimitError(str(e)) from e
+        except Exception as e:
+            self.logger.warning(
+                f"Failed to create audio transcription, falling back to chat completion ({e.__class__.__name__}: {e})"
+            )
+
+        # Fallback to chat completion
+        path_obj = Path(audio_file_path)
+        with open(path_obj, "rb") as audio_file:
+            audio_data = base64.b64encode(audio_file.read()).decode("utf-8")
+
+        file_ext = path_obj.suffix.lstrip(".").lower()
+        audio_attachment = OpenAILocalAudio(data=audio_data, format=file_ext)
+        response = await self.get_response(
+            self.get_prompt("general.transcribe-audio"),
+            "Attached is the audio data.",
+            response_schema=OpenAIText,
+            attachments=[audio_attachment],
+        )
+
+        return response.text if response else None

@@ -17,7 +17,9 @@
             "servings": "Annosta",
             "yield": "Tuotto",
             "yields": "Tuottaa"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Määritysten mukaisia reseptejä ei löytynyt"
@@ -69,7 +71,7 @@
             "subject": "Kutsu liittyä Mealieen",
             "header_text": "Sinut on kutsuttu.",
             "message_top": "Sinut on kutsuttu liittymään Mealieen.",
-            "message_bottom": "Ole hyvä ja klikkaa yllä olevaa painiketta hyväksyäksesi kutsun.",
+            "message_bottom": "Klikkaa yllä olevaa painiketta hyväksyäksesi kutsun.",
             "button_text": "Hyväksy kutsu"
         },
         "test": {

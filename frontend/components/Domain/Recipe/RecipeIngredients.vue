@@ -17,15 +17,13 @@
         v-for="(ingredient, index) in value"
         :key="'ingredient' + index"
       >
-        <template v-if="!isCookMode">
-          <h3
-            v-if="showTitleEditor[index]"
-            class="mt-2"
-          >
-            {{ ingredient.title }}
-          </h3>
-          <v-divider v-if="showTitleEditor[index]" />
-        </template>
+        <h3
+          v-if="showTitleEditor[index]"
+          class="mt-2"
+        >
+          {{ ingredient.title }}
+        </h3>
+        <v-divider v-if="showTitleEditor[index]" />
         <v-list-item
           density="compact"
           class="pa-0"
@@ -54,7 +52,7 @@
 
 <script setup lang="ts">
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
-import { parseIngredientText } from "~/composables/recipes";
+import { useIngredientTextParser } from "~/composables/recipes";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
 interface Props {
@@ -67,6 +65,8 @@ const props = withDefaults(defineProps<Props>(), {
   scale: 1,
   isCookMode: false,
 });
+
+const { parseIngredientText } = useIngredientTextParser();
 
 function validateTitle(title?: string | null) {
   return !(title === undefined || title === "" || title === null);

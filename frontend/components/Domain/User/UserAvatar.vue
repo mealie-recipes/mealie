@@ -62,15 +62,15 @@ export default defineNuxtComponent({
       error: false,
     });
 
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const { store: users } = useUserStore();
     const user = computed(() => {
       return users.value.find(user => user.id === props.userId);
     });
 
     const imageURL = computed(() => {
-      // Note: $auth.user is a ref now
-      const authUser = $auth.user.value;
+      // Note: auth.user is a ref now
+      const authUser = auth.user.value;
       const key = authUser?.cacheKey ?? "";
       return `/api/media/users/${props.userId}/profile.webp?cacheKey=${key}`;
     });

@@ -521,8 +521,8 @@ def clean_categories(category: str | list) -> list[str]:
         case str(category):
             if not category.strip():
                 return []
-
-            return [category]
+            # Split comma-separated categories
+            return [cat.strip().title() for cat in category.split(",") if cat.strip()]
         case [str(), *_]:
             return [cat.strip().title() for cat in category if cat.strip()]
         case [{"name": str(), "slug": str()}, *_]:
@@ -533,6 +533,9 @@ def clean_categories(category: str | list) -> list[str]:
             # ]
             #
             return [cat["name"] for cat in category if "name" in cat]
+        case int() | float():
+            # Handling for numeric values returned as categories
+            return []
         case _:
             raise TypeError(f"Unexpected type for category: {type(category)}, {category}")
 

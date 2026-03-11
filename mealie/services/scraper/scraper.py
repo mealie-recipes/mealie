@@ -1,4 +1,4 @@
-from enum import Enum
+from enum import StrEnum
 from re import search as regex_search
 from uuid import uuid4
 
@@ -15,7 +15,7 @@ from mealie.services.scraper.scraped_extras import ScrapedExtras
 from .recipe_scraper import RecipeScraper
 
 
-class ParserErrors(str, Enum):
+class ParserErrors(StrEnum):
     BAD_RECIPE_DATA = "BAD_RECIPE_DATA"
     NO_RECIPE_DATA = "NO_RECIPE_DATA"
     CONNECTION_ERROR = "CONNECTION_ERROR"

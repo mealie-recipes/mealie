@@ -64,7 +64,7 @@ export default defineNuxtComponent({
     });
 
     const i18n = useGlobalI18n();
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const { $globals } = useNuxtApp();
     const ready = ref(false);
 
@@ -72,7 +72,7 @@ export default defineNuxtComponent({
     const router = useRouter();
 
     async function insertGroupSlugIntoRoute() {
-      const groupSlug = ref($auth.user.value?.groupSlug);
+      const groupSlug = ref(auth.user.value?.groupSlug);
       if (!groupSlug.value) {
         return;
       }

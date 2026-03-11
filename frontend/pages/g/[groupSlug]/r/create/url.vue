@@ -2,21 +2,29 @@
   <div>
     <v-form
       ref="domUrlForm"
-      @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags)"
+      @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags, importCategories)"
     >
       <div>
         <v-card-title class="headline">
           {{ $t('recipe.scrape-recipe') }}
         </v-card-title>
         <v-card-text>
-          <p>{{ $t('recipe.scrape-recipe-description') }}</p>
-          <p>
-            {{ $t('recipe.scrape-recipe-have-a-lot-of-recipes') }}
-            <router-link :to="bulkImporterTarget">{{ $t('recipe.scrape-recipe-suggest-bulk-importer') }}</router-link>.
-            <br>
-            {{ $t('recipe.scrape-recipe-have-raw-html-or-json-data') }}
-            <router-link :to="htmlOrJsonImporterTarget">{{ $t('recipe.scrape-recipe-you-can-import-from-raw-data-directly') }}</router-link>.
-          </p>
+          <v-card-text class="pa-0">
+            <p>{{ $t('recipe.scrape-recipe-description') }}</p>
+            <p v-if="$appInfo.enableOpenaiTranscriptionServices">
+              {{ $t('recipe.scrape-recipe-description-transcription') }}
+            </p>
+          </v-card-text>
+          <v-card-text class="px-0">
+            <p>
+              {{ $t('recipe.scrape-recipe-have-a-lot-of-recipes') }}
+              <router-link :to="bulkImporterTarget">{{ $t('recipe.scrape-recipe-suggest-bulk-importer') }}</router-link>.
+            </p>
+            <p>
+              {{ $t('recipe.scrape-recipe-have-raw-html-or-json-data') }}
+              <router-link :to="htmlOrJsonImporterTarget">{{ $t('recipe.scrape-recipe-you-can-import-from-raw-data-directly') }}</router-link>.
+            </p>
+          </v-card-text>
           <v-text-field
             v-model="recipeUrl"
             :label="$t('new-recipe.recipe-url')"
@@ -37,6 +45,12 @@
           color="primary"
           hide-details
           :label="$t('recipe.import-original-keywords-as-tags')"
+        />
+        <v-checkbox
+          v-model="importCategories"
+          color="primary"
+          hide-details
+          :label="$t('recipe.import-original-categories')"
         />
         <v-checkbox
           v-model="stayInEditMode"
@@ -138,16 +152,17 @@ export default defineNuxtComponent({
       loading: false,
     });
 
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const api = useUserApi();
     const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
     const router = useRouter();
     const tags = useTagStore();
 
     const {
       importKeywordsAsTags,
+      importCategories,
       stayInEditMode,
       parseRecipe,
       navigateToRecipe,
@@ -202,7 +217,7 @@ export default defineNuxtComponent({
           stayInEditMode.value = false;
         }
 
-        createByUrl(recipeUrl.value, importKeywordsAsTags.value);
+        createByUrl(recipeUrl.value, importKeywordsAsTags.value, false);
         return;
       }
     });
@@ -219,7 +234,7 @@ export default defineNuxtComponent({
       router.replace({ query: undefined }).then(() => router.push(to));
     });
 
-    async function createByUrl(url: string | null, importKeywordsAsTags: boolean) {
+    async function createByUrl(url: string | null, importKeywordsAsTags: boolean, importCategories: boolean) {
       if (url === null) {
         return;
       }
@@ -229,7 +244,7 @@ export default defineNuxtComponent({
         return;
       }
       state.loading = true;
-      const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags);
+      const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags, importCategories);
       handleResponse(response, importKeywordsAsTags);
     }
 
@@ -238,6 +253,7 @@ export default defineNuxtComponent({
       htmlOrJsonImporterTarget,
       recipeUrl,
       importKeywordsAsTags,
+      importCategories: importCategories,
       stayInEditMode,
       parseRecipe,
       domUrlForm,

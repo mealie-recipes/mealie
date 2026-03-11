@@ -1,5 +1,11 @@
 <template>
   <v-container>
+    <RecipeDialogAddToShoppingList
+      v-if="shoppingLists"
+      v-model="state.shoppingListDialog"
+      :recipes="weekRecipesWithScales"
+      :shopping-lists="shoppingLists"
+    />
     <v-menu
       v-model="state.picker"
       :close-on-content-click="false"
@@ -45,13 +51,23 @@
 
     <div class="d-flex flex-wrap align-center justify-space-between mb-2">
       <v-tabs style="width: fit-content;">
-        <v-tab :to="{ name: 'household-mealplan-planner-view', query: route.query }">
+        <v-tab :to="{ name: TABS.view, query: route.query }">
           {{ $t('meal-plan.meal-planner') }}
         </v-tab>
-        <v-tab :to="{ name: 'household-mealplan-planner-edit', query: route.query }">
+        <v-tab :to="{ name: TABS.edit, query: route.query }">
           {{ $t('general.edit') }}
         </v-tab>
       </v-tabs>
+      <BaseButton
+        v-if="route.name === TABS.view"
+        color="info"
+        :icon="$globals.icons.cartCheck"
+        :text="$t('meal-plan.add-all-to-list')"
+        :disabled="!hasRecipes"
+        :loading="state.addAllLoading"
+        class="ml-auto mr-4"
+        @click="addAllToList"
+      />
       <ButtonLink
         :icon="$globals.icons.calendar"
         :to="`/household/mealplan/settings`"
@@ -72,15 +88,27 @@
 
 <script lang="ts">
 import { isSameDay, addDays, parseISO, format, isValid } from "date-fns";
+import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { useMealplans } from "~/composables/use-group-mealplan";
 import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
+import type { ShoppingListSummary } from "~/lib/api/types/household";
+import { useUserApi } from "~/composables/api";
 
 export default defineNuxtComponent({
+  components: {
+    RecipeDialogAddToShoppingList,
+  },
   setup() {
+    const TABS = {
+      view: "household-mealplan-planner-view",
+      edit: "household-mealplan-planner-edit",
+    };
+
     const route = useRoute();
     const router = useRouter();
     const i18n = useI18n();
+    const api = useUserApi();
     const { household } = useHouseholdSelf();
 
     useSeoMeta({
@@ -96,7 +124,7 @@ export default defineNuxtComponent({
     // Force to /view if current route is /planner
     if (route.path === "/household/mealplan/planner") {
       router.push({
-        name: "household-mealplan-planner-view",
+        name: TABS.view,
         query: route.query,
       });
     }
@@ -120,7 +148,11 @@ export default defineNuxtComponent({
       start: initialStartDate,
       picker: false,
       end: initialEndDate,
+      shoppingListDialog: false,
+      addAllLoading: false,
     });
+
+    const shoppingLists = ref<ShoppingListSummary[]>();
 
     const firstDayOfWeek = computed(() => {
       return household.value?.preferences?.firstDayOfWeek || 0;
@@ -145,7 +177,7 @@ export default defineNuxtComponent({
     watch(weekRange, (newRange) => {
       // Keep current route name and params, just update the query
       router.replace({
-        name: route.name || "household-mealplan-planner-view",
+        name: route.name || TABS.view,
         params: route.params,
         query: {
           ...route.query,
@@ -193,7 +225,41 @@ export default defineNuxtComponent({
       });
     });
 
+    const hasRecipes = computed(() => {
+      return mealsByDate.value.some(day => day.meals.some(meal => meal.recipe));
+    });
+
+    const weekRecipesWithScales = computed(() => {
+      const allRecipes: any[] = [];
+      for (const day of mealsByDate.value) {
+        for (const meal of day.meals) {
+          if (meal.recipe) {
+            allRecipes.push(meal.recipe);
+          }
+        }
+      }
+      return allRecipes.map(recipe => ({
+        scale: 1,
+        ...recipe,
+      }));
+    });
+
+    async function getShoppingLists() {
+      const { data } = await api.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
+      if (data) {
+        shoppingLists.value = data.items as ShoppingListSummary[] ?? [];
+      }
+    }
+
+    async function addAllToList() {
+      state.value.addAllLoading = true;
+      await getShoppingLists();
+      state.value.shoppingListDialog = true;
+      state.value.addAllLoading = false;
+    }
+
     return {
+      TABS,
       route,
       state,
       actions,
@@ -201,6 +267,10 @@ export default defineNuxtComponent({
       weekRange,
       firstDayOfWeek,
       numberOfDays,
+      hasRecipes,
+      shoppingLists,
+      weekRecipesWithScales,
+      addAllToList,
     };
   },
 });

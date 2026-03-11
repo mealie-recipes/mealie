@@ -212,6 +212,8 @@
     "upload-file": "Качване на файл",
     "created-on-date": "Добавена на {0}",
     "unsaved-changes": "Имате незапазени промени. Желаете ли да ги запазите преди да излезете? Натиснете Ок за запазване и Отказ за отхвърляне на промените.",
+    "discard-changes": "Отхвърляне на промените",
+    "discard-changes-description": "Имате незаписани промени, сигурни ли сте, че искате да ги отмените?",
     "clipboard-copy-failure": "Линкът към рецептата е копиран в клипборда.",
     "confirm-delete-generic-items": "Сигурни ли сте, че желаете да изтриете следните елементи?",
     "organizers": "Органайзер",
@@ -367,7 +369,9 @@
     "recipe-rules": "Правила на рецептата",
     "applies-to-all-days": "Прилага се за всички дни",
     "applies-on-days": "Всеки/всяка {0}",
-    "meal-plan-settings": "Настройки на плана за хранене"
+    "meal-plan-settings": "Настройки на плана за хранене",
+    "add-all-to-list": "Добавяне на всички към списъка за пазаруване",
+    "add-day-to-list": "Добавяне на ден към списъка за пазаруване"
   },
   "migration": {
     "migration-data-removed": "Данните за мигриране са премахнати",
@@ -633,6 +637,7 @@
     "new-recipe-names-must-be-unique": "Името на рецептата трябва да бъде уникално",
     "scrape-recipe": "Обхождане на рецепта",
     "scrape-recipe-description": "Обходи рецепта по линк. Предоставете линк за сайт, който искате да бъде обходен. Mealie ще опита да обходи рецептата от този сайт и да я добави във Вашата колекция.",
+    "scrape-recipe-description-transcription": "Можете също да предоставите URL адреса на видеоклип и Mealie ще се опита да го транскрибира в рецепта.",
     "scrape-recipe-have-a-lot-of-recipes": "Имате много рецепти, които искате да обходите наведнъж?",
     "scrape-recipe-suggest-bulk-importer": "Пробвайте масовото импорторане",
     "scrape-recipe-have-raw-html-or-json-data": "Имате ли сурови HTML или JSON данни?",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Блокиран ли е уебсайтът?",
     "scrape-recipe-try-importing-raw-html-instead": "Опитайте вместо това да импортирате суровия HTML код.",
     "import-original-keywords-as-tags": "Добави оригиналните ключови думи като етикети",
+    "import-original-categories": "Импортиране на оригиналните категории",
     "stay-in-edit-mode": "Остани в режим на редакция",
     "parse-recipe-ingredients-after-import": "Анализиране на съставките на рецептата след импортиране",
     "import-from-zip": "Импортирай от Zip",
@@ -1129,7 +1135,22 @@
       "example-unit-singular": "пример: Чаена лъжичка",
       "example-unit-plural": "пример: Чаени лъжички",
       "example-unit-abbreviation-singular": "пример: ч.л.",
-      "example-unit-abbreviation-plural": "пример: ч.л.-ки"
+      "example-unit-abbreviation-plural": "пример: ч.л.-ки",
+      "standardization": "Стандартизация",
+      "standardization-description": "Как тази единица може да бъде представена като стандартна единица. Това позволява функции за преобразуване на единици, като например обединяване на съвместими единици в списъци за пазаруване.",
+      "standard-unit": "Стандартна мерна единица",
+      "standard-quantity": "Стандартно количество",
+      "unit-conversion": "Преобразуване на единици",
+      "standard-unit-labels": {
+        "fluid-ounce": "течни унции",
+        "cup": "чаена чаша",
+        "ounce": "унция",
+        "pound": "паунд",
+        "milliliter": "милилитър",
+        "liter": "литър",
+        "gram": "грам",
+        "kilogram": "килограм"
+      }
     },
     "labels": {
       "seed-dialog-text": "Заредете базата данни с етикети на Вашия местен език.",
@@ -1163,7 +1184,11 @@
       "recipe-actions-data": "Данни за действия с рецепти",
       "new-recipe-action": "Ново действие с рецепта",
       "edit-recipe-action": "Редактиране на действието с рецепта",
-      "action-type": "Вид действие"
+      "action-type": "Вид действие",
+      "action-types": {
+        "link": "Връзка",
+        "post": "Публикувай"
+      }
     },
     "create-alias": "Създаване на псевдоним",
     "manage-aliases": "Управление на псевдоними",
@@ -1417,7 +1442,9 @@
       "is-greater-than": "е по-голямо от",
       "is-greater-than-or-equal-to": "е по-голямо от или равно на",
       "is-less-than": "е по-малко от",
-      "is-less-than-or-equal-to": "e по-малко или равно на"
+      "is-less-than-or-equal-to": "e по-малко или равно на",
+      "is-older-than": "е по-стар от",
+      "is-newer-than": "е по-нов от"
     },
     "relational-keywords": {
       "is": "е",
@@ -1427,6 +1454,9 @@
       "contains-all-of": "съдържа всички от",
       "is-like": "е като",
       "is-not-like": "не е като"
+    },
+    "dates": {
+      "days-ago": "преди дни|преди ден|преди дни"
     }
   },
   "validators": {
@@ -1435,6 +1465,6 @@
     "invalid-url": "Линкът трябва да е валиден",
     "no-whitespace": "Не са позволени интервали",
     "min-length": "Трябва да съдържа поне {min} знака",
-    "max-length": "Трябва да съдържа най-много {max} знака"
+    "max-length": "Трябва да бъде най-много {max} символа|Трябва да бъде най-много {max} символа"
   }
 }

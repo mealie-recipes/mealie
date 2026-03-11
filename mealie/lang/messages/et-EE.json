@@ -17,7 +17,9 @@
             "servings": "Portsioneid",
             "yield": "Saagikus",
             "yields": "Annab saagiks"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Ükski retsept ei vasta sinu reeglitele"

@@ -36,7 +36,7 @@
 import QueryFilterBuilder from "~/components/Domain/QueryFilterBuilder.vue";
 import type { FieldDefinition } from "~/composables/use-query-filter-builder";
 import { Organizer } from "~/lib/api/types/non-generated";
-import type { QueryFilterJSON } from "~/lib/api/types/response";
+import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
 
 interface Props {
   queryFilter?: QueryFilterJSON | null;
@@ -76,7 +76,6 @@ const MEAL_DAY_OPTIONS = [
 ];
 
 function handleQueryFilterInput(value: string | undefined) {
-  console.warn("handleQueryFilterInput called with value:", value);
   queryFilterString.value = value || "";
 }
 
@@ -114,7 +113,7 @@ const fieldDefs: FieldDefinition[] = [
   {
     name: "last_made",
     label: i18n.t("general.last-made"),
-    type: "date",
+    type: "relativeDate",
   },
   {
     name: "created_at",

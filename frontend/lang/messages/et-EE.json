@@ -212,6 +212,8 @@
     "upload-file": "Lae fail üles",
     "created-on-date": "Loodud: {0}",
     "unsaved-changes": "Sul on salvestamata muudatusi. Kas sa tahad salvestada enne lehelt lahkumist? Vajuta OK salvestamiseks või Tühista, et muudatused tühistada.",
+    "discard-changes": "Loobu muudatustest",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Lõikepuhvrisse kopeerimine ebaõnnestus.",
     "confirm-delete-generic-items": "Kas oled kindel, et tahad kustutada järgnevad asjad?",
     "organizers": "Korraldajad",
@@ -342,9 +344,9 @@
     "breakfast": "Hommikusöök",
     "lunch": "Lõuna",
     "dinner": "Õhtusöök",
-    "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "snack": "Snäkk",
+    "drink": "Jook",
+    "dessert": "Magustoit",
     "type-any": "Kõik",
     "day-any": "Kõik",
     "editor": "Editor",
@@ -367,7 +369,9 @@
     "recipe-rules": "Retsepti reeglid",
     "applies-to-all-days": "Kehtib kõikide päevade kohta",
     "applies-on-days": "Kehtib {0}l",
-    "meal-plan-settings": "Toitumisplaani sätted"
+    "meal-plan-settings": "Toitumisplaani sätted",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Ületoomiste andmed eemaldatud",
@@ -632,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Loo retsept selle nime kasutades. Igal retseptil peab olema unikaalne nimi",
     "new-recipe-names-must-be-unique": "Uue retsepti nimed peavad olema unikaalsed",
     "scrape-recipe": "Retsepti lugemine",
-    "scrape-recipe-description": "Lugege retsept URL-i abil. Sisestage soovitud retsepti URL, ja Mealie proovib selle saidi retsepti jäädvustada ja lisada selle teie kogusse.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Sul on palju retsepte ja sa soovida lugeda kõik sisse üheaegselt?",
     "scrape-recipe-suggest-bulk-importer": "Proovi hulgiimportimist.",
     "scrape-recipe-have-raw-html-or-json-data": "Sul on töötlemata HTMLi või JSONi andmed?",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Website being blocked?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Impordi originaal võtmesõnad siltidena",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Püsige redigeerimisrežiimis",
     "parse-recipe-ingredients-after-import": "Tuvasta retsepti koostisosad pärast importimist",
     "import-from-zip": "Impordi .zip-st",
@@ -1129,7 +1135,22 @@
       "example-unit-singular": "nt: Supilusikas",
       "example-unit-plural": "nt: Supilusikad",
       "example-unit-abbreviation-singular": "nt: sl",
-      "example-unit-abbreviation-plural": "nt: sl"
+      "example-unit-abbreviation-plural": "nt: sl",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Alusta andmebaasi täitmist tüüpiliste siltidega kohalikus keeles.",
@@ -1163,7 +1184,11 @@
       "recipe-actions-data": "Retsepti kasutusteave",
       "new-recipe-action": "Uus retsepti tegevus",
       "edit-recipe-action": "Muuda retsepti tegevust",
-      "action-type": "Tegevuse tüüp"
+      "action-type": "Tegevuse tüüp",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Loo alias",
     "manage-aliases": "Halda aliaseid",
@@ -1417,7 +1442,9 @@
       "is-greater-than": "on suurem kui",
       "is-greater-than-or-equal-to": "on suurem või võrdne kui",
       "is-less-than": "on vähem kui",
-      "is-less-than-or-equal-to": "on väiksem või võrdne kui"
+      "is-less-than-or-equal-to": "on väiksem või võrdne kui",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "on",
@@ -1427,6 +1454,9 @@
       "contains-all-of": "sisaldab kõiki",
       "is-like": "on nagu",
       "is-not-like": "ei ole nagu"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
@@ -1435,6 +1465,6 @@
     "invalid-url": "Must Be A Valid URL",
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

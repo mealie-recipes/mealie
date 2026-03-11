@@ -28,8 +28,8 @@
       <v-card width="400">
         <v-card-text>
           <v-text-field
-            v-model="state.search"
-            v-memo="[state.search]"
+            v-model="searchInput"
+            v-memo="[searchInput]"
             class="mb-2"
             hide-details
             density="comfortable"
@@ -37,21 +37,29 @@
             :label="$t('search.search')"
             clearable
           />
-          <div class="d-flex py-4 px-1">
-            <v-switch
+          <div />
+          <div class="d-flex flex-wrap py-4 px-1 align-center">
+            <v-btn-toggle
               v-if="requireAll != undefined"
-              v-model="requireAllValue"
+              v-model="combinator"
+              mandatory
               density="compact"
-              hide-details
-              class="my-auto"
+              variant="outlined"
               color="primary"
-              :label="requireAllValue ? $t('search.has-all') : $t('search.has-any')"
-            />
+              class="my-1"
+            >
+              <v-btn value="hasAll">
+                {{ $t('search.has-all') }}
+              </v-btn>
+              <v-btn value="hasAny">
+                {{ $t('search.has-any') }}
+              </v-btn>
+            </v-btn-toggle>
             <v-spacer />
             <v-btn
               size="small"
               color="accent"
-              class="mr-2 my-auto"
+              class="my-1"
               @click="clearSelection"
             >
               {{ $t("search.clear-selection") }}
@@ -138,17 +146,13 @@
 </template>
 
 <script lang="ts">
-import { watchDebounced } from "@vueuse/core";
-
-export interface SelectableItem {
-  id: string;
-  name: string;
-}
+import type { ISearchableItem } from "~/composables/use-search";
+import { useSearch } from "~/composables/use-search";
 
 export default defineNuxtComponent({
   props: {
     items: {
-      type: Array as () => SelectableItem[],
+      type: Array as () => ISearchableItem[],
       required: true,
     },
     modelValue: {
@@ -167,23 +171,22 @@ export default defineNuxtComponent({
   emits: ["update:requireAll", "update:modelValue"],
   setup(props, context) {
     const state = reactive({
-      search: "",
       menu: false,
     });
 
-    // Use shallowRef for better performance with arrays
-    const debouncedSearch = shallowRef("");
+    // Use the search composable
+    const { search: searchInput, filtered } = useSearch(computed(() => props.items));
 
-    const requireAllValue = computed({
-      get: () => props.requireAll,
+    const combinator = computed({
+      get: () => (props.requireAll ? "hasAll" : "hasAny"),
       set: (value) => {
-        context.emit("update:requireAll", value);
+        context.emit("update:requireAll", value === "hasAll");
       },
     });
 
     // Use shallowRef to prevent deep reactivity on large arrays
     const selected = computed({
-      get: () => props.modelValue as SelectableItem[],
+      get: () => props.modelValue as ISearchableItem[],
       set: (value) => {
         context.emit("update:modelValue", value);
       },
@@ -196,44 +199,12 @@ export default defineNuxtComponent({
       },
     });
 
-    watchDebounced(
-      () => state.search,
-      (newSearch) => {
-        debouncedSearch.value = newSearch;
-      },
-      { debounce: 500, maxWait: 1500, immediate: false }, // Increased debounce time
-    );
-
-    const filtered = computed(() => {
-      const items = props.items;
-      const search = debouncedSearch.value;
-
-      if (!search || search.length < 2) { // Only filter after 2 characters
-        return items;
-      }
-
-      const searchLower = search.toLowerCase();
-      return items.filter(item => item.name.toLowerCase().includes(searchLower));
-    });
-
     const selectedCount = computed(() => selected.value.length);
     const selectedIds = computed(() => {
       return new Set(selected.value.map(item => item.id));
     });
 
-    const handleCheckboxClick = (item: SelectableItem) => {
-      const currentSelection = selected.value;
-      const isSelected = selectedIds.value.has(item.id);
-
-      if (isSelected) {
-        selected.value = currentSelection.filter(i => i.id !== item.id);
-      }
-      else {
-        selected.value = [...currentSelection, item];
-      }
-    };
-
-    const handleRadioClick = (item: SelectableItem) => {
+    const handleRadioClick = (item: ISearchableItem) => {
       if (selectedRadio.value === item) {
         selectedRadio.value = null;
       }
@@ -242,18 +213,18 @@ export default defineNuxtComponent({
     function clearSelection() {
       selected.value = [];
       selectedRadio.value = null;
-      state.search = "";
+      searchInput.value = "";
     }
 
     return {
-      requireAllValue,
+      combinator,
       state,
+      searchInput,
       selected,
       selectedRadio,
       selectedCount,
       selectedIds,
       filtered,
-      handleCheckboxClick,
       handleRadioClick,
       clearSelection,
     };

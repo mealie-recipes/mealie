@@ -6,6 +6,7 @@ from fastapi import APIRouter, File, UploadFile
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin.debug import DebugResponse
+from mealie.schema.openai.general import OpenAIText
 from mealie.services.openai import OpenAILocalImage, OpenAIService
 
 router = APIRouter(prefix="/debug")
@@ -33,16 +34,20 @@ class AdminDebugController(BaseAdminController):
 
             try:
                 openai_service = OpenAIService()
-                prompt = openai_service.get_prompt("debug")
+                prompt = openai_service.get_prompt("general.debug")
 
                 message = "Hello, checking to see if I can reach you."
                 if local_images:
                     message = f"{message} Here is an image to test with:"
 
                 response = await openai_service.get_response(
-                    prompt, message, images=local_images, force_json_response=False
+                    prompt, message, response_schema=OpenAIText, attachments=local_images
                 )
-                return DebugResponse(success=True, response=f'OpenAI is working. Response: "{response}"')
+
+                if not response:
+                    raise Exception("No response received from OpenAI")
+
+                return DebugResponse(success=True, response=f'OpenAI is working. Response: "{response.text}"')
 
             except Exception as e:
                 self.logger.exception(e)

@@ -137,5 +137,11 @@
         "plural_name": "pincées",
         "description": "",
         "abbreviation": ""
+    },
+    "sprig": {
+        "name": "brin",
+        "plural_name": "brins",
+        "description": "",
+        "abbreviation": ""
     }
 }

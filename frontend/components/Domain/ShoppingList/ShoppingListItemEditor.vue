@@ -30,6 +30,7 @@
             :items="foods"
             :label="$t('shopping-list.food')"
             :icon="$globals.icons.foods"
+            :autofocus="autoFocus === 'food'"
             create
             @create="createAssignFood"
           />
@@ -41,7 +42,7 @@
             :label="$t('shopping-list.note')"
             rows="1"
             auto-grow
-            autofocus
+            :autofocus="autoFocus === 'note'"
             @keypress="handleNoteKeyPress"
           />
         </div>
@@ -56,25 +57,6 @@
                 width="250"
               />
             </div>
-
-            <v-menu
-              v-if="listItem.recipeReferences && listItem.recipeReferences.length > 0"
-              open-on-hover
-              offset-y
-              start
-              top
-            >
-              <template #activator="{ props }">
-                <v-icon class="mt-auto" :icon="$globals.icons.alert" v-bind="props" color="warning">
-                  {{ $globals.icons.alert }}
-                </v-icon>
-              </template>
-              <v-card max-width="350px" class="left-warning-border">
-                <v-card-text>
-                  {{ $t("shopping-list.linked-item-warning") }}
-                </v-card-text>
-              </v-card>
-            </v-menu>
           </div>
           <BaseButton
             v-if="listItem.labelId && listItem.food && listItem.labelId !== listItem.food.labelId"
@@ -184,6 +166,8 @@ export default defineNuxtComponent({
       },
     );
 
+    const autoFocus = !listItem.value.food && listItem.value.note ? "note" : "food";
+
     async function createAssignFood(val: string) {
       // keep UI reactive
       // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -223,6 +207,7 @@ export default defineNuxtComponent({
 
     return {
       listItem,
+      autoFocus,
       createAssignFood,
       createAssignUnit,
       assignLabelToFood,

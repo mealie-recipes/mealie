@@ -40,3 +40,31 @@ export enum Organizer {
   Household = "households",
   User = "users",
 }
+
+export type PlaceholderKeyword = "$NOW";
+export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS ALL" | "LIKE" | "NOT LIKE";
+export type LogicalOperator = "AND" | "OR";
+export type RelationalOperator = "=" | "<>" | ">" | "<" | ">=" | "<=";
+
+export interface QueryFilterJSON {
+  parts?: QueryFilterJSONPart[];
+}
+
+export interface QueryFilterJSONPart {
+  leftParenthesis?: string | null;
+  rightParenthesis?: string | null;
+  logicalOperator?: LogicalOperator | null;
+  attributeName?: string | null;
+  relationalOperator?: RelationalKeyword | RelationalOperator | null;
+  value?: string | string[] | null;
+}
+
+export type StandardizedUnitType
+  = | "fluid_ounce"
+    | "cup"
+    | "ounce"
+    | "pound"
+    | "milliliter"
+    | "liter"
+    | "gram"
+    | "kilogram";

@@ -13,10 +13,10 @@ export const validators = {
 };
 
 /**
- * useAsyncValidator us a factory function that returns an async function that
- * when called will validate the input against the backend database and set the
- * error messages when applicable to the ref.
- */
+   * useAsyncValidator us a factory function that returns an async function that
+   * when called will validate the input against the backend database and set the
+   * error messages when applicable to the ref.
+   */
 export const useAsyncValidator = (
   value: Ref<string>,
   validatorFunc: (v: string) => Promise<RequestResponse<ValidationResponse>>,

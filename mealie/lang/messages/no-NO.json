@@ -17,7 +17,9 @@
             "servings": "porsjoner",
             "yield": "Gir",
             "yields": "Gir"
-        }
+        },
+        "and-amount": "og {amount}",
+        "or-ingredient": "eller {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Ingen oppskrifter samsvarer med reglene dine"

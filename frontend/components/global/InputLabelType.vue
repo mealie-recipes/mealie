@@ -6,13 +6,13 @@
     v-model:search="searchInput"
     item-title="name"
     return-object
-    :items="items"
-    :custom-filter="normalizeFilter"
+    :items="filteredItems"
     :prepend-icon="icon || $globals.icons.tags"
     auto-select-first
     clearable
     color="primary"
     hide-details
+    :custom-filter="() => true"
     @keyup.enter="emitCreate"
   >
     <template
@@ -53,7 +53,7 @@
 
 import type { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
-import { normalizeFilter } from "~/composables/use-utils";
+import { useSearch } from "~/composables/use-search";
 
 export default defineNuxtComponent({
   props: {
@@ -85,7 +85,10 @@ export default defineNuxtComponent({
   emits: ["update:modelValue", "update:item-id", "create"],
   setup(props, context) {
     const autocompleteRef = ref<HTMLInputElement>();
-    const searchInput = ref("");
+
+    // Use the search composable
+    const { search: searchInput, filtered: filteredItems } = useSearch(computed(() => props.items));
+
     const itemIdVal = computed({
       get: () => {
         return props.itemId || undefined;
@@ -123,8 +126,8 @@ export default defineNuxtComponent({
       itemVal,
       itemIdVal,
       searchInput,
+      filteredItems,
       emitCreate,
-      normalizeFilter,
     };
   },
 });

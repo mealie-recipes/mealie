@@ -137,5 +137,11 @@
         "plural_name": "ščepcev",
         "description": "",
         "abbreviation": ""
+    },
+    "sprig": {
+        "name": "vejica",
+        "plural_name": "vejice",
+        "description": "",
+        "abbreviation": ""
     }
 }

@@ -110,6 +110,11 @@ class AppSettings(AppLoggingSettings):
     BASE_URL: str = "http://localhost:8080"
     """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""
 
+    @property
+    def is_default_base_url(self) -> bool:
+        """Returns True if BASE_URL has not been changed from the default."""
+        return self.BASE_URL == "http://localhost:8080"
+
     STATIC_FILES: str = str(PACKAGE_DIR / "frontend")
     """path to static files directory (ex. `mealie/dist`)"""
 
@@ -193,10 +198,6 @@ class AppSettings(AppLoggingSettings):
     @property
     def DOCS_URL(self) -> str | None:
         return "/docs" if self.API_DOCS else None
-
-    @property
-    def REDOC_URL(self) -> str | None:
-        return "/redoc" if self.API_DOCS else None
 
     # ===============================================
     # Database Configuration
@@ -392,12 +393,16 @@ class AppSettings(AppLoggingSettings):
     """Your OpenAI API key. Required to enable OpenAI features"""
     OPENAI_MODEL: str = "gpt-4o"
     """Which OpenAI model to send requests to. Leave this unset for most usecases"""
+    OPENAI_AUDIO_MODEL: str = "whisper-1"
+    """Which OpenAI model to use for audio transcription. Leave this unset for most usecases"""
     OPENAI_CUSTOM_HEADERS: dict[str, str] = {}
     """Custom HTTP headers to send with each OpenAI request"""
     OPENAI_CUSTOM_PARAMS: dict[str, Any] = {}
     """Custom HTTP parameters to send with each OpenAI request"""
     OPENAI_ENABLE_IMAGE_SERVICES: bool = True
     """Whether to enable image-related features in OpenAI"""
+    OPENAI_ENABLE_TRANSCRIPTION_SERVICES: bool = True
+    """Whether to enable audio transcription features in OpenAI"""
     OPENAI_WORKERS: int = 2
     """
     Number of OpenAI workers per request. Higher values may increase
@@ -411,6 +416,11 @@ class AppSettings(AppLoggingSettings):
     OPENAI_REQUEST_TIMEOUT: int = 300
     """
     The number of seconds to wait for an OpenAI request to complete before cancelling the request
+    """
+    OPENAI_CUSTOM_PROMPT_DIR: str | None = None
+    """
+    Path to a folder containing custom prompt files;
+    files are individually optional, each prompt name will fall back to the default if no custom file exists
     """
 
     @property

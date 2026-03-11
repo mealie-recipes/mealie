@@ -20,27 +20,35 @@
     >
       <v-card variant="outlined">
         <v-card-text>
-          <v-select
-            v-model="selectedGroup"
-            :items="groups || []"
-            item-title="name"
-            return-object
-            variant="filled"
-            :label="$t('group.user-group')"
-            :rules="[validators.required]"
-          />
-          <v-select
-            v-model="newUserData.household"
-            :disabled="!selectedGroup"
-            :items="households"
-            item-title="name"
-            item-value="name"
-            variant="filled"
-            :label="$t('household.user-household')"
-            :hint="selectedGroup ? '' : $t('group.you-must-select-a-group-before-selecting-a-household')"
-            persistent-hint
-            :rules="[validators.required]"
-          />
+          <v-sheet>
+            <v-row>
+              <v-col cols="6">
+                <v-select
+                  v-model="selectedGroup"
+                  :items="groups || []"
+                  item-title="name"
+                  return-object
+                  variant="filled"
+                  :label="$t('group.user-group')"
+                  :rules="[validators.required]"
+                />
+              </v-col>
+              <v-col cols="6">
+                <v-select
+                  v-model="newUserData.household"
+                  :disabled="!selectedGroup"
+                  :items="households"
+                  item-title="name"
+                  item-value="name"
+                  variant="filled"
+                  :label="$t('household.user-household')"
+                  :hint="selectedGroup ? '' : $t('group.you-must-select-a-group-before-selecting-a-household')"
+                  persistent-hint
+                  :rules="[validators.required]"
+                />
+              </v-col>
+            </v-row>
+          </v-sheet>
           <AutoForm
             v-model="newUserData"
             :items="userForm"

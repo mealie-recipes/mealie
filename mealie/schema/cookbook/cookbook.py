@@ -11,7 +11,7 @@ from mealie.db.models.household.cookbook import CookBook
 from mealie.db.models.recipe import RecipeModel
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import PaginationBase
-from mealie.schema.response.query_filter import QueryFilterBuilder, QueryFilterJSON
+from mealie.services.query_filter.builder import QueryFilterBuilder, QueryFilterJSON
 
 logger = get_logger()
 

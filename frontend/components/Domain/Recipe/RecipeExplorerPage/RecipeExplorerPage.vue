@@ -34,11 +34,11 @@ import { useLazyRecipes } from "~/composables/recipes";
 export default defineNuxtComponent({
   components: { RecipeCardSection, RecipeExplorerPageSearch },
   setup() {
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const route = useRoute();
 
     const { isOwnGroup } = useLoggedInState();
-    const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+    const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
     const { recipes, appendRecipes, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
 

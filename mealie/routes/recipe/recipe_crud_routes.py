@@ -165,6 +165,11 @@ class RecipeController(BaseRecipeController):
 
             recipe.tags = extras.use_tags(ctx)  # type: ignore
 
+        if req.include_categories:
+            ctx = ScraperContext(self.repos)
+
+            recipe.recipe_category = extras.use_categories(ctx)  # type: ignore
+
         new_recipe = self.service.create_one(recipe)
 
         if new_recipe:

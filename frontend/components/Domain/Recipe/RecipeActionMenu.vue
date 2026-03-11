@@ -79,7 +79,7 @@
         @print="$emit('print')"
       />
     </div>
-    <div v-if="open" class="custom-btn-group gapped">
+    <div v-if="open" class="custom-btn-group gapped ma-1">
       <v-btn
         v-for="(btn, index) in editorButtons"
         :key="index"

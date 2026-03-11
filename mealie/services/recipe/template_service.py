@@ -7,7 +7,7 @@ from mealie.schema.recipe.recipe_image_types import RecipeImageTypes
 from mealie.services._base_service import BaseService
 
 
-class TemplateType(str, enum.Enum):
+class TemplateType(enum.StrEnum):
     json = "json"
     zip = "zip"
 

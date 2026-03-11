@@ -7,6 +7,7 @@ from mealie.services.scraper.scraped_extras import ScrapedExtras
 from .scraper_strategies import (
     ABCScraperStrategy,
     RecipeScraperOpenAI,
+    RecipeScraperOpenAITranscription,
     RecipeScraperOpenGraph,
     RecipeScraperPackage,
     safe_scrape_html,
@@ -14,6 +15,7 @@ from .scraper_strategies import (
 
 DEFAULT_SCRAPER_STRATEGIES: list[type[ABCScraperStrategy]] = [
     RecipeScraperPackage,
+    RecipeScraperOpenAITranscription,
     RecipeScraperOpenAI,
     RecipeScraperOpenGraph,
 ]
@@ -42,8 +44,11 @@ class RecipeScraper:
         """
 
         raw_html = html or await safe_scrape_html(url)
-        for scraper_type in self.scrapers:
-            scraper = scraper_type(url, self.translator, raw_html=raw_html)
+        for ScraperClass in self.scrapers:
+            scraper = ScraperClass(url, self.translator, raw_html=raw_html)
+            if not scraper.can_scrape():
+                self.logger.debug(f"Skipping {scraper.__class__.__name__}")
+                continue
 
             try:
                 result = await scraper.parse()

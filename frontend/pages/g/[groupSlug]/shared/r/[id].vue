@@ -17,9 +17,9 @@ definePageMeta({
   layout: "basic",
 });
 
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const router = useRouter();
 const recipeId = route.params.id as string;

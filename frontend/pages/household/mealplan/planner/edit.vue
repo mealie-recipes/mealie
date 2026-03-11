@@ -263,7 +263,7 @@ export default defineNuxtComponent({
   },
   setup(props) {
     const api = useUserApi();
-    const $auth = useMealieAuth();
+    const auth = useMealieAuth();
     const { household } = useHouseholdSelf();
     const requiredRule = (value: any) => !!value || "Required.";
 
@@ -343,7 +343,7 @@ export default defineNuxtComponent({
       existing: false,
       id: 0,
       groupId: "",
-      userId: $auth.user.value?.id || "",
+      userId: auth.user.value?.id || "",
     });
 
     const newMealDateString = computed(() => {
@@ -375,7 +375,7 @@ export default defineNuxtComponent({
       newMeal.existing = true;
       newMeal.id = id;
       newMeal.groupId = groupId;
-      newMeal.userId = userId || $auth.user.value?.id || "";
+      newMeal.userId = userId || auth.user.value?.id || "";
 
       state.value.dialog = true;
       dialog.note = !recipeId;
