@@ -2572,25 +2572,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "Fontal-Käse",
-                "plural_name": "fontal cheese"
+                "plural_name": "Fontal-Käse"
             },
             "salad cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "salad cheese",
-                "plural_name": "salad cheese"
+                "name": "Salatkäse",
+                "plural_name": "Salatkäse"
             },
             "truffle cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "truffle cheese",
-                "plural_name": "truffle cheese"
+                "name": "Trüffelkäse",
+                "plural_name": "Trüffelkäse"
             },
             "epoisses cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "epoisses cheese",
-                "plural_name": "epoisses cheese"
+                "name": "Époisses",
+                "plural_name": "Époisses"
             },
             "maasdam cheese": {
                 "aliases": [],
@@ -2601,14 +2601,14 @@
             "petit-suisse cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "petit-suisse cheese",
-                "plural_name": "petit-suisse cheese"
+                "name": "Petit-Suisse Käse",
+                "plural_name": "Petit-Suisse Käse"
             },
             "sbrinz cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "sbrinz cheese",
-                "plural_name": "sbrinz cheese"
+                "name": "Sbrinz-Käse",
+                "plural_name": "Sbrinz-Käse"
             }
         }
     },
@@ -2636,7 +2636,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Sahne",
-                "plural_name": "heavy cream"
+                "plural_name": "Sahne"
             },
             "sour cream": {
                 "aliases": [],
@@ -2746,7 +2746,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "angedickte Sahne",
-                "plural_name": "thickened cream"
+                "plural_name": "angedickte Sahne"
             },
             "lemon curd": {
                 "aliases": [],
@@ -6819,61 +6819,61 @@
                 "aliases": [],
                 "description": "",
                 "name": "Weiße Schokoladensauce",
-                "plural_name": "white chocolate sauce"
+                "plural_name": "Weiße Schokoladensauce"
             },
             "pumpkin spice syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Kürbisgewürz-Sirup",
-                "plural_name": "pumpkin spice syrup"
+                "plural_name": "Kürbisgewürz-Sirup"
             },
             "glycerine": {
                 "aliases": [],
                 "description": "",
                 "name": "Glycerin",
-                "plural_name": "glycerine"
+                "plural_name": "Glycerin"
             },
             "sorghum syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Sorghum-Sirup",
-                "plural_name": "sorghum syrup"
+                "plural_name": "Sorghum-Sirup"
             },
             "lucuma powder": {
                 "aliases": [],
                 "description": "",
                 "name": "Lucumapulver",
-                "plural_name": "lucuma powder"
+                "plural_name": "Lucumapulver"
             },
             "black sugar": {
                 "aliases": [],
                 "description": "",
                 "name": "Schwarzer Zucker",
-                "plural_name": "black sugar"
+                "plural_name": "Schwarzer Zucker"
             },
             "cranberry syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Preiselbeer-Sirup",
-                "plural_name": "cranberry syrup"
+                "plural_name": "Cranberrysirup"
             },
             "golden sugar": {
                 "aliases": [],
                 "description": "",
                 "name": "Golender Zucker",
-                "plural_name": "golden sugar"
+                "plural_name": "Goldzucker"
             },
             "cane syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Zuckerrohr-Sirup",
-                "plural_name": "cane syrup"
+                "plural_name": "Zuckerrohr-Sirup"
             },
             "mango syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Mango Sirup",
-                "plural_name": "mango syrup"
+                "plural_name": "Mango Sirup"
             },
             "malt syrup": {
                 "aliases": [],
@@ -6885,7 +6885,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "heißer Honig",
-                "plural_name": "hot honey"
+                "plural_name": "scharfer Honig"
             },
             "gula melaka": {
                 "aliases": [],
@@ -6897,19 +6897,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Holunderbeerensirup",
-                "plural_name": "elderberry syrup"
+                "plural_name": "Holunderbeerensirup"
             },
             "rosemary syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Rosmarinsirup",
-                "plural_name": "rosemary syrup"
+                "plural_name": "Rosmarinsirup"
             },
             "dark chocolate syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Dunkler Schokoladensirup",
-                "plural_name": "dark chocolate syrup"
+                "plural_name": "Dunkler Schokoladensirup"
             },
             "inulin": {
                 "aliases": [],
@@ -6927,37 +6927,37 @@
                 "aliases": [],
                 "description": "",
                 "name": "Fruktose",
-                "plural_name": "fructose"
+                "plural_name": "Fruktose"
             },
             "honey powder": {
                 "aliases": [],
                 "description": "",
                 "name": "Honigpulver",
-                "plural_name": "honey powder"
+                "plural_name": "Honigpulver"
             },
             "berry syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Beeren-Sirup",
-                "plural_name": "berry syrup"
+                "plural_name": "Beeren-Sirup"
             },
             "grape syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Ahornsirup",
-                "plural_name": "grape syrup"
+                "plural_name": "Traubensirup"
             },
             "brown butter syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Brauner Reissirup",
-                "plural_name": "brown butter syrup"
+                "plural_name": "brauner Buttersirup"
             },
             "date sugar": {
                 "aliases": [],
                 "description": "",
                 "name": "Dattelzucker",
-                "plural_name": "date sugar"
+                "plural_name": "Dattelzucker"
             },
             "mastic gum": {
                 "aliases": [],
@@ -6969,25 +6969,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "Gomme Sirup",
-                "plural_name": "gum syrup"
+                "plural_name": "Gomme Sirup"
             },
             "irish cream syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Irischer Sahne-Sirup",
-                "plural_name": "irish cream syrup"
+                "plural_name": "Irischer Sahne-Sirup"
             },
             "prickly pear syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Kaktusfeigensirup",
-                "plural_name": "prickly pear syrup"
+                "plural_name": "Kaktusfeigensirup"
             },
             "cookie butter syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Brauner Reissirup",
-                "plural_name": "cookie butter syrup"
+                "plural_name": "Keksbutter-Sirup"
             },
             "creamed honey": {
                 "aliases": [],
@@ -7333,7 +7333,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Dash-Gewürzmischung",
-                "plural_name": "dash seasoning"
+                "plural_name": "Dash-Gewürzmischung"
             },
             "red miso": {
                 "aliases": [],
@@ -7357,7 +7357,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Gewürzmischung für gebratenes Fleisch",
-                "plural_name": "carne asada seasoning"
+                "plural_name": "Carne Asada Gewürzmischung"
             },
             "bouquet garni": {
                 "aliases": [],
