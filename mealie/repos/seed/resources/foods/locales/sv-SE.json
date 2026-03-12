@@ -450,7 +450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bladsallad",
-                "plural_name": "leaf lettuce"
+                "plural_name": "bladsallad"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -462,7 +462,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "babysalladskål",
-                "plural_name": "baby bok choy"
+                "plural_name": "babysalladskål"
             },
             "jicama": {
                 "aliases": [],
@@ -484,17 +484,17 @@
             },
             "maize": {
                 "aliases": [
-                    "corn husk"
+                    "majsskal"
                 ],
                 "description": "",
-                "name": "maize",
-                "plural_name": "maize"
+                "name": "majs",
+                "plural_name": "majs"
             },
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "collard greens",
-                "plural_name": "collard greens"
+                "name": "grönkål",
+                "plural_name": "grönkål"
             },
             "french-fried onion": {
                 "aliases": [],
@@ -591,8 +591,8 @@
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "krasse",
+                "plural_name": "krasse"
             },
             "broccoli slaw": {
                 "aliases": [],
@@ -622,7 +622,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "alfalfagroddar",
-                "plural_name": "alfalfa"
+                "plural_name": "alfalfagroddar"
             }
         }
     },
@@ -979,8 +979,8 @@
             "chestnut purée": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut purée",
-                "plural_name": "chestnut purée"
+                "name": "kastanjepuré",
+                "plural_name": "kastanjepuré"
             },
             "prickly pear": {
                 "aliases": [],
@@ -2031,31 +2031,31 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "ost",
+                "plural_name": "ost"
             },
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
-                "plural_name": "mozzarella cheese"
+                "name": "mozzarellaost",
+                "plural_name": "mozzarellaost"
             },
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "fetaost",
+                "plural_name": "fetaost"
             },
             "ricotta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "ricotta cheese",
-                "plural_name": "ricotta cheese"
+                "name": "ricottaost",
+                "plural_name": "ricottaost"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheddar-jack cheese",
+                "name": "cheddar-jackost",
                 "plural_name": "cheddar-jack cheese"
             },
             "monterey jack cheese": {
