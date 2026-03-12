@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import datetime
 import enum
+from enum import StrEnum
 from fractions import Fraction
 from typing import ClassVar
 from uuid import UUID, uuid4
@@ -32,6 +33,28 @@ def display_fraction(fraction: Fraction):
         + "/"
         + "".join([SUBSCRIPT[c] for c in str(fraction.denominator)])
     )
+
+
+class StandardizedUnitType(StrEnum):
+    """
+    An arbitrary list of standardized units supported by unit conversions.
+    The backend doesn't really care what standardized unit you use, as long as it's recognized,
+    but defining them here keeps it consistant with the frontend.
+    """
+
+    # Imperial
+    FLUID_OUNCE = "fluid_ounce"
+    CUP = "cup"
+
+    OUNCE = "ounce"
+    POUND = "pound"
+
+    # Metric
+    MILLILITER = "milliliter"
+    LITER = "liter"
+
+    GRAM = "gram"
+    KILOGRAM = "kilogram"
 
 
 class UnitFoodBase(MealieModel):
@@ -109,9 +132,6 @@ class IngredientFood(CreateIngredientFood):
         except AttributeError:
             return v
 
-    def is_on_hand(self, household_slug: str) -> bool:
-        return household_slug in self.households_with_tool
-
 
 class IngredientFoodPagination(PaginationBase):
     items: list[IngredientFood]
@@ -130,7 +150,21 @@ class CreateIngredientUnit(UnitFoodBase):
     abbreviation: str = ""
     plural_abbreviation: str | None = ""
     use_abbreviation: bool = False
+
     aliases: list[CreateIngredientUnitAlias] = []
+    standard_quantity: float | None = None
+    standard_unit: str | None = None
+
+    @model_validator(mode="after")
+    def validate_standardization_fields(self):
+        # If one is set, the other must be set.
+        # If quantity is <= 0, it's considered not set.
+        if not self.standard_unit:
+            self.standard_quantity = self.standard_unit = None
+        elif not ((self.standard_quantity or 0) > 0):
+            self.standard_quantity = self.standard_unit = None
+
+        return self
 
 
 class SaveIngredientUnit(CreateIngredientUnit):

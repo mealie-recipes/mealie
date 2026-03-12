@@ -7,15 +7,17 @@ from mealie.services.openai.openai import OpenAIService
 class _SettingsStub:
     OPENAI_ENABLED = True
     OPENAI_MODEL = "gpt-4o"
+    OPENAI_AUDIO_MODEL = "whisper-1"
     OPENAI_WORKERS = 1
     OPENAI_SEND_DATABASE_DATA = False
     OPENAI_ENABLE_IMAGE_SERVICES = True
-    OPENAI_CUSTOM_PROMPT_DIR = None
-    OPENAI_BASE_URL = None
+    OPENAI_ENABLE_TRANSCRIPTION_SERVICES = True
+    OPENAI_CUSTOM_PROMPT_DIR: str | None = None
+    OPENAI_BASE_URL: str | None = None
     OPENAI_API_KEY = "dummy"
     OPENAI_REQUEST_TIMEOUT = 30
-    OPENAI_CUSTOM_HEADERS = {}
-    OPENAI_CUSTOM_PARAMS = {}
+    OPENAI_CUSTOM_HEADERS: dict = {}
+    OPENAI_CUSTOM_PARAMS: dict = {}
 
 
 @pytest.fixture()

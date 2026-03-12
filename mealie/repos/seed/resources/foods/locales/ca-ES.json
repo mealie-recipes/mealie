@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "all",
-                "plural_name": "garlic"
+                "plural_name": "all"
             },
             "onion": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "espinac",
-                "plural_name": "spinach"
+                "plural_name": "espinacs"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "blat de moro",
-                "plural_name": "sweet corn"
+                "plural_name": "blat de moro"
             },
             "chile pepper": {
                 "aliases": [
@@ -121,7 +121,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bròquil",
-                "plural_name": "broccoli"
+                "plural_name": "bròquil"
             },
             "heart of palm": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "coliflor",
-                "plural_name": "cauliflower"
+                "plural_name": "coliflor"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,8 +156,8 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "espàrrec",
+                "plural_name": "espàrrec"
             },
             "kale": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "enciam",
-                "plural_name": "lettuce"
+                "plural_name": "enciam"
             },
             "butternut squash": {
                 "aliases": [],
@@ -943,8 +943,8 @@
             "lychee": {
                 "aliases": [],
                 "description": "",
-                "name": "lychee",
-                "plural_name": "lychees"
+                "name": "litxi",
+                "plural_name": "litxis"
             },
             "young coconut": {
                 "aliases": [],
@@ -1385,8 +1385,8 @@
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletus",
-                "plural_name": "boletus"
+                "name": "bolet",
+                "plural_name": "bolets"
             },
             "huitlacoche": {
                 "aliases": [],
@@ -1456,19 +1456,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "strawberry",
-                "plural_name": "strawberries"
+                "plural_name": "maduixes"
             },
             "blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry",
-                "plural_name": "blueberries"
+                "name": "nabiu",
+                "plural_name": "nabius"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "gerd",
+                "plural_name": "gerds"
             },
             "cranberry": {
                 "aliases": [],
@@ -1479,14 +1479,14 @@
             "cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry",
-                "plural_name": "cherries"
+                "name": "cirera",
+                "plural_name": "cireres"
             },
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "mora",
+                "plural_name": "mores"
             },
             "berry mix": {
                 "aliases": [],
@@ -1753,8 +1753,8 @@
             "pistachio": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio",
-                "plural_name": "pistachios"
+                "name": "pistatxo",
+                "plural_name": "pistatxos"
             },
             "peanut": {
                 "aliases": [],
@@ -1861,8 +1861,8 @@
             "watermelon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon seed",
-                "plural_name": "watermelon seeds"
+                "name": "llavor de síndria",
+                "plural_name": "llavors de síndria"
             },
             "honey-roasted peanut": {
                 "aliases": [],
@@ -2067,26 +2067,26 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "formatge blau",
+                "plural_name": "formatge blau"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheese"
+                "name": "formatge de cabra",
+                "plural_name": "formatge de cabra"
             },
             "fresh mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella cheese",
-                "plural_name": "fresh mozzarella cheese"
+                "name": "formatge mozzarella fresc",
+                "plural_name": "formatge mozzarella fresc"
             },
             "swis cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swis cheese",
-                "plural_name": "swis cheese"
+                "name": "formatge suís",
+                "plural_name": "formatge suís"
             },
             "pecorino cheese": {
                 "aliases": [],
@@ -2097,14 +2097,14 @@
             "gruyere cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gruyere cheese",
-                "plural_name": "gruyere cheese"
+                "name": "formatge de gruyère",
+                "plural_name": "formatge de gruyère"
             },
             "mascarpone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mascarpone cheese",
-                "plural_name": "mascarpone cheese"
+                "name": "formatge mascarpone",
+                "plural_name": "formatge mascarpone"
             },
             "cottage cheese": {
                 "aliases": [],
@@ -2121,8 +2121,8 @@
             "provolone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "provolone cheese",
-                "plural_name": "provolone cheese"
+                "name": "formatge provolone",
+                "plural_name": "formatge provolone"
             },
             "mexican cheese blend": {
                 "aliases": [],
@@ -2283,8 +2283,8 @@
             "raclette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "raclette cheese",
-                "plural_name": "raclette cheese"
+                "name": "formatge de raclette",
+                "plural_name": "formatge de raclette"
             },
             "colby-jack cheese": {
                 "aliases": [],

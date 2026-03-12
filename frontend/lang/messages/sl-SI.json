@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Ustvari recept z izbranim imenom. Vsi recepti morajo imeti unikatna imena.",
     "new-recipe-names-must-be-unique": "Ime recepta mora biti unikatno",
     "scrape-recipe": "Postrgaj recept",
-    "scrape-recipe-description": "Postrgaj recept preko povezave. Priskrbi povezavo do strani, ki jo želiš postrgati in Mealie bo poskusil uvoziti recept iz strani in ga dodati v tvojo zbirko.",
+    "scrape-recipe-description": "Strganje recepta po URL-ju. Navedite URL spletnega mesta, s katerega želite strgati, in Mealie bo poskušal strgati recept s tega spletnega mesta in ga dodati v vašo zbirko.",
+    "scrape-recipe-description-transcription": "Lahko pa navedete tudi URL videoposnetka in Mealie ga bo poskušal prepisati v recept.",
     "scrape-recipe-have-a-lot-of-recipes": "Imaš veliko receptov, ki jih želiš naenkrat postrgati s spleta?",
     "scrape-recipe-suggest-bulk-importer": "Preizkusi masovni uvoz",
     "scrape-recipe-have-raw-html-or-json-data": "Imaš surove HTML ali JSON podatke?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "npr: tablespoon",
       "example-unit-plural": "npr: tablespoons",
       "example-unit-abbreviation-singular": "npr: tbsp",
-      "example-unit-abbreviation-plural": "npr: tbsps"
+      "example-unit-abbreviation-plural": "npr: tbsps",
+      "standardization": "Standardizacija",
+      "standardization-description": "Kako je mogoče to enoto predstaviti kot standardno enoto. To omogoča funkcije pretvorbe enot, kot je združevanje združljivih enot na nakupovalnih seznamih.",
+      "standard-unit": "Standardna enota",
+      "standard-quantity": "Standardna količina",
+      "unit-conversion": "Pretvorba enot",
+      "standard-unit-labels": {
+        "fluid-ounce": "tekoča unča",
+        "cup": "skodelica",
+        "ounce": "unča",
+        "pound": "funt",
+        "milliliter": "mililiter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Napolni podatkovno bazi s običajnimi oznakami, glede na vaš lokalni jezik.",
@@ -1170,8 +1186,8 @@
       "edit-recipe-action": "Urejaj opravilo na receptu",
       "action-type": "Tip opravila",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "Povezava",
+        "post": "Objava"
       }
     },
     "create-alias": "Ustvari alias",

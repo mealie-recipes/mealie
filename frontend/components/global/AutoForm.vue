@@ -88,6 +88,25 @@
               validate-on="input"
             />
 
+            <!-- Number Input -->
+            <v-number-input
+              v-else-if="inputField.type === fieldTypes.NUMBER"
+              v-model="model[inputField.varName]"
+              variant="underlined"
+              :control-variant="inputField.numberInputConfig?.controlVariant"
+              density="comfortable"
+              :label="inputField.label"
+              :name="inputField.varName"
+              :min="inputField.numberInputConfig?.min"
+              :max="inputField.numberInputConfig?.max"
+              :precision="inputField.numberInputConfig?.precision"
+              :hint="inputField.hint"
+              :hide-details="!inputField.hint"
+              :persistent-hint="!!inputField.hint"
+              :rules="!(inputField.disableUpdate && updateMode) ? inputField.rules || [] : []"
+              validate-on="input"
+            />
+
             <!-- Option Select -->
             <v-select
               v-else-if="inputField.type === fieldTypes.SELECT"

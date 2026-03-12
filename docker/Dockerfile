@@ -91,6 +91,7 @@ RUN apt-get update \
     build-essential \
     libpq-dev \
     libwebp-dev \
+    ffmpeg \
     # LDAP Dependencies
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1 \
@@ -119,6 +120,7 @@ ENV GIT_COMMIT_HASH=$COMMIT
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
+    curl \
     gosu \
     iproute2 \
     libldap-common \
@@ -141,7 +143,9 @@ ENV APP_PORT=9000
 
 EXPOSE ${APP_PORT}
 
-HEALTHCHECK CMD python -m mealie.scripts.healthcheck || exit 1
+COPY ./docker/healthcheck.sh $MEALIE_HOME/healthcheck.sh
+RUN chmod +x $MEALIE_HOME/healthcheck.sh
+HEALTHCHECK CMD $MEALIE_HOME/healthcheck.sh
 
 ENV HOST 0.0.0.0
 

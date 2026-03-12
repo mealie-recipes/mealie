@@ -17,7 +17,9 @@
             "servings": "Portioner",
             "yield": "Ger",
             "yields": "Ger"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Inga recept matchar dina regler"
