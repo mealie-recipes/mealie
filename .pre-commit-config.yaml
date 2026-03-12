@@ -14,5 +14,8 @@ repos:
     # Ruff version.
     rev: v0.15.5
     hooks:
-      - id: ruff
+        # Linter
+      - id: ruff-check
+        args: [ --fix ]
+        # Formatter
       - id: ruff-format
