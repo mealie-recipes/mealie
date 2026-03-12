@@ -547,20 +547,20 @@
             "microgreens": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreens",
-                "plural_name": "microgreens"
+                "name": "mikrogrönsak",
+                "plural_name": "mikrogrönsak"
             },
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
                 "name": "huvudsallad",
-                "plural_name": "boston lettuce"
+                "plural_name": "bostonsallat"
             },
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
                 "name": "kålrabbi",
-                "plural_name": "kohlrabi"
+                "plural_name": "kålrabbi"
             },
             "fresno chile": {
                 "aliases": [],
@@ -576,11 +576,11 @@
             },
             "Frisée": {
                 "aliases": [
-                    "curly endive"
+                    "frisésallat"
                 ],
                 "description": "",
-                "name": "Frisée",
-                "plural_name": "Frisées"
+                "name": "Frisésallat",
+                "plural_name": "Frisésallat"
             },
             "anaheim pepper": {
                 "aliases": [],
