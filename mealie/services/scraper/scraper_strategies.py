@@ -70,8 +70,8 @@ async def safe_scrape_html(url: str) -> str:
                 headers=user_agents_manager.get_scrape_headers(user_agent),
                 follow_redirects=True,
             ) as resp:
-                if resp.status_code == status.HTTP_403_FORBIDDEN:
-                    logger.debug(f'403 Forbidden with User-Agent: "{user_agent}"')
+                if resp.status_code >= status.HTTP_400_BAD_REQUEST:
+                    logger.debug(f'Error status code {resp.status_code} with User-Agent: "{user_agent}"')
                     continue
 
                 start_time = time.time()
