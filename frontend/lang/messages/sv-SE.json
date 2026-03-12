@@ -637,7 +637,7 @@
     "new-recipe-names-must-be-unique": "Nya receptnamn måste vara unika",
     "scrape-recipe": "Skrapa Recept",
     "scrape-recipe-description": "Hämta ett recept med webbadress. Ange URL:en för webbplatsen du vill hämta, och Mealie kommer att försöka hämta receptet från den webbplatsen och lägga till det i din samling.",
-    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
+    "scrape-recipe-description-transcription": "Du kan också ge URL: en till en video och Mealie kommer att försöka transkribera det till ett recept.",
     "scrape-recipe-have-a-lot-of-recipes": "Har du många recept som du vill skrapa på en gång?",
     "scrape-recipe-suggest-bulk-importer": "Testa massimportören",
     "scrape-recipe-have-raw-html-or-json-data": "Har rå HTML eller JSON-data?",
@@ -1136,16 +1136,16 @@
       "example-unit-plural": "ex: matskedar",
       "example-unit-abbreviation-singular": "ex: msk",
       "example-unit-abbreviation-plural": "ex: msk",
-      "standardization": "Standardization",
-      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
-      "standard-unit": "Standard Unit",
-      "standard-quantity": "Standard Quantity",
-      "unit-conversion": "Unit Conversion",
+      "standardization": "Standardisering",
+      "standardization-description": "Hur denna enhet kan representeras som en standardenhet. Detta möjliggör konvertering av enheter såsom sammanslagning av kompatibla enheter i inköpslistor.",
+      "standard-unit": "Standardenhet",
+      "standard-quantity": "Standardantal",
+      "unit-conversion": "Enhetsomvandling",
       "standard-unit-labels": {
         "fluid-ounce": "fluid ounce",
-        "cup": "cup",
+        "cup": "kopp",
         "ounce": "ounce",
-        "pound": "pound",
+        "pound": "pund",
         "milliliter": "milliliter",
         "liter": "liter",
         "gram": "gram",
@@ -1186,7 +1186,7 @@
       "edit-recipe-action": "Redigera receptåtgärd",
       "action-type": "Åtgärdstyp",
       "action-types": {
-        "link": "Link",
+        "link": "Länk",
         "post": "Post"
       }
     },
@@ -1443,8 +1443,8 @@
       "is-greater-than-or-equal-to": "är större än eller lika med",
       "is-less-than": "är mindre än",
       "is-less-than-or-equal-to": "är mindre eller lika med",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "är äldre än",
+      "is-newer-than": "är nyare än"
     },
     "relational-keywords": {
       "is": "är",
@@ -1456,7 +1456,7 @@
       "is-not-like": "är inte som"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "dagar sedan|dagar sedan|dagar sedan"
     }
   },
   "validators": {
@@ -1465,6 +1465,6 @@
     "invalid-url": "Måste var en giltig länk",
     "no-whitespace": "Ingen blanksteg tillåten",
     "min-length": "Måste vara minst {min} tecken",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Måste Vara Som Mest {max} Tecken|Måste Vara Som Mest {max} Tecken"
   }
 }
