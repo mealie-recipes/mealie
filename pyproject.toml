@@ -174,3 +174,6 @@ select = [
 [tool.ruff.lint.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
 max-complexity = 24  # Default is 10.
+
+[tool.uv]
+add-bounds = "exact"
