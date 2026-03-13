@@ -62,7 +62,7 @@
         </v-card-text>
         <v-card-actions class="py-0 px-4 d-flex flex-column align-start">
           <v-switch v-model="dialog.note" class="mt-n3 mb-n4" :label="$t('meal-plan.note-only')" />
-          <v-switch v-model="filterRecipesByEntryType" class="mt-n3 mb-n4" :label="$t('meal-plan.filter-by-entry-type')"/>
+          <v-switch v-model="filterRecipesByEntryType" class="mt-n3 mb-n4" :label="$t('meal-plan.filter-by-entry-type')" />
         </v-card-actions>
       </v-card-text>
     </BaseDialog>

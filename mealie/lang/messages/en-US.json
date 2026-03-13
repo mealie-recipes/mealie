@@ -22,7 +22,8 @@
         "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "No recipes match your rules",
+        "filter-by-entry-type": "Match recipe category to entry type."
     },
     "user": {
         "user-updated": "User updated",
