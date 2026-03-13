@@ -46,7 +46,7 @@
             v-model="newMeal.recipeId"
             v-model:search="search.query.value"
             :label="$t('meal-plan.meal-recipe')"
-            :items="search.data.value"
+            :items="filterRecipeByMealType()"
             :custom-filter="normalizeFilter"
             :loading="search.loading.value"
             cache-items
@@ -60,8 +60,9 @@
             <v-textarea v-model="newMeal.text" rows="2" :label="$t('meal-plan.meal-note')" />
           </template>
         </v-card-text>
-        <v-card-actions class="py-0 px-4">
+        <v-card-actions class="py-0 px-4 d-flex flex-column align-start">
           <v-switch v-model="dialog.note" class="mt-n3 mb-n4" :label="$t('meal-plan.note-only')" />
+          <v-switch v-model="filterRecipesByEntryType" class="mt-n3 mb-n4" :label="$t('meal-plan.filter-by-entry-type')"/>
         </v-card-actions>
       </v-card-text>
     </BaseDialog>
@@ -275,6 +276,8 @@ export default defineNuxtComponent({
       return household.value?.preferences?.firstDayOfWeek || 0;
     });
 
+    const filterRecipesByEntryType = ref(false);
+
     // Local mutable meals object
     const mealplansByDate = reactive<{ [date: string]: UpdatePlanEntry[] }>({});
     watch(
@@ -401,6 +404,25 @@ export default defineNuxtComponent({
       }
     }
 
+    // Filtering
+    function filterRecipeByMealType() {
+      if (!search.data.value) return [];
+
+      if (!filterRecipesByEntryType.value) {
+        return search.data.value;
+      }
+
+      return search.data.value.filter((recipe: any) => {
+        if (recipe.recipeCategory.length === 0) return false;
+
+        return recipe.recipeCategory.some((cat: any) => {
+          const entry = newMeal.entryType?.toLowerCase();
+          const category = cat.name?.toLowerCase();
+          return category === entry;
+        });
+      });
+    }
+
     // =====================================================
     // Search
 
@@ -428,6 +450,10 @@ export default defineNuxtComponent({
       editMeal,
       resetDialog,
       randomMeal,
+
+      // Filtering
+      filterRecipeByMealType,
+      filterRecipesByEntryType,
 
       // Search
       search,
