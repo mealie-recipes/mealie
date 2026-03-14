@@ -150,7 +150,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return await this.requests.post<Recipe | null>(routes.recipesTestScrapeUrl, { url, useOpenAI });
   }
 
-  private streamRecipeCreate(streamRoute: string, payload: object): Promise<RequestResponse<string>> {
+  private streamRecipeCreate(streamRoute: string, payload: object, onProgress?: (message: string) => void): Promise<RequestResponse<string>> {
     return new Promise((resolve) => {
       const { token } = useMealieAuth();
 
@@ -164,10 +164,12 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
         autoReconnect: false,
       });
 
-      sse.addEventListener(SSEDataEventStatus.Progress, (e: SSEvent) => {
-        const { message } = JSON.parse(e.data) as SSEDataEventMessage;
-        console.log("[recipe:streamRecipeCreate] progress:", message);
-      });
+      if (onProgress) {
+        sse.addEventListener(SSEDataEventStatus.Progress, (e: SSEvent) => {
+          const { message } = JSON.parse(e.data) as SSEDataEventMessage;
+          onProgress(message);
+        });
+      }
 
       sse.addEventListener(SSEDataEventStatus.Done, (e: SSEvent) => {
         const { slug } = JSON.parse(e.data) as SSEDataEventDone;
@@ -190,12 +192,23 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     });
   }
 
-  async createOneByHtmlOrJson(data: string, includeTags: boolean, includeCategories: boolean, url: string | null = null): Promise<RequestResponse<string>> {
-    return this.streamRecipeCreate(routes.recipesCreateFromHtmlOrJson, { data, includeTags, includeCategories, url });
+  async createOneByHtmlOrJson(
+    data: string,
+    includeTags: boolean,
+    includeCategories: boolean,
+    url: string | null = null,
+    onProgress?: (message: string) => void,
+  ): Promise<RequestResponse<string>> {
+    return this.streamRecipeCreate(routes.recipesCreateFromHtmlOrJson, { data, includeTags, includeCategories, url }, onProgress);
   }
 
-  async createOneByUrl(url: string, includeTags: boolean, includeCategories: boolean): Promise<RequestResponse<string>> {
-    return this.streamRecipeCreate(routes.recipesCreateUrl, { url, includeTags, includeCategories });
+  async createOneByUrl(
+    url: string,
+    includeTags: boolean,
+    includeCategories: boolean,
+    onProgress?: (message: string) => void,
+  ): Promise<RequestResponse<string>> {
+    return this.streamRecipeCreate(routes.recipesCreateUrl, { url, includeTags, includeCategories }, onProgress);
   }
 
   async createManyByUrl(payload: CreateRecipeByUrlBulk) {
