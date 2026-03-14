@@ -150,7 +150,10 @@ class RecipeController(BaseRecipeController):
 
     @router.post("/create/html-or-json/stream", response_class=EventSourceResponse)
     async def create_recipe_from_html_or_json_stream(self, req: ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
-        """Like create_recipe_from_html_or_json, but streams progress via SSE"""
+        """
+        Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL,
+        streaming progress via SSE
+        """
 
         if req.data.startswith("{"):
             req.data = RecipeScraperPackage.ld_json_to_html(req.data)
@@ -166,7 +169,10 @@ class RecipeController(BaseRecipeController):
 
     @router.post("/create/url/stream", response_class=EventSourceResponse)
     async def parse_recipe_url_stream(self, req: ScrapeRecipe) -> AsyncIterable[ServerSentEvent]:
-        """Like parse_recipe_url, but streams progress via SSE"""
+        """
+        Takes in a URL and attempts to scrape data and load it into the database,
+        streaming progress via SSE
+        """
 
         async for event in self._stream_recipe_from_web(req):
             yield event
