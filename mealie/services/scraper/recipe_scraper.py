@@ -66,7 +66,7 @@ class RecipeScraper:
                 continue
 
             try:
-                result = await scraper.parse()
+                result = await scraper.parse(on_progress=on_progress)
             except Exception:
                 self.logger.exception(f"Failed to scrape HTML with {scraper.__class__.__name__}")
                 result = None
