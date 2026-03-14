@@ -161,6 +161,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
         },
         payload: JSON.stringify(payload),
         withCredentials: true,
+        autoReconnect: false,
       });
 
       sse.addEventListener(SSEDataEventStatus.Progress, (e: SSEvent) => {
