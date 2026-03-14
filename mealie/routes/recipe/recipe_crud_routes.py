@@ -149,8 +149,10 @@ class RecipeController(BaseRecipeController):
         async for event in self._create_recipe_from_web(req):
             if isinstance(event.data, SSEDataEventDone):
                 return event.data.slug
-            if isinstance(event.data, SSEDataEventMessage) and event.data.status == SSEDataEventStatus.ERROR:
+            if isinstance(event.data, SSEDataEventMessage) and event.event == SSEDataEventStatus.ERROR:
                 raise HTTPException(status_code=400, detail=ErrorResponse.respond(message=event.data.message))
+
+        # This should never be reachable, since we should always hit DONE or hit an exception/ERROR
         raise HTTPException(status_code=500, detail=ErrorResponse.respond(message="Unknown Error"))
 
     @router.post("/create/html-or-json/stream", response_class=EventSourceResponse)
@@ -173,8 +175,10 @@ class RecipeController(BaseRecipeController):
         async for event in self._create_recipe_from_web(req):
             if isinstance(event.data, SSEDataEventDone):
                 return event.data.slug
-            if isinstance(event.data, SSEDataEventMessage) and event.data.status == SSEDataEventStatus.ERROR:
+            if isinstance(event.data, SSEDataEventMessage) and event.event == SSEDataEventStatus.ERROR:
                 raise HTTPException(status_code=400, detail=ErrorResponse.respond(message=event.data.message))
+
+        # This should never be reachable, since we should always hit DONE or hit an exception/ERROR
         raise HTTPException(status_code=500, detail=ErrorResponse.respond(message="Unknown Error"))
 
     @router.post("/create/url/stream", response_class=EventSourceResponse)
@@ -188,6 +192,17 @@ class RecipeController(BaseRecipeController):
             yield event
 
     async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
+        """
+        Create a recipe from the web, returning progress via SSE.
+        Events will continue to be yielded until:
+            - The recipe is created, emitting:
+                - event=SSEDataEventStatus.DONE
+                - data=SSEDataEventDone(...)
+            - An exception is raised, emitting:
+                - event=SSEDataEventStatus.ERROR
+                - data=SSEDataEventMessage(...)
+        """
+
         if isinstance(req, ScrapeRecipeData):
             html = req.data
             url = req.url or ""
@@ -200,8 +215,8 @@ class RecipeController(BaseRecipeController):
         async def on_progress(message: str) -> None:
             await queue.put(
                 ServerSentEvent(
-                    data=SSEDataEventMessage(status=SSEDataEventStatus.IN_PROGRESS, message=message),
-                    event="progress",
+                    data=SSEDataEventMessage(message=message),
+                    event=SSEDataEventStatus.PROGRESS,
                 )
             )
 
@@ -211,16 +226,16 @@ class RecipeController(BaseRecipeController):
                 slug = self._finish_recipe_from_web(req, recipe, extras)
                 await queue.put(
                     ServerSentEvent(
-                        data=SSEDataEventDone(status=SSEDataEventStatus.DONE, slug=slug),
-                        event="done",
+                        data=SSEDataEventDone(slug=slug),
+                        event=SSEDataEventStatus.DONE,
                     )
                 )
             except Exception as e:
                 self.logger.exception("Error in streaming recipe creation")
                 await queue.put(
                     ServerSentEvent(
-                        data=SSEDataEventMessage(status=SSEDataEventStatus.ERROR, message=e.__class__.__name__),
-                        event="error",
+                        data=SSEDataEventMessage(message=e.__class__.__name__),
+                        event=SSEDataEventStatus.ERROR,
                     )
                 )
             finally:

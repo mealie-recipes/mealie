@@ -62,11 +62,13 @@ async def create_from_html(
     recipe_data_service = RecipeDataService(new_recipe.id)
 
     try:
-        if new_recipe.image and isinstance(new_recipe.image, list):
-            new_recipe.image = new_recipe.image[0]
-        if on_progress:
-            await on_progress("Scraping image")
-        await recipe_data_service.scrape_image(new_recipe.image)  # type: ignore
+        if new_recipe.image:
+            if isinstance(new_recipe.image, list):
+                new_recipe.image = new_recipe.image[0]
+
+            if on_progress:
+                await on_progress("Scraping image")
+            await recipe_data_service.scrape_image(new_recipe.image)  # type: ignore
 
         if new_recipe.name is None:
             new_recipe.name = "Untitled"

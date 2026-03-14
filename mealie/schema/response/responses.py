@@ -45,13 +45,12 @@ class FileTokenResponse(MealieModel):
 
 
 class SSEDataEventStatus(StrEnum):
-    IN_PROGRESS = "IN_PROGRESS"
-    DONE = "DONE"
-    ERROR = "ERROR"
+    PROGRESS = "progress"
+    DONE = "done"
+    ERROR = "error"
 
 
-class SSEDataEventBase(BaseModel):
-    status: SSEDataEventStatus
+class SSEDataEventBase(BaseModel): ...
 
 
 class SSEDataEventMessage(SSEDataEventBase):
