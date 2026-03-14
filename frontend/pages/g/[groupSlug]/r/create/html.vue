@@ -93,8 +93,9 @@
               :loading="loading"
             />
           </div>
-          <v-card-text v-if="createStatus" class="py-2">
-            {{ createStatus }}
+          <v-card-text class="py-2">
+            <!-- render &nbsp; to maintain layout -->
+            {{ createStatus }}&nbsp;
           </v-card-text>
         </div>
       </v-card-actions>
