@@ -65,14 +65,19 @@
           :label="$t('recipe.parse-recipe-ingredients-after-import')"
         />
         <v-card-actions class="justify-center">
-          <div style="width: 250px">
-            <BaseButton
-              :disabled="recipeUrl === null"
-              rounded
-              block
-              type="submit"
-              :loading="loading"
-            />
+          <div style="width: 100%" class="text-center">
+            <div style="width: 250px; margin: 0 auto">
+              <BaseButton
+                :disabled="recipeUrl === null"
+                rounded
+                block
+                type="submit"
+                :loading="loading"
+              />
+            </div>
+            <v-card-text v-if="createStatus" class="py-2">
+              {{ createStatus }}
+            </v-card-text>
           </div>
         </v-card-actions>
       </div>
@@ -234,6 +239,7 @@ export default defineNuxtComponent({
       router.replace({ query: undefined }).then(() => router.push(to));
     });
 
+    const createStatus = ref<string | null>(null);
     async function createByUrl(url: string | null, importKeywordsAsTags: boolean, importCategories: boolean) {
       if (url === null) {
         return;
@@ -244,7 +250,13 @@ export default defineNuxtComponent({
         return;
       }
       state.loading = true;
-      const { response } = await api.recipes.createOneByUrl(url, importKeywordsAsTags, importCategories);
+      const { response } = await api.recipes.createOneByUrl(
+        url,
+        importKeywordsAsTags,
+        importCategories,
+        (message: string) => createStatus.value = message,
+      );
+      createStatus.value = null;
       handleResponse(response, importKeywordsAsTags);
     }
 
@@ -257,6 +269,8 @@ export default defineNuxtComponent({
       stayInEditMode,
       parseRecipe,
       domUrlForm,
+      createStatus,
+      createStatus,
       createByUrl,
       ...toRefs(state),
       validators,
