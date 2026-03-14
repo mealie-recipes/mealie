@@ -3,7 +3,7 @@ import functools
 import re
 import time
 from abc import ABC, abstractmethod
-from collections.abc import Callable
+from collections.abc import Awaitable, Callable
 from pathlib import Path
 from typing import Any, TypedDict
 
@@ -139,7 +139,9 @@ class ABCScraperStrategy(ABC):
     async def get_html(self, url: str) -> str: ...
 
     @abstractmethod
-    async def parse(self) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    async def parse(
+        self, on_progress: Callable[[str], Awaitable[None]] | None = None
+    ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         """Parse a recipe from a web URL.
 
         Args:
@@ -276,10 +278,14 @@ class RecipeScraperPackage(ABCScraperStrategy):
         self.logger.debug(f"Recipe Scraper [Package] was unable to extract a recipe from {self.url}")
         return None
 
-    async def parse(self):
+    async def parse(self, on_progress: Callable[[str], Awaitable[None]] | None = None):
         """
         Parse a recipe from a given url.
         """
+
+        if on_progress:
+            await on_progress("Scraping HTML for recipe data")
+
         scraped_data = await self.scrape_url()
 
         if scraped_data is None:
@@ -376,6 +382,12 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
             self.logger.exception(f"OpenAI was unable to extract a recipe from {url}")
             return ""
 
+    async def parse(self, on_progress: Callable[[str], Awaitable[None]] | None = None):
+        if on_progress:
+            await on_progress("Generating recipe data from HTML using AI")
+
+        return super().parse()
+
 
 class TranscribedAudio(TypedDict):
     audio: Path
@@ -468,10 +480,16 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
     async def get_html(self, url: str) -> str:
         return self.raw_html or ""  # we don't use HTML with this scraper since we use ytdlp
 
-    async def parse(self) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    async def parse(
+        self,
+        on_progress: Callable[[str], Awaitable[None]] | None = None,
+    ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         openai_service = OpenAIService()
 
         with get_temporary_path() as temp_path:
+            if on_progress:
+                await on_progress("Downloading video")
+
             video_data = await asyncio.to_thread(self._download_audio, temp_path)
 
             if video_data["subtitle"]:
@@ -485,6 +503,9 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                     video_data["transcription"] = ""
 
             if not video_data["transcription"]:
+                if on_progress:
+                    await on_progress("Transcribing audio using AI")
+
                 try:
                     transcription = await openai_service.transcribe_audio(video_data["audio"])
                 except exceptions.RateLimitError:
@@ -507,6 +528,9 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             f"Description: {video_data['description']}",
             f"Transcription: {video_data['transcription']}",
         ]
+
+        if on_progress:
+            await on_progress("Generating recipe data from transcript using AI")
 
         try:
             response = await openai_service.get_response(prompt, "\n".join(message_parts), response_schema=OpenAIRecipe)
@@ -586,10 +610,17 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
             "extras": [],
         }
 
-    async def parse(self):
+    async def parse(
+        self,
+        on_progress: Callable[[str], Awaitable[None]] | None = None,
+    ):
         """
         Parse a recipe from a given url.
         """
+
+        if on_progress:
+            await on_progress("Creating generic recipe using Open Graph tags")
+
         html = await self.get_html(self.url)
 
         og_data = self.get_recipe_fields(html)
