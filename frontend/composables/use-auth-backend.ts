@@ -13,6 +13,7 @@ interface AuthStatus {
 interface AuthState {
   data: AuthData;
   status: AuthStatus;
+  token: { readonly value: string | null | undefined };
   signIn: (credentials: FormData, options?: { redirect?: boolean }) => Promise<void>;
   signOut: (callbackUrl?: string) => Promise<void>;
   refresh: () => Promise<void>;
@@ -131,6 +132,7 @@ export const useAuthBackend = function (): AuthState {
   return {
     data: computed(() => authUser.value),
     status: computed(() => authStatus.value),
+    token: computed(() => tokenCookie.value),
     signIn,
     signOut,
     refresh,
