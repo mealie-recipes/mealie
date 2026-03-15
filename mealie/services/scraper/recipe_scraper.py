@@ -53,7 +53,7 @@ class RecipeScraper:
 
         if not html:
             if on_progress:
-                await on_progress("Downloading HTML")
+                await on_progress(self.translator.t("recipe.create-progress.fetching-webpage"))
 
             html = await safe_scrape_html(url)
             if not html:

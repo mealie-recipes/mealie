@@ -284,7 +284,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
         """
 
         if on_progress:
-            await on_progress("Scraping HTML for recipe data")
+            await on_progress(self.translator.t("recipe.create-progress.extracting-recipe-data"))
 
         scraped_data = await self.scrape_url()
 
@@ -384,7 +384,7 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
 
     async def parse(self, on_progress: Callable[[str], Awaitable[None]] | None = None):
         if on_progress:
-            await on_progress("Generating recipe data from HTML using AI")
+            await on_progress(self.translator.t("recipe.create-progress.creating-recipe-with-ai"))
 
         return super().parse()
 
@@ -488,7 +488,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
 
         with get_temporary_path() as temp_path:
             if on_progress:
-                await on_progress("Downloading video")
+                await on_progress(self.translator.t("recipe.create-progress.downloading-video"))
 
             video_data = await asyncio.to_thread(self._download_audio, temp_path)
 
@@ -504,7 +504,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
 
             if not video_data["transcription"]:
                 if on_progress:
-                    await on_progress("Transcribing audio using AI")
+                    await on_progress(self.translator.t("recipe.create-progress.transcribing-audio-with-ai"))
 
                 try:
                     transcription = await openai_service.transcribe_audio(video_data["audio"])
@@ -530,7 +530,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         ]
 
         if on_progress:
-            await on_progress("Generating recipe data from transcript using AI")
+            await on_progress(self.translator.t("recipe.create-progress.creating-recipe-from-transcript-with-ai"))
 
         try:
             response = await openai_service.get_response(prompt, "\n".join(message_parts), response_schema=OpenAIRecipe)
@@ -619,7 +619,7 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
         """
 
         if on_progress:
-            await on_progress("Creating generic recipe using Open Graph tags")
+            await on_progress(self.translator.t("recipe.create-progress.creating-recipe-from-webpage-data"))
 
         html = await self.get_html(self.url)
 

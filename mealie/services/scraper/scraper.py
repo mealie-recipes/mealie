@@ -42,9 +42,6 @@ async def create_from_html(
     scraper = RecipeScraper(translator)
 
     if not html:
-        if on_progress:
-            await on_progress("Scraping HTML")
-
         extracted_url = regex_search(r"(https?://|www\.)[^\s]+", url)
         if not extracted_url:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
@@ -67,7 +64,7 @@ async def create_from_html(
                 new_recipe.image = new_recipe.image[0]
 
             if on_progress:
-                await on_progress("Scraping image")
+                await on_progress(translator.t("recipe.create-progress.downloading-image"))
             await recipe_data_service.scrape_image(new_recipe.image)  # type: ignore
 
         if new_recipe.name is None:
