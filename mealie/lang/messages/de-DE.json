@@ -18,8 +18,8 @@
             "yield": "Ergibt",
             "yields": "Ergibt"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}"
+        "and-amount": "und {amount}",
+        "or-ingredient": "oder {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Keine Rezepte entsprechen deinen Regeln"

@@ -637,6 +637,7 @@
     "new-recipe-names-must-be-unique": "Neue Rezeptnamen müssen eindeutig sein",
     "scrape-recipe": "Rezept einlesen",
     "scrape-recipe-description": "Importiere ein Rezept mit der URL. Gib die URL für die Seite an, die du importieren möchtest und Mealie wird versuchen, das Rezept von dieser Seite einzulesen und deiner Sammlung hinzuzufügen.",
+    "scrape-recipe-description-transcription": "Sie können die Url zu einem Video weitergeben und Mealie wird versuchen, dieses in ein Rezept zu übertragen.",
     "scrape-recipe-have-a-lot-of-recipes": "Hast Du viele Rezepte, die Du auf einmal einlesen willst?",
     "scrape-recipe-suggest-bulk-importer": "Probiere den Massenimporter aus",
     "scrape-recipe-have-raw-html-or-json-data": "Hast du Roh-HTML oder JSON Daten?",
@@ -1134,7 +1135,22 @@
       "example-unit-singular": "z.B. gehäufter Teelöffel",
       "example-unit-plural": "z.B. gehäufte Teelöffel",
       "example-unit-abbreviation-singular": "z.B. EL",
-      "example-unit-abbreviation-plural": "z.B. EL"
+      "example-unit-abbreviation-plural": "z.B. EL",
+      "standardization": "Standardisierung",
+      "standardization-description": "Wie diese Einheit als Standardeinheit dargestellt werden kann. Dies ermöglicht die Umwandlung von Einheiten wie das Zusammenführen kompatibler Einheiten in Einkaufslisten.",
+      "standard-unit": "Standardeinheit",
+      "standard-quantity": "Standardmenge",
+      "unit-conversion": "Einheiten-Konvertierung",
+      "standard-unit-labels": {
+        "fluid-ounce": "Flüssigunze",
+        "cup": "Tasse",
+        "ounce": "Unze",
+        "pound": "Pfund",
+        "milliliter": "Milliliter",
+        "liter": "Liter",
+        "gram": "Gramm",
+        "kilogram": "Kilogramm"
+      }
     },
     "labels": {
       "seed-dialog-text": "Füllt die Datenbank mit gängigen Kategorien basierend auf deiner Sprache.",
@@ -1171,7 +1187,7 @@
       "action-type": "Aktionstyp",
       "action-types": {
         "link": "Link",
-        "post": "Post"
+        "post": "Posten"
       }
     },
     "create-alias": "Alias erstellen",
@@ -1449,6 +1465,6 @@
     "invalid-url": "Muss eine gültige URL sein",
     "no-whitespace": "Kein Leerzeichen erlaubt",
     "min-length": "Muss mindestens {min} Zeichen haben",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Muss maximal {max} Zeichen haben|Muss maximal {max} Zeichen haben"
   }
 }

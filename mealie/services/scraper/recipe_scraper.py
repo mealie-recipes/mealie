@@ -44,6 +44,10 @@ class RecipeScraper:
         """
 
         raw_html = html or await safe_scrape_html(url)
+
+        if not raw_html:
+            return None, None
+
         for ScraperClass in self.scrapers:
             scraper = ScraperClass(url, self.translator, raw_html=raw_html)
             if not scraper.can_scrape():

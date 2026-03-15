@@ -18,8 +18,8 @@
             "yield": "Ración",
             "yields": "Raciones"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}"
+        "and-amount": "y {amount}",
+        "or-ingredient": "o {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "No hay recetas que coincidan con tus reglas"

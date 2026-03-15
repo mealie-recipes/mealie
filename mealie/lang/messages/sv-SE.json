@@ -18,8 +18,8 @@
             "yield": "Ger",
             "yields": "Ger"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}"
+        "and-amount": "och {amount}",
+        "or-ingredient": "eller {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Inga recept matchar dina regler"

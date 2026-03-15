@@ -14,11 +14,11 @@ from bs4 import BeautifulSoup
 from fastapi.testclient import TestClient
 from httpx import Response
 from pytest import MonkeyPatch
-from recipe_scrapers._abstract import AbstractScraper
 from recipe_scrapers._schemaorg import SchemaOrg
 from recipe_scrapers.plugins import SchemaOrgFillPlugin
 from slugify import slugify
 
+import mealie.services.scraper.recipe_scraper as recipe_scraper_module
 from mealie.db.models.recipe import RecipeModel
 from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.schema.cookbook.cookbook import SaveCookBook
@@ -102,12 +102,12 @@ def test_create_by_url(
     monkeypatch: MonkeyPatch,
 ):
     for recipe_data in recipe_test_data:
-        # Override init function for AbstractScraper to use the test html instead of calling the url
-        monkeypatch.setattr(
-            AbstractScraper,
-            "__init__",
-            get_init(recipe_data.html_file),
-        )
+        # Prevent any real HTTP calls during scraping
+        async def mock_safe_scrape_html(url: str) -> str:
+            return "<html></html>"
+
+        monkeypatch.setattr(recipe_scraper_module, "safe_scrape_html", mock_safe_scrape_html)
+
         # Override the get_html method of the RecipeScraperOpenGraph to return the test html
         for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
             monkeypatch.setattr(

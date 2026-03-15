@@ -121,6 +121,7 @@ ENV GIT_COMMIT_HASH=$COMMIT
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     curl \
+    ffmpeg \
     gosu \
     iproute2 \
     libldap-common \
