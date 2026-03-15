@@ -17,7 +17,9 @@
             "servings": "Порций",
             "yield": "Количество порций",
             "yields": "Можно получить порций"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Нет рецептов, соответствующих вашим правилам"

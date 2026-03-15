@@ -487,8 +487,8 @@
                     "łuska kukurydzy"
                 ],
                 "description": "",
-                "name": "maize",
-                "plural_name": "maize"
+                "name": "kukurydza",
+                "plural_name": "kukurydza"
             },
             "collard greens": {
                 "aliases": [],
@@ -554,7 +554,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sałata masłowa﻿",
-                "plural_name": "boston lettuce"
+                "plural_name": "sałata masłowa﻿"
             },
             "kohlrabi": {
                 "aliases": [],
@@ -598,7 +598,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "surówka z brokułów",
-                "plural_name": "broccoli slaw"
+                "plural_name": "surówka z brokułów"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -974,7 +974,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomelos"
+                "plural_name": "pomelo"
             },
             "chestnut purée": {
                 "aliases": [],

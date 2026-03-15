@@ -17,7 +17,9 @@
             "servings": "人前",
             "yield": "人分",
             "yields": "人分"
-        }
+        },
+        "and-amount": "and {amount}",
+        "or-ingredient": "or {ingredient}"
     },
     "mealplan": {
         "no-recipes-match-your-rules": "ルールに合致するレシピはありません"

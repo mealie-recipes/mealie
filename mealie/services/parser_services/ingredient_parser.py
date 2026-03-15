@@ -1,4 +1,6 @@
+from dataclasses import dataclass, field
 from fractions import Fraction
+from itertools import zip_longest
 
 from ingredient_parser import parse_ingredient
 from ingredient_parser.dataclasses import CompositeIngredientAmount, IngredientAmount
@@ -7,6 +9,7 @@ from pydantic import UUID4
 from sqlalchemy.orm import Session
 
 from mealie.core.root_logger import get_logger
+from mealie.lang.providers import Translator
 from mealie.schema.recipe import RecipeIngredient
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
@@ -70,13 +73,29 @@ class BruteForceParser(ABCIngredientParser):
         return [await self.parse_one(ingredient) for ingredient in ingredients]
 
 
+@dataclass
+class _IngredientPart:
+    qty: float = 0
+    unit: str = ""
+    food: str = ""
+    extra_amounts: list[IngredientAmount] = field(default_factory=list)
+    qty_conf: float = 0
+    unit_conf: float = 0
+    food_conf: float = 0
+
+    @property
+    def avg_conf(self) -> float:
+        confs = [self.qty_conf, self.unit_conf, self.food_conf]
+        return sum(confs) / len(confs)
+
+
 class NLPParser(ABCIngredientParser):
     """
     Class for Ingredient Parser library
     """
 
-    @staticmethod
-    def _extract_amount(ingredient: IngredientParserParsedIngredient) -> IngredientAmount:
+    @classmethod
+    def _extract_amount(cls, ingredient: IngredientParserParsedIngredient) -> IngredientAmount:
         if not (ingredient_amounts := ingredient.amount):
             return IngredientAmount(
                 quantity=Fraction(0), quantity_max=Fraction(0), unit="", text="", confidence=0, starting_index=-1
@@ -88,8 +107,8 @@ class NLPParser(ABCIngredientParser):
 
         return ingredient_amount
 
-    @staticmethod
-    def _extract_quantity(ingredient_amount: IngredientAmount) -> tuple[float, float]:
+    @classmethod
+    def _extract_quantity(cls, ingredient_amount: IngredientAmount) -> tuple[float, float]:
         confidence = ingredient_amount.confidence
 
         if isinstance(ingredient_amount.quantity, str):
@@ -103,27 +122,19 @@ class NLPParser(ABCIngredientParser):
 
         return qty, confidence
 
-    @staticmethod
-    def _extract_unit(ingredient_amount: IngredientAmount) -> tuple[str, float]:
+    @classmethod
+    def _extract_unit(cls, ingredient_amount: IngredientAmount) -> tuple[str, float]:
         confidence = ingredient_amount.confidence
         unit = str(ingredient_amount.unit) if ingredient_amount.unit else ""
         return unit, confidence
 
-    @staticmethod
-    def _extract_food(ingredient: IngredientParserParsedIngredient) -> tuple[str, float]:
-        if not ingredient.name:
-            return "", 0
-
-        ingredient_name = ingredient.name[0]
-        confidence = ingredient_name.confidence
-        food = ingredient_name.text
-
-        return food, confidence
-
-    @staticmethod
-    def _extract_note(ingredient: IngredientParserParsedIngredient) -> tuple[str, float]:
+    @classmethod
+    def _extract_note(
+        cls, ingredient: IngredientParserParsedIngredient, extra_amounts: list[IngredientAmount] | None = None
+    ) -> tuple[str, float]:
         confidences: list[float] = []
         note_parts: list[str] = []
+
         if ingredient.size:
             note_parts.append(ingredient.size.text)
             confidences.append(ingredient.size.confidence)
@@ -139,45 +150,103 @@ class NLPParser(ABCIngredientParser):
 
         # average confidence among all note parts
         confidence = sum(confidences) / len(confidences) if confidences else 0
+
         note = ", ".join(note_parts)
         note = note.replace("(", "").replace(")", "")
+
+        # insert extra amounts to the front of the notes with parenthesis
+        if extra_amounts:
+            amt_part = "(" + ", ".join([amount.text for amount in extra_amounts]) + ")"
+            note = " ".join(filter(None, [amt_part, note]))
 
         return note, confidence
 
     def _convert_ingredient(self, ingredient: IngredientParserParsedIngredient) -> ParsedIngredient:
-        ingredient_amount = self._extract_amount(ingredient)
-        qty, qty_conf = self._extract_quantity(ingredient_amount)
-        unit, unit_conf = self._extract_unit(ingredient_amount)
-        food, food_conf = self._extract_food(ingredient)
-        note, note_conf = self._extract_note(ingredient)
+        ing_parts: list[_IngredientPart] = []
+
+        for amount, ing_name in zip_longest(ingredient.amount, ingredient.name, fillvalue=None):
+            part = _IngredientPart()
+
+            if amount:
+                if isinstance(amount, CompositeIngredientAmount):
+                    part.extra_amounts = list(amount.amounts[1:])
+                    amount = amount.amounts[0]
+
+                part.qty, part.qty_conf = self._extract_quantity(amount)
+                part.unit, part.unit_conf = self._extract_unit(amount)
+
+            if ing_name:
+                part.food = ing_name.text
+                part.food_conf = ing_name.confidence
+
+            ing_parts.append(part)
+
+        note, note_conf = self._extract_note(ingredient, ing_parts[0].extra_amounts if ing_parts else None)
+
+        # Safeguard in case the parser outputs nothing
+        if not ing_parts:
+            ing_parts.append(_IngredientPart())
 
         # average confidence for components which were parsed
+        # uses ing_parts[0] since this is the primary ingredient
+        primary = ing_parts[0]
         confidences: list[float] = []
-        if qty:
-            confidences.append(qty_conf)
-        if unit:
-            confidences.append(unit_conf)
-        if food:
-            confidences.append(food_conf)
+
+        if primary.qty:
+            confidences.append(primary.qty_conf)
+        if primary.unit:
+            confidences.append(primary.unit_conf)
+        if primary.food:
+            confidences.append(primary.food_conf)
         if note:
             confidences.append(note_conf)
+        if len(ing_parts) > 1:
+            confidences.extend([part.avg_conf for part in ing_parts[1:]])
+
+        recipe_ingredients: list[RecipeIngredient] = []
+        for i, part in enumerate(ing_parts):
+            if not i:
+                ing_note = note
+            elif part.extra_amounts:
+                # TODO: handle extra amounts when we add support for them
+                # For now, just add them as a note ("and amt_1, and amt_2, and ...")
+                ing_note = ", ".join(self.t("recipe.and-amount", amount=a.text) for a in part.extra_amounts)
+            else:
+                ing_note = None
+            recipe_ingredients.append(
+                RecipeIngredient(
+                    quantity=part.qty,
+                    unit=CreateIngredientUnit(name=part.unit) if part.unit else None,
+                    food=CreateIngredientFood(name=part.food) if part.food else None,
+                    note=ing_note,
+                )
+            )
+
+        primary_ingredient = recipe_ingredients[0]  # there will always be at least one recipe ingredient
+        extra_ingredients = recipe_ingredients[1:] if len(recipe_ingredients) > 1 else []
+
+        # TODO: handle extra ingredients when we support them
+        # For now, just add them to the note ("or ing_1, or ing_2, or ...")
+        if extra_ingredients:
+            extras_note_parts = [
+                self.t("recipe.or-ingredient", ingredient=extra_ing.display) for extra_ing in extra_ingredients
+            ]
+            extras_note = ", ".join(extras_note_parts)
+            primary_ingredient.note = " ".join(filter(None, [extras_note, primary_ingredient.note]))
+
+            # re-calculate display property since we modified the note
+            primary_ingredient.display = primary_ingredient._format_display()
 
         parsed_ingredient = ParsedIngredient(
             input=ingredient.sentence,
             confidence=IngredientConfidence(
                 average=(sum(confidences) / len(confidences)) if confidences else 0,
-                quantity=qty_conf,
-                unit=unit_conf,
-                food=food_conf,
+                quantity=primary.qty_conf,
+                unit=primary.unit_conf,
+                food=primary.food_conf,
                 comment=note_conf,
             ),
-            ingredient=RecipeIngredient(
-                title="",
-                quantity=qty,
-                unit=CreateIngredientUnit(name=unit) if unit else None,
-                food=CreateIngredientFood(name=food) if food else None,
-                note=note,
-            ),
+            ingredient=primary_ingredient,
         )
 
         return self.find_ingredient_match(parsed_ingredient)
@@ -197,9 +266,11 @@ __registrar: dict[RegisteredParser, type[ABCIngredientParser]] = {
 }
 
 
-def get_parser(parser: RegisteredParser, group_id: UUID4, session: Session) -> ABCIngredientParser:
+def get_parser(
+    parser: RegisteredParser, group_id: UUID4, session: Session, translator: Translator
+) -> ABCIngredientParser:
     """
     get_parser returns an ingrdeint parser based on the string enum value
     passed in.
     """
-    return __registrar.get(parser, NLPParser)(group_id, session)
+    return __registrar.get(parser, NLPParser)(group_id, session, translator)

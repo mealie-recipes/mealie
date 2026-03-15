@@ -28,6 +28,7 @@ from mealie.schema.recipe.recipe_ingredient import (
 )
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.services.parser_services._base import DataMatcher
+from mealie.services.parser_services.parser_utils import UnitConverter, merge_quantity_and_unit
 
 
 class ShoppingListService:
@@ -41,8 +42,7 @@ class ShoppingListService:
         self.list_refs = repos.group_shopping_list_recipe_refs
         self.data_matcher = DataMatcher(self.repos, food_fuzzy_match_threshold=self.DEFAULT_FOOD_FUZZY_MATCH_THRESHOLD)
 
-    @staticmethod
-    def can_merge(item1: ShoppingListItemBase, item2: ShoppingListItemBase) -> bool:
+    def can_merge(self, item1: ShoppingListItemBase, item2: ShoppingListItemBase) -> bool:
         """Check to see if this item can be merged with another item"""
 
         if any(
@@ -50,16 +50,28 @@ class ShoppingListService:
                 item1.checked,
                 item2.checked,
                 item1.food_id != item2.food_id,
-                item1.unit_id != item2.unit_id,
             ]
         ):
             return False
 
+        # check if units match or if they're compatable
+        if item1.unit_id != item2.unit_id:
+            item1_unit = item1.unit or self.data_matcher.units_by_id.get(item1.unit_id)
+            item2_unit = item2.unit or self.data_matcher.units_by_id.get(item2.unit_id)
+            if not (item1_unit and item1_unit.standard_unit):
+                return False
+            if not (item2_unit and item2_unit.standard_unit):
+                return False
+
+            uc = UnitConverter()
+            if not uc.can_convert(item1_unit.standard_unit, item2_unit.standard_unit):
+                return False
+
         # if foods match, we can merge, otherwise compare the notes
         return bool(item1.food_id) or item1.note == item2.note
 
-    @staticmethod
     def merge_items(
+        self,
         from_item: ShoppingListItemCreate | ShoppingListItemUpdateBulk,
         to_item: ShoppingListItemCreate | ShoppingListItemUpdateBulk | ShoppingListItemOut,
     ) -> ShoppingListItemUpdate:
@@ -69,7 +81,20 @@ class ShoppingListService:
         Attributes of the `to_item` take priority over the `from_item`, except extras with overlapping keys
         """
 
-        to_item.quantity += from_item.quantity
+        to_item_unit = to_item.unit or self.data_matcher.units_by_id.get(to_item.unit_id)
+        from_item_unit = from_item.unit or self.data_matcher.units_by_id.get(from_item.unit_id)
+        if to_item_unit and to_item_unit.standard_unit and from_item_unit and from_item_unit.standard_unit:
+            merged_qty, merged_unit = merge_quantity_and_unit(
+                from_item.quantity or 0, from_item_unit, to_item.quantity or 0, to_item_unit
+            )
+            to_item.quantity = merged_qty
+            to_item.unit_id = merged_unit.id
+            to_item.unit = merged_unit
+
+        else:
+            # No conversion needed, just sum the quantities
+            to_item.quantity += from_item.quantity
+
         if to_item.note != from_item.note:
             to_item.note = " | ".join([note for note in [to_item.note, from_item.note] if note])
 

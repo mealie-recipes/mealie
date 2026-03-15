@@ -34,14 +34,14 @@ class AdminDebugController(BaseAdminController):
 
             try:
                 openai_service = OpenAIService()
-                prompt = openai_service.get_prompt("debug")
+                prompt = openai_service.get_prompt("general.debug")
 
                 message = "Hello, checking to see if I can reach you."
                 if local_images:
                     message = f"{message} Here is an image to test with:"
 
                 response = await openai_service.get_response(
-                    prompt, message, response_schema=OpenAIText, images=local_images
+                    prompt, message, response_schema=OpenAIText, attachments=local_images
                 )
 
                 if not response:
