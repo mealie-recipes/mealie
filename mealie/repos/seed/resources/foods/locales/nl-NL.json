@@ -4569,7 +4569,7 @@
             "foie gra": {
                 "aliases": [],
                 "description": "",
-                "name": "foie gra",
+                "name": "vervette lever",
                 "plural_name": "foie gras"
             },
             "chicken giblet": {
@@ -5401,14 +5401,14 @@
             "salt herring": {
                 "aliases": [],
                 "description": "",
-                "name": "salt herring",
-                "plural_name": "salt herrings"
+                "name": "zoute haring",
+                "plural_name": "zoute haringen"
             },
             "soused herring": {
                 "aliases": [],
                 "description": "",
-                "name": "soused herring",
-                "plural_name": "soused herrings"
+                "name": "zure haring",
+                "plural_name": "zure haringen"
             },
             "tinapa": {
                 "aliases": [],
@@ -7188,8 +7188,8 @@
             "thai red curry paste": {
                 "aliases": [],
                 "description": "",
-                "name": "thai red curry paste",
-                "plural_name": "thai red curry paste"
+                "name": "thaise rode currypasta",
+                "plural_name": "thaise rode currypasta"
             },
             "mixed herb": {
                 "aliases": [],
@@ -7200,7 +7200,7 @@
             "green curry": {
                 "aliases": [],
                 "description": "",
-                "name": "green curry",
+                "name": "groene curry",
                 "plural_name": "green curries"
             },
             "barbecue seasoning": {
@@ -7584,8 +7584,8 @@
             "vanilla salt": {
                 "aliases": [],
                 "description": "",
-                "name": "vanilla salt",
-                "plural_name": "vanilla salt"
+                "name": "vanille zout",
+                "plural_name": "vanille zout"
             },
             "thai seasoning": {
                 "aliases": [],
@@ -7659,7 +7659,7 @@
             },
             "vanilla extract": {
                 "aliases": [
-                    "vanilla",
+                    "vanille",
                     "vanillas"
                 ],
                 "description": "",
@@ -7670,13 +7670,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "bakpoeder",
-                "plural_name": "baking powder"
+                "plural_name": "bakpoeder"
             },
             "baking soda": {
                 "aliases": [],
                 "description": "",
                 "name": "baksoda",
-                "plural_name": "baking sodas"
+                "plural_name": "baksoda"
             },
             "cornstarch": {
                 "aliases": [],
@@ -7714,7 +7714,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "amandelmeel",
-                "plural_name": "almond flour"
+                "plural_name": "amandelmeel"
             },
             "self-raising flour": {
                 "aliases": [],
@@ -7773,8 +7773,8 @@
             "corn flour": {
                 "aliases": [],
                 "description": "",
-                "name": "corn flour",
-                "plural_name": "corn flour"
+                "name": "maïs bloem",
+                "plural_name": "maïs bloem"
             },
             "cream of tartar": {
                 "aliases": [],
@@ -7936,8 +7936,8 @@
             "crystallized ginger": {
                 "aliases": [],
                 "description": "",
-                "name": "crystallized ginger",
-                "plural_name": "crystallized gingers"
+                "name": "gekonfijte gember",
+                "plural_name": "gekonfijte gember"
             },
             "buckwheat flour": {
                 "aliases": [],
@@ -8146,8 +8146,8 @@
             "quinoa flour": {
                 "aliases": [],
                 "description": "",
-                "name": "quinoa flour",
-                "plural_name": "quinoa flour"
+                "name": "quinoa bloem",
+                "plural_name": "quinoa bloem"
             },
             "finger millet flour": {
                 "aliases": [],
@@ -8366,8 +8366,8 @@
             "cinnamon roll dough": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon roll dough",
-                "plural_name": "cinnamon roll doughs"
+                "name": "deeg voor kaneelbroodjes",
+                "plural_name": "deeg voor kaneelbroodjes"
             },
             "dosa batter": {
                 "aliases": [],
@@ -8589,7 +8589,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "risottorijst",
-                "plural_name": "risotto rices"
+                "plural_name": "risottorijst"
             },
             "couscous": {
                 "aliases": [],
@@ -8625,7 +8625,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "polenta",
-                "plural_name": "polentas"
+                "plural_name": "polenta"
             },
             "granola cereal": {
                 "aliases": [],
@@ -9503,7 +9503,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "spaghetti",
-                "plural_name": "spaghettis"
+                "plural_name": "spaghetti"
             },
             "macaroni": {
                 "aliases": [],
@@ -9595,7 +9595,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "gnocchi",
-                "plural_name": "gnocchis"
+                "plural_name": "gnocchi"
             },
             "angel hair pasta": {
                 "aliases": [],
@@ -9721,7 +9721,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cannelloni",
-                "plural_name": "cannellonis"
+                "plural_name": "cannelloni"
             },
             "thai rice noodle": {
                 "aliases": [],
