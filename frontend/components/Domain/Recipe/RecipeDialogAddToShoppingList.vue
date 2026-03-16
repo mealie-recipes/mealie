@@ -86,6 +86,19 @@
                   class="text-center"
                 >
                   {{ recipeSection.recipeName }}
+                  <v-tooltip v-if="recipeSection.parentRecipe?.name" location="top">
+                    <template #activator="{ props: tooltipProps }">
+                      <v-icon
+                        v-bind="tooltipProps"
+                        size="tiny"
+                        class="mb-2 ml-2"
+                        style="cursor: pointer"
+                      >
+                        {{ $globals.icons.potSteam }}
+                      </v-icon>
+                    </template>
+                    <span>{{ $t("shopping-list.ingredient-of-recipe", { recipe: recipeSection.parentRecipe.name }) }}</span>
+                  </v-tooltip>
                 </v-col>
               </v-row>
               <v-row
@@ -203,6 +216,7 @@ export interface ShoppingListRecipeIngredientSection {
   recipeName: string;
   recipeScale: number;
   ingredientSections: ShoppingListIngredientSection[];
+  parentRecipe?: Recipe;
 }
 
 interface Props {
@@ -293,7 +307,7 @@ function buildIngredientSections(ingredients: ShoppingListIngredient[]): Shoppin
 async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
   const recipeSectionMap = new Map<string, ShoppingListRecipeIngredientSection>();
 
-  function addSubRecipeToMap(ing: RecipeIngredient, parentQuantity: number, parentScale: number) {
+  function addSubRecipeToMap(ing: RecipeIngredient, parentQuantity: number, parentScale: number, parentRecipe: Recipe) {
     const ref = ing.referencedRecipe!;
     const key = ref.id || ref.slug || "";
     const ownIngs: ShoppingListIngredient[] = [];
@@ -317,9 +331,10 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
       recipeName: ref.name || "",
       recipeScale: parentQuantity * parentScale,
       ingredientSections: buildIngredientSections(ownIngs),
+      parentRecipe,
     });
 
-    subRefIngs.forEach(subIng => addSubRecipeToMap(subIng, (ing.quantity || 1) * (subIng.quantity || 1), parentScale));
+    subRefIngs.forEach(subIng => addSubRecipeToMap(subIng, (ing.quantity || 1) * (subIng.quantity || 1), parentScale, ref));
   }
 
   for (const recipe of recipes) {
@@ -375,7 +390,7 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
       ingredientSections: buildIngredientSections(ownIngs),
     });
 
-    subRefIngs.forEach(ing => addSubRecipeToMap(ing, ing.quantity || 1, recipeData.scale));
+    subRefIngs.forEach(ing => addSubRecipeToMap(ing, ing.quantity || 1, recipeData.scale, recipeData));
   }
 
   recipeIngredientSections.value = Array.from(recipeSectionMap.values());
