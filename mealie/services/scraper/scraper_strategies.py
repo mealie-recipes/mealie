@@ -32,9 +32,16 @@ from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
-from .user_agents_manager import get_user_agents_manager
 
 SCRAPER_TIMEOUT = 15
+
+BROWSER_IMPERSONATIONS = [
+    "chrome",
+    "firefox",
+    "safari",
+    "edge",
+]
+
 logger = get_logger()
 
 
@@ -51,28 +58,39 @@ class ForceTimeoutException(Exception):
 async def safe_scrape_html(url: str) -> str:
     """
     Scrapes the html from a url but will cancel the request
-    if the request takes longer than 15 seconds. This is used to mitigate
+    if the request takes longer than SCRAPER_TIMEOUT seconds. This is used to mitigate
     DDOS attacks from users providing a url with arbitrary large content.
+
+    Cycles through browser TLS impersonations (via httpx-curl-cffi) to bypass
+    bot-detection systems that fingerprint the TLS handshake (JA3/JA4),
+    such as Cloudflare.
     """
-    user_agents_manager = get_user_agents_manager()
-
     logger.debug(f"Scraping URL: {url}")
-    async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
-        for user_agent in user_agents_manager.user_agents:
-            logger.debug(f'Trying User-Agent: "{user_agent}"')
 
-            response: Response | None = None
-            html_bytes = b""
+    html_bytes = b""
+    response: Response | None = None
+
+    for impersonation in BROWSER_IMPERSONATIONS:
+        logger.debug(f'Trying browser impersonation: "{impersonation}"')
+
+        html_bytes = b""
+        response = None
+
+        transport = safehttp.AsyncSafeTransport(impersonate=impersonation)
+        async with AsyncClient(transport=transport) as client:
             async with client.stream(
                 "GET",
                 url,
                 timeout=SCRAPER_TIMEOUT,
-                headers=user_agents_manager.get_scrape_headers(user_agent),
                 follow_redirects=True,
             ) as resp:
-                if resp.status_code >= status.HTTP_400_BAD_REQUEST:
-                    logger.debug(f'Error status code {resp.status_code} with User-Agent: "{user_agent}"')
+                if resp.status_code == 403:
+                    logger.debug(f'403 Forbidden with impersonation "{impersonation}", trying next')
                     continue
+
+                if resp.status_code >= 400:
+                    logger.debug(f'Error status code {resp.status_code} with impersonation "{impersonation}"')
+                    break
 
                 start_time = time.time()
 
@@ -85,33 +103,32 @@ async def safe_scrape_html(url: str) -> str:
                 response = resp
                 break
 
-        if not (response and html_bytes):
-            return ""
+    if not (response and html_bytes):
+        return ""
 
-        # =====================================
-        # Copied from requests text property
+    # =====================================
+    # Copied from requests text property
 
-        # Try charset from content-type
-        content = None
-        encoding = response.encoding
+    # Try charset from content-type
+    encoding = response.encoding
 
-        # Fallback to auto-detected encoding.
-        if encoding is None:
-            encoding = response.apparent_encoding
+    # Fallback to auto-detected encoding.
+    if encoding is None:
+        encoding = response.apparent_encoding
 
-        # Decode unicode from given encoding.
-        try:
-            content = str(html_bytes, encoding, errors="replace")
-        except (LookupError, TypeError):
-            # A LookupError is raised if the encoding was not found which could
-            # indicate a misspelling or similar mistake.
-            #
-            # A TypeError can be raised if encoding is None
-            #
-            # So we try blindly encoding.
-            content = str(html_bytes, errors="replace")
+    # Decode unicode from given encoding.
+    try:
+        content = str(html_bytes, encoding, errors="replace")
+    except (LookupError, TypeError):
+        # A LookupError is raised if the encoding was not found which could
+        # indicate a misspelling or similar mistake.
+        #
+        # A TypeError can be raised if encoding is None
+        #
+        # So we try blindly encoding.
+        content = str(html_bytes, errors="replace")
 
-        return content
+    return content
 
 
 class ABCScraperStrategy(ABC):

@@ -1137,14 +1137,14 @@
       "example-unit-abbreviation-singular": "Bv: el",
       "example-unit-abbreviation-plural": "bijv: els",
       "standardization": "Standaardisatie",
-      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standardization-description": "Hoe deze eenheid kan worden weergegeven als een standaardeenheid. Dit maakt conversie per eenheid mogelijk, zoals het samenvoegen van compatibele eenheden in boodschappenlijsten.",
       "standard-unit": "Standaard eenheid",
       "standard-quantity": "Standaard hoeveelheid",
       "unit-conversion": "Eenheid conversie",
       "standard-unit-labels": {
-        "fluid-ounce": "fluid ounce",
+        "fluid-ounce": "vloeibare ons",
         "cup": "kop",
-        "ounce": "ounce",
+        "ounce": "ons",
         "pound": "pond",
         "milliliter": "milliliter",
         "liter": "liter",
@@ -1465,6 +1465,6 @@
     "invalid-url": "Moet een geldige URL zijn",
     "no-whitespace": "Geen spaties toegestaan",
     "min-length": "Moet minimaal {min} tekens bevatten",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Moet maximaal {max} tekens bevatten|Moet maximaal {max} tekens bevatten"
   }
 }
