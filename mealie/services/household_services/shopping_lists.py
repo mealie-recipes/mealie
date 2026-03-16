@@ -439,6 +439,10 @@ class ShoppingListService:
         update_items: list[ShoppingListItemUpdateBulk] = []
         delete_items: list[UUID4] = []
         for item in shopping_list.list_items:
+            # Checked items are snapshots and should not change when recipes are modified
+            if item.checked:
+                continue
+
             found = False
 
             refs = cast(list[ShoppingListItemRecipeRefOut], item.recipe_references)
