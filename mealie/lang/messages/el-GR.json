@@ -19,7 +19,17 @@
             "yields": "Ποσότητα"
         },
         "and-amount": "και {amount}",
-        "or-ingredient": "ή {ingredient}"
+        "or-ingredient": "ή {ingredient}",
+        "create-progress": {
+            "creating-recipe-with-ai": "Δημιουργία συνταγής με AI...",
+            "creating-recipe-from-transcript-with-ai": "Δημιουργία συνταγής από απομαγνητοφώνηση με AI...",
+            "creating-recipe-from-webpage-data": "Δημιουργία συνταγής από δεδομένα ιστοσελίδας...",
+            "downloading-image": "Λήψη εικόνας...",
+            "downloading-video": "Λήψη βίντεο...",
+            "extracting-recipe-data": "Εξαγωγή δεδομένων συνταγής...",
+            "fetching-webpage": "Λήψη ιστοσελίδας...",
+            "transcribing-audio-with-ai": "Μεταγραφή ήχου με AI..."
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Καμία συνταγή δεν ταιριάζει στα κριτήρια αναζήτησης"

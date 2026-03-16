@@ -539,7 +539,7 @@
     "section-title": "Skiptingar titill",
     "servings": "Skammtar",
     "serves-amount": "Fyrir {amount}",
-    "share-recipe-message": "I wanted to share my {0} recipe with you.",
+    "share-recipe-message": "Mig langar að deila með þér uppskriftinni {0}",
     "show-nutrition-values": "Sýna næringargildi",
     "sodium-content": "Natríum",
     "step-index": "Skref {step}",
@@ -663,7 +663,7 @@
     "bulk-imports": "Flytja inn margar uppskriftir",
     "bulk-import-process-has-started": "Vinnslan við að flytja inn margar uppskriftir í einu er byrjuð",
     "bulk-import-process-has-failed": "Vinnslan við að flytja inn margar uppskriftir í einu mistókst",
-    "report-deletion-failed": "Report deletion failed",
+    "report-deletion-failed": "Mistókst að eyða skýrslu",
     "recipe-debugger": "Yfirfara uppskrift",
     "recipe-debugger-description": "Náðu í slóðina af uppskriftinni sem þú villt yfirfara og límdu hana hér. Síðan með uppskriftinni verður greind með greiningarverkfærinu og þú munnt sjá niðurstöðuna. Ef þú sérð að engin gögn skila sér þá er slóðin sem þú ert að greina ekki studd af Mealie eða greiningarverkfærinu.",
     "use-openai": "Nota OpenAI",
@@ -787,9 +787,9 @@
     "homepage": {
       "all-categories": "Allir flokkar",
       "card-per-section": "Card Per Section",
-      "home-page": "Home Page",
+      "home-page": "Heimasíða",
       "home-page-sections": "Home Page Sections",
-      "show-recent": "Show Recent"
+      "show-recent": "Sýna nýlegar færslur"
     },
     "language": "Tungumál",
     "latest": "Síðasta",
@@ -845,12 +845,12 @@
       "assign-all": "Úthluta öllum",
       "bulk-assign": "Fjölda úthlutun",
       "new-name": "Nýtt nafn",
-      "no-unused-items": "No Unused Items",
+      "no-unused-items": "Engir ónotaðir hlutir",
       "recipes-affected": "No Recipes Affected|One Recipe Affected|{count} Recipes Affected",
-      "remove-unused": "Remove Unused",
+      "remove-unused": "Fjarlægja ónotaða",
       "title-case-all": "Title Case All",
-      "toolbox": "Toolbox",
-      "unorganized": "Unorganized"
+      "toolbox": "Verkfærakista",
+      "unorganized": "Óflokkað"
     },
     "webhooks": {
       "test-webhooks": "Test Webhooks",

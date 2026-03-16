@@ -96,6 +96,23 @@ def open_graph_override(html: str):
     return get_html
 
 
+def parse_sse_events(text: str) -> list[dict]:
+    """Parse SSE response text into a list of events with 'event' and 'data' keys."""
+    events = []
+    current: dict = {}
+    for line in text.splitlines():
+        if line.startswith("event:"):
+            current["event"] = line[len("event:") :].strip()
+        elif line.startswith("data:"):
+            current["data"] = json.loads(line[len("data:") :].strip())
+        elif line == "" and current:
+            events.append(current)
+            current = {}
+    if current:
+        events.append(current)
+    return events
+
+
 def test_create_by_url(
     api_client: TestClient,
     unique_user: TestUser,
@@ -216,6 +233,122 @@ def test_create_by_html_or_json(
 
     for tag in recipe_dict["tags"]:
         assert tag["name"] in expected_tags
+
+
+def test_create_by_url_stream_done(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: MonkeyPatch,
+):
+    async def mock_safe_scrape_html(url: str) -> str:
+        return "<html></html>"
+
+    monkeypatch.setattr(recipe_scraper_module, "safe_scrape_html", mock_safe_scrape_html)
+
+    recipe_data = recipe_test_data[0]
+    for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
+        monkeypatch.setattr(
+            scraper_cls,
+            "get_html",
+            open_graph_override(recipe_data.html_file.read_text()),
+        )
+
+    async def return_empty_response(*args, **kwargs):
+        return Response(200, content=b"")
+
+    monkeypatch.setattr(AsyncSafeTransport, "handle_async_request", return_empty_response)
+    monkeypatch.setattr(RecipeDataService, "scrape_image", lambda *_: "TEST_IMAGE")
+
+    api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
+
+    response = api_client.post(
+        api_routes.recipes_create_url_stream,
+        json={"url": recipe_data.url, "include_tags": False},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 200
+    events = parse_sse_events(response.text)
+    event_types = [e["event"] for e in events]
+
+    assert "done" in event_types
+    done_event = next(e for e in events if e["event"] == "done")
+    assert done_event["data"]["slug"] == recipe_data.expected_slug
+
+    assert any(e["event"] == "progress" for e in events)
+
+
+def test_create_by_url_stream_error(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: MonkeyPatch,
+):
+    async def raise_error(*args, **kwargs):
+        raise Exception("Test scrape error")
+
+    monkeypatch.setattr("mealie.routes.recipe.recipe_crud_routes.create_from_html", raise_error)
+
+    response = api_client.post(
+        api_routes.recipes_create_url_stream,
+        json={"url": "https://example.com/recipe"},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 200
+    events = parse_sse_events(response.text)
+    event_types = [e["event"] for e in events]
+
+    assert "error" in event_types
+
+
+def test_create_by_html_or_json_stream_done(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: MonkeyPatch,
+):
+    monkeypatch.setattr(RecipeDataService, "scrape_image", lambda *_: "TEST_IMAGE")
+
+    recipe_data = recipe_test_data[0]
+    api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
+
+    response = api_client.post(
+        api_routes.recipes_create_html_or_json_stream,
+        json={"data": recipe_data.html_file.read_text(), "include_tags": False},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 200
+    events = parse_sse_events(response.text)
+    event_types = [e["event"] for e in events]
+
+    assert "done" in event_types
+    done_event = next(e for e in events if e["event"] == "done")
+    assert done_event["data"]["slug"] == recipe_data.expected_slug
+
+    assert any(e["event"] == "progress" for e in events)
+
+
+def test_create_by_html_or_json_stream_error(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: MonkeyPatch,
+):
+    async def raise_error(*args, **kwargs):
+        raise Exception("Test scrape error")
+
+    monkeypatch.setattr("mealie.routes.recipe.recipe_crud_routes.create_from_html", raise_error)
+
+    response = api_client.post(
+        api_routes.recipes_create_html_or_json_stream,
+        json={"data": "<html><body>test</body></html>"},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 200
+    events = parse_sse_events(response.text)
+    event_types = [e["event"] for e in events]
+
+    assert "error" in event_types
 
 
 def test_create_recipe_from_zip(api_client: TestClient, unique_user: TestUser, tempdir: str):
