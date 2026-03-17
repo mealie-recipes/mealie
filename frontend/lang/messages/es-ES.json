@@ -904,6 +904,7 @@
     "all-lists": "Todas las listas",
     "create-shopping-list": "Crear lista de la compra",
     "from-recipe": "Desde receta",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Nombre de la lista",
     "new-list": "Nueva lista",
     "quantity": "Cantidad: {0}",
