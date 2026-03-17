@@ -904,6 +904,7 @@
     "all-lists": "Alle lijsten",
     "create-shopping-list": "Boodschappenlijst maken",
     "from-recipe": "Uit recept",
+    "ingredient-of-recipe": "Ingrediënt van {recipe}",
     "list-name": "Lijstnaam",
     "new-list": "Nieuwe lijst",
     "quantity": "Hoeveelheid: {0}",
