@@ -904,6 +904,7 @@
     "all-lists": "Toate listele",
     "create-shopping-list": "Creează listă de cumpărături",
     "from-recipe": "Dintr-o rețetă",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Nume listă",
     "new-list": "Listă nouă",
     "quantity": "Cantitate: {0}",
