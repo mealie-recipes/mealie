@@ -904,6 +904,7 @@
     "all-lists": "すべてのリスト",
     "create-shopping-list": "買い物リストの作成",
     "from-recipe": "レシピから",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "リスト名",
     "new-list": "新しいリスト",
     "quantity": "数量: {0}",
