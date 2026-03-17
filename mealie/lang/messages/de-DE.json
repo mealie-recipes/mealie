@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "Rezeptnamen müssen einzigartig sein",
         "recipe-created": "Rezept erstellt",
-        "recipe-image-deleted": "Rezeptbild gelöscht",
+        "recipe-image-deleted": "Bild gelöscht",
         "recipe-defaults": {
             "ingredient-note": "250 g Mehl",
             "step-text": "Zubereitungs-Schritte und andere Felder der Rezeptseite unterstützen Markdown Syntax.\n\n**Füge einen Link hinzu**\n\n[Mein Link](https://demo.mealie.io)\n"
@@ -21,14 +21,14 @@
         "and-amount": "und {amount}",
         "or-ingredient": "oder {ingredient}",
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
-            "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
-            "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
-            "extracting-recipe-data": "Extracting recipe data...",
-            "fetching-webpage": "Fetching webpage...",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "creating-recipe-with-ai": "Erstelle Rezept mit KI...",
+            "creating-recipe-from-transcript-with-ai": "Erstelle Rezept aus Transkript mit KI...",
+            "creating-recipe-from-webpage-data": "Erstelle Rezept aus Website-Daten...",
+            "downloading-image": "Bild wird heruntergeladen...",
+            "downloading-video": "Video wird heruntergeladen...",
+            "extracting-recipe-data": "Entpacken von Rezeptdaten...",
+            "fetching-webpage": "Webseite wird abgerufen...",
+            "transcribing-audio-with-ai": "Transkribiere Audio mit KI..."
         }
     },
     "mealplan": {
