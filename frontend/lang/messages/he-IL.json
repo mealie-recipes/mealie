@@ -904,6 +904,7 @@
     "all-lists": "כל הרשימות",
     "create-shopping-list": "צור רשימת קניות",
     "from-recipe": "מתוך מתכון",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "שם רשימה",
     "new-list": "רשימה חדשה",
     "quantity": "כמות: {0}",
