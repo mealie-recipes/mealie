@@ -904,6 +904,7 @@
     "all-lists": "Alle Listen",
     "create-shopping-list": "Einkaufsliste erstellen",
     "from-recipe": "Vom Rezept",
+    "ingredient-of-recipe": "Zutat von {recipe}",
     "list-name": "Listenname",
     "new-list": "Neue Liste",
     "quantity": "Menge: {0}",
