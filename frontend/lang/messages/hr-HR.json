@@ -904,6 +904,7 @@
     "all-lists": "Svi Popisi",
     "create-shopping-list": "Kreiraj Popis za Kupovinu",
     "from-recipe": "Iz Recepta",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Naziv Popisa",
     "new-list": "Novi Popis",
     "quantity": "Količina: {0}",
