@@ -904,6 +904,7 @@
     "all-lists": "Tüm Listeler",
     "create-shopping-list": "Alışveriş Listesi Oluştur",
     "from-recipe": "Tariften",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Liste Adı",
     "new-list": "Yeni Liste",
     "quantity": "Miktar: {0}",
