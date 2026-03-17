@@ -258,6 +258,14 @@ const currentMissingFood = ref("");
 const currentIngHasError = computed(() => currentMissingUnit.value || currentMissingFood.value);
 const currentIngShouldDelete = ref(false);
 
+function getIngredientParseInput(ingredient: RecipeIngredient): string {
+  if (ingredient.referencedRecipe) {
+    return "";
+  }
+
+  return (parseIngredientText(ingredient, 1, false) ?? "").trim();
+}
+
 const state = reactive({
   currentParsedIndex: -1,
   allReviewed: false,
@@ -269,6 +277,11 @@ const state = reactive({
 
 function shouldReview(ing: ParsedIngredient): boolean {
   console.debug(`Checking if ingredient needs review (input="${ing.input})":`, ing);
+
+  if (!getIngredientParseInput(ing.ingredient)) {
+    console.debug("No review needed for title-only or blank ingredient");
+    return false;
+  }
 
   if (ing.ingredient.referencedRecipe) {
     console.debug("No review needed for sub-recipe ingredient");
@@ -371,21 +384,61 @@ async function parseIngredients() {
   }
   state.loading.parser = true;
   try {
-    const ingsAsString = props.ingredients
-      .filter(ing => !ing.referencedRecipe)
-      .map(ing => parseIngredientText(ing, 1, false) ?? "");
+    const ingredientsToParse = props.ingredients
+      .map(ingredient => ({ ingredient, input: getIngredientParseInput(ingredient) }))
+      .filter(({ ingredient, input }) => !ingredient.referencedRecipe && !!input);
+    if (ingredientsToParse.length === 0) {
+      parsedIngs.value = props.ingredients.map((ingredient) => ({
+        input: ingredient.title || ingredient.note || "",
+        confidence: {},
+        ingredient,
+      }));
+      state.currentParsedIndex = -1;
+      state.allReviewed = false;
+      createdUnits.clear();
+      createdFoods.clear();
+      currentIngShouldDelete.value = false;
+      nextIngredient();
+      return;
+    }
+
+    const ingsAsString = ingredientsToParse
+      .map(({ input }) => input);
     const { data, error } = await api.recipes.parseIngredients(parser.value, ingsAsString);
     if (error || !data) {
       throw new Error("Failed to parse ingredients");
     }
-    parsedIngs.value = data;
-    const parsed = data ?? [];
-    const recipeRefs = props.ingredients.filter(ing => ing.referencedRecipe).map(ing => ({
-      input: ing.note || "",
-      confidence: {},
-      ingredient: ing,
-    }));
-    parsedIngs.value = [...parsed, ...recipeRefs];
+    const parsed = [...(data ?? [])];
+    parsedIngs.value = props.ingredients.map((ingredient) => {
+      const input = getIngredientParseInput(ingredient);
+      if (ingredient.referencedRecipe || !input) {
+        return {
+          input: ingredient.title || ingredient.note || "",
+          confidence: {},
+          ingredient,
+        };
+      }
+
+      const parsedIngredient = parsed.shift();
+      if (!parsedIngredient) {
+        return {
+          input,
+          confidence: {},
+          ingredient,
+        };
+      }
+
+      return {
+        input: parsedIngredient.input || input,
+        confidence: parsedIngredient.confidence || {},
+        ingredient: {
+          ...parsedIngredient.ingredient,
+          title: ingredient.title,
+          referenceId: ingredient.referenceId,
+          originalText: parsedIngredient.ingredient.originalText ?? ingredient.originalText,
+        },
+      };
+    });
     state.currentParsedIndex = -1;
     state.allReviewed = false;
     createdUnits.clear();
