@@ -904,6 +904,7 @@
     "all-lists": "Všechny seznamy",
     "create-shopping-list": "Vytvořit nákupní seznam",
     "from-recipe": "Z receptu",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Název seznamu",
     "new-list": "Nový seznam",
     "quantity": "Množství: {0}",
