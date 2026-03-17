@@ -904,6 +904,7 @@
     "all-lists": "Összes lista",
     "create-shopping-list": "Bevásárlólista készítése",
     "from-recipe": "Receptből",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Lista Neve",
     "new-list": "Új lista",
     "quantity": "Mennyiség: {0}",
