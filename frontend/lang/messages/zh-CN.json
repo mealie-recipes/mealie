@@ -904,6 +904,7 @@
     "all-lists": "所有购物清单",
     "create-shopping-list": "创建购物清单",
     "from-recipe": "从食谱创建",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "购物清单名称",
     "new-list": "创建购物清单",
     "quantity": "数量: {0} 个",

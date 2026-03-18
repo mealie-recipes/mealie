@@ -904,6 +904,7 @@
     "all-lists": "所有清單",
     "create-shopping-list": "建立購物清單",
     "from-recipe": "從食譜",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "清單名稱",
     "new-list": "新增清單",
     "quantity": "數量：{0}",

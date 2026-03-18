@@ -904,6 +904,7 @@
     "all-lists": "Alle lister",
     "create-shopping-list": "Opprett handleliste",
     "from-recipe": "Fra oppskrift",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Listenavn",
     "new-list": "Ny liste",
     "quantity": "Antall: {0}",

@@ -904,6 +904,7 @@
     "all-lists": "Totes les llistes",
     "create-shopping-list": "Crea una llista de la compra",
     "from-recipe": "Des de la recepta",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Nom de la llista",
     "new-list": "Llista nova",
     "quantity": "Quantitat: {0}",

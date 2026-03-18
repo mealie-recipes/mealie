@@ -904,6 +904,7 @@
     "all-lists": "Kõik nimekirjad",
     "create-shopping-list": "Loo ostunimekiri",
     "from-recipe": "Retseptist",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Nimekirja nimi",
     "new-list": "Uus Nimekiri",
     "quantity": "Kogus: {0}",

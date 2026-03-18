@@ -1,3 +1,4 @@
+from collections.abc import Awaitable, Callable
 from enum import StrEnum
 from re import search as regex_search
 from uuid import uuid4
@@ -22,7 +23,10 @@ class ParserErrors(StrEnum):
 
 
 async def create_from_html(
-    url: str, translator: Translator, html: str | None = None
+    url: str,
+    translator: Translator,
+    html: str | None = None,
+    on_progress: Callable[[str], Awaitable[None]] | None = None,
 ) -> tuple[Recipe, ScrapedExtras | None]:
     """Main entry point for generating a recipe from a URL. Pass in a URL and
     a Recipe object will be returned if successful. Optionally pass in the HTML to skip fetching it.
@@ -30,6 +34,7 @@ async def create_from_html(
     Args:
         url (str): a valid string representing a URL
         html (str | None): optional HTML string to skip network request. Defaults to None.
+        on_progress: optional async callable invoked with a status message at each stage.
 
     Returns:
         Recipe: Recipe Object
@@ -42,7 +47,7 @@ async def create_from_html(
             raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
         url = extracted_url.group(0)
 
-    new_recipe, extras = await scraper.scrape(url, html)
+    new_recipe, extras = await scraper.scrape(url, html, on_progress=on_progress)
 
     if not new_recipe:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
@@ -54,9 +59,13 @@ async def create_from_html(
     recipe_data_service = RecipeDataService(new_recipe.id)
 
     try:
-        if new_recipe.image and isinstance(new_recipe.image, list):
-            new_recipe.image = new_recipe.image[0]
-        await recipe_data_service.scrape_image(new_recipe.image)  # type: ignore
+        if new_recipe.image:
+            if isinstance(new_recipe.image, list):
+                new_recipe.image = new_recipe.image[0]
+
+            if on_progress:
+                await on_progress(translator.t("recipe.create-progress.downloading-image"))
+            await recipe_data_service.scrape_image(new_recipe.image)  # type: ignore
 
         if new_recipe.name is None:
             new_recipe.name = "Untitled"

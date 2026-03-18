@@ -33,7 +33,14 @@ class MealieCrudRoute(APIRoute):
         async def custom_route_handler(request: Request) -> Response:
             with contextlib.suppress(JSONDecodeError):
                 response = await original_route_handler(request)
-                response_body = json.loads(response.body)
+
+                # StreamingResponse from starlette doesn't have a body attribute, even though it inherits from Response,
+                # so we may get an attribute error here even though our type hinting suggests otherwise.
+                try:
+                    response_body = json.loads(response.body)
+                except AttributeError:
+                    return response
+
                 if isinstance(response_body, dict):
                     if last_modified := response_body.get("updatedAt"):
                         response.headers["last-modified"] = last_modified

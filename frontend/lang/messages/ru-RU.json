@@ -904,6 +904,7 @@
     "all-lists": "Все списки",
     "create-shopping-list": "Создать список покупок",
     "from-recipe": "Из рецепта",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Название списка",
     "new-list": "Новый список",
     "quantity": "Количество: {0}",

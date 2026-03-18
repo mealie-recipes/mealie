@@ -904,6 +904,7 @@
     "all-lists": "Alle lyste",
     "create-shopping-list": "Nuwe inkopielys",
     "from-recipe": "Vanaf resep",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Lys naam",
     "new-list": "Nuwe lys",
     "quantity": "Hoeveelheid: {0}",
