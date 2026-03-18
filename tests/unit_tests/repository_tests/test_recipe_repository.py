@@ -812,9 +812,9 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
     assert data[2].slug == recipe_1.slug  # global rating == 4.25 (avg of 5 and 3.5)
 
 
-
-def test_patch_recipe_relation_creation(unique_user: TestUser):
-    # Regression test for #6802 - Ensure explicit group_id injection works for new tags/cats/tools
+@pytest.mark.parametrize("route", ["patch", "update"])
+def test_recipe_inject_organizer_group_id(unique_user: TestUser, route: str):
+    # Regression test for #6802 - Ensure explicit group_id injection works for new organizers
     database = unique_user.repos
     recipe = database.recipes.create(
         Recipe(
@@ -836,13 +836,22 @@ def test_patch_recipe_relation_creation(unique_user: TestUser):
     )
 
     # This should not raise IntegrityError or TypeError
-    updated_recipe = database.recipes.patch(recipe.slug, patch_data.model_dump(exclude_unset=True))
+    update_func = database.recipes.patch if route == "patch" else database.recipes.update
+    if route == "patch":
+        updated_recipe = update_func(recipe.slug, patch_data.model_dump(exclude_unset=True))
+    elif route == "update":
+        updated_recipe = update_func(recipe.slug, patch_data.model_dump(exclude_unset=True))
 
+    assert updated_recipe
+
+    assert updated_recipe.tags
     assert len(updated_recipe.tags) == 1
     assert updated_recipe.tags[0].name == new_tag_name
 
+    assert updated_recipe.recipe_category
     assert len(updated_recipe.recipe_category) == 1
     assert updated_recipe.recipe_category[0].name == new_cat_name
 
+    assert updated_recipe.tools
     assert len(updated_recipe.tools) == 1
     assert updated_recipe.tools[0].name == new_tool_name
