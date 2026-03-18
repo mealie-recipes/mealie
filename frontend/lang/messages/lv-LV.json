@@ -904,6 +904,7 @@
     "all-lists": "Visi saraksti",
     "create-shopping-list": "Izveidot iepirkumu sarakstu",
     "from-recipe": "No receptes",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Saraksta nosaukums",
     "new-list": "Jauns saraksts",
     "quantity": "Daudzums: {0}",

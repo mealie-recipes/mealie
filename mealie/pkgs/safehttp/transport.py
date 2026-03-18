@@ -3,6 +3,7 @@ import logging
 import socket
 
 import httpx
+from httpx_curl_cffi import AsyncCurlTransport
 
 
 class ForcedTimeoutException(Exception):
@@ -21,9 +22,9 @@ class InvalidDomainError(Exception):
     ...
 
 
-class AsyncSafeTransport(httpx.AsyncBaseTransport):
+class AsyncSafeTransport(AsyncCurlTransport):
     """
-    A wrapper around the httpx transport class that enforces a timeout value
+    A wrapper around the httpx-curl-cffi transport class that enforces a timeout value
     and that the request is not made to a local IP address.
     """
 
@@ -31,10 +32,10 @@ class AsyncSafeTransport(httpx.AsyncBaseTransport):
 
     def __init__(self, log: logging.Logger | None = None, **kwargs):
         self.timeout = kwargs.pop("timeout", self.timeout)
-        self._wrapper = httpx.AsyncHTTPTransport(**kwargs)
         self._log = log
+        super().__init__(**kwargs)
 
-    async def handle_async_request(self, request) -> httpx.Response:
+    async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
         # override timeout value for _all_ requests
         request.extensions["timeout"] = httpx.Timeout(self.timeout, pool=self.timeout).as_dict()
 
@@ -72,7 +73,4 @@ class AsyncSafeTransport(httpx.AsyncBaseTransport):
                 self._log.warning(f"invalid request on local resource: {request.url} -> {ip}")
             raise InvalidDomainError(f"invalid request on local resource: {request.url} -> {ip}")
 
-        return await self._wrapper.handle_async_request(request)
-
-    async def aclose(self):
-        await self._wrapper.aclose()
+        return await super().handle_async_request(request)

@@ -33,7 +33,7 @@ def video_scraper_setup(monkeypatch: pytest.MonkeyPatch):
 
     # Prevent any real HTTP calls during scraping
     async def mock_safe_scrape_html(url: str) -> str:
-        return ""
+        return "<html></html>"
 
     monkeypatch.setattr(recipe_scraper_module, "safe_scrape_html", mock_safe_scrape_html)
 

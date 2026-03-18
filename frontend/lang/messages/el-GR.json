@@ -904,6 +904,7 @@
     "all-lists": "Όλες οι λίστες",
     "create-shopping-list": "Δημιουργία λίστας για ψώνια",
     "from-recipe": "Από Τη Συνταγή",
+    "ingredient-of-recipe": "Συστατικό του {recipe}",
     "list-name": "Όνομα λίστας",
     "new-list": "Νέα λίστα",
     "quantity": "Ποσότητα: {0}",

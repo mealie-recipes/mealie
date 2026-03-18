@@ -554,13 +554,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "hjertesalat",
-                "plural_name": "bostonsalat"
+                "plural_name": "hjertesalat"
             },
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
                 "name": "glaskål",
-                "plural_name": "kålrabi"
+                "plural_name": "glaskål"
             },
             "fresno chile": {
                 "aliases": [],
@@ -630,7 +630,7 @@
         "foods": {
             "tomato": {
                 "aliases": [],
-                "description": "Ja de er en frugt",
+                "description": "Ja det er en frugt",
                 "name": "tomat",
                 "plural_name": "tomater"
             },
@@ -2003,8 +2003,8 @@
             "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesanost",
-                "plural_name": "parmesanost"
+                "name": "parmigiano reggiano",
+                "plural_name": "parmigiano reggiano"
             },
             "cheddar cheese": {
                 "aliases": [
@@ -2091,8 +2091,8 @@
             "pecorino cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pecorino",
-                "plural_name": "pecorino"
+                "name": "pecorino romano",
+                "plural_name": "pecorino romano"
             },
             "gruyere cheese": {
                 "aliases": [],
@@ -9503,7 +9503,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "spaghetti",
-                "plural_name": "spaghettier"
+                "plural_name": "spaghetti"
             },
             "macaroni": {
                 "aliases": [],

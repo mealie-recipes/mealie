@@ -904,6 +904,7 @@
     "all-lists": "جميع القوائم",
     "create-shopping-list": "إنشاء قائمة تسوق",
     "from-recipe": "من الوصفة",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "اسم القائمة",
     "new-list": "قائمة جديدة",
     "quantity": "الكَمّيَّة: {0}",

@@ -904,6 +904,7 @@
     "all-lists": "Visi sąrašai",
     "create-shopping-list": "Sukurti pirkinių sąrašą",
     "from-recipe": "Iš recepto",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Sąrašo pavadinimas",
     "new-list": "Naujas sąrašas",
     "quantity": "Kiekis: {0}",

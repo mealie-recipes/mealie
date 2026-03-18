@@ -1,4 +1,6 @@
+import asyncio
 from collections import defaultdict
+from collections.abc import AsyncIterable
 from shutil import copyfileobj
 from uuid import UUID
 
@@ -17,6 +19,7 @@ from fastapi import (
     status,
 )
 from fastapi.datastructures import UploadFile
+from fastapi.sse import EventSourceResponse, ServerSentEvent
 from pydantic import UUID4
 from slugify import slugify
 
@@ -46,7 +49,13 @@ from mealie.schema.recipe.request_helpers import (
 )
 from mealie.schema.response import PaginationBase, PaginationQuery
 from mealie.schema.response.pagination import RecipeSearchQuery
-from mealie.schema.response.responses import ErrorResponse, SuccessResponse
+from mealie.schema.response.responses import (
+    ErrorResponse,
+    SSEDataEventDone,
+    SSEDataEventMessage,
+    SSEDataEventStatus,
+    SuccessResponse,
+)
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import (
     EventOperation,
@@ -130,22 +139,70 @@ class RecipeController(BaseRecipeController):
 
         return "recipe_scrapers was unable to scrape this URL"
 
-    @router.post("/create/html-or-json", status_code=201)
-    async def create_recipe_from_html_or_json(self, req: ScrapeRecipeData):
+    @router.post("/create/html-or-json", status_code=201, response_model=str)
+    async def create_recipe_from_html_or_json(self, req: ScrapeRecipeData) -> str:
         """Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL"""
 
         if req.data.startswith("{"):
             req.data = RecipeScraperPackage.ld_json_to_html(req.data)
 
-        return await self._create_recipe_from_web(req)
+        async for event in self._create_recipe_from_web(req):
+            if isinstance(event.data, SSEDataEventDone):
+                return event.data.slug
+            if isinstance(event.data, SSEDataEventMessage) and event.event == SSEDataEventStatus.ERROR:
+                raise HTTPException(status_code=400, detail=ErrorResponse.respond(message=event.data.message))
+
+        # This should never be reachable, since we should always hit DONE or hit an exception/ERROR
+        raise HTTPException(status_code=500, detail=ErrorResponse.respond(message="Unknown Error"))
+
+    @router.post("/create/html-or-json/stream", response_class=EventSourceResponse)
+    async def create_recipe_from_html_or_json_stream(self, req: ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
+        """
+        Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL,
+        streaming progress via SSE
+        """
+
+        if req.data.startswith("{"):
+            req.data = RecipeScraperPackage.ld_json_to_html(req.data)
+
+        async for event in self._create_recipe_from_web(req):
+            yield event
 
     @router.post("/create/url", status_code=201, response_model=str)
-    async def parse_recipe_url(self, req: ScrapeRecipe):
+    async def parse_recipe_url(self, req: ScrapeRecipe) -> str:
         """Takes in a URL and attempts to scrape data and load it into the database"""
 
-        return await self._create_recipe_from_web(req)
+        async for event in self._create_recipe_from_web(req):
+            if isinstance(event.data, SSEDataEventDone):
+                return event.data.slug
+            if isinstance(event.data, SSEDataEventMessage) and event.event == SSEDataEventStatus.ERROR:
+                raise HTTPException(status_code=400, detail=ErrorResponse.respond(message=event.data.message))
 
-    async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData):
+        # This should never be reachable, since we should always hit DONE or hit an exception/ERROR
+        raise HTTPException(status_code=500, detail=ErrorResponse.respond(message="Unknown Error"))
+
+    @router.post("/create/url/stream", response_class=EventSourceResponse)
+    async def parse_recipe_url_stream(self, req: ScrapeRecipe) -> AsyncIterable[ServerSentEvent]:
+        """
+        Takes in a URL and attempts to scrape data and load it into the database,
+        streaming progress via SSE
+        """
+
+        async for event in self._create_recipe_from_web(req):
+            yield event
+
+    async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
+        """
+        Create a recipe from the web, returning progress via SSE.
+        Events will continue to be yielded until:
+            - The recipe is created, emitting:
+                - event=SSEDataEventStatus.DONE
+                - data=SSEDataEventDone(...)
+            - An exception is raised, emitting:
+                - event=SSEDataEventStatus.ERROR
+                - data=SSEDataEventMessage(...)
+        """
+
         if isinstance(req, ScrapeRecipeData):
             html = req.data
             url = req.url or ""
@@ -153,21 +210,48 @@ class RecipeController(BaseRecipeController):
             html = None
             url = req.url
 
-        try:
-            recipe, extras = await create_from_html(url, self.translator, html)
-        except ForceTimeoutException as e:
-            raise HTTPException(
-                status_code=408, detail=ErrorResponse.respond(message="Recipe Scraping Timed Out")
-            ) from e
+        queue: asyncio.Queue[ServerSentEvent | None] = asyncio.Queue()
 
+        async def on_progress(message: str) -> None:
+            await queue.put(
+                ServerSentEvent(
+                    data=SSEDataEventMessage(message=message),
+                    event=SSEDataEventStatus.PROGRESS,
+                )
+            )
+
+        async def run() -> None:
+            try:
+                recipe, extras = await create_from_html(url, self.translator, html, on_progress=on_progress)
+                slug = self._finish_recipe_from_web(req, recipe, extras)
+                await queue.put(
+                    ServerSentEvent(
+                        data=SSEDataEventDone(slug=slug),
+                        event=SSEDataEventStatus.DONE,
+                    )
+                )
+            except Exception as e:
+                self.logger.exception("Error in streaming recipe creation")
+                await queue.put(
+                    ServerSentEvent(
+                        data=SSEDataEventMessage(message=e.__class__.__name__),
+                        event=SSEDataEventStatus.ERROR,
+                    )
+                )
+            finally:
+                await queue.put(None)
+
+        asyncio.create_task(run())
+        while (event := await queue.get()) is not None:
+            yield event
+
+    def _finish_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData, recipe: Recipe, extras: object) -> str:
         if req.include_tags:
             ctx = ScraperContext(self.repos)
-
             recipe.tags = extras.use_tags(ctx)  # type: ignore
 
         if req.include_categories:
             ctx = ScraperContext(self.repos)
-
             recipe.recipe_category = extras.use_categories(ctx)  # type: ignore
 
         new_recipe = self.service.create_one(recipe)

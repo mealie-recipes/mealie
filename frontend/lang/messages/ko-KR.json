@@ -904,6 +904,7 @@
     "all-lists": "모든 목록",
     "create-shopping-list": "장보기 목록 생성",
     "from-recipe": "레시피로부터",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "목록 이름",
     "new-list": "새 목록",
     "quantity": "양: {0}",

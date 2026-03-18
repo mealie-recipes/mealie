@@ -263,7 +263,7 @@
     "allow-users-outside-of-your-group-to-see-your-recipes": "Tillåt användare utanför din grupp att se dina recept",
     "allow-users-outside-of-your-group-to-see-your-recipes-description": "Om aktiverad kan du dela en publik länk för specifika recept utan att användaren behöver auktorisera sig. Om avaktiverad kan du bara dela med användare i din grupp eller med en systemskapad länk",
     "show-nutrition-information": "Visa näringsinnehåll",
-    "show-nutrition-information-description": "Om aktiverad kommer näringsvärde att visas vid receptet om tillgängligt.. Om det inte finns något näringsvärde kommer den informationen inte att visas",
+    "show-nutrition-information-description": "Om aktiverad kommer näringsvärde att visas vid receptet om tillgängligt. Om det inte finns något näringsvärde kommer den informationen inte att visas",
     "show-recipe-assets": "Visa receptinnehåll",
     "show-recipe-assets-description": "När aktiverad kommer receptinnehåll att visas vid receptet, om tillgängligt",
     "default-to-landscape-view": "Sätt liggande vy som standard",
@@ -292,7 +292,7 @@
     "household-group": "Hushållsgrupp",
     "household-management": "Hantering av hushåll",
     "manage-households": "Hantera hushåll",
-    "admin-household-management": "Hushållsstyrning för admin",
+    "admin-household-management": "Hushållsstyrning för administratör",
     "admin-household-management-text": "Ändringar i detta hushåll kommer att verkställas omedelbart.",
     "household-id-value": "Hushållets Id: {0}",
     "private-household": "Privat hushåll",
@@ -334,7 +334,7 @@
     "numberOfDays-hint": "Antal dagar vid sidhämtning",
     "numberOfDays-label": "Förvalda dagar",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Endast recept med dessa kategorier kommer att användas i måltidsplaner",
-    "planner": "Planeringkalender",
+    "planner": "Planeringskalender",
     "quick-week": "Snabb vecka",
     "side": "Sidorätt",
     "sides": "Sidorätter",
@@ -386,7 +386,7 @@
       "title": "Chowdown"
     },
     "nextcloud": {
-      "description": "Importera data från Nextcloud Cookbook instans",
+      "description": "Importera data från en Nextcloud Cookbook instans",
       "description-long": "Nextcloud-recept kan importeras från en zip-fil som innehåller datan som lagras i Nextcloud. Se exempel på mappstrukturen nedan för att säkerställa att dina recept kan importeras.",
       "title": "Nextcloud Cookbook"
     },
@@ -538,7 +538,7 @@
     "save-recipe-before-use": "Spara recept innan användning",
     "section-title": "Avdelningens rubrik",
     "servings": "Portioner",
-    "serves-amount": "{amount} portioner",
+    "serves-amount": "{amount} Portioner",
     "share-recipe-message": "Jag vill dela mitt {0} recept med dig.",
     "show-nutrition-values": "Visa näringsvärde",
     "sodium-content": "Natrium",
@@ -567,8 +567,8 @@
     "failed-to-add-recipe-to-mealplan": "Det gick inte att lägga till recept i måltidsplanen",
     "failed-to-add-to-list": "Misslyckades att lägga till listan",
     "yield": "Ger",
-    "yields-amount-with-text": "Ger {amount} {text}",
-    "yield-text": "Vad som ges",
+    "yields-amount-with-text": "Blir {amount} {text}",
+    "yield-text": "Mängdenhet",
     "quantity": "Antal",
     "choose-unit": "Välj enhet",
     "press-enter-to-create": "Tryck Enter för att skapa",
@@ -636,8 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Skapa ett recept genom att ange namnet. Alla recept måste ha unika namn.",
     "new-recipe-names-must-be-unique": "Nya receptnamn måste vara unika",
     "scrape-recipe": "Skrapa Recept",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
-    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
+    "scrape-recipe-description": "Hämta ett recept med webbadress. Ange URL:en för webbplatsen du vill hämta, och Mealie kommer att försöka hämta receptet från den webbplatsen och lägga till det i din samling.",
+    "scrape-recipe-description-transcription": "Du kan också ge URL: en till en video och Mealie kommer att försöka transkribera det till ett recept.",
     "scrape-recipe-have-a-lot-of-recipes": "Har du många recept som du vill skrapa på en gång?",
     "scrape-recipe-suggest-bulk-importer": "Testa massimportören",
     "scrape-recipe-have-raw-html-or-json-data": "Har rå HTML eller JSON-data?",
@@ -670,9 +670,9 @@
     "recipe-debugger-use-openai-description": "Använd OpenAI för att tolka resultaten istället för att förlita sig på skrapans bibliotek. När du skapar ett recept via URL görs detta automatiskt om skrapbiblioteket misslyckas, men du kan testa det manuellt här.",
     "debug": "Felsök",
     "tree-view": "Trädvy",
-    "recipe-servings": "Recept portioner",
-    "recipe-yield": "Recept ger",
-    "recipe-yield-text": "Recept ger",
+    "recipe-servings": "Portioner",
+    "recipe-yield": "Blir",
+    "recipe-yield-text": "Beskrivning",
     "unit": "Måttenhet",
     "upload-image": "Ladda upp bild",
     "screen-awake": "Håll skärmen vaken",
@@ -685,7 +685,7 @@
       "alerts-explainer": "Varning kommer visas om en matchande ingrediens eller enhet hittas, men inte existerar i databasen.",
       "select-parser": "Välj tolk",
       "natural-language-processor": "Naturlig språkbehandlare",
-      "brute-parser": "Brute Parser",
+      "brute-parser": "Brute parser",
       "openai-parser": "OpenAI Parser",
       "parse-all": "Analysera allt",
       "no-unit": "Ingen enhet",
@@ -904,6 +904,7 @@
     "all-lists": "Visa alla listor",
     "create-shopping-list": "Skapa inköpslista",
     "from-recipe": "Från recept",
+    "ingredient-of-recipe": "Ingrediens i {recipe}",
     "list-name": "Listnamn",
     "new-list": "Ny lista",
     "quantity": "Antal {0}",
@@ -1136,20 +1137,20 @@
       "example-unit-plural": "ex: matskedar",
       "example-unit-abbreviation-singular": "ex: msk",
       "example-unit-abbreviation-plural": "ex: msk",
-      "standardization": "Standardization",
-      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
-      "standard-unit": "Standard Unit",
-      "standard-quantity": "Standard Quantity",
-      "unit-conversion": "Unit Conversion",
+      "standardization": "Standardisering",
+      "standardization-description": "Hur denna enhet kan representeras som en standardenhet. Detta möjliggör konvertering av enheter såsom sammanslagning av kompatibla enheter i inköpslistor.",
+      "standard-unit": "Standardenhet",
+      "standard-quantity": "Standardantal",
+      "unit-conversion": "Enhetsomvandling",
       "standard-unit-labels": {
         "fluid-ounce": "fluid ounce",
-        "cup": "cup",
+        "cup": "kopp",
         "ounce": "ounce",
-        "pound": "pound",
+        "pound": "pund",
         "milliliter": "milliliter",
         "liter": "liter",
         "gram": "gram",
-        "kilogram": "kilogram"
+        "kilogram": "kilo"
       }
     },
     "labels": {
@@ -1186,7 +1187,7 @@
       "edit-recipe-action": "Redigera receptåtgärd",
       "action-type": "Åtgärdstyp",
       "action-types": {
-        "link": "Link",
+        "link": "Länk",
         "post": "Post"
       }
     },
@@ -1443,8 +1444,8 @@
       "is-greater-than-or-equal-to": "är större än eller lika med",
       "is-less-than": "är mindre än",
       "is-less-than-or-equal-to": "är mindre eller lika med",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "är äldre än",
+      "is-newer-than": "är nyare än"
     },
     "relational-keywords": {
       "is": "är",
@@ -1456,7 +1457,7 @@
       "is-not-like": "är inte som"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "dagar sedan|dagar sedan|dagar sedan"
     }
   },
   "validators": {
@@ -1465,6 +1466,6 @@
     "invalid-url": "Måste var en giltig länk",
     "no-whitespace": "Ingen blanksteg tillåten",
     "min-length": "Måste vara minst {min} tecken",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Måste Vara Som Mest {max} Tecken|Måste Vara Som Mest {max} Tecken"
   }
 }

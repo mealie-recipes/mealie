@@ -1,7 +1,7 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:24@sha256:3a09aa6354567619221ef6c45a5051b671f953f0a1924d1f819ffb236e520e6b \
+FROM node:24@sha256:5a593d74b632d1c6f816457477b6819760e13624455d587eef0fa418c8d0777b \
     AS frontend-builder
 
 WORKDIR /frontend
@@ -121,6 +121,7 @@ ENV GIT_COMMIT_HASH=$COMMIT
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     curl \
+    ffmpeg \
     gosu \
     iproute2 \
     libldap-common \

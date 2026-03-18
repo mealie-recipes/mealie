@@ -904,6 +904,7 @@
     "all-lists": "Kaikki ostoslistat",
     "create-shopping-list": "Luo ostoslista",
     "from-recipe": "Reseptistä",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Ostoslistan nimi",
     "new-list": "Uusi lista",
     "quantity": "Määrä: {0}",
