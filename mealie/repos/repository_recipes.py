@@ -201,32 +201,15 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
-    def patch(self, match_value: str | int | UUID4, new_data: dict | Recipe) -> Recipe:
-        new_data_dict = new_data if isinstance(new_data, dict) else new_data.model_dump()
+    def update(self, match_value: str | int | UUID4, new_data: dict | Recipe) -> Recipe:
+        new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
 
         # Handle explicit group_id injection for related items that require it
-        if "tags" in new_data_dict and new_data_dict["tags"]:
-            for tag in new_data_dict["tags"]:
-                if isinstance(tag, dict):
-                    tag["group_id"] = self.group_id
-                else:
-                    tag.group_id = self.group_id
+        for organizer_field in ["tags", "recipe_category", "tools"]:
+            for organizer in new_data.get(organizer_field, []):
+                organizer["group_id"] = self.group_id
 
-        if "recipe_category" in new_data_dict and new_data_dict["recipe_category"]:
-            for category in new_data_dict["recipe_category"]:
-                if isinstance(category, dict):
-                    category["group_id"] = self.group_id
-                else:
-                    category.group_id = self.group_id
-
-        if "tools" in new_data_dict and new_data_dict["tools"]:
-            for tool in new_data_dict["tools"]:
-                if isinstance(tool, dict):
-                    tool["group_id"] = self.group_id
-                else:
-                    tool.group_id = self.group_id
-
-        return super().patch(match_value, new_data_dict)
+        return super().update(match_value, new_data)
 
     def page_all(  # type: ignore
         self,
