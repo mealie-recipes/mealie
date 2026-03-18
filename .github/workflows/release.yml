@@ -95,6 +95,7 @@ jobs:
       - backend-tests
       - frontend-tests
       - build-package
+      - commit-version-bump
     with:
       ref: ${{ needs.commit-version-bump.outputs.commit-sha }}
       tag: ${{ github.event.release.tag_name }}
