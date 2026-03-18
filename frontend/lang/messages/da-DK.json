@@ -904,7 +904,7 @@
     "all-lists": "Alle lister",
     "create-shopping-list": "Lav indkøbsliste",
     "from-recipe": "Fra opskrift",
-    "ingredient-of-recipe": "Ingredient of {recipe}",
+    "ingredient-of-recipe": "Ingrediens i {recipe}",
     "list-name": "Listenavn",
     "new-list": "Ny liste",
     "quantity": "Antal: {0}",
