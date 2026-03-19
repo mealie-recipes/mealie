@@ -26,6 +26,37 @@
         "pep621"
       ],
       "rangeStrategy": "pin"
+    },
+    {
+      "description": "Auto-merge patch and minor Python dependency updates",
+      "matchManagers": [
+        "pep621"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor",
+        "pin",
+        "digest"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "minimumReleaseAge": "5 days"
+    },
+    {
+      "description": "Auto-merge Docker digest and patch updates",
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "minimumReleaseAge": "5 days"
     }
   ]
 }
