@@ -6279,26 +6279,26 @@
             "lemon balm": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon balm",
-                "plural_name": "lemon balm"
+                "name": "Mélisse Citronnelle",
+                "plural_name": "Mélisse Citronnelle"
             },
             "dill seed": {
                 "aliases": [],
                 "description": "",
-                "name": "dill seed",
-                "plural_name": "dill seeds"
+                "name": "Graine d’aneth",
+                "plural_name": "Graines d’aneth "
             },
             "green peppercorn": {
                 "aliases": [],
                 "description": "",
-                "name": "green peppercorn",
-                "plural_name": "green peppercorns"
+                "name": "Grain de poivre vert",
+                "plural_name": "Grains de poivre vert"
             },
             "aleppo pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "aleppo pepper",
-                "plural_name": "aleppo peppers"
+                "name": "Piment d'Alep",
+                "plural_name": "Piments d'Alep"
             },
             "wasabi powder": {
                 "aliases": [],
@@ -6309,20 +6309,20 @@
             "achiote seed": {
                 "aliases": [],
                 "description": "",
-                "name": "achiote seed",
-                "plural_name": "achiote seeds"
+                "name": "Graines de Rocou",
+                "plural_name": "Graine de Rocou"
             },
             "savory herb": {
                 "aliases": [],
                 "description": "",
-                "name": "savory herb",
-                "plural_name": "savory herbs"
+                "name": "Sarriette",
+                "plural_name": "Sarriette"
             },
             "pandan leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "pandan leaf",
-                "plural_name": "pandan leaves"
+                "name": "Feuille de Pandanus",
+                "plural_name": "Feuilles de Pandanus"
             },
             "sorrel": {
                 "aliases": [],
@@ -6334,19 +6334,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "gochugaru",
-                "plural_name": "gochugaru"
+                "plural_name": "Gochugaru"
             },
             "saigon cinnamon": {
                 "aliases": [],
                 "description": "",
                 "name": "cannelle de Saigon",
-                "plural_name": "saigon cinnamon"
+                "plural_name": "Cannelle de Saigon"
             },
             "lemongrass paste": {
                 "aliases": [],
                 "description": "",
                 "name": "pâte de citronnelle",
-                "plural_name": "lemongrass paste"
+                "plural_name": "Pâte de citronnelle"
             },
             "shiso": {
                 "aliases": [],
@@ -6405,14 +6405,14 @@
             "achiote paste": {
                 "aliases": [],
                 "description": "",
-                "name": "achiote paste",
-                "plural_name": "achiote paste"
+                "name": "Pâte de Rocou",
+                "plural_name": "Pâte de Rocou"
             },
             "summer savory": {
                 "aliases": [],
                 "description": "",
-                "name": "summer savory",
-                "plural_name": "summer savories"
+                "name": "Sarriette commune",
+                "plural_name": "Sarriettes communes"
             },
             "fennel pollen": {
                 "aliases": [],
@@ -6432,7 +6432,7 @@
             },
             "brown sugar": {
                 "aliases": [
-                    "turbinado sugar"
+                    "Sucre Turbinado"
                 ],
                 "description": "",
                 "name": "sucre de canne",
@@ -6445,15 +6445,15 @@
                 ],
                 "description": "",
                 "name": "sucre glace",
-                "plural_name": "confectioners sugar"
+                "plural_name": "Sucre glace"
             },
             "bar sugar": {
                 "aliases": [
                     "sucre semoule"
                 ],
                 "description": "",
-                "name": "bar sugar",
-                "plural_name": "bar sugar"
+                "name": "Sucre pétillant",
+                "plural_name": "Sucre pétillant"
             },
             "maple syrup": {
                 "aliases": [],
@@ -6561,7 +6561,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "stevia liquide",
-                "plural_name": "liquid stevia"
+                "plural_name": "Stevia liquide"
             },
             "grenadine": {
                 "aliases": [],
@@ -6591,7 +6591,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mélasse",
-                "plural_name": "dark corn syrup"
+                "plural_name": "Sirop de maïs foncé "
             },
             "sucralose": {
                 "aliases": [],
@@ -6614,8 +6614,8 @@
             "blackstrap molass": {
                 "aliases": [],
                 "description": "",
-                "name": "blackstrap molass",
-                "plural_name": "blackstrap molasses"
+                "name": "Mélasse Blackstrap",
+                "plural_name": "Mélasses Blackstrap"
             },
             "glucose": {
                 "aliases": [],
@@ -6632,14 +6632,14 @@
             "confectioners' sweetener": {
                 "aliases": [],
                 "description": "",
-                "name": "confectioners' sweetener",
-                "plural_name": "confectioners' sweeteners"
+                "name": "Édulcorant pour pâtisserie",
+                "plural_name": "Édulcorants pour pâtisserie"
             },
             "xylitol": {
                 "aliases": [],
                 "description": "",
-                "name": "xylitol",
-                "plural_name": "xylitols"
+                "name": "Xylitol",
+                "plural_name": "Xylitols"
             },
             "jam sugar": {
                 "aliases": [],
@@ -6710,8 +6710,8 @@
             "black treacle": {
                 "aliases": [],
                 "description": "",
-                "name": "black treacle",
-                "plural_name": "black treacles"
+                "name": "Mélasse noire",
+                "plural_name": "Mélasses noires"
             },
             "date paste": {
                 "aliases": [],
@@ -6734,8 +6734,8 @@
             "treacle": {
                 "aliases": [],
                 "description": "",
-                "name": "treacle",
-                "plural_name": "treacles"
+                "name": "Mélasse",
+                "plural_name": "Mélasses "
             },
             "rice syrup": {
                 "aliases": [],
@@ -6770,8 +6770,8 @@
             "allulose": {
                 "aliases": [],
                 "description": "",
-                "name": "allulose",
-                "plural_name": "allulose"
+                "name": "Allulose",
+                "plural_name": "Allulose"
             },
             "blackberry syrup": {
                 "aliases": [],
@@ -6782,8 +6782,8 @@
             "piloncillo": {
                 "aliases": [],
                 "description": "",
-                "name": "piloncillo",
-                "plural_name": "piloncillo"
+                "name": "Panela",
+                "plural_name": "Panela"
             },
             "cherry syrup": {
                 "aliases": [],
@@ -6812,8 +6812,8 @@
             "hazelnut syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut syrup",
-                "plural_name": "hazelnut syrup"
+                "name": "Sirop de noisette",
+                "plural_name": "Sirop de noisette"
             },
             "white chocolate sauce": {
                 "aliases": [],
@@ -6860,8 +6860,8 @@
             "golden sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "golden sugar",
-                "plural_name": "golden sugar"
+                "name": "Sucre doré",
+                "plural_name": "Sucre doré"
             },
             "cane syrup": {
                 "aliases": [],
@@ -6890,8 +6890,8 @@
             "gula melaka": {
                 "aliases": [],
                 "description": "",
-                "name": "gula melaka",
-                "plural_name": "gula melakas"
+                "name": "Sucre de palme",
+                "plural_name": "Sucre de palmes"
             },
             "elderberry syrup": {
                 "aliases": [],
@@ -6920,8 +6920,8 @@
             "sweet'n low": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet'n low",
-                "plural_name": "sweet'n lows"
+                "name": "Sweet'n low",
+                "plural_name": "Sweet'n low"
             },
             "fructose": {
                 "aliases": [],
@@ -6962,14 +6962,14 @@
             "mastic gum": {
                 "aliases": [],
                 "description": "",
-                "name": "mastic gum",
-                "plural_name": "mastic gums"
+                "name": "Gomme de mastic",
+                "plural_name": "Gommes de mastic"
             },
             "gum syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "gum syrup",
-                "plural_name": "gum syrup"
+                "name": "Sirop de gomme",
+                "plural_name": "Sirop de gomme"
             },
             "irish cream syrup": {
                 "aliases": [],
@@ -7266,38 +7266,38 @@
             "caribbean jerk seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "caribbean jerk seasoning",
-                "plural_name": "caribbean jerk seasoning"
+                "name": "Assaisonnement « jerk » caribéen",
+                "plural_name": "Assaisonnement \"jerk\" caribéen"
             },
             "gravy mix": {
                 "aliases": [],
                 "description": "",
-                "name": "gravy mix",
-                "plural_name": "gravy mixes"
+                "name": "Sauce au jus de viande",
+                "plural_name": "Sauce au jus de viandes"
             },
             "garlic & herb seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement ail et fines herbes",
-                "plural_name": "garlic & herb seasoning"
+                "plural_name": "Assaisonnement ail & fines herbes"
             },
             "garlic-pepper seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement ail-poivre",
-                "plural_name": "garlic-pepper seasoning"
+                "plural_name": "Assaisonnement Ail-poivre"
             },
             "pickling salt": {
                 "aliases": [],
                 "description": "",
-                "name": "pickling salt",
-                "plural_name": "pickling salt"
+                "name": "Sel de saumurage",
+                "plural_name": "Sel de saumurage"
             },
             "greek seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement grec",
-                "plural_name": "greek seasoning"
+                "plural_name": "Assaisonnement Grec"
             },
             "msg": {
                 "aliases": [],
@@ -7315,18 +7315,18 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement adobo",
-                "plural_name": "adobo seasoning"
+                "plural_name": "Assaisonnement adobo"
             },
             "sambar powder": {
                 "aliases": [],
                 "description": "",
-                "name": "sambar powder",
-                "plural_name": "sambar powder"
+                "name": "Poudre de Sambar",
+                "plural_name": "Poudre de Sambar"
             },
             "smoked salt": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked salt",
+                "name": "Sel fumé",
                 "plural_name": "smoked salt"
             },
             "dash seasoning": {
