@@ -12,7 +12,7 @@
         },
         "servings-text": {
             "makes": "Fait",
-            "serves": "Pour",
+            "serves": "Portions",
             "serving": "Portion",
             "servings": "Portions",
             "yield": "Quantité",
@@ -73,7 +73,7 @@
         "password": {
             "subject": "Mot de passe oublié pour Mealie",
             "header_text": "Mot de passe oublié",
-            "message_top": "Vous avez demandé de réinitialiser votre mot de passe.",
+            "message_top": "Vous avez demandé la réinitialisation de votre mot de passe.",
             "message_bottom": "Veuillez cliquer sur le bouton ci-dessus pour réinitialiser votre mot de passe.",
             "button_text": "Réinitialiser le mot de passe"
         },
