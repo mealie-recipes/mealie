@@ -370,8 +370,8 @@
     "applies-to-all-days": "Aplica-se diariamente",
     "applies-on-days": "Aplica-se em:",
     "meal-plan-settings": "Configurações de plano de refeições",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Adicionar tudo para a lista",
+    "add-day-to-list": "Adicionar Dia para Lista"
   },
   "migration": {
     "migration-data-removed": "Dados de migração removidos",
@@ -636,8 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crie uma receita fornecendo o nome. Todas as receitas devem ter nomes exclusivos.",
     "new-recipe-names-must-be-unique": "Novos nomes de receitas devem ser únicos",
     "scrape-recipe": "Extrair receita do site",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
-    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
+    "scrape-recipe-description": "Extraia uma receita por URL. Forneça a URL do site que você deseja extrair, e o Mealie tentará extrair a receita desse site e adicioná-la à sua coleção.",
+    "scrape-recipe-description-transcription": "Você também pode fornecer a URL para um vídeo e Mealie tentará transcrevê-lo em uma receita.",
     "scrape-recipe-have-a-lot-of-recipes": "Tem muitas receitas a extrair de uma vez?",
     "scrape-recipe-suggest-bulk-importer": "Tente o importador em massa",
     "scrape-recipe-have-raw-html-or-json-data": "Tem dados HTML ou JSON brutos?",
@@ -904,7 +904,7 @@
     "all-lists": "Todas as Listas",
     "create-shopping-list": "Criar lista de compras",
     "from-recipe": "Da Receita",
-    "ingredient-of-recipe": "Ingredient of {recipe}",
+    "ingredient-of-recipe": "Ingrediente de {recipe}",
     "list-name": "Nome da Lista",
     "new-list": "Nova lista",
     "quantity": "Quantidade: {0}",
@@ -1137,20 +1137,20 @@
       "example-unit-plural": "ex: Colheres de Sopa",
       "example-unit-abbreviation-singular": "ex: Clsp",
       "example-unit-abbreviation-plural": "ex: Clssp",
-      "standardization": "Standardization",
-      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
-      "standard-unit": "Standard Unit",
-      "standard-quantity": "Standard Quantity",
-      "unit-conversion": "Unit Conversion",
+      "standardization": "Padronização",
+      "standardization-description": "Como esta unidade pode ser representada como uma unidade padrão. Isto permite os recursos de conversão de unidade, como a fusão de unidades compatíveis nas listas de compras.",
+      "standard-unit": "Unidade Padrão",
+      "standard-quantity": "Quantidade Padrão",
+      "unit-conversion": "Conversão de Unidades",
       "standard-unit-labels": {
-        "fluid-ounce": "fluid ounce",
-        "cup": "cup",
-        "ounce": "ounce",
-        "pound": "pound",
-        "milliliter": "milliliter",
-        "liter": "liter",
-        "gram": "gram",
-        "kilogram": "kilogram"
+        "fluid-ounce": "onça fluida",
+        "cup": "xícara",
+        "ounce": "onça",
+        "pound": "libra",
+        "milliliter": "mililitro",
+        "liter": "litro",
+        "gram": "grama",
+        "kilogram": "kilograma"
       }
     },
     "labels": {
@@ -1188,7 +1188,7 @@
       "action-type": "Tipo de Ação",
       "action-types": {
         "link": "Link",
-        "post": "Post"
+        "post": "Postagem"
       }
     },
     "create-alias": "Criar Apelido",
@@ -1445,7 +1445,7 @@
       "is-less-than": "é menor que",
       "is-less-than-or-equal-to": "é menor ou igual a",
       "is-older-than": "Mais antigo que",
-      "is-newer-than": "is newer than"
+      "is-newer-than": "é mais recente de"
     },
     "relational-keywords": {
       "is": "é",
@@ -1457,7 +1457,7 @@
       "is-not-like": "não é como"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "dias atrás|dia atrás|dias atrás"
     }
   },
   "validators": {
@@ -1466,6 +1466,6 @@
     "invalid-url": "Precisa ser uma URL válida",
     "no-whitespace": "Nenhum espaço em branco é permitido",
     "min-length": "Precisa ter pelo menos {min} caracteres",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Precisa ter no máximo {max} caractere|Precisa ter no máximo {max} caracteres"
   }
 }
