@@ -207,6 +207,7 @@ import {
   PageMode,
   usePageState,
 } from "~/composables/recipe-page/shared-state";
+import { useCookModeQuery, type BooleanString } from "~/composables/recipe-page/use-cook-mode-query";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe, RecipeCategory, RecipeIngredient, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
@@ -228,7 +229,7 @@ const groupSlug = computed(() => (route.params.groupSlug as string) || auth.user
 
 const router = useRouter();
 const api = useUserApi();
-const { setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isParsing, toggleCookMode, toggleIsParsing }
+const { pageMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isParsing, toggleCookMode, toggleIsParsing }
   = usePageState(recipe.value.slug);
 const { deactivateNavigationWarning } = useNavigationWarning();
 const notLinkedIngredients = computed(() => {
@@ -305,7 +306,6 @@ onBeforeRouteLeave((to) => {
 
 onUnmounted(() => {
   deactivateNavigationWarning();
-  toggleCookMode();
   clearPageState(recipe.value.slug || "");
 });
 const hasLinkedIngredients = computed(() => {
@@ -317,10 +317,15 @@ const hasLinkedIngredients = computed(() => {
  * Set State onMounted
  */
 
-type BooleanString = "true" | "false" | "";
-
 const paramsEdit = useRouteQuery<BooleanString>("edit", "");
 const paramsParse = useRouteQuery<BooleanString>("parse", "");
+const paramsCook = useRouteQuery<BooleanString>("cook", "");
+const { hydrateCookMode } = useCookModeQuery({
+  cookQuery: paramsCook,
+  isEditMode,
+  pageMode,
+  setMode,
+});
 
 onMounted(() => {
   if (paramsEdit.value === "true" && isOwnGroup.value) {
@@ -330,6 +335,8 @@ onMounted(() => {
   if (paramsParse.value === "true" && isOwnGroup.value) {
     toggleIsParsing(true);
   }
+
+  hydrateCookMode();
 });
 
 watch(isEditMode, (newVal) => {
