@@ -31,6 +31,36 @@ function buildHarness(initialCookQuery: BooleanString | undefined = undefined, i
   };
 }
 
+function buildAsyncHarness(initialCookQuery: BooleanString | undefined = undefined, initialMode = PageMode.VIEW) {
+  const routeCookQuery = ref<BooleanString | undefined>(initialCookQuery);
+  const pageMode = ref(initialMode);
+
+  const setMode = (mode: PageMode) => {
+    pageMode.value = mode;
+  };
+
+  const sync = useCookModeQuery({
+    cookQuery: computed({
+      get: () => routeCookQuery.value,
+      set: (value) => {
+        nextTick(() => {
+          routeCookQuery.value = value;
+        });
+      },
+    }),
+    isEditMode: computed(() => pageMode.value === PageMode.EDIT),
+    pageMode: computed(() => pageMode.value),
+    setMode,
+  });
+
+  return {
+    cookQuery: routeCookQuery,
+    pageMode,
+    setMode,
+    ...sync,
+  };
+}
+
 describe("useCookModeQuery", () => {
   test("hydrates cook mode from the query", async () => {
     const harness = buildHarness("true");
@@ -93,6 +123,19 @@ describe("useCookModeQuery", () => {
     harness.cookQuery.value = undefined;
     await nextTick();
 
+    expect(harness.pageMode.value).toBe(PageMode.VIEW);
+  });
+
+  test("clears a pending cook query when cook mode is entered and exited in the same tick", async () => {
+    const harness = buildAsyncHarness();
+
+    harness.hydrateCookMode();
+    harness.setMode(PageMode.COOK);
+    harness.setMode(PageMode.VIEW);
+    await nextTick();
+    await nextTick();
+
+    expect(harness.cookQuery.value).toBeUndefined();
     expect(harness.pageMode.value).toBe(PageMode.VIEW);
   });
 });

@@ -47,7 +47,7 @@ export function useCookModeQuery({
       return;
     }
 
-    if (mode === PageMode.VIEW && cookQuery.value === "true") {
+    if (mode === PageMode.VIEW) {
       cookQuery.value = undefined;
     }
   });
