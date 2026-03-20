@@ -12,23 +12,13 @@
   </v-chip>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { getTextColor } from "~/composables/use-text-color";
 import type { MultiPurposeLabelSummary } from "~/lib/api/types/recipe";
 
-export default defineNuxtComponent({
-  props: {
-    label: {
-      type: Object as () => MultiPurposeLabelSummary,
-      required: true,
-    },
-  },
-  setup(props) {
-    const textColor = computed(() => getTextColor(props.label.color));
+const props = defineProps<{
+  label: MultiPurposeLabelSummary;
+}>();
 
-    return {
-      textColor,
-    };
-  },
-});
+const textColor = computed(() => getTextColor(props.label.color));
 </script>
