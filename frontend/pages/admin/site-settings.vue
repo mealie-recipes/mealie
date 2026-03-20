@@ -341,7 +341,7 @@ export default defineNuxtComponent({
         },
         {
           id: "ldap-ready",
-          text: i18n.t("settings.ldap-ready"),
+          text: appConfig.value.ldapReady ? i18n.t("settings.ldap-ready") : i18n.t("settings.ldap-not-ready"),
           status: appConfig.value.ldapReady,
           errorText: i18n.t("settings.ldap-ready-error-text"),
           successText: i18n.t("settings.ldap-ready-success-text"),
