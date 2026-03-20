@@ -895,9 +895,11 @@
     "build": "Build",
     "recipe-scraper-version": "Recipe Scraper Version",
     "oidc-ready": "OIDC Ready",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
     "oidc-ready-success-text": "Required OIDC variables are all set.",
     "openai-ready": "OpenAI Ready",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
     "openai-ready-success-text": "Required OpenAI variables are all set."
   },

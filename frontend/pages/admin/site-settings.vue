@@ -350,7 +350,7 @@ export default defineNuxtComponent({
         },
         {
           id: "oidc-ready",
-          text: i18n.t("settings.oidc-ready"),
+          text: appConfig.value.oidcReady ? i18n.t("settings.oidc-ready") : i18n.t("settings.oidc-not-ready"),
           status: appConfig.value.oidcReady,
           errorText: i18n.t("settings.oidc-ready-error-text"),
           successText: i18n.t("settings.oidc-ready-success-text"),
@@ -359,7 +359,7 @@ export default defineNuxtComponent({
         },
         {
           id: "openai-ready",
-          text: i18n.t("settings.openai-ready"),
+          text: appConfig.value.enableOpenai ? i18n.t("settings.openai-ready") : i18n.t("settings.openai-not-ready"),
           status: appConfig.value.enableOpenai,
           errorText: i18n.t("settings.openai-ready-error-text"),
           successText: i18n.t("settings.openai-ready-success-text"),
