@@ -34,8 +34,8 @@
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "carabassó",
-                "plural_name": "carabassons"
+                "name": "carbassó",
+                "plural_name": "carbassons"
             },
             "potato": {
                 "aliases": [],
@@ -59,7 +59,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "api",
-                "plural_name": "celery"
+                "plural_name": "api"
             },
             "jalapeño": {
                 "aliases": [],
@@ -127,7 +127,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cor de palmera",
-                "plural_name": "heart of palm"
+                "plural_name": "cor de palmera"
             },
             "baby greens": {
                 "aliases": [],
