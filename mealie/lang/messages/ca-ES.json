@@ -18,11 +18,11 @@
             "yield": "Ració",
             "yields": "Racions"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}",
+        "and-amount": "i {amount}",
+        "or-ingredient": "o {ingredient}",
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
-            "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
+            "creating-recipe-with-ai": "S'està creant recepta amb IA...",
+            "creating-recipe-from-transcript-with-ai": "S'està creant la recepta a partir de la transcripció amb IA...",
             "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
             "downloading-image": "Downloading image...",
             "downloading-video": "Downloading video...",
