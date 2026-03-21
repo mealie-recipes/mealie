@@ -135,6 +135,7 @@ async def start_scheduler():
 
     SchedulerRegistry.register_minutely(
         tasks.post_group_webhooks,
+        tasks.sync_nextcloud_tasks,
     )
 
     SchedulerRegistry.register_hourly(

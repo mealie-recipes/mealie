@@ -1,9 +1,12 @@
+import asyncio
+import logging
 from collections.abc import Callable
 from functools import cached_property
 
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import UUID4
 
+from mealie.core.config import get_app_settings
 from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
@@ -199,6 +202,29 @@ class ShoppingListController(BaseCrudController):
 
     @router.get("/{item_id}", response_model=ShoppingListOut)
     def get_one(self, item_id: UUID4):
+        # Pull latest changes from Nextcloud if configured
+        settings = get_app_settings()
+        if settings.NEXTCLOUD_ENABLED:
+            try:
+                from mealie.services.nextcloud.sync import NextcloudSyncService
+
+                sync = NextcloudSyncService(self.repos, settings)
+                try:
+                    loop = asyncio.get_running_loop()
+                except RuntimeError:
+                    loop = None
+
+                if loop and loop.is_running():
+                    # We're inside an async context (e.g. FastAPI), schedule as task
+                    import concurrent.futures
+
+                    with concurrent.futures.ThreadPoolExecutor() as pool:
+                        pool.submit(asyncio.run, sync.pull_changes(item_id)).result(timeout=10)
+                else:
+                    asyncio.run(sync.pull_changes(item_id))
+            except Exception:
+                logging.getLogger(__name__).debug("Nextcloud pull-on-load failed", exc_info=True)
+
         return self.mixins.get_one(item_id)
 
     @router.put("/{item_id}", response_model=ShoppingListOut)

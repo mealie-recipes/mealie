@@ -6,6 +6,7 @@ from .purge_group_exports import purge_group_data_exports
 from .purge_password_reset import purge_password_reset_tokens
 from .purge_registration import purge_group_registration
 from .reset_locked_users import locked_user_reset
+from .sync_nextcloud_tasks import sync_nextcloud_tasks
 
 __all__ = [
     "create_mealplan_timeline_events",
@@ -16,6 +17,7 @@ __all__ = [
     "purge_group_data_exports",
     "purge_group_registration",
     "locked_user_reset",
+    "sync_nextcloud_tasks",
 ]
 
 """

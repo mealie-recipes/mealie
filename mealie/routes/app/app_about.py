@@ -44,6 +44,7 @@ def get_app_info(session: Session = Depends(generate_session)):
         enable_openai=settings.OPENAI_ENABLED,
         enable_openai_image_services=settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_IMAGE_SERVICES,
         enable_openai_transcription_services=settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES,
+        enable_nextcloud=settings.NEXTCLOUD_ENABLED,
         allow_password_login=settings.ALLOW_PASSWORD_LOGIN,
         token_time=settings.TOKEN_TIME,
     )

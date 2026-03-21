@@ -442,6 +442,43 @@ class AppSettings(AppLoggingSettings):
         return self.OPENAI_FEATURE.enabled
 
     # ===============================================
+    # Nextcloud CalDAV Configuration
+
+    NEXTCLOUD_URL: str | None = None
+    """Base URL of the Nextcloud instance (e.g. https://cloud.example.com)"""
+    NEXTCLOUD_USERNAME: str | None = None
+    """Nextcloud username for CalDAV access"""
+    NEXTCLOUD_PASSWORD: MaskedNoneString = None
+    """Nextcloud app password (recommended over regular password)"""
+    NEXTCLOUD_TASK_LIST: str | None = None
+    """Name of the Nextcloud task list to sync shopping lists to"""
+    NEXTCLOUD_VERIFY_SSL: bool = True
+    """Whether to verify SSL certificates when connecting to Nextcloud"""
+
+    @property
+    def NEXTCLOUD_FEATURE(self) -> FeatureDetails:
+        description = None
+        required = {
+            "NEXTCLOUD_URL": self.NEXTCLOUD_URL,
+            "NEXTCLOUD_USERNAME": self.NEXTCLOUD_USERNAME,
+            "NEXTCLOUD_PASSWORD": self.NEXTCLOUD_PASSWORD,
+            "NEXTCLOUD_TASK_LIST": self.NEXTCLOUD_TASK_LIST,
+        }
+        missing_values = [key for (key, value) in required.items() if value is None]
+        if missing_values:
+            description = f"Missing required values for {missing_values}"
+
+        return FeatureDetails(
+            enabled=not missing_values,
+            description=description,
+        )
+
+    @property
+    def NEXTCLOUD_ENABLED(self) -> bool:
+        """Validates Nextcloud settings are all set"""
+        return self.NEXTCLOUD_FEATURE.enabled
+
+    # ===============================================
     # Web Concurrency
 
     WORKER_PER_CORE: int = 1
