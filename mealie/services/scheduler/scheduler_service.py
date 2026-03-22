@@ -21,6 +21,7 @@ class SchedulerService:
     @staticmethod
     async def start():
         await run_minutely()
+        await run_every_minute()
         await run_hourly()
 
         # Wait to trigger our daily run until our given "daily time", so having asyncio handle it.
@@ -78,4 +79,11 @@ def run_hourly():
 def run_minutely():
     logger.debug("Running minutely callbacks")
     for func in SchedulerRegistry._minutely:
+        _scheduled_task_wrapper(func)
+
+
+@repeat_every(minutes=1, wait_first=True, logger=logger)
+def run_every_minute():
+    logger.debug("Running every-minute callbacks")
+    for func in SchedulerRegistry._every_minute:
         _scheduled_task_wrapper(func)

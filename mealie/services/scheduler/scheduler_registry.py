@@ -13,6 +13,7 @@ class SchedulerRegistry:
     _daily: list[Callable] = []
     _hourly: list[Callable] = []
     _minutely: list[Callable] = []
+    _every_minute: list[Callable] = []
 
     @staticmethod
     def _register(name: str, callbacks: list[Callable], callback: Iterable[Callable]):
@@ -48,6 +49,15 @@ class SchedulerRegistry:
         SchedulerRegistry._minutely.remove(callback)
 
     @staticmethod
+    def register_every_minute(*callbacks: Callable):
+        SchedulerRegistry._register("every_minute", SchedulerRegistry._every_minute, callbacks)
+
+    @staticmethod
+    def remove_every_minute(callback: Callable):
+        logger.debug(f"Removing every_minute callback: {callback.__name__}")
+        SchedulerRegistry._every_minute.remove(callback)
+
+    @staticmethod
     def print_jobs():
         for job in SchedulerRegistry._daily:
             logger.debug(f"Daily job: {job.__name__}")
@@ -57,3 +67,6 @@ class SchedulerRegistry:
 
         for job in SchedulerRegistry._minutely:
             logger.debug(f"Minutely job: {job.__name__}")
+
+        for job in SchedulerRegistry._every_minute:
+            logger.debug(f"Every-minute job: {job.__name__}")
