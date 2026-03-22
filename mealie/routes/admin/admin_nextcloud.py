@@ -33,7 +33,7 @@ class AdminNextcloudController(BaseAdminController):
         )
 
     @router.post("/test", response_model=NextcloudTestResponse)
-    async def test_nextcloud_connection(self):
+    def test_nextcloud_connection(self):
         """Test Nextcloud CalDAV connection and list available task lists."""
         if not self.settings.NEXTCLOUD_ENABLED:
             return NextcloudTestResponse(
@@ -50,5 +50,5 @@ class AdminNextcloudController(BaseAdminController):
             verify_ssl=self.settings.NEXTCLOUD_VERIFY_SSL,
         )
 
-        result = await service.test_connection()
+        result = service.test_connection()
         return NextcloudTestResponse(**result)

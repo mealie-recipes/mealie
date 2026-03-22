@@ -2,12 +2,15 @@
 
 Manages CalDAV VTODO operations against a Nextcloud instance for syncing
 Mealie shopping lists with Nextcloud Tasks.
+
+Uses synchronous httpx.Client to avoid async/thread issues when called
+from SQLAlchemy-bound sync code.
 """
 
 import logging
 import os
 import re
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from datetime import UTC, datetime
 from urllib.parse import unquote, urlparse, urlunparse
 from uuid import uuid4
@@ -112,7 +115,10 @@ def _build_vtodo(uid: str, summary: str, parent_uid: str = "", status: str = "NE
 
 
 class NextcloudTasksService:
-    """Manages CalDAV VTODO operations against a Nextcloud instance."""
+    """Manages CalDAV VTODO operations against a Nextcloud instance.
+
+    All methods are synchronous, using httpx.Client.
+    """
 
     def __init__(self, url: str, username: str, password: str, task_list: str, verify_ssl: bool = True) -> None:
         self.url = _fix_docker_localhost(url.rstrip("/")) if url else ""
@@ -122,21 +128,16 @@ class NextcloudTasksService:
         self.verify_ssl = verify_ssl
         self._resolved_slug: str | None = None
 
-    def _client(self) -> httpx.AsyncClient:
-        return httpx.AsyncClient(timeout=15, verify=self.verify_ssl)
+    def _client(self) -> httpx.Client:
+        return httpx.Client(timeout=15, verify=self.verify_ssl)
 
-    async def _resolve_calendar_slug(self, client: httpx.AsyncClient) -> str | None:
-        """Discover the actual CalDAV URL slug for a task list name via PROPFIND.
-
-        Nextcloud strips non-ASCII and special chars from URIs when creating calendars.
-        This function tries multiple matching strategies including fetching display names.
-        """
+    def _resolve_calendar_slug(self, client: httpx.Client) -> str | None:
         if self._resolved_slug:
             return self._resolved_slug
 
         calendars_url = f"{self.url}/remote.php/dav/calendars/{self.username}/"
         try:
-            resp = await client.request(
+            resp = client.request(
                 "PROPFIND",
                 calendars_url,
                 auth=(self.username, self.password),
@@ -155,36 +156,31 @@ class NextcloudTasksService:
 
             logger.debug("Available calendar slugs: %s", slugs)
 
-            # 1. Exact match
             for slug in slugs:
                 if slug == self.task_list:
                     self._resolved_slug = slug
                     return slug
 
-            # 2. URL-decoded match
             for slug in slugs:
                 if unquote(slug) == self.task_list:
                     self._resolved_slug = slug
                     return slug
 
-            # 3. Case-insensitive match
             for slug in slugs:
                 if slug.lower() == self.task_list.lower() or unquote(slug).lower() == self.task_list.lower():
                     self._resolved_slug = slug
                     return slug
 
-            # 4. ASCII-only strip
             ascii_target = "".join(c for c in self.task_list if (c.isascii() and c.isalnum()) or c == "-")
             for slug in slugs:
                 if slug and slug == ascii_target:
                     self._resolved_slug = slug
                     return slug
 
-            # 5. Match by display name
             for slug in slugs:
                 try:
                     cal_url = f"{self.url}/remote.php/dav/calendars/{self.username}/{slug}/"
-                    r = await client.request(
+                    r = client.request(
                         "PROPFIND",
                         cal_url,
                         auth=(self.username, self.password),
@@ -204,18 +200,18 @@ class NextcloudTasksService:
             logger.error("PROPFIND for calendar slug failed: %s", e)
         return None
 
-    async def _get_calendar_url(self, client: httpx.AsyncClient) -> str | None:
-        slug = await self._resolve_calendar_slug(client)
+    def _get_calendar_url(self, client: httpx.Client) -> str | None:
+        slug = self._resolve_calendar_slug(client)
         if not slug:
             return None
         return f"{self.url}/remote.php/dav/calendars/{self.username}/{slug}/"
 
-    async def test_connection(self) -> dict:
+    def test_connection(self) -> dict:
         """Test connection and return available task lists."""
         calendars_url = f"{self.url}/remote.php/dav/calendars/{self.username}/"
         try:
-            async with self._client() as client:
-                resp = await client.request(
+            with self._client() as client:
+                resp = client.request(
                     "PROPFIND",
                     calendars_url,
                     auth=(self.username, self.password),
@@ -224,7 +220,6 @@ class NextcloudTasksService:
                 if resp.status_code not in (200, 207):
                     return {"status": "error", "message": f"HTTP {resp.status_code}"}
 
-                # Extract calendar display names
                 calendars: list[CalendarInfo] = []
                 hrefs = re.findall(r"<(?:d|D):href>([^<]+)</(?:d|D):href>", resp.text)
                 for href in hrefs:
@@ -232,11 +227,10 @@ class NextcloudTasksService:
                     if slug and slug != self.username:
                         calendars.append(CalendarInfo(slug=slug))
 
-                # Fetch display names
                 for cal in calendars:
                     try:
                         cal_url = f"{self.url}/remote.php/dav/calendars/{self.username}/{cal.slug}/"
-                        r = await client.request(
+                        r = client.request(
                             "PROPFIND",
                             cal_url,
                             auth=(self.username, self.password),
@@ -256,14 +250,14 @@ class NextcloudTasksService:
         except Exception as e:
             return {"status": "error", "message": str(e)}
 
-    async def list_todos(self) -> list[VTodoItem]:
+    def list_todos(self) -> list[VTodoItem]:
         """Fetch all VTODOs from the configured task list."""
-        async with self._client() as client:
-            cal_url = await self._get_calendar_url(client)
+        with self._client() as client:
+            cal_url = self._get_calendar_url(client)
             if not cal_url:
                 return []
 
-            resp = await client.request(
+            resp = client.request(
                 "REPORT",
                 cal_url,
                 auth=(self.username, self.password),
@@ -276,19 +270,19 @@ class NextcloudTasksService:
 
             return _parse_vtodos(resp.text)
 
-    async def create_todo(
+    def create_todo(
         self, summary: str, parent_uid: str = "", uid: str | None = None, status: str = "NEEDS-ACTION"
     ) -> str | None:
         """Create a VTODO. Returns the UID on success."""
         uid = uid or str(uuid4())
         vtodo = _build_vtodo(uid, summary, parent_uid=parent_uid, status=status)
 
-        async with self._client() as client:
-            cal_url = await self._get_calendar_url(client)
+        with self._client() as client:
+            cal_url = self._get_calendar_url(client)
             if not cal_url:
                 return None
 
-            resp = await client.put(
+            resp = client.put(
                 f"{cal_url}{uid}.ics",
                 content=vtodo,
                 headers={"Content-Type": "text/calendar; charset=utf-8"},
@@ -300,15 +294,15 @@ class NextcloudTasksService:
             logger.error("CalDAV PUT failed: HTTP %d", resp.status_code)
             return None
 
-    async def update_todo_summary(self, uid: str, summary: str) -> bool:
-        """Update the summary of a VTODO by re-fetching and modifying it."""
-        async with self._client() as client:
-            cal_url = await self._get_calendar_url(client)
+    def update_todo_summary(self, uid: str, summary: str) -> bool:
+        """Update the summary of a VTODO."""
+        with self._client() as client:
+            cal_url = self._get_calendar_url(client)
             if not cal_url:
                 return False
 
             item_url = f"{cal_url}{uid}.ics"
-            resp = await client.get(item_url, auth=(self.username, self.password))
+            resp = client.get(item_url, auth=(self.username, self.password))
             if resp.status_code != 200:
                 return False
 
@@ -319,7 +313,7 @@ class NextcloudTasksService:
                 vcal,
             )
 
-            resp = await client.put(
+            resp = client.put(
                 item_url,
                 content=vcal,
                 headers={"Content-Type": "text/calendar; charset=utf-8"},
@@ -327,15 +321,15 @@ class NextcloudTasksService:
             )
             return resp.status_code in (200, 201, 204)
 
-    async def complete_todo(self, uid: str) -> bool:
+    def complete_todo(self, uid: str) -> bool:
         """Mark a VTODO as COMPLETED."""
-        async with self._client() as client:
-            cal_url = await self._get_calendar_url(client)
+        with self._client() as client:
+            cal_url = self._get_calendar_url(client)
             if not cal_url:
                 return False
 
             item_url = f"{cal_url}{uid}.ics"
-            resp = await client.get(item_url, auth=(self.username, self.password))
+            resp = client.get(item_url, auth=(self.username, self.password))
             if resp.status_code != 200:
                 return False
 
@@ -347,11 +341,10 @@ class NextcloudTasksService:
                 f"LAST-MODIFIED:{now}",
                 vcal,
             )
-            # Add COMPLETED timestamp if not present
             if "COMPLETED:" not in vcal:
                 vcal = vcal.replace("END:VTODO", f"COMPLETED:{now}\r\nEND:VTODO")
 
-            resp = await client.put(
+            resp = client.put(
                 item_url,
                 content=vcal,
                 headers={"Content-Type": "text/calendar; charset=utf-8"},
@@ -359,15 +352,15 @@ class NextcloudTasksService:
             )
             return resp.status_code in (200, 201, 204)
 
-    async def uncomplete_todo(self, uid: str) -> bool:
+    def uncomplete_todo(self, uid: str) -> bool:
         """Remove COMPLETED status and set to NEEDS-ACTION."""
-        async with self._client() as client:
-            cal_url = await self._get_calendar_url(client)
+        with self._client() as client:
+            cal_url = self._get_calendar_url(client)
             if not cal_url:
                 return False
 
             item_url = f"{cal_url}{uid}.ics"
-            resp = await client.get(item_url, auth=(self.username, self.password))
+            resp = client.get(item_url, auth=(self.username, self.password))
             if resp.status_code != 200:
                 return False
 
@@ -380,7 +373,7 @@ class NextcloudTasksService:
                 vcal,
             )
 
-            resp = await client.put(
+            resp = client.put(
                 item_url,
                 content=vcal,
                 headers={"Content-Type": "text/calendar; charset=utf-8"},
@@ -388,14 +381,14 @@ class NextcloudTasksService:
             )
             return resp.status_code in (200, 201, 204)
 
-    async def delete_todo(self, uid: str) -> bool:
+    def delete_todo(self, uid: str) -> bool:
         """Delete a VTODO by UID."""
-        async with self._client() as client:
-            cal_url = await self._get_calendar_url(client)
+        with self._client() as client:
+            cal_url = self._get_calendar_url(client)
             if not cal_url:
                 return False
 
-            resp = await client.delete(f"{cal_url}{uid}.ics", auth=(self.username, self.password))
+            resp = client.delete(f"{cal_url}{uid}.ics", auth=(self.username, self.password))
             if resp.status_code in (200, 204):
                 logger.info("Deleted VTODO: uid=%s", uid)
                 return True
