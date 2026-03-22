@@ -1,6 +1,5 @@
 import contextlib
 import json
-import logging
 from abc import ABC, abstractmethod
 from collections.abc import Generator
 from datetime import UTC, datetime
@@ -11,25 +10,14 @@ from pydantic import UUID4
 from sqlalchemy import select
 from sqlalchemy.orm.session import Session
 
-from mealie.core.config import get_app_settings
 from mealie.db.db_setup import session_context
 from mealie.db.models.household.webhooks import GroupWebhooksModel
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_events import GroupEventNotifierPrivate
 from mealie.schema.household.webhook import ReadWebhook
 
-from .event_types import (
-    Event,
-    EventDocumentType,
-    EventOperation,
-    EventShoppingListData,
-    EventShoppingListItemBulkData,
-    EventTypes,
-    EventWebhookData,
-)
+from .event_types import Event, EventDocumentType, EventTypes, EventWebhookData
 from .publisher import ApprisePublisher, PublisherLike, WebhookPublisher
-
-nc_logger = logging.getLogger(__name__)
 
 
 class EventListenerBase(ABC):
@@ -189,56 +177,3 @@ class WebhookEventListener(EventListenerBase):
                 GroupWebhooksModel.household_id == self.household_id,
             )
             return session.execute(stmt).scalars().all()
-
-
-class NextcloudEventListener(EventListenerBase):
-    """Pushes shopping list changes to Nextcloud Tasks via CalDAV."""
-
-    def __init__(self, group_id: UUID4, household_id: UUID4) -> None:
-        # No publisher needed — we use NextcloudSyncService directly
-        super().__init__(group_id, household_id, publisher=None)  # type: ignore[arg-type]
-
-    def get_subscribers(self, event: Event) -> list[bool]:
-        if event.event_type not in (
-            EventTypes.shopping_list_created,
-            EventTypes.shopping_list_updated,
-            EventTypes.shopping_list_deleted,
-        ):
-            return []
-
-        settings = get_app_settings()
-        return [True] if settings.NEXTCLOUD_ENABLED else []
-
-    def publish_to_subscribers(self, event: Event, subscribers: list[bool]) -> None:
-        from mealie.services.nextcloud.sync import NextcloudSyncService
-
-        with self.ensure_repos(self.group_id, self.household_id) as repos:
-            sync = NextcloudSyncService(repos)
-
-            try:
-                if isinstance(event.document_data, EventShoppingListData):
-                    match event.document_data.operation:
-                        case EventOperation.create:
-                            sync.push_list_created(event.document_data.shopping_list_id)
-                        case EventOperation.delete:
-                            sync.push_list_deleted(event.document_data.shopping_list_id)
-
-                elif isinstance(event.document_data, EventShoppingListItemBulkData):
-                    match event.document_data.operation:
-                        case EventOperation.create:
-                            sync.push_items_created(
-                                event.document_data.shopping_list_id,
-                                event.document_data.shopping_list_item_ids,
-                            )
-                        case EventOperation.update:
-                            sync.push_items_updated(
-                                event.document_data.shopping_list_id,
-                                event.document_data.shopping_list_item_ids,
-                            )
-                        case EventOperation.delete:
-                            # Items are already deleted — we can't look up their NC UIDs from DB.
-                            # The scheduled sync will handle cleanup.
-                            pass
-
-            except Exception:
-                nc_logger.exception("Nextcloud sync failed for event %s", event.event_type.name)

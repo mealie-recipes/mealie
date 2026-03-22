@@ -9,7 +9,6 @@ from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_bus_listeners import (
     AppriseEventListener,
     EventListenerBase,
-    NextcloudEventListener,
     WebhookEventListener,
 )
 
@@ -56,7 +55,6 @@ class EventBusService:
         return [
             AppriseEventListener(group_id, household_id),
             WebhookEventListener(group_id, household_id),
-            NextcloudEventListener(group_id, household_id),
         ]
 
     def _publish_event(self, event: Event, group_id: UUID4, household_id: UUID4) -> None:
