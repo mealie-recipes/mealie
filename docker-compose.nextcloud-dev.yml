@@ -1,0 +1,27 @@
+services:
+  mealie:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+      network: host
+    container_name: mealie_nextcloud_dev
+    restart: no
+    ports:
+      - "9925:9000"
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    environment:
+      PRODUCTION: "true"
+      ALLOW_SIGNUP: "true"
+      DB_ENGINE: "sqlite"
+      NEXTCLOUD_URL: "http://172.17.0.1:8080"
+      NEXTCLOUD_USERNAME: "admin"
+      NEXTCLOUD_PASSWORD: "admin123"
+      NEXTCLOUD_TASK_LIST: "tasks"
+      NEXTCLOUD_VERIFY_SSL: "false"
+    volumes:
+      - mealie_dev_data:/app/data
+
+volumes:
+  mealie_dev_data:

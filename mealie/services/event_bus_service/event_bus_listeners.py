@@ -1,4 +1,3 @@
-import asyncio
 import contextlib
 import json
 import logging
@@ -220,29 +219,21 @@ class NextcloudEventListener(EventListenerBase):
                 if isinstance(event.document_data, EventShoppingListData):
                     match event.document_data.operation:
                         case EventOperation.create:
-                            asyncio.get_event_loop().run_until_complete(
-                                sync.push_list_created(event.document_data.shopping_list_id)
-                            )
+                            sync.push_list_created(event.document_data.shopping_list_id)
                         case EventOperation.delete:
-                            asyncio.get_event_loop().run_until_complete(
-                                sync.push_list_deleted(event.document_data.shopping_list_id)
-                            )
+                            sync.push_list_deleted(event.document_data.shopping_list_id)
 
                 elif isinstance(event.document_data, EventShoppingListItemBulkData):
                     match event.document_data.operation:
                         case EventOperation.create:
-                            asyncio.get_event_loop().run_until_complete(
-                                sync.push_items_created(
-                                    event.document_data.shopping_list_id,
-                                    event.document_data.shopping_list_item_ids,
-                                )
+                            sync.push_items_created(
+                                event.document_data.shopping_list_id,
+                                event.document_data.shopping_list_item_ids,
                             )
                         case EventOperation.update:
-                            asyncio.get_event_loop().run_until_complete(
-                                sync.push_items_updated(
-                                    event.document_data.shopping_list_id,
-                                    event.document_data.shopping_list_item_ids,
-                                )
+                            sync.push_items_updated(
+                                event.document_data.shopping_list_id,
+                                event.document_data.shopping_list_item_ids,
                             )
                         case EventOperation.delete:
                             # Items are already deleted — we can't look up their NC UIDs from DB.

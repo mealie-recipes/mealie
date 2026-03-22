@@ -4,7 +4,6 @@ Runs every 5 minutes (registered as minutely) to reconcile shopping list
 state between Mealie and Nextcloud CalDAV.
 """
 
-import asyncio
 import logging
 
 from mealie.core.config import get_app_settings
@@ -34,7 +33,7 @@ def sync_nextcloud_tasks():
                 household_repos = get_repositories(session, group_id=group.id, household_id=household.id)
                 sync = NextcloudSyncService(household_repos, settings)
                 try:
-                    asyncio.run(sync.full_sync())
+                    sync.full_sync()
                 except Exception:
                     logger.exception(
                         "Nextcloud sync failed for group=%s household=%s",

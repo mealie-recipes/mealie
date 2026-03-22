@@ -1,4 +1,3 @@
-import asyncio
 import logging
 from collections.abc import Callable
 from functools import cached_property
@@ -209,21 +208,9 @@ class ShoppingListController(BaseCrudController):
                 from mealie.services.nextcloud.sync import NextcloudSyncService
 
                 sync = NextcloudSyncService(self.repos, settings)
-                try:
-                    loop = asyncio.get_running_loop()
-                except RuntimeError:
-                    loop = None
-
-                if loop and loop.is_running():
-                    # We're inside an async context (e.g. FastAPI), schedule as task
-                    import concurrent.futures
-
-                    with concurrent.futures.ThreadPoolExecutor() as pool:
-                        pool.submit(asyncio.run, sync.pull_changes(item_id)).result(timeout=10)
-                else:
-                    asyncio.run(sync.pull_changes(item_id))
+                sync.pull_changes(item_id)
             except Exception:
-                logging.getLogger(__name__).debug("Nextcloud pull-on-load failed", exc_info=True)
+                logging.getLogger(__name__).warning("Nextcloud pull-on-load failed", exc_info=True)
 
         return self.mixins.get_one(item_id)
 

@@ -5,6 +5,7 @@ Each ShoppingListItem maps to a child VTODO linked via RELATED-TO;RELTYPE=PARENT
 UID mapping is tracked via the extras dict on both ShoppingList and ShoppingListItem.
 """
 
+import asyncio
 import logging
 from datetime import UTC, datetime
 from typing import cast
@@ -31,6 +32,24 @@ logger = logging.getLogger(__name__)
 NC_UID_KEY = "nextcloud_uid"
 NC_PARENT_UID_KEY = "nextcloud_parent_uid"
 NC_LAST_SYNC_KEY = "nextcloud_last_sync"
+
+
+def _run_async(coro):
+    """Run an async coroutine from sync code, handling existing event loops."""
+    try:
+        loop = asyncio.get_running_loop()
+    except RuntimeError:
+        loop = None
+
+    if loop and loop.is_running():
+        # We're inside an existing event loop (e.g. FastAPI with uvicorn)
+        # Run in a new thread with its own event loop
+        import concurrent.futures
+
+        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
+            return pool.submit(asyncio.run, coro).result(timeout=15)
+    else:
+        return asyncio.run(coro)
 
 
 def _item_to_summary(item: ShoppingListItemOut) -> str:
@@ -75,7 +94,11 @@ def _create_nc_service(settings: AppSettings | None = None) -> NextcloudTasksSer
 
 
 class NextcloudSyncService:
-    """Bidirectional sync between Mealie shopping lists and Nextcloud Tasks."""
+    """Bidirectional sync between Mealie shopping lists and Nextcloud Tasks.
+
+    All public methods are synchronous. Async HTTP calls to Nextcloud are
+    handled internally via _run_async(), keeping DB operations on the caller's thread.
+    """
 
     def __init__(self, repos: AllRepositories, settings: AppSettings | None = None) -> None:
         self.repos = repos
@@ -113,7 +136,7 @@ class NextcloudSyncService:
 
     # ─── Push operations (Mealie → Nextcloud) ─────────────────────────
 
-    async def push_list_created(self, shopping_list_id: UUID4) -> None:
+    def push_list_created(self, shopping_list_id: UUID4) -> None:
         """Create a parent VTODO in Nextcloud for a new shopping list."""
         if not self.nc:
             return
@@ -124,23 +147,21 @@ class NextcloudSyncService:
 
         parent_uid = str(uuid4())
         try:
-            result = await self.nc.create_todo(
+            result = _run_async(self.nc.create_todo(
                 summary=shopping_list.name or "Shopping List",
                 uid=parent_uid,
-            )
+            ))
             if result:
                 self._update_list_extras(shopping_list_id, NC_PARENT_UID_KEY, parent_uid)
                 logger.info("Created Nextcloud parent task for list '%s'", shopping_list.name)
         except Exception:
             logger.exception("Failed to create Nextcloud parent task for list '%s'", shopping_list.name)
 
-    async def push_list_deleted(self, shopping_list_id: UUID4) -> None:
+    def push_list_deleted(self, shopping_list_id: UUID4) -> None:
         """Delete the parent VTODO and all child VTODOs from Nextcloud."""
         if not self.nc:
             return
 
-        # We need to find the parent UID - but the list may already be deleted from DB.
-        # Best effort: try to get the list, if gone, we can't delete from NC.
         shopping_list = self._get_shopping_list(shopping_list_id)
         if not shopping_list:
             return
@@ -150,18 +171,16 @@ class NextcloudSyncService:
             return
 
         try:
-            # Delete all children first
-            todos = await self.nc.list_todos()
+            todos = _run_async(self.nc.list_todos())
             for todo in todos:
                 if todo.parent_uid == parent_uid:
-                    await self.nc.delete_todo(todo.uid)
-            # Delete parent
-            await self.nc.delete_todo(parent_uid)
+                    _run_async(self.nc.delete_todo(todo.uid))
+            _run_async(self.nc.delete_todo(parent_uid))
             logger.info("Deleted Nextcloud tasks for list '%s'", shopping_list.name)
         except Exception:
             logger.exception("Failed to delete Nextcloud tasks for list '%s'", shopping_list.name)
 
-    async def push_items_created(self, shopping_list_id: UUID4, item_ids: list[UUID4]) -> None:
+    def push_items_created(self, shopping_list_id: UUID4, item_ids: list[UUID4]) -> None:
         """Push newly created items to Nextcloud as child VTODOs."""
         if not self.nc:
             return
@@ -174,10 +193,10 @@ class NextcloudSyncService:
         if not parent_uid:
             # Create parent task first
             parent_uid = str(uuid4())
-            result = await self.nc.create_todo(
+            result = _run_async(self.nc.create_todo(
                 summary=shopping_list.name or "Shopping List",
                 uid=parent_uid,
-            )
+            ))
             if result:
                 self._update_list_extras(shopping_list_id, NC_PARENT_UID_KEY, parent_uid)
             else:
@@ -198,18 +217,18 @@ class NextcloudSyncService:
             child_uid = str(uuid4())
             try:
                 status = "COMPLETED" if item.checked else "NEEDS-ACTION"
-                result = await self.nc.create_todo(
+                result = _run_async(self.nc.create_todo(
                     summary=summary,
                     parent_uid=parent_uid,
                     uid=child_uid,
                     status=status,
-                )
+                ))
                 if result:
                     self._update_item_extras(item_id, NC_UID_KEY, child_uid)
             except Exception:
                 logger.exception("Failed to push item '%s' to Nextcloud", summary)
 
-    async def push_items_updated(self, shopping_list_id: UUID4, item_ids: list[UUID4]) -> None:
+    def push_items_updated(self, shopping_list_id: UUID4, item_ids: list[UUID4]) -> None:
         """Push item updates (including check status) to Nextcloud."""
         if not self.nc:
             return
@@ -222,52 +241,36 @@ class NextcloudSyncService:
             nc_uid = _get_nc_uid(item.extras)
             if not nc_uid:
                 # Item not yet synced — create it
-                await self.push_items_created(shopping_list_id, [item_id])
+                self.push_items_created(shopping_list_id, [item_id])
                 continue
 
             try:
                 # Update summary
                 summary = _item_to_summary(item)
-                await self.nc.update_todo_summary(nc_uid, summary)
+                _run_async(self.nc.update_todo_summary(nc_uid, summary))
 
                 # Update check status
                 if item.checked:
-                    await self.nc.complete_todo(nc_uid)
+                    _run_async(self.nc.complete_todo(nc_uid))
                 else:
-                    await self.nc.uncomplete_todo(nc_uid)
+                    _run_async(self.nc.uncomplete_todo(nc_uid))
             except Exception:
                 logger.exception("Failed to update item '%s' in Nextcloud", nc_uid)
 
-    async def push_items_deleted(self, shopping_list_id: UUID4, item_ids: list[UUID4]) -> None:
-        """Delete VTODOs from Nextcloud for removed items."""
-        if not self.nc:
-            return
-
-        # Items are already deleted from DB, so we need to get nc_uids before deletion.
-        # This is called after the items are deleted, so we rely on the event data.
-        # We need to fetch todos from NC and match by known UIDs.
-        # Since items are gone, we'll try to delete by uid from the item_ids.
-        # The caller should pass nc_uids if possible, but as a fallback we try each.
-
-        # Best approach: items still have their extras at event time in the controller
-        # The event listener should capture nc_uids before items are deleted.
-        # For now, we'll handle this in the event listener by pre-fetching uids.
-        pass
-
-    async def push_items_deleted_by_nc_uids(self, nc_uids: list[str]) -> None:
+    def push_items_deleted_by_nc_uids(self, nc_uids: list[str]) -> None:
         """Delete VTODOs from Nextcloud by their UIDs."""
         if not self.nc:
             return
 
         for nc_uid in nc_uids:
             try:
-                await self.nc.delete_todo(nc_uid)
+                _run_async(self.nc.delete_todo(nc_uid))
             except Exception:
                 logger.exception("Failed to delete VTODO '%s' from Nextcloud", nc_uid)
 
     # ─── Pull operations (Nextcloud → Mealie) ─────────────────────────
 
-    async def pull_changes(self, shopping_list_id: UUID4) -> None:
+    def pull_changes(self, shopping_list_id: UUID4) -> None:
         """Pull changes from Nextcloud for a specific shopping list."""
         if not self.nc:
             return
@@ -279,15 +282,15 @@ class NextcloudSyncService:
         parent_uid = (shopping_list.extras or {}).get(NC_PARENT_UID_KEY)
         if not parent_uid:
             # This list hasn't been synced to Nextcloud yet; push it first
-            await self.push_list_created(shopping_list_id)
+            self.push_list_created(shopping_list_id)
             # Push existing items
             item_ids = [item.id for item in shopping_list.list_items]
             if item_ids:
-                await self.push_items_created(shopping_list_id, item_ids)
+                self.push_items_created(shopping_list_id, item_ids)
             return
 
         try:
-            todos = await self.nc.list_todos()
+            todos = _run_async(self.nc.list_todos())
         except Exception:
             logger.exception("Failed to fetch Nextcloud tasks for pull")
             return
@@ -313,7 +316,6 @@ class NextcloudSyncService:
 
             nc_is_completed = todo.status in ("COMPLETED", "DONE")
             if nc_is_completed != mealie_item.checked:
-                # Update Mealie to match Nextcloud
                 self.repos.group_shopping_list_item.update(
                     mealie_item.id,
                     mealie_item.cast(ShoppingListItemUpdateBulk, id=mealie_item.id, checked=nc_is_completed),
@@ -328,7 +330,6 @@ class NextcloudSyncService:
             if todo.status in ("COMPLETED", "DONE"):
                 continue  # Don't import completed tasks from NC
 
-            # Create a new item in Mealie
             new_item = ShoppingListItemCreate(
                 shopping_list_id=shopping_list_id,
                 note=todo.summary,
@@ -338,23 +339,20 @@ class NextcloudSyncService:
             )
             created = self.repos.group_shopping_list_item.create(new_item)
             if created:
-                logger.debug("Imported item from Nextcloud: '%s'", todo.summary)
+                logger.info("Imported item from Nextcloud: '%s'", todo.summary)
 
-        # 3. Delete NC tasks that were deleted in Mealie (NC has it, Mealie doesn't)
-        # This is handled by push_items_deleted, not during pull
-
-        # 4. Push items that exist in Mealie but not in Nextcloud
+        # 3. Push items that exist in Mealie but not in Nextcloud
         for item in mealie_items_without_nc:
             child_uid = str(uuid4())
             summary = _item_to_summary(item)
             status = "COMPLETED" if item.checked else "NEEDS-ACTION"
             try:
-                result = await self.nc.create_todo(
+                result = _run_async(self.nc.create_todo(
                     summary=summary,
                     parent_uid=parent_uid,
                     uid=child_uid,
                     status=status,
-                )
+                ))
                 if result:
                     self._update_item_extras(item.id, NC_UID_KEY, child_uid)
             except Exception:
@@ -365,7 +363,7 @@ class NextcloudSyncService:
 
     # ─── Full sync (scheduled task) ───────────────────────────────────
 
-    async def full_sync(self) -> None:
+    def full_sync(self) -> None:
         """Full bidirectional sync for all shopping lists. Called by the scheduler."""
         if not self.nc:
             return
@@ -375,13 +373,12 @@ class NextcloudSyncService:
             return
 
         try:
-            todos = await self.nc.list_todos()
+            todos = _run_async(self.nc.list_todos())
         except Exception:
             logger.exception("Failed to fetch Nextcloud tasks for full sync")
             return
 
         for shopping_list in shopping_lists:
-            # Re-fetch full list with items
             full_list = self._get_shopping_list(shopping_list.id)
             if not full_list:
                 continue
@@ -394,7 +391,6 @@ class NextcloudSyncService:
                 try:
                     last_sync = datetime.fromisoformat(last_sync_str)
                     if full_list.updated_at and full_list.updated_at <= last_sync:
-                        # Check if NC side has changes
                         nc_children = [t for t in todos if t.parent_uid == parent_uid]
                         nc_has_changes = False
                         for todo in nc_children:
@@ -428,4 +424,4 @@ class NextcloudSyncService:
                     pass  # Invalid timestamp, do full sync
 
             # Perform pull (which also pushes unsynced items)
-            await self.pull_changes(shopping_list.id)
+            self.pull_changes(shopping_list.id)
