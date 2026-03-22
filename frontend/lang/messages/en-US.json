@@ -898,7 +898,23 @@
     "oidc-ready-success-text": "Required OIDC variables are all set.",
     "openai-ready": "OpenAI Ready",
     "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready-success-text": "Required OpenAI variables are all set.",
+    "nextcloud-ready": "Nextcloud Tasks Ready",
+    "nextcloud-ready-error-text": "Not all Nextcloud values are configured. This can be ignored if you are not using Nextcloud Tasks sync.",
+    "nextcloud-ready-success-text": "Required Nextcloud variables are all set. Shopping lists will sync with Nextcloud Tasks.",
+    "nextcloud-tasks": "Nextcloud Tasks",
+    "nextcloud-configuration": "Nextcloud Configuration",
+    "nextcloud-configuration-status": "Nextcloud CalDAV Configuration Status",
+    "nextcloud-not-configured": "Nextcloud is not configured. Set the required environment variables to enable shopping list sync.",
+    "nextcloud-url": "Nextcloud URL",
+    "nextcloud-username": "Username",
+    "nextcloud-task-list": "Task List",
+    "nextcloud-setup": "Setup Instructions",
+    "nextcloud-setup-description": "To enable Nextcloud Tasks sync, set the following environment variables in your Mealie deployment:",
+    "nextcloud-test-connection": "Test Connection",
+    "nextcloud-connection-success": "Successfully connected to Nextcloud CalDAV.",
+    "nextcloud-connection-failed": "Failed to connect to Nextcloud.",
+    "nextcloud-available-lists": "Available task lists:"
   },
   "shopping-list": {
     "all-lists": "All Lists",
@@ -956,7 +972,8 @@
     "parser": "Parser",
     "developer": "Developer",
     "cookbook": "Cookbook",
-    "create-cookbook": "Create a new cookbook"
+    "create-cookbook": "Create a new cookbook",
+    "nextcloud": "Nextcloud"
   },
   "signup": {
     "error-signing-up": "Error Signing Up",

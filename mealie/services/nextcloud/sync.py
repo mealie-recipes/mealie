@@ -304,12 +304,16 @@ class NextcloudSyncService:
                 shopping_list_id=shopping_list_id,
                 note=todo.summary,
                 checked=False,
-                quantity=1,
+                quantity=0,
+                is_ingredient=False,
                 extras={NC_UID_KEY: nc_uid},
             )
-            created = self.repos.group_shopping_list_item.create(new_item)
-            if created:
-                logger.info("Imported item from Nextcloud: '%s'", todo.summary)
+            try:
+                created = self.repos.group_shopping_list_item.create(new_item)
+                if created:
+                    logger.info("Imported item from Nextcloud: '%s'", todo.summary)
+            except Exception:
+                logger.exception("Failed to create Mealie item from NC task '%s'", todo.summary)
 
         # 3. Push Mealie items that aren't in Nextcloud yet
         for item in mealie_items_without_nc:

@@ -366,6 +366,15 @@ export default defineNuxtComponent({
           color: appConfig.value.enableOpenai ? goodColor : warningColor,
           icon: appConfig.value.enableOpenai ? goodIcon : warningIcon,
         },
+        {
+          id: "nextcloud-ready",
+          text: i18n.t("settings.nextcloud-ready"),
+          status: appConfig.value.enableNextcloud,
+          errorText: i18n.t("settings.nextcloud-ready-error-text"),
+          successText: i18n.t("settings.nextcloud-ready-success-text"),
+          color: appConfig.value.enableNextcloud ? goodColor : warningColor,
+          icon: appConfig.value.enableNextcloud ? goodIcon : warningIcon,
+        },
       ];
       return data;
     });
