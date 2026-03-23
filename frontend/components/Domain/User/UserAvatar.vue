@@ -4,10 +4,10 @@
     :disabled="!user || !tooltip"
     location="end"
   >
-    <template #activator="{ props }">
+    <template #activator="{ props: tooltipProps }">
       <v-avatar
         v-if="list"
-        v-bind="props"
+        v-bind="tooltipProps"
       >
         <v-img
           :src="imageURL"
@@ -19,7 +19,7 @@
       <v-avatar
         v-else
         :size="size"
-        v-bind="props"
+        v-bind="tooltipProps"
       >
         <v-img
           :src="imageURL"

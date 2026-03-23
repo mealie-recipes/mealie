@@ -7,7 +7,7 @@
       nudge-bottom="3"
       :close-on-content-click="false"
     >
-      <template #activator="{ props }">
+      <template #activator="{ props: menuProps }">
         <v-badge
           v-memo="[selectedCount]"
           :model-value="selectedCount > 0"
@@ -19,7 +19,7 @@
             size="small"
             color="accent"
             dark
-            v-bind="props"
+            v-bind="menuProps"
           >
             <slot />
           </v-btn>

@@ -51,7 +51,7 @@
         location="bottom"
         content-class="text-caption"
       >
-        <template #activator="{ props }">
+        <template #activator="{ props: tooltipProps }">
           <v-btn
             tile
             icon
@@ -60,7 +60,7 @@
             :disabled="btn.disabled"
             :style="stretch ? `width: ${maxButtonWidth};` : ''"
             variant="plain"
-            v-bind="props"
+            v-bind="tooltipProps"
             @click="$emit(btn.event)"
           >
             <v-icon> {{ btn.icon }} </v-icon>

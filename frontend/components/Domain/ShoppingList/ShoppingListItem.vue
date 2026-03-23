@@ -40,7 +40,7 @@
             start
             min-width="125px"
           >
-            <template #activator="{ props }">
+            <template #activator="{ props: hoverProps }">
               <v-tooltip
                 v-if="recipeList && recipeList.length"
                 open-delay="200"
@@ -81,7 +81,7 @@
                 variant="text"
                 class="handle"
                 icon
-                v-bind="props"
+                v-bind="hoverProps"
               >
                 <v-icon>
                   {{ $globals.icons.arrowUpDown }}
