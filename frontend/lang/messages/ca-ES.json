@@ -212,8 +212,8 @@
     "upload-file": "Puja un fitxer",
     "created-on-date": "Creat el: {0}",
     "unsaved-changes": "Tens canvis que no estan guardats. Vols guardar-los abans de sortir? Clica d'acord per guardar-los o cancel·lar per descartar els canvis.",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "Descarta els canvis",
+    "discard-changes-description": "Teniu canvis sense desar. Esteu segur que voleu descartar-los?",
     "clipboard-copy-failure": "No s'ha pogut copiar al porta-retalls.",
     "confirm-delete-generic-items": "Are you sure you want to delete the following items?",
     "organizers": "Organitzadors",
@@ -370,8 +370,8 @@
     "applies-to-all-days": "Aplica a tots els dies",
     "applies-on-days": "S'aplicarà en {0}s",
     "meal-plan-settings": "Opcions de planificació de menús",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Afegiu Tot a la llista",
+    "add-day-to-list": "Afegiu Dia a la llista"
   },
   "migration": {
     "migration-data-removed": "S'han suprimit les dades migrades",
@@ -636,8 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crea la recepta proporcionant-ne un nom. Totes les receptes han de tenir un nom únic.",
     "new-recipe-names-must-be-unique": "Els noms de les noves receptes han de ser únics",
     "scrape-recipe": "Rastrejar recepta",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
-    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
+    "scrape-recipe-description": "Importa recepta des de l'url. Proporciona un url del lloc que voleu importar. Mealie intentarà analitzar la recepta del lloc web i afegir-la a la vostra col·lecció.",
+    "scrape-recipe-description-transcription": "Podeu proporcionar l'url a un vídeo i Mealie provarà de transcriure'l a una recepta.",
     "scrape-recipe-have-a-lot-of-recipes": "Tens moltes receptes a processar alhora?",
     "scrape-recipe-suggest-bulk-importer": "Prova l'importador a granel",
     "scrape-recipe-have-raw-html-or-json-data": "Teniu dades HTML o JSON pla?",
@@ -645,7 +645,7 @@
     "scrape-recipe-website-being-blocked": "S'està bloquejant el lloc web?",
     "scrape-recipe-try-importing-raw-html-instead": "Prova important l'HTML directament.",
     "import-original-keywords-as-tags": "Importa les paraules clau originals com a tags",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Importar categories originals",
     "stay-in-edit-mode": "Segueix en el mode d'edició",
     "parse-recipe-ingredients-after-import": "Analitza els ingredients de la recepta després d'importar",
     "import-from-zip": "Importa des d'un ZIP",
@@ -904,7 +904,7 @@
     "all-lists": "Totes les llistes",
     "create-shopping-list": "Crea una llista de la compra",
     "from-recipe": "Des de la recepta",
-    "ingredient-of-recipe": "Ingredient of {recipe}",
+    "ingredient-of-recipe": "Ingredients de {recipe}",
     "list-name": "Nom de la llista",
     "new-list": "Llista nova",
     "quantity": "Quantitat: {0}",
@@ -1137,20 +1137,20 @@
       "example-unit-plural": "ex: Cullerades soperes",
       "example-unit-abbreviation-singular": "ex: Tbsp",
       "example-unit-abbreviation-plural": "ex: Tbsps",
-      "standardization": "Standardization",
-      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
-      "standard-unit": "Standard Unit",
-      "standard-quantity": "Standard Quantity",
-      "unit-conversion": "Unit Conversion",
+      "standardization": "Estandardització",
+      "standardization-description": "Com aquesta unitat pot ser representada com una unitat estàndard. Això permet característiques de conversió d'unitats com la fusió d'unitats compatibles en llistes de compres.",
+      "standard-unit": "Unitat estàndard",
+      "standard-quantity": "Quantitat estàndard",
+      "unit-conversion": "Conversió d'unitats",
       "standard-unit-labels": {
-        "fluid-ounce": "fluid ounce",
-        "cup": "cup",
-        "ounce": "ounce",
-        "pound": "pound",
-        "milliliter": "milliliter",
-        "liter": "liter",
-        "gram": "gram",
-        "kilogram": "kilogram"
+        "fluid-ounce": "unça líquida",
+        "cup": "tassa",
+        "ounce": "unça",
+        "pound": "lliura",
+        "milliliter": "mil·lilitres",
+        "liter": "litre",
+        "gram": "grams",
+        "kilogram": "quilogram"
       }
     },
     "labels": {
@@ -1187,8 +1187,8 @@
       "edit-recipe-action": "Edita acció de receptes",
       "action-type": "Tipus d'acció",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "Enllaç",
+        "post": "Publica"
       }
     },
     "create-alias": "Crea un àlies",
@@ -1444,8 +1444,8 @@
       "is-greater-than-or-equal-to": "és més gran o igual a",
       "is-less-than": "és menys que",
       "is-less-than-or-equal-to": "és menor o igual a",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "és més antic que",
+      "is-newer-than": "és més nou que"
     },
     "relational-keywords": {
       "is": "és",
@@ -1457,7 +1457,7 @@
       "is-not-like": "no és com"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "dies|dia|dies"
     }
   },
   "validators": {
@@ -1466,6 +1466,6 @@
     "invalid-url": "La URL ha de ser vàlida",
     "no-whitespace": "No es permeten espais en blanc",
     "min-length": "Ha de tenir almenys {min} caràcters",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Ha de tenir com a màxim {max} caràcter|Ha de tenir com a màxim {max} caràcters"
   }
 }
