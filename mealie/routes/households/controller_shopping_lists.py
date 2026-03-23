@@ -54,12 +54,19 @@ def _nc_push_items(controller: "ShoppingListItemController", items: ShoppingList
         sync = NextcloudSyncService(controller.repos, nc)
 
         if items.created_items:
+            # Group by shopping list to batch the push
+            by_list: dict[str, list] = {}
             for item in items.created_items:
-                sync.push_items_created(item.shopping_list_id, [item.id])
+                by_list.setdefault(str(item.shopping_list_id), []).append(item.id)
+            for list_id, item_ids in by_list.items():
+                sync.push_items_created(UUID4(list_id), item_ids)
 
         if items.updated_items:
+            by_list = {}
             for item in items.updated_items:
-                sync.push_items_updated(item.shopping_list_id, [item.id])
+                by_list.setdefault(str(item.shopping_list_id), []).append(item.id)
+            for list_id, item_ids in by_list.items():
+                sync.push_items_updated(UUID4(list_id), item_ids)
 
         if items.deleted_items:
             nc_uids = []

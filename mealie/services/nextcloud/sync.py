@@ -267,10 +267,14 @@ class NextcloudSyncService:
             shopping_list.name, parent_uid, len(nc_children), len(todos),
         )
 
-        # Re-read the list to get fresh data after _ensure_parent may have changed things
+        # Re-read the list with fresh session data
+        self.session.expire_all()
         shopping_list = self._get_shopping_list(shopping_list_id)
         if not shopping_list:
             return
+
+        # Build set of all NC child UIDs for quick lookup
+        all_nc_child_uids = set(nc_children.keys())
 
         # Build map of existing Mealie items by their NC UID
         mealie_items_by_nc_uid: dict[str, ShoppingListItemOut] = {}
@@ -341,9 +345,34 @@ class NextcloudSyncService:
                 logger.exception("Failed to import NC task '%s'", todo.summary)
 
         # 3. Push Mealie items that aren't in Nextcloud yet
+        #    But first re-check extras from DB — another request may have set nc_uid
         for item in mealie_items_without_nc:
-            child_uid = str(uuid4())
+            # Double-check: maybe nc_uid was set by a concurrent push
+            stmt = select(ShoppingListItemExtras).where(
+                ShoppingListItemExtras.shopping_list_item_id == item.id,
+                ShoppingListItemExtras.key_name == NC_UID_KEY,
+            )
+            existing_extra = self.session.execute(stmt).scalar_one_or_none()
+            if existing_extra and existing_extra.value:
+                logger.debug("Skipping push for '%s' — nc_uid already set by push", _item_to_summary(item))
+                continue
+
+            # Also check if NC already has a matching VTODO (dedup by summary)
             summary = _item_to_summary(item)
+            already_in_nc = False
+            for nc_uid, todo in nc_children.items():
+                if nc_uid not in known_nc_uids and todo.summary == summary:
+                    # Match found — link them instead of creating a duplicate
+                    self._set_item_extra(item.id, NC_UID_KEY, nc_uid)
+                    known_nc_uids.add(nc_uid)
+                    already_in_nc = True
+                    logger.info("Linked existing NC task '%s' to Mealie item", summary)
+                    break
+
+            if already_in_nc:
+                continue
+
+            child_uid = str(uuid4())
             status = "COMPLETED" if item.checked else "NEEDS-ACTION"
             try:
                 result = self.nc.create_todo(
