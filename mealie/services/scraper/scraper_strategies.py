@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import asyncio
 import functools
 import re
@@ -5,17 +7,14 @@ import time
 from abc import ABC, abstractmethod
 from collections.abc import Awaitable, Callable
 from pathlib import Path
-from typing import Any, TypedDict
+from typing import TYPE_CHECKING, Any, TypedDict
 
-import bs4
-import extruct
-import yt_dlp
 from fastapi import HTTPException, status
 from httpx import AsyncClient, Response
-from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
-from slugify import slugify
-from w3lib.html import get_base_url
-from yt_dlp.extractor.generic import GenericIE
+
+if TYPE_CHECKING:
+    import bs4
+    from recipe_scrapers import SchemaScraperFactory
 
 from mealie.core import exceptions
 from mealie.core.config import get_app_settings
@@ -23,12 +22,9 @@ from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.pkgs import safehttp
-from mealie.schema.openai.general import OpenAIText
-from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
-from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
@@ -48,6 +44,9 @@ logger = get_logger()
 @functools.cache
 def _get_yt_dlp_extractors() -> list:
     """Build and cache the yt-dlp extractor list once per process lifetime."""
+    import yt_dlp
+    from yt_dlp.extractor.generic import GenericIE
+
     return [ie for ie in yt_dlp.extractor.gen_extractors() if ie.working() and not isinstance(ie, GenericIE)]
 
 
@@ -289,6 +288,8 @@ class RecipeScraperPackage(ABCScraperStrategy):
         return recipe, extras
 
     async def scrape_url(self) -> SchemaScraperFactory.SchemaScraper | Any | None:
+        from recipe_scrapers import NoSchemaFoundInWildMode, scrape_html
+
         recipe_html = await self.get_html(self.url)
 
         try:
@@ -385,6 +386,8 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         return None
 
     def format_html_to_text(self, html: str) -> str:
+        import bs4
+
         soup = bs4.BeautifulSoup(html, "lxml")
 
         text = soup.get_text(separator="\n", strip=True)
@@ -410,6 +413,9 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         html = self.raw_html or await safe_scrape_html(url)
         text = self.format_html_to_text(html)
         try:
+            from mealie.schema.openai.general import OpenAIText
+            from mealie.services.openai import OpenAIService
+
             service = OpenAIService()
             prompt = service.get_prompt("recipes.scrape-recipe")
 
@@ -489,6 +495,8 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         }
 
         try:
+            import yt_dlp
+
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(self.url, download=True)
 
@@ -524,6 +532,9 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         self,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
     ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+        from mealie.schema.openai.recipe import OpenAIRecipe
+        from mealie.services.openai import OpenAIService
+
         openai_service = OpenAIService()
 
         with get_temporary_path() as temp_path:
@@ -626,6 +637,10 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
 
         def og_fields(properties: list[tuple[str, str]], field_name: str) -> list[str]:
             return list({val for name, val in properties if name == field_name})
+
+        import extruct
+        from slugify import slugify
+        from w3lib.html import get_base_url
 
         base_url = get_base_url(html, self.url)
         data = extruct.extract(html, base_url=base_url, errors="log")

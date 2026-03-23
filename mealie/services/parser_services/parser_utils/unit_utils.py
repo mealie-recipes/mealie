@@ -1,8 +1,10 @@
+from __future__ import annotations
+
 from typing import TYPE_CHECKING, Literal, overload
 
-from pint import Quantity, Unit, UnitRegistry
-
 if TYPE_CHECKING:
+    from pint import Quantity, Unit
+
     from mealie.schema.recipe.recipe_ingredient import CreateIngredientUnit
 
 
@@ -19,6 +21,8 @@ class UnitNotFound(Exception):
 
 class UnitConverter:
     def __init__(self):
+        from pint import UnitRegistry
+
         self.ureg = UnitRegistry()
 
     def _resolve_ounce(self, unit_1: Unit, unit_2: Unit) -> tuple[Unit, Unit]:
@@ -53,6 +57,8 @@ class UnitConverter:
         If strict is True, raises UnitNotFound instead of returning a string.
         If the input is already a parsed pint.Unit, returns it as-is.
         """
+        from pint import Unit
+
         if isinstance(unit, Unit):
             return unit
 
@@ -65,6 +71,7 @@ class UnitConverter:
 
     def can_convert(self, unit: str | Unit, to_unit: str | Unit) -> bool:
         """Whether or not a given unit can be converted into another unit."""
+        from pint import Unit
 
         unit = self.parse(unit)
         to_unit = self.parse(to_unit)

@@ -1,6 +1,5 @@
 from typing import Annotated
 
-from authlib.integrations.starlette_client import OAuth
 from fastapi import APIRouter, Depends, Header, Request, Response, status
 from fastapi.exceptions import HTTPException
 from fastapi.responses import RedirectResponse
@@ -12,7 +11,6 @@ from mealie.core import root_logger, security
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies import get_current_user
 from mealie.core.exceptions import MissingClaimException, UserLockedOut
-from mealie.core.security.providers.openid_provider import OpenIDProvider
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
 from mealie.lang import get_locale_provider
@@ -28,7 +26,10 @@ logger = root_logger.get_logger("auth")
 
 
 settings = get_app_settings()
+oauth = None
 if settings.OIDC_READY:
+    from authlib.integrations.starlette_client import OAuth
+
     oauth = OAuth(cache=AuthCache())
     scope = None
     if settings.OIDC_SCOPES_OVERRIDE:
@@ -120,6 +121,8 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
     client = oauth.create_client("oidc")
 
     token = await client.authorize_access_token(request)
+
+    from mealie.core.security.providers.openid_provider import OpenIDProvider
 
     auth = None
     try:

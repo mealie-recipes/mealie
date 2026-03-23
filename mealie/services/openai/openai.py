@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import base64
 import inspect
 import json
@@ -5,11 +7,11 @@ import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 from textwrap import dedent
-from typing import TypeVar
+from typing import TYPE_CHECKING, TypeVar
 
-import openai
-from openai import AsyncOpenAI
-from openai.types.chat import ChatCompletion
+if TYPE_CHECKING:
+    from openai.types.chat import ChatCompletion
+
 from pydantic import BaseModel, field_validator
 
 from mealie.core import exceptions, root_logger
@@ -110,6 +112,8 @@ class OpenAIService(BaseService):
         self.workers = settings.OPENAI_WORKERS
         self.send_db_data = settings.OPENAI_SEND_DATABASE_DATA
         self.custom_prompt_dir = settings.OPENAI_CUSTOM_PROMPT_DIR
+
+        from openai import AsyncOpenAI
 
         self.get_client = lambda: AsyncOpenAI(
             base_url=settings.OPENAI_BASE_URL,
@@ -236,6 +240,7 @@ class OpenAIService(BaseService):
         attachments: list[OpenAIAttachment] | None = None,
     ) -> T | None:
         """Send data to OpenAI and return the response message content"""
+        import openai
 
         try:
             user_messages = [{"type": "text", "text": message}]
@@ -254,6 +259,8 @@ class OpenAIService(BaseService):
             raise Exception(f"OpenAI Request Failed. {e.__class__.__name__}: {e}") from e
 
     async def transcribe_audio(self, audio_file_path: Path) -> str | None:
+        import openai
+
         client = self.get_client()
 
         # Create a transcription from the audio

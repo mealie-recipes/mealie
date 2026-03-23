@@ -6,8 +6,6 @@ from fastapi import APIRouter, File, UploadFile
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin.debug import DebugResponse
-from mealie.schema.openai.general import OpenAIText
-from mealie.services.openai import OpenAILocalImage, OpenAIService
 
 router = APIRouter(prefix="/debug")
 
@@ -22,6 +20,9 @@ class AdminDebugController(BaseAdminController):
             return DebugResponse(
                 success=False, response="Image was provided, but OpenAI image services are not enabled"
             )
+
+        from mealie.schema.openai.general import OpenAIText
+        from mealie.services.openai import OpenAILocalImage, OpenAIService
 
         with get_temporary_path() as temp_path:
             if image:

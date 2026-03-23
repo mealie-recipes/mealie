@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 import os
 import shutil
@@ -5,9 +7,12 @@ from datetime import UTC, datetime
 from pathlib import Path
 from shutil import copytree, rmtree
 from textwrap import dedent
-from typing import Any
+from typing import TYPE_CHECKING, Any
 from uuid import UUID, uuid4
 from zipfile import ZipFile
+
+if TYPE_CHECKING:
+    from mealie.schema.openai.recipe import OpenAIRecipe
 
 import sqlalchemy as sa
 from fastapi import UploadFile
@@ -21,7 +26,6 @@ from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeUpdate
-from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe, create_recipe_slug
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
@@ -32,7 +36,6 @@ from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
 from mealie.services.household_services.household_service import HouseholdService
-from mealie.services.openai import OpenAILocalImage, OpenAIService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper import cleaner
 
@@ -608,6 +611,9 @@ class OpenAIRecipeService(RecipeServiceBase):
         )
 
     async def build_recipe_from_images(self, images: list[Path], translate_language: str | None) -> Recipe:
+        from mealie.schema.openai.recipe import OpenAIRecipe
+        from mealie.services.openai import OpenAILocalImage, OpenAIService
+
         settings = get_app_settings()
         if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_IMAGE_SERVICES):
             raise ValueError("OpenAI image services are not available")
