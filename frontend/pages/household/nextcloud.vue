@@ -14,7 +14,6 @@
       </template>
     </BasePageTitle>
 
-    <!-- Enable Toggle -->
     <section>
       <BaseCardSectionTitle
         class="pb-0"
@@ -125,7 +124,6 @@
       </v-card>
     </section>
 
-    <!-- Test Results -->
     <section
       v-if="testResult"
       class="mt-2"
@@ -168,7 +166,6 @@
 
 <script lang="ts">
 import { useUserApi } from "~/composables/api";
-import { useHouseholdSelf } from "~/composables/use-households";
 
 interface NextcloudTestResult {
   status: string;
@@ -185,8 +182,6 @@ export default defineNuxtComponent({
       title: i18n.t("settings.nextcloud-tasks"),
     });
 
-    const { household } = useHouseholdSelf();
-
     const form = ref({
       nextcloudEnabled: false,
       nextcloudUrl: null as string | null,
@@ -195,6 +190,9 @@ export default defineNuxtComponent({
       nextcloudTaskList: null as string | null,
       nextcloudVerifySsl: true,
     });
+
+    // Store full preferences for merging on save
+    const fullPreferences = ref<Record<string, unknown> | null>(null);
 
     const showPassword = ref(false);
     const saveLoading = ref(false);
@@ -205,47 +203,56 @@ export default defineNuxtComponent({
       return !!(form.value.nextcloudUrl && form.value.nextcloudUsername && form.value.nextcloudPassword);
     });
 
-    // Load preferences when household data is available
-    watch(household, (h) => {
-      if (h?.preferences) {
+    // Load current preferences directly
+    onMounted(async () => {
+      const { data } = await api.households.getPreferences();
+      if (data) {
+        fullPreferences.value = data as unknown as Record<string, unknown>;
         form.value = {
-          nextcloudEnabled: h.preferences.nextcloudEnabled ?? false,
-          nextcloudUrl: h.preferences.nextcloudUrl ?? null,
-          nextcloudUsername: h.preferences.nextcloudUsername ?? null,
-          nextcloudPassword: h.preferences.nextcloudPassword ?? null,
-          nextcloudTaskList: h.preferences.nextcloudTaskList ?? null,
-          nextcloudVerifySsl: h.preferences.nextcloudVerifySsl ?? true,
+          nextcloudEnabled: (data as any).nextcloudEnabled ?? false,
+          nextcloudUrl: (data as any).nextcloudUrl ?? null,
+          nextcloudUsername: (data as any).nextcloudUsername ?? null,
+          nextcloudPassword: (data as any).nextcloudPassword ?? null,
+          nextcloudTaskList: (data as any).nextcloudTaskList ?? null,
+          nextcloudVerifySsl: (data as any).nextcloudVerifySsl ?? true,
         };
       }
-    }, { immediate: true });
+    });
 
     async function savePreferences() {
       saveLoading.value = true;
-      const currentPrefs = household.value?.preferences;
-      if (currentPrefs) {
-        await api.households.setPreferences({
-          ...currentPrefs,
+      try {
+        // Merge form values into full preferences
+        const payload = {
+          ...(fullPreferences.value || {}),
           ...form.value,
-        });
-        // Refresh household data
-        const { data } = await api.households.getCurrentUserHousehold();
+        };
+        // Remove 'id' if present (read-only field)
+        delete (payload as any).id;
+        const { data } = await api.households.setPreferences(payload as any);
         if (data) {
-          household.value = data;
+          fullPreferences.value = data as unknown as Record<string, unknown>;
         }
       }
-      saveLoading.value = false;
+      finally {
+        saveLoading.value = false;
+      }
     }
 
     async function testConnection() {
       testLoading.value = true;
       testResult.value = null;
-      // Save first so the test uses the latest credentials
-      await savePreferences();
-      const { data } = await api.households.testNextcloud();
-      if (data) {
-        testResult.value = data;
+      try {
+        // Save first so the test uses the latest credentials
+        await savePreferences();
+        const { data } = await api.households.testNextcloud();
+        if (data) {
+          testResult.value = data;
+        }
       }
-      testLoading.value = false;
+      finally {
+        testLoading.value = false;
+      }
     }
 
     function isActiveList(cal: { slug: string; display_name: string }) {
