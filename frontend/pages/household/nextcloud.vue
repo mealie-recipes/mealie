@@ -23,18 +23,18 @@
       />
       <v-card class="mb-4 pa-4">
         <v-switch
-          v-model="preferences.nextcloudEnabled"
+          v-model="form.nextcloudEnabled"
           :label="$t('settings.nextcloud-enable-sync')"
           color="primary"
           hide-details
         />
 
         <v-expand-transition>
-          <div v-if="preferences.nextcloudEnabled">
+          <div v-if="form.nextcloudEnabled">
             <v-divider class="my-4" />
 
             <v-text-field
-              v-model="preferences.nextcloudUrl"
+              v-model="form.nextcloudUrl"
               :label="$t('settings.nextcloud-url')"
               placeholder="https://cloud.example.com"
               variant="outlined"
@@ -45,7 +45,7 @@
             />
 
             <v-text-field
-              v-model="preferences.nextcloudUsername"
+              v-model="form.nextcloudUsername"
               :label="$t('settings.nextcloud-username')"
               variant="outlined"
               density="compact"
@@ -53,7 +53,7 @@
             />
 
             <v-text-field
-              v-model="preferences.nextcloudPassword"
+              v-model="form.nextcloudPassword"
               :label="$t('settings.nextcloud-password')"
               :type="showPassword ? 'text' : 'password'"
               variant="outlined"
@@ -65,13 +65,14 @@
               <template #append-inner>
                 <v-icon
                   :icon="showPassword ? $globals.icons.eyeOff : $globals.icons.eye"
+                  style="cursor: pointer"
                   @click="showPassword = !showPassword"
                 />
               </template>
             </v-text-field>
 
             <v-text-field
-              v-model="preferences.nextcloudTaskList"
+              v-model="form.nextcloudTaskList"
               :label="$t('settings.nextcloud-task-list')"
               placeholder="Tasks"
               variant="outlined"
@@ -82,7 +83,7 @@
             />
 
             <v-switch
-              v-model="preferences.nextcloudVerifySsl"
+              v-model="form.nextcloudVerifySsl"
               :label="$t('settings.nextcloud-verify-ssl')"
               color="primary"
               density="compact"
@@ -92,9 +93,12 @@
           </div>
         </v-expand-transition>
 
-        <div class="d-flex justify-end mt-4" style="gap: 8px">
+        <div
+          class="d-flex justify-end mt-4"
+          style="gap: 8px"
+        >
           <BaseButton
-            v-if="preferences.nextcloudEnabled"
+            v-if="form.nextcloudEnabled"
             color="info"
             variant="outlined"
             :loading="testLoading"
@@ -122,7 +126,10 @@
     </section>
 
     <!-- Test Results -->
-    <section v-if="testResult" class="mt-2">
+    <section
+      v-if="testResult"
+      class="mt-2"
+    >
       <v-alert
         :type="testResult.status === 'ok' ? 'success' : 'error'"
         variant="tonal"
@@ -171,17 +178,16 @@ interface NextcloudTestResult {
 
 export default defineNuxtComponent({
   setup() {
-    const { $globals } = useNuxtApp();
-    const i18n = useI18n();
     const api = useUserApi();
+    const i18n = useI18n();
 
     useSeoMeta({
       title: i18n.t("settings.nextcloud-tasks"),
     });
 
-    const { household, actions: householdActions } = useHouseholdSelf();
+    const { household } = useHouseholdSelf();
 
-    const preferences = ref({
+    const form = ref({
       nextcloudEnabled: false,
       nextcloudUrl: null as string | null,
       nextcloudUsername: null as string | null,
@@ -196,13 +202,13 @@ export default defineNuxtComponent({
     const testResult = ref<NextcloudTestResult | null>(null);
 
     const canTest = computed(() => {
-      return !!(preferences.value.nextcloudUrl && preferences.value.nextcloudUsername && preferences.value.nextcloudPassword);
+      return !!(form.value.nextcloudUrl && form.value.nextcloudUsername && form.value.nextcloudPassword);
     });
 
     // Load preferences when household data is available
     watch(household, (h) => {
       if (h?.preferences) {
-        preferences.value = {
+        form.value = {
           nextcloudEnabled: h.preferences.nextcloudEnabled ?? false,
           nextcloudUrl: h.preferences.nextcloudUrl ?? null,
           nextcloudUsername: h.preferences.nextcloudUsername ?? null,
@@ -219,9 +225,13 @@ export default defineNuxtComponent({
       if (currentPrefs) {
         await api.households.setPreferences({
           ...currentPrefs,
-          ...preferences.value,
+          ...form.value,
         });
-        await householdActions.getCurrentUserHousehold();
+        // Refresh household data
+        const { data } = await api.households.getCurrentUserHousehold();
+        if (data) {
+          household.value = data;
+        }
       }
       saveLoading.value = false;
     }
@@ -239,12 +249,12 @@ export default defineNuxtComponent({
     }
 
     function isActiveList(cal: { slug: string; display_name: string }) {
-      const tl = preferences.value.nextcloudTaskList;
+      const tl = form.value.nextcloudTaskList;
       return tl && (cal.display_name === tl || cal.slug === tl);
     }
 
     return {
-      preferences,
+      form,
       showPassword,
       saveLoading,
       testLoading,
