@@ -282,22 +282,37 @@ class NextcloudSyncService:
             else:
                 mealie_items_without_nc.append(item)
 
-        # 1. Sync check status from Nextcloud → Mealie
+        # 1. Sync check status and summary from Nextcloud → Mealie
         for nc_uid, todo in nc_children.items():
             mealie_item = mealie_items_by_nc_uid.get(nc_uid)
             if not mealie_item:
                 continue
 
+            needs_update = False
+            updated_item = mealie_item.cast(ShoppingListItemUpdateBulk, id=mealie_item.id)
+
+            # Sync check status
             nc_is_completed = todo.status in ("COMPLETED", "DONE")
             if nc_is_completed != mealie_item.checked:
+                updated_item.checked = nc_is_completed
+                needs_update = True
+                logger.info("Synced check status for '%s': checked=%s", todo.summary, nc_is_completed)
+
+            # Sync summary: compare NC summary with what Mealie would generate
+            mealie_summary = _item_to_summary(mealie_item)
+            if todo.summary != mealie_summary:
+                # NC summary was changed — update Mealie's note to match
+                # Only update if the item was originally created from NC (no food/unit)
+                # or if the NC summary clearly differs from what Mealie generated
+                updated_item.note = todo.summary
+                needs_update = True
+                logger.info("Synced summary from NC: '%s' -> '%s'", mealie_summary, todo.summary)
+
+            if needs_update:
                 try:
-                    self.repos.group_shopping_list_item.update(
-                        mealie_item.id,
-                        mealie_item.cast(ShoppingListItemUpdateBulk, id=mealie_item.id, checked=nc_is_completed),
-                    )
-                    logger.info("Synced check status for '%s': checked=%s", todo.summary, nc_is_completed)
+                    self.repos.group_shopping_list_item.update(mealie_item.id, updated_item)
                 except Exception:
-                    logger.exception("Failed to sync check status for '%s'", todo.summary)
+                    logger.exception("Failed to sync item '%s'", todo.summary)
 
         # 2. Import NC tasks that don't exist in Mealie
         known_nc_uids = set(mealie_items_by_nc_uid.keys())
