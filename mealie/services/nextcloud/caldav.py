@@ -75,7 +75,11 @@ def _parse_vtodos(xml_text: str) -> list[VTodoItem]:
         if not uid:
             continue
 
+        # Match both RELATED-TO;RELTYPE=PARENT:uid (RFC compliant)
+        # and RELATED-TO:uid (Nextcloud's default when adding subtasks via UI)
         parent_match = re.search(r"RELATED-TO;RELTYPE=PARENT:(.*)", block)
+        if not parent_match:
+            parent_match = re.search(r"RELATED-TO:(.*)", block)
         parent_uid = parent_match.group(1).strip() if parent_match else ""
 
         tasks.append(
