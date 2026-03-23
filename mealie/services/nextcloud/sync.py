@@ -2,9 +2,9 @@
 
 Each Mealie ShoppingList maps to a parent VTODO in a single configured Nextcloud task list.
 Each ShoppingListItem maps to a child VTODO linked via RELATED-TO;RELTYPE=PARENT.
-UID mapping is tracked via the extras dict on both ShoppingList and ShoppingListItem.
+UID mapping is tracked via the extras dict on ShoppingList and ShoppingListItem.
 
-All methods are fully synchronous — no async/threading complexity.
+All methods are fully synchronous.
 """
 
 import logging
@@ -13,9 +13,11 @@ from typing import cast
 from uuid import uuid4
 
 from pydantic import UUID4
+from sqlalchemy import select
+from sqlalchemy.orm.session import Session
 
-from mealie.core.config import get_app_settings
-from mealie.core.settings.settings import AppSettings
+from mealie.db.models.household.shopping_list import ShoppingList, ShoppingListItem
+from mealie.db.models.recipe.api_extras import ShoppingListExtras, ShoppingListItemExtras
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_shopping_list import (
     ShoppingListItemCreate,
@@ -59,30 +61,45 @@ def _get_nc_uid(extras: dict | None) -> str | None:
     return extras.get(NC_UID_KEY)
 
 
-def _create_nc_service(settings: AppSettings | None = None) -> NextcloudTasksService | None:
-    if settings is None:
-        settings = get_app_settings()
-    if not settings.NEXTCLOUD_ENABLED:
+def _set_extra(session: Session, model_cls, fk_column: str, fk_id, key: str, value: str) -> None:
+    """Set an extras key-value directly via SQL, avoiding full-object update issues."""
+    # Check if key already exists
+    stmt = select(model_cls).where(
+        getattr(model_cls, fk_column) == fk_id,
+        model_cls.key_name == key,
+    )
+    existing = session.execute(stmt).scalar_one_or_none()
+    if existing:
+        existing.value = value
+    else:
+        new_extra = model_cls(key=key, value=value)
+        setattr(new_extra, fk_column, fk_id)
+        session.add(new_extra)
+    session.commit()
+
+
+def create_nc_service_from_prefs(prefs) -> NextcloudTasksService | None:
+    """Create a NextcloudTasksService from household preferences."""
+    if not prefs or not prefs.nextcloud_enabled:
+        return None
+    if not all([prefs.nextcloud_url, prefs.nextcloud_username, prefs.nextcloud_password, prefs.nextcloud_task_list]):
         return None
     return NextcloudTasksService(
-        url=settings.NEXTCLOUD_URL,  # type: ignore
-        username=settings.NEXTCLOUD_USERNAME,  # type: ignore
-        password=settings.NEXTCLOUD_PASSWORD,  # type: ignore
-        task_list=settings.NEXTCLOUD_TASK_LIST,  # type: ignore
-        verify_ssl=settings.NEXTCLOUD_VERIFY_SSL,
+        url=prefs.nextcloud_url,
+        username=prefs.nextcloud_username,
+        password=prefs.nextcloud_password,
+        task_list=prefs.nextcloud_task_list,
+        verify_ssl=prefs.nextcloud_verify_ssl if prefs.nextcloud_verify_ssl is not None else True,
     )
 
 
 class NextcloudSyncService:
-    """Bidirectional sync between Mealie shopping lists and Nextcloud Tasks.
+    """Bidirectional sync between Mealie shopping lists and Nextcloud Tasks."""
 
-    All methods are fully synchronous.
-    """
-
-    def __init__(self, repos: AllRepositories, settings: AppSettings | None = None) -> None:
+    def __init__(self, repos: AllRepositories, nc: NextcloudTasksService | None = None) -> None:
         self.repos = repos
-        self.settings = settings or get_app_settings()
-        self.nc = _create_nc_service(self.settings)
+        self.session = repos.session
+        self.nc = nc
 
     def _get_shopping_list(self, shopping_list_id: UUID4) -> ShoppingListOut | None:
         return cast(ShoppingListOut | None, self.repos.group_shopping_lists.get_one(shopping_list_id))
@@ -94,31 +111,30 @@ class NextcloudSyncService:
         )
         return result.items
 
-    def _update_item_extras(self, item_id: UUID4, key: str, value: str) -> None:
-        item = self.repos.group_shopping_list_item.get_one(item_id)
-        if item is None:
-            return
-        extras = item.extras or {}
-        extras[key] = value
-        self.repos.group_shopping_list_item.update(
-            item_id, item.cast(ShoppingListItemUpdateBulk, id=item_id, extras=extras)
-        )
+    def _set_list_extra(self, list_id: UUID4, key: str, value: str) -> None:
+        """Set an extra on a shopping list via direct SQL."""
+        _set_extra(self.session, ShoppingListExtras, "shopping_list_id", list_id, key, value)
 
-    def _update_list_extras(self, list_id: UUID4, key: str, value: str) -> None:
-        shopping_list = self._get_shopping_list(list_id)
-        if shopping_list is None:
-            return
-        extras = shopping_list.extras or {}
-        extras[key] = value
-        shopping_list.extras = extras
-        self.repos.group_shopping_lists.update(list_id, shopping_list)
+    def _set_item_extra(self, item_id: UUID4, key: str, value: str) -> None:
+        """Set an extra on a shopping list item via direct SQL."""
+        _set_extra(self.session, ShoppingListItemExtras, "shopping_list_item_id", item_id, key, value)
+
+    def _get_list_extra(self, list_id: UUID4, key: str) -> str | None:
+        """Get an extra value from a shopping list."""
+        stmt = select(ShoppingListExtras).where(
+            ShoppingListExtras.shopping_list_id == list_id,
+            ShoppingListExtras.key_name == key,
+        )
+        result = self.session.execute(stmt).scalar_one_or_none()
+        return result.value if result else None
 
     def _ensure_parent(self, shopping_list: ShoppingListOut) -> str | None:
         """Ensure a parent VTODO exists for the shopping list. Returns parent_uid or None."""
         if not self.nc:
             return None
 
-        parent_uid = (shopping_list.extras or {}).get(NC_PARENT_UID_KEY)
+        # Read parent UID directly from DB to avoid stale data
+        parent_uid = self._get_list_extra(shopping_list.id, NC_PARENT_UID_KEY)
         if parent_uid:
             return parent_uid
 
@@ -128,7 +144,7 @@ class NextcloudSyncService:
             uid=parent_uid,
         )
         if result:
-            self._update_list_extras(shopping_list.id, NC_PARENT_UID_KEY, parent_uid)
+            self._set_list_extra(shopping_list.id, NC_PARENT_UID_KEY, parent_uid)
             logger.info("Created Nextcloud parent task for list '%s'", shopping_list.name)
             return parent_uid
 
@@ -136,41 +152,6 @@ class NextcloudSyncService:
         return None
 
     # ─── Push operations (Mealie → Nextcloud) ─────────────────────────
-
-    def push_list_created(self, shopping_list_id: UUID4) -> None:
-        """Create a parent VTODO in Nextcloud for a new shopping list."""
-        if not self.nc:
-            return
-        shopping_list = self._get_shopping_list(shopping_list_id)
-        if not shopping_list:
-            return
-        try:
-            self._ensure_parent(shopping_list)
-        except Exception:
-            logger.exception("Failed to create Nextcloud parent task")
-
-    def push_list_deleted(self, shopping_list_id: UUID4) -> None:
-        """Delete the parent VTODO and all child VTODOs from Nextcloud."""
-        if not self.nc:
-            return
-
-        shopping_list = self._get_shopping_list(shopping_list_id)
-        if not shopping_list:
-            return
-
-        parent_uid = (shopping_list.extras or {}).get(NC_PARENT_UID_KEY)
-        if not parent_uid:
-            return
-
-        try:
-            todos = self.nc.list_todos()
-            for todo in todos:
-                if todo.parent_uid == parent_uid:
-                    self.nc.delete_todo(todo.uid)
-            self.nc.delete_todo(parent_uid)
-            logger.info("Deleted Nextcloud tasks for list '%s'", shopping_list.name)
-        except Exception:
-            logger.exception("Failed to delete Nextcloud tasks for list '%s'", shopping_list.name)
 
     def push_items_created(self, shopping_list_id: UUID4, item_ids: list[UUID4]) -> None:
         """Push newly created items to Nextcloud as child VTODOs."""
@@ -190,8 +171,12 @@ class NextcloudSyncService:
             if not item:
                 continue
 
-            # Skip if already synced
-            if _get_nc_uid(item.extras):
+            # Skip if already synced — check directly from DB
+            stmt = select(ShoppingListItemExtras).where(
+                ShoppingListItemExtras.shopping_list_item_id == item_id,
+                ShoppingListItemExtras.key_name == NC_UID_KEY,
+            )
+            if self.session.execute(stmt).scalar_one_or_none():
                 continue
 
             summary = _item_to_summary(item)
@@ -205,7 +190,7 @@ class NextcloudSyncService:
                     status=status,
                 )
                 if result:
-                    self._update_item_extras(item_id, NC_UID_KEY, child_uid)
+                    self._set_item_extra(item_id, NC_UID_KEY, child_uid)
             except Exception:
                 logger.exception("Failed to push item '%s' to Nextcloud", summary)
 
@@ -234,16 +219,6 @@ class NextcloudSyncService:
             except Exception:
                 logger.exception("Failed to update item '%s' in Nextcloud", nc_uid)
 
-    def push_items_deleted_by_nc_uids(self, nc_uids: list[str]) -> None:
-        """Delete VTODOs from Nextcloud by their UIDs."""
-        if not self.nc:
-            return
-        for nc_uid in nc_uids:
-            try:
-                self.nc.delete_todo(nc_uid)
-            except Exception:
-                logger.exception("Failed to delete VTODO '%s' from Nextcloud", nc_uid)
-
     # ─── Pull operations (Nextcloud → Mealie) ─────────────────────────
 
     def pull_changes(self, shopping_list_id: UUID4) -> None:
@@ -268,6 +243,11 @@ class NextcloudSyncService:
         # Find children of this parent
         nc_children = {t.uid: t for t in todos if t.parent_uid == parent_uid}
 
+        # Re-read the list to get fresh data after _ensure_parent may have changed things
+        shopping_list = self._get_shopping_list(shopping_list_id)
+        if not shopping_list:
+            return
+
         # Build map of existing Mealie items by their NC UID
         mealie_items_by_nc_uid: dict[str, ShoppingListItemOut] = {}
         mealie_items_without_nc: list[ShoppingListItemOut] = []
@@ -286,11 +266,14 @@ class NextcloudSyncService:
 
             nc_is_completed = todo.status in ("COMPLETED", "DONE")
             if nc_is_completed != mealie_item.checked:
-                self.repos.group_shopping_list_item.update(
-                    mealie_item.id,
-                    mealie_item.cast(ShoppingListItemUpdateBulk, id=mealie_item.id, checked=nc_is_completed),
-                )
-                logger.info("Synced check status from NC for item '%s': checked=%s", todo.summary, nc_is_completed)
+                try:
+                    self.repos.group_shopping_list_item.update(
+                        mealie_item.id,
+                        mealie_item.cast(ShoppingListItemUpdateBulk, id=mealie_item.id, checked=nc_is_completed),
+                    )
+                    logger.info("Synced check status for '%s': checked=%s", todo.summary, nc_is_completed)
+                except Exception:
+                    logger.exception("Failed to sync check status for '%s'", todo.summary)
 
         # 2. Import NC tasks that don't exist in Mealie
         known_nc_uids = set(mealie_items_by_nc_uid.keys())
@@ -311,9 +294,9 @@ class NextcloudSyncService:
             try:
                 created = self.repos.group_shopping_list_item.create(new_item)
                 if created:
-                    logger.info("Imported item from Nextcloud: '%s'", todo.summary)
+                    logger.info("Imported from Nextcloud: '%s'", todo.summary)
             except Exception:
-                logger.exception("Failed to create Mealie item from NC task '%s'", todo.summary)
+                logger.exception("Failed to import NC task '%s'", todo.summary)
 
         # 3. Push Mealie items that aren't in Nextcloud yet
         for item in mealie_items_without_nc:
@@ -328,11 +311,11 @@ class NextcloudSyncService:
                     status=status,
                 )
                 if result:
-                    self._update_item_extras(item.id, NC_UID_KEY, child_uid)
+                    self._set_item_extra(item.id, NC_UID_KEY, child_uid)
             except Exception:
-                logger.exception("Failed to push unsynced item '%s' to Nextcloud", summary)
+                logger.exception("Failed to push item '%s' to Nextcloud", summary)
 
-        self._update_list_extras(shopping_list_id, NC_LAST_SYNC_KEY, datetime.now(UTC).isoformat())
+        self._set_list_extra(shopping_list_id, NC_LAST_SYNC_KEY, datetime.now(UTC).isoformat())
 
     # ─── Full sync (scheduled task) ───────────────────────────────────
 
@@ -345,53 +328,16 @@ class NextcloudSyncService:
         if not shopping_lists:
             return
 
-        try:
-            todos = self.nc.list_todos()
-        except Exception:
-            logger.exception("Failed to fetch Nextcloud tasks for full sync")
-            return
-
         for shopping_list in shopping_lists:
-            full_list = self._get_shopping_list(shopping_list.id)
-            if not full_list:
-                continue
-
-            parent_uid = (full_list.extras or {}).get(NC_PARENT_UID_KEY)
-
             # Check if sync is needed
-            last_sync_str = (full_list.extras or {}).get(NC_LAST_SYNC_KEY)
-            if last_sync_str and parent_uid:
+            last_sync_str = self._get_list_extra(shopping_list.id, NC_LAST_SYNC_KEY)
+            if last_sync_str:
                 try:
                     last_sync = datetime.fromisoformat(last_sync_str)
-                    if full_list.updated_at and full_list.updated_at <= last_sync:
-                        nc_children = [t for t in todos if t.parent_uid == parent_uid]
-                        nc_has_changes = False
-                        for todo in nc_children:
-                            if todo.last_modified:
-                                try:
-                                    mod_time = datetime.strptime(todo.last_modified, "%Y%m%dT%H%M%SZ").replace(
-                                        tzinfo=UTC
-                                    )
-                                    if mod_time > last_sync:
-                                        nc_has_changes = True
-                                        break
-                                except ValueError:
-                                    nc_has_changes = True
-                                    break
-
-                        known_nc_uids = set()
-                        for item in full_list.list_items:
-                            nc_uid = _get_nc_uid(item.extras)
-                            if nc_uid:
-                                known_nc_uids.add(nc_uid)
-                        for todo in nc_children:
-                            if todo.uid not in known_nc_uids:
-                                nc_has_changes = True
-                                break
-
-                        if not nc_has_changes:
-                            logger.debug("Skipping sync for list '%s' - no changes", full_list.name)
-                            continue
+                    full_list = self._get_shopping_list(shopping_list.id)
+                    if full_list and full_list.updated_at and full_list.updated_at <= last_sync:
+                        # Mealie side hasn't changed, but NC might have — always pull to check
+                        pass
                 except (ValueError, TypeError):
                     pass
 

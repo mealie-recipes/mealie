@@ -13,42 +13,17 @@ class NextcloudTestResponse(MealieModel):
     calendars: list[dict] | None = None
 
 
-class NextcloudConfigResponse(MealieModel):
-    enabled: bool
-    url: str | None = None
-    username: str | None = None
-    task_list: str | None = None
-
-
 @controller(router)
 class AdminNextcloudController(BaseAdminController):
-    @router.get("", response_model=NextcloudConfigResponse)
-    def get_nextcloud_config(self):
-        """Get current Nextcloud configuration status (without secrets)."""
-        return NextcloudConfigResponse(
-            enabled=self.settings.NEXTCLOUD_ENABLED,
-            url=self.settings.NEXTCLOUD_URL,
-            username=self.settings.NEXTCLOUD_USERNAME,
-            task_list=self.settings.NEXTCLOUD_TASK_LIST,
-        )
-
     @router.post("/test", response_model=NextcloudTestResponse)
-    def test_nextcloud_connection(self):
-        """Test Nextcloud CalDAV connection and list available task lists."""
-        if not self.settings.NEXTCLOUD_ENABLED:
-            return NextcloudTestResponse(
-                status="error",
-                message="Nextcloud is not configured. Set NEXTCLOUD_URL, NEXTCLOUD_USERNAME, "
-                "NEXTCLOUD_PASSWORD, and NEXTCLOUD_TASK_LIST environment variables.",
-            )
-
+    def test_nextcloud_connection(self, url: str, username: str, password: str, task_list: str, verify_ssl: bool = True):
+        """Test a Nextcloud CalDAV connection and list available task lists."""
         service = NextcloudTasksService(
-            url=self.settings.NEXTCLOUD_URL,  # type: ignore
-            username=self.settings.NEXTCLOUD_USERNAME,  # type: ignore
-            password=self.settings.NEXTCLOUD_PASSWORD,  # type: ignore
-            task_list=self.settings.NEXTCLOUD_TASK_LIST,  # type: ignore
-            verify_ssl=self.settings.NEXTCLOUD_VERIFY_SSL,
+            url=url,
+            username=username,
+            password=password,
+            task_list=task_list,
+            verify_ssl=verify_ssl,
         )
-
         result = service.test_connection()
         return NextcloudTestResponse(**result)

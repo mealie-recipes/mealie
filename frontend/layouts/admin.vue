@@ -79,12 +79,6 @@ const topLinks: SidebarLinks = [
     restricted: true,
   },
   {
-    icon: $globals.icons.cloudSync,
-    to: "/admin/nextcloud",
-    title: i18n.t("sidebar.nextcloud"),
-    restricted: true,
-  },
-  {
     icon: $globals.icons.database,
     to: "/admin/backups",
     title: i18n.t("sidebar.backups"),

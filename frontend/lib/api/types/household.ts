@@ -22,6 +22,12 @@ export interface CreateHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
+  nextcloudEnabled?: boolean;
+  nextcloudUrl?: string | null;
+  nextcloudUsername?: string | null;
+  nextcloudPassword?: string | null;
+  nextcloudTaskList?: string | null;
+  nextcloudVerifySsl?: boolean;
 }
 export interface CreateInviteToken {
   uses: number;
@@ -200,6 +206,12 @@ export interface ReadHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
+  nextcloudEnabled?: boolean;
+  nextcloudUrl?: string | null;
+  nextcloudUsername?: string | null;
+  nextcloudPassword?: string | null;
+  nextcloudTaskList?: string | null;
+  nextcloudVerifySsl?: boolean;
   id: string;
 }
 export interface HouseholdUserSummary {
@@ -277,6 +289,12 @@ export interface SaveHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
+  nextcloudEnabled?: boolean;
+  nextcloudUrl?: string | null;
+  nextcloudUsername?: string | null;
+  nextcloudPassword?: string | null;
+  nextcloudTaskList?: string | null;
+  nextcloudVerifySsl?: boolean;
   householdId: string;
 }
 export interface SaveInviteToken {
@@ -770,6 +788,12 @@ export interface UpdateHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
+  nextcloudEnabled?: boolean;
+  nextcloudUrl?: string | null;
+  nextcloudUsername?: string | null;
+  nextcloudPassword?: string | null;
+  nextcloudTaskList?: string | null;
+  nextcloudVerifySsl?: boolean;
 }
 export interface RecipeIngredientBase {
   quantity?: number | null;

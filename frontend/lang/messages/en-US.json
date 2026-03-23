@@ -914,7 +914,14 @@
     "nextcloud-test-connection": "Test Connection",
     "nextcloud-connection-success": "Successfully connected to Nextcloud CalDAV.",
     "nextcloud-connection-failed": "Failed to connect to Nextcloud.",
-    "nextcloud-available-lists": "Available task lists:"
+    "nextcloud-available-lists": "Available task lists:",
+    "nextcloud-enable-sync": "Enable Nextcloud Tasks sync for shopping lists",
+    "nextcloud-url-hint": "Base URL of your Nextcloud instance",
+    "nextcloud-password-hint": "Use an app password (Settings > Security > App passwords)",
+    "nextcloud-task-list-hint": "Name or slug of the task list to sync with",
+    "nextcloud-verify-ssl": "Verify SSL certificate",
+    "nextcloud-manage": "Manage Nextcloud sync",
+    "nextcloud-profile-description": "Sync shopping lists with Nextcloud Tasks via CalDAV."
   },
   "shopping-list": {
     "all-lists": "All Lists",

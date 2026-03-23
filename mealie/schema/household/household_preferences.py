@@ -19,6 +19,14 @@ class UpdateHouseholdPreferences(MealieModel):
     recipe_landscape_view: bool = False
     recipe_disable_comments: bool = False
 
+    # Nextcloud Tasks Sync
+    nextcloud_enabled: bool = False
+    nextcloud_url: str | None = None
+    nextcloud_username: str | None = None
+    nextcloud_password: str | None = None
+    nextcloud_task_list: str | None = None
+    nextcloud_verify_ssl: bool = True
+
 
 class CreateHouseholdPreferences(UpdateHouseholdPreferences): ...
 

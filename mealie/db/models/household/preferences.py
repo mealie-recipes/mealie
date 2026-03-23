@@ -32,6 +32,14 @@ class HouseholdPreferencesModel(SqlAlchemyBase, BaseMixins):
     recipe_landscape_view: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
     recipe_disable_comments: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
 
+    # Nextcloud Tasks Sync
+    nextcloud_enabled: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
+    nextcloud_url: Mapped[str | None] = mapped_column(sa.String, default=None)
+    nextcloud_username: Mapped[str | None] = mapped_column(sa.String, default=None)
+    nextcloud_password: Mapped[str | None] = mapped_column(sa.String, default=None)
+    nextcloud_task_list: Mapped[str | None] = mapped_column(sa.String, default=None)
+    nextcloud_verify_ssl: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
+
     # Deprecated
     recipe_disable_amount: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
 

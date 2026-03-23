@@ -25,6 +25,7 @@ const routes = {
   preferences: `${prefix}/households/preferences`,
   statistics: `${prefix}/households/statistics`,
   invitation: `${prefix}/households/invitations`,
+  nextcloudTest: `${prefix}/households/nextcloud/test`,
 
   householdsId: (id: string | number) => `${prefix}/groups/households/${id}`,
   householdsSelfRecipesSlug: (recipeSlug: string) => `${prefix}/households/self/recipes/${recipeSlug}`,
@@ -67,5 +68,9 @@ export class HouseholdAPI extends BaseCRUDAPIReadOnly<HouseholdSummary> {
 
   async statistics() {
     return await this.requests.get<HouseholdStatistics>(routes.statistics);
+  }
+
+  async testNextcloud() {
+    return await this.requests.post<{ status: string; message?: string | null; calendars?: { slug: string; display_name: string }[] | null }>(routes.nextcloudTest, {});
   }
 }

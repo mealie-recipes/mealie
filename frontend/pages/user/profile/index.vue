@@ -209,6 +209,23 @@
             </UserProfileLinkCard>
           </v-col>
         </AdvancedOnly>
+        <AdvancedOnly>
+          <v-col
+            cols="12"
+            sm="12"
+            md="6"
+          >
+            <UserProfileLinkCard
+              :link="{ text: $t('settings.nextcloud-manage'), to: `/household/nextcloud` }"
+              image="/svgs/manage-notifiers.svg"
+            >
+              <template #title>
+                {{ $t('settings.nextcloud-tasks') }}
+              </template>
+              {{ $t('settings.nextcloud-profile-description') }}
+            </UserProfileLinkCard>
+          </v-col>
+        </AdvancedOnly>
       </v-row>
     </section>
     <v-divider class="my-7" />

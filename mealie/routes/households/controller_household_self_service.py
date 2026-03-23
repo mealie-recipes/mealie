@@ -8,10 +8,12 @@ from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.household import HouseholdInDB, HouseholdRecipeSummary
 from mealie.schema.household.household_permissions import SetPermissions
 from mealie.schema.household.household_preferences import ReadHouseholdPreferences, UpdateHouseholdPreferences
+from mealie.schema._mealie import MealieModel
 from mealie.schema.household.household_statistics import HouseholdStatistics
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 from mealie.schema.user.user import UserOut
 from mealie.services.household_services.household_service import HouseholdService
+from mealie.services.nextcloud.caldav import NextcloudTasksService
 
 router = UserAPIRouter(prefix="/households", tags=["Households: Self Service"])
 
@@ -89,3 +91,28 @@ class HouseholdSelfServiceController(BaseUserController):
     @router.get("/statistics", response_model=HouseholdStatistics)
     def get_statistics(self):
         return self.service.calculate_statistics()
+
+    class NextcloudTestResponse(MealieModel):
+        status: str
+        message: str | None = None
+        calendars: list[dict] | None = None
+
+    @router.post("/nextcloud/test", response_model=NextcloudTestResponse)
+    def test_nextcloud(self):
+        """Test Nextcloud connection using the household's configured credentials."""
+        prefs = self.household.preferences
+        if not prefs or not all([prefs.nextcloud_url, prefs.nextcloud_username, prefs.nextcloud_password]):
+            return self.NextcloudTestResponse(
+                status="error",
+                message="Nextcloud is not configured. Fill in URL, username, and password first.",
+            )
+
+        service = NextcloudTasksService(
+            url=prefs.nextcloud_url,
+            username=prefs.nextcloud_username,
+            password=prefs.nextcloud_password,
+            task_list=prefs.nextcloud_task_list or "",
+            verify_ssl=prefs.nextcloud_verify_ssl if prefs.nextcloud_verify_ssl is not None else True,
+        )
+        result = service.test_connection()
+        return self.NextcloudTestResponse(**result)

@@ -19,7 +19,6 @@ export interface AdminAboutInfo {
   enableOpenai: boolean;
   enableOpenaiImageServices: boolean;
   enableOpenaiTranscriptionServices: boolean;
-  enableNextcloud: boolean;
   tokenTime: number;
   versionLatest: string;
   apiPort: number;
@@ -54,7 +53,6 @@ export interface AppInfo {
   enableOpenai: boolean;
   enableOpenaiImageServices: boolean;
   enableOpenaiTranscriptionServices: boolean;
-  enableNextcloud: boolean;
   tokenTime: number;
 }
 export interface AppStartupInfo {
@@ -98,7 +96,6 @@ export interface CheckAppConfig {
   ldapReady: boolean;
   oidcReady: boolean;
   enableOpenai: boolean;
-  enableNextcloud: boolean;
   baseUrlSet: boolean;
   isUpToDate: boolean;
 }

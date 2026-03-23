@@ -5,7 +5,6 @@ from functools import cached_property
 from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import UUID4
 
-from mealie.core.config import get_app_settings
 from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
@@ -201,16 +200,17 @@ class ShoppingListController(BaseCrudController):
 
     @router.get("/{item_id}", response_model=ShoppingListOut)
     def get_one(self, item_id: UUID4):
-        # Pull latest changes from Nextcloud if configured
-        settings = get_app_settings()
-        if settings.NEXTCLOUD_ENABLED:
-            try:
-                from mealie.services.nextcloud.sync import NextcloudSyncService
+        # Pull latest changes from Nextcloud if configured for this household
+        try:
+            from mealie.services.nextcloud.sync import NextcloudSyncService, create_nc_service_from_prefs
 
-                sync = NextcloudSyncService(self.repos, settings)
+            prefs = self.household.preferences
+            nc = create_nc_service_from_prefs(prefs)
+            if nc:
+                sync = NextcloudSyncService(self.repos, nc)
                 sync.pull_changes(item_id)
-            except Exception:
-                logging.getLogger(__name__).warning("Nextcloud pull-on-load failed", exc_info=True)
+        except Exception:
+            logging.getLogger(__name__).warning("Nextcloud pull-on-load failed", exc_info=True)
 
         return self.mixins.get_one(item_id)
 
