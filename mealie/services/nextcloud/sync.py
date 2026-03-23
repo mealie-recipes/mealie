@@ -252,6 +252,10 @@ class NextcloudSyncService:
 
         # Find children of this parent
         nc_children = {t.uid: t for t in todos if t.parent_uid == parent_uid}
+        logger.info(
+            "Pull: list='%s' parent_uid=%s, NC children=%d, total NC todos=%d",
+            shopping_list.name, parent_uid, len(nc_children), len(todos),
+        )
 
         # Re-read the list to get fresh data after _ensure_parent may have changed things
         shopping_list = self._get_shopping_list(shopping_list_id)
@@ -287,6 +291,9 @@ class NextcloudSyncService:
 
         # 2. Import NC tasks that don't exist in Mealie
         known_nc_uids = set(mealie_items_by_nc_uid.keys())
+        new_from_nc = [uid for uid in nc_children if uid not in known_nc_uids]
+        logger.info("Pull: known_nc_uids=%d, new_from_nc=%d, mealie_without_nc=%d",
+                     len(known_nc_uids), len(new_from_nc), len(mealie_items_without_nc))
         for nc_uid, todo in nc_children.items():
             if nc_uid in known_nc_uids:
                 continue
