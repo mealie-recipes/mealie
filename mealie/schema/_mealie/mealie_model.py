@@ -50,7 +50,7 @@ class MealieModel(BaseModel):
     Searchable properties for the search API.
     The first property will be used for sorting (order_by)
     """
-    model_config = ConfigDict(alias_generator=camelize, populate_by_name=True)
+    model_config = ConfigDict(alias_generator=camelize, populate_by_name=True, defer_build=True)
 
     @model_validator(mode="before")
     @classmethod
