@@ -15,14 +15,12 @@
   </BannerWarning>
 </template>
 
-<script lang="ts">
-export default {
-  props: {
-    issue: {
-      type: String,
-      required: false,
-      default: "",
-    },
+<script setup lang="ts">
+defineProps({
+  issue: {
+    type: String,
+    required: false,
+    default: "",
   },
-};
+});
 </script>

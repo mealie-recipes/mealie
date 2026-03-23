@@ -1,7 +1,6 @@
 <template>
   <v-alert
     border="start"
-    border-color
     variant="tonal"
     type="warning"
     elevation="2"
@@ -20,19 +19,17 @@
   </v-alert>
 </template>
 
-<script lang="ts">
-export default {
-  props: {
-    title: {
-      type: String,
-      required: false,
-      default: "",
-    },
-    description: {
-      type: String,
-      required: false,
-      default: "",
-    },
+<script setup lang="ts">
+defineProps({
+  title: {
+    type: String,
+    required: false,
+    default: "",
   },
-};
+  description: {
+    type: String,
+    required: false,
+    default: "",
+  },
+});
 </script>
