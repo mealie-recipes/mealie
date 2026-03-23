@@ -100,7 +100,6 @@ const {
   usernameErrorMessages,
   validateUsername,
   validateEmail,
-  domAccountForm,
 } = useUserRegistrationForm();
 </script>
 
