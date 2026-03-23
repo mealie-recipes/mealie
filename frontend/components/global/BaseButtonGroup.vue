@@ -10,13 +10,13 @@
         start
         :style="stretch ? 'width: 100%;' : ''"
       >
-        <template #activator="{ props }">
+        <template #activator="{ props: hoverProps }">
           <v-btn
             tile
             :large="large"
             icon
             variant="plain"
-            v-bind="props"
+            v-bind="hoverProps"
           >
             <v-icon>
               {{ btn.icon }}
@@ -72,7 +72,7 @@
   </v-item-group>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 export interface ButtonOption {
   icon?: string;
   color?: string;
@@ -83,26 +83,20 @@ export interface ButtonOption {
   divider?: boolean;
 }
 
-export default defineNuxtComponent({
-  props: {
-    buttons: {
-      type: Array as () => ButtonOption[],
-      required: true,
-    },
-    large: {
-      type: Boolean,
-      default: true,
-    },
-    stretch: {
-      type: Boolean,
-      default: false,
-    },
+const props = defineProps({
+  buttons: {
+    type: Array as () => ButtonOption[],
+    required: true,
   },
-  setup(props) {
-    const maxButtonWidth = computed(() => `${100 / props.buttons.length}%`);
-    return {
-      maxButtonWidth,
-    };
+  large: {
+    type: Boolean,
+    default: true,
+  },
+  stretch: {
+    type: Boolean,
+    default: false,
   },
 });
+
+const maxButtonWidth = computed(() => `${100 / props.buttons.length}%`);
 </script>
