@@ -219,6 +219,16 @@ class NextcloudSyncService:
             except Exception:
                 logger.exception("Failed to update item '%s' in Nextcloud", nc_uid)
 
+    def push_items_deleted_by_nc_uids(self, nc_uids: list[str]) -> None:
+        """Delete VTODOs from Nextcloud by their UIDs."""
+        if not self.nc:
+            return
+        for nc_uid in nc_uids:
+            try:
+                self.nc.delete_todo(nc_uid)
+            except Exception:
+                logger.exception("Failed to delete VTODO '%s' from Nextcloud", nc_uid)
+
     # ─── Pull operations (Nextcloud → Mealie) ─────────────────────────
 
     def pull_changes(self, shopping_list_id: UUID4) -> None:
