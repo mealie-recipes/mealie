@@ -420,7 +420,7 @@
     "recipe-1": "وصفة 1",
     "recipe-2": "وصفة 2",
     "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+    "mealie-text": "يُمكن لبرنامج Mealie استيراد الوصفات من تطبيق Mealie من إصدار سابق للإصدار 1.0. صدّر وصفاتك من نسختك القديمة، ثم ارفع ملف ZIP أدناه. يُرجى العلم أنه لا يُمكن استيراد سوى الوصفات من الملف المُصدّر.",
     "plantoeat": {
       "title": "خِطَّة تناول الطعام",
       "description-long": "يمكن لمالي أن تستورد الوصفات من Plan to Eat."
@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "قم بإنشاء وصفة عن طريق تقديم الاسم. يجب أن يكون لجميع الوصفات أسماء فريدة.",
     "new-recipe-names-must-be-unique": "يجب أن تكون أسماء الوصفات فريدة",
     "scrape-recipe": "تحليل الوصفة",
-    "scrape-recipe-description": "أضف الوصفة عن طريق الرابط. قم بتوفير عنوان الURL للموقع الذي تريد أخذ الوصفة منه، وسيحاول Mealie إستخراج الوصفة من ذلك الموقع وإضافتها إلى مجموعتك.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "هل لديك الكثير من الوصفات التي تريد أن تحللها في نفس الوقت؟",
     "scrape-recipe-suggest-bulk-importer": "جرب الإضافة بالجملة",
     "scrape-recipe-have-raw-html-or-json-data": "هل لديك بيانات HTML أو JSON خام؟",
@@ -903,6 +904,7 @@
     "all-lists": "جميع القوائم",
     "create-shopping-list": "إنشاء قائمة تسوق",
     "from-recipe": "من الوصفة",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "اسم القائمة",
     "new-list": "قائمة جديدة",
     "quantity": "الكَمّيَّة: {0}",
@@ -1134,7 +1136,22 @@
       "example-unit-singular": "مثال: ملعقة",
       "example-unit-plural": "مثال: ملاعق",
       "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-abbreviation-plural": "ex: Tbsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Seed the database with common labels based on your local language.",
@@ -1168,7 +1185,11 @@
       "recipe-actions-data": "Recipe Actions Data",
       "new-recipe-action": "New Recipe Action",
       "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "action-type": "Action Type",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Create Alias",
     "manage-aliases": "إدارة الأسماء المستعارة",

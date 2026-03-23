@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Hozzon létre egy receptet a név megadásával. Minden receptnek egyedi névvel kell rendelkeznie.",
     "new-recipe-names-must-be-unique": "Az új recept nevének egyedinek kell lennie",
     "scrape-recipe": "Recept kinyerése",
-    "scrape-recipe-description": "Recept (adatok) kinyerése Url alapján. Adja meg a beolvasni kívánt oldal Url-címét, és Mealie megpróbálja beolvasni a receptet az adott oldalról, majd hozzáadja azt gyűjteményéhez.",
+    "scrape-recipe-description": "Recept kinyerése URL alapján. Adja meg annak az oldalnak az URL‑jét, amelyről szeretné a receptet kinyerni, és a Mealie megpróbálja beolvasni a receptet, majd hozzáadja a gyűjteményéhez.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Sok receptje van, amit egyszerre szeretne átvenni?",
     "scrape-recipe-suggest-bulk-importer": "Próbálja ki a tömeges importálót",
     "scrape-recipe-have-raw-html-or-json-data": "Nyers HTML vagy JSON adatai vannak?",
@@ -903,6 +904,7 @@
     "all-lists": "Összes lista",
     "create-shopping-list": "Bevásárlólista készítése",
     "from-recipe": "Receptből",
+    "ingredient-of-recipe": "{recipe} hozzávalók",
     "list-name": "Lista Neve",
     "new-list": "Új lista",
     "quantity": "Mennyiség: {0}",
@@ -1134,7 +1136,22 @@
       "example-unit-singular": "pl. Evőkanál",
       "example-unit-plural": "pl. Evőkanalak",
       "example-unit-abbreviation-singular": "pl. ek",
-      "example-unit-abbreviation-plural": "pl. ek"
+      "example-unit-abbreviation-plural": "pl. ek",
+      "standardization": "Standardizálás",
+      "standardization-description": "Hogyan jeleníthető meg ez az egység szabványos egységként. Ez lehetővé teszi az olyan funkciókat, mint a kompatibilis egységek összevonása a bevásárlólistákon.",
+      "standard-unit": "Standard egység",
+      "standard-quantity": "Standard mennyiség",
+      "unit-conversion": "Mértékegység‑átváltás",
+      "standard-unit-labels": {
+        "fluid-ounce": "folyadék uncia",
+        "cup": "csésze",
+        "ounce": "uncia",
+        "pound": "font",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gramm",
+        "kilogram": "kilogramm"
+      }
     },
     "labels": {
       "seed-dialog-text": "Töltse be az Ön nyelve szerinti közös címkélet tartalmazó adatbázist.",
@@ -1168,7 +1185,11 @@
       "recipe-actions-data": "Receptekkel kapcsolatos tevékenységek adatai",
       "new-recipe-action": "Új recept tevékenység",
       "edit-recipe-action": "Recept tevékenység szerkesztése",
-      "action-type": "Művelet típusa"
+      "action-type": "Művelet típusa",
+      "action-types": {
+        "link": "Hivatkozás",
+        "post": "Közzététel"
+      }
     },
     "create-alias": "Alias készítése",
     "manage-aliases": "Alias kezelése",
@@ -1445,6 +1466,6 @@
     "invalid-url": "Érvényes URL-nek kell lennie",
     "no-whitespace": "Szóközt nem tartalmazhat",
     "min-length": "Legalább {min} karakter legyen",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Legfeljebb {max} karakter lehet|Legfeljebb {max} karakter lehet"
   }
 }

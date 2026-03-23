@@ -224,7 +224,7 @@ export default defineNuxtConfig({
       navigateFallback: "/",
       navigateFallbackAllowlist: [/^(?!\/api|\/docs)/],
       globPatterns: ["**/*.{js,css,html,png,svg,ico}"],
-      globIgnores: ["404.html", "200.html"],
+      globIgnores: ["404.html", "200.html", "index.html"],
       cleanupOutdatedCaches: true,
       skipWaiting: true,
       clientsClaim: true,

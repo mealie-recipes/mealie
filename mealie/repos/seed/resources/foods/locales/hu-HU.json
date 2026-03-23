@@ -560,7 +560,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "karalábé",
-                "plural_name": "kohlrabi"
+                "plural_name": "karalábé"
             },
             "fresno chile": {
                 "aliases": [],
@@ -576,11 +576,11 @@
             },
             "Frisée": {
                 "aliases": [
-                    "curly endive"
+                    "fodros endíviasaláta"
                 ],
                 "description": "",
-                "name": "Frisée",
-                "plural_name": "Frisées"
+                "name": "Frizé saláta",
+                "plural_name": "Frizé saláta"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -591,14 +591,14 @@
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "zsázsa",
+                "plural_name": "zsázsa"
             },
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
                 "name": "brokkoli saláta",
-                "plural_name": "broccoli slaw"
+                "plural_name": "aprított brokkolisaláta"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -622,7 +622,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lucernacsíra",
-                "plural_name": "alfalfa"
+                "plural_name": "lucernacsíra"
             }
         }
     },
@@ -974,13 +974,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomelos"
+                "plural_name": "pomelo"
             },
             "chestnut purée": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut purée",
-                "plural_name": "chestnut purée"
+                "name": "gesztenyepüré",
+                "plural_name": "gesztenyepüré"
             },
             "prickly pear": {
                 "aliases": [],
@@ -1028,7 +1028,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tangelo",
-                "plural_name": "tangelos"
+                "plural_name": "tangelo"
             },
             "dried lime": {
                 "aliases": [],
@@ -1100,7 +1100,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tamarillo",
-                "plural_name": "tamarillos"
+                "plural_name": "tamarillo"
             },
             "ice-apple": {
                 "aliases": [],
@@ -1385,7 +1385,7 @@
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletus",
+                "name": "vargánya",
                 "plural_name": "vargánya"
             },
             "huitlacoche": {
@@ -1404,7 +1404,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "nameko tőkegomba",
-                "plural_name": "namekos"
+                "plural_name": "nameko tőkegomba"
             },
             "djon djon mushroom": {
                 "aliases": [],
@@ -1427,7 +1427,7 @@
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungus",
+                "name": "tuskógomba",
                 "plural_name": "tuskógomba"
             },
             "caesar's mushroom": {
@@ -1677,8 +1677,8 @@
             "loganberry": {
                 "aliases": [],
                 "description": "",
-                "name": "loganberry",
-                "plural_name": "loganberries"
+                "name": "kaliforniai szedermálna",
+                "plural_name": "kaliforniai szedermálna"
             },
             "blackcurrant leaf": {
                 "aliases": [],
@@ -1689,14 +1689,14 @@
             "haskap berry": {
                 "aliases": [],
                 "description": "",
-                "name": "haskap berry",
-                "plural_name": "haskap berries"
+                "name": "kék mézbogyó",
+                "plural_name": "kék mézbogyó"
             },
             "dewberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dewberry",
-                "plural_name": "dewberries"
+                "name": "hamvas szeder",
+                "plural_name": "hamvas szeder"
             },
             "sloe berry": {
                 "aliases": [],

@@ -83,14 +83,20 @@
         />
       </v-card-text>
       <v-card-actions class="justify-center">
-        <div style="width: 250px">
-          <BaseButton
-            :disabled="!newRecipeData"
-            rounded
-            block
-            type="submit"
-            :loading="loading"
-          />
+        <div style="width: 100%" class="text-center">
+          <div style="width: 250px; margin: 0 auto">
+            <BaseButton
+              :disabled="!newRecipeData"
+              rounded
+              block
+              type="submit"
+              :loading="loading"
+            />
+          </div>
+          <v-card-text class="py-2">
+            <!-- render &nbsp; to maintain layout -->
+            {{ createStatus }}&nbsp;
+          </v-card-text>
         </div>
       </v-card-actions>
     </div>
@@ -167,6 +173,7 @@ export default defineNuxtComponent({
     }
     handleIsEditJson();
 
+    const createStatus = ref<string | null>(null);
     async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, importKeywordsAsTags: boolean, importCategories: boolean, url: string | null = null) {
       if (!htmlOrJsonData) {
         return;
@@ -186,7 +193,14 @@ export default defineNuxtComponent({
       }
 
       state.loading = true;
-      const { response } = await api.recipes.createOneByHtmlOrJson(dataString, importKeywordsAsTags, importCategories, url);
+      const { response } = await api.recipes.createOneByHtmlOrJson(
+        dataString,
+        importKeywordsAsTags,
+        importCategories,
+        url,
+        (message: string) => createStatus.value = message,
+      );
+      createStatus.value = null;
       handleResponse(response, importKeywordsAsTags);
     }
 
@@ -199,6 +213,7 @@ export default defineNuxtComponent({
       newRecipeData,
       newRecipeUrl,
       handleIsEditJson,
+      createStatus,
       createFromHtmlOrJson,
       ...toRefs(state),
       validators,

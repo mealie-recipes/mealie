@@ -65,7 +65,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "plural_name": "jalapeños"
             },
             "avocado": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "espinafre",
-                "plural_name": "spinach"
+                "plural_name": "espinafres"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "milho doce",
-                "plural_name": "sweet corn"
+                "plural_name": "milhos doce"
             },
             "chile pepper": {
                 "aliases": [
@@ -121,19 +121,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "brócoli",
-                "plural_name": "broccoli"
+                "plural_name": "brócolis"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
                 "name": "palmito",
-                "plural_name": "heart of palm"
+                "plural_name": "palmitos"
             },
             "baby greens": {
                 "aliases": [],
                 "description": "",
-                "name": "baby greens",
-                "plural_name": "baby greens"
+                "name": "folha baby",
+                "plural_name": "folhas baby"
             },
             "pumpkin": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "couve-flor",
-                "plural_name": "cauliflower"
+                "plural_name": "couve-flores"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,20 +156,20 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "aspargo",
+                "plural_name": "aspargos"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
                 "name": "couve",
-                "plural_name": "kale"
+                "plural_name": "couve"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
                 "name": "rúcula",
-                "plural_name": "arugula"
+                "plural_name": "rúculas"
             },
             "leek": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "alface",
-                "plural_name": "lettuce"
+                "plural_name": "alfaces"
             },
             "butternut squash": {
                 "aliases": [],
@@ -198,8 +198,8 @@
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine lettuce",
-                "plural_name": "romaine lettuce"
+                "name": "alface romana",
+                "plural_name": "alfaces romanas"
             },
             "beetroot": {
                 "aliases": [],
@@ -217,7 +217,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "funcho",
-                "plural_name": "fennel"
+                "plural_name": "funcho"
             },
             "sun dried tomato": {
                 "aliases": [],
@@ -261,8 +261,8 @@
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed greens",
-                "plural_name": "mixed greens"
+                "name": "folhas mistas",
+                "plural_name": "folhas mistas"
             },
             "parsnip": {
                 "aliases": [],
@@ -279,8 +279,8 @@
             "mixed vegetables": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetables",
-                "plural_name": "mixed vegetables"
+                "name": "legumes mistos",
+                "plural_name": "legumes mistos"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -304,7 +304,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pimenta caiena",
-                "plural_name": "cayenne pepper"
+                "plural_name": "pimenta caiena"
             },
             "green tomato": {
                 "aliases": [],
@@ -321,8 +321,8 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "name": "alface americana",
+                "plural_name": "alfaces americanas"
             },
             "mashed potato": {
                 "aliases": [],
@@ -340,13 +340,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "acelga",
-                "plural_name": "chard"
+                "plural_name": "acelga"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
                 "name": "pimentão vermelho",
-                "plural_name": "pimientos"
+                "plural_name": "pimentões"
             },
             "spaghetti squash": {
                 "aliases": [],
@@ -358,7 +358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "alface manteiga",
-                "plural_name": "butter lettuce"
+                "plural_name": "alfaces-manteiga"
             },
             "hash brown": {
                 "aliases": [],
@@ -419,8 +419,8 @@
             "corn on the cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn on the cob",
-                "plural_name": "corn on the cob"
+                "name": "milho na espiga",
+                "plural_name": "milhos nas espigas"
             },
             "radicchio": {
                 "aliases": [],
@@ -438,7 +438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brócoli ninja",
-                "plural_name": "tenderstem broccoli"
+                "plural_name": "brócolis-ramosinhos"
             },
             "plantain": {
                 "aliases": [],

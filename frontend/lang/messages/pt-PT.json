@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crie uma receita fornecendo o nome. Todas as receitas devem ter nomes únicos.",
     "new-recipe-names-must-be-unique": "Os nomes de receitas devem ser únicos",
     "scrape-recipe": "Extrair receita (Scrape)",
-    "scrape-recipe-description": "Extrair a receita por URL. Indique o URL da página da qual quer extrair e o Mealie tentará obter a receita dessa página e adicioná-la à sua coleção.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Tem muitas receitas para processar em simultâneo?",
     "scrape-recipe-suggest-bulk-importer": "Experimente o importador em massa",
     "scrape-recipe-have-raw-html-or-json-data": "Tem dados HTML ou JSON em bruto?",
@@ -903,6 +904,7 @@
     "all-lists": "Todas as Listas",
     "create-shopping-list": "Criar Lista de Compras",
     "from-recipe": "Da Receita",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Nome da Lista",
     "new-list": "Nova Lista",
     "quantity": "Quantidade: {0}",
@@ -1134,7 +1136,22 @@
       "example-unit-singular": "ex: Colher de Sopa",
       "example-unit-plural": "ex: Colheres de Sopa",
       "example-unit-abbreviation-singular": "ex: Cdsp",
-      "example-unit-abbreviation-plural": "ex: Cdsps"
+      "example-unit-abbreviation-plural": "ex: Cdsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Adicionar à base de dados rótulos comuns no seu idioma local.",
@@ -1168,7 +1185,11 @@
       "recipe-actions-data": "Dados das Ações da Receita",
       "new-recipe-action": "Nova Ação da Receita",
       "edit-recipe-action": "Editar Ação da Receita",
-      "action-type": "Tipo de Ação"
+      "action-type": "Tipo de Ação",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Criar Pseudónimo",
     "manage-aliases": "Gerir Pseudónimos",

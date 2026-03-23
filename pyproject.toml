@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.11.0"
+version = "3.13.1"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -9,43 +9,46 @@ dependencies = [
     "Jinja2==3.1.6",
     "Pillow==12.1.1",
     "PyYAML==6.0.3",
-    "SQLAlchemy==2.0.46",
+    "SQLAlchemy==2.0.48",
     "aiofiles==25.1.0",
     "alembic==1.18.4",
     "aniso8601==10.0.1",
     "appdirs==1.4.4",
-    "apprise==1.9.7",
+    "apprise==1.9.8",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
-    "fastapi==0.131.0",
+    "fastapi==0.135.1",
     "httpx==0.28.1",
     "lxml==6.0.2",
     "orjson==3.11.7",
     "pydantic==2.12.5",
     "pyhumps==3.8.0",
     "python-dateutil==2.9.0.post0",
-    "python-dotenv==1.2.1",
+    "python-dotenv==1.2.2",
     "python-ldap==3.4.5",
     "python-multipart==0.0.22",
     "python-slugify==8.0.4",
     "recipe-scrapers==15.11.0",
     "requests==2.32.5",
     "tzdata==2025.3",
-    "uvicorn[standard]==0.41.0",
+    "uvicorn[standard]==0.42.0",
     "beautifulsoup4==4.14.3",
     "isodate==0.7.2",
     "text-unidecode==1.3",
     "rapidfuzz==3.14.3",
-    "authlib==1.6.8",
+    "authlib==1.6.9",
     "html2text==2025.4.15",
     "paho-mqtt==1.6.1",
     "pydantic-settings==2.13.1",
-    "pillow-heif==1.2.1",
-    "pyjwt==2.11.0",
-    "openai==2.23.0",
+    "pillow-heif==1.3.0",
+    "pyjwt==2.12.1",
+    "openai==2.29.0",
     "typing-extensions==4.15.0",
     "itsdangerous==2.2.0",
+    "yt-dlp==2026.3.17",
     "ingredient-parser-nlp==2.5.0",
+    "pint==0.25.2",
+    "httpx-curl-cffi==0.1.5",
 ]
 
 [project.scripts]
@@ -58,21 +61,21 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "mkdocs-material==9.7.3",
+    "mkdocs-material==9.7.6",
 ]
 dev = [
-    "coverage==7.13.4",
+    "coverage==7.13.5",
     "coveragepy-lcov==0.1.2",
-    "mkdocs-material==9.7.3",
+    "mkdocs-material==9.7.6",
     "mypy==1.19.1",
     "pre-commit==4.5.1",
     "pylint==4.0.5",
     "pytest==9.0.2",
     "pytest-asyncio==1.3.0",
     "rich==14.3.3",
-    "ruff==0.15.2",
+    "ruff==0.15.7",
     "types-PyYAML==6.0.12.20250915",
-    "types-python-dateutil==2.9.0.20260124",
+    "types-python-dateutil==2.9.0.20260305",
     "types-python-slugify==8.0.2.20240310",
     "types-requests==2.32.4.20260107",
     "types-urllib3==1.26.25.14",
@@ -81,7 +84,7 @@ dev = [
 ]
 
 [build-system]
-requires = ["setuptools==82.0.0"]
+requires = ["setuptools==82.0.1"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
@@ -172,3 +175,6 @@ select = [
 [tool.ruff.lint.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
 max-complexity = 24  # Default is 10.
+
+[tool.uv]
+add-bounds = "exact"

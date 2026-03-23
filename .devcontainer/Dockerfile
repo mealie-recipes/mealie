@@ -21,6 +21,7 @@ RUN apt-get update \
     && apt-get install --no-install-recommends -y \
     curl \
     build-essential \
+    ffmpeg \
     libpq-dev \
     libwebp-dev \
     libsasl2-dev libldap2-dev libssl-dev \

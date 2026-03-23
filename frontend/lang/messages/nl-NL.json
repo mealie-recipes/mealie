@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Maak een recept door het een naam te geven. Alle recepten moeten unieke namen hebben.",
     "new-recipe-names-must-be-unique": "Nieuwe receptnamen moeten uniek zijn",
     "scrape-recipe": "Scrape recept",
-    "scrape-recipe-description": "Voeg een recept toe via een URL. Geef de URL op van de site die je wil scannen voor een recept en Mealie zal proberen het recept vanaf die plek te scannen en aan je collectie toe te voegen.",
+    "scrape-recipe-description": "Een recept ophalen via de url. Voer de url in van de website waarvan je het recept wilt ophalen en Mealie zal proberen het recept van die website op te halen en aan je verzameling toe te voegen.",
+    "scrape-recipe-description-transcription": "Je kunt ook de url naar een video geven en Mealie zal proberen deze in een recept om te zetten.",
     "scrape-recipe-have-a-lot-of-recipes": "Heb je veel recepten die je in één keer wil importeren?",
     "scrape-recipe-suggest-bulk-importer": "Probeer importeren in bulk",
     "scrape-recipe-have-raw-html-or-json-data": "Heb je onbewerkte HTML of JSON gegevens?",
@@ -903,6 +904,7 @@
     "all-lists": "Alle lijsten",
     "create-shopping-list": "Boodschappenlijst maken",
     "from-recipe": "Uit recept",
+    "ingredient-of-recipe": "Ingrediënt van {recipe}",
     "list-name": "Lijstnaam",
     "new-list": "Nieuwe lijst",
     "quantity": "Hoeveelheid: {0}",
@@ -1134,7 +1136,22 @@
       "example-unit-singular": "Bv: eetlepel ",
       "example-unit-plural": "Bv: eetlepels ",
       "example-unit-abbreviation-singular": "Bv: el",
-      "example-unit-abbreviation-plural": "bijv: els"
+      "example-unit-abbreviation-plural": "bijv: els",
+      "standardization": "Standaardisatie",
+      "standardization-description": "Hoe deze eenheid kan worden weergegeven als een standaardeenheid. Dit maakt conversie per eenheid mogelijk, zoals het samenvoegen van compatibele eenheden in boodschappenlijsten.",
+      "standard-unit": "Standaard eenheid",
+      "standard-quantity": "Standaard hoeveelheid",
+      "unit-conversion": "Eenheid conversie",
+      "standard-unit-labels": {
+        "fluid-ounce": "vloeibare ons",
+        "cup": "kop",
+        "ounce": "ons",
+        "pound": "pond",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Vul de database aan met veelvoorkomende labels, gebaseerd op je lokale taal.",
@@ -1168,7 +1185,11 @@
       "recipe-actions-data": "Gegevens voor acties met recepten",
       "new-recipe-action": "Nieuwe actie met recept",
       "edit-recipe-action": "Pas actie met recept aan",
-      "action-type": "Soort actie"
+      "action-type": "Soort actie",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Maak alias",
     "manage-aliases": "Beheer aliassen ",
@@ -1445,6 +1466,6 @@
     "invalid-url": "Moet een geldige URL zijn",
     "no-whitespace": "Geen spaties toegestaan",
     "min-length": "Moet minimaal {min} tekens bevatten",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Moet maximaal {max} tekens bevatten|Moet maximaal {max} tekens bevatten"
   }
 }
