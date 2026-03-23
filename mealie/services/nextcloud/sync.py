@@ -100,6 +100,7 @@ class NextcloudSyncService:
         self.repos = repos
         self.session = repos.session
         self.nc = nc
+        self._parent_uid_cache: dict[str, str] = {}
 
     def _get_shopping_list(self, shopping_list_id: UUID4) -> ShoppingListOut | None:
         return cast(ShoppingListOut | None, self.repos.group_shopping_lists.get_one(shopping_list_id))
@@ -133,9 +134,17 @@ class NextcloudSyncService:
         if not self.nc:
             return None
 
-        # Read parent UID directly from DB to avoid stale data
+        list_id_str = str(shopping_list.id)
+
+        # Check in-memory cache first (avoids race between push and pull in same request)
+        if list_id_str in self._parent_uid_cache:
+            return self._parent_uid_cache[list_id_str]
+
+        # Read parent UID directly from DB
+        self.session.expire_all()  # ensure fresh read
         parent_uid = self._get_list_extra(shopping_list.id, NC_PARENT_UID_KEY)
         if parent_uid:
+            self._parent_uid_cache[list_id_str] = parent_uid
             return parent_uid
 
         parent_uid = str(uuid4())
@@ -145,6 +154,7 @@ class NextcloudSyncService:
         )
         if result:
             self._set_list_extra(shopping_list.id, NC_PARENT_UID_KEY, parent_uid)
+            self._parent_uid_cache[list_id_str] = parent_uid
             logger.info("Created Nextcloud parent task for list '%s'", shopping_list.name)
             return parent_uid
 
