@@ -220,7 +220,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRequests } from "~/composables/api/api-client";
+import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 
 interface RecipeVersionSummary {
@@ -259,7 +259,7 @@ const emit = defineEmits<{
   (e: "restored"): void;
 }>();
 
-const requests = useRequests();
+const api = useUserApi();
 const i18n = useI18n();
 
 const versions = ref<RecipeVersionSummary[]>([]);
@@ -269,7 +269,7 @@ const diffLoading = ref(false);
 const restoreLoading = ref<string | null>(null);
 
 async function loadVersions() {
-  const { data } = await requests.get<RecipeVersionSummary[]>(`/api/recipes/${props.slug}/versions`);
+  const { data } = await api.recipes.requests.get<RecipeVersionSummary[]>(`/api/recipes/${props.slug}/versions`);
   if (data) {
     versions.value = data;
   }
@@ -284,7 +284,7 @@ async function toggleVersion(version: RecipeVersionSummary) {
 
   expandedVersion.value = version.id;
   diffLoading.value = true;
-  const { data } = await requests.get<RecipeDiff>(`/api/recipes/${props.slug}/versions/${version.id}/diff?compare_to=current`);
+  const { data } = await api.recipes.requests.get<RecipeDiff>(`/api/recipes/${props.slug}/versions/${version.id}/diff?compare_to=current`);
   if (data) {
     currentDiff.value = data;
   }
@@ -293,7 +293,7 @@ async function toggleVersion(version: RecipeVersionSummary) {
 
 async function restoreVersion(version: RecipeVersionSummary) {
   restoreLoading.value = version.id;
-  const { data } = await requests.post<any>(`/api/recipes/${props.slug}/versions/${version.id}/restore`, {});
+  const { data } = await api.recipes.requests.post<any>(`/api/recipes/${props.slug}/versions/${version.id}/restore`, {});
   if (data) {
     alert.success(i18n.t("recipe.version-restored", { version: version.versionNumber }));
     emit("restored");
