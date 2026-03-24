@@ -488,6 +488,18 @@ class RecipeService(RecipeServiceBase):
     def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug_or_id, update_data)
 
+        # Save a version snapshot of the current state before updating
+        try:
+            from mealie.services.recipe.recipe_version_service import RecipeVersionService
+
+            version_service = RecipeVersionService(self.repos)
+            version_service.save_snapshot(recipe, user_id=self.user.id)
+        except Exception:
+            # Version snapshot failure should not block the update
+            import logging
+
+            logging.getLogger(__name__).warning("Failed to save recipe version snapshot", exc_info=True)
+
         # Resolve sub-recipe references before passing to repository
         update_data = self._resolve_ingredient_sub_recipes(update_data)
 

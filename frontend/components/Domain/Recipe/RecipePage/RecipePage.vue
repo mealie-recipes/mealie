@@ -106,6 +106,13 @@
         v-model="recipe"
         class="px-1 my-4 d-print-none"
       />
+      <RecipeVersionHistory
+        v-if="!isEditMode && !isCookMode && recipe.slug && isOwnGroup"
+        :slug="recipe.slug"
+        :can-edit="isOwnGroup"
+        class="px-1"
+        @restored="() => router.go(0)"
+      />
       <RecipePrintContainer :recipe="recipe" :scale="scale" />
     </v-container>
     <!-- Cook mode displayes two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same time -->
@@ -214,6 +221,7 @@ import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
+import RecipeVersionHistory from "~/components/Domain/Recipe/RecipeVersionHistory.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useNavigationWarning } from "~/composables/use-navigation-warning";
 

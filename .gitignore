@@ -173,3 +173,12 @@ dev/code-generation/openapi.json
 .task/*
 .dev.env
 frontend/eslint.config.deprecated.js
+
+# Claude Code
+CLAUDE.md
+
+# Claude Code
+CLAUDE.md
+
+# Claude Code
+CLAUDE.md

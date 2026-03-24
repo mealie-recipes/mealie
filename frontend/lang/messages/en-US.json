@@ -221,7 +221,8 @@
     "show-advanced": "Show Advanced",
     "add-field": "Add Field",
     "date-created": "Date Created",
-    "date-updated": "Date Updated"
+    "date-updated": "Date Updated",
+    "restore": "Restore"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
@@ -710,7 +711,10 @@
     "cover-image": "Cover image",
     "include-linked-recipes": "Include Linked Recipes",
     "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "toggle-recipe": "Toggle Recipe",
+    "version-history": "Version History",
+    "version-no-changes": "No changes in this version",
+    "version-restored": "Restored to version {version}"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
