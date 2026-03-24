@@ -64,6 +64,9 @@
               class="mx-4 mb-2"
             >
               <v-card-text class="pa-3">
+                <div class="text-caption text-grey mb-2">
+                  {{ $t("recipe.version-diff-label") }}
+                </div>
                 <div
                   v-if="isDiffEmpty(currentDiff)"
                   class="text-caption text-grey"
