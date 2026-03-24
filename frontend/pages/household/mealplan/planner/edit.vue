@@ -129,9 +129,9 @@
                 </v-icon>
               </v-btn>
               <v-menu offset-y>
-                <template #activator="{ props }">
+                <template #activator="{ props: menuProps }">
                   <v-chip
-                    v-bind="props"
+                    v-bind="menuProps"
                     label
                     variant="elevated"
                     size="small"
