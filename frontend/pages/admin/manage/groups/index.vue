@@ -1,28 +1,28 @@
 <template>
   <v-container fluid>
     <BaseDialog
-      v-model="createDialog"
+      v-model="state.createDialog"
       :title="$t('group.create-group')"
       :icon="$globals.icons.group"
       can-submit
-      @submit="createGroup(createGroupForm.data)"
+      @submit="createGroup(state.createGroupForm.data)"
     >
       <template #activator />
       <v-card-text>
         <AutoForm
-          v-model="createGroupForm.data"
-          :update-mode="updateMode"
-          :items="createGroupForm.items"
+          v-model="state.createGroupForm.data"
+          :update-mode="state.updateMode"
+          :items="state.createGroupForm.items"
         />
       </v-card-text>
     </BaseDialog>
 
     <BaseDialog
-      v-model="confirmDialog"
+      v-model="state.confirmDialog"
       :title="$t('general.confirm')"
       color="error"
       can-confirm
-      @confirm="deleteGroup(deleteTarget)"
+      @confirm="deleteGroup(state.deleteTarget)"
     >
       <template #activator />
       <v-card-text>
@@ -43,14 +43,14 @@
       </v-toolbar>
 
       <v-data-table
-        :headers="headers"
+        :headers="state.headers"
         :items="groups || []"
         item-key="id"
         class="elevation-0"
         :items-per-page="-1"
         hide-default-footer
         disable-pagination
-        :search="search"
+        :search="state.search"
         @click:row="($event, { item }) => handleRowClick(item)"
       >
         <template #[`item.households`]="{ item }">
@@ -73,8 +73,8 @@
                   color="error"
                   variant="text"
                   @click.stop="
-                    confirmDialog = true;
-                    deleteTarget = item.id;
+                    state.confirmDialog = true;
+                    state.deleteTarget = item.id;
                   "
                 >
                   <v-icon>
@@ -92,75 +92,68 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { fieldTypes } from "~/composables/forms";
 import { useGroups } from "~/composables/use-groups";
 import { validators } from "~/composables/use-validators";
 import type { GroupInDB } from "~/lib/api/types/user";
 
-export default defineNuxtComponent({
-  setup() {
-    definePageMeta({
-      layout: "admin",
-    });
+definePageMeta({
+  layout: "admin",
+});
 
-    const i18n = useI18n();
+const i18n = useI18n();
 
-    // Set page title
-    useSeoMeta({
-      title: i18n.t("group.manage-groups"),
-    });
+useHead({
+  title: i18n.t("group.manage-groups"),
+});
 
-    const { groups, refreshAllGroups, deleteGroup, createGroup } = useGroups();
+// Set page title
+useSeoMeta({
+  title: i18n.t("group.manage-groups"),
+});
 
-    const state = reactive({
-      createDialog: false,
-      confirmDialog: false,
-      deleteTarget: "",
-      search: "",
-      headers: [
-        {
-          title: i18n.t("group.group"),
-          align: "start",
-          sortable: false,
-          value: "id",
-        },
-        { title: i18n.t("general.name"), value: "name" },
-        { title: i18n.t("group.total-households"), value: "households" },
-        { title: i18n.t("user.total-users"), value: "users" },
-        { title: i18n.t("general.delete"), value: "actions" },
-      ],
-      updateMode: false,
-      createGroupForm: {
-        items: [
-          {
-            label: i18n.t("group.group-name"),
-            varName: "name",
-            type: fieldTypes.TEXT,
-            rules: [validators.required],
-          },
-        ],
-        data: {
-          name: "",
-        },
+const { groups, deleteGroup, createGroup } = useGroups();
+
+const state = reactive({
+  createDialog: false,
+  confirmDialog: false,
+  deleteTarget: "",
+  search: "",
+  headers: [
+    {
+      title: i18n.t("group.group"),
+      align: "start",
+      sortable: false,
+      value: "id",
+    },
+    { title: i18n.t("general.name"), value: "name" },
+    { title: i18n.t("group.total-households"), value: "households" },
+    { title: i18n.t("user.total-users"), value: "users" },
+    { title: i18n.t("general.delete"), value: "actions" },
+  ],
+  updateMode: false,
+  createGroupForm: {
+    items: [
+      {
+        label: i18n.t("group.group-name"),
+        varName: "name",
+        type: fieldTypes.TEXT,
+        rules: [validators.required],
       },
-    });
-
-    function openDialog() {
-      state.createDialog = true;
-      state.createGroupForm.data.name = "";
-    }
-
-    function handleRowClick(item: GroupInDB) {
-      navigateTo(`/admin/manage/groups/${item.id}`);
-    }
-
-    return { ...toRefs(state), groups, refreshAllGroups, deleteGroup, createGroup, openDialog, handleRowClick };
-  },
-  head() {
-    return {
-      title: useI18n().t("group.manage-groups"),
-    };
+    ],
+    data: {
+      name: "",
+    },
   },
 });
+
+function openDialog() {
+  state.createDialog = true;
+  state.createGroupForm.data.name = "";
+}
+
+function handleRowClick(item: GroupInDB) {
+  navigateTo(`/admin/manage/groups/${item.id}`);
+}
 </script>

@@ -106,66 +106,63 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import type { VForm } from "~/types/auto-forms";
 
-export default defineNuxtComponent({
+definePageMeta({
   middleware: ["advanced-only"],
-  setup() {
-    const i18n = useI18n();
-    const auth = useMealieAuth();
-
-    useSeoMeta({
-      title: i18n.t("settings.token.api-tokens"),
-    });
-
-    const user = computed(() => {
-      return auth.user.value;
-    });
-
-    const api = useUserApi();
-
-    const domNewTokenForm = ref<VForm | null>(null);
-
-    const createdToken = ref("");
-    const name = ref("");
-    const loading = ref(false);
-
-    function resetCreate() {
-      createdToken.value = "";
-      loading.value = false;
-      name.value = "";
-      auth.refresh();
-    }
-
-    async function createToken(name: string) {
-      if (loading.value) {
-        resetCreate();
-        return;
-      }
-
-      loading.value = true;
-
-      if (domNewTokenForm?.value?.validate()) {
-        console.log("Created");
-        return;
-      }
-
-      const { data } = await api.users.createAPIToken({ name });
-
-      if (data) {
-        createdToken.value = data.token;
-      }
-    }
-
-    async function deleteToken(id: number) {
-      const { data } = await api.users.deleteAPIToken(id);
-      auth.refresh();
-      return data;
-    }
-
-    return { createToken, deleteToken, createdToken, loading, name, user, resetCreate };
-  },
 });
+
+const i18n = useI18n();
+const auth = useMealieAuth();
+
+useSeoMeta({
+  title: i18n.t("settings.token.api-tokens"),
+});
+
+const user = computed(() => {
+  return auth.user.value;
+});
+
+const api = useUserApi();
+
+const domNewTokenForm = ref<VForm | null>(null);
+
+const createdToken = ref("");
+const name = ref("");
+const loading = ref(false);
+
+function resetCreate() {
+  createdToken.value = "";
+  loading.value = false;
+  name.value = "";
+  auth.refresh();
+}
+
+async function createToken(name: string) {
+  if (loading.value) {
+    resetCreate();
+    return;
+  }
+
+  loading.value = true;
+
+  if (domNewTokenForm?.value?.validate()) {
+    console.log("Created");
+    return;
+  }
+
+  const { data } = await api.users.createAPIToken({ name });
+
+  if (data) {
+    createdToken.value = data.token;
+  }
+}
+
+async function deleteToken(id: number) {
+  const { data } = await api.users.deleteAPIToken(id);
+  auth.refresh();
+  return data;
+}
 </script>

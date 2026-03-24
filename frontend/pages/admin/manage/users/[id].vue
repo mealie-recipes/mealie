@@ -137,7 +137,7 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
@@ -146,103 +146,83 @@ import { useUserForm } from "~/composables/use-users";
 import { validators } from "~/composables/use-validators";
 import type { UserOut } from "~/lib/api/types/user";
 
-export default defineNuxtComponent({
-  setup() {
-    definePageMeta({
-      layout: "admin",
-    });
-
-    const { userForm } = useUserForm();
-    const { groups } = useGroups();
-    const { useHouseholdsInGroup } = useAdminHouseholds();
-    const i18n = useI18n();
-    const route = useRoute();
-
-    const userId = route.params.id as string;
-
-    // ==============================================
-    // New User Form
-
-    const refNewUserForm = ref<VForm | null>(null);
-
-    const adminApi = useAdminApi();
-
-    const user = ref<UserOut | null>(null);
-    const households = useHouseholdsInGroup(computed(() => user.value?.groupId || ""));
-
-    const disabledFields = computed(() => {
-      return user.value?.authMethod !== "Mealie" ? ["admin"] : [];
-    });
-
-    const userError = ref(false);
-
-    const resetUrl = ref<string | null>(null);
-    const generatingToken = ref(false);
-
-    onMounted(async () => {
-      const { data, error } = await adminApi.users.getOne(userId);
-
-      if (error?.response?.status === 404) {
-        alert.error(i18n.t("user.user-not-found"));
-        userError.value = true;
-      }
-
-      if (data) {
-        user.value = data;
-      }
-    });
-
-    async function handleSubmit() {
-      if (!refNewUserForm.value?.validate() || user.value === null) return;
-
-      const { response, data } = await adminApi.users.updateOne(user.value.id, user.value);
-
-      if (response?.status === 200 && data) {
-        user.value = data;
-      }
-    }
-
-    async function handlePasswordReset() {
-      if (user.value === null) return;
-      generatingToken.value = true;
-
-      const { response, data } = await adminApi.users.generatePasswordResetToken({ email: user.value.email });
-
-      if (response?.status === 201 && data) {
-        const token: string = data.token;
-        resetUrl.value = `${window.location.origin}/reset-password/?token=${token}`;
-      }
-
-      generatingToken.value = false;
-    }
-
-    const userApi = useUserApi();
-    async function sendResetEmail() {
-      if (!user.value?.email) return;
-      const { response } = await userApi.email.sendForgotPassword({ email: user.value.email });
-      if (response && response.status === 200) {
-        alert.success(i18n.t("profile.email-sent"));
-      }
-      else {
-        alert.error(i18n.t("profile.error-sending-email"));
-      }
-    }
-
-    return {
-      user,
-      disabledFields,
-      userError,
-      userForm,
-      refNewUserForm,
-      handleSubmit,
-      groups,
-      households,
-      validators,
-      handlePasswordReset,
-      resetUrl,
-      generatingToken,
-      sendResetEmail,
-    };
-  },
+definePageMeta({
+  layout: "admin",
 });
+
+const { userForm } = useUserForm();
+const { groups } = useGroups();
+const { useHouseholdsInGroup } = useAdminHouseholds();
+const i18n = useI18n();
+const route = useRoute();
+
+const userId = route.params.id as string;
+
+// ==============================================
+// New User Form
+
+const refNewUserForm = ref<VForm | null>(null);
+
+const adminApi = useAdminApi();
+
+const user = ref<UserOut | null>(null);
+const households = useHouseholdsInGroup(computed(() => user.value?.groupId || ""));
+
+const disabledFields = computed(() => {
+  return user.value?.authMethod !== "Mealie" ? ["admin"] : [];
+});
+
+const userError = ref(false);
+
+const resetUrl = ref<string | null>(null);
+const generatingToken = ref(false);
+
+onMounted(async () => {
+  const { data, error } = await adminApi.users.getOne(userId);
+
+  if (error?.response?.status === 404) {
+    alert.error(i18n.t("user.user-not-found"));
+    userError.value = true;
+  }
+
+  if (data) {
+    user.value = data;
+  }
+});
+
+async function handleSubmit() {
+  if (!refNewUserForm.value?.validate() || user.value === null) return;
+
+  const { response, data } = await adminApi.users.updateOne(user.value.id, user.value);
+
+  if (response?.status === 200 && data) {
+    user.value = data;
+  }
+}
+
+async function handlePasswordReset() {
+  if (user.value === null) return;
+  generatingToken.value = true;
+
+  const { response, data } = await adminApi.users.generatePasswordResetToken({ email: user.value.email });
+
+  if (response?.status === 201 && data) {
+    const token: string = data.token;
+    resetUrl.value = `${window.location.origin}/reset-password/?token=${token}`;
+  }
+
+  generatingToken.value = false;
+}
+
+const userApi = useUserApi();
+async function sendResetEmail() {
+  if (!user.value?.email) return;
+  const { response } = await userApi.email.sendForgotPassword({ email: user.value.email });
+  if (response && response.status === 200) {
+    alert.success(i18n.t("profile.email-sent"));
+  }
+  else {
+    alert.error(i18n.t("profile.error-sending-email"));
+  }
+}
 </script>

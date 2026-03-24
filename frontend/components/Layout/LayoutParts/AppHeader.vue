@@ -8,14 +8,14 @@
     class="d-print-none"
   >
     <slot />
-    <router-link :to="routerLink">
+    <RouterLink :to="routerLink">
       <v-btn
         icon
         color="white"
       >
         <v-icon size="40"> {{ $globals.icons.primary }} </v-icon>
       </v-btn>
-    </router-link>
+    </RouterLink>
 
     <div
       btn
@@ -84,67 +84,53 @@
   </v-app-bar>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useLoggedInState } from "~/composables/use-logged-in-state";
-import RecipeDialogSearch from "~/components/Domain/Recipe/RecipeDialogSearch.vue";
+import type RecipeDialogSearch from "~/components/Domain/Recipe/RecipeDialogSearch.vue";
 
-export default defineNuxtComponent({
-  components: { RecipeDialogSearch },
-  props: {
-    menu: {
-      type: Boolean,
-      default: true,
-    },
-  },
-  setup() {
-    const auth = useMealieAuth();
-    const { loggedIn } = useLoggedInState();
-    const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
-    const { xs, smAndUp } = useDisplay();
-
-    const routerLink = computed(() => groupSlug.value ? `/g/${groupSlug.value}` : "/");
-    const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);
-
-    function activateSearch() {
-      domSearchDialog.value?.open();
-    }
-
-    function handleKeyEvent(e: KeyboardEvent) {
-      const activeTag = document.activeElement?.tagName;
-      if (e.key === "/" && activeTag !== "INPUT" && activeTag !== "TEXTAREA") {
-        e.preventDefault();
-        activateSearch();
-      }
-    }
-
-    onMounted(() => {
-      document.addEventListener("keydown", handleKeyEvent);
-    });
-
-    onBeforeUnmount(() => {
-      document.removeEventListener("keydown", handleKeyEvent);
-    });
-
-    async function logout() {
-      try {
-        await auth.signOut("/login?direct=1");
-      }
-      catch (e) {
-        console.error(e);
-      }
-    }
-
-    return {
-      activateSearch,
-      domSearchDialog,
-      routerLink,
-      loggedIn,
-      logout,
-      xs, smAndUp,
-    };
+defineProps({
+  menu: {
+    type: Boolean,
+    default: true,
   },
 });
+const auth = useMealieAuth();
+const { loggedIn } = useLoggedInState();
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
+const { xs, smAndUp } = useDisplay();
+
+const routerLink = computed(() => groupSlug.value ? `/g/${groupSlug.value}` : "/");
+const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);
+
+function activateSearch() {
+  domSearchDialog.value?.open();
+}
+
+function handleKeyEvent(e: KeyboardEvent) {
+  const activeTag = document.activeElement?.tagName;
+  if (e.key === "/" && activeTag !== "INPUT" && activeTag !== "TEXTAREA") {
+    e.preventDefault();
+    activateSearch();
+  }
+}
+
+onMounted(() => {
+  document.addEventListener("keydown", handleKeyEvent);
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener("keydown", handleKeyEvent);
+});
+
+async function logout() {
+  try {
+    await auth.signOut("/login?direct=1");
+  }
+  catch (e) {
+    console.error(e);
+  }
+}
 </script>
 
 <style scoped>

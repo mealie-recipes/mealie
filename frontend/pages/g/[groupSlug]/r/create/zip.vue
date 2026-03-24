@@ -27,7 +27,7 @@
             :disabled="newRecipeZip === null"
             rounded
             block
-            :loading="loading"
+            :loading="state.loading"
             @click="createByZip"
           />
         </div>
@@ -36,57 +36,45 @@
   </v-form>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import { useGlobalI18n } from "~/composables/use-global-i18n";
 import { alert } from "~/composables/use-toast";
-import { validators } from "~/composables/use-validators";
 
-export default defineNuxtComponent({
-  setup() {
-    const state = reactive({
-      loading: false,
-    });
-    const auth = useMealieAuth();
-    const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
-
-    const api = useUserApi();
-    const router = useRouter();
-
-    const newRecipeZip = ref<File | null>(null);
-    const newRecipeZipFileName = "archive";
-
-    async function createByZip() {
-      if (!newRecipeZip.value) {
-        return;
-      }
-      const formData = new FormData();
-      formData.append(newRecipeZipFileName, newRecipeZip.value);
-
-      try {
-        const response = await api.upload.file("/api/recipes/create/zip", formData);
-        if (response?.status !== 201) {
-          throw new Error("Failed to upload zip");
-        }
-        router.push(`/g/${groupSlug.value}/r/${response.data}`);
-      }
-      catch (error) {
-        console.error(error);
-        const i18n = useGlobalI18n();
-        alert.error(i18n.t("events.something-went-wrong"));
-      }
-      finally {
-        state.loading = false;
-      }
-    }
-
-    return {
-      newRecipeZip,
-      createByZip,
-      ...toRefs(state),
-      validators,
-    };
-  },
+const state = reactive({
+  loading: false,
 });
+const auth = useMealieAuth();
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
+
+const api = useUserApi();
+const router = useRouter();
+
+const newRecipeZip = ref<File | null>(null);
+const newRecipeZipFileName = "archive";
+
+async function createByZip() {
+  if (!newRecipeZip.value) {
+    return;
+  }
+  const formData = new FormData();
+  formData.append(newRecipeZipFileName, newRecipeZip.value);
+
+  try {
+    const response = await api.upload.file("/api/recipes/create/zip", formData);
+    if (response?.status !== 201) {
+      throw new Error("Failed to upload zip");
+    }
+    router.push(`/g/${groupSlug.value}/r/${response.data}`);
+  }
+  catch (error) {
+    console.error(error);
+    const i18n = useGlobalI18n();
+    alert.error(i18n.t("events.something-went-wrong"));
+  }
+  finally {
+    state.loading = false;
+  }
+}
 </script>

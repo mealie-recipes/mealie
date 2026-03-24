@@ -69,6 +69,8 @@ jobs:
 
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.sha }}
 
       - name: Set up python
         uses: actions/setup-python@v5

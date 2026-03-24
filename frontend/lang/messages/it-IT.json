@@ -636,8 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crea una ricetta fornendo il nome. Tutte le ricette devono avere nomi univoci.",
     "new-recipe-names-must-be-unique": "I nuovi nomi delle ricette devono essere univoci",
     "scrape-recipe": "Recupera Ricetta",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
-    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
+    "scrape-recipe-description": "Recupera una ricetta da url. Fornire l'url per il sito che si desidera analizzare, e Mealie cercherà di recuperare la ricetta da quel sito e aggiungerlo alla vostra raccolta.",
+    "scrape-recipe-description-transcription": "Puoi anche fornire l'url di un video e Mealie cercherà di trascrivere in una ricetta.",
     "scrape-recipe-have-a-lot-of-recipes": "Hai un sacco di ricette che vuoi importare contemporaneamente?",
     "scrape-recipe-suggest-bulk-importer": "Prova l'importatore massivo",
     "scrape-recipe-have-raw-html-or-json-data": "Hai dei dati grezzi HTML o JSON?",
@@ -904,7 +904,7 @@
     "all-lists": "Tutte le Liste",
     "create-shopping-list": "Crea Lista della Spesa",
     "from-recipe": "Dalla Ricetta",
-    "ingredient-of-recipe": "Ingredient of {recipe}",
+    "ingredient-of-recipe": "Ingrediente di {recipe}",
     "list-name": "Nome Lista",
     "new-list": "Nuova Lista",
     "quantity": "Quantità: {0}",
@@ -1137,20 +1137,20 @@
       "example-unit-plural": "esempio: Cucchiaini",
       "example-unit-abbreviation-singular": "esempio: Ccno",
       "example-unit-abbreviation-plural": "esempio: Ccni",
-      "standardization": "Standardization",
-      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
-      "standard-unit": "Standard Unit",
-      "standard-quantity": "Standard Quantity",
-      "unit-conversion": "Unit Conversion",
+      "standardization": "Standardizzazione",
+      "standardization-description": "Come questa unità può essere rappresentata come un'unità standard. Ciò consente le funzioni di conversione dell'unità, come il raggruppamento di unità compatibili nelle liste della spesa.",
+      "standard-unit": "Unità Standard",
+      "standard-quantity": "Quantità Standard",
+      "unit-conversion": "Conversione Unità",
       "standard-unit-labels": {
-        "fluid-ounce": "fluid ounce",
-        "cup": "cup",
-        "ounce": "ounce",
-        "pound": "pound",
-        "milliliter": "milliliter",
-        "liter": "liter",
-        "gram": "gram",
-        "kilogram": "kilogram"
+        "fluid-ounce": "oncia liquida",
+        "cup": "tazza",
+        "ounce": "oncia",
+        "pound": "libbra",
+        "milliliter": "millilitro",
+        "liter": "litro",
+        "gram": "grammo",
+        "kilogram": "chilogrammo"
       }
     },
     "labels": {
@@ -1188,7 +1188,7 @@
       "action-type": "Tipo Di Azione",
       "action-types": {
         "link": "Link",
-        "post": "Post"
+        "post": "Pubblica"
       }
     },
     "create-alias": "Crea Alias",
@@ -1466,6 +1466,6 @@
     "invalid-url": "Lo URL Deve Essere Valido",
     "no-whitespace": "Gli Spazi Non Sono Ammessi",
     "min-length": "Deve Essere Almeno {min} Caratteri",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Deve Essere Al Più {max} Carattere|Deve Essere Al Più {max} Caratteri"
   }
 }

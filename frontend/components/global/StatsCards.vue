@@ -30,33 +30,26 @@
   </v-card>
 </template>
 
-<script lang="ts">
-export default defineNuxtComponent({
-  props: {
-    icon: {
-      type: String,
-      default: null,
-    },
-    minWidth: {
-      type: String,
-      default: "",
-    },
-    to: {
-      type: String,
-      default: null,
-    },
+<script setup lang="ts">
+const props = defineProps({
+  icon: {
+    type: String,
+    default: null,
   },
-  setup(props) {
-    const { $globals } = useNuxtApp();
-
-    const activeIcon = computed(() => {
-      return props.icon ?? $globals.icons.primary;
-    });
-
-    return {
-      activeIcon,
-    };
+  minWidth: {
+    type: String,
+    default: "",
   },
+  to: {
+    type: String,
+    default: null,
+  },
+});
+
+const { $globals } = useNuxtApp();
+
+const activeIcon = computed(() => {
+  return props.icon ?? $globals.icons.primary;
 });
 </script>
 

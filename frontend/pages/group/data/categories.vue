@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script  setup lang="ts">
+<script setup lang="ts">
 import { useCategoryStore } from "~/composables/store";
 import { validators } from "~/composables/use-validators";
 import { fieldTypes } from "~/composables/forms";

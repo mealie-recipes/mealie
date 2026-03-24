@@ -331,7 +331,7 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue";
@@ -339,48 +339,56 @@ import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useShoppingListPage } from "~/composables/shopping-list-page/use-shopping-list-page";
 import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
-import { getTextColor } from "~/composables/use-text-color";
-import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 
-export default defineNuxtComponent({
-  components: {
-    VueDraggable,
-    MultiPurposeLabelSection,
-    ShoppingListItem,
-    RecipeList,
-    ShoppingListItemEditor,
-  },
-  setup() {
-    const { mdAndUp } = useDisplay();
-    const i18n = useI18n();
-    const auth = useMealieAuth();
-    const preferences = useShoppingListPreferences();
+const { mdAndUp } = useDisplay();
+const i18n = useI18n();
 
-    useSeoMeta({
-      title: i18n.t("shopping-list.shopping-list"),
-    });
-
-    const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
-    const id = route.params.id as string;
-
-    const shoppingListPage = useShoppingListPage(id);
-    const { store: allLabels } = useLabelStore();
-    const { store: allUnits } = useUnitStore();
-    const { store: allFoods } = useFoodStore();
-
-    return {
-      groupSlug,
-      preferences,
-      allLabels,
-      allUnits,
-      allFoods,
-      getTextColor,
-      mdAndUp,
-      ...shoppingListPage,
-    };
-  },
+useSeoMeta({
+  title: i18n.t("shopping-list.shopping-list"),
 });
+
+const route = useRoute();
+const id = route.params.id as string;
+
+const shoppingListPage = useShoppingListPage(id);
+const { store: allLabels } = useLabelStore();
+const { store: allUnits } = useUnitStore();
+const { store: allFoods } = useFoodStore();
+
+const {
+  shoppingList,
+  state,
+  checkAll,
+  uncheckAll,
+  deleteChecked,
+  reorderLabelsDialog,
+  localLabels,
+  saveLabelOrder,
+  cancelLabelOrder,
+  updateLabelOrder,
+  edit,
+  threeDot,
+  openCheckAll,
+  copyListItems,
+  toggleReorderLabelsDialog,
+  isOffline,
+  createEditorOpen,
+  createListItemData,
+  createListItem,
+  itemsByLabel,
+  getLabelColor,
+  loadingCounter,
+  updateIndexUncheckedByLabel,
+  recipeMap,
+  saveListItem,
+  deleteListItem,
+  listItems,
+  openUncheckAll,
+  openDeleteChecked,
+  recipeList,
+  removeRecipeReferenceToList,
+  addRecipeReferenceToList,
+} = shoppingListPage;
 </script>
 
 <style>

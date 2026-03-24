@@ -135,7 +135,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
 import { useCookbookStore } from "~/composables/store/use-cookbook-store";
 import { useHouseholdSelf } from "@/composables/use-households";
@@ -143,121 +143,99 @@ import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 import type { CreateCookBook, ReadCookBook } from "~/lib/api/types/cookbook";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
 
-export default defineNuxtComponent({
-  components: { CookbookEditor, VueDraggable },
+definePageMeta({
   middleware: ["group-only"],
-  setup() {
-    const dialogStates = reactive({
-      create: false,
-      delete: false,
-    });
+});
 
-    const i18n = useI18n();
+const dialogStates = reactive({
+  create: false,
+  delete: false,
+});
 
-    // Set page title
-    useSeoMeta({
-      title: i18n.t("cookbook.cookbooks"),
-    });
+const i18n = useI18n();
 
-    const auth = useMealieAuth();
-    const { store: allCookbooks, actions, updateAll } = useCookbookStore();
+// Set page title
+useSeoMeta({
+  title: i18n.t("cookbook.cookbooks"),
+});
 
-    // Make a local reactive copy of myCookbooks
-    const myCookbooks = ref<ReadCookBook[]>([]);
-    watch(
-      allCookbooks,
-      (cookbooks) => {
-        myCookbooks.value
-          = cookbooks?.filter(
-            cookbook => cookbook.householdId === auth.user.value?.householdId,
-          ).sort((a, b) => a.position > b.position) ?? [];
-      },
-      { immediate: true },
-    );
+const auth = useMealieAuth();
+const { store: allCookbooks, actions, updateAll } = useCookbookStore();
 
-    const { household } = useHouseholdSelf();
-    const cookbookPreferences = useCookbookPreferences();
-
-    // create
-    const createTargetKey = ref(0);
-    const createTarget = ref<ReadCookBook | null>(null);
-    async function createCookbook() {
-      const name = i18n.t("cookbook.household-cookbook-name", [
-        household.value?.name || "",
-        String((myCookbooks.value?.length ?? 0) + 1),
-      ]) as string;
-
-      const data = { name } as CreateCookBook;
-      await actions.createOne(data).then((cookbook) => {
-        if (!cookbook) {
-          return;
-        }
-
-        myCookbooks.value.push(cookbook);
-        createTarget.value = cookbook as ReadCookBook;
-        createTargetKey.value++;
-      });
-      dialogStates.create = true;
-    }
-
-    // delete
-    const deleteTarget = ref<ReadCookBook | null>(null);
-    function deleteEventHandler(item: ReadCookBook) {
-      deleteTarget.value = item;
-      dialogStates.delete = true;
-    }
-    async function deleteCookbook() {
-      if (!deleteTarget.value) {
-        return;
-      }
-      await actions.deleteOne(deleteTarget.value.id);
-      myCookbooks.value = myCookbooks.value.filter(c => c.id !== deleteTarget.value?.id);
-      dialogStates.delete = false;
-      deleteTarget.value = null;
-    }
-
-    async function deleteCreateTarget() {
-      if (!createTarget.value?.id) {
-        return;
-      }
-      await actions.deleteOne(createTarget.value.id);
-      myCookbooks.value = myCookbooks.value.filter(c => c.id !== createTarget.value?.id);
-      dialogStates.create = false;
-      createTarget.value = null;
-    }
-    function handleUnmount() {
-      if (!createTarget.value?.id || createTarget.value.queryFilterString) {
-        return;
-      }
-      deleteCreateTarget();
-    }
-    onMounted(() => {
-      window.addEventListener("beforeunload", handleUnmount);
-    });
-    onBeforeUnmount(() => {
-      handleUnmount();
-      window.removeEventListener("beforeunload", handleUnmount);
-    });
-
-    return {
-      myCookbooks,
-      cookbookPreferences,
-      actions,
-      dialogStates,
-      // create
-      createTargetKey,
-      createTarget,
-      createCookbook,
-
-      // update
-      updateAll,
-
-      // delete
-      deleteTarget,
-      deleteEventHandler,
-      deleteCookbook,
-      deleteCreateTarget,
-    };
+// Make a local reactive copy of myCookbooks
+const myCookbooks = ref<ReadCookBook[]>([]);
+watch(
+  allCookbooks,
+  (cookbooks) => {
+    myCookbooks.value
+      = cookbooks?.filter(
+        cookbook => cookbook.householdId === auth.user.value?.householdId,
+      ).sort((a, b) => a.position > b.position) ?? [];
   },
+  { immediate: true },
+);
+
+const { household } = useHouseholdSelf();
+const cookbookPreferences = useCookbookPreferences();
+
+// create
+const createTargetKey = ref(0);
+const createTarget = ref<ReadCookBook | null>(null);
+async function createCookbook() {
+  const name = i18n.t("cookbook.household-cookbook-name", [
+    household.value?.name || "",
+    String((myCookbooks.value?.length ?? 0) + 1),
+  ]) as string;
+
+  const data = { name } as CreateCookBook;
+  await actions.createOne(data).then((cookbook) => {
+    if (!cookbook) {
+      return;
+    }
+
+    myCookbooks.value.push(cookbook);
+    createTarget.value = cookbook as ReadCookBook;
+    createTargetKey.value++;
+  });
+  dialogStates.create = true;
+}
+
+// delete
+const deleteTarget = ref<ReadCookBook | null>(null);
+function deleteEventHandler(item: ReadCookBook) {
+  deleteTarget.value = item;
+  dialogStates.delete = true;
+}
+async function deleteCookbook() {
+  if (!deleteTarget.value) {
+    return;
+  }
+  await actions.deleteOne(deleteTarget.value.id);
+  myCookbooks.value = myCookbooks.value.filter(c => c.id !== deleteTarget.value?.id);
+  dialogStates.delete = false;
+  deleteTarget.value = null;
+}
+
+async function deleteCreateTarget() {
+  if (!createTarget.value?.id) {
+    return;
+  }
+  await actions.deleteOne(createTarget.value.id);
+  myCookbooks.value = myCookbooks.value.filter(c => c.id !== createTarget.value?.id);
+  dialogStates.create = false;
+  createTarget.value = null;
+}
+function handleUnmount() {
+  if (!createTarget.value?.id || createTarget.value.queryFilterString) {
+    return;
+  }
+  deleteCreateTarget();
+}
+onMounted(() => {
+  window.addEventListener("beforeunload", handleUnmount);
+});
+onBeforeUnmount(() => {
+  handleUnmount();
+  window.removeEventListener("beforeunload", handleUnmount);
 });
 </script>

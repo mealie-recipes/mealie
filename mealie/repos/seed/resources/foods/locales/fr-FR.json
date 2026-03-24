@@ -6980,8 +6980,8 @@
             "prickly pear syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "prickly pear syrup",
-                "plural_name": "prickly pear syrup"
+                "name": "sirop de figue de Barbarie",
+                "plural_name": "sirops de figue de Barbarie"
             },
             "cookie butter syrup": {
                 "aliases": [],
@@ -6998,8 +6998,8 @@
             "buttermilk syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk syrup",
-                "plural_name": "buttermilk syrup"
+                "name": "sirop de babeurre",
+                "plural_name": "sirops de babeurre"
             },
             "chocolate sugar": {
                 "aliases": [],
@@ -7045,7 +7045,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement italien",
-                "plural_name": "italian seasoning"
+                "plural_name": "mélange d'épices italiennes"
             },
             "ranch dressing packet": {
                 "aliases": [],
@@ -7063,7 +7063,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "curry",
-                "plural_name": "curries"
+                "plural_name": "currys"
             },
             "garam masala": {
                 "aliases": [],
@@ -7081,31 +7081,31 @@
                 "aliases": [],
                 "description": "",
                 "name": "moutarde en poudre",
-                "plural_name": "mustard powder"
+                "plural_name": "moutarde en poudre"
             },
             "taco seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement de taco",
-                "plural_name": "taco seasoning"
+                "plural_name": "mélange d'épices de taco"
             },
             "cajun seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "cajun seasoning",
-                "plural_name": "cajun seasoning"
+                "name": "mélange d'épices cajun",
+                "plural_name": "mélanges d'épices cajun"
             },
             "dry ranch seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "dry ranch seasoning",
-                "plural_name": "dry ranch seasoning"
+                "name": "mélange sec d'épices ranch",
+                "plural_name": "mélanges secs d'épices ranch"
             },
             "white miso": {
                 "aliases": [],
                 "description": "",
                 "name": "miso blanc",
-                "plural_name": "white misoes"
+                "plural_name": "misos blancs"
             },
             "himalayan salt": {
                 "aliases": [],
@@ -7116,20 +7116,20 @@
             "lemon & pepper seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon & pepper seasoning",
-                "plural_name": "lemon & pepper seasoning"
+                "name": "assaisonnement au citron et au poivre",
+                "plural_name": "assaisonnements au citron et au poivre"
             },
             "liquid smoke": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid smoke",
-                "plural_name": "liquid smokes"
+                "name": "fumée liquide",
+                "plural_name": "fumées liquides"
             },
             "poultry seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement pour volaille",
-                "plural_name": "poultry seasoning"
+                "plural_name": " mélange d'épices pour volaille"
             },
             "chinese five spice": {
                 "aliases": [],
@@ -7146,8 +7146,8 @@
             "old bay seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "old bay seasoning",
-                "plural_name": "old bay seasoning"
+                "name": "mélange d'épices old bay",
+                "plural_name": "mélanges d'épices old bay"
             },
             "herbe de provence": {
                 "aliases": [],
@@ -7165,19 +7165,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement créole",
-                "plural_name": "creole seasoning"
+                "plural_name": "mélange d'épices créole"
             },
             "steak seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement de steak",
-                "plural_name": "steak seasoning"
+                "plural_name": "mélanges d'épices créoles"
             },
             "mixed spice": {
                 "aliases": [],
                 "description": "",
                 "name": "épices diverses",
-                "plural_name": "mixed spices"
+                "plural_name": "mélanges d'épices"
             },
             "fleur de sel": {
                 "aliases": [],
@@ -7189,13 +7189,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "pâte à curry rouge thaï",
-                "plural_name": "thai red curry paste"
+                "plural_name": "pâtes de curry rouge thaï"
             },
             "mixed herb": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed herb",
-                "plural_name": "mixed herbs"
+                "name": "mélange d'herbes",
+                "plural_name": "mélanges d'herbes"
             },
             "green curry": {
                 "aliases": [],
@@ -7230,26 +7230,26 @@
             "all-purpose seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "all-purpose seasoning",
-                "plural_name": "all-purpose seasoning"
+                "name": "mélange d'épices tout usage",
+                "plural_name": "mélanges d'épices tout usage"
             },
             "seafood seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement pour fruits de mer",
-                "plural_name": "seafood seasoning"
+                "plural_name": "mélange d'épices pour fruits de mer"
             },
             "bagel seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "bagel seasoning",
-                "plural_name": "bagel seasoning"
+                "name": "mélange d'épices pour bagel",
+                "plural_name": "mélanges d'épices pour bagel"
             },
             "fajita seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement pour fajitas",
-                "plural_name": "fajita seasoning"
+                "plural_name": "mélange d'épices pour fajita"
             },
             "tandoori spice": {
                 "aliases": [],
@@ -7260,8 +7260,8 @@
             "pickling spice": {
                 "aliases": [],
                 "description": "",
-                "name": "pickling spice",
-                "plural_name": "pickling spices"
+                "name": "mélange d'épices pour marinade",
+                "plural_name": "mélanges d'épices pour marinade"
             },
             "caribbean jerk seasoning": {
                 "aliases": [],
@@ -7327,13 +7327,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Sel fumé",
-                "plural_name": "smoked salt"
+                "plural_name": "sel fumé"
             },
             "dash seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "dash seasoning",
-                "plural_name": "dash seasoning"
+                "name": "pincée d'assaisonnement",
+                "plural_name": "pincées d'assaisonnement"
             },
             "red miso": {
                 "aliases": [],
@@ -7351,7 +7351,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement sans sel",
-                "plural_name": "salt-free seasoning"
+                "plural_name": "assaisonnement sans sel"
             },
             "carne asada seasoning": {
                 "aliases": [],
@@ -7849,20 +7849,20 @@
             "xanthan gum": {
                 "aliases": [],
                 "description": "",
-                "name": "xanthan gum",
-                "plural_name": "xanthan gums"
+                "name": "gomme xanthane",
+                "plural_name": "gommes xanthane"
             },
             "oat flour": {
                 "aliases": [],
                 "description": "",
                 "name": "farine d'avoine",
-                "plural_name": "oat flour"
+                "plural_name": "farine d'avoine"
             },
             "whole-wheat pastry flour": {
                 "aliases": [],
                 "description": "",
                 "name": "farine de blé complet",
-                "plural_name": "whole-wheat pastry flour"
+                "plural_name": "farines de blé complet"
             },
             "whole-wheat": {
                 "aliases": [
@@ -7882,14 +7882,14 @@
             "spelt": {
                 "aliases": [],
                 "description": "",
-                "name": "spelt",
-                "plural_name": "spelts"
+                "name": "épeautre",
+                "plural_name": "épautres"
             },
             "brownie mix": {
                 "aliases": [],
                 "description": "",
-                "name": "brownie mix",
-                "plural_name": "brownie mixes"
+                "name": "mélange à brownie",
+                "plural_name": "mélanges à brownie"
             },
             "arrowroot flour": {
                 "aliases": [],

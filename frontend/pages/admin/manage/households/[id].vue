@@ -67,73 +67,58 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import HouseholdPreferencesEditor from "~/components/Domain/Household/HouseholdPreferencesEditor.vue";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { validators } from "~/composables/use-validators";
+import type { VForm } from "vuetify/components";
 
-export default defineNuxtComponent({
-  components: {
-    HouseholdPreferencesEditor,
-  },
-  setup() {
-    definePageMeta({
-      layout: "admin",
-    });
-
-    const route = useRoute();
-    const i18n = useI18n();
-
-    const { groups } = useGroups();
-    const householdId = computed(() => route.params.id as string);
-
-    // ==============================================
-    // New User Form
-
-    const refHouseholdEditForm = ref<VForm | null>(null);
-
-    const adminApi = useAdminApi();
-
-    const userError = ref(false);
-
-    const { data: household } = useAsyncData(`get-household-${householdId.value}`, async () => {
-      if (!householdId.value) {
-        return null;
-      }
-      const { data, error } = await adminApi.households.getOne(householdId.value);
-
-      if (error?.response?.status === 404) {
-        alert.error(i18n.t("user.user-not-found"));
-        userError.value = true;
-      }
-      return data;
-    }, { watch: [householdId] });
-
-    async function handleSubmit() {
-      if (!refHouseholdEditForm.value?.validate() || household.value === null) {
-        return;
-      }
-
-      const { response, data } = await adminApi.households.updateOne(household.value.id, household.value);
-      if (response?.status === 200 && data) {
-        household.value = data;
-        alert.success(i18n.t("settings.settings-updated"));
-      }
-      else {
-        alert.error(i18n.t("settings.settings-update-failed"));
-      }
-    }
-
-    return {
-      groups,
-      household,
-      validators,
-      userError,
-      refHouseholdEditForm,
-      handleSubmit,
-    };
-  },
+definePageMeta({
+  layout: "admin",
 });
+
+const route = useRoute();
+const i18n = useI18n();
+
+const { groups } = useGroups();
+const householdId = computed(() => route.params.id as string);
+
+// ==============================================
+// New User Form
+
+const refHouseholdEditForm = ref<VForm | null>(null);
+
+const adminApi = useAdminApi();
+
+const userError = ref(false);
+
+const { data: household } = useAsyncData(`get-household-${householdId.value}`, async () => {
+  if (!householdId.value) {
+    return null;
+  }
+  const { data, error } = await adminApi.households.getOne(householdId.value);
+
+  if (error?.response?.status === 404) {
+    alert.error(i18n.t("user.user-not-found"));
+    userError.value = true;
+  }
+  return data;
+}, { watch: [householdId] });
+
+async function handleSubmit() {
+  if (!refHouseholdEditForm.value?.validate() || household.value === null) {
+    return;
+  }
+
+  const { response, data } = await adminApi.households.updateOne(household.value.id, household.value);
+  if (response?.status === 200 && data) {
+    household.value = data;
+    alert.success(i18n.t("settings.settings-updated"));
+  }
+  else {
+    alert.error(i18n.t("settings.settings-update-failed"));
+  }
+}
 </script>

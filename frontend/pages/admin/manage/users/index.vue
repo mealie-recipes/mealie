@@ -2,11 +2,11 @@
   <v-container fluid>
     <UserInviteDialog v-model="inviteDialog" />
     <BaseDialog
-      v-model="deleteDialog"
+      v-model="state.deleteDialog"
       :title="$t('general.confirm')"
       color="error"
       can-confirm
-      @confirm="deleteUser(deleteTargetId)"
+      @confirm="deleteUser(state.deleteTargetId)"
     >
       <template #activator />
 
@@ -60,7 +60,7 @@
         :items-per-page="-1"
         hide-default-footer
         disable-pagination
-        :search="search"
+        :search="state.search"
         @click:row="($event, { item }) => handleRowClick(item)"
       >
         <template #[`item.admin`]="{ item }">
@@ -78,8 +78,8 @@
             color="error"
             variant="text"
             @click.stop="
-              deleteDialog = true;
-              deleteTargetId = item.id;
+              state.deleteDialog = true;
+              state.deleteTargetId = item.id;
             "
           >
             <v-icon>
@@ -93,123 +93,99 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useUser, useAllUsers } from "~/composables/use-user";
 import type { UserOut } from "~/lib/api/types/user";
 import UserInviteDialog from "~/components/Domain/User/UserInviteDialog.vue";
 
-export default defineNuxtComponent({
-  components: {
-    UserInviteDialog,
+definePageMeta({
+  layout: "admin",
+});
+const i18n = useI18n();
+
+useHead({
+  title: i18n.t("sidebar.manage-users"),
+});
+
+const api = useAdminApi();
+const inviteDialog = ref();
+const auth = useMealieAuth();
+
+const user = computed(() => auth.user.value);
+
+const { $globals } = useNuxtApp();
+
+const router = useRouter();
+
+const isUserOwnAccount = computed(() => {
+  return state.deleteTargetId === user.value?.id;
+});
+
+const ACTIONS_OPTIONS = [
+  {
+    text: i18n.t("user.reset-locked-users"),
+    icon: $globals.icons.lock,
+    event: "unlock-all-users",
   },
-  setup() {
-    definePageMeta({
-      layout: "admin",
-    });
+];
 
-    const api = useAdminApi();
-    const refUserDialog = ref();
-    const inviteDialog = ref();
-    const auth = useMealieAuth();
+const state = reactive({
+  deleteDialog: false,
+  deleteTargetId: "",
+  search: "",
+  groups: [],
+  households: [],
+  sendTo: "",
+});
 
-    const user = computed(() => auth.user.value);
+const { users, refreshAllUsers } = useAllUsers();
+const { deleteUser: deleteUserMixin } = useUser(refreshAllUsers);
 
-    const i18n = useI18n();
-    const { $globals } = useNuxtApp();
+function deleteUser(id: string) {
+  deleteUserMixin(id);
 
-    const router = useRouter();
+  if (isUserOwnAccount.value) {
+    auth.refresh();
+  }
+}
 
-    const isUserOwnAccount = computed(() => {
-      return state.deleteTargetId === user.value?.id;
-    });
+function handleRowClick(item: UserOut) {
+  router.push(`/admin/manage/users/${item.id}`);
+}
 
-    const ACTIONS_OPTIONS = [
-      {
-        text: i18n.t("user.reset-locked-users"),
-        icon: $globals.icons.lock,
-        event: "unlock-all-users",
-      },
-    ];
+// ==========================================================
+// Constants / Non-reactive
 
-    const state = reactive({
-      deleteDialog: false,
-      deleteTargetId: "",
-      search: "",
-      groups: [],
-      households: [],
-      sendTo: "",
-    });
-
-    const { users, refreshAllUsers } = useAllUsers();
-    const { loading, deleteUser: deleteUserMixin } = useUser(refreshAllUsers);
-
-    function deleteUser(id: string) {
-      deleteUserMixin(id);
-
-      if (isUserOwnAccount.value) {
-        auth.refresh();
-      }
-    }
-
-    function handleRowClick(item: UserOut) {
-      router.push(`/admin/manage/users/${item.id}`);
-    }
-
-    // ==========================================================
-    // Constants / Non-reactive
-
-    const headers = [
-      {
-        title: i18n.t("user.user-id"),
-        align: "start",
-        value: "id",
-      },
-      { title: i18n.t("user.username"), value: "username" },
-      { title: i18n.t("user.full-name"), value: "fullName" },
-      { title: i18n.t("user.email"), value: "email" },
-      { title: i18n.t("group.group"), value: "group" },
-      { title: i18n.t("household.household"), value: "household" },
-      { title: i18n.t("user.auth-method"), value: "authMethod" },
-      { title: i18n.t("user.admin"), value: "admin" },
-      { title: i18n.t("general.delete"), value: "actions", sortable: false, align: "center" },
-    ];
-
-    async function unlockAllUsers(): Promise<void> {
-      const { data } = await api.users.unlockAllUsers(true);
-
-      if (data) {
-        const unlocked = data.unlocked ?? 0;
-
-        alert.success(`${unlocked} user(s) unlocked`);
-        refreshAllUsers();
-      }
-    }
-
-    useSeoMeta({
-      title: i18n.t("sidebar.manage-users"),
-    });
-
-    return {
-      isUserOwnAccount,
-      unlockAllUsers,
-      ...toRefs(state),
-      headers,
-      deleteUser,
-      loading,
-      refUserDialog,
-      inviteDialog,
-      users,
-      user,
-      handleRowClick,
-      ACTIONS_OPTIONS,
-    };
+const headers = [
+  {
+    title: i18n.t("user.user-id"),
+    align: "start",
+    value: "id",
   },
-  head() {
-    return {
-      title: useI18n().t("sidebar.manage-users"),
-    };
-  },
+  { title: i18n.t("user.username"), value: "username" },
+  { title: i18n.t("user.full-name"), value: "fullName" },
+  { title: i18n.t("user.email"), value: "email" },
+  { title: i18n.t("group.group"), value: "group" },
+  { title: i18n.t("household.household"), value: "household" },
+  { title: i18n.t("user.auth-method"), value: "authMethod" },
+  { title: i18n.t("user.admin"), value: "admin" },
+  { title: i18n.t("general.delete"), value: "actions", sortable: false, align: "center" },
+];
+
+async function unlockAllUsers(): Promise<void> {
+  const { data } = await api.users.unlockAllUsers(true);
+
+  if (data) {
+    const unlocked = data.unlocked ?? 0;
+
+    alert.success(`${unlocked} user(s) unlocked`);
+    refreshAllUsers();
+  }
+}
+
+useSeoMeta({
+  title: i18n.t("sidebar.manage-users"),
 });
 </script>

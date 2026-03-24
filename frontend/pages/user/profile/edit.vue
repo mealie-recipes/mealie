@@ -24,9 +24,9 @@
 
     <section class="mt-5">
       <ToggleState tag="article">
-        <template #activator="{ toggle, state }">
+        <template #activator="{ toggle, modelValue: toggleState }">
           <v-btn
-            v-if="!state && $appInfo.allowPasswordLogin"
+            v-if="!toggleState && $appInfo.allowPasswordLogin"
             color="info"
             class="mt-2 mb-n3"
             @click="toggle"
@@ -48,13 +48,13 @@
             {{ $t("settings.profile") }}
           </v-btn>
         </template>
-        <template #default="{ state }">
+        <template #default="{ modelValue: toggleState }">
           <v-slide-x-transition
             leave-absolute
             hide-on-leave
           >
             <div
-              v-if="!state"
+              v-if="!toggleState"
               key="personal-info"
             >
               <BaseCardSectionTitle
@@ -214,97 +214,84 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import UserPasswordStrength from "~/components/Domain/User/UserPasswordStrength.vue";
 import { validators } from "~/composables/use-validators";
-import type { VForm } from "~/types/auto-forms";
 import { useUserActivityPreferences } from "~/composables/use-users/preferences";
 import useDefaultActivity from "~/composables/use-default-activity";
 import { ActivityKey } from "~/lib/api/types/activity";
+import type { UserBase } from "~/lib/api/types/user";
 
-export default defineNuxtComponent({
-  components: {
-    UserAvatar,
-    UserPasswordStrength,
-  },
-  setup() {
-    const i18n = useI18n();
-    const auth = useMealieAuth();
-    const { getDefaultActivityLabels, getActivityLabel, getActivityKey } = useDefaultActivity();
-    const user = computed(() => auth.user.value);
+const i18n = useI18n();
+const auth = useMealieAuth();
+const { getDefaultActivityLabels, getActivityLabel, getActivityKey } = useDefaultActivity();
+const user = computed(() => auth.user.value);
 
-    useSeoMeta({
-      title: i18n.t("settings.profile"),
-    });
-
-    const activityPreferences = useUserActivityPreferences();
-    const activityOptions = getDefaultActivityLabels(i18n);
-    const selectedDefaultActivity = ref(getActivityLabel(i18n, activityPreferences.value.defaultActivity));
-    watch(selectedDefaultActivity, () => {
-      activityPreferences.value.defaultActivity = getActivityKey(i18n, selectedDefaultActivity.value) ?? ActivityKey.RECIPES;
-    });
-
-    watch(user, () => {
-      userCopy.value = { ...user.value };
-    });
-
-    const userCopy = ref({ ...user.value });
-
-    const api = useUserApi();
-
-    const domUpdatePassword = ref<VForm | null>(null);
-    const password = reactive({
-      current: "",
-      newOne: "",
-      newTwo: "",
-    });
-
-    const passwordsMatch = computed(() => password.newOne === password.newTwo && password.newOne.length > 0);
-
-    async function updateUser() {
-      if (!userCopy.value?.id) return;
-      const { response } = await api.users.updateOne(userCopy.value.id, userCopy.value);
-      if (response?.status === 200) {
-        auth.refresh();
-      }
-    }
-
-    async function updatePassword() {
-      if (!userCopy.value?.id) {
-        return;
-      }
-      const { response } = await api.users.changePassword({
-        currentPassword: password.current,
-        newPassword: password.newOne,
-      });
-
-      if (response?.status === 200) {
-        console.log("Password Changed");
-      }
-    }
-
-    const state = reactive({
-      hideImage: false,
-      passwordLoading: false,
-      showPassword: false,
-      loading: false,
-    });
-
-    return {
-      ...toRefs(state),
-      updateUser,
-      updatePassword,
-      userCopy,
-      selectedDefaultActivity,
-      activityOptions,
-      password,
-      domUpdatePassword,
-      passwordsMatch,
-      validators,
-      auth,
-    };
-  },
+useSeoMeta({
+  title: i18n.t("settings.profile"),
 });
+
+const activityPreferences = useUserActivityPreferences();
+const activityOptions = getDefaultActivityLabels(i18n);
+const selectedDefaultActivity = ref(getActivityLabel(i18n, activityPreferences.value.defaultActivity));
+watch(selectedDefaultActivity, () => {
+  activityPreferences.value.defaultActivity = getActivityKey(i18n, selectedDefaultActivity.value) ?? ActivityKey.RECIPES;
+});
+
+const userCopy = ref({ ...user.value });
+watch(user, () => {
+  userCopy.value = { ...user.value };
+});
+
+const api = useUserApi();
+const showPassword = ref(false);
+const password = reactive({
+  current: "",
+  newOne: "",
+  newTwo: "",
+});
+
+const passwordsMatch = computed(() => password.newOne === password.newTwo && password.newOne.length > 0);
+
+async function updateUser() {
+  const userData = userCopy.value;
+  if (!userData?.id || !userData.email) return;
+
+  const updatePayload: UserBase = {
+    id: userData.id,
+    username: userData.username,
+    fullName: userData.fullName,
+    email: userData.email,
+    authMethod: userData.authMethod,
+    admin: userData.admin,
+    group: userData.group,
+    household: userData.household,
+    advanced: userData.advanced,
+    canInvite: userData.canInvite,
+    canManage: userData.canManage,
+    canManageHousehold: userData.canManageHousehold,
+    canOrganize: userData.canOrganize,
+  };
+
+  const { response } = await api.users.updateOne(userData.id, updatePayload);
+  if (response?.status === 200) {
+    auth.refresh();
+  }
+}
+
+async function updatePassword() {
+  if (!userCopy.value?.id) {
+    return;
+  }
+  const { response } = await api.users.changePassword({
+    currentPassword: password.current,
+    newPassword: password.newOne,
+  });
+
+  if (response?.status === 200) {
+    console.log("Password Changed");
+  }
+}
 </script>
