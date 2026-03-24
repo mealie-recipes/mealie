@@ -1,27 +1,61 @@
+# Development Nextcloud instance for testing Mealie shopping list sync.
+#
+# Usage:
+#   docker compose -f docker-compose.nextcloud-dev.yml up -d
+#   # Wait ~30s for Nextcloud to initialize, then install Tasks app:
+#   docker exec mealie-nc-dev bash -c "php occ app:install tasks && php occ app:enable tasks"
+#   # Optionally create a dedicated task list:
+#   docker exec mealie-nc-dev php occ dav:create-calendar admin shopping
+#
+# Nextcloud will be available at http://localhost:8085
+#   Login: admin / admin123
+#
+# Then in Mealie, go to /household/nextcloud and configure:
+#   URL: http://localhost:8085  (or http://172.17.0.1:8085 from Docker)
+#   Username: admin
+#   Password: admin123
+#   Click "Test Connection" to discover task lists
+#   Select a list from the dropdown and Save
+
 services:
-  mealie:
-    build:
-      context: .
-      dockerfile: docker/Dockerfile
-      network: host
-    container_name: mealie_nextcloud_dev
-    restart: no
-    ports:
-      - "9925:9000"
-    dns:
-      - 8.8.8.8
-      - 1.1.1.1
+  nc-postgres:
+    image: postgres:15
+    container_name: mealie-nc-dev-postgres
+    restart: "no"
     environment:
-      PRODUCTION: "true"
-      ALLOW_SIGNUP: "true"
-      DB_ENGINE: "sqlite"
-      NEXTCLOUD_URL: "http://172.17.0.1:8080"
-      NEXTCLOUD_USERNAME: "admin"
-      NEXTCLOUD_PASSWORD: "admin123"
-      NEXTCLOUD_TASK_LIST: "tasks"
-      NEXTCLOUD_VERIFY_SSL: "false"
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: nextcloud
+      POSTGRES_PASSWORD: nextcloud_dev_pwd
     volumes:
-      - mealie_dev_data:/app/data
+      - nc_dev_pgdata:/var/lib/postgresql/data
+
+  nc-redis:
+    image: redis:7
+    container_name: mealie-nc-dev-redis
+    restart: "no"
+
+  nextcloud:
+    image: nextcloud:latest
+    container_name: mealie-nc-dev
+    restart: "no"
+    ports:
+      - "8085:80"
+    environment:
+      NEXTCLOUD_ADMIN_USER: admin
+      NEXTCLOUD_ADMIN_PASSWORD: admin123
+      NEXTCLOUD_TRUSTED_DOMAINS: "localhost 127.0.0.1"
+      POSTGRES_HOST: nc-postgres
+      POSTGRES_DB: nextcloud
+      POSTGRES_USER: nextcloud
+      POSTGRES_PASSWORD: nextcloud_dev_pwd
+      REDIS_HOST: nc-redis
+      OVERWRITEPROTOCOL: http
+    depends_on:
+      - nc-postgres
+      - nc-redis
+    volumes:
+      - nc_dev_data:/var/www/html
 
 volumes:
-  mealie_dev_data:
+  nc_dev_pgdata:
+  nc_dev_data:
