@@ -183,6 +183,7 @@ class RecipeVersionService:
             version_number = self._get_next_version_number(recipe.id)
 
             version = RecipeVersion(
+                session=self.session,
                 recipe_id=recipe.id,
                 user_id=user_id,
                 group_id=recipe.group_id,
