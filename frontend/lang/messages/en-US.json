@@ -922,7 +922,8 @@
     "nextcloud-verify-ssl": "Verify SSL certificate",
     "nextcloud-manage": "Manage Nextcloud sync",
     "nextcloud-profile-description": "Sync shopping lists with Nextcloud Tasks via CalDAV.",
-    "nextcloud-password": "Password"
+    "nextcloud-password": "Password",
+    "nextcloud-task-list-hint-tested": "Select from discovered lists or type a custom name"
   },
   "shopping-list": {
     "all-lists": "All Lists",

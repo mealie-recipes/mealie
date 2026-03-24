@@ -73,17 +73,6 @@
               </template>
             </v-text-field>
 
-            <v-text-field
-              v-model="household.preferences.nextcloudTaskList"
-              :label="$t('settings.nextcloud-task-list')"
-              placeholder="Tasks"
-              variant="outlined"
-              density="compact"
-              class="mb-2"
-              :hint="$t('settings.nextcloud-task-list-hint')"
-              persistent-hint
-            />
-
             <v-switch
               v-model="household.preferences.nextcloudVerifySsl"
               :label="$t('settings.nextcloud-verify-ssl')"
@@ -92,6 +81,63 @@
               hide-details
               class="mb-4"
             />
+
+            <div class="d-flex justify-end mb-4">
+              <BaseButton
+                color="info"
+                variant="outlined"
+                :loading="testLoading"
+                :disabled="!canTest"
+                @click="handleTest"
+              >
+                <template #icon>
+                  {{ $globals.icons.testTube }}
+                </template>
+                {{ $t("settings.nextcloud-test-connection") }}
+              </BaseButton>
+            </div>
+
+            <v-expand-transition>
+              <v-alert
+                v-if="testResult && testResult.status !== 'ok'"
+                type="error"
+                variant="tonal"
+                class="mb-4"
+                closable
+                @click:close="testResult = null"
+              >
+                {{ testResult.message || $t("settings.nextcloud-connection-failed") }}
+              </v-alert>
+            </v-expand-transition>
+
+            <v-combobox
+              v-model="household.preferences.nextcloudTaskList"
+              :items="availableLists"
+              item-title="label"
+              item-value="value"
+              :return-object="false"
+              :label="$t('settings.nextcloud-task-list')"
+              placeholder="Tasks"
+              variant="outlined"
+              density="compact"
+              class="mb-2"
+              :hint="availableLists.length ? $t('settings.nextcloud-task-list-hint-tested') : $t('settings.nextcloud-task-list-hint')"
+              persistent-hint
+            >
+              <template #item="{ item, props: itemProps }">
+                <v-list-item v-bind="itemProps">
+                  <template #append>
+                    <v-icon
+                      v-if="isActiveList(item.raw)"
+                      color="primary"
+                      size="small"
+                    >
+                      {{ $globals.icons.check }}
+                    </v-icon>
+                  </template>
+                </v-list-item>
+              </template>
+            </v-combobox>
           </div>
         </v-expand-transition>
 
@@ -99,19 +145,6 @@
           class="d-flex justify-end mt-4"
           style="gap: 8px"
         >
-          <BaseButton
-            v-if="household.preferences.nextcloudEnabled"
-            color="info"
-            variant="outlined"
-            :loading="testLoading"
-            :disabled="!canTest"
-            @click="handleTest"
-          >
-            <template #icon>
-              {{ $globals.icons.testTube }}
-            </template>
-            {{ $t("general.test") }}
-          </BaseButton>
           <BaseButton
             color="primary"
             variant="elevated"
@@ -126,44 +159,6 @@
         </div>
       </v-card>
     </section>
-
-    <section
-      v-if="testResult"
-      class="mt-2"
-    >
-      <v-alert
-        :type="testResult.status === 'ok' ? 'success' : 'error'"
-        variant="tonal"
-        closable
-        @click:close="testResult = null"
-      >
-        <template v-if="testResult.status === 'ok'">
-          <div class="font-weight-medium mb-2">
-            {{ $t("settings.nextcloud-connection-success") }}
-          </div>
-          <div v-if="testResult.calendars && testResult.calendars.length">
-            <div class="mb-1">
-              {{ $t("settings.nextcloud-available-lists") }}
-            </div>
-            <v-chip
-              v-for="cal in testResult.calendars"
-              :key="cal.slug"
-              size="small"
-              class="mr-1 mb-1"
-              :color="isActiveList(cal) ? 'primary' : undefined"
-            >
-              {{ cal.display_name || cal.slug }}
-              <template v-if="isActiveList(cal)">
-                &nbsp;&#x2713;
-              </template>
-            </v-chip>
-          </div>
-        </template>
-        <template v-else>
-          {{ testResult.message || $t("settings.nextcloud-connection-failed") }}
-        </template>
-      </v-alert>
-    </section>
   </v-container>
 </template>
 
@@ -176,6 +171,11 @@ interface NextcloudTestResult {
   status: string;
   message?: string | null;
   calendars?: { slug: string; display_name: string }[] | null;
+}
+
+interface ListOption {
+  label: string;
+  value: string;
 }
 
 export default defineNuxtComponent({
@@ -193,6 +193,7 @@ export default defineNuxtComponent({
     const saveLoading = ref(false);
     const testLoading = ref(false);
     const testResult = ref<NextcloudTestResult | null>(null);
+    const availableLists = ref<ListOption[]>([]);
 
     const canTest = computed(() => {
       const p = household.value?.preferences;
@@ -214,18 +215,29 @@ export default defineNuxtComponent({
     async function handleTest() {
       testLoading.value = true;
       testResult.value = null;
+      availableLists.value = [];
       // Save first so the backend has the latest credentials
       await handleSave();
       const { data } = await api.households.testNextcloud();
       if (data) {
         testResult.value = data;
+        if (data.status === "ok" && data.calendars) {
+          // Populate combobox with discovered lists
+          availableLists.value = data.calendars
+            .filter((c: any) => c.display_name || c.slug)
+            .map((c: any) => ({
+              label: c.display_name || c.slug,
+              value: c.display_name || c.slug,
+            }));
+          alert.success(i18n.t("settings.nextcloud-connection-success"));
+        }
       }
       testLoading.value = false;
     }
 
-    function isActiveList(cal: { slug: string; display_name: string }) {
+    function isActiveList(item: ListOption) {
       const tl = household.value?.preferences?.nextcloudTaskList;
-      return tl && (cal.display_name === tl || cal.slug === tl);
+      return tl && item.value === tl;
     }
 
     return {
@@ -234,6 +246,7 @@ export default defineNuxtComponent({
       saveLoading,
       testLoading,
       testResult,
+      availableLists,
       canTest,
       handleSave,
       handleTest,
