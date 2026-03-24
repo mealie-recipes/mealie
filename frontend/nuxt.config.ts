@@ -119,6 +119,11 @@ export default defineNuxtConfig({
     baseURL: process.env.SUB_PATH || "",
   },
 
+  typescript: {
+    typeCheck: true,
+    strict: false,
+  },
+
   // eslint rules
   eslint: {
     config: {
