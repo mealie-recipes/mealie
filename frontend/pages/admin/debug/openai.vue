@@ -83,69 +83,53 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 
-export default defineNuxtComponent({
-  setup() {
-    definePageMeta({
-      layout: "admin",
-    });
-
-    const api = useAdminApi();
-    const i18n = useI18n();
-
-    // Set page title
-    useSeoMeta({
-      title: i18n.t("admin.debug-openai-services"),
-    });
-
-    const loading = ref(false);
-    const response = ref("");
-
-    const uploadForm = ref<VForm | null>(null);
-    const uploadedImage = ref<Blob | File>();
-    const uploadedImageName = ref<string>("");
-    const uploadedImagePreviewUrl = ref<string>();
-
-    function uploadImage(fileObject: File) {
-      uploadedImage.value = fileObject;
-      uploadedImageName.value = fileObject.name;
-      uploadedImagePreviewUrl.value = URL.createObjectURL(fileObject);
-    }
-
-    function clearImage() {
-      uploadedImage.value = undefined;
-      uploadedImageName.value = "";
-      uploadedImagePreviewUrl.value = undefined;
-    }
-
-    async function testOpenAI() {
-      response.value = "";
-
-      loading.value = true;
-      const { data } = await api.debug.debugOpenAI(uploadedImage.value);
-      loading.value = false;
-
-      if (!data) {
-        alert.error("Unable to test OpenAI services");
-      }
-      else {
-        response.value = data.response || (data.success ? "Test Successful" : "Test Failed");
-      }
-    }
-
-    return {
-      loading,
-      response,
-      uploadForm,
-      uploadedImage,
-      uploadedImagePreviewUrl,
-      uploadImage,
-      clearImage,
-      testOpenAI,
-    };
-  },
+definePageMeta({
+  layout: "admin",
 });
+
+const api = useAdminApi();
+const i18n = useI18n();
+
+// Set page title
+useSeoMeta({
+  title: i18n.t("admin.debug-openai-services"),
+});
+
+const loading = ref(false);
+const response = ref("");
+
+const uploadedImage = ref<Blob | File>();
+const uploadedImageName = ref<string>("");
+const uploadedImagePreviewUrl = ref<string>();
+
+function uploadImage(fileObject: File) {
+  uploadedImage.value = fileObject;
+  uploadedImageName.value = fileObject.name;
+  uploadedImagePreviewUrl.value = URL.createObjectURL(fileObject);
+}
+
+function clearImage() {
+  uploadedImage.value = undefined;
+  uploadedImageName.value = "";
+  uploadedImagePreviewUrl.value = undefined;
+}
+
+async function testOpenAI() {
+  response.value = "";
+
+  loading.value = true;
+  const { data } = await api.debug.debugOpenAI(uploadedImage.value);
+  loading.value = false;
+
+  if (!data) {
+    alert.error("Unable to test OpenAI services");
+  }
+  else {
+    response.value = data.response || (data.success ? "Test Successful" : "Test Failed");
+  }
+}
 </script>

@@ -49,72 +49,58 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import GroupPreferencesEditor from "~/components/Domain/Group/GroupPreferencesEditor.vue";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
+import type { VForm } from "vuetify/components";
 
-export default defineNuxtComponent({
-  components: {
-    GroupPreferencesEditor,
-  },
-  setup() {
-    definePageMeta({
-      layout: "admin",
-    });
-
-    const route = useRoute();
-
-    const i18n = useI18n();
-
-    const groupId = computed(() => route.params.id as string);
-
-    // ==============================================
-    // New User Form
-
-    const refGroupEditForm = ref<VForm | null>(null);
-
-    const adminApi = useAdminApi();
-
-    const userError = ref(false);
-
-    const { data: group } = useLazyAsyncData(`get-household-${groupId.value}`, async () => {
-      if (!groupId.value) {
-        return null;
-      }
-      const { data, error } = await adminApi.groups.getOne(groupId.value);
-
-      if (error?.response?.status === 404) {
-        alert.error(i18n.t("user.user-not-found"));
-        userError.value = true;
-      }
-      return data;
-    }, { watch: [groupId] });
-
-    async function handleSubmit() {
-      if (!refGroupEditForm.value?.validate() || group.value === null) {
-        return;
-      }
-
-      const { response, data } = await adminApi.groups.updateOne(group.value.id, group.value);
-      if (response?.status === 200 && data) {
-        if (group.value.slug !== data.slug) {
-          // the slug updated, which invalidates the nav URLs
-          window.location.reload();
-        }
-        group.value = data;
-      }
-      else {
-        alert.error(i18n.t("settings.settings-update-failed"));
-      }
-    }
-
-    return {
-      group,
-      userError,
-      refGroupEditForm,
-      handleSubmit,
-    };
-  },
+definePageMeta({
+  layout: "admin",
 });
+const route = useRoute();
+
+const i18n = useI18n();
+
+const groupId = computed(() => route.params.id as string);
+
+// ==============================================
+// New User Form
+
+const refGroupEditForm = ref<VForm | null>(null);
+
+const adminApi = useAdminApi();
+
+const userError = ref(false);
+
+const { data: group } = useLazyAsyncData(`get-household-${groupId.value}`, async () => {
+  if (!groupId.value) {
+    return null;
+  }
+  const { data, error } = await adminApi.groups.getOne(groupId.value);
+
+  if (error?.response?.status === 404) {
+    alert.error(i18n.t("user.user-not-found"));
+    userError.value = true;
+  }
+  return data;
+}, { watch: [groupId] });
+
+async function handleSubmit() {
+  if (!refGroupEditForm.value?.validate() || group.value === null) {
+    return;
+  }
+
+  const { response, data } = await adminApi.groups.updateOne(group.value.id, group.value);
+  if (response?.status === 200 && data) {
+    if (group.value.slug !== data.slug) {
+      // the slug updated, which invalidates the nav URLs
+      window.location.reload();
+    }
+    group.value = data;
+  }
+  else {
+    alert.error(i18n.t("settings.settings-update-failed"));
+  }
+}
 </script>
