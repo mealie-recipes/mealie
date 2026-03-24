@@ -18,22 +18,6 @@
 #   Select a list from the dropdown and Save
 
 services:
-  nc-postgres:
-    image: postgres:15
-    container_name: mealie-nc-dev-postgres
-    restart: "no"
-    environment:
-      POSTGRES_DB: nextcloud
-      POSTGRES_USER: nextcloud
-      POSTGRES_PASSWORD: nextcloud_dev_pwd
-    volumes:
-      - nc_dev_pgdata:/var/lib/postgresql/data
-
-  nc-redis:
-    image: redis:7
-    container_name: mealie-nc-dev-redis
-    restart: "no"
-
   nextcloud:
     image: nextcloud:latest
     container_name: mealie-nc-dev
@@ -44,18 +28,9 @@ services:
       NEXTCLOUD_ADMIN_USER: admin
       NEXTCLOUD_ADMIN_PASSWORD: admin123
       NEXTCLOUD_TRUSTED_DOMAINS: "localhost 127.0.0.1"
-      POSTGRES_HOST: nc-postgres
-      POSTGRES_DB: nextcloud
-      POSTGRES_USER: nextcloud
-      POSTGRES_PASSWORD: nextcloud_dev_pwd
-      REDIS_HOST: nc-redis
-      OVERWRITEPROTOCOL: http
-    depends_on:
-      - nc-postgres
-      - nc-redis
+      SQLITE_DATABASE: nextcloud
     volumes:
       - nc_dev_data:/var/www/html
 
 volumes:
-  nc_dev_pgdata:
   nc_dev_data:
