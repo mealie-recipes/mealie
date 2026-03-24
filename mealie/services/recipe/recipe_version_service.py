@@ -95,14 +95,26 @@ def _instruction_to_text(step: dict) -> str:
     return text
 
 
+def _normalize_value(val: Any) -> str:
+    """Normalize a value for comparison — treat None, empty, 0, 0.0 as equivalent."""
+    if val is None:
+        return ""
+    if isinstance(val, float) and val == 0.0:
+        return ""
+    if isinstance(val, int) and val == 0:
+        return ""
+    s = str(val).strip()
+    return s if s != "None" else ""
+
+
 def _compute_diff(old_data: dict, new_data: dict) -> RecipeDiff:
     """Compute a structured diff between two recipe snapshots."""
     diff = RecipeDiff()
 
     # 1. Simple field diffs
     for field, label in _SIMPLE_DIFF_FIELDS.items():
-        old_val = str(old_data.get(field) or "")
-        new_val = str(new_data.get(field) or "")
+        old_val = _normalize_value(old_data.get(field))
+        new_val = _normalize_value(new_data.get(field))
         if old_val != new_val:
             diff.fields_changed.append(FieldDiff(
                 field_name=field,
@@ -114,39 +126,44 @@ def _compute_diff(old_data: dict, new_data: dict) -> RecipeDiff:
     # 2. Ingredient diffs
     old_ings = old_data.get("recipe_ingredient") or []
     new_ings = new_data.get("recipe_ingredient") or []
-    old_texts = [_ingredient_to_text(i) for i in old_ings]
-    new_texts = [_ingredient_to_text(i) for i in new_ings]
+    old_texts = [_ingredient_to_text(i) or "" for i in old_ings]
+    new_texts = [_ingredient_to_text(i) or "" for i in new_ings]
+    # Filter out empty ingredients from comparison
+    old_texts = [t for t in old_texts if t]
+    new_texts = [t for t in new_texts if t]
 
-    max_len = max(len(old_texts), len(new_texts))
+    max_len = max(len(old_texts), len(new_texts)) if old_texts or new_texts else 0
     for i in range(max_len):
         old_t = old_texts[i] if i < len(old_texts) else None
         new_t = new_texts[i] if i < len(new_texts) else None
         if old_t == new_t:
             continue
-        if old_t is None:
-            diff.ingredients_added.append(new_t or "")
-        elif new_t is None:
+        if old_t is None and new_t:
+            diff.ingredients_added.append(new_t)
+        elif new_t is None and old_t:
             diff.ingredients_removed.append(old_t)
-        else:
+        elif old_t and new_t:
             diff.ingredients_changed.append(IngredientDiff(position=i, old_text=old_t, new_text=new_t))
 
     # 3. Instruction diffs
     old_steps = old_data.get("recipe_instructions") or []
     new_steps = new_data.get("recipe_instructions") or []
-    old_step_texts = [_instruction_to_text(s) for s in old_steps]
-    new_step_texts = [_instruction_to_text(s) for s in new_steps]
+    old_step_texts = [_instruction_to_text(s) or "" for s in old_steps]
+    new_step_texts = [_instruction_to_text(s) or "" for s in new_steps]
+    old_step_texts = [t for t in old_step_texts if t.strip()]
+    new_step_texts = [t for t in new_step_texts if t.strip()]
 
-    max_len = max(len(old_step_texts), len(new_step_texts))
+    max_len = max(len(old_step_texts), len(new_step_texts)) if old_step_texts or new_step_texts else 0
     for i in range(max_len):
         old_t = old_step_texts[i] if i < len(old_step_texts) else None
         new_t = new_step_texts[i] if i < len(new_step_texts) else None
         if old_t == new_t:
             continue
-        if old_t is None:
-            diff.instructions_added.append(new_t or "")
-        elif new_t is None:
+        if old_t is None and new_t:
+            diff.instructions_added.append(new_t)
+        elif new_t is None and old_t:
             diff.instructions_removed.append(old_t)
-        else:
+        elif old_t and new_t:
             diff.instructions_changed.append(InstructionDiff(position=i, old_text=old_t, new_text=new_t))
 
     # 4. Category/tag diffs
