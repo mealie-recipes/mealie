@@ -715,7 +715,9 @@
     "version-history": "Version History",
     "version-no-changes": "No changes in this version",
     "version-restored": "Restored to version {version}",
-    "version-no-history": "No version history yet. Edit the recipe to create the first version."
+    "version-no-history": "No version history yet. Edit the recipe to create the first version.",
+    "version-restore-confirm-title": "Restore Version",
+    "version-restore-confirm": "This will restore the recipe to version {version}. The current state will be saved as a new version before restoring. Continue?"
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
