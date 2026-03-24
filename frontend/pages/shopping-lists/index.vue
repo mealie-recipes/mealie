@@ -4,14 +4,14 @@
     class="narrow-container"
   >
     <BaseDialog
-      v-model="createDialog"
+      v-model="state.createDialog"
       :title="$t('shopping-list.create-shopping-list')"
       can-submit
       @submit="createOne"
     >
       <v-card-text>
         <v-text-field
-          v-model="createName"
+          v-model="state.createName"
           autofocus
           :label="$t('shopping-list.new-list')"
         />
@@ -20,7 +20,7 @@
 
     <!-- Settings -->
     <BaseDialog
-      v-model="ownerDialog"
+      v-model="state.ownerDialog"
       :icon="$globals.icons.admin"
       :title="$t('user.edit-user')"
       can-confirm
@@ -41,7 +41,7 @@
     </BaseDialog>
 
     <BaseDialog
-      v-model="deleteDialog"
+      v-model="state.deleteDialog"
       :title="$t('general.confirm')"
       color="error"
       can-confirm
@@ -73,7 +73,7 @@
       <BaseButton
         create
         class="my-0"
-        @click="createDialog = true"
+        @click="state.createDialog = true"
       />
     </v-container>
 
@@ -123,170 +123,150 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { ShoppingListOut } from "~/lib/api/types/household";
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import type { UserOut } from "~/lib/api/types/user";
 
-export default defineNuxtComponent({
-  setup() {
-    const auth = useMealieAuth();
-    const i18n = useI18n();
-    const ready = ref(false);
-    const userApi = useUserApi();
-    const route = useRoute();
+const auth = useMealieAuth();
+const i18n = useI18n();
+const ready = ref(false);
+const userApi = useUserApi();
+const route = useRoute();
 
-    useSeoMeta({
-      title: i18n.t("shopping-list.shopping-list"),
-    });
-
-    const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
-    const overrideDisableRedirect = ref(false);
-    const disableRedirect = computed(() => route.query.disableRedirect === "true" || overrideDisableRedirect.value);
-    const preferences = useShoppingListPreferences();
-
-    const state = reactive({
-      createName: "",
-      createDialog: false,
-      deleteDialog: false,
-      deleteTarget: "",
-      ownerDialog: false,
-      ownerTarget: ref<ShoppingListOut | null>(null),
-    });
-
-    const { data: shoppingLists } = useAsyncData(useAsyncKey(), async () => {
-      return await fetchShoppingLists();
-    });
-
-    const shoppingListChoices = computed(() => {
-      if (!shoppingLists.value) {
-        return [];
-      }
-
-      return shoppingLists.value.filter(list => preferences.value.viewAllLists || list.userId === auth.user.value?.id);
-    });
-
-    // This has to appear before the shoppingListChoices watcher, otherwise that runs first and the redirect is not disabled
-    watch(
-      () => preferences.value.viewAllLists,
-      () => {
-        overrideDisableRedirect.value = true;
-      },
-    );
-
-    watch(
-      () => shoppingListChoices,
-      () => {
-        if (!disableRedirect.value && shoppingListChoices.value.length === 1) {
-          navigateTo(`/shopping-lists/${shoppingListChoices.value[0].id}`);
-        }
-        else {
-          ready.value = true;
-        }
-      },
-      {
-        deep: true,
-      },
-    );
-
-    async function fetchShoppingLists() {
-      const { data } = await userApi.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
-
-      if (!data) {
-        return [];
-      }
-
-      return data.items;
-    }
-
-    async function refresh() {
-      shoppingLists.value = await fetchShoppingLists();
-    }
-
-    async function createOne() {
-      const { data } = await userApi.shopping.lists.createOne({ name: state.createName });
-
-      if (data) {
-        refresh();
-        state.createName = "";
-      }
-    }
-
-    async function toggleOwnerDialog(list: ShoppingListOut) {
-      if (!state.ownerDialog) {
-        state.ownerTarget = list;
-        await fetchAllUsers();
-      }
-      state.ownerDialog = !state.ownerDialog;
-    }
-
-    // ===============================================================
-    // Shopping List Edit User/Owner
-
-    const allUsers = ref<UserOut[]>([]);
-    const updateUserId = ref<string | undefined>();
-    async function fetchAllUsers() {
-      const { data } = await userApi.households.fetchMembers();
-      if (!data) {
-        return;
-      }
-
-      // update current user
-      allUsers.value = data.items.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
-      updateUserId.value = state.ownerTarget?.userId;
-    }
-
-    async function updateOwner() {
-      if (!state.ownerTarget || !updateUserId.value) {
-        return;
-      }
-      // user has not changed, so we should not update
-      if (state.ownerTarget.userId === updateUserId.value) {
-        return;
-      }
-      // get full list, so the move does not delete shopping list items
-      const { data: fullList } = await userApi.shopping.lists.getOne(state.ownerTarget.id);
-      if (!fullList) {
-        return;
-      }
-      const { data } = await userApi.shopping.lists.updateOne(
-        state.ownerTarget.id,
-        { ...fullList, userId: updateUserId.value },
-      );
-
-      if (data) {
-        refresh();
-      }
-    }
-
-    function openDelete(id: string) {
-      state.deleteDialog = true;
-      state.deleteTarget = id;
-    }
-
-    async function deleteOne() {
-      const { data } = await userApi.shopping.lists.deleteOne(state.deleteTarget);
-      if (data) {
-        refresh();
-      }
-    }
-
-    return {
-      ...toRefs(state),
-      ready,
-      groupSlug,
-      preferences,
-      shoppingListChoices,
-      createOne,
-      toggleOwnerDialog,
-      allUsers,
-      updateUserId,
-      updateOwner,
-      deleteOne,
-      openDelete,
-    };
-  },
+useSeoMeta({
+  title: i18n.t("shopping-list.shopping-list"),
 });
+
+const overrideDisableRedirect = ref(false);
+const disableRedirect = computed(() => route.query.disableRedirect === "true" || overrideDisableRedirect.value);
+const preferences = useShoppingListPreferences();
+
+const state = reactive({
+  createName: "",
+  createDialog: false,
+  deleteDialog: false,
+  deleteTarget: "",
+  ownerDialog: false,
+  ownerTarget: ref<ShoppingListOut | null>(null),
+});
+
+const { data: shoppingLists } = useAsyncData(useAsyncKey(), async () => {
+  return await fetchShoppingLists();
+});
+
+const shoppingListChoices = computed(() => {
+  if (!shoppingLists.value) {
+    return [];
+  }
+
+  return shoppingLists.value.filter(list => preferences.value.viewAllLists || list.userId === auth.user.value?.id);
+});
+
+// This has to appear before the shoppingListChoices watcher, otherwise that runs first and the redirect is not disabled
+watch(
+  () => preferences.value.viewAllLists,
+  () => {
+    overrideDisableRedirect.value = true;
+  },
+);
+
+watch(
+  () => shoppingListChoices,
+  () => {
+    if (!disableRedirect.value && shoppingListChoices.value.length === 1) {
+      navigateTo(`/shopping-lists/${shoppingListChoices.value[0].id}`);
+    }
+    else {
+      ready.value = true;
+    }
+  },
+  {
+    deep: true,
+  },
+);
+
+async function fetchShoppingLists() {
+  const { data } = await userApi.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
+
+  if (!data) {
+    return [];
+  }
+
+  return data.items;
+}
+
+async function refresh() {
+  shoppingLists.value = await fetchShoppingLists();
+}
+
+async function createOne() {
+  const { data } = await userApi.shopping.lists.createOne({ name: state.createName });
+
+  if (data) {
+    refresh();
+    state.createName = "";
+  }
+}
+
+async function toggleOwnerDialog(list: ShoppingListOut) {
+  if (!state.ownerDialog) {
+    state.ownerTarget = list;
+    await fetchAllUsers();
+  }
+  state.ownerDialog = !state.ownerDialog;
+}
+
+// ===============================================================
+// Shopping List Edit User/Owner
+
+const allUsers = ref<UserOut[]>([]);
+const updateUserId = ref<string | undefined>();
+async function fetchAllUsers() {
+  const { data } = await userApi.households.fetchMembers();
+  if (!data) {
+    return;
+  }
+
+  // update current user
+  allUsers.value = data.items.sort((a, b) => ((a.fullName || "") < (b.fullName || "") ? -1 : 1));
+  updateUserId.value = state.ownerTarget?.userId;
+}
+
+async function updateOwner() {
+  if (!state.ownerTarget || !updateUserId.value) {
+    return;
+  }
+  // user has not changed, so we should not update
+  if (state.ownerTarget.userId === updateUserId.value) {
+    return;
+  }
+  // get full list, so the move does not delete shopping list items
+  const { data: fullList } = await userApi.shopping.lists.getOne(state.ownerTarget.id);
+  if (!fullList) {
+    return;
+  }
+  const { data } = await userApi.shopping.lists.updateOne(
+    state.ownerTarget.id,
+    { ...fullList, userId: updateUserId.value },
+  );
+
+  if (data) {
+    refresh();
+  }
+}
+
+function openDelete(id: string) {
+  state.deleteDialog = true;
+  state.deleteTarget = id;
+}
+
+async function deleteOne() {
+  const { data } = await userApi.shopping.lists.deleteOne(state.deleteTarget);
+  if (data) {
+    refresh();
+  }
+}
 </script>
