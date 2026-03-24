@@ -30,41 +30,33 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import RecipeTimeline from "~/components/Domain/Recipe/RecipeTimeline.vue";
 
-export default defineNuxtComponent({
-  components: { RecipeTimeline },
+definePageMeta({
   middleware: ["group-only"],
-  setup() {
-    const i18n = useI18n();
-    const api = useUserApi();
-    const ready = ref<boolean>(false);
-
-    useSeoMeta({
-      title: i18n.t("recipe.timeline"),
-    });
-
-    const groupName = ref<string>("");
-    const queryFilter = ref<string>("");
-    async function fetchHousehold() {
-      const { data } = await api.households.getCurrentUserHousehold();
-      if (data) {
-        queryFilter.value = `recipe.group_id="${data.groupId}"`;
-        groupName.value = data.group;
-      }
-
-      ready.value = true;
-    }
-
-    useAsyncData("house-hold", fetchHousehold);
-
-    return {
-      groupName,
-      queryFilter,
-      ready,
-    };
-  },
 });
+
+const i18n = useI18n();
+const api = useUserApi();
+const ready = ref<boolean>(false);
+
+useSeoMeta({
+  title: i18n.t("recipe.timeline"),
+});
+
+const groupName = ref<string>("");
+const queryFilter = ref<string>("");
+async function fetchHousehold() {
+  const { data } = await api.households.getCurrentUserHousehold();
+  if (data) {
+    queryFilter.value = `recipe.group_id="${data.groupId}"`;
+    groupName.value = data.group;
+  }
+
+  ready.value = true;
+}
+
+useAsyncData("house-hold", fetchHousehold);
 </script>

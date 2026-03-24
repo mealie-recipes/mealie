@@ -33,7 +33,7 @@
           :disabled="newRecipeName.trim() === ''"
           rounded
           block
-          :loading="loading"
+          :loading="state.loading"
           @click="createByName(newRecipeName)"
         />
       </div>
@@ -41,51 +41,40 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { AxiosResponse } from "axios";
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import type { VForm } from "~/types/auto-forms";
 
-export default defineNuxtComponent({
-  setup() {
-    const state = reactive({
-      error: false,
-      loading: false,
-    });
-    const auth = useMealieAuth();
-    const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
-
-    const api = useUserApi();
-    const router = useRouter();
-
-    function handleResponse(response: AxiosResponse<string> | null, edit = false) {
-      if (response?.status !== 201) {
-        state.error = true;
-        state.loading = false;
-        return;
-      }
-      router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}`);
-    }
-
-    const newRecipeName = ref("");
-    const domCreateByName = ref<VForm | null>(null);
-
-    async function createByName(name: string) {
-      if (!domCreateByName.value?.validate() || name === "") {
-        return;
-      }
-      const { response } = await api.recipes.createOne({ name });
-      handleResponse(response as any, true);
-    }
-    return {
-      domCreateByName,
-      newRecipeName,
-      createByName,
-      ...toRefs(state),
-      validators,
-    };
-  },
+const state = reactive({
+  error: false,
+  loading: false,
 });
+const auth = useMealieAuth();
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
+
+const api = useUserApi();
+const router = useRouter();
+
+function handleResponse(response: AxiosResponse<string> | null, edit = false) {
+  if (response?.status !== 201) {
+    state.error = true;
+    state.loading = false;
+    return;
+  }
+  router.push(`/g/${groupSlug.value}/r/${response.data}?edit=${edit.toString()}`);
+}
+
+const newRecipeName = ref("");
+const domCreateByName = ref<VForm | null>(null);
+
+async function createByName(name: string) {
+  if (!domCreateByName.value?.validate() || name === "") {
+    return;
+  }
+  const { response } = await api.recipes.createOne({ name });
+  handleResponse(response as any, true);
+}
 </script>
