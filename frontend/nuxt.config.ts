@@ -116,11 +116,7 @@ export default defineNuxtConfig({
     }, */
     transpile: process.env.NODE_ENV !== "production" ? [/@vue[\\/]composition-api/] : [],
   },
-  future: {
-    compatibilityVersion: 3,
-  },
-
-  compatibilityDate: "2025-03-28",
+  compatibilityDate: "2026-03-24",
 
   nitro: {
     baseURL: process.env.SUB_PATH || "",
