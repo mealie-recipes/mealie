@@ -123,48 +123,28 @@ def _compute_diff(old_data: dict, new_data: dict) -> RecipeDiff:
                 new_value=new_val or None,
             ))
 
-    # 2. Ingredient diffs
+    # 2. Ingredient diffs (set-based to handle reordering)
     old_ings = old_data.get("recipe_ingredient") or []
     new_ings = new_data.get("recipe_ingredient") or []
-    old_texts = [_ingredient_to_text(i) or "" for i in old_ings]
-    new_texts = [_ingredient_to_text(i) or "" for i in new_ings]
-    # Filter out empty ingredients from comparison
-    old_texts = [t for t in old_texts if t]
-    new_texts = [t for t in new_texts if t]
+    old_texts = [t for t in (_ingredient_to_text(i) or "" for i in old_ings) if t]
+    new_texts = [t for t in (_ingredient_to_text(i) or "" for i in new_ings) if t]
 
-    max_len = max(len(old_texts), len(new_texts)) if old_texts or new_texts else 0
-    for i in range(max_len):
-        old_t = old_texts[i] if i < len(old_texts) else None
-        new_t = new_texts[i] if i < len(new_texts) else None
-        if old_t == new_t:
-            continue
-        if old_t is None and new_t:
-            diff.ingredients_added.append(new_t)
-        elif new_t is None and old_t:
-            diff.ingredients_removed.append(old_t)
-        elif old_t and new_t:
-            diff.ingredients_changed.append(IngredientDiff(position=i, old_text=old_t, new_text=new_t))
+    old_set = set(old_texts)
+    new_set = set(new_texts)
+    diff.ingredients_removed = sorted(old_set - new_set)
+    diff.ingredients_added = sorted(new_set - old_set)
+    # No "changed" items — ingredients are either present or not
 
-    # 3. Instruction diffs
+    # 3. Instruction diffs (set-based to handle reordering)
     old_steps = old_data.get("recipe_instructions") or []
     new_steps = new_data.get("recipe_instructions") or []
-    old_step_texts = [_instruction_to_text(s) or "" for s in old_steps]
-    new_step_texts = [_instruction_to_text(s) or "" for s in new_steps]
-    old_step_texts = [t for t in old_step_texts if t.strip()]
-    new_step_texts = [t for t in new_step_texts if t.strip()]
+    old_step_texts = [t for t in (_instruction_to_text(s) or "" for s in old_steps) if t.strip()]
+    new_step_texts = [t for t in (_instruction_to_text(s) or "" for s in new_steps) if t.strip()]
 
-    max_len = max(len(old_step_texts), len(new_step_texts)) if old_step_texts or new_step_texts else 0
-    for i in range(max_len):
-        old_t = old_step_texts[i] if i < len(old_step_texts) else None
-        new_t = new_step_texts[i] if i < len(new_step_texts) else None
-        if old_t == new_t:
-            continue
-        if old_t is None and new_t:
-            diff.instructions_added.append(new_t)
-        elif new_t is None and old_t:
-            diff.instructions_removed.append(old_t)
-        elif old_t and new_t:
-            diff.instructions_changed.append(InstructionDiff(position=i, old_text=old_t, new_text=new_t))
+    old_step_set = set(old_step_texts)
+    new_step_set = set(new_step_texts)
+    diff.instructions_removed = sorted(old_step_set - new_step_set)
+    diff.instructions_added = sorted(new_step_set - old_step_set)
 
     # 4. Category/tag diffs
     old_cats = {c.get("name", c.get("slug", "")) for c in (old_data.get("recipe_category") or [])}
