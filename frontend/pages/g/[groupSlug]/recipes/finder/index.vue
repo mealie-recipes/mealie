@@ -113,7 +113,7 @@
                 :class="attrs.settings.colClass"
               >
                 <v-menu
-                  v-model="settingsMenu"
+                  v-model="state.settingsMenu"
                   offset-y
                   nudge-bottom="3"
                   :close-on-content-click="false"
