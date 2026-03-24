@@ -2097,8 +2097,8 @@
             "gruyere cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gruyere cheese",
-                "plural_name": "gruyere cheese"
+                "name": "formaggio groviera",
+                "plural_name": "formaggio groviera"
             },
             "mascarpone cheese": {
                 "aliases": [],
@@ -2115,8 +2115,8 @@
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheese"
+                "name": "formaggio americano",
+                "plural_name": "formaggio americano"
             },
             "provolone cheese": {
                 "aliases": [],
@@ -2169,8 +2169,8 @@
             "gouda cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda cheese",
-                "plural_name": "gouda cheese"
+                "name": "formaggio gouda",
+                "plural_name": "formaggio gouda"
             },
             "cotija cheese": {
                 "aliases": [],
@@ -2193,8 +2193,8 @@
             "halloumi cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "halloumi cheese",
-                "plural_name": "halloumi cheese"
+                "name": "formaggio halloumi",
+                "plural_name": "formaggio halloumi"
             },
             "chevre cheese": {
                 "aliases": [],
@@ -2206,13 +2206,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "manchego cheese",
-                "plural_name": "manchego cheese"
+                "plural_name": "formaggio manchego"
             },
             "italian cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "italian cheese blend",
-                "plural_name": "italian cheese blend"
+                "name": "Miscela di formaggi italiani",
+                "plural_name": "Miscela di formaggi italiani"
             },
             "neufchatel cheese": {
                 "aliases": [],
