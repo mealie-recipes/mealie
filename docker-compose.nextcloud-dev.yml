@@ -27,7 +27,7 @@ services:
     environment:
       NEXTCLOUD_ADMIN_USER: admin
       NEXTCLOUD_ADMIN_PASSWORD: admin123
-      NEXTCLOUD_TRUSTED_DOMAINS: "localhost 127.0.0.1"
+      NEXTCLOUD_TRUSTED_DOMAINS: "localhost 127.0.0.1 192.168.0.0/16 172.17.0.0/16 10.0.0.0/8"
       SQLITE_DATABASE: nextcloud
     volumes:
       - nc_dev_data:/var/www/html
