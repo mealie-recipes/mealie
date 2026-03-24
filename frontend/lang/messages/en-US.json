@@ -714,7 +714,8 @@
     "toggle-recipe": "Toggle Recipe",
     "version-history": "Version History",
     "version-no-changes": "No changes in this version",
-    "version-restored": "Restored to version {version}"
+    "version-restored": "Restored to version {version}",
+    "version-no-history": "No version history yet. Edit the recipe to create the first version."
   },
   "recipe-finder": {
     "recipe-finder": "Recipe Finder",
