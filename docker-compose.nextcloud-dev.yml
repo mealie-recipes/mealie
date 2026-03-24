@@ -2,8 +2,12 @@
 #
 # Usage:
 #   docker compose -f docker-compose.nextcloud-dev.yml up -d
-#   # Wait ~30s for Nextcloud to initialize, then install Tasks app:
-#   docker exec mealie-nc-dev bash -c "php occ app:install tasks && php occ app:enable tasks"
+#   # Wait ~30s for Nextcloud to initialize, then run setup:
+#   docker exec mealie-nc-dev bash -c "\
+#     php occ app:install tasks; \
+#     php occ app:enable tasks; \
+#     php occ config:system:set updatechecker --value=false --type=boolean; \
+#     php occ config:app:set updatenotification notify_groups --value='[]'"
 #   # Optionally create a dedicated task list:
 #   docker exec mealie-nc-dev php occ dav:create-calendar admin shopping
 #
