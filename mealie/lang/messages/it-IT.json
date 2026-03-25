@@ -17,6 +17,18 @@
             "servings": "Portate",
             "yield": "Porzione",
             "yields": "Porzioni"
+        },
+        "and-amount": "e {amount}",
+        "or-ingredient": "o {ingredient}",
+        "create-progress": {
+            "creating-recipe-with-ai": "Creazione della ricetta con AI in corso...",
+            "creating-recipe-from-transcript-with-ai": "Creazione della ricetta dalla trascrizione con AI in corso...",
+            "creating-recipe-from-webpage-data": "Creazione della ricetta dai dati della pagina web in corso...",
+            "downloading-image": "Download dell'immagine in corso...",
+            "downloading-video": "Download del video in corso...",
+            "extracting-recipe-data": "Estrazione dei dati della ricetta in corso...",
+            "fetching-webpage": "Recupero della pagina web in corso...",
+            "transcribing-audio-with-ai": "Trascrizione dell'audio con AI in corso..."
         }
     },
     "mealplan": {

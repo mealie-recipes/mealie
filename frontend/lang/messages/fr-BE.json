@@ -370,7 +370,7 @@
     "applies-to-all-days": "S'applique à tous les jours",
     "applies-on-days": "S'applique les {0}s",
     "meal-plan-settings": "Paramètres des menus",
-    "add-all-to-list": "Ajouter tout à la liste",
+    "add-all-to-list": "Tout ajouter a une liste",
     "add-day-to-list": "Ajouter un jour à la liste"
   },
   "migration": {
@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Créer une recette en fournissant le nom. Toutes les recettes doivent avoir des noms uniques.",
     "new-recipe-names-must-be-unique": "Les noms de nouvelles recettes doivent être uniques",
     "scrape-recipe": "Récupérer une recette",
-    "scrape-recipe-description": "Récupérer une recette par URL. Fournissez l'URL de la page que vous voulez récupérer, et Mealie essaiera d'en extraire la recette pour l'ajouter à votre collection.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Vous avez un tas de recettes à récupérer d’un coup ?",
     "scrape-recipe-suggest-bulk-importer": "Essayez l’importateur de masse",
     "scrape-recipe-have-raw-html-or-json-data": "Vous avez des données brutes en HTML ou JSON ?",
@@ -903,6 +904,7 @@
     "all-lists": "Toutes les listes",
     "create-shopping-list": "Créer une liste de courses",
     "from-recipe": "À partir d’une recette",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Nom de la liste",
     "new-list": "Nouvelle liste",
     "quantity": "Quantité : {0}",
@@ -1134,7 +1136,22 @@
       "example-unit-singular": "ex : Cuillère à soupe",
       "example-unit-plural": "ex : Cuillères à soupe",
       "example-unit-abbreviation-singular": "ex : CàS",
-      "example-unit-abbreviation-plural": "ex : CàS"
+      "example-unit-abbreviation-plural": "ex : CàS",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Initialisez la base de données avec des étiquettes communes basées sur votre langue locale.",
@@ -1168,7 +1185,11 @@
       "recipe-actions-data": "Données des actions de recette",
       "new-recipe-action": "Nouvelle action de recette",
       "edit-recipe-action": "Modifier l'action de recette",
-      "action-type": "Type d'action"
+      "action-type": "Type d'action",
+      "action-types": {
+        "link": "Lien",
+        "post": "Publier"
+      }
     },
     "create-alias": "Créer un alias",
     "manage-aliases": "Gérer les alias",
@@ -1423,8 +1444,8 @@
       "is-greater-than-or-equal-to": "est plus grand que ou égal à",
       "is-less-than": "est inférieur à",
       "is-less-than-or-equal-to": "est inférieur ou égal à",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "est plus ancien que",
+      "is-newer-than": "est plus récent que"
     },
     "relational-keywords": {
       "is": "est",
@@ -1436,7 +1457,7 @@
       "is-not-like": "n'est pas similaire à"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "jours|jour|jours"
     }
   },
   "validators": {
@@ -1445,6 +1466,6 @@
     "invalid-url": "Doit être une URL valide",
     "no-whitespace": "Aucun espace n'est autorisé",
     "min-length": "Doit contenir au moins {min} caractères",
-    "max-length": "Doit contenir au maximum {max} caractères"
+    "max-length": "Doit comporter au maximum {max} caractère|Doit comporter au maximum {max} caractères"
   }
 }

@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Sukurti receptą įrašant pavadinimą. Visi receptai privalo turėti unikalius pavadinimus.",
     "new-recipe-names-must-be-unique": "Naujo recepto pavadinimas turi būti unikalus",
     "scrape-recipe": "Nuskaityti receptą",
-    "scrape-recipe-description": "Nuskaityti receptą iš URL nuorodos. Pateikite recepto nuorodą, ir Mealie pabandys paimti recepto informaciją iš šios svetainės ir patalpinti ją jūsų kolekcijoje.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Turite daug receptų, kuriuos norite nuskaityti vienu metu?",
     "scrape-recipe-suggest-bulk-importer": "Išbandykite masinį importavimą",
     "scrape-recipe-have-raw-html-or-json-data": "Turite neapdorotų HTML arba JSON duomenų?",
@@ -903,6 +904,7 @@
     "all-lists": "Visi sąrašai",
     "create-shopping-list": "Sukurti pirkinių sąrašą",
     "from-recipe": "Iš recepto",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Sąrašo pavadinimas",
     "new-list": "Naujas sąrašas",
     "quantity": "Kiekis: {0}",
@@ -1134,7 +1136,22 @@
       "example-unit-singular": "ex: Tablespoon",
       "example-unit-plural": "ex: Tablespoons",
       "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-abbreviation-plural": "ex: Tbsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Įdėkite į duomenų bazę bendras žymas pagal jūsų kalbą.",
@@ -1168,7 +1185,11 @@
       "recipe-actions-data": "Recipe Actions Data",
       "new-recipe-action": "New Recipe Action",
       "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "action-type": "Action Type",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Create Alias",
     "manage-aliases": "Manage Aliases",
@@ -1445,6 +1466,6 @@
     "invalid-url": "Must Be A Valid URL",
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

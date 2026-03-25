@@ -637,6 +637,7 @@
     "new-recipe-names-must-be-unique": "Les noms de nouvelles recettes doivent être uniques",
     "scrape-recipe": "Récupérer une recette",
     "scrape-recipe-description": "Récupérer une recette par URL. Fournissez l'URL de la page que vous voulez récupérer et Mealie essaiera d'en extraire la recette pour l'ajouter à votre collection.",
+    "scrape-recipe-description-transcription": "Vous pouvez également fournir l'URL d'une vidéo et Mealie tentera de la transcrire dans une recette.",
     "scrape-recipe-have-a-lot-of-recipes": "Vous avez un tas de recettes à récupérer d’un coup ?",
     "scrape-recipe-suggest-bulk-importer": "Essayez l’importateur de masse",
     "scrape-recipe-have-raw-html-or-json-data": "Vous avez des données brutes en HTML ou JSON ?",
@@ -903,6 +904,7 @@
     "all-lists": "Toutes les listes",
     "create-shopping-list": "Créer une liste de courses",
     "from-recipe": "À partir d’une recette",
+    "ingredient-of-recipe": "Ingrédient de {recipe}",
     "list-name": "Nom de la liste",
     "new-list": "Nouvelle liste",
     "quantity": "Quantité : {0}",
@@ -1134,7 +1136,22 @@
       "example-unit-singular": "ex : Cuillère à soupe",
       "example-unit-plural": "ex : Cuillères à soupe",
       "example-unit-abbreviation-singular": "ex : CàS",
-      "example-unit-abbreviation-plural": "ex : CàS"
+      "example-unit-abbreviation-plural": "ex : CàS",
+      "standardization": "Standardisation",
+      "standardization-description": "Comment cette unité peut être représentée comme une unité standard. Cela permet de convertir des fonctionnalités telles que la fusion d'unités compatibles dans les listes de courses.",
+      "standard-unit": "Unité standard",
+      "standard-quantity": "Quantité standard",
+      "unit-conversion": "Conversion d'unités",
+      "standard-unit-labels": {
+        "fluid-ounce": "once liquide",
+        "cup": "tasse",
+        "ounce": "once",
+        "pound": "livre",
+        "milliliter": "millilitre",
+        "liter": "litre",
+        "gram": "gramme",
+        "kilogram": "kilogramme"
+      }
     },
     "labels": {
       "seed-dialog-text": "Initialisez la base de données avec des étiquettes communes basées sur votre langue locale.",
@@ -1168,7 +1185,11 @@
       "recipe-actions-data": "Données des actions de recette",
       "new-recipe-action": "Nouvelle action de recette",
       "edit-recipe-action": "Modifier l'action de recette",
-      "action-type": "Type d'action"
+      "action-type": "Type d'action",
+      "action-types": {
+        "link": "Lien",
+        "post": "Publier"
+      }
     },
     "create-alias": "Créer un alias",
     "manage-aliases": "Gérer les alias",
@@ -1445,6 +1466,6 @@
     "invalid-url": "Doit être une URL valide",
     "no-whitespace": "Aucun espace n'est autorisé",
     "min-length": "Doit contenir au moins {min} caractères",
-    "max-length": "Doit contenir au maximum {max} caractères"
+    "max-length": "Doit comporter au maximum {max} caractère|Doit comporter au maximum {max} caractères"
   }
 }

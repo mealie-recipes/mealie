@@ -226,7 +226,7 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import RecipeDataTable from "~/components/Domain/Recipe/RecipeDataTable.vue";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
 import { useUserApi } from "~/composables/api";
@@ -249,295 +249,266 @@ enum MODES {
   changeOwner = "changeOwner",
 }
 
-export default defineNuxtComponent({
-  components: { RecipeDataTable, RecipeOrganizerSelector, GroupExportData, RecipeSettingsSwitches, UserAvatar },
+definePageMeta({
   scrollToTop: true,
-  setup() {
-    const i18n = useI18n();
-    const auth = useMealieAuth();
-    const { $globals } = useNuxtApp();
+});
 
-    useSeoMeta({
-      title: i18n.t("data-pages.recipes.recipe-data"),
-    });
+const i18n = useI18n();
+const auth = useMealieAuth();
+const { $globals } = useNuxtApp();
 
-    const { getAllRecipes, refreshRecipes } = useRecipes(true, true, false, `householdId=${auth.user.value?.householdId || ""}`);
-    const selected = ref<Recipe[]>([]);
+useSeoMeta({
+  title: i18n.t("data-pages.recipes.recipe-data"),
+});
 
-    function resetAll() {
-      selected.value = [];
-      toSetTags.value = [];
-      toSetCategories.value = [];
-      loading.value = false;
-    }
+const { refreshRecipes } = useRecipes(true, true, false, `householdId=${auth.user.value?.householdId || ""}`);
+const selected = ref<Recipe[]>([]);
 
-    const headers = reactive({
-      id: false,
-      owner: false,
-      tags: true,
-      tools: true,
-      categories: true,
-      recipeServings: false,
-      recipeYieldQuantity: false,
-      recipeYield: false,
-      dateAdded: false,
-    });
+function resetAll() {
+  selected.value = [];
+  toSetTags.value = [];
+  toSetCategories.value = [];
+  loading.value = false;
+}
 
-    const headerLabels = {
-      id: i18n.t("general.id"),
-      owner: i18n.t("general.owner"),
-      tags: i18n.t("tag.tags"),
-      categories: i18n.t("recipe.categories"),
-      tools: i18n.t("tool.tools"),
-      recipeServings: i18n.t("recipe.recipe-servings"),
-      recipeYieldQuantity: i18n.t("recipe.recipe-yield"),
-      recipeYield: i18n.t("recipe.recipe-yield-text"),
-      dateAdded: i18n.t("general.date-added"),
-    };
+const headers = reactive({
+  id: false,
+  owner: false,
+  tags: true,
+  tools: true,
+  categories: true,
+  recipeServings: false,
+  recipeYieldQuantity: false,
+  recipeYield: false,
+  dateAdded: false,
+});
 
-    const actions: MenuItem[] = [
-      {
-        icon: $globals.icons.database,
-        text: i18n.t("export.export"),
-        event: "export-selected",
-      },
-      {
-        icon: $globals.icons.tags,
-        text: i18n.t("data-pages.recipes.tag"),
-        event: "tag-selected",
-      },
-      {
-        icon: $globals.icons.categories,
-        text: i18n.t("data-pages.recipes.categorize"),
-        event: "categorize-selected",
-      },
-      {
-        icon: $globals.icons.cog,
-        text: i18n.t("data-pages.recipes.update-settings"),
-        event: "update-settings",
-      },
-      {
-        icon: $globals.icons.user,
-        text: i18n.t("general.change-owner"),
-        event: "change-owner",
-      },
-      {
-        icon: $globals.icons.delete,
-        text: i18n.t("general.delete"),
-        event: "delete-selected",
-      },
-    ];
+const headerLabels = {
+  id: i18n.t("general.id"),
+  owner: i18n.t("general.owner"),
+  tags: i18n.t("tag.tags"),
+  categories: i18n.t("recipe.categories"),
+  tools: i18n.t("tool.tools"),
+  recipeServings: i18n.t("recipe.recipe-servings"),
+  recipeYieldQuantity: i18n.t("recipe.recipe-yield"),
+  recipeYield: i18n.t("recipe.recipe-yield-text"),
+  dateAdded: i18n.t("general.date-added"),
+};
 
-    const api = useUserApi();
-    const loading = ref(false);
-
-    // ===============================================================
-    // Group Exports
-
-    const purgeExportsDialog = ref(false);
-
-    async function purgeExports() {
-      await api.bulk.purgeExports();
-      refreshExports();
-    }
-
-    const groupExports = ref<GroupDataExport[]>([]);
-
-    async function refreshExports() {
-      const { data } = await api.bulk.fetchExports();
-
-      if (data) {
-        groupExports.value = data;
-      }
-    }
-
-    onMounted(async () => {
-      await refreshExports();
-    });
-    // ===============================================================
-    // All Recipes
-
-    function selectAll() {
-      selected.value = allRecipes.value;
-    }
-
-    async function exportSelected() {
-      loading.value = true;
-      const { data } = await api.bulk.bulkExport({
-        recipes: selected.value.map((x: Recipe) => x.slug ?? ""),
-        exportType: "json",
-      });
-
-      if (data) {
-        console.log(data);
-      }
-
-      resetAll();
-      refreshExports();
-    }
-
-    const toSetTags = ref([]);
-
-    async function tagSelected() {
-      loading.value = true;
-
-      const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
-      await api.bulk.bulkTag({ recipes, tags: toSetTags.value });
-      await refreshRecipes();
-      resetAll();
-    }
-
-    const toSetCategories = ref([]);
-
-    async function categorizeSelected() {
-      loading.value = true;
-
-      const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
-      await api.bulk.bulkCategorize({ recipes, categories: toSetCategories.value });
-      await refreshRecipes();
-      resetAll();
-    }
-
-    async function deleteSelected() {
-      loading.value = true;
-
-      const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
-
-      await api.bulk.bulkDelete({ recipes });
-
-      await refreshRecipes();
-      resetAll();
-    }
-
-    const recipeSettings = reactive<RecipeSettings>({
-      public: false,
-      showNutrition: false,
-      showAssets: false,
-      landscapeView: false,
-      disableComments: false,
-      locked: false,
-    });
-
-    async function updateSettings() {
-      loading.value = true;
-
-      const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
-
-      await api.bulk.bulkSetSettings({ recipes, settings: recipeSettings });
-
-      await refreshRecipes();
-      resetAll();
-    }
-
-    async function changeOwner() {
-      if (!selected.value.length || !selectedOwner.value) {
-        return;
-      }
-
-      selected.value.forEach((r) => {
-        r.userId = selectedOwner.value;
-      });
-
-      loading.value = true;
-      await api.recipes.patchMany(selected.value);
-
-      await refreshRecipes();
-      resetAll();
-    }
-
-    // ============================================================
-    // Dialog Management
-
-    const dialog = reactive({
-      state: false,
-      title: i18n.t("data-pages.recipes.tag-recipes"),
-      mode: MODES.tag,
-      tag: "",
-      callback: () => {
-        // Stub function to be overwritten
-        return Promise.resolve();
-      },
-      icon: $globals.icons.tags,
-    });
-
-    function openDialog(mode: MODES) {
-      const titles: Record<MODES, string> = {
-        [MODES.tag]: i18n.t("data-pages.recipes.tag-recipes"),
-        [MODES.category]: i18n.t("data-pages.recipes.categorize-recipes"),
-        [MODES.export]: i18n.t("data-pages.recipes.export-recipes"),
-        [MODES.delete]: i18n.t("data-pages.recipes.delete-recipes"),
-        [MODES.updateSettings]: i18n.t("data-pages.recipes.update-settings"),
-        [MODES.changeOwner]: i18n.t("general.change-owner"),
-      };
-
-      const callbacks: Record<MODES, () => Promise<void>> = {
-        [MODES.tag]: tagSelected,
-        [MODES.category]: categorizeSelected,
-        [MODES.export]: exportSelected,
-        [MODES.delete]: deleteSelected,
-        [MODES.updateSettings]: updateSettings,
-        [MODES.changeOwner]: changeOwner,
-      };
-
-      const icons: Record<MODES, string> = {
-        [MODES.tag]: $globals.icons.tags,
-        [MODES.category]: $globals.icons.categories,
-        [MODES.export]: $globals.icons.database,
-        [MODES.delete]: $globals.icons.delete,
-        [MODES.updateSettings]: $globals.icons.cog,
-        [MODES.changeOwner]: $globals.icons.user,
-      };
-
-      dialog.mode = mode;
-      dialog.title = titles[mode];
-      dialog.callback = callbacks[mode];
-      dialog.icon = icons[mode];
-      dialog.state = true;
-    }
-
-    const { store: allUsers } = useUserStore();
-    const { store: households } = useHouseholdStore();
-    const selectedOwner = ref("");
-    const selectedOwnerHousehold = computed(() => {
-      if (!selectedOwner.value) {
-        return null;
-      }
-
-      const owner = allUsers.value.find(u => u.id === selectedOwner.value);
-      if (!owner) {
-        return null;
-      };
-
-      return households.value.find(h => h.id === owner.householdId);
-    });
-
-    return {
-      recipeSettings,
-      selectAll,
-      loading,
-      actions,
-      allRecipes,
-      categorizeSelected,
-      deleteSelected,
-      dialog,
-      exportSelected,
-      getAllRecipes,
-      headerLabels,
-      headers,
-      MODES,
-      openDialog,
-      selected,
-      tagSelected,
-      toSetCategories,
-      toSetTags,
-      groupExports,
-      purgeExportsDialog,
-      purgeExports,
-      allUsers,
-      selectedOwner,
-      selectedOwnerHousehold,
-    };
+const actions: MenuItem[] = [
+  {
+    icon: $globals.icons.database,
+    text: i18n.t("export.export"),
+    event: "export-selected",
   },
+  {
+    icon: $globals.icons.tags,
+    text: i18n.t("data-pages.recipes.tag"),
+    event: "tag-selected",
+  },
+  {
+    icon: $globals.icons.categories,
+    text: i18n.t("data-pages.recipes.categorize"),
+    event: "categorize-selected",
+  },
+  {
+    icon: $globals.icons.cog,
+    text: i18n.t("data-pages.recipes.update-settings"),
+    event: "update-settings",
+  },
+  {
+    icon: $globals.icons.user,
+    text: i18n.t("general.change-owner"),
+    event: "change-owner",
+  },
+  {
+    icon: $globals.icons.delete,
+    text: i18n.t("general.delete"),
+    event: "delete-selected",
+  },
+];
+
+const api = useUserApi();
+const loading = ref(false);
+
+// ===============================================================
+// Group Exports
+
+const purgeExportsDialog = ref(false);
+
+async function purgeExports() {
+  await api.bulk.purgeExports();
+  refreshExports();
+}
+
+const groupExports = ref<GroupDataExport[]>([]);
+
+async function refreshExports() {
+  const { data } = await api.bulk.fetchExports();
+
+  if (data) {
+    groupExports.value = data;
+  }
+}
+
+onMounted(async () => {
+  await refreshExports();
+});
+// ===============================================================
+// All Recipes
+
+function selectAll() {
+  selected.value = allRecipes.value;
+}
+
+async function exportSelected() {
+  loading.value = true;
+  const { data } = await api.bulk.bulkExport({
+    recipes: selected.value.map((x: Recipe) => x.slug ?? ""),
+    exportType: "json",
+  });
+
+  if (data) {
+    console.log(data);
+  }
+
+  resetAll();
+  refreshExports();
+}
+
+const toSetTags = ref([]);
+
+async function tagSelected() {
+  loading.value = true;
+
+  const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
+  await api.bulk.bulkTag({ recipes, tags: toSetTags.value });
+  await refreshRecipes();
+  resetAll();
+}
+
+const toSetCategories = ref([]);
+
+async function categorizeSelected() {
+  loading.value = true;
+
+  const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
+  await api.bulk.bulkCategorize({ recipes, categories: toSetCategories.value });
+  await refreshRecipes();
+  resetAll();
+}
+
+async function deleteSelected() {
+  loading.value = true;
+
+  const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
+
+  await api.bulk.bulkDelete({ recipes });
+
+  await refreshRecipes();
+  resetAll();
+}
+
+const recipeSettings = reactive<RecipeSettings>({
+  public: false,
+  showNutrition: false,
+  showAssets: false,
+  landscapeView: false,
+  disableComments: false,
+  locked: false,
+});
+
+async function updateSettings() {
+  loading.value = true;
+
+  const recipes = selected.value.map((x: Recipe) => x.slug ?? "");
+
+  await api.bulk.bulkSetSettings({ recipes, settings: recipeSettings });
+
+  await refreshRecipes();
+  resetAll();
+}
+
+async function changeOwner() {
+  if (!selected.value.length || !selectedOwner.value) {
+    return;
+  }
+
+  selected.value.forEach((r) => {
+    r.userId = selectedOwner.value;
+  });
+
+  loading.value = true;
+  await api.recipes.patchMany(selected.value);
+
+  await refreshRecipes();
+  resetAll();
+}
+
+// ============================================================
+// Dialog Management
+
+const dialog = reactive({
+  state: false,
+  title: i18n.t("data-pages.recipes.tag-recipes"),
+  mode: MODES.tag,
+  tag: "",
+  callback: () => {
+    // Stub function to be overwritten
+    return Promise.resolve();
+  },
+  icon: $globals.icons.tags,
+});
+
+function openDialog(mode: MODES) {
+  const titles: Record<MODES, string> = {
+    [MODES.tag]: i18n.t("data-pages.recipes.tag-recipes"),
+    [MODES.category]: i18n.t("data-pages.recipes.categorize-recipes"),
+    [MODES.export]: i18n.t("data-pages.recipes.export-recipes"),
+    [MODES.delete]: i18n.t("data-pages.recipes.delete-recipes"),
+    [MODES.updateSettings]: i18n.t("data-pages.recipes.update-settings"),
+    [MODES.changeOwner]: i18n.t("general.change-owner"),
+  };
+
+  const callbacks: Record<MODES, () => Promise<void>> = {
+    [MODES.tag]: tagSelected,
+    [MODES.category]: categorizeSelected,
+    [MODES.export]: exportSelected,
+    [MODES.delete]: deleteSelected,
+    [MODES.updateSettings]: updateSettings,
+    [MODES.changeOwner]: changeOwner,
+  };
+
+  const icons: Record<MODES, string> = {
+    [MODES.tag]: $globals.icons.tags,
+    [MODES.category]: $globals.icons.categories,
+    [MODES.export]: $globals.icons.database,
+    [MODES.delete]: $globals.icons.delete,
+    [MODES.updateSettings]: $globals.icons.cog,
+    [MODES.changeOwner]: $globals.icons.user,
+  };
+
+  dialog.mode = mode;
+  dialog.title = titles[mode];
+  dialog.callback = callbacks[mode];
+  dialog.icon = icons[mode];
+  dialog.state = true;
+}
+
+const { store: allUsers } = useUserStore();
+const { store: households } = useHouseholdStore();
+const selectedOwner = ref("");
+const selectedOwnerHousehold = computed(() => {
+  if (!selectedOwner.value) {
+    return null;
+  }
+
+  const owner = allUsers.value.find(u => u.id === selectedOwner.value);
+  if (!owner) {
+    return null;
+  };
+
+  return households.value.find(h => h.id === owner.householdId);
 });
 </script>
 

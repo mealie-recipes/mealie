@@ -93,7 +93,7 @@ nav:
           - iOS Shortcut: "documentation/community-guide/ios-shortcut.md"
           - Reverse Proxy (SWAG): "documentation/community-guide/swag.md"
 
-  - API Reference: "api/redoc.md"
+  - API Reference: "https://demo.mealie.io/docs"
 
   - Contributors Guide:
       - Non-Code: "contributors/non-coders.md"

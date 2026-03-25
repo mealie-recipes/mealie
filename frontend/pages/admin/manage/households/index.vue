@@ -161,7 +161,7 @@ const createHouseholdForm = reactive({
       label: i18n.t("household.household-name"),
       varName: "name",
       type: fieldTypes.TEXT,
-      rules: ["required"],
+      rules: [validators.required],
     },
   ],
   data: {

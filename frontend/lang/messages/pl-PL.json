@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Utwórz przepis, podając nazwę. Wszystkie przepisy muszą mieć unikalne nazwy.",
     "new-recipe-names-must-be-unique": "Nazwa przepisu musi być unikalna",
     "scrape-recipe": "Scrapuj Przepis",
-    "scrape-recipe-description": "Wczytaj przepis przez URL. Podaj adres URL witryny z przepisem, który chcesz wczytać, a Mealie spróbuje wyodrębnić przepis z tej strony i dodać go do kolekcji.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Masz mnóstwo przepisów, które chcesz zescrapować naraz?",
     "scrape-recipe-suggest-bulk-importer": "Wypróbuj importer zbiorczy",
     "scrape-recipe-have-raw-html-or-json-data": "Masz dane HTML bądź JSON?",
@@ -903,6 +904,7 @@
     "all-lists": "Wszystkie listy",
     "create-shopping-list": "Utwórz listę zakupów",
     "from-recipe": "Z przepisu",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Nazwa listy",
     "new-list": "Nowa lista",
     "quantity": "Ilość: {0}",
@@ -1134,7 +1136,22 @@
       "example-unit-singular": "np. Łyżka stołowa",
       "example-unit-plural": "np. Łyżki stołowe",
       "example-unit-abbreviation-singular": "na przykład: Łyżka stołowa",
-      "example-unit-abbreviation-plural": "na przykład: Łyżka stołowa"
+      "example-unit-abbreviation-plural": "na przykład: Łyżka stołowa",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Wypełnij bazę zwyczajowymi etykietami dla wybranego języka.",
@@ -1168,7 +1185,11 @@
       "recipe-actions-data": "Dane akcji przepisu",
       "new-recipe-action": "",
       "edit-recipe-action": "Edycja akcji przepisu",
-      "action-type": "Typ akcji"
+      "action-type": "Typ akcji",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Utwórz alias",
     "manage-aliases": "Zarządzaj aliasami",
@@ -1423,8 +1444,8 @@
       "is-greater-than-or-equal-to": "jest większe lub równe",
       "is-less-than": "jest mniejsze niż",
       "is-less-than-or-equal-to": "jest mniejsze lub równe",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "jest starsze niż",
+      "is-newer-than": "jest nowsze niż"
     },
     "relational-keywords": {
       "is": "jest",
@@ -1436,7 +1457,7 @@
       "is-not-like": "nie jest jak"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "dni temu|dzień temu|dni temu"
     }
   },
   "validators": {
@@ -1445,6 +1466,6 @@
     "invalid-url": "Musi być prawidłowym odnośnikiem",
     "no-whitespace": "Niedozwolone są puste spacje",
     "min-length": "Musi zawierać co najmniej {min} znaków",
-    "max-length": "Musi zawierać co najwyżej {max} znaków"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

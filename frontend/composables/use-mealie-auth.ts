@@ -47,6 +47,7 @@ export const useMealieAuth = function () {
   return {
     user,
     loggedIn,
+    token: auth.token,
     signIn: auth.signIn,
     signOut: auth.signOut,
     refresh: auth.refresh,

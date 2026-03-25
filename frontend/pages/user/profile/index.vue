@@ -274,7 +274,7 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import UserProfileLinkCard from "@/components/Domain/User/UserProfileLinkCard.vue";
 import { useUserApi } from "~/composables/api";
 import UserAvatar from "@/components/Domain/User/UserAvatar.vue";
@@ -283,98 +283,81 @@ import StatsCards from "~/components/global/StatsCards.vue";
 import type { UserOut } from "~/lib/api/types/user";
 import UserInviteDialog from "~/components/Domain/User/UserInviteDialog.vue";
 
-export default defineNuxtComponent({
+definePageMeta({
   name: "UserProfile",
-  components: {
-    UserInviteDialog,
-    UserProfileLinkCard,
-    UserAvatar,
-    StatsCards,
-  },
   scrollToTop: true,
-  async setup() {
-    const i18n = useI18n();
-    const auth = useMealieAuth();
-    const { $appInfo } = useNuxtApp();
-    const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
-
-    useSeoMeta({
-      title: i18n.t("settings.profile"),
-    });
-
-    const user = computed<UserOut | null>(() => {
-      const authUser = auth.user.value;
-      if (!authUser) return null;
-
-      // Override canInvite if password login is disabled
-      const canInvite = !$appInfo.allowPasswordLogin ? false : authUser.canInvite;
-
-      return {
-        ...authUser,
-        canInvite,
-      };
-    });
-
-    const inviteDialog = ref(false);
-    const api = useUserApi();
-
-    const { data: stats } = useAsyncData(useAsyncKey(), async () => {
-      const { data } = await api.households.statistics();
-
-      if (data) {
-        return data;
-      }
-    });
-
-    const statsText: { [key: string]: string } = {
-      totalRecipes: i18n.t("general.recipes"),
-      totalUsers: i18n.t("user.users"),
-      totalCategories: i18n.t("sidebar.categories"),
-      totalTags: i18n.t("sidebar.tags"),
-      totalTools: i18n.t("tool.tools"),
-    };
-
-    function getStatsTitle(key: string) {
-      return statsText[key] ?? "unknown";
-    }
-
-    const { $globals } = useNuxtApp();
-
-    const iconText: { [key: string]: string } = {
-      totalUsers: $globals.icons.user,
-      totalCategories: $globals.icons.categories,
-      totalTags: $globals.icons.tags,
-      totalTools: $globals.icons.potSteam,
-    };
-
-    function getStatsIcon(key: string) {
-      return iconText[key] ?? $globals.icons.primary;
-    }
-
-    const statsTo = computed<{ [key: string]: string }>(() => {
-      return {
-        totalRecipes: `/g/${groupSlug.value}/`,
-        totalUsers: "/household/members",
-        totalCategories: `/g/${groupSlug.value}/recipes/categories`,
-        totalTags: `/g/${groupSlug.value}/recipes/tags`,
-        totalTools: `/g/${groupSlug.value}/recipes/tools`,
-      };
-    });
-
-    function getStatsTo(key: string) {
-      return statsTo.value[key] ?? "unknown";
-    }
-
-    return {
-      groupSlug,
-      getStatsTitle,
-      getStatsIcon,
-      getStatsTo,
-      inviteDialog,
-      stats,
-      user,
-    };
-  },
 });
+
+const i18n = useI18n();
+const auth = useMealieAuth();
+const { $appInfo } = useNuxtApp();
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
+
+useSeoMeta({
+  title: i18n.t("settings.profile"),
+});
+
+const user = computed<UserOut | null>(() => {
+  const authUser = auth.user.value;
+  if (!authUser) return null;
+
+  // Override canInvite if password login is disabled
+  const canInvite = !$appInfo.allowPasswordLogin ? false : authUser.canInvite;
+
+  return {
+    ...authUser,
+    canInvite,
+  };
+});
+
+const inviteDialog = ref(false);
+const api = useUserApi();
+
+const { data: stats } = useAsyncData(useAsyncKey(), async () => {
+  const { data } = await api.households.statistics();
+
+  if (data) {
+    return data;
+  }
+});
+
+const statsText: { [key: string]: string } = {
+  totalRecipes: i18n.t("general.recipes"),
+  totalUsers: i18n.t("user.users"),
+  totalCategories: i18n.t("sidebar.categories"),
+  totalTags: i18n.t("sidebar.tags"),
+  totalTools: i18n.t("tool.tools"),
+};
+
+function getStatsTitle(key: string) {
+  return statsText[key] ?? "unknown";
+}
+
+const { $globals } = useNuxtApp();
+
+const iconText: { [key: string]: string } = {
+  totalUsers: $globals.icons.user,
+  totalCategories: $globals.icons.categories,
+  totalTags: $globals.icons.tags,
+  totalTools: $globals.icons.potSteam,
+};
+
+function getStatsIcon(key: string) {
+  return iconText[key] ?? $globals.icons.primary;
+}
+
+const statsTo = computed<{ [key: string]: string }>(() => {
+  return {
+    totalRecipes: `/g/${groupSlug.value}/`,
+    totalUsers: "/household/members",
+    totalCategories: `/g/${groupSlug.value}/recipes/categories`,
+    totalTags: `/g/${groupSlug.value}/recipes/tags`,
+    totalTools: `/g/${groupSlug.value}/recipes/tools`,
+  };
+});
+
+function getStatsTo(key: string) {
+  return statsTo.value[key] ?? "unknown";
+}
 </script>

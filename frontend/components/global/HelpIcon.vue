@@ -29,17 +29,15 @@
   </div>
 </template>
 
-<script lang="ts">
-export default defineNuxtComponent({
-  props: {
-    small: {
-      type: Boolean,
-      default: false,
-    },
-    right: {
-      type: Boolean,
-      default: false,
-    },
+<script setup lang="ts">
+defineProps({
+  small: {
+    type: Boolean,
+    default: false,
+  },
+  right: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>

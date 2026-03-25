@@ -50,7 +50,7 @@
   </v-container>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import type { MealsByDate } from "./types";
 import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 import GroupMealPlanDayContextMenu from "~/components/Domain/Household/GroupMealPlanDayContextMenu.vue";

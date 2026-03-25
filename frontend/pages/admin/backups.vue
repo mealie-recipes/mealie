@@ -3,7 +3,7 @@
     <section>
       <!-- Delete Dialog -->
       <BaseDialog
-        v-model="deleteDialog"
+        v-model="state.deleteDialog"
         :title="$t('settings.backup.delete-backup')"
         color="error"
         :icon="$globals.icons.alertCircle"
@@ -17,7 +17,7 @@
 
       <!-- Import Dialog -->
       <BaseDialog
-        v-model="importDialog"
+        v-model="state.importDialog"
         color="error"
         :title="$t('settings.backup.backup-restore')"
         :icon="$globals.icons.database"
@@ -40,7 +40,7 @@
           </p>
 
           <v-checkbox
-            v-model="confirmImport"
+            v-model="state.confirmImport"
             class="checkbox-top"
             color="error"
             hide-details
@@ -50,7 +50,7 @@
         <v-card-actions class="justify-center pt-0">
           <BaseButton
             delete
-            :disabled="!confirmImport || runningRestore"
+            :disabled="!state.confirmImport || state.runningRestore"
             @click="restoreBackup(selected)"
           >
             <template #icon>
@@ -63,7 +63,7 @@
           {{ selected }}
         </p>
         <v-progress-linear
-          v-if="runningRestore"
+          v-if="state.runningRestore"
           indeterminate
         />
       </BaseDialog>
@@ -81,7 +81,7 @@
         >
           <BaseButton
             class="mr-2"
-            :loading="runningBackup"
+            :loading="state.runningBackup"
             @click="createBackup"
           >
             {{ $t("settings.backup.create-heading") }}
@@ -96,13 +96,13 @@
         </v-toolbar>
 
         <v-data-table
-          :headers="headers"
+          :headers="state.headers"
           :items="backups.imports || []"
           class="elevation-0"
           :items-per-page="-1"
           hide-default-footer
           disable-pagination
-          :search="search"
+          :search="state.search"
           @click:row="setSelected"
         >
           <template #[`item.date`]="{ item }">
@@ -115,7 +115,7 @@
               color="error"
               variant="text"
               @click.stop="
-                deleteDialog = true;
+                state.deleteDialog = true;
                 deleteTarget = item.name;
               "
             >
@@ -130,7 +130,7 @@
             />
             <BaseButton
               small
-              @click.stop="setSelected(item); importDialog = true"
+              @click.stop="setSelected(item); state.importDialog = true"
             >
               <template #icon>
                 {{ $globals.icons.backupRestore }}
@@ -151,130 +151,108 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useAdminApi } from "~/composables/api";
 import type { AllBackups } from "~/lib/api/types/admin";
 import { alert } from "~/composables/use-toast";
 
-export default defineNuxtComponent({
-  setup() {
-    definePageMeta({
-      layout: "admin",
-    });
+definePageMeta({
+  layout: "admin",
+});
 
-    const i18n = useI18n();
-    const auth = useMealieAuth();
-    const route = useRoute();
-    const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
+const i18n = useI18n();
 
-    const adminApi = useAdminApi();
-    const selected = ref("");
+const adminApi = useAdminApi();
+const selected = ref("");
 
-    const backups = ref<AllBackups>({
-      imports: [],
-      templates: [],
-    });
+const backups = ref<AllBackups>({
+  imports: [],
+  templates: [],
+});
 
-    async function refreshBackups() {
-      const { data } = await adminApi.backups.getAll();
-      if (data) {
-        backups.value = data;
-      }
-    }
+async function refreshBackups() {
+  const { data } = await adminApi.backups.getAll();
+  if (data) {
+    backups.value = data;
+  }
+}
 
-    async function createBackup() {
-      state.runningBackup = true;
-      const { data } = await adminApi.backups.create();
+async function createBackup() {
+  state.runningBackup = true;
+  const { data } = await adminApi.backups.create();
 
-      if (data?.error === false) {
-        refreshBackups();
-        alert.success(i18n.t("settings.backup.backup-created"));
-      }
-      else {
-        alert.error(i18n.t("settings.backup.error-creating-backup-see-log-file"));
-      }
-      state.runningBackup = false;
-    }
+  if (data?.error === false) {
+    refreshBackups();
+    alert.success(i18n.t("settings.backup.backup-created"));
+  }
+  else {
+    alert.error(i18n.t("settings.backup.error-creating-backup-see-log-file"));
+  }
+  state.runningBackup = false;
+}
 
-    async function restoreBackup(fileName: string) {
-      state.runningRestore = true;
-      const { error } = await adminApi.backups.restore(fileName);
+async function restoreBackup(fileName: string) {
+  state.runningRestore = true;
+  const { error } = await adminApi.backups.restore(fileName);
 
-      if (error) {
-        console.log(error);
-        state.importDialog = false;
-        state.runningRestore = false;
-        alert.error(i18n.t("settings.backup.restore-fail"));
-      }
-      else {
-        alert.success(i18n.t("settings.backup.restore-success"));
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
-      }
-    }
+  if (error) {
+    console.log(error);
+    state.importDialog = false;
+    state.runningRestore = false;
+    alert.error(i18n.t("settings.backup.restore-fail"));
+  }
+  else {
+    alert.success(i18n.t("settings.backup.restore-success"));
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
+  }
+}
 
-    const deleteTarget = ref("");
+const deleteTarget = ref("");
 
-    async function deleteBackup() {
-      const { data } = await adminApi.backups.delete(deleteTarget.value);
+async function deleteBackup() {
+  const { data } = await adminApi.backups.delete(deleteTarget.value);
 
-      if (!data?.error) {
-        alert.success(i18n.t("settings.backup.backup-deleted"));
-        refreshBackups();
-      }
-    }
+  if (!data?.error) {
+    alert.success(i18n.t("settings.backup.backup-deleted"));
+    refreshBackups();
+  }
+}
 
-    const state = reactive({
-      confirmImport: false,
-      deleteDialog: false,
-      createDialog: false,
-      importDialog: false,
-      runningBackup: false,
-      runningRestore: false,
-      search: "",
-      headers: [
-        { title: i18n.t("general.name"), value: "name" },
-        { title: i18n.t("general.created"), value: "date" },
-        { title: i18n.t("export.size"), value: "size" },
-        { title: "", value: "actions", align: "right" },
-      ],
-    });
+const state = reactive({
+  confirmImport: false,
+  deleteDialog: false,
+  createDialog: false,
+  importDialog: false,
+  runningBackup: false,
+  runningRestore: false,
+  search: "",
+  headers: [
+    { title: i18n.t("general.name"), value: "name" },
+    { title: i18n.t("general.created"), value: "date" },
+    { title: i18n.t("export.size"), value: "size" },
+    { title: "", value: "actions", align: "right" },
+  ],
+});
 
-    function setSelected(data: { name: string; date: string }) {
-      if (!data.name) {
-        return;
-      }
-      selected.value = data.name;
-    }
+function setSelected(data: { name: string; date: string }) {
+  if (!data.name) {
+    return;
+  }
+  selected.value = data.name;
+}
 
-    const backupsFileNameDownload = (fileName: string) => `api/admin/backups/${fileName}`;
+const backupsFileNameDownload = (fileName: string) => `api/admin/backups/${fileName}`;
 
-    useSeoMeta({
-      title: i18n.t("sidebar.backups"),
-    });
+useSeoMeta({
+  title: i18n.t("sidebar.backups"),
+});
 
-    onMounted(refreshBackups);
+onMounted(refreshBackups);
 
-    return {
-      groupSlug,
-      restoreBackup,
-      selected,
-      ...toRefs(state),
-      backups,
-      createBackup,
-      deleteBackup,
-      deleteTarget,
-      setSelected,
-      refreshBackups,
-      backupsFileNameDownload,
-    };
-  },
-  head() {
-    return {
-      title: useI18n().t("sidebar.backups"),
-    };
-  },
+useHead({
+  title: i18n.t("sidebar.backups"),
 });
 </script>
 

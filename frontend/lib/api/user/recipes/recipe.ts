@@ -1,3 +1,5 @@
+import { SSE } from "sse.js";
+import type { SSEvent } from "sse.js";
 import { BaseCRUDAPI } from "../../base/base-clients";
 import { route } from "../../base";
 import { CommentsApi } from "./recipe-comments";
@@ -16,7 +18,9 @@ import type {
   RecipeTimelineEventOut,
   RecipeTimelineEventUpdate,
 } from "~/lib/api/types/recipe";
-import type { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
+import type { SSEDataEventDone, SSEDataEventMessage } from "~/lib/api/types/response";
+import type { ApiRequestInstance, PaginationData, RequestResponse } from "~/lib/api/types/non-generated";
+import { SSEDataEventStatus } from "~/lib/api/types/non-generated";
 
 export type Parser = "nlp" | "brute" | "openai";
 
@@ -34,11 +38,11 @@ const routes = {
   recipesBase: `${prefix}/recipes`,
   recipesSuggestions: `${prefix}/recipes/suggestions`,
   recipesTestScrapeUrl: `${prefix}/recipes/test-scrape-url`,
-  recipesCreateUrl: `${prefix}/recipes/create/url`,
+  recipesCreateUrl: `${prefix}/recipes/create/url/stream`,
   recipesCreateUrlBulk: `${prefix}/recipes/create/url/bulk`,
   recipesCreateFromZip: `${prefix}/recipes/create/zip`,
   recipesCreateFromImage: `${prefix}/recipes/create/image`,
-  recipesCreateFromHtmlOrJson: `${prefix}/recipes/create/html-or-json`,
+  recipesCreateFromHtmlOrJson: `${prefix}/recipes/create/html-or-json/stream`,
   recipesCategory: `${prefix}/recipes/category`,
   recipesParseIngredient: `${prefix}/parser/ingredient`,
   recipesParseIngredients: `${prefix}/parser/ingredients`,
@@ -146,12 +150,65 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return await this.requests.post<Recipe | null>(routes.recipesTestScrapeUrl, { url, useOpenAI });
   }
 
-  async createOneByHtmlOrJson(data: string, includeTags: boolean, includeCategories: boolean, url: string | null = null) {
-    return await this.requests.post<string>(routes.recipesCreateFromHtmlOrJson, { data, includeTags, includeCategories, url });
+  private streamRecipeCreate(streamRoute: string, payload: object, onProgress?: (message: string) => void): Promise<RequestResponse<string>> {
+    return new Promise((resolve) => {
+      const { token } = useMealieAuth();
+
+      const sse = new SSE(streamRoute, {
+        headers: {
+          "Content-Type": "application/json",
+          ...(token.value ? { Authorization: `Bearer ${token.value}` } : {}),
+        },
+        payload: JSON.stringify(payload),
+        withCredentials: true,
+        autoReconnect: false,
+      });
+
+      if (onProgress) {
+        sse.addEventListener(SSEDataEventStatus.Progress, (e: SSEvent) => {
+          const { message } = JSON.parse(e.data) as SSEDataEventMessage;
+          onProgress(message);
+        });
+      }
+
+      sse.addEventListener(SSEDataEventStatus.Done, (e: SSEvent) => {
+        const { slug } = JSON.parse(e.data) as SSEDataEventDone;
+        sse.close();
+        resolve({ response: { status: 201, data: slug } as any, data: slug, error: null });
+      });
+
+      sse.addEventListener(SSEDataEventStatus.Error, (e: SSEvent) => {
+        try {
+          const { message } = JSON.parse(e.data) as SSEDataEventMessage;
+          sse.close();
+          resolve({ response: null, data: null, error: new Error(message) });
+        }
+        catch {
+          // Not a backend error payload (e.g. XHR connection-close event); ignore
+        }
+      });
+
+      sse.stream();
+    });
   }
 
-  async createOneByUrl(url: string, includeTags: boolean, includeCategories: boolean) {
-    return await this.requests.post<string>(routes.recipesCreateUrl, { url, includeTags, includeCategories });
+  async createOneByHtmlOrJson(
+    data: string,
+    includeTags: boolean,
+    includeCategories: boolean,
+    url: string | null = null,
+    onProgress?: (message: string) => void,
+  ): Promise<RequestResponse<string>> {
+    return this.streamRecipeCreate(routes.recipesCreateFromHtmlOrJson, { data, includeTags, includeCategories, url }, onProgress);
+  }
+
+  async createOneByUrl(
+    url: string,
+    includeTags: boolean,
+    includeCategories: boolean,
+    onProgress?: (message: string) => void,
+  ): Promise<RequestResponse<string>> {
+    return this.streamRecipeCreate(routes.recipesCreateUrl, { url, includeTags, includeCategories }, onProgress);
   }
 
   async createManyByUrl(payload: CreateRecipeByUrlBulk) {

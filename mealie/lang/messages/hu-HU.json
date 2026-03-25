@@ -17,6 +17,18 @@
             "servings": "Adag",
             "yield": "Adag",
             "yields": "Késleltetve"
+        },
+        "and-amount": "és {amount}",
+        "or-ingredient": "vagy {ingredient}",
+        "create-progress": {
+            "creating-recipe-with-ai": "Recept létrehozás AI-val...",
+            "creating-recipe-from-transcript-with-ai": "Recept készítése beszédfelvételből AI-val...",
+            "creating-recipe-from-webpage-data": "Recept készítése a weboldal adataiból...",
+            "downloading-image": "Kép letöltése...",
+            "downloading-video": "Videó letöltése...",
+            "extracting-recipe-data": "Recept adatok kibontása...",
+            "fetching-webpage": "A weboldal betöltése folyamatban...",
+            "transcribing-audio-with-ai": "Hanganyagok átírása AI-val..."
         }
     },
     "mealplan": {

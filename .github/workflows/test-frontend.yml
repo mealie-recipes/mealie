@@ -2,6 +2,10 @@ name: Frontend Lint and Test
 
 on:
   workflow_call:
+    inputs:
+      ref:
+        required: false
+        type: string
 
 jobs:
   lint:
@@ -10,6 +14,8 @@ jobs:
     steps:
       - name: Checkout 🛎
         uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.sha }}
 
       - name: Setup node env 🏗
         uses: actions/setup-node@v4.0.0
