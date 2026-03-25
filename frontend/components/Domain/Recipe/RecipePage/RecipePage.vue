@@ -23,6 +23,7 @@
     <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
       <v-card :flat="$vuetify.display.smAndDown" class="d-print-none">
         <RecipePageHeader
+          ref="recipeToolbar"
           :recipe="recipe"
           :recipe-scale="scale"
           :landscape="landscape"
@@ -108,6 +109,21 @@
       />
       <RecipePrintContainer :recipe="recipe" :scale="scale" />
     </v-container>
+    <!-- Floating save button when toolbar scrolls out of view -->
+    <v-btn
+      v-if="isEditMode && !toolbarVisible"
+      color="success"
+      icon
+      size="large"
+      class="floating-save-btn d-print-none"
+      elevation="8"
+      @click="saveRecipe"
+    >
+      <v-icon>{{ $globals.icons.save }}</v-icon>
+      <v-tooltip activator="parent" location="left">
+        {{ $t("general.save") }}
+      </v-tooltip>
+    </v-btn>
     <!-- Cook mode displayes two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same time -->
     <!-- The calc is to account for the navabar height (48px) -->
     <v-sheet
@@ -187,6 +203,7 @@
 </template>
 
 <script setup lang="ts">
+import type { ComponentPublicInstance } from "vue";
 import { invoke, until } from "@vueuse/core";
 import type { RouteLocationNormalized } from "vue-router";
 import RecipeIngredients from "../RecipeIngredients.vue";
@@ -236,6 +253,25 @@ const notLinkedIngredients = computed(() => {
     return !recipe.value.recipeInstructions.some(step =>
       step.ingredientReferences?.map(ref => ref.referenceId).includes(ingredient.referenceId),
     );
+  });
+});
+
+/** =============================================================
+ * Floating save button — track toolbar visibility
+ */
+const recipeToolbar = ref<ComponentPublicInstance | null>(null);
+const toolbarVisible = ref(true);
+
+onMounted(() => {
+  nextTick(() => {
+    const el = recipeToolbar.value?.$el as HTMLElement | undefined;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { toolbarVisible.value = entry.isIntersecting; },
+      { threshold: 0 },
+    );
+    observer.observe(el);
+    onUnmounted(() => observer.disconnect());
   });
 });
 
@@ -455,5 +491,12 @@ const scale = ref(1);
 
 .list-group-item i {
   cursor: pointer;
+}
+
+.floating-save-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 10;
 }
 </style>
