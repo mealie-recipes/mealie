@@ -199,7 +199,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "romaine lettuce",
-                "plural_name": "romaine lettuce"
+                "plural_name": "lechuga romana"
             },
             "beetroot": {
                 "aliases": [],
@@ -1599,8 +1599,8 @@
             "huckleberry": {
                 "aliases": [],
                 "description": "",
-                "name": "huckleberry",
-                "plural_name": "huckleberries"
+                "name": "aarándano",
+                "plural_name": "arándanos"
             },
             "dried elderberry": {
                 "aliases": [],
