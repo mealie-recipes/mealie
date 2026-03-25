@@ -2188,7 +2188,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "smoked cheese",
-                "plural_name": "smoked cheese"
+                "plural_name": "rökta ostar"
             },
             "halloumi cheese": {
                 "aliases": [],
@@ -2199,8 +2199,8 @@
             "chevre cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "chevre cheese",
-                "plural_name": "chevre cheese"
+                "name": "chevré",
+                "plural_name": "chevré"
             },
             "manchego cheese": {
                 "aliases": [],
