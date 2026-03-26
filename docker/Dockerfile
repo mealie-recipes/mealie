@@ -1,7 +1,7 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:24@sha256:00e9195ebd49985a6da8921f419978d85dfe354589755192dc090425ce4da2f7 \
+FROM node:24@sha256:bb20cf73b3ad7212834ec48e2174cdcb5775f6550510a5336b842ae32741ce6c \
     AS frontend-builder
 
 WORKDIR /frontend
@@ -21,7 +21,7 @@ RUN yarn generate
 ###############################################
 # Base Image - Python
 ###############################################
-FROM python:3.12-slim@sha256:2267adc248a477c1f1a852a07a5a224d42abe54c28aafa572efa157dfb001bba \
+FROM python:3.12-slim@sha256:7026274c107626d7e940e0e5d6730481a4600ae95d5ca7eb532dd4180313fea9 \
     AS python-base
 
 ENV MEALIE_HOME="/app"
@@ -91,6 +91,7 @@ RUN apt-get update \
     build-essential \
     libpq-dev \
     libwebp-dev \
+    ffmpeg \
     # LDAP Dependencies
     libsasl2-dev libldap2-dev libssl-dev \
     gnupg gnupg2 gnupg1 \
@@ -119,6 +120,8 @@ ENV GIT_COMMIT_HASH=$COMMIT
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
+    curl \
+    ffmpeg \
     gosu \
     iproute2 \
     libldap-common \
@@ -141,7 +144,9 @@ ENV APP_PORT=9000
 
 EXPOSE ${APP_PORT}
 
-HEALTHCHECK CMD python -m mealie.scripts.healthcheck || exit 1
+COPY ./docker/healthcheck.sh $MEALIE_HOME/healthcheck.sh
+RUN chmod +x $MEALIE_HOME/healthcheck.sh
+HEALTHCHECK CMD $MEALIE_HOME/healthcheck.sh
 
 ENV HOST 0.0.0.0
 

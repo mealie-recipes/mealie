@@ -17,6 +17,18 @@
             "servings": "Порции",
             "yield": "Порции",
             "yields": "Порции"
+        },
+        "and-amount": "и {amount}",
+        "or-ingredient": "или {ingredient}",
+        "create-progress": {
+            "creating-recipe-with-ai": "Създаване на рецепта с изкуствен интелект...",
+            "creating-recipe-from-transcript-with-ai": "Създаване на рецепта от транскрипция с изкуствен интелект...",
+            "creating-recipe-from-webpage-data": "Създаване на рецепта от данни от уеб страница...",
+            "downloading-image": "Изтегляне на изображениeтo...",
+            "downloading-video": "Изтегляне на видеото...",
+            "extracting-recipe-data": "Извличане на данни за рецептата...",
+            "fetching-webpage": "Извличане на уеб страница...",
+            "transcribing-audio-with-ai": "Транскрибиране на аудио с изкуствен интелект..."
         }
     },
     "mealplan": {

@@ -335,6 +335,8 @@ export interface IngredientUnit {
   pluralAbbreviation?: string | null;
   useAbbreviation?: boolean;
   aliases?: IngredientUnitAlias[];
+  standardQuantity?: number | null;
+  standardUnit?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -354,6 +356,8 @@ export interface CreateIngredientUnit {
   pluralAbbreviation?: string | null;
   useAbbreviation?: boolean;
   aliases?: CreateIngredientUnitAlias[];
+  standardQuantity?: number | null;
+  standardUnit?: string | null;
 }
 export interface CreateIngredientUnitAlias {
   name: string;

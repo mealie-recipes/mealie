@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Opret en opskrift ved at angive navnet. Alle opskrifter skal have unikke navne.",
     "new-recipe-names-must-be-unique": "Opskriftsnavnet er allerede i brug",
     "scrape-recipe": "Hent opskrift",
-    "scrape-recipe-description": "Hent en opskrift fra en hjemmeside. Angiv URL'en til den hjemmeside, du vil hente data fra og Mealie vil forsøge at hente opskriften, samt tilføje den til din samling.",
+    "scrape-recipe-description": "Hent en opskrift fra en hjemmeside. Angiv URL'en til den hjemmeside, du vil hente data fra og Mealie vil forsøge at hente opskriften, og tilføje den til din samling.",
+    "scrape-recipe-description-transcription": "Du kan også angive en URL til en video, hvorefter Mealie vil forsøge at transskribere den, og tilføje den til din samling.",
     "scrape-recipe-have-a-lot-of-recipes": "Har du en masse opskrifter, du ønsker at hente på én gang?",
     "scrape-recipe-suggest-bulk-importer": "Prøv masseimport",
     "scrape-recipe-have-raw-html-or-json-data": "Har rå HTML- eller JSON-data?",
@@ -888,14 +889,17 @@
     "server-side-base-url-error-text": "`BASE_URL` er anvendt som standardværdien på API Server. Dette kan medføre problemer med meddelelser, der indeholder links til serveren, f. eks. i e-mails, osv.",
     "server-side-base-url-success-text": "Serverens URL matcher ikke standarden",
     "ldap-ready": "LDAP Klar",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Ikke alle LDAP- værdier er konfigureret. Dette kan ignoreres, hvis du ikke bruger LDAP- godkendelse.",
     "ldap-ready-success-text": "Påkrævede LDAP-variabler er alle angivet.",
     "build": "Build",
     "recipe-scraper-version": "Version på opskriftsfortolker",
     "oidc-ready": "OIDC er klar",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Ikke alle OIDC værdier er konfigureret. Dette kan ignoreres, hvis du ikke bruger OIDC godkendelse.",
     "oidc-ready-success-text": "Alle påkrævede OIDC værdier er angivet.",
     "openai-ready": "OpenAI klar",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Ikke alle OpenAI værdier er konfigureret. Dette kan ignoreres, hvis du ikke bruger OpenAI funktioner.",
     "openai-ready-success-text": "Påkrævede OpenAI variabler er alle indstillet."
   },
@@ -903,6 +907,7 @@
     "all-lists": "Alle lister",
     "create-shopping-list": "Lav indkøbsliste",
     "from-recipe": "Fra opskrift",
+    "ingredient-of-recipe": "Ingrediens i {recipe}",
     "list-name": "Listenavn",
     "new-list": "Ny liste",
     "quantity": "Antal: {0}",
@@ -1086,7 +1091,7 @@
     "forgot-password": "Glemt adgangskode",
     "forgot-password-text": "Indtast venligst din e-mail-adresse. Vi sender dig en e-mail, så at du kan nulstille din adgangskode.",
     "changes-reflected-immediately": "Ændringer til denne bruger vil have effekt med det samme.",
-    "default-activity": "",
+    "default-activity": "Standardaktivitet",
     "default-activity-hint": "Vælg den side, du vil navigere til, når du logger ind fra denne enhed"
   },
   "language-dialog": {
@@ -1100,8 +1105,8 @@
     "foods": {
       "merge-dialog-text": "Ved at kombinere de udvalgte fødevarer vil de to valgte fødevarer blive til en enkelt fødevare. Kildefødevaren vil blive slettet, og alle henvisninger til kildefødevaren vil blive opdateret til at pege på målfødevaren.",
       "merge-food-example": "Samler {food1} med {food2}",
-      "seed-dialog-text": "Tilføj standard fødevarer på dansk i databasen. Dette vil oprette mere en 200 af de mest anvendte fødevarer, der kan bruges til at organisere din database. Fødevarer er oversat via en fællesskabsindsats.",
-      "seed-dialog-warning": "Du har allerede nogle elementer i din database. Denne handling vil ikke undgå dubletter, så du må håndtere dem manuelt efterfølgende.",
+      "seed-dialog-text": "Tilføj standardfødevarer på dansk i databasen. Dette vil oprette cirka 2700 af de mest anvendte fødevarer, der kan bruges til at organisere din database. Fødevarer er oversat via en fællesskabsindsats.",
+      "seed-dialog-warning": "Du har allerede nogle elementer i din database. Nye elementer vil ikke blive tilføjet, hvis et element med samme navn allerede eksisterer.",
       "combine-food": "Kombiner fødevarer",
       "source-food": "Kilde for fødevarer",
       "target-food": "Mål for fødevarer",
@@ -1109,8 +1114,8 @@
       "food-label": "Etiket på fødevare",
       "edit-food": "Redigér fødevare",
       "food-data": "Oplysninger om fødevare",
-      "example-food-singular": "fx.: grøntsag",
-      "example-food-plural": "fx.: grøntsager",
+      "example-food-singular": "f.eks.: Løg",
+      "example-food-plural": "f.eks.: Løg",
       "label-overwrite-warning": "Dette vil tildele den valgte etiket til alle udvalgte fødevarer og potentielt overskrive dine eksisterende etiketter.",
       "on-hand-checkbox-label": "Ændring af dette flag ændrer markeringen, så denne fødevare ikke er markeret som standard, når du tilføjer en opskrift til en indkøbsliste."
     },
@@ -1131,10 +1136,25 @@
       "unit-data": "Enhedsoplysninger",
       "use-abbv": "Anvend forkortelse",
       "fraction": "Brøkdel",
-      "example-unit-singular": "fx.: teske",
-      "example-unit-plural": "fx.: teskeer",
-      "example-unit-abbreviation-singular": "fx.: tsk",
-      "example-unit-abbreviation-plural": "fx.: tsk"
+      "example-unit-singular": "f.eks.: Spiseske",
+      "example-unit-plural": "f.eks.: Spiseskeer",
+      "example-unit-abbreviation-singular": "f.eks.: Tsk",
+      "example-unit-abbreviation-plural": "f.eks.: Tsk",
+      "standardization": "Standardisering",
+      "standardization-description": "Hvordan denne enhed kan repræsenteres som en standard-enhed. Dette muliggør enhedsomregning, såsom sammenfletning af kompatible enheder i indkøbslister.",
+      "standard-unit": "Standardenhed",
+      "standard-quantity": "Standardmængde",
+      "unit-conversion": "Enhedsomregning",
+      "standard-unit-labels": {
+        "fluid-ounce": "flydende ounce",
+        "cup": "kop",
+        "ounce": "ounce",
+        "pound": "pund",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Opret standard etiketter på dit sprog.",
@@ -1168,7 +1188,11 @@
       "recipe-actions-data": "Opskriftshandlinger",
       "new-recipe-action": "Ny opskriftshandling",
       "edit-recipe-action": "Rediger opskriftshandling",
-      "action-type": "Handlingstype"
+      "action-type": "Handlingstype",
+      "action-types": {
+        "link": "Link",
+        "post": "Opslag"
+      }
     },
     "create-alias": "Opret alias",
     "manage-aliases": "Administrer aliaser",
@@ -1423,8 +1447,8 @@
       "is-greater-than-or-equal-to": "er større end eller lig med (Automatic Translation)",
       "is-less-than": "er mindre end (Automatic Translation)",
       "is-less-than-or-equal-to": "er mindre end eller lig med (Automatic Translation)",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "er ældre end",
+      "is-newer-than": "er nyere end"
     },
     "relational-keywords": {
       "is": "er",
@@ -1436,7 +1460,7 @@
       "is-not-like": "er ikke som"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "dage siden|dag siden|dage siden"
     }
   },
   "validators": {
@@ -1445,6 +1469,6 @@
     "invalid-url": "URL'en skal være gyldig",
     "no-whitespace": "Mellemrum er ikke tilladt",
     "min-length": "Der skal mindst være {min} tegn",
-    "max-length": "Der må højst være {max} tegn"
+    "max-length": "Må højst være {max} tegn|Må højst være {max} tegn"
   }
 }

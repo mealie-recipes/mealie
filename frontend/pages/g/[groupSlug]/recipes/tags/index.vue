@@ -15,27 +15,18 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import RecipeOrganizerPage from "~/components/Domain/Recipe/RecipeOrganizerPage.vue";
 import { useTagStore } from "~/composables/store";
 
-export default defineNuxtComponent({
-  components: {
-    RecipeOrganizerPage,
-  },
+definePageMeta({
   middleware: ["group-only"],
-  setup() {
-    const { store, actions } = useTagStore();
-    const i18n = useI18n();
+});
 
-    useSeoMeta({
-      title: i18n.t("tag.tags"),
-    });
+const { store, actions } = useTagStore();
+const i18n = useI18n();
 
-    return {
-      store,
-      actions,
-    };
-  },
+useSeoMeta({
+  title: i18n.t("tag.tags"),
 });
 </script>

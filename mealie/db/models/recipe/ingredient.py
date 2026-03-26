@@ -52,6 +52,10 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
         cascade="all, delete, delete-orphan",
     )
 
+    # Standardization
+    standard_quantity: Mapped[float | None] = mapped_column(Float)
+    standard_unit: Mapped[str | None] = mapped_column(String)
+
     # Automatically updated by sqlalchemy event, do not write to this manually
     name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
     plural_name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)

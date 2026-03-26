@@ -637,6 +637,7 @@
     "new-recipe-names-must-be-unique": "Neue Rezeptnamen müssen eindeutig sein",
     "scrape-recipe": "Rezept einlesen",
     "scrape-recipe-description": "Importiere ein Rezept mit der URL. Gib die URL für die Seite an, die du importieren möchtest und Mealie wird versuchen, das Rezept von dieser Seite einzulesen und deiner Sammlung hinzuzufügen.",
+    "scrape-recipe-description-transcription": "Sie können die Url zu einem Video weitergeben und Mealie wird versuchen, dieses in ein Rezept zu übertragen.",
     "scrape-recipe-have-a-lot-of-recipes": "Hast Du viele Rezepte, die Du auf einmal einlesen willst?",
     "scrape-recipe-suggest-bulk-importer": "Probiere den Massenimporter aus",
     "scrape-recipe-have-raw-html-or-json-data": "Hast du Roh-HTML oder JSON Daten?",
@@ -888,14 +889,17 @@
     "server-side-base-url-error-text": "`BASE_URL` ist immer noch der Standardwert auf dem API-Server. Das verursacht Probleme mit Benachrichtigungslinks auf dem Server für E-Mails, etc.",
     "server-side-base-url-success-text": "Serverseitige URL entspricht nicht der Standardeinstellung",
     "ldap-ready": "LDAP bereit",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Es sind nicht alle LDAP-Werte konfiguriert. Wenn du keine LDAP-Authentifizierung benutzt, kannst du das ignorieren.",
     "ldap-ready-success-text": "Alle erforderlichen LDAP-Variablen sind hinterlegt.",
     "build": "Build",
     "recipe-scraper-version": "Rezept Scraper Version",
     "oidc-ready": "OIDC bereit",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Es sind nicht alle OIDC-Werte konfiguriert. Wenn du keine OIDC-Authentifizierung benutzt, kannst du das ignorieren.",
     "oidc-ready-success-text": "Alle erforderlichen OIDC-Variablen sind gesetzt.",
     "openai-ready": "OpenAI bereit",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Es sind nicht alle OpenAI-Werte konfiguriert. Wenn du die OpenAI Funktionen nicht benutzt, kannst du das ignorieren.",
     "openai-ready-success-text": "Alle erforderlichen OpenAI-Variablen sind hinterlegt."
   },
@@ -903,6 +907,7 @@
     "all-lists": "Alle Listen",
     "create-shopping-list": "Einkaufsliste erstellen",
     "from-recipe": "Vom Rezept",
+    "ingredient-of-recipe": "Zutat von {recipe}",
     "list-name": "Listenname",
     "new-list": "Neue Liste",
     "quantity": "Menge: {0}",
@@ -1134,7 +1139,22 @@
       "example-unit-singular": "z.B. gehäufter Teelöffel",
       "example-unit-plural": "z.B. gehäufte Teelöffel",
       "example-unit-abbreviation-singular": "z.B. EL",
-      "example-unit-abbreviation-plural": "z.B. EL"
+      "example-unit-abbreviation-plural": "z.B. EL",
+      "standardization": "Standardisierung",
+      "standardization-description": "Wie diese Einheit als Standardeinheit dargestellt werden kann. Dies ermöglicht die Umwandlung von Einheiten wie das Zusammenführen kompatibler Einheiten in Einkaufslisten.",
+      "standard-unit": "Standardeinheit",
+      "standard-quantity": "Standardmenge",
+      "unit-conversion": "Einheiten-Konvertierung",
+      "standard-unit-labels": {
+        "fluid-ounce": "Flüssigunze",
+        "cup": "Tasse",
+        "ounce": "Unze",
+        "pound": "Pfund",
+        "milliliter": "Milliliter",
+        "liter": "Liter",
+        "gram": "Gramm",
+        "kilogram": "Kilogramm"
+      }
     },
     "labels": {
       "seed-dialog-text": "Füllt die Datenbank mit gängigen Kategorien basierend auf deiner Sprache.",
@@ -1168,7 +1188,11 @@
       "recipe-actions-data": "Rezept-Aktionen Daten",
       "new-recipe-action": "Neue Rezept-Aktion",
       "edit-recipe-action": "Rezept-Aktion bearbeiten",
-      "action-type": "Aktionstyp"
+      "action-type": "Aktionstyp",
+      "action-types": {
+        "link": "Link",
+        "post": "Posten"
+      }
     },
     "create-alias": "Alias erstellen",
     "manage-aliases": "Aliasse verwalten",
@@ -1436,7 +1460,7 @@
       "is-not-like": "ist nicht wie"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "vor Tagen|vor Tag|vor Tagen"
     }
   },
   "validators": {
@@ -1445,6 +1469,6 @@
     "invalid-url": "Muss eine gültige URL sein",
     "no-whitespace": "Kein Leerzeichen erlaubt",
     "min-length": "Muss mindestens {min} Zeichen haben",
-    "max-length": "Darf mindestens {max} Zeichen haben"
+    "max-length": "Muss maximal {max} Zeichen haben|Muss maximal {max} Zeichen haben"
   }
 }

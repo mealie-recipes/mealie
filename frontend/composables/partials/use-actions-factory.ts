@@ -26,8 +26,10 @@ export function useReadOnlyActions<T extends BoundT>(
   api: BaseCRUDAPIReadOnly<T>,
   allRef: Ref<T[] | null> | null,
   loading: Ref<boolean>,
+  defaultQueryParams: Record<string, QueryValue> = {},
 ): ReadOnlyStoreActions<T> {
   function getAll(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
+    params = { ...defaultQueryParams, ...params };
     params.orderBy ??= "name";
     params.orderDirection ??= "asc";
 
@@ -56,6 +58,7 @@ export function useReadOnlyActions<T extends BoundT>(
   }
 
   async function refresh(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
+    params = { ...defaultQueryParams, ...params };
     params.orderBy ??= "name";
     params.orderDirection ??= "asc";
 
@@ -86,8 +89,10 @@ export function useStoreActions<T extends BoundT>(
   api: BaseCRUDAPI<unknown, T, unknown>,
   allRef: Ref<T[] | null> | null,
   loading: Ref<boolean>,
+  defaultQueryParams: Record<string, QueryValue> = {},
 ): StoreActions<T> {
   function getAll(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
+    params = { ...defaultQueryParams, ...params };
     params.orderBy ??= "name";
     params.orderDirection ??= "asc";
 
@@ -116,6 +121,7 @@ export function useStoreActions<T extends BoundT>(
   }
 
   async function refresh(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
+    params = { ...defaultQueryParams, ...params };
     params.orderBy ??= "name";
     params.orderDirection ??= "asc";
 

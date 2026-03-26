@@ -1,4 +1,3 @@
-import json
 import pathlib
 from collections.abc import Generator
 from functools import cached_property
@@ -21,9 +20,10 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
     def service(self):
         return MultiPurposeLabelService(self.repos)
 
-    def get_file(self, locale: str | None = None) -> pathlib.Path:
+    @classmethod
+    def get_file(cls, locale: str | None = None) -> pathlib.Path:
         # Get the labels from the foods seed file now
-        locale_path = self.resources / "foods" / "locales" / f"{locale}.json"
+        locale_path = cls.resources / "foods" / "locales" / f"{locale}.json"
         return locale_path if locale_path.exists() else foods.en_US
 
     def get_all_labels(self) -> list[MultiPurposeLabelOut]:
@@ -34,7 +34,7 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
 
         current_label_names = {label.name for label in self.get_all_labels()}
         # load from the foods locale file and remove any empty strings
-        seed_label_names = set(filter(None, json.loads(file.read_text(encoding="utf-8")).keys()))  # type: set[str]
+        seed_label_names = set(filter(None, self.load_file(file).keys()))  # type: set[str]
         # only seed new labels
         to_seed_labels = seed_label_names - current_label_names
         for label in to_seed_labels:
@@ -53,8 +53,9 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
 
 
 class IngredientUnitsSeeder(AbstractSeeder):
-    def get_file(self, locale: str | None = None) -> pathlib.Path:
-        locale_path = self.resources / "units" / "locales" / f"{locale}.json"
+    @classmethod
+    def get_file(cls, locale: str | None = None) -> pathlib.Path:
+        locale_path = cls.resources / "units" / "locales" / f"{locale}.json"
         return locale_path if locale_path.exists() else units.en_US
 
     def get_all_units(self) -> list[IngredientUnit]:
@@ -64,7 +65,7 @@ class IngredientUnitsSeeder(AbstractSeeder):
         file = self.get_file(locale)
 
         seen_unit_names = {unit.name for unit in self.get_all_units()}
-        for unit in json.loads(file.read_text(encoding="utf-8")).values():
+        for unit in self.load_file(file).values():
             if unit["name"] in seen_unit_names:
                 continue
 
@@ -88,8 +89,9 @@ class IngredientUnitsSeeder(AbstractSeeder):
 
 
 class IngredientFoodsSeeder(AbstractSeeder):
-    def get_file(self, locale: str | None = None) -> pathlib.Path:
-        locale_path = self.resources / "foods" / "locales" / f"{locale}.json"
+    @classmethod
+    def get_file(cls, locale: str | None = None) -> pathlib.Path:
+        locale_path = cls.resources / "foods" / "locales" / f"{locale}.json"
         return locale_path if locale_path.exists() else foods.en_US
 
     def get_label(self, value: str) -> MultiPurposeLabelOut | None:
@@ -103,7 +105,7 @@ class IngredientFoodsSeeder(AbstractSeeder):
 
         # get all current unique foods
         seen_foods_names = {food.name for food in self.get_all_foods()}
-        for label, values in json.loads(file.read_text(encoding="utf-8")).items():
+        for label, values in self.load_file(file).items():
             label_out = self.get_label(label)
 
             for food_name, attributes in values["foods"].items():

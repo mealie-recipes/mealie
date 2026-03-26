@@ -611,7 +611,7 @@ class OpenAIRecipeService(RecipeServiceBase):
                 prompt,
                 message,
                 response_schema=OpenAIRecipe,
-                images=openai_images,
+                attachments=openai_images,
             )
             if not response:
                 raise ValueError("Received empty response from OpenAI")

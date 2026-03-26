@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Створіть рецепт, надавши назву. Усі рецепти повинні мати унікальні назви.",
     "new-recipe-names-must-be-unique": "Назви нового рецепту має бути унікальна",
     "scrape-recipe": "Розпізнати рецепт",
-    "scrape-recipe-description": "Розпізнати рецепт за посиланням. Вкажіть посилання на рецепт який ви хочете розпізнати й Mealie спробує розпізнати його і додати в вашу колекцію.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Багато рецептів, які ви хочете розпізнати відразу?",
     "scrape-recipe-suggest-bulk-importer": "Спробуйте масовий розпізнавач",
     "scrape-recipe-have-raw-html-or-json-data": "Маєте необроблені дані HTML або JSON?",
@@ -888,14 +889,17 @@
     "server-side-base-url-error-text": "`BASE_URL` все ще встановлене в стандартне значення на сервері API. Це призведе до проблем з посиланнями, згенерованими на сервері для листів, і т. д.",
     "server-side-base-url-success-text": "URL-адреса на стороні сервера не відповідає значенню за замовчуванням",
     "ldap-ready": "LDAP готове",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Не всі значення LDAP налаштовано. Це можна ігнорувати, якщо ви не використовуєте LDAP Authentication.",
     "ldap-ready-success-text": "Всі необхідні змінні LDAP встановлені.",
     "build": "Збірка",
     "recipe-scraper-version": "Версія парсера рецептів",
     "oidc-ready": "OIDC готово",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Не всі значення OIDC налаштовано. Це можна ігнорувати, якщо ви не використовуєте авторизацію OIDC.",
     "oidc-ready-success-text": "Всі необхідні змінні OIDC встановлені.",
     "openai-ready": "OpenAI готовий",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Не всі значення OpenAI налаштовано. Це можна ігнорувати, якщо ви не використовуєте функції OpenAI.",
     "openai-ready-success-text": "Всі необхідні змінні OpenAI встановлені."
   },
@@ -903,6 +907,7 @@
     "all-lists": "Всі списки",
     "create-shopping-list": "Сторити список покупок",
     "from-recipe": "З рецепту",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Назва списку",
     "new-list": "Новий список",
     "quantity": "Кількість: {0}",
@@ -1134,7 +1139,22 @@
       "example-unit-singular": "приклад: Столова ложка",
       "example-unit-plural": "приклад: Столові ложки",
       "example-unit-abbreviation-singular": "приклад: ст. л",
-      "example-unit-abbreviation-plural": "приклад: ст. л"
+      "example-unit-abbreviation-plural": "приклад: ст. л",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Заповнити базу даних розповсюдженими категоріями що відповідають мові.",
@@ -1168,7 +1188,11 @@
       "recipe-actions-data": "Дані дій рецепта",
       "new-recipe-action": "Нова дія рецепту",
       "edit-recipe-action": "Редагувати дії рецепта",
-      "action-type": "Тип Дії"
+      "action-type": "Тип Дії",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Створити псевдонім",
     "manage-aliases": "Керувати псевдонімами",
@@ -1445,6 +1469,6 @@
     "invalid-url": "Має бути дійсною URL-адресою",
     "no-whitespace": "Пробіли заборонені",
     "min-length": "Повинно бути не менше ніж {min} символів ",
-    "max-length": "Повинно бути не більше ніж {max} символів"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

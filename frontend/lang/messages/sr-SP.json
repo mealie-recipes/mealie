@@ -637,6 +637,7 @@
     "new-recipe-names-must-be-unique": "New recipe names must be unique",
     "scrape-recipe": "Scrape Recipe",
     "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Have a lot of recipes you want to scrape at once?",
     "scrape-recipe-suggest-bulk-importer": "Try out the bulk importer",
     "scrape-recipe-have-raw-html-or-json-data": "Have raw HTML or JSON data?",
@@ -888,14 +889,17 @@
     "server-side-base-url-error-text": "`BASE_URL` is still the default value on API Server. This will cause issues with notifications links generated on the server for emails, etc.",
     "server-side-base-url-success-text": "Server Side URL does not match the default",
     "ldap-ready": "LDAP Ready",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Not all LDAP Values are configured. This can be ignored if you are not using LDAP Authentication.",
     "ldap-ready-success-text": "Required LDAP variables are all set.",
     "build": "Build",
     "recipe-scraper-version": "Recipe Scraper Version",
     "oidc-ready": "OIDC Ready",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
     "oidc-ready-success-text": "Required OIDC variables are all set.",
     "openai-ready": "OpenAI Ready",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
     "openai-ready-success-text": "Required OpenAI variables are all set."
   },
@@ -903,6 +907,7 @@
     "all-lists": "Сви спискови",
     "create-shopping-list": "Направи списак за куповину",
     "from-recipe": "From Recipe",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "List Name",
     "new-list": "Нови списак",
     "quantity": "Quantity: {0}",
@@ -1134,7 +1139,22 @@
       "example-unit-singular": "ex: Tablespoon",
       "example-unit-plural": "ex: Tablespoons",
       "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-abbreviation-plural": "ex: Tbsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Seed the database with common labels based on your local language.",
@@ -1168,7 +1188,11 @@
       "recipe-actions-data": "Recipe Actions Data",
       "new-recipe-action": "New Recipe Action",
       "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "action-type": "Action Type",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Create Alias",
     "manage-aliases": "Manage Aliases",
@@ -1445,6 +1469,6 @@
     "invalid-url": "Мора бити валидан URL",
     "no-whitespace": "Размак није дозвољен",
     "min-length": "Мора бити најмање {min} карактера",
-    "max-length": "Мора бити највише {max} карактера"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

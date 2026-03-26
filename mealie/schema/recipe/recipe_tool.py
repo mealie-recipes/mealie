@@ -32,9 +32,6 @@ class RecipeToolOut(RecipeToolCreate):
         except AttributeError:
             return v
 
-    def is_on_hand(self, household_slug: str) -> bool:
-        return household_slug in self.households_with_tool
-
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [

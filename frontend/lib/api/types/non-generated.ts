@@ -41,6 +41,12 @@ export enum Organizer {
   User = "users",
 }
 
+export enum SSEDataEventStatus {
+  Progress = "progress",
+  Done = "done",
+  Error = "error",
+}
+
 export type PlaceholderKeyword = "$NOW";
 export type RelationalKeyword = "IS" | "IS NOT" | "IN" | "NOT IN" | "CONTAINS ALL" | "LIKE" | "NOT LIKE";
 export type LogicalOperator = "AND" | "OR";
@@ -58,3 +64,13 @@ export interface QueryFilterJSONPart {
   relationalOperator?: RelationalKeyword | RelationalOperator | null;
   value?: string | string[] | null;
 }
+
+export type StandardizedUnitType
+  = | "fluid_ounce"
+    | "cup"
+    | "ounce"
+    | "pound"
+    | "milliliter"
+    | "liter"
+    | "gram"
+    | "kilogram";

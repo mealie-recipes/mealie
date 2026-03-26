@@ -64,8 +64,8 @@
     "scheduled": "Programado",
     "something-went-wrong": "¡Algo ha salido mal!",
     "subscribed-events": "Eventos suscritos",
-    "test-message-sent": "Mensaje Enviado",
-    "message-sent": "Mensaje Enviado",
+    "test-message-sent": "Mensaje enviado",
+    "message-sent": "Mensaje de prueba enviado",
     "new-notification": "Nueva notificación",
     "event-notifiers": "Notificaciones de eventos",
     "apprise-url-skipped-if-blank": "URL de Apprise (omitida si está en blanco)",
@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crear una receta proporcionando el nombre. Todas las recetas deben tener nombres únicos.",
     "new-recipe-names-must-be-unique": "El nombre de la receta debe ser único",
     "scrape-recipe": "Analiza receta",
-    "scrape-recipe-description": "Importa una receta por URL. Proporcione la URL para el sitio que desea importar, y Mealie intentará importar la receta de ese sitio y añadirla a su colección.",
+    "scrape-recipe-description": "Importa una receta por URL. Proporcione la URL para el sitio que desea importar, y Mealie intentará extraer la receta de ese sitio y añadirla a su colección.",
+    "scrape-recipe-description-transcription": "También puedes proporcionar la url a un video y Mealie intentará transcribirla a una receta.",
     "scrape-recipe-have-a-lot-of-recipes": "¿Tienes muchas recetas que quieres raspar a la vez?",
     "scrape-recipe-suggest-bulk-importer": "Prueba el importador masivo",
     "scrape-recipe-have-raw-html-or-json-data": "¿Tiene datos HTML o JSON?",
@@ -888,14 +889,17 @@
     "server-side-base-url-error-text": "`BASE_URL` sigue siendo el valor por defecto en el servidor API. Esto causará problemas con las notificaciones generadas en el servidor de correos electrónicos, etc.",
     "server-side-base-url-success-text": "La URL del servidor no coincide con la predeterminada",
     "ldap-ready": "LDAP Listo",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "No todos los valores LDAP están configurados. Esto puede ignorarse si no está usando autenticación LDAP.",
     "ldap-ready-success-text": "Las variables LDAP requeridas están todas definidas.",
     "build": "Compilación",
     "recipe-scraper-version": "Versión de Analizador de Recetas",
     "oidc-ready": "OIDC Listo",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "No todos los valores OIDC están configurados. Puedes ignorar esto si no estás usando autenticación OIDC.",
     "oidc-ready-success-text": "Todas las variables OIDC requeridas están configuradas.",
     "openai-ready": "OpenAI Listo",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "No todos los valores OpenAI están configurados. Puedes ignorar esto si no estás usando funciones de OpenAI.",
     "openai-ready-success-text": "Las variables OpenAI requeridas están todas definidas."
   },
@@ -903,6 +907,7 @@
     "all-lists": "Todas las listas",
     "create-shopping-list": "Crear lista de la compra",
     "from-recipe": "Desde receta",
+    "ingredient-of-recipe": "Ingrediente de {recipe}",
     "list-name": "Nombre de la lista",
     "new-list": "Nueva lista",
     "quantity": "Cantidad: {0}",
@@ -1134,7 +1139,22 @@
       "example-unit-singular": "ej: Cucharada",
       "example-unit-plural": "ej: Cucharadas",
       "example-unit-abbreviation-singular": "ej: Cda",
-      "example-unit-abbreviation-plural": "ej: Cdas"
+      "example-unit-abbreviation-plural": "ej: Cdas",
+      "standardization": "Estandarización",
+      "standardization-description": "Cómo esta unidad puede ser representada como una unidad estándar. Esto permite características de conversión de unidades tales como la fusión de unidades compatibles en listas de compras.",
+      "standard-unit": "Unidad Estándar",
+      "standard-quantity": "Cantidad Estándar",
+      "unit-conversion": "Conversión de Unidad",
+      "standard-unit-labels": {
+        "fluid-ounce": "onza líquida",
+        "cup": "taza",
+        "ounce": "onza",
+        "pound": "libra",
+        "milliliter": "mililitro",
+        "liter": "litro",
+        "gram": "gramo",
+        "kilogram": "kilogramo"
+      }
     },
     "labels": {
       "seed-dialog-text": "Añade a la base de datos etiquetas comunes basadas en su idioma local.",
@@ -1168,7 +1188,11 @@
       "recipe-actions-data": "Datos de Acciones de Receta",
       "new-recipe-action": "Nueva Acción de Receta",
       "edit-recipe-action": "Editar Acción de Receta",
-      "action-type": "Tipo de Acción"
+      "action-type": "Tipo de Acción",
+      "action-types": {
+        "link": "Enlace",
+        "post": "Publicar"
+      }
     },
     "create-alias": "Crear un Alias",
     "manage-aliases": "Administrar Alias",
@@ -1423,8 +1447,8 @@
       "is-greater-than-or-equal-to": "es mayor que o igual a",
       "is-less-than": "es menor que",
       "is-less-than-or-equal-to": "es menor que o igual a",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "es anterior a",
+      "is-newer-than": "es más reciente que"
     },
     "relational-keywords": {
       "is": "es",
@@ -1436,7 +1460,7 @@
       "is-not-like": "no es como"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": ""
     }
   },
   "validators": {
@@ -1444,7 +1468,7 @@
     "invalid-email": "El email debe ser válido",
     "invalid-url": "Debe ser una URL válida",
     "no-whitespace": "No se permiten espacios en blanco",
-    "min-length": "Debe ser como mínimo {min} caracteres",
-    "max-length": "Debe ser como máximo {max} caracteres"
+    "min-length": "Debe tener como mínimo {min} caracteres",
+    "max-length": "Debe Ser Como Máximo {max} Carácter|Debe Ser Como Máximo {max} Caracteres"
   }
 }

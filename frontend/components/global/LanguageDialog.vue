@@ -1,6 +1,6 @@
 <template>
   <BaseDialog
-    v-model="dialog"
+    v-model="modelValue"
     :icon="$globals.icons.translate"
     :title="$t('language-dialog.choose-language')"
   >
@@ -43,50 +43,26 @@
   </BaseDialog>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
 
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Boolean,
-      required: true,
-    },
-  },
-  emits: ["update:modelValue"],
-  setup(props, { emit }) {
-    const dialog = computed({
-      get: () => props.modelValue,
-      set: value => emit("update:modelValue", value),
-    });
+const modelValue = defineModel<boolean>({ default: () => false });
 
-    const { locales: LOCALES, locale, i18n } = useLocales();
+const { locales: LOCALES, locale, i18n } = useLocales();
 
-    const selectedLocale = ref(locale.value);
-    const onLocaleSelect = (value: string) => {
-      if (value && locales.some(l => l.value === value)) {
-        locale.value = value as any;
-      }
-    };
+const selectedLocale = ref(locale.value);
+const onLocaleSelect = (value: string) => {
+  if (value && locales.some(l => l.value === value)) {
+    locale.value = value as any;
+  }
+};
 
-    watch(locale, () => {
-      dialog.value = false; // Close dialog when locale changes
-    });
-
-    const locales = LOCALES.filter(lc =>
-      i18n.locales.value.map(i18nLocale => i18nLocale.code).includes(lc.value as any),
-    );
-
-    return {
-      dialog,
-      i18n,
-      locales,
-      locale,
-      selectedLocale,
-      onLocaleSelect,
-      normalizeFilter,
-    };
-  },
+watch(locale, () => {
+  modelValue.value = false; // Close dialog when locale changes
 });
+
+const locales = LOCALES.filter(lc =>
+  i18n.locales.value.map(i18nLocale => i18nLocale.code).includes(lc.value as any),
+);
 </script>

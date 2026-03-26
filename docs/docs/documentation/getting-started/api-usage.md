@@ -79,8 +79,8 @@ This filter will find all foods that are not named "carrot": <br>
 ##### Keyword Filters
 The API supports many SQL keywords, such as `IS NULL` and `IN`, as well as their negations (e.g. `IS NOT NULL` and `NOT IN`).
 
-Here is an example of a filter that returns all recipes where the "last made" value is not null: <br>
-`lastMade IS NOT NULL`
+Here is an example of a filter that returns all shopping list items without a food: <br>
+`foodId IS NULL`
 
 This filter will find all recipes that don't start with the word "Test": <br>
 `name NOT LIKE "Test%"`

@@ -46,6 +46,30 @@ class NoEntryFound(Exception):
     pass
 
 
+class OpenAIServiceError(Exception):
+    """
+    This exception is raised when there is an error communicating with OpenAI services.
+    """
+
+    pass
+
+
+class RateLimitError(Exception):
+    """
+    This exception is raised when an external API returns a rate limit (429) error.
+    """
+
+    pass
+
+
+class VideoDownloadError(Exception):
+    """
+    This exception is raised when there is an error downloading or processing a video.
+    """
+
+    pass
+
+
 def mealie_registered_exceptions(t: Translator) -> dict:
     """
     This function returns a dictionary of all the globally registered exceptions in the Mealie application.

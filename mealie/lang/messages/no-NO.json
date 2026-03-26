@@ -17,6 +17,18 @@
             "servings": "porsjoner",
             "yield": "Gir",
             "yields": "Gir"
+        },
+        "and-amount": "og {amount}",
+        "or-ingredient": "eller {ingredient}",
+        "create-progress": {
+            "creating-recipe-with-ai": "Oppretter oppskrift med AI...",
+            "creating-recipe-from-transcript-with-ai": "Oppretter oppskrift fra transkribering med AI...",
+            "creating-recipe-from-webpage-data": "Oppretter oppskrift fra nettsidedata...",
+            "downloading-image": "Laster ned bilde...",
+            "downloading-video": "Laster ned video...",
+            "extracting-recipe-data": "Henter ut oppskriftsdata...",
+            "fetching-webpage": "Henter nettside...",
+            "transcribing-audio-with-ai": "Forskriver lyd med AI..."
         }
     },
     "mealplan": {

@@ -17,6 +17,18 @@
             "servings": "Annosta",
             "yield": "Tuotto",
             "yields": "Tuottaa"
+        },
+        "and-amount": "ja {amount}",
+        "or-ingredient": "tai {ingredient}",
+        "create-progress": {
+            "creating-recipe-with-ai": "Luodaan reseptiä AI:lla...",
+            "creating-recipe-from-transcript-with-ai": "Luodaan reseptiä transkriptistä AI:lla...",
+            "creating-recipe-from-webpage-data": "Luodaan reseptiä verkkosivun tiedoista...",
+            "downloading-image": "Ladataan kuvaa...",
+            "downloading-video": "Ladataan videota...",
+            "extracting-recipe-data": "Puretaan reseptitietoja...",
+            "fetching-webpage": "Haetaan verkkosivua...",
+            "transcribing-audio-with-ai": "Transkriptataan ääntä AI:lla..."
         }
     },
     "mealplan": {
