@@ -80,6 +80,7 @@ jobs:
             const label = "needs-template-fix";
 
             if (missing.length > 0) {
+              console.log(`Missing headings: ${missing.join(", ")}`);
               await github.rest.issues.addLabels({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -87,6 +88,7 @@ jobs:
                 labels: [label],
               });
             } else {
+              console.log("All required headings present");
               try {
                 await github.rest.issues.removeLabel({
                   owner: context.repo.owner,
