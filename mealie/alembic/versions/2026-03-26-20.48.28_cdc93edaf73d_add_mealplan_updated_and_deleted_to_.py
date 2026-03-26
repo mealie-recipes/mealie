@@ -1,8 +1,8 @@
 """'Add mealplan updated and deleted to group notifier options'
 
 Revision ID: cdc93edaf73d
-Revises: 1d9a002d7234
-Create Date: 2026-02-04 20:48:28.584661
+Revises: a39c7f1826e3
+Create Date: 2026-03-26 20:48:28.584661
 
 """
 
@@ -11,7 +11,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "cdc93edaf73d"
-down_revision: str | None = "1d9a002d7234"
+down_revision: str | None = "a39c7f1826e3"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
 
