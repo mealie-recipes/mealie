@@ -14,7 +14,7 @@ dependencies = [
     "alembic==1.18.4",
     "aniso8601==10.0.1",
     "appdirs==1.4.4",
-    "apprise==1.9.8",
+    "apprise==1.9.9",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
     "fastapi==0.135.1",
@@ -29,7 +29,7 @@ dependencies = [
     "python-multipart==0.0.22",
     "python-slugify==8.0.4",
     "recipe-scrapers==15.11.0",
-    "requests==2.32.5",
+    "requests==2.33.0",
     "tzdata==2025.3",
     "uvicorn[standard]==0.42.0",
     "beautifulsoup4==4.14.3",
@@ -46,8 +46,8 @@ dependencies = [
     "typing-extensions==4.15.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.3.17",
-    "ingredient-parser-nlp==2.5.0",
-    "pint==0.25.2",
+    "ingredient-parser-nlp==2.6.0",
+    "pint==0.25.3",
     "httpx-curl-cffi==0.1.5",
 ]
 

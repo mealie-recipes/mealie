@@ -463,6 +463,24 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
+    def _remove_non_existent_ingredient_references(self, update_data: Recipe) -> Recipe:
+        """Removes the references of ingredients from steps that no longer exist."""
+
+        current_ingredient_reference_ids = set()  # set of current ingredient(s) reference id's
+        for ingredient in update_data.recipe_ingredient:
+            current_ingredient_reference_ids.add(ingredient.reference_id)
+
+        recipe_instructions = update_data.recipe_instructions
+        if recipe_instructions is not None:
+            for instruction in recipe_instructions:
+                instruction.ingredient_references = [
+                    ref
+                    for ref in instruction.ingredient_references
+                    if ref.reference_id in current_ingredient_reference_ids
+                ]
+
+        return update_data
+
     def _resolve_ingredient_sub_recipes(self, update_data: Recipe) -> Recipe:
         """Resolve all referenced_recipe slugs to IDs within the current group."""
         if not update_data.recipe_ingredient:
@@ -488,7 +506,7 @@ class RecipeService(RecipeServiceBase):
     def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug_or_id, update_data)
 
-        # Resolve sub-recipe references before passing to repository
+        update_data = self._remove_non_existent_ingredient_references(update_data)
         update_data = self._resolve_ingredient_sub_recipes(update_data)
 
         new_data = self.group_recipes.update(recipe.slug, update_data)

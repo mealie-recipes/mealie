@@ -1127,6 +1127,66 @@ def test_sub_recipe_not_found_in_other_group(api_client: TestClient, unique_user
     assert response.json()["detail"]["message"] == "No Entry Found"
 
 
+def test_update_with_non_existent_ingredient_references(api_client: TestClient, unique_user: TestUser):
+    """Test that the non-existent ingredient references are removed"""
+
+    database = unique_user.repos
+
+    # Create a food
+    food = database.ingredient_foods.create(
+        SaveIngredientFood(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+        )
+    )
+
+    # Create a recipe_a
+    recipe_a: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="", food=food),
+            ],
+        )
+    )
+
+    recipe_url = api_routes.recipes_slug(recipe_a.slug)
+    response = api_client.get(recipe_url, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_data = json.loads(response.text)
+
+    """
+        Updating the recipe with some references of non-exisitent ingredient(s),
+        mimicking the behaviour observed from the screen
+    """
+    food_ingredient_ref_id = recipe_data["recipeIngredient"][0]["referenceId"]
+    recipe_data["recipeInstructions"].append(
+        {
+            "title": "Step One",
+            "text": "Mash the Peas to form a paste.",
+            "ingredientReferences": [
+                {"referenceId": food_ingredient_ref_id},
+                {"referenceId": "5fb334fe-00b7-43d6-bb75-355977852543"},
+            ],
+        }
+    )
+
+    # Call the put API end point
+    response = api_client.put(recipe_url, json=recipe_data, headers=unique_user.token)
+    assert response.status_code == 200
+    recipe_data = json.loads(response.text)
+
+    """
+        Assert the result to verify that the resulting recipe instruction has reference
+        to only valid id i.e. food_ingredient_ref_id
+    """
+    step_one_ingr_refs = recipe_data["recipeInstructions"][0]["ingredientReferences"]
+    assert len(step_one_ingr_refs) == 1
+    assert step_one_ingr_refs[0]["referenceId"] == food_ingredient_ref_id
+
+
 def test_duplicate(api_client: TestClient, unique_user: TestUser):
     recipe_data = recipe_test_data[0]
 
