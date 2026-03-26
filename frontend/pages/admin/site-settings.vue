@@ -159,30 +159,30 @@
 
     <!-- Site Statistics -->
     <section>
-      <BaseCardSectionTitle
-        class="pb-0"
+    <BaseCardSectionTitle
+        class="pt-2"
         :icon="$globals.icons.chart"
         :title="$t('settings.site-statistics')"
-      />
-        <div
-          class="d-flex flex-wrap justify-center align-center"
-          style="gap: 0.8rem"
+    />
+    <div
+        class="d-flex flex-wrap justify-center align-center"
+        style="gap: 0.8rem"
+    >
+        <StatsCards
+        v-for="(value, key) in adminStats"
+        :key="`${key}-${value}`"
+        :min-width="$vuetify.display.xs ? '100%' : '158'"
+        :icon="getAdminStatsIcon(key)"
+        :to="getAdminStatsTo(key)"
         >
-          <StatsCards
-            v-for="(value, key) in adminStats"
-            :key="`${key}-${value}`"
-            :min-width="$vuetify.display.xs ? '100%' : '158'"
-            :icon="getAdminStatsIcon(key)"
-            :to="getAdminStatsTo(key)"
-          >
-            <template #title>
-              {{ getAdminStatsTitle(key) }}
-            </template>
-            <template #value>
-              {{ value }}
-            </template>
-          </StatsCards>
-        </div>
+        <template #title>
+            {{ getAdminStatsTitle(key) }}
+        </template>
+        <template #value>
+            {{ value }}
+        </template>
+        </StatsCards>
+    </div>
     </section>
 
     <!-- General App Info -->
