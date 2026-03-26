@@ -3,7 +3,7 @@ name: Pull Request Linter
 on:
   workflow_call:
   pull_request:
-    types: [opened, edited, reopened] # This captures the PR title changing
+    types: [edited, reopened] # This captures the PR title changing
     branches:
       - mealie-next
 
