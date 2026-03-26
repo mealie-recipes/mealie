@@ -230,6 +230,28 @@ class RecipeScraperPackage(ABCScraperStrategy):
             except TypeError:
                 return []
 
+        def get_notes() -> list[RecipeNote]:
+            """Extract notes from schema.org recipe data and convert to RecipeNote objects"""
+            notes_data = try_get_default(None, "notes", None)
+
+            if not notes_data or not isinstance(notes_data, list):
+                return []
+
+            cleaned_notes = []
+            for note in notes_data:
+                if not isinstance(note, dict):
+                    continue
+
+                if text := note.get("text"):
+                    cleaned_notes.append(
+                        RecipeNote(
+                            title=cleaner.clean_string(note.get("title", "")),
+                            text=cleaner.clean_string(text),
+                        )
+                    )
+
+            return cleaned_notes
+
         cook_time = try_get_default(
             None, "performTime", None, cleaner.clean_time, translator=self.translator
         ) or try_get_default(scraped_data.cook_time, "cookTime", None, cleaner.clean_time, translator=self.translator)
@@ -261,6 +283,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
             ),
             perform_time=cook_time,
             org_url=url or try_get_default(None, "url", None, cleaner.clean_string),
+            notes=get_notes(),
         )
 
         return recipe, extras
