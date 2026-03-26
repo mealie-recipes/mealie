@@ -134,7 +134,13 @@
     },
     "pinch": {
         "name": "knivspids",
-        "plural_name": "knivspidse",
+        "plural_name": "knivspidser",
+        "description": "",
+        "abbreviation": ""
+    },
+    "sprig": {
+        "name": "kvist",
+        "plural_name": "kviste",
         "description": "",
         "abbreviation": ""
     }

@@ -212,6 +212,8 @@
     "upload-file": "上传文件",
     "created-on-date": "创建于: {0}",
     "unsaved-changes": "你有未保存的更改。你希望现在离开前保存吗？保存选择“是”，不保存选择“取消”。",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "未能复制到剪切板。",
     "confirm-delete-generic-items": "你确定删除以下条目吗？",
     "organizers": "管理器",
@@ -367,7 +369,9 @@
     "recipe-rules": "食谱规则",
     "applies-to-all-days": "应用到所有日期",
     "applies-on-days": "应用于{0}",
-    "meal-plan-settings": "饮食计划设置"
+    "meal-plan-settings": "饮食计划设置",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "已删除迁移数据",
@@ -632,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "通过名称创建食谱，食谱不可重名。",
     "new-recipe-names-must-be-unique": "新食谱名必须唯一",
     "scrape-recipe": "刮削食谱",
-    "scrape-recipe-description": "通过URL刮削食谱。提供你想要刮削网址的URL，Mealie会尝试从该网址刮削食谱并添加到你的收藏中。",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "你想要一次刮削多个食谱吗？",
     "scrape-recipe-suggest-bulk-importer": "试试批量导入器",
     "scrape-recipe-have-raw-html-or-json-data": "有原始 HTML 或 JSON 数据？",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Website being blocked?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "导入原始关键字作为标签",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "留在编辑模式",
     "parse-recipe-ingredients-after-import": "导入后解析食材",
     "import-from-zip": "从Zip压缩包导入",
@@ -883,14 +889,17 @@
     "server-side-base-url-error-text": "环境变量“BASE_URL“仍是API服务器上的默认值。这可能造成服务器自动发送的邮件所包含的通知链接不可用等问题。",
     "server-side-base-url-success-text": "已配置服务器端URL",
     "ldap-ready": "LDAP 已就绪",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "某些LDAP环境变量尚未配置。（如果你不使用LDAP验证可以忽略该报错）",
     "ldap-ready-success-text": "LDAP所需的环境变量均已配置。",
     "build": "构建",
     "recipe-scraper-version": "食谱刮削器版本",
     "oidc-ready": "OIDC 已就绪",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "某些OIDC环境变量尚未配置。（如果你不使用OIDC验证可以忽略该报错）",
     "oidc-ready-success-text": "OIDC所需的环境变量均已配置。",
     "openai-ready": "OpenAI 准备好了",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "并非所有的 OpenAI 值都已配置。如果您不使用 OpenAI 功能，这将被忽略。",
     "openai-ready-success-text": "所需的 OpenAI 变量已全部设置。"
   },
@@ -898,6 +907,7 @@
     "all-lists": "所有购物清单",
     "create-shopping-list": "创建购物清单",
     "from-recipe": "从食谱创建",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "购物清单名称",
     "new-list": "创建购物清单",
     "quantity": "数量: {0} 个",
@@ -1129,7 +1139,22 @@
       "example-unit-singular": "例如：茶匙",
       "example-unit-plural": "中文用户可忽略",
       "example-unit-abbreviation-singular": "例如：勺",
-      "example-unit-abbreviation-plural": "中文用户可忽略"
+      "example-unit-abbreviation-plural": "中文用户可忽略",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "基于你的本地语言，将一些常见标注添加到数据库。",
@@ -1163,7 +1188,11 @@
       "recipe-actions-data": "食谱行为数据",
       "new-recipe-action": "新建食谱行为",
       "edit-recipe-action": "编辑食谱行为",
-      "action-type": "行为种类"
+      "action-type": "行为种类",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "创建别名",
     "manage-aliases": "管理别名",
@@ -1417,7 +1446,9 @@
       "is-greater-than": "大于",
       "is-greater-than-or-equal-to": "大于等于",
       "is-less-than": "小于",
-      "is-less-than-or-equal-to": "小于等于"
+      "is-less-than-or-equal-to": "小于等于",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "是",
@@ -1427,6 +1458,9 @@
       "contains-all-of": "包含所有",
       "is-like": "匹配",
       "is-not-like": "不匹配"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
@@ -1435,6 +1469,6 @@
     "invalid-url": "Must Be A Valid URL",
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

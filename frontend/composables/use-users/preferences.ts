@@ -1,7 +1,7 @@
 import { useLocalStorage, useSessionStorage } from "@vueuse/core";
 import { ActivityKey } from "~/lib/api/types/activity";
 import type { RegisteredParser, TimelineEventType } from "~/lib/api/types/recipe";
-import type { QueryFilterJSON } from "~/lib/api/types/response";
+import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
 
 export interface UserPrintPreferences {
   imagePosition: string;
@@ -63,6 +63,7 @@ export interface UserRecipeFinderPreferences {
 
 export interface UserRecipeCreatePreferences {
   importKeywordsAsTags: boolean;
+  importCategories: boolean;
   stayInEditMode: boolean;
   parseRecipe: boolean;
 }
@@ -233,6 +234,7 @@ export function useRecipeCreatePreferences(): Ref<UserRecipeCreatePreferences> {
     "recipe-create-preferences",
     {
       importKeywordsAsTags: false,
+      importCategories: false,
       stayInEditMode: false,
       parseRecipe: true,
     },

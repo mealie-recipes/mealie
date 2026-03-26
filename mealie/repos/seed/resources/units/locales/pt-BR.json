@@ -137,5 +137,11 @@
         "plural_name": "pitadas",
         "description": "",
         "abbreviation": ""
+    },
+    "sprig": {
+        "name": "ramo",
+        "plural_name": "ramos",
+        "description": "",
+        "abbreviation": ""
     }
 }

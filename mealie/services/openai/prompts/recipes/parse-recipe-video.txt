@@ -1,0 +1,7 @@
+You will receive a video transcript and the video's original caption text. Analyze BOTH inputs to generate a single, accurate recipe in schema.org Recipe format. Reference: https://schema.org/Recipe
+
+Do not create or make up any information. If insufficient data is found, return an empty object.
+
+- The video transcript is the primary source for instructions.
+- The caption text is the primary source for the ingredient list and title.
+- If there is a conflict (e.g., caption says "1 cup" but transcript says "1.5 cups"), trust the video transcript.

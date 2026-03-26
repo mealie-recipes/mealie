@@ -119,10 +119,10 @@ whenever(
 );
 
 const i18n = useI18n();
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const { household } = useHouseholdSelf();
 const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const firstDayOfWeek = computed(() => {
   return household.value?.preferences?.firstDayOfWeek || 0;

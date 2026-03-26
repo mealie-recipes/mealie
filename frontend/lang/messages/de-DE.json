@@ -69,7 +69,7 @@
     "new-notification": "Neue Benachrichtigung",
     "event-notifiers": "Ereignis-Benachrichtigungen",
     "apprise-url-skipped-if-blank": "Apprise-URL (wird übersprungen, wenn leer)",
-    "apprise-url-is-left-intentionally-blank": "Da Apprise-URLs normalerweise sensible Informationen enthalten, wird dieses Feld während der Bearbeitung absichtlich leer gelassen. Wenn Sie die URL aktualisieren möchten, geben Sie hier die neue ein. Andernfalls lassen Sie diese leer, um die aktuelle URL zu behalten.",
+    "apprise-url-is-left-intentionally-blank": "Da Apprise-URLs normalerweise sensible Informationen enthalten, wird dieses Feld während der Bearbeitung absichtlich leer gelassen. Wenn du die URL aktualisieren möchtest, gib hier die neue ein. Andernfalls lasse diese leer, um die aktuelle URL zu behalten.",
     "enable-notifier": "Benachrichtigen aktivieren",
     "what-events": "Welche Ereignisse soll diese Benachrichtigung abonnieren?",
     "user-events": "Benutzer-Ereignisse",
@@ -212,6 +212,8 @@
     "upload-file": "Datei hochladen",
     "created-on-date": "Erstellt am: {0}",
     "unsaved-changes": "Du hast ungespeicherte Änderungen. Möchtest du vor dem Verlassen speichern? OK um zu speichern, Cancel um Änderungen zu verwerfen.",
+    "discard-changes": "Änderungen verwerfen",
+    "discard-changes-description": "Du hast ungespeicherte Änderungen. Bist du sicher, dass du sie verwerfen möchtest?",
     "clipboard-copy-failure": "Fehler beim Kopieren in die Zwischenablage.",
     "confirm-delete-generic-items": "Bist du dir sicher, dass du die folgenden Einträge löschen möchtest?",
     "organizers": "Organisieren",
@@ -279,7 +281,7 @@
     "admin-group-management-text": "Änderungen an dieser Gruppe sind sofort wirksam.",
     "group-id-value": "Gruppen ID: {0}",
     "total-households": "Haushalte insgesamt",
-    "you-must-select-a-group-before-selecting-a-household": "Sie müssen eine Gruppe auswählen, bevor Sie einen Haushalt auswählen"
+    "you-must-select-a-group-before-selecting-a-household": "Du musst eine Gruppe auswählen, bevor du einen Haushalt auswählst"
   },
   "household": {
     "household": "Haushalt",
@@ -367,7 +369,9 @@
     "recipe-rules": "Rezeptregeln",
     "applies-to-all-days": "Gilt an allen Tagen",
     "applies-on-days": "Gilt {0}s",
-    "meal-plan-settings": "Essensplan Einstellungen"
+    "meal-plan-settings": "Essensplan Einstellungen",
+    "add-all-to-list": "Alle zur Einkaufsliste hinzufügen",
+    "add-day-to-list": "Tag zur Einkaufsliste hinzufügen"
   },
   "migration": {
     "migration-data-removed": "Migrationsdaten entfernt",
@@ -403,7 +407,7 @@
       "title": "Tandoor Rezepte"
     },
     "cookn": {
-      "description-long": "Mealie kann Rezepte von DVO Cook'n X3 importieren. Exportieren Sie ein Kochbuch oder ein Menü im \"Cook'n\"-Format, benennen Sie die Export-Erweiterung in .zip um, dann laden Sie die .zip unten hoch.",
+      "description-long": "Mealie kann Rezepte von DVO Cook'n X3 importieren. Exportiere ein Kochbuch oder ein Menü im \"Cook'n\"-Format, benenne die Export-Erweiterung in .zip um, dann lade die .zip unten hoch.",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Rezeptdatenmigration",
@@ -445,7 +449,7 @@
     "upload-a-recipe": "Rezept hochladen",
     "upload-individual-zip-file": "Lade eine individuelle .zip-Datei hoch, die von einer anderen Mealie-Instanz exportiert wird.",
     "url-form-hint": "Kopiere einen Link von deiner Lieblingsrezept-Website und füge ihn ein",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Kopieren und fügen Sie die Quell-URL Ihrer Daten ein (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Kopiere und füge die Quell-URL deiner Daten ein (optional)",
     "view-scraped-data": "Gesammelte Daten anzeigen",
     "trim-whitespace-description": "Leerzeichen am Anfang und Ende sowie leere Zeilen entfernen",
     "trim-prefix-description": "Erste Zeichen aus jeder Zeile entfernen",
@@ -522,7 +526,7 @@
     "recipe-image": "Rezeptbild",
     "recipe-image-updated": "Rezeptbild aktualisiert",
     "delete-image": "Rezeptbild löschen",
-    "delete-image-confirmation": "Bist du dir sicher, dass du dieses Rezept löschen möchtest?",
+    "delete-image-confirmation": "Bist du dir sicher, dass du dieses Rezeptbild löschen möchtest?",
     "recipe-image-deleted": "Rezeptbild gelöscht",
     "recipe-name": "Rezeptname",
     "recipe-settings": "Rezepteinstellungen",
@@ -633,13 +637,15 @@
     "new-recipe-names-must-be-unique": "Neue Rezeptnamen müssen eindeutig sein",
     "scrape-recipe": "Rezept einlesen",
     "scrape-recipe-description": "Importiere ein Rezept mit der URL. Gib die URL für die Seite an, die du importieren möchtest und Mealie wird versuchen, das Rezept von dieser Seite einzulesen und deiner Sammlung hinzuzufügen.",
+    "scrape-recipe-description-transcription": "Sie können die Url zu einem Video weitergeben und Mealie wird versuchen, dieses in ein Rezept zu übertragen.",
     "scrape-recipe-have-a-lot-of-recipes": "Hast Du viele Rezepte, die Du auf einmal einlesen willst?",
     "scrape-recipe-suggest-bulk-importer": "Probiere den Massenimporter aus",
     "scrape-recipe-have-raw-html-or-json-data": "Hast du Roh-HTML oder JSON Daten?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kannst direkt von Rohdaten importieren",
     "scrape-recipe-website-being-blocked": "Die Website wird blockiert?",
-    "scrape-recipe-try-importing-raw-html-instead": "Versuchen Sie stattdessen das reine HTML zu importieren.",
+    "scrape-recipe-try-importing-raw-html-instead": "Versuche stattdessen das reine HTML zu importieren.",
     "import-original-keywords-as-tags": "Importiere ursprüngliche Stichwörter als Schlagwörter",
+    "import-original-categories": "Importiere ursprüngliche Kategorien",
     "stay-in-edit-mode": "Im Bearbeitungsmodus bleiben",
     "parse-recipe-ingredients-after-import": "Zutaten nach dem Import parsen",
     "import-from-zip": "Von Zip importieren",
@@ -765,7 +771,7 @@
       "backup-restore": "Wiederherstellen aus Sicherung",
       "back-restore-description": "Das Wiederherstellen dieser Sicherung wird alle vorhandenen Daten in deiner Datenbank und im Datenverzeichnis überschreiben und durch den Inhalt dieser Sicherung ersetzen. {cannot-be-undone} Wenn die Wiederherstellung erfolgreich war, wirst du abgemeldet.",
       "cannot-be-undone": "Diese Aktion kann nicht rückgängig gemacht werden - verwende sie mit Vorsicht.",
-      "postgresql-note": "Falls Sie PostgreSQL verwenden, überprüfen Sie bitte den {backup-restore-process} vor dem Wiederherstellen.",
+      "postgresql-note": "Falls du PostgreSQL verwendest, überprüfe bitte den {backup-restore-process} vor dem Wiederherstellen.",
       "backup-restore-process-in-the-documentation": "Sichern- und Wiederherstellen-Prozess in der Dokumentation",
       "irreversible-acknowledgment": "Ich verstehe, dass diese Maßnahme unumkehrbar und destruktiv ist und Datenverlust verursachen kann",
       "restore-backup": "Sicherung wiederherstellen"
@@ -883,14 +889,17 @@
     "server-side-base-url-error-text": "`BASE_URL` ist immer noch der Standardwert auf dem API-Server. Das verursacht Probleme mit Benachrichtigungslinks auf dem Server für E-Mails, etc.",
     "server-side-base-url-success-text": "Serverseitige URL entspricht nicht der Standardeinstellung",
     "ldap-ready": "LDAP bereit",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Es sind nicht alle LDAP-Werte konfiguriert. Wenn du keine LDAP-Authentifizierung benutzt, kannst du das ignorieren.",
     "ldap-ready-success-text": "Alle erforderlichen LDAP-Variablen sind hinterlegt.",
     "build": "Build",
     "recipe-scraper-version": "Rezept Scraper Version",
     "oidc-ready": "OIDC bereit",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Es sind nicht alle OIDC-Werte konfiguriert. Wenn du keine OIDC-Authentifizierung benutzt, kannst du das ignorieren.",
     "oidc-ready-success-text": "Alle erforderlichen OIDC-Variablen sind gesetzt.",
     "openai-ready": "OpenAI bereit",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Es sind nicht alle OpenAI-Werte konfiguriert. Wenn du die OpenAI Funktionen nicht benutzt, kannst du das ignorieren.",
     "openai-ready-success-text": "Alle erforderlichen OpenAI-Variablen sind hinterlegt."
   },
@@ -898,6 +907,7 @@
     "all-lists": "Alle Listen",
     "create-shopping-list": "Einkaufsliste erstellen",
     "from-recipe": "Vom Rezept",
+    "ingredient-of-recipe": "Zutat von {recipe}",
     "list-name": "Listenname",
     "new-list": "Neue Liste",
     "quantity": "Menge: {0}",
@@ -1082,7 +1092,7 @@
     "forgot-password-text": "Bitte gib Deine E-Mail-Adresse ein. Wir werden Dir eine E-Mail zusenden, damit Du Dein Passwort zurücksetzen kannst.",
     "changes-reflected-immediately": "Änderungen an diesem Benutzer sind sofort wirksam.",
     "default-activity": "Standardaktivität",
-    "default-activity-hint": "Wählen Sie die Seite, auf die Sie navigieren möchten, wenn Sie sich von diesem Gerät aus anmelden"
+    "default-activity-hint": "Wähle die Seite, auf die du navigieren möchtest, wenn du dich von diesem Gerät aus anmeldest"
   },
   "language-dialog": {
     "translated": "übersetzt",
@@ -1096,7 +1106,7 @@
       "merge-dialog-text": "Zusammenführen der ausgewählten Lebensmittel führt diese zusammen in ein einzelnes Lebensmittel. Die Ausgangslebensmittel werden gelöscht und alle Verweise werden auf das zusammengeführte Lebensmittel angepasst.",
       "merge-food-example": "{food1} wird zu {food2} zusammengeführt",
       "seed-dialog-text": "Füllt die Datenbank mit Lebensmitteln basierend auf deiner Landessprache. Hierdurch werden mehr als 200 gängige Lebensmittel eingetragen, die verwendet werden können, um die Datenbank zu organisieren. Die Lebensmittel werden von der Community übersetzt.",
-      "seed-dialog-warning": "Sie haben bereits einige Einträge in der Datenbank. Diese Aktion wird Doppelungen nicht berücksichtigen. Sie müssen diese selbst beheben.",
+      "seed-dialog-warning": "Du hast bereits einige Einträge in der Datenbank. Diese Aktion wird Doppelungen nicht berücksichtigen. Du musst diese selbst beheben.",
       "combine-food": "Lebensmittel zusammenführen",
       "source-food": "Quell-Lebensmittel",
       "target-food": "Ziel-Lebensmittel",
@@ -1129,13 +1139,28 @@
       "example-unit-singular": "z.B. gehäufter Teelöffel",
       "example-unit-plural": "z.B. gehäufte Teelöffel",
       "example-unit-abbreviation-singular": "z.B. EL",
-      "example-unit-abbreviation-plural": "z.B. EL"
+      "example-unit-abbreviation-plural": "z.B. EL",
+      "standardization": "Standardisierung",
+      "standardization-description": "Wie diese Einheit als Standardeinheit dargestellt werden kann. Dies ermöglicht die Umwandlung von Einheiten wie das Zusammenführen kompatibler Einheiten in Einkaufslisten.",
+      "standard-unit": "Standardeinheit",
+      "standard-quantity": "Standardmenge",
+      "unit-conversion": "Einheiten-Konvertierung",
+      "standard-unit-labels": {
+        "fluid-ounce": "Flüssigunze",
+        "cup": "Tasse",
+        "ounce": "Unze",
+        "pound": "Pfund",
+        "milliliter": "Milliliter",
+        "liter": "Liter",
+        "gram": "Gramm",
+        "kilogram": "Kilogramm"
+      }
     },
     "labels": {
       "seed-dialog-text": "Füllt die Datenbank mit gängigen Kategorien basierend auf deiner Sprache.",
       "edit-label": "Kategorie bearbeiten",
       "new-label": "Neue Kategorie",
-      "labels": "Kategorien",
+      "labels": "Bezeichnungen",
       "assign-label": "Kategorie zuweisen"
     },
     "recipes": {
@@ -1163,7 +1188,11 @@
       "recipe-actions-data": "Rezept-Aktionen Daten",
       "new-recipe-action": "Neue Rezept-Aktion",
       "edit-recipe-action": "Rezept-Aktion bearbeiten",
-      "action-type": "Aktionstyp"
+      "action-type": "Aktionstyp",
+      "action-types": {
+        "link": "Link",
+        "post": "Posten"
+      }
     },
     "create-alias": "Alias erstellen",
     "manage-aliases": "Aliasse verwalten",
@@ -1417,7 +1446,9 @@
       "is-greater-than": "ist größer als",
       "is-greater-than-or-equal-to": "ist größer gleich",
       "is-less-than": "ist weniger als",
-      "is-less-than-or-equal-to": "ist kleiner gleich"
+      "is-less-than-or-equal-to": "ist kleiner gleich",
+      "is-older-than": "Ist älter als",
+      "is-newer-than": "Ist neuer als"
     },
     "relational-keywords": {
       "is": "ist",
@@ -1427,6 +1458,9 @@
       "contains-all-of": "enthält alle",
       "is-like": "ist wie",
       "is-not-like": "ist nicht wie"
+    },
+    "dates": {
+      "days-ago": "vor Tagen|vor Tag|vor Tagen"
     }
   },
   "validators": {
@@ -1435,6 +1469,6 @@
     "invalid-url": "Muss eine gültige URL sein",
     "no-whitespace": "Kein Leerzeichen erlaubt",
     "min-length": "Muss mindestens {min} Zeichen haben",
-    "max-length": "Darf mindestens {max} Zeichen haben"
+    "max-length": "Muss maximal {max} Zeichen haben|Muss maximal {max} Zeichen haben"
   }
 }

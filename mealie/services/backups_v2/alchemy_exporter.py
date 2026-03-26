@@ -239,6 +239,10 @@ class AlchemyExporter(BaseService):
                     )
                     connection.execute(text(dedent(sql)))
 
+        # Dispose this exporter's engine to release connections back to the database.
+        # This prevents connection pool exhaustion when init_db.main() needs connections.
+        self.engine.dispose()
+
         # Re-init database to finish migrations
         init_db.main()
 

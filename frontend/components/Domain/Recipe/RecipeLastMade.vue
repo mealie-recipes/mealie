@@ -159,7 +159,7 @@ const madeThisDialog = ref(false);
 const userApi = useUserApi();
 const { household } = useHouseholdSelf();
 const i18n = useI18n();
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const domMadeThisForm = ref<VForm>();
 const newTimelineEvent = ref<RecipeTimelineEventIn>({
   subject: "",
@@ -179,7 +179,7 @@ const newTimelineEventTimestampString = computed(() => {
 const lastMade = ref(props.recipe.lastMade);
 const lastMadeReady = ref(false);
 onMounted(async () => {
-  if (!$auth.user?.value?.householdSlug) {
+  if (!auth.user?.value?.householdSlug) {
     lastMade.value = props.recipe.lastMade;
   }
   else {
@@ -255,8 +255,8 @@ async function createTimelineEvent() {
   madeThisFormLoading.value = true;
 
   newTimelineEvent.value.recipeId = props.recipe.id;
-  // Note: $auth.user is now a ref
-  newTimelineEvent.value.subject = i18n.t("recipe.user-made-this", { user: $auth.user.value?.fullName });
+  // Note: auth.user is now a ref
+  newTimelineEvent.value.subject = i18n.t("recipe.user-made-this", { user: auth.user.value?.fullName });
 
   // the user only selects the date, so we set the time to end of day local time
   // we choose the end of day so it always comes after "new recipe" events

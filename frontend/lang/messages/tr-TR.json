@@ -212,6 +212,8 @@
     "upload-file": "Dosya Yükle",
     "created-on-date": "{0} tarihinde oluşturuldu",
     "unsaved-changes": "Kaydedilmemiş değişiklikleriniz mevcut. Ayrılmadan önce kaydetmek ister misiniz? Kaydetmek için Tamam'ı, değişiklikleri iptal etmek için İptal'i seçin.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Panoya kopyalanamadı.",
     "confirm-delete-generic-items": "Aşağıdaki öğeleri silmek istediğinizden emin misiniz?",
     "organizers": "Organizatörler",
@@ -367,7 +369,9 @@
     "recipe-rules": "Tarif Kuralları",
     "applies-to-all-days": "Tüm günler için geçerlidir",
     "applies-on-days": "{0} günlerine geçerlidir",
-    "meal-plan-settings": "Öğün Planı Ayarları"
+    "meal-plan-settings": "Öğün Planı Ayarları",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Taşıma verileri kaldırıldı",
@@ -632,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Oluşturmak için tarifi adlandırın. Tüm tariflerin benzersiz adları olmalı.",
     "new-recipe-names-must-be-unique": "Yeni tarif ismi benzersiz olmalı",
     "scrape-recipe": "Tarifi Kazı",
-    "scrape-recipe-description": "Url'den bir tarif kazıyın. Kazımak istediğiniz sitenin url'sini verin ve Mealie, tarifi o siteden alıp koleksiyonunuza eklemeye çalışacaktır.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Aynı anda kazımak istediğiniz birçok tarifiniz mi var?",
     "scrape-recipe-suggest-bulk-importer": "Toplu ithalatçıyı deneyin",
     "scrape-recipe-have-raw-html-or-json-data": "Ham HTML veya JSON verileriniz mi var?",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Web sitesi engelleniyor?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "Orijinal anahtar kelimeleri etiket olarak içe aktar",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Düzenleme modunda kalın",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "Zip'ten içeri aktar",
@@ -883,14 +889,17 @@
     "server-side-base-url-error-text": "\"BASE_URL\", API Sunucusunda hala varsayılan değerdir. Bu, e-postalar vb. için sunucuda oluşturulan bildirim bağlantılarında sorunlara neden olacaktır.",
     "server-side-base-url-success-text": "Sunucu Tarafı URL'si varsayılanla eşleşmiyor",
     "ldap-ready": "LDAP Hazır",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "LDAP Değerlerinin tümü yapılandırılmamış. LDAP Kimlik Doğrulamasını kullanmıyorsanız bu göz ardı edilebilir.",
     "ldap-ready-success-text": "Gerekli LDAP değişkenlerinin tümü ayarlanmıştır.",
     "build": "Yapı",
     "recipe-scraper-version": "Tarif Kazıyıcı Sürümü",
     "oidc-ready": "OIDC Hazır",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Tüm OIDC Değerleri yapılandırılmamıştır. OIDC Kimlik Doğrulamasını kullanmıyorsanız bu göz ardı edilebilir.",
     "oidc-ready-success-text": "Gerekli OIDC değişkenlerinin tümü ayarlanmıştır.",
     "openai-ready": "OpenAI Hazır",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "OpenAI Değerlerinin tümü yapılandırılmamış. OpenAI özelliklerini kullanmıyorsanız bu göz ardı edilebilir.",
     "openai-ready-success-text": "Gerekli OpenAI değişkenlerinin tümü ayarlanmıştır."
   },
@@ -898,6 +907,7 @@
     "all-lists": "Tüm Listeler",
     "create-shopping-list": "Alışveriş Listesi Oluştur",
     "from-recipe": "Tariften",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Liste Adı",
     "new-list": "Yeni Liste",
     "quantity": "Miktar: {0}",
@@ -1129,7 +1139,22 @@
       "example-unit-singular": "örn: Yemek kaşığı",
       "example-unit-plural": "örn: Yemek kaşığı",
       "example-unit-abbreviation-singular": "örn: Yk",
-      "example-unit-abbreviation-plural": "örn: Yk"
+      "example-unit-abbreviation-plural": "örn: Yk",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Veritabanını yerel dilinize göre yaygın etiketlerle tohumlayın.",
@@ -1163,7 +1188,11 @@
       "recipe-actions-data": "Tarif İşlemleri Verisi",
       "new-recipe-action": "Yeni Tarif İşlemi",
       "edit-recipe-action": "Tarif İşlemini Düzenle",
-      "action-type": "İşlem Türü"
+      "action-type": "İşlem Türü",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Takma Ad Oluştur",
     "manage-aliases": "Takma Adları Yönet",
@@ -1417,7 +1446,9 @@
       "is-greater-than": "daha büyük",
       "is-greater-than-or-equal-to": "daha büyük veya eşit",
       "is-less-than": "daha mı az",
-      "is-less-than-or-equal-to": "daha az veya eşit mi"
+      "is-less-than-or-equal-to": "daha az veya eşit mi",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "is",
@@ -1427,6 +1458,9 @@
       "contains-all-of": "hepsini içeriyor mu",
       "is-like": "is like",
       "is-not-like": "is not like"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
@@ -1435,6 +1469,6 @@
     "invalid-url": "Geçerli Bir URL Olmalıdır",
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "En Az {min} Karakter Olmalıdır",
-    "max-length": "En Fazla {max} Karakter Olmalıdır"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

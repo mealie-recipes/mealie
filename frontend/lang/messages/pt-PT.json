@@ -1,7 +1,7 @@
 {
   "about": {
     "about": "Sobre",
-    "about-mealie": "Sobre o Mealie",
+    "about-mealie": "Sobre Mealie",
     "api-docs": "Documentação de API",
     "api-port": "Porta da API",
     "application-mode": "Modo de aplicação",
@@ -16,7 +16,7 @@
     "download-log": "Transferir Log",
     "download-recipe-json": "Último JSON recuperado",
     "github": "GitHub",
-    "log-lines": "Linhas de registo",
+    "log-lines": "Linhas de Logs",
     "not-demo": "Não Demonstração",
     "portfolio": "Portefólio",
     "production": "Produção",
@@ -212,6 +212,8 @@
     "upload-file": "Carregar ficheiro",
     "created-on-date": "Criado em: {0}",
     "unsaved-changes": "Tem alterações por gravar. Quer gravar antes de sair? OK para gravar, Cancelar para descartar alterações.",
+    "discard-changes": "Descartar alterações",
+    "discard-changes-description": "Tem alterações por gravar. De certeza que as quer descartar?",
     "clipboard-copy-failure": "Erro ao copiar para a área de transferência.",
     "confirm-delete-generic-items": "Tem a certeza de que deseja eliminar os seguintes itens?",
     "organizers": "Organizadores",
@@ -343,8 +345,8 @@
     "lunch": "Almoço",
     "dinner": "Jantar",
     "snack": "Snack",
-    "drink": "Drink",
-    "dessert": "Dessert",
+    "drink": "Bebida",
+    "dessert": "Sobremesa",
     "type-any": "Qualquer",
     "day-any": "Qualquer",
     "editor": "Editor",
@@ -367,7 +369,9 @@
     "recipe-rules": "Regras das receitas",
     "applies-to-all-days": "Aplica-se a todos os dias",
     "applies-on-days": "Aplica-se em {0}s",
-    "meal-plan-settings": "Definições do Plano de Refeições"
+    "meal-plan-settings": "Definições do Plano de Refeições",
+    "add-all-to-list": "Adicionar todos",
+    "add-day-to-list": "Adicionar Dia"
   },
   "migration": {
     "migration-data-removed": "Dados de migração removidos",
@@ -445,7 +449,7 @@
     "upload-a-recipe": "Enviar uma Receita",
     "upload-individual-zip-file": "Carregar um ficheiro .zip individual, exportado de outra instância do Mealie.",
     "url-form-hint": "Copie e cole um link do seu site de receitas favorito",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Copie e cole o URL de origem dos seus dados (opcional)",
     "view-scraped-data": "Ver dados recolhidos",
     "trim-whitespace-description": "Eliminar os espaços em branco no início e no fim, bem como as linhas em branco",
     "trim-prefix-description": "Apagar o primeiro caractere de cada linha",
@@ -632,14 +636,16 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crie uma receita fornecendo o nome. Todas as receitas devem ter nomes únicos.",
     "new-recipe-names-must-be-unique": "Os nomes de receitas devem ser únicos",
     "scrape-recipe": "Extrair receita (Scrape)",
-    "scrape-recipe-description": "Extrair a receita por URL. Indique o URL da página da qual quer extrair e o Mealie tentará obter a receita dessa página e adicioná-la à sua coleção.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Tem muitas receitas para processar em simultâneo?",
     "scrape-recipe-suggest-bulk-importer": "Experimente o importador em massa",
     "scrape-recipe-have-raw-html-or-json-data": "Tem dados HTML ou JSON em bruto?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "É possível importar diretamente a partir de dados em bruto",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "O site está bloqueado?",
+    "scrape-recipe-try-importing-raw-html-instead": "Tente importar o HTML bruto em vez disso.",
     "import-original-keywords-as-tags": "Importar palavras-chave originais como etiquetas",
+    "import-original-categories": "Importar categorias originais",
     "stay-in-edit-mode": "Permanecer no modo de edição",
     "parse-recipe-ingredients-after-import": "Analisar ingredientes da receita após a importação",
     "import-from-zip": "Importar de Zip",
@@ -883,14 +889,17 @@
     "server-side-base-url-error-text": "O `BASE_URL` no Servidor API ainda está definido com o valor padrão. Isso causará problemas com ligações geradas no servidor para emails, etc.",
     "server-side-base-url-success-text": "O URL do lado do servidor não coincide com o valor padrão",
     "ldap-ready": "LDAP Pronto",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Nem todos os valores LDAP estão configurados. Isso pode ser ignorado se não estiver a utilizar a autenticação LDAP.",
     "ldap-ready-success-text": "As variáveis LDAP necessárias estão todas definidas.",
     "build": "Compilação",
     "recipe-scraper-version": "Versão do Scraper de receitas",
     "oidc-ready": "Suporta OICD",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Nem todos os valores OICD estão configurados. Pode ignorar isto se não estiver a utilizar autenticação OICD.",
     "oidc-ready-success-text": "As variáveis OICD necessárias estão definidas.",
     "openai-ready": "Preparado para OpenAI",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Nem todos os valores OpenAI estão configurados. Isto pode ser ignorado se não estiver a utilizar as funcionalidades OpenAI.",
     "openai-ready-success-text": "As variáveis OpenAI necessárias estão todas definidas."
   },
@@ -898,6 +907,7 @@
     "all-lists": "Todas as Listas",
     "create-shopping-list": "Criar Lista de Compras",
     "from-recipe": "Da Receita",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Nome da Lista",
     "new-list": "Nova Lista",
     "quantity": "Quantidade: {0}",
@@ -1129,7 +1139,22 @@
       "example-unit-singular": "ex: Colher de Sopa",
       "example-unit-plural": "ex: Colheres de Sopa",
       "example-unit-abbreviation-singular": "ex: Cdsp",
-      "example-unit-abbreviation-plural": "ex: Cdsps"
+      "example-unit-abbreviation-plural": "ex: Cdsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Adicionar à base de dados rótulos comuns no seu idioma local.",
@@ -1163,7 +1188,11 @@
       "recipe-actions-data": "Dados das Ações da Receita",
       "new-recipe-action": "Nova Ação da Receita",
       "edit-recipe-action": "Editar Ação da Receita",
-      "action-type": "Tipo de Ação"
+      "action-type": "Tipo de Ação",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Criar Pseudónimo",
     "manage-aliases": "Gerir Pseudónimos",
@@ -1417,7 +1446,9 @@
       "is-greater-than": "é maior que",
       "is-greater-than-or-equal-to": "é maior ou igual a",
       "is-less-than": "é menor que",
-      "is-less-than-or-equal-to": "é menor ou igual a"
+      "is-less-than-or-equal-to": "é menor ou igual a",
+      "is-older-than": "é mais antigo que",
+      "is-newer-than": "é mais recente que"
     },
     "relational-keywords": {
       "is": "é",
@@ -1427,14 +1458,17 @@
       "contains-all-of": "contém todos os",
       "is-like": "é como",
       "is-not-like": "não é como"
+    },
+    "dates": {
+      "days-ago": "dias atrás|dia atrás|dias atrás"
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Este campo é obrigatório",
+    "invalid-email": "O Email deve ser válido",
+    "invalid-url": "O URL deve ser válido",
+    "no-whitespace": "Não são permitidos espaços em branco",
+    "min-length": "Deve ter pelo menos {min} caracteres",
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

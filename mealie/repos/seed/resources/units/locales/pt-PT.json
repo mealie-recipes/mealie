@@ -3,13 +3,13 @@
         "name": "colher de chá",
         "plural_name": "colheres de chá",
         "description": "",
-        "abbreviation": "csm"
+        "abbreviation": "c. chá"
     },
     "tablespoon": {
         "name": "colher de sopa",
         "plural_name": "colheres de sopa",
         "description": "",
-        "abbreviation": "csp"
+        "abbreviation": "c. sopa"
     },
     "cup": {
         "name": "chávena",
@@ -25,7 +25,7 @@
     },
     "pint": {
         "name": "pint",
-        "plural_name": "pintas",
+        "plural_name": "pints",
         "description": "",
         "abbreviation": "pt"
     },
@@ -135,6 +135,12 @@
     "pinch": {
         "name": "pitada",
         "plural_name": "pitadas",
+        "description": "",
+        "abbreviation": ""
+    },
+    "sprig": {
+        "name": "ramo",
+        "plural_name": "ramos",
         "description": "",
         "abbreviation": ""
     }

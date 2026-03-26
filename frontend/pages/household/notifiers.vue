@@ -1,19 +1,19 @@
 <template>
   <v-container class="narrow-container">
     <BaseDialog
-      v-model="deleteDialog"
+      v-model="state.deleteDialog"
       color="error"
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       can-confirm
-      @confirm="deleteNotifier(deleteTargetId)"
+      @confirm="deleteNotifier(state.deleteTargetId)"
     >
       <v-card-text>
         {{ $t("general.confirm-delete-generic") }}
       </v-card-text>
     </BaseDialog>
     <BaseDialog
-      v-model="createDialog"
+      v-model="state.createDialog"
       :title="$t('events.new-notification')"
       :icon="$globals.icons.bellPlus"
       can-submit
@@ -83,7 +83,7 @@
 
     <BaseButton
       create
-      @click="createDialog = true"
+      @click="state.createDialog = true"
     />
     <v-expansion-panels
       v-if="notifiers"
@@ -182,7 +182,7 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import { useAsyncKey } from "~/composables/use-utils";
 import type { GroupEventNotifierCreate, GroupEventNotifierOut } from "~/lib/api/types/household";
@@ -198,210 +198,197 @@ interface OptionSection {
   options: OptionKey[];
 }
 
-export default defineNuxtComponent({
+definePageMeta({
   middleware: ["advanced-only"],
-  setup() {
-    const api = useUserApi();
-    const i18n = useI18n();
-
-    useSeoMeta({
-      title: i18n.t("profile.notifiers"),
-    });
-
-    const state = reactive({
-      deleteDialog: false,
-      createDialog: false,
-      deleteTargetId: "",
-    });
-
-    const { data: notifiers } = useAsyncData(useAsyncKey(), async () => {
-      const { data } = await api.groupEventNotifier.getAll();
-      return data?.items;
-    });
-
-    async function refreshNotifiers() {
-      const { data } = await api.groupEventNotifier.getAll();
-      notifiers.value = data?.items;
-    }
-
-    const createNotifierData: GroupEventNotifierCreate = reactive({
-      name: "",
-      enabled: true,
-      appriseUrl: "",
-    });
-
-    async function createNewNotifier() {
-      await api.groupEventNotifier.createOne(createNotifierData);
-      refreshNotifiers();
-    }
-
-    function openDelete(notifier: GroupEventNotifierOut) {
-      state.deleteDialog = true;
-      state.deleteTargetId = notifier.id;
-    }
-
-    async function deleteNotifier(targetId: string) {
-      await api.groupEventNotifier.deleteOne(targetId);
-      refreshNotifiers();
-      state.deleteTargetId = "";
-    }
-
-    async function saveNotifier(notifier: GroupEventNotifierOut) {
-      await api.groupEventNotifier.updateOne(notifier.id, notifier);
-      refreshNotifiers();
-    }
-
-    async function testNotifier(notifier: GroupEventNotifierOut) {
-      await api.groupEventNotifier.test(notifier.id);
-    }
-
-    // ===============================================================
-    // Options Definitions
-
-    const optionsSections: OptionSection[] = [
-      {
-        id: 1,
-        text: i18n.t("events.recipe-events"),
-        options: [
-          {
-            text: i18n.t("general.create") as string,
-            key: "recipeCreated",
-          },
-          {
-            text: i18n.t("general.update") as string,
-            key: "recipeUpdated",
-          },
-          {
-            text: i18n.t("general.delete") as string,
-            key: "recipeDeleted",
-          },
-        ],
-      },
-      {
-        id: 2,
-        text: i18n.t("events.user-events"),
-        options: [
-          {
-            text: i18n.t("events.when-a-new-user-joins-your-group"),
-            key: "userSignup",
-          },
-        ],
-      },
-      {
-        id: 3,
-        text: i18n.t("events.mealplan-events"),
-        options: [
-          {
-            text: i18n.t("events.when-a-user-in-your-group-creates-a-new-mealplan"),
-            key: "mealplanEntryCreated",
-          },
-        ],
-      },
-      {
-        id: 4,
-        text: i18n.t("events.shopping-list-events"),
-        options: [
-          {
-            text: i18n.t("general.create") as string,
-            key: "shoppingListCreated",
-          },
-          {
-            text: i18n.t("general.update") as string,
-            key: "shoppingListUpdated",
-          },
-          {
-            text: i18n.t("general.delete") as string,
-            key: "shoppingListDeleted",
-          },
-        ],
-      },
-      {
-        id: 5,
-        text: i18n.t("events.cookbook-events"),
-        options: [
-          {
-            text: i18n.t("general.create") as string,
-            key: "cookbookCreated",
-          },
-          {
-            text: i18n.t("general.update") as string,
-            key: "cookbookUpdated",
-          },
-          {
-            text: i18n.t("general.delete") as string,
-            key: "cookbookDeleted",
-          },
-        ],
-      },
-      {
-        id: 6,
-        text: i18n.t("events.tag-events"),
-        options: [
-          {
-            text: i18n.t("general.create") as string,
-            key: "tagCreated",
-          },
-          {
-            text: i18n.t("general.update") as string,
-            key: "tagUpdated",
-          },
-          {
-            text: i18n.t("general.delete") as string,
-            key: "tagDeleted",
-          },
-        ],
-      },
-      {
-        id: 7,
-        text: i18n.t("events.category-events"),
-        options: [
-          {
-            text: i18n.t("general.create") as string,
-            key: "categoryCreated",
-          },
-          {
-            text: i18n.t("general.update") as string,
-            key: "categoryUpdated",
-          },
-          {
-            text: i18n.t("general.delete") as string,
-            key: "categoryDeleted",
-          },
-        ],
-      },
-      {
-        id: 8,
-        text: i18n.t("events.label-events"),
-        options: [
-          {
-            text: i18n.t("general.create") as string,
-            key: "labelCreated",
-          },
-          {
-            text: i18n.t("general.update") as string,
-            key: "labelUpdated",
-          },
-          {
-            text: i18n.t("general.delete") as string,
-            key: "labelDeleted",
-          },
-        ],
-      },
-    ];
-
-    return {
-      ...toRefs(state),
-      openDelete,
-      notifiers,
-      createNotifierData,
-      optionsSections,
-      deleteNotifier,
-      testNotifier,
-      saveNotifier,
-      createNewNotifier,
-    };
-  },
 });
+
+const api = useUserApi();
+const i18n = useI18n();
+
+useSeoMeta({
+  title: i18n.t("profile.notifiers"),
+});
+
+const state = reactive({
+  deleteDialog: false,
+  createDialog: false,
+  deleteTargetId: "",
+});
+
+const { data: notifiers } = useAsyncData(useAsyncKey(), async () => {
+  const { data } = await api.groupEventNotifier.getAll();
+  return data?.items;
+});
+
+async function refreshNotifiers() {
+  const { data } = await api.groupEventNotifier.getAll();
+  notifiers.value = data?.items;
+}
+
+const createNotifierData: GroupEventNotifierCreate = reactive({
+  name: "",
+  enabled: true,
+  appriseUrl: "",
+});
+
+async function createNewNotifier() {
+  await api.groupEventNotifier.createOne(createNotifierData);
+  refreshNotifiers();
+}
+
+function openDelete(notifier: GroupEventNotifierOut) {
+  state.deleteDialog = true;
+  state.deleteTargetId = notifier.id;
+}
+
+async function deleteNotifier(targetId: string) {
+  await api.groupEventNotifier.deleteOne(targetId);
+  refreshNotifiers();
+  state.deleteTargetId = "";
+}
+
+async function saveNotifier(notifier: GroupEventNotifierOut) {
+  await api.groupEventNotifier.updateOne(notifier.id, notifier);
+  refreshNotifiers();
+}
+
+async function testNotifier(notifier: GroupEventNotifierOut) {
+  await api.groupEventNotifier.test(notifier.id);
+}
+
+// ===============================================================
+// Options Definitions
+
+const optionsSections: OptionSection[] = [
+  {
+    id: 1,
+    text: i18n.t("events.recipe-events"),
+    options: [
+      {
+        text: i18n.t("general.create") as string,
+        key: "recipeCreated",
+      },
+      {
+        text: i18n.t("general.update") as string,
+        key: "recipeUpdated",
+      },
+      {
+        text: i18n.t("general.delete") as string,
+        key: "recipeDeleted",
+      },
+    ],
+  },
+  {
+    id: 2,
+    text: i18n.t("events.user-events"),
+    options: [
+      {
+        text: i18n.t("events.when-a-new-user-joins-your-group"),
+        key: "userSignup",
+      },
+    ],
+  },
+  {
+    id: 3,
+    text: i18n.t("events.mealplan-events"),
+    options: [
+      {
+        text: i18n.t("events.when-a-user-in-your-group-creates-a-new-mealplan"),
+        key: "mealplanEntryCreated",
+      },
+    ],
+  },
+  {
+    id: 4,
+    text: i18n.t("events.shopping-list-events"),
+    options: [
+      {
+        text: i18n.t("general.create") as string,
+        key: "shoppingListCreated",
+      },
+      {
+        text: i18n.t("general.update") as string,
+        key: "shoppingListUpdated",
+      },
+      {
+        text: i18n.t("general.delete") as string,
+        key: "shoppingListDeleted",
+      },
+    ],
+  },
+  {
+    id: 5,
+    text: i18n.t("events.cookbook-events"),
+    options: [
+      {
+        text: i18n.t("general.create") as string,
+        key: "cookbookCreated",
+      },
+      {
+        text: i18n.t("general.update") as string,
+        key: "cookbookUpdated",
+      },
+      {
+        text: i18n.t("general.delete") as string,
+        key: "cookbookDeleted",
+      },
+    ],
+  },
+  {
+    id: 6,
+    text: i18n.t("events.tag-events"),
+    options: [
+      {
+        text: i18n.t("general.create") as string,
+        key: "tagCreated",
+      },
+      {
+        text: i18n.t("general.update") as string,
+        key: "tagUpdated",
+      },
+      {
+        text: i18n.t("general.delete") as string,
+        key: "tagDeleted",
+      },
+    ],
+  },
+  {
+    id: 7,
+    text: i18n.t("events.category-events"),
+    options: [
+      {
+        text: i18n.t("general.create") as string,
+        key: "categoryCreated",
+      },
+      {
+        text: i18n.t("general.update") as string,
+        key: "categoryUpdated",
+      },
+      {
+        text: i18n.t("general.delete") as string,
+        key: "categoryDeleted",
+      },
+    ],
+  },
+  {
+    id: 8,
+    text: i18n.t("events.label-events"),
+    options: [
+      {
+        text: i18n.t("general.create") as string,
+        key: "labelCreated",
+      },
+      {
+        text: i18n.t("general.update") as string,
+        key: "labelUpdated",
+      },
+      {
+        text: i18n.t("general.delete") as string,
+        key: "labelDeleted",
+      },
+    ],
+  },
+];
 </script>
 
 <style>

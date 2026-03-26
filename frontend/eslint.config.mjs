@@ -21,5 +21,6 @@ export default withNuxt({
     ],
     "vue/no-mutating-props": "error",
     "vue/no-v-html": "error",
+    "vue/component-api-style": ["error", ["script-setup"]],
   },
 });

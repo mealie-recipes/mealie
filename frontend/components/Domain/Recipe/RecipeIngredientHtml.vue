@@ -12,7 +12,7 @@
 <script setup lang="ts">
 import { computed } from "vue";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
-import { useParsedIngredientText } from "~/composables/recipes";
+import { useIngredientTextParser } from "~/composables/recipes";
 
 interface Props {
   ingredient?: RecipeIngredient;
@@ -20,6 +20,7 @@ interface Props {
 }
 
 const { ingredient, scale = 1 } = defineProps<Props>();
+const { useParsedIngredientText } = useIngredientTextParser();
 
 const baseText = computed(() => {
   if (!ingredient) return "";

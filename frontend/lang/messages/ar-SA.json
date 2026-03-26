@@ -212,6 +212,8 @@
     "upload-file": "تحميل الملف",
     "created-on-date": "تم الإنشاء في {0}",
     "unsaved-changes": "لديك تغييرات غير محفوظة. هل تريد الحفظ قبل المغادرة؟ حسنًا للحفظ، قم بإلغاء تجاهل التغييرات.",
+    "discard-changes": "إلغاء التغييرات",
+    "discard-changes-description": "لديك تغييرات غير محفوظة. هل أنت متأكد من أنك تريد تجاهلها؟",
     "clipboard-copy-failure": "فشل في النسخ إلى الحافظة.",
     "confirm-delete-generic-items": "هل أنت متأكد أنك تريد حذف المجموعات التالية؟",
     "organizers": "المنظمون",
@@ -367,7 +369,9 @@
     "recipe-rules": "قواعد الوصفات",
     "applies-to-all-days": "ينطبق على جميع الأيام",
     "applies-on-days": "يطبق على أيام {0}",
-    "meal-plan-settings": "إعدادات خِطَّة الوجبات الغذائية"
+    "meal-plan-settings": "إعدادات خِطَّة الوجبات الغذائية",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "حذف بيانات الهجرة",
@@ -416,7 +420,7 @@
     "recipe-1": "وصفة 1",
     "recipe-2": "وصفة 2",
     "paprika-text": "Mealie can import recipes from the Paprika application. Export your recipes from paprika, rename the export extension to .zip and upload it below.",
-    "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+    "mealie-text": "يُمكن لبرنامج Mealie استيراد الوصفات من تطبيق Mealie من إصدار سابق للإصدار 1.0. صدّر وصفاتك من نسختك القديمة، ثم ارفع ملف ZIP أدناه. يُرجى العلم أنه لا يُمكن استيراد سوى الوصفات من الملف المُصدّر.",
     "plantoeat": {
       "title": "خِطَّة تناول الطعام",
       "description-long": "يمكن لمالي أن تستورد الوصفات من Plan to Eat."
@@ -632,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "قم بإنشاء وصفة عن طريق تقديم الاسم. يجب أن يكون لجميع الوصفات أسماء فريدة.",
     "new-recipe-names-must-be-unique": "يجب أن تكون أسماء الوصفات فريدة",
     "scrape-recipe": "تحليل الوصفة",
-    "scrape-recipe-description": "أضف الوصفة عن طريق الرابط. قم بتوفير عنوان الURL للموقع الذي تريد أخذ الوصفة منه، وسيحاول Mealie إستخراج الوصفة من ذلك الموقع وإضافتها إلى مجموعتك.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "هل لديك الكثير من الوصفات التي تريد أن تحللها في نفس الوقت؟",
     "scrape-recipe-suggest-bulk-importer": "جرب الإضافة بالجملة",
     "scrape-recipe-have-raw-html-or-json-data": "هل لديك بيانات HTML أو JSON خام؟",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Website being blocked?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "استيراد الكلمات المفتاحية الأصلية كوسوم",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "البقاء في وضع التعديل",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "استيراد من ملف Zip",
@@ -883,14 +889,17 @@
     "server-side-base-url-error-text": "`BASE_URL` is still the default value on API Server. This will cause issues with notifications links generated on the server for emails, etc.",
     "server-side-base-url-success-text": "Server Side URL does not match the default",
     "ldap-ready": "LDAP Ready",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Not all LDAP Values are configured. This can be ignored if you are not using LDAP Authentication.",
     "ldap-ready-success-text": "Required LDAP variables are all set.",
     "build": "Build",
     "recipe-scraper-version": "إصدار محلل الوصفة",
     "oidc-ready": "OIDC Ready",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
     "oidc-ready-success-text": "Required OIDC variables are all set.",
     "openai-ready": "OpenAI Ready",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
     "openai-ready-success-text": "Required OpenAI variables are all set."
   },
@@ -898,6 +907,7 @@
     "all-lists": "جميع القوائم",
     "create-shopping-list": "إنشاء قائمة تسوق",
     "from-recipe": "من الوصفة",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "اسم القائمة",
     "new-list": "قائمة جديدة",
     "quantity": "الكَمّيَّة: {0}",
@@ -1129,7 +1139,22 @@
       "example-unit-singular": "مثال: ملعقة",
       "example-unit-plural": "مثال: ملاعق",
       "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-abbreviation-plural": "ex: Tbsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Seed the database with common labels based on your local language.",
@@ -1163,7 +1188,11 @@
       "recipe-actions-data": "Recipe Actions Data",
       "new-recipe-action": "New Recipe Action",
       "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "action-type": "Action Type",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Create Alias",
     "manage-aliases": "إدارة الأسماء المستعارة",
@@ -1417,7 +1446,9 @@
       "is-greater-than": "أكبر من",
       "is-greater-than-or-equal-to": "أكبر من أو يساوي",
       "is-less-than": "أقل من",
-      "is-less-than-or-equal-to": "أقل من أو يساوي"
+      "is-less-than-or-equal-to": "أقل من أو يساوي",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "هو",
@@ -1427,6 +1458,9 @@
       "contains-all-of": "يحتوي على كل من",
       "is-like": "هو مثل",
       "is-not-like": "ليس مثل"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
@@ -1435,6 +1469,6 @@
     "invalid-url": "يجب أن يكون عنوان URL صالحًا",
     "no-whitespace": "لا يسمح باستخدام المسافات",
     "min-length": "يجب أن يكون على الأقل {min} أحرف",
-    "max-length": "يجب أن يكون على الأكثر {max} أحرف"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

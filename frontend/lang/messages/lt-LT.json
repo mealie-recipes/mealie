@@ -212,6 +212,8 @@
     "upload-file": "Įkelti failą",
     "created-on-date": "Sukurta: {0}",
     "unsaved-changes": "Turite neišsaugotų pakeitimų. Ar norite juos išsaugoti prieš išeidami?\nSpauskite „Gerai“, jei norite išsaugoti, arba „Atšaukti“, jei norite atmesti pakeitimus.",
+    "discard-changes": "Discard Changes",
+    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
     "clipboard-copy-failure": "Nepavyko nukopijuoti į iškarpinę.",
     "confirm-delete-generic-items": "Ar tikrai norite ištrinti šiuos elementus?",
     "organizers": "Organizatoriai",
@@ -367,7 +369,9 @@
     "recipe-rules": "Recepto taisyklės",
     "applies-to-all-days": "Galioja visoms dienoms",
     "applies-on-days": "Galioja {0}",
-    "meal-plan-settings": "Valgių plano nustatymai"
+    "meal-plan-settings": "Valgių plano nustatymai",
+    "add-all-to-list": "Add All to List",
+    "add-day-to-list": "Add Day to List"
   },
   "migration": {
     "migration-data-removed": "Perkėlimo duomenys pašalinti",
@@ -445,7 +449,7 @@
     "upload-a-recipe": "Įkelti receptą",
     "upload-individual-zip-file": "Įkelkite .zip failą, eksportuotą iš kitos \"Mealie\" sistemos.",
     "url-form-hint": "Nukopijuokite ir įklijuokite nuorodą iš mėgstamų receptų svetainės",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Nukopijuokite ir įklijuokite savo duomenų šaltinio URL (nebūtina)",
     "view-scraped-data": "Peržiūrėti nuskaitytus duomenis",
     "trim-whitespace-description": "Pašalinti tarpus bei tuščias eilutes pradžioje ir pabaigoje",
     "trim-prefix-description": "Pašalinti kiekvienos eilutės pirmąjį ženklą",
@@ -632,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Sukurti receptą įrašant pavadinimą. Visi receptai privalo turėti unikalius pavadinimus.",
     "new-recipe-names-must-be-unique": "Naujo recepto pavadinimas turi būti unikalus",
     "scrape-recipe": "Nuskaityti receptą",
-    "scrape-recipe-description": "Nuskaityti receptą iš URL nuorodos. Pateikite recepto nuorodą, ir Mealie pabandys paimti recepto informaciją iš šios svetainės ir patalpinti ją jūsų kolekcijoje.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Turite daug receptų, kuriuos norite nuskaityti vienu metu?",
     "scrape-recipe-suggest-bulk-importer": "Išbandykite masinį importavimą",
     "scrape-recipe-have-raw-html-or-json-data": "Turite neapdorotų HTML arba JSON duomenų?",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Svetainė blokuojama?",
     "scrape-recipe-try-importing-raw-html-instead": "Pabandykite vietoj to importuoti neapdorotą HTML.",
     "import-original-keywords-as-tags": "Įkelti pradinius raktažodžius kaip žymas",
+    "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Toliau redaguoti",
     "parse-recipe-ingredients-after-import": "Analizuoti recepto ingredientus po importavimo",
     "import-from-zip": "Įkelti iš .ZIP archyvo",
@@ -883,14 +889,17 @@
     "server-side-base-url-error-text": "`BASE_URL` vis dar yra numatytoji reikšmė API serveryje. Tai gali sukelti problemų su pranešimais, generuojamomis nuorodomis, el. laiškais ir t. t.",
     "server-side-base-url-success-text": "Serverio pusės URL neatitinka numatytojo",
     "ldap-ready": "LDAP Ready",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Nustatytos ne visos LDAP reikšmės. Į tai galima nekreipti dėmesio, jei nenaudojate LDAP autentifikavimo.",
     "ldap-ready-success-text": "Nustatyti visi reikalingi LDAP kintamieji.",
     "build": "Build",
     "recipe-scraper-version": "Recipe Scraper Version",
     "oidc-ready": "OIDC Ready",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
     "oidc-ready-success-text": "Required OIDC variables are all set.",
     "openai-ready": "OpenAI Ready",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
     "openai-ready-success-text": "Required OpenAI variables are all set."
   },
@@ -898,6 +907,7 @@
     "all-lists": "Visi sąrašai",
     "create-shopping-list": "Sukurti pirkinių sąrašą",
     "from-recipe": "Iš recepto",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Sąrašo pavadinimas",
     "new-list": "Naujas sąrašas",
     "quantity": "Kiekis: {0}",
@@ -1129,7 +1139,22 @@
       "example-unit-singular": "ex: Tablespoon",
       "example-unit-plural": "ex: Tablespoons",
       "example-unit-abbreviation-singular": "ex: Tbsp",
-      "example-unit-abbreviation-plural": "ex: Tbsps"
+      "example-unit-abbreviation-plural": "ex: Tbsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Įdėkite į duomenų bazę bendras žymas pagal jūsų kalbą.",
@@ -1163,7 +1188,11 @@
       "recipe-actions-data": "Recipe Actions Data",
       "new-recipe-action": "New Recipe Action",
       "edit-recipe-action": "Edit Recipe Action",
-      "action-type": "Action Type"
+      "action-type": "Action Type",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Create Alias",
     "manage-aliases": "Manage Aliases",
@@ -1417,7 +1446,9 @@
       "is-greater-than": "is greater than",
       "is-greater-than-or-equal-to": "is greater than or equal to",
       "is-less-than": "is less than",
-      "is-less-than-or-equal-to": "is less than or equal to"
+      "is-less-than-or-equal-to": "is less than or equal to",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "is",
@@ -1427,6 +1458,9 @@
       "contains-all-of": "contains all of",
       "is-like": "is like",
       "is-not-like": "is not like"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
@@ -1435,6 +1469,6 @@
     "invalid-url": "Must Be A Valid URL",
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

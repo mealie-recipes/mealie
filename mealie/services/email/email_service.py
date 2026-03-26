@@ -4,7 +4,7 @@ from jinja2 import Template
 from pydantic import BaseModel
 
 from mealie.core.root_logger import get_logger
-from mealie.lang import local_provider
+from mealie.lang import get_locale_provider
 from mealie.lang.providers import Translator
 from mealie.services._base_service import BaseService
 
@@ -34,7 +34,7 @@ class EmailService(BaseService):
         self.templates_dir = CWD / "templates"
         self.default_template = self.templates_dir / "default.html"
         self.sender: ABCEmailSender = sender or DefaultEmailSender()
-        self.translator: Translator = local_provider(locale)
+        self.translator: Translator = get_locale_provider(locale)
 
         super().__init__()
 

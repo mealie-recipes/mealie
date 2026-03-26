@@ -137,5 +137,11 @@
         "plural_name": "pizzichi",
         "description": "",
         "abbreviation": ""
+    },
+    "sprig": {
+        "name": "rametto",
+        "plural_name": "rametti",
+        "description": "",
+        "abbreviation": ""
     }
 }

@@ -1,7 +1,7 @@
-from enum import Enum
+from enum import StrEnum
 
 
-class RecipeImageTypes(str, Enum):
+class RecipeImageTypes(StrEnum):
     original = "original.webp"
     min = "min-original.webp"
     tiny = "tiny-original.webp"

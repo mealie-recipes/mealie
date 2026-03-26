@@ -41,9 +41,9 @@
     "category-created": "Kategoria stworzona",
     "category-creation-failed": "Błąd podczas tworzenia kategorii",
     "category-deleted": "Usunięto kategorię",
-    "category-deletion-failed": "Usunięcie kategorii nie powiodło się",
+    "category-deletion-failed": "Nie udało się usunąć kategorii",
     "category-filter": "Filtr kategorii",
-    "category-update-failed": "Aktualizacja kategorii nie powiodła się",
+    "category-update-failed": "Nie udało się zaktualizować kategorii",
     "category-updated": "Zaktualizowano kategorię",
     "uncategorized-count": "{count} bez kategorii",
     "create-a-category": "Stwórz kategorię",
@@ -201,7 +201,7 @@
     "last-made": "Ostatnio wykonane",
     "learn-more": "Dowiedz się więcej",
     "this-feature-is-currently-inactive": "Ta funkcja jest obecnie nieaktywna",
-    "clipboard-not-supported": "Schowek nieobsługiwany",
+    "clipboard-not-supported": "Schowek nie jest obsługiwany",
     "copied-to-clipboard": "Skopiowano do schowka",
     "your-browser-does-not-support-clipboard": "Twoja przeglądarka nie obsługuje schowka",
     "copied-items-to-clipboard": "Nie skopiowano elementu do schowka|Jeden element skopiowany do schowka|Skopiowano {count} elementów do schowka",
@@ -212,6 +212,8 @@
     "upload-file": "Prześlij plik",
     "created-on-date": "Utworzono dnia: {0}",
     "unsaved-changes": "Masz niezapisane zmiany. Czy chcesz zapisać przed wyjściem? Ok, aby zapisać, Anuluj, żeby odrzucić zmiany.",
+    "discard-changes": "Odrzuć zmiany",
+    "discard-changes-description": "Masz niezapisane zmiany. Czy na pewno chcesz je odrzucić?",
     "clipboard-copy-failure": "Nie udało się skopiować do schowka.",
     "confirm-delete-generic-items": "Czy na pewno chcesz usunąć następujące elementy?",
     "organizers": "Organizatory",
@@ -307,8 +309,8 @@
     "create-a-new-meal-plan": "Utwórz nowy plan posiłku",
     "update-this-meal-plan": "Zaktualizuj plan posiłku",
     "dinner-this-week": "Obiad w tym tygodniu",
-    "dinner-today": "Obiad dziś",
-    "dinner-tonight": "OBIAD DZIŚ",
+    "dinner-today": "Obiad na dziś",
+    "dinner-tonight": "Kolacja na dziś",
     "edit-meal-plan": "Edytuj plan posiłku",
     "end-date": "Data zakończenia",
     "group": "Grupa (Beta)",
@@ -367,7 +369,9 @@
     "recipe-rules": "Reguły przepisów",
     "applies-to-all-days": "Dotyczy wszystkich dni",
     "applies-on-days": "Dotyczy {0}",
-    "meal-plan-settings": "Ustawienia planera posiłków"
+    "meal-plan-settings": "Ustawienia planera posiłków",
+    "add-all-to-list": "Dodaj wszystko do listy",
+    "add-day-to-list": "Dodaj Dzień do Listy"
   },
   "migration": {
     "migration-data-removed": "Dane migracji usunięte",
@@ -632,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Utwórz przepis, podając nazwę. Wszystkie przepisy muszą mieć unikalne nazwy.",
     "new-recipe-names-must-be-unique": "Nazwa przepisu musi być unikalna",
     "scrape-recipe": "Scrapuj Przepis",
-    "scrape-recipe-description": "Wczytaj przepis przez URL. Podaj adres URL witryny z przepisem, który chcesz wczytać, a Mealie spróbuje wyodrębnić przepis z tej strony i dodać go do kolekcji.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "",
     "scrape-recipe-have-a-lot-of-recipes": "Masz mnóstwo przepisów, które chcesz zescrapować naraz?",
     "scrape-recipe-suggest-bulk-importer": "Wypróbuj importer zbiorczy",
     "scrape-recipe-have-raw-html-or-json-data": "Masz dane HTML bądź JSON?",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Witryna jest zablokowana?",
     "scrape-recipe-try-importing-raw-html-instead": "Zamiast tego spróbuj zaimportować surowy HTML.",
     "import-original-keywords-as-tags": "Importuj oryginalne słowa kluczowe jako tagi",
+    "import-original-categories": "Importuj oryginalne kategorie",
     "stay-in-edit-mode": "Pozostań w trybie edycji",
     "parse-recipe-ingredients-after-import": "Analizuj składniki receptury po zaimportowaniu",
     "import-from-zip": "Importuj z pliku Zip",
@@ -830,7 +836,7 @@
       "api-token": "Token API",
       "api-tokens": "Tokeny API",
       "copy-this-token-for-use-with-an-external-application-this-token-will-not-be-viewable-again": "Skopiuj ten token w celu użycia w zewnętrznej aplikacji. Tokenu tego nie będzie można więcej wyświetlić.",
-      "create-an-api-token": "Utworz token API",
+      "create-an-api-token": "Utwórz token API",
       "token-name": "Nazwa tokenu",
       "generate": "Generuj",
       "you-have-token-count": "Nie masz aktywnych tokenów. |Masz jeden aktywny token.|Masz {count} aktywnych tokenów."
@@ -883,14 +889,17 @@
     "server-side-base-url-error-text": "`BASE_URL` jest nadal wartością domyślną na serwerze API. To spowoduje problemy z linkami do powiadomień generowanymi na serwerze dla wiadomości e-mail itp.",
     "server-side-base-url-success-text": "Adres strony serwera nie pasuje do wartości domyślnej",
     "ldap-ready": "LDAP Gotowy",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Nie wszystkie wartości LDAP są skonfigurowane. Można to zignorować, jeśli nie używasz uwierzytelniania LDAP.",
     "ldap-ready-success-text": "Wszystkie wymagane zmienne LDAP są ustawione.",
     "build": "Build",
     "recipe-scraper-version": "Wersja Scrapera Przepisów",
     "oidc-ready": "OIDC gotowe",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Nie wszystkie wartości OIDC są skonfigurowane. Można to zignorować, jeśli nie używasz uwierzytelniania OIDC.",
     "oidc-ready-success-text": "Wszystkie wymagane zmienne OIDC są ustawione.",
     "openai-ready": "OpenAI gotowy",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Nie wszystkie wartości OpenAI są skonfigurowane. Można to zignorować, jeśli nie używasz funkcji OpenAI.",
     "openai-ready-success-text": "Wszystkie wymagane zmienne OpenAI są ustawione."
   },
@@ -898,6 +907,7 @@
     "all-lists": "Wszystkie listy",
     "create-shopping-list": "Utwórz listę zakupów",
     "from-recipe": "Z przepisu",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Nazwa listy",
     "new-list": "Nowa lista",
     "quantity": "Ilość: {0}",
@@ -966,8 +976,8 @@
     "tag-creation-failed": "Utworzenie etykiety nie powiodło się",
     "tag-deleted": "Etykieta została usunięta",
     "tag-deletion-failed": "Usunięcie etykiety nie powiodło się",
-    "tag-update-failed": "Atkualizacja etykiety nie powiodła się",
-    "tag-updated": "Etykieta została zakutalizowana",
+    "tag-update-failed": "Aktualizacja etykiety nie powiodła się",
+    "tag-updated": "Etykieta została zaktualizowana",
     "tags": "Tagi",
     "untagged-count": "{count} bez etykiety",
     "create-a-tag": "Utwórz znacznik",
@@ -1129,7 +1139,22 @@
       "example-unit-singular": "np. Łyżka stołowa",
       "example-unit-plural": "np. Łyżki stołowe",
       "example-unit-abbreviation-singular": "na przykład: Łyżka stołowa",
-      "example-unit-abbreviation-plural": "na przykład: Łyżka stołowa"
+      "example-unit-abbreviation-plural": "na przykład: Łyżka stołowa",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Wypełnij bazę zwyczajowymi etykietami dla wybranego języka.",
@@ -1163,7 +1188,11 @@
       "recipe-actions-data": "Dane akcji przepisu",
       "new-recipe-action": "",
       "edit-recipe-action": "Edycja akcji przepisu",
-      "action-type": "Typ akcji"
+      "action-type": "Typ akcji",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Utwórz alias",
     "manage-aliases": "Zarządzaj aliasami",
@@ -1417,7 +1446,9 @@
       "is-greater-than": "jest większe niż",
       "is-greater-than-or-equal-to": "jest większe lub równe",
       "is-less-than": "jest mniejsze niż",
-      "is-less-than-or-equal-to": "jest mniejsze lub równe"
+      "is-less-than-or-equal-to": "jest mniejsze lub równe",
+      "is-older-than": "jest starsze niż",
+      "is-newer-than": "jest nowsze niż"
     },
     "relational-keywords": {
       "is": "jest",
@@ -1427,6 +1458,9 @@
       "contains-all-of": "zawiera wszystkie z",
       "is-like": "jest jak",
       "is-not-like": "nie jest jak"
+    },
+    "dates": {
+      "days-ago": "dni temu|dzień temu|dni temu"
     }
   },
   "validators": {
@@ -1434,7 +1468,7 @@
     "invalid-email": "E-mail musi być prawidłowy",
     "invalid-url": "Musi być prawidłowym odnośnikiem",
     "no-whitespace": "Niedozwolone są puste spacje",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "min-length": "Musi zawierać co najmniej {min} znaków",
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

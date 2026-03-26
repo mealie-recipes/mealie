@@ -212,6 +212,8 @@
     "upload-file": "Загрузить файл",
     "created-on-date": "Создано: {0}",
     "unsaved-changes": "У вас есть несохраненные изменения. Вы хотите сохранить их перед выходом?",
+    "discard-changes": "Отменить изменения",
+    "discard-changes-description": "Имеются несохраненные изменения. Вы уверены, что хотите отменить их?",
     "clipboard-copy-failure": "Не удалось скопировать текст.",
     "confirm-delete-generic-items": "Вы уверены, что хотите удалить следующие элементы?",
     "organizers": "Органайзеры",
@@ -367,7 +369,9 @@
     "recipe-rules": "Правила рецептов",
     "applies-to-all-days": "Применяется к всем дням",
     "applies-on-days": "Применяется по {0}",
-    "meal-plan-settings": "Настройки плана питания"
+    "meal-plan-settings": "Настройки плана питания",
+    "add-all-to-list": "Добавить всё в список",
+    "add-day-to-list": "Добавить день в список"
   },
   "migration": {
     "migration-data-removed": "Данные миграции удалены",
@@ -445,7 +449,7 @@
     "upload-a-recipe": "Загрузить рецепт",
     "upload-individual-zip-file": "Загрузить отдельный .zip файл, экспортированный из другой Mealie.",
     "url-form-hint": "Скопируйте и вставьте ссылку из вашего любимого сайта рецептов",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Скопируйте и вставьте исходный ЮРЛ ваших данных (необязательно)",
     "view-scraped-data": "Просмотр отсканированных данных",
     "trim-whitespace-description": "Обрезать ведущие и конечные пробелы, а также пустые строки",
     "trim-prefix-description": "Обрезать первый символ из каждой строки",
@@ -632,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Создайте рецепт, указав имя. Все рецепты должны иметь уникальные имена.",
     "new-recipe-names-must-be-unique": "Название рецепта должно быть уникальным",
     "scrape-recipe": "Отсканировать рецепт",
-    "scrape-recipe-description": "Отсканировать рецепт по ссылке. Предоставьте ссылку на страницу, которую вы хотите отсканировать, и Mealie попытается вырезать рецепт с этого сайта и добавить его в свою коллекцию.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Хотите отсканировать несколько рецептов за раз?",
     "scrape-recipe-suggest-bulk-importer": "Воспользуйтесь массовым импортом",
     "scrape-recipe-have-raw-html-or-json-data": "У Вас есть данные HTML или JSON?",
@@ -640,6 +645,7 @@
     "scrape-recipe-website-being-blocked": "Сайт заблокирован?",
     "scrape-recipe-try-importing-raw-html-instead": "Попробуйте импортировать необработанный HTML файл.",
     "import-original-keywords-as-tags": "Импортировать исходные ключевые слова как теги",
+    "import-original-categories": "Импортировать оригинальные категории",
     "stay-in-edit-mode": "Остаться в режиме редактирования",
     "parse-recipe-ingredients-after-import": "Распознавание ингредиентов рецепта после импорта",
     "import-from-zip": "Импорт из архива",
@@ -883,14 +889,17 @@
     "server-side-base-url-error-text": "`BASE_URL` все еще является значением по умолчанию на сервере API. Это вызовет проблемы с уведомлениями, ссылками сгенерированными на сервере для электронной почты и т.д.",
     "server-side-base-url-success-text": "Серверный URL-адрес не соответствует значению по умолчанию",
     "ldap-ready": "LDAP готов",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Не все значения для LDAP настроены. Это сообщение может быть проигнорировано, если вы не используете LDAP аутентификацию.",
     "ldap-ready-success-text": "Все требуемые переменные для LDAP установлены.",
     "build": "Сборка",
     "recipe-scraper-version": "Версия скрейпера рецептов",
     "oidc-ready": "OIDC Готов",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Не все значения OIDC настроены. Это может быть проигнорировано, если вы не используете OIDC аутентификацию.",
     "oidc-ready-success-text": "Все требуемые переменные для OIDC установлены.",
     "openai-ready": "OpenAI Готов",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Не все значения OpenAI настроены. Вы можете проигнорировать это, если вы не используете возможности OpenAI.",
     "openai-ready-success-text": "Все требуемые переменные для OpenAI установлены."
   },
@@ -898,6 +907,7 @@
     "all-lists": "Все списки",
     "create-shopping-list": "Создать список покупок",
     "from-recipe": "Из рецепта",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Название списка",
     "new-list": "Новый список",
     "quantity": "Количество: {0}",
@@ -1129,7 +1139,22 @@
       "example-unit-singular": "пр. Столовая ложка",
       "example-unit-plural": "пр. Столовых ложек",
       "example-unit-abbreviation-singular": "пример: ст. л.",
-      "example-unit-abbreviation-plural": "пример: ст. л."
+      "example-unit-abbreviation-plural": "пример: ст. л.",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Дополнить базу данных типичными единицами измерений на основе выбранного языка.",
@@ -1163,7 +1188,11 @@
       "recipe-actions-data": "Данные действий рецепта",
       "new-recipe-action": "Новое действие с рецептом",
       "edit-recipe-action": "Редактировать действие рецепта",
-      "action-type": "Тип Действия"
+      "action-type": "Тип Действия",
+      "action-types": {
+        "link": "Ссылка",
+        "post": "Пост"
+      }
     },
     "create-alias": "Создать псевдоним",
     "manage-aliases": "Управление псевдонимами",
@@ -1417,7 +1446,9 @@
       "is-greater-than": "больше чем",
       "is-greater-than-or-equal-to": "больше или равно",
       "is-less-than": "меньше чем",
-      "is-less-than-or-equal-to": "меньше или равно"
+      "is-less-than-or-equal-to": "меньше или равно",
+      "is-older-than": "старше чем",
+      "is-newer-than": "новее, чем"
     },
     "relational-keywords": {
       "is": "соответствует",
@@ -1427,14 +1458,17 @@
       "contains-all-of": "содержит все",
       "is-like": "содержит",
       "is-not-like": "не содержит"
+    },
+    "dates": {
+      "days-ago": "дней назад|день назад|дней назад"
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
+    "required": "Это поле обязательно для заполнения",
+    "invalid-email": "Адрес электронной почты должен быть действительным",
+    "invalid-url": "Должен быть действительным ЮРЛ",
     "no-whitespace": "Без пробелов",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "min-length": "Должно быть минимум {min} символов",
+    "max-length": "Должно быть как минимум {max} знак|Должно быть больше {max} знаков"
   }
 }

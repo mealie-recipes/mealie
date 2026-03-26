@@ -61,11 +61,11 @@
                 "name": "Sellerie",
                 "plural_name": "Sellerie"
             },
-            "jalapeno": {
+            "jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "Jalapeño",
-                "plural_name": "Jalapeños"
+                "name": "Jalapeño",
+                "plural_name": "Jalapeños"
             },
             "avocado": {
                 "aliases": [],
@@ -101,7 +101,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Zuckermais",
-                "plural_name": "Zuckermais"
+                "plural_name": "Mais"
             },
             "chile pepper": {
                 "aliases": [
@@ -129,11 +129,11 @@
                 "name": "Palmherz",
                 "plural_name": "Palmherzen"
             },
-            "baby green": {
+            "baby greens": {
                 "aliases": [],
                 "description": "",
-                "name": "Junges Blattgemüse",
-                "plural_name": "Junges Blattgemüse"
+                "name": "junges Blattgemüse",
+                "plural_name": "junges Blattgemüse"
             },
             "pumpkin": {
                 "aliases": [],
@@ -153,7 +153,7 @@
                 "name": "Kohl",
                 "plural_name": "Kohl"
             },
-            "asparagu": {
+            "asparagus": {
                 "aliases": [],
                 "description": "",
                 "name": "Spargel",
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Salat",
-                "plural_name": "Salate"
+                "plural_name": "Salat"
             },
             "butternut squash": {
                 "aliases": [],
@@ -195,11 +195,11 @@
                 "name": "Butternusskürbis",
                 "plural_name": "Butternusskürbisse"
             },
-            "romaine": {
+            "romaine lettuce": {
                 "aliases": [],
                 "description": "",
                 "name": "Romanasalat",
-                "plural_name": "Romanasalate"
+                "plural_name": "Romanasalat"
             },
             "beetroot": {
                 "aliases": [],
@@ -252,17 +252,17 @@
             "summer squash": {
                 "aliases": [
                     "Zucchini",
-                    "Gem Squash (Gartenkürbis)"
+                    "Gartenkürbis"
                 ],
                 "description": "",
                 "name": "Sommerkürbis",
                 "plural_name": "Sommerkürbisse"
             },
-            "mixed green": {
+            "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "Gemischtes Grün",
-                "plural_name": "Gemischtes Grün"
+                "name": "Gemischte Blattgemüse",
+                "plural_name": "Gemischte Blattgemüse"
             },
             "parsnip": {
                 "aliases": [],
@@ -276,7 +276,7 @@
                 "name": "Baby-Karotte",
                 "plural_name": "Baby-Karotten"
             },
-            "mixed vegetable": {
+            "mixed vegetables": {
                 "aliases": [],
                 "description": "",
                 "name": "Gemischtes Gemüse",
@@ -291,7 +291,7 @@
             "sweet pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "Paprika",
+                "name": "süße Paprika",
                 "plural_name": "Paprikas"
             },
             "serrano pepper": {
@@ -318,11 +318,11 @@
                 "name": "Brunnenkresse",
                 "plural_name": "Brunnenkresse"
             },
-            "iceberg": {
+            "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
                 "name": "Eisbergsalat",
-                "plural_name": "Eisbergsalate"
+                "plural_name": "Eisbergsalat"
             },
             "mashed potato": {
                 "aliases": [],
@@ -346,7 +346,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Piment",
-                "plural_name": "Pimente"
+                "plural_name": "Pimientos"
             },
             "spaghetti squash": {
                 "aliases": [],
@@ -358,7 +358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kopfsalat",
-                "plural_name": "Kopfsalate"
+                "plural_name": "Buttersalat"
             },
             "hash brown": {
                 "aliases": [],
@@ -416,7 +416,7 @@
                 "name": "Eichelkürbis",
                 "plural_name": "Eichelkürbisse"
             },
-            "corn cob": {
+            "corn on the cob": {
                 "aliases": [],
                 "description": "",
                 "name": "Maiskolben",
@@ -438,7 +438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Stangenbrokkoli",
-                "plural_name": "Stangenbrokkolis"
+                "plural_name": "Stangenbrokkoli"
             },
             "plantain": {
                 "aliases": [],
@@ -450,7 +450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Schnittsalat",
-                "plural_name": "Schnittsalate"
+                "plural_name": "Blatt­sa­lat"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -482,19 +482,19 @@
                 "name": "Habanero",
                 "plural_name": "Habaneros"
             },
-            "corn husk": {
+            "maize": {
                 "aliases": [
-                    "Mais"
+                    "Maiskolben-schale"
                 ],
                 "description": "",
-                "name": "Maisschale",
-                "plural_name": "Maisschalen"
+                "name": "Mais",
+                "plural_name": "Mais"
             },
-            "collard green": {
+            "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "Blattkohl",
-                "plural_name": "Blattkohle"
+                "name": "Kohlgemüse",
+                "plural_name": "Kohlgemüse"
             },
             "french-fried onion": {
                 "aliases": [],
@@ -544,17 +544,17 @@
                 "name": "Ancho-Chili",
                 "plural_name": "Ancho-Chilis"
             },
-            "microgreen": {
+            "microgreens": {
                 "aliases": [],
                 "description": "",
-                "name": "Junges Blattgemüse",
-                "plural_name": "Junges Blattgemüse"
+                "name": "Keimlinge",
+                "plural_name": "Keimlinge"
             },
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
                 "name": "Kopfsalat",
-                "plural_name": "Kopfsalate"
+                "plural_name": "Boston Salat"
             },
             "kohlrabi": {
                 "aliases": [],
@@ -574,10 +574,12 @@
                 "name": "Delicatakürbis",
                 "plural_name": "Delicatakürbisse"
             },
-            "frisee": {
-                "aliases": [],
+            "Frisée": {
+                "aliases": [
+                    "Krause Endivie"
+                ],
                 "description": "",
-                "name": "Friséesalat",
+                "name": "Frisée",
                 "plural_name": "Friséesalate"
             },
             "anaheim pepper": {
@@ -586,7 +588,7 @@
                 "name": "Anaheim-Chili",
                 "plural_name": "Anaheim-Chilis"
             },
-            "cres": {
+            "cress": {
                 "aliases": [],
                 "description": "",
                 "name": "Kresse",
@@ -596,7 +598,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Brokkolisalat",
-                "plural_name": "Brokkolisalate"
+                "plural_name": "Brokkolisalat"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -974,11 +976,11 @@
                 "name": "Pomelo",
                 "plural_name": "Pomelos"
             },
-            "chestnut puree": {
+            "chestnut purée": {
                 "aliases": [],
                 "description": "",
                 "name": "Kastanienpüree",
-                "plural_name": "Kastanienpürees"
+                "plural_name": "Kastanienpüree"
             },
             "prickly pear": {
                 "aliases": [],
@@ -1230,7 +1232,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Horngurke",
-                "plural_name": "Horngurken"
+                "plural_name": "Horn gurken"
             }
         }
     },
@@ -1293,7 +1295,7 @@
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "Schwarzer Pilz",
+                "name": "Mu-Err-Pilze",
                 "plural_name": "Mu-Err-Pilze"
             },
             "black truffle": {
@@ -1359,7 +1361,7 @@
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "Weißer Pilz",
+                "name": "Tremella",
                 "plural_name": "Weiße Pilze"
             },
             "pioppini": {
@@ -1371,7 +1373,7 @@
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "Schneepilz",
+                "name": "Tremella",
                 "plural_name": "Schneepilze"
             },
             "white beech mushroom": {
@@ -1402,7 +1404,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Nameko",
-                "plural_name": "Nameko"
+                "plural_name": "Nameko Pilz"
             },
             "djon djon mushroom": {
                 "aliases": [],
@@ -1555,8 +1557,8 @@
             "canned sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "Sauerkirsche aus der Dose",
-                "plural_name": "Sauerkirschen aus der Dose"
+                "name": "Sauerkirsche a. d. Dose",
+                "plural_name": "Sauerkirschen a. d. Dose"
             },
             "mulberry": {
                 "aliases": [],
@@ -1573,8 +1575,8 @@
             "canned cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "Kirsche aus der Dose",
-                "plural_name": "Kirschen aus der Dose"
+                "name": "Kirsche a. d. Dose",
+                "plural_name": "Kirschen a. d. Dose"
             },
             "amla": {
                 "aliases": [],
@@ -1996,21 +1998,21 @@
             }
         }
     },
-    "Cheeses": {
+    "Cheese": {
         "foods": {
-            "parmesan": {
+            "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Parmesan",
-                "plural_name": "Parmesan"
+                "name": "Parmesankäse",
+                "plural_name": "Parmesankäse"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "Cheddar"
+                    "Cheddarkäse"
                 ],
                 "description": "",
-                "name": "Cheddar-Käse",
-                "plural_name": "Cheddar-Käse"
+                "name": "Cheddarkäse",
+                "plural_name": "Cheddarkäse"
             },
             "cream cheese": {
                 "aliases": [],
@@ -2018,11 +2020,13 @@
                 "name": "Frischkäse",
                 "plural_name": "Frischkäse"
             },
-            "sharp cheddar": {
-                "aliases": [],
+            "sharp cheddar cheese": {
+                "aliases": [
+                    "Kräftiger Cheddar"
+                ],
                 "description": "",
-                "name": "kräftiger Cheddar",
-                "plural_name": "kräftiger Cheddar"
+                "name": "Kräftiger Cheddar",
+                "plural_name": "Kräftiger Cheddar"
             },
             "cheese": {
                 "aliases": [],
@@ -2030,35 +2034,35 @@
                 "name": "Käse",
                 "plural_name": "Käse"
             },
-            "mozzarella": {
+            "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Mozzarella",
-                "plural_name": "Mozzarella"
+                "name": "Mozzarellakäse",
+                "plural_name": "Mozzarellakäse"
             },
-            "feta": {
+            "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Feta",
-                "plural_name": "Feta"
+                "name": "Fetakäse",
+                "plural_name": "Fetakäse"
             },
-            "ricotta": {
+            "ricotta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Ricotta",
-                "plural_name": "Ricotta"
+                "name": "Ricottakäse",
+                "plural_name": "Ricottakäse"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Cheddar-Jack-Käse",
-                "plural_name": "Cheddar-Jack-Käse"
+                "name": "Cheddar-Käse",
+                "plural_name": "Cheddar-Käse"
             },
-            "monterey jack": {
+            "monterey jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Monterey Jack",
-                "plural_name": "Monterey Jack"
+                "name": "Monterey-Jack-Käse",
+                "plural_name": "Monterey-Jack-Käse"
             },
             "blue cheese": {
                 "aliases": [],
@@ -2072,31 +2076,31 @@
                 "name": "Ziegenkäse",
                 "plural_name": "Ziegenkäse"
             },
-            "fresh mozzarella": {
+            "fresh mozzarella cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Frischer Mozzarella",
-                "plural_name": "Frische Mozzarellas"
+                "plural_name": "Frischer Mozzarella"
             },
-            "swiss cheese": {
+            "swis cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Schweizer Käse",
                 "plural_name": "Schweizer Käse"
             },
-            "pecorino": {
+            "pecorino cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Pecorino",
                 "plural_name": "Pecorino"
             },
-            "gruyere": {
+            "gruyere cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Greyerzer",
-                "plural_name": "Greyerzer"
+                "name": "Gruyère",
+                "plural_name": "Gruyère"
             },
-            "mascarpone": {
+            "mascarpone cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Mascarpone",
@@ -2105,7 +2109,7 @@
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Mascarpone",
+                "name": "Hüttenkäse",
                 "plural_name": "Hüttenkäse"
             },
             "american cheese": {
@@ -2114,67 +2118,67 @@
                 "name": "Schmelzkäse",
                 "plural_name": "Schmelzkäse"
             },
-            "provolone": {
+            "provolone cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Provolone-Käse",
-                "plural_name": "Provolone-Käse"
+                "plural_name": "Provolone"
             },
             "mexican cheese blend": {
                 "aliases": [],
                 "description": "",
                 "name": "mexikanische Käsemischung",
-                "plural_name": "mexikanische Käsemischungen"
+                "plural_name": "mexikanische Käsemischung"
             },
-            "pepper jack": {
+            "pepper jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Pepper Jack",
-                "plural_name": "Pepper Jack"
+                "name": "Pfefferkäse",
+                "plural_name": "Pfefferkäse"
             },
-            "brie": {
+            "brie cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Brie",
-                "plural_name": "Brie"
+                "name": "Brie-Käse",
+                "plural_name": "Brie-Käse"
             },
-            "paneer": {
+            "paneer cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Paneer",
                 "plural_name": "Paneer"
             },
-            "fontina": {
+            "fontina cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Fontina",
                 "plural_name": "Fontina"
             },
-            "queso fresco": {
+            "queso fresco cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Queso Fresco",
-                "plural_name": "Queso Fresco"
+                "name": "Cottage Käse",
+                "plural_name": "Cottage Käse"
             },
-            "quark": {
+            "quark cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Quark",
                 "plural_name": "Quark"
             },
-            "gouda": {
+            "gouda cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Gouda",
-                "plural_name": "Gouda"
+                "name": "Gouda-Käse",
+                "plural_name": "Gouda-Käse"
             },
-            "cotija": {
+            "cotija cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Cotija",
                 "plural_name": "Cotija"
             },
-            "asiago": {
+            "asiago cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Asiago",
@@ -2183,38 +2187,38 @@
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Räucherkäse",
-                "plural_name": "Räucherkäse"
+                "name": "geräucherter Käse",
+                "plural_name": "geräucherter Käse"
             },
-            "halloumi": {
+            "halloumi cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Halloumi",
                 "plural_name": "Halloumi"
             },
-            "chevre": {
+            "chevre cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Chèvre",
                 "plural_name": "Chèvre"
             },
-            "manchego": {
+            "manchego cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Manchego-Käse",
-                "plural_name": "Manchego"
+                "name": "Manchego Käse",
+                "plural_name": "Manchego Käse"
             },
             "italian cheese blend": {
                 "aliases": [],
                 "description": "",
                 "name": "italienische Käsemischung",
-                "plural_name": "italienische Käsemischungen"
+                "plural_name": "italienische Käsemischung"
             },
-            "neufchatel": {
+            "neufchatel cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Neufchâtel",
-                "plural_name": "Neufchâtel"
+                "name": "Neufchâtel Käse",
+                "plural_name": "Neufchâtel Käse"
             },
             "herb cream cheese": {
                 "aliases": [],
@@ -2222,47 +2226,47 @@
                 "name": "Kräuterfrischkäse",
                 "plural_name": "Kräuterfrischkäse"
             },
-            "burrata": {
+            "burrata cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Burrata",
                 "plural_name": "Burrata"
             },
-            "havarti": {
+            "havarti cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Havarti",
-                "plural_name": "Havarti"
+                "name": "Havarti Käse",
+                "plural_name": "Havarti Käse"
             },
-            "colby": {
+            "colby cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Colby",
-                "plural_name": "Colby"
+                "name": "Colby Käse",
+                "plural_name": "Colby Käse"
             },
-            "grana-padano": {
+            "grana-padano cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Grana Padano",
                 "plural_name": "Grana Padano"
             },
-            "muenster": {
+            "muenster cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Münsterkäse",
-                "plural_name": "Münsterkäse"
+                "name": "Munster",
+                "plural_name": "Munster"
             },
             "string cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Käsestange",
-                "plural_name": "Käsestangen"
+                "name": "Fadenkäse",
+                "plural_name": "Fadenkäse"
             },
-            "camembert": {
+            "camembert cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Camembert",
-                "plural_name": "Camemberts"
+                "plural_name": "Camembert"
             },
             "soft cheese": {
                 "aliases": [],
@@ -2270,23 +2274,23 @@
                 "name": "Weichkäse",
                 "plural_name": "Weichkäse"
             },
-            "stilton": {
+            "stilton cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Stilton",
                 "plural_name": "Stilton"
             },
-            "raclette": {
+            "raclette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Raclette",
-                "plural_name": "Raclette"
+                "name": "Raclettekäse",
+                "plural_name": "Raclettekäse"
             },
             "colby-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Colby-Jack-Käse",
-                "plural_name": "Colby-Jack-Käse"
+                "name": "Colby-Jack Käse",
+                "plural_name": "Colby-Jack Käse"
             },
             "jarlsberg cheese": {
                 "aliases": [],
@@ -2294,25 +2298,25 @@
                 "name": "Jarlsberg Käse",
                 "plural_name": "Jarlsberg Käse"
             },
-            "taleggio": {
+            "taleggio cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Taleggio",
                 "plural_name": "Taleggio"
             },
-            "oaxaca": {
+            "oaxaca cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Oaxaca-Käse",
-                "plural_name": "Oaxaca-Käse"
+                "name": "Oaxaca Käse",
+                "plural_name": "Oaxaca Käse"
             },
-            "labneh": {
+            "labneh cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Labneh",
                 "plural_name": "Labneh"
             },
-            "edam": {
+            "edam cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Edamer",
@@ -2324,23 +2328,23 @@
                 "name": "Käseecke",
                 "plural_name": "Käseecken"
             },
-            "cheese powder": {
+            "cheese powder cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Käsepulver",
                 "plural_name": "Käsepulver"
             },
-            "fromage blanc": {
+            "fromage blanc cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Fromage Blanc",
                 "plural_name": "Fromage Blanc"
             },
-            "asadero": {
+            "asadero cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Asadero",
-                "plural_name": "Asadero"
+                "name": "Asadero Käse",
+                "plural_name": "Asadero Käse"
             },
             "marble cheese": {
                 "aliases": [],
@@ -2348,85 +2352,85 @@
                 "name": "Marmorkäse",
                 "plural_name": "Marmorkäse"
             },
-            "leicester": {
+            "leicester cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Leicester",
-                "plural_name": "Leicester"
+                "name": "Leicester Käse",
+                "plural_name": "Leicester Käse"
             },
-            "kefalotyri": {
+            "kefalotyri cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Kefalotyri",
-                "plural_name": "Kefalotyri"
+                "name": "Kefalotyri Käse",
+                "plural_name": "Kefalotyri Käse"
             },
-            "mizithra": {
+            "mizithra cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Mizithra",
-                "plural_name": "Mizithra"
+                "name": "Mizithra Käse",
+                "plural_name": "Mizithra Käse"
             },
-            "lancashire": {
+            "lancashire cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Lancashire",
-                "plural_name": "Lancashire"
+                "name": "Lancashire Käse",
+                "plural_name": "Lancashire Käse"
             },
-            "kasseri": {
+            "kasseri cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Kasseri",
-                "plural_name": "Kasseri"
+                "name": "Kasseri Käse",
+                "plural_name": "Kasseri Käse"
             },
-            "babybel": {
+            "babybel cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Babybel-Käse",
-                "plural_name": "Babybel-Käse"
+                "name": "Babybel",
+                "plural_name": "Babybel"
             },
             "panela cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Panela-Käse",
-                "plural_name": "Panela-Käse"
+                "name": "Panela Käse",
+                "plural_name": "Panela Käse"
             },
-            "longhorn": {
+            "longhorn cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Longhorn",
-                "plural_name": "Longhorn"
+                "name": "Langhorn Käse",
+                "plural_name": "Langhorn Käse"
             },
             "seasoned feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gewürzter Feta",
-                "plural_name": "gewürzter Feta"
+                "name": "Gewürzter Feta",
+                "plural_name": "Gewürzter Feta"
             },
-            "comté": {
+            "comté cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Comté",
                 "plural_name": "Comté"
             },
-            "graviera": {
+            "graviera cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Graviera",
                 "plural_name": "Graviera"
             },
-            "wensleydale": {
+            "wensleydale cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Wensleydale",
-                "plural_name": "Wensleydale"
+                "name": "Wensleydale Käse",
+                "plural_name": "Wensleydale Käse"
             },
-            "scamorza": {
+            "scamorza cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Scamorza",
                 "plural_name": "Scamorza"
             },
-            "cambozola": {
+            "cambozola cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Cambozola",
@@ -2438,17 +2442,17 @@
                 "name": "Cheshire-Käse",
                 "plural_name": "Cheshire-Käse"
             },
-            "anthotyro": {
+            "anthotyro cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Anthotyro",
-                "plural_name": "Anthotyro"
+                "name": "Anthotyro Käse",
+                "plural_name": "Anthotyro Käse"
             },
-            "chenna": {
+            "chenna cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Chenna",
-                "plural_name": "Chenna"
+                "name": "Chhena Käse",
+                "plural_name": "Chhena Käse"
             },
             "hard goat cheese": {
                 "aliases": [],
@@ -2456,11 +2460,11 @@
                 "name": "Ziegen-Hartkäse",
                 "plural_name": "Ziegen-Hartkäse"
             },
-            "kashkaval": {
+            "kashkaval cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Kaschkawal",
-                "plural_name": "Kaschkawal"
+                "name": "Kashkaval Käse",
+                "plural_name": "Kashkaval Käse"
             },
             "sheep cheese": {
                 "aliases": [],
@@ -2471,25 +2475,25 @@
             "amul cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Amul-Käse",
-                "plural_name": "Amul-Käse"
+                "name": "Amul Käse",
+                "plural_name": "Amul Käse"
             },
-            "reblochon": {
+            "reblochon cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Reblochon",
-                "plural_name": "Reblochon"
+                "name": "Reblochons",
+                "plural_name": "Reblochons"
             },
-            "robiola": {
+            "robiola cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Robiola",
-                "plural_name": "Robiola"
+                "name": "Robiola Käse",
+                "plural_name": "Robiola Käse"
             },
             "brick cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Brick-Käse",
+                "name": "Backstein Käse",
                 "plural_name": "Brick-Käse"
             },
             "quick-melt cheese": {
@@ -2504,41 +2508,41 @@
                 "name": "Bauernkäse",
                 "plural_name": "Bauernkäse"
             },
-            "manouri": {
+            "manouri cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Manouri",
-                "plural_name": "Manouri"
+                "name": "Manouri Käse",
+                "plural_name": "Manouri Käse"
             },
-            "mimolette": {
+            "mimolette cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "Mimolette",
-                "plural_name": "Mimolette"
+                "plural_name": "Mimoletten"
             },
-            "queso quesadilla": {
+            "queso quesadilla cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Queso Quesadilla",
-                "plural_name": "Queso Quesadilla"
+                "name": "Queso Quesadilla Käse",
+                "plural_name": "Queso Quesadilla Käse"
             },
-            "caciocavallo": {
+            "caciocavallo cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Caciocavallo",
-                "plural_name": "Caciocavallo"
+                "name": "Caciocavallo Käse",
+                "plural_name": "Caciocavallo Käse"
             },
-            "requeijão": {
+            "requeijão cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Requeijão",
-                "plural_name": "Requeijão"
+                "name": "Requeijão Käse",
+                "plural_name": "Requeijão Käse"
             },
-            "vacherin": {
+            "vacherin cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Vacherin",
-                "plural_name": "Vacherin"
+                "name": "Vacherin-Käse",
+                "plural_name": "Vacherin-Käse"
             },
             "brown cheese": {
                 "aliases": [],
@@ -2546,17 +2550,17 @@
                 "name": "Braunkäse",
                 "plural_name": "Braunkäse"
             },
-            "gloucester": {
+            "gloucester cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Gloucester",
-                "plural_name": "Gloucester"
+                "name": "Gloucester-Käse",
+                "plural_name": "Gloucester-Käse"
             },
-            "port salut": {
+            "port salut cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Port-Salut",
-                "plural_name": "Port-Salut"
+                "name": "Port Salut Käse",
+                "plural_name": "Port Salut Käse"
             },
             "derby cheese": {
                 "aliases": [],
@@ -2564,11 +2568,11 @@
                 "name": "Derby-Käse",
                 "plural_name": "Derby-Käse"
             },
-            "fontal": {
+            "fontal cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Fontal",
-                "plural_name": "Fontal"
+                "name": "Fontal-Käse",
+                "plural_name": "Fontal-Käse"
             },
             "salad cheese": {
                 "aliases": [],
@@ -2588,23 +2592,23 @@
                 "name": "Époisses",
                 "plural_name": "Époisses"
             },
-            "maasdam": {
+            "maasdam cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Maasdammer",
-                "plural_name": "Maasdammer"
+                "name": "Maasdamer",
+                "plural_name": "Maasdamer"
             },
-            "petit-suisse": {
+            "petit-suisse cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Petit-Suisse",
-                "plural_name": "Petit-Suisse"
+                "name": "Petit-Suisse Käse",
+                "plural_name": "Petit-Suisse Käse"
             },
-            "sbrinz": {
+            "sbrinz cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "Sbrinz",
-                "plural_name": "Sbrinz"
+                "name": "Sbrinz-Käse",
+                "plural_name": "Sbrinz-Käse"
             }
         }
     },
@@ -2638,7 +2642,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Schmand",
-                "plural_name": "Schmand"
+                "plural_name": "Saure Sahne"
             },
             "buttermilk": {
                 "aliases": [],
@@ -2832,7 +2836,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Milchcreme",
-                "plural_name": "Milchcremes"
+                "plural_name": "Milchcreme"
             },
             "coffee creamer": {
                 "aliases": [],
@@ -3160,7 +3164,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kokoscreme",
-                "plural_name": "Kokoscremes"
+                "plural_name": "Kokoscreme"
             },
             "vegan butter": {
                 "aliases": [],
@@ -3177,8 +3181,8 @@
             "soy milk": {
                 "aliases": [],
                 "description": "",
-                "name": "Soyamilch",
-                "plural_name": "Soyamilch"
+                "name": "Sojamilch",
+                "plural_name": "Sojamilch"
             },
             "extra firm tofu": {
                 "aliases": [],
@@ -3196,7 +3200,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kala Namak Salz",
-                "plural_name": "Kala Namak Salze"
+                "plural_name": "Kala-Namak-Salz"
             },
             "coconut butter": {
                 "aliases": [],
@@ -3214,7 +3218,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Vegane Ma­yon­nai­se",
-                "plural_name": "Vegane Ma­yon­nai­sen"
+                "plural_name": "Vegane Ma­yon­nai­se"
             },
             "vegan cheese": {
                 "aliases": [],
@@ -3376,7 +3380,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Geschlagene non-dairy Toppings",
-                "plural_name": "Non-Dairy Sahne"
+                "plural_name": "Pflanzliche Sahne"
             },
             "vegan burger patty": {
                 "aliases": [],
@@ -3472,7 +3476,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kokosnuss-Paste",
-                "plural_name": "Kokosnuss-Paste"
+                "plural_name": "Kokosnusspaste"
             },
             "vegetable suet": {
                 "aliases": [],
@@ -3484,7 +3488,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "milchfreies Eis",
-                "plural_name": "milchfreie Eis"
+                "plural_name": "Milchfreies Speiseeis"
             },
             "almond-coconut milk": {
                 "aliases": [],
@@ -3502,7 +3506,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Vegane Fischsoße",
-                "plural_name": "Vegane Fischsoßen"
+                "plural_name": "Vegane Fischsoße"
             },
             "vegetarian hot dog": {
                 "aliases": [],
@@ -3580,7 +3584,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Cashew Käsesauce",
-                "plural_name": "Cashew-Käse-Saucen"
+                "plural_name": "Cashew-Käsesauce"
             },
             "coconut fat": {
                 "aliases": [],
@@ -3634,13 +3638,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Cashew Frischkäse",
-                "plural_name": "Cashew Frischkäse"
+                "plural_name": "Cashew-Frischkäse"
             },
             "cricket flour": {
                 "aliases": [],
                 "description": "",
                 "name": "Grillenmehl",
-                "plural_name": "Grillenmehle"
+                "plural_name": "Grillenmehl"
             },
             "macadamia butter": {
                 "aliases": [],
@@ -3718,7 +3722,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Walnuss-Milch",
-                "plural_name": "Walnuss-Milch"
+                "plural_name": "Walnussmilch"
             },
             "latik": {
                 "aliases": [],
@@ -3730,7 +3734,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Reiscreme",
-                "plural_name": "Reiscremes"
+                "plural_name": "Reiscreme"
             }
         }
     },
@@ -5148,11 +5152,11 @@
                 "name": "Steinbutt",
                 "plural_name": "Steinbutte"
             },
-            "bangu": {
+            "bangús": {
                 "aliases": [],
                 "description": "",
-                "name": "Milchfisch",
-                "plural_name": "Milchfische"
+                "name": "bangús",
+                "plural_name": "bangús"
             },
             "rockfish": {
                 "aliases": [],
@@ -5388,7 +5392,7 @@
                 "name": "Dorade",
                 "plural_name": "Doraden"
             },
-            "pangasiu": {
+            "pangasius": {
                 "aliases": [],
                 "description": "",
                 "name": "Pangasius",
@@ -5572,11 +5576,11 @@
                 "name": "Flusskrebs",
                 "plural_name": "Flusskrebse"
             },
-            "octopu": {
+            "octopus": {
                 "aliases": [],
                 "description": "",
-                "name": "Oktopus",
-                "plural_name": "Oktopusse"
+                "name": "Tintenfisch",
+                "plural_name": "Tintenfische"
             },
             "kombu": {
                 "aliases": [],
@@ -5844,7 +5848,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Thymian",
-                "plural_name": "Thymiane"
+                "plural_name": "Thymian"
             },
             "ginger root": {
                 "aliases": [],
@@ -5886,7 +5890,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Paprika",
-                "plural_name": "Paprika"
+                "plural_name": "Paprikas"
             },
             "cayenne": {
                 "aliases": [],
@@ -5976,7 +5980,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Koriander-Pulver",
-                "plural_name": "Koriander-Pulver"
+                "plural_name": "Korianderpulver"
             },
             "sage": {
                 "aliases": [],
@@ -6120,7 +6124,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Ancho-Chili Pulver",
-                "plural_name": "Ancho-Chili Pulver"
+                "plural_name": "Ancho-Chilipulver"
             },
             "sumac": {
                 "aliases": [],
@@ -6204,7 +6208,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Mango-Pulver",
-                "plural_name": "Mango-Pulver"
+                "plural_name": "Mangopulver"
             },
             "black mustard seed": {
                 "aliases": [],
@@ -6396,13 +6400,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Rohe Stevia",
-                "plural_name": "Rohe Stevia"
+                "plural_name": "Stevia"
             },
             "achiote paste": {
                 "aliases": [],
                 "description": "",
                 "name": "Annatto-Paste",
-                "plural_name": "Annatto-Pasten"
+                "plural_name": "Recado Rojo"
             },
             "summer savory": {
                 "aliases": [],
@@ -6432,7 +6436,7 @@
                 ],
                 "description": "",
                 "name": "Brauner Zucker",
-                "plural_name": "Braune Zucker"
+                "plural_name": "Brauner Zucker"
             },
             "confectioners sugar": {
                 "aliases": [
@@ -6455,13 +6459,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Ahornsirup",
-                "plural_name": "Ahornsirups"
+                "plural_name": "Ahornsirup"
             },
             "corn syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Maissirup",
-                "plural_name": "Maissirups"
+                "plural_name": "Maissirup"
             },
             "coconut sugar": {
                 "aliases": [],
@@ -6469,29 +6473,29 @@
                 "name": "Kokosblütenzucker",
                 "plural_name": "Kokosblütenzucker"
             },
-            "molass": {
+            "molasses": {
                 "aliases": [],
                 "description": "",
                 "name": "Melasse",
-                "plural_name": "Melassen"
+                "plural_name": "Melasse"
             },
             "stevia": {
                 "aliases": [],
                 "description": "",
                 "name": "Stevia",
-                "plural_name": "Stevias"
+                "plural_name": "Stevia"
             },
             "agave nectar": {
                 "aliases": [],
                 "description": "",
                 "name": "Agavendicksaft",
-                "plural_name": "Agavendicksäfte"
+                "plural_name": "Agavendicksaft"
             },
             "sugar syrup": {
                 "aliases": [],
-                "description": "Zuckerfreier Süßstoff",
+                "description": "",
                 "name": "Zuckersirup",
-                "plural_name": "Zuckersirups"
+                "plural_name": "Zuckersirup"
             },
             "isomalt": {
                 "aliases": [],
@@ -6503,7 +6507,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Erythrit",
-                "plural_name": "Erythrite"
+                "plural_name": "Erythrit"
             },
             "vanilla sugar": {
                 "aliases": [],
@@ -6521,19 +6525,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Karamellsirup",
-                "plural_name": "Karamellsirups"
+                "plural_name": "Karamellsirup"
             },
             "chocolate syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Schokoladensirup",
-                "plural_name": "Schokoladensirups"
+                "plural_name": "Schokoladensirup"
             },
             "jaggery": {
                 "aliases": [],
                 "description": "",
                 "name": "Palmzucker",
-                "plural_name": "Palmzucker"
+                "plural_name": "Unraffinierter Zucker"
             },
             "raw sugar": {
                 "aliases": [],
@@ -6545,13 +6549,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Zuckerrübensirup",
-                "plural_name": "Zuckerrübensirups"
+                "plural_name": "Zuckerrübensirup"
             },
             "cinnamon sugar": {
                 "aliases": [],
                 "description": "",
                 "name": "Zimtzucker",
-                "plural_name": "Zimt und Zucker"
+                "plural_name": "Zimtzucker"
             },
             "liquid stevia": {
                 "aliases": [],
@@ -6563,13 +6567,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Grenadine",
-                "plural_name": "Grenadines"
+                "plural_name": "Grenadine"
             },
             "coarse sugar": {
                 "aliases": [],
                 "description": "",
                 "name": "Hagelzucker",
-                "plural_name": "Grober Zucker"
+                "plural_name": "Hagelzucker"
             },
             "salted caramel syrup": {
                 "aliases": [],
@@ -6581,7 +6585,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Puderzucker",
-                "plural_name": "Grober Zucker"
+                "plural_name": "Puderzucker"
             },
             "dark corn syrup": {
                 "aliases": [],
@@ -6659,19 +6663,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Erdbeersirup",
-                "plural_name": "Erdbeersirups"
+                "plural_name": "Erdbeersirup"
             },
             "vanilla syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Vanillesirup",
-                "plural_name": "Vanillesirups"
+                "plural_name": "Vanillesirup"
             },
             "ginger syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Ingwersirup",
-                "plural_name": "Ingwersirups"
+                "plural_name": "Ingwersirup"
             },
             "orgeat": {
                 "aliases": [],
@@ -6683,25 +6687,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "Reismalz-Sirup",
-                "plural_name": "Reismalz-Sirups"
+                "plural_name": "Reismalz-Sirup"
             },
             "pancake syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Pfannkuchen-Sirup",
-                "plural_name": "Pfannkuchen-Sirups"
+                "plural_name": "Pfannkuchen-Sirup"
             },
             "raspberry syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Himbeer-Sirup",
-                "plural_name": "Himbeer-Sirups"
+                "plural_name": "Himbeersirup"
             },
             "date syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Dattel-Sirup",
-                "plural_name": "Dattel-Sirups"
+                "plural_name": "Dattel-Sirup"
             },
             "black treacle": {
                 "aliases": [],
@@ -6713,19 +6717,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Dattelpaste",
-                "plural_name": "Dattelpasten"
+                "plural_name": "Dattelpaste"
             },
             "coconut syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Kokosnuss-Sirup",
-                "plural_name": "Kokosnuss-Sirups"
+                "plural_name": "Kokosnuss-Sirup"
             },
             "mint syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Pfefferminz-Sirup",
-                "plural_name": "Pfefferminz-Sirups"
+                "plural_name": "Pfefferminz-Sirup"
             },
             "treacle": {
                 "aliases": [],
@@ -6737,13 +6741,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Reissirup",
-                "plural_name": "Zuckerrohr-Sirup"
+                "plural_name": "Reissirup"
             },
             "manuka honey": {
                 "aliases": [],
                 "description": "",
                 "name": "Manuka-Honig",
-                "plural_name": "Manuka-Honige"
+                "plural_name": "Manuka-Honig"
             },
             "maple butter": {
                 "aliases": [],
@@ -6755,13 +6759,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Heidelbeer-Sirup",
-                "plural_name": "Heidelbeer-Sirups"
+                "plural_name": "Heidelbeer-Sirup"
             },
             "apple syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Apfel-Sirup",
-                "plural_name": "Apfel-Sirups"
+                "plural_name": "Apfel-Sirup"
             },
             "allulose": {
                 "aliases": [],
@@ -6773,7 +6777,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Brombeer-Sirup",
-                "plural_name": "Brombeer-Sirups"
+                "plural_name": "Brombeer-Sirup"
             },
             "piloncillo": {
                 "aliases": [],
@@ -6785,19 +6789,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kirsch-Sirup",
-                "plural_name": "Kirsch-Sirups"
+                "plural_name": "Kirsch-Sirup"
             },
             "hibiscus syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Hibiskus-Sirup",
-                "plural_name": "Hibiskus-Sirups"
+                "plural_name": "Hibiskus-Sirup"
             },
             "lavender syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Lavendel-Sirup",
-                "plural_name": "Lavendel-Sirups"
+                "plural_name": "Lavendel-Sirup"
             },
             "fresh sugar cane": {
                 "aliases": [],
@@ -6809,19 +6813,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Haselnuss-Sirup",
-                "plural_name": "Haselnuss-Sirups"
+                "plural_name": "Haselnuss-Sirup"
             },
             "white chocolate sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Weiße Schokoladensauce",
-                "plural_name": "Weiße Schokoladensaucen"
+                "plural_name": "Weiße Schokoladensauce"
             },
             "pumpkin spice syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Kürbisgewürz-Sirup",
-                "plural_name": "Kürbisgewürz-Sirups"
+                "plural_name": "Kürbisgewürz-Sirup"
             },
             "glycerine": {
                 "aliases": [],
@@ -6833,43 +6837,43 @@
                 "aliases": [],
                 "description": "",
                 "name": "Sorghum-Sirup",
-                "plural_name": "Sorghum-Sirups"
+                "plural_name": "Sorghum-Sirup"
             },
             "lucuma powder": {
                 "aliases": [],
                 "description": "",
                 "name": "Lucumapulver",
-                "plural_name": "Lúcuma-Pulver"
+                "plural_name": "Lucumapulver"
             },
             "black sugar": {
                 "aliases": [],
                 "description": "",
                 "name": "Schwarzer Zucker",
-                "plural_name": "Schwarze Zucker"
+                "plural_name": "Schwarzer Zucker"
             },
             "cranberry syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Preiselbeer-Sirup",
-                "plural_name": "Preiselbeer-Sirups"
+                "plural_name": "Cranberrysirup"
             },
             "golden sugar": {
                 "aliases": [],
                 "description": "",
                 "name": "Golender Zucker",
-                "plural_name": "Goldene Zucker"
+                "plural_name": "Goldzucker"
             },
             "cane syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Zuckerrohr-Sirup",
-                "plural_name": "Zuckerrohr-Sirups"
+                "plural_name": "Zuckerrohr-Sirup"
             },
             "mango syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Mango Sirup",
-                "plural_name": "Mangosirup"
+                "plural_name": "Mango Sirup"
             },
             "malt syrup": {
                 "aliases": [],
@@ -6881,7 +6885,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "heißer Honig",
-                "plural_name": "heiße Honige"
+                "plural_name": "scharfer Honig"
             },
             "gula melaka": {
                 "aliases": [],
@@ -6893,19 +6897,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Holunderbeerensirup",
-                "plural_name": "Holunderbeerensirups"
+                "plural_name": "Holunderbeerensirup"
             },
             "rosemary syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Rosmarinsirup",
-                "plural_name": "Rosmarinsirups"
+                "plural_name": "Rosmarinsirup"
             },
             "dark chocolate syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Dunkler Schokoladensirup",
-                "plural_name": "Dunkle Schokoladensirups"
+                "plural_name": "Dunkler Schokoladensirup"
             },
             "inulin": {
                 "aliases": [],
@@ -6935,25 +6939,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "Beeren-Sirup",
-                "plural_name": "Beeren-Sirups"
+                "plural_name": "Beeren-Sirup"
             },
             "grape syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Ahornsirup",
-                "plural_name": "Ahornsirups"
+                "plural_name": "Traubensirup"
             },
             "brown butter syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Brauner Reissirup",
-                "plural_name": "Braune Reissirups"
+                "plural_name": "brauner Buttersirup"
             },
             "date sugar": {
                 "aliases": [],
                 "description": "",
                 "name": "Dattelzucker",
-                "plural_name": "Dattelszucker"
+                "plural_name": "Dattelzucker"
             },
             "mastic gum": {
                 "aliases": [],
@@ -6971,19 +6975,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Irischer Sahne-Sirup",
-                "plural_name": "Irische Sahne-Sirups"
+                "plural_name": "Irischer Sahne-Sirup"
             },
             "prickly pear syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Kaktusfeigensirup",
-                "plural_name": "Kaktusfeigensirups"
+                "plural_name": "Kaktusfeigensirup"
             },
             "cookie butter syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Brauner Reissirup",
-                "plural_name": "Braune Reissirups"
+                "plural_name": "Keksbutter-Sirup"
             },
             "creamed honey": {
                 "aliases": [],
@@ -7007,13 +7011,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Aromatisierter Sirup",
-                "plural_name": "Aromatisierte Sirups"
+                "plural_name": "Aromatisierter Sirup"
             },
             "elderflower syrup": {
                 "aliases": [],
                 "description": "",
                 "name": "Holunderblütensirup",
-                "plural_name": "Holunderblütensirups"
+                "plural_name": "Holunderblütensirup"
             },
             "malt sugar": {
                 "aliases": [],
@@ -7025,13 +7029,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Buchweizen-Honig",
-                "plural_name": "Buchweizen-Honige"
+                "plural_name": "Buchweizen-Honig"
             },
             "truffle honey": {
                 "aliases": [],
                 "description": "",
                 "name": "Trüffelhonig",
-                "plural_name": "Trüffelhonige"
+                "plural_name": "Trüffelhonig"
             }
         }
     },
@@ -7083,13 +7087,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Taco-Gewürz",
-                "plural_name": "Taco-Gewürze"
+                "plural_name": "Taco-Gewürz"
             },
             "cajun seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "Cajun-Gewürzmischung",
-                "plural_name": "Cajun-Gewürzmischungen"
+                "plural_name": "Cajun-Gewürzmischung"
             },
             "dry ranch seasoning": {
                 "aliases": [],
@@ -7113,7 +7117,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Zitronen & Pfeffer Gewürz",
-                "plural_name": "Zitronen & Pfeffer Gewürze"
+                "plural_name": "Zitronen & Pfeffer Gewürz"
             },
             "liquid smoke": {
                 "aliases": [],
@@ -7125,7 +7129,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Geflügelgewürz",
-                "plural_name": "Geflügelgewürze"
+                "plural_name": "Geflügelgewürz"
             },
             "chinese five spice": {
                 "aliases": [],
@@ -7143,7 +7147,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Old Bay Gewürzmischung",
-                "plural_name": "Old Bay Gewürzmischungen"
+                "plural_name": "Old Bay Gewürzmischung"
             },
             "herbe de provence": {
                 "aliases": [],
@@ -7161,7 +7165,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Griechisches Gewürz",
-                "plural_name": "Griechische Gewürze"
+                "plural_name": "Griechisches Gewürz"
             },
             "steak seasoning": {
                 "aliases": [],
@@ -7185,7 +7189,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Rote Thai-Currypaste",
-                "plural_name": "Rote Thai-Currypasten"
+                "plural_name": "Rote Thai-Currypaste"
             },
             "mixed herb": {
                 "aliases": [],
@@ -7227,13 +7231,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Allzweck Gewürz",
-                "plural_name": "Allzweck Gewürze"
+                "plural_name": "Allzweck Gewürz"
             },
             "seafood seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "Meeresfrüchte-Gewürz",
-                "plural_name": "Meeresfrüchte-Gewürze"
+                "plural_name": "Meeresfrüchte-Gewürz"
             },
             "bagel seasoning": {
                 "aliases": [],
@@ -7245,7 +7249,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Fajita Gewürz",
-                "plural_name": "Fajita Gewürze"
+                "plural_name": "Fajita Gewürz"
             },
             "tandoori spice": {
                 "aliases": [],
@@ -7263,7 +7267,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Karibische Jerk-Gewürzmischung",
-                "plural_name": "Karibische Jerk-Gewürzmischungen"
+                "plural_name": "Karibische Jerk-Gewürzmischung"
             },
             "gravy mix": {
                 "aliases": [],
@@ -7275,7 +7279,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Knoblauch & Kräutergewürz",
-                "plural_name": "Knoblauch & Kräutergewürze"
+                "plural_name": "Knoblauch & Kräutergewürz"
             },
             "garlic-pepper seasoning": {
                 "aliases": [],
@@ -7287,13 +7291,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Pökelsalz",
-                "plural_name": "Pökelsalze"
+                "plural_name": "Pökelsalz"
             },
             "greek seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "Griechisches Gewürz",
-                "plural_name": "Griechische Gewürze"
+                "plural_name": "Griechisches Gewürz"
             },
             "msg": {
                 "aliases": [],
@@ -7347,13 +7351,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "salzfreies Gewürz",
-                "plural_name": "salzfreie Gewürze"
+                "plural_name": "salzfreies Gewürz"
             },
             "carne asada seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "Gewürzmischung für gebratenes Fleisch",
-                "plural_name": "Gewürzmischungen für gebratenes Fleisch"
+                "plural_name": "Carne Asada Gewürzmischung"
             },
             "bouquet garni": {
                 "aliases": [],
@@ -7485,13 +7489,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Hühnertaco-Gewürz",
-                "plural_name": "Hühnertaco-Gewürze"
+                "plural_name": "Hühnertaco-Gewürz"
             },
             "mushroom seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "Pilz-Gewürz",
-                "plural_name": "Pilz-Gewürze"
+                "plural_name": "Pilz-Gewürz"
             },
             "au jus mix": {
                 "aliases": [],
@@ -7509,7 +7513,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Popcorn-Gewürz",
-                "plural_name": "Popcorn-Gewürze"
+                "plural_name": "Popcorn-Gewürz"
             },
             "berbere": {
                 "aliases": [],
@@ -7521,7 +7525,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Chili-Limetten Gewürz",
-                "plural_name": "Chili-Limetten Gewürze"
+                "plural_name": "Chili-Limetten Gewürz"
             },
             "brown miso": {
                 "aliases": [],
@@ -7539,7 +7543,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Pizza Gewürz",
-                "plural_name": "Pizza Gewürze"
+                "plural_name": "Pizza Gewürz"
             },
             "fines herbe": {
                 "aliases": [],
@@ -7575,7 +7579,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Zitronen & Pfeffer Gewürz",
-                "plural_name": "Zitronen & Pfeffer Gewürze"
+                "plural_name": "Zitronen & Pfeffer Gewürz"
             },
             "vanilla salt": {
                 "aliases": [],
@@ -7611,7 +7615,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hawaiianisches Salz",
-                "plural_name": "hawaiianischen Salze"
+                "plural_name": "hawaiianisches Salz"
             },
             "mesquite seasoning": {
                 "aliases": [],
@@ -7623,7 +7627,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Tom Yum Paste",
-                "plural_name": "Tom Yum Pasten"
+                "plural_name": "Tom Yum Paste"
             },
             "fish masala": {
                 "aliases": [],
@@ -7641,7 +7645,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "südwestliches Chipotle-Gewürz",
-                "plural_name": "südwestliche Chipotle-Gewürze"
+                "plural_name": "südwestliches Chipotle-Gewürz"
             }
         }
     },
@@ -7660,7 +7664,7 @@
                 ],
                 "description": "",
                 "name": "Vanille Extrakt",
-                "plural_name": "Vanille-Extrakt"
+                "plural_name": "Vanille Extrakt"
             },
             "baking powder": {
                 "aliases": [],
@@ -7862,12 +7866,12 @@
             },
             "whole-wheat": {
                 "aliases": [
-                    "vollkorn",
-                    "vollkorn"
+                    "Vollkorn",
+                    "Vollkorn"
                 ],
                 "description": "",
-                "name": "vollkorn",
-                "plural_name": "vollkorn"
+                "name": "Vollkorn",
+                "plural_name": "Vollkorn"
             },
             "candy sprinkle": {
                 "aliases": [],
@@ -7891,7 +7895,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Pfeilwurzelmehl",
-                "plural_name": "pfeilwurzelmehl"
+                "plural_name": "Pfeilwurzelmehl"
             },
             "flaxseed meal": {
                 "aliases": [],
@@ -7939,7 +7943,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Buchweizenmehl",
-                "plural_name": "Buchweizenmehle"
+                "plural_name": "Buchweizenmehl"
             },
             "brown rice flour": {
                 "aliases": [],
@@ -8035,7 +8039,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Natriumpulver",
-                "plural_name": "Natriumpulver"
+                "plural_name": "Sorghummehl"
             },
             "potato flake": {
                 "aliases": [],
@@ -8083,7 +8087,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Weiße Backschokolade",
-                "plural_name": "weiße Backschokolade"
+                "plural_name": "Weiße Backschokolade"
             },
             "cassava flour": {
                 "aliases": [],
@@ -8125,7 +8129,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Haselnussmehl",
-                "plural_name": "Haselnussmehle"
+                "plural_name": "Haselnussmehl"
             },
             "citric acid": {
                 "aliases": [],
@@ -8191,7 +8195,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "glutenfreies Allzweckmehl",
-                "plural_name": "glutenfreies Allzweckmehl"
+                "plural_name": "glutenfreies Mehl"
             },
             "einkorn flour": {
                 "aliases": [],
@@ -8209,7 +8213,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "glutenfreies Mehl",
-                "plural_name": "glutenfreies Mehl"
+                "plural_name": "Glutenfreies backfertiges Mehl"
             },
             "peanut flour": {
                 "aliases": [],
@@ -8221,13 +8225,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "süße Bohnenpaste",
-                "plural_name": "süße Bohnenpasten"
+                "plural_name": "süße Bohnenpaste"
             },
             "carob powder": {
                 "aliases": [],
                 "description": "",
                 "name": "Johannisbrotkernmehl",
-                "plural_name": "Johannisbrotkernmehle"
+                "plural_name": "Johannisbrotkernmehl"
             },
             "tapioca pearl": {
                 "aliases": [],
@@ -8239,7 +8243,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Teffmehl",
-                "plural_name": "Teffmehle"
+                "plural_name": "Teffmehl"
             },
             "guar gum": {
                 "aliases": [],
@@ -8251,7 +8255,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kartoffelmehl",
-                "plural_name": "Kartoffelmehle"
+                "plural_name": "Kartoffelmehl"
             },
             "ready-made icing": {
                 "aliases": [],
@@ -8587,7 +8591,7 @@
                 "name": "Risotto-Reis",
                 "plural_name": "Risotto-Reis"
             },
-            "couscou": {
+            "couscous": {
                 "aliases": [],
                 "description": "",
                 "name": "Couscous",
@@ -9641,7 +9645,7 @@
                 "name": "Orecchiette",
                 "plural_name": "Orecchiette"
             },
-            "israeli couscou": {
+            "israeli couscous": {
                 "aliases": [],
                 "description": "",
                 "name": "Perlcouscous",
@@ -9957,7 +9961,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Mandu",
-                "plural_name": "Mandus"
+                "plural_name": "Mandu"
             },
             "pasta salad mix": {
                 "aliases": [],
@@ -10246,8 +10250,8 @@
             "pita chip": {
                 "aliases": [],
                 "description": "",
-                "name": "pita chip",
-                "plural_name": "pita chips"
+                "name": "Fladenbrot Chip",
+                "plural_name": "Fladenbrot Chips"
             },
             "gluten free bread": {
                 "aliases": [],
@@ -10288,8 +10292,8 @@
             "tostada shell": {
                 "aliases": [],
                 "description": "",
-                "name": "tostada shell",
-                "plural_name": "tostada shells"
+                "name": "Tostada",
+                "plural_name": "Tostadas"
             },
             "crispy fried onion": {
                 "aliases": [],
@@ -10635,7 +10639,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Olivenöl",
-                "plural_name": "Olivenöle"
+                "plural_name": "Olivenöl"
             },
             "vegetable oil": {
                 "aliases": [],
@@ -10647,13 +10651,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "natives Olivenöl extra",
-                "plural_name": "native Olivenöle extra"
+                "plural_name": "extra natives Olivenöl"
             },
             "canola oil": {
                 "aliases": [],
                 "description": "",
                 "name": "Rapsöl",
-                "plural_name": "Rübenöl"
+                "plural_name": "Rapsöl"
             },
             "coconut oil": {
                 "aliases": [],
@@ -10677,7 +10681,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Frittieröl",
-                "plural_name": "Bratöl"
+                "plural_name": "Frittieröl"
             },
             "sunflower oil": {
                 "aliases": [],
@@ -10701,7 +10705,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Erdnussöl",
-                "plural_name": "Erdnussöle"
+                "plural_name": "Erdnussöl"
             },
             "grapeseed oil": {
                 "aliases": [
@@ -10721,19 +10725,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Maisöl",
-                "plural_name": "Maisöl"
+                "plural_name": "Maiskeimöl"
             },
             "virgin coconut oil": {
                 "aliases": [],
                 "description": "",
                 "name": "Natives Kokosöl",
-                "plural_name": "Native Kokosöle"
+                "plural_name": "natives Kokosöl"
             },
             "chili oil": {
                 "aliases": [],
                 "description": "",
                 "name": "Chili-Öl",
-                "plural_name": "Chili-Öl"
+                "plural_name": "Chiliöl"
             },
             "mustard oil": {
                 "aliases": [],
@@ -10751,13 +10755,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Knoblauchöl",
-                "plural_name": "Knoblauchöle"
+                "plural_name": "Knoblauchöl"
             },
             "truffle oil": {
                 "aliases": [],
                 "description": "",
                 "name": "Trüffel-Öl",
-                "plural_name": "Trüffel-Öl"
+                "plural_name": "Trüffelöl"
             },
             "bacon grease": {
                 "aliases": [],
@@ -10871,19 +10875,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Palmöl",
-                "plural_name": "Palmöle"
+                "plural_name": "Palmöl"
             },
             "basil oil": {
                 "aliases": [],
                 "description": "",
                 "name": "Basilikumöl",
-                "plural_name": "Basilikumöle"
+                "plural_name": "Basilikumöl"
             },
             "pork fat": {
                 "aliases": [],
                 "description": "",
                 "name": "Schweinefett",
-                "plural_name": "Schweinefette"
+                "plural_name": "Schweinefett"
             },
             "beef dripping": {
                 "aliases": [],
@@ -10894,8 +10898,8 @@
             "schmaltz": {
                 "aliases": [],
                 "description": "",
-                "name": "Schmalz",
-                "plural_name": "schmaltzzes"
+                "name": "Geflügelschmalz",
+                "plural_name": "Geflügelschmalz"
             },
             "tallow": {
                 "aliases": [],
@@ -10903,23 +10907,17 @@
                 "name": "Talg",
                 "plural_name": "Talg"
             },
-            "sushi vinegar": {
-                "aliases": [],
-                "description": "",
-                "name": "Sushi Essig",
-                "plural_name": "Sushi-Essige"
-            },
             "pistachio oil": {
                 "aliases": [],
                 "description": "",
                 "name": "Pistazien-Öl",
-                "plural_name": "Pistazien-Öle"
+                "plural_name": "Pistazienöl"
             },
             "herb-infused olive oil": {
                 "aliases": [],
                 "description": "",
                 "name": "aromatisiertes Olivenöl",
-                "plural_name": "aromatisiertes Olivenöl"
+                "plural_name": "krauterintensives Olivenöl"
             },
             "roasted peanut oil": {
                 "aliases": [],
@@ -10931,7 +10929,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Arganöl",
-                "plural_name": "Arganöle"
+                "plural_name": "Arganöl"
             },
             "beef fat": {
                 "aliases": [],
@@ -10943,13 +10941,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Pekannussöl",
-                "plural_name": "Pekannussöle"
+                "plural_name": "Pekannussöl"
             },
             "crisco oil": {
                 "aliases": [],
                 "description": "",
                 "name": "Butterschmalz",
-                "plural_name": "Butterschmalz"
+                "plural_name": "Pflanzenfett (Crisco)"
             },
             "red palm oil": {
                 "aliases": [],
@@ -10985,25 +10983,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "Schalottenöl",
-                "plural_name": "Schalottenöle"
+                "plural_name": "Schalottenöl"
             },
             "achiote oil": {
                 "aliases": [],
                 "description": "",
                 "name": "Achioteöl",
-                "plural_name": "Achioteöle"
+                "plural_name": "Achioteöl"
             },
             "jojoba oil": {
                 "aliases": [],
                 "description": "",
                 "name": "Jojobaöl",
-                "plural_name": "Jojobaöle"
+                "plural_name": "Jojobaöl"
             },
             "oregano oil": {
                 "aliases": [],
                 "description": "",
                 "name": "Oreganoöl",
-                "plural_name": "Oreganoöle"
+                "plural_name": "Oreganoöl"
             },
             "hemp seed oil": {
                 "aliases": [],
@@ -11027,7 +11025,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Baumwollsamenöl",
-                "plural_name": "Baumwollkernöl"
+                "plural_name": "Baumwollsamenöl"
             },
             "pork dripping": {
                 "aliases": [],
@@ -11115,7 +11113,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Weißweinessig",
-                "plural_name": "Weißweinessige"
+                "plural_name": "Weißweinessig"
             },
             "ranch dressing": {
                 "aliases": [],
@@ -11133,19 +11131,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Sherryessig",
-                "plural_name": "Sherryessige"
+                "plural_name": "Sherryessig"
             },
             "distilled white vinegar": {
                 "aliases": [],
                 "description": "",
                 "name": "destilierter Weißweinessig",
-                "plural_name": "destilierte Weißweinessige"
+                "plural_name": "destilierter Weißweinessig"
             },
             "sweet chilli sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Sweet Chili Sauce",
-                "plural_name": "Sweet Chili Saucen"
+                "plural_name": "Sweet Chili Sauce"
             },
             "white balsamic vinegar": {
                 "aliases": [],
@@ -11157,7 +11155,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Champagneressig",
-                "plural_name": "Champagneressige"
+                "plural_name": "Champagneressig"
             },
             "vinaigrette dressing": {
                 "aliases": [],
@@ -11211,7 +11209,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Himberessig",
-                "plural_name": "Himberessige"
+                "plural_name": "Himberessig"
             },
             "japanese mayonnaise": {
                 "aliases": [],
@@ -11223,7 +11221,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Estragonessig",
-                "plural_name": "Estragonessige"
+                "plural_name": "Estragonessig"
             },
             "greek vinaigrette": {
                 "aliases": [],
@@ -11271,7 +11269,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Catalina-Dressing",
-                "plural_name": "catalina dressings"
+                "plural_name": "Catalina-Dressing"
             },
             "verjuice": {
                 "aliases": [],
@@ -11301,19 +11299,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Russisches Dressing",
-                "plural_name": "Russisches Dressings"
+                "plural_name": "Russisches Dressing"
             },
             "avocado oil mayonnaise": {
                 "aliases": [],
                 "description": "",
                 "name": "Avocadoöl Mayonnaise",
-                "plural_name": "Avocadoöl Mayonnaisen"
+                "plural_name": "Avocadoöl Mayonnaise"
             },
             "creamy balsamic dressing": {
                 "aliases": [],
                 "description": "",
                 "name": "cremiges Balsamico-Dressing",
-                "plural_name": "cremige Balsamico-Dressings"
+                "plural_name": "cremiges Balsamico-Dressing"
             },
             "champagne vinaigrette": {
                 "aliases": [],
@@ -11331,7 +11329,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Knoblauchmayonnaise",
-                "plural_name": "Knoblauchmayonnaisen"
+                "plural_name": "Knoblauchmayonnaise"
             },
             "brown rice vinegar": {
                 "aliases": [],
@@ -11343,7 +11341,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kokosessig",
-                "plural_name": "Kokosnussessige"
+                "plural_name": "Kokosessig"
             },
             "ume plum vinegar": {
                 "aliases": [],
@@ -11355,19 +11353,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Buttermilch-Ranch-Dressing",
-                "plural_name": "Buttermilch-Ranch-Dressings"
+                "plural_name": "Buttermilch-Ranch-Dressing"
             },
             "cilantro dressing": {
                 "aliases": [],
                 "description": "",
                 "name": "Cilantro Dressing",
-                "plural_name": "Cilantro Dressings"
+                "plural_name": "Koriander-Dressing"
             },
             "spicy ranch dressing": {
                 "aliases": [],
                 "description": "",
                 "name": "Würziges Ranch-Dressing",
-                "plural_name": "Würzige Ranch-Dressings"
+                "plural_name": "scharfes Ranch-Dressing"
             },
             "fig balsamic": {
                 "aliases": [],
@@ -11378,98 +11376,98 @@
             "green goddess dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "green goddess dressing",
-                "plural_name": "green goddess dressings"
+                "name": "Green Goddess Dressing",
+                "plural_name": "Green-Goddess-Dressing"
             },
             "creamy dressing": {
                 "aliases": [],
                 "description": "",
                 "name": "Cremiges Dressing",
-                "plural_name": "Cremige Dressings"
+                "plural_name": "cremiges Dressing"
             },
             "onion salad dressing": {
                 "aliases": [],
                 "description": "",
                 "name": "Zwiebelsalat-Dressing",
-                "plural_name": "Zwiebelsalat-Dressings"
+                "plural_name": "Zwiebel-Salatdressing"
             },
             "miso dressing": {
                 "aliases": [],
                 "description": "",
                 "name": "Miso-Dressing",
-                "plural_name": "Miso-Dressings"
+                "plural_name": "Miso-Dressing"
             },
             "white balsamic vinaigrette": {
                 "aliases": [],
                 "description": "",
                 "name": "Weiße Balsamico Vinaigrette",
-                "plural_name": "white balsamic vinaigrettes"
+                "plural_name": "Weiße Balsamico-Vinaigretten"
             },
             "chardonnay vinegar": {
                 "aliases": [],
                 "description": "",
                 "name": "Chardonnay-Essig",
-                "plural_name": "chardonnay vinegars"
+                "plural_name": "Chardonnay-Essig"
             },
             "prepared coleslaw dressing": {
                 "aliases": [],
                 "description": "",
                 "name": "Fertiger Coleslaw Dressing",
-                "plural_name": "prepared coleslaw dressings"
+                "plural_name": "fertiges Coleslaw-Dressing"
             },
             "honey vinegar": {
                 "aliases": [],
                 "description": "",
                 "name": "Honigessig",
-                "plural_name": "honey vinegars"
+                "plural_name": "Honigessig"
             },
             "tandoori mayonnaise": {
                 "aliases": [],
                 "description": "",
                 "name": "Tandoori-Mayonnaise",
-                "plural_name": "Tandoori Mayonnaise"
+                "plural_name": "Tandoori-Mayonnaise"
             },
             "chili vinegar": {
                 "aliases": [],
                 "description": "",
                 "name": "Chiliessig",
-                "plural_name": "chili vinegars"
+                "plural_name": "Chili-Essig"
             },
             "chili-lime dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "chili-lime dressing",
-                "plural_name": "chili-lime dressings"
+                "name": "Chili-Limetten Dressing",
+                "plural_name": "Chili-Limetten-Dressing"
             },
             "moscatel vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "moscatel vinegar",
-                "plural_name": "moscatel vinegars"
+                "name": "Moscatel-Essig",
+                "plural_name": "Moscatel-Essig"
             },
             "vinegar powder": {
                 "aliases": [],
                 "description": "",
-                "name": "vinegar powder",
-                "plural_name": "vinegar powders"
+                "name": "Essigpulver",
+                "plural_name": "Essigpulver"
             },
             "caramelised onion dressing": {
                 "aliases": [],
                 "description": "",
-                "name": "caramelised onion dressing",
-                "plural_name": "Karamellisierter Zwiebel Dressing"
+                "name": "Karamellisierter Zwiebel Dressing",
+                "plural_name": "karamellisiertes Zwiebel-Dressing"
             },
             "mango vinaigrette": {
                 "aliases": [],
                 "description": "",
                 "name": "Mango Vinaigrette",
-                "plural_name": "mango vinaigrettes"
+                "plural_name": "Mango Vinaigrette"
             },
             "sugarcane vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "sugarcane vinegar",
-                "plural_name": "Zuckerrohr-Essig"
+                "name": "Zuckerrohressig",
+                "plural_name": "Zuckerrohressig"
             },
             "avocado-lime dressing": {
                 "aliases": [],
@@ -11481,7 +11479,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Gewürzessig",
-                "plural_name": "Gewürzessig"
+                "plural_name": "scharfer Essig"
+            },
+            "sushi vinegar": {
+                "aliases": [],
+                "description": "",
+                "name": "Sushi-Essig",
+                "plural_name": "Sushi-Essig"
             }
         }
     },
@@ -11497,7 +11501,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Dijonsenf",
-                "plural_name": "Dijonsenf"
+                "plural_name": "Dijon-Senf"
             },
             "worcestershire": {
                 "aliases": [],
@@ -11509,19 +11513,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "scharfe Sauce",
-                "plural_name": "scharfe Sauce"
+                "plural_name": "Scharfe Sauce"
             },
             "worcestershire sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Worcestershire-Sauce",
-                "plural_name": "Worcestershire-Sauce"
+                "plural_name": "Worcestershiresauce"
             },
             "ketchup": {
                 "aliases": [],
                 "description": "",
                 "name": "Ketchup",
-                "plural_name": "Ketchups"
+                "plural_name": "Ketchup"
             },
             "mustard": {
                 "aliases": [],
@@ -11539,7 +11543,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "BBQ-Sauce",
-                "plural_name": "Barbecuesauce"
+                "plural_name": "BBQ-Sauce"
             },
             "sriracha": {
                 "aliases": [],
@@ -11569,13 +11573,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Chili Sauce",
-                "plural_name": "Chili Sauce"
+                "plural_name": "Chilisauce"
             },
             "ginger-garlic paste": {
                 "aliases": [],
                 "description": "",
                 "name": "Ingwer-Knoblauch Paste",
-                "plural_name": "Ingwer-Knoblauch Paste"
+                "plural_name": "Ingwer-Knoblauch-Paste"
             },
             "brown mustard": {
                 "aliases": [],
@@ -11586,14 +11590,14 @@
             "wing sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "wing sauce",
-                "plural_name": "wing sauces"
+                "name": "Wing Sauce",
+                "plural_name": "Wing-Sauce"
             },
             "teriyaki sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Teriyaki Sauce",
-                "plural_name": "Teriyaki Sauce"
+                "plural_name": "Teriyaki-Sauce"
             },
             "prepared horseradish": {
                 "aliases": [],
@@ -11605,13 +11609,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Ingwer Paste",
-                "plural_name": "Ingwer Paste"
+                "plural_name": "Ingwerpaste"
             },
             "dark soy sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Dunkle Sojasauce",
-                "plural_name": "dunkle Sojasauce"
+                "plural_name": "Dunkle Sojasauce"
             },
             "coconut amino": {
                 "aliases": [],
@@ -11623,13 +11627,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Chilipaste",
-                "plural_name": "Chili Paste"
+                "plural_name": "Chilipaste"
             },
             "cranberry sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Cranberrysauce",
-                "plural_name": "Cranberry Sauce"
+                "plural_name": "Cranberry-Sauce"
             },
             "harissa": {
                 "aliases": [],
@@ -11641,7 +11645,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Chili-Knoblauch Sauce",
-                "plural_name": "Chili-Knoblauch Saucen"
+                "plural_name": "Chili-Knoblauch-Sauce"
             },
             "tamarind paste": {
                 "aliases": [],
@@ -11671,7 +11675,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Honigsenf",
-                "plural_name": "Honigsenf"
+                "plural_name": "Honig-Senf"
             },
             "mango chutney": {
                 "aliases": [],
@@ -11713,25 +11717,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "Garnelenpaste",
-                "plural_name": "Garnelenpasten"
+                "plural_name": "Garnelenpaste"
             },
             "picante sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "scharfe Sauce",
-                "plural_name": "scharfe Saucen"
+                "plural_name": "Picante-Sauce"
             },
             "thai sweet chili sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Thai Sweet Chili-Sauce",
-                "plural_name": "Thai Sweet Chili-Sauce"
+                "plural_name": "Thai Sweet Chili Sauce"
             },
             "sweet and sour sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Süßsaure Sauce",
-                "plural_name": "Süßsaure Sauce"
+                "plural_name": "Süß-Sauer-Sauce"
             },
             "liquid amino": {
                 "aliases": [],
@@ -11743,7 +11747,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Sauce tartare",
-                "plural_name": "Sauce tartare"
+                "plural_name": "Tartarsauce"
             },
             "hot pepper jelly": {
                 "aliases": [],
@@ -11755,7 +11759,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Chili-Knoblauch Paste",
-                "plural_name": "Chili-Knoblauch Pasten"
+                "plural_name": "Chili-Knoblauch-Paste"
             },
             "bonito flake": {
                 "aliases": [],
@@ -11779,7 +11783,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Ponzu",
-                "plural_name": "Ponzu"
+                "plural_name": "Ponzu-Sauce"
             },
             "green chilli sauce": {
                 "aliases": [],
@@ -11809,7 +11813,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "thailändische Chili-Paste",
-                "plural_name": "thailändische Chili-Pasten"
+                "plural_name": "Thai-Chilipaste"
             },
             "peri peri": {
                 "aliases": [],
@@ -11821,7 +11825,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "grüne Chili-Paste",
-                "plural_name": "grüne Chili-Pasten"
+                "plural_name": "grüne Chilipaste"
             },
             "mint jelly": {
                 "aliases": [],
@@ -11833,13 +11837,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Meerettich Senf",
-                "plural_name": "Meerettich Senf"
+                "plural_name": "Meerrettichsauce"
             },
             "mustard paste": {
                 "aliases": [],
                 "description": "",
                 "name": "Senfpaste",
-                "plural_name": "Senfpasten"
+                "plural_name": "Senfpaste"
             },
             "aji amarillo": {
                 "aliases": [],
@@ -11851,19 +11855,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Pfefferpaste",
-                "plural_name": "Pfefferpasten"
+                "plural_name": "Paprikapaste"
             },
             "yuzu juice": {
                 "aliases": [],
                 "description": "",
-                "name": "Yuzu Saft",
-                "plural_name": "Yuzu Säfte"
+                "name": "Yuzu-Saft",
+                "plural_name": "Yuzu-Säfte"
             },
             "tonkatsu sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Tonkatsu Sauce",
-                "plural_name": "Tonkatsu Saucen"
+                "plural_name": "Tonkatsu-Sauce"
             },
             "chermoula": {
                 "aliases": [],
@@ -11881,19 +11885,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "HP Sauce",
-                "plural_name": "HP Saucen"
+                "plural_name": "HP-Sauce"
             },
             "duck sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Entensauce",
-                "plural_name": "Entensaucen"
+                "plural_name": "Entensauce"
             },
             "ginger chili paste": {
                 "aliases": [],
                 "description": "",
                 "name": "Ingwer Chili Paste",
-                "plural_name": "Ingwer Chili Pasten"
+                "plural_name": "Ingwer-Chili-Paste"
             },
             "onion marmalade": {
                 "aliases": [],
@@ -11911,7 +11915,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Dunkle Sojasauce",
-                "plural_name": "Dunkle Sojasaucen"
+                "plural_name": "Dunkle Sojasauce"
             },
             "doubanjiang": {
                 "aliases": [],
@@ -11923,13 +11927,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "koreanische BBQ Sauce",
-                "plural_name": "koreanische BBQ Sauce"
+                "plural_name": "koreanische BBQ-Sauce"
             },
             "maggi sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Maggi",
-                "plural_name": "Maggi"
+                "plural_name": "Maggi-Sauce"
             },
             "chinese mustard": {
                 "aliases": [],
@@ -11995,19 +11999,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Aal Sauce",
-                "plural_name": "Aal Saucen"
+                "plural_name": "Aalsauce"
             },
             "hot bean paste": {
                 "aliases": [],
                 "description": "",
                 "name": "scharfe Bohnenpaste",
-                "plural_name": "scharfe Bohnenpasten"
+                "plural_name": "scharfe Bohnenpaste"
             },
             "pati": {
                 "aliases": [],
                 "description": "",
-                "name": "pati",
-                "plural_name": "patis"
+                "name": "philippinische Fischsauce",
+                "plural_name": "philippinische Fischsauce"
             },
             "remoulade": {
                 "aliases": [],
@@ -12019,55 +12023,55 @@
                 "aliases": [],
                 "description": "",
                 "name": "helle BBQ Sauce",
-                "plural_name": "helle BBQ Sauce"
+                "plural_name": "weiße BBQ-Sauce"
             },
             "pickapeppa sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Pickapeppa Sauce",
-                "plural_name": "pickapeppa sauces"
+                "plural_name": "Pickapeppa Sauce"
             },
             "salsa lizano": {
                 "aliases": [],
                 "description": "",
-                "name": "salsa lizano",
-                "plural_name": "salsa lizanoes"
+                "name": "Salsa Lizano",
+                "plural_name": "Salsa Lizano"
             },
             "shrimp sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Shrimp Sauce",
-                "plural_name": "Shrimp Saucen"
+                "plural_name": "Garnelensauce"
             },
             "sweet soybean paste": {
                 "aliases": [],
                 "description": "",
                 "name": "Süße Sojabohnen Paste",
-                "plural_name": "Süße Sojabohnen Pasten"
+                "plural_name": "Süße Sojabohnen Paste"
             },
             "grape must": {
                 "aliases": [],
                 "description": "",
                 "name": "Traubenmost",
-                "plural_name": "grape musts"
+                "plural_name": "Traubenmost"
             },
             "shrimp powder": {
                 "aliases": [],
                 "description": "",
-                "name": "shrimp powder",
-                "plural_name": "shrimp powders"
+                "name": "Garnelenpulver",
+                "plural_name": "Garnelenpulver"
             },
             "banana ketchup": {
                 "aliases": [],
                 "description": "",
-                "name": "banana ketchup",
-                "plural_name": "banana ketchups"
+                "name": "Bananenketchup",
+                "plural_name": "Bananen-Ketchup"
             },
-            "chili puree": {
+            "chili purée": {
                 "aliases": [],
                 "description": "",
-                "name": "Chili Püree",
-                "plural_name": "Chili Pürees"
+                "name": "Chilipüree",
+                "plural_name": "Chilipüree"
             },
             "green harissa": {
                 "aliases": [],
@@ -12079,19 +12083,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Krabbenpaste",
-                "plural_name": "crab pastes"
+                "plural_name": "Krebsenpaste"
             },
             "beer mustard": {
                 "aliases": [],
                 "description": "",
                 "name": "Bier Senf",
-                "plural_name": "Bier Senf"
+                "plural_name": "Biersenf"
             },
             "guk ganjang": {
                 "aliases": [],
                 "description": "",
-                "name": "guk ganjang",
-                "plural_name": "guk ganjangs"
+                "name": "Guk-Ganjang",
+                "plural_name": "Guk-Ganjangs"
             }
         }
     },
@@ -12118,8 +12122,8 @@
             "canned chickpea": {
                 "aliases": [],
                 "description": "",
-                "name": "Kichererbsen in der Dose",
-                "plural_name": "Kichererbsen in Dosen"
+                "name": "Kichererbsen a. d. Dose",
+                "plural_name": "Kichererbsen a. d. Dose"
             },
             "black olive": {
                 "aliases": [],
@@ -12130,14 +12134,14 @@
             "canned black bean": {
                 "aliases": [],
                 "description": "",
-                "name": "Schwarze Dosen Bohnen",
-                "plural_name": "Schwarze Bohnen in der Dose"
+                "name": "Schwarze Bohnen a. d. Dose",
+                "plural_name": "Schwarze Bohnen a. d. Dose"
             },
             "canned pumpkin": {
                 "aliases": [],
                 "description": "",
-                "name": "Dosen Kürbis",
-                "plural_name": "canned pumpkins"
+                "name": "Kürbis a. d. Dose",
+                "plural_name": "Kürbisse a. d. Dose"
             },
             "kalamata olive": {
                 "aliases": [],
@@ -12148,8 +12152,8 @@
             "canned tuna": {
                 "aliases": [],
                 "description": "",
-                "name": "Thunfisch in Dosen",
-                "plural_name": "Thunfisch in Dosen"
+                "name": "Thunfisch a. d. Dosen",
+                "plural_name": "Thunfisch a. d. Dosen"
             },
             "pickle": {
                 "aliases": [],
@@ -12160,20 +12164,20 @@
             "canned pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "Dose Ananas",
-                "plural_name": "Dosen Ananas"
+                "name": "Ananas a. d. Dose",
+                "plural_name": "Ananas a. d. Dose"
             },
             "chipotle in adobo": {
                 "aliases": [],
                 "description": "",
-                "name": "chipotle in adobo",
-                "plural_name": "chipotle in adobo"
+                "name": "Chipotle in Adobo",
+                "plural_name": "Chipotle in Adobo"
             },
             "canned anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "Anchovis in einer Dose",
-                "plural_name": "Dosen Anchovis"
+                "name": "Anchovis a. d. Dose",
+                "plural_name": "Anchovis a. d. Dose"
             },
             "roasted red pepper": {
                 "aliases": [],
@@ -12190,38 +12194,38 @@
             "canned artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "Dose Artischocken",
-                "plural_name": "Dosen Artischocken"
+                "name": "Artischocke a. d. Dose",
+                "plural_name": "Artischocken a. d. Dose"
             },
             "canned corn": {
                 "aliases": [],
                 "description": "",
-                "name": "Dosenmais",
-                "plural_name": "Dosenmais"
+                "name": "Mais a. d. Dose",
+                "plural_name": "Mais a. d. Dose"
             },
             "canned kidney bean": {
                 "aliases": [],
                 "description": "",
-                "name": "Dose Kidneybohnen",
-                "plural_name": "Dosen Kidneybohnen"
+                "name": "Kidneybohnen a. d. Dose",
+                "plural_name": "Kidneybohnen a. d. Dose"
             },
             "canned pie filling": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pie filling",
-                "plural_name": "canned pie fillings"
+                "name": "Kuchenfüllung a. d. Dose",
+                "plural_name": "Kuchenfüllung a. d. Dose"
             },
             "canned cannellini bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cannellini bean",
-                "plural_name": "canned cannellini beans"
+                "name": "Cannelini-Bohne a. d. Dose",
+                "plural_name": "Cannelini-Bohnen a. d. Dose"
             },
             "refried bean": {
                 "aliases": [],
                 "description": "",
-                "name": "refried bean",
-                "plural_name": "refried beans"
+                "name": "Frijoles refritos",
+                "plural_name": "Frijoles refritos"
             },
             "canned whole tomato": {
                 "aliases": [],
@@ -12259,11 +12263,11 @@
                 "name": "Dose Bohnen",
                 "plural_name": "Dosen Bohnen"
             },
-            "pickled jalapeno": {
+            "pickled jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "Eingelegte Jalapeño",
-                "plural_name": "Eingelegte Jalapeños"
+                "name": "eingelegte Jalapeño",
+                "plural_name": "eingelegte Jalapeños"
             },
             "diced green chile": {
                 "aliases": [],
@@ -12329,7 +12333,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Gurkenwasser",
-                "plural_name": "Gurkenwasser"
+                "plural_name": "Einlegesaft"
             },
             "dill pickle relish": {
                 "aliases": [],
@@ -12479,7 +12483,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Zwiebelpaste",
-                "plural_name": "Zwiebelpasten"
+                "plural_name": "Zwiebelpaste"
             },
             "canned baby corn": {
                 "aliases": [],
@@ -12580,14 +12584,14 @@
             "red pepper relish": {
                 "aliases": [],
                 "description": "",
-                "name": "red pepper relish",
-                "plural_name": "red pepper relishes"
+                "name": "Rote Paprika-Relish",
+                "plural_name": "Rote Paprika-Relish"
             },
-            "canned asparagu": {
+            "canned asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "canned asparagu",
-                "plural_name": "Asparagus aus der Dose"
+                "name": "Spargel aus der Dose",
+                "plural_name": "Spargel aus der Dose"
             },
             "fire-roasted green chile": {
                 "aliases": [],
@@ -12631,11 +12635,11 @@
                 "name": "eingelegte Kirschpaprika",
                 "plural_name": "eingelegte Kirschpaprika"
             },
-            "candied jalapeno": {
+            "candied jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "kandierte Jalapeno",
-                "plural_name": "kandierte Jalapenos"
+                "name": "kandierte Jalapeño",
+                "plural_name": "kandierte Jalapeños"
             },
             "umeboshi": {
                 "aliases": [],
@@ -12699,7 +12703,7 @@
             }
         }
     },
-    "Sauces, Spreads & Dips": {
+    "Sauces, Spreads & dip": {
         "foods": {
             "peanut butter": {
                 "aliases": [],
@@ -12717,7 +12721,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Tomatensauce",
-                "plural_name": "Tomatensaucen"
+                "plural_name": "Tomatensauce"
             },
             "salsa": {
                 "aliases": [],
@@ -12735,21 +12739,21 @@
                 "aliases": [],
                 "description": "",
                 "name": "Pesto",
-                "plural_name": "Pesto"
+                "plural_name": "Pestos"
             },
             "marinara sauce": {
                 "aliases": [
-                    "Marinara Sauce - im Glas"
+                    "Marinara-Sauce (aus dem Glas)"
                 ],
                 "description": "",
-                "name": "Marinara Sauce",
-                "plural_name": "Marinara Sauce"
+                "name": "Marinara-Sauce",
+                "plural_name": "Marinara-Sauce"
             },
             "pasta sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Nudelsauce",
-                "plural_name": "Nudelsauce"
+                "name": "Pastasauce",
+                "plural_name": "Pastasauce"
             },
             "hoisin sauce": {
                 "aliases": [],
@@ -12773,9 +12777,9 @@
                 "aliases": [],
                 "description": "",
                 "name": "Guacamole",
-                "plural_name": "Guacamole"
+                "plural_name": "Guacamolen"
             },
-            "hummu": {
+            "hummus": {
                 "aliases": [],
                 "description": "",
                 "name": "Hummus",
@@ -12784,8 +12788,8 @@
             "enchilada sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Enchilada Sauce",
-                "plural_name": "Enchilada Sauce"
+                "name": "Enchilada-Sauce",
+                "plural_name": "Enchilada-Sauce"
             },
             "fire-roasted tomato": {
                 "aliases": [],
@@ -12797,37 +12801,37 @@
                 "aliases": [],
                 "description": "",
                 "name": "Salsa Verde",
-                "plural_name": "salsa verdes"
+                "plural_name": "Salsa Verdes"
             },
             "alfredo sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Alfredo-Sauce",
-                "plural_name": "Alfredo-Saucen"
+                "plural_name": "Alfredo-Sauce"
             },
             "balsamic glaze": {
                 "aliases": [],
                 "description": "",
-                "name": "Balsamico Glasur",
-                "plural_name": "balsamic glazes"
+                "name": "Balsamico-Glasur",
+                "plural_name": "Balsamico-Glasuren"
             },
             "anchovy paste": {
                 "aliases": [],
                 "description": "",
-                "name": "anchovy paste",
-                "plural_name": "anchovy pastes"
+                "name": "Sardellenpaste",
+                "plural_name": "Sardellenpaste"
             },
             "red enchilada sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Rote Enchilada-Sauce",
-                "plural_name": "Rote Enchilada-Saucen"
+                "name": "rote Enchilada-Sauce",
+                "plural_name": "rote Enchilada-Sauce"
             },
             "steak sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Steaksauce",
-                "plural_name": "Steaksaucen"
+                "plural_name": "Steaksauce"
             },
             "chunky peanut butter": {
                 "aliases": [],
@@ -12838,44 +12842,44 @@
             "tzatziki": {
                 "aliases": [],
                 "description": "",
-                "name": "Tsatsiki",
-                "plural_name": "Tsatsiki"
+                "name": "Tzatziki",
+                "plural_name": "Tzatzikis"
             },
             "taco sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Taco Sauce",
-                "plural_name": "Taco Saucen"
+                "name": "Tacosauce",
+                "plural_name": "Tacosauce"
             },
             "beef gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "Rinderbrühe",
-                "plural_name": "Rinderbrühen"
+                "name": "Rinderbratensauce",
+                "plural_name": "Rinderbratensaucen"
             },
             "sun-dried tomato pesto": {
                 "aliases": [],
                 "description": "",
-                "name": "Tomatenpesto",
-                "plural_name": "Pestos aus sonnengetrockneten Tomaten"
+                "name": "Pesto aus getrockneten Tomaten",
+                "plural_name": "Pestos aus getrockneten Tomaten"
             },
             "béchamel sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Béchamelsauce",
-                "plural_name": "Béchamelsaucen"
+                "plural_name": "Béchamelsauce"
             },
             "horseradish sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Meerrettichsauce",
-                "plural_name": "Meerrettichsaucen"
+                "plural_name": "Meerrettichsauce"
             },
             "plum sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Pflaumensauce",
-                "plural_name": "Pflaumensaucen"
+                "plural_name": "Pflaumensauce"
             },
             "garlic butter": {
                 "aliases": [],
@@ -12886,110 +12890,110 @@
             "hollandaise sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Hollandaise",
-                "plural_name": "Hollandaise"
+                "name": "Sauce Hollandaise",
+                "plural_name": "Sauce Hollandaise"
             },
             "cocktail sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Cocktailsauce",
-                "plural_name": "Cocktailsaucen"
+                "plural_name": "Cocktailsauce"
             },
             "cheese dip": {
                 "aliases": [],
                 "description": "",
                 "name": "Käsedip",
-                "plural_name": "Käsedips"
+                "plural_name": "Käsedip"
             },
             "black bean sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Schwarze Bohnen Sauce",
-                "plural_name": "Schwarze Bohnen Saucen"
+                "name": "schwarze Bohnensauce",
+                "plural_name": "schwarze Bohnensauce"
             },
             "tapenade": {
                 "aliases": [],
                 "description": "",
-                "name": "tapenade",
-                "plural_name": "tapenades"
+                "name": "Tapenade",
+                "plural_name": "Tapenaden"
             },
             "turkey gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "Truthahn-Bratensauce",
-                "plural_name": "Truthahn-Bratensaucen"
+                "name": "Putensauce",
+                "plural_name": "Putensaucen"
             },
             "stir-fry sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Pfannengerichte-Sauce",
-                "plural_name": "Pfannengerichte-Saucen"
+                "name": "Wok-Sauce",
+                "plural_name": "Wok-Sauce"
             },
             "thai peanut sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "thai peanut sauce",
-                "plural_name": "thai peanut sauces"
+                "name": "thailändische Erdnusssauce",
+                "plural_name": "thailändische Erdnusssauce"
             },
             "chicken gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "Hühnerbrühe",
-                "plural_name": "Hühnerbrühen"
+                "name": "Hühnersauce",
+                "plural_name": "Hühnersaucen"
             },
             "sloppy joe sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "sloppy joe sauce",
-                "plural_name": "sloppy joe sauces"
+                "name": "Sloppy-Joe-Sauce",
+                "plural_name": "Sloppy-Joe-Sauce"
             },
             "pimento cheese spread": {
                 "aliases": [],
                 "description": "",
-                "name": "pimento cheese spread",
-                "plural_name": "pimento cheese spreads"
+                "name": "Piment-Käse-Aufstrich",
+                "plural_name": "Piment-Käse-Aufstriche"
             },
             "sofrito": {
                 "aliases": [],
                 "description": "",
-                "name": "sofrito",
-                "plural_name": "sofritoes"
+                "name": "Sofrito",
+                "plural_name": "Sofritos"
             },
             "mustard sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Senfsauce",
-                "plural_name": "Senfsaucen"
+                "plural_name": "Senfsauce"
             },
             "sun-dried tomato paste": {
                 "aliases": [],
                 "description": "",
-                "name": "sonnengetrocknete Tomatenpaste",
-                "plural_name": "sonnengetrocknete Tomatenpasten"
+                "name": "Paste aus getrockneten Tomaten",
+                "plural_name": "Paste aus getrockneten Tomaten"
             },
             "queso dip": {
                 "aliases": [],
                 "description": "",
-                "name": "Käse Dip",
-                "plural_name": "queso dips"
+                "name": "Queso-Dip",
+                "plural_name": "Queso-Dip"
             },
             "demi-glace": {
                 "aliases": [],
                 "description": "",
-                "name": "demi-glace",
-                "plural_name": "demi-glaces"
+                "name": "Demi-Glace",
+                "plural_name": "Demi-Glaces"
             },
             "chimichurri sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Chimichurri Soße",
+                "name": "Chimichurri-Sauce",
                 "plural_name": "Chimichurri-Sauce"
             },
             "french onion dip": {
                 "aliases": [],
                 "description": "",
-                "name": "Französischer Zwiebeldip",
-                "plural_name": "Französische Zwiebeldips"
+                "name": "French-Onion-Dip",
+                "plural_name": "French-Onion-Dip"
             },
             "herb butter": {
                 "aliases": [],
@@ -13000,32 +13004,32 @@
             "bolognese sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Bolognesesauce",
-                "plural_name": "Bolognese Soße"
+                "name": "Bolognese-Sauce",
+                "plural_name": "Bolognese-Sauce"
             },
             "curry sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Currysauce",
-                "plural_name": "Currysaucen"
+                "name": "Curry-Sauce",
+                "plural_name": "Curry-Sauce"
             },
             "liver spread": {
                 "aliases": [],
                 "description": "",
-                "name": "Leberwurst",
-                "plural_name": "liver spreads"
+                "name": "Leberaufstrich",
+                "plural_name": "Leberaufstriche"
             },
             "browning sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "browning sauce",
-                "plural_name": "browning sauces"
+                "name": "Bratenfond",
+                "plural_name": "Bratenfond"
             },
             "schezwan sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Szechuan-Sauce",
-                "plural_name": "Szechuan-Saucen"
+                "plural_name": "Szechuan-Sauce"
             },
             "mushroom gravy": {
                 "aliases": [],
@@ -13036,32 +13040,32 @@
             "pork gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "pork gravy",
-                "plural_name": "pork gravies"
+                "name": "Schweinebraten-Sauce",
+                "plural_name": "Schweinebraten-Saucen"
             },
             "country gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "country gravy",
-                "plural_name": "Country gravies"
+                "name": "weiße Bratensauce",
+                "plural_name": "weiße Bratensaucen"
             },
             "orange sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Orangensauce",
-                "plural_name": "Orangensaucen"
+                "plural_name": "Orangensauce"
             },
             "pineapple salsa": {
                 "aliases": [],
                 "description": "",
                 "name": "Ananas-Salsa",
-                "plural_name": "Ananas-Salsa"
+                "plural_name": "Ananas-Salsas"
             },
             "artichoke dip": {
                 "aliases": [],
                 "description": "",
-                "name": "Artichoken Dip",
-                "plural_name": "Artichoken Dip"
+                "name": "Artischocken-Dip",
+                "plural_name": "Artischocken-Dip"
             },
             "japanese curry": {
                 "aliases": [],
@@ -13073,43 +13077,43 @@
                 "aliases": [],
                 "description": "",
                 "name": "Mango-Salsa",
-                "plural_name": "Mango-Salsa"
+                "plural_name": "Mango-Salsas"
             },
             "olive paste": {
                 "aliases": [],
                 "description": "",
                 "name": "Olivenpaste",
-                "plural_name": "Olivenpasten"
+                "plural_name": "Olivenpaste"
             },
             "spinach dip": {
                 "aliases": [],
                 "description": "",
                 "name": "Spinat-Dip",
-                "plural_name": "Spinat-Dips"
+                "plural_name": "Spinat-Dip"
             },
             "black truffle butter": {
                 "aliases": [],
                 "description": "",
-                "name": "schwarze-Trüffel Butter",
-                "plural_name": "schwarze-Trüffel Butter"
+                "name": "schwarze Trüffelbutter",
+                "plural_name": "schwarze Trüffelbutter"
             },
-            "roasted red pepper hummu": {
+            "roasted red pepper hummus": {
                 "aliases": [],
                 "description": "",
-                "name": "gerösteter roter Pfeffer hummus",
-                "plural_name": "gerösteter roter Pfeffer hummus"
+                "name": "Hummus mit gerösteter Paprika",
+                "plural_name": "Hummus mit gerösteter Paprika"
             },
             "bacon jam": {
                 "aliases": [],
                 "description": "",
-                "name": "Speckmarmelade",
-                "plural_name": "Speckmarmelade"
+                "name": "Bacon-Jam",
+                "plural_name": "Bacon-Jam"
             },
             "tikka masala sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Tikka Masala Sauce",
-                "plural_name": "Tikka Masala Sauce"
+                "name": "Tikka-Masala-Sauce",
+                "plural_name": "Tikka-Masala-Sauce"
             },
             "vodka sauce": {
                 "aliases": [],
@@ -13120,116 +13124,116 @@
             "whipped cream cheese spread": {
                 "aliases": [],
                 "description": "",
-                "name": "geschlagener Frischkäse-Aufstrich",
-                "plural_name": "geschlagener Frischkäse-Aufstrich"
+                "name": "aufgeschlagener Frischkäse-Aufstrich",
+                "plural_name": "aufgeschlagene Frischkäse-Aufstriche"
             },
             "kung pao sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Kung Pao Sauce",
-                "plural_name": "Kung Pao Sauce"
+                "name": "Kung-Pao-Sauce",
+                "plural_name": "Kung-Pao-Sauce"
             },
             "mole paste": {
                 "aliases": [],
                 "description": "",
-                "name": "Mole Paste",
-                "plural_name": "Mole Paste"
+                "name": "Mole-Paste",
+                "plural_name": "Mole-Paste"
             },
             "onion gravy": {
                 "aliases": [],
                 "description": "",
                 "name": "Zwiebelsauce",
-                "plural_name": "Zwiebelsauce"
+                "plural_name": "Zwiebelsaucen"
             },
             "sesame sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Sesam Sauce",
-                "plural_name": "Sesam Sauce"
+                "name": "Sesamsauce",
+                "plural_name": "Sesamsauce"
             },
             "cheese spread": {
                 "aliases": [],
                 "description": "",
-                "name": "Käse-Aufstrich",
-                "plural_name": "Käse-Aufstrich"
+                "name": "Käseaufstrich",
+                "plural_name": "Käseaufstriche"
             },
             "corn salsa": {
                 "aliases": [],
                 "description": "",
                 "name": "Mais-Salsa",
-                "plural_name": "Mais-Salsa"
+                "plural_name": "Mais-Salsas"
             },
             "pad thai sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Pad Thai Sauce",
-                "plural_name": "Pad Thai Sauce"
+                "name": "Pad-Thai-Sauce",
+                "plural_name": "Pad-Thai-Sauce"
             },
             "sausage gravy": {
                 "aliases": [],
                 "description": "",
-                "name": "Wurst-Sauce",
-                "plural_name": "Wurst-Sauce"
+                "name": "Wurstsauce",
+                "plural_name": "Wurstsaucen"
             },
             "deviled ham spread": {
                 "aliases": [],
                 "description": "",
-                "name": "Teufelsschinken-Aufstrich",
-                "plural_name": "Teufelsschinken-Aufstrich"
+                "name": "würziger Schinkenaufstrich",
+                "plural_name": "würzige Schinkenaufstriche"
             },
             "butter chicken sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Butterhuhn-Sauce",
-                "plural_name": "Butterhuhn-Sauce"
+                "name": "Butter-Chicken-Sauce",
+                "plural_name": "Butter-Chicken-Sauce"
             },
             "garlic spread": {
                 "aliases": [],
                 "description": "",
-                "name": "Knoblauch-Aufstrich",
-                "plural_name": "Knoblauch-Aufstrich"
+                "name": "Knoblauchaufstrich",
+                "plural_name": "Knoblauchaufstriche"
             },
             "black pepper sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "schwarzer-Pfeffer Sauce",
-                "plural_name": "schwarzer-Pfeffer Sauce"
+                "name": "schwarze Pfeffersauce",
+                "plural_name": "schwarze Pfeffersauce"
             },
             "char siu sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Char Siu Sauce",
-                "plural_name": "Char Siu Sauce"
+                "name": "Char-Siu-Sauce",
+                "plural_name": "Char-Siu-Sauce"
             },
             "garlic pasta sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Knoblauch-Nudelsauce",
-                "plural_name": "Knoblauch-Nudelsauce"
+                "name": "Knoblauch-Pastasauce",
+                "plural_name": "Knoblauch-Pastasauce"
             },
             "green olive tapenade": {
                 "aliases": [],
                 "description": "",
-                "name": "Grüne Oliven-Tapenade",
-                "plural_name": "Grüne Oliven-Tapenaden"
+                "name": "grüne Oliven-Tapenade",
+                "plural_name": "grüne Oliven-Tapenaden"
             },
             "schezwan chutney": {
                 "aliases": [],
                 "description": "",
-                "name": "Schezwan Chutney",
-                "plural_name": "Schezwan Chutneys"
+                "name": "Szechuan-Chutney",
+                "plural_name": "Szechuan-Chutneys"
             },
             "mentsuyu": {
                 "aliases": [],
                 "description": "",
                 "name": "Mentsuyu",
-                "plural_name": "Mentsuyus"
+                "plural_name": "Mentsuyu"
             },
             "thai red curry sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Rote Thai-Currypaste",
-                "plural_name": "Rote Thai-Currypasten"
+                "name": "rote thailändische Currysauce",
+                "plural_name": "rote thailändische Currysauce"
             },
             "tarama": {
                 "aliases": [],
@@ -13247,7 +13251,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "weiße Pizzasauce",
-                "plural_name": "weiße Pizzasaucen"
+                "plural_name": "weiße Pizzasauce"
             },
             "tomato tapenade": {
                 "aliases": [],
@@ -13258,20 +13262,20 @@
             "yum yum sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Yum Yum Sauce",
-                "plural_name": "Yum Yum Saucen"
+                "name": "Yum-Yum-Sauce",
+                "plural_name": "Yum-Yum-Sauce"
             },
             "honey garlic sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Honig-Knoblauch-Sauce",
-                "plural_name": "Honig-Knoblauch-Saucen"
+                "plural_name": "Honig-Knoblauch-Sauce"
             },
             "mole sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Mole Sauce",
-                "plural_name": "Mole Saucen"
+                "name": "Mole-Sauce",
+                "plural_name": "Mole-Sauce"
             },
             "nuoc cham": {
                 "aliases": [],
@@ -13283,29 +13287,29 @@
                 "aliases": [],
                 "description": "",
                 "name": "weiße Muschelsauce",
-                "plural_name": "weiße Muschelsaucen"
+                "plural_name": "weiße Muschelsauce"
             },
             "bean dip": {
                 "aliases": [],
                 "description": "",
                 "name": "Bohnendip",
-                "plural_name": "Bohnendips"
+                "plural_name": "Bohnendip"
             },
             "eggplant dip": {
                 "aliases": [],
                 "description": "",
                 "name": "Auberginendip",
-                "plural_name": "Auberginendips"
+                "plural_name": "Auberginendip"
             },
             "pomegranate sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "Granatapfel-Sauce",
-                "plural_name": "Granatapfel-Saucen"
+                "name": "Granatapfelsauce",
+                "plural_name": "Granatapfelsauce"
             }
         }
     },
-    "Soups, Stews & Stocks": {
+    "Soups, Stews & stock": {
         "foods": {
             "chicken broth": {
                 "aliases": [],
@@ -13323,7 +13327,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Hühnerfond",
-                "plural_name": "Hühnerbrüh"
+                "plural_name": "Hühnerfond"
             },
             "beef broth": {
                 "aliases": [],
@@ -13335,7 +13339,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Rinderfond",
-                "plural_name": "Rinderfonds"
+                "plural_name": "Rinderfond"
             },
             "cream of mushroom": {
                 "aliases": [],
@@ -13358,8 +13362,8 @@
             "onion soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "Zwiebelsuppenmix",
-                "plural_name": "Zwiebelsuppenmix"
+                "name": "Zwiebelsuppen-Mischung",
+                "plural_name": "Zwiebelsuppen-Mischungen"
             },
             "tomato soup": {
                 "aliases": [],
@@ -13370,8 +13374,8 @@
             "fish stock": {
                 "aliases": [],
                 "description": "",
-                "name": "Fischbrühe",
-                "plural_name": "Fischbrühe"
+                "name": "Fischfond",
+                "plural_name": "Fischfond"
             },
             "cream of celery": {
                 "aliases": [],
@@ -13382,8 +13386,8 @@
             "better than bouillon": {
                 "aliases": [],
                 "description": "",
-                "name": "besser als Bouillon",
-                "plural_name": "besser als Bouillon"
+                "name": "Brühpaste (Better than Bouillon)",
+                "plural_name": "Brühpasten (Better than Bouillon)"
             },
             "clam juice": {
                 "aliases": [],
@@ -13406,8 +13410,8 @@
             "dashi": {
                 "aliases": [],
                 "description": "",
-                "name": "dashi",
-                "plural_name": "dashis"
+                "name": "Dashi",
+                "plural_name": "Dashis"
             },
             "onion soup": {
                 "aliases": [],
@@ -13425,7 +13429,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kalbsfond",
-                "plural_name": "Kalbsfonds"
+                "plural_name": "Kalbsfond"
             },
             "chicken bone broth": {
                 "aliases": [],
@@ -13437,13 +13441,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Putenfond",
-                "plural_name": "Putenfonds"
+                "plural_name": "Putenfond"
             },
             "lamb stock": {
                 "aliases": [],
                 "description": "",
                 "name": "Lammfond",
-                "plural_name": "Lammfonds"
+                "plural_name": "Lammfond"
             },
             "turkey broth": {
                 "aliases": [],
@@ -13454,32 +13458,32 @@
             "beef consommé": {
                 "aliases": [],
                 "description": "",
-                "name": "beef consommé",
-                "plural_name": "Rinderkraftbrühe"
+                "name": "Rinderkraftbrühe (Consommé)",
+                "plural_name": "Rinderkraftbrühen (Consommé)"
             },
             "stock paste": {
                 "aliases": [],
                 "description": "",
-                "name": "Brühe in Pastenform",
-                "plural_name": "Brühe in Pastenform"
+                "name": "Fond-Paste",
+                "plural_name": "Fond-Paste"
             },
             "cream of potato": {
                 "aliases": [],
                 "description": "",
-                "name": "Kartoffelcreme",
-                "plural_name": "Kartoffelcreme"
+                "name": "Kartoffelcremesuppe",
+                "plural_name": "Kartoffelcremesuppe"
             },
             "golden mushroom soup": {
                 "aliases": [],
                 "description": "",
-                "name": "goldene Pilzsuppe",
-                "plural_name": "goldene Pilzsuppen"
+                "name": "Goldene Champignonsuppe",
+                "plural_name": "Goldene Champignonsuppen"
             },
             "seafood stock": {
                 "aliases": [],
                 "description": "",
-                "name": "Meeresfrüchte-Brühe",
-                "plural_name": "Meeresfrüchte-Brühe"
+                "name": "Meeresfrüchtefond",
+                "plural_name": "Meeresfrüchtefond"
             },
             "mushroom broth": {
                 "aliases": [],
@@ -13502,92 +13506,92 @@
             "vegetable soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "Gemüsesuppen-Mix",
-                "plural_name": "Gemüsesuppen-Mix"
+                "name": "Gemüsesuppen-Mischung",
+                "plural_name": "Gemüsesuppen-Mischungen"
             },
             "chicken consommé": {
                 "aliases": [],
                 "description": "",
                 "name": "Hühnerkraftbrühe",
-                "plural_name": "Hühnerkraftbrühe"
+                "plural_name": "Hühnerkraftbrühen"
             },
             "shrimp stock": {
                 "aliases": [],
                 "description": "",
-                "name": "Garnelenbrühe",
-                "plural_name": "Garnelenbrühe"
+                "name": "Garnelenfond",
+                "plural_name": "Garnelenfond"
             },
             "nacho cheese soup": {
                 "aliases": [],
                 "description": "",
-                "name": "Nacho-Käse-Suppe",
-                "plural_name": "Nacho-Käse-Suppen"
+                "name": "Nacho-Käsesuppe",
+                "plural_name": "Nacho-Käsesuppen"
             },
             "ramen noodle soup": {
                 "aliases": [],
                 "description": "",
                 "name": "Ramen-Nudelsuppe",
-                "plural_name": "Ramen-Nudelsuppe"
+                "plural_name": "Ramen-Nudelsuppen"
             },
             "cream of broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "Broccolicreme",
-                "plural_name": "Broccolicreme"
+                "name": "Brokkolicremesuppe",
+                "plural_name": "Brokkolicremesuppe"
             },
             "lobster stock": {
                 "aliases": [],
                 "description": "",
-                "name": "Hummerbrühe",
-                "plural_name": "Hummerbrühe"
+                "name": "Hummerfond",
+                "plural_name": "Hummerfond"
             },
             "pork stock": {
                 "aliases": [],
                 "description": "",
                 "name": "Schweinefond",
-                "plural_name": "Schweinefonds"
+                "plural_name": "Schweinefond"
             },
             "chicken rice soup": {
                 "aliases": [],
                 "description": "",
                 "name": "Hühner-Reis-Suppe",
-                "plural_name": "Hühner-Reis-Suppe"
+                "plural_name": "Hühner-Reis-Suppen"
             },
             "beefy onion soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "Rindfleisch-Zwiebel-Suppenmix",
-                "plural_name": "Rindfleisch-Zwiebel-Suppenmix"
+                "name": "Rinder-Zwiebelsuppen-Mischung",
+                "plural_name": "Rinder-Zwiebelsuppen-Mischungen"
             },
             "butternut squash soup": {
                 "aliases": [],
                 "description": "",
-                "name": "Butternusskürbis-Suppe",
-                "plural_name": "Butternusskürbis-Suppe"
+                "name": "Butternut-Kürbissuppe",
+                "plural_name": "Butternut-Kürbissuppen"
             },
             "chicken stock paste": {
                 "aliases": [],
                 "description": "",
-                "name": "Hühnerbrühenpaste",
-                "plural_name": "Hühnerbrühenpaste"
+                "name": "Hühnerfond-Paste",
+                "plural_name": "Hühnerfond-Paste"
             },
             "miso soup": {
                 "aliases": [],
                 "description": "",
-                "name": "Miso Suppe",
-                "plural_name": "Miso Suppe"
+                "name": "Misosuppe",
+                "plural_name": "Misosuppen"
             },
             "broccoli-cheese soup": {
                 "aliases": [],
                 "description": "",
-                "name": "Brokkoli-Käsesuppe",
-                "plural_name": "Brokkoli-Käsesuppen"
+                "name": "Brokkoli-Käse-Suppe",
+                "plural_name": "Brokkoli-Käse-Suppen"
             },
             "duck stock": {
                 "aliases": [],
                 "description": "",
                 "name": "Entenfond",
-                "plural_name": "Entenfonds"
+                "plural_name": "Entenfond"
             },
             "clam broth": {
                 "aliases": [],
@@ -13598,50 +13602,50 @@
             "vegan chicken broth": {
                 "aliases": [],
                 "description": "",
-                "name": "Vegane Hühnerbrühe",
-                "plural_name": "Vegane Hühnerbrühe"
+                "name": "vegane Hühnerbrühe",
+                "plural_name": "vegane Hühnerbrühe"
             },
             "cream of asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "Spargelcreme",
-                "plural_name": "Spargelcreme"
+                "name": "Spargelcremesuppe",
+                "plural_name": "Spargelcremesuppe"
             },
             "pork broth": {
                 "aliases": [],
                 "description": "",
-                "name": "Schweinenbrühe",
+                "name": "Schweinebrühe",
                 "plural_name": "Schweinebrühe"
             },
             "beefy mushroom soup": {
                 "aliases": [],
                 "description": "",
-                "name": "fleischige Pilzsuppe",
-                "plural_name": "fleischige Pilzsuppe"
+                "name": "Rinder-Pilz-Suppe",
+                "plural_name": "Rinder-Pilz-Suppen"
             },
             "new england clam chowder": {
                 "aliases": [],
                 "description": "",
-                "name": "New England Muschelsuppe",
-                "plural_name": "New England Muschelsuppe"
+                "name": "New England Clam Chowder (Muschelsuppe)",
+                "plural_name": "New England Clam Chowders (Muschelsuppe)"
             },
             "bean soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "Bohnensuppenmix",
-                "plural_name": "Bohnensuppenmix"
+                "name": "Bohnensuppen-Mischung",
+                "plural_name": "Bohnensuppen-Mischungen"
             },
             "black bean soup": {
                 "aliases": [],
                 "description": "",
-                "name": "schwarze Bohnen Suppe",
-                "plural_name": "schwarze Bohnen Suppe"
+                "name": "Schwarzbohnensuppe",
+                "plural_name": "Schwarzbohnensuppen"
             },
             "ham stock": {
                 "aliases": [],
                 "description": "",
-                "name": "Schinkenbrühe",
-                "plural_name": "Schinkenbrühe"
+                "name": "Schinkenfond",
+                "plural_name": "Schinkenfond"
             },
             "lentil soup": {
                 "aliases": [],
@@ -13664,74 +13668,74 @@
             "vegetable beef soup": {
                 "aliases": [],
                 "description": "",
-                "name": "Gemüse-Rindfleischsuppe",
-                "plural_name": "Gemüse-Rindfleischsuppe"
+                "name": "Rinder-Gemüse-Suppe",
+                "plural_name": "Rinder-Gemüse-Suppen"
             },
             "chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "Hühnesuppenmix",
-                "plural_name": "chicken soup mixes"
+                "name": "Hühnersuppen-Mischung",
+                "plural_name": "Hühnersuppen-Mischungen"
             },
             "cream of bacon": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of bacon",
-                "plural_name": "cream of bacon"
+                "name": "Speckcremesuppe",
+                "plural_name": "Speckcremesuppe"
             },
             "lobster bisque": {
                 "aliases": [],
                 "description": "",
-                "name": "lobster bisque",
-                "plural_name": "lobster bisques"
+                "name": "Hummerbisque",
+                "plural_name": "Hummerbisques"
             },
             "bean with bacon soup": {
                 "aliases": [],
                 "description": "",
-                "name": "bean with bacon soup",
-                "plural_name": "bean with bacon soup"
+                "name": "Bohnensuppe mit Speck",
+                "plural_name": "Bohnensuppe mit Speck"
             },
             "clam chowder": {
                 "aliases": [],
                 "description": "",
-                "name": "clam chowder",
-                "plural_name": "clam chowders"
+                "name": "Muschelsuppe (Clam Chowder)",
+                "plural_name": "Muschelsuppen (Clam Chowder)"
             },
             "condensed chicken gumbo soup": {
                 "aliases": [],
                 "description": "",
-                "name": "condensed chicken gumbo soup",
-                "plural_name": "condensed chicken gumbo soups"
+                "name": "Kondensierte Hühner-Gumbo-Suppe",
+                "plural_name": "Kondensierte Hühner-Gumbo-Suppen"
             },
             "tortilla soup base": {
                 "aliases": [],
                 "description": "",
-                "name": "tortilla soup base",
-                "plural_name": "tortilla soup bases"
+                "name": "Tortilla-Suppenbasis",
+                "plural_name": "Tortilla-Suppenbasen"
             },
             "turkey bone broth": {
                 "aliases": [],
                 "description": "",
-                "name": "Puten-Knochenbrühe",
-                "plural_name": "Puten-Knochenbrühe"
+                "name": "Putenknochenbrühe",
+                "plural_name": "Putenknochenbrühe"
             },
             "anchovy stock": {
                 "aliases": [],
                 "description": "",
-                "name": "anchovy stock",
-                "plural_name": "anchovy stocks"
+                "name": "Sardellenfond",
+                "plural_name": "Sardellenfond"
             },
             "cream of chicken soup mix:": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "Hühnercremesuppen-Mischung:",
+                "plural_name": "Hühnercremesuppen-Mischung:"
             },
             "noodle soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "noodle soup mix",
-                "plural_name": "noodle soup mixes"
+                "name": "Nudelsuppen-Mischung",
+                "plural_name": "Nudelsuppen-Mischungen"
             },
             "lamb broth": {
                 "aliases": [],
@@ -13743,61 +13747,61 @@
                 "aliases": [],
                 "description": "",
                 "name": "Minestrone",
-                "plural_name": "Minestrone-Suppen"
+                "plural_name": "Minestronen"
             },
             "thai chicken broth": {
                 "aliases": [],
                 "description": "",
-                "name": "Thai Hühnerbrühe",
-                "plural_name": "Thai Hühnerbrühen"
+                "name": "Thai-Hühnerbrühe",
+                "plural_name": "Thai-Hühnerbrühe"
             },
             "tomato bisque": {
                 "aliases": [],
                 "description": "",
-                "name": "Tomatencremesuppe",
-                "plural_name": "Tomatencremesuppen"
+                "name": "Tomatenbisque",
+                "plural_name": "Tomatenbisques"
             },
             "venison stock": {
                 "aliases": [],
                 "description": "",
-                "name": "venison stock",
-                "plural_name": "venison stocks"
+                "name": "Wildfond",
+                "plural_name": "Wildfond"
             },
             "beef stock paste": {
                 "aliases": [],
                 "description": "",
-                "name": "beef stock paste",
-                "plural_name": "beef stock pastes"
+                "name": "Rinderfond-Paste",
+                "plural_name": "Rinderfond-Paste"
             },
             "bovril": {
                 "aliases": [],
                 "description": "",
-                "name": "bovril",
-                "plural_name": "bovrils"
+                "name": "Bovril (Fleischextrakt)",
+                "plural_name": "Bovrils"
             },
             "chicken corn chowder": {
                 "aliases": [],
                 "description": "",
-                "name": "Hühnersuppe mit Mais",
-                "plural_name": "Hühnersuppen mit Mais"
+                "name": "Hühner-Mais-Suppe (Chowder)",
+                "plural_name": "Hühner-Mais-Suppen (Chowder)"
             },
             "pork & bean": {
                 "aliases": [],
                 "description": "",
-                "name": "pork & bean",
-                "plural_name": "pork & beans"
+                "name": "Schweinefleisch & Bohnen",
+                "plural_name": "Schweinefleisch & Bohnen"
             },
             "sun-dried tomato bisque mix": {
                 "aliases": [],
                 "description": "",
-                "name": "Sonnengetrocknete Tomaten-Bisque-Mischung",
-                "plural_name": "Sonnengetrocknete Tomaten-Bisque-Mischungen"
+                "name": "Getrocknete-Tomaten-Bisque-Mischung",
+                "plural_name": "Getrocknete-Tomaten-Bisque-Mischungen"
             },
             "ham-flavored concentrate": {
                 "aliases": [],
                 "description": "",
-                "name": "ham-flavored concentrate",
-                "plural_name": "ham-flavored concentrates"
+                "name": "Schinken-Konzentrat",
+                "plural_name": "Schinken-Konzentrat"
             },
             "oxtail soup": {
                 "aliases": [],
@@ -13808,62 +13812,62 @@
             "potato soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "potato soup mix",
-                "plural_name": "potato soup mixes"
+                "name": "Kartoffelsuppen-Mischung",
+                "plural_name": "Kartoffelsuppen-Mischungen"
             },
             "callaloo": {
                 "aliases": [],
                 "description": "",
-                "name": "callaloo",
-                "plural_name": "callaloos"
+                "name": "Callaloo",
+                "plural_name": "Callaloos"
             },
             "split pea soup": {
                 "aliases": [],
                 "description": "",
-                "name": "split pea soup",
-                "plural_name": "split pea soups"
+                "name": "Erbsensuppe (Split Pea)",
+                "plural_name": "Erbsensuppen (Split Pea)"
             },
             "chicken and mushroom soup": {
                 "aliases": [],
                 "description": "",
-                "name": "Hähnchen und Pilz Suppe",
-                "plural_name": "Hähnchen und Pilz Suppen"
+                "name": "Hühner-Pilz-Suppe",
+                "plural_name": "Hühner-Pilz-Suppen"
             },
             "chili beef soup": {
                 "aliases": [],
                 "description": "",
-                "name": "Scharfe Rinder Suppe",
-                "plural_name": "Scharfe Rinder Suppen"
+                "name": "Chili-Rindfleisch-Suppe",
+                "plural_name": "Chili-Rindfleisch-Suppen"
             },
             "corn chowder": {
                 "aliases": [],
                 "description": "",
-                "name": "Maissuppe",
-                "plural_name": "Maissuppen"
+                "name": "Maissuppe (Chowder)",
+                "plural_name": "Maissuppen (Chowder)"
             },
             "cream of cauliflower": {
                 "aliases": [],
                 "description": "",
                 "name": "Blumenkohlcremesuppe",
-                "plural_name": "Blumenkohlcreme"
+                "plural_name": "Blumenkohlcremesuppe"
             },
             "dashida": {
                 "aliases": [],
                 "description": "",
                 "name": "Dashida",
-                "plural_name": "Dashida"
+                "plural_name": "Dashidas"
             },
             "green pea soup": {
                 "aliases": [],
                 "description": "",
-                "name": "grüne Bohnen Suppe",
-                "plural_name": "grüne Bohnen Suppe"
+                "name": "grüne Erbsensuppe",
+                "plural_name": "grüne Erbsensuppen"
             },
             "pho broth": {
                 "aliases": [],
                 "description": "",
-                "name": "Pho Brühe",
-                "plural_name": "Pho Brühe"
+                "name": "Pho-Brühe",
+                "plural_name": "Pho-Brühe"
             }
         }
     },
@@ -13879,7 +13883,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Zartbitterschokolade",
-                "plural_name": "Zartbitterschokoladen"
+                "plural_name": "Zartbitterschokolade"
             },
             "dark cocoa": {
                 "aliases": [],
@@ -13903,7 +13907,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Backschokolade",
-                "plural_name": "Backschokolade"
+                "plural_name": "Blockschokolade"
             },
             "marshmallow": {
                 "aliases": [],
@@ -13927,7 +13931,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Weiße Schokolade",
-                "plural_name": "Weiße Schokolade"
+                "plural_name": "weiße Schokolade"
             },
             "oreo": {
                 "aliases": [],
@@ -13945,7 +13949,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Instand Pudding",
-                "plural_name": "Instand Pudding"
+                "plural_name": "Instant-Pudding"
             },
             "chocolate candy": {
                 "aliases": [],
@@ -13963,19 +13967,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Holland-Kakao",
-                "plural_name": "Holland-Kakao"
+                "plural_name": "schwach entölter Kakao (Dutch-Process)"
             },
             "raspberry jam": {
                 "aliases": [],
                 "description": "",
                 "name": "Himbeermarmelade",
-                "plural_name": "Himbeermarmelade"
+                "plural_name": "Himbeerkonfitüre"
             },
             "apricot jam": {
                 "aliases": [],
                 "description": "",
                 "name": "Aprikosenmarmelade",
-                "plural_name": "Aprikosenmarmelade"
+                "plural_name": "Aprikosenkonfitüre"
             },
             "caramel sauce": {
                 "aliases": [],
@@ -13993,13 +13997,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Rohkakao-Pulver",
-                "plural_name": "Rohkakao-Pulver"
+                "plural_name": "Rohkakaopulver"
             },
             "strawberry jam": {
                 "aliases": [],
                 "description": "",
                 "name": "Erdbeermarmelade",
-                "plural_name": "Erdbeermarmelade"
+                "plural_name": "Erdbeerkonfitüre"
             },
             "biscuit": {
                 "aliases": [],
@@ -14023,7 +14027,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Marmelade",
-                "plural_name": "Marmeladen"
+                "plural_name": "Konfitüre / Marmelade"
             },
             "orange marmalade": {
                 "aliases": [],
@@ -14056,7 +14060,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Schokopudding",
-                "plural_name": "Schokopudding"
+                "plural_name": "Schokoladenpudding"
             },
             "candy cane": {
                 "aliases": [],
@@ -14092,7 +14096,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Karamellsauce",
-                "plural_name": "Karamellsaucen"
+                "plural_name": "Fudge-Sauce"
             },
             "chocolate cookie": {
                 "aliases": [],
@@ -14194,13 +14198,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kirschmarmelade",
-                "plural_name": "Kirschmarmeladen"
+                "plural_name": "Kirschkonfitüre"
             },
             "dark couverture chocolate": {
                 "aliases": [],
                 "description": "",
                 "name": "Dunkle Kuvertüre",
-                "plural_name": "Dunkle Kuvertüre"
+                "plural_name": "dunkle Kuvertüre"
             },
             "couverture chocolate": {
                 "aliases": [],
@@ -14236,7 +14240,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Feigenmarmelade",
-                "plural_name": "Feigenmarmelade"
+                "plural_name": "Feigenkonfitüre"
             },
             "butterscotch": {
                 "aliases": [],
@@ -14248,7 +14252,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Blaubeermarmelade",
-                "plural_name": "Blaubeermarmelade"
+                "plural_name": "Heidelbeerkonfitüre"
             },
             "candied fruit": {
                 "aliases": [],
@@ -14277,13 +14281,13 @@
             "blackberry preserve": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry preserve",
-                "plural_name": "blackberry preserves"
+                "name": "Brombeergelee",
+                "plural_name": "Brombeerkonfitüren"
             },
             "candy corn": {
                 "aliases": [],
                 "description": "",
-                "name": "candy corn",
+                "name": "Candy Corn (Zuckermais-Süßigkeit)",
                 "plural_name": "Zuckermais"
             },
             "ice-cream cone": {
@@ -14310,11 +14314,11 @@
                 "name": "Eierbonbon",
                 "plural_name": "Eierbonbons"
             },
-            "strawberry puree": {
+            "strawberry purée": {
                 "aliases": [],
                 "description": "",
                 "name": "Erdbeerpüree",
-                "plural_name": "Erdbeerpürees"
+                "plural_name": "Erdbeerpüree"
             },
             "chocolate powder": {
                 "aliases": [],
@@ -14338,7 +14342,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Ananasmarmelade",
-                "plural_name": "Ananasmarmelade"
+                "plural_name": "Ananaskonfitüre"
             },
             "licorice": {
                 "aliases": [],
@@ -14350,7 +14354,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Pflaumenmarmelade",
-                "plural_name": "Pflaumenmarmelade"
+                "plural_name": "Pflaumenkonfitüre"
             },
             "mexican chocolate": {
                 "aliases": [],
@@ -14362,7 +14366,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bananenpudding",
-                "plural_name": "bananenpudding"
+                "plural_name": "Bananenpudding"
             },
             "white couverture": {
                 "aliases": [],
@@ -14410,7 +14414,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Erdbeersauce",
-                "plural_name": "Erdbeersaucen"
+                "plural_name": "Erdbeersauce"
             },
             "butterscotch pudding mix": {
                 "aliases": [],
@@ -14440,31 +14444,31 @@
                 "aliases": [],
                 "description": "",
                 "name": "Käsekuchen-Puddingpulver",
-                "plural_name": "Käsekuchen-Puddingpulver"
+                "plural_name": "Käsekuchen-Instant-Pudding"
             },
             "peppermint patty": {
                 "aliases": [],
                 "description": "",
-                "name": "peppermint patty",
-                "plural_name": "peppermint patties"
+                "name": "Pfefferminzpastille",
+                "plural_name": "Pfefferminzpastillen"
             },
             "pistachio pudding": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio pudding",
-                "plural_name": "pistachio puddings"
+                "name": "Pistazienpudding",
+                "plural_name": "Pistazienpudding"
             },
             "chocolate fudge": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate fudge",
-                "plural_name": "chocolate fudges"
+                "name": "Schokoladen-Fudge",
+                "plural_name": "Schokoladen-Fudges"
             },
             "raspberry sauce": {
                 "aliases": [],
                 "description": "",
                 "name": "Himbeersauce",
-                "plural_name": "Himbeeren Soße"
+                "plural_name": "Himbeersauce"
             },
             "raspberry sorbet": {
                 "aliases": [],
@@ -14481,14 +14485,14 @@
             "hershey kiss": {
                 "aliases": [],
                 "description": "",
-                "name": "hershey kiss",
-                "plural_name": "hershey kisses"
+                "name": "Hershey's Kiss",
+                "plural_name": "Hershey's Kisses"
             },
             "pistachio instant pudding": {
                 "aliases": [],
                 "description": "",
                 "name": "Pistazien Instant Pudding",
-                "plural_name": "pistachio instant puddings"
+                "plural_name": "Pistazien-Instant-Pudding"
             }
         }
     },
@@ -14575,8 +14579,8 @@
             "mirin": {
                 "aliases": [],
                 "description": "",
-                "name": "mirin",
-                "plural_name": "mirins"
+                "name": "Mirin",
+                "plural_name": "Mirine"
             },
             "white rum": {
                 "aliases": [],
@@ -14600,7 +14604,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Irische Creme",
-                "plural_name": "irish creams"
+                "plural_name": "Irish Cream"
             },
             "vermouth": {
                 "aliases": [],
@@ -14617,8 +14621,8 @@
             "marsala wine": {
                 "aliases": [],
                 "description": "",
-                "name": "marsala wine",
-                "plural_name": "marsala wines"
+                "name": "Marsala-Wein",
+                "plural_name": "Marsala-Weine"
             },
             "cognac": {
                 "aliases": [],
@@ -14647,8 +14651,8 @@
             "shaoxing wine": {
                 "aliases": [],
                 "description": "",
-                "name": "shaoxing wine",
-                "plural_name": "shaoxing wines"
+                "name": "Shaoxing Wein",
+                "plural_name": "Shaoxing-Weine"
             },
             "dry vermouth": {
                 "aliases": [],
@@ -14666,7 +14670,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kokosnuss Rum",
-                "plural_name": "coconut rums"
+                "plural_name": "Kokos-Rums"
             },
             "dessert wine": {
                 "aliases": [],
@@ -14678,7 +14682,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Curacao",
-                "plural_name": "curacaos"
+                "plural_name": "Curacaos"
             },
             "port wine": {
                 "aliases": [],
@@ -14714,7 +14718,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Anislikör",
-                "plural_name": "anise liqueurs"
+                "plural_name": "Anisliköre"
             },
             "herbal liqueur": {
                 "aliases": [],
@@ -14732,7 +14736,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Holunderlikör",
-                "plural_name": "elderflower liqueurs"
+                "plural_name": "Holunderblütenliköre"
             },
             "cooking wine": {
                 "aliases": [],
@@ -14744,31 +14748,31 @@
                 "aliases": [],
                 "description": "",
                 "name": "Haselnusslikör",
-                "plural_name": "hazelnut liqueurs"
+                "plural_name": "Haselnussliköre"
             },
             "peach liqueur": {
                 "aliases": [],
                 "description": "",
                 "name": "Pfirsichlikör",
-                "plural_name": "peach liqueurs"
+                "plural_name": "Pfirsichliköre"
             },
             "melon liqueur": {
                 "aliases": [],
                 "description": "",
                 "name": "Melonenlikör",
-                "plural_name": "melon liqueurs"
+                "plural_name": "Melonenliköre"
             },
             "raspberry liqueur": {
                 "aliases": [],
                 "description": "",
                 "name": "Himbeerlikör",
-                "plural_name": "raspberry liqueurs"
+                "plural_name": "Himbeerliköre"
             },
             "creme de cacao": {
                 "aliases": [],
                 "description": "",
-                "name": "creme de cacao",
-                "plural_name": "creme de cacao"
+                "name": "Crème de cacao",
+                "plural_name": "Crème de cacao"
             },
             "schnapp": {
                 "aliases": [],
@@ -15102,13 +15106,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Orangensaft",
-                "plural_name": "Orangensäfte"
+                "plural_name": "Orangensaft"
             },
             "coffee": {
                 "aliases": [],
                 "description": "",
                 "name": "Kaffee",
-                "plural_name": "Kaffees"
+                "plural_name": "Kaffee"
             },
             "club soda": {
                 "aliases": [],
@@ -15132,25 +15136,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "Apfelsaft",
-                "plural_name": "Apfelsäfte"
+                "plural_name": "Apfelsaft"
             },
             "tea": {
                 "aliases": [],
                 "description": "",
                 "name": "Tee",
-                "plural_name": "Tees"
+                "plural_name": "Tee"
             },
             "cranberry juice": {
                 "aliases": [],
                 "description": "",
                 "name": "Cranberrysaft",
-                "plural_name": "Cranberrysäfte"
+                "plural_name": "Cranberrysaft"
             },
             "tomato juice": {
                 "aliases": [],
                 "description": "",
                 "name": "Tomatensaft",
-                "plural_name": "Tomatensäfte"
+                "plural_name": "Tomatensaft"
             },
             "coconut water": {
                 "aliases": [],
@@ -15198,19 +15202,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "Ingwerbier",
-                "plural_name": "ginger beers"
+                "plural_name": "Ginger Beers (Ingwerbier)"
             },
             "orange juice concentrate": {
                 "aliases": [],
                 "description": "",
                 "name": "Orangensaftkonzentrat",
-                "plural_name": "Orangensaftkonzentrate"
+                "plural_name": "Orangensaftkonzentrat"
             },
             "lemon lime soda": {
                 "aliases": [],
                 "description": "",
                 "name": "Zitronen Limetten Soda",
-                "plural_name": "lemon lime sodas"
+                "plural_name": "Zitronen-Limetten-Limonaden"
             },
             "cream of coconut": {
                 "aliases": [],
@@ -15240,7 +15244,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Chai Tee",
-                "plural_name": "Chai Tee"
+                "plural_name": "Chai-Tee"
             },
             "root beer": {
                 "aliases": [],
@@ -15278,11 +15282,11 @@
                 "name": "Sauermix",
                 "plural_name": "Sauermix"
             },
-            "hibiscu": {
+            "hibiscus": {
                 "aliases": [],
                 "description": "",
                 "name": "Hibiskus",
-                "plural_name": "Hibiskus"
+                "plural_name": "Hibiskusse"
             },
             "tea leaf": {
                 "aliases": [],
@@ -15312,7 +15316,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Limettensaftkonzentrat",
-                "plural_name": "Limettensaftkonzentrat"
+                "plural_name": "Limetten-Limonadenkonzentrat"
             },
             "dr pepper": {
                 "aliases": [],
@@ -15324,7 +15328,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Weißer Traubensaft",
-                "plural_name": "Weißer Traubensaft"
+                "plural_name": "weißer Traubensaft"
             },
             "watermelon juice": {
                 "aliases": [],
@@ -15348,7 +15352,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Passionsfruchtsaft",
-                "plural_name": "Passionsfruchtsaft"
+                "plural_name": "Maracujasaft"
             },
             "iced tea": {
                 "aliases": [],
@@ -15372,7 +15376,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Rübensaft",
-                "plural_name": "Rübensaft"
+                "plural_name": "Rote-Bete-Saft"
             },
             "peach juice": {
                 "aliases": [],
@@ -15408,7 +15412,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kamillentee",
-                "plural_name": "Kamillentees"
+                "plural_name": "Kamillentee"
             },
             "pear juice": {
                 "aliases": [],
@@ -15431,32 +15435,32 @@
             "tamarind water": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarind water",
-                "plural_name": "tamarind waters"
+                "name": "Tamarindenwasser",
+                "plural_name": "Tamarindenwasser"
             },
             "mountain dew": {
                 "aliases": [],
                 "description": "",
                 "name": "Mointain Dew Limonade",
-                "plural_name": "mountain dews"
+                "plural_name": "Mountain Dews"
             },
             "grapefruit soda": {
                 "aliases": [],
                 "description": "",
-                "name": "grapefruit soda",
-                "plural_name": "grapefruit sodas"
+                "name": "Grapefruit-Limonade",
+                "plural_name": "Grapefruit-Limonaden"
             },
             "rooibos tea": {
                 "aliases": [],
                 "description": "",
                 "name": "Rooibos Tee",
-                "plural_name": "Rooibos-Tees"
+                "plural_name": "Rooibos-Tee"
             },
             "lime soda": {
                 "aliases": [],
                 "description": "",
                 "name": "Limetten Soda",
-                "plural_name": "lime sodas"
+                "plural_name": "Limetten-Limonaden"
             },
             "raspberry juice": {
                 "aliases": [],
@@ -15468,31 +15472,31 @@
                 "aliases": [],
                 "description": "",
                 "name": "Guavensaft",
-                "plural_name": "guava juices"
+                "plural_name": "Guavensaft"
             },
             "jasmine tea": {
                 "aliases": [],
                 "description": "",
                 "name": "Jasmintee",
-                "plural_name": "jasmine teas"
+                "plural_name": "Jasmintee"
             },
             "clamato": {
                 "aliases": [],
                 "description": "",
-                "name": "clamato",
-                "plural_name": "clamatoes"
+                "name": "Clamato (Tomaten-Muschel-Saft)",
+                "plural_name": "Clamatoes"
             },
             "strawberry juice": {
                 "aliases": [],
                 "description": "",
                 "name": "Erdbeersaft",
-                "plural_name": "Erdbeersäfte"
+                "plural_name": "Erdbeersaft"
             },
             "iced coffee concentrate": {
                 "aliases": [],
                 "description": "",
                 "name": "Eiskaffee-Konzentrat",
-                "plural_name": "iced coffee concentrates"
+                "plural_name": "Eiskaffee-Konzentrat"
             },
             "green tea leaf": {
                 "aliases": [],
@@ -15504,109 +15508,109 @@
                 "aliases": [],
                 "description": "",
                 "name": "Rote Bete Saft",
-                "plural_name": "Rote Bete Säfte"
+                "plural_name": "Rote Bete Saft"
             },
             "blueberry juice": {
                 "aliases": [],
                 "description": "",
                 "name": "Blaubeersaft",
-                "plural_name": "Blaubeersäfte"
+                "plural_name": "Blaubeersaft"
             },
             "lemonade mix": {
                 "aliases": [],
                 "description": "",
-                "name": "lemonade mix",
-                "plural_name": "lemonade mixes"
+                "name": "Limonaden-Mix",
+                "plural_name": "Limonaden-Mix"
             },
             "rose syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "rose syrup",
-                "plural_name": "rose syrups"
+                "name": "Rosensirup",
+                "plural_name": "Rosensirupe"
             },
             "v8 juice": {
                 "aliases": [],
                 "description": "",
-                "name": "v8 juice",
-                "plural_name": "v8 juices"
+                "name": "V8-Saft",
+                "plural_name": "V8-Saft"
             },
             "thai tea": {
                 "aliases": [],
                 "description": "",
                 "name": "Thai-Tee",
-                "plural_name": "thai teas"
+                "plural_name": "Thai-Tee"
             },
             "aloe vera juice": {
                 "aliases": [],
                 "description": "",
                 "name": "Aloe-Vera-Saft",
-                "plural_name": "Aloe-Vera-Säfte"
+                "plural_name": "Aloe-Vera-Saft"
             },
             "white tea": {
                 "aliases": [],
                 "description": "",
                 "name": "Weißer Tee",
-                "plural_name": "Weiße Tees"
+                "plural_name": "weißer Tee"
             },
             "juice blend": {
                 "aliases": [],
                 "description": "",
-                "name": "juice blend",
-                "plural_name": "juice blends"
+                "name": "Saftmischung",
+                "plural_name": "Saftmischung"
             },
             "prune juice": {
                 "aliases": [],
                 "description": "",
-                "name": "prune juice",
-                "plural_name": "prune juices"
+                "name": "Pflaumensaft",
+                "plural_name": "Pflaumensaft"
             },
             "sparkling cider": {
                 "aliases": [],
                 "description": "",
-                "name": "sparkling cider",
+                "name": "Schaumwein-Cider",
                 "plural_name": null
             },
             "berry juice": {
                 "aliases": [],
                 "description": "",
                 "name": "Beerensaft",
-                "plural_name": "berry juices"
+                "plural_name": "Beerensaft"
             },
             "butterfly pea flower": {
                 "aliases": [],
                 "description": "",
-                "name": "butterfly pea flower",
-                "plural_name": "butterfly pea flowers"
+                "name": "Schamblume",
+                "plural_name": "Schamblume"
             },
             "passion tea": {
                 "aliases": [],
                 "description": "",
-                "name": "passion tea",
-                "plural_name": "passion teas"
+                "name": "Passionsfrucht-Tee",
+                "plural_name": "Passionsfrucht-Tees"
             },
             "strawberry soda": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry soda",
-                "plural_name": "strawberry sodas"
+                "name": "Erdbeerlimonade",
+                "plural_name": "Erdbeerlimonaden"
             },
             "lapsang souchong": {
                 "aliases": [],
                 "description": "",
-                "name": "lapsang souchong",
-                "plural_name": "lapsang souchongs"
+                "name": "Lapsang Souchong",
+                "plural_name": "Lapsang Souchongs"
             },
             "blackcurrant juice": {
                 "aliases": [],
                 "description": "",
-                "name": "blackcurrant juice",
-                "plural_name": "blackcurrant juices"
+                "name": "Johannisbeersaft",
+                "plural_name": "Johannisbeersaft"
             },
             "herbal tea": {
                 "aliases": [],
                 "description": "",
                 "name": "Kräutertee",
-                "plural_name": "Kräutertees"
+                "plural_name": "Kräutertee"
             },
             "banana juice": {
                 "aliases": [],
@@ -15642,7 +15646,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Kürbisgewürzkaffee",
-                "plural_name": "Kürbisgewürzkaffee"
+                "plural_name": "Pumpkin-Spice-Kaffee"
             },
             "pepsi": {
                 "aliases": [],
@@ -15672,7 +15676,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Açaisaft",
-                "plural_name": "Açaisaft"
+                "plural_name": "Acai-Beerensaft"
             },
             "lemon crystal": {
                 "aliases": [],
@@ -15802,7 +15806,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Veganes Proteinpulver",
-                "plural_name": "Vegane Proteinpulver"
+                "plural_name": "Veganes Proteinpulver"
             },
             "essence": {
                 "aliases": [],
@@ -15838,31 +15842,31 @@
                 "aliases": [],
                 "description": "",
                 "name": "Erdbeerextrakt",
-                "plural_name": "Erdbeerextrakte"
+                "plural_name": "Erdbeerextrakt"
             },
             "butter extract": {
                 "aliases": [],
                 "description": "",
                 "name": "Butterextrakt",
-                "plural_name": "Butterextrakte"
+                "plural_name": "Butterextrakt"
             },
             "chocolate extract": {
                 "aliases": [],
                 "description": "",
                 "name": "Schokoladenextrakt",
-                "plural_name": "Schokoladenextrakte"
+                "plural_name": "Schokoladenextrakt"
             },
             "raspberry extract": {
                 "aliases": [],
                 "description": "",
                 "name": "Himbeerextrakt",
-                "plural_name": "Himbeerextrakte"
+                "plural_name": "Himbeerextrakt"
             },
             "anise extract": {
                 "aliases": [],
                 "description": "",
                 "name": "Anisextrakt",
-                "plural_name": "Anisextrakte"
+                "plural_name": "Anisextrakt"
             },
             "bee pollen": {
                 "aliases": [],
@@ -15880,7 +15884,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Bananenextrakt",
-                "plural_name": "Bananenextrakte"
+                "plural_name": "Bananenextrakt"
             },
             "lavender oil": {
                 "aliases": [],
@@ -15892,7 +15896,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ätherisches Öl",
-                "plural_name": "ätherische Öle"
+                "plural_name": "ätherisches Öl"
             },
             "chicken essence": {
                 "aliases": [],
@@ -15904,7 +15908,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Karamellextrakt",
-                "plural_name": "Karamellextrakte"
+                "plural_name": "Karamellextrakt"
             },
             "egg white powder": {
                 "aliases": [],
@@ -15922,7 +15926,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Root Beer Extrakt",
-                "plural_name": "Root Beer Extrakte"
+                "plural_name": "Root Beer Extrakt"
             },
             "vitamin c": {
                 "aliases": [],
@@ -15958,25 +15962,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "Haselnussextrakt",
-                "plural_name": "Haselnussextrakte"
+                "plural_name": "Haselnussextrakt"
             },
             "freeze-dried strawberry powder": {
                 "aliases": [],
                 "description": "",
                 "name": "Gefriergetrocknetes Erdbeerpulver",
-                "plural_name": "Gefriergetrocknete Erdbeerpulver"
+                "plural_name": "Gefriergetrocknetes Erdbeerpulver"
             },
             "tamarind extract": {
                 "aliases": [],
                 "description": "",
                 "name": "Tamarindenextrakt",
-                "plural_name": "Tamarindenextrakte"
+                "plural_name": "Tamarindenextrakt"
             },
             "cherry extract": {
                 "aliases": [],
                 "description": "",
                 "name": "Kirschextrakt",
-                "plural_name": "Kirschextrakte"
+                "plural_name": "Kirschextrakt"
             },
             "butterscotch flavor": {
                 "aliases": [],
@@ -16000,7 +16004,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Zitronenkonzentrat",
-                "plural_name": "Zitronenkonzentrate"
+                "plural_name": "Zitronenkonzentrat"
             },
             "chocolate collagen": {
                 "aliases": [],
@@ -16029,8 +16033,8 @@
             "kombucha starter": {
                 "aliases": [],
                 "description": "",
-                "name": "kombucha starter",
-                "plural_name": "kombucha starter"
+                "name": "Kombucha-Starter",
+                "plural_name": "Kombucha-Starter"
             },
             "pandan extract": {
                 "aliases": [],
@@ -16072,7 +16076,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "CBD Öl",
-                "plural_name": "CBD Öle"
+                "plural_name": "CBD Öl"
             },
             "chlorella": {
                 "aliases": [],
@@ -16216,7 +16220,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "reines Limettenextrakt",
-                "plural_name": "reine Limettenextrakte"
+                "plural_name": "reines Limettenextrakt"
             },
             "sodium alginate": {
                 "aliases": [],

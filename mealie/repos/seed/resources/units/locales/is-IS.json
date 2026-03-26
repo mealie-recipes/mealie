@@ -137,5 +137,11 @@
         "plural_name": "klípur",
         "description": "",
         "abbreviation": ""
+    },
+    "sprig": {
+        "name": "stilkur",
+        "plural_name": "stilkar",
+        "description": "",
+        "abbreviation": ""
     }
 }

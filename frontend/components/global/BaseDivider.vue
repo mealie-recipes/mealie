@@ -6,21 +6,19 @@
   />
 </template>
 
-<script lang="ts">
-export default defineNuxtComponent({
-  props: {
-    width: {
-      type: String,
-      default: "100px",
-    },
-    thickness: {
-      type: String,
-      default: "2px",
-    },
-    color: {
-      type: String,
-      default: "accent",
-    },
+<script setup lang="ts">
+defineProps({
+  width: {
+    type: String,
+    default: "100px",
+  },
+  thickness: {
+    type: String,
+    default: "2px",
+  },
+  color: {
+    type: String,
+    default: "accent",
   },
 });
 </script>

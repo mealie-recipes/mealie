@@ -96,150 +96,136 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useAdminApi } from "~/composables/api";
 import type { MaintenanceStorageDetails, MaintenanceSummary } from "~/lib/api/types/admin";
 
-export default defineNuxtComponent({
-  setup() {
-    definePageMeta({
-      layout: "admin",
-    });
-
-    const state = reactive({
-      storageDetails: false,
-      storageDetailsLoading: false,
-      fetchingInfo: false,
-      actionLoading: false,
-    });
-
-    const adminApi = useAdminApi();
-    const i18n = useI18n();
-
-    // Set page title
-    useSeoMeta({
-      title: i18n.t("admin.maintenance.page-title"),
-    });
-
-    // ==========================================================================
-    // General Info
-
-    const infoResults = ref<MaintenanceSummary>({
-      dataDirSize: i18n.t("about.unknown-version"),
-      cleanableDirs: 0,
-      cleanableImages: 0,
-    });
-
-    async function getSummary() {
-      state.fetchingInfo = true;
-      const { data } = await adminApi.maintenance.getInfo();
-
-      infoResults.value = data ?? {
-        dataDirSize: i18n.t("about.unknown-version"),
-        cleanableDirs: 0,
-        cleanableImages: 0,
-      };
-
-      state.fetchingInfo = false;
-    }
-
-    const info = computed(() => {
-      return [
-        {
-          name: i18n.t("admin.maintenance.info-description-data-dir-size"),
-          value: infoResults.value.dataDirSize,
-        },
-        {
-          name: i18n.t("admin.maintenance.info-description-cleanable-directories"),
-          value: infoResults.value.cleanableDirs,
-        },
-        {
-          name: i18n.t("admin.maintenance.info-description-cleanable-images"),
-          value: infoResults.value.cleanableImages,
-        },
-      ];
-    });
-
-    // ==========================================================================
-    // Storage Details
-
-    const storageTitles: { [key: string]: string } = {
-      tempDirSize: i18n.t("admin.maintenance.storage.title-temporary-directory") as string,
-      backupsDirSize: i18n.t("admin.maintenance.storage.title-backups-directory") as string,
-      groupsDirSize: i18n.t("admin.maintenance.storage.title-groups-directory") as string,
-      recipesDirSize: i18n.t("admin.maintenance.storage.title-recipes-directory") as string,
-      userDirSize: i18n.t("admin.maintenance.storage.title-user-directory") as string,
-    };
-
-    function storageDetailsText(key: string) {
-      return storageTitles[key] ?? i18n.t("about.unknown-version");
-    }
-
-    const storageDetails = ref<MaintenanceStorageDetails | null>(null);
-
-    async function openDetails() {
-      state.storageDetailsLoading = true;
-      state.storageDetails = true;
-
-      const { data } = await adminApi.maintenance.getStorageDetails();
-
-      if (data) {
-        storageDetails.value = data;
-      }
-
-      state.storageDetailsLoading = true;
-    }
-
-    // ==========================================================================
-    // Actions
-
-    async function handleCleanDirectories() {
-      state.actionLoading = true;
-      await adminApi.maintenance.cleanRecipeFolders();
-      state.actionLoading = false;
-    }
-
-    async function handleCleanImages() {
-      state.actionLoading = true;
-      await adminApi.maintenance.cleanImages();
-      state.actionLoading = false;
-    }
-
-    async function handleCleanTemp() {
-      state.actionLoading = true;
-      await adminApi.maintenance.cleanTemp();
-      state.actionLoading = false;
-    }
-
-    const actions = [
-      {
-        name: i18n.t("admin.maintenance.action-clean-directories-name"),
-        handler: handleCleanDirectories,
-        subtitle: i18n.t("admin.maintenance.action-clean-directories-description"),
-      },
-      {
-        name: i18n.t("admin.maintenance.action-clean-temporary-files-name"),
-        handler: handleCleanTemp,
-        subtitle: i18n.t("admin.maintenance.action-clean-temporary-files-description"),
-      },
-      {
-        name: i18n.t("admin.maintenance.action-clean-images-name"),
-        handler: handleCleanImages,
-        subtitle: i18n.t("admin.maintenance.action-clean-images-description"),
-      },
-    ];
-
-    return {
-      storageDetailsText,
-      openDetails,
-      storageDetails,
-      state,
-      info,
-      getSummary,
-      actions,
-    };
-  },
+definePageMeta({
+  layout: "admin",
 });
+
+const state = reactive({
+  storageDetails: false,
+  storageDetailsLoading: false,
+  fetchingInfo: false,
+  actionLoading: false,
+});
+
+const adminApi = useAdminApi();
+const i18n = useI18n();
+
+// Set page title
+useSeoMeta({
+  title: i18n.t("admin.maintenance.page-title"),
+});
+
+// ==========================================================================
+// General Info
+
+const infoResults = ref<MaintenanceSummary>({
+  dataDirSize: i18n.t("about.unknown-version"),
+  cleanableDirs: 0,
+  cleanableImages: 0,
+});
+
+async function getSummary() {
+  state.fetchingInfo = true;
+  const { data } = await adminApi.maintenance.getInfo();
+
+  infoResults.value = data ?? {
+    dataDirSize: i18n.t("about.unknown-version"),
+    cleanableDirs: 0,
+    cleanableImages: 0,
+  };
+
+  state.fetchingInfo = false;
+}
+
+const info = computed(() => {
+  return [
+    {
+      name: i18n.t("admin.maintenance.info-description-data-dir-size"),
+      value: infoResults.value.dataDirSize,
+    },
+    {
+      name: i18n.t("admin.maintenance.info-description-cleanable-directories"),
+      value: infoResults.value.cleanableDirs,
+    },
+    {
+      name: i18n.t("admin.maintenance.info-description-cleanable-images"),
+      value: infoResults.value.cleanableImages,
+    },
+  ];
+});
+
+// ==========================================================================
+// Storage Details
+
+const storageTitles: { [key: string]: string } = {
+  tempDirSize: i18n.t("admin.maintenance.storage.title-temporary-directory") as string,
+  backupsDirSize: i18n.t("admin.maintenance.storage.title-backups-directory") as string,
+  groupsDirSize: i18n.t("admin.maintenance.storage.title-groups-directory") as string,
+  recipesDirSize: i18n.t("admin.maintenance.storage.title-recipes-directory") as string,
+  userDirSize: i18n.t("admin.maintenance.storage.title-user-directory") as string,
+};
+
+function storageDetailsText(key: string) {
+  return storageTitles[key] ?? i18n.t("about.unknown-version");
+}
+
+const storageDetails = ref<MaintenanceStorageDetails | null>(null);
+
+async function openDetails() {
+  state.storageDetailsLoading = true;
+  state.storageDetails = true;
+
+  const { data } = await adminApi.maintenance.getStorageDetails();
+
+  if (data) {
+    storageDetails.value = data;
+  }
+
+  state.storageDetailsLoading = true;
+}
+
+// ==========================================================================
+// Actions
+
+async function handleCleanDirectories() {
+  state.actionLoading = true;
+  await adminApi.maintenance.cleanRecipeFolders();
+  state.actionLoading = false;
+}
+
+async function handleCleanImages() {
+  state.actionLoading = true;
+  await adminApi.maintenance.cleanImages();
+  state.actionLoading = false;
+}
+
+async function handleCleanTemp() {
+  state.actionLoading = true;
+  await adminApi.maintenance.cleanTemp();
+  state.actionLoading = false;
+}
+
+const actions = [
+  {
+    name: i18n.t("admin.maintenance.action-clean-directories-name"),
+    handler: handleCleanDirectories,
+    subtitle: i18n.t("admin.maintenance.action-clean-directories-description"),
+  },
+  {
+    name: i18n.t("admin.maintenance.action-clean-temporary-files-name"),
+    handler: handleCleanTemp,
+    subtitle: i18n.t("admin.maintenance.action-clean-temporary-files-description"),
+  },
+  {
+    name: i18n.t("admin.maintenance.action-clean-images-name"),
+    handler: handleCleanImages,
+    subtitle: i18n.t("admin.maintenance.action-clean-images-description"),
+  },
+];
 </script>
 
 <style scoped>

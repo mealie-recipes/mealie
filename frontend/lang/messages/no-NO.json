@@ -69,7 +69,7 @@
     "new-notification": "Nytt varsel",
     "event-notifiers": "Hendelsesvarsler",
     "apprise-url-skipped-if-blank": "Apprise-URL (hoppes over hvis tom)",
-    "apprise-url-is-left-intentionally-blank": "Siden Apprise URL-er vanligvis inneholder sensitiv informasjon, må dette feltet ikke være tomt mens du redigerer. Hvis du vil oppdatere URL, skriv inn den nye her, ellers la den være tom for å beholde den gjeldende URL.",
+    "apprise-url-is-left-intentionally-blank": "Siden Apprise URL-er vanligvis inneholder sensitiv informasjon forblir dette feltet tomt mens du redigerer. Hvis du vil oppdatere URL, skriv inn den nye her, eller la den være tom for å beholde den gjeldende URL.",
     "enable-notifier": "Aktiver varslingsagenten",
     "what-events": "Hvilke hendelser skal denne varslingsagenten abonnere på?",
     "user-events": "Brukerhendelser",
@@ -212,6 +212,8 @@
     "upload-file": "Last opp fil",
     "created-on-date": "Opprettet: {0}",
     "unsaved-changes": "Du har ulagrede endringer. Ønsker du å lagre før du forlater? Trykk 'OK' for å lagre, 'Avbryt' for å forkaste endringene.",
+    "discard-changes": "Forkast endringer",
+    "discard-changes-description": "Du har ulagrede endringer, er du sikker på at du vil fjerne dem?",
     "clipboard-copy-failure": "Kunne ikke kopiere til utklippstavlen.",
     "confirm-delete-generic-items": "Er du sikker på at du vil slette følgende elementer?",
     "organizers": "Organisatorer",
@@ -343,7 +345,7 @@
     "lunch": "Lunsj",
     "dinner": "Middag",
     "snack": "Snacks",
-    "drink": "Drink",
+    "drink": "Drikke",
     "dessert": "Dessert",
     "type-any": "Enhver",
     "day-any": "Enhver",
@@ -367,7 +369,9 @@
     "recipe-rules": "Regler for oppskrifter",
     "applies-to-all-days": "Gjelder for alle dager",
     "applies-on-days": "Gjelder på {0}er",
-    "meal-plan-settings": "Innstillinger for måltidsplan"
+    "meal-plan-settings": "Innstillinger for måltidsplan",
+    "add-all-to-list": "Legg alt til listen",
+    "add-day-to-list": "Legg til dag i listen"
   },
   "migration": {
     "migration-data-removed": "Overføringsdata er fjernet",
@@ -445,7 +449,7 @@
     "upload-a-recipe": "Last opp oppskrift",
     "upload-individual-zip-file": "Last opp en individuell .zip-fil eksportert fra en annen Mealie-instans.",
     "url-form-hint": "Kopier og lim inn en lenke fra nettstedet med favorittoppskriftene dine",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Kopier og lim inn kilde-URL-en til dataene dine (valgfritt)",
     "view-scraped-data": "Vis skrapte data",
     "trim-whitespace-description": "Fjern innledende og etterfølgende mellomrom i tillegg til tomme linjer",
     "trim-prefix-description": "Fjern første tegn fra hver linje",
@@ -569,7 +573,7 @@
     "choose-unit": "Velg enhet",
     "press-enter-to-create": "Trykk Enter for å opprette",
     "choose-food": "Velg matvarer",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "Velg oppskrift",
     "notes": "Notater",
     "toggle-section": "Legg til seksjon",
     "see-original-text": "Se opprinnelig tekst",
@@ -632,14 +636,16 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Opprett en oppskrift ved å angi navnet. Alle oppskrifter må ha unike navn.",
     "new-recipe-names-must-be-unique": "Navn på oppskrift må være unike",
     "scrape-recipe": "Skrap oppskrift",
-    "scrape-recipe-description": "Skrap en oppskrift ved bruk av nettadresse. Oppgi nettadressen til nettstedet du vil skrape, så vil Mealie forsøke å skrape oppskriften fra den siden og legge den til i samlingen din.",
+    "scrape-recipe-description": "Hent en oppskrift fra en url. Oppgi Url-en til nettstedet du vil hente fra, og Mealie vil forsøke å hente oppskriften fra det nettstedet og legge den til i samlingen din.",
+    "scrape-recipe-description-transcription": "Du kan også oppgi Url-en til en video og Mealie vil forsøke å transkribere den til en oppskrift.",
     "scrape-recipe-have-a-lot-of-recipes": "Har du mange oppskrifter du ønsker å skrape samtidig?",
     "scrape-recipe-suggest-bulk-importer": "Prøv masseimportering",
     "scrape-recipe-have-raw-html-or-json-data": "Har du HTML- eller JSON-rådata?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kan importere fra rådata direkte",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "Er nettstedet blokkert?",
+    "scrape-recipe-try-importing-raw-html-instead": "Prøv å importere HTML-koden i stedet.",
     "import-original-keywords-as-tags": "Importer originale søkeord som emneord",
+    "import-original-categories": "Importer opprinnelige kategorier",
     "stay-in-edit-mode": "Forbli i redigeringsmodus",
     "parse-recipe-ingredients-after-import": "Analyser oppskriftens ingredienser etter at importen er fullført",
     "import-from-zip": "Importer fra zip-fil",
@@ -742,7 +748,7 @@
     "advanced": "Avansert",
     "auto-search": "Autosøk",
     "no-results": "Ingen resultater funnet",
-    "type-to-search": "Type to search..."
+    "type-to-search": "Skriv for å søke..."
   },
   "settings": {
     "add-a-new-theme": "Legg til nytt tema",
@@ -883,14 +889,17 @@
     "server-side-base-url-error-text": "`BASE_URL` er fortsatt standardverdien på API-serveren. Dette vil forårsake problemer med varslingslenker som genereres på serveren for e-post osv.",
     "server-side-base-url-success-text": "Serverside-URL samsvarer ikke med standard",
     "ldap-ready": "LDAP klar",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Ikke alle LDAP-verdier er konfigurert. Dette kan ignoreres hvis du ikke bruker LDAP-autentisering.",
     "ldap-ready-success-text": "Alle obligratoriske LDAP-variabler er satt.",
     "build": "Build",
     "recipe-scraper-version": "Versjon på oppskrift-scraper",
     "oidc-ready": "OIDC klar",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Ikke alle OIDC-verdier er konfigurert. Dette kan ignoreres hvis du ikke bruker OIDC-autentisering.",
     "oidc-ready-success-text": "Alle obligratoriske OIDC-variabler er satt.",
     "openai-ready": "OpenAI klar",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Ikke alle OpenAI-verdier er konfigurert. Dette kan ignoreres hvis du ikke bruker OpenAI-funksjoner.",
     "openai-ready-success-text": "Alle påkrevde OpenAI-variabler er satt."
   },
@@ -898,6 +907,7 @@
     "all-lists": "Alle lister",
     "create-shopping-list": "Opprett handleliste",
     "from-recipe": "Fra oppskrift",
+    "ingredient-of-recipe": "Ingrediens av {recipe}",
     "list-name": "Listenavn",
     "new-list": "Ny liste",
     "quantity": "Antall: {0}",
@@ -1129,7 +1139,22 @@
       "example-unit-singular": "f.eks: spiseskje",
       "example-unit-plural": "f.eks: spiseskjeer",
       "example-unit-abbreviation-singular": "f.eks: ss",
-      "example-unit-abbreviation-plural": "f.eks: ss"
+      "example-unit-abbreviation-plural": "f.eks: ss",
+      "standardization": "Standardisering",
+      "standardization-description": "Hvordan denne enheten kan representeres som en standardenhet. Dette muliggjør konverteringsfunksjoner som å slå sammen kompatible enheter i handlelister.",
+      "standard-unit": "Standard enhet",
+      "standard-quantity": "Standard antall",
+      "unit-conversion": "Enhetskonvertering",
+      "standard-unit-labels": {
+        "fluid-ounce": "flytende unse",
+        "cup": "kopp",
+        "ounce": "unse",
+        "pound": "pund",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Tilfør typiske etiketter i databasen basert på ditt lokale språk.",
@@ -1163,7 +1188,11 @@
       "recipe-actions-data": "Opppgavehandlings-data",
       "new-recipe-action": "Ny oppskriftshandling",
       "edit-recipe-action": "Rediger oppskriftshandling",
-      "action-type": "Handlingstype"
+      "action-type": "Handlingstype",
+      "action-types": {
+        "link": "Lenke",
+        "post": "Innlegg"
+      }
     },
     "create-alias": "Opprett alias",
     "manage-aliases": "Administrer aliaser",
@@ -1417,7 +1446,9 @@
       "is-greater-than": "er større enn",
       "is-greater-than-or-equal-to": "er større enn eller lik",
       "is-less-than": "er mindre enn",
-      "is-less-than-or-equal-to": "er mindre enn eller lik"
+      "is-less-than-or-equal-to": "er mindre enn eller lik",
+      "is-older-than": "er høyere enn",
+      "is-newer-than": "er nyere enn"
     },
     "relational-keywords": {
       "is": "er",
@@ -1427,14 +1458,17 @@
       "contains-all-of": "inneholder alle",
       "is-like": "er som",
       "is-not-like": "er ikke som"
+    },
+    "dates": {
+      "days-ago": "dager siden|dag siden|dager siden"
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "required": "Dette feltet er påkrevd",
+    "invalid-email": "E-postadressen må være gyldig",
+    "invalid-url": "Må være en gyldig nettadresse",
+    "no-whitespace": "Ingen mellomrom tillatt",
+    "min-length": "Må minst ha {min} tegn",
+    "max-length": "Må være minst minst {max} tegn må bestå av maks {max} tegn"
   }
 }
