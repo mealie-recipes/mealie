@@ -54,6 +54,17 @@ jobs:
           script: |
             const pr = context.payload.pull_request;
 
+            if (pr.user.type === "Bot") {
+              console.log("Skipping template check for bot");
+              return;
+            }
+
+            const exemptRoles = ["OWNER", "MEMBER", "COLLABORATOR"];
+            if (exemptRoles.includes(pr.author_association)) {
+              console.log(`Skipping template check for ${pr.author_association}`);
+              return;
+            }
+
             const response = await github.rest.repos.getContent({
               owner: context.repo.owner,
               repo: context.repo.repo,
