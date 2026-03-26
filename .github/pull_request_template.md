@@ -41,6 +41,8 @@ If this PR fixes one of more issues, list them here.
 One per line, like so:
 Fixes #123
 Fixes #39
+
+Be sure to include the word "fixes" otherwise the associated issue will not be closed.
 -->
 
 ## Special notes for your reviewer:
