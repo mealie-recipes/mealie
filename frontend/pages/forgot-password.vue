@@ -16,7 +16,7 @@
       <v-card-text>
         <v-form @submit.prevent="requestLink()">
           <v-text-field
-            v-model="email"
+            v-model="state.email"
             :prepend-inner-icon="$globals.icons.email"
             variant="solo-filled"
             flat
@@ -31,7 +31,7 @@
           <v-card-actions class="justify-center">
             <div class="max-button">
               <v-btn
-                :loading="loading"
+                :loading="state.loading"
                 color="primary"
                 type="submit"
                 size="large"
@@ -60,54 +60,45 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 
-export default defineNuxtComponent({
-  setup() {
-    definePageMeta({
-      layout: "basic",
-    });
-
-    const state = reactive({
-      email: "",
-      loading: false,
-      error: false,
-    });
-
-    const i18n = useI18n();
-
-    // Set page title
-    useSeoMeta({
-      title: i18n.t("user.login"),
-    });
-
-    const api = useUserApi();
-
-    async function requestLink() {
-      state.loading = true;
-      // TODO: Fix Response to send meaningful error
-      const { response } = await api.email.sendForgotPassword({ email: state.email });
-
-      if (response?.status === 200) {
-        state.loading = false;
-        state.error = false;
-        alert.success(i18n.t("profile.email-sent"));
-      }
-      else {
-        state.loading = false;
-        state.error = true;
-        alert.error(i18n.t("profile.error-sending-email"));
-      }
-    }
-
-    return {
-      requestLink,
-      ...toRefs(state),
-    };
-  },
+definePageMeta({
+  layout: "basic",
 });
+
+const state = reactive({
+  email: "",
+  loading: false,
+  error: false,
+});
+
+const i18n = useI18n();
+
+// Set page title
+useSeoMeta({
+  title: i18n.t("user.login"),
+});
+
+const api = useUserApi();
+
+async function requestLink() {
+  state.loading = true;
+  // TODO: Fix Response to send meaningful error
+  const { response } = await api.email.sendForgotPassword({ email: state.email });
+
+  if (response?.status === 200) {
+    state.loading = false;
+    state.error = false;
+    alert.success(i18n.t("profile.email-sent"));
+  }
+  else {
+    state.loading = false;
+    state.error = true;
+    alert.error(i18n.t("profile.error-sending-email"));
+  }
+}
 </script>
 
 <style lang="css">

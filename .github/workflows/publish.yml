@@ -75,4 +75,4 @@ jobs:
             ${{ inputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            COMMIT=${{ github.sha }}
+            COMMIT=${{ inputs.ref || github.sha }}

@@ -210,7 +210,7 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useDark, whenever } from "@vueuse/core";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePasswordField } from "~/composables/use-passwords";
@@ -219,161 +219,144 @@ import { useAsyncKey } from "~/composables/use-utils";
 import type { AppStartupInfo } from "~/lib/api/types/admin";
 import { useUserActivityPreferences } from "~/composables/use-users/preferences";
 
-export default defineNuxtComponent({
-  setup() {
-    definePageMeta({
-      layout: "blank",
-    });
-    const isDark = useDark();
-
-    const router = useRouter();
-    const i18n = useI18n();
-    const auth = useMealieAuth();
-    const { $appInfo, $axios } = useNuxtApp();
-    const { loggedIn } = useLoggedInState();
-    const groupSlug = computed(() => auth.user.value?.groupSlug);
-    const isDemo = ref(false);
-    const isFirstLogin = ref(false);
-    const activityPreferences = useUserActivityPreferences();
-    const { getDefaultActivityRoute } = useDefaultActivity();
-
-    useSeoMeta({
-      title: i18n.t("user.login"),
-    });
-
-    const form = reactive({
-      email: "",
-      password: "",
-      remember: false,
-    });
-
-    useAsyncData(useAsyncKey(), async () => {
-      const data = await $axios.get<AppStartupInfo>("/api/app/about/startup-info");
-      isDemo.value = data.data.isDemo;
-      isFirstLogin.value = data.data.isFirstLogin;
-
-      if (data.data.isFirstLogin) {
-        form.email = "changeme@example.com";
-        form.password = "MyPassword";
-      }
-    });
-
-    whenever(
-      () => loggedIn.value && groupSlug.value,
-      () => {
-        const defaultActivityRoute = getDefaultActivityRoute(
-          activityPreferences.value.defaultActivity,
-          groupSlug.value,
-        );
-        if (!isDemo.value && isFirstLogin.value && auth.user.value?.admin) {
-          router.push("/admin/setup");
-        }
-        else if (defaultActivityRoute) {
-          router.push(defaultActivityRoute);
-        }
-        else {
-          router.push(`/g/${groupSlug.value || ""}`);
-        }
-      },
-      { immediate: true },
-    );
-
-    const loggingIn = ref(false);
-    const oidcLoggingIn = ref(false);
-
-    const { passwordIcon, inputType, togglePasswordShow } = usePasswordField();
-
-    whenever(
-      () => $appInfo.enableOidc && $appInfo.oidcRedirect && !isCallback() && !isDirectLogin() /* && !auth.check().valid */,
-      () => oidcAuthenticate(),
-      { immediate: true },
-    );
-
-    onBeforeMount(async () => {
-      if (isCallback()) {
-        await oidcAuthenticate(true);
-      }
-    });
-
-    function isCallback() {
-      const params = new URLSearchParams(window.location.search);
-      return params.has("code") || params.has("error");
-    }
-
-    function isDirectLogin() {
-      const params = new URLSearchParams(window.location.search);
-      return params.has("direct") && params.get("direct") === "1";
-    }
-
-    async function oidcAuthenticate(callback = false) {
-      if (callback) {
-        oidcLoggingIn.value = true;
-        try {
-          await auth.oauthSignIn();
-        }
-        catch (error) {
-          await router.replace("/login?direct=1");
-          alertOnError(error);
-        }
-        oidcLoggingIn.value = false;
-      }
-      else {
-        navigateTo("/api/auth/oauth", { external: true }); // start the redirect process
-      }
-    }
-
-    async function authenticate() {
-      if (form.email.length === 0 || form.password.length === 0) {
-        alert.error(i18n.t("user.please-enter-your-email-and-password"));
-        return;
-      }
-
-      loggingIn.value = true;
-      const formData = new FormData();
-      formData.append("username", form.email);
-      formData.append("password", form.password);
-      formData.append("remember_me", String(form.remember));
-
-      try {
-        await auth.signIn(formData);
-      }
-      catch (error) {
-        console.log(error);
-        alertOnError(error);
-      }
-      loggingIn.value = false;
-    }
-
-    function alertOnError(error: any) {
-      // TODO Check if error is an AxiosError, but isAxiosError is not working right now
-      // See https://github.com/nuxt-community/axios-module/issues/550
-      // Import $axios from useContext()
-      // if ($axios.isAxiosError(error) && error.response?.status === 401) {
-      if (error.response?.status === 401) {
-        alert.error(i18n.t("user.invalid-credentials"));
-      }
-      else if (error.response?.status === 423) {
-        alert.error(i18n.t("user.account-locked-please-try-again-later"));
-      }
-      else {
-        alert.error(i18n.t("events.something-went-wrong"));
-      }
-    }
-
-    return {
-      isDark,
-      form,
-      loggingIn,
-      authenticate,
-      oidcAuthenticate,
-      oidcLoggingIn,
-      passwordIcon,
-      inputType,
-      togglePasswordShow,
-      isFirstLogin,
-    };
-  },
+definePageMeta({
+  layout: "blank",
 });
+const isDark = useDark();
+
+const router = useRouter();
+const i18n = useI18n();
+const auth = useMealieAuth();
+const { $appInfo, $axios } = useNuxtApp();
+const { loggedIn } = useLoggedInState();
+const groupSlug = computed(() => auth.user.value?.groupSlug);
+const isDemo = ref(false);
+const isFirstLogin = ref(false);
+const activityPreferences = useUserActivityPreferences();
+const { getDefaultActivityRoute } = useDefaultActivity();
+
+useSeoMeta({
+  title: i18n.t("user.login"),
+});
+
+const form = reactive({
+  email: "",
+  password: "",
+  remember: false,
+});
+
+useAsyncData(useAsyncKey(), async () => {
+  const data = await $axios.get<AppStartupInfo>("/api/app/about/startup-info");
+  isDemo.value = data.data.isDemo;
+  isFirstLogin.value = data.data.isFirstLogin;
+
+  if (data.data.isFirstLogin) {
+    form.email = "changeme@example.com";
+    form.password = "MyPassword";
+  }
+});
+
+whenever(
+  () => loggedIn.value && groupSlug.value,
+  () => {
+    const defaultActivityRoute = getDefaultActivityRoute(
+      activityPreferences.value.defaultActivity,
+      groupSlug.value,
+    );
+    if (!isDemo.value && isFirstLogin.value && auth.user.value?.admin) {
+      router.push("/admin/setup");
+    }
+    else if (defaultActivityRoute) {
+      router.push(defaultActivityRoute);
+    }
+    else {
+      router.push(`/g/${groupSlug.value || ""}`);
+    }
+  },
+  { immediate: true },
+);
+
+const loggingIn = ref(false);
+const oidcLoggingIn = ref(false);
+
+const { passwordIcon, inputType, togglePasswordShow } = usePasswordField();
+
+whenever(
+  () => $appInfo.enableOidc && $appInfo.oidcRedirect && !isCallback() && !isDirectLogin() /* && !auth.check().valid */,
+  () => oidcAuthenticate(),
+  { immediate: true },
+);
+
+onBeforeMount(async () => {
+  if (isCallback()) {
+    await oidcAuthenticate(true);
+  }
+});
+
+function isCallback() {
+  const params = new URLSearchParams(window.location.search);
+  return params.has("code") || params.has("error");
+}
+
+function isDirectLogin() {
+  const params = new URLSearchParams(window.location.search);
+  return params.has("direct") && params.get("direct") === "1";
+}
+
+async function oidcAuthenticate(callback = false) {
+  if (callback) {
+    oidcLoggingIn.value = true;
+    try {
+      await auth.oauthSignIn();
+    }
+    catch (error) {
+      await router.replace("/login?direct=1");
+      alertOnError(error);
+    }
+    oidcLoggingIn.value = false;
+  }
+  else {
+    navigateTo("/api/auth/oauth", { external: true }); // start the redirect process
+  }
+}
+
+async function authenticate() {
+  if (form.email.length === 0 || form.password.length === 0) {
+    alert.error(i18n.t("user.please-enter-your-email-and-password"));
+    return;
+  }
+
+  loggingIn.value = true;
+  const formData = new FormData();
+  formData.append("username", form.email);
+  formData.append("password", form.password);
+  formData.append("remember_me", String(form.remember));
+
+  try {
+    await auth.signIn(formData);
+  }
+  catch (error) {
+    console.log(error);
+    alertOnError(error);
+  }
+  loggingIn.value = false;
+}
+
+function alertOnError(error: any) {
+  // TODO Check if error is an AxiosError, but isAxiosError is not working right now
+  // See https://github.com/nuxt-community/axios-module/issues/550
+  // Import $axios from useContext()
+  // if ($axios.isAxiosError(error) && error.response?.status === 401) {
+  if (error.response?.status === 401) {
+    alert.error(i18n.t("user.invalid-credentials"));
+  }
+  else if (error.response?.status === 423) {
+    alert.error(i18n.t("user.account-locked-please-try-again-later"));
+  }
+  else {
+    alert.error(i18n.t("events.something-went-wrong"));
+  }
+}
 </script>
 
 <style lang="css" scoped>

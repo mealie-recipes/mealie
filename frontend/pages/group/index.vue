@@ -43,24 +43,18 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useGroupSelf } from "~/composables/use-groups";
 
-export default defineNuxtComponent({
+definePageMeta({
   middleware: ["can-manage-only"],
-  setup() {
-    const { group, actions: groupActions } = useGroupSelf();
-    const i18n = useI18n();
+});
 
-    useSeoMeta({
-      title: i18n.t("group.group"),
-    });
+const { group, actions: groupActions } = useGroupSelf();
+const i18n = useI18n();
 
-    return {
-      group,
-      groupActions,
-    };
-  },
+useSeoMeta({
+  title: i18n.t("group.group"),
 });
 </script>
 

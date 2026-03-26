@@ -78,12 +78,13 @@
   </div>
 </template>
 
-<script lang="ts">
-import { useDark } from "@vueuse/core";
+<script setup lang="ts">
 import { validators } from "~/composables/use-validators";
 import { useUserRegistrationForm } from "~/composables/use-users/user-registration-form";
 import { usePasswordField } from "~/composables/use-passwords";
 import UserPasswordStrength from "~/components/Domain/User/UserPasswordStrength.vue";
+
+definePageMeta({ layout: "blank" });
 
 const inputAttrs = {
   validateOnBlur: true,
@@ -91,44 +92,16 @@ const inputAttrs = {
   variant: "solo-filled" as any,
 };
 
-export default defineNuxtComponent({
-  components: { UserPasswordStrength },
-  setup() {
-    definePageMeta({
-      layout: "blank",
-    });
-
-    const isDark = useDark();
-    const langDialog = ref(false);
-
-    const pwFields = usePasswordField();
-    const {
-      accountDetails,
-      credentials,
-      emailErrorMessages,
-      usernameErrorMessages,
-      validateUsername,
-      validateEmail,
-      domAccountForm,
-    } = useUserRegistrationForm();
-    return {
-      accountDetails,
-      credentials,
-      emailErrorMessages,
-      inputAttrs,
-      isDark,
-      langDialog,
-      pwFields,
-      usernameErrorMessages,
-      validators,
-      // Validators
-      validateUsername,
-      validateEmail,
-      // Dom Refs
-      domAccountForm,
-    };
-  },
-});
+const pwFields = usePasswordField();
+const {
+  accountDetails,
+  credentials,
+  emailErrorMessages,
+  usernameErrorMessages,
+  validateUsername,
+  validateEmail,
+  domAccountForm,
+} = useUserRegistrationForm();
 </script>
 
 <style lang="css" scoped>

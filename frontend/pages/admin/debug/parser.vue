@@ -11,7 +11,7 @@
 
       <div class="d-flex align-center justify-center justify-md-start flex-wrap">
         <v-btn-toggle
-          v-model="parser"
+          v-model="state.parser"
           density="compact"
           mandatory="force"
           @change="processIngredient"
@@ -38,7 +38,7 @@
       <v-card flat>
         <v-card-text>
           <v-text-field
-            v-model="ingredient"
+            v-model="state.ingredient"
             :label="$t('admin.ingredient-text')"
           />
         </v-card-text>
@@ -55,9 +55,9 @@
         </v-card-actions>
       </v-card>
     </v-container>
-    <v-container v-if="results">
+    <v-container v-if="state.results">
       <div
-        v-if="parser !== 'brute' && getConfidence('average')"
+        v-if="state.parser !== 'brute' && getConfidence('average')"
         class="d-flex"
       >
         <v-chip
@@ -111,7 +111,7 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
 import type { IngredientConfidence } from "~/lib/api/types/recipe";
@@ -119,155 +119,139 @@ import type { Parser } from "~/lib/api/user/recipes/recipe";
 
 type ConfidenceAttribute = "average" | "comment" | "name" | "unit" | "quantity" | "food";
 
-export default defineNuxtComponent({
-  setup() {
-    definePageMeta({
-      layout: "admin",
+definePageMeta({
+  layout: "admin",
+});
+
+const api = useUserApi();
+
+const state = reactive({
+  loading: false,
+  ingredient: "",
+  results: false,
+  parser: "nlp" as Parser,
+});
+
+const i18n = useI18n();
+
+// Set page title
+useSeoMeta({
+  title: i18n.t("admin.parser"),
+});
+
+const confidence = ref<IngredientConfidence>({});
+
+function getColor(attribute: ConfidenceAttribute) {
+  const percentage = getConfidence(attribute);
+  if (percentage === undefined) return;
+
+  const p_as_num = parseFloat(percentage.replace("%", ""));
+
+  // Set color based off range
+  if (p_as_num > 75) {
+    return "success";
+  }
+  else if (p_as_num > 60) {
+    return "warning";
+  }
+  else {
+    return "error";
+  }
+}
+
+function getConfidence(attribute: ConfidenceAttribute) {
+  if (!confidence.value) {
+    return;
+  }
+
+  const property = confidence.value[attribute];
+  if (property !== undefined && property !== null) {
+    return `${(+property * 100).toFixed(0)}%`;
+  }
+  return undefined;
+}
+
+const tryText = [
+  "2 tbsp minced cilantro, leaves and stems",
+  "1 large yellow onion, coarsely chopped",
+  "1 1/2 tsp garam masala",
+  "1 inch piece fresh ginger, (peeled and minced)",
+  "2 cups mango chunks, (2 large mangoes) (fresh or frozen)",
+];
+
+function processTryText(str: string) {
+  state.ingredient = str;
+  processIngredient();
+}
+
+async function processIngredient() {
+  if (state.ingredient === "") {
+    return;
+  }
+
+  state.loading = true;
+
+  const { data } = await api.recipes.parseIngredient(state.parser, state.ingredient);
+
+  if (data) {
+    state.results = true;
+
+    if (data.confidence) confidence.value = data.confidence;
+
+    // TODO: Remove ts-ignore
+    // ts-ignore because data will likely change significantly once I figure out how to return results
+    // for the parser. For now we'll leave it like this
+    properties.comment.value = data.ingredient.note || "";
+    properties.quantity.value = data.ingredient.quantity || "";
+    properties.unit.value = data.ingredient?.unit?.name || "";
+    properties.food.value = data.ingredient?.food?.name || "";
+
+    (["comment", "quantity", "unit", "food"] as ConfidenceAttribute[]).forEach((property) => {
+      const color = getColor(property);
+      const confidence = getConfidence(property);
+      if (color) {
+        properties[property].color = color;
+      }
+      if (confidence) {
+        properties[property].confidence = confidence;
+      }
     });
+  }
+  else {
+    alert.error(i18n.t("events.something-went-wrong") as string);
+    state.results = false;
+  }
+  state.loading = false;
+}
 
-    const api = useUserApi();
-
-    const state = reactive({
-      loading: false,
-      ingredient: "",
-      results: false,
-      parser: "nlp" as Parser,
-    });
-
-    const i18n = useI18n();
-
-    // Set page title
-    useSeoMeta({
-      title: i18n.t("admin.parser"),
-    });
-
-    const confidence = ref<IngredientConfidence>({});
-
-    function getColor(attribute: ConfidenceAttribute) {
-      const percentage = getConfidence(attribute);
-      if (percentage === undefined) return;
-
-      const p_as_num = parseFloat(percentage.replace("%", ""));
-
-      // Set color based off range
-      if (p_as_num > 75) {
-        return "success";
-      }
-      else if (p_as_num > 60) {
-        return "warning";
-      }
-      else {
-        return "error";
-      }
-    }
-
-    function getConfidence(attribute: ConfidenceAttribute) {
-      if (!confidence.value) {
-        return;
-      }
-
-      const property = confidence.value[attribute];
-      if (property !== undefined && property !== null) {
-        return `${(+property * 100).toFixed(0)}%`;
-      }
-      return undefined;
-    }
-
-    const tryText = [
-      "2 tbsp minced cilantro, leaves and stems",
-      "1 large yellow onion, coarsely chopped",
-      "1 1/2 tsp garam masala",
-      "1 inch piece fresh ginger, (peeled and minced)",
-      "2 cups mango chunks, (2 large mangoes) (fresh or frozen)",
-    ];
-
-    function processTryText(str: string) {
-      state.ingredient = str;
-      processIngredient();
-    }
-
-    async function processIngredient() {
-      if (state.ingredient === "") {
-        return;
-      }
-
-      state.loading = true;
-
-      const { data } = await api.recipes.parseIngredient(state.parser, state.ingredient);
-
-      if (data) {
-        state.results = true;
-
-        if (data.confidence) confidence.value = data.confidence;
-
-        // TODO: Remove ts-ignore
-        // ts-ignore because data will likely change significantly once I figure out how to return results
-        // for the parser. For now we'll leave it like this
-        properties.comment.value = data.ingredient.note || "";
-        properties.quantity.value = data.ingredient.quantity || "";
-        properties.unit.value = data.ingredient?.unit?.name || "";
-        properties.food.value = data.ingredient?.food?.name || "";
-
-        (["comment", "quantity", "unit", "food"] as ConfidenceAttribute[]).forEach((property) => {
-          const color = getColor(property);
-          const confidence = getConfidence(property);
-          if (color) {
-            properties[property].color = color;
-          }
-          if (confidence) {
-            properties[property].confidence = confidence;
-          }
-        });
-      }
-      else {
-        alert.error(i18n.t("events.something-went-wrong") as string);
-        state.results = false;
-      }
-      state.loading = false;
-    }
-
-    const properties = reactive({
-      quantity: {
-        subtitle: i18n.t("recipe.quantity"),
-        value: "" as string | number,
-        color: null,
-        confidence: null,
-      },
-      unit: {
-        subtitle: i18n.t("recipe.unit"),
-        value: "",
-        color: null,
-        confidence: null,
-      },
-      food: {
-        subtitle: i18n.t("shopping-list.food"),
-        value: "",
-        color: null,
-        confidence: null,
-      },
-      comment: {
-        subtitle: i18n.t("recipe.comment"),
-        value: "",
-        color: null,
-        confidence: null,
-      },
-    });
-
-    const showConfidence = ref(false);
-
-    return {
-      showConfidence,
-      getColor,
-      confidence,
-      getConfidence,
-      ...toRefs(state),
-      tryText,
-      properties,
-      processTryText,
-      processIngredient,
-    };
+const properties = reactive({
+  quantity: {
+    subtitle: i18n.t("recipe.quantity"),
+    value: "" as string | number,
+    color: null,
+    confidence: null,
+  },
+  unit: {
+    subtitle: i18n.t("recipe.unit"),
+    value: "",
+    color: null,
+    confidence: null,
+  },
+  food: {
+    subtitle: i18n.t("shopping-list.food"),
+    value: "",
+    color: null,
+    confidence: null,
+  },
+  comment: {
+    subtitle: i18n.t("recipe.comment"),
+    value: "",
+    color: null,
+    confidence: null,
   },
 });
+
+const showConfidence = ref(false);
 </script>
 
 <style scoped></style>

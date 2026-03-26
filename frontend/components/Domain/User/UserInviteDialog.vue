@@ -73,8 +73,7 @@
   </BaseDialog>
 </template>
 
-<script lang="ts">
-import { watchEffect } from "vue";
+<script setup lang="ts">
 import { useUserApi } from "@/composables/api";
 import BaseDialog from "~/components/global/BaseDialog.vue";
 import AppButtonCopy from "~/components/global/AppButtonCopy.vue";
@@ -86,147 +85,95 @@ import type { HouseholdInDB } from "~/lib/api/types/household";
 import { useGroups } from "~/composables/use-groups";
 import { useAdminHouseholds } from "~/composables/use-households";
 
-export default defineNuxtComponent({
-  name: "UserInviteDialog",
-  components: {
-    BaseDialog,
-    AppButtonCopy,
-    BaseButton,
-  },
-  props: {
-    modelValue: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ["update:modelValue"],
-  setup(props, context) {
-    const i18n = useI18n();
-    const auth = useMealieAuth();
+const inviteDialog = defineModel<boolean>("modelValue", { type: Boolean, default: false });
 
-    const isAdmin = computed(() => auth.user.value?.admin);
-    const token = ref("");
-    const selectedGroup = ref<string | null>(null);
-    const selectedHousehold = ref<string | null>(null);
-    const groups = ref<GroupInDB[]>([]);
-    const households = ref<HouseholdInDB[]>([]);
-    const api = useUserApi();
+const i18n = useI18n();
+const auth = useMealieAuth();
 
-    const fetchGroupsAndHouseholds = () => {
-      if (isAdmin.value) {
-        const groupsResponse = useGroups();
-        const householdsResponse = useAdminHouseholds();
-        watchEffect(() => {
-          groups.value = groupsResponse.groups.value || [];
-          households.value = householdsResponse.households.value || [];
-        });
-      }
-    };
+const isAdmin = computed(() => auth.user.value?.admin);
+const token = ref("");
+const selectedGroup = ref<string | null>(null);
+const selectedHousehold = ref<string | null>(null);
+const groups = ref<GroupInDB[]>([]);
+const households = ref<HouseholdInDB[]>([]);
+const api = useUserApi();
 
-    const inviteDialog = computed<boolean>({
-      get() {
-        return props.modelValue;
-      },
-      set(val) {
-        context.emit("update:modelValue", val);
-      },
+const fetchGroupsAndHouseholds = () => {
+  if (isAdmin.value) {
+    const groupsResponse = useGroups();
+    const householdsResponse = useAdminHouseholds();
+    watchEffect(() => {
+      groups.value = groupsResponse.groups.value || [];
+      households.value = householdsResponse.households.value || [];
     });
+  }
+};
 
-    async function getSignupLink(group: string | null = null, household: string | null = null) {
-      const payload = (group && household) ? { uses: 1, group_id: group, household_id: household } : { uses: 1 };
-      const { data } = await api.households.createInvitation(payload);
-      if (data) {
-        token.value = data.token;
-      }
-    }
+async function getSignupLink(group: string | null = null, household: string | null = null) {
+  const payload = (group && household) ? { uses: 1, group_id: group, household_id: household } : { uses: 1 };
+  const { data } = await api.households.createInvitation(payload);
+  if (data) {
+    token.value = data.token;
+  }
+}
 
-    const filteredHouseholds = computed(() => {
-      if (!selectedGroup.value) return [];
-      return households.value?.filter(household => household.groupId === selectedGroup.value);
-    });
-
-    function constructLink(token: string) {
-      return token ? `${window.location.origin}/register?token=${token}` : "";
-    }
-
-    const generatedSignupLink = computed(() => {
-      return constructLink(token.value);
-    });
-
-    // =================================================
-    // Email Invitation
-    const state = reactive({
-      loading: false,
-      sendTo: "",
-    });
-
-    async function sendInvite() {
-      state.loading = true;
-      if (!token.value) {
-        getSignupLink(selectedGroup.value, selectedHousehold.value);
-      }
-      const { data } = await api.email.sendInvitation({
-        email: state.sendTo,
-        token: token.value,
-      });
-
-      if (data && data.success) {
-        alert.success(i18n.t("profile.email-sent"));
-      }
-      else {
-        alert.error(i18n.t("profile.error-sending-email"));
-      }
-      state.loading = false;
-      inviteDialog.value = false;
-    }
-
-    const validEmail = computed(() => {
-      if (state.sendTo === "") {
-        return false;
-      }
-      const valid = validators.email(state.sendTo);
-
-      // Explicit bool check because validators.email sometimes returns a string
-      if (valid === true) {
-        return true;
-      }
-      return false;
-    });
-
-    return {
-      sendInvite,
-      validators,
-      validEmail,
-      inviteDialog,
-      getSignupLink,
-      generatedSignupLink,
-      selectedGroup,
-      selectedHousehold,
-      filteredHouseholds,
-      groups,
-      households,
-      fetchGroupsAndHouseholds,
-      ...toRefs(state),
-      isAdmin,
-    };
-  },
-  watch: {
-    modelValue: {
-      immediate: false,
-      handler(val) {
-        if (val && !this.isAdmin) {
-          this.getSignupLink();
-        }
-      },
-    },
-    selectedHousehold(newVal) {
-      if (newVal && this.selectedGroup) {
-        this.getSignupLink(this.selectedGroup, this.selectedHousehold);
-      }
-    },
-  },
-  created() {
-    this.fetchGroupsAndHouseholds();
-  },
+const filteredHouseholds = computed(() => {
+  if (!selectedGroup.value) return [];
+  return households.value?.filter(household => household.groupId === selectedGroup.value);
 });
+
+function constructLink(tokenVal: string) {
+  return tokenVal ? `${window.location.origin}/register?token=${tokenVal}` : "";
+}
+
+const generatedSignupLink = computed(() => constructLink(token.value));
+
+// Email Invitation
+const state = reactive({
+  loading: false,
+  sendTo: "",
+});
+const { loading, sendTo } = toRefs(state);
+
+async function sendInvite() {
+  state.loading = true;
+  if (!token.value) {
+    getSignupLink(selectedGroup.value, selectedHousehold.value);
+  }
+  const { data } = await api.email.sendInvitation({
+    email: state.sendTo,
+    token: token.value,
+  });
+
+  if (data && data.success) {
+    alert.success(i18n.t("profile.email-sent"));
+  }
+  else {
+    alert.error(i18n.t("profile.error-sending-email"));
+  }
+  state.loading = false;
+  inviteDialog.value = false;
+}
+
+const validEmail = computed(() => {
+  if (sendTo.value === "") return false;
+  const valid = validators.email(sendTo.value);
+  return valid === true;
+});
+
+// Watchers (replacing options API watchers)
+watch(inviteDialog, (val) => {
+  if (val && !isAdmin.value) {
+    getSignupLink();
+  }
+});
+
+watch(selectedHousehold, (newVal) => {
+  if (newVal && selectedGroup.value) {
+    getSignupLink(selectedGroup.value, selectedHousehold.value);
+  }
+});
+
+// initial fetch
+fetchGroupsAndHouseholds();
 </script>

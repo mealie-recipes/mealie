@@ -370,8 +370,8 @@
     "applies-to-all-days": "Sovelletaan kaikkiin päiviin",
     "applies-on-days": "Käytetään {0}",
     "meal-plan-settings": "Ateriasuunnitelman asetukset",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Lisää kaikki listalle",
+    "add-day-to-list": "Lisää päivä listalle"
   },
   "migration": {
     "migration-data-removed": "Tuodut tiedot poistettu",
@@ -449,7 +449,7 @@
     "upload-a-recipe": "Lataa resepti",
     "upload-individual-zip-file": "Tuo yksittäinen pakattu kansio toisesta Mealie instanssista.",
     "url-form-hint": "Liitä linkki lempireseptiverkkosivultasi",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Kopioi ja liitä tietojesi URL-lähdeosoite (vapaaehtoinen)",
     "view-scraped-data": "Näytä hankittu data",
     "trim-whitespace-description": "Leikkaa alussa ja lopussa olevat välilyönnit sekä tyhjät rivit",
     "trim-prefix-description": "Poista joka rivin ensimmäinen merkki",
@@ -636,16 +636,16 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Luo resepti antamalla nimi. Kaikilla resepteillä on oltava yksilölliset nimet.",
     "new-recipe-names-must-be-unique": "Reseptin nimen on oltava yksilöllinen",
     "scrape-recipe": "Reseptin kaappain",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
-    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
+    "scrape-recipe-description": "Hae resepti URL-osoitteesta. Anna haluamasi reseptin URL-osoite ja Mealie koittaa hakea reseptin tietoineen. Tämän jälkeen resepti lisätään kokoelmaan.",
+    "scrape-recipe-description-transcription": "Voit myös antaa videon url-osoitteen, ja Mealie yrittää muuntaa sen reseptiksi.",
     "scrape-recipe-have-a-lot-of-recipes": "Haluatko kerätä useamman reseptin kerralla?",
     "scrape-recipe-suggest-bulk-importer": "Kokeile massasiirtotyökalua",
     "scrape-recipe-have-raw-html-or-json-data": "Onko sinulla raakaa HTML- tai JSON-dataa?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Voit tuoda raakadatan suoraan",
     "scrape-recipe-website-being-blocked": "Onko sivusto estetty?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-try-importing-raw-html-instead": "Tai yritä tuoda sivun HTML-koodi.",
     "import-original-keywords-as-tags": "Tuo alkuperäiset avainsanat tunnisteiksi",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Tuo alkuperäiset kategoriat",
     "stay-in-edit-mode": "Pysy muokkaustilassa",
     "parse-recipe-ingredients-after-import": "Jäsennä reseptin ainesosat tuonnin jälkeen",
     "import-from-zip": "Tuo zip-arkistosta",
@@ -904,7 +904,7 @@
     "all-lists": "Kaikki ostoslistat",
     "create-shopping-list": "Luo ostoslista",
     "from-recipe": "Reseptistä",
-    "ingredient-of-recipe": "Ingredient of {recipe}",
+    "ingredient-of-recipe": "Ainesosat reseptille {recipe}",
     "list-name": "Ostoslistan nimi",
     "new-list": "Uusi lista",
     "quantity": "Määrä: {0}",
@@ -1137,20 +1137,20 @@
       "example-unit-plural": "esim. ruokalusikat",
       "example-unit-abbreviation-singular": "esim. rkl",
       "example-unit-abbreviation-plural": "esim. rkl",
-      "standardization": "Standardization",
-      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
-      "standard-unit": "Standard Unit",
-      "standard-quantity": "Standard Quantity",
-      "unit-conversion": "Unit Conversion",
+      "standardization": "Standardointi",
+      "standardization-description": "Kertoo miten tämä yksikkö voidaan esittää vakioyksikkönä. Tämä mahdollistaa yksikön muunto-ominaisuudet, kuten yhteensopivien yksiköiden yhdistämisen ostoslistoilla.",
+      "standard-unit": "Vakioyksikkö",
+      "standard-quantity": "Vakiomäärä",
+      "unit-conversion": "Yksikkömuunnos",
       "standard-unit-labels": {
-        "fluid-ounce": "fluid ounce",
-        "cup": "cup",
-        "ounce": "ounce",
-        "pound": "pound",
-        "milliliter": "milliliter",
-        "liter": "liter",
-        "gram": "gram",
-        "kilogram": "kilogram"
+        "fluid-ounce": "nesteunssi",
+        "cup": "kuppi",
+        "ounce": "unssi",
+        "pound": "pauna",
+        "milliliter": "millilitra",
+        "liter": "litra",
+        "gram": "gramma",
+        "kilogram": "kilogramma"
       }
     },
     "labels": {
@@ -1187,8 +1187,8 @@
       "edit-recipe-action": "Muuta reseptin toimintoa",
       "action-type": "Toiminnon tyyppi",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "Linkki",
+        "post": "Lähetä"
       }
     },
     "create-alias": "Luo alias",
@@ -1444,8 +1444,8 @@
       "is-greater-than-or-equal-to": "on suurempi tai yhtäsuuri kuin",
       "is-less-than": "on vähemmän kuin",
       "is-less-than-or-equal-to": "on vähemmän tai yhtäsuuri kuin",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "on vanhempi kuin",
+      "is-newer-than": "on uudempi kuin"
     },
     "relational-keywords": {
       "is": "on",
@@ -1457,7 +1457,7 @@
       "is-not-like": "ei ole kuin"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "päivää sitten|päivä sitten|päivää sitten"
     }
   },
   "validators": {
@@ -1466,6 +1466,6 @@
     "invalid-url": "URL ei ole kelvollinen",
     "no-whitespace": "Tekstissä ei saa olla välilyöntejä",
     "min-length": "Vähimmäispituus on {min} merkkiä",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Saa olla enintään {max} merkki|Saa olla enintään {max} merkkiä"
   }
 }

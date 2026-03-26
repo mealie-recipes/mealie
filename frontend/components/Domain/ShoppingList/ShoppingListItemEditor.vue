@@ -102,125 +102,108 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/household";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
 
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Object as () => ShoppingListItemCreate | ShoppingListItemOut,
-      required: true,
-    },
-    labels: {
-      type: Array as () => MultiPurposeLabelOut[],
-      required: true,
-    },
-    units: {
-      type: Array as () => IngredientUnit[],
-      required: true,
-    },
-    foods: {
-      type: Array as () => IngredientFood[],
-      required: true,
-    },
-    allowDelete: {
-      type: Boolean,
-      required: false,
-      default: true,
-    },
+// modelValue as reactive v-model
+const listItem = defineModel<ShoppingListItemCreate | ShoppingListItemOut>({ required: true });
+
+defineProps({
+  labels: {
+    type: Array as () => MultiPurposeLabelOut[],
+    required: true,
   },
-  emits: ["update:modelValue", "save", "cancel", "delete"],
-  setup(props, context) {
-    const foodStore = useFoodStore();
-    const foodData = useFoodData();
-
-    const unitStore = useUnitStore();
-    const unitData = useUnitData();
-
-    const listItem = computed({
-      get: () => {
-        return props.modelValue;
-      },
-      set: (val) => {
-        context.emit("update:modelValue", val);
-      },
-    });
-
-    watch(
-      () => props.modelValue.quantity,
-      () => {
-        if (!props.modelValue.quantity) {
-          listItem.value.quantity = 0;
-        }
-      },
-    );
-
-    watch(
-      () => props.modelValue.food,
-      (newFood) => {
-        listItem.value.label = newFood?.label || null;
-        listItem.value.labelId = listItem.value.label?.id || null;
-      },
-    );
-
-    const autoFocus = !listItem.value.food && listItem.value.note ? "note" : "food";
-
-    async function createAssignFood(val: string) {
-      // keep UI reactive
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      listItem.value.food ? (listItem.value.food.name = val) : (listItem.value.food = { name: val });
-
-      foodData.data.name = val;
-      const newFood = await foodStore.actions.createOne(foodData.data);
-      if (newFood) {
-        listItem.value.food = newFood;
-        listItem.value.foodId = newFood.id;
-      }
-      foodData.reset();
-    }
-
-    async function createAssignUnit(val: string) {
-      // keep UI reactive
-      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-      listItem.value.unit ? (listItem.value.unit.name = val) : (listItem.value.unit = { name: val });
-
-      unitData.data.name = val;
-      const newUnit = await unitStore.actions.createOne(unitData.data);
-      if (newUnit) {
-        listItem.value.unit = newUnit;
-        listItem.value.unitId = newUnit.id;
-      }
-      unitData.reset();
-    }
-
-    async function assignLabelToFood() {
-      if (!(listItem.value.food && listItem.value.foodId && listItem.value.labelId)) {
-        return;
-      }
-
-      listItem.value.food.labelId = listItem.value.labelId;
-      await foodStore.actions.updateOne(listItem.value.food);
-    }
-
-    return {
-      listItem,
-      autoFocus,
-      createAssignFood,
-      createAssignUnit,
-      assignLabelToFood,
-    };
+  units: {
+    type: Array as () => IngredientUnit[],
+    required: true,
   },
-  methods: {
-    handleNoteKeyPress(event) {
-      // Save on Enter
-      if (!event.shiftKey && event.key === "Enter") {
-        event.preventDefault();
-        this.$emit("save");
-      }
-    },
+  foods: {
+    type: Array as () => IngredientFood[],
+    required: true,
+  },
+  allowDelete: {
+    type: Boolean,
+    required: false,
+    default: true,
   },
 });
+
+// const emit = defineEmits<["save", "cancel", "delete"]>();
+const emit = defineEmits<{
+  (e: "save", item: ShoppingListItemOut): void;
+  (e: "cancel" | "delete"): void;
+}>();
+
+const foodStore = useFoodStore();
+const foodData = useFoodData();
+
+const unitStore = useUnitStore();
+const unitData = useUnitData();
+
+watch(
+  () => listItem.value.quantity,
+  (newQty) => {
+    if (!newQty) {
+      listItem.value.quantity = 0;
+    }
+  },
+);
+
+watch(
+  () => listItem.value.food,
+  (newFood) => {
+    listItem.value.label = newFood?.label || null;
+    listItem.value.labelId = listItem.value.label?.id || null;
+  },
+);
+
+const autoFocus = computed(() => (!listItem.value.food && listItem.value.note ? "note" : "food"));
+
+async function createAssignFood(val: string) {
+  // keep UI reactive
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  listItem.value.food ? (listItem.value.food.name = val) : (listItem.value.food = { name: val } as any);
+
+  foodData.data.name = val;
+  const newFood = await foodStore.actions.createOne(foodData.data);
+  if (newFood) {
+    listItem.value.food = newFood;
+    listItem.value.foodId = newFood.id;
+  }
+  foodData.reset();
+}
+
+async function createAssignUnit(val: string) {
+  // keep UI reactive
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+  listItem.value.unit ? (listItem.value.unit.name = val) : (listItem.value.unit = { name: val } as any);
+
+  unitData.data.name = val;
+  const newUnit = await unitStore.actions.createOne(unitData.data);
+  if (newUnit) {
+    listItem.value.unit = newUnit;
+    listItem.value.unitId = newUnit.id;
+  }
+  unitData.reset();
+}
+
+async function assignLabelToFood() {
+  if (!(listItem.value.food && listItem.value.foodId && listItem.value.labelId)) {
+    return;
+  }
+
+  listItem.value.food.labelId = listItem.value.labelId;
+  await foodStore.actions.updateOne(listItem.value.food);
+}
+
+function handleNoteKeyPress(event: KeyboardEvent) {
+  const e = event as KeyboardEvent & { key: string; shiftKey: boolean };
+  if (!e.shiftKey && e.key === "Enter") {
+    e.preventDefault();
+    emit("save");
+  }
+}
 </script>

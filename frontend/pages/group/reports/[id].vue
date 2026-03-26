@@ -47,41 +47,31 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import type { ReportOut } from "~/lib/api/types/reports";
 
-export default defineNuxtComponent({
-  setup() {
-    const route = useRoute();
-    const id = route.params.id as string;
+const route = useRoute();
+const id = route.params.id as string;
 
-    const api = useUserApi();
+const api = useUserApi();
 
-    const report = ref<ReportOut | null>(null);
+const report = ref<ReportOut | null>(null);
 
-    async function getReport() {
-      const { data } = await api.groupReports.getOne(id);
-      report.value = data ?? null;
-    }
+async function getReport() {
+  const { data } = await api.groupReports.getOne(id);
+  report.value = data ?? null;
+}
 
-    onMounted(async () => {
-      await getReport();
-    });
-
-    const itemHeaders = [
-      { title: "Success", value: "success" },
-      { title: "Message", value: "message" },
-      { title: "Timestamp", value: "timestamp" },
-    ];
-
-    return {
-      report,
-      id,
-      itemHeaders,
-    };
-  },
+onMounted(async () => {
+  await getReport();
 });
+
+const itemHeaders = [
+  { title: "Success", value: "success" },
+  { title: "Message", value: "message" },
+  { title: "Timestamp", value: "timestamp" },
+];
 </script>
 
 <style lang="scss" scoped></style>

@@ -632,7 +632,7 @@ wheels = [
 
 [[package]]
 name = "ingredient-parser-nlp"
-version = "2.5.0"
+version = "2.6.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "nltk" },
@@ -640,9 +640,9 @@ dependencies = [
     { name = "pint" },
     { name = "python-crfsuite" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/00/60/89dbeb798397855d4ceb800e950e466c9a98f5bf2570a712fc9ac7045163/ingredient_parser_nlp-2.5.0.tar.gz", hash = "sha256:c4c40a51f617a5ffa2012071d5946e0b447f00efe572a10d9adc20442e51fca5", size = 4303466, upload-time = "2026-01-31T10:15:23.325Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a9/3e/4b13bcd97b6ab8f8089f3dd1f8b992e1a5b22d13d3504ebca339087463f8/ingredient_parser_nlp-2.6.0.tar.gz", hash = "sha256:4159fa7b59e8fe29cc6c1af339209bc6608efa2e085dab6be9402417a1657881", size = 4310819, upload-time = "2026-03-20T15:30:28.293Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/90/34/0ed35a6e695ed6bb1e20888fbbc58415042ed166981cda79ffa1289d911a/ingredient_parser_nlp-2.5.0-py3-none-any.whl", hash = "sha256:8d9c7589f6d98570ffcd7f01484db573d15b3ccaab5579566419317a85cbf340", size = 4308843, upload-time = "2026-01-31T10:15:20.387Z" },
+    { url = "https://files.pythonhosted.org/packages/ac/19/c727195de7d8fbcc83a1f8092cc4a0c1bdcd4813397c6146dacd6820f4ab/ingredient_parser_nlp-2.6.0-py3-none-any.whl", hash = "sha256:fdcf13534545a0df36f68fddd44cfd407f567504fde610bc6eaa8cd440bad70e", size = 4316441, upload-time = "2026-03-20T15:30:24.652Z" },
 ]
 
 [[package]]
@@ -954,7 +954,7 @@ requires-dist = [
     { name = "html2text", specifier = "==2025.4.15" },
     { name = "httpx", specifier = "==0.28.1" },
     { name = "httpx-curl-cffi", specifier = "==0.1.5" },
-    { name = "ingredient-parser-nlp", specifier = "==2.5.0" },
+    { name = "ingredient-parser-nlp", specifier = "==2.6.0" },
     { name = "isodate", specifier = "==0.7.2" },
     { name = "itsdangerous", specifier = "==2.2.0" },
     { name = "jinja2", specifier = "==3.1.6" },
@@ -978,7 +978,7 @@ requires-dist = [
     { name = "pyyaml", specifier = "==6.0.3" },
     { name = "rapidfuzz", specifier = "==3.14.3" },
     { name = "recipe-scrapers", specifier = "==15.11.0" },
-    { name = "requests", specifier = "==2.32.5" },
+    { name = "requests", specifier = "==2.33.0" },
     { name = "sqlalchemy", specifier = "==2.0.48" },
     { name = "text-unidecode", specifier = "==1.3" },
     { name = "typing-extensions", specifier = "==4.15.0" },
@@ -1742,7 +1742,7 @@ wheels = [
 
 [[package]]
 name = "requests"
-version = "2.32.5"
+version = "2.33.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "certifi" },
@@ -1750,9 +1750,9 @@ dependencies = [
     { name = "idna" },
     { name = "urllib3" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/c9/74/b3ff8e6c8446842c3f5c837e9c3dfcfe2018ea6ecef224c710c85ef728f4/requests-2.32.5.tar.gz", hash = "sha256:dbba0bac56e100853db0ea71b82b4dfd5fe2bf6d3754a8893c3af500cec7d7cf", size = 134517, upload-time = "2025-08-18T20:46:02.573Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/34/64/8860370b167a9721e8956ae116825caff829224fbca0ca6e7bf8ddef8430/requests-2.33.0.tar.gz", hash = "sha256:c7ebc5e8b0f21837386ad0e1c8fe8b829fa5f544d8df3b2253bff14ef29d7652", size = 134232, upload-time = "2026-03-25T15:10:41.586Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/1e/db/4254e3eabe8020b458f1a747140d32277ec7a271daf1d235b70dc0b4e6e3/requests-2.32.5-py3-none-any.whl", hash = "sha256:2462f94637a34fd532264295e186976db0f5d453d1cdd31473c85a6a161affb6", size = 64738, upload-time = "2025-08-18T20:46:00.542Z" },
+    { url = "https://files.pythonhosted.org/packages/56/5d/c814546c2333ceea4ba42262d8c4d55763003e767fa169adc693bd524478/requests-2.33.0-py3-none-any.whl", hash = "sha256:3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b", size = 65017, upload-time = "2026-03-25T15:10:40.382Z" },
 ]
 
 [[package]]

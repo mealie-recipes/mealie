@@ -22,13 +22,11 @@
   </div>
 </template>
 
-<script lang="ts">
-export default defineNuxtComponent({
-  props: {
-    divider: {
-      type: Boolean,
-      default: false,
-    },
+<script setup lang="ts">
+defineProps({
+  divider: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>
