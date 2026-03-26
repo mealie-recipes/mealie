@@ -77,6 +77,7 @@ export function useUserMealPlanPreferences(): Ref<UserMealPlanPreferences> {
   const fromStorage = useLocalStorage(
     "meal-planner-preferences",
     {
+      numberOfDaysPast: 0,
       numberOfDays: 7,
     },
     { mergeDefaults: true },
