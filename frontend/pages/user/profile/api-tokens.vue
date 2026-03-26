@@ -16,10 +16,13 @@
     </BasePageTitle>
     <section class="d-flex justify-center">
       <v-card
-        class="mt-4"
+        class="mt-4 pa-4"
         width="100%"
         flat
       >
+        <v-card-title class="px-0">
+          {{ $t("settings.token.create-an-api-token") }}
+        </v-card-title>
         <v-card-text class="px-0">
           <v-form
             ref="domNewTokenForm"
@@ -148,8 +151,7 @@ async function createToken(name: string) {
 
   loading.value = true;
 
-  if (domNewTokenForm?.value?.validate()) {
-    console.log("Created");
+  if (!domNewTokenForm?.value?.validate()) {
     return;
   }
 
