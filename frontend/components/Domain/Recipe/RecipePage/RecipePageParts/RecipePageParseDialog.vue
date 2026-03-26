@@ -208,7 +208,7 @@ const props = defineProps<{
   ingredients: NoUndefinedField<RecipeIngredient[]>;
 }>();
 
-const { parseIngredientText, ingredientToParserString } = useIngredientTextParser();
+const { ingredientToParserString } = useIngredientTextParser();
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
