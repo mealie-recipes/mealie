@@ -67,5 +67,6 @@ _(fill-in or delete this section)_
 _(REQUIRED)_
 
 <!--
-  Describe to which degree an LLM was used in creating this pull request.
+  Describe to which degree an LLM was used in creating this pull request. Failure to accurately disclose LLM usage may result in
+  review delays or closure of your PR.
 -->
