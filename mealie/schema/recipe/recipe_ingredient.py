@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import datetime
 import enum
+from enum import StrEnum
 from fractions import Fraction
 from typing import ClassVar
 from uuid import UUID, uuid4
@@ -11,6 +12,8 @@ from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.recipe import IngredientFoodModel
+from mealie.lang.locale_config import LocalePluralFoodHandling
+from mealie.lang.providers import get_locale_context
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.mealie_model import UpdatedAtField
 from mealie.schema._mealie.types import NoneFloat
@@ -30,6 +33,28 @@ def display_fraction(fraction: Fraction):
         + "/"
         + "".join([SUBSCRIPT[c] for c in str(fraction.denominator)])
     )
+
+
+class StandardizedUnitType(StrEnum):
+    """
+    An arbitrary list of standardized units supported by unit conversions.
+    The backend doesn't really care what standardized unit you use, as long as it's recognized,
+    but defining them here keeps it consistant with the frontend.
+    """
+
+    # Imperial
+    FLUID_OUNCE = "fluid_ounce"
+    CUP = "cup"
+
+    OUNCE = "ounce"
+    POUND = "pound"
+
+    # Metric
+    MILLILITER = "milliliter"
+    LITER = "liter"
+
+    GRAM = "gram"
+    KILOGRAM = "kilogram"
 
 
 class UnitFoodBase(MealieModel):
@@ -107,9 +132,6 @@ class IngredientFood(CreateIngredientFood):
         except AttributeError:
             return v
 
-    def is_on_hand(self, household_slug: str) -> bool:
-        return household_slug in self.households_with_tool
-
 
 class IngredientFoodPagination(PaginationBase):
     items: list[IngredientFood]
@@ -128,7 +150,21 @@ class CreateIngredientUnit(UnitFoodBase):
     abbreviation: str = ""
     plural_abbreviation: str | None = ""
     use_abbreviation: bool = False
+
     aliases: list[CreateIngredientUnitAlias] = []
+    standard_quantity: float | None = None
+    standard_unit: str | None = None
+
+    @model_validator(mode="after")
+    def validate_standardization_fields(self):
+        # If one is set, the other must be set.
+        # If quantity is <= 0, it's considered not set.
+        if not self.standard_unit:
+            self.standard_quantity = self.standard_unit = None
+        elif not ((self.standard_quantity or 0) > 0):
+            self.standard_quantity = self.standard_unit = None
+
+        return self
 
 
 class SaveIngredientUnit(CreateIngredientUnit):
@@ -239,18 +275,38 @@ class RecipeIngredientBase(MealieModel):
 
         return unit_val
 
-    def _format_food_for_display(self) -> str:
+    def _format_food_for_display(self, plural_handling: LocalePluralFoodHandling) -> str:
         if not self.food:
             return ""
 
-        use_plural = (not self.quantity) or self.quantity > 1
+        if self.quantity and self.quantity <= 1:
+            use_plural = False
+        else:
+            match plural_handling:
+                case LocalePluralFoodHandling.NEVER:
+                    use_plural = False
+                case LocalePluralFoodHandling.WITHOUT_UNIT:
+                    # if quantity is zero then unit is not shown even if it's set
+                    use_plural = not (self.quantity and self.unit)
+                case LocalePluralFoodHandling.ALWAYS:
+                    use_plural = True
+                case _:
+                    use_plural = False
+
         if use_plural:
             return self.food.plural_name or self.food.name
         else:
             return self.food.name
 
     def _format_display(self) -> str:
-        components = []
+        locale_context = get_locale_context()
+        if locale_context:
+            _, locale_cfg = locale_context
+            plural_food_handling = locale_cfg.plural_food_handling
+        else:
+            plural_food_handling = LocalePluralFoodHandling.WITHOUT_UNIT
+
+        components: list[str] = []
 
         if self.quantity:
             components.append(self._format_quantity_for_display())
@@ -259,7 +315,7 @@ class RecipeIngredientBase(MealieModel):
             components.append(self._format_unit_for_display())
 
         if self.food:
-            components.append(self._format_food_for_display())
+            components.append(self._format_food_for_display(plural_food_handling))
 
         if self.note:
             components.append(self.note)
@@ -280,6 +336,11 @@ class RecipeIngredient(RecipeIngredientBase):
     # Vue handles reactivity. ref may serve another purpose in the future.
     reference_id: UUID = Field(default_factory=uuid4)
     model_config = ConfigDict(from_attributes=True)
+
+    @field_validator("reference_id", mode="before")
+    @classmethod
+    def ensure_reference_id(cls, value) -> UUID:
+        return value or uuid4()
 
     @field_validator("quantity", mode="before")
     @classmethod

@@ -160,11 +160,11 @@ defineEmits<{
   delete: [slug: string];
 }>();
 
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
 
 const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
+const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
 const showRecipeContent = computed(() => props.recipeId && props.slug);
 const recipeRoute = computed<string>(() => {
   return showRecipeContent.value ? `/g/${groupSlug.value}/r/${props.slug}` : "";

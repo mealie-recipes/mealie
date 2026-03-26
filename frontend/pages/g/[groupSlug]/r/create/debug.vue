@@ -28,7 +28,7 @@
         <v-card-text v-if="$appInfo.enableOpenai">
           {{ $t('recipe.recipe-debugger-use-openai-description') }}
           <v-checkbox
-            v-model="useOpenAI"
+            v-model="state.useOpenAI"
             :label="$t('recipe.use-openai')"
           />
         </v-card-text>
@@ -40,7 +40,7 @@
               block
               type="submit"
               color="info"
-              :loading="loading"
+              :loading="state.loading"
             >
               <template #icon>
                 {{ $globals.icons.robot }}
@@ -67,60 +67,46 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import type { Recipe } from "~/lib/api/types/recipe";
 
-export default defineNuxtComponent({
-  setup() {
-    const state = reactive({
-      error: false,
-      loading: false,
-      useOpenAI: false,
-    });
+const state = reactive({
+  loading: false,
+  useOpenAI: false,
+});
 
-    const api = useUserApi();
-    const route = useRoute();
-    const router = useRouter();
+const api = useUserApi();
+const route = useRoute();
+const router = useRouter();
 
-    const recipeUrl = computed({
-      set(recipe_import_url: string | null) {
-        if (recipe_import_url !== null) {
-          recipe_import_url = recipe_import_url.trim();
-          router.replace({ query: { ...route.query, recipe_import_url } });
-        }
-      },
-      get() {
-        return route.query.recipe_import_url as string | null;
-      },
-    });
-
-    const debugTreeView = ref(false);
-
-    const debugData = ref<Recipe | null>(null);
-
-    async function debugUrl(url: string | null) {
-      if (url === null) {
-        return;
-      }
-
-      state.loading = true;
-
-      const { data } = await api.recipes.testCreateOneUrl(url, state.useOpenAI);
-
-      state.loading = false;
-      debugData.value = data;
+const recipeUrl = computed({
+  set(recipe_import_url: string | null) {
+    if (recipe_import_url !== null) {
+      recipe_import_url = recipe_import_url.trim();
+      router.replace({ query: { ...route.query, recipe_import_url } });
     }
-
-    return {
-      recipeUrl,
-      debugTreeView,
-      debugUrl,
-      debugData,
-      ...toRefs(state),
-      validators,
-    };
+  },
+  get() {
+    return route.query.recipe_import_url as string | null;
   },
 });
+
+const debugTreeView = ref(false);
+
+const debugData = ref<Recipe | null>(null);
+
+async function debugUrl(url: string | null) {
+  if (url === null) {
+    return;
+  }
+
+  state.loading = true;
+
+  const { data } = await api.recipes.testCreateOneUrl(url, state.useOpenAI);
+
+  state.loading = false;
+  debugData.value = data;
+}
 </script>

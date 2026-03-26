@@ -29,11 +29,3 @@
     </v-row>
   </v-footer>
 </template>
-
-<script lang="ts">
-export default defineNuxtComponent({
-  setup() {
-    return {};
-  },
-});
-</script>

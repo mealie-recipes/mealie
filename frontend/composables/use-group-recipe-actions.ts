@@ -78,7 +78,13 @@ export const useGroupRecipeActions = function (
   };
 
   const actions = {
-    ...useStoreActions<GroupRecipeActionOut>("group-recipe-actions", api.groupRecipeActions, groupRecipeActions, loading),
+    ...useStoreActions<GroupRecipeActionOut>(
+      "group-recipe-actions",
+      api.groupRecipeActions,
+      groupRecipeActions,
+      loading,
+      { orderBy: orderBy },
+    ),
     flushStore() {
       groupRecipeActions.value = [];
     },

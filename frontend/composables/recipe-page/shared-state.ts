@@ -165,14 +165,14 @@ export function clearPageState(slug: string) {
 }
 
 /**
- * usePageUser provides a wrapper around $auth that provides a type-safe way to
+ * usePageUser provides a wrapper around auth that provides a type-safe way to
  * access the UserOut type from the context. If no user is logged in then an empty
  * object with all properties set to their zero value is returned.
  */
 export function usePageUser(): { user: UserOut } {
-  const $auth = useMealieAuth();
+  const auth = useMealieAuth();
 
-  if (!$auth.user.value) {
+  if (!auth.user.value) {
     return {
       user: {
         id: "",
@@ -188,5 +188,5 @@ export function usePageUser(): { user: UserOut } {
     };
   }
 
-  return { user: $auth.user.value };
+  return { user: auth.user.value };
 }

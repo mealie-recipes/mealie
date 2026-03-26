@@ -141,13 +141,13 @@ const emit = defineEmits<{
   ready: [];
 }>();
 
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const route = useRoute();
 const { $globals } = useNuxtApp();
 const i18n = useI18n();
 const showRandomLoading = ref(false);
 
-const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const {
   state,

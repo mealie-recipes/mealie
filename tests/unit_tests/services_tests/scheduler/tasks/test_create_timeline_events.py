@@ -217,7 +217,7 @@ def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser
     future_dt = datetime.now(UTC) + timedelta(days=random_int(1, 10))
     response = api_client.patch(
         api_routes.recipes_slug_last_made(recipe.slug),
-        data=RecipeLastMade(timestamp=future_dt).model_dump_json(),
+        json=RecipeLastMade(timestamp=future_dt).model_dump(mode="json"),
         headers=unique_user.token,
     )
     assert response.status_code == 200

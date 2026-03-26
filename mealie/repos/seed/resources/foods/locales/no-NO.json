@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hvitløk",
-                "plural_name": "garlic"
+                "plural_name": "hvitløk"
             },
             "onion": {
                 "aliases": [],
@@ -59,13 +59,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "selleri",
-                "plural_name": "celery"
+                "plural_name": "selleri"
             },
             "jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "name": "japapeno",
+                "plural_name": "jalapeno"
             },
             "avocado": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "spinat",
-                "plural_name": "spinach"
+                "plural_name": "spinat"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "søtmais",
-                "plural_name": "sweet corn"
+                "plural_name": "mais"
             },
             "chile pepper": {
                 "aliases": [
@@ -121,19 +121,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "brokkoli",
-                "plural_name": "broccoli"
+                "plural_name": "brokkoli"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
                 "name": "palmehjerte",
-                "plural_name": "heart of palm"
+                "plural_name": "palmehjerte"
             },
             "baby greens": {
                 "aliases": [],
                 "description": "",
-                "name": "baby greens",
-                "plural_name": "baby greens"
+                "name": "bladsalat",
+                "plural_name": "bladsalat"
             },
             "pumpkin": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "blomkål",
-                "plural_name": "cauliflower"
+                "plural_name": "blomkål"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,20 +156,20 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "asparges",
+                "plural_name": "asparges"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
                 "name": "grønnkål",
-                "plural_name": "kale"
+                "plural_name": "kål"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
                 "name": "ruccola",
-                "plural_name": "arugula"
+                "plural_name": "rukola"
             },
             "leek": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "salat",
-                "plural_name": "lettuce"
+                "plural_name": "salat"
             },
             "butternut squash": {
                 "aliases": [],
@@ -198,8 +198,8 @@
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine lettuce",
-                "plural_name": "romaine lettuce"
+                "name": "romaine salat",
+                "plural_name": "romaine salat"
             },
             "beetroot": {
                 "aliases": [],
@@ -217,7 +217,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fenikkel",
-                "plural_name": "fennel"
+                "plural_name": "fennikel"
             },
             "sun dried tomato": {
                 "aliases": [],
@@ -261,8 +261,8 @@
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed greens",
-                "plural_name": "mixed greens"
+                "name": "salatblanding\n\n",
+                "plural_name": "salatblanding"
             },
             "parsnip": {
                 "aliases": [],
@@ -279,8 +279,8 @@
             "mixed vegetables": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetables",
-                "plural_name": "mixed vegetables"
+                "name": "blandede grønnsaker",
+                "plural_name": "blandede grønnsaker"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -304,7 +304,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kayennepepper",
-                "plural_name": "cayenne pepper"
+                "plural_name": "kayennepepper"
             },
             "green tomato": {
                 "aliases": [],
@@ -321,8 +321,8 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "name": "Isbergsalat",
+                "plural_name": "isbergsalat"
             },
             "mashed potato": {
                 "aliases": [],
@@ -450,7 +450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bladsalat",
-                "plural_name": "leaf lettuce"
+                "plural_name": "bladsalat"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -487,8 +487,8 @@
                     "corn husk"
                 ],
                 "description": "",
-                "name": "maize",
-                "plural_name": "maize"
+                "name": "mais",
+                "plural_name": "mais"
             },
             "collard greens": {
                 "aliases": [],
@@ -1759,7 +1759,7 @@
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
+                "name": "peanøtt",
                 "plural_name": "peanøtter"
             },
             "chia": {
@@ -2787,8 +2787,8 @@
             "chocolate milk": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk",
-                "plural_name": "chocolate milk"
+                "name": "sjokolademelk",
+                "plural_name": "sjokolademelk"
             },
             "liquid egg substitute": {
                 "aliases": [],
@@ -2908,7 +2908,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "raw milk",
-                "plural_name": "raw milk"
+                "plural_name": "råmelk"
             },
             "lime curd": {
                 "aliases": [],
@@ -3045,8 +3045,8 @@
             "strawberry milk": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry milk",
-                "plural_name": "strawberry milk"
+                "name": "jordbærmelk",
+                "plural_name": "jordbærmelk"
             },
             "ayran": {
                 "aliases": [],
@@ -3247,8 +3247,8 @@
             "coconut yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut yogurt",
-                "plural_name": "coconut yogurts"
+                "name": "kokosnøtt yoghurt",
+                "plural_name": "kokosnøtt yoghurt"
             },
             "non-dairy yogurt": {
                 "aliases": [],
@@ -3283,8 +3283,8 @@
             "rice milk": {
                 "aliases": [],
                 "description": "",
-                "name": "rice milk",
-                "plural_name": "rice milk"
+                "name": "rismelk",
+                "plural_name": "rismelk"
             },
             "vegan sour cream": {
                 "aliases": [],
@@ -3774,7 +3774,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pork chop",
-                "plural_name": "pork chops"
+                "plural_name": "svinekoteletter"
             },
             "sweet italian sausage": {
                 "aliases": [],
@@ -3851,8 +3851,8 @@
             "ground lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "ground lamb",
-                "plural_name": "ground lambs"
+                "name": "lammekjøttdeig",
+                "plural_name": "lammekjøttdeig"
             },
             "pork rib": {
                 "aliases": [],
@@ -4002,7 +4002,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lamb chop",
-                "plural_name": "lamb chops"
+                "plural_name": "lammekoteletter"
             },
             "bone-in ham": {
                 "aliases": [],
@@ -4599,8 +4599,8 @@
             "chicken nugget": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken nugget",
-                "plural_name": "chicken nuggets"
+                "name": "kyllingnugget",
+                "plural_name": "kyllingnuggets"
             },
             "turkey burger": {
                 "aliases": [],
@@ -4897,20 +4897,20 @@
             "salmon": {
                 "aliases": [],
                 "description": "",
-                "name": "salmon",
-                "plural_name": "salmon"
+                "name": "laks",
+                "plural_name": "laks"
             },
             "smoked salmon": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked salmon",
-                "plural_name": "smoked salmon"
+                "name": "røkt laks",
+                "plural_name": "røkt laks"
             },
             "cod": {
                 "aliases": [],
                 "description": "",
-                "name": "cod",
-                "plural_name": "cod"
+                "name": "torsk",
+                "plural_name": "torsk"
             },
             "tilapia": {
                 "aliases": [],
@@ -4957,8 +4957,8 @@
             "trout": {
                 "aliases": [],
                 "description": "",
-                "name": "trout",
-                "plural_name": "trout"
+                "name": "ørret",
+                "plural_name": "ørreter"
             },
             "catfish": {
                 "aliases": [],
@@ -5059,8 +5059,8 @@
             "salt cod": {
                 "aliases": [],
                 "description": "",
-                "name": "salt cod",
-                "plural_name": "salt cod"
+                "name": "salt torsk",
+                "plural_name": "salt torsk"
             },
             "smoked mackerel": {
                 "aliases": [],
@@ -5347,8 +5347,8 @@
             "fish cake": {
                 "aliases": [],
                 "description": "",
-                "name": "fish cake",
-                "plural_name": "fish cakes"
+                "name": "fiskekake",
+                "plural_name": "fiskekaker"
             },
             "salt fish": {
                 "aliases": [],
@@ -5501,8 +5501,8 @@
             "shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "shrimp",
-                "plural_name": "shrimps"
+                "name": "reke",
+                "plural_name": "reker"
             },
             "octopuse": {
                 "aliases": [],
@@ -5519,8 +5519,8 @@
             "crab": {
                 "aliases": [],
                 "description": "",
-                "name": "crab",
-                "plural_name": "crabs"
+                "name": "krabbe",
+                "plural_name": "krabber"
             },
             "scallop": {
                 "aliases": [],
@@ -5543,7 +5543,7 @@
             "squid": {
                 "aliases": [],
                 "description": "",
-                "name": "squid",
+                "name": "blekksprut",
                 "plural_name": "squids"
             },
             "nori": {
@@ -5579,7 +5579,7 @@
             "octopus": {
                 "aliases": [],
                 "description": "",
-                "name": "octopus",
+                "name": "blekksprut",
                 "plural_name": "octopi"
             },
             "kombu": {
@@ -5591,8 +5591,8 @@
             "dried shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "dried shrimp",
-                "plural_name": "dried shrimps"
+                "name": "tørket reke",
+                "plural_name": "tørket reker"
             },
             "bay scallop": {
                 "aliases": [],
@@ -5817,14 +5817,14 @@
             "cinnamon": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon",
-                "plural_name": "cinnamon"
+                "name": "kanel",
+                "plural_name": "kanel"
             },
             "parsley": {
                 "aliases": [],
                 "description": "",
-                "name": "parsley",
-                "plural_name": "parsleys"
+                "name": "persille",
+                "plural_name": "persille"
             },
             "cilantro": {
                 "aliases": [],
@@ -5853,14 +5853,14 @@
             "ginger root": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger root",
-                "plural_name": "ginger roots"
+                "name": "ingefærrot",
+                "plural_name": "ingefærrøtter"
             },
             "garlic powder": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic powder",
-                "plural_name": "garlic powder"
+                "name": "malt hvitløk",
+                "plural_name": "malt hvitløk"
             },
             "oregano": {
                 "aliases": [],
@@ -5913,8 +5913,8 @@
             "turmeric": {
                 "aliases": [],
                 "description": "",
-                "name": "turmeric",
-                "plural_name": "turmerics"
+                "name": "gurkemeie",
+                "plural_name": "gurkemeie"
             },
             "clove": {
                 "aliases": [],
@@ -5931,8 +5931,8 @@
             "ginger powder": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger powder",
-                "plural_name": "ginger powder"
+                "name": "malt ingefær",
+                "plural_name": "malt ingefær"
             },
             "panch puran": {
                 "aliases": [],
@@ -5979,8 +5979,8 @@
             "coriander powder": {
                 "aliases": [],
                 "description": "",
-                "name": "coriander powder",
-                "plural_name": "coriander powder"
+                "name": "malt koriander",
+                "plural_name": "malt koriander"
             },
             "sage": {
                 "aliases": [],
@@ -5991,7 +5991,7 @@
             "coriander": {
                 "aliases": [],
                 "description": "",
-                "name": "coriander",
+                "name": "koriander",
                 "plural_name": "corianders"
             },
             "allspice": {
@@ -6081,8 +6081,8 @@
             "garlic granule": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic granule",
-                "plural_name": "garlic granules"
+                "name": "granulert hvitløk",
+                "plural_name": "granulert hvitløk"
             },
             "celery seed": {
                 "aliases": [],
@@ -6267,8 +6267,8 @@
             "garlic flake": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic flake",
-                "plural_name": "garlic flakes"
+                "name": "hvitløksflak",
+                "plural_name": "hvitløksflak"
             },
             "dried cilantro": {
                 "aliases": [],
@@ -6428,7 +6428,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sukker",
-                "plural_name": "sugar"
+                "plural_name": "sukker"
             },
             "brown sugar": {
                 "aliases": [
@@ -6436,12 +6436,12 @@
                 ],
                 "description": "",
                 "name": "brunt sukker",
-                "plural_name": "brown sugar"
+                "plural_name": "brunt sukker"
             },
             "confectioners sugar": {
                 "aliases": [
-                    "powdered sugar",
-                    "icing sugar"
+                    "melis",
+                    "melis"
                 ],
                 "description": "",
                 "name": "confectioners sugar",
@@ -6458,7 +6458,7 @@
             "maple syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "maple syrup",
+                "name": "lønnesirup",
                 "plural_name": "maple syrup"
             },
             "corn syrup": {
@@ -6674,8 +6674,8 @@
             "ginger syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "ginger syrup",
-                "plural_name": "ginger syrup"
+                "name": "ingefærsirup",
+                "plural_name": "ingefærsirup"
             },
             "orgeat": {
                 "aliases": [],
@@ -7506,7 +7506,7 @@
             "gingerbread spice": {
                 "aliases": [],
                 "description": "",
-                "name": "gingerbread spice",
+                "name": "",
                 "plural_name": "gingerbread spices"
             },
             "popcorn seasoning": {
@@ -10310,8 +10310,8 @@
             "garlic bread": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic bread",
-                "plural_name": "garlic breads"
+                "name": "hvitløksbrød",
+                "plural_name": "hvitløksbrød"
             },
             "yeast extract spread": {
                 "aliases": [],
@@ -10340,8 +10340,8 @@
             "rice cake": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cake",
-                "plural_name": "rice cakes"
+                "name": "riskake",
+                "plural_name": "riskaker"
             },
             "panettone": {
                 "aliases": [],
@@ -10644,8 +10644,8 @@
             "vegetable oil": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable oil",
-                "plural_name": "vegetable oil"
+                "name": "matolje",
+                "plural_name": "matolje"
             },
             "extra virgin olive oil": {
                 "aliases": [],

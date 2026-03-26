@@ -44,9 +44,8 @@
         </v-number-input>
       </v-col>
       <v-col
-        v-if="!state.isRecipe"
         sm="12"
-        md="3"
+        md="2"
         cols="12"
       >
         <v-autocomplete
@@ -58,8 +57,8 @@
           density="compact"
           variant="solo"
           return-object
-          :items="units || []"
-          :custom-filter="normalizeFilter"
+          :items="filteredUnits"
+          :custom-filter="() => true"
           item-title="name"
           class="mx-1"
           :placeholder="$t('recipe.choose-unit')"
@@ -104,7 +103,7 @@
       <v-col
         v-if="!state.isRecipe"
         m="12"
-        md="3"
+        md="4"
         cols="12"
         class=""
       >
@@ -117,8 +116,8 @@
           density="compact"
           variant="solo"
           return-object
-          :items="foods || []"
-          :custom-filter="normalizeFilter"
+          :items="filteredFoods"
+          :custom-filter="() => true"
           item-title="name"
           class="mx-1 py-0"
           :placeholder="$t('recipe.choose-food')"
@@ -162,7 +161,7 @@
       <v-col
         v-if="state.isRecipe"
         m="12"
-        md="6"
+        md="4"
         cols="12"
         class=""
       >
@@ -176,7 +175,6 @@
           variant="solo"
           return-object
           :items="search.data.value || []"
-          :custom-filter="normalizeFilter"
           item-title="name"
           class="mx-1 py-0"
           :placeholder="$t('search.type-to-search')"
@@ -227,11 +225,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive, toRefs } from "vue";
+import { ref, computed, reactive, toRefs, watch } from "vue";
 import { useDisplay } from "vuetify";
 import { useI18n } from "vue-i18n";
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
-import { normalizeFilter } from "~/composables/use-utils";
+import { useSearch } from "~/composables/use-search";
 import { useNuxtApp } from "#app";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
@@ -343,8 +341,8 @@ const btns = computed(() => {
 // Foods
 const foodStore = useFoodStore();
 const foodData = useFoodData();
-const foodSearch = ref("");
 const foodAutocomplete = ref<HTMLInputElement>();
+const { search: foodSearch, filtered: filteredFoods } = useSearch(foodStore.store);
 
 async function createAssignFood() {
   foodData.data.name = foodSearch.value;
@@ -355,8 +353,8 @@ async function createAssignFood() {
 
 // Recipes
 const route = useRoute();
-const $auth = useMealieAuth();
-const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const auth = useMealieAuth();
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const { isOwnGroup } = useLoggedInState();
 const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
@@ -375,8 +373,8 @@ watch(loading, (val) => {
 // Units
 const unitStore = useUnitStore();
 const unitsData = useUnitData();
-const unitSearch = ref("");
 const unitAutocomplete = ref<HTMLInputElement>();
+const { search: unitSearch, filtered: filteredUnits } = useSearch(unitStore.store);
 
 async function createAssignUnit() {
   unitsData.data.name = unitSearch.value;
@@ -430,9 +428,6 @@ function quantityFilter(e: KeyboardEvent) {
 }
 
 const { showTitle } = toRefs(state);
-
-const foods = foodStore.store;
-const units = unitStore.store;
 </script>
 
 <style>

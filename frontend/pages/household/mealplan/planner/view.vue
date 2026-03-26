@@ -50,7 +50,7 @@
   </v-container>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { isSameDay } from "date-fns";
 
 import type { MealsByDate } from "./types";

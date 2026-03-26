@@ -4,7 +4,7 @@ from typing import Any
 
 import pytest
 
-from mealie.lang.providers import local_provider
+from mealie.lang.providers import get_locale_provider
 from mealie.services.scraper import cleaner
 
 
@@ -477,7 +477,7 @@ time_test_cases = (
 
 @pytest.mark.parametrize("case", time_test_cases, ids=(x.test_id for x in time_test_cases))
 def test_cleaner_clean_time(case: CleanerCase):
-    translator = local_provider()
+    translator = get_locale_provider()
     result = cleaner.clean_time(case.input, translator)
     assert case.expected == result
 
@@ -510,6 +510,11 @@ category_test_cases = (
             {"name": "Lunch", "slug": "lunch"},
         ],
         expected=["Dessert", "Lunch"],
+    ),
+    CleanerCase(
+        test_id="numeric",
+        input=4,
+        expected=[],
     ),
 )
 
@@ -676,5 +681,5 @@ def test_cleaner_clean_nutrition(case: CleanerCase):
     ],
 )
 def test_pretty_print_timedelta(t, max_components, max_decimal_places, expected):
-    translator = local_provider()
+    translator = get_locale_provider()
     assert cleaner.pretty_print_timedelta(t, translator, max_components, max_decimal_places) == expected

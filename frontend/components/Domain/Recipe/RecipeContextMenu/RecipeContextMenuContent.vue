@@ -202,13 +202,13 @@ const newMealdateString = computed(() => {
 });
 
 const i18n = useI18n();
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const { $globals } = useNuxtApp();
 const { household } = useHouseholdSelf();
 const { isOwnGroup } = useLoggedInState();
 
 const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug || $auth.user.value?.groupSlug || "");
+const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
 
 const firstDayOfWeek = computed(() => {
   return household.value?.preferences?.firstDayOfWeek || 0;
@@ -296,12 +296,12 @@ const recipeRefWithScale = computed(() =>
 );
 const isAdminAndNotOwner = computed(() => {
   return (
-    $auth.user.value?.admin
-    && $auth.user.value?.id !== recipeRef.value?.userId
+    auth.user.value?.admin
+    && auth.user.value?.id !== recipeRef.value?.userId
   );
 });
 const canDelete = computed(() => {
-  const user = $auth.user.value;
+  const user = auth.user.value;
   const recipe = recipeRef.value;
   return user && recipe && (user.admin || user.id === recipe.userId);
 });

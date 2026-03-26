@@ -3,7 +3,7 @@
   <div v-html="value" />
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import DOMPurify from "isomorphic-dompurify";
 import { marked } from "marked";
 
@@ -11,62 +11,55 @@ enum DOMPurifyHook {
   UponSanitizeAttribute = "uponSanitizeAttribute",
 }
 
-export default defineNuxtComponent({
-  props: {
-    source: {
-      type: String,
-      default: "",
-    },
+const props = defineProps({
+  source: {
+    type: String,
+    default: "",
   },
-  setup(props) {
-    const ALLOWED_STYLE_TAGS = [
-      "background-color", "color", "font-style", "font-weight", "text-decoration", "text-align",
-    ];
+});
 
-    function sanitizeMarkdown(rawHtml: string | null | undefined): string {
-      if (!rawHtml) {
-        return "";
-      }
+const ALLOWED_STYLE_TAGS = [
+  "background-color", "color", "font-style", "font-weight", "text-decoration", "text-align",
+];
 
-      DOMPurify.addHook(DOMPurifyHook.UponSanitizeAttribute, (node, data) => {
-        if (data.attrName === "style") {
-          const styles = data.attrValue.split(";").filter((style) => {
-            const [property] = style.split(":");
-            return ALLOWED_STYLE_TAGS.includes(property.trim().toLowerCase());
-          });
-          data.attrValue = styles.join(";");
-        }
+function sanitizeMarkdown(rawHtml: string | null | undefined): string {
+  if (!rawHtml) {
+    return "";
+  }
+
+  DOMPurify.addHook(DOMPurifyHook.UponSanitizeAttribute, (node, data) => {
+    if (data.attrName === "style") {
+      const styles = data.attrValue.split(";").filter((style) => {
+        const [property] = style.split(":");
+        return ALLOWED_STYLE_TAGS.includes(property.trim().toLowerCase());
       });
-
-      const sanitized = DOMPurify.sanitize(rawHtml, {
-        ALLOWED_TAGS: [
-          "strong", "em", "b", "i", "u", "p", "code", "pre", "samp", "kbd", "var", "sub", "sup", "dfn", "cite",
-          "small", "address", "hr", "br", "id", "div", "span", "h1", "h2", "h3", "h4", "h5", "h6",
-          "ul", "ol", "li", "dl", "dt", "dd", "abbr", "a", "img", "blockquote", "iframe",
-          "del", "ins", "table", "thead", "tbody", "tfoot", "tr", "th", "td", "colgroup",
-        ],
-        ALLOWED_ATTR: [
-          "href", "src", "alt", "height", "width", "class", "allow", "title", "allowfullscreen", "frameborder",
-          "scrolling", "cite", "datetime", "name", "abbr", "target", "border", "start", "style",
-        ],
-      });
-
-      Object.values(DOMPurifyHook).forEach((hook) => {
-        DOMPurify.removeHook(hook);
-      });
-
-      return sanitized;
+      data.attrValue = styles.join(";");
     }
+  });
 
-    const value = computed(() => {
-      const rawHtml = marked.parse(props.source || "", { async: false, breaks: true });
-      return sanitizeMarkdown(rawHtml);
-    });
+  const sanitized = DOMPurify.sanitize(rawHtml, {
+    ALLOWED_TAGS: [
+      "strong", "em", "b", "i", "u", "p", "code", "pre", "samp", "kbd", "var", "sub", "sup", "dfn", "cite",
+      "small", "address", "hr", "br", "id", "div", "span", "h1", "h2", "h3", "h4", "h5", "h6",
+      "ul", "ol", "li", "dl", "dt", "dd", "abbr", "a", "img", "blockquote", "iframe",
+      "del", "ins", "table", "thead", "tbody", "tfoot", "tr", "th", "td", "colgroup",
+    ],
+    ALLOWED_ATTR: [
+      "href", "src", "alt", "height", "width", "class", "allow", "title", "allowfullscreen", "frameborder",
+      "scrolling", "cite", "datetime", "name", "abbr", "target", "border", "start", "style",
+    ],
+  });
 
-    return {
-      value,
-    };
-  },
+  Object.values(DOMPurifyHook).forEach((hook) => {
+    DOMPurify.removeHook(hook);
+  });
+
+  return sanitized;
+}
+
+const value = computed(() => {
+  const rawHtml = marked.parse(props.source || "", { async: false, breaks: true });
+  return sanitizeMarkdown(rawHtml);
 });
 </script>
 

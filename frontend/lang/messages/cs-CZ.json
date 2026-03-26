@@ -212,8 +212,8 @@
     "upload-file": "Nahrát soubor",
     "created-on-date": "Vytvořeno dne: {0}",
     "unsaved-changes": "Máte neuložené změny. Chcete je uložit před odchodem? Klikněte Okay pro uložení, Cancel pro smazání změn.",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "Zahodit změny",
+    "discard-changes-description": "Máte neuložené změny. Určitě je chcete zahodit?",
     "clipboard-copy-failure": "Zkopírování do schránky se nezdařilo.",
     "confirm-delete-generic-items": "Opravdu chcete smazat následující položky?",
     "organizers": "Organizace",
@@ -370,8 +370,8 @@
     "applies-to-all-days": "Použije se na všechny dny",
     "applies-on-days": "Platí pro {0}",
     "meal-plan-settings": "Nastavení jídelníčku",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Přidat vše do seznamu",
+    "add-day-to-list": "Přidat den do seznamu"
   },
   "migration": {
     "migration-data-removed": "Data z migrace byla smazána",
@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Vytvořte recept zadáním názvu. Všechny recepty musí mít jedinečná jména.",
     "new-recipe-names-must-be-unique": "Názvy receptů musí být jedinečné",
     "scrape-recipe": "Zpracovat recept",
-    "scrape-recipe-description": "Zpracovat recept z URL. Uveďte adresu URL pro stránku, kterou chcete zpracovat a Mealie se pokusí zpracovat recept z tohoto webu a přidat jej do vaší sbírky.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Máte spoustu receptů, které chcete zpracovat najednou?",
     "scrape-recipe-suggest-bulk-importer": "Vyzkoušejte hromadný import",
     "scrape-recipe-have-raw-html-or-json-data": "Máte surová data HTML nebo JSON?",
@@ -644,7 +645,7 @@
     "scrape-recipe-website-being-blocked": "Webové stránky jsou blokovány?",
     "scrape-recipe-try-importing-raw-html-instead": "Zkuste namísto toho importovat raw HTML.",
     "import-original-keywords-as-tags": "Importovat původní klíčová slova jako štítky",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Importovat původní kategorie",
     "stay-in-edit-mode": "Zůstat v režimu úprav",
     "parse-recipe-ingredients-after-import": "Po importu analyzovat ingredience receptu",
     "import-from-zip": "Importovat ze zipu",
@@ -888,14 +889,17 @@
     "server-side-base-url-error-text": "`BASE_URL` je stále výchozí hodnotou na serveru API. To způsobí problémy s odkazy v oznámení generované na serveru pro e-maily atd.",
     "server-side-base-url-success-text": "Adresa URL na straně serveru neodpovídá výchozímu nastavení",
     "ldap-ready": "LDAP připraven",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Nejsou nakonfigurovány všechny LDAP hodnoty. To můžete ignorovat, pokud nepoužíváte LDAP autentizaci.",
     "ldap-ready-success-text": "Všechny požadované proměnné LDAP jsou nastaveny.",
     "build": "Sestavení",
     "recipe-scraper-version": "Verze scraperu receptů",
     "oidc-ready": "OIDC připraveno",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Nejsou nakonfigurovány všechny OIDC hodnoty. To můžete ignorovat, pokud nepoužíváte OIDC autentizaci.",
     "oidc-ready-success-text": "Všechny požadované proměnné OIDC jsou nastaveny.",
     "openai-ready": "OpenAI připraveno",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Nejsou nakonfigurovány všechny OpenAI hodnoty. To můžete ignorovat, pokud nepoužíváte OpenAI funkce.",
     "openai-ready-success-text": "Všechny požadované proměnné OpenAI jsou nastaveny."
   },
@@ -903,6 +907,7 @@
     "all-lists": "Všechny seznamy",
     "create-shopping-list": "Vytvořit nákupní seznam",
     "from-recipe": "Z receptu",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Název seznamu",
     "new-list": "Nový seznam",
     "quantity": "Množství: {0}",
@@ -1134,7 +1139,22 @@
       "example-unit-singular": "např.: Čajová lžička",
       "example-unit-plural": "např.: Čajové lžičky",
       "example-unit-abbreviation-singular": "např.: čl",
-      "example-unit-abbreviation-plural": "např.: čl"
+      "example-unit-abbreviation-plural": "např.: čl",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Naplnit databázi s běžnými popisky používanými ve vašem jazyce.",
@@ -1168,7 +1188,11 @@
       "recipe-actions-data": "Data akcí receptu",
       "new-recipe-action": "Nová akce receptu",
       "edit-recipe-action": "Upravit akci receptu",
-      "action-type": "Typ akce"
+      "action-type": "Typ akce",
+      "action-types": {
+        "link": "Link",
+        "post": "Publikovat"
+      }
     },
     "create-alias": "Vytvořit alias",
     "manage-aliases": "Spravovat aliasy",
@@ -1422,7 +1446,9 @@
       "is-greater-than": "je větší než",
       "is-greater-than-or-equal-to": "je větší než nebo rovno",
       "is-less-than": "je menší než",
-      "is-less-than-or-equal-to": "je menší než nebo rovno"
+      "is-less-than-or-equal-to": "je menší než nebo rovno",
+      "is-older-than": "je starší než",
+      "is-newer-than": "je novější než"
     },
     "relational-keywords": {
       "is": "je",
@@ -1432,6 +1458,9 @@
       "contains-all-of": "obsahuje všechny z",
       "is-like": "je jako",
       "is-not-like": "není jako"
+    },
+    "dates": {
+      "days-ago": "před dny|dnem|před dny"
     }
   },
   "validators": {
@@ -1440,6 +1469,6 @@
     "invalid-url": "Musí být platná URL adresa",
     "no-whitespace": "Mezery nejsou povoleny",
     "min-length": "Musí být alespoň {min} znaků",
-    "max-length": "Musí být nejvíce {max} znaků"
+    "max-length": "Musí být maximálně {max} znak|Musí být na většině {max} znaků"
   }
 }

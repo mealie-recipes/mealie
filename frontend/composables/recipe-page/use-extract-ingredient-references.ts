@@ -1,5 +1,5 @@
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
-import { parseIngredientText } from "~/composables/recipes";
+import { useIngredientTextParser } from "~/composables/recipes";
 
 function normalize(word: string): string {
   let normalizing = word;
@@ -18,11 +18,6 @@ function removeStartingPunctuation(word: string): string {
   return word.replace(punctuationAtBeginning, "");
 }
 
-function ingredientMatchesWord(ingredient: RecipeIngredient, word: string) {
-  const searchText = parseIngredientText(ingredient);
-  return searchText.toLowerCase().includes(word.toLowerCase());
-}
-
 function isBlackListedWord(word: string) {
   // Ignore matching blacklisted words when auto-linking - This is kind of a cludgey implementation. We're blacklisting common words but
   // other common phrases trigger false positives and I'm not sure how else to approach this. In the future I maybe look at looking directly
@@ -39,20 +34,33 @@ function isBlackListedWord(word: string) {
   return blackListedText.includes(word) || word.match(blackListedRegexMatch);
 }
 
-export function useExtractIngredientReferences(recipeIngredients: RecipeIngredient[], activeRefs: string[], text: string): Set<string> {
-  const availableIngredients = recipeIngredients
-    .filter(ingredient => ingredient.referenceId !== undefined)
-    .filter(ingredient => !activeRefs.includes(ingredient.referenceId as string));
+export function useExtractIngredientReferences() {
+  const { parseIngredientText } = useIngredientTextParser();
 
-  const allMatchedIngredientIds: string[] = text
-    .toLowerCase()
-    .split(/\s/)
-    .map(normalize)
-    .filter(word => word.length > 2)
-    .filter(word => !isBlackListedWord(word))
-    .flatMap(word => availableIngredients.filter(ingredient => ingredientMatchesWord(ingredient, word)))
-    .map(ingredient => ingredient.referenceId as string);
-  //  deduplicate
+  function extractIngredientReferences(recipeIngredients: RecipeIngredient[], activeRefs: string[], text: string): Set<string> {
+    function ingredientMatchesWord(ingredient: RecipeIngredient, word: string) {
+      const searchText = parseIngredientText(ingredient);
+      return searchText.toLowerCase().includes(word.toLowerCase());
+    }
 
-  return new Set<string>(allMatchedIngredientIds);
+    const availableIngredients = recipeIngredients
+      .filter(ingredient => ingredient.referenceId !== undefined)
+      .filter(ingredient => !activeRefs.includes(ingredient.referenceId as string));
+
+    const allMatchedIngredientIds: string[] = text
+      .toLowerCase()
+      .split(/\s/)
+      .map(normalize)
+      .filter(word => word.length > 2)
+      .filter(word => !isBlackListedWord(word))
+      .flatMap(word => availableIngredients.filter(ingredient => ingredientMatchesWord(ingredient, word)))
+      .map(ingredient => ingredient.referenceId as string);
+    //  deduplicate
+
+    return new Set<string>(allMatchedIngredientIds);
+  }
+
+  return {
+    extractIngredientReferences,
+  };
 }

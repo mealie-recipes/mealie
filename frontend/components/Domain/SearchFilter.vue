@@ -7,7 +7,7 @@
       nudge-bottom="3"
       :close-on-content-click="false"
     >
-      <template #activator="{ props }">
+      <template #activator="{ props: menuProps }">
         <v-badge
           v-memo="[selectedCount]"
           :model-value="selectedCount > 0"
@@ -19,7 +19,7 @@
             size="small"
             color="accent"
             dark
-            v-bind="props"
+            v-bind="menuProps"
           >
             <slot />
           </v-btn>
@@ -28,8 +28,8 @@
       <v-card width="400">
         <v-card-text>
           <v-text-field
-            v-model="state.search"
-            v-memo="[state.search]"
+            v-model="searchInput"
+            v-memo="[searchInput]"
             class="mb-2"
             hide-details
             density="comfortable"
@@ -145,126 +145,72 @@
   </div>
 </template>
 
-<script lang="ts">
-import { watchDebounced } from "@vueuse/core";
+<script setup lang="ts">
+import type { ISearchableItem } from "~/composables/use-search";
+import { useSearch } from "~/composables/use-search";
 
-export interface SelectableItem {
-  id: string;
-  name: string;
-}
-
-export default defineNuxtComponent({
-  props: {
-    items: {
-      type: Array as () => SelectableItem[],
-      required: true,
-    },
-    modelValue: {
-      type: Array as () => any[],
-      required: true,
-    },
-    requireAll: {
-      type: Boolean,
-      default: undefined,
-    },
-    radio: {
-      type: Boolean,
-      default: false,
-    },
+const props = defineProps({
+  items: {
+    type: Array as () => ISearchableItem[],
+    required: true,
   },
-  emits: ["update:requireAll", "update:modelValue"],
-  setup(props, context) {
-    const state = reactive({
-      search: "",
-      menu: false,
-    });
-
-    // Use shallowRef for better performance with arrays
-    const debouncedSearch = shallowRef("");
-
-    const combinator = computed({
-      get: () => (props.requireAll ? "hasAll" : "hasAny"),
-      set: (value) => {
-        context.emit("update:requireAll", value === "hasAll");
-      },
-    });
-
-    // Use shallowRef to prevent deep reactivity on large arrays
-    const selected = computed({
-      get: () => props.modelValue as SelectableItem[],
-      set: (value) => {
-        context.emit("update:modelValue", value);
-      },
-    });
-
-    const selectedRadio = computed({
-      get: () => (selected.value.length > 0 ? selected.value[0] : null),
-      set: (value) => {
-        context.emit("update:modelValue", value ? [value] : []);
-      },
-    });
-
-    watchDebounced(
-      () => state.search,
-      (newSearch) => {
-        debouncedSearch.value = newSearch;
-      },
-      { debounce: 500, maxWait: 1500, immediate: false }, // Increased debounce time
-    );
-
-    const filtered = computed(() => {
-      const items = props.items;
-      const search = debouncedSearch.value;
-
-      if (!search || search.length < 2) { // Only filter after 2 characters
-        return items;
-      }
-
-      const searchLower = search.toLowerCase();
-      return items.filter(item => item.name.toLowerCase().includes(searchLower));
-    });
-
-    const selectedCount = computed(() => selected.value.length);
-    const selectedIds = computed(() => {
-      return new Set(selected.value.map(item => item.id));
-    });
-
-    const handleCheckboxClick = (item: SelectableItem) => {
-      const currentSelection = selected.value;
-      const isSelected = selectedIds.value.has(item.id);
-
-      if (isSelected) {
-        selected.value = currentSelection.filter(i => i.id !== item.id);
-      }
-      else {
-        selected.value = [...currentSelection, item];
-      }
-    };
-
-    const handleRadioClick = (item: SelectableItem) => {
-      if (selectedRadio.value === item) {
-        selectedRadio.value = null;
-      }
-    };
-
-    function clearSelection() {
-      selected.value = [];
-      selectedRadio.value = null;
-      state.search = "";
-    }
-
-    return {
-      combinator,
-      state,
-      selected,
-      selectedRadio,
-      selectedCount,
-      selectedIds,
-      filtered,
-      handleCheckboxClick,
-      handleRadioClick,
-      clearSelection,
-    };
+  requireAll: {
+    type: Boolean,
+    default: undefined,
+  },
+  radio: {
+    type: Boolean,
+    default: false,
   },
 });
+
+const modelValue = defineModel<ISearchableItem[]>();
+
+const emit = defineEmits<{
+  (e: "update:requireAll", value: boolean | undefined): void;
+}>();
+
+const state = reactive({
+  menu: false,
+});
+
+// Use the search composable
+const { search: searchInput, filtered } = useSearch(computed(() => props.items));
+
+const combinator = computed({
+  get: () => (props.requireAll ? "hasAll" : "hasAny"),
+  set: (value: string) => {
+    emit("update:requireAll", value === "hasAll");
+  },
+});
+
+const selected = computed<ISearchableItem[]>({
+  get: () => modelValue.value ?? [],
+  set: (value: ISearchableItem[]) => {
+    modelValue.value = value;
+  },
+});
+
+const selectedRadio = computed<null | ISearchableItem>({
+  get: () => (selected.value.length > 0 ? selected.value[0] : null),
+  set: (value: ISearchableItem | null) => {
+    const next = value ? [value] : [];
+    selected.value = next;
+  },
+});
+
+const selectedCount = computed(() => selected.value.length);
+const selectedIds = computed(() => new Set(selected.value.map(item => item.id)));
+
+const handleRadioClick = (item: ISearchableItem) => {
+  if (selectedRadio.value === item) {
+    selectedRadio.value = null;
+  }
+};
+
+function clearSelection() {
+  selected.value = [];
+  selectedRadio.value = null;
+  searchInput.value = "";
+}
 </script>

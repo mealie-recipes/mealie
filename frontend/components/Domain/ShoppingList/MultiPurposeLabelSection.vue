@@ -17,13 +17,13 @@
         start
         min-width="125px"
       >
-        <template #activator="{ props }">
+        <template #activator="{ props: hoverProps }">
           <v-btn
             size="small"
             variant="text"
             class="ml-2 handle"
             icon
-            v-bind="props"
+            v-bind="hoverProps"
           >
             <v-icon>
               {{ $globals.icons.arrowUpDown }}
@@ -35,31 +35,13 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { ShoppingListMultiPurposeLabelOut } from "~/lib/api/types/household";
 
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Object as () => ShoppingListMultiPurposeLabelOut,
-      required: true,
-    },
-    useColor: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup(props, context) {
-    const labelColor = ref<string | undefined>(props.useColor ? props.modelValue.label.color : undefined);
+const props = defineProps<{
+  useColor?: boolean;
+}>();
+const modelValue = defineModel<ShoppingListMultiPurposeLabelOut>({ required: true });
 
-    function contextHandler(event: string) {
-      context.emit(event);
-    }
-
-    return {
-      contextHandler,
-      labelColor,
-    };
-  },
-});
+const labelColor = ref<string | undefined>(props.useColor ? modelValue.value.label.color : undefined);
 </script>

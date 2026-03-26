@@ -17,6 +17,18 @@
             "servings": "Serveis",
             "yield": "Ració",
             "yields": "Racions"
+        },
+        "and-amount": "i {amount}",
+        "or-ingredient": "o {ingredient}",
+        "create-progress": {
+            "creating-recipe-with-ai": "S'està creant recepta amb IA...",
+            "creating-recipe-from-transcript-with-ai": "S'està creant la recepta a partir de la transcripció amb IA...",
+            "creating-recipe-from-webpage-data": "S'està creant la recepta a partir de les dades del lloc web...",
+            "downloading-image": "S'est baixant l'imatge...",
+            "downloading-video": "S'est baixant el vídeo...",
+            "extracting-recipe-data": "S'estan extraient les dades de la recepta...",
+            "fetching-webpage": "S'està recuperant la pàgina web...",
+            "transcribing-audio-with-ai": "Transcripció àudio amb IA..."
         }
     },
     "mealplan": {
