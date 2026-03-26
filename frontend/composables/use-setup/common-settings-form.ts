@@ -1,4 +1,5 @@
 import { fieldTypes } from "../forms";
+import { validators } from "../use-validators";
 import type { AutoFormItems } from "~/types/auto-forms";
 
 export const useCommonSettingsForm = () => {
@@ -11,7 +12,7 @@ export const useCommonSettingsForm = () => {
       hint: i18n.t("group.enable-public-access-description"),
       varName: "makeGroupRecipesPublic",
       type: fieldTypes.BOOLEAN,
-      rules: ["required"],
+      rules: [validators.required],
     },
     {
       section: i18n.t("data-pages.data-management"),
@@ -19,7 +20,7 @@ export const useCommonSettingsForm = () => {
       hint: i18n.t("user-registration.use-seed-data-description"),
       varName: "useSeedData",
       type: fieldTypes.BOOLEAN,
-      rules: ["required"],
+      rules: [validators.required],
     },
   ]);
 

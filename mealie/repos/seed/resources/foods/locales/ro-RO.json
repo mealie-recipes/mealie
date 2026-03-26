@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "usturoi",
-                "plural_name": "garlic"
+                "plural_name": "usturoi"
             },
             "onion": {
                 "aliases": [],
@@ -59,13 +59,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "țelină",
-                "plural_name": "celery"
+                "plural_name": "țelină"
             },
             "jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "name": "jalapeño",
+                "plural_name": "jalapeños"
             },
             "avocado": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "spanac",
-                "plural_name": "spinach"
+                "plural_name": "spanac"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "porumb dulce",
-                "plural_name": "sweet corn"
+                "plural_name": "porumb dulce"
             },
             "chile pepper": {
                 "aliases": [
@@ -493,7 +493,7 @@
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "collard greens",
+                "name": "",
                 "plural_name": "collard greens"
             },
             "french-fried onion": {

@@ -16,21 +16,19 @@
   </div>
 </template>
 
-<script lang="ts">
-export default defineNuxtComponent({
-  props: {
-    to: {
-      type: String,
-      required: true,
-    },
-    text: {
-      type: String,
-      required: true,
-    },
-    icon: {
-      type: String,
-      default: "",
-    },
+<script setup lang="ts">
+defineProps({
+  to: {
+    type: String,
+    required: true,
+  },
+  text: {
+    type: String,
+    required: true,
+  },
+  icon: {
+    type: String,
+    default: "",
   },
 });
 </script>

@@ -16,7 +16,7 @@
       <v-card-text>
         <v-form @submit.prevent="requestLink()">
           <v-text-field
-            v-model="email"
+            v-model="state.email"
             :prepend-inner-icon="$globals.icons.email"
             variant="solo-filled"
             flat
@@ -26,7 +26,7 @@
             type="text"
           />
           <v-text-field
-            v-model="password"
+            v-model="state.password"
             variant="solo-filled"
             flat
             :prepend-inner-icon="$globals.icons.lock"
@@ -36,7 +36,7 @@
             :rules="[validators.required]"
           />
           <v-text-field
-            v-model="passwordConfirm"
+            v-model="state.passwordConfirm"
             variant="solo-filled"
             flat
             validate-on="blur"
@@ -52,7 +52,7 @@
           <v-card-actions class="justify-center">
             <div class="max-button">
               <v-btn
-                :loading="loading"
+                :loading="state.loading"
                 color="primary"
                 :disabled="token === ''"
                 type="submit"
@@ -81,74 +81,62 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { validators } from "@/composables/use-validators";
 import { useRouteQuery } from "~/composables/use-router";
 
-export default defineNuxtComponent({
-  setup() {
-    definePageMeta({
-      layout: "basic",
-    });
-
-    const state = reactive({
-      email: "",
-      password: "",
-      passwordConfirm: "",
-      loading: false,
-      error: false,
-    });
-
-    const i18n = useI18n();
-    const passwordMatch = () => state.password === state.passwordConfirm || i18n.t("user.password-must-match");
-
-    // Set page title
-    useSeoMeta({
-      title: i18n.t("user.login"),
-    });
-
-    // ===================
-    // Token Getter
-    const token = useRouteQuery("token", "");
-
-    // ===================
-    // API
-    const api = useUserApi();
-    async function requestLink() {
-      state.loading = true;
-      // TODO: Fix Response to send meaningful error
-      const { response } = await api.users.resetPassword({
-        token: token.value,
-        email: state.email,
-        password: state.password,
-        passwordConfirm: state.passwordConfirm,
-      });
-
-      state.loading = false;
-
-      if (response?.status === 200) {
-        state.loading = false;
-        state.error = false;
-        alert.success(i18n.t("user.password-updated"));
-      }
-      else {
-        state.loading = false;
-        state.error = true;
-        alert.error(i18n.t("events.something-went-wrong"));
-      }
-    }
-
-    return {
-      passwordMatch,
-      token,
-      requestLink,
-      validators,
-      ...toRefs(state),
-    };
-  },
+definePageMeta({
+  layout: "basic",
 });
+
+const state = reactive({
+  email: "",
+  password: "",
+  passwordConfirm: "",
+  loading: false,
+  error: false,
+});
+
+const i18n = useI18n();
+const passwordMatch = () => state.password === state.passwordConfirm || i18n.t("user.password-must-match");
+
+// Set page title
+useSeoMeta({
+  title: i18n.t("user.login"),
+});
+
+// ===================
+// Token Getter
+const token = useRouteQuery("token", "");
+
+// ===================
+// API
+const api = useUserApi();
+async function requestLink() {
+  state.loading = true;
+  // TODO: Fix Response to send meaningful error
+  const { response } = await api.users.resetPassword({
+    token: token.value,
+    email: state.email,
+    password: state.password,
+    passwordConfirm: state.passwordConfirm,
+  });
+
+  state.loading = false;
+
+  if (response?.status === 200) {
+    state.loading = false;
+    state.error = false;
+    alert.success(i18n.t("user.password-updated"));
+  }
+  else {
+    state.loading = false;
+    state.error = true;
+    alert.error(i18n.t("events.something-went-wrong"));
+  }
+}
 </script>
 
 <style lang="css">

@@ -110,8 +110,8 @@ defineEmits<{
 const selected = defineModel<Recipe[]>({ default: () => [] });
 
 const i18n = useI18n();
-const $auth = useMealieAuth();
-const groupSlug = $auth.user.value?.groupSlug;
+const auth = useMealieAuth();
+const groupSlug = auth.user.value?.groupSlug;
 const router = useRouter();
 
 // Initialize sort state with default sorting by dateAdded descending

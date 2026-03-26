@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "יצירת מתכון באמצעות שם. כל שמות המתכונים צריכים להיות שונים.",
     "new-recipe-names-must-be-unique": "שם מתכון חדש חייב להיות ייחודי",
     "scrape-recipe": "קריאת מתכון",
-    "scrape-recipe-description": "קריאת מתכון בעזרת לינק. ספק את הלינק של האתר שברצונך לקרוא, ומילי תנסה לקרוא את המתכון מהאתר ולהוסיף אותו לאוסף.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "יש לך הרבה מתכונים שאתה רוצה לקרוא בבת אחת?",
     "scrape-recipe-suggest-bulk-importer": "נסה את יכולת קריאת רשימה",
     "scrape-recipe-have-raw-html-or-json-data": "יש לך מידע גולמי ב-HTML או JSON?",
@@ -888,14 +889,17 @@
     "server-side-base-url-error-text": "'כתובת בסיס' היא עדיין הערך ברירת המחדל בשרת ה- API. הדבר יגרום לבעיות עם קישורי התראות בשרת עבור אימייל וכו'.",
     "server-side-base-url-success-text": "קישור צד שרת אינו תואם לברירת המחדל",
     "ldap-ready": "LDAP מוכן",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "לא כל הערכים הנחוצים ל-LDAP מוגדרים. ניתן להתעלם אם לא נעשה שימוש באימות LDAP.",
     "ldap-ready-success-text": "כל המשתנים הנחוצים ל-LDAP מוגדרים.",
     "build": "בניה",
     "recipe-scraper-version": "גרסת סורק המתכונים",
     "oidc-ready": "OIDC מוכן",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "לא כל הערכים הנחוצים ל-OIDC מוגדרים. ניתן להתעלם אם לא נעשה שימוש באימות OIDC.",
     "oidc-ready-success-text": "כל המשתנים הנחוצים ל-OIDC מוגדרים.",
     "openai-ready": "OpenAI מוכן",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "לא כל הערכים הנחוצים ל-OpenAI מוגדרים. ניתן להתעלם אם לא נעשה שימוש ב-OpenAI.",
     "openai-ready-success-text": "כל המשתנים הנחוצים ל-OpenAI מוגדרים."
   },
@@ -903,6 +907,7 @@
     "all-lists": "כל הרשימות",
     "create-shopping-list": "צור רשימת קניות",
     "from-recipe": "מתוך מתכון",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "שם רשימה",
     "new-list": "רשימה חדשה",
     "quantity": "כמות: {0}",
@@ -1134,7 +1139,22 @@
       "example-unit-singular": "דוגמא: כפית",
       "example-unit-plural": "דוגמא: כפיות",
       "example-unit-abbreviation-singular": "דוגמא: כף",
-      "example-unit-abbreviation-plural": "דוגמא: כפות"
+      "example-unit-abbreviation-plural": "דוגמא: כפות",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "אכלס את מסד הנתונים בתוויות נפוצות בהתאם לשפה המקומית שלך.",
@@ -1168,7 +1188,11 @@
       "recipe-actions-data": "מידע על הפעולות במתכון",
       "new-recipe-action": "פעולת-מתכון חדשה",
       "edit-recipe-action": "עריכת פעולת-מתכון",
-      "action-type": "סוג פעולה"
+      "action-type": "סוג פעולה",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "יצירת שם נרדף",
     "manage-aliases": "נהל שמות נרדפים",
@@ -1422,7 +1446,9 @@
       "is-greater-than": "גדול מ-",
       "is-greater-than-or-equal-to": "גדול או שווה ל-",
       "is-less-than": "קטן מ-",
-      "is-less-than-or-equal-to": "קטן או שווה ל-"
+      "is-less-than-or-equal-to": "קטן או שווה ל-",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "זהה ל-",
@@ -1432,6 +1458,9 @@
       "contains-all-of": "מכיל הכל מתוך",
       "is-like": "דומה ל-",
       "is-not-like": "לא דומה לא-"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
@@ -1440,6 +1469,6 @@
     "invalid-url": "Must Be A Valid URL",
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

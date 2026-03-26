@@ -18,13 +18,11 @@
   </v-toolbar>
 </template>
 
-<script lang="ts">
-export default defineNuxtComponent({
-  props: {
-    back: {
-      type: Boolean,
-      default: false,
-    },
+<script setup lang="ts">
+defineProps({
+  back: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>

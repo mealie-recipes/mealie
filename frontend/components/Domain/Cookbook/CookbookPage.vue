@@ -73,11 +73,11 @@ import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { ReadCookBook } from "~/lib/api/types/cookbook";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
 
-const $auth = useMealieAuth();
+const auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
 
 const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug as string || $auth.user.value?.groupSlug || "");
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
 const slug = route.params.slug as string;
@@ -88,11 +88,11 @@ const router = useRouter();
 const book = getOne(slug);
 
 const isOwnHousehold = computed(() => {
-  if (!($auth.user.value && book.value?.householdId)) {
+  if (!(auth.user.value && book.value?.householdId)) {
     return false;
   }
 
-  return $auth.user.value.householdId === book.value.householdId;
+  return auth.user.value.householdId === book.value.householdId;
 });
 const canEdit = computed(() => isOwnGroup.value && isOwnHousehold.value);
 

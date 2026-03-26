@@ -29,21 +29,19 @@
   </v-card>
 </template>
 
-<script lang="ts">
-export default defineNuxtComponent({
-  props: {
-    title: {
-      type: String,
-      required: true,
-    },
-    icon: {
-      type: String,
-      default: "",
-    },
-    section: {
-      type: Boolean,
-      default: false,
-    },
+<script setup lang="ts">
+defineProps({
+  title: {
+    type: String,
+    required: true,
+  },
+  icon: {
+    type: String,
+    default: "",
+  },
+  section: {
+    type: Boolean,
+    default: false,
   },
 });
 </script>

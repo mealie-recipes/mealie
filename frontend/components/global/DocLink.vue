@@ -15,21 +15,16 @@
   </v-btn>
 </template>
 
-<script lang="ts">
-export default defineNuxtComponent({
-  props: {
-    link: {
-      type: String,
-      required: true,
-    },
+<script setup lang="ts">
+const props = defineProps({
+  link: {
+    type: String,
+    required: true,
   },
-  setup(props) {
-    const href = computed(() => {
-      // TODO: dynamically set docs link based off env
-      return `https://nightly.mealie.io${props.link}`;
-    });
+});
 
-    return { href };
-  },
+const href = computed(() => {
+  // TODO: dynamically set docs link based off env
+  return `https://docs.mealie.io${props.link}`;
 });
 </script>

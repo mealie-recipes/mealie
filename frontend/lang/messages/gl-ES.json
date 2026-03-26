@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Cree unha receita introducindo o nome. Todas as receitas deven ter nomes únicos.",
     "new-recipe-names-must-be-unique": "Os nomes de receitas deven ser únicos",
     "scrape-recipe": "Extrair receita (Scrape)",
-    "scrape-recipe-description": "Extrair unha receita por url. Propercione o URL do site que pretende extrair, e o Mealie tentará extrair a receita dese site e adicionala à sua coleción.",
+    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Ten moitas receitas para procesar dunha vez?",
     "scrape-recipe-suggest-bulk-importer": "Prove o importador en masa",
     "scrape-recipe-have-raw-html-or-json-data": "Ten datos HTML ou JSON en bruto?",
@@ -888,14 +889,17 @@
     "server-side-base-url-error-text": "O `BASE_URL` no Servidor API ainda está definido co valor padrón. Iso causará problemas coas ligazóns de notificacións xeradas no servidor para emails, etc.",
     "server-side-base-url-success-text": "O URL do servidor non coincide co predeterminado",
     "ldap-ready": "LDAP Listo",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Non todos os valores LDAP están configurados. Isto pódese ignorar se non está a usar a Autenticación LDAP.",
     "ldap-ready-success-text": "As variáveis LDAP necesarias están todas definidas.",
     "build": "Compilación",
     "recipe-scraper-version": "Versión do Analizador de Receitas",
     "oidc-ready": "OIDC Listo",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Non todos os valores OIDC están configurados. Isto pódese ignorar se non está a usar a Autenticación OIDC.",
     "oidc-ready-success-text": "As variáveis OICD necesarias están todas definidas.",
     "openai-ready": "Preparado para OpenAI",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Non todos os valores de OpenAI están configurados. Isto pódese ignorar se non está a usar as funcións de OpenAI.",
     "openai-ready-success-text": "As variáveis OpenAI necesarias están todas definidas."
   },
@@ -903,6 +907,7 @@
     "all-lists": "Todas as Listas",
     "create-shopping-list": "Crear Lista de Compras",
     "from-recipe": "Da Receita",
+    "ingredient-of-recipe": "Ingredient of {recipe}",
     "list-name": "Nome da Lista",
     "new-list": "Nova Lista",
     "quantity": "Cantidade: {0}",
@@ -1134,7 +1139,22 @@
       "example-unit-singular": "ex: Culler de Sopa",
       "example-unit-plural": "ex: Culleres de Sopa",
       "example-unit-abbreviation-singular": "ex: Cdsp",
-      "example-unit-abbreviation-plural": "ex: Cdsps"
+      "example-unit-abbreviation-plural": "ex: Cdsps",
+      "standardization": "Standardization",
+      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
+      "standard-unit": "Standard Unit",
+      "standard-quantity": "Standard Quantity",
+      "unit-conversion": "Unit Conversion",
+      "standard-unit-labels": {
+        "fluid-ounce": "fluid ounce",
+        "cup": "cup",
+        "ounce": "ounce",
+        "pound": "pound",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gram",
+        "kilogram": "kilogram"
+      }
     },
     "labels": {
       "seed-dialog-text": "Adicionar à base de datos rótulos comuns no seu idioma local.",
@@ -1168,7 +1188,11 @@
       "recipe-actions-data": "Datos das Acións da Receita",
       "new-recipe-action": "Nova Ación da Receita",
       "edit-recipe-action": "Editar Ación da Receita",
-      "action-type": "Tipo de Ación"
+      "action-type": "Tipo de Ación",
+      "action-types": {
+        "link": "Link",
+        "post": "Post"
+      }
     },
     "create-alias": "Crear Pseudónimo",
     "manage-aliases": "Xestionar Pseudónimos",
@@ -1422,7 +1446,9 @@
       "is-greater-than": "é maior que",
       "is-greater-than-or-equal-to": "é maior ou igual a",
       "is-less-than": "é menor que",
-      "is-less-than-or-equal-to": "é menor ou igual a"
+      "is-less-than-or-equal-to": "é menor ou igual a",
+      "is-older-than": "is older than",
+      "is-newer-than": "is newer than"
     },
     "relational-keywords": {
       "is": "é",
@@ -1432,6 +1458,9 @@
       "contains-all-of": "contén todos os",
       "is-like": "é como",
       "is-not-like": "non é como"
+    },
+    "dates": {
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
@@ -1440,6 +1469,6 @@
     "invalid-url": "Must Be A Valid URL",
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Characters"
+    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   }
 }

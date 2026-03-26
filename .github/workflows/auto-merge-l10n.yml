@@ -40,8 +40,8 @@ jobs:
 
           echo "PR changes: +$ADDITIONS -$DELETIONS (total: $TOTAL lines)"
 
-          if [ "$TOTAL" -gt 400 ]; then
-            echo "::error::PR exceeds 400 line change limit ($TOTAL lines)"
+          if [ "$TOTAL" -gt 6000 ]; then
+            echo "::error::PR exceeds 6000 line change limit ($TOTAL lines)"
             exit 1
           fi
 
@@ -57,6 +57,7 @@ jobs:
             # Check if file matches any allowed path
             if [[ "$file" == "frontend/composables/use-locales/available-locales.ts" ]] || \
                [[ "$file" =~ ^frontend/lang/ ]] || \
+               [[ "$file" =~ ^mealie/lang/ ]] || \
                [[ "$file" =~ ^mealie/repos/seed/resources/[^/]+/locales/ ]]; then
               continue
             fi
@@ -66,6 +67,7 @@ jobs:
             echo "Only the following paths are allowed:"
             echo "  - frontend/composables/use-locales/available-locales.ts"
             echo "  - frontend/lang/"
+            echo "  - mealie/lang/"
             echo "  - mealie/repos/seed/resources/*/locales/"
             exit 1
           done

@@ -1,7 +1,10 @@
+from unittest.mock import MagicMock
 from uuid import uuid4
 
 import pytest
+from pytest import MonkeyPatch
 
+from mealie.lang.locale_config import LocalePluralFoodHandling
 from mealie.schema.recipe.recipe_ingredient import (
     IngredientFood,
     IngredientUnit,
@@ -10,13 +13,13 @@ from mealie.schema.recipe.recipe_ingredient import (
 
 
 @pytest.mark.parametrize(
-    ["quantity", "quantity_display_decimal", "quantity_display_fraction", "expect_plural_unit", "expect_plural_food"],
+    ["quantity", "quantity_display_decimal", "quantity_display_fraction", "expect_plural_unit"],
     [
-        [0, "", "", False, True],
-        [0.5, "0.5", "¹/₂", False, False],
-        [1, "1", "1", False, False],
-        [1.5, "1.5", "1 ¹/₂", True, True],
-        [2, "2", "2", True, True],
+        [0, "", "", False],
+        [0.5, "0.5", "¹/₂", False],
+        [1, "1", "1", False],
+        [1.5, "1.5", "1 ¹/₂", True],
+        [2, "2", "2", True],
     ],
 )
 @pytest.mark.parametrize(
@@ -163,6 +166,14 @@ from mealie.schema.recipe.recipe_ingredient import (
     ],
 )
 @pytest.mark.parametrize("note", ["very thin", "", None])
+@pytest.mark.parametrize(
+    "plural_handling",
+    [
+        LocalePluralFoodHandling.ALWAYS,
+        LocalePluralFoodHandling.NEVER,
+        LocalePluralFoodHandling.WITHOUT_UNIT,
+    ],
+)
 def test_ingredient_display(
     quantity: float | None,
     quantity_display_decimal: str,
@@ -172,12 +183,32 @@ def test_ingredient_display(
     note: str | None,
     expect_display_fraction: bool,
     expect_plural_unit: bool,
-    expect_plural_food: bool,
     expected_unit_singular_string: str,
     expected_unit_plural_string: str,
     expected_food_singular_string: str,
     expected_food_plural_string: str,
+    plural_handling: LocalePluralFoodHandling,
+    monkeypatch: MonkeyPatch,
 ):
+
+    mock_locale_cfg = MagicMock()
+    mock_locale_cfg.plural_food_handling = plural_handling
+    monkeypatch.setattr("mealie.schema.recipe.recipe_ingredient.get_locale_context", lambda: ("en-US", mock_locale_cfg))
+
+    # Calculate expect_plural_food based on plural_handling strategy
+    if quantity and quantity <= 1:
+        expect_plural_food = False
+    else:
+        match plural_handling:
+            case LocalePluralFoodHandling.NEVER:
+                expect_plural_food = False
+            case LocalePluralFoodHandling.WITHOUT_UNIT:
+                expect_plural_food = not (quantity and unit)
+            case LocalePluralFoodHandling.ALWAYS:
+                expect_plural_food = True
+            case _:
+                expect_plural_food = False
+
     expected_components = []
     if expect_display_fraction:
         expected_components.append(quantity_display_fraction)

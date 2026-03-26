@@ -533,6 +533,9 @@ def clean_categories(category: str | list) -> list[str]:
             # ]
             #
             return [cat["name"] for cat in category if "name" in cat]
+        case int() | float():
+            # Handling for numeric values returned as categories
+            return []
         case _:
             raise TypeError(f"Unexpected type for category: {type(category)}, {category}")
 

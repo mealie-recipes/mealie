@@ -1,5 +1,5 @@
 from datetime import UTC, datetime, timedelta
-from uuid import UUID
+from uuid import UUID, uuid4
 
 import pytest
 from sqlalchemy.orm import Session
@@ -647,6 +647,47 @@ def test_order_by_last_made(unique_user: TestUser, h2_user: TestUser):
     assert [item.id for item in h2_query.items] == [recipe_2.id, recipe_1.id]
 
 
+def test_coalesce_last_made(unique_user: TestUser):
+    dt = datetime.now(UTC)
+
+    made_recipe, unmade_recipe = (
+        unique_user.repos.recipes.create(
+            Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=random_string())
+        )
+        for _ in range(2)
+    )
+    unique_user.repos.household_recipes.create(
+        HouseholdRecipeCreate(recipe_id=made_recipe.id, household_id=unique_user.household_id, last_made=dt)
+    )
+
+    repos = get_repositories(
+        unique_user.repos.session, group_id=unique_user.group_id, household_id=None
+    ).recipes.by_user(unique_user.user_id)
+    r = repos.page_all(
+        PaginationQuery(
+            page=1,
+            per_page=-1,
+            order_by="last_made",
+            order_direction=OrderDirection.asc,
+            query_filter=f"id IN [{made_recipe.id}, {unmade_recipe.id}] AND lastMade <= {dt.isoformat()}",
+        )
+    )
+    assert len(r.items) == 2
+    assert [item.id for item in r.items] == [unmade_recipe.id, made_recipe.id]
+
+    r = repos.page_all(
+        PaginationQuery(
+            page=1,
+            per_page=-1,
+            order_by="last_made",
+            order_direction=OrderDirection.desc,
+            query_filter=f"id IN [{made_recipe.id}, {unmade_recipe.id}]",
+        )
+    )
+    assert len(r.items) == 2
+    assert [item.id for item in r.items] == [made_recipe.id, unmade_recipe.id]
+
+
 def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
     user_1, user_2 = user_tuple
     database = user_1.repos
@@ -769,3 +810,48 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
     assert data[0].slug == recipe_2.slug  # global rating == 2.5 (avg of 4 and 1)
     assert data[1].slug == recipe_3.slug  # global rating == 3
     assert data[2].slug == recipe_1.slug  # global rating == 4.25 (avg of 5 and 3.5)
+
+
+@pytest.mark.parametrize("route", ["patch", "update"])
+def test_recipe_inject_organizer_group_id(unique_user: TestUser, route: str):
+    # Regression test for #6802 - Ensure explicit group_id injection works for new organizers
+    database = unique_user.repos
+    recipe = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(),
+        )
+    )
+
+    new_tag_name = random_string()
+    new_cat_name = random_string()
+    new_tool_name = random_string()
+
+    patch_data = Recipe(
+        name=recipe.name,
+        tags=[new_tag_name],
+        recipe_category=[new_cat_name],
+        tools=[{"id": uuid4(), "name": new_tool_name, "slug": new_tool_name}],
+    )
+
+    # This should not raise IntegrityError or TypeError
+    update_func = database.recipes.patch if route == "patch" else database.recipes.update
+    if route == "patch":
+        updated_recipe = update_func(recipe.slug, patch_data.model_dump(exclude_unset=True))
+    elif route == "update":
+        updated_recipe = update_func(recipe.slug, patch_data.model_dump(exclude_unset=True))
+
+    assert updated_recipe
+
+    assert updated_recipe.tags
+    assert len(updated_recipe.tags) == 1
+    assert updated_recipe.tags[0].name == new_tag_name
+
+    assert updated_recipe.recipe_category
+    assert len(updated_recipe.recipe_category) == 1
+    assert updated_recipe.recipe_category[0].name == new_cat_name
+
+    assert updated_recipe.tools
+    assert len(updated_recipe.tools) == 1
+    assert updated_recipe.tools[0].name == new_tool_name

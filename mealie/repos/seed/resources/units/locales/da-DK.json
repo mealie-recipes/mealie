@@ -45,13 +45,13 @@
         "name": "milliliter",
         "plural_name": "milliliter",
         "description": "",
-        "abbreviation": "mL"
+        "abbreviation": "ml"
     },
     "liter": {
         "name": "liter",
         "plural_name": "liter",
         "description": "",
-        "abbreviation": "L"
+        "abbreviation": "l"
     },
     "pound": {
         "name": "pund",

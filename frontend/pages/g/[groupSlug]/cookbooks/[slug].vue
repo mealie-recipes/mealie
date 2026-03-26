@@ -2,10 +2,6 @@
   <CookbookPage />
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import CookbookPage from "@/components/Domain/Cookbook/CookbookPage.vue";
-
-export default defineNuxtComponent({
-  components: { CookbookPage },
-});
 </script>

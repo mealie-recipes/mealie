@@ -15,7 +15,7 @@
         "name": "kupillinen",
         "plural_name": "kupillista",
         "description": "",
-        "abbreviation": "k"
+        "abbreviation": "kp"
     },
     "fluid-ounce": {
         "name": "nesteunssi",
@@ -57,14 +57,14 @@
         "name": "pauna",
         "plural_name": "paunaa",
         "description": "",
-        "abbreviation": "lb",
-        "plural_abbreviation": "lbs"
+        "abbreviation": "naula",
+        "plural_abbreviation": "naulaa"
     },
     "ounce": {
         "name": "unssi",
         "plural_name": "unssia",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "unssi"
     },
     "gram": {
         "name": "gramma",
@@ -139,8 +139,8 @@
         "abbreviation": ""
     },
     "sprig": {
-        "name": "sprig",
-        "plural_name": "sprigs",
+        "name": "oksa",
+        "plural_name": "oksaa",
         "description": "",
         "abbreviation": ""
     }

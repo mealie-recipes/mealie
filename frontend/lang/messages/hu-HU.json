@@ -636,7 +636,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Hozzon létre egy receptet a név megadásával. Minden receptnek egyedi névvel kell rendelkeznie.",
     "new-recipe-names-must-be-unique": "Az új recept nevének egyedinek kell lennie",
     "scrape-recipe": "Recept kinyerése",
-    "scrape-recipe-description": "Recept (adatok) kinyerése Url alapján. Adja meg a beolvasni kívánt oldal Url-címét, és Mealie megpróbálja beolvasni a receptet az adott oldalról, majd hozzáadja azt gyűjteményéhez.",
+    "scrape-recipe-description": "Recept kinyerése URL alapján. Adja meg annak az oldalnak az URL‑jét, amelyről szeretné a receptet kinyerni, és a Mealie megpróbálja beolvasni a receptet, majd hozzáadja a gyűjteményéhez.",
+    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "Sok receptje van, amit egyszerre szeretne átvenni?",
     "scrape-recipe-suggest-bulk-importer": "Próbálja ki a tömeges importálót",
     "scrape-recipe-have-raw-html-or-json-data": "Nyers HTML vagy JSON adatai vannak?",
@@ -888,14 +889,17 @@
     "server-side-base-url-error-text": "A 'BASE_URL` továbbra is az alapértelmezett érték az API-kiszolgálón. Ez problémákat okoz az e-mailekhez stb. a szerveren generált értesítési linkeknél.",
     "server-side-base-url-success-text": "A kiszolgálóoldali URL nem egyezik az alapértelmezettel",
     "ldap-ready": "LDAP-kész",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Nem minden LDAP-érték van beállítva. Ezt figyelmen kívül lehet hagyni, ha nem használ LDAP-hitelesítést.",
     "ldap-ready-success-text": "A szükséges LDAP-változók mind beállítva.",
     "build": "Build",
     "recipe-scraper-version": "Receptkinyerő verziója",
     "oidc-ready": "OIDC készen áll",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Nem minden OIDC érték van beállítva. Ezt figyelmen kívül lehet hagyni ha nem használ OIDC hitelesítést.",
     "oidc-ready-success-text": "A szükséges OIDC változók mind beállítva.",
     "openai-ready": "OpenAI készen áll",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Nem minden OpenAI érték van beállítva. Ez figyelmen kívül hagyható, ha nem használja az OpenAI funkcióit.",
     "openai-ready-success-text": "Minden szükséges OpenAI változó beállítva."
   },
@@ -903,6 +907,7 @@
     "all-lists": "Összes lista",
     "create-shopping-list": "Bevásárlólista készítése",
     "from-recipe": "Receptből",
+    "ingredient-of-recipe": "{recipe} hozzávalók",
     "list-name": "Lista Neve",
     "new-list": "Új lista",
     "quantity": "Mennyiség: {0}",
@@ -1134,7 +1139,22 @@
       "example-unit-singular": "pl. Evőkanál",
       "example-unit-plural": "pl. Evőkanalak",
       "example-unit-abbreviation-singular": "pl. ek",
-      "example-unit-abbreviation-plural": "pl. ek"
+      "example-unit-abbreviation-plural": "pl. ek",
+      "standardization": "Standardizálás",
+      "standardization-description": "Hogyan jeleníthető meg ez az egység szabványos egységként. Ez lehetővé teszi az olyan funkciókat, mint a kompatibilis egységek összevonása a bevásárlólistákon.",
+      "standard-unit": "Standard egység",
+      "standard-quantity": "Standard mennyiség",
+      "unit-conversion": "Mértékegység‑átváltás",
+      "standard-unit-labels": {
+        "fluid-ounce": "folyadék uncia",
+        "cup": "csésze",
+        "ounce": "uncia",
+        "pound": "font",
+        "milliliter": "milliliter",
+        "liter": "liter",
+        "gram": "gramm",
+        "kilogram": "kilogramm"
+      }
     },
     "labels": {
       "seed-dialog-text": "Töltse be az Ön nyelve szerinti közös címkélet tartalmazó adatbázist.",
@@ -1168,7 +1188,11 @@
       "recipe-actions-data": "Receptekkel kapcsolatos tevékenységek adatai",
       "new-recipe-action": "Új recept tevékenység",
       "edit-recipe-action": "Recept tevékenység szerkesztése",
-      "action-type": "Művelet típusa"
+      "action-type": "Művelet típusa",
+      "action-types": {
+        "link": "Hivatkozás",
+        "post": "Közzététel"
+      }
     },
     "create-alias": "Alias készítése",
     "manage-aliases": "Alias kezelése",
@@ -1422,7 +1446,9 @@
       "is-greater-than": "nagyobb, mint",
       "is-greater-than-or-equal-to": "nagyobb vagy egyenlő",
       "is-less-than": "kevesebb, mint",
-      "is-less-than-or-equal-to": "kevesebb vagy egyenlő"
+      "is-less-than-or-equal-to": "kevesebb vagy egyenlő",
+      "is-older-than": "régebbi, mint",
+      "is-newer-than": "újabb, mint"
     },
     "relational-keywords": {
       "is": "van",
@@ -1432,6 +1458,9 @@
       "contains-all-of": "tartalmazza az összes",
       "is-like": "hasonló",
       "is-not-like": "nem hasonló"
+    },
+    "dates": {
+      "days-ago": "napja|napja|napja"
     }
   },
   "validators": {
@@ -1440,6 +1469,6 @@
     "invalid-url": "Érvényes URL-nek kell lennie",
     "no-whitespace": "Szóközt nem tartalmazhat",
     "min-length": "Legalább {min} karakter legyen",
-    "max-length": "Legfeljebb {max} karakter legyen"
+    "max-length": "Legfeljebb {max} karakter lehet|Legfeljebb {max} karakter lehet"
   }
 }

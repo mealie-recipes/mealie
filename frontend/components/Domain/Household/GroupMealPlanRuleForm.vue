@@ -76,7 +76,6 @@ const MEAL_DAY_OPTIONS = [
 ];
 
 function handleQueryFilterInput(value: string | undefined) {
-  console.warn("handleQueryFilterInput called with value:", value);
   queryFilterString.value = value || "";
 }
 
@@ -114,7 +113,7 @@ const fieldDefs: FieldDefinition[] = [
   {
     name: "last_made",
     label: i18n.t("general.last-made"),
-    type: "date",
+    type: "relativeDate",
   },
   {
     name: "created_at",

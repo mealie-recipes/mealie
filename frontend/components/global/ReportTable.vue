@@ -27,54 +27,46 @@
   </v-data-table>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { ReportSummary } from "~/lib/api/types/reports";
 
-export default defineNuxtComponent({
-  props: {
-    items: {
-      required: true,
-      type: Array as () => Array<ReportSummary>,
-    },
-  },
-  emits: ["delete"],
-
-  setup(_, context) {
-    const i18n = useI18n();
-    const router = useRouter();
-
-    const headers = [
-      { title: i18n.t("category.category"), value: "category", key: "category" },
-      { title: i18n.t("general.name"), value: "name", key: "name" },
-      { title: i18n.t("general.timestamp"), value: "timestamp", key: "timestamp" },
-      { title: i18n.t("general.status"), value: "status", key: "status" },
-      { title: i18n.t("general.delete"), value: "actions", key: "actions" },
-    ];
-
-    function handleRowClick(item: ReportSummary) {
-      if (item.status === "in-progress") {
-        return;
-      }
-
-      router.push(`/group/reports/${item.id}`);
-    }
-
-    function capitalize(str: string) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    }
-
-    function deleteReport(id: string) {
-      context.emit("delete", id);
-    }
-
-    return {
-      headers,
-      handleRowClick,
-      capitalize,
-      deleteReport,
-    };
+defineProps({
+  items: {
+    type: Array as () => Array<ReportSummary>,
+    required: true,
   },
 });
+
+const emit = defineEmits<{
+  (e: "delete", id: string): void;
+}>();
+
+const i18n = useI18n();
+const router = useRouter();
+
+const headers = [
+  { title: i18n.t("category.category"), value: "category", key: "category" },
+  { title: i18n.t("general.name"), value: "name", key: "name" },
+  { title: i18n.t("general.timestamp"), value: "timestamp", key: "timestamp" },
+  { title: i18n.t("general.status"), value: "status", key: "status" },
+  { title: i18n.t("general.delete"), value: "actions", key: "actions" },
+];
+
+function handleRowClick(item: ReportSummary) {
+  if (item.status === "in-progress") {
+    return;
+  }
+
+  router.push(`/group/reports/${item.id}`);
+}
+
+function capitalize(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+function deleteReport(id: string) {
+  emit("delete", id);
+}
 </script>
 
 <style lang="scss" scoped></style>

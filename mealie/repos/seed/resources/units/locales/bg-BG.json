@@ -18,13 +18,13 @@
         "abbreviation": "ч.ч."
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "течни унции",
         "plural_name": "течни унции",
         "description": "",
-        "abbreviation": "fl oz"
+        "abbreviation": "течна унция"
     },
     "pint": {
-        "name": "pint",
+        "name": "пинта",
         "plural_name": "пинти",
         "description": "",
         "abbreviation": "pt"
@@ -139,8 +139,8 @@
         "abbreviation": ""
     },
     "sprig": {
-        "name": "sprig",
-        "plural_name": "sprigs",
+        "name": "клонче",
+        "plural_name": "клончета",
         "description": "",
         "abbreviation": ""
     }
