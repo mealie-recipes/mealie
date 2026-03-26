@@ -159,30 +159,30 @@
 
     <!-- Site Statistics -->
     <section>
-    <BaseCardSectionTitle
+      <BaseCardSectionTitle
         class="pt-2"
         :icon="$globals.icons.chart"
         :title="$t('settings.site-statistics')"
-    />
-    <div
+      />
+      <div
         class="d-flex flex-wrap justify-center align-center"
         style="gap: 0.8rem"
-    >
+      >
         <StatsCards
-        v-for="(value, key) in adminStats"
-        :key="`${key}-${value}`"
-        :min-width="$vuetify.display.xs ? '100%' : '158'"
-        :icon="getAdminStatsIcon(key)"
-        :to="getAdminStatsTo(key)"
+          v-for="(value, key) in adminStats"
+          :key="`${key}-${value}`"
+          :min-width="$vuetify.display.xs ? '100%' : '158'"
+          :icon="getAdminStatsIcon(key)"
+          :to="getAdminStatsTo(key)"
         >
-        <template #title>
+          <template #title>
             {{ getAdminStatsTitle(key) }}
-        </template>
-        <template #value>
+          </template>
+          <template #value>
             {{ value }}
-        </template>
+          </template>
         </StatsCards>
-    </div>
+      </div>
     </section>
 
     <!-- General App Info -->
@@ -334,11 +334,11 @@ const adminStatsText: { [key: string]: string } = {
   uncategorizedRecipes: i18n.t("settings.uncategorized-recipes"),
   untaggedRecipes: i18n.t("settings.untagged-recipes"),
 };
- 
+
 function getAdminStatsTitle(key: string) {
   return adminStatsText[key] ?? key;
 }
- 
+
 const adminStatsIcon: { [key: string]: string } = {
   totalRecipes: $globals.icons.primary,
   totalUsers: $globals.icons.user,
@@ -347,7 +347,7 @@ const adminStatsIcon: { [key: string]: string } = {
   uncategorizedRecipes: $globals.icons.categories,
   untaggedRecipes: $globals.icons.tags,
 };
- 
+
 function getAdminStatsIcon(key: string) {
   return adminStatsIcon[key] ?? $globals.icons.primary;
 }
