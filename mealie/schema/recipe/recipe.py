@@ -296,23 +296,6 @@ class Recipe(RecipeSummary):
     def validate_nutrition(cls, v):
         return v or None
 
-    @field_validator("notes", mode="before")
-    def validate_notes(cls, v):
-        """Transform notes from various formats to RecipeNote objects"""
-        if not v:
-            return []
-
-        if isinstance(v, list) and v:
-            # If already RecipeNote objects, return as-is
-            if hasattr(v[0], "__class__") and v[0].__class__.__name__ == "RecipeNote":
-                return v
-
-            # If dict objects, transform to RecipeNote
-            if isinstance(v[0], dict):
-                return [RecipeNote(**note) for note in v if "title" in note and "text" in note]
-
-        return v if isinstance(v, list) else []
-
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
