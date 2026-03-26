@@ -26,6 +26,8 @@ def preferences_generator():
         data_export=random_bool(),
         data_import=random_bool(),
         mealplan_entry_created=random_bool(),
+        mealplan_entry_updated=random_bool(),
+        mealplan_entry_deleted=random_bool(),
         shopping_list_created=random_bool(),
         shopping_list_updated=random_bool(),
         shopping_list_deleted=random_bool(),

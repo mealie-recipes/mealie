@@ -30,6 +30,8 @@ class GroupEventNotifierOptions(MealieModel):
     data_import: bool = False
 
     mealplan_entry_created: bool = False
+    mealplan_entry_updated: bool = False
+    mealplan_entry_deleted: bool = False
 
     shopping_list_created: bool = False
     shopping_list_updated: bool = False

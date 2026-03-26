@@ -29,6 +29,8 @@ class GroupEventNotifierOptionsModel(SqlAlchemyBase, BaseMixins):
     data_import: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
 
     mealplan_entry_created: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    mealplan_entry_updated: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
+    mealplan_entry_deleted: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
 
     shopping_list_created: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
     shopping_list_updated: Mapped[bool] = mapped_column(Boolean, default=False, nullable=False)
