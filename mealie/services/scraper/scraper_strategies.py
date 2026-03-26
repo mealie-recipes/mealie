@@ -239,11 +239,14 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
             cleaned_notes = []
             for note in notes_data:
-                if isinstance(note, dict) and "title" in note and "text" in note:
+                if not isinstance(note, dict):
+                    continue
+
+                if text := note.get("text"):
                     cleaned_notes.append(
                         RecipeNote(
                             title=cleaner.clean_string(note.get("title", "")),
-                            text=cleaner.clean_string(note.get("text", "")),
+                            text=cleaner.clean_string(text),
                         )
                     )
 
