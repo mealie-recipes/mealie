@@ -901,10 +901,7 @@
         "openai-ready": "OpenAI Ready",
         "openai-not-ready": "OpenAI Not Ready",
         "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-        "openai-ready-success-text": "Required OpenAI variables are all set.",
-        "site-statistics": "Site Statistics",
-        "uncategorized-recipes": "Uncategorized Recipes",
-        "untagged-recipes": "Untagged Recipes"
+        "openai-ready-success-text": "Required OpenAI variables are all set."
     },
     "shopping-list": {
         "all-lists": "All Lists",
