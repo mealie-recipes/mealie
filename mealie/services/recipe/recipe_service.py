@@ -490,6 +490,8 @@ class RecipeService(RecipeServiceBase):
                         if ref.reference_id in current_ingredient_reference_ids
                     ]
 
+        return update_data
+
     def _resolve_ingredient_sub_recipes(self, update_data: Recipe) -> Recipe:
         """Resolve all referenced_recipe slugs to IDs within the current group."""
         if not update_data.recipe_ingredient:
