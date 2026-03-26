@@ -149,7 +149,6 @@ async function createToken(name: string) {
   loading.value = true;
 
   if (domNewTokenForm?.value?.validate()) {
-    console.log("Created");
     return;
   }
 
