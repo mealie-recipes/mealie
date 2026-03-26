@@ -162,7 +162,7 @@
       <BaseCardSectionTitle
         class="pb-0"
         :icon="$globals.icons.chart"
-        :title="$t('TODO.site-statistics')"
+        :title="$t('settings.site-statistics')"
       />
         <div
           class="d-flex flex-wrap justify-center align-center"
@@ -331,8 +331,8 @@ const adminStatsText: { [key: string]: string } = {
   totalUsers: i18n.t("user.users"),
   totalHouseholds: i18n.t("household.households"),
   totalGroups: i18n.t("group.groups"),
-  uncategorizedRecipes: i18n.t("TODO.uncategorized-recipes"),
-  untaggedRecipes: i18n.t("TODO.untagged-recipes"),
+  uncategorizedRecipes: i18n.t("settings.uncategorized-recipes"),
+  untaggedRecipes: i18n.t("settings.untagged-recipes"),
 };
  
 function getAdminStatsTitle(key: string) {
