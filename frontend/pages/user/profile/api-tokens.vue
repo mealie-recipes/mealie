@@ -148,7 +148,7 @@ async function createToken(name: string) {
 
   loading.value = true;
 
-  if (domNewTokenForm?.value?.validate()) {
+  if (!domNewTokenForm?.value?.validate()) {
     return;
   }
 
