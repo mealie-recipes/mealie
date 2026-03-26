@@ -19,7 +19,17 @@
             "yields": "Raciones"
         },
         "and-amount": "y {amount}",
-        "or-ingredient": "o {ingredient}"
+        "or-ingredient": "o {ingredient}",
+        "create-progress": {
+            "creating-recipe-with-ai": "Creando receta con IA...",
+            "creating-recipe-from-transcript-with-ai": "Creando receta a partir de la transcripción con IA...",
+            "creating-recipe-from-webpage-data": "Creando receta a partir de datos de la página web...",
+            "downloading-image": "Descargando imagen...",
+            "downloading-video": "Descargando video...",
+            "extracting-recipe-data": "Extrayendo datos de la receta...",
+            "fetching-webpage": "Buscando página web...",
+            "transcribing-audio-with-ai": "Transcribiendo audio con IA..."
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "No hay recetas que coincidan con tus reglas"

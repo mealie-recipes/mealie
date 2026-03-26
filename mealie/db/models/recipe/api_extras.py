@@ -9,7 +9,7 @@ def api_extras(func):
     """Decorator function to unpack the extras into a dict; requires an "extras" column"""
 
     def wrapper(*args, **kwargs):
-        extras = kwargs.pop("extras")
+        extras = kwargs.pop("extras", None)
 
         if extras is None:
             extras = []

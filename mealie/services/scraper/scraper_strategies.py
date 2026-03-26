@@ -3,7 +3,7 @@ import functools
 import re
 import time
 from abc import ABC, abstractmethod
-from collections.abc import Callable
+from collections.abc import Awaitable, Callable
 from pathlib import Path
 from typing import Any, TypedDict
 
@@ -32,9 +32,16 @@ from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
-from .user_agents_manager import get_user_agents_manager
 
 SCRAPER_TIMEOUT = 15
+
+BROWSER_IMPERSONATIONS = [
+    "chrome",
+    "firefox",
+    "safari",
+    "edge",
+]
+
 logger = get_logger()
 
 
@@ -51,28 +58,39 @@ class ForceTimeoutException(Exception):
 async def safe_scrape_html(url: str) -> str:
     """
     Scrapes the html from a url but will cancel the request
-    if the request takes longer than 15 seconds. This is used to mitigate
+    if the request takes longer than SCRAPER_TIMEOUT seconds. This is used to mitigate
     DDOS attacks from users providing a url with arbitrary large content.
+
+    Cycles through browser TLS impersonations (via httpx-curl-cffi) to bypass
+    bot-detection systems that fingerprint the TLS handshake (JA3/JA4),
+    such as Cloudflare.
     """
-    user_agents_manager = get_user_agents_manager()
-
     logger.debug(f"Scraping URL: {url}")
-    async with AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
-        for user_agent in user_agents_manager.user_agents:
-            logger.debug(f'Trying User-Agent: "{user_agent}"')
 
-            response: Response | None = None
-            html_bytes = b""
+    html_bytes = b""
+    response: Response | None = None
+
+    for impersonation in BROWSER_IMPERSONATIONS:
+        logger.debug(f'Trying browser impersonation: "{impersonation}"')
+
+        html_bytes = b""
+        response = None
+
+        transport = safehttp.AsyncSafeTransport(impersonate=impersonation)
+        async with AsyncClient(transport=transport) as client:
             async with client.stream(
                 "GET",
                 url,
                 timeout=SCRAPER_TIMEOUT,
-                headers=user_agents_manager.get_scrape_headers(user_agent),
                 follow_redirects=True,
             ) as resp:
-                if resp.status_code >= status.HTTP_400_BAD_REQUEST:
-                    logger.debug(f'Error status code {resp.status_code} with User-Agent: "{user_agent}"')
+                if resp.status_code == 403:
+                    logger.debug(f'403 Forbidden with impersonation "{impersonation}", trying next')
                     continue
+
+                if resp.status_code >= 400:
+                    logger.debug(f'Error status code {resp.status_code} with impersonation "{impersonation}"')
+                    break
 
                 start_time = time.time()
 
@@ -85,33 +103,32 @@ async def safe_scrape_html(url: str) -> str:
                 response = resp
                 break
 
-        if not (response and html_bytes):
-            return ""
+    if not (response and html_bytes):
+        return ""
 
-        # =====================================
-        # Copied from requests text property
+    # =====================================
+    # Copied from requests text property
 
-        # Try charset from content-type
-        content = None
-        encoding = response.encoding
+    # Try charset from content-type
+    encoding = response.encoding
 
-        # Fallback to auto-detected encoding.
-        if encoding is None:
-            encoding = response.apparent_encoding
+    # Fallback to auto-detected encoding.
+    if encoding is None:
+        encoding = response.apparent_encoding
 
-        # Decode unicode from given encoding.
-        try:
-            content = str(html_bytes, encoding, errors="replace")
-        except (LookupError, TypeError):
-            # A LookupError is raised if the encoding was not found which could
-            # indicate a misspelling or similar mistake.
-            #
-            # A TypeError can be raised if encoding is None
-            #
-            # So we try blindly encoding.
-            content = str(html_bytes, errors="replace")
+    # Decode unicode from given encoding.
+    try:
+        content = str(html_bytes, encoding, errors="replace")
+    except (LookupError, TypeError):
+        # A LookupError is raised if the encoding was not found which could
+        # indicate a misspelling or similar mistake.
+        #
+        # A TypeError can be raised if encoding is None
+        #
+        # So we try blindly encoding.
+        content = str(html_bytes, errors="replace")
 
-        return content
+    return content
 
 
 class ABCScraperStrategy(ABC):
@@ -139,7 +156,9 @@ class ABCScraperStrategy(ABC):
     async def get_html(self, url: str) -> str: ...
 
     @abstractmethod
-    async def parse(self) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    async def parse(
+        self, on_progress: Callable[[str], Awaitable[None]] | None = None
+    ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         """Parse a recipe from a web URL.
 
         Args:
@@ -276,10 +295,14 @@ class RecipeScraperPackage(ABCScraperStrategy):
         self.logger.debug(f"Recipe Scraper [Package] was unable to extract a recipe from {self.url}")
         return None
 
-    async def parse(self):
+    async def parse(self, on_progress: Callable[[str], Awaitable[None]] | None = None):
         """
         Parse a recipe from a given url.
         """
+
+        if on_progress:
+            await on_progress(self.translator.t("recipe.create-progress.extracting-recipe-data"))
+
         scraped_data = await self.scrape_url()
 
         if scraped_data is None:
@@ -376,6 +399,12 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
             self.logger.exception(f"OpenAI was unable to extract a recipe from {url}")
             return ""
 
+    async def parse(self, on_progress: Callable[[str], Awaitable[None]] | None = None):
+        if on_progress:
+            await on_progress(self.translator.t("recipe.create-progress.creating-recipe-with-ai"))
+
+        return super().parse()
+
 
 class TranscribedAudio(TypedDict):
     audio: Path
@@ -468,10 +497,16 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
     async def get_html(self, url: str) -> str:
         return self.raw_html or ""  # we don't use HTML with this scraper since we use ytdlp
 
-    async def parse(self) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    async def parse(
+        self,
+        on_progress: Callable[[str], Awaitable[None]] | None = None,
+    ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         openai_service = OpenAIService()
 
         with get_temporary_path() as temp_path:
+            if on_progress:
+                await on_progress(self.translator.t("recipe.create-progress.downloading-video"))
+
             video_data = await asyncio.to_thread(self._download_audio, temp_path)
 
             if video_data["subtitle"]:
@@ -485,6 +520,9 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
                     video_data["transcription"] = ""
 
             if not video_data["transcription"]:
+                if on_progress:
+                    await on_progress(self.translator.t("recipe.create-progress.transcribing-audio-with-ai"))
+
                 try:
                     transcription = await openai_service.transcribe_audio(video_data["audio"])
                 except exceptions.RateLimitError:
@@ -507,6 +545,9 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             f"Description: {video_data['description']}",
             f"Transcription: {video_data['transcription']}",
         ]
+
+        if on_progress:
+            await on_progress(self.translator.t("recipe.create-progress.creating-recipe-from-transcript-with-ai"))
 
         try:
             response = await openai_service.get_response(prompt, "\n".join(message_parts), response_schema=OpenAIRecipe)
@@ -586,10 +627,17 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
             "extras": [],
         }
 
-    async def parse(self):
+    async def parse(
+        self,
+        on_progress: Callable[[str], Awaitable[None]] | None = None,
+    ):
         """
         Parse a recipe from a given url.
         """
+
+        if on_progress:
+            await on_progress(self.translator.t("recipe.create-progress.creating-recipe-from-webpage-data"))
+
         html = await self.get_html(self.url)
 
         og_data = self.get_recipe_fields(html)

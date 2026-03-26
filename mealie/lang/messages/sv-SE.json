@@ -15,11 +15,21 @@
             "serves": "Portioner",
             "serving": "Portion",
             "servings": "Portioner",
-            "yield": "Ger",
-            "yields": "Ger"
+            "yield": "Mängd",
+            "yields": "Mängd"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}"
+        "and-amount": "och {amount}",
+        "or-ingredient": "eller {ingredient}",
+        "create-progress": {
+            "creating-recipe-with-ai": "Skapa recept med hjälp av AI...",
+            "creating-recipe-from-transcript-with-ai": "Skapar recept baserat på transkription med AI...",
+            "creating-recipe-from-webpage-data": "Skapar recept med hjälp av data från hemsida...",
+            "downloading-image": "Laddar ned bild...",
+            "downloading-video": "Laddar ned video...",
+            "extracting-recipe-data": "Extraherar recept...",
+            "fetching-webpage": "Hämtar hemsida...",
+            "transcribing-audio-with-ai": "Transkriberar ljud med hjälp av AI..."
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Inga recept matchar dina regler"

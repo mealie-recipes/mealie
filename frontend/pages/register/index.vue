@@ -298,7 +298,7 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useDark } from "@vueuse/core";
 import { States, RegistrationType, useRegistration } from "./states";
 import { useUserRegistrationForm } from "~/composables/use-users/user-registration-form";
@@ -307,239 +307,193 @@ import { validators, useAsyncValidator } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import type { CreateUserRegistration } from "~/lib/api/types/user";
-import { usePasswordField } from "~/composables/use-passwords";
 import { usePublicApi } from "~/composables/api/api-client";
 import { useLocales } from "~/composables/use-locales";
 import UserRegistrationForm from "~/components/Domain/User/UserRegistrationForm.vue";
 import type { VForm } from "~/types/auto-forms";
+
+definePageMeta({
+  layout: "blank",
+});
 
 const inputAttrs = {
   variant: "filled",
   validateOnBlur: true,
 };
 
-export default defineNuxtComponent({
-  components: { UserRegistrationForm },
-  setup() {
-    definePageMeta({
-      layout: "blank",
-    });
+const i18n = useI18n();
+const isDark = useDark();
 
-    const i18n = useI18n();
-    const isDark = useDark();
+function safeValidate(form: Ref<VForm | null>) {
+  if (form.value && form.value.validate) {
+    return form.value.validate();
+  }
+  return false;
+}
 
-    function safeValidate(form: Ref<VForm | null>) {
-      if (form.value && form.value.validate) {
-        return form.value.validate();
-      }
-      return false;
-    }
-    // ================================================================
-    // Registration Context
-    //
-    // State is used to manage the registration process states and provide
-    // a state machine esq interface to interact with the registration workflow.
-    const state = useRegistration();
-    // ================================================================
-    // Handle Token URL / Initialization
-    //
-    const token = useRouteQuery("token");
-    // TODO: We need to have some way to check to see if the site is in a state
-    // Where it needs to be initialized with a user, in that case we'll handle that
-    // somewhere...
-    function initialUser() {
-      return false;
-    }
-    onMounted(() => {
-      if (token.value) {
-        state.setState(States.ProvideAccountDetails);
-        state.setType(RegistrationType.JoinGroup);
-      }
-      if (initialUser()) {
-        state.setState(States.ProvideGroupDetails);
-        state.setType(RegistrationType.InitialGroup);
-      }
-    });
-    // ================================================================
-    // Initial
-    const initial = {
-      createGroup: () => {
-        state.setState(States.ProvideGroupDetails);
-        state.setType(RegistrationType.CreateGroup);
-        if (token.value != null) {
-          token.value = null;
-        }
-      },
-      joinGroup: () => {
-        state.setState(States.ProvideToken);
-        state.setType(RegistrationType.JoinGroup);
-      },
-    };
-    // ================================================================
-    // Provide Token
-    const domTokenForm = ref<VForm | null>(null);
-    function validateToken() {
-      return true;
-    }
-    const provideToken = {
-      next: () => {
-        if (!safeValidate(domTokenForm as Ref<VForm>)) {
-          return;
-        }
-        if (validateToken()) {
-          state.setState(States.ProvideAccountDetails);
-        }
-      },
-    };
-    // ================================================================
-    // Provide Group Details
-    const publicApi = usePublicApi();
-    const domGroupForm = ref<VForm | null>(null);
-    const groupName = ref("");
-    const groupSeed = ref(false);
-    const groupPrivate = ref(false);
-    const groupErrorMessages = ref<string[]>([]);
-    const { validate: validGroupName, valid: groupNameValid } = useAsyncValidator(
-      groupName,
-      (v: string) => publicApi.validators.group(v),
-      i18n.t("validation.group-name-is-taken"),
-      groupErrorMessages,
-    );
-    const groupDetails = {
-      groupName,
-      groupSeed,
-      groupPrivate,
-      next: () => {
-        if (!safeValidate(domGroupForm as Ref<VForm>) || !groupNameValid.value) {
-          return;
-        }
-        state.setState(States.ProvideAccountDetails);
-      },
-    };
-    const pwFields = usePasswordField();
-    const {
-      accountDetails,
-      credentials,
-      domAccountForm,
-      emailErrorMessages,
-      usernameErrorMessages,
-      validateUsername,
-      validateEmail,
-    } = useUserRegistrationForm();
-    async function accountDetailsNext() {
-      if (!await accountDetails.validate()) {
-        return;
-      }
-      state.setState(States.Confirmation);
-    }
-    // ================================================================
-    // Locale
-    const { locale } = useLocales();
-    const langDialog = ref(false);
-    // ================================================================
-    // Confirmation
-    const confirmationData = computed(() => {
-      return [
-        {
-          display: state.ctx.type === RegistrationType.CreateGroup,
-          text: i18n.t("group.group"),
-          value: groupName.value,
-        },
-        {
-          display: state.ctx.type === RegistrationType.CreateGroup,
-          text: i18n.t("data-pages.seed-data"),
-          value: groupSeed.value ? i18n.t("general.yes") : i18n.t("general.no"),
-        },
-        {
-          display: state.ctx.type === RegistrationType.CreateGroup,
-          text: i18n.t("group.settings.keep-my-recipes-private"),
-          value: groupPrivate.value ? i18n.t("general.yes") : i18n.t("general.no"),
-        },
-        {
-          display: true,
-          text: i18n.t("user.email"),
-          value: accountDetails.email.value,
-        },
-        {
-          display: true,
-          text: i18n.t("user.full-name"),
-          value: accountDetails.fullName.value,
-        },
-        {
-          display: true,
-          text: i18n.t("user.username"),
-          value: accountDetails.username.value,
-        },
-        {
-          display: true,
-          text: i18n.t("user.enable-advanced-content"),
-          value: accountDetails.advancedOptions.value ? i18n.t("general.yes") : i18n.t("general.no"),
-        },
-      ];
-    });
-    const api = useUserApi();
-    const router = useRouter();
-    async function submitRegistration() {
-      const payload: CreateUserRegistration = {
-        email: accountDetails.email.value,
-        username: accountDetails.username.value,
-        fullName: accountDetails.fullName.value,
-        password: credentials.password1.value,
-        passwordConfirm: credentials.password2.value,
-        locale: locale.value,
-        advanced: accountDetails.advancedOptions.value,
-      };
-      if (state.ctx.type === RegistrationType.CreateGroup) {
-        payload.group = groupName.value;
-        payload.private = groupPrivate.value;
-        payload.seedData = groupSeed.value;
-      }
-      else {
-        payload.groupToken = token.value;
-      }
-      const { response } = await api.register.register(payload);
-      if (response?.status === 201) {
-        accountDetails.reset();
-        credentials.reset();
-        alert.success(i18n.t("user-registration.registration-success"));
-        router.push("/login");
-      }
-      else {
-        alert.error(i18n.t("events.something-went-wrong"));
-      }
-    }
-    return {
-      accountDetails,
-      accountDetailsNext,
-      confirmationData,
-      credentials,
-      emailErrorMessages,
-      groupDetails,
-      groupErrorMessages,
-      initial,
-      inputAttrs,
-      isDark,
-      langDialog,
-      provideToken,
-      pwFields,
-      RegistrationType,
-      state,
-      States,
-      token,
-      usernameErrorMessages,
-      validators,
-      submitRegistration,
-      // Validators
-      validGroupName,
-      validateUsername,
-      validateEmail,
-      // Dom Refs
-      domAccountForm,
-      domGroupForm,
-      domTokenForm,
-    };
-  },
+// Registration Context
+const state = useRegistration();
+
+// Handle Token URL / Initialization
+const token = useRouteQuery("token");
+function initialUser() {
+  return false;
+}
+onMounted(() => {
+  if (token.value) {
+    state.setState(States.ProvideAccountDetails);
+    state.setType(RegistrationType.JoinGroup);
+  }
+  if (initialUser()) {
+    state.setState(States.ProvideGroupDetails);
+    state.setType(RegistrationType.InitialGroup);
+  }
 });
+
+// Initial
+const initial = {
+  createGroup: () => {
+    state.setState(States.ProvideGroupDetails);
+    state.setType(RegistrationType.CreateGroup);
+    if (token.value != null) {
+      token.value = null;
+    }
+  },
+  joinGroup: () => {
+    state.setState(States.ProvideToken);
+    state.setType(RegistrationType.JoinGroup);
+  },
+};
+
+// Provide Token
+const domTokenForm = ref<VForm | null>(null);
+function validateToken() {
+  return true;
+}
+const provideToken = {
+  next: () => {
+    if (!safeValidate(domTokenForm as Ref<VForm>)) {
+      return;
+    }
+    if (validateToken()) {
+      state.setState(States.ProvideAccountDetails);
+    }
+  },
+};
+
+// Provide Group Details
+const publicApi = usePublicApi();
+const domGroupForm = ref<VForm | null>(null);
+const groupName = ref("");
+const groupSeed = ref(false);
+const groupPrivate = ref(false);
+const groupErrorMessages = ref<string[]>([]);
+const { validate: validGroupName, valid: groupNameValid } = useAsyncValidator(
+  groupName,
+  (v: string) => publicApi.validators.group(v),
+  i18n.t("validation.group-name-is-taken"),
+  groupErrorMessages,
+);
+const groupDetails = {
+  groupName,
+  groupSeed,
+  groupPrivate,
+  next: () => {
+    if (!safeValidate(domGroupForm as Ref<VForm>) || !groupNameValid.value) {
+      return;
+    }
+    state.setState(States.ProvideAccountDetails);
+  },
+};
+
+const {
+  accountDetails,
+  credentials,
+
+} = useUserRegistrationForm();
+async function accountDetailsNext() {
+  if (!await accountDetails.validate()) {
+    return;
+  }
+  state.setState(States.Confirmation);
+}
+
+// Locale
+const { locale } = useLocales();
+const langDialog = ref(false);
+
+// Confirmation
+const confirmationData = computed(() => {
+  return [
+    {
+      display: state.ctx.type === RegistrationType.CreateGroup,
+      text: i18n.t("group.group"),
+      value: groupName.value,
+    },
+    {
+      display: state.ctx.type === RegistrationType.CreateGroup,
+      text: i18n.t("data-pages.seed-data"),
+      value: groupSeed.value ? i18n.t("general.yes") : i18n.t("general.no"),
+    },
+    {
+      display: state.ctx.type === RegistrationType.CreateGroup,
+      text: i18n.t("group.settings.keep-my-recipes-private"),
+      value: groupPrivate.value ? i18n.t("general.yes") : i18n.t("general.no"),
+    },
+    {
+      display: true,
+      text: i18n.t("user.email"),
+      value: accountDetails.email.value,
+    },
+    {
+      display: true,
+      text: i18n.t("user.full-name"),
+      value: accountDetails.fullName.value,
+    },
+    {
+      display: true,
+      text: i18n.t("user.username"),
+      value: accountDetails.username.value,
+    },
+    {
+      display: true,
+      text: i18n.t("user.enable-advanced-content"),
+      value: accountDetails.advancedOptions.value ? i18n.t("general.yes") : i18n.t("general.no"),
+    },
+  ];
+});
+
+const api = useUserApi();
+const router = useRouter();
+async function submitRegistration() {
+  const payload: CreateUserRegistration = {
+    email: accountDetails.email.value,
+    username: accountDetails.username.value,
+    fullName: accountDetails.fullName.value,
+    password: credentials.password1.value,
+    passwordConfirm: credentials.password2.value,
+    locale: locale.value,
+    advanced: accountDetails.advancedOptions.value,
+  };
+  if (state.ctx.type === RegistrationType.CreateGroup) {
+    payload.group = groupName.value;
+    payload.private = groupPrivate.value;
+    payload.seedData = groupSeed.value;
+  }
+  else {
+    payload.groupToken = token.value;
+  }
+  const { response } = await api.register.register(payload);
+  if (response?.status === 201) {
+    accountDetails.reset();
+    credentials.reset();
+    alert.success(i18n.t("user-registration.registration-success"));
+    router.push("/login");
+  }
+  else {
+    alert.error(i18n.t("events.something-went-wrong"));
+  }
+}
 </script>
 
 <style lang="css" scoped>

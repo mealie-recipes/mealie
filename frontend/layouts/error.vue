@@ -48,97 +48,89 @@
   </v-app>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useGlobalI18n } from "~/composables/use-global-i18n";
 
-export default defineNuxtComponent({
-  props: {
-    error: {
-      type: Object,
-      default: null,
-    },
+const props = defineProps({
+  error: {
+    type: Object,
+    default: null,
   },
-  setup(props) {
-    definePageMeta({
-      layout: "basic",
-    });
+});
 
-    const i18n = useGlobalI18n();
-    const auth = useMealieAuth();
-    const { $globals } = useNuxtApp();
-    const ready = ref(false);
+definePageMeta({
+  layout: "basic",
+});
 
-    const route = useRoute();
-    const router = useRouter();
+const i18n = useGlobalI18n();
+const auth = useMealieAuth();
+const { $globals } = useNuxtApp();
+const ready = ref(false);
 
-    async function insertGroupSlugIntoRoute() {
-      const groupSlug = ref(auth.user.value?.groupSlug);
-      if (!groupSlug.value) {
-        return;
-      }
+const route = useRoute();
+const router = useRouter();
 
-      let replaceRoute = false;
-      let routeVal = route.fullPath || "/";
-      if (routeVal[0] !== "/") {
-        routeVal = `/${routeVal}`;
-      }
+async function insertGroupSlugIntoRoute() {
+  const groupSlug = ref(auth.user.value?.groupSlug);
+  if (!groupSlug.value) {
+    return;
+  }
 
-      // replace "recipe" in URL with "r"
-      if (routeVal.includes("/recipe/")) {
-        replaceRoute = true;
-        routeVal = routeVal.replace("/recipe/", "/r/");
-      }
+  let replaceRoute = false;
+  let routeVal = route.fullPath || "/";
+  if (routeVal[0] !== "/") {
+    routeVal = `/${routeVal}`;
+  }
 
-      // insert groupSlug into URL
-      const routeComponents = routeVal.split("/");
-      if (routeComponents.length < 2 || routeComponents[1].toLowerCase() !== "g") {
-        replaceRoute = true;
-        routeVal = `/g/${groupSlug.value}${routeVal}`;
-      }
+  // replace "recipe" in URL with "r"
+  if (routeVal.includes("/recipe/")) {
+    replaceRoute = true;
+    routeVal = routeVal.replace("/recipe/", "/r/");
+  }
 
-      if (replaceRoute) {
-        await router.replace(routeVal);
-      }
-    }
+  // insert groupSlug into URL
+  const routeComponents = routeVal.split("/");
+  if (routeComponents.length < 2 || routeComponents[1].toLowerCase() !== "g") {
+    replaceRoute = true;
+    routeVal = `/g/${groupSlug.value}${routeVal}`;
+  }
 
-    async function handle404() {
-      const normalizedRoute = route.fullPath.replace(/\/$/, "");
-      const newRoute = normalizedRoute.replace(/^\/group\/(mealplan|members|notifiers|webhooks)(\/.*)?$/, "/household/$1$2");
+  if (replaceRoute) {
+    await router.replace(routeVal);
+  }
+}
 
-      if (newRoute !== normalizedRoute) {
-        await router.replace(newRoute);
-      }
-      else {
-        await insertGroupSlugIntoRoute();
-      }
+async function handle404() {
+  const normalizedRoute = route.fullPath.replace(/\/$/, "");
+  const newRoute = normalizedRoute.replace(/^\/group\/(mealplan|members|notifiers|webhooks)(\/.*)?$/, "/household/$1$2");
 
-      ready.value = true;
-    }
+  if (newRoute !== normalizedRoute) {
+    await router.replace(newRoute);
+  }
+  else {
+    await insertGroupSlugIntoRoute();
+  }
 
-    if (props.error.statusCode === 404) {
-      handle404();
-    }
-    else {
-      ready.value = true;
-    }
+  ready.value = true;
+}
 
-    useSeoMeta({
-      title:
+if (props.error.statusCode === 404) {
+  handle404();
+}
+else {
+  ready.value = true;
+}
+
+useSeoMeta({
+  title:
         props.error.statusCode === 404
           ? (i18n.t("page.404-not-found") as string)
           : (i18n.t("page.an-error-occurred") as string),
-    });
-
-    const buttons = [
-      { icon: $globals.icons.home, to: "/", text: i18n.t("general.home") },
-    ];
-
-    return {
-      buttons,
-      ready,
-    };
-  },
 });
+
+const buttons = [
+  { icon: $globals.icons.home, to: "/", text: i18n.t("general.home") },
+];
 </script>
 
 <style scoped>

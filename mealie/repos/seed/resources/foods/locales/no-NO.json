@@ -450,7 +450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bladsalat",
-                "plural_name": "leaf lettuce"
+                "plural_name": "bladsalat"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -487,8 +487,8 @@
                     "corn husk"
                 ],
                 "description": "",
-                "name": "maize",
-                "plural_name": "maize"
+                "name": "mais",
+                "plural_name": "mais"
             },
             "collard greens": {
                 "aliases": [],
@@ -1759,7 +1759,7 @@
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
+                "name": "peanøtt",
                 "plural_name": "peanøtter"
             },
             "chia": {
@@ -2787,8 +2787,8 @@
             "chocolate milk": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk",
-                "plural_name": "chocolate milk"
+                "name": "sjokolademelk",
+                "plural_name": "sjokolademelk"
             },
             "liquid egg substitute": {
                 "aliases": [],
@@ -2908,7 +2908,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "raw milk",
-                "plural_name": "raw milk"
+                "plural_name": "råmelk"
             },
             "lime curd": {
                 "aliases": [],
@@ -3045,8 +3045,8 @@
             "strawberry milk": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry milk",
-                "plural_name": "strawberry milk"
+                "name": "jordbærmelk",
+                "plural_name": "jordbærmelk"
             },
             "ayran": {
                 "aliases": [],
@@ -3247,8 +3247,8 @@
             "coconut yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut yogurt",
-                "plural_name": "coconut yogurts"
+                "name": "kokosnøtt yoghurt",
+                "plural_name": "kokosnøtt yoghurt"
             },
             "non-dairy yogurt": {
                 "aliases": [],
@@ -3283,8 +3283,8 @@
             "rice milk": {
                 "aliases": [],
                 "description": "",
-                "name": "rice milk",
-                "plural_name": "rice milk"
+                "name": "rismelk",
+                "plural_name": "rismelk"
             },
             "vegan sour cream": {
                 "aliases": [],

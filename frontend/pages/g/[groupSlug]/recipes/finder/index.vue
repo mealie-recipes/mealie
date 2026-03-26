@@ -17,7 +17,7 @@
         {{ $t('recipe-finder.recipe-finder-description') }}
       </template>
     </BasePageTitle>
-    <v-container v-if="ready">
+    <v-container v-if="state.ready">
       <v-row>
         <v-col :cols="useMobile ? 12 : 3">
           <v-container class="ma-0 pa-0">
@@ -51,38 +51,38 @@
                 </SearchFilter>
                 <div :class="attrs.searchFilter.filterClass">
                   <v-badge
-                    :model-value="!!queryFilterJSON.parts && queryFilterJSON.parts.length > 0"
+                    :model-value="!!state.queryFilterJSON.parts && state.queryFilterJSON.parts.length > 0"
                     size="small"
                     color="primary"
-                    :content="(queryFilterJSON.parts || []).length"
+                    :content="(state.queryFilterJSON.parts || []).length"
                   >
                     <v-btn
                       size="small"
                       color="accent"
                       dark
-                      @click="queryFilterMenu = !queryFilterMenu"
+                      @click="state.queryFilterMenu = !state.queryFilterMenu"
                     >
                       <v-icon start>
                         {{ $globals.icons.filter }}
                       </v-icon>
                       {{ $t("recipe-finder.other-filters") }}
                       <BaseDialog
-                        v-model="queryFilterMenu"
+                        v-model="state.queryFilterMenu"
                         :title="$t('recipe-finder.other-filters')"
                         :icon="$globals.icons.filter"
                         width="100%"
                         max-width="1100px"
-                        :submit-disabled="!queryFilterEditorValue"
+                        :submit-disabled="!state.queryFilterEditorValue"
                         can-confirm
                         @confirm="saveQueryFilter"
                       >
                         <v-card-text>
                           <QueryFilterBuilder
-                            :key="queryFilterMenuKey"
-                            :initial-query-filter="queryFilterJSON"
+                            :key="state.queryFilterMenuKey"
+                            :initial-query-filter="state.queryFilterJSON"
                             :field-defs="queryFilterBuilderFields"
-                            @input="(value) => queryFilterEditorValue = value"
-                            @input-j-s-o-n="(value) => queryFilterEditorValueJSON = value"
+                            @input="(value) => state.queryFilterEditorValue = value"
+                            @input-j-s-o-n="(value) => state.queryFilterEditorValueJSON = value"
                           />
                         </v-card-text>
                         <template #custom-card-action>
@@ -113,7 +113,7 @@
                 :class="attrs.settings.colClass"
               >
                 <v-menu
-                  v-model="settingsMenu"
+                  v-model="state.settingsMenu"
                   offset-y
                   nudge-bottom="3"
                   :close-on-content-click="false"
@@ -135,7 +135,7 @@
                     <v-card-text>
                       <div>
                         <v-number-input
-                          v-model="settings.maxMissingFoods"
+                          v-model="state.settings.maxMissingFoods"
                           :precision="null"
                           :min="0"
                           control-variant="stacked"
@@ -144,7 +144,7 @@
                           :label="$t('recipe-finder.max-missing-ingredients')"
                         />
                         <v-number-input
-                          v-model="settings.maxMissingTools"
+                          v-model="state.settings.maxMissingTools"
                           :precision="null"
                           :min="0"
                           control-variant="stacked"
@@ -157,7 +157,7 @@
                       <div class="mt-1">
                         <v-checkbox
                           v-if="isOwnGroup"
-                          v-model="settings.includeFoodsOnHand"
+                          v-model="state.settings.includeFoodsOnHand"
                           density="compact"
                           size="small"
                           hide-details
@@ -166,7 +166,7 @@
                         />
                         <v-checkbox
                           v-if="isOwnGroup"
-                          v-model="settings.includeToolsOnHand"
+                          v-model="state.settings.includeToolsOnHand"
                           density="compact"
                           size="small"
                           hide-details
@@ -328,7 +328,7 @@
                     :recipe="item.recipe"
                     :missing-foods="item.missingFoods"
                     :missing-tools="item.missingTools"
-                    :disable-checkbox="loading"
+                    :disable-checkbox="state.loading"
                     @add-food="addFood"
                     @remove-food="removeFood"
                     @add-tool="addTool"
@@ -356,7 +356,7 @@
                     :recipe="item.recipe"
                     :missing-foods="item.missingFoods"
                     :missing-tools="item.missingTools"
-                    :disable-checkbox="loading"
+                    :disable-checkbox="state.loading"
                     @add-food="addFood"
                     @remove-food="removeFood"
                     @add-tool="addTool"
@@ -366,7 +366,7 @@
               </v-col>
             </v-row>
           </v-container>
-          <v-container v-else-if="!recipesReady">
+          <v-container v-else-if="!state.recipesReady">
             <v-row>
               <v-col
                 cols="12"
@@ -411,7 +411,7 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { watchDebounced } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
 import { usePublicExploreApi } from "~/composables/api/api-client";
@@ -431,279 +431,257 @@ interface RecipeSuggestions {
   missingItems: RecipeSuggestionResponseItem[];
 }
 
-export default defineNuxtComponent({
-  components: { QueryFilterBuilder, RecipeSuggestion, SearchFilter },
-  setup() {
-    const display = useDisplay();
-    const i18n = useI18n();
-    const auth = useMealieAuth();
-    const route = useRoute();
+const display = useDisplay();
+const i18n = useI18n();
+const auth = useMealieAuth();
+const route = useRoute();
 
-    useSeoMeta({
-      title: i18n.t("recipe-finder.recipe-finder"),
-    });
+useSeoMeta({
+  title: i18n.t("recipe-finder.recipe-finder"),
+});
 
-    const useMobile = computed(() => display.smAndDown.value);
+const useMobile = computed(() => display.smAndDown.value);
 
-    const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
-    const { isOwnGroup } = useLoggedInState();
-    const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
+const { isOwnGroup } = useLoggedInState();
+const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
 
-    const preferences = useRecipeFinderPreferences();
-    const state = reactive({
-      ready: false,
-      loading: false,
-      recipesReady: false,
-      settingsMenu: false,
-      queryFilterMenu: false,
-      queryFilterMenuKey: 0,
-      queryFilterEditorValue: "",
-      queryFilterEditorValueJSON: {},
-      queryFilterJSON: preferences.value.queryFilterJSON,
-      settings: {
-        maxMissingFoods: preferences.value.maxMissingFoods,
-        maxMissingTools: preferences.value.maxMissingTools,
-        includeFoodsOnHand: preferences.value.includeFoodsOnHand,
-        includeToolsOnHand: preferences.value.includeToolsOnHand,
-        queryFilter: preferences.value.queryFilter,
-        limit: 20,
-      },
-    });
-
-    onMounted(() => {
-      if (!isOwnGroup.value) {
-        state.settings.includeFoodsOnHand = false;
-        state.settings.includeToolsOnHand = false;
-      }
-    });
-
-    watch(
-      () => state,
-      (newState) => {
-        preferences.value.queryFilter = newState.settings.queryFilter;
-        preferences.value.queryFilterJSON = newState.queryFilterJSON;
-        preferences.value.maxMissingFoods = newState.settings.maxMissingFoods;
-        preferences.value.maxMissingTools = newState.settings.maxMissingTools;
-        preferences.value.includeFoodsOnHand = newState.settings.includeFoodsOnHand;
-        preferences.value.includeToolsOnHand = newState.settings.includeToolsOnHand;
-      },
-      {
-        deep: true,
-      },
-    );
-
-    const attrs = computed(() => {
-      return {
-        title: {
-          class: {
-            readyToMake: "ma-0 pa-0",
-            missingItems: recipeSuggestions.value.readyToMake.length ? "ma-0 pa-0 mt-5" : "ma-0 pa-0",
-          },
-        },
-        searchFilter: {
-          colClass: useMobile.value ? "d-flex flex-wrap justify-end" : "d-flex flex-wrap justify-start",
-          filterClass: useMobile.value ? "ml-4 mb-2" : "mr-4 mb-2",
-        },
-        settings: {
-          colClass: useMobile.value ? "d-flex flex-wrap justify-end" : "d-flex flex-wrap justify-start",
-        },
-      };
-    });
-
-    const foodStore = isOwnGroup.value ? useFoodStore() : usePublicFoodStore(groupSlug.value);
-    const selectedFoods = ref<IngredientFood[]>([]);
-    function addFood(food: IngredientFood) {
-      selectedFoods.value = [...selectedFoods.value, food];
-      handleFoodUpdates();
-    }
-    function removeFood(food: IngredientFood) {
-      selectedFoods.value = selectedFoods.value.filter(f => f.id !== food.id);
-      handleFoodUpdates();
-    }
-    function handleFoodUpdates() {
-      selectedFoods.value.sort((a, b) => (a.pluralName || a.name).localeCompare(b.pluralName || b.name));
-      preferences.value.foodIds = selectedFoods.value.map(food => food.id);
-    }
-    watch(
-      () => selectedFoods.value,
-      () => {
-        handleFoodUpdates();
-      },
-    );
-
-    const toolStore = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
-    const selectedTools = ref<RecipeTool[]>([]);
-    function addTool(tool: RecipeTool) {
-      selectedTools.value = [...selectedTools.value, tool];
-      handleToolUpdates();
-    }
-    function removeTool(tool: RecipeTool) {
-      selectedTools.value = selectedTools.value.filter(t => t.id !== tool.id);
-      handleToolUpdates();
-    }
-    function handleToolUpdates() {
-      selectedTools.value.sort((a, b) => a.name.localeCompare(b.name));
-      preferences.value.toolIds = selectedTools.value.map(tool => tool.id);
-    }
-    watch(
-      () => selectedTools.value,
-      () => {
-        handleToolUpdates();
-      },
-    );
-
-    async function hydrateFoods() {
-      if (!preferences.value.foodIds.length) {
-        return;
-      }
-      if (!foodStore.store.value.length) {
-        await foodStore.actions.refresh();
-      }
-
-      const foods = preferences.value.foodIds
-        .map(foodId => foodStore.store.value.find(food => food.id === foodId))
-        .filter(food => !!food);
-
-      selectedFoods.value = foods;
-    }
-
-    async function hydrateTools() {
-      if (!preferences.value.toolIds.length) {
-        return;
-      }
-      if (!toolStore.store.value.length) {
-        await toolStore.actions.refresh();
-      }
-
-      const tools = preferences.value.toolIds
-        .map(toolId => toolStore.store.value.find(tool => tool.id === toolId))
-        .filter(tool => !!tool);
-
-      selectedTools.value = tools;
-    }
-
-    onMounted(async () => {
-      await Promise.all([hydrateFoods(), hydrateTools()]);
-      state.ready = true;
-      if (!selectedFoods.value.length) {
-        state.recipesReady = true;
-      };
-    });
-
-    const recipeResponseItems = ref<RecipeSuggestionResponseItem[]>([]);
-    const recipeSuggestions = computed<RecipeSuggestions>(() => {
-      const readyToMake: RecipeSuggestionResponseItem[] = [];
-      const missingItems: RecipeSuggestionResponseItem[] = [];
-      recipeResponseItems.value.forEach((responseItem) => {
-        if (responseItem.missingFoods.length === 0 && responseItem.missingTools.length === 0) {
-          readyToMake.push(responseItem);
-        }
-        else {
-          missingItems.push(responseItem);
-        };
-      });
-
-      return {
-        readyToMake,
-        missingItems,
-      };
-    });
-
-    watchDebounced(
-      [selectedFoods, selectedTools, state.settings], async () => {
-        // don't search for suggestions if no foods are selected
-        if (!selectedFoods.value.length) {
-          recipeResponseItems.value = [];
-          state.recipesReady = true;
-          return;
-        }
-
-        state.loading = true;
-        const { data } = await api.recipes.getSuggestions(
-          {
-            limit: state.settings.limit,
-            queryFilter: state.settings.queryFilter,
-            maxMissingFoods: state.settings.maxMissingFoods,
-            maxMissingTools: state.settings.maxMissingTools,
-            includeFoodsOnHand: state.settings.includeFoodsOnHand,
-            includeToolsOnHand: state.settings.includeToolsOnHand,
-          } as RecipeSuggestionQuery,
-          selectedFoods.value.map(food => food.id),
-          selectedTools.value.map(tool => tool.id),
-        );
-        state.loading = false;
-        if (!data) {
-          return;
-        }
-        recipeResponseItems.value = data.items;
-        state.recipesReady = true;
-      },
-      {
-        debounce: 500,
-      },
-    );
-
-    const queryFilterBuilderFields: FieldDefinition[] = [
-      {
-        name: "recipe_category.id",
-        label: i18n.t("category.categories"),
-        type: Organizer.Category,
-      },
-      {
-        name: "tags.id",
-        label: i18n.t("tag.tags"),
-        type: Organizer.Tag,
-      },
-      {
-        name: "household_id",
-        label: i18n.t("household.households"),
-        type: Organizer.Household,
-      },
-      {
-        name: "user_id",
-        label: i18n.t("user.users"),
-        type: Organizer.User,
-      },
-      {
-        name: "last_made",
-        label: i18n.t("general.last-made"),
-        type: "relativeDate",
-      },
-    ];
-
-    function clearQueryFilter() {
-      state.queryFilterEditorValue = "";
-      state.queryFilterEditorValueJSON = { parts: [] } as QueryFilterJSON;
-      state.settings.queryFilter = "";
-      state.queryFilterJSON = { parts: [] } as QueryFilterJSON;
-      state.queryFilterMenu = false;
-      state.queryFilterMenuKey += 1;
-    }
-
-    function saveQueryFilter() {
-      state.settings.queryFilter = state.queryFilterEditorValue || "";
-      state.queryFilterJSON = state.queryFilterEditorValueJSON || { parts: [] } as QueryFilterJSON;
-      state.queryFilterMenu = false;
-    }
-
-    return {
-      ...toRefs(state),
-      useMobile,
-      attrs,
-      isOwnGroup,
-      foods: foodStore.store,
-      selectedFoods,
-      addFood,
-      removeFood,
-      tools: toolStore.store,
-      selectedTools,
-      addTool,
-      removeTool,
-      recipeSuggestions,
-      queryFilterBuilderFields,
-      clearQueryFilter,
-      saveQueryFilter,
-    };
+const preferences = useRecipeFinderPreferences();
+const state = reactive({
+  ready: false,
+  loading: false,
+  recipesReady: false,
+  settingsMenu: false,
+  queryFilterMenu: false,
+  queryFilterMenuKey: 0,
+  queryFilterEditorValue: "",
+  queryFilterEditorValueJSON: {},
+  queryFilterJSON: preferences.value.queryFilterJSON,
+  settings: {
+    maxMissingFoods: preferences.value.maxMissingFoods,
+    maxMissingTools: preferences.value.maxMissingTools,
+    includeFoodsOnHand: preferences.value.includeFoodsOnHand,
+    includeToolsOnHand: preferences.value.includeToolsOnHand,
+    queryFilter: preferences.value.queryFilter,
+    limit: 20,
   },
 });
+
+onMounted(() => {
+  if (!isOwnGroup.value) {
+    state.settings.includeFoodsOnHand = false;
+    state.settings.includeToolsOnHand = false;
+  }
+});
+
+watch(
+  () => state,
+  (newState) => {
+    preferences.value.queryFilter = newState.settings.queryFilter;
+    preferences.value.queryFilterJSON = newState.queryFilterJSON;
+    preferences.value.maxMissingFoods = newState.settings.maxMissingFoods;
+    preferences.value.maxMissingTools = newState.settings.maxMissingTools;
+    preferences.value.includeFoodsOnHand = newState.settings.includeFoodsOnHand;
+    preferences.value.includeToolsOnHand = newState.settings.includeToolsOnHand;
+  },
+  {
+    deep: true,
+  },
+);
+
+const attrs = computed(() => {
+  return {
+    title: {
+      class: {
+        readyToMake: "ma-0 pa-0",
+        missingItems: recipeSuggestions.value.readyToMake.length ? "ma-0 pa-0 mt-5" : "ma-0 pa-0",
+      },
+    },
+    searchFilter: {
+      colClass: useMobile.value ? "d-flex flex-wrap justify-end" : "d-flex flex-wrap justify-start",
+      filterClass: useMobile.value ? "ml-4 mb-2" : "mr-4 mb-2",
+    },
+    settings: {
+      colClass: useMobile.value ? "d-flex flex-wrap justify-end" : "d-flex flex-wrap justify-start",
+    },
+  };
+});
+
+const foodStore = isOwnGroup.value ? useFoodStore() : usePublicFoodStore(groupSlug.value);
+const foods = foodStore.store.value;
+const selectedFoods = ref<IngredientFood[]>([]);
+function addFood(food: IngredientFood) {
+  selectedFoods.value = [...selectedFoods.value, food];
+  handleFoodUpdates();
+}
+function removeFood(food: IngredientFood) {
+  selectedFoods.value = selectedFoods.value.filter(f => f.id !== food.id);
+  handleFoodUpdates();
+}
+function handleFoodUpdates() {
+  selectedFoods.value.sort((a, b) => (a.pluralName || a.name).localeCompare(b.pluralName || b.name));
+  preferences.value.foodIds = selectedFoods.value.map(food => food.id);
+}
+watch(
+  () => selectedFoods.value,
+  () => {
+    handleFoodUpdates();
+  },
+);
+
+const toolStore = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
+const tools = toolStore.store.value;
+const selectedTools = ref<RecipeTool[]>([]);
+function addTool(tool: RecipeTool) {
+  selectedTools.value = [...selectedTools.value, tool];
+  handleToolUpdates();
+}
+function removeTool(tool: RecipeTool) {
+  selectedTools.value = selectedTools.value.filter(t => t.id !== tool.id);
+  handleToolUpdates();
+}
+function handleToolUpdates() {
+  selectedTools.value.sort((a, b) => a.name.localeCompare(b.name));
+  preferences.value.toolIds = selectedTools.value.map(tool => tool.id);
+}
+watch(
+  () => selectedTools.value,
+  () => {
+    handleToolUpdates();
+  },
+);
+
+async function hydrateFoods() {
+  if (!preferences.value.foodIds.length) {
+    return;
+  }
+  if (!foodStore.store.value.length) {
+    await foodStore.actions.refresh();
+  }
+
+  const foods = preferences.value.foodIds
+    .map(foodId => foodStore.store.value.find(food => food.id === foodId))
+    .filter(food => !!food);
+
+  selectedFoods.value = foods;
+}
+
+async function hydrateTools() {
+  if (!preferences.value.toolIds.length) {
+    return;
+  }
+  if (!toolStore.store.value.length) {
+    await toolStore.actions.refresh();
+  }
+
+  const tools = preferences.value.toolIds
+    .map(toolId => toolStore.store.value.find(tool => tool.id === toolId))
+    .filter(tool => !!tool);
+
+  selectedTools.value = tools;
+}
+
+onMounted(async () => {
+  await Promise.all([hydrateFoods(), hydrateTools()]);
+  state.ready = true;
+  if (!selectedFoods.value.length) {
+    state.recipesReady = true;
+  };
+});
+
+const recipeResponseItems = ref<RecipeSuggestionResponseItem[]>([]);
+const recipeSuggestions = computed<RecipeSuggestions>(() => {
+  const readyToMake: RecipeSuggestionResponseItem[] = [];
+  const missingItems: RecipeSuggestionResponseItem[] = [];
+  recipeResponseItems.value.forEach((responseItem) => {
+    if (responseItem.missingFoods.length === 0 && responseItem.missingTools.length === 0) {
+      readyToMake.push(responseItem);
+    }
+    else {
+      missingItems.push(responseItem);
+    };
+  });
+
+  return {
+    readyToMake,
+    missingItems,
+  };
+});
+
+watchDebounced(
+  [selectedFoods, selectedTools, state.settings], async () => {
+    // don't search for suggestions if no foods are selected
+    if (!selectedFoods.value.length) {
+      recipeResponseItems.value = [];
+      state.recipesReady = true;
+      return;
+    }
+
+    state.loading = true;
+    const { data } = await api.recipes.getSuggestions(
+      {
+        limit: state.settings.limit,
+        queryFilter: state.settings.queryFilter,
+        maxMissingFoods: state.settings.maxMissingFoods,
+        maxMissingTools: state.settings.maxMissingTools,
+        includeFoodsOnHand: state.settings.includeFoodsOnHand,
+        includeToolsOnHand: state.settings.includeToolsOnHand,
+      } as RecipeSuggestionQuery,
+      selectedFoods.value.map(food => food.id),
+      selectedTools.value.map(tool => tool.id),
+    );
+    state.loading = false;
+    if (!data) {
+      return;
+    }
+    recipeResponseItems.value = data.items;
+    state.recipesReady = true;
+  },
+  {
+    debounce: 500,
+  },
+);
+
+const queryFilterBuilderFields: FieldDefinition[] = [
+  {
+    name: "recipe_category.id",
+    label: i18n.t("category.categories"),
+    type: Organizer.Category,
+  },
+  {
+    name: "tags.id",
+    label: i18n.t("tag.tags"),
+    type: Organizer.Tag,
+  },
+  {
+    name: "household_id",
+    label: i18n.t("household.households"),
+    type: Organizer.Household,
+  },
+  {
+    name: "user_id",
+    label: i18n.t("user.users"),
+    type: Organizer.User,
+  },
+  {
+    name: "last_made",
+    label: i18n.t("general.last-made"),
+    type: "relativeDate",
+  },
+];
+
+function clearQueryFilter() {
+  state.queryFilterEditorValue = "";
+  state.queryFilterEditorValueJSON = { parts: [] } as QueryFilterJSON;
+  state.settings.queryFilter = "";
+  state.queryFilterJSON = { parts: [] } as QueryFilterJSON;
+  state.queryFilterMenu = false;
+  state.queryFilterMenuKey += 1;
+}
+
+function saveQueryFilter() {
+  state.settings.queryFilter = state.queryFilterEditorValue || "";
+  state.queryFilterJSON = state.queryFilterEditorValueJSON || { parts: [] } as QueryFilterJSON;
+  state.queryFilterMenu = false;
+}
 </script>

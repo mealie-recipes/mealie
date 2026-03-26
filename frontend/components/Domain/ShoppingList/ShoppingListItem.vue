@@ -10,15 +10,12 @@
       <v-col :cols="itemLabelCols">
         <div class="d-flex align-center flex-nowrap">
           <v-checkbox
-            v-model="listItem.checked"
+            :model-value="listItem.checked"
             hide-details
             density="compact"
             class="mt-0 flex-shrink-0"
             color="null"
-            @click="() => {
-              listItem.checked = !listItem.checked
-              $emit('checked', listItem)
-            }"
+            @click="toggleChecked"
           />
           <div
             class="ml-2 text-truncate"
@@ -43,7 +40,7 @@
             start
             min-width="125px"
           >
-            <template #activator="{ props }">
+            <template #activator="{ props: hoverProps }">
               <v-tooltip
                 v-if="recipeList && recipeList.length"
                 open-delay="200"
@@ -84,7 +81,7 @@
                 variant="text"
                 class="handle"
                 icon
-                v-bind="props"
+                v-bind="hoverProps"
               >
                 <v-icon>
                   {{ $globals.icons.arrowUpDown }}
@@ -155,158 +152,99 @@
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup>
 import { useOnline } from "@vueuse/core";
 import RecipeIngredientListItem from "../Recipe/RecipeIngredientListItem.vue";
 import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
-import type { MultiPurposeLabelOut, MultiPurposeLabelSummary } from "~/lib/api/types/labels";
+import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import type { IngredientFood, IngredientUnit, RecipeSummary } from "~/lib/api/types/recipe";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 
-interface actions {
-  text: string;
-  event: string;
+const model = defineModel<ShoppingListItemOut>({ type: Object as () => ShoppingListItemOut, required: true });
+
+const props = defineProps({
+  labels: {
+    type: Array as () => MultiPurposeLabelOut[],
+    required: true,
+  },
+  units: {
+    type: Array as () => IngredientUnit[],
+    required: true,
+  },
+  foods: {
+    type: Array as () => IngredientFood[],
+    required: true,
+  },
+  recipes: {
+    type: Map as unknown as () => Map<string, RecipeSummary>,
+    default: undefined,
+  },
+});
+
+const emit = defineEmits<{
+  (e: "checked" | "save", item: ShoppingListItemOut): void;
+  (e: "delete"): void;
+}>();
+
+const i18n = useI18n();
+const displayRecipeRefs = ref(false);
+const itemLabelCols = computed<string>(() => (model.value?.checked ? "auto" : "6"));
+const online = useOnline();
+const isOffline = computed(() => online.value === false);
+
+type actions = { text: string; event: string };
+const contextMenu = ref<actions[]>([
+  { text: i18n.t("general.edit") as string, event: "edit" },
+  { text: i18n.t("general.delete") as string, event: "delete" },
+]);
+
+// copy prop value so a refresh doesn't interrupt the user
+const localListItem = ref(Object.assign({}, model.value));
+
+const listItem = computed<ShoppingListItemOut>({
+  get: () => model.value,
+  set: (val: ShoppingListItemOut) => {
+    localListItem.value = val;
+    model.value = val;
+  },
+});
+
+const edit = ref(false);
+function toggleEdit(val = !edit.value) {
+  if (edit.value === val) return;
+  if (val) localListItem.value = model.value;
+  edit.value = val;
 }
 
-export default defineNuxtComponent({
-  components: { ShoppingListItemEditor, RecipeList, RecipeIngredientListItem },
-  props: {
-    modelValue: {
-      type: Object as () => ShoppingListItemOut,
-      required: true,
-    },
-    labels: {
-      type: Array as () => MultiPurposeLabelOut[],
-      required: true,
-    },
-    units: {
-      type: Array as () => IngredientUnit[],
-      required: true,
-    },
-    foods: {
-      type: Array as () => IngredientFood[],
-      required: true,
-    },
-    recipes: {
-      type: Map<string, RecipeSummary>,
-      default: undefined,
-    },
-  },
-  emits: ["checked", "update:modelValue", "save", "delete"],
-  setup(props, context) {
-    const i18n = useI18n();
-    const displayRecipeRefs = ref(false);
-    const itemLabelCols = ref<string>(props.modelValue.checked ? "auto" : "6");
-    const isOffline = computed(() => useOnline().value === false);
+function toggleChecked() {
+  const updated = { ...model.value, checked: !model.value.checked } as ShoppingListItemOut;
+  model.value = updated;
+  emit("checked", updated);
+}
 
-    const contextMenu: actions[] = [
-      {
-        text: i18n.t("general.edit") as string,
-        event: "edit",
-      },
-      {
-        text: i18n.t("general.delete") as string,
-        event: "delete",
-      },
-    ];
+function contextHandler(event: string) {
+  if (event === "edit") {
+    toggleEdit(true);
+  }
+  else {
+    emit(event as any);
+  }
+}
 
-    // copy prop value so a refresh doesn't interrupt the user
-    const localListItem = ref(Object.assign({}, props.modelValue));
-    const listItem = computed({
-      get: () => {
-        return props.modelValue;
-      },
-      set: (val) => {
-        // keep local copy in sync
-        localListItem.value = val;
-        context.emit("update:modelValue", val);
-      },
-    });
-    const edit = ref(false);
-    function toggleEdit(val = !edit.value) {
-      if (edit.value === val) {
-        return;
-      }
+function save() {
+  emit("save", localListItem.value);
+  edit.value = false;
+}
 
-      if (val) {
-        // update local copy of item with the current value
-        localListItem.value = props.modelValue;
-      }
-
-      edit.value = val;
-    }
-
-    function contextHandler(event: string) {
-      if (event === "edit") {
-        toggleEdit(true);
-      }
-      else {
-        context.emit(event);
-      }
-    }
-    function save() {
-      context.emit("save", localListItem.value);
-      edit.value = false;
-    }
-
-    const updatedLabels = computed(() => {
-      return props.labels.map((label) => {
-        return {
-          id: label.id,
-          text: label.name,
-        };
-      });
-    });
-
-    /**
-     * Gets the label for the shopping list item. Either the label assign to the item
-     * or the label of the food applied.
-     */
-    const label = computed<MultiPurposeLabelSummary | undefined>(() => {
-      if (listItem.value.label) {
-        return listItem.value.label as MultiPurposeLabelSummary;
-      }
-
-      if (listItem.value.food?.label) {
-        return listItem.value.food.label;
-      }
-
-      return undefined;
-    });
-
-    const recipeList = computed<RecipeSummary[]>(() => {
-      const recipeList: RecipeSummary[] = [];
-      if (!listItem.value.recipeReferences) {
-        return recipeList;
-      }
-
-      listItem.value.recipeReferences.forEach((ref) => {
-        const recipe = props.recipes?.get(ref.recipeId);
-        if (recipe) {
-          recipeList.push(recipe);
-        }
-      });
-
-      return recipeList;
-    });
-
-    return {
-      updatedLabels,
-      save,
-      contextHandler,
-      displayRecipeRefs,
-      edit,
-      contextMenu,
-      itemLabelCols,
-      listItem,
-      localListItem,
-      label,
-      recipeList,
-      toggleEdit,
-      isOffline,
-    };
-  },
+const recipeList = computed<RecipeSummary[]>(() => {
+  const ret: RecipeSummary[] = [];
+  if (!listItem.value.recipeReferences) return ret;
+  listItem.value.recipeReferences.forEach((ref) => {
+    const recipe = props.recipes?.get(ref.recipeId);
+    if (recipe) ret.push(recipe);
+  });
+  return ret;
 });
 </script>
 

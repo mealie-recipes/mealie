@@ -30,105 +30,60 @@
   </v-autocomplete>
 </template>
 
-<script lang="ts">
-/**
- * The InputLabelType component is a wrapper for v-autocomplete. It is used to abstract the selection functionality
- * of some common types within Mealie. This can mostly be used with any type of object provided it has a name and id
- * property. The name property is used to display the name of the object in the autocomplete dropdown. The id property
- * is used to store the id of the object in the itemId property.
- *
- * Supported Types
- *  - MultiPurposeLabel
- *  - RecipeIngredientFood
- *  - RecipeIngredientUnit
- *
- * TODO: Add RecipeTag / Category to this selector
- * Future Supported Types
- *  - RecipeTags
- *  - RecipeCategories
- *
- * Both the ID and Item can be synced. The item can be synced using the v-model syntax and the itemId can be synced
- * using the .sync syntax `item-id.sync="item.labelId"`
- */
-
+<script setup lang="ts">
 import type { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 import { useSearch } from "~/composables/use-search";
 
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Object as () => MultiPurposeLabelSummary | IngredientFood | IngredientUnit,
-      required: false,
-      default: () => {
-        return {};
-      },
-    },
-    items: {
-      type: Array as () => Array<MultiPurposeLabelSummary | IngredientFood | IngredientUnit>,
-      required: true,
-    },
-    itemId: {
-      type: [String, Number],
-      default: undefined,
-    },
-    icon: {
-      type: String,
-      required: false,
-      default: undefined,
-    },
-    create: {
-      type: Boolean,
-      default: false,
-    },
+// v-model for the selected item
+const modelValue = defineModel<MultiPurposeLabelSummary | IngredientFood | IngredientUnit | null>({ default: () => null });
+
+// support v-model:item-id binding
+const itemId = defineModel<string | undefined>("item-id", { default: undefined });
+
+const props = defineProps({
+  items: {
+    type: Array as () => Array<MultiPurposeLabelSummary | IngredientFood | IngredientUnit>,
+    required: true,
   },
-  emits: ["update:modelValue", "update:item-id", "create"],
-  setup(props, context) {
-    const autocompleteRef = ref<HTMLInputElement>();
-
-    // Use the search composable
-    const { search: searchInput, filtered: filteredItems } = useSearch(computed(() => props.items));
-
-    const itemIdVal = computed({
-      get: () => {
-        return props.itemId || undefined;
-      },
-      set: (val) => {
-        context.emit("update:item-id", val);
-      },
-    });
-
-    const itemVal = computed({
-      get: () => {
-        try {
-          return Object.keys(props.modelValue).length !== 0 ? props.modelValue : null;
-        }
-        catch {
-          return null;
-        }
-      },
-      set: (val) => {
-        itemIdVal.value = val?.id || undefined;
-        context.emit("update:modelValue", val);
-      },
-    });
-
-    function emitCreate() {
-      if (props.items.some(item => item.name === searchInput.value)) {
-        return;
-      }
-      context.emit("create", searchInput.value);
-      autocompleteRef.value?.blur();
-    }
-
-    return {
-      autocompleteRef,
-      itemVal,
-      itemIdVal,
-      searchInput,
-      filteredItems,
-      emitCreate,
-    };
+  icon: {
+    type: String,
+    required: false,
+    default: undefined,
+  },
+  create: {
+    type: Boolean,
+    default: false,
   },
 });
+
+const emit = defineEmits<{
+  (e: "create", val: string): void;
+}>();
+
+const autocompleteRef = ref<HTMLInputElement>();
+
+// Use the search composable
+const { search: searchInput, filtered: filteredItems } = useSearch(computed(() => props.items));
+
+const itemVal = computed({
+  get: () => {
+    if (!modelValue.value || Object.keys(modelValue.value).length === 0) {
+      return null;
+    }
+    return modelValue.value;
+  },
+  set: (val) => {
+    itemId.value = val?.id || "";
+    modelValue.value = val;
+  },
+});
+
+function emitCreate() {
+  if (props.items.some(item => item.name === searchInput.value)) {
+    return;
+  }
+  emit("create", searchInput.value);
+  autocompleteRef.value?.blur();
+}
 </script>

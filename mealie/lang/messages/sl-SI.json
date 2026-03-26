@@ -19,7 +19,17 @@
             "yields": "donosi"
         },
         "and-amount": "in {amount}",
-        "or-ingredient": "ali {ingredient}"
+        "or-ingredient": "ali {ingredient}",
+        "create-progress": {
+            "creating-recipe-with-ai": "Ustvarjanje recepta z umetno inteligenco...",
+            "creating-recipe-from-transcript-with-ai": "Ustvarjanje recepta iz prepisa z umetno inteligenco...",
+            "creating-recipe-from-webpage-data": "Ustvarjanje recepta iz podatkov spletne strani...",
+            "downloading-image": "Prenašanje slike...",
+            "downloading-video": "Prenašanje videoposnetka...",
+            "extracting-recipe-data": "Pridobivanje podatkov o receptih...",
+            "fetching-webpage": "Pridobivanje spletne strani...",
+            "transcribing-audio-with-ai": "Prepisovanje zvoka z umetno inteligenco..."
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Noben recept ne ustreza vašim pogojem"

@@ -1,3 +1,5 @@
+from collections.abc import Awaitable, Callable
+
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.schema.recipe.recipe import Recipe
@@ -37,25 +39,34 @@ class RecipeScraper:
         self.translator = translator
         self.logger = get_logger()
 
-    async def scrape(self, url: str, html: str | None = None) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
+    async def scrape(
+        self,
+        url: str,
+        html: str | None = None,
+        on_progress: Callable[[str], Awaitable[None]] | None = None,
+    ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         """
         Scrapes a recipe from the web.
         Skips the network request if `html` is provided.
+        Optionally reports progress back via `on_progress`.
         """
 
-        raw_html = html or await safe_scrape_html(url)
+        if not html:
+            if on_progress:
+                await on_progress(self.translator.t("recipe.create-progress.fetching-webpage"))
 
-        if not raw_html:
-            return None, None
+            html = await safe_scrape_html(url)
+            if not html:
+                return None, None
 
         for ScraperClass in self.scrapers:
-            scraper = ScraperClass(url, self.translator, raw_html=raw_html)
+            scraper = ScraperClass(url, self.translator, raw_html=html)
             if not scraper.can_scrape():
                 self.logger.debug(f"Skipping {scraper.__class__.__name__}")
                 continue
 
             try:
-                result = await scraper.parse()
+                result = await scraper.parse(on_progress=on_progress)
             except Exception:
                 self.logger.exception(f"Failed to scrape HTML with {scraper.__class__.__name__}")
                 result = None
