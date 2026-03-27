@@ -85,7 +85,6 @@ jobs:
             const label = "needs-template-fix";
 
             if (missing.length > 0) {
-              console.log(`Missing headings: ${missing.join(", ")}`);
               core.setFailed(`Missing headings:\n${missing.join("\n")}`);
             } else {
               console.log("All required headings present");
