@@ -331,6 +331,8 @@
     "any-household": "Qualsiasi Famiglia",
     "no-meal-plan-defined-yet": "Ancora nessun piano alimentare definito",
     "no-meal-planned-for-today": "Nessun piano alimentare per oggi",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Numero di giorni sul caricamento della pagina",
     "numberOfDays-label": "Giorni Predefiniti",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Solo ricette con queste categorie possono essere utilizzate un un Piano Alimentare",
