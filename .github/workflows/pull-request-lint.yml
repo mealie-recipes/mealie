@@ -86,22 +86,7 @@ jobs:
 
             if (missing.length > 0) {
               console.log(`Missing headings: ${missing.join(", ")}`);
-              await github.rest.issues.addLabels({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: pr.number,
-                labels: [label],
-              });
+              core.setFailed(`Missing headings:\n${missing.join("\n")}`);
             } else {
               console.log("All required headings present");
-              try {
-                await github.rest.issues.removeLabel({
-                  owner: context.repo.owner,
-                  repo: context.repo.repo,
-                  issue_number: pr.number,
-                  name: label,
-                });
-              } catch (e) {
-                // Label wasn't present, ignore
-              }
             }
