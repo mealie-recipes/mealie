@@ -15,7 +15,6 @@
       <template #title>
         {{ $t('group.admin-group-management') }}
       </template>
-      {{ $t('group.admin-group-management-text') }}
     </BasePageTitle>
     <AppToolbar back />
     <v-card-text> {{ $t('group.group-id-value', [group.id]) }} </v-card-text>
