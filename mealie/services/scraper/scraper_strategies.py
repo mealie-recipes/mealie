@@ -426,7 +426,7 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         if on_progress:
             await on_progress(self.translator.t("recipe.create-progress.creating-recipe-with-ai"))
 
-        return super().parse()
+        return await super().parse()
 
 
 class TranscribedAudio(TypedDict):
