@@ -1474,6 +1474,7 @@
     "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   },
   "announcements": {
+    "announcements": "Announcements",
     "show-announcements-from-mealie": "Show announcements from Mealie",
     "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
