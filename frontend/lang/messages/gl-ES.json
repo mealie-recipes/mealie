@@ -331,6 +331,8 @@
     "any-household": "Calquer Casa",
     "no-meal-plan-defined-yet": "Aínda non se definiu ningún menú",
     "no-meal-planned-for-today": "Non hai ningunha comida prevista para hoxe",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Número de días ao cargar a páxina",
     "numberOfDays-label": "Días Predeterminados",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Só se utilizarán receitas con estas categorías nos Menús",
