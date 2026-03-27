@@ -255,7 +255,7 @@ def serve_manifest():
         "start_url": sub_path,
         "scope": sub_path,
         "display": "standalone",
-        "background_color": "#FFFFFF",
+        "background_color": "#1E1E1E",
         "theme_color": theme_color,
         "description": "Mealie is a recipe management and meal planning app",
         "lang": "en",
