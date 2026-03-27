@@ -11,6 +11,7 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm.session import Session
 from starlette.exceptions import HTTPException
 from text_unidecode import os
+from urllib.parse import urlparse
 
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import try_get_current_user
@@ -234,19 +235,28 @@ async def serve_shared_recipe_with_meta(group_slug: str, token_id: str, session:
         return response_404()
 
 
-def serve_manifest(resp: Response):
+def serve_manifest():
+    default_primary = "#E58325"
+
     settings = get_app_settings()
-    sub_path = os.environ.get("SUB_PATH", "/") or "/"
+    sub_path = urlparse(settings.BASE_URL).path or "/"
+    
+    if settings.theme.light_primary != default_primary:
+        theme_color = settings.theme.light_primary
+    elif settings.theme.dark_primary != default_primary:
+        theme_color = settings.theme.dark_primary
+    else:
+        theme_color = default_primary
 
     manifest = {
         "name": "Mealie",
         "short_name": "Mealie",
-        "id": sub_path,
+        "id": settings.BASE_URL,
         "start_url": sub_path,
         "scope": sub_path,
         "display": "standalone",
         "background_color": "#FFFFFF",
-        "theme_color": settings.theme.light_primary,
+        "theme_color": theme_color,
         "description": "Mealie is a recipe management and meal planning app",
         "lang": "en",
         "display_override": ["standalone", "minimal-ui", "browser", "window-controls-overlay"],
