@@ -1357,6 +1357,60 @@ def test_recipe_crud_404(api_client: TestClient, unique_user: TestUser):
     assert response.status_code == 404
 
 
+def test_patch_recipe_after_name_changes_without_slug_update(api_client: TestClient, unique_user: TestUser):
+    original_name = "Nourish Bowls (Zuppa Copycat)"
+    translated_name = "Bols nourrissants (copie de Zuppa)"
+
+    response = api_client.post(api_routes.recipes, json={"name": original_name}, headers=unique_user.token)
+    assert response.status_code == 201
+    original_slug = response.json()
+
+    session = unique_user.repos.session
+    recipe = session.query(RecipeModel).filter(RecipeModel.slug == original_slug).one()
+    recipe.name = translated_name
+    session.commit()
+
+    response = api_client.get(api_routes.recipes_slug(original_slug), headers=unique_user.token)
+    assert response.status_code == 200
+
+    recipe_payload = response.json()
+    assert recipe_payload["name"] == translated_name
+    assert recipe_payload["slug"] == original_slug
+
+    response = api_client.patch(
+        api_routes.recipes_slug(original_slug),
+        json={"description": "Translated without changing the stored slug"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    patched_recipe = response.json()
+    assert patched_recipe["slug"] == original_slug
+    assert patched_recipe["description"] == "Translated without changing the stored slug"
+
+
+def test_put_recipe_name_change_updates_slug(api_client: TestClient, unique_user: TestUser):
+    original_name = "Original Recipe Name"
+    renamed_name = "Renamed Recipe Name"
+
+    response = api_client.post(api_routes.recipes, json={"name": original_name}, headers=unique_user.token)
+    assert response.status_code == 201
+    original_slug = response.json()
+
+    response = api_client.get(api_routes.recipes_slug(original_slug), headers=unique_user.token)
+    assert response.status_code == 200
+
+    recipe_payload = response.json()
+    recipe_payload["name"] = renamed_name
+
+    response = api_client.put(api_routes.recipes_slug(original_slug), json=recipe_payload, headers=unique_user.token)
+    assert response.status_code == 200
+
+    renamed_recipe = response.json()
+    assert renamed_recipe["slug"] == slugify(renamed_name)
+    assert renamed_recipe["name"] == renamed_name
+
+
 def test_create_recipe_same_name(api_client: TestClient, unique_user: TestUser):
     slug = random_string(10)
 
