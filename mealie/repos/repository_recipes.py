@@ -205,7 +205,7 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
         entry = self._query_one(match_value=match_value)
 
-        if (new_name := new_data.get("name")) is not None:
+        if new_name := new_data.get("name"):
             new_data["slug"] = entry.slug if new_name == entry.name else create_recipe_slug(new_name)
 
         # Handle explicit group_id injection for related items that require it
