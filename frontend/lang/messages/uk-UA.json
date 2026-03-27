@@ -331,6 +331,8 @@
     "any-household": "Будь-яка сім'я",
     "no-meal-plan-defined-yet": "Не створено жодного меню",
     "no-meal-planned-for-today": "Не заплановано меню на сьогодні",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Скільки днів завантажувати на сторінку",
     "numberOfDays-label": "Дні за замовчуванням",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Лише рецепти з цими категоріями будуть використані в меню",

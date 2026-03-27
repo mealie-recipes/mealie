@@ -331,6 +331,8 @@
     "any-household": "Bármely háztartás",
     "no-meal-plan-defined-yet": "Nincs még menüterv létrehozva",
     "no-meal-planned-for-today": "Nincs mára menüterv",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Napok száma az oldal betöltésekor",
     "numberOfDays-label": "Alapértelmezett napok",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "A menütervekben csak a következő kategóriához tartozó receptek kerülnek felhasználásra",
