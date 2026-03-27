@@ -331,6 +331,8 @@
     "any-household": "Vsa gospodinjstva",
     "no-meal-plan-defined-yet": "Za danes ni definiranjega načrta obroka",
     "no-meal-planned-for-today": "Za danes ni planiranega načrta obroka",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Število dni na začetni strani",
     "numberOfDays-label": "Privzeto dni",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Samo recepti v teh kategorija bodo uporabljeni v načrtu obroka",
