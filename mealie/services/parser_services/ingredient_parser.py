@@ -252,7 +252,15 @@ class NLPParser(ABCIngredientParser):
         return self.find_ingredient_match(parsed_ingredient)
 
     async def parse_one(self, ingredient_string: str) -> ParsedIngredient:
-        parsed_ingredient = parse_ingredient(ingredient_string)
+        custom_units = {}
+        for ingredient_unit in self.data_matcher.units_by_alias.values():
+            plural_name = ingredient_unit.plural_name or ingredient_unit.name
+            custom_units[plural_name] = ingredient_unit.name
+
+            plural_abbr = ingredient_unit.plural_abbreviation or ingredient_unit.abbreviation
+            custom_units[plural_abbr] = ingredient_unit.abbreviation
+
+        parsed_ingredient = parse_ingredient(ingredient_string, custom_units=custom_units)
         return self._convert_ingredient(parsed_ingredient)
 
     async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
