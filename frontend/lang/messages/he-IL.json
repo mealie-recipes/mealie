@@ -331,6 +331,8 @@
     "any-household": "כל משק בית",
     "no-meal-plan-defined-yet": "עדיין לא הוגדרה תכנית ארוחה",
     "no-meal-planned-for-today": "לא מתוכננת ארוחה להיום",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "מספר הימים בטעינת העמוד",
     "numberOfDays-label": "ברירת המחדל לימים",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "רק מתכונים שהוגדרו עם הקטגוריות הללו ישומשו בתכנוני ארוחות",

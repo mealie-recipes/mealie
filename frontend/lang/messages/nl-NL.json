@@ -331,6 +331,8 @@
     "any-household": "Elk huishouden",
     "no-meal-plan-defined-yet": "Nog geen maaltijdplan opgesteld",
     "no-meal-planned-for-today": "Geen maaltijd gepland voor vandaag",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Aantal dagen bij laden van de pagina",
     "numberOfDays-label": "Standaard aantal dagen",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Alleen recepten met deze categorieën zullen worden gebruikt in maaltijdplannen",

@@ -331,6 +331,8 @@
     "any-household": "Всяко домакинство",
     "no-meal-plan-defined-yet": "Все още няма създадено седмично меню",
     "no-meal-planned-for-today": "За днес няма планирано меню",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Брой дни за зареждане на страницата",
     "numberOfDays-label": "Дни по подразбиране",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Само рецепти от тези категории ще бъдат използвани в седмичното меню",

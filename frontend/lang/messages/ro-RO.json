@@ -331,6 +331,8 @@
     "any-household": "Orice locuință",
     "no-meal-plan-defined-yet": "Nici un plan de mese definit încă",
     "no-meal-planned-for-today": "Nicio masă planificată pentru astăzi",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Număr de zile pe pagină încărcată",
     "numberOfDays-label": "Zile implicite",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Numai rețetele cu aceste categorii vor fi utilizate în Planurile de mese",

@@ -331,6 +331,8 @@
     "any-household": "Beliebiger Haushalt",
     "no-meal-plan-defined-yet": "Noch kein Essensplan definiert",
     "no-meal-planned-for-today": "Kein Essen für heute geplant",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Anzahl der Tage beim Laden der Seite",
     "numberOfDays-label": "Anzuzeigende Tage",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Nur Rezepte dieser Kategorien werden in Essensplänen verwendet",

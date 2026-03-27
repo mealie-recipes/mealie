@@ -331,6 +331,8 @@
     "any-household": "Enide Huishouding",
     "no-meal-plan-defined-yet": "Nog geen maaltydplan opgestel nie",
     "no-meal-planned-for-today": "Geen maaltyd beplan vir vandag nie",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Number of days on page load",
     "numberOfDays-label": "Standaard dae",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Slegs resepte met hierdie kategorieë sal in maaltydplanne gebruik word",

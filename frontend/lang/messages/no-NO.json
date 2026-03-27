@@ -331,6 +331,8 @@
     "any-household": "Hvilken som helst husholdning",
     "no-meal-plan-defined-yet": "Ingen måltidsplan er definert ennå",
     "no-meal-planned-for-today": "Ingen måltid planlagt i dag",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Antall dager på sideinnlasting",
     "numberOfDays-label": "Standard antall dager",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Kun oppskrifter med disse kategoriene vil bli brukt i måltidsplaner",
