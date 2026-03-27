@@ -33,6 +33,7 @@ from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
+from tests.utils.helpers import parse_sse_events
 from tests.utils.recipe_data import get_recipe_test_cases
 
 recipe_test_data = get_recipe_test_cases()
@@ -94,23 +95,6 @@ def open_graph_override(html: str):
         return html
 
     return get_html
-
-
-def parse_sse_events(text: str) -> list[dict]:
-    """Parse SSE response text into a list of events with 'event' and 'data' keys."""
-    events = []
-    current: dict = {}
-    for line in text.splitlines():
-        if line.startswith("event:"):
-            current["event"] = line[len("event:") :].strip()
-        elif line.startswith("data:"):
-            current["data"] = json.loads(line[len("data:") :].strip())
-        elif line == "" and current:
-            events.append(current)
-            current = {}
-    if current:
-        events.append(current)
-    return events
 
 
 def test_create_by_url(
