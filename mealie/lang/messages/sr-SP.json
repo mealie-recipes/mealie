@@ -18,17 +18,17 @@
             "yield": "Количина",
             "yields": "Количина"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}",
+        "and-amount": "додај {amount}",
+        "or-ingredient": "или {ingredient}",
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
-            "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
-            "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
-            "extracting-recipe-data": "Extracting recipe data...",
-            "fetching-webpage": "Fetching webpage...",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "creating-recipe-with-ai": "Креирање рецепта помоћу AI-a...",
+            "creating-recipe-from-transcript-with-ai": "Креирање рецепта из транскрипта помоћу AI-a...",
+            "creating-recipe-from-webpage-data": "Креирање рецепта из веб-сајт података...",
+            "downloading-image": "Преузимање слика...",
+            "downloading-video": "Преузимање видеа...",
+            "extracting-recipe-data": "Издвајање података рецепта...",
+            "fetching-webpage": "Преузимање веб странице...",
+            "transcribing-audio-with-ai": "Транскрипција звука помоћу AI-a..."
         }
     },
     "mealplan": {
