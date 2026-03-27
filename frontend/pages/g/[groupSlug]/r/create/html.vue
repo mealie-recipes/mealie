@@ -19,7 +19,7 @@
           >https://schema.org/Recipe</a>
         </p>
         <v-switch
-          v-model="isEditJSON"
+          v-model="state.isEditJSON"
           :label="$t('recipe.json-editor')"
           color="primary"
           class="mt-2"
@@ -40,7 +40,7 @@
           style="max-width: 500px"
         />
         <RecipeJsonEditor
-          v-if="isEditJSON"
+          v-if="state.isEditJSON"
           v-model="newRecipeData"
           height="250px"
           mode="code"
