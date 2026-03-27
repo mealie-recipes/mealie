@@ -3,6 +3,7 @@ import json
 import pathlib
 from dataclasses import dataclass
 from typing import Any
+from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
 from fastapi import Depends, FastAPI, Response
@@ -11,7 +12,6 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm.session import Session
 from starlette.exceptions import HTTPException
 from text_unidecode import os
-from urllib.parse import urlparse
 
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import try_get_current_user
