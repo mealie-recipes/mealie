@@ -98,6 +98,7 @@ async function handleSubmit() {
       window.location.reload();
     }
     group.value = data;
+    alert.success(i18n.t("settings.settings-updated"));
   }
   else {
     alert.error(i18n.t("settings.settings-update-failed"));
