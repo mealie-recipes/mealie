@@ -15,6 +15,7 @@ export interface CreateGroupRecipeAction {
 }
 export interface CreateHouseholdPreferences {
   privateHousehold?: boolean;
+  showAnnouncements?: boolean;
   lockRecipeEditsFromOtherHouseholds?: boolean;
   firstDayOfWeek?: number;
   recipePublic?: boolean;
@@ -199,6 +200,7 @@ export interface HouseholdInDB {
 }
 export interface ReadHouseholdPreferences {
   privateHousehold?: boolean;
+  showAnnouncements?: boolean;
   lockRecipeEditsFromOtherHouseholds?: boolean;
   firstDayOfWeek?: number;
   recipePublic?: boolean;
@@ -276,6 +278,7 @@ export interface SaveGroupRecipeAction {
 }
 export interface SaveHouseholdPreferences {
   privateHousehold?: boolean;
+  showAnnouncements?: boolean;
   lockRecipeEditsFromOtherHouseholds?: boolean;
   firstDayOfWeek?: number;
   recipePublic?: boolean;
@@ -769,6 +772,7 @@ export interface UpdateHouseholdAdmin {
 }
 export interface UpdateHouseholdPreferences {
   privateHousehold?: boolean;
+  showAnnouncements?: boolean;
   lockRecipeEditsFromOtherHouseholds?: boolean;
   firstDayOfWeek?: number;
   recipePublic?: boolean;
