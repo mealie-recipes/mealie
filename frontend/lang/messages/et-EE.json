@@ -331,6 +331,8 @@
     "any-household": "Kõik leibkonnad",
     "no-meal-plan-defined-yet": "Toitumisplaani pole veel defineeritud",
     "no-meal-planned-for-today": "Ühtegi einet pole tänaseks planeeritud",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Päevade arv lehe laadimisel",
     "numberOfDays-label": "Vaike päevade arv",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Ainult selle kategooria retsepte kasutatakse Toitumisplaanis",
