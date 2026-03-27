@@ -7,6 +7,7 @@ from mealie.schema._mealie import MealieModel
 
 class UpdateGroupPreferences(MealieModel):
     private_group: bool = True
+    show_announcements: bool = True
 
 
 class CreateGroupPreferences(UpdateGroupPreferences):
