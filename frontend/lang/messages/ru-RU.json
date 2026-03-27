@@ -331,6 +331,8 @@
     "any-household": "Любое домохозяйство",
     "no-meal-plan-defined-yet": "План питания еще не определен",
     "no-meal-planned-for-today": "На сегодня нет запланированных блюд",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Количество дней при загрузке страницы",
     "numberOfDays-label": "Дни по умолчанию",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Только рецепты с этими категориями будут использоваться в планах питания",
