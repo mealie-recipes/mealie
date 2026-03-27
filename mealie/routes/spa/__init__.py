@@ -235,7 +235,6 @@ async def serve_shared_recipe_with_meta(group_slug: str, token_id: str, session:
 
 
 def serve_manifest(resp: Response):
-    """Serve the PWA manifest with runtime theme settings"""
     settings = get_app_settings()
     sub_path = os.environ.get("SUB_PATH", "/") or "/"
 
@@ -246,7 +245,7 @@ def serve_manifest(resp: Response):
         "start_url": sub_path,
         "scope": sub_path,
         "display": "standalone",
-        "background_color": "#1E1E1E" if settings.theme.dark_primary else "#FFFFFF",
+        "background_color": "#FFFFFF",
         "theme_color": settings.theme.light_primary,
         "description": "Mealie is a recipe management and meal planning app",
         "lang": "en",
