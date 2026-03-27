@@ -233,6 +233,7 @@ async def serve_shared_recipe_with_meta(group_slug: str, token_id: str, session:
     except Exception:
         return response_404()
 
+
 def serve_manifest(resp: Response):
     """Serve the PWA manifest with runtime theme settings"""
     settings = get_app_settings()
@@ -264,18 +265,63 @@ def serve_manifest(resp: Response):
         "icons": [
             {"src": "/icons/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
             {"src": "/icons/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-            {"src": "/icons/android-chrome-maskable-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable"},
-            {"src": "/icons/android-chrome-maskable-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"},
+            {
+                "src": "/icons/android-chrome-maskable-192x192.png",
+                "sizes": "192x192",
+                "type": "image/png",
+                "purpose": "maskable",
+            },
+            {
+                "src": "/icons/android-chrome-maskable-512x512.png",
+                "sizes": "512x512",
+                "type": "image/png",
+                "purpose": "maskable",
+            },
         ],
         "screenshots": [
-            {"src": "/screenshots/home-narrow.png", "sizes": "1600x2420", "form_factor": "narrow", "label": "Home Page"},
-            {"src": "/screenshots/recipe-narrow.png", "sizes": "1600x2420", "form_factor": "narrow", "label": "Recipe Page"},
-            {"src": "/screenshots/editor-narrow.png", "sizes": "1600x2420", "form_factor": "narrow", "label": "Editor Page"},
-            {"src": "/screenshots/parser-narrow.png", "sizes": "1600x2420", "form_factor": "narrow", "label": "Parser Page"},
+            {
+                "src": "/screenshots/home-narrow.png",
+                "sizes": "1600x2420",
+                "form_factor": "narrow",
+                "label": "Home Page",
+            },
+            {
+                "src": "/screenshots/recipe-narrow.png",
+                "sizes": "1600x2420",
+                "form_factor": "narrow",
+                "label": "Recipe Page",
+            },
+            {
+                "src": "/screenshots/editor-narrow.png",
+                "sizes": "1600x2420",
+                "form_factor": "narrow",
+                "label": "Editor Page",
+            },
+            {
+                "src": "/screenshots/parser-narrow.png",
+                "sizes": "1600x2420",
+                "form_factor": "narrow",
+                "label": "Parser Page",
+            },
             {"src": "/screenshots/home-wide.png", "sizes": "2560x1460", "form_factor": "wide", "label": "Home Page"},
-            {"src": "/screenshots/recipe-wide.png", "sizes": "2560x1460", "form_factor": "wide", "label": "Recipe Page"},
-            {"src": "/screenshots/editor-wide.png", "sizes": "2560x1460", "form_factor": "wide", "label": "Editor Page"},
-            {"src": "/screenshots/parser-wide.png", "sizes": "2560x1460", "form_factor": "wide", "label": "Parser Page"},
+            {
+                "src": "/screenshots/recipe-wide.png",
+                "sizes": "2560x1460",
+                "form_factor": "wide",
+                "label": "Recipe Page",
+            },
+            {
+                "src": "/screenshots/editor-wide.png",
+                "sizes": "2560x1460",
+                "form_factor": "wide",
+                "label": "Editor Page",
+            },
+            {
+                "src": "/screenshots/parser-wide.png",
+                "sizes": "2560x1460",
+                "form_factor": "wide",
+                "label": "Parser Page",
+            },
         ],
         "shortcuts": [
             {
@@ -307,6 +353,7 @@ def serve_manifest(resp: Response):
         headers={"Cache-Control": "no-cache"},
     )
 
+
 def mount_spa(app: FastAPI):
     if not os.path.exists(__app_settings.STATIC_FILES):
         return
@@ -316,5 +363,5 @@ def mount_spa(app: FastAPI):
 
     app.get("/g/{group_slug}/r/{recipe_slug}", include_in_schema=False)(serve_recipe_with_meta)
     app.get("/g/{group_slug}/shared/r/{token_id}", include_in_schema=False)(serve_shared_recipe_with_meta)
-    app.get("/manifest.webmanifest", include_in_schema=False)(serve_manifest) 
+    app.get("/manifest.webmanifest", include_in_schema=False)(serve_manifest)
     app.mount("/", SPAStaticFiles(directory=__app_settings.STATIC_FILES, html=True), name="spa")
