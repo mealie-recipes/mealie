@@ -14,37 +14,22 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useLazyRecipes } from "~/composables/recipes";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 
-export default defineNuxtComponent({
-  components: { RecipeCardSection },
-  setup() {
-    const route = useRoute();
-    const i18n = useI18n();
-    const { isOwnGroup } = useLoggedInState();
+const route = useRoute();
+const i18n = useI18n();
+const { isOwnGroup } = useLoggedInState();
 
-    useSeoMeta({
-      title: i18n.t("general.favorites"),
-    });
-
-    const userId = route.params.id;
-    const query = { queryFilter: `favoritedBy.id = "${userId}"` };
-    const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes();
-
-    return {
-      query,
-      recipes,
-      isOwnGroup,
-      appendRecipes,
-      assignSorted,
-      removeRecipe,
-      replaceRecipes,
-    };
-  },
+useSeoMeta({
+  title: i18n.t("general.favorites"),
 });
+
+const userId = route.params.id;
+const query = { queryFilter: `favoritedBy.id = "${userId}"` };
+const { recipes, appendRecipes, assignSorted, removeRecipe, replaceRecipes } = useLazyRecipes();
 </script>
 
 <style scoped></style>

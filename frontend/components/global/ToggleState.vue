@@ -2,40 +2,26 @@
   <component :is="tag">
     <slot
       name="activator"
-      v-bind="{ toggle, state }"
+      v-bind="{ toggle, modelValue }"
     />
-    <slot v-bind="{ state, toggle }" />
+    <slot v-bind="{ modelValue, toggle }" />
   </component>
 </template>
 
-<script lang="ts">
-export default defineNuxtComponent({
-  props: {
-    modelValue: {
-      type: Boolean,
-      default: false,
-    },
-    tag: {
-      type: String,
-      default: "div",
-    },
-  },
-  emits: ["update:modelValue"],
-  setup(props, context) {
-    const state = ref(false);
+<script setup lang="ts">
+const modelValue = defineModel({
+  type: Boolean,
+  default: false,
+});
 
-    const toggle = () => {
-      state.value = !state.value;
-    };
-
-    watch(state, () => {
-      context.emit("update:modelValue", state.value);
-    });
-
-    return {
-      state,
-      toggle,
-    };
+defineProps({
+  tag: {
+    type: String,
+    default: "div",
   },
 });
+
+const toggle = () => {
+  modelValue.value = !modelValue.value;
+};
 </script>

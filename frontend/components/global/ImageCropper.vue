@@ -16,11 +16,11 @@
           color="success"
           :icon="$globals.icons.save"
           :disabled="submitted"
-          @click="() => save()"
+          @click="save"
         />
         <v-menu offset-y :close-on-content-click="false" location="bottom center">
-          <template #activator="{ props }">
-            <v-btn color="info" v-bind="props" :icon="$globals.icons.edit" :disabled="submitted" />
+          <template #activator="{ props: slotProps }">
+            <v-btn color="info" v-bind="slotProps" :icon="$globals.icons.edit" :disabled="submitted" />
           </template>
           <v-list class="mt-1">
             <template v-for="(row, keyRow) in controls" :key="keyRow">
@@ -55,117 +55,98 @@
   </v-card>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { Cropper } from "vue-advanced-cropper";
 import "vue-advanced-cropper/dist/style.css";
 
-export default defineNuxtComponent({
-  components: { Cropper },
-  props: {
-    img: {
-      type: String,
-      required: true,
-    },
-    cropperHeight: {
-      type: String,
-      default: undefined,
-    },
-    cropperWidth: {
-      type: String,
-      default: undefined,
-    },
-    submitted: {
-      type: Boolean,
-      default: false,
-    },
+defineProps({
+  img: {
+    type: String,
+    required: true,
   },
-  emits: ["save", "delete"],
-  setup(_, context) {
-    const cropper = ref<any>();
-    const changed = ref(0);
-    const { $globals } = useNuxtApp();
-
-    interface Control {
-      color: string;
-      icon: string;
-      callback: CallableFunction;
-    }
-
-    const controls = ref<Control[][]>([
-      [
-        {
-          color: "info",
-          icon: $globals.icons.flipHorizontal,
-          callback: () => flip(true, false),
-        },
-        {
-          color: "info",
-          icon: $globals.icons.flipVertical,
-          callback: () => flip(false, true),
-        },
-      ],
-      [
-        {
-          color: "info",
-          icon: $globals.icons.rotateLeft,
-          callback: () => rotate(-90),
-        },
-        {
-          color: "info",
-          icon: $globals.icons.rotateRight,
-          callback: () => rotate(90),
-        },
-      ],
-    ]);
-
-    function flip(hortizontal: boolean, vertical?: boolean) {
-      if (!cropper.value) {
-        return;
-      }
-      cropper.value.flip(hortizontal, vertical);
-      changed.value = changed.value + 1;
-    }
-
-    function rotate(angle: number) {
-      if (!cropper.value) {
-        return;
-      }
-      cropper.value.rotate(angle);
-      changed.value = changed.value + 1;
-    }
-
-    function save() {
-      if (!cropper.value) {
-        return;
-      }
-      const { canvas } = cropper.value.getResult();
-      if (!canvas) {
-        return;
-      }
-      canvas.toBlob((blob) => {
-        if (blob) {
-          context.emit("save", blob);
-        }
-      });
-    }
-
-    return {
-      cropper,
-      controls,
-      flip,
-      rotate,
-      save,
-      changed,
-    };
+  cropperHeight: {
+    type: String,
+    default: undefined,
   },
-
-  methods: {
-    defaultSize({ imageSize, visibleArea }) {
-      return {
-        width: (visibleArea || imageSize).width,
-        height: (visibleArea || imageSize).height,
-      };
-    },
+  cropperWidth: {
+    type: String,
+    default: undefined,
+  },
+  submitted: {
+    type: Boolean,
+    default: false,
   },
 });
+
+const emit = defineEmits<{
+  (e: "save", item: Blob): void;
+  (e: "delete"): void;
+}>();
+
+const cropper = ref<any>(null);
+const changed = ref(0);
+const { $globals } = useNuxtApp();
+
+type Control = {
+  color: string;
+  icon: string;
+  callback: CallableFunction;
+};
+
+function flip(hortizontal: boolean, vertical?: boolean) {
+  if (!cropper.value) return;
+  cropper.value.flip(hortizontal, vertical);
+  changed.value = changed.value + 1;
+}
+
+function rotate(angle: number) {
+  if (!cropper.value) return;
+  cropper.value.rotate(angle);
+  changed.value = changed.value + 1;
+}
+
+const controls = ref<Control[][]>([
+  [
+    {
+      color: "info",
+      icon: $globals.icons.flipHorizontal,
+      callback: () => flip(true, false),
+    },
+    {
+      color: "info",
+      icon: $globals.icons.flipVertical,
+      callback: () => flip(false, true),
+    },
+  ],
+  [
+    {
+      color: "info",
+      icon: $globals.icons.rotateLeft,
+      callback: () => rotate(-90),
+    },
+    {
+      color: "info",
+      icon: $globals.icons.rotateRight,
+      callback: () => rotate(90),
+    },
+  ],
+]);
+
+function save() {
+  if (!cropper.value) return;
+  const { canvas } = cropper.value.getResult();
+  if (!canvas) return;
+  canvas.toBlob((blob) => {
+    if (blob) {
+      emit("save", blob);
+    }
+  });
+}
+
+function defaultSize({ imageSize, visibleArea }: any) {
+  return {
+    width: (visibleArea || imageSize).width,
+    height: (visibleArea || imageSize).height,
+  };
+}
 </script>

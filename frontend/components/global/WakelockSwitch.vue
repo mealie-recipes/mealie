@@ -12,42 +12,33 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useWakeLock } from "@vueuse/core";
 
-export default defineNuxtComponent({
-  setup() {
-    const { isSupported: wakeIsSupported, isActive, request, release } = useWakeLock();
-    const wakeLock = computed({
-      get: () => isActive.value,
-      set: () => {
-        if (isActive.value) {
-          unlockScreen();
-        }
-        else {
-          lockScreen();
-        }
-      },
-    });
-    async function lockScreen() {
-      if (wakeIsSupported) {
-        console.debug("Wake Lock Requested");
-        await request("screen");
-      }
+const { isSupported: wakeIsSupported, isActive, request, release } = useWakeLock();
+const wakeLock = computed({
+  get: () => isActive.value,
+  set: () => {
+    if (isActive.value) {
+      unlockScreen();
     }
-    async function unlockScreen() {
-      if (wakeIsSupported || isActive) {
-        console.debug("Wake Lock Released");
-        await release();
-      }
+    else {
+      lockScreen();
     }
-    onMounted(() => lockScreen());
-    onUnmounted(() => unlockScreen());
-
-    return {
-      wakeLock,
-      wakeIsSupported,
-    };
   },
 });
+async function lockScreen() {
+  if (wakeIsSupported) {
+    console.debug("Wake Lock Requested");
+    await request("screen");
+  }
+}
+async function unlockScreen() {
+  if (wakeIsSupported || isActive) {
+    console.debug("Wake Lock Released");
+    await release();
+  }
+}
+onMounted(() => lockScreen());
+onUnmounted(() => unlockScreen());
 </script>

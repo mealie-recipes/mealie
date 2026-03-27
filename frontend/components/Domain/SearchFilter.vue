@@ -7,7 +7,7 @@
       nudge-bottom="3"
       :close-on-content-click="false"
     >
-      <template #activator="{ props }">
+      <template #activator="{ props: menuProps }">
         <v-badge
           v-memo="[selectedCount]"
           :model-value="selectedCount > 0"
@@ -19,7 +19,7 @@
             size="small"
             color="accent"
             dark
-            v-bind="props"
+            v-bind="menuProps"
           >
             <slot />
           </v-btn>
@@ -145,89 +145,72 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { ISearchableItem } from "~/composables/use-search";
 import { useSearch } from "~/composables/use-search";
 
-export default defineNuxtComponent({
-  props: {
-    items: {
-      type: Array as () => ISearchableItem[],
-      required: true,
-    },
-    modelValue: {
-      type: Array as () => any[],
-      required: true,
-    },
-    requireAll: {
-      type: Boolean,
-      default: undefined,
-    },
-    radio: {
-      type: Boolean,
-      default: false,
-    },
+const props = defineProps({
+  items: {
+    type: Array as () => ISearchableItem[],
+    required: true,
   },
-  emits: ["update:requireAll", "update:modelValue"],
-  setup(props, context) {
-    const state = reactive({
-      menu: false,
-    });
-
-    // Use the search composable
-    const { search: searchInput, filtered } = useSearch(computed(() => props.items));
-
-    const combinator = computed({
-      get: () => (props.requireAll ? "hasAll" : "hasAny"),
-      set: (value) => {
-        context.emit("update:requireAll", value === "hasAll");
-      },
-    });
-
-    // Use shallowRef to prevent deep reactivity on large arrays
-    const selected = computed({
-      get: () => props.modelValue as ISearchableItem[],
-      set: (value) => {
-        context.emit("update:modelValue", value);
-      },
-    });
-
-    const selectedRadio = computed({
-      get: () => (selected.value.length > 0 ? selected.value[0] : null),
-      set: (value) => {
-        context.emit("update:modelValue", value ? [value] : []);
-      },
-    });
-
-    const selectedCount = computed(() => selected.value.length);
-    const selectedIds = computed(() => {
-      return new Set(selected.value.map(item => item.id));
-    });
-
-    const handleRadioClick = (item: ISearchableItem) => {
-      if (selectedRadio.value === item) {
-        selectedRadio.value = null;
-      }
-    };
-
-    function clearSelection() {
-      selected.value = [];
-      selectedRadio.value = null;
-      searchInput.value = "";
-    }
-
-    return {
-      combinator,
-      state,
-      searchInput,
-      selected,
-      selectedRadio,
-      selectedCount,
-      selectedIds,
-      filtered,
-      handleRadioClick,
-      clearSelection,
-    };
+  requireAll: {
+    type: Boolean,
+    default: undefined,
+  },
+  radio: {
+    type: Boolean,
+    default: false,
   },
 });
+
+const modelValue = defineModel<ISearchableItem[]>();
+
+const emit = defineEmits<{
+  (e: "update:requireAll", value: boolean | undefined): void;
+}>();
+
+const state = reactive({
+  menu: false,
+});
+
+// Use the search composable
+const { search: searchInput, filtered } = useSearch(computed(() => props.items));
+
+const combinator = computed({
+  get: () => (props.requireAll ? "hasAll" : "hasAny"),
+  set: (value: string) => {
+    emit("update:requireAll", value === "hasAll");
+  },
+});
+
+const selected = computed<ISearchableItem[]>({
+  get: () => modelValue.value ?? [],
+  set: (value: ISearchableItem[]) => {
+    modelValue.value = value;
+  },
+});
+
+const selectedRadio = computed<null | ISearchableItem>({
+  get: () => (selected.value.length > 0 ? selected.value[0] : null),
+  set: (value: ISearchableItem | null) => {
+    const next = value ? [value] : [];
+    selected.value = next;
+  },
+});
+
+const selectedCount = computed(() => selected.value.length);
+const selectedIds = computed(() => new Set(selected.value.map(item => item.id)));
+
+const handleRadioClick = (item: ISearchableItem) => {
+  if (selectedRadio.value === item) {
+    selectedRadio.value = null;
+  }
+};
+
+function clearSelection() {
+  selected.value = [];
+  selectedRadio.value = null;
+  searchInput.value = "";
+}
 </script>

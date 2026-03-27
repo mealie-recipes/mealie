@@ -115,61 +115,51 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import type { UserOut } from "~/lib/api/types/user";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 
-export default defineNuxtComponent({
-  components: {
-    UserAvatar,
-  },
-  setup() {
-    const auth = useMealieAuth();
-    const api = useUserApi();
-    const i18n = useI18n();
+const api = useUserApi();
+const i18n = useI18n();
 
-    useSeoMeta({
-      title: i18n.t("profile.members"),
-    });
+useSeoMeta({
+  title: i18n.t("profile.members"),
+});
 
-    const members = ref<UserOut[] | null[]>([]);
+const members = ref<UserOut[] | null[]>([]);
 
-    const headers = [
-      { title: "", value: "avatar", sortable: false, align: "center" },
-      { title: i18n.t("user.username"), value: "username" },
-      { title: i18n.t("user.full-name"), value: "fullName" },
-      { title: i18n.t("user.admin"), value: "admin" },
-      { title: i18n.t("group.manage"), value: "manage", sortable: false, align: "center" },
-      { title: i18n.t("settings.organize"), value: "organize", sortable: false, align: "center" },
-      { title: i18n.t("group.invite"), value: "invite", sortable: false, align: "center" },
-      { title: i18n.t("group.manage-household"), value: "manageHousehold", sortable: false, align: "center" },
-    ];
+const headers = [
+  { title: "", value: "avatar", sortable: false, align: "center" },
+  { title: i18n.t("user.username"), value: "username" },
+  { title: i18n.t("user.full-name"), value: "fullName" },
+  { title: i18n.t("user.admin"), value: "admin" },
+  { title: i18n.t("group.manage"), value: "manage", sortable: false, align: "center" },
+  { title: i18n.t("settings.organize"), value: "organize", sortable: false, align: "center" },
+  { title: i18n.t("group.invite"), value: "invite", sortable: false, align: "center" },
+  { title: i18n.t("group.manage-household"), value: "manageHousehold", sortable: false, align: "center" },
+];
 
-    async function refreshMembers() {
-      const { data } = await api.households.fetchMembers();
-      if (data) {
-        members.value = data.items;
-      }
-    }
+async function refreshMembers() {
+  const { data } = await api.households.fetchMembers();
+  if (data) {
+    members.value = data.items;
+  }
+}
 
-    async function setPermissions(user: UserOut) {
-      const payload = {
-        userId: user.id,
-        canInvite: user.canInvite,
-        canManageHousehold: user.canManageHousehold,
-        canManage: user.canManage,
-        canOrganize: user.canOrganize,
-      };
+async function setPermissions(user: UserOut) {
+  const payload = {
+    userId: user.id,
+    canInvite: user.canInvite,
+    canManageHousehold: user.canManageHousehold,
+    canManage: user.canManage,
+    canOrganize: user.canOrganize,
+  };
 
-      await api.households.setMemberPermissions(payload);
-    }
+  await api.households.setMemberPermissions(payload);
+}
 
-    onMounted(async () => {
-      await refreshMembers();
-    });
-
-    return { members, headers, setPermissions, sessionUser: auth.user };
-  },
+onMounted(async () => {
+  await refreshMembers();
 });
 </script>

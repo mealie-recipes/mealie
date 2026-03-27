@@ -40,27 +40,25 @@
   </v-menu>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { ContextMenuItem } from "~/composables/use-context-presents";
 
-export default defineNuxtComponent({
-  props: {
-    items: {
-      type: Array as () => ContextMenuItem[],
-      required: true,
-    },
-    menuTop: {
-      type: Boolean,
-      default: true,
-    },
-    fab: {
-      type: Boolean,
-      default: false,
-    },
-    color: {
-      type: String,
-      default: "grey-darken-2",
-    },
+defineProps({
+  items: {
+    type: Array as () => ContextMenuItem[],
+    required: true,
+  },
+  menuTop: {
+    type: Boolean,
+    default: true,
+  },
+  fab: {
+    type: Boolean,
+    default: false,
+  },
+  color: {
+    type: String,
+    default: "grey-darken-2",
   },
 });
 </script>

@@ -8,11 +8,11 @@
   - `chore: `
   - `dev:`
 
-  If a section of the PR template does not apply to this PR, then delete that section.
+  If a section of the PR template does not apply to this PR, and is not marked as "required", then delete that section.
 
   PLEASE READ:
   -------------------------
-  Mealie is moving to a regular, automatic release schedule. This means that all PRs should be in a
+  Mealie uses a regular, automatic release schedule. This means that all PRs should be in a
   stable state, ready for release. This includes:
 
   - Ensuring new tests have been added to cover new features, or to prevent regressions.
@@ -28,8 +28,6 @@ _(REQUIRED)_
   What goal is this change working towards?
   Provide a bullet pointed summary of how each file was changed.
   Briefly explain any decisions you made with respect to the changes.
-  Include anything here that you didn't include in *Release Notes*
-  above, such as changes to CI or changes to internal methods.
 
   If there is a UI component to the change, please include before/after images.
 -->
@@ -43,6 +41,8 @@ If this PR fixes one of more issues, list them here.
 One per line, like so:
 Fixes #123
 Fixes #39
+
+Be sure to include the word "fixes" otherwise the associated issue will not be closed.
 -->
 
 ## Special notes for your reviewer:
@@ -67,5 +67,6 @@ _(fill-in or delete this section)_
 _(REQUIRED)_
 
 <!--
-  Describe to which degree an LLM was used in creating this pull request.
+  Describe to which degree an LLM was used in creating this pull request. Failure to accurately disclose LLM usage may result in
+  review delays or closure of your PR.
 -->

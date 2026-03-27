@@ -129,9 +129,9 @@
                 </v-icon>
               </v-btn>
               <v-menu offset-y>
-                <template #activator="{ props }">
+                <template #activator="{ props: menuProps }">
                   <v-chip
-                    v-bind="props"
+                    v-bind="menuProps"
                     label
                     variant="elevated"
                     size="small"
@@ -232,7 +232,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { format } from "date-fns";
 import type { SortableEvent } from "sortablejs";
 import { VueDraggable } from "vue-draggable-plus";
@@ -246,194 +246,157 @@ import { useHouseholdSelf } from "~/composables/use-households";
 import { normalizeFilter } from "~/composables/use-utils";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 
-export default defineNuxtComponent({
-  components: {
-    VueDraggable,
-    RecipeCardImage,
+const props = defineProps<{
+  mealplans: MealsByDate[];
+  actions: ReturnType<typeof useMealplans>["actions"];
+}>();
+
+const api = useUserApi();
+const auth = useMealieAuth();
+const { household } = useHouseholdSelf();
+const requiredRule = (value: any) => !!value || "Required.";
+
+const state = ref({
+  dialog: false,
+});
+
+const firstDayOfWeek = computed(() => {
+  return household.value?.preferences?.firstDayOfWeek || 0;
+});
+
+// Local mutable meals object
+const mealplansByDate = reactive<{ [date: string]: UpdatePlanEntry[] }>({});
+watch(
+  () => props.mealplans,
+  (plans) => {
+    for (const plan of plans) {
+      mealplansByDate[plan.date.toString()] = plan.meals ? [...plan.meals] : [];
+    }
+    // Remove any dates that no longer exist
+    Object.keys(mealplansByDate).forEach((date) => {
+      if (!plans.find(p => p.date.toString() === date)) {
+        mealplansByDate[date] = [];
+      }
+    });
   },
-  props: {
-    mealplans: {
-      type: Array as () => MealsByDate[],
-      required: true,
-    },
-    actions: {
-      type: Object as () => ReturnType<typeof useMealplans>["actions"],
-      required: true,
-    },
-  },
-  setup(props) {
-    const api = useUserApi();
-    const auth = useMealieAuth();
-    const { household } = useHouseholdSelf();
-    const requiredRule = (value: any) => !!value || "Required.";
+  { immediate: true, deep: true },
+);
 
-    const state = ref({
-      dialog: false,
-    });
+function onMoveCallback(evt: SortableEvent) {
+  const supportedEvents = ["drop", "touchend"];
 
-    const firstDayOfWeek = computed(() => {
-      return household.value?.preferences?.firstDayOfWeek || 0;
-    });
+  // Adapted From https://github.com/SortableJS/Vue.Draggable/issues/1029
+  const ogEvent: DragEvent = (evt as any).originalEvent;
 
-    // Local mutable meals object
-    const mealplansByDate = reactive<{ [date: string]: UpdatePlanEntry[] }>({});
-    watch(
-      () => props.mealplans,
-      (plans) => {
-        for (const plan of plans) {
-          mealplansByDate[plan.date.toString()] = plan.meals ? [...plan.meals] : [];
-        }
-        // Remove any dates that no longer exist
-        Object.keys(mealplansByDate).forEach((date) => {
-          if (!plans.find(p => p.date.toString() === date)) {
-            mealplansByDate[date] = [];
-          }
-        });
-      },
-      { immediate: true, deep: true },
-    );
+  if (ogEvent && ogEvent.type in supportedEvents) {
+    // The drop was cancelled, unsure if anything needs to be done?
+    console.log("Cancel Move Event");
+  }
+  else {
+    // A Meal was moved, set the new date value and make an update request and refresh the meals
+    const fromMealsByIndex = parseInt(evt.from.getAttribute("data-index") ?? "");
+    const toMealsByIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
 
-    function onMoveCallback(evt: SortableEvent) {
-      const supportedEvents = ["drop", "touchend"];
+    if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
+      const destDate = props.mealplans[toMealsByIndex].date;
+      const mealData = mealplansByDate[destDate.toString()][evt.newIndex as number];
 
-      // Adapted From https://github.com/SortableJS/Vue.Draggable/issues/1029
-      const ogEvent: DragEvent = (evt as any).originalEvent;
+      mealData.date = format(destDate, "yyyy-MM-dd");
 
-      if (ogEvent && ogEvent.type in supportedEvents) {
-        // The drop was cancelled, unsure if anything needs to be done?
-        console.log("Cancel Move Event");
-      }
-      else {
-        // A Meal was moved, set the new date value and make an update request and refresh the meals
-        const fromMealsByIndex = parseInt(evt.from.getAttribute("data-index") ?? "");
-        const toMealsByIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
-
-        if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
-          const destDate = props.mealplans[toMealsByIndex].date;
-          const mealData = mealplansByDate[destDate.toString()][evt.newIndex as number];
-
-          mealData.date = format(destDate, "yyyy-MM-dd");
-
-          props.actions.updateOne(mealData);
-        }
-      }
+      props.actions.updateOne(mealData);
     }
+  }
+}
 
-    // =====================================================
-    // New Meal Dialog
+// =====================================================
+// New Meal Dialog
 
-    const dialog = reactive({
-      loading: false,
-      error: false,
-      note: false,
-    });
+const dialog = reactive({
+  loading: false,
+  error: false,
+  note: false,
+});
 
-    watch(dialog, () => {
-      if (dialog.note) {
-        newMeal.recipeId = undefined;
-      }
-    });
+watch(dialog, () => {
+  if (dialog.note) {
+    newMeal.recipeId = undefined;
+  }
+});
 
-    const newMeal = reactive({
-      date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000),
-      title: "",
-      text: "",
-      recipeId: undefined as string | undefined,
-      entryType: "dinner" as PlanEntryType,
-      existing: false,
-      id: 0,
-      groupId: "",
-      userId: auth.user.value?.id || "",
-    });
+const newMeal = reactive({
+  date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000),
+  title: "",
+  text: "",
+  recipeId: undefined as string | undefined,
+  entryType: "dinner" as PlanEntryType,
+  existing: false,
+  id: 0,
+  groupId: "",
+  userId: auth.user.value?.id || "",
+});
 
-    const newMealDateString = computed(() => {
-      return format(newMeal.date, "yyyy-MM-dd");
-    });
+const newMealDateString = computed(() => {
+  return format(newMeal.date, "yyyy-MM-dd");
+});
 
-    const isCreateDisabled = computed(() => {
-      if (dialog.note) {
-        return !newMeal.title.trim();
-      }
-      return !newMeal.recipeId;
-    });
+const isCreateDisabled = computed(() => {
+  if (dialog.note) {
+    return !newMeal.title.trim();
+  }
+  return !newMeal.recipeId;
+});
 
-    function openDialog(date: Date) {
-      newMeal.date = date;
-      state.value.dialog = true;
-    }
+function openDialog(date: Date) {
+  newMeal.date = date;
+  state.value.dialog = true;
+}
 
-    function editMeal(mealplan: UpdatePlanEntry) {
-      const { date, title, text, entryType, recipeId, id, groupId, userId } = mealplan;
-      if (!entryType) return;
+function editMeal(mealplan: UpdatePlanEntry) {
+  const { date, title, text, entryType, recipeId, id, groupId, userId } = mealplan;
+  if (!entryType) return;
 
-      const [year, month, day] = date.split("-").map(Number);
-      newMeal.date = new Date(year, month - 1, day);
-      newMeal.title = title || "";
-      newMeal.text = text || "";
-      newMeal.recipeId = recipeId || undefined;
-      newMeal.entryType = entryType;
-      newMeal.existing = true;
-      newMeal.id = id;
-      newMeal.groupId = groupId;
-      newMeal.userId = userId || auth.user.value?.id || "";
+  const [year, month, day] = date.split("-").map(Number);
+  newMeal.date = new Date(year, month - 1, day);
+  newMeal.title = title || "";
+  newMeal.text = text || "";
+  newMeal.recipeId = recipeId || undefined;
+  newMeal.entryType = entryType;
+  newMeal.existing = true;
+  newMeal.id = id;
+  newMeal.groupId = groupId;
+  newMeal.userId = userId || auth.user.value?.id || "";
 
-      state.value.dialog = true;
-      dialog.note = !recipeId;
-    }
+  state.value.dialog = true;
+  dialog.note = !recipeId;
+}
 
-    function resetDialog() {
-      newMeal.date = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
-      newMeal.title = "";
-      newMeal.text = "";
-      newMeal.entryType = "dinner";
-      newMeal.recipeId = undefined;
-      newMeal.existing = false;
-    }
+function resetDialog() {
+  newMeal.date = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
+  newMeal.title = "";
+  newMeal.text = "";
+  newMeal.entryType = "dinner";
+  newMeal.recipeId = undefined;
+  newMeal.existing = false;
+}
 
-    async function randomMeal(date: Date, type: PlanEntryType) {
-      const { data } = await api.mealplans.setRandom({
-        date: format(date, "yyyy-MM-dd"),
-        entryType: type,
-      });
+async function randomMeal(date: Date, type: PlanEntryType) {
+  const { data } = await api.mealplans.setRandom({
+    date: format(date, "yyyy-MM-dd"),
+    entryType: type,
+  });
 
-      if (data) {
-        props.actions.refreshAll();
-      }
-    }
+  if (data) {
+    props.actions.refreshAll();
+  }
+}
 
-    // =====================================================
-    // Search
+// =====================================================
+// Search
 
-    const search = useRecipeSearch(api);
-    const planTypeOptions = usePlanTypeOptions();
+const search = useRecipeSearch(api);
+const planTypeOptions = usePlanTypeOptions();
 
-    onMounted(async () => {
-      await search.trigger();
-    });
-
-    return {
-      state,
-      onMoveCallback,
-      planTypeOptions,
-      getEntryTypeText,
-      requiredRule,
-      isCreateDisabled,
-      normalizeFilter,
-
-      // Dialog
-      dialog,
-      newMeal,
-      newMealDateString,
-      openDialog,
-      editMeal,
-      resetDialog,
-      randomMeal,
-
-      // Search
-      search,
-      firstDayOfWeek,
-      mealplansByDate,
-    };
-  },
+onMounted(async () => {
+  await search.trigger();
 });
 </script>

@@ -142,8 +142,24 @@ export function useIngredientTextParser() {
     return sanitizeIngredientHTML(text);
   };
 
+  function ingredientToParserString(ingredient: RecipeIngredient): string {
+    if (ingredient.originalText) {
+      return ingredient.originalText;
+    }
+
+    // If the ingredient has no unit and no food, it's unparsed — the note
+    // contains the full ingredient text. Using parseIngredientText would
+    // incorrectly prepend the quantity (e.g. "1 1/2 cup apples").
+    if (!ingredient.unit && !ingredient.food) {
+      return ingredient.note || "";
+    }
+
+    return parseIngredientText(ingredient, 1, false) ?? "";
+  }
+
   return {
     useParsedIngredientText,
     parseIngredientText,
+    ingredientToParserString,
   };
 }
