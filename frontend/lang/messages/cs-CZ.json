@@ -331,6 +331,8 @@
     "any-household": "Jakákoliv domácnost",
     "no-meal-plan-defined-yet": "Dosud nebyl definován žádný jídelníček",
     "no-meal-planned-for-today": "Pro dnešek není naplánováno žádné jídlo",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Počet dní při načtení stránky",
     "numberOfDays-label": "Výchozí dny",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Pouze recepty z těchto kategorií budou použity v jídelníčku",
