@@ -240,7 +240,7 @@ def serve_manifest():
 
     settings = get_app_settings()
     sub_path = urlparse(settings.BASE_URL).path or "/"
-    
+
     if settings.theme.light_primary != default_primary:
         theme_color = settings.theme.light_primary
     elif settings.theme.dark_primary != default_primary:
