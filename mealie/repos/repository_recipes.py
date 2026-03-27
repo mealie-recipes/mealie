@@ -213,7 +213,9 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             for organizer in new_data.get(organizer_field, []):
                 organizer["group_id"] = self.group_id
 
-        return super().update(match_value, new_data)
+        entry.update(session=self.session, **new_data)
+        self.session.commit()
+        return self.schema.model_validate(entry)
 
     def page_all(  # type: ignore
         self,
