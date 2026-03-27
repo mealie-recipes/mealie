@@ -331,6 +331,8 @@
     "any-household": "أي منزل",
     "no-meal-plan-defined-yet": "لم يتم تحديد خطة بعد",
     "no-meal-planned-for-today": "لم يتم تخطيط وجبة لهذا اليوم",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "عدد الأيام عند تحميل الصفحة",
     "numberOfDays-label": "الأيام الافتراضية",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "فقط الوجبات التي تحتوي على التصنيفات التالية سوف تستخدم لإنشاء خطتك",
