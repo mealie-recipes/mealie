@@ -23,6 +23,8 @@ const allAnnouncements: Announcement[] = Object.entries(_announcementsUnsorted)
     meta: mod.meta,
   }));
 
+const newAnnouncements = shallowRef<Announcement[]>([]);
+
 export function useAnnouncements() {
   const auth = useMealieAuth();
   const { household } = useHouseholdSelf();
