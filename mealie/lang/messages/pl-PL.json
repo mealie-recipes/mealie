@@ -18,16 +18,16 @@
             "yield": "Ilość",
             "yields": "Porcje"
         },
-        "and-amount": "and {amount}",
+        "and-amount": "i {amount}",
         "or-ingredient": "lub {ingredient}",
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
-            "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
-            "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
+            "creating-recipe-with-ai": "Tworzenie przepisu z pomocą AI...",
+            "creating-recipe-from-transcript-with-ai": "Tworzenie przepisu z transkryptu z pomocą AI...",
+            "creating-recipe-from-webpage-data": "Tworzenie przepisu na podstawie danych ze strony...",
             "downloading-image": "Ściąganie zdjęć...",
-            "downloading-video": "Downloading video...",
-            "extracting-recipe-data": "Extracting recipe data...",
-            "fetching-webpage": "Fetching webpage...",
+            "downloading-video": "Pobieranie wideo...",
+            "extracting-recipe-data": "Wyodrębnianie danych przepisu...",
+            "fetching-webpage": "Pobieranie strony...",
             "transcribing-audio-with-ai": "Transkrypcja audio przy użyciu AI..."
         }
     },
