@@ -8,6 +8,7 @@ export type AnnouncementMeta = {
 export type Announcement = {
   key: string;
   component: Component;
+  date: Date | undefined;
   meta: AnnouncementMeta | undefined;
 };
 
@@ -17,11 +18,19 @@ const _announcementsUnsorted = import.meta.glob<{ default: Component; meta?: Ann
 );
 const allAnnouncements: Announcement[] = Object.entries(_announcementsUnsorted)
   .sort(([a], [b]) => a.localeCompare(b))
-  .map(([path, mod]) => ({
-    key: path.split("/").at(-1)!.replace(".vue", ""),
-    component: mod.default,
-    meta: mod.meta,
-  }));
+  .map(([path, mod]) => {
+    const key = path.split("/").at(-1)!.replace(".vue", "");
+
+    const parsed = new Date(key.split("_", 1)[0]);
+    const date = isNaN(parsed.getTime()) ? undefined : parsed;
+
+    return {
+      key,
+      component: mod.default,
+      date,
+      meta: mod.meta,
+    };
+  });
 
 const newAnnouncements = shallowRef<Announcement[]>([]);
 
