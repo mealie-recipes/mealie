@@ -154,7 +154,18 @@
                   </v-list-item>
                 </v-list>
               </v-menu>
-              <v-btn class="ml-auto" size="small" variant="text" icon @click="actions.deleteOne(mealplan.id)">
+              <v-btn
+                v-if="mealplan.recipe && mealplan.entryType"
+                class="ml-auto"
+                size="small"
+                variant="text"
+                icon
+                :title="$t('meal-plan.reroll-recipe')"
+                @click="rerollMeal(mealplan)"
+              >
+                <v-icon>{{ $globals.icons.diceMultiple }}</v-icon>
+              </v-btn>
+              <v-btn :class="{ 'ml-auto': !mealplan.recipe || !mealplan.entryType }" size="small" variant="text" icon @click="actions.deleteOne(mealplan.id)">
                 <v-icon>{{ $globals.icons.delete }}</v-icon>
               </v-btn>
             </div>
@@ -387,6 +398,29 @@ async function randomMeal(date: Date, type: PlanEntryType) {
 
   if (data) {
     props.actions.refreshAll();
+  }
+}
+
+async function rerollMeal(mealplan: UpdatePlanEntry) {
+  if (!mealplan.entryType) {
+    return;
+  }
+
+  // Delete the current entry, then create a new random one with the same date and type
+  const { data: deleted } = await api.mealplans.deleteOne(mealplan.id);
+  if (deleted) {
+    const { data } = await api.mealplans.setRandom({
+      date: mealplan.date,
+      entryType: mealplan.entryType,
+    });
+
+    if (data) {
+      props.actions.refreshAll();
+    }
+    else {
+      // Random failed, still refresh to reflect the deletion
+      props.actions.refreshAll();
+    }
   }
 }
 

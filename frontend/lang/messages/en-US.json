@@ -373,7 +373,8 @@
     "applies-on-days": "Applies on {0}s",
     "meal-plan-settings": "Meal Plan Settings",
     "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-day-to-list": "Add Day to List",
+    "reroll-recipe": "Re-roll Recipe"
   },
   "migration": {
     "migration-data-removed": "Migration data removed",
