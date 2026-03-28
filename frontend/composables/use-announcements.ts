@@ -52,7 +52,8 @@ export function useAnnouncements() {
       return;
     }
 
-    newAnnouncements.value = []; // TODO
+    // Return all announcements newer than the last read announcement
+    newAnnouncements.value = allAnnouncements.filter(a => a.key > user.lastReadAnnouncement!);
   }
 
   refreshUnreadAnnouncements();
