@@ -37,16 +37,17 @@ export function useAnnouncements() {
       ),
   );
 
-  const newAnnouncements = shallowRef<Announcement[]>([]);
   function refreshUnreadAnnouncements() {
+    const user = auth.user.value;
+
     // Only logged-in users can see announcements
-    if (!auth.user.value || !allAnnouncements.length) {
+    if (!user || !allAnnouncements.length) {
       newAnnouncements.value = [];
       return;
     }
 
     // If a user has never seen an announcement, show them only the welcome announcement
-    if (!auth.user.value.lastReadAnnouncement) {
+    if (!user.lastReadAnnouncement) {
       newAnnouncements.value = [allAnnouncements.at(0)!];
       return;
     }
