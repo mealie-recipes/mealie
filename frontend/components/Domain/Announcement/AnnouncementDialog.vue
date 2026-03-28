@@ -85,20 +85,15 @@ const dialog = defineModel<boolean>({ default: false });
 const { newAnnouncements, allAnnouncements, setLastRead } = useAnnouncements();
 
 const currentAnnouncement = shallowRef<Announcement | undefined>();
-watch(
-  dialog,
-  () => {
-    // Once the dialog is opened, show the next announcement
-    if (dialog.value) {
-      nextAnnouncement();
+watch(dialog, () => {
+  if (!dialog.value || currentAnnouncement.value) {
+    return;
+  }
 
-      // If there are no new announcements, this is never set, so show the newest one
-      if (!currentAnnouncement.value) {
-        setCurrentAnnouncement(allAnnouncements.at(-1)!);
-      }
-    }
-  },
-);
+  // Show first unread on open, or fall back to the newest
+  const next = newAnnouncements.value.at(0) || allAnnouncements.at(-1)!;
+  setCurrentAnnouncement(next);
+});
 
 function setCurrentAnnouncement(announcement: Announcement) {
   currentAnnouncement.value = announcement;
