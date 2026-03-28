@@ -56,6 +56,7 @@ async function setLastRead(key: string) {
       ...user,
       lastReadAnnouncement: key,
     },
+    { suppressAlert: true },
   );
 }
 
