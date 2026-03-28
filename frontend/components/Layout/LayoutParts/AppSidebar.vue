@@ -127,7 +127,7 @@
             <v-badge
               :model-value="!!newAnnouncements.length"
               color="accent"
-              :content="newAnnouncements?.length"
+              :content="newAnnouncements.length || undefined"
               offset-x="-2"
             >
               <v-icon>
