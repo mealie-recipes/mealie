@@ -1,5 +1,6 @@
 import { useHouseholdSelf } from "~/composables/use-households";
 import { useGroupSelf } from "~/composables/use-groups";
+import { useUserApi } from "~/composables/api";
 
 export type AnnouncementMeta = {
   title: string | undefined;
@@ -34,8 +35,13 @@ const allAnnouncements: Announcement[] = Object.entries(_announcementsUnsorted)
 
 const newAnnouncements = shallowRef<Announcement[]>([]);
 
+function isWelcomeAnnouncement(key: string) {
+  return key === allAnnouncements.at(0)!.key;
+}
+
 export function useAnnouncements() {
   const auth = useMealieAuth();
+  const api = useUserApi();
   const { household } = useHouseholdSelf();
   const { group } = useGroupSelf();
 
@@ -48,7 +54,38 @@ export function useAnnouncements() {
       ),
   );
 
-  function refreshUnreadAnnouncements() {
+  function updateUnreadAnnouncements(lastReadKey: string) {
+    newAnnouncements.value = allAnnouncements.filter(a => a.key > lastReadKey);
+  }
+
+  async function setLastRead(key: string) {
+    const user = auth.user.value!;
+
+    if (!user.lastReadAnnouncement && isWelcomeAnnouncement(key)) {
+      // The welcome announcement is a special case: it's shown to new users and
+      // all other announcements are marked as read when they view it
+      key = allAnnouncements.at(-1)!.key;
+    }
+
+    if (user.lastReadAnnouncement && key <= user.lastReadAnnouncement) {
+      // Don't update the last read announcement if it's older than the current one
+      return;
+    }
+
+    updateUnreadAnnouncements(key);
+
+    user.lastReadAnnouncement = key; // update immediately so we don't have to wait for the db
+    await api.users.updateOne(
+      user.id,
+      {
+        ...user,
+        lastReadAnnouncement: "2026-03-28_1_new-recipe-import-options", // TODO: switch back to key
+      },
+      { suppressAlert: true },
+    );
+  }
+
+  function initUnreadAnnouncements() {
     const user = auth.user.value;
 
     // Only logged-in users can see announcements
@@ -64,17 +101,26 @@ export function useAnnouncements() {
     }
 
     // Return all announcements newer than the last read announcement
-    newAnnouncements.value = allAnnouncements.filter(a => a.key > user.lastReadAnnouncement!);
+    updateUnreadAnnouncements(user.lastReadAnnouncement);
   }
 
-  refreshUnreadAnnouncements();
+  initUnreadAnnouncements();
+
+  // If the user changes, re-init
+  let lastUserId = auth.user.value?.id;
   watch(auth.user, () => {
-    refreshUnreadAnnouncements();
+    if (auth.user.value?.id === lastUserId) {
+      return;
+    }
+
+    lastUserId = auth.user.value?.id;
+    initUnreadAnnouncements();
   });
 
   return {
     announcementsEnabled,
     newAnnouncements,
     allAnnouncements,
+    setLastRead,
   };
 }

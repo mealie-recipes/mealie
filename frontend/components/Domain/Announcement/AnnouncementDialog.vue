@@ -22,7 +22,7 @@
           :key="announcement.key"
           :active="currentAnnouncement.key === announcement.key"
           rounded
-          @click="currentAnnouncement = announcement"
+          @click="setCurrentAnnouncement(announcement)"
         >
           <v-list-item-title class="text-body-2">
             {{ announcement.meta?.title }}
@@ -73,13 +73,10 @@
 <script setup lang="ts">
 import { useAnnouncements } from "~/composables/use-announcements";
 import type { Announcement } from "~/composables/use-announcements";
-import { useUserApi } from "~/composables/api";
 
 const dialog = defineModel<boolean>({ default: false });
 
-const auth = useMealieAuth();
-const api = useUserApi();
-const { newAnnouncements, allAnnouncements } = useAnnouncements();
+const { newAnnouncements, allAnnouncements, setLastRead } = useAnnouncements();
 
 const currentAnnouncement = shallowRef<Announcement | undefined>();
 watch(
@@ -91,46 +88,28 @@ watch(
 
       // If there are no new announcements, this is never set, so show the newest one
       if (!currentAnnouncement.value) {
-        currentAnnouncement.value = allAnnouncements.at(-1);
+        setCurrentAnnouncement(allAnnouncements.at(-1)!);
       }
     }
   },
 );
 
-async function setLastRead(key: string) {
-  const user = auth.user.value!;
-  if (user.lastReadAnnouncement && key <= user.lastReadAnnouncement) {
-    // Don't update the last read announcement if it's older than the current one
-    return;
-  }
-
-  await api.users.updateOne(
-    user.id,
-    {
-      ...user,
-      lastReadAnnouncement: null, // TODO: switch back to key
-    },
-    { suppressAlert: true },
-  );
+function setCurrentAnnouncement(announcement: Announcement) {
+  currentAnnouncement.value = announcement;
+  setLastRead(announcement.key);
 }
 
 function markAllAsRead() {
-  newAnnouncements.value = [];
-
-  const newestAnnouncement = allAnnouncements.at(-1)!;
-  setLastRead(newestAnnouncement.key);
+  setLastRead(allAnnouncements.at(-1)!.key);
 }
 
 function nextAnnouncement() {
-  const nextAnnouncement = newAnnouncements.value.at(0);
-  newAnnouncements.value = newAnnouncements.value.slice(1);
-
-  if (!nextAnnouncement) {
+  const next = newAnnouncements.value.at(0);
+  if (!next) {
     markAllAsRead();
-    return;
   }
-
-  currentAnnouncement.value = nextAnnouncement;
-  setLastRead(currentAnnouncement.value.key);
+  else {
+    setCurrentAnnouncement(next);
+  }
 }
 </script>
