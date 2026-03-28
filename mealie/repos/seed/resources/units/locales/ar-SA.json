@@ -19,7 +19,7 @@
     },
     "fluid-ounce": {
         "name": "أونصة سائل",
-        "plural_name": "أونصة سائل",
+        "plural_name": "أونصات سائل",
         "description": "",
         "abbreviation": "أونصة سائل"
     },
@@ -139,8 +139,8 @@
         "abbreviation": ""
     },
     "sprig": {
-        "name": "sprig",
-        "plural_name": "sprigs",
+        "name": "غصن",
+        "plural_name": "أغصان",
         "description": "",
         "abbreviation": ""
     }
