@@ -8,18 +8,47 @@
     width="100%"
     max-width="1200"
   >
-    <v-card-title>
-      <v-chip label large class="me-1">
-        <v-icon class="me-1">
-          {{ $globals.icons.calendar }}
-        </v-icon>
-        {{ $d(new Date(currentAnnouncement.key.split('_', 1)[0])) }}
-      </v-chip>
-      {{ currentAnnouncement.meta?.title }}
-    </v-card-title>
-    <v-card-text>
-      <component :is="currentAnnouncement.component" />
-    </v-card-text>
+    <div class="d-flex">
+      <!-- Nav list -->
+      <v-list
+        nav
+        density="compact"
+        color="primary"
+        class="overflow-y-auto border-e flex-shrink-0"
+        style="width: 200px; max-height: 60vh"
+      >
+        <v-list-item
+          v-for="announcement in allAnnouncements.toReversed()"
+          :key="announcement.key"
+          :active="currentAnnouncement.key === announcement.key"
+          rounded
+          @click="currentAnnouncement = announcement"
+        >
+          <v-list-item-title class="text-body-2">
+            {{ announcement.meta?.title }}
+          </v-list-item-title>
+          <v-list-item-subtitle v-if="announcement.date">
+            {{ $d(announcement.date) }}
+          </v-list-item-subtitle>
+        </v-list-item>
+      </v-list>
+
+      <!-- Main content -->
+      <div class="flex-grow-1 overflow-y-auto" style="max-height: 60vh">
+        <v-card-title>
+          <v-chip v-if="currentAnnouncement.date" label large class="me-1">
+            <v-icon class="me-1">
+              {{ $globals.icons.calendar }}
+            </v-icon>
+            {{ $d(currentAnnouncement.date) }}
+          </v-chip>
+          {{ currentAnnouncement.meta?.title }}
+        </v-card-title>
+        <v-card-text>
+          <component :is="currentAnnouncement.component" />
+        </v-card-text>
+      </div>
+    </div>
     <template #custom-card-action>
       <div v-if="newAnnouncements.length">
         <BaseButton
@@ -43,6 +72,7 @@
 
 <script setup lang="ts">
 import { useAnnouncements } from "~/composables/use-announcements";
+import type { Announcement } from "~/composables/use-announcements";
 import { useUserApi } from "~/composables/api";
 
 const dialog = defineModel<boolean>({ default: false });
