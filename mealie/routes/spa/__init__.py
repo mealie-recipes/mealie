@@ -41,13 +41,12 @@ class SPAStaticFiles(StaticFiles):
                 raise ex
 
         # Hashed assets (_nuxt/*) are safe to cache forever since new builds produce new filenames.
-        # HTML and other files must not be cached to ensure browsers always load the correct bundle
-        # references after a container rebuild (prevents blank white page on stale index.html).
+        # HTML must revalidate so browsers always fetch the correct bundle references after a
+        # container rebuild (prevents blank white page from stale index.html in HA iframes, etc).
         if path.startswith("_nuxt/"):
             response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
-        else:
-            response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-            response.headers["Pragma"] = "no-cache"
+        elif path == "." or path == "index.html" or response.media_type == "text/html":
+            response.headers["Cache-Control"] = "no-cache"
 
         return response
 
