@@ -125,7 +125,7 @@
         >
           <template #prepend>
             <v-badge
-              :model-value="!!newAnnouncements?.length"
+              :model-value="!!newAnnouncements.length"
               color="accent"
               :content="newAnnouncements?.length"
               offset-x="-2"

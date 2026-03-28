@@ -1,6 +1,28 @@
 import { useHouseholdSelf } from "~/composables/use-households";
 import { useGroupSelf } from "~/composables/use-groups";
 
+export type AnnouncementMeta = {
+  title: string | undefined;
+};
+
+export type Announcement = {
+  key: string;
+  component: Component;
+  meta: AnnouncementMeta | undefined;
+};
+
+const _announcementsUnsorted = import.meta.glob<{ default: Component; meta?: AnnouncementMeta }>(
+  "~/components/Domain/Announcement/Announcements/*.vue",
+  { eager: true },
+);
+const allAnnouncements: Announcement[] = Object.entries(_announcementsUnsorted)
+  .sort(([a], [b]) => a.localeCompare(b))
+  .map(([path, mod]) => ({
+    key: path.split("/").at(-1)!.replace(".vue", ""),
+    component: mod.default,
+    meta: mod.meta,
+  }));
+
 export function useAnnouncements() {
   const auth = useMealieAuth();
   const { household } = useHouseholdSelf();
@@ -15,10 +37,18 @@ export function useAnnouncements() {
       ),
   );
 
-  const newAnnouncements = ref<string[] | undefined>();
+  const newAnnouncements = shallowRef<Announcement[]>([]);
   function refreshUnreadAnnouncements() {
-    if (!auth.user.value) {
-      newAnnouncements.value = undefined;
+    // Only logged-in users can see announcements
+    if (!auth.user.value || !allAnnouncements.length) {
+      newAnnouncements.value = [];
+      return;
+    }
+
+    // If a user has never seen an announcement, show them only the welcome announcement
+    if (!auth.user.value.lastReadAnnouncement) {
+      newAnnouncements.value = [allAnnouncements.at(0)!];
+      return;
     }
 
     newAnnouncements.value = []; // TODO
@@ -32,5 +62,6 @@ export function useAnnouncements() {
   return {
     announcementsEnabled,
     newAnnouncements,
+    allAnnouncements,
   };
 }
