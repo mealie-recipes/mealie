@@ -3,6 +3,7 @@
     v-model="dialog"
     :title="$t('announcements.announcements')"
     :icon="$globals.icons.bullhornVariant"
+    :cancel-text="$t('general.done')"
     width="100%"
     max-width="1200"
   >
@@ -44,7 +45,7 @@ watch(
 
 async function setLastRead(key: string) {
   const user = auth.user.value!;
-  if (user.lastReadAnnouncement && key < user.lastReadAnnouncement) {
+  if (user.lastReadAnnouncement && key <= user.lastReadAnnouncement) {
     // Don't update the last read announcement if it's older than the current one
     return;
   }
