@@ -289,7 +289,7 @@ def get_parser(
     parser: RegisteredParser, group_id: UUID4, session: Session, translator: Translator
 ) -> ABCIngredientParser:
     """
-    get_parser returns an ingrdeint parser based on the string enum value
+    get_parser returns an ingredient parser based on the string enum value
     passed in.
     """
     if parser == RegisteredParser.openai:
