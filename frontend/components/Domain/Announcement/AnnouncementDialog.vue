@@ -1,5 +1,6 @@
 <template>
   <BaseDialog
+    v-if="currentAnnouncement"
     v-model="dialog"
     :title="$t('announcements.announcements')"
     :icon="$globals.icons.bullhornVariant"
@@ -19,6 +20,24 @@
     <v-card-text>
       <component :is="currentAnnouncement.component" />
     </v-card-text>
+    <template #custom-card-action>
+      <div v-if="newAnnouncements.length">
+        <BaseButton
+          color="success"
+          :icon="$globals.icons.textBoxCheckOutline"
+          :text="$t('announcements.mark-all-as-read')"
+          class="mx-4"
+          @click="markAllAsRead"
+        />
+        <BaseButton
+          color="info"
+          :icon="$globals.icons.arrowRightBold"
+          icon-right
+          :text="$t('general.next')"
+          @click="nextAnnouncement"
+        />
+      </div>
+    </template>
   </BaseDialog>
 </template>
 
@@ -32,13 +51,18 @@ const auth = useMealieAuth();
 const api = useUserApi();
 const { newAnnouncements, allAnnouncements } = useAnnouncements();
 
-const currentAnnouncement = shallowRef(newAnnouncements.value.at(0) || allAnnouncements.at(-1)!);
+const currentAnnouncement = shallowRef<Announcement | undefined>();
 watch(
   dialog,
   () => {
-    // Once the dialog is opened, mark the current announcement as read
+    // Once the dialog is opened, show the next announcement
     if (dialog.value) {
-      setLastRead(currentAnnouncement.value.key);
+      nextAnnouncement();
+
+      // If there are no new announcements, this is never set, so show the newest one
+      if (!currentAnnouncement.value) {
+        currentAnnouncement.value = allAnnouncements.at(-1);
+      }
     }
   },
 );
@@ -54,21 +78,25 @@ async function setLastRead(key: string) {
     user.id,
     {
       ...user,
-      lastReadAnnouncement: key,
+      lastReadAnnouncement: null, // TODO: switch back to key
     },
     { suppressAlert: true },
   );
 }
 
 function markAllAsRead() {
+  newAnnouncements.value = [];
+
   const newestAnnouncement = allAnnouncements.at(-1)!;
   setLastRead(newestAnnouncement.key);
 }
 
 function nextAnnouncement() {
-  newAnnouncements.value.shift();
   const nextAnnouncement = newAnnouncements.value.at(0);
+  newAnnouncements.value = newAnnouncements.value.slice(1);
+
   if (!nextAnnouncement) {
+    markAllAsRead();
     return;
   }
 

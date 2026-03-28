@@ -143,6 +143,7 @@ import {
   mdiTestTube,
   mdiText,
   mdiTextBoxOutline,
+  mdiTextBoxCheckOutline,
   mdiTimelineText,
   mdiTimerSand,
   mdiTools,
@@ -156,6 +157,7 @@ import {
   mdiWindowClose,
   mdiWrench,
   mdiHandWaveOutline,
+
 } from "@mdi/js";
 
 export const icons = {
@@ -275,6 +277,7 @@ export const icons = {
   sortClockDescending: mdiSortClockDescending,
   star: mdiStar,
   testTube: mdiTestTube,
+  textBoxCheckOutline: mdiTextBoxCheckOutline,
   timelineText: mdiTimelineText,
   tools: mdiTools,
   potSteam: mdiPotSteamOutline,
