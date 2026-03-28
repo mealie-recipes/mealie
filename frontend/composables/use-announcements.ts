@@ -55,7 +55,7 @@ export function useAnnouncements() {
   }
 
   refreshUnreadAnnouncements();
-  watch(() => auth.user, () => {
+  watch(auth.user, () => {
     refreshUnreadAnnouncements();
   });
 

@@ -33,7 +33,7 @@ const { newAnnouncements, allAnnouncements } = useAnnouncements();
 
 const currentAnnouncement = shallowRef(newAnnouncements.value.at(0) || allAnnouncements.at(-1)!);
 watch(
-  () => dialog,
+  dialog,
   () => {
     // Once the dialog is opened, mark the current announcement as read
     if (dialog.value) {
