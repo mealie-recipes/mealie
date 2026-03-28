@@ -30,6 +30,12 @@
           <v-list-item-subtitle v-if="announcement.date">
             {{ $d(announcement.date) }}
           </v-list-item-subtitle>
+
+          <template v-if="newAnnouncements.some(a => a.key === announcement.key)" #append>
+            <v-icon size="x-small" color="info">
+              {{ $globals.icons.alertCircle }}
+            </v-icon>
+          </template>
         </v-list-item>
       </v-list>
 
