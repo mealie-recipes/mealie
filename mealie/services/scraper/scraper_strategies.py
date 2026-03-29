@@ -76,7 +76,10 @@ async def safe_scrape_html(url: str) -> str:
         html_bytes = b""
         response = None
 
-        transport = safehttp.AsyncSafeTransport(impersonate=impersonation)
+        transport = safehttp.AsyncSafeTransport(
+            impersonate=impersonation,
+            verify=False,
+        )
         async with AsyncClient(transport=transport) as client:
             async with client.stream(
                 "GET",
