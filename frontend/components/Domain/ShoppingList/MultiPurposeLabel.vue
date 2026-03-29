@@ -14,8 +14,7 @@
 <script setup lang="ts">
 import type { MultiPurposeLabelSummary } from "~/lib/api/types/recipe";
 
-const props = defineProps<{
+defineProps<{
   label: MultiPurposeLabelSummary;
 }>();
-
 </script>
