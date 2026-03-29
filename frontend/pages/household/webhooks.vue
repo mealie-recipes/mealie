@@ -68,28 +68,19 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useGroupWebhooks, timeUTC } from "~/composables/use-group-webhooks";
 import GroupWebhookEditor from "~/components/Domain/Household/GroupWebhookEditor.vue";
 import { alert } from "~/composables/use-toast";
 
-export default defineNuxtComponent({
-  components: { GroupWebhookEditor },
+definePageMeta({
   middleware: ["advanced-only"],
-  setup() {
-    const i18n = useI18n();
-    const { actions, webhooks } = useGroupWebhooks();
+});
 
-    useSeoMeta({
-      title: i18n.t("settings.webhooks.webhooks"),
-    });
+const i18n = useI18n();
+const { actions, webhooks } = useGroupWebhooks();
 
-    return {
-      alert,
-      webhooks,
-      actions,
-      timeUTC,
-    };
-  },
+useSeoMeta({
+  title: i18n.t("settings.webhooks.webhooks"),
 });
 </script>

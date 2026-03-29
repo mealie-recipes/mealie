@@ -15,27 +15,18 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import RecipeOrganizerPage from "~/components/Domain/Recipe/RecipeOrganizerPage.vue";
 import { useCategoryStore } from "~/composables/store";
 
-export default defineNuxtComponent({
-  components: {
-    RecipeOrganizerPage,
-  },
+definePageMeta({
   middleware: ["group-only"],
-  setup() {
-    const { store, actions } = useCategoryStore();
-    const i18n = useI18n();
+});
 
-    useSeoMeta({
-      title: i18n.t("category.categories"),
-    });
+const { store, actions } = useCategoryStore();
+const i18n = useI18n();
 
-    return {
-      store,
-      actions,
-    };
-  },
+useSeoMeta({
+  title: i18n.t("category.categories"),
 });
 </script>

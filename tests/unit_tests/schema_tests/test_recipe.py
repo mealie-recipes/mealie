@@ -61,3 +61,16 @@ def test_recipe_string_sanitation(field: str, val: Any, expected: Any):
     )
 
     assert getattr(recipe, field) == expected
+
+
+def test_recipe_preserves_existing_slug():
+    recipe = RecipeSummary(
+        id=uuid4(),
+        user_id=uuid4(),
+        household_id=uuid4(),
+        group_id=uuid4(),
+        name="Bols nourrissants (copie de Zuppa)",
+        slug="nourish-bowls-zuppa-copycat",
+    )
+
+    assert recipe.slug == "nourish-bowls-zuppa-copycat"

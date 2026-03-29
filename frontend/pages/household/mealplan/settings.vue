@@ -171,102 +171,77 @@
   </v-container>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import type { PlanRulesCreate, PlanRulesOut } from "~/lib/api/types/meal-plan";
 import GroupMealPlanRuleForm from "~/components/Domain/Household/GroupMealPlanRuleForm.vue";
 import { useAsyncKey } from "~/composables/use-utils";
 import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
 
-export default defineNuxtComponent({
-  components: {
-    GroupMealPlanRuleForm,
-    RecipeChips,
-  },
-  props: {
-    modelValue: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  setup() {
-    const api = useUserApi();
-    const i18n = useI18n();
+const api = useUserApi();
+const i18n = useI18n();
 
-    useSeoMeta({
-      title: i18n.t("meal-plan.meal-plan-settings"),
-    });
+useSeoMeta({
+  title: i18n.t("meal-plan.meal-plan-settings"),
+});
 
-    // ======================================================
-    // Manage All
-    const editState = ref<{ [key: string]: boolean }>({});
-    const allRules = ref<PlanRulesOut[]>([]);
+// ======================================================
+// Manage All
+const editState = ref<{ [key: string]: boolean }>({});
+const allRules = ref<PlanRulesOut[]>([]);
 
-    function toggleEditState(id: string) {
-      editState.value[id] = !editState.value[id];
-      editState.value = { ...editState.value };
-    }
+function toggleEditState(id: string) {
+  editState.value[id] = !editState.value[id];
+  editState.value = { ...editState.value };
+}
 
-    async function refreshAll() {
-      const { data } = await api.mealplanRules.getAll();
+async function refreshAll() {
+  const { data } = await api.mealplanRules.getAll();
 
-      if (data) {
-        allRules.value = data.items ?? [];
-      }
-    }
+  if (data) {
+    allRules.value = data.items ?? [];
+  }
+}
 
-    useAsyncData(useAsyncKey(), async () => {
-      await refreshAll();
-    });
+useAsyncData(useAsyncKey(), async () => {
+  await refreshAll();
+});
 
-    // ======================================================
-    // Creating Rules
+// ======================================================
+// Creating Rules
 
-    const createDataFormKey = ref(0);
-    const createData = ref<PlanRulesCreate>({
+const createDataFormKey = ref(0);
+const createData = ref<PlanRulesCreate>({
+  entryType: "unset",
+  day: "unset",
+  queryFilterString: "",
+});
+
+async function createRule() {
+  const { data } = await api.mealplanRules.createOne(createData.value);
+  if (data) {
+    refreshAll();
+    createData.value = {
       entryType: "unset",
       day: "unset",
       queryFilterString: "",
-    });
-
-    async function createRule() {
-      const { data } = await api.mealplanRules.createOne(createData.value);
-      if (data) {
-        refreshAll();
-        createData.value = {
-          entryType: "unset",
-          day: "unset",
-          queryFilterString: "",
-        };
-        createDataFormKey.value++;
-      }
-    }
-
-    async function deleteRule(ruleId: string) {
-      const { data } = await api.mealplanRules.deleteOne(ruleId);
-      if (data) {
-        refreshAll();
-      }
-    }
-
-    async function updateRule(rule: PlanRulesOut) {
-      const { data } = await api.mealplanRules.updateOne(rule.id, rule);
-      if (data) {
-        refreshAll();
-        toggleEditState(rule.id);
-      }
-    }
-
-    return {
-      allRules,
-      createDataFormKey,
-      createData,
-      createRule,
-      deleteRule,
-      editState,
-      updateRule,
-      toggleEditState,
     };
-  },
-});
+    createDataFormKey.value++;
+  }
+}
+
+async function deleteRule(ruleId: string) {
+  const { data } = await api.mealplanRules.deleteOne(ruleId);
+  if (data) {
+    refreshAll();
+  }
+}
+
+async function updateRule(rule: PlanRulesOut) {
+  const { data } = await api.mealplanRules.updateOne(rule.id, rule);
+  if (data) {
+    refreshAll();
+    toggleEditState(rule.id);
+  }
+}
 </script>

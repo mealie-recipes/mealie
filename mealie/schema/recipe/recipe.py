@@ -240,7 +240,7 @@ class Recipe(RecipeSummary):
 
     @field_validator("slug", mode="before")
     def validate_slug(slug: str, info: ValidationInfo):
-        if not info.data.get("name"):
+        if slug or not info.data.get("name"):
             return slug
 
         return create_recipe_slug(info.data["name"])

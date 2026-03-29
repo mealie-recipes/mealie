@@ -321,8 +321,8 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "name": "Isbergsalat",
+                "plural_name": "isbergsalat"
             },
             "mashed potato": {
                 "aliases": [],
@@ -340,13 +340,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "bladbete",
-                "plural_name": "chard"
+                "plural_name": "bladbete"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
                 "name": "pimiento",
-                "plural_name": "pimientos"
+                "plural_name": "piementoer"
             },
             "spaghetti squash": {
                 "aliases": [],
@@ -358,7 +358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "smørsalat",
-                "plural_name": "butter lettuce"
+                "plural_name": "smørsalat"
             },
             "hash brown": {
                 "aliases": [],
@@ -419,8 +419,8 @@
             "corn on the cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn on the cob",
-                "plural_name": "corn on the cob"
+                "name": "mais på kuben",
+                "plural_name": "mais på kuben"
             },
             "radicchio": {
                 "aliases": [],
@@ -438,7 +438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brokkolini",
-                "plural_name": "tenderstem broccoli"
+                "plural_name": "brokkolini"
             },
             "plantain": {
                 "aliases": [],
@@ -450,7 +450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bladsalat",
-                "plural_name": "leaf lettuce"
+                "plural_name": "bladsalat"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -487,8 +487,8 @@
                     "corn husk"
                 ],
                 "description": "",
-                "name": "maize",
-                "plural_name": "maize"
+                "name": "mais",
+                "plural_name": "mais"
             },
             "collard greens": {
                 "aliases": [],
@@ -1759,7 +1759,7 @@
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
+                "name": "peanøtt",
                 "plural_name": "peanøtter"
             },
             "chia": {
@@ -2787,8 +2787,8 @@
             "chocolate milk": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk",
-                "plural_name": "chocolate milk"
+                "name": "sjokolademelk",
+                "plural_name": "sjokolademelk"
             },
             "liquid egg substitute": {
                 "aliases": [],
@@ -2908,7 +2908,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "raw milk",
-                "plural_name": "raw milk"
+                "plural_name": "råmelk"
             },
             "lime curd": {
                 "aliases": [],
@@ -3045,8 +3045,8 @@
             "strawberry milk": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry milk",
-                "plural_name": "strawberry milk"
+                "name": "jordbærmelk",
+                "plural_name": "jordbærmelk"
             },
             "ayran": {
                 "aliases": [],
@@ -3247,8 +3247,8 @@
             "coconut yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut yogurt",
-                "plural_name": "coconut yogurts"
+                "name": "kokosnøtt yoghurt",
+                "plural_name": "kokosnøtt yoghurt"
             },
             "non-dairy yogurt": {
                 "aliases": [],
@@ -3283,8 +3283,8 @@
             "rice milk": {
                 "aliases": [],
                 "description": "",
-                "name": "rice milk",
-                "plural_name": "rice milk"
+                "name": "rismelk",
+                "plural_name": "rismelk"
             },
             "vegan sour cream": {
                 "aliases": [],
@@ -3774,7 +3774,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pork chop",
-                "plural_name": "pork chops"
+                "plural_name": "svinekoteletter"
             },
             "sweet italian sausage": {
                 "aliases": [],
@@ -4002,7 +4002,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lamb chop",
-                "plural_name": "lamb chops"
+                "plural_name": "lammekoteletter"
             },
             "bone-in ham": {
                 "aliases": [],
@@ -4599,8 +4599,8 @@
             "chicken nugget": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken nugget",
-                "plural_name": "chicken nuggets"
+                "name": "kyllingnugget",
+                "plural_name": "kyllingnuggets"
             },
             "turkey burger": {
                 "aliases": [],
@@ -4903,14 +4903,14 @@
             "smoked salmon": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked salmon",
-                "plural_name": "smoked salmon"
+                "name": "røkt laks",
+                "plural_name": "røkt laks"
             },
             "cod": {
                 "aliases": [],
                 "description": "",
-                "name": "cod",
-                "plural_name": "cod"
+                "name": "torsk",
+                "plural_name": "torsk"
             },
             "tilapia": {
                 "aliases": [],
@@ -5059,8 +5059,8 @@
             "salt cod": {
                 "aliases": [],
                 "description": "",
-                "name": "salt cod",
-                "plural_name": "salt cod"
+                "name": "salt torsk",
+                "plural_name": "salt torsk"
             },
             "smoked mackerel": {
                 "aliases": [],
@@ -5347,8 +5347,8 @@
             "fish cake": {
                 "aliases": [],
                 "description": "",
-                "name": "fish cake",
-                "plural_name": "fish cakes"
+                "name": "fiskekake",
+                "plural_name": "fiskekaker"
             },
             "salt fish": {
                 "aliases": [],
@@ -5501,8 +5501,8 @@
             "shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "shrimp",
-                "plural_name": "shrimps"
+                "name": "reke",
+                "plural_name": "reker"
             },
             "octopuse": {
                 "aliases": [],
@@ -5519,8 +5519,8 @@
             "crab": {
                 "aliases": [],
                 "description": "",
-                "name": "crab",
-                "plural_name": "crabs"
+                "name": "krabbe",
+                "plural_name": "krabber"
             },
             "scallop": {
                 "aliases": [],
@@ -5543,7 +5543,7 @@
             "squid": {
                 "aliases": [],
                 "description": "",
-                "name": "squid",
+                "name": "blekksprut",
                 "plural_name": "squids"
             },
             "nori": {
@@ -5579,7 +5579,7 @@
             "octopus": {
                 "aliases": [],
                 "description": "",
-                "name": "octopus",
+                "name": "blekksprut",
                 "plural_name": "octopi"
             },
             "kombu": {
@@ -5591,8 +5591,8 @@
             "dried shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "dried shrimp",
-                "plural_name": "dried shrimps"
+                "name": "tørket reke",
+                "plural_name": "tørket reker"
             },
             "bay scallop": {
                 "aliases": [],
@@ -6428,7 +6428,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sukker",
-                "plural_name": "sugar"
+                "plural_name": "sukker"
             },
             "brown sugar": {
                 "aliases": [
@@ -6436,12 +6436,12 @@
                 ],
                 "description": "",
                 "name": "brunt sukker",
-                "plural_name": "brown sugar"
+                "plural_name": "brunt sukker"
             },
             "confectioners sugar": {
                 "aliases": [
-                    "powdered sugar",
-                    "icing sugar"
+                    "melis",
+                    "melis"
                 ],
                 "description": "",
                 "name": "confectioners sugar",
@@ -6458,7 +6458,7 @@
             "maple syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "maple syrup",
+                "name": "lønnesirup",
                 "plural_name": "maple syrup"
             },
             "corn syrup": {
@@ -10340,8 +10340,8 @@
             "rice cake": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cake",
-                "plural_name": "rice cakes"
+                "name": "riskake",
+                "plural_name": "riskaker"
             },
             "panettone": {
                 "aliases": [],

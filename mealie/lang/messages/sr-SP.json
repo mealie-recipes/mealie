@@ -18,8 +18,18 @@
             "yield": "Количина",
             "yields": "Количина"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}"
+        "and-amount": "додај {amount}",
+        "or-ingredient": "или {ingredient}",
+        "create-progress": {
+            "creating-recipe-with-ai": "Креирање рецепта помоћу AI-a...",
+            "creating-recipe-from-transcript-with-ai": "Креирање рецепта из транскрипта помоћу AI-a...",
+            "creating-recipe-from-webpage-data": "Креирање рецепта из веб-сајт података...",
+            "downloading-image": "Преузимање слика...",
+            "downloading-video": "Преузимање видеа...",
+            "extracting-recipe-data": "Издвајање података рецепта...",
+            "fetching-webpage": "Преузимање веб странице...",
+            "transcribing-audio-with-ai": "Транскрипција звука помоћу AI-a..."
+        }
     },
     "mealplan": {
         "no-recipes-match-your-rules": "Нема рецепата који одговарају вашим правилима"

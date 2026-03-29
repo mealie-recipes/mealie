@@ -52,14 +52,14 @@
   </v-card>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 interface LinkProp {
   text: string;
   url?: string;
   to: string;
 }
 
-const props = defineProps({
+defineProps({
   link: {
     type: Object as () => LinkProp,
     required: true,
@@ -70,6 +70,4 @@ const props = defineProps({
     default: "",
   },
 });
-
-console.log("Props", props);
 </script>

@@ -2630,7 +2630,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mléko",
-                "plural_name": "milk"
+                "plural_name": "mléko"
             },
             "heavy cream": {
                 "aliases": [],
@@ -6428,7 +6428,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cukr",
-                "plural_name": "sugar"
+                "plural_name": "cukr"
             },
             "brown sugar": {
                 "aliases": [
@@ -6482,7 +6482,7 @@
             "stevia": {
                 "aliases": [],
                 "description": "",
-                "name": "stevia",
+                "name": "stévie",
                 "plural_name": "stevia"
             },
             "agave nectar": {

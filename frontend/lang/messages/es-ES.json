@@ -331,6 +331,8 @@
     "any-household": "Cualquier casa",
     "no-meal-plan-defined-yet": "Todavía no hay ningún menú",
     "no-meal-planned-for-today": "No hay ningún menú para hoy",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Número de días al cargar la página",
     "numberOfDays-label": "Días por defecto",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Sólo las recetas con estas categorías se utilizarán en los menús",
@@ -636,7 +638,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crear una receta proporcionando el nombre. Todas las recetas deben tener nombres únicos.",
     "new-recipe-names-must-be-unique": "El nombre de la receta debe ser único",
     "scrape-recipe": "Analiza receta",
-    "scrape-recipe-description": "Importa una receta por URL. Proporcione la URL para el sitio que desea importar, y Mealie intentará importar la receta de ese sitio y añadirla a su colección.",
+    "scrape-recipe-description": "Importa una receta por URL. Proporcione la URL para el sitio que desea importar, y Mealie intentará extraer la receta de ese sitio y añadirla a su colección.",
+    "scrape-recipe-description-transcription": "También puedes proporcionar la url a un video y Mealie intentará transcribirla a una receta.",
     "scrape-recipe-have-a-lot-of-recipes": "¿Tienes muchas recetas que quieres raspar a la vez?",
     "scrape-recipe-suggest-bulk-importer": "Prueba el importador masivo",
     "scrape-recipe-have-raw-html-or-json-data": "¿Tiene datos HTML o JSON?",
@@ -888,14 +891,17 @@
     "server-side-base-url-error-text": "`BASE_URL` sigue siendo el valor por defecto en el servidor API. Esto causará problemas con las notificaciones generadas en el servidor de correos electrónicos, etc.",
     "server-side-base-url-success-text": "La URL del servidor no coincide con la predeterminada",
     "ldap-ready": "LDAP Listo",
+    "ldap-not-ready": "LDAP no está listo",
     "ldap-ready-error-text": "No todos los valores LDAP están configurados. Esto puede ignorarse si no está usando autenticación LDAP.",
     "ldap-ready-success-text": "Las variables LDAP requeridas están todas definidas.",
     "build": "Compilación",
     "recipe-scraper-version": "Versión de Analizador de Recetas",
     "oidc-ready": "OIDC Listo",
+    "oidc-not-ready": "OIDC no está listo",
     "oidc-ready-error-text": "No todos los valores OIDC están configurados. Puedes ignorar esto si no estás usando autenticación OIDC.",
     "oidc-ready-success-text": "Todas las variables OIDC requeridas están configuradas.",
     "openai-ready": "OpenAI Listo",
+    "openai-not-ready": "OpenAI no está listo",
     "openai-ready-error-text": "No todos los valores OpenAI están configurados. Puedes ignorar esto si no estás usando funciones de OpenAI.",
     "openai-ready-success-text": "Las variables OpenAI requeridas están todas definidas."
   },
@@ -903,6 +909,7 @@
     "all-lists": "Todas las listas",
     "create-shopping-list": "Crear lista de la compra",
     "from-recipe": "Desde receta",
+    "ingredient-of-recipe": "Ingrediente de {recipe}",
     "list-name": "Nombre de la lista",
     "new-list": "Nueva lista",
     "quantity": "Cantidad: {0}",
@@ -1134,7 +1141,22 @@
       "example-unit-singular": "ej: Cucharada",
       "example-unit-plural": "ej: Cucharadas",
       "example-unit-abbreviation-singular": "ej: Cda",
-      "example-unit-abbreviation-plural": "ej: Cdas"
+      "example-unit-abbreviation-plural": "ej: Cdas",
+      "standardization": "Estandarización",
+      "standardization-description": "Cómo esta unidad puede ser representada como una unidad estándar. Esto permite características de conversión de unidades tales como la fusión de unidades compatibles en listas de compras.",
+      "standard-unit": "Unidad Estándar",
+      "standard-quantity": "Cantidad Estándar",
+      "unit-conversion": "Conversión de Unidad",
+      "standard-unit-labels": {
+        "fluid-ounce": "onza líquida",
+        "cup": "taza",
+        "ounce": "onza",
+        "pound": "libra",
+        "milliliter": "mililitro",
+        "liter": "litro",
+        "gram": "gramo",
+        "kilogram": "kilogramo"
+      }
     },
     "labels": {
       "seed-dialog-text": "Añade a la base de datos etiquetas comunes basadas en su idioma local.",
@@ -1449,6 +1471,6 @@
     "invalid-url": "Debe ser una URL válida",
     "no-whitespace": "No se permiten espacios en blanco",
     "min-length": "Debe tener como mínimo {min} caracteres",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Debe Ser Como Máximo {max} Carácter|Debe Ser Como Máximo {max} Caracteres"
   }
 }

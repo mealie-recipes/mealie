@@ -19,25 +19,27 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import { useDropZone } from "@vueuse/core";
 
-export default defineNuxtComponent({
-  emits: ["drop"],
-  setup(_, context) {
-    const el = ref<HTMLDivElement>();
-
-    function onDrop(files: File[] | null) {
-      if (files) {
-        context.emit("drop", files);
-      }
-    }
-
-    const { isOverDropZone } = useDropZone(el, files => onDrop(files));
-
-    return { el, isOverDropZone };
+defineProps({
+  disabled: {
+    type: Boolean,
+    default: false,
   },
 });
+
+const emit = defineEmits(["drop"]);
+
+const el = ref<HTMLDivElement>();
+
+function onDrop(files: File[] | null) {
+  if (files) {
+    emit("drop", files);
+  }
+}
+
+const { isOverDropZone } = useDropZone(el, files => onDrop(files));
 </script>
 
 <style lang="css">

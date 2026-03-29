@@ -16,8 +16,8 @@
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "papríka",
-                "plural_name": "papríkur"
+                "name": "paprika",
+                "plural_name": "paprikur"
             },
             "carrot": {
                 "aliases": [],
@@ -108,7 +108,7 @@
                     "paprika"
                 ],
                 "description": "",
-                "name": "eldpipar",
+                "name": "chili pipar",
                 "plural_name": "eldpiprar"
             },
             "sweet potato": {
@@ -120,14 +120,14 @@
             "broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "brokkólí",
-                "plural_name": "broccoli"
+                "name": "spergilkál",
+                "plural_name": "spergilkál"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
                 "name": "pálmahjarta",
-                "plural_name": "heart of palm"
+                "plural_name": "pálmahjörtu"
             },
             "baby greens": {
                 "aliases": [],

@@ -1,3 +1,5 @@
+from enum import StrEnum
+
 from pydantic import BaseModel
 
 from mealie.schema._mealie import MealieModel
@@ -40,3 +42,20 @@ class FileTokenResponse(MealieModel):
         in the same call, for use while providing details to a HTTPException
         """
         return cls(file_token=token).model_dump()
+
+
+class SSEDataEventStatus(StrEnum):
+    PROGRESS = "progress"
+    DONE = "done"
+    ERROR = "error"
+
+
+class SSEDataEventBase(BaseModel): ...
+
+
+class SSEDataEventMessage(SSEDataEventBase):
+    message: str
+
+
+class SSEDataEventDone(SSEDataEventBase):
+    slug: str

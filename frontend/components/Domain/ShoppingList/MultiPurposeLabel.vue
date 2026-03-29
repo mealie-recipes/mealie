@@ -11,15 +11,11 @@
   </v-chip>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { MultiPurposeLabelSummary } from "~/lib/api/types/recipe";
 
-export default defineNuxtComponent({
-  props: {
-    label: {
-      type: Object as () => MultiPurposeLabelSummary,
-      required: true,
-    },
-  },
-});
+const props = defineProps<{
+  label: MultiPurposeLabelSummary;
+}>();
+
 </script>

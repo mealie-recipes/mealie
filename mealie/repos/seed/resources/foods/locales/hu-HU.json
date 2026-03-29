@@ -1903,20 +1903,20 @@
             "candlenut": {
                 "aliases": [],
                 "description": "",
-                "name": "candlenut",
-                "plural_name": "candlenuts"
+                "name": "gyertyafa",
+                "plural_name": "gyertyafa"
             },
             "peanut brittle": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut brittle",
-                "plural_name": "peanut brittles"
+                "name": "ropogós grillázs",
+                "plural_name": "ropogós grillázs"
             },
             "jackfruit seed": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit seed",
-                "plural_name": "jackfruit seeds"
+                "name": "jackfruit mag",
+                "plural_name": "jackfruit mag"
             },
             "honey-roasted almond": {
                 "aliases": [],
@@ -1933,8 +1933,8 @@
             "chironji": {
                 "aliases": [],
                 "description": "",
-                "name": "chironji",
-                "plural_name": "chironjis"
+                "name": " charoli dió",
+                "plural_name": " charoli dió"
             },
             "honey-roasted pecan": {
                 "aliases": [],
@@ -1945,8 +1945,8 @@
             "tigernut": {
                 "aliases": [],
                 "description": "",
-                "name": "tigernut",
-                "plural_name": "tigernuts"
+                "name": "tigrismogyoró",
+                "plural_name": "tigrismogyoró"
             },
             "sunflower sprout": {
                 "aliases": [],
@@ -2003,41 +2003,41 @@
             "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan cheese",
-                "plural_name": "parmesan cheese"
+                "name": "parmezán sajt",
+                "plural_name": "parmezán sajt"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddar cheese"
+                    "cheddar sajt"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheese"
+                "name": "cheddar sajt",
+                "plural_name": "cheddar sajt"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheese"
+                "name": "krémsajt",
+                "plural_name": "krémsajt"
             },
             "sharp cheddar cheese": {
                 "aliases": [
-                    "sharp cheddar"
+                    "érett cheddar"
                 ],
                 "description": "",
-                "name": "sharp cheddar cheese",
-                "plural_name": "sharp cheddar cheese"
+                "name": "érett cheddar sajt",
+                "plural_name": "érett cheddar sajt"
             },
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "sajt",
+                "plural_name": "sajt"
             },
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
+                "name": "mozzarella sajt",
                 "plural_name": "mozzarella cheese"
             },
             "feta cheese": {
@@ -2079,26 +2079,26 @@
             "fresh mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella cheese",
-                "plural_name": "fresh mozzarella cheese"
+                "name": "friss mozzarella sajt",
+                "plural_name": "friss mozzarella sajt"
             },
             "swis cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swis cheese",
-                "plural_name": "swis cheese"
+                "name": "emmentáli sajt",
+                "plural_name": "emmentáli sajt"
             },
             "pecorino cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pecorino cheese",
-                "plural_name": "pecorino cheese"
+                "name": "pecorino sajt",
+                "plural_name": "pecorino sajt"
             },
             "gruyere cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gruyere cheese",
-                "plural_name": "gruyere cheese"
+                "name": "gruyère sajt",
+                "plural_name": "gruyère sajt"
             },
             "mascarpone cheese": {
                 "aliases": [],

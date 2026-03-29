@@ -208,7 +208,7 @@ const props = defineProps<{
   ingredients: NoUndefinedField<RecipeIngredient[]>;
 }>();
 
-const { parseIngredientText } = useIngredientTextParser();
+const { ingredientToParserString } = useIngredientTextParser();
 
 const emit = defineEmits<{
   (e: "update:modelValue", value: boolean): void;
@@ -373,7 +373,7 @@ async function parseIngredients() {
   try {
     const ingsAsString = props.ingredients
       .filter(ing => !ing.referencedRecipe)
-      .map(ing => parseIngredientText(ing, 1, false) ?? "");
+      .map(ing => ingredientToParserString(ing));
     const { data, error } = await api.recipes.parseIngredients(parser.value, ingsAsString);
     if (error || !data) {
       throw new Error("Failed to parse ingredients");

@@ -1,9 +1,9 @@
 <template>
   <v-menu offset-y>
-    <template #activator="{ props }">
+    <template #activator="{ props: hoverProps }">
       <v-btn
         color="primary"
-        v-bind="{ ...props, ...$attrs }"
+        v-bind="{ ...hoverProps, ...$attrs }"
         :class="btnClass"
         :disabled="disabled"
       >
@@ -105,7 +105,7 @@
   </v-menu>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 const MODES = {
   model: "model",
   link: "link",
@@ -124,67 +124,57 @@ export interface MenuItem {
   hide?: boolean;
 }
 
-export default defineNuxtComponent({
-  props: {
-    mode: {
-      type: String as () => modes,
-      default: "model",
-    },
-    items: {
-      type: Array as () => MenuItem[],
-      required: true,
-    },
-    disabled: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-    modelValue: {
-      type: String,
-      required: false,
-      default: "",
-    },
-    btnClass: {
-      type: String,
-      required: false,
-      default: "",
-    },
-    btnText: {
-      type: String,
-      required: false,
-      default: function () {
-        return useI18n().t("general.actions");
-      },
-    },
+const props = defineProps({
+  mode: {
+    type: String as () => modes,
+    default: "model",
   },
-  emits: ["update:modelValue"],
-  setup(props, context) {
-    const activeObj = ref<MenuItem>({
-      text: "DEFAULT",
-      value: "",
-    });
-
-    let startIndex = 0;
-    props.items.forEach((item, index) => {
-      if (item.value === props.modelValue) {
-        startIndex = index;
-
-        activeObj.value = item;
-      }
-    });
-    const itemGroup = ref(startIndex);
-
-    function setValue(v: MenuItem) {
-      context.emit("update:modelValue", v.value);
-      activeObj.value = v;
-    }
-
-    return {
-      MODES,
-      activeObj,
-      itemGroup,
-      setValue,
-    };
+  items: {
+    type: Array as () => MenuItem[],
+    required: true,
+  },
+  disabled: {
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  btnClass: {
+    type: String,
+    required: false,
+    default: "",
+  },
+  btnText: {
+    type: String,
+    required: false,
+    default: function () {
+      return useI18n().t("general.actions");
+    },
   },
 });
+
+const modelValue = defineModel({
+  type: String,
+  required: false,
+  default: "",
+});
+
+const activeObj = ref<MenuItem>({
+  text: "DEFAULT",
+  value: "",
+});
+
+let startIndex = 0;
+props.items.forEach((item, index) => {
+  if (item.value === modelValue.value) {
+    startIndex = index;
+
+    activeObj.value = item;
+  }
+});
+const itemGroup = ref(startIndex);
+
+function setValue(v: MenuItem) {
+  modelValue.value = v.value || "";
+  activeObj.value = v;
+}
 </script>

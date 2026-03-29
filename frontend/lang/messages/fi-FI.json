@@ -331,6 +331,8 @@
     "any-household": "Mikä tahansa kotitalous",
     "no-meal-plan-defined-yet": "Ateriasuunnitelmaa ei ole vielä määritelty",
     "no-meal-planned-for-today": "Ei ateriasuunnitelmaa tälle päivälle",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Sivun latauspäivien lukumäärä",
     "numberOfDays-label": "Oletuspäivät",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Vain näiden luokkien reseptejä käytetään ateriasuunnitelmissa",
@@ -370,8 +372,8 @@
     "applies-to-all-days": "Sovelletaan kaikkiin päiviin",
     "applies-on-days": "Käytetään {0}",
     "meal-plan-settings": "Ateriasuunnitelman asetukset",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Lisää kaikki listalle",
+    "add-day-to-list": "Lisää päivä listalle"
   },
   "migration": {
     "migration-data-removed": "Tuodut tiedot poistettu",
@@ -449,7 +451,7 @@
     "upload-a-recipe": "Lataa resepti",
     "upload-individual-zip-file": "Tuo yksittäinen pakattu kansio toisesta Mealie instanssista.",
     "url-form-hint": "Liitä linkki lempireseptiverkkosivultasi",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "Kopioi ja liitä tietojesi URL-lähdeosoite (vapaaehtoinen)",
     "view-scraped-data": "Näytä hankittu data",
     "trim-whitespace-description": "Leikkaa alussa ja lopussa olevat välilyönnit sekä tyhjät rivit",
     "trim-prefix-description": "Poista joka rivin ensimmäinen merkki",
@@ -636,15 +638,16 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Luo resepti antamalla nimi. Kaikilla resepteillä on oltava yksilölliset nimet.",
     "new-recipe-names-must-be-unique": "Reseptin nimen on oltava yksilöllinen",
     "scrape-recipe": "Reseptin kaappain",
-    "scrape-recipe-description": "Kaappaa resepti urlin avulla. Anna sen reseptin url-osoite, jonka haluat kaapata, ja Mealie yrittää kaapata reseptin kyseiseltä sivustolta ja lisätä sen kokoelmaasi.",
+    "scrape-recipe-description": "Hae resepti URL-osoitteesta. Anna haluamasi reseptin URL-osoite ja Mealie koittaa hakea reseptin tietoineen. Tämän jälkeen resepti lisätään kokoelmaan.",
+    "scrape-recipe-description-transcription": "Voit myös antaa videon url-osoitteen, ja Mealie yrittää muuntaa sen reseptiksi.",
     "scrape-recipe-have-a-lot-of-recipes": "Haluatko kerätä useamman reseptin kerralla?",
     "scrape-recipe-suggest-bulk-importer": "Kokeile massasiirtotyökalua",
     "scrape-recipe-have-raw-html-or-json-data": "Onko sinulla raakaa HTML- tai JSON-dataa?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Voit tuoda raakadatan suoraan",
     "scrape-recipe-website-being-blocked": "Onko sivusto estetty?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-try-importing-raw-html-instead": "Tai yritä tuoda sivun HTML-koodi.",
     "import-original-keywords-as-tags": "Tuo alkuperäiset avainsanat tunnisteiksi",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Tuo alkuperäiset kategoriat",
     "stay-in-edit-mode": "Pysy muokkaustilassa",
     "parse-recipe-ingredients-after-import": "Jäsennä reseptin ainesosat tuonnin jälkeen",
     "import-from-zip": "Tuo zip-arkistosta",
@@ -888,14 +891,17 @@
     "server-side-base-url-error-text": "`BASE_URL` on API-palvelimen oletusarvo. Tämä aiheuttaa ongelmia ilmoitusten linkkien kanssa, jotka on luotu palvelimella sähköposteja varten jne.",
     "server-side-base-url-success-text": "Palvelimen nettiosoite ei vastaa oletusta",
     "ldap-ready": "LDAP Valmis",
+    "ldap-not-ready": "LDAP Not Ready",
     "ldap-ready-error-text": "Kaikkia LDAP-arvoja ei ole määritetty. Tämä voidaan ohittaa, jos et käytä LDAP-todennusta.",
     "ldap-ready-success-text": "Kaikki vaaditut LDAP-muuttujat on asetettu.",
     "build": "Koonti",
     "recipe-scraper-version": "Reseptikaappaimen versio",
     "oidc-ready": "OIDC valmis",
+    "oidc-not-ready": "OIDC Not Ready",
     "oidc-ready-error-text": "Kaikkia OIDC-arvoja ei ole määritelty. Jos et käytä OIDC-todennusta, voidaan asia jättää huomiotta.",
     "oidc-ready-success-text": "Kaikki vaaditut OIDC-muuttujat asetettu.",
     "openai-ready": "OpenAI valmis",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Kaikkia OpenAI:n arvoja ei ole määritelty. Tämä voidaan sivuuttaa, mikäli et käytä OpenAI:n toimintoja.",
     "openai-ready-success-text": "Vaadittavat OpenAI-muuttujat ovat asetetut."
   },
@@ -903,6 +909,7 @@
     "all-lists": "Kaikki ostoslistat",
     "create-shopping-list": "Luo ostoslista",
     "from-recipe": "Reseptistä",
+    "ingredient-of-recipe": "Ainesosat reseptille {recipe}",
     "list-name": "Ostoslistan nimi",
     "new-list": "Uusi lista",
     "quantity": "Määrä: {0}",
@@ -1134,7 +1141,22 @@
       "example-unit-singular": "esim. ruokalusikka",
       "example-unit-plural": "esim. ruokalusikat",
       "example-unit-abbreviation-singular": "esim. rkl",
-      "example-unit-abbreviation-plural": "esim. rkl"
+      "example-unit-abbreviation-plural": "esim. rkl",
+      "standardization": "Standardointi",
+      "standardization-description": "Kertoo miten tämä yksikkö voidaan esittää vakioyksikkönä. Tämä mahdollistaa yksikön muunto-ominaisuudet, kuten yhteensopivien yksiköiden yhdistämisen ostoslistoilla.",
+      "standard-unit": "Vakioyksikkö",
+      "standard-quantity": "Vakiomäärä",
+      "unit-conversion": "Yksikkömuunnos",
+      "standard-unit-labels": {
+        "fluid-ounce": "nesteunssi",
+        "cup": "kuppi",
+        "ounce": "unssi",
+        "pound": "pauna",
+        "milliliter": "millilitra",
+        "liter": "litra",
+        "gram": "gramma",
+        "kilogram": "kilogramma"
+      }
     },
     "labels": {
       "seed-dialog-text": "Lisää tietokantaan yleiset tunnisteet paikallisen kielen perusteella.",
@@ -1170,8 +1192,8 @@
       "edit-recipe-action": "Muuta reseptin toimintoa",
       "action-type": "Toiminnon tyyppi",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "Linkki",
+        "post": "Lähetä"
       }
     },
     "create-alias": "Luo alias",
@@ -1427,8 +1449,8 @@
       "is-greater-than-or-equal-to": "on suurempi tai yhtäsuuri kuin",
       "is-less-than": "on vähemmän kuin",
       "is-less-than-or-equal-to": "on vähemmän tai yhtäsuuri kuin",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "on vanhempi kuin",
+      "is-newer-than": "on uudempi kuin"
     },
     "relational-keywords": {
       "is": "on",
@@ -1440,7 +1462,7 @@
       "is-not-like": "ei ole kuin"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "päivää sitten|päivä sitten|päivää sitten"
     }
   },
   "validators": {
@@ -1449,6 +1471,6 @@
     "invalid-url": "URL ei ole kelvollinen",
     "no-whitespace": "Tekstissä ei saa olla välilyöntejä",
     "min-length": "Vähimmäispituus on {min} merkkiä",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Saa olla enintään {max} merkki|Saa olla enintään {max} merkkiä"
   }
 }

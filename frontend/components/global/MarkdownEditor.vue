@@ -18,7 +18,7 @@
     <v-textarea
       v-if="!previewState"
       v-bind="textarea"
-      v-model="inputVal"
+      v-model="modelValue"
       :class="label == '' ? '' : 'mt-5'"
       :label="label"
       auto-grow
@@ -33,60 +33,42 @@
   </div>
 </template>
 
-<script lang="ts">
-export default defineNuxtComponent({
-  name: "MarkdownEditor",
-  props: {
-    modelValue: {
-      type: String,
-      required: true,
-    },
-    label: {
-      type: String,
-      default: "",
-    },
-    preview: {
-      type: Boolean,
-      default: undefined,
-    },
-    displayPreview: {
-      type: Boolean,
-      default: true,
-    },
-    textarea: {
-      type: Object as () => unknown,
-      default: () => ({}),
-    },
+<script setup lang="ts">
+const props = defineProps({
+  label: {
+    type: String,
+    default: "",
   },
-  emits: ["update:modelValue", "input:preview"],
-  setup(props, context) {
-    const fallbackPreview = ref(false);
-    const previewState = computed({
-      get: () => {
-        return props.preview ?? fallbackPreview.value;
-      },
-      set: (val) => {
-        if (props.preview) {
-          context.emit("input:preview", val);
-        }
-        else {
-          fallbackPreview.value = val;
-        }
-      },
-    });
+  preview: {
+    type: Boolean,
+    default: undefined,
+  },
+  displayPreview: {
+    type: Boolean,
+    default: true,
+  },
+  textarea: {
+    type: Object as () => unknown,
+    default: () => ({}),
+  },
+});
 
-    const inputVal = computed({
-      get: () => {
-        return props.modelValue;
-      },
-      set: (val) => {
-        context.emit("update:modelValue", val);
-      },
-    });
-    return {
-      previewState,
-      inputVal,
-    };
+const emit = defineEmits<{
+  (e: "input:preview", value: boolean): void;
+}>();
+
+const modelValue = defineModel<string>("modelValue");
+
+const fallbackPreview = ref(false);
+const previewState = computed({
+  get: () => props.preview ?? fallbackPreview.value,
+  set: (val: boolean) => {
+    if (props.preview) {
+      emit("input:preview", val);
+    }
+    else {
+      fallbackPreview.value = val;
+    }
   },
 });
 </script>

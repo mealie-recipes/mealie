@@ -42,79 +42,71 @@
   </div>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import type { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import AdvancedOnly from "~/components/global/AdvancedOnly.vue";
 
-export default defineNuxtComponent({
-  components: { AdvancedOnly },
+definePageMeta({
   middleware: ["group-only"],
-  setup() {
-    const i18n = useI18n();
-    const auth = useMealieAuth();
-    const { $appInfo, $globals } = useNuxtApp();
+});
 
-    useSeoMeta({
-      title: i18n.t("general.create"),
-    });
+const i18n = useI18n();
+const auth = useMealieAuth();
+const { $appInfo, $globals } = useNuxtApp();
 
-    const subpages = computed<MenuItem[]>(() => [
-      {
-        icon: $globals.icons.link,
-        text: i18n.t("recipe.import-with-url"),
-        value: "url",
-      },
-      {
-        icon: $globals.icons.link,
-        text: i18n.t("recipe.bulk-url-import"),
-        value: "bulk",
-      },
-      {
-        icon: $globals.icons.codeTags,
-        text: i18n.t("recipe.import-from-html-or-json"),
-        value: "html",
-      },
-      {
-        icon: $globals.icons.fileImage,
-        text: i18n.t("recipe.create-from-images"),
-        value: "image",
-        hide: !$appInfo.enableOpenaiImageServices,
-      },
-      {
-        icon: $globals.icons.edit,
-        text: i18n.t("recipe.create-recipe"),
-        value: "new",
-      },
-      {
-        icon: $globals.icons.zip,
-        text: i18n.t("recipe.import-with-zip"),
-        value: "zip",
-      },
-      {
-        icon: $globals.icons.robot,
-        text: i18n.t("recipe.debug-scraper"),
-        value: "debug",
-      },
-    ]);
+useSeoMeta({
+  title: i18n.t("general.create"),
+});
 
-    const route = useRoute();
-    const router = useRouter();
-    const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
+const subpages = computed<MenuItem[]>(() => [
+  {
+    icon: $globals.icons.link,
+    text: i18n.t("recipe.import-with-url"),
+    value: "url",
+  },
+  {
+    icon: $globals.icons.link,
+    text: i18n.t("recipe.bulk-url-import"),
+    value: "bulk",
+  },
+  {
+    icon: $globals.icons.codeTags,
+    text: i18n.t("recipe.import-from-html-or-json"),
+    value: "html",
+  },
+  {
+    icon: $globals.icons.fileImage,
+    text: i18n.t("recipe.create-from-images"),
+    value: "image",
+    hide: !$appInfo.enableOpenaiImageServices,
+  },
+  {
+    icon: $globals.icons.edit,
+    text: i18n.t("recipe.create-recipe"),
+    value: "new",
+  },
+  {
+    icon: $globals.icons.zip,
+    text: i18n.t("recipe.import-with-zip"),
+    value: "zip",
+  },
+  {
+    icon: $globals.icons.robot,
+    text: i18n.t("recipe.debug-scraper"),
+    value: "debug",
+  },
+]);
 
-    const subpage = computed({
-      set(subpage: string) {
-        router.push({ path: `/g/${groupSlug.value}/r/create/${subpage}`, query: route.query });
-      },
-      get() {
-        return route.path.split("/").pop() ?? "url";
-      },
-    });
+const route = useRoute();
+const router = useRouter();
+const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
 
-    return {
-      groupSlug,
-      subpages,
-      subpage,
-    };
+const subpage = computed({
+  set(subpage: string) {
+    router.push({ path: `/g/${groupSlug.value}/r/create/${subpage}`, query: route.query });
+  },
+  get() {
+    return route.path.split("/").pop() ?? "url";
   },
 });
 </script>

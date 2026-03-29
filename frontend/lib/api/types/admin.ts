@@ -18,6 +18,7 @@ export interface AdminAboutInfo {
   oidcProviderName: string;
   enableOpenai: boolean;
   enableOpenaiImageServices: boolean;
+  enableOpenaiTranscriptionServices: boolean;
   tokenTime: number;
   versionLatest: string;
   apiPort: number;
@@ -51,6 +52,7 @@ export interface AppInfo {
   oidcProviderName: string;
   enableOpenai: boolean;
   enableOpenaiImageServices: boolean;
+  enableOpenaiTranscriptionServices: boolean;
   tokenTime: number;
 }
 export interface AppStartupInfo {

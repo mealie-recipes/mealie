@@ -3,10 +3,11 @@ import re
 from pathlib import Path
 
 import pytest
+from recipe_scrapers import scrape_html
 
 from mealie.lang.providers import get_locale_provider
 from mealie.services.scraper import cleaner
-from mealie.services.scraper.scraper_strategies import RecipeScraperOpenGraph
+from mealie.services.scraper.scraper_strategies import RecipeScraperOpenGraph, RecipeScraperPackage
 from tests import data as test_data
 
 # https://github.com/django/django/blob/stable/1.3.x/django/core/validators.py#L45
@@ -57,3 +58,33 @@ def test_html_with_recipe_data():
     assert recipe_data["orgURL"] == url
     assert len(recipe_data["description"]) > 100
     assert url_validation_regex.match(recipe_data["image"])
+
+
+def test_clean_scraper_preserves_notes():
+    """Regression test: notes must survive the RecipeScraperPackage pipeline (previously dropped silently)."""
+    ld_json = json.dumps(
+        {
+            "@context": "https://schema.org",
+            "@type": "Recipe",
+            "name": "Test Recipe",
+            "recipeIngredient": ["1 cup flour"],
+            "recipeInstructions": [{"@type": "HowToStep", "text": "Mix everything together"}],
+            "notes": [
+                {"title": "Storage Tip", "text": "Keep refrigerated up to 3 days"},
+                {"title": "Variation", "text": "Add chili flakes for extra heat"},
+            ],
+        }
+    )
+    html = RecipeScraperPackage.ld_json_to_html(ld_json)
+    scraped = scrape_html(html, org_url="https://example.com", supported_only=False)
+    translator = get_locale_provider()
+    strategy = RecipeScraperPackage("https://example.com", translator)
+
+    recipe, _ = strategy.clean_scraper(scraped, "https://example.com")
+
+    assert recipe.notes is not None
+    assert len(recipe.notes) == 2
+    assert recipe.notes[0].title == "Storage Tip"
+    assert recipe.notes[0].text == "Keep refrigerated up to 3 days"
+    assert recipe.notes[1].title == "Variation"
+    assert recipe.notes[1].text == "Add chili flakes for extra heat"
