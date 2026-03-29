@@ -4,22 +4,22 @@
 
 ### General
 
-| Variables                     |        Default        | Description                                                                                                                                             |
-| ----------------------------- | :-------------------: | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| PUID                          |          911          | UserID permissions between host OS and container                                                                                                        |
-| PGID                          |          911          | GroupID permissions between host OS and container                                                                                                       |
-| DEFAULT_GROUP                 |         Home          | The default group for users                                                                                                                             |
-| DEFAULT_HOUSEHOLD             |        Family         | The default household for users in each group                                                                                                           |
-| BASE_URL                      | http://localhost:8080 | Used for Notifications                                                                                                                                  |
-| TOKEN_TIME                    |          48           | The time in hours that a login/auth token is valid. Must be <= 9600 (400 days, in hours).                                                               |
-| API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker**                                                                     |
-| API_DOCS                      |         True          | Turns on/off access to the API documentation locally                                                                                                    |
-| TZ                            |          UTC          | Must be set to get correct date/time on the server                                                                                                      |
-| ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                                                                                        |
-| ALLOW_PASSWORD_LOGIN          |         true          | Whether or not to display the username+password input fields. Keep set to true unless you use OIDC authentication                                       |
-| LOG_CONFIG_OVERRIDE           |                       | Override the config for logging with a custom path                                                                                                      |
-| LOG_LEVEL                     |         info          | Logging level (e.g. critical, error, warning, info, debug)                                                                                              |
-| DAILY_SCHEDULE_TIME           |         23:45         | The time of day to run daily server tasks, in HH:MM format. Use the server's local time, *not* UTC                                                      |
+| Variables                     |        Default        | Description                                                                                                       |
+| ----------------------------- | :-------------------: | ----------------------------------------------------------------------------------------------------------------- |
+| PUID                          |          911          | UserID permissions between host OS and container                                                                  |
+| PGID                          |          911          | GroupID permissions between host OS and container                                                                 |
+| DEFAULT_GROUP                 |         Home          | The default group for users                                                                                       |
+| DEFAULT_HOUSEHOLD             |        Family         | The default household for users in each group                                                                     |
+| BASE_URL                      | http://localhost:8080 | Used for Notifications                                                                                            |
+| TOKEN_TIME                    |          48           | The time in hours that a login/auth token is valid. Must be <= 9600 (400 days, in hours).                         |
+| API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker**                               |
+| API_DOCS                      |         True          | Turns on/off access to the API documentation locally                                                              |
+| TZ                            |          UTC          | Must be set to get correct date/time on the server                                                                |
+| ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                                                  |
+| ALLOW_PASSWORD_LOGIN          |         true          | Whether or not to display the username+password input fields. Keep set to true unless you use OIDC authentication |
+| LOG_CONFIG_OVERRIDE           |                       | Override the config for logging with a custom path                                                                |
+| LOG_LEVEL                     |         info          | Logging level (e.g. critical, error, warning, info, debug)                                                        |
+| DAILY_SCHEDULE_TIME           |         23:45         | The time of day to run daily server tasks, in HH:MM format. Use the server's local time, _not_ UTC                |
 
 <super>\*</super> Starting in v1.4.0 this was changed to default to `false` as part of a security review of the application.
 
@@ -32,16 +32,16 @@
 
 ### Database
 
- | Variables                                               | Default  | Description                                                                                                                                                                                                                      |
- |---------------------------------------------------------|:--------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
- | DB_ENGINE                                               |  sqlite  | Optional: 'sqlite', 'postgres'                                                                                                                                                                                                   |
- | SQLITE_MIGRATE_JOURNAL_WAL                              |  False   | If set to true, switches SQLite's journal mode to WAL, which allows for multiple concurrent accesses. This can be useful when you have a decent amount of concurrency or when using certain remote storage systems such as Ceph. |
- | POSTGRES_USER<super>[&dagger;][secrets]</super>         |  mealie  | Postgres database user                                                                                                                                                                                                           |
- | POSTGRES_PASSWORD<super>[&dagger;][secrets]</super>     |  mealie  | Postgres database password                                                                                                                                                                                                       |
- | POSTGRES_SERVER<super>[&dagger;][secrets]</super>       | postgres | Postgres database server address                                                                                                                                                                                                 |
- | POSTGRES_PORT<super>[&dagger;][secrets]</super>         |   5432   | Postgres database port                                                                                                                                                                                                           |
- | POSTGRES_DB<super>[&dagger;][secrets]</super>           |  mealie  | Postgres database name                                                                                                                                                                                                           |
- | POSTGRES_URL_OVERRIDE<super>[&dagger;][secrets]</super> |   None   | Optional Postgres URL override to use instead of POSTGRES\_\* variables                                                                                                                                                          |
+| Variables                                               | Default  | Description                                                                                                                                                                                                                      |
+| ------------------------------------------------------- | :------: | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| DB_ENGINE                                               |  sqlite  | Optional: 'sqlite', 'postgres'                                                                                                                                                                                                   |
+| SQLITE_MIGRATE_JOURNAL_WAL                              |  False   | If set to true, switches SQLite's journal mode to WAL, which allows for multiple concurrent accesses. This can be useful when you have a decent amount of concurrency or when using certain remote storage systems such as Ceph. |
+| POSTGRES_USER<super>[&dagger;][secrets]</super>         |  mealie  | Postgres database user                                                                                                                                                                                                           |
+| POSTGRES_PASSWORD<super>[&dagger;][secrets]</super>     |  mealie  | Postgres database password                                                                                                                                                                                                       |
+| POSTGRES_SERVER<super>[&dagger;][secrets]</super>       | postgres | Postgres database server address                                                                                                                                                                                                 |
+| POSTGRES_PORT<super>[&dagger;][secrets]</super>         |   5432   | Postgres database port                                                                                                                                                                                                           |
+| POSTGRES_DB<super>[&dagger;][secrets]</super>           |  mealie  | Postgres database name                                                                                                                                                                                                           |
+| POSTGRES_URL_OVERRIDE<super>[&dagger;][secrets]</super> |   None   | Optional Postgres URL override to use instead of POSTGRES\_\* variables                                                                                                                                                          |
 
 ### Email
 
@@ -122,27 +122,34 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 Mealie supports various integrations using OpenAI. For more information, check out our [OpenAI documentation](./open-ai.md).
 For custom mapping variables (e.g. OPENAI_CUSTOM_HEADERS) you should pass values as JSON encoded strings (e.g. `OPENAI_CUSTOM_PARAMS='{"k1": "v1", "k2": "v2"}'`)
 
-| Variables                                                               | Default     | Description                                                                                                                                                                                                                                                                                                            |
+| Variables                                                            |  Default  | Description                                                                                                                                                                                                                                                                                                        |
+| -------------------------------------------------------------------- | :-------: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| OPENAI_BASE_URL<super>[&dagger;][secrets]</super>                    |   None    | The base URL for the OpenAI API. If you're not sure, leave this empty to use the standard OpenAI platform                                                                                                                                                                                                          |
+| OPENAI_API_KEY<super>[&dagger;][secrets]</super>                     |   None    | Your OpenAI API Key. Enables OpenAI-related features                                                                                                                                                                                                                                                               |
+| OPENAI_MODEL                                                         |  gpt-4o   | Which OpenAI model to use. If you're not sure, leave this empty                                                                                                                                                                                                                                                    |
+| OPENAI_AUDIO_MODEL <br/> :octicons-tag-24: v3.13.0                   | whisper-1 | Which OpenAI model to use for audio transcriptions, if enabled. If you're not sure, leave this empty                                                                                                                                                                                                               |
+| OPENAI_CUSTOM_HEADERS <br/> :octicons-tag-24: v2.0.0                 |   None    | Custom HTTP headers to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                                                                                                                                                                    |
+| OPENAI_CUSTOM_PARAMS <br/> :octicons-tag-24: v2.0.0                  |   None    | Custom HTTP query params to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                                                                                                                                                               |
+| OPENAI_ENABLE_IMAGE_SERVICES <br/> :octicons-tag-24: v1.12.0         |   True    | Whether to enable OpenAI image services, such as creating recipes via image. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs                                                                                                                                           |
+| OPENAI_ENABLE_TRANSCRIPTION_SERVICES <br/> :octicons-tag-24: v3.13.0 |   True    | Whether to enable OpenAI transcription services, such as creating recipes via video URL. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs                                                                                                                               |
+| OPENAI_WORKERS                                                       |     2     | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                                                                                                                                                             |
+| OPENAI_SEND_DATABASE_DATA                                            |   True    | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                                                                                                                                                                                                            |
+| OPENAI_REQUEST_TIMEOUT                                               |    300    | The number of seconds to wait for an OpenAI request to complete before cancelling the request. Leave this empty unless you're running into timeout issues on slower hardware                                                                                                                                       |
+| OPENAI_CUSTOM_PROMPT_DIR <br/> :octicons-tag-24: v3.10.0             |   None.   | Path to custom prompt files. Only existing files in your custom directory will override the defaults; any missing or empty custom files will automatically fall back to the system defaults. See https://github.com/mealie-recipes/mealie/tree/mealie-next/mealie/services/openai/prompts for expected file names. |
+
+### YT DLP
+
+Mealie supports parsing recipes from videos using yt-dlp, you can specify configuration for it using env variables:
+| Variables | Default | Description |
 |-------------------------------------------------------------------------|:-----------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| OPENAI_BASE_URL<super>[&dagger;][secrets]</super>                       |    None     | The base URL for the OpenAI API. If you're not sure, leave this empty to use the standard OpenAI platform                                                                                                                                                                                                              |
-| OPENAI_API_KEY<super>[&dagger;][secrets]</super>                        |    None     | Your OpenAI API Key. Enables OpenAI-related features                                                                                                                                                                                                                                                                   |
-| OPENAI_MODEL                                                            |   gpt-4o    | Which OpenAI model to use. If you're not sure, leave this empty                                                                                                                                                                                                                                                        |
-| OPENAI_AUDIO_MODEL <br/> :octicons-tag-24: v3.13.0                      |  whisper-1  | Which OpenAI model to use for audio transcriptions, if enabled. If you're not sure, leave this empty                                                                                                                                                                                                                   |
-| OPENAI_CUSTOM_HEADERS <br/> :octicons-tag-24: v2.0.0                    |    None     | Custom HTTP headers to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                                                                                                                                                                        |
-| OPENAI_CUSTOM_PARAMS <br/> :octicons-tag-24: v2.0.0                     |    None     | Custom HTTP query params to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                                                                                                                                                                   |
-| OPENAI_ENABLE_IMAGE_SERVICES <br/> :octicons-tag-24: v1.12.0            |    True     | Whether to enable OpenAI image services, such as creating recipes via image. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs                                                                                                                                               |
-| OPENAI_ENABLE_TRANSCRIPTION_SERVICES <br/> :octicons-tag-24: v3.13.0    |    True     | Whether to enable OpenAI transcription services, such as creating recipes via video URL. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs                                                                                                                                   |
-| OPENAI_WORKERS                                                          |      2      | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                                                                                                                                                                 |
-| OPENAI_SEND_DATABASE_DATA                                               |    True     | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                                                                                                                                                                                                                |
-| OPENAI_REQUEST_TIMEOUT                                                  |     300     | The number of seconds to wait for an OpenAI request to complete before cancelling the request. Leave this empty unless you're running into timeout issues on slower hardware                                                                                                                                           |
-| OPENAI_CUSTOM_PROMPT_DIR <br/> :octicons-tag-24: v3.10.0                |    None.    | Path to custom prompt files. Only existing files in your custom directory will override the defaults; any missing or empty custom files will automatically fall back to the system defaults. See https://github.com/mealie-recipes/mealie/tree/mealie-next/mealie/services/openai/prompts for expected file names.     |
+| YTDLP_COOKIEFILE | None | Cookiefile to use when browsing websites |
 
 ### Theming
 
 Setting the following environmental variables will change the theme of the frontend. Note that the themes are the same for all users. This is a break-change when migration from v0.x.x -> 1.x.x.
 
 !!! info
-    If you're setting these variables but not seeing these changes persist, try removing the `#` character. Also, depending on which syntax you're using, double-check you're using quotes correctly.
+If you're setting these variables but not seeing these changes persist, try removing the `#` character. Also, depending on which syntax you're using, double-check you're using quotes correctly.
 
     If using YAML mapping syntax, be sure to include quotes around these values, otherwise they will be treated as comments in your YAML file:<br>`THEME_LIGHT_PRIMARY: '#E58325'` or  `THEME_LIGHT_PRIMARY: 'E58325'`
 
@@ -170,7 +177,7 @@ Setting the following environmental variables will change the theme of the front
 The examples below provide copy-ready Docker Compose environment configurations for three different color palettes. Copy and paste the desired theme into your `docker-compose.yml` file's environment section.
 
 !!! info
-    These themes are functional and ready to use, but they are provided primarily as examples. The color palettes can be adjusted or refined to better suit your preferences.
+These themes are functional and ready to use, but they are provided primarily as examples. The color palettes can be adjusted or refined to better suit your preferences.
 
 === "Blue Theme"
 
@@ -239,17 +246,17 @@ The examples below provide copy-ready Docker Compose environment configurations 
     ```
 
 !!! info
-    Browser cookies may cause the client to keep outdated settings.
-    Clearing the cookies can be required for the change to take effect.
+Browser cookies may cause the client to keep outdated settings.
+Clearing the cookies can be required for the change to take effect.
 
 ### Docker Secrets
 
 > <super>&dagger;</super> Starting in version `2.4.2`, any environment variable in the preceding lists with a dagger
 > symbol next to them support the Docker Compose secrets pattern, below.
-[Docker Compose secrets][docker-secrets] can be used to secure sensitive information regarding the Mealie implementation
-by managing control of each secret independently from the single `.env` file. This is helpful for users that may need
-different levels of access for various, sensitive environment variables, such as differentiating between hardening
-operations (e.g., server endpoints and ports) and user access control (e.g., usernames, passwords, and API keys).
+> [Docker Compose secrets][docker-secrets] can be used to secure sensitive information regarding the Mealie implementation
+> by managing control of each secret independently from the single `.env` file. This is helpful for users that may need
+> different levels of access for various, sensitive environment variables, such as differentiating between hardening
+> operations (e.g., server endpoints and ports) and user access control (e.g., usernames, passwords, and API keys).
 
 To convert any of these environment variables to a Docker Compose secret, append `_FILE` to the environment variable and
 connect it with a Docker Compose secret, per the [Docker documentation][docker-secrets].
@@ -259,7 +266,6 @@ take precedence.
 
 For example, a user that wishes to harden their operations by only giving some access to their database URL, but who
 wish to place additional security around their user access control, may have a Docker Compose configuration similar to:
-
 
 ```yaml
 services:
@@ -295,7 +301,9 @@ secrets:
   postgres-password:
     file: ./secrets/sensitive/postgres-password.txt
 ```
+
 In the example above, a directory organization and access pattern may look like the following:
+
 ```text
 .
 ├── docker-compose.yml
