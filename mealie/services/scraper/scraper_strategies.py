@@ -491,6 +491,10 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             "postprocessor_args": ["-ac", "1"],
         }
 
+        settings = get_app_settings()
+        if settings.YTDLP_COOKIEFILE:
+            ydl_opts["cookiefile"] = settings.YTDLP_COOKIEFILE
+
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:
                 info = ydl.extract_info(self.url, download=True)
