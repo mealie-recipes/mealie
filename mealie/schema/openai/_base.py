@@ -1,5 +1,5 @@
 import re
-from typing import Self
+from typing import Any, Self
 
 from pydantic import BaseModel
 
@@ -17,6 +17,25 @@ class OpenAIBase(BaseModel):
     """
 
     __doc__ = ""  # we don't want to include the docstring in the JSON schema
+
+    @classmethod
+    def _resolve_refs(cls, obj: Any, defs: dict) -> Any:
+        if isinstance(obj, dict):
+            if "$ref" in obj:
+                ref_name = obj["$ref"].split("/")[-1]
+                return cls._resolve_refs(defs[ref_name], defs)
+            return {k: cls._resolve_refs(v, defs) for k, v in obj.items()}
+        if isinstance(obj, list):
+            return [cls._resolve_refs(item, defs) for item in obj]
+        return obj
+
+    @classmethod
+    def model_json_schema(cls, **kwargs: Any) -> dict[str, Any]:
+        schema = super().model_json_schema(**kwargs)
+        defs = schema.pop("$defs", {})
+        if defs:
+            schema = cls._resolve_refs(schema, defs)
+        return schema
 
     @classmethod
     def _preprocess_response(cls, response: str | None) -> str:
