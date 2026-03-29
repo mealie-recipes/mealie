@@ -45,7 +45,7 @@ export const LOCALES = [
   {
     name: "српски (Serbian)",
     value: "sr-SP",
-    progress: 18,
+    progress: 49,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -59,7 +59,7 @@ export const LOCALES = [
   {
     name: "Slovenčina (Slovak)",
     value: "sk-SK",
-    progress: 47,
+    progress: 46,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -73,7 +73,7 @@ export const LOCALES = [
   {
     name: "Română (Romanian)",
     value: "ro-RO",
-    progress: 44,
+    progress: 46,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -87,21 +87,21 @@ export const LOCALES = [
   {
     name: "Português do Brasil (Brazilian Portuguese)",
     value: "pt-BR",
-    progress: 47,
+    progress: 99,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
   {
     name: "Polski (Polish)",
     value: "pl-PL",
-    progress: 49,
+    progress: 100,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
   {
     name: "Norsk (Norwegian)",
     value: "no-NO",
-    progress: 43,
+    progress: 44,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -143,7 +143,7 @@ export const LOCALES = [
   {
     name: "Italiano (Italian)",
     value: "it-IT",
-    progress: 58,
+    progress: 59,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -157,7 +157,7 @@ export const LOCALES = [
   {
     name: "Magyar (Hungarian)",
     value: "hu-HU",
-    progress: 46,
+    progress: 47,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -206,7 +206,7 @@ export const LOCALES = [
   {
     name: "Suomi (Finnish)",
     value: "fi-FI",
-    progress: 41,
+    progress: 100,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -220,7 +220,7 @@ export const LOCALES = [
   {
     name: "Español (Spanish)",
     value: "es-ES",
-    progress: 48,
+    progress: 49,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -248,14 +248,14 @@ export const LOCALES = [
   {
     name: "Deutsch (German)",
     value: "de-DE",
-    progress: 100,
+    progress: 99,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
   {
     name: "Dansk (Danish)",
     value: "da-DK",
-    progress: 100,
+    progress: 99,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -269,7 +269,7 @@ export const LOCALES = [
   {
     name: "Català (Catalan)",
     value: "ca-ES",
-    progress: 42,
+    progress: 45,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -283,7 +283,7 @@ export const LOCALES = [
   {
     name: "العربية (Arabic)",
     value: "ar-SA",
-    progress: 25,
+    progress: 97,
     dir: "rtl",
     pluralFoodHandling: "always",
   },
