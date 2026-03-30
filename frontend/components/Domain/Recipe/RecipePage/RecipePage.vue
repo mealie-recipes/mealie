@@ -110,20 +110,21 @@
       <RecipePrintContainer :recipe="recipe" :scale="scale" />
     </v-container>
     <!-- Floating save button when toolbar scrolls out of view -->
-    <v-btn
+    <v-fab
       v-if="isEditMode && !toolbarVisible"
       color="success"
-      icon
+      location="bottom end"
       size="large"
-      class="floating-save-btn d-print-none"
-      elevation="8"
+      app
+      appear
+      class="d-print-none"
       @click="saveRecipe"
     >
       <v-icon>{{ $globals.icons.save }}</v-icon>
       <v-tooltip activator="parent" location="left">
         {{ $t("general.save") }}
       </v-tooltip>
-    </v-btn>
+    </v-fab>
     <!-- Cook mode displayes two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same time -->
     <!-- The calc is to account for the navabar height (48px) -->
     <v-sheet
@@ -491,12 +492,5 @@ const scale = ref(1);
 
 .list-group-item i {
   cursor: pointer;
-}
-
-.floating-save-btn {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 10;
 }
 </style>
