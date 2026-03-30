@@ -1,3 +1,5 @@
+import asyncio
+
 from fastapi import BackgroundTasks, Depends
 from pydantic import UUID4
 from sqlalchemy.orm.session import Session
@@ -57,11 +59,14 @@ class EventBusService:
             WebhookEventListener(group_id, household_id),
         ]
 
-    def _publish_event(self, event: Event, group_id: UUID4, household_id: UUID4) -> None:
+    async def _publish_event(self, event: Event, group_id: UUID4, household_id: UUID4) -> None:
         """Publishes the event to all listeners"""
         for listener in self._get_listeners(group_id, household_id):
             if subscribers := listener.get_subscribers(event):
-                listener.publish_to_subscribers(event, subscribers)
+                if hasattr(listener.publish_to_subscribers, '__await__'):
+                    await listener.publish_to_subscribers(event, subscribers)
+                else:
+                    listener.publish_to_subscribers(event, subscribers)
 
     def dispatch(
         self,
@@ -93,7 +98,14 @@ class EventBusService:
             if self.bg:
                 self.bg.add_task(self._publish_event, event=event, group_id=group_id, household_id=household_id)
             else:
-                self._publish_event(event, group_id, household_id)
+                # Run async publish_event directly
+                try:
+                    loop = asyncio.get_running_loop()
+                    # If we're in an async context, create a task
+                    loop.create_task(self._publish_event(event, group_id, household_id))
+                except RuntimeError:
+                    # No running loop, use asyncio.run
+                    asyncio.run(self._publish_event(event, group_id, household_id))
 
     @classmethod
     def as_dependency(

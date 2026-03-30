@@ -79,7 +79,7 @@ def post_group_webhooks(
             )
 
 
-def post_test_webhook(webhook: ReadWebhook, message: str = "") -> None:
+async def post_test_webhook(webhook: ReadWebhook, message: str = "") -> None:
     dt = datetime.min.replace(tzinfo=UTC)
     event_type = EventTypes.test_message
 
@@ -97,4 +97,4 @@ def post_test_webhook(webhook: ReadWebhook, message: str = "") -> None:
     )
 
     listener = WebhookEventListener(webhook.group_id, webhook.household_id)
-    listener.publish_to_subscribers(event, [webhook])
+    await listener.publish_to_subscribers(event, [webhook])

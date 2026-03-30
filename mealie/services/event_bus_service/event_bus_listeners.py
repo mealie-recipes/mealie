@@ -145,7 +145,7 @@ class WebhookEventListener(EventListenerBase):
         )
         return scheduled_webhooks
 
-    def publish_to_subscribers(self, event: Event, subscribers: list[ReadWebhook]) -> None:
+    async def publish_to_subscribers(self, event: Event, subscribers: list[ReadWebhook]) -> None:
         with self.ensure_repos(self.group_id, self.household_id) as repos:
             if not isinstance(event.document_data, EventWebhookData):
                 return
@@ -164,7 +164,7 @@ class WebhookEventListener(EventListenerBase):
 
             # Only publish to subscribers if we have a webhook body to send
             if event.document_data.webhook_body is not None:
-                self.publisher.publish(event, [webhook.url for webhook in subscribers])
+                await self.publisher.publish(event, [webhook.url for webhook in subscribers])
 
     def get_scheduled_webhooks(self, start_dt: datetime, end_dt: datetime) -> list[ReadWebhook]:
         """Fetches all scheduled webhooks from the database"""

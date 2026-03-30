@@ -1,14 +1,18 @@
 from typing import Protocol
 
 import apprise
-import requests
+import httpx
 from fastapi.encoders import jsonable_encoder
 
+from mealie.pkgs import safehttp
 from mealie.services.event_bus_service.event_types import Event
+import logging
+
+logger = logging.getLogger(__name__)
 
 
 class PublisherLike(Protocol):
-    def publish(self, event: Event, notification_urls: list[str]): ...
+    async def publish(self, event: Event, notification_urls: list[str]): ...
 
 
 class ApprisePublisher:
@@ -41,9 +45,16 @@ class WebhookPublisher:
     def __init__(self, hard_fail=False) -> None:
         self.hard_fail = hard_fail
 
-    def publish(self, event: Event, notification_urls: list[str]):
+    async def publish(self, event: Event, notification_urls: list[str]):
         event_payload = jsonable_encoder(event)
         for url in notification_urls:
-            r = requests.post(url, json=event_payload, timeout=15)
-            if self.hard_fail:
-                r.raise_for_status()
+            async with httpx.AsyncClient(transport=safehttp.AsyncSafeTransport()) as client:
+                try:
+                    r = await client.post(url, json=event_payload, timeout=15)
+                    if self.hard_fail:
+                        r.raise_for_status()
+                except safehttp.InvalidDomainError:
+                    logger.warning(f"Blocked SSRF attempt to internal URL: {url}")
+                    if self.hard_fail:
+                        raise
+                    continue
