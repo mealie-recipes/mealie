@@ -212,8 +212,8 @@
     "upload-file": "上传文件",
     "created-on-date": "创建于: {0}",
     "unsaved-changes": "你有未保存的更改。你希望现在离开前保存吗？保存选择“是”，不保存选择“取消”。",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "放弃修改",
+    "discard-changes-description": "您有还未保存的修改，确定要放弃修改吗？",
     "clipboard-copy-failure": "未能复制到剪切板。",
     "confirm-delete-generic-items": "你确定删除以下条目吗？",
     "organizers": "管理器",
@@ -346,8 +346,8 @@
     "breakfast": "早餐",
     "lunch": "午餐",
     "dinner": "晚餐",
-    "snack": "Snack",
-    "drink": "Drink",
+    "snack": "零食",
+    "drink": "饮品",
     "dessert": "甜点",
     "type-any": "任意",
     "day-any": "任意",
@@ -372,8 +372,8 @@
     "applies-to-all-days": "应用到所有日期",
     "applies-on-days": "应用于{0}",
     "meal-plan-settings": "饮食计划设置",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "将全部添加入清单",
+    "add-day-to-list": "将日期添加到清单"
   },
   "migration": {
     "migration-data-removed": "已删除迁移数据",
@@ -409,7 +409,7 @@
       "title": "Tandoor食谱"
     },
     "cookn": {
-      "description-long": "Mealie can import recipes from DVO Cook'n X3. Export a cookbook or menu in the \"Cook'n\" format, rename the export extension to .zip, then upload the .zip below.",
+      "description-long": "Mealie 可以从 DVO Cook'n X3 导入配方。 以 Cook'n' 格式导出一个 cookbook 或菜单，重命名导出的文件为 .zip，然后在下方上传 .zip 文件。",
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "食谱数据迁移",
@@ -451,7 +451,7 @@
     "upload-a-recipe": "上传食谱",
     "upload-individual-zip-file": "上传从Mealie导出的.zip文件。",
     "url-form-hint": "从您最喜爱的食谱网站复制并粘贴链接",
-    "copy-and-paste-the-source-url-of-your-data-optional": "Copy and paste the source URL of your data (optional)",
+    "copy-and-paste-the-source-url-of-your-data-optional": "复制并粘贴数据源 URL (可选)",
     "view-scraped-data": "查看爬取的数据",
     "trim-whitespace-description": "删除开头和结尾的空格和空行",
     "trim-prefix-description": "删除每行的首个字符",
@@ -575,7 +575,7 @@
     "choose-unit": "选择单位",
     "press-enter-to-create": "按回车键以创建",
     "choose-food": "选择食品",
-    "choose-recipe": "Choose Recipe",
+    "choose-recipe": "选择菜谱",
     "notes": "备注",
     "toggle-section": "切换分类",
     "see-original-text": "查看原文",
@@ -638,14 +638,14 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "通过名称创建食谱，食谱不可重名。",
     "new-recipe-names-must-be-unique": "新食谱名必须唯一",
     "scrape-recipe": "刮削食谱",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
+    "scrape-recipe-description": "通过URL采集食谱。提供你想要采集网址的URL，Mealie会尝试从该网采集食谱并添加到你的收藏中。",
     "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
     "scrape-recipe-have-a-lot-of-recipes": "你想要一次刮削多个食谱吗？",
     "scrape-recipe-suggest-bulk-importer": "试试批量导入器",
     "scrape-recipe-have-raw-html-or-json-data": "有原始 HTML 或 JSON 数据？",
     "scrape-recipe-you-can-import-from-raw-data-directly": "您可以直接从原始数据导入",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
-    "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
+    "scrape-recipe-website-being-blocked": "网站被屏蔽？",
+    "scrape-recipe-try-importing-raw-html-instead": "请尝试导入原始HTML。",
     "import-original-keywords-as-tags": "导入原始关键字作为标签",
     "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "留在编辑模式",
@@ -712,7 +712,7 @@
     "cover-image": "封面图片",
     "include-linked-recipes": "包含已链接的菜谱",
     "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
-    "toggle-recipe": "Toggle Recipe"
+    "toggle-recipe": "切换菜谱"
   },
   "recipe-finder": {
     "recipe-finder": "食谱搜索",
