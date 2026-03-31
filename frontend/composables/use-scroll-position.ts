@@ -16,24 +16,25 @@ export function useScrollPosition() {
     if (window.history.state?.forward !== from.fullPath) return;
 
     const savedPosition = scrollPositions.get(to.path);
-    if (!savedPosition) return;
+    if (savedPosition == null) return;
 
     observer?.disconnect();
     if (timeout) clearTimeout(timeout);
     if (fallback) clearTimeout(fallback);
 
     observer = new MutationObserver(() => {
-      clearTimeout(timeout);
+      if (timeout) clearTimeout(timeout);
+
       timeout = setTimeout(() => {
-        clearTimeout(fallback);
-        observer.disconnect();
+        if (fallback) clearTimeout(fallback);
+        observer?.disconnect();
         document.documentElement.scrollTop = savedPosition;
       }, 100);
     });
 
     fallback = setTimeout(() => {
-      clearTimeout(timeout);
-      observer.disconnect();
+      if (timeout) clearTimeout(timeout);
+      observer?.disconnect();
       document.documentElement.scrollTop = savedPosition;
     }, 500);
 
