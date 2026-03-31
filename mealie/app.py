@@ -177,6 +177,7 @@ def main():
         log_config=None,
         workers=1,
         forwarded_allow_ips="*",
+        ws="websockets-sansio",
     )
 
 

@@ -672,6 +672,69 @@ def test_cleaner_clean_nutrition(case: CleanerCase):
     assert case.expected == result
 
 
+clean_notes_test_cases = (
+    CleanerCase(
+        test_id="valid dicts with title and text",
+        input=[
+            {"title": "Storage Tip", "text": "Keep refrigerated up to 3 days"},
+            {"title": "Variation", "text": "Add chili flakes for extra heat"},
+        ],
+        expected=[
+            {"title": "Storage Tip", "text": "Keep refrigerated up to 3 days"},
+            {"title": "Variation", "text": "Add chili flakes for extra heat"},
+        ],
+    ),
+    CleanerCase(
+        test_id="dict missing title gets empty title",
+        input=[{"text": "A note without a title"}],
+        expected=[{"title": "", "text": "A note without a title"}],
+    ),
+    CleanerCase(
+        test_id="dict missing text is skipped",
+        input=[{"title": "Only title, no text"}],
+        expected=[],
+    ),
+    CleanerCase(
+        test_id="plain string becomes note with empty title",
+        input=["A plain text note"],
+        expected=[{"title": "", "text": "A plain text note"}],
+    ),
+    CleanerCase(
+        test_id="mixed valid and invalid entries",
+        input=[
+            {"title": "Valid", "text": "Has both fields"},
+            {"title": "No text"},
+            "Plain string note",
+        ],
+        expected=[
+            {"title": "Valid", "text": "Has both fields"},
+            {"title": "", "text": "Plain string note"},
+        ],
+    ),
+    CleanerCase(
+        test_id="empty list",
+        input=[],
+        expected=[],
+    ),
+    CleanerCase(
+        test_id="non-list returns None",
+        input="not a list",
+        expected=None,
+    ),
+    CleanerCase(
+        test_id="none returns None",
+        input=None,
+        expected=None,
+    ),
+)
+
+
+@pytest.mark.parametrize("case", clean_notes_test_cases, ids=(x.test_id for x in clean_notes_test_cases))
+def test_cleaner_clean_notes(case: CleanerCase) -> None:
+    result = cleaner.clean_notes(case.input)
+    assert case.expected == result
+
+
 @pytest.mark.parametrize(
     "t,max_components,max_decimal_places,expected",
     [

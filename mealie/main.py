@@ -15,6 +15,7 @@ def main():
         forwarded_allow_ips=settings.HOST_IP,
         ssl_keyfile=settings.TLS_PRIVATE_KEY_PATH,
         ssl_certfile=settings.TLS_CERTIFICATE_PATH,
+        ws="websockets-sansio",
     )
 
 

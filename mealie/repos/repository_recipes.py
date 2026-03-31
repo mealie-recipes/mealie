@@ -203,13 +203,19 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
 
     def update(self, match_value: str | int | UUID4, new_data: dict | Recipe) -> Recipe:
         new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
+        entry = self._query_one(match_value=match_value)
+
+        if new_name := new_data.get("name"):
+            new_data["slug"] = entry.slug if new_name == entry.name else create_recipe_slug(new_name)
 
         # Handle explicit group_id injection for related items that require it
         for organizer_field in ["tags", "recipe_category", "tools"]:
             for organizer in new_data.get(organizer_field, []):
                 organizer["group_id"] = self.group_id
 
-        return super().update(match_value, new_data)
+        entry.update(session=self.session, **new_data)
+        self.session.commit()
+        return self.schema.model_validate(entry)
 
     def page_all(  # type: ignore
         self,

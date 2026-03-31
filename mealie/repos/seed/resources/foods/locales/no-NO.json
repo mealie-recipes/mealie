@@ -340,13 +340,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "bladbete",
-                "plural_name": "chard"
+                "plural_name": "bladbete"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
                 "name": "pimiento",
-                "plural_name": "pimientos"
+                "plural_name": "piementoer"
             },
             "spaghetti squash": {
                 "aliases": [],
@@ -358,7 +358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "smørsalat",
-                "plural_name": "butter lettuce"
+                "plural_name": "smørsalat"
             },
             "hash brown": {
                 "aliases": [],
@@ -419,8 +419,8 @@
             "corn on the cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn on the cob",
-                "plural_name": "corn on the cob"
+                "name": "mais på kuben",
+                "plural_name": "mais på kuben"
             },
             "radicchio": {
                 "aliases": [],
@@ -438,7 +438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brokkolini",
-                "plural_name": "tenderstem broccoli"
+                "plural_name": "brokkolini"
             },
             "plantain": {
                 "aliases": [],

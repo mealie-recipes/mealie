@@ -17,7 +17,11 @@ from mealie.schema.meal_plan.plan_rules import PlanRulesDay
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import ErrorResponse
-from mealie.services.event_bus_service.event_types import EventMealplanCreatedData, EventTypes
+from mealie.services.event_bus_service.event_types import (
+    EventMealplanData,
+    EventOperation,
+    EventTypes,
+)
 
 router = APIRouter(prefix="/households/mealplans", tags=["Households: Mealplans"])
 
@@ -102,7 +106,8 @@ class GroupMealplanController(BaseCrudController):
 
         self.publish_event(
             event_type=EventTypes.mealplan_entry_created,
-            document_data=EventMealplanCreatedData(
+            document_data=EventMealplanData(
+                operation=EventOperation.create,
                 mealplan_id=result.id,
                 recipe_id=data.recipe_id,
                 recipe_name=result.recipe.name if result.recipe else None,
@@ -138,7 +143,7 @@ class GroupMealplanController(BaseCrudController):
             )
 
         recipe = random_recipes[0]
-        return self.mixins.create_one(
+        result = self.mixins.create_one(
             SavePlanEntry(
                 date=data.date,
                 entry_type=data.entry_type,
@@ -148,14 +153,65 @@ class GroupMealplanController(BaseCrudController):
             )
         )
 
+        self.publish_event(
+            event_type=EventTypes.mealplan_entry_created,
+            document_data=EventMealplanData(
+                operation=EventOperation.create,
+                mealplan_id=result.id,
+                recipe_id=recipe.id,
+                recipe_name=recipe.name,
+                recipe_slug=recipe.slug,
+                date=data.date,
+            ),
+            group_id=result.group_id,
+            household_id=result.household_id,
+            message=f"Mealplan entry created for {data.date} for {data.entry_type}",
+        )
+
+        return result
+
     @router.get("/{item_id}", response_model=ReadPlanEntry)
     def get_one(self, item_id: int):
         return self.mixins.get_one(item_id)
 
     @router.put("/{item_id}", response_model=ReadPlanEntry)
     def update_one(self, item_id: int, data: UpdatePlanEntry):
-        return self.mixins.update_one(data, item_id)
+        result = self.mixins.update_one(data, item_id)
+
+        self.publish_event(
+            event_type=EventTypes.mealplan_entry_updated,
+            document_data=EventMealplanData(
+                operation=EventOperation.update,
+                mealplan_id=result.id,
+                recipe_id=result.recipe_id,
+                recipe_name=result.recipe.name if result.recipe else None,
+                recipe_slug=result.recipe.slug if result.recipe else None,
+                date=result.date,
+            ),
+            group_id=result.group_id,
+            household_id=result.household_id,
+            message=f"Mealplan entry updated for {result.date} for {result.entry_type}",
+        )
+
+        return result
 
     @router.delete("/{item_id}", response_model=ReadPlanEntry)
     def delete_one(self, item_id: int):
-        return self.mixins.delete_one(item_id)
+        result = self.mixins.delete_one(item_id)
+
+        self.publish_event(
+            event_type=EventTypes.mealplan_entry_deleted,
+            document_data=EventMealplanData(
+                operation=EventOperation.delete,
+                mealplan_id=result.id,
+                recipe_id=result.recipe_id,
+                recipe_name=result.recipe.name if result.recipe else None,
+                recipe_slug=result.recipe.slug if result.recipe else None,
+                date=result.date,
+            ),
+            group_id=result.group_id,
+            household_id=result.household_id,
+            message=f"Mealplan entry deleted for {result.date} for {result.entry_type}",
+        )
+
+        return result
