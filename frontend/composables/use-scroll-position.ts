@@ -2,11 +2,15 @@ export function useScrollPosition() {
   const router = useRouter();
   const scrollPositions = new Map<string, number>();
 
-  router.beforeEach((to, from) => {
+  let observer: MutationObserver | null = null;
+  let timeout: ReturnType<typeof setTimeout> | null = null;
+  let fallback: ReturnType<typeof setTimeout> | null = null;
+
+  const unregisterBefore = router.beforeEach((to, from) => {
     scrollPositions.set(from.path, document.documentElement.scrollTop);
   });
 
-  router.afterEach((to, from, failure) => {
+  const unregisterAfter = router.afterEach((to, from, failure) => {
     if (failure) return;
 
     if (window.history.state?.forward !== from.fullPath) return;
@@ -14,9 +18,7 @@ export function useScrollPosition() {
     const savedPosition = scrollPositions.get(to.path);
     if (!savedPosition) return;
 
-    let timeout: ReturnType<typeof setTimeout>;
-
-    const observer = new MutationObserver(() => {
+    observer = new MutationObserver(() => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
         clearTimeout(fallback);
@@ -25,7 +27,7 @@ export function useScrollPosition() {
       }, 100);
     });
 
-    const fallback = setTimeout(() => {
+    fallback = setTimeout(() => {
       clearTimeout(timeout);
       observer.disconnect();
       document.documentElement.scrollTop = savedPosition;
@@ -35,5 +37,10 @@ export function useScrollPosition() {
       childList: true,
       subtree: true,
     });
+  });
+
+  onUnmounted(() => {
+    unregisterBefore();
+    unregisterAfter();
   });
 }
