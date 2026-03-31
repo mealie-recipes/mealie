@@ -18,6 +18,10 @@ export function useScrollPosition() {
     const savedPosition = scrollPositions.get(to.path);
     if (!savedPosition) return;
 
+    observer?.disconnect();
+    if (timeout) clearTimeout(timeout);
+    if (fallback) clearTimeout(fallback);
+
     observer = new MutationObserver(() => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
