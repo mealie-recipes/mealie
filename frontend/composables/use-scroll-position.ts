@@ -1,0 +1,33 @@
+export function useScrollPosition() {
+  const router = useRouter();
+  const scrollPositions = new Map<string, number>();
+
+  router.beforeEach((to, from) => {
+    scrollPositions.set(from.path, document.documentElement.scrollTop);
+  });
+
+  router.afterEach((to, from, failure) => {
+    if (failure) return;
+
+    // Only restore scroll position if navigating back
+    if (window.history.state?.forward !== from.fullPath) return;
+
+    const savedPosition = scrollPositions.get(to.path);
+    if (!savedPosition) return;
+
+    let timeout: ReturnType<typeof setTimeout>;
+
+    const observer = new MutationObserver(() => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        observer.disconnect();
+        document.documentElement.scrollTop = savedPosition;
+      }, 100);
+    });
+
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
+  });
+}
