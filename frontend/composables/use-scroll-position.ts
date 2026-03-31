@@ -42,5 +42,8 @@ export function useScrollPosition() {
   onUnmounted(() => {
     unregisterBefore();
     unregisterAfter();
+    observer?.disconnect();
+    if (timeout) clearTimeout(timeout);
+    if (fallback) clearTimeout(fallback);
   });
 }
