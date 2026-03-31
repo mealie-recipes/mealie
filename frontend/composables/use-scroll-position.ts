@@ -1,36 +1,29 @@
+const scrollPositions = new Map<string, number>();
+const pagePositions = new Map<string, number>();
+
 export function useScrollPosition() {
   const router = useRouter();
-  const scrollPositions = new Map<string, number>();
 
   let observer: MutationObserver | null = null;
   let timeout: ReturnType<typeof setTimeout> | null = null;
   let fallback: ReturnType<typeof setTimeout> | null = null;
 
-  const unregisterBefore = router.beforeEach((to, from) => {
-    scrollPositions.set(from.path, document.documentElement.scrollTop);
-  });
+  function savePosition(path: string, page: number) {
+    scrollPositions.set(path, document.documentElement.scrollTop);
+    pagePositions.set(path, page);
+  }
 
-  const unregisterAfter = router.afterEach((to, from, failure) => {
-    if (failure) return;
+  function getSavedPage(path: string): number | undefined {
+    return pagePositions.get(path);
+  }
 
-    if (window.history.state?.forward !== from.fullPath) return;
-
-    const savedPosition = scrollPositions.get(to.path);
-    if (savedPosition == null) return;
+  function restorePosition(path: string) {
+    const savedPosition = scrollPositions.get(path);
+    if (!savedPosition) return;
 
     observer?.disconnect();
     if (timeout) clearTimeout(timeout);
     if (fallback) clearTimeout(fallback);
-
-    observer = new MutationObserver(() => {
-      if (timeout) clearTimeout(timeout);
-
-      timeout = setTimeout(() => {
-        if (fallback) clearTimeout(fallback);
-        observer?.disconnect();
-        document.documentElement.scrollTop = savedPosition;
-      }, 100);
-    });
 
     fallback = setTimeout(() => {
       if (timeout) clearTimeout(timeout);
@@ -38,10 +31,29 @@ export function useScrollPosition() {
       document.documentElement.scrollTop = savedPosition;
     }, 500);
 
+    observer = new MutationObserver(() => {
+      if (timeout) clearTimeout(timeout);
+      timeout = setTimeout(() => {
+        if (fallback) clearTimeout(fallback);
+        observer?.disconnect();
+        document.documentElement.scrollTop = savedPosition;
+      }, 100);
+    });
+
     observer.observe(document.body, {
       childList: true,
       subtree: true,
     });
+  }
+
+  const unregisterBefore = router.beforeEach((to, from) => {
+    scrollPositions.set(from.path, document.documentElement.scrollTop);
+  });
+
+  const unregisterAfter = router.afterEach((to, from, failure) => {
+    if (failure) return;
+    if (window.history.state?.forward !== from.fullPath) return;
+    restorePosition(to.path);
   });
 
   onUnmounted(() => {
@@ -51,4 +63,10 @@ export function useScrollPosition() {
     if (timeout) clearTimeout(timeout);
     if (fallback) clearTimeout(fallback);
   });
+
+  return {
+    savePosition,
+    getSavedPage,
+    restorePosition,
+  };
 }

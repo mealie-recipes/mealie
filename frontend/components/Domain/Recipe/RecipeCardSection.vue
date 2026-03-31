@@ -243,6 +243,7 @@ const ready = ref(false);
 const loading = ref(false);
 
 const { fetchMore, getRandom } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
+const { savePosition, getSavedPage, restorePosition } = useScrollPosition();
 const router = useRouter();
 
 const queryFilter = computed(() => {
@@ -283,8 +284,24 @@ async function fetchRecipes(pageCount = 1) {
 }
 
 onMounted(async () => {
-  await initRecipes();
-  ready.value = true;
+  const savedPage = getSavedPage(route.path);
+
+  if (savedPage && savedPage > 2) {
+    page.value = 1;
+    hasMore.value = true;
+    const newRecipes = await fetchRecipes(savedPage);
+    if (newRecipes.length < perPage * savedPage) {
+      hasMore.value = false;
+    }
+    page.value = savedPage;
+    emit(REPLACE_RECIPES_EVENT, newRecipes);
+    ready.value = true;
+    restorePosition(route.path);
+  }
+  else {
+    await initRecipes();
+    ready.value = true;
+  }
 });
 
 let lastQuery: string | undefined = JSON.stringify(props.query);
@@ -336,6 +353,8 @@ const infiniteScroll = useThrottleFn(async () => {
   if (newRecipes.length) {
     emit(APPEND_RECIPES_EVENT, newRecipes);
   }
+
+  savePosition(route.path, page.value);
 
   loading.value = false;
 }, 500);
