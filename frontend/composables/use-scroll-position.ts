@@ -19,10 +19,17 @@ export function useScrollPosition() {
     const observer = new MutationObserver(() => {
       clearTimeout(timeout);
       timeout = setTimeout(() => {
+        clearTimeout(fallback);
         observer.disconnect();
         document.documentElement.scrollTop = savedPosition;
       }, 100);
     });
+
+    const fallback = setTimeout(() => {
+      clearTimeout(timeout);
+      observer.disconnect();
+      document.documentElement.scrollTop = savedPosition;
+    }, 500);
 
     observer.observe(document.body, {
       childList: true,
