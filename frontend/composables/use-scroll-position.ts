@@ -9,7 +9,6 @@ export function useScrollPosition() {
   router.afterEach((to, from, failure) => {
     if (failure) return;
 
-    // Only restore scroll position if navigating back
     if (window.history.state?.forward !== from.fullPath) return;
 
     const savedPosition = scrollPositions.get(to.path);
