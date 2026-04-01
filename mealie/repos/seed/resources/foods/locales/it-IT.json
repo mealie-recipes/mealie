@@ -462,7 +462,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cavolo cinese baby",
-                "plural_name": "baby bok choy"
+                "plural_name": "baby pak choi"
             },
             "jicama": {
                 "aliases": [],
@@ -484,11 +484,11 @@
             },
             "maize": {
                 "aliases": [
-                    "corn husk"
+                    "foglia di mais"
                 ],
                 "description": "",
-                "name": "maize",
-                "plural_name": "maize"
+                "name": "mais",
+                "plural_name": "granturco"
             },
             "collard greens": {
                 "aliases": [],
@@ -2277,14 +2277,14 @@
             "stilton cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "stilton cheese",
+                "name": "formaggio stilton",
                 "plural_name": "stilton cheese"
             },
             "raclette cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "raclette cheese",
-                "plural_name": "raclette cheese"
+                "plural_name": "formaggio raclette"
             },
             "colby-jack cheese": {
                 "aliases": [],

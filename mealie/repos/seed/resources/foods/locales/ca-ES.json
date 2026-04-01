@@ -615,8 +615,8 @@
             "pea shoot": {
                 "aliases": [],
                 "description": "",
-                "name": "pea shoot",
-                "plural_name": "pea shoots"
+                "name": "germinat de pèsol",
+                "plural_name": "germinats de pèsol"
             },
             "alfalfa": {
                 "aliases": [],
@@ -9096,8 +9096,8 @@
             "pea": {
                 "aliases": [],
                 "description": "",
-                "name": "pea",
-                "plural_name": "peas"
+                "name": "pèsol",
+                "plural_name": "pèsols"
             },
             "green bean": {
                 "aliases": [],
@@ -9108,8 +9108,8 @@
             "chickpea": {
                 "aliases": [],
                 "description": "",
-                "name": "chickpea",
-                "plural_name": "chickpeas"
+                "name": "cigró",
+                "plural_name": "cigrons"
             },
             "black bean": {
                 "aliases": [],

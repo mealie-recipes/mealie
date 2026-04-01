@@ -331,6 +331,8 @@
     "any-household": "Bet kuris namų ūkis",
     "no-meal-plan-defined-yet": "Nėra nustatytų mitybos planų",
     "no-meal-planned-for-today": "Nėra šios dienos mitybos plano",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Dienų skaičius puslapio įkėlimo metu",
     "numberOfDays-label": "Numatytasis dienų skaičius",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Mitybos planuose bus naudojami tik šių kategorijų receptai",

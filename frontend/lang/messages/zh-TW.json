@@ -331,6 +331,8 @@
     "any-household": "任何家庭",
     "no-meal-plan-defined-yet": "目前無用餐計劃",
     "no-meal-planned-for-today": "今日無用餐計劃",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "頁面載入時顯示的天數",
     "numberOfDays-label": "預設天數",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "只有屬於這些類別的食譜會被用於用餐計劃",

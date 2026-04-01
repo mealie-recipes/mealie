@@ -331,6 +331,8 @@
     "any-household": "Jebkura mājsaimniecība",
     "no-meal-plan-defined-yet": "Pagaidām nav definēts ēdienreizes plāns",
     "no-meal-planned-for-today": "Šodien nav plānota maltīte",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Dienu skaits lapas ielādē",
     "numberOfDays-label": "Noklusējuma dienas",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Ēdienu plānos tiks izmantotas tikai receptes ar šīm kategorijām",

@@ -331,6 +331,8 @@
     "any-household": "Tout foyer",
     "no-meal-plan-defined-yet": "Aucun menu planifié",
     "no-meal-planned-for-today": "Aucun repas prévu pour aujourd’hui",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Nombre de jours lors du chargement de la page",
     "numberOfDays-label": "Jours par défaut",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Seules les recettes appartenant à ces catégories seront utilisées dans les menus",
@@ -899,7 +901,7 @@
     "oidc-ready-error-text": "Toutes les valeurs OIDC ne sont pas configurées. Vous pouvez ignorer cet avertissement si vous n’utilisez pas l’authentification OIDC.",
     "oidc-ready-success-text": "Les variables OIDC obligatoires sont toutes définies.",
     "openai-ready": "Prêt pour OpenAI",
-    "openai-not-ready": "OpenAI Not Ready",
+    "openai-not-ready": "OpenAI n'est pas prêt",
     "openai-ready-error-text": "Toutes les valeurs OpenAI ne sont pas configurées. Vous pouvez ignorer cet avertissement si vous n'utilisez pas les fonctionnalités OpenAI.",
     "openai-ready-success-text": "Les variables OpenAI obligatoires sont toutes définies."
   },
