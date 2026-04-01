@@ -14,7 +14,13 @@
       @click:outside="emit('cancel')"
       @keydown.esc="emit('cancel')"
     >
-      <v-card height="100%">
+      <v-card height="100%" :loading="loading">
+        <template #loader="{ isActive }">
+          <v-progress-linear
+            :active="isActive"
+            indeterminate
+          />
+        </template>
         <v-toolbar
           dark
           density="comfortable"
@@ -28,17 +34,12 @@
             {{ title }}
           </v-toolbar-title>
         </v-toolbar>
-        <v-progress-linear
-          v-if="loading"
-          class="mt-1"
-          indeterminate
-          color="primary"
-        />
 
         <div>
           <slot v-bind="{ submitEvent }" />
         </div>
 
+        <v-spacer />
         <v-divider class="mx-2" />
 
         <v-card-actions>

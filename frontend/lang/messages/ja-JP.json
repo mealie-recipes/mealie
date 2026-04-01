@@ -540,7 +540,7 @@
     "save-recipe-before-use": "使用する前にレシピを保存する",
     "section-title": "手順のタイトル",
     "servings": "人前",
-    "serves-amount": "役立つ {amount}",
+    "serves-amount": "{amount}人前",
     "share-recipe-message": "{0} レシピをあなたと共有したいと思っています。",
     "show-nutrition-values": "栄養価を表示",
     "sodium-content": "ナトリウム",

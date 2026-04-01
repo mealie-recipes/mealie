@@ -1,91 +1,60 @@
 <template>
   <div class="text-center">
-    <v-dialog
+    <BaseButton @click="dialog = true">
+      {{ $t("new-recipe.bulk-add") }}
+    </BaseButton>
+    <BaseDialog
       v-model="dialog"
       width="800"
+      :title="$t('new-recipe.bulk-add')"
+      :icon="$globals.icons.createAlt"
+      :submit-text="$t('general.add')"
+      :disable-submit-on-enter="true"
+      can-submit
+      @submit="save"
     >
-      <template #activator="{ props: activatorProps }">
-        <BaseButton
-          v-bind="activatorProps"
-          @click="inputText = inputTextProp"
-        >
-          {{ $t("new-recipe.bulk-add") }}
-        </BaseButton>
-      </template>
+      <v-card-text>
+        <v-textarea
+          v-model="inputText"
+          variant="outlined"
+          rows="12"
+          hide-details
+          autofocus
+          :placeholder="$t('new-recipe.paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list')"
+        />
 
-      <v-card>
-        <v-app-bar
-          density="compact"
-          dark
-          color="primary"
-          class="mb-2 position-relative left-0 top-0 w-100"
-        >
-          <v-icon
-            size="large"
-            start
-          >
-            {{ $globals.icons.createAlt }}
-          </v-icon>
-          <v-toolbar-title class="headline">
-            {{ $t("new-recipe.bulk-add") }}
-          </v-toolbar-title>
-          <v-spacer />
-        </v-app-bar>
-
-        <v-card-text>
-          <v-textarea
-            v-model="inputText"
-            variant="outlined"
-            rows="12"
-            hide-details
-            :placeholder="$t('new-recipe.paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list')"
-          />
-
-          <v-divider />
+        <v-divider />
+        <v-list lines="two">
           <template
             v-for="(util) in utilities"
             :key="util.id"
           >
             <v-list-item
-              density="compact"
-              class="py-1"
+              class="px-0"
             >
-              <v-list-item-title>
-                <v-list-item-subtitle class="wrap-word">
-                  {{ util.description }}
-                </v-list-item-subtitle>
+              <template #prepend>
+                <v-avatar>
+                  <v-btn
+                    icon
+                    variant="tonal"
+                    base-color="info"
+                    :title="$t('general.run')"
+                    @click="util.action"
+                  >
+                    <v-icon>
+                      {{ $globals.icons.play }}
+                    </v-icon>
+                  </v-btn>
+                </v-avatar>
+              </template>
+              <v-list-item-title class="text-pre-wrap">
+                {{ util.description }}
               </v-list-item-title>
-              <BaseButton
-                size="small"
-                color="info"
-                @click="util.action"
-              >
-                <template #icon>
-                  {{ $globals.icons.robot }}
-                </template>
-                {{ $t("general.run") }}
-              </BaseButton>
             </v-list-item>
-            <v-divider class="mx-2" />
           </template>
-        </v-card-text>
-
-        <v-divider />
-
-        <v-card-actions>
-          <BaseButton
-            cancel
-            @click="dialog = false"
-          />
-          <v-spacer />
-          <BaseButton
-            save
-            color="success"
-            @click="save"
-          />
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+        </v-list>
+      </v-card-text>
+    </BaseDialog>
   </div>
 </template>
 
