@@ -160,13 +160,13 @@
         </v-row>
       </div>
       <v-card v-intersect="infiniteScroll" />
-      <v-fade-transition>
-        <AppLoader
-          v-if="loading"
-          :loading="loading"
-        />
-      </v-fade-transition>
     </div>
+    <v-fade-transition>
+      <AppLoader
+        v-if="loading"
+        :loading="loading"
+      />
+    </v-fade-transition>
   </div>
 </template>
 
