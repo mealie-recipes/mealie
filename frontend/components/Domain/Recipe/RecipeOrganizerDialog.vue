@@ -1,62 +1,30 @@
 <template>
   <div>
-    <v-dialog
+    <BaseDialog
       v-model="dialog"
       width="500"
+      :title="properties.title"
+      :icon="properties.icon"
+      can-submit
+      :submit-disabled="!name"
+      @submit="select"
     >
-      <v-card>
-        <v-app-bar
-          density="compact"
-          dark
-          color="primary mb-2 position-relative left-0 top-0 w-100 pl-3"
-        >
-          <v-icon
-            size="large"
-            start
-            class="mt-1"
-          >
-            {{ itemType === Organizer.Tool ? $globals.icons.potSteam
-              : itemType === Organizer.Category ? $globals.icons.categories
-                : $globals.icons.tags }}
-          </v-icon>
-
-          <v-toolbar-title class="headline">
-            {{ properties.title }}
-          </v-toolbar-title>
-
-          <v-spacer />
-        </v-app-bar>
-        <v-card-title />
-        <v-form @submit.prevent="select">
-          <v-card-text>
-            <v-text-field
-              v-model="name"
-              density="compact"
-              :label="properties.label"
-              :rules="[rules.required]"
-              autofocus
-            />
-            <v-checkbox
-              v-if="itemType === Organizer.Tool"
-              v-model="onHand"
-              :label="$t('tool.on-hand')"
-            />
-          </v-card-text>
-          <v-card-actions>
-            <BaseButton
-              cancel
-              @click="dialog = false"
-            />
-            <v-spacer />
-            <BaseButton
-              type="submit"
-              create
-              :disabled="!name"
-            />
-          </v-card-actions>
-        </v-form>
-      </v-card>
-    </v-dialog>
+      <v-form>
+        <v-card-text>
+          <v-text-field
+            v-model="name"
+            :label="properties.label"
+            :rules="[rules.required]"
+            autofocus
+          />
+          <v-checkbox
+            v-if="itemType === Organizer.Tool"
+            v-model="onHand"
+            :label="$t('tool.on-hand')"
+          />
+        </v-card-text>
+      </v-form>
+    </BaseDialog>
   </div>
 </template>
 
@@ -64,6 +32,8 @@
 import { useUserApi } from "~/composables/api";
 import { useCategoryStore, useTagStore, useToolStore } from "~/composables/store";
 import { type RecipeOrganizer, Organizer } from "~/lib/api/types/non-generated";
+
+const { $globals } = useNuxtApp();
 
 const CREATED_ITEM_EVENT = "created-item";
 
@@ -115,18 +85,21 @@ const properties = computed(() => {
       return {
         title: i18n.t("tag.create-a-tag"),
         label: i18n.t("tag.tag-name"),
+        icon: $globals.icons.tags,
         api: userApi.tags,
       };
     case Organizer.Tool:
       return {
         title: i18n.t("tool.create-a-tool"),
         label: i18n.t("tool.tool-name"),
+        icon: $globals.icons.potSteam,
         api: userApi.tools,
       };
     default:
       return {
         title: i18n.t("category.create-a-category"),
         label: i18n.t("category.category-name"),
+        icon: $globals.icons.categories,
         api: userApi.categories,
       };
   }
@@ -139,12 +112,9 @@ const rules = {
 async function select() {
   if (store) {
     // @ts-expect-error the same state is used for different organizer types, which have different requirements
-    await store.actions.createOne({ name: name.value, onHand: onHand.value });
+    const newItem = await store.actions.createOne({ name: name.value, onHand: onHand.value });
+    emit(CREATED_ITEM_EVENT, newItem);
   }
-
-  const newItem = store.store.value.find(item => item.name === name.value);
-
-  emit(CREATED_ITEM_EVENT, newItem);
   dialog.value = false;
 }
 </script>

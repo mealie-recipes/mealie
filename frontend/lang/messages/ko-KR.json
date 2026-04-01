@@ -331,6 +331,8 @@
     "any-household": "모든 가구",
     "no-meal-plan-defined-yet": "아직 식단 계획이 정의되지 않았습니다.",
     "no-meal-planned-for-today": "오늘은 식단 계획이 없습니다",
+    "numberOfDaysPast-hint": "Number of days in the past on page load",
+    "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "페이지 로드 일수",
     "numberOfDays-label": "기본 일수",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "이 카테고리의 레시피만 식단 계획에 사용됩니다.",

@@ -198,7 +198,7 @@
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine lettuce",
+                "name": "lechuga romana",
                 "plural_name": "lechuga romana"
             },
             "beetroot": {
@@ -450,7 +450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hoja de lechuga",
-                "plural_name": "leaf lettuce"
+                "plural_name": "hoja de lechuga"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -2115,14 +2115,14 @@
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheese"
+                "name": "queso americano",
+                "plural_name": "queso americano"
             },
             "provolone cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "provolone cheese",
-                "plural_name": "provolone cheese"
+                "plural_name": "queso provolone"
             },
             "mexican cheese blend": {
                 "aliases": [],
@@ -2235,7 +2235,7 @@
             "havarti cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "havarti cheese",
+                "name": "queso harvarti",
                 "plural_name": "havarti cheese"
             },
             "colby cheese": {
@@ -2307,8 +2307,8 @@
             "oaxaca cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "oaxaca cheese",
-                "plural_name": "oaxaca cheese"
+                "name": "queso oaxaca",
+                "plural_name": "queso oaxaca"
             },
             "labneh cheese": {
                 "aliases": [],

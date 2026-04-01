@@ -52,6 +52,7 @@ jobs:
           # Overwrite the image.version label with our tag
           labels: |
             org.opencontainers.image.version=${{ inputs.tag }}
+            org.opencontainers.image.revision=${{ inputs.ref || github.sha }}
 
       - name: Retrieve Python package
         uses: actions/download-artifact@v4
