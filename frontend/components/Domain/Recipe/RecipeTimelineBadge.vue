@@ -24,7 +24,7 @@
       </v-btn>
       <BaseDialog
         v-model="showTimeline"
-        :title="timelineAttrs.title"
+        :title="$t('recipe.timeline')"
         :icon="$globals.icons.timelineText"
         width="70%"
       >
@@ -53,8 +53,6 @@ const props = withDefaults(defineProps<Props>(), {
   recipeName: "",
 });
 
-const i18n = useI18n();
-const { smAndDown } = useDisplay();
 const showTimeline = ref(false);
 
 function toggleTimeline() {
@@ -62,13 +60,7 @@ function toggleTimeline() {
 }
 
 const timelineAttrs = computed(() => {
-  let title = i18n.t("recipe.timeline");
-  if (smAndDown.value) {
-    title += ` – ${props.recipeName}`;
-  }
-
   return {
-    title,
     queryFilter: `recipe.slug="${props.slug}"`,
   };
 });
