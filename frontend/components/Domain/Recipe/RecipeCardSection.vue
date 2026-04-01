@@ -302,6 +302,9 @@ onMounted(async () => {
   else {
     await initRecipes();
     ready.value = true;
+    if (savedPage) {
+      restorePosition(route.path);
+    }
   }
   loading.value = false;
 });
