@@ -50,15 +50,8 @@ export function useScrollPosition() {
     scrollPositions.set(from.path, document.documentElement.scrollTop);
   });
 
-  const unregisterAfter = router.afterEach((to, from, failure) => {
-    if (failure) return;
-    if (window.history.state?.forward !== from.fullPath) return;
-    restorePosition(to.path);
-  });
-
   onUnmounted(() => {
     unregisterBefore();
-    unregisterAfter();
     observer?.disconnect();
     if (timeout) clearTimeout(timeout);
     if (fallback) clearTimeout(fallback);
