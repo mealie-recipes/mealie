@@ -284,6 +284,7 @@ async function fetchRecipes(pageCount = 1) {
 }
 
 onMounted(async () => {
+  loading.value = true;
   const savedPage = getSavedPage(route.path);
 
   if (savedPage && savedPage > 2) {
@@ -302,6 +303,7 @@ onMounted(async () => {
     await initRecipes();
     ready.value = true;
   }
+  loading.value = false;
 });
 
 let lastQuery: string | undefined = JSON.stringify(props.query);
