@@ -901,7 +901,7 @@
     "oidc-ready-error-text": "Toutes les valeurs OIDC ne sont pas configurées. Vous pouvez ignorer cet avertissement si vous n’utilisez pas l’authentification OIDC.",
     "oidc-ready-success-text": "Les variables OIDC obligatoires sont toutes définies.",
     "openai-ready": "Prêt pour OpenAI",
-    "openai-not-ready": "OpenAI Not Ready",
+    "openai-not-ready": "OpenAI n'est pas prêt",
     "openai-ready-error-text": "Toutes les valeurs OpenAI ne sont pas configurées. Vous pouvez ignorer cet avertissement si vous n'utilisez pas les fonctionnalités OpenAI.",
     "openai-ready-success-text": "Les variables OpenAI obligatoires sont toutes définies."
   },

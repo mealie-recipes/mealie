@@ -26,6 +26,7 @@
       v-if="updateTarget"
       v-model="dialogs.update"
       :title="$t('general.update')"
+      :icon="$globals.icons.edit"
       can-confirm
       @confirm="updateOne()"
     >

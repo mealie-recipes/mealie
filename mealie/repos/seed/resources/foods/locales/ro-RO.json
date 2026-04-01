@@ -127,13 +127,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "inimă de palmier",
-                "plural_name": "heart of palm"
+                "plural_name": "miezuri de palmier"
             },
             "baby greens": {
                 "aliases": [],
                 "description": "",
-                "name": "baby greens",
-                "plural_name": "baby greens"
+                "name": "verdețuri baby",
+                "plural_name": "verdețuri baby"
             },
             "pumpkin": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "conopidă",
-                "plural_name": "cauliflower"
+                "plural_name": "conopidă"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,20 +156,20 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "sparanghel",
+                "plural_name": "sparanghel"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
                 "name": "kale",
-                "plural_name": "kale"
+                "plural_name": "varză kale"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
                 "name": "rucola",
-                "plural_name": "arugula"
+                "plural_name": "rucola"
             },
             "leek": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "salată",
-                "plural_name": "lettuce"
+                "plural_name": "salată"
             },
             "butternut squash": {
                 "aliases": [],
@@ -198,8 +198,8 @@
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine lettuce",
-                "plural_name": "romaine lettuce"
+                "name": "salată romană",
+                "plural_name": "salate romane"
             },
             "beetroot": {
                 "aliases": [],
@@ -217,7 +217,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fenicul",
-                "plural_name": "fennel"
+                "plural_name": "fenicul"
             },
             "sun dried tomato": {
                 "aliases": [],
@@ -261,8 +261,8 @@
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed greens",
-                "plural_name": "mixed greens"
+                "name": "verdețuri mixte",
+                "plural_name": "verdețuri mixte"
             },
             "parsnip": {
                 "aliases": [],
@@ -279,8 +279,8 @@
             "mixed vegetables": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetables",
-                "plural_name": "mixed vegetables"
+                "name": "legume mixte",
+                "plural_name": "legume mixte"
             },
             "poblano pepper": {
                 "aliases": [],
@@ -304,7 +304,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ardei cayenne",
-                "plural_name": "cayenne pepper"
+                "plural_name": "ardei cayenne"
             },
             "green tomato": {
                 "aliases": [],
@@ -321,8 +321,8 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "name": "salată iceberg",
+                "plural_name": "salate iceberg"
             },
             "mashed potato": {
                 "aliases": [],
@@ -340,13 +340,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "pătrunjel de grădină",
-                "plural_name": "chard"
+                "plural_name": "mangold"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
                 "name": "ardei pimiento",
-                "plural_name": "pimientos"
+                "plural_name": "ardei pimiento"
             },
             "spaghetti squash": {
                 "aliases": [],
@@ -358,7 +358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "salată cu unt",
-                "plural_name": "butter lettuce"
+                "plural_name": "salată butter"
             },
             "hash brown": {
                 "aliases": [],
@@ -419,8 +419,8 @@
             "corn on the cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn on the cob",
-                "plural_name": "corn on the cob"
+                "name": "porumb pe știulete",
+                "plural_name": "porumbi pe știulete"
             },
             "radicchio": {
                 "aliases": [],
@@ -438,7 +438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "broccoli tenderstem",
-                "plural_name": "tenderstem broccoli"
+                "plural_name": "broccoli tenderstem"
             },
             "plantain": {
                 "aliases": [],
@@ -450,7 +450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "salată cu frunze",
-                "plural_name": "leaf lettuce"
+                "plural_name": "salată creață"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -462,7 +462,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "varză chinezească bebe",
-                "plural_name": "baby bok choy"
+                "plural_name": "bok choy baby"
             },
             "jicama": {
                 "aliases": [],
@@ -484,17 +484,17 @@
             },
             "maize": {
                 "aliases": [
-                    "corn husk"
+                    "coajă de porumb"
                 ],
                 "description": "",
-                "name": "maize",
-                "plural_name": "maize"
+                "name": "porumb",
+                "plural_name": "porumburi"
             },
             "collard greens": {
                 "aliases": [],
                 "description": "",
                 "name": "",
-                "plural_name": "collard greens"
+                "plural_name": "frunze de collard"
             },
             "french-fried onion": {
                 "aliases": [],
@@ -547,20 +547,20 @@
             "microgreens": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreens",
-                "plural_name": "microgreens"
+                "name": "microplante",
+                "plural_name": "microplante"
             },
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
                 "name": "salată boston",
-                "plural_name": "boston lettuce"
+                "plural_name": "salată Boston"
             },
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
                 "name": "gulie",
-                "plural_name": "kohlrabi"
+                "plural_name": "gulie"
             },
             "fresno chile": {
                 "aliases": [],
@@ -576,11 +576,11 @@
             },
             "Frisée": {
                 "aliases": [
-                    "curly endive"
+                    "andivă creață"
                 ],
                 "description": "",
                 "name": "Frisée",
-                "plural_name": "Frisées"
+                "plural_name": "Frisée"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -591,14 +591,14 @@
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "creson",
+                "plural_name": "cresoni"
             },
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
                 "name": "varză de broccoli",
-                "plural_name": "broccoli slaw"
+                "plural_name": "salată de broccoli"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -622,7 +622,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lucernă",
-                "plural_name": "alfalfa"
+                "plural_name": "lucernă"
             }
         }
     },
@@ -974,13 +974,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomelos"
+                "plural_name": "pomelo"
             },
             "chestnut purée": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut purée",
-                "plural_name": "chestnut purée"
+                "name": "piure de castane",
+                "plural_name": "piureuri de castane"
             },
             "prickly pear": {
                 "aliases": [],
@@ -1028,7 +1028,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tangelo",
-                "plural_name": "tangelos"
+                "plural_name": "tangelo"
             },
             "dried lime": {
                 "aliases": [],
@@ -1100,7 +1100,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tamarillo",
-                "plural_name": "tamarillos"
+                "plural_name": "tamarillo"
             },
             "ice-apple": {
                 "aliases": [],
@@ -1159,8 +1159,8 @@
             "loquat": {
                 "aliases": [],
                 "description": "",
-                "name": "loquat",
-                "plural_name": "loquats"
+                "name": "moșmon",
+                "plural_name": "moșmoni"
             },
             "crabapple": {
                 "aliases": [],
@@ -1189,50 +1189,50 @@
             "soursop": {
                 "aliases": [],
                 "description": "",
-                "name": "soursop",
-                "plural_name": "soursops"
+                "name": "graviola",
+                "plural_name": "graviola"
             },
             "hog plum": {
                 "aliases": [],
                 "description": "",
-                "name": "hog plum",
-                "plural_name": "hog plums"
+                "name": "prună de Jamaica",
+                "plural_name": "prune de Jamaica"
             },
             "bergamot orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bergamot orange",
-                "plural_name": "bergamot oranges"
+                "name": "portocală bergamotă",
+                "plural_name": "portocale bergamotă"
             },
             "luo han guo": {
                 "aliases": [],
                 "description": "",
                 "name": "luo han guo",
-                "plural_name": "luo han guos"
+                "plural_name": "luo han guo"
             },
             "mamey": {
                 "aliases": [],
                 "description": "",
                 "name": "mamey",
-                "plural_name": "mameys"
+                "plural_name": "mamey"
             },
             "sapote": {
                 "aliases": [],
                 "description": "",
                 "name": "sapote negru",
-                "plural_name": "sapotes"
+                "plural_name": "sapote"
             },
             "green ume plum": {
                 "aliases": [],
                 "description": "",
-                "name": "green ume plum",
-                "plural_name": "green ume plums"
+                "name": "prună ume verde",
+                "plural_name": "prune ume verzi"
             },
             "kiwano": {
                 "aliases": [],
                 "description": "",
                 "name": "kiwano",
-                "plural_name": "kiwanos"
+                "plural_name": "kiwano"
             }
         }
     },
@@ -1241,20 +1241,20 @@
             "button mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "button mushroom",
-                "plural_name": "button mushrooms"
+                "name": "ciupercă champignon",
+                "plural_name": "ciuperci champignon"
             },
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
-                "plural_name": "shiitake mushrooms"
+                "name": "ciupercă shiitake",
+                "plural_name": "ciuperci shiitake"
             },
             "portobello mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "portobello mushroom",
-                "plural_name": "portobello mushrooms"
+                "name": "ciupercă portobello",
+                "plural_name": "ciuperci portobello"
             },
             "wild mushroom": {
                 "aliases": [],
@@ -1271,7 +1271,7 @@
             "mixed mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed mushroom",
+                "name": "ciuperci mixte",
                 "plural_name": "ciuperci mixte"
             },
             "oyster mushroom": {
@@ -1283,20 +1283,20 @@
             "chestnut mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut mushroom",
-                "plural_name": "chestnut mushrooms"
+                "name": "ciupercă castanie",
+                "plural_name": "ciuperci castanie"
             },
             "enoki mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "enoki mushroom",
-                "plural_name": "enoki mushrooms"
+                "name": "ciupercă enoki",
+                "plural_name": "ciuperci enoki"
             },
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungus",
-                "plural_name": "black fungus"
+                "name": "urechi de lemn negre",
+                "plural_name": "urechi de lemn negre"
             },
             "black truffle": {
                 "aliases": [],
@@ -1307,50 +1307,50 @@
             "morel mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "morel mushroom",
-                "plural_name": "morel mushrooms"
+                "name": "zbârciog",
+                "plural_name": "zbârciogi"
             },
             "field mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "field mushroom",
-                "plural_name": "field mushrooms"
+                "name": "ciupercă de câmp",
+                "plural_name": "ciuperci de câmp"
             },
             "king oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "king oyster mushroom",
-                "plural_name": "king oyster mushrooms"
+                "name": "ciupercă pleurotus regală",
+                "plural_name": "ciuperci pleurotus regale"
             },
             "shimeji mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shimeji mushroom",
-                "plural_name": "shimeji mushrooms"
+                "name": "ciupercă shimeji",
+                "plural_name": "ciuperci shimeji"
             },
             "straw mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "straw mushroom",
-                "plural_name": "straw mushrooms"
+                "name": "ciupercă de paie",
+                "plural_name": "ciuperci de paie"
             },
             "dried chinese mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "dried chinese mushroom",
-                "plural_name": "dried chinese mushrooms"
+                "name": "ciupercă chinezească uscată",
+                "plural_name": "ciuperci chinezești uscate"
             },
             "maitake": {
                 "aliases": [],
                 "description": "",
                 "name": "maitake",
-                "plural_name": "maitakes"
+                "plural_name": "maitake"
             },
             "trumpet mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "trumpet mushroom",
-                "plural_name": "trumpet mushrooms"
+                "name": "ciupercă trompetă",
+                "plural_name": "ciuperci trompetă"
             },
             "white truffle": {
                 "aliases": [],
@@ -1361,92 +1361,92 @@
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "white fungus",
-                "plural_name": "white fungus"
+                "name": "ciupercă albă",
+                "plural_name": "ciuperci albe"
             },
             "pioppini": {
                 "aliases": [],
                 "description": "",
                 "name": "pioppini",
-                "plural_name": "pioppinis"
+                "plural_name": "pioppini"
             },
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungus",
-                "plural_name": "snow fungus"
+                "name": "ciupercă de zăpadă",
+                "plural_name": "ciuperci de zăpadă"
             },
             "white beech mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "white beech mushroom",
-                "plural_name": "white beech mushrooms"
+                "name": "ciupercă beech albă",
+                "plural_name": "ciuperci beech albe"
             },
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletus",
-                "plural_name": "boletus"
+                "name": "hrib",
+                "plural_name": "hribi"
             },
             "huitlacoche": {
                 "aliases": [],
                 "description": "",
                 "name": "huitlacoche",
-                "plural_name": "huitlacoches"
+                "plural_name": "huitlacoche"
             },
             "matsutake": {
                 "aliases": [],
                 "description": "",
                 "name": "matsutake",
-                "plural_name": "matsutakes"
+                "plural_name": "matsutake"
             },
             "nameko": {
                 "aliases": [],
                 "description": "",
                 "name": "nameko",
-                "plural_name": "namekos"
+                "plural_name": "nameko"
             },
             "djon djon mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "djon djon mushroom",
-                "plural_name": "djon djon mushrooms"
+                "name": "ciupercă djon djon",
+                "plural_name": "ciuperci djon djon"
             },
             "mixed asian mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed asian mushroom",
-                "plural_name": "mixed asian mushrooms"
+                "name": "ciuperci asiatice mixte",
+                "plural_name": "ciuperci asiatice mixte"
             },
             "puffball": {
                 "aliases": [],
                 "description": "",
-                "name": "puffball",
-                "plural_name": "puffballs"
+                "name": "burete de câm",
+                "plural_name": "bureți de câmp"
             },
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungus",
-                "plural_name": "honey fungus"
+                "name": "ghebe",
+                "plural_name": "ghebe"
             },
             "caesar's mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "caesar's mushroom",
-                "plural_name": "caesar's mushrooms"
+                "name": "burete domnesc",
+                "plural_name": "bureți domnești"
             },
             "candy cap mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "candy cap mushroom",
-                "plural_name": "candy cap mushrooms"
+                "name": "ciupercă candy cap",
+                "plural_name": "ciuperci candy cap"
             },
             "lion’s mane mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "lion’s mane mushroom",
-                "plural_name": "lion’s mane mushrooms"
+                "name": "ciupercă coama leului",
+                "plural_name": "ciuperci coama leului"
             }
         }
     },
@@ -1491,14 +1491,14 @@
             "berry mix": {
                 "aliases": [],
                 "description": "",
-                "name": "berry mix",
-                "plural_name": "berry mixes"
+                "name": "amestec de fructe de pădure",
+                "plural_name": "amestecuri de fructe de pădure"
             },
             "maraschino cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "maraschino cherry",
-                "plural_name": "maraschino cherries"
+                "name": "cireașă maraschino",
+                "plural_name": "cireșe maraschino"
             },
             "dried cherry": {
                 "aliases": [],
@@ -1509,26 +1509,26 @@
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "boabă de ienupăr",
+                "plural_name": "boabe de ienupăr"
             },
             "sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cherry",
-                "plural_name": "sour cherries"
+                "name": "cireașă acră",
+                "plural_name": "cireșe acre"
             },
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "boabă de goji",
+                "plural_name": "boabe de goji"
             },
             "dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried blueberry",
-                "plural_name": "dried blueberries"
+                "name": "afină uscată",
+                "plural_name": "afine uscate"
             },
             "freeze-dried strawberry": {
                 "aliases": [],
@@ -1545,14 +1545,14 @@
             "freeze-dried raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried raspberry",
-                "plural_name": "freeze-dried raspberries"
+                "name": "zmeură liofilizată",
+                "plural_name": "zmeură liofilizată"
             },
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
-                "plural_name": "lingonberries"
+                "name": "merișor",
+                "plural_name": "merișoare"
             },
             "canned sour cherry": {
                 "aliases": [],
@@ -1569,20 +1569,20 @@
             "acai berry": {
                 "aliases": [],
                 "description": "",
-                "name": "acai berry",
-                "plural_name": "acai berries"
+                "name": "boabă de acai",
+                "plural_name": "boabe de acai"
             },
             "canned cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cherry",
-                "plural_name": "canned cherries"
+                "name": "cireașă la conservă",
+                "plural_name": "cireșe la conservă"
             },
             "amla": {
                 "aliases": [],
                 "description": "",
                 "name": "amla",
-                "plural_name": "amlas"
+                "plural_name": "amla"
             },
             "elderberry": {
                 "aliases": [],
@@ -1593,8 +1593,8 @@
             "freeze-dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried blueberry",
-                "plural_name": "freeze-dried blueberries"
+                "name": "afină liofilizată",
+                "plural_name": "afine liofilizate"
             },
             "huckleberry": {
                 "aliases": [],
@@ -1605,8 +1605,8 @@
             "dried elderberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried elderberry",
-                "plural_name": "dried elderberries"
+                "name": "boabă de soc uscată",
+                "plural_name": "boabe de soc uscate"
             },
             "barberry": {
                 "aliases": [],
@@ -1879,26 +1879,26 @@
             "lotus seed": {
                 "aliases": [],
                 "description": "",
-                "name": "lotus seed",
-                "plural_name": "lotus seeds"
+                "name": "sămânță de lotus",
+                "plural_name": "semințe de lotus"
             },
             "white chia": {
                 "aliases": [],
                 "description": "",
-                "name": "white chia",
-                "plural_name": "white chias"
+                "name": "chia albă",
+                "plural_name": "chia albă"
             },
             "trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "trail mix",
-                "plural_name": "trail mixes"
+                "name": "amestec de nuci și fructe uscate",
+                "plural_name": "amestecuri de nuci și fructe uscate"
             },
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "sămânță de busuioc",
+                "plural_name": "semințe de busuioc"
             },
             "candlenut": {
                 "aliases": [],
@@ -1909,32 +1909,32 @@
             "peanut brittle": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut brittle",
-                "plural_name": "peanut brittles"
+                "name": "crocanți de arahide",
+                "plural_name": "crocanți de arahide"
             },
             "jackfruit seed": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit seed",
-                "plural_name": "jackfruit seeds"
+                "name": "sămânță de jackfruit",
+                "plural_name": "semințe de jackfruit"
             },
             "honey-roasted almond": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted almond",
-                "plural_name": "honey-roasted almonds"
+                "name": "migdală coapta cu miere",
+                "plural_name": "migdale coapte cu miere"
             },
             "toasted nut": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted nut",
-                "plural_name": "toasted nuts"
+                "name": "nucă prăjită",
+                "plural_name": "nuci prăjite"
             },
             "chironji": {
                 "aliases": [],
                 "description": "",
                 "name": "chironji",
-                "plural_name": "chironjis"
+                "plural_name": "chironji"
             },
             "honey-roasted pecan": {
                 "aliases": [],
@@ -1951,50 +1951,50 @@
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
+                "name": "germeni de floarea-soarelui",
                 "plural_name": "germeni de floarea-soarelui"
             },
             "apricot kernel": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot kernel",
-                "plural_name": "apricot kernels"
+                "name": "sâmbure de caisă",
+                "plural_name": "sâmburi de caisă"
             },
             "palm seed": {
                 "aliases": [],
                 "description": "",
-                "name": "palm seed",
-                "plural_name": "palm seeds"
+                "name": "sămânță de palmier",
+                "plural_name": "semințe de palmier"
             },
             "ginkgo nut": {
                 "aliases": [],
                 "description": "",
-                "name": "ginkgo nut",
-                "plural_name": "ginkgo nuts"
+                "name": "nucă de ginkgo",
+                "plural_name": "nuci de ginkgo"
             },
             "keto trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "keto trail mix",
-                "plural_name": "keto trail mixes"
+                "name": "amestec keto de nuci și fructe uscate",
+                "plural_name": "amestecuri keto de nuci și fructe uscate"
             },
             "wattleseed": {
                 "aliases": [],
                 "description": "",
                 "name": "wattleseed",
-                "plural_name": "wattleseeds"
+                "plural_name": "wattleseed"
             },
             "barùka": {
                 "aliases": [],
                 "description": "",
                 "name": "barùka",
-                "plural_name": "barùkas"
+                "plural_name": "barùka"
             },
             "indian almond": {
                 "aliases": [],
                 "description": "",
-                "name": "indian almond",
-                "plural_name": "indian almonds"
+                "name": "migdal indian",
+                "plural_name": "migdale indiene"
             }
         }
     },
@@ -2003,41 +2003,41 @@
             "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan cheese",
-                "plural_name": "parmesan cheese"
+                "name": "brânză parmesan",
+                "plural_name": "brânză parmesan"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddar cheese"
+                    "brânză cheddar"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheese"
+                "name": "brânză cheddar",
+                "plural_name": "brânză cheddar"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheese"
+                "name": "cremă de brânză",
+                "plural_name": "cremă de brânză"
             },
             "sharp cheddar cheese": {
                 "aliases": [
-                    "sharp cheddar"
+                    "cheddar matura"
                 ],
                 "description": "",
-                "name": "sharp cheddar cheese",
-                "plural_name": "sharp cheddar cheese"
+                "name": "brânză cheddar maturată",
+                "plural_name": "brânzeturi cheddar maturate"
             },
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "brânză",
+                "plural_name": "brânzeturi"
             },
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
+                "name": "brânză mozzarella",
                 "plural_name": "mozzarella cheese"
             },
             "feta cheese": {
