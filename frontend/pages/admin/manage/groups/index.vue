@@ -20,6 +20,7 @@
     <BaseDialog
       v-model="state.confirmDialog"
       :title="$t('general.confirm')"
+      :icon="$globals.icons.alertCircle"
       color="error"
       can-confirm
       @confirm="deleteGroup(state.deleteTarget)"
