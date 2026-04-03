@@ -167,6 +167,7 @@
         :loading="loading"
       />
     </v-fade-transition>
+    <AppScrollToTop />
   </div>
 </template>
 
