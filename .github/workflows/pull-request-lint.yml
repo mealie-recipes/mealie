@@ -82,7 +82,6 @@ jobs:
 
             const body = pr.body || "";
             const missing = requiredHeadings.filter(h => !body.includes(h));
-            const label = "needs-template-fix";
 
             if (missing.length > 0) {
               core.setFailed(`Missing headings:\n${missing.join("\n")}`);
