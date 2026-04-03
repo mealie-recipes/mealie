@@ -30,7 +30,7 @@ dependencies = [
     "python-slugify==8.0.4",
     "recipe-scrapers==15.11.0",
     "requests==2.33.0",
-    "tzdata==2025.3",
+    "tzdata==2026.1",
     "uvicorn[standard]==0.42.0",
     "beautifulsoup4==4.14.3",
     "isodate==0.7.2",
