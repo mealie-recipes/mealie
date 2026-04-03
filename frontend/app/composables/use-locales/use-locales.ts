@@ -69,6 +69,6 @@ export const useLocales = () => {
     locale,
     locales: LOCALES,
     i18n,
-    resolveLocale, // ✅ NEW
+    resolveLocale,
   };
 };
