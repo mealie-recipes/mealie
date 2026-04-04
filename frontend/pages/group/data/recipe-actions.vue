@@ -1,8 +1,8 @@
 <template>
   <div>
     <GroupDataPage
-      :icon="$globals.icons.categories"
-      :title="$t('data-pages.categories.category-data')"
+      :icon="$globals.icons.linkVariantPlus"
+      :title="$t('data-pages.recipe-actions.new-recipe-action')"
       :create-title="$t('data-pages.recipe-actions.new-recipe-action')"
       :edit-title="$t('data-pages.recipe-actions.edit-recipe-action')"
       :table-headers="tableHeaders"
