@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card-actions>
+    <v-card-actions class="flex-wrap">
       <v-menu
         v-if="tableConfig.hideColumns"
         offset-y
