@@ -4,6 +4,7 @@ from pydantic import BaseModel
 
 from mealie.schema._mealie import MealieModel
 
+
 class CreateBackupResponse(BaseModel):
     message: str
     error: bool = False
@@ -11,7 +12,7 @@ class CreateBackupResponse(BaseModel):
     duplicateOf: str | None = None
 
     @classmethod
-    def respond(cls, message: str, duplicate: bool = False, duplicateOf: str | None = None) -> "BackupCreateResponse":
+    def respond(cls, message: str, duplicate: bool = False, duplicateOf: str | None = None) -> "CreateBackupResponse":
         return cls(message=message, duplicate=duplicate, duplicateOf=duplicateOf)
 
 class ErrorResponse(BaseModel):
