@@ -185,12 +185,14 @@ async function createBackup() {
     refreshBackups();
     if (data?.duplicate) {
       alert.warning(
-        i18n.t("settings.backup.backup-duplicate", { name: data.duplicateOf })
+        i18n.t("settings.backup.backup-duplicate", { name: data.duplicateOf }),
       );
-    } else {
+    }
+    else {
       alert.success(i18n.t("settings.backup.backup-created"));
     }
-  } else {
+  }
+  else {
     alert.error(i18n.t("settings.backup.error-creating-backup-see-log-file"));
   }
   state.runningBackup = false;
