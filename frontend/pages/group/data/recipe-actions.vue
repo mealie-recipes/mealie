@@ -2,7 +2,7 @@
   <div>
     <GroupDataPage
       :icon="$globals.icons.linkVariantPlus"
-      :title="$t('data-pages.recipe.recipe-actions-data')"
+      :title="$t('data-pages.recipe-actions.new-recipe-action')"
       :create-title="$t('data-pages.recipe-actions.new-recipe-action')"
       :edit-title="$t('data-pages.recipe-actions.edit-recipe-action')"
       :table-headers="tableHeaders"
