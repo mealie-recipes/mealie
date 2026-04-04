@@ -45,7 +45,7 @@ def match_file_tree(path_a: Path, path_b: Path):
 
 def test_database_backup():
     backup_v2 = BackupV2()
-    path_to_backup = backup_v2.backup()
+    path_to_backup = backup_v2.backup().path
 
     assert path_to_backup.exists()
 
@@ -64,7 +64,7 @@ def test_database_restore():
 
     # Create Backup
     backup_v2 = BackupV2(settings.DB_URL)
-    path_to_backup = backup_v2.backup()
+    path_to_backup = backup_v2.backup().path
 
     assert path_to_backup.exists()
     backup_v2.restore(path_to_backup)
@@ -269,7 +269,7 @@ def test_database_restore_data():
     backup_v2 = BackupV2(settings.DB_URL)
 
     backup_v2.directories.BACKUP_DIR.mkdir(parents=True, exist_ok=True)
-    original_data_backup = backup_v2.backup()
+    original_data_backup = backup_v2.backup().path
 
     try:
         for backup_path in backup_paths:
