@@ -15,6 +15,7 @@ class CreateBackupResponse(BaseModel):
     def respond(cls, message: str, duplicate: bool = False, duplicateOf: str | None = None) -> "CreateBackupResponse":
         return cls(message=message, duplicate=duplicate, duplicateOf=duplicateOf)
 
+
 class ErrorResponse(BaseModel):
     message: str
     error: bool = True

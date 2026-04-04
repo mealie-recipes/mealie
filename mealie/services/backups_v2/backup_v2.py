@@ -107,7 +107,7 @@ class BackupV2(BaseService):
                 os.link(duplicate, backup_file)
                 temp_file.unlink()
                 return BackupResult(path=backup_file, duplicate=True, duplicateOf=duplicate.name)
-            
+
             temp_file.rename(backup_file)
             return BackupResult(path=backup_file, duplicate=False)
 
