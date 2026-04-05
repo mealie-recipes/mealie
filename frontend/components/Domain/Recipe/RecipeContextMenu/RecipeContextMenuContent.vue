@@ -378,6 +378,7 @@ async function addRecipeToPlan() {
     title: "",
     text: "",
     recipeId: props.recipeId,
+    recipeScale: props.recipeScale,
   });
 
   if (response?.status === 201) {

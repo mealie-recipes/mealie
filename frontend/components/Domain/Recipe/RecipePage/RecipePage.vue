@@ -321,6 +321,7 @@ type BooleanString = "true" | "false" | "";
 
 const paramsEdit = useRouteQuery<BooleanString>("edit", "");
 const paramsParse = useRouteQuery<BooleanString>("parse", "");
+const paramsScale = useRouteQuery<string>("scale", "");
 
 onMounted(() => {
   if (paramsEdit.value === "true" && isOwnGroup.value) {
@@ -329,6 +330,13 @@ onMounted(() => {
 
   if (paramsParse.value === "true" && isOwnGroup.value) {
     toggleIsParsing(true);
+  }
+
+  if (paramsScale.value) {
+    const parsed = parseFloat(paramsScale.value);
+    if (!isNaN(parsed) && parsed > 0) {
+      scale.value = parsed;
+    }
   }
 });
 
