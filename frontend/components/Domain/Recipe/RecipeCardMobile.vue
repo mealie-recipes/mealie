@@ -102,6 +102,7 @@
                 :menu-icon="$globals.icons.dotsHorizontal"
                 :name="name"
                 :recipe-id="recipeId"
+                :recipe-scale="scale"
                 class="ml-auto"
                 :use-items="{
                   delete: false,
