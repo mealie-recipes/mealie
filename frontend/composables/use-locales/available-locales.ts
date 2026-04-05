@@ -10,7 +10,7 @@ export const LOCALES = [
   {
     name: "简体中文 (Chinese simplified)",
     value: "zh-CN",
-    progress: 37,
+    progress: 38,
     dir: "ltr",
     pluralFoodHandling: "never",
   },
