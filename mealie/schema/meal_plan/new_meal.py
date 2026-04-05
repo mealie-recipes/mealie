@@ -37,6 +37,7 @@ class CreatePlanEntry(MealieModel):
     title: str = ""
     text: str = ""
     recipe_id: Annotated[UUID | None, Field(validate_default=True)] = None
+    recipe_scale: float = 1.0
 
     @field_validator("recipe_id")
     @classmethod

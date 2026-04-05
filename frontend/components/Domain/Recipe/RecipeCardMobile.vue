@@ -144,6 +144,7 @@ interface Props {
   isFlat?: boolean;
   height?: number;
   disableHighlight?: boolean;
+  scale?: number;
 }
 const props = withDefaults(defineProps<Props>(), {
   rating: 0,
@@ -153,6 +154,7 @@ const props = withDefaults(defineProps<Props>(), {
   isFlat: false,
   height: 150,
   disableHighlight: false,
+  scale: 1,
 });
 
 defineEmits<{
@@ -167,7 +169,9 @@ const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
 const showRecipeContent = computed(() => props.recipeId && props.slug);
 const recipeRoute = computed<string>(() => {
-  return showRecipeContent.value ? `/g/${groupSlug.value}/r/${props.slug}` : "";
+  if (!showRecipeContent.value) return "";
+  const base = `/g/${groupSlug.value}/r/${props.slug}`;
+  return props.scale !== 1 ? `${base}?scale=${props.scale}` : base;
 });
 const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
 </script>
