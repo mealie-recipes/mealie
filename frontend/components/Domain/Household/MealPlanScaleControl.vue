@@ -77,7 +77,9 @@
       class="ml-1"
       @click="recalculateScale(yieldQuantity - 1)"
     >
-      <v-icon size="small">{{ $globals.icons.minus }}</v-icon>
+      <v-icon size="small">
+        {{ $globals.icons.minus }}
+      </v-icon>
     </v-btn>
     <v-btn
       icon
@@ -86,7 +88,9 @@
       class="ml-1"
       @click="recalculateScale(yieldQuantity + 1)"
     >
-      <v-icon size="small">{{ $globals.icons.createAlt }}</v-icon>
+      <v-icon size="small">
+        {{ $globals.icons.createAlt }}
+      </v-icon>
     </v-btn>
   </div>
 </template>
