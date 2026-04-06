@@ -576,7 +576,7 @@
             },
             "Frisée": {
                 "aliases": [
-                    "curly endive"
+                    "indivia riccia"
                 ],
                 "description": "",
                 "name": "Frisée",
@@ -2109,8 +2109,8 @@
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cottage cheese",
-                "plural_name": "cottage cheese"
+                "name": "fiocchi di latte",
+                "plural_name": "fiocchi di latte"
             },
             "american cheese": {
                 "aliases": [],
@@ -2127,8 +2127,8 @@
             "mexican cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican cheese blend",
-                "plural_name": "mexican cheese blend"
+                "name": "mix di formaggi messicani",
+                "plural_name": "mix di formaggi messicani"
             },
             "pepper jack cheese": {
                 "aliases": [],
@@ -2217,8 +2217,8 @@
             "neufchatel cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "neufchatel cheese",
-                "plural_name": "neufchatel cheese"
+                "name": "formaggio neufchatel",
+                "plural_name": "formaggio neufchatel"
             },
             "herb cream cheese": {
                 "aliases": [],
@@ -2247,8 +2247,8 @@
             "grana-padano cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano",
-                "plural_name": "grana-padano"
+                "name": "grana padano",
+                "plural_name": "grana padano"
             },
             "muenster cheese": {
                 "aliases": [],
@@ -2278,13 +2278,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "formaggio stilton",
-                "plural_name": "stilton cheese"
+                "plural_name": "forrmaggio stilton"
             },
             "raclette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "raclette cheese",
-                "plural_name": "formaggio raclette"
+                "name": "raclette",
+                "plural_name": "raclette"
             },
             "colby-jack cheese": {
                 "aliases": [],
@@ -2415,8 +2415,8 @@
             "graviera cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "graviera cheese",
-                "plural_name": "graviera cheese"
+                "name": "graviera",
+                "plural_name": "graviera"
             },
             "wensleydale cheese": {
                 "aliases": [],
@@ -2636,7 +2636,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "panna da cucina",
-                "plural_name": "heavy cream"
+                "plural_name": "panna da cucina"
             },
             "sour cream": {
                 "aliases": [],
@@ -2704,7 +2704,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "latte condensato dolcificato",
-                "plural_name": "sweetened condensed milk"
+                "plural_name": "latte condensato dolcificato"
             },
             "ice cream": {
                 "aliases": [],
@@ -2811,20 +2811,20 @@
             "quail egg": {
                 "aliases": [],
                 "description": "",
-                "name": "Uovo di quaglia",
-                "plural_name": "Uova di quaglia"
+                "name": "uovo di quaglia",
+                "plural_name": "uova di quaglia"
             },
             "buttermilk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "Latte in polvere",
-                "plural_name": "buttermilk powder"
+                "name": "latte in polvere",
+                "plural_name": "latte in polvere"
             },
             "frozen yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "Yogurt congelato",
-                "plural_name": "Yogurt congelato"
+                "name": "yogurt congelato",
+                "plural_name": "yogurt congelato"
             },
             "khoya": {
                 "aliases": [],
@@ -2835,8 +2835,8 @@
             "milk cream": {
                 "aliases": [],
                 "description": "",
-                "name": "Panna",
-                "plural_name": "milk cream"
+                "name": "panna",
+                "plural_name": "panna"
             },
             "coffee creamer": {
                 "aliases": [],
@@ -2859,7 +2859,7 @@
             "cheese curd": {
                 "aliases": [],
                 "description": "",
-                "name": "Caglio di formaggio",
+                "name": "caglio di formaggio",
                 "plural_name": "Caglio di formaggio"
             },
             "sour milk": {
@@ -2872,7 +2872,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ganache",
-                "plural_name": "ganaches"
+                "plural_name": "ganache"
             },
             "cajeta": {
                 "aliases": [],
@@ -2883,14 +2883,14 @@
             "duck egg": {
                 "aliases": [],
                 "description": "",
-                "name": "Uovo di anatra",
-                "plural_name": "Uova di anatra"
+                "name": "uovo d'anatra",
+                "plural_name": "uova d'anatra"
             },
             "salted egg": {
                 "aliases": [],
                 "description": "",
-                "name": "Uovo salato",
-                "plural_name": "Uova salate"
+                "name": "uovo salato",
+                "plural_name": "uova salate"
             },
             "skyr": {
                 "aliases": [],
@@ -2913,7 +2913,7 @@
             "lime curd": {
                 "aliases": [],
                 "description": "",
-                "name": "Crema al lime",
+                "name": "crema al lime",
                 "plural_name": "Crema al lime"
             },
             "powdered coffee creamer": {
@@ -2949,13 +2949,13 @@
             "strawberry frosting": {
                 "aliases": [],
                 "description": "",
-                "name": "Glassa alla fragola",
-                "plural_name": "Glasse alla fragola"
+                "name": "glassa alla fragola",
+                "plural_name": "glasse alla fragola"
             },
             "honey greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "Yogurt greco al miele",
+                "name": "yogurt greco al miele",
                 "plural_name": "Yogurt greco al miele"
             },
             "amul butter": {
