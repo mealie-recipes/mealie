@@ -17,7 +17,7 @@ dependencies = [
     "apprise==1.9.9",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
-    "fastapi==0.135.2",
+    "fastapi==0.135.3",
     "httpx==0.28.1",
     "lxml==6.0.2",
     "orjson==3.11.8",
