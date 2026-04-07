@@ -6,6 +6,7 @@ from pathlib import Path
 from zipfile import ZipFile
 
 from mealie.core.config import get_app_settings
+from mealie.core.settings.static import APP_VERSION
 from mealie.services._base_service import BaseService
 from mealie.services.backups_v2.alchemy_exporter import AlchemyExporter
 from mealie.services.backups_v2.backup_file import BackupFile
