@@ -14,17 +14,22 @@ on:
   workflow_dispatch:
 
 jobs:
-  update_release_draft:
+  draft_release:
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
     permissions:
-      # write permission is required to create a github release
       contents: write
-      # write permission is required for autolabeler
-      # otherwise, read permission is required at least
+    steps:
+      - uses: release-drafter/release-drafter@v7
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  auto_label:
+    if: github.event_name == 'pull_request'
+    permissions:
       pull-requests: write
-    name: ✏️ Draft release
     runs-on: ubuntu-latest
     steps:
-      - name: 🚀 Run Release Drafter
-        uses: release-drafter/release-drafter@v6.0.0
+      - uses: release-drafter/release-drafter/autolabeler@v7
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
