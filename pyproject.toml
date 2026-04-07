@@ -77,7 +77,7 @@ dev = [
     "types-PyYAML==6.0.12.20250915",
     "types-python-dateutil==2.9.0.20260323",
     "types-python-slugify==8.0.2.20240310",
-    "types-requests==2.33.0.20260327",
+    "types-requests==2.33.0.20260402",
     "types-urllib3==1.26.25.14",
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
