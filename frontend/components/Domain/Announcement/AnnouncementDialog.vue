@@ -82,6 +82,9 @@ import type { Announcement } from "~/composables/use-announcements";
 
 const dialog = defineModel<boolean>({ default: false });
 
+const route = useRoute();
+watch(() => route.fullPath, () => { dialog.value = false; });
+
 const { newAnnouncements, allAnnouncements, setLastRead } = useAnnouncements();
 
 const currentAnnouncement = shallowRef<Announcement | undefined>();
