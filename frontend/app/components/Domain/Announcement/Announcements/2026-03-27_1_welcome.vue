@@ -14,11 +14,6 @@
     <p>
       While we generally keep everything in our <a href="https://github.com/mealie-recipes/mealie/releases" target="_blank">GitHub release notes</a>,
       sometimes certain changes require some extra attention.
-      <span v-if="user?.admin">
-        For instance, as a server admin, you may want to <a href="https://github.com/mealie-recipes/mealie/releases/tag/v3.7.0" target="_blank">re-process your images</a>.
-        This reduces their filesize and fixes images that appear zoomed in on the home page.
-        This isn't a new feature, but rather something that may have been easy to miss.
-      </span>
     </p>
     <p>
       Announcements are English-only; they're one-off messages from the maintainers, not a replacement for our release notes. Some elements may still be translated.
