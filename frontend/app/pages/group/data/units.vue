@@ -41,6 +41,9 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Standalone Unit Converter Dialog -->
+    <RecipeIngredientConvertDialog v-model="convertDialog" />
+
     <!-- Alias Sub-Dialog -->
     <RecipeDataAliasManagerDialog
       v-if="editForm.data"
@@ -110,6 +113,12 @@
     >
       <template #table-button-row>
         <BaseButton
+          :icon="$globals.icons.swap"
+          @click="convertDialog = true"
+        >
+          {{ $t('unit.convert-unit') }}
+        </BaseButton>
+        <BaseButton
           :icon="$globals.icons.externalLink"
           @click="mergeDialog = true"
         >
@@ -155,6 +164,7 @@
 <script setup lang="ts">
 import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
+import RecipeIngredientConvertDialog from "~/components/Domain/Recipe/RecipeIngredientConvertDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import type { CreateIngredientUnit, IngredientUnit, IngredientUnitAlias } from "~/lib/api/types/recipe";
@@ -399,6 +409,11 @@ function updateUnitAlias(newAliases: IngredientUnitAlias[]) {
   editForm.data.aliases = newAliases;
   aliasManagerDialog.value = false;
 }
+
+// ============================================================
+// Standalone converter
+
+const convertDialog = ref(false);
 
 // ============================================================
 // Merge Units
