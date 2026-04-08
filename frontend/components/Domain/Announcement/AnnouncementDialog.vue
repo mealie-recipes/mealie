@@ -56,22 +56,21 @@
       </div>
     </div>
     <template #custom-card-action>
-      <div v-if="newAnnouncements.length">
-        <BaseButton
-          color="success"
-          :icon="$globals.icons.textBoxCheckOutline"
-          :text="$t('announcements.mark-all-as-read')"
-          class="mx-4"
-          @click="markAllAsRead"
-        />
-        <BaseButton
-          color="info"
-          :icon="$globals.icons.arrowRightBold"
-          icon-right
-          :text="$t('general.next')"
-          @click="nextAnnouncement"
-        />
-      </div>
+      <BaseButton
+        v-if="newAnnouncements.length"
+        color="success"
+        :icon="$globals.icons.textBoxCheckOutline"
+        :text="$t('announcements.mark-all-as-read')"
+        @click="markAllAsRead"
+      />
+      <BaseButton
+        :disabled="isLastAnnouncement(currentAnnouncement.key)"
+        color="info"
+        :icon="$globals.icons.arrowRightBold"
+        icon-right
+        :text="$t('general.next')"
+        @click="nextAnnouncement"
+      />
     </template>
   </BaseDialog>
 </template>
@@ -85,9 +84,10 @@ const dialog = defineModel<boolean>({ default: false });
 const route = useRoute();
 watch(() => route.fullPath, () => { dialog.value = false; });
 
-const { newAnnouncements, allAnnouncements, setLastRead } = useAnnouncements();
+const { newAnnouncements, allAnnouncements, setLastRead, markAllAsRead } = useAnnouncements();
 
 const currentAnnouncement = shallowRef<Announcement | undefined>();
+
 watch(dialog, () => {
   if (!dialog.value || currentAnnouncement.value) {
     return;
@@ -103,17 +103,20 @@ function setCurrentAnnouncement(announcement: Announcement) {
   setLastRead(announcement.key);
 }
 
-function markAllAsRead() {
-  setLastRead(allAnnouncements.at(-1)!.key);
+function nextAnnouncement() {
+  // Find the first unread announcement after the current one (current is already removed from newAnnouncements)
+  const next = newAnnouncements.value.find(a => a.key > currentAnnouncement.value!.key);
+  if (next) {
+    setCurrentAnnouncement(next);
+  }
 }
 
-function nextAnnouncement() {
-  const next = newAnnouncements.value.at(0);
-  if (!next) {
-    markAllAsRead();
+function isLastAnnouncement(key: string) {
+  if (!newAnnouncements.value.length) {
+    return true;
   }
   else {
-    setCurrentAnnouncement(next);
+    return key >= newAnnouncements.value.at(-1)!.key;
   }
 }
 </script>

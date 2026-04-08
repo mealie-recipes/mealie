@@ -65,14 +65,17 @@ export function useAnnouncements() {
       // The welcome announcement is a special case: it's shown to new users and
       // all other announcements are marked as read when they view it
       key = allAnnouncements.at(-1)!.key;
+      updateUnreadAnnouncements(key);
+    }
+    else {
+      // Only mark this specific announcement as read in the current session
+      newAnnouncements.value = newAnnouncements.value.filter(a => a.key !== key);
     }
 
     if (user.lastReadAnnouncement && key <= user.lastReadAnnouncement) {
       // Don't update the last read announcement if it's older than the current one
       return;
     }
-
-    updateUnreadAnnouncements(key);
 
     user.lastReadAnnouncement = key; // update immediately so we don't have to wait for the db
     await api.users.updateOne(
@@ -83,6 +86,11 @@ export function useAnnouncements() {
       },
       { suppressAlert: true },
     );
+  }
+
+  async function markAllAsRead() {
+    setLastRead(allAnnouncements.at(-1)!.key);
+    newAnnouncements.value = [];
   }
 
   function initUnreadAnnouncements() {
@@ -122,5 +130,6 @@ export function useAnnouncements() {
     newAnnouncements,
     allAnnouncements,
     setLastRead,
+    markAllAsRead,
   };
 }
