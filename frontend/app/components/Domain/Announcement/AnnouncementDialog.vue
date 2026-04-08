@@ -15,7 +15,7 @@
         density="compact"
         color="primary"
         class="overflow-y-auto border-e flex-shrink-0"
-        style="width: 200px; max-height: 60vh"
+        style="width: 200px; height: 60vh"
       >
         <v-list-item
           v-for="announcement in allAnnouncements.toReversed()"
