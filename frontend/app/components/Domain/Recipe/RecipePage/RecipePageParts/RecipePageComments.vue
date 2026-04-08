@@ -82,7 +82,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import type { Recipe } from "~/lib/api/types/recipe";
 import UserAvatar from "~/components/Domain/User/UserAvatar.vue";

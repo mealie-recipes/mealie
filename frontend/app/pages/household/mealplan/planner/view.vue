@@ -63,12 +63,16 @@
 <script setup lang="ts">
 import { isSameDay } from "date-fns";
 
-import type { MealsByDate } from "./types";
 import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 import GroupMealPlanDayContextMenu from "~/components/Domain/Household/GroupMealPlanDayContextMenu.vue";
 import MealPlanScaleControl from "~/components/Domain/Household/MealPlanScaleControl.vue";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
 import type { useMealplans } from "~/composables/use-group-mealplan";
+
+export type MealsByDate = {
+  date: Date;
+  meals: ReadPlanEntry[];
+};
 
 const props = defineProps<{
   mealplans: MealsByDate[];
