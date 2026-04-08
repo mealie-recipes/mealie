@@ -152,7 +152,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { useOnline } from "@vueuse/core";
 import RecipeIngredientListItem from "../Recipe/RecipeIngredientListItem.vue";
 import ShoppingListItemEditor from "./ShoppingListItemEditor.vue";

@@ -72,7 +72,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import { useI18n, useNuxtApp } from "#imports";
 import type { RecipeTimelineEventOut } from "~/lib/api/types/recipe";
 
