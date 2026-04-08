@@ -1,10 +1,12 @@
 <template>
-  <div v-if="valueNotNull || edit">
+  <div v-if="showSection">
     <v-card class="mt-2">
       <v-card-title class="pt-2 pb-0">
         {{ $t("recipe.nutrition") }}
       </v-card-title>
       <v-divider class="mx-2 my-1" />
+
+      <!-- Manual nutrition: editable fields or viewer -->
       <v-card-text v-if="edit">
         <div
           v-for="(item, key, index) in modelValue"
@@ -26,12 +28,12 @@
         </div>
       </v-card-text>
       <v-list
-        v-if="showViewer"
+        v-if="showManualViewer"
         density="compact"
         class="mt-0 pt-0"
       >
         <v-list-item
-          v-for="(item, key, index) in renderedList"
+          v-for="(item, key, index) in renderedManualList"
           :key="index"
           style="min-height: 25px"
         >
@@ -44,6 +46,35 @@
           </v-list-item-title>
         </v-list-item>
       </v-list>
+
+      <!-- Calculated nutrition (read-only) -->
+      <template v-if="showCalculated">
+        <v-divider
+          v-if="showManualViewer || edit"
+          class="mx-2 my-1"
+        />
+        <v-card-subtitle class="px-4 pt-2 pb-0 text-medium-emphasis">
+          {{ $t("nutrition.calculated-from-ingredients") }}
+        </v-card-subtitle>
+        <v-list
+          density="compact"
+          class="mt-0 pt-0"
+        >
+          <v-list-item
+            v-for="(item, key, index) in renderedCalculatedList"
+            :key="index"
+            style="min-height: 25px"
+          >
+            <v-list-item-title class="pl-2 d-flex">
+              <div>{{ item.label }}</div>
+              <div class="ml-auto mr-1">
+                {{ item.value }}
+              </div>
+              <div>{{ item.suffix }}</div>
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </template>
     </v-card>
   </div>
 </template>
@@ -55,42 +86,50 @@ import type { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrit
 
 interface Props {
   edit?: boolean;
+  calculatedNutrition?: Nutrition | null;
 }
 const props = withDefaults(defineProps<Props>(), {
   edit: true,
+  calculatedNutrition: null,
 });
 
 const modelValue = defineModel<Nutrition>({ required: true });
 
 const { labels } = useNutritionLabels();
-const valueNotNull = computed(() => {
+
+function hasValue(nutrition: Nutrition | null | undefined): boolean {
+  if (!nutrition) return false;
   let key: keyof Nutrition;
-  for (key in modelValue.value) {
-    if (modelValue.value[key] !== null) {
+  for (key in nutrition) {
+    if (nutrition[key] !== null && nutrition[key] !== undefined) {
       return true;
     }
   }
   return false;
-});
+}
 
-const showViewer = computed(() => !props.edit && valueNotNull.value);
+const manualNotNull = computed(() => hasValue(modelValue.value));
+const showManualViewer = computed(() => !props.edit && manualNotNull.value);
+const showCalculated = computed(() => hasValue(props.calculatedNutrition));
+const showSection = computed(() => props.edit || manualNotNull.value || showCalculated.value);
 
 function updateValue(key: number | string, event: Event) {
   modelValue.value = { ...modelValue.value, [key]: event };
 }
 
-// Build a new list that only contains nutritional information that has a value
-const renderedList = computed(() => {
+function buildRenderedList(nutrition: Nutrition | null | undefined): NutritionLabelType {
+  if (!nutrition) return {};
   return Object.entries(labels).reduce((item: NutritionLabelType, [key, label]) => {
-    if (modelValue.value[key]?.trim()) {
-      item[key] = {
-        ...label,
-        value: modelValue.value[key],
-      };
+    const val = nutrition[key as keyof Nutrition];
+    if (val?.trim()) {
+      item[key] = { ...label, value: val };
     }
     return item;
   }, {});
-});
+}
+
+const renderedManualList = computed(() => buildRenderedList(modelValue.value));
+const renderedCalculatedList = computed(() => buildRenderedList(props.calculatedNutrition));
 </script>
 
 <style lang="scss" scoped></style>

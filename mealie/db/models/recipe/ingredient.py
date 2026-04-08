@@ -191,6 +191,23 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     # Deprecated
     on_hand: Mapped[bool] = mapped_column(Boolean, default=False)
 
+    # Nutritional information per 100g of food
+    calories: Mapped[float | None] = mapped_column(Float)
+    protein_content: Mapped[float | None] = mapped_column(Float)
+    fat_content: Mapped[float | None] = mapped_column(Float)
+    carbohydrate_content: Mapped[float | None] = mapped_column(Float)
+    fiber_content: Mapped[float | None] = mapped_column(Float)
+    sugar_content: Mapped[float | None] = mapped_column(Float)
+    sodium_content: Mapped[float | None] = mapped_column(Float)
+    saturated_fat_content: Mapped[float | None] = mapped_column(Float)
+    cholesterol_content: Mapped[float | None] = mapped_column(Float)
+    trans_fat_content: Mapped[float | None] = mapped_column(Float)
+    unsaturated_fat_content: Mapped[float | None] = mapped_column(Float)
+
+    # Weight in grams per one unit of this food (e.g. 50g per egg), used for nutrition
+    # calculation when no weight-based unit is specified (e.g. "2 eggs")
+    serving_weight_g: Mapped[float | None] = mapped_column(Float)
+
     @api_extras
     @auto_init()
     def __init__(

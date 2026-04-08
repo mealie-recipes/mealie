@@ -183,6 +183,8 @@ class Recipe(RecipeSummary):
     recipe_ingredient: Annotated[list[RecipeIngredient], Field(validate_default=True)] = []
     recipe_instructions: list[RecipeStep] | None = []
     nutrition: Nutrition | None = None
+    nutrition_calculated: Nutrition | None = None
+    """Per-serving nutrition calculated from ingredient food data. Read-only; not stored in the database."""
 
     # Mealie Specific
     settings: RecipeSettings | None = None

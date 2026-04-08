@@ -462,6 +462,11 @@
     "add-food": "Add Food",
     "add-recipe": "Add Recipe"
   },
+  "nutrition": {
+    "serving-weight-g": "Serving Weight (g)",
+    "serving-weight-g-hint": "Weight in grams of one unit of this food (e.g. 50 for an egg). Used to calculate nutrition when no weight unit is specified.",
+    "calculated-from-ingredients": "Calculated from ingredients (per serving)"
+  },
   "page": {
     "404-page-not-found": "404 Page not found",
     "all-recipes": "All Recipes",

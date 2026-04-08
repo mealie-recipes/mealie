@@ -317,6 +317,68 @@ const formItems = computed<AutoFormItems>(() => [
     type: fieldTypes.BOOLEAN,
     hint: i18n.t("data-pages.foods.on-hand-checkbox-label"),
   },
+  // ── Nutrition per 100g ──────────────────────────────────────
+  {
+    label: i18n.t("nutrition.serving-weight-g"),
+    varName: "servingWeightG",
+    type: fieldTypes.NUMBER,
+    hint: i18n.t("nutrition.serving-weight-g-hint"),
+  },
+  {
+    label: i18n.t("recipe.calories") + " (kcal / 100g)",
+    varName: "calories",
+    type: fieldTypes.NUMBER,
+  },
+  {
+    label: i18n.t("recipe.carbohydrate-content") + " (g / 100g)",
+    varName: "carbohydrateContent",
+    type: fieldTypes.NUMBER,
+  },
+  {
+    label: i18n.t("recipe.protein-content") + " (g / 100g)",
+    varName: "proteinContent",
+    type: fieldTypes.NUMBER,
+  },
+  {
+    label: i18n.t("recipe.fat-content") + " (g / 100g)",
+    varName: "fatContent",
+    type: fieldTypes.NUMBER,
+  },
+  {
+    label: i18n.t("recipe.fiber-content") + " (g / 100g)",
+    varName: "fiberContent",
+    type: fieldTypes.NUMBER,
+  },
+  {
+    label: i18n.t("recipe.sugar-content") + " (g / 100g)",
+    varName: "sugarContent",
+    type: fieldTypes.NUMBER,
+  },
+  {
+    label: i18n.t("recipe.saturated-fat-content") + " (g / 100g)",
+    varName: "saturatedFatContent",
+    type: fieldTypes.NUMBER,
+  },
+  {
+    label: i18n.t("recipe.unsaturated-fat-content") + " (g / 100g)",
+    varName: "unsaturatedFatContent",
+    type: fieldTypes.NUMBER,
+  },
+  {
+    label: i18n.t("recipe.trans-fat-content") + " (g / 100g)",
+    varName: "transFatContent",
+    type: fieldTypes.NUMBER,
+  },
+  {
+    label: i18n.t("recipe.sodium-content") + " (mg / 100g)",
+    varName: "sodiumContent",
+    type: fieldTypes.NUMBER,
+  },
+  {
+    label: i18n.t("recipe.cholesterol-content") + " (mg / 100g)",
+    varName: "cholesterolContent",
+    type: fieldTypes.NUMBER,
+  },
 ]);
 
 // ===============================================================

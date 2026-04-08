@@ -68,6 +68,20 @@ export interface CreateIngredientFood {
   labelId?: string | null;
   aliases?: CreateIngredientFoodAlias[];
   householdsWithIngredientFood?: string[];
+  /** Nutritional values per 100g. Macros in grams; sodium and cholesterol in milligrams. */
+  calories?: number | null;
+  proteinContent?: number | null;
+  fatContent?: number | null;
+  carbohydrateContent?: number | null;
+  fiberContent?: number | null;
+  sugarContent?: number | null;
+  sodiumContent?: number | null;
+  saturatedFatContent?: number | null;
+  cholesterolContent?: number | null;
+  transFatContent?: number | null;
+  unsaturatedFatContent?: number | null;
+  /** Weight in grams per one unit of this food (e.g. 50 for an egg). Used when no weight unit is given. */
+  servingWeightG?: number | null;
 }
 export interface CreateIngredientFoodAlias {
   name: string;
@@ -146,6 +160,18 @@ export interface IngredientFood {
   label?: MultiPurposeLabelSummary | null;
   createdAt?: string | null;
   updatedAt?: string | null;
+  calories?: number | null;
+  proteinContent?: number | null;
+  fatContent?: number | null;
+  carbohydrateContent?: number | null;
+  fiberContent?: number | null;
+  sugarContent?: number | null;
+  sodiumContent?: number | null;
+  saturatedFatContent?: number | null;
+  cholesterolContent?: number | null;
+  transFatContent?: number | null;
+  unsaturatedFatContent?: number | null;
+  servingWeightG?: number | null;
 }
 export interface IngredientFoodAlias {
   name: string;
@@ -254,6 +280,8 @@ export interface Recipe {
   recipeIngredient?: RecipeIngredient[];
   recipeInstructions?: RecipeStep[] | null;
   nutrition?: Nutrition | null;
+  /** Per-serving nutrition calculated from ingredient food data. Read-only. */
+  nutritionCalculated?: Nutrition | null;
   settings?: RecipeSettings | null;
   assets?: RecipeAsset[] | null;
   notes?: RecipeNote[] | null;

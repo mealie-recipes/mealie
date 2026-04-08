@@ -78,6 +78,8 @@ from mealie.services.scraper.scraper_strategies import (
     RecipeScraperPackage,
 )
 
+from mealie.services.recipe.nutrition_service import calculate_recipe_nutrition
+
 from ._base import BaseRecipeController, JSONBytes
 
 router = UserAPIRouter(prefix="/recipes", route_class=MealieCrudRoute)
@@ -418,6 +420,7 @@ class RecipeController(BaseRecipeController):
             self.handle_exceptions(e)
             return None
 
+        recipe.nutrition_calculated = calculate_recipe_nutrition(recipe)
         return recipe
 
     @router.post("", status_code=201, response_model=str)

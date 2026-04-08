@@ -94,6 +94,25 @@ class CreateIngredientFood(UnitFoodBase):
     aliases: list[CreateIngredientFoodAlias] = []
     households_with_ingredient_food: list[str] = []
 
+    # Nutritional values per 100g of food.
+    # Macros (protein, fat, carbs, fiber, sugar, sat/trans/unsat fat) are in grams.
+    # Sodium and cholesterol are in milligrams.
+    calories: float | None = None
+    protein_content: float | None = None
+    fat_content: float | None = None
+    carbohydrate_content: float | None = None
+    fiber_content: float | None = None
+    sugar_content: float | None = None
+    sodium_content: float | None = None
+    saturated_fat_content: float | None = None
+    cholesterol_content: float | None = None
+    trans_fat_content: float | None = None
+    unsaturated_fat_content: float | None = None
+
+    # Weight in grams for one unit of this food (e.g. 50 for eggs), used for
+    # nutrition calculation when no weight-based unit is specified (e.g. "2 eggs")
+    serving_weight_g: float | None = None
+
 
 class SaveIngredientFood(CreateIngredientFood):
     group_id: UUID4
