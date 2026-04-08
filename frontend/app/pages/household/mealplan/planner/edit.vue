@@ -236,7 +236,7 @@
 import { format } from "date-fns";
 import type { SortableEvent } from "sortablejs";
 import { VueDraggable } from "vue-draggable-plus";
-import type { MealsByDate } from "./types";
+import type { MealsByDate } from "./view.vue";
 import type { useMealplans } from "~/composables/use-group-mealplan";
 import { usePlanTypeOptions, getEntryTypeText } from "~/composables/use-group-mealplan";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";

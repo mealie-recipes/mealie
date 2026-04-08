@@ -15,8 +15,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
-import { defineModel, defineProps } from "vue";
+<script setup lang="ts">
 import type { RecipeSettings } from "~/lib/api/types/recipe";
 import { useI18n } from "#imports";
 
