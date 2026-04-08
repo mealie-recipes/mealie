@@ -467,6 +467,20 @@
     "serving-weight-g-hint": "Weight in grams of one unit of this food (e.g. 50 for an egg). Used to calculate nutrition when no weight unit is specified.",
     "calculated-from-ingredients": "Calculated from ingredients (per serving)"
   },
+  "usda": {
+    "dialog-title": "Fetch Nutrition from USDA",
+    "fetch-button": "Fetch from USDA",
+    "search-label": "Food name",
+    "search": "Search",
+    "search-failed": "Search failed. Check that the server can reach api.nal.usda.gov, or set a USDA_API_KEY in your server settings.",
+    "no-results": "No results found. Try a different search term.",
+    "select-result": "Select the best match:",
+    "fetch-failed": "Could not fetch nutrition data for this food.",
+    "nutrient": "Nutrient",
+    "per-100g": "Per 100g",
+    "apply": "Apply to Food",
+    "source-note": "Source: USDA FoodData Central. Values will be applied to the food form — save the food to keep them."
+  },
   "page": {
     "404-page-not-found": "404 Page not found",
     "all-recipes": "All Recipes",

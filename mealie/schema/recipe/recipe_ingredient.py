@@ -439,6 +439,30 @@ class UnitConversionResponse(MealieModel):
     to_quantity: float
 
 
+class UsdaFoodResult(MealieModel):
+    """A single food returned by a USDA FoodData Central search."""
+
+    fdc_id: int
+    description: str
+    brand_owner: str | None = None
+
+
+class UsdaNutritionData(MealieModel):
+    """Nutrition values per 100g fetched from USDA FoodData Central."""
+
+    calories: float | None = None
+    protein_content: float | None = None
+    fat_content: float | None = None
+    carbohydrate_content: float | None = None
+    fiber_content: float | None = None
+    sugar_content: float | None = None
+    sodium_content: float | None = None
+    saturated_fat_content: float | None = None
+    cholesterol_content: float | None = None
+    trans_fat_content: float | None = None
+    unsaturated_fat_content: float | None = None
+
+
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402
 
 IngredientFood.model_rebuild()

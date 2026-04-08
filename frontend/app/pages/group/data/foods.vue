@@ -79,6 +79,13 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- USDA Nutrition Fetch Dialog -->
+    <FoodUsdaFetchDialog
+      v-model="usdaDialog"
+      :food-name="editForm.data?.name"
+      @apply="applyUsdaNutrition"
+    />
+
     <!-- Alias Sub-Dialog -->
     <RecipeDataAliasManagerDialog
       v-if="editForm.data"
@@ -185,6 +192,13 @@
 
       <template #edit-dialog-custom-action>
         <BaseButton
+          :icon="$globals.icons.foods"
+          color="info"
+          @click="usdaDialog = true"
+        >
+          {{ $t('usda.fetch-button') }}
+        </BaseButton>
+        <BaseButton
           edit
           @click="aliasManagerDialog = true"
         >
@@ -198,9 +212,10 @@
 <script setup lang="ts">
 import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
+import FoodUsdaFetchDialog from "~/components/Domain/Recipe/FoodUsdaFetchDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias } from "~/lib/api/types/recipe";
+import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias, UsdaNutritionData } from "~/lib/api/types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
@@ -449,6 +464,26 @@ async function handleBulkAction(event: string, items: IngredientFoodWithOnHand[]
   else if (event === "assign-selected") {
     bulkAssignEventHandler(items);
   }
+}
+
+// ============================================================
+// USDA Nutrition Fetch
+
+const usdaDialog = ref(false);
+
+function applyUsdaNutrition(data: UsdaNutritionData) {
+  if (!editForm.data) return;
+  editForm.data.calories = data.calories ?? editForm.data.calories;
+  editForm.data.proteinContent = data.proteinContent ?? editForm.data.proteinContent;
+  editForm.data.fatContent = data.fatContent ?? editForm.data.fatContent;
+  editForm.data.carbohydrateContent = data.carbohydrateContent ?? editForm.data.carbohydrateContent;
+  editForm.data.fiberContent = data.fiberContent ?? editForm.data.fiberContent;
+  editForm.data.sugarContent = data.sugarContent ?? editForm.data.sugarContent;
+  editForm.data.sodiumContent = data.sodiumContent ?? editForm.data.sodiumContent;
+  editForm.data.saturatedFatContent = data.saturatedFatContent ?? editForm.data.saturatedFatContent;
+  editForm.data.cholesterolContent = data.cholesterolContent ?? editForm.data.cholesterolContent;
+  editForm.data.transFatContent = data.transFatContent ?? editForm.data.transFatContent;
+  editForm.data.unsaturatedFatContent = data.unsaturatedFatContent ?? editForm.data.unsaturatedFatContent;
 }
 
 // ============================================================

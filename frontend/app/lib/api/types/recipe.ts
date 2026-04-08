@@ -233,6 +233,24 @@ export interface UnitConversionResponse {
   fromQuantity: number;
   toQuantity: number;
 }
+export interface UsdaFoodResult {
+  fdcId: number;
+  description: string;
+  brandOwner?: string | null;
+}
+export interface UsdaNutritionData {
+  calories?: number | null;
+  proteinContent?: number | null;
+  fatContent?: number | null;
+  carbohydrateContent?: number | null;
+  fiberContent?: number | null;
+  sugarContent?: number | null;
+  sodiumContent?: number | null;
+  saturatedFatContent?: number | null;
+  cholesterolContent?: number | null;
+  transFatContent?: number | null;
+  unsaturatedFatContent?: number | null;
+}
 export interface Nutrition {
   calories?: string | null;
   carbohydrateContent?: string | null;

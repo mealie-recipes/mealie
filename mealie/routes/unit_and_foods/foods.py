@@ -1,6 +1,6 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseUserController
@@ -14,9 +14,12 @@ from mealie.schema.recipe.recipe_ingredient import (
     IngredientFoodPagination,
     MergeFood,
     SaveIngredientFood,
+    UsdaFoodResult,
+    UsdaNutritionData,
 )
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import SuccessResponse
+from mealie.services.recipe import usda_service
 
 router = APIRouter(prefix="/foods", tags=["Recipes: Foods"], route_class=MealieCrudRoute)
 
@@ -59,6 +62,49 @@ class IngredientFoodsController(BaseUserController):
         except Exception as e:
             self.logger.error(e)
             raise HTTPException(500, "Failed to merge foods") from e
+
+    # =========================================================
+    # USDA FoodData Central integration
+
+    @router.get("/usda/search", response_model=list[UsdaFoodResult])
+    def usda_search(self, q: str = Query(..., description="Food name to search for")):
+        """Search the USDA FoodData Central database for foods matching the given name.
+
+        Requires USDA_API_KEY to be set in server settings (falls back to the DEMO_KEY with lower rate limits).
+        """
+        try:
+            results = usda_service.search_foods(q, self.settings.usda_api_key)
+        except RuntimeError as exc:
+            raise HTTPException(status_code=502, detail=str(exc)) from exc
+        return [
+            UsdaFoodResult(fdc_id=r.fdc_id, description=r.description, brand_owner=r.brand_owner)
+            for r in results
+        ]
+
+    @router.get("/usda/{fdc_id}/nutrition", response_model=UsdaNutritionData)
+    def usda_fetch_nutrition(self, fdc_id: int):
+        """Fetch nutrition data (per 100g) for a specific USDA FDC food ID.
+
+        Returns nutrition values that can be applied to a Mealie food record.
+        Does **not** modify any Mealie data — the caller is responsible for saving.
+        """
+        try:
+            nutrition = usda_service.fetch_nutrition(fdc_id, self.settings.usda_api_key)
+        except RuntimeError as exc:
+            raise HTTPException(status_code=502, detail=str(exc)) from exc
+        return UsdaNutritionData(
+            calories=nutrition.calories,
+            protein_content=nutrition.protein_content,
+            fat_content=nutrition.fat_content,
+            carbohydrate_content=nutrition.carbohydrate_content,
+            fiber_content=nutrition.fiber_content,
+            sugar_content=nutrition.sugar_content,
+            sodium_content=nutrition.sodium_content,
+            saturated_fat_content=nutrition.saturated_fat_content,
+            cholesterol_content=nutrition.cholesterol_content,
+            trans_fat_content=nutrition.trans_fat_content,
+            unsaturated_fat_content=nutrition.unsaturated_fat_content,
+        )
 
     @router.get("/{item_id}", response_model=IngredientFood)
     def get_one(self, item_id: UUID4):

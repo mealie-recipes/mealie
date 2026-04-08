@@ -442,6 +442,21 @@ class AppSettings(AppLoggingSettings):
         return self.OPENAI_FEATURE.enabled
 
     # ===============================================
+    # USDA FoodData Central Configuration
+
+    USDA_API_KEY: MaskedNoneString = None
+    """
+    API key for the USDA FoodData Central (FDC) nutrition database.
+    Obtain a free key at https://fdc.nal.usda.gov/api-key-signup.html
+    Falls back to the USDA demo key (DEMO_KEY) if not set, which has lower rate limits.
+    """
+
+    @property
+    def usda_api_key(self) -> str:
+        """Return the configured USDA API key, or the public DEMO_KEY as fallback."""
+        return self.USDA_API_KEY or "DEMO_KEY"
+
+    # ===============================================
     # Web Concurrency
 
     WORKER_PER_CORE: int = 1
