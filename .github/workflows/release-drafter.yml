@@ -5,9 +5,6 @@ on:
   push:
     branches:
       - mealie-next
-  # pull_request event is required for autolabeler
-  pull_request:
-    types: [opened, labeled, unlabeled, reopened, synchronize]
   # pull_request_target event is required for autolabeler to support PRs from forks
   pull_request_target:
     types: [opened, labeled, unlabeled, reopened, synchronize]
@@ -25,7 +22,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   auto_label:
-    if: github.event_name == 'pull_request'
+    if: github.event_name == 'pull_request_target'
     permissions:
       pull-requests: write
     runs-on: ubuntu-latest
