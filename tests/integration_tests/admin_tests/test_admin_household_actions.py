@@ -44,6 +44,7 @@ def test_admin_update_household(api_client: TestClient, admin_user: TestUser, un
             "privateHousehold": random_bool(),
             "lockRecipeEditsFromOtherHouseholds": random_bool(),
             "firstDayOfWeek": 2,
+            "showAnnouncements": random_bool(),
             "recipePublic": random_bool(),
             "recipeShowNutrition": random_bool(),
             "recipeShowAssets": random_bool(),
