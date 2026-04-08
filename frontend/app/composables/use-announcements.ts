@@ -82,7 +82,7 @@ export function useAnnouncements() {
       user.id,
       {
         ...user,
-        lastReadAnnouncement: "2026-03-28_1_new-recipe-import-options", // TODO: switch back to key
+        lastReadAnnouncement: key,
       },
       { suppressAlert: true },
     );
