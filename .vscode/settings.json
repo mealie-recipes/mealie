@@ -17,6 +17,8 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "eslint.useFlatConfig": true,
   "eslint.workingDirectories": [
@@ -30,6 +32,7 @@
     "**/.svn": true,
     "**/CVS": true
   },
+  "files.insertFinalNewline": true,
   "i18n-ally.enabledFrameworks": [
     "vue"
   ],
@@ -67,6 +70,7 @@
   },
   "[python]": {
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "charliermarsh.ruff"
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.tabSize": 4
   }
 }

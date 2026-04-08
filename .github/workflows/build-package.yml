@@ -17,12 +17,12 @@ jobs:
 
     steps:
       - name: Checkout 🛎
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref || github.sha }}
 
       - name: Setup node env 🏗
-        uses: actions/setup-node@v4.0.0
+        uses: actions/setup-node@v6
         with:
           node-version: 22
           check-latest: true
@@ -32,7 +32,7 @@ jobs:
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
 
       - name: Cache node_modules 📦
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -49,7 +49,7 @@ jobs:
         working-directory: "frontend"
 
       - name: Archive built frontend
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: frontend-dist
           path: frontend/dist
@@ -68,12 +68,12 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Check out repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref || github.sha }}
 
       - name: Set up python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -81,7 +81,7 @@ jobs:
         run: pip install uv
 
       - name: Retrieve built frontend
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: frontend-dist
           path: mealie/frontend
@@ -97,7 +97,7 @@ jobs:
           task py:package
 
       - name: Archive built package
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: backend-dist
           path: dist

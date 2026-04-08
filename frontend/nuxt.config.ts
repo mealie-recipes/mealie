@@ -101,9 +101,6 @@ export default defineNuxtConfig({
       },
     },
   },
-  dir: {
-    static: "static",
-  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -117,10 +114,10 @@ export default defineNuxtConfig({
     transpile: process.env.NODE_ENV !== "production" ? [/@vue[\\/]composition-api/] : [],
   },
   future: {
-    compatibilityVersion: 3,
+    compatibilityVersion: 4,
   },
 
-  compatibilityDate: "2025-03-28",
+  compatibilityDate: "2026-04-08",
 
   nitro: {
     baseURL: process.env.SUB_PATH || "",
@@ -196,7 +193,7 @@ export default defineNuxtConfig({
     strategy: "no_prefix",
     lazy: true,
     types: "composition",
-    langDir: "./../lang/locales", // note: we need to up one ../ because the default root of lang dir is the /frontend/i18n, which can not be configured
+    langDir: "./../app/lang/locales", // note: we need to up one ../ because the default root of lang dir is the /frontend/i18n, which can not be configured
     defaultLocale: "en-US",
     detectBrowserLanguage: {
       useCookie: true,
@@ -207,7 +204,7 @@ export default defineNuxtConfig({
       strictMessage: false,
       escapeHtml: true,
     },
-    vueI18n: "./../i18n.config.ts", // note: we need to up one ../ because the default root of lang dir is the /frontend/i18n, which can not be configured
+    vueI18n: "./../app/i18n.config.ts", // note: we need to up one ../ because the default root of lang dir is the /frontend/i18n, which can not be configured
   },
 
   // PWA module configuration: https://vite-pwa-org.netlify.app/frameworks/nuxt.html
