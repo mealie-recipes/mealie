@@ -7,7 +7,7 @@
     >
       <template #activator />
       <v-card-text>
-        <v-form ref="refNewHouseholdForm">
+        <v-form ref="refNewHouseholdForm" @keydown.enter.prevent="handleCreateSubmit">
           <v-select
             v-if="groups"
             v-model="createHouseholdForm.data.groupId"

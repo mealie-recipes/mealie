@@ -36,7 +36,7 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import RecipeSettingsSwitches from "./RecipeSettingsSwitches.vue";
 
 const value = defineModel<object>({ required: true });

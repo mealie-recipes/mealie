@@ -21,10 +21,6 @@
   </v-app>
 </template>
 
-<script lang="ts">
+<script setup lang="ts">
 import TheSnackbar from "~/components/Layout/LayoutParts/TheSnackbar.vue";
-
-export default defineNuxtComponent({
-  components: { TheSnackbar },
-});
 </script>
