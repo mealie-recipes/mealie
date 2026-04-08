@@ -10,21 +10,21 @@ jobs:
       run:
         working-directory: ./tests/e2e
     steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
+    - uses: actions/checkout@v6
+    - uses: actions/setup-node@v6
       with:
         node-version: 22
         cache: 'yarn'
         cache-dependency-path: ./tests/e2e/yarn.lock
     - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
+      uses: docker/setup-buildx-action@v4
     - name: Retrieve Python package
-      uses: actions/download-artifact@v4
+      uses: actions/download-artifact@v6
       with:
         name: backend-dist
         path: dist
     - name: Build Image
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v7
       with:
         file: ./docker/Dockerfile
         context: .
