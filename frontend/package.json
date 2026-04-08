@@ -31,7 +31,6 @@
     "marked": "^15.0.12",
     "nuxt": "^4.4.2",
     "sse.js": "^2.8.0",
-    "vite": "^7.0.0",
     "vue-advanced-cropper": "^2.8.9",
     "vue-draggable-plus": "^0.6.0",
     "vuetify": "^3.9.7",
