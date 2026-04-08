@@ -991,6 +991,14 @@
     "tag-name": "Tag Name",
     "tag": "Tag"
   },
+  "unit": {
+    "convert-unit": "Convert Unit",
+    "from-unit": "From Unit",
+    "to-unit": "To Unit",
+    "convert": "Convert",
+    "apply": "Apply to Ingredient",
+    "conversion-failed": "Could not convert between these units. Make sure both units have compatible types (e.g. both volume or both weight)."
+  },
   "tool": {
     "tools": "Tools",
     "on-hand": "On Hand",

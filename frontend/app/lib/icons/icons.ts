@@ -157,6 +157,8 @@ import {
   mdiWindowClose,
   mdiWrench,
   mdiHandWaveOutline,
+  mdiSwapHorizontal,
+  mdiArrowDown,
 } from "@mdi/js";
 
 export const icons = {
@@ -179,7 +181,9 @@ export const icons = {
   arrowLeftBold: mdiArrowLeftBold,
   arrowRightBold: mdiArrowRightBold,
   arrowUp: mdiArrowUp,
+  arrowDown: mdiArrowDown,
   arrowUpDown: mdiDrag,
+  swap: mdiSwapHorizontal,
   backupRestore: mdiBackupRestore,
   bellAlert: mdiBellAlert,
   bellPlus: mdiBellPlus,

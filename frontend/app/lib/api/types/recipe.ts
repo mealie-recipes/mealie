@@ -222,6 +222,17 @@ export interface MergeUnit {
   fromUnit: string;
   toUnit: string;
 }
+export interface UnitConversionRequest {
+  fromUnit: string;
+  toUnit: string;
+  quantity: number;
+}
+export interface UnitConversionResponse {
+  fromUnit: IngredientUnit;
+  toUnit: IngredientUnit;
+  fromQuantity: number;
+  toQuantity: number;
+}
 export interface Nutrition {
   calories?: string | null;
   carbohydrateContent?: string | null;

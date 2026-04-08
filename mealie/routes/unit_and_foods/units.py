@@ -14,9 +14,12 @@ from mealie.schema.recipe.recipe_ingredient import (
     IngredientUnitPagination,
     MergeUnit,
     SaveIngredientUnit,
+    UnitConversionRequest,
+    UnitConversionResponse,
 )
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import SuccessResponse
+from mealie.services.parser_services.parser_utils.unit_utils import convert_quantity_and_unit
 
 router = APIRouter(prefix="/units", tags=["Recipes: Units"], route_class=MealieCrudRoute)
 
@@ -50,6 +53,28 @@ class IngredientUnitsController(BaseUserController):
     def create_one(self, data: CreateIngredientUnit):
         save_data = mapper.cast(data, SaveIngredientUnit, group_id=self.group_id)
         return self.mixins.create_one(save_data)
+
+    @router.post("/convert", response_model=UnitConversionResponse)
+    def convert_unit(self, data: UnitConversionRequest):
+        """Convert a quantity from one unit to another.
+
+        Both units must have standardization data (standard_quantity and standard_unit).
+        Returns 400 if the units are incompatible (e.g. volume ↔ weight).
+        """
+        from_unit = self.mixins.get_one(data.from_unit)
+        to_unit = self.mixins.get_one(data.to_unit)
+
+        try:
+            converted = convert_quantity_and_unit(data.quantity, from_unit, to_unit)
+        except ValueError as e:
+            raise HTTPException(status_code=400, detail=str(e)) from e
+
+        return UnitConversionResponse(
+            from_unit=from_unit,
+            to_unit=to_unit,
+            from_quantity=data.quantity,
+            to_quantity=converted,
+        )
 
     @router.put("/merge", response_model=SuccessResponse)
     def merge_one(self, data: MergeUnit):

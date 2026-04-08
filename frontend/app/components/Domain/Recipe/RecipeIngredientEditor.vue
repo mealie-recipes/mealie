@@ -47,6 +47,7 @@
         sm="12"
         md="2"
         cols="12"
+        class="d-flex"
       >
         <v-autocomplete
           ref="unitAutocomplete"
@@ -97,6 +98,34 @@
             </div>
           </template>
         </v-autocomplete>
+
+        <!-- Unit converter button: shown when the current unit has standardization data -->
+        <v-tooltip
+          v-if="canConvert"
+          location="top"
+        >
+          <template #activator="{ props: tipProps }">
+            <v-btn
+              v-bind="tipProps"
+              icon
+              variant="text"
+              size="small"
+              class="my-auto"
+              @click="convertDialog = true"
+            >
+              <v-icon size="small">
+                {{ $globals.icons.swap }}
+              </v-icon>
+            </v-btn>
+          </template>
+          {{ $t("unit.convert-unit") }}
+        </v-tooltip>
+
+        <RecipeIngredientConvertDialog
+          v-model="convertDialog"
+          :ingredient="model"
+          @apply="applyConversion"
+        />
       </v-col>
 
       <!-- Foods Input -->
@@ -231,9 +260,10 @@ import { useI18n } from "vue-i18n";
 import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
 import { useSearch } from "~/composables/use-search";
 import { useNuxtApp } from "#app";
-import type { RecipeIngredient } from "~/lib/api/types/recipe";
+import type { IngredientUnit, RecipeIngredient } from "~/lib/api/types/recipe";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
+import RecipeIngredientConvertDialog from "~/components/Domain/Recipe/RecipeIngredientConvertDialog.vue";
 
 // defineModel replaces modelValue prop
 const model = defineModel<RecipeIngredient>({ required: true });
@@ -375,6 +405,18 @@ const unitStore = useUnitStore();
 const unitsData = useUnitData();
 const unitAutocomplete = ref<HTMLInputElement>();
 const { search: unitSearch, filtered: filteredUnits } = useSearch(unitStore.store);
+
+// Unit conversion
+const convertDialog = ref(false);
+const canConvert = computed(() => {
+  const u = model.value.unit;
+  return u && "standardQuantity" in u && u.standardQuantity && u.standardUnit;
+});
+
+function applyConversion(quantity: number, unit: IngredientUnit) {
+  model.value.quantity = quantity;
+  model.value.unit = unit;
+}
 
 async function createAssignUnit() {
   unitsData.data.name = unitSearch.value;

@@ -426,6 +426,19 @@ class MergeUnit(MealieModel):
     to_unit: UUID4
 
 
+class UnitConversionRequest(MealieModel):
+    from_unit: UUID4
+    to_unit: UUID4
+    quantity: float
+
+
+class UnitConversionResponse(MealieModel):
+    from_unit: IngredientUnit
+    to_unit: IngredientUnit
+    from_quantity: float
+    to_quantity: float
+
+
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402
 
 IngredientFood.model_rebuild()

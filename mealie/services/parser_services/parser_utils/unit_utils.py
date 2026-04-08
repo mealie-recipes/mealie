@@ -104,6 +104,43 @@ class UnitConverter:
         return float(out.magnitude), out.units
 
 
+def convert_quantity_and_unit[T: CreateIngredientUnit](
+    qty: float, from_unit: T, to_unit: T
+) -> float:
+    """Convert a quantity from one unit to another using standardized unit data.
+
+    Both units must have `standard_quantity` and `standard_unit` set.
+    Raises ValueError if the units are incompatible dimensions (e.g. volume → weight).
+    """
+
+    if not (from_unit.standard_quantity and from_unit.standard_unit and
+            to_unit.standard_quantity and to_unit.standard_unit):
+        raise ValueError("Both units must contain standardized unit data")
+
+    PINT_FROM_TXT = "_mealie_from_unit"
+    PINT_TO_TXT = "_mealie_to_unit"
+
+    uc = UnitConverter()
+
+    from_standard = uc.parse(from_unit.standard_unit, strict=True)
+    to_standard = uc.parse(to_unit.standard_unit, strict=True)
+    from_standard, to_standard = uc._resolve_ounce(from_standard, to_standard)
+
+    uc.ureg.define(f"{PINT_FROM_TXT} = {from_unit.standard_quantity} * {from_standard}")
+    uc.ureg.define(f"{PINT_TO_TXT} = {to_unit.standard_quantity} * {to_standard}")
+
+    pint_from = uc.parse(PINT_FROM_TXT)
+    pint_to = uc.parse(PINT_TO_TXT)
+
+    if not uc.can_convert(pint_from, pint_to):
+        raise ValueError(
+            f"Cannot convert from '{from_unit.name}' to '{to_unit.name}': incompatible unit dimensions"
+        )
+
+    result_q, _ = uc.convert(qty, pint_from, pint_to)
+    return result_q
+
+
 def merge_quantity_and_unit[T: CreateIngredientUnit](
     qty_1: float, unit_1: T, qty_2: float, unit_2: T
 ) -> tuple[float, T]:
