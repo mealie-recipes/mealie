@@ -3,14 +3,14 @@
     <p>
       Welcome to Mealie! If this is your first time seeing announcements, here's what to expect.
     </p>
-    <p>
+    <div class="mb-2">
       Announcements are reserved for things like:
       <ul class="ml-6">
         <li>Important new features</li>
         <li>Major changes</li>
         <li>Anything that might require additional user actions (such as migration scripts)</li>
       </ul>
-    </p>
+    </div>
     <p>
       While we generally keep everything in our <a href="https://github.com/mealie-recipes/mealie/releases" target="_blank">GitHub release notes</a>,
       sometimes certain changes require some extra attention.
