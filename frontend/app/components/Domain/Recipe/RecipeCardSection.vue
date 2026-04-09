@@ -129,7 +129,7 @@
         </v-row>
         <v-row
           v-else
-          dense
+          density="comfortable"
         >
           <v-col
             v-for="recipe in recipes"
