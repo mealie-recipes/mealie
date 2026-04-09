@@ -92,12 +92,17 @@ def search_foods(query: str, api_key: str, page_size: int = 8) -> list[UsdaFoodS
     Returns up to *page_size* results ordered by USDA relevance.
     Prefers Foundation and SR Legacy data types for accuracy.
     """
-    params = {
-        "query": query,
-        "pageSize": page_size,
-        "dataType": "Foundation,SR Legacy,Survey (FNDDS)",
-        "api_key": api_key,
-    }
+    # Pass dataType as a list so requests repeats the parameter
+    # (?dataType=Foundation&dataType=SR+Legacy&...) rather than encoding
+    # commas as %2C, which the USDA API rejects with a 400.
+    params = [
+        ("query", query),
+        ("pageSize", page_size),
+        ("dataType", "Foundation"),
+        ("dataType", "SR Legacy"),
+        ("dataType", "Survey (FNDDS)"),
+        ("api_key", api_key),
+    ]
     try:
         resp = requests.get(f"{USDA_BASE_URL}/foods/search", params=params, timeout=_TIMEOUT)
         resp.raise_for_status()
