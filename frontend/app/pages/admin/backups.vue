@@ -33,7 +33,7 @@
           <p class="mt-3">
             <i18n-t keypath="settings.backup.postgresql-note">
               <template #backup-restore-process>
-                <a href="https://nightly.mealie.io/documentation/getting-started/usage/backups-and-restoring/">{{
+                <a class="text-primary" href="https://nightly.mealie.io/documentation/getting-started/usage/backups-and-restoring/">{{
                   $t('settings.backup.backup-restore-process-in-the-documentation') }}</a>
               </template>
             </i18n-t>
@@ -146,7 +146,7 @@
       </section>
     </section>
     <v-container class="mt-4 d-flex justify-center text-center">
-      <nuxt-link :to="`/group/migrations`"> {{ $t('recipe.looking-for-migrations') }} </nuxt-link>
+      <nuxt-link class="text-primary" :to="`/group/migrations`"> {{ $t('recipe.looking-for-migrations') }} </nuxt-link>
     </v-container>
   </v-container>
 </template>

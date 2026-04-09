@@ -192,7 +192,7 @@
         </v-card-text>
       </v-card>
       <nuxt-link
-        class="mt-5 d-flex flex-column justify-center text-center"
+        class="mt-5 d-flex flex-column justify-center text-center text-primary"
         :to="`/group`"
       > {{
         $t('profile.looking-for-privacy-settings') }} </nuxt-link>
