@@ -108,7 +108,7 @@ class IngredientFoodsController(BaseUserController):
                 continue
 
             try:
-                results = usda_service.search_foods(food.name, api_key, page_size=1)
+                results = usda_service.search_foods(food.name, api_key)
                 if not results:
                     skipped += 1
                     continue

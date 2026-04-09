@@ -9,6 +9,7 @@ All nutrient values returned by FDC are per 100g of food.
 from __future__ import annotations
 
 import logging
+import re
 
 import requests
 
@@ -38,13 +39,39 @@ _NUTRIENT_MAP: dict[str, str] = {
     "646": "_poly_fat",               # Fatty acids, polyunsaturated (g)
 }
 
+# Preparation/processing keywords that meaningfully change nutrition values.
+# Used to penalise results whose preparation state differs from the query.
+_PREP_WORDS: frozenset[str] = frozenset({
+    "raw", "cooked", "dried", "frozen", "canned", "boiled", "roasted",
+    "baked", "fried", "steamed", "broiled", "grilled", "smoked",
+    "salted", "unsalted", "sweetened", "unsweetened",
+    "enriched", "unenriched", "bleached", "unbleached",
+    "toasted", "dehydrated", "pickled", "fermented",
+})
+
+# How much weight to give each FDC data type when scoring.
+# Foundation foods are measured in labs; SR Legacy is the classic USDA database;
+# Survey (FNDDS) describes composite/cooked dishes and is less accurate for raw ingredients.
+_DATA_TYPE_SCORE: dict[str, float] = {
+    "Foundation": 1.00,
+    "SR Legacy":  0.85,
+    "Survey (FNDDS)": 0.60,
+}
+
 
 class UsdaFoodSummary:
     """Lightweight search result from FDC."""
 
-    def __init__(self, fdc_id: int, description: str, brand_owner: str | None = None) -> None:
+    def __init__(
+        self,
+        fdc_id: int,
+        description: str,
+        data_type: str | None = None,
+        brand_owner: str | None = None,
+    ) -> None:
         self.fdc_id = fdc_id
         self.description = description
+        self.data_type = data_type
         self.brand_owner = brand_owner
 
 
@@ -64,6 +91,78 @@ class UsdaNutrition:
         self.trans_fat_content: float | None = kwargs.get("trans_fat_content")
         self.unsaturated_fat_content: float | None = kwargs.get("unsaturated_fat_content")
 
+
+# ---------------------------------------------------------------------------
+# Match scoring
+# ---------------------------------------------------------------------------
+
+def _tokenize(text: str) -> list[str]:
+    """Split *text* into lowercase tokens, discarding single characters."""
+    return [t for t in re.split(r"[^a-z0-9]+", text.lower()) if len(t) > 1]
+
+
+def _score_result(query: str, result: UsdaFoodSummary) -> float:
+    """Score how well *result* matches *query*. Higher is better.
+
+    Four factors, each weighted independently:
+
+    Coverage (55%)
+        Fraction of the query's tokens that appear in the description.
+        If a result is missing any of the query words it scores poorly here.
+
+    Conciseness (20%)
+        Descriptions with many tokens *beyond* the query words describe a
+        specific variant (e.g. "roasted, skin removed, salted").  Shorter
+        descriptions relative to the query are preferred.
+
+    Data type (20%)
+        Foundation > SR Legacy > Survey (FNDDS).
+
+    Preparation match (5%)
+        If the query doesn't name a preparation method (raw, roasted, etc.)
+        then descriptions that do are lightly penalised — we assume the user
+        wants the neutral/raw nutritional reference unless they said otherwise.
+    """
+    query_tokens = set(_tokenize(query))
+    desc_tokens  = set(_tokenize(result.description))
+
+    if not query_tokens:
+        return 0.0
+
+    # 1. Coverage
+    matched = query_tokens & desc_tokens
+    coverage = len(matched) / len(query_tokens)
+
+    # 2. Conciseness — penalise descriptions with many extra words
+    extra = max(0, len(desc_tokens) - len(query_tokens))
+    conciseness = 1.0 / (1.0 + extra * 0.10)
+
+    # 3. Data type reliability
+    type_score = _DATA_TYPE_SCORE.get(result.data_type or "", 0.50)
+
+    # 4. Preparation state
+    query_mentions_prep = bool(query_tokens & _PREP_WORDS)
+    desc_extra_prep = (desc_tokens & _PREP_WORDS) - query_tokens
+    prep_factor = 0.88 if (not query_mentions_prep and desc_extra_prep) else 1.0
+
+    return (coverage * 0.55 + conciseness * 0.20 + type_score * 0.20) * prep_factor + 0.05 * (1.0 if not desc_extra_prep else 0.0)
+
+
+def best_match(query: str, results: list[UsdaFoodSummary]) -> UsdaFoodSummary | None:
+    """Return the best-matching result for *query* from *results*, or ``None``."""
+    if not results:
+        return None
+    return max(results, key=lambda r: _score_result(query, r))
+
+
+def ranked_results(query: str, results: list[UsdaFoodSummary]) -> list[UsdaFoodSummary]:
+    """Return *results* sorted best-first for *query*."""
+    return sorted(results, key=lambda r: _score_result(query, r), reverse=True)
+
+
+# ---------------------------------------------------------------------------
+# API calls
+# ---------------------------------------------------------------------------
 
 def _parse_nutrients(food_nutrients: list[dict]) -> UsdaNutrition:
     """Extract mapped nutrients from a normalised FDC nutrient list.
@@ -93,15 +192,13 @@ def _parse_nutrients(food_nutrients: list[dict]) -> UsdaNutrition:
     return UsdaNutrition(**values)
 
 
-def search_foods(query: str, api_key: str, page_size: int = 8) -> list[UsdaFoodSummary]:
-    """Search FDC for foods matching *query*.
+def search_foods(query: str, api_key: str, page_size: int = 10) -> list[UsdaFoodSummary]:
+    """Search FDC for foods matching *query*, returned best-match-first.
 
-    Uses POST so that ``dataType`` is sent as a proper JSON array, avoiding the
-    400 error that occurs when ``requests`` percent-encodes a comma-separated
-    string in a GET query parameter.
-
-    Returns up to *page_size* results ordered by USDA relevance, filtered to
-    Foundation, SR Legacy, and Survey (FNDDS) data types for accuracy.
+    Uses POST so that ``dataType`` is sent as a proper JSON array.
+    Results are re-ranked by :func:`_score_result` before being returned,
+    so the first element is the best match for the query rather than simply
+    the highest USDA relevance score.
     """
     payload = {
         "query": query,
@@ -121,14 +218,21 @@ def search_foods(query: str, api_key: str, page_size: int = 8) -> list[UsdaFoodS
         raise RuntimeError(f"USDA request failed: {exc}") from exc
 
     data = resp.json()
-    results: list[UsdaFoodSummary] = []
+    raw: list[UsdaFoodSummary] = []
     for food in data.get("foods", []):
         fdc_id = food.get("fdcId")
         description = food.get("description", "")
-        brand = food.get("brandOwner") or food.get("brandName")
         if fdc_id and description:
-            results.append(UsdaFoodSummary(fdc_id=int(fdc_id), description=description, brand_owner=brand))
-    return results
+            raw.append(
+                UsdaFoodSummary(
+                    fdc_id=int(fdc_id),
+                    description=description,
+                    data_type=food.get("dataType"),
+                    brand_owner=food.get("brandOwner") or food.get("brandName"),
+                )
+            )
+
+    return ranked_results(query, raw)
 
 
 def fetch_nutrition(fdc_id: int, api_key: str) -> UsdaNutrition:
