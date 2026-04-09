@@ -73,7 +73,6 @@
               cols="12"
               sm="12"
               md="4"
-              lg="4"
               :class="$vuetify.display.mdAndUp ? 'border-e-thin' : null"
             >
               <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" class="pr-2" />
@@ -83,7 +82,7 @@
               the right column is always rendered, but it's layout width is determined by where the left column is
               rendered.
             -->
-            <v-col cols="12" sm="12" :md="8 + (isCookMode ? 1 : 0) * 4" :lg="8 + (isCookMode ? 1 : 0) * 4">
+            <v-col cols="12" sm="12" :md="8 + (isCookMode ? 1 : 0) * 4">
               <RecipePageInstructions
                 v-model="recipe.recipeInstructions"
                 v-model:assets="recipe.assets"
