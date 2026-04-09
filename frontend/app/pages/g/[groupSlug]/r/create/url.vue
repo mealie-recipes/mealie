@@ -113,7 +113,7 @@
         </div>
         <div class="d-flex row justify-space-around my-3 force-url-white">
           <a
-            class="dark"
+            class="dark text-primary"
             href="https://developers.google.com/search/docs/data-types/recipe"
             target="_blank"
             rel="noreferrer nofollow"
@@ -121,6 +121,7 @@
             {{ $t("new-recipe.google-ld-json-info") }}
           </a>
           <a
+            class="text-primary"
             href="https://github.com/mealie-recipes/mealie/issues"
             target="_blank"
             rel="noreferrer nofollow"
@@ -128,6 +129,7 @@
             {{ $t("new-recipe.github-issues") }}
           </a>
           <a
+            class="text-primary"
             href="https://schema.org/Recipe"
             target="_blank"
             rel="noreferrer nofollow"

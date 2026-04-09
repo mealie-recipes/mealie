@@ -34,6 +34,7 @@
           <a
             href="https://docs.mealie.io/contributors/translating/"
             target="_blank"
+            class="text-primary"
           >
             {{ $t("language-dialog.read-the-docs") }}
           </a>
