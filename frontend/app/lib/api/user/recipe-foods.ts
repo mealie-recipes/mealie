@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import type { CreateIngredientFood, IngredientFood, UsdaFoodResult, UsdaNutritionData } from "~/lib/api/types/recipe";
+import type { CreateIngredientFood, IngredientFood, UsdaBulkUpdateResult, UsdaFoodResult, UsdaNutritionData } from "~/lib/api/types/recipe";
 
 const prefix = "/api";
 
@@ -9,6 +9,7 @@ const routes = {
   merge: `${prefix}/foods/merge`,
   usdaSearch: `${prefix}/foods/usda/search`,
   usdaNutrition: (fdcId: number) => `${prefix}/foods/usda/${fdcId}/nutrition`,
+  usdaBulkUpdate: `${prefix}/foods/usda/bulk-update`,
 };
 
 export class FoodAPI extends BaseCRUDAPI<CreateIngredientFood, IngredientFood> {
@@ -25,5 +26,11 @@ export class FoodAPI extends BaseCRUDAPI<CreateIngredientFood, IngredientFood> {
 
   usdaFetchNutrition(fdcId: number) {
     return this.requests.get<UsdaNutritionData>(routes.usdaNutrition(fdcId));
+  }
+
+  usdaBulkUpdate(overwrite = false) {
+    return this.requests.post<UsdaBulkUpdateResult>(routes.usdaBulkUpdate, {}, {
+      params: { overwrite },
+    });
   }
 }

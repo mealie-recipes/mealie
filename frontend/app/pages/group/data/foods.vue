@@ -86,6 +86,52 @@
       @apply="applyUsdaNutrition"
     />
 
+    <!-- USDA Bulk Update Dialog -->
+    <BaseDialog
+      v-model="usdaBulkDialog"
+      :title="$t('usda.bulk-dialog-title')"
+      :icon="$globals.icons.foods"
+      :can-confirm="!bulkRunning && !bulkResult"
+      :confirm-text="$t('usda.bulk-run')"
+      @confirm="runBulkUpdate"
+    >
+      <v-card-text>
+        <template v-if="!bulkRunning && !bulkResult">
+          <p>{{ $t('usda.bulk-description') }}</p>
+          <v-checkbox
+            v-model="bulkOverwrite"
+            :label="$t('usda.bulk-overwrite')"
+            hide-details
+            class="mt-2"
+          />
+          <v-alert type="info" class="mt-3" density="compact">
+            {{ $t('usda.bulk-rate-limit-note') }}
+          </v-alert>
+        </template>
+
+        <div v-if="bulkRunning" class="d-flex flex-column align-center py-6 gap-3">
+          <v-progress-circular indeterminate color="primary" size="48" />
+          <span class="text-body-2 text-medium-emphasis">{{ $t('usda.bulk-running') }}</span>
+        </div>
+
+        <template v-if="bulkResult">
+          <v-list density="compact">
+            <v-list-item :title="$t('usda.bulk-result-updated')" :subtitle="String(bulkResult.updated)" />
+            <v-list-item :title="$t('usda.bulk-result-skipped')" :subtitle="String(bulkResult.skipped)" />
+            <v-list-item :title="$t('usda.bulk-result-failed')" :subtitle="String(bulkResult.failed)" />
+          </v-list>
+          <v-alert
+            v-if="bulkResult.failures.length > 0"
+            type="warning"
+            class="mt-2"
+            density="compact"
+          >
+            {{ $t('usda.bulk-failures') }}: {{ bulkResult.failures.join(', ') }}
+          </v-alert>
+        </template>
+      </v-card-text>
+    </BaseDialog>
+
     <!-- Alias Sub-Dialog -->
     <RecipeDataAliasManagerDialog
       v-if="editForm.data"
@@ -160,6 +206,9 @@
           </template>
           {{ $t('data-pages.combine') }}
         </BaseButton>
+        <BaseButton :icon="$globals.icons.foods" @click="openBulkDialog">
+          {{ $t('usda.bulk-fetch-button') }}
+        </BaseButton>
       </template>
 
       <template #[`item.label`]="{ item }">
@@ -215,7 +264,7 @@ import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataA
 import FoodUsdaFetchDialog from "~/components/Domain/Recipe/FoodUsdaFetchDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias, UsdaNutritionData } from "~/lib/api/types/recipe";
+import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias, UsdaBulkUpdateResult, UsdaNutritionData } from "~/lib/api/types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
@@ -467,9 +516,35 @@ async function handleBulkAction(event: string, items: IngredientFoodWithOnHand[]
 }
 
 // ============================================================
-// USDA Nutrition Fetch
+// USDA Nutrition Fetch (single food)
 
 const usdaDialog = ref(false);
+
+// ============================================================
+// USDA Bulk Update
+
+const usdaBulkDialog = ref(false);
+const bulkOverwrite = ref(false);
+const bulkRunning = ref(false);
+const bulkResult = ref<UsdaBulkUpdateResult | null>(null);
+
+function openBulkDialog() {
+  bulkOverwrite.value = false;
+  bulkRunning.value = false;
+  bulkResult.value = null;
+  usdaBulkDialog.value = true;
+}
+
+async function runBulkUpdate() {
+  bulkRunning.value = true;
+  bulkResult.value = null;
+  const { data } = await userApi.foods.usdaBulkUpdate(bulkOverwrite.value);
+  bulkRunning.value = false;
+  if (data) {
+    bulkResult.value = data;
+    foodStore.actions.refresh();
+  }
+}
 
 function applyUsdaNutrition(data: UsdaNutritionData) {
   if (!editForm.data) return;

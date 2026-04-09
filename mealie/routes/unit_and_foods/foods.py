@@ -14,6 +14,7 @@ from mealie.schema.recipe.recipe_ingredient import (
     IngredientFoodPagination,
     MergeFood,
     SaveIngredientFood,
+    UsdaBulkUpdateResult,
     UsdaFoodResult,
     UsdaNutritionData,
 )
@@ -80,6 +81,72 @@ class IngredientFoodsController(BaseUserController):
             UsdaFoodResult(fdc_id=r.fdc_id, description=r.description, brand_owner=r.brand_owner)
             for r in results
         ]
+
+    @router.post("/usda/bulk-update", response_model=UsdaBulkUpdateResult)
+    def usda_bulk_update(
+        self,
+        overwrite: bool = Query(False, description="Re-fetch nutrition even for foods that already have data"),
+    ):
+        """Bulk-populate nutrition data for all foods by searching USDA FoodData Central.
+
+        For each food the name is used as the search query; the top result's nutrition
+        is applied.  Foods that already have a ``calories`` value are skipped unless
+        ``overwrite=true``.
+        """
+        import time
+
+        all_foods = self.repo.get_all(override=IngredientFood)
+        api_key = self.settings.usda_api_key
+
+        updated = skipped = failed = 0
+        failures: list[str] = []
+
+        for food in all_foods:
+            # Skip if already populated and not overwriting
+            if not overwrite and food.calories is not None:
+                skipped += 1
+                continue
+
+            try:
+                results = usda_service.search_foods(food.name, api_key, page_size=1)
+                if not results:
+                    skipped += 1
+                    continue
+
+                nutrition = usda_service.fetch_nutrition(results[0].fdc_id, api_key)
+            except RuntimeError:
+                failed += 1
+                failures.append(food.name)
+                continue
+            finally:
+                # Small delay to stay well within the 1 000 req/hr rate limit
+                time.sleep(0.1)
+
+            # Apply nutrition fields to the food and save
+            update_data = IngredientFood.model_validate(food)
+            update_data.calories = nutrition.calories
+            update_data.protein_content = nutrition.protein_content
+            update_data.fat_content = nutrition.fat_content
+            update_data.carbohydrate_content = nutrition.carbohydrate_content
+            update_data.fiber_content = nutrition.fiber_content
+            update_data.sugar_content = nutrition.sugar_content
+            update_data.sodium_content = nutrition.sodium_content
+            update_data.saturated_fat_content = nutrition.saturated_fat_content
+            update_data.cholesterol_content = nutrition.cholesterol_content
+            update_data.trans_fat_content = nutrition.trans_fat_content
+            update_data.unsaturated_fat_content = nutrition.unsaturated_fat_content
+
+            save_data = mapper.cast(update_data, SaveIngredientFood, group_id=self.group_id)
+            self.mixins.update_one(save_data, food.id)
+            updated += 1
+
+        return UsdaBulkUpdateResult(
+            total=len(all_foods),
+            updated=updated,
+            skipped=skipped,
+            failed=failed,
+            failures=failures,
+        )
 
     @router.get("/usda/{fdc_id}/nutrition", response_model=UsdaNutritionData)
     def usda_fetch_nutrition(self, fdc_id: int):

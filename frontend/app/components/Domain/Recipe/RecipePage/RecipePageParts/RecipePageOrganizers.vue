@@ -70,7 +70,7 @@
     </v-card>
 
     <RecipeNutrition
-      v-if="recipe.settings.showNutrition"
+      v-if="recipe.settings.showNutrition || recipe.nutritionCalculated"
       v-model="recipe.nutrition"
       class="mt-4"
       :edit="isEditForm"

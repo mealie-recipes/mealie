@@ -470,6 +470,7 @@
   "usda": {
     "dialog-title": "Fetch Nutrition from USDA",
     "fetch-button": "Fetch from USDA",
+    "bulk-fetch-button": "Bulk Fetch Nutrition",
     "search-label": "Food name",
     "search": "Search",
     "search-failed": "Search failed. Check that the server can reach api.nal.usda.gov, or set a USDA_API_KEY in your server settings.",
@@ -479,7 +480,17 @@
     "nutrient": "Nutrient",
     "per-100g": "Per 100g",
     "apply": "Apply to Food",
-    "source-note": "Source: USDA FoodData Central. Values will be applied to the food form — save the food to keep them."
+    "source-note": "Source: USDA FoodData Central. Values will be applied to the food form — save the food to keep them.",
+    "bulk-dialog-title": "Bulk Fetch Nutrition from USDA",
+    "bulk-description": "Automatically fetch and save nutrition data for all foods by searching USDA FoodData Central using each food's name. Foods that already have nutrition data will be skipped unless you enable overwrite.",
+    "bulk-overwrite": "Overwrite existing nutrition data",
+    "bulk-rate-limit-note": "This may take a while for large food lists. Each food requires two USDA API calls.",
+    "bulk-run": "Run",
+    "bulk-running": "Fetching nutrition data from USDA…",
+    "bulk-result-updated": "Updated",
+    "bulk-result-skipped": "Skipped (already had data)",
+    "bulk-result-failed": "Failed",
+    "bulk-failures": "Could not fetch data for"
   },
   "page": {
     "404-page-not-found": "404 Page not found",

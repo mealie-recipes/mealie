@@ -251,6 +251,13 @@ export interface UsdaNutritionData {
   transFatContent?: number | null;
   unsaturatedFatContent?: number | null;
 }
+export interface UsdaBulkUpdateResult {
+  total: number;
+  updated: number;
+  skipped: number;
+  failed: number;
+  failures: string[];
+}
 export interface Nutrition {
   calories?: string | null;
   carbohydrateContent?: string | null;

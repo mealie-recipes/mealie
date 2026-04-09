@@ -463,6 +463,16 @@ class UsdaNutritionData(MealieModel):
     unsaturated_fat_content: float | None = None
 
 
+class UsdaBulkUpdateResult(MealieModel):
+    """Summary returned by the bulk USDA nutrition update endpoint."""
+
+    total: int
+    updated: int
+    skipped: int
+    failed: int
+    failures: list[str] = []
+
+
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402
 
 IngredientFood.model_rebuild()
