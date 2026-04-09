@@ -310,7 +310,9 @@ const appConfig = ref<CheckApp>({
   isSiteSecure: true,
   isUpToDate: false,
   ldapReady: false,
+  ldapDisabled: false,
   oidcReady: false,
+  oidcDisabled: false,
 });
 const adminStats = ref<AppStatistics>({
   totalRecipes: 0,
@@ -379,9 +381,11 @@ const simpleChecks = computed<SimpleCheck[]>(() => {
   const goodIcon = $globals.icons.checkboxMarkedCircle;
   const badIcon = $globals.icons.alert;
   const warningIcon = $globals.icons.alertCircle;
+  const disabledIcon = $globals.icons.minusCircle;
   const goodColor = "success";
   const badColor = "error";
   const warningColor = "warning";
+  const disabledColor = "grey";
   const data: SimpleCheck[] = [
     {
       id: "application-version",
@@ -412,21 +416,21 @@ const simpleChecks = computed<SimpleCheck[]>(() => {
     },
     {
       id: "ldap-ready",
-      text: appConfig.value.ldapReady ? i18n.t("settings.ldap-ready") : i18n.t("settings.ldap-not-ready"),
+      text: appConfig.value.ldapDisabled ? i18n.t("settings.ldap-disabled") : appConfig.value.ldapReady ? i18n.t("settings.ldap-ready") : i18n.t("settings.ldap-not-ready"),
       status: appConfig.value.ldapReady,
       errorText: i18n.t("settings.ldap-ready-error-text"),
       successText: i18n.t("settings.ldap-ready-success-text"),
-      color: appConfig.value.ldapReady ? goodColor : warningColor,
-      icon: appConfig.value.ldapReady ? goodIcon : warningIcon,
+      color: appConfig.value.ldapDisabled ? disabledColor : appConfig.value.ldapReady ? goodColor : warningColor,
+      icon: appConfig.value.ldapDisabled ? disabledIcon : appConfig.value.ldapReady ? goodIcon : warningIcon,
     },
     {
       id: "oidc-ready",
-      text: appConfig.value.oidcReady ? i18n.t("settings.oidc-ready") : i18n.t("settings.oidc-not-ready"),
+      text: appConfig.value.oidcDisabled ? i18n.t("settings.oidc-disabled") : appConfig.value.oidcReady ? i18n.t("settings.oidc-ready") : i18n.t("settings.oidc-not-ready"),
       status: appConfig.value.oidcReady,
       errorText: i18n.t("settings.oidc-ready-error-text"),
       successText: i18n.t("settings.oidc-ready-success-text"),
-      color: appConfig.value.oidcReady ? goodColor : warningColor,
-      icon: appConfig.value.oidcReady ? goodIcon : warningIcon,
+      color: appConfig.value.oidcDisabled ? disabledColor : appConfig.value.oidcReady ? goodColor : warningColor,
+      icon: appConfig.value.oidcDisabled ? disabledIcon : appConfig.value.oidcReady ? goodIcon : warningIcon,
     },
   ];
   return data;
