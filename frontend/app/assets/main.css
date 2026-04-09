@@ -68,3 +68,8 @@
 .vue-simple-handler {
   background-color: rgb(var(--v-theme-primary)) !important;
 }
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
+}
