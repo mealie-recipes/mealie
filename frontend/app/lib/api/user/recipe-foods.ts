@@ -20,7 +20,7 @@ export class FoodAPI extends BaseCRUDAPI<CreateIngredientFood, IngredientFood> {
   }
 
   usdaSearch(query: string) {
-    return this.requests.get<UsdaFoodResult[]>(routes.usdaSearch, { params: { q: query } });
+    return this.requests.get<UsdaFoodResult[]>(routes.usdaSearch, { q: query });
   }
 
   usdaFetchNutrition(fdcId: number) {

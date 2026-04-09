@@ -175,7 +175,10 @@ async function search() {
   searching.value = false;
 
   if (error) {
-    searchError.value = i18n.t("usda.search-failed");
+    const detail = (error as any)?.response?.data?.detail;
+    searchError.value = detail
+      ? `${i18n.t("usda.search-failed")}: ${detail}`
+      : i18n.t("usda.search-failed");
     return;
   }
   if (!data || data.length === 0) {
