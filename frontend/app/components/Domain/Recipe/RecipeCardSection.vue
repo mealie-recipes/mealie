@@ -152,7 +152,7 @@
           </v-col>
         </v-row>
       </div>
-      <v-card v-intersect="infiniteScroll" />
+      <v-card v-intersect="infiniteScroll" variant="flat" />
     </div>
     <v-fade-transition>
       <AppLoader
