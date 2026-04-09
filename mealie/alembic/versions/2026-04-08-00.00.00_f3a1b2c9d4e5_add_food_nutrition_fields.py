@@ -1,7 +1,7 @@
 """add food nutrition fields
 
 Revision ID: f3a1b2c9d4e5
-Revises: a39c7f1826e3
+Revises: cdc93edaf73d
 Create Date: 2026-04-08 00:00:00.000000
 
 """
@@ -11,7 +11,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "f3a1b2c9d4e5"
-down_revision: str | None = "a39c7f1826e3"
+down_revision: str | None = "cdc93edaf73d"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
 
