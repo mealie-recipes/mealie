@@ -17,21 +17,25 @@ logger = logging.getLogger(__name__)
 USDA_BASE_URL = "https://api.nal.usda.gov/fdc/v1"
 _TIMEOUT = 10  # seconds
 
-# Standard nutrient numbers used by FoodData Central (consistent across data types)
+# Standard nutrient numbers used by FoodData Central (consistent across data types).
+# These are the numbers passed to the ?nutrients= filter on the detail endpoint.
+_NUTRIENT_NUMBERS = [203, 204, 205, 208, 269, 291, 307, 601, 605, 606, 645, 646]
+
+# Maps FDC nutrient number (string) → Mealie food field name
 _NUTRIENT_MAP: dict[str, str] = {
-    "208": "calories",              # Energy (kcal)
-    "203": "protein_content",      # Protein (g)
-    "204": "fat_content",          # Total lipid/fat (g)
-    "205": "carbohydrate_content", # Carbohydrate by difference (g)
-    "291": "fiber_content",        # Fiber, total dietary (g)
-    "269": "sugar_content",        # Sugars, total (g)
-    "307": "sodium_content",       # Sodium (mg)
+    "208": "calories",                # Energy (kcal)
+    "203": "protein_content",         # Protein (g)
+    "204": "fat_content",             # Total lipid/fat (g)
+    "205": "carbohydrate_content",    # Carbohydrate by difference (g)
+    "291": "fiber_content",           # Fiber, total dietary (g)
+    "269": "sugar_content",           # Sugars, total (g)
+    "307": "sodium_content",          # Sodium (mg)
     "606": "saturated_fat_content",   # Fatty acids, total saturated (g)
-    "601": "cholesterol_content",  # Cholesterol (mg)
-    "605": "trans_fat_content",    # Fatty acids, total trans (g)
+    "601": "cholesterol_content",     # Cholesterol (mg)
+    "605": "trans_fat_content",       # Fatty acids, total trans (g)
     # Unsaturated = mono + poly — handled specially below
-    "645": "_mono_fat",            # Fatty acids, monounsaturated (g)
-    "646": "_poly_fat",            # Fatty acids, polyunsaturated (g)
+    "645": "_mono_fat",               # Fatty acids, monounsaturated (g)
+    "646": "_poly_fat",               # Fatty acids, polyunsaturated (g)
 }
 
 
@@ -62,7 +66,10 @@ class UsdaNutrition:
 
 
 def _parse_nutrients(food_nutrients: list[dict]) -> UsdaNutrition:
-    """Extract mapped nutrients from a FDC food nutrient list."""
+    """Extract mapped nutrients from a normalised FDC nutrient list.
+
+    Each entry must have ``nutrientNumber`` (str) and ``value`` (float).
+    """
     values: dict[str, float] = {}
     for nutrient in food_nutrients:
         number = str(nutrient.get("nutrientNumber", ""))
@@ -77,7 +84,7 @@ def _parse_nutrients(food_nutrients: list[dict]) -> UsdaNutrition:
         if mapped:
             values[mapped] = float_val
 
-    # Compute unsaturated fat = mono + poly
+    # Unsaturated fat = monounsaturated + polyunsaturated
     mono = values.pop("_mono_fat", None)
     poly = values.pop("_poly_fat", None)
     if mono is not None or poly is not None:
@@ -89,22 +96,25 @@ def _parse_nutrients(food_nutrients: list[dict]) -> UsdaNutrition:
 def search_foods(query: str, api_key: str, page_size: int = 8) -> list[UsdaFoodSummary]:
     """Search FDC for foods matching *query*.
 
-    Returns up to *page_size* results ordered by USDA relevance.
-    Prefers Foundation and SR Legacy data types for accuracy.
+    Uses POST so that ``dataType`` is sent as a proper JSON array, avoiding the
+    400 error that occurs when ``requests`` percent-encodes a comma-separated
+    string in a GET query parameter.
+
+    Returns up to *page_size* results ordered by USDA relevance, filtered to
+    Foundation, SR Legacy, and Survey (FNDDS) data types for accuracy.
     """
-    # Pass dataType as a list so requests repeats the parameter
-    # (?dataType=Foundation&dataType=SR+Legacy&...) rather than encoding
-    # commas as %2C, which the USDA API rejects with a 400.
-    params = [
-        ("query", query),
-        ("pageSize", page_size),
-        ("dataType", "Foundation"),
-        ("dataType", "SR Legacy"),
-        ("dataType", "Survey (FNDDS)"),
-        ("api_key", api_key),
-    ]
+    payload = {
+        "query": query,
+        "pageSize": page_size,
+        "dataType": ["Foundation", "SR Legacy", "Survey (FNDDS)"],
+    }
     try:
-        resp = requests.get(f"{USDA_BASE_URL}/foods/search", params=params, timeout=_TIMEOUT)
+        resp = requests.post(
+            f"{USDA_BASE_URL}/foods/search",
+            json=payload,
+            params={"api_key": api_key},
+            timeout=_TIMEOUT,
+        )
         resp.raise_for_status()
     except requests.RequestException as exc:
         logger.warning("USDA FDC search request failed: %s", exc)
@@ -122,11 +132,16 @@ def search_foods(query: str, api_key: str, page_size: int = 8) -> list[UsdaFoodS
 
 
 def fetch_nutrition(fdc_id: int, api_key: str) -> UsdaNutrition:
-    """Fetch full nutrient data for a specific FDC food ID.
+    """Fetch nutrient data (per 100g) for a specific FDC food ID.
 
-    Returns a :class:`UsdaNutrition` with values per 100g (or None for missing fields).
+    Requests only the nutrient numbers we map, using repeating ``nutrients``
+    query params as the spec allows (nutrients=203&nutrients=204&...).
+
+    The detail endpoint returns ``FoodNutrient`` objects where the value is
+    ``amount`` (top-level) and the nutrient number is ``nutrient.number``
+    (nested string).
     """
-    params = {"api_key": api_key}
+    params = [("api_key", api_key)] + [("nutrients", n) for n in _NUTRIENT_NUMBERS]
     try:
         resp = requests.get(f"{USDA_BASE_URL}/food/{fdc_id}", params=params, timeout=_TIMEOUT)
         resp.raise_for_status()
@@ -137,14 +152,14 @@ def fetch_nutrition(fdc_id: int, api_key: str) -> UsdaNutrition:
     data = resp.json()
     food_nutrients = data.get("foodNutrients", [])
 
-    # Food detail endpoint nests the nutrient number differently
+    # Normalise FoodNutrient → {nutrientNumber, value} for _parse_nutrients
     normalized: list[dict] = []
     for fn in food_nutrients:
         nutrient = fn.get("nutrient", {})
         normalized.append(
             {
-                "nutrientNumber": nutrient.get("number", ""),
-                "value": fn.get("amount"),
+                "nutrientNumber": nutrient.get("number", ""),  # nested string, e.g. "203"
+                "value": fn.get("amount"),                     # top-level float
             }
         )
 
