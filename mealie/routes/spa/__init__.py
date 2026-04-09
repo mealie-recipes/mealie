@@ -3,7 +3,6 @@ import json
 import pathlib
 from dataclasses import dataclass
 from typing import Any
-from urllib.parse import urlparse
 
 from bs4 import BeautifulSoup
 from fastapi import Depends, FastAPI, Response
