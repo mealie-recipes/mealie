@@ -61,10 +61,6 @@
   max-width: 100%;
 }
 
-a {
-  color: rgb(var(--v-theme-primary));
-}
-
 .fill-height {
   min-height: 100vh;
 }
