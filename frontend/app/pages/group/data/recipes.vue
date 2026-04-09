@@ -179,6 +179,14 @@
           {{ $t('general.selected-count', selected.length)
           }}
         </p>
+        <v-spacer />
+        <v-checkbox
+          v-model="showOnlyUnparsed"
+          :label="$t('data-pages.recipes.show-only-unparsed')"
+          hide-details
+          density="compact"
+          class="ml-2"
+        />
       </v-card-actions>
       <v-card>
         <RecipeDataTable
@@ -263,6 +271,14 @@ useSeoMeta({
 
 const { refreshRecipes } = useRecipes(true, true, false, `householdId=${auth.user.value?.householdId || ""}`);
 const selected = ref<Recipe[]>([]);
+const showOnlyUnparsed = ref(false);
+
+watch(showOnlyUnparsed, async (val) => {
+  const baseFilter = `householdId=${auth.user.value?.householdId || ""}`;
+  const filter = val ? `${baseFilter} AND hasUnparsedIngredients = true` : baseFilter;
+  await refreshRecipes(filter);
+  selected.value = [];
+});
 
 function resetAll() {
   selected.value = [];

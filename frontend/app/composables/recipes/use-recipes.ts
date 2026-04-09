@@ -136,8 +136,9 @@ export const useRecipes = (
     }
   })();
 
-  async function refreshRecipes() {
-    const { data } = await api.recipes.getAll(page, perPage, { loadFood, orderBy: "created_at", queryFilter });
+  async function refreshRecipes(queryFilterOverride?: string | null) {
+    const effectiveFilter = queryFilterOverride !== undefined ? queryFilterOverride : queryFilter;
+    const { data } = await api.recipes.getAll(page, perPage, { loadFood, orderBy: "created_at", queryFilter: effectiveFilter });
     if (data) {
       recipes.value = data.items;
     }

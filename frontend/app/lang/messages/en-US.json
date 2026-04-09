@@ -1184,7 +1184,8 @@
       "categorize-recipes": "Categorize Recipes",
       "export-recipes": "Export Recipes",
       "delete-recipes": "Delete Recipes",
-      "source-unit-will-be-deleted": "Source Unit will be deleted"
+      "source-unit-will-be-deleted": "Source Unit will be deleted",
+      "show-only-unparsed": "Show only recipes with unparsed ingredients"
     },
     "recipe-actions": {
       "recipe-actions-data": "Recipe Actions Data",
