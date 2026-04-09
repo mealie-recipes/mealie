@@ -6,7 +6,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       console.log(`changing theme to ${v ? "dark" : "light"} using @vueuse/useDark`);
       const $vuetify = nuxtApp.vueApp.$nuxt.$vuetify;
       if ($vuetify)
-        $vuetify.theme.global.name.value = v ? "dark" : "light";
+        $vuetify.theme.toggle();
     },
   });
 
