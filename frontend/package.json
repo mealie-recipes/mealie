@@ -39,6 +39,7 @@
   "devDependencies": {
     "@nuxt/eslint": "^1.2.0",
     "@stylistic/eslint-plugin": "^5.4.0",
+    "@types/node": "^25.5.2",
     "@types/sortablejs": "^1.15.8",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.0.2",
