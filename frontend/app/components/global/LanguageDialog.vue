@@ -22,9 +22,9 @@
             v-bind="props"
             class="px-2 py-2"
           >
-            <v-list-item-title> {{ item.raw.name }} </v-list-item-title>
+            <v-list-item-title> {{ item.name }} </v-list-item-title>
             <v-list-item-subtitle>
-              {{ item.raw.progress }}% {{ $t("language-dialog.translated") }}
+              {{ item.progress }}% {{ $t("language-dialog.translated") }}
             </v-list-item-subtitle>
           </div>
         </template>
