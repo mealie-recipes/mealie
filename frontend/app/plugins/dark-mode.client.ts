@@ -11,7 +11,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   });
 
   nuxtApp.hook("vuetify:ready", (vuetify) => {
-    vuetify.theme.global.name.value = isDark.value ? "dark" : "light";
+    vuetify.theme.change(isDark.value ? "dark" : "light");
   });
 
   return {
