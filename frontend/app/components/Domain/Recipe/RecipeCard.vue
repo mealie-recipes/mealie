@@ -36,10 +36,8 @@
             </div>
           </v-expand-transition>
         </RecipeCardImage>
-        <v-card-title class="mb-n3 px-4">
-          <div class="headerClass">
-            {{ name }}
-          </div>
+        <v-card-title class="mb-n3 px-4" style="font-size: 1.25rem;">
+          {{ name }}
         </v-card-title>
 
         <slot name="actions">
