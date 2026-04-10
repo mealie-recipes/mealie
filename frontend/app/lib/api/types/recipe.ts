@@ -265,6 +265,12 @@ export interface UsdaBulkUpdateResult {
   failed: number;
   failures: string[];
 }
+export interface RecipalIngredientResult {
+  ingredientId: number;
+  name: string;
+  brand?: string | null;
+  usdaVerified?: boolean;
+}
 export interface Nutrition {
   calories?: string | null;
   carbohydrateContent?: string | null;

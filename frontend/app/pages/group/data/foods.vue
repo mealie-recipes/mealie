@@ -86,6 +86,12 @@
       @apply="(data, meta) => applyUsdaNutrition(data, meta)"
     />
 
+    <!-- Recipal Nutrition Fetch Dialog -->
+    <FoodRecipalFetchDialog
+      v-model="recipalDialog"
+      @apply="(data, meta) => applyRecipalNutrition(data, meta)"
+    />
+
     <!-- USDA Bulk Update Dialog -->
     <BaseDialog
       v-model="usdaBulkDialog"
@@ -280,6 +286,13 @@
           {{ $t('usda.fetch-button') }}
         </BaseButton>
         <BaseButton
+          :icon="$globals.icons.foods"
+          color="info"
+          @click="recipalDialog = true"
+        >
+          {{ $t('recipal.fetch-button') }}
+        </BaseButton>
+        <BaseButton
           edit
           @click="aliasManagerDialog = true"
         >
@@ -294,6 +307,7 @@
 import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import FoodUsdaFetchDialog from "~/components/Domain/Recipe/FoodUsdaFetchDialog.vue";
+import FoodRecipalFetchDialog from "~/components/Domain/Recipe/FoodRecipalFetchDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias, UsdaBulkUpdateResult, UsdaNutritionData } from "~/lib/api/types/recipe";
@@ -566,6 +580,11 @@ async function handleBulkAction(event: string, items: IngredientFoodWithOnHand[]
 const usdaDialog = ref(false);
 
 // ============================================================
+// Recipal Nutrition Fetch (single food)
+
+const recipalDialog = ref(false);
+
+// ============================================================
 // USDA Bulk Update
 
 const usdaBulkDialog = ref(false);
@@ -610,6 +629,24 @@ function applyUsdaNutrition(
   editForm.data.usdaFdcId = meta.fdcId;
   editForm.data.usdaDescription = meta.description;
   editForm.data.usdaConfidence = meta.confidence;
+}
+
+function applyRecipalNutrition(
+  data: UsdaNutritionData,
+  _meta: { ingredientId: number; name: string },
+) {
+  if (!editForm.data) return;
+  editForm.data.calories = data.calories ?? editForm.data.calories;
+  editForm.data.proteinContent = data.proteinContent ?? editForm.data.proteinContent;
+  editForm.data.fatContent = data.fatContent ?? editForm.data.fatContent;
+  editForm.data.carbohydrateContent = data.carbohydrateContent ?? editForm.data.carbohydrateContent;
+  editForm.data.fiberContent = data.fiberContent ?? editForm.data.fiberContent;
+  editForm.data.sugarContent = data.sugarContent ?? editForm.data.sugarContent;
+  editForm.data.sodiumContent = data.sodiumContent ?? editForm.data.sodiumContent;
+  editForm.data.saturatedFatContent = data.saturatedFatContent ?? editForm.data.saturatedFatContent;
+  editForm.data.cholesterolContent = data.cholesterolContent ?? editForm.data.cholesterolContent;
+  editForm.data.transFatContent = data.transFatContent ?? editForm.data.transFatContent;
+  editForm.data.unsaturatedFatContent = data.unsaturatedFatContent ?? editForm.data.unsaturatedFatContent;
 }
 
 // ============================================================

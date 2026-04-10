@@ -18,9 +18,12 @@ from mealie.schema.recipe.recipe_ingredient import (
     UsdaFoodResult,
     UsdaNutritionData,
 )
+from mealie.schema.recipe.recipe_ingredient import (
+    RecipalIngredientResult,
+)
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import SuccessResponse
-from mealie.services.recipe import usda_service
+from mealie.services.recipe import recipal_service, usda_service
 
 router = APIRouter(prefix="/foods", tags=["Recipes: Foods"], route_class=MealieCrudRoute)
 
@@ -183,6 +186,65 @@ class IngredientFoodsController(BaseUserController):
         """
         try:
             nutrition = usda_service.fetch_nutrition(fdc_id, self.settings.usda_api_key)
+        except RuntimeError as exc:
+            raise HTTPException(status_code=502, detail=str(exc)) from exc
+        return UsdaNutritionData(
+            calories=nutrition.calories,
+            protein_content=nutrition.protein_content,
+            fat_content=nutrition.fat_content,
+            carbohydrate_content=nutrition.carbohydrate_content,
+            fiber_content=nutrition.fiber_content,
+            sugar_content=nutrition.sugar_content,
+            sodium_content=nutrition.sodium_content,
+            saturated_fat_content=nutrition.saturated_fat_content,
+            cholesterol_content=nutrition.cholesterol_content,
+            trans_fat_content=nutrition.trans_fat_content,
+            unsaturated_fat_content=nutrition.unsaturated_fat_content,
+        )
+
+    # =========================================================
+    # Recipal integration
+
+    @router.get("/recipal/ingredients", response_model=list[RecipalIngredientResult])
+    def recipal_list_ingredients(
+        self,
+        page: int = Query(1, ge=1, description="Page number (1-based)"),
+        per_page: int = Query(20, ge=1, le=20, description="Results per page (max 20)"),
+    ):
+        """List the authenticated user's ingredients from Recipal (paginated, sorted by name).
+
+        Requires RECIPAL_API_KEY to be set in server settings.
+        """
+        api_key = self.settings.RECIPAL_API_KEY
+        if not api_key:
+            raise HTTPException(status_code=400, detail="RECIPAL_API_KEY is not configured on this server.")
+        try:
+            ingredients, _ = recipal_service.list_ingredients(api_key, page=page, per_page=per_page)
+        except RuntimeError as exc:
+            raise HTTPException(status_code=502, detail=str(exc)) from exc
+        return [
+            RecipalIngredientResult(
+                ingredient_id=r.ingredient_id,
+                name=r.name,
+                brand=r.brand,
+                usda_verified=r.usda_verified,
+            )
+            for r in ingredients
+        ]
+
+    @router.get("/recipal/{ingredient_id}/nutrition", response_model=UsdaNutritionData)
+    def recipal_fetch_nutrition(self, ingredient_id: int):
+        """Fetch nutrition data (per 100g) for a specific Recipal ingredient ID.
+
+        Returns nutrition values that can be applied to a Mealie food record.
+        Does **not** modify any Mealie data — the caller is responsible for saving.
+        Requires RECIPAL_API_KEY to be set in server settings.
+        """
+        api_key = self.settings.RECIPAL_API_KEY
+        if not api_key:
+            raise HTTPException(status_code=400, detail="RECIPAL_API_KEY is not configured on this server.")
+        try:
+            _, nutrition = recipal_service.fetch_ingredient(ingredient_id, api_key)
         except RuntimeError as exc:
             raise HTTPException(status_code=502, detail=str(exc)) from exc
         return UsdaNutritionData(

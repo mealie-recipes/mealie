@@ -479,6 +479,15 @@ class UsdaBulkUpdateResult(MealieModel):
     failures: list[str] = []
 
 
+class RecipalIngredientResult(MealieModel):
+    """A single ingredient returned by the Recipal ingredient list endpoint."""
+
+    ingredient_id: int
+    name: str
+    brand: str | None = None
+    usda_verified: bool = False
+
+
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402
 
 IngredientFood.model_rebuild()

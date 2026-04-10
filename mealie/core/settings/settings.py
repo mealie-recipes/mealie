@@ -457,6 +457,16 @@ class AppSettings(AppLoggingSettings):
         return self.USDA_API_KEY or "DEMO_KEY"
 
     # ===============================================
+    # Recipal Configuration
+
+    RECIPAL_API_KEY: MaskedNoneString = None
+    """
+    API key for the Recipal nutrition database API.
+    Obtain a key at https://www.recipal.com/api-docs
+    Required for Recipal integration — no public fallback key is available.
+    """
+
+    # ===============================================
     # Web Concurrency
 
     WORKER_PER_CORE: int = 1
