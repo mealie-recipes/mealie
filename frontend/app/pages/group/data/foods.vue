@@ -226,6 +226,12 @@
         </v-icon>
       </template>
 
+      <template #[`item.hasNutrition`]="{ item }">
+        <v-icon v-if="item.hasNutrition" color="success">
+          {{ $globals.icons.check }}
+        </v-icon>
+      </template>
+
       <template #[`item.createdAt`]="{ item }">
         {{ item.createdAt ? $d(new Date(item.createdAt)) : '' }}
       </template>
@@ -330,6 +336,12 @@ const tableHeaders: TableHeaders[] = [
     sortable: true,
   },
   {
+    text: i18n.t("recipe.nutrition"),
+    value: "hasNutrition",
+    show: true,
+    sortable: true,
+  },
+  {
     text: i18n.t("general.date-added"),
     value: "createdAt",
     show: false,
@@ -341,7 +353,8 @@ const userHousehold = computed(() => auth.user.value?.householdSlug || "");
 const foodStore = useFoodStore();
 const foods = computed(() => foodStore.store.value.map((food) => {
   const onHand = food.householdsWithIngredientFood?.includes(userHousehold.value) || false;
-  return { ...food, onHand } as IngredientFoodWithOnHand;
+  const hasNutrition = food.calories != null;
+  return { ...food, onHand, hasNutrition };
 }));
 
 // ============================================================
