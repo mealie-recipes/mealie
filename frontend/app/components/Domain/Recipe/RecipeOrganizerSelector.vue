@@ -27,12 +27,10 @@
         color="accent"
         variant="flat"
         label
-
+        :text="item.name"
         closable
         @click:close="removeByIndex(index)"
-      >
-        {{ item.value }}
-      </v-chip>
+      />
     </template>
     <template
       v-if="showAdd"

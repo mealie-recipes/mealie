@@ -6,9 +6,10 @@
         :key="index"
         cols="12"
         sm="12"
-        md="4"
+        md="6"
         lg="4"
-        xl="2"
+        xl="3"
+        xxl="2"
         class="col-borders my-1 d-flex flex-column"
       >
         <v-card class="mb-2 border-left-primary rounded-sm px-2">
