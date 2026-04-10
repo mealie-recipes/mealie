@@ -7,13 +7,28 @@ Calculation approach:
     - No unit (or unrecognised unit) + food has serving_weight_g → quantity × serving_weight_g.
     - Otherwise the ingredient is skipped (no reliable gram conversion).
 - Nutrient totals are divided by the number of servings to yield per-serving values.
+- Ingredients whose note indicates they are used for frying (e.g. "for frying",
+  "for deep frying") are skipped — most of the oil stays in the pan and is not
+  consumed.
 """
 
 from __future__ import annotations
 
+import re
+
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientUnit, StandardizedUnitType
 from mealie.schema.recipe.recipe_nutrition import Nutrition
+
+# Matches ingredient notes that indicate the ingredient is used for frying
+# (and therefore most of it is not consumed).  Examples: "for frying",
+# "for deep frying", "for pan frying", "to fry", "for deep-frying".
+_FRYING_NOTE_RE = re.compile(
+    r"\b(for\s+)?(deep[- ])?fry(ing)?\b"
+    r"|\bfor\s+pan[- ]fry(ing)?\b"
+    r"|\bfor\s+shallow[- ]fry(ing)?\b",
+    re.IGNORECASE,
+)
 
 # Grams per one unit of each weight-based StandardizedUnitType
 _GRAMS_PER_STANDARD_UNIT: dict[str, float] = {
@@ -56,6 +71,11 @@ def _food_has_nutrition(food: IngredientFood) -> bool:
     return any(getattr(food, field) is not None for field in _NUTRITION_FIELDS)
 
 
+def _is_frying_ingredient(note: str | None) -> bool:
+    """Return True if the ingredient note indicates it is used for frying."""
+    return bool(note and _FRYING_NOTE_RE.search(note))
+
+
 def calculate_recipe_nutrition(recipe: Recipe) -> Nutrition | None:
     """Calculate per-serving nutrition for *recipe* from its ingredient food data.
 
@@ -73,6 +93,10 @@ def calculate_recipe_nutrition(recipe: Recipe) -> Nutrition | None:
 
         # Skip section headers and ingredients without food or quantity
         if not food or not quantity or not isinstance(food, IngredientFood):
+            continue
+
+        # Skip oils/fats used for frying — most stays in the pan and is not consumed
+        if _is_frying_ingredient(ingredient.note):
             continue
 
         if not _food_has_nutrition(food):
