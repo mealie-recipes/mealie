@@ -86,10 +86,11 @@
       @apply="(data, meta) => applyUsdaNutrition(data, meta)"
     />
 
-    <!-- Recipal Nutrition Fetch Dialog -->
-    <FoodRecipalFetchDialog
-      v-model="recipalDialog"
-      @apply="(data, meta) => applyRecipalNutrition(data, meta)"
+    <!-- Edamam Nutrition Fetch Dialog -->
+    <FoodEdamamFetchDialog
+      v-model="edamamDialog"
+      :food-name="editForm.data?.name"
+      @apply="applyEdamamNutrition"
     />
 
     <!-- USDA Bulk Update Dialog -->
@@ -288,9 +289,9 @@
         <BaseButton
           :icon="$globals.icons.foods"
           color="info"
-          @click="recipalDialog = true"
+          @click="edamamDialog = true"
         >
-          {{ $t('recipal.fetch-button') }}
+          {{ $t('edamam.fetch-button') }}
         </BaseButton>
         <BaseButton
           edit
@@ -307,10 +308,10 @@
 import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import FoodUsdaFetchDialog from "~/components/Domain/Recipe/FoodUsdaFetchDialog.vue";
-import FoodRecipalFetchDialog from "~/components/Domain/Recipe/FoodRecipalFetchDialog.vue";
+import FoodEdamamFetchDialog from "~/components/Domain/Recipe/FoodEdamamFetchDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias, UsdaBulkUpdateResult, UsdaNutritionData } from "~/lib/api/types/recipe";
+import type { CreateIngredientFood, EdamamFoodResult, IngredientFood, IngredientFoodAlias, UsdaBulkUpdateResult, UsdaNutritionData } from "~/lib/api/types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
@@ -580,9 +581,9 @@ async function handleBulkAction(event: string, items: IngredientFoodWithOnHand[]
 const usdaDialog = ref(false);
 
 // ============================================================
-// Recipal Nutrition Fetch (single food)
+// Edamam Nutrition Fetch (single food)
 
-const recipalDialog = ref(false);
+const edamamDialog = ref(false);
 
 // ============================================================
 // USDA Bulk Update
@@ -631,22 +632,19 @@ function applyUsdaNutrition(
   editForm.data.usdaConfidence = meta.confidence;
 }
 
-function applyRecipalNutrition(
-  data: UsdaNutritionData,
-  _meta: { ingredientId: number; name: string },
-) {
+function applyEdamamNutrition(result: EdamamFoodResult) {
   if (!editForm.data) return;
-  editForm.data.calories = data.calories ?? editForm.data.calories;
-  editForm.data.proteinContent = data.proteinContent ?? editForm.data.proteinContent;
-  editForm.data.fatContent = data.fatContent ?? editForm.data.fatContent;
-  editForm.data.carbohydrateContent = data.carbohydrateContent ?? editForm.data.carbohydrateContent;
-  editForm.data.fiberContent = data.fiberContent ?? editForm.data.fiberContent;
-  editForm.data.sugarContent = data.sugarContent ?? editForm.data.sugarContent;
-  editForm.data.sodiumContent = data.sodiumContent ?? editForm.data.sodiumContent;
-  editForm.data.saturatedFatContent = data.saturatedFatContent ?? editForm.data.saturatedFatContent;
-  editForm.data.cholesterolContent = data.cholesterolContent ?? editForm.data.cholesterolContent;
-  editForm.data.transFatContent = data.transFatContent ?? editForm.data.transFatContent;
-  editForm.data.unsaturatedFatContent = data.unsaturatedFatContent ?? editForm.data.unsaturatedFatContent;
+  editForm.data.calories = result.calories ?? editForm.data.calories;
+  editForm.data.proteinContent = result.proteinContent ?? editForm.data.proteinContent;
+  editForm.data.fatContent = result.fatContent ?? editForm.data.fatContent;
+  editForm.data.carbohydrateContent = result.carbohydrateContent ?? editForm.data.carbohydrateContent;
+  editForm.data.fiberContent = result.fiberContent ?? editForm.data.fiberContent;
+  editForm.data.sugarContent = result.sugarContent ?? editForm.data.sugarContent;
+  editForm.data.sodiumContent = result.sodiumContent ?? editForm.data.sodiumContent;
+  editForm.data.saturatedFatContent = result.saturatedFatContent ?? editForm.data.saturatedFatContent;
+  editForm.data.cholesterolContent = result.cholesterolContent ?? editForm.data.cholesterolContent;
+  editForm.data.transFatContent = result.transFatContent ?? editForm.data.transFatContent;
+  editForm.data.unsaturatedFatContent = result.unsaturatedFatContent ?? editForm.data.unsaturatedFatContent;
 }
 
 // ============================================================

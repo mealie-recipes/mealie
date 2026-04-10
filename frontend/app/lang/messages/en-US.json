@@ -495,15 +495,17 @@
     "source-label": "USDA source",
     "match": "match"
   },
-  "recipal": {
-    "dialog-title": "Fetch Nutrition from Recipal",
-    "fetch-button": "Fetch from Recipal",
-    "filter-label": "Filter by name",
-    "page": "Page {n}",
-    "no-ingredients": "No ingredients found. Make sure RECIPAL_API_KEY is set and you have ingredients in your Recipal account.",
-    "list-failed": "Could not load Recipal ingredients. Check that RECIPAL_API_KEY is configured and valid.",
-    "fetch-failed": "Could not fetch nutrition data for this ingredient.",
-    "source-note": "Source: Recipal. Values will be applied to the food form — save the food to keep them."
+  "edamam": {
+    "dialog-title": "Fetch Nutrition from Edamam",
+    "fetch-button": "Fetch from Edamam",
+    "search-label": "Search for a food",
+    "search": "Search",
+    "select-result": "Select the best match:",
+    "search-failed": "Search failed",
+    "no-results": "No results found.",
+    "apply": "Apply to Food",
+    "source-note": "Source: Edamam Food Database. Values will be applied to the food form — save the food to keep them.",
+    "not-configured": "EDAMAM_APP_ID and EDAMAM_APP_KEY must both be configured on this server."
   },
   "page": {
     "404-page-not-found": "404 Page not found",

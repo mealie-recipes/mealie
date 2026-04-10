@@ -457,13 +457,20 @@ class AppSettings(AppLoggingSettings):
         return self.USDA_API_KEY or "DEMO_KEY"
 
     # ===============================================
-    # Recipal Configuration
+    # Edamam Food Database Configuration
 
-    RECIPAL_API_KEY: MaskedNoneString = None
+    EDAMAM_APP_ID: MaskedNoneString = None
     """
-    API key for the Recipal nutrition database API.
-    Obtain a key at https://www.recipal.com/api-docs
-    Required for Recipal integration — no public fallback key is available.
+    Application ID for the Edamam Food Database API.
+    Obtain credentials at https://developer.edamam.com/admin/applications
+    Both EDAMAM_APP_ID and EDAMAM_APP_KEY are required for Edamam integration.
+    """
+
+    EDAMAM_APP_KEY: MaskedNoneString = None
+    """
+    Application key for the Edamam Food Database API.
+    Obtain credentials at https://developer.edamam.com/admin/applications
+    Both EDAMAM_APP_ID and EDAMAM_APP_KEY are required for Edamam integration.
     """
 
     # ===============================================

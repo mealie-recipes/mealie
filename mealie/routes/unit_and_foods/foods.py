@@ -10,6 +10,7 @@ from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema import mapper
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
+    EdamamFoodResult,
     IngredientFood,
     IngredientFoodPagination,
     MergeFood,
@@ -18,12 +19,9 @@ from mealie.schema.recipe.recipe_ingredient import (
     UsdaFoodResult,
     UsdaNutritionData,
 )
-from mealie.schema.recipe.recipe_ingredient import (
-    RecipalIngredientResult,
-)
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.response.responses import SuccessResponse
-from mealie.services.recipe import recipal_service, usda_service
+from mealie.services.recipe import edamam_service, usda_service
 
 router = APIRouter(prefix="/foods", tags=["Recipes: Foods"], route_class=MealieCrudRoute)
 
@@ -203,63 +201,47 @@ class IngredientFoodsController(BaseUserController):
         )
 
     # =========================================================
-    # Recipal integration
+    # Edamam Food Database integration
 
-    @router.get("/recipal/ingredients", response_model=list[RecipalIngredientResult])
-    def recipal_list_ingredients(
-        self,
-        page: int = Query(1, ge=1, description="Page number (1-based)"),
-        per_page: int = Query(20, ge=1, le=20, description="Results per page (max 20)"),
-    ):
-        """List the authenticated user's ingredients from Recipal (paginated, sorted by name).
+    @router.get("/edamam/search", response_model=list[EdamamFoodResult])
+    def edamam_search(self, q: str = Query(..., description="Food name to search for")):
+        """Search the Edamam Food Database for foods matching the given name.
 
-        Requires RECIPAL_API_KEY to be set in server settings.
+        Returns food results with per-100g nutrition values already embedded —
+        no second API call is required.  Requires EDAMAM_APP_ID and
+        EDAMAM_APP_KEY to be set in server settings.
         """
-        api_key = self.settings.RECIPAL_API_KEY
-        if not api_key:
-            raise HTTPException(status_code=400, detail="RECIPAL_API_KEY is not configured on this server.")
+        app_id = self.settings.EDAMAM_APP_ID
+        app_key = self.settings.EDAMAM_APP_KEY
+        if not app_id or not app_key:
+            raise HTTPException(
+                status_code=400,
+                detail="EDAMAM_APP_ID and EDAMAM_APP_KEY must both be configured on this server.",
+            )
         try:
-            ingredients, _ = recipal_service.list_ingredients(api_key, page=page, per_page=per_page)
+            foods = edamam_service.search_foods(q, app_id, app_key)
         except RuntimeError as exc:
             raise HTTPException(status_code=502, detail=str(exc)) from exc
         return [
-            RecipalIngredientResult(
-                ingredient_id=r.ingredient_id,
-                name=r.name,
-                brand=r.brand,
-                usda_verified=r.usda_verified,
+            EdamamFoodResult(
+                food_id=f.food_id,
+                label=f.label,
+                brand=f.brand,
+                category=f.category,
+                calories=f.calories,
+                protein_content=f.protein_content,
+                fat_content=f.fat_content,
+                carbohydrate_content=f.carbohydrate_content,
+                fiber_content=f.fiber_content,
+                sugar_content=f.sugar_content,
+                sodium_content=f.sodium_content,
+                saturated_fat_content=f.saturated_fat_content,
+                cholesterol_content=f.cholesterol_content,
+                trans_fat_content=f.trans_fat_content,
+                unsaturated_fat_content=f.unsaturated_fat_content,
             )
-            for r in ingredients
+            for f in foods
         ]
-
-    @router.get("/recipal/{ingredient_id}/nutrition", response_model=UsdaNutritionData)
-    def recipal_fetch_nutrition(self, ingredient_id: int):
-        """Fetch nutrition data (per 100g) for a specific Recipal ingredient ID.
-
-        Returns nutrition values that can be applied to a Mealie food record.
-        Does **not** modify any Mealie data — the caller is responsible for saving.
-        Requires RECIPAL_API_KEY to be set in server settings.
-        """
-        api_key = self.settings.RECIPAL_API_KEY
-        if not api_key:
-            raise HTTPException(status_code=400, detail="RECIPAL_API_KEY is not configured on this server.")
-        try:
-            _, nutrition = recipal_service.fetch_ingredient(ingredient_id, api_key)
-        except RuntimeError as exc:
-            raise HTTPException(status_code=502, detail=str(exc)) from exc
-        return UsdaNutritionData(
-            calories=nutrition.calories,
-            protein_content=nutrition.protein_content,
-            fat_content=nutrition.fat_content,
-            carbohydrate_content=nutrition.carbohydrate_content,
-            fiber_content=nutrition.fiber_content,
-            sugar_content=nutrition.sugar_content,
-            sodium_content=nutrition.sodium_content,
-            saturated_fat_content=nutrition.saturated_fat_content,
-            cholesterol_content=nutrition.cholesterol_content,
-            trans_fat_content=nutrition.trans_fat_content,
-            unsaturated_fat_content=nutrition.unsaturated_fat_content,
-        )
 
     @router.get("/{item_id}", response_model=IngredientFood)
     def get_one(self, item_id: UUID4):

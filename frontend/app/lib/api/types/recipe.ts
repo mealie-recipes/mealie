@@ -265,11 +265,22 @@ export interface UsdaBulkUpdateResult {
   failed: number;
   failures: string[];
 }
-export interface RecipalIngredientResult {
-  ingredientId: number;
-  name: string;
+export interface EdamamFoodResult {
+  foodId: string;
+  label: string;
   brand?: string | null;
-  usdaVerified?: boolean;
+  category?: string | null;
+  calories?: number | null;
+  proteinContent?: number | null;
+  fatContent?: number | null;
+  carbohydrateContent?: number | null;
+  fiberContent?: number | null;
+  sugarContent?: number | null;
+  sodiumContent?: number | null;
+  saturatedFatContent?: number | null;
+  cholesterolContent?: number | null;
+  transFatContent?: number | null;
+  unsaturatedFatContent?: number | null;
 }
 export interface Nutrition {
   calories?: string | null;

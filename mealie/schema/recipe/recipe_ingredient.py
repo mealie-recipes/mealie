@@ -479,13 +479,25 @@ class UsdaBulkUpdateResult(MealieModel):
     failures: list[str] = []
 
 
-class RecipalIngredientResult(MealieModel):
-    """A single ingredient returned by the Recipal ingredient list endpoint."""
+class EdamamFoodResult(MealieModel):
+    """A food item returned by the Edamam Food Database parser, with per-100g nutrition."""
 
-    ingredient_id: int
-    name: str
+    food_id: str
+    label: str
     brand: str | None = None
-    usda_verified: bool = False
+    category: str | None = None
+    # Per-100g nutrition values (may be absent for some foods)
+    calories: float | None = None
+    protein_content: float | None = None
+    fat_content: float | None = None
+    carbohydrate_content: float | None = None
+    fiber_content: float | None = None
+    sugar_content: float | None = None
+    sodium_content: float | None = None
+    saturated_fat_content: float | None = None
+    cholesterol_content: float | None = None
+    trans_fat_content: float | None = None
+    unsaturated_fat_content: float | None = None
 
 
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSummary  # noqa: E402

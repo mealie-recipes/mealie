@@ -1,5 +1,5 @@
 import { BaseCRUDAPI } from "../base/base-clients";
-import type { CreateIngredientFood, IngredientFood, RecipalIngredientResult, UsdaBulkUpdateResult, UsdaFoodResult, UsdaNutritionData } from "~/lib/api/types/recipe";
+import type { CreateIngredientFood, EdamamFoodResult, IngredientFood, UsdaBulkUpdateResult, UsdaFoodResult, UsdaNutritionData } from "~/lib/api/types/recipe";
 
 const prefix = "/api";
 
@@ -10,8 +10,7 @@ const routes = {
   usdaSearch: `${prefix}/foods/usda/search`,
   usdaNutrition: (fdcId: number) => `${prefix}/foods/usda/${fdcId}/nutrition`,
   usdaBulkUpdate: `${prefix}/foods/usda/bulk-update`,
-  recipalIngredients: `${prefix}/foods/recipal/ingredients`,
-  recipalNutrition: (ingredientId: number) => `${prefix}/foods/recipal/${ingredientId}/nutrition`,
+  edamamSearch: `${prefix}/foods/edamam/search`,
 };
 
 export class FoodAPI extends BaseCRUDAPI<CreateIngredientFood, IngredientFood> {
@@ -36,11 +35,7 @@ export class FoodAPI extends BaseCRUDAPI<CreateIngredientFood, IngredientFood> {
     });
   }
 
-  recipalListIngredients(page = 1, perPage = 20) {
-    return this.requests.get<RecipalIngredientResult[]>(routes.recipalIngredients, { page, per_page: perPage });
-  }
-
-  recipalFetchNutrition(ingredientId: number) {
-    return this.requests.get<UsdaNutritionData>(routes.recipalNutrition(ingredientId));
+  edamamSearch(query: string) {
+    return this.requests.get<EdamamFoodResult[]>(routes.edamamSearch, { q: query });
   }
 }
