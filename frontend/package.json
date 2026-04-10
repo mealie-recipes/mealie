@@ -33,12 +33,13 @@
     "sse.js": "^2.8.0",
     "vue-advanced-cropper": "^2.8.9",
     "vue-draggable-plus": "^0.6.0",
-    "vuetify": "^3.9.7",
-    "vuetify-nuxt-module": "^0.18.9"
+    "vuetify": "^4.0.5",
+    "vuetify-nuxt-module": "^0.19.5"
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.2.0",
     "@stylistic/eslint-plugin": "^5.4.0",
+    "@types/node": "^25.5.2",
     "@types/sortablejs": "^1.15.8",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.0.2",

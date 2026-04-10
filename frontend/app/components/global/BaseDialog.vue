@@ -40,9 +40,9 @@
         </div>
 
         <v-spacer />
-        <v-divider class="mx-2" />
+        <v-divider />
 
-        <v-card-actions>
+        <v-card-actions :class="$vuetify.display.xs ? 'pb-4' : 'undefined'">
           <slot name="card-actions">
             <v-btn
               variant="text"
@@ -93,13 +93,6 @@
             </BaseButton>
           </slot>
         </v-card-actions>
-
-        <div
-          v-if="$slots['below-actions']"
-          class="pb-4"
-        >
-          <slot name="below-actions" />
-        </div>
       </v-card>
     </v-dialog>
   </div>
