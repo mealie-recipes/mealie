@@ -8,7 +8,7 @@
     width="100%"
     max-width="1200"
   >
-    <div class="d-flex" :style="{ height: useMobile ? '100%' : '60vh' }">
+    <div class="d-flex" :style="{ height: useMobile ? '100%' : '60vh', minHeight: '60vh' }">
       <!-- Nav list -->
       <v-list
         v-show="!useMobile || navOpen"
@@ -16,7 +16,7 @@
         density="compact"
         color="primary"
         class="overflow-y-auto border-e flex-shrink-0"
-        style="width: 200px"
+        style="width: 200px; max-height: 60vh"
       >
         <v-list-item
           v-for="announcement in allAnnouncements.toReversed()"
