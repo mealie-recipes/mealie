@@ -7,7 +7,7 @@ from pydantic import ConfigDict
 from sqlalchemy import event
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.ext.orderinglist import ordering_list
-from sqlalchemy.orm import Mapped, column_property, mapped_column, validates
+from sqlalchemy.orm import Mapped, mapped_column, validates
 from sqlalchemy.orm.attributes import get_history
 from sqlalchemy.orm.session import object_session
 
@@ -298,17 +298,3 @@ def calculate_rating(mapper, connection, target: RecipeModel):
         .filter(UserToRecipe.recipe_id == target.id, UserToRecipe.rating is not None, UserToRecipe.rating > 0)
         .scalar()
     )
-
-
-RecipeModel.has_unparsed_ingredients = column_property(
-    sa.select(sa.func.count(RecipeIngredientModel.id))
-    .where(
-        RecipeIngredientModel.recipe_id == RecipeModel.id,
-        sa.or_(RecipeIngredientModel.food_id.is_(None), RecipeIngredientModel.unit_id.is_(None)),
-        sa.or_(RecipeIngredientModel.title.is_(None), RecipeIngredientModel.title == ""),
-        RecipeIngredientModel.referenced_recipe_id.is_(None),
-    )
-    .correlate(RecipeModel)
-    .scalar_subquery()
-    > 0
-)

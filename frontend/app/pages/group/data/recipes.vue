@@ -181,8 +181,15 @@
         </p>
         <v-spacer />
         <v-checkbox
-          v-model="showOnlyUnparsed"
-          :label="$t('data-pages.recipes.show-only-unparsed')"
+          v-model="filterMissingFood"
+          :label="$t('data-pages.recipes.filter-missing-food')"
+          hide-details
+          density="compact"
+          class="ml-2"
+        />
+        <v-checkbox
+          v-model="filterMissingUnit"
+          :label="$t('data-pages.recipes.filter-missing-unit')"
           hide-details
           density="compact"
           class="ml-2"
@@ -271,12 +278,19 @@ useSeoMeta({
 
 const { refreshRecipes } = useRecipes(true, true, false, `householdId=${auth.user.value?.householdId || ""}`);
 const selected = ref<Recipe[]>([]);
-const showOnlyUnparsed = ref(false);
+const filterMissingFood = ref(false);
+const filterMissingUnit = ref(false);
 
-watch(showOnlyUnparsed, async (val) => {
+watch([filterMissingFood, filterMissingUnit], async ([missingFood, missingUnit]) => {
   const baseFilter = `householdId=${auth.user.value?.householdId || ""}`;
-  const filter = val ? `${baseFilter} AND hasUnparsedIngredients = true` : baseFilter;
-  await refreshRecipes(filter);
+  const parts: string[] = [baseFilter];
+  if (missingFood) {
+    parts.push("recipeIngredient.foodId IS NULL");
+  }
+  if (missingUnit) {
+    parts.push("recipeIngredient.unitId IS NULL");
+  }
+  await refreshRecipes(parts.join(" AND "));
   selected.value = [];
 });
 
