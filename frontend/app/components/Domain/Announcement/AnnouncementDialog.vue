@@ -52,7 +52,7 @@
           class="mt-2 ms-2"
           @click="navOpen = !navOpen"
         >
-          All announcements
+          {{ $t("announcements.all-announcements") }}
         </v-btn>
         <v-card-title>
           <v-chip v-if="currentAnnouncement.date" label large class="me-1">
