@@ -490,7 +490,10 @@
     "bulk-result-updated": "Updated",
     "bulk-result-skipped": "Skipped (already had data)",
     "bulk-result-failed": "Failed",
-    "bulk-failures": "Could not fetch data for"
+    "bulk-failures": "Could not fetch data for",
+    "match-confidence": "USDA Match",
+    "source-label": "USDA source",
+    "match": "match"
   },
   "page": {
     "404-page-not-found": "404 Page not found",

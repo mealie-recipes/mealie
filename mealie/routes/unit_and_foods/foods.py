@@ -78,7 +78,12 @@ class IngredientFoodsController(BaseUserController):
         except RuntimeError as exc:
             raise HTTPException(status_code=502, detail=str(exc)) from exc
         return [
-            UsdaFoodResult(fdc_id=r.fdc_id, description=r.description, brand_owner=r.brand_owner)
+            UsdaFoodResult(
+                fdc_id=r.fdc_id,
+                description=r.description,
+                brand_owner=r.brand_owner,
+                confidence=round(usda_service.score_result(q, r), 4),
+            )
             for r in results
         ]
 
@@ -123,9 +128,11 @@ class IngredientFoodsController(BaseUserController):
             # Some FDC IDs returned by search may no longer exist on the detail
             # endpoint (deleted/retired foods), so we fall back to the next best match.
             nutrition = None
+            matched_candidate = None
             for candidate in results:
                 try:
                     nutrition = usda_service.fetch_nutrition(candidate.fdc_id, api_key)
+                    matched_candidate = candidate
                     break
                 except RuntimeError:
                     pass
@@ -133,7 +140,7 @@ class IngredientFoodsController(BaseUserController):
                     # Small delay to stay well within the 1 000 req/hr rate limit
                     time.sleep(0.1)
 
-            if nutrition is None:
+            if nutrition is None or matched_candidate is None:
                 failed += 1
                 failures.append(food.name)
                 continue
@@ -151,6 +158,9 @@ class IngredientFoodsController(BaseUserController):
             update_data.cholesterol_content = nutrition.cholesterol_content
             update_data.trans_fat_content = nutrition.trans_fat_content
             update_data.unsaturated_fat_content = nutrition.unsaturated_fat_content
+            update_data.usda_fdc_id = matched_candidate.fdc_id
+            update_data.usda_description = matched_candidate.description
+            update_data.usda_confidence = round(usda_service.score_result(food.name, matched_candidate), 4)
 
             save_data = mapper.cast(update_data, SaveIngredientFood, group_id=self.group_id)
             self.mixins.update_one(save_data, food.id)

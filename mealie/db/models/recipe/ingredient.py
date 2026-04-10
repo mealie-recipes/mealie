@@ -208,6 +208,11 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     # calculation when no weight-based unit is specified (e.g. "2 eggs")
     serving_weight_g: Mapped[float | None] = mapped_column(Float)
 
+    # USDA FoodData Central provenance — set when nutrition is populated from USDA
+    usda_fdc_id: Mapped[int | None] = mapped_column(sa.Integer)
+    usda_description: Mapped[str | None] = mapped_column(String)
+    usda_confidence: Mapped[float | None] = mapped_column(Float)
+
     @api_extras
     @auto_init()
     def __init__(

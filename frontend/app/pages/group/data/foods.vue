@@ -83,7 +83,7 @@
     <FoodUsdaFetchDialog
       v-model="usdaDialog"
       :food-name="editForm.data?.name"
-      @apply="applyUsdaNutrition"
+      @apply="(data, meta) => applyUsdaNutrition(data, meta)"
     />
 
     <!-- USDA Bulk Update Dialog -->
@@ -232,6 +232,32 @@
         </v-icon>
       </template>
 
+      <template #[`item.usdaConfidence`]="{ item }">
+        <v-chip
+          v-if="item.usdaConfidence != null"
+          size="x-small"
+          :color="item.usdaConfidence >= 0.75 ? 'success' : item.usdaConfidence >= 0.50 ? 'warning' : 'error'"
+        >
+          {{ Math.round(item.usdaConfidence * 100) }}%
+        </v-chip>
+      </template>
+
+      <template #edit-dialog-top>
+        <v-alert
+          v-if="editForm.data?.usdaDescription"
+          density="compact"
+          type="info"
+          variant="tonal"
+          class="mb-3 text-body-2"
+        >
+          <span class="font-weight-medium">{{ $t('usda.source-label') }}:</span>
+          {{ editForm.data.usdaDescription }}
+          <span v-if="editForm.data.usdaConfidence != null" class="ml-2 text-medium-emphasis">
+            ({{ Math.round(editForm.data.usdaConfidence * 100) }}% {{ $t('usda.match') }})
+          </span>
+        </v-alert>
+      </template>
+
       <template #[`item.createdAt`]="{ item }">
         {{ item.createdAt ? $d(new Date(item.createdAt)) : '' }}
       </template>
@@ -338,6 +364,12 @@ const tableHeaders: TableHeaders[] = [
   {
     text: i18n.t("recipe.nutrition"),
     value: "hasNutrition",
+    show: true,
+    sortable: true,
+  },
+  {
+    text: i18n.t("usda.match-confidence"),
+    value: "usdaConfidence",
     show: true,
     sortable: true,
   },
@@ -559,7 +591,10 @@ async function runBulkUpdate() {
   }
 }
 
-function applyUsdaNutrition(data: UsdaNutritionData) {
+function applyUsdaNutrition(
+  data: UsdaNutritionData,
+  meta: { fdcId: number; description: string; confidence: number | null },
+) {
   if (!editForm.data) return;
   editForm.data.calories = data.calories ?? editForm.data.calories;
   editForm.data.proteinContent = data.proteinContent ?? editForm.data.proteinContent;
@@ -572,6 +607,9 @@ function applyUsdaNutrition(data: UsdaNutritionData) {
   editForm.data.cholesterolContent = data.cholesterolContent ?? editForm.data.cholesterolContent;
   editForm.data.transFatContent = data.transFatContent ?? editForm.data.transFatContent;
   editForm.data.unsaturatedFatContent = data.unsaturatedFatContent ?? editForm.data.unsaturatedFatContent;
+  editForm.data.usdaFdcId = meta.fdcId;
+  editForm.data.usdaDescription = meta.description;
+  editForm.data.usdaConfidence = meta.confidence;
 }
 
 // ============================================================

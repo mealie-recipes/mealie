@@ -82,6 +82,9 @@ export interface CreateIngredientFood {
   unsaturatedFatContent?: number | null;
   /** Weight in grams per one unit of this food (e.g. 50 for an egg). Used when no weight unit is given. */
   servingWeightG?: number | null;
+  usdaFdcId?: number | null;
+  usdaDescription?: string | null;
+  usdaConfidence?: number | null;
 }
 export interface CreateIngredientFoodAlias {
   name: string;
@@ -172,6 +175,9 @@ export interface IngredientFood {
   transFatContent?: number | null;
   unsaturatedFatContent?: number | null;
   servingWeightG?: number | null;
+  usdaFdcId?: number | null;
+  usdaDescription?: string | null;
+  usdaConfidence?: number | null;
 }
 export interface IngredientFoodAlias {
   name: string;
@@ -237,6 +243,7 @@ export interface UsdaFoodResult {
   fdcId: number;
   description: string;
   brandOwner?: string | null;
+  confidence?: number | null;
 }
 export interface UsdaNutritionData {
   calories?: number | null;

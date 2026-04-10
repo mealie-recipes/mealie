@@ -148,6 +148,11 @@ def _score_result(query: str, result: UsdaFoodSummary) -> float:
     return (coverage * 0.55 + conciseness * 0.20 + type_score * 0.20) * prep_factor + 0.05 * (1.0 if not desc_extra_prep else 0.0)
 
 
+def score_result(query: str, result: UsdaFoodSummary) -> float:
+    """Return the match score (0–1) for *result* against *query*. Higher is better."""
+    return _score_result(query, result)
+
+
 def best_match(query: str, results: list[UsdaFoodSummary]) -> UsdaFoodSummary | None:
     """Return the best-matching result for *query* from *results*, or ``None``."""
     if not results:

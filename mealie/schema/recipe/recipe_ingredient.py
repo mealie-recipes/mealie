@@ -113,6 +113,11 @@ class CreateIngredientFood(UnitFoodBase):
     # nutrition calculation when no weight-based unit is specified (e.g. "2 eggs")
     serving_weight_g: float | None = None
 
+    # USDA FoodData Central provenance — set when nutrition is populated from USDA
+    usda_fdc_id: int | None = None
+    usda_description: str | None = None
+    usda_confidence: float | None = None
+
 
 class SaveIngredientFood(CreateIngredientFood):
     group_id: UUID4
@@ -445,6 +450,7 @@ class UsdaFoodResult(MealieModel):
     fdc_id: int
     description: str
     brand_owner: str | None = None
+    confidence: float | None = None
 
 
 class UsdaNutritionData(MealieModel):

@@ -53,6 +53,14 @@
             @click="selectResult(result)"
           >
             <template #append>
+              <v-chip
+                v-if="result.confidence != null"
+                size="x-small"
+                :color="confidenceColor(result.confidence)"
+                class="mr-2"
+              >
+                {{ Math.round(result.confidence * 100) }}%
+              </v-chip>
               <v-icon size="small" color="primary">
                 {{ $globals.icons.chevronRight }}
               </v-icon>
@@ -136,7 +144,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  apply: [data: UsdaNutritionData];
+  apply: [data: UsdaNutritionData, meta: { fdcId: number; description: string; confidence: number | null }];
 }>();
 
 const i18n = useI18n();
@@ -222,9 +230,19 @@ const nutritionRows = computed(() => {
   ].map(r => ({ ...r, value: r.value != null ? Math.round(r.value * 10) / 10 : null }));
 });
 
+function confidenceColor(score: number): string {
+  if (score >= 0.75) return "success";
+  if (score >= 0.50) return "warning";
+  return "error";
+}
+
 function applyNutrition() {
-  if (nutritionData.value) {
-    emit("apply", nutritionData.value);
+  if (nutritionData.value && selectedResult.value) {
+    emit("apply", nutritionData.value, {
+      fdcId: selectedResult.value.fdcId,
+      description: selectedResult.value.description,
+      confidence: selectedResult.value.confidence ?? null,
+    });
     dialog.value = false;
   }
 }
