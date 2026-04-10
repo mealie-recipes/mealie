@@ -8,21 +8,22 @@
     width="100%"
     max-width="1200"
   >
-    <div class="d-flex">
+    <div class="d-flex" style="height: 60vh">
       <!-- Nav list -->
       <v-list
+        v-show="!useMobile || navOpen"
         nav
         density="compact"
         color="primary"
         class="overflow-y-auto border-e flex-shrink-0"
-        style="width: 200px; height: 60vh"
+        style="width: 200px"
       >
         <v-list-item
           v-for="announcement in allAnnouncements.toReversed()"
           :key="announcement.key"
           :active="currentAnnouncement.key === announcement.key"
           rounded
-          @click="setCurrentAnnouncement(announcement)"
+          @click="setCurrentAnnouncement(announcement); navOpen = false"
         >
           <v-list-item-title class="text-body-2">
             {{ announcement.meta?.title }}
@@ -40,7 +41,22 @@
       </v-list>
 
       <!-- Main content -->
-      <div class="flex-grow-1 overflow-y-auto" style="max-height: 60vh">
+      <div
+        class="flex-grow-1 overflow-y-auto"
+        :style="{
+          height: useMobile ? '100%' : '60vh',
+        }"
+      >
+        <v-btn
+          v-if="useMobile"
+          :prepend-icon="navOpen ? $globals.icons.chevronLeft : $globals.icons.chevronRight"
+          density="compact"
+          variant="text"
+          class="mt-2 ms-2"
+          @click="navOpen = !navOpen"
+        >
+          All announcements
+        </v-btn>
         <v-card-title>
           <v-chip v-if="currentAnnouncement.date" label large class="me-1">
             <v-icon class="me-1">
@@ -80,6 +96,10 @@ import { useAnnouncements } from "~/composables/use-announcements";
 import type { Announcement } from "~/composables/use-announcements";
 
 const dialog = defineModel<boolean>({ default: false });
+
+const display = useDisplay();
+const useMobile = computed(() => display.smAndDown.value);
+const navOpen = ref(false);
 
 const route = useRoute();
 watch(() => route.fullPath, () => { dialog.value = false; });

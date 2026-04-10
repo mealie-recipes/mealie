@@ -37,6 +37,7 @@ import {
   mdiChefHat,
   mdiChevronDown,
   mdiChevronRight,
+  mdiChevronLeft,
   mdiClipboardCheck,
   mdiClockTimeFourOutline,
   mdiClose,
@@ -332,6 +333,7 @@ export const icons = {
   slotMachine: mdiSlotMachine,
   chevronDown: mdiChevronDown,
   chevronRight: mdiChevronRight,
+  chevronLeft: mdiChevronLeft,
 
   // Ocr toolbar
   selectMode: mdiSelectionDrag,
