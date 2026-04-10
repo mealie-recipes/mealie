@@ -35,7 +35,7 @@
           </v-toolbar-title>
         </v-toolbar>
 
-        <div>
+        <div style="flex: 1 1 auto; min-height: 0; overflow: auto">
           <slot v-bind="{ submitEvent }" />
         </div>
 

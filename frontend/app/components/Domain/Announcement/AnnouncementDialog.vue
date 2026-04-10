@@ -8,7 +8,7 @@
     width="100%"
     max-width="1200"
   >
-    <div class="d-flex" style="height: 60vh">
+    <div class="d-flex" :style="{ height: useMobile ? '100%' : '60vh' }">
       <!-- Nav list -->
       <v-list
         v-show="!useMobile || navOpen"
@@ -43,9 +43,6 @@
       <!-- Main content -->
       <div
         class="flex-grow-1 overflow-y-auto"
-        :style="{
-          height: useMobile ? '100%' : '60vh',
-        }"
       >
         <v-btn
           v-if="useMobile"
