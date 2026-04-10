@@ -109,18 +109,34 @@ class IngredientFoodsController(BaseUserController):
 
             try:
                 results = usda_service.search_foods(food.name, api_key)
-                if not results:
-                    skipped += 1
-                    continue
-
-                nutrition = usda_service.fetch_nutrition(results[0].fdc_id, api_key)
             except RuntimeError:
                 failed += 1
                 failures.append(food.name)
-                continue
-            finally:
-                # Small delay to stay well within the 1 000 req/hr rate limit
                 time.sleep(0.1)
+                continue
+
+            if not results:
+                skipped += 1
+                continue
+
+            # Try each ranked candidate until one returns nutrition data.
+            # Some FDC IDs returned by search may no longer exist on the detail
+            # endpoint (deleted/retired foods), so we fall back to the next best match.
+            nutrition = None
+            for candidate in results:
+                try:
+                    nutrition = usda_service.fetch_nutrition(candidate.fdc_id, api_key)
+                    break
+                except RuntimeError:
+                    pass
+                finally:
+                    # Small delay to stay well within the 1 000 req/hr rate limit
+                    time.sleep(0.1)
+
+            if nutrition is None:
+                failed += 1
+                failures.append(food.name)
+                continue
 
             # Apply nutrition fields to the food and save
             update_data = IngredientFood.model_validate(food)
