@@ -52,7 +52,7 @@ class AppStartupInfo(MealieModel):
     on indicates that the 'changeme@example.com' user is still in the database. Once
     it is removed, this will always return False.
     """
-
+    default_remember_me: bool = False
     is_demo: bool
 
 

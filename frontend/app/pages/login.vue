@@ -249,6 +249,7 @@ useAsyncData(useAsyncKey(), async () => {
   const data = await $axios.get<AppStartupInfo>("/api/app/about/startup-info");
   isDemo.value = data.data.isDemo;
   isFirstLogin.value = data.data.isFirstLogin;
+  form.remember = data.data.defaultRememberMe;
 
   if (data.data.isFirstLogin) {
     form.email = "changeme@example.com";
