@@ -12,7 +12,7 @@
       </ul>
     </div>
     <p>
-      While we generally keep everything in our <a href="https://github.com/mealie-recipes/mealie/releases" target="_blank">GitHub release notes</a>,
+      While we generally keep everything in our <a class="text-primary" href="https://github.com/mealie-recipes/mealie/releases" target="_blank">GitHub release notes</a>,
       sometimes certain changes require some extra attention.
     </p>
     <p>
