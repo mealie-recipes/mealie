@@ -4,8 +4,8 @@ pull_request_labels: [
   "l10n"
 ]
 files:
-  - source: /frontend/lang/messages/en-US.json
-    translation: /frontend/lang/messages/%locale%.json
+  - source: /frontend/app/lang/messages/en-US.json
+    translation: /frontend/app/lang/messages/%locale%.json
   - source: /mealie/lang/messages/en-US.json
     translation: /mealie/lang/messages/%locale%.json
   - source: /mealie/repos/seed/resources/foods/locales/en-US.json
