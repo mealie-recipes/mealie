@@ -177,6 +177,7 @@
               <template v-if="property.slot === 'recipe-scraper'">
                 <v-list-item-subtitle>
                   <a
+                    class="text-primary"
                     target="_blank"
                     :href="`https://github.com/hhursev/recipe-scrapers/releases/tag/${property.value}`"
                   >
@@ -187,6 +188,7 @@
               <template v-else-if="property.slot === 'build'">
                 <v-list-item-subtitle>
                   <a
+                    class="text-primary"
                     target="_blank"
                     :href="`https://github.com/mealie-recipes/mealie/commit/${property.value}`"
                   >
@@ -197,6 +199,7 @@
               <template v-else-if="property.slot === 'version' && property.value !== 'develop' && property.value !== 'nightly'">
                 <v-list-item-subtitle>
                   <a
+                    class="text-primary"
                     target="_blank"
                     :href="`https://github.com/mealie-recipes/mealie/releases/tag/${property.value}`"
                   >

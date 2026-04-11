@@ -1,24 +1,17 @@
 <template>
   <div>
-    <v-app-bar
+    <v-row
       v-if="!disableToolbar"
-      color="transparent"
-      :absolute="false"
-      flat
-      class="mt-n1 flex-sm-wrap rounded position-relative w-100 left-0 top-0"
+      class="align-center pb-2"
     >
-      <slot name="title">
-        <v-icon
-          v-if="title"
-          size="large"
-          start
-        >
-          {{ displayTitleIcon }}
-        </v-icon>
-        <v-toolbar-title class="headline">
-          {{ title }}
-        </v-toolbar-title>
-      </slot>
+      <v-icon
+        v-if="title"
+        size="large"
+        start
+      >
+        {{ displayTitleIcon }}
+      </v-icon>
+      <span class="text-headline-small">{{ title }}</span>
       <v-spacer />
       <v-btn
         :icon="$vuetify.display.xs"
@@ -111,7 +104,7 @@
         ]"
         @toggle-dense-view="toggleMobileCards()"
       />
-    </v-app-bar>
+    </v-row>
     <div v-if="recipes && ready">
       <div class="mt-2">
         <v-row v-if="!useMobileCards">
@@ -136,7 +129,7 @@
         </v-row>
         <v-row
           v-else
-          dense
+          density="comfortable"
         >
           <v-col
             v-for="recipe in recipes"
@@ -159,7 +152,7 @@
           </v-col>
         </v-row>
       </div>
-      <v-card v-intersect="infiniteScroll" />
+      <v-card v-intersect="infiniteScroll" variant="flat" />
     </div>
     <v-fade-transition>
       <AppLoader
