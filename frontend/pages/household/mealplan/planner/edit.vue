@@ -406,22 +406,24 @@ export default defineNuxtComponent({
 
     // Filtering
     function filterRecipeByMealType() {
-      if (!search.data.value) return [];
-
-      if (!filterRecipesByEntryType.value) {
-        return search.data.value;
-      }
-
-      return search.data.value.filter((recipe: any) => {
-        if (recipe.recipeCategory.length === 0) return false;
-
-        return recipe.recipeCategory.some((cat: any) => {
-          const entry = newMeal.entryType?.toLowerCase();
-          const category = cat.name?.toLowerCase();
-          return category === entry;
-        });
-      });
-    }
+	  const data = search.data.value;
+	
+	  if (!Array.isArray(data)) return [];
+	  if (!filterRecipesByEntryType.value) {
+	    return data;
+	  }
+	
+	  const entry = newMeal.entryType?.toLowerCase();
+	  const filtered = data.filter((recipe: any) => {
+	    if (!recipe.recipeCategory?.length) return false;
+	
+	    return recipe.recipeCategory.some((cat: any) => {
+	      const category = cat.name?.toLowerCase();
+	      return category === entry;
+	    });
+	  });
+	  return filtered.length ? filtered : data;
+	}
 
     // =====================================================
     // Search
