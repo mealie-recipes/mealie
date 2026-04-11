@@ -3,7 +3,7 @@
         "name": "colher de chá",
         "plural_name": "colheres de chá",
         "description": "",
-        "abbreviation": "cc"
+        "abbreviation": "colher de chá"
     },
     "tablespoon": {
         "name": "colher de sopa",
@@ -73,7 +73,7 @@
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilograma",
+        "name": "quilograma",
         "plural_name": "quilos",
         "description": "",
         "abbreviation": "kg"
@@ -110,7 +110,7 @@
     },
     "clove": {
         "name": "cravo",
-        "plural_name": "cravos",
+        "plural_name": "dentes",
         "description": "",
         "abbreviation": ""
     },
