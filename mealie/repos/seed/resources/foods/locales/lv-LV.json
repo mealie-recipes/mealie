@@ -168,8 +168,8 @@
             "arugula": {
                 "aliases": [],
                 "description": "",
-                "name": "arugula",
-                "plural_name": "arugula"
+                "name": "rukola",
+                "plural_name": "rukola"
             },
             "leek": {
                 "aliases": [],
@@ -246,8 +246,8 @@
             "new potato": {
                 "aliases": [],
                 "description": "",
-                "name": "new potato",
-                "plural_name": "new potatoes"
+                "name": "jaunais kartupelis",
+                "plural_name": "jaunie kartupeļi"
             },
             "summer squash": {
                 "aliases": [
@@ -377,8 +377,8 @@
             "celeriac": {
                 "aliases": [],
                 "description": "",
-                "name": "celeriac",
-                "plural_name": "celeriacs"
+                "name": "selerijas sakne",
+                "plural_name": "selerijas saknes"
             },
             "water chestnut": {
                 "aliases": [],
