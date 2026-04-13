@@ -24,7 +24,7 @@
             "creating-recipe-with-ai": "Tworzenie przepisu z pomocą AI...",
             "creating-recipe-from-transcript-with-ai": "Tworzenie przepisu z transkryptu z pomocą AI...",
             "creating-recipe-from-webpage-data": "Tworzenie przepisu na podstawie danych ze strony...",
-            "downloading-image": "Ściąganie zdjęć...",
+            "downloading-image": "Pobieranie zdjęcia...",
             "downloading-video": "Pobieranie wideo...",
             "extracting-recipe-data": "Wyodrębnianie danych przepisu...",
             "fetching-webpage": "Pobieranie strony...",
@@ -49,7 +49,7 @@
         "no-entry-found": "Wskazany zasób jest niedostępny",
         "integrity-error": "Błąd spójności bazy danych",
         "username-conflict-error": "Ta nazwa użytkownika jest już zajęta",
-        "email-conflict-error": "Ten adres email już jest zajęty"
+        "email-conflict-error": "Ten adres e-mail już jest zajęty"
     },
     "notifications": {
         "generic-created": "Utworzono {name}",
@@ -74,7 +74,7 @@
             "subject": "Zapomniane hasło Mealie",
             "header_text": "Zapomniane hasło",
             "message_top": "Poproszono o zresetowanie hasła.",
-            "message_bottom": "Kliknij przycisk poniżej, aby zresetować swoje hasło.",
+            "message_bottom": "Kliknij przycisk powyżej, aby zresetować swoje hasło.",
             "button_text": "Zresetuj hasło"
         },
         "invitation": {
@@ -85,7 +85,7 @@
             "button_text": "Akceptuj zaproszenie"
         },
         "test": {
-            "subject": "Email testowy Mealie",
+            "subject": "E-mail testowy Mealie",
             "header_text": "E-mail testowy",
             "message_top": "To jest e-mail testowy.",
             "message_bottom": "Kliknij przycisk powyżej, aby przetestować e-mail.",
