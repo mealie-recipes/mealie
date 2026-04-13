@@ -901,6 +901,7 @@
     "oidc-ready-error-text": "すべてのOIDC値が設定されていません。OIDC認証を使用していない場合は無視できます。",
     "oidc-ready-success-text": "必要なOIDC変数はすべて設定されています。",
     "openai-ready": "OpenAI Ready",
+    "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "すべてのOpenAIの値が設定されていません。OpenAIを使用していない場合は無視できます。",
     "openai-ready-success-text": "必須のOpenAI変数はすべて設定されています。"
   },

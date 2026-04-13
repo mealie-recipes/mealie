@@ -1,17 +1,9 @@
 <template>
-  <v-container
-    fluid
-    class="narrow-container"
-  >
+  <v-container fluid class="narrow-container">
     <!-- Image -->
     <BasePageTitle divider>
       <template #header>
-        <v-img
-          width="100%"
-          max-height="200"
-          max-width="150"
-          src="/svgs/admin-site-settings.svg"
-        />
+        <v-img width="100%" max-height="200" max-width="150" src="/svgs/admin-site-settings.svg" />
       </template>
       <template #title>
         {{ $t("settings.site-settings") }}
@@ -19,26 +11,13 @@
     </BasePageTitle>
 
     <!-- Bug Report -->
-    <BaseDialog
-      v-model="bugReportDialog"
-      :title="$t('settings.bug-report')"
-      :width="800"
-      :icon="$globals.icons.github"
-    >
+    <BaseDialog v-model="bugReportDialog" :title="$t('settings.bug-report')" :width="800" :icon="$globals.icons.github">
       <v-card-text>
         <div class="pb-4">
-          {{ $t('settings.bug-report-information') }}
+          {{ $t("settings.bug-report-information") }}
         </div>
-        <v-textarea
-          v-model="bugReportText"
-          variant="outlined"
-          rows="18"
-          readonly
-        />
-        <div
-          class="d-flex justify-end"
-          style="gap: 5px"
-        >
+        <v-textarea v-model="bugReportText" variant="outlined" rows="18" readonly />
+        <div class="d-flex justify-end" style="gap: 5px">
           <BaseButton
             color="gray"
             secondary
@@ -48,43 +27,27 @@
             <template #icon>
               {{ $globals.icons.github }}
             </template>
-            {{ $t('settings.tracker') }}
+            {{ $t("settings.tracker") }}
           </BaseButton>
-          <AppButtonCopy
-            :copy-text="bugReportText"
-            color="info"
-            :icon="false"
-          />
+          <AppButtonCopy :copy-text="bugReportText" color="info" :icon="false" />
         </div>
       </v-card-text>
     </BaseDialog>
 
     <div class="d-flex justify-end">
-      <BaseButton
-        color="info"
-        @click="
-          bugReportDialog = true;
-        "
-      >
+      <BaseButton color="info" @click="bugReportDialog = true">
         <template #icon>
           {{ $globals.icons.github }}
         </template>
-        {{ $t('settings.bug-report') }}
+        {{ $t("settings.bug-report") }}
       </BaseButton>
     </div>
 
     <!-- Configuration -->
     <section>
-      <BaseCardSectionTitle
-        class="pb-0"
-        :icon="$globals.icons.cog"
-        :title="$t('settings.configuration')"
-      />
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$t('settings.configuration')" />
       <v-card class="mb-4">
-        <template
-          v-for="(check, idx) in simpleChecks"
-          :key="`list-item-${idx}`"
-        >
+        <template v-for="(check, idx) in simpleChecks" :key="`list-item-${idx}`">
           <v-list-item :title="check.text">
             <template #prepend>
               <v-icon :color="check.color" class="opacity-100">
@@ -102,35 +65,21 @@
 
     <!-- Email -->
     <section>
-      <BaseCardSectionTitle
-        class="pt-2"
-        :icon="$globals.icons.email"
-        :title="$t('user.email')"
-      />
-      <v-alert
-        border="start"
-        :border-color="appConfig.emailReady ? 'success' : 'error'"
-        variant="text"
-        elevation="2"
-      >
+      <BaseCardSectionTitle class="pt-2" :icon="$globals.icons.email" :title="$t('user.email')" />
+      <v-alert border="start" :border-color="appConfig.emailReady ? 'success' : 'error'" variant="text" elevation="2">
         <template #prepend>
           <v-icon :color="appConfig.emailReady ? 'success' : 'warning'">
             {{ appConfig.emailReady ? $globals.icons.checkboxMarkedCircle : $globals.icons.alertCircle }}
           </v-icon>
         </template>
         <div class="font-weight-medium">
-          {{ $t('settings.email-configuration-status') }}
+          {{ $t("settings.email-configuration-status") }}
         </div>
         <div>
-          {{ appConfig.emailReady ? $t('settings.ready') : $t('settings.not-ready') }}
+          {{ appConfig.emailReady ? $t("settings.ready") : $t("settings.not-ready") }}
         </div>
         <div>
-          <v-text-field
-            v-model="state.address"
-            class="mr-4"
-            :label="$t('user.email')"
-            :rules="[validators.email]"
-          />
+          <v-text-field v-model="state.address" class="mr-4" :label="$t('user.email')" :rules="[validators.email]" />
           <BaseButton
             color="info"
             variant="elevated"
@@ -147,9 +96,9 @@
           <template v-if="state.tested">
             <v-divider class="my-x mt-6" />
             <v-card-text class="px-0">
-              <h4> {{ $t("settings.email-test-results") }}</h4>
+              <h4>{{ $t("settings.email-test-results") }}</h4>
               <span class="pl-4">
-                {{ state.success ? $t('settings.succeeded') : $t('settings.failed') }}
+                {{ state.success ? $t("settings.succeeded") : $t("settings.failed") }}
               </span>
             </v-card-text>
           </template>
@@ -159,21 +108,11 @@
 
     <!-- General App Info -->
     <section class="mt-4">
-      <BaseCardSectionTitle
-        class="pb-0"
-        :icon="$globals.icons.cog"
-        :title="$t('settings.general-about')"
-      />
+      <BaseCardSectionTitle class="pb-0" :icon="$globals.icons.cog" :title="$t('settings.general-about')" />
       <v-card class="mb-4">
         <template v-if="appInfo && appInfo.length">
-          <template
-            v-for="(property, idx) in appInfo"
-            :key="property.name"
-          >
-            <v-list-item
-              :title="property.name"
-              :prepend-icon="property.icon || $globals.icons.user"
-            >
+          <template v-for="(property, idx) in appInfo" :key="property.name">
+            <v-list-item :title="property.name" :prepend-icon="property.icon || $globals.icons.user">
               <template v-if="property.slot === 'recipe-scraper'">
                 <v-list-item-subtitle>
                   <a
@@ -196,7 +135,9 @@
                   </a>
                 </v-list-item-subtitle>
               </template>
-              <template v-else-if="property.slot === 'version' && property.value !== 'develop' && property.value !== 'nightly'">
+              <template
+                v-else-if="property.slot === 'version' && property.value !== 'develop' && property.value !== 'nightly'"
+              >
                 <v-list-item-subtitle>
                   <a
                     class="text-primary"
@@ -213,10 +154,7 @@
                 </v-list-item-subtitle>
               </template>
             </v-list-item>
-            <v-divider
-              v-if="appInfo && idx !== appInfo.length - 1"
-              :key="`divider-${property.name}`"
-            />
+            <v-divider v-if="appInfo && idx !== appInfo.length - 1" :key="`divider-${property.name}`" />
           </template>
         </template>
         <template v-else>
@@ -285,6 +223,7 @@ const appConfig = ref<CheckApp>({
   ldapReady: false,
   oidcReady: false,
   enableOpenai: false,
+  enableFlaresolverr: false,
 });
 function isLocalHostOrHttps() {
   return window.location.hostname === "localhost" || window.location.protocol === "https:";
@@ -310,7 +249,10 @@ const simpleChecks = computed<SimpleCheck[]>(() => {
       id: "application-version",
       text: i18n.t("settings.application-version"),
       status: appConfig.value.isUpToDate,
-      errorText: i18n.t("settings.application-version-error-text", [rawAppInfo.value.version, rawAppInfo.value.versionLatest]),
+      errorText: i18n.t("settings.application-version-error-text", [
+        rawAppInfo.value.version,
+        rawAppInfo.value.versionLatest,
+      ]),
       successText: i18n.t("settings.mealie-is-up-to-date"),
       color: appConfig.value.isUpToDate ? goodColor : warningColor,
       icon: appConfig.value.isUpToDate ? goodIcon : warningIcon,
@@ -370,8 +312,7 @@ async function testEmail() {
   if (data) {
     if (data.success) {
       state.success = true;
-    }
-    else {
+    } else {
       state.error = data.error ?? "";
       state.success = false;
     }
