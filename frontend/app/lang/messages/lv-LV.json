@@ -1256,7 +1256,7 @@
   },
   "banner-experimental": {
     "title": "Experimental Feature",
-    "description": "This page contains experimental or still-baking features. Please excuse the mess.",
+    "description": "Šajā lapā ir eksperimentālas vai vēl tiek ceptas funkcijas. Lūdzu, atvainojiet par jucekli.",
     "issue-link-text": "Track our progress here"
   },
   "form": {
