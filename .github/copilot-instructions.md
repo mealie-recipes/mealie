@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Mealie is a self-hosted recipe manager, meal planner, and shopping list application with a FastAPI backend (Python 3.12) and Nuxt 3 frontend (Vue 3 + TypeScript). It uses SQLAlchemy ORM with support for SQLite and PostgreSQL databases.
+Mealie is a self-hosted recipe manager, meal planner, and shopping list application with a FastAPI backend (Python 3.12) and Nuxt 4 frontend (Vue 3 + TypeScript). It uses SQLAlchemy ORM with support for SQLite and PostgreSQL databases.
 
 **Development vs Production:**
 - **Development:** Frontend (port 3000) and backend (port 9000) run as separate processes
@@ -51,7 +51,7 @@ Mealie is a self-hosted recipe manager, meal planner, and shopping list applicat
 - Use `useAuthBackend()` for authentication state, `useMealieAuth()` for user management
 
 **State Management:**
-- Nuxt 3 composables for state (no Vuex)
+- Nuxt 4 composables for state (no Vuex)
 - Auth state via `use-mealie-auth.ts` composable
 - Prefer composables over global state stores
 
