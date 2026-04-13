@@ -45,7 +45,7 @@ class SPAStaticFiles(StaticFiles):
         # container rebuild (prevents blank white page from stale index.html in HA iframes, etc).
         if path.startswith("_nuxt/"):
             response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
-        elif path == "." or path == "index.html" or response.media_type == "text/html":
+        elif path == "." or response.media_type == "text/html":
             response.headers["Cache-Control"] = "no-cache"
 
         return response
