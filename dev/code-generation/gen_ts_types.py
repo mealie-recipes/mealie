@@ -33,11 +33,11 @@ PROJECT_DIR = Path(__file__).parent.parent.parent
 
 
 def generate_global_components_types() -> None:
-    destination_file = PROJECT_DIR / "frontend" / "types" / "components.d.ts"
+    destination_file = PROJECT_DIR / "frontend" / "app" / "types" / "components.d.ts"
 
     component_paths = {
-        "global": PROJECT_DIR / "frontend" / "components" / "global",
-        "layout": PROJECT_DIR / "frontend" / "components" / "Layout",
+        "global": PROJECT_DIR / "frontend" / "app" / "components" / "global",
+        "layout": PROJECT_DIR / "frontend" / "app" / "components" / "Layout",
     }
 
     def render_template(template: str, data: dict) -> str | None:
@@ -182,7 +182,7 @@ def generate_typescript_types() -> None:  # noqa: C901
         return str_path
 
     schema_path = PROJECT_DIR / "mealie" / "schema"
-    types_dir = PROJECT_DIR / "frontend" / "lib" / "api" / "types"
+    types_dir = PROJECT_DIR / "frontend" / "app" / "lib" / "api" / "types"
 
     ignore_dirs = ["__pycache__", "static", "_mealie"]
 

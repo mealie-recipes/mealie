@@ -7050,8 +7050,8 @@
             "ranch dressing packet": {
                 "aliases": [],
                 "description": "",
-                "name": "ranch dressing packet",
-                "plural_name": "ranch dressing packets"
+                "name": "sachet de sauce ranch",
+                "plural_name": "sachet de sauce ranch"
             },
             "seasoned salt": {
                 "aliases": [],
@@ -7392,8 +7392,8 @@
             "mexican seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican seasoning",
-                "plural_name": "mexican seasoning"
+                "name": "assaisonnement mexicain",
+                "plural_name": "assaisonnement mexicain"
             },
             "tajin seasoning": {
                 "aliases": [],
@@ -7429,7 +7429,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sel à la truffe",
-                "plural_name": "truffle salt"
+                "plural_name": "sel à la truffe"
             },
             "biryani masala": {
                 "aliases": [],
