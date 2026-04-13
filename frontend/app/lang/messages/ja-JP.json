@@ -903,14 +903,7 @@
     "openai-ready": "OpenAI Ready",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "すべてのOpenAIの値が設定されていません。OpenAIを使用していない場合は無視できます。",
-    "openai-ready-success-text": "必須のOpenAI変数はすべて設定されています。",
-    "flaresolverr-ready": "Flaresolverr対応",
-    "flaresolverr-ready-error-text": "`FLARESOLVERR_URL` の値が設定されていません。Flaresolverrを使用していない場合は無視できます。",
-    "flaresolverr-ready-success-text": "必須のFlaresolverr変数はすべて設定されています。"
-    "openai-ready-success-text": "必須のOpenAI変数はすべて設定されています。",
-    "flaresolverr-ready": "Flaresolverr対応",
-    "flaresolverr-ready-error-text": "`FLARESOLVERR_URL` の値が設定されていません。Flaresolverrを使用していない場合は無視できます。",
-    "flaresolverr-ready-success-text": "必須のFlaresolverr変数はすべて設定されています。"
+    "openai-ready-success-text": "必須のOpenAI変数はすべて設定されています。"
   },
   "shopping-list": {
     "all-lists": "すべてのリスト",

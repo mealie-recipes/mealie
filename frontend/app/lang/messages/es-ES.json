@@ -903,10 +903,7 @@
     "openai-ready": "OpenAI Listo",
     "openai-not-ready": "OpenAI no está listo",
     "openai-ready-error-text": "No todos los valores OpenAI están configurados. Puedes ignorar esto si no estás usando funciones de OpenAI.",
-    "openai-ready-success-text": "Las variables OpenAI requeridas están todas definidas.",
-    "flaresolverr-ready": "Flaresolverr Listo",
-    "flaresolverr-ready-error-text": "La URL del servidor Flaresolverr no están configurados. Puedes ignorar esto si no estás usando funciones de Flaresolverr.",
-    "flaresolverr-ready-success-text": "Las variables Flaresolverr requeridas están todas definidas."
+    "openai-ready-success-text": "Las variables OpenAI requeridas están todas definidas."
   },
   "shopping-list": {
     "all-lists": "Todas las listas",
