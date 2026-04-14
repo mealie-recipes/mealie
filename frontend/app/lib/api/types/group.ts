@@ -19,6 +19,7 @@ export type SupportedMigrations =
 
 export interface CreateGroupPreferences {
   privateGroup?: boolean;
+  showAnnouncements?: boolean;
   groupId: string;
 }
 export interface DataMigrationCreate {
@@ -31,6 +32,7 @@ export interface GroupAdminUpdate {
 }
 export interface UpdateGroupPreferences {
   privateGroup?: boolean;
+  showAnnouncements?: boolean;
 }
 export interface GroupDataExport {
   id: string;
@@ -49,6 +51,7 @@ export interface GroupStorage {
 }
 export interface ReadGroupPreferences {
   privateGroup?: boolean;
+  showAnnouncements?: boolean;
   groupId: string;
   id: string;
 }

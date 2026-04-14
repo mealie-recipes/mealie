@@ -61,14 +61,15 @@
   max-width: 100%;
 }
 
-a {
-  color: rgb(var(--v-theme-primary));
-}
-
 .fill-height {
   min-height: 100vh;
 }
 
 .vue-simple-handler {
   background-color: rgb(var(--v-theme-primary)) !important;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0;
 }
