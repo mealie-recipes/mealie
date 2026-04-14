@@ -7,66 +7,64 @@
       content-class="top-dialog"
       :scrollable="false"
     >
-      <v-app-bar
-        sticky
-        dark
-        color="primary-lighten-1 top-0 position-relative left-0"
-        :rounded="!$vuetify.display.xs"
-        style="width: 100%;"
-      >
-        <v-text-field
-          id="arrow-search"
-          v-model="search.query.value"
-          autofocus
-          variant="solo"
-          flat
-          autocomplete="off"
-          bg-color="primary-lighten-1"
-          color="white"
-          density="compact"
-          class="mx-2 arrow-search"
-          hide-details
-          single-line
-          :placeholder="$t('search.search')"
-          :prepend-inner-icon="$globals.icons.search"
-        />
-
-        <v-btn
-          v-if="$vuetify.display.xs"
-          icon
-          size="x-small"
-          @click="dialog = false"
-        >
-          <v-icon>
-            {{ $globals.icons.close }}
-          </v-icon>
-        </v-btn>
-      </v-app-bar>
       <v-card
-        class="position-relative mt-1 pa-1 scroll"
-        max-height="700px"
-        relative
+        :rounded="!$vuetify.display.xs"
         :loading="loading"
       >
+        <v-toolbar
+          dark
+          color="primary-lighten-1"
+        >
+          <v-text-field
+            id="arrow-search"
+            v-model="search.query.value"
+            autofocus
+            variant="solo"
+            flat
+            autocomplete="off"
+            bg-color="primary-lighten-1"
+            color="white"
+            density="compact"
+            class="mx-2 arrow-search"
+            hide-details
+            single-line
+            :placeholder="$t('search.search')"
+            :prepend-inner-icon="$globals.icons.search"
+          />
+
+          <v-btn
+            v-if="$vuetify.display.xs"
+            icon
+            size="x-small"
+            @click="dialog = false"
+          >
+            <v-icon>
+              {{ $globals.icons.close }}
+            </v-icon>
+          </v-btn>
+        </v-toolbar>
+
         <v-card-actions>
           <div class="mr-auto">
             {{ $t("search.results") }}
           </div>
         </v-card-actions>
 
-        <RecipeCardMobile
-          v-for="(recipe, index) in search.data.value"
-          :key="index"
-          :tabindex="index"
-          class="ma-1 arrow-nav"
-          :name="recipe.name ?? ''"
-          :description="recipe.description ?? ''"
-          :slug="recipe.slug ?? ''"
-          :rating="recipe.rating ?? 0"
-          :image="recipe.image"
-          :recipe-id="recipe.id ?? ''"
-          v-bind="$attrs.selected ? { selected: () => handleSelect(recipe) } : {}"
-        />
+        <div class="scroll pa-1" style="max-height: 700px;">
+          <RecipeCardMobile
+            v-for="(recipe, index) in search.data.value"
+            :key="index"
+            :tabindex="index"
+            class="ma-1 arrow-nav"
+            :name="recipe.name ?? ''"
+            :description="recipe.description ?? ''"
+            :slug="recipe.slug ?? ''"
+            :rating="recipe.rating ?? 0"
+            :image="recipe.image"
+            :recipe-id="recipe.id ?? ''"
+            v-bind="$attrs.selected ? { selected: () => handleSelect(recipe) } : {}"
+          />
+        </div>
       </v-card>
     </v-dialog>
   </div>
