@@ -35,14 +35,14 @@
           </v-toolbar-title>
         </v-toolbar>
 
-        <div>
+        <div style="flex: 1 1 auto; min-height: 0; overflow: auto">
           <slot v-bind="{ submitEvent }" />
         </div>
 
         <v-spacer />
-        <v-divider class="mx-2" />
+        <v-divider />
 
-        <v-card-actions>
+        <v-card-actions :class="$vuetify.display.xs ? 'pb-4' : 'undefined'">
           <slot name="card-actions">
             <v-btn
               variant="text"
@@ -52,7 +52,7 @@
                 emit('cancel');
               "
             >
-              {{ $t("general.cancel") }}
+              {{ cancelText }}
             </v-btn>
             <v-spacer />
 
@@ -93,13 +93,6 @@
             </BaseButton>
           </slot>
         </v-card-actions>
-
-        <div
-          v-if="$slots['below-actions']"
-          class="pb-4"
-        >
-          <slot name="below-actions" />
-        </div>
       </v-card>
     </v-dialog>
   </div>
@@ -117,10 +110,16 @@ interface DialogProps {
   maxWidth?: number | string | null;
   loading?: boolean;
   top?: boolean | null;
+  keepOpen?: boolean;
+
+  // submit
   submitIcon?: string | null;
   submitText?: string;
   submitDisabled?: boolean;
-  keepOpen?: boolean;
+
+  // cancel
+  cancelText?: string;
+
   // actions
   canDelete?: boolean;
   canConfirm?: boolean;
@@ -142,10 +141,17 @@ const props = withDefaults(defineProps<DialogProps>(), {
   maxWidth: null,
   loading: false,
   top: null,
+  keepOpen: false,
+
+  // submit
   submitIcon: null,
   submitText: () => useNuxtApp().$i18n.t("general.create"),
   submitDisabled: false,
-  keepOpen: false,
+
+  // cancel
+  cancelText: () => useNuxtApp().$i18n.t("general.cancel"),
+
+  // actions
   canDelete: false,
   canConfirm: false,
   canSubmit: false,

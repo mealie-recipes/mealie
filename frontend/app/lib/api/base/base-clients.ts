@@ -1,3 +1,4 @@
+import type { AxiosRequestConfig } from "axios";
 import type { Recipe } from "../types/recipe";
 import type { ApiRequestInstance, PaginationData } from "~/lib/api/types/non-generated";
 import { type QueryValue, route } from "~/lib/api/base/route";
@@ -44,38 +45,38 @@ export abstract class BaseCRUDAPIReadOnly<ReadType>
     return this.itemRouteFn(itemId);
   }
 
-  async getAll(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
+  async getAll(page = 1, perPage = -1, params = {} as Record<string, QueryValue>, config?: AxiosRequestConfig) {
     params = Object.fromEntries(Object.entries(params).filter(([_, v]) => v !== null && v !== undefined));
-    return await this.requests.get<PaginationData<ReadType>>(route(this.baseRoute, { page, perPage, ...params }));
+    return await this.requests.get<PaginationData<ReadType>>(route(this.baseRoute, { page, perPage, ...params }), undefined, config);
   }
 
-  async getOne(itemId: string | number) {
-    return await this.requests.get<ReadType>(this.itemRoute(itemId));
+  async getOne(itemId: string | number, config?: AxiosRequestConfig) {
+    return await this.requests.get<ReadType>(this.itemRoute(itemId), undefined, config);
   }
 }
 
 export abstract class BaseCRUDAPI<CreateType, ReadType, UpdateType = CreateType>
   extends BaseCRUDAPIReadOnly<ReadType>
   implements CrudAPIInterface {
-  async createOne(payload: CreateType) {
-    return await this.requests.post<ReadType>(this.baseRoute, payload);
+  async createOne(payload: CreateType, config?: AxiosRequestConfig) {
+    return await this.requests.post<ReadType>(this.baseRoute, payload, config);
   }
 
-  async updateOne(itemId: string | number, payload: UpdateType) {
-    return await this.requests.put<ReadType, UpdateType>(this.itemRoute(itemId), payload);
+  async updateOne(itemId: string | number, payload: UpdateType, config?: AxiosRequestConfig) {
+    return await this.requests.put<ReadType, UpdateType>(this.itemRoute(itemId), payload, config);
   }
 
-  async patchOne(itemId: string, payload: Partial<UpdateType>) {
-    return await this.requests.patch<ReadType, Partial<UpdateType>>(this.itemRoute(itemId), payload);
+  async patchOne(itemId: string, payload: Partial<UpdateType>, config?: AxiosRequestConfig) {
+    return await this.requests.patch<ReadType, Partial<UpdateType>>(this.itemRoute(itemId), payload, config);
   }
 
-  async deleteOne(itemId: string | number) {
-    return await this.requests.delete<ReadType>(this.itemRoute(itemId));
+  async deleteOne(itemId: string | number, config?: AxiosRequestConfig) {
+    return await this.requests.delete<ReadType>(this.itemRoute(itemId), config);
   }
 
-  async duplicateOne(itemId: string | number, newName: string | undefined) {
+  async duplicateOne(itemId: string | number, newName: string | undefined, config?: AxiosRequestConfig) {
     return await this.requests.post<Recipe>(`${this.itemRoute(itemId)}/duplicate`, {
       name: newName,
-    });
+    }, config);
   }
 }
