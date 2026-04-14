@@ -77,7 +77,7 @@ Now you're ready to start the servers. You'll need two shells open, One for the 
 
 ### Frontend
 
-We use vue-i18n package for internationalization. Translations are stored in json format located in [frontend/lang/messages](https://github.com/mealie-recipes/mealie/tree/mealie-next/frontend/lang/messages).
+We use vue-i18n package for internationalization. Translations are stored in json format located in [frontend/app/lang/messages](https://github.com/mealie-recipes/mealie/tree/mealie-next/frontend/app/lang/messages).
 
 ### Backend
 

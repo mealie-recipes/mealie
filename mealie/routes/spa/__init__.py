@@ -33,14 +33,22 @@ class MetaTag:
 class SPAStaticFiles(StaticFiles):
     async def get_response(self, path: str, scope):
         try:
-            return await super().get_response(path, scope)
+            response = await super().get_response(path, scope)
         except HTTPException as ex:
             if ex.status_code == 404:
-                return await super().get_response("index.html", scope)
+                response = await super().get_response("index.html", scope)
             else:
                 raise ex
-        except Exception as e:
-            raise e
+
+        # Hashed assets (_nuxt/*) are safe to cache forever since new builds produce new filenames.
+        # HTML must revalidate so browsers always fetch the correct bundle references after a
+        # container rebuild (prevents blank white page from stale index.html in HA iframes, etc).
+        if path.startswith("_nuxt/"):
+            response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        elif path == "." or response.media_type == "text/html":
+            response.headers["Cache-Control"] = "no-cache"
+
+        return response
 
 
 __app_settings = get_app_settings()

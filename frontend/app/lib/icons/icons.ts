@@ -20,6 +20,7 @@ import {
   mdiBookOutline,
   mdiBowlMixOutline,
   mdiBroom,
+  mdiBullhornVariant,
   mdiCalendar,
   mdiCalendarMinus,
   mdiCalendarMultiselect,
@@ -36,6 +37,7 @@ import {
   mdiChefHat,
   mdiChevronDown,
   mdiChevronRight,
+  mdiChevronLeft,
   mdiClipboardCheck,
   mdiClockTimeFourOutline,
   mdiClose,
@@ -144,6 +146,7 @@ import {
   mdiTestTube,
   mdiText,
   mdiTextBoxOutline,
+  mdiTextBoxCheckOutline,
   mdiTimelineText,
   mdiTimerSand,
   mdiTools,
@@ -157,6 +160,7 @@ import {
   mdiWindowClose,
   mdiWrench,
   mdiHandWaveOutline,
+
 } from "@mdi/js";
 
 export const icons = {
@@ -184,6 +188,7 @@ export const icons = {
   bellAlert: mdiBellAlert,
   bellPlus: mdiBellPlus,
   broom: mdiBroom,
+  bullhornVariant: mdiBullhornVariant,
   calendar: mdiCalendar,
   calendarMinus: mdiCalendarMinus,
   calendarMultiselect: mdiCalendarMultiselect,
@@ -277,6 +282,7 @@ export const icons = {
   sortClockDescending: mdiSortClockDescending,
   star: mdiStar,
   testTube: mdiTestTube,
+  textBoxCheckOutline: mdiTextBoxCheckOutline,
   timelineText: mdiTimelineText,
   tools: mdiTools,
   potSteam: mdiPotSteamOutline,
@@ -327,6 +333,7 @@ export const icons = {
   slotMachine: mdiSlotMachine,
   chevronDown: mdiChevronDown,
   chevronRight: mdiChevronRight,
+  chevronLeft: mdiChevronLeft,
 
   // Ocr toolbar
   selectMode: mdiSelectionDrag,
