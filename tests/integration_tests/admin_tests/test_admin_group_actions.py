@@ -59,7 +59,10 @@ def test_admin_update_group(api_client: TestClient, admin_user: TestUser, unique
     update_payload = {
         "id": unique_user.group_id,
         "name": "New Name",
-        "preferences": {"privateGroup": random_bool()},
+        "preferences": {
+            "privateGroup": random_bool(),
+            "showAnnouncements": random_bool(),
+        },
     }
 
     response = api_client.put(

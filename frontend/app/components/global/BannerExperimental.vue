@@ -10,6 +10,7 @@
       <a
         :href="issue"
         target="_blank"
+        color="primary"
       >{{ $t("banner-experimental.issue-link-text") }}</a>
     </template>
   </BannerWarning>

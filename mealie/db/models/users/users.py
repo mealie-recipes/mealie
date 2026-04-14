@@ -68,7 +68,11 @@ class User(SqlAlchemyBase, BaseMixins):
     login_attemps: Mapped[int | None] = mapped_column(Integer, default=0)
     locked_at: Mapped[datetime | None] = mapped_column(NaiveDateTime, default=None)
 
-    # Group Permissions
+    # Announcements
+    show_announcements: Mapped[bool] = mapped_column(Boolean, default=True)
+    last_read_announcement: Mapped[str | None] = mapped_column(String)
+
+    # Permissions
     can_manage_household: Mapped[bool | None] = mapped_column(Boolean, default=False)
     can_manage: Mapped[bool | None] = mapped_column(Boolean, default=False)
     can_invite: Mapped[bool | None] = mapped_column(Boolean, default=False)

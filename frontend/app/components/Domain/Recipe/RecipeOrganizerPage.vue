@@ -43,7 +43,7 @@
       </v-card-text>
     </BaseDialog>
 
-    <v-row dense>
+    <v-row density="comfortable">
       <v-col>
         <v-text-field
           v-model="searchString"
@@ -57,7 +57,7 @@
       </v-col>
     </v-row>
 
-    <v-app-bar
+    <v-row
       color="transparent"
       flat
       class="mt-n1 rounded align-center position-relative w-100 left-0 top-0"
@@ -76,7 +76,7 @@
         create
         @click="dialogs.organizer = true"
       />
-    </v-app-bar>
+    </v-row>
     <section
       v-for="(itms, key, idx) in itemsSorted"
       :key="'header' + idx"

@@ -21,7 +21,7 @@
       @save="saveParsedIngredients"
     />
     <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
-      <v-card :flat="$vuetify.display.smAndDown" class="d-print-none">
+      <v-card flat class="d-print-none">
         <RecipePageHeader
           :recipe="recipe"
           :recipe-scale="scale"
@@ -68,17 +68,21 @@
             <!--
               The left column is conditionally rendered based on cook mode.
             -->
-            <v-col v-if="!isCookMode || isEditForm" cols="12" sm="12" md="4" lg="4">
-              <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" />
-              <RecipePageOrganizers v-if="$vuetify.display.mdAndUp" v-model="recipe" @item-selected="chipClicked" />
+            <v-col
+              v-if="!isCookMode || isEditForm"
+              cols="12"
+              sm="12"
+              md="4"
+              :class="$vuetify.display.mdAndUp ? 'border-e-thin' : null"
+            >
+              <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" class="pr-2" />
+              <RecipePageOrganizers v-if="$vuetify.display.mdAndUp" v-model="recipe" class="pr-2" @item-selected="chipClicked" />
             </v-col>
-            <v-divider v-if="$vuetify.display.mdAndUp && !isCookMode" class="my-divider" :vertical="true" />
-
             <!--
               the right column is always rendered, but it's layout width is determined by where the left column is
               rendered.
             -->
-            <v-col cols="12" sm="12" :md="8 + (isCookMode ? 1 : 0) * 4" :lg="8 + (isCookMode ? 1 : 0) * 4">
+            <v-col cols="12" sm="12" :md="8 + (isCookMode ? 1 : 0) * 4">
               <RecipePageInstructions
                 v-model="recipe.recipeInstructions"
                 v-model:assets="recipe.assets"
