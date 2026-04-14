@@ -16,6 +16,7 @@
           <a
             href="https://schema.org/Recipe"
             target="_blank"
+            class="text-primary"
           >https://schema.org/Recipe</a>
         </p>
         <v-switch

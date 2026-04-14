@@ -184,7 +184,15 @@
             persistent-hint
           />
           <v-checkbox
+            v-model="userCopy.showAnnouncements"
+            hide-details
+            :label="$t('announcements.show-announcements-from-mealie')"
+            color="primary"
+            @change="updateUser"
+          />
+          <v-checkbox
             v-model="userCopy.advanced"
+            hide-details
             :label="$t('profile.show-advanced-description')"
             color="primary"
             @change="updateUser"
@@ -192,7 +200,7 @@
         </v-card-text>
       </v-card>
       <nuxt-link
-        class="mt-5 d-flex flex-column justify-center text-center"
+        class="mt-5 d-flex flex-column justify-center text-center text-primary"
         :to="`/group`"
       > {{
         $t('profile.looking-for-privacy-settings') }} </nuxt-link>
@@ -268,6 +276,7 @@ async function updateUser() {
     admin: userData.admin,
     group: userData.group,
     household: userData.household,
+    showAnnouncements: userData.showAnnouncements,
     advanced: userData.advanced,
     canInvite: userData.canInvite,
     canManage: userData.canManage,
