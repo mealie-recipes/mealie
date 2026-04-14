@@ -45,7 +45,7 @@
     },
     "exceptions": {
         "permission_denied": "Jums nav atļaujas veikt šo darbību",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Recepte nevar atsaukties uz sevi pašu, ne tieši, ne netieši",
         "no-entry-found": "Pieprasītais resurss netika atrasts",
         "integrity-error": "Datu bāzes integritātes kļūda",
         "username-conflict-error": "Šis lietotājvārds jau ir aizņemts",
