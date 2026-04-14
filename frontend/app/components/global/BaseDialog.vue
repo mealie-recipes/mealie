@@ -35,7 +35,7 @@
           </v-toolbar-title>
         </v-toolbar>
 
-        <div>
+        <div style="flex: 1 1 auto; min-height: 0; overflow: auto">
           <slot v-bind="{ submitEvent }" />
         </div>
 
@@ -52,7 +52,7 @@
                 emit('cancel');
               "
             >
-              {{ $t("general.cancel") }}
+              {{ cancelText }}
             </v-btn>
             <v-spacer />
 
@@ -110,10 +110,16 @@ interface DialogProps {
   maxWidth?: number | string | null;
   loading?: boolean;
   top?: boolean | null;
+  keepOpen?: boolean;
+
+  // submit
   submitIcon?: string | null;
   submitText?: string;
   submitDisabled?: boolean;
-  keepOpen?: boolean;
+
+  // cancel
+  cancelText?: string;
+
   // actions
   canDelete?: boolean;
   canConfirm?: boolean;
@@ -135,10 +141,17 @@ const props = withDefaults(defineProps<DialogProps>(), {
   maxWidth: null,
   loading: false,
   top: null,
+  keepOpen: false,
+
+  // submit
   submitIcon: null,
   submitText: () => useNuxtApp().$i18n.t("general.create"),
   submitDisabled: false,
-  keepOpen: false,
+
+  // cancel
+  cancelText: () => useNuxtApp().$i18n.t("general.cancel"),
+
+  // actions
   canDelete: false,
   canConfirm: false,
   canSubmit: false,

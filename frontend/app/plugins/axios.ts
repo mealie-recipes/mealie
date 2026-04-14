@@ -1,6 +1,12 @@
 import axios from "axios";
 import { alert } from "~/composables/use-toast";
 
+declare module "axios" {
+  interface AxiosRequestConfig {
+    suppressAlert?: boolean;
+  }
+}
+
 export default defineNuxtPlugin(() => {
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
   const axiosInstance = axios.create({
@@ -25,7 +31,7 @@ export default defineNuxtPlugin(() => {
   // Add response interceptor
   axiosInstance.interceptors.response.use(
     (response) => {
-      if (response?.data?.message) alert.info(response.data.message as string);
+      if (response?.data?.message && !response.config?.suppressAlert) alert.info(response.data.message as string);
       return response;
     },
     (error) => {
