@@ -12,16 +12,13 @@
   >
     <template #activator="{ props }">
       <v-btn
-        :class="{ 'rounded-circle': fab }"
-        :small="fab"
-        :color="color"
-        :icon="!fab"
+        size="small"
+        :icon="$globals.icons.dotsVertical"
+        variant="text"
         dark
         v-bind="props"
         @click.prevent
-      >
-        <v-icon>{{ $globals.icons.dotsVertical }}</v-icon>
-      </v-btn>
+      />
     </template>
     <v-list density="compact">
       <v-list-item
@@ -51,14 +48,6 @@ defineProps({
   menuTop: {
     type: Boolean,
     default: true,
-  },
-  fab: {
-    type: Boolean,
-    default: false,
-  },
-  color: {
-    type: String,
-    default: "grey-darken-2",
   },
 });
 </script>

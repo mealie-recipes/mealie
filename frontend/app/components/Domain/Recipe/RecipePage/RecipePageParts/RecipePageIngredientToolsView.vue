@@ -62,17 +62,18 @@ const toolStore = isOwnGroup.value ? useToolStore() : null;
 const { user } = usePageUser();
 const { isEditMode } = usePageState(props.recipe.slug);
 
-const recipeTools = computed(() => {
+const recipeTools = ref<RecipeToolWithOnHand[]>([]);
+watch(() => props.recipe.tools, () => {
   if (!(user.householdSlug && toolStore)) {
-    return props.recipe.tools.map(tool => ({ ...tool, onHand: false }) as RecipeToolWithOnHand);
+    recipeTools.value = props.recipe.tools.map(tool => ({ ...tool, onHand: false }) as RecipeToolWithOnHand);
   }
   else {
-    return props.recipe.tools.map((tool) => {
+    recipeTools.value = props.recipe.tools.map((tool) => {
       const onHand = tool.householdsWithTool?.includes(user.householdSlug) || false;
       return { ...tool, onHand } as RecipeToolWithOnHand;
     });
   }
-});
+}, { immediate: true });
 
 function updateTool(index: number) {
   if (user.id && user.householdSlug && toolStore) {

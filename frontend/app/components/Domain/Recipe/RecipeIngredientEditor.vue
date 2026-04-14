@@ -13,7 +13,7 @@
     />
     <v-row
       :no-gutters="mdAndUp"
-      dense
+      density="comfortable"
       class="d-flex flex-wrap my-1"
     >
       <v-col
