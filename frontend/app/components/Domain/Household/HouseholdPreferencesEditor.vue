@@ -18,6 +18,20 @@
         </p>
       </div>
     </div>
+    <div class="mb-6">
+      <v-checkbox
+        v-model="preferences.showAnnouncements"
+        hide-details
+        density="compact"
+        color="primary"
+        :label="$t('announcements.show-announcements-from-mealie')"
+      />
+      <div class="ml-8">
+        <p class="text-subtitle-2 my-0 py-0">
+          {{ $t("announcements.show-announcements-setting-description") }}
+        </p>
+      </div>
+    </div>
     <v-select
       v-model="preferences.firstDayOfWeek"
       :prepend-icon="$globals.icons.calendarWeekBegin"

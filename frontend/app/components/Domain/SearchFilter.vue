@@ -79,7 +79,6 @@
               <v-virtual-scroll
                 :items="filtered"
                 height="300"
-                item-height="51"
               >
                 <template #default="{ item }">
                   <v-list-item
@@ -108,7 +107,6 @@
               <v-virtual-scroll
                 :items="filtered"
                 height="300"
-                item-height="51"
               >
                 <template #default="{ item }">
                   <v-list-item

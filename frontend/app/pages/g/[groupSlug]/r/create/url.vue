@@ -18,11 +18,11 @@
           <v-card-text class="px-0">
             <p>
               {{ $t('recipe.scrape-recipe-have-a-lot-of-recipes') }}
-              <router-link :to="bulkImporterTarget">{{ $t('recipe.scrape-recipe-suggest-bulk-importer') }}</router-link>.
+              <router-link :to="bulkImporterTarget" class="text-primary">{{ $t('recipe.scrape-recipe-suggest-bulk-importer') }}</router-link>.
             </p>
             <p>
               {{ $t('recipe.scrape-recipe-have-raw-html-or-json-data') }}
-              <router-link :to="htmlOrJsonImporterTarget">{{ $t('recipe.scrape-recipe-you-can-import-from-raw-data-directly') }}</router-link>.
+              <router-link :to="htmlOrJsonImporterTarget" class="text-primary">{{ $t('recipe.scrape-recipe-you-can-import-from-raw-data-directly') }}</router-link>.
             </p>
           </v-card-text>
           <v-text-field
@@ -113,7 +113,7 @@
         </div>
         <div class="d-flex row justify-space-around my-3 force-url-white">
           <a
-            class="dark"
+            class="dark text-primary"
             href="https://developers.google.com/search/docs/data-types/recipe"
             target="_blank"
             rel="noreferrer nofollow"
@@ -121,6 +121,7 @@
             {{ $t("new-recipe.google-ld-json-info") }}
           </a>
           <a
+            class="text-primary"
             href="https://github.com/mealie-recipes/mealie/issues"
             target="_blank"
             rel="noreferrer nofollow"
@@ -128,6 +129,7 @@
             {{ $t("new-recipe.github-issues") }}
           </a>
           <a
+            class="text-primary"
             href="https://schema.org/Recipe"
             target="_blank"
             rel="noreferrer nofollow"

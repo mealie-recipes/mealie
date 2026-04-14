@@ -34,6 +34,8 @@ export const useGroupSelf = function () {
       if (data) {
         groupSelfRef.value.preferences = data;
       }
+
+      return data || undefined;
     },
   };
 
