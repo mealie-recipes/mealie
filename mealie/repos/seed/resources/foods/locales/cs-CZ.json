@@ -169,7 +169,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rukola",
-                "plural_name": "arugula"
+                "plural_name": "rukola"
             },
             "leek": {
                 "aliases": [],
@@ -15878,19 +15878,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "cannabi",
-                "plural_name": "cannabis"
+                "plural_name": "konopí"
             },
             "banana extract": {
                 "aliases": [],
                 "description": "",
-                "name": "banana extract",
-                "plural_name": "banana extract"
+                "name": "banánový extrakt",
+                "plural_name": "banánový extrakt"
             },
             "lavender oil": {
                 "aliases": [],
                 "description": "",
-                "name": "lavender oil",
-                "plural_name": "lavender oil"
+                "name": "levandulový olej",
+                "plural_name": "levandulový olej"
             },
             "essential oil": {
                 "aliases": [],
