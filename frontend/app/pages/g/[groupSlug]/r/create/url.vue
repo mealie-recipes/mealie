@@ -200,35 +200,30 @@ const recipeUrl = computed({
   get() {
     // Prefer the 'url' share field (recipe_import_url, populated by Chrome when
     // sharing a page URL). Fall back to the 'text' share field (recipe_import_text)
-    // for apps that share URLs as plain text.
-    return (route.query.recipe_import_url as string | null)
-      ?? (route.query.recipe_import_text as string | null)
-      ?? null;
+    // for apps that share URLs as plain text, but only when the text value is
+    // actually a valid http/https URL — shared text can be arbitrary.
+    const urlFromField = route.query.recipe_import_url as string | null;
+    if (urlFromField) {
+      return urlFromField;
+    }
+    const textFromField = route.query.recipe_import_text as string | null;
+    if (textFromField) {
+      try {
+        const parsed = new URL(textFromField);
+        if (parsed.protocol === "http:" || parsed.protocol === "https:") {
+          return textFromField;
+        }
+      }
+      catch { /* not a URL, ignore */ }
+    }
+    return null;
   },
 });
 
 onMounted(() => {
-  const url = recipeUrl.value;
-  if (url) {
-    // Validate before auto-triggering import: require a proper http/https URL.
-    // PWA Share Target only delivers URLs from secure contexts, but http sites
-    // exist and the scraper handles both protocols.
-    let isValidUrl = false;
-    try {
-      const parsed = new URL(url);
-      isValidUrl = parsed.protocol === "http:" || parsed.protocol === "https:";
-    }
-    catch {
-      // Not a valid URL — fall through and show the form without auto-importing
-    }
-
-    if (!isValidUrl) {
-      return;
-    }
-
-    // Check if we have a query params for using keywords as tags or staying in edit mode.
-    // We don't use these in the app anymore, but older automations such as Bookmarklet might still use them,
-    // and they're easy enough to support.
+  if (recipeUrl.value) {
+    // Apply legacy query params for older automations such as the Bookmarklet.
+    // These are no longer used by the app itself but are easy to keep supporting.
     const importKeywordsAsTagsParam = route.query.use_keywords;
     if (importKeywordsAsTagsParam === "1") {
       importKeywordsAsTags.value = true;
@@ -245,7 +240,9 @@ onMounted(() => {
       stayInEditMode.value = false;
     }
 
-    createByUrl(url, importKeywordsAsTags.value, false);
+    // The URL is pre-filled via the recipeUrl computed property.
+    // Do not auto-submit: the user should review the import options and
+    // confirm by clicking the submit button.
   }
 });
 
