@@ -975,7 +975,7 @@ requires-dist = [
     { name = "python-dateutil", specifier = "==2.9.0.post0" },
     { name = "python-dotenv", specifier = "==1.2.2" },
     { name = "python-ldap", specifier = "==3.4.5" },
-    { name = "python-multipart", specifier = "==0.0.24" },
+    { name = "python-multipart", specifier = "==0.0.25" },
     { name = "python-slugify", specifier = "==8.0.4" },
     { name = "pyyaml", specifier = "==6.0.3" },
     { name = "rapidfuzz", specifier = "==3.14.5" },
@@ -1627,11 +1627,11 @@ sdist = { url = "https://files.pythonhosted.org/packages/0c/88/8d2797decc42e1c1c
 
 [[package]]
 name = "python-multipart"
-version = "0.0.24"
+version = "0.0.25"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/8a/45/e23b5dc14ddb9918ae4a625379506b17b6f8fc56ca1d82db62462f59aea6/python_multipart-0.0.24.tar.gz", hash = "sha256:9574c97e1c026e00bc30340ef7c7d76739512ab4dfd428fec8c330fa6a5cc3c8", size = 37695, upload-time = "2026-04-05T20:49:13.829Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/cf/9f/f5c842657404d69ab2d87bbb3fb70075afd24c44a00724980ee0c5e18813/python_multipart-0.0.25.tar.gz", hash = "sha256:9966d7ad12a3aca92adae7c1326a155ff3ba720f86dc3a382c27d57deeb6c3e8", size = 43011, upload-time = "2026-04-10T13:15:03.071Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/a3/73/89930efabd4da63cea44a3f438aeb753d600123570e6d6264e763617a9ce/python_multipart-0.0.24-py3-none-any.whl", hash = "sha256:9b110a98db707df01a53c194f0af075e736a770dc5058089650d70b4a182f950", size = 24420, upload-time = "2026-04-05T20:49:12.555Z" },
+    { url = "https://files.pythonhosted.org/packages/88/07/cd09232a94bb8b4331fc9ccca8d196706352f57126238e7100ce23cc8dea/python_multipart-0.0.25-py3-none-any.whl", hash = "sha256:0c8ed4a7a82f14478602b5e714a47a1869e250c3d784c78005711fdcb5852089", size = 28787, upload-time = "2026-04-10T13:15:01.643Z" },
 ]
 
 [[package]]
