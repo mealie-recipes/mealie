@@ -30,6 +30,20 @@ async function fetchTheme(): Promise<ThemeConfig | undefined> {
   }
 }
 
+function updateThemeColorMeta(color: string) {
+  if (import.meta.server) return;
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) {
+    meta.setAttribute("content", color);
+  }
+  else {
+    const newMeta = document.createElement("meta");
+    newMeta.name = "theme-color";
+    newMeta.content = color;
+    document.head.appendChild(newMeta);
+  }
+}
+
 export default defineNuxtPlugin(async (nuxtApp) => {
   nuxtApp.hook("vuetify:before-create", async ({ vuetifyOptions }) => {
     let theme = __cachedTheme;
@@ -37,8 +51,13 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       theme = await fetchTheme();
       __cachedTheme = theme;
     }
+    const isDark = nuxtApp.$config.public.useDark;
+    const primaryColor = isDark
+      ? (theme?.darkPrimary ?? "#E58325")
+      : (theme?.lightPrimary ?? "#E58325");
+    updateThemeColorMeta(primaryColor);
     vuetifyOptions.theme = {
-      defaultTheme: nuxtApp.$config.public.useDark ? "dark" : "light",
+      defaultTheme: isDark ? "dark" : "light",
       variations: {
         colors: ["primary", "accent", "secondary", "success", "info", "warning", "error", "background"],
         lighten: 3,
