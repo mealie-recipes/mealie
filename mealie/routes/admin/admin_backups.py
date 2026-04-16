@@ -90,7 +90,7 @@ class AdminBackupController(BaseAdminController):
         app_dirs = get_app_dirs()
         dest = app_dirs.BACKUP_DIR.joinpath(f"{name}.zip")
 
-        if dest.absolute().parent != app_dirs.BACKUP_DIR:
+        if dest.resolve().parent != app_dirs.BACKUP_DIR.resolve():
             raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
         with dest.open("wb") as buffer:

@@ -26,6 +26,8 @@ class AdminDebugController(BaseAdminController):
 
         with get_temporary_path() as temp_path:
             if image:
+                if not image.filename:
+                    return DebugResponse(success=False, response="Invalid image filename")
                 safe_filename = Path(image.filename).name
                 local_image_path = temp_path.joinpath(safe_filename)
                 with local_image_path.open("wb") as buffer:

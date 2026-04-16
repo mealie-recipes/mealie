@@ -102,6 +102,7 @@ class RecipeDataService(BaseService):
         try:
             self.minifier.minify(image_path)
         except Exception:
+            # Remove the partially-written file so corrupt images don't persist on disk.
             image_path.unlink(missing_ok=True)
             raise
 

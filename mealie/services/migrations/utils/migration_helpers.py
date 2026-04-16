@@ -105,10 +105,13 @@ def safe_local_path(candidate: str | Path, root: Path) -> Path | None:
     """
     Returns the resolved path only if it is safely contained within root.
 
-    Rejects absolute paths that escape root and path traversal sequences (e.g. ``../../``).
-    Returns ``None`` for any path that would escape the root directory.
+    Returns ``None`` for any path that would escape the root directory,
+    including ``../../`` traversal sequences and absolute paths outside root.
+    Symlinks are followed by ``resolve()``, so a symlink pointing outside root
+    is also rejected.
     """
     try:
+        # OSError: symlink resolution failure; ValueError: null bytes on some platforms
         resolved = Path(candidate).resolve()
         if resolved.is_relative_to(root.resolve()):
             return resolved
@@ -118,9 +121,8 @@ def safe_local_path(candidate: str | Path, root: Path) -> Path | None:
 
 
 def import_image(src: str | Path, recipe_id: UUID4, extraction_root: Path | None = None):
-    """Read the successful migrations attribute and for each import the image
-    appropriately into the image directory. Minification is done in mass
-    after the migration occurs.
+    """Import a local image file into the recipe image directory.
+
     May raise an UnidentifiedImageError if the file is not a recognised format.
 
     If extraction_root is provided, the src path must be contained within it.
