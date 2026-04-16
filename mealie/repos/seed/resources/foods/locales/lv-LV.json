@@ -889,8 +889,8 @@
             "dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apple",
-                "plural_name": "dried apples"
+                "name": "žāvēts ābols",
+                "plural_name": "žāvēti āboli"
             },
             "quince": {
                 "aliases": [],
@@ -9132,8 +9132,8 @@
             "lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "lentil",
-                "plural_name": "lentils"
+                "name": "lēcas",
+                "plural_name": "lēcas"
             },
             "pinto bean": {
                 "aliases": [],
@@ -9180,8 +9180,8 @@
             "green lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "green lentil",
-                "plural_name": "green lentils"
+                "name": "zaļās lēcas",
+                "plural_name": "zaļās lēcas"
             },
             "urad dal": {
                 "aliases": [],
@@ -9270,8 +9270,8 @@
             "black lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "black lentil",
-                "plural_name": "black lentils"
+                "name": "melnās lēcas",
+                "plural_name": "melnās lēcas"
             },
             "borlotti bean": {
                 "aliases": [],
@@ -9300,8 +9300,8 @@
             "yellow lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow lentil",
-                "plural_name": "yellow lentils"
+                "name": "dzeltenās lēcas",
+                "plural_name": "dzeltenās lēcas"
             },
             "mixed bean": {
                 "aliases": [],
@@ -9348,8 +9348,8 @@
             "lentil sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "lentil sprout",
-                "plural_name": "lentil sprouts"
+                "name": "lēcu dzinumi",
+                "plural_name": "lēcu dzinumi"
             },
             "white pea": {
                 "aliases": [],
@@ -10030,8 +10030,8 @@
             "bread": {
                 "aliases": [],
                 "description": "",
-                "name": "bread",
-                "plural_name": "breads"
+                "name": "maize",
+                "plural_name": "maizes"
             }
         }
     },
@@ -10220,8 +10220,8 @@
             "croissant": {
                 "aliases": [],
                 "description": "",
-                "name": "croissant",
-                "plural_name": "croissants"
+                "name": "kruasāns",
+                "plural_name": "kruasāni"
             },
             "pork rind": {
                 "aliases": [],
@@ -10644,8 +10644,8 @@
             "vegetable oil": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable oil",
-                "plural_name": "vegetable oil"
+                "name": "augu eļļa",
+                "plural_name": "augu eļļa"
             },
             "extra virgin olive oil": {
                 "aliases": [],
@@ -11088,8 +11088,8 @@
             "balsamic vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "balsamic vinegar",
-                "plural_name": "balsamic vinegar"
+                "name": "balzāmetiķis",
+                "plural_name": "balzāmetiķis"
             },
             "vinegar": {
                 "aliases": [],
@@ -11148,8 +11148,8 @@
             "white balsamic vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "white balsamic vinegar",
-                "plural_name": "white balsamic vinegar"
+                "name": "baltais balzāmetiķis",
+                "plural_name": "baltais balzāmetiķis"
             },
             "champagne vinegar": {
                 "aliases": [],
@@ -11370,8 +11370,8 @@
             "fig balsamic": {
                 "aliases": [],
                 "description": "",
-                "name": "fig balsamic",
-                "plural_name": "fig balsamics"
+                "name": "vīģu balzāmetiķis",
+                "plural_name": "vīģu balzāmetiķis"
             },
             "green goddess dressing": {
                 "aliases": [],
@@ -12404,8 +12404,8 @@
             "canned lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "canned lentil",
-                "plural_name": "canned lentils"
+                "name": "konservētas lēcas",
+                "plural_name": "konservētas lēcas"
             },
             "canned pea": {
                 "aliases": [],
@@ -13650,8 +13650,8 @@
             "lentil soup": {
                 "aliases": [],
                 "description": "",
-                "name": "lentil soup",
-                "plural_name": "lentil soups"
+                "name": "lēcu zupa",
+                "plural_name": "lēcu zupas"
             },
             "cream of shrimp soup": {
                 "aliases": [],
@@ -15135,8 +15135,8 @@
             "apple juice": {
                 "aliases": [],
                 "description": "",
-                "name": "apple juice",
-                "plural_name": "apple juice"
+                "name": "ābolu sula",
+                "plural_name": "ābolu sula"
             },
             "tea": {
                 "aliases": [],
