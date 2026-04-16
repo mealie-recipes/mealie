@@ -22,7 +22,7 @@ def serve_manifest():
     manifest = {
         "name": "Mealie",
         "short_name": "Mealie",
-        "id": settings.BASE_URL,
+        "id": "/",
         "start_url": sub_path,
         "scope": sub_path,
         "display": "standalone",
