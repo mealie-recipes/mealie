@@ -1,5 +1,6 @@
 import os
 import shutil
+from pathlib import Path
 
 from fastapi import APIRouter, File, UploadFile
 
@@ -25,9 +26,12 @@ class AdminDebugController(BaseAdminController):
 
         with get_temporary_path() as temp_path:
             if image:
-                with temp_path.joinpath(image.filename).open("wb") as buffer:
+                if not image.filename:
+                    return DebugResponse(success=False, response="Invalid image filename")
+                safe_filename = Path(image.filename).name
+                local_image_path = temp_path.joinpath(safe_filename)
+                with local_image_path.open("wb") as buffer:
                     shutil.copyfileobj(image.file, buffer)
-                local_image_path = temp_path.joinpath(image.filename)
                 local_images = [OpenAILocalImage(filename=os.path.basename(local_image_path), path=local_image_path)]
             else:
                 local_images = None
