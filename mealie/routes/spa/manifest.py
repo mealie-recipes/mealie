@@ -7,17 +7,8 @@ from mealie.core.config import get_app_settings
 
 
 def serve_manifest():
-    default_primary = "#E58325"
-
     settings = get_app_settings()
     sub_path = urlparse(settings.BASE_URL).path or "/"
-
-    if settings.theme.light_primary != default_primary:
-        theme_color = settings.theme.light_primary
-    elif settings.theme.dark_primary != default_primary:
-        theme_color = settings.theme.dark_primary
-    else:
-        theme_color = default_primary
 
     manifest = {
         "name": "Mealie",
@@ -27,7 +18,7 @@ def serve_manifest():
         "scope": sub_path,
         "display": "standalone",
         "background_color": "#1E1E1E",
-        "theme_color": theme_color,
+        "theme_color": settings.theme.light_primary,
         "description": "Mealie is a recipe management and meal planning app",
         "lang": "en",
         "display_override": ["standalone", "minimal-ui", "browser", "window-controls-overlay"],
