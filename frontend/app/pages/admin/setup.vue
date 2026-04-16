@@ -457,13 +457,8 @@ async function seedData() {
     return;
   }
 
-  const tasks = [
-    seedFoods(),
-    seedUnits(),
-    seedLabels(),
-  ];
-
-  await Promise.all(tasks);
+  await seedLabels();
+  await Promise.all([seedFoods(), seedUnits()]);
 }
 
 async function submitCommonSettings() {
