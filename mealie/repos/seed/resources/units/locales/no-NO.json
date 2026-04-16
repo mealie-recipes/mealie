@@ -73,8 +73,8 @@
         "abbreviation": "g"
     },
     "kilogram": {
-        "name": "kilogram",
-        "plural_name": "kilogram",
+        "name": "kilo",
+        "plural_name": "kilo",
         "description": "",
         "abbreviation": "kg"
     },
