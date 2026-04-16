@@ -3,7 +3,7 @@
     <BaseCardSectionTitle :title="$t('group.group-preferences')" />
     <div class="mb-6">
       <v-checkbox
-        v-model="preferences.privateGroup"
+        v-model="local.privateGroup"
         hide-details
         density="compact"
         color="primary"
@@ -21,7 +21,7 @@
     </div>
     <div class="mb-6">
       <v-checkbox
-        v-model="preferences.showAnnouncements"
+        v-model="local.showAnnouncements"
         hide-details
         density="compact"
         color="primary"
@@ -40,4 +40,6 @@
 import type { ReadGroupPreferences } from "~/lib/api/types/user";
 
 const preferences = defineModel<ReadGroupPreferences>({ required: true });
+const local = reactive({ ...preferences.value });
+watch(local, (newVal) => { preferences.value = { ...newVal }; });
 </script>
