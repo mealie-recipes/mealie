@@ -50,6 +50,12 @@ export default defineNuxtConfig({
           content: "Mealie is a recipe management app for your kitchen.",
         },
       ],
+      script: [
+        {
+          innerHTML: `(function(){try{var d=localStorage.getItem('vueuse-color-scheme');var m=d==='dark'||(d!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.style.backgroundColor=m?'#1E1E1E':'#FFFFFF'}catch(e){}})()`,
+          type: "text/javascript",
+        },
+      ],
       link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
         { rel: "shortcut icon", type: "image/png", href: "/icons/icon-x64.png" },
