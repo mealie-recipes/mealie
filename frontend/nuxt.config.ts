@@ -234,7 +234,7 @@ export default defineNuxtConfig({
       periodicSyncForUpdates: 120,
     },
     includeAssets: ["favicon.ico", "apple-touch-icon.png", "safari-pinned-tab.svg"],
-    manifest: false,
+    manifest: false, // This is served via the backend, see mealie/routes/spa/manifest.py
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
