@@ -1405,7 +1405,7 @@
     "manage-data-description": "Manage your Mealie data; Foods, Units, Categories, Tags and more.",
     "data-migrations": "Data Migrations",
     "data-migrations-description": "Migrate your existing data from other applications like Nextcloud Recipes and Chowdown.",
-    "email-sent": "Email Sent",
+    "email-sent": "E-Mail gesendet",
     "error-sending-email": "Error Sending Email",
     "personal-information": "Personal Information",
     "preferences": "Preferences",
@@ -1477,7 +1477,7 @@
   "announcements": {
     "announcements": "Announcements",
     "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
+    "mark-all-as-read": "Alle als gelesen markieren",
     "show-announcements-from-mealie": "Show announcements from Mealie",
     "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
