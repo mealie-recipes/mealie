@@ -19,8 +19,12 @@ router = APIRouter(prefix="/backups")
 
 @controller(router)
 class AdminBackupController(BaseAdminController):
-    def _backup_path(self, name) -> Path:
-        return get_app_dirs().BACKUP_DIR / name
+    def _backup_path(self, name: str) -> Path:
+        backup_dir = get_app_dirs().BACKUP_DIR
+        candidate = (backup_dir / name).resolve()
+        if not candidate.is_relative_to(backup_dir.resolve()):
+            raise HTTPException(status.HTTP_400_BAD_REQUEST)
+        return candidate
 
     @router.get("", response_model=AllBackups)
     def get_all(self):

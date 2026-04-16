@@ -17,7 +17,7 @@ class ImageType(StrEnum):
 
 
 @router.get("/{recipe_id}/images/{file_name}")
-async def get_recipe_img(recipe_id: str, file_name: ImageType = ImageType.original):
+async def get_recipe_img(recipe_id: UUID4, file_name: ImageType = ImageType.original):
     """
     Takes in a recipe id, returns the static image. This route is proxied in the docker image
     and should not hit the API in production
@@ -32,7 +32,7 @@ async def get_recipe_img(recipe_id: str, file_name: ImageType = ImageType.origin
 
 @router.get("/{recipe_id}/images/timeline/{timeline_event_id}/{file_name}")
 async def get_recipe_timeline_event_img(
-    recipe_id: str, timeline_event_id: str, file_name: ImageType = ImageType.original
+    recipe_id: UUID4, timeline_event_id: UUID4, file_name: ImageType = ImageType.original
 ):
     """
     Takes in a recipe id and event timeline id, returns the static image. This route is proxied in the docker image
@@ -51,7 +51,11 @@ async def get_recipe_timeline_event_img(
 @router.get("/{recipe_id}/assets/{file_name}")
 async def get_recipe_asset(recipe_id: UUID4, file_name: str):
     """Returns a recipe asset"""
-    file = Recipe.directory_from_id(recipe_id).joinpath("assets", file_name)
+    asset_dir = Recipe.directory_from_id(recipe_id).joinpath("assets")
+    file = asset_dir.joinpath(file_name).resolve()
+
+    if not file.is_relative_to(asset_dir.resolve()):
+        raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     if file.exists():
         return FileResponse(file)

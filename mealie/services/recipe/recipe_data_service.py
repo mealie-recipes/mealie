@@ -99,7 +99,11 @@ class RecipeDataService(BaseService):
             with open(image_path, "ab") as f:
                 shutil.copyfileobj(file_data, f)
 
-        self.minifier.minify(image_path)
+        try:
+            self.minifier.minify(image_path)
+        except Exception:
+            image_path.unlink(missing_ok=True)
+            raise
 
         return image_path
 
