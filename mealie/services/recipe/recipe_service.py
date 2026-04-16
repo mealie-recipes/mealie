@@ -325,9 +325,11 @@ class RecipeService(RecipeServiceBase):
         with get_temporary_path() as temp_path:
             local_images: list[Path] = []
             for image in images:
-                with temp_path.joinpath(image.filename).open("wb") as buffer:
+                safe_filename = Path(image.filename).name
+                image_path = temp_path.joinpath(safe_filename)
+                with image_path.open("wb") as buffer:
                     shutil.copyfileobj(image.file, buffer)
-                local_images.append(temp_path.joinpath(image.filename))
+                local_images.append(image_path)
 
             recipe_data = await openai_recipe_service.build_recipe_from_images(
                 local_images, translate_language=translate_language
