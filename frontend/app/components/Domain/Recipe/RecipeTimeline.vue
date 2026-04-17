@@ -44,6 +44,7 @@
                   :model-value="option.checked"
                   color="primary"
                   readonly
+                  hide-details
                   @click="toggleEventTypeOption(option.value)"
                 >
                   <template #label>
