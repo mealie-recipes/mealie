@@ -1475,10 +1475,10 @@
     "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Tilkynningar",
+    "all-announcements": "Allar tilkynningar",
+    "mark-all-as-read": "Merkja allar sem lesnar",
+    "show-announcements-from-mealie": "Sýna tilkynningar frá Mealie",
+    "show-announcements-setting-description": "Hvort leyfa eigi notendum að sjá tilkynningar fŕa Mealie. Sé þetta virkt þá getur notandinn sjálfur valið að sjá þær ekki í sínum notenda stillingum"
   }
 }
