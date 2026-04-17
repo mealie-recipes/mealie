@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100%;">
-    <v-row class="my-0 mx-7">
+    <v-row class="mb-0 mt-3 mx-7">
       <v-spacer />
       <v-col class="text-right">
         <!-- Filters -->
