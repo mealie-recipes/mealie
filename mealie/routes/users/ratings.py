@@ -1,7 +1,7 @@
 from functools import cached_property
 from uuid import UUID
 
-from fastapi import HTTPException, status
+from fastapi import BackgroundTasks, HTTPException, status
 from pydantic import UUID4
 
 from mealie.repos.all_repositories import get_repositories
@@ -10,6 +10,7 @@ from mealie.routes._base.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.user.user import UserRatingCreate, UserRatingOut, UserRatings, UserRatingUpdate
+from mealie.services.recommendation_service import update_vector_on_rating
 
 router = UserAPIRouter()
 
@@ -52,7 +53,7 @@ class UserRatingsController(BaseUserController):
         return UserRatings(ratings=self.repos.user_ratings.get_by_user(id, favorites_only=True))
 
     @router.post("/{id}/ratings/{slug}")
-    def set_rating(self, id: UUID4, slug: str, data: UserRatingUpdate):
+    def set_rating(self, id: UUID4, slug: str, data: UserRatingUpdate, background_tasks: BackgroundTasks):
         """Sets the user's rating for a recipe"""
         assert_user_change_allowed(id, self.user, self.user)
 
@@ -74,6 +75,14 @@ class UserRatingsController(BaseUserController):
                 user_rating.is_favorite = data.is_favorite
 
             self.repos.user_ratings.update(user_rating.id, user_rating)
+
+        if data.rating is not None:
+            background_tasks.add_task(
+                update_vector_on_rating,
+                id,
+                [tag.name for tag in recipe.tags or []],
+                int(data.rating),
+            )
 
     @router.post("/{id}/favorites/{slug}")
     def add_favorite(self, id: UUID4, slug: str):
