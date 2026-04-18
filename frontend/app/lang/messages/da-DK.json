@@ -51,7 +51,7 @@
     "category": "Category"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "Angiv URL",
     "database": "Database",
     "delete-event": "Delete Event",
     "event-delete-confirmation": "Are you sure you want to delete this event?",
