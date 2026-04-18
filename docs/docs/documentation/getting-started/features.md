@@ -6,6 +6,7 @@
 
 ### Creating Recipes
 Mealie offers several ways to create recipes:
+
 - **Recipe Scraper:** Create recipes from hundreds of websites by simply providing a URL.
 - **Image Import:** Upload an image of a written or typed recipe and Mealie will use OCR to import it.
 - **Video URL Import:** Provide a video URL (e.g., YouTube) and Mealie will transcribe the audio and parse the recipe.
