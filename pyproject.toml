@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.15.2"
+version = "3.16.0"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -21,7 +21,7 @@ dependencies = [
     "httpx==0.28.1",
     "lxml==6.0.4",
     "orjson==3.11.8",
-    "pydantic==2.12.5",
+    "pydantic==2.13.0",
     "pyhumps==3.8.0",
     "python-dateutil==2.9.0.post0",
     "python-dotenv==1.2.2",
@@ -67,7 +67,7 @@ dev = [
     "coverage==7.13.5",
     "coveragepy-lcov==0.1.2",
     "mkdocs-material==9.7.6",
-    "mypy==1.20.0",
+    "mypy==1.20.1",
     "pre-commit==4.5.1",
     "pylint==4.0.5",
     "pytest==9.0.3",
