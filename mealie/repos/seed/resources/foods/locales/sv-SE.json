@@ -598,7 +598,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "broccoli-slaw",
-                "plural_name": "broccoli slaw"
+                "plural_name": "broccolisallad"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -974,7 +974,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomelos"
+                "plural_name": "pompelmusar"
             },
             "chestnut purée": {
                 "aliases": [],
@@ -998,7 +998,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "yuzu",
-                "plural_name": "yuzu"
+                "plural_name": "yuzus"
             },
             "granadilla": {
                 "aliases": [],
@@ -1028,7 +1028,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tangelo",
-                "plural_name": "tangelos"
+                "plural_name": "minneolas"
             },
             "dried lime": {
                 "aliases": [],
@@ -2003,8 +2003,8 @@
             "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan cheese",
-                "plural_name": "parmesan cheese"
+                "name": "parmesanost",
+                "plural_name": "parmesanost"
             },
             "cheddar cheese": {
                 "aliases": [
@@ -2022,11 +2022,11 @@
             },
             "sharp cheddar cheese": {
                 "aliases": [
-                    "sharp cheddar"
+                    "cheddarost"
                 ],
                 "description": "",
-                "name": "sharp cheddar cheese",
-                "plural_name": "sharp cheddar cheese"
+                "name": "cheddarost",
+                "plural_name": "cheddarost"
             },
             "cheese": {
                 "aliases": [],
@@ -2056,19 +2056,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "cheddar-jackost",
-                "plural_name": "cheddar-jack cheese"
+                "plural_name": "cheddar jack"
             },
             "monterey jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "monterey jack cheese",
-                "plural_name": "monterey jack cheese"
+                "name": "monterey jack",
+                "plural_name": "monterey jack"
             },
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "blåmögelost",
+                "plural_name": "blåmögelost"
             },
             "goat cheese": {
                 "aliases": [],
@@ -2085,14 +2085,14 @@
             "swis cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swis cheese",
-                "plural_name": "swis cheese"
+                "name": "schweizisk ost",
+                "plural_name": "schweizisk ost"
             },
             "pecorino cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pecorino cheese",
-                "plural_name": "pecorino cheese"
+                "name": "pecorino",
+                "plural_name": "pecorino"
             },
             "gruyere cheese": {
                 "aliases": [],
@@ -2121,20 +2121,20 @@
             "provolone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "provolone cheese",
-                "plural_name": "provolone cheese"
+                "name": "provolone",
+                "plural_name": "provolone"
             },
             "mexican cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican cheese blend",
-                "plural_name": "mexican cheese blend"
+                "name": "mexikansk ostblandning",
+                "plural_name": "mexikansk ostblandning"
             },
             "pepper jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pepper jack cheese",
-                "plural_name": "pepper jack cheese"
+                "name": "pepper jack",
+                "plural_name": "pepper jack"
             },
             "brie cheese": {
                 "aliases": [],
@@ -2145,49 +2145,49 @@
             "paneer cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "paneer cheese",
-                "plural_name": "paneer cheese"
+                "name": "paneerost",
+                "plural_name": "paneerost"
             },
             "fontina cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fontina cheese",
-                "plural_name": "fontina cheese"
+                "name": "fontinaost",
+                "plural_name": "fontinaost"
             },
             "queso fresco cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "queso fresco cheese",
-                "plural_name": "queso fresco cheese"
+                "name": "mexikansk färskost",
+                "plural_name": "mexikansk färskost"
             },
             "quark cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "quark cheese",
-                "plural_name": "quark cheese"
+                "name": "kvarg",
+                "plural_name": "kvarg"
             },
             "gouda cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda cheese",
-                "plural_name": "gouda cheese"
+                "name": "gouda",
+                "plural_name": "gouda"
             },
             "cotija cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cotija cheese",
-                "plural_name": "cotija cheese"
+                "name": "cotija",
+                "plural_name": "cotija"
             },
             "asiago cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "asiago cheese",
-                "plural_name": "asiago cheese"
+                "name": "asiago",
+                "plural_name": "asiago"
             },
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
+                "name": "rökt ost",
                 "plural_name": "rökta ostar"
             },
             "halloumi cheese": {
@@ -2205,56 +2205,56 @@
             "manchego cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "manchego cheese",
-                "plural_name": "manchego cheese"
+                "name": "manchego",
+                "plural_name": "manchego"
             },
             "italian cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "italian cheese blend",
-                "plural_name": "italian cheese blend"
+                "name": "italiensk ostblandning",
+                "plural_name": "italiensk ostblandning"
             },
             "neufchatel cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "neufchatel cheese",
-                "plural_name": "neufchatel cheese"
+                "name": "neufchatel",
+                "plural_name": "neufchatel"
             },
             "herb cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "herb cream cheese",
-                "plural_name": "herb cream cheese"
+                "name": "färskost med örter",
+                "plural_name": "färskost med örter"
             },
             "burrata cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "burrata cheese",
-                "plural_name": "burrata cheese"
+                "name": "burrata",
+                "plural_name": "burrata"
             },
             "havarti cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "havarti cheese",
-                "plural_name": "havarti cheese"
+                "name": "havarti",
+                "plural_name": "havarti"
             },
             "colby cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "colby cheese",
-                "plural_name": "colby cheese"
+                "name": "colbyost",
+                "plural_name": "colbyost"
             },
             "grana-padano cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano cheese",
-                "plural_name": "grana-padano cheese"
+                "name": "grana padano",
+                "plural_name": "grana padano"
             },
             "muenster cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "muenster cheese",
-                "plural_name": "muenster cheese"
+                "name": "muenster",
+                "plural_name": "muenster"
             },
             "string cheese": {
                 "aliases": [],
@@ -2265,25 +2265,25 @@
             "camembert cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "camembert cheese",
-                "plural_name": "camembert cheese"
+                "name": "camembert",
+                "plural_name": "camembert"
             },
             "soft cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "soft cheese",
-                "plural_name": "soft cheese"
+                "name": "mjukost",
+                "plural_name": "mjuka ostar"
             },
             "stilton cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "stilton cheese",
-                "plural_name": "stilton cheese"
+                "name": "stilton",
+                "plural_name": "stilton"
             },
             "raclette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "raclette cheese",
+                "name": "raclette",
                 "plural_name": "raclette cheese"
             },
             "colby-jack cheese": {
