@@ -41,7 +41,7 @@
     "category-created": "Η κατηγορία δημιουργήθηκε",
     "category-creation-failed": "Η δημιουργία κατηγορίας απέτυχε",
     "category-deleted": "Η κατηγορία διαγράφηκε",
-    "category-deletion-failed": "Η διαγραφή κατηγορίας απέτυχε",
+    "category-deletion-failed": "Η διαγραφή της κατηγορίας απέτυχε",
     "category-filter": "Φίλτρο κατηγορίας",
     "category-update-failed": "Η ενημέρωση της κατηγορίας απέτυχε",
     "category-updated": "Η κατηγορία ενημερώθηκε",
@@ -100,12 +100,12 @@
     "disabled": "Ανενεργό",
     "done": "Ολοκληρώθηκε",
     "download": "Λήψη",
-    "duplicate": "Δημιουργία διπλότυπου",
+    "duplicate": "Δημιουργία αντιγράφου",
     "edit": "Επεξεργασία",
     "enabled": "Ενεργό",
     "exception": "Εξαίρεση",
     "failed-count": "Απέτυχε: {count}",
-    "failure-uploading-file": "Αποτυχία μεταφόρτωσης αρχείου",
+    "failure-uploading-file": "Το ανέβασμα του αρχείου απέτυχε",
     "favorites": "Αγαπημένα",
     "field-required": "Απαιτούμενο πεδίο",
     "file-folder-not-found": "Το αρχείο/ο φάκελος δεν βρέθηκε",
@@ -228,12 +228,12 @@
     "are-you-sure-you-want-to-delete-the-group": "Θέλετε σίγουρα να διαγράψετε το <b>{groupName}<b/>;",
     "cannot-delete-default-group": "Δεν μπορείτε να διαγράψετε την προεπιλεγμένη ομάδα",
     "cannot-delete-group-with-users": "Δεν είναι δυνατή η διαγραφή ομάδας με χρήστες",
-    "confirm-group-deletion": "Επιβεβαίωση διαγραφής ομάδας",
+    "confirm-group-deletion": "Επιβεβαίωση διαγραφής της ομάδας",
     "create-group": "Δημιουργία ομάδας",
     "error-updating-group": "Σφάλμα ενημέρωσης ομάδας",
     "group": "Ομάδα",
     "group-deleted": "Ομάδα διαγράφηκε",
-    "group-deletion-failed": "Αποτυχία διαγραφής ομάδας",
+    "group-deletion-failed": "Η διαγραφή της ομάδας απέτυχε",
     "group-id-with-value": "ID ομάδας: {groupID}",
     "group-name": "Ονομα ομάδας",
     "group-not-found": "Η ομάδα δεν βρέθηκε",
@@ -307,7 +307,7 @@
     "household-preferences": "Προτιμήσεις νοικοκυριού"
   },
   "meal-plan": {
-    "create-a-new-meal-plan": "Δημιουργία νέου σχεδίου γεύματος",
+    "create-a-new-meal-plan": "Δημιουργία ενός νέου προγράμματος γευμάτων",
     "update-this-meal-plan": "Ενημέρωση αυτού του προγράμματος γευμάτων",
     "dinner-this-week": "Βραδινό αυτή την εβδομάδα",
     "dinner-today": "Βραδινό σήμερα",
@@ -320,9 +320,9 @@
     "meal-plans": "Προγράμματα γευμάτων",
     "mealplan-categories": "ΚΑΤΗΓΟΡΙΕΣ ΠΡΟΓΡΑΜΜΑΤΩΝ ΓΕΥΜΑΤΩΝ",
     "mealplan-created": "Δημιουργήθηκε πρόγραμμα γευμάτων",
-    "mealplan-creation-failed": "Αποτυχία δημιουργίας προγράμματος γευμάτων",
+    "mealplan-creation-failed": "Η δημιουργία του προγράμματος γευμάτων απέτυχε",
     "mealplan-deleted": "Το πρόγραμμα γευμάτων διαγράφηκε",
-    "mealplan-deletion-failed": "Αποτυχία διαγραφής προγράμματος γευμάτων",
+    "mealplan-deletion-failed": "Η διαγραφή του προγράμματος γευμάτων απέτυχε",
     "mealplan-settings": "Ρυθμίσεις προγράμματος γευμάτων",
     "mealplan-update-failed": "Η ενημέρωση του προγράμματος γευμάτων απέτυχε",
     "mealplan-updated": "Το πρόγραμμα γευμάτων ενημερώθηκε",
@@ -370,27 +370,27 @@
     "meal-plan-rules-description": "Μπορείτε να δημιουργήσετε κανόνες για την αυτόματη επιλογή συνταγών για τα προγράμματα γευμάτων. Αυτοί οι κανόνες χρησιμοποιούνται από τον server για τον προσδιορισμό της δεξαμενής τυχαίας επιλογής συνταγής, από την οποία θα γίνεται επιλογή, κατά τη δημιουργία προγραμμάτων γευμάτων. Σημειώστε ότι αν οι κανόνες έχουν τους ίδιους περιορισμούς ημέρας/τύπου τότε τα φίλτρα κανόνων θα συγχωνευθούν. Στην πράξη, είναι περιττή η δημιουργία διπλότυπων κανόνων, είναι όμως εφικτή.",
     "new-rule-description": "Κατά τη δημιουργία ενός νέου κανόνα για ένα πρόγραμμα γευμάτων, μπορείτε να περιορίσετε τον κανόνα ώστε να ισχύει για μια συγκεκριμένη ημέρα της εβδομάδας ή/και ένα συγκεκριμένο τύπο γεύματος. Για να εφαρμόσετε έναν κανόνα σε όλες τις ημέρες ή σε όλους τους τύπους γεύματος μπορείτε να ορίσετε τον κανόνα σε \"Ολα\" που θα τον εφαρμόσει σε όλες τις πιθανές τιμές για την ημέρα ή/και τον τύπο γεύματος.",
     "recipe-rules": "Κανόνες συνταγών",
-    "applies-to-all-days": "Applies to all days",
-    "applies-on-days": "Applies on {0}s",
-    "meal-plan-settings": "Meal Plan Settings",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "applies-to-all-days": "Εφαρμόζεται για όλες τις ημέρες",
+    "applies-on-days": "Εφαρμόζεται κάθε {0}",
+    "meal-plan-settings": "Ρυθμίσεις προγράμματος γευμάτων",
+    "add-all-to-list": "Προσθήκη όλων στη λίστα",
+    "add-day-to-list": "Προσθήκη ημέρας στη λίστα"
   },
   "migration": {
-    "migration-data-removed": "Migration data removed",
-    "new-migration": "New Migration",
-    "no-file-selected": "No File Selected",
-    "no-migration-data-available": "No Migration Data Available",
-    "previous-migrations": "Previous Migrations",
-    "recipe-migration": "Recipe Migration",
+    "migration-data-removed": "Τα δεδομένα μετεγκατάστασης καταργήθηκαν",
+    "new-migration": "Νέα μετεγκατάσταση",
+    "no-file-selected": "Δεν επιλέχθηκε αρχείο",
+    "no-migration-data-available": "Δεν υπάρχουν διαθέσιμα δεδομένα μετεγκατάστασης",
+    "previous-migrations": "Προηγούμενες μετεγκαταστάσεις",
+    "recipe-migration": "Μετεγκατάσταση συνταγής",
     "chowdown": {
-      "description": "Migrate data from Chowdown",
+      "description": "Μετεγκατάσταση δεδομένων από Chowdown",
       "description-long": "Το Mealie υποστηρίζει εγγενώς τη μορφή αποθετηρίου chowdown. Κατεβάστε το αποθετήριο κώδικα ως αρχείο .zip και ανεβάστε το παρακάτω.",
       "title": "Chowdown"
     },
     "nextcloud": {
-      "description": "Migrate data from a Nextcloud Cookbook instance",
-      "description-long": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+      "description": "Μετεγκατάσταση δεδομένων από μια υπόσταση Nextcloud Cookbook",
+      "description-long": "Οι συνταγές Nextcloud μπορούν να εισαχθούν από ένα αρχείο zip που περιέχει τα δεδομένα που είναι αποθηκευμένα στο Nextcloud. Δείτε τη δομή του φακέλου-παραδείγματος παρακάτω για να βεβαιωθείτε ότι οι συνταγές σας μπορούν να εισαχθούν.",
       "title": "Nextcloud Cookbook"
     },
     "copymethat": {
@@ -413,20 +413,20 @@
       "description-long": "Το Mealie μπορεί να εισάγει συνταγές από το DVO Cook'n X3. Κάντε εξαγωγή ενός βιβλίου μαγειρικής ή ενός μενού σε μορφή \"Cook'n\", αλλάξτε την επέκταση του εξαγόμενου αρχείου σε .zip και, στη συνέχεια, ανεβάστε το .zip παρακάτω.",
       "title": "DVO Cook'n X3"
     },
-    "recipe-data-migrations": "Recipe Data Migrations",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
-    "choose-migration-type": "Choose Migration Type",
+    "recipe-data-migrations": "Μετεγκατάσταση δεδομένων συνταγής",
+    "recipe-data-migrations-explanation": "Συνταγές μπορούν να μετεγκατασταθούν από άλλη υποστηριζόμενη εφαρμογή στο Mealie. Αυτός είναι ένας πολύ καλός τρόπος για να ξεκινήσετε με Mealie.",
+    "coming-from-another-application-or-an-even-older-version-of-mealie": "Ερχεστε από άλλη εφαρμογή ή ακόμα και παλαιότερη έκδοση του Mealie; Δείτε τις μετεγκαταστάσεις και ελέγξτε αν τα δεδομένα σας μπορούν να εισαχθούν.",
+    "choose-migration-type": "Επιλέξτε τύπο μετεγκατάστασης",
     "tag-all-recipes": "Tag all recipes with {tag-name} tag",
-    "nextcloud-text": "Nextcloud recipes can be imported from a zip file that contains the data stored in Nextcloud. See the example folder structure below to ensure your recipes are able to be imported.",
+    "nextcloud-text": "Οι συνταγές Nextcloud μπορούν να εισαχθούν από ένα αρχείο zip που περιέχει τα δεδομένα που είναι αποθηκευμένα στο Nextcloud. Δείτε τη δομή του φακέλου-παραδείγματος παρακάτω για να βεβαιωθείτε ότι οι συνταγές σας μπορούν να εισαχθούν.",
     "chowdown-text": "Το Mealie υποστηρίζει εγγενώς τη μορφή αποθετηρίου. Κατεβάστε το αποθετήριο κώδικα ως αρχείο .zip και ανεβάστε το παρακάτω.",
-    "recipe-1": "Recipe 1",
-    "recipe-2": "Recipe 2",
+    "recipe-1": "Συνταγή 1",
+    "recipe-2": "Συνταγή 2",
     "paprika-text": "Το Mealie μπορεί να εισάγει συνταγές από την εφαρμογή Paprika. Εξάγετε τις συνταγές σας από το Paprika, μετονομάστε την επέκταση εξαγωγής σε .zip και ανεβάστε την παρακάτω.",
     "mealie-text": "Το Mealie μπορεί να εισάγει συνταγές από την εφαρμογή Mealie από μια έκδοση πριν την v1.0. Εξάγετε τις συνταγές σας από την παλιά υπόστασή σας, και ανεβάστε το παρακάτω αρχείο zip. Σημειώστε ότι από την εξαγωγή μπορούν να εισαχθούν μόνο συνταγές.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Το Mealie μπορεί να εισάγει συνταγές από το Plan to Eat."
     },
     "myrecipebox": {
       "title": "My Recipe Box",
@@ -438,7 +438,7 @@
     }
   },
   "new-recipe": {
-    "bulk-add": "Bulk Add",
+    "bulk-add": "Μαζική προσθήκη",
     "error-details": "Only websites containing ld+json or microdata can be imported by Mealie. Most major recipe websites support this data structure. If your site cannot be imported but there is json data in the log, please submit a github issue with the URL and data.",
     "error-title": "Looks Like We Couldn't Find Anything",
     "from-url": "Import a Recipe",
@@ -468,7 +468,7 @@
     "all-recipes": "Ολες Οι Συνταγές",
     "new-page-created": "Δημιουργήθηκε νέα σελίδα",
     "page": "Σελίδα",
-    "page-creation-failed": "Η δημιουργία σελίδας απέτυχε",
+    "page-creation-failed": "Η δημιουργία της σελίδας απέτυχε",
     "page-deleted": "Page deleted",
     "page-deletion-failed": "Page deletion failed",
     "page-update-failed": "Page update failed",
@@ -1475,10 +1475,10 @@
     "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Ανακοινώσεις",
+    "all-announcements": "Oλες οι ανακοινώσεις",
+    "mark-all-as-read": "Σήμανση όλων ως αναγνωσμένων",
+    "show-announcements-from-mealie": "Εμφάνιση ανακοινώσεων από το Mealie",
+    "show-announcements-setting-description": "Εάνε θέλετε ή όχι να επιτρέψετε στους χρήστες να βλέπουν ανακοινώσεις από την Mealie. Οταν είναι ενεργοποιημένο οι χρήστες μπορούν ακόμα να απεγγραφούν από αυτές από τις ρυθμίσεις χρήστη τους ώστε να μην τις βλέπουν"
   }
 }
