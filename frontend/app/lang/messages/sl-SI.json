@@ -98,7 +98,7 @@
     "dashboard": "Nadzorna plošča",
     "delete": "Izbriši",
     "disabled": "Onemogočeno",
-    "done": "Done",
+    "done": "Končano",
     "download": "Prenesi",
     "duplicate": "Podvoji",
     "edit": "Uredi",
@@ -386,12 +386,12 @@
     "chowdown": {
       "description": "Migriraj podatke iz Chowdown-a",
       "description-long": "Mealie podpira chowdown format shrambe podatkov. Prenesi shrambo podatkov kot .zip datoteko in jo naloži spodaj.",
-      "title": "Chowdown"
+      "title": "Prehranjevanje"
     },
     "nextcloud": {
       "description": "Migriraj podatke iz Nextcloud Cookbook",
       "description-long": "Nextcloud recepte lahko uvoziš z zip datoteko, ki vsebuje podatke shranjene na Nextcloudu. Poglej primer strukture mape spodaj, da zagotoviš primerno strukturo za uvoz receptov.",
-      "title": "Nextcloud Cookbook"
+      "title": "Kuharska knjiga Nextcloud"
     },
     "copymethat": {
       "description-long": "Mealie lahko uvozi recepte iz aplikacije Copy Me That. Izvozi recepte v HTML format in spodaj naloži .zip datoteko.",
@@ -399,11 +399,11 @@
     },
     "paprika": {
       "description-long": "Mealie lahko uvozi recepte iz aplikacije Paprika. Izvozi recepte iz aplikacije Paprika, preimenuj končnico datoteke v .zip in jo naloži spodaj.",
-      "title": "Paprika Recipe Manager"
+      "title": "Urejevalnik receptov Paprika"
     },
     "mealie-pre-v1": {
       "description-long": "Mealie lahko uvozi recepte izpred Mealie verzije v1.0. Izvozi recepte iz stare instance in spodaj uvozi zip datoteko. Omogočen je uvoz samo za recepte.",
-      "title": "Mealie Pre v1.0"
+      "title": "Mealie pred v1.0"
     },
     "tandoor": {
       "description-long": "Mealie lahko uvozi recepte iz aplikacije Tandoor. Izvozi podatke v \"Default\" formatu, nato spodaj naloži .zip datoteko.",
@@ -425,15 +425,15 @@
     "paprika-text": "Mealie lahko uvozi recepte iz aplikacije Paprika. Izvozi recepte iz aplikacije Paprika, preimenuj končnico datoteke v .zip in jo naloži spodaj.",
     "mealie-text": "Mealie lahko uvozi recepte izpred Mealie verzije v1.0. Izvozi recepte iz stare instance in spodaj uvozi zip datoteko. Omogočen je uvoz samo za recepte.",
     "plantoeat": {
-      "title": "Plan to Eat",
+      "title": "Načrt za pojesti",
       "description-long": "Mealie lahko uvozi recepte iz aplikacije Plan to Eat."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
+      "title": "Moj zaboj z recepti",
       "description-long": "Mealie lahko uvozi recepte iz aplikacije My Recipe Box. Izvozi recepte v CSV formatu, nato pa .csv datoteko naloži spodaj."
     },
     "recipekeeper": {
-      "title": "Recipe Keeper",
+      "title": "Hranilec receptov",
       "description-long": "Mealie lahko uvozi recepte iz Recipe Keeper. Izvozi svoje recepte v .zip formatu, nato spodaj naloži .zip datoteko."
     }
   },
@@ -557,7 +557,7 @@
     "join-the-conversation": "Pridruži se pogovoru",
     "add-recipe-to-mealplan": "Dodaj recept v jedilnik",
     "entry-type": "Tip vnosa",
-    "date-format-hint": "MM/DD/YYYY format",
+    "date-format-hint": "MM/DD/YYYY oblika",
     "date-format-hint-yyyy-mm-dd": "YYYY-MM-DD oblika",
     "add-to-list": "Dodaj na seznam",
     "add-to-plan": "Dodaj v načrt",
@@ -671,7 +671,7 @@
     "recipe-debugger-description": "Prilepi povezavo do recepta, ki ga želiš postrgati. Strgalnik receptov bo postrgal spletno stran in prikazal rezultate. Če ne vidiš nobenih podatkov, potem spletna stran, ki jo želiš strgati ni podprta v Mealie oz. v strgalniku, ki ga uporablja.",
     "use-openai": "Uporabi OpenAI",
     "recipe-debugger-use-openai-description": "Za razčlenitev rezultatov uporabite OpenAI, namesto da se zanašate na knjižnico strgala. Ko ustvarjate recept prek URL-ja, se to izvede samodejno, če knjižnica strgala odpove, vendar ga lahko tukaj preizkusite ročno.",
-    "debug": "Debug",
+    "debug": "Razhroščevanje",
     "tree-view": "Drevesni prikaz",
     "recipe-servings": "Rocept obrokov",
     "recipe-yield": "Število porcij",
@@ -858,17 +858,17 @@
     "webhooks": {
       "test-webhooks": "Test Webhook-ov",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "Spodnji URL naslovi bodo prejeli webhook-e s podatki receptov za načrt obrokov na načrtovani dan. Trenutno se bodo webhooki-i izvedli ob",
-      "webhook-url": "Webhook URL",
-      "webhooks-caps": "WEBHOOKS",
+      "webhook-url": "URL spletnega kavlja",
+      "webhooks-caps": "SPLETNI KAVLJI",
       "webhooks": "Webbhook-i",
       "webhook-name": "Ime Webhooka",
       "description": "Spodaj definirani webhooki bodo izvedeni na dneve, ki imajo definirane obroke. Ob določenem času bodo na webhook poslani podatki iz recepta, ki je planiran na ta dan. Upoštevaj, da izvedba webhookov ni točna. Webhooki se izvajajo v 5 minutnih intervalih, kar pomeni, da bo webhook izveden v okviru +/- 5 minut od planiranega časa."
     },
     "bug-report": "Prijava napake",
     "bug-report-information": "Uporabi te podatke ob prijavi napake. Sporočanje podrobnosti o tvoji instanci pomaga razvijalcem najhitreje odpraviti tvojo težavo.",
-    "tracker": "Tracker",
+    "tracker": "Sledilnik",
     "configuration": "Nastavitve",
-    "docker-volume": "Docker Volume",
+    "docker-volume": "Docker mapa",
     "docker-volume-help": "Mealie zahteva, da vsebnik sprednjega dela in zadnji del delita isto mapo ali shrambo priklopne postaje. To zagotavlja, da lahko sprednji vsebnik pravilno dostopa do slik in sredstev, shranjenih na disku.",
     "volumes-are-misconfigured": "Mape so napačno nastavljene.",
     "volumes-are-configured-correctly": "Mape so nastavljene pravilno.",
@@ -877,8 +877,8 @@
     "email-configuration-status": "Email status",
     "email-configured": "Email nastavljen",
     "email-test-results": "Email test rezultati",
-    "ready": "Ready",
-    "not-ready": "Not Ready - Check Environmental Variables",
+    "ready": "Pripravljeno",
+    "not-ready": "Ni pripravljeno - Preverite okoljske spremenljivke",
     "succeeded": "Uspelo je",
     "failed": "Ni uspelo",
     "general-about": "Splošne informacije",
@@ -891,13 +891,13 @@
     "server-side-base-url": "Strežniški URL",
     "server-side-base-url-error-text": "`BASE_URL` se še vedno ujema s privzeto vrednostjo API strežnika. To bo povzročalo težave s povezavami do obvestil generiranih za emaile ipd.",
     "server-side-base-url-success-text": "Strežniški URL se ne ujema s privzeto vrednostjo",
-    "ldap-ready": "LDAP Ready",
+    "ldap-ready": "Pripravljeno za LDAP",
     "ldap-not-ready": "LDAP ni pripravljen",
     "ldap-ready-error-text": "Nekatere LDAP vrednosti niso nastavljene. To lahko ignoriraš, če ne uporabljaš LDAP avtentikacije.",
     "ldap-ready-success-text": "Vse potrebne LDAP spremenljivke so nastavljene.",
-    "build": "Build",
+    "build": "Gradnja",
     "recipe-scraper-version": "Verzija strgalnika receptov",
-    "oidc-ready": "OIDC Ready",
+    "oidc-ready": "Pripravljeno za OIDC",
     "oidc-not-ready": "OIDC ni pripravljen",
     "oidc-ready-error-text": "Nekatere OIDC vrednosti niso nastavljene. To lahko ignoriraš, če ne uporabljaš OIDC avtentikacije.",
     "oidc-ready-success-text": "Vse zahtevane OIDC spremenljivke so nastavljene.",
@@ -959,7 +959,7 @@
     "language": "Jezik",
     "maintenance": "Vzdrževanje",
     "background-tasks": "Naloge v ozadju",
-    "parser": "Parser",
+    "parser": "Razčlenjevalnik",
     "developer": "Razvijalec",
     "cookbook": "Kuharska knjiga",
     "create-cookbook": "Izdelaj novo kuharsko knjigo"
@@ -1083,7 +1083,7 @@
     "authentication-method": "Izberi način avtentikacije",
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Dovoljenja",
-    "administrator": "Administrator",
+    "administrator": "Skrbnik",
     "user-can-invite-other-to-group": "Uporabnih lahko povabi druge v skupino",
     "user-can-manage-group": "Uporabnik lahko upravlja s skupino",
     "user-can-manage-household": "Uporabnik lahko upravlja gospodinjstvo",
@@ -1475,10 +1475,10 @@
     "max-length": "Največ {max} znakov|Vsebuje lahko največ {max} znakov"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Obvestila",
+    "all-announcements": "Vsa obvestila",
+    "mark-all-as-read": "Označi vse kot prebrano",
+    "show-announcements-from-mealie": "Prikaži obvestila od Mealie",
+    "show-announcements-setting-description": "Ali želite uporabnikom dovoliti ogled obvestil Mealie. Ko je to omogočeno, se lahko uporabniki v nastavitvah uporabnika še vedno odjavijo od njihovega prikaza"
   }
 }
