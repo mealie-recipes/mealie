@@ -2284,43 +2284,43 @@
                 "aliases": [],
                 "description": "",
                 "name": "raclette",
-                "plural_name": "raclette cheese"
+                "plural_name": "raclette"
             },
             "colby-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "colby-jack cheese",
-                "plural_name": "colby-jack cheese"
+                "name": "colby-jack",
+                "plural_name": "colby-jack"
             },
             "jarlsberg cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "jarlsberg cheese",
-                "plural_name": "jarlsberg cheese"
+                "name": "jarlsberg",
+                "plural_name": "jarlsberg"
             },
             "taleggio cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "taleggio cheese",
-                "plural_name": "taleggio cheese"
+                "name": "taleggio",
+                "plural_name": "taleggio"
             },
             "oaxaca cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "oaxaca cheese",
-                "plural_name": "oaxaca cheese"
+                "name": "oaxacaost",
+                "plural_name": "oaxacaostar"
             },
             "labneh cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "labneh cheese",
-                "plural_name": "labneh cheese"
+                "name": "labnehost",
+                "plural_name": "labnehost"
             },
             "edam cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "edam cheese",
-                "plural_name": "edam cheese"
+                "name": "edamer",
+                "plural_name": "edamer"
             },
             "creamy cheese wedge": {
                 "aliases": [],
@@ -2630,25 +2630,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "mjölk",
-                "plural_name": "milk"
+                "plural_name": "mjölk"
             },
             "heavy cream": {
                 "aliases": [],
                 "description": "",
                 "name": "vispgrädde",
-                "plural_name": "heavy cream"
+                "plural_name": "grädde"
             },
             "sour cream": {
                 "aliases": [],
                 "description": "",
                 "name": "gräddfil",
-                "plural_name": "sour cream"
+                "plural_name": "gräddfik"
             },
             "buttermilk": {
                 "aliases": [],
                 "description": "",
                 "name": "kärnmjölk",
-                "plural_name": "buttermilk"
+                "plural_name": "kärnmjölk"
             },
             "yogurt": {
                 "aliases": [],
@@ -2666,13 +2666,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "grädde",
-                "plural_name": "cream"
+                "plural_name": "grädde"
             },
             "whipped cream": {
                 "aliases": [],
                 "description": "",
                 "name": "vispad grädde",
-                "plural_name": "whipped cream"
+                "plural_name": "vispgrädde"
             },
             "ghee": {
                 "aliases": [
@@ -2692,7 +2692,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kondenserad mjölk",
-                "plural_name": "condensed milk"
+                "plural_name": "kondenserad mjölk"
             },
             "half and half": {
                 "aliases": [],
@@ -2704,13 +2704,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "sötad kondenserad mjölk",
-                "plural_name": "sweetened condensed milk"
+                "plural_name": "sötad kondenserad mjölk"
             },
             "ice cream": {
                 "aliases": [],
                 "description": "",
                 "name": "glass",
-                "plural_name": "ice cream"
+                "plural_name": "glass"
             },
             "margarine": {
                 "aliases": [],
@@ -2788,7 +2788,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chokladmjölk",
-                "plural_name": "chocolate milk"
+                "plural_name": "chokladmjölk"
             },
             "liquid egg substitute": {
                 "aliases": [],
@@ -2836,7 +2836,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mjölkgrädde",
-                "plural_name": "milk cream"
+                "plural_name": "gräddmjölk"
             },
             "coffee creamer": {
                 "aliases": [],
@@ -2854,7 +2854,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "getmjölk",
-                "plural_name": "goat milk"
+                "plural_name": "getmjölk"
             },
             "cheese curd": {
                 "aliases": [],
@@ -2866,7 +2866,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "surmjölk",
-                "plural_name": "sour milk"
+                "plural_name": "filmjölk"
             },
             "ganache": {
                 "aliases": [],
@@ -3046,7 +3046,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "jordgubbsmjölk",
-                "plural_name": "strawberry milk"
+                "plural_name": "jordgubbsmjölk"
             },
             "ayran": {
                 "aliases": [],
@@ -3082,7 +3082,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fårmjölk",
-                "plural_name": "sheep milk"
+                "plural_name": "fårmjölk"
             },
             "starter culture": {
                 "aliases": [],
@@ -3106,7 +3106,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vaniljmjölk",
-                "plural_name": "vanilla milk"
+                "plural_name": "vaniljmjölk"
             },
             "yoplait whip": {
                 "aliases": [],
@@ -3140,7 +3140,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kokosmjölk",
-                "plural_name": "coconut milk"
+                "plural_name": "kokosmjölk"
             },
             "almond milk": {
                 "aliases": [],
@@ -3218,13 +3218,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "vegansk majonnäs",
-                "plural_name": "vegan mayonnaise"
+                "plural_name": "vegansk majonnäs"
             },
             "vegan cheese": {
                 "aliases": [],
                 "description": "",
                 "name": "veganost",
-                "plural_name": "vegan cheese"
+                "plural_name": "vegansk ost"
             },
             "cashew butter": {
                 "aliases": [],
@@ -3272,7 +3272,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "havremjölk",
-                "plural_name": "oat milk"
+                "plural_name": "havremjölk"
             },
             "nut butter": {
                 "aliases": [],
@@ -3284,13 +3284,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "rismjölk",
-                "plural_name": "rice milk"
+                "plural_name": "rismjölk"
             },
             "vegan sour cream": {
                 "aliases": [],
                 "description": "",
                 "name": "vegansk gräddfil",
-                "plural_name": "vegan sour cream"
+                "plural_name": "vegansk gräddfil"
             },
             "textured vegetable protein": {
                 "aliases": [],
@@ -3332,7 +3332,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vispad kokosgrädde",
-                "plural_name": "coconut whipped cream"
+                "plural_name": "kokosvispgrädde"
             },
             "smoked tofu": {
                 "aliases": [],
@@ -3350,7 +3350,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Sojagrädde",
-                "plural_name": "soy cream"
+                "plural_name": "sojamjölk"
             },
             "seitan": {
                 "aliases": [],
@@ -3392,7 +3392,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kondenserad kokosmjölk",
-                "plural_name": "condensed coconut milk"
+                "plural_name": "kondenserad kokosmjölk"
             },
             "vegan ground beef": {
                 "aliases": [],
