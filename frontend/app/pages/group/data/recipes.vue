@@ -179,6 +179,21 @@
           {{ $t('general.selected-count', selected.length)
           }}
         </p>
+        <v-spacer />
+        <v-checkbox
+          v-model="filterMissingFood"
+          :label="$t('data-pages.recipes.filter-missing-food')"
+          hide-details
+          density="compact"
+          class="ml-2"
+        />
+        <v-checkbox
+          v-model="filterMissingUnit"
+          :label="$t('data-pages.recipes.filter-missing-unit')"
+          hide-details
+          density="compact"
+          class="ml-2"
+        />
       </v-card-actions>
       <v-card>
         <RecipeDataTable
@@ -263,6 +278,21 @@ useSeoMeta({
 
 const { refreshRecipes } = useRecipes(true, true, false, `householdId=${auth.user.value?.householdId || ""}`);
 const selected = ref<Recipe[]>([]);
+const filterMissingFood = ref(false);
+const filterMissingUnit = ref(false);
+
+watch([filterMissingFood, filterMissingUnit], async ([missingFood, missingUnit]) => {
+  const baseFilter = `householdId=${auth.user.value?.householdId || ""}`;
+  const parts: string[] = [baseFilter];
+  if (missingFood) {
+    parts.push("recipeIngredient.foodId IS NULL");
+  }
+  if (missingUnit) {
+    parts.push("recipeIngredient.unitId IS NULL");
+  }
+  await refreshRecipes(parts.join(" AND "));
+  selected.value = [];
+});
 
 function resetAll() {
   selected.value = [];
