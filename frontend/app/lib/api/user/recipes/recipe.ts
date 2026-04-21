@@ -19,7 +19,14 @@ import type {
   RecipeTimelineEventUpdate,
 } from "~/lib/api/types/recipe";
 import type { SSEDataEventDone, SSEDataEventMessage } from "~/lib/api/types/response";
-import type { ApiRequestInstance, PaginationData, RequestResponse } from "~/lib/api/types/non-generated";
+import type {
+  ApiRequestInstance,
+  PaginationData,
+  RequestResponse,
+  SubstitutionFeedbackPayload,
+  SubstitutionFeedbackResponse,
+  SubstitutionPredictResponse,
+} from "~/lib/api/types/non-generated";
 import { SSEDataEventStatus } from "~/lib/api/types/non-generated";
 
 export type Parser = "nlp" | "brute" | "openai";
@@ -47,6 +54,10 @@ const routes = {
   recipesParseIngredient: `${prefix}/parser/ingredient`,
   recipesParseIngredients: `${prefix}/parser/ingredients`,
   recipesTimelineEvent: `${prefix}/recipes/timeline/events`,
+  recipesIngredientSubstitutions: (recipe_slug: string, reference_id: string) =>
+    `${prefix}/recipes/${recipe_slug}/ingredients/${reference_id}/substitutions`,
+  recipesIngredientSubstitutionFeedback: (recipe_slug: string, reference_id: string) =>
+    `${prefix}/recipes/${recipe_slug}/ingredients/${reference_id}/substitutions/feedback`,
 
   recipesRecipeSlug: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}`,
   recipesRecipeSlugImage: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/image`,
@@ -238,6 +249,20 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
   async parseIngredient(parser: Parser, ingredient: string) {
     parser = parser || "nlp";
     return await this.requests.post<ParsedIngredient>(routes.recipesParseIngredient, { parser, ingredient });
+  }
+
+  async getIngredientSubstitutions(recipeSlug: string, referenceId: string) {
+    return await this.requests.post<SubstitutionPredictResponse>(
+      routes.recipesIngredientSubstitutions(recipeSlug, referenceId),
+      {},
+    );
+  }
+
+  async sendIngredientSubstitutionFeedback(recipeSlug: string, referenceId: string, payload: SubstitutionFeedbackPayload) {
+    return await this.requests.post<SubstitutionFeedbackResponse>(
+      routes.recipesIngredientSubstitutionFeedback(recipeSlug, referenceId),
+      payload,
+    );
   }
 
   async updateMany(payload: Recipe[]) {

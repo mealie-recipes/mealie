@@ -423,6 +423,12 @@ class AppSettings(AppLoggingSettings):
     files are individually optional, each prompt name will fall back to the default if no custom file exists
     """
 
+    SUBSTITUTION_API_URL: str | None = None
+    """Full URL for the external substitution predict endpoint"""
+
+    SUBSTITUTION_FEEDBACK_URL: str | None = None
+    """Full URL for the external substitution feedback endpoint"""
+
     @property
     def OPENAI_FEATURE(self) -> FeatureDetails:
         description = None

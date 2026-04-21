@@ -24,6 +24,34 @@ export interface PaginationData<T> {
   items: T[];
 }
 
+export interface SubstitutionPrediction {
+  ingredient: string;
+  rank: number;
+  embeddingScore: number;
+}
+
+export interface SubstitutionPredictResponse {
+  recipeId: string;
+  missingIngredient: string;
+  requestId?: string | null;
+  substitutions: SubstitutionPrediction[];
+  modelVersion?: string | null;
+  servingVersion?: string | null;
+  latencyMs?: number | null;
+}
+
+export interface SubstitutionFeedbackPayload {
+  requestId: string;
+  suggestedSubstitution: string;
+  userAccepted: boolean;
+  modelVersion?: string | null;
+}
+
+export interface SubstitutionFeedbackResponse {
+  status: string;
+  key?: string | null;
+}
+
 export type RecipeOrganizer
   = | "categories"
     | "tags"

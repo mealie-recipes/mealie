@@ -4,6 +4,8 @@
       :value="recipe.recipeIngredient"
       :scale="scale"
       :is-cook-mode="isCookMode"
+      :recipe-slug="recipe.slug"
+      enable-substitutions
     />
     <div v-if="!isEditMode && recipe.tools && recipe.tools.length > 0">
       <h2 class="mt-4 text-h5 font-weight-medium opacity-80">

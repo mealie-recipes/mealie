@@ -42,6 +42,8 @@
             <RecipeIngredientListItem
               :ingredient="ingredient"
               :scale="scale"
+              :recipe-slug="recipeSlug"
+              :enable-substitutions="enableSubstitutions"
             />
           </v-list-item-title>
         </v-list-item>
@@ -59,11 +61,15 @@ interface Props {
   value?: RecipeIngredient[];
   scale?: number;
   isCookMode?: boolean;
+  recipeSlug?: string;
+  enableSubstitutions?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   value: () => [],
   scale: 1,
   isCookMode: false,
+  recipeSlug: "",
+  enableSubstitutions: false,
 });
 
 const { parseIngredientText } = useIngredientTextParser();

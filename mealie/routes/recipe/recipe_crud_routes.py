@@ -1,9 +1,11 @@
 import asyncio
 from collections import defaultdict
 from collections.abc import AsyncIterable
+from datetime import UTC, datetime
 from shutil import copyfileobj
-from uuid import UUID
+from uuid import UUID, uuid4
 
+import httpx
 import orjson
 import sqlalchemy
 import sqlalchemy.exc
@@ -41,6 +43,14 @@ from mealie.schema.recipe.recipe import (
     RecipeSummary,
 )
 from mealie.schema.recipe.recipe_asset import RecipeAsset
+from mealie.schema.recipe.recipe_substitution import (
+    RecipeSubstitutionFeedbackIn,
+    SubstitutionFeedbackRequest,
+    SubstitutionFeedbackResponse,
+    SubstitutionIngredient,
+    SubstitutionPredictRequest,
+    SubstitutionPredictResponse,
+)
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.recipe.request_helpers import (
@@ -69,6 +79,7 @@ from mealie.services.recipe.recipe_data_service import (
     NotAnImageError,
     RecipeDataService,
 )
+from mealie.services.recipe.substitution_service import SubstitutionService
 from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
 from mealie.services.scraper.scraped_extras import ScraperContext
 from mealie.services.scraper.scraper import create_from_html
@@ -85,6 +96,30 @@ router = UserAPIRouter(prefix="/recipes", route_class=MealieCrudRoute)
 
 @controller(router)
 class RecipeController(BaseRecipeController):
+    @staticmethod
+    def _ingredient_text(ingredient) -> str:
+        return (
+            ingredient.original_text
+            or ingredient.display
+            or ingredient.note
+            or getattr(ingredient.food, "name", None)
+            or getattr(ingredient.referenced_recipe, "name", None)
+            or ""
+        ).strip()
+
+    def _get_recipe_ingredients_for_substitutions(self, recipe: Recipe) -> list[SubstitutionIngredient]:
+        return [
+            SubstitutionIngredient(raw=text, normalized=text)
+            for ingredient in recipe.recipe_ingredient or []
+            if (text := self._ingredient_text(ingredient))
+        ]
+
+    def _get_recipe_ingredient_by_reference(self, recipe: Recipe, reference_id: str):
+        for ingredient in recipe.recipe_ingredient or []:
+            if str(ingredient.reference_id) == reference_id:
+                return ingredient
+        return None
+
     def handle_exceptions(self, ex: Exception) -> None:
         thrownType = type(ex)
 
@@ -408,6 +443,86 @@ class RecipeController(BaseRecipeController):
 
         # Response is returned directly, to avoid validation and improve performance
         return JSONBytes(content=json_compatible_response)
+
+    @router.post("/{slug}/ingredients/{reference_id}/substitutions", response_model=SubstitutionPredictResponse)
+    async def suggest_ingredient_substitutions(self, slug: str, reference_id: str):
+        try:
+            recipe = self.service.get_one(slug)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
+
+        ingredient = self._get_recipe_ingredient_by_reference(recipe, reference_id)
+        if ingredient is None:
+            raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="Ingredient not found"))
+
+        ingredient_text = self._ingredient_text(ingredient)
+        if not ingredient_text:
+            raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Ingredient text is empty"))
+
+        payload = SubstitutionPredictRequest(
+            recipe_id=str(recipe.id),
+            ingredients=self._get_recipe_ingredients_for_substitutions(recipe),
+            missing_ingredient=SubstitutionIngredient(raw=ingredient_text, normalized=ingredient_text),
+            request_id=f"req_{uuid4().hex}",
+            top_k=3,
+            recipe_title=recipe.name,
+            instructions=[step.text for step in recipe.recipe_instructions or [] if step.text] or None,
+            timestamp=datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+        )
+
+        try:
+            return await SubstitutionService().predict(payload)
+        except ValueError as e:
+            raise HTTPException(status_code=500, detail=ErrorResponse.respond(message=str(e))) from e
+        except httpx.HTTPError as e:
+            raise HTTPException(
+                status_code=502,
+                detail=ErrorResponse.respond(message="Failed to fetch substitutions"),
+            ) from e
+
+    @router.post(
+        "/{slug}/ingredients/{reference_id}/substitutions/feedback",
+        response_model=SubstitutionFeedbackResponse,
+    )
+    async def submit_ingredient_substitution_feedback(
+        self,
+        slug: str,
+        reference_id: str,
+        data: RecipeSubstitutionFeedbackIn,
+    ):
+        try:
+            recipe = self.service.get_one(slug)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
+
+        ingredient = self._get_recipe_ingredient_by_reference(recipe, reference_id)
+        if ingredient is None:
+            raise HTTPException(status_code=404, detail=ErrorResponse.respond(message="Ingredient not found"))
+
+        ingredient_text = self._ingredient_text(ingredient)
+        if not ingredient_text:
+            raise HTTPException(status_code=400, detail=ErrorResponse.respond(message="Ingredient text is empty"))
+
+        payload = SubstitutionFeedbackRequest(
+            request_id=data.request_id,
+            recipe_id=str(recipe.id),
+            missing_ingredient=ingredient_text,
+            suggested_substitution=data.suggested_substitution,
+            user_accepted=data.user_accepted,
+            model_version=data.model_version,
+        )
+
+        try:
+            return await SubstitutionService().feedback(payload)
+        except ValueError as e:
+            raise HTTPException(status_code=500, detail=ErrorResponse.respond(message=str(e))) from e
+        except httpx.HTTPError as e:
+            raise HTTPException(
+                status_code=502,
+                detail=ErrorResponse.respond(message="Failed to submit substitution feedback"),
+            ) from e
 
     @router.get("/{slug}", response_model=Recipe)
     def get_one(self, slug: str = Path(..., description="A recipe's slug or id")):
