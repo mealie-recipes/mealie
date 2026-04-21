@@ -186,6 +186,8 @@ spec:
               value: mealie
             - name: INFERENCE_API_URL
               value: "http://inference-api.mealie-prod.svc.cluster.local:8000"
+            - name: ALLOW_SIGNUP
+              value: "true"
           resources:
             requests:
               cpu: 200m
