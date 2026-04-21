@@ -10,7 +10,7 @@
 | PGID                          |          911          | GroupID permissions between host OS and container                                                                                                       |
 | DEFAULT_GROUP                 |         Home          | The default group for users                                                                                                                             |
 | DEFAULT_HOUSEHOLD             |        Family         | The default household for users in each group                                                                                                           |
-| BASE_URL                      | http://localhost:8080 | Used for notifications and OIDC callback url                                                                                                                                  |
+| BASE_URL                      | http://localhost:8080 | Used for notifications and the OIDC callback url                                                                                                        |
 | TOKEN_TIME                    |          48           | The time in hours that a login/auth token is valid. Must be <= 9600 (400 days, in hours).                                                               |
 | API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker**                                                                     |
 | API_DOCS                      |         True          | Turns on/off access to the API documentation locally                                                                                                    |
