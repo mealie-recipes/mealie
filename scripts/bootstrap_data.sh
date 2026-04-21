@@ -168,8 +168,8 @@ for old, new in replacements:
 # Patch quality gate with regex (handles 100_000, 100000, etc.)
 import re
 text, n = re.subn(
-    r'n_train_interactions\s*>=\s*[\d_]+',
-    'n_train_interactions >= int(os.environ.get("MIN_TRAIN_INTERACTIONS", "1000"))',
+    r'MIN_INTERACTIONS\s*=\s*[\d_]+',
+    'MIN_INTERACTIONS = int(os.environ.get("MIN_TRAIN_INTERACTIONS", "1000"))',
     text
 )
 if n:
