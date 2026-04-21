@@ -7,6 +7,7 @@ export default withNuxt({
     "@stylistic": stylistic,
   },
   rules: {
+    "@stylistic/max-statements-per-line": "off",
     "@stylistic/no-tabs": ["error"],
     "@stylistic/no-mixed-spaces-and-tabs": ["error", "smart-tabs"],
     "@typescript-eslint/no-explicit-any": "off",

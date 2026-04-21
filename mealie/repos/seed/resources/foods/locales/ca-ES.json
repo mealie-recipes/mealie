@@ -823,7 +823,7 @@
             "nectarine": {
                 "aliases": [],
                 "description": "",
-                "name": "nectarine",
+                "name": "nectarina",
                 "plural_name": "nectarines"
             },
             "dried fig": {
@@ -1009,8 +1009,8 @@
             "apple chip": {
                 "aliases": [],
                 "description": "",
-                "name": "apple chip",
-                "plural_name": "apple chips"
+                "name": "xip de poma",
+                "plural_name": "xips de poma"
             },
             "mixed peel": {
                 "aliases": [],
@@ -2319,8 +2319,8 @@
             "edam cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "edam cheese",
-                "plural_name": "edam cheese"
+                "name": "formtage edam",
+                "plural_name": "formatge edam"
             },
             "creamy cheese wedge": {
                 "aliases": [],
@@ -2457,8 +2457,8 @@
             "hard goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "hard goat cheese",
-                "plural_name": "hard goat cheese"
+                "name": "formatge dur de cabra",
+                "plural_name": "formatges dur de cabra"
             },
             "kashkaval cheese": {
                 "aliases": [],
@@ -2469,8 +2469,8 @@
             "sheep cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep cheese",
-                "plural_name": "sheep cheese"
+                "name": "formatge d'ovella",
+                "plural_name": "formatges d'ovella"
             },
             "amul cheese": {
                 "aliases": [],
@@ -2481,8 +2481,8 @@
             "reblochon cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "reblochon cheese",
-                "plural_name": "reblochon cheese"
+                "name": "formatge reblochon",
+                "plural_name": "formatges reblochon"
             },
             "robiola cheese": {
                 "aliases": [],
@@ -2517,8 +2517,8 @@
             "mimolette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mimolette cheese",
-                "plural_name": "mimolette cheese"
+                "name": "formatge mimolette",
+                "plural_name": "formatges mimolette"
             },
             "queso quesadilla cheese": {
                 "aliases": [],
@@ -2757,7 +2757,7 @@
             "dulce de leche": {
                 "aliases": [],
                 "description": "",
-                "name": "dulce de leche",
+                "name": "dolç de llet",
                 "plural_name": "dulce de leche"
             },
             "custard": {
@@ -3205,8 +3205,8 @@
             "coconut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut butter",
-                "plural_name": "coconut butter"
+                "name": "mantega de coco",
+                "plural_name": "mantega de coco"
             },
             "egg replacer": {
                 "aliases": [],
@@ -3307,8 +3307,8 @@
             "soy yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "soy yogurt",
-                "plural_name": "soy yogurts"
+                "name": "iogurt de soja",
+                "plural_name": "iogurts de soja"
             },
             "vegan mozzarella": {
                 "aliases": [],
@@ -3337,8 +3337,8 @@
             "smoked tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked tofu",
-                "plural_name": "smoked tofus"
+                "name": "tofu fumat",
+                "plural_name": "tofus fumat"
             },
             "coconut powder": {
                 "aliases": [],
@@ -3797,8 +3797,8 @@
             "sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage",
-                "plural_name": "sausages"
+                "name": "salsitxa",
+                "plural_name": "salsitxes"
             },
             "beef roast": {
                 "aliases": [],
@@ -3863,8 +3863,8 @@
             "smoked sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked sausage",
-                "plural_name": "smoked sausages"
+                "name": "salsitxa fumada",
+                "plural_name": "salsitxes fumades"
             },
             "breakfast sausage": {
                 "aliases": [],
@@ -4085,8 +4085,8 @@
             "rabbit": {
                 "aliases": [],
                 "description": "",
-                "name": "rabbit",
-                "plural_name": "rabbits"
+                "name": "conill",
+                "plural_name": "conills"
             },
             "pork cutlet": {
                 "aliases": [],
@@ -4689,8 +4689,8 @@
             "pigeon": {
                 "aliases": [],
                 "description": "",
-                "name": "pigeon",
-                "plural_name": "pigeons"
+                "name": "colom",
+                "plural_name": "coloms"
             },
             "wild game bird": {
                 "aliases": [],
@@ -4827,8 +4827,8 @@
             "chicken ham": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken ham",
-                "plural_name": "chicken hams"
+                "name": "cuixa de pollastre",
+                "plural_name": "cuixes de pollastre"
             },
             "duck neck": {
                 "aliases": [],
@@ -4981,7 +4981,7 @@
             "sardine": {
                 "aliases": [],
                 "description": "",
-                "name": "sardine",
+                "name": "sardina",
                 "plural_name": "sardines"
             },
             "sole": {
@@ -5012,7 +5012,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "caviar",
-                "plural_name": "caviars"
+                "plural_name": "cabiars"
             },
             "haddock": {
                 "aliases": [],
@@ -5179,8 +5179,8 @@
             "eel": {
                 "aliases": [],
                 "description": "",
-                "name": "eel",
-                "plural_name": "eels"
+                "name": "anguila",
+                "plural_name": "anguiles"
             },
             "dried anchovy": {
                 "aliases": [],
@@ -15997,14 +15997,14 @@
             "pineapple extract": {
                 "aliases": [],
                 "description": "",
-                "name": "pineapple extract",
-                "plural_name": "pineapple extract"
+                "name": "extracte de pinya",
+                "plural_name": "extracte de pinyes"
             },
             "lemon juice concentrate": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon juice concentrate",
-                "plural_name": "lemon juice concentrate"
+                "name": "concentrat de suc de llimona",
+                "plural_name": "concentrat de suc de llimones"
             },
             "chocolate collagen": {
                 "aliases": [],
@@ -16027,8 +16027,8 @@
             "malt extract": {
                 "aliases": [],
                 "description": "",
-                "name": "malt extract",
-                "plural_name": "malt extract"
+                "name": "extracte de malta",
+                "plural_name": "extracte de maltes"
             },
             "kombucha starter": {
                 "aliases": [],
@@ -16123,7 +16123,7 @@
             "vitamin e": {
                 "aliases": [],
                 "description": "",
-                "name": "vitamin e",
+                "name": "vitamina e",
                 "plural_name": "vitamin es"
             },
             "wine yeast": {
@@ -16159,7 +16159,7 @@
             "vitamin d": {
                 "aliases": [],
                 "description": "",
-                "name": "vitamin d",
+                "name": "vitamina d",
                 "plural_name": "vitamin ds"
             },
             "calcium lactate": {
@@ -16171,8 +16171,8 @@
             "mango extract": {
                 "aliases": [],
                 "description": "",
-                "name": "mango extract",
-                "plural_name": "mango extract"
+                "name": "extracte de mango",
+                "plural_name": "extractes de mango"
             },
             "raspberry powder": {
                 "aliases": [],
@@ -16201,7 +16201,7 @@
             "creatine": {
                 "aliases": [],
                 "description": "",
-                "name": "creatine",
+                "name": "creatina",
                 "plural_name": "creatines"
             },
             "daily vitamin": {
