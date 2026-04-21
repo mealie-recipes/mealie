@@ -18,17 +18,17 @@
             "yield": "Výnos",
             "yields": "Výnosy"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}",
+        "and-amount": "a {amount}",
+        "or-ingredient": "nebo {ingredient}",
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
-            "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
-            "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
-            "extracting-recipe-data": "Extracting recipe data...",
-            "fetching-webpage": "Fetching webpage...",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "creating-recipe-with-ai": "Vytváření receptu pomocí AI...",
+            "creating-recipe-from-transcript-with-ai": "Vytváření receptu pomocí AI přepisu...",
+            "creating-recipe-from-webpage-data": "Vytváření receptu z webových stránek...",
+            "downloading-image": "Stahování obrázku...",
+            "downloading-video": "Stahování videa...",
+            "extracting-recipe-data": "Extrahování dat receptu...",
+            "fetching-webpage": "Načítání webové stránky...",
+            "transcribing-audio-with-ai": "Přepisování zvuku pomocí AI..."
         }
     },
     "mealplan": {

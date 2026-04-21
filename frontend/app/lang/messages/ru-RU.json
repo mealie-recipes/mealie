@@ -98,6 +98,7 @@
     "dashboard": "Панель инструментов",
     "delete": "Удалить",
     "disabled": "Отключено",
+    "done": "Done",
     "download": "Загрузить",
     "duplicate": "Создать копию",
     "edit": "Изменить",
@@ -1472,5 +1473,12 @@
     "no-whitespace": "Без пробелов",
     "min-length": "Должно быть минимум {min} символов",
     "max-length": "Должно быть как минимум {max} знак|Должно быть больше {max} знаков"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

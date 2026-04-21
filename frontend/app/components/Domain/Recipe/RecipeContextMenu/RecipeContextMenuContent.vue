@@ -32,7 +32,6 @@
         density="compact"
         :label="$t('recipe.recipe-name')"
         autofocus
-        @keyup.enter="duplicateRecipe()"
       />
     </v-card-text>
   </BaseDialog>

@@ -18,16 +18,16 @@
             "yield": "菜量（可做数量）",
             "yields": "份量"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}",
+        "and-amount": "和 {amount}",
+        "or-ingredient": "或 {ingredient}",
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
-            "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
-            "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
-            "extracting-recipe-data": "Extracting recipe data...",
-            "fetching-webpage": "Fetching webpage...",
+            "creating-recipe-with-ai": "使用 AI 创建食谱……",
+            "creating-recipe-from-transcript-with-ai": "使用 AI 从转录结果创建食谱……",
+            "creating-recipe-from-webpage-data": "从网页数据创建食谱……",
+            "downloading-image": "正在下载图片……",
+            "downloading-video": "正在下载视频……",
+            "extracting-recipe-data": "正在提取食谱数据……",
+            "fetching-webpage": "正在获取网页……",
             "transcribing-audio-with-ai": "Transcribing audio with AI..."
         }
     },
