@@ -54,9 +54,28 @@ echo "=== [4/9] Applying platform manifests (postgres, minio, mlflow) ==="
 sudo kubectl apply -f "$DEVOPS_DIR/postgres-statefulset.yaml"
 sudo kubectl apply -f "$DEVOPS_DIR/minio-deployment.yaml"
 sudo kubectl apply -f "$DEVOPS_DIR/mlflow-deployment.yaml"
-echo "Waiting 30s for platform pods..."
-sleep 30
+echo "Waiting 45s for platform pods..."
+sleep 45
 sudo kubectl get pods -n platform
+
+echo "Creating MinIO buckets..."
+python3 - <<'PYEOF'
+import boto3, time
+for attempt in range(10):
+    try:
+        s3 = boto3.client("s3", endpoint_url="http://127.0.0.1:30900",
+                          aws_access_key_id="minioadmin", aws_secret_access_key="minioadmin123")
+        for bucket in ["training-data", "mlflow-artifacts"]:
+            try:
+                s3.create_bucket(Bucket=bucket)
+                print(f"  created: {bucket}")
+            except Exception:
+                print(f"  exists:  {bucket}")
+        break
+    except Exception as e:
+        print(f"  MinIO not ready (attempt {attempt+1}/10): {e}")
+        time.sleep(10)
+PYEOF
 
 echo "=== [5/9] Building inference API image ==="
 cd "$SERVING_DIR"
@@ -206,7 +225,7 @@ sudo kubectl apply -f "$MONITORING_DIR/alertmanager-configmap.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/alertmanager-deployment.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/kube-state-metrics-rbac.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/kube-state-metrics.yaml"
-sudo kubectl apply -f "$MONITORING_DIR/inference-api-hpa.yaml"
+# HPA skipped on single-node VM to avoid CPU thrash from over-scaling
 
 echo "=== [9/9] Opening iptables firewall ports ==="
 for port in 22 30090 30800 30500 30900 30901 30091 30300 30903; do
