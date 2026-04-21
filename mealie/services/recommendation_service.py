@@ -29,7 +29,7 @@ def get_prefs(db: Session, user_id: Any) -> UserMLPreferences | None:
 def get_or_create_prefs(db: Session, user_id: Any) -> UserMLPreferences:
     prefs = get_prefs(db, user_id)
     if prefs is None:
-        prefs = UserMLPreferences(user_id=user_id, rating_count=0)
+        prefs = UserMLPreferences(session=db, user_id=user_id, rating_count=0)
         db.add(prefs)
         db.flush()
     return prefs
