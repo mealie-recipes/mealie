@@ -193,6 +193,19 @@ sudo docker save mealie-als-training:integration-rerun | sudo k3s ctr images imp
 echo "Image imported."
 
 echo "=== [5/5] Running ALS training ==="
+echo "Ensuring MinIO buckets exist..."
+python3 - <<'PYEOF'
+import boto3
+s3 = boto3.client("s3", endpoint_url="http://127.0.0.1:30900",
+                  aws_access_key_id="minioadmin", aws_secret_access_key="minioadmin123")
+for bucket in ["training-data", "mlflow-artifacts"]:
+    try:
+        s3.create_bucket(Bucket=bucket)
+        print(f"  created bucket: {bucket}")
+    except Exception:
+        print(f"  bucket already exists: {bucket}")
+PYEOF
+
 sudo docker run --rm --network host \
     -e MLFLOW_TRACKING_URI="http://127.0.0.1:30500" \
     -e MLFLOW_S3_ENDPOINT_URL="http://127.0.0.1:30900" \
