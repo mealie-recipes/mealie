@@ -98,6 +98,7 @@
     "dashboard": "Panel de control",
     "delete": "Eliminar",
     "disabled": "Deshabilitado",
+    "done": "Done",
     "download": "Descargar",
     "duplicate": "Duplicar",
     "edit": "Editar",
@@ -1462,7 +1463,7 @@
       "is-not-like": "no es como"
     },
     "dates": {
-      "days-ago": ""
+      "days-ago": "days ago|day ago|days ago"
     }
   },
   "validators": {
@@ -1472,5 +1473,12 @@
     "no-whitespace": "No se permiten espacios en blanco",
     "min-length": "Debe tener como mínimo {min} caracteres",
     "max-length": "Debe Ser Como Máximo {max} Carácter|Debe Ser Como Máximo {max} Caracteres"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

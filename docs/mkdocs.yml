@@ -19,6 +19,7 @@ theme:
   custom_dir: docs/overrides
   features:
     - content.code.annotate
+    - content.code.copy
     - navigation.top
     - navigation.instant
     - navigation.expand

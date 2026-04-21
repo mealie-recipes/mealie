@@ -8,7 +8,7 @@ from mealie.services.scraper import cleaner
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import parse_iso8601_duration
+from .utils.migration_helpers import parse_iso8601_duration, safe_local_path
 
 
 def clean_instructions(instructions: list[str]) -> list[str]:
@@ -30,7 +30,9 @@ def parse_recipe_div(recipe, image_path):
         elif item.name == "div":
             meta[item["itemprop"]] = list(item.stripped_strings)
         elif item.name == "img":
-            meta[item["itemprop"]] = str(image_path / item["src"])
+            safe = safe_local_path(image_path / item["src"], image_path)
+            if safe is not None:
+                meta[item["itemprop"]] = str(safe)
         else:
             meta[item["itemprop"]] = item.string
     # merge nutrition keys into their own dict.
@@ -107,4 +109,4 @@ class RecipeKeeperMigrator(BaseMigrator):
                     except StopIteration:
                         continue
 
-                    self.import_image(slug, recipe.image, recipe_id)
+                    self.import_image(slug, recipe.image, recipe_id, extraction_root=source_dir)
