@@ -35,7 +35,7 @@ Our system uses ALS (Alternating Least Squares) collaborative filtering to rank 
 
 - **"Because tags" explanation** (`AppRecommendedForYou.vue`): Every recommendation card displays up to 3 tags explaining why that recipe was suggested (e.g. "italian", "pasta", "comfort-food"). These are the tags from the recipe that matched the user's taste vector.
 
-- **Cold-start label** (`AppRecommendedForYou.vue`): When a user has fewer than 5 ratings, the panel displays a chip: *"Rate recipes to personalize this list"* so users understand their recommendations will improve as they interact more.
+- **Cold-start label** (`AppRecommendedForYou.vue`): When a user has fewer than 5 ratings, the panel displays a chip: *"Rate recipes to personalize this list"* so users understand their recommendations will improve as they interact more. Taste vectors are updated continuously as users rate and dismiss recipes — preference re-seeding via the onboarding page is planned for a future release.
 
 - **Model version in every response**: The `/recommend` endpoint returns a `model_version` field in every API response. This field is logged and visible in MLflow, so any recommendation can be traced to the exact model version that produced it.
 
@@ -100,6 +100,8 @@ Our system uses ALS (Alternating Least Squares) collaborative filtering to rank 
 
 - **Nightly evaluation logs to MLflow** (`nightly-eval` experiment): Every nightly eval run is logged as an MLflow experiment with pass/fail status and metrics for each of the 3 quality checkpoints. This creates a historical record of data health over time.
 
+- **Automated rollback** (`model-promoter` CronJob): The model-promoter runs every 6 hours and checks the latest nightly-eval results. If the inference API is unhealthy, it automatically restores the previous `production/tag_to_vector.pkl` from a backup before promoting any new artifact. This prevents a bad model from staying in production undetected.
+
 - **Role ownership**: Each component has a clear owner (Data: Bryce, Training: Shashwat, Serving: Sharvin, DevOps: Mahima). Incidents can be routed to the appropriate owner based on which component failed.
 
 ---
@@ -120,3 +122,4 @@ Our system uses ALS (Alternating Least Squares) collaborative filtering to rank 
 | Accountability | MLflow Model Registry with full lineage | MLflow `mealie-als-recommender` |
 | Accountability | Nightly eval logged to MLflow `nightly-eval` experiment | `nightly_eval.py` |
 | Accountability | Versioned training datasets in MinIO | `batch.py` |
+| Accountability | Automated rollback via model-promoter CronJob | `model-promoter` CronJob |
