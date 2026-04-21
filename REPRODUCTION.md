@@ -10,59 +10,78 @@
 
 - Chameleon Cloud account with access to project **CHI-251409**
 - Access to Chameleon JupyterHub at https://jupyter.chameleoncloud.org
-- The following GitHub repos cloned on JupyterHub (the notebook clones them automatically onto the VM):
-  - `https://github.com/Sharvin27/mealie` — this repo (branch `feature/ml-recommendations`)
-  - Sharvin's serving 
-  - Bryce's data pipeline repo
-  - Shashwat's ALS training repo
-  - Mahima's DevOps/platform repo
+- A Kaggle account and API token (for downloading Food.com dataset)
 
 ---
 
-## Step 1 — Open the Integration Notebook on Chameleon JupyterHub
+## Step 1 — Provision VM on JupyterHub
 
-1. Log into https://jupyter.chameleoncloud.org
-2. Clone this repo or upload `integration_chameleon_setup_new.ipynb`
-3. Open the notebook and run cells **top to bottom in order**
+Open `integration_chameleon_setup_new.ipynb` on JupyterHub and run cells **1 through 12** in order (skip Cell 12.5 for now):
 
----
+| Cell | What it does |
+|---|---|
+| 1 | Imports + select project CHI-251409, site KVM@TACC |
+| 2 | Create new 48-hour lease (m1.xlarge flavor) |
+| 3 | Launch new VM (CC-Ubuntu24.04), poll until ACTIVE |
+| 4 | Add OpenStack security groups (ports 22, 30090, 30800, 30500, 30900, 30901, 30091, 30300, 30903) |
+| 5 | Associate floating IP + verify SSH — saves `floating_ip` variable |
+| 6 | Install Docker on VM |
+| 7 | Install K3s (Kubernetes) |
+| 8 | Clone all team repos into `/home/cc/proj18/` |
+| 9 | Create Kubernetes namespaces |
+| 10 | Create Kubernetes Secrets |
+| 11 | Create `shared-env` ConfigMap |
+| 12 | Apply Mahima's platform manifests (PostgreSQL, MinIO, MLflow) |
 
-## Step 2 — Cell-by-Cell Guide
-
-| Cell | What it does | Notes |
-|---|---|---|
-| 1 | Imports + project context | Select CHI-251409, site KVM@TACC |
-| 2 | **Create new lease** on KVM@TACC | 48-hour lease, m1.xlarge flavor |
-| 3 | **Launch new VM** (CC-Ubuntu24.04) | Polls until ACTIVE (~2 min) |
-| 4 | **Add OpenStack security groups** | Opens ports 22, 30090, 30800, 30500, 30900, 30901, 30091, 30300, 30903 |
-| 5 | Associate floating IP + verify SSH | Stores `floating_ip` variable used throughout |
-| 6 | Install Docker on VM | Skips if already installed |
-| 7 | Install K3s (Kubernetes) | Skips if already installed |
-| 8 | Clone all team repos into `/home/cc/proj18/` | mealie, mealie-serving, mlops-devops, mealie_als_training |
-| 9 | Create Kubernetes namespaces | mealie-prod, platform, monitoring |
-| 10 | Create Kubernetes Secrets | postgres-secret, minio-secret |
-| 11 | Create `shared-env` ConfigMap | All service URLs and MinIO credentials |
-| 12 | Apply Mahima's platform manifests | Deploys PostgreSQL, MinIO, MLflow |
-| **12.5** | **Bootstrap training data + ALS model** | Generates synthetic data → MinIO → builds training image → runs ALS → saves `production/tag_to_vector.pkl` |
-| 13–14 | Build + deploy Inference API | `mealie-inference:latest`, NodePort 30800 |
-| 15–16 | Build + deploy Mealie | `mealie-custom:latest`, NodePort 30090 |
-| **17** | **Apply CronJobs** | ETL (2am daily), retrain (4am 1st of month), nightly-eval (3am) |
-| **17.5** | **Deploy monitoring stack** | Prometheus (30091), Grafana (30300), Alertmanager (30903), kube-state-metrics, HPA |
-| 17.6 | Staging + Canary environments | mealie-staging and mealie-canary namespaces |
-| 17.7 | Model-promoter CronJob | Auto-promotes staging→canary→production every 6h |
-| 18 | Wait 60s + verify all pods | `kubectl get pods --all-namespaces` |
-| 19 | Stub model artifacts | Only runs if MinIO has no model artifact yet |
-| 20 | Health checks | Inference API /health, /tag-vector, /recommend |
-| 21 | Print all access URLs | Shows all service URLs with the dynamic floating IP |
-| 22 | Open iptables firewall ports | Opens all NodePorts via iptables on the VM |
-
-> **Cell 12.5 is critical** — it bootstraps the initial model artifact so the inference API has something to load. Without it, recommendations return empty.
+After Cell 12, note the `floating_ip` printed in the output.
 
 ---
 
-## Step 3 — Verify Services
+## Step 2 — Run deploy.sh (builds images + deploys full stack)
 
-After the notebook completes, all services are accessible at `http://<floating_ip>:<port>`:
+SSH into the VM and run the deploy script:
+
+```bash
+ssh cc@<floating_ip>
+cd /home/cc/proj18/mealie
+bash scripts/deploy.sh <floating_ip>
+```
+
+This script (~10–15 min) does:
+1. Pulls latest code for all repos
+2. Creates namespaces, secrets, ConfigMaps
+3. Applies platform manifests (postgres, minio, mlflow)
+4. Builds inference API Docker image + imports to K3s
+5. Builds Mealie Docker image + imports to K3s
+6. Deploys inference API (NodePort 30800) and Mealie (NodePort 30090)
+7. Applies all CronJobs (ETL, retrain, nightly-eval, model-promoter)
+8. Deploys monitoring stack (Prometheus, Grafana, Alertmanager, kube-state-metrics, HPA)
+9. Opens iptables firewall ports
+
+---
+
+## Step 3 — Bootstrap the ALS model
+
+Still on the VM, run the bootstrap script with your Kaggle token:
+
+```bash
+bash /home/cc/proj18/mealie/scripts/bootstrap_data.sh <floating_ip> <kaggle_token>
+```
+
+This script (~10–15 min) does:
+1. Downloads Food.com CSVs from Kaggle
+2. Runs Bryce's ETL (cleans + combines real + synthetic interactions)
+3. Uploads `train.parquet` / `val.parquet` to MinIO at `datasets/current/`
+4. Patches Shashwat's `train.py` + builds `mealie-als-training:integration-rerun` image
+5. Runs ALS training, saves `production/tag_to_vector.pkl` to MinIO
+
+> **Note:** The Kaggle token format is `KGAT_xxxxxxxx`. Find yours at https://www.kaggle.com/settings → API → Create New Token.
+
+---
+
+## Step 4 — Verify Services
+
+After both scripts complete, all services are accessible at `http://<floating_ip>:<port>`:
 
 | Service | Port | Credentials |
 |---|---|---|
@@ -75,9 +94,6 @@ After the notebook completes, all services are accessible at `http://<floating_i
 | Alertmanager | 30903 | — |
 
 ```bash
-# SSH into the VM
-ssh cc@<floating_ip>
-
 # Check all pods
 sudo kubectl get pods --all-namespaces
 
@@ -87,7 +103,7 @@ sudo kubectl get cronjobs -n mealie-prod
 
 ---
 
-## Step 4 — Test the ML Pipeline End-to-End
+## Step 5 — Test the ML Pipeline End-to-End
 
 ```bash
 # 1. Trigger ETL manually (compiles PostgreSQL ratings → MinIO parquet)
@@ -107,7 +123,7 @@ Check MLflow at `http://<floating_ip>:30500` — experiments `mealie-recipe-reco
 
 ---
 
-## Step 5 — Verify ML Recommendations in UI
+## Step 6 — Verify ML Recommendations in UI
 
 1. Open Mealie at `http://<floating_ip>:30090`
 2. Log in, go to **Preferences**, select at least 2 cuisine tags
@@ -119,7 +135,10 @@ Check MLflow at `http://<floating_ip>:30500` — experiments `mealie-recipe-reco
 ## Repository Structure (ML-relevant files)
 
 ```
-integration_chameleon_setup_new.ipynb   # Main reproduction notebook (run this)
+integration_chameleon_setup_new.ipynb   # Notebook: VM provisioning (Cells 1-12 only)
+scripts/
+  deploy.sh          # Full K8s stack deploy (run on VM after K3s is up)
+  bootstrap_data.sh  # ETL + ALS training (run on VM after deploy.sh)
 
 dev/
   cronjobs/
@@ -127,12 +146,12 @@ dev/
     mealie-prod-monthly-retrain-cronjob.yaml # ALS retraining
     mealie-prod-nightly-eval-cronjob.yaml    # MLflow quality logging
   monitoring/
-    prometheus-rbac.yaml                     # RBAC for cluster metrics
+    prometheus-rbac.yaml
     prometheus-configmap.yaml                # Scrape config + 5 alert rules
     prometheus-deployment.yaml               # NodePort 30091
-    grafana-configmap.yaml                   # Prometheus datasource
+    grafana-configmap.yaml
     grafana-deployment.yaml                  # NodePort 30300
-    alertmanager-configmap.yaml              # Alert routing
+    alertmanager-configmap.yaml
     alertmanager-deployment.yaml             # NodePort 30903
     kube-state-metrics-rbac.yaml
     kube-state-metrics.yaml
@@ -171,7 +190,7 @@ sudo kubectl patch deployment <name> -n <namespace> --type='json' \
 
 **CronJob pod fails with ErrImageNeverPull:**
 ```bash
-# Image not imported into K3s — import it:
+# Image not imported into K3s — re-import it:
 sudo docker save <image>:latest | sudo k3s ctr images import -
 ```
 
@@ -179,10 +198,16 @@ sudo docker save <image>:latest | sudo k3s ctr images import -
 ```bash
 # Check model artifact exists in MinIO
 # MinIO Console → mlflow-artifacts bucket → production/tag_to_vector.pkl
-# If missing, re-run Cell 12.5 from the notebook
+# If missing, re-run bootstrap_data.sh
 ```
 
-**VM has insufficient CPU/memory for all pods (single-node constraint):**
+**StatefulSet postgres "spec: Forbidden" on re-apply:**
+```bash
+sudo kubectl delete statefulset postgres -n platform --ignore-not-found
+sudo kubectl apply -f /home/cc/proj18/mlops-devops/infrastructure/k8s/postgres-statefulset.yaml
+```
+
+**VM has insufficient CPU/memory for all pods:**
 ```bash
 sudo kubectl describe nodes | grep -A5 "Allocated resources"
 # Delete completed job pods to free resources:
