@@ -157,6 +157,10 @@ replacements = [
      "s3.download_file(os.environ.get('TRAINING_BUCKET','training-data'), f\"datasets/{os.environ.get('DATASET_VERSION','current')}/val.parquet\""),
     ("save_to_minio(tag_to_vector, 'mlflow', 'production/tag_to_vector.pkl')",
      "save_to_minio(tag_to_vector, os.environ.get('MODEL_BUCKET','mlflow-artifacts'), os.environ.get('TAG_VECTOR_KEY','production/tag_to_vector.pkl'))"),
+    ("n_train_interactions >= 100_000",
+     "n_train_interactions >= int(os.environ.get('MIN_TRAIN_INTERACTIONS', '1000'))"),
+    ("n_train_interactions >= 100000",
+     "n_train_interactions >= int(os.environ.get('MIN_TRAIN_INTERACTIONS', '1000'))"),
 ]
 for old, new in replacements:
     if old in text:
@@ -188,9 +192,10 @@ sudo docker run --rm --network host \
     -e DATASET_VERSION="$DATASET_VERSION" \
     -e MODEL_BUCKET="$MODEL_BUCKET" \
     -e TAG_VECTOR_KEY="$TAG_VECTOR_KEY" \
+    -e MIN_TRAIN_INTERACTIONS="1000" \
     mealie-als-training:integration-rerun
 
 echo ""
 echo "=== Bootstrap complete ==="
-echo "production/tag_to_vector.pkl saved to MinIO."
+echo "Check MinIO for production/tag_to_vector.pkl — mlflow-artifacts bucket"
 echo "Check MLflow at http://${FLOATING_IP}:30500 — experiment 'mealie-recipe-recommender'"
