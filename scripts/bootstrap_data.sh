@@ -222,6 +222,108 @@ sudo docker run --rm --network host \
     mealie-als-training:integration-rerun
 
 echo ""
+echo "=== [6/6] Seeding 100 Food.com recipes into Mealie ==="
+echo "Waiting 15s for Mealie to be ready..."
+sleep 15
+python3 - <<'PYEOF'
+import boto3, io, json, random, time
+import urllib.request, urllib.parse, urllib.error
+
+MINIO_ENDPOINT = "http://127.0.0.1:30900"
+MEALIE_URL     = "http://127.0.0.1:30090"
+MEALIE_EMAIL   = "changeme@example.com"
+MEALIE_PASS    = "MyPassword"
+SEED_COUNT     = 100
+
+# Load recipes from MinIO
+s3 = boto3.client("s3", endpoint_url=MINIO_ENDPOINT,
+                  aws_access_key_id="minioadmin", aws_secret_access_key="minioadmin123")
+import pandas as pd
+buf = io.BytesIO(s3.get_object(Bucket="training-data", Key="processed/recipes_clean.parquet")["Body"].read())
+recipes_df = pd.read_parquet(buf)
+print(f"Loaded {len(recipes_df):,} recipes from MinIO")
+
+sample = recipes_df.sample(n=min(SEED_COUNT, len(recipes_df)), random_state=42)
+
+# Authenticate with Mealie
+def mealie_post(path, data, headers=None):
+    url = f"{MEALIE_URL}{path}"
+    body = urllib.parse.urlencode(data).encode() if isinstance(data, dict) and headers and "form" in headers.get("Content-Type","") else json.dumps(data).encode()
+    req = urllib.request.Request(url, data=body, headers=headers or {}, method="POST")
+    try:
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            return json.loads(resp.read())
+    except urllib.error.HTTPError as e:
+        return json.loads(e.read())
+
+# Get token
+for attempt in range(12):
+    try:
+        req = urllib.request.Request(
+            f"{MEALIE_URL}/api/auth/token",
+            data=urllib.parse.urlencode({"username": MEALIE_EMAIL, "password": MEALIE_PASS, "grant_type": "password"}).encode(),
+            headers={"Content-Type": "application/x-www-form-urlencoded"},
+            method="POST"
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            token = json.loads(resp.read())["access_token"]
+        print("Authenticated with Mealie")
+        break
+    except Exception as e:
+        print(f"  Mealie not ready (attempt {attempt+1}/12): {e}")
+        time.sleep(10)
+else:
+    print("ERROR: Could not authenticate with Mealie — skipping recipe seed")
+    exit(0)
+
+auth_headers = {"Authorization": f"Bearer {token}", "Content-Type": "application/json"}
+
+# Create recipes
+created = 0
+for _, row in sample.iterrows():
+    name = str(row["name"]).strip()[:255]
+    tags = row["tags"] if isinstance(row["tags"], list) else []
+    tags = [str(t).strip() for t in tags if str(t).strip()][:8]
+
+    try:
+        # Step 1: create recipe (returns slug)
+        req = urllib.request.Request(
+            f"{MEALIE_URL}/api/recipes",
+            data=json.dumps({"name": name}).encode(),
+            headers=auth_headers,
+            method="POST"
+        )
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            slug = json.loads(resp.read())
+
+        # Step 2: patch with tags using PATCH
+        if tags:
+            import http.client, urllib.parse as _up
+            parsed = _up.urlparse(MEALIE_URL)
+            conn = http.client.HTTPConnection(parsed.hostname, parsed.port or 80, timeout=10)
+            body = json.dumps({"tags": [{"name": t} for t in tags]}).encode()
+            conn.request("PATCH", f"/api/recipes/{slug}", body=body, headers={
+                "Authorization": f"Bearer {token}",
+                "Content-Type": "application/json",
+            })
+            try:
+                conn.getresponse()
+            except Exception:
+                pass
+            finally:
+                conn.close()
+
+        created += 1
+        if created % 20 == 0:
+            print(f"  seeded {created}/{SEED_COUNT} recipes...")
+    except Exception as e:
+        pass
+
+print(f"Seeded {created} recipes into Mealie library.")
+PYEOF
+
+echo ""
 echo "=== Bootstrap complete ==="
 echo "Check MinIO for production/tag_to_vector.pkl — mlflow-artifacts bucket"
 echo "Check MLflow at http://${FLOATING_IP}:30500 — experiment 'mealie-recipe-recommender'"
+echo "Mealie seeded with 100 Food.com recipes — log in and check the library."
