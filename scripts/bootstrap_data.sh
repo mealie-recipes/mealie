@@ -19,6 +19,7 @@ MINIO_ENDPOINT="http://127.0.0.1:30900"
 
 echo "=== [1/5] Installing Python dependencies ==="
 python3 -m pip install -q pandas pyarrow numpy boto3 kaggle --break-system-packages
+export PATH="$HOME/.local/bin:$PATH"
 
 echo "=== [2/5] Downloading Food.com dataset from Kaggle ==="
 mkdir -p /tmp/foodcom
