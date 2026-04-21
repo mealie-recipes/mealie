@@ -157,10 +157,6 @@ replacements = [
      "s3.download_file(os.environ.get('TRAINING_BUCKET','training-data'), f\"datasets/{os.environ.get('DATASET_VERSION','current')}/val.parquet\""),
     ("save_to_minio(tag_to_vector, 'mlflow', 'production/tag_to_vector.pkl')",
      "save_to_minio(tag_to_vector, os.environ.get('MODEL_BUCKET','mlflow-artifacts'), os.environ.get('TAG_VECTOR_KEY','production/tag_to_vector.pkl'))"),
-    ("n_train_interactions >= 100_000",
-     "n_train_interactions >= int(os.environ.get('MIN_TRAIN_INTERACTIONS', '1000'))"),
-    ("n_train_interactions >= 100000",
-     "n_train_interactions >= int(os.environ.get('MIN_TRAIN_INTERACTIONS', '1000'))"),
 ]
 for old, new in replacements:
     if old in text:
@@ -168,6 +164,19 @@ for old, new in replacements:
         print("Patched:", repr(old[:60]))
     else:
         print("WARN not found (may already be patched):", repr(old[:60]))
+
+# Patch quality gate with regex (handles 100_000, 100000, etc.)
+import re
+text, n = re.subn(
+    r'n_train_interactions\s*>=\s*[\d_]+',
+    'n_train_interactions >= int(os.environ.get("MIN_TRAIN_INTERACTIONS", "1000"))',
+    text
+)
+if n:
+    print(f"Patched quality gate ({n} occurrence(s))")
+else:
+    print("WARN: quality gate pattern not found")
+
 path.write_text(text)
 print("Patch complete.")
 PYEOF
