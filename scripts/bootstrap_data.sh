@@ -18,7 +18,7 @@ DATASET_VERSION="current"
 MINIO_ENDPOINT="http://127.0.0.1:30900"
 
 echo "=== [1/5] Installing Python dependencies ==="
-pip install -q pandas pyarrow numpy boto3 kaggle
+python3 -m pip install -q pandas pyarrow numpy boto3 kaggle
 
 echo "=== [2/5] Downloading Food.com dataset from Kaggle ==="
 mkdir -p /tmp/foodcom
