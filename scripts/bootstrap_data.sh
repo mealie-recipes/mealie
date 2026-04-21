@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 # bootstrap_data.sh — Download Food.com from Kaggle, run ETL, train ALS model
-# Usage: bash bootstrap_data.sh <floating_ip> <kaggle_token>
+# Usage: bash bootstrap_data.sh <floating_ip> <kaggle_token> [mealie_email] [mealie_password]
 # Run this ON THE VM (not on JupyterHub)
 
 set -euo pipefail
 
 FLOATING_IP="${1:?Usage: bash bootstrap_data.sh <floating_ip> <kaggle_token>}"
 KAGGLE_TOKEN="${2:?Usage: bash bootstrap_data.sh <floating_ip> <kaggle_token>}"
+MEALIE_EMAIL="${3:-changeme@example.com}"
+MEALIE_PASS="${4:-MyPassword}"
 
 KAGGLE_DATASET="shuyangli94/food-com-recipes-and-user-interactions"
 TRAINING_REPO="https://github.com/Shashwatshah02/mealie_als_training.git"
@@ -225,14 +227,14 @@ echo ""
 echo "=== [6/6] Seeding 100 Food.com recipes into Mealie ==="
 echo "Waiting 15s for Mealie to be ready..."
 sleep 15
-python3 - <<'PYEOF'
+MEALIE_EMAIL="$MEALIE_EMAIL" MEALIE_PASS="$MEALIE_PASS" python3 - <<'PYEOF'
 import boto3, io, json, random, time
 import urllib.request, urllib.parse, urllib.error
 
 MINIO_ENDPOINT = "http://127.0.0.1:30900"
 MEALIE_URL     = "http://127.0.0.1:30090"
-MEALIE_EMAIL   = "changeme@example.com"
-MEALIE_PASS    = "MyPassword"
+MEALIE_EMAIL   = os.environ["MEALIE_EMAIL"]
+MEALIE_PASS    = os.environ["MEALIE_PASS"]
 SEED_COUNT     = 100
 
 # Load recipes from MinIO
