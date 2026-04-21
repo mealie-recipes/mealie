@@ -12,6 +12,7 @@
 - Access to Chameleon JupyterHub at https://jupyter.chameleoncloud.org
 - The following GitHub repos cloned on JupyterHub (the notebook clones them automatically onto the VM):
   - `https://github.com/Sharvin27/mealie` — this repo (branch `feature/ml-recommendations`)
+  - Sharvin's serving 
   - Bryce's data pipeline repo
   - Shashwat's ALS training repo
   - Mahima's DevOps/platform repo
