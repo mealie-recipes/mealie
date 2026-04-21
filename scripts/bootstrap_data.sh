@@ -178,12 +178,16 @@ else:
     print("WARN: quality gate pattern not found")
 
 path.write_text(text)
+# Confirm patch
+import subprocess
+result = subprocess.run(["grep", "-n", "n_train_interactions", str(path)], capture_output=True, text=True)
+print("Quality gate line after patch:\n", result.stdout)
 print("Patch complete.")
 PYEOF
 
 cd "$TRAINING_DIR"
-echo "Building mealie-als-training image (~3 min)..."
-sudo docker build -t mealie-als-training:integration-rerun . 2>&1 | tail -10
+echo "Building mealie-als-training image (no-cache, ~5 min)..."
+sudo docker build --no-cache -t mealie-als-training:integration-rerun . 2>&1 | tail -10
 echo "Importing into K3s containerd..."
 sudo docker save mealie-als-training:integration-rerun | sudo k3s ctr images import -
 echo "Image imported."
