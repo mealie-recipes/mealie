@@ -169,6 +169,7 @@ onMounted(async () => {
   background: #fff;
   border: 1px solid rgba(24, 49, 79, 0.14);
   border-radius: 1rem;
+  color: #18314f;
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -186,6 +187,14 @@ onMounted(async () => {
   border-color: rgba(24, 49, 79, 0.34);
   box-shadow: 0 10px 24px rgba(24, 49, 79, 0.08);
   transform: translateY(-1px);
+}
+
+.tag-card span:first-child {
+  color: #18314f;
+}
+
+.tag-card span:last-child {
+  color: rgba(24, 49, 79, 0.72);
 }
 
 .tag-card--active {

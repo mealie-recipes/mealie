@@ -85,7 +85,7 @@ def _serialize_recipe(recipe: RecipeModel) -> dict[str, Any]:
     }
 
 
-def _baseline_recommendations(library_recipes: list[dict[str, Any]], top_n: int = 10) -> list[dict[str, Any]]:
+def _baseline_recommendations(library_recipes: list[dict[str, Any]], top_n: int = 5) -> list[dict[str, Any]]:
     ranked = sorted(
         library_recipes,
         key=lambda recipe: (
@@ -112,7 +112,7 @@ async def fetch_recommendations(
     user_id: Any,
     recipes: list[RecipeModel],
     *,
-    top_n: int = 10,
+    top_n: int = 5,
 ) -> dict[str, Any]:
     library_recipes = [_serialize_recipe(recipe) for recipe in recipes]
     if not library_recipes:

@@ -1,100 +1,117 @@
 <template>
   <section
-    v-if="!loading && recommendations.length"
+    v-if="!loading"
     class="recommendations-section"
   >
-    <div class="d-flex flex-column flex-md-row align-md-center justify-space-between ga-3 mb-4">
-      <div>
-        <div class="text-h6 font-weight-medium">
-          Recommended for You
+    <template v-if="recommendations.length">
+      <div class="d-flex flex-column flex-md-row align-md-center justify-space-between ga-3 mb-4">
+        <div>
+          <div class="text-h6 font-weight-medium">
+            Recommended for You
+          </div>
+          <div class="text-body-2 text-medium-emphasis">
+            Suggestions update as you rate and dismiss recipes.
+          </div>
         </div>
-        <div class="text-body-2 text-medium-emphasis">
-          Suggestions update as you rate and dismiss recipes.
-        </div>
+        <v-chip
+          v-if="coldStart"
+          color="primary"
+          variant="tonal"
+          size="small"
+        >
+          Rate recipes to personalize this list
+        </v-chip>
       </div>
-      <v-chip
-        v-if="coldStart"
-        color="primary"
-        variant="tonal"
-        size="small"
-      >
-        Rate recipes to personalize this list
-      </v-chip>
-    </div>
 
-    <div class="recommendation-strip">
-      <v-card
-        v-for="recipe in recommendations"
-        :key="recipe.recipeId"
-        class="recommendation-card"
-        variant="outlined"
-      >
-        <div class="recommendation-image">
-          <v-img
-            v-if="recipe.recipeId"
-            :src="staticRoutes.recipeSmallImage(recipe.recipeId, recipe.image || '', imageKey)"
-            cover
-            height="160"
-          />
-          <div
-            v-else
-            class="recommendation-placeholder"
-          >
-            <v-icon size="40">
-              mdi-silverware-fork-knife
-            </v-icon>
-          </div>
-        </div>
-
-        <v-card-text class="pb-3">
-          <div class="text-subtitle-1 font-weight-medium recommendation-title">
-            {{ recipe.name }}
-          </div>
-          <p class="text-body-2 text-medium-emphasis recommendation-description">
-            {{ recipe.description || "Fresh picks from your recipe library." }}
-          </p>
-
-          <div
-            v-if="recipe.becauseTags?.length"
-            class="d-flex flex-wrap ga-1 mt-3"
-          >
-            <v-chip
-              v-for="tag in recipe.becauseTags.slice(0, 3)"
-              :key="`${recipe.recipeId}-${tag}`"
-              size="x-small"
-              variant="outlined"
+      <div class="recommendation-strip">
+        <v-card
+          v-for="recipe in recommendations"
+          :key="recipe.recipeId"
+          class="recommendation-card"
+          variant="outlined"
+        >
+          <div class="recommendation-image">
+            <v-img
+              v-if="recipe.recipeId"
+              :src="staticRoutes.recipeSmallImage(recipe.recipeId, recipe.image || '', imageKey)"
+              cover
+              height="160"
+            />
+            <div
+              v-else
+              class="recommendation-placeholder"
             >
-              {{ tag }}
-            </v-chip>
+              <v-icon size="40">
+                mdi-silverware-fork-knife
+              </v-icon>
+            </div>
           </div>
 
-          <div
-            v-if="recipe.score !== null && recipe.score !== undefined"
-            class="text-caption text-medium-emphasis mt-3"
-          >
-            Match score {{ recipe.score.toFixed(2) }}
-          </div>
-        </v-card-text>
+          <v-card-text class="pb-3">
+            <div class="text-subtitle-1 font-weight-medium recommendation-title">
+              {{ recipe.name }}
+            </div>
+            <p class="text-body-2 text-medium-emphasis recommendation-description">
+              {{ recipe.description || "Fresh picks from your recipe library." }}
+            </p>
 
-        <v-card-actions class="px-4 pb-4 pt-0">
-          <v-btn
-            color="primary"
-            variant="text"
-            @click="openRecipe(recipe.slug)"
-          >
-            View
-          </v-btn>
-          <v-spacer />
-          <v-btn
-            variant="text"
-            color="default"
-            @click="dismissRecipe(recipe.recipeId)"
-          >
-            Dismiss
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </div>
+            <div
+              v-if="recipe.becauseTags?.length"
+              class="d-flex flex-wrap ga-1 mt-3"
+            >
+              <v-chip
+                v-for="tag in recipe.becauseTags.slice(0, 3)"
+                :key="`${recipe.recipeId}-${tag}`"
+                size="x-small"
+                variant="outlined"
+              >
+                {{ tag }}
+              </v-chip>
+            </div>
+
+            <div
+              v-if="recipe.score !== null && recipe.score !== undefined"
+              class="text-caption text-medium-emphasis mt-3"
+            >
+              Match score {{ recipe.score.toFixed(2) }}
+            </div>
+          </v-card-text>
+
+          <v-card-actions class="px-4 pb-4 pt-0">
+            <v-btn
+              color="primary"
+              variant="text"
+              @click="openRecipe(recipe.slug)"
+            >
+              View
+            </v-btn>
+            <v-spacer />
+            <v-btn
+              variant="text"
+              color="default"
+              @click="dismissRecipe(recipe.recipeId)"
+            >
+              Dismiss
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </div>
+    </template>
+
+    <v-card
+      v-else
+      class="recommendation-empty"
+      variant="outlined"
+    >
+      <v-card-text class="pa-6 pa-md-8">
+        <div class="text-h6 font-weight-medium mb-2">
+          Recommendations will appear after you add recipes
+        </div>
+        <p class="text-body-2 text-medium-emphasis mb-0">
+          Your taste profile was saved, but this household does not have any recipes in its library yet. Add or import a few recipes first, then Mealie can rank them for you.
+        </p>
+      </v-card-text>
+    </v-card>
   </section>
 </template>
 
@@ -155,6 +172,10 @@ onMounted(loadRecommendations);
 <style scoped>
 .recommendations-section {
   margin-top: 0.75rem;
+}
+
+.recommendation-empty {
+  border-style: dashed;
 }
 
 .recommendation-strip {

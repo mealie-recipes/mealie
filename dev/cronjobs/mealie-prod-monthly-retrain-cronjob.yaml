@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: monthly-retrain
+  namespace: mealie-prod
+spec:
+  schedule: "0 4 1 * *"
+  successfulJobsHistoryLimit: 2
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: monthly-retrain
+              image: mealie-als-training:integration-rerun
+              imagePullPolicy: Never
+              envFrom:
+                - configMapRef:
+                    name: shared-env
+              env:
+                - name: TRAINING_BUCKET
+                  value: training-data
+                - name: DATASET_VERSION
+                  value: current
+                - name: MODEL_BUCKET
+                  value: mlflow-artifacts
+                - name: TAG_VECTOR_KEY
+                  value: production/tag_to_vector.pkl
+              resources:
+                requests:
+                  cpu: "500m"
+                  memory: "1Gi"
+                limits:
+                  cpu: "1"
+                  memory: "2Gi"
