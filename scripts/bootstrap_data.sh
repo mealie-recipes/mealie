@@ -227,20 +227,19 @@ echo ""
 echo "=== [6/6] Seeding 100 Food.com recipes into Mealie ==="
 echo "Waiting 15s for Mealie to be ready..."
 sleep 15
-MEALIE_EMAIL="$MEALIE_EMAIL" MEALIE_PASS="$MEALIE_PASS" python3 - <<'PYEOF'
-import boto3, io, json, random, time
-import urllib.request, urllib.parse, urllib.error
+cat > /tmp/seed_recipes.py << PYEOF
+import boto3, io, json, time, http.client, pandas as pd
+import urllib.request, urllib.parse
 
 MINIO_ENDPOINT = "http://127.0.0.1:30900"
 MEALIE_URL     = "http://127.0.0.1:30090"
-MEALIE_EMAIL   = os.environ["MEALIE_EMAIL"]
-MEALIE_PASS    = os.environ["MEALIE_PASS"]
+MEALIE_EMAIL   = "$MEALIE_EMAIL"
+MEALIE_PASS    = "$MEALIE_PASS"
 SEED_COUNT     = 100
 
 # Load recipes from MinIO
 s3 = boto3.client("s3", endpoint_url=MINIO_ENDPOINT,
                   aws_access_key_id="minioadmin", aws_secret_access_key="minioadmin123")
-import pandas as pd
 buf = io.BytesIO(s3.get_object(Bucket="training-data", Key="processed/recipes_clean.parquet")["Body"].read())
 recipes_df = pd.read_parquet(buf)
 print(f"Loaded {len(recipes_df):,} recipes from MinIO")
@@ -323,6 +322,7 @@ for _, row in sample.iterrows():
 
 print(f"Seeded {created} recipes into Mealie library.")
 PYEOF
+python3 /tmp/seed_recipes.py
 
 echo ""
 echo "=== Bootstrap complete ==="
