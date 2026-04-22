@@ -16,6 +16,7 @@ from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import try_get_current_user
 from mealie.db.db_setup import generate_session
 from mealie.repos.repository_factory import AllRepositories
+from mealie.routes.spa.manifest import serve_manifest
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.user.user import PrivateUser
 
@@ -251,4 +252,5 @@ def mount_spa(app: FastAPI):
 
     app.get("/g/{group_slug}/r/{recipe_slug}", include_in_schema=False)(serve_recipe_with_meta)
     app.get("/g/{group_slug}/shared/r/{token_id}", include_in_schema=False)(serve_shared_recipe_with_meta)
+    app.get("/manifest.webmanifest", include_in_schema=False)(serve_manifest)
     app.mount("/", SPAStaticFiles(directory=__app_settings.STATIC_FILES, html=True), name="spa")

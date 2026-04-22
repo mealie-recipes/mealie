@@ -59,7 +59,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "celery",
-                "plural_name": "celery"
+                "plural_name": "garlic"
             },
             "jalapeño": {
                 "aliases": [],
@@ -351,7 +351,7 @@
             "spaghetti squash": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti squash",
+                "name": "pimientos",
                 "plural_name": "spaghetti squashes"
             },
             "butter lettuce": {
@@ -368,7 +368,7 @@
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "chinese leaves"
                 ],
                 "description": "",
                 "name": "napa cabbage",
