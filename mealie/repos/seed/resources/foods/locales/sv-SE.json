@@ -3803,8 +3803,8 @@
             "beef roast": {
                 "aliases": [],
                 "description": "",
-                "name": "beef roast",
-                "plural_name": "beef roasts"
+                "name": "rostbiff",
+                "plural_name": "rostbiff"
             },
             "ground pork": {
                 "aliases": [],
@@ -3918,7 +3918,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kielbasa",
-                "plural_name": "kielbasas"
+                "plural_name": "kielbasa"
             },
             "pork belly": {
                 "aliases": [],
@@ -3989,8 +3989,8 @@
             "beef rib": {
                 "aliases": [],
                 "description": "",
-                "name": "beef rib",
-                "plural_name": "beef ribs"
+                "name": "revbensspjäll",
+                "plural_name": "revbensspjäll"
             },
             "veal steak": {
                 "aliases": [],
@@ -4013,8 +4013,8 @@
             "pork butt": {
                 "aliases": [],
                 "description": "",
-                "name": "pork butt",
-                "plural_name": "pork butts"
+                "name": "fläskkarré",
+                "plural_name": "fläskkarré"
             },
             "canadian bacon": {
                 "aliases": [],
@@ -4037,8 +4037,8 @@
             "mutton": {
                 "aliases": [],
                 "description": "",
-                "name": "mutton",
-                "plural_name": "muttons"
+                "name": "fårkött",
+                "plural_name": "fårkött"
             },
             "ham steak": {
                 "aliases": [],
