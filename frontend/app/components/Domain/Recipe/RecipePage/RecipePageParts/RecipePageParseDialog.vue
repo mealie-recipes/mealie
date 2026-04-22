@@ -371,14 +371,18 @@ async function parseIngredients() {
   }
   state.loading.parser = true;
   try {
-    const ingsAsString = props.ingredients
-      .filter(ing => !ing.referencedRecipe)
-      .map(ing => ingredientToParserString(ing));
+    const filteredIngredients = props.ingredients.filter(ing => !ing.referencedRecipe);
+    const ingsAsString = filteredIngredients.map(ing => ingredientToParserString(ing));
     const { data, error } = await api.recipes.parseIngredients(parser.value, ingsAsString);
     if (error || !data) {
       throw new Error("Failed to parse ingredients");
     }
-    parsedIngs.value = data;
+
+    // Restore section titles from original ingredients — the parser doesn't return them
+    data.forEach((parsed, index) => {
+      parsed.ingredient.title = filteredIngredients[index]?.title || "";
+    });
+
     const parsed = data ?? [];
     const recipeRefs = props.ingredients.filter(ing => ing.referencedRecipe).map(ing => ({
       input: ing.note || "",
