@@ -358,10 +358,15 @@ async function saveRecipe() {
     setMode(PageMode.VIEW);
   }
   if (data?.slug) {
-    router.push(`/g/${groupSlug.value}/r/` + data.slug);
     recipe.value = data as NoUndefinedField<Recipe>;
-    // Update the snapshot after successful save
     originalRecipe.value = deepCopy(recipe.value);
+    if (data.slug !== route.params.slug) {
+      // Wait for the isEditMode watcher (which removes ?edit=true via router.replace)
+      // to run and complete before navigating, otherwise it would cancel our navigation.
+      await nextTick();
+      await nextTick();
+      router.replace(`/g/${groupSlug.value}/r/` + data.slug);
+    }
   }
 }
 
