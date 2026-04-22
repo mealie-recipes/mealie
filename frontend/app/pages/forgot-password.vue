@@ -14,7 +14,7 @@
       </v-card-title>
       <BaseDivider />
       <v-card-text>
-        <v-form @submit.prevent="requestLink()">
+        <v-form ref="form" @submit.prevent="requestLink()">
           <v-text-field
             v-model="state.email"
             :prepend-inner-icon="$globals.icons.email"
@@ -24,6 +24,7 @@
             name="login"
             :label="$t('user.email')"
             type="text"
+            :rules="[validators.email]"
           />
           <p class="text-center">
             {{ $t('user.forgot-password-text') }}
@@ -63,10 +64,14 @@
 <script setup lang="ts">
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
+import { validators } from "~/composables/use-validators";
+import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
   layout: "basic",
 });
+
+const form = ref<VForm | null>(null);
 
 const state = reactive({
   email: "",
@@ -84,6 +89,9 @@ useSeoMeta({
 const api = useUserApi();
 
 async function requestLink() {
+  const { valid } = await form.value!.validate();
+  if (!valid) return;
+
   state.loading = true;
   // TODO: Fix Response to send meaningful error
   const { response } = await api.email.sendForgotPassword({ email: state.email });
