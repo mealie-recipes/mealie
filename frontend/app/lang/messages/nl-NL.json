@@ -98,6 +98,7 @@
     "dashboard": "Dashboard",
     "delete": "Verwijderen",
     "disabled": "Uitgeschakeld",
+    "done": "Done",
     "download": "Downloaden",
     "duplicate": "Dupliceren",
     "edit": "Bewerken",
@@ -1472,5 +1473,12 @@
     "no-whitespace": "Geen spaties toegestaan",
     "min-length": "Moet minimaal {min} tekens bevatten",
     "max-length": "Moet maximaal {max} tekens bevatten|Moet maximaal {max} tekens bevatten"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

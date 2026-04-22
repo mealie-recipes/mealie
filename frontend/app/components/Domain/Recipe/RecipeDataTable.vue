@@ -9,6 +9,7 @@
     :items-per-page="15"
     class="elevation-0"
     :loading="loading"
+    :search="search"
     return-object
   >
     <template #[`item.name`]="{ item }">
@@ -86,6 +87,7 @@ interface Props {
   loading?: boolean;
   recipes?: Recipe[];
   showHeaders?: ShowHeaders;
+  search?: string;
 }
 const props = withDefaults(defineProps<Props>(), {
   loading: false,
