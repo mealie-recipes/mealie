@@ -98,6 +98,7 @@
     "dashboard": "Hallintanäkymä",
     "delete": "Poista",
     "disabled": "Poistettu käytöstä",
+    "done": "Done",
     "download": "Lataa",
     "duplicate": "Monista",
     "edit": "Muokkaa",
@@ -700,7 +701,7 @@
       "confidence-score": "Varmuuspisteet",
       "ingredient-parser-description": "Ainesosat on haettu onnistuneesti. Ole hyvä ja tarkista ainesosat joista emme ole varmoja.",
       "ingredient-parser-final-review-description": "Kun kaikki ainesosat on tarkistettu, sinulla on vielä yksi mahdollisuus tarkistaa kaikki ainesosat ennen kuin muokkaat reseptiäsi.",
-      "add-text-as-alias-for-item": "",
+      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
       "delete-item": "Poista kohde"
     },
     "reset-servings-count": "Palauta Annoksien Määrä",
@@ -1372,7 +1373,7 @@
   "profile": {
     "welcome-user": "👋 Tervetuloa, {0}!",
     "description": "Hallitse profiiliasi, reseptejäsi ja ryhmäasetuksiasi.",
-    "invite-link": "",
+    "invite-link": "Invite Link",
     "get-invite-link": "Hanki Kutsulinkki",
     "get-public-link": "Julkinen linkki",
     "account-summary": "Tilin Yhteenveto",
@@ -1472,5 +1473,12 @@
     "no-whitespace": "Tekstissä ei saa olla välilyöntejä",
     "min-length": "Vähimmäispituus on {min} merkkiä",
     "max-length": "Saa olla enintään {max} merkki|Saa olla enintään {max} merkkiä"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

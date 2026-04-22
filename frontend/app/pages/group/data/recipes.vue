@@ -180,12 +180,20 @@
           }}
         </p>
       </v-card-actions>
+      <div class="mx-2 clip-width">
+        <v-text-field
+          v-model="search"
+          variant="underlined"
+          :label="$t('search.search')"
+        />
+      </div>
       <v-card>
         <RecipeDataTable
           v-model="selected"
           :loading="loading"
           :recipes="allRecipes"
           :show-headers="headers"
+          :search="search"
         />
         <v-card-actions class="justify-end">
           <BaseButton
@@ -263,6 +271,7 @@ useSeoMeta({
 
 const { refreshRecipes } = useRecipes(true, true, false, `householdId=${auth.user.value?.householdId || ""}`);
 const selected = ref<Recipe[]>([]);
+const search = ref("");
 
 function resetAll() {
   selected.value = [];
@@ -513,6 +522,9 @@ const selectedOwnerHousehold = computed(() => {
 </script>
 
 <style>
+.clip-width {
+  max-width: 400px;
+}
 .v-btn--disabled {
   opacity: 0.5 !important;
 }

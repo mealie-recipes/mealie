@@ -98,6 +98,7 @@
     "dashboard": "Overblik",
     "delete": "Slet",
     "disabled": "Deaktiveret",
+    "done": "Done",
     "download": "Hent",
     "duplicate": "Kopier",
     "edit": "Rediger",
@@ -1472,5 +1473,12 @@
     "no-whitespace": "Mellemrum er ikke tilladt",
     "min-length": "Der skal mindst være {min} tegn",
     "max-length": "Må højst være {max} tegn|Må højst være {max} tegn"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }
