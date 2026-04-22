@@ -98,6 +98,7 @@
     "dashboard": "대시보드",
     "delete": "삭제",
     "disabled": "비활성화됨",
+    "done": "Done",
     "download": "다운로드",
     "duplicate": "복제",
     "edit": "편집",
@@ -182,7 +183,7 @@
     "start": "시작",
     "toggle-view": "뷰 전환",
     "date": "날짜",
-    "id": "",
+    "id": "Id",
     "owner": "작성자",
     "change-owner": "소유자 변경",
     "date-added": "추가된 날짜",
@@ -1472,5 +1473,12 @@
     "no-whitespace": "공백 허용 안 됨",
     "min-length": "최소 {min}자 이상이어야 합니다",
     "max-length": "최대 {max}자|최대 {max}자\n"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

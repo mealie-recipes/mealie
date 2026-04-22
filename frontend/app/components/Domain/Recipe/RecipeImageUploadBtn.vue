@@ -1,5 +1,17 @@
 <template>
   <div class="text-center">
+    <BaseDialog
+      v-model="dialogDeleteImage"
+      :title="$t('recipe.delete-image')"
+      :icon="$globals.icons.alertCircle"
+      color="error"
+      can-delete
+      @delete="deleteImage"
+    >
+      <v-card-text>
+        {{ $t("recipe.delete-image-confirmation") }}
+      </v-card-text>
+    </BaseDialog>
     <v-menu
       v-model="menu"
       offset-y
@@ -37,18 +49,6 @@
               delete
               @click="dialogDeleteImage = true"
             />
-            <BaseDialog
-              v-model="dialogDeleteImage"
-              :title="$t('recipe.delete-image')"
-              :icon="$globals.icons.alertCircle"
-              color="error"
-              can-delete
-              @delete="deleteImage"
-            >
-              <v-card-text>
-                {{ $t("recipe.delete-image-confirmation") }}
-              </v-card-text>
-            </BaseDialog>
           </div>
         </v-card-title>
         <v-card-text class="mt-n5">

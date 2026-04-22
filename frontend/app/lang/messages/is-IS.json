@@ -98,6 +98,7 @@
     "dashboard": "Yfirlitssíða",
     "delete": "Eyða",
     "disabled": "Afvirkjað",
+    "done": "Done",
     "download": "Sækja",
     "duplicate": "Afrita",
     "edit": "Breyta",
@@ -1472,5 +1473,12 @@
     "no-whitespace": "Engin bil leyfð",
     "min-length": "Verður að vera að lágmarki {min} stafir",
     "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+  },
+  "announcements": {
+    "announcements": "Tilkynningar",
+    "all-announcements": "Allar tilkynningar",
+    "mark-all-as-read": "Merkja allar sem lesnar",
+    "show-announcements-from-mealie": "Sýna tilkynningar frá Mealie",
+    "show-announcements-setting-description": "Hvort leyfa eigi notendum að sjá tilkynningar fŕa Mealie. Sé þetta virkt þá getur notandinn sjálfur valið að sjá þær ekki í sínum notenda stillingum"
   }
 }
