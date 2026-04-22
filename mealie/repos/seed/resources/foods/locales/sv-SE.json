@@ -3118,7 +3118,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "buffelmjölk",
-                "plural_name": "buffalo milk"
+                "plural_name": "buffelmjölk"
             },
             "goat kefir": {
                 "aliases": [],
@@ -3242,7 +3242,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vegansk färskost",
-                "plural_name": "vegan cream cheese"
+                "plural_name": "vegansk färskost"
             },
             "coconut yogurt": {
                 "aliases": [],
@@ -3344,7 +3344,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kokospulver",
-                "plural_name": "coconut powder"
+                "plural_name": "kokosmjöl"
             },
             "soy cream": {
                 "aliases": [],
@@ -3380,7 +3380,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "",
-                "plural_name": "non-dairy cream"
+                "plural_name": "mjölkfri grädde"
             },
             "vegan burger patty": {
                 "aliases": [],
@@ -3446,7 +3446,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hampamjölk",
-                "plural_name": "hemp milk"
+                "plural_name": "hampamjölk"
             },
             "vegan beef": {
                 "aliases": [],
@@ -3488,7 +3488,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Mjölkfri glass",
-                "plural_name": "dairy-free ice-cream"
+                "plural_name": "mjölkfri glass"
             },
             "almond-coconut milk": {
                 "aliases": [],
@@ -3506,7 +3506,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Vegansk fisksås",
-                "plural_name": "vegan fish sauce"
+                "plural_name": "vegansk fisksås"
             },
             "vegetarian hot dog": {
                 "aliases": [],
@@ -3733,8 +3733,8 @@
             "rice cream": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cream",
-                "plural_name": "rice cream"
+                "name": "risgrynsgröt",
+                "plural_name": "risgrynsgröt"
             }
         }
     },
@@ -3935,8 +3935,8 @@
             "boneless lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless lamb",
-                "plural_name": "boneless lambs"
+                "name": "benfritt lamm",
+                "plural_name": "benfritt lamm"
             },
             "ground sausage": {
                 "aliases": [],
