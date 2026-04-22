@@ -88,13 +88,14 @@ async function requestLink() {
   // TODO: Fix Response to send meaningful error
   const { response } = await api.email.sendForgotPassword({ email: state.email });
 
+  state.loading = false;
+
   if (response?.status === 200) {
-    state.loading = false;
     state.error = false;
     alert.success(i18n.t("profile.email-sent"));
+    await navigateTo("/login");
   }
   else {
-    state.loading = false;
     state.error = true;
     alert.error(i18n.t("profile.error-sending-email"));
   }

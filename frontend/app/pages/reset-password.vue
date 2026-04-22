@@ -127,12 +127,11 @@ async function requestLink() {
   state.loading = false;
 
   if (response?.status === 200) {
-    state.loading = false;
     state.error = false;
     alert.success(i18n.t("user.password-updated"));
+    await navigateTo("/login");
   }
   else {
-    state.loading = false;
     state.error = true;
     alert.error(i18n.t("events.something-went-wrong"));
   }
