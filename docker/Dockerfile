@@ -122,11 +122,18 @@ RUN find $VENV_PATH -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null ||
 # Production Image
 ###############################################
 FROM python-base AS production
-ENV PRODUCTION=true
-ENV TESTING=false
 
 ARG COMMIT
-ENV GIT_COMMIT_HASH=$COMMIT
+
+ENV PRODUCTION=true \
+    TESTING=false \
+    GIT_COMMIT_HASH=$COMMIT \
+    APP_PORT=9000 \
+    HOST=0.0.0.0 \
+    NLTK_DATA="/nltk_data/"
+
+# Copy venv into image. It contains a fully-installed mealie backend and frontend.
+COPY --from=venv-builder $VENV_PATH $VENV_PATH
 
 RUN apt-get update \
     && apt-get install --no-install-recommends -y \
@@ -135,31 +142,18 @@ RUN apt-get update \
     iproute2 \
     libldap-common \
     libldap2 \
-    && rm -rf /var/lib/apt/lists/*
-
-# create directory used for Docker Secrets
-RUN mkdir -p /run/secrets
-
-# Copy venv into image. It contains a fully-installed mealie backend and frontend.
-COPY --from=venv-builder $VENV_PATH $VENV_PATH
-
-# install nltk data for the ingredient parser
-ENV NLTK_DATA="/nltk_data/"
-RUN mkdir -p $NLTK_DATA \
+    && rm -rf /var/lib/apt/lists/* \
+    && mkdir -p /run/secrets \
+    && mkdir -p $NLTK_DATA \
     && python -m nltk.downloader -d $NLTK_DATA averaged_perceptron_tagger_eng
 
 VOLUME [ "$MEALIE_HOME/data/" ]
-ENV APP_PORT=9000
 
 EXPOSE ${APP_PORT}
 
-COPY ./docker/healthcheck.sh $MEALIE_HOME/healthcheck.sh
-RUN chmod +x $MEALIE_HOME/healthcheck.sh
+COPY ./docker/healthcheck.sh ./docker/entry.sh $MEALIE_HOME/
+RUN chmod +x $MEALIE_HOME/healthcheck.sh $MEALIE_HOME/run.sh
+
 HEALTHCHECK CMD $MEALIE_HOME/healthcheck.sh
 
-ENV HOST 0.0.0.0
-
-COPY ./docker/entry.sh $MEALIE_HOME/run.sh
-
-RUN chmod +x $MEALIE_HOME/run.sh
 ENTRYPOINT ["/app/run.sh"]
