@@ -21,7 +21,7 @@ dependencies = [
     "httpx==0.28.1",
     "lxml==6.1.0",
     "orjson==3.11.8",
-    "pydantic==2.13.1",
+    "pydantic==2.13.2",
     "pyhumps==3.8.0",
     "python-dateutil==2.9.0.post0",
     "python-dotenv==1.2.2",
