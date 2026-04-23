@@ -113,7 +113,10 @@ RUN find $VENV_PATH -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null ||
     && find $VENV_PATH -type f -name "*.pyo" -delete \
     && find $VENV_PATH -type d \( -name "tests" -o -name "test" -o -name "docs" \) -exec rm -rf {} + 2>/dev/null || true \
     && find $VENV_PATH -name "*.dist-info" -exec rm -rf {} + 2>/dev/null || true \
-    && find $VENV_PATH -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true
+    && find $VENV_PATH -name "*.egg-info" -exec rm -rf {} + 2>/dev/null || true \
+    && find $VENV_PATH -name "*.h" -delete \
+    && find $VENV_PATH -name "*.pxi" -delete \
+    && find $VENV_PATH -path "*/share/doc" -exec rm -rf {} + 2>/dev/null || true
 
 ###############################################
 # Production Image
