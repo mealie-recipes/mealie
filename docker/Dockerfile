@@ -151,7 +151,8 @@ VOLUME [ "$MEALIE_HOME/data/" ]
 
 EXPOSE ${APP_PORT}
 
-COPY ./docker/healthcheck.sh ./docker/entry.sh $MEALIE_HOME/
+COPY ./docker/healthcheck.sh $MEALIE_HOME/healthcheck.sh
+COPY ./docker/entry.sh $MEALIE_HOME/run.sh
 RUN chmod +x $MEALIE_HOME/healthcheck.sh $MEALIE_HOME/run.sh
 
 HEALTHCHECK CMD $MEALIE_HOME/healthcheck.sh
