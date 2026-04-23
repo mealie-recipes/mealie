@@ -108,6 +108,10 @@ COPY --from=packages * /dist/
 RUN . $VENV_PATH/bin/activate \
     && pip install --require-hashes -r /dist/requirements.txt --find-links /dist
 
+RUN find $VENV_PATH -type d -name "__pycache__" -exec rm -rf {} + 2>/dev/null || true \
+    && find $VENV_PATH -type f -name "*.pyc" -delete \
+    && find $VENV_PATH -type f -name "*.pyo" -delete
+
 ###############################################
 # Production Image
 ###############################################
