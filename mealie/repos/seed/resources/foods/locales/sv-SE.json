@@ -3118,7 +3118,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "buffelmjölk",
-                "plural_name": "buffalo milk"
+                "plural_name": "buffelmjölk"
             },
             "goat kefir": {
                 "aliases": [],
@@ -3242,7 +3242,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vegansk färskost",
-                "plural_name": "vegan cream cheese"
+                "plural_name": "vegansk färskost"
             },
             "coconut yogurt": {
                 "aliases": [],
@@ -3344,7 +3344,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kokospulver",
-                "plural_name": "coconut powder"
+                "plural_name": "kokosmjöl"
             },
             "soy cream": {
                 "aliases": [],
@@ -3380,7 +3380,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "",
-                "plural_name": "non-dairy cream"
+                "plural_name": "mjölkfri grädde"
             },
             "vegan burger patty": {
                 "aliases": [],
@@ -3446,7 +3446,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hampamjölk",
-                "plural_name": "hemp milk"
+                "plural_name": "hampamjölk"
             },
             "vegan beef": {
                 "aliases": [],
@@ -3488,7 +3488,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Mjölkfri glass",
-                "plural_name": "dairy-free ice-cream"
+                "plural_name": "mjölkfri glass"
             },
             "almond-coconut milk": {
                 "aliases": [],
@@ -3506,7 +3506,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Vegansk fisksås",
-                "plural_name": "vegan fish sauce"
+                "plural_name": "vegansk fisksås"
             },
             "vegetarian hot dog": {
                 "aliases": [],
@@ -3733,8 +3733,8 @@
             "rice cream": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cream",
-                "plural_name": "rice cream"
+                "name": "risgrynsgröt",
+                "plural_name": "risgrynsgröt"
             }
         }
     },
@@ -3803,8 +3803,8 @@
             "beef roast": {
                 "aliases": [],
                 "description": "",
-                "name": "beef roast",
-                "plural_name": "beef roasts"
+                "name": "rostbiff",
+                "plural_name": "rostbiff"
             },
             "ground pork": {
                 "aliases": [],
@@ -3918,7 +3918,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kielbasa",
-                "plural_name": "kielbasas"
+                "plural_name": "kielbasa"
             },
             "pork belly": {
                 "aliases": [],
@@ -3935,8 +3935,8 @@
             "boneless lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless lamb",
-                "plural_name": "boneless lambs"
+                "name": "benfritt lamm",
+                "plural_name": "benfritt lamm"
             },
             "ground sausage": {
                 "aliases": [],
@@ -3989,8 +3989,8 @@
             "beef rib": {
                 "aliases": [],
                 "description": "",
-                "name": "beef rib",
-                "plural_name": "beef ribs"
+                "name": "revbensspjäll",
+                "plural_name": "revbensspjäll"
             },
             "veal steak": {
                 "aliases": [],
@@ -4013,8 +4013,8 @@
             "pork butt": {
                 "aliases": [],
                 "description": "",
-                "name": "pork butt",
-                "plural_name": "pork butts"
+                "name": "fläskkarré",
+                "plural_name": "fläskkarré"
             },
             "canadian bacon": {
                 "aliases": [],
@@ -4037,8 +4037,8 @@
             "mutton": {
                 "aliases": [],
                 "description": "",
-                "name": "mutton",
-                "plural_name": "muttons"
+                "name": "fårkött",
+                "plural_name": "fårkött"
             },
             "ham steak": {
                 "aliases": [],
