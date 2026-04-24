@@ -304,32 +304,72 @@ data:
         {
           "id": 4,
           "type": "stat",
-          "title": "Last Job Start",
+          "title": "Time Since Last Job Start",
           "gridPos": { "h": 7, "w": 6, "x": 18, "y": 0 },
           "datasource": { "type": "prometheus", "uid": "Prometheus" },
           "targets": [
             {
-              "expr": "max(kube_job_status_start_time{namespace=\"mealie-prod\"})",
+              "expr": "clamp_min(time() - max(kube_job_status_start_time{namespace=\"mealie-prod\"}), 0)",
               "instant": true,
               "refId": "A"
             }
           ],
-          "fieldConfig": { "defaults": { "unit": "dateTimeAsIso", "decimals": 0 }, "overrides": [] }
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s",
+              "decimals": 0
+            },
+            "overrides": []
+          },
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "orientation": "auto",
+            "textMode": "auto",
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto"
+          }
         },
         {
           "id": 5,
           "type": "stat",
-          "title": "Last Job Completion",
+          "title": "Time Since Last Job Completion",
           "gridPos": { "h": 7, "w": 6, "x": 0, "y": 7 },
           "datasource": { "type": "prometheus", "uid": "Prometheus" },
           "targets": [
             {
-              "expr": "max(kube_job_status_completion_time{namespace=\"mealie-prod\"})",
+              "expr": "clamp_min(time() - max(kube_job_status_completion_time{namespace=\"mealie-prod\"}), 0)",
               "instant": true,
               "refId": "A"
             }
           ],
-          "fieldConfig": { "defaults": { "unit": "dateTimeAsIso", "decimals": 0 }, "overrides": [] }
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s",
+              "decimals": 0
+            },
+            "overrides": []
+          },
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "orientation": "auto",
+            "textMode": "auto",
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto"
+          }
         },
         {
           "id": 6,
