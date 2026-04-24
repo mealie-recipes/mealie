@@ -23,13 +23,28 @@ import urllib.request
 
 import pandas as pd
 
+PREFERENCE_TAGS = [
+    "italian",
+    "asian",
+    "mexican",
+    "indian",
+    "vegetarian",
+    "vegan",
+    "healthy",
+    "comfort-food",
+    "desserts",
+    "baking",
+    "30-minutes-or-less",
+    "high-protein",
+]
+
 NOISE_TAGS = {
     "time-to-make", "course", "main-ingredient", "cuisine", "preparation",
     "occasion", "dietary", "equipment", "technique", "for-large-groups",
     "number-of-servings", "weeknight", "from-scratch",
 }
 NOISE_PREFIXES = (
-    "60-minutes-or-less", "30-minutes-or-less", "15-minutes-or-less",
+    "60-minutes-or-less", "15-minutes-or-less",
     "4-hours-or-less", "1-day-or-more",
 )
 
@@ -58,12 +73,53 @@ def useful_tags(raw_tags: list[str]) -> list[str]:
         t = tag.strip()
         if not t:
             continue
+        if t in PREFERENCE_TAGS:
+            result.append(t)
+            continue
         if t in NOISE_TAGS:
             continue
         if any(t.startswith(p) for p in NOISE_PREFIXES):
             continue
         result.append(t)
     return result
+
+
+def prioritize_tags(tags: list[str], max_tags: int = 10) -> list[str]:
+    preferred = [tag for tag in tags if tag in PREFERENCE_TAGS]
+    remaining = [tag for tag in tags if tag not in PREFERENCE_TAGS]
+    ordered = preferred + remaining
+    return list(dict.fromkeys(ordered))[:max_tags]
+
+
+def select_seed_recipes(df: pd.DataFrame, count: int) -> pd.DataFrame:
+    coverage_target = max(3, min(10, count // max(len(PREFERENCE_TAGS), 1)))
+
+    selected: list[pd.Series] = []
+    selected_names: set[str] = set()
+
+    def add_rows(rows: pd.DataFrame):
+        for _, row in rows.iterrows():
+            name = str(row["name"]).strip()
+            if name in selected_names:
+                continue
+            selected.append(row)
+            selected_names.add(name)
+            if len(selected) >= count:
+                break
+
+    ranked = df.sort_values(by=["useful_count", "minutes"], ascending=[False, True])
+
+    for tag in PREFERENCE_TAGS:
+        tagged = ranked[ranked["useful"].apply(lambda tags: tag in tags)]
+        add_rows(tagged.head(coverage_target))
+        if len(selected) >= count:
+            break
+
+    if len(selected) < count:
+        add_rows(ranked)
+
+    selected_df = pd.DataFrame(selected).drop_duplicates(subset=["name"]).head(count)
+    return selected_df
 
 
 def mealie_request(method: str, url: str, data=None, token: str | None = None):
@@ -158,13 +214,12 @@ def load_recipes(csv_path: str, count: int) -> list[dict]:
     df["useful"] = df["parsed_tags"].apply(useful_tags)
     df["useful_count"] = df["useful"].apply(len)
     df = df[df["useful_count"] >= 3]
-    df = df.sort_values(by="useful_count", ascending=False)
-    df = df.head(count * 3).sample(n=min(count, len(df)), random_state=42)
+    df = select_seed_recipes(df, count)
     result = []
     for _, row in df.iterrows():
         result.append({
             "name": str(row["name"]).strip()[:255],
-            "tags": row["useful"][:10],
+            "tags": prioritize_tags(row["useful"]),
         })
     return result
 
