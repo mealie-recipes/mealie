@@ -166,22 +166,19 @@ def seed(base_url: str, token: str, recipes: list[dict]) -> tuple[int, int, int]
             continue
         created += 1
 
-        # Step 2: fetch full object (required so PATCH doesn't 400)
-        status, full = mealie_request("GET", f"{base_url}/api/recipes/{slug}", token=token)
-        if status != 200:
-            print(f"  [{i}] SKIP get '{slug}': {status}")
-            failed += 1
-            continue
-
-        # Step 3: patch with tags
-        full["tags"] = [{"name": t, "slug": slugify(t)} for t in tags]
-        status, _ = mealie_request("PATCH", f"{base_url}/api/recipes/{slug}", full, token)
+        # Step 2: patch with tags only (full object causes 400 name-uniqueness check against self)
+        status, patch_resp = mealie_request(
+            "PATCH",
+            f"{base_url}/api/recipes/{slug}",
+            {"tags": [{"name": t, "slug": slugify(t)} for t in tags]},
+            token,
+        )
         if status in (200, 201):
             tagged += 1
             if i % 25 == 0:
                 print(f"  progress: {i}/{len(recipes)} (tagged {tagged})")
         else:
-            print(f"  [{i}] PATCH failed '{slug}': {status}")
+            print(f"  [{i}] PATCH failed '{slug}': {status} — {str(patch_resp)[:120]}")
             failed += 1
 
     return created, tagged, failed
