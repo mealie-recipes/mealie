@@ -373,6 +373,14 @@ class Recipe(RecipeSummary):
                 .scalars()
                 .all()
             )
+            
+            #FIX: strip separators from the recipe name to improve token search results
+            normalized_recipe_name = func.replace(
+                func.replace(RecipeModel.name_normalized, "-", " "),
+                "·",
+                " ",
+            )
+            name_normalized = normalized_recipe_name
 
             return query.filter(
                 or_(
