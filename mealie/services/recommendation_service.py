@@ -85,10 +85,23 @@ def _serialize_recipe(recipe: RecipeModel) -> dict[str, Any]:
     }
 
 
-def _baseline_recommendations(library_recipes: list[dict[str, Any]], top_n: int = 5) -> list[dict[str, Any]]:
+def _baseline_recommendations(
+    library_recipes: list[dict[str, Any]],
+    preferred_tags: Iterable[str] | None = None,
+    top_n: int = 5,
+) -> list[dict[str, Any]]:
+    preferred_lookup = {tag.lower() for tag in _clean_tags(preferred_tags or [])}
+
+    def overlap(recipe: dict[str, Any]) -> list[str]:
+        tags = [tag for tag in recipe.get("tags", []) if isinstance(tag, str)]
+        if not preferred_lookup:
+            return []
+        return [tag for tag in tags if tag.lower() in preferred_lookup]
+
     ranked = sorted(
         library_recipes,
         key=lambda recipe: (
+            -len(overlap(recipe)),
             -(recipe.get("rating") or 0.0),
             (recipe.get("name") or "").lower(),
         ),
@@ -96,12 +109,13 @@ def _baseline_recommendations(library_recipes: list[dict[str, Any]], top_n: int 
 
     results: list[dict[str, Any]] = []
     for index, recipe in enumerate(ranked[:top_n], start=1):
+        matched_tags = overlap(recipe)
         results.append(
             {
                 **recipe,
                 "rank": index,
                 "score": recipe.get("rating"),
-                "because_tags": recipe.get("tags", [])[:3],
+                "because_tags": (matched_tags or recipe.get("tags", []))[:3],
             }
         )
     return results
@@ -124,12 +138,13 @@ async def fetch_recommendations(
 
     prefs = get_prefs(db, user_id)
     is_cold = (prefs.rating_count if prefs else 0) < COLD_START_THRESHOLD
+    preferred_tags = _clean_tags(prefs.onboarding_tags if prefs and prefs.onboarding_tags else [])
     taste_vector = _normalize_vector(prefs.taste_vector if prefs else None)
     if taste_vector is None:
         return {
-            "recommendations": _baseline_recommendations(library_recipes, top_n),
+            "recommendations": _baseline_recommendations(library_recipes, preferred_tags, top_n),
             "cold_start": True,
-            "model_version": "popularity_baseline",
+            "model_version": "tag_baseline" if preferred_tags else "popularity_baseline",
         }
 
     recipe_lookup = {recipe["recipe_id"]: recipe for recipe in library_recipes}
@@ -155,7 +170,7 @@ async def fetch_recommendations(
     except Exception as exc:
         log.error("recommendation fetch failed for %s: %s", user_id, exc)
         return {
-            "recommendations": _baseline_recommendations(library_recipes, top_n),
+            "recommendations": _baseline_recommendations(library_recipes, preferred_tags, top_n),
             "cold_start": is_cold,
             "model_version": "fallback",
         }
@@ -178,7 +193,7 @@ async def fetch_recommendations(
         )
 
     if not enriched:
-        enriched = _baseline_recommendations(library_recipes, top_n)
+        enriched = _baseline_recommendations(library_recipes, preferred_tags, top_n)
 
     return {
         "recommendations": enriched[:top_n],
