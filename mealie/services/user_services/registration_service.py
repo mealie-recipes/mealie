@@ -26,6 +26,7 @@ class RegistrationService:
     def __init__(self, logger: Logger, db: AllRepositories, translator: Translator):
         self.logger = logger
         self.repos = db
+        self.translator = translator
         self.t = translator.t
 
     def _create_new_user(self, group: GroupInDB, household: HouseholdInDB, new_group: bool) -> PrivateUser:
@@ -113,10 +114,12 @@ class RegistrationService:
         user = self._create_new_user(group, household, new_group)
 
         if new_group and registration.seed_data:
-            seeder_service = SeederService(self.repos)
+            group_repos = get_repositories(self.repos.session, group_id=group.id, household_id=household.id)
+            seeder_service = SeederService(group_repos)
             seeder_service.seed_foods(registration.locale)
             seeder_service.seed_labels(registration.locale)
             seeder_service.seed_units(registration.locale)
+            seeder_service.seed_starter_recipes(user, household, self.translator)
 
         if token_entry and user:
             token_entry.uses_left = token_entry.uses_left - 1
