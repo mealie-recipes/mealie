@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 from mealie.db.db_setup import session_context
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.users.user_ml_preferences import UserMLPreferences
+from mealie.services.observability_metrics import record_recommendation_error, record_recommendation_request
 
 log = logging.getLogger(__name__)
 
@@ -68,6 +69,7 @@ def fetch_tag_vector(tags: Iterable[str]) -> list[float] | None:
         response.raise_for_status()
     except Exception as exc:
         log.warning("tag-vector request failed: %s", exc)
+        record_recommendation_error("tag_vector")
         return None
 
     return _normalize_vector(response.json().get("vector"))
@@ -121,6 +123,11 @@ def _baseline_recommendations(
     return results
 
 
+def _personalization_alpha(prefs: UserMLPreferences | None) -> float:
+    rating_count = float(prefs.rating_count if prefs and prefs.rating_count else 0)
+    return min(1.0, rating_count / float(COLD_START_THRESHOLD))
+
+
 async def fetch_recommendations(
     db: Session,
     user_id: Any,
@@ -130,6 +137,7 @@ async def fetch_recommendations(
 ) -> dict[str, Any]:
     library_recipes = [_serialize_recipe(recipe) for recipe in recipes]
     if not library_recipes:
+        record_recommendation_request("empty_library", alpha=_personalization_alpha(get_prefs(db, user_id)), low_confidence=True)
         return {
             "recommendations": [],
             "cold_start": True,
@@ -147,6 +155,11 @@ async def fetch_recommendations(
             "model_version": "cold_start_tag_baseline",
         }
     if taste_vector is None:
+        record_recommendation_request(
+            "baseline",
+            alpha=_personalization_alpha(prefs),
+            low_confidence=True,
+        )
         return {
             "recommendations": _baseline_recommendations(library_recipes, preferred_tags, top_n),
             "cold_start": True,
@@ -175,6 +188,8 @@ async def fetch_recommendations(
         data = response.json()
     except Exception as exc:
         log.error("recommendation fetch failed for %s: %s", user_id, exc)
+        record_recommendation_error("recommendation_fetch")
+        record_recommendation_request("fallback", alpha=_personalization_alpha(prefs), low_confidence=True)
         return {
             "recommendations": _baseline_recommendations(library_recipes, preferred_tags, top_n),
             "cold_start": is_cold,
@@ -200,6 +215,15 @@ async def fetch_recommendations(
 
     if not enriched:
         enriched = _baseline_recommendations(library_recipes, preferred_tags, top_n)
+
+    scores = [float(item["score"]) for item in enriched if isinstance(item.get("score"), (int, float))]
+    average_score = (sum(scores) / len(scores)) if scores else 0.0
+    record_recommendation_request(
+        "success",
+        scores=scores,
+        alpha=_personalization_alpha(prefs),
+        low_confidence=average_score < 0.5,
+    )
 
     return {
         "recommendations": enriched[:top_n],

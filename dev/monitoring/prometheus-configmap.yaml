@@ -22,9 +22,42 @@ data:
         static_configs:
           - targets: ['localhost:9090']
 
+      - job_name: kubernetes-nodes
+        kubernetes_sd_configs:
+          - role: node
+        scheme: https
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_node_name]
+            target_label: __metrics_path__
+            replacement: /api/v1/nodes/$1/proxy/metrics
+          - target_label: __address__
+            replacement: kubernetes.default.svc.cluster.local:443
+
+      - job_name: kubernetes-nodes-cadvisor
+        kubernetes_sd_configs:
+          - role: node
+        scheme: https
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_node_name]
+            target_label: __metrics_path__
+            replacement: /api/v1/nodes/$1/proxy/metrics/cadvisor
+          - target_label: __address__
+            replacement: kubernetes.default.svc.cluster.local:443
+
       - job_name: kube-state-metrics
         static_configs:
           - targets: ['kube-state-metrics.monitoring.svc.cluster.local:8080']
+
+      - job_name: mealie-api
+        static_configs:
+          - targets: ['mealie.mealie-prod.svc.cluster.local:9000']
+        metrics_path: /api/metrics
 
       - job_name: inference-api
         static_configs:
@@ -92,3 +125,30 @@ data:
             annotations:
               summary: "Inference API is unreachable"
               description: "Prometheus cannot scrape the inference API in mealie-prod."
+
+          - alert: MealieAPIDown
+            expr: up{job="mealie-api"} == 0
+            for: 2m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Mealie API is unreachable"
+              description: "Prometheus cannot scrape the Mealie API in mealie-prod."
+
+          - alert: RecommendationErrorRateHigh
+            expr: 100 * sum(rate(mealie_recommendation_errors_total[5m])) / clamp_min(sum(rate(mealie_recommendation_requests_total[5m])), 1) > 10
+            for: 10m
+            labels:
+              severity: warning
+            annotations:
+              summary: "Recommendation errors are elevated"
+              description: "The recommendation pipeline error rate is above 10%."
+
+          - alert: LowConfidenceRateHigh
+            expr: 100 * sum(rate(mealie_low_confidence_predictions_total[5m])) / clamp_min(sum(rate(mealie_recommendation_requests_total[5m])), 1) > 50
+            for: 15m
+            labels:
+              severity: warning
+            annotations:
+              summary: "Low confidence recommendation rate is elevated"
+              description: "More than half of recommendation responses are low confidence."

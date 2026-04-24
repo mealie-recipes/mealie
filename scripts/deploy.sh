@@ -58,6 +58,10 @@ echo "Waiting 45s for platform pods..."
 sleep 45
 sudo kubectl get pods -n platform
 
+echo "Installing metrics-server for HPA resource metrics..."
+sudo kubectl apply -f "$MEALIE_DIR/dev/monitoring/metrics-server.yaml"
+sudo kubectl wait -n kube-system --for=condition=Available deployment/metrics-server --timeout=180s || true
+
 echo "Creating MinIO buckets..."
 python3 - <<'PYEOF'
 import boto3, time
@@ -224,12 +228,13 @@ sudo kubectl apply -f "$MONITORING_DIR/blackbox-exporter-deployment.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/prometheus-configmap.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/prometheus-deployment.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/grafana-configmap.yaml"
+sudo kubectl apply -f "$MONITORING_DIR/grafana-dashboards.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/grafana-deployment.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/alertmanager-configmap.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/alertmanager-deployment.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/kube-state-metrics-rbac.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/kube-state-metrics.yaml"
-# HPA skipped on single-node VM to avoid CPU thrash from over-scaling
+sudo kubectl apply -f "$MONITORING_DIR/inference-api-hpa.yaml"
 
 echo "=== [9/9] Opening iptables firewall ports ==="
 for port in 22 30090 30800 30500 30900 30901 30091 30300 30903; do
