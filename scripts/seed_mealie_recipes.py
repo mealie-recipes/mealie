@@ -106,11 +106,10 @@ def get_token(base_url: str, email: str, password: str) -> str:
 
 
 def delete_all_recipes(base_url: str, token: str):
-    page = 1
     deleted = 0
     while True:
         status, data = mealie_request(
-            "GET", f"{base_url}/api/recipes?page={page}&perPage=50", token=token
+            "GET", f"{base_url}/api/recipes?page=1&perPage=50", token=token
         )
         if status != 200:
             break
@@ -122,10 +121,32 @@ def delete_all_recipes(base_url: str, token: str):
             if slug:
                 mealie_request("DELETE", f"{base_url}/api/recipes/{slug}", token=token)
                 deleted += 1
-        if len(items) < 50:
+    print(f"  Deleted {deleted} existing recipes.")
+
+
+def ensure_tags(base_url: str, token: str, all_tag_names: set[str]) -> dict[str, str]:
+    """Create tags that don't exist yet. Returns {slug: id} map for all tags."""
+    # Create each tag (ignore errors — tag may already exist)
+    for name in all_tag_names:
+        mealie_request("POST", f"{base_url}/api/organizers/tags", {"name": name}, token)
+
+    # Fetch all tags with pagination to build slug→id map
+    slug_to_id: dict[str, str] = {}
+    page = 1
+    while True:
+        status, data = mealie_request(
+            "GET", f"{base_url}/api/organizers/tags?page={page}&perPage=200", token=token
+        )
+        if status != 200:
+            break
+        items = data.get("items", [])
+        for item in items:
+            slug_to_id[item["slug"]] = item["id"]
+        if len(items) < 200:
             break
         page += 1
-    print(f"  Deleted {deleted} existing recipes.")
+    print(f"  Tag registry built: {len(slug_to_id)} tags available.")
+    return slug_to_id
 
 
 def load_recipes(csv_path: str, count: int) -> list[dict]:
@@ -148,7 +169,7 @@ def load_recipes(csv_path: str, count: int) -> list[dict]:
     return result
 
 
-def seed(base_url: str, token: str, recipes: list[dict]) -> tuple[int, int, int]:
+def seed(base_url: str, token: str, recipes: list[dict], slug_to_id: dict[str, str]) -> tuple[int, int, int]:
     created = tagged = failed = 0
     for i, recipe in enumerate(recipes, 1):
         name = recipe["name"]
@@ -166,11 +187,19 @@ def seed(base_url: str, token: str, recipes: list[dict]) -> tuple[int, int, int]
             continue
         created += 1
 
-        # Step 2: patch with tags only (full object causes 400 name-uniqueness check against self)
+        # Step 2: patch with tags — include id so Mealie reuses existing tag rows
+        tag_objects = []
+        for t in tags:
+            s = slugify(t)
+            tag_obj = {"name": t, "slug": s}
+            if s in slug_to_id:
+                tag_obj["id"] = slug_to_id[s]
+            tag_objects.append(tag_obj)
+
         status, patch_resp = mealie_request(
             "PATCH",
             f"{base_url}/api/recipes/{slug}",
-            {"tags": [{"name": t, "slug": slugify(t)} for t in tags]},
+            {"tags": tag_objects},
             token,
         )
         if status in (200, 201):
@@ -206,8 +235,12 @@ def main():
     recipes = load_recipes(args.csv, args.count)
     print(f"  Selected {len(recipes)} recipes with useful tags.")
 
+    all_tag_names = {t for r in recipes for t in r["tags"]}
+    print(f"Pre-creating {len(all_tag_names)} unique tags...")
+    slug_to_id = ensure_tags(base_url, token, all_tag_names)
+
     print("Seeding recipes into Mealie...")
-    created, tagged, failed = seed(base_url, token, recipes)
+    created, tagged, failed = seed(base_url, token, recipes, slug_to_id)
 
     print()
     print(f"=== Seed complete: created={created}, tagged={tagged}, failed={failed} ===")
