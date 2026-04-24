@@ -219,6 +219,8 @@ sudo kubectl apply -f "$CRONJOB_DIR/mealie-prod-nightly-eval-cronjob.yaml"
 
 MONITORING_DIR="$MEALIE_DIR/dev/monitoring"
 sudo kubectl apply -f "$MONITORING_DIR/prometheus-rbac.yaml"
+sudo kubectl apply -f "$MONITORING_DIR/blackbox-exporter-configmap.yaml"
+sudo kubectl apply -f "$MONITORING_DIR/blackbox-exporter-deployment.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/prometheus-configmap.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/prometheus-deployment.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/grafana-configmap.yaml"
