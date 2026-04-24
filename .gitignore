@@ -173,3 +173,7 @@ dev/code-generation/openapi.json
 .task/*
 .dev.env
 frontend/eslint.config.deprecated.js
+
+# Large dataset files
+RAW_recipes.csv
+RAW_interactions.csv
