@@ -140,6 +140,12 @@ async def fetch_recommendations(
     is_cold = (prefs.rating_count if prefs else 0) < COLD_START_THRESHOLD
     preferred_tags = _clean_tags(prefs.onboarding_tags if prefs and prefs.onboarding_tags else [])
     taste_vector = _normalize_vector(prefs.taste_vector if prefs else None)
+    if is_cold and preferred_tags:
+        return {
+            "recommendations": _baseline_recommendations(library_recipes, preferred_tags, top_n),
+            "cold_start": True,
+            "model_version": "cold_start_tag_baseline",
+        }
     if taste_vector is None:
         return {
             "recommendations": _baseline_recommendations(library_recipes, preferred_tags, top_n),
