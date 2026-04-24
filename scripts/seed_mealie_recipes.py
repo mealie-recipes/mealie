@@ -135,8 +135,9 @@ def load_recipes(csv_path: str, count: int) -> list[dict]:
     df = df[(df["minutes"] >= 5) & (df["minutes"] <= 120)]
     df["parsed_tags"] = df["tags"].apply(parse_tags)
     df["useful"] = df["parsed_tags"].apply(useful_tags)
-    df = df[df["useful"].apply(len) >= 3]
-    df = df.sort_values(by=df["useful"].apply(len), key=lambda s: s, ascending=False)
+    df["useful_count"] = df["useful"].apply(len)
+    df = df[df["useful_count"] >= 3]
+    df = df.sort_values(by="useful_count", ascending=False)
     df = df.head(count * 3).sample(n=min(count, len(df)), random_state=42)
     result = []
     for _, row in df.iterrows():
