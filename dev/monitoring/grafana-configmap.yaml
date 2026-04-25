@@ -13,3 +13,8 @@ data:
         access: proxy
         url: http://prometheus.monitoring.svc.cluster.local:9090
         isDefault: true
+      - name: Alertmanager
+        uid: Alertmanager
+        type: alertmanager
+        access: proxy
+        url: http://alertmanager.monitoring.svc.cluster.local:9093

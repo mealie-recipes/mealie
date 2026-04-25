@@ -239,6 +239,36 @@ data:
             },
             "overrides": []
           }
+        },
+        {
+          "id": 8,
+          "type": "stat",
+          "title": "Firing Alerts",
+          "description": "Total number of Prometheus alerts currently firing.",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 0,
+            "y": 16
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "targets": [
+            {
+              "expr": "sum(ALERTS{alertstate=\"firing\"})",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "decimals": 0
+            },
+            "overrides": []
+          }
         }
       ]
     }
@@ -536,6 +566,95 @@ data:
             }
           ],
           "fieldConfig": { "defaults": { "unit": "none", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 9,
+          "type": "stat",
+          "title": "MLflow Reachability",
+          "gridPos": { "h": 7, "w": 6, "x": 0, "y": 14 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "probe_success{job=\"mlflow\"}",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "percent", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 10,
+          "type": "stat",
+          "title": "MinIO Reachability",
+          "gridPos": { "h": 7, "w": 6, "x": 6, "y": 14 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "probe_success{job=\"minio\"}",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "percent", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 11,
+          "type": "stat",
+          "title": "PostgreSQL Reachability",
+          "gridPos": { "h": 7, "w": 6, "x": 12, "y": 14 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "probe_success{job=\"postgres\"}",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "percent", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 12,
+          "type": "stat",
+          "title": "Firing Alerts",
+          "description": "Total number of Prometheus alerts currently firing.",
+          "gridPos": { "h": 7, "w": 6, "x": 18, "y": 14 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "sum(ALERTS{alertstate=\"firing\"})",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "decimals": 0
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 13,
+          "type": "table",
+          "title": "Active Prometheus Alerts",
+          "description": "Alerts currently firing in Prometheus.",
+          "gridPos": { "h": 9, "w": 24, "x": 0, "y": 21 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "ALERTS{alertstate=\"firing\"}",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "options": {
+            "showHeader": true
+          }
         }
       ]
     }

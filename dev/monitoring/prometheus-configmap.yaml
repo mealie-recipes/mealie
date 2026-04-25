@@ -65,9 +65,46 @@ data:
         metrics_path: /metrics
 
       - job_name: mlflow
+        metrics_path: /probe
+        params:
+          module: [http_2xx]
         static_configs:
-          - targets: ['mlflow-service.platform.svc.cluster.local:5000']
-        metrics_path: /metrics
+          - targets: ['http://mlflow-service.platform.svc.cluster.local:5000/']
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: blackbox-exporter.monitoring.svc.cluster.local:9115
+
+      - job_name: minio
+        metrics_path: /probe
+        params:
+          module: [http_2xx]
+        static_configs:
+          - targets: ['http://minio-service.platform.svc.cluster.local:9000/minio/health/live']
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: blackbox-exporter.monitoring.svc.cluster.local:9115
+
+      - job_name: postgres
+        metrics_path: /probe
+        params:
+          module: [tcp_connect]
+        static_configs:
+          - targets: ['postgres.platform.svc.cluster.local:5432']
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: blackbox-exporter.monitoring.svc.cluster.local:9115
 
   alerts.yml: |
     groups:
@@ -125,6 +162,33 @@ data:
             annotations:
               summary: "Mealie API is unreachable"
               description: "Prometheus cannot scrape the Mealie API in mealie-prod."
+
+          - alert: MLflowDown
+            expr: probe_success{job="mlflow"} == 0
+            for: 2m
+            labels:
+              severity: critical
+            annotations:
+              summary: "MLflow is unreachable"
+              description: "Prometheus cannot probe the MLflow UI in the platform namespace."
+
+          - alert: MinIODown
+            expr: probe_success{job="minio"} == 0
+            for: 2m
+            labels:
+              severity: critical
+            annotations:
+              summary: "MinIO is unreachable"
+              description: "Prometheus cannot probe the MinIO health endpoint in the platform namespace."
+
+          - alert: PostgresDown
+            expr: probe_success{job="postgres"} == 0
+            for: 2m
+            labels:
+              severity: critical
+            annotations:
+              summary: "PostgreSQL is unreachable"
+              description: "Prometheus cannot establish a TCP connection to PostgreSQL in the platform namespace."
 
           - alert: RecommendationErrorRateHigh
             expr: 100 * sum(rate(mealie_recommendation_errors_total[5m])) / clamp_min(sum(rate(mealie_recommendation_requests_total[5m])), 1) > 10
