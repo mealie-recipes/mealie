@@ -1,0 +1,4 @@
+repo_root: /home/cc/proj18/mealie
+repo_url: https://github.com/mahimamariah/mealie.git
+repo_branch: feature/ml-recommendations
+deploy_script: scripts/deploy.sh
