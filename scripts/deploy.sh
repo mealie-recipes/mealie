@@ -250,6 +250,7 @@ echo "MinIO Console:    http://${FLOATING_IP}:30901  (minioadmin / minioadmin123
 echo "Prometheus:       http://${FLOATING_IP}:30091"
 echo "Grafana:          http://${FLOATING_IP}:30300  (admin / admin123)"
 echo "Alertmanager:     http://${FLOATING_IP}:30903"
+echo "Blackbox probe:   internal monitoring target for mlflow/minio/postgres reachability"
 echo ""
 echo "Next: run bootstrap_data.sh to seed the ALS model, then check pods:"
 echo "  sudo kubectl get pods --all-namespaces"

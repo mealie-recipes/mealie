@@ -7,10 +7,49 @@ data:
   alertmanager.yml: |
     global:
       resolve_timeout: 5m
+      # Replace with a real Slack/Discord/email webhook endpoint before production use.
+      # Example internal service endpoint:
+      # webhook_url: 'http://alert-webhook.monitoring.svc.cluster.local:8080/alerts'
+
     route:
       receiver: default-receiver
+      group_by: ['alertname', 'cluster', 'severity']
       group_wait: 30s
       group_interval: 5m
       repeat_interval: 4h
+      routes:
+        - match:
+            severity: critical
+          receiver: critical-receiver
+          group_wait: 10s
+          repeat_interval: 1h
+
+        - match_re:
+            alertname: (MLflow.*|Triton.*|ArgoWorkflow.*)
+          receiver: ml-pipeline-receiver
+          group_wait: 30s
+          repeat_interval: 4h
+
     receivers:
       - name: default-receiver
+        webhook_configs:
+          - url: 'http://alert-webhook.monitoring.svc.cluster.local:8080/alerts'
+            send_resolved: true
+
+      - name: critical-receiver
+        webhook_configs:
+          - url: 'http://alert-webhook.monitoring.svc.cluster.local:8080/alerts/critical'
+            send_resolved: true
+
+      - name: ml-pipeline-receiver
+        webhook_configs:
+          - url: 'http://alert-webhook.monitoring.svc.cluster.local:8080/alerts/ml'
+            send_resolved: true
+
+    inhibit_rules:
+      - source_match:
+          severity: critical
+          alertname: NodeNotReady
+        target_match_re:
+          alertname: (PodNotReady|PodCrashLooping|DeploymentReplicasMismatch)
+        equal: ['instance']
