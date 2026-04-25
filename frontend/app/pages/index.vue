@@ -4,6 +4,7 @@
 
 <script setup lang="ts">
 import useDefaultActivity from "~/composables/use-default-activity";
+import { useUserApi } from "~/composables/api";
 import { useUserActivityPreferences } from "~/composables/use-users/preferences";
 import { useAsyncKey } from "~/composables/use-utils";
 import type { AppInfo, AppStartupInfo } from "~/lib/api/types/admin";
@@ -17,6 +18,7 @@ const { $axios } = useNuxtApp();
 const router = useRouter();
 const activityPreferences = useUserActivityPreferences();
 const { getDefaultActivityRoute } = useDefaultActivity();
+const api = useUserApi();
 const groupSlug = computed(() => auth.user.value?.groupSlug);
 
 async function redirectPublicUserToDefaultGroup() {
@@ -40,6 +42,9 @@ useAsyncData(useAsyncKey(), async () => {
     );
     if (!isDemo && isFirstLogin && auth.user.value?.admin) {
       router.push("/admin/setup");
+    }
+    else if ((await api.recommendations.getStatus()).data?.needsOnboarding) {
+      router.push("/preferences");
     }
     else if (defaultActivityRoute) {
       router.push(defaultActivityRoute);

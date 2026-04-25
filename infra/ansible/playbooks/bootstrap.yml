@@ -1,0 +1,6 @@
+- name: Bootstrap Mealie host
+  hosts: mealie
+  become: true
+
+  roles:
+    - common

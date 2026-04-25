@@ -22,6 +22,7 @@ if TYPE_CHECKING:
     from ..household.mealplan import GroupMealPlan
     from ..household.shopping_list import ShoppingList
     from ..recipe import RecipeComment, RecipeModel, RecipeTimelineEvent
+    from .user_ml_preferences import UserMLPreferences
     from .password_reset import PasswordResetModel
 
 
@@ -88,6 +89,13 @@ class User(SqlAlchemyBase, BaseMixins):
     comments: Mapped[list["RecipeComment"]] = orm.relationship("RecipeComment", **sp_args)
     recipe_timeline_events: Mapped[list["RecipeTimelineEvent"]] = orm.relationship("RecipeTimelineEvent", **sp_args)
     password_reset_tokens: Mapped[list["PasswordResetModel"]] = orm.relationship("PasswordResetModel", **sp_args)
+    ml_preferences: Mapped[Optional["UserMLPreferences"]] = orm.relationship(
+        "UserMLPreferences",
+        back_populates="user",
+        uselist=False,
+        cascade="all, delete-orphan",
+        passive_deletes=True,
+    )
 
     owned_recipes_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
     owned_recipes: Mapped[Optional["RecipeModel"]] = orm.relationship(

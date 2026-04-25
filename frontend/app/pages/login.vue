@@ -216,6 +216,7 @@ import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";
 import { useAsyncKey } from "~/composables/use-utils";
+import { useUserApi } from "~/composables/api";
 import type { AppStartupInfo } from "~/lib/api/types/admin";
 import { useUserActivityPreferences } from "~/composables/use-users/preferences";
 
@@ -234,6 +235,7 @@ const isDemo = ref(false);
 const isFirstLogin = ref(false);
 const activityPreferences = useUserActivityPreferences();
 const { getDefaultActivityRoute } = useDefaultActivity();
+const api = useUserApi();
 
 useSeoMeta({
   title: i18n.t("user.login"),
@@ -258,13 +260,16 @@ useAsyncData(useAsyncKey(), async () => {
 
 whenever(
   () => loggedIn.value && groupSlug.value,
-  () => {
+  async () => {
     const defaultActivityRoute = getDefaultActivityRoute(
       activityPreferences.value.defaultActivity,
       groupSlug.value,
     );
     if (!isDemo.value && isFirstLogin.value && auth.user.value?.admin) {
       router.push("/admin/setup");
+    }
+    else if ((await api.recommendations.getStatus()).data?.needsOnboarding) {
+      router.push("/preferences");
     }
     else if (defaultActivityRoute) {
       router.push(defaultActivityRoute);

@@ -98,6 +98,7 @@
     "dashboard": "Hlavný panel",
     "delete": "Odstrániť",
     "disabled": "Deaktivované",
+    "done": "Hotovo",
     "download": "Stiahnuť",
     "duplicate": "Duplikovať",
     "edit": "Upraviť",
@@ -109,7 +110,7 @@
     "field-required": "Povinný údaj",
     "file-folder-not-found": "Súbor/priečinok nenájdený",
     "file-uploaded": "Súbor nahratý",
-    "filter": "Filter",
+    "filter": "Filtrovať",
     "friday": "Piatok",
     "general": "Všeobecné",
     "get": "Získať",
@@ -1472,5 +1473,12 @@
     "no-whitespace": "Prázdne znaky nepovolené",
     "min-length": "Musí mať aspoň {min} znakov",
     "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

@@ -98,6 +98,7 @@
     "dashboard": "لوحة المعلومات",
     "delete": "حذف",
     "disabled": "معطَّل",
+    "done": "Done",
     "download": "تحميل",
     "duplicate": "استنساخ",
     "edit": "تعديل",
@@ -429,7 +430,7 @@
     },
     "myrecipebox": {
       "title": "صندوق وصفاتي",
-      "description-long": ""
+      "description-long": "Mealie can import recipes from My Recipe Box. Export your recipes in CSV format, then upload the .csv file below."
     },
     "recipekeeper": {
       "title": "مدير الوصفة",
@@ -573,11 +574,11 @@
     "yield-text": "نص الإرجاع",
     "quantity": "الكَمّيَّة",
     "choose-unit": "اختر الوحدة",
-    "press-enter-to-create": "",
+    "press-enter-to-create": "Press Enter to Create",
     "choose-food": "اختيار الطعام",
     "choose-recipe": "اختر وصفة",
     "notes": "ملاحظات",
-    "toggle-section": "",
+    "toggle-section": "Toggle Section",
     "see-original-text": "عرض النص الأصلي",
     "original-text-with-value": "النص الأصلي: {originalText}",
     "ingredient-linker": "رابط المكون",
@@ -885,7 +886,7 @@
     "application-version-error-text": "الإصدار الحالي الخاص بك ({0}) لا يتطابق مع الإصدار الأخير. انظر في التحديث إلى الإصدار الأحدث ({1}).",
     "mealie-is-up-to-date": "Malie على آخر تحديث",
     "secure-site": "موقع آمن",
-    "secure-site-error-text": "",
+    "secure-site-error-text": "Serve via localhost or secure with https. Clipboard and additional browser APIs may not work.",
     "secure-site-success-text": "يتم الوصول إلى الموقع بواسطة localhost أو peps",
     "server-side-base-url": "الرابط الأساسي للخادم",
     "server-side-base-url-error-text": "'BASE_URL' لا يزال القيمة الافتراضية على خادم API. وهذا سيسبب مشاكل مع روابط الإشعارات التي تم إنشاؤها على الخادم لرسائل البريد الإلكتروني، إلخ.",
@@ -917,7 +918,7 @@
     "shopping-lists": "قوائم التسوق",
     "food": "الطعام",
     "note": "ملاحظة",
-    "label": "",
+    "label": "Label",
     "save-label": "حفظ التصنيف",
     "linked-item-warning": "هذا العنصر مرتبط بوصفة واحدة أو أكثر. تعديل الوحدات أو الأطعمة سوف يسفر عن نتائج غير متوقعة عند إضافة أو إزالة الوصفة من هذه القائمة.",
     "toggle-food": "تبديل الطعام",
@@ -1472,5 +1473,12 @@
     "no-whitespace": "لا يسمح باستخدام المسافات",
     "min-length": "يجب أن يكون على الأقل {min} أحرف",
     "max-length": "يجب أن لا يتجاوز {max} حرف يجب أن يكون على الأكثر {max}أحرف "
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

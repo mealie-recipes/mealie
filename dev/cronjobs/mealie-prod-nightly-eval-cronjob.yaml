@@ -1,0 +1,131 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nightly-eval
+  namespace: mealie-prod
+spec:
+  schedule: "0 3 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: nightly-eval
+              image: python:3.11-slim
+              imagePullPolicy: IfNotPresent
+              envFrom:
+                - configMapRef:
+                    name: shared-env
+              env:
+                - name: TRAINING_BUCKET
+                  value: training-data
+                - name: MODEL_BUCKET
+                  value: mlflow-artifacts
+                - name: DATASET_VERSION
+                  value: current
+              command:
+                - /bin/sh
+                - -lc
+              args:
+                - |
+                  set -euo pipefail
+                  pip install --no-cache-dir boto3 pandas pyarrow mlflow requests >/tmp/pip.log 2>&1
+                  python - <<'PY'
+                  import json
+                  import os
+                  import sys
+                  from datetime import datetime
+                  from io import BytesIO
+
+                  import boto3
+                  import mlflow
+                  import pandas as pd
+                  import requests
+
+                  endpoint = os.environ["MINIO_ENDPOINT"]
+                  access = os.environ["MINIO_ACCESS_KEY"]
+                  secret = os.environ["MINIO_SECRET_KEY"]
+                  tracking_uri = os.environ["MLFLOW_TRACKING_URI"]
+                  inference_url = os.environ["INFERENCE_API_URL"]
+                  training_bucket = os.environ.get("TRAINING_BUCKET", "training-data")
+                  model_bucket = os.environ.get("MODEL_BUCKET", "mlflow-artifacts")
+                  dataset_version = os.environ.get("DATASET_VERSION", "current")
+
+                  s3 = boto3.client(
+                      "s3",
+                      endpoint_url=endpoint,
+                      aws_access_key_id=access,
+                      aws_secret_access_key=secret,
+                  )
+
+                  prefix = f"datasets/{dataset_version}"
+                  report = {
+                      "timestamp": datetime.utcnow().isoformat(),
+                      "dataset_version": dataset_version,
+                      "checks": {},
+                  }
+
+                  def load_parquet(key: str) -> pd.DataFrame:
+                      obj = s3.get_object(Bucket=training_bucket, Key=key)
+                      return pd.read_parquet(BytesIO(obj["Body"].read()))
+
+                  failed = []
+
+                  try:
+                      train = load_parquet(f"{prefix}/train.parquet")
+                      val = load_parquet(f"{prefix}/val.parquet")
+                      report["checks"]["train_rows"] = int(len(train))
+                      report["checks"]["val_rows"] = int(len(val))
+                      if len(train) == 0 or len(val) == 0:
+                          failed.append("empty_dataset")
+                  except Exception as exc:
+                      report["checks"]["dataset_error"] = str(exc)
+                      failed.append("dataset_missing")
+
+                  try:
+                      s3.head_object(Bucket=model_bucket, Key="production/tag_to_vector.pkl")
+                      report["checks"]["tag_vector_exists"] = 1
+                  except Exception as exc:
+                      report["checks"]["tag_vector_error"] = str(exc)
+                      failed.append("missing_tag_vector")
+
+                  try:
+                      response = requests.get(f"{inference_url}/health", timeout=5)
+                      report["checks"]["inference_status"] = response.status_code
+                      if response.status_code != 200:
+                          failed.append("inference_unhealthy")
+                  except Exception as exc:
+                      report["checks"]["inference_error"] = str(exc)
+                      failed.append("inference_unreachable")
+
+                  report["failed_checks"] = failed
+                  report["checks"]["passed"] = 1 if not failed else 0
+
+                  with open("/tmp/eval_report.json", "w", encoding="utf-8") as handle:
+                      json.dump(report, handle, indent=2)
+
+                  mlflow.set_tracking_uri(tracking_uri)
+                  mlflow.set_experiment("nightly-eval")
+                  with mlflow.start_run(run_name=f"nightly_eval_{datetime.utcnow().strftime('%Y%m%d_%H%M%S')}"):
+                      for key, value in report["checks"].items():
+                          if isinstance(value, (int, float)):
+                              mlflow.log_metric(key, value)
+                          else:
+                              mlflow.log_param(key, str(value)[:250])
+                      mlflow.log_param("failed_checks", ",".join(failed) if failed else "none")
+                      mlflow.log_artifact("/tmp/eval_report.json")
+
+                  print(json.dumps(report, indent=2))
+                  sys.exit(1 if failed else 0)
+                  PY
+              resources:
+                requests:
+                  cpu: "100m"
+                  memory: "256Mi"
+                limits:
+                  cpu: "500m"
+                  memory: "1Gi"

@@ -9,6 +9,10 @@
     />
     <v-divider />
     <v-container class="mt-6 px-md-6">
+      <AppRecommendedForYou
+        v-if="isOwnGroup"
+        class="mb-8"
+      />
       <RecipeCardSection
         v-if="ready"
         class="mt-n5"
