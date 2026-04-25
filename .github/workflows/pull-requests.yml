@@ -56,7 +56,7 @@ jobs:
     if: |
       github.event_name == 'pull_request' &&
       contains(github.event.pull_request.labels.*.name, 'build-image') &&
-      github.repository == 'mealie-recipes/mealie'
+      github.repository == 'everyonesoftware/mealie'
     permissions:
       contents: read
       packages: write

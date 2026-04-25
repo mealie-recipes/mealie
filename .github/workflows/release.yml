@@ -155,4 +155,4 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_RELEASE_WEBHOOK }}
         uses: Ilshidur/action-discord@0.3.2
         with:
-          args: "🚀  Version {{ EVENT_PAYLOAD.release.tag_name }} of Mealie has been released. See the release notes https://github.com/mealie-recipes/mealie/releases/tag/{{ EVENT_PAYLOAD.release.tag_name }}"
+          args: "🚀  Version {{ EVENT_PAYLOAD.release.tag_name }} of Mealie has been released. See the release notes https://github.com/everyonesoftware/mealie/releases/tag/{{ EVENT_PAYLOAD.release.tag_name }}"
