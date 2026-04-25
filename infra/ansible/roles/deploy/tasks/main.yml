@@ -1,0 +1,21 @@
+- name: Clone or update Mealie repository
+  ansible.builtin.git:
+    repo: "{{ repo_url }}"
+    dest: "{{ repo_root }}"
+    version: "{{ repo_branch }}"
+    update: true
+    force: true
+  become_user: cc
+
+- name: Deploy the stack
+  ansible.builtin.command:
+    cmd: bash "{{ repo_root }}/{{ deploy_script }}" "{{ ansible_host }}"
+    chdir: "{{ repo_root }}"
+  environment:
+    HOME: /home/cc
+  register: deploy_result
+  changed_when: true
+
+- name: Show deploy output
+  ansible.builtin.debug:
+    var: deploy_result.stdout_lines

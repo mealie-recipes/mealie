@@ -1,0 +1,6 @@
+- name: Deploy Mealie stack
+  hosts: mealie
+  become: true
+
+  roles:
+    - deploy

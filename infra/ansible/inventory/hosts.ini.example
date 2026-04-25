@@ -1,0 +1,3 @@
+[mealie]
+# Replace with the floating IP output from Terraform
+129.114.26.157 ansible_user=cc ansible_become=true
