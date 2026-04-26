@@ -47,6 +47,7 @@
               :name="mealplan.recipe ? mealplan.recipe.name! : mealplan.title!"
               :tags="mealplan.recipe ? (mealplan.recipe.tags ?? []) : []"
               :scale="mealplan.recipeScale ?? 1"
+              :meal-plan-id="mealplan.id"
             />
             <div
               v-if="mealplan.recipe"
