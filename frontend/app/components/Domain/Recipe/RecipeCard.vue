@@ -36,9 +36,13 @@
             </div>
           </v-expand-transition>
         </RecipeCardImage>
-        <v-card-title class="mb-n3 px-4" style="font-size: 1.25rem;">
-          {{ name }}
-        </v-card-title>
+        <v-tooltip location="bottom" :text="name">
+          <template #activator="{ props: tooltipProps }">
+            <v-card-title v-bind="tooltipProps" class="mb-n3 px-4" style="font-size: 1.25rem;">
+              {{ name }}
+            </v-card-title>
+          </template>
+        </v-tooltip>
 
         <slot name="actions">
           <v-card-actions
