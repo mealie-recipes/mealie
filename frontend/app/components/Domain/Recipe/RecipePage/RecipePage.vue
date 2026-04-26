@@ -472,7 +472,6 @@ function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: st
   }
   router.push(`/g/${groupSlug.value}?${itemType}=${item.id}`);
 }
-
 </script>
 
 <style lang="css">
