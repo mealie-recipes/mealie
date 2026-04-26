@@ -52,7 +52,7 @@
             </slot>
           </template>
           <div class="pl-4 d-flex flex-column justify-space-between align-stretch pr-2">
-            <v-tooltip location="bottom" open-delay="3000" :text="name">
+            <v-tooltip location="bottom" open-delay="700" :text="name">
               <template #activator="{ props: tooltipProps }">
                 <v-list-item-title v-bind="tooltipProps" class="mt-3 mb-1 text-top text-truncate w-100">
                   {{ name }}

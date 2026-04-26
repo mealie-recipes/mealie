@@ -36,7 +36,7 @@
             </div>
           </v-expand-transition>
         </RecipeCardImage>
-        <v-tooltip location="bottom" open-delay="3000" :text="name">
+        <v-tooltip location="bottom" open-delay="700" :text="name">
           <template #activator="{ props: tooltipProps }">
             <v-card-title v-bind="tooltipProps" class="mb-n3 px-4" style="font-size: 1.25rem;">
               {{ name }}
