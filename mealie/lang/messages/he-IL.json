@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "שמות מתכונים חייבים להיות ייחודיים",
         "recipe-created": "מתכון נוצר",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "תמונת מתכון נמחקה",
         "recipe-defaults": {
             "ingredient-note": "כוס קמח",
             "step-text": "שלבי המתכון, כמו גם שדות אחרים בעמוד המתכון, תומכים בתחביר markdown.\n\n**הוספת קישור**\n\n[הקישור שלי](https://demo.mealie.io)\n"
@@ -21,14 +21,14 @@
         "and-amount": "and {amount}",
         "or-ingredient": "or {ingredient}",
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
+            "creating-recipe-with-ai": "יוצר מתכון עם בינה מלאכותית...",
             "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
-            "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
-            "extracting-recipe-data": "Extracting recipe data...",
+            "creating-recipe-from-webpage-data": "יוצר מתכון ממידע מהאתר...",
+            "downloading-image": "מוריד תמונה...",
+            "downloading-video": "מוריד וידאו...",
+            "extracting-recipe-data": "מחלץ פרטי מתכון...",
             "fetching-webpage": "Fetching webpage...",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "transcribing-audio-with-ai": "מתמלל שמע עם בינה מלאכותית..."
         }
     },
     "mealplan": {
