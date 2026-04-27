@@ -2,9 +2,9 @@
 name = "mealie"
 version = "3.16.0"
 description = "A Recipe Manager"
-authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
-license = "AGPL-3.0-only"
 requires-python = ">=3.12,<3.13"
+license = "AGPL-3.0-only"
+authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 dependencies = [
     "Jinja2==3.1.6",
     "Pillow==12.2.0",
@@ -15,72 +15,71 @@ dependencies = [
     "aniso8601==10.0.1",
     "appdirs==1.4.4",
     "apprise==1.9.9",
+    "authlib==1.7.0",
     "bcrypt==5.0.0",
+    "beautifulsoup4==4.14.3",
     "extruct==0.18.0",
     "fastapi==0.136.0",
+    "html2text==2025.4.15",
     "httpx==0.28.1",
+    "httpx-curl-cffi==0.1.5",
+    "ingredient-parser-nlp==2.6.0",
+    "isodate==0.7.2",
+    "itsdangerous==2.2.0",
     "lxml==6.1.0",
+    "openai==2.32.0",
     "orjson==3.11.8",
+    "paho-mqtt==1.6.1",
+    "pillow-heif==1.3.0",
+    "pint==0.25.3",
     "pydantic==2.13.3",
+    "pydantic-settings==2.13.1",
     "pyhumps==3.8.0",
+    "pyjwt==2.12.1",
     "python-dateutil==2.9.0.post0",
     "python-dotenv==1.2.2",
     "python-ldap==3.4.5",
     "python-multipart==0.0.26",
     "python-slugify==8.0.4",
+    "rapidfuzz==3.14.5",
     "recipe-scrapers==15.11.0",
     "requests==2.33.1",
+    "text-unidecode==1.3",
+    "typing-extensions==4.15.0",
     "tzdata==2026.1",
     "uvicorn[standard]==0.45.0",
-    "beautifulsoup4==4.14.3",
-    "isodate==0.7.2",
-    "text-unidecode==1.3",
-    "rapidfuzz==3.14.5",
-    "authlib==1.7.0",
-    "html2text==2025.4.15",
-    "paho-mqtt==1.6.1",
-    "pydantic-settings==2.13.1",
-    "pillow-heif==1.3.0",
-    "pyjwt==2.12.1",
-    "openai==2.32.0",
-    "typing-extensions==4.15.0",
-    "itsdangerous==2.2.0",
     "yt-dlp==2026.3.17",
-    "ingredient-parser-nlp==2.6.0",
-    "pint==0.25.3",
-    "httpx-curl-cffi==0.1.5",
 ]
 
 [project.scripts]
 mealie = "mealie.main:main"
 
 [project.optional-dependencies]
-pgsql = [
-    "psycopg2-binary==2.9.12"
-]
+pgsql = ["psycopg2-binary==2.9.12"]
 
 [dependency-groups]
-docs = [
-    "mkdocs-material==9.7.6",
-]
 dev = [
     "coverage==7.13.5",
     "coveragepy-lcov==0.1.2",
+    "freezegun==1.5.5",
     "mkdocs-material==9.7.6",
     "mypy==1.20.2",
     "pre-commit==4.6.0",
+    "pydantic-to-typescript2==1.0.6",
     "pylint==4.0.5",
     "pytest==9.0.3",
     "pytest-asyncio==1.3.0",
     "rich==15.0.0",
     "ruff==0.15.11",
+    "tombi=0.9.25",
     "types-PyYAML==6.0.12.20260408",
     "types-python-dateutil==2.9.0.20260408",
     "types-python-slugify==8.0.2.20240310",
     "types-requests==2.33.0.20260408",
     "types-urllib3==1.26.25.14",
-    "pydantic-to-typescript2==1.0.6",
-    "freezegun==1.5.5",
+]
+docs = [
+    "mkdocs-material==9.7.6",
 ]
 
 [build-system]
@@ -100,9 +99,9 @@ include = ["mealie*"]
 addopts = "-ra -q"
 asyncio_default_fixture_loop_scope = "function"
 minversion = "6.0"
-python_classes = '*Tests'
-python_files = 'test_*'
-python_functions = 'test_*'
+python_classes = "*Tests"
+python_files = "test_*"
+python_functions = "test_*"
 testpaths = ["tests"]
 
 [tool.coverage.report]
@@ -122,25 +121,25 @@ output-format = "concise"
 
 # Exclude a variety of commonly ignored directories.
 exclude = [
-  ".bzr",
-  ".direnv",
-  ".eggs",
-  ".git",
-  ".hg",
-  ".mypy_cache",
-  ".nox",
-  ".pants.d",
-  ".ruff_cache",
-  ".svn",
-  ".tox",
-  ".venv",
-  "__pypackages__",
-  "_build",
-  "buck-out",
-  "build",
-  "dist",
-  "node_modules",
-  "venv",
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
 ]
 
 [tool.ruff.lint.isort]
@@ -150,18 +149,18 @@ known-third-party = ["alembic"]
 # Enable Pyflakes `E` and `F` codes by default.
 ignore = ["F403", "TID252", "B008"]
 select = [
-  "B",  # flake8-bugbear
-  "C4", # McCabe complexity
-  "C90", # flake8-comprehensions
-  "DTZ", # flake8-datetimez
-  "E",  # pycodestyles
-  "F",  # pyflakes
-  "I",  # isort
-  "T",  # flake8-print
-  "UP", # pyupgrade
-  # "ANN", # flake8-annotations
-  # "BLE", # blind-except
-  # "RUF", # Ruff specific
+    "B",  # flake8-bugbear
+    "C4",  # McCabe complexity
+    "C90",  # flake8-comprehensions
+    "DTZ",  # flake8-datetimez
+    "E",  # pycodestyles
+    "F",  # pyflakes
+    "I",  # isort
+    "T",  # flake8-print
+    "UP",  # pyupgrade
+    # "ANN", # flake8-annotations
+    # "BLE", # blind-except
+    # "RUF", # Ruff specific
 ]
 
 [tool.ruff.lint.per-file-ignores]
@@ -175,6 +174,10 @@ select = [
 [tool.ruff.lint.mccabe]
 # Unlike Flake8, default to a complexity level of 10.
 max-complexity = 24  # Default is 10.
+
+[tool.tombi]
+format.rules.indent-style = "space"
+format.rules.indent-width = 4
 
 [tool.uv]
 add-bounds = "exact"
