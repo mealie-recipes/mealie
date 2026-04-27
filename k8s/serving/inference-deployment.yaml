@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inference-api
+  namespace: serving
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: inference-api
+  template:
+    metadata:
+      labels:
+        app: inference-api
+    spec:
+      containers:
+        - name: inference-api
+          image: proj18biasvariance/mealie-serving:local
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8000
+          startupProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            failureThreshold: 30
+          readinessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 6
+          livenessProbe:
+            tcpSocket:
+              port: 8000
+            initialDelaySeconds: 30
+            periodSeconds: 20
+            timeoutSeconds: 2
+            failureThreshold: 3
+          env:
+            - name: MLFLOW_TRACKING_URI
+              value: http://mlflow-service.platform.svc.cluster.local:5000
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: accesskey
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: secretkey
+            - name: MINIO_ENDPOINT
+              value: http://minio-service.platform.svc.cluster.local:9000
+            - name: MINIO_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: accesskey
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: secretkey
+            - name: MINIO_BUCKET
+              value: mlflow-artifacts
+            - name: TAG_VECTOR_KEY
+              value: production/tag_to_vector.pkl
+            - name: TAG_VECTOR_CANDIDATES
+              value: production/tag_to_vector.pkl,canary/tag_to_vector.pkl,staging/tag_to_vector.pkl
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "512Mi"
+            limits:
+              cpu: "1"
+              memory: "1Gi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: inference-service
+  namespace: serving
+spec:
+  type: NodePort
+  selector:
+    app: inference-api
+  ports:
+    - port: 8000
+      targetPort: 8000
+      nodePort: 30800

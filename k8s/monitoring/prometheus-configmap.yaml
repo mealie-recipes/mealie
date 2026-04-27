@@ -1,0 +1,209 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-config
+  namespace: monitoring
+data:
+  prometheus.yml: |
+    global:
+      scrape_interval: 15s
+      evaluation_interval: 15s
+
+    rule_files:
+      - /etc/prometheus/alerts.yml
+
+    alerting:
+      alertmanagers:
+        - static_configs:
+            - targets: ['alertmanager.monitoring.svc.cluster.local:9093']
+
+    scrape_configs:
+      - job_name: prometheus
+        static_configs:
+          - targets: ['localhost:9090']
+
+      - job_name: kubernetes-nodes
+        kubernetes_sd_configs:
+          - role: node
+        scheme: https
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_node_name]
+            target_label: __metrics_path__
+            replacement: /api/v1/nodes/$1/proxy/metrics
+          - target_label: __address__
+            replacement: kubernetes.default.svc.cluster.local:443
+
+      - job_name: kubernetes-nodes-cadvisor
+        kubernetes_sd_configs:
+          - role: node
+        scheme: https
+        bearer_token_file: /var/run/secrets/kubernetes.io/serviceaccount/token
+        tls_config:
+          ca_file: /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_node_name]
+            target_label: __metrics_path__
+            replacement: /api/v1/nodes/$1/proxy/metrics/cadvisor
+          - target_label: __address__
+            replacement: kubernetes.default.svc.cluster.local:443
+
+      - job_name: kube-state-metrics
+        static_configs:
+          - targets: ['kube-state-metrics.monitoring.svc.cluster.local:8080']
+
+      - job_name: mealie-api
+        static_configs:
+          - targets: ['mealie-service.mealie.svc.cluster.local:9000']
+        metrics_path: /api/metrics
+
+      - job_name: inference-api
+        static_configs:
+          - targets: ['inference-service.serving.svc.cluster.local:8000']
+        metrics_path: /metrics
+
+      - job_name: mlflow
+        metrics_path: /probe
+        params:
+          module: [http_2xx]
+        static_configs:
+          - targets: ['http://mlflow-service.platform.svc.cluster.local:5000/']
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: blackbox-exporter.monitoring.svc.cluster.local:9115
+
+      - job_name: minio
+        metrics_path: /probe
+        params:
+          module: [http_2xx]
+        static_configs:
+          - targets: ['http://minio-service.platform.svc.cluster.local:9000/minio/health/live']
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: blackbox-exporter.monitoring.svc.cluster.local:9115
+
+      - job_name: postgres
+        metrics_path: /probe
+        params:
+          module: [tcp_connect]
+        static_configs:
+          - targets: ['postgres.platform.svc.cluster.local:5432']
+        relabel_configs:
+          - source_labels: [__address__]
+            target_label: __param_target
+          - source_labels: [__param_target]
+            target_label: instance
+          - target_label: __address__
+            replacement: blackbox-exporter.monitoring.svc.cluster.local:9115
+
+  alerts.yml: |
+    groups:
+      - name: platform-alerts
+        rules:
+          - alert: PodCrashLooping
+            expr: increase(kube_pod_container_status_restarts_total[10m]) > 2
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "Pod is restarting frequently"
+              description: "Container {{ $labels.namespace }}/{{ $labels.pod }} restarted more than twice in 10 minutes."
+
+          - alert: DeploymentReplicasUnavailable
+            expr: kube_deployment_status_replicas_unavailable > 0
+            for: 10m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Deployment has unavailable replicas"
+              description: "Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has unavailable replicas."
+
+          - alert: StatefulSetReplicasUnavailable
+            expr: kube_statefulset_status_replicas_ready < kube_statefulset_status_replicas
+            for: 10m
+            labels:
+              severity: critical
+            annotations:
+              summary: "StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} is not fully ready."
+
+          - alert: FailedCronJob
+            expr: kube_job_status_failed > 0
+            for: 5m
+            labels:
+              severity: warning
+            annotations:
+              summary: "Kubernetes job failure detected"
+              description: "Job {{ $labels.namespace }}/{{ $labels.job_name }} has failed."
+
+          - alert: InferenceAPIDown
+            expr: up{job="inference-api"} == 0
+            for: 2m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Inference API is unreachable"
+              description: "Prometheus cannot scrape the inference API in the serving namespace."
+
+          - alert: MealieAPIDown
+            expr: up{job="mealie-api"} == 0
+            for: 2m
+            labels:
+              severity: critical
+            annotations:
+              summary: "Mealie API is unreachable"
+              description: "Prometheus cannot scrape the Mealie API in the mealie namespace."
+
+          - alert: MLflowDown
+            expr: probe_success{job="mlflow"} == 0
+            for: 2m
+            labels:
+              severity: critical
+            annotations:
+              summary: "MLflow is unreachable"
+              description: "Prometheus cannot probe the MLflow UI in the platform namespace."
+
+          - alert: MinIODown
+            expr: probe_success{job="minio"} == 0
+            for: 2m
+            labels:
+              severity: critical
+            annotations:
+              summary: "MinIO is unreachable"
+              description: "Prometheus cannot probe the MinIO health endpoint in the platform namespace."
+
+          - alert: PostgresDown
+            expr: probe_success{job="postgres"} == 0
+            for: 2m
+            labels:
+              severity: critical
+            annotations:
+              summary: "PostgreSQL is unreachable"
+              description: "Prometheus cannot establish a TCP connection to PostgreSQL in the platform namespace."
+
+          - alert: RecommendationErrorRateHigh
+            expr: 100 * sum(rate(mealie_recommendation_errors_total[5m])) / clamp_min(sum(rate(mealie_recommendation_requests_total[5m])), 1) > 10
+            for: 10m
+            labels:
+              severity: warning
+            annotations:
+              summary: "Recommendation errors are elevated"
+              description: "The recommendation pipeline error rate is above 10%."
+
+          - alert: LowConfidenceRateHigh
+            expr: 100 * sum(rate(mealie_low_confidence_predictions_total[5m])) / clamp_min(sum(rate(mealie_recommendation_requests_total[5m])), 1) > 50
+            for: 15m
+            labels:
+              severity: warning
+            annotations:
+              summary: "Low confidence recommendation rate is elevated"
+              description: "More than half of recommendation responses are low confidence."

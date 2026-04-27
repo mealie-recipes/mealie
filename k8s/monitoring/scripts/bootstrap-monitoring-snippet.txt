@@ -1,0 +1,25 @@
+# Add this after namespaces are applied and before final status output
+
+echo "=== Deploying monitoring stack ==="
+kubectl apply -f k8s/monitoring/monitoring-namespace.yaml
+kubectl apply -f k8s/monitoring/kube-state-metrics-rbac.yaml
+kubectl apply -f k8s/monitoring/kube-state-metrics.yaml
+kubectl rollout status deployment/kube-state-metrics -n monitoring --timeout=240s
+
+kubectl apply -f k8s/monitoring/alertmanager-configmap.yaml
+kubectl apply -f k8s/monitoring/alertmanager-deployment.yaml
+kubectl rollout status deployment/alertmanager -n monitoring --timeout=240s
+
+kubectl apply -f k8s/monitoring/prometheus-configmap.yaml
+kubectl apply -f k8s/monitoring/prometheus-deployment.yaml
+kubectl rollout status deployment/prometheus -n monitoring --timeout=240s
+
+kubectl apply -f k8s/monitoring/grafana-configmap.yaml
+kubectl apply -f k8s/monitoring/grafana-deployment.yaml
+kubectl rollout status deployment/grafana -n monitoring --timeout=240s
+
+kubectl apply -f k8s/monitoring/feature-service-hpa.yaml
+
+echo "Prometheus:  http://${NODE_IP}:30091"
+echo "Grafana:     http://${NODE_IP}:30300"
+echo "Alertmanager:http://${NODE_IP}:30903"

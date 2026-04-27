@@ -1,0 +1,55 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: monthly-retrain
+  namespace: training
+spec:
+  schedule: "0 4 1 * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: monthly-retrain
+              image: proj18biasvariance/mealie-als-training:local
+              imagePullPolicy: Never
+              command:
+                - python
+                - train.py
+              env:
+                - name: MLFLOW_TRACKING_URI
+                  value: http://mlflow-service.platform.svc.cluster.local:5000
+                - name: MLFLOW_S3_ENDPOINT_URL
+                  value: http://minio-service.platform.svc.cluster.local:9000
+                - name: MINIO_ENDPOINT
+                  value: http://minio-service.platform.svc.cluster.local:9000
+                - name: MINIO_BUCKET
+                  value: mlflow-artifacts
+                - name: MINIO_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-secret
+                      key: accesskey
+                - name: MINIO_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-secret
+                      key: secretkey
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-secret
+                      key: accesskey
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-secret
+                      key: secretkey
+              resources:
+                requests:
+                  cpu: "100m"
+                  memory: "256Mi"
+                limits:
+                  cpu: "500m"
+                  memory: "512Mi"

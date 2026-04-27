@@ -1,0 +1,168 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: model-promoter
+  namespace: training
+spec:
+  schedule: "0 */6 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      backoffLimit: 1
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: model-promoter
+              image: python:3.11-slim
+              imagePullPolicy: IfNotPresent
+              command: ["/bin/sh", "-lc"]
+              args:
+                - |
+                  pip install --no-cache-dir boto3 mlflow >/tmp/pip.log 2>&1
+                  python - <<'PY'
+                  import os
+                  import sys
+
+                  import boto3
+                  import mlflow
+
+                  endpoint = os.environ["MINIO_ENDPOINT"]
+                  access = os.environ["MINIO_ACCESS_KEY"]
+                  secret = os.environ["MINIO_SECRET_KEY"]
+                  tracking = os.environ["MLFLOW_TRACKING_URI"]
+                  model_bucket = os.environ.get("MINIO_BUCKET", "mlflow-artifacts")
+
+                  s3 = boto3.client(
+                      "s3",
+                      endpoint_url=endpoint,
+                      aws_access_key_id=access,
+                      aws_secret_access_key=secret,
+                  )
+
+                  def copy_artifact(src, dst):
+                      obj = s3.get_object(Bucket=model_bucket, Key=src)
+                      s3.put_object(Bucket=model_bucket, Key=dst, Body=obj["Body"].read())
+                      print(f"Copied {src} -> {dst}")
+
+                  def artifact_exists(key):
+                      try:
+                          s3.head_object(Bucket=model_bucket, Key=key)
+                          return True
+                      except Exception:
+                          return False
+
+                  mlflow.set_tracking_uri(tracking)
+                  client = mlflow.tracking.MlflowClient()
+
+                  try:
+                      exp = client.get_experiment_by_name("nightly-data-eval")
+                      if exp is None:
+                          print("No nightly-data-eval experiment found yet - skipping promotion")
+                          sys.exit(0)
+
+                      runs = client.search_runs(
+                          experiment_ids=[exp.experiment_id],
+                          order_by=["start_time DESC"],
+                          max_results=1,
+                      )
+                      if not runs:
+                          print("No eval runs yet - skipping")
+                          sys.exit(0)
+
+                      run = runs[0]
+                      metrics = run.data.metrics
+                      params = run.data.params
+
+                      inference_ok = int(metrics.get("inference_status", 0)) == 200
+                      tag_vec_ok = int(metrics.get("tag_vector_exists", 0)) == 1
+                      train_rows = int(metrics.get("train_rows", 0))
+                      ndcg = float(metrics.get("ndcg_at_10", 0.0))
+                      failed_checks = params.get("failed_checks", "unknown")
+
+                      print(
+                          f"Latest eval: inference_ok={inference_ok}, "
+                          f"tag_vec_ok={tag_vec_ok}, train_rows={train_rows}, "
+                          f"ndcg@10={ndcg:.4f}, failed={failed_checks}"
+                      )
+
+                      if not inference_ok:
+                          if artifact_exists("production/tag_to_vector.pkl.bak"):
+                              copy_artifact(
+                                  "production/tag_to_vector.pkl.bak",
+                                  "production/tag_to_vector.pkl",
+                              )
+                              print("ROLLBACK: restored production from backup")
+                          else:
+                              print("ROLLBACK needed but no backup found - serving stale model")
+                          sys.exit(0)
+
+                      canary_to_prod_ok = inference_ok and ndcg >= 0.01
+
+                      staging_ready = (
+                          artifact_exists("staging/tag_to_vector.pkl")
+                          and tag_vec_ok
+                          and train_rows > 0
+                          and failed_checks in ("none", "empty_dataset")
+                      )
+
+                      if staging_ready:
+                          if artifact_exists("canary/tag_to_vector.pkl"):
+                              if canary_to_prod_ok:
+                                  if artifact_exists("production/tag_to_vector.pkl"):
+                                      copy_artifact(
+                                          "production/tag_to_vector.pkl",
+                                          "production/tag_to_vector.pkl.bak",
+                                      )
+                                  copy_artifact(
+                                      "canary/tag_to_vector.pkl",
+                                      "production/tag_to_vector.pkl",
+                                  )
+                                  print("PROMOTED canary -> production")
+                              else:
+                                  print(
+                                      f"Canary NOT promoted: ndcg={ndcg:.4f} < 0.01 threshold"
+                                  )
+                          copy_artifact(
+                              "staging/tag_to_vector.pkl",
+                              "canary/tag_to_vector.pkl",
+                          )
+                          print("PROMOTED staging -> canary")
+                      else:
+                          print(
+                              "Staging not ready: "
+                              f"staging_exists={artifact_exists('staging/tag_to_vector.pkl')}, "
+                              f"train_rows={train_rows}"
+                          )
+
+                      print("Promoter run complete")
+
+                  except Exception as exc:
+                      print(f"Promoter error: {exc}")
+                      raise
+                  PY
+              env:
+                - name: MINIO_ENDPOINT
+                  value: "http://minio-service.platform.svc.cluster.local:9000"
+                - name: MINIO_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-secret
+                      key: accesskey
+                - name: MINIO_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-secret
+                      key: secretkey
+                - name: MLFLOW_TRACKING_URI
+                  value: "http://mlflow-service.platform.svc.cluster.local:5000"
+                - name: MINIO_BUCKET
+                  value: "mlflow-artifacts"
+              resources:
+                requests:
+                  cpu: "50m"
+                  memory: "128Mi"
+                limits:
+                  cpu: "200m"
+                  memory: "256Mi"

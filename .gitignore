@@ -173,6 +173,10 @@ dev/code-generation/openapi.json
 .task/*
 .dev.env
 frontend/eslint.config.deprecated.js
+.claude/
+.tmp/
+frontend/package-lock.json
+app-cred-mealie-openrc.sh
 
 # Large dataset files
 RAW_recipes.csv

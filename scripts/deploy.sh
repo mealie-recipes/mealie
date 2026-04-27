@@ -1,237 +1,152 @@
 #!/usr/bin/env bash
-# deploy.sh — Full Mealie ML stack deploy on an existing K3s VM
+# deploy.sh - Full Mealie stack deploy on an existing K3s VM
 # Usage: bash deploy.sh <floating_ip>
-# Assumes: K3s installed, Docker installed, all team repos cloned under /home/cc/proj18/
+# Assumes: K3s installed, Docker installed, and the monorepo is present on the VM.
 
 set -euo pipefail
 
 FLOATING_IP="${1:?Usage: bash deploy.sh <floating_ip>}"
 
-MEALIE_DIR="/home/cc/proj18/mealie"
-SERVING_DIR="/home/cc/proj18/mealie-serving/serving"
-DEVOPS_DIR="/home/cc/proj18/mlops-devops/infrastructure/k8s"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+SERVING_DIR="$REPO_ROOT/serving"
+K8S_DIR="$REPO_ROOT/k8s"
+PLATFORM_DIR="$K8S_DIR/platform"
+MEALIE_K8S_DIR="$K8S_DIR/mealie"
+SERVING_K8S_DIR="$K8S_DIR/serving"
+MONITORING_DIR="$K8S_DIR/monitoring"
 
-echo "=== [1/9] Pulling latest code ==="
-for repo in mealie mealie-serving mealie_als_training mlops-devops; do
-    dir="/home/cc/proj18/$repo"
-    if [ -d "$dir" ]; then
-        git -C "$dir" pull --ff-only || true
+require_dir() {
+    local dir="$1"
+    local hint="$2"
+    if [[ ! -d "$dir" ]]; then
+        echo "Missing directory: $dir" >&2
+        echo "$hint" >&2
+        exit 1
     fi
+}
+
+require_file() {
+    local file="$1"
+    local hint="$2"
+    if [[ ! -f "$file" ]]; then
+        echo "Missing file: $file" >&2
+        echo "$hint" >&2
+        exit 1
+    fi
+}
+
+create_postgres_secret() {
+    local namespace="$1"
+    sudo kubectl create secret generic postgres-secret \
+        --from-literal=username=mealie \
+        --from-literal=password=mealie_pass \
+        -n "$namespace" \
+        --dry-run=client -o yaml | sudo kubectl apply -f -
+}
+
+create_minio_secret() {
+    local namespace="$1"
+    sudo kubectl create secret generic minio-secret \
+        --from-literal=accesskey=minioadmin \
+        --from-literal=secretkey=minioadmin123 \
+        -n "$namespace" \
+        --dry-run=client -o yaml | sudo kubectl apply -f -
+}
+
+wait_for_rollout() {
+    local kind="$1"
+    local name="$2"
+    local namespace="$3"
+    sudo kubectl rollout status "$kind/$name" -n "$namespace" --timeout=300s
+}
+
+echo "=== [1/8] Validating monorepo layout ==="
+require_dir "$SERVING_DIR" "Add the serving folder at $SERVING_DIR before running deploy.sh."
+require_dir "$K8S_DIR" "Add the k8s folder at $K8S_DIR before running deploy.sh."
+require_file "$SERVING_DIR/Dockerfile" "Expected the inference Dockerfile at $SERVING_DIR/Dockerfile."
+require_file "$K8S_DIR/namespaces.yaml" "Expected namespace manifests at $K8S_DIR/namespaces.yaml."
+require_file "$PLATFORM_DIR/postgres-statefulset.yaml" "Expected PostgreSQL manifests under $PLATFORM_DIR."
+require_file "$PLATFORM_DIR/minio-deployment.yaml" "Expected MinIO manifests under $PLATFORM_DIR."
+require_file "$PLATFORM_DIR/minio-init-job.yaml" "Expected the MinIO init job under $PLATFORM_DIR."
+require_file "$PLATFORM_DIR/mlflow-deployment.yaml" "Expected MLflow manifests under $PLATFORM_DIR."
+require_file "$PLATFORM_DIR/shared-configmap.yaml" "Expected shared ConfigMaps under $PLATFORM_DIR."
+require_file "$SERVING_K8S_DIR/inference-deployment.yaml" "Expected inference manifests under $SERVING_K8S_DIR."
+require_file "$MEALIE_K8S_DIR/mealie-deployment.yaml" "Expected Mealie manifests under $MEALIE_K8S_DIR."
+require_file "$MONITORING_DIR/prometheus-configmap.yaml" "Expected monitoring manifests under $MONITORING_DIR."
+require_file "$MONITORING_DIR/grafana-dashboards.yaml" "Expected Grafana dashboard manifests under $MONITORING_DIR."
+
+echo "=== [2/8] Creating namespaces and secrets ==="
+sudo kubectl apply -f "$K8S_DIR/namespaces.yaml"
+for namespace in platform mealie serving data training; do
+    create_postgres_secret "$namespace"
+    create_minio_secret "$namespace"
 done
 
-echo "=== [2/9] Creating namespaces ==="
-for ns in mealie-prod platform monitoring mealie-staging mealie-canary; do
-    sudo kubectl create namespace "$ns" --dry-run=client -o yaml | sudo kubectl apply -f -
-done
+echo "=== [3/8] Applying platform manifests ==="
+sudo kubectl apply -f "$PLATFORM_DIR/shared-configmap.yaml"
+sudo kubectl apply -f "$PLATFORM_DIR/postgres-statefulset.yaml"
+sudo kubectl apply -f "$PLATFORM_DIR/minio-deployment.yaml"
+wait_for_rollout statefulset postgres platform
+wait_for_rollout deployment minio platform
 
-echo "=== [3/9] Creating secrets and ConfigMaps ==="
-sudo kubectl create secret generic postgres-secret \
-    --from-literal=username=mealie \
-    --from-literal=password=mealie_pass \
-    -n mealie-prod --dry-run=client -o yaml | sudo kubectl apply -f -
+POSTGRES_POD="$(sudo kubectl get pod -n platform -l app=postgres -o jsonpath='{.items[0].metadata.name}')"
+if [[ -z "$POSTGRES_POD" ]]; then
+    echo "Postgres pod not found in namespace platform." >&2
+    exit 1
+fi
 
-sudo kubectl create secret generic minio-secret \
-    --from-literal=access-key=minioadmin \
-    --from-literal=secret-key=minioadmin123 \
-    -n platform --dry-run=client -o yaml | sudo kubectl apply -f -
+MLFLOW_DB_EXISTS="$(sudo kubectl exec -n platform "$POSTGRES_POD" -- sh -lc "PGPASSWORD='mealie_pass' psql -U mealie -d postgres -tAc \"SELECT 1 FROM pg_database WHERE datname='mlflow'\"")"
+if [[ "$MLFLOW_DB_EXISTS" != "1" ]]; then
+    echo "Creating mlflow database..."
+    sudo kubectl exec -n platform "$POSTGRES_POD" -- sh -lc "PGPASSWORD='mealie_pass' psql -U mealie -d postgres -c 'CREATE DATABASE mlflow;'"
+fi
 
-sudo kubectl create configmap shared-env \
-    --from-literal=MINIO_ENDPOINT="http://minio-service.platform.svc.cluster.local:9000" \
-    --from-literal=MINIO_ACCESS_KEY="minioadmin" \
-    --from-literal=MINIO_SECRET_KEY="minioadmin123" \
-    --from-literal=MLFLOW_TRACKING_URI="http://mlflow-service.platform.svc.cluster.local:5000" \
-    --from-literal=MLFLOW_S3_ENDPOINT_URL="http://minio-service.platform.svc.cluster.local:9000" \
-    --from-literal=AWS_ACCESS_KEY_ID="minioadmin" \
-    --from-literal=AWS_SECRET_ACCESS_KEY="minioadmin123" \
-    --from-literal=DB_HOST="postgres.platform.svc.cluster.local" \
-    --from-literal=DB_PORT="5432" \
-    --from-literal=DB_NAME="mealie" \
-    --from-literal=DB_USER="mealie" \
-    --from-literal=DB_PASSWORD="mealie_pass" \
-    -n mealie-prod --dry-run=client -o yaml | sudo kubectl apply -f -
+sudo kubectl delete job minio-init -n platform --ignore-not-found
+sudo kubectl apply -f "$PLATFORM_DIR/minio-init-job.yaml"
+sudo kubectl wait --for=condition=complete job/minio-init -n platform --timeout=300s
 
-echo "=== [4/9] Applying platform manifests (postgres, minio, mlflow) ==="
-sudo kubectl apply -f "$DEVOPS_DIR/postgres-statefulset.yaml"
-sudo kubectl apply -f "$DEVOPS_DIR/minio-deployment.yaml"
-sudo kubectl apply -f "$DEVOPS_DIR/mlflow-deployment.yaml"
-echo "Waiting 45s for platform pods..."
-sleep 45
-sudo kubectl get pods -n platform
+sudo kubectl apply -f "$PLATFORM_DIR/mlflow-deployment.yaml"
+wait_for_rollout deployment mlflow platform
 
-echo "Creating MinIO buckets..."
-python3 - <<'PYEOF'
-import boto3, time
-for attempt in range(10):
-    try:
-        s3 = boto3.client("s3", endpoint_url="http://127.0.0.1:30900",
-                          aws_access_key_id="minioadmin", aws_secret_access_key="minioadmin123")
-        for bucket in ["training-data", "mlflow-artifacts"]:
-            try:
-                s3.create_bucket(Bucket=bucket)
-                print(f"  created: {bucket}")
-            except Exception:
-                print(f"  exists:  {bucket}")
-        break
-    except Exception as e:
-        print(f"  MinIO not ready (attempt {attempt+1}/10): {e}")
-        time.sleep(10)
-PYEOF
-
-echo "=== [5/9] Building inference API image ==="
-cd "$SERVING_DIR"
-sudo docker build -f Dockerfile.cached -t mealie-inference:latest .
-sudo docker save mealie-inference:latest | sudo k3s ctr images import -
+echo "=== [4/8] Building inference API image ==="
+cd "$REPO_ROOT"
+sudo docker build -f serving/Dockerfile -t proj18biasvariance/mealie-serving:local .
+sudo docker save proj18biasvariance/mealie-serving:local | sudo k3s ctr images import -
 echo "Inference image imported."
 
-echo "=== [6/9] Building Mealie image ==="
-cd "$MEALIE_DIR"
-sudo docker build --file docker/Dockerfile -t mealie-custom:latest .
-sudo docker save mealie-custom:latest | sudo k3s ctr images import -
+echo "=== [5/8] Building Mealie image ==="
+sudo docker build --file docker/Dockerfile -t proj18biasvariance/mealie-custom:local .
+sudo docker save proj18biasvariance/mealie-custom:local | sudo k3s ctr images import -
 echo "Mealie image imported."
 
-echo "=== [7/9] Deploying inference API and Mealie ==="
-# Inference API deployment (NodePort 30800)
-cat <<EOF | sudo kubectl apply -f -
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: inference-api
-  namespace: mealie-prod
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: inference-api
-  template:
-    metadata:
-      labels:
-        app: inference-api
-    spec:
-      containers:
-        - name: inference-api
-          image: mealie-inference:latest
-          imagePullPolicy: Never
-          ports:
-            - containerPort: 8000
-          envFrom:
-            - configMapRef:
-                name: shared-env
-          resources:
-            requests:
-              cpu: 100m
-              memory: 256Mi
-            limits:
-              cpu: 500m
-              memory: 512Mi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: inference-api
-  namespace: mealie-prod
-spec:
-  type: NodePort
-  selector:
-    app: inference-api
-  ports:
-    - port: 8000
-      targetPort: 8000
-      nodePort: 30800
-EOF
+echo "=== [6/8] Deploying serving and Mealie ==="
+sudo kubectl apply -f "$SERVING_K8S_DIR/inference-deployment.yaml"
+sudo kubectl apply -f "$MEALIE_K8S_DIR/mealie-deployment.yaml"
+wait_for_rollout deployment inference-api serving
+wait_for_rollout deployment mealie-app mealie
 
-# Mealie deployment (NodePort 30090)
-cat <<EOF | sudo kubectl apply -f -
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: mealie
-  namespace: mealie-prod
-spec:
-  replicas: 1
-  selector:
-    matchLabels:
-      app: mealie
-  template:
-    metadata:
-      labels:
-        app: mealie
-    spec:
-      containers:
-        - name: mealie
-          image: mealie-custom:latest
-          imagePullPolicy: Never
-          ports:
-            - containerPort: 9000
-          envFrom:
-            - configMapRef:
-                name: shared-env
-          env:
-            - name: DB_ENGINE
-              value: postgres
-            - name: POSTGRES_USER
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: username
-            - name: POSTGRES_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postgres-secret
-                  key: password
-            - name: POSTGRES_SERVER
-              value: postgres.platform.svc.cluster.local
-            - name: POSTGRES_PORT
-              value: "5432"
-            - name: POSTGRES_DB
-              value: mealie
-            - name: INFERENCE_API_URL
-              value: "http://inference-api.mealie-prod.svc.cluster.local:8000"
-            - name: ALLOW_SIGNUP
-              value: "true"
-          resources:
-            requests:
-              cpu: 200m
-              memory: 512Mi
-            limits:
-              cpu: 1000m
-              memory: 1Gi
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mealie
-  namespace: mealie-prod
-spec:
-  type: NodePort
-  selector:
-    app: mealie
-  ports:
-    - port: 9000
-      targetPort: 9000
-      nodePort: 30090
-EOF
-
-echo "=== [8/9] Applying CronJobs and monitoring ==="
-CRONJOB_DIR="$MEALIE_DIR/dev/cronjobs"
-sudo kubectl apply -f "$CRONJOB_DIR/mealie-prod-batch-compile-cronjob.yaml"
-sudo kubectl apply -f "$CRONJOB_DIR/mealie-prod-monthly-retrain-cronjob.yaml"
-sudo kubectl apply -f "$CRONJOB_DIR/mealie-prod-nightly-eval-cronjob.yaml"
-
-MONITORING_DIR="$MEALIE_DIR/dev/monitoring"
+echo "=== [7/8] Applying monitoring manifests ==="
 sudo kubectl apply -f "$MONITORING_DIR/prometheus-rbac.yaml"
-sudo kubectl apply -f "$MONITORING_DIR/blackbox-exporter-configmap.yaml"
-sudo kubectl apply -f "$MONITORING_DIR/blackbox-exporter-deployment.yaml"
-sudo kubectl apply -f "$MONITORING_DIR/prometheus-configmap.yaml"
-sudo kubectl apply -f "$MONITORING_DIR/prometheus-deployment.yaml"
-sudo kubectl apply -f "$MONITORING_DIR/grafana-configmap.yaml"
-sudo kubectl apply -f "$MONITORING_DIR/grafana-deployment.yaml"
-sudo kubectl apply -f "$MONITORING_DIR/alertmanager-configmap.yaml"
-sudo kubectl apply -f "$MONITORING_DIR/alertmanager-deployment.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/kube-state-metrics-rbac.yaml"
 sudo kubectl apply -f "$MONITORING_DIR/kube-state-metrics.yaml"
-# HPA skipped on single-node VM to avoid CPU thrash from over-scaling
+sudo kubectl apply -f "$MONITORING_DIR/blackbox-exporter-configmap.yaml"
+sudo kubectl apply -f "$MONITORING_DIR/blackbox-exporter-deployment.yaml"
+sudo kubectl apply -f "$MONITORING_DIR/alertmanager-configmap.yaml"
+sudo kubectl apply -f "$MONITORING_DIR/alertmanager-deployment.yaml"
+sudo kubectl apply -f "$MONITORING_DIR/prometheus-configmap.yaml"
+sudo kubectl apply -f "$MONITORING_DIR/prometheus-pvc.yaml"
+sudo kubectl apply -f "$MONITORING_DIR/prometheus-deployment.yaml"
+sudo kubectl apply -f "$MONITORING_DIR/grafana-configmap.yaml"
+sudo kubectl apply -f "$MONITORING_DIR/grafana-dashboards.yaml"
+sudo kubectl apply -f "$MONITORING_DIR/grafana-deployment.yaml"
+wait_for_rollout deployment kube-state-metrics monitoring
+wait_for_rollout deployment blackbox-exporter monitoring
+wait_for_rollout deployment alertmanager monitoring
+wait_for_rollout deployment prometheus monitoring
+wait_for_rollout deployment grafana monitoring
 
-echo "=== [9/9] Opening iptables firewall ports ==="
+echo "=== [8/8] Opening iptables firewall ports ==="
 for port in 22 30090 30800 30500 30900 30901 30091 30300 30903; do
     sudo iptables -I INPUT -p tcp --dport "$port" -j ACCEPT 2>/dev/null || true
 done
@@ -246,5 +161,5 @@ echo "Prometheus:       http://${FLOATING_IP}:30091"
 echo "Grafana:          http://${FLOATING_IP}:30300  (admin / admin123)"
 echo "Alertmanager:     http://${FLOATING_IP}:30903"
 echo ""
-echo "Next: run bootstrap_data.sh to seed the ALS model, then check pods:"
+echo "Next: check the cluster state:"
 echo "  sudo kubectl get pods --all-namespaces"

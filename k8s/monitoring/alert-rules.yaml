@@ -1,0 +1,54 @@
+
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: platform-alert-rules
+  namespace: monitoring
+spec:
+  groups:
+  - name: platform-alerts
+    rules:
+      - alert: PodCrashLooping
+        expr: increase(kube_pod_container_status_restarts_total[10m]) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Pod is restarting frequently"
+          description: "Container in pod {{ $labels.namespace }}/{{ $labels.pod }} restarted more than twice in 10 minutes."
+
+      - alert: DeploymentReplicasUnavailable
+        expr: kube_deployment_status_replicas_unavailable > 0
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Deployment has unavailable replicas"
+          description: "Deployment {{ $labels.namespace }}/{{ $labels.deployment }} has unavailable replicas."
+
+      - alert: StatefulSetReplicasUnavailable
+        expr: kube_statefulset_status_replicas_ready < kube_statefulset_status_replicas
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "StatefulSet has unavailable replicas"
+          description: "StatefulSet {{ $labels.namespace }}/{{ $labels.statefulset }} is not fully ready."
+
+      - alert: FailedCronJob
+        expr: kube_job_status_failed > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Kubernetes job failure detected"
+          description: "Job {{ $labels.namespace }}/{{ $labels.job_name }} has failed."
+
+      - alert: HPAAtMaxReplicas
+        expr: kube_horizontalpodautoscaler_status_current_replicas >= kube_horizontalpodautoscaler_spec_max_replicas
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "HPA is at max replicas"
+          description: "HPA {{ $labels.namespace }}/{{ $labels.horizontalpodautoscaler }} is running at max replicas."

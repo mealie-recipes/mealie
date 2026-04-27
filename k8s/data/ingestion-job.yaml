@@ -1,0 +1,39 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: foodcom-ingest-bootstrap
+  namespace: data
+spec:
+  backoffLimit: 1
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+        - name: foodcom-ingest-bootstrap
+          image: proj18biasvariance/foodcom-ingestion:local
+          imagePullPolicy: Never
+          env:
+            - name: BUCKET_NAME
+              value: training-data
+            - name: S3_ENDPOINT
+              value: http://minio-service.platform.svc.cluster.local:9000
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: accesskey
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: minio-secret
+                  key: secretkey
+            - name: KAGGLE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: kaggle-secret
+                  key: username
+            - name: KAGGLE_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: kaggle-secret
+                  key: key

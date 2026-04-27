@@ -1,0 +1,60 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nightly-eval
+  namespace: training
+spec:
+  schedule: "0 3 * * *"
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: nightly-eval
+              image: proj18biasvariance/mealie-nightly-eval:local
+              imagePullPolicy: Never
+              env:
+                - name: MINIO_ENDPOINT
+                  value: http://minio-service.platform.svc.cluster.local:9000
+                - name: MINIO_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-secret
+                      key: accesskey
+                - name: MINIO_SECRET_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-secret
+                      key: secretkey
+                - name: BUCKET_NAME
+                  value: training-data
+                - name: ARTIFACTS_BUCKET
+                  value: mlflow-artifacts
+                - name: MLFLOW_TRACKING_URI
+                  value: http://mlflow-service.platform.svc.cluster.local:5000
+                - name: INFERENCE_API_URL
+                  value: http://inference-service.serving.svc.cluster.local:8000
+                - name: POSTGRES_HOST
+                  value: postgres.platform.svc.cluster.local
+                - name: POSTGRES_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-secret
+                      key: username
+                - name: POSTGRES_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-secret
+                      key: password
+                - name: POSTGRES_DB
+                  value: mealie
+              resources:
+                requests:
+                  cpu: "100m"
+                  memory: "256Mi"
+                limits:
+                  cpu: "500m"
+                  memory: "512Mi"

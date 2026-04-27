@@ -1,0 +1,796 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboard-provider
+  namespace: monitoring
+data:
+  dashboard-provider.yaml: |
+    apiVersion: 1
+    providers:
+      - name: mealie
+        orgId: 1
+        folder: Mealie
+        type: file
+        disableDeletion: false
+        editable: true
+        updateIntervalSeconds: 10
+        options:
+          path: /var/lib/grafana/dashboards/mealie
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  namespace: monitoring
+data:
+  cluster-overview.json: |
+    {
+      "uid": "mealie-cluster-overview",
+      "title": "Mealie Cluster Overview",
+      "tags": ["mealie", "monitoring", "overview"],
+      "timezone": "browser",
+      "schemaVersion": 39,
+      "version": 1,
+      "refresh": "30s",
+      "time": {
+        "from": "now-6h",
+        "to": "now"
+      },
+      "panels": [
+        {
+          "id": 1,
+          "type": "stat",
+          "title": "Jobs Succeeded",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 0,
+            "y": 0
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "targets": [
+            {
+              "expr": "sum(kube_job_status_succeeded{namespace=~\"mealie|serving|data|training|platform|monitoring\"})",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "decimals": 0
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 2,
+          "type": "stat",
+          "title": "Jobs Failed",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 6,
+            "y": 0
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "targets": [
+            {
+              "expr": "sum(kube_job_status_failed{namespace=~\"mealie|serving|data|training|platform|monitoring\"})",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "decimals": 0
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 3,
+          "type": "stat",
+          "title": "Pod Restarts (1h)",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 12,
+            "y": 0
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "targets": [
+            {
+              "expr": "sum(increase(kube_pod_container_status_restarts_total{namespace=~\"mealie|serving|data|training|platform|monitoring\"}[1h]))",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "decimals": 0
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 4,
+          "type": "stat",
+          "title": "Unavailable Replicas",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 18,
+            "y": 0
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "targets": [
+            {
+              "expr": "sum(kube_deployment_status_replicas_unavailable{namespace=~\"mealie|serving|data|training|platform|monitoring\"})",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "decimals": 0
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 5,
+          "type": "stat",
+          "title": "Mealie API Uptime %",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 0,
+            "y": 8
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "targets": [
+            {
+              "expr": "avg_over_time(up{job=\"mealie-api\"}[24h]) * 100",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percent",
+              "decimals": 2
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 6,
+          "type": "stat",
+          "title": "Mealie API Up",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 6,
+            "y": 8
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "targets": [
+            {
+              "expr": "up{job=\"mealie-api\"}",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "decimals": 0
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 7,
+          "type": "timeseries",
+          "title": "Pod Filesystem Usage",
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 8
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "targets": [
+            {
+              "expr": "sum by (namespace) (container_fs_usage_bytes{namespace=~\"mealie|serving|data|training|platform|monitoring\",container!=\"\",image!=\"\"})",
+              "legendFormat": "{{ namespace }}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "bytes",
+              "decimals": 2
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 8,
+          "type": "stat",
+          "title": "Firing Alerts",
+          "description": "Total number of Prometheus alerts currently firing.",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 0,
+            "y": 16
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "targets": [
+            {
+              "expr": "sum(ALERTS{alertstate=\"firing\"})",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "decimals": 0
+            },
+            "overrides": []
+          }
+        }
+      ]
+    }
+  jobs-monitoring.json: |
+    {
+      "uid": "mealie-jobs-monitoring",
+      "title": "Mealie Jobs Monitoring",
+      "tags": ["mealie", "jobs", "cronjobs"],
+      "timezone": "browser",
+      "schemaVersion": 39,
+      "version": 1,
+      "refresh": "30s",
+      "time": {
+        "from": "now-24h",
+        "to": "now"
+      },
+      "panels": [
+        {
+          "id": 1,
+          "type": "stat",
+          "title": "Active Jobs",
+          "gridPos": { "h": 7, "w": 6, "x": 0, "y": 0 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "sum(kube_job_status_active{namespace=~\"mealie|serving|data|training|platform|monitoring\"})",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "none", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 2,
+          "type": "stat",
+          "title": "Jobs Succeeded",
+          "gridPos": { "h": 7, "w": 6, "x": 6, "y": 0 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "sum(kube_job_status_succeeded{namespace=~\"mealie|serving|data|training|platform|monitoring\"})",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "none", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 3,
+          "type": "stat",
+          "title": "Jobs Failed",
+          "gridPos": { "h": 7, "w": 6, "x": 12, "y": 0 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "sum(kube_job_status_failed{namespace=~\"mealie|serving|data|training|platform|monitoring\"})",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "none", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 4,
+          "type": "stat",
+          "title": "Time Since Last Job Start",
+          "gridPos": { "h": 7, "w": 6, "x": 18, "y": 0 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "clamp_min(time() - max(kube_job_status_start_time{namespace=~\"mealie|serving|data|training|platform|monitoring\"}), 0)",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s",
+              "decimals": 0
+            },
+            "overrides": []
+          },
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "orientation": "auto",
+            "textMode": "auto",
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto"
+          }
+        },
+        {
+          "id": 5,
+          "type": "stat",
+          "title": "Time Since Last Job Completion",
+          "gridPos": { "h": 7, "w": 6, "x": 0, "y": 7 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "clamp_min(time() - max(kube_job_status_completion_time{namespace=~\"mealie|serving|data|training|platform|monitoring\"}), 0)",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "s",
+              "decimals": 0
+            },
+            "overrides": []
+          },
+          "options": {
+            "reduceOptions": {
+              "calcs": [
+                "lastNotNull"
+              ],
+              "fields": "",
+              "values": false
+            },
+            "orientation": "auto",
+            "textMode": "auto",
+            "colorMode": "value",
+            "graphMode": "none",
+            "justifyMode": "auto"
+          }
+        },
+        {
+          "id": 6,
+          "type": "timeseries",
+          "title": "Succeeded Jobs (24h)",
+          "gridPos": { "h": 8, "w": 9, "x": 6, "y": 7 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "sum(increase(kube_job_status_succeeded{namespace=~\"mealie|serving|data|training|platform|monitoring\"}[24h]))",
+              "legendFormat": "Succeeded",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "none", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 7,
+          "type": "timeseries",
+          "title": "Failed Jobs (24h)",
+          "gridPos": { "h": 8, "w": 9, "x": 15, "y": 7 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "sum(increase(kube_job_status_failed{namespace=~\"mealie|serving|data|training|platform|monitoring\"}[24h]))",
+              "legendFormat": "Failed",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "none", "decimals": 0 }, "overrides": [] }
+        }
+      ]
+    }
+  service-health.json: |
+    {
+      "uid": "mealie-service-health",
+      "title": "Mealie Service Health",
+      "tags": ["mealie", "health", "slo"],
+      "timezone": "browser",
+      "schemaVersion": 39,
+      "version": 1,
+      "refresh": "30s",
+      "time": {
+        "from": "now-24h",
+        "to": "now"
+      },
+      "panels": [
+        {
+          "id": 1,
+          "type": "stat",
+          "title": "Mealie API Uptime %",
+          "gridPos": { "h": 7, "w": 6, "x": 0, "y": 0 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "avg_over_time(up{job=\"mealie-api\"}[24h]) * 100",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "percent", "decimals": 2 }, "overrides": [] }
+        },
+        {
+          "id": 2,
+          "type": "stat",
+          "title": "Mealie API Up",
+          "gridPos": { "h": 7, "w": 6, "x": 6, "y": 0 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "up{job=\"mealie-api\"}",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "none", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 3,
+          "type": "stat",
+          "title": "Inference API Uptime %",
+          "gridPos": { "h": 7, "w": 6, "x": 12, "y": 0 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "avg_over_time(up{job=\"inference-api\"}[24h]) * 100",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "percent", "decimals": 2 }, "overrides": [] }
+        },
+        {
+          "id": 4,
+          "type": "stat",
+          "title": "Inference API Up",
+          "gridPos": { "h": 7, "w": 6, "x": 18, "y": 0 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "up{job=\"inference-api\"}",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "none", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 5,
+          "type": "stat",
+          "title": "Recommendation Requests / min",
+          "gridPos": { "h": 7, "w": 6, "x": 0, "y": 7 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "sum(rate(mealie_recommendation_requests_total[5m])) * 60",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "none", "decimals": 2 }, "overrides": [] }
+        },
+        {
+          "id": 6,
+          "type": "stat",
+          "title": "Recommendation Error Rate %",
+          "gridPos": { "h": 7, "w": 6, "x": 6, "y": 7 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "100 * sum(rate(mealie_recommendation_errors_total[5m])) / clamp_min(sum(rate(mealie_recommendation_requests_total[5m])), 1)",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "percent", "decimals": 2 }, "overrides": [] }
+        },
+        {
+          "id": 7,
+          "type": "stat",
+          "title": "Low Confidence Rate %",
+          "gridPos": { "h": 7, "w": 6, "x": 12, "y": 7 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "100 * sum(rate(mealie_low_confidence_predictions_total[5m])) / clamp_min(sum(rate(mealie_recommendation_requests_total[5m])), 1)",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "percent", "decimals": 2 }, "overrides": [] }
+        },
+        {
+          "id": 8,
+          "type": "stat",
+          "title": "Pod Restarts (1h)",
+          "gridPos": { "h": 7, "w": 6, "x": 18, "y": 7 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "sum(increase(kube_pod_container_status_restarts_total{namespace=~\"mealie|serving|data|training|platform|monitoring\"}[1h]))",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "none", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 9,
+          "type": "stat",
+          "title": "MLflow Reachability",
+          "gridPos": { "h": 7, "w": 6, "x": 0, "y": 14 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "probe_success{job=\"mlflow\"}",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "percent", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 10,
+          "type": "stat",
+          "title": "MinIO Reachability",
+          "gridPos": { "h": 7, "w": 6, "x": 6, "y": 14 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "probe_success{job=\"minio\"}",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "percent", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 11,
+          "type": "stat",
+          "title": "PostgreSQL Reachability",
+          "gridPos": { "h": 7, "w": 6, "x": 12, "y": 14 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "probe_success{job=\"postgres\"}",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": { "defaults": { "unit": "percent", "decimals": 0 }, "overrides": [] }
+        },
+        {
+          "id": 12,
+          "type": "stat",
+          "title": "Firing Alerts",
+          "description": "Total number of Prometheus alerts currently firing.",
+          "gridPos": { "h": 7, "w": 6, "x": 18, "y": 14 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "sum(ALERTS{alertstate=\"firing\"})",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "none",
+              "decimals": 0
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 13,
+          "type": "table",
+          "title": "Active Prometheus Alerts",
+          "description": "Alerts currently firing in Prometheus.",
+          "gridPos": { "h": 9, "w": 24, "x": 0, "y": 21 },
+          "datasource": { "type": "prometheus", "uid": "Prometheus" },
+          "targets": [
+            {
+              "expr": "ALERTS{alertstate=\"firing\"}",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {},
+            "overrides": []
+          },
+          "options": {
+            "showHeader": true
+          }
+        }
+      ]
+    }
+  model-quality.json: |
+    {
+      "uid": "mealie-model-quality",
+      "title": "Mealie Model Quality",
+      "tags": ["mealie", "ml", "recommendations"],
+      "timezone": "browser",
+      "schemaVersion": 39,
+      "version": 1,
+      "refresh": "1m",
+      "time": {
+        "from": "now-7d",
+        "to": "now"
+      },
+      "panels": [
+        {
+          "id": 1,
+          "type": "stat",
+          "title": "Low Confidence Rate",
+          "description": "Percentage of recommendation responses that fell back to a low-confidence path.",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 0,
+            "y": 0
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "targets": [
+            {
+              "expr": "100 * sum(rate(mealie_low_confidence_predictions_total[5m])) / clamp_min(sum(rate(mealie_recommendation_requests_total[5m])), 1)",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percent",
+              "decimals": 2
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 2,
+          "type": "timeseries",
+          "title": "Score Distribution",
+          "description": "Histogram of recommendation scores returned by the model or fallback path.",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 6,
+            "y": 0
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "targets": [
+            {
+              "expr": "sum(rate(mealie_recommendation_score_bucket[5m])) by (le)",
+              "legendFormat": "{{ le }}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short",
+              "decimals": 3
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 3,
+          "type": "timeseries",
+          "title": "Alpha Distribution (Personalization Level)",
+          "description": "Histogram of the personalization progress used for recommendation quality.",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 12,
+            "y": 0
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "targets": [
+            {
+              "expr": "sum(rate(mealie_personalization_alpha_bucket[5m])) by (le)",
+              "legendFormat": "{{ le }}",
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "short",
+              "decimals": 3
+            },
+            "overrides": []
+          }
+        },
+        {
+          "id": 4,
+          "type": "stat",
+          "title": "Error Rate",
+          "description": "Errors per recommendation request across the recommendation pipeline.",
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 18,
+            "y": 0
+          },
+          "datasource": {
+            "type": "prometheus",
+            "uid": "Prometheus"
+          },
+          "targets": [
+            {
+              "expr": "100 * sum(rate(mealie_recommendation_errors_total[5m])) / clamp_min(sum(rate(mealie_recommendation_requests_total[5m])), 1)",
+              "instant": true,
+              "refId": "A"
+            }
+          ],
+          "fieldConfig": {
+            "defaults": {
+              "unit": "percent",
+              "decimals": 2
+            },
+            "overrides": []
+          }
+        }
+      ]
+    }

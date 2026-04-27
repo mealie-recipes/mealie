@@ -1,0 +1,45 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: batch-compile-datasets
+  namespace: data
+spec:
+  schedule: "0 2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: batch-compile-datasets
+              image: proj18biasvariance/batch-compile-datasets:local
+              imagePullPolicy: Never
+              env:
+                - name: BUCKET_NAME
+                  value: training-data
+                - name: POSTGRES_HOST
+                  value: postgres.platform.svc.cluster.local
+                - name: POSTGRES_USER
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-secret
+                      key: username
+                - name: POSTGRES_PASSWORD
+                  valueFrom:
+                    secretKeyRef:
+                      name: postgres-secret
+                      key: password
+                - name: POSTGRES_DB
+                  value: mealie
+                - name: AWS_ACCESS_KEY_ID
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-secret
+                      key: accesskey
+                - name: AWS_SECRET_ACCESS_KEY
+                  valueFrom:
+                    secretKeyRef:
+                      name: minio-secret
+                      key: secretkey
+                - name: S3_ENDPOINT
+                  value: http://minio-service.platform.svc.cluster.local:9000

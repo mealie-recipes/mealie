@@ -25,10 +25,10 @@ spec:
               mountPath: /etc/alertmanager
           resources:
             requests:
-              cpu: 25m
-              memory: 64Mi
+              cpu: 100m
+              memory: 128Mi
             limits:
-              cpu: 150m
+              cpu: 250m
               memory: 256Mi
       volumes:
         - name: config
