@@ -109,6 +109,7 @@ tasks:
     desc: runs python code formatter
     cmds:
       - uv run ruff format .
+      - uv run tombi format .
 
   py:lint:
     desc: runs python linter
