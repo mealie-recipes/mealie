@@ -42,7 +42,7 @@
       </div>
     </template>
     <template
-      v-if="showAdd"
+      v-if="showAdd && searchInput"
       #append-item
     >
       <div class="px-2">

@@ -88,7 +88,7 @@
             </div>
           </template>
           <template #append-item>
-            <div class="px-2">
+            <div v-if="unitSearch" class="px-2">
               <BaseButton
                 block
                 size="small"
@@ -147,7 +147,7 @@
             </div>
           </template>
           <template #append-item>
-            <div class="px-2">
+            <div v-if="foodSearch" class="px-2">
               <BaseButton
                 block
                 size="small"
