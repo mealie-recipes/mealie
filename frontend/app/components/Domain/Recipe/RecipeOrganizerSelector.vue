@@ -34,6 +34,18 @@
     </template>
     <template
       v-if="showAdd"
+      #append-item
+    >
+      <div class="px-2">
+        <BaseButton
+          block
+          size="small"
+          @click="createItem()"
+        />
+      </div>
+    </template>
+    <template
+      v-if="showAdd"
       #append
     >
       <RecipeOrganizerDialog
@@ -178,6 +190,20 @@ function appendCreated(item: any) {
   }
 
   selected.value = [...selected.value, item];
+}
+
+async function createItem() {
+  if (!searchInput.value) {
+    return;
+  }
+
+  const actions = storeMap[props.selectorType].actions;
+  // @ts-expect-error different organizer types have different required fields
+  const newItem = await actions.createOne({ name: searchInput.value });
+  if (newItem) {
+    appendCreated(newItem);
+  }
+  searchInput.value = "";
 }
 
 const dialog = ref(false);
