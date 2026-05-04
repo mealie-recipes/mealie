@@ -54,7 +54,7 @@
 </template>
 
 <script setup lang="ts">
-import { useShoppingListItemEditor } from "~/composables/shopping-list-page/use-shopping-llist-item-editor";
+import { useShoppingListItemEditor } from "~/composables/shopping-list-page/use-shopping-list-item-editor";
 import type { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/household";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
