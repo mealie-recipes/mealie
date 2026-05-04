@@ -48,6 +48,7 @@
         :labels="labels"
         :units="units"
         :foods="foods"
+        @save="$emit('save')"
       />
     </div>
   </v-navigation-drawer>

@@ -16,6 +16,7 @@
         :labels="labels"
         :units="units"
         :foods="foods"
+        @save="$emit('save')"
       />
     </div>
     <v-card-actions class="justify-end pa-0">
