@@ -81,8 +81,7 @@ defineProps({
 
 // const emit = defineEmits<["save", "cancel", "delete"]>();
 defineEmits<{
-  (e: "save", item: ShoppingListItemOut): void;
-  (e: "cancel" | "delete"): void;
+  (e: "save" | "cancel" | "delete"): void;
 }>();
 
 const { createAssignFood } = useShoppingListItemEditor(listItem);
