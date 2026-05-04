@@ -38,7 +38,7 @@
             },
           ]"
           @save="$emit('save')"
-          @cancel="rail = !rail"
+          @cancel="rail = true; $emit('cancel')"
         />
       </v-card-actions>
 
