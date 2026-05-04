@@ -272,8 +272,8 @@ class BaseMigrator(BaseService):
         recipe = cleaner.clean(recipe_dict, self.translator, url=recipe_dict.get("org_url", None))
         return recipe
 
-    def import_image(self, slug: str, src: str | Path, recipe_id: UUID4):
+    def import_image(self, slug: str, src: str | Path, recipe_id: UUID4, extraction_root: Path | None = None):
         try:
-            import_image(src, recipe_id)
+            import_image(src, recipe_id, extraction_root=extraction_root)
         except UnidentifiedImageError as e:
             self.logger.error(f"Failed to import image for {slug}: {e}")

@@ -1,5 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "lockFileMaintenance": {
+    "enabled": true
+  },
   "enabledManagers": [
     "pep621",
     "dockerfile",

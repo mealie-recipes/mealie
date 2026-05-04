@@ -98,6 +98,7 @@
     "dashboard": "Übersicht",
     "delete": "Löschen",
     "disabled": "Deaktiviert",
+    "done": "Done",
     "download": "Herunterladen",
     "duplicate": "Duplizieren",
     "edit": "Bearbeiten",
@@ -1472,5 +1473,12 @@
     "no-whitespace": "Kein Leerzeichen erlaubt",
     "min-length": "Muss mindestens {min} Zeichen haben",
     "max-length": "Muss maximal {max} Zeichen haben|Muss maximal {max} Zeichen haben"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Alle als gelesen markieren",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }
