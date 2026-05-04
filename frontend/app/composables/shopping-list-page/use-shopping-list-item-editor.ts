@@ -9,23 +9,6 @@ export function useShoppingListItemEditor(listItem: ModelRef<ShoppingListItemOut
   const unitStore = useUnitStore();
   const unitData = useUnitData();
 
-  watch(
-    () => listItem.value.quantity,
-    (newQty) => {
-      if (!newQty) {
-        listItem.value.quantity = 0;
-      }
-    },
-  );
-
-  watch(
-    () => listItem.value.food,
-    (newFood) => {
-      listItem.value.label = newFood?.label || null;
-      listItem.value.labelId = listItem.value.label?.id || null;
-    },
-  );
-
   async function createAssignFood(val: string) {
     // keep UI reactive
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions

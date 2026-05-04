@@ -84,5 +84,23 @@ defineEmits<{
 }>();
 
 const { createAssignFood } = useShoppingListItemEditor(listItem);
+
+watch(
+  () => listItem.value.quantity,
+  (newQty) => {
+    if (!newQty) {
+      listItem.value.quantity = 0;
+    }
+  },
+);
+
+watch(
+  () => listItem.value.food,
+  (newFood) => {
+    listItem.value.label = newFood?.label || null;
+    listItem.value.labelId = listItem.value.label?.id || null;
+  },
+);
+
 const rail = ref(true);
 </script>
