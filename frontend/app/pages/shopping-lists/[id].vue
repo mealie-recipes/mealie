@@ -167,7 +167,6 @@
         :labels="allLabels || []"
         :units="allUnits || []"
         :foods="allFoods || []"
-        :allow-delete="false"
         @cancel="createEditorOpen = false"
         @save="createListItem"
       />
