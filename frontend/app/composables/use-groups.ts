@@ -6,7 +6,12 @@ const loading = ref(false);
 
 export const useGroupSelf = function () {
   const api = useUserApi();
+  const auth = useMealieAuth();
   async function refreshGroupSelf() {
+    if (!auth.user.value) {
+      groupSelfRef.value = null;
+      return;
+    }
     loading.value = true;
     const { data } = await api.groups.getCurrentUserGroup();
     groupSelfRef.value = data;
