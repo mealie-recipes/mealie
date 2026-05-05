@@ -493,8 +493,8 @@
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "collard greens",
-                "plural_name": "collard greens"
+                "name": "cavolo verde",
+                "plural_name": "cavoli verdi"
             },
             "french-fried onion": {
                 "aliases": [],
@@ -547,14 +547,14 @@
             "microgreens": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreens",
-                "plural_name": "microgreens"
+                "name": "micro ortaggio",
+                "plural_name": "micro ortaggi"
             },
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
                 "name": "lattuga liscia",
-                "plural_name": "boston lettuce"
+                "plural_name": "lattuga cappuccina"
             },
             "kohlrabi": {
                 "aliases": [],
