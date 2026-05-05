@@ -145,6 +145,7 @@
       :labels="labels"
       :units="units"
       :foods="foods"
+      class="ma-2"
       @save="save"
       @cancel="toggleEdit(false)"
       @delete="$emit('delete')"
