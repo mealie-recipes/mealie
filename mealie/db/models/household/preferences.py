@@ -34,6 +34,9 @@ class HouseholdPreferencesModel(SqlAlchemyBase, BaseMixins):
     recipe_landscape_view: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
     recipe_disable_comments: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
 
+    # Default unit system applied when viewing recipes for users who haven't set their own
+    default_unit_system: Mapped[str] = mapped_column(sa.String, nullable=False, default="original")
+
     # Deprecated
     recipe_disable_amount: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
 

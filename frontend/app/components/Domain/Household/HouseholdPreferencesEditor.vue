@@ -42,6 +42,19 @@
       variant="underlined"
       flat
     />
+    <v-select
+      v-model="local.defaultUnitSystem"
+      :prepend-icon="$globals.icons.units"
+      :items="unitSystemOptions"
+      item-title="label"
+      item-value="value"
+      :label="$t('household.default-unit-system')"
+      variant="underlined"
+      flat
+    />
+    <p class="ml-8 text-subtitle-2 my-0 py-0">
+      {{ $t("household.default-unit-system-description") }}
+    </p>
 
     <BaseCardSectionTitle class="mt-5" :title="$t('household.household-recipe-preferences')">
       {{ $t("household.default-recipe-preferences-description") }}
@@ -98,6 +111,13 @@ const recipePreferences: Preference[] = [
     label: i18n.t("group.disable-users-from-commenting-on-recipes"),
     description: i18n.t("group.disable-users-from-commenting-on-recipes-description"),
   },
+];
+
+const unitSystemOptions = [
+  { label: i18n.t("recipe.unit-system-original"), value: "original" },
+  { label: i18n.t("recipe.unit-system-metric"), value: "metric" },
+  { label: i18n.t("recipe.unit-system-imperial"), value: "imperial" },
+  { label: i18n.t("recipe.unit-system-us"), value: "us" },
 ];
 
 const allDays = [

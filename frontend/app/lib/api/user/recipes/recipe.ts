@@ -10,6 +10,7 @@ import type {
   RecipeAsset,
   CreateRecipeByUrlBulk,
   ParsedIngredient,
+  RecipeConversionResponse,
   UpdateImageResponse,
   RecipeLastMade,
   RecipeSuggestionQuery,
@@ -18,6 +19,7 @@ import type {
   RecipeTimelineEventOut,
   RecipeTimelineEventUpdate,
 } from "~/lib/api/types/recipe";
+import type { UnitSystem } from "~/lib/api/types/user";
 import type { SSEDataEventDone, SSEDataEventMessage } from "~/lib/api/types/response";
 import type { ApiRequestInstance, PaginationData, RequestResponse } from "~/lib/api/types/non-generated";
 import { SSEDataEventStatus } from "~/lib/api/types/non-generated";
@@ -56,6 +58,7 @@ const routes = {
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
 
   recipesSlugLastMade: (slug: string) => `${prefix}/recipes/${slug}/last-made`,
+  recipesSlugConversions: (slug: string) => `${prefix}/recipes/${slug}/conversions`,
   recipesTimelineEventId: (id: string) => `${prefix}/recipes/timeline/events/${id}`,
   recipesTimelineEventIdImage: (id: string) => `${prefix}/recipes/timeline/events/${id}/image`,
 };
@@ -250,6 +253,12 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
 
   async updateLastMade(recipeSlug: string, timestamp: string) {
     return await this.requests.patch<Recipe, RecipeLastMade>(routes.recipesSlugLastMade(recipeSlug), { timestamp });
+  }
+
+  async getConversions(recipeSlug: string, system: UnitSystem) {
+    return await this.requests.get<RecipeConversionResponse>(
+      `${routes.recipesSlugConversions(recipeSlug)}?system=${system}`,
+    );
   }
 
   async createTimelineEvent(payload: RecipeTimelineEventIn) {

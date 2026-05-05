@@ -5,6 +5,7 @@ from sqlalchemy.orm.interfaces import LoaderOption
 from mealie.db.models.household.household import Household
 from mealie.db.models.household.preferences import HouseholdPreferencesModel
 from mealie.schema._mealie import MealieModel
+from mealie.schema.recipe.unit_system import UnitSystem
 
 
 class UpdateHouseholdPreferences(MealieModel):
@@ -20,6 +21,8 @@ class UpdateHouseholdPreferences(MealieModel):
     recipe_show_assets: bool = False
     recipe_landscape_view: bool = False
     recipe_disable_comments: bool = False
+
+    default_unit_system: UnitSystem = UnitSystem.ORIGINAL
 
 
 class CreateHouseholdPreferences(UpdateHouseholdPreferences): ...

@@ -387,7 +387,19 @@ class RecipeLastMade(BaseModel):
     timestamp: datetime.datetime
 
 
+class RecipeConversionResponse(MealieModel):
+    """Display-time conversion of a recipe's ingredients and instruction temperatures.
+
+    Returned by the recipe conversion endpoint when the viewer selects a
+    non-original unit system. The DB is not modified.
+    """
+
+    recipe_ingredient: list[RecipeIngredient] = []
+    recipe_instructions: list[RecipeStep] = []
+
+
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient  # noqa: E402
 
 RecipeSummary.model_rebuild()
 Recipe.model_rebuild()
+RecipeConversionResponse.model_rebuild()

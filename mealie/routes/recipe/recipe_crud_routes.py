@@ -37,16 +37,19 @@ from mealie.schema.recipe import Recipe, ScrapeRecipe, ScrapeRecipeData
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
     CreateRecipeByUrlBulk,
+    RecipeConversionResponse,
     RecipeLastMade,
     RecipeSummary,
 )
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
+from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.recipe.request_helpers import (
     RecipeDuplicate,
     UpdateImageResponse,
 )
+from mealie.schema.recipe.unit_system import UnitSystem
 from mealie.schema.response import PaginationBase, PaginationQuery
 from mealie.schema.response.pagination import RecipeSearchQuery
 from mealie.schema.response.responses import (
@@ -69,6 +72,8 @@ from mealie.services.recipe.recipe_data_service import (
     NotAnImageError,
     RecipeDataService,
 )
+from mealie.services.recipe.recipe_temperature_conversion import convert_instruction_temperatures
+from mealie.services.recipe.recipe_unit_conversion import RecipeUnitConverter
 from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
 from mealie.services.scraper.scraped_extras import ScraperContext
 from mealie.services.scraper.scraper import create_from_html
@@ -419,6 +424,46 @@ class RecipeController(BaseRecipeController):
             return None
 
         return recipe
+
+    @router.get("/{slug}/conversions", response_model=RecipeConversionResponse)
+    def get_conversions(
+        self,
+        slug: str = Path(..., description="A recipe's slug or id"),
+        system: UnitSystem = Query(UnitSystem.ORIGINAL),
+    ) -> RecipeConversionResponse | None:
+        """Return the recipe's ingredients and instructions converted to the given unit system.
+
+        Pure read; no DB writes. `system=original` echoes the recipe unchanged.
+        """
+        try:
+            recipe = self.service.get_one(slug)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
+
+        ingredients = recipe.recipe_ingredient or []
+        instructions = recipe.recipe_instructions or []
+
+        if system == UnitSystem.ORIGINAL:
+            return RecipeConversionResponse(
+                recipe_ingredient=list(ingredients),
+                recipe_instructions=list(instructions),
+            )
+
+        converter = RecipeUnitConverter()
+        converted_ingredients = converter.convert_ingredients(ingredients, system)
+
+        converted_instructions: list[RecipeStep] = []
+        for step in instructions:
+            new_step = step.model_copy(deep=True)
+            new_step.text = convert_instruction_temperatures(step.text, system) or ""
+            new_step.summary = convert_instruction_temperatures(step.summary, system) or ""
+            converted_instructions.append(new_step)
+
+        return RecipeConversionResponse(
+            recipe_ingredient=converted_ingredients,
+            recipe_instructions=converted_instructions,
+        )
 
     @router.post("", status_code=201, response_model=str)
     def create_one(self, data: CreateRecipe) -> str | None:

@@ -7,6 +7,7 @@
 
 export type WebhookType = "mealplan";
 export type AuthMethod = "Mealie" | "LDAP" | "OIDC";
+export type UnitSystem = "original" | "metric" | "imperial" | "us";
 
 export interface ChangePassword {
   currentPassword?: string;
@@ -125,6 +126,7 @@ export interface PrivateUser {
   advanced?: boolean;
   showAnnouncements?: boolean;
   lastReadAnnouncement?: string | null;
+  preferredUnitSystem?: UnitSystem | null;
   canInvite?: boolean;
   canManage?: boolean;
   canManageHousehold?: boolean;
@@ -199,6 +201,7 @@ export interface UserBase {
   advanced?: boolean;
   showAnnouncements?: boolean;
   lastReadAnnouncement?: string | null;
+  preferredUnitSystem?: UnitSystem | null;
   canInvite?: boolean;
   canManage?: boolean;
   canManageHousehold?: boolean;
@@ -216,6 +219,7 @@ export interface UserIn {
   advanced?: boolean;
   showAnnouncements?: boolean;
   lastReadAnnouncement?: string | null;
+  preferredUnitSystem?: UnitSystem | null;
   canInvite?: boolean;
   canManage?: boolean;
   canManageHousehold?: boolean;
@@ -234,6 +238,7 @@ export interface UserOut {
   advanced?: boolean;
   showAnnouncements?: boolean;
   lastReadAnnouncement?: string | null;
+  preferredUnitSystem?: UnitSystem | null;
   canInvite?: boolean;
   canManage?: boolean;
   canManageHousehold?: boolean;

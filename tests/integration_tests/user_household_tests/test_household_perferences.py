@@ -61,3 +61,45 @@ def test_update_preferences(api_client: TestClient, user_tuple: list[TestUser]) 
     assert preferences["recipePublic"] == new_data.recipe_public
     assert preferences["recipeShowNutrition"] == new_data.recipe_show_nutrition
     assert_ignore_keys(new_data.model_dump(by_alias=True), preferences, ["id", "householdId"])
+
+
+def test_default_unit_system_default_is_original(api_client: TestClient, unique_user: TestUser) -> None:
+    response = api_client.get(api_routes.households_preferences, headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["defaultUnitSystem"] == "original"
+
+
+def test_set_default_unit_system_metric(api_client: TestClient, user_tuple: list[TestUser]) -> None:
+    unique_user, other_user = user_tuple
+    user = other_user.repos.users.get_one(unique_user.user_id)
+    assert user
+    user.can_manage_household = True
+    other_user.repos.users.update(user.id, user)
+
+    new_data = UpdateHouseholdPreferences(default_unit_system="metric")
+    response = api_client.put(
+        api_routes.households_preferences,
+        json=new_data.model_dump(by_alias=True),
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json()["defaultUnitSystem"] == "metric"
+
+    # Round-trip: confirm GET returns the new value
+    response = api_client.get(api_routes.households_preferences, headers=unique_user.token)
+    assert response.json()["defaultUnitSystem"] == "metric"
+
+
+def test_set_default_unit_system_invalid_returns_422(api_client: TestClient, user_tuple: list[TestUser]) -> None:
+    unique_user, other_user = user_tuple
+    user = other_user.repos.users.get_one(unique_user.user_id)
+    assert user
+    user.can_manage_household = True
+    other_user.repos.users.update(user.id, user)
+
+    response = api_client.put(
+        api_routes.households_preferences,
+        json={"defaultUnitSystem": "klingon"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 422

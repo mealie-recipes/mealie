@@ -347,6 +347,10 @@ export interface RecipeCommentUpdate {
   id: string;
   text: string;
 }
+export interface RecipeConversionResponse {
+  recipeIngredient?: RecipeIngredient[];
+  recipeInstructions?: RecipeStep[];
+}
 export interface RecipeDuplicate {
   name?: string | null;
 }

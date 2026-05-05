@@ -15,6 +15,7 @@ from mealie.db.models.users.users import AuthMethod, LongLiveToken
 from mealie.schema._mealie import MealieModel
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.household.webhook import CreateWebhook, ReadWebhook
+from mealie.schema.recipe.unit_system import UnitSystem
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.group import Group
@@ -119,6 +120,9 @@ class UserBase(MealieModel):
     # Announcements
     show_announcements: bool = True
     last_read_announcement: str | None = None
+
+    # Preferred unit system for recipe display; null means "use household default"
+    preferred_unit_system: UnitSystem | None = None
 
     # Permissions
     can_invite: bool = False

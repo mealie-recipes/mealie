@@ -6,6 +6,7 @@
 */
 
 export type GroupRecipeActionType = "link" | "post";
+export type UnitSystem = "original" | "metric" | "imperial" | "us";
 export type WebhookType = "mealplan";
 
 export interface CreateGroupRecipeAction {
@@ -23,6 +24,7 @@ export interface CreateHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
+  defaultUnitSystem?: UnitSystem;
 }
 export interface CreateInviteToken {
   uses: number;
@@ -208,6 +210,7 @@ export interface ReadHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
+  defaultUnitSystem?: UnitSystem;
   id: string;
 }
 export interface HouseholdUserSummary {
@@ -286,6 +289,7 @@ export interface SaveHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
+  defaultUnitSystem?: UnitSystem;
   householdId: string;
 }
 export interface SaveInviteToken {
@@ -780,6 +784,7 @@ export interface UpdateHouseholdPreferences {
   recipeShowAssets?: boolean;
   recipeLandscapeView?: boolean;
   recipeDisableComments?: boolean;
+  defaultUnitSystem?: UnitSystem;
 }
 export interface RecipeIngredientBase {
   quantity?: number | null;

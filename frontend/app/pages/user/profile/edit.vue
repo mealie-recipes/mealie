@@ -197,6 +197,20 @@
             color="primary"
             @change="updateUser"
           />
+          <v-select
+            v-model="userCopy.preferredUnitSystem"
+            :prepend-icon="$globals.icons.units"
+            :items="unitSystemOptions"
+            item-title="label"
+            item-value="value"
+            :label="$t('user.preferred-unit-system')"
+            :hint="$t('user.preferred-unit-system-description')"
+            persistent-hint
+            clearable
+            density="comfortable"
+            variant="underlined"
+            @update:model-value="updateUser"
+          />
         </v-card-text>
       </v-card>
       <nuxt-link
@@ -247,6 +261,13 @@ const selectedDefaultActivity = ref(getActivityLabel(i18n, activityPreferences.v
 watch(selectedDefaultActivity, () => {
   activityPreferences.value.defaultActivity = getActivityKey(i18n, selectedDefaultActivity.value) ?? ActivityKey.RECIPES;
 });
+
+const unitSystemOptions = [
+  { label: i18n.t("recipe.unit-system-original"), value: "original" },
+  { label: i18n.t("recipe.unit-system-metric"), value: "metric" },
+  { label: i18n.t("recipe.unit-system-imperial"), value: "imperial" },
+  { label: i18n.t("recipe.unit-system-us"), value: "us" },
+];
 
 const userCopy = ref({ ...user.value });
 watch(user, () => {

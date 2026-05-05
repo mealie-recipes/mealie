@@ -114,3 +114,45 @@ def test_admin_updates(api_client: TestClient, admin_user: TestUser, unique_user
         tmp_user[permission] = not admin[permission]
         response = api_client.put(api_routes.users_item_id(admin_user.user_id), json=tmp_user, headers=admin_user.token)
         assert response.status_code == 403
+
+
+def test_preferred_unit_system_defaults_null(api_client: TestClient, unique_user: TestUser):
+    response = api_client.get(api_routes.users_self, headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["preferredUnitSystem"] is None
+
+
+def test_set_preferred_unit_system_persists(api_client: TestClient, unique_user: TestUser):
+    response = api_client.get(api_routes.users_self, headers=unique_user.token)
+    user = response.json()
+
+    user["preferredUnitSystem"] = "metric"
+    response = api_client.put(api_routes.users_item_id(unique_user.user_id), json=user, headers=unique_user.token)
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.users_self, headers=unique_user.token)
+    assert response.json()["preferredUnitSystem"] == "metric"
+
+
+def test_clear_preferred_unit_system_to_null(api_client: TestClient, unique_user: TestUser):
+    response = api_client.get(api_routes.users_self, headers=unique_user.token)
+    user = response.json()
+
+    user["preferredUnitSystem"] = "us"
+    api_client.put(api_routes.users_item_id(unique_user.user_id), json=user, headers=unique_user.token)
+
+    user["preferredUnitSystem"] = None
+    response = api_client.put(api_routes.users_item_id(unique_user.user_id), json=user, headers=unique_user.token)
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.users_self, headers=unique_user.token)
+    assert response.json()["preferredUnitSystem"] is None
+
+
+def test_preferred_unit_system_invalid_returns_422(api_client: TestClient, unique_user: TestUser):
+    response = api_client.get(api_routes.users_self, headers=unique_user.token)
+    user = response.json()
+
+    user["preferredUnitSystem"] = "klingon"
+    response = api_client.put(api_routes.users_item_id(unique_user.user_id), json=user, headers=unique_user.token)
+    assert response.status_code == 422

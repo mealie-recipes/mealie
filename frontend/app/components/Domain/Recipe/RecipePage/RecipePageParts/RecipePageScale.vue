@@ -6,18 +6,25 @@
       :recipe-servings="recipeServings"
       :edit-scale="hasFoodOrUnit && !isEditMode"
     />
+    <RecipeUnitSystemToggle
+      v-if="!isEditMode && hasFoodOrUnit"
+      v-model="unitSystem"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import RecipeScaleEditButton from "~/components/Domain/Recipe/RecipeScaleEditButton.vue";
+import RecipeUnitSystemToggle from "~/components/Domain/Recipe/RecipeUnitSystemToggle.vue";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
+import type { UnitSystem } from "~/lib/api/types/user";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 
 const props = defineProps<{ recipe: NoUndefinedField<Recipe> }>();
 
-const scale = defineModel<number>({ default: 1 });
+const scale = defineModel<number>("scale", { default: 1 });
+const unitSystem = defineModel<UnitSystem>("unitSystem", { default: "original" });
 
 const { isEditMode } = usePageState(props.recipe.slug);
 
