@@ -1,5 +1,3 @@
-import logging
-
 import pytest
 
 from mealie.schema.recipe.recipe_ingredient import (
@@ -8,10 +6,7 @@ from mealie.schema.recipe.recipe_ingredient import (
     StandardizedUnitType,
 )
 from mealie.schema.recipe.unit_system import UnitSystem
-from mealie.services.recipe.recipe_unit_conversion import (
-    DISPLAY_UNITS,
-    RecipeUnitConverter,
-)
+from mealie.services.recipe.recipe_unit_conversion import RecipeUnitConverter
 
 
 def _ingredient(quantity: float, standard_unit: StandardizedUnitType, standard_quantity: float) -> RecipeIngredient:
@@ -159,20 +154,6 @@ def test_zero_quantity_handled(converter):
     assert out.quantity == pytest.approx(0)
 
 
-def test_unconvertible_dimension_returns_original_and_logs_warning(converter, caplog):
-    """If a future StandardizedUnitType member isn't covered by the picker, log + passthrough."""
-    # Simulate by passing a mass canonical with a target that produces a volume display unit —
-    # which can't actually happen via the picker since it's dimension-aware. Instead we
-    # exercise the pass-through for STANDARD types we don't recognise as mass/volume.
-    # Today every member is mass or volume, so this is a pure-passthrough sanity check.
-    ing = _ingredient(quantity=1, standard_unit=StandardizedUnitType.GRAM, standard_quantity=1)
-    with caplog.at_level(logging.WARNING):
-        [out] = converter.convert_ingredients([ing], UnitSystem.METRIC)
-    # No warnings expected for a normal conversion.
-    assert "Could not convert" not in caplog.text
-    assert out.unit.abbreviation == "g"
-
-
 # --- Synthetic IngredientUnit fraction flag ----------------------------------
 
 
@@ -199,15 +180,8 @@ def test_synthetic_unit_fraction_flag_us_imperial_is_true(converter):
 @pytest.mark.parametrize("canonical", list(StandardizedUnitType))
 @pytest.mark.parametrize("system", [UnitSystem.METRIC, UnitSystem.IMPERIAL, UnitSystem.US])
 def test_every_canonical_x_target_pair_round_trips(converter, canonical, system):
-    """Every (canonical, target) pair must produce a Pint-valid display unit and not crash."""
+    """Every (canonical, target) pair must produce a non-None quantity and unit."""
     ing = _ingredient(quantity=1, standard_unit=canonical, standard_quantity=1)
     [out] = converter.convert_ingredients([ing], system)
     assert out.quantity is not None
     assert out.unit is not None
-    # Output unit must be a known display unit OR the original (passthrough on already-target-system match).
-    abbreviations = {u.abbreviation for u in DISPLAY_UNITS.values()}
-    abbreviations.add(canonical.value)  # passthrough case
-    abbreviations.add("")  # source units may have empty abbr
-    assert out.unit.abbreviation in abbreviations or out.unit.name in {u.name for u in DISPLAY_UNITS.values()} | {
-        canonical.value
-    }

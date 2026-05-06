@@ -257,7 +257,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
 
   async getConversions(recipeSlug: string, system: UnitSystem) {
     return await this.requests.get<RecipeConversionResponse>(
-      `${routes.recipesSlugConversions(recipeSlug)}?system=${system}`,
+      route(routes.recipesSlugConversions(recipeSlug), { system }),
     );
   }
 

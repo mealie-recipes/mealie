@@ -402,4 +402,3 @@ from mealie.schema.recipe.recipe_ingredient import RecipeIngredient  # noqa: E40
 
 RecipeSummary.model_rebuild()
 Recipe.model_rebuild()
-RecipeConversionResponse.model_rebuild()

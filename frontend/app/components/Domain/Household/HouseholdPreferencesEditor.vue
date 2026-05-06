@@ -45,7 +45,7 @@
     <v-select
       v-model="local.defaultUnitSystem"
       :prepend-icon="$globals.icons.units"
-      :items="unitSystemOptions"
+      :items="options"
       item-title="label"
       item-value="value"
       :label="$t('household.default-unit-system')"
@@ -71,6 +71,7 @@
 </template>
 
 <script setup lang="ts">
+import { useUnitSystem } from "~/composables/recipes/use-unit-system";
 import type { ReadHouseholdPreferences } from "~/lib/api/types/household";
 
 const preferences = defineModel<ReadHouseholdPreferences>({ required: true });
@@ -78,6 +79,7 @@ const local = reactive({ ...preferences.value });
 watch(local, (newVal) => { preferences.value = { ...newVal }; });
 
 const i18n = useI18n();
+const { options } = useUnitSystem();
 
 type Preference = {
   key: keyof ReadHouseholdPreferences;
@@ -111,13 +113,6 @@ const recipePreferences: Preference[] = [
     label: i18n.t("group.disable-users-from-commenting-on-recipes"),
     description: i18n.t("group.disable-users-from-commenting-on-recipes-description"),
   },
-];
-
-const unitSystemOptions = [
-  { label: i18n.t("recipe.unit-system-original"), value: "original" },
-  { label: i18n.t("recipe.unit-system-metric"), value: "metric" },
-  { label: i18n.t("recipe.unit-system-imperial"), value: "imperial" },
-  { label: i18n.t("recipe.unit-system-us"), value: "us" },
 ];
 
 const allDays = [

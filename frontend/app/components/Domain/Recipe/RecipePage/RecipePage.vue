@@ -212,7 +212,7 @@ import {
   usePageState,
 } from "~/composables/recipe-page/shared-state";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe, RecipeCategory, RecipeIngredient, RecipeStep, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeCategory, RecipeConversionResponse, RecipeIngredient, RecipeStep, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import type { UnitSystem } from "~/lib/api/types/user";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
@@ -449,8 +449,8 @@ const scale = ref(1);
  * all see converted values without prop-threading.
  */
 const unitSystem = ref<UnitSystem>("original");
-const conversionIngredients = ref<RecipeIngredient[] | null>(null);
-const conversionInstructions = ref<RecipeStep[] | null>(null);
+const conversion = ref<RecipeConversionResponse | null>(null);
+const conversionCache = new Map<string, RecipeConversionResponse>();
 
 const { resolvedDefault } = useUnitSystem();
 
@@ -464,36 +464,36 @@ watch(
   [unitSystem, () => recipe.value?.slug],
   async ([system, slug]) => {
     if (!slug || system === "original" || isEditForm.value) {
-      conversionIngredients.value = null;
-      conversionInstructions.value = null;
+      conversion.value = null;
+      return;
+    }
+    const cacheKey = `${slug}::${system}`;
+    const cached = conversionCache.get(cacheKey);
+    if (cached) {
+      conversion.value = cached;
       return;
     }
     try {
       const { data } = await api.recipes.getConversions(slug, system);
       if (data) {
-        conversionIngredients.value = data.recipeIngredient ?? [];
-        conversionInstructions.value = data.recipeInstructions ?? [];
+        conversionCache.set(cacheKey, data);
+        conversion.value = data;
       }
     }
     catch {
-      conversionIngredients.value = null;
-      conversionInstructions.value = null;
+      conversion.value = null;
     }
   },
 );
 
 const displayedRecipe = computed<NoUndefinedField<Recipe>>(() => {
-  if (
-    unitSystem.value === "original"
-    || isEditForm.value
-    || (conversionIngredients.value === null && conversionInstructions.value === null)
-  ) {
+  if (unitSystem.value === "original" || isEditForm.value || conversion.value === null) {
     return recipe.value;
   }
   return {
     ...recipe.value,
-    recipeIngredient: conversionIngredients.value ?? recipe.value.recipeIngredient,
-    recipeInstructions: conversionInstructions.value ?? recipe.value.recipeInstructions,
+    recipeIngredient: conversion.value.recipeIngredient ?? recipe.value.recipeIngredient,
+    recipeInstructions: conversion.value.recipeInstructions ?? recipe.value.recipeInstructions,
   } as NoUndefinedField<Recipe>;
 });
 
@@ -505,9 +505,6 @@ const instructionsVModel = computed<RecipeStep[]>({
     recipe.value.recipeInstructions = v;
   },
 });
-
-// expose to template
-// (all variables used in template are top-level in <script setup>)
 </script>
 
 <style lang="css">

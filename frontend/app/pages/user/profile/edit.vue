@@ -200,7 +200,7 @@
           <v-select
             v-model="userCopy.preferredUnitSystem"
             :prepend-icon="$globals.icons.units"
-            :items="unitSystemOptions"
+            :items="options"
             item-title="label"
             item-value="value"
             :label="$t('user.preferred-unit-system')"
@@ -242,12 +242,14 @@ import UserAvatar from "~/components/Domain/User/UserAvatar.vue";
 import UserPasswordStrength from "~/components/Domain/User/UserPasswordStrength.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserActivityPreferences } from "~/composables/use-users/preferences";
+import { useUnitSystem } from "~/composables/recipes/use-unit-system";
 import useDefaultActivity from "~/composables/use-default-activity";
 import { ActivityKey } from "~/lib/api/types/activity";
 import type { UserBase } from "~/lib/api/types/user";
 
 const i18n = useI18n();
 const auth = useMealieAuth();
+const { options } = useUnitSystem();
 const { getDefaultActivityLabels, getActivityLabel, getActivityKey } = useDefaultActivity();
 const user = computed(() => auth.user.value);
 
@@ -261,13 +263,6 @@ const selectedDefaultActivity = ref(getActivityLabel(i18n, activityPreferences.v
 watch(selectedDefaultActivity, () => {
   activityPreferences.value.defaultActivity = getActivityKey(i18n, selectedDefaultActivity.value) ?? ActivityKey.RECIPES;
 });
-
-const unitSystemOptions = [
-  { label: i18n.t("recipe.unit-system-original"), value: "original" },
-  { label: i18n.t("recipe.unit-system-metric"), value: "metric" },
-  { label: i18n.t("recipe.unit-system-imperial"), value: "imperial" },
-  { label: i18n.t("recipe.unit-system-us"), value: "us" },
-];
 
 const userCopy = ref({ ...user.value });
 watch(user, () => {

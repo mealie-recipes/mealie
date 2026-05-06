@@ -102,9 +102,9 @@ def test_metric_conversion_round_trip(api_client: TestClient, unique_user: TestU
     assert response.status_code == 200
     body = response.json()
     ingredient = body["recipeIngredient"][0]
-    # 2 cups (Pint default = 236.59 ml) → 473.18 ml
     assert ingredient["unit"]["abbreviation"] == "ml"
-    assert ingredient["quantity"] == 473.1764729999999 or abs(ingredient["quantity"] - 473.18) < 0.01
+    # 2 cups (Pint default = 236.59 ml) → 473.18 ml
+    assert abs(ingredient["quantity"] - 473.18) < 0.01
     # 350°F → 177°C
     assert "177°C" in body["recipeInstructions"][0]["text"]
 
