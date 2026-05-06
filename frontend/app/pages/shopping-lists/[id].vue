@@ -377,7 +377,7 @@ const { store: allFoods } = useFoodStore();
 
 function itemCheckedToast(item: ShoppingListItemOut) {
   alert.info(
-    i18n.t("shopping-list.item-toast", { item: item.food?.name || item.note || "Item" }),
+    i18n.t("shopping-list.item-checked-off", { item: item.food?.name || item.note || "Item" }),
     undefined,
     {
       timeout: 4000,
