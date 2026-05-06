@@ -358,6 +358,7 @@ import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useShoppingListPage } from "~/composables/shopping-list-page/use-shopping-list-page";
 import { useLabelStore, useUnitStore, useFoodStore } from "~/composables/store";
+import { alert } from "~/composables/use-toast";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 
 const { mdAndUp } = useDisplay();
