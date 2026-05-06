@@ -3,7 +3,7 @@
     <v-container
       v-if="!edit"
       class="pa-0"
-      :style="`transform: translateX(${swiping}px); opacity: ${swiping >= 50 ? 0.5 : 'unset'}`"
+      :style="`transform: translateX(${swiping}px); opacity: ${swiping >= SWIPE_THRESHOLD ? 0.5 : 'unset'}`"
     >
       <v-row
         v-touch="{
@@ -14,7 +14,7 @@
             swipeInfo.touchstartX = screenX;
           },
           end: () => {
-            if (swiping < 50) {
+            if (swiping < SWIPE_THRESHOLD) {
               swipeInfo = {};
               return;
             }
@@ -206,6 +206,8 @@ const emit = defineEmits<{
   (e: "checked" | "save", item: ShoppingListItemOut): void;
   (e: "delete"): void;
 }>();
+
+const SWIPE_THRESHOLD = 50;
 
 const i18n = useI18n();
 const displayRecipeRefs = ref(false);
