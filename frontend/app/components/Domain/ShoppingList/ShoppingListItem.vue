@@ -3,7 +3,11 @@
     <v-container
       v-if="!edit"
       class="pa-0"
-      :style="`transform: translateX(${swiping}px); opacity: ${swiping >= SWIPE_THRESHOLD ? 0.5 : 'unset'}`"
+      :style="{
+        transform: `translateX(${swiping}px)`,
+        transition: swiping === 0 ? 'transform 0.2s ease' : 'none',
+        opacity: swiping >= SWIPE_THRESHOLD ? 0.5 : 1,
+      }"
     >
       <v-row
         v-touch="{
