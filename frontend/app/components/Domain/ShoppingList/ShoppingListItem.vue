@@ -4,7 +4,7 @@
       v-if="!edit"
       class="pa-0"
       :style="{
-        transform: `translateX(${swiping}px)`,
+        transform: `translateX(${isRtl ? -swiping : swiping}px)`,
         transition: swiping === 0 ? 'transform 0.2s ease' : 'none',
         opacity: swiping >= SWIPE_THRESHOLD ? 0.5 : 1,
       }"
@@ -213,6 +213,7 @@ const emit = defineEmits<{
 
 const SWIPE_THRESHOLD = 50;
 
+const { isRtl } = useRtl();
 const i18n = useI18n();
 const displayRecipeRefs = ref(false);
 const itemLabelCols = computed<string>(() => (model.value?.checked ? "auto" : "6"));
@@ -269,7 +270,8 @@ const swiping = computed(() => {
   if (touchstartX === undefined || touchendX === undefined) {
     return 0;
   }
-  return Math.min(Math.max(0, touchendX - touchstartX), 100);
+  const delta = isRtl.value ? touchstartX - touchendX : touchendX - touchstartX;
+  return Math.min(Math.max(0, delta), 100);
 });
 
 const recipeList = computed<RecipeSummary[]>(() => {
