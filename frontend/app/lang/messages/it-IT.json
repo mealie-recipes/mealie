@@ -98,6 +98,7 @@
     "dashboard": "Pannello di controllo",
     "delete": "Elimina",
     "disabled": "Disabilita",
+    "done": "Fatto",
     "download": "Download",
     "duplicate": "Duplicato",
     "edit": "Modifica",
@@ -274,7 +275,7 @@
     "disable-organizing-recipe-ingredients-by-units-and-food-description": "Nasconde i campi di alimento, unità e quantità per gli ingredienti e tratta gli ingredienti come campi di testo semplice",
     "general-preferences": "Impostazioni Generali",
     "group-recipe-preferences": "Impostazioni per le ricette del gruppo",
-    "report": "Report",
+    "report": "Segnala",
     "report-with-id": "ID Report: {id}",
     "group-management": "Gestione Gruppo",
     "admin-group-management": "Gestione Gruppo Amministratore",
@@ -544,7 +545,7 @@
     "share-recipe-message": "Volevo condividere la mia {0} ricetta con te.",
     "show-nutrition-values": "Mostra Valori Nutrizionali",
     "sodium-content": "Sodio",
-    "step-index": "Step: {step}",
+    "step-index": "Passo {step}",
     "sugar-content": "Zuccheri",
     "title": "Titolo",
     "total-time": "Tempo Totale",
@@ -1472,5 +1473,12 @@
     "no-whitespace": "Gli Spazi Non Sono Ammessi",
     "min-length": "Deve Essere Almeno {min} Caratteri",
     "max-length": "Deve Essere Al Più {max} Carattere|Deve Essere Al Più {max} Caratteri"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

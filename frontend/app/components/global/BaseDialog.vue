@@ -192,6 +192,14 @@ function submitOnEnter() {
     return;
   }
 
+  if (props.canConfirm) {
+    if (!props.submitDisabled) {
+      emit("confirm");
+      dialog.value = false;
+    }
+    return;
+  }
+
   submitEvent();
 }
 

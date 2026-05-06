@@ -41,19 +41,14 @@
           >
             <v-select
               v-if="index"
-              :model-value="field.logicalOperator"
+              :model-value="field.logicalOperator?.value"
               :items="[logOps.AND, logOps.OR]"
               item-title="label"
               item-value="value"
               variant="underlined"
+              class="text-center"
               @update:model-value="setLogicalOperatorValue(field, index, $event as unknown as LogicalOperator)"
-            >
-              <template #chip="{ item }">
-                <span :class="config.select.textClass" style="width: 100%;">
-                  {{ item.raw.label }}
-                </span>
-              </template>
-            </v-select>
+            />
           </v-col>
 
           <!-- left parenthesis -->
@@ -67,14 +62,9 @@
               :model-value="field.leftParenthesis"
               :items="['', '(', '((', '(((']"
               variant="underlined"
+              class="text-center"
               @update:model-value="setLeftParenthesisValue(field, index, $event)"
-            >
-              <template #chip="{ item }">
-                <span :class="config.select.textClass" style="width: 100%;">
-                  {{ item.raw }}
-                </span>
-              </template>
-            </v-select>
+            />
           </v-col>
 
           <!-- field name -->
@@ -84,19 +74,14 @@
             :class="config.col.class"
           >
             <v-select
-              chips
               :model-value="field.label"
               :items="fieldDefs"
               variant="underlined"
               item-title="label"
+              item-value="label"
+              class="text-center"
               @update:model-value="setField(index, $event)"
-            >
-              <template #chip="{ item }">
-                <span :class="config.select.textClass" style="width: 100%;">
-                  {{ item.raw.label }}
-                </span>
-              </template>
-            </v-select>
+            />
           </v-col>
 
           <!-- relational operator -->
@@ -107,19 +92,14 @@
           >
             <v-select
               v-if="field.type !== 'boolean'"
-              :model-value="field.relationalOperatorValue"
+              :model-value="field.relationalOperatorValue?.value"
               :items="field.relationalOperatorChoices"
               item-title="label"
               item-value="value"
               variant="underlined"
+              class="text-center"
               @update:model-value="setRelationalOperatorValue(field, index, $event as unknown as RelationalKeyword | RelationalOperator)"
-            >
-              <template #chip="{ item }">
-                <span :class="config.select.textClass" style="width: 100%;">
-                  {{ item.raw.label }}
-                </span>
-              </template>
-            </v-select>
+            />
           </v-col>
 
           <!-- field value -->
@@ -275,23 +255,14 @@
               :model-value="field.rightParenthesis"
               :items="['', ')', '))', ')))']"
               variant="underlined"
+              class="text-center"
               @update:model-value="setRightParenthesisValue(field, index, $event)"
-            >
-              <template #chip="{ item }">
-                <span :class="config.select.textClass" style="width: 100%;">
-                  {{ item.raw }}
-                </span>
-              </template>
-            </v-select>
-          </v-col>
-
-          <!-- field actions -->
-          <v-col
+            />
             v-if="!$vuetify.display.smAndDown || index === fields.length - 1"
             :cols="config.items.fieldActions.cols(index)"
             :sm="config.items.fieldActions.sm(index)"
             :class="config.col.class"
-          >
+            >
             <BaseButtonGroup
               :buttons="[
                 {
@@ -722,9 +693,6 @@ const config = computed(() => {
   return {
     col: {
       class: "d-flex justify-center align-end py-0",
-    },
-    select: {
-      textClass: "d-flex justify-center text-center",
     },
     items: {
       icon: {

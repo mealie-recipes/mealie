@@ -129,19 +129,24 @@ class OpenAIService(BaseService):
         """
         tree = name.split(".")
         relative_path = Path(*tree[:-1], tree[-1] + ".txt")
-        default_prompt_file = Path(self.PROMPTS_DIR, relative_path)
+
+        default_prompt_file = (self.PROMPTS_DIR / relative_path).resolve()
+        if not default_prompt_file.is_relative_to(self.PROMPTS_DIR.resolve()):
+            raise ValueError(f"Invalid prompt name '{name}': resolves outside prompts directory")
 
         try:
             # Only include custom files if the custom_dir is configured, is a directory, and the prompt file exists
-            custom_dir = Path(self.custom_prompt_dir) if self.custom_prompt_dir else None
+            custom_dir = Path(self.custom_prompt_dir).resolve() if self.custom_prompt_dir else None
             if custom_dir and not custom_dir.is_dir():
                 custom_dir = None
         except Exception:
             custom_dir = None
 
         if custom_dir:
-            custom_prompt_file = Path(custom_dir, relative_path)
-            if custom_prompt_file.exists():
+            custom_prompt_file = (custom_dir / relative_path).resolve()
+            if not custom_prompt_file.is_relative_to(custom_dir):
+                logger.warning(f"Custom prompt file resolves outside custom dir, skipping: {custom_prompt_file}")
+            elif custom_prompt_file.exists():
                 logger.debug(f"Found valid custom prompt file: {custom_prompt_file}")
                 return [custom_prompt_file, default_prompt_file]
             else:

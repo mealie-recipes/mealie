@@ -127,13 +127,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "palmetto",
-                "plural_name": "heart of palm"
+                "plural_name": "palmové srdce"
             },
             "baby greens": {
                 "aliases": [],
                 "description": "",
-                "name": "baby greens",
-                "plural_name": "baby greens"
+                "name": "zelené listy",
+                "plural_name": "zelené listy"
             },
             "pumpkin": {
                 "aliases": [],
@@ -169,7 +169,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rukola",
-                "plural_name": "arugula"
+                "plural_name": "rukola"
             },
             "leek": {
                 "aliases": [],
@@ -261,7 +261,7 @@
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed greens",
+                "name": "míchaná zelenina",
                 "plural_name": "míchaná zelenina"
             },
             "parsnip": {
@@ -321,7 +321,7 @@
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
+                "name": "salát ledový",
                 "plural_name": "saláty ledové"
             },
             "mashed potato": {
@@ -340,13 +340,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "mangold",
-                "plural_name": "chard"
+                "plural_name": "mangold"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
                 "name": "třešňová paprika",
-                "plural_name": "pimientos"
+                "plural_name": "třešňové papriky"
             },
             "spaghetti squash": {
                 "aliases": [],
@@ -358,7 +358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "dubáček",
-                "plural_name": "butter lettuce"
+                "plural_name": "dubáček"
             },
             "hash brown": {
                 "aliases": [],
@@ -438,7 +438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "stonková brokolice",
-                "plural_name": "tenderstem broccoli"
+                "plural_name": "stonková brokolice"
             },
             "plantain": {
                 "aliases": [],
@@ -450,7 +450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "listový salát",
-                "plural_name": "leaf lettuce"
+                "plural_name": "listový salát"
             },
             "pepperoncini": {
                 "aliases": [],
@@ -462,7 +462,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "čínské baby zelí",
-                "plural_name": "baby bok choy"
+                "plural_name": "čínské baby zelí"
             },
             "jicama": {
                 "aliases": [],
@@ -974,7 +974,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomelo",
-                "plural_name": "pomelos"
+                "plural_name": "pomela"
             },
             "chestnut purée": {
                 "aliases": [],
@@ -1247,13 +1247,13 @@
             "shiitake mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shiitake mushroom",
-                "plural_name": "shiitake mushrooms"
+                "name": "bílý žampion",
+                "plural_name": "bílé žampiony"
             },
             "portobello mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "portobello mushroom",
+                "name": "žampiony portobello",
                 "plural_name": "žampiony portobello"
             },
             "wild mushroom": {
@@ -15878,19 +15878,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "cannabi",
-                "plural_name": "cannabis"
+                "plural_name": "konopí"
             },
             "banana extract": {
                 "aliases": [],
                 "description": "",
-                "name": "banana extract",
-                "plural_name": "banana extract"
+                "name": "banánový extrakt",
+                "plural_name": "banánový extrakt"
             },
             "lavender oil": {
                 "aliases": [],
                 "description": "",
-                "name": "lavender oil",
-                "plural_name": "lavender oil"
+                "name": "levandulový olej",
+                "plural_name": "levandulový olej"
             },
             "essential oil": {
                 "aliases": [],
