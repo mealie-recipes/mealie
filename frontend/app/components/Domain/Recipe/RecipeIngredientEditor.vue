@@ -88,7 +88,7 @@
             </div>
           </template>
           <template #append-item>
-            <div class="px-2">
+            <div v-if="showCreateUnit" class="px-2">
               <BaseButton
                 block
                 size="small"
@@ -147,7 +147,7 @@
             </div>
           </template>
           <template #append-item>
-            <div class="px-2">
+            <div v-if="showCreateFood" class="px-2">
               <BaseButton
                 block
                 size="small"
@@ -344,6 +344,11 @@ const foodData = useFoodData();
 const foodAutocomplete = ref<HTMLInputElement>();
 const { search: foodSearch, filtered: filteredFoods } = useSearch(foodStore.store);
 
+const showCreateFood = computed(() =>
+  !!foodSearch.value
+  && !filteredFoods.value.some((f: any) => (f.name ?? "").toLowerCase() === foodSearch.value.toLowerCase()),
+);
+
 async function createAssignFood() {
   foodData.data.name = foodSearch.value;
   model.value.food = await foodStore.actions.createOne(foodData.data) || undefined;
@@ -375,6 +380,11 @@ const unitStore = useUnitStore();
 const unitsData = useUnitData();
 const unitAutocomplete = ref<HTMLInputElement>();
 const { search: unitSearch, filtered: filteredUnits } = useSearch(unitStore.store);
+
+const showCreateUnit = computed(() =>
+  !!unitSearch.value
+  && !filteredUnits.value.some((u: any) => (u.name ?? "").toLowerCase() === unitSearch.value.toLowerCase()),
+);
 
 async function createAssignUnit() {
   unitsData.data.name = unitSearch.value;

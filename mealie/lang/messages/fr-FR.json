@@ -21,14 +21,14 @@
         "and-amount": "et {amount}",
         "or-ingredient": "ou {ingredient}",
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
-            "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
-            "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
-            "extracting-recipe-data": "Extracting recipe data...",
-            "fetching-webpage": "Fetching webpage...",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "creating-recipe-with-ai": "Création de la recette avec l'IA...",
+            "creating-recipe-from-transcript-with-ai": "Création de la recette à partir de la transcription avec l'IA...",
+            "creating-recipe-from-webpage-data": "Création de la recette à partir des données d'une page web...",
+            "downloading-image": "Téléchargement de l'image...",
+            "downloading-video": "Téléchargement de la vidéo...",
+            "extracting-recipe-data": "Extraction des données de la recette...",
+            "fetching-webpage": "Récupération de la page web...",
+            "transcribing-audio-with-ai": "Transcodage audio avec l'AI..."
         }
     },
     "mealplan": {

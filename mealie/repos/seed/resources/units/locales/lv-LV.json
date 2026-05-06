@@ -15,7 +15,7 @@
         "name": "krūze",
         "plural_name": "krūzes",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "gl"
     },
     "fluid-ounce": {
         "name": "šķidruma unce",
@@ -139,8 +139,8 @@
         "abbreviation": ""
     },
     "sprig": {
-        "name": "sprig",
-        "plural_name": "sprigs",
+        "name": "zariņš",
+        "plural_name": "zariņi",
         "description": "",
         "abbreviation": ""
     }

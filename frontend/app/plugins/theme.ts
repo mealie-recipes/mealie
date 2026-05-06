@@ -68,6 +68,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
             warning: theme?.darkWarning ?? "#FF6D00",
             error: theme?.darkError ?? "#EF5350",
             background: "#1E1E1E",
+            surface: "#1E1E1E",
           },
         },
       },
