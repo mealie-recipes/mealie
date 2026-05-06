@@ -1,52 +1,56 @@
 <template>
-  <v-card variant="elevated" class="pa-2" border="primary s-lg opacity-100">
+  <v-navigation-drawer
+    permanent
+    rounded="t-xl"
+    location="bottom"
+    class="pa-4 pt-2 mb-0"
+    width="300"
+    rail-width="85"
+    :rail="rail"
+    elevation="4"
+  >
     <div class="d-flex flex-column ga-3">
-      <InputLabelType
-        v-model="listItem.food"
-        v-model:item-id="listItem.foodId!"
-        :items="foods"
-        :label="$t('shopping-list.food')"
-        :icon="$globals.icons.foods"
-        :autofocus="autoFocus === 'food'"
-        create
-        @create="createAssignFood"
-      />
+      <v-card-actions class="pa-0">
+        <InputLabelType
+          v-model="listItem.food"
+          v-model:item-id="listItem.foodId!"
+          :items="foods"
+          :label="rail ? $t('shopping-list.add-item') : $t('shopping-list.food')"
+          :icon="$globals.icons.foods"
+          :style="rail ? 'margin-inline: 3px;' : undefined"
+          :search="rail"
+          create
+          @create="createAssignFood"
+          @focus="rail = false"
+        />
+        <BaseButtonGroup
+          v-if="!rail"
+          :buttons="[
+            {
+              icon: $globals.icons.close,
+              text: $t('general.cancel'),
+              event: 'cancel',
+            },
+            {
+              icon: $globals.icons.save,
+              text: $t('general.save'),
+              event: 'save',
+            },
+          ]"
+          @save="$emit('save')"
+          @cancel="rail = true; $emit('cancel')"
+        />
+      </v-card-actions>
+
       <ShoppingListItemDetails
+        v-if="!rail"
         v-model="listItem"
         :labels="labels"
         :units="units"
         @save="$emit('save')"
       />
     </div>
-    <v-card-actions class="justify-end pa-0">
-      <BaseButtonGroup
-        :buttons="[
-          ...(allowDelete
-            ? [
-              {
-                icon: $globals.icons.delete,
-                text: $t('general.delete'),
-                event: 'delete',
-              },
-            ]
-            : []),
-          {
-            icon: $globals.icons.close,
-            text: $t('general.cancel'),
-            event: 'cancel',
-          },
-          {
-            icon: $globals.icons.save,
-            text: $t('general.save'),
-            event: 'save',
-          },
-        ]"
-        @save="$emit('save')"
-        @cancel="$emit('cancel')"
-        @delete="$emit('delete')"
-      />
-    </v-card-actions>
-  </v-card>
+  </v-navigation-drawer>
 </template>
 
 <script setup lang="ts">
@@ -72,14 +76,8 @@ defineProps({
     type: Array as () => IngredientFood[],
     required: true,
   },
-  allowDelete: {
-    type: Boolean,
-    required: false,
-    default: true,
-  },
 });
 
-// const emit = defineEmits<["save", "cancel", "delete"]>();
 defineEmits<{
   (e: "save" | "cancel" | "delete"): void;
 }>();
@@ -103,5 +101,5 @@ watch(
   },
 );
 
-const autoFocus = computed(() => (!listItem.value.food && listItem.value.note ? "note" : "food"));
+const rail = ref(true);
 </script>

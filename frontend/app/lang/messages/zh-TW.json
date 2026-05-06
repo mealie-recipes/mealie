@@ -98,6 +98,7 @@
     "dashboard": "控制面板",
     "delete": "刪除",
     "disabled": "已停用",
+    "done": "Done",
     "download": "下載",
     "duplicate": "複製",
     "edit": "編輯",
@@ -1472,5 +1473,12 @@
     "no-whitespace": "不允許空白字元",
     "min-length": "至少需 {min} 個字元",
     "max-length": "最多 {max} 個字元|最多 {max} 個字元"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

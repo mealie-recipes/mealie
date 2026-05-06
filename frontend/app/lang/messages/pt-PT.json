@@ -98,6 +98,7 @@
     "dashboard": "Painel de controlo",
     "delete": "Eliminar",
     "disabled": "Desativado",
+    "done": "Done",
     "download": "Transferir",
     "duplicate": "Duplicado",
     "edit": "Editar",
@@ -332,7 +333,7 @@
     "no-meal-plan-defined-yet": "Nenhum plano de refeições definido",
     "no-meal-planned-for-today": "Nenhum plano de refeições definido para hoje",
     "numberOfDaysPast-hint": "Number of days in the past on page load",
-    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDaysPast-label": "",
     "numberOfDays-hint": "Número de dias no carregamento da página",
     "numberOfDays-label": "Dias predefinidos",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Só serão usadas receitas com estas categorias nos Planos de Refeições",
@@ -1472,5 +1473,12 @@
     "no-whitespace": "Não são permitidos espaços em branco",
     "min-length": "Deve ter pelo menos {min} caracteres",
     "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

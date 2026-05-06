@@ -160,8 +160,20 @@
     <!-- Viewer -->
     <section v-if="!edit" class="py-2 d-flex flex-column ga-4">
       <!-- Create Item -->
-      <div v-if="createEditorOpen">
+      <ShoppingListAddItemForm
+        v-if="$vuetify.display.smAndDown"
+        v-model="createListItemData"
+        class="my-4"
+        :labels="allLabels || []"
+        :units="allUnits || []"
+        :foods="allFoods || []"
+        @cancel="createEditorOpen = false"
+        @save="createListItem"
+      />
+
+      <div v-else>
         <ShoppingListItemEditor
+          v-if="createEditorOpen"
           v-model="createListItemData"
           class="my-4"
           :labels="allLabels || []"
@@ -172,14 +184,14 @@
           @cancel="createEditorOpen = false"
           @save="createListItem"
         />
-      </div>
-      <div v-else class="d-flex justify-end">
-        <BaseButton
-          create
-          @click="createEditorOpen = true"
-        >
-          {{ $t('general.add') }}
-        </BaseButton>
+        <InputLabelType
+          v-else
+          :items="allFoods"
+          :label="$t('shopping-list.add-item')"
+          :icon="$globals.icons.foods"
+          search
+          @focus="createEditorOpen = true"
+        />
       </div>
 
       <TransitionGroup name="scroll-x-transition">
@@ -338,6 +350,7 @@
 import { VueDraggable } from "vue-draggable-plus";
 import RecipeList from "~/components/Domain/Recipe/RecipeList.vue";
 import MultiPurposeLabelSection from "~/components/Domain/ShoppingList/MultiPurposeLabelSection.vue";
+import ShoppingListAddItemForm from "~/components/Domain/ShoppingList/ShoppingListAddItemForm.vue";
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useShoppingListPage } from "~/composables/shopping-list-page/use-shopping-list-page";

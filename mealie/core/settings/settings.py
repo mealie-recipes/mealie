@@ -3,7 +3,7 @@ import os
 import secrets
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Annotated, Any, NamedTuple
+from typing import Annotated, Any, Literal, NamedTuple
 
 from dateutil.tz import tzlocal
 from pydantic import PlainSerializer, field_validator
@@ -349,6 +349,7 @@ class AppSettings(AppLoggingSettings):
     OIDC_GROUPS_CLAIM: str | None = "groups"
     OIDC_SCOPES_OVERRIDE: str | None = None
     OIDC_TLS_CACERTFILE: str | None = None
+    OIDC_CLIENT_TIMEOUT: float | Literal["None", "default"] = "default"
 
     @property
     def OIDC_REQUIRES_GROUP_CLAIM(self) -> bool:

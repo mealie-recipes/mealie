@@ -98,6 +98,7 @@
     "dashboard": "Vezérlőpult",
     "delete": "Törlés",
     "disabled": "Letiltva",
+    "done": "Done",
     "download": "Letöltés",
     "duplicate": "Duplikálás",
     "edit": "Szerkesztés",
@@ -1343,7 +1344,7 @@
     "nlp": "NLP",
     "brute": "Brute",
     "openai": "OpenAI",
-    "show-individual-confidence": "",
+    "show-individual-confidence": "Show individual confidence",
     "ingredient-text": "Hozzávaló szöveg",
     "average-confident": "{0}-os bizonyosság",
     "try-an-example": "Próbáljon ki egy példát",
@@ -1472,5 +1473,12 @@
     "no-whitespace": "Szóközt nem tartalmazhat",
     "min-length": "Legalább {min} karakter legyen",
     "max-length": "Legfeljebb {max} karakter lehet|Legfeljebb {max} karakter lehet"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }
