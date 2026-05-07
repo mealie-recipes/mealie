@@ -263,6 +263,28 @@ const notLinkedIngredients = computed(() => {
   });
 });
 
+function pruneOrphanedNoteReferences() {
+  const validRefs = new Set(
+    (recipe.value.notes ?? [])
+      .map(n => n.referenceId)
+      .filter((id): id is string => id != null),
+  );
+  recipe.value.recipeInstructions?.forEach((step) => {
+    if (!step.noteReferences?.length) return;
+    const filtered = step.noteReferences.filter(
+      ref => ref.referenceId != null && validRefs.has(ref.referenceId),
+    );
+    if (filtered.length !== step.noteReferences.length) {
+      step.noteReferences = filtered;
+    }
+  });
+}
+
+watch(
+  () => (recipe.value.notes ?? []).map(note => note.referenceId ?? null),
+  pruneOrphanedNoteReferences,
+);
+
 /** =============================================================
  * Floating save button — track toolbar visibility
  */
@@ -469,7 +491,7 @@ function addStep(steps: Array<string> | null = null) {
 
   if (steps) {
     const cleanedSteps = steps.map((step) => {
-      return { id: uuid4(), text: step, title: "", summary: "", ingredientReferences: [] };
+      return { id: uuid4(), text: step, title: "", summary: "", ingredientReferences: [], noteReferences: [] };
     });
 
     recipe.value.recipeInstructions.push(...cleanedSteps);
@@ -481,6 +503,7 @@ function addStep(steps: Array<string> | null = null) {
       title: "",
       summary: "",
       ingredientReferences: [],
+      noteReferences: [],
     });
   }
 }

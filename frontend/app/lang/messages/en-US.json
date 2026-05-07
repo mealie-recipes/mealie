@@ -487,6 +487,8 @@
     "auto": "Auto",
     "cook-mode": "Cook Mode",
     "link-ingredients": "Link Ingredients",
+    "link-references": "Link references",
+    "no-notes-to-link": "No notes to link",
     "merge-above": "Merge Above",
     "move-to-bottom": "Move To Bottom",
     "move-to-top": "Move To Top",

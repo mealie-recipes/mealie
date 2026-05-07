@@ -269,12 +269,17 @@ export interface RecipeTool {
   slug: string;
   householdsWithTool?: string[];
 }
+export interface NoteReference {
+  referenceId?: string | null;
+}
+
 export interface RecipeStep {
   id?: string | null;
   title?: string | null;
   summary?: string | null;
   text: string;
   ingredientReferences?: IngredientReferences[];
+  noteReferences?: NoteReference[];
 }
 export interface RecipeAsset {
   name: string;
@@ -284,6 +289,7 @@ export interface RecipeAsset {
 export interface RecipeNote {
   title: string;
   text: string;
+  referenceId?: string;
 }
 export interface RecipeCommentOut {
   recipeId: string;
