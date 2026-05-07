@@ -169,6 +169,7 @@
     "token": "Токен",
     "tuesday": "уторак",
     "type": "Тип",
+    "undo": "Undo",
     "update": "Ажурирај",
     "updated": "Ажурирано",
     "upload": "Отпреми",
@@ -941,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Да ли сте сигурни да желите да означите све ставке?",
     "are-you-sure-you-want-to-uncheck-all-items": "Да ли сте сигурни да желите да одзначите све ставке?",
     "are-you-sure-you-want-to-delete-checked-items": "Да ли сте сигурни да желите да обришете све означене ставке?",
-    "no-shopping-lists-found": "Нису пронађени спискови за куповину"
+    "no-shopping-lists-found": "Нису пронађени спискови за куповину",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Сви рецепти",
