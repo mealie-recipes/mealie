@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Kedd",
     "type": "Típus",
+    "undo": "Undo",
     "update": "Frissítés",
     "updated": "Frissítve",
     "upload": "Feltöltés",
@@ -941,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Biztos, hogy minden elemet be akar jelölni?",
     "are-you-sure-you-want-to-uncheck-all-items": "Biztos, hogy minden elem kijelölését visszavonja?",
     "are-you-sure-you-want-to-delete-checked-items": "Biztosan törölni akarja az összes bejelölt elemet?",
-    "no-shopping-lists-found": "Nem találhatók bevásárlólisták"
+    "no-shopping-lists-found": "Nem találhatók bevásárlólisták",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Minden recept",
