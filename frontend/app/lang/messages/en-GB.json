@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Tuesday",
     "type": "Type",
+    "undo": "Undo",
     "update": "Update",
     "updated": "Updated",
     "upload": "Upload",
@@ -941,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "No Shopping Lists Found",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "All Recipes",
