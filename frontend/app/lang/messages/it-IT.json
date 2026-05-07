@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Martedì",
     "type": "Tipo",
+    "undo": "Undo",
     "update": "Aggiorna",
     "updated": "Aggiornato",
     "upload": "Carica",
@@ -941,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Sei sicuro di voler tutti gli elementi?",
     "are-you-sure-you-want-to-uncheck-all-items": "Sei sicuro di voler deselezionare tutti gli elementi?",
     "are-you-sure-you-want-to-delete-checked-items": "Sei sicuro di voler rimuovere tutti gli articoli selezionati?",
-    "no-shopping-lists-found": "Nessuna lista della spesa trovata"
+    "no-shopping-lists-found": "Nessuna lista della spesa trovata",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Ricette",
