@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.16.0"
+version = "3.17.0"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -39,7 +39,7 @@ dependencies = [
     "authlib==1.7.0",
     "html2text==2025.4.15",
     "paho-mqtt==1.6.1",
-    "pydantic-settings==2.13.1",
+    "pydantic-settings==2.14.0",
     "pillow-heif==1.3.0",
     "pyjwt==2.12.1",
     "openai==2.33.0",
@@ -67,7 +67,7 @@ dev = [
     "coverage==7.13.5",
     "coveragepy-lcov==0.1.2",
     "mkdocs-material==9.7.6",
-    "mypy==1.20.2",
+    "mypy==2.0.0",
     "pre-commit==4.6.0",
     "pylint==4.0.5",
     "pytest==9.0.3",
