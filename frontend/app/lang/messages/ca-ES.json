@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Dimarts",
     "type": "Tipus",
+    "undo": "Undo",
     "update": "Actualitza",
     "updated": "S'ha actualitzat",
     "upload": "Puja",
@@ -941,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Estàs segur que vols marcar tots els elements?",
     "are-you-sure-you-want-to-uncheck-all-items": "Estàs segur que vols desmarcar tots els elements?",
     "are-you-sure-you-want-to-delete-checked-items": "Estàs segur que vols eliminar tots els elements marcats?",
-    "no-shopping-lists-found": "No s'han trobat llistes de la compra"
+    "no-shopping-lists-found": "No s'han trobat llistes de la compra",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Receptes",
