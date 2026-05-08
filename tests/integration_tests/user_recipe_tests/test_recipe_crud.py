@@ -634,7 +634,7 @@ def test_read_update(
     assert response.status_code == 200
     recipe = json.loads(response.text)
 
-    assert recipe["notes"] == test_notes
+    assert [{"title": n["title"], "text": n["text"]} for n in recipe["notes"]] == test_notes
 
     assert len(recipe["recipeCategory"]) == len(recipe_categories)
 
@@ -1271,8 +1271,11 @@ def test_duplicate(api_client: TestClient, unique_user: TestUser):
     assert response.status_code == 200
     original_recipe = json.loads(response.text)
 
-    assert edited_recipe["notes"] == dup_notes
-    assert original_recipe.get("notes") != edited_recipe.get("notes")
+    def note_text(notes):
+        return [{"title": n["title"], "text": n["text"]} for n in notes or []]
+
+    assert note_text(edited_recipe["notes"]) == note_text(dup_notes)
+    assert note_text(original_recipe.get("notes")) != note_text(edited_recipe.get("notes"))
     assert original_recipe.get("recipeCategory") == previous_categories
 
     # Make sure ingredient edits don't affect the original
@@ -1356,7 +1359,7 @@ def test_remove_notes(api_client: TestClient, unique_user: TestUser):
     assert response.status_code == 200
 
     recipe = json.loads(response.text)
-    recipe["notes"] = [RecipeNote(title=random_string(), text=random_string()).model_dump()]
+    recipe["notes"] = [RecipeNote(title=random_string(), text=random_string()).model_dump(mode="json")]
     response = api_client.put(recipe_url, json=recipe, headers=unique_user.token)
     assert response.status_code == 200
 
