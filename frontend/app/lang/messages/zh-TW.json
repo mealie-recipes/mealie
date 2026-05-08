@@ -169,6 +169,7 @@
     "token": "金鑰",
     "tuesday": "星期二",
     "type": "類型",
+    "undo": "Undo",
     "update": "更新",
     "updated": "已更新",
     "upload": "上傳",
@@ -916,6 +917,7 @@
     "quantity": "數量：{0}",
     "shopping-list": "購物清單",
     "shopping-lists": "購物清單",
+    "add-item": "Add item",
     "food": "食材",
     "note": "備註",
     "label": "標籤",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "確定要勾選所有項目嗎？",
     "are-you-sure-you-want-to-uncheck-all-items": "確定要取消勾選所有項目嗎？",
     "are-you-sure-you-want-to-delete-checked-items": "確定要刪除所有已勾選的項目嗎？",
-    "no-shopping-lists-found": "找不到購物清單"
+    "no-shopping-lists-found": "找不到購物清單",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "所有食譜",

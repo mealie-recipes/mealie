@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Utorak",
     "type": "Tip",
+    "undo": "Undo",
     "update": "Ažuriraj",
     "updated": "Ažurirano",
     "upload": "Prenesi",
@@ -916,6 +917,7 @@
     "quantity": "Količina: {0}",
     "shopping-list": "Popis za Kupovinu",
     "shopping-lists": "Popis za Kupovinu",
+    "add-item": "Add item",
     "food": "Namirnica",
     "note": "Bilješka",
     "label": "Oznaka",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "No Shopping Lists Found",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Svi Recepti",

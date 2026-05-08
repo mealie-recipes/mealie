@@ -169,6 +169,7 @@
     "token": "Prieeigos raktas",
     "tuesday": "Antradienis",
     "type": "Tipas",
+    "undo": "Undo",
     "update": "Atnaujinti",
     "updated": "Atnaujinta",
     "upload": "Įkelti",
@@ -916,6 +917,7 @@
     "quantity": "Kiekis: {0}",
     "shopping-list": "Pirkinių sąrašas",
     "shopping-lists": "Pirkinių sąrašai",
+    "add-item": "Add item",
     "food": "Maistas",
     "note": "Pastaba",
     "label": "Žyma",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Are you sure you want to check all items?",
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "No Shopping Lists Found",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Visi receptai",

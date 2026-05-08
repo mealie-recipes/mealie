@@ -169,6 +169,7 @@
     "token": "الرمز التعريفي",
     "tuesday": "الثلاثاء",
     "type": "النوع",
+    "undo": "Undo",
     "update": "تحديث",
     "updated": "محدث",
     "upload": "تحميل",
@@ -916,6 +917,7 @@
     "quantity": "الكَمّيَّة: {0}",
     "shopping-list": "قائمة التسوق",
     "shopping-lists": "قوائم التسوق",
+    "add-item": "إضافة عنصر",
     "food": "الطعام",
     "note": "ملاحظة",
     "label": "Label",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "هل أنت متأكد من أنك تريد تحديد جميع العناصر؟",
     "are-you-sure-you-want-to-uncheck-all-items": "هل أنت متأكد من أنك تريد إلغاء تحديد جميع العناصر؟",
     "are-you-sure-you-want-to-delete-checked-items": "هل أنت متأكد أنك تريد حذف جميع العناصر المحددة؟",
-    "no-shopping-lists-found": "لم يتم العثور على قوائم تسوق"
+    "no-shopping-lists-found": "لم يتم العثور على قوائم تسوق",
+    "item-checked-off": "{item} غير مفحوص"
   },
   "sidebar": {
     "all-recipes": "جميع الوصفات",
@@ -1477,7 +1480,7 @@
   "announcements": {
     "announcements": "Announcements",
     "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
+    "mark-all-as-read": "وضع علامة مقروء على الكل",
     "show-announcements-from-mealie": "Show announcements from Mealie",
     "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }

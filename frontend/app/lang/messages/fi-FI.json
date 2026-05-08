@@ -169,6 +169,7 @@
     "token": "Tunniste",
     "tuesday": "Tiistai",
     "type": "Tyyppi",
+    "undo": "Undo",
     "update": "Päivitä",
     "updated": "Päivitetty",
     "upload": "Lähetä",
@@ -916,6 +917,7 @@
     "quantity": "Määrä: {0}",
     "shopping-list": "Ostoslista",
     "shopping-lists": "Ostoslistat",
+    "add-item": "Add item",
     "food": "Elintarvikkeet",
     "note": "Muistiinpano",
     "label": "Tunnus",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Haluatko varmasti valita kaikki kohteet?",
     "are-you-sure-you-want-to-uncheck-all-items": "Haluatko varmasti poistaa kaikki valinnat?",
     "are-you-sure-you-want-to-delete-checked-items": "Haluatko varmasti poistaa kaikki valitut kohteet?",
-    "no-shopping-lists-found": "Ostoslistoja ei löytynyt"
+    "no-shopping-lists-found": "Ostoslistoja ei löytynyt",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Reseptit",

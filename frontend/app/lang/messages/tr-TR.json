@@ -169,6 +169,7 @@
     "token": "Anahtar",
     "tuesday": "Salı",
     "type": "Tür",
+    "undo": "Undo",
     "update": "Güncelle",
     "updated": "Güncellendi",
     "upload": "Yükle",
@@ -916,6 +917,7 @@
     "quantity": "Miktar: {0}",
     "shopping-list": "Alışveriş Listesi",
     "shopping-lists": "Alışveriş Listeleri",
+    "add-item": "Add item",
     "food": "Gıda",
     "note": "Not",
     "label": "Etiket",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Tüm öğeleri işaretlemek istediğinizden emin misiniz?",
     "are-you-sure-you-want-to-uncheck-all-items": "Tüm öğelerden işaretleri kaldırmak istediğinize emin misiniz?",
     "are-you-sure-you-want-to-delete-checked-items": "İşaretlenmiş tüm öğeleri silmek istediğinizden emin misiniz?",
-    "no-shopping-lists-found": "Alışveriş Listesi Bulunamadı"
+    "no-shopping-lists-found": "Alışveriş Listesi Bulunamadı",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Tüm Tarifler",

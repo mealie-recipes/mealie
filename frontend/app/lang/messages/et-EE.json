@@ -169,6 +169,7 @@
     "token": "Identifikaator",
     "tuesday": "Teisipäev",
     "type": "Tüüp",
+    "undo": "Undo",
     "update": "Uuenda",
     "updated": "Uuendatud",
     "upload": "Lae üles",
@@ -916,6 +917,7 @@
     "quantity": "Kogus: {0}",
     "shopping-list": "Ostunimekiri",
     "shopping-lists": "Ostunimekirjad",
+    "add-item": "Add item",
     "food": "Toit",
     "note": "Märkus",
     "label": "Silt",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Kas oled kindel, et tahad valida kõik üksused?",
     "are-you-sure-you-want-to-uncheck-all-items": "Kas oled kindel, et tahad tühistada kõik valikud?",
     "are-you-sure-you-want-to-delete-checked-items": "Kas oled kindel, et tahad kustutada kõik valitud üksused?",
-    "no-shopping-lists-found": "Poenimekirja ei leitud"
+    "no-shopping-lists-found": "Poenimekirja ei leitud",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Kõik retseptid",

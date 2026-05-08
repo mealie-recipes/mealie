@@ -169,6 +169,7 @@
     "token": "Токен",
     "tuesday": "Вівторок",
     "type": "Тип",
+    "undo": "Undo",
     "update": "Оновити",
     "updated": "Дата оновлення",
     "upload": "Завантажити",
@@ -916,6 +917,7 @@
     "quantity": "Кількість: {0}",
     "shopping-list": "Список покупок",
     "shopping-lists": "Списки покупок",
+    "add-item": "Add item",
     "food": "Продукт",
     "note": "Нотатка",
     "label": "Мітка",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Ви впевнені, що хочете відмітити всі елементи?",
     "are-you-sure-you-want-to-uncheck-all-items": "Ви впевнені, що хочете зняти відмітку з усіх елементів?",
     "are-you-sure-you-want-to-delete-checked-items": "Ви впевнені, що хочете видалити всі відмічені елементи?",
-    "no-shopping-lists-found": "Списків покупок не знайдено"
+    "no-shopping-lists-found": "Списків покупок не знайдено",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Всі рецепти",

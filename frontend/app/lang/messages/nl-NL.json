@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "dinsdag",
     "type": "Soort",
+    "undo": "Undo",
     "update": "Bijwerken",
     "updated": "Bijgewerkt",
     "upload": "Uploaden",
@@ -916,6 +917,7 @@
     "quantity": "Hoeveelheid: {0}",
     "shopping-list": "Boodschappenlijst",
     "shopping-lists": "Boodschappenlijsten",
+    "add-item": "Add item",
     "food": "Levensmiddelen",
     "note": "Notitie",
     "label": "Label",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Weet je zeker dat je alle items wilt selecteren?",
     "are-you-sure-you-want-to-uncheck-all-items": "Weet je zeker dat je alle items wilt deselecteren?",
     "are-you-sure-you-want-to-delete-checked-items": "Weet je zeker dat je de geselecteerde items wilt verwijderen?",
-    "no-shopping-lists-found": "Geen boodschappenlijsten gevonden"
+    "no-shopping-lists-found": "Geen boodschappenlijsten gevonden",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Alle Recepten",

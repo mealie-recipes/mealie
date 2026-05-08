@@ -169,6 +169,7 @@
     "token": "Nøgle",
     "tuesday": "Tirsdag",
     "type": "Type",
+    "undo": "Undo",
     "update": "Gem",
     "updated": "Ændret",
     "upload": "Upload",
@@ -916,6 +917,7 @@
     "quantity": "Antal: {0}",
     "shopping-list": "Indkøbsliste",
     "shopping-lists": "Indkøbslister",
+    "add-item": "Tilføj vare",
     "food": "Fødevarer",
     "note": "Note",
     "label": "Etiket",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Er du sikker på, at du vil markere alle elementer?",
     "are-you-sure-you-want-to-uncheck-all-items": "Er du sikker på, at du vil fjerne markeringen af alle elementer?",
     "are-you-sure-you-want-to-delete-checked-items": "Er du sikker på, at du vil sletter de valgte elementer?",
-    "no-shopping-lists-found": "Ingen Indkøbslister fundet"
+    "no-shopping-lists-found": "Ingen Indkøbslister fundet",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Alle opskrifter",

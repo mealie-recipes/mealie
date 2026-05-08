@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Utorok",
     "type": "Typ",
+    "undo": "Undo",
     "update": "Aktualizovať",
     "updated": "Aktualizované",
     "upload": "Nahrať",
@@ -916,6 +917,7 @@
     "quantity": "Množstvo: {0}",
     "shopping-list": "Nákupný zoznam",
     "shopping-lists": "Nákupné zoznamy",
+    "add-item": "Add item",
     "food": "Jedlo",
     "note": "Poznámka",
     "label": "Štítok",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Naozaj chcete označiť všetky položky?",
     "are-you-sure-you-want-to-uncheck-all-items": "Naozaj chcete zrušiť označenie všetkých položiek?",
     "are-you-sure-you-want-to-delete-checked-items": "Naozaj chcete odstrániť všetky označené položky?",
-    "no-shopping-lists-found": "Nenašli sa žiadne nákupné zoznamy"
+    "no-shopping-lists-found": "Nenašli sa žiadne nákupné zoznamy",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Všetky recepty",

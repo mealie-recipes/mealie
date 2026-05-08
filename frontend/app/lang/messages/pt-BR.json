@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Terça-feira",
     "type": "Tipo",
+    "undo": "Undo",
     "update": "Atualizar",
     "updated": "Atualizado",
     "upload": "Enviar",
@@ -916,6 +917,7 @@
     "quantity": "Quantidade: {0}",
     "shopping-list": "Lista de compras",
     "shopping-lists": "Listas de compras",
+    "add-item": "Add item",
     "food": "Comida",
     "note": "Nota",
     "label": "Marcador",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Tem certeza que deseja marcar todos os itens?",
     "are-you-sure-you-want-to-uncheck-all-items": "Tem certeza que deseja desmarcar todos os itens?",
     "are-you-sure-you-want-to-delete-checked-items": "Tem certeza que deseja apagar todos os itens marcados?",
-    "no-shopping-lists-found": "Nenhuma lista de compras encontrada"
+    "no-shopping-lists-found": "Nenhuma lista de compras encontrada",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Todas as Receitas",

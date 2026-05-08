@@ -169,6 +169,7 @@
     "token": "Tóki",
     "tuesday": "Þriðjudag",
     "type": "Tegund",
+    "undo": "Undo",
     "update": "Uppfæra",
     "updated": "Uppfært",
     "upload": "Hlaða upp",
@@ -916,6 +917,7 @@
     "quantity": "Fjöldi: {0}",
     "shopping-list": "Innkaupalisti",
     "shopping-lists": "Innkaupalistar",
+    "add-item": "Add item",
     "food": "Matvara",
     "note": "Minnispunktur",
     "label": "Merkimiði",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Ertu viss um að þú viljir merkja við allar matvörurnar?",
     "are-you-sure-you-want-to-uncheck-all-items": "Ertu viss um að þú viljir taka merkingu af öllum matvörunum?",
     "are-you-sure-you-want-to-delete-checked-items": "Ertu viss um að þú viljir eyða öllum merktum matvörum?",
-    "no-shopping-lists-found": "Enginn innkaupalisti fannst"
+    "no-shopping-lists-found": "Enginn innkaupalisti fannst",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Allar uppskriftir",

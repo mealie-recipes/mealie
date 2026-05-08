@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Martedì",
     "type": "Tipo",
+    "undo": "Undo",
     "update": "Aggiorna",
     "updated": "Aggiornato",
     "upload": "Carica",
@@ -347,9 +348,9 @@
     "breakfast": "Colazione",
     "lunch": "Pranzo",
     "dinner": "Cena",
-    "snack": "Snack",
+    "snack": "Spuntino",
     "drink": "Bevanda",
-    "dessert": "Dessert",
+    "dessert": "Dolce",
     "type-any": "Qualsiasi",
     "day-any": "Qualsiasi",
     "editor": "Modifica",
@@ -425,7 +426,7 @@
     "paprika-text": "Mealie può importare ricette dall'applicazione Paprika. Esporta le tue ricette da paprika, rinomina l'estensione di esportazione in .zip e caricala qui sotto.",
     "mealie-text": "Mealie può importare ricette dall'applicazione Mealie da un versione pre v1.0. Esporta le tue ricette dalla tua vecchia istanza e carica il file zip qui sotto. Nota che solo le ricette possono essere importate dall'esportazione.",
     "plantoeat": {
-      "title": "Plan to Eat",
+      "title": "Pianifico di mangiare",
       "description-long": "Mealie può importare le ricette da Plan to Eat."
     },
     "myrecipebox": {
@@ -442,7 +443,7 @@
     "error-details": "Solo i siti web contenenti ld+json o microdata possono essere importati da Mealie. Se il tuo sito non può essere importato, ma ci sono dati json nel log, per favore crea una issue su github con l'URL e i dati.",
     "error-title": "Sembra che non riusciamo a trovare nulla",
     "from-url": "Importa ricetta",
-    "github-issues": "GitHub Issues",
+    "github-issues": "Github Issues",
     "google-ld-json-info": "Google ld+json Info",
     "must-be-a-valid-url": "Deve essere un URL valido",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Inserisci i dati della tua ricetta. Ogni riga sarà trattata come uno step della ricetta.",
@@ -635,7 +636,7 @@
     "please-wait-image-procesing": "Attendere, l'immagine è in fase di elaborazione. Potrebbe volerci un po' di tempo.",
     "please-wait-images-processing": "Attendere, le immagini sono in fase di elaborazione. Potrebbe volerci un po' di tempo.",
     "bulk-url-import": "Importazione multipla URL",
-    "debug-scraper": "Debug Scraper",
+    "debug-scraper": "Scraper Debug",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crea una ricetta fornendo il nome. Tutte le ricette devono avere nomi univoci.",
     "new-recipe-names-must-be-unique": "I nuovi nomi delle ricette devono essere univoci",
     "scrape-recipe": "Recupera Ricetta",
@@ -868,7 +869,7 @@
     "bug-report-information": "Usa queste informazioni per segnalare un bug. Fornire i dettagli della tua istanza agli sviluppatori è il modo migliore per risolvere rapidamente i tuoi problemi.",
     "tracker": "Invia",
     "configuration": "Configurazione",
-    "docker-volume": "Docker Volume",
+    "docker-volume": "Volume di Docker",
     "docker-volume-help": "Mealie richiede che il frontend e il backend condividano lo stesso volume docker o archiviazione. Ciò assicura che il frontend possa accedere correttamente alle immagini e alle risorse memorizzate sul disco.",
     "volumes-are-misconfigured": "I volumi sono configurati male.",
     "volumes-are-configured-correctly": "I volumi sono stati configurati correttamente.",
@@ -916,6 +917,7 @@
     "quantity": "Quantità: {0}",
     "shopping-list": "Lista della Spesa",
     "shopping-lists": "Liste della Spesa",
+    "add-item": "Add item",
     "food": "Alimenti",
     "note": "Nota",
     "label": "Etichetta",
@@ -940,14 +942,15 @@
     "are-you-sure-you-want-to-check-all-items": "Sei sicuro di voler tutti gli elementi?",
     "are-you-sure-you-want-to-uncheck-all-items": "Sei sicuro di voler deselezionare tutti gli elementi?",
     "are-you-sure-you-want-to-delete-checked-items": "Sei sicuro di voler rimuovere tutti gli articoli selezionati?",
-    "no-shopping-lists-found": "Nessuna lista della spesa trovata"
+    "no-shopping-lists-found": "Nessuna lista della spesa trovata",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Ricette",
     "backups": "Backup",
     "categories": "Categorie",
     "cookbooks": "Ricettari",
-    "dashboard": "Dashboard",
+    "dashboard": "Pannello iniziale",
     "home-page": "Pagina iniziale",
     "manage-users": "Gestire Utenti",
     "migrations": "Migrazioni",
@@ -959,7 +962,7 @@
     "language": "Lingua",
     "maintenance": "Manutenzione",
     "background-tasks": "Attività in Background",
-    "parser": "Parser",
+    "parser": "Analizzatore",
     "developer": "Sviluppatore",
     "cookbook": "Ricettario",
     "create-cookbook": "Crea un nuovo ricettario"
@@ -1017,12 +1020,12 @@
     "full-name": "Nome",
     "generate-password-reset-link": "Genera Link Di Reset Password",
     "invite-only": "Solo su invito",
-    "link-id": "Link ID",
+    "link-id": "Link-ID",
     "link-name": "Link Nome",
-    "login": "Login",
+    "login": "Accedi",
     "login-oidc": "Accedi con",
     "or": "oppure",
-    "logout": "Logout",
+    "logout": "Esci",
     "manage-users": "Gestisci Utenti",
     "manage-users-description": "Crea e gestisci gli utenti.",
     "new-password": "Nuova Password",
@@ -1434,7 +1437,7 @@
     "require-all-tools": "Richiedi Tutti Gli Strumenti",
     "cookbook-name": "Nome Ricettario",
     "cookbook-with-name": "Ricettario {0}",
-    "household-cookbook-name": "{0} Cookbook {1}",
+    "household-cookbook-name": "{0} Ricettario {1}",
     "create-a-cookbook": "Crea un libro di cucina",
     "cookbook": "Libro di cucina"
   },
@@ -1475,10 +1478,10 @@
     "max-length": "Deve Essere Al Più {max} Carattere|Deve Essere Al Più {max} Caratteri"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Annunci",
+    "all-announcements": "Tutti gli annunci",
+    "mark-all-as-read": "Segna tutti come letti",
+    "show-announcements-from-mealie": "Mostra annunci da Mealie",
+    "show-announcements-setting-description": "Consentire o meno agli utenti di vedere gli annunci da Mealie. Quando abilitato gli utenti potranno comunque scegliere di non vederli dalle impostazioni utente."
   }
 }

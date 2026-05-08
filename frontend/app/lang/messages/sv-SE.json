@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Tisdag",
     "type": "Typ",
+    "undo": "Undo",
     "update": "Uppdatera",
     "updated": "Uppdaterad",
     "upload": "Ladda upp",
@@ -916,6 +917,7 @@
     "quantity": "Antal {0}",
     "shopping-list": "Inköpslista",
     "shopping-lists": "Inköpslistor",
+    "add-item": "Add item",
     "food": "Mat",
     "note": "Anteckning",
     "label": "Etikett",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Är du säker på att du vill markera alla objekt?",
     "are-you-sure-you-want-to-uncheck-all-items": "Är du säker på att du vill avmarkera alla objekt?",
     "are-you-sure-you-want-to-delete-checked-items": "Är du säker på att du vill ta bort alla markerade objekt?",
-    "no-shopping-lists-found": "Inga inköpslistor hittades"
+    "no-shopping-lists-found": "Inga inköpslistor hittades",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Recept",

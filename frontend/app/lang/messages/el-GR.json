@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Τρίτη",
     "type": "Τύπος",
+    "undo": "Undo",
     "update": "Ενημέρωση",
     "updated": "Ενημερώθηκε",
     "upload": "Ανέβασμα",
@@ -916,6 +917,7 @@
     "quantity": "Ποσότητα: {0}",
     "shopping-list": "Λίστα για ψώνια",
     "shopping-lists": "Λίστες για ψώνια",
+    "add-item": "Add item",
     "food": "Τρόφιμο",
     "note": "Σημείωση",
     "label": "Ετικέτα",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Θέλετε σίγουρα να επιλέξετε όλα τα αντικείμενα;",
     "are-you-sure-you-want-to-uncheck-all-items": "Θέλετε σίγουρα να αποεπιλέξετε όλα τα αντικείμενα;",
     "are-you-sure-you-want-to-delete-checked-items": "Θέλετε σίγουρα να διαγράψετε όλα τα επιλεγμένα αντικείμενα;",
-    "no-shopping-lists-found": "Δεν βρέθηκαν λίστες για ψώνια"
+    "no-shopping-lists-found": "Δεν βρέθηκαν λίστες για ψώνια",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Συνταγές όλες",

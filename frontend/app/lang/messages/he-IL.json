@@ -169,6 +169,7 @@
     "token": "טוקן",
     "tuesday": "שלישי",
     "type": "סוג",
+    "undo": "Undo",
     "update": "עדכון",
     "updated": "עודכן",
     "upload": "העלאה",
@@ -916,6 +917,7 @@
     "quantity": "כמות: {0}",
     "shopping-list": "רשימת קניות",
     "shopping-lists": "רשימות קניות",
+    "add-item": "Add item",
     "food": "אוכל",
     "note": "הערה",
     "label": "תווית",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "לסמן את כל הפריטים?",
     "are-you-sure-you-want-to-uncheck-all-items": "לבטל את סימון כל הפריטים?",
     "are-you-sure-you-want-to-delete-checked-items": "למחוק את כל הפריטים המסומנים?",
-    "no-shopping-lists-found": "לא נמצאה רשימת קניות"
+    "no-shopping-lists-found": "לא נמצאה רשימת קניות",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "כל המתכונים",

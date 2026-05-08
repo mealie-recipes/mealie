@@ -1957,8 +1957,8 @@
             "apricot kernel": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot kernel",
-                "plural_name": "apricot kernels"
+                "name": "sárgabarackmag",
+                "plural_name": "sárgabarackmag"
             },
             "palm seed": {
                 "aliases": [],
@@ -2038,19 +2038,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "mozzarella sajt",
-                "plural_name": "mozzarella cheese"
+                "plural_name": "mozzarella sajt"
             },
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "fetasajt",
+                "plural_name": "fetasajt"
             },
             "ricotta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "ricotta cheese",
-                "plural_name": "ricotta cheese"
+                "name": "ricotta",
+                "plural_name": "ricotta"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2067,14 +2067,14 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "kéksajt",
+                "plural_name": "kéksajt"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheese"
+                "name": "kecskesajt",
+                "plural_name": "kecskesajt"
             },
             "fresh mozzarella cheese": {
                 "aliases": [],
@@ -2139,8 +2139,8 @@
             "brie cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brie cheese",
-                "plural_name": "brie cheese"
+                "name": "brie sajt",
+                "plural_name": "brie sajt"
             },
             "paneer cheese": {
                 "aliases": [],
@@ -2187,8 +2187,8 @@
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheese"
+                "name": "füstölt sajt",
+                "plural_name": "füstölt sajt"
             },
             "halloumi cheese": {
                 "aliases": [],
@@ -2265,14 +2265,14 @@
             "camembert cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "camembert cheese",
-                "plural_name": "camembert cheese"
+                "name": "camembert",
+                "plural_name": "camembert"
             },
             "soft cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "soft cheese",
-                "plural_name": "soft cheese"
+                "name": "lágysajt",
+                "plural_name": "lágysajt"
             },
             "stilton cheese": {
                 "aliases": [],

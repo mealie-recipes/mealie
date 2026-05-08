@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Úterý",
     "type": "Typ",
+    "undo": "Undo",
     "update": "Aktualizace",
     "updated": "Aktualizováno",
     "upload": "Nahrát",
@@ -916,6 +917,7 @@
     "quantity": "Množství: {0}",
     "shopping-list": "Nákupní seznam",
     "shopping-lists": "Nákupní seznamy",
+    "add-item": "Add item",
     "food": "Jídlo",
     "note": "Poznámka",
     "label": "Popisek",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Opravdu chcete vybrat všechny položky?",
     "are-you-sure-you-want-to-uncheck-all-items": "Opravdu chcete zrušit výběr všech položek?",
     "are-you-sure-you-want-to-delete-checked-items": "Opravdu chcete odstranit všechny vybrané položky?",
-    "no-shopping-lists-found": "Nebyly nalezeny žádné nákupní seznamy"
+    "no-shopping-lists-found": "Nebyly nalezeny žádné nákupní seznamy",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Všechny recepty",

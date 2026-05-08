@@ -169,6 +169,7 @@
     "token": "Токен",
     "tuesday": "уторак",
     "type": "Тип",
+    "undo": "Undo",
     "update": "Ажурирај",
     "updated": "Ажурирано",
     "upload": "Отпреми",
@@ -425,15 +426,15 @@
     "paprika-text": "Mealie може да увезе рецепте из апликације Paprika. Извезите ваше рецепте из Paprika апликације, промените екстензију извоза у .zip и отпремите је испод.",
     "mealie-text": "Mealie може да увезе рецепте из Mealie апликације пре верзије 1.0. Извезите ваше рецепте са ваше старе инстанце и отпремите zip датотеку испод. Напомена: само рецепти се могу увести из овог извоза.",
     "plantoeat": {
-      "title": "Plan to Eat",
+      "title": "Планирајте јело",
       "description-long": "Mealie може да увезе рецепте из Plan to Eat."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
+      "title": "Моја кутија за рецепте",
       "description-long": "Mealie може да увезе рецепте из My Recipe Box. Извезите ваше рецепте у CSV формату, затим отпремите .csv датотеку испод."
     },
     "recipekeeper": {
-      "title": "Recipe Keeper",
+      "title": "Чувар рецепата",
       "description-long": "Mealie може да увезе рецепте из Recipe Keeper-а. Извезите ваше рецепте у zip формату, затим отпремите .zip датотеку испод."
     }
   },
@@ -916,6 +917,7 @@
     "quantity": "Количина: {0}",
     "shopping-list": "Списак за куповину",
     "shopping-lists": "Спискови за куповину",
+    "add-item": "Додај ставку",
     "food": "Храна",
     "note": "Белешка",
     "label": "Натпис",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Да ли сте сигурни да желите да означите све ставке?",
     "are-you-sure-you-want-to-uncheck-all-items": "Да ли сте сигурни да желите да одзначите све ставке?",
     "are-you-sure-you-want-to-delete-checked-items": "Да ли сте сигурни да желите да обришете све означене ставке?",
-    "no-shopping-lists-found": "Нису пронађени спискови за куповину"
+    "no-shopping-lists-found": "Нису пронађени спискови за куповину",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Сви рецепти",
@@ -1476,9 +1479,9 @@
   },
   "announcements": {
     "announcements": "Најава",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
+    "all-announcements": "Најава",
+    "mark-all-as-read": "Означи све као прочитано",
     "show-announcements-from-mealie": "Најава",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "show-announcements-setting-description": "Да ли желите да дозволите корисницима да виде обавештења од Mealie-а. Када је омогућено, корисници и даље могу да се искључе из приказивања обавештења у својим корисничким подешавањима."
   }
 }

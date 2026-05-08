@@ -169,6 +169,7 @@
     "token": "Jeton",
     "tuesday": "Mardi",
     "type": "Type",
+    "undo": "Undo",
     "update": "Mettre à jour",
     "updated": "Mis à jour",
     "upload": "Importer",
@@ -916,6 +917,7 @@
     "quantity": "Quantité : {0}",
     "shopping-list": "Liste de courses",
     "shopping-lists": "Listes de courses",
+    "add-item": "Ajouter un article",
     "food": "Aliment",
     "note": "Remarque",
     "label": "Étiquette",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Voulez-vous vraiment sélectionner tous les éléments ?",
     "are-you-sure-you-want-to-uncheck-all-items": "Voulez-vous vraiment désélectionner tous les éléments ?",
     "are-you-sure-you-want-to-delete-checked-items": "Voulez-vous vraiment supprimer tous les éléments sélectionnés ?",
-    "no-shopping-lists-found": "Aucune liste de courses trouvée"
+    "no-shopping-lists-found": "Aucune liste de courses trouvée",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Recettes",
