@@ -21,7 +21,7 @@
             :icon="$globals.icons.foods"
             :style="rail ? 'margin-inline: 3px;' : undefined"
             :search="rail"
-            :menu-props="{ location: $vuetify.display.smAndDown ? 'top' : 'bottom' }"
+            :menu-props="{ location: menuDirection }"
             create
             @create="createAssignFood"
           />
@@ -93,6 +93,9 @@ defineEmits<{
 }>();
 
 const { createAssignFood } = useShoppingListItemEditor(listItem);
+
+const { smAndDown } = useDisplay();
+const menuDirection = computed(() => smAndDown.value ? "top" : "bottom");
 
 const foodInputRef = ref<{ focus: () => void } | null>(null);
 const rail = ref(true);
