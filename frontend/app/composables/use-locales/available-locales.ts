@@ -73,7 +73,7 @@ export const LOCALES = [
   {
     name: "Română (Romanian)",
     value: "ro-RO",
-    progress: 60,
+    progress: 100,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
