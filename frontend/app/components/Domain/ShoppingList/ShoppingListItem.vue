@@ -11,11 +11,13 @@
     >
       <v-row
         v-touch="{
-          move: ({ originalEvent: { touches: [{ screenX }] } }) => {
+          move: ({ originalEvent: { touches: [{ screenX, screenY }] } }) => {
             swipeInfo.touchendX = screenX;
+            swipeInfo.touchendY = screenY;
           },
-          start: ({ originalEvent: { touches: [{ screenX }] } }) => {
+          start: ({ originalEvent: { touches: [{ screenX, screenY }] } }) => {
             swipeInfo.touchstartX = screenX;
+            swipeInfo.touchstartY = screenY;
           },
           end: () => {
             if (swiping < SWIPE_THRESHOLD) {
@@ -212,6 +214,7 @@ const emit = defineEmits<{
 }>();
 
 const SWIPE_THRESHOLD = 50;
+const SCROLL_THRESHOLD = 50;
 
 const { isRtl } = useRtl();
 const i18n = useI18n();
@@ -264,14 +267,22 @@ function save() {
   edit.value = false;
 }
 
-const swipeInfo: Ref<{ touchstartX?: number; touchendX?: number }> = ref({ touchstartX: undefined, touchendX: undefined });
+const swipeInfo: Ref<{ touchstartX?: number; touchendX?: number; touchstartY?: number; touchendY?: number }> = ref({});
 const swiping = computed(() => {
-  const { touchstartX, touchendX } = swipeInfo.value ?? {};
+  const { touchstartX, touchendX, touchstartY, touchendY } = swipeInfo.value ?? {};
   if (touchstartX === undefined || touchendX === undefined) {
     return 0;
   }
-  const delta = isRtl.value ? touchstartX - touchendX : touchendX - touchstartX;
-  return Math.min(Math.max(0, delta), 100);
+  const deltaX = isRtl.value ? touchstartX - touchendX : touchendX - touchstartX;
+
+  // If there's significant vertical movement, treat as a scroll gesture and ignore
+  if (touchstartY !== undefined && touchendY !== undefined) {
+    const deltaY = Math.abs(touchendY - touchstartY);
+    if (deltaY > SCROLL_THRESHOLD) {
+      return 0;
+    }
+  }
+  return Math.min(Math.max(0, deltaX), 100);
 });
 
 const recipeList = computed<RecipeSummary[]>(() => {
