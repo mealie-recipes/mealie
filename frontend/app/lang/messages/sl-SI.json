@@ -169,7 +169,7 @@
     "token": "Žeton",
     "tuesday": "Torek",
     "type": "Tip",
-    "undo": "Undo",
+    "undo": "Razveljavi",
     "update": "Posodobi",
     "updated": "Posodobljen",
     "upload": "Naloži",
@@ -917,7 +917,7 @@
     "quantity": "Količina: {0}",
     "shopping-list": "Nakupovalni seznam",
     "shopping-lists": "Nakupovalni seznami",
-    "add-item": "Add item",
+    "add-item": "Dodaj element",
     "food": "Živilo",
     "note": "Opomba",
     "label": "Oznaka",
@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Ali res ne želite izbrati vseh elementov?",
     "are-you-sure-you-want-to-delete-checked-items": "Ali ste prepričani, da želite izbrisati vse izbrane elemente?",
     "no-shopping-lists-found": "Ni nakupovalnih seznamov",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "{item} je bil odkljukan"
   },
   "sidebar": {
     "all-recipes": "Vsi recepti",
