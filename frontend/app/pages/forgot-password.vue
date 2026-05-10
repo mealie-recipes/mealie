@@ -89,8 +89,14 @@ useSeoMeta({
 const api = useUserApi();
 
 async function requestLink() {
-  const { valid } = await form.value!.validate();
-  if (!valid) return;
+  if (!form.value) {
+    return;
+  };
+
+  const { valid } = await form.value.validate();
+  if (!valid) {
+    return;
+  };
 
   state.loading = true;
   // TODO: Fix Response to send meaningful error
