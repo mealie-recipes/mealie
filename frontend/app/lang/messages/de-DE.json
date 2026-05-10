@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Dienstag",
     "type": "Typ",
+    "undo": "Undo",
     "update": "Aktualisieren",
     "updated": "Aktualisiert",
     "upload": "Hochladen",
@@ -916,6 +917,7 @@
     "quantity": "Menge: {0}",
     "shopping-list": "Einkaufsliste",
     "shopping-lists": "Einkaufslisten",
+    "add-item": "Add item",
     "food": "Lebensmittel",
     "note": "Notiz",
     "label": "Kategorie",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Bist du sicher, dass du alle Elemente markieren möchtest?",
     "are-you-sure-you-want-to-uncheck-all-items": "Bist du sicher, dass du die Auswahl aller Elemente aufheben möchtest?",
     "are-you-sure-you-want-to-delete-checked-items": "Bist du sicher, dass du alle ausgewählten Elemente löschen möchtest?",
-    "no-shopping-lists-found": "Keine Einkaufslisten gefunden"
+    "no-shopping-lists-found": "Keine Einkaufslisten gefunden",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Alle Rezepte",

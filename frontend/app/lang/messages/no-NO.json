@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Tirsdag",
     "type": "Type",
+    "undo": "Undo",
     "update": "Oppdater",
     "updated": "Oppdatert",
     "upload": "Last opp",
@@ -916,6 +917,7 @@
     "quantity": "Antall: {0}",
     "shopping-list": "Handleliste",
     "shopping-lists": "Handlelister",
+    "add-item": "Add item",
     "food": "Matvare",
     "note": "Notat",
     "label": "Etikett",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Er du sikker på at du vil velge alle elementer?",
     "are-you-sure-you-want-to-uncheck-all-items": "Er du sikker på at du vil fjerne valg av alle elementer?",
     "are-you-sure-you-want-to-delete-checked-items": "Er du sikker på at du vil slette alle valgte elementer?",
-    "no-shopping-lists-found": "Ingen handlelister funnet"
+    "no-shopping-lists-found": "Ingen handlelister funnet",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Alle oppskrifter",

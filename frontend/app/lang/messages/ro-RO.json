@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Marţi",
     "type": "Tip",
+    "undo": "Undo",
     "update": "Actualizează",
     "updated": "Actualizat",
     "upload": "Încarcă",
@@ -916,6 +917,7 @@
     "quantity": "Cantitate: {0}",
     "shopping-list": "Listă de cumpărături",
     "shopping-lists": "Liste de cumpărături",
+    "add-item": "Add item",
     "food": "Aliment",
     "note": "Note",
     "label": "Etichetă",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Sunteți sigur că doriți să bifați toate elementele?",
     "are-you-sure-you-want-to-uncheck-all-items": "Sunteți sigur că doriți să debifați toate elementele?",
     "are-you-sure-you-want-to-delete-checked-items": "Sunteți sigur că doriți să ștergeți toate elementele selectate?",
-    "no-shopping-lists-found": "Nu s-au găsit liste de cumpărături"
+    "no-shopping-lists-found": "Nu s-au găsit liste de cumpărături",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Toate reţetele",

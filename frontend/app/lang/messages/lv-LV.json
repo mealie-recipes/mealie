@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Otrdiena",
     "type": "Tips",
+    "undo": "Undo",
     "update": "Atjaunināt",
     "updated": "Atjaunināts",
     "upload": "Augšupielādēt",
@@ -916,6 +917,7 @@
     "quantity": "Daudzums: {0}",
     "shopping-list": "Iepirkumu saraksts",
     "shopping-lists": "Iepirkumu saraksti",
+    "add-item": "Add item",
     "food": "Pārtika",
     "note": "piezīme",
     "label": "etiķete",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Vai esat pārliecināts, ka vēlaties pārbaudīt visus vienumus?",
     "are-you-sure-you-want-to-uncheck-all-items": "Vai esat pārliecināts, ka vēlaties noņemt atzīmi no visiem vienumiem?",
     "are-you-sure-you-want-to-delete-checked-items": "Vai tiešām vēlaties dzēst visus pārbaudītos vienumus?",
-    "no-shopping-lists-found": "No Shopping Lists Found"
+    "no-shopping-lists-found": "No Shopping Lists Found",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Visas receptes",

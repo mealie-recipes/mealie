@@ -7356,8 +7356,8 @@
             "carne asada seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "carne asada seasoning",
-                "plural_name": "carne asada seasoning"
+                "name": "assaisonnement du carne asada",
+                "plural_name": "assaisonnement du carne asada"
             },
             "bouquet garni": {
                 "aliases": [],
@@ -7386,8 +7386,8 @@
             "curing salt": {
                 "aliases": [],
                 "description": "",
-                "name": "curing salt",
-                "plural_name": "curing salt"
+                "name": "séchage du sel",
+                "plural_name": "séchage du sel"
             },
             "mexican seasoning": {
                 "aliases": [],

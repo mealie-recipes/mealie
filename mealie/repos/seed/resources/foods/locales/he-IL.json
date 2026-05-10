@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "שום",
-                "plural_name": "garlic"
+                "plural_name": "שום"
             },
             "onion": {
                 "aliases": [],
@@ -59,12 +59,12 @@
                 "aliases": [],
                 "description": "",
                 "name": "סלרי",
-                "plural_name": "celery"
+                "plural_name": "סלרי"
             },
             "jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeño",
+                "name": "חלפיניו",
                 "plural_name": "jalapeños"
             },
             "avocado": {
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "תרד",
-                "plural_name": "spinach"
+                "plural_name": "תרד"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "תירס מתוק",
-                "plural_name": "sweet corn"
+                "plural_name": "תירס מתוק"
             },
             "chile pepper": {
                 "aliases": [
@@ -121,13 +121,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "ברוקולי",
-                "plural_name": "broccoli"
+                "plural_name": "ברוקולי"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
                 "name": "לב דקל",
-                "plural_name": "heart of palm"
+                "plural_name": "לבבות דקל"
             },
             "baby greens": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "כרובית",
-                "plural_name": "cauliflower"
+                "plural_name": "כרובית"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,7 +156,7 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
+                "name": "אספרגוס",
                 "plural_name": "asparagus"
             },
             "kale": {
@@ -169,7 +169,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ארוגולה",
-                "plural_name": "arugula"
+                "plural_name": "אורוגולה"
             },
             "leek": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "חסה",
-                "plural_name": "lettuce"
+                "plural_name": "חסה"
             },
             "butternut squash": {
                 "aliases": [],
@@ -560,7 +560,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "קולורבי",
-                "plural_name": "kohlrabi"
+                "plural_name": "קולורבי"
             },
             "fresno chile": {
                 "aliases": [],
@@ -974,7 +974,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "פומלה",
-                "plural_name": "pomelos"
+                "plural_name": "פומלות"
             },
             "chestnut purée": {
                 "aliases": [],
@@ -2003,16 +2003,16 @@
             "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan cheese",
-                "plural_name": "parmesan cheese"
+                "name": "פרמז'ן",
+                "plural_name": "פרמז'ן"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddar cheese"
+                    "צ'דר"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheese"
+                "name": "צ'דר",
+                "plural_name": "צ'דר"
             },
             "cream cheese": {
                 "aliases": [],
@@ -2031,20 +2031,20 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "גבינה",
+                "plural_name": "גבינות"
             },
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
-                "plural_name": "mozzarella cheese"
+                "name": "מוצרלה",
+                "plural_name": "מוצרלה"
             },
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "פטה",
+                "plural_name": "פטה"
             },
             "ricotta cheese": {
                 "aliases": [],
@@ -2067,14 +2067,14 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "גבינה כחולה",
+                "plural_name": "גבינה כחולה"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheese"
+                "name": "גבינת עיזים",
+                "plural_name": "גבינת עיזים"
             },
             "fresh mozzarella cheese": {
                 "aliases": [],
@@ -2085,7 +2085,7 @@
             "swis cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swis cheese",
+                "name": "גבינה שוויצרית",
                 "plural_name": "swis cheese"
             },
             "pecorino cheese": {
@@ -2103,13 +2103,13 @@
             "mascarpone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mascarpone cheese",
+                "name": "מסקרפונה",
                 "plural_name": "mascarpone cheese"
             },
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cottage cheese",
+                "name": "קוטג'",
                 "plural_name": "cottage cheese"
             },
             "american cheese": {
@@ -2187,13 +2187,13 @@
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
+                "name": "גבינה מעושנת",
                 "plural_name": "smoked cheese"
             },
             "halloumi cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "halloumi cheese",
+                "name": "גבינת חלומי",
                 "plural_name": "halloumi cheese"
             },
             "chevre cheese": {
@@ -5579,8 +5579,8 @@
             "octopus": {
                 "aliases": [],
                 "description": "",
-                "name": "octopus",
-                "plural_name": "octopi"
+                "name": "תמנון",
+                "plural_name": "תמנונים"
             },
             "kombu": {
                 "aliases": [],
@@ -5818,7 +5818,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "קינמון",
-                "plural_name": "cinnamon"
+                "plural_name": "קינמון"
             },
             "parsley": {
                 "aliases": [],
@@ -5841,7 +5841,7 @@
             "basil": {
                 "aliases": [],
                 "description": "",
-                "name": "basil",
+                "name": "בזיליקום",
                 "plural_name": "basils"
             },
             "thyme": {
@@ -5859,13 +5859,13 @@
             "garlic powder": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic powder",
+                "name": "אבקת שום",
                 "plural_name": "garlic powder"
             },
             "oregano": {
                 "aliases": [],
                 "description": "",
-                "name": "oregano",
+                "name": "אורגנו",
                 "plural_name": "oreganos"
             },
             "nutmeg": {
@@ -5883,13 +5883,13 @@
             "chili powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chili powder",
+                "name": "אבקת צ'ילי",
                 "plural_name": "chili powder"
             },
             "paprika": {
                 "aliases": [],
                 "description": "",
-                "name": "paprika",
+                "name": "פפריקה",
                 "plural_name": "paprika"
             },
             "cayenne": {
@@ -5901,7 +5901,7 @@
             "rosemary": {
                 "aliases": [],
                 "description": "",
-                "name": "rosemary",
+                "name": "רוזמרין",
                 "plural_name": "rosemaries"
             },
             "bay leaf": {

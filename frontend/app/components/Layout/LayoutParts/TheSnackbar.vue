@@ -4,7 +4,7 @@
       v-model="toastAlert.open"
       location="top"
       :color="toastAlert.color"
-      timeout="2000"
+      :timeout="toastAlert.timeout ?? 2000"
     >
       <v-icon
         v-if="icon"
@@ -19,9 +19,12 @@
       <template #actions>
         <v-btn
           variant="text"
-          @click="toastAlert.open = false"
+          @click="() => {
+            toastAlert.action?.onClick();
+            toastAlert.open = false
+          }"
         >
-          {{ $t('general.close') }}
+          {{ toastAlert.action?.message ?? $t('general.close') }}
         </v-btn>
       </template>
     </v-snackbar>

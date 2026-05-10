@@ -169,6 +169,7 @@
     "token": "Токен",
     "tuesday": "Вторник",
     "type": "Тип",
+    "undo": "Undo",
     "update": "Актуализация",
     "updated": "Последно обновени",
     "upload": "Качи",
@@ -916,6 +917,7 @@
     "quantity": "Количество: {0}",
     "shopping-list": "Списък за пазаруване",
     "shopping-lists": "Списъци за пазаруване",
+    "add-item": "Add item",
     "food": "Продукт",
     "note": "Бележка",
     "label": "Етикет",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Сигурни ли сте, че искате да изберете всички елементи?",
     "are-you-sure-you-want-to-uncheck-all-items": "Сигурни ли сте, че искате да премахнете отметката от всички елементи?",
     "are-you-sure-you-want-to-delete-checked-items": "Сигурни ли сте, че искате да изтриете всички отметнати елементи?",
-    "no-shopping-lists-found": "Не са намерени списъци за пазаруване"
+    "no-shopping-lists-found": "Не са намерени списъци за пазаруване",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Всички рецепти",

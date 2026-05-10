@@ -169,6 +169,7 @@
     "token": "トークン",
     "tuesday": "火曜日",
     "type": "タイプ",
+    "undo": "Undo",
     "update": "更新",
     "updated": "更新日時",
     "upload": "アップロード",
@@ -916,6 +917,7 @@
     "quantity": "数量: {0}",
     "shopping-list": "買い物リスト",
     "shopping-lists": "買い物リスト",
+    "add-item": "Add item",
     "food": "食料",
     "note": "メモ",
     "label": "ラベル",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "すべての項目をチェックしてもよろしいですか?",
     "are-you-sure-you-want-to-uncheck-all-items": "すべてのアイテムのチェックを外してもよろしいですか？",
     "are-you-sure-you-want-to-delete-checked-items": "チェックされた項目をすべて削除してもよろしいですか？",
-    "no-shopping-lists-found": "ショッピングリストが見つかりません"
+    "no-shopping-lists-found": "ショッピングリストが見つかりません",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "すべてのレシピ",

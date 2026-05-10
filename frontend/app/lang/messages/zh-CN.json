@@ -169,6 +169,7 @@
     "token": "密钥",
     "tuesday": "周二",
     "type": "类型",
+    "undo": "Undo",
     "update": "更新",
     "updated": "已更新",
     "upload": "上传",
@@ -916,6 +917,7 @@
     "quantity": "数量: {0} 个",
     "shopping-list": "购物清单",
     "shopping-lists": "购物清单",
+    "add-item": "Add item",
     "food": "食品",
     "note": "备注",
     "label": "标注",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "您确定要选择所有项目吗？",
     "are-you-sure-you-want-to-uncheck-all-items": "您确定要取消选中所有项目吗？",
     "are-you-sure-you-want-to-delete-checked-items": "您确定要删除所有选中的项目吗？",
-    "no-shopping-lists-found": "没有发现购物清单"
+    "no-shopping-lists-found": "没有发现购物清单",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "全部食谱",

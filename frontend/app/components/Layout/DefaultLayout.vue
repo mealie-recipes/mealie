@@ -110,7 +110,7 @@ const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const cookbookPreferences = useCookbookPreferences();
-const ownCookbookStore = useCookbookStore(i18n);
+const ownCookbookStore = computed(() => isOwnGroup.value ? useCookbookStore(i18n) : null);
 const publicCookbookStoreCache = ref<Record<string, ReturnType<typeof usePublicCookbookStore>>>({});
 
 function getPublicCookbookStore(slug: string) {
@@ -121,8 +121,8 @@ function getPublicCookbookStore(slug: string) {
 }
 
 const cookbooks = computed(() => {
-  if (isOwnGroup.value) {
-    return ownCookbookStore.store.value;
+  if (ownCookbookStore.value) {
+    return ownCookbookStore.value.store.value;
   }
   else if (groupSlug.value) {
     const publicStore = getPublicCookbookStore(groupSlug.value);

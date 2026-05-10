@@ -98,7 +98,7 @@
     "dashboard": "Командна табла",
     "delete": "Обриши",
     "disabled": "Онемогућено",
-    "done": "Done",
+    "done": "Готово",
     "download": "Преузми",
     "duplicate": "Дуплирај",
     "edit": "Измени",
@@ -169,10 +169,11 @@
     "token": "Токен",
     "tuesday": "уторак",
     "type": "Тип",
+    "undo": "Undo",
     "update": "Ажурирај",
     "updated": "Ажурирано",
     "upload": "Отпреми",
-    "url": "URL",
+    "url": "Url адреса",
     "view": "Преглед",
     "wednesday": "среда",
     "yes": "Да",
@@ -425,15 +426,15 @@
     "paprika-text": "Mealie може да увезе рецепте из апликације Paprika. Извезите ваше рецепте из Paprika апликације, промените екстензију извоза у .zip и отпремите је испод.",
     "mealie-text": "Mealie може да увезе рецепте из Mealie апликације пре верзије 1.0. Извезите ваше рецепте са ваше старе инстанце и отпремите zip датотеку испод. Напомена: само рецепти се могу увести из овог извоза.",
     "plantoeat": {
-      "title": "Plan to Eat",
+      "title": "Планирајте јело",
       "description-long": "Mealie може да увезе рецепте из Plan to Eat."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
+      "title": "Моја кутија за рецепте",
       "description-long": "Mealie може да увезе рецепте из My Recipe Box. Извезите ваше рецепте у CSV формату, затим отпремите .csv датотеку испод."
     },
     "recipekeeper": {
-      "title": "Recipe Keeper",
+      "title": "Чувар рецепата",
       "description-long": "Mealie може да увезе рецепте из Recipe Keeper-а. Извезите ваше рецепте у zip формату, затим отпремите .zip датотеку испод."
     }
   },
@@ -442,7 +443,7 @@
     "error-details": "Само веб-сајтови који садрже ld+json или микроподатке могу бити увезени од стране Mealieја. Већина великих сајтова са рецептима подржава ову структуру података. Ако ваш сајт не може бити увезен, али постоје json подаци у логу, молимо вас пошаљите github issue са URL-ом и подацима.",
     "error-title": "Изгледа да нисмо могли ништа да пронађемо",
     "from-url": "Увези рецепт",
-    "github-issues": "GitHub Issues",
+    "github-issues": "GitHub Problemi",
     "google-ld-json-info": "Google ld+json информације",
     "must-be-a-valid-url": "Мора бити валидан URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Налепите ваше податке о рецепту. Свака линија ће бити третирана као ставка на списку",
@@ -858,7 +859,7 @@
     "webhooks": {
       "test-webhooks": "Тестирај Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "URL-ови наведени у наставку ће примити webhook-ове који садрже податке о рецепту за план оброка у заказани дан. Тренутно ће се Webhook-ови извршавати у",
-      "webhook-url": "Webhook URL",
+      "webhook-url": "URL Webhook -а",
       "webhooks-caps": "WEBHOOK-ОВИ",
       "webhooks": "Webhooks",
       "webhook-name": "Име Webhook-а",
@@ -916,6 +917,7 @@
     "quantity": "Количина: {0}",
     "shopping-list": "Списак за куповину",
     "shopping-lists": "Спискови за куповину",
+    "add-item": "Додај ставку",
     "food": "Храна",
     "note": "Белешка",
     "label": "Натпис",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Да ли сте сигурни да желите да означите све ставке?",
     "are-you-sure-you-want-to-uncheck-all-items": "Да ли сте сигурни да желите да одзначите све ставке?",
     "are-you-sure-you-want-to-delete-checked-items": "Да ли сте сигурни да желите да обришете све означене ставке?",
-    "no-shopping-lists-found": "Нису пронађени спискови за куповину"
+    "no-shopping-lists-found": "Нису пронађени спискови за куповину",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Сви рецепти",
@@ -1475,10 +1478,10 @@
     "max-length": "Мора бити највише {max} карактер|Мора бити највише {max} карактера"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Најава",
+    "all-announcements": "Најава",
+    "mark-all-as-read": "Означи све као прочитано",
+    "show-announcements-from-mealie": "Најава",
+    "show-announcements-setting-description": "Да ли желите да дозволите корисницима да виде обавештења од Mealie-а. Када је омогућено, корисници и даље могу да се искључе из приказивања обавештења у својим корисничким подешавањима."
   }
 }

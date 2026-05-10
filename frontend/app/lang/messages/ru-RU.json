@@ -169,6 +169,7 @@
     "token": "Токен",
     "tuesday": "Вторник",
     "type": "Тип",
+    "undo": "Undo",
     "update": "Обновить",
     "updated": "Обновлено",
     "upload": "Загрузить",
@@ -916,6 +917,7 @@
     "quantity": "Количество: {0}",
     "shopping-list": "Список покупок",
     "shopping-lists": "Списки покупок",
+    "add-item": "Add item",
     "food": "Продукты",
     "note": "Заметка",
     "label": "Метка",
@@ -940,7 +942,8 @@
     "are-you-sure-you-want-to-check-all-items": "Вы уверены, что хотите выбрать все элементы?",
     "are-you-sure-you-want-to-uncheck-all-items": "Вы уверены, что хотите снять отметку со всех элементов?",
     "are-you-sure-you-want-to-delete-checked-items": "Вы уверены, что хотите удалить все отмеченные элементы?",
-    "no-shopping-lists-found": "Списки покупок не найдены"
+    "no-shopping-lists-found": "Списки покупок не найдены",
+    "item-checked-off": "{item} was checked off"
   },
   "sidebar": {
     "all-recipes": "Все рецепты",
