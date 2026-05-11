@@ -93,4 +93,8 @@ function emitCreate() {
   emit("create", searchInput.value);
   autocompleteRef.value?.blur();
 }
+
+defineExpose({
+  focus: () => autocompleteRef.value?.focus(),
+});
 </script>

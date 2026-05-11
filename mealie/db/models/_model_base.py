@@ -1,3 +1,4 @@
+import string
 from datetime import datetime
 
 from sqlalchemy import Integer
@@ -5,6 +6,12 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, declared_attr, mapped_column
 from text_unidecode import unidecode
 
 from ._model_utils.datetime import NaiveDateTime, get_utc_now
+
+# Punctuation characters replaced with spaces during text normalization.
+# Mirrors SearchFilter in query_search.py: string.punctuation minus apostrophe and
+# double-quote, which are reserved for quoted literal searches.
+NORMALIZE_PUNCTUATION = string.punctuation.replace("'", "").replace('"', "")
+_NORMALIZE_PUNCTUATION_TABLE = str.maketrans(NORMALIZE_PUNCTUATION, " " * len(NORMALIZE_PUNCTUATION))
 
 
 class SqlAlchemyBase(DeclarativeBase):
@@ -20,7 +27,7 @@ class SqlAlchemyBase(DeclarativeBase):
     def normalize(cls, val: str) -> str:
         # We cap the length to 255 to prevent indexes from being too long; see:
         # https://www.postgresql.org/docs/current/btree.html
-        return unidecode(val).lower().strip()[:255]
+        return unidecode(val).translate(_NORMALIZE_PUNCTUATION_TABLE).lower().strip()[:255]
 
 
 class BaseMixins:

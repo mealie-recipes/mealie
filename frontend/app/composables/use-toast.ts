@@ -3,6 +3,11 @@ interface Toast {
   text: string;
   title: string | null;
   color: string;
+  timeout?: number;
+  action?: {
+    onClick: VoidFunction;
+    message?: string;
+  };
 }
 
 export const toastAlert = reactive<Toast>({
@@ -19,11 +24,13 @@ export const toastLoading = reactive<Toast>({
   color: "success",
 });
 
-function setToast(toast: Toast, text: string, title: string | null, color: string) {
+function setToast(toast: Toast, text: string, title: string | null, color: string, options?: Partial<Toast>) {
   toast.open = true;
   toast.text = text;
   toast.title = title;
   toast.color = color;
+  toast.timeout = options?.timeout;
+  toast.action = options?.action;
 }
 
 export const loader = {
@@ -45,17 +52,17 @@ export const loader = {
 };
 
 export const alert = {
-  info(text: string, title: string | null = null) {
-    setToast(toastAlert, text, title, "info");
+  info(text: string, title: string | null = null, options?: Partial<Toast>) {
+    setToast(toastAlert, text, title, "info", options);
   },
-  success(text: string, title: string | null = null) {
-    setToast(toastAlert, text, title, "success");
+  success(text: string, title: string | null = null, options?: Partial<Toast>) {
+    setToast(toastAlert, text, title, "success", options);
   },
-  error(text: string, title: string | null = null) {
-    setToast(toastAlert, text, title, "error");
+  error(text: string, title: string | null = null, options?: Partial<Toast>) {
+    setToast(toastAlert, text, title, "error", options);
   },
-  warning(text: string, title: string | null = null) {
-    setToast(toastAlert, text, title, "warning");
+  warning(text: string, title: string | null = null, options?: Partial<Toast>) {
+    setToast(toastAlert, text, title, "warning", options);
   },
   close() {
     toastAlert.open = false;
