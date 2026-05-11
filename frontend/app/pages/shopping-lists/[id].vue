@@ -223,7 +223,10 @@
                     :units="allUnits || []"
                     :foods="allFoods || []"
                     :recipes="recipeMap"
-                    @checked="saveListItem"
+                    @checked="(item) => {
+                      saveListItem(item);
+                      itemCheckedToast(item);
+                    }"
                     @save="saveListItem"
                     @delete="deleteListItem(item)"
                   />
@@ -354,7 +357,9 @@ import ShoppingListAddItemForm from "~/components/Domain/ShoppingList/ShoppingLi
 import ShoppingListItem from "~/components/Domain/ShoppingList/ShoppingListItem.vue";
 import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingListItemEditor.vue";
 import { useShoppingListPage } from "~/composables/shopping-list-page/use-shopping-list-page";
-import { useFoodStore, useLabelStore, useUnitStore } from "~/composables/store";
+import { useLabelStore, useUnitStore, useFoodStore } from "~/composables/store";
+import { alert } from "~/composables/use-toast";
+import type { ShoppingListItemOut } from "~/lib/api/types/household";
 
 const { mdAndUp } = useDisplay();
 const i18n = useI18n();
@@ -370,6 +375,25 @@ const shoppingListPage = useShoppingListPage(id);
 const { store: allLabels } = useLabelStore();
 const { store: allUnits } = useUnitStore();
 const { store: allFoods } = useFoodStore();
+
+function itemCheckedToast(item: ShoppingListItemOut) {
+  setTimeout(() => {
+    alert.info(
+      i18n.t("shopping-list.item-checked-off", { item: item.food?.name || item.note || i18n.t("recipe.ingredient") }),
+      undefined,
+      {
+        timeout: 4000,
+        action: {
+          message: i18n.t("general.undo"),
+          onClick: () => {
+            item.checked = false;
+            shoppingListPage.saveListItem(item);
+          },
+        },
+      },
+    );
+  }, 500);
+}
 
 const {
   shoppingList,
