@@ -231,9 +231,9 @@ export function useRecipeCreatePreferences(): Ref<UserRecipeCreatePreferences> {
   return fromStorage;
 }
 
-export function useUseExperiencePreferences(): Ref<UserExperiencePreferences> {
+export function useUserExperiencePreferences(): Ref<UserExperiencePreferences> {
   const fromStorage = useLocalStorage(
-    "recipe-create-preferences",
+    "user-experience-preferences",
     {
       lockScreen: true,
     },
