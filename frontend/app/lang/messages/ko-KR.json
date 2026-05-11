@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "모든 항목을 선택 해제하시겠습니까?",
     "are-you-sure-you-want-to-delete-checked-items": "선택한 항목을 모두 삭제하시겠습니까?",
     "no-shopping-lists-found": "장보기 목록이 없습니다.",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "모든 레시피",
