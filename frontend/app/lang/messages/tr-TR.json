@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Tüm öğelerden işaretleri kaldırmak istediğinize emin misiniz?",
     "are-you-sure-you-want-to-delete-checked-items": "İşaretlenmiş tüm öğeleri silmek istediğinizden emin misiniz?",
     "no-shopping-lists-found": "Alışveriş Listesi Bulunamadı",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "Tüm Tarifler",
