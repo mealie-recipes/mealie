@@ -31,7 +31,13 @@ def serve_manifest():
             "action": "/r/create/url",
             "method": "GET",
             "enctype": "application/x-www-form-urlencoded",
-            "params": {"text": "recipe_import_url"},
+            "params": {
+                # 'url' is the field Chrome Android populates when sharing a page URL
+                "url": "recipe_import_url",
+                # 'text' is used by apps that share URLs as plain text; mapped to a
+                # separate param so the page can fall back to it when 'url' is absent
+                "text": "recipe_import_text",
+            },
         },
         "icons": [
             {"src": "/icons/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},

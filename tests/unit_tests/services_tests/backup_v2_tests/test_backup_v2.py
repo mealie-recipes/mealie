@@ -1,6 +1,4 @@
-import filecmp
 import statistics
-from pathlib import Path
 from typing import Any
 
 from sqlalchemy.orm import Session
@@ -30,17 +28,6 @@ def dict_sorter(d: dict) -> Any:
     possible_keys = {"created_at", "id"}
 
     return next((d[key] for key in possible_keys if d.get(key)), 1)
-
-
-# For Future Use
-def match_file_tree(path_a: Path, path_b: Path):
-    if path_a.is_dir() and path_b.is_dir():
-        for a_file in path_a.iterdir():
-            b_file = path_b.joinpath(a_file.name)
-            assert b_file.exists()
-            match_file_tree(a_file, b_file)
-    else:
-        assert filecmp.cmp(path_a, path_b)
 
 
 def test_database_backup():
