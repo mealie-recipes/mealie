@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Opravdu chcete zrušit výběr všech položek?",
     "are-you-sure-you-want-to-delete-checked-items": "Opravdu chcete odstranit všechny vybrané položky?",
     "no-shopping-lists-found": "Nebyly nalezeny žádné nákupní seznamy",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "Všechny recepty",
