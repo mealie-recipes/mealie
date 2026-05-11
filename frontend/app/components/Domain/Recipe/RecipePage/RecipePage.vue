@@ -336,8 +336,16 @@ onMounted(() => {
   }
 });
 
+// When set, the isEditMode watcher skips its URL cleanup because saveRecipe
+// is navigating to a new slug that naturally omits ?edit=true.
+const isNavigatingAfterRename = ref(false);
+
 watch(isEditMode, (newVal) => {
   if (!newVal) {
+    if (isNavigatingAfterRename.value) {
+      isNavigatingAfterRename.value = false;
+      return;
+    }
     paramsEdit.value = undefined;
   }
 });
@@ -355,13 +363,17 @@ watch(isParsing, () => {
 async function saveRecipe() {
   const { data, error } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
   if (!error) {
+    if (data?.slug && data.slug !== route.params.slug) {
+      isNavigatingAfterRename.value = true;
+    }
     setMode(PageMode.VIEW);
   }
   if (data?.slug) {
-    router.push(`/g/${groupSlug.value}/r/` + data.slug);
     recipe.value = data as NoUndefinedField<Recipe>;
-    // Update the snapshot after successful save
     originalRecipe.value = deepCopy(recipe.value);
+    if (data.slug !== route.params.slug) {
+      router.replace(`/g/${groupSlug.value}/r/` + data.slug);
+    }
   }
 }
 
