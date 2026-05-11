@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "לבטל את סימון כל הפריטים?",
     "are-you-sure-you-want-to-delete-checked-items": "למחוק את כל הפריטים המסומנים?",
     "no-shopping-lists-found": "לא נמצאה רשימת קניות",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "כל המתכונים",
