@@ -16,6 +16,7 @@
       :items="units"
       :label="$t('recipe.unit')"
       :icon="$globals.icons.units"
+      :menu-props="{ location: menuDirection }"
       style="flex: 3"
       create
       @create="createAssignUnit"
@@ -35,6 +36,7 @@
       v-model:item-id="listItem.labelId!"
       :items="labels"
       :label="$t('shopping-list.label')"
+      :menu-props="{ location: menuDirection }"
       style="flex: 1 0 200px"
     />
     <BaseButton
@@ -74,6 +76,9 @@ defineProps({
 const emit = defineEmits<{ (e: "save"): void }>();
 
 const { assignLabelToFood, createAssignUnit } = useShoppingListItemEditor(listItem);
+
+const { smAndDown } = useDisplay();
+const menuDirection = computed(() => smAndDown.value ? "top" : "bottom");
 
 function handleNoteKeyPress(event: KeyboardEvent) {
   // Save on Enter

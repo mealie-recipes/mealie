@@ -3,10 +3,12 @@ from datetime import UTC, datetime
 import pytest
 from sqlalchemy.orm import Session
 
+from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientUnit
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
+from mealie.schema.response.query_search import SearchFilter
 from mealie.schema.user.user import GroupBase
 from tests.utils.factories import random_int, random_string
 
@@ -137,3 +139,35 @@ def test_random_order_search(
         pagination.pagination_seed = str(datetime.now(UTC))
         random_ordered.append(repo.page_all(pagination, search="unit").items)
     assert not all(i == random_ordered[0] for i in random_ordered)
+
+
+@pytest.mark.parametrize(
+    "name, expected",
+    [
+        ("Gluten-Free Bread", "gluten free bread"),
+        ("Mac & Cheese", "mac   cheese"),
+        ("Chicken/Rice Bowl", "chicken rice bowl"),
+        ("Rátàtôuile", "ratatouile"),
+        ("Mom's Pasta", "mom's pasta"),
+    ],
+)
+def test_normalize_strips_punctuation(name: str, expected: str):
+    assert SqlAlchemyBase.normalize(name) == expected
+
+
+@pytest.mark.parametrize(
+    "name",
+    [
+        "Gluten-Free Bread",
+        "Mac & Cheese",
+        "Chicken/Rice Bowl",
+        "Rátàtôuile",
+        "Mom's Pasta",
+    ],
+)
+def test_search_normalize_symmetric_with_store_normalize(name: str):
+    """SearchFilter._normalize_search and SqlAlchemyBase.normalize must produce the same
+    output for the same input, otherwise stored values and search queries won't match."""
+    stored = SqlAlchemyBase.normalize(name)
+    searched = SearchFilter._normalize_search(name, normalize_characters=True)
+    assert stored == searched, f"Normalization mismatch for {name!r}: stored={stored!r}, searched={searched!r}"
