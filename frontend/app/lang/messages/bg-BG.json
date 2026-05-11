@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Сигурни ли сте, че искате да премахнете отметката от всички елементи?",
     "are-you-sure-you-want-to-delete-checked-items": "Сигурни ли сте, че искате да изтриете всички отметнати елементи?",
     "no-shopping-lists-found": "Не са намерени списъци за пазаруване",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "Всички рецепти",
