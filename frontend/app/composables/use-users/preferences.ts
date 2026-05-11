@@ -73,6 +73,10 @@ export interface UserActivityPreferences {
   defaultActivity: ActivityKey;
 }
 
+export interface UserExperiencePreferences {
+  lockScreen: boolean;
+}
+
 export function useUserMealPlanPreferences(): Ref<UserMealPlanPreferences> {
   const fromStorage = useLocalStorage(
     "meal-planner-preferences",
@@ -241,9 +245,19 @@ export function useRecipeCreatePreferences(): Ref<UserRecipeCreatePreferences> {
       parseRecipe: true,
     },
     { mergeDefaults: true },
-    // we cast to a Ref because by default it will return an optional type ref
-    // but since we pass defaults we know all properties are set.
-  ) as unknown as Ref<UserRecipeCreatePreferences>;
+  );
+
+  return fromStorage;
+}
+
+export function useUseExperiencePreferences(): Ref<UserExperiencePreferences> {
+  const fromStorage = useLocalStorage(
+    "recipe-create-preferences",
+    {
+      lockScreen: true,
+    },
+    { mergeDefaults: true },
+  );
 
   return fromStorage;
 }
