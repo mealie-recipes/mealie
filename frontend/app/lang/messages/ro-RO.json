@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Sunteți sigur că doriți să debifați toate elementele?",
     "are-you-sure-you-want-to-delete-checked-items": "Sunteți sigur că doriți să ștergeți toate elementele selectate?",
     "no-shopping-lists-found": "Nu s-au găsit liste de cumpărături",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "Toate reţetele",
