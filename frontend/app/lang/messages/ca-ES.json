@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Estàs segur que vols desmarcar tots els elements?",
     "are-you-sure-you-want-to-delete-checked-items": "Estàs segur que vols eliminar tots els elements marcats?",
     "no-shopping-lists-found": "No s'han trobat llistes de la compra",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "Receptes",
