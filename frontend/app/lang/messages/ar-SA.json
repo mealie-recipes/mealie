@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "هل أنت متأكد من أنك تريد إلغاء تحديد جميع العناصر؟",
     "are-you-sure-you-want-to-delete-checked-items": "هل أنت متأكد أنك تريد حذف جميع العناصر المحددة؟",
     "no-shopping-lists-found": "لم يتم العثور على قوائم تسوق",
-    "item-checked-off": "{item} غير مفحوص"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "جميع الوصفات",
