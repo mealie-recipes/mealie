@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Ten a certeza de que pretende desmarcar todos os itens?",
     "are-you-sure-you-want-to-delete-checked-items": "Ten a certeza de que pretende eliminar todos os itens selecionados?",
     "no-shopping-lists-found": "Nengunha Lista de Compras Encontrada",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "Todas as Receitas",
