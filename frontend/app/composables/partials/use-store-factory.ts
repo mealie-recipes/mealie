@@ -16,10 +16,11 @@ export const useReadOnlyStore = function <T extends BoundT>(
   storeKey: string,
   store: Ref<T[]>,
   loading: Ref<boolean>,
+  initialized: Ref<boolean>,
   api: BaseCRUDAPIReadOnly<T>,
   params = {} as Record<string, QueryValue>,
 ) {
-  const storeActions = useReadOnlyActions(`${storeKey}-store-readonly`, api, store, loading);
+  const storeActions = useReadOnlyActions(`${storeKey}-store-readonly`, api, store, loading, initialized);
   const actions = {
     ...storeActions,
     async refresh() {
@@ -31,7 +32,7 @@ export const useReadOnlyStore = function <T extends BoundT>(
   };
 
   // initial hydration
-  if (!loading.value && !store.value.length) {
+  if (!loading.value && !initialized.value) {
     actions.refresh();
   }
 
@@ -42,10 +43,11 @@ export const useStore = function <T extends BoundT>(
   storeKey: string,
   store: Ref<T[]>,
   loading: Ref<boolean>,
+  initialized: Ref<boolean>,
   api: BaseCRUDAPI<unknown, T, unknown>,
   params = {} as Record<string, QueryValue>,
 ) {
-  const storeActions = useStoreActions(`${storeKey}-store`, api, store, loading);
+  const storeActions = useStoreActions(`${storeKey}-store`, api, store, loading, initialized);
   const actions = {
     ...storeActions,
     async refresh() {
@@ -57,7 +59,7 @@ export const useStore = function <T extends BoundT>(
   };
 
   // initial hydration
-  if (!loading.value && !store.value.length) {
+  if (!loading.value && !initialized.value) {
     actions.refresh();
   }
 
