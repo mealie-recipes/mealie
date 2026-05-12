@@ -28,6 +28,7 @@ export const useReadOnlyStore = function <T extends BoundT>(
     },
     flushStore() {
       store.value = [];
+      initialized.value = false;
     },
   };
 
@@ -55,6 +56,7 @@ export const useStore = function <T extends BoundT>(
     },
     flushStore() {
       store.value = [];
+      initialized.value = false;
     },
   };
 
