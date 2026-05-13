@@ -427,7 +427,7 @@
     "mealie-text": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie can import recipies from Plan to Eat."
+      "description-long": "Mealie can import recipes from Plan to Eat. Upload a ZIP archive, CSV, or TXT file exported from Plan to Eat."
     },
     "myrecipebox": {
       "title": "My Recipe Box",
