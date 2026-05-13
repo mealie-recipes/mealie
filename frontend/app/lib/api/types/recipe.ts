@@ -113,6 +113,7 @@ export interface RecipeTag {
 }
 export interface CreateRecipeByUrlBulk {
   imports: CreateRecipeBulk[];
+  useOpenAI?: boolean;
 }
 export interface DeleteRecipes {
   recipes: string[];

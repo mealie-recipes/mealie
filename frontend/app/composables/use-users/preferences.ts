@@ -67,6 +67,7 @@ export interface UserRecipeCreatePreferences {
   importCategories: boolean;
   stayInEditMode: boolean;
   parseRecipe: boolean;
+  forceOpenAI: boolean;
 }
 
 export interface UserActivityPreferences {
@@ -224,6 +225,7 @@ export function useRecipeCreatePreferences(): Ref<UserRecipeCreatePreferences> {
       importCategories: false,
       stayInEditMode: false,
       parseRecipe: true,
+      forceOpenAI: false,
     },
     { mergeDefaults: true },
   );

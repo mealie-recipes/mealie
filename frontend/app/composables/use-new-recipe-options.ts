@@ -5,6 +5,7 @@ export interface UseNewRecipeOptionsProps {
   enableImportCategories?: boolean;
   enableStayInEditMode?: boolean;
   enableParseRecipe?: boolean;
+  enableForceOpenAI?: boolean;
 }
 
 export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
@@ -13,6 +14,7 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
     enableImportCategories = true,
     enableStayInEditMode = true,
     enableParseRecipe = true,
+    enableForceOpenAI = true,
   } = props;
 
   const router = useRouter();
@@ -62,6 +64,17 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
     },
   });
 
+  const forceOpenAI = computed({
+    get() {
+      if (!enableForceOpenAI) return false;
+      return recipeCreatePreferences.value.forceOpenAI;
+    },
+    set(v: boolean) {
+      if (!enableForceOpenAI) return;
+      recipeCreatePreferences.value.forceOpenAI = v;
+    },
+  });
+
   function navigateToRecipe(recipeSlug: string, groupSlug: string, createPagePath: string) {
     const editParam = enableStayInEditMode ? stayInEditMode.value : false;
     const parseParam = enableParseRecipe ? parseRecipe.value : false;
@@ -87,6 +100,7 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
     importCategories,
     stayInEditMode,
     parseRecipe,
+    forceOpenAI,
 
     // Helper functions
     navigateToRecipe,
@@ -96,5 +110,6 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
     enableImportCategories,
     enableStayInEditMode,
     enableParseRecipe,
+    enableForceOpenAI,
   };
 }

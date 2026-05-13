@@ -41,6 +41,13 @@
           />
         </v-card-text>
         <v-checkbox
+          v-if="$appInfo.enableOpenai"
+          v-model="forceOpenAI"
+          color="primary"
+          hide-details
+          :label="$t('recipe.force-openai-scraper')"
+        />
+        <v-checkbox
           v-model="importKeywordsAsTags"
           color="primary"
           hide-details
@@ -171,6 +178,7 @@ const {
   importCategories,
   stayInEditMode,
   parseRecipe,
+  forceOpenAI,
   navigateToRecipe,
 } = useNewRecipeOptions();
 
@@ -273,6 +281,7 @@ async function createByUrl(url: string | null, importKeywordsAsTags: boolean, im
     url,
     importKeywordsAsTags,
     importCategories,
+    forceOpenAI.value,
     (message: string) => createStatus.value = message,
   );
   createStatus.value = null;

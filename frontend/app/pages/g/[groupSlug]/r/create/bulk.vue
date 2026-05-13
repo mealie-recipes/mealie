@@ -122,6 +122,12 @@
           </v-card-actions>
           <div class="px-0">
             <v-checkbox
+              v-if="$appInfo.enableOpenai"
+              v-model="state.forceOpenAI"
+              hide-details
+              :label="$t('recipe.force-openai-scraper')"
+            />
+            <v-checkbox
               v-model="state.showCatTags"
               hide-details
               :label="$t('recipe.set-categories-and-tags')"
@@ -165,6 +171,7 @@ import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.
 const state = reactive({
   showCatTags: false,
   bulkDialog: false,
+  forceOpenAI: false,
 });
 
 whenever(
@@ -185,7 +192,7 @@ async function bulkCreate() {
     return;
   }
 
-  const { response } = await api.recipes.createManyByUrl({ imports: bulkUrls.value });
+  const { response } = await api.recipes.createManyByUrl({ imports: bulkUrls.value, useOpenAI: state.forceOpenAI });
 
   if (response?.status === 202) {
     alert.success(i18n.t("recipe.bulk-import-process-has-started"));

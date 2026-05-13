@@ -652,6 +652,8 @@
     "import-original-categories": "Import original categories",
     "stay-in-edit-mode": "Stay in Edit mode",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
+    "force-openai-scraper": "Force OpenAI Scraper",
+    "force-openai-scraper-description": "Skip the default HTML scraper and use OpenAI directly.",
     "import-from-zip": "Import from Zip",
     "import-from-zip-description": "Import a single recipe that was exported from another Mealie instance.",
     "import-from-html-or-json": "Import from HTML or JSON",

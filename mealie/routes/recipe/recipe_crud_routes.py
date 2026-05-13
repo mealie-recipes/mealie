@@ -220,9 +220,11 @@ class RecipeController(BaseRecipeController):
                 )
             )
 
+        use_openai = req.use_openai if isinstance(req, ScrapeRecipe) else False
+
         async def run() -> None:
             try:
-                recipe, extras = await create_from_html(url, self.translator, html, on_progress=on_progress)
+                recipe, extras = await create_from_html(url, self.translator, html, on_progress=on_progress, use_openai=use_openai)
                 slug = self._finish_recipe_from_web(req, recipe, extras)
                 await queue.put(
                     ServerSentEvent(

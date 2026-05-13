@@ -15,12 +15,14 @@ class ScrapeRecipeBase(MealieModel):
 
 class ScrapeRecipe(ScrapeRecipeBase):
     url: str
+    use_openai: bool = Field(False, alias="useOpenAI")
     model_config = ConfigDict(
         json_schema_extra={
             "example": {
                 "url": "https://myfavoriterecipes.com/recipes",
                 "includeTags": True,
                 "includeCategories": True,
+                "useOpenAI": False,
             },
         }
     )

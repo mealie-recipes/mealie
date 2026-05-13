@@ -107,6 +107,8 @@ class CreateRecipeBulk(BaseModel):
 
 class CreateRecipeByUrlBulk(BaseModel):
     imports: list[CreateRecipeBulk]
+    use_openai: bool = Field(False, alias="useOpenAI")
+    model_config = ConfigDict(populate_by_name=True)
 
 
 class CreateRecipe(MealieModel):
