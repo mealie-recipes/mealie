@@ -165,6 +165,47 @@ def test_create_by_url_openai_returns_none(
     assert response.status_code == 400
 
 
+def test_create_by_url_with_force_openai_flag(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    recipe_ld_json: str,
+    recipe_url: str,
+    recipe_name: str,
+):
+    """useOpenAI=True routes directly to OpenAI strategies, bypassing DEFAULT_SCRAPER_STRATEGIES.
+
+    The defaults are replaced with an empty list so that without the flag the
+    endpoint would return 400.  With useOpenAI=True the scraper is initialised
+    with [RecipeScraperOpenAITranscription, RecipeScraperOpenAI] regardless of
+    the (empty) defaults, and the recipe is created successfully.
+    """
+    # Override defaults to empty — without the flag this request would return 400
+    monkeypatch.setattr(recipe_scraper_module, "DEFAULT_SCRAPER_STRATEGIES", [])
+
+    # Provide a complete settings stub so RecipeScraperOpenAITranscription.can_scrape()
+    # can evaluate OPENAI_ENABLE_TRANSCRIPTION_SERVICES (False → falls through to
+    # RecipeScraperOpenAI which only needs OPENAI_ENABLED=True).
+    settings_stub = type("_Settings", (), {"OPENAI_ENABLED": True, "OPENAI_ENABLE_TRANSCRIPTION_SERVICES": False})()
+    monkeypatch.setattr(scraper_strategies_module, "get_app_settings", lambda: settings_stub)
+
+    async def mock_get_response(self, prompt, message, *args, **kwargs) -> OpenAIText | None:
+        return OpenAIText(text=recipe_ld_json)
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    response = api_client.post(
+        api_routes.recipes_create_url,
+        json={"url": recipe_url, "include_tags": False, "useOpenAI": True},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 201
+    slug = json.loads(response.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == recipe_name
+
+
 def test_create_by_url_openai_disabled(
     api_client: TestClient,
     unique_user: TestUser,
