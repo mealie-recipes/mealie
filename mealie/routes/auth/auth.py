@@ -134,6 +134,7 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
             auth_provider = OpenIDProvider(session, userinfo, use_default_groups=True)
             auth = auth_provider.authenticate()
         except MissingClaimException:
+            logger.error("[OIDC] Required claims not present in ID token or userinfo endpoint")
             auth = None
 
     if not auth:
