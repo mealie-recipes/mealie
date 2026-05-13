@@ -571,8 +571,8 @@
             "delicata squash": {
                 "aliases": [],
                 "description": "",
-                "name": "delicata squash",
-                "plural_name": "delicata squashes"
+                "name": "delikat squash",
+                "plural_name": "delikate squasher"
             },
             "Frisée": {
                 "aliases": [
@@ -980,7 +980,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kastanjepuré",
-                "plural_name": "chestnut purée"
+                "plural_name": "kastanjepuré"
             },
             "prickly pear": {
                 "aliases": [],
@@ -1045,7 +1045,7 @@
             "sweet lime": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet lime",
+                "name": "søt lime",
                 "plural_name": "sweet limes"
             },
             "custard-apple": {
@@ -1873,8 +1873,8 @@
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
-                "plural_name": "melon seeds"
+                "name": "melonfrø",
+                "plural_name": "melonfrø"
             },
             "lotus seed": {
                 "aliases": [],
