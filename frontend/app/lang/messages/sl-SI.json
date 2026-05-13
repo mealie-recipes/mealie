@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Ali res ne želite izbrati vseh elementov?",
     "are-you-sure-you-want-to-delete-checked-items": "Ali ste prepričani, da želite izbrisati vse izbrane elemente?",
     "no-shopping-lists-found": "Ni nakupovalnih seznamov",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "Odkljukano {item}"
   },
   "sidebar": {
     "all-recipes": "Vsi recepti",
