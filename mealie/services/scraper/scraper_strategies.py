@@ -1,5 +1,6 @@
 import asyncio
 import functools
+import json
 import re
 import time
 from abc import ABC, abstractmethod
@@ -420,7 +421,15 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
             if not (response and response.text):
                 raise Exception("OpenAI did not return any data")
 
-            return self.ld_json_to_html(response.text)
+            # Ensure @context and @type are present — some models omit them,
+            # which causes recipe_scrapers to silently skip the JSON-LD block.
+            try:
+                data = json.loads(response.text)
+            except json.JSONDecodeError:
+                data = {}
+            data.setdefault("@context", "https://schema.org")
+            data.setdefault("@type", "Recipe")
+            return self.ld_json_to_html(json.dumps(data))
         except Exception:
             self.logger.exception(f"OpenAI was unable to extract a recipe from {url}")
             return ""
