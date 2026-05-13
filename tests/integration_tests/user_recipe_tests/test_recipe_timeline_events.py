@@ -8,6 +8,7 @@ from mealie.schema.recipe.recipe_timeline_events import (
     RecipeTimelineEventOut,
     RecipeTimelineEventPagination,
     TimelineEventImage,
+    TimelineEventType,
 )
 from mealie.schema.recipe.request_helpers import UpdateImageResponse
 from tests.utils import api_routes
@@ -339,6 +340,42 @@ def test_create_recipe_with_timeline_event(
         events_response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=user.token)
         events_pagination = RecipeTimelineEventPagination.model_validate(events_response.json())
         assert events_pagination.items
+
+
+def test_recipe_created_system_event_is_translated(
+    api_client: TestClient,
+    unique_user: TestUser,
+    recipes: list[Recipe],
+):
+    recipe = recipes[0]
+    params = {"queryFilter": f"recipe_id={recipe.id}"}
+
+    # fetch events in French — the system "recipe created" event should be translated
+    fr_headers = {**unique_user.token, "Accept-Language": "fr-FR"}
+    events_response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=fr_headers)
+    assert events_response.status_code == 200
+    events_pagination = RecipeTimelineEventPagination.model_validate(events_response.json())
+
+    system_events = [e for e in events_pagination.items if e.event_type == TimelineEventType.system.value]
+    assert system_events, "expected at least one system event for a newly created recipe"
+
+    for event in system_events:
+        assert event.subject == "Recette créée", f"expected French translation, got: {event.subject!r}"
+
+        # also verify the individual GET endpoint translates correctly
+        single_response = api_client.get(api_routes.recipes_timeline_events_item_id(event.id), headers=fr_headers)
+        assert single_response.status_code == 200
+        single_event = RecipeTimelineEventOut.model_validate(single_response.json())
+        assert single_event.subject == "Recette créée"
+
+    # fetch the same events in English — subject should be the English string
+    en_headers = {**unique_user.token, "Accept-Language": "en-US"}
+    events_response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=en_headers)
+    events_pagination = RecipeTimelineEventPagination.model_validate(events_response.json())
+
+    system_events = [e for e in events_pagination.items if e.event_type == TimelineEventType.system.value]
+    for event in system_events:
+        assert event.subject == "Recipe Created", f"expected English string, got: {event.subject!r}"
 
 
 @pytest.mark.parametrize("use_other_household_user", [True, False])

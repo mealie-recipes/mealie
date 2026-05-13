@@ -224,7 +224,7 @@ class RecipeService(RecipeServiceBase):
         timeline_event_data = RecipeTimelineEventCreate(
             user_id=new_recipe.user_id,
             recipe_id=new_recipe.id,
-            subject=self.t("recipe.recipe-created"),
+            subject="recipe.recipe-created",
             event_type=TimelineEventType.system,
             timestamp=new_recipe.created_at or datetime.now(UTC),
         )
