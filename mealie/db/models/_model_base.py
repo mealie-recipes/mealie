@@ -1,5 +1,6 @@
 import string
 from datetime import datetime
+from typing import Annotated
 
 from sqlalchemy import Integer
 from sqlalchemy.orm import DeclarativeBase, Mapped, declared_attr, mapped_column, synonym
@@ -12,6 +13,12 @@ from ._model_utils.datetime import NaiveDateTime, get_utc_now
 # double-quote, which are reserved for quoted literal searches.
 NORMALIZE_PUNCTUATION = string.punctuation.replace("'", "").replace('"', "")
 _NORMALIZE_PUNCTUATION_TABLE = str.maketrans(NORMALIZE_PUNCTUATION, " " * len(NORMALIZE_PUNCTUATION))
+
+type PrivateColumn[T] = Mapped[Annotated[T, mapped_column(info={"private": True})]]
+"""
+A `Mapped` attribute with metadata `private=True`.
+Signals to the query filter API not to allow using this field in query operations.
+"""
 
 
 class SqlAlchemyBase(DeclarativeBase):
