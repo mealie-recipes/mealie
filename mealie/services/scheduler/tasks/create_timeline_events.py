@@ -43,12 +43,10 @@ def _create_mealplan_timeline_events_for_household(
         if not user:
             continue
 
-        # TODO: make this translatable
         if mealplan.entry_type == PlanEntryType.side:
-            event_subject = f"{user.full_name} made this as a side"
-
+            event_subject = f"recipe.made-this-as-side|{user.full_name}"
         else:
-            event_subject = f"{user.full_name} made this for {mealplan.entry_type.value}"
+            event_subject = f"recipe.made-this-for-{mealplan.entry_type.value}|{user.full_name}"
 
         query_start_time = datetime.combine(datetime.now(UTC).date(), time.min)
         query_end_time = query_start_time + timedelta(days=1)

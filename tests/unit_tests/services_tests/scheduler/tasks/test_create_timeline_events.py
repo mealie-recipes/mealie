@@ -13,6 +13,49 @@ from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
+def _create_recipe_and_mealplan(api_client: TestClient, user: TestUser, entry_type: str) -> tuple[RecipeSummary, int]:
+    recipe_name = random_string(length=25)
+    response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=user.token)
+    assert response.status_code == 201
+
+    response = api_client.get(api_routes.recipes_slug(recipe_name), headers=user.token)
+    recipe = RecipeSummary.model_validate(response.json())
+
+    params = {"queryFilter": f"recipe_id={recipe.id}"}
+    response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=user.token)
+    initial_event_count = len(response.json()["items"])
+
+    new_plan = CreatePlanEntry(date=datetime.now(UTC).date(), entry_type=entry_type, recipe_id=recipe.id).model_dump(
+        by_alias=True
+    )
+    new_plan["date"] = datetime.now(UTC).date().isoformat()
+    new_plan["recipeId"] = str(recipe.id)
+    response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=user.token)
+    assert response.status_code == 201
+
+    return recipe, initial_event_count
+
+
+def _get_mealplan_event(
+    api_client: TestClient, user: TestUser, recipe: RecipeSummary, initial_count: int, extra_headers: dict
+) -> dict:
+    create_mealplan_timeline_events()
+
+    params = {
+        "page": "1",
+        "perPage": "-1",
+        "orderBy": "created_at",
+        "orderDirection": "desc",
+        "queryFilter": f"recipe_id={recipe.id}",
+    }
+    response = api_client.get(
+        api_routes.recipes_timeline_events, headers={**user.token, **extra_headers}, params=params
+    )
+    items = response.json()["items"]
+    assert len(items) == initial_count + 1
+    return items[0]
+
+
 def test_no_mealplans():
     # make sure this task runs successfully even if it doesn't do anything
     create_mealplan_timeline_events()
@@ -251,3 +294,27 @@ def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser
     response = api_client.get(api_routes.households_self_recipes_recipe_slug(recipe.slug), headers=h2_user.token)
     household_recipe = HouseholdRecipeSummary.model_validate(response.json())
     assert household_recipe.last_made is None
+
+
+def test_mealplan_event_subject_is_translated(api_client: TestClient, unique_user: TestUser):
+    """Mealplan timeline event subjects are stored as i18n keys and translated at serve time."""
+    # --- dinner entry type ---
+    recipe, initial_count = _create_recipe_and_mealplan(api_client, unique_user, "dinner")
+    event = _get_mealplan_event(api_client, unique_user, recipe, initial_count, {"Accept-Language": "en-US"})
+
+    expected = f"{unique_user.full_name} made this for dinner"
+    assert event["subject"] == expected, f"expected {expected!r}, got {event['subject']!r}"
+
+    # --- side entry type uses a distinct phrase ---
+    recipe2, initial_count2 = _create_recipe_and_mealplan(api_client, unique_user, "side")
+    event2 = _get_mealplan_event(api_client, unique_user, recipe2, initial_count2, {"Accept-Language": "en-US"})
+
+    expected2 = f"{unique_user.full_name} made this as a side"
+    assert event2["subject"] == expected2, f"expected {expected2!r}, got {event2['subject']!r}"
+
+    # --- locale fallback: fr-FR doesn't have these keys yet, should fall back to en-US ---
+    recipe3, initial_count3 = _create_recipe_and_mealplan(api_client, unique_user, "lunch")
+    event3 = _get_mealplan_event(api_client, unique_user, recipe3, initial_count3, {"Accept-Language": "fr-FR"})
+
+    expected3 = f"{unique_user.full_name} made this for lunch"
+    assert event3["subject"] == expected3, f"expected en-US fallback {expected3!r}, got {event3['subject']!r}"
