@@ -38,6 +38,8 @@ from mealie.services.scraper import cleaner
 
 from .template_service import TemplateService
 
+RECIPE_CREATED_EVENT_SUBJECT = "recipe.recipe-created"
+
 
 class RecipeServiceBase(BaseService):
     def __init__(self, repos: AllRepositories, user: PrivateUser, household: HouseholdInDB, translator: Translator):
@@ -235,7 +237,7 @@ class RecipeService(RecipeServiceBase):
         timeline_event_data = RecipeTimelineEventCreate(
             user_id=new_recipe.user_id,
             recipe_id=new_recipe.id,
-            subject=self.t("recipe.recipe-created"),
+            subject=RECIPE_CREATED_EVENT_SUBJECT,
             event_type=TimelineEventType.system,
             timestamp=new_recipe.created_at or datetime.now(UTC),
         )
