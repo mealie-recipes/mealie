@@ -12,7 +12,7 @@ from mealie.core.dependencies import get_temporary_path
 from mealie.core.exceptions import MissingClaimException
 from mealie.core.security.providers.auth_provider import AuthProvider
 from mealie.db.models.users.users import AuthMethod
-from mealie.pkgs import img
+from mealie.pkgs import cache, img
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser
 
@@ -150,5 +150,8 @@ class OpenIDProvider(AuthProvider[UserInfo]):
                 image = img.PillowMinifier.to_webp(temp_img)
                 dest = PrivateUser.get_directory(user_id) / "profile.webp"
                 dest.write_bytes(Path(image).read_bytes())
+
+                repos = get_repositories(self.session, group_id=None, household_id=None)
+                repos.users.patch(user_id, {"cache_key": cache.new_key()})
         except Exception as e:
             self._logger.debug("[OIDC] Could not update profile image from picture claim: %s", e)
