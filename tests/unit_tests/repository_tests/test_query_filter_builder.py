@@ -1,6 +1,7 @@
 import pytest
 import sqlalchemy as sa
 
+from mealie.db.models._model_base import PrivateColumn
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.users.users import LongLiveToken, User
 from mealie.services.query_filter.builder import (
@@ -85,6 +86,12 @@ def test_query_filter_builder_json_uses_raw_value():
 # ---------------------------------------------------------------------------
 # PrivateColumn tests
 # ---------------------------------------------------------------------------
+
+
+def test_private_column_rejects_list_type():
+    """PrivateColumn[list[X]] must raise TypeError at definition time to prevent misuse on relationships."""
+    with pytest.raises(TypeError, match="relationship"):
+        PrivateColumn[list[User]]
 
 
 def test_private_field_user_password_raises():
