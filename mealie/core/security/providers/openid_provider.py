@@ -1,14 +1,20 @@
 from datetime import timedelta
+from pathlib import Path
+from uuid import uuid4
 
+import requests
 from authlib.oidc.core import UserInfo
 from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
+from mealie.core.dependencies import get_temporary_path
 from mealie.core.exceptions import MissingClaimException
 from mealie.core.security.providers.auth_provider import AuthProvider
 from mealie.db.models.users.users import AuthMethod
+from mealie.pkgs import img
 from mealie.repos.all_repositories import get_repositories
+from mealie.schema.user import PrivateUser
 
 
 class OpenIDProvider(AuthProvider[UserInfo]):
@@ -99,6 +105,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
                     }
                 )
                 self.session.commit()
+                self._update_profile_image_from_claim(user.id, claims)
 
             except Exception as e:
                 self._logger.error("[OIDC] Exception while creating user: %s", e)
@@ -111,6 +118,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
                 self._logger.debug("[OIDC] %s user as admin", "Setting" if is_admin else "Removing")
                 user.admin = is_admin
                 repos.users.update(user.id, user)
+            self._update_profile_image_from_claim(user.id, claims)
             return self.get_access_token(user, settings.OIDC_REMEMBER_ME)
 
         self._logger.warning("[OIDC] Found user but their AuthMethod does not match OIDC")
@@ -124,3 +132,23 @@ class OpenIDProvider(AuthProvider[UserInfo]):
         if settings.OIDC_REQUIRES_GROUP_CLAIM and not self.use_default_groups:
             claims.add(settings.OIDC_GROUPS_CLAIM)
         return claims
+
+    def _update_profile_image_from_claim(self, user_id, claims: UserInfo) -> None:
+        picture = claims.get("picture")
+        if not picture or not isinstance(picture, str):
+            return
+
+        try:
+            response = requests.get(picture, timeout=15)
+            response.raise_for_status()
+
+            with get_temporary_path() as temp_path:
+                temp_img = Path(temp_path).joinpath(str(uuid4()))
+                with temp_img.open("wb") as file:
+                    file.write(response.content)
+
+                image = img.PillowMinifier.to_webp(temp_img)
+                dest = PrivateUser.get_directory(user_id) / "profile.webp"
+                dest.write_bytes(Path(image).read_bytes())
+        except Exception as e:
+            self._logger.debug("[OIDC] Could not update profile image from picture claim: %s", e)
