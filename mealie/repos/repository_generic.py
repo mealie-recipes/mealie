@@ -26,6 +26,7 @@ from mealie.schema.response.pagination import (
 )
 from mealie.schema.response.query_search import SearchFilter
 from mealie.services.query_filter.builder import QueryFilterBuilder
+from mealie.services.query_filter.context import allow_filter_restricted
 
 from ._utils import NOT_SET, NotSet
 
@@ -460,7 +461,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                         order_dir = request_query.order_direction
 
                     _, order_attr, query = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
-                        order_by, self.model, query=query
+                        order_by, self.model, query=query, allow_restricted=allow_filter_restricted.get()
                     )
 
                     query = self.add_order_attr_to_query(

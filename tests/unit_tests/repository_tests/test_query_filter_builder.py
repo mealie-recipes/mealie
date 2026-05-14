@@ -153,3 +153,20 @@ def test_filter_query_respects_context_var_true():
     builder = QueryFilterBuilder("user.email = 'test@example.com'")
     # Should not raise
     builder.filter_query(query, RecipeModel)
+
+
+# ---------------------------------------------------------------------------
+# orderBy restricted traversal tests
+# ---------------------------------------------------------------------------
+
+
+def test_order_by_restricted_traversal_blocked():
+    """get_model_and_model_attr_from_attr_string with allow_restricted=False blocks orderBy into User."""
+    with pytest.raises(ValueError, match="restricted model"):
+        QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.email", RecipeModel, allow_restricted=False)
+
+
+def test_order_by_private_field_blocked():
+    """Ordering by a PrivateColumn field should always raise, regardless of allow_restricted."""
+    with pytest.raises(ValueError, match="private field"):
+        QueryFilterBuilder.get_model_and_model_attr_from_attr_string("password", User, allow_restricted=True)
