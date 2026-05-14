@@ -87,6 +87,23 @@ def test_recipe_asset_exploit(api_client: TestClient, unique_user: TestUser, rec
     assert not (recipe.asset_dir / "test.txt").exists()
 
 
+def test_recipe_asset_dangerous_extension_blocked(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+):
+    """Ensure scriptable extensions are rejected to prevent stored XSS (GHSA-gfwc-pjx4-mg9p)."""
+    recipe = recipe_ingredient_only
+    for ext in ("html", "svg", "js", "htm", "xhtml"):
+        payload = {"name": random_string(10), "icon": "mdi-file", "extension": ext}
+        file_payload = {"file": b"<script>alert(1)</script>"}
+        response = api_client.post(
+            f"/api/recipes/{recipe.slug}/assets",
+            data=payload,
+            files=file_payload,
+            headers=unique_user.token,
+        )
+        assert response.status_code == 400, f"expected 400 for extension={ext}, got {response.status_code}"
+
+
 def test_recipe_image_upload(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe):
     data_payload = {"extension": "jpg"}
     file_payload = {"image": data.images_test_image_1.read_bytes()}

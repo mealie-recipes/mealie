@@ -80,6 +80,8 @@ from mealie.services.scraper.scraper_strategies import (
 
 from ._base import BaseRecipeController, JSONBytes
 
+ASSET_ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "gif", "webp", "bmp", "avif", "txt", "md", "csv", "json"}
+
 router = UserAPIRouter(prefix="/recipes", route_class=MealieCrudRoute)
 
 
@@ -659,6 +661,10 @@ class RecipeController(BaseRecipeController):
         """Upload a file to store as a recipe asset"""
         if "." in extension:
             extension = extension.split(".")[-1]
+
+        extension = extension.lower()
+        if extension not in ASSET_ALLOWED_EXTENSIONS:
+            raise HTTPException(status_code=400, detail="Unsupported file extension")
 
         file_slug = slugify(name)
         if not extension or not file_slug:
