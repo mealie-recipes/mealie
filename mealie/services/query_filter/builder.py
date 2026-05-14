@@ -209,7 +209,7 @@ class QueryFilterBuilder:
 
     @classmethod
     def get_model_and_model_attr_from_attr_string[Model: SqlAlchemyBase](
-        cls, attr_string: str, model: type[Model], *, query: sa.Select | None = None
+        cls, attr_string: str, model: type[Model], *, query: sa.Select | None = None, allow_restricted: bool = True
     ) -> tuple[type[SqlAlchemyBase], InstrumentedAttribute, sa.Select | None]:
         """
         Take an attribute string and traverse a database model and its relationships to get the desired
@@ -248,6 +248,8 @@ class QueryFilterBuilder:
                     mapper = sa.inspect(current_model)
                     relationship = mapper.relationships[proxied_attribute_link]
                     current_model = relationship.mapper.class_
+                    if not allow_restricted and current_model.__filter_restricted__:
+                        raise ValueError(f"cannot traverse into restricted model '{current_model.__name__}'")
                     model_attr = cls._get_model_attr(current_model, next_attribute_link)
 
                 # at the end of the chain there are no more relationships to inspect
@@ -260,6 +262,8 @@ class QueryFilterBuilder:
                 mapper = sa.inspect(current_model)
                 relationship = mapper.relationships[attribute_link]
                 current_model = relationship.mapper.class_
+                if not allow_restricted and current_model.__filter_restricted__:
+                    raise ValueError(f"cannot traverse into restricted model '{current_model.__name__}'")
 
             except (AttributeError, KeyError) as e:
                 raise ValueError(f"invalid attribute string: '{attr_string}' does not exist on this schema") from e
