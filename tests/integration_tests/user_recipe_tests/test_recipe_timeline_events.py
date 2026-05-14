@@ -3,6 +3,7 @@ from uuid import uuid4
 import pytest
 from fastapi.testclient import TestClient
 
+from mealie.lang.providers import get_all_translations
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_timeline_events import (
     RecipeTimelineEventOut,
@@ -11,9 +12,13 @@ from mealie.schema.recipe.recipe_timeline_events import (
     TimelineEventType,
 )
 from mealie.schema.recipe.request_helpers import UpdateImageResponse
+from mealie.services.recipe.recipe_service import RECIPE_CREATED_EVENT_SUBJECT
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
+
+
+PERSISTED_TRANSLATION_KEYS = [RECIPE_CREATED_EVENT_SUBJECT]
 
 
 @pytest.fixture(scope="function")
@@ -340,6 +345,14 @@ def test_create_recipe_with_timeline_event(
         events_response = api_client.get(api_routes.recipes_timeline_events, params=params, headers=user.token)
         events_pagination = RecipeTimelineEventPagination.model_validate(events_response.json())
         assert events_pagination.items
+
+
+@pytest.mark.parametrize("translation_key", PERSISTED_TRANSLATION_KEYS)
+def test_persisted_translation_keys_have_translations(translation_key: str):
+    translations = get_all_translations(translation_key)
+    missing_translations = [locale for locale, translation in translations.items() if translation == translation_key]
+
+    assert missing_translations == []
 
 
 def test_recipe_created_system_event_is_translated(
