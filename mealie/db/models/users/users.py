@@ -13,7 +13,7 @@ from mealie.db.models._model_utils.auto_init import auto_init
 from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
 
-from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_base import BaseMixins, PrivateColumn, SqlAlchemyBase
 from .user_to_recipe import UserToRecipe
 
 if TYPE_CHECKING:
@@ -28,7 +28,7 @@ if TYPE_CHECKING:
 class LongLiveToken(SqlAlchemyBase, BaseMixins):
     __tablename__ = "long_live_tokens"
     name: Mapped[str] = mapped_column(String, nullable=False)
-    token: Mapped[str] = mapped_column(String, nullable=False, index=True)
+    token: PrivateColumn[str] = mapped_column(String, nullable=False, index=True)
 
     user_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("users.id"), index=True)
     user: Mapped[Optional["User"]] = orm.relationship("User")
@@ -54,7 +54,7 @@ class User(SqlAlchemyBase, BaseMixins):
     full_name: Mapped[str | None] = mapped_column(String, index=True)
     username: Mapped[str | None] = mapped_column(String, index=True, unique=True)
     email: Mapped[str | None] = mapped_column(String, unique=True, index=True)
-    password: Mapped[str | None] = mapped_column(String)
+    password: PrivateColumn[str | None] = mapped_column(String)
     auth_method: Mapped[Enum[AuthMethod]] = mapped_column(Enum(AuthMethod), default=AuthMethod.MEALIE)
     admin: Mapped[bool | None] = mapped_column(Boolean, default=False)
     advanced: Mapped[bool | None] = mapped_column(Boolean, default=False)
@@ -84,10 +84,10 @@ class User(SqlAlchemyBase, BaseMixins):
         "single_parent": True,
     }
 
-    tokens: Mapped[list[LongLiveToken]] = orm.relationship(LongLiveToken, **sp_args)
+    tokens: PrivateColumn[list[LongLiveToken]] = orm.relationship(LongLiveToken, **sp_args)
     comments: Mapped[list["RecipeComment"]] = orm.relationship("RecipeComment", **sp_args)
     recipe_timeline_events: Mapped[list["RecipeTimelineEvent"]] = orm.relationship("RecipeTimelineEvent", **sp_args)
-    password_reset_tokens: Mapped[list["PasswordResetModel"]] = orm.relationship("PasswordResetModel", **sp_args)
+    password_reset_tokens: PrivateColumn[list["PasswordResetModel"]] = orm.relationship("PasswordResetModel", **sp_args)
 
     owned_recipes_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
     owned_recipes: Mapped[Optional["RecipeModel"]] = orm.relationship(

@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Optional
 from sqlalchemy import ForeignKey, Integer, String, orm
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_base import BaseMixins, PrivateColumn, SqlAlchemyBase
 from .._model_utils import guid
 from .._model_utils.auto_init import auto_init
 
@@ -14,7 +14,7 @@ if TYPE_CHECKING:
 
 class GroupInviteToken(SqlAlchemyBase, BaseMixins):
     __tablename__ = "invite_tokens"
-    token: Mapped[str] = mapped_column(String, index=True, nullable=False, unique=True)
+    token: PrivateColumn[str] = mapped_column(String, index=True, nullable=False, unique=True)
     uses_left: Mapped[int] = mapped_column(Integer, nullable=False, default=1)
 
     group_id: Mapped[guid.GUID | None] = mapped_column(guid.GUID, ForeignKey("groups.id"), index=True)
