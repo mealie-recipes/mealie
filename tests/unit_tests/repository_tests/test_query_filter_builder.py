@@ -117,6 +117,15 @@ def test_restricted_traversal_blocked_when_disallowed():
         QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.email", RecipeModel, allow_restricted=False)
 
 
+def test_association_proxy_through_restricted_model_allowed():
+    """Association proxies (e.g. household_id) traverse through User but are intentional
+    exposures on the source model and must NOT be blocked even when allow_restricted=False."""
+    model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
+        "household_id", RecipeModel, allow_restricted=False
+    )
+    assert model is User
+
+
 def test_restricted_traversal_allowed_by_default():
     """Traversing into User via RecipeModel.user should succeed when allow_restricted=True (default)."""
     model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.email", RecipeModel)

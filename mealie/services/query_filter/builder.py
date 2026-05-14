@@ -249,8 +249,9 @@ class QueryFilterBuilder:
                     mapper = sa.inspect(current_model)
                     relationship = mapper.relationships[proxied_attribute_link]
                     current_model = relationship.mapper.class_
-                    if not allow_restricted and current_model.__filter_restricted__:
-                        raise ValueError(f"cannot traverse into restricted model '{current_model.__name__}'")
+
+                    # Association proxies are intentional field exposures defined on the source model,
+                    # so we do not apply the __filter_restricted__ check here.
                     model_attr = cls._get_model_attr(current_model, next_attribute_link)
 
                 # at the end of the chain there are no more relationships to inspect
