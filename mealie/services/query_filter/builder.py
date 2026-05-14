@@ -200,9 +200,17 @@ class QueryFilterBuilder:
                 return consolidated_group_builder.self_group()
 
     @classmethod
+    def _get_model_attr(cls, model: type[SqlAlchemyBase], attr_name: str) -> InstrumentedAttribute:
+        model_attr: InstrumentedAttribute = getattr(model, attr_name)
+        if getattr(model_attr, "info", {}).get("private"):
+            raise ValueError(f"cannot filter on private field '{model.__name__}.{attr_name}'")
+
+        return model_attr
+
+    @classmethod
     def get_model_and_model_attr_from_attr_string[Model: SqlAlchemyBase](
         cls, attr_string: str, model: type[Model], *, query: sa.Select | None = None
-    ) -> tuple[SqlAlchemyBase, InstrumentedAttribute, sa.Select | None]:
+    ) -> tuple[type[SqlAlchemyBase], InstrumentedAttribute, sa.Select | None]:
         """
         Take an attribute string and traverse a database model and its relationships to get the desired
         model and model attribute. Optionally provide a query to apply the necessary table joins.
@@ -222,17 +230,17 @@ class QueryFilterBuilder:
         if not attribute_chain:
             raise ValueError("invalid query string: attribute name cannot be empty")
 
-        current_model: SqlAlchemyBase = model  # type: ignore
+        current_model: type[SqlAlchemyBase] = model
         for i, attribute_link in enumerate(attribute_chain):
             try:
-                model_attr = getattr(current_model, attribute_link)
+                model_attr = cls._get_model_attr(current_model, attribute_link)
 
                 # proxied attributes can't be joined to the query directly, so we need to inspect the proxy
                 # and get the actual model and its attribute
                 if isinstance(model_attr, AssociationProxyInstance):
                     proxied_attribute_link = model_attr.target_collection
                     next_attribute_link = model_attr.value_attr
-                    model_attr = getattr(current_model, proxied_attribute_link)
+                    model_attr = cls._get_model_attr(current_model, proxied_attribute_link)
 
                     if query is not None:
                         query = query.join(model_attr, isouter=True)
@@ -240,7 +248,7 @@ class QueryFilterBuilder:
                     mapper = sa.inspect(current_model)
                     relationship = mapper.relationships[proxied_attribute_link]
                     current_model = relationship.mapper.class_
-                    model_attr = getattr(current_model, next_attribute_link)
+                    model_attr = cls._get_model_attr(current_model, next_attribute_link)
 
                 # at the end of the chain there are no more relationships to inspect
                 if i == len(attribute_chain) - 1:
@@ -299,7 +307,9 @@ class QueryFilterBuilder:
             if len(value) == 1:
                 element = model_attr.in_(value)
             else:
-                primary_model_attr: InstrumentedAttribute = getattr(model, component.attribute_name.split(".")[0])
+                primary_model_attr: InstrumentedAttribute = cls._get_model_attr(
+                    model, component.attribute_name.split(".")[0]
+                )
                 element = sa.and_(*(primary_model_attr.any(model_attr == v) for v in value))
         elif component.relationship is RelationalKeyword.LIKE:
             element = model_attr.ilike(value)
@@ -368,7 +378,7 @@ class QueryFilterBuilder:
             else:
                 component = cast(QueryFilterBuilderComponent, component)
                 base_attribute_name = component.attribute_name.split(".")[-1]
-                model_attr = getattr(attr_model_map[i], base_attribute_name)
+                model_attr = self._get_model_attr(attr_model_map[i], base_attribute_name)
 
                 if (column_alias := column_aliases.get(base_attribute_name)) is not None:
                     model_attr = column_alias
