@@ -210,7 +210,7 @@ class QueryFilterBuilder:
 
     @classmethod
     def get_model_and_model_attr_from_attr_string[Model: SqlAlchemyBase](
-        cls, attr_string: str, model: type[Model], *, query: sa.Select | None = None, allow_restricted: bool = True
+        cls, attr_string: str, model: type[Model], *, query: sa.Select | None = None
     ) -> tuple[type[SqlAlchemyBase], InstrumentedAttribute, sa.Select | None]:
         """
         Take an attribute string and traverse a database model and its relationships to get the desired
@@ -232,6 +232,7 @@ class QueryFilterBuilder:
             raise ValueError("invalid query string: attribute name cannot be empty")
 
         current_model: type[SqlAlchemyBase] = model
+        allow_restricted = allow_filter_restricted.get()
         for i, attribute_link in enumerate(attribute_chain):
             try:
                 model_attr = cls._get_model_attr(current_model, attribute_link)
@@ -357,7 +358,7 @@ class QueryFilterBuilder:
                 continue
 
             nested_model, model_attr, query = self.get_model_and_model_attr_from_attr_string(
-                component.attribute_name, model, query=query, allow_restricted=allow_filter_restricted.get()
+                component.attribute_name, model, query=query
             )
             attr_model_map[i] = nested_model
 

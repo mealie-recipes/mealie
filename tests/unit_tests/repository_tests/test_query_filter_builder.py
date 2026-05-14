@@ -112,22 +112,28 @@ def test_non_private_field_does_not_raise():
 
 
 def test_restricted_traversal_blocked_when_disallowed():
-    """Traversing into User (restricted) via RecipeModel.user should raise when allow_restricted=False."""
-    with pytest.raises(ValueError, match="restricted model"):
-        QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.email", RecipeModel, allow_restricted=False)
+    """Traversing into User (restricted) via RecipeModel.user should raise when the ContextVar is False."""
+    allow_filter_restricted.set(False)
+    try:
+        with pytest.raises(ValueError, match="restricted model"):
+            QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.email", RecipeModel)
+    finally:
+        allow_filter_restricted.set(True)
 
 
 def test_association_proxy_through_restricted_model_allowed():
     """Association proxies (e.g. household_id) traverse through User but are intentional
-    exposures on the source model and must NOT be blocked even when allow_restricted=False."""
-    model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
-        "household_id", RecipeModel, allow_restricted=False
-    )
-    assert model is User
+    exposures on the source model and must NOT be blocked even when the ContextVar is False."""
+    allow_filter_restricted.set(False)
+    try:
+        model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("household_id", RecipeModel)
+        assert model is User
+    finally:
+        allow_filter_restricted.set(True)
 
 
 def test_restricted_traversal_allowed_by_default():
-    """Traversing into User via RecipeModel.user should succeed when allow_restricted=True (default)."""
+    """Traversing into User via RecipeModel.user should succeed when the ContextVar is True (default)."""
     model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.email", RecipeModel)
     assert model is User
     assert attr is User.email
@@ -170,12 +176,16 @@ def test_filter_query_respects_context_var_true():
 
 
 def test_order_by_restricted_traversal_blocked():
-    """get_model_and_model_attr_from_attr_string with allow_restricted=False blocks orderBy into User."""
-    with pytest.raises(ValueError, match="restricted model"):
-        QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.email", RecipeModel, allow_restricted=False)
+    """orderBy into a restricted model is blocked when the ContextVar is False."""
+    allow_filter_restricted.set(False)
+    try:
+        with pytest.raises(ValueError, match="restricted model"):
+            QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.email", RecipeModel)
+    finally:
+        allow_filter_restricted.set(True)
 
 
 def test_order_by_private_field_blocked():
-    """Ordering by a PrivateColumn field should always raise, regardless of allow_restricted."""
+    """Ordering by a PrivateColumn field should always raise regardless of the ContextVar."""
     with pytest.raises(ValueError, match="private field"):
-        QueryFilterBuilder.get_model_and_model_attr_from_attr_string("password", User, allow_restricted=True)
+        QueryFilterBuilder.get_model_and_model_attr_from_attr_string("password", User)
