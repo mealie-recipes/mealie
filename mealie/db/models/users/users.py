@@ -86,10 +86,10 @@ class User(SqlAlchemyBase, BaseMixins):
         "single_parent": True,
     }
 
-    tokens: PrivateColumn[list[LongLiveToken]] = orm.relationship(LongLiveToken, **sp_args)
+    tokens: Mapped[list[LongLiveToken]] = orm.relationship(LongLiveToken, **sp_args)
     comments: Mapped[list["RecipeComment"]] = orm.relationship("RecipeComment", **sp_args)
     recipe_timeline_events: Mapped[list["RecipeTimelineEvent"]] = orm.relationship("RecipeTimelineEvent", **sp_args)
-    password_reset_tokens: PrivateColumn[list["PasswordResetModel"]] = orm.relationship("PasswordResetModel", **sp_args)
+    password_reset_tokens: Mapped[list["PasswordResetModel"]] = orm.relationship("PasswordResetModel", **sp_args)
 
     owned_recipes_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
     owned_recipes: Mapped[Optional["RecipeModel"]] = orm.relationship(
