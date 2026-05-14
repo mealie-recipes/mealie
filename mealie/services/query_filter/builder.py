@@ -18,6 +18,7 @@ from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
 from mealie.schema._mealie.mealie_model import MealieModel
 
+from .context import allow_filter_restricted
 from .keywords import PlaceholderKeyword, RelationalKeyword
 from .operators import LogicalOperator, RelationalOperator
 
@@ -355,7 +356,7 @@ class QueryFilterBuilder:
                 continue
 
             nested_model, model_attr, query = self.get_model_and_model_attr_from_attr_string(
-                component.attribute_name, model, query=query
+                component.attribute_name, model, query=query, allow_restricted=allow_filter_restricted.get()
             )
             attr_model_map[i] = nested_model
 
