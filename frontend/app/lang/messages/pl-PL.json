@@ -51,7 +51,7 @@
     "category": "Kategoria"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "URL Apprise",
     "database": "Baza danych",
     "delete-event": "Usuń wydarzenie",
     "event-delete-confirmation": "Czy na pewno chcesz usunąć to zdarzenie?",
@@ -98,7 +98,7 @@
     "dashboard": "Panel główny",
     "delete": "Usuń",
     "disabled": "Wyłączone",
-    "done": "Done",
+    "done": "Gotowe",
     "download": "Pobierz",
     "duplicate": "Duplikuj",
     "edit": "Edytuj",
@@ -169,7 +169,7 @@
     "token": "Token",
     "tuesday": "Wtorek",
     "type": "Typ",
-    "undo": "Undo",
+    "undo": "Cofnij",
     "update": "Zaktualizuj",
     "updated": "Zaktualizowano",
     "upload": "Prześlij",
@@ -917,7 +917,7 @@
     "quantity": "Ilość: {0}",
     "shopping-list": "Lista zakupów",
     "shopping-lists": "Listy zakupów",
-    "add-item": "Add item",
+    "add-item": "Dodaj element",
     "food": "Jedzenie",
     "note": "Notatka",
     "label": "Etykieta",
@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Czy na pewno chcesz odznaczyć wszystkie elementy?",
     "are-you-sure-you-want-to-delete-checked-items": "Czy jesteś pewien, że chcesz usunąć wszystkie zaznaczone elementy?",
     "no-shopping-lists-found": "Nie znaleziono list zakupów",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "Zaznaczono {item}"
   },
   "sidebar": {
     "all-recipes": "Wszystkie",
@@ -1478,10 +1478,10 @@
     "max-length": "Może zawierać co najwyżej {max} znak|Może zawierać co najwyżej {max} znaki|Może zawierać co najwyżej {max} znaków"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Ogłoszenia",
+    "all-announcements": "Wszystkie ogłoszenia",
+    "mark-all-as-read": "Oznacz wszystkie jako przeczytane",
+    "show-announcements-from-mealie": "Pokazuj ogłoszenia z Mealie",
+    "show-announcements-setting-description": "Czy chcesz by użytkownicy widzieli ogłoszenia z Mealie? Użytkownicy będą w dalszym ciągu mogli wyłączyć ogłoszenia w swoich ustawieniach użytkownika"
   }
 }
