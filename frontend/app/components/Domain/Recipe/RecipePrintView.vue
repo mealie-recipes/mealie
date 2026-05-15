@@ -130,6 +130,34 @@
               :source="step.text"
               class="recipe-step-body"
             />
+            <!-- Step Ingredients -->
+            <div
+              v-if="preferences.showLinkedIngredients && step.ingredientReferences && step.ingredientReferences.length > 0"
+              class="print-section"
+            >
+              <h6
+                class="ingredient-title mt-2 mb-0"
+              >
+                {{ $t("recipe.ingredients") }}
+              </h6>
+              <div
+                class="step-ingredient-grid"
+                :style="{ gridTemplateRows: `repeat(${Math.ceil(step.ingredientReferences.length / 2)}, min-content)` }"
+              >
+                <template
+                  v-for="(ingredient, ingredientIndex) in recipe.recipeIngredient.filter((ing) => {
+                    return step.ingredientReferences.map((ref) => ref.referenceId).includes(ing.referenceId || '')
+                  })"
+                  :key="`ingredient-${ingredientIndex}`"
+                >
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <p
+                    class="ingredient-body"
+                    v-html="parseText(ingredient)"
+                  />
+                </template>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -401,6 +429,13 @@ p {
   grid-auto-flow: column;
   grid-template-columns: 1fr 1fr;
   grid-gap: 0.5rem;
+}
+
+.step-ingredient-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0.2rem;
 }
 
 .ingredient-title,

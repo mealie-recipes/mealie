@@ -78,6 +78,19 @@
               />
             </v-row>
           </v-col>
+          <v-col
+            cols="auto"
+            align-self="start"
+          >
+            <v-row no-gutters>
+              <v-switch
+                v-model="preferences.showLinkedIngredients"
+                hide-details
+                color="primary"
+                :label="$t('recipe.linked-ingredients')"
+              />
+            </v-row>
+          </v-col>
         </v-row>
       </v-container>
       <v-card
