@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "確定要取消勾選所有項目嗎？",
     "are-you-sure-you-want-to-delete-checked-items": "確定要刪除所有已勾選的項目嗎？",
     "no-shopping-lists-found": "找不到購物清單",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "所有食譜",

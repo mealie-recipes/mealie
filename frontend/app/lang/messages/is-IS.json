@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Ertu viss um að þú viljir taka merkingu af öllum matvörunum?",
     "are-you-sure-you-want-to-delete-checked-items": "Ertu viss um að þú viljir eyða öllum merktum matvörum?",
     "no-shopping-lists-found": "Enginn innkaupalisti fannst",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "Allar uppskriftir",

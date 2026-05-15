@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Haluatko varmasti poistaa kaikki valinnat?",
     "are-you-sure-you-want-to-delete-checked-items": "Haluatko varmasti poistaa kaikki valitut kohteet?",
     "no-shopping-lists-found": "Ostoslistoja ei löytynyt",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "Reseptit",

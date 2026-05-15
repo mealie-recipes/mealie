@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "您确定要取消选中所有项目吗？",
     "are-you-sure-you-want-to-delete-checked-items": "您确定要删除所有选中的项目吗？",
     "no-shopping-lists-found": "没有发现购物清单",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "全部食谱",

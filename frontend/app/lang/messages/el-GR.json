@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Θέλετε σίγουρα να αποεπιλέξετε όλα τα αντικείμενα;",
     "are-you-sure-you-want-to-delete-checked-items": "Θέλετε σίγουρα να διαγράψετε όλα τα επιλεγμένα αντικείμενα;",
     "no-shopping-lists-found": "Δεν βρέθηκαν λίστες για ψώνια",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Το {item} επισημάνθηκε ως ολοκληρωμένο"
   },
   "sidebar": {
     "all-recipes": "Συνταγές όλες",

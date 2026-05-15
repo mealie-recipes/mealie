@@ -13,9 +13,10 @@ describe("useStoreActions", () => {
 
   const mockStore = ref([]);
   const mockLoading = ref(false);
+  const mockInitialized = ref(false);
 
   test("deleteMany calls deleteOne for each ID and refreshes once", async () => {
-    const actions = useStoreActions("test-store", mockApi, mockStore, mockLoading);
+    const actions = useStoreActions("test-store", mockApi, mockStore, mockLoading, mockInitialized);
 
     mockApi.deleteOne = vi.fn().mockResolvedValue({ response: { data: {} } });
     mockApi.getAll = vi.fn().mockResolvedValue({ data: { items: [] } });
@@ -32,7 +33,7 @@ describe("useStoreActions", () => {
   });
 
   test("deleteMany handles empty array", async () => {
-    const actions = useStoreActions("test-store", mockApi, mockStore, mockLoading);
+    const actions = useStoreActions("test-store", mockApi, mockStore, mockLoading, mockInitialized);
 
     mockApi.deleteOne = vi.fn();
     mockApi.getAll = vi.fn().mockResolvedValue({ data: { items: [] } });
@@ -44,7 +45,7 @@ describe("useStoreActions", () => {
   });
 
   test("deleteMany sets loading state", async () => {
-    const actions = useStoreActions("test-store", mockApi, mockStore, mockLoading);
+    const actions = useStoreActions("test-store", mockApi, mockStore, mockLoading, mockInitialized);
 
     mockApi.deleteOne = vi.fn().mockResolvedValue({});
     mockApi.getAll = vi.fn().mockResolvedValue({ data: { items: [] } });
@@ -54,5 +55,26 @@ describe("useStoreActions", () => {
 
     await promise;
     expect(mockLoading.value).toBe(false);
+  });
+
+  test("refresh sets initialized to true even when store returns empty results", async () => {
+    const localInitialized = ref(false);
+    const actions = useStoreActions("test-store", mockApi, mockStore, mockLoading, localInitialized);
+
+    mockApi.getAll = vi.fn().mockResolvedValue({ data: { items: [] } });
+
+    expect(localInitialized.value).toBe(false);
+    await actions.refresh();
+    expect(localInitialized.value).toBe(true);
+  });
+
+  test("refresh sets initialized to true when store returns items", async () => {
+    const localInitialized = ref(false);
+    const actions = useStoreActions("test-store", mockApi, mockStore, mockLoading, localInitialized);
+
+    mockApi.getAll = vi.fn().mockResolvedValue({ data: { items: [{ id: "1", name: "item" }] } });
+
+    await actions.refresh();
+    expect(localInitialized.value).toBe(true);
   });
 });

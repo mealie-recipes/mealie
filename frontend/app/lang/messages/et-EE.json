@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Kas oled kindel, et tahad tühistada kõik valikud?",
     "are-you-sure-you-want-to-delete-checked-items": "Kas oled kindel, et tahad kustutada kõik valitud üksused?",
     "no-shopping-lists-found": "Poenimekirja ei leitud",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "Kõik retseptid",

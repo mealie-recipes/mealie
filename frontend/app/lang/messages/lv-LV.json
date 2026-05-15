@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Vai esat pārliecināts, ka vēlaties noņemt atzīmi no visiem vienumiem?",
     "are-you-sure-you-want-to-delete-checked-items": "Vai tiešām vēlaties dzēst visus pārbaudītos vienumus?",
     "no-shopping-lists-found": "No Shopping Lists Found",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "Visas receptes",
