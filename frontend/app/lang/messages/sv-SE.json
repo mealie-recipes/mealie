@@ -169,7 +169,7 @@
     "token": "Token",
     "tuesday": "Tisdag",
     "type": "Typ",
-    "undo": "Undo",
+    "undo": "Ångra",
     "update": "Uppdatera",
     "updated": "Uppdaterad",
     "upload": "Ladda upp",
@@ -333,8 +333,8 @@
     "any-household": "Valfritt hushåll",
     "no-meal-plan-defined-yet": "Ingen måltidsplan definierad ännu",
     "no-meal-planned-for-today": "Ingen måltidsplan för idag",
-    "numberOfDaysPast-hint": "Number of days in the past on page load",
-    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDaysPast-hint": "Antal förflutna dagar vid sidhämtning",
+    "numberOfDaysPast-label": "Förvalda förflutna dagar",
     "numberOfDays-hint": "Antal dagar vid sidhämtning",
     "numberOfDays-label": "Förvalda dagar",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Endast recept med dessa kategorier kommer att användas i måltidsplaner",
@@ -812,7 +812,7 @@
     "settings-updated": "Inställningar uppdaterade",
     "site-settings": "Systeminställningar",
     "theme": {
-      "accent": "Accent",
+      "accent": "Accentfärg",
       "dark": "Mörkt",
       "default-to-system": "Standard",
       "error": "Fel",
@@ -893,17 +893,17 @@
     "server-side-base-url-error-text": "`BASE_URL` är fortfarande standardvärdet på API-servern. Detta kommer att orsaka problem med meddelanden som genereras på servern för e-postmeddelanden, etc.",
     "server-side-base-url-success-text": "Serversidans URL matchar inte standard",
     "ldap-ready": "LDAP Redo",
-    "ldap-not-ready": "LDAP Not Ready",
+    "ldap-not-ready": "LDAP ej tillgängligt",
     "ldap-ready-error-text": "Alla LDAP-värden är inte konfigurerade. Detta kan ignoreras om du inte använder LDAP-autentisering.",
     "ldap-ready-success-text": "Alla obligatoriska LDAP-variabler är satta.",
     "build": "Bygge",
     "recipe-scraper-version": "Version av Recept-scraper",
     "oidc-ready": "OIDC Klar",
-    "oidc-not-ready": "OIDC Not Ready",
+    "oidc-not-ready": "OIDC ej tillgängligt",
     "oidc-ready-error-text": "Alla OIDC-värden är inte konfigurerade. Detta kan ignoreras om du inte använder OIDC-autentisering.",
     "oidc-ready-success-text": "Alla obligatoriska OIDC-variabler är satta.",
     "openai-ready": "OpenAI redo",
-    "openai-not-ready": "OpenAI Not Ready",
+    "openai-not-ready": "OpenAI ej tillgängligt",
     "openai-ready-error-text": "Alla OpenAI-värden är inte konfigurerade. Detta kan ignoreras om du inte använder OpenAI-funktioner.",
     "openai-ready-success-text": "Alla obligatoriska OpenAI-variabler är satta."
   },
@@ -917,7 +917,7 @@
     "quantity": "Antal {0}",
     "shopping-list": "Inköpslista",
     "shopping-lists": "Inköpslistor",
-    "add-item": "Add item",
+    "add-item": "Lägg till vara",
     "food": "Mat",
     "note": "Anteckning",
     "label": "Etikett",
@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Är du säker på att du vill avmarkera alla objekt?",
     "are-you-sure-you-want-to-delete-checked-items": "Är du säker på att du vill ta bort alla markerade objekt?",
     "no-shopping-lists-found": "Inga inköpslistor hittades",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "Kryssat av {item}"
   },
   "sidebar": {
     "all-recipes": "Recept",
@@ -1478,10 +1478,10 @@
     "max-length": "Måste Vara Som Mest {max} Tecken|Måste Vara Som Mest {max} Tecken"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Meddelanden",
+    "all-announcements": "Alla meddelanden",
+    "mark-all-as-read": "Markera alla som lästa",
+    "show-announcements-from-mealie": "Visa meddelanden från Mealie",
+    "show-announcements-setting-description": "Om du vill tillåta användare att se meddelanden från Mealie eller inte. När funktionen är aktiverad kan användarna fortfarande välja att inte se dem i sina användarinställningar"
   }
 }
