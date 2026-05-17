@@ -22,6 +22,17 @@ from .keywords import PlaceholderKeyword, RelationalKeyword
 from .operators import LogicalOperator, RelationalOperator
 
 
+class NonFilterableValueError(ValueError):
+    """Raised when trying to filter by an unfilterable field"""
+
+    def __init__(self, field: str):
+        self.message = f"Cannot filter on {field}"
+        super().__init__(self.message)
+
+    def __str__(self):
+        return f"{self.message}"
+
+
 class QueryFilterJSONPart(MealieModel):
     left_parenthesis: str | None = None
     right_parenthesis: str | None = None
@@ -260,7 +271,7 @@ class QueryFilterBuilder:
             raise ValueError(f"invalid attribute string: '{attr_string}'")
 
         if not getattr(model_attr, "info", {}).get("filterable"):
-            raise ValueError(f"cannot filter on '{model_attr}'")
+            raise NonFilterableValueError(model_attr)
 
         return current_model, model_attr, query
 
