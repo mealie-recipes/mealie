@@ -200,13 +200,6 @@ class QueryFilterBuilder:
                 return consolidated_group_builder.self_group()
 
     @classmethod
-    def _validate_model_attr(cls, model_attr: InstrumentedAttribute) -> None:
-        if not getattr(model_attr, "info", {}).get("filterable"):
-            raise ValueError(f"cannot filter on private field '{model_attr}'")
-
-        return
-
-    @classmethod
     def get_model_and_model_attr_from_attr_string[Model: SqlAlchemyBase](
         cls, attr_string: str, model: type[Model], *, query: sa.Select | None = None
     ) -> tuple[type[SqlAlchemyBase], InstrumentedAttribute, sa.Select | None]:
@@ -266,7 +259,9 @@ class QueryFilterBuilder:
         if model_attr is None:
             raise ValueError(f"invalid attribute string: '{attr_string}'")
 
-        cls._validate_model_attr(model_attr)
+        if not getattr(model_attr, "info", {}).get("filterable"):
+            raise ValueError(f"cannot filter on '{model_attr}'")
+
         return current_model, model_attr, query
 
     @classmethod
