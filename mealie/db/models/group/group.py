@@ -5,7 +5,7 @@ import sqlalchemy.orm as orm
 from pydantic import ConfigDict
 from sqlalchemy.orm import Mapped, mapped_column
 
-from mealie.db.models.labels import MultiPurposeLabel
+from mealie.db.models.recipe.labels import MultiPurposeLabel
 
 from .._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
 from .._model_utils.auto_init import auto_init
