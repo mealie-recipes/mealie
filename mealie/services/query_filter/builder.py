@@ -342,7 +342,7 @@ class QueryFilterBuilder:
         column_aliases = column_aliases or {}
 
         # join tables and build model chain
-        attr_model_map: dict[int, Any] = {}
+        attr_map: dict[int, tuple[type[SqlAlchemyBase], InstrumentedAttribute]] = {}
         model_attr: InstrumentedAttribute
         for i, component in enumerate(self.filter_components):
             if not isinstance(component, QueryFilterBuilderComponent):
@@ -351,7 +351,7 @@ class QueryFilterBuilder:
             nested_model, model_attr, query = self.get_model_and_model_attr_from_attr_string(
                 component.attribute_name, model, query=query
             )
-            attr_model_map[i] = nested_model
+            attr_map[i] = (nested_model, model_attr)
 
         # build query filter
         partial_group: list[sa.ColumnElement] = []
@@ -375,10 +375,9 @@ class QueryFilterBuilder:
 
             else:
                 component = cast(QueryFilterBuilderComponent, component)
-                base_attribute_name = component.attribute_name.split(".")[-1]
-                model_attr = getattr(attr_model_map[i], base_attribute_name)
-                self._validate_model_attr(model_attr)
+                nested_model, model_attr = attr_map[i]
 
+                base_attribute_name = component.attribute_name.split(".")[-1]
                 if (column_alias := column_aliases.get(base_attribute_name)) is not None:
                     model_attr = column_alias
 
