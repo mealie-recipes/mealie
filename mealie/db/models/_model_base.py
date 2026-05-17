@@ -15,10 +15,10 @@ NORMALIZE_PUNCTUATION = string.punctuation.replace("'", "").replace('"', "")
 _NORMALIZE_PUNCTUATION_TABLE = str.maketrans(NORMALIZE_PUNCTUATION, " " * len(NORMALIZE_PUNCTUATION))
 
 
-class PrivateColumn[T]:
+class FilterableColumn[T]:
     """
-    Drop-in replacement for `Mapped[]` that marks a column as private.
-    Private columns cannot be used in query filter expressions.
+    Drop-in replacement for `Mapped[]` that marks a column as filterable.
+    Filterable columns can be used in query filter expressions.
 
     Only valid on scalar column fields. Using it on a relationship type (e.g. `list[Model]`)
     will raise a `TypeError` at class definition time.
@@ -27,10 +27,10 @@ class PrivateColumn[T]:
     def __class_getitem__(cls, item: type) -> type:
         if get_origin(item) is list or item is list:
             raise TypeError(
-                f"PrivateColumn cannot be used on relationship fields (got {item!r}). "
+                f"FilterableColumn cannot be used on relationship fields (got {item!r}). "
                 "Annotate the related model's scalar column directly instead."
             )
-        return Mapped[Annotated[item, mapped_column(info={"private": True})]]
+        return Mapped[Annotated[item, mapped_column(info={"filterable": True})]]
 
 
 class SqlAlchemyBase(DeclarativeBase):
