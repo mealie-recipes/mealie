@@ -5,6 +5,7 @@ from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.users.users import LongLiveToken, User
 from mealie.services.query_filter.builder import (
     LogicalOperator,
+    NonFilterableValueError,
     QueryFilterBuilder,
     QueryFilterJSON,
     QueryFilterJSONPart,
@@ -88,19 +89,19 @@ def test_query_filter_builder_json_uses_raw_value():
 
 def test_non_filterable_field_user_password_raises():
     """Filtering on User.password (plain Mapped, not FilterableColumn) should raise ValueError."""
-    with pytest.raises(ValueError, match="cannot filter"):
+    with pytest.raises(NonFilterableValueError):
         QueryFilterBuilder.get_model_and_model_attr_from_attr_string("password", User)
 
 
 def test_non_filterable_field_user_email_raises():
     """Filtering on User.email (plain Mapped, not FilterableColumn) should raise ValueError."""
-    with pytest.raises(ValueError, match="cannot filter"):
+    with pytest.raises(NonFilterableValueError):
         QueryFilterBuilder.get_model_and_model_attr_from_attr_string("email", User)
 
 
 def test_non_filterable_field_long_live_token_raises():
     """Filtering on LongLiveToken.token (plain Mapped, not FilterableColumn) should raise ValueError."""
-    with pytest.raises(ValueError, match="cannot filter"):
+    with pytest.raises(NonFilterableValueError):
         QueryFilterBuilder.get_model_and_model_attr_from_attr_string("token", LongLiveToken)
 
 
@@ -125,13 +126,13 @@ def test_deep_traversal_to_filterable_field_works():
 
 def test_deep_traversal_to_non_filterable_field_raises():
     """Traversing a relationship to a plain Mapped field should raise ValueError."""
-    with pytest.raises(ValueError, match="cannot filter"):
+    with pytest.raises(NonFilterableValueError):
         QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.email", RecipeModel)
 
 
 def test_deep_traversal_user_password_raises():
     """Traversing RecipeModel.user.password should raise ValueError."""
-    with pytest.raises(ValueError, match="cannot filter"):
+    with pytest.raises(NonFilterableValueError):
         QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.password", RecipeModel)
 
 
@@ -139,7 +140,7 @@ def test_filter_query_user_email_raises():
     """filter_query on user.email should raise ValueError."""
     query = sa.select(RecipeModel)
     builder = QueryFilterBuilder('user.email = "test@example.com"')
-    with pytest.raises(ValueError, match="cannot filter"):
+    with pytest.raises(NonFilterableValueError):
         builder.filter_query(query, RecipeModel)
 
 
@@ -147,7 +148,7 @@ def test_filter_query_user_password_raises():
     """filter_query on user.password should raise ValueError."""
     query = sa.select(RecipeModel)
     builder = QueryFilterBuilder('user.password = "secret"')
-    with pytest.raises(ValueError, match="cannot filter"):
+    with pytest.raises(NonFilterableValueError):
         builder.filter_query(query, RecipeModel)
 
 
