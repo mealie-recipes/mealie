@@ -38,7 +38,7 @@ export const LOCALES = [
   {
     name: "Svenska (Swedish)",
     value: "sv-SE",
-    progress: 74,
+    progress: 75,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -101,14 +101,14 @@ export const LOCALES = [
   {
     name: "Norsk (Norwegian)",
     value: "no-NO",
-    progress: 59,
+    progress: 60,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
   {
     name: "Nederlands (Dutch)",
     value: "nl-NL",
-    progress: 97,
+    progress: 98,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
