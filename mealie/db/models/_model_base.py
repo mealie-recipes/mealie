@@ -1,6 +1,6 @@
 import string
 from datetime import datetime
-from typing import Annotated, ClassVar, get_origin
+from typing import Annotated, get_origin
 
 from sqlalchemy import Integer
 from sqlalchemy.orm import DeclarativeBase, Mapped, declared_attr, mapped_column, synonym
@@ -34,9 +34,6 @@ class PrivateColumn[T]:
 
 
 class SqlAlchemyBase(DeclarativeBase):
-    __filter_restricted__: ClassVar[bool] = False
-    """When True, the query filter API will block traversal into this model unless explicitly allowed."""
-
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
     created_at: Mapped[datetime | None] = mapped_column(NaiveDateTime, default=get_utc_now, index=True)
     update_at: Mapped[datetime | None] = mapped_column(NaiveDateTime, default=get_utc_now, onupdate=get_utc_now)

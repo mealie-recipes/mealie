@@ -50,7 +50,6 @@ class AuthMethod(enum.Enum):
 
 class User(SqlAlchemyBase, BaseMixins):
     __tablename__ = "users"
-    __filter_restricted__ = True
 
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
     full_name: Mapped[str | None] = mapped_column(String, index=True)

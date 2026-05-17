@@ -27,12 +27,6 @@ from mealie.schema.household.household import HouseholdInDB
 from mealie.schema.user.user import GroupInDB, PrivateUser
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.event_types import EventDocumentDataBase, EventTypes
-from mealie.services.query_filter.context import allow_filter_restricted
-
-
-def _set_no_restricted_filter() -> None:
-    """FastAPI dependency that disables restricted model traversal for the current request."""
-    allow_filter_restricted.set(False)
 
 
 class _BaseController(ABC):  # noqa: B024
@@ -100,7 +94,6 @@ class BasePublicGroupExploreController(BasePublicController):
     """
 
     group: GroupInDB = Depends(get_public_group)
-    _no_restricted_filter: None = Depends(_set_no_restricted_filter)
 
     @property
     def group_id(self) -> UUID4 | None | NotSet:

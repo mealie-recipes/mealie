@@ -18,7 +18,6 @@ from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
 from mealie.schema._mealie.mealie_model import MealieModel
 
-from .context import allow_filter_restricted
 from .keywords import PlaceholderKeyword, RelationalKeyword
 from .operators import LogicalOperator, RelationalOperator
 
@@ -231,7 +230,6 @@ class QueryFilterBuilder:
             raise ValueError("invalid query string: attribute name cannot be empty")
 
         current_model: type[SqlAlchemyBase] = model
-        allow_restricted = allow_filter_restricted.get()
         for i, attribute_link in enumerate(attribute_chain):
             try:
                 model_attr = getattr(current_model, attribute_link)
@@ -249,9 +247,6 @@ class QueryFilterBuilder:
                     mapper = sa.inspect(current_model)
                     relationship = mapper.relationships[proxied_attribute_link]
                     current_model = relationship.mapper.class_
-
-                    # Association proxies are intentional field exposures defined on the source model,
-                    # so we do not apply the __filter_restricted__ check here.
                     model_attr = getattr(current_model, next_attribute_link)
 
                 # at the end of the chain there are no more relationships to inspect
@@ -264,8 +259,6 @@ class QueryFilterBuilder:
                 mapper = sa.inspect(current_model)
                 relationship = mapper.relationships[attribute_link]
                 current_model = relationship.mapper.class_
-                if not allow_restricted and current_model.__filter_restricted__:
-                    raise ValueError(f"cannot traverse into restricted model '{current_model.__name__}'")
 
             except (AttributeError, KeyError) as e:
                 raise ValueError(f"invalid attribute string: '{attr_string}' does not exist on this schema") from e
