@@ -1,6 +1,6 @@
 import string
 from datetime import datetime
-from typing import Annotated
+from typing import Annotated, get_origin
 
 from sqlalchemy import Integer
 from sqlalchemy.orm import DeclarativeBase, Mapped, declared_attr, mapped_column, synonym
@@ -15,10 +15,22 @@ NORMALIZE_PUNCTUATION = string.punctuation.replace("'", "").replace('"', "")
 _NORMALIZE_PUNCTUATION_TABLE = str.maketrans(NORMALIZE_PUNCTUATION, " " * len(NORMALIZE_PUNCTUATION))
 
 
-# Drop-in replacement for Mapped[] that marks a column as filterable.
-# Type checkers see Annotated[T, ...] as plain T, so attributes are typed correctly.
-# At runtime, SQLAlchemy reads the embedded mapped_column info and records the marker.
-type FilterableColumn[T] = Mapped[Annotated[T, mapped_column(info={"filterable": True})]]
+class FilterableColumn[T]:
+    """
+    Drop-in replacement for `Mapped[]` that marks a column as filterable.
+    Filterable columns can be used in query filter expressions.
+
+    Only valid on scalar column fields. Using it on a relationship type (e.g. `list[Model]`)
+    will raise a `TypeError` at class definition time.
+    """
+
+    def __class_getitem__(cls, item: type) -> type:
+        if get_origin(item) is list or item is list:
+            raise TypeError(
+                f"FilterableColumn cannot be used on relationship fields (got {item!r}). "
+                "Annotate the related model's scalar column directly instead."
+            )
+        return Mapped[Annotated[item, mapped_column(info={"filterable": True})]]
 
 
 class SqlAlchemyBase(DeclarativeBase):
