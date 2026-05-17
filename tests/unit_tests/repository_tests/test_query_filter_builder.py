@@ -1,7 +1,6 @@
 import pytest
 import sqlalchemy as sa
 
-from mealie.db.models._model_base import PrivateColumn
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.users.users import LongLiveToken, User
 from mealie.services.query_filter.builder import (
@@ -12,7 +11,6 @@ from mealie.services.query_filter.builder import (
     RelationalKeyword,
     RelationalOperator,
 )
-from mealie.services.query_filter.context import allow_filter_restricted
 
 
 def test_query_filter_builder_json():
@@ -84,115 +82,77 @@ def test_query_filter_builder_json_uses_raw_value():
 
 
 # ---------------------------------------------------------------------------
-# PrivateColumn tests
+# FilterableColumn tests
 # ---------------------------------------------------------------------------
 
 
-def test_private_column_rejects_list_type():
-    """PrivateColumn[list[X]] must raise TypeError at definition time to prevent misuse on relationships."""
-    with pytest.raises(TypeError, match="relationship"):
-        PrivateColumn[list[User]]
-
-
-def test_private_field_user_password_raises():
-    """Filtering on User.password (PrivateColumn) should raise ValueError."""
-    with pytest.raises(ValueError, match="private field"):
+def test_non_filterable_field_user_password_raises():
+    """Filtering on User.password (plain Mapped, not FilterableColumn) should raise ValueError."""
+    with pytest.raises(ValueError, match="cannot filter"):
         QueryFilterBuilder.get_model_and_model_attr_from_attr_string("password", User)
 
 
-def test_private_field_long_live_token_raises():
-    """Filtering on LongLiveToken.token (PrivateColumn) should raise ValueError."""
-    with pytest.raises(ValueError, match="private field"):
+def test_non_filterable_field_user_email_raises():
+    """Filtering on User.email (plain Mapped, not FilterableColumn) should raise ValueError."""
+    with pytest.raises(ValueError, match="cannot filter"):
+        QueryFilterBuilder.get_model_and_model_attr_from_attr_string("email", User)
+
+
+def test_non_filterable_field_long_live_token_raises():
+    """Filtering on LongLiveToken.token (plain Mapped, not FilterableColumn) should raise ValueError."""
+    with pytest.raises(ValueError, match="cannot filter"):
         QueryFilterBuilder.get_model_and_model_attr_from_attr_string("token", LongLiveToken)
 
 
-def test_non_private_field_does_not_raise():
-    """Filtering on a normal field should not raise."""
+def test_filterable_field_does_not_raise():
+    """Filtering on a FilterableColumn field should not raise."""
     model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("full_name", User)
     assert model is User
     assert attr is User.full_name
 
 
 # ---------------------------------------------------------------------------
-# __filter_restricted__ traversal tests
+# Relationship traversal tests
 # ---------------------------------------------------------------------------
 
 
-def test_restricted_traversal_blocked_when_disallowed():
-    """Traversing into User (restricted) via RecipeModel.user should raise when the ContextVar is False."""
-    allow_filter_restricted.set(False)
-    try:
-        with pytest.raises(ValueError, match="restricted model"):
-            QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.email", RecipeModel)
-    finally:
-        allow_filter_restricted.set(True)
-
-
-def test_association_proxy_through_restricted_model_allowed():
-    """Association proxies (e.g. household_id) traverse through User but are intentional
-    exposures on the source model and must NOT be blocked even when the ContextVar is False."""
-    allow_filter_restricted.set(False)
-    try:
-        model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("household_id", RecipeModel)
-        assert model is User
-    finally:
-        allow_filter_restricted.set(True)
-
-
-def test_restricted_traversal_allowed_by_default():
-    """Traversing into User via RecipeModel.user should succeed when the ContextVar is True (default)."""
-    model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.email", RecipeModel)
+def test_deep_traversal_to_filterable_field_works():
+    """Traversing a relationship to a FilterableColumn field should succeed."""
+    model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.full_name", RecipeModel)
     assert model is User
-    assert attr is User.email
+    assert attr is User.full_name
 
 
-# ---------------------------------------------------------------------------
-# ContextVar tests
-# ---------------------------------------------------------------------------
+def test_deep_traversal_to_non_filterable_field_raises():
+    """Traversing a relationship to a plain Mapped field should raise ValueError."""
+    with pytest.raises(ValueError, match="cannot filter"):
+        QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.email", RecipeModel)
 
 
-def test_allow_filter_restricted_default_is_true():
-    """The ContextVar default must be True so authenticated requests are unrestricted."""
-    assert allow_filter_restricted.get() is True
+def test_deep_traversal_user_password_raises():
+    """Traversing RecipeModel.user.password should raise ValueError."""
+    with pytest.raises(ValueError, match="cannot filter"):
+        QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.password", RecipeModel)
 
 
-def test_filter_query_respects_context_var_false(monkeypatch):
-    """filter_query should block restricted traversal when the ContextVar is False."""
-    allow_filter_restricted.set(False)
-    try:
-        query = sa.select(RecipeModel)
-        builder = QueryFilterBuilder("user.email = 'test@example.com'")
-        with pytest.raises(ValueError, match="restricted model"):
-            builder.filter_query(query, RecipeModel)
-    finally:
-        allow_filter_restricted.set(True)
-
-
-def test_filter_query_respects_context_var_true():
-    """filter_query should allow restricted traversal when the ContextVar is True (default)."""
-    allow_filter_restricted.set(True)
+def test_filter_query_user_email_raises():
+    """filter_query on user.email should raise ValueError."""
     query = sa.select(RecipeModel)
-    builder = QueryFilterBuilder("user.email = 'test@example.com'")
-    # Should not raise
-    builder.filter_query(query, RecipeModel)
+    builder = QueryFilterBuilder('user.email = "test@example.com"')
+    with pytest.raises(ValueError, match="cannot filter"):
+        builder.filter_query(query, RecipeModel)
 
 
-# ---------------------------------------------------------------------------
-# orderBy restricted traversal tests
-# ---------------------------------------------------------------------------
+def test_filter_query_user_password_raises():
+    """filter_query on user.password should raise ValueError."""
+    query = sa.select(RecipeModel)
+    builder = QueryFilterBuilder('user.password = "secret"')
+    with pytest.raises(ValueError, match="cannot filter"):
+        builder.filter_query(query, RecipeModel)
 
 
-def test_order_by_restricted_traversal_blocked():
-    """orderBy into a restricted model is blocked when the ContextVar is False."""
-    allow_filter_restricted.set(False)
-    try:
-        with pytest.raises(ValueError, match="restricted model"):
-            QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.email", RecipeModel)
-    finally:
-        allow_filter_restricted.set(True)
-
-
-def test_order_by_private_field_blocked():
-    """Ordering by a PrivateColumn field should always raise regardless of the ContextVar."""
-    with pytest.raises(ValueError, match="private field"):
-        QueryFilterBuilder.get_model_and_model_attr_from_attr_string("password", User)
+def test_association_proxy_resolving_to_filterable_field_works():
+    """Single-hop association proxy (e.g. household_id) resolving to a FilterableColumn should succeed."""
+    model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("household_id", RecipeModel)
+    assert model is User
+    assert attr is User.household_id
