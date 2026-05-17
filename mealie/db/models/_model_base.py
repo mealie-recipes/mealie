@@ -23,8 +23,10 @@ type FilterableColumn[T] = Mapped[Annotated[T, mapped_column(info={"filterable":
 
 class SqlAlchemyBase(DeclarativeBase):
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    created_at: Mapped[datetime | None] = mapped_column(NaiveDateTime, default=get_utc_now, index=True)
-    update_at: Mapped[datetime | None] = mapped_column(NaiveDateTime, default=get_utc_now, onupdate=get_utc_now)
+    created_at: FilterableColumn[datetime | None] = mapped_column(NaiveDateTime, default=get_utc_now, index=True)
+    update_at: FilterableColumn[datetime | None] = mapped_column(
+        NaiveDateTime, default=get_utc_now, onupdate=get_utc_now
+    )
 
     @declared_attr
     def updated_at(cls) -> Mapped[datetime | None]:
