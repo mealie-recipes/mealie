@@ -60,6 +60,9 @@ def generate_id() -> str:
 
 
 def create_provider(settings_id: str, provider_id: str, model: str, openai_settings: LegacyOpenAISettings) -> None:
+    name = f"Migrated Provider {model}|{provider_id[:5]}"
+    logger.info(f"Creating provider '{name}'")
+
     conn = op.get_bind()
     conn.execute(
         sa.text(
@@ -69,7 +72,7 @@ def create_provider(settings_id: str, provider_id: str, model: str, openai_setti
         {
             "id": provider_id,
             "settings_id": settings_id,
-            "name": "OpenAI",
+            "name": name,
             "base_url": openai_settings.OPENAI_BASE_URL,
             "api_key": openai_settings.OPENAI_API_KEY,
             "model": model,
@@ -107,6 +110,8 @@ def migrate_env_vars() -> None:
 
     groups = conn.execute(sa.text("SELECT id FROM groups")).fetchall()
     for (group_id,) in groups:
+        logger.info(f"Creating providers for {group_id=}")
+
         # Create AI provider settings
         settings_id = generate_id()
         conn.execute(
