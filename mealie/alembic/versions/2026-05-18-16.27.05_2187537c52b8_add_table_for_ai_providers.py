@@ -8,12 +8,12 @@ Create Date: 2026-05-18 16:27:05.770218
 
 import sqlalchemy as sa
 from alembic import op
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
 import mealie.db.migration_types
-from mealie.core.config import ENV, PRODUCTION, determine_data_dir
+from mealie.core.config import ENV
 from mealie.core.root_logger import get_logger
-from mealie.core.settings.settings import determine_secrets, get_secrets_dir
+from mealie.core.settings.settings import get_secrets_dir
 from mealie.db.models._model_utils.guid import GUID
 
 # revision identifiers, used by Alembic.
@@ -36,19 +36,15 @@ class LegacyOpenAISettings(BaseSettings):
     OPENAI_ENABLE_TRANSCRIPTION_SERVICES: bool = True
     OPENAI_REQUEST_TIMEOUT: int = 300
 
+    model_config = SettingsConfigDict(extra="ignore")
+
 
 def get_openai_settings() -> LegacyOpenAISettings:
-    data_dir = determine_data_dir()
-    secret_settings = {
-        "SECRET": determine_secrets(data_dir, ".secret", PRODUCTION),
-        "SESSION_SECRET": determine_secrets(data_dir, ".session_secret", PRODUCTION),
-    }
 
     return LegacyOpenAISettings(
         _env_file=ENV,
         _env_file_encoding="utf-8",
         _secrets_dir=get_secrets_dir(),
-        **secret_settings,
     )
 
 
