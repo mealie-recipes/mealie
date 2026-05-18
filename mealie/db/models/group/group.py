@@ -16,6 +16,7 @@ from ..household.mealplan import GroupMealPlan
 from ..household.webhooks import GroupWebhooksModel
 from ..recipe.category import Category, group_to_categories
 from ..server.task import ServerTaskModel
+from .ai_providers import AIProviderSettings
 from .preferences import GroupPreferencesModel
 
 if TYPE_CHECKING:
@@ -41,8 +42,17 @@ class Group(SqlAlchemyBase, BaseMixins):
     invite_tokens: Mapped[list[GroupInviteToken]] = orm.relationship(
         GroupInviteToken, back_populates="group", cascade="all, delete-orphan"
     )
+
+    # Config
     preferences: Mapped[GroupPreferencesModel] = orm.relationship(
         GroupPreferencesModel,
+        back_populates="group",
+        uselist=False,
+        single_parent=True,
+        cascade="all, delete-orphan",
+    )
+    ai_provider_settings: Mapped[AIProviderSettings] = orm.relationship(
+        AIProviderSettings,
         back_populates="group",
         uselist=False,
         single_parent=True,
