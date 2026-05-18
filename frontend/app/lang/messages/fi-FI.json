@@ -893,7 +893,7 @@
     "server-side-base-url-error-text": "`BASE_URL` on API-palvelimen oletusarvo. Tämä aiheuttaa ongelmia ilmoitusten linkkien kanssa, jotka on luotu palvelimella sähköposteja varten jne.",
     "server-side-base-url-success-text": "Palvelimen nettiosoite ei vastaa oletusta",
     "ldap-ready": "LDAP Valmis",
-    "ldap-not-ready": "LDAP ei ole valmis",
+    "ldap-not-ready": "LDAP ei valmis",
     "ldap-ready-error-text": "Kaikkia LDAP-arvoja ei ole määritetty. Tämä voidaan ohittaa, jos et käytä LDAP-todennusta.",
     "ldap-ready-success-text": "Kaikki vaaditut LDAP-muuttujat on asetettu.",
     "build": "Koonti",
