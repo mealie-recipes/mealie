@@ -98,19 +98,19 @@ def create_provider(settings_id: str, provider_id: str, model: str, openai_setti
         )
 
 
-def migrate_env_vars() -> None:
-    """Migrate legacy OPEN_AI_... environment variables to a provider"""
+def create_providers() -> None:
+    """Create provider settings and migrate legacy OPEN_AI_... environment variables to a provider"""
 
     openai_settings = get_openai_settings()
-    if not (openai_settings.OPENAI_API_KEY and openai_settings.OPENAI_MODEL):
-        return
+    create_providers = bool(openai_settings.OPENAI_API_KEY and openai_settings.OPENAI_MODEL)
 
-    logger.info("Found legacy OpenAI configuration, creating new AI providers")
+    if create_providers:
+        logger.info("Found legacy OpenAI configuration, creating new AI providers")
+
     conn = op.get_bind()
-
     groups = conn.execute(sa.text("SELECT id FROM groups")).fetchall()
     for (group_id,) in groups:
-        logger.info(f"Creating providers for {group_id=}")
+        logger.info(f"Creating provider settings for {group_id=}")
 
         # Create AI provider settings
         settings_id = generate_id()
@@ -118,6 +118,9 @@ def migrate_env_vars() -> None:
             sa.text("INSERT INTO ai_provider_settings (id, group_id) VALUES (:id, :group_id)"),
             {"id": settings_id, "group_id": group_id},
         )
+
+        if not create_providers:
+            continue
 
         # Create provider
         provider_id = generate_id()
@@ -174,6 +177,7 @@ def upgrade():
         ),
         sa.ForeignKeyConstraint(["image_provider_id"], ["ai_providers.id"], use_alter=True),
         sa.PrimaryKeyConstraint("id"),
+        sa.UniqueConstraint("group_id", name="ai_provider_settings_group_id_key"),
     )
     with op.batch_alter_table("ai_provider_settings", schema=None) as batch_op:
         batch_op.create_index(
@@ -248,7 +252,7 @@ def upgrade():
 
     try:
         with op.get_bind().begin_nested():
-            migrate_env_vars()
+            create_providers()
     except Exception:
         logger.exception("Failed to migrate legacy OpenAI config")
 

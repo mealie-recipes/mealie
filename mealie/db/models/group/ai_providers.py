@@ -93,6 +93,7 @@ class AIProvider(SqlAlchemyBase, BaseMixins):
 
 class AIProviderSettings(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ai_provider_settings"
+    __table_args__ = (sa.UniqueConstraint("group_id", name="ai_provider_settings_group_id_key"),)
     id: orm.Mapped[GUID] = orm.mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     group_id: orm.Mapped[GUID] = orm.mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
