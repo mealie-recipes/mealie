@@ -73,7 +73,7 @@ class AIProvider(SqlAlchemyBase, BaseMixins):
     )
 
     name: orm.Mapped[str] = orm.mapped_column(sa.String, index=True, nullable=False)
-    base_url: orm.Mapped[str] = orm.mapped_column(sa.String, nullable=False)
+    base_url: orm.Mapped[str | None] = orm.mapped_column(sa.String, nullable=True)
     api_key: orm.Mapped[str] = orm.mapped_column(sa.String, nullable=False)
     model: orm.Mapped[str] = orm.mapped_column(sa.String, nullable=False)
     timeout: orm.Mapped[int] = orm.mapped_column(sa.Integer, nullable=False, default=300)

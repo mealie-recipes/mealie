@@ -1,4 +1,4 @@
-"""add table 'for' ai providers
+"""add table for ai providers
 
 Revision ID: 2187537c52b8
 Revises: c7427796f7b6
@@ -99,9 +99,10 @@ def migrate_env_vars() -> None:
     """Migrate legacy OPEN_AI_... environment variables to a provider"""
 
     openai_settings = get_openai_settings()
-    if not (openai_settings.OPENAI_BASE_URL and openai_settings.OPENAI_API_KEY and openai_settings.OPENAI_MODEL):
+    if not (openai_settings.OPENAI_API_KEY and openai_settings.OPENAI_MODEL):
         return
 
+    logger.info("Found legacy OpenAI configuration, creating new AI providers")
     conn = op.get_bind()
 
     groups = conn.execute(sa.text("SELECT id FROM groups")).fetchall()
@@ -184,7 +185,7 @@ def upgrade():
         sa.Column("id", mealie.db.migration_types.GUID(), nullable=False),
         sa.Column("settings_id", mealie.db.migration_types.GUID(), nullable=False),
         sa.Column("name", sa.String(), nullable=False),
-        sa.Column("base_url", sa.String(), nullable=False),
+        sa.Column("base_url", sa.String(), nullable=True),
         sa.Column("api_key", sa.String(), nullable=False),
         sa.Column("model", sa.String(), nullable=False),
         sa.Column("timeout", sa.Integer(), nullable=False),
