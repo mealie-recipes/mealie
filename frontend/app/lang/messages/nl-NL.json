@@ -51,7 +51,7 @@
     "category": "Categorie"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "Kennisgevings-url",
     "database": "Database",
     "delete-event": "Gebeurtenis verwijderen",
     "event-delete-confirmation": "Weet je zeker dat je deze gebeurtenis wilt verwijderen?",
@@ -98,7 +98,7 @@
     "dashboard": "Dashboard",
     "delete": "Verwijderen",
     "disabled": "Uitgeschakeld",
-    "done": "Done",
+    "done": "Gereed",
     "download": "Downloaden",
     "duplicate": "Dupliceren",
     "edit": "Bewerken",
@@ -169,7 +169,7 @@
     "token": "Token",
     "tuesday": "dinsdag",
     "type": "Soort",
-    "undo": "Undo",
+    "undo": "Ongedaan maken",
     "update": "Bijwerken",
     "updated": "Bijgewerkt",
     "upload": "Uploaden",
@@ -333,8 +333,8 @@
     "any-household": "Elk huishouden",
     "no-meal-plan-defined-yet": "Nog geen maaltijdplan opgesteld",
     "no-meal-planned-for-today": "Geen maaltijd gepland voor vandaag",
-    "numberOfDaysPast-hint": "Number of days in the past on page load",
-    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDaysPast-hint": "Aantal dagen in het verleden bij laden pagina",
+    "numberOfDaysPast-label": "Standaard dagen in het verleden",
     "numberOfDays-hint": "Aantal dagen bij laden van de pagina",
     "numberOfDays-label": "Standaard aantal dagen",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Alleen recepten met deze categorieën zullen worden gebruikt in maaltijdplannen",
@@ -443,7 +443,7 @@
     "error-details": "Alleen websites met ld+json of microdata kunnen worden geïmporteerd door Mealie. De meeste grote receptenwebsites ondersteunen deze gegevensstructuur. Als je site niet kan worden geïmporteerd, maar er zijn json-gegevens in de log, maak dan een github issue aan met de URL en gegevens.",
     "error-title": "Het lijkt erop dat we niets konden vinden",
     "from-url": "Recept importeren",
-    "github-issues": "GitHub Issues",
+    "github-issues": "GitHubproblemen",
     "google-ld-json-info": "Google ld+json Info",
     "must-be-a-valid-url": "Moet een geldige URL zijn",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Plak je receptgegevens. Elke regel wordt behandeld als een item in een lijst",
@@ -893,17 +893,17 @@
     "server-side-base-url-error-text": "`BASE_URL` is nog steeds de standaard waarde op de API Server. Dit geeft problemen met notificatielinks in e-mails etc.",
     "server-side-base-url-success-text": "Server-side URL komt niet overeen met de standaard",
     "ldap-ready": "LDAP klaar",
-    "ldap-not-ready": "LDAP Not Ready",
+    "ldap-not-ready": "LDAP niet gereed",
     "ldap-ready-error-text": "Niet alle LDAP-waarden zijn geconfigureerd. Dit kan worden genegeerd als je geen LDAP-authenticatie gebruikt.",
     "ldap-ready-success-text": "Vereiste LDAP variabelen zijn helemaal ingesteld.",
     "build": "Build",
     "recipe-scraper-version": "Versie van de receptenscraper",
     "oidc-ready": "OIDC klaar",
-    "oidc-not-ready": "OIDC Not Ready",
+    "oidc-not-ready": "OIDC niet gereed",
     "oidc-ready-error-text": "Niet alle OIDC-waarden zijn geconfigureerd. Dit kan worden genegeerd als je geen OIDC-authenticatie gebruikt.",
     "oidc-ready-success-text": "Vereiste OIDC-variabelen zijn allemaal ingesteld.",
     "openai-ready": "OpenAI staat klaar",
-    "openai-not-ready": "OpenAI Not Ready",
+    "openai-not-ready": "OpenAI niet gereed",
     "openai-ready-error-text": "Niet alle tekstvakken voor OpenAI zijn ingevuld. Als je geen OpenAI gebruikt kun je dit leeg laten.",
     "openai-ready-success-text": "Verplichte tekstvakken voor OpenAI zijn ingevuld."
   },
@@ -917,7 +917,7 @@
     "quantity": "Hoeveelheid: {0}",
     "shopping-list": "Boodschappenlijst",
     "shopping-lists": "Boodschappenlijsten",
-    "add-item": "Add item",
+    "add-item": "Item toevoegen",
     "food": "Levensmiddelen",
     "note": "Notitie",
     "label": "Label",
@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Weet je zeker dat je alle items wilt deselecteren?",
     "are-you-sure-you-want-to-delete-checked-items": "Weet je zeker dat je de geselecteerde items wilt verwijderen?",
     "no-shopping-lists-found": "Geen boodschappenlijsten gevonden",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "Uitgevinkt {item}"
   },
   "sidebar": {
     "all-recipes": "Alle Recepten",
@@ -1283,7 +1283,7 @@
     "split-by-block": "Splits per tekstblok",
     "flatten": "Plat maken ongeacht originele opmaak",
     "help": {
-      "help": "Help",
+      "help": "Hulp",
       "mouse-modes": "Muismodus",
       "selection-mode": "Selectiemodus (standaard)",
       "selection-mode-desc": "De selectiemodus is de hoofdmodus die gebruikt kan worden om gegevens in te voeren:",
@@ -1478,10 +1478,10 @@
     "max-length": "Moet maximaal {max} tekens bevatten|Moet maximaal {max} tekens bevatten"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Aankondigingen",
+    "all-announcements": "Alle aankondigingen",
+    "mark-all-as-read": "Alles markeren als gelezen",
+    "show-announcements-from-mealie": "Aankondigingen van Mealie weergeven",
+    "show-announcements-setting-description": "Of je gebruikers wel of niet meldingen van Mealie wilt laten zien. Wanneer ingeschakeld kunnen gebruikers nog steeds afzien van het bekijken van hen in hun gebruikersinstellingen"
   }
 }
