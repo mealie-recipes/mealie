@@ -68,7 +68,9 @@ class AIProvider(SqlAlchemyBase, BaseMixins):
     settings_id: orm.Mapped[GUID] = orm.mapped_column(
         GUID, sa.ForeignKey("ai_provider_settings.id"), nullable=False, index=True
     )
-    settings: orm.Mapped["AIProviderSettings"] = orm.relationship("AIProviderSettings", back_populates="providers")
+    settings: orm.Mapped["AIProviderSettings"] = orm.relationship(
+        "AIProviderSettings", foreign_keys="[AIProvider.settings_id]", back_populates="providers"
+    )
 
     name: orm.Mapped[str] = orm.mapped_column(sa.String, index=True, nullable=False)
     base_url: orm.Mapped[str] = orm.mapped_column(sa.String, nullable=False)
