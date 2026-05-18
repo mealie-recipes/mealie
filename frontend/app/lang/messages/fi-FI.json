@@ -51,7 +51,7 @@
     "category": "Kategoria"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "Apprise-url",
     "database": "Tietokanta",
     "delete-event": "Poista tapahtuma",
     "event-delete-confirmation": "Haluatko varmasti poistaa tämän tapahtuman?",
@@ -98,7 +98,7 @@
     "dashboard": "Hallintanäkymä",
     "delete": "Poista",
     "disabled": "Poistettu käytöstä",
-    "done": "Done",
+    "done": "Valmis",
     "download": "Lataa",
     "duplicate": "Monista",
     "edit": "Muokkaa",
@@ -169,7 +169,7 @@
     "token": "Tunniste",
     "tuesday": "Tiistai",
     "type": "Tyyppi",
-    "undo": "Undo",
+    "undo": "Peru",
     "update": "Päivitä",
     "updated": "Päivitetty",
     "upload": "Lähetä",
@@ -333,8 +333,8 @@
     "any-household": "Mikä tahansa kotitalous",
     "no-meal-plan-defined-yet": "Ateriasuunnitelmaa ei ole vielä määritelty",
     "no-meal-planned-for-today": "Ei ateriasuunnitelmaa tälle päivälle",
-    "numberOfDaysPast-hint": "Number of days in the past on page load",
-    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDaysPast-hint": "Menneisyydestä ladattujen päivien määrä",
+    "numberOfDaysPast-label": "Oletusarvo menneiden päivien lataukselle",
     "numberOfDays-hint": "Sivun latauspäivien lukumäärä",
     "numberOfDays-label": "Oletuspäivät",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Vain näiden luokkien reseptejä käytetään ateriasuunnitelmissa",
@@ -392,7 +392,7 @@
     "nextcloud": {
       "description": "Tuo tiedot Nextcloudin Cookbookista",
       "description-long": "Nextcloud reseptejä voidaan tuoda zip-tiedostosta, joka sisältää Nextcloudin tallennetut tiedot. Katso esimerkkikansiorakenne alla varmistaaksesi, että reseptisi voidaan tuoda.",
-      "title": "Nextcloud Cookbook"
+      "title": "Nextcloud-keittokirja"
     },
     "copymethat": {
       "description-long": "Mealie voi tuoda reseptejä Copy Me That -sovelluksesta. Vie reseptisi HTML-muodossa ja lataa sitten zip-tiedosto.",
@@ -702,7 +702,7 @@
       "confidence-score": "Varmuuspisteet",
       "ingredient-parser-description": "Ainesosat on haettu onnistuneesti. Ole hyvä ja tarkista ainesosat joista emme ole varmoja.",
       "ingredient-parser-final-review-description": "Kun kaikki ainesosat on tarkistettu, sinulla on vielä yksi mahdollisuus tarkistaa kaikki ainesosat ennen kuin muokkaat reseptiäsi.",
-      "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
+      "add-text-as-alias-for-item": "Lisää \"{text}\" kohteen {item} aliakseksi",
       "delete-item": "Poista kohde"
     },
     "reset-servings-count": "Palauta Annoksien Määrä",
@@ -893,17 +893,17 @@
     "server-side-base-url-error-text": "`BASE_URL` on API-palvelimen oletusarvo. Tämä aiheuttaa ongelmia ilmoitusten linkkien kanssa, jotka on luotu palvelimella sähköposteja varten jne.",
     "server-side-base-url-success-text": "Palvelimen nettiosoite ei vastaa oletusta",
     "ldap-ready": "LDAP Valmis",
-    "ldap-not-ready": "LDAP Not Ready",
+    "ldap-not-ready": "LDAP ei ole valmis",
     "ldap-ready-error-text": "Kaikkia LDAP-arvoja ei ole määritetty. Tämä voidaan ohittaa, jos et käytä LDAP-todennusta.",
     "ldap-ready-success-text": "Kaikki vaaditut LDAP-muuttujat on asetettu.",
     "build": "Koonti",
     "recipe-scraper-version": "Reseptikaappaimen versio",
     "oidc-ready": "OIDC valmis",
-    "oidc-not-ready": "OIDC Not Ready",
+    "oidc-not-ready": "OIDC ei ole valmis",
     "oidc-ready-error-text": "Kaikkia OIDC-arvoja ei ole määritelty. Jos et käytä OIDC-todennusta, voidaan asia jättää huomiotta.",
     "oidc-ready-success-text": "Kaikki vaaditut OIDC-muuttujat asetettu.",
     "openai-ready": "OpenAI valmis",
-    "openai-not-ready": "OpenAI Not Ready",
+    "openai-not-ready": "OpenAI ei ole valmis",
     "openai-ready-error-text": "Kaikkia OpenAI:n arvoja ei ole määritelty. Tämä voidaan sivuuttaa, mikäli et käytä OpenAI:n toimintoja.",
     "openai-ready-success-text": "Vaadittavat OpenAI-muuttujat ovat asetetut."
   },
@@ -917,7 +917,7 @@
     "quantity": "Määrä: {0}",
     "shopping-list": "Ostoslista",
     "shopping-lists": "Ostoslistat",
-    "add-item": "Add item",
+    "add-item": "Lisää kohde",
     "food": "Elintarvikkeet",
     "note": "Muistiinpano",
     "label": "Tunnus",
@@ -962,7 +962,7 @@
     "language": "Kieli",
     "maintenance": "Ylläpito",
     "background-tasks": "Taustatehtävät",
-    "parser": "Parser",
+    "parser": "Jäsentäjä",
     "developer": "Kehittäjä",
     "cookbook": "Keittokirja",
     "create-cookbook": "Luo uusi keittokirja"
@@ -1351,7 +1351,7 @@
     "ingredient-text": "Ainesosan Teksti",
     "average-confident": "{0} Luottamus",
     "try-an-example": "Kokeile esimerkkiä",
-    "parser": "Parser",
+    "parser": "Jäsentäjä",
     "background-tasks": "Taustatehtävät",
     "background-tasks-description": "Täältä voit tarkastella kaikkia käynnissä olevia taustatehtäviä ja niiden tilaa",
     "no-logs-found": "Lokeja Ei Löytynyt",
@@ -1481,7 +1481,7 @@
     "announcements": "Announcements",
     "all-announcements": "All announcements",
     "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-from-mealie": "Näytä Mealien ilmoitukset",
     "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }
