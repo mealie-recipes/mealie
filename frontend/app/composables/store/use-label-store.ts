@@ -5,10 +5,12 @@ import { useUserApi } from "~/composables/api";
 
 const store: Ref<MultiPurposeLabelOut[]> = ref([]);
 const loading = ref(false);
+const initialized = ref(false);
 
 export function resetLabelStore() {
   store.value = [];
   loading.value = false;
+  initialized.value = false;
 }
 
 export const useLabelData = function () {
@@ -22,5 +24,5 @@ export const useLabelData = function () {
 
 export const useLabelStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  return useStore<MultiPurposeLabelOut>("label", store, loading, api.multiPurposeLabels);
+  return useStore<MultiPurposeLabelOut>("label", store, loading, initialized, api.multiPurposeLabels);
 };
