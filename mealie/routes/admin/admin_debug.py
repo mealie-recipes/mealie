@@ -37,7 +37,7 @@ class AdminDebugController(BaseAdminController):
                 local_images = None
 
             try:
-                openai_service = OpenAIService()
+                openai_service = OpenAIService(self.repos)
                 prompt = openai_service.get_prompt("general.debug")
 
                 message = "Hello, checking to see if I can reach you."

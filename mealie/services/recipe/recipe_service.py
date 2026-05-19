@@ -627,7 +627,7 @@ class OpenAIRecipeService(RecipeServiceBase):
         if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_IMAGE_SERVICES):
             raise ValueError("OpenAI image services are not available")
 
-        openai_service = OpenAIService()
+        openai_service = OpenAIService(self.repos)
         prompt = openai_service.get_prompt("recipes.parse-recipe-image")
 
         openai_images = [OpenAILocalImage(filename=os.path.basename(image), path=image) for image in images]

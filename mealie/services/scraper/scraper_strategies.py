@@ -23,6 +23,7 @@ from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.pkgs import safehttp
+from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.openai.general import OpenAIText
 from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
@@ -145,12 +146,14 @@ class ABCScraperStrategy(ABC):
         self,
         url: str,
         translator: Translator,
+        repos: AllRepositories,
         raw_html: str | None = None,
     ) -> None:
         self.logger = get_logger()
         self.url = url
         self.raw_html = raw_html
         self.translator = translator
+        self.repos = repos
 
     @abstractmethod
     def can_scrape(self) -> bool: ...
@@ -413,7 +416,7 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         html = self.raw_html or await safe_scrape_html(url)
         text = self.format_html_to_text(html)
         try:
-            service = OpenAIService()
+            service = OpenAIService(self.repos)
             prompt = service.get_prompt("recipes.scrape-recipe")
 
             response = await service.get_response(prompt, text, response_schema=OpenAIText)
@@ -527,7 +530,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         self,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
     ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
-        openai_service = OpenAIService()
+        openai_service = OpenAIService(self.repos)
 
         with get_temporary_path() as temp_path:
             if on_progress:
