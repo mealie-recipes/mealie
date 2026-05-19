@@ -2,6 +2,7 @@ from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 from sqlalchemy import orm
+from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 
 from .._model_base import BaseMixins, SqlAlchemyBase
 from .._model_utils.auto_init import auto_init
@@ -64,6 +65,7 @@ class AIProvider(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ai_providers"
     __table_args__ = (sa.UniqueConstraint("name", "settings_id", name="ai_providers_name_settings_id_key"),)
     id: orm.Mapped[GUID] = orm.mapped_column(GUID, primary_key=True, default=GUID.generate)
+    group_id: AssociationProxy[GUID] = association_proxy("settings", "group_id")
 
     settings_id: orm.Mapped[GUID] = orm.mapped_column(
         GUID, sa.ForeignKey("ai_provider_settings.id"), nullable=False, index=True
@@ -108,6 +110,16 @@ class AIProviderSettings(SqlAlchemyBase, BaseMixins):
     )
 
     # Configured Providers
+    default_provider_id: orm.Mapped[GUID | None] = orm.mapped_column(
+        GUID, sa.ForeignKey("ai_providers.id", use_alter=True), nullable=True, index=True
+    )
+    default_provider: orm.Mapped[AIProvider | None] = orm.relationship(
+        AIProvider,
+        foreign_keys="[AIProviderSettings.default_provider_id]",
+        uselist=False,
+        post_update=True,
+    )
+
     audio_provider_id: orm.Mapped[GUID | None] = orm.mapped_column(
         GUID, sa.ForeignKey("ai_providers.id", use_alter=True), nullable=True, index=True
     )

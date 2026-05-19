@@ -123,13 +123,13 @@ def create_providers() -> None:
             continue
 
         # Create provider
-        provider_id = generate_id()
+        default_provider_id = generate_id()
         model = openai_settings.OPENAI_MODEL
-        create_provider(settings_id, provider_id, model, openai_settings)
+        create_provider(settings_id, default_provider_id, model, openai_settings)
 
         # Set the image provider if image services are enabled
         if openai_settings.OPENAI_ENABLE_IMAGE_SERVICES:
-            image_provider_id = provider_id
+            image_provider_id = default_provider_id
         else:
             image_provider_id = None
 
@@ -137,7 +137,7 @@ def create_providers() -> None:
         if openai_settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES:
             transcription_model = openai_settings.OPENAI_AUDIO_MODEL or model
             if transcription_model == openai_settings.OPENAI_MODEL:
-                audio_provider_id = provider_id
+                audio_provider_id = default_provider_id
             else:
                 # The transcription model is different than the base model, so create a new provider
                 audio_provider_id = generate_id()
@@ -148,11 +148,17 @@ def create_providers() -> None:
         # Update the provider settings to reference new provider(s)
         conn.execute(
             sa.text(
-                "UPDATE ai_provider_settings "
-                "SET audio_provider_id = :audio_provider_id, image_provider_id = :image_provider_id "
-                "WHERE id = :id"
+                """
+                UPDATE ai_provider_settings
+                SET
+                    default_provider_id = :default_provider_id,
+                    audio_provider_id = :audio_provider_id,
+                    image_provider_id = :image_provider_id
+                WHERE id = :id
+                """
             ),
             {
+                "default_provider_id": default_provider_id,
                 "audio_provider_id": audio_provider_id,
                 "image_provider_id": image_provider_id,
                 "id": settings_id,
@@ -166,10 +172,12 @@ def upgrade():
         "ai_provider_settings",
         sa.Column("id", mealie.db.migration_types.GUID(), nullable=False),
         sa.Column("group_id", mealie.db.migration_types.GUID(), nullable=False),
+        sa.Column("default_provider_id", mealie.db.migration_types.GUID(), nullable=True),
         sa.Column("audio_provider_id", mealie.db.migration_types.GUID(), nullable=True),
         sa.Column("image_provider_id", mealie.db.migration_types.GUID(), nullable=True),
         sa.Column("created_at", mealie.db.migration_types.NaiveDateTime(), nullable=True),
         sa.Column("update_at", mealie.db.migration_types.NaiveDateTime(), nullable=True),
+        sa.ForeignKeyConstraint(["default_provider_id"], ["ai_providers.id"], use_alter=True),
         sa.ForeignKeyConstraint(["audio_provider_id"], ["ai_providers.id"], use_alter=True),
         sa.ForeignKeyConstraint(
             ["group_id"],
@@ -180,6 +188,9 @@ def upgrade():
         sa.UniqueConstraint("group_id", name="ai_provider_settings_group_id_key"),
     )
     with op.batch_alter_table("ai_provider_settings", schema=None) as batch_op:
+        batch_op.create_index(
+            batch_op.f("ix_ai_provider_settings_default_provider_id"), ["default_provider_id"], unique=False
+        )
         batch_op.create_index(
             batch_op.f("ix_ai_provider_settings_audio_provider_id"), ["audio_provider_id"], unique=False
         )
@@ -280,6 +291,7 @@ def downgrade():
         batch_op.drop_index(batch_op.f("ix_ai_provider_settings_group_id"))
         batch_op.drop_index(batch_op.f("ix_ai_provider_settings_created_at"))
         batch_op.drop_index(batch_op.f("ix_ai_provider_settings_audio_provider_id"))
+        batch_op.drop_index(batch_op.f("ix_ai_provider_settings_default_provider_id"))
 
     op.drop_table("ai_provider_settings")
     # ### end Alembic commands ###
