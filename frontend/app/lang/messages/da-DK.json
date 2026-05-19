@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Er du sikker på, at du vil fjerne markeringen af alle elementer?",
     "are-you-sure-you-want-to-delete-checked-items": "Er du sikker på, at du vil sletter de valgte elementer?",
     "no-shopping-lists-found": "Ingen Indkøbslister fundet",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "Krydsede {item} af"
   },
   "sidebar": {
     "all-recipes": "Alle opskrifter",
