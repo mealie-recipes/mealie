@@ -36,7 +36,7 @@ class GroupService(BaseService):
 
         group_repos = get_repositories(repos.session, group_id=new_group.id, household_id=None)
         group_preferences = group_repos.group_preferences.create(prefs)
-        group_ai_provider_settings = group_repos.group_ai_provider_settings.create({})
+        group_ai_provider_settings = group_repos.group_ai_provider_settings.create({"group_id": new_group.id})
 
         settings = get_app_settings()
         household = HouseholdService.create_household(
