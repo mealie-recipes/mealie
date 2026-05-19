@@ -110,10 +110,12 @@ class OpenAIService(BaseService):
 
     def __init__(self, repos: AllRepositories) -> None:
         self.repos = repos
-        self.provider_settings = repos.group_ai_provider_settings.get_one(repos.group_id)
+        provider_settings = repos.group_ai_provider_settings.get_one(repos.group_id)
 
-        if not (self.provider_settings and self.provider_settings.ai_enabled):
+        if not (provider_settings and provider_settings.ai_enabled):
             raise OpenAINotEnabledException()
+
+        self.provider_settings = provider_settings
 
         # Load providers
         self.default_provider = cast(  # the ai_enabled check confirms this exists

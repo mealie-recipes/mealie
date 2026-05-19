@@ -317,7 +317,8 @@ class RecipeController(BaseRecipeController):
         Optionally specify a language for it to translate the recipe to.
         """
 
-        if not (self.settings.OPENAI_ENABLED and self.settings.OPENAI_ENABLE_IMAGE_SERVICES):
+        ai_settings = self.group.ai_provider_settings
+        if not (ai_settings and ai_settings.image_provider_enabled):
             raise HTTPException(
                 status_code=400,
                 detail=ErrorResponse.respond("OpenAI image services are not enabled"),

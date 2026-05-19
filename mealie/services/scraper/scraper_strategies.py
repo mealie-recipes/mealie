@@ -18,7 +18,6 @@ from w3lib.html import get_base_url
 from yt_dlp.extractor.generic import GenericIE
 
 from mealie.core import exceptions
-from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
@@ -29,7 +28,7 @@ from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
-from mealie.services.openai import OpenAIService
+from mealie.services.openai import OpenAINotEnabledException, OpenAIService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
@@ -347,8 +346,8 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
     """
 
     def can_scrape(self) -> bool:
-        settings = get_app_settings()
-        return settings.OPENAI_ENABLED and super().can_scrape()
+        settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
+        return bool(settings and settings.ai_enabled and super().can_scrape())
 
     def extract_json_ld_data_from_html(self, soup: bs4.BeautifulSoup) -> str:
         data_parts: list[str] = []
@@ -409,14 +408,14 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         return "\n".join(components)
 
     async def get_html(self, url: str) -> str:
-        settings = get_app_settings()
-        if not settings.OPENAI_ENABLED:
+        try:
+            service = OpenAIService(self.repos)
+        except OpenAINotEnabledException:
             return ""
 
         html = self.raw_html or await safe_scrape_html(url)
         text = self.format_html_to_text(html)
         try:
-            service = OpenAIService(self.repos)
             prompt = service.get_prompt("recipes.scrape-recipe")
 
             response = await service.get_response(prompt, text, response_schema=OpenAIText)
@@ -451,8 +450,8 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         if not self.url:
             return False
 
-        settings = get_app_settings()
-        if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES):
+        settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
+        if not (settings and settings.audio_provider_enabled):
             return False
 
         # Check if we can actually download something to transcribe

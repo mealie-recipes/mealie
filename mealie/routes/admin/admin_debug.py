@@ -17,9 +17,10 @@ router = APIRouter(prefix="/debug")
 class AdminDebugController(BaseAdminController):
     @router.post("/openai", response_model=DebugResponse)
     async def debug_openai(self, image: UploadFile | None = File(None)):
-        if not self.settings.OPENAI_ENABLED:
+        ai_settings = self.group.ai_provider_settings
+        if not (ai_settings and ai_settings.ai_enabled):
             return DebugResponse(success=False, response="OpenAI is not enabled")
-        if image and not self.settings.OPENAI_ENABLE_IMAGE_SERVICES:
+        if image and not ai_settings.image_provider_enabled:
             return DebugResponse(
                 success=False, response="Image was provided, but OpenAI image services are not enabled"
             )
