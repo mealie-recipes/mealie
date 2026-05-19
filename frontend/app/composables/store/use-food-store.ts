@@ -5,12 +5,16 @@ import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
 const store: Ref<IngredientFood[]> = ref([]);
 const loading = ref(false);
+const initialized = ref(false);
 const publicLoading = ref(false);
+const publicInitialized = ref(false);
 
 export function resetFoodStore() {
   store.value = [];
   loading.value = false;
+  initialized.value = false;
   publicLoading.value = false;
+  publicInitialized.value = false;
 }
 
 export const useFoodData = function () {
@@ -24,10 +28,10 @@ export const useFoodData = function () {
 
 export const useFoodStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  return useStore<IngredientFood>("food", store, loading, api.foods);
+  return useStore<IngredientFood>("food", store, loading, initialized, api.foods);
 };
 
 export const usePublicFoodStore = function (groupSlug: string, i18n?: Composer) {
   const api = usePublicExploreApi(groupSlug, i18n).explore;
-  return useReadOnlyStore<IngredientFood>("food", store, publicLoading, api.foods);
+  return useReadOnlyStore<IngredientFood>("food", store, publicLoading, publicInitialized, api.foods);
 };

@@ -52,7 +52,7 @@ class TagController(BaseCrudController):
     def create_one(self, tag: TagIn):
         """Creates a Tag in the database"""
         save_data = mapper.cast(tag, TagSave, group_id=self.group_id)
-        new_tag = self.repo.create(save_data)
+        new_tag = self.mixins.create_one(save_data)
 
         if new_tag:
             self.publish_event(
