@@ -144,6 +144,20 @@ class OpenAIService(BaseService):
             default_query=provider.request_params or None,
         )
 
+    def _get_provider(self, attachments: list[OpenAIAttachment] | None = None) -> AIProviderOut:
+        """Select the appropriate provider based on attachment types, falling back to the default."""
+        has_image = any(isinstance(a, OpenAIImageBase) for a in (attachments or []))
+        has_audio = any(isinstance(a, OpenAILocalAudio) for a in (attachments or []))
+
+        if has_image and has_audio:
+            raise Exception("Cannot process both images and audio in one request")
+
+        if has_image:
+            return self.image_provider or self.default_provider
+        if has_audio:
+            return self.audio_provider or self.default_provider
+        return self.default_provider
+
     def _get_prompt_file_candidates(self, name: str) -> list[Path]:
         """
         Returns a list of prompt file path candidates.
@@ -239,10 +253,9 @@ class OpenAIService(BaseService):
         return "\n".join(content_parts)
 
     async def _get_raw_response(
-        self, prompt: str, content: list[dict], response_schema: type[T], provider: AIProviderOut | None = None
+        self, prompt: str, content: list[dict], response_schema: type[T], provider: AIProviderOut
     ) -> ChatCompletion:
-        provider = provider or self.default_provider
-        client = self.get_client(provider or self.default_provider)
+        client = self.get_client(provider)
         return await client.chat.completions.parse(
             messages=[
                 {
@@ -269,28 +282,10 @@ class OpenAIService(BaseService):
         """Send data to OpenAI and return the response message content"""
 
         try:
-            user_messages = [{"type": "text", "text": message}]
-
-            has_image = False
-            has_audio = False
+            provider = self._get_provider(attachments)
+            user_messages: list[dict] = [{"type": "text", "text": message}]
             for attachment in attachments or []:
                 user_messages.append(attachment.build_message())
-
-                if isinstance(attachment, OpenAIImageBase):
-                    has_image = True
-
-                if isinstance(attachment, OpenAILocalAudio):
-                    has_audio = True
-
-            if has_image and has_audio:
-                raise Exception("Cannot process both images and audio in one request")
-
-            if has_image:
-                provider = self.image_provider
-            elif has_audio:
-                provider = self.audio_provider
-            else:
-                provider = self.default_provider
 
             response = await self._get_raw_response(prompt, user_messages, response_schema, provider)
             if not response.choices:
