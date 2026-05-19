@@ -5,7 +5,7 @@ import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 from textwrap import dedent
-from typing import TypeVar
+from typing import TypeVar, cast
 
 import openai
 from openai import AsyncOpenAI
@@ -24,6 +24,12 @@ from .._base_service import BaseService
 
 T = TypeVar("T", bound=OpenAIBase)
 logger = root_logger.get_logger(__name__)
+
+
+class OpenAINotEnabledException(Exception):
+    def __init__(self, message: str = "OpenAI not enabled"):
+        self.message = message
+        super().__init__(self.message)
 
 
 class OpenAIDataInjection(BaseModel):
@@ -106,18 +112,14 @@ class OpenAIService(BaseService):
         self.repos = repos
         self.provider_settings = repos.group_ai_provider_settings.get_one(repos.group_id)
 
-        # Load default provider (required)
-        if self.provider_settings and self.provider_settings.default_provider_id:
-            default_provider = self.repos.group_ai_providers.get_one(self.provider_settings.default_provider_id)
-        else:
-            default_provider = None
+        if not (self.provider_settings and self.provider_settings.ai_enabled):
+            raise OpenAINotEnabledException()
 
-        if not (self.provider_settings and default_provider):
-            raise ValueError("OpenAI is not enabled")
+        # Load providers
+        self.default_provider = cast(  # the ai_enabled check confirms this exists
+            AIProviderOut, self.repos.group_ai_providers.get_one(self.provider_settings.audio_provider_id)
+        )
 
-        self.default_provider = default_provider
-
-        # Load auxiliary providers (optional)
         self.audio_provider = (
             self.repos.group_ai_providers.get_one(self.provider_settings.audio_provider_id)
             if self.provider_settings.audio_provider_id
@@ -150,12 +152,18 @@ class OpenAIService(BaseService):
         has_audio = any(isinstance(a, OpenAILocalAudio) for a in (attachments or []))
 
         if has_image and has_audio:
-            raise Exception("Cannot process both images and audio in one request")
+            raise ValueError("Cannot process both images and audio in one request")
 
         if has_image:
-            return self.image_provider or self.default_provider
+            if not self.image_provider:
+                raise OpenAINotEnabledException("No image provider set")
+            return self.image_provider
+
         if has_audio:
-            return self.audio_provider or self.default_provider
+            if not self.audio_provider:
+                raise OpenAINotEnabledException("No audio provider set")
+            return self.audio_provider
+
         return self.default_provider
 
     def _get_prompt_file_candidates(self, name: str) -> list[Path]:
@@ -300,7 +308,7 @@ class OpenAIService(BaseService):
 
     async def transcribe_audio(self, audio_file_path: Path) -> str | None:
         if not self.audio_provider:
-            raise ValueError("OpenAI audio transcription not enabled")
+            raise OpenAINotEnabledException("No audio provider set")
 
         client = self.get_client(self.audio_provider)
 

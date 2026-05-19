@@ -1,6 +1,6 @@
-from typing import Any
+from typing import Any, Self
 
-from pydantic import UUID4, ConfigDict, Field, ValidationInfo, field_validator
+from pydantic import UUID4, ConfigDict, Field, ValidationInfo, field_validator, model_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -101,6 +101,30 @@ class AIProviderSettingsOut(AIProviderSettingsUpdate):
     providers: list[AIProviderSummary]
 
     model_config = ConfigDict(from_attributes=True)
+
+    @model_validator(mode="after")
+    def validate_providers(self) -> Self:
+        existing_ids = {provider.id for provider in self.providers}
+        for provider_id_name in ["default_provider_id", "audio_provider_id", "image_provider_id"]:
+            if not (val := getattr(self, provider_id_name, None)):
+                continue
+
+            if val not in existing_ids:
+                setattr(self, provider_id_name, None)
+
+        return self
+
+    @property
+    def ai_enabled(self) -> bool:
+        return self.default_provider_id is not None
+
+    @property
+    def audio_provider_enabled(self) -> bool:
+        return self.ai_enabled and self.audio_provider_id is not None
+
+    @property
+    def image_provider_enabled(self) -> bool:
+        return self.ai_enabled and self.image_provider_enabled is not None
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
