@@ -99,6 +99,7 @@ class Group(SqlAlchemyBase, BaseMixins):
             "shopping_lists",
             "cookbooks",
             "preferences",
+            "ai_provider_settings",
             "invite_tokens",
             "mealplans",
             "data_exports",
