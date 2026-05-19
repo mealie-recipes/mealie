@@ -38,6 +38,8 @@ from mealie.services.scraper import cleaner
 
 from .template_service import TemplateService
 
+RECIPE_CREATED_EVENT_SUBJECT = "recipe.recipe-created"
+
 
 class RecipeServiceBase(BaseService):
     def __init__(self, repos: AllRepositories, user: PrivateUser, household: HouseholdInDB, translator: Translator):
@@ -69,8 +71,19 @@ class RecipeService(RecipeServiceBase):
     def can_delete(self, recipe_slugs: list[str]) -> bool:
         if self.user.admin:
             return True
-        else:
-            return self.can_update(recipe_slugs)
+
+        # Deletion requires ownership; collaborative editing rules (can_update) do not apply
+        model = self.group_recipes.model
+        owned_count = self.group_recipes.session.scalar(
+            sa.select(sa.func.count())
+            .select_from(model)
+            .where(
+                model.slug.in_(recipe_slugs),
+                model.group_id == self.user.group_id,
+                model.user_id == self.user.id,
+            )
+        )
+        return owned_count == len(recipe_slugs)
 
     def can_update(self, recipe_slugs: list[str]) -> bool:
         sql = dedent(
@@ -224,7 +237,7 @@ class RecipeService(RecipeServiceBase):
         timeline_event_data = RecipeTimelineEventCreate(
             user_id=new_recipe.user_id,
             recipe_id=new_recipe.id,
-            subject=self.t("recipe.recipe-created"),
+            subject=RECIPE_CREATED_EVENT_SUBJECT,
             event_type=TimelineEventType.system,
             timestamp=new_recipe.created_at or datetime.now(UTC),
         )
