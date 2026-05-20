@@ -29,10 +29,6 @@ export class GroupAPI extends BaseCRUDAPI<GroupBase, GroupInDB, GroupAdminUpdate
     return await this.requests.get<GroupSummary>(routes.groupsSelf);
   }
 
-  async getPreferences() {
-    return await this.requests.get<ReadGroupPreferences>(routes.preferences);
-  }
-
   async setPreferences(payload: UpdateGroupPreferences) {
     // TODO: This should probably be a patch request, which isn't offered by the API currently
     return await this.requests.put<ReadGroupPreferences, UpdateGroupPreferences>(routes.preferences, payload);
