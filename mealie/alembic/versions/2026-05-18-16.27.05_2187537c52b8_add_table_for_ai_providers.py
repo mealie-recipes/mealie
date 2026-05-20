@@ -60,8 +60,7 @@ def generate_id() -> str:
 
 
 def create_provider(settings_id: str, provider_id: str, model: str, openai_settings: LegacyOpenAISettings) -> None:
-    name = f"Migrated Provider {model}|{provider_id[:5]}"
-    logger.info(f"Creating provider '{name}'")
+    logger.info(f"Creating provider '{model}'")
 
     conn = op.get_bind()
     conn.execute(
@@ -72,7 +71,9 @@ def create_provider(settings_id: str, provider_id: str, model: str, openai_setti
         {
             "id": provider_id,
             "settings_id": settings_id,
-            "name": name,
+            # we only create one provider per model in this mirgration script,
+            # so there's no chance for collisions
+            "name": model,
             "base_url": openai_settings.OPENAI_BASE_URL,
             "api_key": openai_settings.OPENAI_API_KEY,
             "model": model,
