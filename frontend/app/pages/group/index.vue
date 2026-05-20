@@ -17,23 +17,42 @@
       </template>
       {{ $t("profile.group-description") }}
     </BasePageTitle>
-    <v-form ref="refGroupEditForm" @submit.prevent="handleSubmit">
-      <v-card variant="outlined" style="border-color: lightgray;">
-        <v-card-text>
-          <GroupPreferencesEditor v-if="group.preferences" v-model="group.preferences" />
-        </v-card-text>
-      </v-card>
-      <div class="d-flex pa-2">
-        <BaseButton type="submit" edit class="ml-auto">
-          {{ $t("general.update") }}
-        </BaseButton>
-      </div>
-    </v-form>
+
+    <div class="mb-10">
+      <v-form ref="refGroupPrefsEditForm" @submit.prevent="handlePrefsSubmit">
+        <v-card variant="outlined" style="border-color: lightgray;">
+          <v-card-text>
+            <GroupPreferencesEditor v-if="group.preferences" v-model="group.preferences" />
+          </v-card-text>
+        </v-card>
+        <div class="d-flex pa-2">
+          <BaseButton type="submit" edit class="ml-auto">
+            {{ $t("general.update") }}
+          </BaseButton>
+        </div>
+      </v-form>
+    </div>
+
+    <div>
+      <v-form ref="refGroupAISettingsForm" @submit.prevent="handleAISettingsSubmit">
+        <v-card variant="outlined" style="border-color: lightgray;">
+          <v-card-text>
+            <GroupAIProviderSettingsEditor v-if="group.aiProviderSettings" v-model="group.aiProviderSettings" />
+          </v-card-text>
+        </v-card>
+        <div class="d-flex pa-2">
+          <BaseButton type="submit" edit class="ml-auto">
+            {{ $t("general.update") }}
+          </BaseButton>
+        </div>
+      </v-form>
+    </div>
   </v-container>
 </template>
 
 <script setup lang="ts">
 import GroupPreferencesEditor from "~/components/Domain/Group/GroupPreferencesEditor.vue";
+import GroupAIProviderSettingsEditor from "~/components/Domain/Group/GroupAIProviderSettingsEditor.vue";
 import { useGroupSelf } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
 import type { VForm } from "~/types/auto-forms";
@@ -49,14 +68,29 @@ useSeoMeta({
   title: i18n.t("group.group"),
 });
 
-const refGroupEditForm = ref<VForm | null>(null);
+const refGroupPrefsEditForm = ref<VForm | null>(null);
+const refGroupAISettingsForm = ref<VForm | null>(null);
 
-async function handleSubmit() {
-  if (!refGroupEditForm.value?.validate() || !group.value?.preferences) {
+async function handlePrefsSubmit() {
+  if (!refGroupPrefsEditForm.value?.validate() || !group.value?.preferences) {
     return;
   }
 
   const data = await groupActions.updatePreferences();
+  if (data) {
+    alert.success(i18n.t("settings.settings-updated"));
+  }
+  else {
+    alert.error(i18n.t("settings.settings-update-failed"));
+  }
+}
+
+async function handleAISettingsSubmit() {
+  if (!refGroupAISettingsForm.value?.validate() || !group.value?.aiProviderSettings) {
+    return;
+  }
+
+  const data = await groupActions.updateAIProviderSettings();
   if (data) {
     alert.success(i18n.t("settings.settings-updated"));
   }

@@ -33,6 +33,10 @@
             v-if="group.preferences"
             v-model="group.preferences"
           />
+          <GroupAIProviderSettingsEditor
+            v-if="group.aiProviderSettings"
+            v-model="group.aiProviderSettings"
+          />
         </v-card-text>
       </v-card>
       <div class="d-flex pa-2">
@@ -50,6 +54,7 @@
 
 <script setup lang="ts">
 import GroupPreferencesEditor from "~/components/Domain/Group/GroupPreferencesEditor.vue";
+import GroupAIProviderSettingsEditor from "~/components/Domain/Group/GroupAIProviderSettingsEditor.vue";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import type { VForm } from "vuetify/components";

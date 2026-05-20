@@ -100,6 +100,7 @@ export interface GroupAdminUpdate {
   id: string;
   name: string;
   preferences?: UpdateGroupPreferences | null;
+  aiProviderSettings?: AIProviderSettingsUpdate | null;
 }
 export interface UpdateGroupPreferences {
   privateGroup?: boolean;
