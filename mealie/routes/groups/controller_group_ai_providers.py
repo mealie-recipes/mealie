@@ -14,8 +14,8 @@ from mealie.schema.group.ai_providers import (
 )
 
 logger = get_logger()
-settings_router = APIRouter(prefix="/ai-providers/settings", tags=["Groups: AI Provider Settings"])
-providers_router = APIRouter(prefix="/ai-providers/providers", tags=["Groups: AI Providers"])
+settings_router = APIRouter(prefix="/groups/ai-providers/settings", tags=["Groups: AI Provider Settings"])
+providers_router = APIRouter(prefix="/groups/ai-providers/providers", tags=["Groups: AI Providers"])
 
 
 @controller(settings_router)

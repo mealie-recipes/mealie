@@ -1,11 +1,11 @@
 import { BaseAPI } from "../base/base-clients";
 import type { AIProviderCreate, AIProviderOut, AIProviderUpdate } from "~/lib/api/types/group";
 
-const prefix = "/api";
+const prefix = "/api/groups/ai-providers";
 
 const routes = {
-  providers: `${prefix}/ai-providers/providers`,
-  providersId: (id: string) => `${prefix}/ai-providers/providers/${id}`,
+  providers: `${prefix}/providers`,
+  providersId: (id: string) => `${prefix}/providers/${id}`,
 };
 
 export class AIProvidersAPI extends BaseAPI {

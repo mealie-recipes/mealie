@@ -35,10 +35,6 @@ admin_users_password_reset_token = "/api/admin/users/password-reset-token"
 """`/api/admin/users/password-reset-token`"""
 admin_users_unlock = "/api/admin/users/unlock"
 """`/api/admin/users/unlock`"""
-ai_providers_providers = "/api/ai-providers/providers"
-"""`/api/ai-providers/providers`"""
-ai_providers_settings = "/api/ai-providers/settings"
-"""`/api/ai-providers/settings`"""
 app_about = "/api/app/about"
 """`/api/app/about`"""
 app_about_startup_info = "/api/app/about/startup-info"
@@ -61,6 +57,10 @@ foods = "/api/foods"
 """`/api/foods`"""
 foods_merge = "/api/foods/merge"
 """`/api/foods/merge`"""
+groups_ai_providers_providers = "/api/groups/ai-providers/providers"
+"""`/api/groups/ai-providers/providers`"""
+groups_ai_providers_settings = "/api/groups/ai-providers/settings"
+"""`/api/groups/ai-providers/settings`"""
 groups_households = "/api/groups/households"
 """`/api/groups/households`"""
 groups_labels = "/api/groups/labels"
@@ -234,11 +234,6 @@ def admin_users_item_id(item_id):
     return f"{prefix}/admin/users/{item_id}"
 
 
-def ai_providers_providers_provider_id(provider_id):
-    """`/api/ai-providers/providers/{provider_id}`"""
-    return f"{prefix}/ai-providers/providers/{provider_id}"
-
-
 def comments_item_id(item_id):
     """`/api/comments/{item_id}`"""
     return f"{prefix}/comments/{item_id}"
@@ -322,6 +317,11 @@ def explore_groups_group_slug_recipes_suggestions(group_slug):
 def foods_item_id(item_id):
     """`/api/foods/{item_id}`"""
     return f"{prefix}/foods/{item_id}"
+
+
+def groups_ai_providers_providers_provider_id(provider_id):
+    """`/api/groups/ai-providers/providers/{provider_id}`"""
+    return f"{prefix}/groups/ai-providers/providers/{provider_id}"
 
 
 def groups_households_household_slug(household_slug):
