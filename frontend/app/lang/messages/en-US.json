@@ -288,9 +288,25 @@
       "ai-provider-settings": "AI Provider Settings",
       "providers": "Providers",
       "create-provider": "Create Provider",
+      "edit-provider": "Edit Provider",
       "default-provider": "Default Provider",
       "audio-provider": "Audio Provider",
-      "image-provider": "Image Provider"
+      "image-provider": "Image Provider",
+      "provider-name": "Provider Name",
+      "api-key": "API Key",
+      "api-key-description-create": "If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
+      "api-key-description-edit": "Leave this blank unless you want to change it.",
+      "base-url": "Base URL",
+      "base-url-description": "If you're using OpenAI leave this blank.",
+      "model": "Model",
+      "model-description": "Which model your AI provider should use (e.g. \"gpt-5\").",
+      "request-timeout-seconds": "Request Timeout (seconds)",
+      "provider-created": "Provider created",
+      "provider-updated": "Provider updated",
+      "provider-deleted": "Provider deleted",
+      "provider-create-failed": "Failed to create provider",
+      "provider-update-failed": "Failed to update provider",
+      "provider-delete-failed": "Failed to delete provider"
     }
   },
   "household": {

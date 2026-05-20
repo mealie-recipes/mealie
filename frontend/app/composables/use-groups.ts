@@ -58,6 +58,9 @@ export const useGroupSelf = function () {
 
       return data || undefined;
     },
+    async refresh() {
+      await refreshGroupSelf();
+    },
   };
 
   const group = actions.get();

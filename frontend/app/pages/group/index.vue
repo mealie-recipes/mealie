@@ -37,7 +37,13 @@
       <v-form ref="refGroupAISettingsForm" @submit.prevent="handleAISettingsSubmit">
         <v-card variant="outlined" style="border-color: lightgray;">
           <v-card-text>
-            <GroupAIProviderSettingsEditor v-if="group.aiProviderSettings" v-model="group.aiProviderSettings" />
+            <GroupAIProviderSettingsEditor
+              v-if="group.aiProviderSettings"
+              v-model="group.aiProviderSettings"
+              @create="handleCreateProvider"
+              @update="handleUpdateProvider"
+              @delete="handleDeleteProvider"
+            />
           </v-card-text>
         </v-card>
         <div class="d-flex pa-2">
@@ -54,7 +60,9 @@
 import GroupPreferencesEditor from "~/components/Domain/Group/GroupPreferencesEditor.vue";
 import GroupAIProviderSettingsEditor from "~/components/Domain/Group/GroupAIProviderSettingsEditor.vue";
 import { useGroupSelf } from "~/composables/use-groups";
+import { useAIProviders } from "~/composables/use-ai-providers";
 import { alert } from "~/composables/use-toast";
+import type { AIProviderCreate, AIProviderUpdate } from "~/lib/api/types/group";
 import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
@@ -96,6 +104,41 @@ async function handleAISettingsSubmit() {
   }
   else {
     alert.error(i18n.t("settings.settings-update-failed"));
+  }
+}
+
+const { createOne, updateOne, deleteOne } = useAIProviders();
+
+async function handleCreateProvider(data: AIProviderCreate) {
+  const result = await createOne(data);
+  if (result.data) {
+    await groupActions.refresh();
+    alert.success(i18n.t("group.ai-provider-settings.provider-created"));
+  }
+  else {
+    alert.error(i18n.t("group.ai-provider-settings.provider-create-failed"));
+  }
+}
+
+async function handleUpdateProvider(id: string, data: AIProviderUpdate) {
+  const result = await updateOne(id, data);
+  if (result.data) {
+    await groupActions.refresh();
+    alert.success(i18n.t("group.ai-provider-settings.provider-updated"));
+  }
+  else {
+    alert.error(i18n.t("group.ai-provider-settings.provider-update-failed"));
+  }
+}
+
+async function handleDeleteProvider(id: string) {
+  const result = await deleteOne(id);
+  if (result.data) {
+    await groupActions.refresh();
+    alert.success(i18n.t("group.ai-provider-settings.provider-deleted"));
+  }
+  else {
+    alert.error(i18n.t("group.ai-provider-settings.provider-delete-failed"));
   }
 }
 </script>

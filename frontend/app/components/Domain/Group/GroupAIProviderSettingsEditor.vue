@@ -44,6 +44,13 @@
       </v-col>
     </v-row>
 
+    <GroupAIProviderDialog
+      v-model="dialogOpen"
+      :provider-id="editingProviderId ?? undefined"
+      @create="(data) => $emit('create', data)"
+      @update="(id, data) => $emit('update', id, data)"
+    />
+
     <BaseCardSectionTitle
       :title="$t('group.ai-provider-settings.providers')"
       size="medium"
@@ -55,7 +62,7 @@
           class="ms-auto my-2"
           create
           small
-          @click="console.log('create (TODO)')"
+          @click="openCreate"
         />
       </template>
     </BaseCardSectionTitle>
@@ -68,7 +75,7 @@
     >
       <v-row no-gutters>
         <v-col :cols="10">
-          <v-card-text class="">
+          <v-card-text>
             {{ provider.name }}
           </v-card-text>
         </v-col>
@@ -76,7 +83,6 @@
         <v-col :cols="2">
           <BaseButtonGroup
             :buttons="[
-
               {
                 icon: $globals.icons.edit,
                 text: $t('general.edit'),
@@ -88,8 +94,8 @@
                 event: 'delete',
               },
             ]"
-            @edit="console.log(`edit ${provider.id} (TODO)`)"
-            @delete="console.log(`delete ${provider.id} (TODO)`)"
+            @edit="openEdit(provider.id)"
+            @delete="$emit('delete', provider.id)"
           />
         </v-col>
       </v-row>
@@ -98,9 +104,31 @@
 </template>
 
 <script setup lang="ts">
+import type { AIProviderCreate, AIProviderUpdate } from "~/lib/api/types/group";
 import type { AIProviderSettingsOut } from "~/lib/api/types/user";
 
 const providerSettings = defineModel<AIProviderSettingsOut>({ required: true });
 const local = reactive({ ...providerSettings.value });
 watch(local, (newVal) => { providerSettings.value = { ...newVal }; });
+// Sync back when the parent refreshes after create/update/delete
+watch(providerSettings, (newVal) => { if (newVal) Object.assign(local, newVal); });
+
+defineEmits<{
+  (e: "create", data: AIProviderCreate): void;
+  (e: "update", id: string, data: AIProviderUpdate): void;
+  (e: "delete", id: string): void;
+}>();
+
+const dialogOpen = ref(false);
+const editingProviderId = ref<string | null>(null);
+
+function openCreate() {
+  editingProviderId.value = null;
+  dialogOpen.value = true;
+}
+
+function openEdit(id: string) {
+  editingProviderId.value = id;
+  dialogOpen.value = true;
+}
 </script>
