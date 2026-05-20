@@ -95,6 +95,9 @@ export interface AIProviderSettingsOut {
   audioProviderId: string | null;
   imageProviderId: string | null;
   providers: AIProviderSummary[];
+  aiEnabled: boolean;
+  audioProviderEnabled: boolean;
+  imageProviderEnabled: boolean;
 }
 export interface AIProviderSummary {
   id: string;
@@ -105,6 +108,7 @@ export interface GroupSummary {
   id: string;
   slug: string;
   preferences?: ReadGroupPreferences | null;
+  aiProviderSettings?: AIProviderSettingsOut | null;
 }
 export interface LongLiveTokenCreateResponse {
   name: string;

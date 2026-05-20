@@ -63,6 +63,9 @@ export interface AIProviderSettingsOut {
   audioProviderId: string | null;
   imageProviderId: string | null;
   providers: AIProviderSummary[];
+  aiEnabled: boolean;
+  audioProviderEnabled: boolean;
+  imageProviderEnabled: boolean;
 }
 export interface AIProviderSummary {
   id: string;
