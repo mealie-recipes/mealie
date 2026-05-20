@@ -42,6 +42,22 @@ export const useGroupSelf = function () {
 
       return data || undefined;
     },
+    async updateAIProviderSettings() {
+      if (!groupSelfRef.value) {
+        await refreshGroupSelf();
+      }
+      if (!groupSelfRef.value?.aiProviderSettings) {
+        return;
+      }
+
+      const { data } = await api.groups.setAIProviderSettings(groupSelfRef.value.aiProviderSettings);
+
+      if (data) {
+        groupSelfRef.value.aiProviderSettings = data;
+      }
+
+      return data || undefined;
+    },
   };
 
   const group = actions.get();
