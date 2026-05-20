@@ -38,7 +38,7 @@
               ? 'group.ai-provider-settings.api-key-description-edit'
               : 'group.ai-provider-settings.api-key-description-create',
           )"
-          persistent-hint
+          :persistent-hint="isEdit"
           :rules="isEdit ? [] : [validators.required]"
           density="compact"
           variant="outlined"
