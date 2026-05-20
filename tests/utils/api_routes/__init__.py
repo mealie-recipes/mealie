@@ -35,6 +35,10 @@ admin_users_password_reset_token = "/api/admin/users/password-reset-token"
 """`/api/admin/users/password-reset-token`"""
 admin_users_unlock = "/api/admin/users/unlock"
 """`/api/admin/users/unlock`"""
+ai_providers_providers = "/api/ai-providers/providers"
+"""`/api/ai-providers/providers`"""
+ai_providers_settings = "/api/ai-providers/settings"
+"""`/api/ai-providers/settings`"""
 app_about = "/api/app/about"
 """`/api/app/about`"""
 app_about_startup_info = "/api/app/about/startup-info"
@@ -228,6 +232,11 @@ def admin_households_item_id(item_id):
 def admin_users_item_id(item_id):
     """`/api/admin/users/{item_id}`"""
     return f"{prefix}/admin/users/{item_id}"
+
+
+def ai_providers_providers_provider_id(provider_id):
+    """`/api/ai-providers/providers/{provider_id}`"""
+    return f"{prefix}/ai-providers/providers/{provider_id}"
 
 
 def comments_item_id(item_id):
