@@ -299,6 +299,7 @@ class GroupSummary(GroupBase):
     name: str
     slug: str
     preferences: ReadGroupPreferences | None = None
+    ai_provider_settings: AIProviderSettingsOut | None = None
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
