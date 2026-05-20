@@ -1,6 +1,6 @@
 from typing import Any, Self
 
-from pydantic import UUID4, ConfigDict, Field, ValidationInfo, field_validator, model_validator
+from pydantic import UUID4, ConfigDict, Field, ValidationInfo, computed_field, field_validator, model_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -114,14 +114,17 @@ class AIProviderSettingsOut(AIProviderSettingsUpdate):
 
         return self
 
+    @computed_field
     @property
     def ai_enabled(self) -> bool:
         return self.default_provider_id is not None
 
+    @computed_field
     @property
     def audio_provider_enabled(self) -> bool:
         return self.ai_enabled and self.audio_provider_id is not None
 
+    @computed_field
     @property
     def image_provider_enabled(self) -> bool:
         return self.ai_enabled and self.image_provider_id is not None
