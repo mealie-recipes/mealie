@@ -96,15 +96,17 @@
 <script setup lang="ts">
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { SideBarLink } from "~/types/application-types";
+import { useGroupSelf } from "~/composables/use-groups";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
 import { useCookbookStore, usePublicCookbookStore } from "~/composables/store/use-cookbook-store";
 import type { ReadCookBook } from "~/lib/api/types/cookbook";
 
 const i18n = useI18n();
-const { $appInfo, $globals } = useNuxtApp();
+const { $globals } = useNuxtApp();
 const display = useDisplay();
 const auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
+const { group } = useGroupSelf();
 
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
@@ -131,7 +133,7 @@ const cookbooks = computed(() => {
   return [];
 });
 
-const showImageImport = computed(() => $appInfo.enableOpenaiImageServices);
+const showImageImport = computed(() => group.value?.aiProviderSettings?.imageProviderEnabled);
 
 const sidebar = ref<boolean>(false);
 onMounted(() => {
