@@ -5,17 +5,21 @@ import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
 const cookbooks: Ref<ReadCookBook[]> = ref([]);
 const loading = ref(false);
+const initialized = ref(false);
 const publicLoading = ref(false);
+const publicInitialized = ref(false);
 
 export function resetCookbookStore() {
   cookbooks.value = [];
   loading.value = false;
+  initialized.value = false;
   publicLoading.value = false;
+  publicInitialized.value = false;
 }
 
 export const useCookbookStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  const store = useStore<ReadCookBook>("cookbook", cookbooks, loading, api.cookbooks);
+  const store = useStore<ReadCookBook>("cookbook", cookbooks, loading, initialized, api.cookbooks);
 
   const updateAll = async function (updateData: UpdateCookBook[]) {
     loading.value = true;
@@ -31,5 +35,5 @@ export const useCookbookStore = function (i18n?: Composer) {
 
 export const usePublicCookbookStore = function (groupSlug: string, i18n?: Composer) {
   const api = usePublicExploreApi(groupSlug, i18n).explore;
-  return useReadOnlyStore<ReadCookBook>("cookbook", cookbooks, publicLoading, api.cookbooks);
+  return useReadOnlyStore<ReadCookBook>("cookbook", cookbooks, publicLoading, publicInitialized, api.cookbooks);
 };
