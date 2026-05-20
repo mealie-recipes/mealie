@@ -119,7 +119,7 @@ class OpenAIService(BaseService):
 
         # Load providers
         self.default_provider = cast(  # the ai_enabled check confirms this exists
-            AIProviderOut, self.repos.group_ai_providers.get_one(self.provider_settings.audio_provider_id)
+            AIProviderOut, self.repos.group_ai_providers.get_one(self.provider_settings.default_provider_id)
         )
 
         self.audio_provider = (

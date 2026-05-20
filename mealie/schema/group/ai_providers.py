@@ -124,7 +124,7 @@ class AIProviderSettingsOut(AIProviderSettingsUpdate):
 
     @property
     def image_provider_enabled(self) -> bool:
-        return self.ai_enabled and self.image_provider_enabled is not None
+        return self.ai_enabled and self.image_provider_id is not None
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
