@@ -1,6 +1,9 @@
 <template>
   <div v-if="providerSettings">
     <BaseCardSectionTitle :title="$t('group.ai-provider-settings.ai-provider-settings')" />
+    <v-card-text class="pt-0 pb-10 px-0">
+      {{ $t("group.ai-provider-settings.ai-provider-settings-description") }}
+    </v-card-text>
 
     <v-row class="mb-4">
       <v-col cols="12">
@@ -15,6 +18,9 @@
           density="compact"
           variant="outlined"
         />
+        <v-card-subtitle class="mt-1">
+          {{ $t("group.ai-provider-settings.default-provider-description") }}
+        </v-card-subtitle>
       </v-col>
       <v-col cols="12">
         <v-autocomplete
@@ -28,6 +34,9 @@
           density="compact"
           variant="outlined"
         />
+        <v-card-subtitle class="mt-1">
+          {{ $t("group.ai-provider-settings.audio-provider-description") }}
+        </v-card-subtitle>
       </v-col>
       <v-col cols="12">
         <v-autocomplete
@@ -41,6 +50,9 @@
           density="compact"
           variant="outlined"
         />
+        <v-card-subtitle class="mt-1">
+          {{ $t("group.ai-provider-settings.image-provider-description") }}
+        </v-card-subtitle>
       </v-col>
     </v-row>
 
