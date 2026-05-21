@@ -223,7 +223,9 @@
     "show-advanced": "Show Advanced",
     "add-field": "Add Field",
     "date-created": "Date Created",
-    "date-updated": "Date Updated"
+    "date-updated": "Date Updated",
+    "key": "Key",
+    "value": "Value"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Are you sure you want to delete <b>{groupName}<b/>?",
@@ -310,7 +312,9 @@
       "provider-deleted": "Provider deleted",
       "provider-create-failed": "Failed to create provider",
       "provider-update-failed": "Failed to update provider",
-      "provider-delete-failed": "Failed to delete provider"
+      "provider-delete-failed": "Failed to delete provider",
+      "request-headers": "Request Headers",
+      "request-params": "Request Parameters"
     }
   },
   "household": {

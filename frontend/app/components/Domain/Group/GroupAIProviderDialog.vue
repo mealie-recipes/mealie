@@ -11,7 +11,7 @@
     @submit="handleSubmit"
     @close="resetForm"
   >
-    <v-card-text v-if="init">
+    <v-card-text v-if="init" style="max-height: 70vh; overflow-y: auto;">
       <v-form ref="form" v-no-autofill>
         <v-text-field
           v-model="formData.name"
@@ -62,6 +62,22 @@
           control-variant="stacked"
           density="compact"
           variant="outlined"
+          class="mb-4"
+        />
+        <v-divider class="mb-4" />
+        <div class="mb-2 text-subtitle-2">
+          {{ $t('group.ai-provider-settings.request-headers') }}
+        </div>
+        <BaseKeyValueEditor
+          v-model="formData.requestHeaders"
+          class="mb-4"
+        />
+        <v-divider class="mb-4" />
+        <div class="mb-2 text-subtitle-2">
+          {{ $t('group.ai-provider-settings.request-params') }}
+        </div>
+        <BaseKeyValueEditor
+          v-model="formData.requestParams"
         />
       </v-form>
     </v-card-text>
@@ -101,12 +117,14 @@ const defaultForm = () => ({
   apiKey: "",
   baseUrl: "",
   timeout: 300,
+  requestHeaders: {} as Record<string, string>,
+  requestParams: {} as Record<string, string>,
 });
 
 const formData = reactive(defaultForm());
 
 const submitDisabled = computed(() => {
-  return !formData.name.trim() || !formData.model.trim() || (!isEdit.value && !formData.apiKey.trim());
+  return !formData.name?.trim() || !formData.model?.trim() || (!isEdit.value && !formData.apiKey?.trim());
 });
 
 // Fetch existing provider when editing; reset form for create mode
@@ -129,6 +147,8 @@ watch(
       formData.apiKey = "";
       formData.baseUrl = data.baseUrl ?? "";
       formData.timeout = data.timeout ?? 300;
+      formData.requestHeaders = { ...(data.requestHeaders ?? {}) };
+      formData.requestParams = { ...(data.requestParams ?? {}) };
     }
   },
   { immediate: true },
@@ -136,8 +156,8 @@ watch(
 
 function handleSubmit() {
   // Required field guard (button is also disabled, but keep as a safeguard)
-  if (!formData.name.trim() || !formData.model.trim()) return;
-  if (!isEdit.value && !formData.apiKey.trim()) return;
+  if (!formData.name?.trim() || !formData.model?.trim()) return;
+  if (!isEdit.value && !formData.apiKey?.trim()) return;
 
   if (isEdit.value && props.providerId) {
     const payload: AIProviderUpdate & { apiKey?: string } = {
@@ -145,6 +165,8 @@ function handleSubmit() {
       model: formData.model,
       baseUrl: formData.baseUrl || null,
       timeout: formData.timeout,
+      requestHeaders: Object.keys(formData.requestHeaders).length ? formData.requestHeaders : undefined,
+      requestParams: Object.keys(formData.requestParams).length ? formData.requestParams : undefined,
     };
     if (formData.apiKey) {
       payload.apiKey = formData.apiKey;
@@ -158,6 +180,8 @@ function handleSubmit() {
       apiKey: formData.apiKey,
       baseUrl: formData.baseUrl || null,
       timeout: formData.timeout,
+      requestHeaders: Object.keys(formData.requestHeaders).length ? formData.requestHeaders : undefined,
+      requestParams: Object.keys(formData.requestParams).length ? formData.requestParams : undefined,
     };
     emit("create", createPayload as AIProviderCreate);
   }
