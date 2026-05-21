@@ -628,7 +628,7 @@
     "create-recipe-description": "Opprett en ny oppskrift fra bunnen av.",
     "create-recipes": "Opprett oppskrifter",
     "import-with-zip": "Importer fra .zip-fil",
-    "create-recipe-from-an-image": "Opprett oppskrift fra et bilde",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Opprett en oppskrift ved å laste opp et bilde av den. Mealie vil forsøke å hente ut teksten fra bildet ved bruk av AI, og lage en ny oppskrift.",
     "crop-and-rotate-the-image": "Beskjær og roter bildet slik at bare teksten er synlig, og at det er i riktig retning.",
     "create-from-images": "Opprett fra bilde",
