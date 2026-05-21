@@ -628,7 +628,7 @@
     "create-recipe-description": "Loo uus retsept algusest",
     "create-recipes": "Loo retseptid",
     "import-with-zip": "Impordi .zip failist",
-    "create-recipe-from-an-image": "Retsepti loomine pildist",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Retsepti loomiseks lae üles selle pilt. Mealie üritab ekstraheerida pildil oleva teksti ning luua retsepti sellest kasutades AI-d.",
     "crop-and-rotate-the-image": "Kärpige ja pöörake pilti nii, et ainult tekst oleks nähtaval ja see oleks suunatud ülespoole.",
     "create-from-images": "Retsepti loomine pildist",
