@@ -64,21 +64,29 @@
           variant="outlined"
           class="mb-4"
         />
-        <v-divider class="mb-4" />
-        <div class="mb-2 text-subtitle-2">
-          {{ $t('group.ai-provider-settings.request-headers') }}
-        </div>
-        <BaseKeyValueEditor
-          v-model="formData.requestHeaders"
-          class="mb-4"
-        />
-        <v-divider class="mb-4" />
-        <div class="mb-2 text-subtitle-2">
-          {{ $t('group.ai-provider-settings.request-params') }}
-        </div>
-        <BaseKeyValueEditor
-          v-model="formData.requestParams"
-        />
+        <v-expansion-panels v-model="advancedPanel" variant="accordion">
+          <v-expansion-panel>
+            <v-expansion-panel-title class="text-subtitle-2" expand-icon="$expand" collapse-icon="$expand">
+              {{ $t('search.advanced') }}
+            </v-expansion-panel-title>
+            <v-expansion-panel-text class="px-0">
+              <div class="mb-2 text-subtitle-2">
+                {{ $t('group.ai-provider-settings.request-headers') }}
+              </div>
+              <BaseKeyValueEditor
+                v-model="formData.requestHeaders"
+                class="mb-4"
+              />
+              <v-divider class="mb-4" />
+              <div class="mb-2 text-subtitle-2">
+                {{ $t('group.ai-provider-settings.request-params') }}
+              </div>
+              <BaseKeyValueEditor
+                v-model="formData.requestParams"
+              />
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
       </v-form>
     </v-card-text>
     <AppLoader v-else waiting-text="" />
@@ -108,6 +116,7 @@ const { loading, getOne } = useAIProviders();
 const init = ref(false);
 
 const form = ref();
+const advancedPanel = ref<number | undefined>(undefined);
 
 const isEdit = computed(() => !!props.providerId);
 
@@ -190,5 +199,6 @@ function handleSubmit() {
 function resetForm() {
   Object.assign(formData, defaultForm());
   form.value?.reset();
+  advancedPanel.value = undefined;
 }
 </script>
