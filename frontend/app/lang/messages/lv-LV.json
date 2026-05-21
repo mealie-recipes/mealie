@@ -628,7 +628,7 @@
     "create-recipe-description": "Izveidojiet jaunu recepti no nulles.",
     "create-recipes": "Izveidojiet receptes",
     "import-with-zip": "Importēt ar .zip",
-    "create-recipe-from-an-image": "Izveidojiet recepti no attēla",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Izveidojiet recepti, augšupielādējot tās attēlu. Mealie mēģinās iegūt tekstu no attēla, izmantojot AI, un no tā izveidot recepti.",
     "crop-and-rotate-the-image": "Apgrieziet un pagrieziet attēlu tā, lai būtu redzams tikai teksts un tas būtu pareizajā orientācijā.",
     "create-from-images": "Create from Images",
