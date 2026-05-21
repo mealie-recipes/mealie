@@ -628,7 +628,7 @@
     "create-recipe-description": "新しいレシピを一から作成します。",
     "create-recipes": "レシピを作成する",
     "import-with-zip": ".zip でインポート",
-    "create-recipe-from-an-image": "画像からレシピを作成",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "画像をアップロードしてレシピを作成します。 Mealieは、AIを使用して画像からテキストを抽出し、そこからレシピを作成しようとします。",
     "crop-and-rotate-the-image": "テキストのみが表示され、正しい方向になるように画像をトリミングして回転します。",
     "create-from-images": "Create from Images",
