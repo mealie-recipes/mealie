@@ -628,7 +628,7 @@
     "create-recipe-description": "Stofna nýja uppskrift frá grunni.",
     "create-recipes": "Stofna uppskriftir",
     "import-with-zip": "Hlaða inn með .zip",
-    "create-recipe-from-an-image": "Stofna uppskrift út frá mynd",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Stofna uppskrift með því hlaða inn myndum af uppskriftartextanum. Mealie mun reyna að vinna texta úr myndunum með gervigreind og stofna nýja uppskrift út frá textanum.",
     "crop-and-rotate-the-image": "Sníða og snúa mynd svo bara textinn sé sýnilegur og að myndin snúi rétt.",
     "create-from-images": "Stofna uppskrift frá mynd",
