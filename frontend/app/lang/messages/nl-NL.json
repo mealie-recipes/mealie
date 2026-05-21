@@ -628,7 +628,7 @@
     "create-recipe-description": "Maak een nieuw recept.",
     "create-recipes": "Recepten aanmaken",
     "import-with-zip": "Importeer met .zip",
-    "create-recipe-from-an-image": "Maak recept van de tekst op een afbeelding",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Maak een recept door een afbeelding ervan te uploaden. Mealie probeert de tekst met behulp van AI uit de afbeelding te halen en er een recept uit te maken.",
     "crop-and-rotate-the-image": "Snijd de afbeelding bij zodat alleen tekst zichtbaar is. En draai t plaatje zodat het leesbaar is.",
     "create-from-images": "Maak recept van een afbeelding",
