@@ -628,7 +628,7 @@
     "create-recipe-description": "Izradi novi recept od početka",
     "create-recipes": "Kreiraj recept",
     "import-with-zip": "Učitaj pomoću .zip-a",
-    "create-recipe-from-an-image": "Create Recipe from an Image",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
     "crop-and-rotate-the-image": "Obreži i rotiraj sliku tako da bude vidljiv samo tekst i da bude u ispravnoj orijentaciji.",
     "create-from-images": "Izradi na temelju fotografije",
