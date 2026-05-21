@@ -628,7 +628,7 @@
     "create-recipe-description": "Luo resepti alusta.",
     "create-recipes": "Luo reseptejä",
     "import-with-zip": "Tuo .zip:llä",
-    "create-recipe-from-an-image": "Luo resepti kuvasta",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Luo resepti tuomalla siitä kuva. Mealie pyrkii poimimaan tekstin kuvasta tekoälyllä ja luomaan siitä reseptin.",
     "crop-and-rotate-the-image": "Rajaa ja kierrä kuvaa niin, että vain teksti näkyy, ja että se on oikein päin.",
     "create-from-images": "Luo resepti kuvasta",
