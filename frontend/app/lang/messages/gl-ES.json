@@ -628,7 +628,7 @@
     "create-recipe-description": "Crear unha receita en branco.",
     "create-recipes": "Crear Receitas",
     "import-with-zip": "Importar con .zip",
-    "create-recipe-from-an-image": "Crear receita a partir dunha imaxen",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Cree unha receita cargando unha imaxen da mesma. O Mealie tentará extrair o texto da imaxen utilizando IA e creará unha receita a partir da mesma.",
     "crop-and-rotate-the-image": "Recorte e vire a imaxen de modo a que só o texto sexa visível e na orientación correta.",
     "create-from-images": "Crear a partir de imaxens",
