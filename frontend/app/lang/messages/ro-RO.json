@@ -628,7 +628,7 @@
     "create-recipe-description": "Creează o rețetă nouă de la zero.",
     "create-recipes": "Crează rețetă",
     "import-with-zip": "Importă cu .zip",
-    "create-recipe-from-an-image": "Creează o rețetă dintr-o imagine",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Creează o rețetă prin încărcarea unei imagini a acesteia. Mealie va încerca să extragă textul din imagine folosind AI și să creeze o rețetă din el.",
     "crop-and-rotate-the-image": "Decupați și rotiți imaginea astfel încât numai textul să fie vizibil, iar orientarea să fie corectă.",
     "create-from-images": "Creează din Imagini",

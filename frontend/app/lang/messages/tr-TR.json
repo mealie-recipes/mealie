@@ -628,7 +628,7 @@
     "create-recipe-description": "Sıfırdan yeni bir tarif oluşturun.",
     "create-recipes": "Tarif Oluştur",
     "import-with-zip": ".zip ile içe aktar",
-    "create-recipe-from-an-image": "Görüntüden yemek tarifi oluştur",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Bir görsel yükleyerek yemek tarifi oluşturun. Mealie, yapay zekâ kullanarak görseldeki bilgileri çekip yemek tarifini oluşturmaya çalışacaktır.",
     "crop-and-rotate-the-image": "Resmi sadece yazılar gözükecek şekilde kesin ve döndürün, ayrıca doğru yönde durduğuna emin olun.",
     "create-from-images": "Resimden Oluştur",

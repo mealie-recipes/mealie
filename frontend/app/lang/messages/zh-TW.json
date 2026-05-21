@@ -628,7 +628,7 @@
     "create-recipe-description": "從頭開始建立新食譜。",
     "create-recipes": "建立食譜",
     "import-with-zip": "以 .zip 匯入",
-    "create-recipe-from-an-image": "從圖片建立食譜",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "上傳食譜圖片來建立食譜，Mealie 將嘗試使用 AI 從圖片中擷取文字並建立食譜。",
     "crop-and-rotate-the-image": "請裁切並旋轉圖片，使其僅顯示文字且方向正確。",
     "create-from-images": "從圖片建立",

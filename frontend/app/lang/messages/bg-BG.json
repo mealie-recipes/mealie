@@ -628,7 +628,7 @@
     "create-recipe-description": "Създайте нова рецепта от чернова.",
     "create-recipes": "Създайте рецепти",
     "import-with-zip": "Импортирай от .zip",
-    "create-recipe-from-an-image": "Create Recipe from an Image",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
     "crop-and-rotate-the-image": "Изрежете и завъртете изображението, така че да се вижда само текстът и той да е в правилната ориентация.",
     "create-from-images": "Създаване от изображения",

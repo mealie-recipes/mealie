@@ -191,6 +191,24 @@ def test_organizer_association(
     assert response.status_code == 200
 
 
+@pytest.mark.parametrize("route", organizer_routes, ids=test_ids)
+def test_organizer_create_duplicate_name_returns_400(
+    api_client: TestClient,
+    unique_user: TestUser,
+    route: RoutesBase,
+):
+    # Regression test for #7582: POSTing a duplicate name to organizer endpoints
+    # leaked the sqlalchemy IntegrityError as an HTTP 500. The expected behavior,
+    # matching other organizer endpoints (foods, units, tools), is HTTP 400.
+    data = {"name": random_string(10)}
+
+    response = api_client.post(route.base, json=data, headers=unique_user.token)
+    assert response.status_code == 201
+
+    response = api_client.post(route.base, json=data, headers=unique_user.token)
+    assert response.status_code == 400
+
+
 @pytest.mark.parametrize("route, recipe_key", association_data, ids=test_ids)
 def test_organizer_get_by_slug(
     api_client: TestClient,

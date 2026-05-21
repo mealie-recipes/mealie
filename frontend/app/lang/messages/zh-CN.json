@@ -628,7 +628,7 @@
     "create-recipe-description": "从头创建一个新食谱。",
     "create-recipes": "创建食谱",
     "import-with-zip": "使用 .zip 导入",
-    "create-recipe-from-an-image": "用图片创建食谱",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "通过上传食谱文本的图片来创建一个食谱。Mealie将尝试使用人工智能从图像中提取文本，并从中创建一个新的食谱。",
     "crop-and-rotate-the-image": "裁剪并旋转图片，使仅文字可见且方向正确。",
     "create-from-images": "从图片创建",

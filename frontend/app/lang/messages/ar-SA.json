@@ -628,7 +628,7 @@
     "create-recipe-description": "إنشاء وصفة جديدة من الصفر.",
     "create-recipes": "إنشاء الوصفات",
     "import-with-zip": "الاستيراد باستخدام zip.",
-    "create-recipe-from-an-image": "إنشاء وصفة عن طريق صورة",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
     "crop-and-rotate-the-image": "قم بقص الصورة وتدويرها بحيث يظهر النص فقط، ويكون في الاتجاه الصحيح.",
     "create-from-images": "إنشاء عن طريق صور",

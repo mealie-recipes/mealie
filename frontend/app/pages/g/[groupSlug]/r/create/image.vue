@@ -3,7 +3,7 @@
     <v-form ref="domUrlForm" @submit.prevent="createRecipe">
       <div>
         <v-card-title class="headline">
-          {{ $t("recipe.create-recipe-from-an-image") }}
+          {{ $t("recipe.create-recipe-from-images") }}
         </v-card-title>
         <v-card-text>
           <p>{{ $t("recipe.create-recipe-from-an-image-description") }}</p>
