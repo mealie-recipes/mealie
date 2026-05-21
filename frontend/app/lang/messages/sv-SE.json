@@ -628,7 +628,7 @@
     "create-recipe-description": "Skapa nytt recept från grunden.",
     "create-recipes": "Skapa recept",
     "import-with-zip": "Importera från .zip",
-    "create-recipe-from-an-image": "Skapa recept från en bild",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Skapa ett recept genom att ladda upp en bild på det. Mealie kommer att försöka extrahera texten från bilden med hjälp av AI och skapa ett recept från det.",
     "crop-and-rotate-the-image": "Beskär och rotera bilden så att endast texten är synlig och den är åt rätt håll.",
     "create-from-images": "Skapa från bild",
