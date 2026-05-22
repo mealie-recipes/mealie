@@ -288,6 +288,7 @@
     "you-must-select-a-group-before-selecting-a-household": "You must select a group before selecting a household",
     "ai-provider-settings": {
       "ai-provider-settings": "AI Provider Settings",
+      "ai-provider": "AI Provider",
       "ai-provider-settings-description": "Configure AI providers to enable AI-powered features, such as enhanced ingredient parsing, creating recipes from videos, and more!",
       "providers": "Providers",
       "create-provider": "Create Provider",
