@@ -11,8 +11,6 @@ admin_backups = "/api/admin/backups"
 """`/api/admin/backups`"""
 admin_backups_upload = "/api/admin/backups/upload"
 """`/api/admin/backups/upload`"""
-admin_debug_openai = "/api/admin/debug/openai"
-"""`/api/admin/debug/openai`"""
 admin_email = "/api/admin/email"
 """`/api/admin/email`"""
 admin_groups = "/api/admin/groups"
@@ -217,6 +215,11 @@ def admin_backups_file_name(file_name):
 def admin_backups_file_name_restore(file_name):
     """`/api/admin/backups/{file_name}/restore`"""
     return f"{prefix}/admin/backups/{file_name}/restore"
+
+
+def admin_debug_openai_provider_id(provider_id):
+    """`/api/admin/debug/openai/{provider_id}`"""
+    return f"{prefix}/admin/debug/openai/{provider_id}"
 
 
 def admin_groups_group_id_ai_providers_providers(group_id):

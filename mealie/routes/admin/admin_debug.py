@@ -3,6 +3,7 @@ import shutil
 from pathlib import Path
 
 from fastapi import APIRouter, File, UploadFile
+from pydantic import UUID4
 
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.routes._base import BaseAdminController, controller
@@ -15,15 +16,11 @@ router = APIRouter(prefix="/debug")
 
 @controller(router)
 class AdminDebugController(BaseAdminController):
-    @router.post("/openai", response_model=DebugResponse)
-    async def debug_openai(self, image: UploadFile | None = File(None)):
-        ai_settings = self.group.ai_provider_settings
-        if not (ai_settings and ai_settings.ai_enabled):
-            return DebugResponse(success=False, response="OpenAI is not enabled")
-        if image and not ai_settings.image_provider_enabled:
-            return DebugResponse(
-                success=False, response="Image was provided, but OpenAI image services are not enabled"
-            )
+    @router.post("/openai/{provider_id}", response_model=DebugResponse)
+    async def debug_openai(self, provider_id: UUID4, image: UploadFile | None = File(None)):
+        provider = self.repos.group_ai_providers.get_one(provider_id)
+        if not provider:
+            return DebugResponse(success=False, response="Provider not found")
 
         with get_temporary_path() as temp_path:
             if image:
@@ -46,7 +43,7 @@ class AdminDebugController(BaseAdminController):
                     message = f"{message} Here is an image to test with:"
 
                 response = await openai_service.get_response(
-                    prompt, message, response_schema=OpenAIText, attachments=local_images
+                    prompt, message, response_schema=OpenAIText, attachments=local_images, provider=provider
                 )
 
                 if not response:
