@@ -623,7 +623,7 @@ class OpenAIRecipeService(RecipeServiceBase):
 
     async def build_recipe_from_images(self, images: list[Path], translate_language: str | None) -> Recipe:
         openai_service = OpenAIService(self.repos)
-        if not openai_service.provider_settings.image_provider_enabled:
+        if not (openai_service.provider_settings and openai_service.provider_settings.image_provider_enabled):
             raise ValueError("OpenAI image services are not available")
 
         prompt = openai_service.get_prompt("recipes.parse-recipe-image")

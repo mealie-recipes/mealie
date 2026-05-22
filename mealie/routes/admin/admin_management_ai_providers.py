@@ -28,17 +28,17 @@ class AdminGroupAIProviderController(BaseAdminController):
     # Provider CRUD
 
     @router.post("/providers", response_model=AIProviderOut, tags=["Admin: AI Providers"])
-    def create_ai_provider(self, group_id: UUID4, data: AIProviderCreate) -> AIProviderOut:
+    def create_ai_provider(self, group_id: UUID4, data: AIProviderCreate):
         return self._mixins(group_id).create_one(data)
 
     @router.get("/providers/{provider_id}", response_model=AIProviderOut, tags=["Admin: AI Providers"])
-    def get_ai_provider(self, group_id: UUID4, provider_id: UUID4) -> AIProviderOut:
+    def get_ai_provider(self, group_id: UUID4, provider_id: UUID4):
         return self._mixins(group_id).get_one(provider_id)
 
     @router.put("/providers/{provider_id}", response_model=AIProviderOut, tags=["Admin: AI Providers"])
-    def update_ai_provider(self, group_id: UUID4, provider_id: UUID4, data: AIProviderUpdate) -> AIProviderOut:
+    def update_ai_provider(self, group_id: UUID4, provider_id: UUID4, data: AIProviderUpdate):
         return self._mixins(group_id).update_one(data, provider_id)
 
     @router.delete("/providers/{provider_id}", response_model=AIProviderOut, tags=["Admin: AI Providers"])
-    def delete_ai_provider(self, group_id: UUID4, provider_id: UUID4) -> AIProviderOut:
+    def delete_ai_provider(self, group_id: UUID4, provider_id: UUID4):
         return self._mixins(group_id).delete_one(provider_id)
