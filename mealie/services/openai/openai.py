@@ -5,7 +5,7 @@ import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 from textwrap import dedent
-from typing import TypeVar, cast
+from typing import TypeVar
 
 import openai
 from openai import AsyncOpenAI
@@ -110,26 +110,22 @@ class OpenAIService(BaseService):
 
     def __init__(self, repos: AllRepositories) -> None:
         self.repos = repos
-        provider_settings = repos.group_ai_provider_settings.get_one(repos.group_id)
-
-        if not (provider_settings and provider_settings.ai_enabled):
-            raise OpenAINotEnabledException()
-
-        self.provider_settings = provider_settings
+        self.provider_settings = repos.group_ai_provider_settings.get_one(repos.group_id)
 
         # Load providers
-        self.default_provider = cast(  # the ai_enabled check confirms this exists
-            AIProviderOut, self.repos.group_ai_providers.get_one(self.provider_settings.default_provider_id)
+        self.default_provider = (
+            self.repos.group_ai_providers.get_one(self.provider_settings.default_provider_id)
+            if self.provider_settings and self.provider_settings.default_provider_id
+            else None
         )
-
         self.audio_provider = (
             self.repos.group_ai_providers.get_one(self.provider_settings.audio_provider_id)
-            if self.provider_settings.audio_provider_id
+            if self.provider_settings and self.provider_settings.audio_provider_id
             else None
         )
         self.image_provider = (
             self.repos.group_ai_providers.get_one(self.provider_settings.image_provider_id)
-            if self.provider_settings.image_provider_id
+            if self.provider_settings and self.provider_settings.image_provider_id
             else None
         )
 
@@ -166,7 +162,10 @@ class OpenAIService(BaseService):
                 raise OpenAINotEnabledException("No audio provider set")
             return self.audio_provider
 
-        return self.default_provider
+        else:
+            if not self.default_provider:
+                raise OpenAINotEnabledException("No default provider set")
+            return self.default_provider
 
     def _get_prompt_file_candidates(self, name: str) -> list[Path]:
         """
@@ -288,11 +287,12 @@ class OpenAIService(BaseService):
         *,
         response_schema: type[T],
         attachments: list[OpenAIAttachment] | None = None,
+        provider: AIProviderOut | None = None,
     ) -> T | None:
         """Send data to OpenAI and return the response message content"""
 
         try:
-            provider = self._get_provider(attachments)
+            provider = provider or self._get_provider(attachments)
             user_messages: list[dict] = [{"type": "text", "text": message}]
             for attachment in attachments or []:
                 user_messages.append(attachment.build_message())
