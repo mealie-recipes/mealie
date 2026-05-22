@@ -628,7 +628,7 @@
     "create-recipe-description": "יצירת מתכון חדש מאפס.",
     "create-recipes": "יצירת מתכונים",
     "import-with-zip": "ייבא באמצעות zip",
-    "create-recipe-from-an-image": "יצירת מתכון מתמונה",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "יצירת מתכון ע\"י העלאת תמונה שלו. Mealie תנסה לחלץ את הטקסט מהתמונה באמצעות AI ותייצר ממנו מתכון.",
     "crop-and-rotate-the-image": "נא לחתוך ולסובב את התמונה כך שרואים רק את הטקסט, והוא בכיוון הנכון.",
     "create-from-images": "יצירה מתמונה",

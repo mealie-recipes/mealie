@@ -628,7 +628,7 @@
     "create-recipe-description": "Vytvoriť nový recept od začiatku.",
     "create-recipes": "Vytvoriť recept",
     "import-with-zip": "Importovať .zip súbor",
-    "create-recipe-from-an-image": "Vytvoriť recept z obrázka",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Vytvoriť recept nahraním fotografie jedla. Mealie sa pokúsi previesť obrázok na text pomocou AI a vytvorí k nemu recept.",
     "crop-and-rotate-the-image": "Orežte a otočte obrázok tak, aby bol viditeľný iba text a aby mal správnu orientáciu.",
     "create-from-images": "Vytvoriť z obrázka",

@@ -628,7 +628,7 @@
     "create-recipe-description": "Create a new recipe from scratch.",
     "create-recipes": "Create Recipes",
     "import-with-zip": "Įkelti naudojant .zip failus",
-    "create-recipe-from-an-image": "Create Recipe from an Image",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Create a recipe by uploading an image of it. Mealie will attempt to extract the text from the image using AI and create a recipe from it.",
     "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
     "create-from-images": "Kurti iš vaizdų",
