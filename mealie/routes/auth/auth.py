@@ -13,6 +13,7 @@ from mealie.core.config import get_app_settings
 from mealie.core.dependencies import get_current_user
 from mealie.core.exceptions import MissingClaimException, UserLockedOut
 from mealie.core.security.providers.openid_provider import OpenIDProvider
+from mealie.core.security.providers.proxy_provider import ProxyProvider
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
 from mealie.lang import get_locale_provider
@@ -73,6 +74,10 @@ def get_token(request: Request, data: CredentialsRequestForm = Depends(), sessio
 
     try:
         auth_provider = get_auth_provider(session, data)
+
+        if isinstance(auth_provider, ProxyProvider):
+            auth_provider.headers = request.headers
+
         auth = auth_provider.authenticate()
     except UserLockedOut as e:
         logger.error(f"User is locked out from {ip}")

@@ -1,0 +1,42 @@
+networks:
+  default:
+    driver: bridge
+    name: forward_auth_test
+
+services:
+
+   mealie:
+    container_name: mealie
+    image: mealie:e2e-forward-auth
+    build:
+      context: ../../../
+      target: production
+      dockerfile: ./docker/Dockerfile
+    restart: always
+    volumes:
+      - mealie-data:/app/data/
+    environment:
+      ALLOW_SIGNUP: True
+      DB_ENGINE: sqlite
+
+      PROXY_AUTH_ENABLED: true
+    networks:
+      - default
+
+   traefik:
+    container_name: traefik
+    image: traefik:v3.3.6
+    command:
+      - "--configFile=/etc/traefik/traefik_config.yml"
+      - "--accesslog=true"
+    ports:
+      - 127.0.0.1:8080:80
+    volumes:
+      - ../traefik:/etc/traefik:ro
+    networks:
+        - default
+
+
+volumes:
+  mealie-data:
+    driver: local
