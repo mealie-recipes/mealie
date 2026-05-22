@@ -114,17 +114,17 @@ class AIProviderSettingsOut(AIProviderSettingsUpdate):
 
         return self
 
-    @computed_field
+    @computed_field  # type: ignore[misc]
     @property
     def ai_enabled(self) -> bool:
         return self.default_provider_id is not None
 
-    @computed_field
+    @computed_field  # type: ignore[misc]
     @property
     def audio_provider_enabled(self) -> bool:
         return self.ai_enabled and self.audio_provider_id is not None
 
-    @computed_field
+    @computed_field  # type: ignore[misc]
     @property
     def image_provider_enabled(self) -> bool:
         return self.ai_enabled and self.image_provider_id is not None
