@@ -315,7 +315,8 @@
       "provider-update-failed": "Failed to update provider",
       "provider-delete-failed": "Failed to delete provider",
       "request-headers": "Request Headers",
-      "request-params": "Request Parameters"
+      "request-params": "Request Parameters",
+      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
     }
   },
   "household": {

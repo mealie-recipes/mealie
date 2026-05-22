@@ -1,6 +1,17 @@
 <template>
   <div v-if="providerSettings">
-    <BaseCardSectionTitle :title="$t('group.ai-provider-settings.ai-provider-settings')" />
+    <BaseCardSectionTitle :title="$t('group.ai-provider-settings.ai-provider-settings')">
+      <template v-if="noDefaultProviderWarning" #append-title>
+        <v-tooltip location="bottom" color="warning">
+          <template #activator="{ props: tooltipProps }">
+            <v-icon v-bind="tooltipProps" size="small" color="warning" class="ms-2">
+              {{ $globals.icons.alert }}
+            </v-icon>
+          </template>
+          <span>{{ $t('group.ai-provider-settings.no-default-provider-warning') }}</span>
+        </v-tooltip>
+      </template>
+    </BaseCardSectionTitle>
     <v-card-text class="pt-0 pb-10 px-0">
       {{ $t("group.ai-provider-settings.ai-provider-settings-description") }}
     </v-card-text>
@@ -124,6 +135,10 @@ const local = reactive({ ...providerSettings.value });
 watch(local, (newVal) => { providerSettings.value = { ...newVal }; });
 // Sync back when the parent refreshes after create/update/delete
 watch(providerSettings, (newVal) => { if (newVal) Object.assign(local, newVal); });
+
+const noDefaultProviderWarning = computed(
+  () => local.providers.length > 0 && !local.defaultProviderId,
+);
 
 defineEmits<{
   (e: "create", data: AIProviderCreate): void;
