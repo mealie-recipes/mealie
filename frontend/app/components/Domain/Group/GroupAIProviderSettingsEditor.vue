@@ -1,6 +1,6 @@
 <template>
   <div v-if="providerSettings">
-    <BaseCardSectionTitle :title="$t('group.ai-provider-settings.ai-provider-settings')">
+    <BaseCardSectionTitle v-if="!hideHeader" :title="$t('group.ai-provider-settings.ai-provider-settings')">
       <template v-if="noDefaultProviderWarning" #append-title>
         <v-tooltip location="bottom" color="warning">
           <template #activator="{ props: tooltipProps }">
@@ -12,7 +12,7 @@
         </v-tooltip>
       </template>
     </BaseCardSectionTitle>
-    <v-card-text class="pt-0 pb-10 px-0">
+    <v-card-text v-if="!hideHeader" class="pt-0 pb-10 px-0">
       {{ $t("group.ai-provider-settings.ai-provider-settings-description") }}
     </v-card-text>
 
@@ -131,6 +131,15 @@ import type { AIProviderCreate, AIProviderUpdate } from "~/lib/api/types/group";
 import type { AIProviderSettingsOut } from "~/lib/api/types/user";
 
 const providerSettings = defineModel<AIProviderSettingsOut>({ required: true });
+
+const props = withDefaults(defineProps<{
+  hideHeader?: boolean;
+}>(), {
+  hideHeader: false,
+});
+
+const { hideHeader } = toRefs(props);
+
 const local = reactive({ ...providerSettings.value });
 watch(local, (newVal) => { providerSettings.value = { ...newVal }; });
 // Sync back when the parent refreshes after create/update/delete
