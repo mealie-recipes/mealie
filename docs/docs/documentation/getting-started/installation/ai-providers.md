@@ -20,10 +20,10 @@ If you have another provider you'd like to use, such as Azure, you can configure
 
 Note that some models are capable of handling multiple features (e.g. `gpt-5` can handle both normal chat requests and image recognition requests). You may configure one provider for multiple provider features.
 
-While Mealie has prompts for each AI task, you can override these with your own prompts if you'd like. For more information, check out the [backend configuration](./backend-config.md#openai).
+While Mealie has prompts for each AI task, you can override these with your own prompts if you'd like. For more information, check out the [backend configuration](./installation/ai-providers.md).
 
-## OpenAI Features
+## AI Features
 - The OpenAI Ingredient Parser can be used as an alternative to the NLP and Brute Force parsers. Simply choose the OpenAI parser while parsing ingredients (:octicons-tag-24: v1.7.0)
 - When importing a recipe via URL, if the default recipe scraper is unable to read the recipe data from a webpage, the webpage contents will be parsed by OpenAI (:octicons-tag-24: v1.9.0)
 - You can import an image of a written recipe, which is sent to OpenAI and imported into Mealie. The recipe can be hand-written or typed, as long as the text is in the picture. You can also optionally have OpenAI translate the recipe into your own language (:octicons-tag-24: v1.12.0)
-- You can import a recipe via a video URL (e.g., a YouTube link). The video is transcribed using OpenAI's Whisper model, and the transcription is parsed into a recipe (:octicons-tag-24: v3.13.0)
+- You can import a recipe via a video URL (e.g., a YouTube link). The video is transcribed AI, and the transcription is parsed into a recipe (:octicons-tag-24: v3.13.0)
