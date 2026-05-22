@@ -120,7 +120,7 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 
 :octicons-tag-24: v1.7.0
 
-Mealie supports various integrations using OpenAI. For more information, check out our [OpenAI documentation](./open-ai.md).
+Mealie supports various integrations using OpenAI. For more information, check out our [OpenAI documentation](./ai-providers.md).
 
 | Variables                                                               | Default     | Description                                                                                                                                                                                                                                                                                                            |
 |-------------------------------------------------------------------------|:-----------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

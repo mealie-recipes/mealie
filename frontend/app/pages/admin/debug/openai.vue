@@ -6,7 +6,7 @@
         <br>
         <DocLink
           class="mt-2"
-          link="/documentation/getting-started/installation/open-ai"
+          link="/documentation/getting-started/installation/ai-providers"
         />
       </BaseCardSectionTitle>
     </v-container>
