@@ -169,7 +169,7 @@
     "token": "Jeton",
     "tuesday": "Mardi",
     "type": "Type",
-    "undo": "Undo",
+    "undo": "Annuler",
     "update": "Mettre à jour",
     "updated": "Mis à jour",
     "upload": "Importer",
@@ -628,7 +628,7 @@
     "create-recipe-description": "Créer une nouvelle recette de zéro.",
     "create-recipes": "Créer des recettes",
     "import-with-zip": "Importer un .zip",
-    "create-recipe-from-images": "Create Recipe from Images",
+    "create-recipe-from-images": "Créer une recette depuis une image",
     "create-recipe-from-an-image-description": "Créez une recette en téléchargeant une image de celle-ci. Mealie utilisera l’IA pour tenter d’extraire le texte et de créer une recette.",
     "crop-and-rotate-the-image": "Rogner et pivoter l’image pour que seul le texte soit visible, et qu’il soit dans la bonne orientation.",
     "create-from-images": "Créer à partir d’images",
@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Voulez-vous vraiment désélectionner tous les éléments ?",
     "are-you-sure-you-want-to-delete-checked-items": "Voulez-vous vraiment supprimer tous les éléments sélectionnés ?",
     "no-shopping-lists-found": "Aucune liste de courses trouvée",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "{item} coché"
   },
   "sidebar": {
     "all-recipes": "Recettes",
