@@ -28,7 +28,7 @@ from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
-from mealie.services.openai import OpenAINotEnabledException, OpenAIService
+from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
@@ -408,11 +408,7 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         return "\n".join(components)
 
     async def get_html(self, url: str) -> str:
-        try:
-            service = OpenAIService(self.repos)
-        except OpenAINotEnabledException:
-            return ""
-
+        service = OpenAIService(self.repos)
         html = self.raw_html or await safe_scrape_html(url)
         text = self.format_html_to_text(html)
         try:

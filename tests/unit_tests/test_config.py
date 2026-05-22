@@ -352,7 +352,6 @@ def test_oidc_settings_validation(data: OIDCValidationCase, monkeypatch: pytest.
 def test_sensitive_settings_mask(monkeypatch: pytest.MonkeyPatch):
     sensitive_settings = [
         "LDAP_QUERY_PASSWORD",
-        "OPENAI_API_KEY",
         "SMTP_USER",
         "SMTP_PASSWORD",
         "OIDC_CLIENT_SECRET",

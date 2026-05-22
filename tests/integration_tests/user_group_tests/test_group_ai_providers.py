@@ -18,7 +18,7 @@ from tests.utils.fixture_schemas import TestUser
 
 def test_create_provider(api_client: TestClient, unique_user: TestUser):
     data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
-    response = api_client.post(api_routes.ai_providers_providers, json=data, headers=unique_user.token)
+    response = api_client.post(api_routes.groups_ai_providers_providers, json=data, headers=unique_user.token)
     assert response.status_code == 200
 
     provider = response.json()
@@ -26,7 +26,7 @@ def test_create_provider(api_client: TestClient, unique_user: TestUser):
     assert provider["model"] == data["model"]
     assert "id" in provider
 
-    api_client.delete(api_routes.ai_providers_providers_provider_id(provider["id"]), headers=unique_user.token)
+    api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider["id"]), headers=unique_user.token)
 
 
 def test_get_provider(api_client: TestClient, unique_user: TestUser):
@@ -36,7 +36,9 @@ def test_get_provider(api_client: TestClient, unique_user: TestUser):
     )
 
     try:
-        response = api_client.get(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+        response = api_client.get(
+            api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token
+        )
         assert response.status_code == 200
 
         data = response.json()
@@ -44,11 +46,11 @@ def test_get_provider(api_client: TestClient, unique_user: TestUser):
         assert data["name"] == provider.name
         assert data["model"] == provider.model
     finally:
-        api_client.delete(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 
 
 def test_get_provider_not_found(api_client: TestClient, unique_user: TestUser):
-    response = api_client.get(api_routes.ai_providers_providers_provider_id(uuid4()), headers=unique_user.token)
+    response = api_client.get(api_routes.groups_ai_providers_providers_provider_id(uuid4()), headers=unique_user.token)
     assert response.status_code == 404
 
 
@@ -61,7 +63,9 @@ def test_update_provider(api_client: TestClient, unique_user: TestUser):
         new_model = "gpt-4-turbo"
         update_data = {"name": provider.name, "model": new_model, "apiKey": "updated-key"}
         response = api_client.put(
-            api_routes.ai_providers_providers_provider_id(provider.id), json=update_data, headers=unique_user.token
+            api_routes.groups_ai_providers_providers_provider_id(provider.id),
+            json=update_data,
+            headers=unique_user.token,
         )
         assert response.status_code == 200
 
@@ -69,7 +73,7 @@ def test_update_provider(api_client: TestClient, unique_user: TestUser):
         assert updated["model"] == new_model
         assert updated["id"] == str(provider.id)
     finally:
-        api_client.delete(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 
 
 def test_delete_provider(api_client: TestClient, unique_user: TestUser):
@@ -77,11 +81,15 @@ def test_delete_provider(api_client: TestClient, unique_user: TestUser):
         AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
     )
 
-    response = api_client.delete(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+    response = api_client.delete(
+        api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token
+    )
     assert response.status_code == 200
 
     # Verify it's gone
-    response = api_client.get(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+    response = api_client.get(
+        api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token
+    )
     assert response.status_code == 404
 
 
@@ -91,7 +99,7 @@ def test_delete_provider(api_client: TestClient, unique_user: TestUser):
 
 
 def test_get_settings(api_client: TestClient, unique_user: TestUser):
-    response = api_client.get(api_routes.ai_providers_settings, headers=unique_user.token)
+    response = api_client.get(api_routes.groups_ai_providers_settings, headers=unique_user.token)
     assert response.status_code == 200
 
     settings = response.json()
@@ -108,7 +116,7 @@ def test_update_settings_set_default_provider(api_client: TestClient, unique_use
 
     try:
         update = {"defaultProviderId": str(provider.id), "audioProviderId": None, "imageProviderId": None}
-        response = api_client.put(api_routes.ai_providers_settings, json=update, headers=unique_user.token)
+        response = api_client.put(api_routes.groups_ai_providers_settings, json=update, headers=unique_user.token)
         assert response.status_code == 200
 
         settings = response.json()
@@ -118,7 +126,7 @@ def test_update_settings_set_default_provider(api_client: TestClient, unique_use
             unique_user.repos.group_id,
             AIProviderSettingsUpdate(default_provider_id=None, audio_provider_id=None, image_provider_id=None),
         )
-        api_client.delete(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 
 
 def test_update_settings_all_provider_types(api_client: TestClient, unique_user: TestUser):
@@ -138,7 +146,7 @@ def test_update_settings_all_provider_types(api_client: TestClient, unique_user:
             "audioProviderId": str(audio_provider.id),
             "imageProviderId": str(image_provider.id),
         }
-        response = api_client.put(api_routes.ai_providers_settings, json=update, headers=unique_user.token)
+        response = api_client.put(api_routes.groups_ai_providers_settings, json=update, headers=unique_user.token)
         assert response.status_code == 200
 
         settings = response.json()
@@ -151,7 +159,7 @@ def test_update_settings_all_provider_types(api_client: TestClient, unique_user:
             AIProviderSettingsUpdate(default_provider_id=None, audio_provider_id=None, image_provider_id=None),
         )
         for p in [default_provider, audio_provider, image_provider]:
-            api_client.delete(api_routes.ai_providers_providers_provider_id(p.id), headers=unique_user.token)
+            api_client.delete(api_routes.groups_ai_providers_providers_provider_id(p.id), headers=unique_user.token)
 
 
 def test_update_settings_clear_providers(api_client: TestClient, unique_user: TestUser):
@@ -166,13 +174,13 @@ def test_update_settings_clear_providers(api_client: TestClient, unique_user: Te
     try:
         # Now clear all
         update = {"defaultProviderId": None, "audioProviderId": None, "imageProviderId": None}
-        response = api_client.put(api_routes.ai_providers_settings, json=update, headers=unique_user.token)
+        response = api_client.put(api_routes.groups_ai_providers_settings, json=update, headers=unique_user.token)
         assert response.status_code == 200
 
         settings = response.json()
         assert settings["defaultProviderId"] is None
     finally:
-        api_client.delete(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 
 
 def test_settings_providers_list_populated(api_client: TestClient, unique_user: TestUser):
@@ -181,13 +189,13 @@ def test_settings_providers_list_populated(api_client: TestClient, unique_user: 
     )
 
     try:
-        response = api_client.get(api_routes.ai_providers_settings, headers=unique_user.token)
+        response = api_client.get(api_routes.groups_ai_providers_settings, headers=unique_user.token)
         assert response.status_code == 200
 
         provider_ids = [p["id"] for p in response.json()["providers"]]
         assert str(provider.id) in provider_ids
     finally:
-        api_client.delete(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 
 
 # ==========================================
@@ -205,7 +213,9 @@ def test_delete_default_provider_clears_settings(api_client: TestClient, unique_
     )
 
     # Delete the provider
-    response = api_client.delete(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+    response = api_client.delete(
+        api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token
+    )
     assert response.status_code == 200
 
     # Settings should now have nulled-out default
@@ -232,7 +242,9 @@ def test_delete_audio_provider_clears_settings(api_client: TestClient, unique_us
 
     try:
         # Delete only the audio provider
-        api_client.delete(api_routes.ai_providers_providers_provider_id(audio_provider.id), headers=unique_user.token)
+        api_client.delete(
+            api_routes.groups_ai_providers_providers_provider_id(audio_provider.id), headers=unique_user.token
+        )
 
         settings = unique_user.repos.group_ai_provider_settings.get_one(unique_user.repos.group_id)
         assert settings is not None
@@ -243,7 +255,9 @@ def test_delete_audio_provider_clears_settings(api_client: TestClient, unique_us
             unique_user.repos.group_id,
             AIProviderSettingsUpdate(default_provider_id=None, audio_provider_id=None, image_provider_id=None),
         )
-        api_client.delete(api_routes.ai_providers_providers_provider_id(default_provider.id), headers=unique_user.token)
+        api_client.delete(
+            api_routes.groups_ai_providers_providers_provider_id(default_provider.id), headers=unique_user.token
+        )
 
 
 def test_delete_image_provider_clears_settings(api_client: TestClient, unique_user: TestUser):
@@ -264,7 +278,9 @@ def test_delete_image_provider_clears_settings(api_client: TestClient, unique_us
 
     try:
         # Delete only the image provider
-        api_client.delete(api_routes.ai_providers_providers_provider_id(image_provider.id), headers=unique_user.token)
+        api_client.delete(
+            api_routes.groups_ai_providers_providers_provider_id(image_provider.id), headers=unique_user.token
+        )
 
         settings = unique_user.repos.group_ai_provider_settings.get_one(unique_user.repos.group_id)
         assert settings is not None
@@ -275,7 +291,9 @@ def test_delete_image_provider_clears_settings(api_client: TestClient, unique_us
             unique_user.repos.group_id,
             AIProviderSettingsUpdate(default_provider_id=None, audio_provider_id=None, image_provider_id=None),
         )
-        api_client.delete(api_routes.ai_providers_providers_provider_id(default_provider.id), headers=unique_user.token)
+        api_client.delete(
+            api_routes.groups_ai_providers_providers_provider_id(default_provider.id), headers=unique_user.token
+        )
 
 
 # ==========================================
@@ -298,7 +316,7 @@ def test_providers_require_can_manage_get(api_client: TestClient, user_tuple: li
     )
 
     try:
-        response = api_client.get(api_routes.ai_providers_providers_provider_id(provider.id), headers=usr.token)
+        response = api_client.get(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=usr.token)
         assert response.status_code == 403
     finally:
         usr.repos.group_ai_providers.delete(provider.id)
@@ -313,7 +331,7 @@ def test_providers_require_can_manage_create(api_client: TestClient, user_tuple:
     usr.repos.users.update(user.id, user)
 
     data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
-    response = api_client.post(api_routes.ai_providers_providers, json=data, headers=usr.token)
+    response = api_client.post(api_routes.groups_ai_providers_providers, json=data, headers=usr.token)
     assert response.status_code == 403
 
 
@@ -332,7 +350,7 @@ def test_providers_require_can_manage_update(api_client: TestClient, user_tuple:
     try:
         update_data = {"name": provider.name, "model": "gpt-4-turbo", "apiKey": "key"}
         response = api_client.put(
-            api_routes.ai_providers_providers_provider_id(provider.id), json=update_data, headers=usr.token
+            api_routes.groups_ai_providers_providers_provider_id(provider.id), json=update_data, headers=usr.token
         )
         assert response.status_code == 403
     finally:
@@ -352,7 +370,9 @@ def test_providers_require_can_manage_delete(api_client: TestClient, user_tuple:
     )
 
     try:
-        response = api_client.delete(api_routes.ai_providers_providers_provider_id(provider.id), headers=usr.token)
+        response = api_client.delete(
+            api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=usr.token
+        )
         assert response.status_code == 403
     finally:
         usr.repos.group_ai_providers.delete(provider.id)
@@ -366,7 +386,7 @@ def test_settings_require_can_manage_get(api_client: TestClient, user_tuple: lis
     user.can_manage = False
     usr.repos.users.update(user.id, user)
 
-    response = api_client.get(api_routes.ai_providers_settings, headers=usr.token)
+    response = api_client.get(api_routes.groups_ai_providers_settings, headers=usr.token)
     assert response.status_code == 403
 
 
@@ -379,7 +399,7 @@ def test_settings_require_can_manage_update(api_client: TestClient, user_tuple: 
     usr.repos.users.update(user.id, user)
 
     update = {"defaultProviderId": None, "audioProviderId": None, "imageProviderId": None}
-    response = api_client.put(api_routes.ai_providers_settings, json=update, headers=usr.token)
+    response = api_client.put(api_routes.groups_ai_providers_settings, json=update, headers=usr.token)
     assert response.status_code == 403
 
 
@@ -390,7 +410,7 @@ def test_settings_require_can_manage_update(api_client: TestClient, user_tuple: 
 
 def test_api_key_not_in_create_response(api_client: TestClient, unique_user: TestUser):
     data = {"name": random_string(), "model": "gpt-4o", "apiKey": "super-secret-key"}
-    response = api_client.post(api_routes.ai_providers_providers, json=data, headers=unique_user.token)
+    response = api_client.post(api_routes.groups_ai_providers_providers, json=data, headers=unique_user.token)
     assert response.status_code == 200
 
     provider = response.json()
@@ -399,7 +419,9 @@ def test_api_key_not_in_create_response(api_client: TestClient, unique_user: Tes
         assert "api_key" not in provider
         assert "super-secret-key" not in str(provider)
     finally:
-        api_client.delete(api_routes.ai_providers_providers_provider_id(provider["id"]), headers=unique_user.token)
+        api_client.delete(
+            api_routes.groups_ai_providers_providers_provider_id(provider["id"]), headers=unique_user.token
+        )
 
 
 def test_api_key_not_in_get_response(api_client: TestClient, unique_user: TestUser):
@@ -408,7 +430,9 @@ def test_api_key_not_in_get_response(api_client: TestClient, unique_user: TestUs
     )
 
     try:
-        response = api_client.get(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+        response = api_client.get(
+            api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token
+        )
         assert response.status_code == 200
 
         data = response.json()
@@ -416,7 +440,7 @@ def test_api_key_not_in_get_response(api_client: TestClient, unique_user: TestUs
         assert "api_key" not in data
         assert "super-secret-key" not in str(data)
     finally:
-        api_client.delete(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 
 
 def test_api_key_not_in_update_response(api_client: TestClient, unique_user: TestUser):
@@ -427,7 +451,9 @@ def test_api_key_not_in_update_response(api_client: TestClient, unique_user: Tes
     try:
         update_data = {"name": provider.name, "model": "gpt-4-turbo", "apiKey": "updated-secret-key"}
         response = api_client.put(
-            api_routes.ai_providers_providers_provider_id(provider.id), json=update_data, headers=unique_user.token
+            api_routes.groups_ai_providers_providers_provider_id(provider.id),
+            json=update_data,
+            headers=unique_user.token,
         )
         assert response.status_code == 200
 
@@ -437,7 +463,7 @@ def test_api_key_not_in_update_response(api_client: TestClient, unique_user: Tes
         assert "updated-secret-key" not in str(data)
         assert "original-key" not in str(data)
     finally:
-        api_client.delete(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 
 
 def test_api_key_not_in_settings_response(api_client: TestClient, unique_user: TestUser):
@@ -450,7 +476,7 @@ def test_api_key_not_in_settings_response(api_client: TestClient, unique_user: T
     )
 
     try:
-        response = api_client.get(api_routes.ai_providers_settings, headers=unique_user.token)
+        response = api_client.get(api_routes.groups_ai_providers_settings, headers=unique_user.token)
         assert response.status_code == 200
 
         data = response.json()
@@ -462,7 +488,7 @@ def test_api_key_not_in_settings_response(api_client: TestClient, unique_user: T
             unique_user.repos.group_id,
             AIProviderSettingsUpdate(default_provider_id=None, audio_provider_id=None, image_provider_id=None),
         )
-        api_client.delete(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 
 
 def test_api_key_not_in_groups_self_response(api_client: TestClient, unique_user: TestUser):
@@ -480,7 +506,7 @@ def test_api_key_not_in_groups_self_response(api_client: TestClient, unique_user
         assert "apiKey" not in str(data)
         assert "groups-self-secret" not in str(data)
     finally:
-        api_client.delete(api_routes.ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 
 
 # ==========================================
@@ -503,7 +529,7 @@ def test_new_group_has_empty_ai_provider_settings(api_client: TestClient):
     headers = {"Authorization": f"Bearer {token}"}
 
     # Fetch AI provider settings for the newly created group
-    response = api_client.get(api_routes.ai_providers_settings, headers=headers)
+    response = api_client.get(api_routes.groups_ai_providers_settings, headers=headers)
     assert response.status_code == 200
 
     settings = response.json()
@@ -546,7 +572,7 @@ def test_new_group_created_via_admin_has_empty_ai_provider_settings(
         token = response.json()["access_token"]
         headers = {"Authorization": f"Bearer {token}"}
 
-        response = api_client.get(api_routes.ai_providers_settings, headers=headers)
+        response = api_client.get(api_routes.groups_ai_providers_settings, headers=headers)
         assert response.status_code == 200
 
         settings = response.json()
