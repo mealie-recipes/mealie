@@ -223,7 +223,9 @@
     "show-advanced": "Arată avansate",
     "add-field": "Adaugă câmp",
     "date-created": "Data creării",
-    "date-updated": "Data actualizată"
+    "date-updated": "Data actualizată",
+    "key": "Key",
+    "value": "Value"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sunteți sigur că doriți să ștergeți <b>{groupName}<b/>?",
@@ -283,7 +285,40 @@
     "admin-group-management-text": "Modificările la acest grup se vor reflecta imediat.",
     "group-id-value": "ID grup: {0}",
     "total-households": "Total locuințe",
-    "you-must-select-a-group-before-selecting-a-household": "Trebuie să selectaţi un grup înainte de a selecta o gospodărie"
+    "you-must-select-a-group-before-selecting-a-household": "Trebuie să selectaţi un grup înainte de a selecta o gospodărie",
+    "ai-provider-settings": {
+      "ai-provider-settings": "AI Provider Settings",
+      "ai-provider": "AI Provider",
+      "ai-providers": "AI Providers",
+      "ai-provider-settings-description": "Configure AI providers to enable AI-powered features, such as enhanced ingredient parsing, creating recipes from videos, and more!",
+      "providers": "Providers",
+      "create-provider": "Create Provider",
+      "edit-provider": "Edit Provider",
+      "default-provider": "Default Provider",
+      "default-provider-description": "Required to enable AI features",
+      "audio-provider": "Audio Provider",
+      "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
+      "image-provider": "Image Provider",
+      "image-provider-description": "Enables image recognition features, such as creating recipes from images",
+      "provider-name": "Provider Name",
+      "api-key": "API Key",
+      "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
+      "api-key-description-edit": "Leave this blank unless you want to change it.",
+      "base-url": "Base URL",
+      "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
+      "model": "Model",
+      "model-description": "Which model your AI provider should use (e.g. \"gpt-5\").",
+      "request-timeout-seconds": "Request Timeout (seconds)",
+      "provider-created": "Provider created",
+      "provider-updated": "Provider updated",
+      "provider-deleted": "Provider deleted",
+      "provider-create-failed": "Failed to create provider",
+      "provider-update-failed": "Failed to update provider",
+      "provider-delete-failed": "Failed to delete provider",
+      "request-headers": "Request Headers",
+      "request-params": "Request Parameters",
+      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+    }
   },
   "household": {
     "household": "Locuință",
@@ -1362,6 +1397,7 @@
       "already-set-up-bring-to-homepage": "Sunt deja configurat, du-mă direct la pagina principală",
       "common-settings-for-new-sites": "Aici sunt câteva setări comune pentru noile site-uri",
       "setup-complete": "Configurare finalizată!",
+      "ai-providers-description": "Optionally configure AI providers for your group. AI providers enable features like creating recipes from images, importing recipes from videos, and enhanced ingredient parsing. You can always configure this later from your group settings.",
       "here-are-a-few-things-to-help-you-get-started": "Aici sunt câteva lucruri care te ajută să începi cu Mealie",
       "restore-from-v1-backup": "Aveţi o copie de rezervă dintr-o instanţă anterioară a lui Mealie v1? O puteţi restaura aici.",
       "manage-profile-or-get-invite-link": "Gestionează-ți propriul profil, sau apasă un link de invitație pentru a distribui cu alții."
