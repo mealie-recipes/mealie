@@ -438,7 +438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brócoli tierno",
-                "plural_name": "tenderstem broccoli"
+                "plural_name": "brócoli tierno"
             },
             "plantain": {
                 "aliases": [],
@@ -484,7 +484,7 @@
             },
             "maize": {
                 "aliases": [
-                    "corn husk"
+                    "hoja de maíz"
                 ],
                 "description": "",
                 "name": "maíz",
@@ -547,8 +547,8 @@
             "microgreens": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreens",
-                "plural_name": "microgreens"
+                "name": "microbrotes",
+                "plural_name": "microbrotes"
             },
             "boston lettuce": {
                 "aliases": [],
@@ -591,8 +591,8 @@
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "brotes",
+                "plural_name": "brotes"
             },
             "broccoli slaw": {
                 "aliases": [],
@@ -1582,7 +1582,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "amla",
-                "plural_name": "amlas"
+                "plural_name": "amla"
             },
             "elderberry": {
                 "aliases": [],
