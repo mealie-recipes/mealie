@@ -571,8 +571,8 @@
             "delicata squash": {
                 "aliases": [],
                 "description": "",
-                "name": "delicata squash",
-                "plural_name": "delicata squashes"
+                "name": "delikat squash",
+                "plural_name": "delikate squasher"
             },
             "Frisée": {
                 "aliases": [
@@ -980,7 +980,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kastanjepuré",
-                "plural_name": "chestnut purée"
+                "plural_name": "kastanjepuré"
             },
             "prickly pear": {
                 "aliases": [],
@@ -1045,7 +1045,7 @@
             "sweet lime": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet lime",
+                "name": "søt lime",
                 "plural_name": "sweet limes"
             },
             "custard-apple": {
@@ -1873,8 +1873,8 @@
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
-                "plural_name": "melon seeds"
+                "name": "melonfrø",
+                "plural_name": "melonfrø"
             },
             "lotus seed": {
                 "aliases": [],
@@ -2003,48 +2003,48 @@
             "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan cheese",
-                "plural_name": "parmesan cheese"
+                "name": "parmesanost",
+                "plural_name": "parmesanost"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddar cheese"
+                    "cheddarost"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheese"
+                "name": "cheddarost",
+                "plural_name": "cheddarost"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheese"
+                "name": "kremost",
+                "plural_name": "kremost"
             },
             "sharp cheddar cheese": {
                 "aliases": [
-                    "sharp cheddar"
+                    "skarp cheddarost"
                 ],
                 "description": "",
-                "name": "sharp cheddar cheese",
-                "plural_name": "sharp cheddar cheese"
+                "name": "skarp cheddarost",
+                "plural_name": "skarp cheddarost"
             },
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "ost",
+                "plural_name": "ost"
             },
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
-                "plural_name": "mozzarella cheese"
+                "name": "mozzarellaost",
+                "plural_name": "mozzarellaost"
             },
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "fetaost",
+                "plural_name": "fetaost"
             },
             "ricotta cheese": {
                 "aliases": [],
@@ -2073,14 +2073,14 @@
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheese"
+                "name": "geitost",
+                "plural_name": "geitost"
             },
             "fresh mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella cheese",
-                "plural_name": "fresh mozzarella cheese"
+                "name": "fersk mozzarellaost",
+                "plural_name": "fersk mozzarellaost"
             },
             "swis cheese": {
                 "aliases": [],

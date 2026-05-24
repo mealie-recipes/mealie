@@ -3,7 +3,7 @@ import os
 import secrets
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Annotated, Any, Literal, NamedTuple
+from typing import Annotated, Literal, NamedTuple
 
 from dateutil.tz import tzlocal
 from pydantic import PlainSerializer, field_validator
@@ -388,59 +388,11 @@ class AppSettings(AppLoggingSettings):
     # ===============================================
     # OpenAI Configuration
 
-    OPENAI_BASE_URL: str | None = None
-    """The base URL for the OpenAI API. Leave this unset for most usecases"""
-    OPENAI_API_KEY: MaskedNoneString = None
-    """Your OpenAI API key. Required to enable OpenAI features"""
-    OPENAI_MODEL: str = "gpt-4o"
-    """Which OpenAI model to send requests to. Leave this unset for most usecases"""
-    OPENAI_AUDIO_MODEL: str = "whisper-1"
-    """Which OpenAI model to use for audio transcription. Leave this unset for most usecases"""
-    OPENAI_CUSTOM_HEADERS: dict[str, str] = {}
-    """Custom HTTP headers to send with each OpenAI request"""
-    OPENAI_CUSTOM_PARAMS: dict[str, Any] = {}
-    """Custom HTTP parameters to send with each OpenAI request"""
-    OPENAI_ENABLE_IMAGE_SERVICES: bool = True
-    """Whether to enable image-related features in OpenAI"""
-    OPENAI_ENABLE_TRANSCRIPTION_SERVICES: bool = True
-    """Whether to enable audio transcription features in OpenAI"""
-    OPENAI_WORKERS: int = 2
-    """
-    Number of OpenAI workers per request. Higher values may increase
-    processing speed, but will incur additional API costs
-    """
-    OPENAI_SEND_DATABASE_DATA: bool = True
-    """
-    Sending database data may increase accuracy in certain requests,
-    but will incur additional API costs
-    """
-    OPENAI_REQUEST_TIMEOUT: int = 300
-    """
-    The number of seconds to wait for an OpenAI request to complete before cancelling the request
-    """
     OPENAI_CUSTOM_PROMPT_DIR: str | None = None
     """
     Path to a folder containing custom prompt files;
     files are individually optional, each prompt name will fall back to the default if no custom file exists
     """
-
-    @property
-    def OPENAI_FEATURE(self) -> FeatureDetails:
-        description = None
-        if not self.OPENAI_API_KEY:
-            description = "OPENAI_API_KEY is not set"
-        elif not self.OPENAI_MODEL:
-            description = "OPENAI_MODEL is not set"
-
-        return FeatureDetails(
-            enabled=bool(self.OPENAI_API_KEY and self.OPENAI_MODEL),
-            description=description,
-        )
-
-    @property
-    def OPENAI_ENABLED(self) -> bool:
-        """Validates OpenAI settings are all set"""
-        return self.OPENAI_FEATURE.enabled
 
     # ===============================================
     # Web Concurrency

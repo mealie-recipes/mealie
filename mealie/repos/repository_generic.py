@@ -25,7 +25,7 @@ from mealie.schema.response.pagination import (
     RequestQuery,
 )
 from mealie.schema.response.query_search import SearchFilter
-from mealie.services.query_filter.builder import QueryFilterBuilder
+from mealie.services.query_filter.builder import NonFilterableValueError, QueryFilterBuilder
 
 from ._utils import NOT_SET, NotSet
 
@@ -466,6 +466,12 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                     query = self.add_order_attr_to_query(
                         query, order_attr, order_dir, request_query.order_by_null_position
                     )
+
+                except NonFilterableValueError as e:
+                    raise HTTPException(
+                        status_code=400,
+                        detail=f'Invalid order_by statement "{request_query.order_by}": {e.message}',
+                    ) from e
 
                 except ValueError as e:
                     raise HTTPException(

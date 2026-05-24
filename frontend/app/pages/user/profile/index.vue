@@ -45,7 +45,7 @@
           sm="12"
           md="12"
         >
-          <v-card variant="outlined" style="border-color: lightgray;" class="mt-4">
+          <v-card variant="outlined" style="border-color: lightgray;" class="mt-4 pa-2">
             <v-card-title class="text-h6 pb-0">
               {{ $t('profile.household-statistics') }}
             </v-card-title>

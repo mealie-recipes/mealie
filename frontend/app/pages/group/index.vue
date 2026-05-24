@@ -17,25 +17,52 @@
       </template>
       {{ $t("profile.group-description") }}
     </BasePageTitle>
-    <v-form ref="refGroupEditForm" @submit.prevent="handleSubmit">
-      <v-card variant="outlined" style="border-color: lightgray;">
-        <v-card-text>
-          <GroupPreferencesEditor v-if="group.preferences" v-model="group.preferences" />
-        </v-card-text>
-      </v-card>
-      <div class="d-flex pa-2">
-        <BaseButton type="submit" edit class="ml-auto">
-          {{ $t("general.update") }}
-        </BaseButton>
-      </div>
-    </v-form>
+
+    <div class="mb-10">
+      <v-form ref="refGroupPrefsEditForm" @submit.prevent="handlePrefsSubmit">
+        <v-card variant="outlined" style="border-color: lightgray;">
+          <v-card-text>
+            <GroupPreferencesEditor v-if="group.preferences" v-model="group.preferences" />
+          </v-card-text>
+        </v-card>
+        <div class="d-flex pa-2">
+          <BaseButton type="submit" edit class="ml-auto">
+            {{ $t("general.update") }}
+          </BaseButton>
+        </div>
+      </v-form>
+    </div>
+
+    <div>
+      <v-form ref="refGroupAISettingsForm" @submit.prevent="handleAISettingsSubmit">
+        <v-card variant="outlined" style="border-color: lightgray;">
+          <v-card-text>
+            <GroupAIProviderSettingsEditor
+              v-if="group.aiProviderSettings"
+              v-model="group.aiProviderSettings"
+              @create="handleCreateProvider"
+              @update="handleUpdateProvider"
+              @delete="handleDeleteProvider"
+            />
+          </v-card-text>
+        </v-card>
+        <div class="d-flex pa-2">
+          <BaseButton type="submit" edit class="ml-auto">
+            {{ $t("general.update") }}
+          </BaseButton>
+        </div>
+      </v-form>
+    </div>
   </v-container>
 </template>
 
 <script setup lang="ts">
 import GroupPreferencesEditor from "~/components/Domain/Group/GroupPreferencesEditor.vue";
+import GroupAIProviderSettingsEditor from "~/components/Domain/Group/GroupAIProviderSettingsEditor.vue";
 import { useGroupSelf } from "~/composables/use-groups";
+import { useAIProviders } from "~/composables/use-ai-providers";
 import { alert } from "~/composables/use-toast";
+import type { AIProviderCreate, AIProviderUpdate } from "~/lib/api/types/group";
 import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
@@ -49,10 +76,11 @@ useSeoMeta({
   title: i18n.t("group.group"),
 });
 
-const refGroupEditForm = ref<VForm | null>(null);
+const refGroupPrefsEditForm = ref<VForm | null>(null);
+const refGroupAISettingsForm = ref<VForm | null>(null);
 
-async function handleSubmit() {
-  if (!refGroupEditForm.value?.validate() || !group.value?.preferences) {
+async function handlePrefsSubmit() {
+  if (!refGroupPrefsEditForm.value?.validate() || !group.value?.preferences) {
     return;
   }
 
@@ -62,6 +90,55 @@ async function handleSubmit() {
   }
   else {
     alert.error(i18n.t("settings.settings-update-failed"));
+  }
+}
+
+async function handleAISettingsSubmit() {
+  if (!refGroupAISettingsForm.value?.validate() || !group.value?.aiProviderSettings) {
+    return;
+  }
+
+  const data = await groupActions.updateAIProviderSettings();
+  if (data) {
+    alert.success(i18n.t("settings.settings-updated"));
+  }
+  else {
+    alert.error(i18n.t("settings.settings-update-failed"));
+  }
+}
+
+const { createOne, updateOne, deleteOne } = useAIProviders();
+
+async function handleCreateProvider(data: AIProviderCreate) {
+  const result = await createOne(data);
+  if (result.data) {
+    await groupActions.refresh();
+    alert.success(i18n.t("group.ai-provider-settings.provider-created"));
+  }
+  else {
+    alert.error(i18n.t("group.ai-provider-settings.provider-create-failed"));
+  }
+}
+
+async function handleUpdateProvider(id: string, data: AIProviderUpdate) {
+  const result = await updateOne(id, data);
+  if (result.data) {
+    await groupActions.refresh();
+    alert.success(i18n.t("group.ai-provider-settings.provider-updated"));
+  }
+  else {
+    alert.error(i18n.t("group.ai-provider-settings.provider-update-failed"));
+  }
+}
+
+async function handleDeleteProvider(id: string) {
+  const result = await deleteOne(id);
+  if (result.data) {
+    await groupActions.refresh();
+    alert.success(i18n.t("group.ai-provider-settings.provider-deleted"));
+  }
+  else {
+    alert.error(i18n.t("group.ai-provider-settings.provider-delete-failed"));
   }
 }
 </script>

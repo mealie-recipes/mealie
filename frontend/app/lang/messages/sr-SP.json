@@ -628,7 +628,7 @@
     "create-recipe-description": "Креирајте нови рецепт од нуле.",
     "create-recipes": "Направите рецепте",
     "import-with-zip": "Увези помоћу .zip архиве",
-    "create-recipe-from-an-image": "Направи рецепт на основи слике",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Креирајте рецепт отпремањем његове слике. Mealie ће покушати да издвоји текст из слике користећи АИ и од њега направи рецепт.",
     "crop-and-rotate-the-image": "Исеците и ротирајте слику тако да је видљив само текст и да је у исправној оријентацији.",
     "create-from-images": "Креирај из слика",

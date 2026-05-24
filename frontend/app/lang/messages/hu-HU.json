@@ -628,7 +628,7 @@
     "create-recipe-description": "Adj hozzá egy új receptet a nulláról kezdve.",
     "create-recipes": "Receptek létrehozása",
     "import-with-zip": "Importálás .zip formátummal",
-    "create-recipe-from-an-image": "Recept készítése képről",
+    "create-recipe-from-images": "Recept létrehozása képek alapján",
     "create-recipe-from-an-image-description": "Hozzon létre egy receptet egy kép feltöltésével. A Mealie megpróbálja a kép szövegét mesterséges intelligencia segítségével kinyerni, és létrehozni belőle a receptet.",
     "crop-and-rotate-the-image": "Vágja ki és forgassa el a képet úgy, hogy csak a szöveg legyen látható, és megfelelő tájolásban legyen.",
     "create-from-images": "Létrehozás képekről",
@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Biztos, hogy minden elem kijelölését visszavonja?",
     "are-you-sure-you-want-to-delete-checked-items": "Biztosan törölni akarja az összes bejelölt elemet?",
     "no-shopping-lists-found": "Nem találhatók bevásárlólisták",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "{item} leellenőrzve"
   },
   "sidebar": {
     "all-recipes": "Minden recept",

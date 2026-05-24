@@ -98,7 +98,7 @@
     "dashboard": "Kontrollpanel",
     "delete": "Slett",
     "disabled": "Deaktivert",
-    "done": "Done",
+    "done": "Ferdig",
     "download": "Last ned",
     "duplicate": "Dupliser",
     "edit": "Rediger",
@@ -169,7 +169,7 @@
     "token": "Token",
     "tuesday": "Tirsdag",
     "type": "Type",
-    "undo": "Undo",
+    "undo": "Angre",
     "update": "Oppdater",
     "updated": "Oppdatert",
     "upload": "Last opp",
@@ -334,7 +334,7 @@
     "no-meal-plan-defined-yet": "Ingen måltidsplan er definert ennå",
     "no-meal-planned-for-today": "Ingen måltid planlagt i dag",
     "numberOfDaysPast-hint": "Number of days in the past on page load",
-    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDaysPast-label": "Standard antall dager tilbake",
     "numberOfDays-hint": "Antall dager på sideinnlasting",
     "numberOfDays-label": "Standard antall dager",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Kun oppskrifter med disse kategoriene vil bli brukt i måltidsplaner",
@@ -392,7 +392,7 @@
     "nextcloud": {
       "description": "Overfør data fra en Nextcloud Cookbook-instans",
       "description-long": "Oppskrifter fra Nextcloud kan importeres fra en zip-fil som inneholder dataene lagret i Nextcloud. Se eksempelet på mappestrukture nedenfor for å sikre at oppskriftene kan importeres.",
-      "title": "Nextcloud Cookbook"
+      "title": "Nextcloud kokebok"
     },
     "copymethat": {
       "description-long": "Mealie kan importere oppskrifter fra Copy Me That. Eksporter oppskrifter i HTML-format, last deretter opp .zip-filen under.",
@@ -628,7 +628,7 @@
     "create-recipe-description": "Opprett en ny oppskrift fra bunnen av.",
     "create-recipes": "Opprett oppskrifter",
     "import-with-zip": "Importer fra .zip-fil",
-    "create-recipe-from-an-image": "Opprett oppskrift fra et bilde",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Opprett en oppskrift ved å laste opp et bilde av den. Mealie vil forsøke å hente ut teksten fra bildet ved bruk av AI, og lage en ny oppskrift.",
     "crop-and-rotate-the-image": "Beskjær og roter bildet slik at bare teksten er synlig, og at det er i riktig retning.",
     "create-from-images": "Opprett fra bilde",
@@ -917,7 +917,7 @@
     "quantity": "Antall: {0}",
     "shopping-list": "Handleliste",
     "shopping-lists": "Handlelister",
-    "add-item": "Add item",
+    "add-item": "Legg til produkt",
     "food": "Matvare",
     "note": "Notat",
     "label": "Etikett",
@@ -943,7 +943,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Er du sikker på at du vil fjerne valg av alle elementer?",
     "are-you-sure-you-want-to-delete-checked-items": "Er du sikker på at du vil slette alle valgte elementer?",
     "no-shopping-lists-found": "Ingen handlelister funnet",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "Avkrysset av {item}"
   },
   "sidebar": {
     "all-recipes": "Alle oppskrifter",
@@ -1478,10 +1478,10 @@
     "max-length": "Må være minst minst {max} tegn må bestå av maks {max} tegn"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "announcements": "Kunngjøringer",
+    "all-announcements": "Alle kunngjøringer",
+    "mark-all-as-read": "Marker alle som lest",
+    "show-announcements-from-mealie": "Vis kunngjøringer fra Mealie",
     "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }
