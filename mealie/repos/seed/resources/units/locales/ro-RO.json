@@ -9,13 +9,13 @@
         "name": "lingură",
         "plural_name": "linguri",
         "description": "",
-        "abbreviation": "tbsp"
+        "abbreviation": "lg"
     },
     "cup": {
         "name": "cană",
         "plural_name": "căni",
         "description": "",
-        "abbreviation": "c"
+        "abbreviation": "cană"
     },
     "fluid-ounce": {
         "name": "uncie fluidă",
@@ -30,7 +30,7 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "sfert de galon",
         "plural_name": "sferturi de galon",
         "description": "",
         "abbreviation": "qt"
@@ -139,8 +139,8 @@
         "abbreviation": ""
     },
     "sprig": {
-        "name": "sprig",
-        "plural_name": "sprigs",
+        "name": "crenguță",
+        "plural_name": "crenguțe",
         "description": "",
         "abbreviation": ""
     }
