@@ -33,7 +33,7 @@
     "isomorphic-dompurify": "^3.4.0",
     "json-editor-vue": "^0.18.1",
     "marked": "^15.0.12",
-    "nuxt": "^4.4.2",
+    "nuxt": "^4.4.6",
     "sse.js": "^2.8.0",
     "ufo": "^1.6.4",
     "vue": "^3.5.35",
