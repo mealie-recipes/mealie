@@ -25,6 +25,11 @@ jobs:
           cache: "pnpm"
           cache-dependency-path: "frontend/pnpm-lock.yaml"
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+        with:
+          package_json_file: "frontend/package.json"
+
       - name: Install dependencies 👨🏻‍💻
         run: pnpm install --prefer-offline
         working-directory: "frontend"
