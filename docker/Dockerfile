@@ -8,15 +8,9 @@ WORKDIR /frontend
 
 COPY frontend .
 
-RUN yarn install \
-    --prefer-offline \
-    --frozen-lockfile \
-    --non-interactive \
-    --production=false \
-    # https://github.com/docker/build-push-action/issues/471
-    --network-timeout 1000000
+RUN pnpm clean-install
 
-RUN yarn generate
+RUN pnpm generate
 
 ###############################################
 # Base Image - Python
