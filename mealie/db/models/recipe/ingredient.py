@@ -6,9 +6,9 @@ from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.orm.session import Session
 
-from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
-from mealie.db.models.labels import MultiPurposeLabel
+from mealie.db.models._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
 from mealie.db.models.recipe.api_extras import IngredientFoodExtras, api_extras
+from mealie.db.models.recipe.labels import MultiPurposeLabel
 
 from .._model_utils.auto_init import auto_init
 from .._model_utils.guid import GUID
@@ -29,19 +29,19 @@ households_to_ingredient_foods = sa.Table(
 
 class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_units"
-    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     # ID Relationships
-    group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
+    group_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="ingredient_units", foreign_keys=[group_id])
 
-    name: Mapped[str | None] = mapped_column(String)
-    plural_name: Mapped[str | None] = mapped_column(String)
-    description: Mapped[str | None] = mapped_column(String)
-    abbreviation: Mapped[str | None] = mapped_column(String)
-    plural_abbreviation: Mapped[str | None] = mapped_column(String)
-    use_abbreviation: Mapped[bool | None] = mapped_column(Boolean, default=False)
-    fraction: Mapped[bool | None] = mapped_column(Boolean, default=True)
+    name: FilterableColumn[str | None] = mapped_column(String)
+    plural_name: FilterableColumn[str | None] = mapped_column(String)
+    description: FilterableColumn[str | None] = mapped_column(String)
+    abbreviation: FilterableColumn[str | None] = mapped_column(String)
+    plural_abbreviation: FilterableColumn[str | None] = mapped_column(String)
+    use_abbreviation: FilterableColumn[bool | None] = mapped_column(Boolean, default=False)
+    fraction: FilterableColumn[bool | None] = mapped_column(Boolean, default=True)
 
     ingredients: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
         "RecipeIngredientModel", back_populates="unit"
@@ -53,14 +53,14 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
     )
 
     # Standardization
-    standard_quantity: Mapped[float | None] = mapped_column(Float)
-    standard_unit: Mapped[str | None] = mapped_column(String)
+    standard_quantity: FilterableColumn[float | None] = mapped_column(Float)
+    standard_unit: FilterableColumn[str | None] = mapped_column(String)
 
     # Automatically updated by sqlalchemy event, do not write to this manually
-    name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
-    plural_name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
-    abbreviation_normalized: Mapped[str | None] = mapped_column(String, index=True)
-    plural_abbreviation_normalized: Mapped[str | None] = mapped_column(String, index=True)
+    name_normalized: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
+    plural_name_normalized: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
+    abbreviation_normalized: FilterableColumn[str | None] = mapped_column(String, index=True)
+    plural_abbreviation_normalized: FilterableColumn[str | None] = mapped_column(String, index=True)
 
     @auto_init()
     def __init__(
@@ -152,18 +152,18 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
 
 class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_foods"
-    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     # ID Relationships
-    group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
+    group_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="ingredient_foods", foreign_keys=[group_id])
     households_with_ingredient_food: Mapped[list["Household"]] = orm.relationship(
         "Household", secondary=households_to_ingredient_foods, back_populates="ingredient_foods_on_hand"
     )
 
-    name: Mapped[str | None] = mapped_column(String)
-    plural_name: Mapped[str | None] = mapped_column(String)
-    description: Mapped[str | None] = mapped_column(String)
+    name: FilterableColumn[str | None] = mapped_column(String)
+    plural_name: FilterableColumn[str | None] = mapped_column(String)
+    description: FilterableColumn[str | None] = mapped_column(String)
 
     ingredients: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
         "RecipeIngredientModel", back_populates="food"
@@ -175,12 +175,12 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     )
     extras: Mapped[list[IngredientFoodExtras]] = orm.relationship("IngredientFoodExtras", cascade="all, delete-orphan")
 
-    label_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"), index=True)
+    label_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"), index=True)
     label: Mapped[MultiPurposeLabel | None] = orm.relationship(MultiPurposeLabel, uselist=False, back_populates="foods")
 
     # Automatically updated by sqlalchemy event, do not write to this manually
-    name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
-    plural_name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
+    name_normalized: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
+    plural_name_normalized: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
 
     model_config = ConfigDict(
         exclude={
@@ -261,15 +261,15 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
 
 class IngredientUnitAliasModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_units_aliases"
-    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    unit_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("ingredient_units.id"), primary_key=True)
+    unit_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("ingredient_units.id"), primary_key=True)
     unit: Mapped["IngredientUnitModel"] = orm.relationship("IngredientUnitModel", back_populates="aliases")
 
-    name: Mapped[str] = mapped_column(String)
+    name: FilterableColumn[str] = mapped_column(String)
 
     # Automatically updated by sqlalchemy event, do not write to this manually
-    name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
+    name_normalized: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
 
     @auto_init()
     def __init__(self, session: Session, name: str, **_) -> None:
@@ -302,15 +302,15 @@ class IngredientUnitAliasModel(SqlAlchemyBase, BaseMixins):
 
 class IngredientFoodAliasModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_foods_aliases"
-    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    food_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), primary_key=True)
+    food_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), primary_key=True)
     food: Mapped["IngredientFoodModel"] = orm.relationship("IngredientFoodModel", back_populates="aliases")
 
-    name: Mapped[str] = mapped_column(String)
+    name: FilterableColumn[str] = mapped_column(String)
 
     # Automatically updated by sqlalchemy event, do not write to this manually
-    name_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
+    name_normalized: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
 
     @auto_init()
     def __init__(self, session: Session, name: str, **_) -> None:
@@ -343,34 +343,34 @@ class IngredientFoodAliasModel(SqlAlchemyBase, BaseMixins):
 
 class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes_ingredients"
-    id: Mapped[int] = mapped_column(Integer, primary_key=True)
-    position: Mapped[int | None] = mapped_column(Integer, index=True)
-    recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
+    id: FilterableColumn[int] = mapped_column(Integer, primary_key=True)
+    position: FilterableColumn[int | None] = mapped_column(Integer, index=True)
+    recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
 
-    title: Mapped[str | None] = mapped_column(String)  # Section Header - Shows if Present
-    note: Mapped[str | None] = mapped_column(String)  # Force Show Text - Overrides Concat
+    title: FilterableColumn[str | None] = mapped_column(String)  # Section Header - Shows if Present
+    note: FilterableColumn[str | None] = mapped_column(String)  # Force Show Text - Overrides Concat
 
     # Scaling Items
-    unit_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_units.id"), index=True)
+    unit_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_units.id"), index=True)
     unit: Mapped[IngredientUnitModel | None] = orm.relationship(IngredientUnitModel, uselist=False)
 
-    food_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), index=True)
+    food_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), index=True)
     food: Mapped[IngredientFoodModel | None] = orm.relationship(IngredientFoodModel, uselist=False)
-    quantity: Mapped[float | None] = mapped_column(Float)
+    quantity: FilterableColumn[float | None] = mapped_column(Float)
 
-    original_text: Mapped[str | None] = mapped_column(String)
+    original_text: FilterableColumn[str | None] = mapped_column(String)
 
-    reference_id: Mapped[GUID | None] = mapped_column(GUID)  # Reference Links
+    reference_id: FilterableColumn[GUID | None] = mapped_column(GUID)  # Reference Links
 
     # Recipe Reference
-    referenced_recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
+    referenced_recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
     referenced_recipe: Mapped["RecipeModel"] = orm.relationship(
         "RecipeModel", back_populates="referenced_ingredients", foreign_keys=[referenced_recipe_id]
     )
 
     # Automatically updated by sqlalchemy event, do not write to this manually
-    note_normalized: Mapped[str | None] = mapped_column(String, index=True)
-    original_text_normalized: Mapped[str | None] = mapped_column(String, index=True)
+    note_normalized: FilterableColumn[str | None] = mapped_column(String, index=True)
+    original_text_normalized: FilterableColumn[str | None] = mapped_column(String, index=True)
 
     @auto_init()
     def __init__(

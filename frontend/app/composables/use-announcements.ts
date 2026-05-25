@@ -22,7 +22,10 @@ const allAnnouncements: Announcement[] = Object.entries(_announcementsUnsorted)
   .map(([path, mod]) => {
     const key = path.split("/").at(-1)!.replace(".vue", "");
 
-    const parsed = new Date(key.split("_", 1)[0]!);
+    const dateParts = key.split("_", 1)[0]!.split("-").map(Number);
+    const parsed = dateParts.length === 3
+      ? new Date(dateParts[0]!, dateParts[1]! - 1, dateParts[2]!)
+      : new Date(NaN);
     const date = isNaN(parsed.getTime()) ? undefined : parsed;
 
     return {

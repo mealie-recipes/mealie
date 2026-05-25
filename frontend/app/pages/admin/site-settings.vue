@@ -284,7 +284,6 @@ const appConfig = ref<CheckApp>({
   isUpToDate: false,
   ldapReady: false,
   oidcReady: false,
-  enableOpenai: false,
 });
 function isLocalHostOrHttps() {
   return window.location.hostname === "localhost" || window.location.protocol === "https:";
@@ -350,15 +349,6 @@ const simpleChecks = computed<SimpleCheck[]>(() => {
       successText: i18n.t("settings.oidc-ready-success-text"),
       color: appConfig.value.oidcReady ? goodColor : warningColor,
       icon: appConfig.value.oidcReady ? goodIcon : warningIcon,
-    },
-    {
-      id: "openai-ready",
-      text: appConfig.value.enableOpenai ? i18n.t("settings.openai-ready") : i18n.t("settings.openai-not-ready"),
-      status: appConfig.value.enableOpenai,
-      errorText: i18n.t("settings.openai-ready-error-text"),
-      successText: i18n.t("settings.openai-ready-success-text"),
-      color: appConfig.value.enableOpenai ? goodColor : warningColor,
-      icon: appConfig.value.enableOpenai ? goodIcon : warningIcon,
     },
   ];
   return data;

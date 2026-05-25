@@ -2,6 +2,7 @@ from collections.abc import Awaitable, Callable
 
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
+from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services.scraper import cleaner
 from mealie.services.scraper.scraped_extras import ScrapedExtras
@@ -31,11 +32,14 @@ class RecipeScraper:
     # List of recipe scrapers. Note that order matters
     scrapers: list[type[ABCScraperStrategy]]
 
-    def __init__(self, translator: Translator, scrapers: list[type[ABCScraperStrategy]] | None = None) -> None:
+    def __init__(
+        self, repos: AllRepositories, translator: Translator, scrapers: list[type[ABCScraperStrategy]] | None = None
+    ) -> None:
         if scrapers is None:
             scrapers = DEFAULT_SCRAPER_STRATEGIES
 
         self.scrapers = scrapers
+        self.repos = repos
         self.translator = translator
         self.logger = get_logger()
 
@@ -60,7 +64,7 @@ class RecipeScraper:
                 return None, None
 
         for ScraperClass in self.scrapers:
-            scraper = ScraperClass(url, self.translator, raw_html=html)
+            scraper = ScraperClass(url, self.translator, self.repos, raw_html=html)
             if not scraper.can_scrape():
                 self.logger.debug(f"Skipping {scraper.__class__.__name__}")
                 continue
