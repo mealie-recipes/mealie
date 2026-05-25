@@ -4,6 +4,10 @@
 FROM node:24@sha256:934240a162082fd8b8a2f90cd5114446443f1eba1c5378f6687167ca405e6584 \
     AS frontend-builder
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME/bin:$PATH"
+RUN corepack enable
+
 WORKDIR /frontend
 
 COPY frontend .
