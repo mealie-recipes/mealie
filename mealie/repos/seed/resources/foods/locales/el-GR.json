@@ -6427,8 +6427,8 @@
             "sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "sugar",
-                "plural_name": "sugar"
+                "name": "ζάχαρη",
+                "plural_name": "ζάχαρη"
             },
             "brown sugar": {
                 "aliases": [
@@ -6542,8 +6542,8 @@
             "raw sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "raw sugar",
-                "plural_name": "raw sugar"
+                "name": "ακατέργαστη ζάχαρη",
+                "plural_name": "ακατέργαστη ζάχαρη"
             },
             "golden syrup": {
                 "aliases": [],
@@ -6560,8 +6560,8 @@
             "liquid stevia": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid stevia",
-                "plural_name": "liquid stevia"
+                "name": "υγρή στέβια",
+                "plural_name": "υγρή στέβια"
             },
             "grenadine": {
                 "aliases": [],
