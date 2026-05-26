@@ -1,7 +1,3 @@
-packages:
-  - frontend
-  - tests/e2e
-
 allowBuilds:
   '@parcel/watcher': true
   esbuild: true
