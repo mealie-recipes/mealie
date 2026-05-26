@@ -12,8 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v6
       - uses: pnpm/action-setup@v6
-        with:
-          package_json_file: "/tests/e2e/package.json"
       - uses: actions/setup-node@v6
         with:
           node-version: 24
