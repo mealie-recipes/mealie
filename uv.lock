@@ -653,17 +653,16 @@ wheels = [
 
 [[package]]
 name = "ingredient-parser-nlp"
-version = "2.6.0"
+version = "2.7.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "nltk" },
     { name = "numpy" },
     { name = "pint" },
-    { name = "python-crfsuite" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/a9/3e/4b13bcd97b6ab8f8089f3dd1f8b992e1a5b22d13d3504ebca339087463f8/ingredient_parser_nlp-2.6.0.tar.gz", hash = "sha256:4159fa7b59e8fe29cc6c1af339209bc6608efa2e085dab6be9402417a1657881", size = 4310819, upload-time = "2026-03-20T15:30:28.293Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a4/4c/a1a7a8d724b2e12da6e32ca56f40142cc367b15bb9c9342743e9c701cfec/ingredient_parser_nlp-2.7.0.tar.gz", hash = "sha256:1ea3b8f95aae7e1b82542aa91c482fb2edff713e06bf4045dac78d3f7513e030", size = 3957689, upload-time = "2026-05-25T15:13:52.725Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ac/19/c727195de7d8fbcc83a1f8092cc4a0c1bdcd4813397c6146dacd6820f4ab/ingredient_parser_nlp-2.6.0-py3-none-any.whl", hash = "sha256:fdcf13534545a0df36f68fddd44cfd407f567504fde610bc6eaa8cd440bad70e", size = 4316441, upload-time = "2026-03-20T15:30:24.652Z" },
+    { url = "https://files.pythonhosted.org/packages/8c/3f/1f9bc3da4c266b43c7b50dff0ac1885700fd1556cb136d2cc972be02d0b6/ingredient_parser_nlp-2.7.0-py3-none-any.whl", hash = "sha256:cdb287a1e43ab7429ea96c98638c094fd99fcd8d124dd2d485debf2b328d7b5b", size = 3964058, upload-time = "2026-05-25T15:13:50.225Z" },
 ]
 
 [[package]]
@@ -990,7 +989,7 @@ requires-dist = [
     { name = "html2text", specifier = "==2025.4.15" },
     { name = "httpx", specifier = "==0.28.1" },
     { name = "httpx-curl-cffi", specifier = "==0.1.5" },
-    { name = "ingredient-parser-nlp", specifier = "==2.6.0" },
+    { name = "ingredient-parser-nlp", specifier = "==2.7.0" },
     { name = "isodate", specifier = "==0.7.2" },
     { name = "itsdangerous", specifier = "==2.2.0" },
     { name = "jinja2", specifier = "==3.1.6" },
@@ -1611,21 +1610,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/90/2c/8af215c0f776415f3590cac4f9086ccefd6fd463befeae41cd4d3f193e5a/pytest_asyncio-1.3.0.tar.gz", hash = "sha256:d7f52f36d231b80ee124cd216ffb19369aa168fc10095013c6b014a34d3ee9e5", size = 50087, upload-time = "2025-11-10T16:07:47.256Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/e5/35/f8b19922b6a25bc0880171a2f1a003eaeb93657475193ab516fd87cac9da/pytest_asyncio-1.3.0-py3-none-any.whl", hash = "sha256:611e26147c7f77640e6d0a92a38ed17c3e9848063698d5c93d5aa7aa11cebff5", size = 15075, upload-time = "2025-11-10T16:07:45.537Z" },
-]
-
-[[package]]
-name = "python-crfsuite"
-version = "0.9.12"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/b6/bb/946c0f96b4d3f7916f0558e19245d2248caebb3f470bcffae8fbf8d862e9/python_crfsuite-0.9.12.tar.gz", hash = "sha256:db37fccc3bd8f0c49c28a7697ca79c89d67b3fd5bf119122866169240ac4c480", size = 488298, upload-time = "2025-12-23T19:07:21.423Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/2a/be/c388376c4ca05b383dd17f0e1024b85c726a009543afd21e145a5fafff97/python_crfsuite-0.9.12-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:e68009911b28ff899da5a6be3ec1efc3c24886c92318d02d39ec29d329b08b90", size = 319352, upload-time = "2025-12-23T19:06:41.26Z" },
-    { url = "https://files.pythonhosted.org/packages/7a/0c/9725b097738f4a6aac9ac4e5a5fc6494eca69f17663d3d6ba8d0ea3858d2/python_crfsuite-0.9.12-cp312-cp312-manylinux_2_24_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:7118a3b267c437a9701362f5eacd6d1ff2360305a9c872cc20a716cd005c13eb", size = 1207132, upload-time = "2025-12-23T19:06:43.035Z" },
-    { url = "https://files.pythonhosted.org/packages/63/3f/da9732ccb24b71a7539470dcdfcd16c923692788f39553f37238f208ca55/python_crfsuite-0.9.12-cp312-cp312-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:891bf2a5f410f17c5f9d76ab7330178a10142d48ed12f5c15b84f4c23fee80c7", size = 1245808, upload-time = "2025-12-23T19:06:44.293Z" },
-    { url = "https://files.pythonhosted.org/packages/45/6f/a0186566f7480725ec4027ed63a11a38c9cbbad53f7cd6ece4e0ec4961f9/python_crfsuite-0.9.12-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:812f963fb61cfa5bfbc91b92e058cee41808a9ce813c84ecab6691848cc3b51c", size = 2164442, upload-time = "2025-12-23T19:06:45.57Z" },
-    { url = "https://files.pythonhosted.org/packages/57/81/4c82aad97851431ec70c1cf46fdd2a58d2f79f68fa36bf4b7b4b8ed7ea6e/python_crfsuite-0.9.12-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:a696ef90c77344ba88e5d241ace35fd21ad31e43f878fc734668741db18ed186", size = 2266336, upload-time = "2025-12-23T19:06:47.123Z" },
-    { url = "https://files.pythonhosted.org/packages/d6/0f/19a46db879e400b0b82e6760d5c19e106a74870b5c0ce744da2efc32b143/python_crfsuite-0.9.12-cp312-cp312-win32.whl", hash = "sha256:e32c826e43fe8ac5c3b436bbddd8483f735a5638ea5dc07778d505cde78dc875", size = 282261, upload-time = "2025-12-23T19:06:48.81Z" },
-    { url = "https://files.pythonhosted.org/packages/36/ae/9a7bceadbc962871819b1752f8aa53f60e657579fb94520bfa9b0495acf3/python_crfsuite-0.9.12-cp312-cp312-win_amd64.whl", hash = "sha256:fa6258bf10d8185262dee8fe2ca8d3de3c7aecb990846329043fc895344cc939", size = 303081, upload-time = "2025-12-23T19:06:49.933Z" },
 ]
 
 [[package]]
