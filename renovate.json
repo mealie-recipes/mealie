@@ -1,5 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "prCreation": "immediate",
   "lockFileMaintenance": {
     "enabled": true
   },
