@@ -1,0 +1,44 @@
+name: Upstream Sync
+
+on:
+  schedule:
+    - cron: "0 5 * * 1"
+  workflow_dispatch:
+    inputs:
+      sync_test_mode:
+        description: Run without pushing changes
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: upstream-sync-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    name: Sync mealie-next from upstream
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout fork
+        uses: actions/checkout@v6
+        with:
+          ref: mealie-next
+          persist-credentials: false
+
+      - name: Sync upstream changes
+        id: sync
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.3
+        with:
+          target_sync_branch: mealie-next
+          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+          upstream_sync_repo: mealie-recipes/mealie
+          upstream_sync_branch: mealie-next
+          test_mode: ${{ inputs.sync_test_mode || false }}
+
+      - name: Report sync result
+        run: |
+          echo "New commits synced: ${{ steps.sync.outputs.has_new_commits }}"

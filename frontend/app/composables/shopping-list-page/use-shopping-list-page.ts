@@ -139,6 +139,10 @@ export function useShoppingListPage(listId: string) {
     copyManager.copyListItems(itemsByLabel.value, copyType);
   }
 
+  function shareListItemsToNotes() {
+    copyManager.shareListItemsToNotes(itemsByLabel.value, shoppingList.value?.name || "");
+  }
+
   // Label reordering helpers
   function toggleReorderLabelsDialog() {
     crud.toggleReorderLabelsDialog(state.reorderLabelsDialog);
@@ -175,6 +179,7 @@ export function useShoppingListPage(listId: string) {
     // Specialized functions
     updateIndexUncheckedByLabel,
     copyListItems,
+    shareListItemsToNotes,
 
     // Dialog actions
     openCheckAll,

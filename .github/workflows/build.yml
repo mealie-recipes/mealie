@@ -17,9 +17,68 @@ env:
   IMAGE_NAME: ghcr.io/${{ github.repository }}
 
 jobs:
+  backend-unit-tests:
+    name: Backend unit tests
+    runs-on: ubuntu-24.04-arm
+
+    env:
+      PRODUCTION: false
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+
+      - name: Install uv
+        run: pip install uv
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libsasl2-dev libldap2-dev libssl-dev
+
+      - name: Install Python dependencies
+        run: uv sync --group dev --extra pgsql
+
+      - name: Run backend unit tests
+        run: uv run pytest tests/unit_tests
+
+  frontend-unit-tests:
+    name: Frontend unit tests
+    runs-on: ubuntu-24.04-arm
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          check-latest: true
+
+      - name: Install frontend dependencies
+        run: yarn
+        working-directory: frontend
+
+      - name: Prepare Nuxt
+        run: yarn nuxt prepare
+        working-directory: frontend
+
+      - name: Run frontend unit tests
+        run: yarn test:ci
+        working-directory: frontend
+
   docker:
     name: Build Docker image
     runs-on: ubuntu-24.04-arm
+    needs:
+      - backend-unit-tests
+      - frontend-unit-tests
 
     steps:
       - name: Checkout repository

@@ -118,6 +118,11 @@
                     event: 'check',
                   },
                   {
+                    icon: $globals.icons.shareVariant,
+                    text: $t('shopping-list.share-to-apple-notes'),
+                    event: 'share-notes',
+                  },
+                  {
                     icon: $globals.icons.dotsVertical,
                     text: '',
                     event: 'three-dot',
@@ -140,6 +145,7 @@
                 @check="openCheckAll"
                 @copy-plain="copyListItems('plain')"
                 @copy-markdown="copyListItems('markdown')"
+                @share-notes="shareListItemsToNotes"
                 @reorder-labels="toggleReorderLabelsDialog()"
                 @manage-labels="$router.push(`/group/data/labels`)"
               />
@@ -410,6 +416,7 @@ const {
   threeDot,
   openCheckAll,
   copyListItems,
+  shareListItemsToNotes,
   toggleReorderLabelsDialog,
   isOffline,
   createEditorOpen,
