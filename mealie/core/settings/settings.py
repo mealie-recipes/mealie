@@ -50,13 +50,19 @@ def determine_secrets(data_dir: Path, secret: str, production: bool) -> str:
     secrets_file = data_dir.joinpath(secret)
     if secrets_file.is_file():
         with open(secrets_file) as f:
-            return f.read()
-    else:
-        data_dir.mkdir(parents=True, exist_ok=True)
-        with open(secrets_file, "w") as f:
-            new_secret = secrets.token_hex(32)
-            f.write(new_secret)
-        return new_secret
+            existing_secret = f.read().strip()
+        if existing_secret:
+            return existing_secret
+
+    data_dir.mkdir(parents=True, exist_ok=True)
+    new_secret = secrets.token_hex(32)
+    tmp_file = secrets_file.with_suffix(".tmp")
+    with open(tmp_file, "w") as f:
+        f.write(new_secret)
+        f.flush()
+        os.fsync(f.fileno())
+    tmp_file.replace(secrets_file)
+    return new_secret
 
 
 def get_secrets_dir() -> str | None:
