@@ -1,12 +1,13 @@
 import json
 import re
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Any
 
 import pytest
 
 from mealie.core.config import get_app_settings
-from mealie.core.settings.settings import AppSettings
+from mealie.core.settings.settings import AppSettings, determine_secrets
 
 
 def test_non_default_settings(monkeypatch):
@@ -367,3 +368,42 @@ def test_sensitive_settings_mask(monkeypatch: pytest.MonkeyPatch):
     for setting in sensitive_settings:
         assert settings[setting] == "*****"
         assert settings_json[setting] == "*****"
+
+
+class DetermineSecretsTests:
+    def test_non_production_returns_fixed_key(self, tmp_path: Path):
+        result = determine_secrets(tmp_path, ".secret", production=False)
+        assert result == "shh-secret-test-key"
+
+    def test_generates_secret_when_file_missing(self, tmp_path: Path):
+        result = determine_secrets(tmp_path, ".secret", production=True)
+        assert result
+        assert (tmp_path / ".secret").read_text() == result
+
+    def test_reuses_existing_secret(self, tmp_path: Path):
+        (tmp_path / ".secret").write_text("existing-secret")
+        result = determine_secrets(tmp_path, ".secret", production=True)
+        assert result == "existing-secret"
+
+    def test_regenerates_when_file_is_empty(self, tmp_path: Path):
+        (tmp_path / ".secret").write_text("")
+        result = determine_secrets(tmp_path, ".secret", production=True)
+        assert result
+        assert (tmp_path / ".secret").read_text() == result
+
+    def test_regenerates_when_file_is_whitespace_only(self, tmp_path: Path):
+        (tmp_path / ".secret").write_text("   \n  ")
+        result = determine_secrets(tmp_path, ".secret", production=True)
+        assert result
+        assert (tmp_path / ".secret").read_text() == result
+
+    def test_generates_unique_secrets(self, tmp_path: Path):
+        dir_a = tmp_path / "a"
+        dir_b = tmp_path / "b"
+        result_a = determine_secrets(dir_a, ".secret", production=True)
+        result_b = determine_secrets(dir_b, ".secret", production=True)
+        assert result_a != result_b
+
+    def test_no_tmp_file_left_after_write(self, tmp_path: Path):
+        determine_secrets(tmp_path, ".secret", production=True)
+        assert not (tmp_path / ".tmp").exists()
