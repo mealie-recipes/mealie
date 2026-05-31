@@ -40,7 +40,13 @@ async function loadPublicRecipe() {
     const { data, error } = await api.explore.recipes.getOne(slug);
     if (error) {
       console.error("error loading recipe -> ", error);
-      router.push(`/g/${groupSlug.value}`);
+      if (!auth.user.value) {
+        // Recipe not publicly accessible and user is not authenticated - offer login so they can access it
+        router.push(`/login?redirect=${encodeURIComponent(route.fullPath)}`);
+      }
+      else {
+        router.push(`/g/${groupSlug.value}`);
+      }
     }
 
     return data;

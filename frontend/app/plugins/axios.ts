@@ -48,7 +48,10 @@ export default defineNuxtPlugin(() => {
 
           // Disable beforeunload warnings to prevent "Are you sure you want to leave?" popups
           window.onbeforeunload = null;
-          window.location.href = "/login";
+          // Preserve the current URL so the user is returned here after re-authenticating
+          const currentPath = window.location.pathname + window.location.search + window.location.hash;
+          const redirect = currentPath && currentPath !== "/login" ? `?redirect=${encodeURIComponent(currentPath)}` : "";
+          window.location.href = `/login${redirect}`;
         }
       }
 
