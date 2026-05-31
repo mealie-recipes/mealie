@@ -54,7 +54,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install libsasl2-dev libldap2-dev libssl-dev
-          uv sync --group dev
+          uv sync --frozen --group dev
         if: steps.cached-python-dependencies.outputs.cache-hit != 'true'
 
       - name: Run locale generation

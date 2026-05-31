@@ -77,7 +77,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install libsasl2-dev libldap2-dev libssl-dev
-          uv sync --group dev --extra pgsql
+          uv sync --frozen --group dev --extra pgsql
         if: steps.cached-python-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
 
       - name: Formatting (Ruff)

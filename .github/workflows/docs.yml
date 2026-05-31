@@ -27,7 +27,7 @@ jobs:
         uses: astral-sh/setup-uv@v4
 
       - name: Install dependencies
-        run: uv sync --only-group docs --no-install-project
+        run: uv sync --frozen --only-group docs --no-install-project
 
       - name: Build docs
         run: uv run --no-project mkdocs build -d site

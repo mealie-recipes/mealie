@@ -45,7 +45,7 @@ tasks:
     desc: setup python dependencies
     run: once
     cmds:
-      - uv sync --extra pgsql --group dev
+      - uv sync --frozen --extra pgsql --group dev
       - uv run pre-commit install
     sources:
       - uv.lock

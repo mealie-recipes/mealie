@@ -178,3 +178,7 @@ max-complexity = 24  # Default is 10.
 
 [tool.uv]
 add-bounds = "exact"
+# Cooling period: ignore package releases newer than 5 days to mitigate
+# supply-chain attacks (compromised releases are usually caught and yanked
+# within days). Evaluated at resolve time as a rolling window.
+exclude-newer = "5 days"
