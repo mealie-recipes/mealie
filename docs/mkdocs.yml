@@ -1,5 +1,4 @@
 site_name: Mealie
-demo_url: https://demo.mealie.io
 site_url: https://docs.mealie.io
 use_directory_urls: true
 theme:
@@ -16,7 +15,7 @@ theme:
       toggle:
         icon: material/weather-sunny
         name: Switch to light mode
-  custom_dir: docs/overrides
+  custom_dir: overrides
   features:
     - content.code.annotate
     - content.code.copy
@@ -50,6 +49,8 @@ markdown_extensions:
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.details
+extra:
+  demo_url: https://demo.mealie.io
 extra_css:
   - assets/stylesheets/custom.css
 extra_javascript:
