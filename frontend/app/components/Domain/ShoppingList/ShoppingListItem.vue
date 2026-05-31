@@ -10,24 +10,9 @@
       }"
     >
       <v-row
-        v-touch="{
-          move: ({ originalEvent: { touches: [{ screenX, screenY }] } }) => {
-            swipeInfo.touchendX = screenX;
-            swipeInfo.touchendY = screenY;
-          },
-          start: ({ originalEvent: { touches: [{ screenX, screenY }] } }) => {
-            swipeInfo.touchstartX = screenX;
-            swipeInfo.touchstartY = screenY;
-          },
-          end: () => {
-            if (swiping < SWIPE_THRESHOLD) {
-              swipeInfo = {};
-              return;
-            }
-            swipeInfo = {};
-            toggleChecked();
-          },
-        }"
+        ref="swipeRowRef"
+        v-touch="{ move: onSwipeMove, start: onSwipeStart, end: onSwipeEnd }"
+        style="touch-action: pan-y;"
         no-gutters
         class="flex-nowrap align-center"
       >
@@ -214,9 +199,23 @@ const emit = defineEmits<{
 }>();
 
 const SWIPE_THRESHOLD = 50;
-const SCROLL_THRESHOLD = 50;
 
 const { isRtl } = useRtl();
+const swipeRowRef = ref<InstanceType<typeof import("vuetify/components").VRow> | null>(null);
+
+onMounted(() => {
+  const el = swipeRowRef.value?.$el as HTMLElement | undefined;
+  if (!el) return;
+  el.addEventListener(
+    "touchmove",
+    (e: TouchEvent) => {
+      if (swipeInfo.value.gesture === "swipe") {
+        e.preventDefault();
+      }
+    },
+    { passive: false },
+  );
+});
 const i18n = useI18n();
 const displayRecipeRefs = ref(false);
 const itemLabelCols = computed<string>(() => (model.value?.checked ? "auto" : "6"));
@@ -267,22 +266,66 @@ function save() {
   edit.value = false;
 }
 
-const swipeInfo: Ref<{ touchstartX?: number; touchendX?: number; touchstartY?: number; touchendY?: number }> = ref({});
-const swiping = computed(() => {
-  const { touchstartX, touchendX, touchstartY, touchendY } = swipeInfo.value ?? {};
-  if (touchstartX === undefined || touchendX === undefined) {
-    return 0;
-  }
-  const deltaX = isRtl.value ? touchstartX - touchendX : touchendX - touchstartX;
+type SwipeGesture = null | "scroll" | "swipe";
 
-  // If there's significant vertical movement, treat as a scroll gesture and ignore
-  if (touchstartY !== undefined && touchendY !== undefined) {
-    const deltaY = Math.abs(touchendY - touchstartY);
-    if (deltaY > SCROLL_THRESHOLD) {
-      return 0;
+const swipeInfo = ref({
+  touchstartX: 0,
+  touchstartY: 0,
+  touchendX: 0,
+  touchendY: 0,
+  gesture: null as SwipeGesture,
+});
+
+function getSwipePoint(e: any) {
+  const touch = e?.touches?.[0] ?? e?.changedTouches?.[0] ?? e;
+  return { x: touch?.clientX ?? 0, y: touch?.clientY ?? 0 };
+}
+
+function resetSwipe() {
+  swipeInfo.value = { touchstartX: 0, touchstartY: 0, touchendX: 0, touchendY: 0, gesture: null };
+}
+
+function onSwipeStart(payload: any) {
+  const { x, y } = getSwipePoint(payload.originalEvent);
+  swipeInfo.value = { touchstartX: x, touchstartY: y, touchendX: x, touchendY: y, gesture: null };
+}
+
+function onSwipeMove(payload: any) {
+  const { x, y } = getSwipePoint(payload.originalEvent);
+  swipeInfo.value.touchendX = x;
+  swipeInfo.value.touchendY = y;
+
+  if (!swipeInfo.value.gesture) {
+    const deltaX = Math.abs(x - swipeInfo.value.touchstartX);
+    const deltaY = Math.abs(y - swipeInfo.value.touchstartY);
+    if (deltaY > 8 && deltaY > deltaX) {
+      swipeInfo.value.gesture = "scroll";
+    }
+    else if (deltaX > 8 && deltaX > deltaY) {
+      swipeInfo.value.gesture = "swipe";
+    }
+    else if (deltaX > 8 || deltaY > 8) {
+      // Diagonal / ambiguous — default to scroll
+      swipeInfo.value.gesture = "scroll";
     }
   }
-  return Math.min(Math.max(0, deltaX), 100);
+}
+
+function onSwipeEnd() {
+  if (swipeInfo.value.gesture === "swipe" && swiping.value >= SWIPE_THRESHOLD) {
+    toggleChecked();
+  }
+  resetSwipe();
+}
+
+const swiping = computed(() => {
+  if (swipeInfo.value.gesture !== "swipe") {
+    return 0;
+  }
+  const deltaX = isRtl.value
+    ? swipeInfo.value.touchstartX - swipeInfo.value.touchendX
+    : swipeInfo.value.touchendX - swipeInfo.value.touchstartX;
+  return Math.max(0, Math.min(deltaX, 100));
 });
 
 const recipeList = computed<RecipeSummary[]>(() => {

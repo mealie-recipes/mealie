@@ -49,7 +49,7 @@ def test_html_with_recipe_data():
     url = "https://www.bbc.co.uk/food/recipes/healthy_pasta_bake_60759"
     translator = get_locale_provider()
 
-    open_graph_strategy = RecipeScraperOpenGraph(url, translator)
+    open_graph_strategy = RecipeScraperOpenGraph(url, translator, None)  # type: ignore[arg-type]
 
     recipe_data = open_graph_strategy.get_recipe_fields(path.read_text())
 
@@ -78,7 +78,7 @@ def test_clean_scraper_preserves_notes():
     html = RecipeScraperPackage.ld_json_to_html(ld_json)
     scraped = scrape_html(html, org_url="https://example.com", supported_only=False)
     translator = get_locale_provider()
-    strategy = RecipeScraperPackage("https://example.com", translator)
+    strategy = RecipeScraperPackage("https://example.com", translator, None)  # type: ignore[arg-type]
 
     recipe, _ = strategy.clean_scraper(scraped, "https://example.com")
 

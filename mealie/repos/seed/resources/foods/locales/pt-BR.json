@@ -64,7 +64,7 @@
             "jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeño",
+                "name": "jalapenho",
                 "plural_name": "jalapeños"
             },
             "avocado": {
@@ -621,7 +621,7 @@
             "alfalfa": {
                 "aliases": [],
                 "description": "",
-                "name": "alfalfa",
+                "name": "alfafa",
                 "plural_name": "alfafas"
             }
         }
@@ -3888,7 +3888,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "salame",
-                "plural_name": "salamis"
+                "plural_name": "salames"
             },
             "brisket": {
                 "aliases": [],
@@ -7182,8 +7182,8 @@
             "fleur de sel": {
                 "aliases": [],
                 "description": "",
-                "name": "fleur de sel",
-                "plural_name": "fleur de sel"
+                "name": "Flor de sal",
+                "plural_name": "Flor de sal"
             },
             "thai red curry paste": {
                 "aliases": [],
@@ -8630,7 +8630,7 @@
             "granola cereal": {
                 "aliases": [],
                 "description": "",
-                "name": "granola cereal",
+                "name": "Granola",
                 "plural_name": "granolas"
             },
             "bulgur": {
@@ -11024,7 +11024,7 @@
             "cottonseed oil": {
                 "aliases": [],
                 "description": "",
-                "name": "cottonseed oil",
+                "name": "Óleo de algodão",
                 "plural_name": "óleo de algodão"
             },
             "pork dripping": {
@@ -14143,7 +14143,7 @@
             "caramel candy": {
                 "aliases": [],
                 "description": "",
-                "name": "caramel candy",
+                "name": "balas",
                 "plural_name": "caramelos de caramelo"
             },
             "vanilla pudding": {
@@ -14173,13 +14173,13 @@
             "peach preserve": {
                 "aliases": [],
                 "description": "",
-                "name": "peach preserve",
+                "name": "Conserva de pêssego",
                 "plural_name": "pearch preserves"
             },
             "chocolate wafer": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate wafer",
+                "name": "Wafer de chocolate",
                 "plural_name": "chocolate wafers"
             },
             "candied peel": {
@@ -14669,7 +14669,7 @@
             "coconut rum": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut rum",
+                "name": "Rum de coco",
                 "plural_name": "cocos rum"
             },
             "dessert wine": {
@@ -16087,7 +16087,7 @@
             "fish oil": {
                 "aliases": [],
                 "description": "",
-                "name": "fish oil",
+                "name": "Óleo de peixe",
                 "plural_name": "óleo de peixe"
             },
             "lime essential oil": {

@@ -1,5 +1,6 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "prCreation": "immediate",
   "lockFileMaintenance": {
     "enabled": true
   },
@@ -23,6 +24,13 @@
         "npm"
       ],
       "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Always create lockfile maintenance PRs without dashboard approval",
+      "matchUpdateTypes": [
+        "lockFileMaintenance"
+      ],
+      "dependencyDashboardApproval": false
     },
     {
       "matchManagers": [

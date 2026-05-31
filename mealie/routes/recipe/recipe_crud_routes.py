@@ -132,7 +132,7 @@ class RecipeController(BaseRecipeController):
         # Debugger should produce the same result as the scraper sees before cleaning
         ScraperClass = RecipeScraperOpenAI if data.use_openai else RecipeScraperPackage
         try:
-            if scraped_data := await ScraperClass(data.url, self.translator).scrape_url():
+            if scraped_data := await ScraperClass(data.url, self.translator, self.repos).scrape_url():
                 return scraped_data.schema.data
         except ForceTimeoutException as e:
             raise HTTPException(
@@ -224,7 +224,7 @@ class RecipeController(BaseRecipeController):
 
         async def run() -> None:
             try:
-                recipe, extras = await create_from_html(url, self.translator, html, on_progress=on_progress)
+                recipe, extras = await create_from_html(url, self.repos, self.translator, html, on_progress=on_progress)
                 slug = self._finish_recipe_from_web(req, recipe, extras)
                 await queue.put(
                     ServerSentEvent(
@@ -317,7 +317,8 @@ class RecipeController(BaseRecipeController):
         Optionally specify a language for it to translate the recipe to.
         """
 
-        if not (self.settings.OPENAI_ENABLED and self.settings.OPENAI_ENABLE_IMAGE_SERVICES):
+        ai_settings = self.group.ai_provider_settings
+        if not (ai_settings and ai_settings.image_provider_enabled):
             raise HTTPException(
                 status_code=400,
                 detail=ErrorResponse.respond("OpenAI image services are not enabled"),

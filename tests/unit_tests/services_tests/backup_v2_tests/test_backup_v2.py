@@ -13,8 +13,8 @@ from mealie.db.models.household.household import Household
 from mealie.db.models.household.household_to_recipe import HouseholdToRecipe
 from mealie.db.models.household.mealplan import GroupMealPlanRules
 from mealie.db.models.household.shopping_list import ShoppingList
-from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
+from mealie.db.models.recipe.labels import MultiPurposeLabel
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.user_to_recipe import UserToRecipe
