@@ -1,9 +1,9 @@
 [build]
 publish = "docs/site/"
 command = """
-pip3 install mkdocs-material &&
+pip3 install zensical==0.0.57 &&
 cd docs &&
-mkdocs build
+zensical build
 """
 
 [[headers]]

@@ -33,7 +33,7 @@ tasks:
     desc: runs the documentation server
     dir: docs
     cmds:
-      - uv run python -m mkdocs serve
+      - uv run zensical serve
 
   setup:ui:
     desc: setup frontend dependencies

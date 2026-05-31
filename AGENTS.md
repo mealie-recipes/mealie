@@ -63,7 +63,7 @@ task setup              # Install all dependencies (Python + Node)
 task dev:services       # Start Postgres & Mailpit containers
 task py                 # Start FastAPI backend (port 9000)
 task ui                 # Start Nuxt frontend (port 3000)
-task docs               # Start MkDocs documentation server
+task docs               # Start Zensical documentation server
 ```
 
 **Code generation (REQUIRED after schema changes):**
