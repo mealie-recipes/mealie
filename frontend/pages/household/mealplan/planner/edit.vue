@@ -42,11 +42,23 @@
             item-value="value"
           />
           <v-autocomplete
+            v-model="selectedCategory"
+            :label="$t('meal-plan.filter-by-category')"
+            :items="allCategories"
+            item-title="name"
+            item-value="id"
+            :return-object="false"
+            clearable
+            hide-details
+            class="mb-2"
+            :prepend-inner-icon="$globals.icons.tags"
+          />
+          <v-autocomplete
             v-if="!dialog.note"
             v-model="newMeal.recipeId"
             v-model:search="search.query.value"
             :label="$t('meal-plan.meal-recipe')"
-            :items="filterRecipeByMealType()"
+            :items="filterRecipeByCategory()"
             :custom-filter="normalizeFilter"
             :loading="search.loading.value"
             cache-items
@@ -62,7 +74,6 @@
         </v-card-text>
         <v-card-actions class="py-0 px-4 d-flex flex-column align-start">
           <v-switch v-model="dialog.note" class="mt-n3 mb-n4" :label="$t('meal-plan.note-only')" />
-          <v-switch v-model="filterRecipesByEntryType" class="mt-n3 mb-n4" :label="$t('meal-plan.filter-by-entry-type')" />
         </v-card-actions>
       </v-card-text>
     </BaseDialog>
@@ -268,6 +279,8 @@ export default defineNuxtComponent({
     const { household } = useHouseholdSelf();
     const requiredRule = (value: any) => !!value || "Required.";
 
+    const { t } = useI18n();
+
     const state = ref({
       dialog: false,
     });
@@ -275,8 +288,6 @@ export default defineNuxtComponent({
     const firstDayOfWeek = computed(() => {
       return household.value?.preferences?.firstDayOfWeek || 0;
     });
-
-    const filterRecipesByEntryType = ref(false);
 
     // Local mutable meals object
     const mealplansByDate = reactive<{ [date: string]: UpdatePlanEntry[] }>({});
@@ -405,24 +416,18 @@ export default defineNuxtComponent({
     }
 
     // Filtering
-    function filterRecipeByMealType() {
+    const allCategories = ref<{ id: string | undefined; name: string }[]>([]);
+    const selectedCategory = ref<string>(t('meal-plan.filter-any'));
+
+    function filterRecipeByCategory() {
       const data = search.data.value;
-
       if (!Array.isArray(data)) return [];
-      if (!filterRecipesByEntryType.value) {
-        return data;
-      }
 
-      const entry = newMeal.entryType?.toLowerCase();
-      const filtered = data.filter((recipe: any) => {
-        if (!recipe.recipeCategory?.length) return true;
+      if (!selectedCategory.value || selectedCategory.value === t('meal-plan.filter-any')) return data;
 
-        return recipe.recipeCategory.some((cat: any) => {
-          const category = cat.name?.toLowerCase();
-          return category === entry;
-        });
-      });
-      return filtered.length ? filtered : data;
+      return data.filter((recipe: any) =>
+        recipe.recipeCategory?.some((cat: any) => cat.id === selectedCategory.value),
+      );
     }
 
     // =====================================================
@@ -433,6 +438,14 @@ export default defineNuxtComponent({
 
     onMounted(async () => {
       await search.trigger();
+
+      const { data } = await api.categories.getAll();
+      if (data?.items) {
+        allCategories.value = [
+          { id: undefined, name: t('meal-plan.filter-any') },
+          ...data.items.map((c: any) => ({ id: c.id, name: c.name })),
+        ];
+      }
     });
 
     return {
@@ -454,8 +467,9 @@ export default defineNuxtComponent({
       randomMeal,
 
       // Filtering
-      filterRecipeByMealType,
-      filterRecipesByEntryType,
+      filterRecipeByCategory,
+      allCategories,
+      selectedCategory,
 
       // Search
       search,
