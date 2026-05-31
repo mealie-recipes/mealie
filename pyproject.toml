@@ -12,8 +12,6 @@ dependencies = [
     "SQLAlchemy==2.0.50",
     "aiofiles==25.1.0",
     "alembic==1.18.4",
-    "aniso8601==10.0.1",
-    "appdirs==1.4.4",
     "apprise==1.10.0",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
