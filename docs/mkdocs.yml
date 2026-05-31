@@ -27,6 +27,9 @@ theme:
     - navigation.tabs.sticky
   favicon: assets/img/favicon.png
   name: material
+  font:
+    text: Roboto
+    code: Roboto Mono
   icon:
     logo: material/silverware-variant
 
