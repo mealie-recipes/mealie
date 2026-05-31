@@ -85,7 +85,14 @@ const { getOne } = useCookbook(isOwnGroup.value ? null : groupSlug.value);
 const { actions } = useCookbookStore();
 const router = useRouter();
 
-const book = getOne(slug);
+const { data: book, status: bookStatus } = getOne(slug);
+
+watch(bookStatus, (val) => {
+  if (val === "success" && !book.value && !auth.user.value) {
+    // Cookbook not publicly accessible and user is not authenticated - offer login so they can access it
+    router.push(`/login?redirect=${encodeURIComponent(route.fullPath)}`);
+  }
+}, { immediate: true });
 
 const isOwnHousehold = computed(() => {
   if (!(auth.user.value && book.value?.householdId)) {
