@@ -146,13 +146,13 @@ class ABCIngredientParser(ABC):
     def __init__(self, group_id: UUID4, session: Session, translator: Translator) -> None:
         self.group_id = group_id
         self.session = session
-        self.data_matcher = DataMatcher(self._repos, self.food_fuzzy_match_threshold, self.unit_fuzzy_match_threshold)
+        self.data_matcher = DataMatcher(self.repos, self.food_fuzzy_match_threshold, self.unit_fuzzy_match_threshold)
 
         self.translator = translator
         self.t = self.translator.t
 
     @property
-    def _repos(self) -> AllRepositories:
+    def repos(self) -> AllRepositories:
         return get_repositories(self.session, group_id=self.group_id)
 
     @property

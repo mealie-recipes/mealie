@@ -7,7 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column
 
 from mealie.db.models.recipe.tag import Tag, plan_rules_to_tags
 
-from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
 from .._model_utils.auto_init import auto_init
 from .._model_utils.guid import GUID
 from ..recipe.category import Category, plan_rules_to_categories
@@ -30,14 +30,14 @@ plan_rules_to_households = Table(
 class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
     __tablename__ = "group_meal_plan_rules"
 
-    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
-    household_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("households.id"), index=True)
+    id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    group_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
+    household_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("households.id"), index=True)
 
-    day: Mapped[str] = mapped_column(
+    day: FilterableColumn[str] = mapped_column(
         String, nullable=False, default="unset"
     )  # "MONDAY", "TUESDAY", "WEDNESDAY", etc...
-    entry_type: Mapped[str] = mapped_column(
+    entry_type: FilterableColumn[str] = mapped_column(
         String, nullable=False, default=""
     )  # "breakfast", "lunch", "dinner", etc ...
     query_filter_string: Mapped[str] = mapped_column(String, nullable=False, default="")
@@ -55,19 +55,19 @@ class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
 class GroupMealPlan(SqlAlchemyBase, BaseMixins):
     __tablename__ = "group_meal_plans"
 
-    date: Mapped[datetime.date] = mapped_column(Date, index=True, nullable=False)
-    entry_type: Mapped[str] = mapped_column(String, index=True, nullable=False)
-    title: Mapped[str] = mapped_column(String, index=True, nullable=False)
-    text: Mapped[str] = mapped_column(String, nullable=False)
+    date: FilterableColumn[datetime.date] = mapped_column(Date, index=True, nullable=False)
+    entry_type: FilterableColumn[str] = mapped_column(String, index=True, nullable=False)
+    title: FilterableColumn[str] = mapped_column(String, index=True, nullable=False)
+    text: FilterableColumn[str] = mapped_column(String, nullable=False)
 
-    group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
+    group_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
     group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="mealplans")
     household_id: AssociationProxy[GUID] = association_proxy("user", "household_id")
     household: AssociationProxy["Household"] = association_proxy("user", "household")
-    user_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("users.id"), index=True)
+    user_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("users.id"), index=True)
     user: Mapped[Optional["User"]] = orm.relationship("User", back_populates="mealplans")
 
-    recipe_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
+    recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
     recipe: Mapped[Optional["RecipeModel"]] = orm.relationship(
         "RecipeModel", back_populates="meal_entries", uselist=False
     )

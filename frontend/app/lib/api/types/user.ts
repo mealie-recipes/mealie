@@ -59,6 +59,7 @@ export interface GroupInDB {
   households?: GroupHouseholdSummary[] | null;
   users?: UserSummary[] | null;
   preferences?: ReadGroupPreferences | null;
+  aiProviderSettings?: AIProviderSettingsOut | null;
 }
 export interface CategoryBase {
   name: string;
@@ -89,11 +90,25 @@ export interface ReadGroupPreferences {
   groupId: string;
   id: string;
 }
+export interface AIProviderSettingsOut {
+  defaultProviderId: string | null;
+  audioProviderId: string | null;
+  imageProviderId: string | null;
+  providers: AIProviderSummary[];
+  aiEnabled: boolean;
+  audioProviderEnabled: boolean;
+  imageProviderEnabled: boolean;
+}
+export interface AIProviderSummary {
+  id: string;
+  name: string;
+}
 export interface GroupSummary {
   name: string;
   id: string;
   slug: string;
   preferences?: ReadGroupPreferences | null;
+  aiProviderSettings?: AIProviderSettingsOut | null;
 }
 export interface LongLiveTokenCreateResponse {
   name: string;

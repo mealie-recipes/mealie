@@ -4,7 +4,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 import mealie.services.scraper.recipe_scraper as recipe_scraper_module
-import mealie.services.scraper.scraper_strategies as scraper_strategies_module
+from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.openai.general import OpenAIText
 from mealie.services.openai import OpenAIService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
@@ -47,12 +47,17 @@ def recipe_url() -> str:
 
 
 @pytest.fixture(autouse=True)
-def openai_scraper_setup(monkeypatch: pytest.MonkeyPatch, bare_html: str):
-    """Restrict to only RecipeScraperOpenAI, enable it unconditionally, and prevent real HTTP calls."""
+def openai_scraper_setup(monkeypatch: pytest.MonkeyPatch, bare_html: str, unique_user: TestUser):
+    """Restrict to only RecipeScraperOpenAI, create real DB provider data, and prevent real HTTP calls."""
     monkeypatch.setattr(recipe_scraper_module, "DEFAULT_SCRAPER_STRATEGIES", [RecipeScraperOpenAI])
 
-    settings_stub = type("_Settings", (), {"OPENAI_ENABLED": True})()
-    monkeypatch.setattr(scraper_strategies_module, "get_app_settings", lambda: settings_stub)
+    provider = unique_user.repos.group_ai_providers.create(
+        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
+    )
+    unique_user.repos.group_ai_provider_settings.update(
+        unique_user.repos.group_id,
+        AIProviderSettingsUpdate(default_provider_id=provider.id, audio_provider_id=None, image_provider_id=None),
+    )
 
     async def mock_safe_scrape_html(url: str) -> str:
         return bare_html
@@ -171,9 +176,11 @@ def test_create_by_url_openai_disabled(
     monkeypatch: pytest.MonkeyPatch,
     recipe_url: str,
 ):
-    """When OPENAI_ENABLED is False, can_scrape() returns False and the endpoint returns 400."""
-    disabled_settings = type("_Settings", (), {"OPENAI_ENABLED": False})()
-    monkeypatch.setattr(scraper_strategies_module, "get_app_settings", lambda: disabled_settings)
+    """When no default provider is set, can_scrape() returns False and the endpoint returns 400."""
+    unique_user.repos.group_ai_provider_settings.update(
+        unique_user.repos.group_id,
+        AIProviderSettingsUpdate(default_provider_id=None, audio_provider_id=None, image_provider_id=None),
+    )
 
     response = api_client.post(
         api_routes.recipes_create_url,
