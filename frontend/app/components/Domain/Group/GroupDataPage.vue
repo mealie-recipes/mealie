@@ -59,7 +59,7 @@
   >
     <v-card-text>
       {{ $t("general.confirm-delete-generic") }}
-      <p v-if="deleteTarget" class="mt-4 ml-4">
+      <p v-if="deleteTarget" class="mt-4 mb-0 font-weight-bold">
         {{ deleteTarget.name || deleteTarget.title || deleteTarget.id }}
       </p>
       <slot name="delete-dialog-bottom" />

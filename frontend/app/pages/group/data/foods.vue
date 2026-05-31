@@ -180,9 +180,9 @@
       </template>
 
       <template #delete-dialog-bottom>
-        <v-alert v-if="affectedRecipes.length > 0" type="warning" class="mt-4">
+        <v-alert v-if="affectedRecipes.length > 0" type="warning" density="compact" class="mt-4 mb-0">
           {{ $t("data-pages.foods.delete-affects-recipes", { count: affectedRecipesTotal }) }}
-          <ul class="mt-2 ml-4">
+          <ul class="mt-1 pl-5 mb-0">
             <li v-for="recipe in affectedRecipes.slice(0, 5)" :key="recipe.slug">
               <NuxtLink :to="recipe.url" class="text-white">{{ recipe.name }}</NuxtLink>
             </li>
@@ -190,7 +190,7 @@
           <NuxtLink
             v-if="affectedRecipesTotal > 5"
             :to="affectedRecipesMoreLink"
-            class="text-white d-block mt-1"
+            class="text-white d-inline-block mt-1"
           >
             {{ $t("data-pages.foods.delete-affects-recipes-more", { count: affectedRecipesTotal }) }}
           </NuxtLink>
