@@ -391,6 +391,7 @@ function resetDialog() {
   newMeal.entryType = "dinner";
   newMeal.recipeId = undefined;
   newMeal.existing = false;
+  selectedCategory.value = undefined;
 }
 
 async function randomMeal(date: Date, type: PlanEntryType) {
@@ -409,14 +410,22 @@ async function randomMeal(date: Date, type: PlanEntryType) {
 
 const search = useRecipeSearch(api);
 const planTypeOptions = usePlanTypeOptions();
+
+// =====================================================
+// Category filtering
+
 const allCategories = ref<{ id: string | undefined; name: string }[]>([]);
-const selectedCategory = ref<string | undefined>(t("meal-plan.filter-any"));
+const selectedCategory = ref<string | undefined>();
+
+watch(selectedCategory, () => {
+  newMeal.recipeId = undefined;
+});
 
 function filterRecipeByCategory() {
   const data = search.data.value;
   if (!Array.isArray(data)) return [];
 
-  if (!selectedCategory.value || selectedCategory.value === t("meal-plan.filter-any")) return data;
+  if (!selectedCategory.value) return data;
 
   return data.filter((recipe: any) =>
     recipe.recipeCategory?.some((cat: any) => cat.id === selectedCategory.value),
@@ -429,8 +438,8 @@ onMounted(async () => {
   const { data } = await api.categories.getAll();
   if (data?.items) {
     allCategories.value = [
-      { id: undefined, name: t("meal-plan.filter-any") },
       ...data.items.map((c: any) => ({ id: c.id, name: c.name })),
     ];
   }
 });
+</script>
