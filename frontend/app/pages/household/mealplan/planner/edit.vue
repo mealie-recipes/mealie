@@ -267,7 +267,6 @@ const props = defineProps<{
 const api = useUserApi();
 const auth = useMealieAuth();
 const { household } = useHouseholdSelf();
-const { t } = useI18n();
 const requiredRule = (value: any) => !!value || "Required.";
 
 const state = ref({
