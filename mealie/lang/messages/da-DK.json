@@ -21,14 +21,14 @@
         "and-amount": "og {amount}",
         "or-ingredient": "eller {ingredient}",
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
-            "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
-            "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
-            "extracting-recipe-data": "Extracting recipe data...",
-            "fetching-webpage": "Fetching webpage...",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "creating-recipe-with-ai": "Opretter opskrift med kunstig intelligens...",
+            "creating-recipe-from-transcript-with-ai": "Transskriberer og opretter opskrift med kunstig intelligens...",
+            "creating-recipe-from-webpage-data": "Opretter opskrift fra data på hjemmeside...",
+            "downloading-image": "Downloader billede...",
+            "downloading-video": "Downloader video...",
+            "extracting-recipe-data": "Udtrækker opskriftsdata...",
+            "fetching-webpage": "Henter hjemmeside...",
+            "transcribing-audio-with-ai": "Transskriberer lyd med kunstig intelligens..."
         }
     },
     "mealplan": {

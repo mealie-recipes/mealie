@@ -6,4 +6,6 @@ Since this software is still considered beta/WIP support is always only given fo
 
 ## Reporting a Vulnerability
 
-For general security vulnerabilities you're welcome to open a GitHub issues or contribute a fix. If you feel the vulnerability should not be disclosed you can open a generic issue on GitHub and email to the details to [ob92oy0sl@mozmail.com](mailto:ob92oy0sl@mozmail.com) which is monitored by the maintainer.
+This repository has [private vulnerability reporting](https://docs.github.com/en/code-security/how-tos/report-and-fix-vulnerabilities/privately-reporting-a-security-vulnerability) enabled. To confidentially report a security issue, click the **"Report a vulnerability"** button on the [Security tab](../../security/advisories/new) of this repository. This allows you to submit details directly to the maintainers without public disclosure.
+
+For non-sensitive issues or general feedback, feel free to open a GitHub issue or contribute a fix via pull request.

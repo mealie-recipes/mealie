@@ -1,5 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "prCreation": "immediate",
+  "lockFileMaintenance": {
+    "enabled": true
+  },
   "enabledManagers": [
     "pep621",
     "dockerfile",
@@ -22,10 +26,48 @@
       "dependencyDashboardApproval": true
     },
     {
+      "description": "Always create lockfile maintenance PRs without dashboard approval",
+      "matchUpdateTypes": [
+        "lockFileMaintenance"
+      ],
+      "dependencyDashboardApproval": false
+    },
+    {
       "matchManagers": [
         "pep621"
       ],
       "rangeStrategy": "pin"
+    },
+    {
+      "description": "Auto-merge patch and minor Python dependency updates",
+      "matchManagers": [
+        "pep621"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "minor",
+        "pin",
+        "digest"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "minimumReleaseAge": "5 days"
+    },
+    {
+      "description": "Auto-merge Docker digest and patch updates",
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "matchUpdateTypes": [
+        "patch",
+        "pin",
+        "digest"
+      ],
+      "automerge": true,
+      "automergeType": "pr",
+      "automergeStrategy": "squash",
+      "minimumReleaseAge": "5 days"
     }
   ]
 }

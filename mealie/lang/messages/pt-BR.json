@@ -18,17 +18,17 @@
             "yield": "Rendimento",
             "yields": "Rendimento"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}",
+        "and-amount": "e {amount}",
+        "or-ingredient": "ou {ingredient}",
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
-            "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
-            "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
-            "extracting-recipe-data": "Extracting recipe data...",
-            "fetching-webpage": "Fetching webpage...",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "creating-recipe-with-ai": "Criando receita com IA...",
+            "creating-recipe-from-transcript-with-ai": "Criando receita da transcrição com IA...",
+            "creating-recipe-from-webpage-data": "Criando receita de dados de páginas web...",
+            "downloading-image": "Baixando imagem...",
+            "downloading-video": "Baixando vídeo...",
+            "extracting-recipe-data": "Extraindo dados da receita...",
+            "fetching-webpage": "Buscando página web...",
+            "transcribing-audio-with-ai": "Transcrevendo áudio com IA..."
         }
     },
     "mealplan": {
@@ -45,7 +45,7 @@
     },
     "exceptions": {
         "permission_denied": "Você não tem permissão para realizar esta ação",
-        "recursive-recipe-link": "Uma receita não pode referenciar a si mesma, diretamente ou indiretamente\n",
+        "recursive-recipe-link": "Uma receita não pode referenciar a si mesma, diretamente ou indiretamente",
         "no-entry-found": "O recurso solicitado não foi encontrado",
         "integrity-error": "Erro de integridade de banco de dados",
         "username-conflict-error": "Este nome de usuário já está em uso",

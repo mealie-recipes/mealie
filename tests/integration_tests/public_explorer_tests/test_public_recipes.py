@@ -98,8 +98,8 @@ def test_get_all_public_recipes(
 @pytest.mark.parametrize(
     "query_filter, recipe_data, should_fetch",
     [
-        ('slug = "mypublicslug"', {"slug": "mypublicslug"}, True),
-        ('slug = "mypublicslug"', {"slug": "notmypublicslug"}, False),
+        ('slug = "mypublicslug"', {"slug": "mypublicslug", "name": "mypublicslug"}, True),
+        ('slug = "mypublicslug"', {"slug": "notmypublicslug", "name": "notmypublicslug"}, False),
         ("settings.public = FALSE", {}, False),
         ("settings.public <> TRUE", {}, False),
     ],

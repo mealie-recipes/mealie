@@ -15,20 +15,20 @@
             "serves": "Portioner",
             "serving": "Portion",
             "servings": "Portioner",
-            "yield": "Ger",
-            "yields": "Ger"
+            "yield": "Mängd",
+            "yields": "Mängd"
         },
         "and-amount": "och {amount}",
         "or-ingredient": "eller {ingredient}",
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
-            "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
-            "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
-            "extracting-recipe-data": "Extracting recipe data...",
-            "fetching-webpage": "Fetching webpage...",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "creating-recipe-with-ai": "Skapa recept med hjälp av AI...",
+            "creating-recipe-from-transcript-with-ai": "Skapar recept baserat på transkription med AI...",
+            "creating-recipe-from-webpage-data": "Skapar recept med hjälp av data från hemsida...",
+            "downloading-image": "Laddar ned bild...",
+            "downloading-video": "Laddar ned video...",
+            "extracting-recipe-data": "Extraherar recept...",
+            "fetching-webpage": "Hämtar hemsida...",
+            "transcribing-audio-with-ai": "Transkriberar ljud med hjälp av AI..."
         }
     },
     "mealplan": {

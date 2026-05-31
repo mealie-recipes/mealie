@@ -1,0 +1,69 @@
+import { useReadOnlyActions, useStoreActions } from "./use-actions-factory";
+import type { BoundT } from "./types";
+import type { BaseCRUDAPI, BaseCRUDAPIReadOnly } from "~/lib/api/base/base-clients";
+import type { QueryValue } from "~/lib/api/base/route";
+
+export const useData = function <T extends BoundT>(defaultObject: T) {
+  const data = reactive({ ...defaultObject });
+  function reset() {
+    Object.assign(data, defaultObject);
+  };
+
+  return { data, reset };
+};
+
+export const useReadOnlyStore = function <T extends BoundT>(
+  storeKey: string,
+  store: Ref<T[]>,
+  loading: Ref<boolean>,
+  initialized: Ref<boolean>,
+  api: BaseCRUDAPIReadOnly<T>,
+  params = {} as Record<string, QueryValue>,
+) {
+  const storeActions = useReadOnlyActions(`${storeKey}-store-readonly`, api, store, loading, initialized);
+  const actions = {
+    ...storeActions,
+    async refresh() {
+      return await storeActions.refresh(1, -1, params);
+    },
+    flushStore() {
+      store.value = [];
+      initialized.value = false;
+    },
+  };
+
+  // initial hydration
+  if (!loading.value && !initialized.value) {
+    actions.refresh();
+  }
+
+  return { store, actions };
+};
+
+export const useStore = function <T extends BoundT>(
+  storeKey: string,
+  store: Ref<T[]>,
+  loading: Ref<boolean>,
+  initialized: Ref<boolean>,
+  api: BaseCRUDAPI<unknown, T, unknown>,
+  params = {} as Record<string, QueryValue>,
+) {
+  const storeActions = useStoreActions(`${storeKey}-store`, api, store, loading, initialized);
+  const actions = {
+    ...storeActions,
+    async refresh() {
+      return await storeActions.refresh(1, -1, params);
+    },
+    flushStore() {
+      store.value = [];
+      initialized.value = false;
+    },
+  };
+
+  // initial hydration
+  if (!loading.value && !initialized.value) {
+    actions.refresh();
+  }
+
+  return { store, actions };
+};

@@ -1,4 +1,4 @@
-from typing import Annotated
+from typing import Annotated, Any
 
 from authlib.integrations.starlette_client import OAuth
 from fastapi import APIRouter, Depends, Header, Request, Response, status
@@ -36,7 +36,9 @@ if settings.OIDC_READY:
     else:
         groups_claim = settings.OIDC_GROUPS_CLAIM if settings.OIDC_REQUIRES_GROUP_CLAIM else ""
         scope = f"openid email profile {groups_claim}"
-    client_args = {"scope": scope.rstrip()}
+    client_args: dict[str, Any] = {"scope": scope.rstrip()}
+    if settings.OIDC_CLIENT_TIMEOUT != "default":
+        client_args["timeout"] = settings.OIDC_CLIENT_TIMEOUT if settings.OIDC_CLIENT_TIMEOUT != "None" else None
     if settings.OIDC_TLS_CACERTFILE:
         client_args["verify"] = settings.OIDC_TLS_CACERTFILE
 
@@ -132,6 +134,7 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
             auth_provider = OpenIDProvider(session, userinfo, use_default_groups=True)
             auth = auth_provider.authenticate()
         except MissingClaimException:
+            logger.error("[OIDC] Required claims not present in ID token or userinfo endpoint")
             auth = None
 
     if not auth:
