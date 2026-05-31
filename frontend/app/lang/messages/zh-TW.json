@@ -223,7 +223,9 @@
     "show-advanced": "顯示進階選項",
     "add-field": "新增欄位",
     "date-created": "建立日期",
-    "date-updated": "更新日期"
+    "date-updated": "更新日期",
+    "key": "Key",
+    "value": "Value"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "確定要刪除 <b>{groupName}</b>？",
@@ -283,7 +285,40 @@
     "admin-group-management-text": "對此群組的變更將立即生效。",
     "group-id-value": "群組 ID：{0}",
     "total-households": "家庭群組總數",
-    "you-must-select-a-group-before-selecting-a-household": "請先選擇群組，再選擇家庭群組"
+    "you-must-select-a-group-before-selecting-a-household": "請先選擇群組，再選擇家庭群組",
+    "ai-provider-settings": {
+      "ai-provider-settings": "AI Provider Settings",
+      "ai-provider": "AI Provider",
+      "ai-providers": "AI Providers",
+      "ai-provider-settings-description": "Configure AI providers to enable AI-powered features, such as enhanced ingredient parsing, creating recipes from videos, and more!",
+      "providers": "Providers",
+      "create-provider": "Create Provider",
+      "edit-provider": "Edit Provider",
+      "default-provider": "Default Provider",
+      "default-provider-description": "Required to enable AI features",
+      "audio-provider": "Audio Provider",
+      "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
+      "image-provider": "Image Provider",
+      "image-provider-description": "Enables image recognition features, such as creating recipes from images",
+      "provider-name": "Provider Name",
+      "api-key": "API Key",
+      "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
+      "api-key-description-edit": "Leave this blank unless you want to change it.",
+      "base-url": "Base URL",
+      "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
+      "model": "Model",
+      "model-description": "Which model your AI provider should use (e.g. \"gpt-5\").",
+      "request-timeout-seconds": "Request Timeout (seconds)",
+      "provider-created": "Provider created",
+      "provider-updated": "Provider updated",
+      "provider-deleted": "Provider deleted",
+      "provider-create-failed": "Failed to create provider",
+      "provider-update-failed": "Failed to update provider",
+      "provider-delete-failed": "Failed to delete provider",
+      "request-headers": "Request Headers",
+      "request-params": "Request Parameters",
+      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+    }
   },
   "household": {
     "household": "家庭群組",
@@ -1362,6 +1397,7 @@
       "already-set-up-bring-to-homepage": "我已完成設定，直接帶我到首頁",
       "common-settings-for-new-sites": "以下是新站台的常用設定",
       "setup-complete": "設定完成！",
+      "ai-providers-description": "Optionally configure AI providers for your group. AI providers enable features like creating recipes from images, importing recipes from videos, and enhanced ingredient parsing. You can always configure this later from your group settings.",
       "here-are-a-few-things-to-help-you-get-started": "以下幾項可幫助您開始使用 Mealie",
       "restore-from-v1-backup": "有舊版 Mealie v1 的備份？您可以在這裡還原。",
       "manage-profile-or-get-invite-link": "管理您的個人資料，或取得邀請連結與他人分享。"

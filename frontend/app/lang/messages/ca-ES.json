@@ -223,7 +223,9 @@
     "show-advanced": "Mostrar els paràmetres avançats",
     "add-field": "Afegir camp",
     "date-created": "Data de creació",
-    "date-updated": "Data d’actualització"
+    "date-updated": "Data d’actualització",
+    "key": "Key",
+    "value": "Value"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Esteu segur de voler suprimir el grup <b>{groupName}<b/>?",
@@ -283,7 +285,40 @@
     "admin-group-management-text": "Els canvis en aquest grup s'actualitzaran immediatament.",
     "group-id-value": "ID del grup: {0}",
     "total-households": "Llars totals",
-    "you-must-select-a-group-before-selecting-a-household": "Heu de seleccionar un grup abans de seleccionar una llar"
+    "you-must-select-a-group-before-selecting-a-household": "Heu de seleccionar un grup abans de seleccionar una llar",
+    "ai-provider-settings": {
+      "ai-provider-settings": "AI Provider Settings",
+      "ai-provider": "AI Provider",
+      "ai-providers": "AI Providers",
+      "ai-provider-settings-description": "Configure AI providers to enable AI-powered features, such as enhanced ingredient parsing, creating recipes from videos, and more!",
+      "providers": "Providers",
+      "create-provider": "Create Provider",
+      "edit-provider": "Edit Provider",
+      "default-provider": "Default Provider",
+      "default-provider-description": "Required to enable AI features",
+      "audio-provider": "Audio Provider",
+      "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
+      "image-provider": "Image Provider",
+      "image-provider-description": "Enables image recognition features, such as creating recipes from images",
+      "provider-name": "Provider Name",
+      "api-key": "API Key",
+      "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
+      "api-key-description-edit": "Leave this blank unless you want to change it.",
+      "base-url": "Base URL",
+      "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
+      "model": "Model",
+      "model-description": "Which model your AI provider should use (e.g. \"gpt-5\").",
+      "request-timeout-seconds": "Request Timeout (seconds)",
+      "provider-created": "Provider created",
+      "provider-updated": "Provider updated",
+      "provider-deleted": "Provider deleted",
+      "provider-create-failed": "Failed to create provider",
+      "provider-update-failed": "Failed to update provider",
+      "provider-delete-failed": "Failed to delete provider",
+      "request-headers": "Request Headers",
+      "request-params": "Request Parameters",
+      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+    }
   },
   "household": {
     "household": "Llar",
@@ -1362,6 +1397,7 @@
       "already-set-up-bring-to-homepage": "Ja ho tinc configurat, porta'm a la pàgina principal",
       "common-settings-for-new-sites": "Aquí hi ha algunes configuracions comunes per noves pàgines",
       "setup-complete": "Configuració completada!",
+      "ai-providers-description": "Optionally configure AI providers for your group. AI providers enable features like creating recipes from images, importing recipes from videos, and enhanced ingredient parsing. You can always configure this later from your group settings.",
       "here-are-a-few-things-to-help-you-get-started": "Aquí hi ha unes quantes coses per ajudar-te a posar Mealie en marxa",
       "restore-from-v1-backup": "Tens una còpia de seguretat d'una instància prèvia de Mealie v1? Pots restaurar-la aquí.",
       "manage-profile-or-get-invite-link": "Gestiona el teu propi perfil, o agafa un enllaç d'invitació per compartir amb altres."

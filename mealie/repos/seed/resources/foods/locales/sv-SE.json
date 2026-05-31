@@ -1295,7 +1295,7 @@
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungus",
+                "name": "svart träskinnsvampar",
                 "plural_name": "svart träskinnsvampar"
             },
             "black truffle": {
@@ -6250,7 +6250,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Starkt paprikapulver",
-                "plural_name": "hot paprika"
+                "plural_name": "Starkt paprikapulver"
             },
             "lemon thyme": {
                 "aliases": [],
@@ -6932,14 +6932,14 @@
             "honey powder": {
                 "aliases": [],
                 "description": "",
-                "name": "honey powder",
-                "plural_name": "honey powder"
+                "name": "honungspulver",
+                "plural_name": "honungspulver"
             },
             "berry syrup": {
                 "aliases": [],
                 "description": "",
-                "name": "berry syrup",
-                "plural_name": "berry syrup"
+                "name": "bärsirap",
+                "plural_name": "bärsirap"
             },
             "grape syrup": {
                 "aliases": [],
@@ -7081,7 +7081,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Senapspulver",
-                "plural_name": "mustard powder"
+                "plural_name": "senapspulver"
             },
             "taco seasoning": {
                 "aliases": [],
@@ -7104,14 +7104,14 @@
             "white miso": {
                 "aliases": [],
                 "description": "",
-                "name": "white miso",
-                "plural_name": "white misoes"
+                "name": "vit misopasta",
+                "plural_name": "vit misopasta"
             },
             "himalayan salt": {
                 "aliases": [],
                 "description": "",
                 "name": "Himalaya salt",
-                "plural_name": "himalayan salt"
+                "plural_name": "himalaya salt"
             },
             "lemon & pepper seasoning": {
                 "aliases": [],
@@ -7326,8 +7326,8 @@
             "smoked salt": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked salt",
-                "plural_name": "smoked salt"
+                "name": "rökt salt",
+                "plural_name": "rökt salt"
             },
             "dash seasoning": {
                 "aliases": [],

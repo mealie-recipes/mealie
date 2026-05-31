@@ -223,7 +223,9 @@
     "show-advanced": "Haladó beállítások megjelenítése",
     "add-field": "Mező hozzáadása",
     "date-created": "Létrehozás dátuma",
-    "date-updated": "Frissítés dátuma"
+    "date-updated": "Frissítés dátuma",
+    "key": "Kulcs",
+    "value": "Érték"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Biztosan törölni szeretnéd ezt: <b>{groupName}<b/>?",
@@ -283,7 +285,40 @@
     "admin-group-management-text": "A csoporthoz tartozó változtatások azonnal megjelennek.",
     "group-id-value": "Csoport azonosító: {0}",
     "total-households": "Háztartások száma",
-    "you-must-select-a-group-before-selecting-a-household": "A háztartás kiválasztása előtt ki kell választania egy csoportot"
+    "you-must-select-a-group-before-selecting-a-household": "A háztartás kiválasztása előtt ki kell választania egy csoportot",
+    "ai-provider-settings": {
+      "ai-provider-settings": "AI szolgáltató beállítások",
+      "ai-provider": "AI szolgáltató",
+      "ai-providers": "AI szolgáltató",
+      "ai-provider-settings-description": "Állítsa be az AI-szolgáltatókat az AI-alapú funkciók, például a továbbfejlesztett összetevő-elemzés, a videókból történő receptkészítés és még sok más használatához!",
+      "providers": "Szolgáltatók",
+      "create-provider": "Szolgáltató létrehozása",
+      "edit-provider": "Szolgáltató szerkesztése",
+      "default-provider": "Alapértelmezett szolgáltató",
+      "default-provider-description": "Az AI-funkciók használatához szükséges",
+      "audio-provider": "Audió szolgáltató",
+      "audio-provider-description": "Engedélyezi az audió-átírási funkciókat, például a videókból származó receptek létrehozását",
+      "image-provider": "Kép szolgáltató",
+      "image-provider-description": "Engedélyezi a képfelismerési funkciókat, például a képek alapján történő receptkészítést",
+      "provider-name": "Szolgáltató neve",
+      "api-key": "API Kulcs",
+      "api-key-description-create": "A szolgáltató hitelesítési API-kulcsa. Ha a szolgáltatása (pl. Ollama) nem használ API-kulcsot, akkor is be kell írnia ide valamit.",
+      "api-key-description-edit": "Ha nem szeretné módosítani, hagyja üresen.",
+      "base-url": "Alap URL",
+      "base-url-description": "Ha az OpenAI-t használja, hagyja üresen ezt a mezőt. Az endpointnak OpenAI-kompatibilisnek kell lennie (pl. „http://localhost:11434/v1”).",
+      "model": "Modell",
+      "model-description": "Melyik modellt kell használnia az AI-szolgáltatónak (pl. „gpt-5”).",
+      "request-timeout-seconds": "A kérés időtúllépése (másodpercben)",
+      "provider-created": "Szolgáltató létrehozva",
+      "provider-updated": "Szolgáltató frissítve",
+      "provider-deleted": "Szolgáltató törölve",
+      "provider-create-failed": "A szolgáltató létrehozása sikertelen",
+      "provider-update-failed": "A szolgáltató frissítése sikertelen",
+      "provider-delete-failed": "A szolgáltató törlése sikertelen",
+      "request-headers": "Kérés fejléce",
+      "request-params": "Kérelem paraméterek",
+      "no-default-provider-warning": "Mivel nem állított be alapértelmezett szolgáltatót, az AI-funkciók le vannak tiltva"
+    }
   },
   "household": {
     "household": "Háztartás",
@@ -1362,6 +1397,7 @@
       "already-set-up-bring-to-homepage": "Már kész is vagyok, vigyél az új kezdőoldalamra",
       "common-settings-for-new-sites": "Itt van egy pár alap beállítás az új oldaladhoz",
       "setup-complete": "Beállítás kész!",
+      "ai-providers-description": "Opcionálisan konfigurálhatja az AI-szolgáltatókat a csoportjához. Az AI-szolgáltatók olyan funkciókat tesznek lehetővé, mint a képekből történő receptkészítés, a videókból történő receptimportálás és a továbbfejlesztett hozzávalóelemzés. Ezt később bármikor beállíthatja a csoportbeállítások menüpontban.",
       "here-are-a-few-things-to-help-you-get-started": "Itt van egy pár dolog ami segíthet a kezdésben a Mealie-vel",
       "restore-from-v1-backup": "Van egy korábbi Mealie v1 biztonsági másolatod? Itt visszaállíthatod.",
       "manage-profile-or-get-invite-link": "Alakítsa a profilját vagy szerezze meg a meghívó link-jét hogy megoszthassa másokkal."
