@@ -69,11 +69,7 @@
           </template>
         </v-autocomplete>
 
-        <v-alert
-          v-if="foods && foods.length > 0"
-          type="error"
-          class="mb-0 text-body-2"
-        >
+        <v-alert v-if="foods && foods.length > 0" type="error" class="mb-0 text-body-2">
           {{ $t("data-pages.foods.seed-dialog-warning") }}
         </v-alert>
       </v-card-text>
@@ -112,11 +108,7 @@
           :label="$t('data-pages.foods.food-label')"
         />
         <v-card variant="outlined">
-          <v-virtual-scroll
-            height="400"
-            item-height="25"
-            :items="bulkAssignTarget"
-          >
+          <v-virtual-scroll height="400" item-height="25" :items="bulkAssignTarget">
             <template #default="{ item }">
               <v-list-item class="pb-2">
                 <v-list-item-title>{{ item.name }}</v-list-item-title>
@@ -141,6 +133,7 @@
       ]"
       :create-form="createForm"
       :edit-form="editForm"
+      :on-delete-dialog-open="onDeleteDialogOpen"
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="foodStore.actions.deleteOne"
@@ -151,15 +144,12 @@
           <template #icon>
             {{ $globals.icons.externalLink }}
           </template>
-          {{ $t('data-pages.combine') }}
+          {{ $t("data-pages.combine") }}
         </BaseButton>
       </template>
 
       <template #[`item.label`]="{ item }">
-        <MultiPurposeLabel
-          v-if="item.label"
-          :label="item.label"
-        >
+        <MultiPurposeLabel v-if="item.label" :label="item.label">
           {{ item.label.name }}
         </MultiPurposeLabel>
       </template>
@@ -171,7 +161,7 @@
       </template>
 
       <template #[`item.createdAt`]="{ item }">
-        {{ item.createdAt ? $d(new Date(item.createdAt)) : '' }}
+        {{ item.createdAt ? $d(new Date(item.createdAt)) : "" }}
       </template>
 
       <template #table-button-bottom>
@@ -179,17 +169,32 @@
           <template #icon>
             {{ $globals.icons.database }}
           </template>
-          {{ $t('data-pages.seed') }}
+          {{ $t("data-pages.seed") }}
         </BaseButton>
       </template>
 
       <template #edit-dialog-custom-action>
-        <BaseButton
-          edit
-          @click="aliasManagerDialog = true"
-        >
-          {{ $t('data-pages.manage-aliases') }}
+        <BaseButton edit @click="aliasManagerDialog = true">
+          {{ $t("data-pages.manage-aliases") }}
         </BaseButton>
+      </template>
+
+      <template #delete-dialog-bottom>
+        <v-alert v-if="affectedRecipes.length > 0" type="warning" density="compact" class="mt-4 mb-0">
+          {{ $t("data-pages.foods.delete-affects-recipes", { count: affectedRecipesTotal }) }}
+          <ul class="mt-1 pl-5 mb-0">
+            <li v-for="recipe in affectedRecipes.slice(0, 5)" :key="recipe.slug">
+              <NuxtLink :to="recipe.url" class="text-white">{{ recipe.name }}</NuxtLink>
+            </li>
+          </ul>
+          <NuxtLink
+            v-if="affectedRecipesTotal > 5"
+            :to="affectedRecipesMoreLink"
+            class="text-white d-inline-block mt-1"
+          >
+            {{ $t("data-pages.foods.delete-affects-recipes-more", { count: affectedRecipesTotal }) }}
+          </NuxtLink>
+        </v-alert>
       </template>
     </GroupDataPage>
   </div>
@@ -218,6 +223,7 @@ interface CreateIngredientFoodWithOnHand extends CreateIngredientFood {
 interface IngredientFoodWithOnHand extends IngredientFood {
   onHand: boolean;
 }
+
 const userApi = useUserApi();
 const i18n = useI18n();
 const auth = useMealieAuth();
@@ -274,11 +280,14 @@ const tableHeaders: TableHeaders[] = [
 ];
 
 const userHousehold = computed(() => auth.user.value?.householdSlug || "");
+const userGroup = computed(() => auth.user.value?.groupSlug || "");
 const foodStore = useFoodStore();
-const foods = computed(() => foodStore.store.value.map((food) => {
-  const onHand = food.householdsWithIngredientFood?.includes(userHousehold.value) || false;
-  return { ...food, onHand } as IngredientFoodWithOnHand;
-}));
+const foods = computed(() =>
+  foodStore.store.value.map((food) => {
+    const onHand = food.householdsWithIngredientFood?.includes(userHousehold.value) || false;
+    return { ...food, onHand } as IngredientFoodWithOnHand;
+  }),
+);
 
 // ============================================================
 // Labels
@@ -383,6 +392,9 @@ async function handleBulkAction(event: string, items: IngredientFoodWithOnHand[]
   if (event === "delete-selected") {
     const ids = items.map(item => item.id);
     await foodStore.actions.deleteMany(ids);
+    affectedRecipes.value = [];
+    affectedRecipesTotal.value = 0;
+    affectedRecipesMoreLink.value = "";
   }
   else if (event === "assign-selected") {
     bulkAssignEventHandler(items);
@@ -399,6 +411,26 @@ function updateFoodAlias(newAliases: IngredientFoodAlias[]) {
   }
   editForm.data.aliases = newAliases;
   aliasManagerDialog.value = false;
+}
+
+// ============================================================
+// Delete Foods
+
+// fetch affected recipes before confirming deletion
+const affectedRecipes = ref<{ name: string; slug: string; url: string }[]>([]);
+const affectedRecipesTotal = ref(0);
+const affectedRecipesMoreLink = ref("");
+
+async function onDeleteDialogOpen(items: IngredientFoodWithOnHand[]) {
+  const ids = items.map(item => item.id);
+  const { data } = await userApi.recipes.search({ foods: ids, perPage: 5 });
+  affectedRecipes.value = (data?.items ?? []).map(r => ({
+    name: r.name ?? "",
+    slug: r.slug ?? "",
+    url: `/g/${userGroup.value}/r/${r.slug}`,
+  }));
+  affectedRecipesTotal.value = data?.total ?? 0;
+  affectedRecipesMoreLink.value = `/g/${userGroup.value}?${ids.map(id => `foods=${id}`).join("&")}`;
 }
 
 // ============================================================

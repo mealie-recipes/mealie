@@ -44,6 +44,7 @@
     8000, // used by mkdocs
     9000,
     9091, // used by docker production
+    51204, // used for test coverage report
     24678 // used by nuxt when hot-reloading using polling
   ],
   // Use 'onCreateCommand' to run commands at the end of container creation.

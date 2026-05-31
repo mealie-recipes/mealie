@@ -12,6 +12,8 @@
   "extends": [
     "config:recommended"
   ],
+  "minimumReleaseAge": "5 days",
+  "internalChecksFilter": "strict",
   "addLabels": [
     "dependencies"
   ],
@@ -51,8 +53,7 @@
       ],
       "automerge": true,
       "automergeType": "pr",
-      "automergeStrategy": "squash",
-      "minimumReleaseAge": "5 days"
+      "automergeStrategy": "squash"
     },
     {
       "description": "Auto-merge Docker digest and patch updates",
@@ -66,8 +67,7 @@
       ],
       "automerge": true,
       "automergeType": "pr",
-      "automergeStrategy": "squash",
-      "minimumReleaseAge": "5 days"
+      "automergeStrategy": "squash"
     }
   ]
 }

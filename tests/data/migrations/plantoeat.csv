@@ -1,0 +1,13 @@
+Title,Course,Cuisine,Main Ingredient,Description,Source,Url,Url Host,Prep Time,Cook Time,Total Time,Servings,Yield,Ingredients,Directions,Tags,Rating,Public Url,Photo Url,Private,Nutritional Score (generic),Calories,Fat,Saturated Fat,Cholesterol,Sodium,Sugar,Carbohydrate,Fiber,Protein,Cost,Created At,Updated At
+Test Recipe,Main Course,American,Beans,"This is a description.
+Here is new line.",Manually entered source,https://eatwithclarity.com/sushi-bowl-with-sesame-tofu/,,75,75,150,7,1 loaf,", Heading
+2 itm Test, note
+, Heading2
+3 pkg Two, note2
+
+","Directions.
+Will go here.","Allergen-Friendly, Cheap, Test",3,https://app.plantoeat.com/recipes/38843883,https://plantoeat.s3.amazonaws.com/recipes/29516709/470292506c8d9b71582487a7879ab7b197d06490-large.jpg?1628205591,yes,,13,16,17,18,19,22,20,21,23,,2023-10-13 20:29:29,2023-10-13 20:32:48
+Test Recipe2,,,,,,,,,,,,,"2 itm Test, note
+3 pkg Two, note2
+","Directions.
+Will go here.",,,,,,,,,,,,,,,,,2023-10-13 20:29:29,2023-10-13 20:32:48
