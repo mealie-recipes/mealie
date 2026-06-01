@@ -6,11 +6,11 @@
         :recipe="recipe"
       />
       <v-card
-        :width="landscape ? '100%' : '50%'"
+        :width="landscape || !recipe.image ? '100%' : '50%'"
         flat
         class="d-flex flex-column justify-center align-center"
       >
-        <v-card-text class="w-100">
+        <v-card-text>
           <div class="d-flex flex-column align-center">
             <v-card-title class="text-h5 font-weight-regular pa-0 text-wrap text-center opacity-80">
               {{ recipe.name }}
@@ -67,7 +67,7 @@
         </v-card-text>
       </v-card>
       <RecipePageInfoCardImage
-        v-if="!landscape"
+        v-if="!landscape && recipe.image"
         :recipe="recipe"
         max-width="50%"
         class="my-auto"
