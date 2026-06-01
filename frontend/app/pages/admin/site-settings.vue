@@ -220,9 +220,7 @@
           </template>
         </template>
         <template v-else>
-          <div class="mb-3 text-center">
-            <AppLoader :waiting-text="$t('general.loading')" />
-          </div>
+          <AppLoader />
         </template>
       </v-card>
     </section>
