@@ -69,7 +69,7 @@ dev = [
     "pre-commit==4.6.0",
     "pylint==4.0.5",
     "pytest==9.0.3",
-    "pytest-asyncio==1.3.0",
+    "pytest-asyncio==1.4.0",
     "rich==15.0.0",
     "ruff==0.15.14",
     "types-PyYAML==6.0.12.20260518",
