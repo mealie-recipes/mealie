@@ -81,9 +81,22 @@
           <v-stepper-window-item :value="Pages.LANDING">
             <v-container class="mb-12">
               <AppLogo />
-              <v-card-title class="text-h4 justify-center text-center text-break text-pre-wrap">
+              <v-card-title class="text-headline-medium my-5 justify-center text-center text-break text-pre-wrap">
                 {{ $t('admin.setup.welcome-to-mealie-get-started') }}
               </v-card-title>
+              <p class="text-body-1 text-center">
+                {{ $t('admin.setup.previous-mealie-instance') }}
+              </p>
+              <v-btn
+                to="backups"
+                rounded
+                variant="outlined"
+                color="primary"
+                class="text-subtitle-2 d-flex mx-auto my-3"
+                style="width: fit-content;"
+              >
+                {{ $t('settings.backup.restore-backup') }}
+              </v-btn>
               <v-btn
                 :to="groupSlug ? `/g/${groupSlug}` : '/login'"
                 rounded
