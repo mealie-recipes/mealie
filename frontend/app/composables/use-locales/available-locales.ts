@@ -59,7 +59,7 @@ export const LOCALES = [
   {
     name: "Slovenčina (Slovak)",
     value: "sk-SK",
-    progress: 60,
+    progress: 62,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -143,7 +143,7 @@ export const LOCALES = [
   {
     name: "Italiano (Italian)",
     value: "it-IT",
-    progress: 72,
+    progress: 73,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -164,7 +164,7 @@ export const LOCALES = [
   {
     name: "Hrvatski (Croatian)",
     value: "hr-HR",
-    progress: 41,
+    progress: 42,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
