@@ -127,8 +127,8 @@
                 </v-icon>
                 <span class="opacity-80">
                   <strong>{{ $t("general.last-made") }}</strong>
-                <br>
-                {{ lastMade ? $d(new Date(lastMade)) : $t("general.never") }}
+                  <br>
+                  {{ lastMade ? $d(new Date(lastMade)) : $t("general.never") }}
                 </span>
                 <v-icon end size="large" color="primary">
                   {{ $globals.icons.createAlt }}
