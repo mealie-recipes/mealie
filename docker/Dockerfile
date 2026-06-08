@@ -52,6 +52,11 @@ RUN apt-get update \
 
 RUN pip install uv
 
+# Install from the committed lockfile; never re-resolve. The rolling
+# `exclude-newer` cooling window (pyproject [tool.uv]) would otherwise make
+# `uv export` below re-resolve and fail on in-window pins.
+ENV UV_FROZEN=1
+
 WORKDIR /mealie
 
 # copy project files here to ensure they will be cached.

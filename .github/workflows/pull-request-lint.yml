@@ -3,7 +3,7 @@ name: Pull Request Linter
 on:
   workflow_call:
   pull_request:
-    types: [edited] # This captures the PR title changing
+    types: [edited, reopened] # This captures the PR title/body changing
     branches:
       - mealie-next
 
@@ -41,3 +41,50 @@ jobs:
           ignoreLabels: |
             bot
             ignore-semantic-pull-request
+
+  validate-template:
+    name: Validate PR template
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Check required PR template sections
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+
+            if (pr.user.type === "Bot") {
+              console.log("Skipping template check for bot");
+              return;
+            }
+
+            const response = await github.rest.repos.getContent({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              path: ".github/pull_request_template.md",
+            });
+
+            const template = Buffer.from(response.data.content, "base64").toString("utf8");
+            const lines = template.split("\n");
+
+            const requiredHeadings = [];
+            let lastHeading = null;
+
+            for (const line of lines) {
+              if (line.startsWith("## ")) {
+                lastHeading = line.trim();
+              } else if (line.trim() === "_(REQUIRED)_" && lastHeading) {
+                requiredHeadings.push(lastHeading);
+                lastHeading = null;
+              }
+            }
+
+            const body = pr.body || "";
+            const missing = requiredHeadings.filter(h => !body.includes(h));
+
+            if (missing.length > 0) {
+              core.setFailed(`Missing headings:\n${missing.join("\n")}`);
+            } else {
+              console.log("All required headings present");
+            }

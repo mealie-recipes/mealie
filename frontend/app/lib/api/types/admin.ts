@@ -48,6 +48,7 @@ export interface AppInfo {
   oidcRedirect: boolean;
   oidcProviderName: string;
   tokenTime: number;
+  allowedIframeHosts?: string[];
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;

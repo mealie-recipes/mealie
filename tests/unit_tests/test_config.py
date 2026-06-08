@@ -27,6 +27,31 @@ def test_non_default_settings(monkeypatch):
     assert app_settings.DOCS_URL is None
 
 
+def test_allowed_iframe_hosts_defaults(monkeypatch):
+    monkeypatch.delenv("ALLOWED_IFRAME_HOSTS", raising=False)
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
+    # Secure defaults are always present and never empty (empty would disable iframe embeds).
+    assert "youtube.com" in app_settings.allowed_iframe_hosts
+    assert "vimeo.com" in app_settings.allowed_iframe_hosts
+
+
+def test_allowed_iframe_hosts_extends_defaults(monkeypatch):
+    monkeypatch.setenv("ALLOWED_IFRAME_HOSTS", " Example.com , trusted.tld ,, ")
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
+    hosts = app_settings.allowed_iframe_hosts
+    # Configured hosts are normalized, blanks dropped, and defaults retained.
+    assert "example.com" in hosts
+    assert "trusted.tld" in hosts
+    assert "youtube.com" in hosts
+    assert "" not in hosts
+    # No duplicates.
+    assert len(hosts) == len(set(hosts))
+
+
 def test_default_connection_args(monkeypatch):
     monkeypatch.setenv("DB_ENGINE", "sqlite")
     get_app_settings.cache_clear()
