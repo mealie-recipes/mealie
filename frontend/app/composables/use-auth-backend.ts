@@ -30,9 +30,12 @@ export const useAuthBackend = function (): AuthState {
 
   const runtimeConfig = useRuntimeConfig();
   const tokenName = runtimeConfig.public.AUTH_TOKEN;
+  const isSecureConnection = $appInfo.production && window?.location?.protocol === "https:";
   const tokenCookie = useCookie(tokenName, {
     maxAge: $appInfo.tokenTime * 60 * 60,
-    secure: $appInfo.production && window?.location?.protocol === "https:",
+    secure: isSecureConnection,
+    sameSite: isSecureConnection ? "none" : "lax",
+    partitioned: isSecureConnection,
   });
 
   function setToken(token: string | null) {
