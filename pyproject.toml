@@ -29,7 +29,7 @@ dependencies = [
     "recipe-scrapers==15.11.0",
     "requests==2.34.2",
     "tzdata==2026.2",
-    "uvicorn[standard]==0.48.0",
+    "uvicorn[standard]==0.49.0",
     "beautifulsoup4==4.14.3",
     "isodate==0.7.2",
     "text-unidecode==1.3",
