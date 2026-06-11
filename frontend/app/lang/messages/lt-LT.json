@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Pasirinktų produktų sujungimas apibendrins pirminį ir antrinį produktus į vieną produktą. Pirminis produktas bus ištrintas, o visi jo panaudojimai bus pakeisti antriniu produktu.",
       "merge-food-example": "Sujungiama {food1} su {food2}",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
