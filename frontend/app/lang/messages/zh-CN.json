@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "此操作将把“待合并食物”和“目标食物”合并为一个食物（即“目标食物”）。 “待合并食物”将会被删除 ，之前所有对“待合并食物”的引用都会指向“目标食物”。",
       "merge-food-example": "正在将{food1}合并到{food2} ",
       "seed-dialog-text": "根据你当地的语言在数据库中输入食物。这将创建大约2700种常见的食物，可以用来组织你的数据库。食物是通过社区努力翻译的。",
