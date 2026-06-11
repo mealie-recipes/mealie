@@ -224,7 +224,7 @@
     "add-field": "Ajouter un champ",
     "date-created": "Date de création",
     "date-updated": "Date de mise à jour",
-    "key": "Key",
+    "key": "Clé",
     "value": "Value"
   },
   "group": {
@@ -290,7 +290,7 @@
       "ai-provider-settings": "AI Provider Settings",
       "ai-provider": "AI Provider",
       "ai-providers": "AI Providers",
-      "ai-provider-settings-description": "Configure AI providers to enable AI-powered features, such as enhanced ingredient parsing, creating recipes from videos, and more!",
+      "ai-provider-settings-description": "Configurez les fournisseurs d'IA pour activer les fonctionnalités alimentées par l'AI, telles que l'analyse améliorée des ingrédients, la création de recettes à partir de vidéos, et plus encore !",
       "providers": "Providers",
       "create-provider": "Create Provider",
       "edit-provider": "Edit Provider",
@@ -317,7 +317,7 @@
       "provider-delete-failed": "Failed to delete provider",
       "request-headers": "Request Headers",
       "request-params": "Request Parameters",
-      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+      "no-default-provider-warning": "Vous n'avez pas défini de fournisseur par défaut, donc les fonctionnalités IA sont désactivées"
     }
   },
   "household": {
@@ -427,7 +427,7 @@
     "nextcloud": {
       "description": "Importer des recettes depuis Nextcloud Cookbook",
       "description-long": "Les recettes Nextcloud peuvent être importées depuis un fichier zip qui contient les données stockées dans Nextcloud. Consultez la structure de dossiers d'exemple ci-dessous pour vous assurer que vos recettes peuvent être importées.",
-      "title": "Nextcloud Cookbook"
+      "title": "Livre de recettes Nextcloud (Cookbook)"
     },
     "copymethat": {
       "description-long": "Mealie peut importer des recettes à partir de Copy Me That. Exportez vos recettes au format HTML, puis téléchargez le .zip ci-dessous.",
@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "La combinaison des aliments sélectionnés fusionnera l’aliment source et l’aliment cible en un seul aliment. L’aliment source sera supprimé et toutes les références à l’aliment source seront mises à jour pour pointer vers l’aliment cible.",
       "merge-food-example": "Fusion de {food1} dans {food2}",
       "seed-dialog-text": "Initialisez la base de données avec des aliments basés sur votre langue locale. Cela permettra de créer plus de 200 aliments communs qui pourront être utilisés pour organiser votre base de données. Les aliments sont traduits grâce à un effort communautaire.",
@@ -1397,7 +1399,7 @@
       "already-set-up-bring-to-homepage": "J’ai déjà tout configuré, amenez-moi à l’écran d’accueil",
       "common-settings-for-new-sites": "Voici quelques paramètres courants pour les nouveaux sites",
       "setup-complete": "Configuration terminée !",
-      "ai-providers-description": "Optionally configure AI providers for your group. AI providers enable features like creating recipes from images, importing recipes from videos, and enhanced ingredient parsing. You can always configure this later from your group settings.",
+      "ai-providers-description": "Vous pouvez configurer un fournisseur d'IA pour votre groupe. Les fournisseurs d'IA permettent d'activer des fonctionnalités telles que la création de recettes depuis des images, l'importation de recettes depuis des vidéos ainsi qu'un traitement amélioré des ingrédients. Vous pourrez toujours configurer cela plus tard dans les paramètres de votre groupe.",
       "here-are-a-few-things-to-help-you-get-started": "Voici quelques trucs pour vous aider à commencer avec Mealie",
       "restore-from-v1-backup": "Vous avez une sauvegarde d’une précédente instance de Mealie v1 ? Vous pouvez la restaurer ici.",
       "manage-profile-or-get-invite-link": "Gérez votre propre profil, ou récupérez un lien d’invitation à partager avec d’autres."
