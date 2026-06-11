@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "A kiválasztott alapanyagok egyesítésével a forrásalapanyag és a célalapanyag egyetlen alapanyag lesz. A forrásalapanyag törlésre kerül, és a forrásalapanyagra vonatkozó összes hivatkozás frissül, hogy a célalapanyagra mutasson.",
       "merge-food-example": "{food1} összevonása {food2}-ba/be",
       "seed-dialog-text": "Töltse be az adatbázist a helyi nyelvű alapanyagokkal. Ezáltal több mint 200 közös alapanyagot hoz létre, amelyek segítségével rendszerezheti az adatbázisát. Az alapanyagok fordítása közösségi összefogással történik.",
