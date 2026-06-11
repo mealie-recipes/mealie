@@ -169,7 +169,7 @@
     "token": "Token",
     "tuesday": "Utorok",
     "type": "Typ",
-    "undo": "Undo",
+    "undo": "Vrátiť späť",
     "update": "Aktualizovať",
     "updated": "Aktualizované",
     "upload": "Nahrať",
@@ -224,8 +224,8 @@
     "add-field": "Pridať pole",
     "date-created": "Dátum vytvorenia",
     "date-updated": "Dátum aktualizácie",
-    "key": "Key",
-    "value": "Value"
+    "key": "Kľúč",
+    "value": "Hodnota"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Naozaj chcete odstrániť <b>{groupName}<b/>?",
@@ -278,7 +278,7 @@
     "disable-organizing-recipe-ingredients-by-units-and-food-description": "Skryje pole Potravina, Jednotka a Množstvo surovín a suroviny považuje za textové polia",
     "general-preferences": "Všeobecné nastavenia",
     "group-recipe-preferences": "Nastavenia receptu v rámci skupiny",
-    "report": "Report",
+    "report": "Nahlásiť",
     "report-with-id": "ID reportu: {id}",
     "group-management": "Spravovanie skupiny",
     "admin-group-management": "Spravovanie administrátorskej skupiny",
@@ -287,37 +287,37 @@
     "total-households": "Domácností celkom",
     "you-must-select-a-group-before-selecting-a-household": "Pred výberom domácnosti musíte vybrať skupinu",
     "ai-provider-settings": {
-      "ai-provider-settings": "AI Provider Settings",
-      "ai-provider": "AI Provider",
-      "ai-providers": "AI Providers",
-      "ai-provider-settings-description": "Configure AI providers to enable AI-powered features, such as enhanced ingredient parsing, creating recipes from videos, and more!",
-      "providers": "Providers",
-      "create-provider": "Create Provider",
-      "edit-provider": "Edit Provider",
-      "default-provider": "Default Provider",
-      "default-provider-description": "Required to enable AI features",
-      "audio-provider": "Audio Provider",
-      "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
-      "image-provider": "Image Provider",
-      "image-provider-description": "Enables image recognition features, such as creating recipes from images",
-      "provider-name": "Provider Name",
-      "api-key": "API Key",
-      "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
-      "api-key-description-edit": "Leave this blank unless you want to change it.",
-      "base-url": "Base URL",
-      "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
-      "model": "Model",
-      "model-description": "Which model your AI provider should use (e.g. \"gpt-5\").",
-      "request-timeout-seconds": "Request Timeout (seconds)",
-      "provider-created": "Provider created",
-      "provider-updated": "Provider updated",
-      "provider-deleted": "Provider deleted",
-      "provider-create-failed": "Failed to create provider",
-      "provider-update-failed": "Failed to update provider",
-      "provider-delete-failed": "Failed to delete provider",
-      "request-headers": "Request Headers",
-      "request-params": "Request Parameters",
-      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+      "ai-provider-settings": "Nastavenie poskytovateľa umelej inteligencie (AI)",
+      "ai-provider": "Poskytovateľ AI",
+      "ai-providers": "Poskytovatelia AI",
+      "ai-provider-settings-description": "Nakonfigurujte poskytovateľov AI, aby ste povolili funkcie využívajúce umelú inteligenciu, ako je pokročilé rozpoznávanie ingrediencií, vytváranie receptov z videí a ďalšie!",
+      "providers": "Poskytovatelia",
+      "create-provider": "Vytvoriť poskytovateľa AI",
+      "edit-provider": "Upraviť AI poskytovateľa AI",
+      "default-provider": "Predvolený poskytovateľ AI",
+      "default-provider-description": "Vyžaduje sa na povolenie funkcií AI.",
+      "audio-provider": "Poskytovateľ AI pre zvuk",
+      "audio-provider-description": "Povoľuje funkcie prepisu zvuku, ako je napríklad vytváranie receptov z videí",
+      "image-provider": "Poskytovateľ AI pre video",
+      "image-provider-description": "Povoľuje funkcie rozpoznávania obrázkov, ako je napríklad vytváranie receptov z obrázkov",
+      "provider-name": "Názov poskytovateľa AI",
+      "api-key": "API kľúč",
+      "api-key-description-create": "API kľúč vášho poskytovateľa AI na overenie. Ak vaša služba (napr. Ollama) nepoužíva API kľúč, aj tak sem musíte niečo zadať.",
+      "api-key-description-edit": "Nechajte prázdne, pokiaľ ho nechcete zmeniť.",
+      "base-url": "Základná URL adresa",
+      "base-url-description": "Ak používate OpenAI, nechajte toto pole prázdne. Musí ísť o koncový bod kompatibilný s OpenAI (napr. \"http://localhost:11434/v1\").",
+      "model": "Model AI",
+      "model-description": "Ktorý model má váš poskytovateľ AI používať (napr. \"gpt-5\").",
+      "request-timeout-seconds": "Časový limit požiadavky (sekundy)",
+      "provider-created": "Poskytovateľ AI bol vytvorený",
+      "provider-updated": "Poskytovateľ AI bol aktualizovaný",
+      "provider-deleted": "Poskytovateľ AI bol odstránený",
+      "provider-create-failed": "Nepodarilo sa vytvoriť poskytovateľa AI",
+      "provider-update-failed": "Nepodarilo sa aktualizovať poskytovateľa AI",
+      "provider-delete-failed": "Nepodarilo sa odstrániť poskytovateľa AI",
+      "request-headers": "Hlavičky požiadavky",
+      "request-params": "Parametre požiadavky",
+      "no-default-provider-warning": "Nemáte nastaveného predvoleného poskytovateľa AI, preto sú funkcie AI neaktívne"
     }
   },
   "household": {
@@ -368,8 +368,8 @@
     "any-household": "Ľubovoľná domácnosť",
     "no-meal-plan-defined-yet": "Nebol vytvorený žiadny jedálniček",
     "no-meal-planned-for-today": "Pre dnešok žiadne jedlo v jedálničku",
-    "numberOfDaysPast-hint": "Number of days in the past on page load",
-    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDaysPast-hint": "Počet dní do minulosti pri načítaní stránky",
+    "numberOfDaysPast-label": "Predvolený počet dní do minulosti",
     "numberOfDays-hint": "Počet dní na stránke",
     "numberOfDays-label": "Predvolený počet dní",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "V jedálničkoch budú použité iba recepty z nasledovných kategórií",
@@ -388,7 +388,7 @@
     "dessert": "Dezert",
     "type-any": "Ľubovoľný",
     "day-any": "Ľubovoľný",
-    "editor": "Editor",
+    "editor": "Editovanie",
     "meal-recipe": "Recept",
     "meal-title": "Názov jedla",
     "meal-note": "Poznámka",
@@ -409,8 +409,8 @@
     "applies-to-all-days": "Platí pre všetky dni",
     "applies-on-days": "Platí v {0}",
     "meal-plan-settings": "Nastavenia jedálnička",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Pridať všetko do zoznamu",
+    "add-day-to-list": "Pridať deň do zoznamu"
   },
   "migration": {
     "migration-data-removed": "Prenesené dáta odstránené",
@@ -427,7 +427,7 @@
     "nextcloud": {
       "description": "Preniesť dáta z Nextcloud Cookbook",
       "description-long": "Recepty z Nextcloud-u je možné importovať priamo zo zip-súboru, ktorý obsahuje dáta uložené na Nextcloud-e. Pozrite sa nižšie na príklad adresárovej štruktúry, aby ste sa uistili, že je možné vaše recepty importovať.",
-      "title": "Nextcloud Cookbook"
+      "title": "Kuchárska kniha Nextcloud"
     },
     "copymethat": {
       "description-long": "Mealie dokáže importovať recepty z Copy Me That. Exportujte recepty vo formáte HTML a nižšie nahrajte zip-súbor.",
@@ -663,7 +663,7 @@
     "create-recipe-description": "Vytvoriť nový recept od začiatku.",
     "create-recipes": "Vytvoriť recept",
     "import-with-zip": "Importovať .zip súbor",
-    "create-recipe-from-images": "Create Recipe from Images",
+    "create-recipe-from-images": "Vytvoriť recept z obrázka",
     "create-recipe-from-an-image-description": "Vytvoriť recept nahraním fotografie jedla. Mealie sa pokúsi previesť obrázok na text pomocou AI a vytvorí k nemu recept.",
     "crop-and-rotate-the-image": "Orežte a otočte obrázok tak, aby bol viditeľný iba text a aby mal správnu orientáciu.",
     "create-from-images": "Vytvoriť z obrázka",
@@ -675,8 +675,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Vytvoriť recept zadaním názvu. Všetky recepty musia mať jedinečné názvy.",
     "new-recipe-names-must-be-unique": "Názvy nových receptov musia byť jedinečné",
     "scrape-recipe": "Scrapovať recept",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
-    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
+    "scrape-recipe-description": "Stiahnuť recept zo zadanej adresy URL. Zadajte URL adresu stránky, z ktorej chcete stiahnuť recept. Mealie sa pokúsi recept stiahnuť a vložiť do vašej zbierky.",
+    "scrape-recipe-description-transcription": "Môžete tiež zadať URL adresu videa a Mealie sa pokúsi prepísať ho do podoby receptu.",
     "scrape-recipe-have-a-lot-of-recipes": "Máte množstvo receptov, ktoré by ste chceli naraz zoscrapovať?",
     "scrape-recipe-suggest-bulk-importer": "Vyskúšajte hromadný importér",
     "scrape-recipe-have-raw-html-or-json-data": "Máte surové údaje HTML alebo JSON?",
@@ -902,7 +902,7 @@
     },
     "bug-report": "Nahlásiť chybu",
     "bug-report-information": "Použite nasledujúcu informáciu na nahlásenie chyby. Poskytnutie detailov o vašej inštalácii vývojárom je najlepší spôsob, ako vyriešiť vaše problémy rýchlo.",
-    "tracker": "Tracker",
+    "tracker": "Sledovač",
     "configuration": "Nastavenie",
     "docker-volume": "Docker objem",
     "docker-volume-help": "Mealie vyžaduje, aby frontend a backend zdieľali rovnaký dockerový objem alebo úložisko. Toto umožňuje, aby frontend mohol správne pristupovať k obrázkom a ďalším doplnkom uloženým na disku.",
@@ -928,17 +928,17 @@
     "server-side-base-url-error-text": "`BASE_URL` v API servera má stále predvolenú hodnotu. Toto spôsobuje problémy pri vytváraní odkazov na upozornenia prostredníctvom e-mailov a pod.",
     "server-side-base-url-success-text": "Súčasná URL servera nesúhlasí s predvolenou hodnotou",
     "ldap-ready": "LDAP nastavené",
-    "ldap-not-ready": "LDAP Not Ready",
+    "ldap-not-ready": "LDAP nie je pripravený",
     "ldap-ready-error-text": "Niektoré z LDAP hodnôt nie sú nakonfigurované. Toto môžete ignorovať, ak nepoužívate LDAP autentifikáciu.",
     "ldap-ready-success-text": "Všetky potrebné LDAP premenné sú nastavené.",
     "build": "Zostavenie",
     "recipe-scraper-version": "Verzia scrapera receptov",
     "oidc-ready": "OIDC pripravené",
-    "oidc-not-ready": "OIDC Not Ready",
+    "oidc-not-ready": "OIDC nie je pripravený",
     "oidc-ready-error-text": "Niektoré z OIDC hodnôt nie sú nakonfigurované. Toto varovanie môžete ignorovať, ak nepoužívate OIDC autentifikáciu.",
     "oidc-ready-success-text": "Všetky potrebné OIDC premenné sú nastavené.",
     "openai-ready": "OpenAI pripravené",
-    "openai-not-ready": "OpenAI Not Ready",
+    "openai-not-ready": "OpenAI nie je pripravený",
     "openai-ready-error-text": "Nie všetky hodnoty pre OpenAI sú nakonfigurované. Toto môžete ignorovať, ak nepoužívate funkcie OpenAI.",
     "openai-ready-success-text": "Všetky požadované premenné pre OpenAI sú nastavené."
   },
@@ -946,13 +946,13 @@
     "all-lists": "Všetky zoznamy",
     "create-shopping-list": "Vytvoriť nákupný zoznam",
     "from-recipe": "Podľa receptu",
-    "ingredient-of-recipe": "Ingredient of {recipe}",
+    "ingredient-of-recipe": "Ingrediencie {recipe}",
     "list-name": "Názov zoznamu",
     "new-list": "Nový zoznam",
     "quantity": "Množstvo: {0}",
     "shopping-list": "Nákupný zoznam",
     "shopping-lists": "Nákupné zoznamy",
-    "add-item": "Add item",
+    "add-item": "Pridať položku",
     "food": "Jedlo",
     "note": "Poznámka",
     "label": "Štítok",
@@ -978,7 +978,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Naozaj chcete zrušiť označenie všetkých položiek?",
     "are-you-sure-you-want-to-delete-checked-items": "Naozaj chcete odstrániť všetky označené položky?",
     "no-shopping-lists-found": "Nenašli sa žiadne nákupné zoznamy",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "Označené ako vybavené: {item}"
   },
   "sidebar": {
     "all-recipes": "Všetky recepty",
@@ -997,7 +997,7 @@
     "language": "Jazyk",
     "maintenance": "Údržba",
     "background-tasks": "Úlohy na pozadí",
-    "parser": "Parser",
+    "parser": "Analyzátor prísad",
     "developer": "Vývojár",
     "cookbook": "Kuchárka",
     "create-cookbook": "Vytvoriť novú kuchárku"
@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Kombináciou vybraných potravín sa zdrojové jedlo a cieľové jedlo zlúčia do jedného jedla. Zdrojové jedlo bude vymazané a všetky odkazy na zdrojové jedlo budú aktualizované tak, aby ukazovali na cieľové jedlo.",
       "merge-food-example": "Zlučujem {food1} do {food2}",
       "seed-dialog-text": "Naplňte databázu potravinami vo vašom jazyku. Tým vytvoríte viac ako 2700 bežných potravín, ktoré môžete použiť na organizovanie vašej databáze. Potraviny sú preložené vďaka úsiliu komunity.",
@@ -1181,17 +1183,17 @@
       "example-unit-plural": "napr.: polievkové lyžice",
       "example-unit-abbreviation-singular": "napr.: PL",
       "example-unit-abbreviation-plural": "napr.: PL",
-      "standardization": "Standardization",
-      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
-      "standard-unit": "Standard Unit",
-      "standard-quantity": "Standard Quantity",
-      "unit-conversion": "Unit Conversion",
+      "standardization": "Štandardizácia",
+      "standardization-description": "Ako môže byť táto jednotka vyjadrená ako štandardná jednotka. To umožňuje funkcie prevodu jednotiek ako je napríklad spájanie kompatibilných jednotiek v nákupných zoznamoch.",
+      "standard-unit": "Štandardná jednotka",
+      "standard-quantity": "Štandardná jednotka množstva",
+      "unit-conversion": "Premena jednotiek",
       "standard-unit-labels": {
-        "fluid-ounce": "fluid ounce",
-        "cup": "cup",
-        "ounce": "ounce",
-        "pound": "pound",
-        "milliliter": "milliliter",
+        "fluid-ounce": "tekutá unca",
+        "cup": "šálka",
+        "ounce": "unca",
+        "pound": "libra",
+        "milliliter": "mililiter",
         "liter": "liter",
         "gram": "gram",
         "kilogram": "kilogram"
@@ -1231,8 +1233,8 @@
       "edit-recipe-action": "Upraviť akciu receptu",
       "action-type": "Typ akcie",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "Odkaz",
+        "post": "Publikovať"
       }
     },
     "create-alias": "Vytvoriť alias",
@@ -1386,7 +1388,7 @@
     "ingredient-text": "Text prísady",
     "average-confident": "{0} Spoľahlivý",
     "try-an-example": "Skúste príklad",
-    "parser": "Parser",
+    "parser": "Analyzátor prísad",
     "background-tasks": "Úlohy na pozadí",
     "background-tasks-description": "Tu môžete vidieť všetky úlohy bežiace na pozadí aj s ich aktuálnym stavom",
     "no-logs-found": "Neboli nájdené žiadne záznamy",
@@ -1397,7 +1399,7 @@
       "already-set-up-bring-to-homepage": "Som pripravený začať, vezmi ma na hlavnú stránku",
       "common-settings-for-new-sites": "Toto sú bežné nastavenia nových inštalácií",
       "setup-complete": "Nastavenie je dokončené!",
-      "ai-providers-description": "Optionally configure AI providers for your group. AI providers enable features like creating recipes from images, importing recipes from videos, and enhanced ingredient parsing. You can always configure this later from your group settings.",
+      "ai-providers-description": "Voliteľne môžete nakonfigurovať poskytovateľov AI pre vašu skupinu. Poskytovatelia AI umožňujú funkcie, ako je vytváranie receptov z obrázkov, importovanie receptov z videí a pokročilé rozpoznávanie ingrediencií. Tieto nastavenia môžete kedykoľvek neskôr upraviť v nastaveniach vašej skupiny.",
       "here-are-a-few-things-to-help-you-get-started": "Tu je niekoľko bodov, ktoré vám pomôžu na začiatku v Mealie",
       "restore-from-v1-backup": "Máte zálohu z predchádzajúcej inštalácie Mealie v1? Tu ju môžete obnoviť.",
       "manage-profile-or-get-invite-link": "Spravujte svoj profil ako súkromný alebo ho s pomocou pozývacieho linku zdieľajte s ostatnými."
@@ -1489,8 +1491,8 @@
       "is-greater-than-or-equal-to": "je väčšie alebo rovné",
       "is-less-than": "je menšie ako",
       "is-less-than-or-equal-to": "je menšie alebo rovné",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "je starší ako",
+      "is-newer-than": "je novší ako"
     },
     "relational-keywords": {
       "is": "je",
@@ -1502,7 +1504,7 @@
       "is-not-like": "nie je ako"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "dní dozadu"
     }
   },
   "validators": {
@@ -1511,13 +1513,13 @@
     "invalid-url": "Musí byť platná URL",
     "no-whitespace": "Prázdne znaky nepovolené",
     "min-length": "Musí mať aspoň {min} znakov",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Musí byť najviac {max} znakov|Musí byť najviac {max} znakov"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Oznámenia",
+    "all-announcements": "Všetky oznámenia",
+    "mark-all-as-read": "Označiť všetko ako prečítané",
+    "show-announcements-from-mealie": "Zobraziť oznámenia od Mealie",
+    "show-announcements-setting-description": "Povoliť používateľom zobrazovanie oznámení od Mealie. Ak je táto možnosť zapnutá, používatelia sa môžu aj naďalej odhlásiť z ich zobrazovania vo svojich používateľských nastaveniach."
   }
 }
