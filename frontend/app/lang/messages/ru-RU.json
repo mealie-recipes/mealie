@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Сочетание выбранных продуктов позволит объединить первый и второй продукт в один. Первый продукт будет удалён, и все ссылки на него будут указывать на второй продукт.",
       "merge-food-example": "Объединение {food1} в {food2}",
       "seed-dialog-text": "Заполняет базу данных с продуктами на основе локального языка. Это добавит ~2700 типичных продуктов, которые могут быть использованы для организации вашей базы данных. Продукты переводятся с помощью усилий сообщества.",
