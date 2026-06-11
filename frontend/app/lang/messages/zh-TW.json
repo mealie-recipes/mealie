@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "合併所選食材將把來源食材與目標食材合併為單一食材。來源食材將被刪除，所有對來源食材的參照將更新為指向目標食材。",
       "merge-food-example": "將 {food1} 合併至 {food2}",
       "seed-dialog-text": "根據您的本地語言，將常見食材植入資料庫。這將建立 200 種以上可用於整理資料庫的常見食材。食材翻譯由社群共同維護。",
