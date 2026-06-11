@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Combinarea alimentelor selectate va fuziona alimentul sursă și alimentul țintă într-un singur aliment. Alimentul sursă va fi șters, iar toate referințele către alimentul sursă vor fi actualizate pentru a indica alimentul țintă.",
       "merge-food-example": "Combinarea {food1} în {food2}",
       "seed-dialog-text": "Populează baza de date cu alimente în funcție de limba ta locală. Aceasta va crea peste 200 de alimente comune care pot fi utilizate pentru a organiza baza de date. Alimentele sunt traduse printr-un efort comunitar.",
