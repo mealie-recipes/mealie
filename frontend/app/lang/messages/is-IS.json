@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Við að sameina valdar matvörur munu matvörurnar sem þú hefur valið sameinast í eina matvöru. Upprunalegu matvörunni verður eytt og allar tengingar við matvöruna mun breytast og vísa á sameinuðu matvöruna.",
       "merge-food-example": "Sameina {food1} við {food2}",
       "seed-dialog-text": "Bæta matvörum á þínu tungumáli við gagnagrunninn. Það munu bætast við um 2700 matvörur við gagnagrunninn sem hafa verið þýddar af notendum Mealie.",
