@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Het combineren van de geselecteerde levensmiddelen zal het oorspronkelijke levensmiddel en het nieuwe levensmiddel samenvoegen. Het oorspronkelijke levensmiddel zal worden verwijderd en alle referenties worden aangepast, zodat ze naar het nieuwe levensmiddel verwijzen.",
       "merge-food-example": "{food1} samenvoegen met {food2}",
       "seed-dialog-text": "Vul de database met levensmiddelen in jouw taal. Dit maakt meer dan 200 veelvoorkomende levensmiddelen aan die je in jouw database kan gebruiken. De vertalingen zijn verzorgd door een gemeenschap.",
