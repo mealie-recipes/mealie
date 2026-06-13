@@ -24,6 +24,7 @@ export enum ImagePosition {
 export interface UserMealPlanPreferences {
   numberOfDaysPast: number;
   numberOfDays: number;
+  useCurrentWeek: boolean;
 }
 
 export interface UserRecipePreferences {
@@ -83,6 +84,7 @@ export function useUserMealPlanPreferences(): Ref<UserMealPlanPreferences> {
     {
       numberOfDaysPast: 0,
       numberOfDays: 7,
+      useCurrentWeek: false,
     },
     { mergeDefaults: true },
   );

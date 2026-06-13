@@ -22,22 +22,33 @@
           <v-icon start>
             {{ $globals.icons.calendar }}
           </v-icon>
-          {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
+          <template v-if="currentWeekMode">
+            {{ $t("meal-plan.current-week") }} ({{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }})
+          </template>
+          <template v-else>
+            {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
+          </template>
         </v-btn>
       </template>
 
       <v-card>
+        <v-card-text class="pb-0">
+          <v-switch v-model="currentWeekMode" :label="$t('meal-plan.current-week')" hide-details color="primary" />
+        </v-card-text>
+
         <v-date-picker
           v-model="state.range"
           hide-header
           :multiple="'range'"
           :first-day-of-week="firstDayOfWeek"
-          :local="$i18n.locale"
+          :local="locale"
+          :disabled="currentWeekMode"
         />
 
         <v-card-text>
           <v-number-input
             v-model="numberOfDaysPast"
+            :disabled="currentWeekMode"
             :min="0"
             control-variant="stacked"
             inset
@@ -50,6 +61,7 @@
         <v-card-text>
           <v-number-input
             v-model="numberOfDays"
+            :disabled="currentWeekMode"
             :min="1"
             control-variant="stacked"
             inset
@@ -117,6 +129,7 @@ const router = useRouter();
 const i18n = useI18n();
 const api = useUserApi();
 const { household } = useHouseholdSelf();
+const locale = computed(() => i18n.locale.value);
 
 useSeoMeta({
   title: i18n.t("meal-plan.dinner-this-week"),
@@ -131,6 +144,8 @@ watch(numberOfDaysPast, (val) => {
 watch(numberOfDays, (val) => {
   mealPlanPreferences.value.numberOfDays = Number(val);
 });
+
+const currentWeekMode = ref<boolean>(mealPlanPreferences.value.useCurrentWeek || false);
 
 // Force to /view if current route is /planner
 if (route.path === "/household/mealplan/planner") {
@@ -150,9 +165,33 @@ function safeParseISO(date: string, fallback: Date | undefined = undefined) {
   }
 }
 
+function getCurrentWeekRange(startDay: number): [Date, Date] {
+  const today = new Date();
+  const currentDay = today.getDay();
+  let diff = currentDay - startDay;
+  if (diff < 0) diff += 7;
+  const start = new Date(today);
+  start.setDate(today.getDate() - diff);
+  const end = new Date(start);
+  end.setDate(start.getDate() + 6);
+  return [start, end];
+}
+
+const firstDayOfWeek = computed(() => {
+  return household.value?.preferences?.firstDayOfWeek || 0;
+});
+
 // Initialize dates from query parameters or defaults
-const initialStartDate = safeParseISO(route.query.start as string, addDays(new Date(), adjustForToday(-numberOfDaysPast.value)));
-const initialEndDate = safeParseISO(route.query.end as string, addDays(new Date(), adjustForToday(numberOfDays.value)));
+let initialStartDate: Date;
+let initialEndDate: Date;
+
+if (currentWeekMode.value) {
+  [initialStartDate, initialEndDate] = getCurrentWeekRange(firstDayOfWeek.value);
+}
+else {
+  initialStartDate = safeParseISO(route.query.start as string, addDays(new Date(), adjustForToday(-numberOfDaysPast.value)));
+  initialEndDate = safeParseISO(route.query.end as string, addDays(new Date(), adjustForToday(numberOfDays.value)));
+}
 
 const state = ref({
   range: [initialStartDate, initialEndDate] as [Date, Date],
@@ -165,8 +204,24 @@ const state = ref({
 
 const shoppingLists = ref<ShoppingListSummary[]>();
 
-const firstDayOfWeek = computed(() => {
-  return household.value?.preferences?.firstDayOfWeek || 0;
+watch(currentWeekMode, (val) => {
+  mealPlanPreferences.value.useCurrentWeek = val;
+  if (val) {
+    const [start, end] = getCurrentWeekRange(firstDayOfWeek.value);
+    state.value.range = [start, end];
+  }
+  else {
+    const start = addDays(new Date(), adjustForToday(-numberOfDaysPast.value));
+    const end = addDays(new Date(), adjustForToday(numberOfDays.value));
+    state.value.range = [start, end];
+  }
+});
+
+watch(firstDayOfWeek, () => {
+  if (currentWeekMode.value) {
+    const [start, end] = getCurrentWeekRange(firstDayOfWeek.value);
+    state.value.range = [start, end];
+  }
 });
 
 const weekRange = computed(() => {
