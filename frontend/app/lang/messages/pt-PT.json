@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Combinar os alimentos selecionados irá juntar o alimento de origem e o alimento alvo num alimento único. O alimento de origem será eliminado e todas as referências a este serão atualizadas para apontar para o alimento alvo.",
       "merge-food-example": "A juntar {food1} com {food2}",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",

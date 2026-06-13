@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Valitud toitude kombineerimine ühendab koostisained ja keskendub ühele roale. Lähtetoidud eemaldatakse ja kõik viited lähtetoidule värskendatakse, et osutada sihttoidule.",
       "merge-food-example": "{food1} liitmine {food2}-ga",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
