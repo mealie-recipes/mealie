@@ -462,7 +462,7 @@
     "mealie-text": "Mealie képes a v1.0 előtti kiadású Mealie alkalmazásból származó receptek importálására. Exportálja a receptjeit a régi példányából, és töltse fel a zip fájlt alább. Vegye figyelembe, hogy az exportból csak receptek importálhatók.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie képes recepteket importálni a Plan to Eat alkalmazásból."
+      "description-long": "Mealie képes recepteket importálni a Plan to Eat alkalmazásból. ZIP, CSV vagy TXT fájlként feltölthetők a Plan to Eat-ből exportálásuk után."
     },
     "myrecipebox": {
       "title": "Az én receptes dobozom",
@@ -1144,8 +1144,8 @@
   },
   "data-pages": {
     "foods": {
-      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
-      "delete-affects-recipes-more": "View all {count} recipes",
+      "delete-affects-recipes": "Figyelem: ez az alapanyag {count} receptben használt. Törlése után üres hozzávalóként jelenik meg a receptekben.",
+      "delete-affects-recipes-more": "Az összes {count} recept megtekintése",
       "merge-dialog-text": "A kiválasztott alapanyagok egyesítésével a forrásalapanyag és a célalapanyag egyetlen alapanyag lesz. A forrásalapanyag törlésre kerül, és a forrásalapanyagra vonatkozó összes hivatkozás frissül, hogy a célalapanyagra mutasson.",
       "merge-food-example": "{food1} összevonása {food2}-ba/be",
       "seed-dialog-text": "Töltse be az adatbázist a helyi nyelvű alapanyagokkal. Ezáltal több mint 200 közös alapanyagot hoz létre, amelyek segítségével rendszerezheti az adatbázisát. Az alapanyagok fordítása közösségi összefogással történik.",
