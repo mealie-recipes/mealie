@@ -1295,7 +1295,7 @@
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungus",
+                "name": "čierna huba",
                 "plural_name": "čierne huby"
             },
             "black truffle": {
@@ -2025,14 +2025,14 @@
                     "sharp cheddar"
                 ],
                 "description": "",
-                "name": "sharp cheddar cheese",
-                "plural_name": "sharp cheddar cheese"
+                "name": "čedar",
+                "plural_name": "čedaru"
             },
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "syr",
+                "plural_name": "syry"
             },
             "mozzarella cheese": {
                 "aliases": [],
@@ -2043,8 +2043,8 @@
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "feta syr",
+                "plural_name": "feta syry"
             },
             "ricotta cheese": {
                 "aliases": [],

@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "選択した食品を組み合わせると、ソース食品とターゲット食品が1つの食品に統合されます。 ソース食品は削除され、ソース食品への参照のすべてがターゲット食品を指し示すように更新されます。",
       "merge-food-example": "{food1} を {food2} に統合",
       "seed-dialog-text": "あなたの地元の言語に基づいた食品をデータベースにシードします。これにより、データベースの整理に使用できる200以上の一般的な食品が作成されます。食品はコミュニティの取り組みによって翻訳されます。",

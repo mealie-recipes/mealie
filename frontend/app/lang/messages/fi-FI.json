@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Valittujen elintarvikkeiden yhdistäminen yhdistää raaka-aineet ja kohdistaa ne yhteen ainoaan ruokaan. Lähde-elintarvikkeet poistetaan, ja kaikki viittaukset lähtöelintarvikkeeseen saatetaan ajan tasalle niin, että ne osoittavat kohteena olevan elintarvikkeen.",
       "merge-food-example": "Yhdistä {food1} ja {food2} yhdeksi",
       "seed-dialog-text": "Lisää tietokantaan paikallisen kielen mukaisia raaka-aineita. Tämä luo yli 200 yleistä raaka-ainetta, joita voidaan käyttää tietokannan järjestämiseen. Raaka-aineiden nimet ovat yhteisön kääntämiä.",

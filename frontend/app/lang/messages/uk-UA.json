@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Об’єднання вибраних продуктів створить єдину позицію. При цьому вихідний продукт буде видалено, а всі посилання на нього автоматично буде оновлено на цільовий продукт.",
       "merge-food-example": "Об'єднання {food1} в {food2}",
       "seed-dialog-text": "Заповніть базу даних продуктами вашою мовою. Це дозволить створити близько 2700 поширених продуктів, які можна використовувати для організації вашої бази даних. Продукти перекладаються спільними зусиллями спільноти.",

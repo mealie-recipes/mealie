@@ -33,6 +33,16 @@ class FeatureDetails(NamedTuple):
         return s
 
 
+DEFAULT_ALLOWED_IFRAME_HOSTS = [
+    "youtube.com",
+    "youtube-nocookie.com",
+    "vimeo.com",
+    "player.vimeo.com",
+]
+"""Secure-by-default hostnames permitted as `<iframe>` sources in user content. Limited to
+well-known video providers. Subdomains of these hosts are also allowed (e.g. `www.youtube.com`)."""
+
+
 MaskedNoneString = Annotated[
     str | None,
     PlainSerializer(lambda x: None if x is None else "*****", return_type=str | None),
@@ -50,13 +60,19 @@ def determine_secrets(data_dir: Path, secret: str, production: bool) -> str:
     secrets_file = data_dir.joinpath(secret)
     if secrets_file.is_file():
         with open(secrets_file) as f:
-            return f.read()
-    else:
-        data_dir.mkdir(parents=True, exist_ok=True)
-        with open(secrets_file, "w") as f:
-            new_secret = secrets.token_hex(32)
-            f.write(new_secret)
-        return new_secret
+            existing_secret = f.read().strip()
+        if existing_secret:
+            return existing_secret
+
+    data_dir.mkdir(parents=True, exist_ok=True)
+    new_secret = secrets.token_hex(32)
+    tmp_file = secrets_file.with_suffix(".tmp")
+    with open(tmp_file, "w") as f:
+        f.write(new_secret)
+        f.flush()
+        os.fsync(f.fileno())
+    tmp_file.replace(secrets_file)
+    return new_secret
 
 
 def get_secrets_dir() -> str | None:
@@ -143,6 +159,19 @@ class AppSettings(AppLoggingSettings):
 
     ALLOW_SIGNUP: bool = False
     ALLOW_PASSWORD_LOGIN: bool = True
+
+    ALLOWED_IFRAME_HOSTS: str = ""
+    """Comma-separated list of additional hostnames allowed as `<iframe>` sources in user content
+    (recipe instructions, notes, descriptions). Extends `DEFAULT_ALLOWED_IFRAME_HOSTS`. Subdomains of
+    a listed host are also allowed. Adding hosts is opt-in to riskier behavior; the defaults are
+    limited to well-known video providers."""
+
+    @property
+    def allowed_iframe_hosts(self) -> list[str]:
+        """The full set of hostnames permitted as `<iframe>` sources, secure defaults plus any
+        admin-configured additions via `ALLOWED_IFRAME_HOSTS`."""
+        extra = [host.strip().lower() for host in self.ALLOWED_IFRAME_HOSTS.split(",") if host.strip()]
+        return list(dict.fromkeys(DEFAULT_ALLOWED_IFRAME_HOSTS + extra))
 
     DAILY_SCHEDULE_TIME: str = "23:45"
     """Local server time, in HH:MM format. See `DAILY_SCHEDULE_TIME_UTC` for the parsed UTC equivalent"""

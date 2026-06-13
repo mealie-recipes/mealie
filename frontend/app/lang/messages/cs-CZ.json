@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Zkombinování zvolených potravin způsobí smazání zdrojové potraviny a veškeré odkazy na ni budou přesměrovány do cílové potraviny.",
       "merge-food-example": "Sloučení {food1} do {food2}",
       "seed-dialog-text": "Naplňte databázi potravinami z vašeho jazyka. Tímto vytvoříte přes 200 běžných potravin, které můžete použít k organizaci vaší databáze. Potraviny jsou přeloženy skrze komunitní úsilí.",
