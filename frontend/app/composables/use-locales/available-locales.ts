@@ -94,7 +94,7 @@ export const LOCALES = [
   {
     name: "Polski (Polish)",
     value: "pl-PL",
-    progress: 99,
+    progress: 98,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -192,14 +192,14 @@ export const LOCALES = [
   {
     name: "Français canadien (Canadian French)",
     value: "fr-CA",
-    progress: 89,
+    progress: 90,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
   {
     name: "Belge (Belgian)",
     value: "fr-BE",
-    progress: 72,
+    progress: 78,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
