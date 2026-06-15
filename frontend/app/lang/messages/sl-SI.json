@@ -1144,8 +1144,8 @@
   },
   "data-pages": {
     "foods": {
-      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
-      "delete-affects-recipes-more": "View all {count} recipes",
+      "delete-affects-recipes": "Opozorilo: ta jed se uporablja v {count} receptih. Če jo izbrišete, bo v receptu(-ih) ostala prazna sestavina.",
+      "delete-affects-recipes-more": "Oglejte si vse recepte ({count})",
       "merge-dialog-text": "Združitev izbranih živil bo združila izvorno živilo in ciljno živilo v eno samo živilo. Izvorno živilo bo izbrisano in vse povezave na izvorno živilo, bodo po novem kazale na ciljno živilo.",
       "merge-food-example": "Združujem {food1} v {food2}",
       "seed-dialog-text": "Napolnite zbirko podatkov z živili, ki temeljijo na vašem lokalnem jeziku. Tako boste ustvarili več kot 200 običajnih živil, ki jih lahko uporabite za organizacijo vaše zbirke podatkov. Živila so prevedena s prizadevanjem skupnosti.",
