@@ -26,7 +26,7 @@ const authUser = ref<UserOut | null>(null);
 const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("loading");
 
 export const useAuthBackend = function (): AuthState {
-  const { $appInfo, $axios } = useNuxtApp();
+  const { $axios } = useNuxtApp();
   const router = useRouter();
 
   const runtimeConfig = useRuntimeConfig();
