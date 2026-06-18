@@ -1171,14 +1171,14 @@
             "fig leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "fig leaf",
-                "plural_name": "fig leaves"
+                "name": "fíkový list",
+                "plural_name": "fíkové listy"
             },
             "freeze-dried pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried pineapple",
-                "plural_name": "freeze-dried pineapples"
+                "name": "lyofilizovaný ananas",
+                "plural_name": "lyofilizované ananasy"
             },
             "pluot": {
                 "aliases": [],
@@ -1225,8 +1225,8 @@
             "green ume plum": {
                 "aliases": [],
                 "description": "",
-                "name": "green ume plum",
-                "plural_name": "green ume plums"
+                "name": "zelená ume švestka",
+                "plural_name": "zelené ume švestky"
             },
             "kiwano": {
                 "aliases": [],
@@ -1301,8 +1301,8 @@
             "black truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "black truffle",
-                "plural_name": "black truffles"
+                "name": "černý lanýž",
+                "plural_name": "černé lanýže"
             },
             "morel mushroom": {
                 "aliases": [],
@@ -1355,8 +1355,8 @@
             "white truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "white truffle",
-                "plural_name": "white truffles"
+                "name": "bílý lanýž",
+                "plural_name": "bílé lanýže"
             },
             "white fungu": {
                 "aliases": [],
@@ -1503,8 +1503,8 @@
             "dried cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cherry",
-                "plural_name": "dried cherries"
+                "name": "sušená třešeň",
+                "plural_name": "sušené třešně"
             },
             "juniper berry": {
                 "aliases": [],
@@ -2037,14 +2037,14 @@
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
-                "plural_name": "mozzarella cheese"
+                "name": "mozzarella",
+                "plural_name": "mozzarelly"
             },
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "sýr feta",
+                "plural_name": "sýry feta"
             },
             "ricotta cheese": {
                 "aliases": [],
