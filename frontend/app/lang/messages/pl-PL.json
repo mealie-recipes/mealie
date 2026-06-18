@@ -51,7 +51,7 @@
     "category": "Kategoria"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "URL Apprise",
     "database": "Baza danych",
     "delete-event": "Usuń wydarzenie",
     "event-delete-confirmation": "Czy na pewno chcesz usunąć to zdarzenie?",
@@ -98,7 +98,7 @@
     "dashboard": "Panel główny",
     "delete": "Usuń",
     "disabled": "Wyłączone",
-    "done": "Done",
+    "done": "Gotowe",
     "download": "Pobierz",
     "duplicate": "Duplikuj",
     "edit": "Edytuj",
@@ -169,7 +169,7 @@
     "token": "Token",
     "tuesday": "Wtorek",
     "type": "Typ",
-    "undo": "Undo",
+    "undo": "Cofnij",
     "update": "Zaktualizuj",
     "updated": "Zaktualizowano",
     "upload": "Prześlij",
@@ -223,7 +223,9 @@
     "show-advanced": "Pokaż zaawansowane",
     "add-field": "Dodaj pole",
     "date-created": "Data utworzenia",
-    "date-updated": "Data aktualizacji"
+    "date-updated": "Data aktualizacji",
+    "key": "Key",
+    "value": "Value"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Czy na pewno chcesz usunąć <b>{groupName}<b/>?",
@@ -283,7 +285,40 @@
     "admin-group-management-text": "Zmiany w tej grupie zostaną natychmiast odzwierciedlone.",
     "group-id-value": "Id grupy: {0}",
     "total-households": "Gospodarstwa domowe razem",
-    "you-must-select-a-group-before-selecting-a-household": "Musisz wybrać grupę przed wybraniem gospodarstwa domowego"
+    "you-must-select-a-group-before-selecting-a-household": "Musisz wybrać grupę przed wybraniem gospodarstwa domowego",
+    "ai-provider-settings": {
+      "ai-provider-settings": "AI Provider Settings",
+      "ai-provider": "AI Provider",
+      "ai-providers": "AI Providers",
+      "ai-provider-settings-description": "Configure AI providers to enable AI-powered features, such as enhanced ingredient parsing, creating recipes from videos, and more!",
+      "providers": "Providers",
+      "create-provider": "Create Provider",
+      "edit-provider": "Edit Provider",
+      "default-provider": "Default Provider",
+      "default-provider-description": "Required to enable AI features",
+      "audio-provider": "Audio Provider",
+      "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
+      "image-provider": "Image Provider",
+      "image-provider-description": "Enables image recognition features, such as creating recipes from images",
+      "provider-name": "Provider Name",
+      "api-key": "API Key",
+      "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
+      "api-key-description-edit": "Leave this blank unless you want to change it.",
+      "base-url": "Base URL",
+      "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
+      "model": "Model",
+      "model-description": "Which model your AI provider should use (e.g. \"gpt-5\").",
+      "request-timeout-seconds": "Request Timeout (seconds)",
+      "provider-created": "Provider created",
+      "provider-updated": "Provider updated",
+      "provider-deleted": "Provider deleted",
+      "provider-create-failed": "Failed to create provider",
+      "provider-update-failed": "Failed to update provider",
+      "provider-delete-failed": "Failed to delete provider",
+      "request-headers": "Request Headers",
+      "request-params": "Request Parameters",
+      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+    }
   },
   "household": {
     "household": "Gospodarstwo domowe",
@@ -628,7 +663,7 @@
     "create-recipe-description": "Utwórz nowy przepis od zera.",
     "create-recipes": "Utwórz przepisy",
     "import-with-zip": "Importuj z pliku .zip",
-    "create-recipe-from-an-image": "Utwórz przepis z obrazów",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Utwórz przepis poprzez przesłanie obrazów tekstu przepisu. Mealie spróbuje wyodrębnić tekst z obrazów za pomocą AI i utworzyć z niego przepis.",
     "crop-and-rotate-the-image": "Przytnij i obróć obraz, tak aby był w odpowiedniej orientacji i był widoczny tylko tekst.",
     "create-from-images": "Utwórz przepis z obrazów",
@@ -917,7 +952,7 @@
     "quantity": "Ilość: {0}",
     "shopping-list": "Lista zakupów",
     "shopping-lists": "Listy zakupów",
-    "add-item": "Add item",
+    "add-item": "Dodaj element",
     "food": "Jedzenie",
     "note": "Notatka",
     "label": "Etykieta",
@@ -943,7 +978,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Czy na pewno chcesz odznaczyć wszystkie elementy?",
     "are-you-sure-you-want-to-delete-checked-items": "Czy jesteś pewien, że chcesz usunąć wszystkie zaznaczone elementy?",
     "no-shopping-lists-found": "Nie znaleziono list zakupów",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "Zaznaczono {item}"
   },
   "sidebar": {
     "all-recipes": "Wszystkie",
@@ -1109,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Połączenie wybranych produktów spożywczych scali produkt źródłowy i produkt docelowy w jeden produkt. Produkt źródłowy zostanie usunięty, a wszystkie odniesienia do produktu źródłowego zostaną zaktualizowane tak, aby wskazywały na produkt docelowy.",
       "merge-food-example": "Scalanie {food1} do {food2}",
       "seed-dialog-text": "Wypełnij bazę danych produktami spożywczymi na podstawie Twojego lokalnego języka. Spowoduje to utworzenie ok. 2700 popularnych produktów spożywczych, które można wykorzystać do zorganizowania bazy danych. Produkty spożywcze są tłumaczone dzięki wysiłkom społeczności.",
@@ -1362,6 +1399,7 @@
       "already-set-up-bring-to-homepage": "Już mam skonfigurowane, po prostu przenieś mnie na stronę główną",
       "common-settings-for-new-sites": "Oto kilka typowych ustawień dla nowych witryn",
       "setup-complete": "Konfiguracja zakończona!",
+      "ai-providers-description": "Optionally configure AI providers for your group. AI providers enable features like creating recipes from images, importing recipes from videos, and enhanced ingredient parsing. You can always configure this later from your group settings.",
       "here-are-a-few-things-to-help-you-get-started": "Oto kilka rzeczy, które pomogą Ci zacząć z Mealie",
       "restore-from-v1-backup": "Masz kopię zapasową z poprzedniej instancji Mealie v1? Możesz ją tutaj przywrócić.",
       "manage-profile-or-get-invite-link": "Zarządzaj własnym profilem lub pobierz link z zaproszeniem, aby udostępnić go innym."
@@ -1478,10 +1516,10 @@
     "max-length": "Może zawierać co najwyżej {max} znak|Może zawierać co najwyżej {max} znaki|Może zawierać co najwyżej {max} znaków"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Ogłoszenia",
+    "all-announcements": "Wszystkie ogłoszenia",
+    "mark-all-as-read": "Oznacz wszystkie jako przeczytane",
+    "show-announcements-from-mealie": "Pokazuj ogłoszenia z Mealie",
+    "show-announcements-setting-description": "Czy chcesz by użytkownicy widzieli ogłoszenia z Mealie? Użytkownicy będą w dalszym ciągu mogli wyłączyć ogłoszenia w swoich ustawieniach użytkownika"
   }
 }

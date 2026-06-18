@@ -21,10 +21,8 @@ class AppInfo(MealieModel):
     enable_oidc: bool
     oidc_redirect: bool
     oidc_provider_name: str
-    enable_openai: bool
-    enable_openai_image_services: bool
-    enable_openai_transcription_services: bool
     token_time: int
+    allowed_iframe_hosts: list[str] = []
 
 
 class AppTheme(MealieModel):
@@ -72,6 +70,5 @@ class CheckAppConfig(MealieModel):
     email_ready: bool
     ldap_ready: bool
     oidc_ready: bool
-    enable_openai: bool
     base_url_set: bool
     is_up_to_date: bool

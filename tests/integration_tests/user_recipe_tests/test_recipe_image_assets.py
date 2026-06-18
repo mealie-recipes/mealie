@@ -104,6 +104,33 @@ def test_recipe_asset_dangerous_extension_blocked(
         assert response.status_code == 400, f"expected 400 for extension={ext}, got {response.status_code}"
 
 
+def test_recipe_asset_served_as_attachment(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+):
+    """Assets must be served as downloads with MIME sniffing disabled so uploaded files cannot
+    execute as active content in Mealie's origin."""
+    recipe = recipe_ingredient_only
+    payload = {"name": random_string(10), "icon": "mdi-file", "extension": "txt"}
+    file_payload = {"file": b"<script>alert(1)</script>"}
+
+    response = api_client.post(
+        f"/api/recipes/{recipe.slug}/assets",
+        data=payload,
+        files=file_payload,
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    recipe_response = api_client.get(f"/api/recipes/{recipe.slug}", headers=unique_user.token).json()
+    recipe_id = recipe_response["id"]
+    file_name = recipe_response["assets"][0]["fileName"]
+
+    media_response = api_client.get(f"/api/media/recipes/{recipe_id}/assets/{file_name}")
+    assert media_response.status_code == 200
+    assert "attachment" in media_response.headers["content-disposition"].lower()
+    assert media_response.headers["x-content-type-options"] == "nosniff"
+
+
 def test_recipe_image_upload(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe):
     data_payload = {"extension": "jpg"}
     file_payload = {"image": data.images_test_image_1.read_bytes()}

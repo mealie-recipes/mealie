@@ -7,7 +7,8 @@
       'mt-8': section,
     }"
   >
-    <v-card-title class="text-h5 pl-0 py-0" style="font-weight: normal;">
+    <v-card-title :class="`text-title-${size} pl-0 py-0 d-flex align-center`" style="font-weight: normal;">
+      <slot name="prepend-title" />
       <v-icon
         v-if="icon"
         size="small"
@@ -16,6 +17,7 @@
         {{ icon }}
       </v-icon>
       {{ title }}
+      <slot name="append-title" />
     </v-card-title>
     <v-card-text
       v-if="$slots.default"
@@ -30,10 +32,16 @@
 </template>
 
 <script setup lang="ts">
+type Size = "large" | "medium" | "small";
+
 defineProps({
   title: {
     type: String,
     required: true,
+  },
+  size: {
+    type: String as () => Size,
+    default: "large",
   },
   icon: {
     type: String,

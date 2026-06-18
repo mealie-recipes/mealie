@@ -1,0 +1,30 @@
+{
+  "Test Block": {
+    "prefix": "mtest",
+    "body": [
+      "import { mount } from \"@vue/test-utils\";",
+      "import { describe, expect, test, vi } from \"vitest\";",
+      "import { makeWrapper } from \"~/tests/utils\";",
+      "",
+      "const wrapper = () => makeWrapper(() => {",
+      "  return ${1:composable}();",
+      "});",
+      "",
+      "describe(\"${TM_FILENAME_BASE/(.*)\\..+$/$1/}\", () => {",
+      "  describe(\"${2:method}\", () => {",
+      "    test(\"It does the thing\", () => {",
+      "      const { ${2:method} } = wrapper();",
+      "      const result = ${2:method}();",
+      "      expect(result).toBe(EXPECTED);",
+      "    });",
+      "  });",
+      "});",
+      "",
+    ],
+    "description": "Insert a test block",
+    "scope": "typescript",
+    "include": [
+      "**/*.test.{ts,tsx,vue}"
+    ]
+  }
+}

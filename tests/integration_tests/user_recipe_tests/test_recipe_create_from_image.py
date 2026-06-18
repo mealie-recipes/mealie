@@ -3,6 +3,7 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 
+from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.openai.recipe import (
     OpenAIRecipe,
     OpenAIRecipeIngredient,
@@ -13,6 +14,22 @@ from mealie.services.openai import OpenAIService
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
+
+
+@pytest.fixture(scope="module", autouse=True)
+def setup_ai_providers(unique_user: TestUser):
+    """Create AI providers for the test group so image-based OpenAI routes are enabled."""
+    provider = unique_user.repos.group_ai_providers.create(
+        AIProviderCreate(name="test-provider", model="gpt-4o", api_key="test-key")
+    )
+    unique_user.repos.group_ai_provider_settings.update(
+        unique_user.repos.group_id,
+        AIProviderSettingsUpdate(
+            default_provider_id=provider.id,
+            audio_provider_id=None,
+            image_provider_id=provider.id,
+        ),
+    )
 
 
 def test_openai_create_recipe_from_image(

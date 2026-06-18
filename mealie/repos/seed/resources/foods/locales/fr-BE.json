@@ -7356,8 +7356,8 @@
             "carne asada seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "carne asada seasoning",
-                "plural_name": "carne asada seasoning"
+                "name": "assaisonnement du carne asada",
+                "plural_name": "assaisonnement du carne asada"
             },
             "bouquet garni": {
                 "aliases": [],
@@ -7386,8 +7386,8 @@
             "curing salt": {
                 "aliases": [],
                 "description": "",
-                "name": "curing salt",
-                "plural_name": "curing salt"
+                "name": "séchage du sel",
+                "plural_name": "séchage du sel"
             },
             "mexican seasoning": {
                 "aliases": [],
@@ -7614,7 +7614,7 @@
             "hawaiian salt": {
                 "aliases": [],
                 "description": "",
-                "name": "hawaiian salt",
+                "name": "sel hawaiien",
                 "plural_name": "hawaiian salt"
             },
             "mesquite seasoning": {
@@ -7731,14 +7731,14 @@
             "cornmeal": {
                 "aliases": [],
                 "description": "",
-                "name": "cornmeal",
-                "plural_name": "cornmeals"
+                "name": "semoule de maïs",
+                "plural_name": "semoule de maïs"
             },
             "coconut flake": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut flake",
-                "plural_name": "coconut flakes"
+                "name": "copeau de noix de coco",
+                "plural_name": "copeaux de noix de coco"
             },
             "gelatin": {
                 "aliases": [],
@@ -7749,14 +7749,14 @@
             "pastry flour": {
                 "aliases": [],
                 "description": "",
-                "name": "pastry flour",
+                "name": "farine de pâtisserie",
                 "plural_name": "pastry flour"
             },
             "coconut flour": {
                 "aliases": [],
                 "description": "",
                 "name": "farine de noix de coco",
-                "plural_name": "coconut flour"
+                "plural_name": "farine de noix de coco"
             },
             "baking mix": {
                 "aliases": [],
@@ -7786,7 +7786,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "farine à pain",
-                "plural_name": "bread flour"
+                "plural_name": "farine à pain"
             },
             "almond meal": {
                 "aliases": [],
@@ -10639,7 +10639,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "huile d'olive",
-                "plural_name": "olive oil"
+                "plural_name": "huile d'olive"
             },
             "vegetable oil": {
                 "aliases": [],
@@ -10651,7 +10651,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "huile d'olive vierge extra",
-                "plural_name": "extra virgin olive oil"
+                "plural_name": "huile d'olive vierge extra"
             },
             "canola oil": {
                 "aliases": [],
@@ -11555,7 +11555,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "moutarde à l'ancienne",
-                "plural_name": "wholegrain mustard"
+                "plural_name": "moutarde à l'ancienne"
             },
             "tamari": {
                 "aliases": [],

@@ -169,7 +169,7 @@
     "token": "Token",
     "tuesday": "Martedì",
     "type": "Tipo",
-    "undo": "Undo",
+    "undo": "Annulla",
     "update": "Aggiorna",
     "updated": "Aggiornato",
     "upload": "Carica",
@@ -223,7 +223,9 @@
     "show-advanced": "Mostra Avanzate",
     "add-field": "Aggiungi campo",
     "date-created": "Data di Creazione",
-    "date-updated": "Data di aggiornamento"
+    "date-updated": "Data di aggiornamento",
+    "key": "Chiave",
+    "value": "Valore"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Sei sicuro di volerlo eliminare <b>{groupName}<b/>'?",
@@ -283,7 +285,40 @@
     "admin-group-management-text": "Le modifiche a questo gruppo si rifletteranno immediatamente.",
     "group-id-value": "Id Gruppo: {0}",
     "total-households": "Famiglie Totali",
-    "you-must-select-a-group-before-selecting-a-household": "Devi selezionare un gruppo prima di selezionare una famiglia"
+    "you-must-select-a-group-before-selecting-a-household": "Devi selezionare un gruppo prima di selezionare una famiglia",
+    "ai-provider-settings": {
+      "ai-provider-settings": "Impostazioni Provider AI",
+      "ai-provider": "Provider AI",
+      "ai-providers": "Provider AI",
+      "ai-provider-settings-description": "Configura i provider AI per abilitare le funzionalità basate su AI, come l'analisi migliorata degli ingredienti, la creazione di ricette da video e altro ancora!",
+      "providers": "Provider",
+      "create-provider": "Crea Provider",
+      "edit-provider": "Modifica provider",
+      "default-provider": "Provider Predefinito",
+      "default-provider-description": "Necessario per abilitare le funzionalità AI",
+      "audio-provider": "Provider Audio",
+      "audio-provider-description": "Abilita le funzioni di trascrizione audio, come la creazione di ricette da video",
+      "image-provider": "Provider Immagini",
+      "image-provider-description": "Abilita le funzionalità di riconoscimento delle immagini, come la creazione di ricette dalle immagini",
+      "provider-name": "Nome provider",
+      "api-key": "Chiave API",
+      "api-key-description-create": "La chiave API del tuo provider per l'autenticazione. Se il tuo servizio (ad esempio Ollama) non utilizza una chiave API, devi comunque mettere qualcosa qui.",
+      "api-key-description-edit": "Lascia questo vuoto a meno che tu non voglia cambiarlo.",
+      "base-url": "URL Base",
+      "base-url-description": "Se stai usando OpenAI lascia questo vuoto. Deve essere un endpoint compatibile con OpenAI (es. \"http://localhost:11434/v1\").",
+      "model": "Modello",
+      "model-description": "Quale modello dovrebbe usare il tuo fornitore di AI (ad esempio \"gpt-5\").",
+      "request-timeout-seconds": "Timeout Richiesta (secondi)",
+      "provider-created": "Provider creato",
+      "provider-updated": "Provider aggiornato",
+      "provider-deleted": "Provider eliminato",
+      "provider-create-failed": "Errore nella creazione del provider",
+      "provider-update-failed": "Errore nell'aggiornamento del provider",
+      "provider-delete-failed": "Errore nella rimozione del provider",
+      "request-headers": "Header della Richiesta",
+      "request-params": "Parametri Della Richiesta",
+      "no-default-provider-warning": "Non hai impostato un provider predefinito, quindi le funzioni AI sono disabilitate"
+    }
   },
   "household": {
     "household": "Famiglia",
@@ -628,7 +663,7 @@
     "create-recipe-description": "Crea una nuova ricetta da zero.",
     "create-recipes": "Crea Ricette",
     "import-with-zip": "Importa da .zip",
-    "create-recipe-from-an-image": "Crea ricetta da un'immagine",
+    "create-recipe-from-images": "Crea Ricetta da Immagini",
     "create-recipe-from-an-image-description": "Crea una ricetta caricando un'immagine di essa. Mealie tenterà di estrarre il testo dall'immagine usando l'IA e creare una ricetta da esso.",
     "crop-and-rotate-the-image": "Ritaglia e ruota l'immagine in modo che solo il testo sia visibile e che sia orientato correttamente.",
     "create-from-images": "Crea da immagini",
@@ -917,7 +952,7 @@
     "quantity": "Quantità: {0}",
     "shopping-list": "Lista della Spesa",
     "shopping-lists": "Liste della Spesa",
-    "add-item": "Add item",
+    "add-item": "Aggiungi articolo",
     "food": "Alimenti",
     "note": "Nota",
     "label": "Etichetta",
@@ -943,7 +978,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Sei sicuro di voler deselezionare tutti gli elementi?",
     "are-you-sure-you-want-to-delete-checked-items": "Sei sicuro di voler rimuovere tutti gli articoli selezionati?",
     "no-shopping-lists-found": "Nessuna lista della spesa trovata",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "{item} disattivato"
   },
   "sidebar": {
     "all-recipes": "Ricette",
@@ -1109,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Combinando gli alimenti selezionati, l'alimento di origine e l'alimento di destinazione verranno uniti in un unico alimento. L'alimento di origine verrà eliminato e tutti i riferimenti all'alimento di origine verranno aggiornati per puntare all'alimento di destinazione.",
       "merge-food-example": "Unione di {food1} in {food2}",
       "seed-dialog-text": "Inizializzare il database con alimenti della propria lingua locale. Ciò creerà oltre 200 alimenti comuni che potranno essere usati per organizzare il proprio database. Gli alimenti vengono tradotti grazie al contributo della comunità degli utenti.",
@@ -1362,6 +1399,7 @@
       "already-set-up-bring-to-homepage": "Ho già configurato tutto, portami alla pagina iniziale",
       "common-settings-for-new-sites": "Ecco alcune impostazioni comuni per i nuovi siti",
       "setup-complete": "Configurazione completata!",
+      "ai-providers-description": "Configurare opzionalmente i provider AI per il tuo gruppo. I provider di AI abilitano funzionalità come la creazione di ricette da immagini, l'importazione di ricette da video e l'analisi migliorata degli ingredienti. Puoi sempre configurare questo dopo dalle impostazioni di gruppo.",
       "here-are-a-few-things-to-help-you-get-started": "Qui ci sono alcune cose per aiutarvi a iniziare con Mealie",
       "restore-from-v1-backup": "Hai un backup da un'istanza precedente di Mealie v1? Puoi ripristinarlo qui.",
       "manage-profile-or-get-invite-link": "Gestisci il tuo profilo, o parti da un link di invito per condividere con gli altri."

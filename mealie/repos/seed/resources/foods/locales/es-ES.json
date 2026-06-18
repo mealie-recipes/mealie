@@ -340,7 +340,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "acelga",
-                "plural_name": "chard"
+                "plural_name": "acelga"
             },
             "pimiento": {
                 "aliases": [],
@@ -438,7 +438,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brócoli tierno",
-                "plural_name": "tenderstem broccoli"
+                "plural_name": "brócoli tierno"
             },
             "plantain": {
                 "aliases": [],
@@ -484,7 +484,7 @@
             },
             "maize": {
                 "aliases": [
-                    "corn husk"
+                    "hoja de maíz"
                 ],
                 "description": "",
                 "name": "maíz",
@@ -547,8 +547,8 @@
             "microgreens": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreens",
-                "plural_name": "microgreens"
+                "name": "microbrotes",
+                "plural_name": "microbrotes"
             },
             "boston lettuce": {
                 "aliases": [],
@@ -591,8 +591,8 @@
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "brotes",
+                "plural_name": "brotes"
             },
             "broccoli slaw": {
                 "aliases": [],
@@ -979,8 +979,8 @@
             "chestnut purée": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut purée",
-                "plural_name": "chestnut purée"
+                "name": "puré de castañas",
+                "plural_name": "puré de castañas"
             },
             "prickly pear": {
                 "aliases": [],
@@ -1295,7 +1295,7 @@
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungus",
+                "name": "hongos negros",
                 "plural_name": "hongos negros"
             },
             "black truffle": {
@@ -1361,7 +1361,7 @@
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "white fungus",
+                "name": "hongos blancos",
                 "plural_name": "hongos blancos"
             },
             "pioppini": {
@@ -1373,7 +1373,7 @@
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungus",
+                "name": "hongos de nieve",
                 "plural_name": "hongos de nieve"
             },
             "white beech mushroom": {
@@ -1582,7 +1582,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "amla",
-                "plural_name": "amlas"
+                "plural_name": "amla"
             },
             "elderberry": {
                 "aliases": [],

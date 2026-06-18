@@ -49,12 +49,17 @@ def test_openai_parser(
 
     monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
 
+    def mock_openai_init(self, repos):
+        self.repos = repos
+        self.custom_prompt_dir = None
+
+    monkeypatch.setattr(OpenAIService, "__init__", mock_openai_init)
+
     with session_context() as session:
-        loop = asyncio.get_event_loop()
         parser = get_parser(RegisteredParser.openai, unique_local_group_id, session, get_locale_provider())
 
         inputs = [random_string() for _ in range(ingredient_count)]
-        parsed = loop.run_until_complete(parser.parse(inputs))
+        parsed = asyncio.run(parser.parse(inputs))
 
         # since OpenAI is mocked, we don't need to validate the data, we just need to make sure parsing works
         # and that it preserves order
@@ -69,7 +74,7 @@ def test_openai_parser_sanitize_output(
     parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
     monkeypatch: pytest.MonkeyPatch,
 ):
-    async def mock_get_raw_response(self, prompt: str, content: list[dict], response_schema) -> MagicMock:
+    async def mock_get_raw_response(self, prompt: str, content: list[dict], response_schema, provider) -> MagicMock:
         # Create data with null character in JSON to test preprocessing
         data = OpenAIIngredients(
             ingredients=[
@@ -91,11 +96,22 @@ def test_openai_parser_sanitize_output(
     # Mock the raw response here since we want to make sure our service executes processing before loading the model
     monkeypatch.setattr(OpenAIService, "_get_raw_response", mock_get_raw_response)
 
+    def mock_openai_init(self, repos):
+        from unittest.mock import MagicMock
+
+        self.repos = repos
+        self.custom_prompt_dir = None
+        self.default_provider = MagicMock()
+        self.audio_provider = None
+        self.image_provider = None
+
+    monkeypatch.setattr(OpenAIService, "__init__", mock_openai_init)
+
     with session_context() as session:
-        loop = asyncio.get_event_loop()
         parser = get_parser(RegisteredParser.openai, unique_local_group_id, session, get_locale_provider())
 
-        parsed = loop.run_until_complete(parser.parse([""]))
+        parsed = asyncio.run(parser.parse([""]))
+
         assert len(parsed) == 1
         parsed_ing = cast(ParsedIngredient, parsed[0])
         assert parsed_ing.ingredient.food
