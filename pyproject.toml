@@ -68,7 +68,7 @@ dev = [
     "mypy==2.1.0",
     "pre-commit==4.6.0",
     "pylint==4.0.5",
-    "pytest==9.0.3",
+    "pytest==9.1.0",
     "pytest-asyncio==1.4.0",
     "rich==15.0.0",
     "ruff==0.15.17",
