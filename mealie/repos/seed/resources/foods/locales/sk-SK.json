@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cesnak",
-                "plural_name": ""
+                "plural_name": "cesnaky"
             },
             "onion": {
                 "aliases": [],
@@ -1009,7 +1009,7 @@
             "apple chip": {
                 "aliases": [],
                 "description": "",
-                "name": "",
+                "name": "jablkový lupienok",
                 "plural_name": "jablkové čipsy"
             },
             "mixed peel": {
@@ -1361,7 +1361,7 @@
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "white fungus",
+                "name": "biela huba",
                 "plural_name": "biele huby"
             },
             "pioppini": {
@@ -1373,7 +1373,7 @@
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungus",
+                "name": "rôsolovka riasotvorá",
                 "plural_name": "rôsolovky riasotvoré"
             },
             "white beech mushroom": {
@@ -1385,7 +1385,7 @@
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletus",
+                "name": "hríb",
                 "plural_name": "hríby"
             },
             "huitlacoche": {
@@ -1409,7 +1409,7 @@
             "djon djon mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "djon djon mushroom",
+                "name": "djon djon huba",
                 "plural_name": "djon djon huby"
             },
             "mixed asian mushroom": {
@@ -1421,13 +1421,13 @@
             "puffball": {
                 "aliases": [],
                 "description": "",
-                "name": "puffball",
+                "name": "pýchavka",
                 "plural_name": "pýchavky"
             },
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungus",
+                "name": "podpňovka",
                 "plural_name": "podpňovky"
             },
             "caesar's mushroom": {
@@ -1439,7 +1439,7 @@
             "candy cap mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "candy cap mushroom",
+                "name": "kandizovaná mliečnica",
                 "plural_name": "kandizované mliečnice"
             },
             "lion’s mane mushroom": {
@@ -1707,7 +1707,7 @@
             "oregon grape": {
                 "aliases": [],
                 "description": "",
-                "name": "oregon grape",
+                "name": "mahónia",
                 "plural_name": "mahónie"
             }
         }
@@ -1957,43 +1957,43 @@
             "apricot kernel": {
                 "aliases": [],
                 "description": "",
-                "name": "apricot kernel",
+                "name": "marhuľové jadro",
                 "plural_name": "marhuľové jadrá"
             },
             "palm seed": {
                 "aliases": [],
                 "description": "",
-                "name": "palm seed",
+                "name": "palmové semeno",
                 "plural_name": "palmové semená"
             },
             "ginkgo nut": {
                 "aliases": [],
                 "description": "",
-                "name": "ginkgo nut",
+                "name": "ginkový orech",
                 "plural_name": "ginkové orechy"
             },
             "keto trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "keto trail mix",
+                "name": "keto zmes orechov",
                 "plural_name": "keto zmesi orechov"
             },
             "wattleseed": {
                 "aliases": [],
                 "description": "",
-                "name": "wattleseed",
+                "name": "semeno akácie",
                 "plural_name": "semená akácie"
             },
             "barùka": {
                 "aliases": [],
                 "description": "",
-                "name": "barùka",
+                "name": "baru orech",
                 "plural_name": "baru orechy"
             },
             "indian almond": {
                 "aliases": [],
                 "description": "",
-                "name": "indian almond",
+                "name": "indická mandľa",
                 "plural_name": "indické mandle"
             }
         }
@@ -2003,26 +2003,26 @@
             "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan cheese",
+                "name": "parmezán",
                 "plural_name": "parmezány"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddar cheese"
+                    "čedar"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
+                "name": "čedar",
                 "plural_name": "čedary"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
+                "name": "smotanový syr",
                 "plural_name": "smotanové syry"
             },
             "sharp cheddar cheese": {
                 "aliases": [
-                    "sharp cheddar"
+                    "čedar"
                 ],
                 "description": "",
                 "name": "čedar",
@@ -2037,7 +2037,7 @@
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
+                "name": "mozzarella",
                 "plural_name": "mozzarelly"
             },
             "feta cheese": {
@@ -2049,7 +2049,7 @@
             "ricotta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "ricotta cheese",
+                "name": "ricotta",
                 "plural_name": "ricotty"
             },
             "cheddar-jack cheese": {
@@ -2205,55 +2205,55 @@
             "manchego cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "manchego cheese",
+                "name": "manchego syr",
                 "plural_name": "manchego syry"
             },
             "italian cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "italian cheese blend",
+                "name": "talianská syrová zmes",
                 "plural_name": "talianske syrové zmesi"
             },
             "neufchatel cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "neufchatel cheese",
+                "name": "neufchâtel syr",
                 "plural_name": "neufchâtel syry"
             },
             "herb cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "herb cream cheese",
-                "plural_name": "bylinkový smotanový syr"
+                "name": "bylinkový smotanový syr",
+                "plural_name": "bylinkové smotanové syry"
             },
             "burrata cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "burrata cheese",
+                "name": "burrata",
                 "plural_name": "burraty"
             },
             "havarti cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "havarti cheese",
+                "name": "havarti syr",
                 "plural_name": "havarti syry"
             },
             "colby cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "colby cheese",
+                "name": "colby syr",
                 "plural_name": "colby syry"
             },
             "grana-padano cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano cheese",
+                "name": "grana-padano syr",
                 "plural_name": "grana-padano syry"
             },
             "muenster cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "muenster cheese",
+                "name": "münsterský syr",
                 "plural_name": "münsterské syry"
             },
             "string cheese": {
@@ -2265,151 +2265,151 @@
             "camembert cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "camembert cheese",
+                "name": "camembert",
                 "plural_name": "camemberty"
             },
             "soft cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "soft cheese",
+                "name": "mäkký syr",
                 "plural_name": "mäkké syry"
             },
             "stilton cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "stilton cheese",
+                "name": "stilton syr",
                 "plural_name": "stiltony"
             },
             "raclette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "raclette cheese",
+                "name": "raclette syr",
                 "plural_name": "raclette syry"
             },
             "colby-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "colby-jack cheese",
+                "name": "colby-jack syr",
                 "plural_name": "colby-jack syry"
             },
             "jarlsberg cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "jarlsberg cheese",
+                "name": "jarlsberg",
                 "plural_name": "jarlsbergy"
             },
             "taleggio cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "taleggio cheese",
+                "name": "taleggio syr",
                 "plural_name": "taleggiá"
             },
             "oaxaca cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "oaxaca cheese",
+                "name": "oaxaca syr",
                 "plural_name": "oaxaca syry"
             },
             "labneh cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "labneh cheese",
+                "name": "labneha syr",
                 "plural_name": "labnehy"
             },
             "edam cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "edam cheese",
+                "name": "eidam",
                 "plural_name": "eidamy"
             },
             "creamy cheese wedge": {
                 "aliases": [],
                 "description": "",
-                "name": "creamy cheese wedge",
+                "name": "kúsok smotanového syra",
                 "plural_name": "kúsky smotanového syra"
             },
             "cheese powder cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese powder cheese",
+                "name": "syrový prášok",
                 "plural_name": "syrové prášky"
             },
             "fromage blanc cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fromage blanc cheese",
+                "name": "fromage blancs syr",
                 "plural_name": "fromage blancs"
             },
             "asadero cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "asadero cheese",
+                "name": "asadero syr",
                 "plural_name": "asadero syry"
             },
             "marble cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "marble cheese",
+                "name": "mramorovaný syr",
                 "plural_name": "mramorované syry"
             },
             "leicester cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "leicester cheese",
+                "name": "leicester syr",
                 "plural_name": "leicestery"
             },
             "kefalotyri cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "kefalotyri cheese",
+                "name": "kefalotyri syr",
                 "plural_name": "kefalotyri syry"
             },
             "mizithra cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mizithra cheese",
+                "name": "mizithra syr",
                 "plural_name": "mizithry"
             },
             "lancashire cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "lancashire cheese",
+                "name": "lancashirsky syr",
                 "plural_name": "lancashirské syry"
             },
             "kasseri cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "kasseri cheese",
+                "name": "kasseri syr",
                 "plural_name": "kasseri syry"
             },
             "babybel cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "babybel cheese",
+                "name": "babybel",
                 "plural_name": "babybely"
             },
             "panela cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "panela cheese",
+                "name": "panela syr",
                 "plural_name": "panela syry"
             },
             "longhorn cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "longhorn cheese",
+                "name": "longhorn syr",
                 "plural_name": "longhorn syry"
             },
             "seasoned feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "seasoned feta cheese",
-                "plural_name": "ochutené fetové syry"
+                "name": "ochutený feta syr",
+                "plural_name": "ochutené feta syry"
             },
             "comté cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "comté cheese",
+                "name": "comté syr",
                 "plural_name": "comté syry"
             },
             "graviera cheese": {
