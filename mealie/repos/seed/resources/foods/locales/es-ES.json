@@ -2457,8 +2457,8 @@
             "hard goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "hard goat cheese",
-                "plural_name": "hard goat cheese"
+                "name": "queso de cabra curado",
+                "plural_name": "quesos de cabra curados"
             },
             "kashkaval cheese": {
                 "aliases": [],
@@ -8008,8 +8008,8 @@
             "coffee bean": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee bean",
-                "plural_name": "coffee beans"
+                "name": "grano de café",
+                "plural_name": "granos de café"
             },
             "toffee bit": {
                 "aliases": [],
