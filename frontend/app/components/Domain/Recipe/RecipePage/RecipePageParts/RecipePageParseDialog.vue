@@ -38,6 +38,14 @@
               </v-btn>
             </div>
           </div>
+          <v-checkbox
+            v-if="parser === 'openai'"
+            v-model="shouldTranslate"
+            color="primary"
+            hide-details
+            :label="$t('recipe.should-translate-description')"
+            :disabled="state.loading.parser"
+          />
         </BaseCardSectionTitle>
         <v-card v-if="!state.allReviewed && currentIng">
           <v-card-text class="pb-0 mb-0">
@@ -228,6 +236,7 @@ const foodData = useFoodData();
 
 const parserPreferences = useParsingPreferences();
 const parser = ref<Parser>(parserPreferences.value.parser || "nlp");
+const shouldTranslate = ref(true);
 const availableParsers = computed(() => {
   return [
     {
@@ -374,7 +383,8 @@ async function parseIngredients() {
   try {
     const filteredIngredients = props.ingredients.filter(ing => !ing.referencedRecipe);
     const ingsAsString = filteredIngredients.map(ing => ingredientToParserString(ing));
-    const { data, error } = await api.recipes.parseIngredients(parser.value, ingsAsString);
+    const translateLanguage = parser.value === "openai" && shouldTranslate.value ? i18n.locale.value : null;
+    const { data, error } = await api.recipes.parseIngredients(parser.value, ingsAsString, translateLanguage);
     if (error || !data) {
       throw new Error("Failed to parse ingredients");
     }

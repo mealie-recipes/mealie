@@ -230,14 +230,14 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return await this.requests.post<string>(apiRoute, formData);
   }
 
-  async parseIngredients(parser: Parser, ingredients: Array<string>) {
+  async parseIngredients(parser: Parser, ingredients: Array<string>, translateLanguage: string | null = null) {
     parser = parser || "nlp";
-    return await this.requests.post<ParsedIngredient[]>(routes.recipesParseIngredients, { parser, ingredients });
+    return await this.requests.post<ParsedIngredient[]>(routes.recipesParseIngredients, { parser, ingredients, translateLanguage });
   }
 
-  async parseIngredient(parser: Parser, ingredient: string) {
+  async parseIngredient(parser: Parser, ingredient: string, translateLanguage: string | null = null) {
     parser = parser || "nlp";
-    return await this.requests.post<ParsedIngredient>(routes.recipesParseIngredient, { parser, ingredient });
+    return await this.requests.post<ParsedIngredient>(routes.recipesParseIngredient, { parser, ingredient, translateLanguage });
   }
 
   async updateMany(payload: Recipe[]) {
