@@ -68,6 +68,49 @@ def test_openai_parser(
             assert output.input == input
 
 
+@pytest.mark.parametrize("translate_language", [None, "de-DE"], ids=["no_translation", "with_translation"])
+def test_openai_parser_translate_language(
+    unique_local_group_id: UUID4,
+    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+    monkeypatch: pytest.MonkeyPatch,
+    translate_language: str | None,
+):
+    """The translation instruction should be appended to the OpenAI message only when a language is provided."""
+
+    inputs = ["2 cups flour", "1 tablespoon sugar"]
+    captured_messages: list[str] = []
+
+    async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> OpenAIIngredients:
+        captured_messages.append(message)
+        return OpenAIIngredients(
+            ingredients=[
+                OpenAIIngredient(quantity=1, unit=random_string(), food=random_string(), note=random_string())
+                for _ in inputs
+            ]
+        )
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    def mock_openai_init(self, repos):
+        self.repos = repos
+        self.custom_prompt_dir = None
+
+    monkeypatch.setattr(OpenAIService, "__init__", mock_openai_init)
+
+    with session_context() as session:
+        parser = get_parser(RegisteredParser.openai, unique_local_group_id, session, get_locale_provider())
+        parsed = asyncio.run(parser.parse(inputs, translate_language=translate_language))
+
+    assert len(parsed) == len(inputs)
+    assert len(captured_messages) == 1
+    message = captured_messages[0]
+
+    if translate_language:
+        assert f"Please translate the recipe to {translate_language}." in message
+    else:
+        assert "Please translate the recipe to" not in message
+
+
 def test_openai_parser_sanitize_output(
     unique_local_group_id: UUID4,
     unique_user: TestUser,

@@ -236,7 +236,7 @@ const foodData = useFoodData();
 
 const parserPreferences = useParsingPreferences();
 const parser = ref<Parser>(parserPreferences.value.parser || "nlp");
-const shouldTranslate = ref(true);
+const shouldTranslate = ref(false);
 const availableParsers = computed(() => {
   return [
     {
