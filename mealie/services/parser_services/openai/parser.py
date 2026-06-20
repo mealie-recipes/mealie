@@ -124,25 +124,27 @@ class OpenAIParser(ABCIngredientParser):
 
         return service.get_prompt("recipes.parse-recipe-ingredients", data_injections=data_injections)
 
-    async def _parse(self, ingredients: list[str]) -> OpenAIIngredients:
+    async def _parse(self, ingredients: list[str], translate_language: str | None = None) -> OpenAIIngredients:
         service = OpenAIService(self.repos)
         prompt = self._get_prompt(service)
 
-        response = await service.get_response(
-            prompt, json.dumps(ingredients, separators=(",", ":")), response_schema=OpenAIIngredients
-        )
+        message = json.dumps(ingredients, separators=(",", ":"))
+        if translate_language:
+            message += f" Please translate the recipe to {translate_language}."
+
+        response = await service.get_response(prompt, message, response_schema=OpenAIIngredients)
 
         if not response:
             raise Exception("No response from OpenAI")
 
         return OpenAIIngredients(ingredients=response.ingredients)
 
-    async def parse_one(self, ingredient_string: str) -> ParsedIngredient:
-        items = await self.parse([ingredient_string])
+    async def parse_one(self, ingredient_string: str, translate_language: str | None = None) -> ParsedIngredient:
+        items = await self.parse([ingredient_string], translate_language=translate_language)
         return items[0]
 
-    async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
-        response = await self._parse(ingredients)
+    async def parse(self, ingredients: list[str], translate_language: str | None = None) -> list[ParsedIngredient]:
+        response = await self._parse(ingredients, translate_language=translate_language)
         if len(response.ingredients) != len(ingredients):
             raise ValueError(
                 "OpenAI returned an unexpected number of ingredients. "

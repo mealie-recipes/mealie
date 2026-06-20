@@ -13,10 +13,10 @@ class IngredientParserController(BaseUserController):
     @router.post("/ingredient", response_model=ParsedIngredient)
     async def parse_ingredient(self, ingredient: IngredientRequest):
         parser = get_parser(ingredient.parser, self.group_id, self.session, self.translator)
-        response = await parser.parse([ingredient.ingredient])
+        response = await parser.parse([ingredient.ingredient], translate_language=ingredient.translate_language)
         return response[0]
 
     @router.post("/ingredients", response_model=list[ParsedIngredient])
     async def parse_ingredients(self, ingredients: IngredientsRequest):
         parser = get_parser(ingredients.parser, self.group_id, self.session, self.translator)
-        return await parser.parse(ingredients.ingredients)
+        return await parser.parse(ingredients.ingredients, translate_language=ingredients.translate_language)

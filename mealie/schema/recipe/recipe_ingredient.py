@@ -390,11 +390,13 @@ class RegisteredParser(enum.StrEnum):
 class IngredientsRequest(MealieModel):
     parser: RegisteredParser = RegisteredParser.nlp
     ingredients: list[str]
+    translate_language: str | None = None
 
 
 class IngredientRequest(MealieModel):
     parser: RegisteredParser = RegisteredParser.nlp
     ingredient: str
+    translate_language: str | None = None
 
 
 class MergeFood(MealieModel):

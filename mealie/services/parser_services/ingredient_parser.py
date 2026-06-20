@@ -33,7 +33,7 @@ class BruteForceParser(ABCIngredientParser):
     Brute force ingredient parser.
     """
 
-    async def parse_one(self, ingredient_string: str) -> ParsedIngredient:
+    async def parse_one(self, ingredient_string: str, translate_language: str | None = None) -> ParsedIngredient:
         bfi = brute.parse(ingredient_string, self)
 
         parsed_ingredient = ParsedIngredient(
@@ -69,7 +69,7 @@ class BruteForceParser(ABCIngredientParser):
 
         return matched_ingredient
 
-    async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
+    async def parse(self, ingredients: list[str], translate_language: str | None = None) -> list[ParsedIngredient]:
         return [await self.parse_one(ingredient) for ingredient in ingredients]
 
 
@@ -251,7 +251,7 @@ class NLPParser(ABCIngredientParser):
 
         return self.find_ingredient_match(parsed_ingredient)
 
-    async def parse_one(self, ingredient_string: str) -> ParsedIngredient:
+    async def parse_one(self, ingredient_string: str, translate_language: str | None = None) -> ParsedIngredient:
         database_units = {}
         for ingredient_unit in self.data_matcher.units_by_id.values():
             if ingredient_unit.name:
@@ -265,7 +265,7 @@ class NLPParser(ABCIngredientParser):
         parsed_ingredient = parse_ingredient(ingredient_string, custom_units=database_units)
         return self._convert_ingredient(parsed_ingredient)
 
-    async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:
+    async def parse(self, ingredients: list[str], translate_language: str | None = None) -> list[ParsedIngredient]:
         return [await self.parse_one(ingredient) for ingredient in ingredients]
 
 
