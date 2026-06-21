@@ -208,6 +208,15 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         if new_name := new_data.get("name"):
             new_data["slug"] = entry.slug if new_name == entry.name else create_recipe_slug(new_name)
 
+        # Always preserve identity/ownership fields from the existing DB entry.
+        # User-provided JSON may omit or null these, which would cause integrity errors.
+        for field in ("id", "user_id", "household_id", "group_id"):
+            new_data[field] = getattr(entry, field)
+
+        # If slug is still missing after name-based recalculation, fall back to existing slug.
+        if not new_data.get("slug"):
+            new_data["slug"] = entry.slug
+
         # Handle explicit group_id injection for related items that require it
         for organizer_field in ["tags", "recipe_category", "tools"]:
             for organizer in new_data.get(organizer_field, []):

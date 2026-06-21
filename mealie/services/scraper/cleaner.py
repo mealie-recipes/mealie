@@ -165,7 +165,10 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
             # ]
             #
             return [
-                {"text": _sanitize_instruction_text(instruction["text"])}
+                {
+                    "text": _sanitize_instruction_text(instruction["text"]),
+                    **{k: instruction[k] for k in ("title", "summary") if instruction.get(k)},
+                }
                 for instruction in steps_object
                 if "text" in instruction and instruction["text"].strip()
             ]
