@@ -201,6 +201,18 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
+    def _resolve_organizer(self, model: type, name: str) -> dict:
+        """Look up an organizer (tag/category/tool) by name in this group, creating it if absent."""
+        existing = self.session.execute(
+            sa.select(model).where(model.group_id == self.group_id, sa.func.lower(model.name) == name.lower().strip())
+        ).scalar_one_or_none()
+        if existing:
+            return {"id": str(existing.id), "group_id": str(existing.group_id), "name": existing.name, "slug": existing.slug}
+        new_obj = model(session=self.session, name=name.strip(), group_id=self.group_id)
+        self.session.add(new_obj)
+        self.session.flush()
+        return {"id": str(new_obj.id), "group_id": str(new_obj.group_id), "name": new_obj.name, "slug": new_obj.slug}
+
     def update(self, match_value: str | int | UUID4, new_data: dict | Recipe) -> Recipe:
         new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
         entry = self._query_one(match_value=match_value)
@@ -217,10 +229,17 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         if not new_data.get("slug"):
             new_data["slug"] = entry.slug
 
-        # Handle explicit group_id injection for related items that require it
-        for organizer_field in ["tags", "recipe_category", "tools"]:
-            for organizer in new_data.get(organizer_field, []):
-                organizer["group_id"] = self.group_id
+        # Resolve organizers by name if id is absent, creating them in the group if needed.
+        organizer_models = {"tags": Tag, "recipe_category": Category, "tools": Tool}
+        for field, model in organizer_models.items():
+            resolved = []
+            for organizer in new_data.get(field) or []:
+                if organizer.get("id"):
+                    organizer["group_id"] = str(self.group_id)
+                    resolved.append(organizer)
+                elif organizer.get("name"):
+                    resolved.append(self._resolve_organizer(model, organizer["name"]))
+            new_data[field] = resolved
 
         entry.update(session=self.session, **new_data)
         self.session.commit()
