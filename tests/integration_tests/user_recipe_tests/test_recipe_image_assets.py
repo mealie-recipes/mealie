@@ -261,3 +261,193 @@ def test_scrape_image_service_raises_on_non_2xx():
         return "no-raise"
 
     assert asyncio.run(run()) == "raised"
+
+
+# Regression tests for https://github.com/mealie-recipes/mealie/issues/7489
+# Some recipe sites serve real image bytes with a `Content-Type:
+# application/octet-stream` header (or no content-type at all), because
+# their CDN / object store is configured to skip MIME sniffing. The
+# previous strict `if "image" not in content_type: raise NotAnImageError`
+# logic rejected those, killing the recipe image even though the bytes
+# decoded fine as a JPEG. The fix: when the content-type is missing or
+# not `image/*`, defer to Pillow to verify the bytes are actually a
+# decodable image. Real non-image bodies (HTML, JSON, ...) still fail,
+# but via Pillow's `UnidentifiedImageError` rather than via the header.
+
+
+def test_scrape_image_url_accepts_octet_stream_with_real_jpeg_bytes(
+    api_client: TestClient,
+    unique_user: TestUser,
+    recipe_ingredient_only: Recipe,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """`Content-Type: application/octet-stream` + a real JPEG body must
+    succeed. This is the grubby.co.uk / DigitalOcean Spaces case in #7489."""
+
+    jpeg_bytes = data.images_test_image_1.read_bytes()
+
+    async def return_octet_stream_jpeg(*args, **kwargs):
+        return Response(200, headers={"content-type": "application/octet-stream"}, content=jpeg_bytes)
+
+    monkeypatch.setattr(AsyncSafeTransport, "handle_async_request", return_octet_stream_jpeg)
+
+    response = api_client.post(
+        f"/api/recipes/{recipe_ingredient_only.slug}/image",
+        json={"url": "https://grubby.co.uk/recipe/photo.jpg"},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 200, response.text
+
+
+def test_scrape_image_url_accepts_missing_content_type_with_real_jpeg_bytes(
+    api_client: TestClient,
+    unique_user: TestUser,
+    recipe_ingredient_only: Recipe,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Some servers omit the content-type header entirely; same fix path
+    as octet-stream — Pillow verifies the bytes are a real image."""
+
+    jpeg_bytes = data.images_test_image_1.read_bytes()
+
+    async def return_no_ct_jpeg(*args, **kwargs):
+        return Response(200, headers={}, content=jpeg_bytes)
+
+    monkeypatch.setattr(AsyncSafeTransport, "handle_async_request", return_no_ct_jpeg)
+
+    response = api_client.post(
+        f"/api/recipes/{recipe_ingredient_only.slug}/image",
+        json={"url": "https://example.com/no-ct.jpg"},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 200, response.text
+
+
+def test_scrape_image_url_rejects_octet_stream_with_non_image_bytes(
+    api_client: TestClient,
+    unique_user: TestUser,
+    recipe_ingredient_only: Recipe,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """`application/octet-stream` must NOT be a magic "accept anything"
+    pass. A real non-image body (HTML, here) must still fail — surfaced
+    as a 500 carrying the NotAnImageError message. The previous behavior
+    also raised, but with a different message and on the header alone."""
+
+    async def return_octet_stream_html(*args, **kwargs):
+        return Response(
+            200,
+            headers={"content-type": "application/octet-stream"},
+            content=b"<html><body>not an image</body></html>",
+        )
+
+    monkeypatch.setattr(AsyncSafeTransport, "handle_async_request", return_octet_stream_html)
+
+    response = api_client.post(
+        f"/api/recipes/{recipe_ingredient_only.slug}/image",
+        json={"url": "https://example.com/wrong-bytes.jpg"},
+        headers=unique_user.token,
+    )
+
+    # Non-image bytes must still fail. The route doesn't translate
+    # NotAnImageError specifically, so we get a 500 — what matters for
+    # the regression is that the recipe did NOT get a 200 / image written.
+    assert response.status_code != 200
+    # The recipe should still have no image (write_image was never called).
+    recipe_resp = api_client.get(f"/api/recipes/{recipe_ingredient_only.slug}", headers=unique_user.token).json()
+    assert not recipe_resp.get("image")
+
+
+def test_scrape_image_service_accepts_octet_stream_jpeg_bytes():
+    """Direct unit test on RecipeDataService.scrape_image: an octet-stream
+    response carrying real JPEG bytes must succeed, and must NOT raise
+    NotAnImageError. Without the #7489 fix this raises because the
+    header doesn't contain the substring 'image'."""
+
+    import asyncio
+    from unittest.mock import MagicMock
+    from uuid import uuid4
+
+    from mealie.services.recipe.recipe_data_service import (
+        NotAnImageError,
+        RecipeDataService,
+    )
+
+    service = RecipeDataService(recipe_id=uuid4(), logger=MagicMock())
+    jpeg_bytes = data.images_test_image_1.read_bytes()
+
+    async def run():
+        class FakeClient:
+            async def __aenter__(self):
+                return self
+
+            async def __aexit__(self, *args):
+                return False
+
+            async def get(self, *args, **kwargs):
+                return Response(
+                    200,
+                    headers={"content-type": "application/octet-stream"},
+                    content=jpeg_bytes,
+                )
+
+        import mealie.services.recipe.recipe_data_service as mod
+
+        original_async_client = mod.AsyncClient
+        mod.AsyncClient = lambda *a, **kw: FakeClient()
+        try:
+            await service.scrape_image("https://grubby.co.uk/recipe/photo.jpg")
+            return "ok"
+        except NotAnImageError:
+            return "raised-NotAnImageError"
+        finally:
+            mod.AsyncClient = original_async_client
+
+    assert asyncio.run(run()) == "ok"
+
+
+def test_scrape_image_service_rejects_octet_stream_html_bytes():
+    """Counterpart: octet-stream + non-image bytes must still raise
+    NotAnImageError (now via Pillow, not the header check)."""
+
+    import asyncio
+    from unittest.mock import MagicMock
+    from uuid import uuid4
+
+    from mealie.services.recipe.recipe_data_service import (
+        NotAnImageError,
+        RecipeDataService,
+    )
+
+    service = RecipeDataService(recipe_id=uuid4(), logger=MagicMock())
+
+    async def run():
+        class FakeClient:
+            async def __aenter__(self):
+                return self
+
+            async def __aexit__(self, *args):
+                return False
+
+            async def get(self, *args, **kwargs):
+                return Response(
+                    200,
+                    headers={"content-type": "application/octet-stream"},
+                    content=b"<html>not an image</html>",
+                )
+
+        import mealie.services.recipe.recipe_data_service as mod
+
+        original_async_client = mod.AsyncClient
+        mod.AsyncClient = lambda *a, **kw: FakeClient()
+        try:
+            await service.scrape_image("https://example.com/wrong.jpg")
+            return "no-raise"
+        except NotAnImageError:
+            return "raised-NotAnImageError"
+        finally:
+            mod.AsyncClient = original_async_client
+
+    assert asyncio.run(run()) == "raised-NotAnImageError"

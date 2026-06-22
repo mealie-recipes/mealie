@@ -1,9 +1,11 @@
 import asyncio
+import io
 import shutil
 from logging import Logger
 from pathlib import Path
 
 from httpx import AsyncClient, Response
+from PIL import Image, UnidentifiedImageError
 from pydantic import UUID4
 
 from mealie.pkgs import img, safehttp
@@ -179,12 +181,28 @@ class RecipeDataService(BaseService):
                 # in a broad try/except.
                 raise ImageFetchError(r.status_code, f"Image fetch returned HTTP {r.status_code}")
 
-            content_type = r.headers.get("content-type", "")
+            content_type = r.headers.get("content-type", "").split(";")[0].strip().lower()
 
-            if "image" not in content_type:
-                self.logger.error(f"Content-Type: {content_type} is not an image")
-                raise NotAnImageError(f"Content-Type {content_type} is not an image")
+            image_bytes = r.read()
+
+            if not content_type.startswith("image/"):
+                # Some CDNs (e.g. DigitalOcean Spaces behind grubby.co.uk) return
+                # `application/octet-stream` or omit the content-type entirely
+                # even when the body is a real image. The HTTP header is the
+                # wrong layer to trust for "is this an image"; defer to Pillow,
+                # which will throw UnidentifiedImageError on anything that
+                # isn't actually decodable as an image.
+                # See https://github.com/mealie-recipes/mealie/issues/7489
+                try:
+                    with Image.open(io.BytesIO(image_bytes)) as probe:
+                        probe.verify()
+                except (UnidentifiedImageError, OSError, ValueError) as e:
+                    self.logger.error(f"Content-Type: {content_type or '(none)'} is not an image ({e!s})")
+                    raise NotAnImageError(
+                        f"Content-Type {content_type or '(none)'} is not an image: bytes failed Pillow verify"
+                    ) from e
+                self.logger.debug(f"Content-Type: {content_type or '(none)'} accepted after Pillow verify")
 
             self.logger.debug(f"File Name Suffix {file_path.suffix}")
-            self.write_image(r.read(), file_path.suffix)
+            self.write_image(image_bytes, file_path.suffix)
             file_path.unlink(missing_ok=True)
