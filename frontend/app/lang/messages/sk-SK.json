@@ -1144,8 +1144,8 @@
   },
   "data-pages": {
     "foods": {
-      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
-      "delete-affects-recipes-more": "View all {count} recipes",
+      "delete-affects-recipes": "Upozornenie: táto potravina sa používa v {count} receptoch (receptoch). Jej vymazaním zostane v recepte (receptoch) prázdna zložka.",
+      "delete-affects-recipes-more": "Zobraziť všetkých {count} receptov",
       "merge-dialog-text": "Kombináciou vybraných potravín sa zdrojové jedlo a cieľové jedlo zlúčia do jedného jedla. Zdrojové jedlo bude vymazané a všetky odkazy na zdrojové jedlo budú aktualizované tak, aby ukazovali na cieľové jedlo.",
       "merge-food-example": "Zlučujem {food1} do {food2}",
       "seed-dialog-text": "Naplňte databázu potravinami vo vašom jazyku. Tým vytvoríte viac ako 2700 bežných potravín, ktoré môžete použiť na organizovanie vašej databáze. Potraviny sú preložené vďaka úsiliu komunity.",
