@@ -64,8 +64,8 @@
             "jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "name": "халапеньо",
+                "plural_name": "халапеньо"
             },
             "avocado": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "шпинат",
-                "plural_name": "spinach"
+                "plural_name": "шпинат"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "сладкая кукуруза",
-                "plural_name": "sweet corn"
+                "plural_name": "сладкая кукуруза"
             },
             "chile pepper": {
                 "aliases": [
@@ -974,7 +974,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "помело",
-                "plural_name": "pomelos"
+                "plural_name": "помело"
             },
             "chestnut purée": {
                 "aliases": [],
@@ -2008,11 +2008,11 @@
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddar cheese"
+                    "сыр чеддер"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheese"
+                "name": "сыр чеддер",
+                "plural_name": "сыр чеддер"
             },
             "cream cheese": {
                 "aliases": [],
@@ -2031,8 +2031,8 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "сыр",
+                "plural_name": "сыры"
             },
             "mozzarella cheese": {
                 "aliases": [],
@@ -2043,8 +2043,8 @@
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "сыр фета",
+                "plural_name": "сыр фета"
             },
             "ricotta cheese": {
                 "aliases": [],
@@ -3373,8 +3373,8 @@
             "nut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "nut milk",
-                "plural_name": "nut milk"
+                "name": "ореховое молоко",
+                "plural_name": "ореховое молоко"
             },
             "non-dairy cream": {
                 "aliases": [],
@@ -3397,8 +3397,8 @@
             "vegan ground beef": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan ground beef",
-                "plural_name": "vegan ground beefs"
+                "name": "веганский говяжий фарш",
+                "plural_name": "веганский говяжий фарш"
             },
             "pulled oat": {
                 "aliases": [],
@@ -3505,20 +3505,20 @@
             "vegan fish sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan fish sauce",
-                "plural_name": "vegan fish sauce"
+                "name": "вегетарианский рыбный соус",
+                "plural_name": "вегетарианский рыбный соус"
             },
             "vegetarian hot dog": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetarian hot dog",
-                "plural_name": "vegetarian hot dogs"
+                "name": "вегетарианский хот-дог",
+                "plural_name": "вегетарианские хот-дог"
             },
             "hazelnut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut milk",
-                "plural_name": "hazelnut milk"
+                "name": "Ореховое молоко",
+                "plural_name": "ореховое молоко"
             },
             "maple almond butter": {
                 "aliases": [],
@@ -3697,8 +3697,8 @@
             "banana milk": {
                 "aliases": [],
                 "description": "",
-                "name": "banana milk",
-                "plural_name": "banana milk"
+                "name": "банановое молоко",
+                "plural_name": "банановое молоко"
             },
             "soy quark": {
                 "aliases": [],
@@ -3779,8 +3779,8 @@
             "sweet italian sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet italian sausage",
-                "plural_name": "sweet italian sausages"
+                "name": "Сладкая итальянская колбаса",
+                "plural_name": "Сладкие итальяснкие колбаски"
             },
             "pork loin": {
                 "aliases": [],
@@ -3803,8 +3803,8 @@
             "beef roast": {
                 "aliases": [],
                 "description": "",
-                "name": "beef roast",
-                "plural_name": "beef roasts"
+                "name": "Жаренная говядина",
+                "plural_name": "Жаренная говядина"
             },
             "ground pork": {
                 "aliases": [],
@@ -3965,14 +3965,14 @@
             "pork roast": {
                 "aliases": [],
                 "description": "",
-                "name": "pork roast",
-                "plural_name": "pork roasts"
+                "name": "Жаренная свинина",
+                "plural_name": "Жаренная свинина"
             },
             "hot italian sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "hot italian sausage",
-                "plural_name": "hot italian sausages"
+                "name": "горячая итальянская колбаса",
+                "plural_name": "горячие итальянские колбаски"
             },
             "pork spare rib": {
                 "aliases": [],
@@ -3989,8 +3989,8 @@
             "beef rib": {
                 "aliases": [],
                 "description": "",
-                "name": "beef rib",
-                "plural_name": "beef ribs"
+                "name": "Говяжье ребро",
+                "plural_name": "Говяжьи ребра"
             },
             "veal steak": {
                 "aliases": [],
@@ -4085,8 +4085,8 @@
             "rabbit": {
                 "aliases": [],
                 "description": "",
-                "name": "rabbit",
-                "plural_name": "rabbits"
+                "name": "кролик",
+                "plural_name": "кролики"
             },
             "pork cutlet": {
                 "aliases": [],
@@ -4235,8 +4235,8 @@
             "blood sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "blood sausage",
-                "plural_name": "blood sausages"
+                "name": "кровяная колбаса",
+                "plural_name": "Кровяные колбасы"
             },
             "dried beef": {
                 "aliases": [],
@@ -4353,14 +4353,14 @@
             "chicken breast": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken breast",
-                "plural_name": "chicken breasts"
+                "name": "Куриная грудка",
+                "plural_name": "Куриные грудки"
             },
             "chicken thigh": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken thigh",
-                "plural_name": "chicken thighs"
+                "name": "Куриное бедро",
+                "plural_name": "Куриные бедра"
             },
             "cooked chicken": {
                 "aliases": [],
@@ -4371,8 +4371,8 @@
             "ground turkey": {
                 "aliases": [],
                 "description": "",
-                "name": "ground turkey",
-                "plural_name": "ground turkeys"
+                "name": "Индюшиный фарш",
+                "plural_name": "Индюшиный фарш"
             },
             "whole chicken": {
                 "aliases": [],
@@ -4389,26 +4389,26 @@
             "chicken leg": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken leg",
-                "plural_name": "chicken legs"
+                "name": "Куриная голень",
+                "plural_name": "Куриные голени"
             },
             "chicken wing": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken wing",
-                "plural_name": "chicken wings"
+                "name": "Куриные крылья",
+                "plural_name": "Куриные крылышки"
             },
             "turkey breast": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey breast",
-                "plural_name": "turkey breasts"
+                "name": "Индюшиная грудка",
+                "plural_name": "Индюшиные грудки"
             },
             "ground chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "ground chicken",
-                "plural_name": "ground chickens"
+                "name": "Куриный фарш",
+                "plural_name": "Куриный фарш"
             },
             "rotisserie chicken": {
                 "aliases": [],
@@ -4425,14 +4425,14 @@
             "turkey sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey sausage",
-                "plural_name": "turkey sausages"
+                "name": "Индюшиная колбаса",
+                "plural_name": "Индюшиные колбаски"
             },
             "chicken sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken sausage",
-                "plural_name": "chicken sausages"
+                "name": "Куриная колбаса",
+                "plural_name": "Куриные колбаски"
             },
             "turkey bacon": {
                 "aliases": [],
@@ -4443,14 +4443,14 @@
             "duck": {
                 "aliases": [],
                 "description": "",
-                "name": "duck",
-                "plural_name": "ducks"
+                "name": "утка",
+                "plural_name": "утки"
             },
             "duck breast": {
                 "aliases": [],
                 "description": "",
-                "name": "duck breast",
-                "plural_name": "duck breasts"
+                "name": "Утиная грудка",
+                "plural_name": "Утиные грудки"
             },
             "boneless chicken": {
                 "aliases": [],
@@ -4485,20 +4485,20 @@
             "turkey meat": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey meat",
-                "plural_name": "turkey meats"
+                "name": "Мясо индейки",
+                "plural_name": "мясо индейки"
             },
             "chicken quarter": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken quarter",
-                "plural_name": "chicken quarters"
+                "name": "куриная четверть",
+                "plural_name": "Куриные четверти"
             },
             "ground turkey sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "ground turkey sausage",
-                "plural_name": "ground turkey sausages"
+                "name": "Колбаса их индюшиного фарша",
+                "plural_name": "Колбаски из индюшиного фарша"
             },
             "quail": {
                 "aliases": [],
@@ -4521,8 +4521,8 @@
             "turkey leg": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey leg",
-                "plural_name": "turkey legs"
+                "name": "Индюшиная голень",
+                "plural_name": "Индюшиные голени"
             },
             "pheasant": {
                 "aliases": [],
@@ -4551,8 +4551,8 @@
             "turkey thigh": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey thigh",
-                "plural_name": "turkey thighs"
+                "name": "бедро индейки",
+                "plural_name": "бедро индейки"
             },
             "chicken bone": {
                 "aliases": [],
@@ -4581,8 +4581,8 @@
             "turkey wing": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey wing",
-                "plural_name": "turkey wings"
+                "name": "крыло индейки",
+                "plural_name": "крылья индейки"
             },
             "turkey giblet": {
                 "aliases": [],
