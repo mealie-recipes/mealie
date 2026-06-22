@@ -9,7 +9,10 @@ from PIL import UnidentifiedImageError
 from pydantic import UUID4
 
 from mealie.core import root_logger
-from mealie.services.recipe.recipe_data_service import RecipeDataService
+from mealie.services.recipe.recipe_data_service import (
+    ImageFetchError,
+    RecipeDataService,
+)
 
 
 class MigrationReaders:
@@ -161,6 +164,15 @@ async def scrape_image(image_url: str, recipe_id: UUID4):
     try:
         await data_service.scrape_image(image_url)
     except UnidentifiedImageError:
+        return
+    except ImageFetchError as e:
+        # Migrations intentionally skip individual image failures (broken
+        # source URL, WAF block, rate limit, etc.) rather than aborting the
+        # whole import. The recipe is preserved; only the image is missing.
+        # See https://github.com/mealie-recipes/mealie/issues/7578
+        root_logger.get_logger(__name__).warning(
+            f"Migration image fetch failed for {image_url}: {e!s}"
+        )
         return
 
 

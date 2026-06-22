@@ -65,6 +65,7 @@ from mealie.services.event_bus_service.event_types import (
     EventTypes,
 )
 from mealie.services.recipe.recipe_data_service import (
+    ImageFetchError,
     InvalidDomainError,
     NotAnImageError,
     RecipeDataService,
@@ -627,6 +628,19 @@ class RecipeController(BaseRecipeController):
             raise HTTPException(
                 status_code=400,
                 detail=ErrorResponse.respond("Url is not from an allowed domain"),
+            ) from e
+        except ImageFetchError as e:
+            # Upstream image fetch failed (transport error, non-2xx, WAF block, ...).
+            # Surface 502 Bad Gateway with the upstream status (or 0 for transport
+            # errors) so the caller can distinguish "image not saved" from a real
+            # 200 success. Previously this path silently returned 200 OK.
+            # See https://github.com/mealie-recipes/mealie/issues/7578
+            data_service.logger.error(f"Image fetch failed for recipe {slug}: {e!s}")
+            raise HTTPException(
+                status_code=502,
+                detail=ErrorResponse.respond(
+                    f"Could not fetch image from URL (upstream status: {e.status_code})"
+                ),
             ) from e
 
         recipe.image = cache.cache_key.new_key()

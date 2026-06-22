@@ -1,8 +1,11 @@
 import filecmp
 
+import pytest
 from fastapi.testclient import TestClient
+from httpx import Response
 from slugify import slugify
 
+from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.schema.recipe.recipe import Recipe
 from tests import data
 from tests.utils.factories import random_string
@@ -150,3 +153,111 @@ def test_recipe_image_upload(api_client: TestClient, unique_user: TestUser, reci
     response = api_client.get(f"/api/recipes/{recipe_ingredient_only.slug}", headers=unique_user.token)
     recipe_respons = response.json()
     assert recipe_respons["image"] == image_version
+
+
+# Regression tests for https://github.com/mealie-recipes/mealie/issues/7578
+# `POST /api/recipes/{slug}/image` (the URL scrape path) used to silently
+# return 200 OK when the upstream image fetch failed, leaving the recipe
+# with no image and the caller none the wiser. It must now surface 502
+# Bad Gateway with the upstream status code in the body.
+
+
+@pytest.mark.parametrize("upstream_status", [403, 404, 460, 500, 502, 503])
+def test_scrape_image_url_returns_502_on_upstream_non_2xx(
+    api_client: TestClient,
+    unique_user: TestUser,
+    recipe_ingredient_only: Recipe,
+    monkeypatch: pytest.MonkeyPatch,
+    upstream_status: int,
+):
+    """Upstream returning a non-2xx (e.g. 460 from a WAF-fronted CDN) must
+    surface as 502 Bad Gateway with the upstream status in the body, not
+    as the old silently-correct 200 OK."""
+
+    async def return_non_2xx(*args, **kwargs):
+        return Response(upstream_status, content=b"")
+
+    monkeypatch.setattr(AsyncSafeTransport, "handle_async_request", return_non_2xx)
+
+    response = api_client.post(
+        f"/api/recipes/{recipe_ingredient_only.slug}/image",
+        json={"url": "https://example.com/waf-blocked.jpg"},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 502
+    body = response.json()
+    # The upstream status code should be surfaced in the error detail so
+    # callers can distinguish a 460 WAF block from a 500 server error.
+    assert str(upstream_status) in str(body)
+
+
+def test_scrape_image_url_returns_502_on_transport_error(
+    api_client: TestClient,
+    unique_user: TestUser,
+    recipe_ingredient_only: Recipe,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    """Network-level failures (DNS, TLS, timeout) must also surface as
+    502 Bad Gateway rather than the old silent 200 OK."""
+
+    async def raise_connection_error(*args, **kwargs):
+        raise ConnectionError("simulated network failure")
+
+    monkeypatch.setattr(AsyncSafeTransport, "handle_async_request", raise_connection_error)
+
+    response = api_client.post(
+        f"/api/recipes/{recipe_ingredient_only.slug}/image",
+        json={"url": "https://example.com/timeout.jpg"},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 502
+
+
+def test_scrape_image_service_raises_on_non_2xx():
+    """Direct unit test on RecipeDataService.scrape_image — the data
+    service must raise ImageFetchError rather than swallowing the failure
+    and returning None as it did before #7578."""
+
+    import asyncio
+    from unittest.mock import MagicMock
+    from uuid import uuid4
+
+    from mealie.services.recipe.recipe_data_service import (
+        ImageFetchError,
+        RecipeDataService,
+    )
+
+    # Use a plain MagicMock for the logger so calls to .info / .exception
+    # are no-ops (the service code calls both, including the exception path).
+    service = RecipeDataService(recipe_id=uuid4(), logger=MagicMock())
+
+    async def run():
+        # Build a fake httpx AsyncClient context manager
+        class FakeClient:
+            async def __aenter__(self):
+                return self
+
+            async def __aexit__(self, *args):
+                return False
+
+            async def get(self, *args, **kwargs):
+                return Response(460, content=b"")
+
+        # Patch AsyncClient via the module under test so the data service
+        # uses our fake client instead of opening a real network connection.
+        import mealie.services.recipe.recipe_data_service as mod
+
+        original_async_client = mod.AsyncClient
+        mod.AsyncClient = lambda *a, **kw: FakeClient()
+        try:
+            await service.scrape_image("https://example.com/waf.jpg")
+        except ImageFetchError as e:
+            assert e.status_code == 460
+            return "raised"
+        finally:
+            mod.AsyncClient = original_async_client
+        return "no-raise"
+
+    assert asyncio.run(run()) == "raised"

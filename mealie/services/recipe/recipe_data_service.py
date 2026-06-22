@@ -54,6 +54,21 @@ class InvalidDomainError(Exception):
     pass
 
 
+class ImageFetchError(Exception):
+    """
+    Raised when an upstream image URL fetch fails. Carries the upstream
+    HTTP status code (or 0 for transport-level failures) so callers can
+    surface a meaningful error to API clients instead of silently
+    returning a 200 OK with no image written.
+
+    See https://github.com/mealie-recipes/mealie/issues/7578
+    """
+
+    def __init__(self, status_code: int, message: str) -> None:
+        self.status_code = status_code
+        super().__init__(message)
+
+
 class RecipeDataService(BaseService):
     minifier: img.ABCMinifier
 
@@ -149,14 +164,20 @@ class RecipeDataService(BaseService):
         async with AsyncClient(transport=safehttp.AsyncSafeTransport(impersonate="chrome")) as client:
             try:
                 r = await client.get(image_url_str)
-            except Exception:
+            except Exception as e:
+                # Transport-level failure (DNS, TLS, timeout, connection reset, ...).
+                # Surface as ImageFetchError so the route can return a real error
+                # to the caller instead of silently 200-OKing with no image written.
+                # See https://github.com/mealie-recipes/mealie/issues/7578
                 self.logger.exception("Fatal Image Request Exception")
-                return None
+                raise ImageFetchError(0, f"Image fetch failed: {e!s}") from e
 
             if r.status_code != 200:
-                # TODO: Probably should throw an exception in this case as well, but before these changes
-                # we were returning None if it failed anyways.
-                return None
+                # Upstream returned a non-success status (e.g. 460 from a WAF-fronted
+                # CDN). Surface the real status to the API client rather than the old
+                # silent-200 behavior. Migration/scraper callers already wrap this
+                # in a broad try/except.
+                raise ImageFetchError(r.status_code, f"Image fetch returned HTTP {r.status_code}")
 
             content_type = r.headers.get("content-type", "")
 
