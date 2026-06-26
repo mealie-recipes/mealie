@@ -419,8 +419,8 @@
             "corn on the cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn on the cob",
-                "plural_name": "corn on the cob"
+                "name": "kukuřičný klas",
+                "plural_name": "kukuřičné klasy"
             },
             "radicchio": {
                 "aliases": [],
@@ -484,17 +484,17 @@
             },
             "maize": {
                 "aliases": [
-                    "corn husk"
+                    "kukuřičná slupka"
                 ],
                 "description": "",
-                "name": "maize",
+                "name": "kukuřice",
                 "plural_name": "kukuřice"
             },
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "collard greens",
-                "plural_name": "collard greens"
+                "name": "kapusta",
+                "plural_name": "kapusty"
             },
             "french-fried onion": {
                 "aliases": [],
@@ -554,7 +554,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "hlávkový salát",
-                "plural_name": "boston lettuce"
+                "plural_name": "bostonský salát"
             },
             "kohlrabi": {
                 "aliases": [],
@@ -576,11 +576,11 @@
             },
             "Frisée": {
                 "aliases": [
-                    "curly endive"
+                    "štěrbák"
                 ],
                 "description": "",
-                "name": "Frisée",
-                "plural_name": "Frisées"
+                "name": "Čekanka",
+                "plural_name": "Čekanky"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -591,14 +591,14 @@
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "řeřicha",
+                "plural_name": "řeřichy"
             },
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
                 "name": "brokolicový salát",
-                "plural_name": "broccoli slaw"
+                "plural_name": "brokolisový salát"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -622,7 +622,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vojtěška",
-                "plural_name": "alfalfa"
+                "plural_name": "vojtěšky"
             }
         }
     },
@@ -1171,14 +1171,14 @@
             "fig leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "fig leaf",
-                "plural_name": "fig leaves"
+                "name": "fíkový list",
+                "plural_name": "fíkové listy"
             },
             "freeze-dried pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried pineapple",
-                "plural_name": "freeze-dried pineapples"
+                "name": "lyofilizovaný ananas",
+                "plural_name": "lyofilizované ananasy"
             },
             "pluot": {
                 "aliases": [],
@@ -1189,8 +1189,8 @@
             "soursop": {
                 "aliases": [],
                 "description": "",
-                "name": "soursop",
-                "plural_name": "soursops"
+                "name": "graviola",
+                "plural_name": "gravioly"
             },
             "hog plum": {
                 "aliases": [],
@@ -1225,8 +1225,8 @@
             "green ume plum": {
                 "aliases": [],
                 "description": "",
-                "name": "green ume plum",
-                "plural_name": "green ume plums"
+                "name": "zelená ume švestka",
+                "plural_name": "zelené ume švestky"
             },
             "kiwano": {
                 "aliases": [],
@@ -1301,8 +1301,8 @@
             "black truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "black truffle",
-                "plural_name": "black truffles"
+                "name": "černý lanýž",
+                "plural_name": "černé lanýže"
             },
             "morel mushroom": {
                 "aliases": [],
@@ -1355,8 +1355,8 @@
             "white truffle": {
                 "aliases": [],
                 "description": "",
-                "name": "white truffle",
-                "plural_name": "white truffles"
+                "name": "bílý lanýž",
+                "plural_name": "bílé lanýže"
             },
             "white fungu": {
                 "aliases": [],
@@ -1503,8 +1503,8 @@
             "dried cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cherry",
-                "plural_name": "dried cherries"
+                "name": "sušená třešeň",
+                "plural_name": "sušené třešně"
             },
             "juniper berry": {
                 "aliases": [],
@@ -2031,26 +2031,26 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "sýr",
+                "plural_name": "sýry"
             },
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
-                "plural_name": "mozzarella cheese"
+                "name": "mozzarella",
+                "plural_name": "mozzarelly"
             },
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "sýr feta",
+                "plural_name": "sýry feta"
             },
             "ricotta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "ricotta cheese",
-                "plural_name": "ricotta cheese"
+                "name": "sýr ricotta",
+                "plural_name": "sýry ricotta"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2067,14 +2067,14 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "sýr s modrou plísní",
+                "plural_name": "sýry s modrou plísní"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheese"
+                "name": "kozí sýr",
+                "plural_name": "kozí sýry"
             },
             "fresh mozzarella cheese": {
                 "aliases": [],
@@ -2884,7 +2884,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kachní vejce",
-                "plural_name": "duck eggs"
+                "plural_name": "kachní vejce"
             },
             "salted egg": {
                 "aliases": [],
@@ -2896,7 +2896,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "skyr",
-                "plural_name": "skyrs"
+                "plural_name": "skyry"
             },
             "pumpkin spice coffee creamer": {
                 "aliases": [],
@@ -3181,8 +3181,8 @@
             "soy milk": {
                 "aliases": [],
                 "description": "",
-                "name": "soy milk",
-                "plural_name": "soy milk"
+                "name": "sojové mléko",
+                "plural_name": "sojová mléka"
             },
             "extra firm tofu": {
                 "aliases": [],
@@ -3223,14 +3223,14 @@
             "vegan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan cheese",
-                "plural_name": "vegan cheese"
+                "name": "veganský sýr",
+                "plural_name": "veganské sýry"
             },
             "cashew butter": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew butter",
-                "plural_name": "cashew butter"
+                "name": "kešu máslo",
+                "plural_name": "kešu másla"
             },
             "tempeh": {
                 "aliases": [],
@@ -3271,8 +3271,8 @@
             "oat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "oat milk",
-                "plural_name": "oat milk"
+                "name": "ovesné mléko",
+                "plural_name": "ovesná mléka"
             },
             "nut butter": {
                 "aliases": [],
