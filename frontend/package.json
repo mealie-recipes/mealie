@@ -41,8 +41,8 @@
     "vue-advanced-cropper": "^2.8.9",
     "vue-draggable-plus": "^0.6.0",
     "vue-i18n": "^11.4.4",
-    "vuetify": "^4.0.5",
-    "vuetify-nuxt-module": "^0.19.5"
+    "vuetify": "^4.1.2",
+    "vuetify-nuxt-module": "^1.0.0-rc.1"
   },
   "devDependencies": {
     "@nuxt/eslint": "^1.2.0",
