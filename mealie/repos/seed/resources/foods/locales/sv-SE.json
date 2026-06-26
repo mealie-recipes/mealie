@@ -4163,8 +4163,8 @@
             "serrano ham": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano ham",
-                "plural_name": "serrano hams"
+                "name": "serranoskinka",
+                "plural_name": "serranoskinka"
             },
             "raw chorizo": {
                 "aliases": [],
@@ -4365,8 +4365,8 @@
             "cooked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "cooked chicken",
-                "plural_name": "cooked chickens"
+                "name": "tillagad kyckling",
+                "plural_name": "tillagade kycklingar"
             },
             "ground turkey": {
                 "aliases": [],
@@ -5185,7 +5185,7 @@
             "dried anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "dried anchovy",
+                "name": "torkad ansjovis",
                 "plural_name": "torkad ansjovis"
             },
             "arctic char": {
@@ -6165,8 +6165,8 @@
             "aniseed": {
                 "aliases": [],
                 "description": "",
-                "name": "aniseed",
-                "plural_name": "aniseeds"
+                "name": "anis",
+                "plural_name": "anis"
             },
             "kaffir lime leaf": {
                 "aliases": [],
@@ -11537,7 +11537,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fisksås",
-                "plural_name": "fish sauce"
+                "plural_name": "fisksås"
             },
             "bbq sauce": {
                 "aliases": [],
