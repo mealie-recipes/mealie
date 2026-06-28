@@ -62,7 +62,7 @@ docs = [
     "mkdocs-material==9.7.6",
 ]
 dev = [
-    "coverage==7.14.2",
+    "coverage==7.14.3",
     "coveragepy-lcov==0.1.2",
     "mkdocs-material==9.7.6",
     "mypy==2.1.0",
