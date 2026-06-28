@@ -7,7 +7,6 @@ import { resetToolStore } from "./use-tool-store";
 import { resetUnitStore } from "./use-unit-store";
 import { resetCookbookStore } from "./use-cookbook-store";
 import { resetUserStore } from "./use-user-store";
-import { resetGroupRecipeActions } from "~/composables/use-group-recipe-actions";
 
 export { useCategoryStore, usePublicCategoryStore, useCategoryData, resetCategoryStore } from "./use-category-store";
 export { useFoodStore, usePublicFoodStore, useFoodData, resetFoodStore } from "./use-food-store";
@@ -29,5 +28,4 @@ export function clearAllStores() {
   resetUnitStore();
   resetCookbookStore();
   resetUserStore();
-  resetGroupRecipeActions();
 }
