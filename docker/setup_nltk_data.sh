@@ -1,4 +1,17 @@
 #!/bin/bash
+# ------------------------------------------------------------------------------
+# Adapted from: https://github.com/community-scripts/ProxmoxVE/pull/14314
+#
+# Download NLTK data packages directly from GitHub, bypassing Python.
+# Avoids CPU-instruction failures (SIGILL) on older hardware lacking AVX.
+#
+# Intended for use during Docker image build only.
+#
+# Environment:
+#   NLTK_DATA - Target directory for NLTK data (default: /usr/share/nltk_data)
+#
+# Returns: 0 on success, non-zero if any package failed
+# ------------------------------------------------------------------------------
 set -euo pipefail
 
 NLTK_INDEX_URL="https://raw.githubusercontent.com/nltk/nltk_data/gh-pages/index.xml"
