@@ -1,7 +1,7 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:24@sha256:733e1c06ada118ed9f6133a31aa1290be6929664026fb28821500437c61f2c6f \
+FROM node:24@sha256:fdddfb3e688158251943d52eba361de991548f6814007acba4917ae6b512d6be \
     AS frontend-builder
 
 WORKDIR /frontend
@@ -131,6 +131,7 @@ RUN apt-get update \
     iproute2 \
     libldap-common \
     libldap2 \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # create directory used for Docker Secrets
@@ -141,8 +142,8 @@ COPY --from=venv-builder $VENV_PATH $VENV_PATH
 
 # install nltk data for the ingredient parser
 ENV NLTK_DATA="/nltk_data/"
-RUN mkdir -p $NLTK_DATA
-RUN python -m nltk.downloader -d $NLTK_DATA averaged_perceptron_tagger_eng
+COPY ./docker/setup_nltk_data.sh $MEALIE_HOME/setup_nltk_data.sh
+RUN chmod +x $MEALIE_HOME/setup_nltk_data.sh && $MEALIE_HOME/setup_nltk_data.sh
 
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=9000

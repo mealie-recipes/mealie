@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.19.2"
+version = "3.20.1"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -15,7 +15,7 @@ dependencies = [
     "apprise==1.11.0",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
-    "fastapi==0.137.2",
+    "fastapi==0.138.0",
     "httpx==0.28.1",
     "lxml==6.1.1",
     "orjson==3.11.9",
@@ -37,7 +37,7 @@ dependencies = [
     "authlib==1.7.2",
     "html2text==2025.4.15",
     "paho-mqtt==1.6.1",
-    "pydantic-settings==2.14.1",
+    "pydantic-settings==2.14.2",
     "pillow-heif==1.4.0",
     "pyjwt==2.13.0",
     "openai==2.43.0",
@@ -62,13 +62,13 @@ docs = [
     "mkdocs-material==9.7.6",
 ]
 dev = [
-    "coverage==7.14.1",
+    "coverage==7.14.3",
     "coveragepy-lcov==0.1.2",
     "mkdocs-material==9.7.6",
     "mypy==2.1.0",
     "pre-commit==4.6.0",
     "pylint==4.0.6",
-    "pytest==9.1.0",
+    "pytest==9.1.1",
     "pytest-asyncio==1.4.0",
     "rich==15.0.0",
     "ruff==0.15.18",
