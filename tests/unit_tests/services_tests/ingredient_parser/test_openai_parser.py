@@ -106,9 +106,9 @@ def test_openai_parser_translate_language(
     message = captured_messages[0]
 
     if translate_language:
-        assert f"Please translate the recipe to {translate_language}." in message
+        assert f"Please translate the ingredients to {translate_language}." in message
     else:
-        assert "Please translate the recipe to" not in message
+        assert "Please translate the ingredients to" not in message
 
 
 def test_openai_parser_sanitize_output(

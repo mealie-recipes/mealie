@@ -43,7 +43,7 @@
             v-model="shouldTranslate"
             color="primary"
             hide-details
-            :label="$t('recipe.should-translate-description')"
+            :label="$t('recipe.should-translate-ingredients-description')"
             :disabled="state.loading.parser"
           />
         </BaseCardSectionTitle>

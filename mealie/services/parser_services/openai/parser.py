@@ -130,7 +130,7 @@ class OpenAIParser(ABCIngredientParser):
 
         message = json.dumps(ingredients, separators=(",", ":"))
         if translate_language:
-            message += f" Please translate the recipe to {translate_language}."
+            message += f" Please translate the ingredients to {translate_language}."
 
         response = await service.get_response(prompt, message, response_schema=OpenAIIngredients)
 

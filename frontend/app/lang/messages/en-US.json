@@ -668,6 +668,7 @@
     "crop-and-rotate-the-image": "Crop and rotate the image so that only the text is visible, and it's in the correct orientation.",
     "create-from-images": "Create from Images",
     "should-translate-description": "Translate the recipe into my language",
+    "should-translate-ingredients-description": "Translate the ingredients into my language",
     "please-wait-image-procesing": "Please wait, the image is processing. This may take some time.",
     "please-wait-images-processing": "Please wait, the images are processing. This may take some time.",
     "bulk-url-import": "Bulk URL Import",
