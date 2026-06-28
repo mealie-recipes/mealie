@@ -1,7 +1,6 @@
 import { ref, computed } from "vue";
 import type { UserOut } from "~/lib/api/types/user";
 import { clearAllStores } from "~/composables/store";
-import { clearComposableCaches } from "~/composables/use-clear-composable-caches";
 import { getTokenCookieOptions } from "~/composables/use-token-cookie";
 
 interface AuthData {
@@ -105,9 +104,6 @@ export const useAuthBackend = function (): AuthState {
 
       // Clear all cached store data to prevent data leakage between users
       clearAllStores();
-
-      // Clear cached composable refs
-      clearComposableCaches();
 
       // Clear Nuxt's useAsyncData cache
       clearNuxtData();
