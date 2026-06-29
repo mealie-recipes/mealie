@@ -332,6 +332,12 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
+    async def create_from_text(self, text: str, translate_language: str | None = None) -> Recipe:
+        openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
+        recipe_data = await openai_recipe_service.build_recipe_from_text(text, translate_language=translate_language)
+        recipe_data = cleaner.clean(recipe_data, self.translator)
+        return self.create_one(recipe_data)
+
     async def create_from_images(self, images: list[UploadFile], translate_language: str | None = None) -> Recipe:
         openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
         with get_temporary_path() as temp_path:
@@ -620,6 +626,38 @@ class OpenAIRecipeService(RecipeServiceBase):
             ],
             notes=[RecipeNote(title=note.title or "", text=note.text) for note in openai_recipe.notes if note.text],
         )
+
+    async def build_recipe_from_text(self, text: str, translate_language: str | None) -> Recipe:
+        openai_service = OpenAIService(self.repos)
+        if not (openai_service.provider_settings and openai_service.provider_settings.ai_enabled):
+            raise ValueError("OpenAI services are not available")
+
+        prompt = openai_service.get_prompt("recipes.parse-recipe-text")
+
+        message = "Please extract the recipe from the text provided. There should be exactly one recipe."
+        if translate_language:
+            message += f" Please translate the recipe to {translate_language}."
+
+        message += f"\n\n{text}"
+
+        try:
+            response = await openai_service.get_response(
+                prompt,
+                message,
+                response_schema=OpenAIRecipe,
+            )
+            if not response:
+                raise ValueError("Received empty response from OpenAI")
+
+        except Exception as e:
+            raise Exception("Failed to call OpenAI services") from e
+
+        try:
+            recipe = self._convert_recipe(response)
+        except Exception as e:
+            raise ValueError("Unable to parse recipe from text") from e
+
+        return recipe
 
     async def build_recipe_from_images(self, images: list[Path], translate_language: str | None) -> Recipe:
         openai_service = OpenAIService(self.repos)

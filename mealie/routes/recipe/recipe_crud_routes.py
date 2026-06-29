@@ -33,7 +33,7 @@ from mealie.routes._base import controller
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
-from mealie.schema.recipe import Recipe, ScrapeRecipe, ScrapeRecipeData
+from mealie.schema.recipe import CreateRecipeFromText, Recipe, ScrapeRecipe, ScrapeRecipeData
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
     CreateRecipeByUrlBulk,
@@ -303,6 +303,34 @@ class RecipeController(BaseRecipeController):
                 group_id=recipe.group_id,
                 household_id=recipe.household_id,
             )
+
+        return recipe.slug
+
+    @router.post("/create/text", status_code=201)
+    async def create_recipe_from_text(
+        self,
+        data: CreateRecipeFromText,
+        translate_language: str | None = Query(None, alias="translateLanguage"),
+    ):
+        """
+        Create a recipe from plain text using OpenAI.
+        Optionally specify a language for it to translate the recipe to.
+        """
+
+        ai_settings = self.group.ai_provider_settings
+        if not (ai_settings and ai_settings.ai_enabled):
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("OpenAI services are not enabled"),
+            )
+
+        recipe = await self.service.create_from_text(data.text, translate_language)
+        self.publish_event(
+            event_type=EventTypes.recipe_created,
+            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
+            group_id=recipe.group_id,
+            household_id=recipe.household_id,
+        )
 
         return recipe.slug
 

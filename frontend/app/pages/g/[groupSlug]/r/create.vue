@@ -84,6 +84,12 @@ const subpages = computed<MenuItem[]>(() => [
   },
   {
     icon: $globals.icons.edit,
+    text: i18n.t("recipe.create-from-plaintext"),
+    value: "plaintext",
+    hide: !group.value?.aiProviderSettings?.aiEnabled,
+  },
+  {
+    icon: $globals.icons.edit,
     text: i18n.t("recipe.create-recipe"),
     value: "new",
   },

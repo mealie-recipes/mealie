@@ -32,3 +32,8 @@ class ScrapeRecipeData(ScrapeRecipeBase):
 
     url: str | None = None
     """Optional URL of the recipe source"""
+
+
+class CreateRecipeFromText(MealieModel):
+    text: str
+    """Plain text content of the recipe"""
