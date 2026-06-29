@@ -53,7 +53,9 @@ def test_openai_create_recipe_from_text(
 
     monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
 
-    recipe_text = "Chocolate Chip Cookies\n\nIngredients:\n- 2 cups flour\n- 1 cup sugar\n\nInstructions:\n1. Mix and bake."
+    recipe_text = (
+        "Chocolate Chip Cookies\n\nIngredients:\n- 2 cups flour\n- 1 cup sugar\n\nInstructions:\n1. Mix and bake."
+    )
     r = api_client.post(
         api_routes.recipes_create_text,
         json={"text": recipe_text},
