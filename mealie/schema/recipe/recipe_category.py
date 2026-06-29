@@ -24,7 +24,13 @@ class CategoryBase(CategoryIn):
 class CategoryOut(CategoryBase):
     slug: str
     group_id: UUID4
+    recipe_count: int = 0
     model_config = ConfigDict(from_attributes=True)
+
+
+class CategoryMerge(MealieModel):
+    from_id: UUID4
+    to_id: UUID4
 
 
 class RecipeCategoryResponse(CategoryBase):
@@ -47,7 +53,13 @@ class TagBase(CategoryBase):
 class TagOut(TagSave):
     id: UUID4
     slug: str
+    recipe_count: int = 0
     model_config = ConfigDict(from_attributes=True)
+
+
+class TagMerge(MealieModel):
+    from_id: UUID4
+    to_id: UUID4
 
 
 class RecipeTagResponse(RecipeCategoryResponse):

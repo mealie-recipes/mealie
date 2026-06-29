@@ -1,5 +1,18 @@
 <template>
   <div>
+    <BaseDialog
+      v-model="deleteUnusedDialog"
+      :title="$t('general.confirm')"
+      :icon="$globals.icons.alertCircle"
+      color="error"
+      can-confirm
+      @confirm="confirmDeleteUnused"
+    >
+      <v-card-text>
+        Delete {{ unusedCategoryIds.length }} unused category(s)? This cannot be undone.
+      </v-card-text>
+    </BaseDialog>
+
     <GroupDataPage
       :icon="$globals.icons.categories"
       :title="$t('data-pages.categories.category-data')"
@@ -15,12 +28,22 @@
       @edit-one="handleEdit"
       @delete-one="categoryStore.actions.deleteOne"
       @bulk-action="handleBulkAction"
-    />
+    >
+      <template #table-button-row>
+        <BaseButton :loading="loadingEmpty" @click="openDeleteUnusedDialog">
+          <template #icon>
+            {{ $globals.icons.delete }}
+          </template>
+          Delete Unused
+        </BaseButton>
+      </template>
+    </GroupDataPage>
   </div>
 </template>
 
 <script setup lang="ts">
 import { useCategoryStore } from "~/composables/store";
+import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { fieldTypes } from "~/composables/forms";
 import type { AutoFormItems } from "~/types/auto-forms";
@@ -28,6 +51,8 @@ import type { RecipeCategory } from "~/lib/api/types/recipe";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
 
 const i18n = useI18n();
+const userApi = useUserApi();
+
 const tableConfig: TableConfig = {
   hideColumns: true,
   canExport: true,
@@ -41,6 +66,12 @@ const tableHeaders: TableHeaders[] = [
   {
     text: i18n.t("general.name"),
     value: "name",
+    show: true,
+    sortable: true,
+  },
+  {
+    text: "Recipe Count",
+    value: "recipeCount",
     show: true,
     sortable: true,
   },
@@ -89,5 +120,24 @@ async function handleBulkAction(event: string, items: RecipeCategory[]) {
     const ids = items.filter(item => item.id != null).map(item => item.id!);
     await categoryStore.actions.deleteMany(ids);
   }
+}
+
+// ============================================================
+// Delete Unused
+const deleteUnusedDialog = ref(false);
+const unusedCategoryIds = ref<string[]>([]);
+const loadingEmpty = ref(false);
+
+async function openDeleteUnusedDialog() {
+  loadingEmpty.value = true;
+  const { data } = await userApi.categories.getEmpty();
+  loadingEmpty.value = false;
+  unusedCategoryIds.value = (data ?? []).filter(c => c.id != null).map(c => c.id!);
+  deleteUnusedDialog.value = true;
+}
+
+async function confirmDeleteUnused() {
+  await categoryStore.actions.deleteMany(unusedCategoryIds.value);
+  unusedCategoryIds.value = [];
 }
 </script>

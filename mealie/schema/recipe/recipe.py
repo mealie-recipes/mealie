@@ -63,6 +63,7 @@ class RecipeTag(MealieModel):
     group_id: UUID4 | None = None
     name: str
     slug: str
+    recipe_count: int = 0
 
     _searchable_properties: ClassVar[list[str]] = ["name"]
     model_config = ConfigDict(from_attributes=True)

@@ -8,6 +8,7 @@ const routes = {
   tags: `${prefix}/tags`,
   tagsId: (tag: string) => `${prefix}/tags/${tag}`,
   tagsSlug: (tag: string) => `${prefix}/tags/slug/${tag}`,
+  tagsEmpty: `${prefix}/tags/empty`,
 };
 
 export class TagsAPI extends BaseCRUDAPI<TagIn, RecipeTagResponse> {
@@ -16,5 +17,9 @@ export class TagsAPI extends BaseCRUDAPI<TagIn, RecipeTagResponse> {
 
   async bySlug(slug: string) {
     return await this.requests.get<RecipeTagResponse>(routes.tagsSlug(slug));
+  }
+
+  async getEmpty() {
+    return await this.requests.get<RecipeTagResponse[]>(routes.tagsEmpty);
   }
 }

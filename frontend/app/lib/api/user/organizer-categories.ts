@@ -8,6 +8,7 @@ const routes = {
   categories: `${prefix}/categories`,
   categoriesId: (category: string) => `${prefix}/categories/${category}`,
   categoriesSlug: (category: string) => `${prefix}/categories/slug/${category}`,
+  categoriesEmpty: `${prefix}/categories/empty`,
 };
 
 export class CategoriesAPI extends BaseCRUDAPI<CategoryIn, RecipeCategoryResponse> {
@@ -16,5 +17,9 @@ export class CategoriesAPI extends BaseCRUDAPI<CategoryIn, RecipeCategoryRespons
 
   async bySlug(slug: string) {
     return await this.requests.get<RecipeCategoryResponse>(routes.categoriesSlug(slug));
+  }
+
+  async getEmpty() {
+    return await this.requests.get<RecipeCategoryResponse[]>(routes.categoriesEmpty);
   }
 }

@@ -1,15 +1,17 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4, BaseModel, ConfigDict
+from sqlalchemy import delete, select, update
 
+from mealie.db.models.recipe.category import Category, recipes_to_categories
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.recipe import CategoryIn, RecipeCategoryResponse
 from mealie.schema.recipe.recipe import RecipeCategory, RecipeCategoryPagination
-from mealie.schema.recipe.recipe_category import CategoryBase, CategoryOut, CategorySave
+from mealie.schema.recipe.recipe_category import CategoryBase, CategoryMerge, CategoryOut, CategorySave
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import EventCategoryData, EventOperation, EventTypes
@@ -73,6 +75,39 @@ class RecipeCategoryController(BaseCrudController):
     def get_all_empty(self):
         """Returns a list of categories that do not contain any recipes"""
         return self.repos.categories.get_empty()
+
+    @router.post("/merge", response_model=CategoryOut)
+    def merge_categories(self, body: CategoryMerge):
+        """Merges the from_id category into the to_id category, then deletes from_id."""
+        self.checks.can_organize()
+
+        if body.from_id == body.to_id:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, "from_id and to_id must be different")
+
+        if not self.repos.categories.get_one(body.from_id):
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "from_id category not found")
+        if not self.repos.categories.get_one(body.to_id):
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "to_id category not found")
+
+        session = self.repos.session
+
+        already_in_to = select(recipes_to_categories.c.recipe_id).where(
+            recipes_to_categories.c.category_id == body.to_id
+        )
+
+        session.execute(
+            update(recipes_to_categories)
+            .where(recipes_to_categories.c.category_id == body.from_id)
+            .where(recipes_to_categories.c.recipe_id.not_in(already_in_to))
+            .values(category_id=body.to_id)
+        )
+        session.execute(
+            delete(recipes_to_categories).where(recipes_to_categories.c.category_id == body.from_id)
+        )
+
+        self.repos.categories.delete(body.from_id)
+
+        return self.repos.categories.get_one(body.to_id)
 
     @router.get("/{item_id}", response_model=CategorySummary)
     def get_one(self, item_id: UUID4):
