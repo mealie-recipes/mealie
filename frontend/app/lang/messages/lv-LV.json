@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Izvēlēto pārtikas produktu apvienošana apvienos avota pārtiku un mērķa pārtiku vienā ēdienā. Avota barība tiks svītrota, un visas atsauces uz avota pārtiku tiks atjauninātas, lai norādītu uz mērķa pārtiku.",
       "merge-food-example": "Apvienošanās {food1} {food2}",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",

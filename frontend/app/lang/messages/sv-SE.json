@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Kombinera valda livsmedel kommer att slå samman de valda livsmedlen till ett livsmedel. Ursprungslivsmedlet kommer att raderas och alla hänvisningar till detta kommer att uppdateras för att peka på det kombinerade livsmedlet.",
       "merge-food-example": "Slå ihop {food1} till {food2}",
       "seed-dialog-text": "Fyll databasen med livsmedel baserat på ditt språk. Detta kommer att skapa över 200 vanliga livsmedel som kan användas för att organisera din databas. Alla livsmedel är översatta med genom en kollektiv insats.",

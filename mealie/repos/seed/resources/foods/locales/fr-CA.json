@@ -7357,7 +7357,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement carne asada",
-                "plural_name": "carne asada seasoning"
+                "plural_name": "assaisonnement du carne asada"
             },
             "bouquet garni": {
                 "aliases": [],
@@ -7387,7 +7387,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sel de salaison",
-                "plural_name": "curing salt"
+                "plural_name": "séchage du sel"
             },
             "mexican seasoning": {
                 "aliases": [],
@@ -7756,7 +7756,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "farine de coco",
-                "plural_name": "coconut flour"
+                "plural_name": "farine de noix de coco"
             },
             "baking mix": {
                 "aliases": [],
@@ -7786,7 +7786,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "farine à pain",
-                "plural_name": "bread flour"
+                "plural_name": "farine à pain"
             },
             "almond meal": {
                 "aliases": [],
@@ -10639,7 +10639,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "huile d'olive",
-                "plural_name": "olive oil"
+                "plural_name": "huile d'olive"
             },
             "vegetable oil": {
                 "aliases": [],
@@ -10651,7 +10651,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "huile d'olive extra vierge",
-                "plural_name": "extra virgin olive oil"
+                "plural_name": "huile d'olive vierge extra"
             },
             "canola oil": {
                 "aliases": [],
@@ -11555,7 +11555,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "moutarde à l'ancienne",
-                "plural_name": "wholegrain mustard"
+                "plural_name": "moutarde à l'ancienne"
             },
             "tamari": {
                 "aliases": [],

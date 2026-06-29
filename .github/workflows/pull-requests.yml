@@ -18,6 +18,8 @@ jobs:
     name: "Lint PR"
     if: github.event_name == 'pull_request'
     uses: ./.github/workflows/pull-request-lint.yml
+    permissions:
+      pull-requests: write
 
   backend-tests:
     name: "Backend Server Tests"

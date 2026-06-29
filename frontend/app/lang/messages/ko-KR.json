@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "선택한 식품을 병합하면 원본 식품과 대상 식품이 하나의 식품으로 합쳐집니다. 원본 식품은 삭제되며, 원본 식품에 대한 모든 참조는 대상 식품을 가리키도록 업데이트됩니다.",
       "merge-food-example": "{food1}을 {food2}에 병합",
       "seed-dialog-text": "당신이 사용하는 언어에 맞춰 데이터베이스에 음식 정보를 추가하세요. 이렇게 하면 데이터베이스를 구성하는 데 사용할 수 있는 약 2700가지의 일반적인 음식 정보가 생성됩니다. 음식 정보는 커뮤니티 참여를 통해 번역됩니다.",

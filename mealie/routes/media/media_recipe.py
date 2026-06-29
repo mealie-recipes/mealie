@@ -58,6 +58,13 @@ async def get_recipe_asset(recipe_id: UUID4, file_name: str):
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     if file.exists():
-        return FileResponse(file, filename=file.name, content_disposition_type="attachment")
+        # Force download and disable MIME sniffing so uploaded assets cannot be
+        # served as active content in Mealie's origin.
+        return FileResponse(
+            file,
+            filename=file.name,
+            content_disposition_type="attachment",
+            headers={"X-Content-Type-Options": "nosniff"},
+        )
     else:
         raise HTTPException(status.HTTP_404_NOT_FOUND)

@@ -29,6 +29,7 @@
 | --------------------------- | :-----: | ----------------------------------------------------------------------------------- |
 | SECURITY_MAX_LOGIN_ATTEMPTS |    5    | Maximum times a user can provide an invalid password before their account is locked |
 | SECURITY_USER_LOCKOUT_TIME  |   24    | Time in hours for how long a users account is locked                                |
+| ALLOWED_IFRAME_HOSTS        |  `""`   | Comma-separated extra hostnames allowed as `<iframe>` sources in recipe content. Extends the built-in list of trusted video providers (YouTube, Vimeo). Subdomains are included automatically. Only `https` sources are permitted. Adding hosts here opts into rendering embeds from those origins to all viewers, including the public, so add only origins you trust. |
 
 ### Database
 

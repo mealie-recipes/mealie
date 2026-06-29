@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "צירוף של המאכלים שנבחרו יאחד את אוכל המקור ואוכל היעד לפריט אוכל אחד. אוכל המקור ימחק וכל ההפניות / הייחוסים אליו יעודכנו ויופנו לאוכל היעד.",
       "merge-food-example": "ממזג את {food1} לתוך {food2}",
       "seed-dialog-text": "אכלס את מסד הנתונים עם אוכל בהתבסס על השפה המקומית שלך. הפעולה תיצור +200 מאכלים נפוצים שיכולים לשמש לארגון מסד הנתונים. מאכלים מתורגמים על ידי מאמצי הקהילה.",

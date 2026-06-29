@@ -78,6 +78,7 @@ async def safe_scrape_html(url: str) -> str:
 
         transport = safehttp.AsyncSafeTransport(
             impersonate=impersonation,
+            default_headers=True,
             verify=False,  # disable SSL verification since we can handle untrusted data and some sites don't have certs
         )
         async with AsyncClient(transport=transport) as client:
