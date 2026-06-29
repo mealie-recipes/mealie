@@ -29,6 +29,10 @@
       @delete-one="tagStore.actions.deleteOne"
       @bulk-action="handleBulkAction"
     >
+      <template #[`item.recipeCount`]="{ item }">
+        <NuxtLink :to="`/g/${groupSlug}?tags=${item.id}`">{{ item.recipeCount }}</NuxtLink>
+      </template>
+
       <template #table-button-row>
         <BaseButton :loading="loadingEmpty" @click="openDeleteUnusedDialog">
           <template #icon>
@@ -51,6 +55,8 @@ import type { RecipeTag } from "~/lib/api/types/recipe";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
 
 const i18n = useI18n();
+const auth = useMealieAuth();
+const groupSlug = computed(() => auth.user.value?.groupSlug || "");
 const userApi = useUserApi();
 
 const tableConfig: TableConfig = {
