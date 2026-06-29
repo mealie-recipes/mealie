@@ -49,34 +49,34 @@
         <a
           href="https://github.com/caronc/apprise/wiki"
           target="_blanks"
-          class="mx-2"
+          class="mx-2 text-primary"
         > Apprise </a>
         <a
           href="https://github.com/caronc/apprise/wiki/Notify_gotify"
           target="_blanks"
-          class="mx-2"
+          class="mx-2 text-primary"
         > Gotify </a>
         <a
           href="https://github.com/caronc/apprise/wiki/Notify_discord"
           target="_blanks"
-          class="mx-2"
+          class="mx-2 text-primary"
         > Discord </a>
         <a
           href="https://github.com/caronc/apprise/wiki/Notify_homeassistant"
           target="_blanks"
-          class="mx-2"
+          class="mx-2 text-primary"
         > Home
           Assistant
         </a>
         <a
           href="https://github.com/caronc/apprise/wiki/Notify_matrix"
           target="_blanks"
-          class="mx-2"
+          class="mx-2 text-primary"
         > Matrix </a>
         <a
           href="https://github.com/caronc/apprise/wiki/Notify_pushover"
           target="_blanks"
-          class="mx-2"
+          class="mx-2 text-primary"
         > Pushover </a>
       </div>
     </BasePageTitle>

@@ -98,6 +98,7 @@
     "dashboard": "대시보드",
     "delete": "삭제",
     "disabled": "비활성화됨",
+    "done": "Done",
     "download": "다운로드",
     "duplicate": "복제",
     "edit": "편집",
@@ -168,6 +169,7 @@
     "token": "토큰",
     "tuesday": "화요일",
     "type": "유형",
+    "undo": "Undo",
     "update": "업데이트",
     "updated": "업데이트됨",
     "upload": "업로드",
@@ -182,7 +184,7 @@
     "start": "시작",
     "toggle-view": "뷰 전환",
     "date": "날짜",
-    "id": "",
+    "id": "Id",
     "owner": "작성자",
     "change-owner": "소유자 변경",
     "date-added": "추가된 날짜",
@@ -221,7 +223,9 @@
     "show-advanced": "고급 표시",
     "add-field": "필드 추가",
     "date-created": "작성 날짜",
-    "date-updated": "업데이트 일자"
+    "date-updated": "업데이트 일자",
+    "key": "Key",
+    "value": "Value"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "<b>{groupName}<b/>을(를) 삭제하시겠습니까?",
@@ -281,7 +285,40 @@
     "admin-group-management-text": "이 그룹에 대한 변경 사항은 즉시 반영됩니다.",
     "group-id-value": "그룹 Id: {0}",
     "total-households": "전체 가구 수",
-    "you-must-select-a-group-before-selecting-a-household": "가구를 선택하기 전에 반드시 그룹을 선택해야 합니다."
+    "you-must-select-a-group-before-selecting-a-household": "가구를 선택하기 전에 반드시 그룹을 선택해야 합니다.",
+    "ai-provider-settings": {
+      "ai-provider-settings": "AI Provider Settings",
+      "ai-provider": "AI Provider",
+      "ai-providers": "AI Providers",
+      "ai-provider-settings-description": "Configure AI providers to enable AI-powered features, such as enhanced ingredient parsing, creating recipes from videos, and more!",
+      "providers": "Providers",
+      "create-provider": "Create Provider",
+      "edit-provider": "Edit Provider",
+      "default-provider": "Default Provider",
+      "default-provider-description": "Required to enable AI features",
+      "audio-provider": "Audio Provider",
+      "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
+      "image-provider": "Image Provider",
+      "image-provider-description": "Enables image recognition features, such as creating recipes from images",
+      "provider-name": "Provider Name",
+      "api-key": "API Key",
+      "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
+      "api-key-description-edit": "Leave this blank unless you want to change it.",
+      "base-url": "Base URL",
+      "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
+      "model": "Model",
+      "model-description": "Which model your AI provider should use (e.g. \"gpt-5\").",
+      "request-timeout-seconds": "Request Timeout (seconds)",
+      "provider-created": "Provider created",
+      "provider-updated": "Provider updated",
+      "provider-deleted": "Provider deleted",
+      "provider-create-failed": "Failed to create provider",
+      "provider-update-failed": "Failed to update provider",
+      "provider-delete-failed": "Failed to delete provider",
+      "request-headers": "Request Headers",
+      "request-params": "Request Parameters",
+      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+    }
   },
   "household": {
     "household": "가구",
@@ -626,7 +663,7 @@
     "create-recipe-description": "처음부터 새로운 레시피를 만드세요.",
     "create-recipes": "레시피 생성",
     "import-with-zip": ".zip 파일로 가져오기",
-    "create-recipe-from-an-image": "이미지에서 레시피 생성",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "레시피 텍스트 이미지를 업로드하여 레시피를 생성하세요. Mealie는 AI를 사용하여 이미지에서 텍스트를 추출하고 이를 통해 새로운 레시피를 생성하려고 시도합니다.",
     "crop-and-rotate-the-image": "이미지를 잘라내고 회전시켜 텍스트만 보이도록 하고 올바른 방향으로 배치하십시오.",
     "create-from-images": "이미지에서 생성",
@@ -915,6 +952,7 @@
     "quantity": "양: {0}",
     "shopping-list": "장보기 목록",
     "shopping-lists": "장보기 목록",
+    "add-item": "Add item",
     "food": "식품",
     "note": "메모",
     "label": "라벨",
@@ -939,7 +977,8 @@
     "are-you-sure-you-want-to-check-all-items": "모든 항목을 선택하시겠습니까?",
     "are-you-sure-you-want-to-uncheck-all-items": "모든 항목을 선택 해제하시겠습니까?",
     "are-you-sure-you-want-to-delete-checked-items": "선택한 항목을 모두 삭제하시겠습니까?",
-    "no-shopping-lists-found": "장보기 목록이 없습니다."
+    "no-shopping-lists-found": "장보기 목록이 없습니다.",
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "모든 레시피",
@@ -1105,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "선택한 식품을 병합하면 원본 식품과 대상 식품이 하나의 식품으로 합쳐집니다. 원본 식품은 삭제되며, 원본 식품에 대한 모든 참조는 대상 식품을 가리키도록 업데이트됩니다.",
       "merge-food-example": "{food1}을 {food2}에 병합",
       "seed-dialog-text": "당신이 사용하는 언어에 맞춰 데이터베이스에 음식 정보를 추가하세요. 이렇게 하면 데이터베이스를 구성하는 데 사용할 수 있는 약 2700가지의 일반적인 음식 정보가 생성됩니다. 음식 정보는 커뮤니티 참여를 통해 번역됩니다.",
@@ -1358,6 +1399,7 @@
       "already-set-up-bring-to-homepage": "설정은 이미 완료되었으니, 그냥 홈페이지로 이동해 주세요",
       "common-settings-for-new-sites": "새 사이트에 대한 일반적인 설정은 다음과 같습니다",
       "setup-complete": "설정 완료",
+      "ai-providers-description": "Optionally configure AI providers for your group. AI providers enable features like creating recipes from images, importing recipes from videos, and enhanced ingredient parsing. You can always configure this later from your group settings.",
       "here-are-a-few-things-to-help-you-get-started": "Mealie를 시작하는 데 도움이 될 몇 가지 사항입니다.",
       "restore-from-v1-backup": "이전 버전의 Mealie v1 백업본이 있으신가요? 여기서 복원할 수 있습니다.",
       "manage-profile-or-get-invite-link": "자신의 프로필을 관리하거나, 다른 사람들과 공유할 초대 링크를 가져가세요."
@@ -1472,5 +1514,12 @@
     "no-whitespace": "공백 허용 안 됨",
     "min-length": "최소 {min}자 이상이어야 합니다",
     "max-length": "최대 {max}자|최대 {max}자\n"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

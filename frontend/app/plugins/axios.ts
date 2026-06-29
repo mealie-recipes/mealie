@@ -1,5 +1,12 @@
 import axios from "axios";
 import { alert } from "~/composables/use-toast";
+import { getTokenCookieOptions } from "~/composables/use-token-cookie";
+
+declare module "axios" {
+  interface AxiosRequestConfig {
+    suppressAlert?: boolean;
+  }
+}
 
 export default defineNuxtPlugin(() => {
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
@@ -25,7 +32,7 @@ export default defineNuxtPlugin(() => {
   // Add response interceptor
   axiosInstance.interceptors.response.use(
     (response) => {
-      if (response?.data?.message) alert.info(response.data.message as string);
+      if (response?.data?.message && !response.config?.suppressAlert) alert.info(response.data.message as string);
       return response;
     },
     (error) => {
@@ -36,7 +43,7 @@ export default defineNuxtPlugin(() => {
       // If we receive a 401 Unauthorized response, clear the token cookie and redirect to login
       if (error?.response?.status === 401) {
         // If tokenCookie is not set, we may just be an unauthenticated user using the wrong API, so don't redirect
-        const tokenCookie = useCookie(tokenName);
+        const tokenCookie = useCookie(tokenName, getTokenCookieOptions());
         if (tokenCookie.value) {
           tokenCookie.value = null;
 

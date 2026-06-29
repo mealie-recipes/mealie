@@ -14,9 +14,9 @@ import type BaseCardSectionTitle from "@/components/global/BaseCardSectionTitle.
 import type BaseDialog from "@/components/global/BaseDialog.vue";
 import type BaseDivider from "@/components/global/BaseDivider.vue";
 import type BaseExpansionPanels from "@/components/global/BaseExpansionPanels.vue";
+import type BaseKeyValueEditor from "@/components/global/BaseKeyValueEditor.vue";
 import type BaseOverflowButton from "@/components/global/BaseOverflowButton.vue";
 import type BasePageTitle from "@/components/global/BasePageTitle.vue";
-import type BaseStatCard from "@/components/global/BaseStatCard.vue";
 import type ButtonLink from "@/components/global/ButtonLink.vue";
 import type ContextMenu from "@/components/global/ContextMenu.vue";
 import type CrudTable from "@/components/global/CrudTable.vue";
@@ -55,9 +55,9 @@ declare module "vue" {
     BaseDialog: typeof BaseDialog;
     BaseDivider: typeof BaseDivider;
     BaseExpansionPanels: typeof BaseExpansionPanels;
+    BaseKeyValueEditor: typeof BaseKeyValueEditor;
     BaseOverflowButton: typeof BaseOverflowButton;
     BasePageTitle: typeof BasePageTitle;
-    BaseStatCard: typeof BaseStatCard;
     ButtonLink: typeof ButtonLink;
     ContextMenu: typeof ContextMenu;
     CrudTable: typeof CrudTable;

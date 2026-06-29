@@ -13,7 +13,6 @@
 
     <AppSidebar
       v-model="sidebar"
-      absolute
       :top-link="topLinks"
       :secondary-links="cookbookLinks || []"
     >
@@ -97,21 +96,23 @@
 <script setup lang="ts">
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type { SideBarLink } from "~/types/application-types";
+import { useGroupSelf } from "~/composables/use-groups";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
 import { useCookbookStore, usePublicCookbookStore } from "~/composables/store/use-cookbook-store";
 import type { ReadCookBook } from "~/lib/api/types/cookbook";
 
 const i18n = useI18n();
-const { $appInfo, $globals } = useNuxtApp();
+const { $globals } = useNuxtApp();
 const display = useDisplay();
 const auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
+const { group } = useGroupSelf();
 
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const cookbookPreferences = useCookbookPreferences();
-const ownCookbookStore = useCookbookStore(i18n);
+const ownCookbookStore = computed(() => isOwnGroup.value ? useCookbookStore(i18n) : null);
 const publicCookbookStoreCache = ref<Record<string, ReturnType<typeof usePublicCookbookStore>>>({});
 
 function getPublicCookbookStore(slug: string) {
@@ -122,8 +123,8 @@ function getPublicCookbookStore(slug: string) {
 }
 
 const cookbooks = computed(() => {
-  if (isOwnGroup.value) {
-    return ownCookbookStore.store.value;
+  if (ownCookbookStore.value) {
+    return ownCookbookStore.value.store.value;
   }
   else if (groupSlug.value) {
     const publicStore = getPublicCookbookStore(groupSlug.value);
@@ -132,7 +133,7 @@ const cookbooks = computed(() => {
   return [];
 });
 
-const showImageImport = computed(() => $appInfo.enableOpenaiImageServices);
+const showImageImport = computed(() => group.value?.aiProviderSettings?.imageProviderEnabled);
 
 const sidebar = ref<boolean>(false);
 onMounted(() => {
@@ -206,7 +207,7 @@ const createLinks = computed(() => [
     insertDivider: false,
     icon: $globals.icons.fileImage,
     title: i18n.t("recipe.create-from-images"),
-    subtitle: i18n.t("recipe.create-recipe-from-an-image"),
+    subtitle: i18n.t("recipe.create-recipe-from-images"),
     to: `/g/${groupSlug.value}/r/create/image`,
     restricted: true,
     hide: !showImageImport.value,

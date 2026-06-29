@@ -18,17 +18,17 @@
             "yield": "Recoltă",
             "yields": "Producţii"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}",
+        "and-amount": "și {amount}",
+        "or-ingredient": "sau {ingredient}",
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
-            "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
-            "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
-            "extracting-recipe-data": "Extracting recipe data...",
-            "fetching-webpage": "Fetching webpage...",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "creating-recipe-with-ai": "Se creează rețeta cu AI...",
+            "creating-recipe-from-transcript-with-ai": "Se creează rețeta din transcriere cu AI...",
+            "creating-recipe-from-webpage-data": "Se creează rețeta din datele paginii web...",
+            "downloading-image": "Se descarcă imaginea...",
+            "downloading-video": "Se descarcă videoclipul...",
+            "extracting-recipe-data": "Se extrag datele rețetei...",
+            "fetching-webpage": "Se preia pagina web...",
+            "transcribing-audio-with-ai": "Se transcrie sunetul cu AI..."
         }
     },
     "mealplan": {

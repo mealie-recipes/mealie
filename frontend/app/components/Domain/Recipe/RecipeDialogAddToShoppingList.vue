@@ -321,7 +321,7 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
         const householdsWithFood = subIng.food?.householdsWithIngredientFood || [];
         ownIngs.push({
           checked: !householdsWithFood.includes(currentHouseholdSlug.value),
-          ingredient: { ...subIng, quantity: (ing.quantity || 1) * (subIng.quantity || 1) },
+          ingredient: subIng,
         });
       }
     }

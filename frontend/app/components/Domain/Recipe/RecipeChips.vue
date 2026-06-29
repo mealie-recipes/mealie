@@ -25,6 +25,7 @@
 
 <script setup lang="ts">
 import type { RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import { truncateText as truncatePlainText } from "~/lib/sanitize/text";
 
 export type UrlPrefixParam = "tags" | "categories" | "tools";
 
@@ -50,10 +51,7 @@ const props = withDefaults(defineProps<Props>(), {
 defineEmits(["item-selected"]);
 function truncateText(text: string, length = 20, clamp = "...") {
   if (!props.truncate) return text;
-  const node = document.createElement("div");
-  node.innerHTML = text;
-  const content = node.textContent || "";
-  return content.length > length ? content.slice(0, length) + clamp : content;
+  return truncatePlainText(text, length, clamp);
 }
 </script>
 

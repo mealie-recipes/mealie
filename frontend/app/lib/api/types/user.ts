@@ -59,6 +59,7 @@ export interface GroupInDB {
   households?: GroupHouseholdSummary[] | null;
   users?: UserSummary[] | null;
   preferences?: ReadGroupPreferences | null;
+  aiProviderSettings?: AIProviderSettingsOut | null;
 }
 export interface CategoryBase {
   name: string;
@@ -85,14 +86,29 @@ export interface UserSummary {
 }
 export interface ReadGroupPreferences {
   privateGroup?: boolean;
+  showAnnouncements?: boolean;
   groupId: string;
   id: string;
+}
+export interface AIProviderSettingsOut {
+  defaultProviderId: string | null;
+  audioProviderId: string | null;
+  imageProviderId: string | null;
+  providers: AIProviderSummary[];
+  aiEnabled: boolean;
+  audioProviderEnabled: boolean;
+  imageProviderEnabled: boolean;
+}
+export interface AIProviderSummary {
+  id: string;
+  name: string;
 }
 export interface GroupSummary {
   name: string;
   id: string;
   slug: string;
   preferences?: ReadGroupPreferences | null;
+  aiProviderSettings?: AIProviderSettingsOut | null;
 }
 export interface LongLiveTokenCreateResponse {
   name: string;
@@ -122,6 +138,8 @@ export interface PrivateUser {
   group: string;
   household: string;
   advanced?: boolean;
+  showAnnouncements?: boolean;
+  lastReadAnnouncement?: string | null;
   canInvite?: boolean;
   canManage?: boolean;
   canManageHousehold?: boolean;
@@ -194,6 +212,8 @@ export interface UserBase {
   group?: string | null;
   household?: string | null;
   advanced?: boolean;
+  showAnnouncements?: boolean;
+  lastReadAnnouncement?: string | null;
   canInvite?: boolean;
   canManage?: boolean;
   canManageHousehold?: boolean;
@@ -209,6 +229,8 @@ export interface UserIn {
   group?: string | null;
   household?: string | null;
   advanced?: boolean;
+  showAnnouncements?: boolean;
+  lastReadAnnouncement?: string | null;
   canInvite?: boolean;
   canManage?: boolean;
   canManageHousehold?: boolean;
@@ -225,6 +247,8 @@ export interface UserOut {
   group: string;
   household: string;
   advanced?: boolean;
+  showAnnouncements?: boolean;
+  lastReadAnnouncement?: string | null;
   canInvite?: boolean;
   canManage?: boolean;
   canManageHousehold?: boolean;

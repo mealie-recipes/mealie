@@ -6,7 +6,12 @@ const loading = ref(false);
 
 export const useGroupSelf = function () {
   const api = useUserApi();
+  const auth = useMealieAuth();
   async function refreshGroupSelf() {
+    if (!auth.user.value) {
+      groupSelfRef.value = null;
+      return;
+    }
     loading.value = true;
     const { data } = await api.groups.getCurrentUserGroup();
     groupSelfRef.value = data;
@@ -34,6 +39,27 @@ export const useGroupSelf = function () {
       if (data) {
         groupSelfRef.value.preferences = data;
       }
+
+      return data || undefined;
+    },
+    async updateAIProviderSettings() {
+      if (!groupSelfRef.value) {
+        await refreshGroupSelf();
+      }
+      if (!groupSelfRef.value?.aiProviderSettings) {
+        return;
+      }
+
+      const { data } = await api.groups.setAIProviderSettings(groupSelfRef.value.aiProviderSettings);
+
+      if (data) {
+        groupSelfRef.value.aiProviderSettings = data;
+      }
+
+      return data || undefined;
+    },
+    async refresh() {
+      await refreshGroupSelf();
     },
   };
 

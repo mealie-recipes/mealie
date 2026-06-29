@@ -19,7 +19,7 @@
     "log-lines": "Lignes de log",
     "not-demo": "Non",
     "portfolio": "Portfolio",
-    "production": "Production",
+    "production": "Réalisation",
     "support": "Soutenir",
     "version": "Version",
     "unknown-version": "inconnu",
@@ -98,6 +98,7 @@
     "dashboard": "Tableau de bord",
     "delete": "Supprimer",
     "disabled": "Désactivé",
+    "done": "Terminé",
     "download": "Télécharger",
     "duplicate": "Dupliquer",
     "edit": "Modifier",
@@ -168,6 +169,7 @@
     "token": "Jeton",
     "tuesday": "Mardi",
     "type": "Type",
+    "undo": "Annuler",
     "update": "Mettre à jour",
     "updated": "Mis à jour",
     "upload": "Importer",
@@ -221,7 +223,9 @@
     "show-advanced": "Afficher les paramètres avancés",
     "add-field": "Ajouter un champ",
     "date-created": "Date de création",
-    "date-updated": "Date de mise à jour"
+    "date-updated": "Date de mise à jour",
+    "key": "Clé",
+    "value": "Valeur"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Voulez-vous vraiment supprimer <b>{groupName}<b/> ?",
@@ -281,7 +285,40 @@
     "admin-group-management-text": "Les modifications apportées à ce groupe seront immédiatement prises en compte.",
     "group-id-value": "ID groupe : {0}",
     "total-households": "Nombre de foyers",
-    "you-must-select-a-group-before-selecting-a-household": "Vous devez sélectionner un groupe avant de sélectionner un foyer"
+    "you-must-select-a-group-before-selecting-a-household": "Vous devez sélectionner un groupe avant de sélectionner un foyer",
+    "ai-provider-settings": {
+      "ai-provider-settings": "Paramètres du fournisseur d'IA",
+      "ai-provider": "Fournisseur d'IA",
+      "ai-providers": "Fournisseurs d'IA",
+      "ai-provider-settings-description": "Configurez les fournisseurs d'IA pour activer les fonctionnalités alimentées par l'AI, telles que l'analyse améliorée des ingrédients, la création de recettes à partir de vidéos, et plus encore !",
+      "providers": "Fournisseurs",
+      "create-provider": "Créer un fournisseur",
+      "edit-provider": "Éditer le fournisseur",
+      "default-provider": "Fournisseur par défaut",
+      "default-provider-description": "Requis pour activer les fonctionnalités IA",
+      "audio-provider": "Fournisseur audio",
+      "audio-provider-description": "Active les fonctionnalités de transcription audio, comme la création de recettes à partir de vidéos",
+      "image-provider": "Fournisseur d'images",
+      "image-provider-description": "Active les fonctionnalités de reconnaissance d'image, comme la création de recettes à partir d'images",
+      "provider-name": "Nom du fournisseur",
+      "api-key": "Clé API",
+      "api-key-description-create": "La clé API de votre fournisseur pour l'authentification. Si votre service (par exemple Ollama) n'utilise pas une clé API, vous devez malgré tout toujours mettre quelque chose ici.",
+      "api-key-description-edit": "Laissez ce champ vide à moins que vous vouliez le modifier.",
+      "base-url": "URL de base",
+      "base-url-description": "Si vous utilisez OpenAI laissez ce champ vide. Doit être un point de terminaison compatible OpenAI (par exemple \"http://localhost:11434/v1\").",
+      "model": "Modèle",
+      "model-description": "Quel modèle doit utiliser votre fournisseur d'IA (par exemple \"gpt-5\").",
+      "request-timeout-seconds": "Délai d'attente de la requête (secondes)",
+      "provider-created": "Fournisseur créé",
+      "provider-updated": "Fournisseur mis à jour",
+      "provider-deleted": "Fournisseur supprimé",
+      "provider-create-failed": "Échec de la création du fournisseur",
+      "provider-update-failed": "Échec de la mise à jour du fournisseur",
+      "provider-delete-failed": "Échec de la suppression du fournisseur",
+      "request-headers": "En-têtes de la requête",
+      "request-params": "Paramètres de la requête",
+      "no-default-provider-warning": "Vous n'avez pas défini de fournisseur par défaut, donc les fonctionnalités IA sont désactivées"
+    }
   },
   "household": {
     "household": "Foyer",
@@ -390,7 +427,7 @@
     "nextcloud": {
       "description": "Importer des recettes depuis Nextcloud Cookbook",
       "description-long": "Les recettes Nextcloud peuvent être importées depuis un fichier zip qui contient les données stockées dans Nextcloud. Consultez la structure de dossiers d'exemple ci-dessous pour vous assurer que vos recettes peuvent être importées.",
-      "title": "Nextcloud Cookbook"
+      "title": "Livre de recettes Nextcloud (Cookbook)"
     },
     "copymethat": {
       "description-long": "Mealie peut importer des recettes à partir de Copy Me That. Exportez vos recettes au format HTML, puis téléchargez le .zip ci-dessous.",
@@ -626,7 +663,7 @@
     "create-recipe-description": "Créer une nouvelle recette de zéro.",
     "create-recipes": "Créer des recettes",
     "import-with-zip": "Importer un .zip",
-    "create-recipe-from-an-image": "Créer une recette à partir d’une image",
+    "create-recipe-from-images": "Créer une recette depuis une image",
     "create-recipe-from-an-image-description": "Créez une recette en téléchargeant une image de celle-ci. Mealie utilisera l’IA pour tenter d’extraire le texte et de créer une recette.",
     "crop-and-rotate-the-image": "Rogner et pivoter l’image pour que seul le texte soit visible, et qu’il soit dans la bonne orientation.",
     "create-from-images": "Créer à partir d’images",
@@ -915,8 +952,9 @@
     "quantity": "Quantité : {0}",
     "shopping-list": "Liste de courses",
     "shopping-lists": "Listes de courses",
+    "add-item": "Ajouter un article",
     "food": "Aliment",
-    "note": "Note",
+    "note": "Remarque",
     "label": "Étiquette",
     "save-label": "Sauvegarder le libellé",
     "linked-item-warning": "Cet article est lié à une ou plusieurs recettes. Ajuster les unités ou les aliments donnera des résultats inattendus lors de l’ajout ou de la suppression de la recette de cette liste.",
@@ -939,7 +977,8 @@
     "are-you-sure-you-want-to-check-all-items": "Voulez-vous vraiment sélectionner tous les éléments ?",
     "are-you-sure-you-want-to-uncheck-all-items": "Voulez-vous vraiment désélectionner tous les éléments ?",
     "are-you-sure-you-want-to-delete-checked-items": "Voulez-vous vraiment supprimer tous les éléments sélectionnés ?",
-    "no-shopping-lists-found": "Aucune liste de courses trouvée"
+    "no-shopping-lists-found": "Aucune liste de courses trouvée",
+    "item-checked-off": "{item} coché"
   },
   "sidebar": {
     "all-recipes": "Recettes",
@@ -1105,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Attention : cet aliment est utilisé dans {count} recette(s). Le supprimer laissera un ingrédient vide dans la ou les recette(s).",
+      "delete-affects-recipes-more": "Visualiser les {count} recettes",
       "merge-dialog-text": "La combinaison des aliments sélectionnés fusionnera l’aliment source et l’aliment cible en un seul aliment. L’aliment source sera supprimé et toutes les références à l’aliment source seront mises à jour pour pointer vers l’aliment cible.",
       "merge-food-example": "Fusion de {food1} dans {food2}",
       "seed-dialog-text": "Initialisez la base de données avec des aliments basés sur votre langue locale. Cela permettra de créer plus de 200 aliments communs qui pourront être utilisés pour organiser votre base de données. Les aliments sont traduits grâce à un effort communautaire.",
@@ -1347,7 +1388,7 @@
     "ingredient-text": "Texte de l'ingrédient",
     "average-confident": "Confiant à {0}",
     "try-an-example": "Essayez avec un exemple",
-    "parser": "Parser",
+    "parser": "Analyseur syntaxique",
     "background-tasks": "Tâches en arrière-plan",
     "background-tasks-description": "Ici vous pouvez voir toutes les tâches en arrière-plan en cours et leur statut",
     "no-logs-found": "Pas de journaux trouvés",
@@ -1358,6 +1399,7 @@
       "already-set-up-bring-to-homepage": "J’ai déjà tout configuré, amenez-moi à l’écran d’accueil",
       "common-settings-for-new-sites": "Voici quelques paramètres courants pour les nouveaux sites",
       "setup-complete": "Configuration terminée !",
+      "ai-providers-description": "Vous pouvez configurer un fournisseur d'IA pour votre groupe. Les fournisseurs d'IA permettent d'activer des fonctionnalités telles que la création de recettes depuis des images, l'importation de recettes depuis des vidéos ainsi qu'un traitement amélioré des ingrédients. Vous pourrez toujours configurer cela plus tard dans les paramètres de votre groupe.",
       "here-are-a-few-things-to-help-you-get-started": "Voici quelques trucs pour vous aider à commencer avec Mealie",
       "restore-from-v1-backup": "Vous avez une sauvegarde d’une précédente instance de Mealie v1 ? Vous pouvez la restaurer ici.",
       "manage-profile-or-get-invite-link": "Gérez votre propre profil, ou récupérez un lien d’invitation à partager avec d’autres."
@@ -1472,5 +1514,12 @@
     "no-whitespace": "Aucun espace n'est autorisé",
     "min-length": "Doit contenir au moins {min} caractères",
     "max-length": "Doit comporter au maximum {max} caractère|Doit comporter au maximum {max} caractères"
+  },
+  "announcements": {
+    "announcements": "Annonces",
+    "all-announcements": "Toutes les annonces",
+    "mark-all-as-read": "Marquer tout comme lu",
+    "show-announcements-from-mealie": "Afficher les annonces de Mealie",
+    "show-announcements-setting-description": "Si vous voulez autoriser ou non les utilisateurs à voir les annonces de Mealie. Lorsque cette option est activée, les utilisateurs peuvent toujours refuser de les voir dans leurs paramètres utilisateur"
   }
 }

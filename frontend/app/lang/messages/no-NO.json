@@ -98,6 +98,7 @@
     "dashboard": "Kontrollpanel",
     "delete": "Slett",
     "disabled": "Deaktivert",
+    "done": "Ferdig",
     "download": "Last ned",
     "duplicate": "Dupliser",
     "edit": "Rediger",
@@ -168,6 +169,7 @@
     "token": "Token",
     "tuesday": "Tirsdag",
     "type": "Type",
+    "undo": "Angre",
     "update": "Oppdater",
     "updated": "Oppdatert",
     "upload": "Last opp",
@@ -221,7 +223,9 @@
     "show-advanced": "Vis avansert",
     "add-field": "Legg til felt",
     "date-created": "Opprettet dato",
-    "date-updated": "Dato oppdatert"
+    "date-updated": "Dato oppdatert",
+    "key": "Key",
+    "value": "Value"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Er du sikker på at du vil slette <b>{groupName}<b/>?",
@@ -281,7 +285,40 @@
     "admin-group-management-text": "Endringer i denne gruppen vil gjenspeiles umiddelbart.",
     "group-id-value": "Gruppe-ID: {0}",
     "total-households": "Husholdninger totalt",
-    "you-must-select-a-group-before-selecting-a-household": "Du må velge en gruppe før du kan velge en husholdning"
+    "you-must-select-a-group-before-selecting-a-household": "Du må velge en gruppe før du kan velge en husholdning",
+    "ai-provider-settings": {
+      "ai-provider-settings": "AI Provider Settings",
+      "ai-provider": "AI Provider",
+      "ai-providers": "AI Providers",
+      "ai-provider-settings-description": "Configure AI providers to enable AI-powered features, such as enhanced ingredient parsing, creating recipes from videos, and more!",
+      "providers": "Providers",
+      "create-provider": "Create Provider",
+      "edit-provider": "Edit Provider",
+      "default-provider": "Default Provider",
+      "default-provider-description": "Required to enable AI features",
+      "audio-provider": "Audio Provider",
+      "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
+      "image-provider": "Image Provider",
+      "image-provider-description": "Enables image recognition features, such as creating recipes from images",
+      "provider-name": "Provider Name",
+      "api-key": "API Key",
+      "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
+      "api-key-description-edit": "Leave this blank unless you want to change it.",
+      "base-url": "Base URL",
+      "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
+      "model": "Model",
+      "model-description": "Which model your AI provider should use (e.g. \"gpt-5\").",
+      "request-timeout-seconds": "Request Timeout (seconds)",
+      "provider-created": "Provider created",
+      "provider-updated": "Provider updated",
+      "provider-deleted": "Provider deleted",
+      "provider-create-failed": "Failed to create provider",
+      "provider-update-failed": "Failed to update provider",
+      "provider-delete-failed": "Failed to delete provider",
+      "request-headers": "Request Headers",
+      "request-params": "Request Parameters",
+      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+    }
   },
   "household": {
     "household": "Husholdning",
@@ -332,7 +369,7 @@
     "no-meal-plan-defined-yet": "Ingen måltidsplan er definert ennå",
     "no-meal-planned-for-today": "Ingen måltid planlagt i dag",
     "numberOfDaysPast-hint": "Number of days in the past on page load",
-    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDaysPast-label": "Standard antall dager tilbake",
     "numberOfDays-hint": "Antall dager på sideinnlasting",
     "numberOfDays-label": "Standard antall dager",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Kun oppskrifter med disse kategoriene vil bli brukt i måltidsplaner",
@@ -390,7 +427,7 @@
     "nextcloud": {
       "description": "Overfør data fra en Nextcloud Cookbook-instans",
       "description-long": "Oppskrifter fra Nextcloud kan importeres fra en zip-fil som inneholder dataene lagret i Nextcloud. Se eksempelet på mappestrukture nedenfor for å sikre at oppskriftene kan importeres.",
-      "title": "Nextcloud Cookbook"
+      "title": "Nextcloud kokebok"
     },
     "copymethat": {
       "description-long": "Mealie kan importere oppskrifter fra Copy Me That. Eksporter oppskrifter i HTML-format, last deretter opp .zip-filen under.",
@@ -626,7 +663,7 @@
     "create-recipe-description": "Opprett en ny oppskrift fra bunnen av.",
     "create-recipes": "Opprett oppskrifter",
     "import-with-zip": "Importer fra .zip-fil",
-    "create-recipe-from-an-image": "Opprett oppskrift fra et bilde",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Opprett en oppskrift ved å laste opp et bilde av den. Mealie vil forsøke å hente ut teksten fra bildet ved bruk av AI, og lage en ny oppskrift.",
     "crop-and-rotate-the-image": "Beskjær og roter bildet slik at bare teksten er synlig, og at det er i riktig retning.",
     "create-from-images": "Opprett fra bilde",
@@ -915,6 +952,7 @@
     "quantity": "Antall: {0}",
     "shopping-list": "Handleliste",
     "shopping-lists": "Handlelister",
+    "add-item": "Legg til produkt",
     "food": "Matvare",
     "note": "Notat",
     "label": "Etikett",
@@ -939,7 +977,8 @@
     "are-you-sure-you-want-to-check-all-items": "Er du sikker på at du vil velge alle elementer?",
     "are-you-sure-you-want-to-uncheck-all-items": "Er du sikker på at du vil fjerne valg av alle elementer?",
     "are-you-sure-you-want-to-delete-checked-items": "Er du sikker på at du vil slette alle valgte elementer?",
-    "no-shopping-lists-found": "Ingen handlelister funnet"
+    "no-shopping-lists-found": "Ingen handlelister funnet",
+    "item-checked-off": "Avkrysset av {item}"
   },
   "sidebar": {
     "all-recipes": "Alle oppskrifter",
@@ -1105,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Ved å kombinere de valgte matvarene vil de bli slått sammen til én matvare. Den første matvaren vil bli slettet, og alle referanser til denne vil bli oppdatert til å peke til den nye matvaren.",
       "merge-food-example": "Slår sammen {food1} til {food2}",
       "seed-dialog-text": "Sett inn matvarer basert på ditt lokale språk i databasen. Dette vil lage 200+ vanlige matvarer som kan brukes til å organisere databasen din. Mat blir oversatt via fellesinnsats.",
@@ -1358,6 +1399,7 @@
       "already-set-up-bring-to-homepage": "Jeg er allerede satt opp, bare ta meg med til hjemmesiden",
       "common-settings-for-new-sites": "Her er noen vanlige innstillinger for nye sider",
       "setup-complete": "Oppsett fullført!",
+      "ai-providers-description": "Optionally configure AI providers for your group. AI providers enable features like creating recipes from images, importing recipes from videos, and enhanced ingredient parsing. You can always configure this later from your group settings.",
       "here-are-a-few-things-to-help-you-get-started": "Her er noen ting som kan hjelpe deg å komme i gang med Mealie",
       "restore-from-v1-backup": "Har du en sikkerhetskopi fra en tidligere forekomst av Mealie v1? Du kan gjenopprette den her.",
       "manage-profile-or-get-invite-link": "Administrer din egen profil, eller hent en invitasjonslenke for å dele med andre."
@@ -1472,5 +1514,12 @@
     "no-whitespace": "Ingen mellomrom tillatt",
     "min-length": "Må minst ha {min} tegn",
     "max-length": "Må være minst minst {max} tegn må bestå av maks {max} tegn"
+  },
+  "announcements": {
+    "announcements": "Kunngjøringer",
+    "all-announcements": "Alle kunngjøringer",
+    "mark-all-as-read": "Marker alle som lest",
+    "show-announcements-from-mealie": "Vis kunngjøringer fra Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

@@ -26,6 +26,7 @@ export function useReadOnlyActions<T extends BoundT>(
   api: BaseCRUDAPIReadOnly<T>,
   allRef: Ref<T[] | null> | null,
   loading: Ref<boolean>,
+  initialized: Ref<boolean>,
   defaultQueryParams: Record<string, QueryValue> = {},
 ): ReadOnlyStoreActions<T> {
   function getAll(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
@@ -69,6 +70,7 @@ export function useReadOnlyActions<T extends BoundT>(
       allRef.value = data.items;
     }
 
+    initialized.value = true;
     loading.value = false;
   }
 
@@ -89,6 +91,7 @@ export function useStoreActions<T extends BoundT>(
   api: BaseCRUDAPI<unknown, T, unknown>,
   allRef: Ref<T[] | null> | null,
   loading: Ref<boolean>,
+  initialized: Ref<boolean>,
   defaultQueryParams: Record<string, QueryValue> = {},
 ): StoreActions<T> {
   function getAll(page = 1, perPage = -1, params = {} as Record<string, QueryValue>) {
@@ -132,6 +135,7 @@ export function useStoreActions<T extends BoundT>(
       allRef.value = data.items;
     }
 
+    initialized.value = true;
     loading.value = false;
   }
 

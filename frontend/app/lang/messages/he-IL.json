@@ -98,6 +98,7 @@
     "dashboard": "לוח הבקרה",
     "delete": "מחיקה",
     "disabled": "כבוי",
+    "done": "Done",
     "download": "הורדה",
     "duplicate": "שכפול",
     "edit": "עריכה",
@@ -168,6 +169,7 @@
     "token": "טוקן",
     "tuesday": "שלישי",
     "type": "סוג",
+    "undo": "Undo",
     "update": "עדכון",
     "updated": "עודכן",
     "upload": "העלאה",
@@ -221,7 +223,9 @@
     "show-advanced": "הצג הגדרות מתקדמות",
     "add-field": "הוסף שדה",
     "date-created": "תאריך יצירה",
-    "date-updated": "תאריך עדכון"
+    "date-updated": "תאריך עדכון",
+    "key": "Key",
+    "value": "Value"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "למחוק את <b>{groupName}<b/>?",
@@ -281,7 +285,40 @@
     "admin-group-management-text": "שינויים לקבוצה זו ישתקפו מיידית.",
     "group-id-value": "מזהה קבוצה: {0}",
     "total-households": "סך כל משקי בית",
-    "you-must-select-a-group-before-selecting-a-household": "חובה לבחור קבוצה לפני בחירת משק בית"
+    "you-must-select-a-group-before-selecting-a-household": "חובה לבחור קבוצה לפני בחירת משק בית",
+    "ai-provider-settings": {
+      "ai-provider-settings": "AI Provider Settings",
+      "ai-provider": "AI Provider",
+      "ai-providers": "AI Providers",
+      "ai-provider-settings-description": "Configure AI providers to enable AI-powered features, such as enhanced ingredient parsing, creating recipes from videos, and more!",
+      "providers": "Providers",
+      "create-provider": "Create Provider",
+      "edit-provider": "Edit Provider",
+      "default-provider": "Default Provider",
+      "default-provider-description": "Required to enable AI features",
+      "audio-provider": "Audio Provider",
+      "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
+      "image-provider": "Image Provider",
+      "image-provider-description": "Enables image recognition features, such as creating recipes from images",
+      "provider-name": "Provider Name",
+      "api-key": "API Key",
+      "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
+      "api-key-description-edit": "Leave this blank unless you want to change it.",
+      "base-url": "Base URL",
+      "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
+      "model": "Model",
+      "model-description": "Which model your AI provider should use (e.g. \"gpt-5\").",
+      "request-timeout-seconds": "Request Timeout (seconds)",
+      "provider-created": "Provider created",
+      "provider-updated": "Provider updated",
+      "provider-deleted": "Provider deleted",
+      "provider-create-failed": "Failed to create provider",
+      "provider-update-failed": "Failed to update provider",
+      "provider-delete-failed": "Failed to delete provider",
+      "request-headers": "Request Headers",
+      "request-params": "Request Parameters",
+      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+    }
   },
   "household": {
     "household": "משק בית",
@@ -424,7 +461,7 @@
     "paprika-text": "Mealie יכולה לייבא מתכונים מאפליקציית Paprika. יש לייצא את המתכונים מהאפליקציה, לשנות את סיומת הקובץ ל- zip ולהעלות אותו כאן.",
     "mealie-text": "Mealie יכול לייבא מתכונים מגרסאות ישנות של Mealie מתחת ל- v1.0. ייצא את המתכונים מהסביבה הישנה והעלה את קובץ ה- zip למטה. ניתן לייבא רק מתכונים מתהליך הייצוא.",
     "plantoeat": {
-      "title": "Plan to Eat",
+      "title": "בתכנון לאכול",
       "description-long": "Mealie יכולה לייבא מתכונים מהאתר- Plan to Eat."
     },
     "myrecipebox": {
@@ -626,7 +663,7 @@
     "create-recipe-description": "יצירת מתכון חדש מאפס.",
     "create-recipes": "יצירת מתכונים",
     "import-with-zip": "ייבא באמצעות zip",
-    "create-recipe-from-an-image": "יצירת מתכון מתמונה",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "יצירת מתכון ע\"י העלאת תמונה שלו. Mealie תנסה לחלץ את הטקסט מהתמונה באמצעות AI ותייצר ממנו מתכון.",
     "crop-and-rotate-the-image": "נא לחתוך ולסובב את התמונה כך שרואים רק את הטקסט, והוא בכיוון הנכון.",
     "create-from-images": "יצירה מתמונה",
@@ -644,10 +681,10 @@
     "scrape-recipe-suggest-bulk-importer": "נסה את יכולת קריאת רשימה",
     "scrape-recipe-have-raw-html-or-json-data": "יש לך מידע גולמי ב-HTML או JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "ניתן לייבא ישירות ממידע גולמי",
-    "scrape-recipe-website-being-blocked": "Website being blocked?",
+    "scrape-recipe-website-being-blocked": "האתר חסום?",
     "scrape-recipe-try-importing-raw-html-instead": "Try importing the raw HTML instead.",
     "import-original-keywords-as-tags": "ייבוא שמות מפתח מקוריות כתגיות",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "ייבא קטגוריות מקוריות",
     "stay-in-edit-mode": "השאר במצב עריכה",
     "parse-recipe-ingredients-after-import": "Parse recipe ingredients after import",
     "import-from-zip": "ייבא מקובץ",
@@ -693,15 +730,15 @@
       "no-unit": "ללא יחידות",
       "missing-unit": "יצירת יחידה חסרה: {unit}",
       "missing-food": "יצירת אוכל חסר: {food}",
-      "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
-      "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
+      "this-unit-could-not-be-parsed-automatically": "יחידת המידה הזאת לא יכלה להיות מחולצת אוטומטית",
+      "this-food-could-not-be-parsed-automatically": "המאכל הזה לא יכל להיות מחולץ אוטומטית",
       "no-food": "אין אוכל",
       "review-parsed-ingredients": "Review parsed ingredients",
       "confidence-score": "Confidence Score",
       "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
       "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
       "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
-      "delete-item": "Delete Item"
+      "delete-item": "מחק פריט"
     },
     "reset-servings-count": "איפוס מספר המנות",
     "not-linked-ingredients": "מרכיבים נוספים",
@@ -915,6 +952,7 @@
     "quantity": "כמות: {0}",
     "shopping-list": "רשימת קניות",
     "shopping-lists": "רשימות קניות",
+    "add-item": "Add item",
     "food": "אוכל",
     "note": "הערה",
     "label": "תווית",
@@ -939,7 +977,8 @@
     "are-you-sure-you-want-to-check-all-items": "לסמן את כל הפריטים?",
     "are-you-sure-you-want-to-uncheck-all-items": "לבטל את סימון כל הפריטים?",
     "are-you-sure-you-want-to-delete-checked-items": "למחוק את כל הפריטים המסומנים?",
-    "no-shopping-lists-found": "לא נמצאה רשימת קניות"
+    "no-shopping-lists-found": "לא נמצאה רשימת קניות",
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "כל המתכונים",
@@ -1094,7 +1133,7 @@
     "forgot-password-text": "נא לספק כתובת דוא\"ל. אנו נשלח לך הודעת דוא\"ל לצורך איפוס הסיסמה שלך.",
     "changes-reflected-immediately": "שינויים למשתמש זה ישתקפו מיידית.",
     "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity-hint": "בחר את עמוד ברירת המחדל בשביל המכשיר הזה"
   },
   "language-dialog": {
     "translated": "תורגם",
@@ -1105,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "צירוף של המאכלים שנבחרו יאחד את אוכל המקור ואוכל היעד לפריט אוכל אחד. אוכל המקור ימחק וכל ההפניות / הייחוסים אליו יעודכנו ויופנו לאוכל היעד.",
       "merge-food-example": "ממזג את {food1} לתוך {food2}",
       "seed-dialog-text": "אכלס את מסד הנתונים עם אוכל בהתבסס על השפה המקומית שלך. הפעולה תיצור +200 מאכלים נפוצים שיכולים לשמש לארגון מסד הנתונים. מאכלים מתורגמים על ידי מאמצי הקהילה.",
@@ -1153,8 +1194,8 @@
         "ounce": "ounce",
         "pound": "pound",
         "milliliter": "מיליליטר",
-        "liter": "liter",
-        "gram": "gram",
+        "liter": "ליטר",
+        "gram": "גרם",
         "kilogram": "kilogram"
       }
     },
@@ -1192,7 +1233,7 @@
       "edit-recipe-action": "עריכת פעולת-מתכון",
       "action-type": "סוג פעולה",
       "action-types": {
-        "link": "Link",
+        "link": "לינק",
         "post": "Post"
       }
     },
@@ -1358,6 +1399,7 @@
       "already-set-up-bring-to-homepage": "כבר הגדרתי הכל, תעבירו אותי לעמוד הבית",
       "common-settings-for-new-sites": "הגדרות נפוצות לאתרים חדשים יופיעו כאן",
       "setup-complete": "ההגדרה הושלמה!",
+      "ai-providers-description": "Optionally configure AI providers for your group. AI providers enable features like creating recipes from images, importing recipes from videos, and enhanced ingredient parsing. You can always configure this later from your group settings.",
       "here-are-a-few-things-to-help-you-get-started": "כמה דברים שיעזרו לך להתחיל להשתמש ב-Mealie",
       "restore-from-v1-backup": "יש לך גיבוי משרת Mealie v1? ניתן לשחזר אותו כאן.",
       "manage-profile-or-get-invite-link": "ניתן לנהל את הפרופיל שלך, או לשתף את לינק ההזמנה לאחרים."
@@ -1466,11 +1508,18 @@
     }
   },
   "validators": {
-    "required": "This Field is Required",
+    "required": "חובה למלא שדה זה",
     "invalid-email": "Email Must Be Valid",
     "invalid-url": "Must Be A Valid URL",
     "no-whitespace": "No Whitespace Allowed",
     "min-length": "Must Be At Least {min} Characters",
     "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+  },
+  "announcements": {
+    "announcements": "Announcements",
+    "all-announcements": "All announcements",
+    "mark-all-as-read": "Mark All as Read",
+    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

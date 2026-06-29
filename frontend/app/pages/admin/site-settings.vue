@@ -177,6 +177,7 @@
               <template v-if="property.slot === 'recipe-scraper'">
                 <v-list-item-subtitle>
                   <a
+                    class="text-primary"
                     target="_blank"
                     :href="`https://github.com/hhursev/recipe-scrapers/releases/tag/${property.value}`"
                   >
@@ -187,6 +188,7 @@
               <template v-else-if="property.slot === 'build'">
                 <v-list-item-subtitle>
                   <a
+                    class="text-primary"
                     target="_blank"
                     :href="`https://github.com/mealie-recipes/mealie/commit/${property.value}`"
                   >
@@ -197,6 +199,7 @@
               <template v-else-if="property.slot === 'version' && property.value !== 'develop' && property.value !== 'nightly'">
                 <v-list-item-subtitle>
                   <a
+                    class="text-primary"
                     target="_blank"
                     :href="`https://github.com/mealie-recipes/mealie/releases/tag/${property.value}`"
                   >
@@ -281,7 +284,6 @@ const appConfig = ref<CheckApp>({
   isUpToDate: false,
   ldapReady: false,
   oidcReady: false,
-  enableOpenai: false,
 });
 function isLocalHostOrHttps() {
   return window.location.hostname === "localhost" || window.location.protocol === "https:";
@@ -347,15 +349,6 @@ const simpleChecks = computed<SimpleCheck[]>(() => {
       successText: i18n.t("settings.oidc-ready-success-text"),
       color: appConfig.value.oidcReady ? goodColor : warningColor,
       icon: appConfig.value.oidcReady ? goodIcon : warningIcon,
-    },
-    {
-      id: "openai-ready",
-      text: appConfig.value.enableOpenai ? i18n.t("settings.openai-ready") : i18n.t("settings.openai-not-ready"),
-      status: appConfig.value.enableOpenai,
-      errorText: i18n.t("settings.openai-ready-error-text"),
-      successText: i18n.t("settings.openai-ready-success-text"),
-      color: appConfig.value.enableOpenai ? goodColor : warningColor,
-      icon: appConfig.value.enableOpenai ? goodIcon : warningIcon,
     },
   ];
   return data;

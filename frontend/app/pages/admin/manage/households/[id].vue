@@ -15,7 +15,6 @@
       <template #title>
         {{ $t('household.admin-household-management') }}
       </template>
-      {{ $t('household.admin-household-management-text') }}
     </BasePageTitle>
     <AppToolbar back />
     <v-card-text> {{ $t('household.household-id-value', [household.id]) }} </v-card-text>

@@ -11,18 +11,18 @@
         <v-card-text>
           <v-card-text class="pa-0">
             <p>{{ $t('recipe.scrape-recipe-description') }}</p>
-            <p v-if="$appInfo.enableOpenaiTranscriptionServices">
+            <p v-if="group?.aiProviderSettings?.audioProviderEnabled">
               {{ $t('recipe.scrape-recipe-description-transcription') }}
             </p>
           </v-card-text>
           <v-card-text class="px-0">
             <p>
               {{ $t('recipe.scrape-recipe-have-a-lot-of-recipes') }}
-              <router-link :to="bulkImporterTarget">{{ $t('recipe.scrape-recipe-suggest-bulk-importer') }}</router-link>.
+              <router-link :to="bulkImporterTarget" class="text-primary">{{ $t('recipe.scrape-recipe-suggest-bulk-importer') }}</router-link>.
             </p>
             <p>
               {{ $t('recipe.scrape-recipe-have-raw-html-or-json-data') }}
-              <router-link :to="htmlOrJsonImporterTarget">{{ $t('recipe.scrape-recipe-you-can-import-from-raw-data-directly') }}</router-link>.
+              <router-link :to="htmlOrJsonImporterTarget" class="text-primary">{{ $t('recipe.scrape-recipe-you-can-import-from-raw-data-directly') }}</router-link>.
             </p>
           </v-card-text>
           <v-text-field
@@ -113,7 +113,7 @@
         </div>
         <div class="d-flex row justify-space-around my-3 force-url-white">
           <a
-            class="dark"
+            class="dark text-primary"
             href="https://developers.google.com/search/docs/data-types/recipe"
             target="_blank"
             rel="noreferrer nofollow"
@@ -121,6 +121,7 @@
             {{ $t("new-recipe.google-ld-json-info") }}
           </a>
           <a
+            class="text-primary"
             href="https://github.com/mealie-recipes/mealie/issues"
             target="_blank"
             rel="noreferrer nofollow"
@@ -128,6 +129,7 @@
             {{ $t("new-recipe.github-issues") }}
           </a>
           <a
+            class="text-primary"
             href="https://schema.org/Recipe"
             target="_blank"
             rel="noreferrer nofollow"
@@ -143,6 +145,7 @@
 <script setup lang="ts">
 import type { AxiosResponse } from "axios";
 import { useUserApi } from "~/composables/api";
+import { useGroupSelf } from "~/composables/use-groups";
 import { useTagStore } from "~/composables/store/use-tag-store";
 import { useNewRecipeOptions } from "~/composables/use-new-recipe-options";
 import { validators } from "~/composables/use-validators";
@@ -160,6 +163,7 @@ const auth = useMealieAuth();
 const api = useUserApi();
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
+const { group } = useGroupSelf();
 
 const router = useRouter();
 const tags = useTagStore();
@@ -196,15 +200,32 @@ const recipeUrl = computed({
     }
   },
   get() {
-    return route.query.recipe_import_url as string | null;
+    // Prefer the 'url' share field (recipe_import_url, populated by Chrome when
+    // sharing a page URL). Fall back to the 'text' share field (recipe_import_text)
+    // for apps that share URLs as plain text, but only when the text value is
+    // actually a valid http/https URL — shared text can be arbitrary.
+    const urlFromField = route.query.recipe_import_url as string | null;
+    if (urlFromField) {
+      return urlFromField;
+    }
+    const textFromField = route.query.recipe_import_text as string | null;
+    if (textFromField) {
+      try {
+        const parsed = new URL(textFromField);
+        if (parsed.protocol === "http:" || parsed.protocol === "https:") {
+          return textFromField;
+        }
+      }
+      catch { /* not a URL, ignore */ }
+    }
+    return null;
   },
 });
 
 onMounted(() => {
-  if (recipeUrl.value && recipeUrl.value.includes("https")) {
-    // Check if we have a query params for using keywords as tags or staying in edit mode.
-    // We don't use these in the app anymore, but older automations such as Bookmarklet might still use them,
-    // and they're easy enough to support.
+  if (recipeUrl.value) {
+    // Apply legacy query params for older automations such as the Bookmarklet.
+    // These are no longer used by the app itself but are easy to keep supporting.
     const importKeywordsAsTagsParam = route.query.use_keywords;
     if (importKeywordsAsTagsParam === "1") {
       importKeywordsAsTags.value = true;
@@ -221,8 +242,9 @@ onMounted(() => {
       stayInEditMode.value = false;
     }
 
-    createByUrl(recipeUrl.value, importKeywordsAsTags.value, false);
-    return;
+    // The URL is pre-filled via the recipeUrl computed property.
+    // Do not auto-submit: the user should review the import options and
+    // confirm by clicking the submit button.
   }
 });
 
