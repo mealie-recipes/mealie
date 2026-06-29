@@ -30,7 +30,8 @@
       @bulk-action="handleBulkAction"
     >
       <template #[`item.recipeCount`]="{ item }">
-        <NuxtLink :to="`/g/${groupSlug}?categories=${item.id}`">{{ item.recipeCount }}</NuxtLink>
+        <NuxtLink v-if="item.recipeCount > 0" :to="`/g/${groupSlug}?categories=${item.id}`">{{ item.recipeCount }}</NuxtLink>
+        <span v-else>0</span>
       </template>
 
       <template #table-button-row>
