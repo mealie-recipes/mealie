@@ -40,7 +40,7 @@ dependencies = [
     "pydantic-settings==2.14.2",
     "pillow-heif==1.4.0",
     "pyjwt==2.13.0",
-    "openai==2.43.0",
+    "openai==2.44.0",
     "typing-extensions==4.15.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.6.9",
