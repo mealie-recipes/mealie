@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Połączenie wybranych produktów spożywczych scali produkt źródłowy i produkt docelowy w jeden produkt. Produkt źródłowy zostanie usunięty, a wszystkie odniesienia do produktu źródłowego zostaną zaktualizowane tak, aby wskazywały na produkt docelowy.",
       "merge-food-example": "Scalanie {food1} do {food2}",
       "seed-dialog-text": "Wypełnij bazę danych produktami spożywczymi na podstawie Twojego lokalnego języka. Spowoduje to utworzenie ok. 2700 popularnych produktów spożywczych, które można wykorzystać do zorganizowania bazy danych. Produkty spożywcze są tłumaczone dzięki wysiłkom społeczności.",

@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Комбиновање изабраних намирница спојиће изворну и циљну храну у једну храну. Изворна храна ће бити избрисана и све референце на изворну храну биће ажуриране да показују на циљну храну.",
       "merge-food-example": "Спајање {food1} у {food2}",
       "seed-dialog-text": "Попуните базу података храном на основу вашег локалног језика. Ово ће креирати преко 200 уобичајених намирница које се могу користити за организовање ваше базе података. Намирнице се преводе залагањем заједнице.",

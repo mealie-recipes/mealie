@@ -1144,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Ved å kombinere de valgte matvarene vil de bli slått sammen til én matvare. Den første matvaren vil bli slettet, og alle referanser til denne vil bli oppdatert til å peke til den nye matvaren.",
       "merge-food-example": "Slår sammen {food1} til {food2}",
       "seed-dialog-text": "Sett inn matvarer basert på ditt lokale språk i databasen. Dette vil lage 200+ vanlige matvarer som kan brukes til å organisere databasen din. Mat blir oversatt via fellesinnsats.",

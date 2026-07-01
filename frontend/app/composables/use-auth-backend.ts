@@ -1,6 +1,7 @@
 import { ref, computed } from "vue";
 import type { UserOut } from "~/lib/api/types/user";
 import { clearAllStores } from "~/composables/store";
+import { getTokenCookieOptions } from "~/composables/use-token-cookie";
 
 interface AuthData {
   value: UserOut | null;
@@ -25,15 +26,12 @@ const authUser = ref<UserOut | null>(null);
 const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("loading");
 
 export const useAuthBackend = function (): AuthState {
-  const { $appInfo, $axios } = useNuxtApp();
+  const { $axios } = useNuxtApp();
   const router = useRouter();
 
   const runtimeConfig = useRuntimeConfig();
   const tokenName = runtimeConfig.public.AUTH_TOKEN;
-  const tokenCookie = useCookie(tokenName, {
-    maxAge: $appInfo.tokenTime * 60 * 60,
-    secure: $appInfo.production && window?.location?.protocol === "https:",
-  });
+  const tokenCookie = useCookie(tokenName, getTokenCookieOptions());
 
   function setToken(token: string | null) {
     tokenCookie.value = token;
