@@ -1144,7 +1144,7 @@
   },
   "data-pages": {
     "foods": {
-      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes": "Warnung: Dieses Lebensmittel wird in {count} Rezept(en) verwendet. Beim Löschen verbleibt in den betroffenen Rezept(en) eine leere Zutat.",
       "delete-affects-recipes-more": "Zeige alle {count} Rezepte",
       "merge-dialog-text": "Zusammenführen der ausgewählten Lebensmittel führt diese zusammen in ein einzelnes Lebensmittel. Die Ausgangslebensmittel werden gelöscht und alle Verweise werden auf das zusammengeführte Lebensmittel angepasst.",
       "merge-food-example": "{food1} wird zu {food2} zusammengeführt",

@@ -51,7 +51,7 @@
     "category": "分类"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "Apprise 网址",
     "database": "数据库",
     "delete-event": "删除事件",
     "event-delete-confirmation": "你确定要删除这个事件？",
@@ -98,7 +98,7 @@
     "dashboard": "仪表盘",
     "delete": "删除",
     "disabled": "已禁用",
-    "done": "Done",
+    "done": "完成",
     "download": "下载",
     "duplicate": "创建副本",
     "edit": "编辑",
@@ -169,7 +169,7 @@
     "token": "密钥",
     "tuesday": "周二",
     "type": "类型",
-    "undo": "Undo",
+    "undo": "还原",
     "update": "更新",
     "updated": "已更新",
     "upload": "上传",
@@ -224,8 +224,8 @@
     "add-field": "添加项目",
     "date-created": "创建日期",
     "date-updated": "修改日期",
-    "key": "Key",
-    "value": "Value"
+    "key": "键",
+    "value": "值"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "您确定要删除<b>{groupName}<b/>吗？",
@@ -287,37 +287,37 @@
     "total-households": "总共家庭",
     "you-must-select-a-group-before-selecting-a-household": "你必须先选择一个组才能选择一个家庭",
     "ai-provider-settings": {
-      "ai-provider-settings": "AI Provider Settings",
-      "ai-provider": "AI Provider",
-      "ai-providers": "AI Providers",
-      "ai-provider-settings-description": "Configure AI providers to enable AI-powered features, such as enhanced ingredient parsing, creating recipes from videos, and more!",
-      "providers": "Providers",
-      "create-provider": "Create Provider",
-      "edit-provider": "Edit Provider",
-      "default-provider": "Default Provider",
+      "ai-provider-settings": "AI 提供者设置",
+      "ai-provider": "AI 提供者",
+      "ai-providers": "AI 提供者",
+      "ai-provider-settings-description": "设置 AI 提供者以启用 AI功能，例如增强食材解析、从视频中创建食谱等！",
+      "providers": "提供者",
+      "create-provider": "创建提供者",
+      "edit-provider": "编辑提供者",
+      "default-provider": "默认提供者",
       "default-provider-description": "Required to enable AI features",
       "audio-provider": "Audio Provider",
       "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
       "image-provider": "Image Provider",
       "image-provider-description": "Enables image recognition features, such as creating recipes from images",
-      "provider-name": "Provider Name",
-      "api-key": "API Key",
+      "provider-name": "提供者名称",
+      "api-key": "API 密钥",
       "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
       "api-key-description-edit": "Leave this blank unless you want to change it.",
-      "base-url": "Base URL",
-      "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
-      "model": "Model",
-      "model-description": "Which model your AI provider should use (e.g. \"gpt-5\").",
-      "request-timeout-seconds": "Request Timeout (seconds)",
-      "provider-created": "Provider created",
-      "provider-updated": "Provider updated",
-      "provider-deleted": "Provider deleted",
-      "provider-create-failed": "Failed to create provider",
-      "provider-update-failed": "Failed to update provider",
-      "provider-delete-failed": "Failed to delete provider",
-      "request-headers": "Request Headers",
-      "request-params": "Request Parameters",
-      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+      "base-url": "基本网址",
+      "base-url-description": "如果您使用 OpenAI 请留空。必须是 OpenAI兼容的端点(例如，\"http://localhost:11434/v1\")。",
+      "model": "模型",
+      "model-description": "您的 AI 提供者应该使用哪个模型(例如，\"gpt-5\")。",
+      "request-timeout-seconds": "请求超时（秒）",
+      "provider-created": "提供者已创建",
+      "provider-updated": "提供者已更新",
+      "provider-deleted": "提供商已删除",
+      "provider-create-failed": "创建提供者失败",
+      "provider-update-failed": "更新提供者失败",
+      "provider-delete-failed": "删除提供者失败",
+      "request-headers": "请求标头",
+      "request-params": "请求参数",
+      "no-default-provider-warning": "您尚未设置默认提供者，所以AI 功能已被禁用"
     }
   },
   "household": {
@@ -368,8 +368,8 @@
     "any-household": "所有家庭",
     "no-meal-plan-defined-yet": "还没有制定饮食计划",
     "no-meal-planned-for-today": "今日没有饮食计划",
-    "numberOfDaysPast-hint": "Number of days in the past on page load",
-    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDaysPast-hint": "页面加载时过去的天数",
+    "numberOfDaysPast-label": "默认过去天数",
     "numberOfDays-hint": "页面加载天数",
     "numberOfDays-label": "默认天数",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "只有属于这些分类的食谱才会被用于饮食计划",
@@ -427,7 +427,7 @@
     "nextcloud": {
       "description": "从Nextcloud Cookbook迁移数据",
       "description-long": "Nextcloud食谱可以从存储在Nextcloud云端的含有食谱数据的zip文件导入。请参阅下方的文件夹结构示例确保您的食谱可以被正确导入。",
-      "title": "Nextcloud Cookbook"
+      "title": "Nextcloud 食谱"
     },
     "copymethat": {
       "description-long": "Mealie 可以从 Copy Mee That导入食谱。将您的食谱以HTML 格式导出，然后在下面上传 .zip压缩包",
@@ -663,7 +663,7 @@
     "create-recipe-description": "从头创建一个新食谱。",
     "create-recipes": "创建食谱",
     "import-with-zip": "使用 .zip 导入",
-    "create-recipe-from-images": "Create Recipe from Images",
+    "create-recipe-from-images": "用图片创建食谱",
     "create-recipe-from-an-image-description": "通过上传食谱文本的图片来创建一个食谱。Mealie将尝试使用人工智能从图像中提取文本，并从中创建一个新的食谱。",
     "crop-and-rotate-the-image": "裁剪并旋转图片，使仅文字可见且方向正确。",
     "create-from-images": "从图片创建",
@@ -676,7 +676,7 @@
     "new-recipe-names-must-be-unique": "新食谱名必须唯一",
     "scrape-recipe": "刮削食谱",
     "scrape-recipe-description": "通过URL采集食谱。提供你想要采集网址的URL，Mealie会尝试从该网采集食谱并添加到你的收藏中。",
-    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
+    "scrape-recipe-description-transcription": "您也可以提供一个视频地址，Mealie 将尝试将其导入为食谱。",
     "scrape-recipe-have-a-lot-of-recipes": "你想要一次刮削多个食谱吗？",
     "scrape-recipe-suggest-bulk-importer": "试试批量导入器",
     "scrape-recipe-have-raw-html-or-json-data": "有原始 HTML 或 JSON 数据？",
@@ -684,7 +684,7 @@
     "scrape-recipe-website-being-blocked": "网站被屏蔽？",
     "scrape-recipe-try-importing-raw-html-instead": "请尝试导入原始HTML。",
     "import-original-keywords-as-tags": "导入原始关键字作为标签",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "导入原始分类",
     "stay-in-edit-mode": "留在编辑模式",
     "parse-recipe-ingredients-after-import": "导入后解析食材",
     "import-from-zip": "从Zip压缩包导入",
@@ -733,12 +733,12 @@
       "this-unit-could-not-be-parsed-automatically": "无法自动解析此单元",
       "this-food-could-not-be-parsed-automatically": "这种食物不能被自动解析",
       "no-food": "没有食物",
-      "review-parsed-ingredients": "Review parsed ingredients",
+      "review-parsed-ingredients": "复查解析后的食材",
       "confidence-score": "置信度",
       "ingredient-parser-description": "您的食材已成功解析。请检查我们不确定的食材。",
       "ingredient-parser-final-review-description": "一旦所有食材都检查完毕，在将更改应用到您的菜谱之前，您还有最后一次机会检查所有食材。",
       "add-text-as-alias-for-item": "将“{text}”添加为“{item}”的别名",
-      "delete-item": "Delete Item"
+      "delete-item": "删除项目"
     },
     "reset-servings-count": "重置份量数量",
     "not-linked-ingredients": "附加配料",
@@ -894,7 +894,7 @@
     "webhooks": {
       "test-webhooks": "测试Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "下列URL将会在预定日期收到当日饮食计划包含的食谱数据。当前webhooks将于执行于：",
-      "webhook-url": "Webhook URL",
+      "webhook-url": "Webhook 网址",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
       "webhook-name": "Webhook名称",
@@ -928,17 +928,17 @@
     "server-side-base-url-error-text": "环境变量“BASE_URL“仍是API服务器上的默认值。这可能造成服务器自动发送的邮件所包含的通知链接不可用等问题。",
     "server-side-base-url-success-text": "已配置服务器端URL",
     "ldap-ready": "LDAP 已就绪",
-    "ldap-not-ready": "LDAP Not Ready",
+    "ldap-not-ready": "LDAP 未就绪",
     "ldap-ready-error-text": "某些LDAP环境变量尚未配置。（如果你不使用LDAP验证可以忽略该报错）",
     "ldap-ready-success-text": "LDAP所需的环境变量均已配置。",
     "build": "构建",
     "recipe-scraper-version": "食谱刮削器版本",
     "oidc-ready": "OIDC 已就绪",
-    "oidc-not-ready": "OIDC Not Ready",
+    "oidc-not-ready": "OIDC 未就绪",
     "oidc-ready-error-text": "某些OIDC环境变量尚未配置。（如果你不使用OIDC验证可以忽略该报错）",
     "oidc-ready-success-text": "OIDC所需的环境变量均已配置。",
     "openai-ready": "OpenAI 准备好了",
-    "openai-not-ready": "OpenAI Not Ready",
+    "openai-not-ready": "OpenAI 未就绪",
     "openai-ready-error-text": "并非所有的 OpenAI 值都已配置。如果您不使用 OpenAI 功能，这将被忽略。",
     "openai-ready-success-text": "所需的 OpenAI 变量已全部设置。"
   },
@@ -946,13 +946,13 @@
     "all-lists": "所有购物清单",
     "create-shopping-list": "创建购物清单",
     "from-recipe": "从食谱创建",
-    "ingredient-of-recipe": "Ingredient of {recipe}",
+    "ingredient-of-recipe": "{recipe} 的食品配料",
     "list-name": "购物清单名称",
     "new-list": "创建购物清单",
     "quantity": "数量: {0} 个",
     "shopping-list": "购物清单",
     "shopping-lists": "购物清单",
-    "add-item": "Add item",
+    "add-item": "添加项目",
     "food": "食品",
     "note": "备注",
     "label": "标注",
@@ -978,7 +978,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "您确定要取消选中所有项目吗？",
     "are-you-sure-you-want-to-delete-checked-items": "您确定要删除所有选中的项目吗？",
     "no-shopping-lists-found": "没有发现购物清单",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "已勾除 {item}"
   },
   "sidebar": {
     "all-recipes": "全部食谱",
@@ -1132,8 +1132,8 @@
     "forgot-password": "忘记密码",
     "forgot-password-text": "请输入你的邮箱地址，我们会发给你重置密码的链接。",
     "changes-reflected-immediately": "对用户的更改将立即生效。",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "默认页面",
+    "default-activity-hint": "选择在此设备登录后的默认页面"
   },
   "language-dialog": {
     "translated": "已翻译",
@@ -1144,8 +1144,8 @@
   },
   "data-pages": {
     "foods": {
-      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
-      "delete-affects-recipes-more": "View all {count} recipes",
+      "delete-affects-recipes": "警告：{count} 个食谱使用这个食材。刪除会导致食谱出现空缺食材。",
+      "delete-affects-recipes-more": "查看全部 {count} 个食谱",
       "merge-dialog-text": "此操作将把“待合并食物”和“目标食物”合并为一个食物（即“目标食物”）。 “待合并食物”将会被删除 ，之前所有对“待合并食物”的引用都会指向“目标食物”。",
       "merge-food-example": "正在将{food1}合并到{food2} ",
       "seed-dialog-text": "根据你当地的语言在数据库中输入食物。这将创建大约2700种常见的食物，可以用来组织你的数据库。食物是通过社区努力翻译的。",
@@ -1183,20 +1183,20 @@
       "example-unit-plural": "中文用户可忽略",
       "example-unit-abbreviation-singular": "例如：勺",
       "example-unit-abbreviation-plural": "中文用户可忽略",
-      "standardization": "Standardization",
+      "standardization": "标准化",
       "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
-      "standard-unit": "Standard Unit",
-      "standard-quantity": "Standard Quantity",
-      "unit-conversion": "Unit Conversion",
+      "standard-unit": "标准单位",
+      "standard-quantity": "标准量",
+      "unit-conversion": "单位转换",
       "standard-unit-labels": {
-        "fluid-ounce": "fluid ounce",
-        "cup": "cup",
-        "ounce": "ounce",
-        "pound": "pound",
-        "milliliter": "milliliter",
-        "liter": "liter",
-        "gram": "gram",
-        "kilogram": "kilogram"
+        "fluid-ounce": "液体盎司",
+        "cup": "杯",
+        "ounce": "盎司",
+        "pound": "磅",
+        "milliliter": "毫升",
+        "liter": "升",
+        "gram": "克",
+        "kilogram": "千克"
       }
     },
     "labels": {
@@ -1233,7 +1233,7 @@
       "edit-recipe-action": "编辑食谱行为",
       "action-type": "行为种类",
       "action-types": {
-        "link": "Link",
+        "link": "链接",
         "post": "Post"
       }
     },
@@ -1519,7 +1519,7 @@
     "announcements": "Announcements",
     "all-announcements": "All announcements",
     "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "show-announcements-from-mealie": "显示来自Mealie的公告",
+    "show-announcements-setting-description": "是否允许用户查看来自Mealie的公告。 如果启用，用户仍然可以在其用户设置中选择退出查看"
   }
 }

@@ -98,7 +98,7 @@
     "dashboard": "Панель керування",
     "delete": "Видалити",
     "disabled": "Вимкнено",
-    "done": "Done",
+    "done": "Готово",
     "download": "Завантажити",
     "duplicate": "Копіювати",
     "edit": "Редагувати",
@@ -169,7 +169,7 @@
     "token": "Токен",
     "tuesday": "Вівторок",
     "type": "Тип",
-    "undo": "Undo",
+    "undo": "Скасувати",
     "update": "Оновити",
     "updated": "Дата оновлення",
     "upload": "Завантажити",
@@ -214,8 +214,8 @@
     "upload-file": "Завантажити файл",
     "created-on-date": "Створено: {0}",
     "unsaved-changes": "У вас є незбережені зміни. Ви хочете зберегти їх перед виходом? Гаразд, щоб зберегти, Скасувати, щоб скасувати.",
-    "discard-changes": "Discard Changes",
-    "discard-changes-description": "You have unsaved changes. Are you sure you want to discard them?",
+    "discard-changes": "Скасувати зміни",
+    "discard-changes-description": "У вас є незбережені зміни. Ви впевнені, що бажаєте їх скасувати?",
     "clipboard-copy-failure": "Не вдалося скопіювати до буфера обміну.",
     "confirm-delete-generic-items": "Ви впевнені, що хочете видалити вибрані елементи?",
     "organizers": "Органайзери",
@@ -224,8 +224,8 @@
     "add-field": "Додати поле",
     "date-created": "Дата Створення",
     "date-updated": "Дата Оновлення",
-    "key": "Key",
-    "value": "Value"
+    "key": "Ключ",
+    "value": "Значення"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ви дійсно бажаєте видалити <b>{groupName}<b/>?",
@@ -287,37 +287,37 @@
     "total-households": "Всього сімей",
     "you-must-select-a-group-before-selecting-a-household": "Ви маєте вибрати групу перед тим, як вибирати сім'ю",
     "ai-provider-settings": {
-      "ai-provider-settings": "AI Provider Settings",
-      "ai-provider": "AI Provider",
-      "ai-providers": "AI Providers",
-      "ai-provider-settings-description": "Configure AI providers to enable AI-powered features, such as enhanced ingredient parsing, creating recipes from videos, and more!",
-      "providers": "Providers",
-      "create-provider": "Create Provider",
-      "edit-provider": "Edit Provider",
-      "default-provider": "Default Provider",
-      "default-provider-description": "Required to enable AI features",
-      "audio-provider": "Audio Provider",
-      "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
-      "image-provider": "Image Provider",
-      "image-provider-description": "Enables image recognition features, such as creating recipes from images",
-      "provider-name": "Provider Name",
-      "api-key": "API Key",
-      "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
-      "api-key-description-edit": "Leave this blank unless you want to change it.",
-      "base-url": "Base URL",
-      "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
-      "model": "Model",
-      "model-description": "Which model your AI provider should use (e.g. \"gpt-5\").",
-      "request-timeout-seconds": "Request Timeout (seconds)",
-      "provider-created": "Provider created",
-      "provider-updated": "Provider updated",
-      "provider-deleted": "Provider deleted",
-      "provider-create-failed": "Failed to create provider",
-      "provider-update-failed": "Failed to update provider",
-      "provider-delete-failed": "Failed to delete provider",
-      "request-headers": "Request Headers",
-      "request-params": "Request Parameters",
-      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+      "ai-provider-settings": "Налаштування постачальника ШІ",
+      "ai-provider": "Постачальник ШІ",
+      "ai-providers": "Постачальники ШІ",
+      "ai-provider-settings-description": "Налаштуйте ШІ-провайдерів, щоб увімкнути функції на базі штучного інтелекту, такі як покращений розбір інгредієнтів, створення рецептів із відео тощо!",
+      "providers": "Постачальники",
+      "create-provider": "Створити постачальника",
+      "edit-provider": "Редагувати постачальника",
+      "default-provider": "Постачальник за замовчуванням",
+      "default-provider-description": "Потрібен для увімкнення ШІ функцій",
+      "audio-provider": "Аудіо постачальник",
+      "audio-provider-description": "Увімкнути функції транскрипції аудіо, такі як створення рецептів із відео",
+      "image-provider": "Постачальник обробки зображень",
+      "image-provider-description": "Дозволяє розпізнавати зображення, наприклад створювати рецепти з зображень",
+      "provider-name": "Назва постачальника",
+      "api-key": "Ключ API",
+      "api-key-description-create": "API-ключ вашого постачальника для автентифікації. Якщо ваш сервіс (наприклад, Ollama) не використовує API-ключ, вам все одно потрібно щось сюди вписати.",
+      "api-key-description-edit": "Залиште це поле порожнім, якщо не хочете його змінювати.",
+      "base-url": "Основний URL",
+      "base-url-description": "Якщо ви використовуєте OpenAI, залиште це поле порожнім. Це має бути OpenAI-сумісний кінцевий пункт (наприклад, \"http://localhost:11434/v1\").",
+      "model": "Модель",
+      "model-description": "Яку модель вашого постачальника ШІ слід використовувати (наприклад, \"gpt-5\").",
+      "request-timeout-seconds": "Час очікування запиту (в секундах)",
+      "provider-created": "Постачальника створено",
+      "provider-updated": "Постачальника оновлено",
+      "provider-deleted": "Постачальника видалено",
+      "provider-create-failed": "Не вдалося створити постачальника",
+      "provider-update-failed": "Не вдалося оновити постачальника",
+      "provider-delete-failed": "Не вдалося видалити постачальника",
+      "request-headers": "Заголовки запиту",
+      "request-params": "Параметри запиту",
+      "no-default-provider-warning": "Ви не встановили постачальника за замовчуванням, тому ШІ функції вимкнено"
     }
   },
   "household": {
@@ -368,8 +368,8 @@
     "any-household": "Будь-яка сім'я",
     "no-meal-plan-defined-yet": "Не створено жодного меню",
     "no-meal-planned-for-today": "Не заплановано меню на сьогодні",
-    "numberOfDaysPast-hint": "Number of days in the past on page load",
-    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDaysPast-hint": "Кількість днів у минулому під час завантаження сторінки",
+    "numberOfDaysPast-label": "Кількість днів у минулому за замовчуванням",
     "numberOfDays-hint": "Скільки днів завантажувати на сторінку",
     "numberOfDays-label": "Дні за замовчуванням",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Лише рецепти з цими категоріями будуть використані в меню",
@@ -409,8 +409,8 @@
     "applies-to-all-days": "Застосовується до всіх днів",
     "applies-on-days": "Застосовується на {0}сек",
     "meal-plan-settings": "Налаштування меню",
-    "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-all-to-list": "Додати все до списку",
+    "add-day-to-list": "Додати день до списку"
   },
   "migration": {
     "migration-data-removed": "Дані міграції видалені",
@@ -663,7 +663,7 @@
     "create-recipe-description": "Створити новий рецепт з нуля.",
     "create-recipes": "Створити рецепти",
     "import-with-zip": "Імпорт з .zip",
-    "create-recipe-from-images": "Create Recipe from Images",
+    "create-recipe-from-images": "Створити рецепт з зображення",
     "create-recipe-from-an-image-description": "Створити рецепт, завантаживши його зображення. Mealie спробує витягти текст з зображення за допомогою ШІ та створити рецепт з нього.",
     "crop-and-rotate-the-image": "Обріжте і поверніть зображення так, щоб було видно лише текст в правильній орієнтації.",
     "create-from-images": "Створити з зображень",
@@ -675,8 +675,8 @@
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Створіть рецепт, надавши назву. Усі рецепти повинні мати унікальні назви.",
     "new-recipe-names-must-be-unique": "Назви нового рецепту має бути унікальна",
     "scrape-recipe": "Розпізнати рецепт",
-    "scrape-recipe-description": "Scrape a recipe by url. Provide the url for the site you want to scrape, and Mealie will attempt to scrape the recipe from that site and add it to your collection.",
-    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
+    "scrape-recipe-description": "Розпізнати рецепт за посиланням. Вкажіть посилання на рецепт який ви хочете розпізнати й Mealie спробує розпізнати його і додати в вашу колекцію.",
+    "scrape-recipe-description-transcription": "Ви також можете вказати URL на відео і Mealie буде намагатися трансформувати його в рецепт.",
     "scrape-recipe-have-a-lot-of-recipes": "Багато рецептів, які ви хочете розпізнати відразу?",
     "scrape-recipe-suggest-bulk-importer": "Спробуйте масовий розпізнавач",
     "scrape-recipe-have-raw-html-or-json-data": "Маєте необроблені дані HTML або JSON?",
@@ -684,7 +684,7 @@
     "scrape-recipe-website-being-blocked": "Заблокований сайт?",
     "scrape-recipe-try-importing-raw-html-instead": "Спробуйте імпортувати вихідний HTML натомість.",
     "import-original-keywords-as-tags": "Імпортувати оригінальні ключові слова як теги",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "Імпортувати оригінальні категорії",
     "stay-in-edit-mode": "Залишитися в режимі редактора",
     "parse-recipe-ingredients-after-import": "Розпізнавання інгредієнтів рецепту після імпорту",
     "import-from-zip": "Імпортувати з Zip",
@@ -928,17 +928,17 @@
     "server-side-base-url-error-text": "`BASE_URL` все ще встановлене в стандартне значення на сервері API. Це призведе до проблем з посиланнями, згенерованими на сервері для листів, і т. д.",
     "server-side-base-url-success-text": "URL-адреса на стороні сервера не відповідає значенню за замовчуванням",
     "ldap-ready": "LDAP готове",
-    "ldap-not-ready": "LDAP Not Ready",
+    "ldap-not-ready": "LDAP не готовий",
     "ldap-ready-error-text": "Не всі значення LDAP налаштовано. Це можна ігнорувати, якщо ви не використовуєте LDAP Authentication.",
     "ldap-ready-success-text": "Всі необхідні змінні LDAP встановлені.",
     "build": "Збірка",
     "recipe-scraper-version": "Версія парсера рецептів",
     "oidc-ready": "OIDC готово",
-    "oidc-not-ready": "OIDC Not Ready",
+    "oidc-not-ready": "OIDC не готовий",
     "oidc-ready-error-text": "Не всі значення OIDC налаштовано. Це можна ігнорувати, якщо ви не використовуєте авторизацію OIDC.",
     "oidc-ready-success-text": "Всі необхідні змінні OIDC встановлені.",
     "openai-ready": "OpenAI готовий",
-    "openai-not-ready": "OpenAI Not Ready",
+    "openai-not-ready": "OpenAI не готовий",
     "openai-ready-error-text": "Не всі значення OpenAI налаштовано. Це можна ігнорувати, якщо ви не використовуєте функції OpenAI.",
     "openai-ready-success-text": "Всі необхідні змінні OpenAI встановлені."
   },
@@ -952,7 +952,7 @@
     "quantity": "Кількість: {0}",
     "shopping-list": "Список покупок",
     "shopping-lists": "Списки покупок",
-    "add-item": "Add item",
+    "add-item": "Додати елемент",
     "food": "Продукт",
     "note": "Нотатка",
     "label": "Мітка",
@@ -978,7 +978,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Ви впевнені, що хочете зняти відмітку з усіх елементів?",
     "are-you-sure-you-want-to-delete-checked-items": "Ви впевнені, що хочете видалити всі відмічені елементи?",
     "no-shopping-lists-found": "Списків покупок не знайдено",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "Позначено {item} як куплене"
   },
   "sidebar": {
     "all-recipes": "Всі рецепти",
@@ -1144,8 +1144,8 @@
   },
   "data-pages": {
     "foods": {
-      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
-      "delete-affects-recipes-more": "View all {count} recipes",
+      "delete-affects-recipes": "Попередження: цей інгредієнт використовується в {count} рецепт(ах). Його видалення залишить порожній інгредієнт у рецепт(ах).",
+      "delete-affects-recipes-more": "Переглянути всі {count} рецепти",
       "merge-dialog-text": "Об’єднання вибраних продуктів створить єдину позицію. При цьому вихідний продукт буде видалено, а всі посилання на нього автоматично буде оновлено на цільовий продукт.",
       "merge-food-example": "Об'єднання {food1} в {food2}",
       "seed-dialog-text": "Заповніть базу даних продуктами вашою мовою. Це дозволить створити близько 2700 поширених продуктів, які можна використовувати для організації вашої бази даних. Продукти перекладаються спільними зусиллями спільноти.",
@@ -1183,20 +1183,20 @@
       "example-unit-plural": "приклад: Столові ложки",
       "example-unit-abbreviation-singular": "приклад: ст. л",
       "example-unit-abbreviation-plural": "приклад: ст. л",
-      "standardization": "Standardization",
-      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
-      "standard-unit": "Standard Unit",
-      "standard-quantity": "Standard Quantity",
-      "unit-conversion": "Unit Conversion",
+      "standardization": "Стандартизація",
+      "standardization-description": "Як цю одиницю виміру можна представити у вигляді стандартної одиниці. Це активує функції конвертації, такі як об'єднання сумісних одиниць у списках покупок.",
+      "standard-unit": "Стандартна одиниця",
+      "standard-quantity": "Стандартна кількість",
+      "unit-conversion": "Конвертація одиниць",
       "standard-unit-labels": {
-        "fluid-ounce": "fluid ounce",
-        "cup": "cup",
-        "ounce": "ounce",
-        "pound": "pound",
-        "milliliter": "milliliter",
-        "liter": "liter",
-        "gram": "gram",
-        "kilogram": "kilogram"
+        "fluid-ounce": "рідка унція",
+        "cup": "чашка",
+        "ounce": "унція",
+        "pound": "фунт",
+        "milliliter": "мілілітр",
+        "liter": "літр",
+        "gram": "грам",
+        "kilogram": "кілограм"
       }
     },
     "labels": {
@@ -1233,8 +1233,8 @@
       "edit-recipe-action": "Редагувати дії рецепта",
       "action-type": "Тип Дії",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "Посилання",
+        "post": "Опублікувати"
       }
     },
     "create-alias": "Створити псевдонім",
@@ -1399,7 +1399,7 @@
       "already-set-up-bring-to-homepage": "Вже все налаштовано, просто перенеси мене на домашню сторінку",
       "common-settings-for-new-sites": "Ось деякі загальні налаштування для нових сайтів",
       "setup-complete": "Налаштування завершене!",
-      "ai-providers-description": "Optionally configure AI providers for your group. AI providers enable features like creating recipes from images, importing recipes from videos, and enhanced ingredient parsing. You can always configure this later from your group settings.",
+      "ai-providers-description": "За бажанням налаштуйте ШІ-провайдерів для вашої групи. ШІ-провайдери відкривають такі можливості, як створення рецептів із зображень, імпорт рецептів із відео та покращений розбір інгредієнтів. Ви завжди зможете налаштувати це пізніше в налаштуваннях групи.",
       "here-are-a-few-things-to-help-you-get-started": "Ось кілька речей, які допоможуть вам почати з Mealie",
       "restore-from-v1-backup": "Маєте резервну копію з попереднього екземпляра Меаліе v1? Ви можете використати його тут.",
       "manage-profile-or-get-invite-link": "Керуйте вашим власним профілем, або отримайте посилання-запрошення щоб поділитися з іншими."
@@ -1491,8 +1491,8 @@
       "is-greater-than-or-equal-to": "більше або дорівнює",
       "is-less-than": "менше ніж",
       "is-less-than-or-equal-to": "менше або дорівнює",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "старіший ніж",
+      "is-newer-than": "новіше, ніж"
     },
     "relational-keywords": {
       "is": "є",
@@ -1504,7 +1504,7 @@
       "is-not-like": "не схожий"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "днів тому|день тому|днів тому"
     }
   },
   "validators": {
@@ -1513,13 +1513,13 @@
     "invalid-url": "Має бути дійсною URL-адресою",
     "no-whitespace": "Пробіли заборонені",
     "min-length": "Повинно бути не менше ніж {min} символів ",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "max-length": "Має бути не більше {max} символу|Має бути не більше {max} символів"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Сповіщення",
+    "all-announcements": "Всі сповіщення",
+    "mark-all-as-read": "Позначити все як прочитане",
+    "show-announcements-from-mealie": "Показувати сповіщення від Mealie",
+    "show-announcements-setting-description": "Чи дозволяти користувачам бачити оголошення від Mealie. Якщо цю опцію ввімкнено, користувачі все одно зможуть відмовитися від їх перегляду в налаштуваннях свого профілю"
   }
 }

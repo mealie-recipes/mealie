@@ -3,14 +3,14 @@ export const LOCALES = [
   {
     name: "繁體中文 (Chinese traditional)",
     value: "zh-TW",
-    progress: 97,
+    progress: 100,
     dir: "ltr",
     pluralFoodHandling: "never",
   },
   {
     name: "简体中文 (Chinese simplified)",
     value: "zh-CN",
-    progress: 54,
+    progress: 55,
     dir: "ltr",
     pluralFoodHandling: "never",
   },
@@ -66,7 +66,7 @@ export const LOCALES = [
   {
     name: "Pусский (Russian)",
     value: "ru-RU",
-    progress: 58,
+    progress: 60,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
