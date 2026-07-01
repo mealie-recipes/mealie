@@ -29,12 +29,20 @@ jobs:
           ref: mealie-next
           persist-credentials: false
 
+      - name: Validate sync token
+        if: ${{ !(inputs.sync_test_mode || false) }}
+        run: |
+          if [ -z "${{ secrets.UPSTREAM_SYNC_TOKEN }}" ]; then
+            echo "::error::Missing secret UPSTREAM_SYNC_TOKEN. Add a classic PAT with repo and workflow scopes to this repository before running the scheduled sync."
+            exit 1
+          fi
+
       - name: Sync upstream changes
         id: sync
         uses: aormsby/Fork-Sync-With-Upstream-action@v3.4.3
         with:
           target_sync_branch: mealie-next
-          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+          target_repo_token: ${{ (inputs.sync_test_mode || false) && secrets.GITHUB_TOKEN || secrets.UPSTREAM_SYNC_TOKEN }}
           upstream_sync_repo: mealie-recipes/mealie
           upstream_sync_branch: mealie-next
           test_mode: ${{ inputs.sync_test_mode || false }}
