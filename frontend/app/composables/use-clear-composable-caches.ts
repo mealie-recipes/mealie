@@ -4,6 +4,7 @@ import { resetHouseholdSelf } from "~/composables/use-households";
 import { resetUserSelfRatings } from "~/composables/use-users/user-ratings";
 import { resetBackups } from "~/composables/use-backups";
 import { resetRecipes } from "~/composables/recipes/use-recipes";
+import { resetUserRegistrationForm } from "~/composables/use-users/user-registration-form";
 
 export function clearComposableCaches() {
   resetGroupRecipeActions();
@@ -12,4 +13,5 @@ export function clearComposableCaches() {
   resetUserSelfRatings();
   resetBackups();
   resetRecipes();
+  resetUserRegistrationForm();
 }
