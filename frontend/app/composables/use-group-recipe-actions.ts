@@ -90,9 +90,6 @@ export const useGroupRecipeActions = function (
       loading,
       { orderBy: orderBy },
     ),
-    flushStore() {
-      groupRecipeActions.value = [];
-    },
   };
 
   return {
