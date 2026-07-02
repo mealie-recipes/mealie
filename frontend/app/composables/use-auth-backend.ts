@@ -1,7 +1,7 @@
 import { ref, computed } from "vue";
 import type { UserOut } from "~/lib/api/types/user";
 import { clearAllStores } from "~/composables/store";
-import { clearComposableCaches } from "~/composables/use-reset-composable-caches";
+import { clearComposableCaches } from "~/composables/use-clear-composable-caches";
 import { getTokenCookieOptions } from "~/composables/use-token-cookie";
 
 interface AuthData {
@@ -26,6 +26,11 @@ interface AuthState {
 const authUser = ref<UserOut | null>(null);
 const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("loading");
 
+export function resetAuth() {
+  authUser.value = null;
+  authStatus.value = "unauthenticated";
+}
+
 export const useAuthBackend = function (): AuthState {
   const { $axios } = useNuxtApp();
   const router = useRouter();
@@ -42,8 +47,7 @@ export const useAuthBackend = function (): AuthState {
     // Only clear token on auth errors, not network errors
     if (error?.response?.status === 401) {
       setToken(null);
-      authUser.value = null;
-      authStatus.value = "unauthenticated";
+      resetAuth();
       if (redirect) {
         router.push("/login");
       }
@@ -100,8 +104,7 @@ export const useAuthBackend = function (): AuthState {
     }
     finally {
       setToken(null);
-      authUser.value = null;
-      authStatus.value = "unauthenticated";
+      resetAuth();
 
       // Clear all cached store data to prevent data leakage between users
       clearAllStores();
