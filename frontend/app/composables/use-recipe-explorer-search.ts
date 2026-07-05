@@ -73,11 +73,11 @@ function createRecipeExplorerSearchState(groupSlug: ComputedRef<string>): Recipe
   });
 
   // Store references
-  const categories = isOwnGroup ? useCategoryStore() : usePublicCategoryStore(groupSlug.value);
-  const foods = isOwnGroup ? useFoodStore() : usePublicFoodStore(groupSlug.value);
-  const households = isOwnGroup ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value);
-  const tags = isOwnGroup ? useTagStore() : usePublicTagStore(groupSlug.value);
-  const tools = isOwnGroup ? useToolStore() : usePublicToolStore(groupSlug.value);
+  const categories = isOwnGroup.value ? useCategoryStore() : usePublicCategoryStore(groupSlug.value);
+  const foods = isOwnGroup.value ? useFoodStore() : usePublicFoodStore(groupSlug.value);
+  const households = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value);
+  const tags = isOwnGroup.value ? useTagStore() : usePublicTagStore(groupSlug.value);
+  const tools = isOwnGroup.value ? useToolStore() : usePublicToolStore(groupSlug.value);
 
   // Selected items
   const selectedCategories = ref<NoUndefinedField<RecipeCategory>[]>([]);

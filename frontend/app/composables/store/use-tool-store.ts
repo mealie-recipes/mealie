@@ -9,12 +9,16 @@ interface RecipeToolWithOnHand extends RecipeTool {
 
 const store: Ref<RecipeTool[]> = ref([]);
 const loading = ref(false);
+const initialized = ref(false);
 const publicLoading = ref(false);
+const publicInitialized = ref(false);
 
 export function resetToolStore() {
   store.value = [];
   loading.value = false;
+  initialized.value = false;
   publicLoading.value = false;
+  publicInitialized.value = false;
 }
 
 export const useToolData = function () {
@@ -29,10 +33,10 @@ export const useToolData = function () {
 
 export const useToolStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  return useStore<RecipeTool>("tool", store, loading, api.tools);
+  return useStore<RecipeTool>("tool", store, loading, initialized, api.tools);
 };
 
 export const usePublicToolStore = function (groupSlug: string, i18n?: Composer) {
   const api = usePublicExploreApi(groupSlug, i18n).explore;
-  return useReadOnlyStore<RecipeTool>("tool", store, publicLoading, api.tools);
+  return useReadOnlyStore<RecipeTool>("tool", store, publicLoading, publicInitialized, api.tools);
 };

@@ -1856,7 +1856,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "onion seed",
-                "plural_name": "onion seeds"
+                "plural_name": "Semințe de ceapă"
             },
             "watermelon seed": {
                 "aliases": [],
@@ -1873,8 +1873,8 @@
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
-                "plural_name": "melon seeds"
+                "name": "Sămânță de pepene",
+                "plural_name": "Semințe de pepene"
             },
             "lotus seed": {
                 "aliases": [],
@@ -2038,19 +2038,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "brânză mozzarella",
-                "plural_name": "mozzarella cheese"
+                "plural_name": "brânză mozzarella"
             },
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "brânză feta",
+                "plural_name": "brânză feta"
             },
             "ricotta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "ricotta cheese",
-                "plural_name": "ricotta cheese"
+                "name": "brânză ricotta",
+                "plural_name": "brânză ricotta"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2067,32 +2067,32 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "brânză cu mucegai albastru",
+                "plural_name": "brânzeturi cu mucegai albastru"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheese"
+                "name": "brânză de capră",
+                "plural_name": "brânzeturi de capră"
             },
             "fresh mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella cheese",
-                "plural_name": "fresh mozzarella cheese"
+                "name": "mozzarella proaspătă",
+                "plural_name": "mozzarella proaspătă"
             },
             "swis cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swis cheese",
-                "plural_name": "swis cheese"
+                "name": "brânză elvețiană",
+                "plural_name": "brânzeturi elvețiene"
             },
             "pecorino cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pecorino cheese",
-                "plural_name": "pecorino cheese"
+                "name": "brânză pecorino",
+                "plural_name": "brânză pecorino"
             },
             "gruyere cheese": {
                 "aliases": [],
@@ -2109,8 +2109,8 @@
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cottage cheese",
-                "plural_name": "cottage cheese"
+                "name": "brânză de vaci",
+                "plural_name": "brânză de vaci"
             },
             "american cheese": {
                 "aliases": [],
@@ -2121,8 +2121,8 @@
             "provolone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "provolone cheese",
-                "plural_name": "provolone cheese"
+                "name": "brânză provolone",
+                "plural_name": "brânză provolone"
             },
             "mexican cheese blend": {
                 "aliases": [],
@@ -2169,7 +2169,7 @@
             "gouda cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda cheese",
+                "name": "brânză gouda",
                 "plural_name": "gouda cheese"
             },
             "cotija cheese": {
@@ -2187,8 +2187,8 @@
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheese"
+                "name": "brânză afumată",
+                "plural_name": "brânză afumată"
             },
             "halloumi cheese": {
                 "aliases": [],
@@ -2229,7 +2229,7 @@
             "burrata cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "burrata cheese",
+                "name": "brânză burrata",
                 "plural_name": "burrata cheese"
             },
             "havarti cheese": {
@@ -2283,8 +2283,8 @@
             "raclette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "raclette cheese",
-                "plural_name": "raclette cheese"
+                "name": "brânză raclette",
+                "plural_name": "brânză raclette"
             },
             "colby-jack cheese": {
                 "aliases": [],
@@ -2457,8 +2457,8 @@
             "hard goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "hard goat cheese",
-                "plural_name": "hard goat cheese"
+                "name": "brânză tare de capră",
+                "plural_name": "brânză tare de capră"
             },
             "kashkaval cheese": {
                 "aliases": [],
@@ -2469,8 +2469,8 @@
             "sheep cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "sheep cheese",
-                "plural_name": "sheep cheese"
+                "name": "brânză de oaie",
+                "plural_name": "brânză de oaie"
             },
             "amul cheese": {
                 "aliases": [],
@@ -2630,49 +2630,49 @@
                 "aliases": [],
                 "description": "",
                 "name": "lapte",
-                "plural_name": "milk"
+                "plural_name": "lapte"
             },
             "heavy cream": {
                 "aliases": [],
                 "description": "",
                 "name": "smântână pentru frișcă",
-                "plural_name": "heavy cream"
+                "plural_name": "smântână pentru frișcă"
             },
             "sour cream": {
                 "aliases": [],
                 "description": "",
                 "name": "smântână",
-                "plural_name": "sour cream"
+                "plural_name": "smântână"
             },
             "buttermilk": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk",
-                "plural_name": "buttermilk"
+                "name": "lapte bătut",
+                "plural_name": "lapte bătut"
             },
             "yogurt": {
                 "aliases": [],
                 "description": "",
                 "name": "iaurt",
-                "plural_name": "yogurts"
+                "plural_name": "iaurt"
             },
             "greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "greek yogurt",
-                "plural_name": "greek yogurts"
+                "name": "iaurt grecesc",
+                "plural_name": "iaurturi grecești"
             },
             "cream": {
                 "aliases": [],
                 "description": "",
-                "name": "cream",
-                "plural_name": "cream"
+                "name": "smântână",
+                "plural_name": "smântână"
             },
             "whipped cream": {
                 "aliases": [],
                 "description": "",
-                "name": "whipped cream",
-                "plural_name": "whipped cream"
+                "name": "frișcă",
+                "plural_name": "frișcă"
             },
             "ghee": {
                 "aliases": [
@@ -2692,7 +2692,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lapte condensat",
-                "plural_name": "condensed milk"
+                "plural_name": "lapte condensat"
             },
             "half and half": {
                 "aliases": [],
@@ -2710,7 +2710,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "înghețată",
-                "plural_name": "ice cream"
+                "plural_name": "înghețată"
             },
             "margarine": {
                 "aliases": [],
@@ -2734,7 +2734,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lapte praf",
-                "plural_name": "milk powder"
+                "plural_name": "lapte praf"
             },
             "curd": {
                 "aliases": [],
@@ -2788,7 +2788,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lapte cu ciocolată",
-                "plural_name": "chocolate milk"
+                "plural_name": "lapte cu ciocolată"
             },
             "liquid egg substitute": {
                 "aliases": [],
@@ -2872,7 +2872,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "ganache",
-                "plural_name": "ganaches"
+                "plural_name": "ganache"
             },
             "cajeta": {
                 "aliases": [],
@@ -2883,8 +2883,8 @@
             "duck egg": {
                 "aliases": [],
                 "description": "",
-                "name": "duck egg",
-                "plural_name": "duck eggs"
+                "name": "ou de rață",
+                "plural_name": "ouă de rață"
             },
             "salted egg": {
                 "aliases": [],
@@ -2908,7 +2908,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lapte crud",
-                "plural_name": "raw milk"
+                "plural_name": "lapte crud"
             },
             "lime curd": {
                 "aliases": [],
@@ -3027,7 +3027,7 @@
             "chocolate milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk powder",
+                "name": "lapte praf de ciocolată",
                 "plural_name": "chocolate milk powder"
             },
             "liquid rennet": {
@@ -3337,7 +3337,7 @@
             "smoked tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked tofu",
+                "name": "tofu afumat",
                 "plural_name": "smoked tofus"
             },
             "coconut powder": {

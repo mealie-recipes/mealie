@@ -7,12 +7,15 @@
     item-title="name"
     return-object
     :items="filteredItems"
-    :prepend-icon="icon || $globals.icons.tags"
+    :prepend-inner-icon="icon || (search ? $globals.icons.search : $globals.icons.tags)"
+    :menu-icon="search ? '' : undefined"
+    :rounded="search ? true : '4px'"
+    :custom-filter="() => true"
+    :variant="search ? 'solo-filled' : undefined"
+    color="primary"
     auto-select-first
     clearable
-    color="primary"
     hide-details
-    :custom-filter="() => true"
     @keyup.enter="emitCreate"
   >
     <template
@@ -55,6 +58,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  search: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits<{
@@ -86,4 +93,8 @@ function emitCreate() {
   emit("create", searchInput.value);
   autocompleteRef.value?.blur();
 }
+
+defineExpose({
+  focus: () => autocompleteRef.value?.focus(),
+});
 </script>

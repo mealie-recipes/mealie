@@ -11,8 +11,6 @@ admin_backups = "/api/admin/backups"
 """`/api/admin/backups`"""
 admin_backups_upload = "/api/admin/backups/upload"
 """`/api/admin/backups/upload`"""
-admin_debug_openai = "/api/admin/debug/openai"
-"""`/api/admin/debug/openai`"""
 admin_email = "/api/admin/email"
 """`/api/admin/email`"""
 admin_groups = "/api/admin/groups"
@@ -57,6 +55,10 @@ foods = "/api/foods"
 """`/api/foods`"""
 foods_merge = "/api/foods/merge"
 """`/api/foods/merge`"""
+groups_ai_providers_providers = "/api/groups/ai-providers/providers"
+"""`/api/groups/ai-providers/providers`"""
+groups_ai_providers_settings = "/api/groups/ai-providers/settings"
+"""`/api/groups/ai-providers/settings`"""
 groups_households = "/api/groups/households"
 """`/api/groups/households`"""
 groups_labels = "/api/groups/labels"
@@ -215,6 +217,21 @@ def admin_backups_file_name_restore(file_name):
     return f"{prefix}/admin/backups/{file_name}/restore"
 
 
+def admin_debug_openai_provider_id(provider_id):
+    """`/api/admin/debug/openai/{provider_id}`"""
+    return f"{prefix}/admin/debug/openai/{provider_id}"
+
+
+def admin_groups_group_id_ai_providers_providers(group_id):
+    """`/api/admin/groups/{group_id}/ai-providers/providers`"""
+    return f"{prefix}/admin/groups/{group_id}/ai-providers/providers"
+
+
+def admin_groups_group_id_ai_providers_providers_provider_id(group_id, provider_id):
+    """`/api/admin/groups/{group_id}/ai-providers/providers/{provider_id}`"""
+    return f"{prefix}/admin/groups/{group_id}/ai-providers/providers/{provider_id}"
+
+
 def admin_groups_item_id(item_id):
     """`/api/admin/groups/{item_id}`"""
     return f"{prefix}/admin/groups/{item_id}"
@@ -313,6 +330,11 @@ def explore_groups_group_slug_recipes_suggestions(group_slug):
 def foods_item_id(item_id):
     """`/api/foods/{item_id}`"""
     return f"{prefix}/foods/{item_id}"
+
+
+def groups_ai_providers_providers_provider_id(provider_id):
+    """`/api/groups/ai-providers/providers/{provider_id}`"""
+    return f"{prefix}/groups/ai-providers/providers/{provider_id}"
 
 
 def groups_households_household_slug(household_slug):

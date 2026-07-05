@@ -19,6 +19,7 @@
     class="pa-0 ma-0"
     @update:model-value="resetSearchInput"
     @click:append="dialog = true"
+    @keyup.enter="handleEnter"
   >
     <template #chip="{ item, index }">
       <v-chip
@@ -31,6 +32,26 @@
         closable
         @click:close="removeByIndex(index)"
       />
+    </template>
+    <template
+      v-if="showAdd"
+      #no-data
+    >
+      <div class="caption text-center pb-2">
+        {{ $t("recipe.press-enter-to-create") }}
+      </div>
+    </template>
+    <template
+      v-if="showAdd && searchInput"
+      #append-item
+    >
+      <div class="px-2">
+        <BaseButton
+          block
+          size="small"
+          @click="createItem()"
+        />
+      </div>
     </template>
     <template
       v-if="showAdd"
@@ -178,6 +199,32 @@ function appendCreated(item: any) {
   }
 
   selected.value = [...selected.value, item];
+}
+
+function handleEnter() {
+  if (!searchInput.value) {
+    return;
+  }
+  const exactMatch = items.value.some(
+    (item: any) => (item.name ?? "").toLowerCase() === searchInput.value.toLowerCase(),
+  );
+  if (!exactMatch) {
+    createItem();
+  }
+}
+
+async function createItem() {
+  if (!searchInput.value) {
+    return;
+  }
+
+  const actions = storeMap[props.selectorType].actions;
+  // @ts-expect-error different organizer types have different required fields
+  const newItem = await actions.createOne({ name: searchInput.value });
+  if (newItem) {
+    appendCreated(newItem);
+  }
+  searchInput.value = "";
 }
 
 const dialog = ref(false);

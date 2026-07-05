@@ -46,6 +46,14 @@
           />
           <v-divider />
           <v-stepper-item
+            :value="Pages.AI_PROVIDERS"
+            :icon="$globals.icons.robot"
+            :complete="currentPage > Pages.AI_PROVIDERS"
+            :color="getStepperColor(currentPage, Pages.AI_PROVIDERS)"
+            :title="$t('group.ai-provider-settings.ai-providers')"
+          />
+          <v-divider />
+          <v-stepper-item
             :value="Pages.CONFIRM"
             :icon="$globals.icons.chefHat"
             :complete="currentPage > Pages.CONFIRM"
@@ -173,6 +181,43 @@
             </v-stepper-actions>
           </v-stepper-window-item>
 
+          <!-- AI PROVIDERS -->
+          <v-stepper-window-item :value="Pages.AI_PROVIDERS">
+            <v-container max-width="880">
+              <v-card-title class="headline pa-0">
+                {{ $t('group.ai-provider-settings.ai-providers') }}
+              </v-card-title>
+              <v-card-subtitle class="px-0 py-2 text-wrap">
+                {{ $t('group.ai-provider-settings.ai-providers-description') }}
+              </v-card-subtitle>
+              <GroupAIProviderSettingsEditor
+                v-if="group?.aiProviderSettings"
+                v-model="group.aiProviderSettings"
+                hide-header
+                class="mt-4"
+                @create="handleCreateProvider"
+                @update="handleUpdateProvider"
+                @delete="handleDeleteProvider"
+              />
+            </v-container>
+            <v-stepper-actions
+              :disabled="isSubmitting"
+              prev-text="general.back"
+              @click:prev="onPrev"
+            >
+              <template #next>
+                <v-btn
+                  variant="flat"
+                  color="success"
+                  :disabled="isSubmitting"
+                  :loading="isSubmitting"
+                  :text="$t('general.next')"
+                  @click="onNext"
+                />
+              </template>
+            </v-stepper-actions>
+          </v-stepper-window-item>
+
           <!-- CONFIRMATION -->
           <v-stepper-window-item :value="Pages.CONFIRM">
             <v-container max-width="880">
@@ -252,7 +297,11 @@ import { useLocales } from "~/composables/use-locales";
 import { alert } from "~/composables/use-toast";
 import { useUserRegistrationForm } from "~/composables/use-users/user-registration-form";
 import { useCommonSettingsForm } from "~/composables/use-setup/common-settings-form";
+import { useGroupSelf } from "~/composables/use-groups";
+import { useAIProviders } from "~/composables/use-ai-providers";
 import UserRegistrationForm from "~/components/Domain/User/UserRegistrationForm.vue";
+import GroupAIProviderSettingsEditor from "~/components/Domain/Group/GroupAIProviderSettingsEditor.vue";
+import type { AIProviderCreate, AIProviderUpdate } from "~/lib/api/types/group";
 
 definePageMeta({
   layout: "blank",
@@ -267,6 +316,42 @@ const userApi = useUserApi();
 const adminApi = useAdminApi();
 
 const groupSlug = computed(() => auth.user.value?.groupSlug);
+
+const { group, actions: groupActions } = useGroupSelf();
+const { createOne, updateOne, deleteOne } = useAIProviders();
+
+async function handleCreateProvider(data: AIProviderCreate) {
+  const result = await createOne(data);
+  if (result.data) {
+    await groupActions.refresh();
+    alert.success(i18n.t("group.ai-provider-settings.provider-created"));
+  }
+  else {
+    alert.error(i18n.t("group.ai-provider-settings.provider-create-failed"));
+  }
+}
+
+async function handleUpdateProvider(id: string, data: AIProviderUpdate) {
+  const result = await updateOne(id, data);
+  if (result.data) {
+    await groupActions.refresh();
+    alert.success(i18n.t("group.ai-provider-settings.provider-updated"));
+  }
+  else {
+    alert.error(i18n.t("group.ai-provider-settings.provider-update-failed"));
+  }
+}
+
+async function handleDeleteProvider(id: string) {
+  const result = await deleteOne(id);
+  if (result.data) {
+    await groupActions.refresh();
+    alert.success(i18n.t("group.ai-provider-settings.provider-deleted"));
+  }
+  else {
+    alert.error(i18n.t("group.ai-provider-settings.provider-delete-failed"));
+  }
+}
 const { locale } = useLocales();
 const router = useRouter();
 const isSubmitting = ref(false);
@@ -281,8 +366,9 @@ enum Pages {
   LANDING = 1,
   USER_INFO = 2,
   PAGE_2 = 3,
-  CONFIRM = 4,
-  END = 5,
+  AI_PROVIDERS = 4,
+  CONFIRM = 5,
+  END = 6,
 }
 
 function getStepperColor(currentPage: Pages, page: Pages) {
@@ -475,6 +561,7 @@ async function submitAll() {
   const tasks = [
     submitRegistration(),
     submitCommonSettings(),
+    groupActions.updateAIProviderSettings(),
   ];
 
   await Promise.all(tasks);

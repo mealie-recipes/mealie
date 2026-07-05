@@ -5,10 +5,12 @@ import { useUserApi } from "~/composables/api";
 
 const store: Ref<IngredientUnit[]> = ref([]);
 const loading = ref(false);
+const initialized = ref(false);
 
 export function resetUnitStore() {
   store.value = [];
   loading.value = false;
+  initialized.value = false;
 }
 
 export const useUnitData = function () {
@@ -23,5 +25,5 @@ export const useUnitData = function () {
 
 export const useUnitStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  return useStore<IngredientUnit>("unit", store, loading, api.units);
+  return useStore<IngredientUnit>("unit", store, loading, initialized, api.units);
 };

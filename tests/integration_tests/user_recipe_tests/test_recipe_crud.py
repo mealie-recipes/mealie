@@ -1389,6 +1389,29 @@ def test_patch_recipe_after_name_changes_without_slug_update(api_client: TestCli
     assert patched_recipe["description"] == "Translated without changing the stored slug"
 
 
+def test_patch_recipe_instructions_without_ingredient_references(api_client: TestClient, unique_user: TestUser):
+    response = api_client.post(
+        api_routes.recipes,
+        json={"name": "Patch instructions without refs"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 201
+    slug = response.json()
+
+    response = api_client.patch(
+        api_routes.recipes_slug(slug),
+        json={"recipeInstructions": [{"text": "Step one."}, {"text": "Step two."}]},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
+    assert response.status_code == 200
+    recipe = response.json()
+    assert [step["text"] for step in recipe["recipeInstructions"]] == ["Step one.", "Step two."]
+    assert all(step["ingredientReferences"] == [] for step in recipe["recipeInstructions"])
+
+
 def test_put_recipe_name_change_updates_slug(api_client: TestClient, unique_user: TestUser):
     original_name = "Original Recipe Name"
     renamed_name = "Renamed Recipe Name"

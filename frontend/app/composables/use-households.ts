@@ -4,10 +4,20 @@ import type { HouseholdCreate, HouseholdInDB } from "~/lib/api/types/household";
 const householdSelfRef = ref<HouseholdInDB | null>(null);
 const loading = ref(false);
 
+export function resetHouseholdSelf() {
+  householdSelfRef.value = null;
+  loading.value = false;
+}
+
 export const useHouseholdSelf = function () {
   const api = useUserApi();
+  const auth = useMealieAuth();
 
   async function refreshHouseholdSelf() {
+    if (!auth.user.value) {
+      householdSelfRef.value = null;
+      return;
+    }
     loading.value = true;
     const { data } = await api.households.getCurrentUserHousehold();
     householdSelfRef.value = data;

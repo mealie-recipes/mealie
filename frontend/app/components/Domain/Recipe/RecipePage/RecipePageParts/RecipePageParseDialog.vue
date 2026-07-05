@@ -200,6 +200,7 @@ import { useUserApi } from "~/composables/api";
 import { useIngredientTextParser } from "~/composables/recipes";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
 import { useGlobalI18n } from "~/composables/use-global-i18n";
+import { useGroupSelf } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
 import { useParsingPreferences } from "~/composables/use-users/preferences";
 
@@ -215,7 +216,7 @@ const emit = defineEmits<{
   (e: "save", value: NoUndefinedField<RecipeIngredient[]>): void;
 }>();
 
-const { $appInfo } = useNuxtApp();
+const { group } = useGroupSelf();
 const i18n = useGlobalI18n();
 const api = useUserApi();
 const drag = ref(false);
@@ -240,7 +241,7 @@ const availableParsers = computed(() => {
     {
       text: i18n.t("recipe.parser.openai-parser"),
       value: "openai",
-      hide: !$appInfo.enableOpenai,
+      hide: !group.value?.aiProviderSettings?.aiEnabled,
     },
   ];
 });

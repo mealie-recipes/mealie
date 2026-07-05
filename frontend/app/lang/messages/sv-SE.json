@@ -98,7 +98,7 @@
     "dashboard": "Startsida",
     "delete": "Ta bort",
     "disabled": "Inaktiverad",
-    "done": "Done",
+    "done": "Färdig",
     "download": "Ladda ner",
     "duplicate": "Duplicera",
     "edit": "Redigera",
@@ -169,6 +169,7 @@
     "token": "Token",
     "tuesday": "Tisdag",
     "type": "Typ",
+    "undo": "Ångra",
     "update": "Uppdatera",
     "updated": "Uppdaterad",
     "upload": "Ladda upp",
@@ -222,7 +223,9 @@
     "show-advanced": "Visa avancerat",
     "add-field": "Lägg till fält",
     "date-created": "Datum skapad",
-    "date-updated": "Datum uppdaterat"
+    "date-updated": "Datum uppdaterat",
+    "key": "Nyckel",
+    "value": "Value"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
@@ -282,7 +285,40 @@
     "admin-group-management-text": "Ändringar i denna grupp kommer att återspeglas omedelbart.",
     "group-id-value": "Grupp-Id: {0}",
     "total-households": "Totalt antal hushåll",
-    "you-must-select-a-group-before-selecting-a-household": "Du måste välja en grupp innan du kan välja ett hushåll"
+    "you-must-select-a-group-before-selecting-a-household": "Du måste välja en grupp innan du kan välja ett hushåll",
+    "ai-provider-settings": {
+      "ai-provider-settings": "AI Provider Settings",
+      "ai-provider": "AI-leverantör",
+      "ai-providers": "AI-leverantörer",
+      "ai-provider-settings-description": "Konfigurera AI-leverantörer för att aktivera AI-drivna funktioner, såsom förbättrad ingrediensanalysering, skapa recept från videor och mycket mer!",
+      "providers": "Leverantörer",
+      "create-provider": "Skapa leverantör",
+      "edit-provider": "Ändra leverantör",
+      "default-provider": "Standard leverantör",
+      "default-provider-description": "Krävs för att aktivera AI-funktioner",
+      "audio-provider": "Ljudleverantör",
+      "audio-provider-description": "Möjliggör funktioner för ljudtranskription, till exempel att skapa recept från videor",
+      "image-provider": "Bildleverantör",
+      "image-provider-description": "Enables image recognition features, such as creating recipes from images",
+      "provider-name": "Leverantörsnamn",
+      "api-key": "API-nyckel",
+      "api-key-description-create": "Din leverantörs API-nyckel för autentisering. Om din tjänst (t.ex. Ollama) inte använder en API-nyckel, måste du fortfarande sätta något här.",
+      "api-key-description-edit": "Leave this blank unless you want to change it.",
+      "base-url": "Base URL",
+      "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
+      "model": "Model",
+      "model-description": "Which model your AI provider should use (e.g. \"gpt-5\").",
+      "request-timeout-seconds": "Request Timeout (seconds)",
+      "provider-created": "Provider created",
+      "provider-updated": "Provider updated",
+      "provider-deleted": "Provider deleted",
+      "provider-create-failed": "Failed to create provider",
+      "provider-update-failed": "Failed to update provider",
+      "provider-delete-failed": "Failed to delete provider",
+      "request-headers": "Request Headers",
+      "request-params": "Request Parameters",
+      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+    }
   },
   "household": {
     "household": "Hushåll",
@@ -332,8 +368,8 @@
     "any-household": "Valfritt hushåll",
     "no-meal-plan-defined-yet": "Ingen måltidsplan definierad ännu",
     "no-meal-planned-for-today": "Ingen måltidsplan för idag",
-    "numberOfDaysPast-hint": "Number of days in the past on page load",
-    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDaysPast-hint": "Antal förflutna dagar vid sidhämtning",
+    "numberOfDaysPast-label": "Förvalda förflutna dagar",
     "numberOfDays-hint": "Antal dagar vid sidhämtning",
     "numberOfDays-label": "Förvalda dagar",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Endast recept med dessa kategorier kommer att användas i måltidsplaner",
@@ -627,7 +663,7 @@
     "create-recipe-description": "Skapa nytt recept från grunden.",
     "create-recipes": "Skapa recept",
     "import-with-zip": "Importera från .zip",
-    "create-recipe-from-an-image": "Skapa recept från en bild",
+    "create-recipe-from-images": "Create Recipe from Images",
     "create-recipe-from-an-image-description": "Skapa ett recept genom att ladda upp en bild på det. Mealie kommer att försöka extrahera texten från bilden med hjälp av AI och skapa ett recept från det.",
     "crop-and-rotate-the-image": "Beskär och rotera bilden så att endast texten är synlig och den är åt rätt håll.",
     "create-from-images": "Skapa från bild",
@@ -811,7 +847,7 @@
     "settings-updated": "Inställningar uppdaterade",
     "site-settings": "Systeminställningar",
     "theme": {
-      "accent": "Accent",
+      "accent": "Accentfärg",
       "dark": "Mörkt",
       "default-to-system": "Standard",
       "error": "Fel",
@@ -892,17 +928,17 @@
     "server-side-base-url-error-text": "`BASE_URL` är fortfarande standardvärdet på API-servern. Detta kommer att orsaka problem med meddelanden som genereras på servern för e-postmeddelanden, etc.",
     "server-side-base-url-success-text": "Serversidans URL matchar inte standard",
     "ldap-ready": "LDAP Redo",
-    "ldap-not-ready": "LDAP Not Ready",
+    "ldap-not-ready": "LDAP ej tillgängligt",
     "ldap-ready-error-text": "Alla LDAP-värden är inte konfigurerade. Detta kan ignoreras om du inte använder LDAP-autentisering.",
     "ldap-ready-success-text": "Alla obligatoriska LDAP-variabler är satta.",
     "build": "Bygge",
     "recipe-scraper-version": "Version av Recept-scraper",
     "oidc-ready": "OIDC Klar",
-    "oidc-not-ready": "OIDC Not Ready",
+    "oidc-not-ready": "OIDC ej tillgängligt",
     "oidc-ready-error-text": "Alla OIDC-värden är inte konfigurerade. Detta kan ignoreras om du inte använder OIDC-autentisering.",
     "oidc-ready-success-text": "Alla obligatoriska OIDC-variabler är satta.",
     "openai-ready": "OpenAI redo",
-    "openai-not-ready": "OpenAI Not Ready",
+    "openai-not-ready": "OpenAI ej tillgängligt",
     "openai-ready-error-text": "Alla OpenAI-värden är inte konfigurerade. Detta kan ignoreras om du inte använder OpenAI-funktioner.",
     "openai-ready-success-text": "Alla obligatoriska OpenAI-variabler är satta."
   },
@@ -916,6 +952,7 @@
     "quantity": "Antal {0}",
     "shopping-list": "Inköpslista",
     "shopping-lists": "Inköpslistor",
+    "add-item": "Lägg till vara",
     "food": "Mat",
     "note": "Anteckning",
     "label": "Etikett",
@@ -940,7 +977,8 @@
     "are-you-sure-you-want-to-check-all-items": "Är du säker på att du vill markera alla objekt?",
     "are-you-sure-you-want-to-uncheck-all-items": "Är du säker på att du vill avmarkera alla objekt?",
     "are-you-sure-you-want-to-delete-checked-items": "Är du säker på att du vill ta bort alla markerade objekt?",
-    "no-shopping-lists-found": "Inga inköpslistor hittades"
+    "no-shopping-lists-found": "Inga inköpslistor hittades",
+    "item-checked-off": "Kryssat av {item}"
   },
   "sidebar": {
     "all-recipes": "Recept",
@@ -1106,6 +1144,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Kombinera valda livsmedel kommer att slå samman de valda livsmedlen till ett livsmedel. Ursprungslivsmedlet kommer att raderas och alla hänvisningar till detta kommer att uppdateras för att peka på det kombinerade livsmedlet.",
       "merge-food-example": "Slå ihop {food1} till {food2}",
       "seed-dialog-text": "Fyll databasen med livsmedel baserat på ditt språk. Detta kommer att skapa över 200 vanliga livsmedel som kan användas för att organisera din databas. Alla livsmedel är översatta med genom en kollektiv insats.",
@@ -1359,6 +1399,7 @@
       "already-set-up-bring-to-homepage": "Jag har redan gjort inställningarna, ta mig bara till hemsidan",
       "common-settings-for-new-sites": "Här är några vanliga inställningar för nya webbplatser",
       "setup-complete": "Konfigurationen slutförd!",
+      "ai-providers-description": "Optionally configure AI providers for your group. AI providers enable features like creating recipes from images, importing recipes from videos, and enhanced ingredient parsing. You can always configure this later from your group settings.",
       "here-are-a-few-things-to-help-you-get-started": "Här är några saker som hjälper dig att komma igång med Mealie",
       "restore-from-v1-backup": "Har du en säkerhetskopia från en tidigare instans av Mealie v1? Du kan återställa den här.",
       "manage-profile-or-get-invite-link": "Hantera din egen profil eller hämta en inbjudningslänk för att dela med andra."
@@ -1475,10 +1516,10 @@
     "max-length": "Måste Vara Som Mest {max} Tecken|Måste Vara Som Mest {max} Tecken"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Meddelanden",
+    "all-announcements": "Alla meddelanden",
+    "mark-all-as-read": "Markera alla som lästa",
+    "show-announcements-from-mealie": "Visa meddelanden från Mealie",
+    "show-announcements-setting-description": "Om du vill tillåta användare att se meddelanden från Mealie eller inte. När funktionen är aktiverad kan användarna fortfarande välja att inte se dem i sina användarinställningar"
   }
 }
