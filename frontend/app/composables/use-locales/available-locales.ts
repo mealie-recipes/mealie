@@ -24,7 +24,7 @@ export const LOCALES = [
   {
     name: "Українська (Ukrainian)",
     value: "uk-UA",
-    progress: 85,
+    progress: 91,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -143,7 +143,7 @@ export const LOCALES = [
   {
     name: "Italiano (Italian)",
     value: "it-IT",
-    progress: 73,
+    progress: 76,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
