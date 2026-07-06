@@ -560,7 +560,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cavolo rapa",
-                "plural_name": "kohlrabi"
+                "plural_name": "cavolo rapa"
             },
             "fresno chile": {
                 "aliases": [],
@@ -580,7 +580,7 @@
                 ],
                 "description": "",
                 "name": "Frisée",
-                "plural_name": "Frisées"
+                "plural_name": "Frisée"
             },
             "anaheim pepper": {
                 "aliases": [],
@@ -622,7 +622,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "alfalfa",
-                "plural_name": "alfalfa"
+                "plural_name": "erba medica"
             }
         }
     },
@@ -2235,8 +2235,8 @@
             "havarti cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "havarti cheese",
-                "plural_name": "havarti cheese"
+                "name": "formaggio havarti",
+                "plural_name": "formaggio havarti"
             },
             "colby cheese": {
                 "aliases": [],
@@ -3164,7 +3164,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "crema di cocco",
-                "plural_name": "coconut cream"
+                "plural_name": "crema di cocco"
             },
             "vegan butter": {
                 "aliases": [],
@@ -4241,7 +4241,7 @@
             "dried beef": {
                 "aliases": [],
                 "description": "",
-                "name": "dried beef",
+                "name": "manzo essiccato",
                 "plural_name": "dried beefs"
             },
             "gammon joint": {
@@ -7122,7 +7122,7 @@
             "liquid smoke": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid smoke",
+                "name": "fumo liquido",
                 "plural_name": "liquid smokes"
             },
             "poultry seasoning": {
@@ -7248,14 +7248,14 @@
             "fajita seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "fajita seasoning",
-                "plural_name": "fajita seasoning"
+                "name": "condimento per fajita",
+                "plural_name": "condimento per fajita"
             },
             "tandoori spice": {
                 "aliases": [],
                 "description": "",
-                "name": "tandoori spice",
-                "plural_name": "tandoori spices"
+                "name": "spezia tandoori",
+                "plural_name": "spezie tandoori"
             },
             "pickling spice": {
                 "aliases": [],
