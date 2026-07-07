@@ -55,7 +55,8 @@
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {
       "dockerDashComposeVersion": "v2"
-    }
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
   },
   "appPort": [
     "3000:3000",
