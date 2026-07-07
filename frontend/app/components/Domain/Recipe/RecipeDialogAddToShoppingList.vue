@@ -170,12 +170,12 @@
         <BaseButtonGroup
           :buttons="[
             {
-              icon: $globals.icons.checkboxBlankOutline,
+              icon: $globals.icons.checkboxMultipleBlankOutline,
               text: $t('shopping-list.uncheck-all-items'),
               event: 'uncheck',
             },
             {
-              icon: $globals.icons.checkboxOutline,
+              icon: $globals.icons.checkboxMultipleMarkedOutline,
               text: $t('shopping-list.check-all-items'),
               event: 'check',
             },
