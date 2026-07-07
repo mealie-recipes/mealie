@@ -41,7 +41,7 @@ dependencies = [
     "pillow-heif==1.4.0",
     "pyjwt==2.13.0",
     "openai==2.44.0",
-    "typing-extensions==4.15.0",
+    "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.6.9",
     "ingredient-parser-nlp==2.7.0",
