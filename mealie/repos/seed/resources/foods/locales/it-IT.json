@@ -9690,8 +9690,8 @@
             "gluten-free pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free pasta",
-                "plural_name": "gluten-free pastas"
+                "name": "pasta senza glutine",
+                "plural_name": "pasta senza glutine"
             },
             "mac 'n cheese": {
                 "aliases": [],
@@ -9786,8 +9786,8 @@
             "instant noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "instant noodle",
-                "plural_name": "instant noodles"
+                "name": "noodle istantanei",
+                "plural_name": "noodle istantanei"
             },
             "somen noodle": {
                 "aliases": [],
@@ -9798,8 +9798,8 @@
             "yakisoba noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "yakisoba noodle",
-                "plural_name": "yakisoba noodles"
+                "name": "noodle yakisoba",
+                "plural_name": "noodle yakisoba"
             },
             "beef ravioli": {
                 "aliases": [],
@@ -10256,8 +10256,8 @@
             "gluten free bread": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten free bread",
-                "plural_name": "gluten free breads"
+                "name": "pane senza glutine",
+                "plural_name": "pane senza glutine"
             },
             "potato bread": {
                 "aliases": [],
@@ -10639,13 +10639,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "olio d'oliva",
-                "plural_name": "olive oil"
+                "plural_name": "olio d'oliva"
             },
             "vegetable oil": {
                 "aliases": [],
                 "description": "",
                 "name": "olio vegetale",
-                "plural_name": "vegetable oil"
+                "plural_name": "olio vegetale"
             },
             "extra virgin olive oil": {
                 "aliases": [],
@@ -10657,13 +10657,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "olio di canola",
-                "plural_name": "canola oil"
+                "plural_name": "olio di colza"
             },
             "coconut oil": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut oil",
-                "plural_name": "coconut oil"
+                "name": "olio di cocco",
+                "plural_name": "olio di cocco"
             },
             "cooking spray": {
                 "aliases": [],
@@ -10886,8 +10886,8 @@
             "pork fat": {
                 "aliases": [],
                 "description": "",
-                "name": "pork fat",
-                "plural_name": "pork fats"
+                "name": "grasso di maiale",
+                "plural_name": "grasso di maiale"
             },
             "beef dripping": {
                 "aliases": [],
@@ -10910,8 +10910,8 @@
             "pistachio oil": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio oil",
-                "plural_name": "pistachio oil"
+                "name": "olio di pistacchio",
+                "plural_name": "olio di pistacchio"
             },
             "herb-infused olive oil": {
                 "aliases": [],
@@ -10928,14 +10928,14 @@
             "argan oil": {
                 "aliases": [],
                 "description": "",
-                "name": "argan oil",
-                "plural_name": "argan oil"
+                "name": "olio d'argan",
+                "plural_name": "olio d'argan"
             },
             "beef fat": {
                 "aliases": [],
                 "description": "",
-                "name": "beef fat",
-                "plural_name": "beef fats"
+                "name": "grasso di manzo",
+                "plural_name": "grasso di manzo"
             },
             "pecan oil": {
                 "aliases": [],
@@ -10964,14 +10964,14 @@
             "lamb fat": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb fat",
-                "plural_name": "lamb fats"
+                "name": "grasso di agnello",
+                "plural_name": "grasso di agnello"
             },
             "castor oil": {
                 "aliases": [],
                 "description": "",
-                "name": "castor oil",
-                "plural_name": "castor oil"
+                "name": "olio di ricino",
+                "plural_name": "olio di ricino"
             },
             "chicken dripping": {
                 "aliases": [],
@@ -11113,7 +11113,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "aceto di vino bianco",
-                "plural_name": "white wine vinegar"
+                "plural_name": "aceto di vino bianco"
             },
             "ranch dressing": {
                 "aliases": [],
@@ -11484,8 +11484,8 @@
             "sushi vinegar": {
                 "aliases": [],
                 "description": "",
-                "name": "sushi vinegar",
-                "plural_name": "sushi vinegar"
+                "name": "aceto per sushi",
+                "plural_name": "aceto per sushi"
             }
         }
     },
@@ -11512,8 +11512,8 @@
             "hot sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "hot sauce",
-                "plural_name": "hot sauce"
+                "name": "salsa piccante",
+                "plural_name": "salsa piccante"
             },
             "worcestershire sauce": {
                 "aliases": [],
@@ -11566,14 +11566,14 @@
             "oyster sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "oyster sauce",
-                "plural_name": "oyster sauce"
+                "name": "salsa di ostriche",
+                "plural_name": "salsa di ostriche"
             },
             "chili sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "chili sauce",
-                "plural_name": "chili sauce"
+                "name": "salsa al peperoncino",
+                "plural_name": "salsa al peperoncino"
             },
             "ginger-garlic paste": {
                 "aliases": [],
@@ -11596,8 +11596,8 @@
             "teriyaki sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "teriyaki sauce",
-                "plural_name": "teriyaki sauce"
+                "name": "salsa teriyaki",
+                "plural_name": "salsa teriyaki"
             },
             "prepared horseradish": {
                 "aliases": [],
@@ -11650,8 +11650,8 @@
             "tamarind paste": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarind paste",
-                "plural_name": "tamarind paste"
+                "name": "pasta di tamarindo",
+                "plural_name": "pasta di tamarindo"
             },
             "pomegranate molass": {
                 "aliases": [],
@@ -11669,7 +11669,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "wasabi",
-                "plural_name": "wasabis"
+                "plural_name": "wasabi"
             },
             "honey mustard": {
                 "aliases": [],
@@ -11722,8 +11722,8 @@
             "picante sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "picante sauce",
-                "plural_name": "picante sauce"
+                "name": "salsa picante",
+                "plural_name": "salsa picante"
             },
             "thai sweet chili sauce": {
                 "aliases": [],
@@ -11819,7 +11819,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "peri peri",
-                "plural_name": "peri peris"
+                "plural_name": "peri peri"
             },
             "green chilli paste": {
                 "aliases": [],
@@ -11866,8 +11866,8 @@
             "tonkatsu sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "tonkatsu sauce",
-                "plural_name": "tonkatsu sauce"
+                "name": "salsa tonkatsu",
+                "plural_name": "salsa tonkatsu"
             },
             "chermoula": {
                 "aliases": [],
@@ -11884,8 +11884,8 @@
             "hp sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "hp sauce",
-                "plural_name": "hp sauce"
+                "name": "salsa hp",
+                "plural_name": "salsa hp"
             },
             "duck sauce": {
                 "aliases": [],
@@ -11927,7 +11927,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "korean bbq sauce",
-                "plural_name": "korean bbq sauce"
+                "plural_name": "salsa coreana bbq"
             },
             "maggi sauce": {
                 "aliases": [],
@@ -12058,8 +12058,8 @@
             "shrimp powder": {
                 "aliases": [],
                 "description": "",
-                "name": "shrimp powder",
-                "plural_name": "shrimp powder"
+                "name": "gamberetti in polvere",
+                "plural_name": "gamberetti in polvere"
             },
             "banana ketchup": {
                 "aliases": [],
@@ -12104,8 +12104,8 @@
             "canned tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "canned tomato",
-                "plural_name": "canned tomatoes"
+                "name": "pomodoro in scatola",
+                "plural_name": "pomodori in scatola"
             },
             "caper": {
                 "aliases": [],
@@ -12116,8 +12116,8 @@
             "green olive": {
                 "aliases": [],
                 "description": "",
-                "name": "green olive",
-                "plural_name": "green olives"
+                "name": "oliva verde",
+                "plural_name": "olive verdi"
             },
             "canned chickpea": {
                 "aliases": [],
@@ -12134,8 +12134,8 @@
             "canned black bean": {
                 "aliases": [],
                 "description": "",
-                "name": "canned black bean",
-                "plural_name": "canned black beans"
+                "name": "fagiolo nero in scatola",
+                "plural_name": "fagioli neri in scatola"
             },
             "canned pumpkin": {
                 "aliases": [],
@@ -12152,8 +12152,8 @@
             "canned tuna": {
                 "aliases": [],
                 "description": "",
-                "name": "canned tuna",
-                "plural_name": "canned tuna"
+                "name": "tonno in scatola",
+                "plural_name": "tonno in scatola"
             },
             "pickle": {
                 "aliases": [],
@@ -12164,8 +12164,8 @@
             "canned pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "canned pineapple",
-                "plural_name": "canned pineapples"
+                "name": "ananas in scatola",
+                "plural_name": "ananas in scatola"
             },
             "chipotle in adobo": {
                 "aliases": [],
@@ -12176,8 +12176,8 @@
             "canned anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "canned anchovy",
-                "plural_name": "canned anchovies"
+                "name": "acciuga in scatola",
+                "plural_name": "acciughe in scatola"
             },
             "roasted red pepper": {
                 "aliases": [],
@@ -12548,8 +12548,8 @@
             "canned sardine": {
                 "aliases": [],
                 "description": "",
-                "name": "canned sardine",
-                "plural_name": "canned sardines"
+                "name": "sardina in scatola",
+                "plural_name": "sardine in scatola"
             },
             "pickled pepper": {
                 "aliases": [],
@@ -12573,7 +12573,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "taggiasca olive",
-                "plural_name": "taggiasca olives"
+                "plural_name": "olive taggiasche"
             },
             "cranberry relish": {
                 "aliases": [],
@@ -12818,8 +12818,8 @@
             "anchovy paste": {
                 "aliases": [],
                 "description": "",
-                "name": "anchovy paste",
-                "plural_name": "anchovy paste"
+                "name": "pasta di acciuga",
+                "plural_name": "pasta di acciughe"
             },
             "red enchilada sauce": {
                 "aliases": [],
@@ -12884,8 +12884,8 @@
             "garlic butter": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic butter",
-                "plural_name": "garlic butter"
+                "name": "burro all’aglio",
+                "plural_name": "burro all’aglio"
             },
             "hollandaise sauce": {
                 "aliases": [],
@@ -12986,8 +12986,8 @@
             "chimichurri sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "chimichurri sauce",
-                "plural_name": "chimichurri sauce"
+                "name": "salsa chimichurri",
+                "plural_name": "salsa chimichurri"
             },
             "french onion dip": {
                 "aliases": [],
@@ -13010,8 +13010,8 @@
             "curry sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "curry sauce",
-                "plural_name": "curry sauce"
+                "name": "salsa al curry",
+                "plural_name": "salsa al curry"
             },
             "liver spread": {
                 "aliases": [],
@@ -13082,8 +13082,8 @@
             "olive paste": {
                 "aliases": [],
                 "description": "",
-                "name": "olive paste",
-                "plural_name": "olive paste"
+                "name": "pasta di oliva",
+                "plural_name": "pasta di olive"
             },
             "spinach dip": {
                 "aliases": [],
