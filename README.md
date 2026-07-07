@@ -6,6 +6,8 @@
 [![Docker Pulls][docker-pull]][docker-url]
 [![GHCR Pulls][ghcr-pulls]][ghcr-url]
 
+[![Deploy with Zenith](https://cdn.zenith.hosting/buttons/deploy-with-zenith.svg)](https://zenith.hosting/host/mealie)
+
 <!-- PROJECT LOGO -->
 <br />
 <p align="center">
