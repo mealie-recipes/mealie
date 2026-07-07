@@ -16,7 +16,8 @@
   },
   "mounts": [
     "source=mealie-devcontainer-workspace,target=/workspaces/mealie/frontend/node_modules,type=volume",
-    "source=mealie-bashhistory,target=/home/vscode/commandhistory,type=volume"
+    "source=mealie-bashhistory,target=/home/vscode/commandhistory,type=volume",
+    "source=mealie-gh-config,target=/home/vscode/.config/gh,type=volume"
   ],
   "customizations": {
     "vscode": {
