@@ -5,6 +5,12 @@ const userRatings = ref<UserRatingSummary[]>([]);
 const loading = ref(false);
 const ready = ref(false);
 
+export function resetUserSelfRatings() {
+  userRatings.value = [];
+  loading.value = false;
+  ready.value = false;
+}
+
 export const useUserSelfRatings = function () {
   const auth = useMealieAuth();
 

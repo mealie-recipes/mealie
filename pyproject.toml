@@ -1,21 +1,21 @@
 [project]
 name = "mealie"
-version = "3.20.0"
+version = "3.20.1"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "Jinja2==3.1.6",
-    "Pillow==12.2.0",
+    "Pillow==12.3.0",
     "PyYAML==6.0.3",
     "SQLAlchemy==2.0.51",
     "aiofiles==25.1.0",
-    "alembic==1.18.4",
+    "alembic==1.18.5",
     "apprise==1.11.0",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
-    "fastapi==0.138.0",
+    "fastapi==0.139.0",
     "httpx==0.28.1",
     "lxml==6.1.1",
     "orjson==3.11.9",
@@ -40,8 +40,8 @@ dependencies = [
     "pydantic-settings==2.14.2",
     "pillow-heif==1.4.0",
     "pyjwt==2.13.0",
-    "openai==2.43.0",
-    "typing-extensions==4.15.0",
+    "openai==2.44.0",
+    "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.6.9",
     "ingredient-parser-nlp==2.7.0",
@@ -62,7 +62,7 @@ docs = [
     "mkdocs-material==9.7.6",
 ]
 dev = [
-    "coverage==7.14.2",
+    "coverage==7.15.0",
     "coveragepy-lcov==0.1.2",
     "mkdocs-material==9.7.6",
     "mypy==2.1.0",
@@ -71,7 +71,7 @@ dev = [
     "pytest==9.1.1",
     "pytest-asyncio==1.4.0",
     "rich==15.0.0",
-    "ruff==0.15.18",
+    "ruff==0.15.20",
     "types-PyYAML==6.0.12.20260518",
     "types-python-dateutil==2.9.0.20260518",
     "types-python-slugify==8.0.2.20240310",
