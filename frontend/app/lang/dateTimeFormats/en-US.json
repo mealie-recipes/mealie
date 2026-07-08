@@ -18,6 +18,10 @@
     "hour": "numeric",
     "minute": "numeric"
   },
+  "dateRange": {
+    "month": "short",
+    "day": "numeric"
+  },
   "time": {
     "ampm": "short",
     "hour": "numeric",
