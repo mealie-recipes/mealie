@@ -4,6 +4,11 @@ import type { HouseholdCreate, HouseholdInDB } from "~/lib/api/types/household";
 const householdSelfRef = ref<HouseholdInDB | null>(null);
 const loading = ref(false);
 
+export function resetHouseholdSelf() {
+  householdSelfRef.value = null;
+  loading.value = false;
+}
+
 export const useHouseholdSelf = function () {
   const api = useUserApi();
   const auth = useMealieAuth();

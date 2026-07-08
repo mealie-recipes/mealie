@@ -4,6 +4,11 @@ import type { GroupBase, GroupInDB, GroupSummary } from "~/lib/api/types/user";
 const groupSelfRef = ref<GroupSummary | null>(null);
 const loading = ref(false);
 
+export function resetGroupSelf() {
+  groupSelfRef.value = null;
+  loading.value = false;
+}
+
 export const useGroupSelf = function () {
   const api = useUserApi();
   const auth = useMealieAuth();
