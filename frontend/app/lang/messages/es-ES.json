@@ -98,7 +98,7 @@
     "dashboard": "Panel de control",
     "delete": "Eliminar",
     "disabled": "Deshabilitado",
-    "done": "Done",
+    "done": "Hecho",
     "download": "Descargar",
     "duplicate": "Duplicar",
     "edit": "Editar",
@@ -166,10 +166,10 @@
     "themes": "Temas",
     "thursday": "Jueves",
     "title": "Título",
-    "token": "Token",
+    "token": "Ficha",
     "tuesday": "Martes",
     "type": "Tipo",
-    "undo": "Undo",
+    "undo": "Deshacer",
     "update": "Actualizar",
     "updated": "Actualizado",
     "upload": "Subir",
@@ -224,8 +224,8 @@
     "add-field": "Añadir campo",
     "date-created": "Fecha de creación",
     "date-updated": "Fecha de actualización",
-    "key": "Key",
-    "value": "Value"
+    "key": "Clave",
+    "value": "Valor"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Por favor, confirma que deseas eliminar <b>{groupName}<b/>",
