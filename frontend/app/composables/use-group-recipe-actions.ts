@@ -38,6 +38,7 @@ export const useGroupRecipeActions = function (
   orderDirection: string | null = "asc",
 ) {
   const api = useUserApi();
+  const route = useRoute();
 
   async function refreshGroupRecipeActions() {
     loading.value = true;
@@ -50,9 +51,39 @@ export const useGroupRecipeActions = function (
     return groupRecipeActions.value;
   });
 
-  function parseRecipeActionUrl(url: string, recipe: Recipe, recipeScale: number): string {
+  function getTokenLink(token: string, groupSlug: string) {
+    return `${window.location.origin}/g/${groupSlug}/shared/r/${token}`;
+  }
+
+  async function parseRecipeActionUrl(url: string, recipe: Recipe, recipeScale: number): Promise<string> {
+    const shareLinkRegex = /\$\{share-link-expires-seconds-[0-9]+\}/g;
+
     const recipeServings = (recipe.recipeServings || 1) * recipeScale;
     const recipeYieldQuantity = (recipe.recipeYieldQuantity || 1) * recipeScale;
+
+    const shareLinkStringMatches = url.matchAll(shareLinkRegex);
+    if (shareLinkStringMatches) {
+      const shareLinkSet = new Set<string>();
+      for (const match of shareLinkStringMatches) {
+        shareLinkSet.add(match[0]);
+      }
+      const shareLinkStrings = Array.from(shareLinkSet.values());
+
+      for (let i = 0; i < shareLinkStrings.length; i++) {
+        const shareLinkString = shareLinkStrings[i];
+        const seconds = parseInt(shareLinkString.split("-")[4]);
+        const expires = new Date();
+        expires.setSeconds(expires.getSeconds() + seconds);
+
+        const shareLink = await api.recipes.share.createOne({
+          recipeId: recipe.id || "",
+          expiresAt: expires.toISOString(),
+        });
+
+        const groupSlug = route.params.groupSlug || recipe.groupId || "";
+        url = url.replace(shareLinkString, getTokenLink(shareLink.data?.id || "", groupSlug));
+      }
+    }
 
     return url
       .replace("${url}", window.location.href)
@@ -65,7 +96,7 @@ export const useGroupRecipeActions = function (
 
   // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
   async function execute(action: GroupRecipeActionOut, recipe: Recipe, recipeScale: number): Promise<void | RequestResponse<unknown>> {
-    const url = parseRecipeActionUrl(action.url, recipe, recipeScale);
+    const url = await parseRecipeActionUrl(action.url, recipe, recipeScale);
 
     switch (action.actionType) {
       case "link":
