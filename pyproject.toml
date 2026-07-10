@@ -43,7 +43,7 @@ dependencies = [
     "openai==2.44.0",
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
-    "yt-dlp==2026.6.9",
+    "yt-dlp==2026.7.4",
     "ingredient-parser-nlp==2.7.0",
     "pint==0.25.3",
     "httpx-curl-cffi==0.1.5",
