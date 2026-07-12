@@ -15,7 +15,7 @@
     "docs": "Documentação",
     "download-log": "Baixar Log",
     "download-recipe-json": "Último JSON Gerado",
-    "github": "GitHub",
+    "github": "Github",
     "log-lines": "Linhas de log",
     "not-demo": "Não é Demonstração",
     "portfolio": "Portfólio",
@@ -98,7 +98,7 @@
     "dashboard": "Painel de controle",
     "delete": "Excluir",
     "disabled": "Desabilitado",
-    "done": "Done",
+    "done": "Concluído",
     "download": "Baixar",
     "duplicate": "Duplicar",
     "edit": "Editar",
@@ -169,7 +169,7 @@
     "token": "Token",
     "tuesday": "Terça-feira",
     "type": "Tipo",
-    "undo": "Undo",
+    "undo": "Desfazer",
     "update": "Atualizar",
     "updated": "Atualizado",
     "upload": "Enviar",
@@ -224,8 +224,8 @@
     "add-field": "Adicionar Campo",
     "date-created": "Data de Criação",
     "date-updated": "Data de Atualização",
-    "key": "Key",
-    "value": "Value"
+    "key": "Chave",
+    "value": "Valor"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem certeza que deseja excluir o grupo <b>{groupName}<b/>?",
@@ -465,7 +465,7 @@
       "description-long": "Mealie consegue importar receitas do Planejar Refeições."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
+      "title": "Minha Caixa de Receitas",
       "description-long": "Mealie pode importar receitas do My Recipe Box. Exporte suas receitas em formato CSV e envie o arquivo abaixo."
     },
     "recipekeeper": {
