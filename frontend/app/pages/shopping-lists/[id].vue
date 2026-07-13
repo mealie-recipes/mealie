@@ -113,7 +113,7 @@
                     ],
                   },
                   {
-                    icon: $globals.icons.checkboxOutline,
+                    icon: $globals.icons.checkboxMultipleMarkedOutline,
                     text: $t('shopping-list.check-all-items'),
                     event: 'check',
                   },
@@ -154,7 +154,7 @@
         </v-container>
       </template>
       <template #title>
-        {{ shoppingList.name }}
+        {{ smAndUp ? "" : shoppingList.name }}
       </template>
     </BasePageTitle>
     <BannerWarning
@@ -254,7 +254,7 @@
                 <BaseButtonGroup
                   :buttons="[
                     {
-                      icon: $globals.icons.checkboxBlankOutline,
+                      icon: $globals.icons.checkboxMultipleBlankOutline,
                       text: $t('shopping-list.uncheck-all-items'),
                       event: 'uncheck',
                     },
@@ -299,7 +299,7 @@
         <div>
           <span>
             <v-icon start class="mb-1">
-              {{ $globals.icons.primary }}
+              {{ $globals.icons.silverwareForkKnife }}
             </v-icon>
           </span>
           {{ $t('shopping-list.linked-recipes-count', shoppingList.recipeReferences
@@ -367,7 +367,7 @@ import { useLabelStore, useUnitStore, useFoodStore } from "~/composables/store";
 import { alert } from "~/composables/use-toast";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 
-const { mdAndUp } = useDisplay();
+const { smAndUp } = useDisplay();
 const i18n = useI18n();
 
 useSeoMeta({
