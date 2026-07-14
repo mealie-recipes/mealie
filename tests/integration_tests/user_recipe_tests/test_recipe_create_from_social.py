@@ -3,6 +3,7 @@ from pathlib import Path
 
 from fastapi.testclient import TestClient
 
+from mealie.core.config import get_app_settings
 from mealie.schema.codex.social_recipe import SocialRecipe, SocialRecipeIngredient, SocialRecipeInstruction
 from mealie.services.codex_cli import CodexCLIService
 from mealie.services.scraper.scraper_strategies import RecipeScraperSocialMedia
@@ -125,3 +126,42 @@ def test_create_recipe_from_social_url_streams_progress(
     event_types = [event["event"] for event in events]
     assert "progress" in event_types
     assert "done" in event_types
+
+
+def test_social_import_passes_configured_cookie_file_to_ytdlp(tmp_path: Path, monkeypatch):
+    cookie_file = tmp_path / "instagram-cookies.txt"
+    cookie_file.write_text("# Netscape HTTP Cookie File\n", encoding="utf-8")
+    monkeypatch.setenv("SOCIAL_IMPORT_COOKIES_FILE", str(cookie_file))
+    get_app_settings.cache_clear()
+
+    captured_opts = {}
+
+    class MockYoutubeDL:
+        def __init__(self, opts):
+            captured_opts.update(opts)
+
+        def __enter__(self):
+            return self
+
+        def __exit__(self, exc_type, exc, tb):
+            return False
+
+        def extract_info(self, url: str, download: bool):
+            return {
+                "title": "Cookie-backed reel",
+                "description": "caption",
+                "thumbnail": None,
+            }
+
+    monkeypatch.setattr("mealie.services.scraper.scraper_strategies.yt_dlp.YoutubeDL", MockYoutubeDL)
+
+    scraper = RecipeScraperSocialMedia.__new__(RecipeScraperSocialMedia)
+    scraper.url = SOCIAL_URL
+
+    try:
+        video_data = scraper._download_audio(tmp_path)
+    finally:
+        get_app_settings.cache_clear()
+
+    assert captured_opts["cookiefile"] == str(cookie_file)
+    assert video_data["title"] == "Cookie-backed reel"

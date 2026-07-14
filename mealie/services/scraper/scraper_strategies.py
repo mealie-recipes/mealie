@@ -18,6 +18,7 @@ from w3lib.html import get_base_url
 from yt_dlp.extractor.generic import GenericIE
 
 from mealie.core import exceptions
+from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
@@ -472,6 +473,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
     def _download_audio(self, temp_path: Path) -> TranscribedAudio:
         """Downloads audio and subtitles from the video URL."""
         output_template = temp_path / "mealie"  # No extension here
+        settings = get_app_settings()
 
         ydl_opts = {
             "format": "bestaudio/best",
@@ -491,6 +493,14 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             ],
             "postprocessor_args": ["-ac", "1"],
         }
+
+        if settings.SOCIAL_IMPORT_COOKIES_FILE:
+            cookie_file = Path(settings.SOCIAL_IMPORT_COOKIES_FILE)
+            if not cookie_file.is_file():
+                raise exceptions.VideoDownloadError(
+                    f"Configured social import cookies file does not exist: {cookie_file}"
+                )
+            ydl_opts["cookiefile"] = str(cookie_file)
 
         try:
             with yt_dlp.YoutubeDL(ydl_opts) as ydl:

@@ -15,6 +15,7 @@ services:
       ALLOW_SIGNUP: "false"
       LOG_LEVEL: "DEBUG"
       CODEX_HOME: /app/data/codex
+      # SOCIAL_IMPORT_COOKIES_FILE: /app/data/instagram-cookies.txt
 
       DB_ENGINE: sqlite # Optional: 'sqlite', 'postgres'
       # =====================================

@@ -438,6 +438,9 @@ class AppSettings(AppLoggingSettings):
     CODEX_CLI_TIMEOUT: int = 300
     """Maximum seconds to wait for Codex CLI recipe extraction."""
 
+    SOCIAL_IMPORT_COOKIES_FILE: str | None = None
+    """Optional Netscape-format cookies file passed to yt-dlp for social media imports."""
+
     # ===============================================
     # Web Concurrency
 
