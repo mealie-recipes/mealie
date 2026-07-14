@@ -70,6 +70,7 @@ class User(SqlAlchemyBase, BaseMixins):
     cache_key: Mapped[str | None] = mapped_column(String, default="1234")
     login_attemps: Mapped[int | None] = mapped_column(Integer, default=0)
     locked_at: Mapped[datetime | None] = mapped_column(NaiveDateTime, default=None)
+    locale: Mapped[str | None] = mapped_column(String, default="en-US")
 
     # Announcements
     show_announcements: Mapped[bool] = mapped_column(Boolean, default=True)

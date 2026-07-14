@@ -32,7 +32,7 @@ export function resetAuth() {
 }
 
 export const useAuthBackend = function (): AuthState {
-  const { $axios } = useNuxtApp();
+  const { $axios, $i18n } = useNuxtApp();
   const router = useRouter();
 
   const runtimeConfig = useRuntimeConfig();
@@ -66,6 +66,11 @@ export const useAuthBackend = function (): AuthState {
       const { data } = await $axios.get<UserOut>("/api/users/self");
       authUser.value = data;
       authStatus.value = "authenticated";
+
+      // User locale wins post-login; the i18n_redirected cookie only applies to anonymous visitors
+      if (data.locale && data.locale !== $i18n.locale.value) {
+        $i18n.setLocale(data.locale);
+      }
     }
     catch (error: any) {
       console.error("Failed to fetch user session:", error);

@@ -41,6 +41,7 @@ class RegistrationService:
             can_manage=new_group,
             can_manage_household=new_group,
             can_organize=new_group,
+            locale=self.registration.locale,
         )
 
         # TODO: problem with repository type, not type here
