@@ -14,7 +14,9 @@ from mealie.schema.recipe import Recipe
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
+from . import cleaner
 from .recipe_scraper import RecipeScraper
+from .scraper_strategies import RecipeScraperSocialMedia
 
 
 class ParserErrors(StrEnum):
@@ -54,6 +56,54 @@ async def create_from_html(
     if not new_recipe:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
 
+    new_recipe.id = uuid4()
+    logger = get_logger()
+    logger.debug(f"Image {new_recipe.image}")
+
+    recipe_data_service = RecipeDataService(new_recipe.id)
+
+    try:
+        if new_recipe.image and new_recipe.image != "no image":
+            if isinstance(new_recipe.image, list):
+                new_recipe.image = new_recipe.image[0]
+
+            if on_progress:
+                await on_progress(translator.t("recipe.create-progress.downloading-image"))
+            await recipe_data_service.scrape_image(new_recipe.image)  # type: ignore
+            new_recipe.image = cache.new_key(4)
+        elif not new_recipe.image:
+            new_recipe.image = "no image"
+
+        if new_recipe.name is None:
+            new_recipe.name = "Untitled"
+
+        new_recipe.slug = slugify(new_recipe.name)
+    except Exception as e:
+        recipe_data_service.logger.exception(f"Error Scraping Image: {e}")
+        new_recipe.image = "no image"
+
+    if new_recipe.name is None or new_recipe.name == "":
+        new_recipe.name = f"No Recipe Name Found - {uuid4()!s}"
+        new_recipe.slug = slugify(new_recipe.name)
+
+    return new_recipe, extras
+
+
+async def create_from_social_url(
+    url: str,
+    repos: AllRepositories,
+    translator: Translator,
+    on_progress: Callable[[str], Awaitable[None]] | None = None,
+) -> tuple[Recipe, ScrapedExtras | None]:
+    scraper = RecipeScraperSocialMedia(url, translator, repos)
+    if not scraper.can_scrape():
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
+
+    new_recipe, extras = await scraper.parse(on_progress=on_progress)
+    if not new_recipe:
+        raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
+
+    new_recipe = cleaner.clean(new_recipe, translator)
     new_recipe.id = uuid4()
     logger = get_logger()
     logger.debug(f"Image {new_recipe.image}")

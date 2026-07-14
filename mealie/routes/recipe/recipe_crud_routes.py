@@ -33,7 +33,7 @@ from mealie.routes._base import controller
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
-from mealie.schema.recipe import Recipe, ScrapeRecipe, ScrapeRecipeData
+from mealie.schema.recipe import Recipe, ScrapeRecipe, ScrapeRecipeData, ScrapeSocialRecipe
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
     CreateRecipeByUrlBulk,
@@ -71,7 +71,7 @@ from mealie.services.recipe.recipe_data_service import (
 )
 from mealie.services.scraper.recipe_bulk_scraper import RecipeBulkScraperService
 from mealie.services.scraper.scraped_extras import ScraperContext
-from mealie.services.scraper.scraper import create_from_html
+from mealie.services.scraper.scraper import create_from_html, create_from_social_url
 from mealie.services.scraper.scraper_strategies import (
     ForceTimeoutException,
     RecipeScraperOpenAI,
@@ -193,6 +193,28 @@ class RecipeController(BaseRecipeController):
         async for event in self._create_recipe_from_web(req):
             yield event
 
+    @router.post("/create/social", status_code=201, response_model=str)
+    async def parse_social_recipe_url(self, req: ScrapeSocialRecipe) -> str:
+        """Takes in a social media URL and extracts a recipe with structured AI output."""
+
+        async for event in self._create_recipe_from_social(req):
+            if isinstance(event.data, SSEDataEventDone):
+                return event.data.slug
+            if isinstance(event.data, SSEDataEventMessage) and event.event == SSEDataEventStatus.ERROR:
+                raise HTTPException(status_code=400, detail=ErrorResponse.respond(message=event.data.message))
+
+        raise HTTPException(status_code=500, detail=ErrorResponse.respond(message="Unknown Error"))
+
+    @router.post("/create/social/stream", response_class=EventSourceResponse)
+    async def parse_social_recipe_url_stream(self, req: ScrapeSocialRecipe) -> AsyncIterable[ServerSentEvent]:
+        """
+        Takes in a social media URL and extracts a recipe with structured AI output,
+        streaming progress via SSE.
+        """
+
+        async for event in self._create_recipe_from_social(req):
+            yield event
+
     async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
         """
         Create a recipe from the web, returning progress via SSE.
@@ -247,7 +269,45 @@ class RecipeController(BaseRecipeController):
         while (event := await queue.get()) is not None:
             yield event
 
-    def _finish_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData, recipe: Recipe, extras: object) -> str:
+    async def _create_recipe_from_social(self, req: ScrapeSocialRecipe) -> AsyncIterable[ServerSentEvent]:
+        queue: asyncio.Queue[ServerSentEvent | None] = asyncio.Queue()
+
+        async def on_progress(message: str) -> None:
+            await queue.put(
+                ServerSentEvent(
+                    data=SSEDataEventMessage(message=message),
+                    event=SSEDataEventStatus.PROGRESS,
+                )
+            )
+
+        async def run() -> None:
+            try:
+                recipe, extras = await create_from_social_url(req.url, self.repos, self.translator, on_progress)
+                slug = self._finish_recipe_from_web(req, recipe, extras)
+                await queue.put(
+                    ServerSentEvent(
+                        data=SSEDataEventDone(slug=slug),
+                        event=SSEDataEventStatus.DONE,
+                    )
+                )
+            except Exception as e:
+                self.logger.exception("Error in streaming social recipe creation")
+                await queue.put(
+                    ServerSentEvent(
+                        data=SSEDataEventMessage(message=str(e) or e.__class__.__name__),
+                        event=SSEDataEventStatus.ERROR,
+                    )
+                )
+            finally:
+                await queue.put(None)
+
+        asyncio.create_task(run())
+        while (event := await queue.get()) is not None:
+            yield event
+
+    def _finish_recipe_from_web(
+        self, req: ScrapeRecipe | ScrapeRecipeData | ScrapeSocialRecipe, recipe: Recipe, extras: object
+    ) -> str:
         if req.include_tags:
             ctx = ScraperContext(self.repos)
             recipe.tags = extras.use_tags(ctx)  # type: ignore

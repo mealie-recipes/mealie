@@ -424,6 +424,21 @@ class AppSettings(AppLoggingSettings):
     """
 
     # ===============================================
+    # Codex CLI Configuration
+
+    CODEX_CLI_BINARY: str = "codex"
+    """Path to the Codex CLI binary used for social recipe extraction."""
+
+    CODEX_CLI_MODEL: str | None = None
+    """Optional model override passed to `codex exec --model`."""
+
+    CODEX_CLI_PROFILE: str | None = None
+    """Optional profile passed to `codex exec --profile`."""
+
+    CODEX_CLI_TIMEOUT: int = 300
+    """Maximum seconds to wait for Codex CLI recipe extraction."""
+
+    # ===============================================
     # Web Concurrency
 
     WORKER_PER_CORE: int = 1

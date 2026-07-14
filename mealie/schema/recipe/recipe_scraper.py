@@ -26,6 +26,19 @@ class ScrapeRecipe(ScrapeRecipeBase):
     )
 
 
+class ScrapeSocialRecipe(ScrapeRecipeBase):
+    url: str
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "url": "https://www.instagram.com/reel/example/",
+                "includeTags": True,
+                "includeCategories": False,
+            },
+        }
+    )
+
+
 class ScrapeRecipeData(ScrapeRecipeBase):
     data: str
     """HTML data or JSON string of a https://schema.org/Recipe object"""

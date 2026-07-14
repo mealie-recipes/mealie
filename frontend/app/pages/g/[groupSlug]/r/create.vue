@@ -68,6 +68,11 @@ const subpages = computed<MenuItem[]>(() => [
   },
   {
     icon: $globals.icons.link,
+    text: i18n.t("recipe.import-social-link"),
+    value: "social",
+  },
+  {
+    icon: $globals.icons.link,
     text: i18n.t("recipe.bulk-url-import"),
     value: "bulk",
   },

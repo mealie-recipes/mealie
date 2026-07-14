@@ -28,7 +28,7 @@ def serve_manifest():
         "launch_handler": {"client_mode": ["focus-existing", "auto"]},
         "edge_side_panel": {"preferred_width": 400},
         "share_target": {
-            "action": "/r/create/url",
+            "action": "/r/create/social",
             "method": "GET",
             "enctype": "application/x-www-form-urlencoded",
             "params": {

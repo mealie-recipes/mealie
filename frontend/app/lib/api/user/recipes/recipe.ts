@@ -39,6 +39,7 @@ const routes = {
   recipesSuggestions: `${prefix}/recipes/suggestions`,
   recipesTestScrapeUrl: `${prefix}/recipes/test-scrape-url`,
   recipesCreateUrl: `${prefix}/recipes/create/url/stream`,
+  recipesCreateSocial: `${prefix}/recipes/create/social/stream`,
   recipesCreateUrlBulk: `${prefix}/recipes/create/url/bulk`,
   recipesCreateFromZip: `${prefix}/recipes/create/zip`,
   recipesCreateFromImage: `${prefix}/recipes/create/image`,
@@ -209,6 +210,15 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     onProgress?: (message: string) => void,
   ): Promise<RequestResponse<string>> {
     return this.streamRecipeCreate(routes.recipesCreateUrl, { url, includeTags, includeCategories }, onProgress);
+  }
+
+  async createOneBySocialUrl(
+    url: string,
+    includeTags: boolean,
+    includeCategories: boolean,
+    onProgress?: (message: string) => void,
+  ): Promise<RequestResponse<string>> {
+    return this.streamRecipeCreate(routes.recipesCreateSocial, { url, includeTags, includeCategories }, onProgress);
   }
 
   async createManyByUrl(payload: CreateRecipeByUrlBulk) {

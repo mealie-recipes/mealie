@@ -19,6 +19,14 @@ RUN yarn install \
 RUN yarn generate
 
 ###############################################
+# Codex CLI
+###############################################
+FROM node:24@sha256:fdddfb3e688158251943d52eba361de991548f6814007acba4917ae6b512d6be \
+    AS codex-cli
+
+RUN npm install -g @openai/codex@0.142.5
+
+###############################################
 # Base Image - Python
 ###############################################
 FROM python:3.12-slim@sha256:7026274c107626d7e940e0e5d6730481a4600ae95d5ca7eb532dd4180313fea9 \
@@ -133,6 +141,10 @@ RUN apt-get update \
     libldap2 \
     unzip \
     && rm -rf /var/lib/apt/lists/*
+
+COPY --from=codex-cli /usr/local/bin/node /usr/local/bin/node
+COPY --from=codex-cli /usr/local/lib/node_modules/@openai /usr/local/lib/node_modules/@openai
+RUN ln -sf ../lib/node_modules/@openai/codex/bin/codex.js /usr/local/bin/codex
 
 # create directory used for Docker Secrets
 RUN mkdir -p /run/secrets
