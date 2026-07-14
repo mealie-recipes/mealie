@@ -15,6 +15,7 @@ dependencies = [
     "bcrypt==5.0.0",
     "extruct==0.18.0",
     "fastapi==0.139.0",
+    "faster-whisper==1.2.1",
     "httpx==0.28.1",
     "lxml==6.1.1",
     "orjson==3.11.9",

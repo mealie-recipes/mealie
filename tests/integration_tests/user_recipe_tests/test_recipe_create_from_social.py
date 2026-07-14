@@ -60,10 +60,16 @@ def test_create_recipe_from_social_url_with_codex(
 
     async def mock_extract_structured(self, raw_content: str, schema_model):
         assert "Social rice" in raw_content
+        assert "Spoken recipe transcript" in raw_content
         assert schema_model is SocialRecipe
         return social_recipe
 
     monkeypatch.setattr(RecipeScraperSocialMedia, "_download_audio", mock_download_audio)
+    monkeypatch.setattr(
+        RecipeScraperSocialMedia,
+        "_transcribe_audio_locally",
+        lambda self, audio_path: "Spoken recipe transcript",
+    )
     monkeypatch.setattr(CodexCLIService, "extract_structured", mock_extract_structured)
 
     response = api_client.post(
@@ -112,8 +118,14 @@ def test_create_recipe_from_social_url_streams_progress(
             "transcription": "",
         },
     )
+    monkeypatch.setattr(
+        RecipeScraperSocialMedia,
+        "_transcribe_audio_locally",
+        lambda self, audio_path: "Spoken recipe transcript",
+    )
 
     async def mock_extract_structured(self, raw_content: str, schema_model):
+        assert "Spoken recipe transcript" in raw_content
         return social_recipe
 
     monkeypatch.setattr(CodexCLIService, "extract_structured", mock_extract_structured)

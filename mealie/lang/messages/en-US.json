@@ -28,7 +28,8 @@
             "downloading-video": "Downloading video...",
             "extracting-recipe-data": "Extracting recipe data...",
             "fetching-webpage": "Fetching webpage...",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "transcribing-audio-with-ai": "Transcribing audio with AI...",
+            "transcribing-audio-locally": "Transcribing audio locally..."
         }
     },
     "mealplan": {

@@ -441,6 +441,18 @@ class AppSettings(AppLoggingSettings):
     SOCIAL_IMPORT_COOKIES_FILE: str | None = None
     """Optional Netscape-format cookies file passed to yt-dlp for social media imports."""
 
+    SOCIAL_IMPORT_TRANSCRIPTION_ENABLED: bool = True
+    """Enable local faster-whisper transcription for social media imports when subtitles are unavailable."""
+
+    SOCIAL_IMPORT_TRANSCRIPTION_MODEL: str = "base"
+    """faster-whisper model size or model ID used for local social media audio transcription."""
+
+    SOCIAL_IMPORT_TRANSCRIPTION_DEVICE: str = "cpu"
+    """Device passed to faster-whisper for local social media audio transcription."""
+
+    SOCIAL_IMPORT_TRANSCRIPTION_COMPUTE_TYPE: str = "int8"
+    """Compute type passed to faster-whisper for local social media audio transcription."""
+
     # ===============================================
     # Web Concurrency
 
