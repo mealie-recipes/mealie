@@ -103,7 +103,9 @@ async def create_from_social_url(
     if not new_recipe:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
 
+    structured_ingredients = new_recipe.recipe_ingredient
     new_recipe = cleaner.clean(new_recipe, translator)
+    new_recipe.recipe_ingredient = structured_ingredients
     new_recipe.id = uuid4()
     logger = get_logger()
     logger.debug(f"Image {new_recipe.image}")
@@ -111,7 +113,7 @@ async def create_from_social_url(
     recipe_data_service = RecipeDataService(new_recipe.id)
 
     try:
-        if new_recipe.image:
+        if new_recipe.image and new_recipe.image != "no image":
             if isinstance(new_recipe.image, list):
                 new_recipe.image = new_recipe.image[0]
 
@@ -119,11 +121,13 @@ async def create_from_social_url(
                 await on_progress(translator.t("recipe.create-progress.downloading-image"))
             await recipe_data_service.scrape_image(new_recipe.image)  # type: ignore
 
+            new_recipe.image = cache.new_key(4)
+        elif not new_recipe.image:
+            new_recipe.image = "no image"
+
         if new_recipe.name is None:
             new_recipe.name = "Untitled"
-
         new_recipe.slug = slugify(new_recipe.name)
-        new_recipe.image = cache.new_key(4)
     except Exception as e:
         recipe_data_service.logger.exception(f"Error Scraping Image: {e}")
         new_recipe.image = "no image"

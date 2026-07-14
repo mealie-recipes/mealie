@@ -32,6 +32,7 @@ from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.services.codex_cli import CodexCLIError, CodexCLIService
 from mealie.services.openai import OpenAIService
+from mealie.services.parser_services._base import DataMatcher
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
@@ -653,6 +654,27 @@ class RecipeScraperSocialMedia(RecipeScraperOpenAITranscription):
             return f"{int(servings)} servings"
         return f"{servings:g} servings"
 
+    def _ingredient_to_recipe_ingredient(self, ingredient) -> RecipeIngredient:
+        matcher = DataMatcher(self.repos)
+        unit = matcher.find_unit_match(ingredient.unit) if ingredient.unit else None
+        food = matcher.find_food_match(ingredient.food) if ingredient.food else None
+
+        note_parts = []
+        if ingredient.unit and not unit:
+            note_parts.append(ingredient.unit)
+        if ingredient.food and not food:
+            note_parts.append(ingredient.food)
+        if ingredient.note:
+            note_parts.append(ingredient.note)
+
+        return RecipeIngredient(
+            quantity=ingredient.quantity or 0,
+            unit=unit,
+            food=food,
+            note=" ".join(note_parts),
+            original_text=ingredient.originalText,
+        )
+
     async def parse(
         self,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
@@ -712,7 +734,7 @@ class RecipeScraperSocialMedia(RecipeScraperOpenAITranscription):
             prep_time=self._minutes_to_text(response.prepTimeMinutes),
             perform_time=self._minutes_to_text(response.cookTimeMinutes),
             recipe_ingredient=[
-                RecipeIngredient(note=ingredient.originalText)
+                self._ingredient_to_recipe_ingredient(ingredient)
                 for ingredient in response.ingredients
                 if ingredient.originalText
             ],

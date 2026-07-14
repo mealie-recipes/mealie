@@ -83,7 +83,10 @@ def test_create_recipe_from_social_url_with_codex(
     assert recipe["recipeServings"] == 4
     assert recipe["prepTime"] == "10 minutes"
     assert recipe["performTime"] == "20 minutes"
-    assert recipe["recipeIngredient"][0]["note"] == "1 cup rice"
+    ingredient = recipe["recipeIngredient"][0]
+    assert ingredient["quantity"] == 1
+    assert ingredient["note"] == "cup rice"
+    assert ingredient["originalText"] == "1 cup rice"
     assert recipe["recipeInstructions"][0]["text"] == "Cook the rice."
     assert recipe["tags"][0]["name"] == "social"
     assert recipe["notes"][0]["title"] == "Import warning"
