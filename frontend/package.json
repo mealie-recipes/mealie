@@ -23,7 +23,6 @@
     "@mdi/js": "^7.4.47",
     "@nuxt/fonts": "^0.11.4",
     "@nuxtjs/i18n": "^9.2.1",
-    "@sphinxxxx/color-conversion": "^2.2.2",
     "@vite-pwa/nuxt": "^0.10.6",
     "@vueuse/core": "^12.7.0",
     "@vueuse/shared": "^14.3.0",

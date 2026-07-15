@@ -28,9 +28,10 @@ dev/data/groups/*
 node_modules
 
 
-# local env files
+# local files
 .env.local
 .env.*.local
+*.local.*
 
 
 # Log files

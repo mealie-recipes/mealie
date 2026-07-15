@@ -59,6 +59,11 @@ jobs:
               return;
             }
 
+            if (pr.labels.some(label => label.name === "l10n")) {
+              console.log("Skipping template check for l10n PR");
+              return;
+            }
+
             const response = await github.rest.repos.getContent({
               owner: context.repo.owner,
               repo: context.repo.repo,

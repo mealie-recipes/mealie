@@ -3,7 +3,7 @@ export const LOCALES = [
   {
     name: "繁體中文 (Chinese traditional)",
     value: "zh-TW",
-    progress: 100,
+    progress: 99,
     dir: "ltr",
     pluralFoodHandling: "never",
   },
@@ -24,7 +24,7 @@ export const LOCALES = [
   {
     name: "Українська (Ukrainian)",
     value: "uk-UA",
-    progress: 85,
+    progress: 91,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -38,14 +38,14 @@ export const LOCALES = [
   {
     name: "Svenska (Swedish)",
     value: "sv-SE",
-    progress: 76,
+    progress: 77,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
   {
     name: "српски (Serbian)",
     value: "sr-SP",
-    progress: 99,
+    progress: 98,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -143,14 +143,14 @@ export const LOCALES = [
   {
     name: "Italiano (Italian)",
     value: "it-IT",
-    progress: 73,
+    progress: 76,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
   {
     name: "Íslenska (Icelandic)",
     value: "is-IS",
-    progress: 57,
+    progress: 56,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -164,7 +164,7 @@ export const LOCALES = [
   {
     name: "Hrvatski (Croatian)",
     value: "hr-HR",
-    progress: 42,
+    progress: 44,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -185,7 +185,7 @@ export const LOCALES = [
   {
     name: "Français (French)",
     value: "fr-FR",
-    progress: 83,
+    progress: 82,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -220,7 +220,7 @@ export const LOCALES = [
   {
     name: "Español (Spanish)",
     value: "es-ES",
-    progress: 64,
+    progress: 63,
     dir: "ltr",
     pluralFoodHandling: "always",
   },

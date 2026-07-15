@@ -16,6 +16,9 @@
         <template #manage>
           <b>{{ $t('group.manage') }}</b>
         </template>
+        <template #organize>
+          <b>{{ $t('settings.organize') }}</b>
+        </template>
         <template #invite>
           <b>{{ $t('group.invite') }}</b>
         </template>

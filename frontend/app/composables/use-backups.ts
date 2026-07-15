@@ -12,6 +12,13 @@ const backups = ref<AllBackups>({
   templates: [],
 });
 
+export function resetBackups() {
+  backups.value = {
+    imports: [],
+    templates: [],
+  };
+}
+
 function setBackups(newBackups: AllBackups | null) {
   if (newBackups) {
     backups.value = newBackups;
