@@ -3,6 +3,8 @@ pull_request_title: "chore(l10n): New Crowdin updates"
 pull_request_labels: [
   "l10n"
 ]
+commit_message: "New translations %original_file_name% (%language%) [ci skip]"
+append_commit_message: false
 files:
   - source: /frontend/app/lang/messages/en-US.json
     translation: /frontend/app/lang/messages/%locale%.json
