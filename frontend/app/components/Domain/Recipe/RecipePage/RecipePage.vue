@@ -266,19 +266,20 @@ const notLinkedIngredients = computed(() => {
  */
 const recipeToolbar = ref<ComponentPublicInstance | null>(null);
 const toolbarVisible = ref(true);
+let toolbarObserver: IntersectionObserver | undefined;
 
-onMounted(() => {
-  nextTick(() => {
-    const el = recipeToolbar.value?.$el as HTMLElement | undefined;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { toolbarVisible.value = entry.isIntersecting; },
-      { threshold: 0 },
-    );
-    observer.observe(el);
-    onUnmounted(() => observer.disconnect());
-  });
+onMounted(async () => {
+  await nextTick();
+  const el = recipeToolbar.value?.$el as HTMLElement | undefined;
+  if (!el) return;
+  toolbarObserver = new IntersectionObserver(
+    ([entry]) => { toolbarVisible.value = entry.isIntersecting; },
+    { threshold: 0 },
+  );
+  toolbarObserver.observe(el);
 });
+
+onUnmounted(() => toolbarObserver?.disconnect());
 
 /** =============================================================
  * Recipe Snapshot on Mount
