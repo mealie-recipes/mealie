@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
 from sqlalchemy import delete, select, update
 
-from mealie.db.models.recipe.tag import Tag, recipes_to_tags
+from mealie.db.models.recipe.tag import recipes_to_tags
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper

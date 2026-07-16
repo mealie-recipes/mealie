@@ -5,7 +5,6 @@ Integration tests for:
 - POST /organizers/categories/merge
 """
 
-import pytest
 from fastapi.testclient import TestClient
 
 from tests.utils import api_routes
@@ -120,8 +119,7 @@ def test_tag_merge_moves_exclusive_recipes_to_target(api_client: TestClient, uni
 
     # from_tag must be deleted
     assert (
-        api_client.get(api_routes.organizers_tags_item_id(from_tag["id"]), headers=unique_user.token).status_code
-        == 404
+        api_client.get(api_routes.organizers_tags_item_id(from_tag["id"]), headers=unique_user.token).status_code == 404
     )
 
     # both recipes must carry to_tag
@@ -156,8 +154,7 @@ def test_tag_merge_overlap_does_not_violate_unique_constraint(api_client: TestCl
 
     # from_tag must be deleted
     assert (
-        api_client.get(api_routes.organizers_tags_item_id(from_tag["id"]), headers=unique_user.token).status_code
-        == 404
+        api_client.get(api_routes.organizers_tags_item_id(from_tag["id"]), headers=unique_user.token).status_code == 404
     )
 
     # recipe must have exactly to_tag, not from_tag
@@ -242,9 +239,7 @@ def test_category_merge_moves_exclusive_recipes_to_target(api_client: TestClient
     assert result["recipeCount"] == 2
 
     assert (
-        api_client.get(
-            api_routes.organizers_categories_item_id(from_cat["id"]), headers=unique_user.token
-        ).status_code
+        api_client.get(api_routes.organizers_categories_item_id(from_cat["id"]), headers=unique_user.token).status_code
         == 404
     )
 
@@ -277,9 +272,7 @@ def test_category_merge_overlap_does_not_violate_unique_constraint(api_client: T
     assert result["recipeCount"] == 1
 
     assert (
-        api_client.get(
-            api_routes.organizers_categories_item_id(from_cat["id"]), headers=unique_user.token
-        ).status_code
+        api_client.get(api_routes.organizers_categories_item_id(from_cat["id"]), headers=unique_user.token).status_code
         == 404
     )
 
