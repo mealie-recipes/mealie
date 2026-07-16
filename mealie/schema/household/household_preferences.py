@@ -9,6 +9,8 @@ from mealie.schema._mealie import MealieModel
 
 class UpdateHouseholdPreferences(MealieModel):
     private_household: bool = True
+    show_announcements: bool = True
+
     lock_recipe_edits_from_other_households: bool = True
     first_day_of_week: int = 0
 

@@ -18,11 +18,11 @@ from w3lib.html import get_base_url
 from yt_dlp.extractor.generic import GenericIE
 
 from mealie.core import exceptions
-from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.pkgs import safehttp
+from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.openai.general import OpenAIText
 from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
@@ -76,7 +76,11 @@ async def safe_scrape_html(url: str) -> str:
         html_bytes = b""
         response = None
 
-        transport = safehttp.AsyncSafeTransport(impersonate=impersonation)
+        transport = safehttp.AsyncSafeTransport(
+            impersonate=impersonation,
+            default_headers=True,
+            verify=False,  # disable SSL verification since we can handle untrusted data and some sites don't have certs
+        )
         async with AsyncClient(transport=transport) as client:
             async with client.stream(
                 "GET",
@@ -142,12 +146,14 @@ class ABCScraperStrategy(ABC):
         self,
         url: str,
         translator: Translator,
+        repos: AllRepositories,
         raw_html: str | None = None,
     ) -> None:
         self.logger = get_logger()
         self.url = url
         self.raw_html = raw_html
         self.translator = translator
+        self.repos = repos
 
     @abstractmethod
     def can_scrape(self) -> bool: ...
@@ -230,6 +236,28 @@ class RecipeScraperPackage(ABCScraperStrategy):
             except TypeError:
                 return []
 
+        def get_notes() -> list[RecipeNote]:
+            """Extract notes from schema.org recipe data and convert to RecipeNote objects"""
+            notes_data = try_get_default(None, "notes", None)
+
+            if not notes_data or not isinstance(notes_data, list):
+                return []
+
+            cleaned_notes = []
+            for note in notes_data:
+                if not isinstance(note, dict):
+                    continue
+
+                if text := note.get("text"):
+                    cleaned_notes.append(
+                        RecipeNote(
+                            title=cleaner.clean_string(note.get("title", "")),
+                            text=cleaner.clean_string(text),
+                        )
+                    )
+
+            return cleaned_notes
+
         cook_time = try_get_default(
             None, "performTime", None, cleaner.clean_time, translator=self.translator
         ) or try_get_default(scraped_data.cook_time, "cookTime", None, cleaner.clean_time, translator=self.translator)
@@ -261,6 +289,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
             ),
             perform_time=cook_time,
             org_url=url or try_get_default(None, "url", None, cleaner.clean_string),
+            notes=get_notes(),
         )
 
         return recipe, extras
@@ -318,8 +347,8 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
     """
 
     def can_scrape(self) -> bool:
-        settings = get_app_settings()
-        return settings.OPENAI_ENABLED and super().can_scrape()
+        settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
+        return bool(settings and settings.ai_enabled and super().can_scrape())
 
     def extract_json_ld_data_from_html(self, soup: bs4.BeautifulSoup) -> str:
         data_parts: list[str] = []
@@ -380,14 +409,10 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         return "\n".join(components)
 
     async def get_html(self, url: str) -> str:
-        settings = get_app_settings()
-        if not settings.OPENAI_ENABLED:
-            return ""
-
+        service = OpenAIService(self.repos)
         html = self.raw_html or await safe_scrape_html(url)
         text = self.format_html_to_text(html)
         try:
-            service = OpenAIService()
             prompt = service.get_prompt("recipes.scrape-recipe")
 
             response = await service.get_response(prompt, text, response_schema=OpenAIText)
@@ -403,7 +428,7 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         if on_progress:
             await on_progress(self.translator.t("recipe.create-progress.creating-recipe-with-ai"))
 
-        return super().parse()
+        return await super().parse()
 
 
 class TranscribedAudio(TypedDict):
@@ -422,8 +447,8 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         if not self.url:
             return False
 
-        settings = get_app_settings()
-        if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES):
+        settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
+        if not (settings and settings.audio_provider_enabled):
             return False
 
         # Check if we can actually download something to transcribe
@@ -501,7 +526,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         self,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
     ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
-        openai_service = OpenAIService()
+        openai_service = OpenAIService(self.repos)
 
         with get_temporary_path() as temp_path:
             if on_progress:

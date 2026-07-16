@@ -22,6 +22,17 @@ from .keywords import PlaceholderKeyword, RelationalKeyword
 from .operators import LogicalOperator, RelationalOperator
 
 
+class NonFilterableValueError(ValueError):
+    """Raised when trying to filter by an unfilterable field"""
+
+    def __init__(self, field: str):
+        self.message = f"Cannot filter on {field}"
+        super().__init__(self.message)
+
+    def __str__(self):
+        return f"{self.message}"
+
+
 class QueryFilterJSONPart(MealieModel):
     left_parenthesis: str | None = None
     right_parenthesis: str | None = None
@@ -202,7 +213,7 @@ class QueryFilterBuilder:
     @classmethod
     def get_model_and_model_attr_from_attr_string[Model: SqlAlchemyBase](
         cls, attr_string: str, model: type[Model], *, query: sa.Select | None = None
-    ) -> tuple[SqlAlchemyBase, InstrumentedAttribute, sa.Select | None]:
+    ) -> tuple[type[SqlAlchemyBase], InstrumentedAttribute, sa.Select | None]:
         """
         Take an attribute string and traverse a database model and its relationships to get the desired
         model and model attribute. Optionally provide a query to apply the necessary table joins.
@@ -222,7 +233,7 @@ class QueryFilterBuilder:
         if not attribute_chain:
             raise ValueError("invalid query string: attribute name cannot be empty")
 
-        current_model: SqlAlchemyBase = model  # type: ignore
+        current_model: type[SqlAlchemyBase] = model
         for i, attribute_link in enumerate(attribute_chain):
             try:
                 model_attr = getattr(current_model, attribute_link)
@@ -258,6 +269,9 @@ class QueryFilterBuilder:
 
         if model_attr is None:
             raise ValueError(f"invalid attribute string: '{attr_string}'")
+
+        if not getattr(model_attr, "info", {}).get("filterable"):
+            raise NonFilterableValueError(model_attr)
 
         return current_model, model_attr, query
 
@@ -334,7 +348,7 @@ class QueryFilterBuilder:
         column_aliases = column_aliases or {}
 
         # join tables and build model chain
-        attr_model_map: dict[int, Any] = {}
+        attr_map: dict[int, tuple[type[SqlAlchemyBase], InstrumentedAttribute]] = {}
         model_attr: InstrumentedAttribute
         for i, component in enumerate(self.filter_components):
             if not isinstance(component, QueryFilterBuilderComponent):
@@ -343,7 +357,7 @@ class QueryFilterBuilder:
             nested_model, model_attr, query = self.get_model_and_model_attr_from_attr_string(
                 component.attribute_name, model, query=query
             )
-            attr_model_map[i] = nested_model
+            attr_map[i] = (nested_model, model_attr)
 
         # build query filter
         partial_group: list[sa.ColumnElement] = []
@@ -367,9 +381,9 @@ class QueryFilterBuilder:
 
             else:
                 component = cast(QueryFilterBuilderComponent, component)
-                base_attribute_name = component.attribute_name.split(".")[-1]
-                model_attr = getattr(attr_model_map[i], base_attribute_name)
+                nested_model, model_attr = attr_map[i]
 
+                base_attribute_name = component.attribute_name.split(".")[-1]
                 if (column_alias := column_aliases.get(base_attribute_name)) is not None:
                     model_attr = column_alias
 

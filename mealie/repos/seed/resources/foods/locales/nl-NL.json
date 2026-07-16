@@ -3930,7 +3930,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "andouille",
-                "plural_name": "andouilles"
+                "plural_name": "andouillette"
             },
             "boneless lamb": {
                 "aliases": [],
@@ -4993,7 +4993,7 @@
             "mahi mahi": {
                 "aliases": [],
                 "description": "",
-                "name": "mahi mahi",
+                "name": "goudmakreel",
                 "plural_name": "mahi mahi's"
             },
             "mackerel": {
@@ -5174,7 +5174,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomfret",
-                "plural_name": "pomfrets"
+                "plural_name": "zilvervissen"
             },
             "eel": {
                 "aliases": [],

@@ -3,7 +3,7 @@ import os
 import secrets
 from datetime import UTC, datetime
 from pathlib import Path
-from typing import Annotated, Any, NamedTuple
+from typing import Annotated, Literal, NamedTuple
 
 from dateutil.tz import tzlocal
 from pydantic import PlainSerializer, field_validator
@@ -33,6 +33,16 @@ class FeatureDetails(NamedTuple):
         return s
 
 
+DEFAULT_ALLOWED_IFRAME_HOSTS = [
+    "youtube.com",
+    "youtube-nocookie.com",
+    "vimeo.com",
+    "player.vimeo.com",
+]
+"""Secure-by-default hostnames permitted as `<iframe>` sources in user content. Limited to
+well-known video providers. Subdomains of these hosts are also allowed (e.g. `www.youtube.com`)."""
+
+
 MaskedNoneString = Annotated[
     str | None,
     PlainSerializer(lambda x: None if x is None else "*****", return_type=str | None),
@@ -50,13 +60,19 @@ def determine_secrets(data_dir: Path, secret: str, production: bool) -> str:
     secrets_file = data_dir.joinpath(secret)
     if secrets_file.is_file():
         with open(secrets_file) as f:
-            return f.read()
-    else:
-        data_dir.mkdir(parents=True, exist_ok=True)
-        with open(secrets_file, "w") as f:
-            new_secret = secrets.token_hex(32)
-            f.write(new_secret)
-        return new_secret
+            existing_secret = f.read().strip()
+        if existing_secret:
+            return existing_secret
+
+    data_dir.mkdir(parents=True, exist_ok=True)
+    new_secret = secrets.token_hex(32)
+    tmp_file = secrets_file.with_suffix(".tmp")
+    with open(tmp_file, "w") as f:
+        f.write(new_secret)
+        f.flush()
+        os.fsync(f.fileno())
+    tmp_file.replace(secrets_file)
+    return new_secret
 
 
 def get_secrets_dir() -> str | None:
@@ -143,6 +159,19 @@ class AppSettings(AppLoggingSettings):
 
     ALLOW_SIGNUP: bool = False
     ALLOW_PASSWORD_LOGIN: bool = True
+
+    ALLOWED_IFRAME_HOSTS: str = ""
+    """Comma-separated list of additional hostnames allowed as `<iframe>` sources in user content
+    (recipe instructions, notes, descriptions). Extends `DEFAULT_ALLOWED_IFRAME_HOSTS`. Subdomains of
+    a listed host are also allowed. Adding hosts is opt-in to riskier behavior; the defaults are
+    limited to well-known video providers."""
+
+    @property
+    def allowed_iframe_hosts(self) -> list[str]:
+        """The full set of hostnames permitted as `<iframe>` sources, secure defaults plus any
+        admin-configured additions via `ALLOWED_IFRAME_HOSTS`."""
+        extra = [host.strip().lower() for host in self.ALLOWED_IFRAME_HOSTS.split(",") if host.strip()]
+        return list(dict.fromkeys(DEFAULT_ALLOWED_IFRAME_HOSTS + extra))
 
     DAILY_SCHEDULE_TIME: str = "23:45"
     """Local server time, in HH:MM format. See `DAILY_SCHEDULE_TIME_UTC` for the parsed UTC equivalent"""
@@ -349,6 +378,7 @@ class AppSettings(AppLoggingSettings):
     OIDC_GROUPS_CLAIM: str | None = "groups"
     OIDC_SCOPES_OVERRIDE: str | None = None
     OIDC_TLS_CACERTFILE: str | None = None
+    OIDC_CLIENT_TIMEOUT: float | Literal["None", "default"] = "default"
 
     @property
     def OIDC_REQUIRES_GROUP_CLAIM(self) -> bool:
@@ -387,59 +417,11 @@ class AppSettings(AppLoggingSettings):
     # ===============================================
     # OpenAI Configuration
 
-    OPENAI_BASE_URL: str | None = None
-    """The base URL for the OpenAI API. Leave this unset for most usecases"""
-    OPENAI_API_KEY: MaskedNoneString = None
-    """Your OpenAI API key. Required to enable OpenAI features"""
-    OPENAI_MODEL: str = "gpt-4o"
-    """Which OpenAI model to send requests to. Leave this unset for most usecases"""
-    OPENAI_AUDIO_MODEL: str = "whisper-1"
-    """Which OpenAI model to use for audio transcription. Leave this unset for most usecases"""
-    OPENAI_CUSTOM_HEADERS: dict[str, str] = {}
-    """Custom HTTP headers to send with each OpenAI request"""
-    OPENAI_CUSTOM_PARAMS: dict[str, Any] = {}
-    """Custom HTTP parameters to send with each OpenAI request"""
-    OPENAI_ENABLE_IMAGE_SERVICES: bool = True
-    """Whether to enable image-related features in OpenAI"""
-    OPENAI_ENABLE_TRANSCRIPTION_SERVICES: bool = True
-    """Whether to enable audio transcription features in OpenAI"""
-    OPENAI_WORKERS: int = 2
-    """
-    Number of OpenAI workers per request. Higher values may increase
-    processing speed, but will incur additional API costs
-    """
-    OPENAI_SEND_DATABASE_DATA: bool = True
-    """
-    Sending database data may increase accuracy in certain requests,
-    but will incur additional API costs
-    """
-    OPENAI_REQUEST_TIMEOUT: int = 300
-    """
-    The number of seconds to wait for an OpenAI request to complete before cancelling the request
-    """
     OPENAI_CUSTOM_PROMPT_DIR: str | None = None
     """
     Path to a folder containing custom prompt files;
     files are individually optional, each prompt name will fall back to the default if no custom file exists
     """
-
-    @property
-    def OPENAI_FEATURE(self) -> FeatureDetails:
-        description = None
-        if not self.OPENAI_API_KEY:
-            description = "OPENAI_API_KEY is not set"
-        elif not self.OPENAI_MODEL:
-            description = "OPENAI_MODEL is not set"
-
-        return FeatureDetails(
-            enabled=bool(self.OPENAI_API_KEY and self.OPENAI_MODEL),
-            description=description,
-        )
-
-    @property
-    def OPENAI_ENABLED(self) -> bool:
-        """Validates OpenAI settings are all set"""
-        return self.OPENAI_FEATURE.enabled
 
     # ===============================================
     # Web Concurrency

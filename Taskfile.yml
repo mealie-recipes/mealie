@@ -7,6 +7,10 @@ env:
   DEFAULT_GROUP: Home
   DEFAULT_HOUSEHOLD: Family
   PRODUCTION: false
+  # Install from the committed lockfile; never re-resolve. Required because the
+  # rolling `exclude-newer` cooling window (pyproject [tool.uv]) would otherwise
+  # make every `uv run`/`uv sync` re-resolve and fail on in-window pins.
+  UV_FROZEN: "1"
   API_PORT: 9000
   API_DOCS: True
   TOKEN_TIME: 256 # hours

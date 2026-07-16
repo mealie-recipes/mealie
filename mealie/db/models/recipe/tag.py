@@ -6,7 +6,7 @@ from slugify import slugify
 from sqlalchemy.orm import Mapped, mapped_column, validates
 
 from mealie.core import root_logger
-from mealie.db.models._model_base import BaseMixins, SqlAlchemyBase
+from mealie.db.models._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
 from mealie.db.models._model_utils import guid
 
 if TYPE_CHECKING:
@@ -44,14 +44,16 @@ cookbooks_to_tags = sa.Table(
 class Tag(SqlAlchemyBase, BaseMixins):
     __tablename__ = "tags"
     __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="tags_slug_group_id_key"),)
-    id: Mapped[guid.GUID] = mapped_column(guid.GUID, primary_key=True, default=guid.GUID.generate)
+    id: FilterableColumn[guid.GUID] = mapped_column(guid.GUID, primary_key=True, default=guid.GUID.generate)
 
     # ID Relationships
-    group_id: Mapped[guid.GUID] = mapped_column(guid.GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
+    group_id: FilterableColumn[guid.GUID] = mapped_column(
+        guid.GUID, sa.ForeignKey("groups.id"), nullable=False, index=True
+    )
     group: Mapped["Group"] = orm.relationship("Group", back_populates="tags", foreign_keys=[group_id])
 
-    name: Mapped[str] = mapped_column(sa.String, index=True, nullable=False)
-    slug: Mapped[str] = mapped_column(sa.String, index=True, nullable=False)
+    name: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
+    slug: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
     recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_tags, back_populates="tags"
     )

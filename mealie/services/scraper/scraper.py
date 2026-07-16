@@ -9,6 +9,7 @@ from slugify import slugify
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
+from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe import Recipe
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
@@ -24,6 +25,7 @@ class ParserErrors(StrEnum):
 
 async def create_from_html(
     url: str,
+    repos: AllRepositories,
     translator: Translator,
     html: str | None = None,
     on_progress: Callable[[str], Awaitable[None]] | None = None,
@@ -39,7 +41,7 @@ async def create_from_html(
     Returns:
         Recipe: Recipe Object
     """
-    scraper = RecipeScraper(translator)
+    scraper = RecipeScraper(repos, translator)
 
     if not html:
         extracted_url = regex_search(r"(https?://|www\.)[^\s]+", url)

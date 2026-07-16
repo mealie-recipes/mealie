@@ -13,7 +13,6 @@ import sqlalchemy as sa
 from fastapi import UploadFile
 
 from mealie.core import exceptions
-from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
@@ -37,6 +36,8 @@ from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper import cleaner
 
 from .template_service import TemplateService
+
+RECIPE_CREATED_EVENT_SUBJECT = "recipe.recipe-created"
 
 
 class RecipeServiceBase(BaseService):
@@ -69,8 +70,19 @@ class RecipeService(RecipeServiceBase):
     def can_delete(self, recipe_slugs: list[str]) -> bool:
         if self.user.admin:
             return True
-        else:
-            return self.can_update(recipe_slugs)
+
+        # Deletion requires ownership; collaborative editing rules (can_update) do not apply
+        model = self.group_recipes.model
+        owned_count = self.group_recipes.session.scalar(
+            sa.select(sa.func.count())
+            .select_from(model)
+            .where(
+                model.slug.in_(recipe_slugs),
+                model.group_id == self.user.group_id,
+                model.user_id == self.user.id,
+            )
+        )
+        return owned_count == len(recipe_slugs)
 
     def can_update(self, recipe_slugs: list[str]) -> bool:
         sql = dedent(
@@ -224,7 +236,7 @@ class RecipeService(RecipeServiceBase):
         timeline_event_data = RecipeTimelineEventCreate(
             user_id=new_recipe.user_id,
             recipe_id=new_recipe.id,
-            subject=self.t("recipe.recipe-created"),
+            subject=RECIPE_CREATED_EVENT_SUBJECT,
             event_type=TimelineEventType.system,
             timestamp=new_recipe.created_at or datetime.now(UTC),
         )
@@ -325,9 +337,11 @@ class RecipeService(RecipeServiceBase):
         with get_temporary_path() as temp_path:
             local_images: list[Path] = []
             for image in images:
-                with temp_path.joinpath(image.filename).open("wb") as buffer:
+                safe_filename = Path(image.filename).name
+                image_path = temp_path.joinpath(safe_filename)
+                with image_path.open("wb") as buffer:
                     shutil.copyfileobj(image.file, buffer)
-                local_images.append(temp_path.joinpath(image.filename))
+                local_images.append(image_path)
 
             recipe_data = await openai_recipe_service.build_recipe_from_images(
                 local_images, translate_language=translate_language
@@ -463,6 +477,24 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
+    def _remove_non_existent_ingredient_references(self, update_data: Recipe) -> Recipe:
+        """Removes the references of ingredients from steps that no longer exist."""
+
+        current_ingredient_reference_ids = set()  # set of current ingredient(s) reference id's
+        for ingredient in update_data.recipe_ingredient:
+            current_ingredient_reference_ids.add(ingredient.reference_id)
+
+        recipe_instructions = update_data.recipe_instructions
+        if recipe_instructions is not None:
+            for instruction in recipe_instructions:
+                instruction.ingredient_references = [
+                    ref
+                    for ref in instruction.ingredient_references
+                    if ref.reference_id in current_ingredient_reference_ids
+                ]
+
+        return update_data
+
     def _resolve_ingredient_sub_recipes(self, update_data: Recipe) -> Recipe:
         """Resolve all referenced_recipe slugs to IDs within the current group."""
         if not update_data.recipe_ingredient:
@@ -488,7 +520,7 @@ class RecipeService(RecipeServiceBase):
     def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug_or_id, update_data)
 
-        # Resolve sub-recipe references before passing to repository
+        update_data = self._remove_non_existent_ingredient_references(update_data)
         update_data = self._resolve_ingredient_sub_recipes(update_data)
 
         new_data = self.group_recipes.update(recipe.slug, update_data)
@@ -590,11 +622,10 @@ class OpenAIRecipeService(RecipeServiceBase):
         )
 
     async def build_recipe_from_images(self, images: list[Path], translate_language: str | None) -> Recipe:
-        settings = get_app_settings()
-        if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_IMAGE_SERVICES):
+        openai_service = OpenAIService(self.repos)
+        if not (openai_service.provider_settings and openai_service.provider_settings.image_provider_enabled):
             raise ValueError("OpenAI image services are not available")
 
-        openai_service = OpenAIService()
         prompt = openai_service.get_prompt("recipes.parse-recipe-image")
 
         openai_images = [OpenAILocalImage(filename=os.path.basename(image), path=image) for image in images]

@@ -101,9 +101,8 @@ def test_brute_parser(
     comment: str,
 ):
     with session_context() as session:
-        loop = asyncio.get_event_loop()
         parser = get_parser(RegisteredParser.brute, unique_local_group_id, session, get_locale_provider())
-        parsed = loop.run_until_complete(parser.parse_one(input))
+        parsed = asyncio.run(parser.parse_one(input))
         ing = parsed.ingredient
 
         if ing.quantity:
@@ -145,15 +144,8 @@ def test_brute_parser_confidence(
     input_str = f"1 {unit} {food}"
 
     with session_context() as session:
-        original_loop = asyncio.get_event_loop()
-        try:
-            loop = asyncio.new_event_loop()
-            asyncio.set_event_loop(loop)
-            parser = get_parser(RegisteredParser.brute, unique_local_group_id, session, get_locale_provider())
-            parsed = loop.run_until_complete(parser.parse_one(input_str))
-        finally:
-            loop.close()
-            asyncio.set_event_loop(original_loop)
+        parser = get_parser(RegisteredParser.brute, unique_local_group_id, session, get_locale_provider())
+        parsed = asyncio.run(parser.parse_one(input_str))
 
         conf = parsed.confidence
 

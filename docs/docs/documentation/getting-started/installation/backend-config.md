@@ -10,7 +10,7 @@
 | PGID                          |          911          | GroupID permissions between host OS and container                                                                                                       |
 | DEFAULT_GROUP                 |         Home          | The default group for users                                                                                                                             |
 | DEFAULT_HOUSEHOLD             |        Family         | The default household for users in each group                                                                                                           |
-| BASE_URL                      | http://localhost:8080 | Used for Notifications                                                                                                                                  |
+| BASE_URL                      | http://localhost:8080 | Used for notifications and the OIDC callback url                                                                                                        |
 | TOKEN_TIME                    |          48           | The time in hours that a login/auth token is valid. Must be <= 9600 (400 days, in hours).                                                               |
 | API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker**                                                                     |
 | API_DOCS                      |         True          | Turns on/off access to the API documentation locally                                                                                                    |
@@ -29,6 +29,7 @@
 | --------------------------- | :-----: | ----------------------------------------------------------------------------------- |
 | SECURITY_MAX_LOGIN_ATTEMPTS |    5    | Maximum times a user can provide an invalid password before their account is locked |
 | SECURITY_USER_LOCKOUT_TIME  |   24    | Time in hours for how long a users account is locked                                |
+| ALLOWED_IFRAME_HOSTS        |  `""`   | Comma-separated extra hostnames allowed as `<iframe>` sources in recipe content. Extends the built-in list of trusted video providers (YouTube, Vimeo). Subdomains are included automatically. Only `https` sources are permitted. Adding hosts here opts into rendering embeds from those origins to all viewers, including the public, so add only origins you trust. |
 
 ### Database
 
@@ -114,27 +115,17 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 | OIDC_GROUPS_CLAIM                                                                   | groups  | Optional if not using `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP`. This is the claim Mealie will request from your IdP and will use to compare to `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP` to allow the user to log in to Mealie or is set as an admin. **Your IdP must be configured to grant this claim** |
 | OIDC_SCOPES_OVERRIDE                                                                |  None   | Advanced configuration used to override the scopes requested from the IdP. **Most users won't need to change this**. At a minimum, 'openid profile email' are required.                                                                                                                                |
 | OIDC_TLS_CACERTFILE                                                                 |  None   | File path to Certificate Authority used to verify server certificate (e.g. `/path/to/ca.crt`)                                                                                                                                                                                                          |
+| OIDC_CLIENT_TIMEOUT                                                                 | default | Configures the timeout value of the httpx client used for OIDC communications. If set to the string `default`, does not configure the value (uses the library's default of 5.0s). If set to the string `None`, disables the timeout entirely. If set to a numeric value, uses that as the timeout.     |
 
 ### OpenAI
 
 :octicons-tag-24: v1.7.0
 
-Mealie supports various integrations using OpenAI. For more information, check out our [OpenAI documentation](./open-ai.md).
-For custom mapping variables (e.g. OPENAI_CUSTOM_HEADERS) you should pass values as JSON encoded strings (e.g. `OPENAI_CUSTOM_PARAMS='{"k1": "v1", "k2": "v2"}'`)
+Mealie supports various integrations using OpenAI. For more information, check out our [OpenAI documentation](./ai-providers.md).
 
-| Variables                                                               | Default | Description                                                                                                                                                                                                                                                                                                            |
-|-------------------------------------------------------------------------|:-------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| OPENAI_BASE_URL<super>[&dagger;][secrets]</super>                       |  None   | The base URL for the OpenAI API. If you're not sure, leave this empty to use the standard OpenAI platform                                                                                                                                                                                                              |
-| OPENAI_API_KEY<super>[&dagger;][secrets]</super>                        |  None   | Your OpenAI API Key. Enables OpenAI-related features                                                                                                                                                                                                                                                                   |
-| OPENAI_MODEL                                                            | gpt-4o  | Which OpenAI model to use. If you're not sure, leave this empty                                                                                                                                                                                                                                                        |
-| OPENAI_CUSTOM_HEADERS <br/> :octicons-tag-24: v2.0.0                    |  None   | Custom HTTP headers to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                                                                                                                                                                        |
-| OPENAI_CUSTOM_PARAMS <br/> :octicons-tag-24: v2.0.0                     |  None   | Custom HTTP query params to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                                                                                                                                                                   |
-| OPENAI_ENABLE_IMAGE_SERVICES <br/> :octicons-tag-24: v1.12.0            |  True   | Whether to enable OpenAI image services, such as creating recipes via image. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs                                                                                                                                               |
-| OPENAI_ENABLE_TRANSCRIPTION_SERVICES <br/> :octicons-tag-24: v3.13.0    |  True   | Whether to enable OpenAI transcription services, such as creating recipes via video URL. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs                                                                                                                                   |
-| OPENAI_WORKERS                                                          |    2    | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                                                                                                                                                                 |
-| OPENAI_SEND_DATABASE_DATA                                               |  True   | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                                                                                                                                                                                                                |
-| OPENAI_REQUEST_TIMEOUT                                                  |   300   | The number of seconds to wait for an OpenAI request to complete before cancelling the request. Leave this empty unless you're running into timeout issues on slower hardware                                                                                                                                           |
-| OPENAI_CUSTOM_PROMPT_DIR <br/> :octicons-tag-24: v3.10.0                |  None   | Path to custom prompt files. Only existing files in your custom directory will override the defaults; any missing or empty custom files will automatically fall back to the system defaults. See https://github.com/mealie-recipes/mealie/tree/mealie-next/mealie/services/openai/prompts for expected file names.     |
+| Variables                                                               | Default     | Description                                                                                                                                                                                                                                                                                                            |
+|-------------------------------------------------------------------------|:-----------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| OPENAI_CUSTOM_PROMPT_DIR <br/> :octicons-tag-24: v3.10.0                |    None.    | Path to custom prompt files. Only existing files in your custom directory will override the defaults; any missing or empty custom files will automatically fall back to the system defaults. See https://github.com/mealie-recipes/mealie/tree/mealie-next/mealie/services/openai/prompts for expected file names.     |
 
 ### Theming
 
@@ -313,7 +304,6 @@ at least these sensitive environment variables when working within shared enviro
 - `POSTGRES_PASSWORD`
 - `SMTP_PASSWORD`
 - `LDAP_QUERY_PASSWORD`
-- `OPENAI_API_KEY`
 
 [docker-secrets]: https://docs.docker.com/compose/use-secrets/
 [secrets]: #docker-secrets

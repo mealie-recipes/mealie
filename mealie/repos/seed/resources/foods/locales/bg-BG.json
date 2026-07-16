@@ -1051,8 +1051,8 @@
             "custard-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "custard-apple",
-                "plural_name": "custard-apples"
+                "name": "черимоя",
+                "plural_name": "черимои"
             },
             "dried lemon": {
                 "aliases": [],
@@ -1063,8 +1063,8 @@
             "young jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "young jackfruit",
-                "plural_name": "young jackfruits"
+                "name": "млад жакфрут",
+                "plural_name": "млади жакфрути"
             },
             "durian": {
                 "aliases": [],
@@ -1093,8 +1093,8 @@
             "physali": {
                 "aliases": [],
                 "description": "",
-                "name": "physali",
-                "plural_name": "physalis"
+                "name": "физалис",
+                "plural_name": "физалис"
             },
             "tamarillo": {
                 "aliases": [],
@@ -1105,32 +1105,32 @@
             "ice-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "ice-apple",
-                "plural_name": "ice-apples"
+                "name": "ледена ябълка",
+                "plural_name": "ледени ябълки"
             },
             "longan": {
                 "aliases": [],
                 "description": "",
-                "name": "longan",
-                "plural_name": "longans"
+                "name": "лонган",
+                "plural_name": "лонгани"
             },
             "finger lime": {
                 "aliases": [],
                 "description": "",
-                "name": "finger lime",
-                "plural_name": "finger limes"
+                "name": "фингер лайм",
+                "plural_name": "фингер лаймове"
             },
             "bitter orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bitter orange",
-                "plural_name": "bitter oranges"
+                "name": "горчив портокал",
+                "plural_name": "горчиви портокали"
             },
             "feijoa": {
                 "aliases": [],
                 "description": "",
-                "name": "feijoa",
-                "plural_name": "feijoas"
+                "name": "фейхоа",
+                "plural_name": "фейхоа"
             },
             "dried persimmon": {
                 "aliases": [],
@@ -1307,8 +1307,8 @@
             "morel mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "morel mushroom",
-                "plural_name": "morel mushrooms"
+                "name": "смръчкула",
+                "plural_name": "смръчкули"
             },
             "field mushroom": {
                 "aliases": [],
@@ -1325,14 +1325,14 @@
             "shimeji mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "shimeji mushroom",
-                "plural_name": "shimeji mushrooms"
+                "name": "шимеджи гъба",
+                "plural_name": "шимеджи гъби"
             },
             "straw mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "straw mushroom",
-                "plural_name": "straw mushrooms"
+                "name": "сламена гъба",
+                "plural_name": "сламени гъби"
             },
             "dried chinese mushroom": {
                 "aliases": [],
@@ -1349,8 +1349,8 @@
             "trumpet mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "trumpet mushroom",
-                "plural_name": "trumpet mushrooms"
+                "name": "тромпетна гъба",
+                "plural_name": "тромпетни гъби"
             },
             "white truffle": {
                 "aliases": [],
@@ -1361,8 +1361,8 @@
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "white fungus",
-                "plural_name": "white fungus"
+                "name": "бяла гъба",
+                "plural_name": "бели гъби"
             },
             "pioppini": {
                 "aliases": [],
@@ -1373,26 +1373,26 @@
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungus",
-                "plural_name": "snow fungus"
+                "name": "снежна гъба",
+                "plural_name": "снежни гъби"
             },
             "white beech mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "white beech mushroom",
-                "plural_name": "white beech mushrooms"
+                "name": "бяла букова гъба",
+                "plural_name": "бели букови гъби"
             },
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletus",
-                "plural_name": "boletus"
+                "name": "манатарка",
+                "plural_name": "манатарки"
             },
             "huitlacoche": {
                 "aliases": [],
                 "description": "",
-                "name": "huitlacoche",
-                "plural_name": "huitlacoches"
+                "name": "хуитлакоче",
+                "plural_name": "хуитлакоче"
             },
             "matsutake": {
                 "aliases": [],
@@ -1403,14 +1403,14 @@
             "nameko": {
                 "aliases": [],
                 "description": "",
-                "name": "nameko",
-                "plural_name": "namekos"
+                "name": "намеко",
+                "plural_name": "намеко"
             },
             "djon djon mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "djon djon mushroom",
-                "plural_name": "djon djon mushrooms"
+                "name": "джон-джон гъба",
+                "plural_name": "джон-джон гъби"
             },
             "mixed asian mushroom": {
                 "aliases": [],
@@ -1421,26 +1421,26 @@
             "puffball": {
                 "aliases": [],
                 "description": "",
-                "name": "puffball",
-                "plural_name": "puffballs"
+                "name": "пърхутка",
+                "plural_name": "пърхутки"
             },
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungus",
-                "plural_name": "honey fungus"
+                "name": "медена гъба",
+                "plural_name": "медени гъби"
             },
             "caesar's mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "caesar's mushroom",
-                "plural_name": "caesar's mushrooms"
+                "name": "царска гъба",
+                "plural_name": "царски гъби"
             },
             "candy cap mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "candy cap mushroom",
-                "plural_name": "candy cap mushrooms"
+                "name": "кандy кеп гъба",
+                "plural_name": "кандy кеп гъби"
             },
             "lion’s mane mushroom": {
                 "aliases": [],
@@ -1611,8 +1611,8 @@
             "barberry": {
                 "aliases": [],
                 "description": "",
-                "name": "barberry",
-                "plural_name": "barberries"
+                "name": "берберис",
+                "plural_name": "бербериси"
             },
             "dried berry": {
                 "aliases": [],
@@ -1623,14 +1623,14 @@
             "sea buckthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "sea buckthorn",
-                "plural_name": "sea buckthorns"
+                "name": "морски зърнастец",
+                "plural_name": "морски зърнастци"
             },
             "saskatoon berry": {
                 "aliases": [],
                 "description": "",
-                "name": "saskatoon berry",
-                "plural_name": "saskatoon berries"
+                "name": "саскатунско зрънце",
+                "plural_name": "саскатунски зрънца"
             },
             "rosehip": {
                 "aliases": [],
@@ -1647,14 +1647,14 @@
             "boysenberry": {
                 "aliases": [],
                 "description": "",
-                "name": "boysenberry",
-                "plural_name": "boysenberries"
+                "name": "бойзенова къпина",
+                "plural_name": "бойзенови къпини"
             },
             "cloudberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cloudberry",
-                "plural_name": "cloudberries"
+                "name": "къпина морска",
+                "plural_name": "къпини морски"
             },
             "freeze-dried berry": {
                 "aliases": [],
@@ -1677,38 +1677,38 @@
             "loganberry": {
                 "aliases": [],
                 "description": "",
-                "name": "loganberry",
-                "plural_name": "loganberries"
+                "name": "логанова къпина",
+                "plural_name": "логанови къпини"
             },
             "blackcurrant leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "blackcurrant leaf",
-                "plural_name": "blackcurrant leaves"
+                "name": "лист от касис",
+                "plural_name": "листа от касис"
             },
             "haskap berry": {
                 "aliases": [],
                 "description": "",
-                "name": "haskap berry",
-                "plural_name": "haskap berries"
+                "name": "хаскап",
+                "plural_name": "хаскап"
             },
             "dewberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dewberry",
-                "plural_name": "dewberries"
+                "name": "дивa къпина",
+                "plural_name": "диви къпини"
             },
             "sloe berry": {
                 "aliases": [],
                 "description": "",
-                "name": "sloe berry",
-                "plural_name": "sloe berries"
+                "name": "трънка",
+                "plural_name": "трънки"
             },
             "oregon grape": {
                 "aliases": [],
                 "description": "",
-                "name": "oregon grape",
-                "plural_name": "oregon grapes"
+                "name": "орегонско грозде",
+                "plural_name": "орегонски грозда"
             }
         }
     },
@@ -1909,8 +1909,8 @@
             "peanut brittle": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut brittle",
-                "plural_name": "peanut brittles"
+                "name": "фъстъчен карамел",
+                "plural_name": "фъстъчни карамели"
             },
             "jackfruit seed": {
                 "aliases": [],
@@ -1934,25 +1934,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "чиронджи",
-                "plural_name": "chironjis"
+                "plural_name": "чиронджи"
             },
             "honey-roasted pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "name": "пекан с мед",
+                "plural_name": "пекани с мед"
             },
             "tigernut": {
                 "aliases": [],
                 "description": "",
-                "name": "tigernut",
-                "plural_name": "tigernuts"
+                "name": "чуфа",
+                "plural_name": "чуфи"
             },
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
-                "plural_name": "sunflower sprouts"
+                "name": "кълн от слънчоглед",
+                "plural_name": "кълнове от слънчоглед"
             },
             "apricot kernel": {
                 "aliases": [],
@@ -1963,26 +1963,26 @@
             "palm seed": {
                 "aliases": [],
                 "description": "",
-                "name": "palm seed",
-                "plural_name": "palm seeds"
+                "name": "палмово семе",
+                "plural_name": "палмови семена"
             },
             "ginkgo nut": {
                 "aliases": [],
                 "description": "",
-                "name": "ginkgo nut",
-                "plural_name": "ginkgo nuts"
+                "name": "ядка гинко",
+                "plural_name": "ядки гинко"
             },
             "keto trail mix": {
                 "aliases": [],
                 "description": "",
-                "name": "keto trail mix",
-                "plural_name": "keto trail mixes"
+                "name": "кето микс",
+                "plural_name": "кето миксове"
             },
             "wattleseed": {
                 "aliases": [],
                 "description": "",
-                "name": "wattleseed",
-                "plural_name": "wattleseeds"
+                "name": "ватълсийд",
+                "plural_name": "ватълсийд"
             },
             "barùka": {
                 "aliases": [],
@@ -2308,7 +2308,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "oaxaca cheese",
-                "plural_name": "oaxaca cheese"
+                "plural_name": "сирена Оахака"
             },
             "labneh cheese": {
                 "aliases": [],
@@ -2319,14 +2319,14 @@
             "edam cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "edam cheese",
-                "plural_name": "edam cheese"
+                "name": "сирене Едам",
+                "plural_name": "сирена Едам"
             },
             "creamy cheese wedge": {
                 "aliases": [],
                 "description": "",
-                "name": "creamy cheese wedge",
-                "plural_name": "creamy cheese wedges"
+                "name": "кремообразно сирене на клин",
+                "plural_name": "кремообразни сирена на клин"
             },
             "cheese powder cheese": {
                 "aliases": [],
