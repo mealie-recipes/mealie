@@ -2,7 +2,7 @@
   <div style="overflow-x: hidden;">
     <v-container
       v-if="!edit"
-      class="pa-0"
+      class="ml-2 pa-0"
       :style="{
         transform: `translateX(${isRtl ? -swiping : swiping}px)`,
         transition: swiping === 0 ? 'transform 0.2s ease' : 'none',

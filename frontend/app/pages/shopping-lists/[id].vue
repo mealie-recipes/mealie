@@ -206,7 +206,7 @@
                     v-for="(item, index) in value"
                     :key="item.id"
                     v-model="value[index]"
-                    class="ml-2 my-2 w-auto"
+                    class="my-2 w-auto"
                     :labels="allLabels || []"
                     :units="allUnits || []"
                     :foods="allFoods || []"
