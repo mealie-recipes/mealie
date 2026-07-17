@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI redo",
     "openai-not-ready": "OpenAI ej tillgängligt",
     "openai-ready-error-text": "Alla OpenAI-värden är inte konfigurerade. Detta kan ignoreras om du inte använder OpenAI-funktioner.",
-    "openai-ready-success-text": "Alla obligatoriska OpenAI-variabler är satta."
+    "openai-ready-success-text": "Alla obligatoriska OpenAI-variabler är satta.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Visa alla listor",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "Första installationen",
       "welcome-to-mealie-get-started": "Välkommen till Mealie! Låt oss komma igång",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Jag har redan gjort inställningarna, ta mig bara till hemsidan",
       "common-settings-for-new-sites": "Här är några vanliga inställningar för nya webbplatser",
       "setup-complete": "Konfigurationen slutförd!",
