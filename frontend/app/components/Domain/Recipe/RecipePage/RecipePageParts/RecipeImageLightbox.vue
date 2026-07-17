@@ -14,13 +14,6 @@
         max-width="100vw"
         class="lightbox-img"
       />
-      <iframe
-        v-else-if="pdfUrl"
-        :src="pdfUrl"
-        class="lightbox-pdf"
-        frameborder="0"
-        @click.stop
-      />
     </div>
   </v-dialog>
 </template>
@@ -28,7 +21,6 @@
 <script setup lang="ts">
 interface Props {
   imageUrl?: string;
-  pdfUrl?: string;
 }
 
 defineProps<Props>();
@@ -47,11 +39,5 @@ const model = defineModel<boolean>({ required: true });
 
 .lightbox-img {
   cursor: zoom-out;
-}
-
-.lightbox-pdf {
-  width: 100vw;
-  height: 100vh;
-  cursor: default;
 }
 </style>
