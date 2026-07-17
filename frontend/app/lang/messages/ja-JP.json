@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI Ready",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "すべてのOpenAIの値が設定されていません。OpenAIを使用していない場合は無視できます。",
-    "openai-ready-success-text": "必須のOpenAI変数はすべて設定されています。"
+    "openai-ready-success-text": "必須のOpenAI変数はすべて設定されています。",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "すべてのリスト",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "初期設定",
       "welcome-to-mealie-get-started": "Mealieへようこそ！さあ始めましょう",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "すでに設定は完了しています。ホームページにアクセスしてください",
       "common-settings-for-new-sites": "新しいサイトの一般的な設定は次のとおりです",
       "setup-complete": "セットアップ完了！",
