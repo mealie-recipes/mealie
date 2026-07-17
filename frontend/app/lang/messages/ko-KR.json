@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI 준비됨",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "OpenAI 값이 전부 구성되지 않았습니다. OpenAI 기능을 사용하지 않는 경우 무시해도 됩니다.",
-    "openai-ready-success-text": "필수 OpenAI 변수들이 모두 설정되었습니다."
+    "openai-ready-success-text": "필수 OpenAI 변수들이 모두 설정되었습니다.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "모든 목록",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "초기 설정",
       "welcome-to-mealie-get-started": "Mealie에 오신 것을 환영합니다! 시작해 볼까요?",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "설정은 이미 완료되었으니, 그냥 홈페이지로 이동해 주세요",
       "common-settings-for-new-sites": "새 사이트에 대한 일반적인 설정은 다음과 같습니다",
       "setup-complete": "설정 완료",

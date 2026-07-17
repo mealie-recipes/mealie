@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI 准备好了",
     "openai-not-ready": "OpenAI 未就绪",
     "openai-ready-error-text": "并非所有的 OpenAI 值都已配置。如果您不使用 OpenAI 功能，这将被忽略。",
-    "openai-ready-success-text": "所需的 OpenAI 变量已全部设置。"
+    "openai-ready-success-text": "所需的 OpenAI 变量已全部设置。",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "所有购物清单",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "初始配置",
       "welcome-to-mealie-get-started": "欢迎来到Mealie！让我们开始吧！",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "我已经配置好了，直接跳转到主页",
       "common-settings-for-new-sites": "这有一些新站点的常见设置",
       "setup-complete": "配置完成！",

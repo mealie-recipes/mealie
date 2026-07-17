@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI pripravené",
     "openai-not-ready": "OpenAI nie je pripravený",
     "openai-ready-error-text": "Nie všetky hodnoty pre OpenAI sú nakonfigurované. Toto môžete ignorovať, ak nepoužívate funkcie OpenAI.",
-    "openai-ready-success-text": "Všetky požadované premenné pre OpenAI sú nastavené."
+    "openai-ready-success-text": "Všetky požadované premenné pre OpenAI sú nastavené.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Všetky zoznamy",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "Úvodné nastavenia",
       "welcome-to-mealie-get-started": "Vitajte v Mealie! Začíname.",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Som pripravený začať, vezmi ma na hlavnú stránku",
       "common-settings-for-new-sites": "Toto sú bežné nastavenia nových inštalácií",
       "setup-complete": "Nastavenie je dokončené!",

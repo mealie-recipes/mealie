@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI Listo",
     "openai-not-ready": "OpenAI no está listo",
     "openai-ready-error-text": "No todos los valores OpenAI están configurados. Puedes ignorar esto si no estás usando funciones de OpenAI.",
-    "openai-ready-success-text": "Las variables OpenAI requeridas están todas definidas."
+    "openai-ready-success-text": "Las variables OpenAI requeridas están todas definidas.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Todas las listas",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "Configuración Inicial",
       "welcome-to-mealie-get-started": "¡Bienvenido a Mealie! Empecemos",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Estoy bien, solo llévame al Inicio",
       "common-settings-for-new-sites": "Aquí hay algunos ajustes comunes para sitios nuevos",
       "setup-complete": "¡Configuración completada!",

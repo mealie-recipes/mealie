@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI on valmis",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Kõik OpenAI väärtused pole konfigureeritud. Seda teadet võib ignoreerida kui sa ei kasuta OpenAI funktsionaalsust.",
-    "openai-ready-success-text": "Kõigile OpenAI muutujatele on väärtused seatud."
+    "openai-ready-success-text": "Kõigile OpenAI muutujatele on väärtused seatud.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Kõik nimekirjad",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "Esimese korra seadistus",
       "welcome-to-mealie-get-started": "Teretulemast Mealie-sse! Alustame",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Ma olen juba vajalikud asjad seadistanud, vii mind pealehele",
       "common-settings-for-new-sites": "Siin on mõned harilikud sätted uute lehekülgede jaoks",
       "setup-complete": "Seadistus valmis!",

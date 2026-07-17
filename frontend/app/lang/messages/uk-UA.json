@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI готовий",
     "openai-not-ready": "OpenAI не готовий",
     "openai-ready-error-text": "Не всі значення OpenAI налаштовано. Це можна ігнорувати, якщо ви не використовуєте функції OpenAI.",
-    "openai-ready-success-text": "Всі необхідні змінні OpenAI встановлені."
+    "openai-ready-success-text": "Всі необхідні змінні OpenAI встановлені.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Всі списки",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "Початкове налаштування",
       "welcome-to-mealie-get-started": "Ласкаво просимо до Mealie! Давайте почнемо",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Вже все налаштовано, просто перенеси мене на домашню сторінку",
       "common-settings-for-new-sites": "Ось деякі загальні налаштування для нових сайтів",
       "setup-complete": "Налаштування завершене!",
