@@ -26,7 +26,7 @@
           :href="!edit && !isImage(item.fileName) && !isPdf(item.fileName) ? assetURL(item.fileName ?? '') : undefined"
           :target="!edit && !isImage(item.fileName) && !isPdf(item.fileName) ? '_blank' : undefined"
           class="pr-2"
-          @click.prevent="!edit && (isImage(item.fileName) || isPdf(item.fileName)) ? openLightbox(item) : undefined"
+          @click="!edit && (isImage(item.fileName) || isPdf(item.fileName)) && handleViewClick($event, item)"
         >
           <template #prepend>
             <v-avatar size="48" rounded="lg" class="elevation-1">
@@ -63,7 +63,7 @@
                   :target="!isImage(item.fileName) && !isPdf(item.fileName) ? '_blank' : undefined"
                   :prepend-icon="$globals.icons.eye"
                   :title="$t('general.view')"
-                  @click.prevent="(isImage(item.fileName) || isPdf(item.fileName)) ? openLightbox(item) : undefined"
+                  @click="(isImage(item.fileName) || isPdf(item.fileName)) && handleViewClick($event, item)"
                 />
                 <v-list-item
                   :href="assetURL(item.fileName ?? '')"
@@ -246,6 +246,11 @@ function openLightbox(item: RecipeAsset) {
   lightbox.imageUrl = isImage(item.fileName) ? url : undefined;
   lightbox.pdfUrl = isPdf(item.fileName) ? url : undefined;
   lightbox.open = true;
+}
+
+function handleViewClick(event: Event, item: RecipeAsset) {
+  event.preventDefault();
+  openLightbox(item);
 }
 
 const { recipeAssetPath } = useStaticRoutes();
