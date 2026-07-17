@@ -15,7 +15,7 @@
     "docs": "Documentação",
     "download-log": "Baixar Log",
     "download-recipe-json": "Último JSON Gerado",
-    "github": "GitHub",
+    "github": "Github",
     "log-lines": "Linhas de log",
     "not-demo": "Não é Demonstração",
     "portfolio": "Portfólio",
@@ -98,7 +98,7 @@
     "dashboard": "Painel de controle",
     "delete": "Excluir",
     "disabled": "Desabilitado",
-    "done": "Done",
+    "done": "Concluído",
     "download": "Baixar",
     "duplicate": "Duplicar",
     "edit": "Editar",
@@ -169,7 +169,7 @@
     "token": "Token",
     "tuesday": "Terça-feira",
     "type": "Tipo",
-    "undo": "Undo",
+    "undo": "Desfazer",
     "update": "Atualizar",
     "updated": "Atualizado",
     "upload": "Enviar",
@@ -224,8 +224,8 @@
     "add-field": "Adicionar Campo",
     "date-created": "Data de Criação",
     "date-updated": "Data de Atualização",
-    "key": "Key",
-    "value": "Value"
+    "key": "Chave",
+    "value": "Valor"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem certeza que deseja excluir o grupo <b>{groupName}<b/>?",
@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Define o seu grupo e todas as receitas padrão como privadas. Você sempre pode mudar isso mais tarde."
     },
     "manage-members": "Gerenciar membros",
-    "manage-members-description": "Gerencie as permissões dos membros do seu domicílio. {manage} permite ao usuário acessar a página de gerenciamento de dados, e {invite} permite ao usuário gerar links de convites para outros usuários. Os proprietários de grupos não podem mudar suas próprias permissões.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Gerenciar",
     "manage-household": "Gerenciar domicílio",
     "invite": "Convidar",
@@ -466,7 +466,7 @@
       "description-long": "Mealie consegue importar receitas do Planejar Refeições."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
+      "title": "Minha Caixa de Receitas",
       "description-long": "Mealie pode importar receitas do My Recipe Box. Exporte suas receitas em formato CSV e envie o arquivo abaixo."
     },
     "recipekeeper": {
@@ -1124,9 +1124,9 @@
     "permissions": "Permissões",
     "administrator": "Administrador",
     "user-can-invite-other-to-group": "O usuário pode convidar outros para o grupo",
-    "user-can-manage-group": "Usuário pode gerenciar o grupo",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "O usuário pode gerenciar o domicílio",
-    "user-can-organize-group-data": "Usuário pode organizar dados do grupo",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Ativar recursos avançados",
     "it-looks-like-this-is-your-first-time-logging-in": "Parece que este é seu primeiro login.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Não quer mais ver isto? Não se esqueça de alterar seu e-mail nas configurações do seu usuário!",

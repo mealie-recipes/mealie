@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Imposta il tuo gruppo e tutte le ricette privati di default. Puoi sempre cambiare questa impostazione più tardi."
     },
     "manage-members": "Gestisci i membri",
-    "manage-members-description": "Gestisci i permessi dei membri della tua famiglia. {manage} permette all'utente di accedere alla pagina di gestione dei dati, e {invite} permette all'utente di generare link di invito per altri utenti. I proprietari del gruppo non possono cambiare i propri permessi.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Gestisci",
     "manage-household": "Gestisci Famiglia",
     "invite": "Invita",
@@ -1124,9 +1124,9 @@
     "permissions": "Permessi",
     "administrator": "Amministratore",
     "user-can-invite-other-to-group": "L'utente può invitare altre persone nel gruppo",
-    "user-can-manage-group": "L'utente può gestire il gruppo",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "L'utente può gestire la famiglia",
-    "user-can-organize-group-data": "L'utente può organizzare i dati del gruppo",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Abilita funzionalità avanzate",
     "it-looks-like-this-is-your-first-time-logging-in": "Sembra che questa sia la tua prima volta che accedi.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Non vuoi più vederlo? Assicurati di modificare la tua email nelle impostazioni utente!",
@@ -1145,8 +1145,8 @@
   },
   "data-pages": {
     "foods": {
-      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
-      "delete-affects-recipes-more": "View all {count} recipes",
+      "delete-affects-recipes": "Attenzione: questo alimento è utilizzato in {count} ricetta(e). Eliminandolo, rimarrà un ingrediente vuoto in questa ricetta(e).",
+      "delete-affects-recipes-more": "Visualizza tutte le {count} ricette",
       "merge-dialog-text": "Combinando gli alimenti selezionati, l'alimento di origine e l'alimento di destinazione verranno uniti in un unico alimento. L'alimento di origine verrà eliminato e tutti i riferimenti all'alimento di origine verranno aggiornati per puntare all'alimento di destinazione.",
       "merge-food-example": "Unione di {food1} in {food2}",
       "seed-dialog-text": "Inizializzare il database con alimenti della propria lingua locale. Ciò creerà oltre 200 alimenti comuni che potranno essere usati per organizzare il proprio database. Gli alimenti vengono tradotti grazie al contributo della comunità degli utenti.",

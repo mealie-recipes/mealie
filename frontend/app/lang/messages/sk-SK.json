@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Nastaví vašu skupinu a všetky predvolené nastavenia receptov na súkromné. Neskôr to môžete kedykoľvek zmeniť."
     },
     "manage-members": "Spravovať členov",
-    "manage-members-description": "Spravovať povolenia členov vo vašej domácnosti. {manage} umožňuje používateľovi prístup ku správe údajov a {invite} umožňuje používateľovi generovať odkazy s pozvánkami pre iných užívateľov. Správcovia skupín nemôžu meniť svoje vlastné povolenia.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Spravovať",
     "manage-household": "Spravovať domácnosť",
     "invite": "Pozvať",
@@ -1124,9 +1124,9 @@
     "permissions": "Povolenia",
     "administrator": "Administrátor",
     "user-can-invite-other-to-group": "Používateľ môže pozvať ostatných do skupiny",
-    "user-can-manage-group": "Používateľ môže spravovať skupinu",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "Používateľ môže spravovať domácnosť",
-    "user-can-organize-group-data": "Používateľ môže spravovať údaje skupiny",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Povoliť pokročilé funkcie",
     "it-looks-like-this-is-your-first-time-logging-in": "Zrejme je toto vaše prvé prihlásenie.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Želáte si, aby sa vám toto už viackrát nezobrazovalo? Zmeňte si prosím váš e-mail v nastaveniach používateľa!",
@@ -1145,8 +1145,8 @@
   },
   "data-pages": {
     "foods": {
-      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
-      "delete-affects-recipes-more": "View all {count} recipes",
+      "delete-affects-recipes": "Upozornenie: táto potravina sa používa v {count} receptoch (receptoch). Jej vymazaním zostane v recepte (receptoch) prázdna zložka.",
+      "delete-affects-recipes-more": "Zobraziť všetkých {count} receptov",
       "merge-dialog-text": "Kombináciou vybraných potravín sa zdrojové jedlo a cieľové jedlo zlúčia do jedného jedla. Zdrojové jedlo bude vymazané a všetky odkazy na zdrojové jedlo budú aktualizované tak, aby ukazovali na cieľové jedlo.",
       "merge-food-example": "Zlučujem {food1} do {food2}",
       "seed-dialog-text": "Naplňte databázu potravinami vo vašom jazyku. Tým vytvoríte viac ako 2700 bežných potravín, ktoré môžete použiť na organizovanie vašej databáze. Potraviny sú preložené vďaka úsiliu komunity.",

@@ -883,14 +883,14 @@
             "dried mango": {
                 "aliases": [],
                 "description": "",
-                "name": "dried mango",
-                "plural_name": "dried mangoes"
+                "name": "manga seca",
+                "plural_name": "mangas secas"
             },
             "dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apple",
-                "plural_name": "dried apples"
+                "name": "maçã seca",
+                "plural_name": "maçãs secas"
             },
             "quince": {
                 "aliases": [],

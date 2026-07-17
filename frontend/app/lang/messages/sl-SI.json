@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Nastavi vaše skupine in vse recepte privzeto kot privatni. Kasneje lahko to vedno spremenite."
     },
     "manage-members": "Urejanje članov",
-    "manage-members-description": "Upravljajte dovoljenja članov v vašem gospodinjstvu. {manage} omogoča uporabniku dostop do strani za upravljanje podatkov, {invite} pa uporabniku omogoča ustvarjanje povezav za povabila za druge uporabnike. Lastniki skupine ne morejo spremeniti lastnih dovoljenj.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Upravljaj",
     "manage-household": "Upravljanje gospodinjstva",
     "invite": "Povabi",
@@ -463,7 +463,7 @@
     "mealie-text": "Mealie lahko uvozi recepte izpred Mealie verzije v1.0. Izvozi recepte iz stare instance in spodaj uvozi zip datoteko. Omogočen je uvoz samo za recepte.",
     "plantoeat": {
       "title": "Načrt za pojesti",
-      "description-long": "Mealie lahko uvozi recepte iz aplikacije Plan to Eat."
+      "description-long": "Mealie lahko uvozi recepte iz aplikacije Plan to Eat. Naložite ZIP arhiv, CSV ali TXT datoteko, izvoženo iz Plan to Eat."
     },
     "myrecipebox": {
       "title": "Moj zaboj z recepti",
@@ -1124,9 +1124,9 @@
     "permissions": "Dovoljenja",
     "administrator": "Skrbnik",
     "user-can-invite-other-to-group": "Uporabnih lahko povabi druge v skupino",
-    "user-can-manage-group": "Uporabnik lahko upravlja s skupino",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "Uporabnik lahko upravlja gospodinjstvo",
-    "user-can-organize-group-data": "Uporabnik lahko organizira podatke skupine",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Vključi napredne funkcije",
     "it-looks-like-this-is-your-first-time-logging-in": "Zgleda, kot da se prvič prijavljaš.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ne želiš več videti tega sporočila? Spremeni svoj email v uporabiških nastavitvah!",
@@ -1145,8 +1145,8 @@
   },
   "data-pages": {
     "foods": {
-      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
-      "delete-affects-recipes-more": "View all {count} recipes",
+      "delete-affects-recipes": "Opozorilo: ta jed se uporablja v {count} receptih. Če jo izbrišete, bo v receptu(-ih) ostala prazna sestavina.",
+      "delete-affects-recipes-more": "Oglejte si vse recepte ({count})",
       "merge-dialog-text": "Združitev izbranih živil bo združila izvorno živilo in ciljno živilo v eno samo živilo. Izvorno živilo bo izbrisano in vse povezave na izvorno živilo, bodo po novem kazale na ciljno živilo.",
       "merge-food-example": "Združujem {food1} v {food2}",
       "seed-dialog-text": "Napolnite zbirko podatkov z živili, ki temeljijo na vašem lokalnem jeziku. Tako boste ustvarili več kot 200 običajnih živil, ki jih lahko uporabite za organizacijo vaše zbirke podatkov. Živila so prevedena s prizadevanjem skupnosti.",
