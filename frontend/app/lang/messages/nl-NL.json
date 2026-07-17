@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI staat klaar",
     "openai-not-ready": "OpenAI niet gereed",
     "openai-ready-error-text": "Niet alle tekstvakken voor OpenAI zijn ingevuld. Als je geen OpenAI gebruikt kun je dit leeg laten.",
-    "openai-ready-success-text": "Verplichte tekstvakken voor OpenAI zijn ingevuld."
+    "openai-ready-success-text": "Verplichte tekstvakken voor OpenAI zijn ingevuld.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Alle lijsten",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "Instellingen eerste gebruik",
       "welcome-to-mealie-get-started": "Welkom bij Mealie! Laten we beginnen",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Ik ben al ingesteld, breng me naar de startpagina",
       "common-settings-for-new-sites": "Hier zijn enkele algemene instellingen voor nieuwe sites",
       "setup-complete": "Installatie voltooid!",
