@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI спреман",
     "openai-not-ready": "OpenAI није спреман",
     "openai-ready-error-text": "Нису конфигурисане све OpenAI вредности. Ово можете игнорисати ако не користите OpenAI функције.",
-    "openai-ready-success-text": "Потребне OpenAI променљиве су све постављене."
+    "openai-ready-success-text": "Потребне OpenAI променљиве су све постављене.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Сви спискови",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "Подешавање по први пут",
       "welcome-to-mealie-get-started": "Добродошли у Mealie! Хајде да почнемо",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Већ сам подешен, само ме одведи на почетну страницу",
       "common-settings-for-new-sites": "Ево неколико уобичајених подешавања за нове сајтове",
       "setup-complete": "Подешавање је завршено!",
