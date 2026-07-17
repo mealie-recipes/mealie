@@ -23,9 +23,10 @@
         <v-list-item
           v-for="(item, i) in model"
           :key="i"
-          :href="!edit ? assetURL(item.fileName ?? '') : ''"
-          target="_blank"
+          :href="!edit && !isImage(item.fileName) && !isPdf(item.fileName) ? assetURL(item.fileName ?? '') : undefined"
+          :target="!edit && !isImage(item.fileName) && !isPdf(item.fileName) ? '_blank' : undefined"
           class="pr-2"
+          @click.prevent="!edit && (isImage(item.fileName) || isPdf(item.fileName)) ? openLightbox(item) : undefined"
         >
           <template #prepend>
             <v-avatar size="48" rounded="lg" class="elevation-1">
@@ -58,10 +59,11 @@
               </template>
               <v-list density="compact" min-width="220">
                 <v-list-item
-                  :href="assetURL(item.fileName ?? '')"
+                  :href="!isImage(item.fileName) && !isPdf(item.fileName) ? assetURL(item.fileName ?? '') : undefined"
+                  :target="!isImage(item.fileName) && !isPdf(item.fileName) ? '_blank' : undefined"
                   :prepend-icon="$globals.icons.eye"
                   :title="$t('general.view')"
-                  target="_blank"
+                  @click.prevent="(isImage(item.fileName) || isPdf(item.fileName)) ? openLightbox(item) : undefined"
                 />
                 <v-list-item
                   :href="assetURL(item.fileName ?? '')"
@@ -96,6 +98,12 @@
         </v-list-item>
       </v-list>
     </v-card>
+    <RecipeImageLightbox
+      v-if="lightbox.open"
+      v-model="lightbox.open"
+      :image-url="lightbox.imageUrl"
+      :pdf-url="lightbox.pdfUrl"
+    />
     <div class="d-flex ml-auto mt-2">
       <v-spacer />
       <BaseDialog
@@ -220,6 +228,24 @@ function getIconDefinition(icon: string) {
 function isImage(fileName?: string | null) {
   if (!fileName) return false;
   return /\.(png|jpe?g|gif|webp|bmp|avif)$/i.test(fileName);
+}
+
+function isPdf(fileName?: string | null) {
+  if (!fileName) return false;
+  return /\.pdf$/i.test(fileName);
+}
+
+const lightbox = reactive({
+  open: false,
+  imageUrl: undefined as string | undefined,
+  pdfUrl: undefined as string | undefined,
+});
+
+function openLightbox(item: RecipeAsset) {
+  const url = assetURL(item.fileName ?? "");
+  lightbox.imageUrl = isImage(item.fileName) ? url : undefined;
+  lightbox.pdfUrl = isPdf(item.fileName) ? url : undefined;
+  lightbox.open = true;
 }
 
 const { recipeAssetPath } = useStaticRoutes();
