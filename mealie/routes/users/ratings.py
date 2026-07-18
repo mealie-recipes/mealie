@@ -44,11 +44,13 @@ class UserRatingsController(BaseUserController):
     @router.get("/{id}/ratings", response_model=UserRatings[UserRatingOut])
     async def get_ratings(self, id: UUID4):
         """Get user's rated recipes"""
+        assert_user_change_allowed(id, self.user, self.user)
         return UserRatings(ratings=self.repos.user_ratings.get_by_user(id))
 
     @router.get("/{id}/favorites", response_model=UserRatings[UserRatingOut])
     async def get_favorites(self, id: UUID4):
         """Get user's favorited recipes"""
+        assert_user_change_allowed(id, self.user, self.user)
         return UserRatings(ratings=self.repos.user_ratings.get_by_user(id, favorites_only=True))
 
     @router.post("/{id}/ratings/{slug}")
