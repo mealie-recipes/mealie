@@ -941,9 +941,9 @@
     "openai-not-ready": "Το OpenAI δεν είναι έτοιμο",
     "openai-ready-error-text": "Δεν έχουν ρυθμιστεί όλες οι τιμές OpenAI. Αυτό μπορεί να αγνοηθεί αν δεν χρησιμοποιείτε τα χαρακτηριστικά του OpenAI.",
     "openai-ready-success-text": "Ολες οι απαιτούμενες μεταβλητές OpenAI έχουν οριστεί.",
-    "site-statistics": "Site Statistics",
-    "uncategorized-recipes": "Uncategorized Recipes",
-    "untagged-recipes": "Untagged Recipes"
+    "site-statistics": "Στατιστικά ιστοσελίδας",
+    "uncategorized-recipes": "Συνταγές χωρίς κατηγορία",
+    "untagged-recipes": "Συνταγές χωρίς ετικέτα"
   },
   "shopping-list": {
     "all-lists": "Όλες οι λίστες",
@@ -1399,7 +1399,7 @@
     "setup": {
       "first-time-setup": "Εγκατάσταση για πρώτη φορά",
       "welcome-to-mealie-get-started": "Καλώς ήλθατε στο Mealie! Ας ξεκινήσουμε",
-      "previous-mealie-instance": "Did you have a previous Mealie instance?",
+      "previous-mealie-instance": "Μήπως είχατε μια προηγούμενη υπόσταση Mealie;",
       "already-set-up-bring-to-homepage": "Εχω ήδη κάνει εγκατάσταση, απλά πήγαινέ με στην αρχική σελίδα",
       "common-settings-for-new-sites": "Εδώ είναι μερικές κοινές ρυθμίσεις για νέους ιστότοπους",
       "setup-complete": "Η εγκατάσταση ολοκληρώθηκε!",
