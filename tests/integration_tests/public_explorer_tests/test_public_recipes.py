@@ -36,11 +36,12 @@ def test_get_all_public_recipes(
     household_private_map: dict[UUID4, bool] = {}
     public_recipes: list[Recipe] = []
     private_recipes: list[Recipe] = []
-    for database, is_private_household in [
-        (unique_user.repos, is_household_1_private),
-        (h2_user.repos, is_household_2_private),
+    for user, is_private_household in [
+        (unique_user, is_household_1_private),
+        (h2_user, is_household_2_private),
     ]:
-        household = database.households.get_one(unique_user.household_id)
+        database = user.repos
+        household = database.households.get_one(user.household_id)
         assert household and household.preferences
 
         household_private_map[household.id] = is_private_household
@@ -51,8 +52,8 @@ def test_get_all_public_recipes(
         default_recipes = database.recipes.create_many(
             [
                 Recipe(
-                    user_id=unique_user.user_id,
-                    group_id=unique_user.group_id,
+                    user_id=user.user_id,
+                    group_id=user.group_id,
                     name=random_string(),
                 )
                 for _ in range(random_int(15, 20))
