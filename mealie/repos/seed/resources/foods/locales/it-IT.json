@@ -1028,7 +1028,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mapo",
-                "plural_name": "tangelos"
+                "plural_name": "tangelo"
             },
             "dried lime": {
                 "aliases": [],
@@ -1232,7 +1232,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kiwano",
-                "plural_name": "kiwanos"
+                "plural_name": "kiwano"
             }
         }
     },
@@ -2409,8 +2409,8 @@
             "comté cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "comté cheese",
-                "plural_name": "comté cheese"
+                "name": "formaggio comté",
+                "plural_name": "formaggio comté"
             },
             "graviera cheese": {
                 "aliases": [],
@@ -5479,8 +5479,8 @@
             "tuna belly": {
                 "aliases": [],
                 "description": "",
-                "name": "tuna belly",
-                "plural_name": "tuna bellies"
+                "name": "ventresca di tonno",
+                "plural_name": "ventresche di tonno"
             },
             "beluga caviar": {
                 "aliases": [],
@@ -5549,8 +5549,8 @@
             "nori": {
                 "aliases": [],
                 "description": "",
-                "name": "nori",
-                "plural_name": "noris"
+                "name": "alga nori",
+                "plural_name": "alghe nori"
             },
             "lobster": {
                 "aliases": [],
@@ -5765,8 +5765,8 @@
             "prepared crab cake": {
                 "aliases": [],
                 "description": "",
-                "name": "prepared crab cake",
-                "plural_name": "prepared crab cakes"
+                "name": "tortino di granchio",
+                "plural_name": "tortini di granchio"
             },
             "sea lettuce": {
                 "aliases": [],
@@ -6117,8 +6117,8 @@
             "matcha powder": {
                 "aliases": [],
                 "description": "",
-                "name": "matcha powder",
-                "plural_name": "matcha powder"
+                "name": "polvere di matcha",
+                "plural_name": "polvere di matcha"
             },
             "ancho chile powder": {
                 "aliases": [],
@@ -6261,14 +6261,14 @@
             "galangal": {
                 "aliases": [],
                 "description": "",
-                "name": "galangal",
-                "plural_name": "galangals"
+                "name": "galanga",
+                "plural_name": "galanga"
             },
             "garlic flake": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic flake",
-                "plural_name": "garlic flakes"
+                "name": "fiocchi d'aglio",
+                "plural_name": "fiocchi d'aglio"
             },
             "dried cilantro": {
                 "aliases": [],
