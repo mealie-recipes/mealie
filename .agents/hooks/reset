@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# Reset only .agents/state/data, never a developer's normal Mealie data directory.
+source "$(dirname "$0")/_lib.sh"
+
+"$HOOK_DIR/dev-stop"
+case "$AGENTS_DATA_DIR" in
+  "$REPO_ROOT/.agents/state/"*) ;;
+  *) fail "refusing to reset data outside .agents/state: $AGENTS_DATA_DIR" ;;
+esac
+note "resetting isolated data at $AGENTS_DATA_DIR"
+rm -rf "$AGENTS_DATA_DIR"
+mkdir -p "$AGENTS_DATA_DIR"
+rm -f "$AGENTS_STATE_DIR/auth.token" "$AGENTS_STATE_DIR/seed-recipe-slug.txt"
+"$HOOK_DIR/dev-start"
+"$HOOK_DIR/dev-wait"

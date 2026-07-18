@@ -1,0 +1,44 @@
+#!/usr/bin/env bash
+# Authenticate to local Mealie or MEALIE_QA_URL. Writes a mode-600 token outside artifacts.
+source "$(dirname "$0")/_lib.sh"
+require_command curl
+require_command python3
+
+browser=false
+[ "${1:-}" = "--browser" ] && browser=true
+base_url="${MEALIE_QA_URL:-$MEALIE_API_URL}"
+email="${MEALIE_QA_EMAIL:-${MEALIE_DEFAULT_EMAIL:-changeme@example.com}}"
+password="${MEALIE_QA_PASSWORD:-${MEALIE_DEFAULT_PASSWORD:-MyPassword}}"
+if [ -n "${MEALIE_QA_URL:-}" ] && { [ -z "${MEALIE_QA_EMAIL:-}" ] || [ -z "${MEALIE_QA_PASSWORD:-}" ]; }; then
+  fail "remote QA login requires MEALIE_QA_EMAIL and MEALIE_QA_PASSWORD"
+fi
+
+response="$AGENTS_STATE_DIR/login-response.json"
+umask 077
+curl -fsS "$base_url/api/auth/token" \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  --data-urlencode "username=$email" --data-urlencode "password=$password" >"$response"
+python3 - "$response" "$AGENTS_STATE_DIR/auth.token" <<'PY'
+import json, pathlib, sys
+payload = json.loads(pathlib.Path(sys.argv[1]).read_text())
+token = payload.get("access_token")
+if not isinstance(token, str) or not token:
+    raise SystemExit("login response contained no access_token")
+pathlib.Path(sys.argv[2]).write_text(token)
+PY
+rm -f "$response"
+chmod 600 "$AGENTS_STATE_DIR/auth.token"
+note "authenticated as $email against $base_url"
+
+if $browser; then
+  require_command agent-browser
+  web_url="${MEALIE_QA_WEB_URL:-$MEALIE_WEB_URL}"
+  profile="${MEALIE_BROWSER_AUTH_PROFILE:-mealie-agent}"
+  printf '%s' "$password" | agent_browser auth save "$profile" --url "$web_url/login" --username "$email" --password-stdin >/dev/null
+  agent_browser auth login "$profile" >/dev/null
+  agent_browser eval 'document.querySelector("form")?.requestSubmit()' >/dev/null
+  agent_browser wait 2000 >/dev/null
+  current_url="$(agent_browser get url)"
+  case "$current_url" in *'/login'*) fail "browser remained on the login page" ;; esac
+  note "browser profile '$profile' authenticated against $web_url"
+fi

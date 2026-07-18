@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+# Stop only processes recorded as belonging to this checkout. Safe to repeat.
+source "$(dirname "$0")/_lib.sh"
+
+for name in backend frontend; do
+  file="$(pid_file "$name")"
+  if pid="$(service_pid "$name" 2>/dev/null)"; then
+    note "stopping $name (pid $pid)"
+    stop_pid_tree "$pid"
+    for _ in 1 2 3 4 5; do kill -0 "$pid" 2>/dev/null || break; sleep 1; done
+    kill -9 "$pid" 2>/dev/null || true
+  else
+    note "$name is not running"
+  fi
+  rm -f "$file"
+done
+
+for port in "$MEALIE_API_PORT" "$MEALIE_WEB_PORT"; do
+  for _ in 1 2 3 4 5; do port_is_open "$port" || break; sleep 1; done
+  port_is_open "$port" && fail "port $port remains open after stopping recorded services"
+done

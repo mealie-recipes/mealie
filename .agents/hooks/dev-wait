@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+source "$(dirname "$0")/_lib.sh"
+require_command curl
+
+timeout="${MEALIE_WAIT_SECONDS:-180}"
+elapsed=0
+note "waiting up to ${timeout}s for $MEALIE_API_URL and $MEALIE_WEB_URL"
+while [ "$elapsed" -lt "$timeout" ]; do
+  api=false web=false
+  curl -fsS --max-time 3 "$MEALIE_API_URL/api/app/about" >/dev/null 2>&1 && api=true
+  curl -fsS --max-time 3 "$MEALIE_WEB_URL" >/dev/null 2>&1 && web=true
+  if $api && $web; then note "services ready after ${elapsed}s"; exit 0; fi
+  sleep 2
+  elapsed=$((elapsed + 2))
+done
+"$HOOK_DIR/dev-status" || true
+tail -n 30 "$AGENTS_LOG_DIR/backend.log" "$AGENTS_LOG_DIR/frontend.log" 2>/dev/null || true
+fail "services did not become ready (api=$api, web=$web)"

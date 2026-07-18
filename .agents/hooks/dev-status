@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+source "$(dirname "$0")/_lib.sh"
+
+quiet=false
+[ "${1:-}" = "--quiet" ] && quiet=true
+healthy=true
+for name in backend frontend; do
+  if pid="$(service_pid "$name" 2>/dev/null)"; then $quiet || note "$name running pid=$pid"; else $quiet || note "$name stopped"; healthy=false; fi
+done
+if port_is_open "$MEALIE_API_PORT"; then $quiet || note "API port $MEALIE_API_PORT open"; else healthy=false; fi
+if port_is_open "$MEALIE_WEB_PORT"; then $quiet || note "web port $MEALIE_WEB_PORT open"; else healthy=false; fi
+$healthy

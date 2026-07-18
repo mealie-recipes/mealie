@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Verify service health, login and deterministic seed data.
+source "$(dirname "$0")/_lib.sh"
+require_command curl
+require_command python3
+
+"$HOOK_DIR/dev-wait"
+"$HOOK_DIR/login"
+token="$(cat "$AGENTS_STATE_DIR/auth.token")"
+about="$AGENTS_STATE_DIR/about.json"
+recipes="$AGENTS_STATE_DIR/verify-recipes.json"
+curl -fsS "$MEALIE_API_URL/api/app/about" >"$about"
+curl -fsS -G "$MEALIE_API_URL/api/recipes" -H "Authorization: Bearer $token" \
+  --data-urlencode 'search=Agent QA Recipe' --data 'perPage=100' >"$recipes"
+python3 - "$about" "$recipes" <<'PY'
+import json, pathlib, sys
+about = json.loads(pathlib.Path(sys.argv[1]).read_text())
+recipes = json.loads(pathlib.Path(sys.argv[2]).read_text()).get("items", [])
+if not isinstance(about, dict): raise SystemExit("about response is not an object")
+if not any(item.get("name") == "Agent QA Recipe" for item in recipes):
+    raise SystemExit("Agent QA Recipe is missing; run .agents/hooks/seed")
+PY
+rm -f "$about" "$recipes"
+note "verified API, authentication and Agent QA Recipe"

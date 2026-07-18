@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+# Run focused project checks. Usage: test [hooks|backend|frontend|all] [paths...]
+source "$(dirname "$0")/_lib.sh"
+
+mode="${1:-hooks}"
+[ "$#" -gt 0 ] && shift
+check_hooks() {
+  find "$HOOK_DIR" -type f ! -name '_lib.sh' -print0 | xargs -0 -n1 bash -n
+  bash -n "$HOOK_DIR/_lib.sh"
+  note "hook syntax checks passed"
+}
+case "$mode" in
+  hooks) check_hooks ;;
+  backend)
+    require_command uv
+    if [ "$#" -gt 0 ]; then uv run pytest "$@"; else uv run pytest tests/unit_tests/test_config.py; fi
+    ;;
+  frontend)
+    require_command corepack
+    if [ "$#" -gt 0 ]; then (cd frontend && corepack yarn eslint "$@"); else (cd frontend && corepack yarn lint); fi
+    ;;
+  all)
+    check_hooks
+    "$HOOK_DIR/test" backend
+    "$HOOK_DIR/test" frontend
+    ;;
+  *) fail "usage: .agents/hooks/test [hooks|backend|frontend|all] [paths...]" ;;
+esac

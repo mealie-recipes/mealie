@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# Restore an existing checkout without resetting its isolated database.
+source "$(dirname "$0")/_lib.sh"
+
+"$HOOK_DIR/setup"
+if "$HOOK_DIR/dev-status" --quiet; then
+  note "development services already running"
+else
+  "$HOOK_DIR/dev-start"
+fi
+"$HOOK_DIR/dev-wait"

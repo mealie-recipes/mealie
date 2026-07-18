@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Browser smoke QA with screenshot, console, page errors and network evidence.
+source "$(dirname "$0")/_lib.sh"
+
+"$HOOK_DIR/dev-wait"
+"$HOOK_DIR/seed"
+"$HOOK_DIR/browser-setup"
+"$HOOK_DIR/login" --browser
+slug="$(cat "$AGENTS_STATE_DIR/seed-recipe-slug.txt")"
+qa_dir="$AGENTS_ARTIFACT_DIR/browser-qa"
+mkdir -p "$qa_dir"
+agent_browser open "$MEALIE_WEB_URL" >/dev/null
+agent_browser wait 3000 >/dev/null
+agent_browser open "$MEALIE_WEB_URL/g/home/r/$slug" >/dev/null
+agent_browser wait 5000 >/dev/null
+agent_browser console --clear >/dev/null 2>&1 || true
+agent_browser network requests --clear >/dev/null 2>&1 || true
+agent_browser reload >/dev/null
+agent_browser wait 5000 >/dev/null
+agent_browser screenshot "$qa_dir/recipe.png" >/dev/null
+agent_browser console --json >"$qa_dir/console.json" 2>&1 || true
+agent_browser errors --json >"$qa_dir/page-errors.json" 2>&1 || true
+agent_browser network requests --json >"$qa_dir/network.json" 2>&1 || true
+python3 - "$qa_dir/network.json" "$qa_dir/network-failures.json" <<'PY'
+import json, pathlib, sys
+source, target = map(pathlib.Path, sys.argv[1:])
+try: payload = json.loads(source.read_text())
+except Exception: payload = {"raw": source.read_text()}
+if isinstance(payload, list):
+    items = payload
+elif isinstance(payload, dict):
+    data = payload.get("data", payload)
+    items = data.get("requests", []) if isinstance(data, dict) else []
+else:
+    items = []
+failures = [item for item in items if isinstance(item, dict) and (item.get("failure") or int(item.get("status", 0) or 0) >= 400)]
+target.write_text(json.dumps({"count": len(failures), "failures": failures}, indent=2) + "\n")
+PY
+note "browser QA evidence written to $qa_dir"

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Start the API on :9000 and Nuxt on :3000, both bound to 0.0.0.0.
+source "$(dirname "$0")/_lib.sh"
+require_command uv
+require_command corepack
+require_command python3
+
+start_service() {
+  local name="$1" port="$2" command="$3" pidfile logfile
+  pidfile="$(pid_file "$name")"
+  logfile="$AGENTS_LOG_DIR/$name.log"
+  if service_pid "$name" >/dev/null; then note "$name already running (pid $(service_pid "$name"))"; return; fi
+  rm -f "$pidfile"
+  if port_is_open "$port"; then fail "port $port is occupied by a process this checkout does not own"; fi
+  note "starting $name; log=$logfile"
+  nohup bash -c "$command" >"$logfile" 2>&1 </dev/null &
+  printf '%s\n' "$!" >"$pidfile"
+}
+
+mkdir -p "$AGENTS_DATA_DIR"
+backend="cd $(printf '%q' "$REPO_ROOT") && exec env PRODUCTION=false TESTING=true DATA_DIR=$(printf '%q' "$AGENTS_DATA_DIR") API_HOST=0.0.0.0 API_PORT=$(printf '%q' "$MEALIE_API_PORT") BASE_URL=$(printf '%q' "$MEALIE_WEB_URL") uv run python mealie/app.py"
+frontend="cd $(printf '%q' "$REPO_ROOT/frontend") && exec env API_URL=$(printf '%q' "$MEALIE_API_URL") corepack yarn dev --host 0.0.0.0 --port $(printf '%q' "$MEALIE_WEB_PORT")"
+start_service backend "$MEALIE_API_PORT" "$backend"
+start_service frontend "$MEALIE_WEB_PORT" "$frontend"
+note "API $MEALIE_API_URL; frontend $MEALIE_WEB_URL"

@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Verify agent-browser and install its managed Chromium when needed.
+source "$(dirname "$0")/_lib.sh"
+require_command agent-browser
+
+if agent_browser doctor >/dev/null 2>&1; then note "agent-browser and browser runtime ready"; exit 0; fi
+note "installing agent-browser Chromium runtime"
+if [ "${AGENTS_BROWSER_WITH_DEPS:-false}" = true ]; then
+  agent_browser install --with-deps
+else
+  agent_browser install
+fi
+agent_browser doctor

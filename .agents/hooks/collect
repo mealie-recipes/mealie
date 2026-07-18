@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Collect non-secret diagnostic evidence for artifact upload.
+source "$(dirname "$0")/_lib.sh"
+
+mkdir -p "$AGENTS_ARTIFACT_DIR/service-logs"
+for name in backend frontend; do
+  [ -f "$AGENTS_LOG_DIR/$name.log" ] && cp "$AGENTS_LOG_DIR/$name.log" "$AGENTS_ARTIFACT_DIR/service-logs/$name.log"
+done
+{
+  date -u '+collected_at=%Y-%m-%dT%H:%M:%SZ'
+  git rev-parse HEAD | sed 's/^/revision=/'
+  "$HOOK_DIR/dev-status" || true
+} >"$AGENTS_ARTIFACT_DIR/status.txt"
+if command -v agent-browser >/dev/null 2>&1; then
+  mkdir -p "$AGENTS_ARTIFACT_DIR/browser"
+  agent_browser console --json >"$AGENTS_ARTIFACT_DIR/browser/console.json" 2>&1 || true
+  agent_browser errors --json >"$AGENTS_ARTIFACT_DIR/browser/page-errors.json" 2>&1 || true
+  agent_browser network requests --json >"$AGENTS_ARTIFACT_DIR/browser/network.json" 2>&1 || true
+fi
+note "artifacts collected at $AGENTS_ARTIFACT_DIR (authentication state excluded)"

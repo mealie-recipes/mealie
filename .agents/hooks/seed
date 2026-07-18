@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+# Create the deterministic Agent QA Recipe once and retain its slug.
+source "$(dirname "$0")/_lib.sh"
+require_command curl
+require_command python3
+
+"$HOOK_DIR/dev-wait"
+"$HOOK_DIR/login"
+token="$(cat "$AGENTS_STATE_DIR/auth.token")"
+result="$AGENTS_STATE_DIR/recipes.json"
+curl -fsS -G "$MEALIE_API_URL/api/recipes" \
+  -H "Authorization: Bearer $token" --data-urlencode 'search=Agent QA Recipe' --data 'perPage=100' >"$result"
+slug="$(python3 - "$result" <<'PY'
+import json, pathlib, sys
+for item in json.loads(pathlib.Path(sys.argv[1]).read_text()).get("items", []):
+    if item.get("name") == "Agent QA Recipe":
+        print(item["slug"])
+        break
+PY
+)"
+if [ -z "$slug" ]; then
+  note "creating Agent QA Recipe"
+  result="$AGENTS_STATE_DIR/created-recipe.json"
+  curl -fsS -X POST "$MEALIE_API_URL/api/recipes" \
+    -H "Authorization: Bearer $token" -H 'Content-Type: application/json' \
+    --data '{"name":"Agent QA Recipe","description":"Deterministic data for agent and human QA."}' >"$result"
+  slug="$(python3 - "$result" <<'PY'
+import json, pathlib, sys
+value = json.loads(pathlib.Path(sys.argv[1]).read_text())
+print(value if isinstance(value, str) else value.get("slug", ""))
+PY
+)"
+fi
+[ -n "$slug" ] || fail "could not determine seed recipe slug"
+printf '%s\n' "$slug" >"$AGENTS_STATE_DIR/seed-recipe-slug.txt"
+rm -f "$AGENTS_STATE_DIR/recipes.json" "$AGENTS_STATE_DIR/created-recipe.json"
+note "seed ready at $MEALIE_WEB_URL/g/home/r/$slug"

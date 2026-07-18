@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+# Install repository dependencies into this checkout. Safe to repeat.
+source "$(dirname "$0")/_lib.sh"
+
+NODE_VERSION="${MEALIE_NODE_VERSION:-22.14.0}"
+
+install_node() {
+  local os arch archive url destination
+  os="$(uname -s | tr '[:upper:]' '[:lower:]')"
+  case "$(uname -m)" in
+    x86_64|amd64) arch=x64 ;;
+    arm64|aarch64) arch=arm64 ;;
+    *) fail "unsupported architecture for local Node install: $(uname -m)" ;;
+  esac
+  archive="node-v${NODE_VERSION}-${os}-${arch}.tar.xz"
+  url="https://nodejs.org/dist/v${NODE_VERSION}/${archive}"
+  destination="$AGENTS_STATE_DIR/tools/node-v${NODE_VERSION}-${os}-${arch}"
+  if [ ! -x "$destination/bin/node" ]; then
+    note "installing Node $NODE_VERSION locally"
+    mkdir -p "$AGENTS_STATE_DIR/tools"
+    curl -fsSL "$url" -o "$AGENTS_STATE_DIR/$archive"
+    tar -xJf "$AGENTS_STATE_DIR/$archive" -C "$AGENTS_STATE_DIR/tools"
+    rm -f "$AGENTS_STATE_DIR/$archive"
+  fi
+  mkdir -p "$AGENTS_STATE_DIR/bin"
+  for executable in node npm npx corepack; do ln -sfn "$destination/bin/$executable" "$AGENTS_STATE_DIR/bin/$executable"; done
+}
+
+if ! command -v node >/dev/null 2>&1 || ! node -e 'process.exit(Number(process.versions.node.split(".")[0]) >= 22 ? 0 : 1)'; then
+  install_node
+fi
+
+if ! command -v uv >/dev/null 2>&1; then
+  note "installing uv locally"
+  mkdir -p "$AGENTS_STATE_DIR/bin"
+  curl -LsSf https://astral.sh/uv/install.sh | env UV_INSTALL_DIR="$AGENTS_STATE_DIR/bin" sh
+fi
+
+if [ -n "${MEALIE_DEPS_SOURCE:-}" ]; then
+  note "optional local reuse requested from $MEALIE_DEPS_SOURCE"
+  for path in .venv frontend/node_modules; do
+    if [ ! -e "$path" ] && [ -e "$MEALIE_DEPS_SOURCE/$path" ]; then
+      mkdir -p "$(dirname "$path")"
+      ln -s "$MEALIE_DEPS_SOURCE/$path" "$path"
+    fi
+  done
+fi
+
+note "syncing Python 3.12 dependencies from uv.lock"
+uv python install 3.12
+uv sync --frozen --extra pgsql --group dev
+
+note "installing frontend dependencies from yarn.lock"
+corepack yarn --cwd frontend install --frozen-lockfile --non-interactive
+
+if ! command -v agent-browser >/dev/null 2>&1; then
+  note "installing agent-browser locally"
+  npm install --prefix "$AGENTS_STATE_DIR/tools/agent-browser" --no-save agent-browser@0.27.0
+  ln -sfn "$AGENTS_STATE_DIR/tools/agent-browser/node_modules/.bin/agent-browser" "$AGENTS_STATE_DIR/bin/agent-browser"
+fi
+
+note "setup complete (Node $(node --version), uv $(uv --version), agent-browser $(agent-browser --version))"
