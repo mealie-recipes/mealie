@@ -1100,7 +1100,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tamarillo",
-                "plural_name": "tamarillos"
+                "plural_name": "tamarilla"
             },
             "ice-apple": {
                 "aliases": [],
@@ -1160,7 +1160,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lokvát",
-                "plural_name": "loquats"
+                "plural_name": "lokváty"
             },
             "crabapple": {
                 "aliases": [],
@@ -1509,8 +1509,8 @@
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "jalovcová bobule",
+                "plural_name": "jalovcové bobule"
             },
             "sour cherry": {
                 "aliases": [],
@@ -1521,8 +1521,8 @@
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "kustovnice",
+                "plural_name": "kustovnice"
             },
             "dried blueberry": {
                 "aliases": [],
@@ -1575,8 +1575,8 @@
             "canned cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cherry",
-                "plural_name": "canned cherries"
+                "name": "zavařená třešeň",
+                "plural_name": "zavařené třešně"
             },
             "amla": {
                 "aliases": [],
@@ -1635,14 +1635,14 @@
             "rosehip": {
                 "aliases": [],
                 "description": "",
-                "name": "rosehip",
-                "plural_name": "rosehips"
+                "name": "šípek",
+                "plural_name": "šípky"
             },
             "hawthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "hawthorn",
-                "plural_name": "hawthorns"
+                "name": "hloh",
+                "plural_name": "hlohy"
             },
             "boysenberry": {
                 "aliases": [],
@@ -1659,14 +1659,14 @@
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried berry",
-                "plural_name": "freeze-dried berries"
+                "name": "mrazem sušená bobule",
+                "plural_name": "mrazem sušené bobule"
             },
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
-                "plural_name": "aronia berries"
+                "name": "arónie",
+                "plural_name": "aronie"
             },
             "chokeberry": {
                 "aliases": [],
