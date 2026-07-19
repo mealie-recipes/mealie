@@ -17,7 +17,13 @@ vi.mocked(vueusecore.useClipboard).mockImplementation(() => {
     copy: mockCopy,
   };
 });
-const wrapper = () => makeWrapper(useShoppingListCopy);
+const wrapper = () => makeWrapper(() => {
+  const { t } = useI18n();
+  return {
+    t,
+    ...useShoppingListCopy(),
+  };
+});
 
 const TEST_HEADER = "SPECIAL HEADER!";
 
@@ -49,6 +55,35 @@ describe("Shopping list copy composable", () => {
         "MOCK_ITEM",
         "",
         "[SPECIAL HEADER!2]",
+        "MOCK_ITEM",
+      ].join("\n");
+
+      expect(mockCopy).toBeCalledWith(expected);
+    });
+    test("omits the heading when every item is unlabeled", () => {
+      const { copyListItems, t } = wrapper();
+      const noLabelList = { [t("shopping-list.no-label")]: [MOCK_ITEM, MOCK_ITEM] };
+
+      copyListItems(noLabelList, "plain");
+      expect(mockCopy).toBeCalledWith(["MOCK_ITEM", "MOCK_ITEM"].join("\n"));
+
+      copyListItems(noLabelList, "markdown");
+      expect(mockCopy).toBeCalledWith(["- [ ] MOCK_ITEM", "- [ ] MOCK_ITEM"].join("\n"));
+    });
+
+    test("keeps the no-label heading when other labels are also present", () => {
+      const { copyListItems, t } = wrapper();
+      const mixedList = {
+        [t("shopping-list.no-label")]: [MOCK_ITEM],
+        [TEST_HEADER]: [MOCK_ITEM],
+      };
+
+      copyListItems(mixedList, "plain");
+      const expected = [
+        `[${t("shopping-list.no-label")}]`,
+        "MOCK_ITEM",
+        "",
+        `[${TEST_HEADER}]`,
         "MOCK_ITEM",
       ].join("\n");
 

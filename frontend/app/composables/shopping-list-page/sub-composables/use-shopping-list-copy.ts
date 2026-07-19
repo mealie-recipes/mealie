@@ -8,15 +8,25 @@ type CopyTypes = "plain" | "markdown";
  */
 export function useShoppingListCopy() {
   const copy = useCopyList();
+  const { t } = useI18n();
 
   function copyListItems(itemsByLabel: { [key: string]: ShoppingListItemOut[] }, copyType: CopyTypes) {
     const text: string[] = [];
-    Object.entries(itemsByLabel).forEach(([label, items], idx) => {
+    const labelGroups = Object.entries(itemsByLabel);
+
+    // If the list has no labeled items at all, everything is grouped under the single
+    // "no label" bucket. In that case the heading is just noise, so we skip it.
+    const noLabelText = t("shopping-list.no-label");
+    const onlyHasNoLabelGroup = labelGroups.length === 1 && labelGroups[0][0] === noLabelText;
+
+    labelGroups.forEach(([label, items], idx) => {
       if (idx) {
         text.push("");
       }
 
-      text.push(formatCopiedLabelHeading(copyType, label));
+      if (!onlyHasNoLabelGroup) {
+        text.push(formatCopiedLabelHeading(copyType, label));
+      }
       items.forEach(item => text.push(formatCopiedListItem(copyType, item)));
     });
 
