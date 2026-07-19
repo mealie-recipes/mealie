@@ -409,18 +409,13 @@ async function rerollMeal(mealplan: UpdatePlanEntry) {
   // Delete the current entry, then create a new random one with the same date and type
   const { data: deleted } = await api.mealplans.deleteOne(mealplan.id);
   if (deleted) {
-    const { data } = await api.mealplans.setRandom({
+    await api.mealplans.setRandom({
       date: mealplan.date,
       entryType: mealplan.entryType,
     });
 
-    if (data) {
-      props.actions.refreshAll();
-    }
-    else {
-      // Random failed, still refresh to reflect the deletion
-      props.actions.refreshAll();
-    }
+    // Refresh either way: if setRandom failed we still need to reflect the deletion
+    props.actions.refreshAll();
   }
 }
 
