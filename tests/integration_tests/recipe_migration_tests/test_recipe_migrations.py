@@ -190,6 +190,13 @@ def test_recipe_migration(api_client: TestClient, unique_user_fn_scoped: TestUse
     response = api_client.get(api_routes.recipes_slug(mig.search_slug), headers=unique_user.token)
     recipe = Recipe(**assert_deserialize(response))
 
+    if mig.typ is SupportedMigrations.copymethat:
+        response = api_client.get(
+            api_routes.households_self_recipes_recipe_slug(mig.search_slug), headers=unique_user.token
+        )
+        assert response.status_code == 200
+        assert response.json()["lastMade"]
+
     if mig.nutrition_entries:
         assert recipe.nutrition is not None
         nutrition = recipe.nutrition.model_dump(by_alias=True)

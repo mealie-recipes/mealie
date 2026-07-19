@@ -5,7 +5,9 @@ from pathlib import Path
 
 from bs4 import BeautifulSoup
 
+from mealie.schema.household.household import HouseholdRecipeUpdate
 from mealie.schema.reports.reports import ReportEntryCreate
+from mealie.services.household_services.household_service import HouseholdService
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
@@ -35,7 +37,6 @@ class CopyMeThatMigrator(BaseMigrator):
         self.name = "copymethat"
 
         self.key_aliases = [
-            MigrationAlias(key="last_made", alias="made_this", func=lambda x: datetime.now(UTC)),
             MigrationAlias(key="notes", alias="recipeNotes"),
             MigrationAlias(key="orgURL", alias="original_link"),
             MigrationAlias(key="rating", alias="ratingValue"),
@@ -111,15 +112,16 @@ class CopyMeThatMigrator(BaseMigrator):
 
             recipes = [self.clean_recipe_dictionary(x) for x in recipes_as_dicts]
             results = self.import_recipes_to_database(recipes)
-            recipe_lookup = {r.slug: r for r in recipes}
-            for slug, recipe_id, status in results:
+            household_service = HouseholdService(self.group.id, self.household.id, self.db)
+            for (slug, recipe_id, status), recipe, recipe_data in zip(results, recipes, recipes_as_dicts, strict=True):
                 if status:
+                    if "made_this" in recipe_data:
+                        household_service.set_household_recipe(slug, HouseholdRecipeUpdate(last_made=datetime.now(UTC)))
                     try:
-                        r = recipe_lookup.get(slug)
-                        if not r or not r.image:
+                        if not recipe.image:
                             continue
 
                     except StopIteration:
                         continue
 
-                    import_image(r.image, recipe_id, extraction_root=source_dir)
+                    import_image(recipe.image, recipe_id, extraction_root=source_dir)
