@@ -1,8 +1,6 @@
 <template>
   <div @click.prevent>
-    <!-- User Rating: shows the group average until the user rates the recipe themselves -->
     <v-rating
-      v-if="isOwnGroup"
       :model-value="displayRating"
       :active-color="showGroupAverage ? 'grey-darken-1' : 'secondary'"
       color="secondary-lighten-3"
@@ -10,21 +8,10 @@
       :half-increments="showGroupAverage"
       :density="small ? 'compact' : 'default'"
       :size="small ? 'x-small' : undefined"
-      :hover="canHover"
-      :clearable="!!userRatingDisplayValue"
+      :readonly="isReadonly"
+      :hover="!isReadonly && canHover"
+      :clearable="!!displayRating"
       @update:model-value="updateRating(+$event)"
-    />
-    <!-- Group Rating -->
-    <v-rating
-      v-else
-      :model-value="groupRating"
-      :half-increments="true"
-      active-color="grey-darken-1"
-      color="secondary-lighten-3"
-      length="5"
-      :density="small ? 'compact' : 'default'"
-      :size="small ? 'x-small' : undefined"
-      readonly
     />
   </div>
 </template>
@@ -35,23 +22,23 @@ import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserSelfRatings } from "~/composables/use-users";
 
 interface Props {
-  emitOnly?: boolean;
+  readonly?: boolean;
   recipeId?: string;
   slug?: string;
   small?: boolean;
 }
 
 const props = withDefaults(defineProps<Props>(), {
-  emitOnly: false,
+  readonly: false,
   recipeId: "",
   slug: "",
   small: false,
 });
 
-const modelValue = defineModel<number>({ default: 0 });
-const groupRating = computed(() => modelValue.value);
+const groupRating = defineModel<number>({ default: 0 });
 
 const { isOwnGroup } = useLoggedInState();
+const isReadonly = computed(() => props.readonly || !isOwnGroup.value);
 const { userRatings, setRating } = useUserSelfRatings();
 
 // on touch devices a tap fires mouseenter without a matching mouseleave, which leaves v-rating
@@ -72,30 +59,28 @@ watch(userRating, (value) => {
   }
 });
 
-const userRatingDisplayValue = computed(() => localUserRating.value ?? 0);
-const showGroupAverage = computed(() => localUserRating.value === null);
+// only fall back to the group average when we can't offer the user their own rating,
+// and only when there's actually a group average to show. An unset rating may be null or 0
+const showGroupAverage = computed(() => {
+  return isReadonly.value && !localUserRating.value && !!groupRating.value;
+});
 
 const displayRating = computed(() => {
-  return showGroupAverage.value ? groupRating.value : userRatingDisplayValue.value;
+  return showGroupAverage.value ? groupRating.value : (localUserRating.value || 0);
 });
 
 async function updateRating(val?: number) {
-  if (!isOwnGroup.value) {
+  if (isReadonly.value) {
     return;
   }
 
-  // the group average can be a half value, but user ratings are always whole stars
+  // user ratings are always whole stars
   let rating = Math.round(val ?? 0);
   if (rating === localUserRating.value) {
     rating = 0;
   }
 
   localUserRating.value = rating;
-
-  if (props.emitOnly) {
-    modelValue.value = rating;
-    return;
-  }
 
   pendingWrites.value++;
   try {
