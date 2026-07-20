@@ -6,7 +6,7 @@ from fastapi.testclient import TestClient
 
 import mealie.services.scraper.recipe_scraper as recipe_scraper_module
 from mealie.core import exceptions
-from mealie.core.config import get_app_settings
+from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.openai.recipe import OpenAIRecipe, OpenAIRecipeIngredient, OpenAIRecipeInstruction
 from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraper_strategies import RecipeScraperOpenAITranscription
@@ -27,9 +27,21 @@ def _make_openai_recipe() -> OpenAIRecipe:
 
 
 @pytest.fixture(autouse=True)
-def video_scraper_setup(monkeypatch: pytest.MonkeyPatch):
+def video_scraper_setup(monkeypatch: pytest.MonkeyPatch, unique_user: TestUser):
     # Restrict to only the video scraper so other strategies don't interfere
     monkeypatch.setattr(recipe_scraper_module, "DEFAULT_SCRAPER_STRATEGIES", [RecipeScraperOpenAITranscription])
+
+    provider = unique_user.repos.group_ai_providers.create(
+        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
+    )
+    unique_user.repos.group_ai_provider_settings.update(
+        unique_user.repos.group_id,
+        AIProviderSettingsUpdate(
+            default_provider_id=provider.id,
+            audio_provider_id=provider.id,
+            image_provider_id=None,
+        ),
+    )
 
     # Prevent any real HTTP calls during scraping
     async def mock_safe_scrape_html(url: str) -> str:
@@ -117,8 +129,10 @@ def test_create_recipe_from_video_transcription_disabled(
     monkeypatch: pytest.MonkeyPatch,
     unique_user: TestUser,
 ):
-    settings = get_app_settings()
-    monkeypatch.setattr(settings, "OPENAI_ENABLE_TRANSCRIPTION_SERVICES", False)
+    unique_user.repos.group_ai_provider_settings.update(
+        unique_user.repos.group_id,
+        AIProviderSettingsUpdate(default_provider_id=None, audio_provider_id=None, image_provider_id=None),
+    )
 
     r = api_client.post(api_routes.recipes_create_url, json={"url": VIDEO_URL}, headers=unique_user.token)
     assert r.status_code == 400

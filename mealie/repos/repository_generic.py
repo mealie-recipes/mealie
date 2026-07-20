@@ -25,7 +25,7 @@ from mealie.schema.response.pagination import (
     RequestQuery,
 )
 from mealie.schema.response.query_search import SearchFilter
-from mealie.services.query_filter.builder import QueryFilterBuilder
+from mealie.services.query_filter.builder import NonFilterableValueError, QueryFilterBuilder
 
 from ._utils import NOT_SET, NotSet
 
@@ -231,7 +231,11 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
             document_data = document if isinstance(document, dict) else document.model_dump()
             document_data_by_id[document_data["id"]] = document_data
 
-        documents_to_update_query = self._query().filter(self.model.id.in_(list(document_data_by_id.keys())))
+        documents_to_update_query = (
+            self._query()
+            .filter(self.model.id.in_(list(document_data_by_id.keys())))
+            .filter_by(**self._filter_builder())
+        )
         documents_to_update = self.session.execute(documents_to_update_query).unique().scalars().all()
 
         updated_documents = []
@@ -269,7 +273,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         return result_as_model
 
     def delete_many(self, values: Iterable) -> list[Schema]:
-        query = self._query().filter(self.model.id.in_(values))
+        query = self._query().filter(self.model.id.in_(values)).filter_by(**self._filter_builder())
         results = self.session.execute(query).unique().scalars().all()
         results_as_model = [self.schema.model_validate(result) for result in results]
 
@@ -466,6 +470,12 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                     query = self.add_order_attr_to_query(
                         query, order_attr, order_dir, request_query.order_by_null_position
                     )
+
+                except NonFilterableValueError as e:
+                    raise HTTPException(
+                        status_code=400,
+                        detail=f'Invalid order_by statement "{request_query.order_by}": {e.message}',
+                    ) from e
 
                 except ValueError as e:
                     raise HTTPException(

@@ -4,8 +4,8 @@
     },
     "recipe": {
         "unique-name-error": "Receptes nosaukums nevar atkārtoties",
-        "recipe-created": "Recipe Created",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-created": "Recepte izveidota",
+        "recipe-image-deleted": "Receptes attēls dzēsts",
         "recipe-defaults": {
             "ingredient-note": "1 gl. Milti",
             "step-text": "Receptes darbības, kā arī citi lauki receptes lapā atbalsta atzīmes sintaksi.\n\n**Pievienot saiti**\n\n[Mana saite](https://demo.mealie.io)\n"
@@ -13,19 +13,19 @@
         "servings-text": {
             "makes": "Makes",
             "serves": "Serves",
-            "serving": "Serving",
-            "servings": "Servings",
-            "yield": "Yield",
-            "yields": "Yields"
+            "serving": "Porcija",
+            "servings": "Porcijas",
+            "yield": "Rezultāts",
+            "yields": "Rezultāts"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}",
+        "and-amount": "un {amount}",
+        "or-ingredient": "vai {ingredient}",
         "create-progress": {
             "creating-recipe-with-ai": "Creating recipe with AI...",
             "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
             "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
+            "downloading-image": "Lejupielādē attēlu...",
+            "downloading-video": "Lejupielādē video...",
             "extracting-recipe-data": "Extracting recipe data...",
             "fetching-webpage": "Fetching webpage...",
             "transcribing-audio-with-ai": "Transcribing audio with AI..."
@@ -45,7 +45,7 @@
     },
     "exceptions": {
         "permission_denied": "Jums nav atļaujas veikt šo darbību",
-        "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
+        "recursive-recipe-link": "Recepte nevar atsaukties uz sevi pašu, ne tieši, ne netieši",
         "no-entry-found": "Pieprasītais resurss netika atrasts",
         "integrity-error": "Datu bāzes integritātes kļūda",
         "username-conflict-error": "Šis lietotājvārds jau ir aizņemts",

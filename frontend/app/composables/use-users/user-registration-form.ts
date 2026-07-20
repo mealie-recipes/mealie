@@ -1,0 +1,103 @@
+import { useAsyncValidator } from "~/composables/use-validators";
+import type { VForm } from "~/types/auto-forms";
+import { usePublicApi } from "~/composables/api/api-client";
+
+const domAccountForm = ref<VForm | null>(null);
+const username = ref("");
+const fullName = ref("");
+const email = ref("");
+const password1 = ref("");
+const password2 = ref("");
+const advancedOptions = ref(false);
+
+export function resetUserRegistrationForm() {
+  domAccountForm.value = null;
+  username.value = "";
+  fullName.value = "";
+  email.value = "";
+  password1.value = "";
+  password2.value = "";
+  advancedOptions.value = false;
+}
+
+export const useUserRegistrationForm = () => {
+  const i18n = useI18n();
+
+  async function safeValidate(form: Ref<VForm | null>) {
+    if (!form.value) {
+      return false;
+    }
+
+    const result = await form.value.validate();
+    return result.valid;
+  }
+  // ================================================================
+  // Provide Group Details
+  const publicApi = usePublicApi();
+  // ================================================================
+  // Provide Account Details
+
+  const usernameErrorMessages = ref<string[]>([]);
+  const { validate: validateUsername, valid: validUsername } = useAsyncValidator(
+    username,
+    (v: string) => publicApi.validators.username(v),
+    i18n.t("validation.username-is-taken"),
+    usernameErrorMessages,
+  );
+  const emailErrorMessages = ref<string[]>([]);
+  const { validate: validateEmail, valid: validEmail } = useAsyncValidator(
+    email,
+    (v: string) => publicApi.validators.email(v),
+    i18n.t("validation.email-is-taken"),
+    emailErrorMessages,
+  );
+  const accountDetails = {
+    username,
+    fullName,
+    email,
+    advancedOptions,
+    validate: async () => {
+      if (!validUsername.value || !validEmail.value) {
+        await Promise.all([validateUsername(), validateEmail()]);
+      }
+
+      if (!validUsername.value || !validEmail.value) {
+        return false;
+      }
+
+      return await safeValidate(domAccountForm as Ref<VForm>);
+    },
+    reset: () => {
+      accountDetails.username.value = "";
+      accountDetails.fullName.value = "";
+      accountDetails.email.value = "";
+      accountDetails.advancedOptions.value = false;
+    },
+  };
+  // ================================================================
+  // Provide Credentials
+  const passwordMatch = () => password1.value === password2.value || i18n.t("user.password-must-match");
+  const credentials = {
+    password1,
+    password2,
+    passwordMatch,
+    reset: () => {
+      credentials.password1.value = "";
+      credentials.password2.value = "";
+    },
+  };
+
+  return {
+    accountDetails,
+    credentials,
+    emailErrorMessages,
+    usernameErrorMessages,
+    // Fields
+    advancedOptions,
+    // Validators
+    validateUsername,
+    validateEmail,
+    // Dom Refs
+    domAccountForm,
+  };
+};
