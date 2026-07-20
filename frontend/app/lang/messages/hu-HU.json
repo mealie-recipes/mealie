@@ -941,9 +941,9 @@
     "openai-not-ready": "OpenAI még nem áll készen",
     "openai-ready-error-text": "Nem minden OpenAI érték van beállítva. Ez figyelmen kívül hagyható, ha nem használja az OpenAI funkcióit.",
     "openai-ready-success-text": "Minden szükséges OpenAI változó beállítva.",
-    "site-statistics": "Site Statistics",
-    "uncategorized-recipes": "Uncategorized Recipes",
-    "untagged-recipes": "Untagged Recipes"
+    "site-statistics": "Oldal statisztikák",
+    "uncategorized-recipes": "Nem kategorizált receptek",
+    "untagged-recipes": "Nem címkézett receptek"
   },
   "shopping-list": {
     "all-lists": "Összes lista",
@@ -1399,7 +1399,7 @@
     "setup": {
       "first-time-setup": "Első beállítás",
       "welcome-to-mealie-get-started": "Üdvözöl a Mealie! Vágjunk bele",
-      "previous-mealie-instance": "Did you have a previous Mealie instance?",
+      "previous-mealie-instance": "Volt már korábbi Mealie-példánya?",
       "already-set-up-bring-to-homepage": "Már kész is vagyok, vigyél az új kezdőoldalamra",
       "common-settings-for-new-sites": "Itt van egy pár alap beállítás az új oldaladhoz",
       "setup-complete": "Beállítás kész!",
