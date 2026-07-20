@@ -6,6 +6,7 @@ from pathlib import Path
 from httpx import AsyncClient, Response
 from pydantic import UUID4
 
+from mealie.core.config import get_app_settings
 from mealie.pkgs import img, safehttp
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_image_types import RecipeImageTypes
@@ -31,17 +32,26 @@ async def largest_content_len(urls: list[str]) -> tuple[str, int]:
 
     max_concurrency = 10
 
-    async def do(client: AsyncClient, url: str) -> Response:
-        return await client.head(url)
+    settings = get_app_settings()
 
-    async with AsyncClient(transport=safehttp.AsyncSafeTransport(impersonate="chrome")) as client:
-        tasks = [do(client, url) for url in urls]
-        responses: list[Response] = await gather_with_concurrency(max_concurrency, *tasks, ignore_exceptions=True)
-        for response in responses:
-            len_int = int(response.headers.get("Content-Length", 0))
-            if len_int > largest_len:
-                largest_url = str(response.url)
-                largest_len = len_int
+    async def do(url: str) -> Response:
+        # A dedicated transport per request: the safe transport pins each request
+        # through its session, so it must not be shared across concurrent requests.
+        transport = safehttp.AsyncSafeTransport(
+            allow_hosts=settings.http_allow_list,
+            deny_hosts=settings.http_disallow_list,
+            impersonate="chrome",
+        )
+        async with AsyncClient(transport=transport) as client:
+            return await client.head(url)
+
+    tasks = [do(url) for url in urls]
+    responses: list[Response] = await gather_with_concurrency(max_concurrency, *tasks, ignore_exceptions=True)
+    for response in responses:
+        len_int = int(response.headers.get("Content-Length", 0))
+        if len_int > largest_len:
+            largest_url = str(response.url)
+            largest_len = len_int
 
     return largest_url, largest_len
 
@@ -146,7 +156,13 @@ class RecipeDataService(BaseService):
         file_name = f"{self.recipe_id!s}.{ext}"
         file_path = Recipe.directory_from_id(self.recipe_id).joinpath("images", file_name)
 
-        async with AsyncClient(transport=safehttp.AsyncSafeTransport(impersonate="chrome")) as client:
+        settings = get_app_settings()
+        transport = safehttp.AsyncSafeTransport(
+            allow_hosts=settings.http_allow_list,
+            deny_hosts=settings.http_disallow_list,
+            impersonate="chrome",
+        )
+        async with AsyncClient(transport=transport) as client:
             try:
                 r = await client.get(image_url_str)
             except Exception:

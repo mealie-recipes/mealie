@@ -18,6 +18,7 @@ from w3lib.html import get_base_url
 from yt_dlp.extractor.generic import GenericIE
 
 from mealie.core import exceptions
+from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
@@ -76,7 +77,10 @@ async def safe_scrape_html(url: str) -> str:
         html_bytes = b""
         response = None
 
+        settings = get_app_settings()
         transport = safehttp.AsyncSafeTransport(
+            allow_hosts=settings.http_allow_list,
+            deny_hosts=settings.http_disallow_list,
             impersonate=impersonation,
             default_headers=True,
             verify=False,  # disable SSL verification since we can handle untrusted data and some sites don't have certs

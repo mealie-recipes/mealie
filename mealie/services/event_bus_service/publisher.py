@@ -1,9 +1,10 @@
 from typing import Protocol
 
 import apprise
-import requests
 from fastapi.encoders import jsonable_encoder
 
+from mealie.core.config import get_app_settings
+from mealie.pkgs import safehttp
 from mealie.services.event_bus_service.event_types import Event
 
 
@@ -43,7 +44,14 @@ class WebhookPublisher:
 
     def publish(self, event: Event, notification_urls: list[str]):
         event_payload = jsonable_encoder(event)
+        settings = get_app_settings()
         for url in notification_urls:
-            r = requests.post(url, json=event_payload, timeout=15)
+            r = safehttp.post(
+                url,
+                json=event_payload,
+                timeout=15,
+                allow_hosts=settings.http_allow_list,
+                deny_hosts=settings.http_disallow_list,
+            )
             if self.hard_fail:
                 r.raise_for_status()
