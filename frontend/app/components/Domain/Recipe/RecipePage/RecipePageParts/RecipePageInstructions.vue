@@ -405,6 +405,8 @@ interface MergerHistory {
   source: number;
   targetText: string;
   sourceText: string;
+  targetIngredientReferences: IngredientReferences[];
+  sourceIngredientReferences: IngredientReferences[];
 }
 
 const instructionList = defineModel<RecipeStep[]>("modelValue", { required: true, default: () => [] });
@@ -657,14 +659,29 @@ function mergeAbove(target: number, source: number) {
     return;
   }
 
+  const targetInstruction = instructionList.value[target];
+  const sourceInstruction = instructionList.value[source];
+
+  if (!targetInstruction || !sourceInstruction) {
+    return;
+  }
+
+  const targetIngredients = targetInstruction.ingredientReferences || [];
+  const sourceIngredients = sourceInstruction.ingredientReferences || [];
+
   mergeHistory.value.push({
     target,
     source,
-    targetText: instructionList.value[target].text,
-    sourceText: instructionList.value[source].text,
+    targetText: targetInstruction.text,
+    sourceText: sourceInstruction.text,
+    targetIngredientReferences: targetIngredients,
+    sourceIngredientReferences: sourceIngredients,
   });
 
+  const newReferences = sourceIngredients?.filter(ref => !targetIngredients.find(val => val.referenceId === ref.referenceId));
+
   instructionList.value[target].text += " " + instructionList.value[source].text;
+  instructionList.value[target].ingredientReferences = [...targetIngredients, ...newReferences];
   instructionList.value.splice(source, 1);
 }
 
