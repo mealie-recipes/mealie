@@ -58,12 +58,12 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "mkdocs-material==9.7.6",
+    "mkdocs-material==9.7.7",
 ]
 dev = [
     "coverage==7.15.2",
     "coveragepy-lcov==0.1.2",
-    "mkdocs-material==9.7.6",
+    "mkdocs-material==9.7.7",
     "mypy==2.3.0",
     "pre-commit==4.6.0",
     "pylint==4.0.6",
