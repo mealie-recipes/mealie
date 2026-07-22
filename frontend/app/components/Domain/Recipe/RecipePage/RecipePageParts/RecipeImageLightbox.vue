@@ -10,13 +10,14 @@
       :style="{ backgroundColor: scrimColor }"
       @click="onBackgroundClick"
     >
-      <div class="lightbox-frame">
+      <div ref="frameRef" class="lightbox-frame">
         <img
           v-if="imageUrl"
           :src="imageUrl"
           class="lightbox-img"
           draggable="false"
           :style="imgStyle"
+          @load="onImageLoad"
           @click="onImageClick"
           @pointerdown="onPointerDown"
           @pointermove="onPointerMove"
@@ -118,7 +119,49 @@ function onPointerUp(event: PointerEvent) {
   dragging.value = false;
 }
 
+// The <img> box must be sized to the actual rendered pixels of the image (not the
+// frame's bounding box) so the box-shadow/glow hugs the photo's real edges rather
+// than the invisible letterboxed area object-fit:contain would otherwise leave.
+const frameRef = ref<HTMLElement | null>(null);
+const frameSize = reactive({ w: 0, h: 0 });
+const naturalSize = reactive({ w: 0, h: 0 });
+
+function updateFrameSize() {
+  if (frameRef.value) {
+    frameSize.w = frameRef.value.clientWidth;
+    frameSize.h = frameRef.value.clientHeight;
+  }
+}
+
+function onImageLoad(event: Event) {
+  const img = event.target as HTMLImageElement;
+  naturalSize.w = img.naturalWidth;
+  naturalSize.h = img.naturalHeight;
+  updateFrameSize();
+}
+
+onMounted(() => {
+  updateFrameSize();
+  window.addEventListener("resize", updateFrameSize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateFrameSize);
+});
+
+const renderedSize = computed(() => {
+  if (!naturalSize.w || !naturalSize.h || !frameSize.w || !frameSize.h) {
+    return null;
+  }
+
+  const scale = Math.min(frameSize.w / naturalSize.w, frameSize.h / naturalSize.h);
+  return { width: naturalSize.w * scale, height: naturalSize.h * scale };
+});
+
 const imgStyle = computed(() => ({
+  ...(renderedSize.value
+    ? { width: `${renderedSize.value.width}px`, height: `${renderedSize.value.height}px` }
+    : {}),
   boxShadow: imageShadow.value,
   transform: `translate(${pan.x}px, ${pan.y}px) scale(${zoomed.value ? ZOOM_SCALE : 1})`,
   transition: dragging.value ? "none" : "transform 0.2s ease, box-shadow 0.2s ease",
@@ -147,9 +190,8 @@ const imgStyle = computed(() => ({
 }
 
 .lightbox-img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
+  max-width: 100%;
+  max-height: 100%;
   display: block;
   touch-action: none;
   user-select: none;
