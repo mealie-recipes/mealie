@@ -35,6 +35,7 @@ const model = defineModel<boolean>({ required: true });
   width: 100vw;
   height: 100vh;
   cursor: zoom-out;
+  background-color: rgba(0, 0, 0, 0.95);
 }
 
 .lightbox-img {
