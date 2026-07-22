@@ -10,12 +10,9 @@
       :style="{ backgroundColor: scrimColor }"
       @click="model = false"
     >
-      <v-img
+      <img
         v-if="imageUrl"
         :src="imageUrl"
-        contain
-        max-height="100vh"
-        max-width="100vw"
         class="lightbox-img"
         :style="{ boxShadow: imageShadow }"
       />
@@ -41,7 +38,9 @@ const scrimColor = computed(() =>
 );
 
 const imageShadow = computed(() =>
-  isDark.value ? "0 0 60px rgba(255, 255, 255, 0.15)" : "0 8px 40px rgba(0, 0, 0, 0.4)",
+  isDark.value
+    ? "0 0 24px rgba(255, 255, 255, 0.45), 0 0 140px rgba(255, 255, 255, 0.45)"
+    : "0 6px 16px rgba(0, 0, 0, 0.55), 0 18px 80px rgba(0, 0, 0, 0.7)",
 );
 </script>
 
@@ -59,5 +58,11 @@ const imageShadow = computed(() =>
 .lightbox-img {
   cursor: zoom-out;
   transition: box-shadow 0.2s ease;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100vw;
+  max-height: 100vh;
+  object-fit: contain;
 }
 </style>
