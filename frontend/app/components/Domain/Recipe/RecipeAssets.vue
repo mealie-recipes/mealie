@@ -70,6 +70,7 @@
                   :prepend-icon="$globals.icons.download"
                   :title="$t('general.download')"
                   download
+                  @click.stop
                 />
                 <v-list-item
                   v-if="edit"
@@ -91,6 +92,7 @@
               variant="plain"
               :href="assetURL(item.fileName ?? '')"
               download
+              @click.stop
             >
               <v-icon> {{ $globals.icons.download }} </v-icon>
             </v-btn>
