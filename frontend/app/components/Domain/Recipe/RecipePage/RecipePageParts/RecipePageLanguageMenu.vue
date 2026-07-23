@@ -2,24 +2,32 @@
   <div>
     <v-menu offset-y left>
       <template #activator="{ props: menuProps }">
-        <v-btn
-          variant="text"
-          size="small"
-          v-bind="menuProps"
+        <v-badge
+          :model-value="currentIsStale"
+          color="warning"
+          dot
+          location="top end"
+          offset-x="4"
+          offset-y="4"
         >
-          <v-icon start>
-            {{ $globals.icons.translate }}
-          </v-icon>
-          {{ currentLabel }}
-          <v-icon
-            v-if="currentIsStale"
-            end
-            color="warning"
-            :title="$t('recipe.translation-outdated')"
-          >
-            {{ $globals.icons.alert }}
-          </v-icon>
-        </v-btn>
+          <v-tooltip location="bottom" color="info">
+            <template #activator="{ props: tooltipProps }">
+              <v-btn
+                icon
+                variant="flat"
+                rounded="circle"
+                size="small"
+                color="info"
+                v-bind="{ ...menuProps, ...tooltipProps }"
+              >
+                <v-icon size="x-large">
+                  {{ $globals.icons.translate }}
+                </v-icon>
+              </v-btn>
+            </template>
+            <span>{{ currentLabel }}</span>
+          </v-tooltip>
+        </v-badge>
       </template>
 
       <v-list density="compact" min-width="240">
@@ -68,13 +76,19 @@
         </v-list-item>
 
         <!-- Translate action -->
-        <template v-if="canEdit && aiEnabled">
+        <template v-if="canEdit">
           <v-divider />
-          <v-list-item :disabled="loading" @click="dialog = true">
+          <v-list-item
+            :disabled="loading || !aiEnabled"
+            @click="aiEnabled && (dialog = true)"
+          >
             <template #prepend>
               <v-icon>{{ $globals.icons.translate }}</v-icon>
             </template>
             <v-list-item-title>{{ $t("recipe.translate-recipe") }}</v-list-item-title>
+            <v-list-item-subtitle v-if="!aiEnabled">
+              {{ $t("recipe.translate-requires-ai") }}
+            </v-list-item-subtitle>
           </v-list-item>
         </template>
       </v-list>

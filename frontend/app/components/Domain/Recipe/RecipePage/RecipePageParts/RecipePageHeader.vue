@@ -5,14 +5,6 @@
       :recipe-scale="recipeScale"
       :landscape="landscape"
     />
-    <div v-if="isOwnGroup && !isEditMode" class="d-flex justify-end">
-      <RecipePageLanguageMenu
-        :slug="recipe.slug"
-        :can-edit="canEditRecipe"
-        :selected-locale="recipe.translatedLocale ?? null"
-        @switch="$emit('switch-language', $event)"
-      />
-    </div>
     <v-divider />
     <RecipeActionMenu
       :recipe="recipe"
@@ -30,7 +22,17 @@
       @save="$emit('save')"
       @delete="$emit('delete')"
       @print="printRecipe"
-    />
+    >
+      <template #leading>
+        <RecipePageLanguageMenu
+          v-if="isOwnGroup"
+          :slug="recipe.slug"
+          :can-edit="canEditRecipe"
+          :selected-locale="recipe.translatedLocale ?? null"
+          @switch="$emit('switch-language', $event)"
+        />
+      </template>
+    </RecipeActionMenu>
   </div>
 </template>
 
