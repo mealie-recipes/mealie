@@ -6,7 +6,7 @@
     <BaseDialog
       v-model="state.checkAllDialog"
       :title="$t('general.confirm')"
-      :icon="$globals.icons.checkboxOutline"
+      :icon="$globals.icons.checkboxMultipleMarkedOutline"
       can-confirm
       @confirm="checkAll"
     >
@@ -18,7 +18,7 @@
     <BaseDialog
       v-model="state.uncheckAllDialog"
       :title="$t('general.confirm')"
-      :icon="$globals.icons.checkboxBlankOutline"
+      :icon="$globals.icons.checkboxMultipleBlankOutline"
       can-confirm
       @confirm="uncheckAll"
     >
