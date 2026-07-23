@@ -6,60 +6,64 @@
       :recipes="weekRecipesWithScales"
       :shopping-lists="shoppingLists"
     />
-    <v-menu
-      v-model="state.picker"
-      :close-on-content-click="false"
-      transition="scale-transition"
-      offset-y
-      min-width="auto"
-    >
-      <template #activator="{ props }">
-        <v-btn
-          color="primary"
-          class="mb-2"
-          v-bind="props"
-        >
-          <v-icon start>
-            {{ $globals.icons.calendar }}
-          </v-icon>
-          {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
-        </v-btn>
-      </template>
+    <div :class="`d-flex ga-2 ${$vuetify.display.xs ? 'justify-center' : 'justify-start'}`">
+      <v-btn :icon="$globals.icons.chevronLeft" flat rounded="md" density="comfortable" @click="() => changeWeek(-1)" />
+      <v-menu
+        v-model="state.picker"
+        :close-on-content-click="false"
+        transition="scale-transition"
+        offset-y
+        min-width="auto"
+      >
+        <template #activator="{ props }">
+          <v-btn
+            color="primary"
+            class="mb-2"
+            v-bind="props"
+          >
+            <v-icon start>
+              {{ $globals.icons.calendar }}
+            </v-icon>
+            {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
+          </v-btn>
+        </template>
 
-      <v-card>
-        <v-date-picker
-          v-model="state.range"
-          hide-header
-          :multiple="'range'"
-          :first-day-of-week="firstDayOfWeek"
-          :local="$i18n.locale"
-        />
-
-        <v-card-text>
-          <v-number-input
-            v-model="numberOfDaysPast"
-            :min="0"
-            control-variant="stacked"
-            inset
-            :label="$t('meal-plan.numberOfDaysPast-label')"
-            :hint="$t('meal-plan.numberOfDaysPast-hint')"
-            persistent-hint
+        <v-card>
+          <v-date-picker
+            v-model="state.range"
+            hide-header
+            :multiple="'range'"
+            :first-day-of-week="firstDayOfWeek"
+            :local="$i18n.locale"
           />
-        </v-card-text>
 
-        <v-card-text>
-          <v-number-input
-            v-model="numberOfDays"
-            :min="1"
-            control-variant="stacked"
-            inset
-            :label="$t('meal-plan.numberOfDays-label')"
-            :hint="$t('meal-plan.numberOfDays-hint')"
-            persistent-hint
-          />
-        </v-card-text>
-      </v-card>
-    </v-menu>
+          <v-card-text>
+            <v-number-input
+              v-model="numberOfDaysPast"
+              :min="0"
+              control-variant="stacked"
+              inset
+              :label="$t('meal-plan.numberOfDaysPast-label')"
+              :hint="$t('meal-plan.numberOfDaysPast-hint')"
+              persistent-hint
+            />
+          </v-card-text>
+
+          <v-card-text>
+            <v-number-input
+              v-model="numberOfDays"
+              :min="1"
+              control-variant="stacked"
+              inset
+              :label="$t('meal-plan.numberOfDays-label')"
+              :hint="$t('meal-plan.numberOfDays-hint')"
+              persistent-hint
+            />
+          </v-card-text>
+        </v-card>
+      </v-menu>
+      <v-btn :icon="$globals.icons.chevronRight" flat rounded="md" density="comfortable" @click="() => changeWeek(1)" />
+    </div>
 
     <div class="d-flex flex-wrap align-center justify-space-between mb-2">
       <v-tabs style="width: fit-content;">
@@ -176,6 +180,14 @@ const shoppingLists = ref<ShoppingListSummary[]>();
 const firstDayOfWeek = computed(() => {
   return household.value?.preferences?.firstDayOfWeek || 0;
 });
+
+function changeWeek(step: number) {
+  const { start, end } = weekRange.value;
+  state.value.range = [
+    addDays(start, step * numberOfDays.value),
+    addDays(end, step * numberOfDays.value),
+  ];
+}
 
 const weekRange = computed(() => {
   const sorted = [...state.value.range].sort((a, b) => a.getTime() - b.getTime());
