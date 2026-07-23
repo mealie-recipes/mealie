@@ -23,7 +23,7 @@ from .api_extras import ApiExtras, api_extras
 from .assets import RecipeAsset
 from .category import recipes_to_categories
 from .comment import RecipeComment
-from .instruction import RecipeInstruction
+from .instruction import RecipeIngredientRefLink, RecipeInstruction
 from .note import Note
 from .nutrition import Nutrition
 from .recipe_timeline import RecipeTimelineEvent
@@ -37,6 +37,7 @@ if TYPE_CHECKING:
     from ..household import Household, ShoppingListItemRecipeReference, ShoppingListRecipeReference
     from ..users import User
     from . import Category, Tag, Tool
+    from .translation import RecipeTranslationModel
 
 
 class RecipeModel(SqlAlchemyBase, BaseMixins):
@@ -131,6 +132,12 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         "RecipeTimelineEvent", back_populates="recipe", cascade="all, delete, delete-orphan"
     )
 
+    # Language overlays. Written only by the translation service, never by a normal recipe save
+    # (excluded from auto_init below), so editing a recipe leaves translations in place.
+    translations: Mapped[list["RecipeTranslationModel"]] = orm.relationship(
+        "RecipeTranslationModel", back_populates="recipe", cascade="all, delete-orphan"
+    )
+
     # Mealie Specific
     settings: Mapped[list["RecipeSettings"]] = orm.relationship(
         "RecipeSettings", uselist=False, cascade="all, delete-orphan"
@@ -175,6 +182,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             "settings",
             "comments",
             "timeline_events",
+            "translations",
         },
     )
 
@@ -186,6 +194,37 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     def validate_name(self, _, name):
         assert name != ""
         return name
+
+    def _merge_instructions(self, session, recipe_instructions: list[dict]) -> list[RecipeInstruction]:
+        """
+        Build the instruction list, reusing existing rows when the incoming step carries an id we already own.
+
+        Instruction ids must be stable across updates: translations (and any other data keyed off a step) are
+        attached by instruction id, so regenerating rows on every save would orphan them. Steps that are absent
+        from the payload are still removed by the relationship's delete-orphan cascade.
+        """
+
+        existing_by_id = {step.id: step for step in (self.recipe_instructions or []) if step.id}
+
+        merged: list[RecipeInstruction] = []
+        for step in recipe_instructions:
+            existing = existing_by_id.get(step.get("id"))
+            if existing is None:
+                merged.append(RecipeInstruction(**step, session=session))
+                continue
+
+            # Update in place so the row (and its id) survives
+            for key, value in step.items():
+                if key in {"id", "ingredient_references"}:
+                    continue
+                setattr(existing, key, value)
+
+            existing.ingredient_references = [
+                RecipeIngredientRefLink(**ref, session=session) for ref in (step.get("ingredient_references") or [])
+            ]
+            merged.append(existing)
+
+        return merged
 
     @api_extras
     @auto_init()
@@ -205,7 +244,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         self.nutrition = Nutrition(**(nutrition or {}))
 
         if recipe_instructions is not None:
-            self.recipe_instructions = [RecipeInstruction(**step, session=session) for step in recipe_instructions]
+            self.recipe_instructions = self._merge_instructions(session, recipe_instructions)
 
         if recipe_ingredient is not None:
             self.recipe_ingredient = [RecipeIngredientModel(**ingr, session=session) for ingr in recipe_ingredient]

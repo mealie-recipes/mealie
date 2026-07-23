@@ -27,3 +27,18 @@ While Mealie has prompts for each AI task, you can override these with your own 
 - When importing a recipe via URL, if the default recipe scraper is unable to read the recipe data from a webpage, the webpage contents will be parsed by OpenAI (:octicons-tag-24: v1.9.0)
 - You can import an image of a written recipe, which is sent to OpenAI and imported into Mealie. The recipe can be hand-written or typed, as long as the text is in the picture. You can also optionally have OpenAI translate the recipe into your own language (:octicons-tag-24: v1.12.0)
 - You can import a recipe via a video URL (e.g., a YouTube link). The video is transcribed AI, and the transcription is parsed into a recipe (:octicons-tag-24: v3.13.0)
+- You can translate any recipe into another language and store the translation alongside the original
+
+## Recipe Translations
+
+Once an AI provider is configured, any recipe can be translated into another language and stored alongside the original — the original recipe is never overwritten.
+
+- Open a recipe and use the **language menu** (the translate icon in the recipe header). Choose **Translate Recipe**, pick a target language, and Mealie generates and stores the translation.
+- The language menu then lets any viewer switch between **Original** and each stored language. The recipe is shown in your Mealie interface language automatically when a translation for it exists.
+- External consumers (e.g. Home Assistant) can request a specific language by adding `?locale=<code>` to the recipe endpoint, for example `GET /api/recipes/{slug}?locale=es-ES`. Use `original` (or omit the parameter) for the canonical recipe.
+
+**What gets translated:** the recipe name, description, yield, step titles and text, ingredient text, and note titles and text.
+
+**What does not:** quantities, units, and foods are left exactly as-is, so scaling, shopping lists, and ingredient references continue to work identically in every language.
+
+**Staleness:** translations are a point-in-time snapshot. If you edit the original recipe after translating it, the stored translation is flagged as **outdated** in the language menu. Re-run the translation to bring it up to date.

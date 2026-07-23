@@ -14,6 +14,7 @@ from fastapi import UploadFile
 
 from mealie.core import exceptions
 from mealie.core.dependencies.dependencies import get_temporary_path
+from mealie.lang.locale_config import LOCALE_CONFIG
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.all_repositories import get_repositories
@@ -21,12 +22,14 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeUpdate
 from mealie.schema.openai.recipe import OpenAIRecipe
+from mealie.schema.openai.recipe_translation import OpenAITranslatedRecipe
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe, create_recipe_slug
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
+from mealie.schema.recipe.recipe_translation import RecipeTranslation, RecipeTranslationSummary
 from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
@@ -186,7 +189,7 @@ class RecipeService(RecipeServiceBase):
 
         return Recipe(**additional_attrs)
 
-    def get_one(self, slug_or_id: str | UUID) -> Recipe:
+    def get_one(self, slug_or_id: str | UUID, locale: str | None = None) -> Recipe:
         if isinstance(slug_or_id, str):
             try:
                 slug_or_id = UUID(slug_or_id)
@@ -194,10 +197,61 @@ class RecipeService(RecipeServiceBase):
                 pass
 
         if isinstance(slug_or_id, UUID):
-            return self._get_recipe(slug_or_id, "id")
-
+            recipe = self._get_recipe(slug_or_id, "id")
         else:
-            return self._get_recipe(slug_or_id, "slug")
+            recipe = self._get_recipe(slug_or_id, "slug")
+
+        return self._localize_recipe(recipe, locale)
+
+    def _localize_recipe(self, recipe: Recipe, locale: str | None) -> Recipe:
+        """Attach the language-switcher summaries and, when a matching overlay exists, render the recipe in it."""
+        from mealie.services.recipe.recipe_translation_service import apply_translation, summarize_translations
+
+        translations = self.repos.recipe_translations.get_for_recipe(recipe.id)
+        recipe.available_translations = summarize_translations(recipe, translations)
+
+        # "original" (or an unknown/absent locale) returns the canonical recipe untouched.
+        if not locale or locale.lower() == "original":
+            return recipe
+
+        match = next((t for t in translations if t.locale == locale), None)
+        if match is None:
+            return recipe
+
+        return apply_translation(recipe, match)
+
+    def list_translations(self, slug_or_id: str | UUID) -> list[RecipeTranslationSummary]:
+        from mealie.services.recipe.recipe_translation_service import summarize_translations
+
+        recipe = self.get_one(slug_or_id)
+        translations = self.repos.recipe_translations.get_for_recipe(recipe.id)
+        return summarize_translations(recipe, translations)
+
+    async def translate_one(self, slug_or_id: str | UUID, locale: str) -> RecipeTranslationSummary:
+        """Generate and store a translation for the recipe. Requires update permission and a configured AI provider."""
+        from mealie.services.recipe.recipe_translation_service import is_translation_stale
+
+        recipe = self._get_recipe(slug_or_id, "id" if isinstance(slug_or_id, UUID) else "slug")
+        if not self.can_update([recipe.slug]):
+            raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
+
+        ai_service = OpenAIRecipeService(self.repos, self.user, self.household, translator=self.translator)
+        translation = await ai_service.translate_recipe(recipe, locale)
+        stored = self.repos.recipe_translations.upsert(recipe.id, translation)
+
+        return RecipeTranslationSummary(
+            locale=stored.locale,
+            name=stored.name,
+            is_stale=is_translation_stale(recipe, stored.source_hash),
+            updated_at=stored.updated_at,
+        )
+
+    def delete_translation(self, slug_or_id: str | UUID, locale: str) -> None:
+        recipe = self._get_recipe(slug_or_id, "id" if isinstance(slug_or_id, UUID) else "slug")
+        if not self.can_update([recipe.slug]):
+            raise exceptions.PermissionDenied("You do not have permission to edit this recipe.")
+
+        self.repos.recipe_translations.delete(recipe.id, locale)
 
     def create_one(self, create_data: Recipe | CreateRecipe) -> Recipe:
         if create_data.name is None:
@@ -656,3 +710,109 @@ class OpenAIRecipeService(RecipeServiceBase):
             raise ValueError("Unable to parse recipe from image") from e
 
         return recipe
+
+    async def translate_recipe(self, recipe: Recipe, locale: str) -> RecipeTranslation:
+        """
+        Generate a language overlay for ``recipe`` using the configured AI provider.
+
+        Only free text is translated; every structural field stays on the canonical recipe. Returns an
+        unpersisted ``RecipeTranslation`` keyed to the recipe's stable step/ingredient ids.
+        """
+
+        if locale not in LOCALE_CONFIG:
+            raise ValueError(f"Unsupported locale '{locale}'")
+
+        openai_service = OpenAIService(self.repos)
+        if not (openai_service.provider_settings and openai_service.provider_settings.ai_enabled):
+            raise ValueError("OpenAI services are not available")
+
+        language_name = LOCALE_CONFIG[locale].name
+
+        # Build the keyed payload: only the strings we translate, each tagged with a stable key.
+        payload: dict[str, Any] = {
+            "target_language": language_name,
+            "name": recipe.name or "",
+            "description": recipe.description or "",
+            "recipe_yield": recipe.recipe_yield or "",
+            "instructions": [
+                {"key": str(step.id), "title": step.title or "", "text": step.text or ""}
+                for step in (recipe.recipe_instructions or [])
+            ],
+            "ingredients": [
+                {"key": str(ingredient.reference_id), "text": ingredient.note or ingredient.original_text or ""}
+                for ingredient in (recipe.recipe_ingredient or [])
+            ],
+            "notes": [
+                {"key": str(index), "title": note.title or "", "text": note.text or ""}
+                for index, note in enumerate(recipe.notes or [])
+            ],
+        }
+
+        prompt = openai_service.get_prompt("recipes.translate-recipe")
+        message = f"Translate the following recipe into {language_name}.\n\n{json.dumps(payload, ensure_ascii=False)}"
+
+        try:
+            response = await openai_service.get_response(prompt, message, response_schema=OpenAITranslatedRecipe)
+            if not response:
+                raise ValueError("Received empty response from OpenAI")
+        except Exception as e:
+            raise Exception("Failed to call OpenAI services") from e
+
+        return self._build_translation(recipe, locale, response)
+
+    @staticmethod
+    def _build_translation(recipe: Recipe, locale: str, response: OpenAITranslatedRecipe) -> RecipeTranslation:
+        from mealie.schema.recipe.recipe_translation import (
+            IngredientTranslation,
+            InstructionTranslation,
+            NoteTranslation,
+        )
+        from mealie.services.recipe.recipe_translation_service import source_hash
+
+        def to_map(items) -> dict[str, str]:
+            return {item.key: item.value for item in items}
+
+        step_text = to_map(response.instructions)
+        step_title = to_map(response.instruction_titles)
+        ingredient_text = to_map(response.ingredients)
+        note_text = to_map(response.notes)
+        note_title = to_map(response.note_titles)
+
+        # Only keep keys that exist on the canonical recipe; ignore anything the model hallucinated.
+        instructions = [
+            InstructionTranslation(
+                instruction_id=step.id,
+                title=step_title.get(str(step.id)),
+                text=step_text.get(str(step.id)),
+            )
+            for step in (recipe.recipe_instructions or [])
+            if str(step.id) in step_text or str(step.id) in step_title
+        ]
+        ingredients = [
+            IngredientTranslation(
+                ingredient_id=ingredient.reference_id,
+                note=ingredient_text.get(str(ingredient.reference_id)),
+            )
+            for ingredient in (recipe.recipe_ingredient or [])
+            if str(ingredient.reference_id) in ingredient_text
+        ]
+        notes = [
+            NoteTranslation(
+                note_index=index,
+                title=note_title.get(str(index)),
+                text=note_text.get(str(index)),
+            )
+            for index in range(len(recipe.notes or []))
+            if str(index) in note_text or str(index) in note_title
+        ]
+
+        return RecipeTranslation(
+            locale=locale,
+            name=response.name,
+            description=response.description,
+            recipe_yield=response.recipe_yield,
+            source_hash=source_hash(recipe),
+            instructions=instructions,
+            ingredients=ingredients,
+            notes=notes,
+        )

@@ -30,6 +30,7 @@
           @save="saveRecipe"
           @delete="deleteRecipe"
           @close="closeEditor"
+          @switch-language="switchLanguage"
         />
         <RecipeJsonEditor
           v-if="isEditJSON"
@@ -413,6 +414,17 @@ async function saveRecipe() {
       router.replace(`/g/${groupSlug.value}/r/` + data.slug);
     }
   }
+}
+
+async function switchLanguage(locale: string | null) {
+  // Re-fetch the recipe rendered in the chosen language rather than mutating the current object in place.
+  // Only ever runs in view mode, so it can't clobber unsaved edits.
+  const { data, error } = await api.recipes.getOneLocalized(recipe.value.slug, locale);
+  if (error || !data) {
+    return;
+  }
+  recipe.value = data as NoUndefinedField<Recipe>;
+  originalRecipe.value = deepCopy(recipe.value);
 }
 
 async function saveParsedIngredients(ingredients: NoUndefinedField<RecipeIngredient[]>) {

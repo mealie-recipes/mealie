@@ -195,16 +195,6 @@ users_self_ratings = "/api/users/self/ratings"
 """`/api/users/self/ratings`"""
 utils_download = "/api/utils/download"
 """`/api/utils/download`"""
-validators_group = "/api/validators/group"
-"""`/api/validators/group`"""
-validators_household = "/api/validators/household"
-"""`/api/validators/household`"""
-validators_recipe = "/api/validators/recipe"
-"""`/api/validators/recipe`"""
-validators_user_email = "/api/validators/user/email"
-"""`/api/validators/user/email`"""
-validators_user_name = "/api/validators/user/name"
-"""`/api/validators/user/name`"""
 
 
 def admin_backups_file_name(file_name):
@@ -535,6 +525,16 @@ def recipes_slug_image(slug):
 def recipes_slug_last_made(slug):
     """`/api/recipes/{slug}/last-made`"""
     return f"{prefix}/recipes/{slug}/last-made"
+
+
+def recipes_slug_translations(slug):
+    """`/api/recipes/{slug}/translations`"""
+    return f"{prefix}/recipes/{slug}/translations"
+
+
+def recipes_slug_translations_locale(slug, locale):
+    """`/api/recipes/{slug}/translations/{locale}`"""
+    return f"{prefix}/recipes/{slug}/translations/{locale}"
 
 
 def recipes_timeline_events_item_id(item_id):

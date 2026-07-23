@@ -17,6 +17,7 @@ import type {
   RecipeTimelineEventIn,
   RecipeTimelineEventOut,
   RecipeTimelineEventUpdate,
+  RecipeTranslationSummary,
 } from "~/lib/api/types/recipe";
 import type { SSEDataEventDone, SSEDataEventMessage } from "~/lib/api/types/response";
 import type { ApiRequestInstance, PaginationData, RequestResponse } from "~/lib/api/types/non-generated";
@@ -56,6 +57,8 @@ const routes = {
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
 
   recipesSlugLastMade: (slug: string) => `${prefix}/recipes/${slug}/last-made`,
+  recipesSlugTranslations: (slug: string) => `${prefix}/recipes/${slug}/translations`,
+  recipesSlugTranslationsLocale: (slug: string, locale: string) => `${prefix}/recipes/${slug}/translations/${locale}`,
   recipesTimelineEventId: (id: string) => `${prefix}/recipes/timeline/events/${id}`,
   recipesTimelineEventIdImage: (id: string) => `${prefix}/recipes/timeline/events/${id}/image`,
 };
@@ -228,6 +231,24 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     }
 
     return await this.requests.post<string>(apiRoute, formData);
+  }
+
+  /** Fetch a recipe rendered in the given locale (falls back to the original if no translation exists). */
+  async getOneLocalized(slug: string, locale: string | null = null) {
+    const url = locale ? route(routes.recipesRecipeSlug(slug), { locale }) : routes.recipesRecipeSlug(slug);
+    return await this.requests.get<Recipe>(url);
+  }
+
+  async getTranslations(slug: string) {
+    return await this.requests.get<RecipeTranslationSummary[]>(routes.recipesSlugTranslations(slug));
+  }
+
+  async translate(slug: string, locale: string) {
+    return await this.requests.post<RecipeTranslationSummary>(routes.recipesSlugTranslations(slug), { locale });
+  }
+
+  async deleteTranslation(slug: string, locale: string) {
+    return await this.requests.delete(routes.recipesSlugTranslationsLocale(slug, locale));
   }
 
   async parseIngredients(parser: Parser, ingredients: Array<string>) {

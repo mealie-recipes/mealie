@@ -12,3 +12,4 @@ from .settings import *
 from .shared import *
 from .tag import *
 from .tool import *
+from .translation import *

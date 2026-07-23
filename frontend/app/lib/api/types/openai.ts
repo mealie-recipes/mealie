@@ -40,4 +40,18 @@ export interface OpenAIRecipeNotes {
 export interface OpenAIText {
   text: string;
 }
+export interface OpenAITranslatedRecipe {
+  name?: string | null;
+  description?: string | null;
+  recipe_yield?: string | null;
+  instructions?: OpenAITranslatedString[];
+  instruction_titles?: OpenAITranslatedString[];
+  ingredients?: OpenAITranslatedString[];
+  notes?: OpenAITranslatedString[];
+  note_titles?: OpenAITranslatedString[];
+}
+export interface OpenAITranslatedString {
+  key: string;
+  value: string;
+}
 export interface OpenAIBase {}
