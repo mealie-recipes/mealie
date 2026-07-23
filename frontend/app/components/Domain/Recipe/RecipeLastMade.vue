@@ -3,6 +3,7 @@
     <div>
       <BaseDialog
         v-model="madeThisDialog"
+        bottom-sheet
         :loading="madeThisFormLoading"
         :icon="$globals.icons.chefHat"
         :title="$t('recipe.made-this')"

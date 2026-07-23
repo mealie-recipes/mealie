@@ -2,6 +2,7 @@
   <v-container class="narrow-container">
     <BaseDialog
       v-model="state.deleteDialog"
+      bottom-sheet
       color="error"
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
