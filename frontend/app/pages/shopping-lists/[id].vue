@@ -231,7 +231,7 @@
         </BaseExpansionPanels>
       </TransitionGroup>
       <!-- Checked Items -->
-      <v-expansion-panels flat>
+      <v-expansion-panels flat rounded>
         <v-expansion-panel v-if="listItems.checked && listItems.checked.length > 0">
           <v-expansion-panel-title class="border-solid border-thin py-1">
             <div class="d-flex align-center flex-0-1-100">
