@@ -100,12 +100,14 @@
 </template>
 
 <script setup lang="ts">
+import { useClipboard, useShare } from "@vueuse/core";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
 import RecipeDialogPrintPreferences from "~/components/Domain/Recipe/RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "~/components/Domain/Recipe/RecipeDialogShare.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserApi } from "~/composables/api";
 import { useGroupRecipeActions } from "~/composables/use-group-recipe-actions";
+import { useGroupSelf } from "~/composables/use-groups";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
@@ -204,14 +206,46 @@ const i18n = useI18n();
 const auth = useMealieAuth();
 const { $globals } = useNuxtApp();
 const { household } = useHouseholdSelf();
+const { group } = useGroupSelf();
 const { isOwnGroup } = useLoggedInState();
 
 const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const firstDayOfWeek = computed(() => {
   return household.value?.preferences?.firstDayOfWeek || 0;
 });
+
+const isFullyPublic = computed(() =>
+  group.value?.preferences?.privateGroup === false
+  && household.value?.preferences?.privateHousehold === false,
+);
+
+const { share, isSupported: shareIsSupported } = useShare();
+const { copy, copied, isSupported: clipboardIsSupported } = useClipboard();
+
+function getPlainRecipeLink() {
+  return `${window.location.origin}/g/${groupSlug.value}/r/${props.slug}`;
+}
+
+async function sharePlainLink() {
+  if (shareIsSupported.value) {
+    await share({
+      title: props.name,
+      url: getPlainRecipeLink(),
+      text: i18n.t("recipe.share-recipe-message", [props.name]) as string,
+    });
+    return;
+  }
+  if (!clipboardIsSupported.value) {
+    alert.error(i18n.t("general.clipboard-not-supported") as string);
+    return;
+  }
+  await copy(getPlainRecipeLink());
+  alert[copied.value ? "success" : "error"](
+    i18n.t(copied.value ? "recipe-share.recipe-link-copied-message" : "general.clipboard-copy-failure") as string,
+  );
+}
 
 // ===========================================================================
 // Context Menu Setup
@@ -425,7 +459,12 @@ const eventHandlers: { [key: string]: () => void | Promise<any> } = {
     });
   },
   share: () => {
-    shareDialog.value = true;
+    if (isFullyPublic.value) {
+      sharePlainLink();
+    }
+    else {
+      shareDialog.value = true;
+    }
   },
 };
 
