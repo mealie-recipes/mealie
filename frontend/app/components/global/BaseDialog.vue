@@ -4,7 +4,60 @@
       name="activator"
       v-bind="{ open }"
     />
+    <v-bottom-sheet
+      v-if="bottomSheet && $vuetify.display.xs"
+      v-model="dialog"
+      content-class="rounded-t-xl"
+      :content-props="{
+        style: 'overflow: hidden',
+      }"
+      :width="width"
+      :max-width="maxWidth ?? undefined"
+      @keydown.enter="submitOnEnter"
+      @click:outside="emit('cancel')"
+      @keydown.esc="emit('cancel')"
+    >
+      <BaseDialogContent
+        :color="color"
+        :title="title"
+        :icon="icon"
+        :width="width"
+        :max-width="maxWidth"
+        :loading="loading"
+        :top="top"
+        :keep-open="keepOpen"
+        :submit-icon="submitIcon"
+        :submit-text="submitText"
+        :submit-disabled="submitDisabled"
+        :cancel-text="cancelText"
+        :can-delete="canDelete"
+        :can-confirm="canConfirm"
+        :can-submit="canSubmit"
+        :disable-submit-on-enter="disableSubmitOnEnter"
+        @cancel="
+          emit('cancel');
+          dialog = false;
+        "
+        @confirm="
+          emit('confirm');
+          dialog = false;
+        "
+        @submit="submitEvent"
+        @delete="deleteEvent"
+      >
+        <template #default>
+          <slot />
+        </template>
+        <template #card-actions>
+          <slot name="card-actions" />
+        </template>
+        <template #custom-card-action>
+          <slot name="custom-card-action" />
+        </template>
+      </BaseDialogContent>
+    </v-bottom-sheet>
     <v-dialog
+      v-else
       v-model="dialog"
       :width="width"
       :max-width="maxWidth ?? undefined"
@@ -14,86 +67,44 @@
       @click:outside="emit('cancel')"
       @keydown.esc="emit('cancel')"
     >
-      <v-card height="100%" :loading="loading">
-        <template #loader="{ isActive }">
-          <v-progress-linear
-            :active="isActive"
-            indeterminate
-          />
+      <BaseDialogContent
+        :color="color"
+        :title="title"
+        :icon="icon"
+        :width="width"
+        :max-width="maxWidth"
+        :loading="loading"
+        :top="top"
+        :keep-open="keepOpen"
+        :submit-icon="submitIcon"
+        :submit-text="submitText"
+        :submit-disabled="submitDisabled"
+        :cancel-text="cancelText"
+        :can-delete="canDelete"
+        :can-confirm="canConfirm"
+        :can-submit="canSubmit"
+        :disable-submit-on-enter="disableSubmitOnEnter"
+        @cancel="
+          emit('cancel');
+          dialog = false;
+        "
+        @confirm="
+          emit('confirm');
+          dialog = false;
+        "
+        @submit="submitEvent"
+        @delete="deleteEvent"
+      >
+        <template #default>
+          <slot />
         </template>
-        <v-toolbar
-          dark
-          density="comfortable"
-          :color="color"
-          class="px-3 position-relative top-0 left-0 w-100"
-        >
-          <v-icon size="large">
-            {{ icon }}
-          </v-icon>
-          <v-toolbar-title class="headline">
-            {{ title }}
-          </v-toolbar-title>
-        </v-toolbar>
-
-        <div style="flex: 1 1 auto; min-height: 0; overflow: auto">
-          <slot v-bind="{ submitEvent }" />
-        </div>
-
-        <v-spacer />
-        <v-divider />
-
-        <v-card-actions :class="$vuetify.display.xs ? 'pb-4' : 'undefined'">
-          <slot name="card-actions">
-            <v-btn
-              variant="text"
-              color="grey"
-              @click="
-                dialog = false;
-                emit('cancel');
-              "
-            >
-              {{ cancelText }}
-            </v-btn>
-            <v-spacer />
-
-            <slot name="custom-card-action" />
-            <BaseButton
-              v-if="canDelete"
-              delete
-              @click="deleteEvent"
-            />
-            <BaseButton
-              v-if="canConfirm"
-              :color="color"
-              type="submit"
-              :disabled="submitDisabled"
-              @click="
-                emit('confirm');
-                dialog = false;
-              "
-            >
-              <template #icon>
-                {{ $globals.icons.check }}
-              </template>
-              {{ $t("general.confirm") }}
-            </BaseButton>
-            <BaseButton
-              v-if="canSubmit"
-              type="submit"
-              :disabled="submitDisabled || loading"
-              @click="submitEvent"
-            >
-              {{ submitText }}
-              <template
-                v-if="submitIcon"
-                #icon
-              >
-                {{ submitIcon }}
-              </template>
-            </BaseButton>
-          </slot>
-        </v-card-actions>
-      </v-card>
+        <template #card-actions>
+          <slot name="card-actions" />
+        </template>
+        <template #custom-card-action>
+          <slot name="custom-card-action" />
+        </template>
+      </BaseDialogContent>
     </v-dialog>
   </div>
 </template>
@@ -111,6 +122,7 @@ interface DialogProps {
   loading?: boolean;
   top?: boolean | null;
   keepOpen?: boolean;
+  bottomSheet?: boolean;
 
   // submit
   submitIcon?: string | null;
@@ -142,6 +154,7 @@ const props = withDefaults(defineProps<DialogProps>(), {
   loading: false,
   top: null,
   keepOpen: false,
+  bottomSheet: false,
 
   // submit
   submitIcon: null,
@@ -210,24 +223,5 @@ function deleteEvent() {
 
 function open() {
   dialog.value = true;
-  logDeprecatedProp("open");
-}
-
-/* function close() {
-  dialog.value = false;
-  logDeprecatedProp("close");
-} */
-
-function logDeprecatedProp(val: string) {
-  console.warn(
-    `[BaseDialog] The method '${val}' is deprecated. Please use v-model="value" to manage state instead.`,
-  );
 }
 </script>
-
-<style>
-.top-dialog {
-  position: fixed;
-  top: 0;
-}
-</style>
