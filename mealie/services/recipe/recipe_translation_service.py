@@ -18,8 +18,9 @@ def source_hash(recipe: Recipe) -> str:
     Stable digest over exactly the strings a translation covers, in id order.
 
     Used to detect staleness: if the original recipe's translatable text changes, the stored hash no longer
-    matches and the translation is flagged outdated. Structural fields (quantities, units, foods) are excluded,
-    so scaling or re-linking an ingredient does not needlessly invalidate a translation.
+    matches and the translation is flagged outdated. This covers the food and unit *names* (which are now
+    translated for display) but not quantities, so rescaling an ingredient does not needlessly invalidate a
+    translation.
     """
 
     parts: list[str] = [recipe.name or "", recipe.description or "", recipe.recipe_yield or ""]
@@ -28,7 +29,12 @@ def source_hash(recipe: Recipe) -> str:
         parts.append(f"i:{step.id}:{step.title or ''}:{step.text or ''}")
 
     for ingredient in recipe.recipe_ingredient or []:
-        parts.append(f"g:{ingredient.reference_id}:{ingredient.note or ''}:{ingredient.original_text or ''}")
+        food_name = ingredient.food.name if ingredient.food else ""
+        unit_name = ingredient.unit.name if ingredient.unit else ""
+        parts.append(
+            f"g:{ingredient.reference_id}:{ingredient.note or ''}:{ingredient.original_text or ''}"
+            f":{food_name or ''}:{unit_name or ''}"
+        )
 
     for index, note in enumerate(recipe.notes or []):
         parts.append(f"n:{index}:{note.title or ''}:{note.text or ''}")
@@ -84,6 +90,15 @@ def apply_translation(recipe: Recipe, translation: RecipeTranslation) -> Recipe:
                 ingredient.note = t.note
             if t.original_text is not None:
                 ingredient.original_text = t.original_text
+            # Overlay the shared food/unit names onto this per-locale copy only; the catalog entities are untouched.
+            if t.food_name and ingredient.food is not None:
+                ingredient.food.name = t.food_name
+                ingredient.food.plural_name = t.food_name
+            if t.unit_name and ingredient.unit is not None:
+                ingredient.unit.name = t.unit_name
+                ingredient.unit.plural_name = t.unit_name
+                # Prefer the translated spelled-out name over the original abbreviation for display.
+                ingredient.unit.use_abbreviation = False
 
     note_map: dict[int, NoteTranslation] = {t.note_index: t for t in translation.notes}
     for index, note in enumerate(translated.notes or []):

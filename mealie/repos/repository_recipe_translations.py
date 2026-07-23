@@ -61,7 +61,13 @@ class RepositoryRecipeTranslations:
                 {"instruction_id": i.instruction_id, "title": i.title, "text": i.text} for i in translation.instructions
             ],
             ingredients=[
-                {"ingredient_id": i.ingredient_id, "note": i.note, "original_text": i.original_text}
+                {
+                    "ingredient_id": i.ingredient_id,
+                    "note": i.note,
+                    "original_text": i.original_text,
+                    "food_name": i.food_name,
+                    "unit_name": i.unit_name,
+                }
                 for i in translation.ingredients
             ],
             notes=[{"note_index": n.note_index, "title": n.title, "text": n.text} for n in translation.notes],

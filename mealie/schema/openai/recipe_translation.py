@@ -36,6 +36,16 @@ class OpenAITranslatedRecipe(OpenAIBase):
         default_factory=list,
         description="Translated ingredient text, keyed by the ingredient key from the request.",
     )
+    ingredient_foods: list[OpenAITranslatedString] = Field(
+        default_factory=list,
+        description="Translated ingredient food names (e.g. 'cucumber' -> 'pepino'), "
+        "keyed by the ingredient key from the request.",
+    )
+    ingredient_units: list[OpenAITranslatedString] = Field(
+        default_factory=list,
+        description="Translated ingredient unit names (e.g. 'tablespoon' -> 'cucharada'), "
+        "keyed by the ingredient key from the request.",
+    )
     notes: list[OpenAITranslatedString] = Field(
         default_factory=list,
         description="Translated note text, keyed by the note key from the request.",

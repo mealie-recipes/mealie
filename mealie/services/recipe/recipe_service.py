@@ -739,7 +739,13 @@ class OpenAIRecipeService(RecipeServiceBase):
                 for step in (recipe.recipe_instructions or [])
             ],
             "ingredients": [
-                {"key": str(ingredient.reference_id), "text": ingredient.note or ingredient.original_text or ""}
+                {
+                    "key": str(ingredient.reference_id),
+                    "text": ingredient.note or ingredient.original_text or "",
+                    # Shared catalog names; translated per-locale for display only (canonical entities untouched).
+                    "food": (ingredient.food.name if ingredient.food else "") or "",
+                    "unit": (ingredient.unit.name if ingredient.unit else "") or "",
+                }
                 for ingredient in (recipe.recipe_ingredient or [])
             ],
             "notes": [
@@ -775,6 +781,8 @@ class OpenAIRecipeService(RecipeServiceBase):
         step_text = to_map(response.instructions)
         step_title = to_map(response.instruction_titles)
         ingredient_text = to_map(response.ingredients)
+        ingredient_food = to_map(response.ingredient_foods)
+        ingredient_unit = to_map(response.ingredient_units)
         note_text = to_map(response.notes)
         note_title = to_map(response.note_titles)
 
@@ -792,9 +800,13 @@ class OpenAIRecipeService(RecipeServiceBase):
             IngredientTranslation(
                 ingredient_id=ingredient.reference_id,
                 note=ingredient_text.get(str(ingredient.reference_id)),
+                food_name=ingredient_food.get(str(ingredient.reference_id)) or None,
+                unit_name=ingredient_unit.get(str(ingredient.reference_id)) or None,
             )
             for ingredient in (recipe.recipe_ingredient or [])
             if str(ingredient.reference_id) in ingredient_text
+            or str(ingredient.reference_id) in ingredient_food
+            or str(ingredient.reference_id) in ingredient_unit
         ]
         notes = [
             NoteTranslation(

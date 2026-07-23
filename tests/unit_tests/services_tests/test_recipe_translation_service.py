@@ -1,7 +1,7 @@
 from uuid import uuid4
 
 from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
+from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, CreateIngredientUnit, RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_translation import (
@@ -69,6 +69,71 @@ def test_apply_translation_substitutes_text_and_keeps_structure():
     # The original recipe is not mutated
     assert recipe.name == "Pasta"
     assert recipe.recipe_instructions[0].text == "Boil water."
+
+
+def _recipe_with_food_and_unit() -> Recipe:
+    return Recipe(
+        name="Salad",
+        recipe_ingredient=[
+            RecipeIngredient(
+                reference_id=uuid4(),
+                quantity=1,
+                food=CreateIngredientFood(name="cucumber", plural_name="cucumbers"),
+                unit=CreateIngredientUnit(name="tablespoon", plural_name="tablespoons"),
+                note="large",
+            ),
+        ],
+    )
+
+
+def test_apply_translation_overlays_food_and_unit_names():
+    recipe = _recipe_with_food_and_unit()
+    ing = recipe.recipe_ingredient[0]
+    translation = RecipeTranslation(
+        locale="es-ES",
+        ingredients=[
+            IngredientTranslation(
+                ingredient_id=ing.reference_id,
+                note="grande",
+                food_name="pepino",
+                unit_name="cucharada",
+            )
+        ],
+    )
+
+    translated = apply_translation(recipe, translation)
+    tr_ing = translated.recipe_ingredient[0]
+
+    # Food/unit display names are overlaid onto both singular and plural slots
+    assert tr_ing.food is not None and tr_ing.unit is not None
+    assert tr_ing.food.name == "pepino"
+    assert tr_ing.food.plural_name == "pepino"
+    assert tr_ing.unit.name == "cucharada"
+    assert tr_ing.unit.plural_name == "cucharada"
+    assert tr_ing.note == "grande"
+
+    # Structure (quantity, reference id) is untouched
+    assert tr_ing.quantity == ing.quantity
+    assert tr_ing.reference_id == ing.reference_id
+
+    # The canonical recipe's shared food/unit are not mutated
+    assert recipe.recipe_ingredient[0].food.name == "cucumber"
+    assert recipe.recipe_ingredient[0].unit.name == "tablespoon"
+
+
+def test_source_hash_detects_food_and_unit_name_change():
+    recipe = _recipe_with_food_and_unit()
+    h = source_hash(recipe)
+
+    # Renaming the food invalidates the translation
+    recipe_food = recipe.model_copy(deep=True)
+    recipe_food.recipe_ingredient[0].food.name = "zucchini"
+    assert source_hash(recipe_food) != h
+
+    # Renaming the unit invalidates the translation
+    recipe_unit = recipe.model_copy(deep=True)
+    recipe_unit.recipe_ingredient[0].unit.name = "teaspoon"
+    assert source_hash(recipe_unit) != h
 
 
 def test_apply_translation_missing_keys_fall_back_to_source():

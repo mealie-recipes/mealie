@@ -34,6 +34,9 @@ class IngredientTranslation(MealieModel):
     ingredient_id: UUID4
     note: str | None = None
     original_text: str | None = None
+    # Per-locale display overlay for the shared food/unit names; the canonical catalog entities stay untouched.
+    food_name: str | None = None
+    unit_name: str | None = None
     model_config = ConfigDict(from_attributes=True)
 
 

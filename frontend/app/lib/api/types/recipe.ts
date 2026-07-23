@@ -167,6 +167,8 @@ export interface IngredientTranslation {
   ingredientId: string;
   note?: string | null;
   originalText?: string | null;
+  foodName?: string | null;
+  unitName?: string | null;
 }
 export interface IngredientUnit {
   id: string;

@@ -92,6 +92,9 @@ class RecipeIngredientTranslationModel(SqlAlchemyBase, BaseMixins):
 
     note: Mapped[str | None] = mapped_column(sa.String)
     original_text: Mapped[str | None] = mapped_column(sa.String)
+    # Per-locale display overlay for the shared food/unit names; the canonical catalog entities stay untouched.
+    food_name: Mapped[str | None] = mapped_column(sa.String)
+    unit_name: Mapped[str | None] = mapped_column(sa.String)
 
     @auto_init()
     def __init__(self, **_) -> None:

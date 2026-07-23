@@ -90,6 +90,53 @@ def test_translate_and_read_back(
         assert not orig["note"].startswith("ES ingrediente")
 
 
+def test_translate_overlays_food_and_unit_names(
+    api_client: TestClient, monkeypatch: pytest.MonkeyPatch, unique_user: TestUser, ai_enabled
+):
+    # A shared food + unit that the ingredient references
+    food = api_client.post(api_routes.foods, json={"name": "cucumber"}, headers=unique_user.token).json()
+    unit = api_client.post(api_routes.units, json={"name": "tablespoon"}, headers=unique_user.token).json()
+
+    slug = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token).json()
+    recipe_url = api_routes.recipes_slug(slug)
+    recipe = api_client.get(recipe_url, headers=unique_user.token).json()
+    recipe["recipeIngredient"] = [{"note": "large", "quantity": 1, "unit": unit, "food": food}]
+    assert api_client.put(recipe_url, json=recipe, headers=unique_user.token).status_code == 200
+    recipe = api_client.get(recipe_url, headers=unique_user.token).json()
+
+    ingredient_key = str(recipe["recipeIngredient"][0]["referenceId"])
+
+    async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> OpenAITranslatedRecipe:
+        return OpenAITranslatedRecipe(
+            name="Ensalada",
+            ingredients=[OpenAITranslatedString(key=ingredient_key, value="grande")],
+            ingredient_foods=[OpenAITranslatedString(key=ingredient_key, value="pepino")],
+            ingredient_units=[OpenAITranslatedString(key=ingredient_key, value="cucharada")],
+        )
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    r = api_client.post(
+        api_routes.recipes_slug_translations(slug), json={"locale": TARGET_LOCALE}, headers=unique_user.token
+    )
+    assert r.status_code == 201
+
+    # The localized recipe shows the translated food/unit names
+    translated = api_client.get(recipe_url, params={"locale": TARGET_LOCALE}, headers=unique_user.token).json()
+    tr_ing = translated["recipeIngredient"][0]
+    assert tr_ing["food"]["name"] == "pepino"
+    assert tr_ing["unit"]["name"] == "cucharada"
+    assert tr_ing["note"] == "grande"
+
+    # The canonical recipe and the shared food catalog stay in the original language
+    original = api_client.get(recipe_url, headers=unique_user.token).json()
+    assert original["recipeIngredient"][0]["food"]["name"] == "cucumber"
+    assert original["recipeIngredient"][0]["unit"]["name"] == "tablespoon"
+
+    catalog_food = api_client.get(api_routes.foods_item_id(food["id"]), headers=unique_user.token).json()
+    assert catalog_food["name"] == "cucumber"
+
+
 def test_unknown_locale_falls_back_to_original(
     api_client: TestClient, monkeypatch: pytest.MonkeyPatch, unique_user: TestUser, ai_enabled
 ):
@@ -134,9 +181,7 @@ def test_editing_recipe_marks_translation_stale(
     assert translations[0]["isStale"] is True
 
 
-def test_delete_translation(
-    api_client: TestClient, monkeypatch: pytest.MonkeyPatch, unique_user: TestUser, ai_enabled
-):
+def test_delete_translation(api_client: TestClient, monkeypatch: pytest.MonkeyPatch, unique_user: TestUser, ai_enabled):
     recipe = _create_recipe(api_client, unique_user)
     _mock_translation(monkeypatch, recipe)
     slug = recipe["slug"]
@@ -144,9 +189,7 @@ def test_delete_translation(
     api_client.post(
         api_routes.recipes_slug_translations(slug), json={"locale": TARGET_LOCALE}, headers=unique_user.token
     )
-    r = api_client.delete(
-        api_routes.recipes_slug_translations_locale(slug, TARGET_LOCALE), headers=unique_user.token
-    )
+    r = api_client.delete(api_routes.recipes_slug_translations_locale(slug, TARGET_LOCALE), headers=unique_user.token)
     assert r.status_code == 200
 
     translations = api_client.get(api_routes.recipes_slug_translations(slug), headers=unique_user.token).json()
