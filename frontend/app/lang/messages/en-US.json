@@ -535,6 +535,7 @@
     "translate-requires-ai": "Requires an AI provider (set a default provider in group settings)",
     "translate-recipe-description": "Generate a translation of this recipe using AI. The original recipe is kept; only text is translated, quantities and units are left unchanged.",
     "translation-outdated": "This translation is outdated because the recipe was edited. Re-translate to update it.",
+    "retranslate-recipe": "Re-translate",
     "disable-amount": "Disable Ingredient Amounts",
     "disable-comments": "Disable Comments",
     "duplicate": "Duplicate recipe",

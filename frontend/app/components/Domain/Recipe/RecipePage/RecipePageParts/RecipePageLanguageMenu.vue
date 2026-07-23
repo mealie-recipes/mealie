@@ -63,6 +63,18 @@
               {{ $globals.icons.alert }}
             </v-icon>
             <v-btn
+              v-if="canEdit && t.isStale"
+              icon
+              variant="text"
+              size="x-small"
+              :loading="retranslating === t.locale"
+              :disabled="loading"
+              :title="$t('recipe.retranslate-recipe')"
+              @click.stop="retranslate(t.locale)"
+            >
+              <v-icon>{{ $globals.icons.refresh }}</v-icon>
+            </v-btn>
+            <v-btn
               v-if="canEdit"
               icon
               variant="text"
@@ -98,10 +110,11 @@
       v-model="dialog"
       :title="$t('recipe.translate-recipe')"
       :icon="$globals.icons.translate"
-      can-confirm
+      can-submit
       :submit-disabled="!targetLocale"
+      :submit-text="$t('recipe.translate-recipe')"
       :loading="loading"
-      @confirm="translate"
+      @submit="translate"
     >
       <v-card-text>
         <p class="mb-2">
@@ -151,6 +164,7 @@ const { locales } = useLocales();
 const translations = ref<RecipeTranslationSummary[]>([]);
 const dialog = ref(false);
 const loading = ref(false);
+const retranslating = ref<string | null>(null);
 const targetLocale = ref<string | null>(null);
 
 const aiEnabled = computed(() => !!group.value?.aiProviderSettings?.aiEnabled);
@@ -189,17 +203,33 @@ async function translate() {
   }
   loading.value = true;
   const { data, error } = await api.recipes.translate(props.slug, targetLocale.value);
+  if (error || !data) {
+    loading.value = false;
+    alert.error(i18n.t("events.something-went-wrong"));
+    return;
+  }
+
+  const chosen = targetLocale.value;
+  targetLocale.value = null;
+  await loadTranslations();
+  emit("switch", chosen);
   loading.value = false;
+}
+
+async function retranslate(locale: string) {
+  retranslating.value = locale;
+  const { data, error } = await api.recipes.translate(props.slug, locale);
+  retranslating.value = null;
   if (error || !data) {
     alert.error(i18n.t("events.something-went-wrong"));
     return;
   }
 
-  dialog.value = false;
-  const chosen = targetLocale.value;
-  targetLocale.value = null;
   await loadTranslations();
-  emit("switch", chosen);
+  // If we're currently viewing this locale, re-fetch so the refreshed translation is shown.
+  if (props.selectedLocale === locale) {
+    emit("switch", locale);
+  }
 }
 
 async function removeTranslation(locale: string) {
