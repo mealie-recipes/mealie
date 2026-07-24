@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI klar",
     "openai-not-ready": "OpenAI er ikke klar",
     "openai-ready-error-text": "Ikke alle OpenAI-verdier er konfigurert. Dette kan ignoreres hvis du ikke bruker OpenAI-funksjoner.",
-    "openai-ready-success-text": "Alle påkrevde OpenAI-variabler er satt."
+    "openai-ready-success-text": "Alle påkrevde OpenAI-variabler er satt.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Alle lister",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "Førstegangsoppsett",
       "welcome-to-mealie-get-started": "Velkommen til Mealie! La oss begynne",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Jeg er allerede satt opp, bare ta meg med til hjemmesiden",
       "common-settings-for-new-sites": "Her er noen vanlige innstillinger for nye sider",
       "setup-complete": "Oppsett fullført!",

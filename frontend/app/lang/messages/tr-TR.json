@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI Hazır",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "OpenAI Değerlerinin tümü yapılandırılmamış. OpenAI özelliklerini kullanmıyorsanız bu göz ardı edilebilir.",
-    "openai-ready-success-text": "Gerekli OpenAI değişkenlerinin tümü ayarlanmıştır."
+    "openai-ready-success-text": "Gerekli OpenAI değişkenlerinin tümü ayarlanmıştır.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Tüm Listeler",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "İlk Kurulum",
       "welcome-to-mealie-get-started": "Mealie'ye hoş geldiniz! Haydi başlayalım",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Kurulumu zaten yaptım, beni yalnızca ana sayfaya götür",
       "common-settings-for-new-sites": "Yeni siteler için bazı ortak ayarlar şunlardır",
       "setup-complete": "Kurulum tamamlandı!",

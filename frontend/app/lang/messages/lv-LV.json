@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI gatavs",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Ne visas OpenAI vērtības ir konfigurētas. To var ignorēt, ja neizmantojat OpenAI funkcijas.",
-    "openai-ready-success-text": "Visi nepieciešamie OpenAI mainīgie ir iestatīti."
+    "openai-ready-success-text": "Visi nepieciešamie OpenAI mainīgie ir iestatīti.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Visi saraksti",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "Pirmo reizi iestatīšana",
       "welcome-to-mealie-get-started": "Laipni lūdzam Mealie! Sāksim",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Es jau esmu iestatīts, vienkārši nogādājiet mani mājaslapā",
       "common-settings-for-new-sites": "Šeit ir daži kopīgi iestatījumi jaunām vietnēm",
       "setup-complete": "Iestatīšana pabeigta!",

@@ -15,7 +15,7 @@
     "docs": "Documentação",
     "download-log": "Baixar Log",
     "download-recipe-json": "Último JSON Gerado",
-    "github": "GitHub",
+    "github": "Github",
     "log-lines": "Linhas de log",
     "not-demo": "Não é Demonstração",
     "portfolio": "Portfólio",
@@ -98,7 +98,7 @@
     "dashboard": "Painel de controle",
     "delete": "Excluir",
     "disabled": "Desabilitado",
-    "done": "Done",
+    "done": "Concluído",
     "download": "Baixar",
     "duplicate": "Duplicar",
     "edit": "Editar",
@@ -169,7 +169,7 @@
     "token": "Token",
     "tuesday": "Terça-feira",
     "type": "Tipo",
-    "undo": "Undo",
+    "undo": "Desfazer",
     "update": "Atualizar",
     "updated": "Atualizado",
     "upload": "Enviar",
@@ -224,8 +224,8 @@
     "add-field": "Adicionar Campo",
     "date-created": "Data de Criação",
     "date-updated": "Data de Atualização",
-    "key": "Key",
-    "value": "Value"
+    "key": "Chave",
+    "value": "Valor"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Tem certeza que deseja excluir o grupo <b>{groupName}<b/>?",
@@ -465,7 +465,7 @@
       "description-long": "Mealie consegue importar receitas do Planejar Refeições."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
+      "title": "Minha Caixa de Receitas",
       "description-long": "Mealie pode importar receitas do My Recipe Box. Exporte suas receitas em formato CSV e envie o arquivo abaixo."
     },
     "recipekeeper": {
@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI Pronta",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Nem todos os valores da OpenAI estão configurados. Pode ser ignorado se não estiver usando recursos OpenAI.",
-    "openai-ready-success-text": "Variáveis OpenAI necessárias estão todas definidas."
+    "openai-ready-success-text": "Variáveis OpenAI necessárias estão todas definidas.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Todas as Listas",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "Primeira Configuração",
       "welcome-to-mealie-get-started": "Bem-vindo(a) ao Mealie! Vamos começar",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Já estou pronto, apenas me leve à página inicial",
       "common-settings-for-new-sites": "Estas são algumas configurações comuns para novos sites",
       "setup-complete": "Configuração Concluída!",

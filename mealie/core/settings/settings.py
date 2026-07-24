@@ -368,6 +368,7 @@ class AppSettings(AppLoggingSettings):
     OIDC_CLIENT_SECRET: MaskedNoneString = None
     OIDC_CONFIGURATION_URL: str | None = None
     OIDC_SIGNUP_ENABLED: bool = True
+    OIDC_REQUIRES_EMAIL_VERIFICATION: bool = True
     OIDC_USER_GROUP: str | None = None
     OIDC_ADMIN_GROUP: str | None = None
     OIDC_AUTO_REDIRECT: bool = False

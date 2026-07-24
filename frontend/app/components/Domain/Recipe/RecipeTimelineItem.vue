@@ -25,7 +25,7 @@
               {{ $d(new Date(event.timestamp || "")) }}
             </v-chip>
           </v-col>
-          <v-col v-else cols="9" style="margin: auto; text-align: center">
+          <v-col v-else cols="9" class="break-word" style="margin: auto; text-align: center">
             {{ event.subject }}
           </v-col>
           <v-col :cols="useMobileFormat ? 'auto' : '1'" class="px-0 pt-0">
@@ -68,7 +68,7 @@
       <v-card-text class="background">
         <v-row>
           <v-col>
-            <strong v-if="useMobileFormat">{{ event.subject }}</strong>
+            <strong v-if="useMobileFormat" class="break-word">{{ event.subject }}</strong>
             <v-img
               v-if="eventImageUrl"
               :src="eventImageUrl"
@@ -79,7 +79,7 @@
               :class="attrs.image.class"
               @error="hideImage = true"
             />
-            <div v-if="event.eventMessage" :class="useMobileFormat ? 'text-caption' : ''">
+            <div v-if="event.eventMessage" class="break-word" :class="useMobileFormat ? 'text-caption' : ''">
               <SafeMarkdown :source="event.eventMessage" />
             </div>
           </v-col>
@@ -178,5 +178,9 @@ const eventImageUrl = computed<string>(() => {
 <style>
 .v-card::after {
   display: none;
+}
+
+.break-word {
+  overflow-wrap: anywhere;
 }
 </style>

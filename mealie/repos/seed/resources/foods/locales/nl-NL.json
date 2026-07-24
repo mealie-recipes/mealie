@@ -4677,8 +4677,8 @@
             "deli chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "deli chicken",
-                "plural_name": "deli chickens"
+                "name": "kipfiletplakje",
+                "plural_name": "kipfiletplakjes"
             },
             "smoked duck breast": {
                 "aliases": [],
@@ -5137,13 +5137,13 @@
             "kingfish": {
                 "aliases": [],
                 "description": "",
-                "name": "kingfish",
-                "plural_name": "kingfish"
+                "name": "koningsmakreel",
+                "plural_name": "koningsmakreel"
             },
             "orange roughy": {
                 "aliases": [],
                 "description": "",
-                "name": "orange roughy",
+                "name": "keizerbaars",
                 "plural_name": "orange roughy"
             },
             "turbot": {
@@ -5155,8 +5155,8 @@
             "bangús": {
                 "aliases": [],
                 "description": "",
-                "name": "bangús",
-                "plural_name": "bangús"
+                "name": "badeng",
+                "plural_name": "badeng"
             },
             "rockfish": {
                 "aliases": [],
@@ -5174,7 +5174,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pomfret",
-                "plural_name": "pomfrets"
+                "plural_name": "zilvervissen"
             },
             "eel": {
                 "aliases": [],

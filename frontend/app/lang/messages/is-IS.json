@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI klár",
     "openai-not-ready": "OpenAI er ekki tilbúið",
     "openai-ready-error-text": "Ekki öll OpenAI gildi eru stillt. Þetta má hunsa ef þú notar ekki OpenAI.",
-    "openai-ready-success-text": "Öll nauðsynleg OpenAI-gildi eru stillt."
+    "openai-ready-success-text": "Öll nauðsynleg OpenAI-gildi eru stillt.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Allir innkaupalistar",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "Fyrsta uppsetning",
       "welcome-to-mealie-get-started": "Mealie býður þig velkominn, kýlum á þetta",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Allt er þegar klárt hjá mér, sendu mig á heimasíðuna",
       "common-settings-for-new-sites": "Hér eru nokkrar algengar stillingar fyrir nýjar síður",
       "setup-complete": "Uppsetningu lokið",

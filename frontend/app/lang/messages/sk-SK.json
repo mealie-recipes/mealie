@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Nastaví vašu skupinu a všetky predvolené nastavenia receptov na súkromné. Neskôr to môžete kedykoľvek zmeniť."
     },
     "manage-members": "Spravovať členov",
-    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
+    "manage-members-description": "Spravovať povolenia členov vo vašej domácnosti. {manage} používateľovi umožňuje prístup k oblasti správy skupiny, {organize} používateľovi umožňuje spravovať dáta v skupinách ako napríklad jedlo, štítky a kategórie a {invite} používateľovi umožňuje vytvárať odkazy s pozvánkami pre ostatných používateľov. Vlastníci skupín nemôžu meniť svoje vlastné oprávnenia.",
     "manage": "Spravovať",
     "manage-household": "Spravovať domácnosť",
     "invite": "Pozvať",
@@ -940,7 +940,10 @@
     "openai-ready": "OpenAI pripravené",
     "openai-not-ready": "OpenAI nie je pripravený",
     "openai-ready-error-text": "Nie všetky hodnoty pre OpenAI sú nakonfigurované. Toto môžete ignorovať, ak nepoužívate funkcie OpenAI.",
-    "openai-ready-success-text": "Všetky požadované premenné pre OpenAI sú nastavené."
+    "openai-ready-success-text": "Všetky požadované premenné pre OpenAI sú nastavené.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Všetky zoznamy",
@@ -1396,6 +1399,7 @@
     "setup": {
       "first-time-setup": "Úvodné nastavenia",
       "welcome-to-mealie-get-started": "Vitajte v Mealie! Začíname.",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Som pripravený začať, vezmi ma na hlavnú stránku",
       "common-settings-for-new-sites": "Toto sú bežné nastavenia nových inštalácií",
       "setup-complete": "Nastavenie je dokončené!",
