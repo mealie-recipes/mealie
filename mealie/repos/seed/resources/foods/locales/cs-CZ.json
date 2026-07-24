@@ -1100,7 +1100,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tamarillo",
-                "plural_name": "tamarillos"
+                "plural_name": "tamarilla"
             },
             "ice-apple": {
                 "aliases": [],
@@ -1160,7 +1160,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lokvát",
-                "plural_name": "loquats"
+                "plural_name": "lokváty"
             },
             "crabapple": {
                 "aliases": [],
@@ -1509,8 +1509,8 @@
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "jalovcová bobule",
+                "plural_name": "jalovcové bobule"
             },
             "sour cherry": {
                 "aliases": [],
@@ -1521,8 +1521,8 @@
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "kustovnice",
+                "plural_name": "kustovnice"
             },
             "dried blueberry": {
                 "aliases": [],
@@ -1575,8 +1575,8 @@
             "canned cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "canned cherry",
-                "plural_name": "canned cherries"
+                "name": "zavařená třešeň",
+                "plural_name": "zavařené třešně"
             },
             "amla": {
                 "aliases": [],
@@ -1635,14 +1635,14 @@
             "rosehip": {
                 "aliases": [],
                 "description": "",
-                "name": "rosehip",
-                "plural_name": "rosehips"
+                "name": "šípek",
+                "plural_name": "šípky"
             },
             "hawthorn": {
                 "aliases": [],
                 "description": "",
-                "name": "hawthorn",
-                "plural_name": "hawthorns"
+                "name": "hloh",
+                "plural_name": "hlohy"
             },
             "boysenberry": {
                 "aliases": [],
@@ -1659,14 +1659,14 @@
             "freeze-dried berry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried berry",
-                "plural_name": "freeze-dried berries"
+                "name": "mrazem sušená bobule",
+                "plural_name": "mrazem sušené bobule"
             },
             "aronia berry": {
                 "aliases": [],
                 "description": "",
-                "name": "aronia berry",
-                "plural_name": "aronia berries"
+                "name": "arónie",
+                "plural_name": "aronie"
             },
             "chokeberry": {
                 "aliases": [],
@@ -1838,7 +1838,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "mixed nut",
-                "plural_name": "mixed nuts"
+                "plural_name": "míchané oříšky"
             },
             "brazil nut": {
                 "aliases": [],
@@ -1849,14 +1849,14 @@
             "mixed seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seed",
-                "plural_name": "mixed seeds"
+                "name": "míchaná semínka",
+                "plural_name": "míchaní semínka"
             },
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "cibulové semínko",
+                "plural_name": "cibulová semínka"
             },
             "watermelon seed": {
                 "aliases": [],
@@ -1867,8 +1867,8 @@
             "honey-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted peanut",
-                "plural_name": "honey-roasted peanuts"
+                "name": "medový pražený arašíd",
+                "plural_name": "medové pražené arašídy"
             },
             "melon seed": {
                 "aliases": [],
@@ -1897,8 +1897,8 @@
             "basil seed": {
                 "aliases": [],
                 "description": "",
-                "name": "basil seed",
-                "plural_name": "basil seeds"
+                "name": "semínko bazalky",
+                "plural_name": "semínka bazalky"
             },
             "candlenut": {
                 "aliases": [],
@@ -1921,14 +1921,14 @@
             "honey-roasted almond": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted almond",
-                "plural_name": "honey-roasted almonds"
+                "name": "medová pražená mandle",
+                "plural_name": "medové pražené mandle"
             },
             "toasted nut": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted nut",
-                "plural_name": "toasted nuts"
+                "name": "pražený ořech",
+                "plural_name": "pražené ořechy"
             },
             "chironji": {
                 "aliases": [],
@@ -1939,8 +1939,8 @@
             "honey-roasted pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "name": "medový pražený pekan",
+                "plural_name": "medové pražené pekany"
             },
             "tigernut": {
                 "aliases": [],
@@ -2003,12 +2003,12 @@
             "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan cheese",
-                "plural_name": "parmesan cheese"
+                "name": "parmazán",
+                "plural_name": "parmazány"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddar cheese"
+                    "čedar"
                 ],
                 "description": "",
                 "name": "cheddar cheese",
@@ -2098,31 +2098,31 @@
                 "aliases": [],
                 "description": "",
                 "name": "gruyere cheese",
-                "plural_name": "gruyere cheese"
+                "plural_name": "čedary"
             },
             "mascarpone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mascarpone cheese",
-                "plural_name": "mascarpone cheese"
+                "name": "mascarpone",
+                "plural_name": "mascarpone"
             },
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cottage cheese",
-                "plural_name": "cottage cheese"
+                "name": "cottage",
+                "plural_name": "cottage"
             },
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheese"
+                "name": "americký sýr",
+                "plural_name": "americké sýry"
             },
             "provolone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "provolone cheese",
-                "plural_name": "provolone cheese"
+                "name": "provolone",
+                "plural_name": "provolone"
             },
             "mexican cheese blend": {
                 "aliases": [],
@@ -2139,20 +2139,20 @@
             "brie cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brie cheese",
-                "plural_name": "brie cheese"
+                "name": "brie",
+                "plural_name": "brie"
             },
             "paneer cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "paneer cheese",
-                "plural_name": "paneer cheese"
+                "name": "panýr",
+                "plural_name": "panýry"
             },
             "fontina cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fontina cheese",
-                "plural_name": "fontina cheese"
+                "name": "fontina",
+                "plural_name": "fontiny"
             },
             "queso fresco cheese": {
                 "aliases": [],
@@ -2169,8 +2169,8 @@
             "gouda cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda cheese",
-                "plural_name": "gouda cheese"
+                "name": "gouda",
+                "plural_name": "goudy"
             },
             "cotija cheese": {
                 "aliases": [],
@@ -2181,20 +2181,20 @@
             "asiago cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "asiago cheese",
-                "plural_name": "asiago cheese"
+                "name": "asiago",
+                "plural_name": "asiaga"
             },
             "smoked cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked cheese",
-                "plural_name": "smoked cheese"
+                "name": "uzený sýr",
+                "plural_name": "uzené sýry"
             },
             "halloumi cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "halloumi cheese",
-                "plural_name": "halloumi cheese"
+                "name": "halloumi",
+                "plural_name": "halloumi"
             },
             "chevre cheese": {
                 "aliases": [],
@@ -2211,8 +2211,8 @@
             "italian cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "italian cheese blend",
-                "plural_name": "italian cheese blend"
+                "name": "směs italských sýrů",
+                "plural_name": "směsi italských sýrů"
             },
             "neufchatel cheese": {
                 "aliases": [],
@@ -2223,20 +2223,20 @@
             "herb cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "herb cream cheese",
-                "plural_name": "herb cream cheese"
+                "name": "smetanový sýr s bylinkami",
+                "plural_name": "smetanové sýry s bylinkami"
             },
             "burrata cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "burrata cheese",
-                "plural_name": "burrata cheese"
+                "name": "burrata",
+                "plural_name": "burraty"
             },
             "havarti cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "havarti cheese",
-                "plural_name": "havarti cheese"
+                "name": "havarti",
+                "plural_name": "havarti"
             },
             "colby cheese": {
                 "aliases": [],
@@ -2247,8 +2247,8 @@
             "grana-padano cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "grana-padano cheese",
-                "plural_name": "grana-padano cheese"
+                "name": "grana padano",
+                "plural_name": "grana padano"
             },
             "muenster cheese": {
                 "aliases": [],
@@ -2265,14 +2265,14 @@
             "camembert cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "camembert cheese",
-                "plural_name": "camembert cheese"
+                "name": "camembert",
+                "plural_name": "camemberty"
             },
             "soft cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "soft cheese",
-                "plural_name": "soft cheese"
+                "name": "měkký sýr",
+                "plural_name": "měkké sýry"
             },
             "stilton cheese": {
                 "aliases": [],
@@ -2319,8 +2319,8 @@
             "edam cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "edam cheese",
-                "plural_name": "edam cheese"
+                "name": "eidam",
+                "plural_name": "eidamy"
             },
             "creamy cheese wedge": {
                 "aliases": [],
@@ -2409,8 +2409,8 @@
             "comté cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "comté cheese",
-                "plural_name": "comté cheese"
+                "name": "comté",
+                "plural_name": "comté"
             },
             "graviera cheese": {
                 "aliases": [],
