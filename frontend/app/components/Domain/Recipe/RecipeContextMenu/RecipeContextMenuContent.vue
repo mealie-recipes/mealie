@@ -1,6 +1,6 @@
 <template>
   <RecipeDialogShare v-model="shareDialog" :recipe-id="recipeId" :name="name" />
-  <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipeRef" />
+  <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipeRef as NoUndefinedField<Recipe>" />
   <BaseDialog
     v-model="recipeDeleteDialog"
     :title="$t('recipe.delete-recipe')"
@@ -104,18 +104,20 @@ import { useClipboard, useShare } from "@vueuse/core";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
 import RecipeDialogPrintPreferences from "~/components/Domain/Recipe/RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "~/components/Domain/Recipe/RecipeDialogShare.vue";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserApi } from "~/composables/api";
+import { useDownloader } from "~/composables/api/use-downloader";
+import { useAddToShoppingListDialog } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
+import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { useGroupRecipeActions } from "~/composables/use-group-recipe-actions";
 import { useGroupSelf } from "~/composables/use-groups";
 import { useHouseholdSelf } from "~/composables/use-households";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { alert } from "~/composables/use-toast";
-import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
-import { isRecipeFullyPublic } from "~/lib/recipe/recipe-visibility";
-import type { Recipe } from "~/lib/api/types/recipe";
-import type { GroupRecipeActionOut, HouseholdSummary, ShoppingListSummary } from "~/lib/api/types/household";
+import type { GroupRecipeActionOut, HouseholdSummary } from "~/lib/api/types/household";
 import type { PlanEntryType } from "~/lib/api/types/meal-plan";
-import { useDownloader } from "~/composables/api/use-downloader";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { Recipe } from "~/lib/api/types/recipe";
+import { isRecipeFullyPublic } from "~/lib/recipe/recipe-visibility";
 
 export interface ContextMenuIncludes {
   delete: boolean;
@@ -182,12 +184,12 @@ const emit = defineEmits<{
 }>();
 
 const api = useUserApi();
+const { open: shoppingListDialog, shoppingLists, getShoppingLists } = useAddToShoppingListDialog();
 
 const printPreferencesDialog = ref(false);
 const shareDialog = ref(false);
 const recipeDeleteDialog = ref(false);
 const mealplannerDialog = ref(false);
-const shoppingListDialog = ref(false);
 const recipeDuplicateDialog = ref(false);
 const recipeName = ref(props.name);
 const loading = ref(false);
@@ -317,7 +319,6 @@ menuItems.value = [...menuItems.value, ...props.leadingItems, ...props.appendIte
 // ===========================================================================
 // Context Menu Event Handler
 
-const shoppingLists = ref<ShoppingListSummary[]>();
 const recipeRef = ref<Recipe | undefined>(props.recipe);
 const recipeRefWithScale = computed(() =>
   recipeRef.value ? { scale: props.recipeScale, ...recipeRef.value } : undefined,
@@ -370,13 +371,6 @@ for (const [key, value] of Object.entries(props.useItems)) {
   const item = defaultItems[key];
   if (item && (item.isPublic || isOwnGroup.value)) {
     menuItems.value.push(item);
-  }
-}
-
-async function getShoppingLists() {
-  const { data } = await api.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
-  if (data) {
-    shoppingLists.value = data.items ?? [];
   }
 }
 

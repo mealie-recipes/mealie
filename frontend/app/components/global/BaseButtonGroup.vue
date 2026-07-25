@@ -15,8 +15,10 @@
             tile
             :large="large"
             icon
+            :color="btn.color"
             variant="plain"
             v-bind="hoverProps"
+            :loading="btn.loading || btn.children.some(({ loading }) => loading)"
           >
             <v-icon>
               {{ btn.icon }}
@@ -30,6 +32,8 @@
           >
             <v-list-item
               density="compact"
+              :prepend-icon="child.icon"
+              :disabled="child.disabled"
               @click="$emit(child.event)"
             >
               <v-list-item-title>{{ child.text }}</v-list-item-title>
@@ -81,6 +85,7 @@ export interface ButtonOption {
   children?: ButtonOption[];
   disabled?: boolean;
   divider?: boolean;
+  loading?: boolean;
 }
 
 const props = defineProps({
