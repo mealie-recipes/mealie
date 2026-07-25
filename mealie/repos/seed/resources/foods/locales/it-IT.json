@@ -1295,7 +1295,7 @@
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungus",
+                "name": "fungo nero",
                 "plural_name": "trombetta dei morti"
             },
             "black truffle": {
@@ -1361,7 +1361,7 @@
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "white fungus",
+                "name": "fungo bianco",
                 "plural_name": "fungo bianco"
             },
             "pioppini": {
@@ -1373,7 +1373,7 @@
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungus",
+                "name": "fungo della neve",
                 "plural_name": "funghi tremella fuciformis"
             },
             "white beech mushroom": {
@@ -1404,7 +1404,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "nameko",
-                "plural_name": "namekos"
+                "plural_name": "nameko"
             },
             "djon djon mushroom": {
                 "aliases": [],
@@ -1427,7 +1427,7 @@
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungus",
+                "name": "chiodino",
                 "plural_name": "funghi armillaria"
             },
             "caesar's mushroom": {
@@ -2055,14 +2055,14 @@
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheddar-jack cheese",
-                "plural_name": "cheddar-jack cheese"
+                "name": "formaggio cheddar-jack",
+                "plural_name": "formaggi cheddar-jack"
             },
             "monterey jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "monterey jack cheese",
-                "plural_name": "monterey jack cheese"
+                "name": "formaggio Monterey Jack",
+                "plural_name": "formaggi Monterey Jack"
             },
             "blue cheese": {
                 "aliases": [],
@@ -2133,8 +2133,8 @@
             "pepper jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pepper jack cheese",
-                "plural_name": "pepper jack cheese"
+                "name": "formaggio Pepper Jack",
+                "plural_name": "formaggi Pepper Jack"
             },
             "brie cheese": {
                 "aliases": [],
@@ -2145,8 +2145,8 @@
             "paneer cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "paneer cheese",
-                "plural_name": "paneer cheese"
+                "name": "formaggio paneer",
+                "plural_name": "formaggi paneer"
             },
             "fontina cheese": {
                 "aliases": [],
@@ -2175,7 +2175,7 @@
             "cotija cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cotija cheese",
+                "name": "formaggio cotija",
                 "plural_name": "cotija cheese"
             },
             "asiago cheese": {
