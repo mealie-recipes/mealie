@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { useScaledAmount } from "./use-scaled-amount";
+import { useScaledAmount } from "../use-scaled-amount";
 
 describe("test use recipe yield", () => {
   function asFrac(numerator: number, denominator: number): string {

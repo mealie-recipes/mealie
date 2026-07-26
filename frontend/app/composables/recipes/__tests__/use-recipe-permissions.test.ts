@@ -1,6 +1,6 @@
 import { describe, test, expect } from "vitest";
 import { ref } from "vue";
-import { useRecipePermissions } from "./use-recipe-permissions";
+import { useRecipePermissions } from "../use-recipe-permissions";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import type { Recipe } from "~/lib/api/types/recipe";
 import type { UserOut } from "~/lib/api/types/user";

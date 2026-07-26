@@ -1,9 +1,9 @@
 import { describe, test, expect, vi, beforeEach } from "vitest";
-import { useIngredientTextParser } from "./use-recipe-ingredients";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
-import { useLocales } from "../use-locales";
+import { useIngredientTextParser } from "../use-recipe-ingredients";
+import { useLocales } from "~/composables/use-locales";
 
-vi.mock("../use-locales");
+vi.mock("~/composables/use-locales");
 
 let parseIngredientText: (ingredient: RecipeIngredient, scale?: number, includeFormating?: boolean) => string;
 let ingredientToParserString: (ingredient: RecipeIngredient) => string;

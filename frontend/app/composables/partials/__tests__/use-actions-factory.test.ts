@@ -1,6 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
 import { ref } from "vue";
-import { useStoreActions } from "./use-actions-factory";
+import { useStoreActions } from "../use-actions-factory";
 import type { BaseCRUDAPI } from "~/lib/api/base/base-clients";
 
 describe("useStoreActions", () => {
