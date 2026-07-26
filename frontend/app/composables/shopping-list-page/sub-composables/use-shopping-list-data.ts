@@ -5,7 +5,12 @@ import { useShoppingListItemActions } from "~/composables/shopping-list-page/sub
 /**
  * Composable for managing shopping list data fetching and polling
  */
-export function useShoppingListData(listId: string, shoppingList: Ref<ShoppingListOut | null>, loadingCounter: Ref<number>) {
+export function useShoppingListData(
+  listId: string,
+  shoppingList: Ref<ShoppingListOut | null>,
+  loadingCounter: Ref<number>,
+  maxAttempts = 17280,
+) {
   const isOffline = computed(() => useOnline().value === false);
   const { idle } = useIdle(5 * 60 * 1000); // 5 minutes
   const shoppingListItemActions = useShoppingListItemActions(listId);
@@ -88,7 +93,6 @@ export function useShoppingListData(listId: string, shoppingList: Ref<ShoppingLi
   // max poll time = pollFrequency * maxAttempts = 24 hours
   // we use a long max poll time since polling stops when the user is idle anyway
   const pollFrequency = 5000;
-  const maxAttempts = 17280;
   let attempts = 0;
   let pollTimer: ReturnType<typeof setInterval>;
 
