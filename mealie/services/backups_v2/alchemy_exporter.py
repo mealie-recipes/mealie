@@ -252,11 +252,11 @@ class AlchemyExporter(BaseService):
 
     def drop_all(self) -> None:
         """Drops all data from the database"""
-        from sqlalchemy.engine.reflection import Inspector
+        from sqlalchemy import inspect
         from sqlalchemy.schema import DropConstraint, DropTable, MetaData, Table
 
         with self.engine.begin() as connection:
-            inspector = Inspector.from_engine(self.engine)
+            inspector = inspect(self.engine)
 
             # We need to re-create a minimal metadata with only the required things to
             # successfully emit drop constraints and tables commands for postgres (based
