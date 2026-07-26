@@ -967,6 +967,7 @@
     "copy-as-text": "Copy as Text",
     "copy-as-markdown": "Copy as Markdown",
     "delete-checked": "Delete Checked",
+    "group-checked-by-label": "Group checked shopping list items by label",
     "toggle-label-sort": "Toggle Label Sort",
     "reorder-labels": "Reorder Labels",
     "uncheck-all-items": "Uncheck All Items",

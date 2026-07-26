@@ -236,6 +236,12 @@
                 <BaseButtonGroup
                   :buttons="[
                     {
+                      icon: $globals.icons.tags,
+                      text: $t('shopping-list.group-checked-by-label'),
+                      event: 'toggle-group-checked',
+                      color: shoppingListPreferences.groupCheckedByLabel ? 'primary' : undefined,
+                    },
+                    {
                       icon: $globals.icons.checkboxMultipleBlankOutline,
                       text: $t('shopping-list.uncheck-all-items'),
                       event: 'uncheck',
@@ -246,6 +252,7 @@
                       event: 'delete',
                     },
                   ]"
+                  @toggle-group-checked="shoppingListPreferences.groupCheckedByLabel = !shoppingListPreferences.groupCheckedByLabel"
                   @uncheck="openUncheckAll"
                   @delete="openDeleteChecked"
                 />
@@ -253,20 +260,46 @@
             </div>
           </v-expansion-panel-title>
           <v-expansion-panel-text eager>
-            <TransitionGroup name="scroll-x-transition">
-              <div v-for="(item, idx) in listItems.checked" :key="item.id">
-                <ShoppingListItem
-                  v-model="listItems.checked[idx]"
-                  class="strike-through-note"
-                  :labels="allLabels || []"
-                  :units="allUnits || []"
-                  :foods="allFoods || []"
-                  @checked="saveListItem"
-                  @save="saveListItem"
-                  @delete="deleteListItem(item)"
-                />
+            <template v-if="shoppingListPreferences.groupCheckedByLabel">
+              <div v-for="(items, labelName) in checkedItemsByLabel" :key="labelName" class="mb-4">
+                <v-sheet
+                  :color="getLabelColor(labelName as string)"
+                  class="font-weight-bold py-1 px-3 mb-2 rounded text-subtitle-2"
+                >
+                  {{ labelName }}
+                </v-sheet>
+                <TransitionGroup name="scroll-x-transition">
+                  <div v-for="item in items" :key="item.id">
+                    <ShoppingListItem
+                      :model-value="item"
+                      class="strike-through-note ml-2"
+                      :labels="allLabels || []"
+                      :units="allUnits || []"
+                      :foods="allFoods || []"
+                      @checked="saveListItem"
+                      @save="saveListItem"
+                      @delete="deleteListItem(item)"
+                    />
+                  </div>
+                </TransitionGroup>
               </div>
-            </TransitionGroup>
+            </template>
+            <template v-else>
+              <TransitionGroup name="scroll-x-transition">
+                <div v-for="(item, idx) in listItems.checked" :key="item.id">
+                  <ShoppingListItem
+                    v-model="listItems.checked[idx]"
+                    class="strike-through-note"
+                    :labels="allLabels || []"
+                    :units="allUnits || []"
+                    :foods="allFoods || []"
+                    @checked="saveListItem"
+                    @save="saveListItem"
+                    @delete="deleteListItem(item)"
+                  />
+                </div>
+              </TransitionGroup>
+            </template>
           </v-expansion-panel-text>
         </v-expansion-panel>
       </v-expansion-panels>
@@ -404,6 +437,8 @@ const {
   createListItemData,
   createListItem,
   itemsByLabel,
+  checkedItemsByLabel,
+  shoppingListPreferences,
   getLabelColor,
   loadingCounter,
   updateIndexUncheckedByLabel,

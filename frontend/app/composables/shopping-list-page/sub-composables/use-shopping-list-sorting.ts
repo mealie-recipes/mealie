@@ -126,10 +126,54 @@ export function useShoppingListSorting() {
     return itemsSorted;
   }
 
+  function updateCheckedItemsByLabel(shoppingList: ShoppingListOut, checkedItems: ShoppingListItemOut[]) {
+    const items: { [prop: string]: ShoppingListItemOut[] } = {};
+    const noLabelText = t("shopping-list.no-label");
+    const noLabel = [] as ShoppingListItemOut[];
+
+    checkedItems.forEach((item) => {
+      if (item.labelId) {
+        if (item.label && item.label.name in items) {
+          items[item.label.name].push(item);
+        }
+        else if (item.label) {
+          items[item.label.name] = [item];
+        }
+      }
+      else {
+        noLabel.push(item);
+      }
+    });
+
+    if (noLabel.length > 0) {
+      items[noLabelText] = noLabel;
+    }
+
+    // sort the map by label order
+    const orderedLabelNames = shoppingList?.labelSettings?.map(labelSetting => labelSetting.label.name);
+    if (!orderedLabelNames) {
+      return items;
+    }
+
+    const itemsSorted: { [prop: string]: ShoppingListItemOut[] } = {};
+    if (noLabelText in items) {
+      itemsSorted[noLabelText] = items[noLabelText];
+    }
+
+    orderedLabelNames.forEach((labelName) => {
+      if (labelName in items) {
+        itemsSorted[labelName] = items[labelName];
+      }
+    });
+
+    return itemsSorted;
+  }
+
   return {
     sortItems,
     groupAndSortListItemsByFood,
     sortListItems,
     updateItemsByLabel,
+    updateCheckedItemsByLabel,
   };
 }

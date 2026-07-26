@@ -172,4 +172,32 @@ describe("use-shopping-list-sorting", () => {
       expect(sortedList.listItems).toEqual(undefined);
     });
   });
+
+  describe("updateCheckedItemsByLabel", () => {
+    const { updateCheckedItemsByLabel, t } = wrapper();
+    test("groups checked items by label and preserves internal order", () => {
+      const sortedList = {
+        ...MOCK_SHOPPING_LIST,
+      };
+      const checkedItems = [
+        { ...MOCK_ITEM, id: "c1", checked: true, label: MOCK_LABEL2.label, labelId: "2", updatedAt: "2026-01-02" },
+        { ...MOCK_ITEM, id: "c2", checked: true, label: MOCK_LABEL.label, labelId: "1", updatedAt: "2026-01-03" },
+        { ...MOCK_ITEM, id: "c3", checked: true, label: MOCK_LABEL.label, labelId: "1", updatedAt: "2026-01-01" },
+        { ...MOCK_ITEM, id: "c4", checked: true, updatedAt: "2026-01-04" },
+      ];
+      const result = updateCheckedItemsByLabel(sortedList, checkedItems);
+      expect(result).toEqual({
+        [t("shopping-list.no-label")]: [
+          { ...MOCK_ITEM, id: "c4", checked: true, updatedAt: "2026-01-04" },
+        ],
+        [MOCK_LABEL.label.name]: [
+          { ...MOCK_ITEM, id: "c2", checked: true, label: MOCK_LABEL.label, labelId: "1", updatedAt: "2026-01-03" },
+          { ...MOCK_ITEM, id: "c3", checked: true, label: MOCK_LABEL.label, labelId: "1", updatedAt: "2026-01-01" },
+        ],
+        [MOCK_LABEL2.label.name]: [
+          { ...MOCK_ITEM, id: "c1", checked: true, label: MOCK_LABEL2.label, labelId: "2", updatedAt: "2026-01-02" },
+        ],
+      });
+    });
+  });
 });

@@ -6,6 +6,7 @@ import { useShoppingListLabels } from "~/composables/shopping-list-page/sub-comp
 import { useShoppingListCopy } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-copy";
 import { useShoppingListCrud } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-crud";
 import { useShoppingListRecipes } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-recipes";
+import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 
 /**
  * Main composable that orchestrates all shopping list page functionality
@@ -28,6 +29,15 @@ export function useShoppingListPage(listId: string) {
 
   // Track items organized by label
   const itemsByLabel = ref<{ [key: string]: ShoppingListItemOut[] }>({});
+
+  const shoppingListPreferences = useShoppingListPreferences();
+
+  const checkedItemsByLabel = computed(() => {
+    if (!shoppingList.value || !listItems.checked.length) {
+      return {};
+    }
+    return sorting.updateCheckedItemsByLabel(shoppingList.value, listItems.checked);
+  });
 
   function updateListItemOrder() {
     if (!shoppingList.value) return;
@@ -164,6 +174,8 @@ export function useShoppingListPage(listId: string) {
 
   return {
     itemsByLabel,
+    checkedItemsByLabel,
+    shoppingListPreferences,
     isOffline,
 
     // Sub-composables

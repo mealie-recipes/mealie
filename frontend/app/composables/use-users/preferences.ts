@@ -36,6 +36,7 @@ export interface UserRecipePreferences {
 
 export interface UserShoppingListPreferences {
   viewAllLists: boolean;
+  groupCheckedByLabel?: boolean;
 }
 
 export interface UserTimelinePreferences {
@@ -153,6 +154,7 @@ export function useShoppingListPreferences(): Ref<UserShoppingListPreferences> {
     "shopping-list-preferences",
     {
       viewAllLists: false,
+      groupCheckedByLabel: false,
     },
     { mergeDefaults: true },
   );
