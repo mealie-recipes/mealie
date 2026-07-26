@@ -106,6 +106,12 @@ filterwarnings = [
     # pyRdfa3 is unmaintained (see the filter in mealie/app.py) and still calls the
     # deprecated datetime.datetime.utcnow(); nothing to fix on our side.
     "ignore:datetime\\.datetime\\.utcnow\\(\\) is deprecated.*:DeprecationWarning:pyRdfa.*",
+    # GroupDataExportsModel.expires is declared as a String column but is always
+    # populated with a real datetime (mealie/db/models/group/exports.py), so the
+    # value reaches sqlite3's deprecated implicit adapter. Fixing this properly means
+    # changing the column type to NaiveDateTime with an Alembic migration, verified
+    # against Postgres too -- tracked separately, not done here.
+    "ignore:The default datetime adapter is deprecated as of Python 3\\.12.*:DeprecationWarning",
 ]
 
 [tool.coverage.report]
