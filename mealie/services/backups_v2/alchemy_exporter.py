@@ -179,9 +179,13 @@ class AlchemyExporter(BaseService):
         with self.engine.connect() as connection:
             self.meta.reflect(bind=self.engine)  #  http://docs.sqlalchemy.org/en/rel_0_9/core/reflection.html
 
+            # table order here is cosmetic only: restore() disables foreign key
+            # enforcement for the whole operation (see ForeignKeyDisabler) and inserts
+            # in whatever order the dump dict is in, so a topological sort isn't needed
+            # here and would warn/error on the ai_providers <-> ai_provider_settings cycle
             result = {
                 table.name: [dict(row) for row in connection.execute(table.select()).mappings()]
-                for table in self.meta.sorted_tables
+                for table in self.meta.tables.values()
             }
 
         return jsonable_encoder(result)
