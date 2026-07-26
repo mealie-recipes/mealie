@@ -232,7 +232,7 @@
               <div class="flex-1-0">
                 {{ $t('shopping-list.items-checked-count', listItems.checked ? listItems.checked.length : 0) }}
               </div>
-              <div class="justify-end">
+              <div class="justify-end" @click.stop>
                 <BaseButtonGroup
                   :buttons="[
                     {
