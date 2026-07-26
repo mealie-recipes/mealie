@@ -37,14 +37,14 @@
                           title: $t('meal-plan.remove-from-plan'),
                           icon: $globals.icons.calendarRemove,
                           color: undefined,
-                          event: 'mealplan-remove',
+                          event: 'mealplanRemove',
                           isPublic: false,
                         },
                         {
                           title: $t('meal-plan.edit-meal-plan'),
                           icon: $globals.icons.calendarEdit,
                           color: undefined,
-                          event: 'mealplan-edit',
+                          event: 'mealplanEdit',
                           isPublic: false,
                         },
                       ]"

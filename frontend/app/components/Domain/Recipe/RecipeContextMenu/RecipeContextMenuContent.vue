@@ -181,6 +181,8 @@ const emit = defineEmits<{
   [key: string]: any;
   deleted: [slug: string];
   print: [];
+  mealplanEdit: [];
+  mealplanRemove: [];
 }>();
 
 const api = useUserApi();
