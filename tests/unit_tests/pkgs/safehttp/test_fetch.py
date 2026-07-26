@@ -108,11 +108,13 @@ def _patch_responses(
     *,
     proxy_url: str | None = None,
     proxy_mode=fetch.ScraperProxyMode.always,
+    flaresolverr_url: str | None = None,
+    flaresolverr_timeout: int = 60,
 ) -> dict:
     """Scripts consecutive attempts to return the given responses.
 
     Records the number of attempts and the proxy passed to each, and isolates the fetch from real
-    app settings by injecting the given proxy configuration.
+    app settings by injecting the given scraper configuration.
     """
     state = {"queue": list(responses), "attempts": 0, "proxies": []}
 
@@ -129,7 +131,12 @@ def _patch_responses(
     monkeypatch.setattr(
         fetch,
         "get_app_settings",
-        lambda: SimpleNamespace(SCRAPER_PROXY_URL=proxy_url, SCRAPER_PROXY_MODE=proxy_mode),
+        lambda: SimpleNamespace(
+            SCRAPER_PROXY_URL=proxy_url,
+            SCRAPER_PROXY_MODE=proxy_mode,
+            SCRAPER_FLARESOLVERR_URL=flaresolverr_url,
+            SCRAPER_FLARESOLVERR_TIMEOUT=flaresolverr_timeout,
+        ),
     )
     return state
 
@@ -307,3 +314,105 @@ async def test_always_mode_does_not_double_escalate(monkeypatch):
     assert result is None
     assert state["attempts"] == len(fetch.BROWSER_IMPERSONATIONS)
     assert all(p == "http://proxy:8080" for p in state["proxies"])
+
+
+# ---------------------------------------------------------------------------
+# FlareSolverr escalation
+# ---------------------------------------------------------------------------
+def _patch_flaresolverr(monkeypatch, solution):
+    """Records calls to flaresolverr.solve and returns the given solution (or None)."""
+    calls: list[tuple] = []
+
+    async def fake_solve(base_url, url, timeout):
+        calls.append((base_url, url, timeout))
+        return solution
+
+    monkeypatch.setattr(fetch.flaresolverr, "solve", fake_solve)
+    return calls
+
+
+@pytest.mark.asyncio
+async def test_escalates_to_flaresolverr_when_blocked(monkeypatch):
+    _patch_responses(
+        monkeypatch,
+        [_FakeResponse(403) for _ in fetch.BROWSER_IMPERSONATIONS],
+        flaresolverr_url="http://flaresolverr:8191",
+    )
+    solution = fetch.flaresolverr.FlareSolverrSolution(html="<html>solved</html>", status_code=200, url="https://x/r")
+    calls = _patch_flaresolverr(monkeypatch, solution)
+
+    result = await fetch.resilient_fetch("https://x/r")
+
+    assert result is not None
+    assert result.text == "<html>solved</html>"
+    assert len(calls) == 1
+    assert calls[0] == ("http://flaresolverr:8191", "https://x/r", 60)
+
+
+@pytest.mark.asyncio
+async def test_no_flaresolverr_when_unconfigured(monkeypatch):
+    _patch_responses(monkeypatch, [_FakeResponse(403) for _ in fetch.BROWSER_IMPERSONATIONS], flaresolverr_url=None)
+    calls = _patch_flaresolverr(monkeypatch, None)
+
+    result = await fetch.resilient_fetch("https://x/r")
+
+    assert result is None
+    assert calls == []
+
+
+@pytest.mark.asyncio
+async def test_no_flaresolverr_on_hard_error(monkeypatch):
+    _patch_responses(monkeypatch, [_FakeResponse(404)], flaresolverr_url="http://flaresolverr:8191")
+    calls = _patch_flaresolverr(monkeypatch, None)
+
+    result = await fetch.resilient_fetch("https://x/r")
+
+    assert result is None
+    assert calls == []  # a 404 is a hard error, not a block
+
+
+@pytest.mark.asyncio
+async def test_no_flaresolverr_for_images(monkeypatch):
+    # allow_flaresolverr=False (as the image path passes) must skip the browser escalation.
+    _patch_responses(
+        monkeypatch,
+        [_FakeResponse(403) for _ in fetch.BROWSER_IMPERSONATIONS],
+        flaresolverr_url="http://flaresolverr:8191",
+    )
+    calls = _patch_flaresolverr(monkeypatch, None)
+
+    result = await fetch.resilient_fetch("https://x/r", allow_flaresolverr=False)
+
+    assert result is None
+    assert calls == []
+
+
+@pytest.mark.asyncio
+async def test_no_flaresolverr_for_head(monkeypatch):
+    # HEAD requests read no body; FlareSolverr (HTML-only) is pointless, so it must be skipped.
+    _patch_responses(
+        monkeypatch,
+        [_FakeResponse(403) for _ in fetch.BROWSER_IMPERSONATIONS],
+        flaresolverr_url="http://flaresolverr:8191",
+    )
+    calls = _patch_flaresolverr(monkeypatch, None)
+
+    result = await fetch.resilient_fetch("https://x/r", method="HEAD")
+
+    assert result is None
+    assert calls == []
+
+
+@pytest.mark.asyncio
+async def test_flaresolverr_failure_degrades_gracefully(monkeypatch):
+    _patch_responses(
+        monkeypatch,
+        [_FakeResponse(403) for _ in fetch.BROWSER_IMPERSONATIONS],
+        flaresolverr_url="http://flaresolverr:8191",
+    )
+    calls = _patch_flaresolverr(monkeypatch, None)  # solve() returns None (unreachable / unsolved)
+
+    result = await fetch.resilient_fetch("https://x/r")
+
+    assert result is None
+    assert len(calls) == 1  # it tried, then gave up cleanly
