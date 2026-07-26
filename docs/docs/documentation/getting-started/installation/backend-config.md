@@ -128,6 +128,68 @@ Mealie supports various integrations using OpenAI. For more information, check o
 |-------------------------------------------------------------------------|:-----------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | OPENAI_CUSTOM_PROMPT_DIR <br/> :octicons-tag-24: v3.10.0                |    None.    | Path to custom prompt files. Only existing files in your custom directory will override the defaults; any missing or empty custom files will automatically fall back to the system defaults. See https://github.com/mealie-recipes/mealie/tree/mealie-next/mealie/services/openai/prompts for expected file names.     |
 
+### Recipe Scraper
+
+When you import a recipe from a URL, Mealie fetches the page (and its image) before parsing it. Many
+sites sit behind bot-protection (e.g. Cloudflare) that can block these requests. Out of the box Mealie
+mitigates this by impersonating real browsers' TLS fingerprints and rotating between several of them,
+which is enough for most sites and requires no configuration. If you still run into sites that block
+imports, the **opt-in** settings below add two further layers.
+
+| Variables                    | Default | Description                                                                                                                                                                                                                                                             |
+| ---------------------------- | :-----: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SCRAPER_PROXY_URL            |  None   | Optional proxy for all outbound scraping and image requests (e.g. `http://user:pass@host:port`). Routing through an IP with a better reputation helps bypass IP-based blocks. Unset disables it.                                                                        |
+| SCRAPER_PROXY_MODE           | always  | How the proxy is used (when `SCRAPER_PROXY_URL` is set): `always` routes every request through it; `fallback` tries a direct request first and only retries through the proxy when a block is detected. Any unrecognized value falls back to `always`.                   |
+| SCRAPER_FLARESOLVERR_URL     |  None   | Optional base URL of a self-hosted [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr) instance (e.g. `http://flaresolverr:8191`). Used only as a last resort to solve JS/Cloudflare challenges. Unset disables it.                                            |
+| SCRAPER_FLARESOLVERR_TIMEOUT |   60    | Maximum seconds FlareSolverr may spend solving a single challenge before giving up.                                                                                                                                                                                    |
+
+#### How Mealie fetches a page
+
+For each import Mealie escalates only as far as it needs to, stopping at the first step that succeeds:
+
+1. **Direct fetch** with rotating browser TLS impersonations — always on, no configuration.
+2. **Proxy** — if `SCRAPER_PROXY_URL` is set (see modes below).
+3. **FlareSolverr** — if `SCRAPER_FLARESOLVERR_URL` is set, and only when the page is still blocked.
+
+Steps 2 and 3 are opt-in, so a default install uses only step 1. Genuine "not found" responses (e.g.
+`404`) are treated as real errors and are never retried through the later steps.
+
+#### Proxy
+
+Most IP-based blocks trigger on the very first request, so `always` mode (the default when a proxy is
+set) is recommended — it routes every request through the proxy from the start. Use `fallback` mode if
+you're on a **metered proxy** and want to avoid paying for requests that would have succeeded directly;
+Mealie will then only route through the proxy after a direct attempt is blocked. The proxy applies to
+both the recipe page and its image download.
+
+#### FlareSolverr
+
+FlareSolverr runs a real headless browser to solve challenges that TLS impersonation alone can't.
+**Mealie neither ships nor manages it** — you host it yourself and point Mealie at it. Because it
+returns rendered **HTML**, it is only used for the recipe page; **image downloads never use
+FlareSolverr** and continue to rely on the direct/proxy path.
+
+Run it as a sidecar container and set `SCRAPER_FLARESOLVERR_URL` to its address:
+
+```yaml
+services:
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:latest
+    environment:
+      SCRAPER_FLARESOLVERR_URL: http://flaresolverr:8191
+      # optional; default shown
+      # SCRAPER_FLARESOLVERR_TIMEOUT: 60
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    restart: unless-stopped
+    # No ports need to be published — Mealie reaches it over the internal Docker network.
+```
+
+Because FlareSolverr drives a browser, requests through it are much slower (seconds) and far more
+resource-intensive than a direct fetch. That's why Mealie only falls back to it when a page is actually
+blocked, rather than using it for every import.
+
 ### Theming
 
 Setting the following environmental variables will change the theme of the frontend. Note that the themes are the same for all users. This is a break-change when migration from v0.x.x -> 1.x.x.
