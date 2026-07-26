@@ -2,6 +2,7 @@ import logging
 import os
 import secrets
 from datetime import UTC, datetime
+from enum import StrEnum
 from pathlib import Path
 from typing import Annotated, Literal, NamedTuple
 
@@ -13,6 +14,20 @@ from mealie.core.settings.themes import Theme
 
 from .db_providers import AbstractDBProvider, db_provider_factory
 from .static import PACKAGE_DIR
+
+
+class ScraperProxyMode(StrEnum):
+    """How the scraper uses a configured proxy."""
+
+    always = "always"
+    """Route every request through the proxy (IP-based blocks trigger on the first request)."""
+    fallback = "fallback"
+    """Try direct first; only retry through the proxy when a block is detected."""
+
+    @classmethod
+    def _missing_(cls, value: object) -> "ScraperProxyMode":
+        # Default any unrecognized configuration value to the safest, most useful mode.
+        return cls.always
 
 
 class ScheduleTime(NamedTuple):
@@ -423,6 +438,19 @@ class AppSettings(AppLoggingSettings):
     Path to a folder containing custom prompt files;
     files are individually optional, each prompt name will fall back to the default if no custom file exists
     """
+
+    # ===============================================
+    # Scraper Configuration
+
+    SCRAPER_PROXY_URL: str | None = None
+    """Optional proxy for all outbound recipe/image scraping requests (e.g. ``http://user:pass@host:port``).
+    Routing through a proxy with a better IP reputation helps bypass IP-based bot blocks. Unset disables it."""
+
+    SCRAPER_PROXY_MODE: ScraperProxyMode = ScraperProxyMode.always
+    """How the scraper uses ``SCRAPER_PROXY_URL`` (when set): ``always`` routes every request through the
+    proxy (recommended, since IP-based blocks trigger on the first request); ``fallback`` tries a direct
+    request first and only retries through the proxy when a block is detected (useful for metered proxies).
+    Any unrecognized value falls back to ``always``."""
 
     # ===============================================
     # Web Concurrency

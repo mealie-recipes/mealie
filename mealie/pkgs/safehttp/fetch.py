@@ -6,7 +6,9 @@ from dataclasses import dataclass
 import httpx
 from httpx import AsyncClient
 
+from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
+from mealie.core.settings.settings import ScraperProxyMode
 
 from .transport import AsyncSafeTransport
 
@@ -92,13 +94,17 @@ def body_indicates_challenge(content: bytes) -> bool:
     return any(marker in sample for marker in _CHALLENGE_BODY_MARKERS)
 
 
-def _build_transport(impersonate: str) -> AsyncSafeTransport:
-    return AsyncSafeTransport(
-        impersonate=impersonate,
-        default_headers=True,
+def _build_transport(impersonate: str, proxy: str | None = None) -> AsyncSafeTransport:
+    kwargs: dict = {
+        "impersonate": impersonate,
+        "default_headers": True,
         # disable SSL verification since we can handle untrusted data and some sites don't have certs
-        verify=False,
-    )
+        # (this also covers the proxy connection, so no separate proxy-verify knob is needed)
+        "verify": False,
+    }
+    if proxy:
+        kwargs["proxy"] = proxy
+    return AsyncSafeTransport(**kwargs)
 
 
 async def _read_capped(resp: httpx.Response, timeout: int) -> bytes:
@@ -140,6 +146,7 @@ async def _attempt(
     timeout: int,
     impersonation: str,
     read_body: bool,
+    proxy: str | None,
 ) -> tuple[FetchResult | None, bool, int, str | None]:
     """
     Performs a single fetch attempt with one browser impersonation.
@@ -151,7 +158,7 @@ async def _attempt(
     - When both ``result`` is None and ``blocked`` is False, the response was a hard error that
       rotating won't fix, and the caller should stop.
     """
-    transport = _build_transport(impersonation)
+    transport = _build_transport(impersonation, proxy)
     async with AsyncClient(transport=transport) as client:
         async with client.stream(method, url, timeout=timeout, follow_redirects=True) as resp:
             status_code = resp.status_code
@@ -186,6 +193,49 @@ async def _attempt(
             return result, False, status_code, retry_after
 
 
+async def _rotate(
+    url: str,
+    method: str,
+    timeout: int,
+    read_body: bool,
+    proxy: str | None,
+    deadline: float,
+) -> tuple[FetchResult | None, bool]:
+    """
+    Cycles through browser impersonations (in randomized order) for a single egress path
+    (direct or via ``proxy``).
+
+    Returns ``(result, blocked)``. ``blocked`` is True only when every impersonation was rejected
+    by a challenge/block -- i.e. the failure might be worth escalating (e.g. to a proxy). It is
+    False on success or on a hard error, where escalation wouldn't help.
+    """
+    impersonations = list(BROWSER_IMPERSONATIONS)
+    random.shuffle(impersonations)
+
+    for index, impersonation in enumerate(impersonations):
+        if time.monotonic() >= deadline:
+            logger.debug("Scraper budget exhausted before trying all impersonations")
+            break
+
+        logger.debug(f'Trying browser impersonation: "{impersonation}"')
+        result, blocked, status_code, retry_after = await _attempt(
+            url, method, timeout, impersonation, read_body, proxy
+        )
+
+        if result is not None:
+            return result, False
+
+        if not blocked:
+            # Hard error; rotating fingerprints won't help.
+            return None, False
+
+        is_last = index == len(impersonations) - 1
+        if not is_last and status_code in RATE_LIMIT_STATUS_CODES:
+            await _sleep_backoff(retry_after, deadline)
+
+    return None, True
+
+
 async def resilient_fetch(
     url: str,
     *,
@@ -201,6 +251,10 @@ async def resilient_fetch(
     next fingerprint is tried, with a short jittered backoff for rate-limit statuses. A genuine
     error status (e.g. 404) stops the rotation immediately, since a new fingerprint won't help.
 
+    When ``SCRAPER_PROXY_URL`` is configured, requests egress through it: in ``always`` mode every
+    request uses the proxy; in ``fallback`` mode a direct attempt is made first and the proxy is
+    only used to retry when every direct impersonation was blocked.
+
     The whole operation is bounded by ``SCRAPER_TOTAL_TIMEOUT``, and each attempt's body read is
     bounded by ``timeout`` seconds, to mitigate abuse from URLs that serve arbitrarily large content.
 
@@ -210,29 +264,21 @@ async def resilient_fetch(
     logger.debug(f"Fetching URL: {url}")
 
     read_body = method.upper() != "HEAD"
-
-    impersonations = list(BROWSER_IMPERSONATIONS)
-    random.shuffle(impersonations)
-
     deadline = time.monotonic() + SCRAPER_TOTAL_TIMEOUT
 
-    for index, impersonation in enumerate(impersonations):
-        if time.monotonic() >= deadline:
-            logger.debug("Scraper budget exhausted before trying all impersonations")
-            break
+    settings = get_app_settings()
+    proxy = settings.SCRAPER_PROXY_URL or None
+    proxy_first = bool(proxy) and settings.SCRAPER_PROXY_MODE == ScraperProxyMode.always
 
-        logger.debug(f'Trying browser impersonation: "{impersonation}"')
-        result, blocked, status_code, retry_after = await _attempt(url, method, timeout, impersonation, read_body)
+    result, blocked = await _rotate(url, method, timeout, read_body, proxy if proxy_first else None, deadline)
+    if result is not None:
+        return result
 
-        if result is not None:
-            return result
+    # In `fallback` mode, escalate to the proxy only when a direct attempt was blocked (not on a
+    # hard error, and not if we already used the proxy above).
+    should_escalate = blocked and proxy and not proxy_first
+    if should_escalate:
+        logger.debug("Direct fetch blocked; retrying through configured proxy")
+        result, _ = await _rotate(url, method, timeout, read_body, proxy, deadline)
 
-        if not blocked:
-            # Hard error; rotating fingerprints won't help.
-            return None
-
-        is_last = index == len(impersonations) - 1
-        if not is_last and status_code in RATE_LIMIT_STATUS_CODES:
-            await _sleep_backoff(retry_after, deadline)
-
-    return None
+    return result
