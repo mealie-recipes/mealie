@@ -89,6 +89,10 @@ def list_with_items(unique_user: TestUser):
     yield list_model
 
     try:
+        # tests may delete individual items directly; expire the session first so the
+        # cascade delete re-reads the current list_items collection instead of the
+        # stale one captured above, which would otherwise try to delete already-gone rows
+        database.session.expire_all()
         database.group_shopping_lists.delete(list_model.id)
     except sqlalchemy.exc.NoResultFound:  # Entry Deleted in Test
         pass
