@@ -1,4 +1,5 @@
 from collections.abc import AsyncIterator
+from types import SimpleNamespace
 
 import httpx
 import pytest
@@ -101,16 +102,35 @@ class _FakeClient:
         return self._response
 
 
-def _patch_responses(monkeypatch, responses: list[_FakeResponse]) -> dict:
-    """Scripts consecutive attempts to return the given responses, and counts attempts made."""
-    state = {"queue": list(responses), "attempts": 0}
+def _patch_responses(
+    monkeypatch,
+    responses: list[_FakeResponse],
+    *,
+    proxy_url: str | None = None,
+    proxy_mode=fetch.ScraperProxyMode.always,
+) -> dict:
+    """Scripts consecutive attempts to return the given responses.
+
+    Records the number of attempts and the proxy passed to each, and isolates the fetch from real
+    app settings by injecting the given proxy configuration.
+    """
+    state = {"queue": list(responses), "attempts": 0, "proxies": []}
 
     def make_client(*args, **kwargs):
         state["attempts"] += 1
         return _FakeClient(state["queue"].pop(0))
 
+    def fake_build_transport(impersonate: str, proxy: str | None = None):
+        state["proxies"].append(proxy)
+        return None
+
     monkeypatch.setattr(fetch, "AsyncClient", make_client)
-    monkeypatch.setattr(fetch, "_build_transport", lambda impersonate: None)
+    monkeypatch.setattr(fetch, "_build_transport", fake_build_transport)
+    monkeypatch.setattr(
+        fetch,
+        "get_app_settings",
+        lambda: SimpleNamespace(SCRAPER_PROXY_URL=proxy_url, SCRAPER_PROXY_MODE=proxy_mode),
+    )
     return state
 
 
@@ -209,3 +229,81 @@ async def test_no_backoff_on_plain_403(monkeypatch):
 
     assert result is not None
     assert slept == []  # 403 rotates immediately, no rate-limit backoff
+
+
+# ---------------------------------------------------------------------------
+# Proxy behavior
+# ---------------------------------------------------------------------------
+@pytest.mark.asyncio
+async def test_no_proxy_when_unconfigured(monkeypatch):
+    state = _patch_responses(monkeypatch, [_FakeResponse(200, body=b"ok")], proxy_url=None)
+    result = await fetch.resilient_fetch("https://x/r")
+
+    assert result is not None
+    assert state["proxies"] == [None]
+
+
+@pytest.mark.asyncio
+async def test_always_mode_proxies_first_request(monkeypatch):
+    state = _patch_responses(
+        monkeypatch,
+        [_FakeResponse(200, body=b"ok")],
+        proxy_url="http://proxy:8080",
+        proxy_mode=fetch.ScraperProxyMode.always,
+    )
+    result = await fetch.resilient_fetch("https://x/r")
+
+    assert result is not None
+    # proxy is used from the very first request, even though it succeeded (no block)
+    assert state["proxies"] == ["http://proxy:8080"]
+
+
+@pytest.mark.asyncio
+async def test_fallback_mode_direct_first_then_proxy_on_block(monkeypatch):
+    responses = [_FakeResponse(403) for _ in fetch.BROWSER_IMPERSONATIONS]  # direct all blocked
+    responses.append(_FakeResponse(200, body=b"ok"))  # first proxied attempt succeeds
+    state = _patch_responses(
+        monkeypatch,
+        responses,
+        proxy_url="http://proxy:8080",
+        proxy_mode=fetch.ScraperProxyMode.fallback,
+    )
+    result = await fetch.resilient_fetch("https://x/r")
+
+    assert result is not None
+    assert result.content == b"ok"
+    # direct rotation used no proxy; escalation used the proxy
+    n = len(fetch.BROWSER_IMPERSONATIONS)
+    assert state["proxies"][:n] == [None] * n
+    assert state["proxies"][n] == "http://proxy:8080"
+
+
+@pytest.mark.asyncio
+async def test_fallback_mode_does_not_escalate_on_hard_error(monkeypatch):
+    state = _patch_responses(
+        monkeypatch,
+        [_FakeResponse(404) for _ in fetch.BROWSER_IMPERSONATIONS],
+        proxy_url="http://proxy:8080",
+        proxy_mode=fetch.ScraperProxyMode.fallback,
+    )
+    result = await fetch.resilient_fetch("https://x/r")
+
+    assert result is None
+    # a 404 is a hard error: no rotation, and no proxy escalation
+    assert state["proxies"] == [None]
+
+
+@pytest.mark.asyncio
+async def test_always_mode_does_not_double_escalate(monkeypatch):
+    # Every attempt blocked in always-mode should not trigger a second (proxy) rotation.
+    state = _patch_responses(
+        monkeypatch,
+        [_FakeResponse(403) for _ in fetch.BROWSER_IMPERSONATIONS],
+        proxy_url="http://proxy:8080",
+        proxy_mode=fetch.ScraperProxyMode.always,
+    )
+    result = await fetch.resilient_fetch("https://x/r")
+
+    assert result is None
+    assert state["attempts"] == len(fetch.BROWSER_IMPERSONATIONS)
+    assert all(p == "http://proxy:8080" for p in state["proxies"])
