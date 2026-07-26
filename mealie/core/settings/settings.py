@@ -5,6 +5,7 @@ from datetime import UTC, datetime
 from enum import StrEnum
 from pathlib import Path
 from typing import Annotated, Literal, NamedTuple
+from urllib.parse import urlparse
 
 from dateutil.tz import tzlocal
 from pydantic import PlainSerializer, field_validator
@@ -460,6 +461,20 @@ class AppSettings(AppLoggingSettings):
 
     SCRAPER_FLARESOLVERR_TIMEOUT: int = 60
     """Maximum seconds FlareSolverr may spend solving a single challenge before giving up."""
+
+    @field_validator("SCRAPER_PROXY_URL", "SCRAPER_FLARESOLVERR_URL")
+    @classmethod
+    def validate_scraper_url(cls, v: str | None, info) -> str | None:
+        """Fail fast at startup if a scraper URL is set but malformed (e.g. missing the scheme)."""
+        if not v:
+            return v
+
+        parsed = urlparse(v)
+        if not parsed.scheme or not parsed.netloc:
+            raise ValueError(
+                f"{info.field_name} must be a full URL including scheme and host, e.g. 'http://host:port' (got '{v}')"
+            )
+        return v
 
     # ===============================================
     # Web Concurrency
