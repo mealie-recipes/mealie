@@ -102,6 +102,11 @@ python_classes = '*Tests'
 python_files = 'test_*'
 python_functions = 'test_*'
 testpaths = ["tests"]
+filterwarnings = [
+    # pyRdfa3 is unmaintained (see the filter in mealie/app.py) and still calls the
+    # deprecated datetime.datetime.utcnow(); nothing to fix on our side.
+    "ignore:datetime\\.datetime\\.utcnow\\(\\) is deprecated.*:DeprecationWarning:pyRdfa.*",
+]
 
 [tool.coverage.report]
 skip_empty = true
