@@ -452,6 +452,15 @@ class AppSettings(AppLoggingSettings):
     request first and only retries through the proxy when a block is detected (useful for metered proxies).
     Any unrecognized value falls back to ``always``."""
 
+    SCRAPER_FLARESOLVERR_URL: str | None = None
+    """Optional base URL of a self-hosted FlareSolverr instance (e.g. ``http://flaresolverr:8191``). When
+    set, HTML scrapes that remain blocked after the direct/proxy attempts are retried through FlareSolverr,
+    which drives a real browser to solve JS/Cloudflare challenges. Mealie neither ships nor manages it.
+    Image downloads never use it, since FlareSolverr returns HTML rather than binary content."""
+
+    SCRAPER_FLARESOLVERR_TIMEOUT: int = 60
+    """Maximum seconds FlareSolverr may spend solving a single challenge before giving up."""
+
     # ===============================================
     # Web Concurrency
 

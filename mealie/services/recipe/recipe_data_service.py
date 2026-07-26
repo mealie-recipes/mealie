@@ -147,7 +147,8 @@ class RecipeDataService(BaseService):
         file_path = Recipe.directory_from_id(self.recipe_id).joinpath("images", file_name)
 
         try:
-            r = await safehttp.resilient_fetch(image_url_str)
+            # FlareSolverr returns HTML, not image bytes, so it can't serve an image download.
+            r = await safehttp.resilient_fetch(image_url_str, allow_flaresolverr=False)
         except Exception:
             self.logger.exception("Fatal Image Request Exception")
             return None

@@ -10,6 +10,7 @@ from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
 from mealie.core.settings.settings import ScraperProxyMode
 
+from . import flaresolverr
 from .transport import AsyncSafeTransport
 
 SCRAPER_TIMEOUT = 15
@@ -236,11 +237,22 @@ async def _rotate(
     return None, True
 
 
+def _solution_to_result(solution: flaresolverr.FlareSolverrSolution) -> FetchResult:
+    return FetchResult(
+        content=solution.html.encode("utf-8", errors="replace"),
+        status_code=solution.status_code,
+        url=solution.url,
+        headers=httpx.Headers({"content-type": "text/html; charset=utf-8"}),
+        encoding="utf-8",
+    )
+
+
 async def resilient_fetch(
     url: str,
     *,
     method: str = "GET",
     timeout: int = SCRAPER_TIMEOUT,
+    allow_flaresolverr: bool = True,
 ) -> FetchResult | None:
     """
     Fetches a URL while cycling through browser TLS impersonations (via httpx-curl-cffi) to
@@ -254,6 +266,11 @@ async def resilient_fetch(
     When ``SCRAPER_PROXY_URL`` is configured, requests egress through it: in ``always`` mode every
     request uses the proxy; in ``fallback`` mode a direct attempt is made first and the proxy is
     only used to retry when every direct impersonation was blocked.
+
+    As a last resort, if the fetch is still blocked and ``SCRAPER_FLARESOLVERR_URL`` is configured,
+    the request is escalated to FlareSolverr (a headless browser). This only applies to HTML fetches
+    (``allow_flaresolverr`` and a body-returning method), since FlareSolverr returns HTML, not the
+    binary content an image download needs.
 
     The whole operation is bounded by ``SCRAPER_TOTAL_TIMEOUT``, and each attempt's body read is
     bounded by ``timeout`` seconds, to mitigate abuse from URLs that serve arbitrarily large content.
@@ -276,9 +293,21 @@ async def resilient_fetch(
 
     # In `fallback` mode, escalate to the proxy only when a direct attempt was blocked (not on a
     # hard error, and not if we already used the proxy above).
-    should_escalate = blocked and proxy and not proxy_first
-    if should_escalate:
+    if blocked and proxy and not proxy_first:
         logger.debug("Direct fetch blocked; retrying through configured proxy")
-        result, _ = await _rotate(url, method, timeout, read_body, proxy, deadline)
+        result, blocked = await _rotate(url, method, timeout, read_body, proxy, deadline)
+        if result is not None:
+            return result
+
+    # Final escalation: a real browser via FlareSolverr. HTML-only, and only when still blocked.
+    # Note: the impersonation rotation above always runs first, so its SSRF guard (which rejects
+    # private target IPs) has already vetted `url` before we hand it to FlareSolverr.
+    if blocked and read_body and allow_flaresolverr and settings.SCRAPER_FLARESOLVERR_URL:
+        logger.debug("Fetch still blocked; escalating to FlareSolverr")
+        solution = await flaresolverr.solve(
+            settings.SCRAPER_FLARESOLVERR_URL, url, settings.SCRAPER_FLARESOLVERR_TIMEOUT
+        )
+        if solution is not None:
+            return _solution_to_result(solution)
 
     return result
