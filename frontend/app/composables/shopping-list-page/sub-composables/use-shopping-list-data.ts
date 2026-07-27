@@ -1,6 +1,6 @@
 import { useOnline, useIdle } from "@vueuse/core";
 import type { ShoppingListOut } from "~/lib/api/types/household";
-import { useShoppingListItemActions } from "~/composables/use-shopping-list-item-actions";
+import { useShoppingListItemActions } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-item-actions";
 
 /**
  * Composable for managing shopping list data fetching and polling
