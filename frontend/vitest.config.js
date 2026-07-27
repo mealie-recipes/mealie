@@ -17,7 +17,14 @@ export default {
     coverage: {
       provider: "v8",
       include: ["app/{lib,components,composables,layouts,pages}/**/*.{ts,tsx,vue}"],
-      exclude: ["**/*.test.*", "node_modules/**", "dist/**", "coverage/**", "**/__tests__/**"],
+      exclude: [
+        "**/*.test.*",
+        "node_modules/**",
+        "dist/**",
+        "coverage/**",
+        "**/__tests__/**",
+        "app/lib/icons/**",
+      ],
       reporter: ["html", "text-summary"],
       all: true,
     },
