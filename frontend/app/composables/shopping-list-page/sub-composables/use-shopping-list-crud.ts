@@ -14,7 +14,6 @@ export function useShoppingListCrud(
   sortCheckedItems: (a: ShoppingListItemOut, b: ShoppingListItemOut) => number,
   updateListItemOrder: () => void,
 ) {
-  const { t } = useI18n();
   const userApi = useUserApi();
 
   const createListItemData = ref<ShoppingListItemOut>(listItemFactory());
@@ -150,7 +149,9 @@ export function useShoppingListCrud(
 
     // ensure item is inserted into the end of the list, which may have been updated
     createListItemData.value.position = shoppingList.value?.listItems?.length
-      ? (shoppingList.value.listItems.reduce((a, b) => (a.position || 0) > (b.position || 0) ? a : b).position || 0) + 1
+      ? (shoppingList.value.listItems
+          .map(({ position }) => position || 0)
+          .reduce((a, b) => Math.max(a, b))) + 1
       : 0;
 
     createListItemData.value.createdAt = new Date().toISOString();
@@ -230,15 +231,6 @@ export function useShoppingListCrud(
     localLabels.value = shoppingList.value?.labelSettings;
   }
 
-  // Context menu actions
-  const contextActions = {
-    delete: "delete",
-  };
-
-  const contextMenu = [
-    { title: t("general.delete"), action: contextActions.delete },
-  ];
-
   return {
     createListItemData,
     localLabels,
@@ -255,7 +247,5 @@ export function useShoppingListCrud(
     cancelLabelOrder,
     saveLabelOrder,
     toggleReorderLabelsDialog,
-    contextActions,
-    contextMenu,
   };
 }
