@@ -24,6 +24,7 @@ export default {
         "coverage/**",
         "**/__tests__/**",
         "app/lib/icons/**",
+        "app/lib/api/types/**",
       ],
       reporter: ["html", "text-summary"],
       all: true,
