@@ -480,6 +480,7 @@
     "from-url": "Hlaða inn uppskrift",
     "github-issues": "GitHub vandamál",
     "google-ld-json-info": "Google ld+json-upplýsingar",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Verður að vera gild vefslóð",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Límdu inn uppskriftargögnin. Hver lína verður meðhöndluð sem hluti í lista",
     "recipe-markup-specification": "Forskrift fyrir uppsetningu uppskrifta",
