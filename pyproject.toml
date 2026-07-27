@@ -37,7 +37,7 @@ dependencies = [
     "html2text==2025.4.15",
     "paho-mqtt==1.6.1",
     "pydantic-settings==2.14.2",
-    "pillow-heif==1.4.0",
+    "pillow-heif==1.5.0",
     "pyjwt==2.13.0",
     "openai==2.46.0",
     "typing-extensions==4.16.0",
