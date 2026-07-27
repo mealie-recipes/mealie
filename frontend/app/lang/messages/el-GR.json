@@ -480,6 +480,7 @@
     "from-url": "Εισαγωγή συνταγής",
     "github-issues": "Σφάλματα GitHub",
     "google-ld-json-info": "Google ld+json Info",
+    "html-or-json-error-details": "Το Mealie δεν μπόρεσε να βρει μια συνταγή στα δεδομένα που έχετε δώσει. Μόνο τα ld+json ή τα microdata που περιέχουν ένα schema.org Recipe μπορούν να εισαχθούν. Εάν κάνετε επικόλληση του JSON, βεβαιωθείτε ότι δηλώνει τόσο το \"@context\": \"https://schema.org/\" όσο και το \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Πρέπει να είναι ένα έγκυρο URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Επικόλληση δεδομένων συνταγών σας. Κάθε γραμμή θα αντιμετωπίζεται ως αντικείμενο σε μια λίστα",
     "recipe-markup-specification": "Προδιαγραφή Σημείωσης Συνταγής",
