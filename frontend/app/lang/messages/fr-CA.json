@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Définit votre groupe et toutes les recettes par défaut sur privé. Vous pouvez toujours changer cela plus tard."
     },
     "manage-members": "Gestion des membres",
-    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
+    "manage-members-description": "Gérez les permissions des membres de votre foyer. {manage} permet à l'utilisateur d'accéder à la page de gestion des données de groupe, {organize} lui permet de gérer les données de groupe tel que les aliments, les mots-clés et les catégories, et {invite} lui permet de générer des liens d’invitation pour d’autres utilisateurs. Les propriétaires de groupe ne peuvent pas changer leurs propres permissions.",
     "manage": "Gérer",
     "manage-household": "Gérer le foyer",
     "invite": "Inviter",
@@ -480,6 +480,7 @@
     "from-url": "Depuis une adresse Web",
     "github-issues": "Anomalies GitHub",
     "google-ld-json-info": "Infos Json-Ld Google",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Doit être une URL valide",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste",
     "recipe-markup-specification": "Spécification du marquage des recettes",
@@ -941,9 +942,9 @@
     "openai-not-ready": "OpenAI n'est pas prêt",
     "openai-ready-error-text": "Toutes les valeurs OpenAI ne sont pas configurées. Vous pouvez ignorer cet avertissement si vous n'utilisez pas les fonctionnalités OpenAI.",
     "openai-ready-success-text": "Les variables OpenAI obligatoires sont toutes définies.",
-    "site-statistics": "Site Statistics",
-    "uncategorized-recipes": "Uncategorized Recipes",
-    "untagged-recipes": "Untagged Recipes"
+    "site-statistics": "Statistiques du site",
+    "uncategorized-recipes": "Recettes non catégorisées",
+    "untagged-recipes": "Recettes sans mots-clés"
   },
   "shopping-list": {
     "all-lists": "Toutes les listes",
@@ -1126,9 +1127,9 @@
     "permissions": "Autorisations",
     "administrator": "Administrateur",
     "user-can-invite-other-to-group": "L’utilisateur peut inviter d’autres personnes dans le groupe",
-    "user-can-manage-group": "User can manage group settings",
+    "user-can-manage-group": "L'utilisateur peut gérer les paramètres de groupe",
     "user-can-manage-household": "L’utilisateur peut gérer le foyer",
-    "user-can-organize-group-data": "User can manage foods, tags, and categories",
+    "user-can-organize-group-data": "L'utilisateur peut gérer les aliments, les mots-clés et les catégories",
     "enable-advanced-features": "Activer les fonctions avancées",
     "it-looks-like-this-is-your-first-time-logging-in": "Il semble que ce soit votre première connexion.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vous ne voulez plus voir cela? Assurez-vous de changer votre adresse courriel dans vos paramètres d'utilisateur!",
@@ -1399,7 +1400,7 @@
     "setup": {
       "first-time-setup": "Première configuration",
       "welcome-to-mealie-get-started": "Bienvenue à Mealie ! Commençons",
-      "previous-mealie-instance": "Did you have a previous Mealie instance?",
+      "previous-mealie-instance": "Aviez-vous une précédente instance de Mealie ?",
       "already-set-up-bring-to-homepage": "J’ai déjà tout configuré, amenez moi à l’écran d’accueil",
       "common-settings-for-new-sites": "Voici quelques paramètres communs pour les nouveaux sites",
       "setup-complete": "Configuration terminée!",
