@@ -88,7 +88,7 @@ export function useShoppingListPage(listId: string) {
     // reset list order of all items
     const allUncheckedItems: ShoppingListItemOut[] = [];
     for (const labelKey in itemsByLabel.value) {
-      allUncheckedItems.push(...itemsByLabel.value[labelKey]);
+      allUncheckedItems.push(...(itemsByLabel.value[labelKey] ?? []));
     }
 
     // since the user has manually reordered the list, we should preserve this order
