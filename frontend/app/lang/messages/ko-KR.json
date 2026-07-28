@@ -480,6 +480,7 @@
     "from-url": "레시피 가져오기",
     "github-issues": "GitHub 이슈",
     "google-ld-json-info": "Google ld+json 정보",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "유효한 URL이어야 합니다.",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "레시피 데이터를 붙여넣습니다. 각 줄은 목록의 항목으로 처리됩니다.",
     "recipe-markup-specification": "레시피 마크업 사양",

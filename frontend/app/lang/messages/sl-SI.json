@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Nastavi vaše skupine in vse recepte privzeto kot privatni. Kasneje lahko to vedno spremenite."
     },
     "manage-members": "Urejanje članov",
-    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
+    "manage-members-description": "Upravljajte dovoljenja članov v vašem gospodinjstvu. {manage} uporabniku omogoča dostop do območij za upravljanje skupin, {organize} upravlja podatke skupine, kot so hrana, oznake in kategorije, {invite} pa uporabniku omogoča ustvarjanje povezav za povabila za druge uporabnike. Lastniki skupin ne morejo spreminjati svojih dovoljenj.",
     "manage": "Upravljaj",
     "manage-household": "Upravljanje gospodinjstva",
     "invite": "Povabi",
@@ -480,6 +480,7 @@
     "from-url": "Uvozi recept",
     "github-issues": "GitHub težave",
     "google-ld-json-info": "Google Id+json podatki",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Mora biti veljaven URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Prilepi podatke recepta. Vsaka vrsta bo obravnavana kot element v seznamu",
     "recipe-markup-specification": "Markup specifikacija recepta",
@@ -941,9 +942,9 @@
     "openai-not-ready": "OpenAI ni pripravljen",
     "openai-ready-error-text": "Niso nastavljene vse OpenAI vrednosti. To lahko prezrete, če ne uporabljate OpenAi funkcij.",
     "openai-ready-success-text": "Vse zahtevane spremenljivke OpenAI so nastavljene.",
-    "site-statistics": "Site Statistics",
-    "uncategorized-recipes": "Uncategorized Recipes",
-    "untagged-recipes": "Untagged Recipes"
+    "site-statistics": "Statistika spletnega mesta",
+    "uncategorized-recipes": "Nekategorizirani recepti",
+    "untagged-recipes": "Neoznačeni recepti"
   },
   "shopping-list": {
     "all-lists": "Vsi seznami",
@@ -1126,9 +1127,9 @@
     "permissions": "Dovoljenja",
     "administrator": "Skrbnik",
     "user-can-invite-other-to-group": "Uporabnih lahko povabi druge v skupino",
-    "user-can-manage-group": "User can manage group settings",
+    "user-can-manage-group": "Uporabnik lahko upravlja nastavitve skupine",
     "user-can-manage-household": "Uporabnik lahko upravlja gospodinjstvo",
-    "user-can-organize-group-data": "User can manage foods, tags, and categories",
+    "user-can-organize-group-data": "Uporabnik lahko upravlja živila, oznake in kategorije",
     "enable-advanced-features": "Vključi napredne funkcije",
     "it-looks-like-this-is-your-first-time-logging-in": "Zgleda, kot da se prvič prijavljaš.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ne želiš več videti tega sporočila? Spremeni svoj email v uporabiških nastavitvah!",
@@ -1399,7 +1400,7 @@
     "setup": {
       "first-time-setup": "Prva namestitev",
       "welcome-to-mealie-get-started": "Dobrodošli v Mealie! Pa začnimo",
-      "previous-mealie-instance": "Did you have a previous Mealie instance?",
+      "previous-mealie-instance": "Ste že imeli primerek Mealie?",
       "already-set-up-bring-to-homepage": "Vse imam že nastavljeno, odpri glavno stran",
       "common-settings-for-new-sites": "Tule je par pogostih nastavitev za nove spletne strani",
       "setup-complete": "Namestitev je zaključena!",

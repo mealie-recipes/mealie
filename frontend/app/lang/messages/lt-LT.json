@@ -480,6 +480,7 @@
     "from-url": "Importuoti receptą",
     "github-issues": "Github Issues",
     "google-ld-json-info": "Google \"ld+json\" informacija",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Turi būti galiojantis URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Įklijuokite receptą. Kiekviena nauja eilutė bus traktuojama kaip sąrašo elementas",
     "recipe-markup-specification": "Recepto žymėjimų specifikacija",

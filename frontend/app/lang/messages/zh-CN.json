@@ -480,6 +480,7 @@
     "from-url": "输入网址",
     "github-issues": "Github问题报告",
     "google-ld-json-info": "Google ld+json 信息",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "必须是一个有效的链接",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "请粘贴您的食谱资料。每行将被视为列表中的一项。",
     "recipe-markup-specification": "食谱标记规范",
