@@ -7,111 +7,102 @@
     @update:model-value="emit('update:modelValue', $event)"
   >
     <v-container fluid class="pa-2 ma-0" style="background-color: rgb(var(--v-theme-background));">
-      <div v-if="state.loading.parser" class="my-6">
-        <AppLoader class="my-6" :waiting-text="$t('recipe.parser.parsing-ingredients')" />
-      </div>
-      <div v-else>
-        <BaseCardSectionTitle :title="$t('recipe.parser.ingredient-parser')">
-          <div v-if="!state.allReviewed" class="mb-4">
-            <p>{{ $t("recipe.parser.ingredient-parser-description") }}</p>
-            <p>{{ $t("recipe.parser.ingredient-parser-final-review-description") }}</p>
+      <AppLoader v-if="state.step === ParseStep.LOADING" class="my-6" :waiting-text="$t('recipe.parser.parsing-ingredients')" />
+      <ParseDialogInfo v-else-if="state.step === ParseStep.INFO" v-model="dontShowInfoPage" />
+      <template v-else-if="state.step === ParseStep.PARSE && currentIng">
+        <ParseDialogChangeParser
+          v-model="parser"
+          :available-parsers="availableParsers"
+          @parse="parseIngredients"
+        />
+        <v-card-text class="pb-0 mb-0 d-flex flex-column ga-2">
+          <div class="text-center px-8 py-4 mb-6 bg-background-darken-1 rounded-pill">
+            <p class="text-h5 font-italic">
+              {{ currentIng.input }}
+            </p>
           </div>
-          <div class="d-flex flex-wrap align-center">
-            <div class="text-body-2 mr-2">
-              {{ $t("recipe.parser.select-parser") }}
-            </div>
-            <div class="d-flex align-center">
-              <BaseOverflowButton
-                v-model="parser"
-                :disabled="state.loading.parser"
-                btn-class="mx-2"
-                :items="availableParsers"
-              />
-              <v-btn
-                icon
-                size="40"
-                color="info"
-                :disabled="state.loading.parser"
-                @click="parseIngredients"
-              >
-                <v-icon>{{ $globals.icons.refresh }}</v-icon>
-              </v-btn>
-            </div>
+          <div class="d-flex align-center pa-0 ma-0">
+            <v-icon
+              :color="(currentIng.confidence?.average || 0) < confidenceThreshold ? 'error' : 'success'"
+            >
+              {{ (currentIng.confidence?.average || 0) < confidenceThreshold ? $globals.icons.alert : $globals.icons.check }}
+            </v-icon>
+            <span
+              class="ml-2"
+              :color="currentIngHasError ? 'error-text' : 'success-text'"
+            >
+              {{ $t("recipe.parser.confidence-score") }}: {{ currentIng.confidence ? asPercentage(currentIng.confidence?.average!) : "" }}
+            </span>
           </div>
-        </BaseCardSectionTitle>
-        <v-card v-if="!state.allReviewed && currentIng">
-          <v-card-text class="pb-0 mb-0">
-            <div class="text-center px-8 py-4 mb-6">
-              <p class="text-h5 font-italic">
-                {{ currentIng.input }}
-              </p>
-            </div>
-            <div class="d-flex align-center pa-0 ma-0">
-              <v-icon
-                :color="(currentIng.confidence?.average || 0) < confidenceThreshold ? 'error' : 'success'"
-              >
-                {{ (currentIng.confidence?.average || 0) < confidenceThreshold ? $globals.icons.alert : $globals.icons.check }}
-              </v-icon>
-              <span
-                class="ml-2"
-                :color="currentIngHasError ? 'error-text' : 'success-text'"
-              >
-                {{ $t("recipe.parser.confidence-score") }}: {{ currentIng.confidence ? asPercentage(currentIng.confidence?.average!) : "" }}
-              </span>
-            </div>
-            <RecipeIngredientEditor
-              v-model="currentIng.ingredient"
-              :unit-error="!!currentMissingUnit"
-              :unit-error-tooltip="$t('recipe.parser.this-unit-could-not-be-parsed-automatically')"
-              :food-error="!!currentMissingFood"
-              :food-error-tooltip="$t('recipe.parser.this-food-could-not-be-parsed-automatically')"
-            />
-            <v-card-actions>
-              <v-spacer />
-              <BaseButton
-                v-if="currentMissingUnit && !currentIng.ingredient.unit?.id"
-                color="warning"
-                size="small"
-                @click="createMissingUnit"
-              >
-                {{ i18n.t("recipe.parser.missing-unit", { unit: currentMissingUnit }) }}
-              </BaseButton>
-              <BaseButton
-                v-if="
-                  currentMissingUnit
-                    && currentIng.ingredient.unit?.id
-                    && currentMissingUnit.toLowerCase() != currentIng.ingredient.unit?.name.toLowerCase()
-                "
-                color="warning"
-                size="small"
-                @click="addMissingUnitAsAlias"
-              >
-                {{ i18n.t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingUnit, item: currentIng.ingredient.unit.name }) }}
-              </BaseButton>
-              <BaseButton
-                v-if="currentMissingFood && !currentIng.ingredient.food?.id"
-                color="warning"
-                size="small"
-                @click="createMissingFood"
-              >
-                {{ i18n.t("recipe.parser.missing-food", { food: currentMissingFood }) }}
-              </BaseButton>
-              <BaseButton
-                v-if="
-                  currentMissingFood
-                    && currentIng.ingredient.food?.id
-                    && currentMissingFood.toLowerCase() != currentIng.ingredient.food?.name.toLowerCase()
-                "
-                color="warning"
-                size="small"
-                @click="addMissingFoodAsAlias"
-              >
-                {{ i18n.t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingFood, item: currentIng.ingredient.food.name }) }}
-              </BaseButton>
-            </v-card-actions>
-          </v-card-text>
-        </v-card>
-        <div v-else>
+          <RecipeIngredientEditor
+            v-model="currentIng.ingredient"
+            :unit-error="!!currentMissingUnit"
+            :unit-error-tooltip="$t('recipe.parser.this-unit-could-not-be-parsed-automatically')"
+            :food-error="!!currentMissingFood"
+            :food-error-tooltip="$t('recipe.parser.this-food-could-not-be-parsed-automatically')"
+          />
+          <div class="d-flex flex-wrap justify-end ga-2">
+            <BaseButton
+              v-if="currentMissingUnit && !currentIng.ingredient.unit?.id"
+              :icon="$globals.icons.units"
+              color="warning"
+              size="small"
+              @click="createMissingUnit"
+            >
+              {{ i18n.t("recipe.parser.missing-unit", { unit: currentMissingUnit }) }}
+            </BaseButton>
+            <BaseButton
+              v-if="
+                currentMissingUnit
+                  && currentIng.ingredient.unit?.id
+                  && currentMissingUnit.toLowerCase() != currentIng.ingredient.unit?.name.toLowerCase()
+              "
+              :icon="$globals.icons.units"
+              color="warning"
+              size="small"
+              @click="addMissingUnitAsAlias"
+            >
+              {{ i18n.t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingUnit, item: currentIng.ingredient.unit.name }) }}
+            </BaseButton>
+            <BaseButton
+              v-if="currentMissingFood && !currentIng.ingredient.food?.id"
+              :icon="$globals.icons.foods"
+              color="warning"
+              size="small"
+              @click="createMissingFood"
+            >
+              {{ i18n.t("recipe.parser.missing-food", { food: currentMissingFood }) }}
+            </BaseButton>
+            <BaseButton
+              v-if="
+                currentMissingFood
+                  && currentIng.ingredient.food?.id
+                  && currentMissingFood.toLowerCase() != currentIng.ingredient.food?.name.toLowerCase()
+              "
+              :icon="$globals.icons.foods"
+              color="warning"
+              size="small"
+              @click="addMissingFoodAsAlias"
+            >
+              {{ i18n.t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingFood, item: currentIng.ingredient.food.name }) }}
+            </BaseButton>
+          </div>
+        </v-card-text>
+        <v-checkbox
+          v-model="currentIngShouldDelete"
+          color="error"
+          hide-details
+          density="compact"
+          :label="$t('recipe.parser.delete-item')"
+        />
+      </template>
+      <div v-else class="d-flex flex-column ga-4">
+        <ParseDialogChangeParser
+          v-model="parser"
+          :available-parsers="availableParsers"
+          @parse="parseIngredients"
+        />
+        <div>
           <v-card-title class="text-center pt-0 pb-8">
             {{ $t("recipe.parser.review-parsed-ingredients") }}
           </v-card-title>
@@ -131,9 +122,7 @@
               @start="drag = true"
               @end="drag = false"
             >
-              <TransitionGroup
-                type="transition"
-              >
+              <TransitionGroup type="transition">
                 <v-lazy v-for="(ingredient, index) in parsedIngs" :key="index">
                   <RecipeIngredientEditor
                     v-model="ingredient.ingredient"
@@ -158,51 +147,55 @@
         </div>
       </div>
     </v-container>
-    <template v-if="!state.loading.parser" #custom-card-action>
-      <!-- Parse -->
-      <div v-if="!state.allReviewed" class="d-flex justify-space-between align-center">
-        <v-checkbox
-          v-model="currentIngShouldDelete"
-          color="error"
-          hide-details
-          density="compact"
-          :label="i18n.t('recipe.parser.delete-item')"
-          class="mr-4"
+    <template v-if="state.step !== ParseStep.LOADING" #custom-card-action>
+      <SpinTransition>
+        <BaseButton
+          v-if="state.step === ParseStep.INFO"
+          color="info"
+          icon-right
+          :icon="$globals.icons.arrowRightBold"
+          :text="$t('general.next')"
+          @click="nextStep"
         />
         <BaseButton
+          v-else-if="state.step === ParseStep.PARSE"
           :color="currentIngShouldDelete ? 'error' : 'info'"
           :icon="currentIngShouldDelete ? $globals.icons.delete : $globals.icons.arrowRightBold"
           :icon-right="!currentIngShouldDelete"
           :text="$t(currentIngShouldDelete ? 'recipe.parser.delete-item' : 'general.next')"
           @click="nextIngredient"
         />
-      </div>
-      <!-- Review -->
-      <div v-else>
         <BaseButton
+          v-else-if="state.step === ParseStep.REVIEW"
           create
           :text="$t('general.save')"
           :icon="$globals.icons.save"
-          :loading="state.loading.save"
+          :loading="state.saveLoading"
           @click="saveIngs"
         />
-      </div>
+      </SpinTransition>
     </template>
   </BaseDialog>
 </template>
 
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
-import type { IngredientFood, IngredientUnit, ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe";
-import type { Parser } from "~/lib/api/user/recipes/recipe";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { useUserApi } from "~/composables/api";
 import { useIngredientTextParser } from "~/composables/recipes";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
-import { useGlobalI18n } from "~/composables/use-global-i18n";
 import { useGroupSelf } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
 import { useParsingPreferences } from "~/composables/use-users/preferences";
+import type { NoUndefinedField } from "~/lib/api/types/non-generated";
+import type { IngredientFood, IngredientUnit, ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { Parser } from "~/lib/api/user/recipes/recipe";
+
+const enum ParseStep {
+  LOADING,
+  INFO,
+  PARSE,
+  REVIEW,
+}
 
 const props = defineProps<{
   modelValue: boolean;
@@ -217,7 +210,7 @@ const emit = defineEmits<{
 }>();
 
 const { group } = useGroupSelf();
-const i18n = useGlobalI18n();
+const i18n = useI18n();
 const api = useUserApi();
 const drag = ref(false);
 
@@ -228,6 +221,7 @@ const foodData = useFoodData();
 
 const parserPreferences = useParsingPreferences();
 const parser = ref<Parser>(parserPreferences.value.parser || "nlp");
+const dontShowInfoPage = ref(parserPreferences.value.dontShowInfoPage);
 const availableParsers = computed(() => {
   return [
     {
@@ -262,11 +256,32 @@ const currentIngShouldDelete = ref(false);
 const state = reactive({
   currentParsedIndex: -1,
   allReviewed: false,
-  loading: {
-    parser: false,
-    save: false,
-  },
+  saveLoading: false,
+  step: ParseStep.LOADING,
+  loadingCount: 0,
 });
+
+function nextStep() {
+  state.step = getNextStep(state.step);
+}
+
+function getNextStep(current: ParseStep) {
+  switch (current) {
+    case ParseStep.LOADING:
+      if (!dontShowInfoPage.value) {
+        return ParseStep.INFO;
+      };
+      return getNextStep(ParseStep.INFO);
+    case ParseStep.INFO:
+      if (!state.allReviewed) {
+        return ParseStep.PARSE;
+      }
+      return ParseStep.REVIEW;
+    case ParseStep.PARSE:
+    case ParseStep.REVIEW:
+      return ParseStep.REVIEW;
+  }
+}
 
 function shouldReview(ing: ParsedIngredient): boolean {
   console.debug(`Checking if ingredient needs review (input="${ing.input})":`, ing);
@@ -344,7 +359,7 @@ function nextIngredient() {
   }
 
   while (nextIndex < parsedIngs.value.length) {
-    const current = parsedIngs.value[nextIndex];
+    const current = parsedIngs.value[nextIndex]!;
     if (shouldReview(current)) {
       state.currentParsedIndex = nextIndex;
       currentIng.value = current;
@@ -359,6 +374,7 @@ function nextIngredient() {
 
   // No more to review
   state.allReviewed = true;
+  nextStep();
 }
 
 /** Clear everything left over from a previous run, so re-opening the dialog starts clean */
@@ -370,26 +386,26 @@ function resetParserState() {
   currentIngShouldDelete.value = false;
   state.currentParsedIndex = -1;
   state.allReviewed = false;
-  state.loading.save = false;
+  state.step = ParseStep.LOADING;
   createdUnits.clear();
   createdFoods.clear();
 }
 
 async function parseIngredients() {
-  if (state.loading.parser) {
+  if (state.loadingCount > 0) {
     return;
   }
 
   resetParserState();
 
   if (!props.ingredients || props.ingredients.length === 0) {
-    state.loading.parser = false;
+    nextStep();
     return;
   }
-  state.loading.parser = true;
   try {
     const filteredIngredients = props.ingredients.filter(ing => !ing.referencedRecipe);
     const ingsAsString = filteredIngredients.map(ing => ingredientToParserString(ing));
+    state.loadingCount += 1;
     const { data, error } = await api.recipes.parseIngredients(parser.value, ingsAsString);
     if (error || !data) {
       throw new Error("Failed to parse ingredients");
@@ -414,7 +430,8 @@ async function parseIngredients() {
     alert.error(i18n.t("events.something-went-wrong"));
   }
   finally {
-    state.loading.parser = false;
+    state.loadingCount -= 1;
+    nextStep();
   }
 }
 
@@ -529,7 +546,10 @@ watch(() => props.modelValue, () => {
 
 watch(parser, () => {
   parserPreferences.value.parser = parser.value;
-  parseIngredients();
+});
+
+watch(dontShowInfoPage, () => {
+  parserPreferences.value.dontShowInfoPage = dontShowInfoPage.value;
 });
 
 watch([parsedIngs, () => state.allReviewed], () => {
@@ -565,6 +585,6 @@ function insertNewIngredient(index: number) {
 
 function saveIngs() {
   emit("save", parsedIngs.value.map(x => x.ingredient as NoUndefinedField<RecipeIngredient>));
-  state.loading.save = true;
+  state.saveLoading = true;
 }
 </script>
