@@ -111,6 +111,11 @@ const fieldDefs: FieldDefinition[] = [
     type: Organizer.User,
   },
   {
+    name: "rating",
+    label: i18n.t("general.rating"),
+    type: "number",
+  },
+  {
     name: "last_made",
     label: i18n.t("general.last-made"),
     type: "relativeDate",

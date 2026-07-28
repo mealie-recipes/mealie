@@ -664,6 +664,11 @@ const queryFilterBuilderFields: FieldDefinition[] = [
     label: i18n.t("general.last-made"),
     type: "relativeDate",
   },
+  {
+    name: "rating",
+    label: i18n.t("general.rating"),
+    type: "number",
+  },
 ];
 
 function clearQueryFilter() {
