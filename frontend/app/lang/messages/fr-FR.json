@@ -480,6 +480,7 @@
     "from-url": "Depuis une adresse web",
     "github-issues": "Anomalies GitHub",
     "google-ld-json-info": "Infos Json-Ld Google",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Doit être une URL valide",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copiez votre recette ici. Chaque ligne sera traitée comme un objet de la liste",
     "recipe-markup-specification": "Spécification du marquage des recettes",

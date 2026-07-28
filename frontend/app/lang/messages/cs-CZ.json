@@ -480,6 +480,7 @@
     "from-url": "Přenést recept",
     "github-issues": "Hlášení chyb na GitHubu",
     "google-ld-json-info": "Informace o Google ld+json",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Musí být validní URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Vložte data receptu. Každý řádek bude považován za položku v seznamu",
     "recipe-markup-specification": "Specifikace Markupu pro recept",
