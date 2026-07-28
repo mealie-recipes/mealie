@@ -13,6 +13,7 @@ RUN echo "export PROMPT_COMMAND='history -a'" >> /home/vscode/.bashrc \
     && echo "export HISTFILE=~/commandhistory/.bash_history" >> /home/vscode/.bashrc \
     && chown vscode:vscode -R /home/vscode/
 
+RUN npm install -g yarn
 RUN npm install -g @go-task/cli
 RUN npm install -g json-schema-to-typescript
 
