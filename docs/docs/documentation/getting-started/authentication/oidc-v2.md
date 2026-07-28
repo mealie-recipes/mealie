@@ -20,6 +20,21 @@ Signing in with OAuth will automatically find your account in Mealie and link to
 
 If a user previously accessed Mealie via credentials and you want to no longer allow users to log in with `LDAP` or `Mealie` credentials, then you can set the user's *Authentication Method* to `OIDC`. Conversely, if a user's auth method is not `OIDC`, then they can still log in with whatever their auth method is as well as OIDC.
 
+### Email Verification
+
+:octicons-tag-24: v3.21.0
+
+!!! warning "Breaking change in v3.21.0"
+    Mealie now requires your IdP to assert that the user's email address is verified. If your IdP does not emit the `email_verified` claim, logins will fail until you either configure the claim or set `OIDC_REQUIRES_EMAIL_VERIFICATION=false`.
+
+Because Mealie links an OIDC login to an existing account by matching on a claim (`OIDC_USER_CLAIM`, `email` by default), an IdP that lets a user self-assert an arbitrary, unverified email address would allow that user to log into someone else's Mealie account simply by claiming their email. To prevent this, Mealie requires the `email_verified` claim to be present and `true` before authenticating.
+
+Most identity providers (Authentik, Authelia, Keycloak, Google, Entra ID, ...) emit this claim as part of the `email` scope, and require no changes. If a login is rejected for this reason, the following is written to the server logs:
+
+    [OIDC] email_verified claim is missing or false; refusing to authenticate
+
+If your IdP cannot emit the claim, you can opt out by setting `OIDC_REQUIRES_EMAIL_VERIFICATION` to `false`. Only do this if you trust your IdP to not allow users to set an arbitrary email address on their own.
+
 ## Provider Setup
 
 Before you can start using OIDC Authentication, you must first configure a new client application in your identity provider. Your identity provider must support the OAuth **Authorization Code flow with PKCE**. The steps will vary by provider, but generally, the steps are as follows.
@@ -49,6 +64,8 @@ Before you can start using OIDC Authentication, you must first configure a new c
 3. Configure allowed scopes
 
     The scopes required are `openid profile email`
+
+    The `email` scope is also what grants the `email_verified` claim required for [email verification](#email-verification)
 
     If you plan to use the [groups](#groups) to configure access within Mealie, you will need to also add the scope defined by the `OIDC_GROUPS_CLAIM` environment variable. The default claim is `groups`
 
