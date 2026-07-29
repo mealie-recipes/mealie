@@ -1,227 +1,182 @@
 <template>
-  <div>
-    <v-text-field
-      v-if="model.title || showTitle"
-      v-model="model.title"
-      density="compact"
-      variant="underlined"
-      hide-details
-      class="mx-1 mt-3 mb-4"
-      :placeholder="$t('recipe.section-title')"
-      style="max-width: 500px"
-      @click="$emit('clickIngredientField', 'title')"
-    />
-    <v-row
-      :no-gutters="mdAndUp"
-      density="comfortable"
-      class="d-flex flex-wrap my-1"
-    >
-      <v-col
-        sm="12"
-        md="2"
-        cols="12"
-        class="flex-grow-0 flex-shrink-0"
+  <v-card class="my-2">
+    <div v-if="enableDragHandle || enableContextMenu || model.title || showTitle" class="d-flex pt-2 align-center">
+      <template v-if="enableDragHandle">
+        <v-icon class="ma-2 handle" size="large">
+          {{ $globals.icons.arrowUpDown }}
+        </v-icon>
+      </template>
+
+      <v-text-field
+        v-if="model.title || showTitle"
+        v-model="model.title"
+        density="compact"
+        variant="underlined"
+        hide-details
+        class="mx-1 mt-3 mb-4"
+        :placeholder="$t('recipe.section-title')"
+        style="max-width: 500px"
+        @click="$emit('clickIngredientField', 'title')"
+      />
+      <BaseButtonGroup
+        v-if="enableContextMenu"
+        hover
+        :large="false"
+        class="ml-auto"
+        :buttons="btns"
+        @toggle-section="toggleTitle"
+        @toggle-subrecipe="toggleIsRecipe"
+        @insert-above="$emit('insert-above')"
+        @insert-below="$emit('insert-below')"
+        @delete="$emit('delete')"
+      />
+    </div>
+    <div class="d-flex ga-2 pa-2" :class="$vuetify.display.smAndDown ? 'flex-column' : ''">
+      <v-number-input
+        v-model="model.quantity"
+        variant="filled"
+        :precision="null"
+        :min="0"
+        hide-details
+        inset
+        control-variant="stacked"
+        density="compact"
+        :placeholder="$t('recipe.quantity')"
+        @keypress="quantityFilter"
+      />
+      <v-autocomplete
+        ref="unitAutocomplete"
+        v-model="model.unit"
+        v-model:search="unitSearch"
+        auto-select-first
+        hide-details
+        density="compact"
+        variant="filled"
+        return-object
+        :items="filteredUnits"
+        :custom-filter="() => true"
+        item-title="name"
+        :placeholder="$t('recipe.choose-unit')"
+        clearable
+        :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
+        @keyup.enter="handleUnitEnter"
       >
-        <v-number-input
-          v-model="model.quantity"
-          variant="solo"
-          :precision="null"
-          :min="0"
-          hide-details
-          control-variant="stacked"
-          inset
-          density="compact"
-          :placeholder="$t('recipe.quantity')"
-          @keypress="quantityFilter"
-        >
-          <template v-if="enableDragHandle" #prepend>
-            <v-icon
-              class="mr-n1 handle"
-            >
-              {{ $globals.icons.arrowUpDown }}
-            </v-icon>
-          </template>
-        </v-number-input>
-      </v-col>
-      <v-col
-        sm="12"
-        md="2"
-        cols="12"
-      >
-        <v-autocomplete
-          ref="unitAutocomplete"
-          v-model="model.unit"
-          v-model:search="unitSearch"
-          auto-select-first
-          hide-details
-          density="compact"
-          variant="solo"
-          return-object
-          :items="filteredUnits"
-          :custom-filter="() => true"
-          item-title="name"
-          class="mx-1"
-          :placeholder="$t('recipe.choose-unit')"
-          clearable
-          :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
-          @keyup.enter="handleUnitEnter"
-        >
-          <template #prepend>
-            <v-tooltip v-if="unitError" location="bottom">
-              <template #activator="{ props: unitTooltipProps }">
-                <v-icon
-                  v-bind="unitTooltipProps"
-                  class="ml-2 mr-n3 opacity-100"
-                  color="primary"
-                >
-                  {{ $globals.icons.alert }}
-                </v-icon>
-              </template>
-              <span v-if="unitErrorTooltip">
-                {{ unitErrorTooltip }}
-              </span>
-            </v-tooltip>
-          </template>
-          <template #no-data>
-            <div class="caption text-center pb-2">
-              {{ $t("recipe.press-enter-to-create") }}
-            </div>
-          </template>
-          <template #append-item>
-            <div v-if="showCreateUnit" class="px-2">
-              <BaseButton
-                block
-                size="small"
-                @click="createAssignUnit()"
-              />
-            </div>
-          </template>
-        </v-autocomplete>
-      </v-col>
+        <template v-if="unitError" #prepend-inner>
+          <v-tooltip location="bottom">
+            <template #activator="{ props: unitTooltipProps }">
+              <v-icon
+                v-bind="unitTooltipProps"
+                class="opacity-100"
+                color="primary"
+              >
+                {{ $globals.icons.alert }}
+              </v-icon>
+            </template>
+            <span v-if="unitErrorTooltip">
+              {{ unitErrorTooltip }}
+            </span>
+          </v-tooltip>
+        </template>
+        <template #no-data>
+          <div class="caption text-center pb-2">
+            {{ $t("recipe.press-enter-to-create") }}
+          </div>
+        </template>
+        <template #append-item>
+          <div v-if="showCreateUnit" class="px-2">
+            <BaseButton
+              block
+              size="small"
+              @click="createAssignUnit()"
+            />
+          </div>
+        </template>
+      </v-autocomplete>
 
       <!-- Foods Input -->
-      <v-col
+      <v-autocomplete
         v-if="!state.isRecipe"
-        m="12"
-        md="4"
-        cols="12"
-        class=""
+        ref="foodAutocomplete"
+        v-model="model.food"
+        v-model:search="foodSearch"
+        auto-select-first
+        hide-details
+        density="compact"
+        variant="filled"
+        return-object
+        :items="filteredFoods"
+        :custom-filter="() => true"
+        item-title="name"
+        :placeholder="$t('recipe.choose-food')"
+        clearable
+        :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
+        @keyup.enter="handleFoodEnter"
       >
-        <v-autocomplete
-          ref="foodAutocomplete"
-          v-model="model.food"
-          v-model:search="foodSearch"
-          auto-select-first
-          hide-details
-          density="compact"
-          variant="solo"
-          return-object
-          :items="filteredFoods"
-          :custom-filter="() => true"
-          item-title="name"
-          class="mx-1 py-0"
-          :placeholder="$t('recipe.choose-food')"
-          clearable
-          :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
-          @keyup.enter="handleFoodEnter"
-        >
-          <template #prepend>
-            <v-tooltip v-if="foodError" location="bottom">
-              <template #activator="{ props: foodTooltipProps }">
-                <v-icon
-                  v-bind="foodTooltipProps"
-                  class="ml-2 mr-n3 opacity-100"
-                  color="primary"
-                >
-                  {{ $globals.icons.alert }}
-                </v-icon>
-              </template>
-              <span v-if="foodErrorTooltip">
-                {{ foodErrorTooltip }}
-              </span>
-            </v-tooltip>
-          </template>
-          <template #no-data>
-            <div class="caption text-center pb-2">
-              {{ $t("recipe.press-enter-to-create") }}
-            </div>
-          </template>
-          <template #append-item>
-            <div v-if="showCreateFood" class="px-2">
-              <BaseButton
-                block
-                size="small"
-                @click="createAssignFood()"
-              />
-            </div>
-          </template>
-        </v-autocomplete>
-      </v-col>
+        <template v-if="foodError" #prepend-inner>
+          <v-tooltip location="bottom">
+            <template #activator="{ props: foodTooltipProps }">
+              <v-icon
+                v-bind="foodTooltipProps"
+                class="opacity-100"
+                color="primary"
+              >
+                {{ $globals.icons.alert }}
+              </v-icon>
+            </template>
+            <span v-if="foodErrorTooltip">
+              {{ foodErrorTooltip }}
+            </span>
+          </v-tooltip>
+        </template>
+        <template #no-data>
+          <div class="caption text-center pb-2">
+            {{ $t("recipe.press-enter-to-create") }}
+          </div>
+        </template>
+        <template #append-item>
+          <div v-if="showCreateFood" class="px-2">
+            <BaseButton
+              block
+              size="small"
+              @click="createAssignFood()"
+            />
+          </div>
+        </template>
+      </v-autocomplete>
       <!-- Recipe Input -->
-      <v-col
+      <v-autocomplete
         v-if="state.isRecipe"
-        m="12"
-        md="4"
-        cols="12"
+        ref="search.query"
+        v-model="model.referencedRecipe"
+        v-model:search="search.query.value"
+        auto-select-first
+        hide-details
+        density="compact"
+        variant="filled"
+        return-object
+        :items="search.data.value || []"
+        item-title="name"
+        class="mx-1 py-0"
+        :placeholder="$t('search.type-to-search')"
+        clearable
+        :label="!model.referencedRecipe ? $t('recipe.choose-recipe') : ''"
+        @click="search.trigger()"
+        @focus="search.trigger()"
+      >
+        <template #prepend />
+      </v-autocomplete>
+      <v-text-field
+        v-model="model.note"
+        hide-details
+        density="compact"
+        variant="filled"
+        :placeholder="$t('recipe.notes')"
         class=""
-      >
-        <v-autocomplete
-          ref="search.query"
-          v-model="model.referencedRecipe"
-          v-model:search="search.query.value"
-          auto-select-first
-          hide-details
-          density="compact"
-          variant="solo"
-          return-object
-          :items="search.data.value || []"
-          item-title="name"
-          class="mx-1 py-0"
-          :placeholder="$t('search.type-to-search')"
-          clearable
-          :label="!model.referencedRecipe ? $t('recipe.choose-recipe') : ''"
-          @click="search.trigger()"
-          @focus="search.trigger()"
-        >
-          <template #prepend />
-        </v-autocomplete>
-      </v-col>
-      <v-col
-        sm="12"
-        md=""
-        cols="12"
-      >
-        <div class="d-flex">
-          <v-text-field
-            v-model="model.note"
-            hide-details
-            density="compact"
-            variant="solo"
-            :placeholder="$t('recipe.notes')"
-            class="mb-auto"
-            @click="$emit('clickIngredientField', 'note')"
-          />
-          <BaseButtonGroup
-            v-if="enableContextMenu"
-            hover
-            :large="false"
-            class="my-auto d-flex"
-            :buttons="btns"
-            @toggle-section="toggleTitle"
-            @toggle-subrecipe="toggleIsRecipe"
-            @insert-above="$emit('insert-above')"
-            @insert-below="$emit('insert-below')"
-            @delete="$emit('delete')"
-          />
-        </div>
-      </v-col>
-    </v-row>
-    <slot name="before-divider" />
-    <v-divider
-      v-if="!mdAndUp"
-      class="my-4"
-    />
-  </div>
+        @click="$emit('clickIngredientField', 'note')"
+      />
+      <slot name="before-divider" />
+    </div>
+  </v-card>
 </template>
 
 <script setup lang="ts">
