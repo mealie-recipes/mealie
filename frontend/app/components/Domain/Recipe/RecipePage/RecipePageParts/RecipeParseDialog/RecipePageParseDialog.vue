@@ -9,93 +9,24 @@
     <v-container fluid class="pa-2 ma-0" style="background-color: rgb(var(--v-theme-background));">
       <AppLoader v-if="state.step === ParseStep.LOADING" class="my-6" :waiting-text="$t('recipe.parser.parsing-ingredients')" />
       <ParseDialogInfo v-else-if="state.step === ParseStep.INFO" v-model="dontShowInfoPage" />
-      <template v-else-if="state.step === ParseStep.PARSE && currentIng">
-        <ParseDialogChangeParser
-          v-model="parser"
-          :available-parsers="availableParsers"
-          @parse="parseIngredients"
-        />
-        <v-card-text class="pb-0 mb-0 d-flex flex-column ga-2">
-          <div class="text-center px-8 py-4 mb-6 bg-background-darken-1 rounded-pill">
-            <p class="text-h5 font-italic">
-              {{ currentIng.input }}
-            </p>
-          </div>
-          <div class="d-flex align-center pa-0 ma-0">
-            <v-icon
-              :color="(currentIng.confidence?.average || 0) < confidenceThreshold ? 'error' : 'success'"
-            >
-              {{ (currentIng.confidence?.average || 0) < confidenceThreshold ? $globals.icons.alert : $globals.icons.check }}
-            </v-icon>
-            <span
-              class="ml-2"
-              :color="currentIngHasError ? 'error-text' : 'success-text'"
-            >
-              {{ $t("recipe.parser.confidence-score") }}: {{ currentIng.confidence ? asPercentage(currentIng.confidence?.average!) : "" }}
-            </span>
-          </div>
-          <RecipeIngredientEditor
-            v-model="currentIng.ingredient"
-            :unit-error="!!currentMissingUnit"
-            :unit-error-tooltip="$t('recipe.parser.this-unit-could-not-be-parsed-automatically')"
-            :food-error="!!currentMissingFood"
-            :food-error-tooltip="$t('recipe.parser.this-food-could-not-be-parsed-automatically')"
-          />
-          <div class="d-flex flex-wrap justify-end ga-2">
-            <BaseButton
-              v-if="currentMissingUnit && !currentIng.ingredient.unit?.id"
-              :icon="$globals.icons.units"
-              color="warning"
-              size="small"
-              @click="createMissingUnit"
-            >
-              {{ i18n.t("recipe.parser.missing-unit", { unit: currentMissingUnit }) }}
-            </BaseButton>
-            <BaseButton
-              v-if="
-                currentMissingUnit
-                  && currentIng.ingredient.unit?.id
-                  && currentMissingUnit.toLowerCase() != currentIng.ingredient.unit?.name.toLowerCase()
-              "
-              :icon="$globals.icons.units"
-              color="warning"
-              size="small"
-              @click="addMissingUnitAsAlias"
-            >
-              {{ i18n.t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingUnit, item: currentIng.ingredient.unit.name }) }}
-            </BaseButton>
-            <BaseButton
-              v-if="currentMissingFood && !currentIng.ingredient.food?.id"
-              :icon="$globals.icons.foods"
-              color="warning"
-              size="small"
-              @click="createMissingFood"
-            >
-              {{ i18n.t("recipe.parser.missing-food", { food: currentMissingFood }) }}
-            </BaseButton>
-            <BaseButton
-              v-if="
-                currentMissingFood
-                  && currentIng.ingredient.food?.id
-                  && currentMissingFood.toLowerCase() != currentIng.ingredient.food?.name.toLowerCase()
-              "
-              :icon="$globals.icons.foods"
-              color="warning"
-              size="small"
-              @click="addMissingFoodAsAlias"
-            >
-              {{ i18n.t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingFood, item: currentIng.ingredient.food.name }) }}
-            </BaseButton>
-          </div>
-        </v-card-text>
-        <v-checkbox
-          v-model="currentIngShouldDelete"
-          color="error"
-          hide-details
-          density="compact"
-          :label="$t('recipe.parser.delete-item')"
-        />
-      </template>
+      <ParseDialogParse
+        v-else-if="state.step === ParseStep.PARSE && currentIng"
+        v-model="currentIng"
+        :available-parsers="availableParsers"
+        :should-delete="currentIngShouldDelete"
+        :parser="parser"
+        :confidence-threshold="confidenceThreshold"
+        :current-ing-has-error="currentIngHasError"
+        :current-missing-unit="currentMissingUnit"
+        :current-missing-food="currentMissingFood"
+        @parse="parseIngredients"
+        @change-parser="(newParser) => parser = newParser"
+        @change-should-delete="(shouldDelete) => currentIngShouldDelete = shouldDelete"
+        @create-unit="createMissingUnit"
+        @create-food="createMissingFood"
+        @alias-unit="addMissingUnitAsAlias"
+        @alias-food="addMissingFoodAsAlias"
+      />
       <div v-else class="d-flex flex-column ga-4">
         <ParseDialogChangeParser
           v-model="parser"
@@ -561,14 +492,6 @@ watch([parsedIngs, () => state.allReviewed], () => {
     insertNewIngredient(0);
   }
 }, { immediate: true, deep: true });
-
-function asPercentage(num: number | undefined): string {
-  if (!num) {
-    return "0%";
-  }
-
-  return Math.round(num * 100).toFixed(2) + "%";
-}
 
 function insertNewIngredient(index: number) {
   const ing = {
