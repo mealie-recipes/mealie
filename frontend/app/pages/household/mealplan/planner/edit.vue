@@ -161,8 +161,8 @@
                 size="small"
                 variant="text"
                 icon
-                :title="$t('meal-plan.reroll-recipe')"
-                @click="rerollMeal(mealplan)"
+                :title="$t('meal-plan.randomize-recipe')"
+                @click="randomizeMeal(mealplan)"
               >
                 <v-icon>{{ $globals.icons.diceMultiple }}</v-icon>
               </v-btn>
@@ -402,7 +402,7 @@ async function randomMeal(date: Date, type: PlanEntryType) {
   }
 }
 
-async function rerollMeal(mealplan: UpdatePlanEntry) {
+async function randomizeMeal(mealplan: UpdatePlanEntry) {
   if (!mealplan.entryType) {
     return;
   }
