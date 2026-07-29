@@ -4,10 +4,16 @@
       <h2 class="mb-4 text-h5 font-weight-medium opacity-80">
         {{ $t("recipe.ingredients") }}
       </h2>
-      <BannerWarning
+      <v-alert
         v-if="!hasFoodOrUnit"
-        :description="$t('recipe.ingredients-not-parsed-description', { parse: $t('recipe.parse') })"
+        border="start"
+        color="info"
+        :icon="$globals.icons.information"
+        variant="tonal"
       >
+        <div>
+          {{ $t('recipe.ingredients-not-parsed-description', { parse: $t('recipe.parse') }) }}
+        </div>
         <div class="d-flex flex-wrap justify-end mt-3">
           <BaseButton
             class="mb-1"
@@ -20,7 +26,7 @@
             {{ $t('recipe.parse') }}
           </BaseButton>
         </div>
-      </BannerWarning>
+      </v-alert>
     </div>
     <VueDraggable
       v-if="recipe.recipeIngredient.length > 0"
