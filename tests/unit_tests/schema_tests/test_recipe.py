@@ -74,3 +74,29 @@ def test_recipe_preserves_existing_slug():
     )
 
     assert recipe.slug == "nourish-bowls-zuppa-copycat"
+
+
+@pytest.mark.parametrize(
+    ("cook_time", "perform_time", "expected"),
+    [
+        (None, "20 minutes", "20 minutes"),
+        ("20 minutes", None, "20 minutes"),
+        ("stale value", "20 minutes", "20 minutes"),
+        (None, None, None),
+    ],
+)
+def test_recipe_keeps_cook_and_perform_time_in_sync(
+    cook_time: str | None, perform_time: str | None, expected: str | None
+):
+    recipe = RecipeSummary(
+        id=uuid4(),
+        user_id=uuid4(),
+        household_id=uuid4(),
+        group_id=uuid4(),
+        cook_time=cook_time,
+        perform_time=perform_time,
+    )
+
+    assert recipe.cook_time == expected
+    assert recipe.perform_time == expected
+    assert recipe.model_dump(by_alias=True)["cookTime"] == expected
