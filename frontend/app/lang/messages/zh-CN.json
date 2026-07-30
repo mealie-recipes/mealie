@@ -480,6 +480,7 @@
     "from-url": "输入网址",
     "github-issues": "Github问题报告",
     "google-ld-json-info": "Google ld+json 信息",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "必须是一个有效的链接",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "请粘贴您的食谱资料。每行将被视为列表中的一项。",
     "recipe-markup-specification": "食谱标记规范",
@@ -940,7 +941,10 @@
     "openai-ready": "OpenAI 准备好了",
     "openai-not-ready": "OpenAI 未就绪",
     "openai-ready-error-text": "并非所有的 OpenAI 值都已配置。如果您不使用 OpenAI 功能，这将被忽略。",
-    "openai-ready-success-text": "所需的 OpenAI 变量已全部设置。"
+    "openai-ready-success-text": "所需的 OpenAI 变量已全部设置。",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "所有购物清单",
@@ -1396,6 +1400,7 @@
     "setup": {
       "first-time-setup": "初始配置",
       "welcome-to-mealie-get-started": "欢迎来到Mealie！让我们开始吧！",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "我已经配置好了，直接跳转到主页",
       "common-settings-for-new-sites": "这有一些新站点的常见设置",
       "setup-complete": "配置完成！",

@@ -125,7 +125,7 @@
                   <template #prepend>
                     <v-avatar>
                       <v-icon>
-                        {{ item.raw.icon }}
+                        {{ item.icon }}
                       </v-icon>
                     </v-avatar>
                   </template>

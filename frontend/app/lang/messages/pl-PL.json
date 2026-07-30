@@ -480,6 +480,7 @@
     "from-url": "Importuj przepis",
     "github-issues": "Zgłoszenia na GitHub",
     "google-ld-json-info": "Informacje na temat ld+json",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Musi być prawidłowym odnośnikiem",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Wklej zawartość przepisu. Każda indywidualna linia traktowana będzie jako pozycja na liście",
     "recipe-markup-specification": "Specyfikacja znaczników przepisów",
@@ -940,7 +941,10 @@
     "openai-ready": "OpenAI gotowy",
     "openai-not-ready": "OpenAI nie jest gotowe",
     "openai-ready-error-text": "Nie wszystkie wartości OpenAI są skonfigurowane. Można to zignorować, jeśli nie używasz funkcji OpenAI.",
-    "openai-ready-success-text": "Wszystkie wymagane zmienne OpenAI są ustawione."
+    "openai-ready-success-text": "Wszystkie wymagane zmienne OpenAI są ustawione.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Wszystkie listy",
@@ -1396,6 +1400,7 @@
     "setup": {
       "first-time-setup": "Pierwsza konfiguracja",
       "welcome-to-mealie-get-started": "Witaj w Mealie! Zaczynamy",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Już mam skonfigurowane, po prostu przenieś mnie na stronę główną",
       "common-settings-for-new-sites": "Oto kilka typowych ustawień dla nowych witryn",
       "setup-complete": "Konfiguracja zakończona!",

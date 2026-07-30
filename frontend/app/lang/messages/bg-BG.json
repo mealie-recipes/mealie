@@ -480,6 +480,7 @@
     "from-url": "Импортирай рецепта",
     "github-issues": "GitHub проблеми",
     "google-ld-json-info": "Google Id+json данни",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Линкът трябва да е валиден",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Поставете в данните на рецептата си. Всеки ред ще бъде третиран като елемент от списъка.",
     "recipe-markup-specification": "Спецификации за маркиране на рецептата",
@@ -940,7 +941,10 @@
     "openai-ready": "Готов за OpenAI",
     "openai-not-ready": "OpenAI не е настроен",
     "openai-ready-error-text": "Не всички стойности на OpenAI са конфигурирани. Това може да се игнорира, ако не използвате функции на OpenAI.",
-    "openai-ready-success-text": "Всички необходими променливи на OpenAI са зададени."
+    "openai-ready-success-text": "Всички необходими променливи на OpenAI са зададени.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Всички списъци",
@@ -1396,6 +1400,7 @@
     "setup": {
       "first-time-setup": "Настройка за първи път",
       "welcome-to-mealie-get-started": "Добре дошли в Mealie! Да започваме",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Вече съм настроен, просто ме отведете до началната страница",
       "common-settings-for-new-sites": "Ето някои общи настройки за нови сайтове",
       "setup-complete": "Настройката е завършена!",

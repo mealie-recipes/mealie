@@ -480,6 +480,7 @@
     "from-url": "Fra URL",
     "github-issues": "GitHub problemer",
     "google-ld-json-info": "Google ld+json data",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Det skal være en korrekt URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Indsæt dine opskriftsdata. \nHver linje behandles som et element på en liste",
     "recipe-markup-specification": "Opskriftsmarkupspecifikation",
@@ -940,7 +941,10 @@
     "openai-ready": "OpenAI klar",
     "openai-not-ready": "OpenAI er ikke klar",
     "openai-ready-error-text": "Ikke alle OpenAI værdier er konfigureret. Dette kan ignoreres, hvis du ikke bruger OpenAI funktioner.",
-    "openai-ready-success-text": "Påkrævede OpenAI variabler er alle indstillet."
+    "openai-ready-success-text": "Påkrævede OpenAI variabler er alle indstillet.",
+    "site-statistics": "Webstedsstatistik",
+    "uncategorized-recipes": "Opskrifter uden kategori",
+    "untagged-recipes": "Opskrifter uden etiket"
   },
   "shopping-list": {
     "all-lists": "Alle lister",
@@ -1396,6 +1400,7 @@
     "setup": {
       "first-time-setup": "Indledende opsætning",
       "welcome-to-mealie-get-started": "Velkommen til Mealie! Lad os starte",
+      "previous-mealie-instance": "Har du haft en tidligere Mealie-instans?",
       "already-set-up-bring-to-homepage": "Jeg er allerede oprettet, bare bringe mig til startsiden",
       "common-settings-for-new-sites": "Her er nogle almindelige indstillinger for nye sites",
       "setup-complete": "Opsætning færdig!",
