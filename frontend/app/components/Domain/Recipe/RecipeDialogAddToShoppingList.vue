@@ -170,12 +170,12 @@
         <BaseButtonGroup
           :buttons="[
             {
-              icon: $globals.icons.checkboxBlankOutline,
+              icon: $globals.icons.checkboxMultipleBlankOutline,
               text: $t('shopping-list.uncheck-all-items'),
               event: 'uncheck',
             },
             {
-              icon: $globals.icons.checkboxOutline,
+              icon: $globals.icons.checkboxMultipleMarkedOutline,
               text: $t('shopping-list.check-all-items'),
               event: 'check',
             },
@@ -308,12 +308,12 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
   const recipeSectionMap = new Map<string, ShoppingListRecipeIngredientSection>();
 
   function addSubRecipeToMap(ing: RecipeIngredient, parentQuantity: number, parentScale: number, parentRecipe: Recipe) {
-    const ref = ing.referencedRecipe!;
-    const key = ref.id || ref.slug || "";
+    const subRecipe = ing.referencedRecipe!;
+    const key = subRecipe.id || subRecipe.slug || "";
     const ownIngs: ShoppingListIngredient[] = [];
     const subRefIngs: RecipeIngredient[] = [];
 
-    for (const subIng of ref.recipeIngredient ?? []) {
+    for (const subIng of subRecipe.recipeIngredient ?? []) {
       if (subIng.referencedRecipe) {
         subRefIngs.push(subIng);
       }
@@ -327,14 +327,14 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
     }
 
     recipeSectionMap.set(key, {
-      recipeId: ref.id || "",
-      recipeName: ref.name || "",
+      recipeId: subRecipe.id || "",
+      recipeName: subRecipe.name || "",
       recipeScale: parentQuantity * parentScale,
       ingredientSections: buildIngredientSections(ownIngs),
       parentRecipe,
     });
 
-    subRefIngs.forEach(subIng => addSubRecipeToMap(subIng, (ing.quantity || 1) * (subIng.quantity || 1), parentScale, ref));
+    subRefIngs.forEach(subIng => addSubRecipeToMap(subIng, (ing.quantity || 1) * (subIng.quantity || 1), parentScale, subRecipe));
   }
 
   for (const recipe of recipes) {

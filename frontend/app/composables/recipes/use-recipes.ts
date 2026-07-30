@@ -2,11 +2,17 @@ import { ref } from "vue";
 import { useAsyncKey } from "../use-utils";
 import { usePublicExploreApi } from "~/composables/api/api-client";
 import { useUserApi } from "~/composables/api";
+import { isSafeRedirectTarget } from "~/lib/validators/redirect";
 import type { OrderByNullPosition, Recipe } from "~/lib/api/types/recipe";
 import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
 export const allRecipes = ref<Recipe[]>([]);
 export const recentRecipes = ref<Recipe[]>([]);
+
+export function resetRecipes() {
+  allRecipes.value = [];
+  recentRecipes.value = [];
+}
 
 function getParams(
   orderBy: string | null = null,
@@ -38,6 +44,7 @@ function getParams(
 
 export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
   const router = useRouter();
+  const route = useRoute();
 
   // passing the group slug switches to using the public API
   const api = publicGroupSlug ? usePublicExploreApi(publicGroupSlug).explore : useUserApi();
@@ -60,7 +67,8 @@ export const useLazyRecipes = function (publicGroupSlug: string | null = null) {
     );
 
     if (error?.response?.status === 404) {
-      router.push("/login");
+      const redirect = typeof route.query.redirect === "string" ? route.query.redirect : undefined;
+      router.push(isSafeRedirectTarget(redirect) ? { path: "/login", query: { redirect } } : "/login");
     }
 
     return data ? data.items : [];

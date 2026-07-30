@@ -157,6 +157,34 @@
       </v-alert>
     </section>
 
+    <!-- Site Statistics -->
+    <section>
+      <BaseCardSectionTitle
+        class="pt-2"
+        :icon="$globals.icons.chart"
+        :title="$t('settings.site-statistics')"
+      />
+      <div
+        class="d-flex flex-wrap justify-center align-center"
+        style="gap: 0.8rem"
+      >
+        <StatsCards
+          v-for="(value, key) in adminStats"
+          :key="`${key}-${value}`"
+          :min-width="$vuetify.display.xs ? '100%' : '158'"
+          :icon="getAdminStatsIcon(key)"
+          :to="getAdminStatsTo(key)"
+        >
+          <template #title>
+            {{ getAdminStatsTitle(key) }}
+          </template>
+          <template #value>
+            {{ value }}
+          </template>
+        </StatsCards>
+      </div>
+    </section>
+
     <!-- General App Info -->
     <section class="mt-4">
       <BaseCardSectionTitle
@@ -220,9 +248,7 @@
           </template>
         </template>
         <template v-else>
-          <div class="mb-3 text-center">
-            <AppLoader :waiting-text="$t('general.loading')" />
-          </div>
+          <AppLoader />
         </template>
       </v-card>
     </section>
@@ -234,7 +260,8 @@ import type { TranslateResult } from "vue-i18n";
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { useAsyncKey } from "~/composables/use-utils";
-import type { CheckAppConfig } from "~/lib/api/types/admin";
+import StatsCards from "~/components/global/StatsCards.vue";
+import type { AppStatistics, CheckAppConfig } from "~/lib/api/types/admin";
 import AppLoader from "~/components/global/AppLoader.vue";
 
 interface SimpleCheck {
@@ -285,17 +312,68 @@ const appConfig = ref<CheckApp>({
   ldapReady: false,
   oidcReady: false,
 });
+const adminStats = ref<AppStatistics>({
+  totalRecipes: 0,
+  totalUsers: 0,
+  totalHouseholds: 0,
+  totalGroups: 0,
+  uncategorizedRecipes: 0,
+  untaggedRecipes: 0,
+});
 function isLocalHostOrHttps() {
   return window.location.hostname === "localhost" || window.location.protocol === "https:";
 }
 const api = useUserApi();
 const adminApi = useAdminApi();
+
+const adminStatsText: { [key: string]: string } = {
+  totalRecipes: i18n.t("general.recipes"),
+  totalUsers: i18n.t("user.users"),
+  totalHouseholds: i18n.t("household.households"),
+  totalGroups: i18n.t("group.groups"),
+  uncategorizedRecipes: i18n.t("settings.uncategorized-recipes"),
+  untaggedRecipes: i18n.t("settings.untagged-recipes"),
+};
+
+function getAdminStatsTitle(key: string) {
+  return adminStatsText[key] ?? key;
+}
+
+const adminStatsIcon: { [key: string]: string } = {
+  totalRecipes: $globals.icons.primary,
+  totalUsers: $globals.icons.user,
+  totalHouseholds: $globals.icons.household,
+  totalGroups: $globals.icons.group,
+  uncategorizedRecipes: $globals.icons.categories,
+  untaggedRecipes: $globals.icons.tags,
+};
+
+function getAdminStatsIcon(key: string) {
+  return adminStatsIcon[key] ?? $globals.icons.primary;
+}
+
+const adminStatsTo = computed<{ [key: string]: string }>(() => {
+  return {
+    totalUsers: "/admin/manage/users",
+    totalHouseholds: "/admin/manage/households",
+    totalGroups: "/admin/manage/groups",
+  };
+});
+
+function getAdminStatsTo(key: string) {
+  return adminStatsTo.value[key] ?? undefined;
+}
+
 onMounted(async () => {
   const { data } = await adminApi.about.checkApp();
   if (data) {
     appConfig.value = { ...data, isSiteSecure: false };
   }
   appConfig.value.isSiteSecure = isLocalHostOrHttps();
+  const { data: adminData } = await adminApi.about.statistics();
+  if (adminData) {
+    adminStats.value = adminData;
+  }
 });
 const simpleChecks = computed<SimpleCheck[]>(() => {
   const goodIcon = $globals.icons.checkboxMarkedCircle;

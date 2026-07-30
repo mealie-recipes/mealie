@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Hafa sjálfgefið að hóp og uppskriftum sé ekki deilt. Það er hægt að breyta þessu síðar."
     },
     "manage-members": "Umsjá meðlima",
-    "manage-members-description": "Stjórnaðu aðgangsheimildum annarra í heimilinu. {manage} opnar gagnastjórnunarsíðu og {invite} býr til boðtengla fyrir aðra. Stjórnendur hópa geta ekki breytt eigin heimildum.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Umsjá",
     "manage-household": "Umsjá heimilis",
     "invite": "Bjóða",
@@ -480,6 +480,7 @@
     "from-url": "Hlaða inn uppskrift",
     "github-issues": "GitHub vandamál",
     "google-ld-json-info": "Google ld+json-upplýsingar",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Verður að vera gild vefslóð",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Límdu inn uppskriftargögnin. Hver lína verður meðhöndluð sem hluti í lista",
     "recipe-markup-specification": "Forskrift fyrir uppsetningu uppskrifta",
@@ -940,7 +941,10 @@
     "openai-ready": "OpenAI klár",
     "openai-not-ready": "OpenAI er ekki tilbúið",
     "openai-ready-error-text": "Ekki öll OpenAI gildi eru stillt. Þetta má hunsa ef þú notar ekki OpenAI.",
-    "openai-ready-success-text": "Öll nauðsynleg OpenAI-gildi eru stillt."
+    "openai-ready-success-text": "Öll nauðsynleg OpenAI-gildi eru stillt.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Allir innkaupalistar",
@@ -1123,9 +1127,9 @@
     "permissions": "Réttindi",
     "administrator": "Stjórnandi",
     "user-can-invite-other-to-group": "Notandinn getur boðið öðrum í hóp",
-    "user-can-manage-group": "Notandi getur stjórnað hóp",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "Notandi getur stjórnað heimili",
-    "user-can-organize-group-data": "Notandi getur stjórnað hóp gögnum",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Virkja ítarlega eiginleika",
     "it-looks-like-this-is-your-first-time-logging-in": "Það lítur út fyrir að þetta sé fyrsta skiptið sem þú skráir þig inn.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ef þú villt ekki sjá þessi skilaboð aftur þá þarftu að breyta lykilorðinu þínu í notandastillingum.",
@@ -1396,6 +1400,7 @@
     "setup": {
       "first-time-setup": "Fyrsta uppsetning",
       "welcome-to-mealie-get-started": "Mealie býður þig velkominn, kýlum á þetta",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Allt er þegar klárt hjá mér, sendu mig á heimasíðuna",
       "common-settings-for-new-sites": "Hér eru nokkrar algengar stillingar fyrir nýjar síður",
       "setup-complete": "Uppsetningu lokið",

@@ -45,7 +45,7 @@ function cont(x: number, D: number, mixed: boolean) {
   let Q_2 = 1;
   let Q_1 = 0;
   let Q = 0;
-  let A = Math.floor(B);
+  let A: number;
   while (Q_1 < D) {
     A = Math.floor(B);
     P = A * P_1 + P_2;
