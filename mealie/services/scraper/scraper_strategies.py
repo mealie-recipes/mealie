@@ -1,7 +1,6 @@
 import asyncio
 import functools
 import re
-import time
 from abc import ABC, abstractmethod
 from collections.abc import Awaitable, Callable
 from pathlib import Path
@@ -11,18 +10,17 @@ import bs4
 import extruct
 import yt_dlp
 from fastapi import HTTPException, status
-from httpx import AsyncClient, Response
 from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
 from slugify import slugify
 from w3lib.html import get_base_url
 from yt_dlp.extractor.generic import GenericIE
 
 from mealie.core import exceptions
-from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.pkgs import safehttp
+from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.openai.general import OpenAIText
 from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
@@ -33,14 +31,10 @@ from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
 
-SCRAPER_TIMEOUT = 15
-
-BROWSER_IMPERSONATIONS = [
-    "chrome",
-    "firefox",
-    "safari",
-    "edge",
-]
+# Re-exported for backwards compatibility with existing importers (e.g. recipe route error handling).
+SCRAPER_TIMEOUT = safehttp.SCRAPER_TIMEOUT
+BROWSER_IMPERSONATIONS = safehttp.BROWSER_IMPERSONATIONS
+ForceTimeoutException = safehttp.ForceTimeoutException
 
 logger = get_logger()
 
@@ -49,10 +43,6 @@ logger = get_logger()
 def _get_yt_dlp_extractors() -> list:
     """Build and cache the yt-dlp extractor list once per process lifetime."""
     return [ie for ie in yt_dlp.extractor.gen_extractors() if ie.working() and not isinstance(ie, GenericIE)]
-
-
-class ForceTimeoutException(Exception):
-    pass
 
 
 async def safe_scrape_html(url: str) -> str:
@@ -65,73 +55,8 @@ async def safe_scrape_html(url: str) -> str:
     bot-detection systems that fingerprint the TLS handshake (JA3/JA4),
     such as Cloudflare.
     """
-    logger.debug(f"Scraping URL: {url}")
-
-    html_bytes = b""
-    response: Response | None = None
-
-    for impersonation in BROWSER_IMPERSONATIONS:
-        logger.debug(f'Trying browser impersonation: "{impersonation}"')
-
-        html_bytes = b""
-        response = None
-
-        transport = safehttp.AsyncSafeTransport(
-            impersonate=impersonation,
-            verify=False,  # disable SSL verification since we can handle untrusted data and some sites don't have certs
-        )
-        async with AsyncClient(transport=transport) as client:
-            async with client.stream(
-                "GET",
-                url,
-                timeout=SCRAPER_TIMEOUT,
-                follow_redirects=True,
-            ) as resp:
-                if resp.status_code == 403:
-                    logger.debug(f'403 Forbidden with impersonation "{impersonation}", trying next')
-                    continue
-
-                if resp.status_code >= 400:
-                    logger.debug(f'Error status code {resp.status_code} with impersonation "{impersonation}"')
-                    break
-
-                start_time = time.time()
-
-                async for chunk in resp.aiter_bytes(chunk_size=1024):
-                    html_bytes += chunk
-
-                    if time.time() - start_time > SCRAPER_TIMEOUT:
-                        raise ForceTimeoutException()
-
-                response = resp
-                break
-
-    if not (response and html_bytes):
-        return ""
-
-    # =====================================
-    # Copied from requests text property
-
-    # Try charset from content-type
-    encoding = response.encoding
-
-    # Fallback to auto-detected encoding.
-    if encoding is None:
-        encoding = response.apparent_encoding
-
-    # Decode unicode from given encoding.
-    try:
-        content = str(html_bytes, encoding, errors="replace")
-    except (LookupError, TypeError):
-        # A LookupError is raised if the encoding was not found which could
-        # indicate a misspelling or similar mistake.
-        #
-        # A TypeError can be raised if encoding is None
-        #
-        # So we try blindly encoding.
-        content = str(html_bytes, errors="replace")
-
-    return content
+    result = await safehttp.resilient_fetch(url)
+    return result.text if result else ""
 
 
 class ABCScraperStrategy(ABC):
@@ -145,12 +70,14 @@ class ABCScraperStrategy(ABC):
         self,
         url: str,
         translator: Translator,
+        repos: AllRepositories,
         raw_html: str | None = None,
     ) -> None:
         self.logger = get_logger()
         self.url = url
         self.raw_html = raw_html
         self.translator = translator
+        self.repos = repos
 
     @abstractmethod
     def can_scrape(self) -> bool: ...
@@ -344,8 +271,8 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
     """
 
     def can_scrape(self) -> bool:
-        settings = get_app_settings()
-        return settings.OPENAI_ENABLED and super().can_scrape()
+        settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
+        return bool(settings and settings.ai_enabled and super().can_scrape())
 
     def extract_json_ld_data_from_html(self, soup: bs4.BeautifulSoup) -> str:
         data_parts: list[str] = []
@@ -406,14 +333,10 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         return "\n".join(components)
 
     async def get_html(self, url: str) -> str:
-        settings = get_app_settings()
-        if not settings.OPENAI_ENABLED:
-            return ""
-
+        service = OpenAIService(self.repos)
         html = self.raw_html or await safe_scrape_html(url)
         text = self.format_html_to_text(html)
         try:
-            service = OpenAIService()
             prompt = service.get_prompt("recipes.scrape-recipe")
 
             response = await service.get_response(prompt, text, response_schema=OpenAIText)
@@ -448,8 +371,8 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         if not self.url:
             return False
 
-        settings = get_app_settings()
-        if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_TRANSCRIPTION_SERVICES):
+        settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
+        if not (settings and settings.audio_provider_enabled):
             return False
 
         # Check if we can actually download something to transcribe
@@ -527,7 +450,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
         self,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
     ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
-        openai_service = OpenAIService()
+        openai_service = OpenAIService(self.repos)
 
         with get_temporary_path() as temp_path:
             if on_progress:

@@ -80,6 +80,8 @@ from mealie.services.scraper.scraper_strategies import (
 
 from ._base import BaseRecipeController, JSONBytes
 
+ASSET_ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "gif", "webp", "bmp", "avif", "txt", "md", "csv", "json"}
+
 router = UserAPIRouter(prefix="/recipes", route_class=MealieCrudRoute)
 
 
@@ -130,7 +132,7 @@ class RecipeController(BaseRecipeController):
         # Debugger should produce the same result as the scraper sees before cleaning
         ScraperClass = RecipeScraperOpenAI if data.use_openai else RecipeScraperPackage
         try:
-            if scraped_data := await ScraperClass(data.url, self.translator).scrape_url():
+            if scraped_data := await ScraperClass(data.url, self.translator, self.repos).scrape_url():
                 return scraped_data.schema.data
         except ForceTimeoutException as e:
             raise HTTPException(
@@ -191,6 +193,24 @@ class RecipeController(BaseRecipeController):
         async for event in self._create_recipe_from_web(req):
             yield event
 
+    @staticmethod
+    def _error_message(ex: Exception) -> str:
+        """
+        Extract a meaningful message from an exception raised during recipe creation.
+
+        Scraper failures surface as an HTTPException carrying a `ParserErrors` value
+        (e.g. BAD_RECIPE_DATA), which is far more useful to the client than the class name.
+        """
+
+        if isinstance(ex, HTTPException):
+            detail = ex.detail
+            if isinstance(detail, dict) and (details := detail.get("details")):
+                return str(details)
+            if isinstance(detail, str) and detail:
+                return detail
+
+        return ex.__class__.__name__
+
     async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
         """
         Create a recipe from the web, returning progress via SSE.
@@ -222,7 +242,7 @@ class RecipeController(BaseRecipeController):
 
         async def run() -> None:
             try:
-                recipe, extras = await create_from_html(url, self.translator, html, on_progress=on_progress)
+                recipe, extras = await create_from_html(url, self.repos, self.translator, html, on_progress=on_progress)
                 slug = self._finish_recipe_from_web(req, recipe, extras)
                 await queue.put(
                     ServerSentEvent(
@@ -234,7 +254,7 @@ class RecipeController(BaseRecipeController):
                 self.logger.exception("Error in streaming recipe creation")
                 await queue.put(
                     ServerSentEvent(
-                        data=SSEDataEventMessage(message=e.__class__.__name__),
+                        data=SSEDataEventMessage(message=self._error_message(e)),
                         event=SSEDataEventStatus.ERROR,
                     )
                 )
@@ -315,7 +335,8 @@ class RecipeController(BaseRecipeController):
         Optionally specify a language for it to translate the recipe to.
         """
 
-        if not (self.settings.OPENAI_ENABLED and self.settings.OPENAI_ENABLE_IMAGE_SERVICES):
+        ai_settings = self.group.ai_provider_settings
+        if not (ai_settings and ai_settings.image_provider_enabled):
             raise HTTPException(
                 status_code=400,
                 detail=ErrorResponse.respond("OpenAI image services are not enabled"),
@@ -659,6 +680,10 @@ class RecipeController(BaseRecipeController):
         """Upload a file to store as a recipe asset"""
         if "." in extension:
             extension = extension.split(".")[-1]
+
+        extension = extension.lower()
+        if extension not in ASSET_ALLOWED_EXTENSIONS:
+            raise HTTPException(status_code=400, detail="Unsupported file extension")
 
         file_slug = slugify(name)
         if not extension or not file_slug:

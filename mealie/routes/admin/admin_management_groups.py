@@ -63,6 +63,11 @@ class AdminGroupManagementRoutes(BaseAdminController):
             preferences = mapper(data.preferences, preferences)
             group.preferences = self.repos.group_preferences.update(item_id, preferences)
 
+        if data.ai_provider_settings:
+            provider_settings = self.repos.group_ai_provider_settings.get_one(item_id)
+            provider_settings = mapper(data.ai_provider_settings, provider_settings)
+            group.ai_provider_settings = self.repos.group_ai_provider_settings.update(item_id, provider_settings)
+
         if data.name not in ["", group.name]:
             # only update the group if the name changed, since the name is the only field that can be updated
             group.name = data.name

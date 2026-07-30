@@ -13,7 +13,7 @@ from mealie.db.models._model_utils.auto_init import auto_init
 from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
 
-from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
 from .user_to_recipe import UserToRecipe
 
 if TYPE_CHECKING:
@@ -50,18 +50,21 @@ class AuthMethod(enum.Enum):
 
 class User(SqlAlchemyBase, BaseMixins):
     __tablename__ = "users"
-    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    full_name: Mapped[str | None] = mapped_column(String, index=True)
-    username: Mapped[str | None] = mapped_column(String, index=True, unique=True)
+
+    id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    full_name: FilterableColumn[str | None] = mapped_column(String, index=True)
+    username: FilterableColumn[str | None] = mapped_column(String, index=True, unique=True)
     email: Mapped[str | None] = mapped_column(String, unique=True, index=True)
     password: Mapped[str | None] = mapped_column(String)
     auth_method: Mapped[Enum[AuthMethod]] = mapped_column(Enum(AuthMethod), default=AuthMethod.MEALIE)
     admin: Mapped[bool | None] = mapped_column(Boolean, default=False)
     advanced: Mapped[bool | None] = mapped_column(Boolean, default=False)
 
-    group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
+    group_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="users")
-    household_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("households.id"), nullable=True, index=True)
+    household_id: FilterableColumn[GUID | None] = mapped_column(
+        GUID, ForeignKey("households.id"), nullable=True, index=True
+    )
     household: Mapped["Household"] = orm.relationship("Household", back_populates="users")
 
     cache_key: Mapped[str | None] = mapped_column(String, default="1234")

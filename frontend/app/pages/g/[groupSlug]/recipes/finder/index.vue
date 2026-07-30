@@ -372,9 +372,7 @@
                 cols="12"
                 class="d-flex justify-center"
               >
-                <div class="text-center">
-                  <AppLoader waiting-text="" />
-                </div>
+                <AppLoader :waiting-text="$t('general.loading-recipes')" />
               </v-col>
             </v-row>
           </v-container>
@@ -402,9 +400,7 @@
           cols="12"
           class="d-flex justify-center"
         >
-          <div class="text-center">
-            <AppLoader waiting-text="" />
-          </div>
+          <AppLoader :waiting-text="$t('general.loading-recipes')" />
         </v-col>
       </v-row>
     </v-container>

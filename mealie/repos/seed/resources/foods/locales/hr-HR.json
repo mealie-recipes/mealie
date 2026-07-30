@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "češnjak",
-                "plural_name": "garlic"
+                "plural_name": "češnjak"
             },
             "onion": {
                 "aliases": [],
@@ -34,14 +34,14 @@
             "zucchini": {
                 "aliases": [],
                 "description": "",
-                "name": "zucchini",
-                "plural_name": "zucchinis"
+                "name": "tikvica",
+                "plural_name": "tikvice"
             },
             "potato": {
                 "aliases": [],
                 "description": "",
-                "name": "potato",
-                "plural_name": "potatoes"
+                "name": "krumpir",
+                "plural_name": "krumpiri"
             },
             "red onion": {
                 "aliases": [],
@@ -59,7 +59,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "celer",
-                "plural_name": "celery"
+                "plural_name": "celer"
             },
             "jalapeño": {
                 "aliases": [],
@@ -71,7 +71,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "avokado",
-                "plural_name": "avocados"
+                "plural_name": "avokado"
             },
             "shallot": {
                 "aliases": [],
@@ -95,7 +95,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "špinat",
-                "plural_name": "spinach"
+                "plural_name": "špinat"
             },
             "sweet corn": {
                 "aliases": [],
@@ -240,8 +240,8 @@
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "artičoka",
+                "plural_name": "artičoke"
             },
             "new potato": {
                 "aliases": [],
@@ -631,38 +631,38 @@
             "tomato": {
                 "aliases": [],
                 "description": "Yes they are a fruit",
-                "name": "tomato",
-                "plural_name": "tomatoes"
+                "name": "rajčica",
+                "plural_name": "rajčice"
             },
             "lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon",
-                "plural_name": "lemons"
+                "name": "limun",
+                "plural_name": "limuni"
             },
             "lime": {
                 "aliases": [],
                 "description": "",
-                "name": "lime",
-                "plural_name": "limes"
+                "name": "limeta",
+                "plural_name": "limete"
             },
             "apple": {
                 "aliases": [],
                 "description": "",
-                "name": "apple",
-                "plural_name": "apples"
+                "name": "jabuka",
+                "plural_name": "jabuke"
             },
             "banana": {
                 "aliases": [],
                 "description": "",
                 "name": "banana",
-                "plural_name": "bananas"
+                "plural_name": "banane"
             },
             "orange": {
                 "aliases": [],
                 "description": "",
-                "name": "orange",
-                "plural_name": "oranges"
+                "name": "naranča",
+                "plural_name": "naranče"
             },
             "raisin": {
                 "aliases": [],

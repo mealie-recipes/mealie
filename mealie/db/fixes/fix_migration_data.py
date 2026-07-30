@@ -8,8 +8,8 @@ from mealie.core import root_logger
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models.group.group import Group
 from mealie.db.models.household.shopping_list import ShoppingList, ShoppingListMultiPurposeLabel
-from mealie.db.models.labels import MultiPurposeLabel
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
+from mealie.db.models.recipe.labels import MultiPurposeLabel
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.users.users import User
 

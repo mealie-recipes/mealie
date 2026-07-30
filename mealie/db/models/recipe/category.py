@@ -7,7 +7,7 @@ from sqlalchemy.orm import Mapped, mapped_column, validates
 
 from mealie.core import root_logger
 
-from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
 from .._model_utils.guid import GUID
 
 if TYPE_CHECKING:
@@ -54,12 +54,12 @@ class Category(SqlAlchemyBase, BaseMixins):
     __table_args__ = (sa.UniqueConstraint("slug", "group_id", name="category_slug_group_id_key"),)
 
     # ID Relationships
-    group_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
+    group_id: FilterableColumn[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="categories", foreign_keys=[group_id])
 
-    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    name: Mapped[str] = mapped_column(sa.String, index=True, nullable=False)
-    slug: Mapped[str] = mapped_column(sa.String, index=True, nullable=False)
+    id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    name: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
+    slug: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
     recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_categories, back_populates="recipe_category"
     )
