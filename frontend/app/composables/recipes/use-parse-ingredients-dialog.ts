@@ -227,13 +227,12 @@ export function useParseIngredientsDialog(
         parsed.ingredient.title = filteredIngredients[index]?.title || "";
       });
 
-      const parsed = data ?? [];
       const recipeRefs = ingredients.filter(ing => ing.referencedRecipe).map(ing => ({
         input: ing.note || "",
         confidence: {},
         ingredient: ing,
       }));
-      parsedIngs.value = [...parsed, ...recipeRefs];
+      parsedIngs.value = [...data, ...recipeRefs];
       state.currentParsedIndex = -1;
       state.allReviewed = false;
       createdUnits.clear();
