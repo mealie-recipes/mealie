@@ -1,11 +1,11 @@
 <template>
   <ParseDialogChangeParser
-    v-model="state.parser"
+    v-model="parser"
     :available-parsers="availableParsers"
-    @update:model-value="$emit('changeParser', $event)"
-    @parse="$emit('parse')"
+    @update:model-value="(newParser) => parser = newParser"
+    @parse="parseIngredients"
   />
-  <v-card-text class="pb-0 mb-0 d-flex flex-column ga-2">
+  <v-card-text v-if="currentIng" class="pb-0 mb-0 d-flex flex-column ga-2">
     <div class="text-center px-8 py-4 mb-6 bg-background-darken-1 rounded-pill">
       <p class="text-h5 font-italic">
         {{ currentIng.input }}
@@ -37,7 +37,7 @@
         :icon="$globals.icons.units"
         color="warning"
         size="small"
-        @click="$emit('createUnit')"
+        @click="createMissingUnit"
       >
         {{ $t("recipe.parser.missing-unit", { unit: currentMissingUnit }) }}
       </BaseButton>
@@ -50,7 +50,7 @@
         :icon="$globals.icons.units"
         color="warning"
         size="small"
-        @click="$emit('aliasUnit')"
+        @click="addMissingUnitAsAlias"
       >
         {{ $t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingUnit, item: currentIng.ingredient.unit.name }) }}
       </BaseButton>
@@ -59,7 +59,7 @@
         :icon="$globals.icons.foods"
         color="warning"
         size="small"
-        @click="$emit('createFood')"
+        @click="createMissingFood"
       >
         {{ $t("recipe.parser.missing-food", { food: currentMissingFood }) }}
       </BaseButton>
@@ -72,57 +72,44 @@
         :icon="$globals.icons.foods"
         color="warning"
         size="small"
-        @click="$emit('aliasFood')"
+        @click="addMissingFoodAsAlias"
       >
         {{ $t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingFood, item: currentIng.ingredient.food.name }) }}
       </BaseButton>
     </div>
   </v-card-text>
   <v-checkbox
-    v-model="state.shouldDelete"
+    v-model="currentIngShouldDelete"
     color="error"
     hide-details
     density="compact"
     class="mt-8"
     :label="$t('recipe.parser.delete-item')"
-    @update:model-value="$emit('changeShouldDelete', $event || false)"
   />
 </template>
 
 <script setup lang="ts">
-import type { MenuItem } from "~/components/global/BaseOverflowButton.vue";
-import type { ParsedIngredient } from "~/lib/api/types/recipe";
-import type { Parser } from "~/lib/api/user/recipes/recipe";
+import type { useParseIngredientsDialog } from "~/composables/recipes/use-parse-ingredients-dialog";
 
-defineEmits<{
-  parse: [];
-  changeParser: [Parser];
-  changeShouldDelete: [boolean];
-  createUnit: [];
-  createFood: [];
-  aliasUnit: [];
-  aliasFood: [];
-}>();
 const props = defineProps<{
-  availableParsers: MenuItem[];
-  shouldDelete: boolean;
-  confidenceThreshold: number;
-  currentIngHasError: string;
-  currentMissingUnit: string;
-  currentMissingFood: string;
-  parser: Parser;
+  dialogState: ReturnType<typeof useParseIngredientsDialog>;
 }>();
 
-const state = reactive({
-  shouldDelete: props.shouldDelete,
-  parser: props.parser,
-});
-
-const currentIng = defineModel<ParsedIngredient>({
-  default: () => ({
-    ingredient: {},
-  }),
-});
+const {
+  currentIng,
+  availableParsers,
+  currentIngShouldDelete,
+  parser,
+  confidenceThreshold,
+  currentIngHasError,
+  currentMissingFood,
+  currentMissingUnit,
+  parseIngredients,
+  createMissingFood,
+  createMissingUnit,
+  addMissingFoodAsAlias,
+  addMissingUnitAsAlias,
+} = props.dialogState;
 
 function asPercentage(num: number | undefined): string {
   if (!num) {
