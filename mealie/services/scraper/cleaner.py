@@ -220,11 +220,14 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
             #    },
             # }
             #
+            # Some sites (e.g. NYT Cooking) emit empty HowToSection placeholders
+            # with no itemListElement key, or use "item" per the schema.org spec.
+            # Use .get() with both fallbacks so those sections are skipped gracefully.
             steps_object = typing.cast(list[dict[str, str]], steps_object)
             return clean_instructions(
                 functools.reduce(
                     operator.concat,  # type: ignore
-                    [x["itemListElement"] for x in steps_object],
+                    [x.get("itemListElement", x.get("item", [])) for x in steps_object],
                     [],
                 )
             )
