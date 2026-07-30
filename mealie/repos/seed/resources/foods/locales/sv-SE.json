@@ -2500,7 +2500,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "smältostar",
-                "plural_name": "quick-melt cheese"
+                "plural_name": "snabbsmält ost"
             },
             "farmer's cheese": {
                 "aliases": [],
@@ -2511,19 +2511,19 @@
             "manouri cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "manouri cheese",
-                "plural_name": "manouri cheese"
+                "name": "manouri ost",
+                "plural_name": "manouri ost"
             },
             "mimolette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mimolette cheese",
-                "plural_name": "mimolette cheese"
+                "name": "mimolette",
+                "plural_name": "mimolette"
             },
             "queso quesadilla cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "queso quesadilla cheese",
+                "name": "quesadilla ost",
                 "plural_name": "queso quesadilla cheese"
             },
             "caciocavallo cheese": {

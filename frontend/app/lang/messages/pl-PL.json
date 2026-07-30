@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Ustawia grupę i wszystkie przepisy jako prywatne. Opcję tą zawsze można później zmienić."
     },
     "manage-members": "Zarządzaj członkami",
-    "manage-members-description": "Zarządzaj uprawnieniami członków w swoim gospodarstwie domowym. {manage} pozwala użytkownikowi na dostęp do strony zarządzania danymi, a {invite} pozwala użytkownikowi na generowanie linków z zaproszeniami dla innych użytkowników. Właściciele grupy nie mogą zmienić swoich uprawnień.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Zarządzaj",
     "manage-household": "Zarządzaj gospodarstwem domowym",
     "invite": "Zaproś",
@@ -480,6 +480,7 @@
     "from-url": "Importuj przepis",
     "github-issues": "Zgłoszenia na GitHub",
     "google-ld-json-info": "Informacje na temat ld+json",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Musi być prawidłowym odnośnikiem",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Wklej zawartość przepisu. Każda indywidualna linia traktowana będzie jako pozycja na liście",
     "recipe-markup-specification": "Specyfikacja znaczników przepisów",
@@ -940,7 +941,10 @@
     "openai-ready": "OpenAI gotowy",
     "openai-not-ready": "OpenAI nie jest gotowe",
     "openai-ready-error-text": "Nie wszystkie wartości OpenAI są skonfigurowane. Można to zignorować, jeśli nie używasz funkcji OpenAI.",
-    "openai-ready-success-text": "Wszystkie wymagane zmienne OpenAI są ustawione."
+    "openai-ready-success-text": "Wszystkie wymagane zmienne OpenAI są ustawione.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Wszystkie listy",
@@ -1123,9 +1127,9 @@
     "permissions": "Uprawnienia",
     "administrator": "Administrator",
     "user-can-invite-other-to-group": "Użytkownik może zaprosić innych do grupy",
-    "user-can-manage-group": "Użytkownik może zarządzać grupą",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "Użytkownik może zarządzać gospodarstwem domowym",
-    "user-can-organize-group-data": "Użytkownik może organizować dane grupy",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Włącz zaawansowane funkcje",
     "it-looks-like-this-is-your-first-time-logging-in": "Wygląda na to, że to jest twoje pierwsze logowanie.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nie chcesz już tego widzieć? Pamiętaj, aby zmienić swój adres e-mail w ustawieniach użytkownika!",
@@ -1396,6 +1400,7 @@
     "setup": {
       "first-time-setup": "Pierwsza konfiguracja",
       "welcome-to-mealie-get-started": "Witaj w Mealie! Zaczynamy",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Już mam skonfigurowane, po prostu przenieś mnie na stronę główną",
       "common-settings-for-new-sites": "Oto kilka typowych ustawień dla nowych witryn",
       "setup-complete": "Konfiguracja zakończona!",

@@ -9,7 +9,7 @@
       style="font-size: larger;"
     >
       <v-icon
-        size="x-large"
+        size="large"
         start
         color="primary"
       >

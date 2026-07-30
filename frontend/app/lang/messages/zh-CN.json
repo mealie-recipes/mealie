@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "将您的群组和所有食谱默认设置为私人可见。您可以随时更改此设置"
     },
     "manage-members": "管理成员",
-    "manage-members-description": "管理你家庭中成员的权限。 {manage} 表示允许用户访问数据管理页面， {invite} 表示允许用户生成链接邀请其他用户。 群组所有者不能更改自己的权限。",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "管理",
     "manage-household": "管理家庭",
     "invite": "邀请",
@@ -480,6 +480,7 @@
     "from-url": "输入网址",
     "github-issues": "Github问题报告",
     "google-ld-json-info": "Google ld+json 信息",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "必须是一个有效的链接",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "请粘贴您的食谱资料。每行将被视为列表中的一项。",
     "recipe-markup-specification": "食谱标记规范",
@@ -940,7 +941,10 @@
     "openai-ready": "OpenAI 准备好了",
     "openai-not-ready": "OpenAI 未就绪",
     "openai-ready-error-text": "并非所有的 OpenAI 值都已配置。如果您不使用 OpenAI 功能，这将被忽略。",
-    "openai-ready-success-text": "所需的 OpenAI 变量已全部设置。"
+    "openai-ready-success-text": "所需的 OpenAI 变量已全部设置。",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "所有购物清单",
@@ -1123,9 +1127,9 @@
     "permissions": "权限",
     "administrator": "管理员",
     "user-can-invite-other-to-group": "用户可以邀请其他人加入群组",
-    "user-can-manage-group": "用户可以管理群组",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "用户可以管理家庭",
-    "user-can-organize-group-data": "用户可以整理群组数据",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "启用高级功能",
     "it-looks-like-this-is-your-first-time-logging-in": "看起来这是你第一次登录。",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "不想再看到这条消息了吗？请务必在用户设置中更改你的邮箱！",
@@ -1396,6 +1400,7 @@
     "setup": {
       "first-time-setup": "初始配置",
       "welcome-to-mealie-get-started": "欢迎来到Mealie！让我们开始吧！",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "我已经配置好了，直接跳转到主页",
       "common-settings-for-new-sites": "这有一些新站点的常见设置",
       "setup-complete": "配置完成！",
