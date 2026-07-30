@@ -6,6 +6,8 @@ from sqlalchemy.orm import Session
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
+from mealie.schema.recipe.recipe import RecipeTag
+from mealie.schema.recipe.recipe_category import TagOut, TagSave
 from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientUnit
 from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.schema.response.query_search import SearchFilter
@@ -69,6 +71,16 @@ def search_units(unique_db: AllRepositories, unique_local_group_id: str) -> list
     return unique_db.ingredient_units.create_many(units)
 
 
+@pytest.fixture()
+def search_tags(unique_db: AllRepositories, unique_local_group_id: str) -> list[TagOut]:
+    return unique_db.tags.create_many(
+        [
+            TagSave(group_id=unique_local_group_id, name="Weeknight Dinner"),
+            TagSave(group_id=unique_local_group_id, name="Party Food"),
+        ]
+    )
+
+
 @pytest.mark.parametrize(
     "search, expected_names",
     [
@@ -120,6 +132,18 @@ def test_fuzzy_search(
     results = repo.page_all(pagination, search="tabel spoone").items
 
     assert results and results[0].name == "Table Spoon"
+
+
+def test_search_is_case_insensitive(
+    unique_db: AllRepositories,
+    search_tags: list[TagOut],  # required so database is populated
+):
+    # tags, categories and tools search their raw name column, where LIKE is case sensitive on postgres
+    repo = unique_db.tags
+    pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    results = repo.page_all(pagination, override=RecipeTag, search='"weeknight dinner"').items
+
+    assert [tag.name for tag in results] == ["Weeknight Dinner"]
 
 
 def test_random_order_search(
