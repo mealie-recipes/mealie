@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Задай групата и всичките рецепти като лични. Винаги може да промените това по-късно."
     },
     "manage-members": "Управление на потребителите",
-    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
+    "manage-members-description": "Управлявайте разрешенията на членовете във вашето домакинство. {manage} позволява на потребителя достъп до области за управление на група, {organize} позволява на потребителя да управлява данни за групата, като храни, етикети и категории, а {invite} позволява на потребителя да генерира линкове за покани за други потребители. Собствениците на групи не могат да променят собствените си разрешения.",
     "manage": "Управление",
     "manage-household": "Управлявай домакинство",
     "invite": "Покани",
@@ -480,6 +480,7 @@
     "from-url": "Импортирай рецепта",
     "github-issues": "GitHub проблеми",
     "google-ld-json-info": "Google Id+json данни",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Линкът трябва да е валиден",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Поставете в данните на рецептата си. Всеки ред ще бъде третиран като елемент от списъка.",
     "recipe-markup-specification": "Спецификации за маркиране на рецептата",
@@ -940,7 +941,10 @@
     "openai-ready": "Готов за OpenAI",
     "openai-not-ready": "OpenAI не е настроен",
     "openai-ready-error-text": "Не всички стойности на OpenAI са конфигурирани. Това може да се игнорира, ако не използвате функции на OpenAI.",
-    "openai-ready-success-text": "Всички необходими променливи на OpenAI са зададени."
+    "openai-ready-success-text": "Всички необходими променливи на OpenAI са зададени.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Всички списъци",
@@ -1123,9 +1127,9 @@
     "permissions": "Права",
     "administrator": "Администратор",
     "user-can-invite-other-to-group": "Потребителя може да добавя други в групата",
-    "user-can-manage-group": "User can manage group settings",
+    "user-can-manage-group": "Потребителя може да управлява групата",
     "user-can-manage-household": "Потребителят може да управлява домакинството",
-    "user-can-organize-group-data": "User can manage foods, tags, and categories",
+    "user-can-organize-group-data": "Потребителят може да управлява продукти, етикети и категории",
     "enable-advanced-features": "Включване на разширени функции",
     "it-looks-like-this-is-your-first-time-logging-in": "Изглежда това е първият път, в който влизате.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Искате ли да виждате това по-често? Уверете се, че сте конфигурирали настройките си за email известяване правилно!",
@@ -1144,8 +1148,8 @@
   },
   "data-pages": {
     "foods": {
-      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
-      "delete-affects-recipes-more": "View all {count} recipes",
+      "delete-affects-recipes": "Внимание: този продукт се използва в {count} рецепта(и). Изтриването му ще остави празна съставка в рецептата(ите).",
+      "delete-affects-recipes-more": "Вижте всичките {count} рецепти",
       "merge-dialog-text": "Комбинирането на избраните храни ще обедини изходната храна и целевата храна в една единствена храна. Изходната храна ще бъде изтрита и всички препратки към изходната храна ще бъдат актуализирани, за да сочат към целевата храна.",
       "merge-food-example": "Обединяване на {food1} с {food2}",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
@@ -1396,6 +1400,7 @@
     "setup": {
       "first-time-setup": "Настройка за първи път",
       "welcome-to-mealie-get-started": "Добре дошли в Mealie! Да започваме",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Вече съм настроен, просто ме отведете до началната страница",
       "common-settings-for-new-sites": "Ето някои общи настройки за нови сайтове",
       "setup-complete": "Настройката е завършена!",

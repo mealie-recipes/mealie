@@ -3,34 +3,21 @@
     class="mx-auto my-3 justify-center"
     style="display: flex;"
   >
-    <div style="display: inline;">
+    <div class="text-center">
       <v-progress-circular
         :width="size.width"
         :size="size.size"
         color="primary-lighten-2"
         indeterminate
       >
-        <div class="text-center">
-          <v-icon
-            :size="size.icon"
-            color="primary-lighten-2"
-          >
-            {{ $globals.icons.primary }}
-          </v-icon>
-          <div
-            v-if="large"
-            class="text-small"
-          >
-            <slot>
-              {{ (small || tiny) ? "" : waitingText }}
-            </slot>
-          </div>
-        </div>
+        <v-icon
+          :size="size.icon"
+          color="primary-lighten-2"
+        >
+          {{ $globals.icons.primary }}
+        </v-icon>
       </v-progress-circular>
-      <div
-        v-if="!large"
-        class="text-small"
-      >
+      <div :class="large ? 'text-title-large mt-5' : 'text-body-large mt-3'">
         <slot>
           {{ (small || tiny) ? "" : waitingTextCalculated }}
         </slot>
@@ -97,5 +84,5 @@ const size = computed(() => {
 });
 
 const i18n = useI18n();
-const waitingTextCalculated = props.waitingText == null ? i18n.t("general.loading-recipes") : props.waitingText;
+const waitingTextCalculated = props.waitingText == null ? i18n.t("general.loading") : props.waitingText;
 </script>

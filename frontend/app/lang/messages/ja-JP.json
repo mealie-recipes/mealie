@@ -480,6 +480,7 @@
     "from-url": "レシピをインポート",
     "github-issues": "GitHub Issues",
     "google-ld-json-info": "Google ld+json Info",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "有効なURIである必要があります",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "レシピデータを貼り付けます。各行はリスト内のアイテムとして扱われます。",
     "recipe-markup-specification": "レシピマークアップ仕様",
@@ -940,7 +941,10 @@
     "openai-ready": "OpenAI Ready",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "すべてのOpenAIの値が設定されていません。OpenAIを使用していない場合は無視できます。",
-    "openai-ready-success-text": "必須のOpenAI変数はすべて設定されています。"
+    "openai-ready-success-text": "必須のOpenAI変数はすべて設定されています。",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "すべてのリスト",
@@ -1396,6 +1400,7 @@
     "setup": {
       "first-time-setup": "初期設定",
       "welcome-to-mealie-get-started": "Mealieへようこそ！さあ始めましょう",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "すでに設定は完了しています。ホームページにアクセスしてください",
       "common-settings-for-new-sites": "新しいサイトの一般的な設定は次のとおりです",
       "setup-complete": "セットアップ完了！",

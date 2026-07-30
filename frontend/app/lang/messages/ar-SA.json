@@ -480,6 +480,7 @@
     "from-url": "استيراد وصفة",
     "github-issues": "مشاكل GitHub",
     "google-ld-json-info": "معرف Google + معلومات json",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "يجب أن يكون عنوان URL صالحًا",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "لصق بيانات الوصفة الخاصة بك. سيتم التعامل مع كل سطر كعنصر في قائمة",
     "recipe-markup-specification": "مواصفات ترميز الوصفة",
@@ -940,7 +941,10 @@
     "openai-ready": "OpenAI جاهز",
     "openai-not-ready": "OpenAI غير جاهز",
     "openai-ready-error-text": "لم يتم تكوين جميع قيم LDAP. يمكن تجاهل هذا إذا كنت لا تستخدم مصادقة LDAP.",
-    "openai-ready-success-text": "تم تعيين جميع متغيرات LDAP المطلوبة."
+    "openai-ready-success-text": "تم تعيين جميع متغيرات LDAP المطلوبة.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "جميع القوائم",
@@ -1396,6 +1400,7 @@
     "setup": {
       "first-time-setup": "اعداد المرة الأولى",
       "welcome-to-mealie-get-started": "مرحبا بكم في Mealie! لنبدأ",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "أنا بالفعل جاهز، فقط أحضر ني إلى الصفحة الرئيسية",
       "common-settings-for-new-sites": "فيما يلي بعض الإعدادات الشائعة للمواقع الجديدة",
       "setup-complete": "تمت الإعدادات!",

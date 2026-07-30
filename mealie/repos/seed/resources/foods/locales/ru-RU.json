@@ -7654,8 +7654,8 @@
             "flour": {
                 "aliases": [],
                 "description": "",
-                "name": "flour",
-                "plural_name": "flour"
+                "name": "мука",
+                "plural_name": "мука"
             },
             "vanilla extract": {
                 "aliases": [
@@ -7819,8 +7819,8 @@
             "rice flour": {
                 "aliases": [],
                 "description": "",
-                "name": "rice flour",
-                "plural_name": "rice flour"
+                "name": "рисовая мука",
+                "plural_name": "рисовая мука"
             },
             "desiccated coconut": {
                 "aliases": [],

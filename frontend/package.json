@@ -1,6 +1,6 @@
 {
   "name": "mealie",
-  "version": "3.20.1",
+  "version": "3.22.0",
   "private": true,
   "scripts": {
     "dev": "nuxt dev",
@@ -13,7 +13,7 @@
     "test": "vitest",
     "test:ci": "vitest --watch=false",
     "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui",
+    "test:ui": "yarn run vitest --api.host=0.0.0.0 --ui --coverage",
     "cleanup": "nuxt cleanup"
   },
   "lint-staged": {
@@ -49,8 +49,8 @@
     "@types/node": "^25.5.2",
     "@types/sortablejs": "^1.15.8",
     "@vitejs/plugin-vue": "^6.0.7",
-    "@vitest/coverage-v8": "3.2.4",
-    "@vitest/ui": "3.2.4",
+    "@vitest/coverage-v8": "4.1.10",
+    "@vitest/ui": "4.1.10",
     "@vue/test-utils": "^2.4.6",
     "eslint": "^9.22.0",
     "eslint-config-prettier": "^10.0.2",
