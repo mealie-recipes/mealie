@@ -7,34 +7,46 @@
     @update:model-value="emit('update:modelValue', $event)"
   >
     <v-container fluid class="pa-2 ma-0" style="background-color: rgb(var(--v-theme-background));">
-      <AppLoader v-if="state.step === ParseStep.LOADING" class="my-6" :waiting-text="$t('recipe.parser.parsing-ingredients')" />
-      <ParseDialogInfo v-else-if="state.step === ParseStep.INFO" v-model="dontShowInfoPage" />
-      <ParseDialogParse
-        v-else-if="state.step === ParseStep.PARSE && currentIng"
-        v-model="currentIng"
-        :available-parsers="availableParsers"
-        :should-delete="currentIngShouldDelete"
-        :parser="parser"
-        :confidence-threshold="confidenceThreshold"
-        :current-ing-has-error="currentIngHasError"
-        :current-missing-unit="currentMissingUnit"
-        :current-missing-food="currentMissingFood"
-        @parse="parseIngredients"
-        @change-parser="(newParser) => parser = newParser"
-        @change-should-delete="(shouldDelete) => currentIngShouldDelete = shouldDelete"
-        @create-unit="createMissingUnit"
-        @create-food="createMissingFood"
-        @alias-unit="addMissingUnitAsAlias"
-        @alias-food="addMissingFoodAsAlias"
-      />
-      <ParseDialogReview
-        v-else
-        v-model="parsedIngs"
-        :available-parsers="availableParsers"
-        :parser="parser"
-        @parse="parseIngredients"
-        @change-parser="(newParser) => parser = newParser"
-      />
+      <SwipeTransition direction="left">
+        <!-- These wrapping divs appear to be load-bearing in making sure the transition renders correctly -->
+        <div v-if="state.step === ParseStep.LOADING">
+          <AppLoader class="my-6" />
+        </div>
+        <div v-else-if="state.step === ParseStep.INFO">
+          <ParseDialogInfo v-model="dontShowInfoPage" />
+        </div>
+        <div
+          v-else-if="state.step === ParseStep.PARSE && currentIng"
+          :key="currentIng.ingredient.referenceId"
+        >
+          <ParseDialogParse
+            v-model="currentIng"
+            :available-parsers="availableParsers"
+            :should-delete="currentIngShouldDelete"
+            :parser="parser"
+            :confidence-threshold="confidenceThreshold"
+            :current-ing-has-error="currentIngHasError"
+            :current-missing-unit="currentMissingUnit"
+            :current-missing-food="currentMissingFood"
+            @parse="parseIngredients"
+            @change-parser="(newParser) => parser = newParser"
+            @change-should-delete="(shouldDelete) => currentIngShouldDelete = shouldDelete"
+            @create-unit="createMissingUnit"
+            @create-food="createMissingFood"
+            @alias-unit="addMissingUnitAsAlias"
+            @alias-food="addMissingFoodAsAlias"
+          />
+        </div>
+        <div v-else>
+          <ParseDialogReview
+            v-model="parsedIngs"
+            :available-parsers="availableParsers"
+            :parser="parser"
+            @parse="parseIngredients"
+            @change-parser="(newParser) => parser = newParser"
+          />
+        </div>
+      </SwipeTransition>
     </v-container>
     <template v-if="state.step !== ParseStep.LOADING" #custom-card-action>
       <SpinTransition>
