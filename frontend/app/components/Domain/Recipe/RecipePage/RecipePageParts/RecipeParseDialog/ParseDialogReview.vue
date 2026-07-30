@@ -31,7 +31,6 @@
                 v-model="ingredient.ingredient"
                 enable-drag-handle
                 enable-context-menu
-                class="list-group-item pb-8"
                 :delete-disabled="parsedIngs.length <= 1"
                 @delete="parsedIngs.splice(index, 1)"
                 @insert-above="insertNewIngredient(index)"

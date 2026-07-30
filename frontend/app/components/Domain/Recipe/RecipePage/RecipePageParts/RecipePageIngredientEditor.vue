@@ -43,22 +43,17 @@
       @start="drag = true"
       @end="drag = false"
     >
-      <TransitionGroup
-        type="transition"
-      >
-        <RecipeIngredientEditor
-          v-for="(ingredient, index) in recipe.recipeIngredient"
-          :key="ingredient.referenceId"
-          v-model="recipe.recipeIngredient[index]"
-          :is-recipe="ingredientIsRecipe(ingredient)"
-          enable-drag-handle
-          enable-context-menu
-          class="list-group-item"
-          @delete="recipe.recipeIngredient.splice(index, 1)"
-          @insert-above="insertNewIngredient(index)"
-          @insert-below="insertNewIngredient(index + 1)"
-        />
-      </TransitionGroup>
+      <RecipeIngredientEditor
+        v-for="(ingredient, index) in recipe.recipeIngredient"
+        :key="ingredient.referenceId"
+        v-model="recipe.recipeIngredient[index]"
+        :is-recipe="ingredientIsRecipe(ingredient)"
+        enable-drag-handle
+        enable-context-menu
+        @delete="recipe.recipeIngredient.splice(index, 1)"
+        @insert-above="insertNewIngredient(index)"
+        @insert-below="insertNewIngredient(index + 1)"
+      />
     </VueDraggable>
     <v-skeleton-loader
       v-else
