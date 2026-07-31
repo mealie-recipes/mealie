@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Définit votre groupe et toutes les recettes par défaut sur privé. Vous pouvez toujours changer cela plus tard."
     },
     "manage-members": "Gestion des membres",
-    "manage-members-description": "Gérez les permissions des membres de votre foyer. {manage} permet à l'utilisateur d'accéder à la page de gestion des données de groupe, {organize} lui permet de gérer les données de groupe tel que les aliments, les mots-clés et les catégories, et {invite} lui permet de générer des liens d’invitation pour d’autres utilisateurs. Les propriétaires de groupe ne peuvent pas changer leurs propres permissions.",
+    "manage-members-description": "Gérez les permissions des membres de votre foyer. {manage} permet à l'utilisateur d'accéder à la page de gestion des données de groupe, {organize} lui permet de gérer les données de groupe tel que les aliments, les mots-clés et les catégories, et {invite} lui permet de générer des liens d'invitation pour d'autres utilisateurs. Les propriétaires de groupe ne peuvent pas changer leurs propres permissions.",
     "manage": "Gérer",
     "manage-household": "Gérer le foyer",
     "invite": "Inviter",
@@ -410,7 +410,8 @@
     "applies-on-days": "S'applique les {0}s",
     "meal-plan-settings": "Paramètres des menus",
     "add-all-to-list": "Ajouter tout à la liste",
-    "add-day-to-list": "Ajouter un jour à la liste"
+    "add-day-to-list": "Ajouter un jour à la liste",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Données de migration supprimées",
