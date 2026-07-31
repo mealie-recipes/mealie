@@ -410,7 +410,8 @@
     "applies-on-days": "Van toepassing op {0}s",
     "meal-plan-settings": "Maaltijdplan-instellingen",
     "add-all-to-list": "Alles aan lijst toevoegen",
-    "add-day-to-list": "Dag aan lijst toevoegen"
+    "add-day-to-list": "Dag aan lijst toevoegen",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Migratiegegevens verwijderd",
