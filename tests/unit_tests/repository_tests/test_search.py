@@ -77,6 +77,7 @@ def search_tags(unique_db: AllRepositories, unique_local_group_id: str) -> list[
         [
             TagSave(group_id=unique_local_group_id, name="Weeknight Dinner"),
             TagSave(group_id=unique_local_group_id, name="Party Food"),
+            TagSave(group_id=unique_local_group_id, name="Frühstück"),
         ]
     )
 
@@ -144,6 +145,18 @@ def test_search_is_case_insensitive(
     results = repo.page_all(pagination, override=RecipeTag, search='"weeknight dinner"').items
 
     assert [tag.name for tag in results] == ["Weeknight Dinner"]
+
+
+def test_search_matches_slug(
+    unique_db: AllRepositories,
+    search_tags: list[TagOut],  # required so database is populated
+):
+    # the name column keeps its accents, the slug does not, so searching both makes them optional
+    repo = unique_db.tags
+    pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    results = repo.page_all(pagination, override=RecipeTag, search="fruhstuck").items
+
+    assert [tag.name for tag in results] == ["Frühstück"]
 
 
 def test_random_order_search(

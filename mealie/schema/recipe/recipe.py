@@ -64,7 +64,7 @@ class RecipeTag(MealieModel):
     name: str
     slug: str
 
-    _searchable_properties: ClassVar[list[str]] = ["name"]
+    _searchable_properties: ClassVar[list[str]] = ["name", "slug"]
     model_config = ConfigDict(from_attributes=True)
 
 
