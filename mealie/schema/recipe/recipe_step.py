@@ -27,3 +27,5 @@ class RecipeStep(MealieModel):
     ingredient_references: list[IngredientReferences] = []
     note_references: list[NoteReference] = []
     model_config = ConfigDict(from_attributes=True)
+
+    cook_time: str | None = None
