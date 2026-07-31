@@ -410,7 +410,8 @@
     "applies-on-days": "Gilt {0}s",
     "meal-plan-settings": "Essensplan Einstellungen",
     "add-all-to-list": "Alle zur Einkaufsliste hinzufügen",
-    "add-day-to-list": "Tag zur Einkaufsliste hinzufügen"
+    "add-day-to-list": "Tag zur Einkaufsliste hinzufügen",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Migrationsdaten entfernt",
