@@ -410,7 +410,8 @@
     "applies-on-days": "Käytetään {0}",
     "meal-plan-settings": "Ateriasuunnitelman asetukset",
     "add-all-to-list": "Lisää kaikki listalle",
-    "add-day-to-list": "Lisää päivä listalle"
+    "add-day-to-list": "Lisää päivä listalle",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Tuodut tiedot poistettu",

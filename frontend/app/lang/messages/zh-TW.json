@@ -410,7 +410,8 @@
     "applies-on-days": "適用於每個{0}",
     "meal-plan-settings": "用餐計劃設定",
     "add-all-to-list": "全部加入清單",
-    "add-day-to-list": "將當日加入清單"
+    "add-day-to-list": "將當日加入清單",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "遷移資料已刪除",

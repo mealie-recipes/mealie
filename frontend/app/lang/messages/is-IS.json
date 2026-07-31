@@ -410,7 +410,8 @@
     "applies-on-days": "Gildir þegar er {0},",
     "meal-plan-settings": "Stillingar matarplans",
     "add-all-to-list": "Bæta öllum á innkaupalista",
-    "add-day-to-list": "Bæta deginum á innkaupalista"
+    "add-day-to-list": "Bæta deginum á innkaupalista",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Gagnaflutningur fjarlægður",

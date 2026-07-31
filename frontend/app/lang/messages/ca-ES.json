@@ -410,7 +410,8 @@
     "applies-on-days": "S'aplicarà en {0}s",
     "meal-plan-settings": "Opcions de planificació de menús",
     "add-all-to-list": "Afegiu Tot a la llista",
-    "add-day-to-list": "Afegiu Dia a la llista"
+    "add-day-to-list": "Afegiu Dia a la llista",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "S'han suprimit les dades migrades",

@@ -410,7 +410,8 @@
     "applies-on-days": "Примењује се на {0}",
     "meal-plan-settings": "Подешавања јеловника",
     "add-all-to-list": "Додај све на списак",
-    "add-day-to-list": "Додај дан на списак"
+    "add-day-to-list": "Додај дан на списак",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Подаци о миграцији су уклоњени",

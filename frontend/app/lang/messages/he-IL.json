@@ -410,7 +410,8 @@
     "applies-on-days": "חל על {0}",
     "meal-plan-settings": "הגדרות תכנון ארוחות",
     "add-all-to-list": "הוספת הכל לרשימה",
-    "add-day-to-list": "הוספת יום לרשימה"
+    "add-day-to-list": "הוספת יום לרשימה",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "מידע ממוגרץ נמחק",

@@ -410,7 +410,8 @@
     "applies-on-days": "应用于{0}",
     "meal-plan-settings": "饮食计划设置",
     "add-all-to-list": "将全部添加入清单",
-    "add-day-to-list": "将日期添加到清单"
+    "add-day-to-list": "将日期添加到清单",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "已删除迁移数据",
