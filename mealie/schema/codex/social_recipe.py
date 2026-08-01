@@ -1,6 +1,6 @@
 from typing import Literal
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import UUID4, BaseModel, ConfigDict, Field
 
 
 class SocialRecipeIngredient(BaseModel):
@@ -25,6 +25,20 @@ class SocialRecipeIngredient(BaseModel):
         ...,
         description="Parsed food name with quantity and unit removed. Populate whenever a food can be identified.",
     )
+    foodId: UUID4 | None = Field(
+        ...,
+        description=(
+            "Identifier from the known Mealie foods catalog when the parsed food clearly matches one. "
+            "Use null when no catalog item is an unambiguous match."
+        ),
+    )
+    unitId: UUID4 | None = Field(
+        ...,
+        description=(
+            "Identifier from the known Mealie units catalog when the parsed unit clearly matches one. "
+            "Use null when no catalog item is an unambiguous match."
+        ),
+    )
     note: str | None = Field(
         ...,
         description="Preparation note or other ingredient detail that is not quantity, unit, or food.",
@@ -44,7 +58,9 @@ class SocialRecipe(BaseModel):
     name: str
     description: str | None
     sourceUrl: str | None
+    imageUrl: str | None
     servings: float | None
+    totalTimeMinutes: int | None
     prepTimeMinutes: int | None
     cookTimeMinutes: int | None
     ingredients: list[SocialRecipeIngredient]

@@ -16,7 +16,7 @@ class CodexCLIError(Exception):
 
 
 class CodexCLIService:
-    def _build_command(self, schema_path: Path, output_path: Path) -> list[str]:
+    def _build_command(self, schema_path: Path, output_path: Path, prompt_context: str | None = None) -> list[str]:
         settings = get_app_settings()
         command = [
             settings.CODEX_CLI_BINARY,
@@ -36,7 +36,7 @@ class CodexCLIService:
         if settings.CODEX_CLI_PROFILE:
             command.extend(["--profile", settings.CODEX_CLI_PROFILE])
 
-        command.append(
+        prompt_parts = [
             "Extract one cooking recipe from the supplied source content.\n\n"
             "Rules:\n"
             "- Return data matching the supplied JSON Schema exactly.\n"
@@ -44,6 +44,9 @@ class CodexCLIService:
             "- When a value is not present, use null.\n"
             "- Keep original ingredient text in originalText.\n"
             "- Parse quantity, unit, food, and note when reasonably clear.\n"
+            "- If a known Mealie foods or units catalog is supplied, set foodId and unitId only when the "
+            "parsed ingredient clearly matches a catalog entry by name, plural name, abbreviation, or alias.\n"
+            "- Never invent foodId or unitId values. Use null when there is no clear catalog match.\n"
             "- If an ingredient line contains an explicit numeric, decimal, or fractional quantity, "
             "quantity must not be null.\n"
             "- If an ingredient line contains a clear unit such as tbsp, tsp, g, kg, ml, L, cup, clove, "
@@ -57,10 +60,16 @@ class CodexCLIService:
             "- Set confidence to low when the source does not contain a complete recipe.\n"
             "- If there is no usable recipe, return empty ingredient and instruction arrays, "
             "explain why in warnings, and set confidence to low."
-        )
+        ]
+        if prompt_context:
+            prompt_parts.append(f"\n\nKnown Mealie catalog:\n{prompt_context}")
+
+        command.append("".join(prompt_parts))
         return command
 
-    async def extract_structured[T: BaseModel](self, raw_content: str, schema_model: type[T]) -> T:
+    async def extract_structured[T: BaseModel](
+        self, raw_content: str, schema_model: type[T], prompt_context: str | None = None
+    ) -> T:
         settings = get_app_settings()
 
         with get_temporary_path() as temp_path:
@@ -69,7 +78,7 @@ class CodexCLIService:
             schema_path.write_text(json.dumps(schema_model.model_json_schema(), separators=(",", ":")), encoding="utf-8")
 
             process = await asyncio.create_subprocess_exec(
-                *self._build_command(schema_path, output_path),
+                *self._build_command(schema_path, output_path, prompt_context),
                 stdin=asyncio.subprocess.PIPE,
                 stdout=asyncio.subprocess.PIPE,
                 stderr=asyncio.subprocess.PIPE,

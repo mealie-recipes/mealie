@@ -4,9 +4,9 @@ import pytest
 from fastapi.testclient import TestClient
 
 import mealie.services.scraper.recipe_scraper as recipe_scraper_module
+from mealie.schema.codex.social_recipe import SocialRecipe, SocialRecipeIngredient, SocialRecipeInstruction
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
-from mealie.schema.openai.general import OpenAIText
-from mealie.services.openai import OpenAIService
+from mealie.services.codex_cli import CodexCLIError, CodexCLIService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.scraper_strategies import RecipeScraperOpenAI
 from tests.utils import api_routes
@@ -21,18 +21,35 @@ def recipe_name() -> str:
 
 
 @pytest.fixture()
-def recipe_ld_json(recipe_name: str) -> str:
-    return json.dumps(
-        {
-            "@context": "https://schema.org",
-            "@type": "Recipe",
-            "name": recipe_name,
-            "recipeIngredient": [random_string() for _ in range(3)],
-            "recipeInstructions": [
-                {"@type": "HowToStep", "text": random_string()},
-                {"@type": "HowToStep", "text": random_string()},
-            ],
-        }
+def codex_recipe(recipe_name: str) -> SocialRecipe:
+    return SocialRecipe(
+        name=recipe_name,
+        description=None,
+        sourceUrl=None,
+        imageUrl=None,
+        servings=None,
+        totalTimeMinutes=None,
+        prepTimeMinutes=None,
+        cookTimeMinutes=None,
+        ingredients=[
+            SocialRecipeIngredient(
+                originalText=random_string(),
+                quantity=None,
+                unit=None,
+                food=random_string(),
+                foodId=None,
+                unitId=None,
+                note=None,
+            )
+            for _ in range(3)
+        ],
+        instructions=[
+            SocialRecipeInstruction(title=None, text=random_string()),
+            SocialRecipeInstruction(title=None, text=random_string()),
+        ],
+        tags=[],
+        warnings=[],
+        confidence="high",
     )
 
 
@@ -70,14 +87,16 @@ def test_create_by_url_via_openai(
     api_client: TestClient,
     unique_user: TestUser,
     monkeypatch: pytest.MonkeyPatch,
-    recipe_ld_json: str,
+    codex_recipe: SocialRecipe,
     recipe_url: str,
     recipe_name: str,
 ):
-    async def mock_get_response(self, prompt, message, *args, **kwargs) -> OpenAIText | None:
-        return OpenAIText(text=recipe_ld_json)
+    async def mock_extract_structured(self, raw_content: str, schema_model, prompt_context: str | None = None):
+        assert schema_model is SocialRecipe
+        assert prompt_context
+        return codex_recipe
 
-    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+    monkeypatch.setattr(CodexCLIService, "extract_structured", mock_extract_structured)
 
     api_client.delete(api_routes.recipes_slug("openai-test-cake"), headers=unique_user.token)
     response = api_client.post(
@@ -99,14 +118,16 @@ def test_create_by_html_or_json_via_openai(
     api_client: TestClient,
     unique_user: TestUser,
     monkeypatch: pytest.MonkeyPatch,
-    recipe_ld_json: str,
+    codex_recipe: SocialRecipe,
     bare_html: str,
     recipe_name: str,
 ):
-    async def mock_get_response(self, prompt, message, *args, **kwargs) -> OpenAIText | None:
-        return OpenAIText(text=recipe_ld_json)
+    async def mock_extract_structured(self, raw_content: str, schema_model, prompt_context: str | None = None):
+        assert schema_model is SocialRecipe
+        assert prompt_context
+        return codex_recipe
 
-    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+    monkeypatch.setattr(CodexCLIService, "extract_structured", mock_extract_structured)
 
     api_client.delete(api_routes.recipes_slug("openai-test-cake"), headers=unique_user.token)
     response = api_client.post(
@@ -126,13 +147,13 @@ def test_create_stream_via_openai_emits_progress(
     api_client: TestClient,
     unique_user: TestUser,
     monkeypatch: pytest.MonkeyPatch,
-    recipe_ld_json: str,
+    codex_recipe: SocialRecipe,
     bare_html: str,
 ):
-    async def mock_get_response(self, prompt, message, *args, **kwargs) -> OpenAIText | None:
-        return OpenAIText(text=recipe_ld_json)
+    async def mock_extract_structured(self, raw_content: str, schema_model, prompt_context: str | None = None):
+        return codex_recipe
 
-    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+    monkeypatch.setattr(CodexCLIService, "extract_structured", mock_extract_structured)
 
     api_client.delete(api_routes.recipes_slug("openai-test-cake"), headers=unique_user.token)
     response = api_client.post(
@@ -157,10 +178,10 @@ def test_create_by_url_openai_returns_none(
 ):
     """When OpenAI returns None the endpoint should return 400."""
 
-    async def mock_get_response(self, prompt, message, *args, **kwargs) -> OpenAIText | None:
-        return None
+    async def mock_extract_structured(self, raw_content: str, schema_model, prompt_context: str | None = None):
+        raise CodexCLIError("Codex returned no recipe")
 
-    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+    monkeypatch.setattr(CodexCLIService, "extract_structured", mock_extract_structured)
 
     response = api_client.post(
         api_routes.recipes_create_url,
@@ -170,17 +191,18 @@ def test_create_by_url_openai_returns_none(
     assert response.status_code == 400
 
 
-def test_create_by_url_openai_disabled(
+def test_create_by_url_codex_failure_returns_400(
     api_client: TestClient,
     unique_user: TestUser,
     monkeypatch: pytest.MonkeyPatch,
     recipe_url: str,
 ):
-    """When no default provider is set, can_scrape() returns False and the endpoint returns 400."""
-    unique_user.repos.group_ai_provider_settings.update(
-        unique_user.repos.group_id,
-        AIProviderSettingsUpdate(default_provider_id=None, audio_provider_id=None, image_provider_id=None),
-    )
+    """When Codex cannot extract a recipe, the endpoint returns 400."""
+
+    async def mock_extract_structured(self, raw_content: str, schema_model, prompt_context: str | None = None):
+        raise CodexCLIError("Codex CLI recipe extraction failed")
+
+    monkeypatch.setattr(CodexCLIService, "extract_structured", mock_extract_structured)
 
     response = api_client.post(
         api_routes.recipes_create_url,

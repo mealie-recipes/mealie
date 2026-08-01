@@ -1,5 +1,6 @@
 import asyncio
 import functools
+import json
 import re
 import time
 from abc import ABC, abstractmethod
@@ -25,7 +26,6 @@ from mealie.lang.providers import Translator
 from mealie.pkgs import safehttp
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.codex.social_recipe import SocialRecipe
-from mealie.schema.openai.general import OpenAIText
 from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
@@ -176,6 +176,111 @@ class ABCScraperStrategy(ABC):
 
     @abstractmethod
     async def get_html(self, url: str) -> str: ...
+
+    @staticmethod
+    def _minutes_to_text(minutes: int | None) -> str | None:
+        if minutes is None:
+            return None
+        if minutes == 1:
+            return "1 minute"
+        return f"{minutes} minutes"
+
+    @staticmethod
+    def _yield_to_text(servings: float | None) -> str | None:
+        if servings is None:
+            return None
+        if servings == 1:
+            return "1 serving"
+        if float(servings).is_integer():
+            return f"{int(servings)} servings"
+        return f"{servings:g} servings"
+
+    @staticmethod
+    def _catalog_names(item) -> list[str]:
+        names = [item.name, item.plural_name]
+        names.extend(alias.name for alias in (item.aliases or []))
+        return [name for name in names if name]
+
+    def _build_codex_prompt_context(self) -> str:
+        matcher = DataMatcher(self.repos)
+        foods = [
+            {
+                "id": str(food.id),
+                "names": self._catalog_names(food),
+            }
+            for food in matcher.foods_by_id.values()
+        ]
+        units = [
+            {
+                "id": str(unit.id),
+                "names": [
+                    name
+                    for name in [
+                        unit.name,
+                        unit.plural_name,
+                        unit.abbreviation,
+                        unit.plural_abbreviation,
+                        *(alias.name for alias in (unit.aliases or [])),
+                    ]
+                    if name
+                ],
+            }
+            for unit in matcher.units_by_id.values()
+        ]
+        return json.dumps({"foods": foods, "units": units}, separators=(",", ":"))
+
+    def _ingredient_to_recipe_ingredient(self, ingredient, matcher: DataMatcher | None = None) -> RecipeIngredient:
+        matcher = matcher or DataMatcher(self.repos)
+        unit = matcher.units_by_id.get(ingredient.unitId) if ingredient.unitId else None
+        food = matcher.foods_by_id.get(ingredient.foodId) if ingredient.foodId else None
+
+        if not unit and ingredient.unit:
+            unit = matcher.find_unit_match(ingredient.unit)
+        if not food and ingredient.food:
+            food = matcher.find_food_match(ingredient.food)
+
+        note_parts = []
+        if ingredient.unit and not unit:
+            note_parts.append(ingredient.unit)
+        if ingredient.food and not food:
+            note_parts.append(ingredient.food)
+        if ingredient.note:
+            note_parts.append(ingredient.note)
+
+        return RecipeIngredient(
+            title=getattr(ingredient, "title", None),
+            quantity=ingredient.quantity or 0,
+            unit=unit,
+            food=food,
+            note=" ".join(note_parts),
+            original_text=ingredient.originalText,
+        )
+
+    def _response_to_recipe(self, response: SocialRecipe, image: str | None, source_url: str) -> Recipe:
+        matcher = DataMatcher(self.repos)
+        recipe = Recipe(
+            name=response.name,
+            slug="",
+            description=response.description,
+            recipe_yield=self._yield_to_text(response.servings),
+            total_time=self._minutes_to_text(response.totalTimeMinutes),
+            prep_time=self._minutes_to_text(response.prepTimeMinutes),
+            perform_time=self._minutes_to_text(response.cookTimeMinutes),
+            recipe_ingredient=[
+                self._ingredient_to_recipe_ingredient(ingredient, matcher)
+                for ingredient in response.ingredients
+                if ingredient.originalText
+            ],
+            recipe_instructions=[
+                RecipeStep(title=instruction.title, text=instruction.text)
+                for instruction in response.instructions
+                if instruction.text
+            ],
+            notes=[RecipeNote(title="Import warning", text=warning) for warning in response.warnings],
+            image=response.imageUrl or image,
+            org_url=response.sourceUrl or source_url,
+        )
+        return recipe
 
     @abstractmethod
     async def parse(
@@ -358,13 +463,12 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
 class RecipeScraperOpenAI(RecipeScraperPackage):
     """
-    A wrapper around the `RecipeScraperPackage` class that uses OpenAI to extract the recipe from the URL,
+    A wrapper around the `RecipeScraperPackage` class that uses Codex to extract the recipe from the URL,
     rather than trying to scrape it directly.
     """
 
     def can_scrape(self) -> bool:
-        settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
-        return bool(settings and settings.ai_enabled and super().can_scrape())
+        return super().can_scrape()
 
     def extract_json_ld_data_from_html(self, soup: bs4.BeautifulSoup) -> str:
         data_parts: list[str] = []
@@ -425,26 +529,40 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         return "\n".join(components)
 
     async def get_html(self, url: str) -> str:
-        service = OpenAIService(self.repos)
-        html = self.raw_html or await safe_scrape_html(url)
-        text = self.format_html_to_text(html)
-        try:
-            prompt = service.get_prompt("recipes.scrape-recipe")
-
-            response = await service.get_response(prompt, text, response_schema=OpenAIText)
-            if not (response and response.text):
-                raise Exception("OpenAI did not return any data")
-
-            return self.ld_json_to_html(response.text)
-        except Exception:
-            self.logger.exception(f"OpenAI was unable to extract a recipe from {url}")
-            return ""
+        return self.raw_html or await safe_scrape_html(url)
 
     async def parse(self, on_progress: Callable[[str], Awaitable[None]] | None = None):
         if on_progress:
             await on_progress(self.translator.t("recipe.create-progress.creating-recipe-with-ai"))
 
-        return await super().parse()
+        html = self.raw_html or await safe_scrape_html(self.url)
+        if not html:
+            return None
+
+        soup = bs4.BeautifulSoup(html, "lxml")
+        try:
+            image = self.find_image(soup)
+        except Exception:
+            image = None
+
+        try:
+            response = await CodexCLIService().extract_structured(
+                self.format_html_to_text(html),
+                SocialRecipe,
+                prompt_context=self._build_codex_prompt_context(),
+            )
+        except CodexCLIError as e:
+            raise CodexCLIError(f"Failed to extract recipe from web content: {e}") from e
+
+        if not response:
+            raise CodexCLIError("Codex CLI returned an empty response when extracting web recipe")
+
+        if response.confidence == "low" and (not response.ingredients or not response.instructions):
+            return None
+
+        extras = ScrapedExtras()
+        extras.set_tags(response.tags)
+        return self._response_to_recipe(response, image, self.url), extras
 
 
 class TranscribedAudio(TypedDict):
@@ -648,45 +766,6 @@ class RecipeScraperSocialMedia(RecipeScraperOpenAITranscription):
 
         return any(ie.suitable(self.url) for ie in _get_yt_dlp_extractors())
 
-    @staticmethod
-    def _minutes_to_text(minutes: int | None) -> str | None:
-        if minutes is None:
-            return None
-        if minutes == 1:
-            return "1 minute"
-        return f"{minutes} minutes"
-
-    @staticmethod
-    def _yield_to_text(servings: float | None) -> str | None:
-        if servings is None:
-            return None
-        if servings == 1:
-            return "1 serving"
-        if servings.is_integer():
-            return f"{int(servings)} servings"
-        return f"{servings:g} servings"
-
-    def _ingredient_to_recipe_ingredient(self, ingredient) -> RecipeIngredient:
-        matcher = DataMatcher(self.repos)
-        unit = matcher.find_unit_match(ingredient.unit) if ingredient.unit else None
-        food = matcher.find_food_match(ingredient.food) if ingredient.food else None
-
-        note_parts = []
-        if ingredient.unit and not unit:
-            note_parts.append(ingredient.unit)
-        if ingredient.food and not food:
-            note_parts.append(ingredient.food)
-        if ingredient.note:
-            note_parts.append(ingredient.note)
-
-        return RecipeIngredient(
-            quantity=ingredient.quantity or 0,
-            unit=unit,
-            food=food,
-            note=" ".join(note_parts),
-            original_text=ingredient.originalText,
-        )
-
     def _transcribe_audio_locally(self, audio_path: Path) -> str:
         settings = get_app_settings()
         if not settings.SOCIAL_IMPORT_TRANSCRIPTION_ENABLED:
@@ -758,7 +837,11 @@ class RecipeScraperSocialMedia(RecipeScraperOpenAITranscription):
             await on_progress(self.translator.t("recipe.create-progress.creating-recipe-from-transcript-with-ai"))
 
         try:
-            response = await CodexCLIService().extract_structured(raw_content, SocialRecipe)
+            response = await CodexCLIService().extract_structured(
+                raw_content,
+                SocialRecipe,
+                prompt_context=self._build_codex_prompt_context(),
+            )
         except CodexCLIError as e:
             raise CodexCLIError(f"Failed to extract recipe from social content: {e}") from e
 
@@ -772,27 +855,7 @@ class RecipeScraperSocialMedia(RecipeScraperOpenAITranscription):
         extras = ScrapedExtras()
         extras.set_tags(response.tags)
 
-        recipe = Recipe(
-            name=response.name,
-            slug="",
-            description=response.description,
-            recipe_yield=self._yield_to_text(response.servings),
-            prep_time=self._minutes_to_text(response.prepTimeMinutes),
-            perform_time=self._minutes_to_text(response.cookTimeMinutes),
-            recipe_ingredient=[
-                self._ingredient_to_recipe_ingredient(ingredient)
-                for ingredient in response.ingredients
-                if ingredient.originalText
-            ],
-            recipe_instructions=[
-                RecipeStep(title=instruction.title, text=instruction.text)
-                for instruction in response.instructions
-                if instruction.text
-            ],
-            notes=[RecipeNote(title="Import warning", text=warning) for warning in response.warnings],
-            image=video_data["thumbnail_url"] or None,
-            org_url=response.sourceUrl or self.url,
-        )
+        recipe = self._response_to_recipe(response, video_data["thumbnail_url"] or None, self.url)
 
         self.logger.info(f"Successfully extracted social recipe: {response.name}")
         return recipe, extras

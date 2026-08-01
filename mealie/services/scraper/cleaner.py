@@ -49,7 +49,11 @@ def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recip
     if not isinstance(recipe_data, dict):
         # format the recipe like a scraped dictionary
         recipe_data_dict = recipe_data.model_dump(by_alias=True)
-        recipe_data_dict["recipeIngredient"] = [ing.display for ing in recipe_data.recipe_ingredient]
+        has_structured_ingredients = any(
+            ing.food or ing.unit or ing.original_text for ing in recipe_data.recipe_ingredient
+        )
+        if not has_structured_ingredients:
+            recipe_data_dict["recipeIngredient"] = [ing.display for ing in recipe_data.recipe_ingredient]
 
         recipe_data = recipe_data_dict
 
@@ -273,6 +277,15 @@ def clean_ingredients(ingredients: list | str | None, default: list | None = Non
     Raises:
         TypeError: If the ingredients field is not a supported type a TypeError is raised.
     """
+    def clean_ingredient_value(value):
+        if isinstance(value, str):
+            return clean_string(value)
+        if isinstance(value, dict):
+            return {clean_string(k): clean_ingredient_value(v) for k, v in value.items()}
+        if isinstance(value, list):
+            return [clean_ingredient_value(v) for v in value]
+        return value
+
     match ingredients:
         case None:
             return default or []
@@ -280,7 +293,7 @@ def clean_ingredients(ingredients: list | str | None, default: list | None = Non
             cleaned_ingredients: list[str | dict] = []
             for ing in ingredients:
                 if isinstance(ing, dict):
-                    cleaned_ingredients.append({clean_string(k): clean_string(v) for k, v in ing.items()})
+                    cleaned_ingredients.append(clean_ingredient_value(ing))
                 else:
                     cleaned_ingredients.append(clean_string(ing))
             return cleaned_ingredients
