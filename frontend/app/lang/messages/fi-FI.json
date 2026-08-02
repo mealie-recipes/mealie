@@ -1401,7 +1401,7 @@
     "setup": {
       "first-time-setup": "Ensiasetukset",
       "welcome-to-mealie-get-started": "Tervetuloa Mealieen! Aloitetaan",
-      "previous-mealie-instance": "Did you have a previous Mealie instance?",
+      "previous-mealie-instance": "Oliko sinulla edellinen Mealie-instanssi?",
       "already-set-up-bring-to-homepage": "Olen jo valmis, vie minut kotisivulle",
       "common-settings-for-new-sites": "Tässä muutamia yleisiä asetuksia uusille sivustoille",
       "setup-complete": "Asennus valmis.",
