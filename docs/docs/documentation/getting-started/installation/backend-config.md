@@ -120,6 +120,22 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 | OIDC_TLS_CACERTFILE                                                                 |  None   | File path to Certificate Authority used to verify server certificate (e.g. `/path/to/ca.crt`)                                                                                                                                                                                                          |
 | OIDC_CLIENT_TIMEOUT                                                                 | default | Configures the timeout value of the httpx client used for OIDC communications. If set to the string `default`, does not configure the value (uses the library's default of 5.0s). If set to the string `None`, disables the timeout entirely. If set to a numeric value, uses that as the timeout.     |
 
+
+### Trusted Proxy Header Authentication (SSO)
+
+:octicons-tag-24: (not yet released)
+
+When enabled, Mealie will authenticate the user supplied in `PROXY_AUTH_HEADER` from `TRUSTED_PROXY`, when no valid session token is present (bearer or cookie).
+Users are matched by username first, then email.  Users are not auto-created.
+
+
+`TRUSTED_PROXY` must be set, and must be a single IP (CIDR and lists not supported).  Any other value will disable trusted proxy header auth for safety reasons
+
+| Variables                     |   Default   | Description                                                                                                                                                                                                                                                                                            |
+| ----------------------------- | :---------: | -------------------------------------------------------------------------------------- |
+| PROXY_AUTH_ENABLED            |    false    | Enables trusted proxy header authentication.                                           |
+| PROXY_AUTH_HEADER             | Remote-User | HTTP header used for authentication (for example `Remote-User` or `X-Forwarded-User`). |
+
 ### OpenAI
 
 :octicons-tag-24: v1.7.0

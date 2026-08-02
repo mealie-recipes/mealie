@@ -55,12 +55,6 @@ export const useAuthBackend = function (): AuthState {
   }
 
   async function getSession(): Promise<void> {
-    if (!tokenCookie.value) {
-      authUser.value = null;
-      authStatus.value = "unauthenticated";
-      return;
-    }
-
     authStatus.value = "loading";
     try {
       const { data } = await $axios.get<UserOut>("/api/users/self");

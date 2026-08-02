@@ -37,6 +37,53 @@ def test_user_token_refresh(api_client: TestClient, admin_user: TestUser):
     assert response.status_code == 200
 
 
+def test_proxy_header_auth_existing_user(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setenv("PROXY_AUTH_ENABLED", "true")
+    monkeypatch.setenv("PROXY_AUTH_HEADER", "Remote-User")
+    monkeypatch.setenv("TRUSTED_PROXY", "testclient")
+    get_app_settings.cache_clear()
+
+    response = api_client.get(api_routes.users_self, headers={"Remote-User": unique_user.username})
+    assert response.status_code == 200
+    assert response.json()["username"] == unique_user.username
+
+    get_app_settings.cache_clear()
+
+
+def test_proxy_header_auth_user_not_found(api_client: TestClient, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("PROXY_AUTH_ENABLED", "true")
+    monkeypatch.setenv("PROXY_AUTH_HEADER", "Remote-User")
+    monkeypatch.setenv("TRUSTED_PROXY", "testclient")
+    get_app_settings.cache_clear()
+
+    response = api_client.get(api_routes.users_self, headers={"Remote-User": random_string()})
+    assert response.status_code == 401
+
+    get_app_settings.cache_clear()
+
+
+def test_invalid_token_does_not_fall_back_to_proxy_auth(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setenv("PROXY_AUTH_ENABLED", "true")
+    monkeypatch.setenv("PROXY_AUTH_HEADER", "Remote-User")
+    monkeypatch.setenv("TRUSTED_PROXY", "testclient")
+    get_app_settings.cache_clear()
+
+    response = api_client.get(
+        api_routes.users_self,
+        headers={
+            "Authorization": f"Bearer {random_string()}",
+            "Remote-User": unique_user.username,
+        },
+    )
+    assert response.status_code == 401
+
+    get_app_settings.cache_clear()
+
+
 @pytest.mark.parametrize("use_token", [True, False], ids=["with token", "without token"])
 def test_get_logged_in_user_invalid_token(api_client: TestClient, use_token: bool):
     headers = {"Authorization": f"Bearer {random_string()}"} if use_token else {}
