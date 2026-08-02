@@ -152,7 +152,7 @@ COPY ./docker/healthcheck.sh $MEALIE_HOME/healthcheck.sh
 RUN chmod +x $MEALIE_HOME/healthcheck.sh
 HEALTHCHECK CMD $MEALIE_HOME/healthcheck.sh
 
-ENV HOST 0.0.0.0
+ENV HOST=0.0.0.0
 
 EXPOSE ${APP_PORT}
 COPY ./docker/entry.sh $MEALIE_HOME/run.sh

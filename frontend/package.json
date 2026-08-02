@@ -9,7 +9,7 @@
     "generate": "nuxt generate --spa",
     "lint:js": "eslint .",
     "lint": "pnpm lint:js",
-    "lint:log": "lint:js --debug",
+    "lint:log": "pnpm lint:js --debug",
     "test": "vitest",
     "test:ci": "vitest --watch=false",
     "test:coverage": "vitest run --coverage",

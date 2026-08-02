@@ -19,7 +19,7 @@ ENV UV_LINK_MODE=copy
 
 # Install Taskfile
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/task/task/setup.deb.sh' | sudo -E bash \
-    && apt-get install task
+    && apt-get install -y task
 
 # Create directory for Docker Secrets
 RUN mkdir -p /run/secrets
