@@ -64,6 +64,21 @@ def test_proxy_header_auth_user_not_found(api_client: TestClient, monkeypatch: p
     get_app_settings.cache_clear()
 
 
+def test_proxy_header_auth_rejects_wildcard_trusted_proxy(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setenv("PROXY_AUTH_ENABLED", "true")
+    monkeypatch.setenv("PROXY_AUTH_HEADER", "Remote-User")
+    # Unsafe wildcard should disable proxy auth readiness and fail closed.
+    monkeypatch.setenv("TRUSTED_PROXY", "*")
+    get_app_settings.cache_clear()
+
+    response = api_client.get(api_routes.users_self, headers={"Remote-User": unique_user.username})
+    assert response.status_code == 401
+
+    get_app_settings.cache_clear()
+
+
 def test_invalid_token_does_not_fall_back_to_proxy_auth(
     api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
 ):
