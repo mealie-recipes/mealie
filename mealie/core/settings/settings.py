@@ -8,7 +8,7 @@ from typing import Annotated, Literal, NamedTuple
 from urllib.parse import urlparse
 
 from dateutil.tz import tzlocal
-from pydantic import PlainSerializer, field_validator
+from pydantic import AliasChoices, Field, PlainSerializer, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from mealie.core.settings.themes import Theme
@@ -152,7 +152,7 @@ class AppSettings(AppLoggingSettings):
 
     IS_DEMO: bool = False
 
-    HOST_IP: str = "*"
+    TRUSTED_PROXY: str = Field(default="*", validation_alias=AliasChoices("TRUSTED_PROXY", "HOST_IP"))
 
     API_HOST: str = "0.0.0.0"
     API_PORT: int = 9000

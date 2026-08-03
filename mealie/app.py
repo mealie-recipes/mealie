@@ -174,7 +174,7 @@ def main():
         use_colors=True,
         log_config=None,
         workers=1,
-        forwarded_allow_ips="*",
+        forwarded_allow_ips=settings.TRUSTED_PROXY,
         ws="websockets-sansio",
     )
 

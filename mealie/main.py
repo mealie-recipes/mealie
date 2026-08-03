@@ -12,7 +12,7 @@ def main():
         log_level=settings.LOG_LEVEL.lower(),
         log_config=log_config(),
         workers=settings.WORKERS,
-        forwarded_allow_ips=settings.HOST_IP,
+        forwarded_allow_ips=settings.TRUSTED_PROXY,
         ssl_keyfile=settings.TLS_PRIVATE_KEY_PATH,
         ssl_certfile=settings.TLS_CERTIFICATE_PATH,
         ws="websockets-sansio",

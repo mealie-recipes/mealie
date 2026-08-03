@@ -14,6 +14,8 @@
 | TOKEN_TIME                    |          48           | The time in hours that a login/auth token is valid. Must be <= 9600 (400 days, in hours).                                                               |
 | API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker**                                                                     |
 | API_DOCS                      |         True          | Turns on/off access to the API documentation locally                                                                                                    |
+| TRUSTED_PROXY                 |          *            | Passed to Uvicorn as `forwarded_allow_ips` (trusted sources for `X-Forwarded-*`; supports `*`, comma-separated IPs, and CIDRs).                         |
+| HOST_IP (deprecated)          |          *            | Backward-compatible alias for `TRUSTED_PROXY`. Use `TRUSTED_PROXY`.  Ignored if `TRUSTED_PROXY` is set.                                                 |
 | TZ                            |          UTC          | Must be set to get correct date/time on the server                                                                                                      |
 | ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                                                                                        |
 | ALLOW_PASSWORD_LOGIN          |         true          | Whether or not to display the username+password input fields. Keep set to true unless you use OIDC authentication                                       |
