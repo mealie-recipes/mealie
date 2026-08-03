@@ -125,11 +125,15 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 
 :octicons-tag-24: (not yet released)
 
+For usage, see [Usage - Trusted Proxy Header Authentication](../authentication/proxy-auth.md)
+
 When enabled, Mealie will authenticate the user supplied in `PROXY_AUTH_HEADER` from `TRUSTED_PROXY`, when no valid session token is present (bearer or cookie).
 Users are matched by username first, then email.  Users are not auto-created.
 
 
 `TRUSTED_PROXY` must be set, and must be a single IP (CIDR and lists not supported).  Any other value will disable trusted proxy header auth for safety reasons
+
+For trusted proxy header auth, `TRUSTED_PROXY` is a safety/readiness requirement. Request source trust is enforced by Uvicorn's trusted forwarded-header handling and your proxy/network configuration.
 
 | Variables                     |   Default   | Description                                                                                                                                                                                                                                                                                            |
 | ----------------------------- | :---------: | -------------------------------------------------------------------------------------- |
