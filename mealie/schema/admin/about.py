@@ -19,6 +19,7 @@ class AppInfo(MealieModel):
     default_group_slug: str | None = None
     default_household_slug: str | None = None
     enable_oidc: bool
+    enable_proxy_auth: bool
     oidc_redirect: bool
     oidc_provider_name: str
     token_time: int

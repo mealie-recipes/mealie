@@ -14,6 +14,7 @@ export interface AdminAboutInfo {
   defaultGroupSlug?: string | null;
   defaultHouseholdSlug?: string | null;
   enableOidc: boolean;
+  enableProxyAuth: boolean;
   oidcRedirect: boolean;
   oidcProviderName: string;
   tokenTime: number;
@@ -45,6 +46,7 @@ export interface AppInfo {
   defaultGroupSlug?: string | null;
   defaultHouseholdSlug?: string | null;
   enableOidc: boolean;
+  enableProxyAuth: boolean;
   oidcRedirect: boolean;
   oidcProviderName: string;
   tokenTime: number;
