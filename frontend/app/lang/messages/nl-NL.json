@@ -411,7 +411,7 @@
     "meal-plan-settings": "Maaltijdplan-instellingen",
     "add-all-to-list": "Alles aan lijst toevoegen",
     "add-day-to-list": "Dag aan lijst toevoegen",
-    "randomize-recipe": "Randomize Recipe"
+    "randomize-recipe": "Willekeurig recept"
   },
   "migration": {
     "migration-data-removed": "Migratiegegevens verwijderd",
@@ -481,7 +481,7 @@
     "from-url": "Recept importeren",
     "github-issues": "GitHubproblemen",
     "google-ld-json-info": "Google ld+json Info",
-    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
+    "html-or-json-error-details": "Mealie kon geen recept vinden in de gegevens die u heeft verstrekt. Alleen ld+json of microdata met een schema.org recept kunnen worden geïmporteerd. Als je de JSON plakt, zorg er dan voor dat deze zowel \"@context\": \"https://schema.org/\" en \"@type\": \"Recipe\" bevat.",
     "must-be-a-valid-url": "Moet een geldige URL zijn",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Plak je receptgegevens. Elke regel wordt behandeld als een item in een lijst",
     "recipe-markup-specification": "Opmaakspecificatie recept",
