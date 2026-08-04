@@ -181,7 +181,7 @@ class AlchemyExporter(BaseService):
 
             result = {
                 table.name: [dict(row) for row in connection.execute(table.select()).mappings()]
-                for table in self.meta.sorted_tables
+                for table in self.meta.tables.values()
             }
 
         return jsonable_encoder(result)
