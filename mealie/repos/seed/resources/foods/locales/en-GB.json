@@ -6476,8 +6476,8 @@
             "molasses": {
                 "aliases": [],
                 "description": "",
-                "name": "molass",
-                "plural_name": "molasses"
+                "name": "black treacle",
+                "plural_name": "black treacle"
             },
             "stevia": {
                 "aliases": [],
@@ -6614,7 +6614,7 @@
             "blackstrap molass": {
                 "aliases": [],
                 "description": "",
-                "name": "blackstrap molass",
+                "name": "",
                 "plural_name": "blackstrap molasses"
             },
             "glucose": {
@@ -10167,7 +10167,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "potato chip",
-                "plural_name": "potato chips"
+                "plural_name": "crisps"
             },
             "naan": {
                 "aliases": [],
