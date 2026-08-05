@@ -2,7 +2,7 @@
   <v-img
     v-if="!fallBackImage"
     :height="height"
-    cover
+    :cover="cover"
     min-height="125"
     max-height="fill-height"
     :src="getImage(recipeId)"
@@ -40,9 +40,11 @@ interface Props {
   recipeId: string;
   imageVersion?: string | null;
   height?: number | string;
+  cover?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   tiny: null,
+  cover: true,
   small: null,
   large: null,
   iconSize: 100,

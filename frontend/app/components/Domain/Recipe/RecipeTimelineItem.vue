@@ -60,6 +60,7 @@
               :image="recipe.image"
               :recipe-id="recipe.id"
               :is-flat="true"
+              :cover="false"
             />
           </v-col>
         </v-row>
