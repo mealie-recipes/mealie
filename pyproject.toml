@@ -103,6 +103,7 @@ python_functions = 'test_*'
 testpaths = ["tests"]
 filterwarnings = [
     "ignore::DeprecationWarning:pyRdfa.*",
+    "ignore:The default datetime adapter is deprecated as of Python 3.12:DeprecationWarning",
 ]
 
 [tool.coverage.report]
