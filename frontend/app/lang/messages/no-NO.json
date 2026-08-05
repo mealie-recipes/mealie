@@ -410,7 +410,8 @@
     "applies-on-days": "Gjelder på {0}er",
     "meal-plan-settings": "Innstillinger for måltidsplan",
     "add-all-to-list": "Legg alt til listen",
-    "add-day-to-list": "Legg til dag i listen"
+    "add-day-to-list": "Legg til dag i listen",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Overføringsdata er fjernet",

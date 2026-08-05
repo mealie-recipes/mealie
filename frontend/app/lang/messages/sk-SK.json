@@ -410,7 +410,8 @@
     "applies-on-days": "Platí v {0}",
     "meal-plan-settings": "Nastavenia jedálnička",
     "add-all-to-list": "Pridať všetko do zoznamu",
-    "add-day-to-list": "Pridať deň do zoznamu"
+    "add-day-to-list": "Pridať deň do zoznamu",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Prenesené dáta odstránené",
