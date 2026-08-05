@@ -31,6 +31,7 @@ export interface FormField {
   cols?: number | "auto";
   label?: string;
   hint?: string;
+  tooltip?: string;
   varName: string;
   type: FormFieldType;
   rules?: FormValidationRule[];

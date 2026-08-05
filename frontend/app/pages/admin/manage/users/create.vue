@@ -52,6 +52,7 @@
           <AutoForm
             v-model="newUserData"
             :items="userForm"
+            :disabled-fields="disabledFields"
           />
         </v-card-text>
       </v-card>
@@ -100,6 +101,27 @@ const newUserData = ref({
   password: "",
   authMethod: "Mealie",
 });
+
+const disabledFields = computed(() => {
+  const fields: string[] = [];
+  if (newUserData.value.admin) {
+    fields.push("canManageHousehold", "canManage");
+  }
+  if (!(newUserData.value.admin || newUserData.value.canManage)) {
+    fields.push("canOrganize", "canInvite");
+  }
+  return fields;
+});
+
+watch(
+  () => newUserData.value.admin,
+  (isAdmin) => {
+    if (isAdmin) {
+      newUserData.value.canManageHousehold = true;
+      newUserData.value.canManage = true;
+    }
+  },
+);
 
 async function handleSubmit() {
   if (!refNewUserForm.value?.validate()) return;

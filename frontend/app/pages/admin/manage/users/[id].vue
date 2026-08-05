@@ -169,8 +169,28 @@ const user = ref<UserOut | null>(null);
 const households = useHouseholdsInGroup(computed(() => user.value?.groupId || ""));
 
 const disabledFields = computed(() => {
-  return user.value?.authMethod !== "Mealie" ? ["admin"] : [];
+  const fields: string[] = [];
+  if (user.value?.authMethod !== "Mealie") {
+    fields.push("admin");
+  }
+  if (user.value?.admin) {
+    fields.push("canManageHousehold", "canManage");
+  }
+  if (!(user.value?.admin || user.value?.canManage)) {
+    fields.push("canOrganize", "canInvite");
+  }
+  return fields;
 });
+
+watch(
+  () => user.value?.admin,
+  (isAdmin) => {
+    if (isAdmin && user.value) {
+      user.value.canManageHousehold = true;
+      user.value.canManage = true;
+    }
+  },
+);
 
 const userError = ref(false);
 
