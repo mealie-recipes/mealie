@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Postavlja vašu grupu i zadane postavke svih recepata na privatne. Uvijek možete to kasnije promijeniti."
     },
     "manage-members": "Upravljanje Korisnicima",
-    "manage-members-description": "Upravljajte dozvolama članova u vašem kućanstvu. {manage} omogućuje korisniku pristup stranici za upravljanje podacima, i {invite} omogućuje korisniku generiranje pozivnih veza za druge korisnike. Vlasnici grupe ne mogu mijenjati vlastite dozvole.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Upravljaj",
     "manage-household": "Upravljaj kućanstvom",
     "invite": "Pozovi",
@@ -410,7 +410,8 @@
     "applies-on-days": "Primjeni na {0}",
     "meal-plan-settings": "Postavke Plana Obroka",
     "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-day-to-list": "Add Day to List",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Podaci o migraciji su uklonjeni",
@@ -480,6 +481,7 @@
     "from-url": "Učitaj Recept",
     "github-issues": "GitHub Problemi",
     "google-ld-json-info": "Google ld+json Info",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Mora biti valjan URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Zalijepite podatke svog recepta. Svaka linija će se tretirati kao stavka u popisu",
     "recipe-markup-specification": "Specifikacije Maekup Recepta",
@@ -940,7 +942,10 @@
     "openai-ready": "OpenAI Ready",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready-success-text": "Required OpenAI variables are all set.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Svi Popisi",
@@ -1123,9 +1128,9 @@
     "permissions": "Dozvole",
     "administrator": "Administrator",
     "user-can-invite-other-to-group": "User can invite others to group",
-    "user-can-manage-group": "Korisnik može upravljati grupom",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "User can manage household",
-    "user-can-organize-group-data": "Korisnik može organizirati podatke grupe",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Omogućite napredne značajke",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
@@ -1144,6 +1149,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Spajanje odabrane hrane će spojiti izvornu hranu i ciljanu hranu u jednu hranu. Izvorna hrana će biti izbrisana, a sve reference na izvornu hranu će biti ažurirane kako bi pokazivale na ciljanu hranu.",
       "merge-food-example": "Spajanje {food1} u {food2}",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
@@ -1394,6 +1401,7 @@
     "setup": {
       "first-time-setup": "First Time Setup",
       "welcome-to-mealie-get-started": "Welcome to Mealie! Let's get started",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "I'm already set up, just bring me to the homepage",
       "common-settings-for-new-sites": "Here are some common settings for new sites",
       "setup-complete": "Setup Complete!",

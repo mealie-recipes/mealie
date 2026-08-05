@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Iestatiet grupas un visu recepšu noklusējuma iestatījumus kā privātas. Jūs vienmēr varat to mainīt vēlāk."
     },
     "manage-members": "Pārvaldīt dalībniekus",
-    "manage-members-description": "Pārvaldiet savas mājsaimniecības locekļu atļaujas. {manage}ļauj lietotājam piekļūt datu pārvaldības lapai un {invite} ļauj lietotājam ģenerēt ielūgumu saites citiem lietotājiem. Grupas īpašnieki nevar mainīt savas atļaujas.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Pārvaldīt",
     "manage-household": "Pārvaldiet mājsaimniecību",
     "invite": "Uzaicināt",
@@ -410,7 +410,8 @@
     "applies-on-days": "Attiecas uz {0} s",
     "meal-plan-settings": "Maltītes plāna iestatījumi",
     "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-day-to-list": "Add Day to List",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Migrācijas dati noņemti",
@@ -480,6 +481,7 @@
     "from-url": "Importēt recepti",
     "github-issues": "GitHub problēmas",
     "google-ld-json-info": "Google ld+json informācija",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Jābūt derīgam URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Ielīmējiet receptes datus. Katra rinda tiks uzskatīta par vienumu sarakstā",
     "recipe-markup-specification": "Receptes marķēšanas specifikācija",
@@ -940,7 +942,10 @@
     "openai-ready": "OpenAI gatavs",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Ne visas OpenAI vērtības ir konfigurētas. To var ignorēt, ja neizmantojat OpenAI funkcijas.",
-    "openai-ready-success-text": "Visi nepieciešamie OpenAI mainīgie ir iestatīti."
+    "openai-ready-success-text": "Visi nepieciešamie OpenAI mainīgie ir iestatīti.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Visi saraksti",
@@ -1123,9 +1128,9 @@
     "permissions": "Atļaujas",
     "administrator": "Administrators",
     "user-can-invite-other-to-group": "Lietotājs var uzaicināt citus grupēt",
-    "user-can-manage-group": "Lietotājs var pārvaldīt grupu",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "Lietotājs var pārvaldīt mājsaimniecību",
-    "user-can-organize-group-data": "Lietotājs var organizēt grupas datus",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Iespējot papildu funkcijas",
     "it-looks-like-this-is-your-first-time-logging-in": "Izskatās, ka šī ir jūsu pirmā reize, kad piesakāties.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vai nevēlaties to vairs redzēt? Noteikti mainiet savu e-pastu lietotāja iestatījumos!",
@@ -1144,6 +1149,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Izvēlēto pārtikas produktu apvienošana apvienos avota pārtiku un mērķa pārtiku vienā ēdienā. Avota barība tiks svītrota, un visas atsauces uz avota pārtiku tiks atjauninātas, lai norādītu uz mērķa pārtiku.",
       "merge-food-example": "Apvienošanās {food1} {food2}",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
@@ -1394,6 +1401,7 @@
     "setup": {
       "first-time-setup": "Pirmo reizi iestatīšana",
       "welcome-to-mealie-get-started": "Laipni lūdzam Mealie! Sāksim",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Es jau esmu iestatīts, vienkārši nogādājiet mani mājaslapā",
       "common-settings-for-new-sites": "Šeit ir daži kopīgi iestatījumi jaunām vietnēm",
       "setup-complete": "Iestatīšana pabeigta!",

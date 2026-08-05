@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Nustato, kad jūsų grupė ir visi receptai joje yra privatūs pagal nutylėjimą. Visada galėsite tai pakeisti vėliau."
     },
     "manage-members": "Tvarkyti narius",
-    "manage-members-description": "Tvarkykite savo namų ūkio narių teises.\n{manage} leidžia naudotojui pasiekti duomenų tvarkymo puslapį, o {invite} – generuoti kvietimų nuorodas kitiems naudotojams.\nGrupės savininkai negali keisti savo pačių teisių.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Tvarkyti",
     "manage-household": "Tvarkyti namų ūkį",
     "invite": "Pakviesti",
@@ -410,7 +410,8 @@
     "applies-on-days": "Galioja {0}",
     "meal-plan-settings": "Valgių plano nustatymai",
     "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-day-to-list": "Add Day to List",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Perkėlimo duomenys pašalinti",
@@ -480,6 +481,7 @@
     "from-url": "Importuoti receptą",
     "github-issues": "Github Issues",
     "google-ld-json-info": "Google \"ld+json\" informacija",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Turi būti galiojantis URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Įklijuokite receptą. Kiekviena nauja eilutė bus traktuojama kaip sąrašo elementas",
     "recipe-markup-specification": "Recepto žymėjimų specifikacija",
@@ -940,7 +942,10 @@
     "openai-ready": "OpenAI Ready",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set."
+    "openai-ready-success-text": "Required OpenAI variables are all set.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Visi sąrašai",
@@ -1123,9 +1128,9 @@
     "permissions": "Leidimai",
     "administrator": "Administratorius",
     "user-can-invite-other-to-group": "User can invite others to group",
-    "user-can-manage-group": "Naudotojas gali valdyti grupę",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "User can manage household",
-    "user-can-organize-group-data": "Naudotojas gali tvarkyti grupės duomenis",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Įjungti pažangias funkcijas",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
@@ -1144,6 +1149,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Pasirinktų produktų sujungimas apibendrins pirminį ir antrinį produktus į vieną produktą. Pirminis produktas bus ištrintas, o visi jo panaudojimai bus pakeisti antriniu produktu.",
       "merge-food-example": "Sujungiama {food1} su {food2}",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
@@ -1394,6 +1401,7 @@
     "setup": {
       "first-time-setup": "First Time Setup",
       "welcome-to-mealie-get-started": "Welcome to Mealie! Let's get started",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "I'm already set up, just bring me to the homepage",
       "common-settings-for-new-sites": "Here are some common settings for new sites",
       "setup-complete": "Setup Complete!",

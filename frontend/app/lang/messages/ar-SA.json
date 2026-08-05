@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "تعيين مجموعتك وجميع الوصفات الافتراضية إلى النمط الخاص. يمكنك دائماً تغييرها لاحقاً."
     },
     "manage-members": "إدارة الأعضاء",
-    "manage-members-description": ".",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "إدارة الحساب",
     "manage-household": "إدارة العائلة",
     "invite": "دعوة",
@@ -410,7 +410,8 @@
     "applies-on-days": "يطبق على أيام {0}",
     "meal-plan-settings": "إعدادات خِطَّة الوجبات الغذائية",
     "add-all-to-list": "إضافة الكل إلى القائمة",
-    "add-day-to-list": "إضافة اليوم إلى القائمة"
+    "add-day-to-list": "إضافة اليوم إلى القائمة",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "حذف بيانات الهجرة",
@@ -480,6 +481,7 @@
     "from-url": "استيراد وصفة",
     "github-issues": "مشاكل GitHub",
     "google-ld-json-info": "معرف Google + معلومات json",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "يجب أن يكون عنوان URL صالحًا",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "لصق بيانات الوصفة الخاصة بك. سيتم التعامل مع كل سطر كعنصر في قائمة",
     "recipe-markup-specification": "مواصفات ترميز الوصفة",
@@ -940,7 +942,10 @@
     "openai-ready": "OpenAI جاهز",
     "openai-not-ready": "OpenAI غير جاهز",
     "openai-ready-error-text": "لم يتم تكوين جميع قيم LDAP. يمكن تجاهل هذا إذا كنت لا تستخدم مصادقة LDAP.",
-    "openai-ready-success-text": "تم تعيين جميع متغيرات LDAP المطلوبة."
+    "openai-ready-success-text": "تم تعيين جميع متغيرات LDAP المطلوبة.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "جميع القوائم",
@@ -1123,9 +1128,9 @@
     "permissions": "الصلاحيات",
     "administrator": "المشرف",
     "user-can-invite-other-to-group": "يمكن للمستخدم دعوة الآخرين للمجموعة",
-    "user-can-manage-group": "يمكن للمستخدم إدارة المجموعة",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "يمكن للمستخدم إدارة الأسرة",
-    "user-can-organize-group-data": "يمكن للمستخدم تنظيم بيانات المجموعة",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "تفعيل الميزات المتقدمة",
     "it-looks-like-this-is-your-first-time-logging-in": "يبدو أن هذه أول مرة تقوم فيها بتسجيل الدخول.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "لا تريد رؤية هذه الرسالة بعد الآن؟ تأكد من تغيير بريدك الإلكتروني في إعدادات المستخدم الخاصة بك!",
@@ -1144,6 +1149,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "سيؤدي دمج الأطعمة المختارة إلى دمج الطعام الأصلي والطعام المستهدف في طعام واحد. سيتم حذف الطعام الأصلي، وسيتم تحديث جميع الإشارات إليه لتشير إلى الطعام المستهدف.",
       "merge-food-example": "دمج {food1} مع {food2}",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
@@ -1394,6 +1401,7 @@
     "setup": {
       "first-time-setup": "اعداد المرة الأولى",
       "welcome-to-mealie-get-started": "مرحبا بكم في Mealie! لنبدأ",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "أنا بالفعل جاهز، فقط أحضر ني إلى الصفحة الرئيسية",
       "common-settings-for-new-sites": "فيما يلي بعض الإعدادات الشائعة للمواقع الجديدة",
       "setup-complete": "تمت الإعدادات!",

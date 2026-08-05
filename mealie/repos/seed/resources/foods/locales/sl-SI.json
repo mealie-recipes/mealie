@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "česen",
-                "plural_name": "garlic"
+                "plural_name": "česen"
             },
             "onion": {
                 "aliases": [],
@@ -59,13 +59,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "zelena",
-                "plural_name": "celery"
+                "plural_name": "zelena"
             },
             "jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "name": "Jalapeño čili",
+                "plural_name": "Jalapeño čiliji"
             },
             "avocado": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "špinača",
-                "plural_name": "spinach"
+                "plural_name": "špinača"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "sladka koruza",
-                "plural_name": "sweet corn"
+                "plural_name": "sladka koruza"
             },
             "chile pepper": {
                 "aliases": [
@@ -121,19 +121,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "brokoli",
-                "plural_name": "broccoli"
+                "plural_name": "brokoli"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
                 "name": "palmovi srčki",
-                "plural_name": "heart of palm"
+                "plural_name": "Palmovi srčki"
             },
             "baby greens": {
                 "aliases": [],
                 "description": "",
-                "name": "baby greens",
-                "plural_name": "baby greens"
+                "name": "Mešanica mlade zelenjave",
+                "plural_name": "Mešanice mlade zelenjave"
             },
             "pumpkin": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "cvetača",
-                "plural_name": "cauliflower"
+                "plural_name": "Cvetače"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,20 +156,20 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "Špargelj ali beluš",
+                "plural_name": "Šparglji ali beluši"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
                 "name": "ohrovt",
-                "plural_name": "kale"
+                "plural_name": "Kodrolistnati ohrovti"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
                 "name": "rukola",
-                "plural_name": "arugula"
+                "plural_name": "Rukole"
             },
             "leek": {
                 "aliases": [],
@@ -187,7 +187,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "solata",
-                "plural_name": "lettuce"
+                "plural_name": "Solata"
             },
             "butternut squash": {
                 "aliases": [],
@@ -793,7 +793,7 @@
             "cantaloupe": {
                 "aliases": [],
                 "description": "",
-                "name": "cantaloupe",
+                "name": "melona",
                 "plural_name": "cantaloupes"
             },
             "sultana": {
@@ -1081,7 +1081,7 @@
             "dried tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "dried tamarind",
+                "name": "suha tamarinda",
                 "plural_name": "dried tamarinds"
             },
             "honey date": {
@@ -13725,11 +13725,11 @@
                 "name": "anchovy stock",
                 "plural_name": "anchovy stock"
             },
-            "cream of chicken soup mix:": {
+            "cream of chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "cream of chicken soup mix",
+                "plural_name": "cream of chicken soup mix"
             },
             "noodle soup mix": {
                 "aliases": [],

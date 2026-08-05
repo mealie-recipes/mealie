@@ -231,7 +231,11 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
             document_data = document if isinstance(document, dict) else document.model_dump()
             document_data_by_id[document_data["id"]] = document_data
 
-        documents_to_update_query = self._query().filter(self.model.id.in_(list(document_data_by_id.keys())))
+        documents_to_update_query = (
+            self._query()
+            .filter(self.model.id.in_(list(document_data_by_id.keys())))
+            .filter_by(**self._filter_builder())
+        )
         documents_to_update = self.session.execute(documents_to_update_query).unique().scalars().all()
 
         updated_documents = []
@@ -269,7 +273,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         return result_as_model
 
     def delete_many(self, values: Iterable) -> list[Schema]:
-        query = self._query().filter(self.model.id.in_(values))
+        query = self._query().filter(self.model.id.in_(values)).filter_by(**self._filter_builder())
         results = self.session.execute(query).unique().scalars().all()
         results_as_model = [self.schema.model_validate(result) for result in results]
 

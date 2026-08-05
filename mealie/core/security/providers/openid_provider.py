@@ -48,6 +48,15 @@ class OpenIDProvider(AuthProvider[UserInfo]):
                 self._logger.debug("[OIDC] Required claim '%s' is empty", claim)
                 raise MissingClaimException()
 
+        # Never trust an unverified email. An IdP that lets a user self-assert an
+        # arbitrary, unverified address would otherwise allow that user to match
+        # (and log into) another account by claiming its email. When the email is
+        # verified, matching an existing account is legitimate account linking.
+        # Admins whose IdP does not emit the claim can opt out via this setting.
+        if settings.OIDC_REQUIRES_EMAIL_VERIFICATION and not claims.get("email_verified", False):
+            self._logger.warning("[OIDC] email_verified claim is missing or false; refusing to authenticate")
+            raise MissingClaimException()
+
         repos = get_repositories(self.session, group_id=None, household_id=None)
 
         is_admin = False
@@ -106,15 +115,14 @@ class OpenIDProvider(AuthProvider[UserInfo]):
 
             return self.get_access_token(user, settings.OIDC_REMEMBER_ME)  # type: ignore
 
-        if user:
-            if settings.OIDC_ADMIN_GROUP and user.admin != is_admin:
-                self._logger.debug("[OIDC] %s user as admin", "Setting" if is_admin else "Removing")
-                user.admin = is_admin
-                repos.users.update(user.id, user)
-            return self.get_access_token(user, settings.OIDC_REMEMBER_ME)
-
-        self._logger.warning("[OIDC] Found user but their AuthMethod does not match OIDC")
-        return None
+        # A matched account is adopted here (including local/LDAP accounts). This is
+        # safe because the email that produced the match was verified by the IdP
+        # above, unless the admin has explicitly disabled that requirement.
+        if settings.OIDC_ADMIN_GROUP and user.admin != is_admin:
+            self._logger.debug("[OIDC] %s user as admin", "Setting" if is_admin else "Removing")
+            user.admin = is_admin
+            repos.users.update(user.id, user)
+        return self.get_access_token(user, settings.OIDC_REMEMBER_ME)
 
     @property
     def required_claims(self):

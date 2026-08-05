@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "A csoport és az összes recept alapértelmezett beállítása privátra. Ezt később bármikor megváltoztathatod."
     },
     "manage-members": "Tagok Kezelése",
-    "manage-members-description": "Kezelje a háztartás tagjainak jogosultságait. A {manage} lehetővé teszi a felhasználó számára az adatkezelési oldal elérését, a {invite} pedig lehetővé teszi a felhasználó számára, hogy meghívó linkeket hozzon létre más felhasználók számára. A csoporttulajdonosok nem módosíthatják saját jogosultságaikat.",
+    "manage-members-description": "Kezelje háztartásának tagjainak jogosultságait. A {manage} lehetővé teszi a felhasználó számára, hogy hozzáférjen a csoportkezelési felületekhez, az {organize} engedélyezi a csoport adatainak – például ételek, címkék és kategóriák – kezelését, míg az {invite} lehetővé teszi meghívólinkek létrehozását más felhasználók számára. A csoport tulajdonosai nem módosíthatják a saját jogosultságaikat.",
     "manage": "Kezelés",
     "manage-household": "Háztartás kezelése",
     "invite": "Meghívás",
@@ -410,7 +410,8 @@
     "applies-on-days": "Érvényes {0}-ként",
     "meal-plan-settings": "Menütervező beállításai",
     "add-all-to-list": "Összes hozzáadása a listához",
-    "add-day-to-list": "Nap hozzáadása a listához"
+    "add-day-to-list": "Nap hozzáadása a listához",
+    "randomize-recipe": "Véletlenszerű receptek"
   },
   "migration": {
     "migration-data-removed": "Migrációs adatok eltávolítva",
@@ -462,7 +463,7 @@
     "mealie-text": "Mealie képes a v1.0 előtti kiadású Mealie alkalmazásból származó receptek importálására. Exportálja a receptjeit a régi példányából, és töltse fel a zip fájlt alább. Vegye figyelembe, hogy az exportból csak receptek importálhatók.",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie képes recepteket importálni a Plan to Eat alkalmazásból."
+      "description-long": "Mealie képes recepteket importálni a Plan to Eat alkalmazásból. ZIP, CSV vagy TXT fájlként feltölthetők a Plan to Eat-ből exportálásuk után."
     },
     "myrecipebox": {
       "title": "Az én receptes dobozom",
@@ -480,6 +481,7 @@
     "from-url": "Recept importálása",
     "github-issues": "GitHub-problémák",
     "google-ld-json-info": "ld+json információ keresése",
+    "html-or-json-error-details": "Mealie nem talált receptet az megadott adatokban. Csak olyan ld+json vagy mikroadatokat lehet importálni, amelyek tartalmaznak egy schema.org Recipe elemet. Ha JSON-t illeszt be, győződjön meg arról, hogy az tartalmazza mind az „@context”: „https://schema.org/”, mind az „@type”: „Recipe” deklarációt.",
     "must-be-a-valid-url": "Érvényes URL-nek kell lennie",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Másold be a receptedet. Minden sor egy új elemként lesz kezelve a listában",
     "recipe-markup-specification": "Receptjelölési előírás",
@@ -940,7 +942,10 @@
     "openai-ready": "OpenAI készen áll",
     "openai-not-ready": "OpenAI még nem áll készen",
     "openai-ready-error-text": "Nem minden OpenAI érték van beállítva. Ez figyelmen kívül hagyható, ha nem használja az OpenAI funkcióit.",
-    "openai-ready-success-text": "Minden szükséges OpenAI változó beállítva."
+    "openai-ready-success-text": "Minden szükséges OpenAI változó beállítva.",
+    "site-statistics": "Oldal statisztikák",
+    "uncategorized-recipes": "Nem kategorizált receptek",
+    "untagged-recipes": "Nem címkézett receptek"
   },
   "shopping-list": {
     "all-lists": "Összes lista",
@@ -1123,9 +1128,9 @@
     "permissions": "Engedélyek",
     "administrator": "Adminisztrátor",
     "user-can-invite-other-to-group": "A felhasználó meghívhat másokat a csoportba",
-    "user-can-manage-group": "A felhasználó csoportot kezelhet",
+    "user-can-manage-group": "A felhasználó kezelheti a csoport beállításait",
     "user-can-manage-household": "A felhasználó a háztartást kezelheti",
-    "user-can-organize-group-data": "Felhasználó szerkesztheti a csoport adatait",
+    "user-can-organize-group-data": "A felhasználó kezelheti az ételeket, a címkéket és a kategóriákat",
     "enable-advanced-features": "Haladó funkciók engedélyezése",
     "it-looks-like-this-is-your-first-time-logging-in": "Úgy tűnik, most jelentkezik be először.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nem akarja ezt többé látni? Mindenképpen változtassa meg az e-mail címét a felhasználói beállítások között!",
@@ -1144,6 +1149,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Figyelem: ez az alapanyag {count} receptben használt. Törlése után üres hozzávalóként jelenik meg a receptekben.",
+      "delete-affects-recipes-more": "Az összes {count} recept megtekintése",
       "merge-dialog-text": "A kiválasztott alapanyagok egyesítésével a forrásalapanyag és a célalapanyag egyetlen alapanyag lesz. A forrásalapanyag törlésre kerül, és a forrásalapanyagra vonatkozó összes hivatkozás frissül, hogy a célalapanyagra mutasson.",
       "merge-food-example": "{food1} összevonása {food2}-ba/be",
       "seed-dialog-text": "Töltse be az adatbázist a helyi nyelvű alapanyagokkal. Ezáltal több mint 200 közös alapanyagot hoz létre, amelyek segítségével rendszerezheti az adatbázisát. Az alapanyagok fordítása közösségi összefogással történik.",
@@ -1394,6 +1401,7 @@
     "setup": {
       "first-time-setup": "Első beállítás",
       "welcome-to-mealie-get-started": "Üdvözöl a Mealie! Vágjunk bele",
+      "previous-mealie-instance": "Volt már korábbi Mealie-példánya?",
       "already-set-up-bring-to-homepage": "Már kész is vagyok, vigyél az új kezdőoldalamra",
       "common-settings-for-new-sites": "Itt van egy pár alap beállítás az új oldaladhoz",
       "setup-complete": "Beállítás kész!",

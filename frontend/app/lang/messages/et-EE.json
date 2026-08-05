@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Muudab teie rühma ja kõik retseptid privaatseks. Saate seda alati hiljem muuta."
     },
     "manage-members": "Halda liikmeid",
-    "manage-members-description": "Hallake oma leibkonnaliikmete õigusi. {manage} annab liikmele juurdepääsu andmehalduslehele ja {invite} võimaldab kasutajal luua teistele kasutajatele kutselinke. Grupi omanikud ei saa oma õigusi ise muuta.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Halda",
     "manage-household": "Halda leibkonda",
     "invite": "Kutsu",
@@ -410,7 +410,8 @@
     "applies-on-days": "Kehtib {0}l",
     "meal-plan-settings": "Toitumisplaani sätted",
     "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-day-to-list": "Add Day to List",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Ületoomiste andmed eemaldatud",
@@ -480,6 +481,7 @@
     "from-url": "Impordi retsept",
     "github-issues": "GitHub issue-d",
     "google-ld-json-info": "Google ld+json info",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Peab olema valiidne URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Kleebi oma retsepti andmed. Igat rida koheldakse kui nimekirja punkti",
     "recipe-markup-specification": "Retsepti Markup spetsifikatsioon",
@@ -940,7 +942,10 @@
     "openai-ready": "OpenAI on valmis",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Kõik OpenAI väärtused pole konfigureeritud. Seda teadet võib ignoreerida kui sa ei kasuta OpenAI funktsionaalsust.",
-    "openai-ready-success-text": "Kõigile OpenAI muutujatele on väärtused seatud."
+    "openai-ready-success-text": "Kõigile OpenAI muutujatele on väärtused seatud.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Kõik nimekirjad",
@@ -1123,9 +1128,9 @@
     "permissions": "Õigused",
     "administrator": "Administraator",
     "user-can-invite-other-to-group": "Kasutaja võib kutsuda teisi gruppi",
-    "user-can-manage-group": "Kasutaja võib hallata gruppi",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "Kasutaja võib hallata leibkonda",
-    "user-can-organize-group-data": "Kasutaja võin organiseerida grupi andmeid",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Luba laiendatud funktionaalsus",
     "it-looks-like-this-is-your-first-time-logging-in": "Paistab, et see on sinu esimene sisse logimine",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ei taha enam seda näha? Ära unusta muuta oma email kasutaja seadetes",
@@ -1144,6 +1149,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Valitud toitude kombineerimine ühendab koostisained ja keskendub ühele roale. Lähtetoidud eemaldatakse ja kõik viited lähtetoidule värskendatakse, et osutada sihttoidule.",
       "merge-food-example": "{food1} liitmine {food2}-ga",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
@@ -1394,6 +1401,7 @@
     "setup": {
       "first-time-setup": "Esimese korra seadistus",
       "welcome-to-mealie-get-started": "Teretulemast Mealie-sse! Alustame",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Ma olen juba vajalikud asjad seadistanud, vii mind pealehele",
       "common-settings-for-new-sites": "Siin on mõned harilikud sätted uute lehekülgede jaoks",
       "setup-complete": "Seadistus valmis!",

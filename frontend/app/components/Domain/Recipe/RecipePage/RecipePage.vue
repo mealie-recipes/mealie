@@ -23,6 +23,7 @@
     <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
       <v-card flat class="d-print-none">
         <RecipePageHeader
+          ref="recipeToolbar"
           :recipe="recipe"
           :recipe-scale="scale"
           :landscape="landscape"
@@ -112,6 +113,22 @@
       />
       <RecipePrintContainer :recipe="recipe" :scale="scale" />
     </v-container>
+    <!-- Floating save button when toolbar scrolls out of view -->
+    <v-fab
+      v-if="isEditMode && !toolbarVisible"
+      color="success"
+      location="bottom end"
+      size="large"
+      app
+      appear
+      class="d-print-none"
+      @click="saveRecipe"
+    >
+      <v-icon>{{ $globals.icons.save }}</v-icon>
+      <v-tooltip activator="parent" location="left">
+        {{ $t("general.save") }}
+      </v-tooltip>
+    </v-fab>
     <!-- Cook mode displayes two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same time -->
     <!-- The calc is to account for the navabar height (48px) -->
     <v-sheet
@@ -191,6 +208,7 @@
 </template>
 
 <script setup lang="ts">
+import type { ComponentPublicInstance } from "vue";
 import { invoke, until } from "@vueuse/core";
 import type { RouteLocationNormalized } from "vue-router";
 import RecipeIngredients from "../RecipeIngredients.vue";
@@ -242,6 +260,26 @@ const notLinkedIngredients = computed(() => {
     );
   });
 });
+
+/** =============================================================
+ * Floating save button — track toolbar visibility
+ */
+const recipeToolbar = ref<ComponentPublicInstance | null>(null);
+const toolbarVisible = ref(true);
+let toolbarObserver: IntersectionObserver | undefined;
+
+onMounted(async () => {
+  await nextTick();
+  const el = recipeToolbar.value?.$el as HTMLElement | undefined;
+  if (!el) return;
+  toolbarObserver = new IntersectionObserver(
+    ([entry]) => { toolbarVisible.value = entry.isIntersecting; },
+    { threshold: 0 },
+  );
+  toolbarObserver.observe(el);
+});
+
+onUnmounted(() => toolbarObserver?.disconnect());
 
 /** =============================================================
  * Recipe Snapshot on Mount

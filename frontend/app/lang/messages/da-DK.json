@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Ændrer din gruppe og alle opskrifter til private. Du kan altid ændre dette senere."
     },
     "manage-members": "Administrer medlemmer",
-    "manage-members-description": "Administrer tilladelser for medlemmerne i din husstand. {manage} giver brugeren adgang til datastyringssiden, og {invite} giver brugeren mulighed for at generere invitationslinks til andre brugere. Gruppeejere kan ikke ændre deres egne tilladelser.",
+    "manage-members-description": "Administrér brugertilladelser i din husstand. {manage} tillader brugeren at tilgå gruppeadministration, {organize} tilleder brugeren at administrere gruppedata, såsom ingredienser, etiketter og kategorier, og {invite} tillader brugeren at generere invitationslinks til andre brugere. Gruppeejere kan ikke ændre deres egne brugertilladelser.",
     "manage": "Administrer",
     "manage-household": "Administrer Husstand",
     "invite": "Invitér",
@@ -410,7 +410,8 @@
     "applies-on-days": "Gælder for {0}e",
     "meal-plan-settings": "Indstillinger for madplanlægning",
     "add-all-to-list": "Tilføj alle til liste",
-    "add-day-to-list": "Tilføj dag til liste"
+    "add-day-to-list": "Tilføj dag til liste",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Migreringsdata fjernet",
@@ -480,6 +481,7 @@
     "from-url": "Fra URL",
     "github-issues": "GitHub problemer",
     "google-ld-json-info": "Google ld+json data",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Det skal være en korrekt URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Indsæt dine opskriftsdata. \nHver linje behandles som et element på en liste",
     "recipe-markup-specification": "Opskriftsmarkupspecifikation",
@@ -940,7 +942,10 @@
     "openai-ready": "OpenAI klar",
     "openai-not-ready": "OpenAI er ikke klar",
     "openai-ready-error-text": "Ikke alle OpenAI værdier er konfigureret. Dette kan ignoreres, hvis du ikke bruger OpenAI funktioner.",
-    "openai-ready-success-text": "Påkrævede OpenAI variabler er alle indstillet."
+    "openai-ready-success-text": "Påkrævede OpenAI variabler er alle indstillet.",
+    "site-statistics": "Webstedsstatistik",
+    "uncategorized-recipes": "Opskrifter uden kategori",
+    "untagged-recipes": "Opskrifter uden etiket"
   },
   "shopping-list": {
     "all-lists": "Alle lister",
@@ -1123,9 +1128,9 @@
     "permissions": "Rettigheder",
     "administrator": "Administrator",
     "user-can-invite-other-to-group": "Bruger kan invitere andre til gruppen",
-    "user-can-manage-group": "Bruger kan administrere gruppen",
+    "user-can-manage-group": "Brugeren kan administrere gruppeindstillinger",
     "user-can-manage-household": "Brugeren kan administrere husstande",
-    "user-can-organize-group-data": "Bruger kan organisere gruppedata",
+    "user-can-organize-group-data": "Brugeren kan administrere ingredienser, etiketter og kategorier",
     "enable-advanced-features": "Aktiver avancerede funktioner",
     "it-looks-like-this-is-your-first-time-logging-in": "Det ser ud til, at det er første gang, at du logger ind.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vil du ikke længere se dette? Sørg for at ændre din e-mail i dine brugerindstillinger!",
@@ -1144,6 +1149,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Advarsel: denne ingrediens er brugt i {count} opskrift(er). Hvis du sletter den, vil det efterlade en tom ingrediens i opskriften/opskrifterne.",
+      "delete-affects-recipes-more": "Se alle {count} opskrifter",
       "merge-dialog-text": "Ved at kombinere de udvalgte fødevarer vil de to valgte fødevarer blive til en enkelt fødevare. Kildefødevaren vil blive slettet, og alle henvisninger til kildefødevaren vil blive opdateret til at pege på målfødevaren.",
       "merge-food-example": "Samler {food1} med {food2}",
       "seed-dialog-text": "Tilføj standardfødevarer på dansk i databasen. Dette vil oprette cirka 2700 af de mest anvendte fødevarer, der kan bruges til at organisere din database. Fødevarer er oversat via en fællesskabsindsats.",
@@ -1394,6 +1401,7 @@
     "setup": {
       "first-time-setup": "Indledende opsætning",
       "welcome-to-mealie-get-started": "Velkommen til Mealie! Lad os starte",
+      "previous-mealie-instance": "Har du haft en tidligere Mealie-instans?",
       "already-set-up-bring-to-homepage": "Jeg er allerede oprettet, bare bringe mig til startsiden",
       "common-settings-for-new-sites": "Her er nogle almindelige indstillinger for nye sites",
       "setup-complete": "Opsætning færdig!",

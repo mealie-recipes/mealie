@@ -44,7 +44,7 @@
         >
           <v-icon
             :size="small ? 'small' : 'large'"
-            left
+            start
             color="primary"
           >
             {{ $globals.icons.knife }}
@@ -64,7 +64,7 @@
         >
           <v-icon
             :size="small ? 'small' : 'large'"
-            left
+            start
             color="primary"
           >
             {{ $globals.icons.potSteam }}

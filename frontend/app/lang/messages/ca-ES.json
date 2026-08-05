@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Posa el teu grup i totes les receptes com a privades. Podeu canviar-ho després."
     },
     "manage-members": "Gestiona els membres",
-    "manage-members-description": "Gestiona els permisos dels membres de la teva llar. {manage} permet a l'usuari accedir la pàgina de gestió de dades, i {invite} permet a l'usuari generar enllaços d'invitació per altres usuaris. Els propietaris de grups no es poden canviar els seus propis permisos.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Gestiona",
     "manage-household": "Gestiona la llar",
     "invite": "Convida",
@@ -410,7 +410,8 @@
     "applies-on-days": "S'aplicarà en {0}s",
     "meal-plan-settings": "Opcions de planificació de menús",
     "add-all-to-list": "Afegiu Tot a la llista",
-    "add-day-to-list": "Afegiu Dia a la llista"
+    "add-day-to-list": "Afegiu Dia a la llista",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "S'han suprimit les dades migrades",
@@ -480,6 +481,7 @@
     "from-url": "Importa una recepta",
     "github-issues": "Incidència a Github",
     "google-ld-json-info": "Google ld+json Info",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Ha de ser una URL vàlida",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Copieu en la recepta. Cada línia serà tractada com un element de la llista",
     "recipe-markup-specification": "Especificació Markup de la recepta",
@@ -940,7 +942,10 @@
     "openai-ready": "Llest per OpenAI",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "No tots els valors d'OpenAI estan configurats. Es pot ignorar si no s'estan utilitzant les funcionalitats d'OpenAI.",
-    "openai-ready-success-text": "Les variables requerides per OpenAI estan establertes."
+    "openai-ready-success-text": "Les variables requerides per OpenAI estan establertes.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Totes les llistes",
@@ -1123,9 +1128,9 @@
     "permissions": "Permisos",
     "administrator": "Administrador",
     "user-can-invite-other-to-group": "L'usuari pot convidar a altres al grup",
-    "user-can-manage-group": "L'usuari pot gestionar el grup",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "Usuari que pot gestionar la llar",
-    "user-can-organize-group-data": "L'usuari pot organitzar dades del grup",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Activa funcionalitats avançades",
     "it-looks-like-this-is-your-first-time-logging-in": "Sembla que és el primer cop que et registres.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "No vols tornar a veure això? Assegura't de canviar el teu correu electrònic a les configuracions del teu usuari!",
@@ -1144,6 +1149,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Combinant els aliments seleccionats, es fusionaran els dos aliments en un. El primer aliment serà eliminat i totes les referències s'actualitzaran a l'aliment resultant.",
       "merge-food-example": "Combinant {food1} i {food2}",
       "seed-dialog-text": "Afegeix a la base de dades els noms dels aliments en el vostre idioma. Açò crearà més de 200 aliments comuns per a què pugueu organitzar la vostra base de dades. Els noms dels aliments han estat traduïts gràcies a l'esforç de la comunitat.",
@@ -1394,6 +1401,7 @@
     "setup": {
       "first-time-setup": "Configuració de primer cop",
       "welcome-to-mealie-get-started": "Benvingut/da a Mealie! Anem per feina",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Ja ho tinc configurat, porta'm a la pàgina principal",
       "common-settings-for-new-sites": "Aquí hi ha algunes configuracions comunes per noves pàgines",
       "setup-complete": "Configuració completada!",
