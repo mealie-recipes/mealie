@@ -35,5 +35,5 @@ class ScrapeRecipeData(ScrapeRecipeBase):
 
 
 class CreateRecipeFromText(MealieModel):
-    text: str
+    text: str = Field(..., min_length=1)
     """Plain text content of the recipe"""

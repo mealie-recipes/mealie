@@ -629,8 +629,6 @@ class OpenAIRecipeService(RecipeServiceBase):
 
     async def build_recipe_from_text(self, text: str, translate_language: str | None) -> Recipe:
         openai_service = OpenAIService(self.repos)
-        if not (openai_service.provider_settings and openai_service.provider_settings.ai_enabled):
-            raise ValueError("OpenAI services are not available")
 
         prompt = openai_service.get_prompt("recipes.parse-recipe-text")
 
