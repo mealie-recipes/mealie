@@ -1,5 +1,5 @@
 import { SSE } from "sse.js";
-import type { SSEvent } from "sse.js";
+import type { ReadyStateEvent, SSEvent } from "sse.js";
 import { BaseCRUDAPI } from "../../base/base-clients";
 import { route } from "../../base";
 import { CommentsApi } from "./recipe-comments";
@@ -164,6 +164,16 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
         autoReconnect: false,
       });
 
+      let settled = false;
+      const settle = (result: RequestResponse<string>) => {
+        if (settled) {
+          return;
+        }
+        settled = true;
+        sse.close();
+        resolve(result);
+      };
+
       if (onProgress) {
         sse.addEventListener(SSEDataEventStatus.Progress, (e: SSEvent) => {
           const { message } = JSON.parse(e.data) as SSEDataEventMessage;
@@ -173,18 +183,26 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
 
       sse.addEventListener(SSEDataEventStatus.Done, (e: SSEvent) => {
         const { slug } = JSON.parse(e.data) as SSEDataEventDone;
-        sse.close();
-        resolve({ response: { status: 201, data: slug } as any, data: slug, error: null });
+        settle({ response: { status: 201, data: slug } as any, data: slug, error: null });
       });
 
       sse.addEventListener(SSEDataEventStatus.Error, (e: SSEvent) => {
+        let message: string | undefined;
         try {
-          const { message } = JSON.parse(e.data) as SSEDataEventMessage;
-          sse.close();
-          resolve({ response: null, data: null, error: new Error(message) });
+          ({ message } = JSON.parse(e.data) as SSEDataEventMessage);
         }
         catch {
-          // Not a backend error payload (e.g. XHR connection-close event); ignore
+          // Not a backend error payload (e.g. an XHR failure carrying the raw response body)
+        }
+        settle({ response: null, data: null, error: new Error(message || "Recipe creation failed") });
+      });
+
+      // The stream can also close without ever emitting a done/error event, e.g. when the
+      // request fails before the route handler runs. Settle here so callers always get a
+      // response instead of waiting on a promise that never resolves.
+      sse.addEventListener("readystatechange", (e: ReadyStateEvent) => {
+        if (e.readyState === SSE.CLOSED) {
+          settle({ response: null, data: null, error: new Error("Recipe creation failed") });
         }
       });
 

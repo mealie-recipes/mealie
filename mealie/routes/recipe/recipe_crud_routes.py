@@ -193,6 +193,24 @@ class RecipeController(BaseRecipeController):
         async for event in self._create_recipe_from_web(req):
             yield event
 
+    @staticmethod
+    def _error_message(ex: Exception) -> str:
+        """
+        Extract a meaningful message from an exception raised during recipe creation.
+
+        Scraper failures surface as an HTTPException carrying a `ParserErrors` value
+        (e.g. BAD_RECIPE_DATA), which is far more useful to the client than the class name.
+        """
+
+        if isinstance(ex, HTTPException):
+            detail = ex.detail
+            if isinstance(detail, dict) and (details := detail.get("details")):
+                return str(details)
+            if isinstance(detail, str) and detail:
+                return detail
+
+        return ex.__class__.__name__
+
     async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
         """
         Create a recipe from the web, returning progress via SSE.
@@ -236,7 +254,7 @@ class RecipeController(BaseRecipeController):
                 self.logger.exception("Error in streaming recipe creation")
                 await queue.put(
                     ServerSentEvent(
-                        data=SSEDataEventMessage(message=e.__class__.__name__),
+                        data=SSEDataEventMessage(message=self._error_message(e)),
                         event=SSEDataEventStatus.ERROR,
                     )
                 )

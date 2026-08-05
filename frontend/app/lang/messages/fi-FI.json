@@ -410,7 +410,8 @@
     "applies-on-days": "Käytetään {0}",
     "meal-plan-settings": "Ateriasuunnitelman asetukset",
     "add-all-to-list": "Lisää kaikki listalle",
-    "add-day-to-list": "Lisää päivä listalle"
+    "add-day-to-list": "Lisää päivä listalle",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Tuodut tiedot poistettu",
@@ -480,6 +481,7 @@
     "from-url": "Tuo resepti",
     "github-issues": "GitHub-ongelmat",
     "google-ld-json-info": "Google ld+json info",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "URL:n muoto ei ole oikea",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Liitä reseptitiedot. Joka riviä kohdellaan luettelon kohteena",
     "recipe-markup-specification": "Reseptin merkkimääritys",
@@ -1399,7 +1401,7 @@
     "setup": {
       "first-time-setup": "Ensiasetukset",
       "welcome-to-mealie-get-started": "Tervetuloa Mealieen! Aloitetaan",
-      "previous-mealie-instance": "Did you have a previous Mealie instance?",
+      "previous-mealie-instance": "Oliko sinulla edellinen Mealie-instanssi?",
       "already-set-up-bring-to-homepage": "Olen jo valmis, vie minut kotisivulle",
       "common-settings-for-new-sites": "Tässä muutamia yleisiä asetuksia uusille sivustoille",
       "setup-complete": "Asennus valmis.",

@@ -576,10 +576,10 @@
             },
             "Frisée": {
                 "aliases": [
-                    "curly endive"
+                    "čakanka kučeravá"
                 ],
                 "description": "",
-                "name": "Frisée",
+                "name": "Kučeravý šalát",
                 "plural_name": "Frisée šaláty"
             },
             "anaheim pepper": {
@@ -2805,26 +2805,26 @@
             "hung curd": {
                 "aliases": [],
                 "description": "",
-                "name": "hung curd",
-                "plural_name": "hung curds"
+                "name": "s cedený jogurt",
+                "plural_name": "s cedené jogurty"
             },
             "quail egg": {
                 "aliases": [],
                 "description": "",
-                "name": "quail egg",
-                "plural_name": "quail eggs"
+                "name": "prepeličie vajce",
+                "plural_name": "prepeličie vajcia"
             },
             "buttermilk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk powder",
-                "plural_name": "buttermilk powder"
+                "name": "sušený cmar",
+                "plural_name": "sušený cmar"
             },
             "frozen yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen yogurt",
-                "plural_name": "frozen yogurts"
+                "name": "zamrznutý jogurt",
+                "plural_name": "zamrznuté jogurty"
             },
             "khoya": {
                 "aliases": [],
@@ -2835,20 +2835,20 @@
             "milk cream": {
                 "aliases": [],
                 "description": "",
-                "name": "milk cream",
-                "plural_name": "milk cream"
+                "name": "smotana",
+                "plural_name": "smotany"
             },
             "coffee creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee creamer",
-                "plural_name": "coffee creamers"
+                "name": "smotana do kávy",
+                "plural_name": "smotany do kávy"
             },
             "clotted cream": {
                 "aliases": [],
                 "description": "",
-                "name": "clotted cream",
-                "plural_name": "clotted cream"
+                "name": "pečená smotana",
+                "plural_name": "pečené smotany"
             },
             "goat milk": {
                 "aliases": [],
@@ -2859,14 +2859,14 @@
             "cheese curd": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese curd",
-                "plural_name": "cheese curds"
+                "name": "kúsky syra",
+                "plural_name": "kúsky syra"
             },
             "sour milk": {
                 "aliases": [],
                 "description": "",
                 "name": "kyslé mlieko",
-                "plural_name": "sour milk"
+                "plural_name": "kyslé mlieko"
             },
             "ganache": {
                 "aliases": [],
@@ -13725,11 +13725,11 @@
                 "name": "anchovy stock",
                 "plural_name": "anchovy stock"
             },
-            "cream of chicken soup mix:": {
+            "cream of chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "cream of chicken soup mix",
+                "plural_name": "cream of chicken soup mix"
             },
             "noodle soup mix": {
                 "aliases": [],

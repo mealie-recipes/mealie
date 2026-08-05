@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from pydantic import ValidationError
 
 from mealie.core.config import get_app_settings
 from mealie.core.settings.settings import AppSettings, determine_secrets
@@ -393,6 +394,51 @@ def test_sensitive_settings_mask(monkeypatch: pytest.MonkeyPatch):
     for setting in sensitive_settings:
         assert settings[setting] == "*****"
         assert settings_json[setting] == "*****"
+
+
+_SCRAPER_URL_FIELDS = ["SCRAPER_PROXY_URL", "SCRAPER_FLARESOLVERR_URL"]
+
+
+@pytest.mark.parametrize("field", _SCRAPER_URL_FIELDS)
+@pytest.mark.parametrize(
+    "value",
+    [
+        "flaresolverr:8191",  # missing scheme
+        "192.168.1.5:8191",  # bare host:port
+        "just-a-hostname",  # no scheme, no port
+    ],
+)
+def test_scraper_url_rejects_missing_scheme(field: str, value: str, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv(field, value)
+    get_app_settings.cache_clear()
+
+    with pytest.raises(ValidationError):
+        get_app_settings()
+
+
+@pytest.mark.parametrize("field", _SCRAPER_URL_FIELDS)
+@pytest.mark.parametrize(
+    "value",
+    [
+        "http://flaresolverr:8191",
+        "https://fs.example.com:8191/",
+        "http://user:pass@host:8080",  # userinfo is allowed
+        "socks5://host:1080",  # non-http schemes (valid for proxies) are not rejected
+    ],
+)
+def test_scraper_url_accepts_valid(field: str, value: str, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv(field, value)
+    get_app_settings.cache_clear()
+
+    assert getattr(get_app_settings(), field) == value
+
+
+@pytest.mark.parametrize("field", _SCRAPER_URL_FIELDS)
+def test_scraper_url_allows_unset(field: str, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.delenv(field, raising=False)
+    get_app_settings.cache_clear()
+
+    assert getattr(get_app_settings(), field) is None
 
 
 class DetermineSecretsTests:

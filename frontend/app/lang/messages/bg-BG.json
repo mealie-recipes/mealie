@@ -410,7 +410,8 @@
     "applies-on-days": "Всеки/всяка {0}",
     "meal-plan-settings": "Настройки на плана за хранене",
     "add-all-to-list": "Добавяне на всички към списъка за пазаруване",
-    "add-day-to-list": "Добавяне на ден към списъка за пазаруване"
+    "add-day-to-list": "Добавяне на ден към списъка за пазаруване",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Данните за мигриране са премахнати",
@@ -480,6 +481,7 @@
     "from-url": "Импортирай рецепта",
     "github-issues": "GitHub проблеми",
     "google-ld-json-info": "Google Id+json данни",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Линкът трябва да е валиден",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Поставете в данните на рецептата си. Всеки ред ще бъде третиран като елемент от списъка.",
     "recipe-markup-specification": "Спецификации за маркиране на рецептата",
