@@ -105,9 +105,9 @@ const newUserData = ref({
 const disabledFields = computed(() => {
   const fields: string[] = [];
   if (newUserData.value.admin) {
-    fields.push("canManageHousehold", "canManage");
+    fields.push("canManageHousehold", "canManage", "advanced");
   }
-  if (!(newUserData.value.admin || newUserData.value.canManage)) {
+  if (newUserData.value.admin || !newUserData.value.canManage) {
     fields.push("canOrganize", "canInvite");
   }
   return fields;
@@ -115,10 +115,33 @@ const disabledFields = computed(() => {
 
 watch(
   () => newUserData.value.admin,
-  (isAdmin) => {
-    if (isAdmin) {
+  (isAdmin, wasAdmin) => {
+    if (isAdmin && !wasAdmin) {
       newUserData.value.canManageHousehold = true;
       newUserData.value.canManage = true;
+      newUserData.value.canOrganize = true;
+      newUserData.value.canInvite = true;
+      newUserData.value.advanced = true;
+    }
+    else if (!isAdmin && wasAdmin) {
+      newUserData.value.canManageHousehold = false;
+      newUserData.value.canManage = false;
+      newUserData.value.canOrganize = false;
+      newUserData.value.canInvite = false;
+      newUserData.value.advanced = false;
+    }
+  },
+);
+
+watch(
+  () => newUserData.value.canManage,
+  (canManage, wasCanManage) => {
+    if (newUserData.value.admin) {
+      return;
+    }
+    if (!canManage && wasCanManage) {
+      newUserData.value.canOrganize = false;
+      newUserData.value.canInvite = false;
     }
   },
 );
