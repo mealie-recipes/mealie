@@ -101,6 +101,9 @@ python_classes = '*Tests'
 python_files = 'test_*'
 python_functions = 'test_*'
 testpaths = ["tests"]
+filterwarnings = [
+    "ignore::DeprecationWarning:pyRdfa.*",
+]
 
 [tool.coverage.report]
 skip_empty = true
