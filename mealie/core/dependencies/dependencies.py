@@ -22,6 +22,7 @@ from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupInDB
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
 ALGORITHM = "HS256"
 app_dirs = get_app_dirs()
+settings = get_app_settings()
 logger = root_logger.get_logger("dependencies")
 
 credentials_exception = HTTPException(
@@ -32,7 +33,6 @@ credentials_exception = HTTPException(
 
 
 def _get_proxy_auth_username(request: Request) -> str | None:
-    settings = get_app_settings()
     header_name = settings.PROXY_AUTH_HEADER
     header_value = request.headers.get(header_name)
     if header_value is None:
@@ -48,7 +48,6 @@ def _get_proxy_auth_username(request: Request) -> str | None:
 
 
 def _try_proxy_auth_user(request: Request, session: Session) -> PrivateUser | None:
-    settings = get_app_settings()
     if not settings.PROXY_AUTH_READY:
         return None
 
@@ -84,7 +83,6 @@ async def is_logged_in(token: str = Depends(oauth2_scheme_soft_fail), session=De
         bool: True = Valid User / False = Not User
     """
     try:
-        settings = get_app_settings()
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         user_id: str = payload.get("sub")
         long_token: str = payload.get("long_token")
@@ -128,44 +126,41 @@ async def get_current_user(
     token: str | None = Depends(oauth2_scheme_soft_fail),
     session=Depends(generate_session),
 ) -> PrivateUser:
-    settings = get_app_settings()
-    provided_token = token
-    if provided_token is None and "mealie.access_token" in request.cookies:
+    if token is None and "mealie.access_token" in request.cookies:
         # Try extract from cookie
-        provided_token = request.cookies.get("mealie.access_token", "")
+        token = request.cookies.get("mealie.access_token", "")
+    else:
+        token = token or ""
+    if not token:
+        if proxy_user := _try_proxy_auth_user(request, session):
+            return proxy_user
+        raise credentials_exception
 
-    token_value = (provided_token or "").strip()
-    if token_value:
-        try:
-            payload = jwt.decode(token_value, settings.SECRET, algorithms=[ALGORITHM])
-            user_id: str | None = payload.get("sub")
-            long_token: str | None = payload.get("long_token")
+    try:
+        payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
+        user_id: str | None = payload.get("sub")
+        long_token: str | None = payload.get("long_token")
 
-            if long_token is not None:
-                return validate_long_live_token(session, token_value, payload.get("id"))
+        if long_token is not None:
+            return validate_long_live_token(session, token, payload.get("id"))
 
-            if user_id is None:
-                raise credentials_exception
-
-            token_data = TokenData(user_id=user_id)
-        except PyJWTError as e:
-            raise credentials_exception from e
-
-        repos = get_repositories(session, group_id=None, household_id=None)
-
-        user = repos.users.get_one(token_data.user_id, "id", any_case=False)
-
-        # If we don't commit here, lazy-loads from user relationships will leave some table lock in postgres
-        # which can cause quite a bit of pain further down the line
-        session.commit()
-        if user is None:
+        if user_id is None:
             raise credentials_exception
-        return user
 
-    if proxy_user := _try_proxy_auth_user(request, session):
-        return proxy_user
+        token_data = TokenData(user_id=user_id)
+    except PyJWTError as e:
+        raise credentials_exception from e
 
-    raise credentials_exception
+    repos = get_repositories(session, group_id=None, household_id=None)
+
+    user = repos.users.get_one(token_data.user_id, "id", any_case=False)
+
+    # If we don't commit here, lazy-loads from user relationships will leave some table lock in postgres
+    # which can cause quite a bit of pain further down the line
+    session.commit()
+    if user is None:
+        raise credentials_exception
+    return user
 
 
 async def get_integration_id(token: str | None = Depends(oauth2_scheme_soft_fail)) -> str:
@@ -173,7 +168,6 @@ async def get_integration_id(token: str | None = Depends(oauth2_scheme_soft_fail
         return DEFAULT_INTEGRATION_ID
 
     try:
-        settings = get_app_settings()
         decoded_token = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         return decoded_token.get("integration_id", DEFAULT_INTEGRATION_ID)
 
@@ -211,7 +205,6 @@ def validate_file_token(token: str | None = None) -> Path:
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     try:
-        settings = get_app_settings()
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         file_path = Path(payload.get("file"))
     except PyJWTError as e:
