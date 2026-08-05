@@ -47,9 +47,9 @@
         class="cropper"
         :src="img"
         :default-size="defaultSize"
-        :style="`height: ${cropperHeight}; width: ${cropperWidth};`"
+        :style="`width: ${cropperWidth}; aspect-ratio: ${aspectRatio};`"
         @change="changed = changed + 1"
-        @ready="changed = -1"
+        @ready="onReady"
       />
     </v-card-text>
   </v-card>
@@ -63,10 +63,6 @@ defineProps({
   img: {
     type: String,
     required: true,
-  },
-  cropperHeight: {
-    type: String,
-    default: undefined,
   },
   cropperWidth: {
     type: String,
@@ -85,7 +81,14 @@ const emit = defineEmits<{
 
 const cropper = ref<any>(null);
 const changed = ref(0);
+// Left to the cropper's own sizing until the image is rotated; see rotate().
+const aspectRatio = ref<string | number>("auto");
 const { $globals } = useNuxtApp();
+
+function onReady() {
+  aspectRatio.value = "auto";
+  changed.value = -1;
+}
 
 type Control = {
   color: string;
@@ -99,10 +102,21 @@ function flip(hortizontal: boolean, vertical?: boolean) {
   changed.value = changed.value + 1;
 }
 
-function rotate(angle: number) {
+async function rotate(angle: number) {
   if (!cropper.value) return;
   cropper.value.rotate(angle);
   changed.value = changed.value + 1;
+
+  // A quarter turn swaps the image's width and height. Pin the box to the new
+  // orientation, otherwise the cropper keeps the visible area it computed for
+  // the old one and part of the rotated image ends up outside of it.
+  const { image } = cropper.value.getResult();
+  const quarterTurned = Math.abs(image.transforms.rotate % 180) === 90;
+  aspectRatio.value = quarterTurned ? image.height / image.width : image.width / image.height;
+
+  // the cropper measures its own box, so let the new size land first
+  await nextTick();
+  cropper.value.refresh();
 }
 
 const controls = ref<Control[][]>([
