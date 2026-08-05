@@ -88,6 +88,8 @@ async def lifespan_fn(_: FastAPI) -> AsyncGenerator[None, None]:
     logger.info(settings.LDAP_FEATURE)
     logger.info("--------==OIDC==--------")
     logger.info(settings.OIDC_FEATURE)
+    logger.info("-----==PROXY AUTH==-----")
+    logger.info(settings.PROXY_AUTH_FEATURE)
     logger.info("------------------------")
 
     yield
