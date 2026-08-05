@@ -92,6 +92,7 @@ export interface CheckAppConfig {
   emailReady: boolean;
   ldapReady: boolean;
   oidcReady: boolean;
+  proxyAuthReady: boolean;
   baseUrlSet: boolean;
   isUpToDate: boolean;
 }

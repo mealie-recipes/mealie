@@ -72,5 +72,6 @@ def test_admin_about_check_app_config(api_client: TestClient, admin_user: TestUs
     # Smoke Test - Test the endpoint returns something that's a the expected shape
     assert as_dict["emailReady"] in [True, False]
     assert as_dict["ldapReady"] in [True, False]
+    assert as_dict["proxyAuthReady"] in [True, False]
     assert as_dict["baseUrlSet"] in [True, False]
     assert as_dict["isUpToDate"] in [True, False]

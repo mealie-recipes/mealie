@@ -71,5 +71,6 @@ class CheckAppConfig(MealieModel):
     email_ready: bool
     ldap_ready: bool
     oidc_ready: bool
+    proxy_auth_ready: bool
     base_url_set: bool
     is_up_to_date: bool
