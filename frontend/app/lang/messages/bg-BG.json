@@ -410,7 +410,8 @@
     "applies-on-days": "Всеки/всяка {0}",
     "meal-plan-settings": "Настройки на плана за хранене",
     "add-all-to-list": "Добавяне на всички към списъка за пазаруване",
-    "add-day-to-list": "Добавяне на ден към списъка за пазаруване"
+    "add-day-to-list": "Добавяне на ден към списъка за пазаруване",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Данните за мигриране са премахнати",

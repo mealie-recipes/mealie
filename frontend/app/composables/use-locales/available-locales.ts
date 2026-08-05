@@ -73,7 +73,7 @@ export const LOCALES = [
   {
     name: "Română (Romanian)",
     value: "ro-RO",
-    progress: 60,
+    progress: 73,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -220,7 +220,7 @@ export const LOCALES = [
   {
     name: "Español (Spanish)",
     value: "es-ES",
-    progress: 100,
+    progress: 99,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -255,14 +255,14 @@ export const LOCALES = [
   {
     name: "Dansk (Danish)",
     value: "da-DK",
-    progress: 100,
+    progress: 99,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
   {
     name: "Čeština (Czech)",
     value: "cs-CZ",
-    progress: 64,
+    progress: 63,
     dir: "ltr",
     pluralFoodHandling: "always",
   },

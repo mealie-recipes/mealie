@@ -410,7 +410,8 @@
     "applies-on-days": "Застосовується на {0}сек",
     "meal-plan-settings": "Налаштування меню",
     "add-all-to-list": "Додати все до списку",
-    "add-day-to-list": "Додати день до списку"
+    "add-day-to-list": "Додати день до списку",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Дані міграції видалені",

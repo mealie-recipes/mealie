@@ -410,7 +410,8 @@
     "applies-on-days": "Применяется по {0}",
     "meal-plan-settings": "Настройки плана питания",
     "add-all-to-list": "Добавить всё в список",
-    "add-day-to-list": "Добавить день в список"
+    "add-day-to-list": "Добавить день в список",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Данные миграции удалены",
@@ -895,7 +896,7 @@
     "webhooks": {
       "test-webhooks": "Тестировать Webhook",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "На перечисленные ниже URL будут отправляться вебхуки, содержащие данные рецептов для плана питания на запланированный день. Сейчас вебхуки будут отправляться в",
-      "webhook-url": "Webhook URL",
+      "webhook-url": "URL вебхука",
       "webhooks-caps": "WEBHOOK'И",
       "webhooks": "Webhook'и",
       "webhook-name": "Имя webhook'а",
@@ -929,17 +930,17 @@
     "server-side-base-url-error-text": "`BASE_URL` все еще является значением по умолчанию на сервере API. Это вызовет проблемы с уведомлениями, ссылками сгенерированными на сервере для электронной почты и т.д.",
     "server-side-base-url-success-text": "Серверный URL-адрес не соответствует значению по умолчанию",
     "ldap-ready": "LDAP готов",
-    "ldap-not-ready": "LDAP Not Ready",
+    "ldap-not-ready": "LDAP не готов",
     "ldap-ready-error-text": "Не все значения для LDAP настроены. Это сообщение может быть проигнорировано, если вы не используете LDAP аутентификацию.",
     "ldap-ready-success-text": "Все требуемые переменные для LDAP установлены.",
     "build": "Сборка",
     "recipe-scraper-version": "Версия скрейпера рецептов",
     "oidc-ready": "OIDC Готов",
-    "oidc-not-ready": "OIDC Not Ready",
+    "oidc-not-ready": "OIDC не готов",
     "oidc-ready-error-text": "Не все значения OIDC настроены. Это может быть проигнорировано, если вы не используете OIDC аутентификацию.",
     "oidc-ready-success-text": "Все требуемые переменные для OIDC установлены.",
     "openai-ready": "OpenAI Готов",
-    "openai-not-ready": "OpenAI Not Ready",
+    "openai-not-ready": "OpenAI не готов",
     "openai-ready-error-text": "Не все значения OpenAI настроены. Вы можете проигнорировать это, если вы не используете возможности OpenAI.",
     "openai-ready-success-text": "Все требуемые переменные для OpenAI установлены.",
     "site-statistics": "Site Statistics",
@@ -1127,9 +1128,9 @@
     "permissions": "Права доступа",
     "administrator": "Администратор",
     "user-can-invite-other-to-group": "Пользователь может пригласить других в группу",
-    "user-can-manage-group": "User can manage group settings",
+    "user-can-manage-group": "Пользователь может управлять настройками группы",
     "user-can-manage-household": "Пользователь может управлять домохозяйством",
-    "user-can-organize-group-data": "User can manage foods, tags, and categories",
+    "user-can-organize-group-data": "Пользователь может управлять продуктами, тегами и категориями",
     "enable-advanced-features": "Включить дополнительные функции",
     "it-looks-like-this-is-your-first-time-logging-in": "Похоже, это ваш первый вход в систему.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Больше не хотите видеть это сообщение? Не забудьте изменить адрес электронной почты в настройках пользователя!",
@@ -1194,13 +1195,13 @@
       "unit-conversion": "Unit Conversion",
       "standard-unit-labels": {
         "fluid-ounce": "fluid ounce",
-        "cup": "cup",
+        "cup": "стакан",
         "ounce": "ounce",
         "pound": "pound",
-        "milliliter": "milliliter",
-        "liter": "liter",
-        "gram": "gram",
-        "kilogram": "kilogram"
+        "milliliter": "миллилитр",
+        "liter": "литр",
+        "gram": "грамм",
+        "kilogram": "килограмм"
       }
     },
     "labels": {
@@ -1521,10 +1522,10 @@
     "max-length": "Должно быть как минимум {max} знак|Должно быть больше {max} знаков"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
+    "announcements": "Объявления",
+    "all-announcements": "Все объявления",
     "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
+    "show-announcements-from-mealie": "Показывать объявления от Mealie",
     "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
   }
 }

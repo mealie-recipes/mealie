@@ -410,7 +410,8 @@
     "applies-on-days": "Gäller på {0}s",
     "meal-plan-settings": "Inställningar för måltidsplanering",
     "add-all-to-list": "Lägg till alla i inköpslista",
-    "add-day-to-list": "Lägg till dag i inköpslista"
+    "add-day-to-list": "Lägg till dag i inköpslista",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Importerad data borttagen",

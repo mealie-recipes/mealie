@@ -410,7 +410,8 @@
     "applies-on-days": "Aplica-se em:",
     "meal-plan-settings": "Configurações de plano de refeições",
     "add-all-to-list": "Adicionar tudo para a lista",
-    "add-day-to-list": "Adicionar Dia para Lista"
+    "add-day-to-list": "Adicionar Dia para Lista",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Dados de migração removidos",

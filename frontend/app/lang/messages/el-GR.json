@@ -410,7 +410,8 @@
     "applies-on-days": "Εφαρμόζεται κάθε {0}",
     "meal-plan-settings": "Ρυθμίσεις προγράμματος γευμάτων",
     "add-all-to-list": "Προσθήκη όλων στη λίστα",
-    "add-day-to-list": "Προσθήκη ημέρας στη λίστα"
+    "add-day-to-list": "Προσθήκη ημέρας στη λίστα",
+    "randomize-recipe": "Τυχαία Συνταγή"
   },
   "migration": {
     "migration-data-removed": "Τα δεδομένα μετεγκατάστασης καταργήθηκαν",
