@@ -111,6 +111,7 @@ import { useGroupSelf } from "~/composables/use-groups";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
+import { isRecipeFullyPublic } from "~/lib/recipe/recipe-visibility";
 import type { Recipe } from "~/lib/api/types/recipe";
 import type { GroupRecipeActionOut, ShoppingListSummary } from "~/lib/api/types/household";
 import type { PlanEntryType } from "~/lib/api/types/meal-plan";
@@ -215,11 +216,6 @@ const groupSlug = computed(() => route.params.groupSlug as string || auth.user.v
 const firstDayOfWeek = computed(() => {
   return household.value?.preferences?.firstDayOfWeek || 0;
 });
-
-const isFullyPublic = computed(() =>
-  group.value?.preferences?.privateGroup === false
-  && household.value?.preferences?.privateHousehold === false,
-);
 
 const { share, isSupported: shareIsSupported } = useShare();
 const { copy, copied, isSupported: clipboardIsSupported } = useClipboard();
@@ -326,6 +322,9 @@ const shoppingLists = ref<ShoppingListSummary[]>();
 const recipeRef = ref<Recipe | undefined>(props.recipe);
 const recipeRefWithScale = computed(() =>
   recipeRef.value ? { scale: props.recipeScale, ...recipeRef.value } : undefined,
+);
+const isFullyPublic = computed(() =>
+  isRecipeFullyPublic(recipeRef.value, group.value, household.value),
 );
 const isAdminAndNotOwner = computed(() => {
   return (
