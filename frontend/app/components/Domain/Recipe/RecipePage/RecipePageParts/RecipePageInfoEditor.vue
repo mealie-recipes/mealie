@@ -85,4 +85,12 @@ import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
+
+watch(
+  () => recipe.performTime,
+  (newVal) => {
+    recipe.cookTime = newVal ?? "error";
+  },
+  { immediate: true }
+);
 </script>

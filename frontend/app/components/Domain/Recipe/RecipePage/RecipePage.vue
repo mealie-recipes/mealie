@@ -399,7 +399,9 @@ watch(isParsing, () => {
  */
 
 async function saveRecipe() {
-  const { data, error } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
+  const payload = { ...recipe.value };
+  payload.cookTime = recipe.value.performTime;
+  const { data, error } = await api.recipes.updateOne(recipe.value.slug, payload);
   if (!error) {
     if (data?.slug && data.slug !== route.params.slug) {
       isNavigatingAfterRename.value = true;
@@ -488,6 +490,14 @@ const scale = ref(1);
 
 // expose to template
 // (all variables used in template are top-level in <script setup>)
+
+watch(
+  () => recipe.value.performTime,
+  (newVal) => {
+    recipe.value.cookTime = newVal ?? "error";
+  },
+  { immediate: true }
+);
 </script>
 
 <style lang="css">

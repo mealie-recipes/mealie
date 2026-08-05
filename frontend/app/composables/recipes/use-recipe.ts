@@ -25,7 +25,10 @@ export const useRecipe = function (slug: string, eager = true) {
 
   async function updateRecipe(recipe: Recipe) {
     loading.value = true;
-    const { data } = await api.recipes.updateOne(slug, recipe);
+    const payload = { ...recipe };
+    console.log("payload");
+    payload.cookTime = recipe.performTime;
+    const { data } = await api.recipes.updateOne(slug, payload);
     loading.value = false;
     return data;
   }
