@@ -49,6 +49,14 @@ useSeoMeta({
   title: i18n.t("household.household"),
 });
 
+// useHouseholdSelf() caches data in a module-level singleton for the lifetime of the tab,
+// so revisiting this page via client-side navigation can otherwise show stale
+// preferences if they were changed elsewhere (e.g. Admin Households panel) in the
+// same session. Force a revalidation whenever this page is entered.
+onMounted(() => {
+  householdActions.refresh();
+});
+
 const refHouseholdEditForm = ref<VForm | null>(null);
 
 async function handleSubmit() {
