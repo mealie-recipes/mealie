@@ -58,6 +58,11 @@ class HttpRepo[C: BaseModel, R: BaseModel, U: BaseModel]:
                 status.HTTP_404_NOT_FOUND,
                 detail=ErrorResponse.respond(message=msg, exception=str(ex)),
             )
+        elif isinstance(ex, sqlalchemy.exc.IntegrityError):
+            raise HTTPException(
+                status.HTTP_409_CONFLICT,
+                detail=ErrorResponse.respond(message=msg, exception=str(ex)),
+            )
         else:
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST,

@@ -31,7 +31,6 @@
         <RecipeTimeline
           v-model="showTimeline"
           :query-filter="timelineAttrs.queryFilter"
-          max-height="60vh"
         />
       </BaseDialog>
     </template>

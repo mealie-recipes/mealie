@@ -410,7 +410,8 @@
     "applies-on-days": "חל על {0}",
     "meal-plan-settings": "הגדרות תכנון ארוחות",
     "add-all-to-list": "הוספת הכל לרשימה",
-    "add-day-to-list": "הוספת יום לרשימה"
+    "add-day-to-list": "הוספת יום לרשימה",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "מידע ממוגרץ נמחק",
@@ -480,6 +481,7 @@
     "from-url": "ייבוא מתכון",
     "github-issues": "קריאות GitHub",
     "google-ld-json-info": "מידע Google ld+json",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "חייבת להיות כתובת אתר אינטרנט תקינה",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "הדבק את המידע על המתכון. כל שורה תהפוך לפריט ברשימה",
     "recipe-markup-specification": "הגדרות markup למתכון",
@@ -940,7 +942,10 @@
     "openai-ready": "OpenAI מוכן",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "לא כל הערכים הנחוצים ל-OpenAI מוגדרים. ניתן להתעלם אם לא נעשה שימוש ב-OpenAI.",
-    "openai-ready-success-text": "כל המשתנים הנחוצים ל-OpenAI מוגדרים."
+    "openai-ready-success-text": "כל המשתנים הנחוצים ל-OpenAI מוגדרים.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "כל הרשימות",
@@ -1396,6 +1401,7 @@
     "setup": {
       "first-time-setup": "הגדרה ראשונית",
       "welcome-to-mealie-get-started": "ברוכים הבאים ל-Mealie! בואו נתחיל",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "כבר הגדרתי הכל, תעבירו אותי לעמוד הבית",
       "common-settings-for-new-sites": "הגדרות נפוצות לאתרים חדשים יופיעו כאן",
       "setup-complete": "ההגדרה הושלמה!",

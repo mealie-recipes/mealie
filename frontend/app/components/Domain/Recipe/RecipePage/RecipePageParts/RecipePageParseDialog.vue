@@ -8,7 +8,7 @@
   >
     <v-container fluid class="pa-2 ma-0" style="background-color: rgb(var(--v-theme-background));">
       <div v-if="state.loading.parser" class="my-6">
-        <AppLoader waiting-text="" class="my-6" />
+        <AppLoader class="my-6" />
       </div>
       <div v-else>
         <BaseCardSectionTitle :title="$t('recipe.parser.ingredient-parser')">

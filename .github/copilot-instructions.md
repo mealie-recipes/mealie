@@ -110,10 +110,8 @@ task docker:prod        # Build and run production Docker compose
    from fastapi import Depends
    from mealie.repos.all_repositories import get_repositories, AllRepositories
 
-   def my_route(
-       repos: AllRepositories = Depends(get_repositories),
-       user: PrivateUser = Depends(get_current_user)
-   ):
+
+   def my_route(repos: AllRepositories = Depends(get_repositories), user: PrivateUser = Depends(get_current_user)):
        recipe = repos.recipes.get_one(recipe_id)
    ```
 

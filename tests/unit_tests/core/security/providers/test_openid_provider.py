@@ -53,6 +53,7 @@ def test_missing_groups_claim(monkeypatch: MonkeyPatch):
     data = {
         "preferred_username": "dude1",
         "email": "email@email.com",
+        "email_verified": True,
         "name": "Firstname Lastname",
     }
     auth_provider = OpenIDProvider(None, data)
@@ -68,6 +69,7 @@ def test_missing_groups_claim_admin(monkeypatch: MonkeyPatch):
     data = {
         "preferred_username": "dude1",
         "email": "email@email.com",
+        "email_verified": True,
         "name": "Firstname Lastname",
     }
     auth_provider = OpenIDProvider(None, data)
@@ -83,6 +85,7 @@ def test_missing_groups_claim_with_default(monkeypatch: MonkeyPatch):
     data = {
         "preferred_username": "dude1",
         "email": "email@email.com",
+        "email_verified": True,
         "name": "Firstname Lastname",
     }
     auth_provider = OpenIDProvider(None, data, True)
@@ -97,6 +100,7 @@ def test_missing_groups_claim_admin_group_with_default(monkeypatch: MonkeyPatch,
     data = {
         "preferred_username": "dude1",
         "email": unique_user.email,
+        "email_verified": True,
         "name": "Firstname Lastname",
     }
     auth_provider = OpenIDProvider(unique_user.repos.session, data, True)
@@ -111,6 +115,7 @@ def test_missing_user_group(monkeypatch: MonkeyPatch):
     data = {
         "preferred_username": "dude1",
         "email": "email@email.com",
+        "email_verified": True,
         "name": "Firstname Lastname",
         "groups": ["not_mealie_user"],
     }
@@ -126,6 +131,7 @@ def test_has_user_group_existing_user(monkeypatch: MonkeyPatch, unique_user: Tes
     data = {
         "preferred_username": "dude1",
         "email": unique_user.email,
+        "email_verified": True,
         "name": "Firstname Lastname",
         "groups": ["mealie_user"],
     }
@@ -142,6 +148,7 @@ def test_has_admin_group_existing_user(monkeypatch: MonkeyPatch, unique_user: Te
     data = {
         "preferred_username": "dude1",
         "email": unique_user.email,
+        "email_verified": True,
         "name": "Firstname Lastname",
         "groups": ["mealie_admin"],
     }
@@ -158,6 +165,7 @@ def test_has_user_group_new_user(monkeypatch: MonkeyPatch, session: Session):
     data = {
         "preferred_username": "dude1",
         "email": "dude1@email.com",
+        "email_verified": True,
         "name": "Firstname Lastname",
         "groups": ["mealie_user"],
     }
@@ -179,6 +187,7 @@ def test_has_admin_group_new_user(monkeypatch: MonkeyPatch, session: Session):
     data = {
         "preferred_username": "dude2",
         "email": "dude2@email.com",
+        "email_verified": True,
         "name": "Firstname Lastname",
         "groups": ["mealie_admin"],
     }
@@ -208,6 +217,7 @@ def test_ldap_user_creation_invalid_group_or_household(
     data = {
         "preferred_username": random_string(),
         "email": random_email(),
+        "email_verified": True,
         "name": random_string(),
         "groups": ["mealie_user"],
     }
@@ -227,11 +237,92 @@ def test_ldap_user_creation_invalid_group_or_household(
         assert user is None
 
 
-def test_claims_logging(caplog, session: Session):
+def test_rejects_unverified_email(monkeypatch: MonkeyPatch, session: Session):
+    monkeypatch.setenv("OIDC_REQUIRES_EMAIL_VERIFICATION", "true")
+    get_app_settings.cache_clear()
+
+    data = {
+        "preferred_username": random_string(),
+        "email": random_email(),
+        "email_verified": False,
+        "name": random_string(),
+    }
+    auth_provider = OpenIDProvider(session, data)
+
+    with pytest.raises(MissingClaimException):
+        auth_provider.authenticate()
+
+
+def test_rejects_missing_email_verified(monkeypatch: MonkeyPatch, session: Session):
+    monkeypatch.setenv("OIDC_REQUIRES_EMAIL_VERIFICATION", "true")
+    get_app_settings.cache_clear()
+
+    data = {
+        "preferred_username": random_string(),
+        "email": random_email(),
+        "name": random_string(),
+    }
+    auth_provider = OpenIDProvider(session, data)
+
+    with pytest.raises(MissingClaimException):
+        auth_provider.authenticate()
+
+
+def test_does_not_adopt_existing_account_with_unverified_email(monkeypatch: MonkeyPatch, unique_user: TestUser):
+    """An unverified email must not be able to log into (take over) an existing account."""
+    monkeypatch.setenv("OIDC_REQUIRES_EMAIL_VERIFICATION", "true")
+    get_app_settings.cache_clear()
+
+    data = {
+        "preferred_username": random_string(),
+        "email": unique_user.email,
+        "email_verified": False,
+        "name": random_string(),
+    }
+    auth_provider = OpenIDProvider(unique_user.repos.session, data)
+
+    with pytest.raises(MissingClaimException):
+        auth_provider.authenticate()
+
+
+def test_adopts_existing_account_with_verified_email(monkeypatch: MonkeyPatch, unique_user: TestUser):
+    """A verified email legitimately links to an existing (non-OIDC) account."""
+    monkeypatch.setenv("OIDC_REQUIRES_EMAIL_VERIFICATION", "true")
+    get_app_settings.cache_clear()
+
+    data = {
+        "preferred_username": random_string(),
+        "email": unique_user.email,
+        "email_verified": True,
+        "name": random_string(),
+    }
+    auth_provider = OpenIDProvider(unique_user.repos.session, data)
+
+    assert auth_provider.authenticate() is not None
+
+
+def test_allows_unverified_email_when_verification_disabled(monkeypatch: MonkeyPatch, session: Session):
+    monkeypatch.setenv("OIDC_REQUIRES_EMAIL_VERIFICATION", "false")
+    get_app_settings.cache_clear()
+
+    data = {
+        "preferred_username": random_string(),
+        "email": random_email(),
+        "name": random_string(),
+    }
+    auth_provider = OpenIDProvider(session, data)
+
+    assert auth_provider.authenticate() is not None
+
+
+def test_claims_logging(monkeypatch: MonkeyPatch, caplog, session: Session):
+    monkeypatch.setenv("OIDC_REQUIRES_EMAIL_VERIFICATION", "true")
+    get_app_settings.cache_clear()
     caplog.set_level(logging.DEBUG)
     data = {
         "preferred_username": "testuser",
         "email": "test@example.com",
+        "email_verified": True,
         "name": "Test User",
         "groups": ["mealie_user"],
     }

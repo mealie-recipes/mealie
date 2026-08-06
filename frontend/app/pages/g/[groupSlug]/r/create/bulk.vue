@@ -223,6 +223,10 @@ async function deleteReport(id: string) {
 fetchReports();
 
 function assignUrls(urls: string[]) {
+  if (urls.length === 0) {
+    return;
+  }
+
   bulkUrls.value = urls.map(url => ({ url, categories: [], tags: [] }));
 }
 </script>

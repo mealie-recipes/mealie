@@ -20,7 +20,7 @@ def create_labels(api_client: TestClient, unique_user: TestUser, count: int = 10
     return labels
 
 
-def test_label_create_duplicate_name_returns_400(api_client: TestClient, unique_user_fn_scoped: TestUser):
+def test_label_create_duplicate_name_returns_409(api_client: TestClient, unique_user_fn_scoped: TestUser):
     # Regression test for #7582: POSTing a duplicate label name leaked the
     # sqlalchemy IntegrityError as an HTTP 500. The expected behavior, matching
     # the other organizer endpoints (foods, units, tools, tags, categories),
@@ -32,7 +32,7 @@ def test_label_create_duplicate_name_returns_400(api_client: TestClient, unique_
     assert response.status_code == 200
 
     response = api_client.post(api_routes.groups_labels, json=payload, headers=unique_user_fn_scoped.token)
-    assert response.status_code == 400
+    assert response.status_code == 409
 
 
 def test_new_list_creates_list_labels(api_client: TestClient, unique_user: TestUser):

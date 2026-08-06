@@ -6,8 +6,8 @@
       class="star"
       :class="{
         'star-half': star === 'half',
-        'text-secondary': !useGroupStyle,
-        'text-grey-darken-1': useGroupStyle,
+        'text-secondary': !showGroupAverage,
+        'text-grey-darken-1': showGroupAverage,
       }"
     >
       <!-- We render both the full and empty stars for "half" stars because they're layered over each other -->
@@ -28,7 +28,6 @@
 </template>
 
 <script setup lang="ts">
-import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserSelfRatings } from "~/composables/use-users";
 
 type Star = "full" | "half" | "empty";
@@ -44,15 +43,17 @@ const props = defineProps({
   },
 });
 
-const { isOwnGroup } = useLoggedInState();
 const { userRatings } = useUserSelfRatings();
 
 const userRating = computed(() => {
-  return userRatings.value.find(r => r.recipeId === props.recipeId)?.rating ?? undefined;
+  return userRatings.value.find(r => r.recipeId === props.recipeId)?.rating ?? null;
 });
 
-const ratingValue = computed(() => userRating.value || props.modelValue || 0);
-const useGroupStyle = computed(() => isOwnGroup.value && !userRating.value && props.modelValue);
+// this display is always readonly, so we show the user's own rating if they have one,
+// and otherwise fall back to the group average (in grey), if there is one.
+// An unset rating may be null or 0
+const showGroupAverage = computed(() => !userRating.value && !!props.modelValue);
+const ratingValue = computed(() => (showGroupAverage.value ? props.modelValue : userRating.value) || 0);
 const ratingDisplay = computed<Star[]>(
   () => {
     const stars: Star[] = [];

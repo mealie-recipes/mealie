@@ -100,6 +100,57 @@
           </v-card-text>
         </div>
       </v-card-actions>
+      <v-expand-transition>
+        <v-alert
+          v-if="state.error"
+          color="error"
+          class="mt-6 white--text"
+        >
+          <v-card-title class="ma-0 pa-0">
+            <v-icon
+              start
+              color="white"
+              size="x-large"
+            >
+              {{ $globals.icons.robot }}
+            </v-icon>
+            {{ $t("new-recipe.error-title") }}
+          </v-card-title>
+          <v-divider class="my-3 mx-2" />
+
+          <div class="force-url-white">
+            <p>
+              {{ $t("new-recipe.html-or-json-error-details") }}
+            </p>
+          </div>
+          <div class="d-flex row justify-space-around my-3 force-url-white">
+            <a
+              class="text-primary"
+              href="https://developers.google.com/search/docs/data-types/recipe"
+              target="_blank"
+              rel="noreferrer nofollow"
+            >
+              {{ $t("new-recipe.google-ld-json-info") }}
+            </a>
+            <a
+              class="text-primary"
+              href="https://github.com/mealie-recipes/mealie/issues"
+              target="_blank"
+              rel="noreferrer nofollow"
+            >
+              {{ $t("new-recipe.github-issues") }}
+            </a>
+            <a
+              class="text-primary"
+              href="https://schema.org/Recipe"
+              target="_blank"
+              rel="noreferrer nofollow"
+            >
+              {{ $t("new-recipe.recipe-markup-specification") }}
+            </a>
+          </div>
+        </v-alert>
+      </v-expand-transition>
     </div>
   </v-form>
 </template>
@@ -191,6 +242,7 @@ async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, impo
     dataString = JSON.stringify(htmlOrJsonData);
   }
 
+  state.error = false;
   state.loading = true;
   const { response } = await api.recipes.createOneByHtmlOrJson(
     dataString,
@@ -203,3 +255,9 @@ async function createFromHtmlOrJson(htmlOrJsonData: string | object | null, impo
   handleResponse(response, importKeywordsAsTags);
 }
 </script>
+
+<style scoped>
+.force-url-white a {
+  color: white !important;
+}
+</style>

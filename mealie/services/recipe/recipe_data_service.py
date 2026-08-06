@@ -3,7 +3,6 @@ import shutil
 from logging import Logger
 from pathlib import Path
 
-from httpx import AsyncClient, Response
 from pydantic import UUID4
 
 from mealie.pkgs import img, safehttp
@@ -31,17 +30,18 @@ async def largest_content_len(urls: list[str]) -> tuple[str, int]:
 
     max_concurrency = 10
 
-    async def do(client: AsyncClient, url: str) -> Response:
-        return await client.head(url)
+    tasks = [safehttp.resilient_fetch(url, method="HEAD") for url in urls]
+    responses: list[safehttp.FetchResult | None] = await gather_with_concurrency(
+        max_concurrency, *tasks, ignore_exceptions=True
+    )
+    for response in responses:
+        if response is None:
+            continue
 
-    async with AsyncClient(transport=safehttp.AsyncSafeTransport(impersonate="chrome")) as client:
-        tasks = [do(client, url) for url in urls]
-        responses: list[Response] = await gather_with_concurrency(max_concurrency, *tasks, ignore_exceptions=True)
-        for response in responses:
-            len_int = int(response.headers.get("Content-Length", 0))
-            if len_int > largest_len:
-                largest_url = str(response.url)
-                largest_len = len_int
+        len_int = int(response.headers.get("Content-Length", 0))
+        if len_int > largest_len:
+            largest_url = response.url
+            largest_len = len_int
 
     return largest_url, largest_len
 
@@ -146,24 +146,23 @@ class RecipeDataService(BaseService):
         file_name = f"{self.recipe_id!s}.{ext}"
         file_path = Recipe.directory_from_id(self.recipe_id).joinpath("images", file_name)
 
-        async with AsyncClient(transport=safehttp.AsyncSafeTransport(impersonate="chrome")) as client:
-            try:
-                r = await client.get(image_url_str)
-            except Exception:
-                self.logger.exception("Fatal Image Request Exception")
-                return None
+        try:
+            # FlareSolverr returns HTML, not image bytes, so it can't serve an image download.
+            r = await safehttp.resilient_fetch(image_url_str, allow_flaresolverr=False)
+        except Exception:
+            self.logger.exception("Fatal Image Request Exception")
+            return None
 
-            if r.status_code != 200:
-                # TODO: Probably should throw an exception in this case as well, but before these changes
-                # we were returning None if it failed anyways.
-                return None
+        if r is None:
+            # Every impersonation was rejected, or the server returned an error status.
+            return None
 
-            content_type = r.headers.get("content-type", "")
+        content_type = r.headers.get("content-type", "")
 
-            if "image" not in content_type:
-                self.logger.error(f"Content-Type: {content_type} is not an image")
-                raise NotAnImageError(f"Content-Type {content_type} is not an image")
+        if "image" not in content_type:
+            self.logger.error(f"Content-Type: {content_type} is not an image")
+            raise NotAnImageError(f"Content-Type {content_type} is not an image")
 
-            self.logger.debug(f"File Name Suffix {file_path.suffix}")
-            self.write_image(r.read(), file_path.suffix)
-            file_path.unlink(missing_ok=True)
+        self.logger.debug(f"File Name Suffix {file_path.suffix}")
+        self.write_image(r.content, file_path.suffix)
+        file_path.unlink(missing_ok=True)

@@ -9,6 +9,7 @@
       :title="$t('new-recipe.bulk-add')"
       :icon="$globals.icons.createAlt"
       :submit-text="$t('general.add')"
+      :submit-disabled="!canSave"
       :disable-submit-on-enter="true"
       can-submit
       @submit="save"
@@ -74,8 +75,10 @@ const dialog = ref(false);
 const inputText = ref(props.inputTextProp);
 
 function splitText() {
-  return inputText.value.split("\n").filter(line => !(line === "\n" || !line));
+  return inputText.value.split("\n").filter(line => line.trim().length > 0);
 }
+
+const canSave = computed(() => splitText().length > 0);
 
 function removeFirstCharacter() {
   inputText.value = splitText()
@@ -106,6 +109,10 @@ function trimAllLines() {
 }
 
 function save() {
+  if (!canSave.value) {
+    return;
+  }
+
   emit("bulk-data", splitText());
   dialog.value = false;
 }
