@@ -1,7 +1,6 @@
 import asyncio
 import functools
 import re
-import time
 from abc import ABC, abstractmethod
 from collections.abc import Awaitable, Callable
 from pathlib import Path
@@ -11,7 +10,6 @@ import bs4
 import extruct
 import yt_dlp
 from fastapi import HTTPException, status
-from httpx import AsyncClient, Response
 from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
 from slugify import slugify
 from w3lib.html import get_base_url
@@ -33,14 +31,10 @@ from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
 
-SCRAPER_TIMEOUT = 15
-
-BROWSER_IMPERSONATIONS = [
-    "chrome",
-    "firefox",
-    "safari",
-    "edge",
-]
+# Re-exported for backwards compatibility with existing importers (e.g. recipe route error handling).
+SCRAPER_TIMEOUT = safehttp.SCRAPER_TIMEOUT
+BROWSER_IMPERSONATIONS = safehttp.BROWSER_IMPERSONATIONS
+ForceTimeoutException = safehttp.ForceTimeoutException
 
 logger = get_logger()
 
@@ -49,10 +43,6 @@ logger = get_logger()
 def _get_yt_dlp_extractors() -> list:
     """Build and cache the yt-dlp extractor list once per process lifetime."""
     return [ie for ie in yt_dlp.extractor.gen_extractors() if ie.working() and not isinstance(ie, GenericIE)]
-
-
-class ForceTimeoutException(Exception):
-    pass
 
 
 async def safe_scrape_html(url: str) -> str:
@@ -65,74 +55,8 @@ async def safe_scrape_html(url: str) -> str:
     bot-detection systems that fingerprint the TLS handshake (JA3/JA4),
     such as Cloudflare.
     """
-    logger.debug(f"Scraping URL: {url}")
-
-    html_bytes = b""
-    response: Response | None = None
-
-    for impersonation in BROWSER_IMPERSONATIONS:
-        logger.debug(f'Trying browser impersonation: "{impersonation}"')
-
-        html_bytes = b""
-        response = None
-
-        transport = safehttp.AsyncSafeTransport(
-            impersonate=impersonation,
-            default_headers=True,
-            verify=False,  # disable SSL verification since we can handle untrusted data and some sites don't have certs
-        )
-        async with AsyncClient(transport=transport) as client:
-            async with client.stream(
-                "GET",
-                url,
-                timeout=SCRAPER_TIMEOUT,
-                follow_redirects=True,
-            ) as resp:
-                if resp.status_code == 403:
-                    logger.debug(f'403 Forbidden with impersonation "{impersonation}", trying next')
-                    continue
-
-                if resp.status_code >= 400:
-                    logger.debug(f'Error status code {resp.status_code} with impersonation "{impersonation}"')
-                    break
-
-                start_time = time.time()
-
-                async for chunk in resp.aiter_bytes(chunk_size=1024):
-                    html_bytes += chunk
-
-                    if time.time() - start_time > SCRAPER_TIMEOUT:
-                        raise ForceTimeoutException()
-
-                response = resp
-                break
-
-    if not (response and html_bytes):
-        return ""
-
-    # =====================================
-    # Copied from requests text property
-
-    # Try charset from content-type
-    encoding = response.encoding
-
-    # Fallback to auto-detected encoding.
-    if encoding is None:
-        encoding = response.apparent_encoding
-
-    # Decode unicode from given encoding.
-    try:
-        content = str(html_bytes, encoding, errors="replace")
-    except (LookupError, TypeError):
-        # A LookupError is raised if the encoding was not found which could
-        # indicate a misspelling or similar mistake.
-        #
-        # A TypeError can be raised if encoding is None
-        #
-        # So we try blindly encoding.
-        content = str(html_bytes, errors="replace")
-
-    return content
+    result = await safehttp.resilient_fetch(url)
+    return result.text if result else ""
 
 
 class ABCScraperStrategy(ABC):

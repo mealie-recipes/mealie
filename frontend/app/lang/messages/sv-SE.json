@@ -410,7 +410,8 @@
     "applies-on-days": "Gäller på {0}s",
     "meal-plan-settings": "Inställningar för måltidsplanering",
     "add-all-to-list": "Lägg till alla i inköpslista",
-    "add-day-to-list": "Lägg till dag i inköpslista"
+    "add-day-to-list": "Lägg till dag i inköpslista",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Importerad data borttagen",
@@ -480,6 +481,7 @@
     "from-url": "Från länk",
     "github-issues": "GitHub problem",
     "google-ld-json-info": "Google ld+json Info",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Måste vara en korrekt URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Klistra in din receptdata, varje rad kommer att hanteras som ett listelement",
     "recipe-markup-specification": "Specifikation för receptmärkning",
@@ -940,7 +942,10 @@
     "openai-ready": "OpenAI redo",
     "openai-not-ready": "OpenAI ej tillgängligt",
     "openai-ready-error-text": "Alla OpenAI-värden är inte konfigurerade. Detta kan ignoreras om du inte använder OpenAI-funktioner.",
-    "openai-ready-success-text": "Alla obligatoriska OpenAI-variabler är satta."
+    "openai-ready-success-text": "Alla obligatoriska OpenAI-variabler är satta.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Visa alla listor",
@@ -1396,6 +1401,7 @@
     "setup": {
       "first-time-setup": "Första installationen",
       "welcome-to-mealie-get-started": "Välkommen till Mealie! Låt oss komma igång",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Jag har redan gjort inställningarna, ta mig bara till hemsidan",
       "common-settings-for-new-sites": "Här är några vanliga inställningar för nya webbplatser",
       "setup-complete": "Konfigurationen slutförd!",

@@ -4,13 +4,13 @@ from re import search as regex_search
 from uuid import uuid4
 
 from fastapi import HTTPException, status
-from slugify import slugify
 
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe import Recipe
+from mealie.schema.recipe.recipe import create_recipe_slug
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
@@ -72,7 +72,7 @@ async def create_from_html(
         if new_recipe.name is None:
             new_recipe.name = "Untitled"
 
-        new_recipe.slug = slugify(new_recipe.name)
+        new_recipe.slug = create_recipe_slug(new_recipe.name)
         new_recipe.image = cache.new_key(4)
     except Exception as e:
         recipe_data_service.logger.exception(f"Error Scraping Image: {e}")
@@ -80,6 +80,6 @@ async def create_from_html(
 
     if new_recipe.name is None or new_recipe.name == "":
         new_recipe.name = f"No Recipe Name Found - {uuid4()!s}"
-        new_recipe.slug = slugify(new_recipe.name)
+        new_recipe.slug = create_recipe_slug(new_recipe.name)
 
     return new_recipe, extras

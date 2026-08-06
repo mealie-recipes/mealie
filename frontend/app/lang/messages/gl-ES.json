@@ -410,7 +410,8 @@
     "applies-on-days": "Aplícase en {0}s",
     "meal-plan-settings": "Axustes do Menú",
     "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-day-to-list": "Add Day to List",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Elimináronse os datos de migración",
@@ -480,6 +481,7 @@
     "from-url": "Importar unha Receita",
     "github-issues": "Problemas no GitHub",
     "google-ld-json-info": "Google ld+json Info",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Precisa ser un URL válido",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Pegue os datos da sua receita. Cada liña será tratada como un item nunha lista",
     "recipe-markup-specification": "Especificación Markup da Receita",
@@ -940,7 +942,10 @@
     "openai-ready": "Preparado para OpenAI",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Non todos os valores de OpenAI están configurados. Isto pódese ignorar se non está a usar as funcións de OpenAI.",
-    "openai-ready-success-text": "As variáveis OpenAI necesarias están todas definidas."
+    "openai-ready-success-text": "As variáveis OpenAI necesarias están todas definidas.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Todas as Listas",
@@ -1396,6 +1401,7 @@
     "setup": {
       "first-time-setup": "Configuración Inicial",
       "welcome-to-mealie-get-started": "Benvido ao Mealie! Vamos comezar",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Xa estou listo, levame para a páxina inicial",
       "common-settings-for-new-sites": "Aqui están algunhas configuracións comuns para sites novos",
       "setup-complete": "Configuración Concluída!",

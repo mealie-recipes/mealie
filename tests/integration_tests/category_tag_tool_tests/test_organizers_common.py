@@ -192,7 +192,7 @@ def test_organizer_association(
 
 
 @pytest.mark.parametrize("route", organizer_routes, ids=test_ids)
-def test_organizer_create_duplicate_name_returns_400(
+def test_organizer_create_duplicate_name_returns_409(
     api_client: TestClient,
     unique_user: TestUser,
     route: RoutesBase,
@@ -206,7 +206,7 @@ def test_organizer_create_duplicate_name_returns_400(
     assert response.status_code == 201
 
     response = api_client.post(route.base, json=data, headers=unique_user.token)
-    assert response.status_code == 400
+    assert response.status_code == 409
 
 
 @pytest.mark.parametrize("route, recipe_key", association_data, ids=test_ids)

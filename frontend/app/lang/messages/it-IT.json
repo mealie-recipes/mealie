@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Imposta il tuo gruppo e tutte le ricette privati di default. Puoi sempre cambiare questa impostazione più tardi."
     },
     "manage-members": "Gestisci i membri",
-    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
+    "manage-members-description": "Gestisci le autorizzazioni dei membri del tuo nucleo familiare. {manage} consente all'utente di accedere alle aree di gestione del gruppo, {organize} consente all'utente di gestire i dati del gruppo come alimenti, tag e categorie, e {invite} consente all'utente di generare link di invito per altri utenti. I proprietari del gruppo non possono modificare le proprie autorizzazioni.",
     "manage": "Gestisci",
     "manage-household": "Gestisci Famiglia",
     "invite": "Invita",
@@ -410,7 +410,8 @@
     "applies-on-days": "Si applica ai {0}",
     "meal-plan-settings": "Impostazioni del piano alimentare",
     "add-all-to-list": "Aggiungi tutto alla lista",
-    "add-day-to-list": "Aggiungi Giorno"
+    "add-day-to-list": "Aggiungi Giorno",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Dati di migrazione rimossi",
@@ -480,6 +481,7 @@
     "from-url": "Importa ricetta",
     "github-issues": "Github Issues",
     "google-ld-json-info": "Google ld+json Info",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Deve essere un URL valido",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Inserisci i dati della tua ricetta. Ogni riga sarà trattata come uno step della ricetta.",
     "recipe-markup-specification": "Specifiche Markup Ricetta",
@@ -940,7 +942,10 @@
     "openai-ready": "OpenAI Pronto",
     "openai-not-ready": "OpenAI Non Pronto",
     "openai-ready-error-text": "Non tutti i valori OpenAI sono configurati. Puoi ignorarlo se non utilizzi le funzioni di OpenAI.",
-    "openai-ready-success-text": "Le variabili OpenAI richieste sono tutte impostate."
+    "openai-ready-success-text": "Le variabili OpenAI richieste sono tutte impostate.",
+    "site-statistics": "Statistiche del sito",
+    "uncategorized-recipes": "Ricette non categorizzate",
+    "untagged-recipes": "Ricette senza tag"
   },
   "shopping-list": {
     "all-lists": "Tutte le Liste",
@@ -1123,9 +1128,9 @@
     "permissions": "Permessi",
     "administrator": "Amministratore",
     "user-can-invite-other-to-group": "L'utente può invitare altre persone nel gruppo",
-    "user-can-manage-group": "User can manage group settings",
+    "user-can-manage-group": "L'utente può gestire gruppi",
     "user-can-manage-household": "L'utente può gestire la famiglia",
-    "user-can-organize-group-data": "User can manage foods, tags, and categories",
+    "user-can-organize-group-data": "L'utente può gestire cibi, tag e categorie",
     "enable-advanced-features": "Abilita funzionalità avanzate",
     "it-looks-like-this-is-your-first-time-logging-in": "Sembra che questa sia la tua prima volta che accedi.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Non vuoi più vederlo? Assicurati di modificare la tua email nelle impostazioni utente!",
@@ -1396,6 +1401,7 @@
     "setup": {
       "first-time-setup": "Configurazione iniziale",
       "welcome-to-mealie-get-started": "Un benvenuto su Mealie! Iniziamo",
+      "previous-mealie-instance": "Hai già avuto un'istanza da Mealie in passato?",
       "already-set-up-bring-to-homepage": "Ho già configurato tutto, portami alla pagina iniziale",
       "common-settings-for-new-sites": "Ecco alcune impostazioni comuni per i nuovi siti",
       "setup-complete": "Configurazione completata!",

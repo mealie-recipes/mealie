@@ -410,7 +410,8 @@
     "applies-on-days": "Gjelder på {0}er",
     "meal-plan-settings": "Innstillinger for måltidsplan",
     "add-all-to-list": "Legg alt til listen",
-    "add-day-to-list": "Legg til dag i listen"
+    "add-day-to-list": "Legg til dag i listen",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Overføringsdata er fjernet",
@@ -480,6 +481,7 @@
     "from-url": "Importer en oppskrift",
     "github-issues": "GitHub Issues",
     "google-ld-json-info": "Google ld+json-informasjon",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Må være en gyldig nettadresse",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Lim inn oppskriftsdataene. Hver linje blir behandlet som et element i en liste",
     "recipe-markup-specification": "Spesifikasjon for oppskriftsmerking",
@@ -940,7 +942,10 @@
     "openai-ready": "OpenAI klar",
     "openai-not-ready": "OpenAI er ikke klar",
     "openai-ready-error-text": "Ikke alle OpenAI-verdier er konfigurert. Dette kan ignoreres hvis du ikke bruker OpenAI-funksjoner.",
-    "openai-ready-success-text": "Alle påkrevde OpenAI-variabler er satt."
+    "openai-ready-success-text": "Alle påkrevde OpenAI-variabler er satt.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Alle lister",
@@ -1396,6 +1401,7 @@
     "setup": {
       "first-time-setup": "Førstegangsoppsett",
       "welcome-to-mealie-get-started": "Velkommen til Mealie! La oss begynne",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Jeg er allerede satt opp, bare ta meg med til hjemmesiden",
       "common-settings-for-new-sites": "Her er noen vanlige innstillinger for nye sider",
       "setup-complete": "Oppsett fullført!",

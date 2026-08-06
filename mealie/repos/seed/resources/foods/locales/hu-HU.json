@@ -127,7 +127,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pálmarügy",
-                "plural_name": "heart of palm"
+                "plural_name": "pálmaszív"
             },
             "baby greens": {
                 "aliases": [],
@@ -462,7 +462,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bébi bordáskel",
-                "plural_name": "baby bok choy"
+                "plural_name": "bébi bordáskel"
             },
             "jicama": {
                 "aliases": [],
@@ -493,8 +493,8 @@
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "collard greens",
-                "plural_name": "collard greens"
+                "name": "tépőkáposzta",
+                "plural_name": "tépőkáposzta"
             },
             "french-fried onion": {
                 "aliases": [],
@@ -547,14 +547,14 @@
             "microgreens": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreens",
-                "plural_name": "microgreens"
+                "name": "mikrozöldek",
+                "plural_name": "mikrozöldek"
             },
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
                 "name": "fejes saláta",
-                "plural_name": "boston lettuce"
+                "plural_name": "fejes saláta"
             },
             "kohlrabi": {
                 "aliases": [],
@@ -2169,8 +2169,8 @@
             "gouda cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda cheese",
-                "plural_name": "gouda cheese"
+                "name": "gouda sajt",
+                "plural_name": "gouda sajt"
             },
             "cotija cheese": {
                 "aliases": [],
@@ -2319,8 +2319,8 @@
             "edam cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "edam cheese",
-                "plural_name": "edam cheese"
+                "name": "edámi sajt",
+                "plural_name": "edámi sajt"
             },
             "creamy cheese wedge": {
                 "aliases": [],
@@ -13725,11 +13725,11 @@
                 "name": "anchovy stock",
                 "plural_name": "anchovy stock"
             },
-            "cream of chicken soup mix:": {
+            "cream of chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "csirke krémleves-keverék",
+                "plural_name": "csirke krémleves-keverék"
             },
             "noodle soup mix": {
                 "aliases": [],
