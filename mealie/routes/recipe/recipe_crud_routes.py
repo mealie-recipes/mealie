@@ -629,7 +629,7 @@ class RecipeController(BaseRecipeController):
     # ==================================================================================================================
     # Image and Assets
 
-    @router.post("/{slug}/image", tags=["Recipe: Images and Assets"])
+    @router.post("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
     async def scrape_image_url(self, slug: str, url: ScrapeRecipe):
         recipe = self.mixins.get_one(slug)
         data_service = RecipeDataService(recipe.id)
@@ -649,6 +649,7 @@ class RecipeController(BaseRecipeController):
 
         recipe.image = cache.cache_key.new_key()
         self.service.update_one(recipe.slug, recipe)
+        return UpdateImageResponse(image=recipe.image)
 
     @router.put("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
     def update_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):
