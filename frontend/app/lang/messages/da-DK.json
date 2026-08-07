@@ -411,7 +411,7 @@
     "meal-plan-settings": "Indstillinger for madplanlægning",
     "add-all-to-list": "Tilføj alle til liste",
     "add-day-to-list": "Tilføj dag til liste",
-    "randomize-recipe": "Randomize Recipe"
+    "randomize-recipe": "Gør opskrift tilfældig"
   },
   "migration": {
     "migration-data-removed": "Migreringsdata fjernet",
@@ -481,7 +481,7 @@
     "from-url": "Fra URL",
     "github-issues": "GitHub problemer",
     "google-ld-json-info": "Google ld+json data",
-    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
+    "html-or-json-error-details": "Melie kunne ikke finde en opskrift i det data, du leverede. Kun ld+json eller mikrodata, der indeholder en schema.org-\"Recipe\" kan importeres. Hvis du klipper JSON in, så sørg for, at det både deklarerer \"@context\": \"https://schema.org/\" og \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Det skal være en korrekt URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Indsæt dine opskriftsdata. \nHver linje behandles som et element på en liste",
     "recipe-markup-specification": "Opskriftsmarkupspecifikation",
