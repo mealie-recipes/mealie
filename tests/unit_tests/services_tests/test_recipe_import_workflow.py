@@ -7,6 +7,11 @@ import pytest
 import mealie
 from mealie.lang import get_locale_provider
 from mealie.lang.providers import TRANSLATIONS
+from mealie.services.openai.content import (
+    MAX_SOURCE_CONTENT_LENGTH,
+    TRUNCATION_NOTICE,
+    truncate_source_content,
+)
 from mealie.services.recipe.import_workflow.compilers import DEFAULT_SOURCE_COMPILERS
 from mealie.services.recipe.import_workflow.workflow import DEFAULT_WORKFLOW_STEPS
 
@@ -54,6 +59,28 @@ def test_declared_progress_keys_are_translatable(key: str):
 @pytest.mark.parametrize("key", progress_keys_in_source())
 def test_progress_keys_used_in_source_are_translatable(key: str):
     assert is_translatable(key), f"Progress key '{key}' is missing from the backend translations"
+
+
+def test_short_content_is_not_truncated():
+    content = "a" * 100
+    assert truncate_source_content(content) == content
+
+
+def test_content_at_the_limit_is_not_truncated():
+    content = "a" * MAX_SOURCE_CONTENT_LENGTH
+    assert truncate_source_content(content) == content
+
+
+def test_long_content_is_truncated_and_marked():
+    content = "a" * (MAX_SOURCE_CONTENT_LENGTH + 1)
+    truncated = truncate_source_content(content)
+
+    assert truncated.endswith(TRUNCATION_NOTICE)
+    assert len(truncated) == MAX_SOURCE_CONTENT_LENGTH + len(TRUNCATION_NOTICE)
+
+
+def test_content_can_be_truncated_to_a_custom_length():
+    assert truncate_source_content("abcdef", max_length=3) == "abc" + TRUNCATION_NOTICE
 
 
 def test_no_orphaned_progress_keys():

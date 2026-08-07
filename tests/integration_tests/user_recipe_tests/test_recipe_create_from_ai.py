@@ -1,10 +1,13 @@
 import json
 from collections.abc import Generator
+from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
 
+import mealie.services.openai.transcription as transcription_module
 import mealie.services.recipe.import_workflow.steps.compile_source as compile_source_module
+from mealie.core import exceptions
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.schema.openai.recipe import (
@@ -21,6 +24,8 @@ from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 from tests.utils.helpers import parse_sse_events
 
+VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
 
 @pytest.fixture(autouse=True)
 def ai_providers(unique_user: TestUser) -> Generator[None, None, None]:
@@ -33,7 +38,7 @@ def ai_providers(unique_user: TestUser) -> Generator[None, None, None]:
         unique_user.repos.group_id,
         AIProviderSettingsUpdate(
             default_provider_id=provider.id,
-            audio_provider_id=None,
+            audio_provider_id=provider.id,
             image_provider_id=provider.id,
         ),
     )
@@ -232,6 +237,90 @@ def test_create_from_url(
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
     assert recipe["name"] == recipe_name
     assert recipe["orgURL"] == url
+
+
+def test_create_from_video_url(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    recipe_name: str,
+):
+    ai = AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    def mock_download_video(url: str, temp_path: Path):
+        return {
+            "audio": temp_path / "mealie.mp3",
+            "subtitle": None,
+            "title": random_string(),
+            "description": random_string(),
+            "thumbnail_url": "https://example.com/thumbnail.jpg",
+            "transcription": random_string(),
+        }
+
+    async def fail_if_fetched(_: str) -> str:
+        raise AssertionError("a video URL should be downloaded, not fetched as a webpage")
+
+    monkeypatch.setattr(transcription_module, "download_video", mock_download_video)
+    monkeypatch.setattr(compile_source_module, "safe_scrape_html", fail_if_fetched)
+
+    r = post_ai(api_client, unique_user, {"url": VIDEO_URL})
+    assert r.status_code == 201
+
+    # the transcript is already a faithful record, so only the build step hits the provider
+    assert ai.requested_schemas == ["OpenAIRecipe"]
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == recipe_name
+    assert recipe["orgURL"] == VIDEO_URL
+
+
+def test_create_from_video_url_without_audio_provider_falls_back_to_fetching(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    settings = unique_user.repos.group_ai_provider_settings.get_one(unique_user.repos.group_id)
+    assert settings
+    unique_user.repos.group_ai_provider_settings.update(
+        unique_user.repos.group_id,
+        AIProviderSettingsUpdate(
+            default_provider_id=settings.default_provider_id,
+            audio_provider_id=None,
+            image_provider_id=settings.image_provider_id,
+        ),
+    )
+
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    fetched: list[str] = []
+
+    async def mock_safe_scrape_html(url: str) -> str:
+        fetched.append(url)
+        return f"<html><body>{random_string()}</body></html>"
+
+    monkeypatch.setattr(compile_source_module, "safe_scrape_html", mock_safe_scrape_html)
+
+    r = post_ai(api_client, unique_user, {"url": VIDEO_URL})
+    assert r.status_code == 201
+    assert fetched == [VIDEO_URL]
+
+
+def test_create_surfaces_rate_limit_errors(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    async def mock_get_response(self, prompt, message, *args, **kwargs):
+        raise exceptions.RateLimitError("429 too many requests")
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    r = post_ai(api_client, unique_user, {"content": random_string()})
+    assert r.status_code == 400
+    assert "rate limiting" in r.text
 
 
 def test_create_preserves_sections_and_nutrition(
