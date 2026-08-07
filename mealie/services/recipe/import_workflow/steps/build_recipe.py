@@ -49,10 +49,16 @@ class BuildRecipeStep(WorkflowStep):
 
     def _convert_recipe(self, ctx: WorkflowContext, openai_recipe: OpenAIRecipe) -> Recipe:
         compiled = ctx.compiled_source
+
+        # callers that persist the recipe themselves assign its owner, so only set it when known
+        owner = (
+            {"user_id": ctx.user.id, "group_id": ctx.user.group_id, "household_id": ctx.household.id}
+            if ctx.user and ctx.household
+            else {}
+        )
+
         return Recipe(
-            user_id=ctx.user.id,
-            group_id=ctx.user.group_id,
-            household_id=ctx.household.id,
+            **owner,
             name=openai_recipe.name,
             slug=create_recipe_slug(openai_recipe.name),
             description=openai_recipe.description,
@@ -77,22 +83,6 @@ class BuildRecipeStep(WorkflowStep):
             org_url=ctx.input.url,
         )
 
-    def _clean_recipe(self, ctx: WorkflowContext, recipe: Recipe) -> Recipe:
-        cleaned = cleaner.clean(recipe, ctx.translator)
-
-        # cleaner.clean flattens ingredients and instructions into plain text, which drops their
-        # section titles, so put ours back
-        cleaned.recipe_ingredient = [
-            RecipeIngredient(title=ingredient.title, note=cleaner.clean_string(ingredient.note or ""))
-            for ingredient in recipe.recipe_ingredient
-        ]
-        cleaned.recipe_instructions = [
-            RecipeStep(title=instruction.title, text=cleaner.clean_string(instruction.text))
-            for instruction in recipe.recipe_instructions or []
-        ]
-
-        return cleaned
-
     async def run(self, ctx: WorkflowContext) -> None:
         response = await ctx.ai.get_response(
             ctx.ai.get_prompt(BUILD_RECIPE_PROMPT),
@@ -106,4 +96,4 @@ class BuildRecipeStep(WorkflowStep):
         if not (response.ingredients or response.instructions):
             raise NoRecipeDataError("No recipe was found in the provided source")
 
-        ctx.draft_recipe = self._clean_recipe(ctx, self._convert_recipe(ctx, response))
+        ctx.draft_recipe = cleaner.clean(self._convert_recipe(ctx, response), ctx.translator)

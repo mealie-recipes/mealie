@@ -79,6 +79,9 @@ class ResolveOrganizersStep(WorkflowStep):
 
         return truncate_source_content("\n\n".join(message_parts))
 
+    def should_run(self, ctx: WorkflowContext) -> bool:
+        return ctx.options.resolve_organizers
+
     async def run(self, ctx: WorkflowContext) -> None:
         recipe = ctx.draft_recipe
         if not recipe:
@@ -88,7 +91,7 @@ class ResolveOrganizersStep(WorkflowStep):
         create_missing = ctx.options.create_new_organizers
 
         existing = resolver.existing_names()
-        if not (create_missing or any(existing.values())):
+        if ctx.options.attach_organizers and not (create_missing or any(existing.values())):
             # nothing to match against and nothing may be created, so there's no work to do
             return
 
@@ -99,6 +102,11 @@ class ResolveOrganizersStep(WorkflowStep):
         )
 
         if not response:
+            return
+
+        ctx.organizer_names = response
+        if not ctx.options.attach_organizers:
+            # the caller applies these itself
             return
 
         recipe.tags = resolver.resolve_tags(response.tags, create_missing)

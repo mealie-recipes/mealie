@@ -83,14 +83,3 @@ def extract_page_content(html: str) -> tuple[str, str | None]:
         image = None
 
     return text, image
-
-
-def format_html_to_text(html: str) -> str:
-    """Builds an AI prompt message out of a webpage's text content and its primary image, if found."""
-
-    text, image = extract_page_content(html)
-
-    components = [f"Convert this content to JSON: {text}"]
-    if image:
-        components.append(f"Recipe Image: {image}")
-    return "\n".join(components)

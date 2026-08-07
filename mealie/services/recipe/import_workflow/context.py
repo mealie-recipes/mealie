@@ -9,6 +9,7 @@ from mealie.lang.providers import Translator
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.household import HouseholdInDB
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
+from mealie.schema.openai.organizers import OpenAIOrganizers
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.user.user import PrivateUser
 from mealie.services.openai import OpenAIService
@@ -36,6 +37,15 @@ class WorkflowOptions(BaseModel):
 
     translate_language: str | None = None
 
+    resolve_organizers: bool = True
+    """Whether to ask the provider for the recipe's tags, categories, and tools"""
+
+    attach_organizers: bool = True
+    """
+    Whether resolved organizers should be attached to the recipe. Callers that apply organizers
+    themselves can switch this off and read the names off the context instead.
+    """
+
     create_new_organizers: bool = False
     """Whether organizers that don't already exist in the group should be created"""
 
@@ -54,10 +64,12 @@ class WorkflowContext:
     options: WorkflowOptions
 
     repos: AllRepositories
-    user: PrivateUser
-    household: HouseholdInDB
     translator: Translator
     ai: OpenAIService
+
+    user: PrivateUser | None = None
+    household: HouseholdInDB | None = None
+    """Recipe owner. Optional, since callers that persist the recipe themselves assign it."""
 
     on_progress: Callable[[str], Awaitable[None]] | None = None
 
@@ -66,6 +78,9 @@ class WorkflowContext:
 
     compiled_source: OpenAICompiledSource | None = None
     """Output of the compile step"""
+
+    organizer_names: OpenAIOrganizers | None = None
+    """Organizer names returned by the organizer step, before they're matched to the database"""
 
     draft_recipe: Recipe | None = None
     """Recipe under construction. Not persisted; the caller is responsible for saving it."""

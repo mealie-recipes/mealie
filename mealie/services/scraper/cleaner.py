@@ -47,9 +47,13 @@ def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recip
         dict: cleaned recipe dictionary
     """
     if not isinstance(recipe_data, dict):
-        # format the recipe like a scraped dictionary
+        # format the recipe like a scraped dictionary. Ingredients are flattened to their display
+        # text, but keep their section titles, which are otherwise lost on the way through
         recipe_data_dict = recipe_data.model_dump(by_alias=True)
-        recipe_data_dict["recipeIngredient"] = [ing.display for ing in recipe_data.recipe_ingredient]
+        recipe_data_dict["recipeIngredient"] = [
+            {"title": ing.title, "note": ing.display} if ing.title else {"note": ing.display}
+            for ing in recipe_data.recipe_ingredient
+        ]
 
         recipe_data = recipe_data_dict
 
@@ -166,6 +170,7 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
             #
             return [
                 {"text": _sanitize_instruction_text(instruction["text"])}
+                | ({"title": instruction["title"]} if instruction.get("title") else {})
                 for instruction in steps_object
                 if "text" in instruction and instruction["text"].strip()
             ]

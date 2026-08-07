@@ -132,10 +132,22 @@ class RecipeController(BaseRecipeController):
 
     @router.post("/test-scrape-url")
     async def test_parse_recipe_url(self, data: ScrapeRecipeTest):
-        # Debugger should produce the same result as the scraper sees before cleaning
-        ScraperClass = RecipeScraperOpenAI if data.use_openai else RecipeScraperPackage
         try:
-            if scraped_data := await ScraperClass(data.url, self.translator, self.repos).scrape_url():
+            if data.use_openai:
+                # the AI scraper builds a recipe directly, so there's no scraped schema to show
+                scraper = RecipeScraperOpenAI(data.url, self.translator, self.repos)
+                try:
+                    result = await scraper.parse()
+                except NoRecipeDataError as e:
+                    return str(e)
+
+                if result and result[0]:
+                    return result[0].model_dump(by_alias=True)
+
+                return "AI was unable to extract a recipe from this URL"
+
+            # Debugger should produce the same result as the scraper sees before cleaning
+            if scraped_data := await RecipeScraperPackage(data.url, self.translator, self.repos).scrape_url():
                 return scraped_data.schema.data
         except ForceTimeoutException as e:
             raise HTTPException(
@@ -280,7 +292,15 @@ class RecipeController(BaseRecipeController):
             url = req.url
 
         async def create(on_progress: Callable[[str], Awaitable[None]]) -> str:
-            recipe, extras = await create_from_html(url, self.repos, self.translator, html, on_progress=on_progress)
+            recipe, extras = await create_from_html(
+                url,
+                self.repos,
+                self.translator,
+                html,
+                on_progress=on_progress,
+                include_tags=req.include_tags,
+                include_categories=req.include_categories,
+            )
             return self._finish_recipe_from_web(req, recipe, extras)
 
         return self._stream_recipe_creation(create)
@@ -421,33 +441,26 @@ class RecipeController(BaseRecipeController):
 
         return recipe.slug
 
-    @router.post("/create/image", status_code=201)
+    @router.post("/create/image", status_code=201, deprecated=True, include_in_schema=False)
     async def create_recipe_from_image(
         self,
         images: list[UploadFile] = File(...),
         translate_language: str | None = Query(None, alias="translateLanguage"),
     ):
         """
-        Create a recipe from an image using OpenAI.
-        Optionally specify a language for it to translate the recipe to.
+        Deprecated in favor of `/create/ai`, which accepts images alongside other content.
+        Kept so existing integrations keep working.
         """
 
-        ai_settings = self.group.ai_provider_settings
-        if not (ai_settings and ai_settings.image_provider_enabled):
-            raise HTTPException(
-                status_code=400,
-                detail=ErrorResponse.respond("OpenAI image services are not enabled"),
-            )
+        req = ScrapeRecipeAI(translate_language=translate_language)
+        async for event in self._create_recipe_with_ai(req, images):
+            if isinstance(event.data, SSEDataEventDone):
+                return event.data.slug
+            if isinstance(event.data, SSEDataEventMessage) and event.event == SSEDataEventStatus.ERROR:
+                raise HTTPException(status_code=400, detail=ErrorResponse.respond(message=event.data.message))
 
-        recipe = await self.service.create_from_images(images, translate_language)
-        self.publish_event(
-            event_type=EventTypes.recipe_created,
-            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
-            group_id=recipe.group_id,
-            household_id=recipe.household_id,
-        )
-
-        return recipe.slug
+        # This should never be reachable, since we should always hit DONE or hit an exception/ERROR
+        raise HTTPException(status_code=500, detail=ErrorResponse.respond(message="Unknown Error"))
 
     # ==================================================================================================================
     # CRUD Operations

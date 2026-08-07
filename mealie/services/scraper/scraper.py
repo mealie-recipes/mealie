@@ -29,6 +29,8 @@ async def create_from_html(
     translator: Translator,
     html: str | None = None,
     on_progress: Callable[[str], Awaitable[None]] | None = None,
+    include_tags: bool = False,
+    include_categories: bool = False,
 ) -> tuple[Recipe, ScrapedExtras | None]:
     """Main entry point for generating a recipe from a URL. Pass in a URL and
     a Recipe object will be returned if successful. Optionally pass in the HTML to skip fetching it.
@@ -49,7 +51,13 @@ async def create_from_html(
             raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})
         url = extracted_url.group(0)
 
-    new_recipe, extras = await scraper.scrape(url, html, on_progress=on_progress)
+    new_recipe, extras = await scraper.scrape(
+        url,
+        html,
+        on_progress=on_progress,
+        include_tags=include_tags,
+        include_categories=include_categories,
+    )
 
     if not new_recipe:
         raise HTTPException(status.HTTP_400_BAD_REQUEST, {"details": ParserErrors.BAD_RECIPE_DATA.value})

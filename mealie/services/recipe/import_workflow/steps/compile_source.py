@@ -1,4 +1,4 @@
-from mealie.services.scraper.scraper_strategies import safe_scrape_html
+from mealie.services.scraper.fetch import safe_scrape_html
 
 from ..base import WorkflowStep
 from ..compilers import DEFAULT_SOURCE_COMPILERS, SourceCompiler

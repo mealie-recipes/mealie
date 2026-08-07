@@ -13,39 +13,32 @@ from mealie.core import exceptions
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
-from mealie.pkgs import safehttp
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.openai.general import OpenAIText
 from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.services.openai import OpenAIService, transcription
-from mealie.services.openai.content import format_html_to_text
+from mealie.services.recipe.import_workflow import (
+    RecipeImportWorkflow,
+    WorkflowContext,
+    WorkflowInput,
+    WorkflowOptions,
+)
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
 
 # Re-exported for backwards compatibility with existing importers (e.g. recipe route error handling).
-SCRAPER_TIMEOUT = safehttp.SCRAPER_TIMEOUT
-BROWSER_IMPERSONATIONS = safehttp.BROWSER_IMPERSONATIONS
-ForceTimeoutException = safehttp.ForceTimeoutException
+# safe_scrape_html lives in `fetch` so the import workflow can fetch pages without importing this module.
+from .fetch import (  # noqa: F401
+    BROWSER_IMPERSONATIONS,
+    SCRAPER_TIMEOUT,
+    ForceTimeoutException,
+    safe_scrape_html,
+)
 
 logger = get_logger()
-
-
-async def safe_scrape_html(url: str) -> str:
-    """
-    Scrapes the html from a url but will cancel the request
-    if the request takes longer than SCRAPER_TIMEOUT seconds. This is used to mitigate
-    DDOS attacks from users providing a url with arbitrary large content.
-
-    Cycles through browser TLS impersonations (via httpx-curl-cffi) to bypass
-    bot-detection systems that fingerprint the TLS handshake (JA3/JA4),
-    such as Cloudflare.
-    """
-    result = await safehttp.resilient_fetch(url)
-    return result.text if result else ""
 
 
 class ABCScraperStrategy(ABC):
@@ -61,12 +54,19 @@ class ABCScraperStrategy(ABC):
         translator: Translator,
         repos: AllRepositories,
         raw_html: str | None = None,
+        include_tags: bool = False,
+        include_categories: bool = False,
     ) -> None:
         self.logger = get_logger()
         self.url = url
         self.raw_html = raw_html
         self.translator = translator
         self.repos = repos
+
+        # only used by strategies that have to ask for organizers, rather than reading them
+        # out of the page's structured data
+        self.include_tags = include_tags
+        self.include_categories = include_categories
 
     @abstractmethod
     def can_scrape(self) -> bool: ...
@@ -253,37 +253,45 @@ class RecipeScraperPackage(ABCScraperStrategy):
         return self.clean_scraper(scraped_data, self.url)
 
 
-class RecipeScraperOpenAI(RecipeScraperPackage):
+class RecipeScraperOpenAI(ABCScraperStrategy):
     """
-    A wrapper around the `RecipeScraperPackage` class that uses OpenAI to extract the recipe from the URL,
-    rather than trying to scrape it directly.
+    Extracts a recipe from a URL using AI, by running the recipe import workflow over the
+    page's contents rather than trying to scrape it directly.
     """
 
     def can_scrape(self) -> bool:
         settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
-        return bool(settings and settings.ai_enabled and super().can_scrape())
+        return bool(settings and settings.ai_enabled and (self.url or self.raw_html))
 
     async def get_html(self, url: str) -> str:
-        service = OpenAIService(self.repos)
-        html = self.raw_html or await safe_scrape_html(url)
-        text = format_html_to_text(html)
-        try:
-            prompt = service.get_prompt("recipes.scrape-recipe")
+        return self.raw_html or await safe_scrape_html(url)
 
-            response = await service.get_response(prompt, text, response_schema=OpenAIText)
-            if not (response and response.text):
-                raise Exception("OpenAI did not return any data")
-
-            return self.ld_json_to_html(response.text)
-        except Exception:
-            self.logger.exception(f"OpenAI was unable to extract a recipe from {url}")
-            return ""
+    def build_context(self, on_progress: Callable[[str], Awaitable[None]] | None = None) -> WorkflowContext:
+        return WorkflowContext(
+            input=WorkflowInput(content=self.raw_html, url=self.url),
+            options=WorkflowOptions(
+                # organizers are only worth asking for if the caller intends to use them, and
+                # they're reported back through ScrapedExtras so the caller stays in control
+                resolve_organizers=self.include_tags or self.include_categories,
+                attach_organizers=False,
+            ),
+            repos=self.repos,
+            translator=self.translator,
+            ai=OpenAIService(self.repos),
+            on_progress=on_progress,
+        )
 
     async def parse(self, on_progress: Callable[[str], Awaitable[None]] | None = None):
-        if on_progress:
-            await on_progress(self.translator.t("recipe.create-progress.creating-recipe-with-ai"))
+        ctx = self.build_context(on_progress)
+        result = await RecipeImportWorkflow().run(ctx)
 
-        return await super().parse()
+        extras = ScrapedExtras()
+        if ctx.organizer_names:
+            # normalized the same way as organizers read out of a page's structured data
+            extras.set_tags(cleaner.clean_tags(ctx.organizer_names.tags))
+            extras.set_categories(cleaner.clean_categories(ctx.organizer_names.categories))
+
+        return result.recipe, extras
 
 
 class RecipeScraperOpenAITranscription(ABCScraperStrategy):
