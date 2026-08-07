@@ -459,8 +459,9 @@ def test_create_preserves_sections_and_nutrition(
     slug = json.loads(r.text)
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
 
+    # untitled entries fall back to each schema's own default: None for ingredients, "" for steps
     assert [i["title"] for i in recipe["recipeIngredient"]] == ["For the sauce", None]
-    assert [i["title"] for i in recipe["recipeInstructions"]] == ["Prep", None]
+    assert [i["title"] for i in recipe["recipeInstructions"]] == ["Prep", ""]
     assert recipe["nutrition"]["calories"] == "250"
     assert recipe["nutrition"]["proteinContent"] == "12"
 

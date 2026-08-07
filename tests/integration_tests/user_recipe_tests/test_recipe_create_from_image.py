@@ -4,6 +4,7 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
+from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.schema.openai.recipe import (
     OpenAIRecipe,
     OpenAIRecipeIngredient,
@@ -38,8 +39,16 @@ def test_openai_create_recipe_from_image(
     unique_user: TestUser,
     test_image_jpg: str,
 ):
-    async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> OpenAIRecipe | None:
-        data = OpenAIRecipe(
+    """The deprecated image route is a shim over the AI import workflow."""
+
+    async def mock_get_response(self, prompt: str, message: str, *args, response_schema=None, **kwargs):
+        if response_schema is OpenAICompiledSource:
+            return OpenAICompiledSource(contains_recipe=True, content=random_string(), language=None, image_url=None)
+
+        if response_schema is not OpenAIRecipe:
+            return None
+
+        return OpenAIRecipe(
             name=random_string(),
             description=random_string(),
             recipe_yield=random_string(),
@@ -50,7 +59,6 @@ def test_openai_create_recipe_from_image(
             instructions=[OpenAIRecipeInstruction(text=random_string()) for _ in range(1, random_int(5, 10))],
             notes=[OpenAIRecipeNotes(text=random_string()) for _ in range(random_int(2, 5))],
         )
-        return data
 
     monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
     with open(test_image_jpg, "rb") as f:
