@@ -6,7 +6,6 @@ from collections.abc import Awaitable, Callable
 from pathlib import Path
 from typing import Any, TypedDict
 
-import bs4
 import extruct
 import yt_dlp
 from fastapi import HTTPException, status
@@ -27,6 +26,7 @@ from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.services.openai import OpenAIService
+from mealie.services.openai.content import format_html_to_text
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
@@ -274,68 +274,10 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
         return bool(settings and settings.ai_enabled and super().can_scrape())
 
-    def extract_json_ld_data_from_html(self, soup: bs4.BeautifulSoup) -> str:
-        data_parts: list[str] = []
-        for script in soup.find_all("script", type="application/ld+json"):
-            try:
-                script_data = script.string
-                if script_data:
-                    data_parts.append(str(script_data))
-            except AttributeError:
-                pass
-
-        return "\n\n".join(data_parts)
-
-    def find_image(self, soup: bs4.BeautifulSoup) -> str | None:
-        # find the open graph image tag
-        og_image = soup.find("meta", property="og:image")
-        if og_image and og_image.get("content"):
-            return og_image["content"]
-
-        # find the largest image on the page
-        largest_img = None
-        max_size = 0
-        for img in soup.find_all("img"):
-            width = img.get("width", 0)
-            height = img.get("height", 0)
-            if not width or not height:
-                continue
-
-            try:
-                size = int(width) * int(height)
-            except (ValueError, TypeError):
-                size = 1
-            if size > max_size:
-                max_size = size
-                largest_img = img
-
-        if largest_img:
-            return largest_img.get("src")
-
-        return None
-
-    def format_html_to_text(self, html: str) -> str:
-        soup = bs4.BeautifulSoup(html, "lxml")
-
-        text = soup.get_text(separator="\n", strip=True)
-        text += self.extract_json_ld_data_from_html(soup)
-        if not text:
-            raise Exception("No text or ld+json data found in HTML")
-
-        try:
-            image = self.find_image(soup)
-        except Exception:
-            image = None
-
-        components = [f"Convert this content to JSON: {text}"]
-        if image:
-            components.append(f"Recipe Image: {image}")
-        return "\n".join(components)
-
     async def get_html(self, url: str) -> str:
         service = OpenAIService(self.repos)
         html = self.raw_html or await safe_scrape_html(url)
-        text = self.format_html_to_text(html)
+        text = format_html_to_text(html)
         try:
             prompt = service.get_prompt("recipes.scrape-recipe")
 
