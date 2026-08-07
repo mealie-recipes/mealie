@@ -2,11 +2,12 @@ from mealie.core.root_logger import get_logger
 
 from .base import WorkflowStep
 from .context import StepOutcome, WorkflowContext, WorkflowResult
-from .steps import BuildRecipeStep, CompileSourceStep
+from .steps import BuildRecipeStep, CompileSourceStep, ResolveOrganizersStep
 
 DEFAULT_WORKFLOW_STEPS: list[WorkflowStep] = [
     CompileSourceStep(),
     BuildRecipeStep(),
+    ResolveOrganizersStep(),
 ]
 
 

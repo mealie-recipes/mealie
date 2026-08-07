@@ -36,6 +36,7 @@ class AIRecipeService(RecipeService):
         images: list[UploadFile] | None = None,
         url: str | None = None,
         translate_language: str | None = None,
+        create_new_organizers: bool = False,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
     ) -> Recipe:
         """
@@ -52,6 +53,7 @@ class AIRecipeService(RecipeService):
                 images=local_images,
                 url=url,
                 translate_language=translate_language,
+                create_new_organizers=create_new_organizers,
                 on_progress=on_progress,
             )
 
@@ -69,6 +71,7 @@ class AIRecipeService(RecipeService):
         images: list[Path] | None = None,
         url: str | None = None,
         translate_language: str | None = None,
+        create_new_organizers: bool = False,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
     ) -> Recipe:
         """
@@ -86,7 +89,10 @@ class AIRecipeService(RecipeService):
 
         ctx = WorkflowContext(
             input=workflow_input,
-            options=WorkflowOptions(translate_language=translate_language),
+            options=WorkflowOptions(
+                translate_language=translate_language,
+                create_new_organizers=create_new_organizers,
+            ),
             repos=self.repos,
             user=self.user,
             household=self.household,

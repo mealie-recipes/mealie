@@ -323,6 +323,7 @@ class RecipeController(BaseRecipeController):
         content: Annotated[str | None, Form()] = None,
         url: Annotated[str | None, Form()] = None,
         translate_language: Annotated[str | None, Form(alias="translateLanguage")] = None,
+        create_new_organizers: Annotated[bool, Form(alias="createNewOrganizers")] = False,
         images: list[UploadFile] = File(default_factory=list),
     ) -> str:
         """
@@ -330,7 +331,12 @@ class RecipeController(BaseRecipeController):
         using AI. Optionally specify a language for it to translate the recipe to.
         """
 
-        req = ScrapeRecipeAI(content=content, url=url, translate_language=translate_language)
+        req = ScrapeRecipeAI(
+            content=content,
+            url=url,
+            translate_language=translate_language,
+            create_new_organizers=create_new_organizers,
+        )
         async for event in self._create_recipe_with_ai(req, images):
             if isinstance(event.data, SSEDataEventDone):
                 return event.data.slug
@@ -346,6 +352,7 @@ class RecipeController(BaseRecipeController):
         content: Annotated[str | None, Form()] = None,
         url: Annotated[str | None, Form()] = None,
         translate_language: Annotated[str | None, Form(alias="translateLanguage")] = None,
+        create_new_organizers: Annotated[bool, Form(alias="createNewOrganizers")] = False,
         images: list[UploadFile] = File(default_factory=list),
     ) -> AsyncIterable[ServerSentEvent]:
         """
@@ -353,7 +360,12 @@ class RecipeController(BaseRecipeController):
         using AI, streaming progress via SSE
         """
 
-        req = ScrapeRecipeAI(content=content, url=url, translate_language=translate_language)
+        req = ScrapeRecipeAI(
+            content=content,
+            url=url,
+            translate_language=translate_language,
+            create_new_organizers=create_new_organizers,
+        )
         async for event in self._create_recipe_with_ai(req, images):
             yield event
 
@@ -368,6 +380,7 @@ class RecipeController(BaseRecipeController):
                 images=images,
                 url=req.url,
                 translate_language=req.translate_language,
+                create_new_organizers=req.create_new_organizers,
                 on_progress=on_progress,
             )
             self._publish_recipe_created(recipe)

@@ -46,12 +46,16 @@ class ScrapeRecipeAI(MealieModel):
     translate_language: str | None = None
     """Optional language to translate the recipe into"""
 
+    create_new_organizers: bool = False
+    """Whether to create tags, categories, and tools that don't already exist in the group"""
+
     model_config = ConfigDict(
         json_schema_extra={
             "example": {
                 "content": "<html>...</html>",
                 "url": "https://myfavoriterecipes.com/recipes",
                 "translateLanguage": "English",
+                "createNewOrganizers": False,
             },
         }
     )

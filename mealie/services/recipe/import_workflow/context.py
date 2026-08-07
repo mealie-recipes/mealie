@@ -36,6 +36,9 @@ class WorkflowOptions(BaseModel):
 
     translate_language: str | None = None
 
+    create_new_organizers: bool = False
+    """Whether organizers that don't already exist in the group should be created"""
+
 
 class StepOutcome(StrEnum):
     COMPLETED = "completed"
