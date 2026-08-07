@@ -4,12 +4,14 @@ from pathlib import Path
 
 import pytest
 from fastapi.testclient import TestClient
+from slugify import slugify
 
 import mealie.services.openai.transcription as transcription_module
 import mealie.services.recipe.import_workflow.steps.compile_source as compile_source_module
 from mealie.core import exceptions
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
+from mealie.schema.openai.organizers import OpenAIOrganizers
 from mealie.schema.openai.recipe import (
     OpenAIRecipe,
     OpenAIRecipeIngredient,
@@ -17,7 +19,9 @@ from mealie.schema.openai.recipe import (
     OpenAIRecipeNotes,
     OpenAIRecipeNutrition,
 )
+from mealie.schema.recipe.recipe_category import TagSave
 from mealie.services.openai import OpenAIService
+from mealie.services.recipe.organizer_resolver import OrganizerResolver
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from tests.utils import api_routes
 from tests.utils.factories import random_string
@@ -91,22 +95,29 @@ class AIResponses:
         self,
         recipe: OpenAIRecipe | None = None,
         compiled: OpenAICompiledSource | None = None,
+        organizers: OpenAIOrganizers | None = None,
     ) -> None:
         self.recipe = recipe
         self.compiled = compiled or OpenAICompiledSource(
             contains_recipe=True, content=random_string(), language=None, image_url=None
         )
+        self.organizers = organizers
         self.requested_schemas: list[str] = []
+        self.prompts: list[str] = []
 
     def install(self, monkeypatch: pytest.MonkeyPatch) -> "AIResponses":
         responses = self
 
         async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
             responses.requested_schemas.append(response_schema.__name__)
+            responses.prompts.append(prompt)
+
             if response_schema is OpenAICompiledSource:
                 return responses.compiled
             if response_schema is OpenAIRecipe:
                 return responses.recipe
+            if response_schema is OpenAIOrganizers:
+                return responses.organizers
 
             return None
 
@@ -140,7 +151,7 @@ def test_create_from_content(
     assert recipe["name"] == recipe_name
 
     # plain text is compiled without an AI call, so only the build step should hit the provider
-    assert ai.requested_schemas == ["OpenAIRecipe"]
+    assert "OpenAICompiledSource" not in ai.requested_schemas
 
 
 def test_create_from_ld_json_skips_the_compile_call(
@@ -162,7 +173,7 @@ def test_create_from_ld_json_skips_the_compile_call(
 
     r = post_ai(api_client, unique_user, {"content": ld_json})
     assert r.status_code == 201
-    assert ai.requested_schemas == ["OpenAIRecipe"]
+    assert "OpenAICompiledSource" not in ai.requested_schemas
 
 
 def test_create_from_images(
@@ -181,7 +192,7 @@ def test_create_from_images(
     slug = json.loads(r.text)
 
     # images have to be read by the provider, so both steps make a call
-    assert ai.requested_schemas == ["OpenAICompiledSource", "OpenAIRecipe"]
+    assert ai.requested_schemas[:2] == ["OpenAICompiledSource", "OpenAIRecipe"]
 
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
     r = api_client.get(
@@ -209,7 +220,7 @@ def test_create_from_content_and_images(
         )
 
     assert r.status_code == 201
-    assert ai.requested_schemas == ["OpenAICompiledSource", "OpenAIRecipe"]
+    assert ai.requested_schemas[:2] == ["OpenAICompiledSource", "OpenAIRecipe"]
 
 
 def test_create_from_url(
@@ -268,7 +279,7 @@ def test_create_from_video_url(
     assert r.status_code == 201
 
     # the transcript is already a faithful record, so only the build step hits the provider
-    assert ai.requested_schemas == ["OpenAIRecipe"]
+    assert "OpenAICompiledSource" not in ai.requested_schemas
 
     slug = json.loads(r.text)
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
@@ -306,6 +317,117 @@ def test_create_from_video_url_without_audio_provider_falls_back_to_fetching(
     r = post_ai(api_client, unique_user, {"url": VIDEO_URL})
     assert r.status_code == 201
     assert fetched == [VIDEO_URL]
+
+
+def test_organizers_are_skipped_when_there_is_nothing_to_do(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """With no existing organizers and creation switched off, the step can't do anything."""
+
+    assert not any(OrganizerResolver(unique_user.repos).existing_names().values()), (
+        "this test needs a group that has no organizers yet"
+    )
+
+    ai = AIResponses(recipe=openai_recipe, organizers=OpenAIOrganizers(tags=[random_string()])).install(monkeypatch)
+
+    r = post_ai(api_client, unique_user, {"content": random_string()})
+    assert r.status_code == 201
+    assert "OpenAIOrganizers" not in ai.requested_schemas
+
+
+def test_existing_organizers_are_attached_without_creating_new_ones(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    existing_tag = unique_user.repos.tags.create(TagSave(name=random_string(), group_id=unique_user.repos.group_id))
+
+    new_name = random_string()
+    organizers = OpenAIOrganizers(tags=[existing_tag.name, new_name], categories=[new_name], tools=[new_name])
+    ai = AIResponses(recipe=openai_recipe, organizers=organizers).install(monkeypatch)
+
+    r = post_ai(api_client, unique_user, {"content": random_string()})
+    assert r.status_code == 201
+    assert "OpenAIOrganizers" in ai.requested_schemas
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+
+    # the existing tag is attached, and the unmatched names are dropped rather than created
+    assert [tag["name"] for tag in recipe["tags"]] == [existing_tag.name]
+    assert recipe["recipeCategory"] == []
+    assert recipe["tools"] == []
+    assert not unique_user.repos.tags.get_one(slugify(new_name), "slug")
+
+
+def test_new_organizers_are_created_when_requested(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    tag_name = random_string()
+    category_name = random_string()
+    tool_name = random_string()
+
+    organizers = OpenAIOrganizers(tags=[tag_name], categories=[category_name], tools=[tool_name])
+    AIResponses(recipe=openai_recipe, organizers=organizers).install(monkeypatch)
+
+    r = post_ai(api_client, unique_user, {"content": random_string(), "createNewOrganizers": "true"})
+    assert r.status_code == 201
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+
+    assert [tag["name"] for tag in recipe["tags"]] == [tag_name]
+    assert [category["name"] for category in recipe["recipeCategory"]] == [category_name]
+    assert [tool["name"] for tool in recipe["tools"]] == [tool_name]
+
+
+def test_existing_organizers_are_offered_to_the_provider(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    existing_tag = unique_user.repos.tags.create(TagSave(name=random_string(), group_id=unique_user.repos.group_id))
+
+    ai = AIResponses(recipe=openai_recipe, organizers=OpenAIOrganizers()).install(monkeypatch)
+
+    r = post_ai(api_client, unique_user, {"content": random_string()})
+    assert r.status_code == 201
+
+    organizer_prompt = ai.prompts[ai.requested_schemas.index("OpenAIOrganizers")]
+    assert existing_tag.name in organizer_prompt
+
+
+def test_organizer_failures_do_not_lose_the_recipe(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    recipe_name: str,
+):
+    """The organizer step is optional, so a failure should be logged and skipped."""
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        if response_schema is OpenAIOrganizers:
+            raise Exception("organizer resolution blew up")
+
+        return openai_recipe if response_schema is OpenAIRecipe else None
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    r = post_ai(api_client, unique_user, {"content": random_string(), "createNewOrganizers": "true"})
+    assert r.status_code == 201
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == recipe_name
 
 
 def test_create_surfaces_rate_limit_errors(
