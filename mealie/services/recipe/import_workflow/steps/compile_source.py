@@ -17,23 +17,16 @@ class CompileSourceStep(WorkflowStep):
     def __init__(self, compilers: list[type[SourceCompiler]] | None = None) -> None:
         self.compilers = DEFAULT_SOURCE_COMPILERS if compilers is None else compilers
 
-    async def _fetch_source_content(self, ctx: WorkflowContext) -> str | None:
-        if ctx.input.content:
-            return ctx.input.content
-
-        if not ctx.input.url:
-            return None
+    async def _fetch_source_content(self, ctx: WorkflowContext) -> None:
+        if ctx.source_content or not ctx.input.url:
+            return
 
         await ctx.report_progress("recipe.create-progress.fetching-webpage")
-        return await safe_scrape_html(ctx.input.url) or None
+        ctx.source_content = await safe_scrape_html(ctx.input.url) or None
 
-    async def run(self, ctx: WorkflowContext) -> None:
-        ctx.source_content = await self._fetch_source_content(ctx)
-        if not (ctx.source_content or ctx.input.images):
-            raise NoRecipeDataError("Unable to read any content from the provided source")
-
-        for CompilerClass in self.compilers:
-            compiler = CompilerClass(ctx, ctx.source_content)
+    async def _compile(self, ctx: WorkflowContext, compilers: list[type[SourceCompiler]]) -> bool:
+        for CompilerClass in compilers:
+            compiler = CompilerClass(ctx)
             if not compiler.can_compile():
                 continue
 
@@ -48,6 +41,21 @@ class CompileSourceStep(WorkflowStep):
                 raise NoRecipeDataError("No recipe was found in the provided source")
 
             ctx.compiled_source = compiled
+            return True
+
+        return False
+
+    async def run(self, ctx: WorkflowContext) -> None:
+        ctx.source_content = ctx.input.content
+
+        # compilers that work from the input alone go first, so that a video URL is downloaded
+        # rather than fetched and read as a webpage
+        if await self._compile(ctx, [c for c in self.compilers if not c.requires_content]):
             return
 
-        raise NoRecipeDataError("Unable to read any content from the provided source")
+        await self._fetch_source_content(ctx)
+        if not ctx.source_content:
+            raise NoRecipeDataError("Unable to read any content from the provided source")
+
+        if not await self._compile(ctx, [c for c in self.compilers if c.requires_content]):
+            raise NoRecipeDataError("Unable to read any content from the provided source")

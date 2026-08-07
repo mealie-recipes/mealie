@@ -1,18 +1,13 @@
 import asyncio
-import functools
-import re
 from abc import ABC, abstractmethod
 from collections.abc import Awaitable, Callable
-from pathlib import Path
-from typing import Any, TypedDict
+from typing import Any
 
 import extruct
-import yt_dlp
 from fastapi import HTTPException, status
 from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
 from slugify import slugify
 from w3lib.html import get_base_url
-from yt_dlp.extractor.generic import GenericIE
 
 from mealie.core import exceptions
 from mealie.core.dependencies.dependencies import get_temporary_path
@@ -25,7 +20,7 @@ from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
-from mealie.services.openai import OpenAIService
+from mealie.services.openai import OpenAIService, transcription
 from mealie.services.openai.content import format_html_to_text
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
@@ -37,12 +32,6 @@ BROWSER_IMPERSONATIONS = safehttp.BROWSER_IMPERSONATIONS
 ForceTimeoutException = safehttp.ForceTimeoutException
 
 logger = get_logger()
-
-
-@functools.cache
-def _get_yt_dlp_extractors() -> list:
-    """Build and cache the yt-dlp extractor list once per process lifetime."""
-    return [ie for ie in yt_dlp.extractor.gen_extractors() if ie.working() and not isinstance(ie, GenericIE)]
 
 
 async def safe_scrape_html(url: str) -> str:
@@ -297,18 +286,7 @@ class RecipeScraperOpenAI(RecipeScraperPackage):
         return await super().parse()
 
 
-class TranscribedAudio(TypedDict):
-    audio: Path
-    subtitle: Path | None
-    title: str
-    description: str
-    thumbnail_url: str | None
-    transcription: str
-
-
 class RecipeScraperOpenAITranscription(ABCScraperStrategy):
-    SUBTITLE_LANGS = ["en", "fr", "es", "de", "it"]
-
     def can_scrape(self) -> bool:
         if not self.url:
             return False
@@ -318,72 +296,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             return False
 
         # Check if we can actually download something to transcribe
-        return any(ie.suitable(self.url) for ie in _get_yt_dlp_extractors())
-
-    @staticmethod
-    def _parse_subtitle_content(subtitle_content: str) -> str:
-        # TODO: is there a better way to parse subtitles that's more efficient?
-
-        lines = []
-        for line in subtitle_content.split("\n"):
-            if line.strip() and not line.startswith("WEBVTT") and "-->" not in line and not line.isdigit():
-                lines.append(line.strip())
-
-        raw_content = " ".join(lines)
-        content = re.sub(r"<[^>]+>", "", raw_content)
-        return content
-
-    def _download_audio(self, temp_path: Path) -> TranscribedAudio:
-        """Downloads audio and subtitles from the video URL."""
-        output_template = temp_path / "mealie"  # No extension here
-
-        ydl_opts = {
-            "format": "bestaudio/best",
-            "outtmpl": str(output_template) + ".%(ext)s",
-            "quiet": True,
-            "writesubtitles": True,
-            "writeautomaticsub": True,
-            "subtitleslangs": self.SUBTITLE_LANGS,
-            "skip_download": False,
-            "ignoreerrors": True,
-            "postprocessors": [
-                {
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "mp3",
-                    "preferredquality": "32",
-                }
-            ],
-            "postprocessor_args": ["-ac", "1"],
-        }
-
-        try:
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(self.url, download=True)
-
-                if info is None:
-                    raise exceptions.VideoDownloadError(
-                        "Failed to extract video information. The video may be unavailable or the URL is invalid."
-                    )
-
-                sub_path = None
-                for lang in self.SUBTITLE_LANGS:
-                    potential_path = output_template.with_suffix(f".{lang}.vtt")
-                    if potential_path.exists():
-                        sub_path = potential_path
-                        break
-
-                return {
-                    "audio": output_template.with_suffix(".mp3"),
-                    "subtitle": sub_path,
-                    "title": info.get("title", ""),
-                    "description": info.get("description", ""),
-                    "thumbnail_url": info.get("thumbnail") or None,
-                    "transcription": "",
-                }
-        except exceptions.VideoDownloadError:
-            raise
-        except Exception as e:
-            raise exceptions.VideoDownloadError(f"Failed to download video: {e}") from e
+        return transcription.is_video_url(self.url)
 
     async def get_html(self, url: str) -> str:
         return self.raw_html or ""  # we don't use HTML with this scraper since we use ytdlp
@@ -398,31 +311,15 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             if on_progress:
                 await on_progress(self.translator.t("recipe.create-progress.downloading-video"))
 
-            video_data = await asyncio.to_thread(self._download_audio, temp_path)
+            video_data = await asyncio.to_thread(transcription.download_video, self.url, temp_path)
 
-            if video_data["subtitle"]:
-                try:
-                    with open(video_data["subtitle"], encoding="utf-8") as f:
-                        subtitle_content = f.read()
-                    video_data["transcription"] = self._parse_subtitle_content(subtitle_content)
-                    self.logger.info("Using subtitles from video instead of transcription")
-                except Exception:
-                    self.logger.exception("Failed to read subtitles, falling back to transcription")
-                    video_data["transcription"] = ""
-
-            if not video_data["transcription"]:
+            async def report_transcribing() -> None:
                 if on_progress:
                     await on_progress(self.translator.t("recipe.create-progress.transcribing-audio-with-ai"))
 
-                try:
-                    transcription = await openai_service.transcribe_audio(video_data["audio"])
-                except exceptions.RateLimitError:
-                    raise
-                except Exception as e:
-                    raise exceptions.OpenAIServiceError(f"Failed to transcribe audio: {e}") from e
-                if not transcription:
-                    raise exceptions.OpenAIServiceError("No transcription returned from OpenAI")
-                video_data["transcription"] = transcription
+            video_data["transcription"] = await transcription.resolve_transcription(
+                video_data, openai_service, before_transcribe=report_transcribing
+            )
 
         if not video_data["transcription"]:
             self.logger.error("Could not extract a transcript (no data)")

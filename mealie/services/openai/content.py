@@ -1,5 +1,24 @@
 import bs4
 
+MAX_SOURCE_CONTENT_LENGTH = 100_000
+"""
+Upper bound on how much source text is sent to an AI provider.
+
+Webpages and pasted content are unbounded, and every character costs tokens, so we cut off
+anything beyond a length that comfortably fits even a very long recipe.
+"""
+
+TRUNCATION_NOTICE = "\n\n[content truncated]"
+
+
+def truncate_source_content(content: str, max_length: int = MAX_SOURCE_CONTENT_LENGTH) -> str:
+    """Caps source content, marking it so the model knows the text is incomplete."""
+
+    if len(content) <= max_length:
+        return content
+
+    return content[:max_length] + TRUNCATION_NOTICE
+
 
 def extract_json_ld_data_from_html(soup: bs4.BeautifulSoup) -> str:
     data_parts: list[str] = []

@@ -1,5 +1,5 @@
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
-from mealie.services.openai.content import extract_page_content
+from mealie.services.openai.content import extract_page_content, truncate_source_content
 
 from .base import COMPILE_SOURCE_PROMPT, SourceCompiler
 
@@ -27,7 +27,7 @@ class WebPageCompiler(SourceCompiler):
         message_parts = ["The following content was extracted from a webpage."]
         if image_url:
             message_parts.append(f"The page's primary image is: {image_url}")
-        message_parts.append(content)
+        message_parts.append(truncate_source_content(content))
 
         compiled = await self.ctx.ai.get_response(
             self.ctx.ai.get_prompt(COMPILE_SOURCE_PROMPT),

@@ -4,9 +4,10 @@ from typing import Any
 import bs4
 
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
-from mealie.services.openai.content import extract_json_ld_data_from_html, find_image
+from mealie.services.openai.content import extract_json_ld_data_from_html, find_image, truncate_source_content
 from mealie.services.scraper import cleaner
 
+from ..context import WorkflowContext
 from .base import SourceCompiler
 
 
@@ -26,8 +27,8 @@ class StructuredDataCompiler(SourceCompiler):
     at a single call.
     """
 
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
+    def __init__(self, ctx: WorkflowContext) -> None:
+        super().__init__(ctx)
         self._soup: bs4.BeautifulSoup | None = None
 
     @property
@@ -81,7 +82,7 @@ class StructuredDataCompiler(SourceCompiler):
 
         return OpenAICompiledSource(
             contains_recipe=True,
-            content=content,
+            content=truncate_source_content(content),
             language=None,
             image_url=image_url,
         )

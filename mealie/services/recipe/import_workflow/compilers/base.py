@@ -20,10 +20,19 @@ class SourceCompiler(ABC):
     progress_key: str | None = None
     """Translation key reported to the client before compiling. Left unset if compiling is instant."""
 
-    def __init__(self, ctx: WorkflowContext, content: str | None) -> None:
+    requires_content: bool = True
+    """
+    Whether the compiler needs the source content. Compilers that work from the input alone are
+    offered the input first, so that e.g. a video URL is downloaded rather than fetched as a webpage.
+    """
+
+    def __init__(self, ctx: WorkflowContext) -> None:
         self.ctx = ctx
-        self.content = content
         self.logger = get_logger()
+
+    @property
+    def content(self) -> str | None:
+        return self.ctx.source_content
 
     @abstractmethod
     def can_compile(self) -> bool: ...

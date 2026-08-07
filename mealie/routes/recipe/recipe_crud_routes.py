@@ -196,14 +196,16 @@ class RecipeController(BaseRecipeController):
         async for event in self._create_recipe_from_web(req):
             yield event
 
-    @staticmethod
-    def _error_message(ex: Exception) -> str:
+    def _error_message(self, ex: Exception) -> str:
         """
         Extract a meaningful message from an exception raised during recipe creation.
 
         Scraper failures surface as an HTTPException carrying a `ParserErrors` value
         (e.g. BAD_RECIPE_DATA), which is far more useful to the client than the class name.
         """
+
+        if isinstance(ex, exceptions.RateLimitError):
+            return self.t("exceptions.rate-limit-error")
 
         if isinstance(ex, NoRecipeDataError | AIProviderNotEnabledError):
             return str(ex)
