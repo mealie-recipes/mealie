@@ -103,7 +103,9 @@ python_files = 'test_*'
 python_functions = 'test_*'
 testpaths = ["tests"]
 filterwarnings = [
+    # Suppress unmaintained third-party pyRdfa utcnow() deprecation warning
     "ignore::DeprecationWarning:pyRdfa.*",
+    # Suppress Python 3.12 default SQLite datetime-adapter deprecation warning
     "ignore:The default datetime adapter is deprecated as of Python 3.12:DeprecationWarning",
 ]
 
