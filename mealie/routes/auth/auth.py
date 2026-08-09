@@ -1,6 +1,6 @@
 from typing import Annotated, Any
 
-from authlib.integrations.starlette_client import OAuth
+from authlib.integrations.starlette_client import OAuth, OAuthError
 from fastapi import APIRouter, Depends, Header, Request, Response, status
 from fastapi.exceptions import HTTPException
 from fastapi.responses import RedirectResponse
@@ -184,7 +184,7 @@ async def oauth_native_token(data: NativeOIDCTokenRequest, session: Session = De
             redirect_uri=data.redirect_uri,
         )
         userinfo = await client.parse_id_token(token, nonce=data.nonce)
-    except Exception as e:
+    except OAuthError as e:
         logger.error("[OIDC] Native token exchange failed: %s", e)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED) from e
 
