@@ -50,6 +50,11 @@ class TranscriptionCompiler(SourceCompiler):
             content_parts.append(f"## Video description\n\n{video_data['description']}")
         content_parts.append(f"## Video transcript\n\n{transcript}")
 
+        # text pasted alongside the video link is often where the ingredient list actually lives.
+        # It goes last so that truncation trims it before the transcript.
+        if self.content:
+            content_parts.append(f"## Accompanying text\n\n{self.content}")
+
         return OpenAICompiledSource(
             contains_recipe=True,
             content=truncate_source_content("\n\n".join(content_parts)),

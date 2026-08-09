@@ -287,6 +287,67 @@ def test_create_from_video_url(
     assert recipe["orgURL"] == VIDEO_URL
 
 
+def test_create_from_video_url_keeps_accompanying_text(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """Text pasted alongside a video link is often the ingredient list, so it must survive."""
+
+    transcript = random_string()
+    pasted_text = random_string()
+    messages: list[str] = []
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        messages.append(message)
+        return openai_recipe if response_schema is OpenAIRecipe else None
+
+    def mock_download_video(url: str, temp_path: Path):
+        return {
+            "audio": temp_path / "mealie.mp3",
+            "subtitle": None,
+            "title": random_string(),
+            "description": random_string(),
+            "thumbnail_url": None,
+            "transcription": transcript,
+        }
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+    monkeypatch.setattr(transcription_module, "download_video", mock_download_video)
+
+    r = post_ai(api_client, unique_user, {"url": VIDEO_URL, "content": pasted_text})
+    assert r.status_code == 201
+
+    build_message = messages[0]
+    assert transcript in build_message
+    assert pasted_text in build_message
+
+
+def test_create_from_url_ignores_the_page_when_content_is_pasted(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """Pasted content wins over the URL, which is still recorded as the recipe's source."""
+
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    async def fail_if_fetched(_: str) -> str:
+        raise AssertionError("the page should not be fetched when content is provided")
+
+    monkeypatch.setattr(compile_source_module, "safe_scrape_html", fail_if_fetched)
+
+    url = f"https://example.com/recipe/{random_string()}"
+    r = post_ai(api_client, unique_user, {"url": url, "content": random_string()})
+    assert r.status_code == 201
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["orgURL"] == url
+
+
 def test_create_from_video_url_without_audio_provider_falls_back_to_fetching(
     api_client: TestClient,
     unique_user: TestUser,
