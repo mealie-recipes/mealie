@@ -14,6 +14,7 @@ from mealie.schema.recipe.recipe import create_recipe_slug
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
+from .cleaner import NO_IMAGE
 from .recipe_scraper import RecipeScraper
 
 
@@ -83,10 +84,11 @@ async def finalize_scraped_recipe(
     recipe_data_service = RecipeDataService(recipe.id)
 
     try:
-        if recipe.image:
-            if isinstance(recipe.image, list):
-                recipe.image = recipe.image[0]
+        if isinstance(recipe.image, list):
+            recipe.image = recipe.image[0] if recipe.image else None
 
+        # NO_IMAGE is a placeholder rather than a URL, so there's nothing to download for it
+        if recipe.image and recipe.image != NO_IMAGE:
             if on_progress:
                 await on_progress(translator.t("recipe.create-progress.downloading-image"))
             await recipe_data_service.scrape_image(recipe.image)  # type: ignore
@@ -98,7 +100,7 @@ async def finalize_scraped_recipe(
         recipe.image = cache.new_key(4)
     except Exception as e:
         recipe_data_service.logger.exception(f"Error Scraping Image: {e}")
-        recipe.image = "no image"
+        recipe.image = NO_IMAGE
 
     if recipe.name is None or recipe.name == "":
         recipe.name = f"No Recipe Name Found - {uuid4()!s}"

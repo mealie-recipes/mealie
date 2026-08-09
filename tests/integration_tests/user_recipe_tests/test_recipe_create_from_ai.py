@@ -23,6 +23,7 @@ from mealie.schema.recipe.recipe_category import TagSave
 from mealie.services.openai import OpenAIService
 from mealie.services.recipe.organizer_resolver import OrganizerResolver
 from mealie.services.recipe.recipe_data_service import RecipeDataService
+from mealie.services.scraper.cleaner import NO_IMAGE
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -489,6 +490,29 @@ def test_organizer_failures_do_not_lose_the_recipe(
     slug = json.loads(r.text)
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
     assert recipe["name"] == recipe_name
+
+
+def test_create_does_not_download_the_no_image_placeholder(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """cleaner.clean stores "no image" when a recipe has none; it is not a URL."""
+
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    async def fail_if_called(*_, **__) -> str:
+        raise AssertionError("the no-image placeholder should never be fetched")
+
+    monkeypatch.setattr(RecipeDataService, "scrape_image", fail_if_called)
+
+    r = post_ai(api_client, unique_user, {"content": random_string()})
+    assert r.status_code == 201
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["image"] != NO_IMAGE
 
 
 def test_create_surfaces_rate_limit_errors(

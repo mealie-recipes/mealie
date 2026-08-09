@@ -17,6 +17,9 @@ from mealie.services.parser_services.parser_utils import extract_quantity_from_s
 
 logger = get_logger("recipe-scraper")
 
+NO_IMAGE = "no image"
+"""Placeholder stored on a recipe that has no image. Not a URL, and must never be fetched."""
+
 
 MATCH_DIGITS = re.compile(r"\d+([.,]\d+)?")
 """ Allow for commas as decimals (common in Europe) """
@@ -106,7 +109,7 @@ def clean_string(text: str | list | int | float) -> str:
     return cleaned_text
 
 
-def clean_image(image: str | list | dict | None = None, default: str = "no image") -> list[str]:
+def clean_image(image: str | list | dict | None = None, default: str = NO_IMAGE) -> list[str]:
     """
     image attempts to parse the image field from a recipe and return a string. Currenty
 
