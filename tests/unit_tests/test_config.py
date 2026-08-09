@@ -294,7 +294,7 @@ ldap_cases_ids = [x[0] for x in ldap_validation_cases]
 def test_ldap_settings_validation(data: LDAPValidationCase, monkeypatch: pytest.MonkeyPatch):
     for setting in data.settings:
         if setting.value is not None:
-            monkeypatch.setenv(setting.name, setting.value)
+            monkeypatch.setenv(setting.name, str(setting.value))
         else:
             monkeypatch.delenv(setting.name, raising=False)
 
@@ -366,7 +366,7 @@ oidc_cases_ids = [x[0] for x in oidc_validation_cases]
 def test_oidc_settings_validation(data: OIDCValidationCase, monkeypatch: pytest.MonkeyPatch):
     for setting in data.settings:
         if setting.value is not None:
-            monkeypatch.setenv(setting.name, setting.value)
+            monkeypatch.setenv(setting.name, str(setting.value))
         else:
             monkeypatch.delenv(setting.name, raising=False)
 
