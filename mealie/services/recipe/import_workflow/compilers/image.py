@@ -25,7 +25,11 @@ class ImageCompiler(SourceCompiler):
             f"{'images' if len(images) > 1 else 'image'} of a single recipe."
         ]
         if self.content:
-            message_parts.append(f"The following text accompanies the {'images' if len(images) > 1 else 'image'}:")
+            message_parts.append(
+                "The user supplied the following text along with the "
+                f"{'images' if len(images) > 1 else 'image'}. It is authoritative: where it disagrees "
+                f"with the {'images' if len(images) > 1 else 'image'}, follow the text."
+            )
             message_parts.append(truncate_source_content(self.content))
 
         return await self.ctx.ai.get_response(
