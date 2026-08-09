@@ -23,7 +23,7 @@ class ResolveOrganizersStep(WorkflowStep):
     """
 
     name = "resolve-organizers"
-    progress_key = "recipe.create-progress.organizing-recipe-with-ai"
+    progress_key = "recipe.create-progress.organizing-recipe"
     required = False
 
     def _build_injections(self, resolver: OrganizerResolver) -> list[OpenAIDataInjection]:

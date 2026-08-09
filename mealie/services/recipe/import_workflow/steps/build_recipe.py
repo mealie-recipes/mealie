@@ -19,7 +19,7 @@ class BuildRecipeStep(WorkflowStep):
     """Turns the Compiled Source Document into a draft recipe."""
 
     name = "build-recipe"
-    progress_key = "recipe.create-progress.creating-recipe-with-ai"
+    progress_key = "recipe.create-progress.creating-recipe"
 
     def _build_message(self, ctx: WorkflowContext) -> str:
         compiled = ctx.compiled_source
