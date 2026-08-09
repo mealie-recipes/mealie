@@ -450,6 +450,40 @@ def test_new_organizers_are_created_when_requested(
     assert [tool["name"] for tool in recipe["tools"]] == [tool_name]
 
 
+def test_organizers_are_resolved_from_the_source_not_the_built_recipe(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """
+    Keywords live in the source, and the recipe schema has no field for them, so the organizer
+    step has to read the compiled source or they're gone by the time it runs.
+    """
+
+    keyword_line = f"tags: {random_string()}, {random_string()}"
+    content = f"awesome recipe\neggs, chicken, broth\nscramble the eggs\n{keyword_line}"
+
+    messages: list[str] = []
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        messages.append(message)
+        if response_schema is OpenAIRecipe:
+            return openai_recipe
+        if response_schema is OpenAIOrganizers:
+            return OpenAIOrganizers()
+
+        return None
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    r = post_ai(api_client, unique_user, {"content": content, "createNewOrganizers": "true"})
+    assert r.status_code == 201
+
+    # the last call is the organizer step; it must still be able to see the keywords
+    assert keyword_line in messages[-1]
+
+
 def test_existing_organizers_are_offered_to_the_provider(
     api_client: TestClient,
     unique_user: TestUser,

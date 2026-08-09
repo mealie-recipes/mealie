@@ -1,5 +1,4 @@
 from mealie.schema.openai.organizers import OpenAIOrganizers
-from mealie.schema.recipe.recipe import Recipe
 from mealie.services.openai import OpenAIDataInjection
 from mealie.services.openai.content import truncate_source_content
 
@@ -66,7 +65,14 @@ class ResolveOrganizersStep(WorkflowStep):
         return injections
 
     @staticmethod
-    def _build_message(recipe: Recipe) -> str:
+    def _build_message(ctx: WorkflowContext) -> str:
+        if ctx.compiled_source and ctx.compiled_source.content.strip():
+            return truncate_source_content(ctx.compiled_source.content)
+
+        recipe = ctx.draft_recipe
+        if not recipe:
+            return ""
+
         message_parts = [f"Name: {recipe.name}"]
         if recipe.description:
             message_parts.append(f"Description: {recipe.description}")
@@ -97,7 +103,7 @@ class ResolveOrganizersStep(WorkflowStep):
 
         response = await ctx.ai.get_response(
             ctx.ai.get_prompt(RESOLVE_ORGANIZERS_PROMPT, data_injections=self._build_injections(resolver)),
-            self._build_message(recipe),
+            self._build_message(ctx),
             response_schema=OpenAIOrganizers,
         )
 
