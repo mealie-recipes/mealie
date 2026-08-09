@@ -2,6 +2,8 @@ import random
 from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
+from dateutil.tz import tzlocal
+
 from fastapi.testclient import TestClient
 
 from mealie.schema.household.household import HouseholdSummary
@@ -193,7 +195,7 @@ def test_get_mealplan_today(api_client: TestClient, unique_user: TestUser):
     # Create Meal Plans for today
     test_meal_plans = [
         CreatePlanEntry(
-            date=datetime.now(UTC).date(), entry_type="breakfast", title=random_string(), text=random_string()
+            date=datetime.now(tzlocal()).date(), entry_type="breakfast", title=random_string(), text=random_string()
         ).model_dump()
         for _ in range(3)
     ]
@@ -212,7 +214,7 @@ def test_get_mealplan_today(api_client: TestClient, unique_user: TestUser):
     response_json = response.json()
 
     for meal_plan in response_json:
-        assert meal_plan["date"] == datetime.now(UTC).date().strftime("%Y-%m-%d")
+        assert meal_plan["date"] == datetime.now(tzlocal()).date().strftime("%Y-%m-%d")
 
 
 def test_get_mealplan_with_rules_categories_and_tags_filter(api_client: TestClient, unique_user: TestUser):
