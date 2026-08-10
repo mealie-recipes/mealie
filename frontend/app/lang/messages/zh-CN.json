@@ -1522,7 +1522,7 @@
     "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
   },
   "announcements": {
-    "announcements": "Announcements",
+    "announcements": "公告",
     "all-announcements": "All announcements",
     "mark-all-as-read": "Mark All as Read",
     "show-announcements-from-mealie": "显示来自Mealie的公告",
