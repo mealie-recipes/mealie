@@ -113,7 +113,7 @@ import { alert } from "~/composables/use-toast";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { isRecipeFullyPublic } from "~/lib/recipe/recipe-visibility";
 import type { Recipe } from "~/lib/api/types/recipe";
-import type { GroupRecipeActionOut, ShoppingListSummary } from "~/lib/api/types/household";
+import type { GroupRecipeActionOut, HouseholdSummary, ShoppingListSummary } from "~/lib/api/types/household";
 import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useDownloader } from "~/composables/api/use-downloader";
 
@@ -207,7 +207,7 @@ const i18n = useI18n();
 const auth = useMealieAuth();
 const { $globals } = useNuxtApp();
 const { household } = useHouseholdSelf();
-const { group } = useGroupSelf();
+const { group, actions: groupActions } = useGroupSelf();
 const { isOwnGroup } = useLoggedInState();
 
 const route = useRoute();
@@ -323,8 +323,31 @@ const recipeRef = ref<Recipe | undefined>(props.recipe);
 const recipeRefWithScale = computed(() =>
   recipeRef.value ? { scale: props.recipeScale, ...recipeRef.value } : undefined,
 );
+// the recipe may belong to another household in our group, so we can't reuse the current user's
+const recipeHousehold = ref<HouseholdSummary | undefined>();
+
+async function refreshRecipeHousehold() {
+  const householdId = recipeRef.value?.householdId;
+  if (!householdId || !isOwnGroup.value) {
+    recipeHousehold.value = undefined;
+    return;
+  }
+  if (householdId === recipeHousehold.value?.id) {
+    return;
+  }
+  if (householdId === household.value?.id) {
+    recipeHousehold.value = household.value;
+    return;
+  }
+
+  const { data } = await api.households.getOne(householdId);
+  recipeHousehold.value = data || undefined;
+}
+
+watch(() => recipeRef.value?.householdId, refreshRecipeHousehold, { immediate: true });
+
 const isFullyPublic = computed(() =>
-  isRecipeFullyPublic(recipeRef.value, group.value, household.value),
+  isRecipeFullyPublic(recipeRef.value, group.value, recipeHousehold.value),
 );
 const isAdminAndNotOwner = computed(() => {
   return (
@@ -457,9 +480,19 @@ const eventHandlers: { [key: string]: () => void | Promise<any> } = {
       shoppingListDialog.value = true;
     });
   },
-  share: () => {
+  share: async () => {
+    // resolve everything the visibility check needs, so we don't fall back to a
+    // share token just because the recipe/group/household hadn't loaded yet
+    if (!recipeRef.value) {
+      await refreshRecipe();
+    }
+    if (!group.value) {
+      await groupActions.refresh();
+    }
+    await refreshRecipeHousehold();
+
     if (isFullyPublic.value) {
-      sharePlainLink();
+      await sharePlainLink();
     }
     else {
       shareDialog.value = true;
