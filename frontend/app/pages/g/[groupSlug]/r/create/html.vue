@@ -19,6 +19,10 @@
             class="text-primary"
           >https://schema.org/Recipe</a>
         </p>
+        <p v-if="aiEnabled">
+          {{ $t("recipe.import-from-html-or-json-have-ai-read-it") }}
+          <router-link :to="aiImporterTarget" class="text-primary">{{ $t("recipe.import-with-ai") }}</router-link>.
+        </p>
         <v-switch
           v-model="state.isEditJSON"
           :label="$t('recipe.json-editor')"
@@ -159,6 +163,7 @@
 import type { AxiosResponse } from "axios";
 import { useTagStore } from "~/composables/store/use-tag-store";
 import { useUserApi } from "~/composables/api";
+import { useGroupSelf } from "~/composables/use-groups";
 import { useNewRecipeOptions } from "~/composables/use-new-recipe-options";
 import { validators } from "~/composables/use-validators";
 import type { VForm } from "~/types/auto-forms";
@@ -172,6 +177,10 @@ const auth = useMealieAuth();
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 const domUrlForm = ref<VForm | null>(null);
+
+const { group } = useGroupSelf();
+const aiImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/ai`);
+const aiEnabled = computed(() => !!group.value?.aiProviderSettings?.aiEnabled);
 
 const api = useUserApi();
 const tags = useTagStore();
