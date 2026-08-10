@@ -138,8 +138,8 @@ class RecipeController(BaseRecipeController):
                 scraper = RecipeScraperOpenAI(data.url, self.translator, self.repos)
                 try:
                     result = await scraper.parse()
-                except NoRecipeDataError as e:
-                    return str(e)
+                except NoRecipeDataError:
+                    result = None
 
                 if result and result[0]:
                     return result[0].model_dump(by_alias=True)
