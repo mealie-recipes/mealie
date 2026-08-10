@@ -15,6 +15,10 @@ class RecipeImportWorkflow:
     """
     Turns arbitrary source material into a recipe by running a series of steps in order.
 
+    Run by the `/recipes/create/ai` route and by `RecipeScraperOpenAI`, the fallback strategy for
+    `/recipes/create/url`. The other scraper strategies don't use it, so an ordinary URL import of
+    a well-marked-up site never runs the workflow at all.
+
     The workflow never persists the recipe; it returns a draft for the caller to save.
     """
 
