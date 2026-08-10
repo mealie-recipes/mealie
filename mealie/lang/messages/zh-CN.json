@@ -28,7 +28,7 @@
             "downloading-video": "正在下载视频……",
             "extracting-recipe-data": "正在提取食谱数据……",
             "fetching-webpage": "正在获取网页……",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "transcribing-audio-with-ai": "正在用AI翻译音频……"
         }
     },
     "mealplan": {
