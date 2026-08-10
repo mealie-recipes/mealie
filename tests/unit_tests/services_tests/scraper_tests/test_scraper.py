@@ -21,7 +21,7 @@ async def test_create_from_html_truncates_long_slug(monkeypatch):
     # ~1300 characters, mirroring the caption-as-title data from the bug report
     long_name = "High Protein Low Calorie Recipes Smash Or Pass " * 28
 
-    async def fake_scrape(self, url, html=None, on_progress=None):
+    async def fake_scrape(self, url, html=None, on_progress=None, **kwargs):
         return Recipe(name=long_name), ScrapedExtras()
 
     monkeypatch.setattr(RecipeScraper, "scrape", fake_scrape)
