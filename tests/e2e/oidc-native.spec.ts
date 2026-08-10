@@ -24,6 +24,7 @@ test('oidc native flow exchanges an app-captured code for a mealie token', async
     const claims = {
         sub: username,
         email: `${username}@example.com`,
+        email_verified: true,
         preferred_username: username,
         name: 'Native User',
         groups: ['user'],
