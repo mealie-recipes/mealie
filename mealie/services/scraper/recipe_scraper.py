@@ -48,11 +48,16 @@ class RecipeScraper:
         url: str,
         html: str | None = None,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
+        include_tags: bool = False,
+        include_categories: bool = False,
     ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         """
         Scrapes a recipe from the web.
         Skips the network request if `html` is provided.
         Optionally reports progress back via `on_progress`.
+
+        `include_tags` and `include_categories` tell strategies whether the caller intends to use
+        organizers, so that strategies which have to ask a provider for them can skip the request.
         """
 
         if not html:
@@ -64,7 +69,14 @@ class RecipeScraper:
                 return None, None
 
         for ScraperClass in self.scrapers:
-            scraper = ScraperClass(url, self.translator, self.repos, raw_html=html)
+            scraper = ScraperClass(
+                url,
+                self.translator,
+                self.repos,
+                raw_html=html,
+                include_tags=include_tags,
+                include_categories=include_categories,
+            )
             if not scraper.can_scrape():
                 self.logger.debug(f"Skipping {scraper.__class__.__name__}")
                 continue

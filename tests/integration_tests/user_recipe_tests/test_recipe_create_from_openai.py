@@ -5,7 +5,9 @@ from fastapi.testclient import TestClient
 
 import mealie.services.scraper.recipe_scraper as recipe_scraper_module
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
-from mealie.schema.openai.general import OpenAIText
+from mealie.schema.openai.compiled_source import OpenAICompiledSource
+from mealie.schema.openai.organizers import OpenAIOrganizers
+from mealie.schema.openai.recipe import OpenAIRecipe, OpenAIRecipeIngredient, OpenAIRecipeInstruction
 from mealie.services.openai import OpenAIService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.scraper_strategies import RecipeScraperOpenAI
@@ -21,18 +23,12 @@ def recipe_name() -> str:
 
 
 @pytest.fixture()
-def recipe_ld_json(recipe_name: str) -> str:
-    return json.dumps(
-        {
-            "@context": "https://schema.org",
-            "@type": "Recipe",
-            "name": recipe_name,
-            "recipeIngredient": [random_string() for _ in range(3)],
-            "recipeInstructions": [
-                {"@type": "HowToStep", "text": random_string()},
-                {"@type": "HowToStep", "text": random_string()},
-            ],
-        }
+def openai_recipe(recipe_name: str) -> OpenAIRecipe:
+    return OpenAIRecipe(
+        name=recipe_name,
+        description=random_string(),
+        ingredients=[OpenAIRecipeIngredient(text=random_string()) for _ in range(3)],
+        instructions=[OpenAIRecipeInstruction(text=random_string()) for _ in range(2)],
     )
 
 
@@ -66,20 +62,41 @@ def openai_scraper_setup(monkeypatch: pytest.MonkeyPatch, bare_html: str, unique
     monkeypatch.setattr(RecipeDataService, "scrape_image", lambda *_: "TEST_IMAGE")
 
 
+def mock_ai(
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe | None,
+    organizers: OpenAIOrganizers | None = None,
+) -> list[str]:
+    """Installs a stand-in provider, returning the list of schemas it was asked for."""
+
+    requested_schemas: list[str] = []
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        requested_schemas.append(response_schema.__name__)
+
+        if response_schema is OpenAICompiledSource:
+            return OpenAICompiledSource(contains_recipe=True, content=random_string(), language=None, image_url=None)
+        if response_schema is OpenAIRecipe:
+            return openai_recipe
+        if response_schema is OpenAIOrganizers:
+            return organizers
+
+        return None
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+    return requested_schemas
+
+
 def test_create_by_url_via_openai(
     api_client: TestClient,
     unique_user: TestUser,
     monkeypatch: pytest.MonkeyPatch,
-    recipe_ld_json: str,
+    openai_recipe: OpenAIRecipe,
     recipe_url: str,
     recipe_name: str,
 ):
-    async def mock_get_response(self, prompt, message, *args, **kwargs) -> OpenAIText | None:
-        return OpenAIText(text=recipe_ld_json)
+    mock_ai(monkeypatch, openai_recipe)
 
-    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
-
-    api_client.delete(api_routes.recipes_slug("openai-test-cake"), headers=unique_user.token)
     response = api_client.post(
         api_routes.recipes_create_url,
         json={"url": recipe_url, "include_tags": False},
@@ -99,16 +116,12 @@ def test_create_by_html_or_json_via_openai(
     api_client: TestClient,
     unique_user: TestUser,
     monkeypatch: pytest.MonkeyPatch,
-    recipe_ld_json: str,
+    openai_recipe: OpenAIRecipe,
     bare_html: str,
     recipe_name: str,
 ):
-    async def mock_get_response(self, prompt, message, *args, **kwargs) -> OpenAIText | None:
-        return OpenAIText(text=recipe_ld_json)
+    mock_ai(monkeypatch, openai_recipe)
 
-    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
-
-    api_client.delete(api_routes.recipes_slug("openai-test-cake"), headers=unique_user.token)
     response = api_client.post(
         api_routes.recipes_create_html_or_json,
         json={"data": bare_html, "include_tags": False},
@@ -122,19 +135,58 @@ def test_create_by_html_or_json_via_openai(
     assert recipe["name"] == recipe_name
 
 
+def test_organizers_are_not_requested_unless_they_are_wanted(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    recipe_url: str,
+):
+    requested_schemas = mock_ai(monkeypatch, openai_recipe)
+
+    response = api_client.post(
+        api_routes.recipes_create_url,
+        json={"url": recipe_url, "include_tags": False, "include_categories": False},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 201
+    assert "OpenAIOrganizers" not in requested_schemas
+
+
+def test_tags_are_imported_when_requested(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    recipe_url: str,
+):
+    tag_name = random_string()
+    requested_schemas = mock_ai(monkeypatch, openai_recipe, OpenAIOrganizers(tags=[tag_name]))
+
+    response = api_client.post(
+        api_routes.recipes_create_url,
+        json={"url": recipe_url, "include_tags": True},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 201
+    assert "OpenAIOrganizers" in requested_schemas
+
+    slug = json.loads(response.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert [tag["name"] for tag in recipe["tags"]] == [tag_name.title()]
+
+
 def test_create_stream_via_openai_emits_progress(
     api_client: TestClient,
     unique_user: TestUser,
     monkeypatch: pytest.MonkeyPatch,
-    recipe_ld_json: str,
+    openai_recipe: OpenAIRecipe,
     bare_html: str,
 ):
-    async def mock_get_response(self, prompt, message, *args, **kwargs) -> OpenAIText | None:
-        return OpenAIText(text=recipe_ld_json)
+    mock_ai(monkeypatch, openai_recipe)
 
-    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
-
-    api_client.delete(api_routes.recipes_slug("openai-test-cake"), headers=unique_user.token)
     response = api_client.post(
         api_routes.recipes_create_html_or_json_stream,
         json={"data": bare_html, "include_tags": False},
@@ -155,12 +207,9 @@ def test_create_by_url_openai_returns_none(
     monkeypatch: pytest.MonkeyPatch,
     recipe_url: str,
 ):
-    """When OpenAI returns None the endpoint should return 400."""
+    """When the provider returns nothing the endpoint should return 400."""
 
-    async def mock_get_response(self, prompt, message, *args, **kwargs) -> OpenAIText | None:
-        return None
-
-    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+    mock_ai(monkeypatch, None)
 
     response = api_client.post(
         api_routes.recipes_create_url,
