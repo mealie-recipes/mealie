@@ -399,7 +399,7 @@ watch(isParsing, () => {
  */
 
 async function saveRecipe() {
-  const { data, error } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
+  const { data, error } = await api.recipes.updateOne(route.params.slug as string, recipe.value);
   if (!error) {
     if (data?.slug && data.slug !== route.params.slug) {
       isNavigatingAfterRename.value = true;
