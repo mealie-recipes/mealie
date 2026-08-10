@@ -4,7 +4,12 @@
       <v-card-title class="headline">
         {{ $t('recipe.import-with-ai') }}
       </v-card-title>
-      <v-card-text>
+      <v-card-text v-if="!aiEnabled">
+        <v-alert type="info" variant="tonal">
+          {{ $t('recipe.import-with-ai-provider-required') }}
+        </v-alert>
+      </v-card-text>
+      <v-card-text v-else>
         <p>{{ $t('recipe.import-with-ai-description') }}</p>
         <p v-if="videosEnabled">
           {{ $t('recipe.import-with-ai-video-description') }}
@@ -114,7 +119,7 @@
           :disabled="state.loading"
         />
       </v-card-text>
-      <v-card-actions class="justify-center">
+      <v-card-actions v-if="aiEnabled" class="justify-center">
         <div style="width: 100%" class="text-center">
           <div style="width: 250px; margin: 0 auto">
             <BaseButton
@@ -188,6 +193,7 @@ const { group } = useGroupSelf();
 const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 const urlImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/url`);
 const htmlOrJsonImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/html`);
+const aiEnabled = computed(() => !!group.value?.aiProviderSettings?.aiEnabled);
 const imagesEnabled = computed(() => !!group.value?.aiProviderSettings?.imageProviderEnabled);
 const videosEnabled = computed(() => !!group.value?.aiProviderSettings?.audioProviderEnabled);
 
