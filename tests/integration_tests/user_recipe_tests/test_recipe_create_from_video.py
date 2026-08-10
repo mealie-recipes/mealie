@@ -4,6 +4,7 @@ from pathlib import Path
 import pytest
 from fastapi.testclient import TestClient
 
+import mealie.services.openai.transcription as transcription_module
 import mealie.services.scraper.recipe_scraper as recipe_scraper_module
 from mealie.core import exceptions
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
@@ -57,7 +58,7 @@ def test_create_recipe_from_video(
 ):
     openai_recipe = _make_openai_recipe()
 
-    def mock_download_audio(self, temp_path: Path):
+    def mock_download_video(url: str, temp_path: Path):
         return {
             "audio": temp_path / "mealie.mp3",
             "subtitle": None,
@@ -70,7 +71,7 @@ def test_create_recipe_from_video(
     async def mock_get_response(self, prompt, message, *args, **kwargs) -> OpenAIRecipe | None:
         return openai_recipe
 
-    monkeypatch.setattr(RecipeScraperOpenAITranscription, "_download_audio", mock_download_audio)
+    monkeypatch.setattr(transcription_module, "download_video", mock_download_video)
     monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
 
     r = api_client.post(api_routes.recipes_create_url, json={"url": VIDEO_URL}, headers=unique_user.token)
@@ -98,7 +99,7 @@ def test_create_recipe_from_video_uses_subtitle_over_transcription(
     subtitle_file = tmp_path / "mealie.en.vtt"
     subtitle_file.write_text(f"WEBVTT\n\n1\n00:00:01.000 --> 00:00:03.000\n{subtitle_text}\n")
 
-    def mock_download_audio(self, temp_path: Path):
+    def mock_download_video(url: str, temp_path: Path):
         return {
             "audio": temp_path / "mealie.mp3",
             "subtitle": subtitle_file,
@@ -116,7 +117,7 @@ def test_create_recipe_from_video_uses_subtitle_over_transcription(
         assert subtitle_text in message
         return openai_recipe
 
-    monkeypatch.setattr(RecipeScraperOpenAITranscription, "_download_audio", mock_download_audio)
+    monkeypatch.setattr(transcription_module, "download_video", mock_download_video)
     monkeypatch.setattr(OpenAIService, "transcribe_audio", mock_transcribe_audio)
     monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
 
@@ -143,10 +144,10 @@ def test_create_recipe_from_video_download_error(
     monkeypatch: pytest.MonkeyPatch,
     unique_user: TestUser,
 ):
-    def mock_download_audio(self, temp_path: Path):
+    def mock_download_video(url: str, temp_path: Path):
         raise exceptions.VideoDownloadError("Mock video download error")
 
-    monkeypatch.setattr(RecipeScraperOpenAITranscription, "_download_audio", mock_download_audio)
+    monkeypatch.setattr(transcription_module, "download_video", mock_download_video)
 
     r = api_client.post(api_routes.recipes_create_url, json={"url": VIDEO_URL}, headers=unique_user.token)
     assert r.status_code == 400
@@ -157,7 +158,7 @@ def test_create_recipe_from_video_transcription_error(
     monkeypatch: pytest.MonkeyPatch,
     unique_user: TestUser,
 ):
-    def mock_download_audio(self, temp_path: Path):
+    def mock_download_video(url: str, temp_path: Path):
         return {
             "audio": temp_path / "mealie.mp3",
             "subtitle": None,
@@ -170,7 +171,7 @@ def test_create_recipe_from_video_transcription_error(
     async def mock_transcribe_audio(self, audio_file_path: Path) -> str | None:
         raise Exception("Mock transcribe audio exception")
 
-    monkeypatch.setattr(RecipeScraperOpenAITranscription, "_download_audio", mock_download_audio)
+    monkeypatch.setattr(transcription_module, "download_video", mock_download_video)
     monkeypatch.setattr(OpenAIService, "transcribe_audio", mock_transcribe_audio)
 
     r = api_client.post(api_routes.recipes_create_url, json={"url": VIDEO_URL}, headers=unique_user.token)
@@ -182,7 +183,7 @@ def test_create_recipe_from_video_empty_openai_response(
     monkeypatch: pytest.MonkeyPatch,
     unique_user: TestUser,
 ):
-    def mock_download_audio(self, temp_path: Path):
+    def mock_download_video(url: str, temp_path: Path):
         return {
             "audio": temp_path / "mealie.mp3",
             "subtitle": None,
@@ -195,7 +196,7 @@ def test_create_recipe_from_video_empty_openai_response(
     async def mock_get_response(self, prompt, message, *args, **kwargs) -> OpenAIRecipe | None:
         return None
 
-    monkeypatch.setattr(RecipeScraperOpenAITranscription, "_download_audio", mock_download_audio)
+    monkeypatch.setattr(transcription_module, "download_video", mock_download_video)
     monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
 
     r = api_client.post(api_routes.recipes_create_url, json={"url": VIDEO_URL}, headers=unique_user.token)

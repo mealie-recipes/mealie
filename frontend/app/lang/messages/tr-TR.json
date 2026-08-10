@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Grubunu ve tüm tariflerini gizliye alır. Bunu sonra istediğin zaman değiştirebilirsin."
     },
     "manage-members": "Üyeleri Yönet",
-    "manage-members-description": "Grubunuzdaki üyelerin yetkilerini yönetin. {manage} kullanıcının veri yönetimi sayfasına erişimine izin verir. {invite} kullanıcının başka kullanıcılar için davet bağlantısı oluşturmasına izin verir. Grup sahibleri kendi yetkilerini değiştiremezler.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Yönet",
     "manage-household": "Hane Halkını Yönet",
     "invite": "Davet Et",
@@ -410,7 +410,8 @@
     "applies-on-days": "{0} günlerine geçerlidir",
     "meal-plan-settings": "Öğün Planı Ayarları",
     "add-all-to-list": "Add All to List",
-    "add-day-to-list": "Add Day to List"
+    "add-day-to-list": "Add Day to List",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Taşıma verileri kaldırıldı",
@@ -480,6 +481,7 @@
     "from-url": "Tarif İçe Aktar",
     "github-issues": "GitHub Sorunları",
     "google-ld-json-info": "Google ld+json Bilgisi",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Geçerli bir URL olmalıdır",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Tarif bilgilerini gir. Her satır bir liste elemanı olarak değerlendirilecek",
     "recipe-markup-specification": "Tarif İşaretleme Spesifikasyonu",
@@ -940,7 +942,10 @@
     "openai-ready": "OpenAI Hazır",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "OpenAI Değerlerinin tümü yapılandırılmamış. OpenAI özelliklerini kullanmıyorsanız bu göz ardı edilebilir.",
-    "openai-ready-success-text": "Gerekli OpenAI değişkenlerinin tümü ayarlanmıştır."
+    "openai-ready-success-text": "Gerekli OpenAI değişkenlerinin tümü ayarlanmıştır.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Tüm Listeler",
@@ -1123,9 +1128,9 @@
     "permissions": "İzinler",
     "administrator": "Yönetici",
     "user-can-invite-other-to-group": "Kullanıcı, başkalarını gruba davet edebilir",
-    "user-can-manage-group": "Kullanıcı grubu yönetebilir",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "Kullanıcı Hane'yi düzenleyebilir",
-    "user-can-organize-group-data": "Kullanıcı grup verilerini düzenleyebilir",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Gelişmiş özellikleri etkinleştir",
     "it-looks-like-this-is-your-first-time-logging-in": "Görünüşe göre ilk defa giriş yapıyorsunuz.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Artık bunu görmek istemiyor musunuz? Kullanıcı ayarlarınızda e-postanızı değiştirmeyi unutmayın!",
@@ -1144,6 +1149,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Seçilen gıdaların birleştirilmesi, kaynak gıdayı ve hedef gıdayı tek bir gıdada birleştirecektir. Kaynak gıda silinecek ve kaynak gıdaya yapılan tüm referanslar, hedef gıdayı işaret edecek şekilde güncellenecektir.",
       "merge-food-example": "{food1}, {food2} ile birleştiriliyor",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
@@ -1394,6 +1401,7 @@
     "setup": {
       "first-time-setup": "İlk Kurulum",
       "welcome-to-mealie-get-started": "Mealie'ye hoş geldiniz! Haydi başlayalım",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Kurulumu zaten yaptım, beni yalnızca ana sayfaya götür",
       "common-settings-for-new-sites": "Yeni siteler için bazı ortak ayarlar şunlardır",
       "setup-complete": "Kurulum tamamlandı!",

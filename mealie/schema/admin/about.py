@@ -23,6 +23,7 @@ class AppInfo(MealieModel):
     oidc_provider_name: str
     token_time: int
     default_locale: str
+    allowed_iframe_hosts: list[str] = []
 
 
 class AppTheme(MealieModel):

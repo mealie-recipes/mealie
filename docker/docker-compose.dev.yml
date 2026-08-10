@@ -18,3 +18,5 @@ services:
     environment:
       POSTGRES_PASSWORD: mealie
       POSTGRES_USER: mealie
+    volumes:
+      - ../dev/data/postgres:/var/lib/postgresql/data

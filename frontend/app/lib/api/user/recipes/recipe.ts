@@ -1,5 +1,5 @@
 import { SSE } from "sse.js";
-import type { SSEvent } from "sse.js";
+import type { ReadyStateEvent, SSEvent } from "sse.js";
 import { BaseCRUDAPI } from "../../base/base-clients";
 import { route } from "../../base";
 import { CommentsApi } from "./recipe-comments";
@@ -41,7 +41,7 @@ const routes = {
   recipesCreateUrl: `${prefix}/recipes/create/url/stream`,
   recipesCreateUrlBulk: `${prefix}/recipes/create/url/bulk`,
   recipesCreateFromZip: `${prefix}/recipes/create/zip`,
-  recipesCreateFromImage: `${prefix}/recipes/create/image`,
+  recipesCreateWithAI: `${prefix}/recipes/create/ai/stream`,
   recipesCreateFromHtmlOrJson: `${prefix}/recipes/create/html-or-json/stream`,
   recipesCategory: `${prefix}/recipes/category`,
   recipesParseIngredient: `${prefix}/parser/ingredient`,
@@ -150,19 +150,31 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return await this.requests.post<Recipe | null>(routes.recipesTestScrapeUrl, { url, useOpenAI });
   }
 
-  private streamRecipeCreate(streamRoute: string, payload: object, onProgress?: (message: string) => void): Promise<RequestResponse<string>> {
+  private streamRecipeCreate(streamRoute: string, payload: object | FormData, onProgress?: (message: string) => void): Promise<RequestResponse<string>> {
     return new Promise((resolve) => {
       const { token } = useMealieAuth();
+      const isFormData = payload instanceof FormData;
 
       const sse = new SSE(streamRoute, {
         headers: {
-          "Content-Type": "application/json",
+          // the browser has to set the multipart Content-Type itself, so it includes the boundary
+          ...(isFormData ? {} : { "Content-Type": "application/json" }),
           ...(token.value ? { Authorization: `Bearer ${token.value}` } : {}),
         },
-        payload: JSON.stringify(payload),
+        payload: isFormData ? payload : JSON.stringify(payload),
         withCredentials: true,
         autoReconnect: false,
       });
+
+      let settled = false;
+      const settle = (result: RequestResponse<string>) => {
+        if (settled) {
+          return;
+        }
+        settled = true;
+        sse.close();
+        resolve(result);
+      };
 
       if (onProgress) {
         sse.addEventListener(SSEDataEventStatus.Progress, (e: SSEvent) => {
@@ -173,18 +185,26 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
 
       sse.addEventListener(SSEDataEventStatus.Done, (e: SSEvent) => {
         const { slug } = JSON.parse(e.data) as SSEDataEventDone;
-        sse.close();
-        resolve({ response: { status: 201, data: slug } as any, data: slug, error: null });
+        settle({ response: { status: 201, data: slug } as any, data: slug, error: null });
       });
 
       sse.addEventListener(SSEDataEventStatus.Error, (e: SSEvent) => {
+        let message: string | undefined;
         try {
-          const { message } = JSON.parse(e.data) as SSEDataEventMessage;
-          sse.close();
-          resolve({ response: null, data: null, error: new Error(message) });
+          ({ message } = JSON.parse(e.data) as SSEDataEventMessage);
         }
         catch {
-          // Not a backend error payload (e.g. XHR connection-close event); ignore
+          // Not a backend error payload (e.g. an XHR failure carrying the raw response body)
+        }
+        settle({ response: null, data: null, error: new Error(message || "Recipe creation failed") });
+      });
+
+      // The stream can also close without ever emitting a done/error event, e.g. when the
+      // request fails before the route handler runs. Settle here so callers always get a
+      // response instead of waiting on a promise that never resolves.
+      sse.addEventListener("readystatechange", (e: ReadyStateEvent) => {
+        if (e.readyState === SSE.CLOSED) {
+          settle({ response: null, data: null, error: new Error("Recipe creation failed") });
         }
       });
 
@@ -215,19 +235,37 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return await this.requests.post<string>(routes.recipesCreateUrlBulk, payload);
   }
 
-  async createOneFromImages(fileObjects: (Blob | File)[], translateLanguage: string | null = null) {
+  async createOneWithAI(
+    payload: {
+      content?: string | null;
+      url?: string | null;
+      images?: (Blob | File)[];
+      translateLanguage?: string | null;
+      createNewOrganizers?: boolean;
+    },
+    onProgress?: (message: string) => void,
+  ): Promise<RequestResponse<string>> {
     const formData = new FormData();
 
-    fileObjects.forEach((file) => {
-      formData.append("images", file);
-    });
-
-    let apiRoute = routes.recipesCreateFromImage;
-    if (translateLanguage) {
-      apiRoute = `${apiRoute}?translateLanguage=${translateLanguage}`;
+    if (payload.content) {
+      formData.append("content", payload.content);
+    }
+    if (payload.url) {
+      formData.append("url", payload.url);
+    }
+    if (payload.translateLanguage) {
+      formData.append("translateLanguage", payload.translateLanguage);
+    }
+    if (payload.createNewOrganizers) {
+      formData.append("createNewOrganizers", "true");
     }
 
-    return await this.requests.post<string>(apiRoute, formData);
+    (payload.images || []).forEach((image, index) => {
+      // blobs from the cropper have no filename of their own, and the backend needs one
+      formData.append("images", image, image instanceof File ? image.name : `image-${index}.webp`);
+    });
+
+    return this.streamRecipeCreate(routes.recipesCreateWithAI, formData, onProgress);
   }
 
   async parseIngredients(parser: Parser, ingredients: Array<string>) {

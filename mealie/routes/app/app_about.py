@@ -44,6 +44,7 @@ def get_app_info(session: Session = Depends(generate_session)):
         allow_password_login=settings.ALLOW_PASSWORD_LOGIN,
         token_time=settings.TOKEN_TIME,
         default_locale=settings.DEFAULT_LOCALE,
+        allowed_iframe_hosts=settings.allowed_iframe_hosts,
     )
 
 

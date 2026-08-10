@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "הגדר את ברירת המחדל של הקבוצה שלך וכל המתכונים לפרטיים. תמיד תוכל לשנות זאת מאוחר יותר."
     },
     "manage-members": "ניהול משתמשים",
-    "manage-members-description": "נהל את ההרשאות של החברים במשק הבית שלך. {manage} מאפשר למשתמש לגשת לדף ניהול הנתונים, {invite} מאפשר למשתמש ליצור קישורי הזמנה עבור משתמשים אחרים. בעלי קבוצות לא יכולים לשנות את ההרשאות של עצמם.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "ניהול",
     "manage-household": "נהל את משק הבית",
     "invite": "להזמין",
@@ -410,7 +410,8 @@
     "applies-on-days": "חל על {0}",
     "meal-plan-settings": "הגדרות תכנון ארוחות",
     "add-all-to-list": "הוספת הכל לרשימה",
-    "add-day-to-list": "הוספת יום לרשימה"
+    "add-day-to-list": "הוספת יום לרשימה",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "מידע ממוגרץ נמחק",
@@ -480,6 +481,7 @@
     "from-url": "ייבוא מתכון",
     "github-issues": "קריאות GitHub",
     "google-ld-json-info": "מידע Google ld+json",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "חייבת להיות כתובת אתר אינטרנט תקינה",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "הדבק את המידע על המתכון. כל שורה תהפוך לפריט ברשימה",
     "recipe-markup-specification": "הגדרות markup למתכון",
@@ -940,7 +942,10 @@
     "openai-ready": "OpenAI מוכן",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "לא כל הערכים הנחוצים ל-OpenAI מוגדרים. ניתן להתעלם אם לא נעשה שימוש ב-OpenAI.",
-    "openai-ready-success-text": "כל המשתנים הנחוצים ל-OpenAI מוגדרים."
+    "openai-ready-success-text": "כל המשתנים הנחוצים ל-OpenAI מוגדרים.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "כל הרשימות",
@@ -1123,9 +1128,9 @@
     "permissions": "הרשאות",
     "administrator": "מנהל ראשי",
     "user-can-invite-other-to-group": "המשתמש יכול להזמין אחרים לקבוצה",
-    "user-can-manage-group": "משתמש יכול לנהל קבוצה",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "המשתמש יכול לנהל משק בית",
-    "user-can-organize-group-data": "משתמש יכול לשנות מידע של קבוצה",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "אפשר אפשרויות מתקדמות",
     "it-looks-like-this-is-your-first-time-logging-in": "נראה שזו ההתחברות הראשונה שלך.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "לא רוצה לראות את זה יותר? ניתן לשנות את המייל שלך בהגדרות המשתמש!",
@@ -1144,6 +1149,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "צירוף של המאכלים שנבחרו יאחד את אוכל המקור ואוכל היעד לפריט אוכל אחד. אוכל המקור ימחק וכל ההפניות / הייחוסים אליו יעודכנו ויופנו לאוכל היעד.",
       "merge-food-example": "ממזג את {food1} לתוך {food2}",
       "seed-dialog-text": "אכלס את מסד הנתונים עם אוכל בהתבסס על השפה המקומית שלך. הפעולה תיצור +200 מאכלים נפוצים שיכולים לשמש לארגון מסד הנתונים. מאכלים מתורגמים על ידי מאמצי הקהילה.",
@@ -1394,6 +1401,7 @@
     "setup": {
       "first-time-setup": "הגדרה ראשונית",
       "welcome-to-mealie-get-started": "ברוכים הבאים ל-Mealie! בואו נתחיל",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "כבר הגדרתי הכל, תעבירו אותי לעמוד הבית",
       "common-settings-for-new-sites": "הגדרות נפוצות לאתרים חדשים יופיעו כאן",
       "setup-complete": "ההגדרה הושלמה!",

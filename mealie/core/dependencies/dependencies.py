@@ -179,7 +179,7 @@ def validate_file_token(token: str | None = None) -> Path:
 @contextmanager
 def get_temporary_zip_path(auto_unlink=True) -> Generator[Path, None, None]:
     app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
-    temp_path = app_dirs.TEMP_DIR.joinpath("my_zip_archive.zip")
+    temp_path = app_dirs.TEMP_DIR / f"{uuid4().hex}.zip"
     try:
         yield temp_path
     finally:

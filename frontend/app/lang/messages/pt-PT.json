@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Define o seu grupo e todas as receitas como privadas por defeito. Poderá mudar isso mais tarde."
     },
     "manage-members": "Gerir Membros",
-    "manage-members-description": "Gerir as permissões dos membros do seu agregado familiar. A permissão {manage} permite ao utilizador aceder à página de gestão de dados e a permissão {invite} permite ao utilizador gerar ligações de convite para outros utilizadores. Os proprietários de grupos não podem alterar as suas próprias permissões.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Gerir",
     "manage-household": "Gerir Lar",
     "invite": "Convidar",
@@ -410,7 +410,8 @@
     "applies-on-days": "Aplica-se em {0}s",
     "meal-plan-settings": "Definições do Plano de Refeições",
     "add-all-to-list": "Adicionar todos",
-    "add-day-to-list": "Adicionar Dia"
+    "add-day-to-list": "Adicionar Dia",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Dados de migração removidos",
@@ -480,6 +481,7 @@
     "from-url": "Importar uma Receita",
     "github-issues": "GitHub Issues",
     "google-ld-json-info": "Google ld+json Info",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Tem de ser um URL válido",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Cole os dados da sua receita. Cada linha será tratada como um item numa lista",
     "recipe-markup-specification": "Especificação Markup da Receita",
@@ -940,7 +942,10 @@
     "openai-ready": "Preparado para OpenAI",
     "openai-not-ready": "OpenAI Not Ready",
     "openai-ready-error-text": "Nem todos os valores OpenAI estão configurados. Isto pode ser ignorado se não estiver a utilizar as funcionalidades OpenAI.",
-    "openai-ready-success-text": "As variáveis OpenAI necessárias estão todas definidas."
+    "openai-ready-success-text": "As variáveis OpenAI necessárias estão todas definidas.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Todas as Listas",
@@ -1123,9 +1128,9 @@
     "permissions": "Permissões",
     "administrator": "Administrador",
     "user-can-invite-other-to-group": "O utilizador pode convidar outros para o grupo",
-    "user-can-manage-group": "O utilizador pode gerir o grupo",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "O utilizador pode gerir a casa",
-    "user-can-organize-group-data": "O utilizador pode organizar dados do grupo",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Habilitar recursos avançados",
     "it-looks-like-this-is-your-first-time-logging-in": "Parece que este é o seu primeiro login.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Não quer voltar a ver isto? Não se esqueça de alterar o seu email nas suas definições de utilizador!",
@@ -1144,6 +1149,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Combinar os alimentos selecionados irá juntar o alimento de origem e o alimento alvo num alimento único. O alimento de origem será eliminado e todas as referências a este serão atualizadas para apontar para o alimento alvo.",
       "merge-food-example": "A juntar {food1} com {food2}",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
@@ -1394,6 +1401,7 @@
     "setup": {
       "first-time-setup": "Configuração Inicial",
       "welcome-to-mealie-get-started": "Bem-vindo ao Mealie! Vamos começar",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Já estou pronto, leva-me para a página inicial",
       "common-settings-for-new-sites": "Aqui estão algumas configurações comuns para sites novos",
       "setup-complete": "Configuração Concluída!",

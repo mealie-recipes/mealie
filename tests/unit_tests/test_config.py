@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import Any
 
 import pytest
+from pydantic import ValidationError
 
 from mealie.core.config import get_app_settings
 from mealie.core.settings.settings import AppSettings, determine_secrets
@@ -25,6 +26,31 @@ def test_non_default_settings(monkeypatch):
     assert app_settings.API_DOCS is False
 
     assert app_settings.DOCS_URL is None
+
+
+def test_allowed_iframe_hosts_defaults(monkeypatch):
+    monkeypatch.delenv("ALLOWED_IFRAME_HOSTS", raising=False)
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
+    # Secure defaults are always present and never empty (empty would disable iframe embeds).
+    assert "youtube.com" in app_settings.allowed_iframe_hosts
+    assert "vimeo.com" in app_settings.allowed_iframe_hosts
+
+
+def test_allowed_iframe_hosts_extends_defaults(monkeypatch):
+    monkeypatch.setenv("ALLOWED_IFRAME_HOSTS", " Example.com , trusted.tld ,, ")
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
+    hosts = app_settings.allowed_iframe_hosts
+    # Configured hosts are normalized, blanks dropped, and defaults retained.
+    assert "example.com" in hosts
+    assert "trusted.tld" in hosts
+    assert "youtube.com" in hosts
+    assert "" not in hosts
+    # No duplicates.
+    assert len(hosts) == len(set(hosts))
 
 
 def test_default_connection_args(monkeypatch):
@@ -268,7 +294,7 @@ ldap_cases_ids = [x[0] for x in ldap_validation_cases]
 def test_ldap_settings_validation(data: LDAPValidationCase, monkeypatch: pytest.MonkeyPatch):
     for setting in data.settings:
         if setting.value is not None:
-            monkeypatch.setenv(setting.name, setting.value)
+            monkeypatch.setenv(setting.name, str(setting.value))
         else:
             monkeypatch.delenv(setting.name, raising=False)
 
@@ -340,7 +366,7 @@ oidc_cases_ids = [x[0] for x in oidc_validation_cases]
 def test_oidc_settings_validation(data: OIDCValidationCase, monkeypatch: pytest.MonkeyPatch):
     for setting in data.settings:
         if setting.value is not None:
-            monkeypatch.setenv(setting.name, setting.value)
+            monkeypatch.setenv(setting.name, str(setting.value))
         else:
             monkeypatch.delenv(setting.name, raising=False)
 
@@ -368,6 +394,51 @@ def test_sensitive_settings_mask(monkeypatch: pytest.MonkeyPatch):
     for setting in sensitive_settings:
         assert settings[setting] == "*****"
         assert settings_json[setting] == "*****"
+
+
+_SCRAPER_URL_FIELDS = ["SCRAPER_PROXY_URL", "SCRAPER_FLARESOLVERR_URL"]
+
+
+@pytest.mark.parametrize("field", _SCRAPER_URL_FIELDS)
+@pytest.mark.parametrize(
+    "value",
+    [
+        "flaresolverr:8191",  # missing scheme
+        "192.168.1.5:8191",  # bare host:port
+        "just-a-hostname",  # no scheme, no port
+    ],
+)
+def test_scraper_url_rejects_missing_scheme(field: str, value: str, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv(field, value)
+    get_app_settings.cache_clear()
+
+    with pytest.raises(ValidationError):
+        get_app_settings()
+
+
+@pytest.mark.parametrize("field", _SCRAPER_URL_FIELDS)
+@pytest.mark.parametrize(
+    "value",
+    [
+        "http://flaresolverr:8191",
+        "https://fs.example.com:8191/",
+        "http://user:pass@host:8080",  # userinfo is allowed
+        "socks5://host:1080",  # non-http schemes (valid for proxies) are not rejected
+    ],
+)
+def test_scraper_url_accepts_valid(field: str, value: str, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv(field, value)
+    get_app_settings.cache_clear()
+
+    assert getattr(get_app_settings(), field) == value
+
+
+@pytest.mark.parametrize("field", _SCRAPER_URL_FIELDS)
+def test_scraper_url_allows_unset(field: str, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.delenv(field, raising=False)
+    get_app_settings.cache_clear()
+
+    assert getattr(get_app_settings(), field) is None
 
 
 class DetermineSecretsTests:

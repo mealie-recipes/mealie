@@ -85,11 +85,12 @@ import { useUserApi } from "~/composables/api";
 
 const UPLOAD_EVENT = "upload";
 const DELETE_EVENT = "delete";
+const REFRESH_EVENT = "refresh";
 
 const props = defineProps<{ slug: string }>();
 
 const emit = defineEmits<{
-  refresh: [];
+  refresh: [image: string];
   upload: [fileObject: File];
   delete: [];
 }>();
@@ -125,8 +126,9 @@ async function deleteImage() {
 
 async function getImageFromURL() {
   loading.value = true;
-  if (await api.recipes.updateImagebyURL(props.slug, url.value)) {
-    emit(DELETE_EVENT);
+  const { data } = await api.recipes.updateImagebyURL(props.slug, url.value);
+  if (data?.image) {
+    emit(REFRESH_EVENT, data.image);
   }
   loading.value = false;
   menu.value = false;

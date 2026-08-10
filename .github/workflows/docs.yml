@@ -20,6 +20,10 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      # Install from the committed lockfile; never re-resolve (see pyproject
+      # [tool.uv] exclude-newer cooling window).
+      UV_FROZEN: "1"
     steps:
       - uses: actions/checkout@v6
 

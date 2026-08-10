@@ -68,7 +68,7 @@
                       @click="displayRecipeRefs = !displayRecipeRefs"
                     >
                       <v-icon>
-                        {{ $globals.icons.potSteam }}
+                        {{ $globals.icons.silverwareForkKnife }}
                       </v-icon>
                     </v-btn>
                   </template>
@@ -79,7 +79,7 @@
                   variant="text"
                   class="ml-2"
                   icon
-                  @click="toggleEdit(true)"
+                  @click="toggleEdit(!edit)"
                 >
                   <v-icon>
                     {{ $globals.icons.edit }}
@@ -113,24 +113,17 @@
           </div>
         </v-col>
       </v-row>
-      <v-row
+      <v-container
         v-if="!listItem.checked && recipeList && recipeList.length && displayRecipeRefs"
-        no-gutters
-        class="mb-2"
+        class="pa-0"
       >
-        <v-col
-          cols="auto"
-          style="width: 100%;"
-        >
-          <RecipeList
-            :recipes="recipeList"
-            :list-item="listItem"
-            :disabled="isOffline"
-            size="small"
-            tile
-          />
-        </v-col>
-      </v-row>
+        <RecipeList
+          :recipes="recipeList"
+          :list-item="listItem"
+          :disabled="isOffline"
+          :tile="true"
+        />
+      </v-container>
       <v-row
         v-if="listItem.checked"
         no-gutters
@@ -146,8 +139,8 @@
       </v-row>
     </v-container>
     <div
-      v-else
-      class="mb-1 mt-6"
+      v-if="edit"
+      class="mb-4"
     >
       <ShoppingListItemEditor
         v-model="localListItem"

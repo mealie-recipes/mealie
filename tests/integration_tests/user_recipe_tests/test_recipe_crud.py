@@ -29,6 +29,7 @@ from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.recipe_scraper import DEFAULT_SCRAPER_STRATEGIES
+from mealie.services.scraper.scraper import ParserErrors
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
@@ -333,6 +334,46 @@ def test_create_by_html_or_json_stream_error(
     event_types = [e["event"] for e in events]
 
     assert "error" in event_types
+
+
+@pytest.mark.parametrize(
+    "data",
+    [
+        # valid JSON, but not tagged as a schema.org Recipe
+        json.dumps({"name": "Test", "recipeIngredient": ["1 cup flour"], "recipeInstructions": [{"text": "Mix"}]}),
+        # not valid JSON at all
+        '{"name": "Test",,,}',
+        # no recipe data whatsoever
+        "<html><body>not a recipe</body></html>",
+    ],
+    ids=["missing-schema-declaration", "malformed-json", "no-recipe-data"],
+)
+def test_create_by_html_or_json_stream_invalid_data(api_client: TestClient, unique_user: TestUser, data: str):
+    """Unparseable data must report an error to the client, rather than silently ending the stream"""
+
+    response = api_client.post(
+        api_routes.recipes_create_html_or_json_stream,
+        json={"data": data},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 200
+    events = parse_sse_events(response.text)
+
+    error_events = [e for e in events if e["event"] == "error"]
+    assert error_events
+    assert error_events[0]["data"]["message"] == ParserErrors.BAD_RECIPE_DATA.value
+
+
+def test_create_by_html_or_json_invalid_data(api_client: TestClient, unique_user: TestUser):
+    response = api_client.post(
+        api_routes.recipes_create_html_or_json,
+        json={"data": json.dumps({"name": "Test"})},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 400
+    assert response.json()["detail"]["message"] == ParserErrors.BAD_RECIPE_DATA.value
 
 
 def test_create_recipe_from_zip(api_client: TestClient, unique_user: TestUser, tempdir: str):
@@ -1387,6 +1428,29 @@ def test_patch_recipe_after_name_changes_without_slug_update(api_client: TestCli
     patched_recipe = response.json()
     assert patched_recipe["slug"] == original_slug
     assert patched_recipe["description"] == "Translated without changing the stored slug"
+
+
+def test_patch_recipe_instructions_without_ingredient_references(api_client: TestClient, unique_user: TestUser):
+    response = api_client.post(
+        api_routes.recipes,
+        json={"name": "Patch instructions without refs"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 201
+    slug = response.json()
+
+    response = api_client.patch(
+        api_routes.recipes_slug(slug),
+        json={"recipeInstructions": [{"text": "Step one."}, {"text": "Step two."}]},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
+    assert response.status_code == 200
+    recipe = response.json()
+    assert [step["text"] for step in recipe["recipeInstructions"]] == ["Step one.", "Step two."]
+    assert all(step["ingredientReferences"] == [] for step in recipe["recipeInstructions"])
 
 
 def test_put_recipe_name_change_updates_slug(api_client: TestClient, unique_user: TestUser):
