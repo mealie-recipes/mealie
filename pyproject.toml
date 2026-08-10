@@ -10,7 +10,7 @@ dependencies = [
     "Pillow==12.3.0",
     "PyYAML==6.0.3",
     "SQLAlchemy==2.0.51",
-    "alembic==1.18.5",
+    "alembic==1.19.0",
     "apprise==1.12.0",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
@@ -39,7 +39,7 @@ dependencies = [
     "pydantic-settings==2.14.2",
     "pillow-heif==1.5.0",
     "pyjwt==2.13.0",
-    "openai==2.52.0",
+    "openai==2.53.0",
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.7.4",
@@ -78,6 +78,7 @@ dev = [
     "types-urllib3==1.26.25.14",
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
+    "httpx2==2.9.1",
 ]
 
 [build-system]
@@ -101,6 +102,12 @@ python_classes = '*Tests'
 python_files = 'test_*'
 python_functions = 'test_*'
 testpaths = ["tests"]
+filterwarnings = [
+    # Suppress unmaintained third-party pyRdfa utcnow() deprecation warning
+    "ignore::DeprecationWarning:pyRdfa.*",
+    # Suppress Python 3.12 default SQLite datetime-adapter deprecation warning
+    "ignore:The default datetime adapter is deprecated as of Python 3.12:DeprecationWarning",
+]
 
 [tool.coverage.report]
 skip_empty = true

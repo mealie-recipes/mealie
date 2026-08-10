@@ -157,7 +157,7 @@ export const LOCALES = [
   {
     name: "Magyar (Hungarian)",
     value: "hu-HU",
-    progress: 62,
+    progress: 63,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
@@ -255,7 +255,7 @@ export const LOCALES = [
   {
     name: "Dansk (Danish)",
     value: "da-DK",
-    progress: 99,
+    progress: 100,
     dir: "ltr",
     pluralFoodHandling: "always",
   },
