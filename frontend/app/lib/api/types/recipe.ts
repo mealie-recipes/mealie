@@ -163,6 +163,13 @@ export interface IngredientRequest {
   parser?: RegisteredParser;
   ingredient: string;
 }
+export interface IngredientTranslation {
+  ingredientId: string;
+  note?: string | null;
+  originalText?: string | null;
+  foodName?: string | null;
+  unitName?: string | null;
+}
 export interface IngredientUnit {
   id: string;
   name: string;
@@ -188,6 +195,11 @@ export interface IngredientsRequest {
   parser?: RegisteredParser;
   ingredients: string[];
 }
+export interface InstructionTranslation {
+  instructionId: string;
+  title?: string | null;
+  text?: string | null;
+}
 export interface MergeFood {
   fromFood: string;
   toFood: string;
@@ -195,6 +207,11 @@ export interface MergeFood {
 export interface MergeUnit {
   fromUnit: string;
   toUnit: string;
+}
+export interface NoteTranslation {
+  noteIndex: number;
+  title?: string | null;
+  text?: string | null;
 }
 export interface Nutrition {
   calories?: string | null;
@@ -261,6 +278,8 @@ export interface Recipe {
     [k: string]: unknown;
   } | null;
   comments?: RecipeCommentOut[] | null;
+  availableTranslations?: RecipeTranslationSummary[];
+  translatedLocale?: string | null;
 }
 export interface RecipeTool {
   id: string;
@@ -299,6 +318,12 @@ export interface UserBase {
   username?: string | null;
   admin: boolean;
   fullName?: string | null;
+}
+export interface RecipeTranslationSummary {
+  locale: string;
+  name?: string | null;
+  isStale?: boolean;
+  updatedAt?: string | null;
 }
 export interface RecipeCategoryResponse {
   name: string;
@@ -475,6 +500,22 @@ export interface RecipeToolSave {
   name: string;
   householdsWithTool?: string[];
   groupId: string;
+}
+export interface RecipeTranslation {
+  locale: string;
+  name?: string | null;
+  description?: string | null;
+  recipeYield?: string | null;
+  sourceHash?: string | null;
+  isStale?: boolean;
+  instructions?: InstructionTranslation[];
+  ingredients?: IngredientTranslation[];
+  notes?: NoteTranslation[];
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface RecipeTranslationRequest {
+  locale: string;
 }
 export interface SaveIngredientFood {
   id?: string | null;

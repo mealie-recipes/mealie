@@ -43,6 +43,7 @@ from mealie.schema.recipe.recipe import (
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
+from mealie.schema.recipe.recipe_translation import RecipeTranslationRequest, RecipeTranslationSummary
 from mealie.schema.recipe.request_helpers import (
     RecipeDuplicate,
     UpdateImageResponse,
@@ -431,15 +432,78 @@ class RecipeController(BaseRecipeController):
         return JSONBytes(content=json_compatible_response)
 
     @router.get("/{slug}", response_model=Recipe)
-    def get_one(self, slug: str = Path(..., description="A recipe's slug or id")):
+    def get_one(
+        self,
+        slug: str = Path(..., description="A recipe's slug or id"),
+        locale: str | None = Query(
+            None,
+            description="Return the recipe rendered in this locale if a translation exists. "
+            "Use 'original' (or omit) for the canonical recipe.",
+        ),
+    ):
         """Takes in a recipe's slug or id and returns all data for a recipe"""
         try:
-            recipe = self.service.get_one(slug)
+            recipe = self.service.get_one(slug, locale=locale)
         except Exception as e:
             self.handle_exceptions(e)
             return None
 
         return recipe
+
+    # ==================================================================================================================
+    # Translations
+
+    @router.get("/{slug}/translations", response_model=list[RecipeTranslationSummary])
+    def list_recipe_translations(self, slug: str = Path(..., description="A recipe's slug or id")):
+        """List the language overlays stored for a recipe, with staleness flags."""
+        try:
+            return self.service.list_translations(slug)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
+
+    @router.post("/{slug}/translations", status_code=201, response_model=RecipeTranslationSummary)
+    async def create_recipe_translation(
+        self,
+        data: RecipeTranslationRequest,
+        slug: str = Path(..., description="A recipe's slug or id"),
+    ):
+        """Generate and store a translation of the recipe in the requested locale using AI."""
+        ai_settings = self.group.ai_provider_settings
+        if not (ai_settings and ai_settings.ai_enabled):
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("OpenAI services are not enabled"),
+            )
+
+        try:
+            summary = await self.service.translate_one(slug, data.locale)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
+
+        self.publish_event(
+            event_type=EventTypes.recipe_updated,
+            document_data=EventRecipeData(operation=EventOperation.update, recipe_slug=slug),
+            group_id=self.group_id,
+            household_id=self.household_id,
+        )
+        return summary
+
+    @router.delete("/{slug}/translations/{locale}", response_model=SuccessResponse)
+    def delete_recipe_translation(
+        self,
+        slug: str = Path(..., description="A recipe's slug or id"),
+        locale: str = Path(..., description="The locale of the translation to remove"),
+    ):
+        """Remove a stored translation from a recipe."""
+        try:
+            self.service.delete_translation(slug, locale)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return None
+
+        return SuccessResponse.respond("Translation deleted")
 
     @router.post("", status_code=201, response_model=str)
     def create_one(self, data: CreateRecipe) -> str | None:

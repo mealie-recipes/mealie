@@ -20,7 +20,15 @@
 
     <v-spacer />
     <div v-if="!open" class="custom-btn-group ma-1">
-      <RecipeFavoriteBadge v-if="loggedIn" color="info" button-style :recipe-id="recipe.id!" show-always />
+      <slot name="leading" />
+      <RecipeFavoriteBadge
+        v-if="loggedIn"
+        :class="{ 'ml-1': hasLeading }"
+        color="info"
+        button-style
+        :recipe-id="recipe.id!"
+        show-always
+      />
       <RecipeTimelineBadge
         v-if="loggedIn"
         class="ml-1"
@@ -127,6 +135,9 @@ withDefaults(defineProps<Props>(), {
 });
 
 const emit = defineEmits(["print", "input", "save", "delete", "close", "json", "edit"]);
+
+const slots = useSlots();
+const hasLeading = computed(() => !!slots.leading);
 
 const deleteDialog = ref(false);
 

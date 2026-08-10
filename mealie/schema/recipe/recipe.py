@@ -33,6 +33,7 @@ from .recipe_notes import RecipeNote
 from .recipe_nutrition import Nutrition
 from .recipe_settings import RecipeSettings
 from .recipe_step import RecipeStep
+from .recipe_translation import RecipeTranslationSummary
 
 app_dirs = get_app_dirs()
 
@@ -192,6 +193,10 @@ class Recipe(RecipeSummary):
 
     comments: list[RecipeCommentOut] | None = []
 
+    # Translation metadata (response-only; never written back into the ORM)
+    available_translations: list[RecipeTranslationSummary] = []
+    translated_locale: str | None = None
+
     @staticmethod
     def _get_dir(dir: Path) -> Path:
         """Gets a directory and creates it if it doesn't exist"""
@@ -317,6 +322,7 @@ class Recipe(RecipeSummary):
             joinedload(RecipeModel.settings),
             # for whatever reason, joinedload can mess up the order here, so use selectinload just this once
             selectinload(RecipeModel.notes),
+            selectinload(RecipeModel.translations),
         ]
 
     @classmethod

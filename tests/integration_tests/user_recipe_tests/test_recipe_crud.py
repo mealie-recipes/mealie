@@ -1453,6 +1453,51 @@ def test_patch_recipe_instructions_without_ingredient_references(api_client: Tes
     assert all(step["ingredientReferences"] == [] for step in recipe["recipeInstructions"])
 
 
+def test_put_recipe_preserves_instruction_ids(api_client: TestClient, unique_user: TestUser):
+    """Instruction ids must be stable across updates so id-keyed data (e.g. translations) isn't orphaned."""
+    response = api_client.post(
+        api_routes.recipes,
+        json={"name": "Stable instruction ids"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 201
+    slug = response.json()
+
+    recipe_url = api_routes.recipes_slug(slug)
+    recipe = api_client.get(recipe_url, headers=unique_user.token).json()
+    recipe["recipeInstructions"] = [
+        {"text": "Step one."},
+        {"text": "Step two."},
+        {"text": "Step three."},
+    ]
+    assert api_client.put(recipe_url, json=recipe, headers=unique_user.token).status_code == 200
+
+    recipe = api_client.get(recipe_url, headers=unique_user.token).json()
+    original_ids = [step["id"] for step in recipe["recipeInstructions"]]
+    assert all(original_ids)
+
+    # Editing text and reordering must keep each id attached to its (now moved) text
+    steps = recipe["recipeInstructions"]
+    steps[0]["text"] = "Step one edited."
+    steps[0], steps[2] = steps[2], steps[0]
+    recipe["recipeInstructions"] = steps
+    assert api_client.put(recipe_url, json=recipe, headers=unique_user.token).status_code == 200
+
+    recipe = api_client.get(recipe_url, headers=unique_user.token).json()
+    result = {step["id"]: step["text"] for step in recipe["recipeInstructions"]}
+    assert set(result) == set(original_ids)
+    assert result[original_ids[0]] == "Step one edited."
+    assert result[original_ids[1]] == "Step two."
+
+    # Deleting a step removes only that row, others keep their ids
+    recipe["recipeInstructions"] = [step for step in recipe["recipeInstructions"] if step["id"] != original_ids[1]]
+    assert api_client.put(recipe_url, json=recipe, headers=unique_user.token).status_code == 200
+
+    recipe = api_client.get(recipe_url, headers=unique_user.token).json()
+    remaining_ids = {step["id"] for step in recipe["recipeInstructions"]}
+    assert remaining_ids == {original_ids[0], original_ids[2]}
+
+
 def test_put_recipe_name_change_updates_slug(api_client: TestClient, unique_user: TestUser):
     original_name = "Original Recipe Name"
     renamed_name = "Renamed Recipe Name"

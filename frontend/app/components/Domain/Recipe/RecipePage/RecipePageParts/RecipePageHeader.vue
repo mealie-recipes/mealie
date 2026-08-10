@@ -10,7 +10,7 @@
       :recipe="recipe"
       :slug="recipe.slug"
       :recipe-scale="recipeScale"
-      :can-edit="canEditRecipe"
+      :can-edit="canEditActiveView"
       :name="recipe.name"
       :logged-in="isOwnGroup"
       :open="isEditMode"
@@ -22,7 +22,17 @@
       @save="$emit('save')"
       @delete="$emit('delete')"
       @print="printRecipe"
-    />
+    >
+      <template #leading>
+        <RecipePageLanguageMenu
+          v-if="isOwnGroup"
+          :slug="recipe.slug"
+          :can-edit="canEditRecipe"
+          :selected-locale="recipe.translatedLocale ?? null"
+          @switch="$emit('switch-language', $event)"
+        />
+      </template>
+    </RecipeActionMenu>
   </div>
 </template>
 
@@ -30,6 +40,7 @@
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useRecipePermissions } from "~/composables/recipes";
 import RecipePageInfoCard from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCard.vue";
+import RecipePageLanguageMenu from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageLanguageMenu.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import type { HouseholdSummary } from "~/lib/api/types/household";
@@ -47,7 +58,7 @@ const props = withDefaults(defineProps<Props>(), {
   landscape: false,
 });
 
-defineEmits(["save", "delete", "print", "close"]);
+defineEmits(["save", "delete", "print", "close", "switch-language"]);
 
 const { recipeImage } = useStaticRoutes();
 const { imageKey, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
@@ -62,6 +73,10 @@ if (user) {
   });
 }
 const { canEditRecipe } = useRecipePermissions(props.recipe, recipeHousehold, user);
+
+// Editing must target the canonical recipe. While a translation is being viewed, hide the edit action so
+// translated text can never be saved over the original.
+const canEditActiveView = computed(() => canEditRecipe.value && !props.recipe.translatedLocale);
 
 function printRecipe() {
   window.print();
