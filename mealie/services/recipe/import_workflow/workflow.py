@@ -48,6 +48,8 @@ class RecipeImportWorkflow:
                 self.logger.exception(f"Optional workflow step {step.name} failed, continuing")
                 outcomes[step.name] = StepOutcome.FAILED
 
+        self.logger.debug(f"Workflow finished: {', '.join(f'{name}={outcome}' for name, outcome in outcomes.items())}")
+
         if not ctx.draft_recipe:
             raise ValueError("Workflow completed without producing a recipe")
 

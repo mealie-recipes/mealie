@@ -264,6 +264,7 @@ class RecipeScraperOpenAI(ABCScraperStrategy):
         return bool(settings and settings.ai_enabled and (self.url or self.raw_html))
 
     async def get_html(self, url: str) -> str:
+        # required by the base class, but unused: the workflow fetches the page itself
         return self.raw_html or await safe_scrape_html(url)
 
     def build_context(self, on_progress: Callable[[str], Awaitable[None]] | None = None) -> WorkflowContext:
