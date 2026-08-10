@@ -38,7 +38,7 @@ class CompileSourceStep(WorkflowStep):
                 continue
 
             if not (compiled.contains_recipe and compiled.content.strip()):
-                raise NoRecipeDataError("No recipe was found in the provided source")
+                raise NoRecipeDataError(ctx.translator.t("recipe.import-errors.no-recipe-found"))
 
             ctx.compiled_source = compiled
             return True
@@ -55,7 +55,7 @@ class CompileSourceStep(WorkflowStep):
 
         await self._fetch_source_content(ctx)
         if not ctx.source_content:
-            raise NoRecipeDataError("Unable to read any content from the provided source")
+            raise NoRecipeDataError(ctx.translator.t("recipe.import-errors.unreadable-source"))
 
         if not await self._compile(ctx, [c for c in self.compilers if c.requires_content]):
-            raise NoRecipeDataError("Unable to read any content from the provided source")
+            raise NoRecipeDataError(ctx.translator.t("recipe.import-errors.unreadable-source"))

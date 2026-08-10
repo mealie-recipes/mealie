@@ -24,7 +24,7 @@ class BuildRecipeStep(WorkflowStep):
     def _build_message(self, ctx: WorkflowContext) -> str:
         compiled = ctx.compiled_source
         if not compiled:
-            raise NoRecipeDataError("No source has been compiled")
+            raise NoRecipeDataError(ctx.translator.t("recipe.import-errors.unreadable-source"))
 
         message_parts = ["Below is the transcribed recipe source.", compiled.content]
 
@@ -91,9 +91,9 @@ class BuildRecipeStep(WorkflowStep):
         )
 
         if not response:
-            raise NoRecipeDataError("The AI provider returned an empty response")
+            raise NoRecipeDataError(ctx.translator.t("recipe.import-errors.provider-returned-nothing"))
 
         if not (response.ingredients or response.instructions):
-            raise NoRecipeDataError("No recipe was found in the provided source")
+            raise NoRecipeDataError(ctx.translator.t("recipe.import-errors.no-recipe-found"))
 
         ctx.draft_recipe = cleaner.clean(self._convert_recipe(ctx, response), ctx.translator)

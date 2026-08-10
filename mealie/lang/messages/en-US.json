@@ -20,6 +20,14 @@
         },
         "and-amount": "and {amount}",
         "or-ingredient": "or {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unreadable-source": "Unable to read any content from the provided source"
+        },
         "create-progress": {
             "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",

@@ -82,7 +82,7 @@ class AIRecipeService(RecipeService):
 
         workflow_input = WorkflowInput(content=content, images=images or [], url=url)
         if workflow_input.is_empty:
-            raise NoRecipeDataError("No source material was provided")
+            raise NoRecipeDataError(self.t("recipe.import-errors.no-source"))
 
         ai_service = OpenAIService(self.repos)
         self._validate_providers(ai_service, has_images=bool(workflow_input.images))
@@ -118,11 +118,10 @@ class AIRecipeService(RecipeService):
 
         return local_images
 
-    @staticmethod
-    def _validate_providers(ai_service: OpenAIService, *, has_images: bool) -> None:
+    def _validate_providers(self, ai_service: OpenAIService, *, has_images: bool) -> None:
         settings = ai_service.provider_settings
         if not (settings and settings.ai_enabled):
-            raise AIProviderNotEnabledError("AI services are not enabled")
+            raise AIProviderNotEnabledError(self.t("recipe.import-errors.ai-not-enabled"))
 
         if has_images and not settings.image_provider_enabled:
-            raise AIProviderNotEnabledError("AI image services are not enabled")
+            raise AIProviderNotEnabledError(self.t("recipe.import-errors.image-provider-not-enabled"))

@@ -17,6 +17,7 @@ from mealie.services.recipe.import_workflow.workflow import DEFAULT_WORKFLOW_STE
 
 MEALIE_DIR = Path(mealie.__file__).parent
 PROGRESS_KEY_PATTERN = re.compile(r"[\"'](recipe\.create-progress\.[a-zA-Z0-9-]+)[\"']")
+IMPORT_ERROR_KEY_PATTERN = re.compile(r"[\"'](recipe\.import-errors\.[a-zA-Z0-9-]+)[\"']")
 
 translator = get_locale_provider("en-US")
 
@@ -35,20 +36,29 @@ def declared_progress_keys() -> list[str]:
     return keys
 
 
-def progress_keys_in_source() -> list[str]:
-    """Every progress key referenced as a literal anywhere in the backend."""
+def keys_in_source(pattern: re.Pattern) -> list[str]:
+    """Every matching translation key referenced as a literal anywhere in the backend."""
 
     keys: set[str] = set()
     for path in MEALIE_DIR.rglob("*.py"):
-        keys.update(PROGRESS_KEY_PATTERN.findall(path.read_text()))
+        keys.update(pattern.findall(path.read_text()))
 
     return sorted(keys)
 
 
-def test_workflow_declares_progress_keys():
+def progress_keys_in_source() -> list[str]:
+    return keys_in_source(PROGRESS_KEY_PATTERN)
+
+
+def import_error_keys_in_source() -> list[str]:
+    return keys_in_source(IMPORT_ERROR_KEY_PATTERN)
+
+
+def test_workflow_declares_keys():
     # guards the tests below against silently passing on an empty list
     assert declared_progress_keys()
     assert progress_keys_in_source()
+    assert import_error_keys_in_source()
 
 
 @pytest.mark.parametrize("key", declared_progress_keys())
@@ -59,6 +69,13 @@ def test_declared_progress_keys_are_translatable(key: str):
 @pytest.mark.parametrize("key", progress_keys_in_source())
 def test_progress_keys_used_in_source_are_translatable(key: str):
     assert is_translatable(key), f"Progress key '{key}' is missing from the backend translations"
+
+
+@pytest.mark.parametrize("key", import_error_keys_in_source())
+def test_import_error_keys_are_translatable(key: str):
+    """These are surfaced to the user, so an unresolved key shows up as raw text in the UI."""
+
+    assert is_translatable(key), f"Import error key '{key}' is missing from the backend translations"
 
 
 def test_short_content_is_not_truncated():
@@ -81,6 +98,16 @@ def test_long_content_is_truncated_and_marked():
 
 def test_content_can_be_truncated_to_a_custom_length():
     assert truncate_source_content("abcdef", max_length=3) == "abc" + TRUNCATION_NOTICE
+
+
+def test_no_orphaned_import_error_keys():
+    """Import error translations that nothing references anymore should be removed."""
+
+    messages = json.loads((TRANSLATIONS / "en-US.json").read_text())
+    defined = set(messages["recipe"]["import-errors"])
+    used = {key.rsplit(".", 1)[-1] for key in import_error_keys_in_source()}
+
+    assert defined - used == set()
 
 
 def test_no_orphaned_progress_keys():
