@@ -2,7 +2,6 @@ import sqlite3
 from collections.abc import Callable
 from logging import Logger
 
-import psycopg2
 import sqlalchemy.exc
 from fastapi import HTTPException, status
 from pydantic import UUID4, BaseModel
@@ -18,8 +17,14 @@ def is_postgres() -> bool:
 
 def is_unique_violation(ex: sqlalchemy.exc.IntegrityError) -> bool:
 
-    if is_postgres() and isinstance(ex.orig, psycopg2.Error):
-        return getattr(ex.orig, "pgcode", None) == "23505"
+    try:
+        import psycopg2  # noqa: I001
+
+        if is_postgres() and isinstance(ex.orig, psycopg2.Error):
+            return getattr(ex.orig, "pgcode", None) == "23505"
+
+    except ImportError:
+        pass
 
     if isinstance(ex.orig, sqlite3.Error):
         return getattr(ex.orig, "sqlite_errorcode", None) == sqlite3.SQLITE_CONSTRAINT_UNIQUE
