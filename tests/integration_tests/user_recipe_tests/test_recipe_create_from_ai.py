@@ -610,23 +610,137 @@ def test_create_preserves_sections_and_nutrition(
     assert recipe["nutrition"]["proteinContent"] == "12"
 
 
-def test_create_translates_when_requested(
+def test_requesting_a_translation_does_not_change_the_build_request(
     api_client: TestClient,
     unique_user: TestUser,
     monkeypatch: pytest.MonkeyPatch,
     openai_recipe: OpenAIRecipe,
 ):
+    """
+    The build step has to ask for exactly the same thing whether or not a translation was asked for.
+
+    Translation used to be prepended to the build message as "translate every field, including
+    ingredients and instructions", which presupposes ingredients and instructions exist. That
+    overrode the build prompt's rule against inventing anything, so a directive like "create a
+    recipe for X" came back as a fully imagined recipe, but only with translation switched on.
+    """
+
+    content = random_string()
     messages: list[str] = []
 
     async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        if response_schema is not OpenAIRecipe:
+            return None
+
         messages.append(message)
-        return openai_recipe if response_schema is OpenAIRecipe else None
+        # a fresh name each time, so the second import doesn't collide with the first
+        return openai_recipe.model_copy(update={"name": random_string()})
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    assert post_ai(api_client, unique_user, {"content": content}).status_code == 201
+    without_translation = messages[0]
+
+    messages.clear()
+
+    r = post_ai(api_client, unique_user, {"content": content, "translateLanguage": "French"})
+    assert r.status_code == 201
+    with_translation = messages[0]
+
+    assert with_translation == without_translation
+    assert "French" not in with_translation
+
+
+def test_create_translates_in_its_own_step(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    recipe_name: str,
+):
+    """Translating is its own request, handed the recipe the build step produced."""
+
+    translated_name = random_string()
+    translated = openai_recipe.model_copy(update={"name": translated_name})
+    messages: list[str] = []
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        if response_schema is not OpenAIRecipe:
+            return None
+
+        messages.append(message)
+        # the build step goes first, and the translate step is handed what it built
+        return translated if len(messages) > 1 else openai_recipe
 
     monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
 
     r = post_ai(api_client, unique_user, {"content": random_string(), "translateLanguage": "French"})
     assert r.status_code == 201
-    assert any("French" in message for message in messages)
+
+    # the build request says nothing about translating, and the built recipe is what gets sent
+    assert len(messages) == 2
+    assert "French" not in messages[0]
+    assert "French" in messages[1]
+    assert recipe_name in messages[1]
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == translated_name
+
+
+def test_translation_is_skipped_when_the_source_is_already_in_the_language(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    test_image_jpg: str,
+):
+    compiled = OpenAICompiledSource(contains_recipe=True, content=random_string(), language="French", image_url=None)
+    ai = AIResponses(recipe=openai_recipe, compiled=compiled).install(monkeypatch)
+
+    with open(test_image_jpg, "rb") as f:
+        r = post_ai(
+            api_client,
+            unique_user,
+            data={"translateLanguage": "french"},
+            files=[("images", ("recipe.jpg", f, "image/jpeg"))],
+        )
+
+    assert r.status_code == 201
+
+    # only the build step asks for a recipe: translating French into French is a wasted call
+    assert ai.requested_schemas.count("OpenAIRecipe") == 1
+
+
+def test_a_failed_translation_keeps_the_untranslated_recipe(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    recipe_name: str,
+):
+    """Translation is optional, so losing it beats losing the whole import."""
+
+    messages: list[str] = []
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        if response_schema is not OpenAIRecipe:
+            return None
+
+        messages.append(message)
+        if len(messages) > 1:
+            raise Exception("the provider fell over mid-translation")
+
+        return openai_recipe
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    r = post_ai(api_client, unique_user, {"content": random_string(), "translateLanguage": "French"})
+    assert r.status_code == 201
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == recipe_name
 
 
 def test_create_with_no_source_is_rejected(api_client: TestClient, unique_user: TestUser):
