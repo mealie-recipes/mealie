@@ -41,7 +41,7 @@ class ScrapeRecipeAI(MealieModel):
     """HTML, a JSON string of a https://schema.org/Recipe object, or plain text"""
 
     url: str | None = None
-    """Optional URL of the recipe source. Fetched if no content is provided"""
+    """Optional URL of the recipe source. Always fetched, and combined with any other source"""
 
     translate_language: str | None = None
     """Optional language to translate the recipe into"""

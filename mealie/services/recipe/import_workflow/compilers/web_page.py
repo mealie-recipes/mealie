@@ -1,7 +1,7 @@
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.services.openai.content import extract_page_content, truncate_source_content
 
-from .base import COMPILE_SOURCE_PROMPT, SourceCompiler
+from .base import COMPILE_SOURCE_PROMPT, SourceCompiler, SourceType
 
 
 class WebPageCompiler(SourceCompiler):
@@ -10,6 +10,7 @@ class WebPageCompiler(SourceCompiler):
     out of the surrounding page text.
     """
 
+    source_type = SourceType.CONTENT
     progress_key = "recipe.create-progress.reading-source-with-ai"
 
     def can_compile(self) -> bool:

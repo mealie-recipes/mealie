@@ -20,6 +20,26 @@ def truncate_source_content(content: str, max_length: int = MAX_SOURCE_CONTENT_L
     return content[:max_length] + TRUNCATION_NOTICE
 
 
+def truncate_source_parts(parts: list[str], max_length: int = MAX_SOURCE_CONTENT_LENGTH) -> list[str]:
+    """
+    Caps a group of source texts so that their combined length fits `max_length`.
+
+    Each part is allotted an equal share of the budget, and whatever the shorter parts leave
+    unused is handed to the longer ones. Truncating the parts as one string instead would let a
+    long webpage swallow the whole budget and drop the text pasted alongside it entirely.
+    """
+
+    budgets = [0] * len(parts)
+    remaining = max_length
+
+    # shortest first, so that whatever a short part doesn't need is still up for grabs
+    for position, index in enumerate(sorted(range(len(parts)), key=lambda index: len(parts[index]))):
+        budgets[index] = min(len(parts[index]), remaining // (len(parts) - position))
+        remaining -= budgets[index]
+
+    return [truncate_source_content(part, budget) for part, budget in zip(parts, budgets, strict=True)]
+
+
 def extract_json_ld_data_from_html(soup: bs4.BeautifulSoup) -> str:
     data_parts: list[str] = []
     for script in soup.find_all("script", type="application/ld+json"):

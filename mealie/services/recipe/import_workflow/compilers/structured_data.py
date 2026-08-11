@@ -4,11 +4,11 @@ from typing import Any
 import bs4
 
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
-from mealie.services.openai.content import extract_json_ld_data_from_html, find_image, truncate_source_content
+from mealie.services.openai.content import extract_json_ld_data_from_html, find_image
 from mealie.services.scraper import cleaner
 
 from ..context import WorkflowContext
-from .base import SourceCompiler
+from .base import SourceCompiler, SourceType
 
 
 def _looks_like_json(content: str) -> bool:
@@ -27,8 +27,10 @@ class StructuredDataCompiler(SourceCompiler):
     at a single call.
     """
 
-    def __init__(self, ctx: WorkflowContext) -> None:
-        super().__init__(ctx)
+    source_type = SourceType.CONTENT
+
+    def __init__(self, ctx: WorkflowContext, content: str | None = None) -> None:
+        super().__init__(ctx, content)
         self._soup: bs4.BeautifulSoup | None = None
 
     @property
@@ -39,8 +41,7 @@ class StructuredDataCompiler(SourceCompiler):
         return self._soup
 
     def can_compile(self) -> bool:
-        # images always have to be read by a provider
-        if self.ctx.input.images or not self.content:
+        if not self.content:
             return False
 
         if _looks_like_json(self.content):
@@ -82,7 +83,7 @@ class StructuredDataCompiler(SourceCompiler):
 
         return OpenAICompiledSource(
             contains_recipe=True,
-            content=truncate_source_content(content),
+            content=content,
             language=None,
             image_url=image_url,
         )
