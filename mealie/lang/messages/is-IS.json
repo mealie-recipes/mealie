@@ -20,14 +20,25 @@
         },
         "and-amount": "og {amount}",
         "or-ingredient": "eða {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unreadable-source": "Unable to read any content from the provided source"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Bý til uppskrift með gervigreind...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Bý til uppskrift útfrá umritun með gervigreind...",
             "creating-recipe-from-webpage-data": "Bý til uppskrift út frá gögnum á vefsíðu...",
             "downloading-image": "Hleð niður mynd...",
             "downloading-video": "Hleð niður video...",
             "extracting-recipe-data": "Hleð inn uppskriftar gögnum...",
             "fetching-webpage": "Sæki vefsíðu...",
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
             "transcribing-audio-with-ai": "Umrita hljóð með gervigreind..."
         }
     },
@@ -47,6 +58,7 @@
         "permission_denied": "Þú hefur ekki réttindi til að framkvæma þessa aðgerð",
         "recursive-recipe-link": "Uppskrift getur ekki vísað í sjálfa sig, hvorki beint né óbeint",
         "no-entry-found": "Umbeðin síða fannst ekki",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Villa í gagnagrunni",
         "username-conflict-error": "Notandanafn er þegar í notkun",
         "email-conflict-error": "Tölvupóstur er þegar í notkun"
