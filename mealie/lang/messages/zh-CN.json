@@ -20,14 +20,25 @@
         },
         "and-amount": "和 {amount}",
         "or-ingredient": "或 {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unreadable-source": "Unable to read any content from the provided source"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "使用 AI 创建食谱……",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "使用 AI 从转录结果创建食谱……",
             "creating-recipe-from-webpage-data": "从网页数据创建食谱……",
             "downloading-image": "正在下载图片……",
             "downloading-video": "正在下载视频……",
             "extracting-recipe-data": "正在提取食谱数据……",
             "fetching-webpage": "正在获取网页……",
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
             "transcribing-audio-with-ai": "正在用AI翻译音频……"
         }
     },
@@ -47,6 +58,7 @@
         "permission_denied": "您没有执行此操作的权限",
         "recursive-recipe-link": "食谱不能直接或间接地引用自身",
         "no-entry-found": "您要找的网页不存在",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "数据库完整性错误",
         "username-conflict-error": "该用户名已被使用",
         "email-conflict-error": "该邮箱已经被使用"

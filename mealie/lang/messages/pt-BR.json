@@ -20,14 +20,25 @@
         },
         "and-amount": "e {amount}",
         "or-ingredient": "ou {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unreadable-source": "Unable to read any content from the provided source"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Criando receita com IA...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Criando receita da transcrição com IA...",
             "creating-recipe-from-webpage-data": "Criando receita de dados de páginas web...",
             "downloading-image": "Baixando imagem...",
             "downloading-video": "Baixando vídeo...",
             "extracting-recipe-data": "Extraindo dados da receita...",
             "fetching-webpage": "Buscando página web...",
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
             "transcribing-audio-with-ai": "Transcrevendo áudio com IA..."
         }
     },
@@ -47,6 +58,7 @@
         "permission_denied": "Você não tem permissão para realizar esta ação",
         "recursive-recipe-link": "Uma receita não pode referenciar a si mesma, diretamente ou indiretamente",
         "no-entry-found": "O recurso solicitado não foi encontrado",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Erro de integridade de banco de dados",
         "username-conflict-error": "Este nome de usuário já está em uso",
         "email-conflict-error": "Este e-mail já está em uso"
