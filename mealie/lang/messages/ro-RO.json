@@ -20,14 +20,25 @@
         },
         "and-amount": "și {amount}",
         "or-ingredient": "sau {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unreadable-source": "Unable to read any content from the provided source"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Se creează rețeta cu AI...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Se creează rețeta din transcriere cu AI...",
             "creating-recipe-from-webpage-data": "Se creează rețeta din datele paginii web...",
             "downloading-image": "Se descarcă imaginea...",
             "downloading-video": "Se descarcă videoclipul...",
             "extracting-recipe-data": "Se extrag datele rețetei...",
             "fetching-webpage": "Se preia pagina web...",
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
             "transcribing-audio-with-ai": "Se transcrie sunetul cu AI..."
         }
     },
@@ -47,6 +58,7 @@
         "permission_denied": "Nu aveți permisiunile necesare pentru a efectua această acțiune",
         "recursive-recipe-link": "O rețetă nu poate să se refere la ea însăși, nici direct, nici indirect",
         "no-entry-found": "Pagina solicitată nu a fost găsită",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Eroare la integritatea bazei de date",
         "username-conflict-error": "Acest nume de utilizator deja există",
         "email-conflict-error": "Această adresă de e-mail este deja folosită"

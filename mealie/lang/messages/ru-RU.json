@@ -20,14 +20,25 @@
         },
         "and-amount": "И {amount}",
         "or-ingredient": "Или {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unreadable-source": "Unable to read any content from the provided source"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Создание рецепта с ИИ...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Создание рецепта из транскрипции с ИИ...",
             "creating-recipe-from-webpage-data": "Создание рецепта из данных веб-страницы...",
             "downloading-image": "Загрузка изображения...",
             "downloading-video": "Загрузка видео...",
             "extracting-recipe-data": "Извлечение данных рецепта...",
             "fetching-webpage": "Загрузка веб-страницы...",
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
             "transcribing-audio-with-ai": "Преобразование звука с AI..."
         }
     },
@@ -47,6 +58,7 @@
         "permission_denied": "У вас нет прав для выполнения этого действия",
         "recursive-recipe-link": "Рецепт не может ссылаться на себя ни напрямую, ни косвенно",
         "no-entry-found": "Запрашиваемый ресурс не найден",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Ошибка целостности базы данных",
         "username-conflict-error": "Имя пользователя уже занято",
         "email-conflict-error": "Емейл уже используется"
