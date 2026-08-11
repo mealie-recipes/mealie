@@ -105,6 +105,7 @@ class AIResponses:
         self.organizers = organizers
         self.requested_schemas: list[str] = []
         self.prompts: list[str] = []
+        self.messages: list[str] = []
 
     def install(self, monkeypatch: pytest.MonkeyPatch) -> "AIResponses":
         responses = self
@@ -112,6 +113,7 @@ class AIResponses:
         async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
             responses.requested_schemas.append(response_schema.__name__)
             responses.prompts.append(prompt)
+            responses.messages.append(message)
 
             if response_schema is OpenAICompiledSource:
                 return responses.compiled
@@ -210,18 +212,29 @@ def test_create_from_content_and_images(
     openai_recipe: OpenAIRecipe,
     test_image_jpg: str,
 ):
-    ai = AIResponses(recipe=openai_recipe).install(monkeypatch)
+    transcribed_images = random_string()
+    pasted_content = random_string()
+
+    ai = AIResponses(
+        recipe=openai_recipe,
+        compiled=OpenAICompiledSource(contains_recipe=True, content=transcribed_images, language=None, image_url=None),
+    ).install(monkeypatch)
 
     with open(test_image_jpg, "rb") as f:
         r = post_ai(
             api_client,
             unique_user,
-            data={"content": random_string()},
+            data={"content": pasted_content},
             files=[("images", ("recipe.jpg", f, "image/jpeg"))],
         )
 
     assert r.status_code == 201
     assert ai.requested_schemas[:2] == ["OpenAICompiledSource", "OpenAIRecipe"]
+
+    # the images and the pasted content are separate sources, and both reach the build step
+    build_message = ai.messages[1]
+    assert transcribed_images in build_message
+    assert pasted_content in build_message
 
 
 def test_create_from_url(
@@ -325,24 +338,36 @@ def test_create_from_video_url_keeps_accompanying_text(
     assert pasted_text in build_message
 
 
-def test_create_from_url_ignores_the_page_when_content_is_pasted(
+def test_create_from_url_combines_the_page_with_pasted_content(
     api_client: TestClient,
     unique_user: TestUser,
     monkeypatch: pytest.MonkeyPatch,
     openai_recipe: OpenAIRecipe,
 ):
-    """Pasted content wins over the URL, which is still recorded as the recipe's source."""
+    """Every source is compiled, so pasting content alongside a URL adds to the page, not replaces it."""
 
-    AIResponses(recipe=openai_recipe).install(monkeypatch)
+    page_text = random_string()
+    pasted_content = random_string()
+    messages: list[str] = []
 
-    async def fail_if_fetched(_: str) -> str:
-        raise AssertionError("the page should not be fetched when content is provided")
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        messages.append(message)
+        return openai_recipe if response_schema is OpenAIRecipe else None
 
-    monkeypatch.setattr(compile_source_module, "safe_scrape_html", fail_if_fetched)
+    async def mock_safe_scrape_html(_: str) -> str:
+        ld_json = json.dumps({"@context": "https://schema.org", "@type": "Recipe", "name": page_text})
+        return f'<html><head><script type="application/ld+json">{ld_json}</script></head><body>Recipe</body></html>'
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+    monkeypatch.setattr(compile_source_module, "safe_scrape_html", mock_safe_scrape_html)
 
     url = f"https://example.com/recipe/{random_string()}"
-    r = post_ai(api_client, unique_user, {"url": url, "content": random_string()})
+    r = post_ai(api_client, unique_user, {"url": url, "content": pasted_content})
     assert r.status_code == 201
+
+    build_message = messages[0]
+    assert page_text in build_message
+    assert pasted_content in build_message
 
     slug = json.loads(r.text)
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
