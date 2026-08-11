@@ -2,7 +2,6 @@ import sqlite3
 from types import SimpleNamespace
 from unittest.mock import Mock, patch
 
-import psycopg2
 import pytest
 import sqlalchemy.exc
 
@@ -10,6 +9,8 @@ from mealie.routes._base.mixins import is_unique_violation
 
 
 def make_postgres_integrity_error(pgcode: str) -> sqlalchemy.exc.IntegrityError:
+    psycopg2 = pytest.importorskip("psycopg2", reason="psycopg2 is only installed with the pgsql extra")
+
     orig = Mock(spec=psycopg2.Error)
     orig.pgcode = pgcode
     return sqlalchemy.exc.IntegrityError(None, None, orig)
