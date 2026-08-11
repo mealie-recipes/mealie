@@ -9,6 +9,7 @@ from slugify import slugify
 import mealie.services.openai.transcription as transcription_module
 import mealie.services.recipe.import_workflow.steps.compile_source as compile_source_module
 from mealie.core import exceptions
+from mealie.lang import get_locale_provider
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.schema.openai.organizers import OpenAIOrganizers
@@ -20,7 +21,7 @@ from mealie.schema.openai.recipe import (
     OpenAIRecipeNutrition,
 )
 from mealie.schema.recipe.recipe_category import TagSave
-from mealie.services.openai import OpenAIService
+from mealie.services.openai import OpenAINotEnabledException, OpenAIService
 from mealie.services.recipe.organizer_resolver import OrganizerResolver
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.cleaner import NO_IMAGE
@@ -30,6 +31,8 @@ from tests.utils.fixture_schemas import TestUser
 from tests.utils.helpers import parse_sse_events
 
 VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
+translator = get_locale_provider("en-US")
 
 
 @pytest.fixture(autouse=True)
@@ -772,6 +775,61 @@ def test_create_when_provider_returns_nothing(
 
     r = post_ai(api_client, unique_user, {"content": random_string()})
     assert r.status_code == 400
+
+
+@pytest.mark.parametrize(
+    ("error", "expected_key"),
+    [
+        (
+            exceptions.OpenAIServiceError("Failed to transcribe audio: 401 invalid_api_key sk-proj-abc123"),
+            "ai-request-failed",
+        ),
+        (
+            exceptions.VideoDownloadError("Failed to download video: HTTP Error 403 at /var/lib/mealie/tmp"),
+            "video-download-failed",
+        ),
+        (OpenAINotEnabledException("No default provider set"), "ai-not-enabled"),
+        (RuntimeError("psycopg2.OperationalError: could not connect to server at 10.0.0.4"), "unknown-error"),
+    ],
+)
+def test_provider_failures_are_reported_without_leaking_their_text(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    error: Exception,
+    expected_key: str,
+):
+    """The AI page renders this message as-is, so it must never carry internals or a class name."""
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        raise error
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    r = post_ai(api_client, unique_user, {"content": random_string()})
+    assert r.status_code == 400
+
+    message = r.json()["detail"]["message"]
+    assert message == translator.t(f"recipe.import-errors.{expected_key}")
+    assert str(error) not in message
+    assert type(error).__name__ not in message
+
+
+def test_importing_the_same_recipe_twice_says_so(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """Recipe slugs are unique per group, so the second import collides with the first."""
+
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    assert post_ai(api_client, unique_user, {"content": random_string()}).status_code == 201
+
+    r = post_ai(api_client, unique_user, {"content": random_string()})
+    assert r.status_code == 400
+    assert r.json()["detail"]["message"] == translator.t("recipe.import-errors.recipe-already-exists")
 
 
 def test_create_with_ai_disabled(api_client: TestClient, unique_user: TestUser):
