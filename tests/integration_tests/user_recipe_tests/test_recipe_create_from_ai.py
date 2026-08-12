@@ -684,7 +684,19 @@ def test_create_translates_in_its_own_step(
     assert len(messages) == 2
     assert "French" not in messages[0]
     assert "French" in messages[1]
-    assert recipe_name in messages[1]
+
+    # the whole recipe has to survive the trip back into the provider's schema, not just its name.
+    # Anything missing here is silently dropped from the translated recipe
+    translate_message = messages[1]
+    assert recipe_name in translate_message
+    assert openai_recipe.description in translate_message
+    assert openai_recipe.ingredients[0].title in translate_message, "section titles are lost"
+    for ingredient in openai_recipe.ingredients:
+        assert ingredient.text in translate_message
+    for instruction in openai_recipe.instructions:
+        assert instruction.text in translate_message
+    for note in openai_recipe.notes:
+        assert note.text in translate_message
 
     slug = json.loads(r.text)
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
