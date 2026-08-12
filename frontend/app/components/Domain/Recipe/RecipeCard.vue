@@ -176,7 +176,7 @@ const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  height: 84px;
+  min-height: 84px;
 }
 .recipe-card-footer--no-tags {
   justify-content: center;
@@ -190,12 +190,7 @@ const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
 }
 .recipe-card-tags .v-chip {
   flex: 0 1 auto;
-  min-width: 0;
-  max-width: calc(50% - 2px);
   margin: 0 !important;
-}
-.recipe-card-tags .v-chip:only-child {
-  max-width: 100%;
 }
 .recipe-card-tags .v-chip__content {
   display: block;
@@ -205,6 +200,5 @@ const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
 }
 .recipe-card-actions {
   width: 100%;
-  min-height: 40px;
 }
 </style>
