@@ -752,7 +752,8 @@
       "ingredient-parser-description": "I tuoi ingredienti sono stati analizzati con successo. Controlla gli ingredienti di cui non siamo sicuri.",
       "ingredient-parser-final-review-description": "Una volta che tutti gli ingredienti sono stati controllati, avrai ancora una possibilità di rivederli tutti prima di applicare le modifiche alla ricetta.",
       "add-text-as-alias-for-item": "Aggiungi \"{text}\" come alias per {item}",
-      "delete-item": "Elimina elemento"
+      "delete-item": "Elimina elemento",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Reimposta conteggio porzioni",
     "not-linked-ingredients": "Ingredienti Aggiuntivi",
