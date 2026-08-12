@@ -1,17 +1,29 @@
 <template>
   <div>
-    <v-switch
+    <div
       v-for="(_, key) in model"
       :key="key"
-      v-model="model[key]"
-      color="primary"
-      xs
-      density="compact"
-      :disabled="key == 'locked' && !isOwner"
-      class="my-1"
-      :label="labels[key]"
-      hide-details
-    />
+      class="d-flex align-center"
+    >
+      <v-switch
+        v-model="model[key]"
+        color="primary"
+        xs
+        density="compact"
+        :disabled="key == 'locked' && !isOwner"
+        class="my-1"
+        :label="labels[key]"
+        hide-details
+      />
+      <v-tooltip v-if="key === 'public'" location="bottom">
+        <template #activator="{ props: tooltipProps }">
+          <v-icon v-bind="tooltipProps" size="small" class="ms-1">
+            {{ $globals.icons.informationOutline }}
+          </v-icon>
+        </template>
+        <span>{{ $t('recipe.public-recipe-visibility-note') }}</span>
+      </v-tooltip>
+    </div>
   </div>
 </template>
 

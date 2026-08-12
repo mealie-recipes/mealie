@@ -79,6 +79,9 @@ class RecipeService(RecipeServiceBase):
         return owned_count == len(recipe_slugs)
 
     def can_update(self, recipe_slugs: list[str]) -> bool:
+        if self.user.admin:
+            return True
+
         sql = dedent(
             """
             SELECT

@@ -122,4 +122,13 @@ describe("test use recipe permissions", () => {
     const result = useRecipePermissions(createRecipe({}, true), createRecipeHousehold({}, true), createUser({}));
     expect(result.canEditRecipe.value).toBe(true);
   });
+
+  test("when user is admin, and user is other household, and household is locked, can edit", () => {
+    const result = useRecipePermissions(
+      createRecipe({}),
+      createRecipeHousehold({}, true),
+      createUser({ id: "other-user-id", householdId: "other-household-id", admin: true }),
+    );
+    expect(result.canEditRecipe.value).toBe(true);
+  });
 });

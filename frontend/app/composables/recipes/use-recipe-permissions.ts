@@ -13,6 +13,9 @@ export function useRecipePermissions(
     if (!user?.id) {
       return false;
     }
+    if (user.admin) {
+      return true;
+    }
     if (user.id === recipe.userId) {
       return true;
     }
