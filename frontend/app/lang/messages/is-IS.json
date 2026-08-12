@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Tekist hefur að greina innihaldsefnin. Vinsamlegast farðu yfir innihaldsefnin sem við erum ekki örugg með.",
       "ingredient-parser-final-review-description": "Þegar búið er að fara yfir öll innihaldsefnin þá er einn möguleiki í viðbót til að fara yfir innihaldsefnin áður en þú samþykkir breytingar á uppskriftinni.",
       "add-text-as-alias-for-item": "Bæta „{text}“ við sem samheiti fyrir {item}",
-      "delete-item": "Eyða matvöru"
+      "delete-item": "Eyða matvöru",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Núllstilla fjölda skammta",
     "not-linked-ingredients": "Viðbótarinnihaldsefni",

@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Ваши ингредиенты успешно распознаны. Просмотрите ингредиенты, насчёт которых мы не уверены.",
       "ingredient-parser-final-review-description": "После того как вы проверите все ингредиенты, у вас будет еще одна возможность проверить их, прежде чем применить изменения к рецепту.",
       "add-text-as-alias-for-item": "Добавить \"{text}\" как псевдоним для {item}",
-      "delete-item": "Удалить"
+      "delete-item": "Удалить",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Сбросить количество порций",
     "not-linked-ingredients": "Дополнительные ингредиенты",

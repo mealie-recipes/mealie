@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Twoja lista składników została przetworzona. Sprawdź proszę składniki, co do których mamy wątpliwości.",
       "ingredient-parser-final-review-description": "Gdy wszystkie składniki zostaną sprawdzone, będziesz mieć jeszcze jedną szansę na sprawdzenie ich przed zastosowaniem zmian w przepisie.",
       "add-text-as-alias-for-item": "Dodaj \"{text}\" jako alternatywną nazwę dla {item}",
-      "delete-item": "Usuń przedmiot"
+      "delete-item": "Usuń przedmiot",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Zresetuj liczbę porcji",
     "not-linked-ingredients": "Dodatkowe składniki",

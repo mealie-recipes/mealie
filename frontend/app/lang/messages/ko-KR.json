@@ -752,7 +752,8 @@
       "ingredient-parser-description": "재료가 성공적으로 분석되었습니다. 확실하지 않은 재료는 검토해 주세요.",
       "ingredient-parser-final-review-description": "모든 재료를 검토한 후, 레시피에 변경 사항을 적용하기 전에 모든 재료를 한 번 더 검토할 기회가 주어집니다.",
       "add-text-as-alias-for-item": "{text}을(를) {item}의 별칭으로 추가",
-      "delete-item": "항목 삭제"
+      "delete-item": "항목 삭제",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "제공량 재설정",
     "not-linked-ingredients": "추가 재료",

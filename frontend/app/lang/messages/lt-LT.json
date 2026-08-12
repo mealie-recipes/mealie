@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Jūsų ingredientai buvo sėkmingai išanalizuoti. Prašome peržiūrėti ingredientus, dėl kurių nesame tikri.",
       "ingredient-parser-final-review-description": "Peržiūrėjus visus ingredientus, turėsite dar vieną galimybę peržiūrėti visus ingredientus prieš pritaikant pakeitimus receptui.",
       "add-text-as-alias-for-item": "Pridėti \"{text}\" kaip alternatyvų pavadinimą {item}",
-      "delete-item": "Ištrinti elementą"
+      "delete-item": "Ištrinti elementą",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Atstatyti porcijų skaičių",
     "not-linked-ingredients": "Papildomi ingredientai",

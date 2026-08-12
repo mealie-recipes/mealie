@@ -752,7 +752,8 @@
       "ingredient-parser-description": "تم تحليل مكوناتك بنجاح. يرجى مراجعة المكونات التي لسنا متأكدين منها.",
       "ingredient-parser-final-review-description": "بعد مراجعة جميع المكونات، ستتاح لك فرصة أخرى لمراجعة جميع المكونات قبل تطبيق التغييرات على وصفتك.",
       "add-text-as-alias-for-item": "أضف \"{text}\" كاسم بديل (لقب)لـ {item}",
-      "delete-item": "حذف العنصر"
+      "delete-item": "حذف العنصر",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "إعادة تعيين عدد الحصص",
     "not-linked-ingredients": "مكونات إضافية",

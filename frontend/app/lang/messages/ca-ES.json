@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Els teus ingredients s'han analitzat correctament. Si us plau, revisa els ingredients dels quals no estem segurs.",
       "ingredient-parser-final-review-description": "Un cop revisats tots els ingredients, tindràs una oportunitat més de revisar tots els ingredients abans d'aplicar els canvis a la teva recepta.",
       "add-text-as-alias-for-item": "Afegeix \"{text}\" com a àlies de {item}",
-      "delete-item": "Eliminar element"
+      "delete-item": "Eliminar element",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Reiniciar racions servides",
     "not-linked-ingredients": "Ingredients addicionals",

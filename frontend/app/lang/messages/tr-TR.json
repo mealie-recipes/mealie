@@ -752,7 +752,8 @@
       "ingredient-parser-description": "İçerikleriniz başarıyla ayrıştırıldı. Emin olmadığımız içerikleri lütfen gözden geçirin.",
       "ingredient-parser-final-review-description": "Tüm malzemeler incelendikten sonra, tarifinize değişiklikleri uygulamadan önce bir kez daha tüm malzemeleri inceleme şansınız olur.",
       "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
-      "delete-item": "Ögeyi sil"
+      "delete-item": "Ögeyi sil",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Reset Servings Count",
     "not-linked-ingredients": "Ek Malzemeler",

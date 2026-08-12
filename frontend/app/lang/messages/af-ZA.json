@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
       "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
       "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
-      "delete-item": "Verwyder Item"
+      "delete-item": "Verwyder Item",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Reset Servings Count",
     "not-linked-ingredients": "Bykomende Bestanddele",

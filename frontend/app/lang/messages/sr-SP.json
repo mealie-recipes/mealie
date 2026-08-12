@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Ваши састојци су успешно разложени. Молимо прегледајте састојке за које нисмо сигурни.",
       "ingredient-parser-final-review-description": "Када се прегледају сви састојци, имаћете још једну прилику да прегледате све састојке пре него што примените измене на свој рецепт.",
       "add-text-as-alias-for-item": "Додај \"{text}\" као алијас за {item}",
-      "delete-item": "Обриши ставку"
+      "delete-item": "Обриши ставку",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Ресетуј број порција",
     "not-linked-ingredients": "Додатни састојци",

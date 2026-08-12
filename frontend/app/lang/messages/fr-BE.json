@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Vos ingrédients ont été analysés avec succès. Veuillez vérifier les ingrédients dont nous ne sommes pas certains.",
       "ingredient-parser-final-review-description": ".....",
       "add-text-as-alias-for-item": "Ajouter \"{text}\" comme alias pour {item}",
-      "delete-item": "Supprimer l'élément"
+      "delete-item": "Supprimer l'élément",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Réinitialiser le nombre de portions",
     "not-linked-ingredients": "Ingrédients supplémentaires",

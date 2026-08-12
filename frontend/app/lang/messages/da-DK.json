@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Dine ingredienser er blevet fortolket. Gennemgå de ingredienser, vi ikke er sikker på.",
       "ingredient-parser-final-review-description": "Når alle ingredienser er blevet gennemgået, har du endnu en chance for at gennemgå alle ingredienser, før du anvender ændringerne til din opskrift.",
       "add-text-as-alias-for-item": "Tilføj \"{text}\" som alias for {item}",
-      "delete-item": "Slet Element"
+      "delete-item": "Slet Element",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Nulstil antal serveringer",
     "not-linked-ingredients": "Yderligere ingredienser",
