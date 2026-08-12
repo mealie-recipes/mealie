@@ -91,7 +91,7 @@ export function useShoppingListSorting() {
 
       if (item.labelId) {
         if (item.label && item.label.name in items) {
-          items[item.label.name].push(item);
+          items[item.label.name]?.push(item);
         }
         else if (item.label) {
           items[item.label.name] = [item];
@@ -114,12 +114,12 @@ export function useShoppingListSorting() {
 
     const itemsSorted: { [prop: string]: ShoppingListItemOut[] } = {};
     if (noLabelText in items) {
-      itemsSorted[noLabelText] = items[noLabelText];
+      itemsSorted[noLabelText] = items[noLabelText]!;
     }
 
     orderedLabelNames.forEach((labelName) => {
       if (labelName in items) {
-        itemsSorted[labelName] = items[labelName];
+        itemsSorted[labelName] = items[labelName]!;
       }
     });
 
