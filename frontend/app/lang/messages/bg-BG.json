@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Съставките бяха успешно анализирани. Моля, прегледайте съставките, за които не сме сигурни.",
       "ingredient-parser-final-review-description": "След като всички съставки бъдат прегледани, ще имате още една възможност да ги прегледате, преди да приложите промените към рецептата си.",
       "add-text-as-alias-for-item": "Добавете „{text}“ като псевдоним за {item}",
-      "delete-item": "Изтриване"
+      "delete-item": "Изтриване",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Нулиране на броя на порциите",
     "not-linked-ingredients": "Допълнителни съставки",
