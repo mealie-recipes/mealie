@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Dina ingredienser har blivit tolkade. Se över ingredienserna vi inte är säkra på.",
       "ingredient-parser-final-review-description": "När alla ingredienser har granskats har du ytterligare en chans att granska alla ingredienser innan du tillämpar ändringarna i ditt recept.",
       "add-text-as-alias-for-item": "Lägg till \"{text}\" som alias för {item}",
-      "delete-item": "Radera objekt"
+      "delete-item": "Radera objekt",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Nollställ antal portioner",
     "not-linked-ingredients": "Ytterligare ingredienser",
