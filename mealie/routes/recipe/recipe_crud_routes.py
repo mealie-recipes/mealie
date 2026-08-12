@@ -236,10 +236,6 @@ class RecipeController(BaseRecipeController):
         if isinstance(ex, exceptions.OpenAIServiceError):
             return self.t("recipe.import-errors.ai-request-failed")
 
-        # recipe slugs are unique per group, so re-importing a recipe collides with the first one
-        if isinstance(ex, sqlalchemy.exc.IntegrityError):
-            return self.t("recipe.import-errors.recipe-already-exists")
-
         if isinstance(ex, HTTPException):
             # scraper failures carry a `ParserErrors` value (e.g. BAD_RECIPE_DATA), which the URL
             # and HTML importers expect verbatim. They render their own message rather than this one

@@ -27,7 +27,6 @@
             "no-recipe-found": "No recipe was found in the provided source",
             "no-source": "No content, images, or URL were provided",
             "provider-returned-nothing": "The AI provider did not return a recipe",
-            "recipe-already-exists": "A recipe with this name already exists",
             "unknown-error": "Something went wrong while creating the recipe. Please try again",
             "unreadable-source": "Unable to read any content from the provided source",
             "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"

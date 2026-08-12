@@ -815,23 +815,6 @@ def test_provider_failures_are_reported_without_leaking_their_text(
     assert type(error).__name__ not in message
 
 
-def test_importing_the_same_recipe_twice_says_so(
-    api_client: TestClient,
-    unique_user: TestUser,
-    monkeypatch: pytest.MonkeyPatch,
-    openai_recipe: OpenAIRecipe,
-):
-    """Recipe slugs are unique per group, so the second import collides with the first."""
-
-    AIResponses(recipe=openai_recipe).install(monkeypatch)
-
-    assert post_ai(api_client, unique_user, {"content": random_string()}).status_code == 201
-
-    r = post_ai(api_client, unique_user, {"content": random_string()})
-    assert r.status_code == 400
-    assert r.json()["detail"]["message"] == translator.t("recipe.import-errors.recipe-already-exists")
-
-
 def test_create_with_ai_disabled(api_client: TestClient, unique_user: TestUser):
     unique_user.repos.group_ai_provider_settings.update(
         unique_user.repos.group_id,
