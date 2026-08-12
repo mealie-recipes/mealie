@@ -752,7 +752,8 @@
       "ingredient-parser-description": "您的食材已成功解析。请检查我们不确定的食材。",
       "ingredient-parser-final-review-description": "一旦所有食材都检查完毕，在将更改应用到您的菜谱之前，您还有最后一次机会检查所有食材。",
       "add-text-as-alias-for-item": "将“{text}”添加为“{item}”的别名",
-      "delete-item": "删除项目"
+      "delete-item": "删除项目",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "重置份量数量",
     "not-linked-ingredients": "附加配料",
