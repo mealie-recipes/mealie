@@ -752,7 +752,8 @@
       "ingredient-parser-description": "您的食材已成功解析。請檢視我們不確定的食材項目。",
       "ingredient-parser-final-review-description": "所有食材檢視完成後，您還有一次機會在套用變更至食譜前再次確認所有食材。",
       "add-text-as-alias-for-item": "將「{text}」新增為 {item} 的別名",
-      "delete-item": "刪除項目"
+      "delete-item": "刪除項目",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "重設份量數量",
     "not-linked-ingredients": "額外食材",
