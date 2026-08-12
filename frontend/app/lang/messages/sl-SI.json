@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Vaše sestavine so bile uspešno razčlenjene. Prosimo, preglejte sestavine, glede katerih nismo prepričani.",
       "ingredient-parser-final-review-description": "Ko bodo vse sestavine pregledane, boste imeli še eno priložnost, da jih pregledate, preden spremembe uveljavite v svojem receptu.",
       "add-text-as-alias-for-item": "Dodaj \"{text}\" kot vzdevek za {item}",
-      "delete-item": "Izbriši element"
+      "delete-item": "Izbriši element",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Ponastavi števec obrokov",
     "not-linked-ingredients": "Dodatne sestavine",
