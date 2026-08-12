@@ -22,11 +22,14 @@
         "or-ingredient": "vagy {ingredient}",
         "import-errors": {
             "ai-not-enabled": "Az AI szolgáltatások nem engedélyezettek",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "Az AI képszolgáltatások nem engedélyezettek",
             "no-recipe-found": "A megadott forrásban nem található recept",
             "no-source": "Nincs tartalom, kép vagy URL megadva",
             "provider-returned-nothing": "Az AI szolgáltató nem adott vissza receptet",
-            "unreadable-source": "A megadott forrásból nem sikerült tartalmat kiolvasni"
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "A megadott forrásból nem sikerült tartalmat kiolvasni",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
         },
         "create-progress": {
             "creating-recipe": "Recept létrehozása...",
@@ -39,7 +42,8 @@
             "organizing-recipe": "Recept összeállítása...",
             "reading-images-with-ai": "Képek olvasása AI-val...",
             "reading-source-with-ai": "Források olvasása AI-val...",
-            "transcribing-audio-with-ai": "Hanganyagok átírása AI-val..."
+            "transcribing-audio-with-ai": "Hanganyagok átírása AI-val...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
