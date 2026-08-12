@@ -19,12 +19,12 @@ AI recipe creation is now a single endpoint that takes content and images togeth
 | Field | Notes |
 | --- | --- |
 | `content` | Raw HTML, a schema.org Recipe JSON string, or plain text |
-| `url` | Fetched if no `content` is given, and saved as the recipe's source either way |
+| `url` | Fetched (or, for a video, transcribed), and saved as the recipe's source |
 | `images` | Zero or more image files. The first becomes the recipe's image |
 | `translateLanguage` | Optional language to translate the recipe into |
 | `createNewOrganizers` | Whether to create tags, categories, and tools that don't already exist |
 
-At least one of `content`, `url`, or `images` is required. There is also a `/recipes/create/ai/stream` variant that reports progress over SSE, which is what the Mealie frontend uses.
+At least one of `content`, `url`, or `images` is required. Every field you send is used: passing a `url` and `content` together compiles both and merges them, rather than one replacing the other. There is also a `/recipes/create/ai/stream` variant that reports progress over SSE, which is what the Mealie frontend uses.
 
 Note that `/recipes/create/html-or-json` is **not** deprecated. It remains the way to import raw data without involving AI.
 

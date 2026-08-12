@@ -3,6 +3,7 @@ import json
 import pytest
 from fastapi.testclient import TestClient
 
+import mealie.services.recipe.import_workflow.steps.compile_source as compile_source_module
 import mealie.services.scraper.recipe_scraper as recipe_scraper_module
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
@@ -133,6 +134,43 @@ def test_create_by_html_or_json_via_openai(
 
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
     assert recipe["name"] == recipe_name
+
+
+def test_supplied_html_is_not_fetched_again(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    bare_html: str,
+    recipe_url: str,
+    recipe_name: str,
+):
+    """
+    HTML that arrives with a URL is that page's own content, not extra source material.
+
+    The workflow compiles every source it's given, so passing the page as ordinary content would
+    make it fetch the URL as well and compile the same page twice.
+    """
+
+    mock_ai(monkeypatch, openai_recipe)
+
+    async def fail_if_fetched(_: str) -> str:
+        raise AssertionError("the page was supplied by the caller, so it should not be fetched")
+
+    monkeypatch.setattr(compile_source_module, "safe_scrape_html", fail_if_fetched)
+
+    response = api_client.post(
+        api_routes.recipes_create_html_or_json,
+        json={"data": bare_html, "url": recipe_url, "include_tags": False},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 201
+    slug = json.loads(response.text)
+
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == recipe_name
+    assert recipe["orgURL"] == recipe_url
 
 
 def test_organizers_are_not_requested_unless_they_are_wanted(

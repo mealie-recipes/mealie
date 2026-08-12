@@ -3,9 +3,8 @@ import asyncio
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.services.openai import transcription
-from mealie.services.openai.content import truncate_source_content
 
-from .base import SourceCompiler
+from .base import SourceCompiler, SourceType
 
 
 class TranscriptionCompiler(SourceCompiler):
@@ -14,8 +13,8 @@ class TranscriptionCompiler(SourceCompiler):
     transcript itself is already a faithful record of the source, so no further AI call is made.
     """
 
+    source_type = SourceType.URL
     progress_key = "recipe.create-progress.downloading-video"
-    requires_content = False
 
     def can_compile(self) -> bool:
         url = self.ctx.input.url
@@ -50,14 +49,9 @@ class TranscriptionCompiler(SourceCompiler):
             content_parts.append(f"## Video description\n\n{video_data['description']}")
         content_parts.append(f"## Video transcript\n\n{transcript}")
 
-        # text pasted alongside the video link is often where the ingredient list actually lives.
-        # It goes last so that truncation trims it before the transcript.
-        if self.content:
-            content_parts.append(f"## Text supplied by the user\n\n{self.content}")
-
         return OpenAICompiledSource(
             contains_recipe=True,
-            content=truncate_source_content("\n\n".join(content_parts)),
+            content="\n\n".join(content_parts),
             language=None,
             image_url=video_data["thumbnail_url"],
         )

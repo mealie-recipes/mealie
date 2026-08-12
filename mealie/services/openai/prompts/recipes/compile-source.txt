@@ -17,7 +17,6 @@ Capture at least the following, when the source contains them:
 - The URL of the recipe's image, if one appears in the source
 
 Rules:
-- Text the user supplies alongside images or a video is authoritative. Where it disagrees with what you read in the images, follow the user's text: if they name the recipe, use their name; if they correct or add a detail, use theirs. Apply it to the document you produce rather than noting it separately.
 - Transcribe, do not summarize. If you are unsure whether something belongs, include it.
 - The list above is a minimum, not a limit. Transcribe anything else the source says about the recipe, even when it doesn't fit one of the categories above. Serving suggestions, drink pairings, difficulty, cost, allergen information, dietary labels, ingredient substitutions, temperature or measurement conversions, and cultural or historical notes all belong in the document.
 - Leave out anything on the page that isn't about the recipe, such as navigation, advertisements, cookie and subscription notices, reader comments, and links to other recipes.

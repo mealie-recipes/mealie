@@ -11,6 +11,7 @@ from mealie.services.openai.content import (
     MAX_SOURCE_CONTENT_LENGTH,
     TRUNCATION_NOTICE,
     truncate_source_content,
+    truncate_source_parts,
 )
 from mealie.services.recipe.import_workflow.compilers import DEFAULT_SOURCE_COMPILERS
 from mealie.services.recipe.import_workflow.workflow import DEFAULT_WORKFLOW_STEPS
@@ -98,6 +99,32 @@ def test_long_content_is_truncated_and_marked():
 
 def test_content_can_be_truncated_to_a_custom_length():
     assert truncate_source_content("abcdef", max_length=3) == "abc" + TRUNCATION_NOTICE
+
+
+def test_parts_that_fit_the_budget_are_left_alone():
+    parts = ["a" * 10, "b" * 10]
+    assert truncate_source_parts(parts, max_length=100) == parts
+
+
+def test_parts_share_the_budget_evenly_when_all_are_too_long():
+    parts = ["a" * 100, "b" * 100]
+    assert truncate_source_parts(parts, max_length=10) == ["a" * 5 + TRUNCATION_NOTICE, "b" * 5 + TRUNCATION_NOTICE]
+
+
+def test_a_short_part_is_not_crowded_out_by_a_long_one():
+    """A huge webpage must not swallow the budget and drop the content pasted alongside it."""
+
+    page = "a" * 1000
+    pasted = "b" * 10
+
+    truncated_page, truncated_pasted = truncate_source_parts([page, pasted], max_length=100)
+
+    assert truncated_pasted == pasted
+    assert truncated_page == "a" * 90 + TRUNCATION_NOTICE
+
+
+def test_no_parts_is_not_an_error():
+    assert truncate_source_parts([]) == []
 
 
 def test_no_orphaned_import_error_keys():
