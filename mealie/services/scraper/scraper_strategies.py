@@ -269,7 +269,9 @@ class RecipeScraperOpenAI(ABCScraperStrategy):
 
     def build_context(self, on_progress: Callable[[str], Awaitable[None]] | None = None) -> WorkflowContext:
         return WorkflowContext(
-            input=WorkflowInput(content=self.raw_html, url=self.url),
+            # the HTML belongs to the URL, so it's passed as the page's content rather than as
+            # extra material, which would compile the same page twice
+            input=WorkflowInput(page_content=self.raw_html, url=self.url),
             options=WorkflowOptions(
                 # organizers are only worth asking for if the caller intends to use them, and
                 # they're reported back through ScrapedExtras so the caller stays in control

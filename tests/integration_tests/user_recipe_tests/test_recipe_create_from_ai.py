@@ -9,6 +9,7 @@ from slugify import slugify
 import mealie.services.openai.transcription as transcription_module
 import mealie.services.recipe.import_workflow.steps.compile_source as compile_source_module
 from mealie.core import exceptions
+from mealie.lang import get_locale_provider
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.schema.openai.organizers import OpenAIOrganizers
@@ -20,7 +21,7 @@ from mealie.schema.openai.recipe import (
     OpenAIRecipeNutrition,
 )
 from mealie.schema.recipe.recipe_category import TagSave
-from mealie.services.openai import OpenAIService
+from mealie.services.openai import OpenAINotEnabledException, OpenAIService
 from mealie.services.recipe.organizer_resolver import OrganizerResolver
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.cleaner import NO_IMAGE
@@ -30,6 +31,8 @@ from tests.utils.fixture_schemas import TestUser
 from tests.utils.helpers import parse_sse_events
 
 VIDEO_URL = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+
+translator = get_locale_provider("en-US")
 
 
 @pytest.fixture(autouse=True)
@@ -105,6 +108,7 @@ class AIResponses:
         self.organizers = organizers
         self.requested_schemas: list[str] = []
         self.prompts: list[str] = []
+        self.messages: list[str] = []
 
     def install(self, monkeypatch: pytest.MonkeyPatch) -> "AIResponses":
         responses = self
@@ -112,6 +116,7 @@ class AIResponses:
         async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
             responses.requested_schemas.append(response_schema.__name__)
             responses.prompts.append(prompt)
+            responses.messages.append(message)
 
             if response_schema is OpenAICompiledSource:
                 return responses.compiled
@@ -210,18 +215,29 @@ def test_create_from_content_and_images(
     openai_recipe: OpenAIRecipe,
     test_image_jpg: str,
 ):
-    ai = AIResponses(recipe=openai_recipe).install(monkeypatch)
+    transcribed_images = random_string()
+    pasted_content = random_string()
+
+    ai = AIResponses(
+        recipe=openai_recipe,
+        compiled=OpenAICompiledSource(contains_recipe=True, content=transcribed_images, language=None, image_url=None),
+    ).install(monkeypatch)
 
     with open(test_image_jpg, "rb") as f:
         r = post_ai(
             api_client,
             unique_user,
-            data={"content": random_string()},
+            data={"content": pasted_content},
             files=[("images", ("recipe.jpg", f, "image/jpeg"))],
         )
 
     assert r.status_code == 201
     assert ai.requested_schemas[:2] == ["OpenAICompiledSource", "OpenAIRecipe"]
+
+    # the images and the pasted content are separate sources, and both reach the build step
+    build_message = ai.messages[1]
+    assert transcribed_images in build_message
+    assert pasted_content in build_message
 
 
 def test_create_from_url(
@@ -325,24 +341,36 @@ def test_create_from_video_url_keeps_accompanying_text(
     assert pasted_text in build_message
 
 
-def test_create_from_url_ignores_the_page_when_content_is_pasted(
+def test_create_from_url_combines_the_page_with_pasted_content(
     api_client: TestClient,
     unique_user: TestUser,
     monkeypatch: pytest.MonkeyPatch,
     openai_recipe: OpenAIRecipe,
 ):
-    """Pasted content wins over the URL, which is still recorded as the recipe's source."""
+    """Every source is compiled, so pasting content alongside a URL adds to the page, not replaces it."""
 
-    AIResponses(recipe=openai_recipe).install(monkeypatch)
+    page_text = random_string()
+    pasted_content = random_string()
+    messages: list[str] = []
 
-    async def fail_if_fetched(_: str) -> str:
-        raise AssertionError("the page should not be fetched when content is provided")
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        messages.append(message)
+        return openai_recipe if response_schema is OpenAIRecipe else None
 
-    monkeypatch.setattr(compile_source_module, "safe_scrape_html", fail_if_fetched)
+    async def mock_safe_scrape_html(_: str) -> str:
+        ld_json = json.dumps({"@context": "https://schema.org", "@type": "Recipe", "name": page_text})
+        return f'<html><head><script type="application/ld+json">{ld_json}</script></head><body>Recipe</body></html>'
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+    monkeypatch.setattr(compile_source_module, "safe_scrape_html", mock_safe_scrape_html)
 
     url = f"https://example.com/recipe/{random_string()}"
-    r = post_ai(api_client, unique_user, {"url": url, "content": random_string()})
+    r = post_ai(api_client, unique_user, {"url": url, "content": pasted_content})
     assert r.status_code == 201
+
+    build_message = messages[0]
+    assert page_text in build_message
+    assert pasted_content in build_message
 
     slug = json.loads(r.text)
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
@@ -585,23 +613,149 @@ def test_create_preserves_sections_and_nutrition(
     assert recipe["nutrition"]["proteinContent"] == "12"
 
 
-def test_create_translates_when_requested(
+def test_requesting_a_translation_does_not_change_the_build_request(
     api_client: TestClient,
     unique_user: TestUser,
     monkeypatch: pytest.MonkeyPatch,
     openai_recipe: OpenAIRecipe,
 ):
+    """
+    The build step has to ask for exactly the same thing whether or not a translation was asked for.
+
+    Translation used to be prepended to the build message as "translate every field, including
+    ingredients and instructions", which presupposes ingredients and instructions exist. That
+    overrode the build prompt's rule against inventing anything, so a directive like "create a
+    recipe for X" came back as a fully imagined recipe, but only with translation switched on.
+    """
+
+    content = random_string()
     messages: list[str] = []
 
     async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        if response_schema is not OpenAIRecipe:
+            return None
+
         messages.append(message)
-        return openai_recipe if response_schema is OpenAIRecipe else None
+        # a fresh name each time, so the second import doesn't collide with the first
+        return openai_recipe.model_copy(update={"name": random_string()})
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    assert post_ai(api_client, unique_user, {"content": content}).status_code == 201
+    without_translation = messages[0]
+
+    messages.clear()
+
+    r = post_ai(api_client, unique_user, {"content": content, "translateLanguage": "French"})
+    assert r.status_code == 201
+    with_translation = messages[0]
+
+    assert with_translation == without_translation
+    assert "French" not in with_translation
+
+
+def test_create_translates_in_its_own_step(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    recipe_name: str,
+):
+    """Translating is its own request, handed the recipe the build step produced."""
+
+    translated_name = random_string()
+    translated = openai_recipe.model_copy(update={"name": translated_name})
+    messages: list[str] = []
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        if response_schema is not OpenAIRecipe:
+            return None
+
+        messages.append(message)
+        # the build step goes first, and the translate step is handed what it built
+        return translated if len(messages) > 1 else openai_recipe
 
     monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
 
     r = post_ai(api_client, unique_user, {"content": random_string(), "translateLanguage": "French"})
     assert r.status_code == 201
-    assert any("French" in message for message in messages)
+
+    # the build request says nothing about translating, and the built recipe is what gets sent
+    assert len(messages) == 2
+    assert "French" not in messages[0]
+    assert "French" in messages[1]
+
+    # the whole recipe has to survive the trip back into the provider's schema, not just its name.
+    # Anything missing here is silently dropped from the translated recipe
+    translate_message = messages[1]
+    assert recipe_name in translate_message
+    assert openai_recipe.description in translate_message
+    assert openai_recipe.ingredients[0].title in translate_message, "section titles are lost"
+    for ingredient in openai_recipe.ingredients:
+        assert ingredient.text in translate_message
+    for instruction in openai_recipe.instructions:
+        assert instruction.text in translate_message
+    for note in openai_recipe.notes:
+        assert note.text in translate_message
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == translated_name
+
+
+def test_translation_is_skipped_when_the_source_is_already_in_the_language(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    test_image_jpg: str,
+):
+    compiled = OpenAICompiledSource(contains_recipe=True, content=random_string(), language="French", image_url=None)
+    ai = AIResponses(recipe=openai_recipe, compiled=compiled).install(monkeypatch)
+
+    with open(test_image_jpg, "rb") as f:
+        r = post_ai(
+            api_client,
+            unique_user,
+            data={"translateLanguage": "french"},
+            files=[("images", ("recipe.jpg", f, "image/jpeg"))],
+        )
+
+    assert r.status_code == 201
+
+    # only the build step asks for a recipe: translating French into French is a wasted call
+    assert ai.requested_schemas.count("OpenAIRecipe") == 1
+
+
+def test_a_failed_translation_keeps_the_untranslated_recipe(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    recipe_name: str,
+):
+    """Translation is optional, so losing it beats losing the whole import."""
+
+    messages: list[str] = []
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        if response_schema is not OpenAIRecipe:
+            return None
+
+        messages.append(message)
+        if len(messages) > 1:
+            raise Exception("the provider fell over mid-translation")
+
+        return openai_recipe
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    r = post_ai(api_client, unique_user, {"content": random_string(), "translateLanguage": "French"})
+    assert r.status_code == 201
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == recipe_name
 
 
 def test_create_with_no_source_is_rejected(api_client: TestClient, unique_user: TestUser):
@@ -633,6 +787,44 @@ def test_create_when_provider_returns_nothing(
 
     r = post_ai(api_client, unique_user, {"content": random_string()})
     assert r.status_code == 400
+
+
+@pytest.mark.parametrize(
+    ("error", "expected_key"),
+    [
+        (
+            exceptions.OpenAIServiceError("Failed to transcribe audio: 401 invalid_api_key sk-proj-abc123"),
+            "ai-request-failed",
+        ),
+        (
+            exceptions.VideoDownloadError("Failed to download video: HTTP Error 403 at /var/lib/mealie/tmp"),
+            "video-download-failed",
+        ),
+        (OpenAINotEnabledException("No default provider set"), "ai-not-enabled"),
+        (RuntimeError("psycopg2.OperationalError: could not connect to server at 10.0.0.4"), "unknown-error"),
+    ],
+)
+def test_provider_failures_are_reported_without_leaking_their_text(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    error: Exception,
+    expected_key: str,
+):
+    """The AI page renders this message as-is, so it must never carry internals or a class name."""
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        raise error
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    r = post_ai(api_client, unique_user, {"content": random_string()})
+    assert r.status_code == 400
+
+    message = r.json()["detail"]["message"]
+    assert message == translator.t(f"recipe.import-errors.{expected_key}")
+    assert str(error) not in message
+    assert type(error).__name__ not in message
 
 
 def test_create_with_ai_disabled(api_client: TestClient, unique_user: TestUser):

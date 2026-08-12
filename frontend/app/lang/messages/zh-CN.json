@@ -668,9 +668,9 @@
     "import-with-ai-video-description": "您也可以导入Instagram 或 YouTube 等网站上的视频。粘贴这些视频的URL然后Mealie 会将其转化为配方。",
     "import-with-ai-without-ai-question": "想要不使用 AI创建食谱吗？",
     "import-with-ai-use-url-import": "使用URL导入器",
-    "import-with-ai-url-hint": "可选。保存为菜谱的来源。视频会自动转录；如果您不在下方粘贴内容，其他网页将仅进行读取。",
+    "import-with-ai-url-hint": "Optional. Saved as the recipe's source. Videos are transcribed; other pages are read for their content.",
     "import-with-ai-content": "配方文本，HTML，JSON，或便笺",
-    "import-with-ai-content-hint": "可选。粘贴菜谱，或 Mealie 无法访问的页面内容。如果同时上传了照片或视频，这些内容将用作备注，因此您可以为菜谱指定名称或修正细节。",
+    "import-with-ai-content-hint": "Optional. Paste a recipe, or the contents of a page Mealie can't reach. Combined with anything else you provide, so you can also use it for notes, like what to name the recipe or a detail to correct.",
     "import-with-ai-provider-required": "若要使用 AI导入配方，请在您的群组的 AI 设置中配置默认提供者。",
     "import-with-ai-image-provider-required": "要从照片中创建配方，请在您的群组的 AI 设置中配置图像提供者。",
     "import-with-ai-error-details": "AI 无法从您提供的内容创建一个配方。请检查您提供的内容是否包含配方，然后重试。",
@@ -752,7 +752,8 @@
       "ingredient-parser-description": "您的食材已成功解析。请检查我们不确定的食材。",
       "ingredient-parser-final-review-description": "一旦所有食材都检查完毕，在将更改应用到您的菜谱之前，您还有最后一次机会检查所有食材。",
       "add-text-as-alias-for-item": "将“{text}”添加为“{item}”的别名",
-      "delete-item": "删除项目"
+      "delete-item": "删除项目",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "重置份量数量",
     "not-linked-ingredients": "附加配料",

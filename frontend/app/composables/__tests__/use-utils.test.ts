@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { normalize, normalizeFilter } from "./use-utils";
+import { normalize, normalizeFilter } from "../use-utils";
 
 describe("test normalize", () => {
   test("base case", () => {

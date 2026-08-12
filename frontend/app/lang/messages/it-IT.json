@@ -668,9 +668,9 @@
     "import-with-ai-video-description": "You can import from videos too, like those on Instagram or YouTube. Paste the video's URL and Mealie will transcribe it into a recipe.",
     "import-with-ai-without-ai-question": "Want to create a recipe without using AI?",
     "import-with-ai-use-url-import": "Use the URL importer",
-    "import-with-ai-url-hint": "Optional. Saved as the recipe's source. Videos are always transcribed; other pages are read only if you don't paste content below.",
+    "import-with-ai-url-hint": "Optional. Saved as the recipe's source. Videos are transcribed; other pages are read for their content.",
     "import-with-ai-content": "Recipe text, HTML, JSON, or notes",
-    "import-with-ai-content-hint": "Optional. Paste a recipe, or the contents of a page Mealie can't reach. Alongside photos or a video, this is used as notes instead, so you can say what to name the recipe or correct a detail.",
+    "import-with-ai-content-hint": "Optional. Paste a recipe, or the contents of a page Mealie can't reach. Combined with anything else you provide, so you can also use it for notes, like what to name the recipe or a detail to correct.",
     "import-with-ai-provider-required": "To import recipes with AI, configure a default provider in your group's AI settings.",
     "import-with-ai-image-provider-required": "To create recipes from photos, configure an image provider in your group's AI settings.",
     "import-with-ai-error-details": "AI was unable to create a recipe from what you provided. Check that it contains a recipe, and try again.",
@@ -752,7 +752,8 @@
       "ingredient-parser-description": "I tuoi ingredienti sono stati analizzati con successo. Controlla gli ingredienti di cui non siamo sicuri.",
       "ingredient-parser-final-review-description": "Una volta che tutti gli ingredienti sono stati controllati, avrai ancora una possibilità di rivederli tutti prima di applicare le modifiche alla ricetta.",
       "add-text-as-alias-for-item": "Aggiungi \"{text}\" come alias per {item}",
-      "delete-item": "Elimina elemento"
+      "delete-item": "Elimina elemento",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Reimposta conteggio porzioni",
     "not-linked-ingredients": "Ingredienti Aggiuntivi",

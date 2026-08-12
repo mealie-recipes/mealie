@@ -19,17 +19,26 @@ class WorkflowInput(BaseModel):
     """The source material a recipe is imported from. At least one field must be populated."""
 
     content: str | None = None
-    """Raw HTML, a JSON string of a https://schema.org/Recipe object, or plain text"""
+    """
+    Content supplied by the caller: raw HTML, a JSON string of a https://schema.org/Recipe object,
+    or plain text. Compiled in addition to any other source, never instead of one.
+    """
 
     images: list[Path] = Field(default_factory=list)
     """Local paths to uploaded images, in order. The first is used as the recipe's cover image."""
 
     url: str | None = None
-    """Source URL. Fetched if no content is supplied, and recorded as the recipe's original URL."""
+    """Source URL. Fetched unless `page_content` is set, and recorded as the recipe's original URL."""
+
+    page_content: str | None = None
+    """
+    The page's own content, for callers that have already fetched it. Unlike `content` this is
+    not a separate source, so supplying it skips the fetch rather than adding to the material.
+    """
 
     @property
     def is_empty(self) -> bool:
-        return not (self.content or self.images or self.url)
+        return not (self.content or self.images or self.url or self.page_content)
 
 
 class WorkflowOptions(BaseModel):
@@ -73,11 +82,8 @@ class WorkflowContext:
 
     on_progress: Callable[[str], Awaitable[None]] | None = None
 
-    source_content: str | None = None
-    """Input content, or the HTML fetched from the input URL"""
-
     compiled_source: OpenAICompiledSource | None = None
-    """Output of the compile step"""
+    """Output of the compile step: every source in the input, compiled and merged into one document"""
 
     organizer_names: OpenAIOrganizers | None = None
     """Organizer names returned by the organizer step, before they're matched to the database"""
