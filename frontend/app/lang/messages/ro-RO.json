@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Ingredientele tale au fost analizate cu succes. Te rugăm să revizuiești ingredientele despre care nu suntem siguri.",
       "ingredient-parser-final-review-description": "Odată ce toate ingredientele au fost revizuite, vei mai avea o șansă de a revizui toate ingredientele înainte de a aplica modificările la rețetă.",
       "add-text-as-alias-for-item": "Adaugă \"{text}\" ca alias pentru {item}",
-      "delete-item": "Șterge Articol"
+      "delete-item": "Șterge Articol",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Resetează numărul de serviri",
     "not-linked-ingredients": "Ingrediente suplimentare",
