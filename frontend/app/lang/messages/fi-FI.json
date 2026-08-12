@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Ainesosat on haettu onnistuneesti. Ole hyvä ja tarkista ainesosat joista emme ole varmoja.",
       "ingredient-parser-final-review-description": "Kun kaikki ainesosat on tarkistettu, sinulla on vielä yksi mahdollisuus tarkistaa kaikki ainesosat ennen kuin muokkaat reseptiäsi.",
       "add-text-as-alias-for-item": "Lisää \"{text}\" kohteen {item} aliakseksi",
-      "delete-item": "Poista kohde"
+      "delete-item": "Poista kohde",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Palauta Annoksien Määrä",
     "not-linked-ingredients": "Muut ainesosat",
