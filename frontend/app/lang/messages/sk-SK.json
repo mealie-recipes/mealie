@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Vaše ingrediencie boli úspešne zanalyzované. Prosím prekontrolujte ingrediencie pri ktorých nemáme istotu.",
       "ingredient-parser-final-review-description": "Keď skontrolujete všetky ingrediencie, budete mať ešte jednu možnosť skontrolovať ich pred tým než uložíte zmeny vo svojom recepte.",
       "add-text-as-alias-for-item": "Pridať \"{text}\" ako alias pre {item}",
-      "delete-item": "Zmazať položku"
+      "delete-item": "Zmazať položku",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Resetovať počet porcií",
     "not-linked-ingredients": "Ďalšie suroviny",
