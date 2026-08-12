@@ -109,6 +109,7 @@
                     tiny
                     icon-size="25"
                     :slug="mealplan.recipe ? mealplan.recipe.slug : ''"
+                    :image-version="mealplan.recipe.image"
                   />
                   <v-icon v-else>
                     {{ $globals.icons.primary }}

@@ -1,6 +1,6 @@
 <template>
   <v-img
-    v-if="!fallBackImage"
+    v-if="showImage"
     :height="height"
     cover
     min-height="125"
@@ -38,7 +38,7 @@ interface Props {
   iconSize?: number | string;
   slug?: string | null;
   recipeId: string;
-  imageVersion?: string | null;
+  imageVersion?: string | unknown;
   height?: number | string;
 }
 const props = withDefaults(defineProps<Props>(), {
@@ -58,6 +58,11 @@ defineEmits<{
 const { recipeImage, recipeSmallImage, recipeTinyImage } = useStaticRoutes();
 
 const fallBackImage = ref(false);
+
+// Recipes without an image have no image version, so there is nothing to fetch.
+// Rendering the image anyway would only produce a 404 before falling back.
+const showImage = computed(() => !!props.imageVersion && !fallBackImage.value);
+
 const imageSize = computed(() => {
   if (props.tiny) return "tiny";
   if (props.small) return "small";
@@ -66,7 +71,7 @@ const imageSize = computed(() => {
 });
 
 watch(
-  () => props.recipeId,
+  [() => props.recipeId, () => props.imageVersion],
   () => {
     fallBackImage.value = false;
   },

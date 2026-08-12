@@ -5,7 +5,7 @@
       <v-container class="ma-0 pa-0">
         <v-row>
           <v-col
-            v-if="preferences.imagePosition && preferences.imagePosition != ImagePosition.hidden"
+            v-if="recipe.image && preferences.imagePosition && preferences.imagePosition != ImagePosition.hidden"
             :order="preferences.imagePosition == ImagePosition.left ? -1 : 1"
             cols="4"
             align-self="center"

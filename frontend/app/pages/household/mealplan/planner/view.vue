@@ -43,6 +43,7 @@
             :slug="mealplan.recipe ? mealplan.recipe.slug! : mealplan.title!"
             :description="mealplan.recipe ? mealplan.recipe.description! : mealplan.text!"
             :name="mealplan.recipe ? mealplan.recipe.name! : mealplan.title!"
+            :image="mealplan.recipe ? mealplan.recipe.image! : undefined"
             :tags="mealplan.recipe ? mealplan.recipe.tags! : []"
           />
         </div>
