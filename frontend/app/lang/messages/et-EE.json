@@ -752,7 +752,8 @@
       "ingredient-parser-description": "Koostisosad on edukalt tuvastatud. Palun vaadake üle koostisosad, mille puhul me pole kindlad.",
       "ingredient-parser-final-review-description": "Kui kõik koostisosad on üle vaadatud, on teil enne muudatuste retsepti salvestamist veel üks võimalus kõik koostisosad üle vaadata.",
       "add-text-as-alias-for-item": "Lisa \"{text}\" kui teine nimetus {item} jaoks",
-      "delete-item": "Kustuta element"
+      "delete-item": "Kustuta element",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Lähtesta portsionite arv",
     "not-linked-ingredients": "Lisa-koostisosad",
