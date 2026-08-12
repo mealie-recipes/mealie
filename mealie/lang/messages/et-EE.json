@@ -22,11 +22,14 @@
         "or-ingredient": "või {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "AI image services are not enabled",
             "no-recipe-found": "No recipe was found in the provided source",
             "no-source": "No content, images, or URL were provided",
             "provider-returned-nothing": "The AI provider did not return a recipe",
-            "unreadable-source": "Unable to read any content from the provided source"
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
         },
         "create-progress": {
             "creating-recipe": "Creating recipe...",
@@ -39,7 +42,8 @@
             "organizing-recipe": "Organizing recipe...",
             "reading-images-with-ai": "Reading images with AI...",
             "reading-source-with-ai": "Reading source with AI...",
-            "transcribing-audio-with-ai": "Helisalvestise transkribeerimine tehisaru abil..."
+            "transcribing-audio-with-ai": "Helisalvestise transkribeerimine tehisaru abil...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {

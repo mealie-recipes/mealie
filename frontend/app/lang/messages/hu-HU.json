@@ -668,9 +668,9 @@
     "import-with-ai-video-description": "Videókból is importálhat, például az Instagramról vagy a YouTube-ról. Illessze be a videó URL-jét, és a Mealie receptté alakítja át.",
     "import-with-ai-without-ai-question": "Szeretne receptet készíteni AI nélkül?",
     "import-with-ai-use-url-import": "URL importáló használata",
-    "import-with-ai-url-hint": "Opcionális. A recept forrásaként kerül elmentésre. A videókat mindig leírjuk; az egyéb oldalakat csak akkor olvassuk be, ha nem illeszt be tartalmat az alábbi mezőbe.",
+    "import-with-ai-url-hint": "Optional. Saved as the recipe's source. Videos are transcribed; other pages are read for their content.",
     "import-with-ai-content": "Recept szöveg, HTML, JSON vagy jegyzetek",
-    "import-with-ai-content-hint": "Opcionális. Illesszen be egy receptet vagy egy olyan oldal tartalmát, amelyhez a Mealie nem fér hozzá. A fotók vagy videók mellett ez jegyzetként szolgál, így megadhatja a recept nevét vagy kijavíthat egy részletet.",
+    "import-with-ai-content-hint": "Optional. Paste a recipe, or the contents of a page Mealie can't reach. Combined with anything else you provide, so you can also use it for notes, like what to name the recipe or a detail to correct.",
     "import-with-ai-provider-required": "Ha receptjeit AI-val importálja, állítsa be az alapértelmezett szolgáltatót csoportjának AI-beállításaiban.",
     "import-with-ai-image-provider-required": "Ahhoz, hogy fotókból recepteket hozzon létre, állítsa be a képforrást csoportjának AI-beállításaiban.",
     "import-with-ai-error-details": "Az AI nem tudott receptet készíteni a megadott adatok alapján. Ellenőrizze, hogy az tartalmaz-e receptet, majd próbálja meg újra.",
@@ -753,7 +753,7 @@
       "ingredient-parser-final-review-description": "Miután az összes hozzávalót átnézte, még egyszer átnézheti az összes hozzávalót, mielőtt a változtatásokat átvezeti a receptbe.",
       "add-text-as-alias-for-item": "Adja hozzá a „{text}” nevet {item} aliasaként",
       "delete-item": "Elem törlése",
-      "parsing-ingredients": "Parsing ingredients..."
+      "parsing-ingredients": "Hozzávalók feldolgozása..."
     },
     "reset-servings-count": "Adagok számának visszaállítása",
     "not-linked-ingredients": "Kiegészítő hozzávalók",

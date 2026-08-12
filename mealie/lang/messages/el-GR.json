@@ -22,11 +22,14 @@
         "or-ingredient": "ή {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "Ο πάροχος AI δεν ήταν σε θέση να ολοκληρώσει το αίτημα. Παρακαλώ δοκιμάστε ξανά",
             "image-provider-not-enabled": "AI image services are not enabled",
             "no-recipe-found": "No recipe was found in the provided source",
             "no-source": "No content, images, or URL were provided",
             "provider-returned-nothing": "The AI provider did not return a recipe",
-            "unreadable-source": "Unable to read any content from the provided source"
+            "unknown-error": "Κάτι πήγε στραβά κατά τη δημιουργία της συνταγής. Παρακαλώ προσπαθήστε ξανά",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Δεν είναι δυνατή η λήψη του βίντεο. Μπορεί να είναι ιδιωτικό, να έχει διαγραφεί ή να προέρχεται από μια μη υποστηριζόμενη ιστοσελίδα"
         },
         "create-progress": {
             "creating-recipe": "Creating recipe...",
@@ -39,7 +42,8 @@
             "organizing-recipe": "Organizing recipe...",
             "reading-images-with-ai": "Reading images with AI...",
             "reading-source-with-ai": "Reading source with AI...",
-            "transcribing-audio-with-ai": "Μεταγραφή ήχου με AI..."
+            "transcribing-audio-with-ai": "Μεταγραφή ήχου με AI...",
+            "translating-recipe": "Μετάφραση συνταγής..."
         }
     },
     "mealplan": {
