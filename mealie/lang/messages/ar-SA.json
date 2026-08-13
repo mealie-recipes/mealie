@@ -20,15 +20,30 @@
         },
         "and-amount": "و {amount}",
         "or-ingredient": "أو {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "خدمات الذكاء الاصطناعي غير مفعلة",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "خدمات الصور AI غير مفعلة",
+            "no-recipe-found": "لم يتم العثور على وصفة في المصدر المقدم",
+            "no-source": "لم يتم توفير أي محتوى أو صور أو عنوان URL",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "إنشاء وصفة باستخدام AI...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "إنشاء وصفة من النص باستخدام AI...",
             "creating-recipe-from-webpage-data": "إنشاء وصفة من بيانات صفحة الويب...",
             "downloading-image": "جارى تحميل الصورة...",
             "downloading-video": "جاري تحميل الفيديو...",
             "extracting-recipe-data": "استخراج بيانات الوصفة...",
             "fetching-webpage": "جلب صفحة الويب...",
-            "transcribing-audio-with-ai": "جاري نقل الصوت باستخدام AI..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "جاري نقل الصوت باستخدام AI...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "لا يوجد لديك صلاحيات كافية لتنفيذ هذا الإجراء",
         "recursive-recipe-link": "الوصفة لا يمكن أن تشير إلى نفسها، سواء بشكل مباشر أو غير مباشر",
         "no-entry-found": "لم يتم العثور على الصفحة المطلوبة",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "خطأ في سلامة قاعدة البيانات",
         "username-conflict-error": "اسم المستخدم هذا مستخدم مسبقاً",
         "email-conflict-error": "هذا البريد مستخدم مسبقاً"

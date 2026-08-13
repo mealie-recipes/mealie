@@ -20,15 +20,30 @@
         },
         "and-amount": "和 {amount}",
         "or-ingredient": "或 {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "尚未啟用 AI 服務",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "尚未啟用 AI 圖片服務",
+            "no-recipe-found": "在提供的來源中找不到食譜",
+            "no-source": "未提供任何內容、圖片或網址",
+            "provider-returned-nothing": "AI 服務未傳回食譜",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "無法從提供的來源讀取任何內容",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "正在使用AI建立食譜……",
+            "creating-recipe": "正在建立食譜……",
             "creating-recipe-from-transcript-with-ai": "正在使用AI轉錄建立食譜……",
             "creating-recipe-from-webpage-data": "正在使用網頁資料建立食譜……",
             "downloading-image": "圖片下載中……",
             "downloading-video": "影片下載中……",
             "extracting-recipe-data": "提取食譜資料中……",
             "fetching-webpage": "抓取網頁中……",
-            "transcribing-audio-with-ai": "正在使用AI轉錄音頻……"
+            "organizing-recipe": "正在整理食譜……",
+            "reading-images-with-ai": "正在使用 AI 讀取圖片……",
+            "reading-source-with-ai": "正在使用 AI 讀取來源……",
+            "transcribing-audio-with-ai": "正在使用AI轉錄音頻……",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "您沒有執行此操作的權限",
         "recursive-recipe-link": "食譜不能直接或間接地參照自身",
         "no-entry-found": "找不到要求的資源",
+        "rate-limit-error": "AI 服務請求過於頻繁，請稍後再試",
         "integrity-error": "資料庫完整性錯誤",
         "username-conflict-error": "此使用者名稱已被使用",
         "email-conflict-error": "該電子郵件地址已被使用"

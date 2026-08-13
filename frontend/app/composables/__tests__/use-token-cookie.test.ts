@@ -1,5 +1,5 @@
 import { describe, expect, test, vi, beforeEach, afterEach } from "vitest";
-import { getTokenCookieOptions } from "./use-token-cookie";
+import { getTokenCookieOptions } from "../use-token-cookie";
 
 function setLocation(protocol: string) {
   Object.defineProperty(window, "location", {
