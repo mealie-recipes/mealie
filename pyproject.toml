@@ -10,7 +10,7 @@ dependencies = [
     "Pillow==12.3.0",
     "PyYAML==6.0.3",
     "SQLAlchemy==2.0.51",
-    "alembic==1.19.0",
+    "alembic==1.19.1",
     "apprise==1.12.0",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
