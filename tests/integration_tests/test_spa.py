@@ -1,6 +1,7 @@
 import pytest
 from bs4 import BeautifulSoup
 
+from mealie.core.settings.branding import Branding
 from mealie.routes import spa
 from mealie.schema.recipe.recipe import Recipe, RecipeSettings
 from mealie.schema.recipe.recipe_notes import RecipeNote
@@ -190,6 +191,59 @@ async def test_spa_service_shared_recipe_with_meta_invalid_data(unique_user: Tes
 
     response = await spa.serve_shared_recipe_with_meta(group.slug, random_string(), session=unique_user.repos.session)
     assert response.status_code == 404
+
+
+def sample_index_html() -> str:
+    return (
+        "<!DOCTYPE html><html><head>"
+        "<title>Mealie</title>"
+        '<meta property="og:title" content="Mealie">'
+        '<meta property="og:site_name" content="Mealie">'
+        '<link rel="icon" type="image/x-icon" href="/favicon.ico">'
+        '<link rel="shortcut icon" type="image/png" href="/icons/icon-x64.png">'
+        '<link rel="apple-touch-icon" type="image/png" href="/icons/apple-touch-icon.png">'
+        "</head><body></body></html>"
+    )
+
+
+def test_apply_branding_defaults_are_a_no_op():
+    html = sample_index_html()
+    branded = spa.apply_branding(html, Branding())
+
+    soup = BeautifulSoup(branded, "lxml")
+    assert soup.title and soup.title.string == "Mealie"
+    assert soup.find("link", rel="icon")["href"] == "/favicon.ico"
+
+
+def test_apply_branding_overrides_name_and_title():
+    html = sample_index_html()
+    branding = Branding(name="My Recipes", html_title="My Recipes - Home")
+    branded = spa.apply_branding(html, branding)
+
+    soup = BeautifulSoup(branded, "lxml")
+    assert soup.title and soup.title.string == "My Recipes - Home"
+
+    og_tags = {tag["property"]: tag["content"] for tag in soup.find_all("meta") if tag.get("property")}
+    assert og_tags["og:title"] == "My Recipes"
+    assert og_tags["og:site_name"] == "My Recipes"
+
+
+def test_apply_branding_overrides_favicon(tmp_path):
+    favicon_path = tmp_path / "favicon.ico"
+    favicon_path.write_bytes(b"fake-favicon")
+
+    html = sample_index_html()
+    branding = Branding(favicon_path=str(favicon_path))
+    branded = spa.apply_branding(html, branding)
+
+    soup = BeautifulSoup(branded, "lxml")
+    icon_links = soup.find_all("link", rel="icon")
+    assert len(icon_links) == 2
+    for link in icon_links:
+        assert link["href"] == "/api/app/about/branding/favicon"
+
+    # non-favicon icon links are left untouched
+    assert soup.find("link", rel="apple-touch-icon")["href"] == "/icons/apple-touch-icon.png"
 
 
 @pytest.mark.parametrize(
