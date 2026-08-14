@@ -12,14 +12,16 @@ import sqlalchemy as sa
 from fastapi import UploadFile
 
 from mealie.core import exceptions
+from mealie.db.models.recipe.ingredient import IngredientFoodAliasModel, IngredientFoodModel
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
+from mealie.schema import mapper
 from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeUpdate
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe, create_recipe_slug
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
+from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, RecipeIngredient, SaveIngredientFood
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
@@ -260,6 +262,49 @@ class RecipeService(RecipeServiceBase):
         new_item = repo.create(data)
         return new_item.model_dump()
 
+    def _transform_food(self, data: dict[str, Any] | Any) -> dict[str, Any] | None:
+        # Ensures the food from the source instance exists in this group, creating it if necessary.
+        if not isinstance(data, dict):
+            return None
+
+        name = data.get("name")
+        if not isinstance(name, str) or not name:
+            return None
+
+        if data.get("id") and self.repos.ingredient_foods.get_one(data["id"]):
+            return data
+
+        normalized_name = IngredientFoodModel.normalize(name)
+        existing_food = (
+            self.repos.session.execute(
+                sa.select(IngredientFoodModel).where(
+                    IngredientFoodModel.group_id == self.user.group_id,
+                    sa.or_(
+                        IngredientFoodModel.name_normalized == normalized_name,
+                        IngredientFoodModel.plural_name_normalized == normalized_name,
+                        IngredientFoodModel.aliases.any(IngredientFoodAliasModel.name_normalized == normalized_name),
+                    ),
+                )
+            )
+            .scalars()
+            .first()
+        )
+        if existing_food:
+            data["id"] = existing_food.id
+            return data
+
+        create_data = CreateIngredientFood(
+            name=name,
+            plural_name=data.get("plural_name"),
+            description=data.get("description") or "",
+            aliases=data.get("aliases") or [],
+            label_id=None,
+        )
+        save_data = mapper.cast(create_data, SaveIngredientFood, group_id=self.user.group_id)
+        new_food = self.repos.ingredient_foods.create(save_data)
+        data["id"] = new_food.id
+        return data
+
     def _process_recipe_data(self, key: str, data: list | dict | Any):
         if isinstance(data, list):
             return [self._process_recipe_data(key, item) for item in data]
@@ -278,12 +323,13 @@ class RecipeService(RecipeServiceBase):
         data["group_id"] = str(self.user.group_id)
         data["household_id"] = str(self.user.household_id)
 
-        # make sure categories and tags are valid
+        # make sure categories and tags and food are valid
         if key == "recipe_category":
             return self._transform_category_or_tag(data, self.repos.categories)
         elif key == "tags":
             return self._transform_category_or_tag(data, self.repos.tags)
-
+        elif key == "food":
+            return self._transform_food(data)
         # recursively process other objects
         for k, v in data.items():
             data[k] = self._process_recipe_data(k, v)

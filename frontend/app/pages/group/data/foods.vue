@@ -466,6 +466,7 @@ const { locales: LOCALES, locale: currentLocale } = useLocales();
 
 onMounted(() => {
   locale.value = currentLocale.value;
+  foodStore.actions.refresh();
 });
 
 const locales = LOCALES.filter(locale =>
