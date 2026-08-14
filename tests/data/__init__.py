@@ -45,6 +45,8 @@ migrations_tandoor = CWD / "migrations/tandoor.zip"
 
 migrations_plantoeat = CWD / "migrations/plantoeat.zip"
 
+migrations_plantoeat_csv = CWD / "migrations/plantoeat.csv"
+
 migrations_myrecipebox = CWD / "migrations/myrecipebox.csv"
 
 migrations_recipekeeper = CWD / "migrations/recipekeeper.zip"

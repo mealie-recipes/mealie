@@ -51,7 +51,7 @@
     "category": "分类"
   },
   "events": {
-    "apprise-url": "Apprise URL",
+    "apprise-url": "Apprise 网址",
     "database": "数据库",
     "delete-event": "删除事件",
     "event-delete-confirmation": "你确定要删除这个事件？",
@@ -98,7 +98,7 @@
     "dashboard": "仪表盘",
     "delete": "删除",
     "disabled": "已禁用",
-    "done": "Done",
+    "done": "完成",
     "download": "下载",
     "duplicate": "创建副本",
     "edit": "编辑",
@@ -169,7 +169,7 @@
     "token": "密钥",
     "tuesday": "周二",
     "type": "类型",
-    "undo": "Undo",
+    "undo": "还原",
     "update": "更新",
     "updated": "已更新",
     "upload": "上传",
@@ -223,7 +223,9 @@
     "show-advanced": "显示进阶设置",
     "add-field": "添加项目",
     "date-created": "创建日期",
-    "date-updated": "修改日期"
+    "date-updated": "修改日期",
+    "key": "键",
+    "value": "值"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "您确定要删除<b>{groupName}<b/>吗？",
@@ -250,7 +252,7 @@
       "keep-my-recipes-private-description": "将您的群组和所有食谱默认设置为私人可见。您可以随时更改此设置"
     },
     "manage-members": "管理成员",
-    "manage-members-description": "管理你家庭中成员的权限。 {manage} 表示允许用户访问数据管理页面， {invite} 表示允许用户生成链接邀请其他用户。 群组所有者不能更改自己的权限。",
+    "manage-members-description": "管理您家庭成员的权限。{manage} 允许用户访问群组管理区域，{organize} 允许用户管理群组数据例如食品、标签和分类，而 {invite} 允许用户为其他用户生成邀请链接。群组所有者无法更改自己的权限 。",
     "manage": "管理",
     "manage-household": "管理家庭",
     "invite": "邀请",
@@ -283,7 +285,41 @@
     "admin-group-management-text": "对本群组的更改将被立即应用。",
     "group-id-value": "群组ID：{0}",
     "total-households": "总共家庭",
-    "you-must-select-a-group-before-selecting-a-household": "你必须先选择一个组才能选择一个家庭"
+    "you-must-select-a-group-before-selecting-a-household": "你必须先选择一个组才能选择一个家庭",
+    "ai-provider-settings": {
+      "ai-provider-settings": "AI 提供者设置",
+      "ai-provider": "AI 提供者",
+      "ai-providers": "AI 提供者",
+      "ai-providers-description": "添加 AI 提供商以启用增强型配料解析以及从照片或视频创建菜谱等功能。此步骤为可选步骤，稍后可在您的群组设置中进行配置。",
+      "ai-provider-settings-description": "设置 AI 提供者以启用 AI功能，例如增强食材解析、从视频中创建食谱等！",
+      "providers": "提供者",
+      "create-provider": "创建提供者",
+      "edit-provider": "编辑提供者",
+      "default-provider": "默认提供者",
+      "default-provider-description": "需要启用 AI 功能",
+      "audio-provider": "音频提供者",
+      "audio-provider-description": "启用音频翻译功能，例如从视频创建食谱",
+      "image-provider": "图片提供者",
+      "image-provider-description": "启用图像识别功能，例如从图像创建食谱",
+      "provider-name": "提供者名称",
+      "api-key": "API 密钥",
+      "api-key-description-create": "您提供商用于身份验证的 API 密钥。如果您的服务（例如 Ollama）不使用 API 密钥，您仍然需要在此处填写一些内容。",
+      "api-key-description-edit": "除非你想要更改它，否则将留空。",
+      "base-url": "基本网址",
+      "base-url-description": "如果您使用 OpenAI 请留空。必须是 OpenAI兼容的端点(例如，\"http://localhost:11434/v1\")。",
+      "model": "模型",
+      "model-description": "您的 AI 提供者应该使用哪个模型(例如，\"gpt-5\")。",
+      "request-timeout-seconds": "请求超时（秒）",
+      "provider-created": "提供者已创建",
+      "provider-updated": "提供者已更新",
+      "provider-deleted": "提供商已删除",
+      "provider-create-failed": "创建提供者失败",
+      "provider-update-failed": "更新提供者失败",
+      "provider-delete-failed": "删除提供者失败",
+      "request-headers": "请求标头",
+      "request-params": "请求参数",
+      "no-default-provider-warning": "您尚未设置默认提供者，所以AI 功能已被禁用"
+    }
   },
   "household": {
     "household": "家庭",
@@ -333,8 +369,8 @@
     "any-household": "所有家庭",
     "no-meal-plan-defined-yet": "还没有制定饮食计划",
     "no-meal-planned-for-today": "今日没有饮食计划",
-    "numberOfDaysPast-hint": "Number of days in the past on page load",
-    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDaysPast-hint": "页面加载时过去的天数",
+    "numberOfDaysPast-label": "默认过去天数",
     "numberOfDays-hint": "页面加载天数",
     "numberOfDays-label": "默认天数",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "只有属于这些分类的食谱才会被用于饮食计划",
@@ -375,7 +411,8 @@
     "applies-on-days": "应用于{0}",
     "meal-plan-settings": "饮食计划设置",
     "add-all-to-list": "将全部添加入清单",
-    "add-day-to-list": "将日期添加到清单"
+    "add-day-to-list": "将日期添加到清单",
+    "randomize-recipe": "随机食谱"
   },
   "migration": {
     "migration-data-removed": "已删除迁移数据",
@@ -392,7 +429,7 @@
     "nextcloud": {
       "description": "从Nextcloud Cookbook迁移数据",
       "description-long": "Nextcloud食谱可以从存储在Nextcloud云端的含有食谱数据的zip文件导入。请参阅下方的文件夹结构示例确保您的食谱可以被正确导入。",
-      "title": "Nextcloud Cookbook"
+      "title": "Nextcloud 食谱"
     },
     "copymethat": {
       "description-long": "Mealie 可以从 Copy Mee That导入食谱。将您的食谱以HTML 格式导出，然后在下面上传 .zip压缩包",
@@ -445,6 +482,7 @@
     "from-url": "输入网址",
     "github-issues": "Github问题报告",
     "google-ld-json-info": "Google ld+json 信息",
+    "html-or-json-error-details": "Mealie 未能在您提供的数据中找到菜谱。只能导入包含 schema.org Recipe 的 ld+json 或微数据microdata。如果您正在粘贴 JSON，请确保其中同时声明了 \"@context\": \"[https://schema.org/]https://schema.org/\" 和 \"@type\": \"Recipe\"。",
     "must-be-a-valid-url": "必须是一个有效的链接",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "请粘贴您的食谱资料。每行将被视为列表中的一项。",
     "recipe-markup-specification": "食谱标记规范",
@@ -605,7 +643,7 @@
     "made-this": "我做了这道菜",
     "how-did-it-turn-out": "成品怎么样?",
     "user-made-this": "{user}制作了这个",
-    "made-for-recipe": "Made for {recipe}",
+    "made-for-recipe": "{recipe}专属",
     "added-to-timeline": "添加到时间轴",
     "failed-to-add-to-timeline": "未能添加到时间轴",
     "failed-to-update-recipe": "更新配方失败",
@@ -624,32 +662,43 @@
     "select-one-of-the-various-ways-to-create-a-recipe": "多种食谱创建方式可选，挑一个适合你的吧",
     "looking-for-migrations": "在找迁移设置？",
     "import-with-url": "通过URL导入",
+    "import-with-ai": "用 AI 导入",
+    "import-with-ai-description": "使用AI创建任意配方。 将其粘贴为文本，HTML或JSON，后上传食谱的照片，并附加一个链接，或使用任意方式组合。",
+    "import-with-ai-subtitle": "从文本，照片或链接导入",
+    "import-with-ai-video-description": "您也可以导入Instagram 或 YouTube 等网站上的视频。粘贴这些视频的URL然后Mealie 会将其转化为配方。",
+    "import-with-ai-without-ai-question": "想要不使用 AI创建食谱吗？",
+    "import-with-ai-use-url-import": "使用URL导入器",
+    "import-with-ai-url-hint": "Optional. Saved as the recipe's source. Videos are transcribed; other pages are read for their content.",
+    "import-with-ai-content": "配方文本，HTML，JSON，或便笺",
+    "import-with-ai-content-hint": "Optional. Paste a recipe, or the contents of a page Mealie can't reach. Combined with anything else you provide, so you can also use it for notes, like what to name the recipe or a detail to correct.",
+    "import-with-ai-provider-required": "若要使用 AI导入配方，请在您的群组的 AI 设置中配置默认提供者。",
+    "import-with-ai-image-provider-required": "要从照片中创建配方，请在您的群组的 AI 设置中配置图像提供者。",
+    "import-with-ai-error-details": "AI 无法从您提供的内容创建一个配方。请检查您提供的内容是否包含配方，然后重试。",
+    "create-new-organizers": "创建新的组织者",
+    "create-new-organizers-hint": "菜谱中找到的标签、类别和工具总是会与您已有的进行匹配。开启此选项还可自动创建您所没有的。",
     "create-recipe": "创建食谱",
     "create-recipe-description": "从头创建一个新食谱。",
     "create-recipes": "创建食谱",
     "import-with-zip": "使用 .zip 导入",
-    "create-recipe-from-an-image": "用图片创建食谱",
-    "create-recipe-from-an-image-description": "通过上传食谱文本的图片来创建一个食谱。Mealie将尝试使用人工智能从图像中提取文本，并从中创建一个新的食谱。",
     "crop-and-rotate-the-image": "裁剪并旋转图片，使仅文字可见且方向正确。",
-    "create-from-images": "从图片创建",
     "should-translate-description": "翻译该食谱",
-    "please-wait-image-procesing": "请稍等，正在处理图片。这可能需要一些时间。",
-    "please-wait-images-processing": "请稍等，正在处理图片。这可能需要一些时间。",
     "bulk-url-import": "批量URL导入",
     "debug-scraper": "调试刮削器",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "通过名称创建食谱，食谱不可重名。",
     "new-recipe-names-must-be-unique": "新食谱名必须唯一",
     "scrape-recipe": "刮削食谱",
     "scrape-recipe-description": "通过URL采集食谱。提供你想要采集网址的URL，Mealie会尝试从该网采集食谱并添加到你的收藏中。",
-    "scrape-recipe-description-transcription": "You can also provide the url to a video and Mealie will attempt to transcribe it into a recipe.",
+    "scrape-recipe-description-transcription": "您也可以提供一个视频地址，Mealie 将尝试将其导入为食谱。",
     "scrape-recipe-have-a-lot-of-recipes": "你想要一次刮削多个食谱吗？",
     "scrape-recipe-suggest-bulk-importer": "试试批量导入器",
+    "scrape-recipe-have-ai-read-the-page": "想要使用 AI 阅读页面吗？",
+    "import-from-html-or-json-have-ai-read-it": "想要使用 AI 读取您的数据吗？",
     "scrape-recipe-have-raw-html-or-json-data": "有原始 HTML 或 JSON 数据？",
     "scrape-recipe-you-can-import-from-raw-data-directly": "您可以直接从原始数据导入",
     "scrape-recipe-website-being-blocked": "网站被屏蔽？",
     "scrape-recipe-try-importing-raw-html-instead": "请尝试导入原始HTML。",
     "import-original-keywords-as-tags": "导入原始关键字作为标签",
-    "import-original-categories": "Import original categories",
+    "import-original-categories": "导入原始分类",
     "stay-in-edit-mode": "留在编辑模式",
     "parse-recipe-ingredients-after-import": "导入后解析食材",
     "import-from-zip": "从Zip压缩包导入",
@@ -698,12 +747,13 @@
       "this-unit-could-not-be-parsed-automatically": "无法自动解析此单元",
       "this-food-could-not-be-parsed-automatically": "这种食物不能被自动解析",
       "no-food": "没有食物",
-      "review-parsed-ingredients": "Review parsed ingredients",
+      "review-parsed-ingredients": "复查解析后的食材",
       "confidence-score": "置信度",
       "ingredient-parser-description": "您的食材已成功解析。请检查我们不确定的食材。",
       "ingredient-parser-final-review-description": "一旦所有食材都检查完毕，在将更改应用到您的菜谱之前，您还有最后一次机会检查所有食材。",
       "add-text-as-alias-for-item": "将“{text}”添加为“{item}”的别名",
-      "delete-item": "Delete Item"
+      "delete-item": "删除项目",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "重置份量数量",
     "not-linked-ingredients": "附加配料",
@@ -713,7 +763,7 @@
     "set-as-cover-image": "设置为食谱封面图片",
     "cover-image": "封面图片",
     "include-linked-recipes": "包含已链接的菜谱",
-    "include-linked-recipe-ingredients": "Include Linked Recipe Ingredients",
+    "include-linked-recipe-ingredients": "包含链接的配方元素",
     "toggle-recipe": "切换菜谱"
   },
   "recipe-finder": {
@@ -859,7 +909,7 @@
     "webhooks": {
       "test-webhooks": "测试Webhooks",
       "the-urls-listed-below-will-recieve-webhooks-containing-the-recipe-data-for-the-meal-plan-on-its-scheduled-day-currently-webhooks-will-execute-at": "下列URL将会在预定日期收到当日饮食计划包含的食谱数据。当前webhooks将于执行于：",
-      "webhook-url": "Webhook URL",
+      "webhook-url": "Webhook 网址",
       "webhooks-caps": "WEBHOOKS",
       "webhooks": "Webhooks",
       "webhook-name": "Webhook名称",
@@ -893,31 +943,34 @@
     "server-side-base-url-error-text": "环境变量“BASE_URL“仍是API服务器上的默认值。这可能造成服务器自动发送的邮件所包含的通知链接不可用等问题。",
     "server-side-base-url-success-text": "已配置服务器端URL",
     "ldap-ready": "LDAP 已就绪",
-    "ldap-not-ready": "LDAP Not Ready",
+    "ldap-not-ready": "LDAP 未就绪",
     "ldap-ready-error-text": "某些LDAP环境变量尚未配置。（如果你不使用LDAP验证可以忽略该报错）",
     "ldap-ready-success-text": "LDAP所需的环境变量均已配置。",
     "build": "构建",
     "recipe-scraper-version": "食谱刮削器版本",
     "oidc-ready": "OIDC 已就绪",
-    "oidc-not-ready": "OIDC Not Ready",
+    "oidc-not-ready": "OIDC 未就绪",
     "oidc-ready-error-text": "某些OIDC环境变量尚未配置。（如果你不使用OIDC验证可以忽略该报错）",
     "oidc-ready-success-text": "OIDC所需的环境变量均已配置。",
     "openai-ready": "OpenAI 准备好了",
-    "openai-not-ready": "OpenAI Not Ready",
+    "openai-not-ready": "OpenAI 未就绪",
     "openai-ready-error-text": "并非所有的 OpenAI 值都已配置。如果您不使用 OpenAI 功能，这将被忽略。",
-    "openai-ready-success-text": "所需的 OpenAI 变量已全部设置。"
+    "openai-ready-success-text": "所需的 OpenAI 变量已全部设置。",
+    "site-statistics": "站点统计",
+    "uncategorized-recipes": "未分类食谱",
+    "untagged-recipes": "未标记的食谱"
   },
   "shopping-list": {
     "all-lists": "所有购物清单",
     "create-shopping-list": "创建购物清单",
     "from-recipe": "从食谱创建",
-    "ingredient-of-recipe": "Ingredient of {recipe}",
+    "ingredient-of-recipe": "{recipe} 的食品配料",
     "list-name": "购物清单名称",
     "new-list": "创建购物清单",
     "quantity": "数量: {0} 个",
     "shopping-list": "购物清单",
     "shopping-lists": "购物清单",
-    "add-item": "Add item",
+    "add-item": "添加项目",
     "food": "食品",
     "note": "备注",
     "label": "标注",
@@ -943,7 +996,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "您确定要取消选中所有项目吗？",
     "are-you-sure-you-want-to-delete-checked-items": "您确定要删除所有选中的项目吗？",
     "no-shopping-lists-found": "没有发现购物清单",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "已勾除 {item}"
   },
   "sidebar": {
     "all-recipes": "全部食谱",
@@ -1088,17 +1141,17 @@
     "permissions": "权限",
     "administrator": "管理员",
     "user-can-invite-other-to-group": "用户可以邀请其他人加入群组",
-    "user-can-manage-group": "用户可以管理群组",
+    "user-can-manage-group": "用户可以管理组设置",
     "user-can-manage-household": "用户可以管理家庭",
-    "user-can-organize-group-data": "用户可以整理群组数据",
+    "user-can-organize-group-data": "用户可以管理食品、 标签和类别",
     "enable-advanced-features": "启用高级功能",
     "it-looks-like-this-is-your-first-time-logging-in": "看起来这是你第一次登录。",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "不想再看到这条消息了吗？请务必在用户设置中更改你的邮箱！",
     "forgot-password": "忘记密码",
     "forgot-password-text": "请输入你的邮箱地址，我们会发给你重置密码的链接。",
     "changes-reflected-immediately": "对用户的更改将立即生效。",
-    "default-activity": "Default Activity",
-    "default-activity-hint": "Select which page you'd like to navigate to upon logging in from this device"
+    "default-activity": "默认页面",
+    "default-activity-hint": "选择在此设备登录后的默认页面"
   },
   "language-dialog": {
     "translated": "已翻译",
@@ -1109,6 +1162,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "警告：{count} 个食谱使用这个食材。刪除会导致食谱出现空缺食材。",
+      "delete-affects-recipes-more": "查看全部 {count} 个食谱",
       "merge-dialog-text": "此操作将把“待合并食物”和“目标食物”合并为一个食物（即“目标食物”）。 “待合并食物”将会被删除 ，之前所有对“待合并食物”的引用都会指向“目标食物”。",
       "merge-food-example": "正在将{food1}合并到{food2} ",
       "seed-dialog-text": "根据你当地的语言在数据库中输入食物。这将创建大约2700种常见的食物，可以用来组织你的数据库。食物是通过社区努力翻译的。",
@@ -1146,20 +1201,20 @@
       "example-unit-plural": "中文用户可忽略",
       "example-unit-abbreviation-singular": "例如：勺",
       "example-unit-abbreviation-plural": "中文用户可忽略",
-      "standardization": "Standardization",
-      "standardization-description": "How this unit can be represented as a standard unit. This enables unit conversion features such as merging compatible units in shopping lists.",
-      "standard-unit": "Standard Unit",
-      "standard-quantity": "Standard Quantity",
-      "unit-conversion": "Unit Conversion",
+      "standardization": "标准化",
+      "standardization-description": "该单位如何表示为标准单位。这可以启用单位转换功能，例如在购物清单中合并兼容的单位。",
+      "standard-unit": "标准单位",
+      "standard-quantity": "标准量",
+      "unit-conversion": "单位转换",
       "standard-unit-labels": {
-        "fluid-ounce": "fluid ounce",
-        "cup": "cup",
-        "ounce": "ounce",
-        "pound": "pound",
-        "milliliter": "milliliter",
-        "liter": "liter",
-        "gram": "gram",
-        "kilogram": "kilogram"
+        "fluid-ounce": "液体盎司",
+        "cup": "杯",
+        "ounce": "盎司",
+        "pound": "磅",
+        "milliliter": "毫升",
+        "liter": "升",
+        "gram": "克",
+        "kilogram": "千克"
       }
     },
     "labels": {
@@ -1196,8 +1251,8 @@
       "edit-recipe-action": "编辑食谱行为",
       "action-type": "行为种类",
       "action-types": {
-        "link": "Link",
-        "post": "Post"
+        "link": "链接",
+        "post": "帖子"
       }
     },
     "create-alias": "创建别名",
@@ -1359,9 +1414,11 @@
     "setup": {
       "first-time-setup": "初始配置",
       "welcome-to-mealie-get-started": "欢迎来到Mealie！让我们开始吧！",
+      "previous-mealie-instance": "您之前有使用过 Mealie 实例吗？",
       "already-set-up-bring-to-homepage": "我已经配置好了，直接跳转到主页",
       "common-settings-for-new-sites": "这有一些新站点的常见设置",
       "setup-complete": "配置完成！",
+      "ai-providers-description": "可选：为您的群组配置 AI 提供商。AI 提供商可启用从图像创建菜谱、从视频导入菜谱以及增强型配料解析等功能。您随时可以稍后在群组设置中进行配置。",
       "here-are-a-few-things-to-help-you-get-started": "以下这些可以帮助你开始使用Mealie",
       "restore-from-v1-backup": "有之前Mealie v1实例的备份数据？你可以在这里恢复它们。",
       "manage-profile-or-get-invite-link": "管理你自己的个人资料，或者获取邀请链接分享给其他人。"
@@ -1453,8 +1510,8 @@
       "is-greater-than-or-equal-to": "大于等于",
       "is-less-than": "小于",
       "is-less-than-or-equal-to": "小于等于",
-      "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-older-than": "旧于",
+      "is-newer-than": "新于"
     },
     "relational-keywords": {
       "is": "是",
@@ -1466,22 +1523,22 @@
       "is-not-like": "不匹配"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "天前 |天前"
     }
   },
   "validators": {
-    "required": "This Field is Required",
-    "invalid-email": "Email Must Be Valid",
-    "invalid-url": "Must Be A Valid URL",
-    "no-whitespace": "No Whitespace Allowed",
-    "min-length": "Must Be At Least {min} Characters",
-    "max-length": "Must Be At Most {max} Character|Must Be At Most {max} Characters"
+    "required": "此字段是必填字段",
+    "invalid-email": "电子邮件地址必须有效",
+    "invalid-url": "必须是一个有效的链接",
+    "no-whitespace": "不允许有空格",
+    "min-length": "最少有...个字符",
+    "max-length": "最多有 ...个字符|最多有...个字符"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "公告",
+    "all-announcements": "公告",
+    "mark-all-as-read": "全部标记为已读",
+    "show-announcements-from-mealie": "显示来自Mealie的公告",
+    "show-announcements-setting-description": "是否允许用户查看来自Mealie的公告。 如果启用，用户仍然可以在其用户设置中选择退出查看"
   }
 }

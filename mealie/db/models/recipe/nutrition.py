@@ -1,22 +1,22 @@
 import sqlalchemy as sa
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import mapped_column
 
-from mealie.db.models._model_base import SqlAlchemyBase
+from mealie.db.models._model_base import FilterableColumn, SqlAlchemyBase
 from mealie.db.models._model_utils.guid import GUID
 
 
 class Nutrition(SqlAlchemyBase):
     __tablename__ = "recipe_nutrition"
-    id: Mapped[int] = mapped_column(sa.Integer, primary_key=True)
-    recipe_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"), index=True)
+    id: FilterableColumn[int] = mapped_column(sa.Integer, primary_key=True)
+    recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"), index=True)
 
-    calories: Mapped[str | None] = mapped_column(sa.String)
-    carbohydrate_content: Mapped[str | None] = mapped_column(sa.String)
-    cholesterol_content: Mapped[str | None] = mapped_column(sa.String)
-    fat_content: Mapped[str | None] = mapped_column(sa.String)
-    fiber_content: Mapped[str | None] = mapped_column(sa.String)
-    protein_content: Mapped[str | None] = mapped_column(sa.String)
-    saturated_fat_content: Mapped[str | None] = mapped_column(sa.String)
+    calories: FilterableColumn[str | None] = mapped_column(sa.String)
+    carbohydrate_content: FilterableColumn[str | None] = mapped_column(sa.String)
+    cholesterol_content: FilterableColumn[str | None] = mapped_column(sa.String)
+    fat_content: FilterableColumn[str | None] = mapped_column(sa.String)
+    fiber_content: FilterableColumn[str | None] = mapped_column(sa.String)
+    protein_content: FilterableColumn[str | None] = mapped_column(sa.String)
+    saturated_fat_content: FilterableColumn[str | None] = mapped_column(sa.String)
 
     # `serving_size` is not a scaling factor, but a per-serving volume or mass
     # according to schema.org. E.g., "2 L", "500 g", "5 cups", etc.
@@ -28,10 +28,10 @@ class Nutrition(SqlAlchemyBase):
     #
     # serving_size: Mapped[str | None] = mapped_column(sa.String)
 
-    sodium_content: Mapped[str | None] = mapped_column(sa.String)
-    sugar_content: Mapped[str | None] = mapped_column(sa.String)
-    trans_fat_content: Mapped[str | None] = mapped_column(sa.String)
-    unsaturated_fat_content: Mapped[str | None] = mapped_column(sa.String)
+    sodium_content: FilterableColumn[str | None] = mapped_column(sa.String)
+    sugar_content: FilterableColumn[str | None] = mapped_column(sa.String)
+    trans_fat_content: FilterableColumn[str | None] = mapped_column(sa.String)
+    unsaturated_fat_content: FilterableColumn[str | None] = mapped_column(sa.String)
 
     def __init__(
         self,

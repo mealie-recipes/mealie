@@ -3,6 +3,7 @@ import shutil
 from pathlib import Path
 
 from fastapi import APIRouter, File, UploadFile
+from pydantic import UUID4
 
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.routes._base import BaseAdminController, controller
@@ -15,14 +16,11 @@ router = APIRouter(prefix="/debug")
 
 @controller(router)
 class AdminDebugController(BaseAdminController):
-    @router.post("/openai", response_model=DebugResponse)
-    async def debug_openai(self, image: UploadFile | None = File(None)):
-        if not self.settings.OPENAI_ENABLED:
-            return DebugResponse(success=False, response="OpenAI is not enabled")
-        if image and not self.settings.OPENAI_ENABLE_IMAGE_SERVICES:
-            return DebugResponse(
-                success=False, response="Image was provided, but OpenAI image services are not enabled"
-            )
+    @router.post("/openai/{provider_id}", response_model=DebugResponse)
+    async def debug_openai(self, provider_id: UUID4, image: UploadFile | None = File(None)):
+        provider = self.repos.group_ai_providers.get_one(provider_id)
+        if not provider:
+            return DebugResponse(success=False, response="Provider not found")
 
         with get_temporary_path() as temp_path:
             if image:
@@ -37,7 +35,7 @@ class AdminDebugController(BaseAdminController):
                 local_images = None
 
             try:
-                openai_service = OpenAIService()
+                openai_service = OpenAIService(self.repos)
                 prompt = openai_service.get_prompt("general.debug")
 
                 message = "Hello, checking to see if I can reach you."
@@ -45,7 +43,7 @@ class AdminDebugController(BaseAdminController):
                     message = f"{message} Here is an image to test with:"
 
                 response = await openai_service.get_response(
-                    prompt, message, response_schema=OpenAIText, attachments=local_images
+                    prompt, message, response_schema=OpenAIText, attachments=local_images, provider=provider
                 )
 
                 if not response:

@@ -1,7 +1,7 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:24@sha256:050bf2bbe33c1d6754e060bec89378a79ed831f04a7bb1a53fe45e997df7b3bb \
+FROM node:24@sha256:934240a162082fd8b8a2f90cd5114446443f1eba1c5378f6687167ca405e6584 \
     AS frontend-builder
 
 WORKDIR /frontend
@@ -51,6 +51,11 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 RUN pip install uv
+
+# Install from the committed lockfile; never re-resolve. The rolling
+# `exclude-newer` cooling window (pyproject [tool.uv]) would otherwise make
+# `uv export` below re-resolve and fail on in-window pins.
+ENV UV_FROZEN=1
 
 WORKDIR /mealie
 
@@ -126,6 +131,7 @@ RUN apt-get update \
     iproute2 \
     libldap-common \
     libldap2 \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # create directory used for Docker Secrets
@@ -136,8 +142,8 @@ COPY --from=venv-builder $VENV_PATH $VENV_PATH
 
 # install nltk data for the ingredient parser
 ENV NLTK_DATA="/nltk_data/"
-RUN mkdir -p $NLTK_DATA
-RUN python -m nltk.downloader -d $NLTK_DATA averaged_perceptron_tagger_eng
+COPY ./docker/setup_nltk_data.sh $MEALIE_HOME/setup_nltk_data.sh
+RUN chmod +x $MEALIE_HOME/setup_nltk_data.sh && $MEALIE_HOME/setup_nltk_data.sh
 
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=9000

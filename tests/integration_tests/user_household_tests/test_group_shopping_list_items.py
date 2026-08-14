@@ -6,7 +6,12 @@ import pytest
 from fastapi.testclient import TestClient
 from pydantic import UUID4
 
-from mealie.schema.household.group_shopping_list import ShoppingListItemOut, ShoppingListOut
+from mealie.schema.household.group_shopping_list import (
+    ShoppingListItemCreate,
+    ShoppingListItemOut,
+    ShoppingListOut,
+    ShoppingListSave,
+)
 from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientFood
 from tests import utils
 from tests.utils import api_routes
@@ -770,3 +775,85 @@ def test_shopping_list_item_extras(
     assert key_str_2 in extras
     assert extras[key_str_1] == val_str_1
     assert extras[key_str_2] == val_str_2
+
+
+def _create_list_with_items(user: TestUser, item_count: int = 3) -> ShoppingListOut:
+    repos = user.repos
+    shopping_list = repos.group_shopping_lists.create(
+        ShoppingListSave(
+            name=random_string(10),
+            group_id=user.group_id,
+            user_id=user.user_id,
+        ),
+    )
+
+    for _ in range(item_count):
+        repos.group_shopping_list_item.create(ShoppingListItemCreate(**create_item(shopping_list.id)))
+
+    return repos.group_shopping_lists.get_one(shopping_list.id)  # type: ignore
+
+
+def test_shopping_list_items_cannot_update_other_household_items(
+    api_client: TestClient,
+    unique_user: TestUser,
+    h2_user: TestUser,
+) -> None:
+    # h2_user owns a shopping list (different household, same group)
+    h2_list = _create_list_with_items(h2_user)
+    target = h2_list.list_items[0]
+    original_note = target.note
+
+    update_data = create_item(h2_list.id)
+    update_data["id"] = str(target.id)
+
+    # single-item update route
+    response = api_client.put(
+        api_routes.households_shopping_items_item_id(target.id),
+        json=update_data,
+        headers=unique_user.token,
+    )
+    collection = utils.assert_deserialize(response, 200)
+    assert collection["updatedItems"] == []
+
+    # bulk update route
+    response = api_client.put(
+        api_routes.households_shopping_items,
+        json=[update_data],
+        headers=unique_user.token,
+    )
+    collection = utils.assert_deserialize(response, 200)
+    assert collection["updatedItems"] == []
+
+    # the item is unchanged when read back by its owner
+    persisted = h2_user.repos.group_shopping_list_item.get_one(target.id)
+    assert persisted is not None
+    assert persisted.note == original_note
+
+
+def test_shopping_list_items_cannot_delete_other_household_items(
+    api_client: TestClient,
+    unique_user: TestUser,
+    h2_user: TestUser,
+) -> None:
+    # h2_user owns a shopping list (different household, same group)
+    h2_list = _create_list_with_items(h2_user)
+    single_target, bulk_target = h2_list.list_items[0], h2_list.list_items[1]
+
+    # single-item delete route
+    response = api_client.delete(
+        api_routes.households_shopping_items_item_id(single_target.id),
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    # bulk delete route
+    response = api_client.delete(
+        api_routes.households_shopping_items,
+        params={"ids": [str(bulk_target.id)]},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    # both items still exist for their owner
+    assert h2_user.repos.group_shopping_list_item.get_one(single_target.id) is not None
+    assert h2_user.repos.group_shopping_list_item.get_one(bulk_target.id) is not None

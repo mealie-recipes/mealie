@@ -4,7 +4,7 @@
     style="border-color: lightgrey;"
     :to="link.to"
     height="100%"
-    class="d-flex flex-column mt-4"
+    class="d-flex flex-column mt-4 pa-2"
   >
     <div
       v-if="$vuetify.display.smAndDown"

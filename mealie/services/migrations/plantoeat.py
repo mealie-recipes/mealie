@@ -7,6 +7,7 @@ from pathlib import Path
 from slugify import slugify
 
 from mealie.pkgs.cache import cache_key
+from mealie.schema.reports.reports import ReportEntryCreate
 from mealie.services.scraper import cleaner
 
 from ._migration_base import BaseMigrator
@@ -15,15 +16,23 @@ from .utils.migration_helpers import scrape_image, split_by_comma
 
 
 def plantoeat_recipes(file: Path):
-    """Yields all recipes inside the export file as dict"""
-    with tempfile.TemporaryDirectory() as tmpdir:
-        with zipfile.ZipFile(file) as zip_file:
-            zip_file.extractall(tmpdir)
+    """Yields all recipes inside the export file as dict.
 
-        for name in Path(tmpdir).glob("**/[!.]*.csv"):
-            with open(name, newline="") as csvfile:
-                reader = csv.DictReader(csvfile)
-                yield from reader
+    Accepts a ZIP archive containing a CSV, or a raw CSV/TXT file.
+    """
+    if zipfile.is_zipfile(file):
+        with tempfile.TemporaryDirectory() as tmpdir:
+            with zipfile.ZipFile(file) as zip_file:
+                zip_file.extractall(tmpdir)
+
+            for name in Path(tmpdir).glob("**/[!.]*.csv"):
+                with open(name, newline="") as csvfile:
+                    reader = csv.DictReader(csvfile)
+                    yield from reader
+    else:
+        with open(file, newline="", encoding="utf-8", errors="ignore") as csvfile:
+            reader = csv.DictReader(csvfile)
+            yield from reader
 
 
 def get_value_as_string_or_none(dictionary: dict, key: str):
@@ -112,7 +121,32 @@ class PlanToEatMigrator(BaseMigrator):
 
         return recipe_dict
 
+    def _validate_archive(self) -> bool:
+        """Returns False and appends a failure report entry if the file is not a ZIP, CSV, or TXT."""
+        if zipfile.is_zipfile(self.archive):
+            return True
+
+        try:
+            with open(self.archive, encoding="utf-8", errors="strict") as f:
+                f.read(512)
+            return True
+        except UnicodeDecodeError:
+            pass
+
+        self.report_entries.append(
+            ReportEntryCreate(
+                report_id=self.report_id,
+                success=False,
+                message="Unsupported file format. Please upload a ZIP archive, CSV file, or TXT file.",
+                exception="",
+            )
+        )
+        return False
+
     def _migrate(self) -> None:
+        if not self._validate_archive():
+            return
+
         recipe_image_urls = {}
 
         recipes = []

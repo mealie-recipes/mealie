@@ -11,7 +11,7 @@
         <v-card-text>
           <v-card-text class="pa-0">
             <p>{{ $t('recipe.scrape-recipe-description') }}</p>
-            <p v-if="$appInfo.enableOpenaiTranscriptionServices">
+            <p v-if="group?.aiProviderSettings?.audioProviderEnabled">
               {{ $t('recipe.scrape-recipe-description-transcription') }}
             </p>
           </v-card-text>
@@ -23,6 +23,10 @@
             <p>
               {{ $t('recipe.scrape-recipe-have-raw-html-or-json-data') }}
               <router-link :to="htmlOrJsonImporterTarget" class="text-primary">{{ $t('recipe.scrape-recipe-you-can-import-from-raw-data-directly') }}</router-link>.
+            </p>
+            <p v-if="aiEnabled">
+              {{ $t('recipe.scrape-recipe-have-ai-read-the-page') }}
+              <router-link :to="aiImporterTarget" class="text-primary">{{ $t('recipe.import-with-ai') }}</router-link>.
             </p>
           </v-card-text>
           <v-text-field
@@ -106,6 +110,10 @@
             {{ $t("recipe.scrape-recipe-website-being-blocked") }}
             <router-link :to="htmlOrJsonImporterTarget">{{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}</router-link>
           </p>
+          <p v-if="aiEnabled">
+            {{ $t("recipe.scrape-recipe-have-ai-read-the-page") }}
+            <router-link :to="aiImporterTarget">{{ $t("recipe.import-with-ai") }}</router-link>.
+          </p>
           <br>
           <p>
             {{ $t("new-recipe.error-details") }}
@@ -145,6 +153,7 @@
 <script setup lang="ts">
 import type { AxiosResponse } from "axios";
 import { useUserApi } from "~/composables/api";
+import { useGroupSelf } from "~/composables/use-groups";
 import { useTagStore } from "~/composables/store/use-tag-store";
 import { useNewRecipeOptions } from "~/composables/use-new-recipe-options";
 import { validators } from "~/composables/use-validators";
@@ -162,6 +171,7 @@ const auth = useMealieAuth();
 const api = useUserApi();
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
+const { group } = useGroupSelf();
 
 const router = useRouter();
 const tags = useTagStore();
@@ -176,6 +186,8 @@ const {
 
 const bulkImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/bulk`);
 const htmlOrJsonImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/html`);
+const aiImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/ai`);
+const aiEnabled = computed(() => !!group.value?.aiProviderSettings?.aiEnabled);
 
 function handleResponse(response: AxiosResponse<string> | null, refreshTags = false) {
   if (response?.status !== 201) {

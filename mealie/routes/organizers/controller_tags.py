@@ -51,6 +51,7 @@ class TagController(BaseCrudController):
     @router.post("", status_code=201)
     def create_one(self, tag: TagIn):
         """Creates a Tag in the database"""
+        self.checks.can_organize()
         save_data = mapper.cast(tag, TagSave, group_id=self.group_id)
         new_tag = self.mixins.create_one(save_data)
 
@@ -72,6 +73,7 @@ class TagController(BaseCrudController):
     @router.put("/{item_id}", response_model=RecipeTagResponse)
     def update_one(self, item_id: UUID4, new_tag: TagIn):
         """Updates an existing Tag in the database"""
+        self.checks.can_organize()
         save_data = mapper.cast(new_tag, TagSave, group_id=self.group_id)
         tag = self.repo.update(item_id, save_data)
 
@@ -97,6 +99,7 @@ class TagController(BaseCrudController):
         tag does not impact a recipe. The tag will be removed
         from any recipes that contain it
         """
+        self.checks.can_organize()
 
         try:
             tag = self.repo.delete(item_id)

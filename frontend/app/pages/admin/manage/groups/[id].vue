@@ -33,6 +33,13 @@
             v-if="group.preferences"
             v-model="group.preferences"
           />
+          <GroupAIProviderSettingsEditor
+            v-if="group.aiProviderSettings"
+            v-model="group.aiProviderSettings"
+            @create="handleCreateProvider"
+            @update="handleUpdateProvider"
+            @delete="handleDeleteProvider"
+          />
         </v-card-text>
       </v-card>
       <div class="d-flex pa-2">
@@ -50,8 +57,10 @@
 
 <script setup lang="ts">
 import GroupPreferencesEditor from "~/components/Domain/Group/GroupPreferencesEditor.vue";
+import GroupAIProviderSettingsEditor from "~/components/Domain/Group/GroupAIProviderSettingsEditor.vue";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
+import type { AIProviderCreate, AIProviderUpdate } from "~/lib/api/types/group";
 import type { VForm } from "vuetify/components";
 
 definePageMeta({
@@ -72,7 +81,7 @@ const adminApi = useAdminApi();
 
 const userError = ref(false);
 
-const { data: group } = useLazyAsyncData(`get-household-${groupId.value}`, async () => {
+const { data: group, refresh } = useLazyAsyncData(`get-household-${groupId.value}`, async () => {
   if (!groupId.value) {
     return null;
   }
@@ -86,7 +95,7 @@ const { data: group } = useLazyAsyncData(`get-household-${groupId.value}`, async
 }, { watch: [groupId] });
 
 async function handleSubmit() {
-  if (!refGroupEditForm.value?.validate() || group.value === null) {
+  if (!refGroupEditForm.value?.validate() || !group.value) {
     return;
   }
 
@@ -101,6 +110,42 @@ async function handleSubmit() {
   }
   else {
     alert.error(i18n.t("settings.settings-update-failed"));
+  }
+}
+
+async function handleCreateProvider(data: AIProviderCreate) {
+  if (!group.value) return;
+  const result = await adminApi.aiProviders.createProvider(group.value.id, data);
+  if (result.data) {
+    await refresh();
+    alert.success(i18n.t("group.ai-provider-settings.provider-created"));
+  }
+  else {
+    alert.error(i18n.t("group.ai-provider-settings.provider-create-failed"));
+  }
+}
+
+async function handleUpdateProvider(id: string, data: AIProviderUpdate) {
+  if (!group.value) return;
+  const result = await adminApi.aiProviders.updateProvider(group.value.id, id, data);
+  if (result.data) {
+    await refresh();
+    alert.success(i18n.t("group.ai-provider-settings.provider-updated"));
+  }
+  else {
+    alert.error(i18n.t("group.ai-provider-settings.provider-update-failed"));
+  }
+}
+
+async function handleDeleteProvider(id: string) {
+  if (!group.value) return;
+  const result = await adminApi.aiProviders.deleteProvider(group.value.id, id);
+  if (result.data) {
+    await refresh();
+    alert.success(i18n.t("group.ai-provider-settings.provider-deleted"));
+  }
+  else {
+    alert.error(i18n.t("group.ai-provider-settings.provider-delete-failed"));
   }
 }
 </script>
