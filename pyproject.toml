@@ -66,7 +66,7 @@ dev = [
     "mkdocs-material==9.7.7",
     "mypy==2.3.0",
     "pre-commit==4.6.1",
-    "pylint==4.0.6",
+    "pylint==4.0.7",
     "pytest==9.1.1",
     "pytest-asyncio==1.4.0",
     "rich==15.0.0",
@@ -78,7 +78,7 @@ dev = [
     "types-urllib3==1.26.25.14",
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
-    "httpx2==2.9.1",
+    "httpx2==2.10.0",
 ]
 
 [build-system]
