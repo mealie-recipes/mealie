@@ -9,6 +9,7 @@
       :title="$t('new-recipe.bulk-add')"
       :icon="$globals.icons.createAlt"
       :submit-text="$t('general.add')"
+      :cancel-text="$t('general.cancel')"
       :submit-disabled="!canSave"
       :disable-submit-on-enter="true"
       can-submit
@@ -126,7 +127,7 @@ function close() {
 
 const i18n = useI18n();
 
-const utilities = [
+const utilities = computed(() => [
   {
     id: "trim-whitespace",
     description: i18n.t("new-recipe.trim-whitespace-description"),
@@ -142,7 +143,7 @@ const utilities = [
     description: i18n.t("new-recipe.split-by-numbered-line-description"),
     action: splitByNumberedLine,
   },
-];
+]);
 
 // Expose functions to parent components
 defineExpose({
