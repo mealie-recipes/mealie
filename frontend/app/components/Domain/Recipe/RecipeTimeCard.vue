@@ -17,7 +17,7 @@
         >
           {{ $globals.icons.clockOutline }}
         </v-icon>
-        <p class="my-0">
+        <p class="my-0 text-no-wrap">
           <span class="font-weight-bold opacity-80">{{ validateTotalTime.name }}</span><br>{{ validateTotalTime.value }}
         </p>
       </v-row>
@@ -33,7 +33,7 @@
     >
       <v-row
         no-gutters
-        class="d-flex justify-center align-center"
+        class="d-flex flex-nowrap justify-center align-center"
         :class="{ 'flex-column': $vuetify.display.smAndDown }"
         style="width: 100%;"
         :style="fontSize"
@@ -49,12 +49,12 @@
           >
             {{ $globals.icons.knife }}
           </v-icon>
-          <p class="my-0">
+          <p class="my-0 text-no-wrap">
             <span class="font-weight-bold opacity-80">{{ validatePrepTime.name }}</span><br>{{ validatePrepTime.value }}
           </p>
         </div>
         <v-divider
-          v-if="validatePrepTime && validatePerformTime"
+          v-if="validatePrepTime && validatePerformTime && !$vuetify.display.smAndDown"
           vertical
           class="mx-4"
         />
@@ -69,7 +69,7 @@
           >
             {{ $globals.icons.potSteam }}
           </v-icon>
-          <p class="my-0">
+          <p class="my-0 text-no-wrap">
             <span class="font-weight-bold opacity-80">{{ validatePerformTime.name }}</span><br>{{ validatePerformTime.value }}
           </p>
         </div>
