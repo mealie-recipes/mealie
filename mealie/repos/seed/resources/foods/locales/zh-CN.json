@@ -16,7 +16,7 @@
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
+                "name": "甜椒",
                 "plural_name": "甜椒"
             },
             "carrot": {
@@ -28,8 +28,8 @@
             "scallion": {
                 "aliases": [],
                 "description": "",
-                "name": "scallion",
-                "plural_name": "scallions"
+                "name": "小葱",
+                "plural_name": "小葱"
             },
             "zucchini": {
                 "aliases": [],
@@ -46,26 +46,26 @@
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "red onions"
+                "name": "紫洋葱",
+                "plural_name": "紫洋葱"
             },
             "yellow onion": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow onion",
-                "plural_name": "yellow onions"
+                "name": "黄洋葱",
+                "plural_name": "黄洋葱"
             },
             "celery": {
                 "aliases": [],
                 "description": "",
-                "name": "celery",
-                "plural_name": "celery"
+                "name": "芹菜",
+                "plural_name": "芹菜"
             },
             "jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "name": "墨西哥辣椒",
+                "plural_name": "墨西哥辣椒"
             },
             "avocado": {
                 "aliases": [],
@@ -82,8 +82,8 @@
             "cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry tomato",
-                "plural_name": "cherry tomatoes"
+                "name": "圣女果",
+                "plural_name": "圣女果"
             },
             "cucumber": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "菠菜",
-                "plural_name": "spinach"
+                "plural_name": "菠菜"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "甜玉米",
-                "plural_name": "sweet corn"
+                "plural_name": "甜玉米"
             },
             "chile pepper": {
                 "aliases": [
@@ -13725,11 +13725,11 @@
                 "name": "anchovy stock",
                 "plural_name": "anchovy stock"
             },
-            "cream of chicken soup mix:": {
+            "cream of chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "cream of chicken soup mix",
+                "plural_name": "cream of chicken soup mix"
             },
             "noodle soup mix": {
                 "aliases": [],

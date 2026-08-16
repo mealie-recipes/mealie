@@ -22,14 +22,14 @@
         "or-ingredient": "或 {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI 服务未启用",
-            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "ai-request-failed": "AI 提供商无法完成请求。请重试",
             "image-provider-not-enabled": "AI 图像服务未启用",
             "no-recipe-found": "在提供的源中没有找到食谱",
             "no-source": "未提供任何内容、图像或网址",
             "provider-returned-nothing": "AI 提供者没有返回食谱",
-            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unknown-error": "创建食谱时出现错误。请重试",
             "unreadable-source": "无法从提供的源读取任何内容",
-            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+            "video-download-failed": "无法下载视频。该视频可能已设为私密、已被删除或来自不支持的网站"
         },
         "create-progress": {
             "creating-recipe": "正在加载食谱……",
@@ -43,7 +43,7 @@
             "reading-images-with-ai": "正在用 AI读取图像……",
             "reading-source-with-ai": "正在用 AI读取源……",
             "transcribing-audio-with-ai": "正在用AI翻译音频……",
-            "translating-recipe": "Translating recipe..."
+            "translating-recipe": "正在翻译食谱……"
         }
     },
     "mealplan": {
