@@ -394,12 +394,26 @@ const { validate: validGroupName, valid: groupNameValid } = useAsyncValidator(
   i18n.t("validation.group-name-is-taken"),
   groupErrorMessages,
 );
+async function validateGroup() {
+  if (!groupName.value || groupName.value.trim() === '') {
+    groupErrorMessages.value = [i18n.t("validation.required")];
+    return false;
+  }
+  groupErrorMessages.value = [];
+  await validGroupName();
+
+  if (!groupNameValid.value) {
+    return false;
+  }
+
+  return true;
+}
 const groupDetails = {
   groupName,
   groupSeed,
   groupPrivate,
-  next: () => {
-    if (!safeValidate(domGroupForm as Ref<VForm>) || !groupNameValid.value) {
+  next: async () => {
+    if (!await validateGroup()) {
       return;
     }
     state.setState(States.ProvideAccountDetails);
