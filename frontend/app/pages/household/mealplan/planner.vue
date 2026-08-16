@@ -116,10 +116,18 @@ const route = useRoute();
 const router = useRouter();
 const i18n = useI18n();
 const api = useUserApi();
-const { household } = useHouseholdSelf();
+const { household, actions: householdActions } = useHouseholdSelf();
 
 useSeoMeta({
   title: i18n.t("meal-plan.dinner-this-week"),
+});
+
+// useHouseholdSelf() caches data in a module-level singleton for the lifetime of the tab,
+// so revisiting this page via client-side navigation can otherwise use a stale
+// firstDayOfWeek value if household preferences were changed elsewhere (e.g. Admin
+// Households panel) in the same session. Force a revalidation whenever this page is entered.
+onMounted(() => {
+  householdActions.refresh();
 });
 
 const mealPlanPreferences = useUserMealPlanPreferences();

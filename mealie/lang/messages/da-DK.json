@@ -20,15 +20,30 @@
         },
         "and-amount": "og {amount}",
         "or-ingredient": "eller {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Opretter opskrift med kunstig intelligens...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Transskriberer og opretter opskrift med kunstig intelligens...",
             "creating-recipe-from-webpage-data": "Opretter opskrift fra data på hjemmeside...",
             "downloading-image": "Downloader billede...",
             "downloading-video": "Downloader video...",
             "extracting-recipe-data": "Udtrækker opskriftsdata...",
             "fetching-webpage": "Henter hjemmeside...",
-            "transcribing-audio-with-ai": "Transskriberer lyd med kunstig intelligens..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Transskriberer lyd med kunstig intelligens...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "Du har ikke tilladelse til at udføre denne handling",
         "recursive-recipe-link": "En opskrift kan ikke henvise til sig selv, hverken direkte eller indirekte",
         "no-entry-found": "Siden kunne ikke findes",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Databaseintegritetsfejl",
         "username-conflict-error": "Dette brugernavn er allerede i brug",
         "email-conflict-error": "Denne e-mail er allerede i brug"

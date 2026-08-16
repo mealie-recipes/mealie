@@ -20,15 +20,30 @@
         },
         "and-amount": "e {amount}",
         "or-ingredient": "o {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Creazione della ricetta con AI in corso...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Creazione della ricetta dalla trascrizione con AI in corso...",
             "creating-recipe-from-webpage-data": "Creazione della ricetta dai dati della pagina web in corso...",
             "downloading-image": "Download dell'immagine in corso...",
             "downloading-video": "Download del video in corso...",
             "extracting-recipe-data": "Estrazione dei dati della ricetta in corso...",
             "fetching-webpage": "Recupero della pagina web in corso...",
-            "transcribing-audio-with-ai": "Trascrizione dell'audio con AI in corso..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Trascrizione dell'audio con AI in corso...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "Non hai i permessi per eseguire quest'azione",
         "recursive-recipe-link": "Una ricetta non può fare riferimento a sé stessa, né direttamente né indirettamente",
         "no-entry-found": "La risorsa richiesta non è stata trovata",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Errore di integrità del database",
         "username-conflict-error": "Questo nome utente è già in uso",
         "email-conflict-error": "Questo indirizzo email è già utilizzato"
