@@ -1,6 +1,7 @@
 import pytest
 import sqlalchemy as sa
 
+from mealie.db.models.recipe.ingredient import IngredientFoodModel
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.users.users import LongLiveToken, User
 from mealie.services.query_filter.builder import (
@@ -157,3 +158,37 @@ def test_association_proxy_resolving_to_filterable_field_works():
     model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("household_id", RecipeModel)
     assert model is User
     assert attr is User.household_id
+
+
+def test_deep_traversal_to_food_label_works():
+    """Traversing recipe -> ingredient -> food to a food's label should succeed."""
+    model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
+        "recipe_ingredient.food.label_id", RecipeModel
+    )
+    assert model is IngredientFoodModel
+    assert attr is IngredientFoodModel.label_id
+
+
+def test_filter_query_by_food_label_joins_through_ingredients():
+    """Filtering recipes by food label should join recipes -> ingredients -> foods."""
+    label_id = "a5f1c6d2-0000-4000-8000-000000000001"
+    builder = QueryFilterBuilder(f'recipe_ingredient.food.label_id IN ["{label_id}"]')
+    query = builder.filter_query(sa.select(RecipeModel.id), RecipeModel)
+
+    sql = " ".join(str(query.compile(compile_kwargs={"literal_binds": True})).split())
+    assert "JOIN recipes_ingredients" in sql
+    assert "JOIN ingredient_foods" in sql
+    assert "ingredient_foods.label_id IN" in sql
+
+
+def test_filter_query_excluding_food_label_excludes_the_whole_recipe():
+    """
+    Excluding a food label must exclude recipes containing any matching ingredient, rather than
+    matching recipes that merely contain some other ingredient.
+    """
+    label_id = "a5f1c6d2-0000-4000-8000-000000000001"
+    builder = QueryFilterBuilder(f'recipe_ingredient.food.label_id NOT IN ["{label_id}"]')
+    query = builder.filter_query(sa.select(RecipeModel.id), RecipeModel)
+
+    sql = " ".join(str(query.compile(compile_kwargs={"literal_binds": True})).split())
+    assert "recipes.id NOT IN (SELECT" in sql
