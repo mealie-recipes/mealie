@@ -21,29 +21,29 @@
         "and-amount": "og {amount}",
         "or-ingredient": "eller {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
-            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
-            "image-provider-not-enabled": "AI image services are not enabled",
-            "no-recipe-found": "No recipe was found in the provided source",
-            "no-source": "No content, images, or URL were provided",
-            "provider-returned-nothing": "The AI provider did not return a recipe",
-            "unknown-error": "Something went wrong while creating the recipe. Please try again",
-            "unreadable-source": "Unable to read any content from the provided source",
-            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+            "ai-not-enabled": "AI-tjenester er ikke slået til",
+            "ai-request-failed": "AI-udbyderen var ikke is tand til at færdiggøre forespørgslen. Prøv igen",
+            "image-provider-not-enabled": "AI-billedservice ikke tilgængelig",
+            "no-recipe-found": "Der blev ikke fundet en opskrift i den angivne kilde",
+            "no-source": "Der blev ikke angivet indhold, billeder eller en URL",
+            "provider-returned-nothing": "AI-udbyderen returnerede ikke en opskrift",
+            "unknown-error": "Noget gik galt under oprettelse af opskrift. Prøv igen",
+            "unreadable-source": "Det er ikke muligt at læse noget indhold fra den angivne kilde",
+            "video-download-failed": "Det er ikke muligt at downloade videoen. Den kan være privat, fjernet eller fra en ikke-understøttet side"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Opretter opskrift...",
             "creating-recipe-from-transcript-with-ai": "Transskriberer og opretter opskrift med kunstig intelligens...",
             "creating-recipe-from-webpage-data": "Opretter opskrift fra data på hjemmeside...",
             "downloading-image": "Downloader billede...",
             "downloading-video": "Downloader video...",
             "extracting-recipe-data": "Udtrækker opskriftsdata...",
             "fetching-webpage": "Henter hjemmeside...",
-            "organizing-recipe": "Organizing recipe...",
-            "reading-images-with-ai": "Reading images with AI...",
-            "reading-source-with-ai": "Reading source with AI...",
+            "organizing-recipe": "Organiserer opskrift...",
+            "reading-images-with-ai": "Læser billeder med AI...",
+            "reading-source-with-ai": "Læser kilden med AI...",
             "transcribing-audio-with-ai": "Transskriberer lyd med kunstig intelligens...",
-            "translating-recipe": "Translating recipe..."
+            "translating-recipe": "Oversætter opskrift..."
         }
     },
     "mealplan": {
@@ -62,7 +62,7 @@
         "permission_denied": "Du har ikke tilladelse til at udføre denne handling",
         "recursive-recipe-link": "En opskrift kan ikke henvise til sig selv, hverken direkte eller indirekte",
         "no-entry-found": "Siden kunne ikke findes",
-        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
+        "rate-limit-error": "AI-udbyderen hastighedsbegrænser forespørgsler. Vent lidt, og prøv igen",
         "integrity-error": "Databaseintegritetsfejl",
         "username-conflict-error": "Dette brugernavn er allerede i brug",
         "email-conflict-error": "Denne e-mail er allerede i brug"

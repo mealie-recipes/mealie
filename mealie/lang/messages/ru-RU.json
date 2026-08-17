@@ -18,32 +18,32 @@
             "yield": "Количество порций",
             "yields": "Можно получить порций"
         },
-        "and-amount": "И {amount}",
-        "or-ingredient": "Или {ingredient}",
+        "and-amount": "и {amount}",
+        "or-ingredient": "или {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
-            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
-            "image-provider-not-enabled": "AI image services are not enabled",
-            "no-recipe-found": "No recipe was found in the provided source",
-            "no-source": "No content, images, or URL were provided",
-            "provider-returned-nothing": "The AI provider did not return a recipe",
-            "unknown-error": "Something went wrong while creating the recipe. Please try again",
-            "unreadable-source": "Unable to read any content from the provided source",
-            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+            "ai-not-enabled": "ИИ сервисы выключены",
+            "ai-request-failed": "Провайдер ИИ не смог выполнить запрос. Пожалуйста, попробуйте еще раз",
+            "image-provider-not-enabled": "ИИ службы изображений выключены",
+            "no-recipe-found": "Рецепт не найден в указанном источнике",
+            "no-source": "Нет содержимого, изображений или URL-адреса",
+            "provider-returned-nothing": "Провайдер ИИ не вернул рецепт",
+            "unknown-error": "Что-то пошло не так при создании рецепта. Пожалуйста, попробуйте еще раз",
+            "unreadable-source": "Не удалось прочитать содержимое из предоставленного источника",
+            "video-download-failed": "Не удается загрузить видео. Оно может быть приватным, удаленным или с неподдерживаемого сайта"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Создание рецепта...",
             "creating-recipe-from-transcript-with-ai": "Создание рецепта из транскрипции с ИИ...",
             "creating-recipe-from-webpage-data": "Создание рецепта из данных веб-страницы...",
             "downloading-image": "Загрузка изображения...",
             "downloading-video": "Загрузка видео...",
             "extracting-recipe-data": "Извлечение данных рецепта...",
             "fetching-webpage": "Загрузка веб-страницы...",
-            "organizing-recipe": "Organizing recipe...",
-            "reading-images-with-ai": "Reading images with AI...",
-            "reading-source-with-ai": "Reading source with AI...",
+            "organizing-recipe": "Организация рецепта...",
+            "reading-images-with-ai": "Чтение изображений с помощью ИИ...",
+            "reading-source-with-ai": "Чтение источника с помощью ИИ...",
             "transcribing-audio-with-ai": "Преобразование звука с AI...",
-            "translating-recipe": "Translating recipe..."
+            "translating-recipe": "Перевод рецепта..."
         }
     },
     "mealplan": {
@@ -62,7 +62,7 @@
         "permission_denied": "У вас нет прав для выполнения этого действия",
         "recursive-recipe-link": "Рецепт не может ссылаться на себя ни напрямую, ни косвенно",
         "no-entry-found": "Запрашиваемый ресурс не найден",
-        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
+        "rate-limit-error": "Провайдер ИИ имеет ограничение трафика. Пожалуйста, повторите попытку позже",
         "integrity-error": "Ошибка целостности базы данных",
         "username-conflict-error": "Имя пользователя уже занято",
         "email-conflict-error": "Емейл уже используется"

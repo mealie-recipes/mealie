@@ -9,8 +9,8 @@ dependencies = [
     "Jinja2==3.1.6",
     "Pillow==12.3.0",
     "PyYAML==6.0.3",
-    "SQLAlchemy==2.0.51",
-    "alembic==1.19.0",
+    "SQLAlchemy==2.0.52",
+    "alembic==1.19.1",
     "apprise==1.12.0",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
@@ -25,7 +25,7 @@ dependencies = [
     "python-ldap==3.4.7",
     "python-multipart==0.0.32",
     "python-slugify==8.0.4",
-    "recipe-scrapers==15.11.0",
+    "recipe-scrapers==15.12.0",
     "requests==2.34.2",
     "tzdata==2026.3",
     "uvicorn[standard]==0.52.1",
@@ -39,7 +39,7 @@ dependencies = [
     "pydantic-settings==2.15.0",
     "pillow-heif==1.5.0",
     "pyjwt==2.13.0",
-    "openai==2.53.0",
+    "openai==3.0.0",
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.7.4",
@@ -65,8 +65,8 @@ dev = [
     "coveragepy-lcov==0.1.2",
     "mkdocs-material==9.7.7",
     "mypy==2.3.0",
-    "pre-commit==4.6.1",
-    "pylint==4.0.6",
+    "pre-commit==4.6.2",
+    "pylint==4.0.7",
     "pytest==9.1.1",
     "pytest-asyncio==1.4.0",
     "rich==15.0.0",
@@ -78,11 +78,11 @@ dev = [
     "types-urllib3==1.26.25.14",
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
-    "httpx2==2.9.1",
+    "httpx2==2.10.0",
 ]
 
 [build-system]
-requires = ["setuptools==83.0.0"]
+requires = ["setuptools==84.0.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools]
@@ -103,6 +103,8 @@ python_files = 'test_*'
 python_functions = 'test_*'
 testpaths = ["tests"]
 filterwarnings = [
+    # Treat every warning not explicitly ignored below as a test failure.
+    "error",
     # Suppress unmaintained third-party pyRdfa utcnow() deprecation warning
     "ignore::DeprecationWarning:pyRdfa.*",
     # Suppress Python 3.12 default SQLite datetime-adapter deprecation warning
