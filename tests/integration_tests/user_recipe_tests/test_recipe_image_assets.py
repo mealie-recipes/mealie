@@ -42,6 +42,49 @@ def test_recipe_assets_create(api_client: TestClient, unique_user: TestUser, rec
     assert recipe_respons["assets"][0]["name"] == payload["name"]
 
 
+def test_recipe_assets_create_duplicate_name(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+):
+    """
+    Regression test for https://github.com/mealie-recipes/mealie/issues/5623
+
+    iOS Safari names every camera-captured photo "image.jpg", so uploading multiple assets in a
+    row with an identical client-supplied name must not silently overwrite the previous asset.
+    """
+    recipe = recipe_ingredient_only
+    payload = {
+        "name": "image",
+        "icon": random_string(10),
+        "extension": "jpg",
+    }
+
+    first_response = api_client.post(
+        f"/api/recipes/{recipe.slug}/assets",
+        data=payload,
+        files={"file": data.images_test_image_1.read_bytes()},
+        headers=unique_user.token,
+    )
+    assert first_response.status_code == 200
+    first_file_name = first_response.json()["fileName"]
+
+    second_response = api_client.post(
+        f"/api/recipes/{recipe.slug}/assets",
+        data=payload,
+        files={"file": data.images_test_image_1.read_bytes()},
+        headers=unique_user.token,
+    )
+    assert second_response.status_code == 200
+    second_file_name = second_response.json()["fileName"]
+
+    assert first_file_name != second_file_name
+    assert (recipe.asset_dir / first_file_name).exists()
+    assert (recipe.asset_dir / second_file_name).exists()
+
+    response = api_client.get(f"/api/recipes/{recipe.slug}", headers=unique_user.token)
+    assets = response.json()["assets"]
+    assert len(assets) == 2
+
+
 def test_recipe_asset_exploit(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe):
     """
     Test to ensure that users are unable to circumvent the destination directory when uploading a file
