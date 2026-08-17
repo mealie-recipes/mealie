@@ -395,7 +395,7 @@ const { validate: validGroupName, valid: groupNameValid } = useAsyncValidator(
   groupErrorMessages,
 );
 async function validateGroup() {
-  if (!groupName.value || groupName.value.trim() === '') {
+  if (!groupName.value || !groupName.value.trim()) {
     groupErrorMessages.value = [i18n.t("validation.required")];
     return false;
   }
