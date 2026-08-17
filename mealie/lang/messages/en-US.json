@@ -47,7 +47,13 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "No recipes match your rules"
+        "no-recipes-match-your-rules": "No recipes match your rules",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side"
+        }
     },
     "user": {
         "user-updated": "User updated",
@@ -74,7 +80,17 @@
         "generic-updated-with-url": "{name} has been updated, {url}",
         "generic-duplicated": "{name} has been duplicated",
         "generic-deleted": "{name} has been deleted",
-        "logged-out": "Logged out"
+        "logged-out": "Logged out",
+        "event-title": {
+            "test-message": "Test Message",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "year|years",
