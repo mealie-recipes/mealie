@@ -30,6 +30,7 @@
           @save="saveRecipe"
           @delete="deleteRecipe"
           @close="closeEditor"
+          @organizers-saved="updateOrganizers"
         />
         <RecipeJsonEditor
           v-if="isEditJSON"
@@ -419,6 +420,18 @@ async function saveParsedIngredients(ingredients: NoUndefinedField<RecipeIngredi
   recipe.value.recipeIngredient = ingredients;
   await saveRecipe();
   toggleIsParsing(false);
+}
+
+function updateOrganizers(updatedRecipe: Recipe) {
+  const tags = deepCopy(updatedRecipe.tags ?? []);
+  const categories = deepCopy(updatedRecipe.recipeCategory ?? []);
+  recipe.value.tags = tags as NoUndefinedField<RecipeTag>[];
+  recipe.value.recipeCategory = categories as NoUndefinedField<RecipeCategory>[];
+
+  if (originalRecipe.value) {
+    originalRecipe.value.tags = tags;
+    originalRecipe.value.recipeCategory = categories;
+  }
 }
 
 async function deleteRecipe() {

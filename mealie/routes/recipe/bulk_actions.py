@@ -1,3 +1,4 @@
+from collections import defaultdict
 from functools import cached_property
 from pathlib import Path
 
@@ -5,18 +6,21 @@ from fastapi import APIRouter, HTTPException, status
 from pydantic import UUID4
 
 from mealie.core.dependencies.dependencies import get_temporary_zip_path
-from mealie.core.exceptions import PermissionDenied
+from mealie.core.exceptions import NoEntryFound, PermissionDenied
 from mealie.core.security import create_file_token
-from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base import BaseCrudController, controller
 from mealie.schema.group.group_exports import GroupDataExport
+from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_bulk_actions import (
     AssignCategories,
     AssignSettings,
     AssignTags,
+    BulkOrganizeRecipes,
     DeleteRecipes,
     ExportRecipes,
 )
 from mealie.schema.response.responses import ErrorResponse, SuccessResponse
+from mealie.services.event_bus_service.event_types import EventOperation, EventRecipeBulkData, EventTypes
 from mealie.services.recipe.recipe_bulk_service import RecipeBulkActionsService
 from mealie.services.recipe.recipe_service import RecipeService
 
@@ -24,14 +28,52 @@ router = APIRouter(prefix="/bulk-actions")
 
 
 @controller(router)
-class RecipeBulkActionsController(BaseUserController):
+class RecipeBulkActionsController(BaseCrudController):
     @cached_property
     def service(self) -> RecipeBulkActionsService:
-        return RecipeBulkActionsService(self.repos, self.user, self.group)
+        return RecipeBulkActionsService(self.repos, self.user, self.group, self.household, self.translator)
 
     @cached_property
     def recipe_service(self) -> RecipeService:
         return RecipeService(self.repos, self.user, self.household, self.translator)
+
+    @router.post("/organize", response_model=list[RecipeSummary])
+    def bulk_organize_recipes(self, organize_data: BulkOrganizeRecipes):
+        try:
+            updated_recipes = self.service.organize_recipes(organize_data)
+        except PermissionDenied as e:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail=ErrorResponse.respond(message="Permission Denied"),
+            ) from e
+        except NoEntryFound as e:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=ErrorResponse.respond(message="No Entry Found"),
+            ) from e
+        except Exception as e:
+            self.logger.exception("Unknown error during bulk recipe organization")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=ErrorResponse.respond(message="Unknown Error", exception=e.__class__.__name__),
+            ) from e
+
+        updated_by_household: defaultdict[UUID4, list[str]] = defaultdict(list)
+        for recipe in updated_recipes:
+            updated_by_household[recipe.household_id].append(recipe.slug)
+
+        for household_id, recipe_slugs in updated_by_household.items():
+            self.publish_event(
+                event_type=EventTypes.recipe_updated,
+                document_data=EventRecipeBulkData(
+                    operation=EventOperation.update,
+                    recipe_slugs=recipe_slugs,
+                ),
+                group_id=self.group.id,
+                household_id=household_id,
+            )
+
+        return updated_recipes
 
     # TODO Should these actions return some success response?
     @router.post("/tag")

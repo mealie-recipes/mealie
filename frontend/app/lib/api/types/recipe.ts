@@ -38,6 +38,13 @@ export interface AssignTags {
   recipes: string[];
   tags: TagBase[];
 }
+export type OrganizerOperation = "add" | "remove";
+export interface BulkOrganizeRecipes {
+  recipes: string[];
+  operation: OrganizerOperation;
+  tags: TagBase[];
+  categories: CategoryBase[];
+}
 export interface TagBase {
   name: string;
   id: string;

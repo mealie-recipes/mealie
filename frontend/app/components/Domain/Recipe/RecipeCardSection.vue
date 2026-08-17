@@ -1,5 +1,11 @@
 <template>
   <div>
+    <RecipeQuickOrganizeDialog
+      v-model="organizerDialog"
+      :recipes="organizerRecipes"
+      :mode="organizerMode"
+      @saved="handleOrganizerSaved"
+    />
     <v-row
       v-if="!disableToolbar"
       class="align-center pb-2"
@@ -13,97 +19,162 @@
       </v-icon>
       <span class="text-headline-small">{{ title }}</span>
       <v-spacer />
-      <v-btn
-        :icon="$vuetify.display.xs"
-        variant="text"
-        :disabled="recipes.length === 0"
-        @click="navigateRandom"
+      <template v-if="!selectionMode">
+        <v-btn
+          :icon="$vuetify.display.xs"
+          variant="text"
+          :disabled="recipes.length === 0"
+          @click="navigateRandom"
+        >
+          <v-icon :start="!$vuetify.display.xs">
+            {{ $globals.icons.diceMultiple }}
+          </v-icon>
+          {{ $vuetify.display.xs ? null : $t("general.random") }}
+        </v-btn>
+        <v-menu
+          v-if="!disableSort"
+          offset-y
+          start
+        >
+          <template #activator="{ props: activatorProps }">
+            <v-btn
+              variant="text"
+              :icon="$vuetify.display.xs"
+              v-bind="activatorProps"
+              :loading="sortLoading"
+            >
+              <v-icon :start="!$vuetify.display.xs">
+                {{ preferences.sortIcon }}
+              </v-icon>
+              {{ $vuetify.display.xs ? null : $t("general.sort") }}
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item @click="sortRecipes(EVENTS.az)">
+              <div class="d-flex align-center flex-nowrap">
+                <v-icon class="mr-2" inline>
+                  {{ $globals.icons.orderAlphabeticalAscending }}
+                </v-icon>
+                <v-list-item-title>{{ $t("general.sort-alphabetically") }}</v-list-item-title>
+              </div>
+            </v-list-item>
+            <v-list-item @click="sortRecipes(EVENTS.rating)">
+              <div class="d-flex align-center flex-nowrap">
+                <v-icon class="mr-2" inline>
+                  {{ $globals.icons.star }}
+                </v-icon>
+                <v-list-item-title>{{ $t("general.rating") }}</v-list-item-title>
+              </div>
+            </v-list-item>
+            <v-list-item @click="sortRecipes(EVENTS.created)">
+              <div class="d-flex align-center flex-nowrap">
+                <v-icon class="mr-2" inline>
+                  {{ $globals.icons.newBox }}
+                </v-icon>
+                <v-list-item-title>{{ $t("general.created") }}</v-list-item-title>
+              </div>
+            </v-list-item>
+            <v-list-item @click="sortRecipes(EVENTS.updated)">
+              <div class="d-flex align-center flex-nowrap">
+                <v-icon class="mr-2" inline>
+                  {{ $globals.icons.update }}
+                </v-icon>
+                <v-list-item-title>{{ $t("general.updated") }}</v-list-item-title>
+              </div>
+            </v-list-item>
+            <v-list-item @click="sortRecipes(EVENTS.lastMade)">
+              <div class="d-flex align-center flex-nowrap">
+                <v-icon class="mr-2" inline>
+                  {{ $globals.icons.chefHat }}
+                </v-icon>
+                <v-list-item-title>{{ $t("general.last-made") }}</v-list-item-title>
+              </div>
+            </v-list-item>
+            <v-list-item @click="sortRecipes(EVENTS.shuffle)">
+              <div class="d-flex align-center flex-nowrap">
+                <v-icon class="mr-2" inline>
+                  {{ $globals.icons.diceMultiple }}
+                </v-icon>
+                <v-list-item-title>{{ $t("general.random") }}</v-list-item-title>
+              </div>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        <v-btn
+          v-if="canQuickOrganize"
+          variant="text"
+          :icon="$vuetify.display.xs"
+          :disabled="recipes.length === 0"
+          @click="enterSelectionMode"
+        >
+          <v-icon :start="!$vuetify.display.xs">
+            {{ $globals.icons.checkboxMultipleBlankOutline }}
+          </v-icon>
+          {{ $vuetify.display.xs ? null : $t("general.select") }}
+        </v-btn>
+        <ContextMenu
+          v-if="!$vuetify.display.smAndDown"
+          :items="[
+            {
+              title: $t('general.toggle-view'),
+              icon: $globals.icons.eye,
+              event: 'toggle-dense-view',
+            },
+          ]"
+          @toggle-dense-view="toggleMobileCards()"
+        />
+      </template>
+      <div
+        v-else
+        class="d-flex flex-wrap align-center ga-1"
       >
-        <v-icon :start="!$vuetify.display.xs">
-          {{ $globals.icons.diceMultiple }}
-        </v-icon>
-        {{ $vuetify.display.xs ? null : $t("general.random") }}
-      </v-btn>
-      <v-menu
-        v-if="!disableSort"
-        offset-y
-        start
-      >
-        <template #activator="{ props: activatorProps }">
-          <v-btn
-            variant="text"
-            :icon="$vuetify.display.xs"
-            v-bind="activatorProps"
-            :loading="sortLoading"
-          >
-            <v-icon :start="!$vuetify.display.xs">
-              {{ preferences.sortIcon }}
-            </v-icon>
-            {{ $vuetify.display.xs ? null : $t("general.sort") }}
-          </v-btn>
-        </template>
-        <v-list>
-          <v-list-item @click="sortRecipes(EVENTS.az)">
-            <div class="d-flex align-center flex-nowrap">
-              <v-icon class="mr-2" inline>
-                {{ $globals.icons.orderAlphabeticalAscending }}
-              </v-icon>
-              <v-list-item-title>{{ $t("general.sort-alphabetically") }}</v-list-item-title>
-            </div>
-          </v-list-item>
-          <v-list-item @click="sortRecipes(EVENTS.rating)">
-            <div class="d-flex align-center flex-nowrap">
-              <v-icon class="mr-2" inline>
-                {{ $globals.icons.star }}
-              </v-icon>
-              <v-list-item-title>{{ $t("general.rating") }}</v-list-item-title>
-            </div>
-          </v-list-item>
-          <v-list-item @click="sortRecipes(EVENTS.created)">
-            <div class="d-flex align-center flex-nowrap">
-              <v-icon class="mr-2" inline>
-                {{ $globals.icons.newBox }}
-              </v-icon>
-              <v-list-item-title>{{ $t("general.created") }}</v-list-item-title>
-            </div>
-          </v-list-item>
-          <v-list-item @click="sortRecipes(EVENTS.updated)">
-            <div class="d-flex align-center flex-nowrap">
-              <v-icon class="mr-2" inline>
-                {{ $globals.icons.update }}
-              </v-icon>
-              <v-list-item-title>{{ $t("general.updated") }}</v-list-item-title>
-            </div>
-          </v-list-item>
-          <v-list-item @click="sortRecipes(EVENTS.lastMade)">
-            <div class="d-flex align-center flex-nowrap">
-              <v-icon class="mr-2" inline>
-                {{ $globals.icons.chefHat }}
-              </v-icon>
-              <v-list-item-title>{{ $t("general.last-made") }}</v-list-item-title>
-            </div>
-          </v-list-item>
-          <v-list-item @click="sortRecipes(EVENTS.shuffle)">
-            <div class="d-flex align-center flex-nowrap">
-              <v-icon class="mr-2" inline>
-                {{ $globals.icons.diceMultiple }}
-              </v-icon>
-              <v-list-item-title>{{ $t("general.random") }}</v-list-item-title>
-            </div>
-          </v-list-item>
-        </v-list>
-      </v-menu>
-      <ContextMenu
-        v-if="!$vuetify.display.smAndDown"
-        :items="[
-          {
-            title: $t('general.toggle-view'),
-            icon: $globals.icons.eye,
-            event: 'toggle-dense-view',
-          },
-        ]"
-        @toggle-dense-view="toggleMobileCards()"
-      />
+        <span class="text-body-medium mr-2">
+          {{ $t("general.selected-count", { count: selectedRecipes.length }) }}
+        </span>
+        <v-btn
+          variant="text"
+          :icon="$vuetify.display.xs"
+          :loading="selectAllLoading"
+          @click="selectAllResults"
+        >
+          <v-icon :start="!$vuetify.display.xs">
+            {{ $globals.icons.checkboxMultipleMarkedOutline }}
+          </v-icon>
+          {{ $vuetify.display.xs ? null : $t("recipe.select-all-results") }}
+        </v-btn>
+        <v-btn
+          variant="text"
+          :icon="$vuetify.display.xs"
+          :disabled="selectedRecipes.length === 0"
+          @click="openBulkOrganizer"
+        >
+          <v-icon :start="!$vuetify.display.xs">
+            {{ $globals.icons.organizers }}
+          </v-icon>
+          {{ $vuetify.display.xs ? null : $t("settings.organize") }}
+        </v-btn>
+        <v-btn
+          variant="text"
+          :icon="$vuetify.display.xs"
+          :disabled="selectedRecipes.length === 0"
+          @click="clearSelection"
+        >
+          <v-icon :start="!$vuetify.display.xs">
+            {{ $globals.icons.close }}
+          </v-icon>
+          {{ $vuetify.display.xs ? null : $t("general.clear") }}
+        </v-btn>
+        <v-btn
+          variant="text"
+          :icon="$vuetify.display.xs"
+          @click="exitSelectionMode"
+        >
+          <v-icon :start="!$vuetify.display.xs">
+            {{ $globals.icons.close }}
+          </v-icon>
+          {{ $vuetify.display.xs ? null : $t("recipe.exit-selection") }}
+        </v-btn>
+      </div>
     </v-row>
     <div v-if="recipes && ready">
       <div class="mt-2">
@@ -124,6 +195,11 @@
               :image="recipe.image!"
               :tags="recipe.tags!"
               :recipe-id="recipe.id!"
+              :show-organizer="canQuickOrganize"
+              :select-mode="selectionMode"
+              :selected="isRecipeSelected(recipe)"
+              @click="toggleRecipeSelection(recipe)"
+              @organize="openSingleOrganizer(recipe)"
             />
           </v-col>
         </v-row>
@@ -148,6 +224,11 @@
               :image="recipe.image!"
               :tags="recipe.tags!"
               :recipe-id="recipe.id!"
+              :show-organizer="canQuickOrganize"
+              :select-mode="selectionMode"
+              :selected="isRecipeSelected(recipe)"
+              @selected="toggleRecipeSelection(recipe)"
+              @organize="openSingleOrganizer(recipe)"
             />
           </v-col>
         </v-row>
@@ -171,9 +252,12 @@ import RecipeCard from "./RecipeCard.vue";
 import RecipeCardMobile from "./RecipeCardMobile.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useLazyRecipes } from "~/composables/recipes";
-import type { Recipe } from "~/lib/api/types/recipe";
+import { useUserApi } from "~/composables/api";
+import { alert } from "~/composables/use-toast";
+import type { Recipe, RecipeSummary } from "~/lib/api/types/recipe";
 import { useUserSortPreferences } from "~/composables/use-users/preferences";
 import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
+import RecipeQuickOrganizeDialog from "./RecipeQuickOrganizeDialog.vue";
 
 const REPLACE_RECIPES_EVENT = "replaceRecipes";
 const APPEND_RECIPES_EVENT = "appendRecipes";
@@ -186,6 +270,7 @@ interface Props {
   singleColumn?: boolean;
   recipes?: Recipe[];
   query?: RecipeSearchQuery | null;
+  quickOrganize?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   disableToolbar: false,
@@ -195,11 +280,13 @@ const props = withDefaults(defineProps<Props>(), {
   singleColumn: false,
   recipes: () => [],
   query: null,
+  quickOrganize: false,
 });
 
 const emit = defineEmits<{
   replaceRecipes: [recipes: Recipe[]];
   appendRecipes: [recipes: Recipe[]];
+  recipesUpdated: [recipes: RecipeSummary[]];
 }>();
 
 const display = useDisplay();
@@ -217,6 +304,9 @@ const EVENTS = {
 const auth = useMealieAuth();
 const { $globals } = useNuxtApp();
 const { isOwnGroup } = useLoggedInState();
+const i18n = useI18n();
+const api = useUserApi();
+const canQuickOrganize = computed(() => props.quickOrganize && isOwnGroup.value);
 const useMobileCards = computed(() => {
   return display.smAndDown.value || preferences.value.useMobileCards;
 });
@@ -240,6 +330,140 @@ const loading = ref(false);
 const { fetchMore, getRandom } = useLazyRecipes(isOwnGroup.value ? null : groupSlug.value);
 const { savePosition, getSavedPage, restorePosition } = useScrollPosition();
 const router = useRouter();
+
+const selectionMode = ref(false);
+const selectedRecipes = ref<Recipe[]>([]);
+const selectAllLoading = ref(false);
+let selectAllGeneration = 0;
+const organizerDialog = ref(false);
+const organizerMode = ref<"single" | "bulk">("single");
+const organizerRecipes = ref<Recipe[]>([]);
+
+function recipeKey(recipe: Recipe): string {
+  return recipe.id || recipe.slug || "";
+}
+
+function isRecipeSelected(recipe: Recipe): boolean {
+  const key = recipeKey(recipe);
+  return !!key && selectedRecipes.value.some(selected => recipeKey(selected) === key);
+}
+
+function toggleRecipeSelection(recipe: Recipe) {
+  if (!selectionMode.value) {
+    return;
+  }
+
+  const key = recipeKey(recipe);
+  if (!key) {
+    return;
+  }
+
+  const selectedIndex = selectedRecipes.value.findIndex(selected => recipeKey(selected) === key);
+  if (selectedIndex >= 0) {
+    selectedRecipes.value = selectedRecipes.value.filter((_, index) => index !== selectedIndex);
+  }
+  else {
+    selectedRecipes.value = [...selectedRecipes.value, recipe];
+  }
+}
+
+function enterSelectionMode() {
+  selectionMode.value = true;
+  clearSelection();
+}
+
+function invalidateSelectAll() {
+  selectAllGeneration += 1;
+  selectAllLoading.value = false;
+}
+
+function clearSelection() {
+  selectedRecipes.value = [];
+  invalidateSelectAll();
+}
+
+function exitSelectionMode() {
+  selectionMode.value = false;
+  clearSelection();
+}
+
+async function selectAllResults() {
+  if (!selectionMode.value || selectAllLoading.value) {
+    return;
+  }
+
+  const generation = ++selectAllGeneration;
+  const searchQuery = { ...(props.query ?? {}) };
+  selectAllLoading.value = true;
+  try {
+    const { data, error } = await api.recipes.search({
+      ...searchQuery,
+      page: 1,
+      perPage: -1,
+    });
+
+    if (!isCurrentSelectAllRequest(generation)) {
+      return;
+    }
+
+    if (error || !data) {
+      alert.error(i18n.t("events.something-went-wrong"));
+      return;
+    }
+
+    selectedRecipes.value = data.items.filter(recipe => !!recipeKey(recipe));
+  }
+  catch (error) {
+    if (!isCurrentSelectAllRequest(generation)) {
+      return;
+    }
+
+    console.error("Failed to select all recipe results", error);
+    alert.error(i18n.t("events.something-went-wrong"));
+  }
+  finally {
+    if (generation === selectAllGeneration) {
+      selectAllLoading.value = false;
+    }
+  }
+}
+
+function isCurrentSelectAllRequest(generation: number): boolean {
+  return generation === selectAllGeneration
+    && selectionMode.value;
+}
+
+function openSingleOrganizer(recipe: Recipe) {
+  organizerMode.value = "single";
+  organizerRecipes.value = [recipe];
+  organizerDialog.value = true;
+}
+
+function openBulkOrganizer() {
+  if (selectedRecipes.value.length === 0) {
+    return;
+  }
+
+  organizerMode.value = "bulk";
+  organizerRecipes.value = [...selectedRecipes.value];
+  organizerDialog.value = true;
+}
+
+function handleOrganizerSaved(updatedRecipes: RecipeSummary[]) {
+  emit("recipesUpdated", updatedRecipes);
+
+  if (organizerMode.value === "bulk") {
+    exitSelectionMode();
+  }
+}
+
+watch(
+  () => props.query,
+  () => {
+    clearSelection();
+  },
+  { deep: true },
+);
 
 const queryFilter = computed(() => {
   return props.query?.queryFilter || null;

@@ -62,7 +62,8 @@
             :rating="recipe.rating ?? 0"
             :image="recipe.image"
             :recipe-id="recipe.id ?? ''"
-            v-bind="$attrs.selected ? { selected: () => handleSelect(recipe) } : {}"
+            :select-mode="!!$attrs.selected"
+            @selected="handleSelect(recipe)"
           />
         </div>
       </v-card>

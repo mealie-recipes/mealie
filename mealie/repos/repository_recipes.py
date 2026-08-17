@@ -23,6 +23,7 @@ from mealie.db.models.users.users import User
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_recipe_slug
+from mealie.schema.recipe.recipe_bulk_actions import OrganizerOperation
 from mealie.schema.recipe.recipe_ingredient import IngredientFood
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponseItem
 from mealie.schema.recipe.recipe_tool import RecipeToolOut
@@ -216,6 +217,65 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         entry.update(session=self.session, **new_data)
         self.session.commit()
         return self.schema.model_validate(entry)
+
+    def bulk_update_organizers(
+        self,
+        recipes: Sequence[RecipeModel],
+        tags: Sequence[Tag],
+        categories: Sequence[Category],
+        operation: OrganizerOperation,
+    ) -> list[Recipe]:
+        """Stage organizer relationship changes for a validated batch and commit once."""
+
+        selected_tags = {tag.id: tag for tag in tags}
+        selected_categories = {category.id: category for category in categories}
+        changed: list[RecipeModel] = []
+
+        try:
+            for recipe in recipes:
+                recipe_changed = False
+
+                if selected_tags:
+                    current_tag_ids = {tag.id for tag in recipe.tags}
+                    if operation == OrganizerOperation.ADD:
+                        next_tags = list(recipe.tags)
+                        next_tags.extend(tag for tag in tags if tag.id not in current_tag_ids)
+                    else:
+                        next_tags = [tag for tag in recipe.tags if tag.id not in selected_tags]
+
+                    if [tag.id for tag in next_tags] != [tag.id for tag in recipe.tags]:
+                        recipe.tags = next_tags
+                        recipe_changed = True
+
+                if selected_categories:
+                    current_category_ids = {category.id for category in recipe.recipe_category}
+                    if operation == OrganizerOperation.ADD:
+                        next_categories = list(recipe.recipe_category)
+                        next_categories.extend(
+                            category for category in categories if category.id not in current_category_ids
+                        )
+                    else:
+                        next_categories = [
+                            category for category in recipe.recipe_category if category.id not in selected_categories
+                        ]
+
+                    if [category.id for category in next_categories] != [
+                        category.id for category in recipe.recipe_category
+                    ]:
+                        recipe.recipe_category = next_categories
+                        recipe_changed = True
+
+                if recipe_changed:
+                    recipe.date_updated = datetime.now(UTC)
+                    changed.append(recipe)
+
+            if changed:
+                self.session.commit()
+        except Exception:
+            self.session.rollback()
+            raise
+
+        return [self.schema.model_validate(recipe) for recipe in changed]
 
     def page_all(  # type: ignore
         self,

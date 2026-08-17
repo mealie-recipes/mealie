@@ -40,6 +40,26 @@
               color="info"
               class="ml-1"
               v-bind="tooltipProps"
+              :aria-label="$t('settings.organize')"
+              @click="$emit('organize')"
+            >
+              <v-icon size="x-large">
+                {{ $globals.icons.organizers }}
+              </v-icon>
+            </v-btn>
+          </template>
+          <span>{{ $t("settings.organize") }}</span>
+        </v-tooltip>
+        <v-tooltip v-if="canEdit" location="bottom" color="info">
+          <template #activator="{ props: tooltipProps }">
+            <v-btn
+              icon
+              variant="flat"
+              rounded="circle"
+              size="small"
+              color="info"
+              class="ml-1"
+              v-bind="tooltipProps"
               @click="$emit('edit', true)"
             >
               <v-icon size="x-large">
@@ -126,7 +146,7 @@ withDefaults(defineProps<Props>(), {
   canEdit: false,
 });
 
-const emit = defineEmits(["print", "input", "save", "delete", "close", "json", "edit"]);
+const emit = defineEmits(["print", "input", "save", "delete", "close", "json", "edit", "organize"]);
 
 const deleteDialog = ref(false);
 
