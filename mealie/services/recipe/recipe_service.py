@@ -176,11 +176,6 @@ class RecipeService(RecipeServiceBase):
             for i in range(len(additional_attrs.get("tags", []))):
                 additional_attrs["tags"][i]["group_id"] = self.user.group_id
 
-        if not additional_attrs.get("recipe_ingredient"):
-            additional_attrs["recipe_ingredient"] = [
-                RecipeIngredient(note=self.t("recipe.recipe-defaults.ingredient-note"))
-            ]
-
         if not additional_attrs.get("recipe_instructions"):
             additional_attrs["recipe_instructions"] = [RecipeStep(text=self.t("recipe.recipe-defaults.step-text"))]
 
