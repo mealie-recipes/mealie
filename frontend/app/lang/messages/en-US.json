@@ -318,7 +318,14 @@
       "provider-delete-failed": "Failed to delete provider",
       "request-headers": "Request Headers",
       "request-params": "Request Parameters",
-      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "test-connection-model-not-found": "Connected, but this model wasn't in the provider's published model list. This doesn't necessarily mean the name is wrong — some providers omit models this account doesn't have access to yet (e.g. paid tiers) or haven't listed newly released ones.",
+      "view-details": "View Details",
+      "auto-test": "Auto Test",
+      "auto-test-description": "Automatically test provider connectivity whenever this page loads"
     }
   },
   "household": {

@@ -2,14 +2,39 @@
 Integration tests for AI provider CRUD, settings, permissions, and API key security.
 """
 
+from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 
 from fastapi.testclient import TestClient
 
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
+from mealie.services.openai import OpenAIService
 from tests.utils import api_routes
 from tests.utils.factories import random_string, user_registration_factory
 from tests.utils.fixture_schemas import TestUser
+
+
+class _FakeModel:
+    def __init__(self, model_id: str):
+        self.id = model_id
+
+
+class _FakeModelsResponse:
+    def __init__(self, model_ids: list[str]):
+        self.data = [_FakeModel(m) for m in model_ids]
+
+
+def _patch_openai_client(monkeypatch, *, succeeds: bool, error: str = "", model_ids: list[str] | None = None) -> None:
+    """Stand in for the real AsyncOpenAI client so tests never make a real network call."""
+    fake_client = MagicMock()
+    if succeeds:
+        response = _FakeModelsResponse(model_ids if model_ids is not None else ["gpt-4o"])
+        fake_client.models.list = AsyncMock(return_value=response)
+    else:
+        fake_client.models.list = AsyncMock(side_effect=Exception(error))
+    fake_client.with_options.return_value = fake_client
+    monkeypatch.setattr(OpenAIService, "get_client", lambda self, _provider: fake_client)
+
 
 # ==========================================
 # Provider CRUD
@@ -507,6 +532,144 @@ def test_api_key_not_in_groups_self_response(api_client: TestClient, unique_user
         assert "groups-self-secret" not in str(data)
     finally:
         api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
+# ==========================================
+# Provider connectivity test
+# ==========================================
+
+
+def test_test_unsaved_provider_success(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    _patch_openai_client(monkeypatch, succeeds=True)
+
+    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
+    response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=unique_user.token)
+    assert response.status_code == 200
+
+    result = response.json()
+    assert result["success"] is True
+    assert result["latencyMs"] is not None
+
+
+def test_test_unsaved_provider_failure(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    _patch_openai_client(monkeypatch, succeeds=False, error="invalid api key")
+
+    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "wrong-key"}
+    response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=unique_user.token)
+    # A failed connectivity check is a normal response, not an HTTP error
+    assert response.status_code == 200
+
+    result = response.json()
+    assert result["success"] is False
+    assert "invalid api key" in result["message"]
+
+
+def test_test_unsaved_provider_flags_unknown_model(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    # Connects fine, but the configured model isn't in this provider's list - should still be
+    # a "success" (base_url/api_key are valid), just flagged so the UI can warn about it.
+    _patch_openai_client(monkeypatch, succeeds=True, model_ids=["gpt-4o-mini"])
+
+    data = {"name": random_string(), "model": "gpt-4o-typo", "apiKey": "test-key"}
+    response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=unique_user.token)
+    assert response.status_code == 200
+
+    result = response.json()
+    assert result["success"] is True
+    assert result["modelFound"] is False
+    assert "gpt-4o-typo" in result["message"]
+
+
+def test_test_unsaved_provider_never_persists(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    _patch_openai_client(monkeypatch, succeeds=True)
+
+    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
+    response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=unique_user.token)
+    assert response.status_code == 200
+
+    settings_response = api_client.get(api_routes.groups_ai_providers_settings, headers=unique_user.token)
+    assert settings_response.json()["providers"] == []
+
+
+def test_test_saved_provider_success(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    provider = unique_user.repos.group_ai_providers.create(
+        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
+    )
+    _patch_openai_client(monkeypatch, succeeds=True)
+
+    try:
+        response = api_client.post(
+            api_routes.groups_ai_providers_providers_provider_id_test(provider.id), headers=unique_user.token
+        )
+        assert response.status_code == 200
+        assert response.json()["success"] is True
+    finally:
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
+def test_test_saved_provider_uses_override_values(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    # Simulates editing a provider (changing the model) and testing before saving, without
+    # entering a new API key. The override's model should be what actually gets tested, not the
+    # one still in the database - proven here by only listing the override model as "known".
+    provider = unique_user.repos.group_ai_providers.create(
+        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="original-key")
+    )
+    _patch_openai_client(monkeypatch, succeeds=True, model_ids=["gpt-4o-mini"])
+
+    try:
+        overrides = {"name": provider.name, "model": "gpt-4o-mini"}  # no apiKey - keep the saved one
+        response = api_client.post(
+            api_routes.groups_ai_providers_providers_provider_id_test(provider.id),
+            json=overrides,
+            headers=unique_user.token,
+        )
+        assert response.status_code == 200
+
+        result = response.json()
+        assert result["success"] is True
+        assert result["modelFound"] is True
+    finally:
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
+def test_test_saved_provider_not_found(api_client: TestClient, unique_user: TestUser):
+    response = api_client.post(
+        api_routes.groups_ai_providers_providers_provider_id_test(uuid4()), headers=unique_user.token
+    )
+    assert response.status_code == 404
+
+
+def test_test_unsaved_provider_requires_can_manage(api_client: TestClient, user_tuple: list[TestUser]):
+    usr, _ = user_tuple
+
+    user = usr.repos.users.get_one(usr.user_id)
+    assert user
+    user.can_manage = False
+    usr.repos.users.update(user.id, user)
+
+    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
+    response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=usr.token)
+    assert response.status_code == 403
+
+
+def test_test_saved_provider_requires_can_manage(api_client: TestClient, user_tuple: list[TestUser]):
+    usr, _ = user_tuple
+
+    provider = usr.repos.group_ai_providers.create(
+        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
+    )
+
+    user = usr.repos.users.get_one(usr.user_id)
+    assert user
+    user.can_manage = False
+    usr.repos.users.update(user.id, user)
+
+    try:
+        response = api_client.post(
+            api_routes.groups_ai_providers_providers_provider_id_test(provider.id), headers=usr.token
+        )
+        assert response.status_code == 403
+    finally:
+        usr.repos.group_ai_providers.delete(provider.id)
 
 
 # ==========================================

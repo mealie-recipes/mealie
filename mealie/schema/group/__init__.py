@@ -7,6 +7,7 @@ from .ai_providers import (
     AIProviderSettingsOut,
     AIProviderSettingsUpdate,
     AIProviderSummary,
+    AIProviderTestResult,
     AIProviderUpdate,
 )
 from .group import GroupAdminUpdate
@@ -32,6 +33,7 @@ __all__ = [
     "AIProviderSettingsOut",
     "AIProviderSettingsUpdate",
     "AIProviderSummary",
+    "AIProviderTestResult",
     "AIProviderUpdate",
     "GroupStorage",
 ]

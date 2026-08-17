@@ -61,6 +61,8 @@ foods_merge = "/api/foods/merge"
 """`/api/foods/merge`"""
 groups_ai_providers_providers = "/api/groups/ai-providers/providers"
 """`/api/groups/ai-providers/providers`"""
+groups_ai_providers_providers_test = "/api/groups/ai-providers/providers/test"
+"""`/api/groups/ai-providers/providers/test`"""
 groups_ai_providers_settings = "/api/groups/ai-providers/settings"
 """`/api/groups/ai-providers/settings`"""
 groups_households = "/api/groups/households"
@@ -331,6 +333,11 @@ def foods_item_id(item_id):
 def groups_ai_providers_providers_provider_id(provider_id):
     """`/api/groups/ai-providers/providers/{provider_id}`"""
     return f"{prefix}/groups/ai-providers/providers/{provider_id}"
+
+
+def groups_ai_providers_providers_provider_id_test(provider_id):
+    """`/api/groups/ai-providers/providers/{provider_id}/test`"""
+    return f"{prefix}/groups/ai-providers/providers/{provider_id}/test"
 
 
 def groups_households_household_slug(household_slug):
