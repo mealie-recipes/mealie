@@ -66,3 +66,17 @@ def test_english_notification_translations():
 
     assert message.title == "Meal Plan Entry Created"
     assert body == "Meal plan entry created for 2026-08-17 for dinner"
+
+
+def test_every_event_type_has_an_english_title_translation():
+    repo_root = Path(__file__).parents[4]
+    translator = JsonProvider(repo_root / "mealie/lang/messages/en-US.json")
+
+    missing_keys = []
+    for event_type in EventTypes:
+        event_name = event_type.name.replace("_", "-")
+        key = f"notifications.event-title.{event_name}"
+        if translator.t(key) == key:
+            missing_keys.append(key)
+
+    assert not missing_keys, f"Missing event title translations: {missing_keys}"
