@@ -1,7 +1,7 @@
 import asyncio
 import json
 from typing import cast
-from unittest.mock import MagicMock
+from unittest.mock import AsyncMock, MagicMock
 
 import pytest
 from pydantic import UUID4
@@ -74,27 +74,30 @@ def test_openai_parser_sanitize_output(
     parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
     monkeypatch: pytest.MonkeyPatch,
 ):
-    async def mock_get_raw_response(self, prompt: str, content: list[dict], response_schema, provider) -> MagicMock:
-        # Create data with null character in JSON to test preprocessing
-        data = OpenAIIngredients(
-            ingredients=[
-                OpenAIIngredient(
-                    quantity=random_int(0, 10),
-                    unit="",
-                    food="there is a null character here: \x00",
-                    note="",
-                )
-            ]
-        )
+    # Create data with null character in JSON to test preprocessing
+    data = OpenAIIngredients(
+        ingredients=[
+            OpenAIIngredient(
+                quantity=random_int(0, 10),
+                unit="",
+                food="there is a null character here: \x00",
+                note="",
+            )
+        ]
+    )
 
-        # Create a mock raw response which matches the OpenAI chat response format
-        mock_response = MagicMock()
-        mock_response.choices = [MagicMock()]
-        mock_response.choices[0].message.content = data.model_dump_json()
-        return mock_response
+    # Create a mock raw response which matches the OpenAI chat response format
+    mock_response = MagicMock()
+    mock_response.choices = [MagicMock()]
+    mock_response.choices[0].message.content = data.model_dump_json()
 
-    # Mock the raw response here since we want to make sure our service executes processing before loading the model
-    monkeypatch.setattr(OpenAIService, "_get_raw_response", mock_get_raw_response)
+    def mock_get_client(self, provider) -> MagicMock:
+        client = MagicMock()
+        client.chat.completions.parse = AsyncMock(return_value=mock_response)
+        return client
+
+    # Mock the client here since we want to make sure our service executes processing before loading the model
+    monkeypatch.setattr(OpenAIService, "get_client", mock_get_client)
 
     def mock_openai_init(self, repos):
         from unittest.mock import MagicMock
