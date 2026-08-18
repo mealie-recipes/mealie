@@ -511,6 +511,12 @@ export interface ScrapeRecipe {
   includeCategories?: boolean;
   url: string;
 }
+export interface ScrapeRecipeAI {
+  content?: string | null;
+  url?: string | null;
+  translateLanguage?: string | null;
+  createNewOrganizers?: boolean;
+}
 export interface ScrapeRecipeBase {
   includeTags?: boolean;
   includeCategories?: boolean;
