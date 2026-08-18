@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sarımsak",
-                "plural_name": "garlic"
+                "plural_name": "sarımsak"
             },
             "onion": {
                 "aliases": [],
@@ -59,7 +59,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kereviz",
-                "plural_name": "celery"
+                "plural_name": "kereviz"
             },
             "jalapeño": {
                 "aliases": [],
@@ -95,13 +95,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "ıspanak",
-                "plural_name": "spinach"
+                "plural_name": "ıspanak"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "tatlı mısır",
-                "plural_name": "sweet corn"
+                "plural_name": "süt mısır"
             },
             "chile pepper": {
                 "aliases": [
@@ -121,7 +121,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brokoli",
-                "plural_name": "broccoli"
+                "plural_name": "brokoli"
             },
             "heart of palm": {
                 "aliases": [],
@@ -145,7 +145,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "karnabahar",
-                "plural_name": "cauliflower"
+                "plural_name": "karnabahar"
             },
             "cabbage": {
                 "aliases": [],
@@ -156,8 +156,8 @@
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "kuşkonmaz",
+                "plural_name": "kuşkonmaz"
             },
             "kale": {
                 "aliases": [],
@@ -169,7 +169,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "roka",
-                "plural_name": "arugula"
+                "plural_name": "roka"
             },
             "leek": {
                 "aliases": [],
@@ -217,7 +217,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "rezene",
-                "plural_name": "fennel"
+                "plural_name": "rezene"
             },
             "sun dried tomato": {
                 "aliases": [],
@@ -484,7 +484,7 @@
             },
             "maize": {
                 "aliases": [
-                    "corn husk"
+                    "mısır koçanı"
                 ],
                 "description": "",
                 "name": "maize",
@@ -598,7 +598,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brokoli salatası",
-                "plural_name": "broccoli slaw"
+                "plural_name": "brokoli salatası"
             },
             "arbol chile pepper": {
                 "aliases": [],
@@ -622,7 +622,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "yonca",
-                "plural_name": "alfalfa"
+                "plural_name": "yonca"
             }
         }
     },
@@ -979,8 +979,8 @@
             "chestnut purée": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut purée",
-                "plural_name": "chestnut purée"
+                "name": "kestane püresi",
+                "plural_name": "kestane püresi"
             },
             "prickly pear": {
                 "aliases": [],
@@ -1201,8 +1201,8 @@
             "bergamot orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bergamot orange",
-                "plural_name": "bergamot oranges"
+                "name": "bergamot portakalı",
+                "plural_name": "bergamot portakalı"
             },
             "luo han guo": {
                 "aliases": [],
@@ -1313,8 +1313,8 @@
             "field mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "field mushroom",
-                "plural_name": "field mushrooms"
+                "name": "tarla mantarı",
+                "plural_name": "tarla mantarı"
             },
             "king oyster mushroom": {
                 "aliases": [],
@@ -1461,20 +1461,20 @@
             "blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry",
-                "plural_name": "blueberries"
+                "name": "yaban mersini",
+                "plural_name": "yaban mersini"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "ahududu",
+                "plural_name": "ahududu"
             },
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "kızılcık",
+                "plural_name": "kızılcık"
             },
             "cherry": {
                 "aliases": [],
@@ -1539,8 +1539,8 @@
             "gooseberry": {
                 "aliases": [],
                 "description": "",
-                "name": "gooseberry",
-                "plural_name": "gooseberries"
+                "name": "bektaşi üzümü",
+                "plural_name": "bektaşi üzümü"
             },
             "freeze-dried raspberry": {
                 "aliases": [],
@@ -1717,8 +1717,8 @@
             "walnut": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut",
-                "plural_name": "walnuts"
+                "name": "ceviz",
+                "plural_name": "ceviz"
             },
             "pecan": {
                 "aliases": [],
@@ -1729,38 +1729,38 @@
             "almond": {
                 "aliases": [],
                 "description": "",
-                "name": "almond",
-                "plural_name": "almonds"
+                "name": "badem",
+                "plural_name": "badem"
             },
             "sesame seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame seed",
-                "plural_name": "sesame seeds"
+                "name": "susam",
+                "plural_name": "susam"
             },
             "cashew": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew",
-                "plural_name": "cashews"
+                "name": "kaju",
+                "plural_name": "kaju"
             },
             "pine nut": {
                 "aliases": [],
                 "description": "",
-                "name": "pine nut",
-                "plural_name": "pine nuts"
+                "name": "çam fıstığı",
+                "plural_name": "çam fıstığı"
             },
             "pistachio": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio",
-                "plural_name": "pistachios"
+                "name": "antep fıstığı",
+                "plural_name": "antep fıstığı"
             },
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
-                "plural_name": "peanuts"
+                "name": "fıstık",
+                "plural_name": "fıstık"
             },
             "chia": {
                 "aliases": [],
@@ -1783,14 +1783,14 @@
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed",
-                "plural_name": "pumpkin seeds"
+                "name": "kabak çekirdeği",
+                "plural_name": "kabak çekirdeği"
             },
             "hazelnut": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut",
-                "plural_name": "hazelnuts"
+                "name": "fındık",
+                "plural_name": "fındık"
             },
             "poppy seed": {
                 "aliases": [],
@@ -1801,8 +1801,8 @@
             "sunflower seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower seed",
-                "plural_name": "sunflower seeds"
+                "name": "ayçekirdeği",
+                "plural_name": "ayçekirdeği"
             },
             "macadamia": {
                 "aliases": [],
@@ -1855,14 +1855,14 @@
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
-                "plural_name": "onion seeds"
+                "name": "soğan tohumu",
+                "plural_name": "soğan tohumu"
             },
             "watermelon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon seed",
-                "plural_name": "watermelon seeds"
+                "name": "karpuz çekirdeği",
+                "plural_name": "karpuz çekirdeği"
             },
             "honey-roasted peanut": {
                 "aliases": [],
@@ -1873,8 +1873,8 @@
             "melon seed": {
                 "aliases": [],
                 "description": "",
-                "name": "melon seed",
-                "plural_name": "melon seeds"
+                "name": "kavun çekirdeği",
+                "plural_name": "kavun çekirdeği"
             },
             "lotus seed": {
                 "aliases": [],
@@ -2003,22 +2003,22 @@
             "parmesan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "parmesan cheese",
-                "plural_name": "parmesan cheese"
+                "name": "parmesan peyniri",
+                "plural_name": "parmesan peyniri"
             },
             "cheddar cheese": {
                 "aliases": [
-                    "cheddar cheese"
+                    "çedar peyniri"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheese"
+                "name": "çedar peyniri",
+                "plural_name": "çedar peyniri"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheese"
+                "name": "krem peynir",
+                "plural_name": "krem peynir"
             },
             "sharp cheddar cheese": {
                 "aliases": [
@@ -2031,26 +2031,26 @@
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "peynir",
+                "plural_name": "peynir"
             },
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
-                "plural_name": "mozzarella cheese"
+                "name": "mozzarella peyniri",
+                "plural_name": "mozzarella peyniri"
             },
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "beyaz peynir",
+                "plural_name": "beyaz peynir"
             },
             "ricotta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "ricotta cheese",
-                "plural_name": "ricotta cheese"
+                "name": "lor peyniri",
+                "plural_name": "lor peyniri"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
@@ -2067,8 +2067,8 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "rokfor peyniri",
+                "plural_name": "rokfor peyniri"
             },
             "goat cheese": {
                 "aliases": [],
@@ -2313,8 +2313,8 @@
             "labneh cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "labneh cheese",
-                "plural_name": "labneh cheese"
+                "name": "labne peyniri",
+                "plural_name": "labne peyniri"
             },
             "edam cheese": {
                 "aliases": [],
@@ -2623,13 +2623,13 @@
             "egg": {
                 "aliases": [],
                 "description": "",
-                "name": "egg",
-                "plural_name": "eggs"
+                "name": "yumurta",
+                "plural_name": "yumurta"
             },
             "milk": {
                 "aliases": [],
                 "description": "",
-                "name": "milk",
+                "name": "süt",
                 "plural_name": "milk"
             },
             "heavy cream": {
@@ -2653,8 +2653,8 @@
             "yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt",
-                "plural_name": "yogurts"
+                "name": "yoğurt",
+                "plural_name": "yoğurt"
             },
             "greek yogurt": {
                 "aliases": [],
@@ -2665,8 +2665,8 @@
             "cream": {
                 "aliases": [],
                 "description": "",
-                "name": "cream",
-                "plural_name": "cream"
+                "name": "krema",
+                "plural_name": "krema"
             },
             "whipped cream": {
                 "aliases": [],
@@ -2709,8 +2709,8 @@
             "ice cream": {
                 "aliases": [],
                 "description": "",
-                "name": "ice cream",
-                "plural_name": "ice cream"
+                "name": "dondurma",
+                "plural_name": "dondurma"
             },
             "margarine": {
                 "aliases": [],
@@ -2733,8 +2733,8 @@
             "milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "milk powder",
-                "plural_name": "milk powder"
+                "name": "süt tozu",
+                "plural_name": "süt tozu"
             },
             "curd": {
                 "aliases": [],
@@ -2787,7 +2787,7 @@
             "chocolate milk": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk",
+                "name": "çikolatalı süt",
                 "plural_name": "chocolate milk"
             },
             "liquid egg substitute": {
@@ -2799,8 +2799,8 @@
             "whey": {
                 "aliases": [],
                 "description": "",
-                "name": "whey",
-                "plural_name": "wheys"
+                "name": "peynir altı suyu",
+                "plural_name": "peynir altı suyu"
             },
             "hung curd": {
                 "aliases": [],
@@ -2817,8 +2817,8 @@
             "buttermilk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "buttermilk powder",
-                "plural_name": "buttermilk powder"
+                "name": "ayran tozu",
+                "plural_name": "ayran tozu"
             },
             "frozen yogurt": {
                 "aliases": [],
@@ -2883,14 +2883,14 @@
             "duck egg": {
                 "aliases": [],
                 "description": "",
-                "name": "duck egg",
-                "plural_name": "duck eggs"
+                "name": "ördek yumurtası",
+                "plural_name": "ördek yumurtası"
             },
             "salted egg": {
                 "aliases": [],
                 "description": "",
-                "name": "salted egg",
-                "plural_name": "salted eggs"
+                "name": "tuzlu yumurta",
+                "plural_name": "tuzlu yumurta"
             },
             "skyr": {
                 "aliases": [],
@@ -2907,8 +2907,8 @@
             "raw milk": {
                 "aliases": [],
                 "description": "",
-                "name": "raw milk",
-                "plural_name": "raw milk"
+                "name": "çiğ süt",
+                "plural_name": "çiğ süt"
             },
             "lime curd": {
                 "aliases": [],
@@ -2979,14 +2979,14 @@
             "goat butter": {
                 "aliases": [],
                 "description": "",
-                "name": "goat butter",
-                "plural_name": "goat butter"
+                "name": "keçi tereyağı",
+                "plural_name": "keçi tereyağı"
             },
             "century egg": {
                 "aliases": [],
                 "description": "",
-                "name": "century egg",
-                "plural_name": "century eggs"
+                "name": "yüzyıl yumurtası",
+                "plural_name": "yüzyıl yumurtası"
             },
             "orange curd": {
                 "aliases": [],
@@ -3027,8 +3027,8 @@
             "chocolate milk powder": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate milk powder",
-                "plural_name": "chocolate milk powder"
+                "name": "çikolatalı süt tozu",
+                "plural_name": "çikolatalı süt tozu"
             },
             "liquid rennet": {
                 "aliases": [],
@@ -3045,14 +3045,14 @@
             "strawberry milk": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry milk",
-                "plural_name": "strawberry milk"
+                "name": "çilekli süt",
+                "plural_name": "çilekli süt"
             },
             "ayran": {
                 "aliases": [],
                 "description": "",
                 "name": "ayran",
-                "plural_name": "ayrans"
+                "plural_name": "ayran"
             },
             "cuajada": {
                 "aliases": [],
@@ -3259,20 +3259,20 @@
             "seed butter": {
                 "aliases": [],
                 "description": "",
-                "name": "seed butter",
-                "plural_name": "seed butter"
+                "name": "tohum yağı",
+                "plural_name": "tohum yağı"
             },
             "cashew milk": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew milk",
-                "plural_name": "cashew milk"
+                "name": "kaju sütü",
+                "plural_name": "kaju sütü"
             },
             "oat milk": {
                 "aliases": [],
                 "description": "",
-                "name": "oat milk",
-                "plural_name": "oat milk"
+                "name": "yulaf sütü",
+                "plural_name": "yulaf sütü"
             },
             "nut butter": {
                 "aliases": [],
@@ -3283,8 +3283,8 @@
             "rice milk": {
                 "aliases": [],
                 "description": "",
-                "name": "rice milk",
-                "plural_name": "rice milk"
+                "name": "pirinç sütü",
+                "plural_name": "pirinç sütü"
             },
             "vegan sour cream": {
                 "aliases": [],
@@ -3307,8 +3307,8 @@
             "soy yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "soy yogurt",
-                "plural_name": "soy yogurts"
+                "name": "soya yoğurt",
+                "plural_name": "soya yoğurt"
             },
             "vegan mozzarella": {
                 "aliases": [],
@@ -3343,8 +3343,8 @@
             "coconut powder": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut powder",
-                "plural_name": "coconut powder"
+                "name": "hindistan cevizi tozu",
+                "plural_name": "hindistan cevizi tozu"
             },
             "soy cream": {
                 "aliases": [],
@@ -3517,26 +3517,26 @@
             "hazelnut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut milk",
-                "plural_name": "hazelnut milk"
+                "name": "fındık sütü",
+                "plural_name": "fındık sütü"
             },
             "maple almond butter": {
                 "aliases": [],
                 "description": "",
-                "name": "maple almond butter",
-                "plural_name": "maple almond butter"
+                "name": "akçaağaç şuruplu badem ezmesi",
+                "plural_name": "akçaağaç şuruplu badem ezmesi"
             },
             "vegan meatball": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan meatball",
-                "plural_name": "vegan meatballs"
+                "name": "etsiz köfte",
+                "plural_name": "etsiz köfte"
             },
             "almond-milk yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "almond-milk yogurt",
-                "plural_name": "almond-milk yogurts"
+                "name": "badem sütlü yoğurt",
+                "plural_name": "badem sütlü yoğurt"
             },
             "almond creamer": {
                 "aliases": [],
@@ -3626,7 +3626,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vegan nutella",
-                "plural_name": "vegan nutellas"
+                "plural_name": "vegan nutella"
             },
             "vegan tzatziki": {
                 "aliases": [],
@@ -3755,20 +3755,20 @@
             "ground beef": {
                 "aliases": [],
                 "description": "",
-                "name": "ground beef",
-                "plural_name": "ground beefs"
+                "name": "dana kıyması",
+                "plural_name": "dana kıyması"
             },
             "beef steak": {
                 "aliases": [],
                 "description": "",
-                "name": "beef steak",
-                "plural_name": "beef steaks"
+                "name": "biftek",
+                "plural_name": "biftek"
             },
             "ham": {
                 "aliases": [],
                 "description": "",
-                "name": "ham",
-                "plural_name": "hams"
+                "name": "jambon",
+                "plural_name": "jambon"
             },
             "pork chop": {
                 "aliases": [],
@@ -3779,8 +3779,8 @@
             "sweet italian sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet italian sausage",
-                "plural_name": "sweet italian sausages"
+                "name": "tatlı İtalyan sosisi",
+                "plural_name": "tatlı İtalyan sosisi"
             },
             "pork loin": {
                 "aliases": [],
@@ -3797,14 +3797,14 @@
             "sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage",
-                "plural_name": "sausages"
+                "name": "sucuk",
+                "plural_name": "sucuk"
             },
             "beef roast": {
                 "aliases": [],
                 "description": "",
-                "name": "beef roast",
-                "plural_name": "beef roasts"
+                "name": "rozbif",
+                "plural_name": "rozbif"
             },
             "ground pork": {
                 "aliases": [],
@@ -3875,8 +3875,8 @@
             "hot dog": {
                 "aliases": [],
                 "description": "",
-                "name": "hot dog",
-                "plural_name": "hot dogs"
+                "name": "sosisli sandviç",
+                "plural_name": "sosisli sandviç"
             },
             "beef sirloin": {
                 "aliases": [],
@@ -3887,8 +3887,8 @@
             "salami": {
                 "aliases": [],
                 "description": "",
-                "name": "salami",
-                "plural_name": "salamis"
+                "name": "salam",
+                "plural_name": "salam"
             },
             "brisket": {
                 "aliases": [],
@@ -3935,8 +3935,8 @@
             "boneless lamb": {
                 "aliases": [],
                 "description": "",
-                "name": "boneless lamb",
-                "plural_name": "boneless lambs"
+                "name": "kemiksiz kuzu eti",
+                "plural_name": "kemiksiz kuzu eti"
             },
             "ground sausage": {
                 "aliases": [],
@@ -4037,8 +4037,8 @@
             "mutton": {
                 "aliases": [],
                 "description": "",
-                "name": "mutton",
-                "plural_name": "muttons"
+                "name": "koyun eti",
+                "plural_name": "koyun eti"
             },
             "ham steak": {
                 "aliases": [],
@@ -4085,8 +4085,8 @@
             "rabbit": {
                 "aliases": [],
                 "description": "",
-                "name": "rabbit",
-                "plural_name": "rabbits"
+                "name": "tavşan",
+                "plural_name": "tavşan"
             },
             "pork cutlet": {
                 "aliases": [],
@@ -4175,8 +4175,8 @@
             "beef liver": {
                 "aliases": [],
                 "description": "",
-                "name": "beef liver",
-                "plural_name": "beef livers"
+                "name": "dana ciğeri",
+                "plural_name": "dana ciğeri"
             },
             "pastrami": {
                 "aliases": [],
@@ -4289,8 +4289,8 @@
             "bologna": {
                 "aliases": [],
                 "description": "",
-                "name": "bologna",
-                "plural_name": "bolognas"
+                "name": "bolonya sosis",
+                "plural_name": "bolonya sosis"
             },
             "burger patty": {
                 "aliases": [],
@@ -4307,8 +4307,8 @@
             "lamb neck": {
                 "aliases": [],
                 "description": "",
-                "name": "lamb neck",
-                "plural_name": "lamb necks"
+                "name": "kuzu gerdan",
+                "plural_name": "kuzu gerdan"
             },
             "sausage patty": {
                 "aliases": [],
@@ -5101,8 +5101,8 @@
             "herring": {
                 "aliases": [],
                 "description": "",
-                "name": "herring",
-                "plural_name": "herrings"
+                "name": "ringa balığı",
+                "plural_name": "ringa balığı"
             },
             "salmon roe": {
                 "aliases": [],
@@ -5555,14 +5555,14 @@
             "lobster": {
                 "aliases": [],
                 "description": "",
-                "name": "lobster",
-                "plural_name": "lobsters"
+                "name": "ıstakoz",
+                "plural_name": "ıstakoz"
             },
             "oyster": {
                 "aliases": [],
                 "description": "",
-                "name": "oyster",
-                "plural_name": "oysters"
+                "name": "istiridye",
+                "plural_name": "istiridye"
             },
             "lobster tail": {
                 "aliases": [],
@@ -6427,33 +6427,33 @@
             "sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "sugar",
-                "plural_name": "sugar"
+                "name": "şeker",
+                "plural_name": "şeker"
             },
             "brown sugar": {
                 "aliases": [
-                    "turbinado sugar"
+                    "doğal esmer şeker"
                 ],
                 "description": "",
-                "name": "brown sugar",
-                "plural_name": "brown sugar"
+                "name": "esmer şeker",
+                "plural_name": "esmer şeker"
             },
             "confectioners sugar": {
                 "aliases": [
-                    "powdered sugar",
+                    "pudra şekeri",
                     "icing sugar"
                 ],
                 "description": "",
-                "name": "confectioners sugar",
-                "plural_name": "confectioners sugar"
+                "name": "pudra şekeri",
+                "plural_name": "pudra şekeri"
             },
             "bar sugar": {
                 "aliases": [
-                    "castor sugar"
+                    "pudra şekeri"
                 ],
                 "description": "",
-                "name": "bar sugar",
-                "plural_name": "bar sugar"
+                "name": "kesme şeker",
+                "plural_name": "kesme şeker"
             },
             "maple syrup": {
                 "aliases": [],
@@ -6542,8 +6542,8 @@
             "raw sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "raw sugar",
-                "plural_name": "raw sugar"
+                "name": "kesme şeker",
+                "plural_name": "kesme şeker"
             },
             "golden syrup": {
                 "aliases": [],
