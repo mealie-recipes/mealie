@@ -7489,19 +7489,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement pour tacos au poulet",
-                "plural_name": "chicken taco seasoning"
+                "plural_name": "assaisonnements pour tacos au poulet"
             },
             "mushroom seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement aux champignons",
-                "plural_name": "mushroom seasoning"
+                "plural_name": "assaisonnement aux champignons"
             },
             "au jus mix": {
                 "aliases": [],
                 "description": "",
-                "name": "au jus mix",
-                "plural_name": "au jus mixes"
+                "name": "au jus",
+                "plural_name": "au jus"
             },
             "gingerbread spice": {
                 "aliases": [],
@@ -7512,8 +7512,8 @@
             "popcorn seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "popcorn seasoning",
-                "plural_name": "popcorn seasoning"
+                "name": "assaisonnement de maïs soufflé",
+                "plural_name": "assaisonnement de maïs soufflé"
             },
             "berbere": {
                 "aliases": [],
@@ -7524,8 +7524,8 @@
             "chili-lime seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "chili-lime seasoning",
-                "plural_name": "chili-lime seasoning"
+                "name": "assaisonnements au chipotle",
+                "plural_name": "assaisonnements au chipotle"
             },
             "brown miso": {
                 "aliases": [],
@@ -7536,50 +7536,50 @@
             "blackening seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "blackening seasoning",
-                "plural_name": "blackening seasoning"
+                "name": "assaisonnement noircissant",
+                "plural_name": "assaisonnement noircissant"
             },
             "pizza seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "pizza seasoning",
-                "plural_name": "pizza seasoning"
+                "name": "assaisonnement pizza",
+                "plural_name": "assaisonnement pizza"
             },
             "fines herbe": {
                 "aliases": [],
                 "description": "",
-                "name": "fines herbe",
+                "name": "fines herbes",
                 "plural_name": "fines herbes"
             },
             "shawarma seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "shawarma seasoning",
-                "plural_name": "shawarma seasoning"
+                "name": "assaisonnement shawarma",
+                "plural_name": "assaisonnement shawarma"
             },
             "chai masala": {
                 "aliases": [],
                 "description": "",
                 "name": "chai masala",
-                "plural_name": "chai masalas"
+                "plural_name": "chai masala"
             },
             "panang curry": {
                 "aliases": [],
                 "description": "",
-                "name": "panang curry",
-                "plural_name": "panang curries"
+                "name": "curry panang",
+                "plural_name": "curry panang"
             },
             "kitchen king masala": {
                 "aliases": [],
                 "description": "",
-                "name": "kitchen king masala",
-                "plural_name": "kitchen king masalas"
+                "name": "Kitchen King Masala",
+                "plural_name": "Kitchen King Masala"
             },
             "lemon & herb seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon & herb seasoning",
-                "plural_name": "lemon & herb seasoning"
+                "name": "assaisonnement au citron et aux herbes",
+                "plural_name": "assaisonnement au citron et aux herbes"
             },
             "vanilla salt": {
                 "aliases": [],
@@ -7591,19 +7591,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement thaï",
-                "plural_name": "thai seasoning"
+                "plural_name": "assaisonnement thaï"
             },
             "mulling spice": {
                 "aliases": [],
                 "description": "",
                 "name": "mulling spice",
-                "plural_name": "mulling spices"
+                "plural_name": "mélanges d'épices pour marinade"
             },
             "sriracha seasoning": {
                 "aliases": [],
                 "description": "",
-                "name": "sriracha seasoning",
-                "plural_name": "sriracha seasoning"
+                "name": "assaisonnement sriracha",
+                "plural_name": "assaisonnement sriracha"
             },
             "coffee rub": {
                 "aliases": [],
