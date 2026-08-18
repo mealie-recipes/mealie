@@ -110,7 +110,7 @@ class User(SqlAlchemyBase, BaseMixins):
         "RecipeModel",
         secondary=UserToRecipe.__tablename__,
         primaryjoin="and_(User.id==UserToRecipe.user_id, UserToRecipe.is_favorite==True)",
-        back_populates="favorited_by",
+        viewonly=True,
         overlaps="recipe,rated_by,rated_recipes",
     )
     model_config = ConfigDict(
