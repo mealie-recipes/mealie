@@ -55,6 +55,15 @@
             :return-object="false"
             :rules="[requiredRule]"
           />
+          <v-number-input
+            v-if="!dialog.note"
+            v-model="newMeal.recipeScale"
+            :min="0.25"
+            :step="0.5"
+            control-variant="stacked"
+            inset
+            :label="$t('recipe.servings-scale')"
+          />
           <template v-else>
             <v-text-field v-model="newMeal.title" :rules="[requiredRule]" :label="$t('meal-plan.meal-title')" />
             <v-textarea v-model="newMeal.text" rows="2" :label="$t('meal-plan.meal-note')" />
@@ -117,6 +126,15 @@
               </template>
               <v-list-item-title class="mb-1">
                 {{ mealplan.recipe ? mealplan.recipe.name : mealplan.title }}
+                <v-chip
+                  v-if="mealplan.recipe && mealplan.recipeScale && mealplan.recipeScale !== 1"
+                  size="x-small"
+                  color="primary"
+                  variant="tonal"
+                  class="ml-1"
+                >
+                  {{ mealplan.recipeScale }}x
+                </v-chip>
               </v-list-item-title>
               <v-list-item-subtitle style="min-height: 16px">
                 {{ mealplan.recipe ? mealplan.recipe.description + " " : mealplan.text }}
@@ -340,6 +358,7 @@ const newMeal = reactive({
   title: "",
   text: "",
   recipeId: undefined as string | undefined,
+  recipeScale: 1.0,
   entryType: "dinner" as PlanEntryType,
   existing: false,
   id: 0,
@@ -364,7 +383,7 @@ function openDialog(date: Date) {
 }
 
 function editMeal(mealplan: UpdatePlanEntry) {
-  const { date, title, text, entryType, recipeId, id, groupId, userId } = mealplan;
+  const { date, title, text, entryType, recipeId, recipeScale, id, groupId, userId } = mealplan;
   if (!entryType) return;
 
   const [year, month, day] = date.split("-").map(Number);
@@ -372,6 +391,7 @@ function editMeal(mealplan: UpdatePlanEntry) {
   newMeal.title = title || "";
   newMeal.text = text || "";
   newMeal.recipeId = recipeId || undefined;
+  newMeal.recipeScale = recipeScale ?? 1.0;
   newMeal.entryType = entryType;
   newMeal.existing = true;
   newMeal.id = id;
@@ -388,6 +408,7 @@ function resetDialog() {
   newMeal.text = "";
   newMeal.entryType = "dinner";
   newMeal.recipeId = undefined;
+  newMeal.recipeScale = 1.0;
   newMeal.existing = false;
 }
 

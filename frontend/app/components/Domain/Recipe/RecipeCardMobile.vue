@@ -102,6 +102,7 @@
                 :menu-icon="$globals.icons.dotsHorizontal"
                 :name="name"
                 :recipe-id="recipeId"
+                :recipe-scale="scale"
                 class="ml-auto"
                 :use-items="{
                   delete: false,
@@ -144,6 +145,8 @@ interface Props {
   isFlat?: boolean;
   height?: number;
   disableHighlight?: boolean;
+  scale?: number;
+  mealPlanId?: number;
 }
 const props = withDefaults(defineProps<Props>(), {
   rating: 0,
@@ -153,6 +156,8 @@ const props = withDefaults(defineProps<Props>(), {
   isFlat: false,
   height: 150,
   disableHighlight: false,
+  scale: 1,
+  mealPlanId: undefined,
 });
 
 defineEmits<{
@@ -167,7 +172,13 @@ const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
 const showRecipeContent = computed(() => props.recipeId && props.slug);
 const recipeRoute = computed<string>(() => {
-  return showRecipeContent.value ? `/g/${groupSlug.value}/r/${props.slug}` : "";
+  if (!showRecipeContent.value) return "";
+  const base = `/g/${groupSlug.value}/r/${props.slug}`;
+  const params = new URLSearchParams();
+  if (props.scale !== 1) params.set("scale", String(props.scale));
+  if (props.mealPlanId !== undefined) params.set("mealplanid", String(props.mealPlanId));
+  const queryString = params.toString();
+  return queryString ? `${base}?${queryString}` : base;
 });
 const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
 </script>

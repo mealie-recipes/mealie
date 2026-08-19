@@ -34,17 +34,28 @@
             </p>
           </div>
 
-          <RecipeCardMobile
+          <div
             v-for="mealplan in section.meals"
             :key="mealplan.id"
-            :recipe-id="mealplan.recipe ? mealplan.recipe.id! : ''"
             class="mb-2"
-            :rating="mealplan.recipe ? mealplan.recipe.rating! : 0"
-            :slug="mealplan.recipe ? mealplan.recipe.slug! : mealplan.title!"
-            :description="mealplan.recipe ? mealplan.recipe.description! : mealplan.text!"
-            :name="mealplan.recipe ? mealplan.recipe.name! : mealplan.title!"
-            :tags="mealplan.recipe ? mealplan.recipe.tags! : []"
-          />
+          >
+            <RecipeCardMobile
+              :recipe-id="mealplan.recipe ? mealplan.recipe.id! : ''"
+              :rating="mealplan.recipe ? mealplan.recipe.rating! : 0"
+              :slug="mealplan.recipe ? mealplan.recipe.slug! : mealplan.title!"
+              :description="mealplan.recipe ? mealplan.recipe.description! : mealplan.text!"
+              :name="mealplan.recipe ? mealplan.recipe.name! : mealplan.title!"
+              :tags="mealplan.recipe ? (mealplan.recipe.tags ?? []) : []"
+              :scale="mealplan.recipeScale ?? 1"
+              :meal-plan-id="mealplan.id"
+            />
+            <div
+              v-if="mealplan.recipe"
+              class="d-flex justify-center pt-1 pb-2"
+            >
+              <MealPlanScaleControl :meal="mealplan" :actions="props.actions" />
+            </div>
+          </div>
         </div>
       </v-col>
     </v-row>
@@ -56,8 +67,9 @@ import { isSameDay } from "date-fns";
 
 import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 import GroupMealPlanDayContextMenu from "~/components/Domain/Household/GroupMealPlanDayContextMenu.vue";
+import MealPlanScaleControl from "~/components/Domain/Household/MealPlanScaleControl.vue";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
-import type { RecipeSummary } from "~/lib/api/types/recipe";
+import type { useMealplans } from "~/composables/use-group-mealplan";
 
 export type MealsByDate = {
   date: Date;
@@ -66,6 +78,7 @@ export type MealsByDate = {
 
 const props = defineProps<{
   mealplans: MealsByDate[];
+  actions: ReturnType<typeof useMealplans>["actions"];
 }>();
 
 type DaySection = {
@@ -76,7 +89,7 @@ type DaySection = {
 type Days = {
   date: Date;
   sections: DaySection[];
-  recipes: RecipeSummary[];
+  recipes: ReadPlanEntry[];
 };
 
 const i18n = useI18n();
@@ -121,7 +134,7 @@ const plan = computed<Days[]>(() => {
       }
 
       if (meal.recipe) {
-        out.recipes.push(meal.recipe);
+        out.recipes.push(meal);
       }
     }
 

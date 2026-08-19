@@ -234,6 +234,7 @@ import type { Recipe, RecipeCategory, RecipeIngredient, RecipeTag, RecipeTool } 
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
+import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
@@ -361,10 +362,16 @@ const hasLinkedIngredients = computed(() => {
 
 type BooleanString = "true" | "false" | "";
 
+const scale = ref(1);
+
 const paramsEdit = useRouteQuery<BooleanString>("edit", "");
 const paramsParse = useRouteQuery<BooleanString>("parse", "");
+const paramsScale = useRouteQuery<string>("scale", "");
+const paramsMealPlanId = useRouteQuery<string>("mealplanid", "");
 
-onMounted(() => {
+const mealPlanEntry = ref<ReadPlanEntry | null>(null);
+
+onMounted(async () => {
   if (paramsEdit.value === "true" && isOwnGroup.value) {
     setMode(PageMode.EDIT);
   }
@@ -372,6 +379,38 @@ onMounted(() => {
   if (paramsParse.value === "true" && isOwnGroup.value) {
     toggleIsParsing(true);
   }
+
+  if (paramsScale.value) {
+    const parsed = parseFloat(paramsScale.value);
+    if (!isNaN(parsed) && parsed > 0) {
+      scale.value = parsed;
+    }
+  }
+
+  if (paramsMealPlanId.value) {
+    const id = parseInt(paramsMealPlanId.value, 10);
+    if (!isNaN(id)) {
+      const { data } = await api.mealplans.getOne(id);
+      if (data) {
+        mealPlanEntry.value = data;
+      }
+    }
+  }
+});
+
+let mealPlanScaleTimer: ReturnType<typeof setTimeout> | null = null;
+watch(scale, (newScale) => {
+  if (!mealPlanEntry.value) return;
+  if ((mealPlanEntry.value.recipeScale ?? 1) === newScale) return;
+  if (mealPlanScaleTimer) clearTimeout(mealPlanScaleTimer);
+  mealPlanScaleTimer = setTimeout(async () => {
+    if (!mealPlanEntry.value) return;
+    const updated = { ...mealPlanEntry.value, recipeScale: newScale };
+    const { data } = await api.mealplans.updateOne(updated.id, updated);
+    if (data) {
+      mealPlanEntry.value = data;
+    }
+  }, 400);
 });
 
 // When set, the isEditMode watcher skips its URL cleanup because saveRecipe
@@ -483,11 +522,6 @@ function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: st
   }
   router.push(`/g/${groupSlug.value}?${itemType}=${item.id}`);
 }
-
-const scale = ref(1);
-
-// expose to template
-// (all variables used in template are top-level in <script setup>)
 </script>
 
 <style lang="css">

@@ -1,7 +1,7 @@
 import datetime
 from typing import TYPE_CHECKING, Optional
 
-from sqlalchemy import Column, Date, ForeignKey, String, Table, UniqueConstraint, orm
+from sqlalchemy import Column, Date, Float, ForeignKey, String, Table, UniqueConstraint, orm
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -68,6 +68,7 @@ class GroupMealPlan(SqlAlchemyBase, BaseMixins):
     user: Mapped[Optional["User"]] = orm.relationship("User", back_populates="mealplans")
 
     recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
+    recipe_scale: Mapped[float] = mapped_column(Float, nullable=False, default=1.0)
     recipe: Mapped[Optional["RecipeModel"]] = orm.relationship(
         "RecipeModel", back_populates="meal_entries", uselist=False
     )

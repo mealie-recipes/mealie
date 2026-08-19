@@ -50,9 +50,9 @@
 </template>
 
 <script setup lang="ts">
-import type { Recipe } from "~/lib/api/types/recipe";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
 import type { ShoppingListSummary } from "~/lib/api/types/household";
+import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
 
 export interface ContextMenuItem {
@@ -64,7 +64,7 @@ export interface ContextMenuItem {
 }
 
 interface Props {
-  recipes?: Recipe[];
+  recipes?: ReadPlanEntry[];
   menuTop?: boolean;
   fab?: boolean;
   color?: string;
@@ -106,12 +106,12 @@ const icon = props.menuIcon || $globals.icons.dotsVertical;
 
 const shoppingLists = ref<ShoppingListSummary[]>();
 const recipesWithScales = computed(() => {
-  return props.recipes.map((recipe) => {
-    return {
-      scale: 1,
-      ...recipe,
-    };
-  });
+  return props.recipes
+    .filter(m => m.recipe)
+    .map(m => ({
+      scale: m.recipeScale ?? 1,
+      ...m.recipe!,
+    }));
 });
 
 async function getShoppingLists() {

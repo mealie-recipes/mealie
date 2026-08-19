@@ -253,14 +253,14 @@ const weekRecipesWithScales = computed(() => {
   for (const day of mealsByDate.value) {
     for (const meal of day.meals) {
       if (meal.recipe) {
-        allRecipes.push(meal.recipe);
+        allRecipes.push({
+          scale: meal.recipeScale ?? 1,
+          ...meal.recipe,
+        });
       }
     }
   }
-  return allRecipes.map(recipe => ({
-    scale: 1,
-    ...recipe,
-  }));
+  return allRecipes;
 });
 
 async function getShoppingLists() {

@@ -6,7 +6,7 @@
       :title="$t('recipe.add-to-list')"
       :icon="$globals.icons.cartCheck"
     >
-      <v-container v-if="!filteredShoppingLists.length">
+      <v-container v-if="!filteredShoppingLists.length && !newListForm.show">
         <BasePageTitle>
           <template #title>
             {{ $t('shopping-list.no-shopping-lists-found') }}
@@ -25,6 +25,41 @@
             {{ list.name }}
           </v-card-title>
         </v-card>
+
+        <v-expand-transition>
+          <div v-if="newListForm.show" class="mt-3">
+            <v-text-field
+              v-model="newListForm.name"
+              :label="$t('shopping-list.new-list-name')"
+              :loading="newListForm.loading"
+              autofocus
+              variant="outlined"
+              density="compact"
+              hide-details
+              @keyup.enter="createAndOpenList"
+            />
+            <div class="d-flex justify-end mt-2 gap-2">
+              <v-btn
+                variant="text"
+                color="grey"
+                size="small"
+                @click="newListForm.show = false; newListForm.name = ''"
+              >
+                {{ $t("general.cancel") }}
+              </v-btn>
+              <v-btn
+                variant="tonal"
+                color="primary"
+                size="small"
+                :disabled="!newListForm.name.trim()"
+                :loading="newListForm.loading"
+                @click="createAndOpenList"
+              >
+                {{ $t("general.create") }}
+              </v-btn>
+            </div>
+          </div>
+        </v-expand-transition>
       </v-card-text>
       <template #card-actions>
         <v-btn
@@ -35,7 +70,7 @@
           {{ $t("general.cancel") }}
         </v-btn>
         <div
-          class="d-flex justify-end"
+          class="d-flex justify-end align-center"
           style="width: 100%;"
         >
           <v-checkbox
@@ -45,6 +80,16 @@
             class="my-auto mr-4"
             @click="setShowAllToggled()"
           />
+          <v-btn
+            v-if="!newListForm.show"
+            variant="tonal"
+            color="primary"
+            size="small"
+            :prepend-icon="$globals.icons.create"
+            @click="newListForm.show = true"
+          >
+            {{ $t("shopping-list.new-list") }}
+          </v-btn>
         </div>
       </template>
     </BaseDialog>
@@ -397,12 +442,39 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
   recipeIngredientSections.value = Array.from(recipeSectionMap.values());
 }
 
+const newListForm = reactive({
+  show: false,
+  name: "",
+  loading: false,
+});
+
+async function createAndOpenList() {
+  if (!newListForm.name.trim()) return;
+
+  newListForm.loading = true;
+  const { data } = await api.shopping.lists.createOne({ name: newListForm.name.trim() });
+  newListForm.loading = false;
+
+  if (!data) {
+    alert.error(i18n.t("shopping-list.failed-to-create-shopping-list"));
+    return;
+  }
+
+  filteredShoppingLists.value.push(data as ShoppingListSummary);
+  newListForm.show = false;
+  newListForm.name = "";
+
+  await openShoppingListIngredientDialog(data as ShoppingListSummary);
+}
+
 function initState() {
   state.shoppingListDialog = false;
   state.shoppingListIngredientDialog = false;
   state.shoppingListShowAllToggled = false;
   recipeIngredientSections.value = [];
   selectedShoppingList.value = null;
+  newListForm.show = false;
+  newListForm.name = "";
 }
 
 initState();
