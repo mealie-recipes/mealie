@@ -9,3 +9,4 @@ When parsing:
 - Recognize units: tablespoon, teaspoon, gram, tsp, tbsp, oz, sprig, can, bundle, bunch, unit, cube, package, pinch
 - For ranges (e.g., "3-5", "1 to 2"), use the lower number
 - All text must appear somewhere, or otherwise be accounted for; if converting "2 dozen" → "24", don't put "dozen" elsewhere. If you're unsure, put extra text in the notes
+- When a single input ingredient contains multiple quantities or phrases such as "plus", "and", or commas, do not split it into multiple ingredients. Return exactly one parsed ingredient for that input and keep the secondary quantity or preparation detail in the note field. For example, "1 tablespoon fresh lemon juice, plus 2 teaspoons zest" must be returned as one ingredient, not two.
