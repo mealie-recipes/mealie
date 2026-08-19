@@ -209,6 +209,7 @@
     "copied-items-to-clipboard": "No item copied to clipboard|One item copied to clipboard|Copied {count} items to clipboard",
     "actions": "Actions",
     "selected-count": "Selected: {count}",
+    "selected": "Selected",
     "export-all": "Export All",
     "refresh": "Refresh",
     "upload-file": "Upload File",
