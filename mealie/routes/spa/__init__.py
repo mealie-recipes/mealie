@@ -1,7 +1,9 @@
 import html
 import json
 import pathlib
+import re
 from dataclasses import dataclass
+from datetime import timedelta
 from typing import Any
 
 from bs4 import BeautifulSoup
@@ -17,8 +19,12 @@ from mealie.core.dependencies.dependencies import try_get_current_user
 from mealie.db.db_setup import generate_session
 from mealie.repos.repository_factory import AllRepositories
 from mealie.routes.spa.manifest import serve_manifest
+from mealie.schema._mealie.datetime_parse import parse_duration
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.user.user import PrivateUser
+
+TIME_PART_RE = re.compile(r"(?P<value>\d+(?:\.\d+)?)\s*(?P<unit>days?|hours?|hrs?|minutes?|mins?|seconds?|secs?)\b", re.I)
+TIME_SEPARATOR_RE = re.compile(r"[\s,]*(?:and[\s,]*)?", re.I)
 
 
 @dataclass
@@ -113,6 +119,73 @@ def inject_recipe_json(contents: str, schema: dict) -> str:
     return contents.replace("</head>", schema_as_html_tag + "\n</head>", 1)
 
 
+def timedelta_to_iso8601_duration(duration: timedelta) -> str | None:
+    if duration < timedelta(0):
+        return None
+
+    total_seconds = int(duration.total_seconds())
+    if not total_seconds:
+        return "PT0S"
+
+    days, remainder = divmod(total_seconds, 86400)
+    hours, remainder = divmod(remainder, 3600)
+    minutes, seconds = divmod(remainder, 60)
+
+    date_part = f"{days}D" if days else ""
+    time_parts = []
+    if hours:
+        time_parts.append(f"{hours}H")
+    if minutes:
+        time_parts.append(f"{minutes}M")
+    if seconds:
+        time_parts.append(f"{seconds}S")
+
+    time_part = f"T{''.join(time_parts)}" if time_parts else ""
+    return f"P{date_part}{time_part}"
+
+
+def schema_org_duration(value: str | None) -> str | None:
+    if not value:
+        return None
+
+    value = value.strip()
+    if not value:
+        return None
+
+    if value.isdecimal():
+        return timedelta_to_iso8601_duration(timedelta(minutes=int(value)))
+
+    try:
+        return timedelta_to_iso8601_duration(parse_duration(value))
+    except ValueError:
+        pass
+
+    duration = timedelta()
+    cursor = 0
+    for match in TIME_PART_RE.finditer(value):
+        if TIME_SEPARATOR_RE.fullmatch(value[cursor : match.start()]) is None:
+            return value
+
+        amount = float(match.group("value"))
+        unit = match.group("unit").lower()
+
+        if unit.startswith("day"):
+            duration += timedelta(days=amount)
+        elif unit.startswith(("hour", "hr")):
+            duration += timedelta(hours=amount)
+        elif unit.startswith(("minute", "min")):
+            duration += timedelta(minutes=amount)
+        elif unit.startswith(("second", "sec")):
+            duration += timedelta(seconds=amount)
+
+        cursor = match.end()
+
+    if TIME_SEPARATOR_RE.fullmatch(value[cursor:]) is None:
+        return value
+
+    return timedelta_to_iso8601_duration(duration) if duration else value
+
+
 def content_with_meta(group_slug: str, recipe: Recipe) -> str:
     # Inject meta tags
     recipe_url = f"{__app_settings.BASE_URL}/g/{group_slug}/r/{recipe.slug}"
@@ -147,9 +220,9 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
         "description": escape(recipe.description),
         "image": [image_url],
         "datePublished": recipe.created_at,
-        "prepTime": escape(recipe.prep_time),
-        "cookTime": escape(recipe.cook_time),
-        "totalTime": escape(recipe.total_time),
+        "prepTime": escape(schema_org_duration(recipe.prep_time)),
+        "cookTime": escape(schema_org_duration(recipe.cook_time)),
+        "totalTime": escape(schema_org_duration(recipe.total_time)),
         "recipeYield": escape(recipe.recipe_yield_display),
         "recipeIngredient": ingredients,
         "recipeInstructions": [escape(i.text) for i in recipe.recipe_instructions]
