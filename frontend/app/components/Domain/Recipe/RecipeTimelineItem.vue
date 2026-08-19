@@ -14,7 +14,7 @@
       class="elevation-12"
       @click="$emit('selected')"
     >
-      <v-card-title class="background">
+      <v-card-title class="background text-wrap">
         <v-row>
           <v-col align-self="center" :cols="useMobileFormat ? 'auto' : '2'" :class="attrs.avatar.class">
             <UserAvatar :user-id="event.userId" :size="attrs.avatar.size" />
