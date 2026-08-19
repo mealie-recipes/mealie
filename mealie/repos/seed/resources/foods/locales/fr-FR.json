@@ -126,8 +126,8 @@
             "heart of palm": {
                 "aliases": [],
                 "description": "",
-                "name": "cœur de palmier",
-                "plural_name": "cœur de palmier"
+                "name": "coeur de palmier",
+                "plural_name": "coeur de palmier"
             },
             "baby greens": {
                 "aliases": [],
@@ -1825,8 +1825,8 @@
             "hemp heart": {
                 "aliases": [],
                 "description": "",
-                "name": "cœur de chanvre",
-                "plural_name": "cœurs de chanvre"
+                "name": "coeur de chanvre",
+                "plural_name": "coeurs de chanvre"
             },
             "nigella seed": {
                 "aliases": [],
@@ -2623,8 +2623,8 @@
             "egg": {
                 "aliases": [],
                 "description": "",
-                "name": "œuf",
-                "plural_name": "œufs"
+                "name": "oeuf",
+                "plural_name": "oeufs"
             },
             "milk": {
                 "aliases": [],
@@ -2883,14 +2883,14 @@
             "duck egg": {
                 "aliases": [],
                 "description": "",
-                "name": "œuf de canard",
-                "plural_name": "œufs de canard"
+                "name": "oeuf de canard",
+                "plural_name": "oeufs de canard"
             },
             "salted egg": {
                 "aliases": [],
                 "description": "",
-                "name": "œuf salé",
-                "plural_name": "œufs salés"
+                "name": "oeuf salé",
+                "plural_name": "oeufs salés"
             },
             "skyr": {
                 "aliases": [],
@@ -2985,8 +2985,8 @@
             "century egg": {
                 "aliases": [],
                 "description": "",
-                "name": "œuf de cent ans",
-                "plural_name": "œufs de cent ans"
+                "name": "oeuf de cent ans",
+                "plural_name": "oeufs de cent ans"
             },
             "orange curd": {
                 "aliases": [],
@@ -3075,8 +3075,8 @@
             "pickled egg": {
                 "aliases": [],
                 "description": "",
-                "name": "œuf mariné",
-                "plural_name": "œufs marinés"
+                "name": "oeuf mariné",
+                "plural_name": "oeufs marinés"
             },
             "sheep milk": {
                 "aliases": [],
@@ -3099,8 +3099,8 @@
             "ostrich egg": {
                 "aliases": [],
                 "description": "",
-                "name": "œuf d'autruche",
-                "plural_name": "œufs d'autruche"
+                "name": "oeuf d'autruche",
+                "plural_name": "oeufs d'autruche"
             },
             "vanilla milk": {
                 "aliases": [],
@@ -3211,8 +3211,8 @@
             "egg replacer": {
                 "aliases": [],
                 "description": "",
-                "name": "substitut d'œuf",
-                "plural_name": "substituts d'œuf"
+                "name": "substitut d'oeuf",
+                "plural_name": "substituts d'oeuf"
             },
             "vegan mayonnaise": {
                 "aliases": [],
@@ -3398,7 +3398,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "boeuf haché végétalien",
-                "plural_name": "bœufs hachés végétaliens"
+                "plural_name": "boeufs hachés végétaliens"
             },
             "pulled oat": {
                 "aliases": [],
@@ -3451,8 +3451,8 @@
             "vegan beef": {
                 "aliases": [],
                 "description": "",
-                "name": "bœuf végan",
-                "plural_name": "bœufs végans"
+                "name": "boeuf végan",
+                "plural_name": "boeufs végans"
             },
             "hazelnut butter": {
                 "aliases": [],
@@ -3661,8 +3661,8 @@
             "egg tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "tofu aux œufs",
-                "plural_name": "tofus aux œufs"
+                "name": "tofu aux oeufs",
+                "plural_name": "tofus aux oeufs"
             },
             "protein drink": {
                 "aliases": [],
@@ -3755,14 +3755,14 @@
             "ground beef": {
                 "aliases": [],
                 "description": "",
-                "name": "bœuf haché",
-                "plural_name": "Bœufs hachés"
+                "name": "boeuf haché",
+                "plural_name": "Boeufs hachés"
             },
             "beef steak": {
                 "aliases": [],
                 "description": "",
-                "name": "steak de bœuf",
-                "plural_name": "steaks de bœuf"
+                "name": "steak de boeuf",
+                "plural_name": "steaks de boeuf"
             },
             "ham": {
                 "aliases": [],
@@ -3815,7 +3815,7 @@
             "beef stew meat": {
                 "aliases": [],
                 "description": "",
-                "name": "bœuf à ragoût",
+                "name": "boeuf à ragoût",
                 "plural_name": "viandes à ragoût de boeuf"
             },
             "pepperoni": {
@@ -3989,8 +3989,8 @@
             "beef rib": {
                 "aliases": [],
                 "description": "",
-                "name": "côte de bœuf",
-                "plural_name": "côtes de bœuf"
+                "name": "côte de boeuf",
+                "plural_name": "côtes de boeuf"
             },
             "veal steak": {
                 "aliases": [],
@@ -4025,8 +4025,8 @@
             "beef sausage": {
                 "aliases": [],
                 "description": "",
-                "name": "saucisse de bœuf",
-                "plural_name": "saucisses de bœuf"
+                "name": "saucisse de boeuf",
+                "plural_name": "saucisses de boeuf"
             },
             "lamb shank": {
                 "aliases": [],
@@ -4151,8 +4151,8 @@
             "oxtail": {
                 "aliases": [],
                 "description": "",
-                "name": "queue de bœuf",
-                "plural_name": "queues de bœuf"
+                "name": "queue de boeuf",
+                "plural_name": "queues de boeuf"
             },
             "smoked ham hock": {
                 "aliases": [],
@@ -4223,8 +4223,8 @@
             "beef shank": {
                 "aliases": [],
                 "description": "",
-                "name": "jarret de bœuf",
-                "plural_name": "jarrets de bœuf"
+                "name": "jarret de boeuf",
+                "plural_name": "jarrets de boeuf"
             },
             "lap cheong": {
                 "aliases": [],
@@ -4241,8 +4241,8 @@
             "dried beef": {
                 "aliases": [],
                 "description": "",
-                "name": "bœuf séché",
-                "plural_name": "bœufs séchés"
+                "name": "boeuf séché",
+                "plural_name": "boeufs séchés"
             },
             "gammon joint": {
                 "aliases": [],
@@ -4319,8 +4319,8 @@
             "beef suet": {
                 "aliases": [],
                 "description": "",
-                "name": "suif de bœuf",
-                "plural_name": "suifs de bœuf"
+                "name": "suif de boeuf",
+                "plural_name": "suifs de boeuf"
             },
             "veal roast": {
                 "aliases": [],
@@ -4331,8 +4331,8 @@
             "beef shoulder": {
                 "aliases": [],
                 "description": "",
-                "name": "épaule de bœuf",
-                "plural_name": "épaules de bœuf"
+                "name": "épaule de boeuf",
+                "plural_name": "épaules de boeuf"
             },
             "steak tip": {
                 "aliases": [],
@@ -5107,8 +5107,8 @@
             "salmon roe": {
                 "aliases": [],
                 "description": "",
-                "name": "œufs de saumon",
-                "plural_name": "œufs de saumon"
+                "name": "oeufs de saumon",
+                "plural_name": "oeufs de saumon"
             },
             "steelhead trout": {
                 "aliases": [],
@@ -15793,8 +15793,8 @@
             "liquid egg white": {
                 "aliases": [],
                 "description": "",
-                "name": "blanc d'œuf liquide",
-                "plural_name": "blancs d'œufs liquides"
+                "name": "blanc d'oeuf liquide",
+                "plural_name": "blancs d'oeufs liquides"
             },
             "peanut butter powder": {
                 "aliases": [],
@@ -16111,7 +16111,7 @@
             "egg powder": {
                 "aliases": [],
                 "description": "",
-                "name": "poudre d'œuf",
+                "name": "poudre d'oeuf",
                 "plural_name": "egg powder"
             },
             "reishi mushroom": {
