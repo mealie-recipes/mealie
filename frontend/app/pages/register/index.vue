@@ -324,9 +324,10 @@ const inputAttrs = {
 const i18n = useI18n();
 const isDark = useDark();
 
-function safeValidate(form: Ref<VForm | null>) {
+async function safeValidate(form: Ref<VForm | null>) {
   if (form.value && form.value.validate) {
-    return form.value.validate();
+    const res = await form.value.validate();
+    return typeof res === "object" && res !== null ? res.valid : Boolean(res);
   }
   return false;
 }
@@ -368,10 +369,10 @@ const initial = {
 // Provide Token
 const domTokenForm = ref<VForm | null>(null);
 function validateToken() {
-  return true;
+  return Boolean(token.value && token.value.trim());
 }
 const provideToken = {
-  next: () => {
+  next: async () => {
     if (!safeValidate(domTokenForm as Ref<VForm>)) {
       return;
     }
