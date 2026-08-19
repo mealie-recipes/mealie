@@ -1,70 +1,12 @@
 <template>
   <div>
-    <!-- Create Meal Dialog -->
-    <BaseDialog
-      v-model="state.dialog"
-      :title="newMeal.existing ? $t('meal-plan.update-this-meal-plan') : $t('meal-plan.create-a-new-meal-plan')"
-      :submit-text="newMeal.existing ? $t('general.update') : $t('general.create')"
-      color="primary"
-      :icon="$globals.icons.foods"
-      :submit-disabled="isCreateDisabled"
-      can-submit
-      @submit="
-        () => {
-          if (newMeal.existing) {
-            actions.updateOne({ ...newMeal, date: newMealDateString });
-          }
-          else {
-            actions.createOne({ ...newMeal, date: newMealDateString });
-          }
-          resetDialog();
-        }
-      "
-      @close="resetDialog()"
-    >
-      <v-card-text class="pb-2">
-        <v-date-picker
-          v-model="newMeal.date"
-          class="mx-auto"
-          hide-header
-          show-adjacent-months
-          color="primary"
-          :first-day-of-week="firstDayOfWeek"
-          :local="$i18n.locale"
-        />
-        <v-card-text class="pb-0">
-          <v-select
-            v-model="newMeal.entryType"
-            :return-object="false"
-            :items="planTypeOptions"
-            :label="$t('recipe.entry-type')"
-            item-title="text"
-            item-value="value"
-          />
-          <v-autocomplete
-            v-if="!dialog.note"
-            v-model="newMeal.recipeId"
-            v-model:search="search.query.value"
-            :label="$t('meal-plan.meal-recipe')"
-            :items="search.data.value"
-            :custom-filter="normalizeFilter"
-            :loading="search.loading.value"
-            cache-items
-            item-title="name"
-            item-value="id"
-            :return-object="false"
-            :rules="[requiredRule]"
-          />
-          <template v-else>
-            <v-text-field v-model="newMeal.title" :rules="[requiredRule]" :label="$t('meal-plan.meal-title')" />
-            <v-textarea v-model="newMeal.text" rows="2" :label="$t('meal-plan.meal-note')" />
-          </template>
-        </v-card-text>
-        <v-card-actions class="py-0 px-4">
-          <v-switch v-model="dialog.note" class="mt-n3 mb-n4" :label="$t('meal-plan.note-only')" />
-        </v-card-actions>
-      </v-card-text>
-    </BaseDialog>
+    <GroupMealPlanEntryDialog
+      v-model="dialog.open"
+      :entry="dialog.entry"
+      :date="dialog.date"
+      @create="actions.createOne($event)"
+      @update="actions.updateOne($event)"
+    />
     <v-row>
       <v-col
         v-for="(plan, index) in mealplans"
@@ -251,12 +193,10 @@ import { VueDraggable } from "vue-draggable-plus";
 import type { MealsByDate } from "./view.vue";
 import type { useMealplans } from "~/composables/use-group-mealplan";
 import { usePlanTypeOptions, getEntryTypeText } from "~/composables/use-group-mealplan";
+import GroupMealPlanEntryDialog from "~/components/Domain/Household/GroupMealPlanEntryDialog.vue";
 import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
-import type { PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
+import type { PlanEntryType, ReadPlanEntry } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
-import { useHouseholdSelf } from "~/composables/use-households";
-import { normalizeFilter } from "~/composables/use-utils";
-import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 
 const props = defineProps<{
   mealplans: MealsByDate[];
@@ -264,20 +204,9 @@ const props = defineProps<{
 }>();
 
 const api = useUserApi();
-const auth = useMealieAuth();
-const { household } = useHouseholdSelf();
-const requiredRule = (value: any) => !!value || "Required.";
-
-const state = ref({
-  dialog: false,
-});
-
-const firstDayOfWeek = computed(() => {
-  return household.value?.preferences?.firstDayOfWeek || 0;
-});
 
 // Local mutable meals object
-const mealplansByDate = reactive<{ [date: string]: UpdatePlanEntry[] }>({});
+const mealplansByDate = reactive<{ [date: string]: ReadPlanEntry[] }>({});
 watch(
   () => props.mealplans,
   (plans) => {
@@ -321,74 +250,26 @@ function onMoveCallback(evt: SortableEvent) {
 }
 
 // =====================================================
-// New Meal Dialog
+// Meal Entry Dialog
 
 const dialog = reactive({
-  loading: false,
-  error: false,
-  note: false,
-});
-
-watch(dialog, () => {
-  if (dialog.note) {
-    newMeal.recipeId = undefined;
-  }
-});
-
-const newMeal = reactive({
-  date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000),
-  title: "",
-  text: "",
-  recipeId: undefined as string | undefined,
-  entryType: "dinner" as PlanEntryType,
-  existing: false,
-  id: 0,
-  groupId: "",
-  userId: auth.user.value?.id || "",
-});
-
-const newMealDateString = computed(() => {
-  return format(newMeal.date, "yyyy-MM-dd");
-});
-
-const isCreateDisabled = computed(() => {
-  if (dialog.note) {
-    return !newMeal.title.trim();
-  }
-  return !newMeal.recipeId;
+  open: false,
+  entry: null as ReadPlanEntry | null,
+  date: null as Date | null,
 });
 
 function openDialog(date: Date) {
-  newMeal.date = date;
-  state.value.dialog = true;
+  dialog.entry = null;
+  dialog.date = date;
+  dialog.open = true;
 }
 
-function editMeal(mealplan: UpdatePlanEntry) {
-  const { date, title, text, entryType, recipeId, id, groupId, userId } = mealplan;
-  if (!entryType) return;
+function editMeal(mealplan: ReadPlanEntry) {
+  if (!mealplan.entryType) return;
 
-  const [year, month, day] = date.split("-").map(Number);
-  newMeal.date = new Date(year, month - 1, day);
-  newMeal.title = title || "";
-  newMeal.text = text || "";
-  newMeal.recipeId = recipeId || undefined;
-  newMeal.entryType = entryType;
-  newMeal.existing = true;
-  newMeal.id = id;
-  newMeal.groupId = groupId;
-  newMeal.userId = userId || auth.user.value?.id || "";
-
-  state.value.dialog = true;
-  dialog.note = !recipeId;
-}
-
-function resetDialog() {
-  newMeal.date = new Date(Date.now() - new Date().getTimezoneOffset() * 60000);
-  newMeal.title = "";
-  newMeal.text = "";
-  newMeal.entryType = "dinner";
-  newMeal.recipeId = undefined;
-  newMeal.existing = false;
+  dialog.entry = mealplan;
+  dialog.date = null;
+  dialog.open = true;
 }
 
 async function randomMeal(date: Date, type: PlanEntryType) {
@@ -402,7 +283,7 @@ async function randomMeal(date: Date, type: PlanEntryType) {
   }
 }
 
-async function randomizeMeal(mealplan: UpdatePlanEntry) {
+async function randomizeMeal(mealplan: ReadPlanEntry) {
   if (!mealplan.entryType) {
     return;
   }
@@ -420,13 +301,5 @@ async function randomizeMeal(mealplan: UpdatePlanEntry) {
   }
 }
 
-// =====================================================
-// Search
-
-const search = useRecipeSearch(api);
 const planTypeOptions = usePlanTypeOptions();
-
-onMounted(async () => {
-  await search.trigger();
-});
 </script>

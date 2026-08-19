@@ -1,7 +1,12 @@
 <template>
-  <div>
+  <div
+    class="d-flex flex-column"
+    :style="{ height }"
+  >
+    <!-- v-input defaults to flex-grow, which stretches the field when the results are short -->
     <v-text-field
       v-model="search"
+      class="flex-grow-0"
       variant="outlined"
       density="compact"
       color="primary"
@@ -11,7 +16,7 @@
       :prepend-inner-icon="$globals.icons.search"
     />
 
-    <div class="d-flex flex-wrap ga-2 mt-3">
+    <div class="d-flex flex-wrap align-start ga-2 mt-3">
       <SearchFilter
         v-if="categories.length"
         v-model="selectedCategories"
@@ -32,6 +37,7 @@
         </v-icon>
         {{ $t("tag.tags") }}
       </SearchFilter>
+      <slot name="filters" />
     </div>
 
     <div
@@ -53,7 +59,6 @@
     <div
       ref="resultsContainer"
       class="recipe-results mt-3"
-      :style="{ maxHeight }"
     >
       <v-row
         v-if="recipes.length"
@@ -121,11 +126,11 @@ import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 
 interface Props {
   queryFilter?: string | null;
-  maxHeight?: string;
+  height?: string;
 }
 const props = withDefaults(defineProps<Props>(), {
   queryFilter: null,
-  maxHeight: "50vh",
+  height: "100%",
 });
 
 const modelValue = defineModel<RecipeSummary | null>({ default: null });
@@ -235,6 +240,8 @@ onMounted(async () => {
 
 <style scoped>
 .recipe-results {
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
 }
 
