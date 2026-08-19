@@ -42,26 +42,30 @@
             class="my-1"
             :class="{ handle: $vuetify.display.smAndUp }"
           >
-            <v-list-item lines="three" @click="editMeal(mealplan)">
+            <RecipeCardLineItem
+              v-if="mealplan.recipe"
+              class="py-2"
+              :recipe="mealplan.recipe"
+              disable-link
+              @click="editMeal(mealplan)"
+            />
+            <v-list-item
+              v-else
+              class="py-2"
+              @click="editMeal(mealplan)"
+            >
               <template #prepend>
                 <v-avatar>
-                  <RecipeCardImage
-                    v-if="mealplan.recipe"
-                    :recipe-id="mealplan.recipe.id!"
-                    tiny
-                    icon-size="25"
-                    :slug="mealplan.recipe ? mealplan.recipe.slug : ''"
-                  />
-                  <v-icon v-else>
+                  <v-icon>
                     {{ $globals.icons.primary }}
                   </v-icon>
                 </v-avatar>
               </template>
-              <v-list-item-title class="mb-1">
-                {{ mealplan.recipe ? mealplan.recipe.name : mealplan.title }}
+              <v-list-item-title>
+                {{ mealplan.title }}
               </v-list-item-title>
-              <v-list-item-subtitle style="min-height: 16px">
-                {{ mealplan.recipe ? mealplan.recipe.description + " " : mealplan.text }}
+              <v-list-item-subtitle v-if="mealplan.text">
+                {{ mealplan.text }}
               </v-list-item-subtitle>
             </v-list-item>
             <v-divider class="mx-2" />
@@ -194,7 +198,7 @@ import type { MealsByDate } from "./view.vue";
 import type { useMealplans } from "~/composables/use-group-mealplan";
 import { usePlanTypeOptions, getEntryTypeText } from "~/composables/use-group-mealplan";
 import GroupMealPlanEntryDialog from "~/components/Domain/Household/GroupMealPlanEntryDialog.vue";
-import RecipeCardImage from "~/components/Domain/Recipe/RecipeCardImage.vue";
+import RecipeCardLineItem from "~/components/Domain/Recipe/RecipeCardLineItem.vue";
 import type { PlanEntryType, ReadPlanEntry } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
 
@@ -224,28 +228,17 @@ watch(
 );
 
 function onMoveCallback(evt: SortableEvent) {
-  const supportedEvents = ["drop", "touchend"];
+  // A Meal was moved, set the new date value and make an update request and refresh the meals
+  const fromMealsByIndex = parseInt(evt.from.getAttribute("data-index") ?? "");
+  const toMealsByIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
 
-  // Adapted From https://github.com/SortableJS/Vue.Draggable/issues/1029
-  const ogEvent: DragEvent = (evt as any).originalEvent;
+  if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
+    const destDate = props.mealplans[toMealsByIndex].date;
+    const mealData = mealplansByDate[destDate.toString()][evt.newIndex as number];
 
-  if (ogEvent && ogEvent.type in supportedEvents) {
-    // The drop was cancelled, unsure if anything needs to be done?
-    console.log("Cancel Move Event");
-  }
-  else {
-    // A Meal was moved, set the new date value and make an update request and refresh the meals
-    const fromMealsByIndex = parseInt(evt.from.getAttribute("data-index") ?? "");
-    const toMealsByIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
+    mealData.date = format(destDate, "yyyy-MM-dd");
 
-    if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
-      const destDate = props.mealplans[toMealsByIndex].date;
-      const mealData = mealplansByDate[destDate.toString()][evt.newIndex as number];
-
-      mealData.date = format(destDate, "yyyy-MM-dd");
-
-      props.actions.updateOne(mealData);
-    }
+    props.actions.updateOne(mealData);
   }
 }
 
@@ -288,15 +281,14 @@ async function randomizeMeal(mealplan: ReadPlanEntry) {
     return;
   }
 
-  // Delete the current entry, then create a new random one with the same date and type
-  const { data: deleted } = await api.mealplans.deleteOne(mealplan.id);
-  if (deleted) {
-    await api.mealplans.setRandom({
-      date: mealplan.date,
-      entryType: mealplan.entryType,
-    });
+  // Create the new random entry first, so a failure here doesn't lose the current entry
+  const { data: created } = await api.mealplans.setRandom({
+    date: mealplan.date,
+    entryType: mealplan.entryType,
+  });
 
-    // Refresh either way: if setRandom failed we still need to reflect the deletion
+  if (created) {
+    await api.mealplans.deleteOne(mealplan.id);
     props.actions.refreshAll();
   }
 }
