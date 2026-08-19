@@ -21,29 +21,29 @@
         "and-amount": "och {amount}",
         "or-ingredient": "eller {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
-            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
-            "image-provider-not-enabled": "AI image services are not enabled",
-            "no-recipe-found": "No recipe was found in the provided source",
-            "no-source": "No content, images, or URL were provided",
-            "provider-returned-nothing": "The AI provider did not return a recipe",
-            "unknown-error": "Something went wrong while creating the recipe. Please try again",
-            "unreadable-source": "Unable to read any content from the provided source",
-            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+            "ai-not-enabled": "AI-tjänster är inte aktiverade",
+            "ai-request-failed": "AI-leverantören kunde inte slutföra begäran. Vänligen försök igen",
+            "image-provider-not-enabled": "AI-bildtjänster är inte aktiverat",
+            "no-recipe-found": "Inget recept hittades i den angivna källan",
+            "no-source": "Inget innehåll, bilder eller URL tillhandahölls",
+            "provider-returned-nothing": "AI-leverantören returnerade inte ett recept",
+            "unknown-error": "Något gick fel när receptet skulle skapas. Försök igen",
+            "unreadable-source": "Det gick inte att läsa något innehåll från den angivna källan",
+            "video-download-failed": "Det gick inte att ladda ner videon. Den kan vara privat, borttagen, eller från en webbplats som inte stöds"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Skapar recept...",
             "creating-recipe-from-transcript-with-ai": "Skapar recept baserat på transkription med AI...",
             "creating-recipe-from-webpage-data": "Skapar recept med hjälp av data från hemsida...",
             "downloading-image": "Laddar ned bild...",
             "downloading-video": "Laddar ned video...",
             "extracting-recipe-data": "Extraherar recept...",
             "fetching-webpage": "Hämtar hemsida...",
-            "organizing-recipe": "Organizing recipe...",
-            "reading-images-with-ai": "Reading images with AI...",
-            "reading-source-with-ai": "Reading source with AI...",
+            "organizing-recipe": "Organiserar recept...",
+            "reading-images-with-ai": "Läser bilder med AI...",
+            "reading-source-with-ai": "Läser källa med AI...",
             "transcribing-audio-with-ai": "Transkriberar ljud med hjälp av AI...",
-            "translating-recipe": "Translating recipe..."
+            "translating-recipe": "Översätter recept..."
         }
     },
     "mealplan": {
