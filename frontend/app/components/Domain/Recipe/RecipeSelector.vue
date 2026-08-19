@@ -60,34 +60,19 @@
       ref="resultsContainer"
       class="recipe-results mt-3"
     >
-      <v-row
+      <v-list
         v-if="recipes.length"
-        density="comfortable"
+        class="py-0"
       >
-        <v-col
+        <RecipeCardLineItem
           v-for="recipe in recipes"
           :key="recipe.id!"
-          cols="12"
-          class="py-1"
-        >
-          <div :class="{ 'selected-recipe': recipe.id === modelValue?.id }">
-            <!-- binding `selected` stops the card from linking to the recipe, so it can be picked instead -->
-            <RecipeCardMobile
-              :name="recipe.name!"
-              :description="recipe.description!"
-              :slug="recipe.slug!"
-              :rating="recipe.rating!"
-              :image="recipe.image!"
-              :tags="recipe.tags!"
-              :recipe-id="recipe.id!"
-              :selected="true"
-              @selected="select(recipe)"
-            >
-              <template #actions />
-            </RecipeCardMobile>
-          </div>
-        </v-col>
-      </v-row>
+          :recipe="recipe"
+          :active="recipe.id === modelValue?.id"
+          disable-link
+          @click="select(recipe)"
+        />
+      </v-list>
 
       <div
         v-else-if="!loading"
@@ -116,7 +101,7 @@
 
 <script setup lang="ts">
 import { useIntersectionObserver, watchDebounced } from "@vueuse/core";
-import RecipeCardMobile from "./RecipeCardMobile.vue";
+import RecipeCardLineItem from "./RecipeCardLineItem.vue";
 import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import { useLazyRecipes } from "~/composables/recipes";
 import { useCategoryStore, useTagStore } from "~/composables/store";
@@ -243,10 +228,5 @@ onMounted(async () => {
   flex: 1 1 auto;
   min-height: 0;
   overflow-y: auto;
-}
-
-.selected-recipe {
-  outline: 2px solid rgb(var(--v-theme-primary));
-  border-radius: 4px;
 }
 </style>
