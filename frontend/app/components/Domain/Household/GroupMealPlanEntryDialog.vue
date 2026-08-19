@@ -66,7 +66,7 @@
           />
         </v-col>
 
-        <!-- both modes share a fixed height so the dialog doesn't resize when switching between them -->
+        <!-- both modes fill the same pane, so the dialog doesn't resize when switching between them -->
         <v-col
           cols="12"
           md="7"
@@ -76,6 +76,7 @@
             v-if="isRecipe"
             ref="selector"
             v-model="recipe"
+            height="auto"
             :query-filter="ruleQueryFilter"
           >
             <template #filters>
@@ -116,7 +117,7 @@
             </template>
           </RecipeSelector>
 
-          <template v-else>
+          <div v-else>
             <v-text-field
               v-model="title"
               :label="$t('meal-plan.meal-title')"
@@ -127,7 +128,7 @@
               :label="$t('meal-plan.meal-note')"
               rows="6"
             />
-          </template>
+          </div>
         </v-col>
       </v-row>
     </v-card-text>
@@ -229,7 +230,19 @@ watch(dialog, (isOpen) => {
 
 <style scoped>
 .entry-detail {
-  height: clamp(320px, 45vh, 520px);
+  position: relative;
+  min-height: clamp(320px, 45vh, 520px);
+}
+
+/*
+  Take the pane out of flow so a long result list scrolls inside it instead of growing the
+  dialog, while it still stretches to the height of the settings column beside it.
+  The inset matches the v-col gutter padding.
+*/
+.entry-detail > * {
+  position: absolute;
+  inset: 12px;
+  overflow-y: auto;
 }
 
 /* v-switch reserves a taller control than the filter buttons next to it */

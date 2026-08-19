@@ -1,6 +1,6 @@
 <template>
   <div
-    class="d-flex flex-column"
+    class="recipe-selector d-flex flex-column"
     :style="{ height }"
   >
     <!-- v-input defaults to flex-grow, which stretches the field when the results are short -->
@@ -224,6 +224,11 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+/* lets the results shrink when this is stretched by a flex parent */
+.recipe-selector {
+  min-height: 0;
+}
+
 .recipe-results {
   flex: 1 1 auto;
   min-height: 0;
