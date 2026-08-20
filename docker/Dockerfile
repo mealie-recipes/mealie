@@ -1,22 +1,20 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:24@sha256:40ad9f3064e67d6860b4bc3fe1880b2953934fd6320ada990e45fe0efa6badd7 \
+FROM node:24@sha256:934240a162082fd8b8a2f90cd5114446443f1eba1c5378f6687167ca405e6584 \
     AS frontend-builder
+
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME/bin:$PATH"
+RUN corepack enable
 
 WORKDIR /frontend
 
 COPY frontend .
 
-RUN yarn install \
-    --prefer-offline \
-    --frozen-lockfile \
-    --non-interactive \
-    --production=false \
-    # https://github.com/docker/build-push-action/issues/471
-    --network-timeout 1000000
+RUN pnpm clean-install
 
-RUN yarn generate
+RUN pnpm generate
 
 ###############################################
 # Base Image - Python
@@ -131,6 +129,7 @@ RUN apt-get update \
     iproute2 \
     libldap-common \
     libldap2 \
+    unzip \
     && rm -rf /var/lib/apt/lists/*
 
 # create directory used for Docker Secrets
@@ -141,8 +140,8 @@ COPY --from=venv-builder $VENV_PATH $VENV_PATH
 
 # install nltk data for the ingredient parser
 ENV NLTK_DATA="/nltk_data/"
-RUN mkdir -p $NLTK_DATA
-RUN python -m nltk.downloader -d $NLTK_DATA averaged_perceptron_tagger_eng
+COPY ./docker/setup_nltk_data.sh $MEALIE_HOME/setup_nltk_data.sh
+RUN chmod +x $MEALIE_HOME/setup_nltk_data.sh && $MEALIE_HOME/setup_nltk_data.sh
 
 VOLUME [ "$MEALIE_HOME/data/" ]
 ENV APP_PORT=9000
@@ -153,7 +152,7 @@ COPY ./docker/healthcheck.sh $MEALIE_HOME/healthcheck.sh
 RUN chmod +x $MEALIE_HOME/healthcheck.sh
 HEALTHCHECK CMD $MEALIE_HOME/healthcheck.sh
 
-ENV HOST 0.0.0.0
+ENV HOST=0.0.0.0
 
 EXPOSE ${APP_PORT}
 COPY ./docker/entry.sh $MEALIE_HOME/run.sh

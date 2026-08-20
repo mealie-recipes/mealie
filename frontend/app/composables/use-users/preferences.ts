@@ -68,6 +68,8 @@ export interface UserRecipeCreatePreferences {
   importCategories: boolean;
   stayInEditMode: boolean;
   parseRecipe: boolean;
+  translateRecipe: boolean;
+  createNewOrganizers: boolean;
 }
 
 export interface UserActivityPreferences {
@@ -226,6 +228,8 @@ export function useRecipeCreatePreferences(): Ref<UserRecipeCreatePreferences> {
       importCategories: false,
       stayInEditMode: false,
       parseRecipe: true,
+      translateRecipe: false,
+      createNewOrganizers: false,
     },
     { mergeDefaults: true },
   );

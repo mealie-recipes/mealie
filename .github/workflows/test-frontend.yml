@@ -17,37 +17,35 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.sha }}
 
+      # Work around pnpm/action-setup v6 resolving the wrong version from package.json
+      # https://github.com/pnpm/action-setup/issues/227
+      - name: Read pnpm version
+        id: pnpm-version
+        run: 'echo "version=$(jq --raw-output ''.packageManager | split("@")[1]'' package.json)" >> "$GITHUB_OUTPUT"'
+        working-directory: "frontend"
+      - uses: pnpm/action-setup@v6
+        with:
+          version: ${{ steps.pnpm-version.outputs.version }}
+
       - name: Setup node env 🏗
         uses: actions/setup-node@v6
         with:
-          node-version: 22
-          check-latest: true
-
-      - name: Get yarn cache directory path 🛠
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache node_modules 📦
-        uses: actions/cache@v5
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+          node-version: 24
+          cache: "pnpm"
+          cache-dependency-path: "**/pnpm-lock.yaml"
 
       - name: Install dependencies 👨🏻‍💻
-        run: yarn
+        run: pnpm install --prefer-offline
         working-directory: "frontend"
 
       - name: Prepare nuxt 🚀
-        run: yarn nuxt prepare
+        run: pnpm nuxt prepare
         working-directory: "frontend"
 
       - name: Run linter 👀
-        run: yarn lint --max-warnings=0
+        run: pnpm lint --max-warnings=0
         working-directory: "frontend"
 
       - name: Run tests 🧪
-        run: yarn test:ci
+        run: pnpm test:ci
         working-directory: "frontend"

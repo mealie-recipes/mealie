@@ -2500,7 +2500,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "smältostar",
-                "plural_name": "quick-melt cheese"
+                "plural_name": "snabbsmält ost"
             },
             "farmer's cheese": {
                 "aliases": [],
@@ -2511,19 +2511,19 @@
             "manouri cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "manouri cheese",
-                "plural_name": "manouri cheese"
+                "name": "manouri ost",
+                "plural_name": "manouri ost"
             },
             "mimolette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mimolette cheese",
-                "plural_name": "mimolette cheese"
+                "name": "mimolette",
+                "plural_name": "mimolette"
             },
             "queso quesadilla cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "queso quesadilla cheese",
+                "name": "quesadilla ost",
                 "plural_name": "queso quesadilla cheese"
             },
             "caciocavallo cheese": {
@@ -4163,8 +4163,8 @@
             "serrano ham": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano ham",
-                "plural_name": "serrano hams"
+                "name": "serranoskinka",
+                "plural_name": "serranoskinka"
             },
             "raw chorizo": {
                 "aliases": [],
@@ -4365,8 +4365,8 @@
             "cooked chicken": {
                 "aliases": [],
                 "description": "",
-                "name": "cooked chicken",
-                "plural_name": "cooked chickens"
+                "name": "tillagad kyckling",
+                "plural_name": "tillagade kycklingar"
             },
             "ground turkey": {
                 "aliases": [],
@@ -5185,7 +5185,7 @@
             "dried anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "dried anchovy",
+                "name": "torkad ansjovis",
                 "plural_name": "torkad ansjovis"
             },
             "arctic char": {
@@ -6165,8 +6165,8 @@
             "aniseed": {
                 "aliases": [],
                 "description": "",
-                "name": "aniseed",
-                "plural_name": "aniseeds"
+                "name": "anis",
+                "plural_name": "anis"
             },
             "kaffir lime leaf": {
                 "aliases": [],
@@ -11537,7 +11537,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "fisksås",
-                "plural_name": "fish sauce"
+                "plural_name": "fisksås"
             },
             "bbq sauce": {
                 "aliases": [],
@@ -13725,11 +13725,11 @@
                 "name": "anchovy stock",
                 "plural_name": "anchovy stock"
             },
-            "cream of chicken soup mix:": {
+            "cream of chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "cream of chicken soup mix",
+                "plural_name": "cream of chicken soup mix"
             },
             "noodle soup mix": {
                 "aliases": [],

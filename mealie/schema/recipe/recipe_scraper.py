@@ -32,3 +32,30 @@ class ScrapeRecipeData(ScrapeRecipeBase):
 
     url: str | None = None
     """Optional URL of the recipe source"""
+
+
+class ScrapeRecipeAI(MealieModel):
+    """Source material for an AI recipe import. At least one field, or one image, is required."""
+
+    content: str | None = None
+    """HTML, a JSON string of a https://schema.org/Recipe object, or plain text"""
+
+    url: str | None = None
+    """Optional URL of the recipe source. Always fetched, and combined with any other source"""
+
+    translate_language: str | None = None
+    """Optional language to translate the recipe into"""
+
+    create_new_organizers: bool = False
+    """Whether to create tags, categories, and tools that don't already exist in the group"""
+
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "content": "<html>...</html>",
+                "url": "https://myfavoriterecipes.com/recipes",
+                "translateLanguage": "English",
+                "createNewOrganizers": False,
+            },
+        }
+    )
