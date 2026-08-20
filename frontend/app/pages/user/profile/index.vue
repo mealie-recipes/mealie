@@ -99,6 +99,7 @@
             {{ $t('profile.user-settings-description') }}
           </UserProfileLinkCard>
         </v-col>
+
         <AdvancedOnly>
           <v-col
             cols="12"
@@ -271,6 +272,32 @@
         </AdvancedOnly>
       </v-row>
     </section>
+    <v-divider class="my-7" />
+    <section>
+      <div>
+        <h3 class="text-h6">
+          {{ $t('profile.security') }}
+        </h3>
+        <p>{{ $t('profile.security-description') }}</p>
+      </div>
+      <v-row tag="section">
+        <v-col
+          cols="12"
+          sm="12"
+          md="6"
+        >
+          <UserLoginHistoryCard
+            :link="{ text: $t('profile.user-login-history'), to: `/user/profile/login-history` }"
+            image="/svgs/user-login-history.svg"
+          >
+            <template #title>
+              {{ $t('profile.user-login-history') }}
+            </template>
+            {{ $t('profile.user-login-history-description') }}
+          </UserLoginHistoryCard>
+        </v-col>
+      </v-row>
+    </section>
   </v-container>
 </template>
 
@@ -282,6 +309,7 @@ import { useAsyncKey } from "~/composables/use-utils";
 import StatsCards from "~/components/global/StatsCards.vue";
 import type { UserOut } from "~/lib/api/types/user";
 import UserInviteDialog from "~/components/Domain/User/UserInviteDialog.vue";
+import UserLoginHistoryCard from "~/components/Domain/User/UserLoginHistoryCard.vue";
 
 definePageMeta({
   name: "UserProfile",

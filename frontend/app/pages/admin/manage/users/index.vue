@@ -2,6 +2,18 @@
   <v-container fluid>
     <UserInviteDialog v-model="inviteDialog" />
     <BaseDialog
+      v-model="loginHistoryDialog"
+      :title="`${$t('user.login-history')} - ${loginHistoryTarget?.username || ''}`"
+      :icon="$globals.icons.history"
+      width="800"
+      max-width="1200"
+    >
+      <template #activator />
+      <v-card-text>
+        <AdminUserLoginHistoryTable :user-id="loginHistoryTarget?.id || ''" />
+      </v-card-text>
+    </BaseDialog>
+    <BaseDialog
       v-model="state.deleteDialog"
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
@@ -88,6 +100,19 @@
             </v-icon>
           </v-btn>
         </template>
+
+        <template #[`item.loginHistory`]="{ item }">
+          <v-btn
+            icon
+            color="info"
+            variant="text"
+            @click.stop="openLoginHistory(item)"
+          >
+            <v-icon>
+              {{ $globals.icons.history }}
+            </v-icon>
+          </v-btn>
+        </template>
       </v-data-table>
       <v-divider />
     </section>
@@ -100,6 +125,7 @@ import { alert } from "~/composables/use-toast";
 import { useUser, useAllUsers } from "~/composables/use-user";
 import type { UserOut } from "~/lib/api/types/user";
 import UserInviteDialog from "~/components/Domain/User/UserInviteDialog.vue";
+import AdminUserLoginHistoryTable from "~/components/Domain/User/UserLoginHistoryTable.vue";
 
 definePageMeta({
   layout: "admin",
@@ -171,6 +197,12 @@ const headers = [
   { title: i18n.t("group.group"), value: "group" },
   { title: i18n.t("household.household"), value: "household" },
   { title: i18n.t("user.auth-method"), value: "authMethod" },
+  { title: i18n.t("user.login-history"), value: "loginHistory",
+    sortable: false,
+    align: "center",
+    cellClass: "text-center",
+
+  },
   { title: i18n.t("user.admin"), value: "admin" },
   { title: i18n.t("general.delete"), value: "actions", sortable: false, align: "center" },
 ];
@@ -185,7 +217,13 @@ async function unlockAllUsers(): Promise<void> {
     refreshAllUsers();
   }
 }
+const loginHistoryDialog = ref(false);
+const loginHistoryTarget = ref<UserOut | null>(null);
 
+function openLoginHistory(item: UserOut) {
+  loginHistoryTarget.value = item;
+  loginHistoryDialog.value = true;
+}
 useSeoMeta({
   title: i18n.t("sidebar.manage-users"),
 });

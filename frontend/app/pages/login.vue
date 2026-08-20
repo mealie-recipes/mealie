@@ -370,6 +370,17 @@ async function authenticate() {
 }
 
 function alertOnError(error: any) {
+  const detail = error?.response?.data?.detail;
+  if (typeof detail === "string" && detail.length > 0) {
+    alert.error(detail);
+    return;
+  }
+
+  if (typeof detail?.message === "string" && detail.message.length > 0) {
+    alert.error(detail.message);
+    return;
+  }
+
   // TODO Check if error is an AxiosError, but isAxiosError is not working right now
   // See https://github.com/nuxt-community/axios-module/issues/550
   // Import $axios from useContext()

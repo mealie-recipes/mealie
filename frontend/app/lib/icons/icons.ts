@@ -161,6 +161,7 @@ import {
   mdiWindowClose,
   mdiWrench,
   mdiHandWaveOutline,
+  mdiHistory,
 
 } from "@mdi/js";
 
@@ -337,7 +338,7 @@ export const icons = {
   chevronDown: mdiChevronDown,
   chevronRight: mdiChevronRight,
   chevronLeft: mdiChevronLeft,
-
+  history: mdiHistory,
   // Ocr toolbar
   selectMode: mdiSelectionDrag,
   panAndZoom: mdiCursorMove,
