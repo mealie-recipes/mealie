@@ -36,7 +36,9 @@ from mealie.db.models.recipe.shared import RecipeShareTokenModel
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users import LongLiveToken, User
+from mealie.db.models.users.login_history import UserLoginHistory
 from mealie.db.models.users.password_reset import PasswordResetModel
+from mealie.db.models.users.user_ip_blocklist import UserIpBlocklist
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.repos.repository_ai_provider import GroupRepositoryAIProvider
 from mealie.repos.repository_cookbooks import RepositoryCookbooks
@@ -71,11 +73,11 @@ from mealie.schema.recipe.recipe_share_token import RecipeShareToken
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 from mealie.schema.reports.reports import ReportEntryOut, ReportOut
 from mealie.schema.user import GroupInDB, LongLiveTokenInDB, PrivateUser
-from mealie.schema.user.user import UserRatingOut
+from mealie.schema.user.user import LoginHistoryOut, UserIpBlocklistOut, UserRatingOut
 from mealie.schema.user.user_passwords import PrivatePasswordResetToken
 
 from ._utils import NOT_SET, NotSet
-from .repository_generic import GroupRepositoryGeneric, HouseholdRepositoryGeneric
+from .repository_generic import GroupRepositoryGeneric, HouseholdRepositoryGeneric, RepositoryGeneric
 from .repository_group import RepositoryGroup
 from .repository_meals import RepositoryMeals
 from .repository_recipes import RepositoryRecipes
@@ -178,6 +180,19 @@ class AllRepositories:
 
     # ================================================================
     # User
+    @cached_property
+    def login_history(self) -> GroupRepositoryGeneric[LoginHistoryOut, UserLoginHistory]:
+        return GroupRepositoryGeneric(
+            self.session,
+            PK_ID,
+            UserLoginHistory,
+            LoginHistoryOut,
+            group_id=self.group_id,
+        )
+
+    @cached_property
+    def userIpBlocklist(self) -> RepositoryGeneric[UserIpBlocklistOut, UserIpBlocklist]:
+        return RepositoryGeneric(self.session, PK_ID, UserIpBlocklist, UserIpBlocklistOut)
 
     @cached_property
     def users(self) -> RepositoryUsers:

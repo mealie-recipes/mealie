@@ -15,7 +15,9 @@ from mealie.core.exceptions import MissingClaimException, UserLockedOut
 from mealie.core.security.providers.openid_provider import OpenIDProvider
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
+from mealie.db.models.users.users import AuthMethod
 from mealie.lang import get_locale_provider
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
 from mealie.schema.user.auth import CredentialsRequestForm, NativeOIDCTokenRequest, OIDCNativeConfig
@@ -25,6 +27,106 @@ from .auth_cache import AuthCache
 public_router = APIRouter(tags=["Users: Authentication"])
 user_router = UserAPIRouter(tags=["Users: Authentication"])
 logger = root_logger.get_logger("auth")
+
+
+def _get_client_ip(request: Request) -> str:
+    if "x-forwarded-for" in request.headers:
+        ip = request.headers["x-forwarded-for"]
+        if "," in ip:  # if there are multiple IPs, the first one is canonically the true client
+            ip = str(ip.split(",")[0])
+    else:
+        # request.client should never be null, except sometimes during testing
+        ip = request.client.host if request.client else "unknown"
+    return ip
+
+
+def _write_login_history(
+    session: Session,
+    request: Request,
+    *,
+    success: bool,
+    reason: str | None = None,
+    username: str | None = None,
+    user=None,
+    auth_method: AuthMethod | None = None,
+) -> None:
+    try:
+        ip = _get_client_ip(request)
+        repos = get_repositories(session, group_id=None, household_id=None)
+        repos.login_history.create(
+            {
+                "username": username or (user.username if user else None),
+                "user_id": user.id if user else None,
+                "auth_method": auth_method or (user.auth_method if user else None),
+                "success": success,
+                "reason": reason,
+                "ip_address": ip,
+                "user_agent": request.headers.get("user-agent"),
+            }
+        )
+    except Exception:
+        logger.exception("failed to write login history")
+
+
+def _finalize_login(
+    session: Session,
+    request: Request,
+    access_token: str,
+    *,
+    username: str | None = None,
+    user: PrivateUser | None = None,
+    auth_method: AuthMethod | None = None,
+) -> dict:
+    ip = _get_client_ip(request)
+    if not ip:
+        _write_login_history(
+            session,
+            request,
+            success=False,
+            reason="ip_address_not_found",
+            username=username,
+            user=user,
+            auth_method=auth_method or (user.auth_method if user else None),
+        )
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="IP address not found")
+    if not user:
+        _write_login_history(
+            session,
+            request,
+            success=False,
+            reason="user_not_found",
+            username=username,
+            auth_method=auth_method,
+        )
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="User not found")
+
+    repos = get_repositories(session, group_id=None, household_id=None)
+    rows = repos.userIpBlocklist.multi_query(
+        {"user_id": user.id, "ip_address": ip},
+        limit=100,  # 一般只会1条，防止历史脏数据
+    )
+    if rows:
+        _write_login_history(
+            session,
+            request,
+            success=False,
+            reason=f"ip_blocked- {ip}",
+            username=username,
+            user=user,
+            auth_method=auth_method or (user.auth_method if user else None),
+        )
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN, detail="Your IP address is blocked. Please contact support."
+        )
+    _write_login_history(
+        session,
+        request,
+        success=True,
+        username=username,
+        user=user,
+        auth_method=auth_method or (user.auth_method if user else None),
+    )
+    return MealieAuthToken.respond(access_token)
 
 
 settings = get_app_settings()
@@ -61,31 +163,68 @@ class MealieAuthToken(BaseModel):
         return cls(access_token=token, token_type=token_type).model_dump()
 
 
+@public_router.post("/login")
+def login(request: Request, data: CredentialsRequestForm = Depends(), session: Session = Depends(generate_session)):
+    auth_provider = get_auth_provider(session, data)
+    auth = auth_provider.authenticate()
+    if not auth:
+        failed_user = getattr(auth_provider, "user", None)
+        _write_login_history(
+            session,
+            request,
+            success=False,
+            reason=f"invalid_credentials. {data.username} / {data.password}",
+            username=data.username,
+            user=failed_user,
+            auth_method=failed_user.auth_method if failed_user else None,
+        )
+        logger.error(f"Incorrect username or password from {request.client.host}")
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail=(f"Incorrect username or password from {request.client.host}"),
+        )
+    return _finalize_login(session, request, auth[0], username=data.username, user=auth_provider.user)
+
+
 @public_router.post("/token")
 def get_token(request: Request, data: CredentialsRequestForm = Depends(), session: Session = Depends(generate_session)):
-    if "x-forwarded-for" in request.headers:
-        ip = request.headers["x-forwarded-for"]
-        if "," in ip:  # if there are multiple IPs, the first one is canonically the true client
-            ip = str(ip.split(",")[0])
-    else:
-        # request.client should never be null, except sometimes during testing
-        ip = request.client.host if request.client else "unknown"
-
+    ip = _get_client_ip(request)
+    auth_provider = None
     try:
         auth_provider = get_auth_provider(session, data)
         auth = auth_provider.authenticate()
     except UserLockedOut as e:
+        failed_user = getattr(auth_provider, "user", None)
+        _write_login_history(
+            session,
+            request,
+            success=False,
+            reason="user_locked_out",
+            username=data.username,
+            user=failed_user,
+            auth_method=failed_user.auth_method if failed_user else None,
+        )
         logger.error(f"User is locked out from {ip}")
         raise HTTPException(status_code=status.HTTP_423_LOCKED, detail="User is locked out") from e
 
     if not auth:
+        failed_user = getattr(auth_provider, "user", None)
+        _write_login_history(
+            session,
+            request,
+            success=False,
+            reason="invalid_credentials",
+            username=data.username,
+            user=failed_user,
+            auth_method=failed_user.auth_method if failed_user else None,
+        )
         logger.error(f"Incorrect username or password from {ip}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
         )
 
-    access_token, _ = auth
-    return MealieAuthToken.respond(access_token)
+    return _finalize_login(session, request, auth[0], username=data.username, user=auth_provider.user)
 
 
 @public_router.get("/oauth")
@@ -138,10 +277,23 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
             auth = None
 
     if not auth:
+        _write_login_history(
+            session,
+            request,
+            success=False,
+            reason="oidc_auth_failed",
+            username=getattr(auth_provider, "user", None).username if auth_provider and auth_provider.user else None,
+            auth_method=AuthMethod.OIDC,
+        )
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
-    access_token, _ = auth
-    return MealieAuthToken.respond(access_token)
+    return _finalize_login(
+        session,
+        request,
+        auth[0],
+        username=auth_provider.user.username if auth_provider and auth_provider.user else None,
+        user=auth_provider.user,
+    )
 
 
 @public_router.get("/oauth/native/config", response_model=OIDCNativeConfig)
@@ -163,7 +315,11 @@ async def oauth_native_config():
 
 
 @public_router.post("/oauth/native/token")
-async def oauth_native_token(data: NativeOIDCTokenRequest, session: Session = Depends(generate_session)):
+async def oauth_native_token(
+    request: Request,
+    data: NativeOIDCTokenRequest,
+    session: Session = Depends(generate_session),
+):
     """Exchange a native client's authorization code for a Mealie token.
 
     The native client owns PKCE and state, so the exchange happens server-side without a browser
@@ -185,6 +341,13 @@ async def oauth_native_token(data: NativeOIDCTokenRequest, session: Session = De
         )
         userinfo = await client.parse_id_token(token, nonce=data.nonce)
     except OAuthError as e:
+        _write_login_history(
+            session,
+            request,
+            success=False,
+            reason="oidc_native_token_exchange_failed",
+            auth_method=AuthMethod.OIDC,
+        )
         logger.error("[OIDC] Native token exchange failed: %s", e)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED) from e
 
@@ -203,10 +366,23 @@ async def oauth_native_token(data: NativeOIDCTokenRequest, session: Session = De
             auth = None
 
     if not auth:
+        _write_login_history(
+            session,
+            request,
+            success=False,
+            reason="oidc_native_auth_failed",
+            auth_method=AuthMethod.OIDC,
+        )
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
-    access_token, _ = auth
-    return MealieAuthToken.respond(access_token)
+    return _finalize_login(
+        session,
+        request,
+        auth[0],
+        username=auth_provider.user.username if auth_provider and auth_provider.user else None,
+        user=auth_provider.user,
+        auth_method=AuthMethod.OIDC,
+    )
 
 
 @user_router.get("/refresh")
