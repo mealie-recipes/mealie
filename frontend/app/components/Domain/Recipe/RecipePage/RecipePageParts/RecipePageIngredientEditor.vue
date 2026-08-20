@@ -35,16 +35,14 @@
           enable-context-menu
           class="list-group-item"
           @delete="recipe.recipeIngredient.splice(index, 1)"
-          @insert-above="insertNewIngredient(index)"
-          @insert-below="insertNewIngredient(index + 1)"
+          @insert-above="insertNewIngredient(index, ingredientIsRecipe(ingredient))"
+          @insert-below="insertNewIngredient(index + 1, ingredientIsRecipe(ingredient))"
         />
       </TransitionGroup>
     </VueDraggable>
-    <v-skeleton-loader
+    <v-card
       v-else
-      boilerplate
-      elevation="2"
-      type="list-item"
+      class="list-group-item my-2 cursor-pointer placeholder-row"
     />
     <div class="d-flex flex-wrap justify-center justify-sm-end mt-3">
       <v-tooltip
@@ -144,6 +142,11 @@ const drag = ref(false);
 const domBulkAddDialog = ref<InstanceType<typeof RecipeDialogBulkAdd> | null>(null);
 const { toggleIsParsing } = usePageState(recipe.value.slug);
 
+onMounted(() => {
+  if (recipe.value.recipeIngredient.length === 0) {
+    insertNewIngredient(0);
+  }
+});
 const hasFoodOrUnit = computed(() => {
   if (!recipe.value) {
     return false;
