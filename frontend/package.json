@@ -13,7 +13,7 @@
     "test": "vitest",
     "test:ci": "vitest --watch=false",
     "test:coverage": "vitest run --coverage",
-    "test:ui": "yarn run vitest --api.host=0.0.0.0 --ui --coverage",
+    "test:ui": "pnpm run vitest --api.host=0.0.0.0 --ui --coverage",
     "cleanup": "nuxt cleanup"
   },
   "lint-staged": {
