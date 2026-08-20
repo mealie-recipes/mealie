@@ -229,7 +229,6 @@ async function sharePlainLink() {
     await share({
       title: props.name,
       url: getPlainRecipeLink(),
-      text: i18n.t("recipe.share-recipe-message", [props.name]) as string,
     });
     return;
   }
