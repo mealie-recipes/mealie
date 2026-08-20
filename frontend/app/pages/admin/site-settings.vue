@@ -256,7 +256,6 @@
 </template>
 
 <script setup lang="ts">
-import type { TranslateResult } from "vue-i18n";
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { useAsyncKey } from "~/composables/use-utils";
@@ -266,10 +265,10 @@ import AppLoader from "~/components/global/AppLoader.vue";
 
 interface SimpleCheck {
   id: string;
-  text: TranslateResult;
+  text: string;
   status: boolean | undefined;
-  successText: TranslateResult;
-  errorText: TranslateResult;
+  successText: string;
+  errorText: string;
   color: string;
   icon: string;
 }
@@ -310,7 +309,9 @@ const appConfig = ref<CheckApp>({
   isSiteSecure: true,
   isUpToDate: false,
   ldapReady: false,
+  ldapDisabled: false,
   oidcReady: false,
+  oidcDisabled: false,
 });
 const adminStats = ref<AppStatistics>({
   totalRecipes: 0,
@@ -375,13 +376,67 @@ onMounted(async () => {
     adminStats.value = adminData;
   }
 });
+const goodIcon = $globals.icons.checkboxMarkedCircle;
+const badIcon = $globals.icons.alert;
+const warningIcon = $globals.icons.alertCircle;
+const disabledIcon = $globals.icons.minusCircle;
+const goodColor = "success";
+const badColor = "error";
+const warningColor = "warning";
+const disabledColor = "grey";
+
+// Auth providers (LDAP, OIDC) have three states rather than two: turned off
+// entirely, enabled and fully configured, or enabled but missing configuration.
+// When a provider is disabled its incomplete configuration isn't a problem, so
+// it's reported neutrally instead of as a warning.
+interface AuthProvider {
+  id: string;
+  // Shown as-is rather than translated, since these are acronyms
+  name: string;
+  // The environment variable that turns the provider on
+  envVar: string;
+  ready: boolean;
+  disabled: boolean;
+}
+
+function authCheckText({ name, ready, disabled }: AuthProvider): string {
+  if (disabled) {
+    return i18n.t("settings.auth-provider-disabled", { provider: name });
+  }
+  return ready
+    ? i18n.t("settings.auth-provider-ready", { provider: name })
+    : i18n.t("settings.auth-provider-not-ready", { provider: name });
+}
+
+function authCheckColor({ ready, disabled }: AuthProvider): string {
+  if (disabled) {
+    return disabledColor;
+  }
+  return ready ? goodColor : warningColor;
+}
+
+function authCheckIcon({ ready, disabled }: AuthProvider): string {
+  if (disabled) {
+    return disabledIcon;
+  }
+  return ready ? goodIcon : warningIcon;
+}
+
+function authProviderCheck(provider: AuthProvider): SimpleCheck {
+  return {
+    id: provider.id,
+    text: authCheckText(provider),
+    status: provider.ready,
+    errorText: provider.disabled
+      ? i18n.t("settings.auth-provider-disabled-text", { envVar: provider.envVar })
+      : i18n.t("settings.auth-provider-error-text", { provider: provider.name }),
+    successText: i18n.t("settings.auth-provider-success-text", { provider: provider.name }),
+    color: authCheckColor(provider),
+    icon: authCheckIcon(provider),
+  };
+}
+
 const simpleChecks = computed<SimpleCheck[]>(() => {
-  const goodIcon = $globals.icons.checkboxMarkedCircle;
-  const badIcon = $globals.icons.alert;
-  const warningIcon = $globals.icons.alertCircle;
-  const goodColor = "success";
-  const badColor = "error";
-  const warningColor = "warning";
   const data: SimpleCheck[] = [
     {
       id: "application-version",
@@ -410,24 +465,20 @@ const simpleChecks = computed<SimpleCheck[]>(() => {
       color: appConfig.value.baseUrlSet ? goodColor : badColor,
       icon: appConfig.value.baseUrlSet ? goodIcon : badIcon,
     },
-    {
+    authProviderCheck({
       id: "ldap-ready",
-      text: appConfig.value.ldapReady ? i18n.t("settings.ldap-ready") : i18n.t("settings.ldap-not-ready"),
-      status: appConfig.value.ldapReady,
-      errorText: i18n.t("settings.ldap-ready-error-text"),
-      successText: i18n.t("settings.ldap-ready-success-text"),
-      color: appConfig.value.ldapReady ? goodColor : warningColor,
-      icon: appConfig.value.ldapReady ? goodIcon : warningIcon,
-    },
-    {
+      name: "LDAP",
+      envVar: "LDAP_AUTH_ENABLED",
+      ready: appConfig.value.ldapReady,
+      disabled: appConfig.value.ldapDisabled,
+    }),
+    authProviderCheck({
       id: "oidc-ready",
-      text: appConfig.value.oidcReady ? i18n.t("settings.oidc-ready") : i18n.t("settings.oidc-not-ready"),
-      status: appConfig.value.oidcReady,
-      errorText: i18n.t("settings.oidc-ready-error-text"),
-      successText: i18n.t("settings.oidc-ready-success-text"),
-      color: appConfig.value.oidcReady ? goodColor : warningColor,
-      icon: appConfig.value.oidcReady ? goodIcon : warningIcon,
-    },
+      name: "OIDC",
+      envVar: "OIDC_AUTH_ENABLED",
+      ready: appConfig.value.oidcReady,
+      disabled: appConfig.value.oidcDisabled,
+    }),
   ];
   return data;
 });
