@@ -12,6 +12,7 @@ from mealie.core.config import get_app_settings
 from mealie.db.models._model_utils.auto_init import auto_init
 from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
+from mealie.db.models.users.user_ip_blocklist import UserIpBlocklist
 
 from .._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
 from .user_to_recipe import UserToRecipe
@@ -22,6 +23,7 @@ if TYPE_CHECKING:
     from ..household.mealplan import GroupMealPlan
     from ..household.shopping_list import ShoppingList
     from ..recipe import RecipeComment, RecipeModel, RecipeTimelineEvent
+    from .login_history import UserLoginHistory
     from .password_reset import PasswordResetModel
 
 
@@ -86,6 +88,17 @@ class User(SqlAlchemyBase, BaseMixins):
         "cascade": "all, delete, delete-orphan",
         "single_parent": True,
     }
+    login_history_entries: Mapped[list["UserLoginHistory"]] = orm.relationship(
+        "UserLoginHistory",
+        back_populates="user",
+        cascade="all, delete, delete-orphan",
+    )
+    ip_blocked_entries: Mapped[list["UserIpBlocklist"]] = orm.relationship(
+        "UserIpBlocklist",
+        foreign_keys="UserIpBlocklist.user_id",
+        back_populates="user",
+        cascade="all, delete, delete-orphan",
+    )
 
     tokens: Mapped[list[LongLiveToken]] = orm.relationship(LongLiveToken, **sp_args)
     comments: Mapped[list["RecipeComment"]] = orm.relationship("RecipeComment", **sp_args)

@@ -316,3 +316,45 @@ class LongLiveTokenInDB(CreateToken):
     id: int
     user: PrivateUser
     model_config = ConfigDict(from_attributes=True)
+
+
+class LoginHistoryOut(MealieModel):
+    id: UUID4
+    user_id: UUID4 | None = None
+    username: str | None = None
+    auth_method: AuthMethod | None = None
+    success: bool
+    reason: str | None = None
+    ip_address: str | None = None
+    is_blocked: bool = False
+    user_agent: str | None = None
+    created_at: datetime | None = None
+    model_config = ConfigDict(from_attributes=True)
+
+
+class LoginHistoryPagination(PaginationBase):
+    items: list[LoginHistoryOut]
+
+
+class UserIpBlocklistOut(MealieModel):
+    id: UUID4
+    user_id: UUID4
+    reason: str | None = None
+    ip_address: str
+    created_by_user_id: UUID4 | None = None
+    created_at: datetime | None = None
+    model_config = ConfigDict(from_attributes=True)
+
+
+class CreateUserIpBlocklist(MealieModel):
+    user_id: UUID4
+    reason: str | None = None
+    ip_address: str
+    created_by_user_id: UUID4 | None = None
+    model_config = ConfigDict(from_attributes=True)
+
+
+class RemoveUserIpBlocklist(MealieModel):
+    user_id: UUID4
+    ip_address: str
+    model_config = ConfigDict(from_attributes=True)
