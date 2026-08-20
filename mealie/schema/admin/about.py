@@ -69,6 +69,8 @@ class AdminAboutInfo(AppInfo):
 class CheckAppConfig(MealieModel):
     email_ready: bool
     ldap_ready: bool
+    ldap_disabled: bool
     oidc_ready: bool
+    oidc_disabled: bool
     base_url_set: bool
     is_up_to_date: bool

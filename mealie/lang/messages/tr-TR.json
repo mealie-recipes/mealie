@@ -14,7 +14,7 @@
             "makes": "Makes",
             "serves": "Serves",
             "serving": "Serving",
-            "servings": "Servings",
+            "servings": "Porsiyon",
             "yield": "Yield",
             "yields": "Yields"
         },
@@ -32,18 +32,18 @@
             "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Tarif Oluşturuluyor...",
             "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
             "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
+            "downloading-image": "Resim indiriliyor...",
+            "downloading-video": "Video indiriliyor...",
             "extracting-recipe-data": "Extracting recipe data...",
             "fetching-webpage": "Fetching webpage...",
             "organizing-recipe": "Organizing recipe...",
             "reading-images-with-ai": "Reading images with AI...",
             "reading-source-with-ai": "Reading source with AI...",
             "transcribing-audio-with-ai": "Transcribing audio with AI...",
-            "translating-recipe": "Translating recipe..."
+            "translating-recipe": "Tarif Çeviriliyor..."
         }
     },
     "mealplan": {
