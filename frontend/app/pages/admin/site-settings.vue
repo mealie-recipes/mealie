@@ -256,7 +256,6 @@
 </template>
 
 <script setup lang="ts">
-import type { TranslateResult } from "vue-i18n";
 import { useAdminApi, useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { useAsyncKey } from "~/composables/use-utils";
@@ -266,10 +265,10 @@ import AppLoader from "~/components/global/AppLoader.vue";
 
 interface SimpleCheck {
   id: string;
-  text: TranslateResult;
+  text: string;
   status: boolean | undefined;
-  successText: TranslateResult;
-  errorText: TranslateResult;
+  successText: string;
+  errorText: string;
   color: string;
   icon: string;
 }
@@ -377,15 +376,45 @@ onMounted(async () => {
     adminStats.value = adminData;
   }
 });
+const goodIcon = $globals.icons.checkboxMarkedCircle;
+const badIcon = $globals.icons.alert;
+const warningIcon = $globals.icons.alertCircle;
+const disabledIcon = $globals.icons.minusCircle;
+const goodColor = "success";
+const badColor = "error";
+const warningColor = "warning";
+const disabledColor = "grey";
+
+// Auth providers (LDAP, OIDC) have three states rather than two: turned off
+// entirely, enabled and fully configured, or enabled but missing configuration.
+// When a provider is disabled its incomplete configuration isn't a problem, so
+// it's reported neutrally instead of as a warning.
+function authCheckText(
+  ready: boolean,
+  disabled: boolean,
+  texts: { ready: string; notReady: string; disabled: string },
+): string {
+  if (disabled) {
+    return texts.disabled;
+  }
+  return ready ? texts.ready : texts.notReady;
+}
+
+function authCheckColor(ready: boolean, disabled: boolean): string {
+  if (disabled) {
+    return disabledColor;
+  }
+  return ready ? goodColor : warningColor;
+}
+
+function authCheckIcon(ready: boolean, disabled: boolean): string {
+  if (disabled) {
+    return disabledIcon;
+  }
+  return ready ? goodIcon : warningIcon;
+}
+
 const simpleChecks = computed<SimpleCheck[]>(() => {
-  const goodIcon = $globals.icons.checkboxMarkedCircle;
-  const badIcon = $globals.icons.alert;
-  const warningIcon = $globals.icons.alertCircle;
-  const disabledIcon = $globals.icons.minusCircle;
-  const goodColor = "success";
-  const badColor = "error";
-  const warningColor = "warning";
-  const disabledColor = "grey";
   const data: SimpleCheck[] = [
     {
       id: "application-version",
@@ -416,21 +445,29 @@ const simpleChecks = computed<SimpleCheck[]>(() => {
     },
     {
       id: "ldap-ready",
-      text: appConfig.value.ldapDisabled ? i18n.t("settings.ldap-disabled") : appConfig.value.ldapReady ? i18n.t("settings.ldap-ready") : i18n.t("settings.ldap-not-ready"),
+      text: authCheckText(appConfig.value.ldapReady, appConfig.value.ldapDisabled, {
+        ready: i18n.t("settings.ldap-ready"),
+        notReady: i18n.t("settings.ldap-not-ready"),
+        disabled: i18n.t("settings.ldap-disabled"),
+      }),
       status: appConfig.value.ldapReady,
       errorText: appConfig.value.ldapDisabled ? i18n.t("settings.ldap-ready-disabled-text") : i18n.t("settings.ldap-ready-error-text"),
       successText: i18n.t("settings.ldap-ready-success-text"),
-      color: appConfig.value.ldapDisabled ? disabledColor : appConfig.value.ldapReady ? goodColor : warningColor,
-      icon: appConfig.value.ldapDisabled ? disabledIcon : appConfig.value.ldapReady ? goodIcon : warningIcon,
+      color: authCheckColor(appConfig.value.ldapReady, appConfig.value.ldapDisabled),
+      icon: authCheckIcon(appConfig.value.ldapReady, appConfig.value.ldapDisabled),
     },
     {
       id: "oidc-ready",
-      text: appConfig.value.oidcDisabled ? i18n.t("settings.oidc-disabled") : appConfig.value.oidcReady ? i18n.t("settings.oidc-ready") : i18n.t("settings.oidc-not-ready"),
+      text: authCheckText(appConfig.value.oidcReady, appConfig.value.oidcDisabled, {
+        ready: i18n.t("settings.oidc-ready"),
+        notReady: i18n.t("settings.oidc-not-ready"),
+        disabled: i18n.t("settings.oidc-disabled"),
+      }),
       status: appConfig.value.oidcReady,
       errorText: appConfig.value.oidcDisabled ? i18n.t("settings.oidc-ready-disabled-text") : i18n.t("settings.oidc-ready-error-text"),
       successText: i18n.t("settings.oidc-ready-success-text"),
-      color: appConfig.value.oidcDisabled ? disabledColor : appConfig.value.oidcReady ? goodColor : warningColor,
-      icon: appConfig.value.oidcDisabled ? disabledIcon : appConfig.value.oidcReady ? goodIcon : warningIcon,
+      color: authCheckColor(appConfig.value.oidcReady, appConfig.value.oidcDisabled),
+      icon: authCheckIcon(appConfig.value.oidcReady, appConfig.value.oidcDisabled),
     },
   ];
   return data;
