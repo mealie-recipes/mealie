@@ -389,29 +389,51 @@ const disabledColor = "grey";
 // entirely, enabled and fully configured, or enabled but missing configuration.
 // When a provider is disabled its incomplete configuration isn't a problem, so
 // it's reported neutrally instead of as a warning.
-function authCheckText(
-  ready: boolean,
-  disabled: boolean,
-  texts: { ready: string; notReady: string; disabled: string },
-): string {
-  if (disabled) {
-    return texts.disabled;
-  }
-  return ready ? texts.ready : texts.notReady;
+interface AuthProvider {
+  id: string;
+  // Shown as-is rather than translated, since these are acronyms
+  name: string;
+  // The environment variable that turns the provider on
+  envVar: string;
+  ready: boolean;
+  disabled: boolean;
 }
 
-function authCheckColor(ready: boolean, disabled: boolean): string {
+function authCheckText({ name, ready, disabled }: AuthProvider): string {
+  if (disabled) {
+    return i18n.t("settings.auth-provider-disabled", { provider: name });
+  }
+  return ready
+    ? i18n.t("settings.auth-provider-ready", { provider: name })
+    : i18n.t("settings.auth-provider-not-ready", { provider: name });
+}
+
+function authCheckColor({ ready, disabled }: AuthProvider): string {
   if (disabled) {
     return disabledColor;
   }
   return ready ? goodColor : warningColor;
 }
 
-function authCheckIcon(ready: boolean, disabled: boolean): string {
+function authCheckIcon({ ready, disabled }: AuthProvider): string {
   if (disabled) {
     return disabledIcon;
   }
   return ready ? goodIcon : warningIcon;
+}
+
+function authProviderCheck(provider: AuthProvider): SimpleCheck {
+  return {
+    id: provider.id,
+    text: authCheckText(provider),
+    status: provider.ready,
+    errorText: provider.disabled
+      ? i18n.t("settings.auth-provider-disabled-text", { envVar: provider.envVar })
+      : i18n.t("settings.auth-provider-error-text", { provider: provider.name }),
+    successText: i18n.t("settings.auth-provider-success-text", { provider: provider.name }),
+    color: authCheckColor(provider),
+    icon: authCheckIcon(provider),
+  };
 }
 
 const simpleChecks = computed<SimpleCheck[]>(() => {
@@ -443,32 +465,20 @@ const simpleChecks = computed<SimpleCheck[]>(() => {
       color: appConfig.value.baseUrlSet ? goodColor : badColor,
       icon: appConfig.value.baseUrlSet ? goodIcon : badIcon,
     },
-    {
+    authProviderCheck({
       id: "ldap-ready",
-      text: authCheckText(appConfig.value.ldapReady, appConfig.value.ldapDisabled, {
-        ready: i18n.t("settings.ldap-ready"),
-        notReady: i18n.t("settings.ldap-not-ready"),
-        disabled: i18n.t("settings.ldap-disabled"),
-      }),
-      status: appConfig.value.ldapReady,
-      errorText: appConfig.value.ldapDisabled ? i18n.t("settings.ldap-ready-disabled-text") : i18n.t("settings.ldap-ready-error-text"),
-      successText: i18n.t("settings.ldap-ready-success-text"),
-      color: authCheckColor(appConfig.value.ldapReady, appConfig.value.ldapDisabled),
-      icon: authCheckIcon(appConfig.value.ldapReady, appConfig.value.ldapDisabled),
-    },
-    {
+      name: "LDAP",
+      envVar: "LDAP_AUTH_ENABLED",
+      ready: appConfig.value.ldapReady,
+      disabled: appConfig.value.ldapDisabled,
+    }),
+    authProviderCheck({
       id: "oidc-ready",
-      text: authCheckText(appConfig.value.oidcReady, appConfig.value.oidcDisabled, {
-        ready: i18n.t("settings.oidc-ready"),
-        notReady: i18n.t("settings.oidc-not-ready"),
-        disabled: i18n.t("settings.oidc-disabled"),
-      }),
-      status: appConfig.value.oidcReady,
-      errorText: appConfig.value.oidcDisabled ? i18n.t("settings.oidc-ready-disabled-text") : i18n.t("settings.oidc-ready-error-text"),
-      successText: i18n.t("settings.oidc-ready-success-text"),
-      color: authCheckColor(appConfig.value.oidcReady, appConfig.value.oidcDisabled),
-      icon: authCheckIcon(appConfig.value.oidcReady, appConfig.value.oidcDisabled),
-    },
+      name: "OIDC",
+      envVar: "OIDC_AUTH_ENABLED",
+      ready: appConfig.value.oidcReady,
+      disabled: appConfig.value.oidcDisabled,
+    }),
   ];
   return data;
 });
