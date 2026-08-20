@@ -1076,7 +1076,7 @@ dev = [
     { name = "ruff", specifier = "==0.16.3" },
     { name = "types-python-dateutil", specifier = "==2.9.0.20260807" },
     { name = "types-python-slugify", specifier = "==8.0.2.20240310" },
-    { name = "types-pyyaml", specifier = "==6.0.12.20260724" },
+    { name = "types-pyyaml", specifier = "==6.0.12.20260815" },
     { name = "types-requests", specifier = "==2.33.0.20260712" },
     { name = "types-urllib3", specifier = "==1.26.25.14" },
 ]
@@ -1993,11 +1993,11 @@ wheels = [
 
 [[package]]
 name = "types-pyyaml"
-version = "6.0.12.20260724"
+version = "6.0.12.20260815"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/3f/6f/a28f44bcd56bebed42b028a2894c79853e2f5e6b5279e633cb3f287a05e7/types_pyyaml-6.0.12.20260724.tar.gz", hash = "sha256:3c1ce1bb73cd5ec02e90390c2b1f00e810d241d8825fd73ff359696839271b6b", size = 17893, upload-time = "2026-07-24T04:58:43.453Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/9f/72/b56089aeee6c496d969bac42376bedb6e3eeab4682e1018fa3137122f94b/types_pyyaml-6.0.12.20260815.tar.gz", hash = "sha256:28764110c9cf35846e733da32d8d734df7473c5dde9ef67c3b7332ec0e819858", size = 18545, upload-time = "2026-08-15T02:41:51.532Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/8b/42/0337fefc615e20ee55d1c8f71b774a9b2b734a04669139c20753b27a2a3a/types_pyyaml-6.0.12.20260724-py3-none-any.whl", hash = "sha256:d57db930a4b2efbc57cf430ec8882765d246929432fa253092f383902329a453", size = 20312, upload-time = "2026-07-24T04:58:42.486Z" },
+    { url = "https://files.pythonhosted.org/packages/08/52/eefeba09be4ef2a1eb989eb92934561e8e502a6ee3c32654996e4be7e399/types_pyyaml-6.0.12.20260815-py3-none-any.whl", hash = "sha256:6f332212b7e191f3afd5016a713c510b6340593b7ebec573c7d5d20aa5386d3b", size = 21148, upload-time = "2026-08-15T02:41:50.555Z" },
 ]
 
 [[package]]
