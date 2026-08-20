@@ -46,3 +46,21 @@ def test_new_user_group_permissions(api_client: TestClient):
     assert user.get("canInvite") is True
     assert user.get("canManage") is True
     assert user.get("canOrganize") is True
+
+
+def test_registration_persists_locale(api_client: TestClient):
+    registration = user_registration_factory()
+    registration.locale = "fr-FR"
+
+    response = api_client.post(api_routes.users_register, json=registration.model_dump(by_alias=True))
+    assert response.status_code == 201
+
+    form_data = {"username": registration.email, "password": registration.password}
+    response = api_client.post(api_routes.auth_token, data=form_data)
+    assert response.status_code == 200
+    token = response.json().get("access_token")
+
+    headers = {"Authorization": f"Bearer {token}"}
+    response = api_client.get(api_routes.users_self, headers=headers)
+    assert response.status_code == 200
+    assert response.json().get("locale") == "fr-FR"

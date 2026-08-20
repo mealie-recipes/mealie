@@ -144,6 +144,7 @@ export interface PrivateUser {
   canManage?: boolean;
   canManageHousehold?: boolean;
   canOrganize?: boolean;
+  locale?: string | null;
   groupId: string;
   groupSlug: string;
   householdId: string;
@@ -229,6 +230,7 @@ export interface UserBase {
   canManage?: boolean;
   canManageHousehold?: boolean;
   canOrganize?: boolean;
+  locale?: string | null;
 }
 export interface UserIn {
   id?: string | null;
@@ -246,6 +248,7 @@ export interface UserIn {
   canManage?: boolean;
   canManageHousehold?: boolean;
   canOrganize?: boolean;
+  locale?: string | null;
   password: string;
 }
 export interface UserOut {
@@ -264,6 +267,7 @@ export interface UserOut {
   canManage?: boolean;
   canManageHousehold?: boolean;
   canOrganize?: boolean;
+  locale?: string | null;
   groupId: string;
   groupSlug: string;
   householdId: string;

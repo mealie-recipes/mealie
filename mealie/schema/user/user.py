@@ -13,6 +13,7 @@ from mealie.db.models.users import User
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import AuthMethod, LongLiveToken
 from mealie.schema._mealie import MealieModel
+from mealie.schema._mealie.validators import validate_locale
 from mealie.schema.group.ai_providers import AIProviderSettingsOut
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.household.webhook import CreateWebhook, ReadWebhook
@@ -126,6 +127,8 @@ class UserBase(MealieModel):
     can_manage: bool = False
     can_manage_household: bool = False
     can_organize: bool = False
+
+    locale: str | None = None
     model_config = ConfigDict(
         from_attributes=True,
         json_schema_extra={
@@ -159,6 +162,12 @@ class UserBase(MealieModel):
             return v.name
         except AttributeError:
             return v
+
+    @field_validator("locale")
+    def valid_locale(cls, v):
+        if v is not None and not validate_locale(v):
+            raise ValueError("invalid locale")
+        return v
 
 
 class UserIn(UserBase):
