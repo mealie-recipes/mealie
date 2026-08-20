@@ -1,5 +1,8 @@
 from fastapi.testclient import TestClient
 
+from mealie.repos.all_repositories import get_repositories
+from mealie.repos.repository_factory import AllRepositories
+from mealie.schema.response.pagination import PaginationQuery
 from tests.utils import api_routes
 from tests.utils.factories import user_registration_factory
 
@@ -46,3 +49,24 @@ def test_new_user_group_permissions(api_client: TestClient):
     assert user.get("canInvite") is True
     assert user.get("canManage") is True
     assert user.get("canOrganize") is True
+
+
+def test_user_registration_with_seed_data(api_client: TestClient, unfiltered_database: AllRepositories):
+    CREATED_FOODS = 2687
+    CREATED_UNITS = 24
+
+    registration = user_registration_factory()
+    registration.seed_data = True
+
+    response = api_client.post(api_routes.users_register, json=registration.model_dump(by_alias=True))
+    assert response.status_code == 201
+
+    group_id = response.json()["groupId"]
+    group_repos = get_repositories(unfiltered_database.session, group_id=group_id)
+
+    foods = group_repos.ingredient_foods.page_all(PaginationQuery(page=1, per_page=-1)).items
+    units = group_repos.ingredient_units.page_all(PaginationQuery(page=1, per_page=-1)).items
+
+    assert len(foods) == CREATED_FOODS
+    assert len(units) == CREATED_UNITS
+    assert all(food.label_id is not None for food in foods)
