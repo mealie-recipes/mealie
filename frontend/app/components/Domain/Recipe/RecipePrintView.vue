@@ -145,9 +145,7 @@
                 :style="{ gridTemplateRows: `repeat(${Math.ceil(step.ingredientReferences.length / 2)}, min-content)` }"
               >
                 <template
-                  v-for="(ingredient, ingredientIndex) in recipe.recipeIngredient.filter((ing) => {
-                    return step.ingredientReferences.map((ref) => ref.referenceId).includes(ing.referenceId || '')
-                  })"
+                  v-for="(ingredient, ingredientIndex) in stepLinkedIngredients.get(`${sectionIndex}-${stepIndex}`) ?? []"
                   :key="`ingredient-${ingredientIndex}`"
                 >
                   <!-- eslint-disable-next-line vue/no-v-html -->
@@ -388,6 +386,27 @@ const instructionSections = computed<InstructionSection[]>(() => {
 
 const hasNotes = computed(() => {
   return props.recipe.notes && props.recipe.notes.length > 0;
+});
+
+// Precompute each step's linked ingredients so the template doesn't re-filter recipeIngredient on every render
+const stepLinkedIngredients = computed(() => {
+  const map = new Map<string, RecipeIngredient[]>();
+
+  instructionSections.value.forEach((section, sectionIndex) => {
+    section.instructions.forEach((step, stepIndex) => {
+      if (!step.ingredientReferences?.length) {
+        return;
+      }
+
+      const referenceIds = new Set(step.ingredientReferences.map(ref => ref.referenceId));
+      map.set(
+        `${sectionIndex}-${stepIndex}`,
+        props.recipe.recipeIngredient.filter(ing => ing.referenceId && referenceIds.has(ing.referenceId)),
+      );
+    });
+  });
+
+  return map;
 });
 
 const { parseIngredientText } = useIngredientTextParser();
