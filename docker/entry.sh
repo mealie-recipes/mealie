@@ -73,7 +73,10 @@ change_user
 init
 load_secrets
 
-# Start API
-HOST_IP=`/sbin/ip route|awk '/default/ { print $3 }'`
+# Backward-compatible default: only derive from gateway if neither trust variable is set.
+if [ -z "${TRUSTED_PROXY}" ] && [ -z "${HOST_IP}" ]; then
+    export TRUSTED_PROXY=`/sbin/ip route|awk '/default/ { print $3 }'`
+fi
 
+# Start API
 exec mealie

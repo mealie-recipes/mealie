@@ -14,6 +14,8 @@
 | TOKEN_TIME                    |          48           | The time in hours that a login/auth token is valid. Must be <= 9600 (400 days, in hours).                                                               |
 | API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker**                                                                     |
 | API_DOCS                      |         True          | Turns on/off access to the API documentation locally                                                                                                    |
+| TRUSTED_PROXY                 |          *            | Passed to Uvicorn as `forwarded_allow_ips` (trusted sources for `X-Forwarded-*`; supports `*`, comma-separated IPs, and CIDRs).                         |
+| HOST_IP (deprecated)          |          *            | Backward-compatible alias for `TRUSTED_PROXY`. Use `TRUSTED_PROXY`.  Ignored if `TRUSTED_PROXY` is set.                                                 |
 | TZ                            |          UTC          | Must be set to get correct date/time on the server                                                                                                      |
 | ALLOW_SIGNUP<super>\*</super> |         false         | Allow user sign-up without token                                                                                                                        |
 | ALLOW_PASSWORD_LOGIN          |         true          | Whether or not to display the username+password input fields. Keep set to true unless you use OIDC authentication                                       |
@@ -117,6 +119,26 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 | OIDC_SCOPES_OVERRIDE                                                                |  None   | Advanced configuration used to override the scopes requested from the IdP. **Most users won't need to change this**. At a minimum, 'openid profile email' are required.                                                                                                                                |
 | OIDC_TLS_CACERTFILE                                                                 |  None   | File path to Certificate Authority used to verify server certificate (e.g. `/path/to/ca.crt`)                                                                                                                                                                                                          |
 | OIDC_CLIENT_TIMEOUT                                                                 | default | Configures the timeout value of the httpx client used for OIDC communications. If set to the string `default`, does not configure the value (uses the library's default of 5.0s). If set to the string `None`, disables the timeout entirely. If set to a numeric value, uses that as the timeout.     |
+
+
+### Trusted Proxy Header Authentication (SSO)
+
+:octicons-tag-24: (not yet released)
+
+For usage, see [Usage - Trusted Proxy Header Authentication](../authentication/proxy-auth.md)
+
+When enabled, Mealie will authenticate the user supplied in `PROXY_AUTH_HEADER` from `TRUSTED_PROXY`, when no valid session token is present (bearer or cookie).
+Users are matched by username first, then email.  Users are not auto-created.
+
+
+`TRUSTED_PROXY` must be set, and must be a single IP (CIDR and lists not supported).  Any other value will disable trusted proxy header auth for safety reasons
+
+For trusted proxy header auth, `TRUSTED_PROXY` is a safety/readiness requirement. Request source trust is enforced by Uvicorn's trusted forwarded-header handling and your proxy/network configuration.
+
+| Variables                     |   Default   | Description                                                                                                                                                                                                                                                                                            |
+| ----------------------------- | :---------: | -------------------------------------------------------------------------------------- |
+| PROXY_AUTH_ENABLED            |    false    | Enables trusted proxy header authentication.                                           |
+| PROXY_AUTH_HEADER             | Remote-User | HTTP header used for authentication (for example `Remote-User` or `X-Forwarded-User`). |
 
 ### OpenAI
 

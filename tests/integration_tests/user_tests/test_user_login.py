@@ -3,11 +3,17 @@ import os
 import pytest
 from fastapi.testclient import TestClient
 
+from mealie.core.dependencies import dependencies
 from mealie.core.config import get_app_settings
 from mealie.services.user_services.user_service import UserService
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
+
+
+def _refresh_dependency_settings() -> None:
+    get_app_settings.cache_clear()
+    dependencies.settings = get_app_settings()
 
 
 def test_failed_login(api_client: TestClient):
@@ -35,6 +41,118 @@ def test_user_token_refresh(api_client: TestClient, admin_user: TestUser):
     response = api_client.post(api_routes.auth_refresh, headers=admin_user.token)
     response = api_client.get(api_routes.users_self, headers=admin_user.token)
     assert response.status_code == 200
+
+
+def test_proxy_header_auth_existing_user(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setenv("PROXY_AUTH_ENABLED", "true")
+    monkeypatch.setenv("PROXY_AUTH_HEADER", "Remote-User")
+    monkeypatch.setenv("TRUSTED_PROXY", "testclient")
+    _refresh_dependency_settings()
+
+    response = api_client.get(api_routes.users_self, headers={"Remote-User": unique_user.username})
+    assert response.status_code == 200
+    assert response.json()["username"] == unique_user.username
+
+    _refresh_dependency_settings()
+
+
+def test_proxy_header_auth_user_not_found(api_client: TestClient, monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setenv("PROXY_AUTH_ENABLED", "true")
+    monkeypatch.setenv("PROXY_AUTH_HEADER", "Remote-User")
+    monkeypatch.setenv("TRUSTED_PROXY", "testclient")
+    _refresh_dependency_settings()
+
+    response = api_client.get(api_routes.users_self, headers={"Remote-User": random_string()})
+    assert response.status_code == 401
+
+    _refresh_dependency_settings()
+
+
+def test_proxy_header_auth_disabled_does_not_authenticate(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.delenv("PROXY_AUTH_ENABLED", raising=False)
+    monkeypatch.setenv("PROXY_AUTH_HEADER", "Remote-User")
+    monkeypatch.setenv("TRUSTED_PROXY", "testclient")
+    _refresh_dependency_settings()
+
+    response = api_client.get(api_routes.users_self, headers={"Remote-User": unique_user.username})
+    assert response.status_code == 401
+
+    _refresh_dependency_settings()
+
+
+def test_proxy_header_auth_rejects_wildcard_trusted_proxy(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setenv("PROXY_AUTH_ENABLED", "true")
+    monkeypatch.setenv("PROXY_AUTH_HEADER", "Remote-User")
+    # Unsafe wildcard should disable proxy auth readiness and fail closed.
+    monkeypatch.setenv("TRUSTED_PROXY", "*")
+    _refresh_dependency_settings()
+
+    response = api_client.get(api_routes.users_self, headers={"Remote-User": unique_user.username})
+    assert response.status_code == 401
+
+    _refresh_dependency_settings()
+
+
+def test_invalid_token_does_not_fall_back_to_proxy_auth(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setenv("PROXY_AUTH_ENABLED", "true")
+    monkeypatch.setenv("PROXY_AUTH_HEADER", "Remote-User")
+    monkeypatch.setenv("TRUSTED_PROXY", "testclient")
+    _refresh_dependency_settings()
+
+    response = api_client.get(
+        api_routes.users_self,
+        headers={
+            "Authorization": f"Bearer {random_string()}",
+            "Remote-User": unique_user.username,
+        },
+    )
+    assert response.status_code == 401
+
+    _refresh_dependency_settings()
+
+
+def test_valid_token_takes_precedence_over_proxy_header(
+    api_client: TestClient, unique_user: TestUser, admin_user: TestUser, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setenv("PROXY_AUTH_ENABLED", "true")
+    monkeypatch.setenv("PROXY_AUTH_HEADER", "Remote-User")
+    monkeypatch.setenv("TRUSTED_PROXY", "testclient")
+    _refresh_dependency_settings()
+
+    response = api_client.get(
+        api_routes.users_self,
+        headers={
+            **admin_user.token,
+            "Remote-User": unique_user.username,
+        },
+    )
+    assert response.status_code == 200
+    assert response.json()["username"] == admin_user.username
+
+    _refresh_dependency_settings()
+
+
+def test_proxy_header_auth_custom_header_existing_user(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setenv("PROXY_AUTH_ENABLED", "true")
+    monkeypatch.setenv("PROXY_AUTH_HEADER", "X-Forwarded-User")
+    monkeypatch.setenv("TRUSTED_PROXY", "testclient")
+    _refresh_dependency_settings()
+
+    response = api_client.get(api_routes.users_self, headers={"X-Forwarded-User": unique_user.username})
+    assert response.status_code == 200
+    assert response.json()["username"] == unique_user.username
+
+    _refresh_dependency_settings()
 
 
 @pytest.mark.parametrize("use_token", [True, False], ids=["with token", "without token"])

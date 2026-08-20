@@ -84,6 +84,7 @@ nav:
       - Authentication:
           - LDAP: "documentation/getting-started/authentication/ldap.md"
           - OpenID Connect: "documentation/getting-started/authentication/oidc-v2.md"
+          - Trusted Proxy Header Auth: "documentation/getting-started/authentication/proxy-auth.md"
 
       - Community Guides:
           - Bring API without internet exposure: "documentation/community-guide/bring-api.md"

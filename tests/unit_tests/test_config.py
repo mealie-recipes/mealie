@@ -376,6 +376,74 @@ def test_oidc_settings_validation(data: OIDCValidationCase, monkeypatch: pytest.
     assert app_settings.OIDC_READY is data.is_valid
 
 
+class ProxyAuthValidationCase:
+    settings: list[EnvVar]
+    is_valid: bool
+
+    def __init__(
+        self,
+        enabled: bool,
+        header: str | None,
+        trusted_proxy: str | None,
+        is_valid: bool,
+        use_host_ip_alias: bool = False,
+    ):
+        trusted_proxy_var = "HOST_IP" if use_host_ip_alias else "TRUSTED_PROXY"
+        self.settings = [
+            EnvVar("PROXY_AUTH_ENABLED", enabled),
+            EnvVar("PROXY_AUTH_HEADER", header),
+            EnvVar(trusted_proxy_var, trusted_proxy),
+        ]
+        if use_host_ip_alias:
+            self.settings.append(EnvVar("TRUSTED_PROXY", None))
+        self.is_valid = is_valid
+
+
+proxy_auth_validation_cases = [
+    (
+        "not enabled",
+        ProxyAuthValidationCase(False, None, None, False),
+    ),
+    (
+        "missing header",
+        ProxyAuthValidationCase(True, "", "127.0.0.1", False),
+    ),
+    (
+        "missing trusted proxy ip",
+        ProxyAuthValidationCase(True, "Remote-User", None, False),
+    ),
+    (
+        "all good",
+        ProxyAuthValidationCase(True, "Remote-User", "127.0.0.1", True),
+    ),
+    (
+        "all good with HOST_IP alias",
+        ProxyAuthValidationCase(True, "Remote-User", "127.0.0.1", True, use_host_ip_alias=True),
+    ),
+    (
+        "wildcard trusted proxy rejected",
+        ProxyAuthValidationCase(True, "Remote-User", "*", False),
+    ),
+]
+
+proxy_auth_cases = [x[1] for x in proxy_auth_validation_cases]
+proxy_auth_cases_ids = [x[0] for x in proxy_auth_validation_cases]
+
+
+@pytest.mark.parametrize("data", proxy_auth_cases, ids=proxy_auth_cases_ids)
+def test_proxy_auth_settings_validation(data: ProxyAuthValidationCase, monkeypatch: pytest.MonkeyPatch):
+    for setting in data.settings:
+        if setting.value is not None:
+            monkeypatch.setenv(setting.name, setting.value)
+        else:
+            monkeypatch.delenv(setting.name, raising=False)
+
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
+    assert app_settings.PROXY_AUTH_READY is data.is_valid
+
+
 def test_sensitive_settings_mask(monkeypatch: pytest.MonkeyPatch):
     sensitive_settings = [
         "LDAP_QUERY_PASSWORD",

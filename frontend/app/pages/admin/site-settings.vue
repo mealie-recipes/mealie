@@ -311,6 +311,7 @@ const appConfig = ref<CheckApp>({
   isUpToDate: false,
   ldapReady: false,
   oidcReady: false,
+  proxyAuthReady: false,
 });
 const adminStats = ref<AppStatistics>({
   totalRecipes: 0,

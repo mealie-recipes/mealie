@@ -34,6 +34,7 @@ class AdminAboutController(BaseAdminController):
             build_id=settings.GIT_COMMIT_HASH,
             recipe_scraper_version=recipe_scraper_version.__version__,
             enable_oidc=settings.OIDC_AUTH_ENABLED,
+            enable_proxy_auth=settings.PROXY_AUTH_READY,
             oidc_redirect=settings.OIDC_AUTO_REDIRECT,
             oidc_provider_name=settings.OIDC_PROVIDER_NAME,
         )
@@ -56,6 +57,7 @@ class AdminAboutController(BaseAdminController):
         return CheckAppConfig(
             email_ready=settings.SMTP_ENABLE,
             ldap_ready=settings.LDAP_ENABLED,
+            proxy_auth_ready=settings.PROXY_AUTH_READY,
             base_url_set=settings.BASE_URL != "http://localhost:8080",
             is_up_to_date=APP_VERSION == "develop" or APP_VERSION == "nightly" or get_latest_version() == APP_VERSION,
             oidc_ready=settings.OIDC_READY,

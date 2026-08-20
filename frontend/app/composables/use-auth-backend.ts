@@ -19,7 +19,7 @@ interface AuthState {
   signIn: (credentials: FormData, options?: { redirect?: boolean }) => Promise<void>;
   signOut: (callbackUrl?: string) => Promise<void>;
   refresh: () => Promise<void>;
-  getSession: () => Promise<void>;
+  getSession: (options?: { allowProxyAuthProbe?: boolean }) => Promise<void>;
   setToken: (token: string | null) => void;
 }
 
@@ -54,8 +54,9 @@ export const useAuthBackend = function (): AuthState {
     }
   }
 
-  async function getSession(): Promise<void> {
-    if (!tokenCookie.value) {
+  async function getSession(options?: { allowProxyAuthProbe?: boolean }): Promise<void> {
+    const allowProxyAuthProbe = options?.allowProxyAuthProbe ?? false;
+    if (!tokenCookie.value && !allowProxyAuthProbe) {
       authUser.value = null;
       authStatus.value = "unauthenticated";
       return;
@@ -68,7 +69,12 @@ export const useAuthBackend = function (): AuthState {
       authStatus.value = "authenticated";
     }
     catch (error: any) {
-      console.error("Failed to fetch user session:", error);
+      if (error?.response?.status === 401) {
+        console.warn("Unauthenticated user session:", error);
+      }
+      else {
+        console.error("Failed to fetch user session:", error);
+      }
       handleAuthError(error);
       authStatus.value = "unauthenticated";
     }

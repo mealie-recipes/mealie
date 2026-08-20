@@ -26,6 +26,7 @@ def test_public_about_get_app_info(
     assert as_dict["version"] == APP_VERSION
     assert as_dict["demoStatus"] == settings.IS_DEMO
     assert as_dict["allowSignup"] == settings.ALLOW_SIGNUP
+    assert as_dict["enableProxyAuth"] == settings.PROXY_AUTH_READY
 
     if is_private_group:
         assert as_dict["defaultGroupSlug"] is None
@@ -45,6 +46,7 @@ def test_admin_about_get_app_info(api_client: TestClient, admin_user: TestUser):
     assert as_dict["apiPort"] == settings.API_PORT
     assert as_dict["apiDocs"] == settings.API_DOCS
     assert as_dict["dbType"] == settings.DB_ENGINE
+    assert as_dict["enableProxyAuth"] == settings.PROXY_AUTH_READY
     # assert as_dict["dbUrl"] == settings.DB_URL_PUBLIC
     assert as_dict["defaultGroup"] == settings.DEFAULT_GROUP
 
@@ -70,5 +72,6 @@ def test_admin_about_check_app_config(api_client: TestClient, admin_user: TestUs
     # Smoke Test - Test the endpoint returns something that's a the expected shape
     assert as_dict["emailReady"] in [True, False]
     assert as_dict["ldapReady"] in [True, False]
+    assert as_dict["proxyAuthReady"] in [True, False]
     assert as_dict["baseUrlSet"] in [True, False]
     assert as_dict["isUpToDate"] in [True, False]

@@ -19,7 +19,6 @@ from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser, TokenData
 from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupInDB
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
 ALGORITHM = "HS256"
 app_dirs = get_app_dirs()
@@ -31,6 +30,43 @@ credentials_exception = HTTPException(
     detail="Could not validate credentials",
     headers={"WWW-Authenticate": "Bearer"},
 )
+
+
+def _get_proxy_auth_username(request: Request) -> str | None:
+    header_name = settings.PROXY_AUTH_HEADER
+    header_value = request.headers.get(header_name)
+    if header_value is None:
+        logger.debug("[ProxyAuth] missing configured header '%s'", header_name)
+        return None
+
+    username = header_value.strip()
+    if not username:
+        logger.debug("[ProxyAuth] configured header '%s' was empty after trimming", header_name)
+        return None
+
+    return username
+
+
+def _try_proxy_auth_user(request: Request, session: Session) -> PrivateUser | None:
+    if not settings.PROXY_AUTH_READY:
+        return None
+
+    username = _get_proxy_auth_username(request)
+    if not username:
+        return None
+
+    repos = get_repositories(session, group_id=None, household_id=None)
+    user = repos.users.get_one(username, "username", any_case=True)
+    if user is None:
+        user = repos.users.get_one(username, "email", any_case=True)
+
+    if user is None:
+        logger.debug("[ProxyAuth] no existing user found for header value '%s'", username)
+        return None
+
+    logger.debug("[ProxyAuth] successfully authenticated existing user '%s' via proxy header", user.username)
+    session.commit()
+    return user
 
 
 async def is_logged_in(token: str = Depends(oauth2_scheme_soft_fail), session=Depends(generate_session)) -> bool:
@@ -95,6 +131,10 @@ async def get_current_user(
         token = request.cookies.get("mealie.access_token", "")
     else:
         token = token or ""
+    if not token:
+        if proxy_user := _try_proxy_auth_user(request, session):
+            return proxy_user
+        raise credentials_exception
 
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
@@ -123,7 +163,10 @@ async def get_current_user(
     return user
 
 
-async def get_integration_id(token: str = Depends(oauth2_scheme)) -> str:
+async def get_integration_id(token: str | None = Depends(oauth2_scheme_soft_fail)) -> str:
+    if not token:
+        return DEFAULT_INTEGRATION_ID
+
     try:
         decoded_token = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         return decoded_token.get("integration_id", DEFAULT_INTEGRATION_ID)

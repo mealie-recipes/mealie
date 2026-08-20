@@ -39,6 +39,7 @@ def get_app_info(session: Session = Depends(generate_session)):
         default_group_slug=default_group_slug,
         default_household_slug=default_household_slug,
         enable_oidc=settings.OIDC_READY,
+        enable_proxy_auth=settings.PROXY_AUTH_READY,
         oidc_redirect=settings.OIDC_AUTO_REDIRECT,
         oidc_provider_name=settings.OIDC_PROVIDER_NAME,
         allow_password_login=settings.ALLOW_PASSWORD_LOGIN,

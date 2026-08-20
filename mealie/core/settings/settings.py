@@ -3,12 +3,13 @@ import os
 import secrets
 from datetime import UTC, datetime
 from enum import StrEnum
+from ipaddress import ip_address
 from pathlib import Path
 from typing import Annotated, Literal, NamedTuple
 from urllib.parse import urlparse
 
 from dateutil.tz import tzlocal
-from pydantic import PlainSerializer, field_validator
+from pydantic import AliasChoices, Field, PlainSerializer, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from mealie.core.settings.themes import Theme
@@ -152,7 +153,7 @@ class AppSettings(AppLoggingSettings):
 
     IS_DEMO: bool = False
 
-    HOST_IP: str = "*"
+    TRUSTED_PROXY: str = Field(default="*", validation_alias=AliasChoices("TRUSTED_PROXY", "HOST_IP"))
 
     API_HOST: str = "0.0.0.0"
     API_PORT: int = 9000
@@ -430,6 +431,51 @@ class AppSettings(AppLoggingSettings):
     def OIDC_READY(self) -> bool:
         """Validates OIDC settings are all set"""
         return self.OIDC_FEATURE.enabled
+
+    # ===============================================
+    # Proxy Header Authentication Configuration
+
+    PROXY_AUTH_ENABLED: bool = False
+    PROXY_AUTH_HEADER: str = "Remote-User"
+
+    @property
+    def PROXY_AUTH_FEATURE(self) -> FeatureDetails:
+        description = None if self.PROXY_AUTH_ENABLED else "PROXY_AUTH_ENABLED is false"
+
+        header = self.PROXY_AUTH_HEADER if self.PROXY_AUTH_HEADER else ""
+        trusted_proxy = self.TRUSTED_PROXY.strip() if self.TRUSTED_PROXY else ""
+        required = {
+            "PROXY_AUTH_HEADER": header,
+            "TRUSTED_PROXY": trusted_proxy,
+        }
+        not_none = "" not in required.values() and None not in required.values()
+        valid_trusted_proxy = True
+
+        if trusted_proxy == "*":
+            valid_trusted_proxy = False
+            if not description:
+                description = "TRUSTED_PROXY cannot be '*' when PROXY_AUTH_ENABLED is true"
+        elif trusted_proxy and not (self.TESTING and trusted_proxy == "testclient"):
+            try:
+                ip_address(trusted_proxy)
+            except ValueError:
+                valid_trusted_proxy = False
+                if not description:
+                    description = "TRUSTED_PROXY must be a single IP address when PROXY_AUTH_ENABLED is true"
+
+        if not not_none and not description:
+            missing_values = [key for (key, value) in required.items() if value is None or value == ""]
+            description = f"Missing required values for {missing_values}"
+
+        return FeatureDetails(
+            enabled=self.PROXY_AUTH_ENABLED and not_none and valid_trusted_proxy,
+            description=description,
+        )
+
+    @property
+    def PROXY_AUTH_READY(self) -> bool:
+        """Validates proxy auth settings are all set."""
+        return self.PROXY_AUTH_FEATURE.enabled
 
     # ===============================================
     # OpenAI Configuration
