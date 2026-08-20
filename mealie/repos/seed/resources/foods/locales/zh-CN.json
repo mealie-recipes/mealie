@@ -5,7 +5,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "大蒜",
-                "plural_name": "garlic"
+                "plural_name": "大蒜"
             },
             "onion": {
                 "aliases": [],
@@ -16,7 +16,7 @@
             "bell pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "bell pepper",
+                "name": "甜椒",
                 "plural_name": "甜椒"
             },
             "carrot": {
@@ -28,8 +28,8 @@
             "scallion": {
                 "aliases": [],
                 "description": "",
-                "name": "scallion",
-                "plural_name": "scallions"
+                "name": "小葱",
+                "plural_name": "小葱"
             },
             "zucchini": {
                 "aliases": [],
@@ -46,26 +46,26 @@
             "red onion": {
                 "aliases": [],
                 "description": "",
-                "name": "red onion",
-                "plural_name": "red onions"
+                "name": "紫洋葱",
+                "plural_name": "紫洋葱"
             },
             "yellow onion": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow onion",
-                "plural_name": "yellow onions"
+                "name": "黄洋葱",
+                "plural_name": "黄洋葱"
             },
             "celery": {
                 "aliases": [],
                 "description": "",
-                "name": "celery",
-                "plural_name": "celery"
+                "name": "芹菜",
+                "plural_name": "芹菜"
             },
             "jalapeño": {
                 "aliases": [],
                 "description": "",
-                "name": "jalapeño",
-                "plural_name": "jalapeños"
+                "name": "墨西哥辣椒",
+                "plural_name": "墨西哥辣椒"
             },
             "avocado": {
                 "aliases": [],
@@ -82,8 +82,8 @@
             "cherry tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry tomato",
-                "plural_name": "cherry tomatoes"
+                "name": "圣女果",
+                "plural_name": "圣女果"
             },
             "cucumber": {
                 "aliases": [],
@@ -95,21 +95,21 @@
                 "aliases": [],
                 "description": "",
                 "name": "菠菜",
-                "plural_name": "spinach"
+                "plural_name": "菠菜"
             },
             "sweet corn": {
                 "aliases": [],
                 "description": "",
                 "name": "甜玉米",
-                "plural_name": "sweet corn"
+                "plural_name": "甜玉米"
             },
             "chile pepper": {
                 "aliases": [
-                    "capsicum"
+                    "灯笼椒"
                 ],
                 "description": "",
-                "name": "chile pepper",
-                "plural_name": "chile peppers"
+                "name": "辣椒",
+                "plural_name": "辣椒"
             },
             "sweet potato": {
                 "aliases": [],
@@ -121,19 +121,19 @@
                 "aliases": [],
                 "description": "",
                 "name": "西兰花",
-                "plural_name": "broccoli"
+                "plural_name": "西兰花"
             },
             "heart of palm": {
                 "aliases": [],
                 "description": "",
-                "name": "heart of palm",
-                "plural_name": "heart of palm"
+                "name": "棕榈心",
+                "plural_name": "棕榈心"
             },
             "baby greens": {
                 "aliases": [],
                 "description": "",
-                "name": "baby greens",
-                "plural_name": "baby greens"
+                "name": "嫩叶生菜",
+                "plural_name": "嫩叶生菜(复数)"
             },
             "pumpkin": {
                 "aliases": [],
@@ -145,37 +145,37 @@
                 "aliases": [],
                 "description": "",
                 "name": "菜花",
-                "plural_name": "cauliflower"
+                "plural_name": "花菜"
             },
             "cabbage": {
                 "aliases": [],
                 "description": "",
-                "name": "cabbage",
-                "plural_name": "cabbages"
+                "name": "卷心菜",
+                "plural_name": "卷心菜"
             },
             "asparagus": {
                 "aliases": [],
                 "description": "",
-                "name": "asparagus",
-                "plural_name": "asparagus"
+                "name": "芦笋",
+                "plural_name": "芦笋"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
                 "name": "羽衣甘蓝",
-                "plural_name": "kale"
+                "plural_name": "羽衣甘蓝"
             },
             "arugula": {
                 "aliases": [],
                 "description": "",
                 "name": "芝麻菜",
-                "plural_name": "arugula"
+                "plural_name": "芝麻菜"
             },
             "leek": {
                 "aliases": [],
                 "description": "",
-                "name": "leek",
-                "plural_name": "leeks"
+                "name": "韭葱",
+                "plural_name": "韭葱"
             },
             "eggplant": {
                 "aliases": [],
@@ -187,435 +187,435 @@
                 "aliases": [],
                 "description": "",
                 "name": "生菜",
-                "plural_name": "lettuce"
+                "plural_name": "生菜"
             },
             "butternut squash": {
                 "aliases": [],
                 "description": "",
-                "name": "butternut squash",
-                "plural_name": "butternut squashes"
+                "name": "奶油南瓜",
+                "plural_name": "奶油南瓜"
             },
             "romaine lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "romaine lettuce",
-                "plural_name": "romaine lettuce"
+                "name": "罗马生菜",
+                "plural_name": "罗马生菜"
             },
             "beetroot": {
                 "aliases": [],
                 "description": "",
-                "name": "beetroot",
-                "plural_name": "beetroots"
+                "name": "甜菜根",
+                "plural_name": "甜菜根"
             },
             "brussels sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "brussels sprout",
-                "plural_name": "brussels sprouts"
+                "name": "抱子甘蓝",
+                "plural_name": "抱子甘蓝"
             },
             "fennel": {
                 "aliases": [],
                 "description": "",
-                "name": "fennel",
-                "plural_name": "fennel"
+                "name": "茴香",
+                "plural_name": "茴香"
             },
             "sun dried tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "sun dried tomato",
-                "plural_name": "sun dried tomatoes"
+                "name": "晒干西红柿",
+                "plural_name": "晒干西红柿（复数）"
             },
             "radish": {
                 "aliases": [],
                 "description": "",
-                "name": "radish",
-                "plural_name": "radishes"
+                "name": "小红萝卜",
+                "plural_name": "小红萝卜（复数）"
             },
             "red cabbage": {
                 "aliases": [],
                 "description": "",
                 "name": "紫甘蓝",
-                "plural_name": "red cabbages"
+                "plural_name": "紫甘蓝"
             },
             "artichoke": {
                 "aliases": [],
                 "description": "",
-                "name": "artichoke",
-                "plural_name": "artichokes"
+                "name": "朝鲜蓟",
+                "plural_name": "朝鲜蓟"
             },
             "new potato": {
                 "aliases": [],
                 "description": "",
-                "name": "new potato",
-                "plural_name": "new potatoes"
+                "name": "新马铃薯",
+                "plural_name": "新马铃薯（复数）"
             },
             "summer squash": {
                 "aliases": [
-                    "courgette",
-                    "gem squash"
+                    "西葫芦",
+                    "宝石南瓜"
                 ],
                 "description": "",
                 "name": "",
-                "plural_name": "summer squashes"
+                "plural_name": "夏南瓜（复数）"
             },
             "mixed greens": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed greens",
-                "plural_name": "mixed greens"
+                "name": "混合绿叶菜",
+                "plural_name": "混合绿叶菜 "
             },
             "parsnip": {
                 "aliases": [],
                 "description": "",
-                "name": "parsnip",
-                "plural_name": "parsnips"
+                "name": "防风草",
+                "plural_name": "防风草（复数）"
             },
             "baby carrot": {
                 "aliases": [],
                 "description": "",
-                "name": "baby carrot",
-                "plural_name": "baby carrots"
+                "name": "迷你胡萝卜",
+                "plural_name": "迷你胡萝卜（复数）"
             },
             "mixed vegetables": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed vegetables",
-                "plural_name": "mixed vegetables"
+                "name": "混合蔬菜",
+                "plural_name": "混合蔬菜"
             },
             "poblano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "poblano pepper",
-                "plural_name": "poblano peppers"
+                "name": "波布拉诺辣椒",
+                "plural_name": "波布拉诺辣椒"
             },
             "sweet pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet pepper",
-                "plural_name": "sweet peppers"
+                "name": "甜椒",
+                "plural_name": "甜椒（复数）"
             },
             "serrano pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "serrano pepper",
-                "plural_name": "serrano peppers"
+                "name": "塞拉诺辣椒",
+                "plural_name": "塞拉诺辣椒（复数）"
             },
             "cayenne pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "cayenne pepper",
-                "plural_name": "cayenne pepper"
+                "name": "尖椒",
+                "plural_name": "尖椒"
             },
             "green tomato": {
                 "aliases": [],
                 "description": "",
-                "name": "green tomato",
-                "plural_name": "green tomatoes"
+                "name": "青西红柿",
+                "plural_name": "青西红柿（复数）"
             },
             "watercress": {
                 "aliases": [],
                 "description": "",
-                "name": "watercress",
-                "plural_name": "watercress"
+                "name": "豆瓣菜",
+                "plural_name": "豆瓣菜"
             },
             "iceberg lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "iceberg lettuce",
-                "plural_name": "iceberg lettuce"
+                "name": "西生菜",
+                "plural_name": "西生菜"
             },
             "mashed potato": {
                 "aliases": [],
                 "description": "",
-                "name": "mashed potato",
-                "plural_name": "mashed potatoes"
+                "name": "土豆泥",
+                "plural_name": "土豆泥（复数）"
             },
             "horseradish": {
                 "aliases": [],
                 "description": "",
-                "name": "horseradish",
-                "plural_name": "horseradishes"
+                "name": "辣根",
+                "plural_name": "辣根（复数）"
             },
             "chard": {
                 "aliases": [],
                 "description": "",
-                "name": "chard",
-                "plural_name": "chard"
+                "name": "瑞士甜菜",
+                "plural_name": "瑞士甜菜"
             },
             "pimiento": {
                 "aliases": [],
                 "description": "",
-                "name": "pimiento",
-                "plural_name": "pimientos"
+                "name": "甜椒",
+                "plural_name": "甜椒（复数）"
             },
             "spaghetti squash": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti squash",
-                "plural_name": "spaghetti squashes"
+                "name": "金丝瓜",
+                "plural_name": "金丝瓜（复数）"
             },
             "butter lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "butter lettuce",
+                "name": "奶油生菜",
                 "plural_name": "黄油生菜"
             },
             "hash brown": {
                 "aliases": [],
                 "description": "",
-                "name": "hash brown",
-                "plural_name": "hash browns"
+                "name": "薯饼",
+                "plural_name": "薯饼（复数）"
             },
             "napa cabbage": {
                 "aliases": [
-                    "chinese  leaves"
+                    "大白菜"
                 ],
                 "description": "",
-                "name": "napa cabbage",
-                "plural_name": "napa cabbages"
+                "name": "纳帕卷心菜",
+                "plural_name": "纳帕卷心菜（复数）"
             },
             "celeriac": {
                 "aliases": [],
                 "description": "",
-                "name": "celeriac",
-                "plural_name": "celeriacs"
+                "name": "芹菜根",
+                "plural_name": "芹菜根（复数）"
             },
             "water chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "water chestnut",
-                "plural_name": "water chestnuts"
+                "name": "荸荠",
+                "plural_name": "荸荠（复数）"
             },
             "turnip": {
                 "aliases": [],
                 "description": "",
-                "name": "turnip",
-                "plural_name": "turnips"
+                "name": "圆萝卜",
+                "plural_name": "圆萝卜（复数）"
             },
             "thai chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "thai chile pepper",
-                "plural_name": "thai chile peppers"
+                "name": "泰国朝天椒",
+                "plural_name": "泰国朝天椒（复数）"
             },
             "bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "bok choy",
-                "plural_name": "bok choy"
+                "name": "小白菜",
+                "plural_name": "小白菜"
             },
             "okra": {
                 "aliases": [],
                 "description": "",
                 "name": "秋葵",
-                "plural_name": "okra"
+                "plural_name": "秋葵"
             },
             "acorn squash": {
                 "aliases": [],
                 "description": "",
-                "name": "acorn squash",
-                "plural_name": "acorn squashes"
+                "name": "橡子南瓜",
+                "plural_name": "橡子南瓜（复数）"
             },
             "corn on the cob": {
                 "aliases": [],
                 "description": "",
-                "name": "corn on the cob",
-                "plural_name": "corn on the cob"
+                "name": "鲜玉米棒",
+                "plural_name": "鲜玉米棒"
             },
             "radicchio": {
                 "aliases": [],
                 "description": "",
-                "name": "radicchio",
-                "plural_name": "radicchio"
+                "name": "紫叶菊苣",
+                "plural_name": "紫叶菊苣"
             },
             "pearl onion": {
                 "aliases": [],
                 "description": "",
-                "name": "pearl onion",
-                "plural_name": "pearl onions"
+                "name": "珍珠洋葱",
+                "plural_name": "珍珠洋葱（复数）"
             },
             "tenderstem broccoli": {
                 "aliases": [],
                 "description": "",
-                "name": "tenderstem broccoli",
-                "plural_name": "tenderstem broccoli"
+                "name": "青花笋",
+                "plural_name": "青花笋"
             },
             "plantain": {
                 "aliases": [],
                 "description": "",
-                "name": "plantain",
-                "plural_name": "plantains"
+                "name": "食用香蕉",
+                "plural_name": "食用香蕉"
             },
             "leaf lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "leaf lettuce",
-                "plural_name": "leaf lettuce"
+                "name": "散叶生菜",
+                "plural_name": "散叶生菜"
             },
             "pepperoncini": {
                 "aliases": [],
                 "description": "",
-                "name": "pepperoncini",
-                "plural_name": "pepperoncinis"
+                "name": "意大利甜椒",
+                "plural_name": "意大利甜椒（复数）"
             },
             "baby bok choy": {
                 "aliases": [],
                 "description": "",
-                "name": "baby bok choy",
-                "plural_name": "baby bok choy"
+                "name": "娃娃菜",
+                "plural_name": "娃娃菜"
             },
             "jicama": {
                 "aliases": [],
                 "description": "",
-                "name": "jicama",
-                "plural_name": "jicamas"
+                "name": "豆薯",
+                "plural_name": "豆薯（复数）"
             },
             "endive": {
                 "aliases": [],
                 "description": "",
-                "name": "endive",
-                "plural_name": "endives"
+                "name": "苦苣",
+                "plural_name": "苦苣（复数）"
             },
             "habanero pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "habanero pepper",
-                "plural_name": "habanero peppers"
+                "name": "哈瓦那辣椒",
+                "plural_name": "哈瓦那辣椒（复数）"
             },
             "maize": {
                 "aliases": [
-                    "corn husk"
+                    "玉米皮"
                 ],
                 "description": "",
-                "name": "maize",
-                "plural_name": "maize"
+                "name": "玉米",
+                "plural_name": "玉米（复数）"
             },
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "collard greens",
-                "plural_name": "collard greens"
+                "name": "羽衣甘蓝（复数）",
+                "plural_name": "羽衣甘蓝（复数）"
             },
             "french-fried onion": {
                 "aliases": [],
                 "description": "",
-                "name": "french-fried onion",
-                "plural_name": "french-fried onions"
+                "name": "炸洋葱碎",
+                "plural_name": "炸洋葱碎（复数）"
             },
             "daikon": {
                 "aliases": [],
                 "description": "",
-                "name": "daikon",
-                "plural_name": "daikons"
+                "name": "白萝卜",
+                "plural_name": "白萝卜（复数）"
             },
             "baby corn": {
                 "aliases": [],
                 "description": "",
-                "name": "baby corn",
-                "plural_name": "baby corns"
+                "name": "玉米笋",
+                "plural_name": "玉米笋（复数）"
             },
             "broccoli rabe": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli rabe",
+                "name": "菜心西兰花",
                 "plural_name": ""
             },
             "rutabaga": {
                 "aliases": [],
                 "description": "",
-                "name": "rutabaga",
-                "plural_name": "rutabagas"
+                "name": "洋甘蓝",
+                "plural_name": "洋甘蓝（复数）"
             },
             "belgian endive": {
                 "aliases": [],
                 "description": "",
-                "name": "belgian endive",
-                "plural_name": "belgian endives"
+                "name": "比利时苦苣",
+                "plural_name": "比利时苦苣（复数）"
             },
             "yam": {
                 "aliases": [],
                 "description": "",
-                "name": "yam",
-                "plural_name": "yams"
+                "name": "山药",
+                "plural_name": "山药（复数）"
             },
             "ancho chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "ancho chile pepper",
-                "plural_name": "ancho chile peppers"
+                "name": "安乔辣椒",
+                "plural_name": "安乔辣椒（复数）"
             },
             "microgreens": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreens",
-                "plural_name": "microgreens"
+                "name": "微型菜苗（复数）",
+                "plural_name": "微型菜苗（复数）"
             },
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
-                "name": "boston lettuce",
-                "plural_name": "boston lettuce"
+                "name": "圆生菜",
+                "plural_name": "圆生菜"
             },
             "kohlrabi": {
                 "aliases": [],
                 "description": "",
-                "name": "kohlrabi",
-                "plural_name": "kohlrabi"
+                "name": "球茎甘蓝",
+                "plural_name": "球茎甘蓝"
             },
             "fresno chile": {
                 "aliases": [],
                 "description": "",
-                "name": "fresno chile",
-                "plural_name": "fresno chiles"
+                "name": "弗雷斯诺辣椒",
+                "plural_name": "弗雷斯诺辣椒（复数）"
             },
             "delicata squash": {
                 "aliases": [],
                 "description": "",
-                "name": "delicata squash",
-                "plural_name": "delicata squashes"
+                "name": "甜薯南瓜",
+                "plural_name": "甜薯南瓜（复数）"
             },
             "Frisée": {
                 "aliases": [
-                    "curly endive"
+                    "皱叶菊苣"
                 ],
                 "description": "",
-                "name": "Frisée",
-                "plural_name": "Frisées"
+                "name": "卷叶菊苣",
+                "plural_name": "卷叶菊苣（复数）"
             },
             "anaheim pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "anaheim pepper",
-                "plural_name": "anaheim peppers"
+                "name": "阿纳海姆辣椒",
+                "plural_name": "阿纳海姆辣椒（复数）"
             },
             "cress": {
                 "aliases": [],
                 "description": "",
-                "name": "cress",
-                "plural_name": "cress"
+                "name": "水芹",
+                "plural_name": "水芹"
             },
             "broccoli slaw": {
                 "aliases": [],
                 "description": "",
-                "name": "broccoli slaw",
-                "plural_name": "broccoli slaw"
+                "name": "切丝混合菜",
+                "plural_name": "切丝混合菜"
             },
             "arbol chile pepper": {
                 "aliases": [],
                 "description": "",
-                "name": "arbol chile pepper",
-                "plural_name": "arbol chile peppers"
+                "name": "阿尔博尔辣椒",
+                "plural_name": "阿尔博尔辣椒（复数）"
             },
             "golden beet": {
                 "aliases": [],
                 "description": "",
-                "name": "golden beet",
-                "plural_name": "golden beets"
+                "name": "黄甜菜",
+                "plural_name": "黄甜菜（复数）"
             },
             "pea shoot": {
                 "aliases": [],
                 "description": "",
-                "name": "pea shoot",
+                "name": "豌豆苗",
                 "plural_name": "pea shoots"
             },
             "alfalfa": {
@@ -715,8 +715,8 @@
             "grape": {
                 "aliases": [],
                 "description": "",
-                "name": "grape",
-                "plural_name": "grapes"
+                "name": "葡萄",
+                "plural_name": "葡萄"
             },
             "pomegranate": {
                 "aliases": [],
@@ -727,8 +727,8 @@
             "watermelon": {
                 "aliases": [],
                 "description": "",
-                "name": "watermelon",
-                "plural_name": "watermelons"
+                "name": "西瓜",
+                "plural_name": "西瓜"
             },
             "rhubarb": {
                 "aliases": [],
@@ -776,463 +776,463 @@
                 "aliases": [],
                 "description": "",
                 "name": "currant",
-                "plural_name": "currants"
+                "plural_name": "无籽葡萄干"
             },
             "mandarin": {
                 "aliases": [],
                 "description": "",
-                "name": "mandarin",
-                "plural_name": "mandarins"
+                "name": "柑橘",
+                "plural_name": "柑橘（复数）"
             },
             "prune": {
                 "aliases": [],
                 "description": "",
-                "name": "prune",
-                "plural_name": "prunes"
+                "name": "西梅干",
+                "plural_name": "西梅干（复数）"
             },
             "cantaloupe": {
                 "aliases": [],
                 "description": "",
-                "name": "cantaloupe",
-                "plural_name": "cantaloupes"
+                "name": "哈密瓜",
+                "plural_name": "哈密瓜（复数）"
             },
             "sultana": {
                 "aliases": [],
                 "description": "",
-                "name": "sultana",
-                "plural_name": "sultanas"
+                "name": "无核白葡萄干",
+                "plural_name": "无核白葡萄干（复数）"
             },
             "passion fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "passion fruit",
-                "plural_name": "passion fruits"
+                "name": "百香果",
+                "plural_name": "百香果（复数）"
             },
             "papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "papaya",
-                "plural_name": "papayas"
+                "name": "木瓜",
+                "plural_name": "木瓜（复数）"
             },
             "tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarind",
-                "plural_name": "tamarinds"
+                "name": "酸角",
+                "plural_name": "酸角（复数）"
             },
             "nectarine": {
                 "aliases": [],
                 "description": "",
-                "name": "nectarine",
-                "plural_name": "nectarines"
+                "name": "油桃",
+                "plural_name": "油桃（复数）"
             },
             "dried fig": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fig",
-                "plural_name": "dried figs"
+                "name": "无花果干",
+                "plural_name": "无花果干（复数）"
             },
             "chestnut": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut",
-                "plural_name": "chestnuts"
+                "name": "栗子",
+                "plural_name": "栗子（复数）"
             },
             "meyer lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "meyer lemon",
-                "plural_name": "meyer lemons"
+                "name": "梅耶柠檬",
+                "plural_name": "梅耶柠檬（复数）"
             },
             "honeydew melon": {
                 "aliases": [],
                 "description": "",
-                "name": "honeydew melon",
-                "plural_name": "honeydew melons"
+                "name": "蜜瓜",
+                "plural_name": "蜜瓜（复数）"
             },
             "dried fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dried fruit",
-                "plural_name": "dried fruits"
+                "name": "水果干",
+                "plural_name": "水果干（复数）"
             },
             "clementine": {
                 "aliases": [],
                 "description": "",
-                "name": "clementine",
-                "plural_name": "clementines"
+                "name": "小蜜橘",
+                "plural_name": "小蜜橘（复数）"
             },
             "persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "persimmon",
-                "plural_name": "persimmons"
+                "name": "柿子",
+                "plural_name": "柿子（复数）"
             },
             "melon": {
                 "aliases": [],
                 "description": "",
-                "name": "melon",
-                "plural_name": "melons"
+                "name": "甜瓜",
+                "plural_name": "甜瓜（复数）"
             },
             "tangerine": {
                 "aliases": [],
                 "description": "",
-                "name": "tangerine",
-                "plural_name": "tangerines"
+                "name": "柑橘",
+                "plural_name": "柑橘（复数）"
             },
             "dried mango": {
                 "aliases": [],
                 "description": "",
-                "name": "dried mango",
-                "plural_name": "dried mangoes"
+                "name": "芒果干",
+                "plural_name": "芒果干（复数）"
             },
             "dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "dried apple",
-                "plural_name": "dried apples"
+                "name": "苹果干",
+                "plural_name": "苹果干（复数）"
             },
             "quince": {
                 "aliases": [],
                 "description": "",
-                "name": "quince",
-                "plural_name": "quinces"
+                "name": "木瓜梨",
+                "plural_name": "木瓜梨（复数）"
             },
             "guava": {
                 "aliases": [],
                 "description": "",
-                "name": "guava",
-                "plural_name": "guavas"
+                "name": "番石榴",
+                "plural_name": "番石榴（复数）"
             },
             "banana chip": {
                 "aliases": [],
                 "description": "",
-                "name": "banana chip",
-                "plural_name": "banana chips"
+                "name": "香蕉片",
+                "plural_name": "香蕉片（复数）"
             },
             "kumquat": {
                 "aliases": [],
                 "description": "",
-                "name": "kumquat",
-                "plural_name": "kumquats"
+                "name": "金橘",
+                "plural_name": "金橘（复数）"
             },
             "jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "jackfruit",
-                "plural_name": "jackfruits"
+                "name": "波罗蜜",
+                "plural_name": "波罗蜜（复数）"
             },
             "dragon fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "dragon fruit",
-                "plural_name": "dragon fruits"
+                "name": "火龙果",
+                "plural_name": "火龙果（复数）"
             },
             "mixed fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed fruit",
-                "plural_name": "mixed fruits"
+                "name": "什锦水果",
+                "plural_name": "什锦水果（复数）"
             },
             "asian pear": {
                 "aliases": [],
                 "description": "",
-                "name": "asian pear",
-                "plural_name": "asian pears"
+                "name": "沙梨",
+                "plural_name": "沙梨（复数）"
             },
             "lychee": {
                 "aliases": [],
                 "description": "",
-                "name": "lychee",
-                "plural_name": "lychees"
+                "name": "荔枝",
+                "plural_name": "荔枝（复数）"
             },
             "young coconut": {
                 "aliases": [],
                 "description": "",
-                "name": "young coconut",
-                "plural_name": "young coconuts"
+                "name": "嫩椰子",
+                "plural_name": "嫩椰子（复数）"
             },
             "kaffir lime": {
                 "aliases": [],
                 "description": "",
-                "name": "kaffir lime",
-                "plural_name": "kaffir limes"
+                "name": "青柠檬",
+                "plural_name": "青柠檬（复数）"
             },
             "star fruit": {
                 "aliases": [],
                 "description": "",
-                "name": "star fruit",
-                "plural_name": "star fruits"
+                "name": "杨桃",
+                "plural_name": "杨桃（复数）"
             },
             "green papaya": {
                 "aliases": [],
                 "description": "",
-                "name": "green papaya",
-                "plural_name": "green papayas"
+                "name": "青木瓜",
+                "plural_name": "青木瓜（复数）"
             },
             "pomelo": {
                 "aliases": [],
                 "description": "",
-                "name": "pomelo",
-                "plural_name": "pomelos"
+                "name": "柚子",
+                "plural_name": "柚子（复数）"
             },
             "chestnut purée": {
                 "aliases": [],
                 "description": "",
-                "name": "chestnut purée",
-                "plural_name": "chestnut purée"
+                "name": "栗子泥",
+                "plural_name": "栗子泥"
             },
             "prickly pear": {
                 "aliases": [],
                 "description": "",
-                "name": "prickly pear",
-                "plural_name": "prickly pears"
+                "name": "仙人掌果",
+                "plural_name": "仙人掌果（复数）"
             },
             "calamansi": {
                 "aliases": [],
                 "description": "",
-                "name": "calamansi",
-                "plural_name": "calamansis"
+                "name": "金橘",
+                "plural_name": "金橘（复数）"
             },
             "yuzu": {
                 "aliases": [],
                 "description": "",
-                "name": "yuzu",
-                "plural_name": "yuzu"
+                "name": "香橙",
+                "plural_name": "香橙"
             },
             "granadilla": {
                 "aliases": [],
                 "description": "",
-                "name": "granadilla",
-                "plural_name": "granadillas"
+                "name": "鸡蛋果",
+                "plural_name": "鸡蛋果（复数）"
             },
             "apple chip": {
                 "aliases": [],
                 "description": "",
-                "name": "apple chip",
-                "plural_name": "apple chips"
+                "name": "苹果片",
+                "plural_name": "苹果片（复数）"
             },
             "mixed peel": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed peel",
-                "plural_name": "mixed peels"
+                "name": "混合糖渍柑橘皮",
+                "plural_name": "混合糖渍柑橘皮（复数）"
             },
             "kokum": {
                 "aliases": [],
                 "description": "",
-                "name": "kokum",
-                "plural_name": "kokums"
+                "name": "山竹子",
+                "plural_name": "山竹子（复数）"
             },
             "tangelo": {
                 "aliases": [],
                 "description": "",
-                "name": "tangelo",
-                "plural_name": "tangelos"
+                "name": "柚柑",
+                "plural_name": "柚柑（复数）"
             },
             "dried lime": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lime",
-                "plural_name": "dried limes"
+                "name": "青柠干",
+                "plural_name": "青柠干（复数）"
             },
             "jujube": {
                 "aliases": [],
                 "description": "",
-                "name": "jujube",
-                "plural_name": "jujubes"
+                "name": "红枣",
+                "plural_name": "红枣（复数）"
             },
             "sweet lime": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet lime",
-                "plural_name": "sweet limes"
+                "name": "甜青柠",
+                "plural_name": "甜青柠（复数）"
             },
             "custard-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "custard-apple",
-                "plural_name": "custard-apples"
+                "name": "番荔枝",
+                "plural_name": "番荔枝（复数）"
             },
             "dried lemon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried lemon",
-                "plural_name": "dried lemons"
+                "name": "柠檬干",
+                "plural_name": "柠檬干（复数）"
             },
             "young jackfruit": {
                 "aliases": [],
                 "description": "",
-                "name": "young jackfruit",
-                "plural_name": "young jackfruits"
+                "name": "嫩菠萝蜜",
+                "plural_name": "嫩菠萝蜜（复数）"
             },
             "durian": {
                 "aliases": [],
                 "description": "",
-                "name": "durian",
-                "plural_name": "durians"
+                "name": "榴莲",
+                "plural_name": "榴莲（复数）"
             },
             "freeze-dried apple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried apple",
-                "plural_name": "freeze-dried apples"
+                "name": "冻干苹果",
+                "plural_name": "冻干苹果（复数）"
             },
             "dried tamarind": {
                 "aliases": [],
                 "description": "",
-                "name": "dried tamarind",
-                "plural_name": "dried tamarinds"
+                "name": "酸角干",
+                "plural_name": "酸角干（复数）"
             },
             "honey date": {
                 "aliases": [],
                 "description": "",
-                "name": "honey date",
-                "plural_name": "honey dates"
+                "name": "蜜枣",
+                "plural_name": "蜜枣（复数）"
             },
             "physali": {
                 "aliases": [],
                 "description": "",
-                "name": "physali",
-                "plural_name": "physalis"
+                "name": "灯笼果",
+                "plural_name": "灯笼果（复数）"
             },
             "tamarillo": {
                 "aliases": [],
                 "description": "",
-                "name": "tamarillo",
-                "plural_name": "tamarillos"
+                "name": "树番茄",
+                "plural_name": "树番茄（复数）"
             },
             "ice-apple": {
                 "aliases": [],
                 "description": "",
-                "name": "ice-apple",
-                "plural_name": "ice-apples"
+                "name": "冰苹果",
+                "plural_name": "冰苹果（复数）"
             },
             "longan": {
                 "aliases": [],
                 "description": "",
-                "name": "longan",
-                "plural_name": "longans"
+                "name": "龙眼",
+                "plural_name": "龙眼（复数）"
             },
             "finger lime": {
                 "aliases": [],
                 "description": "",
-                "name": "finger lime",
-                "plural_name": "finger limes"
+                "name": "手指柠檬",
+                "plural_name": "手指柠檬（复数）"
             },
             "bitter orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bitter orange",
-                "plural_name": "bitter oranges"
+                "name": "苦橙",
+                "plural_name": "苦橙（复数）"
             },
             "feijoa": {
                 "aliases": [],
                 "description": "",
-                "name": "feijoa",
-                "plural_name": "feijoas"
+                "name": "斐济果",
+                "plural_name": "斐济果（复数）"
             },
             "dried persimmon": {
                 "aliases": [],
                 "description": "",
-                "name": "dried persimmon",
-                "plural_name": "dried persimmons"
+                "name": "柿饼",
+                "plural_name": "柿饼（复数）"
             },
             "rambutan": {
                 "aliases": [],
                 "description": "",
-                "name": "rambutan",
-                "plural_name": "rambutans"
+                "name": "红毛丹",
+                "plural_name": "红毛丹（复数）"
             },
             "rose apple": {
                 "aliases": [],
                 "description": "",
-                "name": "rose apple",
-                "plural_name": "rose apples"
+                "name": "蒲桃",
+                "plural_name": "蒲桃（复数）"
             },
             "dried orange slice": {
                 "aliases": [],
                 "description": "",
-                "name": "dried orange slice",
-                "plural_name": "dried orange slices"
+                "name": "橙片干",
+                "plural_name": "橙片干（复数）"
             },
             "loquat": {
                 "aliases": [],
                 "description": "",
-                "name": "loquat",
-                "plural_name": "loquats"
+                "name": "枇杷",
+                "plural_name": "枇杷（复数）"
             },
             "crabapple": {
                 "aliases": [],
                 "description": "",
-                "name": "crabapple",
-                "plural_name": "crabapples"
+                "name": "沙果",
+                "plural_name": "沙果（复数）"
             },
             "fig leaf": {
                 "aliases": [],
                 "description": "",
-                "name": "fig leaf",
-                "plural_name": "fig leaves"
+                "name": "无花果叶",
+                "plural_name": "无花果叶（复数）"
             },
             "freeze-dried pineapple": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried pineapple",
-                "plural_name": "freeze-dried pineapples"
+                "name": "冻干菠萝",
+                "plural_name": "冻干菠萝（复数）"
             },
             "pluot": {
                 "aliases": [],
                 "description": "",
-                "name": "pluot",
-                "plural_name": "pluots"
+                "name": "杏李",
+                "plural_name": "杏李（复数）"
             },
             "soursop": {
                 "aliases": [],
                 "description": "",
-                "name": "soursop",
-                "plural_name": "soursops"
+                "name": "刺番荔枝",
+                "plural_name": "刺番荔枝（复数）"
             },
             "hog plum": {
                 "aliases": [],
                 "description": "",
-                "name": "hog plum",
-                "plural_name": "hog plums"
+                "name": "槟榔青",
+                "plural_name": "槟榔青（复数）"
             },
             "bergamot orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bergamot orange",
-                "plural_name": "bergamot oranges"
+                "name": "香柠檬",
+                "plural_name": "香柠檬（复数）"
             },
             "luo han guo": {
                 "aliases": [],
                 "description": "",
-                "name": "luo han guo",
-                "plural_name": "luo han guos"
+                "name": "罗汉果",
+                "plural_name": "罗汉果（复数）"
             },
             "mamey": {
                 "aliases": [],
                 "description": "",
-                "name": "mamey",
-                "plural_name": "mameys"
+                "name": "曼密果",
+                "plural_name": "曼密果（复数）"
             },
             "sapote": {
                 "aliases": [],
                 "description": "",
-                "name": "sapote",
-                "plural_name": "sapotes"
+                "name": "皂荚果",
+                "plural_name": "皂荚果（复数）"
             },
             "green ume plum": {
                 "aliases": [],
                 "description": "",
-                "name": "green ume plum",
-                "plural_name": "green ume plums"
+                "name": "青梅",
+                "plural_name": "青梅（复数）"
             },
             "kiwano": {
                 "aliases": [],
                 "description": "",
-                "name": "kiwano",
-                "plural_name": "kiwanos"
+                "name": "刺角瓜",
+                "plural_name": "刺角瓜"
             }
         }
     },
@@ -1277,7 +1277,7 @@
             "oyster mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "oyster mushroom",
+                "name": "牡蛎菇",
                 "plural_name": "oyster mushrooms"
             },
             "chestnut mushroom": {
@@ -1385,7 +1385,7 @@
             "boletu": {
                 "aliases": [],
                 "description": "",
-                "name": "boletus",
+                "name": "牛肝菌",
                 "plural_name": "boletus"
             },
             "huitlacoche": {
@@ -13725,11 +13725,11 @@
                 "name": "anchovy stock",
                 "plural_name": "anchovy stock"
             },
-            "cream of chicken soup mix:": {
+            "cream of chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "cream of chicken soup mix",
+                "plural_name": "cream of chicken soup mix"
             },
             "noodle soup mix": {
                 "aliases": [],

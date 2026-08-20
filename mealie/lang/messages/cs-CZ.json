@@ -20,15 +20,30 @@
         },
         "and-amount": "a {amount}",
         "or-ingredient": "nebo {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI obrazové služby nejsou povoleny",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Vytváření receptu pomocí AI...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Vytváření receptu pomocí AI přepisu...",
             "creating-recipe-from-webpage-data": "Vytváření receptu z webových stránek...",
             "downloading-image": "Stahování obrázku...",
             "downloading-video": "Stahování videa...",
             "extracting-recipe-data": "Extrahování dat receptu...",
             "fetching-webpage": "Načítání webové stránky...",
-            "transcribing-audio-with-ai": "Přepisování zvuku pomocí AI..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Přepisování zvuku pomocí AI...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "Nemáte oprávnění k provedení této akce",
         "recursive-recipe-link": "Recept se nemůže sám sebe přímo ani nepřímo odkazovat",
         "no-entry-found": "Požadovaný prostředek nebyl nalezen",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Chyba integrity databáze",
         "username-conflict-error": "Toto uživatelské jméno je již používáno",
         "email-conflict-error": "Tento e-mail je již používán"

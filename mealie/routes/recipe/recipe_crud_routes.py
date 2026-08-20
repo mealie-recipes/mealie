@@ -1,7 +1,8 @@
 import asyncio
 from collections import defaultdict
-from collections.abc import AsyncIterable
+from collections.abc import AsyncIterable, Awaitable, Callable
 from shutil import copyfileobj
+from typing import Annotated
 from uuid import UUID
 
 import orjson
@@ -41,7 +42,7 @@ from mealie.schema.recipe.recipe import (
     RecipeSummary,
 )
 from mealie.schema.recipe.recipe_asset import RecipeAsset
-from mealie.schema.recipe.recipe_scraper import ScrapeRecipeTest
+from mealie.schema.recipe.recipe_scraper import ScrapeRecipeAI, ScrapeRecipeTest
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.recipe.request_helpers import (
     RecipeDuplicate,
@@ -64,6 +65,9 @@ from mealie.services.event_bus_service.event_types import (
     EventRecipeData,
     EventTypes,
 )
+from mealie.services.openai import OpenAINotEnabledException
+from mealie.services.recipe.ai_recipe_service import AIProviderNotEnabledError, AIRecipeService
+from mealie.services.recipe.import_workflow.exceptions import NoRecipeDataError
 from mealie.services.recipe.recipe_data_service import (
     InvalidDomainError,
     NotAnImageError,
@@ -129,10 +133,22 @@ class RecipeController(BaseRecipeController):
 
     @router.post("/test-scrape-url")
     async def test_parse_recipe_url(self, data: ScrapeRecipeTest):
-        # Debugger should produce the same result as the scraper sees before cleaning
-        ScraperClass = RecipeScraperOpenAI if data.use_openai else RecipeScraperPackage
         try:
-            if scraped_data := await ScraperClass(data.url, self.translator, self.repos).scrape_url():
+            if data.use_openai:
+                # the AI scraper builds a recipe directly, so there's no scraped schema to show
+                scraper = RecipeScraperOpenAI(data.url, self.translator, self.repos)
+                try:
+                    result = await scraper.parse()
+                except NoRecipeDataError:
+                    result = None
+
+                if result and result[0]:
+                    return result[0].model_dump(by_alias=True)
+
+                return "AI was unable to extract a recipe from this URL"
+
+            # Debugger should produce the same result as the scraper sees before cleaning
+            if scraped_data := await RecipeScraperPackage(data.url, self.translator, self.repos).scrape_url():
                 return scraped_data.schema.data
         except ForceTimeoutException as e:
             raise HTTPException(
@@ -193,9 +209,51 @@ class RecipeController(BaseRecipeController):
         async for event in self._create_recipe_from_web(req):
             yield event
 
-    async def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
+    def _error_message(self, ex: Exception) -> str:
         """
-        Create a recipe from the web, returning progress via SSE.
+        Turn an exception raised during recipe creation into something worth showing a user.
+
+        The AI import page renders this message as-is, so every failure has to map to a
+        translated string. An exception's own text is not usable here: it carries provider and
+        library internals, and a bare class name like "OpenAIServiceError" is no better. Anything
+        unrecognized falls back to a generic message, and the caller logs the exception itself.
+        """
+
+        if isinstance(ex, exceptions.RateLimitError):
+            return self.t("exceptions.rate-limit-error")
+
+        if isinstance(ex, NoRecipeDataError | AIProviderNotEnabledError):
+            # these are raised with an already-translated message
+            if message := str(ex):
+                return message
+
+        if isinstance(ex, OpenAINotEnabledException):
+            return self.t("recipe.import-errors.ai-not-enabled")
+
+        if isinstance(ex, exceptions.VideoDownloadError):
+            return self.t("recipe.import-errors.video-download-failed")
+
+        if isinstance(ex, exceptions.OpenAIServiceError):
+            return self.t("recipe.import-errors.ai-request-failed")
+
+        if isinstance(ex, HTTPException):
+            # scraper failures carry a `ParserErrors` value (e.g. BAD_RECIPE_DATA), which the URL
+            # and HTML importers expect verbatim. They render their own message rather than this one
+            detail = ex.detail
+            if isinstance(detail, dict) and (details := detail.get("details")):
+                return str(details)
+            if isinstance(detail, str) and detail:
+                return detail
+
+        return self.t("recipe.import-errors.unknown-error")
+
+    async def _stream_recipe_creation(
+        self, create: Callable[[Callable[[str], Awaitable[None]]], Awaitable[str]]
+    ) -> AsyncIterable[ServerSentEvent]:
+        """
+        Run a recipe creation coroutine, returning progress via SSE.
+
+        `create` is passed a progress callback, and returns the new recipe's slug.
         Events will continue to be yielded until:
             - The recipe is created, emitting:
                 - event=SSEDataEventStatus.DONE
@@ -204,13 +262,6 @@ class RecipeController(BaseRecipeController):
                 - event=SSEDataEventStatus.ERROR
                 - data=SSEDataEventMessage(...)
         """
-
-        if isinstance(req, ScrapeRecipeData):
-            html = req.data
-            url = req.url or ""
-        else:
-            html = None
-            url = req.url
 
         queue: asyncio.Queue[ServerSentEvent | None] = asyncio.Queue()
 
@@ -224,8 +275,7 @@ class RecipeController(BaseRecipeController):
 
         async def run() -> None:
             try:
-                recipe, extras = await create_from_html(url, self.repos, self.translator, html, on_progress=on_progress)
-                slug = self._finish_recipe_from_web(req, recipe, extras)
+                slug = await create(on_progress)
                 await queue.put(
                     ServerSentEvent(
                         data=SSEDataEventDone(slug=slug),
@@ -236,7 +286,7 @@ class RecipeController(BaseRecipeController):
                 self.logger.exception("Error in streaming recipe creation")
                 await queue.put(
                     ServerSentEvent(
-                        data=SSEDataEventMessage(message=e.__class__.__name__),
+                        data=SSEDataEventMessage(message=self._error_message(e)),
                         event=SSEDataEventStatus.ERROR,
                     )
                 )
@@ -246,6 +296,30 @@ class RecipeController(BaseRecipeController):
         asyncio.create_task(run())
         while (event := await queue.get()) is not None:
             yield event
+
+    def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
+        """Create a recipe from the web, returning progress via SSE"""
+
+        if isinstance(req, ScrapeRecipeData):
+            html = req.data
+            url = req.url or ""
+        else:
+            html = None
+            url = req.url
+
+        async def create(on_progress: Callable[[str], Awaitable[None]]) -> str:
+            recipe, extras = await create_from_html(
+                url,
+                self.repos,
+                self.translator,
+                html,
+                on_progress=on_progress,
+                include_tags=req.include_tags,
+                include_categories=req.include_categories,
+            )
+            return self._finish_recipe_from_web(req, recipe, extras)
+
+        return self._stream_recipe_creation(create)
 
     def _finish_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData, recipe: Recipe, extras: object) -> str:
         if req.include_tags:
@@ -257,21 +331,98 @@ class RecipeController(BaseRecipeController):
             recipe.recipe_category = extras.use_categories(ctx)  # type: ignore
 
         new_recipe = self.service.create_one(recipe)
-
-        if new_recipe:
-            self.publish_event(
-                event_type=EventTypes.recipe_created,
-                document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
-                group_id=new_recipe.group_id,
-                household_id=new_recipe.household_id,
-                message=self.t(
-                    "notifications.generic-created-with-url",
-                    name=new_recipe.name,
-                    url=urls.recipe_url(self.group.slug, new_recipe.slug, self.settings.BASE_URL),
-                ),
-            )
-
+        self._publish_recipe_created(new_recipe)
         return new_recipe.slug
+
+    def _publish_recipe_created(self, new_recipe: Recipe) -> None:
+        if not new_recipe:
+            return
+
+        self.publish_event(
+            event_type=EventTypes.recipe_created,
+            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=new_recipe.slug),
+            group_id=new_recipe.group_id,
+            household_id=new_recipe.household_id,
+            message=self.t(
+                "notifications.generic-created-with-url",
+                name=new_recipe.name,
+                url=urls.recipe_url(self.group.slug, new_recipe.slug, self.settings.BASE_URL),
+            ),
+        )
+
+    # =======================================================================
+    # AI Operations
+
+    @router.post("/create/ai", status_code=201, response_model=str)
+    async def create_recipe_with_ai(
+        self,
+        content: Annotated[str | None, Form()] = None,
+        url: Annotated[str | None, Form()] = None,
+        translate_language: Annotated[str | None, Form(alias="translateLanguage")] = None,
+        create_new_organizers: Annotated[bool, Form(alias="createNewOrganizers")] = False,
+        images: list[UploadFile] = File(default_factory=list),
+    ) -> str:
+        """
+        Create a recipe from any combination of content (HTML, JSON, or text), images, and a URL,
+        using AI. Optionally specify a language for it to translate the recipe to.
+        """
+
+        req = ScrapeRecipeAI(
+            content=content,
+            url=url,
+            translate_language=translate_language,
+            create_new_organizers=create_new_organizers,
+        )
+        async for event in self._create_recipe_with_ai(req, images):
+            if isinstance(event.data, SSEDataEventDone):
+                return event.data.slug
+            if isinstance(event.data, SSEDataEventMessage) and event.event == SSEDataEventStatus.ERROR:
+                raise HTTPException(status_code=400, detail=ErrorResponse.respond(message=event.data.message))
+
+        # This should never be reachable, since we should always hit DONE or hit an exception/ERROR
+        raise HTTPException(status_code=500, detail=ErrorResponse.respond(message="Unknown Error"))
+
+    @router.post("/create/ai/stream", response_class=EventSourceResponse)
+    async def create_recipe_with_ai_stream(
+        self,
+        content: Annotated[str | None, Form()] = None,
+        url: Annotated[str | None, Form()] = None,
+        translate_language: Annotated[str | None, Form(alias="translateLanguage")] = None,
+        create_new_organizers: Annotated[bool, Form(alias="createNewOrganizers")] = False,
+        images: list[UploadFile] = File(default_factory=list),
+    ) -> AsyncIterable[ServerSentEvent]:
+        """
+        Create a recipe from any combination of content (HTML, JSON, or text), images, and a URL,
+        using AI, streaming progress via SSE
+        """
+
+        req = ScrapeRecipeAI(
+            content=content,
+            url=url,
+            translate_language=translate_language,
+            create_new_organizers=create_new_organizers,
+        )
+        async for event in self._create_recipe_with_ai(req, images):
+            yield event
+
+    def _create_recipe_with_ai(self, req: ScrapeRecipeAI, images: list[UploadFile]) -> AsyncIterable[ServerSentEvent]:
+        """Create a recipe using AI, returning progress via SSE"""
+
+        ai_service = AIRecipeService(self.repos, self.user, self.household, translator=self.translator)
+
+        async def create(on_progress: Callable[[str], Awaitable[None]]) -> str:
+            recipe = await ai_service.create_from_ai(
+                content=req.content,
+                images=images,
+                url=req.url,
+                translate_language=req.translate_language,
+                create_new_organizers=req.create_new_organizers,
+                on_progress=on_progress,
+            )
+            self._publish_recipe_created(recipe)
+            return recipe.slug
+
+        return self._stream_recipe_creation(create)
 
     @router.post("/create/url/bulk", status_code=202)
     def parse_recipe_url_bulk(self, bulk: CreateRecipeByUrlBulk, bg_tasks: BackgroundTasks):
@@ -306,33 +457,26 @@ class RecipeController(BaseRecipeController):
 
         return recipe.slug
 
-    @router.post("/create/image", status_code=201)
+    @router.post("/create/image", status_code=201, deprecated=True, include_in_schema=False)
     async def create_recipe_from_image(
         self,
         images: list[UploadFile] = File(...),
         translate_language: str | None = Query(None, alias="translateLanguage"),
     ):
         """
-        Create a recipe from an image using OpenAI.
-        Optionally specify a language for it to translate the recipe to.
+        Deprecated in favor of `/create/ai`, which accepts images alongside other content.
+        Kept so existing integrations keep working.
         """
 
-        ai_settings = self.group.ai_provider_settings
-        if not (ai_settings and ai_settings.image_provider_enabled):
-            raise HTTPException(
-                status_code=400,
-                detail=ErrorResponse.respond("OpenAI image services are not enabled"),
-            )
+        req = ScrapeRecipeAI(translate_language=translate_language)
+        async for event in self._create_recipe_with_ai(req, images):
+            if isinstance(event.data, SSEDataEventDone):
+                return event.data.slug
+            if isinstance(event.data, SSEDataEventMessage) and event.event == SSEDataEventStatus.ERROR:
+                raise HTTPException(status_code=400, detail=ErrorResponse.respond(message=event.data.message))
 
-        recipe = await self.service.create_from_images(images, translate_language)
-        self.publish_event(
-            event_type=EventTypes.recipe_created,
-            document_data=EventRecipeData(operation=EventOperation.create, recipe_slug=recipe.slug),
-            group_id=recipe.group_id,
-            household_id=recipe.household_id,
-        )
-
-        return recipe.slug
+        # This should never be reachable, since we should always hit DONE or hit an exception/ERROR
+        raise HTTPException(status_code=500, detail=ErrorResponse.respond(message="Unknown Error"))
 
     # ==================================================================================================================
     # CRUD Operations
@@ -611,7 +755,7 @@ class RecipeController(BaseRecipeController):
     # ==================================================================================================================
     # Image and Assets
 
-    @router.post("/{slug}/image", tags=["Recipe: Images and Assets"])
+    @router.post("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
     async def scrape_image_url(self, slug: str, url: ScrapeRecipe):
         recipe = self.mixins.get_one(slug)
         data_service = RecipeDataService(recipe.id)
@@ -631,6 +775,7 @@ class RecipeController(BaseRecipeController):
 
         recipe.image = cache.cache_key.new_key()
         self.service.update_one(recipe.slug, recipe)
+        return UpdateImageResponse(image=recipe.image)
 
     @router.put("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
     def update_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):

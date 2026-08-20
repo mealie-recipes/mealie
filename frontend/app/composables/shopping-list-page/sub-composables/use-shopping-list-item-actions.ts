@@ -8,7 +8,7 @@ const queueTimeout = 5 * 60 * 1000; // 5 minutes
 
 type ItemQueueType = "create" | "update" | "delete";
 
-interface ShoppingListQueue {
+export interface ShoppingListQueue {
   create: ShoppingListItemOut[];
   update: ShoppingListItemOut[];
   delete: ShoppingListItemOut[];
@@ -260,5 +260,11 @@ export function useShoppingListItemActions(shoppingListId: string) {
     updateItem,
     deleteItem,
     process,
+
+    __testing__: {
+      queue,
+      clearQueueItems,
+      createEmptyQueue,
+    },
   };
 }

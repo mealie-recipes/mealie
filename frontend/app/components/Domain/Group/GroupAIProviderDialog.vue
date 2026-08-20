@@ -89,7 +89,7 @@
         </v-expansion-panels>
       </v-form>
     </v-card-text>
-    <AppLoader v-else waiting-text="" />
+    <AppLoader v-else />
   </BaseDialog>
 </template>
 

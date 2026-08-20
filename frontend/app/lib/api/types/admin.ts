@@ -17,6 +17,7 @@ export interface AdminAboutInfo {
   oidcRedirect: boolean;
   oidcProviderName: string;
   tokenTime: number;
+  allowedIframeHosts?: string[];
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
