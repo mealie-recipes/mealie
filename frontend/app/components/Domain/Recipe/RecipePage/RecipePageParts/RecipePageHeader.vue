@@ -1,5 +1,11 @@
 <template>
   <div>
+    <RecipeQuickOrganizeDialog
+      v-model="organizerDialog"
+      :recipes="[recipe]"
+      mode="single"
+      @saved="onOrganizersSaved"
+    />
     <RecipePageInfoCard
       :recipe="recipe"
       :recipe-scale="recipeScale"
@@ -22,6 +28,7 @@
       @save="$emit('save')"
       @delete="$emit('delete')"
       @print="printRecipe"
+      @organize="organizerDialog = true"
     />
   </div>
 </template>
@@ -31,6 +38,7 @@ import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useRecipePermissions } from "~/composables/recipes";
 import RecipePageInfoCard from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCard.vue";
 import RecipeActionMenu from "~/components/Domain/Recipe/RecipeActionMenu.vue";
+import RecipeQuickOrganizeDialog from "~/components/Domain/Recipe/RecipeQuickOrganizeDialog.vue";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import type { HouseholdSummary } from "~/lib/api/types/household";
 import type { Recipe } from "~/lib/api/types/recipe";
@@ -47,7 +55,13 @@ const props = withDefaults(defineProps<Props>(), {
   landscape: false,
 });
 
-defineEmits(["save", "delete", "print", "close"]);
+const emit = defineEmits<{
+  "save": [];
+  "delete": [];
+  "print": [];
+  "close": [];
+  "organizers-saved": [recipe: Recipe];
+}>();
 
 const { recipeImage } = useStaticRoutes();
 const { imageKey, setMode, toggleEditMode, isEditMode } = usePageState(props.recipe.slug);
@@ -62,6 +76,15 @@ if (user) {
   });
 }
 const { canEditRecipe } = useRecipePermissions(props.recipe, recipeHousehold, user);
+
+const organizerDialog = ref(false);
+
+function onOrganizersSaved(recipes: Recipe[]) {
+  const recipe = recipes[0];
+  if (recipe) {
+    emit("organizers-saved", recipe);
+  }
+}
 
 function printRecipe() {
   window.print();

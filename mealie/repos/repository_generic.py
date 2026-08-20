@@ -178,6 +178,15 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
         return eff_schema.model_validate(result)
 
+    def get_models_by_ids(self, values: Iterable[UUID4]) -> list[Model]:
+        """Return all group/household-scoped database models matching the supplied IDs."""
+        values = list(values)
+        if not values:
+            return []
+
+        query = self._query(with_options=True).filter(self.model.id.in_(values)).filter_by(**self._filter_builder())
+        return self.session.execute(query).unique().scalars().all()
+
     def create(self, data: Schema | BaseModel | dict) -> Schema:
         try:
             data = data if isinstance(data, dict) else data.model_dump()

@@ -16,10 +16,12 @@
         :title="$t('general.recipes')"
         :recipes="recipes"
         :query="searchQuery"
+        :quick-organize="isOwnGroup"
         disable-sort
         @item-selected="onItemSelected"
         @replace-recipes="replaceRecipes"
         @append-recipes="appendRecipes"
+        @recipes-updated="mergeUpdatedRecipes"
       />
     </v-container>
   </v-container>
@@ -30,6 +32,7 @@ import RecipeExplorerPageSearch from "./RecipeExplorerPageParts/RecipeExplorerPa
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useLazyRecipes } from "~/composables/recipes";
+import type { RecipeSummary } from "~/lib/api/types/recipe";
 
 const auth = useMealieAuth();
 const route = useRoute();
@@ -52,5 +55,18 @@ function onSearchReady() {
 
 function onItemSelected(item: any, urlPrefix: string) {
   searchComponent.value?.filterItems(item, urlPrefix);
+}
+
+function mergeUpdatedRecipes(updatedRecipes: RecipeSummary[]) {
+  const updatedByKey = new Map(
+    updatedRecipes
+      .map(recipe => [recipe.id || recipe.slug, recipe] as const)
+      .filter(([key]) => !!key),
+  );
+
+  recipes.value = recipes.value.map((recipe) => {
+    const updated = updatedByKey.get(recipe.id || recipe.slug);
+    return updated ? { ...recipe, ...updated } : recipe;
+  });
 }
 </script>

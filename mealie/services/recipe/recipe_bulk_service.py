@@ -2,24 +2,67 @@ from pathlib import Path
 
 from pydantic import UUID4
 
-from mealie.core.exceptions import UnexpectedNone
+from mealie.core.exceptions import NoEntryFound, PermissionDenied, UnexpectedNone
+from mealie.lang.providers import Translator
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.group_exports import GroupDataExport
+from mealie.schema.household.household import HouseholdInDB
 from mealie.schema.recipe import CategoryBase
+from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_bulk_actions import BulkOrganizeRecipes
 from mealie.schema.recipe.recipe_category import TagBase
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.user.user import GroupInDB, PrivateUser
 from mealie.services._base_service import BaseService
 from mealie.services.exporter import Exporter, RecipeExporter
+from mealie.services.recipe.recipe_service import RecipeService
 
 
 class RecipeBulkActionsService(BaseService):
-    def __init__(self, repos: AllRepositories, user: PrivateUser, group: GroupInDB):
+    def __init__(
+        self,
+        repos: AllRepositories,
+        user: PrivateUser,
+        group: GroupInDB,
+        household: HouseholdInDB | None = None,
+        translator: Translator | None = None,
+    ):
         self.repos = repos
         self.user = user
         self.group = group
+        self.recipe_service = RecipeService(repos, user, household, translator) if household and translator else None
         super().__init__()
+
+    def organize_recipes(self, data: BulkOrganizeRecipes) -> list[Recipe]:
+        recipe_service = self.recipe_service
+        if recipe_service is None:
+            raise RuntimeError("Recipe service dependencies are required for organizer updates")
+
+        group_recipes = recipe_service.group_recipes
+        requested_ids = set(data.recipes)
+        loaded_recipes = group_recipes.get_models_by_ids(data.recipes)
+        loaded_by_id = {recipe.id: recipe for recipe in loaded_recipes}
+
+        if set(loaded_by_id) != requested_ids:
+            raise NoEntryFound("One or more recipes were not found.")
+
+        recipes = [loaded_by_id[recipe_id] for recipe_id in data.recipes]
+        recipe_slugs = [recipe.slug for recipe in recipes]
+        if not recipe_service.can_update(recipe_slugs):
+            raise PermissionDenied("You do not have permission to edit all of these recipes.")
+
+        tag_ids = [tag.id for tag in data.tags]
+        category_ids = [category.id for category in data.categories]
+        tags = self.repos.tags.get_models_by_ids(tag_ids)
+        categories = self.repos.categories.get_models_by_ids(category_ids)
+
+        if {tag.id for tag in tags} != set(tag_ids):
+            raise NoEntryFound("One or more tags were not found.")
+        if {category.id for category in categories} != set(category_ids):
+            raise NoEntryFound("One or more categories were not found.")
+
+        return group_recipes.bulk_update_organizers(recipes, tags, categories, data.operation)
 
     def export_recipes(self, temp_path: Path, slugs: list[str]) -> None:
         recipe_exporter = RecipeExporter(self.repos, self.group.id, slugs)
