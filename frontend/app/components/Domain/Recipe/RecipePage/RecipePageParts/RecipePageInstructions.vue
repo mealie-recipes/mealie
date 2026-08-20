@@ -117,6 +117,46 @@
         {{ $t("recipe.cook-mode") }}
       </BaseButton>
     </div>
+
+    <template v-if="instructionList.length === 0 && isEditForm">
+      <div class="list-group-item">
+        <v-card class="my-3" :elevation="2" :ripple="false">
+          <v-card-title class="recipe-step-title pt-3 pb-0">
+            <div class="d-flex align-center w-100">
+              <v-text-field
+                v-model="placeholderSummary"
+                class="headline"
+                hide-details
+                density="compact"
+                variant="solo"
+                flat
+                :placeholder="$t('recipe.step-index', { step: 1 })"
+              >
+                <template #prepend>
+                  <v-icon size="26" class="handle">
+                    {{ $globals.icons.arrowUpDown }}
+                  </v-icon>
+                </template>
+              </v-text-field>
+            </div>
+          </v-card-title>
+
+          <v-card-text>
+            <MarkdownEditor
+              v-model="placeholderText"
+              class="mb-2"
+              :display-preview="false"
+              :textarea="{
+                hint: $t('recipe.attach-images-hint'),
+                persistentHint: true,
+                placeholder: $t('recipe.steps-placeholder'),
+              }"
+            />
+          </v-card-text>
+        </v-card>
+      </div>
+    </template>
+
     <VueDraggable
       v-model="instructionList"
       :disabled="!isEditForm"
@@ -397,7 +437,12 @@ interface MergerHistory {
   targetText: string;
   sourceText: string;
 }
-
+const placeholderSummary = ref("");
+const { t, locale } = useI18n();
+const placeholderText = ref(t("recipe.steps-placeholder"));
+watch(locale, () => {
+  placeholderText.value = t("recipe.steps-placeholder");
+});
 const instructionList = defineModel<RecipeStep[]>("modelValue", { required: true, default: () => [] });
 const assets = defineModel<RecipeAsset[]>("assets", { required: true, default: () => [] });
 
