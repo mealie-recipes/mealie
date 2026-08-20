@@ -186,7 +186,7 @@ async function copyTokenLink(token: string) {
 }
 
 async function shareRecipe(token: string) {
-  if (shareIsSupported) {
+  if (shareIsSupported.value) {
     share({
       title: props.name,
       url: getTokenLink(token),

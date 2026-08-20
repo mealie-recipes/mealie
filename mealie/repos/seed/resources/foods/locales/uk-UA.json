@@ -3350,7 +3350,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Соєві вершки",
-                "plural_name": "soy cream"
+                "plural_name": "соєві вершки"
             },
             "seitan": {
                 "aliases": [],
@@ -3362,7 +3362,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Сухе кокосове молоко",
-                "plural_name": "coconut milk powder"
+                "plural_name": "сухе кокосове молоко"
             },
             "non-dairy whipped topping": {
                 "aliases": [],
@@ -3374,13 +3374,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Горіхове молоко",
-                "plural_name": "nut milk"
+                "plural_name": "горіхове молоко"
             },
             "non-dairy cream": {
                 "aliases": [],
                 "description": "",
                 "name": "Рослинні вершки",
-                "plural_name": "non-dairy cream"
+                "plural_name": "рослинні вершки"
             },
             "vegan burger patty": {
                 "aliases": [],
@@ -3392,7 +3392,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Згущене кокосове молоко",
-                "plural_name": "condensed coconut milk"
+                "plural_name": "згущене кокосове молоко"
             },
             "vegan ground beef": {
                 "aliases": [],
@@ -3446,7 +3446,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Конопляне молоко",
-                "plural_name": "hemp milk"
+                "plural_name": "конопляне молоко"
             },
             "vegan beef": {
                 "aliases": [],
@@ -3476,7 +3476,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Кокосова паста",
-                "plural_name": "coconut paste"
+                "plural_name": "кокосова паста"
             },
             "vegetable suet": {
                 "aliases": [],
@@ -3488,13 +3488,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Морозиво без молочних продуктів",
-                "plural_name": "dairy-free ice-cream"
+                "plural_name": "морозиво без молочних продуктів"
             },
             "almond-coconut milk": {
                 "aliases": [],
                 "description": "",
                 "name": "Мигдально-кокосове молоко",
-                "plural_name": "almond-coconut milk"
+                "plural_name": "мигдально-кокосове молоко"
             },
             "banana blossom": {
                 "aliases": [],
@@ -3506,7 +3506,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Веганський рибний соус",
-                "plural_name": "vegan fish sauce"
+                "plural_name": "веганські рибні соуси"
             },
             "vegetarian hot dog": {
                 "aliases": [],
@@ -3518,7 +3518,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Фундукове молоко",
-                "plural_name": "hazelnut milk"
+                "plural_name": "фундукове молоко"
             },
             "maple almond butter": {
                 "aliases": [],
@@ -3548,7 +3548,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Сухе соєве молоко",
-                "plural_name": "soy milk powder"
+                "plural_name": "сухе соєве молоко"
             },
             "vegan cream cheese frosting": {
                 "aliases": [],
@@ -3584,7 +3584,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Кеш'ю-сирний соус",
-                "plural_name": "cashew cheese sauce"
+                "plural_name": "кеш'ю-сирні соуси"
             },
             "coconut fat": {
                 "aliases": [],
@@ -3596,7 +3596,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Лляне молоко",
-                "plural_name": "flax milk"
+                "plural_name": "лляне молоко"
             },
             "hazelnut creamer": {
                 "aliases": [],
@@ -3638,13 +3638,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Крем-сир з кеш'ю",
-                "plural_name": "cashew cream cheese"
+                "plural_name": "крем-сири з кеш'ю"
             },
             "cricket flour": {
                 "aliases": [],
                 "description": "",
                 "name": "Борошно з цвіркунів",
-                "plural_name": "cricket flour"
+                "plural_name": "борошно з цвіркунів"
             },
             "macadamia butter": {
                 "aliases": [],
@@ -3674,7 +3674,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Молоко з макадамії",
-                "plural_name": "macadamia milk"
+                "plural_name": "молоко з макадамії"
             },
             "vegan taco meat": {
                 "aliases": [],
@@ -3698,7 +3698,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Бананове молоко",
-                "plural_name": "banana milk"
+                "plural_name": "бананове молоко"
             },
             "soy quark": {
                 "aliases": [],
@@ -3722,7 +3722,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Молоко волоського горіху",
-                "plural_name": "walnut milk"
+                "plural_name": "молоко волоського горіху"
             },
             "latik": {
                 "aliases": [],
@@ -3734,7 +3734,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Рисові вершки",
-                "plural_name": "rice cream"
+                "plural_name": "рисові вершки"
             }
         }
     },
@@ -5395,8 +5395,8 @@
             "pangasius": {
                 "aliases": [],
                 "description": "",
-                "name": "pangasius",
-                "plural_name": "pangasius"
+                "name": "пангасіус",
+                "plural_name": "пангасіус"
             },
             "salt herring": {
                 "aliases": [],
@@ -5579,14 +5579,14 @@
             "octopus": {
                 "aliases": [],
                 "description": "",
-                "name": "octopus",
-                "plural_name": "octopi"
+                "name": "восьминіг",
+                "plural_name": "восьминоги"
             },
             "kombu": {
                 "aliases": [],
                 "description": "",
                 "name": "Комбу",
-                "plural_name": "kombu"
+                "plural_name": "комбу"
             },
             "dried shrimp": {
                 "aliases": [],
@@ -5772,7 +5772,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "морський салат",
-                "plural_name": "sea lettuce"
+                "plural_name": "морські салати"
             },
             "korean seaweed": {
                 "aliases": [],
@@ -5818,7 +5818,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "кориця",
-                "plural_name": "cinnamon"
+                "plural_name": "кориця"
             },
             "parsley": {
                 "aliases": [],
@@ -5830,7 +5830,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "коріандр",
-                "plural_name": "cilantro"
+                "plural_name": "коріандр"
             },
             "cumin": {
                 "aliases": [],
@@ -5848,7 +5848,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "чебрець",
-                "plural_name": "thyme"
+                "plural_name": "чебрець"
             },
             "ginger root": {
                 "aliases": [],
@@ -5860,7 +5860,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "порошок часниковий",
-                "plural_name": "garlic powder"
+                "plural_name": "порошок часниковий"
             },
             "oregano": {
                 "aliases": [],
@@ -5884,13 +5884,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "порошок чилі",
-                "plural_name": "chili powder"
+                "plural_name": "порошок чилі"
             },
             "paprika": {
                 "aliases": [],
                 "description": "",
                 "name": "паприка",
-                "plural_name": "paprika"
+                "plural_name": "паприка"
             },
             "cayenne": {
                 "aliases": [],
@@ -5926,13 +5926,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "порошок цибулі",
-                "plural_name": "onion powder"
+                "plural_name": "порошок цибулі"
             },
             "ginger powder": {
                 "aliases": [],
                 "description": "",
                 "name": "порошок імбиру",
-                "plural_name": "ginger powder"
+                "plural_name": "порошок імбиру"
             },
             "panch puran": {
                 "aliases": [],
@@ -5968,7 +5968,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "копчена паприка",
-                "plural_name": "smoked paprika"
+                "plural_name": "копчена паприка"
             },
             "fresh mint": {
                 "aliases": [],
@@ -5980,7 +5980,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "коріандр мелений",
-                "plural_name": "coriander powder"
+                "plural_name": "коріандр мелений"
             },
             "sage": {
                 "aliases": [],
@@ -6004,7 +6004,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "крупно мелений перець",
-                "plural_name": "cracked pepper"
+                "plural_name": "крупно мелений перець"
             },
             "peppercorn": {
                 "aliases": [],
@@ -6022,7 +6022,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "білий перець",
-                "plural_name": "white pepper"
+                "plural_name": "білий перець"
             },
             "curry leaf": {
                 "aliases": [],
@@ -6094,7 +6094,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "порошок чіпотле",
-                "plural_name": "chipotle powder"
+                "plural_name": "порошок чіпотле"
             },
             "chipotle": {
                 "aliases": [],
@@ -6118,13 +6118,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "порошок матча",
-                "plural_name": "matcha powder"
+                "plural_name": "порошок матча"
             },
             "ancho chile powder": {
                 "aliases": [],
                 "description": "",
                 "name": "порошок перцю анчо",
-                "plural_name": "ancho chile powder"
+                "plural_name": "порошок перцю анчо"
             },
             "sumac": {
                 "aliases": [],
@@ -6208,7 +6208,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "порошок манго",
-                "plural_name": "mango powder"
+                "plural_name": "порошок манго"
             },
             "black mustard seed": {
                 "aliases": [],
@@ -6250,13 +6250,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "гостра паприка",
-                "plural_name": "hot paprika"
+                "plural_name": "гостра паприка"
             },
             "lemon thyme": {
                 "aliases": [],
                 "description": "",
                 "name": "лимонний чебрець",
-                "plural_name": "lemon thyme"
+                "plural_name": "лимонний чебрець"
             },
             "galangal": {
                 "aliases": [],
@@ -6274,7 +6274,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "сушена кінза",
-                "plural_name": "dried cilantro"
+                "plural_name": "сушена кінза"
             },
             "lemon balm": {
                 "aliases": [],
@@ -6304,7 +6304,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "порошок васабі",
-                "plural_name": "wasabi powder"
+                "plural_name": "порошок васабі"
             },
             "achiote seed": {
                 "aliases": [],
@@ -13725,11 +13725,11 @@
                 "name": "anchovy stock",
                 "plural_name": "anchovy stock"
             },
-            "cream of chicken soup mix:": {
+            "cream of chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "cream of chicken soup mix",
+                "plural_name": "cream of chicken soup mix"
             },
             "noodle soup mix": {
                 "aliases": [],

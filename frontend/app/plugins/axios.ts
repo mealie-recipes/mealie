@@ -1,6 +1,7 @@
 import axios from "axios";
 import { alert } from "~/composables/use-toast";
 import { getTokenCookieOptions } from "~/composables/use-token-cookie";
+import { isSafeRedirectTarget } from "~/lib/validators/redirect";
 
 declare module "axios" {
   interface AxiosRequestConfig {
@@ -49,7 +50,10 @@ export default defineNuxtPlugin(() => {
 
           // Disable beforeunload warnings to prevent "Are you sure you want to leave?" popups
           window.onbeforeunload = null;
-          window.location.href = "/login";
+
+          const target = window.location.pathname + window.location.search;
+          const redirect = isSafeRedirectTarget(target) && target !== "/login" ? `?redirect=${encodeURIComponent(target)}` : "";
+          window.location.href = `/login${redirect}`;
         }
       }
 
