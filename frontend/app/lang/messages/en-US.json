@@ -957,12 +957,6 @@
     "oidc-ready-disabled-text": "To enable set OIDC_AUTH_ENABLED to true.",
     "oidc-ready-error-text": "Not all OIDC Values are configured. This can be ignored if you are not using OIDC Authentication.",
     "oidc-ready-success-text": "Required OIDC variables are all set.",
-    "openai-disabled": "OpenAI Disabled",
-    "openai-ready": "OpenAI Ready",
-    "openai-not-ready": "OpenAI Not Ready",
-    "openai-ready-disabled-text": "To enable set OPENAI_API_KEY your key.",
-    "openai-ready-error-text": "Not all OpenAI Values are configured. This can be ignored if you are not using OpenAI features.",
-    "openai-ready-success-text": "Required OpenAI variables are all set.",
     "site-statistics": "Site Statistics",
     "uncategorized-recipes": "Uncategorized Recipes",
     "untagged-recipes": "Untagged Recipes"
