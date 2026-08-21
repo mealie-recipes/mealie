@@ -2,6 +2,7 @@ from fastapi.testclient import TestClient
 
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
+from mealie.repos.seed.seeders import IngredientFoodsSeeder, IngredientUnitsSeeder
 from mealie.schema.response.pagination import PaginationQuery
 from tests.utils import api_routes
 from tests.utils.factories import user_registration_factory
@@ -52,9 +53,6 @@ def test_new_user_group_permissions(api_client: TestClient):
 
 
 def test_user_registration_with_seed_data(api_client: TestClient, unfiltered_database: AllRepositories):
-    CREATED_FOODS = 2687
-    CREATED_UNITS = 24
-
     registration = user_registration_factory()
     registration.seed_data = True
 
@@ -67,6 +65,16 @@ def test_user_registration_with_seed_data(api_client: TestClient, unfiltered_dat
     foods = group_repos.ingredient_foods.page_all(PaginationQuery(page=1, per_page=-1)).items
     units = group_repos.ingredient_units.page_all(PaginationQuery(page=1, per_page=-1)).items
 
-    assert len(foods) == CREATED_FOODS
-    assert len(units) == CREATED_UNITS
+    seeded_food_names = {
+        attributes["name"]
+        for label in IngredientFoodsSeeder.load_file(IngredientFoodsSeeder.get_file(registration.locale)).values()
+        for attributes in label["foods"].values()
+    }
+    seeded_unit_names = {
+        unit["name"]
+        for unit in IngredientUnitsSeeder.load_file(IngredientUnitsSeeder.get_file(registration.locale)).values()
+    }
+
+    assert {food.name for food in foods} == seeded_food_names
+    assert {unit.name for unit in units} == seeded_unit_names
     assert all(food.label_id is not None for food in foods)
