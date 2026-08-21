@@ -393,8 +393,6 @@ class AppSettings(AppLoggingSettings):
     OIDC_USER_CLAIM: str = "email"
     OIDC_NAME_CLAIM: str = "name"
     OIDC_GROUPS_CLAIM: str | None = "groups"
-    OIDC_PICTURE_CLAIM: str | None = "picture"
-    """claim holding a URL to the user's profile image; unset to disable avatar syncing"""
     OIDC_SCOPES_OVERRIDE: str | None = None
     OIDC_TLS_CACERTFILE: str | None = None
     OIDC_CLIENT_TIMEOUT: float | Literal["None", "default"] = "default"

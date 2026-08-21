@@ -362,33 +362,6 @@ def test_non_string_picture_claim_records_nothing(monkeypatch: MonkeyPatch, sess
     assert auth_provider.pending_avatar is None
 
 
-def test_picture_claim_ignored_when_disabled(monkeypatch: MonkeyPatch, session: Session):
-    """Admins can opt out of avatar syncing by clearing the claim name."""
-    monkeypatch.setenv("OIDC_REQUIRES_EMAIL_VERIFICATION", "true")
-    monkeypatch.setenv("OIDC_PICTURE_CLAIM", "")
-    get_app_settings.cache_clear()
-
-    auth_provider = OpenIDProvider(session, _avatar_claims("https://idp.example.com/avatar.png"))
-
-    assert auth_provider.authenticate() is not None
-    assert auth_provider.pending_avatar is None
-
-
-def test_picture_claim_name_is_configurable(monkeypatch: MonkeyPatch, session: Session):
-    monkeypatch.setenv("OIDC_REQUIRES_EMAIL_VERIFICATION", "true")
-    monkeypatch.setenv("OIDC_PICTURE_CLAIM", "avatar_url")
-    get_app_settings.cache_clear()
-
-    url = "https://idp.example.com/custom.png"
-    claims = _avatar_claims("https://idp.example.com/ignored.png")
-    claims["avatar_url"] = url
-    auth_provider = OpenIDProvider(session, claims)
-
-    assert auth_provider.authenticate() is not None
-    assert auth_provider.pending_avatar is not None
-    assert auth_provider.pending_avatar[1] == url
-
-
 def test_claims_logging(monkeypatch: MonkeyPatch, caplog, session: Session):
     monkeypatch.setenv("OIDC_REQUIRES_EMAIL_VERIFICATION", "true")
     get_app_settings.cache_clear()

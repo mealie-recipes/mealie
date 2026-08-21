@@ -146,10 +146,6 @@ class OpenIDProvider(AuthProvider[UserInfo]):
 
     def _record_avatar_claim(self, user_id: UUID4, claims: UserInfo) -> None:
         """Notes a usable profile image URL on `pending_avatar` for the caller to fetch."""
-        settings = get_app_settings()
-        if not settings.OIDC_PICTURE_CLAIM:
-            return
-
-        picture = claims.get(settings.OIDC_PICTURE_CLAIM)
+        picture = claims.get("picture")
         if picture and isinstance(picture, str):
             self.pending_avatar = (user_id, picture)

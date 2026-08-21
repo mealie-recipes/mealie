@@ -85,7 +85,7 @@ There are two (optional) [environment variables](../installation/backend-config.
 
 ### Profile images
 
-If your IdP returns a `picture` claim, Mealie downloads that image on login and uses it as the user's avatar. The claim name is configurable via `OIDC_PICTURE_CLAIM`; set it to an empty value to turn the behaviour off entirely.
+If your IdP returns a `picture` claim, Mealie downloads that image on login and uses it as the user's avatar.
 
 The image is only re-downloaded when the claim's value changes, so repeat logins cost nothing. Because the URL comes from your IdP, it is treated as untrusted input: it must use HTTPS, must resolve to a public address, and the download is size-capped. An image that fails any of these checks is skipped silently — it never blocks the login.
 
