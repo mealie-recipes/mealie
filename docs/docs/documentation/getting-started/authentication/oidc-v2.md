@@ -87,7 +87,14 @@ There are two (optional) [environment variables](../installation/backend-config.
 
 If your IdP returns a `picture` claim, Mealie downloads that image on login and uses it as the user's avatar.
 
-The image is only re-downloaded when the claim's value changes, so repeat logins cost nothing. Because the URL comes from your IdP, it is treated as untrusted input: it must use HTTPS, must resolve to a public address, and the download is size-capped. An image that fails any of these checks is skipped silently — it never blocks the login.
+The image is only re-downloaded when the claim's value changes, so repeat logins cost nothing.
+
+The claim's value is treated as untrusted input, because many IdPs let users edit their own profile — without that care, any user could point Mealie at an internal address. The rules are:
+
+- **On your provider's own host** (the host in `OIDC_CONFIGURATION_URL`): fetched as-is, including over plain HTTP and on a private address. This is what a self-hosted IdP on your LAN needs, and it reaches nothing Mealie doesn't already contact on every login.
+- **On any other host**: the URL must use HTTPS and must resolve to a public address.
+
+Either way the download is size-capped and time-bounded. An image that fails any check is skipped silently — it never blocks the login.
 
 ## Native and mobile clients
 

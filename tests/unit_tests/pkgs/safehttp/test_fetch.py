@@ -116,14 +116,15 @@ def _patch_responses(
     Records the number of attempts and the proxy passed to each, and isolates the fetch from real
     app settings by injecting the given scraper configuration.
     """
-    state = {"queue": list(responses), "attempts": 0, "proxies": []}
+    state = {"queue": list(responses), "attempts": 0, "proxies": [], "allow_private": []}
 
     def make_client(*args, **kwargs):
         state["attempts"] += 1
         return _FakeClient(state["queue"].pop(0))
 
-    def fake_build_transport(impersonate: str, proxy: str | None = None):
+    def fake_build_transport(impersonate: str, proxy: str | None = None, allow_private: bool = False):
         state["proxies"].append(proxy)
+        state["allow_private"].append(allow_private)
         return None
 
     monkeypatch.setattr(fetch, "AsyncClient", make_client)
@@ -468,3 +469,21 @@ async def test_resilient_fetch_threads_max_bytes_through(monkeypatch):
 
     with pytest.raises(fetch.ContentTooLargeError):
         await fetch.resilient_fetch("https://x/r", max_bytes=1024)
+
+
+@pytest.mark.asyncio
+async def test_allow_private_defaults_to_off(monkeypatch):
+    state = _patch_responses(monkeypatch, [_FakeResponse(200, body=b"ok")])
+
+    await fetch.resilient_fetch("https://x/r")
+
+    assert state["allow_private"] == [False]
+
+
+@pytest.mark.asyncio
+async def test_allow_private_is_threaded_to_the_transport(monkeypatch):
+    state = _patch_responses(monkeypatch, [_FakeResponse(200, body=b"ok")])
+
+    await fetch.resilient_fetch("https://x/r", allow_private=True)
+
+    assert state["allow_private"] == [True]

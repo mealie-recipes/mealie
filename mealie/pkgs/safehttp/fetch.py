@@ -99,13 +99,14 @@ def body_indicates_challenge(content: bytes) -> bool:
     return any(marker in sample for marker in _CHALLENGE_BODY_MARKERS)
 
 
-def _build_transport(impersonate: str, proxy: str | None = None) -> AsyncSafeTransport:
+def _build_transport(impersonate: str, proxy: str | None = None, allow_private: bool = False) -> AsyncSafeTransport:
     kwargs: dict = {
         "impersonate": impersonate,
         "default_headers": True,
         # disable SSL verification since we can handle untrusted data and some sites don't have certs
         # (this also covers the proxy connection, so no separate proxy-verify knob is needed)
         "verify": False,
+        "allow_private": allow_private,
     }
     if proxy:
         kwargs["proxy"] = proxy
@@ -163,6 +164,7 @@ async def _attempt(
     read_body: bool,
     proxy: str | None,
     max_bytes: int | None = None,
+    allow_private: bool = False,
 ) -> tuple[FetchResult | None, bool, int, str | None]:
     """
     Performs a single fetch attempt with one browser impersonation.
@@ -174,7 +176,7 @@ async def _attempt(
     - When both ``result`` is None and ``blocked`` is False, the response was a hard error that
       rotating won't fix, and the caller should stop.
     """
-    transport = _build_transport(impersonation, proxy)
+    transport = _build_transport(impersonation, proxy, allow_private)
     async with AsyncClient(transport=transport) as client:
         async with client.stream(method, url, timeout=timeout, follow_redirects=True) as resp:
             status_code = resp.status_code
@@ -217,6 +219,7 @@ async def _rotate(
     proxy: str | None,
     deadline: float,
     max_bytes: int | None = None,
+    allow_private: bool = False,
 ) -> tuple[FetchResult | None, bool]:
     """
     Cycles through browser impersonations (in randomized order) for a single egress path
@@ -236,7 +239,7 @@ async def _rotate(
 
         logger.debug(f'Trying browser impersonation: "{impersonation}"')
         result, blocked, status_code, retry_after = await _attempt(
-            url, method, timeout, impersonation, read_body, proxy, max_bytes
+            url, method, timeout, impersonation, read_body, proxy, max_bytes, allow_private
         )
 
         if result is not None:
@@ -270,6 +273,7 @@ async def resilient_fetch(
     timeout: int = SCRAPER_TIMEOUT,
     allow_flaresolverr: bool = True,
     max_bytes: int | None = None,
+    allow_private: bool = False,
 ) -> FetchResult | None:
     """
     Fetches a URL while cycling through browser TLS impersonations (via httpx-curl-cffi) to
@@ -308,7 +312,7 @@ async def resilient_fetch(
     proxy_first = bool(proxy) and settings.SCRAPER_PROXY_MODE == ScraperProxyMode.always
 
     result, blocked = await _rotate(
-        url, method, timeout, read_body, proxy if proxy_first else None, deadline, max_bytes
+        url, method, timeout, read_body, proxy if proxy_first else None, deadline, max_bytes, allow_private
     )
     if result is not None:
         return result
@@ -317,7 +321,7 @@ async def resilient_fetch(
     # hard error, and not if we already used the proxy above).
     if blocked and proxy and not proxy_first:
         logger.debug("Direct fetch blocked; retrying through configured proxy")
-        result, blocked = await _rotate(url, method, timeout, read_body, proxy, deadline, max_bytes)
+        result, blocked = await _rotate(url, method, timeout, read_body, proxy, deadline, max_bytes, allow_private)
         if result is not None:
             return result
 

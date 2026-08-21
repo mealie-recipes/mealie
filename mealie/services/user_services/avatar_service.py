@@ -7,6 +7,7 @@ from uuid import uuid4
 from pydantic import UUID4
 from sqlalchemy.orm.session import Session
 
+from mealie.core.config import get_app_settings
 from mealie.core.dependencies import get_temporary_path
 from mealie.core.root_logger import get_logger
 from mealie.pkgs import cache, img, safehttp
@@ -24,20 +25,45 @@ MAX_AVATAR_BYTES = 5 * 1024 * 1024
 AVATAR_FETCH_TIMEOUT = 10
 
 
+def _is_trusted_idp_host(url: str) -> bool:
+    """
+    True when ``url`` points at the same host Mealie already uses for OIDC.
+
+    Self-hosted deployments routinely run their identity provider on the local network, where
+    its avatar URLs resolve to a private address (and are often served over plain HTTP). Mealie
+    already sends discovery, token and userinfo requests to that exact host on every login, so
+    fetching an image from it reaches nothing the deployment doesn't already talk to.
+
+    Every other host stays subject to the public-address and HTTPS rules. That matters because
+    the picture claim is not necessarily set by the provider: IdPs that let users edit their own
+    profile would otherwise hand any user a request-forgery primitive.
+    """
+    settings = get_app_settings()
+    if not settings.OIDC_CONFIGURATION_URL:
+        return False
+
+    host = urlparse(url).hostname
+    return bool(host) and host == urlparse(settings.OIDC_CONFIGURATION_URL).hostname
+
+
 async def sync_avatar_from_url(session: Session, user_id: UUID4, url: str) -> None:
     """
     Downloads the image at ``url`` and stores it as ``user_id``'s profile image.
 
     The URL originates from an identity provider's claim, so it is treated as untrusted input:
-    it is fetched through ``safehttp``, which rejects non-public target IPs (SSRF) and caps the
-    response body. Any failure is logged and swallowed -- a broken avatar must never block a
-    login that has otherwise already succeeded.
+    it is fetched through ``safehttp``, which caps the response body and -- unless the URL is on
+    the configured provider's own host -- rejects non-public target IPs (SSRF) and requires
+    HTTPS. Any failure is logged and swallowed: a broken avatar must never block a login that has
+    otherwise already succeeded.
 
     The claim's digest is stored alongside the user, so an unchanged URL costs nothing on the
     next login.
     """
-    if urlparse(url).scheme != "https":
-        logger.warning("[OIDC] refusing to fetch profile image over a non-HTTPS URL")
+    trusted_host = _is_trusted_idp_host(url)
+
+    scheme = urlparse(url).scheme
+    if scheme != "https" and not (scheme == "http" and trusted_host):
+        logger.warning("[OIDC] refusing to fetch profile image from a '%s' URL", scheme)
         return
 
     repos = get_repositories(session, group_id=None, household_id=None)
@@ -53,7 +79,12 @@ async def sync_avatar_from_url(session: Session, user_id: UUID4, url: str) -> No
     try:
         # FlareSolverr returns HTML, not image bytes, so it can't serve an image download.
         response = await asyncio.wait_for(
-            safehttp.resilient_fetch(url, allow_flaresolverr=False, max_bytes=MAX_AVATAR_BYTES),
+            safehttp.resilient_fetch(
+                url,
+                allow_flaresolverr=False,
+                max_bytes=MAX_AVATAR_BYTES,
+                allow_private=trusted_host,
+            ),
             timeout=AVATAR_FETCH_TIMEOUT,
         )
     except Exception as e:
