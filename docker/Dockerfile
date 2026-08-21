@@ -14,6 +14,9 @@ COPY frontend .
 
 RUN pnpm clean-install
 
+ARG RECIPE_PRESS_URL=http://paprika-recipe-generator.home.arpa
+ENV NUXT_PUBLIC_RECIPE_PRESS_URL=$RECIPE_PRESS_URL
+
 RUN pnpm generate
 
 ###############################################

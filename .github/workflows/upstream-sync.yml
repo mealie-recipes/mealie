@@ -1,0 +1,51 @@
+name: Sync upstream Mealie
+
+on:
+  schedule:
+    - cron: "23 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sync-upstream-mealie
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: mealie-next
+          fetch-depth: 0
+          token: ${{ secrets.MEALIE_AUTOMATION_TOKEN }}
+
+      - name: Merge upstream into an update branch
+        env:
+          GH_TOKEN: ${{ secrets.MEALIE_AUTOMATION_TOKEN }}
+        run: |
+          test -n "$GH_TOKEN"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add upstream https://github.com/mealie-recipes/mealie.git
+          git fetch upstream mealie-next
+          git switch --force-create automation/upstream-sync origin/mealie-next
+          git merge --no-edit upstream/mealie-next
+
+          if test "$(git rev-list --count origin/mealie-next..HEAD)" -eq 0; then
+            echo "Fork is already current with upstream."
+            exit 0
+          fi
+
+          git push --force-with-lease origin HEAD:automation/upstream-sync
+
+          existing_pr="$(gh pr list --head automation/upstream-sync --base mealie-next --state open --json number --jq '.[0].number // empty')"
+          if test -z "$existing_pr"; then
+            gh pr create \
+              --base mealie-next \
+              --head automation/upstream-sync \
+              --title "chore: sync upstream Mealie" \
+              --body "Automated merge of the latest \`mealie-recipes/mealie:mealie-next\` changes. Custom Recipe Press integration remains isolated in this fork."
+          fi

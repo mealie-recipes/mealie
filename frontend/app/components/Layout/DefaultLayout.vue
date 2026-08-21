@@ -237,6 +237,12 @@ const topLinks = computed<SideBarLink[]>(() => [
     restricted: false,
   },
   {
+    icon: $globals.icons.autoFix,
+    to: `/g/${groupSlug.value}/recipe-press`,
+    title: "Recipe Press",
+    restricted: true,
+  },
+  {
     icon: $globals.icons.calendarMultiselect,
     title: i18n.t("meal-plan.meal-planner"),
     to: "/household/mealplan/planner/view",

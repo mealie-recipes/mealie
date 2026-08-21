@@ -81,6 +81,7 @@ export default defineNuxtConfig({
       AUTH_TOKEN,
       GLOBAL_MIDDLEWARE: process.env.GLOBAL_MIDDLEWARE || undefined,
       SUB_PATH: process.env.SUB_PATH || "",
+      RECIPE_PRESS_URL: process.env.NUXT_PUBLIC_RECIPE_PRESS_URL || "http://paprika-recipe-generator.home.arpa",
       // ==============================================
       // Theme Runtime Config
       useDark: Boolean(process.env.THEME_USE_DARK) || false,
