@@ -416,3 +416,55 @@ async def test_flaresolverr_failure_degrades_gracefully(monkeypatch):
 
     assert result is None
     assert len(calls) == 1  # it tried, then gave up cleanly
+
+
+# ---------------------------------------------------------------------------
+# Body size cap
+# ---------------------------------------------------------------------------
+@pytest.mark.asyncio
+async def test_read_capped_rejects_oversized_content_length():
+    """An honest Content-Length over the limit is refused before any body is read."""
+    resp = _FakeResponse(200, headers={"content-length": "5000"}, body=b"x" * 5000)
+
+    with pytest.raises(fetch.ContentTooLargeError):
+        await fetch._read_capped(resp, timeout=10, max_bytes=1024)
+
+
+@pytest.mark.asyncio
+async def test_read_capped_rejects_oversized_stream_without_content_length():
+    """A server that omits or understates Content-Length is still caught while streaming."""
+    resp = _FakeResponse(200, body=b"x" * 5000)
+
+    with pytest.raises(fetch.ContentTooLargeError):
+        await fetch._read_capped(resp, timeout=10, max_bytes=1024)
+
+
+@pytest.mark.asyncio
+async def test_read_capped_rejects_lying_content_length():
+    resp = _FakeResponse(200, headers={"content-length": "10"}, body=b"x" * 5000)
+
+    with pytest.raises(fetch.ContentTooLargeError):
+        await fetch._read_capped(resp, timeout=10, max_bytes=1024)
+
+
+@pytest.mark.asyncio
+async def test_read_capped_allows_body_within_limit():
+    resp = _FakeResponse(200, headers={"content-length": "10"}, body=b"x" * 10)
+
+    assert await fetch._read_capped(resp, timeout=10, max_bytes=1024) == b"x" * 10
+
+
+@pytest.mark.asyncio
+async def test_read_capped_is_unbounded_without_max_bytes():
+    """Callers that don't opt in keep the previous unlimited behaviour."""
+    resp = _FakeResponse(200, body=b"x" * 5000)
+
+    assert await fetch._read_capped(resp, timeout=10) == b"x" * 5000
+
+
+@pytest.mark.asyncio
+async def test_resilient_fetch_threads_max_bytes_through(monkeypatch):
+    _patch_responses(monkeypatch, [_FakeResponse(200, body=b"x" * 5000)])
+
+    with pytest.raises(fetch.ContentTooLargeError):
+        await fetch.resilient_fetch("https://x/r", max_bytes=1024)

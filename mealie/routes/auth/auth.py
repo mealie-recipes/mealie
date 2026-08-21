@@ -19,6 +19,7 @@ from mealie.lang import get_locale_provider
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
 from mealie.schema.user.auth import CredentialsRequestForm, NativeOIDCTokenRequest, OIDCNativeConfig
+from mealie.services.user_services.avatar_service import sync_avatar_from_url
 
 from .auth_cache import AuthCache
 
@@ -140,6 +141,10 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
     if not auth:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
+    # Deferred out of `authenticate` so the download doesn't block this handler's event loop.
+    if auth_provider.pending_avatar:
+        await sync_avatar_from_url(session, *auth_provider.pending_avatar)
+
     access_token, _ = auth
     return MealieAuthToken.respond(access_token)
 
@@ -204,6 +209,10 @@ async def oauth_native_token(data: NativeOIDCTokenRequest, session: Session = De
 
     if not auth:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+    # Deferred out of `authenticate` so the download doesn't block this handler's event loop.
+    if auth_provider.pending_avatar:
+        await sync_avatar_from_url(session, *auth_provider.pending_avatar)
 
     access_token, _ = auth
     return MealieAuthToken.respond(access_token)

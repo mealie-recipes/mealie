@@ -1,20 +1,15 @@
 from datetime import timedelta
-from pathlib import Path
-from uuid import uuid4
 
-import requests
 from authlib.oidc.core import UserInfo
+from pydantic import UUID4
 from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
-from mealie.core.dependencies import get_temporary_path
 from mealie.core.exceptions import MissingClaimException
 from mealie.core.security.providers.auth_provider import AuthProvider
 from mealie.db.models.users.users import AuthMethod
-from mealie.pkgs import cache, img
 from mealie.repos.all_repositories import get_repositories
-from mealie.schema.user import PrivateUser
 
 
 class OpenIDProvider(AuthProvider[UserInfo]):
@@ -25,6 +20,14 @@ class OpenIDProvider(AuthProvider[UserInfo]):
     def __init__(self, session: Session, data: UserInfo, use_default_groups: bool = False) -> None:
         super().__init__(session, data)
         self.use_default_groups = use_default_groups
+
+        self.pending_avatar: tuple[UUID4, str] | None = None
+        """Set by `authenticate` when the claims carry a profile image the caller should sync.
+
+        Downloading it is deliberately left to the (async) caller: `authenticate` is synchronous
+        and runs inside async request handlers, where a blocking fetch of a provider-controlled
+        URL would stall the event loop.
+        """
 
     def authenticate(self) -> tuple[str, timedelta] | None:
         """Attempt to authenticate a user given a username and password"""
@@ -114,7 +117,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
                     }
                 )
                 self.session.commit()
-                self._update_profile_image_from_claim(user.id, claims)
+                self._record_avatar_claim(user.id, claims)
 
             except Exception as e:
                 self._logger.error("[OIDC] Exception while creating user: %s", e)
@@ -129,7 +132,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
             self._logger.debug("[OIDC] %s user as admin", "Setting" if is_admin else "Removing")
             user.admin = is_admin
             repos.users.update(user.id, user)
-        self._update_profile_image_from_claim(user.id, claims)
+        self._record_avatar_claim(user.id, claims)
         return self.get_access_token(user, settings.OIDC_REMEMBER_ME)
 
     @property
@@ -141,25 +144,12 @@ class OpenIDProvider(AuthProvider[UserInfo]):
             claims.add(settings.OIDC_GROUPS_CLAIM)
         return claims
 
-    def _update_profile_image_from_claim(self, user_id, claims: UserInfo) -> None:
-        picture = claims.get("picture")
-        if not picture or not isinstance(picture, str):
+    def _record_avatar_claim(self, user_id: UUID4, claims: UserInfo) -> None:
+        """Notes a usable profile image URL on `pending_avatar` for the caller to fetch."""
+        settings = get_app_settings()
+        if not settings.OIDC_PICTURE_CLAIM:
             return
 
-        try:
-            response = requests.get(picture, timeout=15)
-            response.raise_for_status()
-
-            with get_temporary_path() as temp_path:
-                temp_img = Path(temp_path).joinpath(str(uuid4()))
-                with temp_img.open("wb") as file:
-                    file.write(response.content)
-
-                image = img.PillowMinifier.to_webp(temp_img)
-                dest = PrivateUser.get_directory(user_id) / "profile.webp"
-                dest.write_bytes(Path(image).read_bytes())
-
-                repos = get_repositories(self.session, group_id=None, household_id=None)
-                repos.users.patch(user_id, {"cache_key": cache.new_key()})
-        except Exception as e:
-            self._logger.debug("[OIDC] Could not update profile image from picture claim: %s", e)
+        picture = claims.get(settings.OIDC_PICTURE_CLAIM)
+        if picture and isinstance(picture, str):
+            self.pending_avatar = (user_id, picture)

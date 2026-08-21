@@ -83,6 +83,12 @@ There are two (optional) [environment variables](../installation/backend-config.
 
 `OIDC_ADMIN_GROUP`: Users that are in this group (within your IdP) will be made an **admin** in Mealie. Users in this group do not need to be in the `OIDC_USER_GROUP`
 
+### Profile images
+
+If your IdP returns a `picture` claim, Mealie downloads that image on login and uses it as the user's avatar. The claim name is configurable via `OIDC_PICTURE_CLAIM`; set it to an empty value to turn the behaviour off entirely.
+
+The image is only re-downloaded when the claim's value changes, so repeat logins cost nothing. Because the URL comes from your IdP, it is treated as untrusted input: it must use HTTPS, must resolve to a public address, and the download is size-capped. An image that fails any of these checks is skipped silently — it never blocks the login.
+
 ## Native and mobile clients
 
 Native apps (mobile or desktop) authenticate using the **system browser** instead of an embedded WebView. This is required for **passkey-only** providers such as [Pocket ID](https://pocket-id.org), because WebAuthn/passkeys do not work inside embedded WebViews.
