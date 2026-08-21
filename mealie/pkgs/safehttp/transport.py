@@ -32,21 +32,12 @@ class AsyncSafeTransport(AsyncCurlTransport):
 
     def __init__(self, log: logging.Logger | None = None, **kwargs):
         self.timeout = kwargs.pop("timeout", self.timeout)
-
-        # Opt-out for hosts the deployment already trusts and talks to anyway (e.g. a
-        # self-hosted identity provider on the same network). Never enable this for a
-        # host derived from user-supplied input.
-        self.allow_private = kwargs.pop("allow_private", False)
-
         self._log = log
         super().__init__(**kwargs)
 
     async def handle_async_request(self, request: httpx.Request) -> httpx.Response:
         # override timeout value for _all_ requests
         request.extensions["timeout"] = httpx.Timeout(self.timeout, pool=self.timeout).as_dict()
-
-        if self.allow_private:
-            return await super().handle_async_request(request)
 
         # validate the request is not attempting to connect to a local IP
         # This is a security measure to prevent SSRF attacks

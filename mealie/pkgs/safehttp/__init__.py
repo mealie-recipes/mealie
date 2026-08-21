@@ -1,7 +1,6 @@
 from .fetch import (
     BROWSER_IMPERSONATIONS,
     SCRAPER_TIMEOUT,
-    ContentTooLargeError,
     FetchResult,
     ForceTimeoutException,
     resilient_fetch,
@@ -14,7 +13,6 @@ __all__ = [
     "InvalidDomainError",
     "BROWSER_IMPERSONATIONS",
     "SCRAPER_TIMEOUT",
-    "ContentTooLargeError",
     "FetchResult",
     "ForceTimeoutException",
     "resilient_fetch",

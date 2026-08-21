@@ -116,15 +116,14 @@ def _patch_responses(
     Records the number of attempts and the proxy passed to each, and isolates the fetch from real
     app settings by injecting the given scraper configuration.
     """
-    state = {"queue": list(responses), "attempts": 0, "proxies": [], "allow_private": []}
+    state = {"queue": list(responses), "attempts": 0, "proxies": []}
 
     def make_client(*args, **kwargs):
         state["attempts"] += 1
         return _FakeClient(state["queue"].pop(0))
 
-    def fake_build_transport(impersonate: str, proxy: str | None = None, allow_private: bool = False):
+    def fake_build_transport(impersonate: str, proxy: str | None = None):
         state["proxies"].append(proxy)
-        state["allow_private"].append(allow_private)
         return None
 
     monkeypatch.setattr(fetch, "AsyncClient", make_client)
@@ -417,73 +416,3 @@ async def test_flaresolverr_failure_degrades_gracefully(monkeypatch):
 
     assert result is None
     assert len(calls) == 1  # it tried, then gave up cleanly
-
-
-# ---------------------------------------------------------------------------
-# Body size cap
-# ---------------------------------------------------------------------------
-@pytest.mark.asyncio
-async def test_read_capped_rejects_oversized_content_length():
-    """An honest Content-Length over the limit is refused before any body is read."""
-    resp = _FakeResponse(200, headers={"content-length": "5000"}, body=b"x" * 5000)
-
-    with pytest.raises(fetch.ContentTooLargeError):
-        await fetch._read_capped(resp, timeout=10, max_bytes=1024)
-
-
-@pytest.mark.asyncio
-async def test_read_capped_rejects_oversized_stream_without_content_length():
-    """A server that omits or understates Content-Length is still caught while streaming."""
-    resp = _FakeResponse(200, body=b"x" * 5000)
-
-    with pytest.raises(fetch.ContentTooLargeError):
-        await fetch._read_capped(resp, timeout=10, max_bytes=1024)
-
-
-@pytest.mark.asyncio
-async def test_read_capped_rejects_lying_content_length():
-    resp = _FakeResponse(200, headers={"content-length": "10"}, body=b"x" * 5000)
-
-    with pytest.raises(fetch.ContentTooLargeError):
-        await fetch._read_capped(resp, timeout=10, max_bytes=1024)
-
-
-@pytest.mark.asyncio
-async def test_read_capped_allows_body_within_limit():
-    resp = _FakeResponse(200, headers={"content-length": "10"}, body=b"x" * 10)
-
-    assert await fetch._read_capped(resp, timeout=10, max_bytes=1024) == b"x" * 10
-
-
-@pytest.mark.asyncio
-async def test_read_capped_is_unbounded_without_max_bytes():
-    """Callers that don't opt in keep the previous unlimited behaviour."""
-    resp = _FakeResponse(200, body=b"x" * 5000)
-
-    assert await fetch._read_capped(resp, timeout=10) == b"x" * 5000
-
-
-@pytest.mark.asyncio
-async def test_resilient_fetch_threads_max_bytes_through(monkeypatch):
-    _patch_responses(monkeypatch, [_FakeResponse(200, body=b"x" * 5000)])
-
-    with pytest.raises(fetch.ContentTooLargeError):
-        await fetch.resilient_fetch("https://x/r", max_bytes=1024)
-
-
-@pytest.mark.asyncio
-async def test_allow_private_defaults_to_off(monkeypatch):
-    state = _patch_responses(monkeypatch, [_FakeResponse(200, body=b"ok")])
-
-    await fetch.resilient_fetch("https://x/r")
-
-    assert state["allow_private"] == [False]
-
-
-@pytest.mark.asyncio
-async def test_allow_private_is_threaded_to_the_transport(monkeypatch):
-    state = _patch_responses(monkeypatch, [_FakeResponse(200, body=b"ok")])
-
-    await fetch.resilient_fetch("https://x/r", allow_private=True)
-
-    assert state["allow_private"] == [True]
