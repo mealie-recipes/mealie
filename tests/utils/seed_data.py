@@ -13,4 +13,4 @@ def seeded_unit_names(locale: str) -> set[str]:
 
 def seeded_label_names(locale: str) -> set[str]:
     seed_data = MultiPurposeLabelSeeder.load_file(MultiPurposeLabelSeeder.get_file(locale))
-    return set(filter(None, seed_data.keys()))
+    return {label["name"] for label in seed_data.values() if label["name"]}
