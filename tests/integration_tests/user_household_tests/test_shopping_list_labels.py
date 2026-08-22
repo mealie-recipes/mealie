@@ -125,12 +125,12 @@ def test_seed_label_creates_list_labels(api_client: TestClient, unique_user: Tes
     new_list = ShoppingListOut.model_validate(response.json())
     existing_label_settings = new_list.label_settings
 
-    # seed labels and make sure they were added to the list's label settings
+    # seeding foods also seeds labels; make sure they were added to the list's label settings
     group = database.groups.get_one(unique_user.group_id)
     assert group
     database = AllRepositories(database.session, group_id=group.id)
     seeder = SeederService(database)
-    seeder.seed_labels("en-US")
+    seeder.seed_foods("en-US")
 
     response = api_client.get(api_routes.households_shopping_lists_item_id(new_list.id), headers=unique_user.token)
     updated_list = ShoppingListOut.model_validate(response.json())

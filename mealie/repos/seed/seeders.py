@@ -15,44 +15,6 @@ from ._abstract_seeder import AbstractSeeder
 from .resources import foods, units
 
 
-class MultiPurposeLabelSeeder(AbstractSeeder):
-    @cached_property
-    def service(self):
-        return MultiPurposeLabelService(self.repos)
-
-    @classmethod
-    def get_file(cls, locale: str | None = None) -> pathlib.Path:
-        # labels live alongside the foods they group, in the same locale file
-        locale_path = cls.resources / "foods" / "locales" / f"{locale}.json"
-        return locale_path if locale_path.exists() else foods.en_US
-
-    def get_all_labels(self) -> list[MultiPurposeLabelOut]:
-        return self.repos.group_multi_purpose_labels.get_all()
-
-    def load_data(self, locale: str | None = None) -> Generator[MultiPurposeLabelSave, None, None]:
-        file = self.get_file(locale)
-
-        seen_label_names = {label.name for label in self.get_all_labels()}
-        for label in self.load_file(file).values():
-            name = label["name"]
-            if not name or name in seen_label_names:
-                continue
-
-            seen_label_names.add(name)
-            yield MultiPurposeLabelSave(
-                name=name,
-                group_id=self.repos.group_id,
-            )
-
-    def seed(self, locale: str | None = None) -> None:
-        self.logger.info("Seeding MultiPurposeLabel")
-        for label in self.load_data(locale):
-            try:
-                self.service.create_one(label)
-            except Exception as e:
-                self.logger.error(e)
-
-
 class IngredientUnitsSeeder(AbstractSeeder):
     @classmethod
     def get_file(cls, locale: str | None = None) -> pathlib.Path:
@@ -90,6 +52,12 @@ class IngredientUnitsSeeder(AbstractSeeder):
 
 
 class IngredientFoodsSeeder(AbstractSeeder):
+    """Seeds both the foods and the labels that group them, from a single locale file."""
+
+    @cached_property
+    def label_service(self) -> MultiPurposeLabelService:
+        return MultiPurposeLabelService(self.repos)
+
     @classmethod
     def get_file(cls, locale: str | None = None) -> pathlib.Path:
         locale_path = cls.resources / "foods" / "locales" / f"{locale}.json"
@@ -100,6 +68,20 @@ class IngredientFoodsSeeder(AbstractSeeder):
 
     def get_all_foods(self) -> list[IngredientFood]:
         return self.repos.ingredient_foods.get_all()
+
+    def seed_labels(self, locale: str | None = None) -> None:
+        """Create any labels from the seed file that don't already exist in the group."""
+        seen_label_names = {label.name for label in self.repos.group_multi_purpose_labels.get_all()}
+        for label in self.load_file(self.get_file(locale)).values():
+            name = label["name"]
+            if not name or name in seen_label_names:
+                continue
+
+            seen_label_names.add(name)
+            try:
+                self.label_service.create_one(MultiPurposeLabelSave(name=name, group_id=self.repos.group_id))
+            except Exception as e:
+                self.logger.error(e)
 
     def load_data(self, locale: str | None = None) -> Generator[SaveIngredientFood, None, None]:
         file = self.get_file(locale)
@@ -124,6 +106,8 @@ class IngredientFoodsSeeder(AbstractSeeder):
 
     def seed(self, locale: str | None = None) -> None:
         self.logger.info("Seeding Ingredient Foods")
+        # labels must exist before foods so each food can be linked to its label
+        self.seed_labels(locale)
         for food in self.load_data(locale):
             try:
                 self.repos.ingredient_foods.create(food)
