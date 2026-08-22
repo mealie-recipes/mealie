@@ -56,7 +56,9 @@ class AdminAboutController(BaseAdminController):
         return CheckAppConfig(
             email_ready=settings.SMTP_ENABLE,
             ldap_ready=settings.LDAP_ENABLED,
+            ldap_disabled=not settings.LDAP_AUTH_ENABLED,
             base_url_set=settings.BASE_URL != "http://localhost:8080",
             is_up_to_date=APP_VERSION == "develop" or APP_VERSION == "nightly" or get_latest_version() == APP_VERSION,
             oidc_ready=settings.OIDC_READY,
+            oidc_disabled=not settings.OIDC_AUTH_ENABLED,
         )
