@@ -22,7 +22,7 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
 
     @classmethod
     def get_file(cls, locale: str | None = None) -> pathlib.Path:
-        # Get the labels from the foods seed file now
+        # labels live alongside the foods they group, in the same locale file
         locale_path = cls.resources / "foods" / "locales" / f"{locale}.json"
         return locale_path if locale_path.exists() else foods.en_US
 
@@ -32,14 +32,15 @@ class MultiPurposeLabelSeeder(AbstractSeeder):
     def load_data(self, locale: str | None = None) -> Generator[MultiPurposeLabelSave, None, None]:
         file = self.get_file(locale)
 
-        current_label_names = {label.name for label in self.get_all_labels()}
-        # load from the foods locale file and remove any empty strings
-        seed_label_names = set(filter(None, self.load_file(file).keys()))  # type: set[str]
-        # only seed new labels
-        to_seed_labels = seed_label_names - current_label_names
-        for label in to_seed_labels:
+        seen_label_names = {label.name for label in self.get_all_labels()}
+        for label in self.load_file(file).values():
+            name = label["name"]
+            if not name or name in seen_label_names:
+                continue
+
+            seen_label_names.add(name)
             yield MultiPurposeLabelSave(
-                name=label,
+                name=name,
                 group_id=self.repos.group_id,
             )
 
@@ -105,8 +106,8 @@ class IngredientFoodsSeeder(AbstractSeeder):
 
         # get all current unique foods
         seen_foods_names = {food.name for food in self.get_all_foods()}
-        for label, values in self.load_file(file).items():
-            label_out = self.get_label(label)
+        for values in self.load_file(file).values():
+            label_out = self.get_label(values["name"])
 
             for food_name, attributes in values["foods"].items():
                 if food_name in seen_foods_names:
@@ -116,7 +117,7 @@ class IngredientFoodsSeeder(AbstractSeeder):
                 yield SaveIngredientFood(
                     group_id=self.repos.group_id,
                     name=attributes["name"],
-                    plural_name=attributes.get("plural_name"),
+                    plural_name=attributes.get("plural_name") or None,
                     description="",  # description expected to be empty string by UnitFoodBase class
                     label_id=label_out.id if label_out and label_out.id else None,
                 )
