@@ -222,10 +222,12 @@ export interface ShoppingListRecipeIngredientSection {
 interface Props {
   recipes?: RecipeWithScale[];
   shoppingLists?: ShoppingListSummary[];
+  missingStructuredOnly?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   recipes: undefined,
   shoppingLists: () => [],
+  missingStructuredOnly: false,
 });
 
 const dialog = defineModel<boolean>({ default: false });
@@ -251,6 +253,15 @@ const { shoppingListDialog, shoppingListIngredientDialog, shoppingListShowAllTog
 
 const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
 const selectedShoppingList = ref<ShoppingListSummary | null>(null);
+
+function shouldCheckIngredient(ingredient: RecipeIngredient) {
+  const householdsWithFood = ingredient.food?.householdsWithIngredientFood || [];
+  if (householdsWithFood.includes(currentHouseholdSlug.value)) {
+    return false;
+  }
+
+  return !props.missingStructuredOnly || Boolean(ingredient.food);
+}
 
 watch([dialog, () => preferences.value.viewAllLists], () => {
   if (dialog.value) {
@@ -319,9 +330,8 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
         subRefIngs.push(subIng);
       }
       else {
-        const householdsWithFood = subIng.food?.householdsWithIngredientFood || [];
         ownIngs.push({
-          checked: !householdsWithFood.includes(currentHouseholdSlug.value),
+          checked: shouldCheckIngredient(subIng),
           ingredient: subIng,
         });
       }
@@ -376,9 +386,8 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
         subRefIngs.push(ing);
       }
       else {
-        const householdsWithFood = ing.food?.householdsWithIngredientFood || [];
         ownIngs.push({
-          checked: !householdsWithFood.includes(currentHouseholdSlug.value),
+          checked: shouldCheckIngredient(ing),
           ingredient: ing,
         });
       }
