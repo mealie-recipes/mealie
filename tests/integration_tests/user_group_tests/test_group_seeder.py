@@ -9,7 +9,7 @@ LOCALE = "en-US"
 
 
 def test_seed_invalid_locale(api_client: TestClient, unique_user: TestUser):
-    for route in (api_routes.groups_seeders_foods, api_routes.groups_seeders_labels, api_routes.groups_seeders_units):
+    for route in (api_routes.groups_seeders_foods, api_routes.groups_seeders_units):
         resp = api_client.post(route, json={"locale": "invalid"}, headers=unique_user.token)
         assert resp.status_code == 422
 
@@ -25,6 +25,32 @@ def test_seed_foods(api_client: TestClient, unique_user: TestUser):
 
     foods = database.ingredient_foods.page_all(PaginationQuery(page=1, per_page=-1)).items
     assert {food.name for food in foods} == seeded_food_names(LOCALE)
+
+
+def test_seed_foods_also_seeds_labels(api_client: TestClient, unique_user: TestUser):
+    database = unique_user.repos
+
+    labels = database.group_multi_purpose_labels.page_all(PaginationQuery(page=1, per_page=-1)).items
+    assert len(labels) == 0
+
+    resp = api_client.post(api_routes.groups_seeders_foods, json={"locale": LOCALE}, headers=unique_user.token)
+    assert resp.status_code == 200
+
+    labels = database.group_multi_purpose_labels.page_all(PaginationQuery(page=1, per_page=-1)).items
+    assert {label.name for label in labels} == seeded_label_names(LOCALE)
+
+
+def test_seed_foods_links_foods_to_labels(api_client: TestClient, unique_user: TestUser):
+    database = unique_user.repos
+
+    resp = api_client.post(api_routes.groups_seeders_foods, json={"locale": LOCALE}, headers=unique_user.token)
+    assert resp.status_code == 200
+
+    foods = database.ingredient_foods.page_all(PaginationQuery(page=1, per_page=-1)).items
+    assert foods
+    # every seeded food belongs to one of the seeded labels
+    assert all(food.label is not None for food in foods)
+    assert {food.label.name for food in foods if food.label} <= seeded_label_names(LOCALE)
 
 
 def test_seed_units(api_client: TestClient, unique_user: TestUser):
@@ -50,16 +76,3 @@ def test_seed_units(api_client: TestClient, unique_user: TestUser):
         assert unit.standard_unit == "cup"
 
     assert pint_found
-
-
-def test_seed_labels(api_client: TestClient, unique_user: TestUser):
-    database = unique_user.repos
-
-    labels = database.group_multi_purpose_labels.page_all(PaginationQuery(page=1, per_page=-1)).items
-    assert len(labels) == 0
-
-    resp = api_client.post(api_routes.groups_seeders_labels, json={"locale": LOCALE}, headers=unique_user.token)
-    assert resp.status_code == 200
-
-    labels = database.group_multi_purpose_labels.page_all(PaginationQuery(page=1, per_page=-1)).items
-    assert {label.name for label in labels} == seeded_label_names(LOCALE)
