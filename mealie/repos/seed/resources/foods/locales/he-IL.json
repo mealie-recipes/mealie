@@ -1532,7 +1532,7 @@
       },
       "pesto": {
         "name": "pesto",
-        "plural_name": "pestos"
+        "plural_name": ""
       },
       "marinara sauce": {
         "name": "marinara sauce",
@@ -1556,7 +1556,7 @@
       },
       "salsa verde": {
         "name": "salsa verde",
-        "plural_name": "salsa verdes"
+        "plural_name": ""
       },
       "alfredo sauce": {
         "name": "alfredo sauce",
@@ -1564,7 +1564,7 @@
       },
       "balsamic glaze": {
         "name": "balsamic glaze",
-        "plural_name": "balsamic glazes"
+        "plural_name": ""
       },
       "thai peanut sauce": {
         "name": "thai peanut sauce",
@@ -1677,10 +1677,6 @@
       },
       "paprika": {
         "name": "פפריקה",
-        "plural_name": ""
-      },
-      "cayenne": {
-        "name": "cayenne",
         "plural_name": ""
       },
       "rosemary": {
@@ -1898,7 +1894,7 @@
       },
       "cooking spray": {
         "name": "cooking spray",
-        "plural_name": "cooking sprays"
+        "plural_name": ""
       },
       "sesame oil": {
         "name": "שמן שומשום",
@@ -2242,7 +2238,7 @@
       },
       "club soda": {
         "name": "club soda",
-        "plural_name": "club sodas"
+        "plural_name": ""
       },
       "espresso": {
         "name": "אספרסו",

@@ -702,7 +702,7 @@
       },
       "brisket": {
         "name": "brisket",
-        "plural_name": "briskets"
+        "plural_name": ""
       },
       "leg of lamb": {
         "name": "pernil de cordeiro",
@@ -819,7 +819,7 @@
       },
       "prosciutto": {
         "name": "prosciutto",
-        "plural_name": "prosciuttos"
+        "plural_name": ""
       },
       "sausage": {
         "name": "linguiça",
@@ -831,11 +831,11 @@
       },
       "chorizo": {
         "name": "chorizo",
-        "plural_name": "chorizos"
+        "plural_name": ""
       },
       "pancetta": {
         "name": "pancetta",
-        "plural_name": "pancettas"
+        "plural_name": ""
       },
       "breakfast sausage": {
         "name": "mexida de carne para café da manhã",
@@ -851,7 +851,7 @@
       },
       "kielbasa": {
         "name": "kielbasa",
-        "plural_name": "kielbasas"
+        "plural_name": ""
       },
       "corned beef": {
         "name": "caldinho de carne ensopada",
@@ -1182,7 +1182,7 @@
       },
       "brioche": {
         "name": "brioche",
-        "plural_name": "brioches"
+        "plural_name": ""
       },
       "rye bread": {
         "name": "pão de centeio",
@@ -1678,10 +1678,6 @@
       "paprika": {
         "name": "páprica",
         "plural_name": "pimentões"
-      },
-      "cayenne": {
-        "name": "pimenta-caiena",
-        "plural_name": "pimentas-caienas"
       },
       "rosemary": {
         "name": "alecrim",
@@ -2246,7 +2242,7 @@
       },
       "espresso": {
         "name": "espresso",
-        "plural_name": "espressos"
+        "plural_name": ""
       },
       "pineapple juice": {
         "name": "Suco de abacaxi",
@@ -2270,7 +2266,7 @@
       },
       "ginger beer": {
         "name": "ginger beer",
-        "plural_name": "ginger beers"
+        "plural_name": ""
       },
       "water": {
         "name": "water",

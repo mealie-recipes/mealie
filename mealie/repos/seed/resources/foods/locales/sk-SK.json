@@ -686,7 +686,7 @@
       },
       "pork shoulder": {
         "name": "pork shoulder",
-        "plural_name": "pork shoulders"
+        "plural_name": ""
       },
       "ground lamb": {
         "name": "ground lamb",
@@ -702,7 +702,7 @@
       },
       "brisket": {
         "name": "brisket",
-        "plural_name": "briskets"
+        "plural_name": ""
       },
       "leg of lamb": {
         "name": "leg of lamb",
@@ -714,7 +714,7 @@
       },
       "pork belly": {
         "name": "pork belly",
-        "plural_name": "pork bellies"
+        "plural_name": ""
       },
       "lamb chop": {
         "name": "lamb chop",
@@ -819,7 +819,7 @@
       },
       "prosciutto": {
         "name": "prosciutto",
-        "plural_name": "prosciuttos"
+        "plural_name": ""
       },
       "sausage": {
         "name": "klobása",
@@ -831,11 +831,11 @@
       },
       "chorizo": {
         "name": "chorizo",
-        "plural_name": "chorizos"
+        "plural_name": ""
       },
       "pancetta": {
         "name": "pancetta",
-        "plural_name": "pancettas"
+        "plural_name": ""
       },
       "breakfast sausage": {
         "name": "breakfast sausage",
@@ -847,11 +847,11 @@
       },
       "salami": {
         "name": "salami",
-        "plural_name": "salamis"
+        "plural_name": ""
       },
       "kielbasa": {
         "name": "kielbasa",
-        "plural_name": "kielbasas"
+        "plural_name": ""
       },
       "corned beef": {
         "name": "corned beef",
@@ -1182,7 +1182,7 @@
       },
       "brioche": {
         "name": "brioche",
-        "plural_name": "brioches"
+        "plural_name": ""
       },
       "rye bread": {
         "name": "ražný chlieb",
@@ -1210,7 +1210,7 @@
       },
       "challah": {
         "name": "challah",
-        "plural_name": "challahs"
+        "plural_name": ""
       },
       "bao bun": {
         "name": "bao bun",
@@ -1532,7 +1532,7 @@
       },
       "pesto": {
         "name": "pesto",
-        "plural_name": "pestos"
+        "plural_name": ""
       },
       "marinara sauce": {
         "name": "marinara sauce",
@@ -1556,7 +1556,7 @@
       },
       "salsa verde": {
         "name": "salsa verde",
-        "plural_name": "salsa verdes"
+        "plural_name": ""
       },
       "alfredo sauce": {
         "name": "alfredo sauce",
@@ -1564,7 +1564,7 @@
       },
       "balsamic glaze": {
         "name": "balsamic glaze",
-        "plural_name": "balsamic glazes"
+        "plural_name": ""
       },
       "thai peanut sauce": {
         "name": "thai peanut sauce",
@@ -1677,10 +1677,6 @@
       },
       "paprika": {
         "name": "paprika",
-        "plural_name": ""
-      },
-      "cayenne": {
-        "name": "cayenne",
         "plural_name": ""
       },
       "rosemary": {
@@ -1898,7 +1894,7 @@
       },
       "cooking spray": {
         "name": "cooking spray",
-        "plural_name": "cooking sprays"
+        "plural_name": ""
       },
       "sesame oil": {
         "name": "sesame oil",
@@ -2242,11 +2238,11 @@
       },
       "club soda": {
         "name": "club soda",
-        "plural_name": "club sodas"
+        "plural_name": ""
       },
       "espresso": {
         "name": "espresso",
-        "plural_name": "espressos"
+        "plural_name": ""
       },
       "pineapple juice": {
         "name": "ananásový džús",
@@ -2270,7 +2266,7 @@
       },
       "ginger beer": {
         "name": "ginger beer",
-        "plural_name": "ginger beers"
+        "plural_name": ""
       },
       "water": {
         "name": "water",

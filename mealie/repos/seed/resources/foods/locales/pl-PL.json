@@ -819,7 +819,7 @@
       },
       "prosciutto": {
         "name": "prosciutto",
-        "plural_name": "prosciuttos"
+        "plural_name": ""
       },
       "sausage": {
         "name": "kiełbasa",
@@ -831,11 +831,11 @@
       },
       "chorizo": {
         "name": "chorizo",
-        "plural_name": "chorizos"
+        "plural_name": ""
       },
       "pancetta": {
         "name": "pancetta",
-        "plural_name": "pancettas"
+        "plural_name": ""
       },
       "breakfast sausage": {
         "name": "kiełbaska śniadaniowa",
@@ -847,7 +847,7 @@
       },
       "salami": {
         "name": "salami",
-        "plural_name": "salamis"
+        "plural_name": ""
       },
       "kielbasa": {
         "name": "kiełbasa",
@@ -1182,7 +1182,7 @@
       },
       "brioche": {
         "name": "brioche",
-        "plural_name": "brioches"
+        "plural_name": ""
       },
       "rye bread": {
         "name": "chleb żytni",
@@ -1532,7 +1532,7 @@
       },
       "pesto": {
         "name": "pesto",
-        "plural_name": "pestos"
+        "plural_name": ""
       },
       "marinara sauce": {
         "name": "sos marinara",
@@ -1556,7 +1556,7 @@
       },
       "salsa verde": {
         "name": "salsa verde",
-        "plural_name": "salsa verdes"
+        "plural_name": ""
       },
       "alfredo sauce": {
         "name": "sos alfredo",
@@ -1678,10 +1678,6 @@
       "paprika": {
         "name": "papryka",
         "plural_name": "papryka mielona"
-      },
-      "cayenne": {
-        "name": "pieprz cayenne",
-        "plural_name": ""
       },
       "rosemary": {
         "name": "rozmaryn",
@@ -2246,7 +2242,7 @@
       },
       "espresso": {
         "name": "espresso",
-        "plural_name": "espressos"
+        "plural_name": ""
       },
       "pineapple juice": {
         "name": "sok ananasowy",

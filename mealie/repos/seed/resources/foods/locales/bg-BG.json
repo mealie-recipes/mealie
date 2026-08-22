@@ -851,7 +851,7 @@
       },
       "kielbasa": {
         "name": "kielbasa",
-        "plural_name": "kielbasas"
+        "plural_name": ""
       },
       "corned beef": {
         "name": "говеждо месо",
@@ -1182,7 +1182,7 @@
       },
       "brioche": {
         "name": "brioche",
-        "plural_name": "brioches"
+        "plural_name": ""
       },
       "rye bread": {
         "name": "ръжен хляб",
@@ -1210,7 +1210,7 @@
       },
       "challah": {
         "name": "challah",
-        "plural_name": "challahs"
+        "plural_name": ""
       },
       "bao bun": {
         "name": "bao bun",
@@ -1556,7 +1556,7 @@
       },
       "salsa verde": {
         "name": "salsa verde",
-        "plural_name": "salsa verdes"
+        "plural_name": ""
       },
       "alfredo sauce": {
         "name": "сос Алфредо",
@@ -1564,7 +1564,7 @@
       },
       "balsamic glaze": {
         "name": "balsamic glaze",
-        "plural_name": "balsamic glazes"
+        "plural_name": ""
       },
       "thai peanut sauce": {
         "name": "thai peanut sauce",
@@ -1677,10 +1677,6 @@
       },
       "paprika": {
         "name": "червен пипер",
-        "plural_name": ""
-      },
-      "cayenne": {
-        "name": "кайен",
         "plural_name": ""
       },
       "rosemary": {
@@ -1898,7 +1894,7 @@
       },
       "cooking spray": {
         "name": "cooking spray",
-        "plural_name": "cooking sprays"
+        "plural_name": ""
       },
       "sesame oil": {
         "name": "сусамово олио",
@@ -2242,7 +2238,7 @@
       },
       "club soda": {
         "name": "club soda",
-        "plural_name": "club sodas"
+        "plural_name": ""
       },
       "espresso": {
         "name": "еспресо",
