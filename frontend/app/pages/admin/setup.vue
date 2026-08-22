@@ -544,19 +544,11 @@ async function seedUnits() {
   }
 }
 
-async function seedLabels() {
-  const { response } = await userApi.seeders.labels({ locale: locale.value });
-  if (!response || response.status !== 200) {
-    alert.error(i18n.t("events.something-went-wrong"));
-  }
-}
-
 async function seedData() {
   if (!commonSettings.value.useSeedData) {
     return;
   }
 
-  await seedLabels();
   await Promise.all([seedFoods(), seedUnits()]);
 }
 

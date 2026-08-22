@@ -291,7 +291,8 @@ const foods = computed(() =>
 
 // ============================================================
 // Labels
-const { store: allLabels } = useLabelStore();
+const labelStore = useLabelStore();
+const { store: allLabels } = labelStore;
 const labelOptions = computed(() => allLabels.value.map(label => ({ text: label.name, value: label.id })) || []);
 
 // ============================================================
@@ -476,7 +477,9 @@ async function seedDatabase() {
   const { data } = await userApi.seeders.foods({ locale: locale.value });
 
   if (data) {
+    // seeding foods also creates the labels that group them
     foodStore.actions.refresh();
+    labelStore.actions.refresh();
   }
 }
 
