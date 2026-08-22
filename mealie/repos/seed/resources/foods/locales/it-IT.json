@@ -702,7 +702,7 @@
       },
       "brisket": {
         "name": "brisket",
-        "plural_name": "briskets"
+        "plural_name": ""
       },
       "leg of lamb": {
         "name": "Coscia d'agnello",
@@ -831,11 +831,11 @@
       },
       "chorizo": {
         "name": "chorizo",
-        "plural_name": "chorizos"
+        "plural_name": ""
       },
       "pancetta": {
         "name": "pancetta",
-        "plural_name": "pancettas"
+        "plural_name": ""
       },
       "breakfast sausage": {
         "name": "salsiccia per colazione",
@@ -1182,7 +1182,7 @@
       },
       "brioche": {
         "name": "brioche",
-        "plural_name": "brioches"
+        "plural_name": ""
       },
       "rye bread": {
         "name": "rye bread",
@@ -1210,7 +1210,7 @@
       },
       "challah": {
         "name": "challah",
-        "plural_name": "challahs"
+        "plural_name": ""
       },
       "bao bun": {
         "name": "bao bun",
@@ -1532,7 +1532,7 @@
       },
       "pesto": {
         "name": "pesto",
-        "plural_name": "pestos"
+        "plural_name": ""
       },
       "marinara sauce": {
         "name": "marinara sauce",
@@ -1556,7 +1556,7 @@
       },
       "salsa verde": {
         "name": "salsa verde",
-        "plural_name": "salsa verdes"
+        "plural_name": ""
       },
       "alfredo sauce": {
         "name": "alfredo sauce",
@@ -1564,7 +1564,7 @@
       },
       "balsamic glaze": {
         "name": "balsamic glaze",
-        "plural_name": "balsamic glazes"
+        "plural_name": ""
       },
       "thai peanut sauce": {
         "name": "thai peanut sauce",
@@ -1677,10 +1677,6 @@
       },
       "paprika": {
         "name": "paprica",
-        "plural_name": ""
-      },
-      "cayenne": {
-        "name": "pepe di cayenna",
         "plural_name": ""
       },
       "rosemary": {
@@ -1898,7 +1894,7 @@
       },
       "cooking spray": {
         "name": "cooking spray",
-        "plural_name": "cooking sprays"
+        "plural_name": ""
       },
       "sesame oil": {
         "name": "olio di sesamo",
@@ -2242,11 +2238,11 @@
       },
       "club soda": {
         "name": "club soda",
-        "plural_name": "club sodas"
+        "plural_name": ""
       },
       "espresso": {
         "name": "espresso",
-        "plural_name": "espressos"
+        "plural_name": ""
       },
       "pineapple juice": {
         "name": "succo di ananas",
@@ -2270,7 +2266,7 @@
       },
       "ginger beer": {
         "name": "ginger beer",
-        "plural_name": "ginger beers"
+        "plural_name": ""
       },
       "water": {
         "name": "water",
