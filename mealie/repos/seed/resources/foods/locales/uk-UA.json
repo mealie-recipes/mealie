@@ -406,7 +406,7 @@
         "name": "м'ята",
         "plural_name": ""
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "лемонграс",
         "plural_name": ""
       },
@@ -999,7 +999,7 @@
         "name": "козячий сир",
         "plural_name": ""
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "швейцарський сир",
         "plural_name": ""
       },
@@ -1618,7 +1618,7 @@
         "name": "Дистильований білий оцет",
         "plural_name": "distilled white vinegar"
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "Соус солодкий чилі",
         "plural_name": "sweet chilli sauce"
       },
@@ -2073,7 +2073,7 @@
         "name": "Апельсиновий екстракт",
         "plural_name": "апельсинові екстракти"
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "Цукерка Sprinkle",
         "plural_name": "Цукерки Sprinkle"
       }

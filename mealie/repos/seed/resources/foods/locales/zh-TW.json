@@ -406,7 +406,7 @@
         "name": "薄荷",
         "plural_name": ""
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "檸檬香茅",
         "plural_name": ""
       },
@@ -999,7 +999,7 @@
         "name": "山羊起司",
         "plural_name": ""
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "瑞士起司",
         "plural_name": ""
       },
@@ -1618,7 +1618,7 @@
         "name": "蒸餾白醋",
         "plural_name": ""
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "甜辣醬",
         "plural_name": ""
       },
@@ -2073,7 +2073,7 @@
         "name": "柳橙萃取液",
         "plural_name": ""
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "糖果彩色糖粒",
         "plural_name": ""
       }

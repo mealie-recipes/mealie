@@ -406,7 +406,7 @@
         "name": "minttu",
         "plural_name": "minttua"
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "sitruunaruoho",
         "plural_name": ""
       },
@@ -999,7 +999,7 @@
         "name": "vuohenjuusto",
         "plural_name": "vuohenjuustoa"
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "sveitsinjuusto",
         "plural_name": ""
       },
@@ -1618,7 +1618,7 @@
         "name": "tislattu valkoviinietikka",
         "plural_name": ""
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "makea chilikastike",
         "plural_name": ""
       },
@@ -2073,7 +2073,7 @@
         "name": "appelsiiniuute",
         "plural_name": ""
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "koristerae",
         "plural_name": "koristerakeet"
       }
