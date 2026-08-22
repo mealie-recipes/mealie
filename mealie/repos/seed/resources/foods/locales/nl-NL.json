@@ -406,7 +406,7 @@
         "name": "munt",
         "plural_name": ""
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "limoengras",
         "plural_name": ""
       },
@@ -999,7 +999,7 @@
         "name": "geitenkaas",
         "plural_name": ""
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "Zwitserse kaas",
         "plural_name": ""
       },
@@ -1618,7 +1618,7 @@
         "name": "gedistilleerde witte azijn",
         "plural_name": ""
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "zoete chilisaus",
         "plural_name": ""
       },
@@ -2073,7 +2073,7 @@
         "name": "sinaasappelextract",
         "plural_name": ""
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "suikerstrooisel",
         "plural_name": ""
       }

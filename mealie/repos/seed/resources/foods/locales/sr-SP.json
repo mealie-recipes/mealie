@@ -406,7 +406,7 @@
         "name": "мента",
         "plural_name": "ковнице"
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "лемонграс",
         "plural_name": "лимунска трава"
       },
@@ -999,7 +999,7 @@
         "name": "козији сир",
         "plural_name": ""
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "швајцарски сир",
         "plural_name": ""
       },
@@ -1618,7 +1618,7 @@
         "name": "дестиловано бело сирће",
         "plural_name": ""
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "слатки чили сос",
         "plural_name": ""
       },
@@ -2073,7 +2073,7 @@
         "name": "екстракт наранџе",
         "plural_name": ""
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "посипати слаткишима",
         "plural_name": "бомбоне посипа"
       }

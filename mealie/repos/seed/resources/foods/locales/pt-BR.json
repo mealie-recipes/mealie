@@ -406,7 +406,7 @@
         "name": "hortelã",
         "plural_name": "hortelãs"
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "canela-lima",
         "plural_name": ""
       },
@@ -999,7 +999,7 @@
         "name": "queijo de cabra",
         "plural_name": "queijos de cabra"
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "queijo suíço",
         "plural_name": ""
       },
@@ -1618,7 +1618,7 @@
         "name": "vinagre branco destilado",
         "plural_name": ""
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "molho de pimenta doce",
         "plural_name": ""
       },
@@ -2073,7 +2073,7 @@
         "name": "extrato de laranja",
         "plural_name": "extratos de laranja"
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "sprinkles de doces",
         "plural_name": ""
       }

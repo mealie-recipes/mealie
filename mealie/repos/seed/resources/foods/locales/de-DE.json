@@ -406,7 +406,7 @@
         "name": "Minze",
         "plural_name": ""
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "Zitronengras",
         "plural_name": ""
       },
@@ -999,7 +999,7 @@
         "name": "Ziegenkäse",
         "plural_name": ""
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "Schweizer Käse",
         "plural_name": ""
       },
@@ -1618,7 +1618,7 @@
         "name": "destilierter Weißweinessig",
         "plural_name": ""
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "Sweet Chili Sauce",
         "plural_name": ""
       },
@@ -2073,7 +2073,7 @@
         "name": "Orangenextrakt",
         "plural_name": ""
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "Zuckerstreusel",
         "plural_name": ""
       }

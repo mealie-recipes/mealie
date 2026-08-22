@@ -406,7 +406,7 @@
         "name": "menthe",
         "plural_name": "menthes"
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "citronnelle fraîche",
         "plural_name": "citronnelles fraîches"
       },
@@ -999,7 +999,7 @@
         "name": "fromage de chèvre",
         "plural_name": ""
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "emmental",
         "plural_name": ""
       },
@@ -1618,7 +1618,7 @@
         "name": "vinaigre blanc distillé",
         "plural_name": "distilled white vinegar"
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "sauce chili douce",
         "plural_name": "sweet chilli sauce"
       },
@@ -2073,7 +2073,7 @@
         "name": "extrait d'orange",
         "plural_name": "orange extract"
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "vermicelles décoratifs",
         "plural_name": ""
       }

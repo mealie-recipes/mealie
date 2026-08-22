@@ -406,7 +406,7 @@
         "name": "نعناع",
         "plural_name": ""
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "عشبة الليمون",
         "plural_name": ""
       },
@@ -999,7 +999,7 @@
         "name": "جبن الماعز",
         "plural_name": ""
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "جبن سويسري",
         "plural_name": ""
       },
@@ -1618,7 +1618,7 @@
         "name": "خل أبيض مقطر",
         "plural_name": ""
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "صلصة فلفل حار حلوة",
         "plural_name": ""
       },
@@ -2073,7 +2073,7 @@
         "name": "مستخلص البرتقال",
         "plural_name": ""
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "رشات حلوى",
         "plural_name": ""
       }

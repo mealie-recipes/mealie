@@ -406,7 +406,7 @@
         "name": "mięta",
         "plural_name": "mięty"
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "trawa cytrynowa",
         "plural_name": ""
       },
@@ -999,7 +999,7 @@
         "name": "ser kozi",
         "plural_name": "sery kozie"
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "ser szwajcarski",
         "plural_name": "sery szwajcarskie"
       },
@@ -1618,7 +1618,7 @@
         "name": "destylowany ocet biały",
         "plural_name": "destylowane octy białe"
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "słodki sos chili",
         "plural_name": "słodkie sosy chili"
       },
@@ -2073,7 +2073,7 @@
         "name": "ekstrakt pomarańczowy",
         "plural_name": "ekstrakty pomarańczowe"
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "posypka cukrowa",
         "plural_name": ""
       }

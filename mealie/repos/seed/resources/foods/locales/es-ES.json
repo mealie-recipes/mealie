@@ -406,7 +406,7 @@
         "name": "menta",
         "plural_name": ""
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "limoncillo",
         "plural_name": ""
       },
@@ -999,7 +999,7 @@
         "name": "queso de cabra",
         "plural_name": ""
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "queso suizo",
         "plural_name": ""
       },
@@ -1618,7 +1618,7 @@
         "name": "vinagre blanco destilado",
         "plural_name": ""
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "salsa de chile dulce",
         "plural_name": ""
       },
@@ -2073,7 +2073,7 @@
         "name": "extracto de naranja",
         "plural_name": ""
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "chispas de dulce",
         "plural_name": ""
       }

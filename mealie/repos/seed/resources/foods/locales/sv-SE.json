@@ -406,7 +406,7 @@
         "name": "mynta",
         "plural_name": "Mynta"
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "citrongräs",
         "plural_name": "Citrongräs"
       },
@@ -999,7 +999,7 @@
         "name": "getost",
         "plural_name": ""
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "schweizisk ost",
         "plural_name": ""
       },
@@ -1618,7 +1618,7 @@
         "name": "Destillerad vit vinäger",
         "plural_name": "distilled white vinegar"
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "Sweet chilisås",
         "plural_name": "sweet chilli sauce"
       },
@@ -2073,7 +2073,7 @@
         "name": "orange extract",
         "plural_name": ""
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "sprinkles",
         "plural_name": ""
       }

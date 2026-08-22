@@ -406,7 +406,7 @@
         "name": "menta",
         "plural_name": "mente"
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "citronella",
         "plural_name": ""
       },
@@ -999,7 +999,7 @@
         "name": "formaggio di capra",
         "plural_name": ""
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "formaggio svizzero",
         "plural_name": ""
       },
@@ -1618,7 +1618,7 @@
         "name": "distilled white vinegar",
         "plural_name": ""
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "sweet chili sauce",
         "plural_name": ""
       },
@@ -2073,7 +2073,7 @@
         "name": "estratto di arancia",
         "plural_name": ""
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "Codette colorate",
         "plural_name": ""
       }

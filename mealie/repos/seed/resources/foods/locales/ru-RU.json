@@ -406,7 +406,7 @@
         "name": "mint",
         "plural_name": ""
       },
-      "lemongras": {
+      "lemongrass": {
         "name": "lemongrass",
         "plural_name": ""
       },
@@ -999,7 +999,7 @@
         "name": "козий сыр",
         "plural_name": "козьи сыры"
       },
-      "swis cheese": {
+      "swiss cheese": {
         "name": "швейцарский сыр",
         "plural_name": "швейцарские сыры"
       },
@@ -1618,7 +1618,7 @@
         "name": "distilled white vinegar",
         "plural_name": ""
       },
-      "sweet chilli sauce": {
+      "sweet chili sauce": {
         "name": "sweet chili sauce",
         "plural_name": ""
       },
@@ -2073,7 +2073,7 @@
         "name": "orange extract",
         "plural_name": ""
       },
-      "candy sprinkle": {
+      "sprinkles": {
         "name": "sprinkles",
         "plural_name": ""
       }
