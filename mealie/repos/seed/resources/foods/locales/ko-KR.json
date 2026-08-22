@@ -4,7 +4,7 @@
     "foods": {
       "garlic": {
         "name": "마늘",
-        "plural_name": "garlic"
+        "plural_name": ""
       },
       "onion": {
         "name": "양파",
@@ -40,7 +40,7 @@
       },
       "celery": {
         "name": "셀러리",
-        "plural_name": "celery"
+        "plural_name": ""
       },
       "jalapeño": {
         "name": "jalapeño",
@@ -64,7 +64,7 @@
       },
       "spinach": {
         "name": "시금치",
-        "plural_name": "spinach"
+        "plural_name": ""
       },
       "sweet corn": {
         "name": "sweet corn",
@@ -80,7 +80,7 @@
       },
       "broccoli": {
         "name": "브로콜리",
-        "plural_name": "broccoli"
+        "plural_name": ""
       },
       "heart of palm": {
         "name": "heart of palm",
@@ -380,7 +380,7 @@
       },
       "blackberry": {
         "name": "블랙베리",
-        "plural_name": "blackberries"
+        "plural_name": ""
       },
       "parsley": {
         "name": "parsley",

@@ -1420,19 +1420,19 @@
     "foods": {
       "soy sauce": {
         "name": "sauce soya",
-        "plural_name": "soy sauce"
+        "plural_name": ""
       },
       "dijon mustard": {
         "name": "moutarde de Dijon",
-        "plural_name": "dijon mustard"
+        "plural_name": ""
       },
       "hot sauce": {
         "name": "sauce piquante",
-        "plural_name": "hot sauce"
+        "plural_name": ""
       },
       "worcestershire sauce": {
         "name": "sauce Worcestershire",
-        "plural_name": "worcestershire sauce"
+        "plural_name": ""
       },
       "ketchup": {
         "name": "ketchup",
@@ -1440,15 +1440,15 @@
       },
       "mustard": {
         "name": "moutarde jaune",
-        "plural_name": "mustard"
+        "plural_name": ""
       },
       "fish sauce": {
         "name": "nuoc-mâm",
-        "plural_name": "fish sauce"
+        "plural_name": ""
       },
       "bbq sauce": {
         "name": "sauce barbecue",
-        "plural_name": "bbq sauce"
+        "plural_name": ""
       },
       "sriracha": {
         "name": "sauce sriracha",
@@ -1460,11 +1460,11 @@
       },
       "oyster sauce": {
         "name": "sauce aux huîtres",
-        "plural_name": "oyster sauce"
+        "plural_name": ""
       },
       "teriyaki sauce": {
         "name": "sauce teriyaki",
-        "plural_name": "teriyaki sauce"
+        "plural_name": ""
       },
       "prepared horseradish": {
         "name": "raifort préparé",
@@ -1472,7 +1472,7 @@
       },
       "cranberry sauce": {
         "name": "sauce aux canneberges",
-        "plural_name": "cranberry sauce"
+        "plural_name": ""
       },
       "harissa": {
         "name": "pâte harissa",
@@ -1480,7 +1480,7 @@
       },
       "tamarind paste": {
         "name": "pâte de tamarin",
-        "plural_name": "tamarind paste"
+        "plural_name": ""
       },
       "gochujang": {
         "name": "pâte gochujang",
@@ -1500,15 +1500,15 @@
       },
       "thai sweet chili sauce": {
         "name": "sauce chili douce thaï",
-        "plural_name": "thai sweet chili sauce"
+        "plural_name": ""
       },
       "tartar sauce": {
         "name": "sauce tartare",
-        "plural_name": "tartar sauce"
+        "plural_name": ""
       },
       "ponzu": {
         "name": "sauce ponzu",
-        "plural_name": "ponzu"
+        "plural_name": ""
       },
       "peanut butter": {
         "name": "peanut butter",
@@ -1584,23 +1584,23 @@
       },
       "mayonnaise": {
         "name": "mayonnaise classique",
-        "plural_name": "mayonnaise"
+        "plural_name": ""
       },
       "apple cider vinegar": {
         "name": "vinaigre de cidre",
-        "plural_name": "apple cider vinegar"
+        "plural_name": ""
       },
       "balsamic vinegar": {
         "name": "vinaigre balsamique",
-        "plural_name": "balsamic vinegar"
+        "plural_name": ""
       },
       "vinegar": {
         "name": "vinaigre",
-        "plural_name": "vinegar"
+        "plural_name": ""
       },
       "red wine vinegar": {
         "name": "vinaigre de vin rouge",
-        "plural_name": "red wine vinegar"
+        "plural_name": ""
       },
       "rice wine vinegar": {
         "name": "vinaigre de riz",
@@ -1608,15 +1608,15 @@
       },
       "white wine vinegar": {
         "name": "vinaigre de vin blanc",
-        "plural_name": "white wine vinegar"
+        "plural_name": ""
       },
       "ranch dressing": {
         "name": "vinaigrette ranch",
-        "plural_name": "ranch dressing"
+        "plural_name": ""
       },
       "distilled white vinegar": {
         "name": "vinaigre blanc distillé",
-        "plural_name": "distilled white vinegar"
+        "plural_name": ""
       },
       "sweet chili sauce": {
         "name": "sauce chili douce",
@@ -1624,7 +1624,7 @@
       },
       "caesar dressing": {
         "name": "vinaigrette César",
-        "plural_name": "caesar dressing"
+        "plural_name": ""
       },
       "agave nectar": {
         "name": "sirop d'agave",
@@ -1677,7 +1677,7 @@
       },
       "paprika": {
         "name": "paprika doux",
-        "plural_name": "paprika"
+        "plural_name": ""
       },
       "cayenne": {
         "name": "piment de Cayenne moulu",
@@ -1841,7 +1841,7 @@
       },
       "tom yum paste": {
         "name": "pâte tom yum",
-        "plural_name": "tom yum paste"
+        "plural_name": ""
       },
       "old bay seasoning": {
         "name": "assaisonnement Old Bay",
@@ -1886,15 +1886,15 @@
       },
       "vegetable oil": {
         "name": "huile végétale",
-        "plural_name": "vegetable oil"
+        "plural_name": ""
       },
       "canola oil": {
         "name": "huile de canola",
-        "plural_name": "canola oil"
+        "plural_name": ""
       },
       "coconut oil": {
         "name": "huile de coco",
-        "plural_name": "coconut oil"
+        "plural_name": ""
       },
       "cooking spray": {
         "name": "aérosol de cuisson",
@@ -1902,15 +1902,15 @@
       },
       "sesame oil": {
         "name": "huile de sésame",
-        "plural_name": "sesame oil"
+        "plural_name": ""
       },
       "avocado oil": {
         "name": "huile d'avocat",
-        "plural_name": "avocado oil"
+        "plural_name": ""
       },
       "peanut oil": {
         "name": "huile d'arachide",
-        "plural_name": "peanut oil"
+        "plural_name": ""
       },
       "lard": {
         "name": "saindoux",
@@ -1918,11 +1918,11 @@
       },
       "chili oil": {
         "name": "huile pimentée",
-        "plural_name": "chili oil"
+        "plural_name": ""
       },
       "truffle oil": {
         "name": "huile à la truffe",
-        "plural_name": "truffle oil"
+        "plural_name": ""
       },
       "duck fat": {
         "name": "gras de canard",
@@ -1939,11 +1939,11 @@
     "foods": {
       "cocoa": {
         "name": "cacao en poudre",
-        "plural_name": "cocoa"
+        "plural_name": ""
       },
       "baking chocolate": {
         "name": "chocolat à pâtisser",
-        "plural_name": "baking chocolate"
+        "plural_name": ""
       },
       "sugar": {
         "name": "sucre granulé",
@@ -1971,7 +1971,7 @@
       },
       "stevia": {
         "name": "stevia liquide",
-        "plural_name": "stevia"
+        "plural_name": ""
       },
       "jaggery": {
         "name": "jaggery de canne",
@@ -2011,11 +2011,11 @@
       },
       "almond flour": {
         "name": "farine d'amande",
-        "plural_name": "almond flour"
+        "plural_name": ""
       },
       "self-raising flour": {
         "name": "farine auto-levante",
-        "plural_name": "self-raising flour"
+        "plural_name": ""
       },
       "shredded coconut": {
         "name": "noix de coco râpée",
@@ -2031,7 +2031,7 @@
       },
       "cake flour": {
         "name": "farine à gâteaux",
-        "plural_name": "cake flour"
+        "plural_name": ""
       },
       "cream of tartar": {
         "name": "crème de tartre",
@@ -2047,7 +2047,7 @@
       },
       "buckwheat flour": {
         "name": "farine de sarrasin",
-        "plural_name": "buckwheat flour"
+        "plural_name": ""
       },
       "masa harina": {
         "name": "farine masa harina",
@@ -2059,7 +2059,7 @@
       },
       "almond extract": {
         "name": "extrait d'amande",
-        "plural_name": "almond extract"
+        "plural_name": ""
       },
       "food coloring": {
         "name": "colorant alimentaire",
@@ -2067,11 +2067,11 @@
       },
       "peppermint extract": {
         "name": "extrait de menthe poivrée",
-        "plural_name": "peppermint extract"
+        "plural_name": ""
       },
       "orange extract": {
         "name": "extrait d'orange",
-        "plural_name": "orange extract"
+        "plural_name": ""
       },
       "sprinkles": {
         "name": "vermicelles décoratifs",
@@ -2084,11 +2084,11 @@
     "foods": {
       "dark chocolate": {
         "name": "chocolat noir",
-        "plural_name": "dark chocolate"
+        "plural_name": ""
       },
       "chocolate": {
         "name": "chocolat au lait",
-        "plural_name": "chocolate"
+        "plural_name": ""
       },
       "marshmallow": {
         "name": "guimauve",
@@ -2096,11 +2096,11 @@
       },
       "applesauce": {
         "name": "compote de pommes",
-        "plural_name": "applesauce"
+        "plural_name": ""
       },
       "white chocolate": {
         "name": "chocolat blanc",
-        "plural_name": "white chocolate"
+        "plural_name": ""
       },
       "chocolate hazelnut spread": {
         "name": "tartinade chocolat-noisette",
@@ -2108,7 +2108,7 @@
       },
       "caramel sauce": {
         "name": "sauce au caramel",
-        "plural_name": "caramel sauce"
+        "plural_name": ""
       },
       "marshmallow creme": {
         "name": "crème de guimauve",
@@ -2116,7 +2116,7 @@
       },
       "jam": {
         "name": "confiture",
-        "plural_name": "jam"
+        "plural_name": ""
       },
       "orange marmalade": {
         "name": "marmelade d'orange",
@@ -2234,11 +2234,11 @@
     "foods": {
       "orange juice": {
         "name": "jus d'orange",
-        "plural_name": "orange juice"
+        "plural_name": ""
       },
       "coffee": {
         "name": "café",
-        "plural_name": "coffee"
+        "plural_name": ""
       },
       "club soda": {
         "name": "soda tonique",
@@ -2250,23 +2250,23 @@
       },
       "pineapple juice": {
         "name": "jus d'ananas",
-        "plural_name": "pineapple juice"
+        "plural_name": ""
       },
       "apple juice": {
         "name": "jus de pomme",
-        "plural_name": "apple juice"
+        "plural_name": ""
       },
       "tea": {
         "name": "thé",
-        "plural_name": "tea"
+        "plural_name": ""
       },
       "cranberry juice": {
         "name": "jus de canneberge",
-        "plural_name": "cranberry juice"
+        "plural_name": ""
       },
       "tomato juice": {
         "name": "jus de tomate",
-        "plural_name": "tomato juice"
+        "plural_name": ""
       },
       "ginger beer": {
         "name": "bière de gingembre",

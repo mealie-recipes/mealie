@@ -4,7 +4,7 @@
     "foods": {
       "garlic": {
         "name": "allo",
-        "plural_name": "garlic"
+        "plural_name": ""
       },
       "onion": {
         "name": "cebola",
@@ -64,11 +64,11 @@
       },
       "spinach": {
         "name": "espinaca",
-        "plural_name": "spinach"
+        "plural_name": ""
       },
       "sweet corn": {
         "name": "millo doce",
-        "plural_name": "sweet corn"
+        "plural_name": ""
       },
       "chile pepper": {
         "name": "chile pepper",
@@ -80,7 +80,7 @@
       },
       "broccoli": {
         "name": "brócoli",
-        "plural_name": "broccoli"
+        "plural_name": ""
       },
       "heart of palm": {
         "name": "heart of palm",
@@ -108,7 +108,7 @@
       },
       "arugula": {
         "name": "rúcula",
-        "plural_name": "arugula"
+        "plural_name": ""
       },
       "leek": {
         "name": "porro",
@@ -120,7 +120,7 @@
       },
       "lettuce": {
         "name": "leituga",
-        "plural_name": "lettuce"
+        "plural_name": ""
       },
       "butternut squash": {
         "name": "cabaza",
@@ -176,7 +176,7 @@
       },
       "chard": {
         "name": "acelga",
-        "plural_name": "chard"
+        "plural_name": ""
       },
       "spaghetti squash": {
         "name": "spaghetti squash",
@@ -1053,7 +1053,7 @@
       },
       "milk": {
         "name": "leite",
-        "plural_name": "milk"
+        "plural_name": ""
       },
       "heavy cream": {
         "name": "heavy cream",
@@ -1641,11 +1641,11 @@
     "foods": {
       "cayenne pepper": {
         "name": "pimenta caiena",
-        "plural_name": "cayenne pepper"
+        "plural_name": ""
       },
       "cinnamon": {
         "name": "canela",
-        "plural_name": "cinnamon"
+        "plural_name": ""
       },
       "cumin": {
         "name": "cumin",
@@ -1657,7 +1657,7 @@
       },
       "garlic powder": {
         "name": "allo en pó",
-        "plural_name": "garlic powder"
+        "plural_name": ""
       },
       "oregano": {
         "name": "oregano",
@@ -1701,7 +1701,7 @@
       },
       "onion powder": {
         "name": "cebola en pó",
-        "plural_name": "onion powder"
+        "plural_name": ""
       },
       "ginger powder": {
         "name": "ginger powder",
@@ -2238,7 +2238,7 @@
       },
       "coffee": {
         "name": "café",
-        "plural_name": "coffee"
+        "plural_name": ""
       },
       "club soda": {
         "name": "club soda",
@@ -2368,7 +2368,7 @@
       },
       "almond milk": {
         "name": "leite de améndoa",
-        "plural_name": "almond milk"
+        "plural_name": ""
       },
       "tofu": {
         "name": "tofu",
@@ -2396,7 +2396,7 @@
       },
       "oat milk": {
         "name": "leite de avea",
-        "plural_name": "oat milk"
+        "plural_name": ""
       },
       "seitan": {
         "name": "seitan",
@@ -2408,7 +2408,7 @@
       },
       "vegan cheese": {
         "name": "queixo vegano",
-        "plural_name": "vegan cheese"
+        "plural_name": ""
       }
     }
   },

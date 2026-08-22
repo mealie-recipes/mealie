@@ -686,7 +686,7 @@
       },
       "pork shoulder": {
         "name": "svinebog",
-        "plural_name": "pork shoulders"
+        "plural_name": ""
       },
       "ground lamb": {
         "name": "lammekjøttdeig",
@@ -706,7 +706,7 @@
       },
       "leg of lamb": {
         "name": "lammelår",
-        "plural_name": "leg of lamb"
+        "plural_name": ""
       },
       "beef short rib": {
         "name": "beef short rib",
@@ -928,7 +928,7 @@
       },
       "squid": {
         "name": "blekksprut",
-        "plural_name": "squids"
+        "plural_name": ""
       },
       "nori": {
         "name": "nori",
@@ -944,7 +944,7 @@
       },
       "octopus": {
         "name": "blekksprut",
-        "plural_name": "octopi"
+        "plural_name": ""
       },
       "fish": {
         "name": "fish",
@@ -1053,7 +1053,7 @@
       },
       "milk": {
         "name": "melk",
-        "plural_name": "milk"
+        "plural_name": ""
       },
       "heavy cream": {
         "name": "heavy cream",
@@ -1725,7 +1725,7 @@
       },
       "coriander": {
         "name": "koriander",
-        "plural_name": "corianders"
+        "plural_name": ""
       },
       "allspice": {
         "name": "allspice",
@@ -1959,7 +1959,7 @@
       },
       "maple syrup": {
         "name": "lønnesirup",
-        "plural_name": "maple syrup"
+        "plural_name": ""
       },
       "corn syrup": {
         "name": "corn syrup",
@@ -1979,15 +1979,15 @@
       },
       "flour": {
         "name": "mel",
-        "plural_name": "flour"
+        "plural_name": ""
       },
       "vanilla extract": {
         "name": "vaniljeekstrakt",
-        "plural_name": "vanilla extract"
+        "plural_name": ""
       },
       "baking powder": {
         "name": "bakepulver",
-        "plural_name": "baking powder"
+        "plural_name": ""
       },
       "baking soda": {
         "name": "baking soda",
@@ -2007,7 +2007,7 @@
       },
       "whole-wheat flour": {
         "name": "fullkornmel",
-        "plural_name": "whole-wheat flour"
+        "plural_name": ""
       },
       "almond flour": {
         "name": "almond flour",
@@ -2234,11 +2234,11 @@
     "foods": {
       "orange juice": {
         "name": "appelsinjuice",
-        "plural_name": "orange juice"
+        "plural_name": ""
       },
       "coffee": {
         "name": "kaffe",
-        "plural_name": "coffee"
+        "plural_name": ""
       },
       "club soda": {
         "name": "club soda",
@@ -2250,15 +2250,15 @@
       },
       "pineapple juice": {
         "name": "ananasjuice",
-        "plural_name": "pineapple juice"
+        "plural_name": ""
       },
       "apple juice": {
         "name": "eplejuice",
-        "plural_name": "apple juice"
+        "plural_name": ""
       },
       "tea": {
         "name": "te",
-        "plural_name": "tea"
+        "plural_name": ""
       },
       "cranberry juice": {
         "name": "cranberry juice",
@@ -2295,7 +2295,7 @@
       },
       "rum": {
         "name": "rom",
-        "plural_name": "rums"
+        "plural_name": ""
       },
       "vodka": {
         "name": "vodka",
@@ -2303,11 +2303,11 @@
       },
       "beer": {
         "name": "øl",
-        "plural_name": "beers"
+        "plural_name": ""
       },
       "orange liqueur": {
         "name": "appelsinlikør",
-        "plural_name": "orange liqueurs"
+        "plural_name": ""
       },
       "tequila": {
         "name": "tequila",
@@ -2343,7 +2343,7 @@
       },
       "marsala wine": {
         "name": "marsala vin",
-        "plural_name": "marsala wines"
+        "plural_name": ""
       },
       "sake": {
         "name": "sake",
@@ -2396,7 +2396,7 @@
       },
       "oat milk": {
         "name": "havremelk",
-        "plural_name": "oat milk"
+        "plural_name": ""
       },
       "seitan": {
         "name": "seitan",

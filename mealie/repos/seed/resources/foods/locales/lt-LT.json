@@ -40,7 +40,7 @@
       },
       "celery": {
         "name": "salieras",
-        "plural_name": "celery"
+        "plural_name": ""
       },
       "jalapeño": {
         "name": "jalapeño",
@@ -64,7 +64,7 @@
       },
       "spinach": {
         "name": "špinatai",
-        "plural_name": "spinach"
+        "plural_name": ""
       },
       "sweet corn": {
         "name": "sweet corn",
@@ -80,7 +80,7 @@
       },
       "broccoli": {
         "name": "brokolis",
-        "plural_name": "broccoli"
+        "plural_name": ""
       },
       "heart of palm": {
         "name": "heart of palm",
@@ -92,7 +92,7 @@
       },
       "cauliflower": {
         "name": "žiedinis kopūstas",
-        "plural_name": "cauliflower"
+        "plural_name": ""
       },
       "cabbage": {
         "name": "kopūstas",
@@ -120,7 +120,7 @@
       },
       "lettuce": {
         "name": "salota",
-        "plural_name": "lettuce"
+        "plural_name": ""
       },
       "butternut squash": {
         "name": "sviestinis moliūgas",
@@ -140,7 +140,7 @@
       },
       "fennel": {
         "name": "pankolis",
-        "plural_name": "fennel"
+        "plural_name": ""
       },
       "sun dried tomato": {
         "name": "saulėje džiovintas pomidoras",
@@ -1641,7 +1641,7 @@
     "foods": {
       "cayenne pepper": {
         "name": "kajeno pipiras",
-        "plural_name": "cayenne pepper"
+        "plural_name": ""
       },
       "cinnamon": {
         "name": "cinnamon",

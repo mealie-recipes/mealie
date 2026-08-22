@@ -84,7 +84,7 @@
       },
       "heart of palm": {
         "name": "palmiye kalbi",
-        "plural_name": "heart of palm"
+        "plural_name": ""
       },
       "pumpkin": {
         "name": "balkabağı",
@@ -176,7 +176,7 @@
       },
       "chard": {
         "name": "pazı",
-        "plural_name": "chard"
+        "plural_name": ""
       },
       "spaghetti squash": {
         "name": "spagetti kabak",
@@ -1053,7 +1053,7 @@
       },
       "milk": {
         "name": "süt",
-        "plural_name": "milk"
+        "plural_name": ""
       },
       "heavy cream": {
         "name": "heavy cream",
@@ -1641,7 +1641,7 @@
     "foods": {
       "cayenne pepper": {
         "name": "kırmızı biber",
-        "plural_name": "cayenne pepper"
+        "plural_name": ""
       },
       "cinnamon": {
         "name": "cinnamon",

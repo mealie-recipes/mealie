@@ -324,7 +324,7 @@
       },
       "button mushroom": {
         "name": "口蘑",
-        "plural_name": "button mushrooms"
+        "plural_name": ""
       },
       "shiitake mushroom": {
         "name": "香菇",
@@ -1657,7 +1657,7 @@
       },
       "garlic powder": {
         "name": "大蒜粉",
-        "plural_name": "garlic powder"
+        "plural_name": ""
       },
       "oregano": {
         "name": "oregano",
@@ -1741,7 +1741,7 @@
       },
       "white pepper": {
         "name": "白胡椒",
-        "plural_name": "white pepper"
+        "plural_name": ""
       },
       "curry leaf": {
         "name": "curry leaf",
@@ -1886,7 +1886,7 @@
       },
       "vegetable oil": {
         "name": "植物油",
-        "plural_name": "vegetable oil"
+        "plural_name": ""
       },
       "canola oil": {
         "name": "canola oil",

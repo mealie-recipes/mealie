@@ -44,7 +44,7 @@
       },
       "jalapeño": {
         "name": "חלפיניו",
-        "plural_name": "jalapeños"
+        "plural_name": ""
       },
       "avocado": {
         "name": "אבוקדו",
@@ -100,11 +100,11 @@
       },
       "asparagus": {
         "name": "אספרגוס",
-        "plural_name": "asparagus"
+        "plural_name": ""
       },
       "kale": {
         "name": "כרוב על",
-        "plural_name": "kale"
+        "plural_name": ""
       },
       "arugula": {
         "name": "ארוגולה",
@@ -140,7 +140,7 @@
       },
       "fennel": {
         "name": "שומר",
-        "plural_name": "fennel"
+        "plural_name": ""
       },
       "sun dried tomato": {
         "name": "עגבנייה מיובשת",
@@ -176,7 +176,7 @@
       },
       "chard": {
         "name": "מנגולד",
-        "plural_name": "chard"
+        "plural_name": ""
       },
       "spaghetti squash": {
         "name": "דלעת ספגטי",
@@ -392,7 +392,7 @@
       },
       "basil": {
         "name": "בזיליקום",
-        "plural_name": "basils"
+        "plural_name": ""
       },
       "ginger root": {
         "name": "ginger root",
@@ -1009,11 +1009,11 @@
       },
       "mascarpone cheese": {
         "name": "מסקרפונה",
-        "plural_name": "mascarpone cheese"
+        "plural_name": ""
       },
       "cottage cheese": {
         "name": "קוטג'",
-        "plural_name": "cottage cheese"
+        "plural_name": ""
       },
       "american cheese": {
         "name": "american cheese",
@@ -1037,7 +1037,7 @@
       },
       "halloumi cheese": {
         "name": "גבינת חלומי",
-        "plural_name": "halloumi cheese"
+        "plural_name": ""
       },
       "italian cheese blend": {
         "name": "italian cheese blend",
@@ -1053,19 +1053,19 @@
       },
       "milk": {
         "name": "חלב",
-        "plural_name": "milk"
+        "plural_name": ""
       },
       "heavy cream": {
         "name": "שמנת מתוקה",
-        "plural_name": "heavy cream"
+        "plural_name": ""
       },
       "sour cream": {
         "name": "שמנת חמוצה",
-        "plural_name": "sour cream"
+        "plural_name": ""
       },
       "buttermilk": {
         "name": "חלב חמאה",
-        "plural_name": "buttermilk"
+        "plural_name": ""
       },
       "yogurt": {
         "name": "יוגורט",
@@ -1077,11 +1077,11 @@
       },
       "cream": {
         "name": "קרם",
-        "plural_name": "cream"
+        "plural_name": ""
       },
       "whipped cream": {
         "name": "קצפת",
-        "plural_name": "whipped cream"
+        "plural_name": ""
       },
       "ghee": {
         "name": "גהי",
@@ -1093,7 +1093,7 @@
       },
       "sweetened condensed milk": {
         "name": "חלב מרוכז ממותק",
-        "plural_name": "sweetened condensed milk"
+        "plural_name": ""
       },
       "kefir": {
         "name": "כפיר",
@@ -1420,7 +1420,7 @@
     "foods": {
       "soy sauce": {
         "name": "רוטב סויה",
-        "plural_name": "soy sauce"
+        "plural_name": ""
       },
       "dijon mustard": {
         "name": "dijon mustard",
@@ -1428,7 +1428,7 @@
       },
       "hot sauce": {
         "name": "רוטב חריף",
-        "plural_name": "hot sauce"
+        "plural_name": ""
       },
       "worcestershire sauce": {
         "name": "worcestershire sauce",
@@ -1444,11 +1444,11 @@
       },
       "fish sauce": {
         "name": "רוטב דגים",
-        "plural_name": "fish sauce"
+        "plural_name": ""
       },
       "bbq sauce": {
         "name": "רוטב ברביקיו",
-        "plural_name": "bbq sauce"
+        "plural_name": ""
       },
       "sriracha": {
         "name": "סרירצ׳ה",
@@ -1460,11 +1460,11 @@
       },
       "oyster sauce": {
         "name": "רוטב צדפות (אוסטראה)",
-        "plural_name": "oyster sauce"
+        "plural_name": ""
       },
       "teriyaki sauce": {
         "name": "רוטב טריאקי",
-        "plural_name": "teriyaki sauce"
+        "plural_name": ""
       },
       "prepared horseradish": {
         "name": "prepared horseradish",
@@ -1472,7 +1472,7 @@
       },
       "cranberry sauce": {
         "name": "רוטב חמוציות",
-        "plural_name": "cranberry sauce"
+        "plural_name": ""
       },
       "harissa": {
         "name": "harissa",
@@ -1500,11 +1500,11 @@
       },
       "thai sweet chili sauce": {
         "name": "רוטב צ׳ילי מתוק תאילנדי",
-        "plural_name": "thai sweet chili sauce"
+        "plural_name": ""
       },
       "tartar sauce": {
         "name": "רוטב טרטר",
-        "plural_name": "tartar sauce"
+        "plural_name": ""
       },
       "ponzu": {
         "name": "ponzu",
@@ -1584,19 +1584,19 @@
       },
       "mayonnaise": {
         "name": "מיונז",
-        "plural_name": "mayonnaise"
+        "plural_name": ""
       },
       "apple cider vinegar": {
         "name": "חומץ תפוחים",
-        "plural_name": "apple cider vinegar"
+        "plural_name": ""
       },
       "balsamic vinegar": {
         "name": "חומץ בלסמי",
-        "plural_name": "balsamic vinegar"
+        "plural_name": ""
       },
       "vinegar": {
         "name": "חומץ",
-        "plural_name": "vinegar"
+        "plural_name": ""
       },
       "red wine vinegar": {
         "name": "red wine vinegar",
@@ -1604,7 +1604,7 @@
       },
       "rice wine vinegar": {
         "name": "חומץ יין אורז",
-        "plural_name": "rice wine vinegar"
+        "plural_name": ""
       },
       "white wine vinegar": {
         "name": "white wine vinegar",
@@ -1628,7 +1628,7 @@
       },
       "agave nectar": {
         "name": "נקטר אגבה",
-        "plural_name": "agave nectar"
+        "plural_name": ""
       },
       "honey": {
         "name": "honey",
@@ -1641,7 +1641,7 @@
     "foods": {
       "cayenne pepper": {
         "name": "פלפל קאיין",
-        "plural_name": "cayenne pepper"
+        "plural_name": ""
       },
       "cinnamon": {
         "name": "קינמון",
@@ -1657,11 +1657,11 @@
       },
       "garlic powder": {
         "name": "אבקת שום",
-        "plural_name": "garlic powder"
+        "plural_name": ""
       },
       "oregano": {
         "name": "אורגנו",
-        "plural_name": "oreganos"
+        "plural_name": ""
       },
       "nutmeg": {
         "name": "nutmeg",
@@ -1673,11 +1673,11 @@
       },
       "chili powder": {
         "name": "אבקת צ'ילי",
-        "plural_name": "chili powder"
+        "plural_name": ""
       },
       "paprika": {
         "name": "פפריקה",
-        "plural_name": "paprika"
+        "plural_name": ""
       },
       "cayenne": {
         "name": "cayenne",
@@ -1685,7 +1685,7 @@
       },
       "rosemary": {
         "name": "רוזמרין",
-        "plural_name": "rosemaries"
+        "plural_name": ""
       },
       "bay leaf": {
         "name": "bay leaf",
@@ -1701,11 +1701,11 @@
       },
       "onion powder": {
         "name": "אבקת בצל",
-        "plural_name": "onion powder"
+        "plural_name": ""
       },
       "ginger powder": {
         "name": "אבקת ג'ינג'ר",
-        "plural_name": "ginger powder"
+        "plural_name": ""
       },
       "dill": {
         "name": "dill",
@@ -1789,7 +1789,7 @@
       },
       "italian seasoning": {
         "name": "תיבול איטלקי",
-        "plural_name": "italian seasoning"
+        "plural_name": ""
       },
       "curry": {
         "name": "קארי",
@@ -1882,19 +1882,19 @@
       },
       "olive oil": {
         "name": "שמן זית",
-        "plural_name": "olive oil"
+        "plural_name": ""
       },
       "vegetable oil": {
         "name": "שמן צמחי",
-        "plural_name": "vegetable oil"
+        "plural_name": ""
       },
       "canola oil": {
         "name": "שמן קנולה",
-        "plural_name": "canola oil"
+        "plural_name": ""
       },
       "coconut oil": {
         "name": "שמן קוקוס",
-        "plural_name": "coconut oil"
+        "plural_name": ""
       },
       "cooking spray": {
         "name": "cooking spray",
@@ -1902,15 +1902,15 @@
       },
       "sesame oil": {
         "name": "שמן שומשום",
-        "plural_name": "sesame oil"
+        "plural_name": ""
       },
       "avocado oil": {
         "name": "שמן אבוקדו",
-        "plural_name": "avocado oil"
+        "plural_name": ""
       },
       "peanut oil": {
         "name": "שמן בוטנים",
-        "plural_name": "peanut oil"
+        "plural_name": ""
       },
       "lard": {
         "name": "lard",
@@ -1939,11 +1939,11 @@
     "foods": {
       "cocoa": {
         "name": "קקאו",
-        "plural_name": "cocoa"
+        "plural_name": ""
       },
       "baking chocolate": {
         "name": "שוקולד לאפייה",
-        "plural_name": "baking chocolate"
+        "plural_name": ""
       },
       "sugar": {
         "name": "sugar",
@@ -1951,7 +1951,7 @@
       },
       "brown sugar": {
         "name": "סוכר חום",
-        "plural_name": "brown sugar"
+        "plural_name": ""
       },
       "confectioners sugar": {
         "name": "confectioners sugar",
@@ -1959,11 +1959,11 @@
       },
       "maple syrup": {
         "name": "סירופ מייפל",
-        "plural_name": "maple syrup"
+        "plural_name": ""
       },
       "corn syrup": {
         "name": "סירופ תירס",
-        "plural_name": "corn syrup"
+        "plural_name": ""
       },
       "molasses": {
         "name": "molasses",
@@ -1971,7 +1971,7 @@
       },
       "stevia": {
         "name": "סטיביה",
-        "plural_name": "stevia"
+        "plural_name": ""
       },
       "jaggery": {
         "name": "jaggery",
@@ -1979,15 +1979,15 @@
       },
       "flour": {
         "name": "קמח",
-        "plural_name": "flour"
+        "plural_name": ""
       },
       "vanilla extract": {
         "name": "תמצית וניל",
-        "plural_name": "vanilla extract"
+        "plural_name": ""
       },
       "baking powder": {
         "name": "אבקת אפייה",
-        "plural_name": "baking powder"
+        "plural_name": ""
       },
       "baking soda": {
         "name": "סודה לשתייה",
@@ -2007,15 +2007,15 @@
       },
       "whole-wheat flour": {
         "name": "קמח חיטה מלא",
-        "plural_name": "whole-wheat flour"
+        "plural_name": ""
       },
       "almond flour": {
         "name": "קמח שקדים",
-        "plural_name": "almond flour"
+        "plural_name": ""
       },
       "self-raising flour": {
         "name": "קמח תופח",
-        "plural_name": "self-raising flour"
+        "plural_name": ""
       },
       "shredded coconut": {
         "name": "קוקוס מגורד",
@@ -2031,7 +2031,7 @@
       },
       "cake flour": {
         "name": "קמח עוגות",
-        "plural_name": "cake flour"
+        "plural_name": ""
       },
       "cream of tartar": {
         "name": "cream of tartar",
@@ -2039,7 +2039,7 @@
       },
       "bread flour": {
         "name": "קמח לחם",
-        "plural_name": "bread flour"
+        "plural_name": ""
       },
       "potato starch": {
         "name": "עמילן תפוח אדמה",
@@ -2047,7 +2047,7 @@
       },
       "buckwheat flour": {
         "name": "קמח כוסמת",
-        "plural_name": "buckwheat flour"
+        "plural_name": ""
       },
       "masa harina": {
         "name": "קמח מסה הרינה",
@@ -2059,7 +2059,7 @@
       },
       "almond extract": {
         "name": "תמצית שקדים",
-        "plural_name": "almond extract"
+        "plural_name": ""
       },
       "food coloring": {
         "name": "צבע מאכל",
@@ -2067,11 +2067,11 @@
       },
       "peppermint extract": {
         "name": "תמצית מנטה",
-        "plural_name": "peppermint extract"
+        "plural_name": ""
       },
       "orange extract": {
         "name": "תמצית תפוזים",
-        "plural_name": "orange extract"
+        "plural_name": ""
       },
       "sprinkles": {
         "name": "sprinkles",
@@ -2084,11 +2084,11 @@
     "foods": {
       "dark chocolate": {
         "name": "שקולד מריר",
-        "plural_name": "dark chocolate"
+        "plural_name": ""
       },
       "chocolate": {
         "name": "שוקולד",
-        "plural_name": "chocolate"
+        "plural_name": ""
       },
       "marshmallow": {
         "name": "מרשמלו",
@@ -2096,11 +2096,11 @@
       },
       "applesauce": {
         "name": "רסק תפוחים",
-        "plural_name": "applesauce"
+        "plural_name": ""
       },
       "white chocolate": {
         "name": "שוקולד לבן",
-        "plural_name": "white chocolate"
+        "plural_name": ""
       },
       "chocolate hazelnut spread": {
         "name": "ממרח שוקולד אגוזי לוז",
@@ -2108,7 +2108,7 @@
       },
       "caramel sauce": {
         "name": "רוטב קרמל",
-        "plural_name": "caramel sauce"
+        "plural_name": ""
       },
       "marshmallow creme": {
         "name": "קרם מרשמלו",
@@ -2116,7 +2116,7 @@
       },
       "jam": {
         "name": "ריבה",
-        "plural_name": "jam"
+        "plural_name": ""
       },
       "orange marmalade": {
         "name": "מרמלדת תפוזים",
@@ -2136,7 +2136,7 @@
       },
       "ice cream": {
         "name": "גלידה",
-        "plural_name": "ice cream"
+        "plural_name": ""
       },
       "lemon curd": {
         "name": "קרם לימון",
@@ -2234,11 +2234,11 @@
     "foods": {
       "orange juice": {
         "name": "מיץ תפוזים",
-        "plural_name": "orange juice"
+        "plural_name": ""
       },
       "coffee": {
         "name": "קפה",
-        "plural_name": "coffee"
+        "plural_name": ""
       },
       "club soda": {
         "name": "club soda",
@@ -2250,23 +2250,23 @@
       },
       "pineapple juice": {
         "name": "מיץ אננס",
-        "plural_name": "pineapple juice"
+        "plural_name": ""
       },
       "apple juice": {
         "name": "מיץ תפוחים",
-        "plural_name": "apple juice"
+        "plural_name": ""
       },
       "tea": {
         "name": "תה",
-        "plural_name": "tea"
+        "plural_name": ""
       },
       "cranberry juice": {
         "name": "מיץ חמוציות",
-        "plural_name": "cranberry juice"
+        "plural_name": ""
       },
       "tomato juice": {
         "name": "מיץ עגבניות",
-        "plural_name": "tomato juice"
+        "plural_name": ""
       },
       "ginger beer": {
         "name": "בירת ג׳ינג׳ר",
@@ -2364,11 +2364,11 @@
     "foods": {
       "coconut milk": {
         "name": "חלב קוקוס",
-        "plural_name": "coconut milk"
+        "plural_name": ""
       },
       "almond milk": {
         "name": "חלב שקדים",
-        "plural_name": "almond milk"
+        "plural_name": ""
       },
       "tofu": {
         "name": "טופו",
@@ -2376,11 +2376,11 @@
       },
       "coconut cream": {
         "name": "קרם קוקוס",
-        "plural_name": "coconut cream"
+        "plural_name": ""
       },
       "soy milk": {
         "name": "חלב סויה",
-        "plural_name": "soy milk"
+        "plural_name": ""
       },
       "extra firm tofu": {
         "name": "טופו קשה במיוחד",
@@ -2396,7 +2396,7 @@
       },
       "oat milk": {
         "name": "חלב שיבולת שועל",
-        "plural_name": "oat milk"
+        "plural_name": ""
       },
       "seitan": {
         "name": "סייטן",
@@ -2408,7 +2408,7 @@
       },
       "vegan cheese": {
         "name": "גבינה טבעונית",
-        "plural_name": "vegan cheese"
+        "plural_name": ""
       }
     }
   },

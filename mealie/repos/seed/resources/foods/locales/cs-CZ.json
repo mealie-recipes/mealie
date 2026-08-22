@@ -292,7 +292,7 @@
       },
       "kiwi": {
         "name": "kivi",
-        "plural_name": "kiwi"
+        "plural_name": ""
       },
       "grapefruit": {
         "name": "grep",
@@ -654,7 +654,7 @@
     "foods": {
       "ground beef": {
         "name": "mleté hovězí",
-        "plural_name": "ground beefs"
+        "plural_name": ""
       },
       "beef steak": {
         "name": "beef steak",
@@ -714,7 +714,7 @@
       },
       "pork belly": {
         "name": "vepřový bok",
-        "plural_name": "pork bellies"
+        "plural_name": ""
       },
       "lamb chop": {
         "name": "lamb chop",
@@ -815,11 +815,11 @@
       },
       "ham": {
         "name": "šunka",
-        "plural_name": "hams"
+        "plural_name": ""
       },
       "prosciutto": {
         "name": "pršut",
-        "plural_name": "prosciuttoes"
+        "plural_name": ""
       },
       "sausage": {
         "name": "sausage",
@@ -847,7 +847,7 @@
       },
       "salami": {
         "name": "salám",
-        "plural_name": "salamis"
+        "plural_name": ""
       },
       "kielbasa": {
         "name": "kielbasa",
@@ -868,11 +868,11 @@
       },
       "salmon": {
         "name": "losos",
-        "plural_name": "salmon"
+        "plural_name": ""
       },
       "smoked salmon": {
         "name": "uzený losos",
-        "plural_name": "smoked salmon"
+        "plural_name": ""
       },
       "cod": {
         "name": "cod",
@@ -880,7 +880,7 @@
       },
       "tilapia": {
         "name": "tilápie",
-        "plural_name": "tilapias"
+        "plural_name": ""
       },
       "halibut": {
         "name": "halibut",
@@ -1061,7 +1061,7 @@
       },
       "sour cream": {
         "name": "zakysaná smetana",
-        "plural_name": "sour cream"
+        "plural_name": ""
       },
       "buttermilk": {
         "name": "buttermilk",
@@ -1073,7 +1073,7 @@
       },
       "greek yogurt": {
         "name": "řecký jogurt",
-        "plural_name": "greek yogurts"
+        "plural_name": ""
       },
       "cream": {
         "name": "cream",
@@ -1081,7 +1081,7 @@
       },
       "whipped cream": {
         "name": "šlehačka",
-        "plural_name": "whipped cream"
+        "plural_name": ""
       },
       "ghee": {
         "name": "ghee",
@@ -1126,7 +1126,7 @@
       },
       "pizza dough": {
         "name": "těsto na pizzu",
-        "plural_name": "pizza doughs"
+        "plural_name": ""
       },
       "phyllo": {
         "name": "phyllo",
@@ -1327,7 +1327,7 @@
       },
       "canned salmon": {
         "name": "konzervovaný losos",
-        "plural_name": "canned salmon"
+        "plural_name": ""
       },
       "canned clam": {
         "name": "canned clam",
@@ -1436,7 +1436,7 @@
       },
       "ketchup": {
         "name": "kečup",
-        "plural_name": "ketchup"
+        "plural_name": ""
       },
       "mustard": {
         "name": "mustard",
@@ -1705,7 +1705,7 @@
       },
       "ginger powder": {
         "name": "mletý zázvor",
-        "plural_name": "ginger powder"
+        "plural_name": ""
       },
       "dill": {
         "name": "kopr",
@@ -1733,7 +1733,7 @@
       },
       "peppercorn": {
         "name": "pepř černý celý",
-        "plural_name": "peppercorns"
+        "plural_name": ""
       },
       "mustard seed": {
         "name": "hořčičné semínko",
@@ -1882,7 +1882,7 @@
       },
       "olive oil": {
         "name": "olivový olej",
-        "plural_name": "olive oil"
+        "plural_name": ""
       },
       "vegetable oil": {
         "name": "vegetable oil",
@@ -1939,7 +1939,7 @@
     "foods": {
       "cocoa": {
         "name": "kakao",
-        "plural_name": "cocoa"
+        "plural_name": ""
       },
       "baking chocolate": {
         "name": "baking chocolate",
@@ -1951,7 +1951,7 @@
       },
       "brown sugar": {
         "name": "hnědý cukr",
-        "plural_name": "brown sugar"
+        "plural_name": ""
       },
       "confectioners sugar": {
         "name": "confectioners sugar",
@@ -1959,7 +1959,7 @@
       },
       "maple syrup": {
         "name": "javorový syrup",
-        "plural_name": "maple syrup"
+        "plural_name": ""
       },
       "corn syrup": {
         "name": "kukuřičný sirup",
@@ -1979,15 +1979,15 @@
       },
       "flour": {
         "name": "mouka",
-        "plural_name": "flour"
+        "plural_name": ""
       },
       "vanilla extract": {
         "name": "vanilkový extrakt",
-        "plural_name": "vanilla extract"
+        "plural_name": ""
       },
       "baking powder": {
         "name": "prášek na pečení",
-        "plural_name": "baking powder"
+        "plural_name": ""
       },
       "baking soda": {
         "name": "baking soda",
@@ -2011,7 +2011,7 @@
       },
       "almond flour": {
         "name": "mandlová mouka",
-        "plural_name": "almond flour"
+        "plural_name": ""
       },
       "self-raising flour": {
         "name": "self-raising flour",
@@ -2039,7 +2039,7 @@
       },
       "bread flour": {
         "name": "chlebová mouka",
-        "plural_name": "bread flour"
+        "plural_name": ""
       },
       "potato starch": {
         "name": "bramborový škrob",
@@ -2124,7 +2124,7 @@
       },
       "cookie": {
         "name": "sušenka",
-        "plural_name": "cookies"
+        "plural_name": ""
       },
       "lady finger": {
         "name": "lady finger",
@@ -2189,7 +2189,7 @@
       },
       "pumpkin seed": {
         "name": "dýňové semínko",
-        "plural_name": "pumpkin seeds"
+        "plural_name": ""
       },
       "hazelnut": {
         "name": "lískový ořech",
@@ -2234,11 +2234,11 @@
     "foods": {
       "orange juice": {
         "name": "pomerančový džus",
-        "plural_name": "orange juice"
+        "plural_name": ""
       },
       "coffee": {
         "name": "káva",
-        "plural_name": "coffee"
+        "plural_name": ""
       },
       "club soda": {
         "name": "club soda",
@@ -2258,7 +2258,7 @@
       },
       "tea": {
         "name": "čaj",
-        "plural_name": "tea"
+        "plural_name": ""
       },
       "cranberry juice": {
         "name": "cranberry juice",
@@ -2266,7 +2266,7 @@
       },
       "tomato juice": {
         "name": "rajčatový džus",
-        "plural_name": "tomato juice"
+        "plural_name": ""
       },
       "ginger beer": {
         "name": "ginger beer",
@@ -2287,7 +2287,7 @@
       },
       "red wine": {
         "name": "červené víno",
-        "plural_name": "red wines"
+        "plural_name": ""
       },
       "whisky": {
         "name": "whisky",
@@ -2303,7 +2303,7 @@
       },
       "beer": {
         "name": "pivo",
-        "plural_name": "beers"
+        "plural_name": ""
       },
       "orange liqueur": {
         "name": "orange liqueur",
@@ -2335,7 +2335,7 @@
       },
       "champagne": {
         "name": "šampaňské",
-        "plural_name": "champagnes"
+        "plural_name": ""
       },
       "vermouth": {
         "name": "vermouth",
@@ -2347,7 +2347,7 @@
       },
       "sake": {
         "name": "saké",
-        "plural_name": "sakes"
+        "plural_name": ""
       },
       "shaoxing wine": {
         "name": "shaoxing wine",
@@ -2364,11 +2364,11 @@
     "foods": {
       "coconut milk": {
         "name": "kokosové mléko",
-        "plural_name": "coconut milk"
+        "plural_name": ""
       },
       "almond milk": {
         "name": "mandlové mléko",
-        "plural_name": "almond milk"
+        "plural_name": ""
       },
       "tofu": {
         "name": "tofu",

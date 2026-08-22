@@ -1420,35 +1420,35 @@
     "foods": {
       "soy sauce": {
         "name": "Соєвий соус",
-        "plural_name": "soy sauce"
+        "plural_name": ""
       },
       "dijon mustard": {
         "name": "Діжонська гірчиця",
-        "plural_name": "dijon mustard"
+        "plural_name": ""
       },
       "hot sauce": {
         "name": "Гострий соус",
-        "plural_name": "hot sauce"
+        "plural_name": ""
       },
       "worcestershire sauce": {
         "name": "Ворчестерширський соус",
-        "plural_name": "worcestershire sauce"
+        "plural_name": ""
       },
       "ketchup": {
         "name": "Кетчуп",
-        "plural_name": "ketchup"
+        "plural_name": ""
       },
       "mustard": {
         "name": "Гірчиця",
-        "plural_name": "mustard"
+        "plural_name": ""
       },
       "fish sauce": {
         "name": "Рибний соус",
-        "plural_name": "fish sauce"
+        "plural_name": ""
       },
       "bbq sauce": {
         "name": "Соус BBQ барбекю",
-        "plural_name": "bbq sauce"
+        "plural_name": ""
       },
       "sriracha": {
         "name": "Шрірача",
@@ -1456,15 +1456,15 @@
       },
       "wholegrain mustard": {
         "name": "Зерниста гірчиця",
-        "plural_name": "wholegrain mustard"
+        "plural_name": ""
       },
       "oyster sauce": {
         "name": "Устричний соус",
-        "plural_name": "oyster sauce"
+        "plural_name": ""
       },
       "teriyaki sauce": {
         "name": "Соус теріякі",
-        "plural_name": "teriyaki sauce"
+        "plural_name": ""
       },
       "prepared horseradish": {
         "name": "Готовий хрін",
@@ -1472,7 +1472,7 @@
       },
       "cranberry sauce": {
         "name": "Журавлинний соус",
-        "plural_name": "cranberry sauce"
+        "plural_name": ""
       },
       "harissa": {
         "name": "Харісса",
@@ -1480,7 +1480,7 @@
       },
       "tamarind paste": {
         "name": "Тамариндова паста",
-        "plural_name": "tamarind paste"
+        "plural_name": ""
       },
       "gochujang": {
         "name": "Кочуджан",
@@ -1500,15 +1500,15 @@
       },
       "thai sweet chili sauce": {
         "name": "Тайський соус гостро-солодкий чилі",
-        "plural_name": "thai sweet chili sauce"
+        "plural_name": ""
       },
       "tartar sauce": {
         "name": "Соус тартар",
-        "plural_name": "tartar sauce"
+        "plural_name": ""
       },
       "ponzu": {
         "name": "Понзу",
-        "plural_name": "ponzu"
+        "plural_name": ""
       },
       "peanut butter": {
         "name": "peanut butter",
@@ -1584,39 +1584,39 @@
       },
       "mayonnaise": {
         "name": "Майонез",
-        "plural_name": "mayonnaise"
+        "plural_name": ""
       },
       "apple cider vinegar": {
         "name": "Яблучний оцет",
-        "plural_name": "apple cider vinegar"
+        "plural_name": ""
       },
       "balsamic vinegar": {
         "name": "Бальзамічний оцет",
-        "plural_name": "balsamic vinegar"
+        "plural_name": ""
       },
       "vinegar": {
         "name": "Оцет",
-        "plural_name": "vinegar"
+        "plural_name": ""
       },
       "red wine vinegar": {
         "name": "Червоний винний оцет",
-        "plural_name": "red wine vinegar"
+        "plural_name": ""
       },
       "rice wine vinegar": {
         "name": "Рисовий оцет",
-        "plural_name": "rice wine vinegar"
+        "plural_name": ""
       },
       "white wine vinegar": {
         "name": "Білий винний оцет",
-        "plural_name": "white wine vinegar"
+        "plural_name": ""
       },
       "ranch dressing": {
         "name": "Соус «Ранч»",
-        "plural_name": "ranch dressing"
+        "plural_name": ""
       },
       "distilled white vinegar": {
         "name": "Дистильований білий оцет",
-        "plural_name": "distilled white vinegar"
+        "plural_name": ""
       },
       "sweet chili sauce": {
         "name": "Соус солодкий чилі",
@@ -1624,11 +1624,11 @@
       },
       "caesar dressing": {
         "name": "Соус Цезар",
-        "plural_name": "caesar dressing"
+        "plural_name": ""
       },
       "agave nectar": {
         "name": "нектар агави",
-        "plural_name": "agave nectar"
+        "plural_name": ""
       },
       "honey": {
         "name": "honey",
@@ -1789,7 +1789,7 @@
       },
       "italian seasoning": {
         "name": "Італійська приправа",
-        "plural_name": "italian seasoning"
+        "plural_name": ""
       },
       "curry": {
         "name": "Каррі",
@@ -1805,15 +1805,15 @@
       },
       "mustard powder": {
         "name": "Порошок гірчиці",
-        "plural_name": "mustard powder"
+        "plural_name": ""
       },
       "taco seasoning": {
         "name": "приправа для тако",
-        "plural_name": "taco seasoning"
+        "plural_name": ""
       },
       "cajun seasoning": {
         "name": "каджунська приправа",
-        "plural_name": "cajun seasoning"
+        "plural_name": ""
       },
       "chinese five spice": {
         "name": "китайська приправа \"5 спецій\"",
@@ -1825,7 +1825,7 @@
       },
       "thai red curry paste": {
         "name": "Тайська паста з червоного каррі",
-        "plural_name": "thai red curry paste"
+        "plural_name": ""
       },
       "za'atar": {
         "name": "Затар",
@@ -1841,11 +1841,11 @@
       },
       "tom yum paste": {
         "name": "паста том ям",
-        "plural_name": "tom yum paste"
+        "plural_name": ""
       },
       "old bay seasoning": {
         "name": "приправа \"old bay\"",
-        "plural_name": "old bay seasoning"
+        "plural_name": ""
       },
       "liquid smoke": {
         "name": "рідкий дим",
@@ -1882,19 +1882,19 @@
       },
       "olive oil": {
         "name": "Оливкова олія",
-        "plural_name": "olive oil"
+        "plural_name": ""
       },
       "vegetable oil": {
         "name": "Рослинна олія",
-        "plural_name": "vegetable oil"
+        "plural_name": ""
       },
       "canola oil": {
         "name": "Рапсова олія",
-        "plural_name": "canola oil"
+        "plural_name": ""
       },
       "coconut oil": {
         "name": "Кокосова олія",
-        "plural_name": "coconut oil"
+        "plural_name": ""
       },
       "cooking spray": {
         "name": "Кулінарний спрей",
@@ -1902,15 +1902,15 @@
       },
       "sesame oil": {
         "name": "Кунжутна олія",
-        "plural_name": "sesame oil"
+        "plural_name": ""
       },
       "avocado oil": {
         "name": "Олія авокадо",
-        "plural_name": "avocado oil"
+        "plural_name": ""
       },
       "peanut oil": {
         "name": "Арахісова олія",
-        "plural_name": "peanut oil"
+        "plural_name": ""
       },
       "lard": {
         "name": "Смалець",
@@ -1918,11 +1918,11 @@
       },
       "chili oil": {
         "name": "Олія чилі",
-        "plural_name": "chili oil"
+        "plural_name": ""
       },
       "truffle oil": {
         "name": "Трюфельна олія",
-        "plural_name": "truffle oil"
+        "plural_name": ""
       },
       "duck fat": {
         "name": "Качиний жир",
@@ -1939,31 +1939,31 @@
     "foods": {
       "cocoa": {
         "name": "Какао",
-        "plural_name": "cocoa"
+        "plural_name": ""
       },
       "baking chocolate": {
         "name": "Кондитерський шоколад",
-        "plural_name": "baking chocolate"
+        "plural_name": ""
       },
       "sugar": {
         "name": "цукор",
-        "plural_name": "sugar"
+        "plural_name": ""
       },
       "brown sugar": {
         "name": "коричневий цукор",
-        "plural_name": "brown sugar"
+        "plural_name": ""
       },
       "confectioners sugar": {
         "name": "Цукор кондитерський",
-        "plural_name": "confectioners sugar"
+        "plural_name": ""
       },
       "maple syrup": {
         "name": "кленовий сироп",
-        "plural_name": "maple syrup"
+        "plural_name": ""
       },
       "corn syrup": {
         "name": "кукурудзяний сироп",
-        "plural_name": "corn syrup"
+        "plural_name": ""
       },
       "molasses": {
         "name": "molasses",
@@ -1971,23 +1971,23 @@
       },
       "stevia": {
         "name": "стевія",
-        "plural_name": "stevia"
+        "plural_name": ""
       },
       "jaggery": {
         "name": "Джаґґері",
-        "plural_name": "jaggery"
+        "plural_name": ""
       },
       "flour": {
         "name": "борошно",
-        "plural_name": "flour"
+        "plural_name": ""
       },
       "vanilla extract": {
         "name": "екстракт ванілі",
-        "plural_name": "vanilla extract"
+        "plural_name": ""
       },
       "baking powder": {
         "name": "розпушувач",
-        "plural_name": "baking powder"
+        "plural_name": ""
       },
       "baking soda": {
         "name": "харчова сода",
@@ -2007,15 +2007,15 @@
       },
       "whole-wheat flour": {
         "name": "Цільно-зернове борошно",
-        "plural_name": "whole-wheat flour"
+        "plural_name": ""
       },
       "almond flour": {
         "name": "Мигдалеве борошно",
-        "plural_name": "almond flour"
+        "plural_name": ""
       },
       "self-raising flour": {
         "name": "Борошно з розпушувачем",
-        "plural_name": "self-raising flour"
+        "plural_name": ""
       },
       "shredded coconut": {
         "name": "Кокосова стружка",
@@ -2031,7 +2031,7 @@
       },
       "cake flour": {
         "name": "Борошно для тортів",
-        "plural_name": "cake flour"
+        "plural_name": ""
       },
       "cream of tartar": {
         "name": "Винний камінь",
@@ -2039,7 +2039,7 @@
       },
       "bread flour": {
         "name": "Борошно для хліба",
-        "plural_name": "bread flour"
+        "plural_name": ""
       },
       "potato starch": {
         "name": "картопляний крохмаль",
@@ -2047,7 +2047,7 @@
       },
       "buckwheat flour": {
         "name": "Гречане борошоно",
-        "plural_name": "buckwheat flour"
+        "plural_name": ""
       },
       "masa harina": {
         "name": "Маса харіна",
@@ -2084,11 +2084,11 @@
     "foods": {
       "dark chocolate": {
         "name": "Чорний шоколад",
-        "plural_name": "dark chocolate"
+        "plural_name": ""
       },
       "chocolate": {
         "name": "Шоколад",
-        "plural_name": "chocolate"
+        "plural_name": ""
       },
       "marshmallow": {
         "name": "Маршмелоу",
@@ -2096,11 +2096,11 @@
       },
       "applesauce": {
         "name": "Яблучне пюре",
-        "plural_name": "applesauce"
+        "plural_name": ""
       },
       "white chocolate": {
         "name": "Білий шоколад",
-        "plural_name": "white chocolate"
+        "plural_name": ""
       },
       "chocolate hazelnut spread": {
         "name": "Шоколадно-фундучна намазка",
@@ -2108,7 +2108,7 @@
       },
       "caramel sauce": {
         "name": "Карамельний соус",
-        "plural_name": "caramel sauce"
+        "plural_name": ""
       },
       "marshmallow creme": {
         "name": "Зефірний крем",
@@ -2116,7 +2116,7 @@
       },
       "jam": {
         "name": "Джем",
-        "plural_name": "jam"
+        "plural_name": ""
       },
       "orange marmalade": {
         "name": "Помаранчевий мармелад",
@@ -2234,11 +2234,11 @@
     "foods": {
       "orange juice": {
         "name": "Апельсиновий сік",
-        "plural_name": "orange juice"
+        "plural_name": ""
       },
       "coffee": {
         "name": "Кава",
-        "plural_name": "coffee"
+        "plural_name": ""
       },
       "club soda": {
         "name": "Содова",
@@ -2250,11 +2250,11 @@
       },
       "pineapple juice": {
         "name": "Ананасовий сік",
-        "plural_name": "pineapple juice"
+        "plural_name": ""
       },
       "apple juice": {
         "name": "Яблучний сік",
-        "plural_name": "apple juice"
+        "plural_name": ""
       },
       "tea": {
         "name": "Чай",

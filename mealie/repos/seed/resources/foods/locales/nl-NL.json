@@ -296,7 +296,7 @@
       },
       "grapefruit": {
         "name": "pompelmoes",
-        "plural_name": "grapefruits"
+        "plural_name": ""
       },
       "plum": {
         "name": "pruim",
@@ -1793,7 +1793,7 @@
       },
       "curry": {
         "name": "kerrie",
-        "plural_name": "curries"
+        "plural_name": ""
       },
       "garam masala": {
         "name": "garam masala",

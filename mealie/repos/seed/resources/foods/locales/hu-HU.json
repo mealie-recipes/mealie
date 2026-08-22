@@ -682,7 +682,7 @@
       },
       "pork fillet": {
         "name": "szűzpecsenye",
-        "plural_name": "pork fillets"
+        "plural_name": ""
       },
       "pork shoulder": {
         "name": "pork shoulder",
@@ -1939,7 +1939,7 @@
     "foods": {
       "cocoa": {
         "name": "kakaópor",
-        "plural_name": "cocoa"
+        "plural_name": ""
       },
       "baking chocolate": {
         "name": "baking chocolate",
@@ -1983,7 +1983,7 @@
       },
       "vanilla extract": {
         "name": "vaníliaesszencia",
-        "plural_name": "vanilla extract"
+        "plural_name": ""
       },
       "baking powder": {
         "name": "baking powder",
@@ -2100,7 +2100,7 @@
       },
       "white chocolate": {
         "name": "fehér csoki",
-        "plural_name": "white chocolate"
+        "plural_name": ""
       },
       "chocolate hazelnut spread": {
         "name": "chocolate hazelnut spread",
@@ -2266,7 +2266,7 @@
       },
       "tomato juice": {
         "name": "paradicsomlé",
-        "plural_name": "tomato juice"
+        "plural_name": ""
       },
       "ginger beer": {
         "name": "ginger beer",
@@ -2307,7 +2307,7 @@
       },
       "orange liqueur": {
         "name": "narancslikőr",
-        "plural_name": "orange liqueurs"
+        "plural_name": ""
       },
       "tequila": {
         "name": "tequila",

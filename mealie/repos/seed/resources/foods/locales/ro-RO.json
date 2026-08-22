@@ -477,7 +477,7 @@
       },
       "jasmine rice": {
         "name": "orez jamin",
-        "plural_name": "jasmine rices"
+        "plural_name": ""
       },
       "polenta": {
         "name": "mămăligă",
@@ -529,7 +529,7 @@
       },
       "lentil": {
         "name": "linte",
-        "plural_name": "lentils"
+        "plural_name": ""
       },
       "pinto bean": {
         "name": "pinto bean",
@@ -698,7 +698,7 @@
       },
       "beef sirloin": {
         "name": "mușchi de vită",
-        "plural_name": "beef sirloins"
+        "plural_name": ""
       },
       "brisket": {
         "name": "piept de vită",
@@ -770,7 +770,7 @@
       },
       "duck": {
         "name": "rață",
-        "plural_name": "ducks"
+        "plural_name": ""
       },
       "chicken liver": {
         "name": "ficat de pui",
@@ -811,7 +811,7 @@
     "foods": {
       "bacon": {
         "name": "șuncă",
-        "plural_name": "bacon"
+        "plural_name": ""
       },
       "ham": {
         "name": "șuncă",
@@ -1085,7 +1085,7 @@
       },
       "ghee": {
         "name": "unt clarificat",
-        "plural_name": "ghee"
+        "plural_name": ""
       },
       "half and half": {
         "name": "smântână pentru cafea",
@@ -1097,7 +1097,7 @@
       },
       "kefir": {
         "name": "chefir",
-        "plural_name": "kefir"
+        "plural_name": ""
       },
       "provolone cheese": {
         "name": "brânză provolone",
@@ -2364,11 +2364,11 @@
     "foods": {
       "coconut milk": {
         "name": "lapte de cocos",
-        "plural_name": "coconut milk"
+        "plural_name": ""
       },
       "almond milk": {
         "name": "lapte de migdale",
-        "plural_name": "almond milk"
+        "plural_name": ""
       },
       "tofu": {
         "name": "tofu",
@@ -2376,7 +2376,7 @@
       },
       "coconut cream": {
         "name": "cremă de cocos",
-        "plural_name": "coconut cream"
+        "plural_name": ""
       },
       "soy milk": {
         "name": "lapte de soia",
@@ -2396,7 +2396,7 @@
       },
       "oat milk": {
         "name": "lapte de ovăz",
-        "plural_name": "oat milk"
+        "plural_name": ""
       },
       "seitan": {
         "name": "seitan",
@@ -2408,7 +2408,7 @@
       },
       "vegan cheese": {
         "name": "brânză vegană",
-        "plural_name": "vegan cheese"
+        "plural_name": ""
       }
     }
   },

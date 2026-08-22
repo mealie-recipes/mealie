@@ -1420,11 +1420,11 @@
     "foods": {
       "soy sauce": {
         "name": "sójová omáčka",
-        "plural_name": "soy sauce"
+        "plural_name": ""
       },
       "dijon mustard": {
         "name": "dijonská horčica",
-        "plural_name": "dijon mustard"
+        "plural_name": ""
       },
       "hot sauce": {
         "name": "hot sauce",
@@ -1436,11 +1436,11 @@
       },
       "ketchup": {
         "name": "kečup",
-        "plural_name": "ketchup"
+        "plural_name": ""
       },
       "mustard": {
         "name": "horčica",
-        "plural_name": "mustard"
+        "plural_name": ""
       },
       "fish sauce": {
         "name": "fish sauce",
@@ -1504,7 +1504,7 @@
       },
       "tartar sauce": {
         "name": "tatarská omáčka",
-        "plural_name": "tartar sauce"
+        "plural_name": ""
       },
       "ponzu": {
         "name": "ponzu",
@@ -1596,7 +1596,7 @@
       },
       "vinegar": {
         "name": "ocot",
-        "plural_name": "vinegar"
+        "plural_name": ""
       },
       "red wine vinegar": {
         "name": "red wine vinegar",
@@ -1653,11 +1653,11 @@
       },
       "thyme": {
         "name": "tymián",
-        "plural_name": "thyme"
+        "plural_name": ""
       },
       "garlic powder": {
         "name": "cesnakový prášok",
-        "plural_name": "garlic powder"
+        "plural_name": ""
       },
       "oregano": {
         "name": "oregano",
@@ -1705,7 +1705,7 @@
       },
       "ginger powder": {
         "name": "zázvorový prášok",
-        "plural_name": "ginger powder"
+        "plural_name": ""
       },
       "dill": {
         "name": "kôpor",
@@ -1882,11 +1882,11 @@
       },
       "olive oil": {
         "name": "olivový olej",
-        "plural_name": "olive oil"
+        "plural_name": ""
       },
       "vegetable oil": {
         "name": "rastlinný olej",
-        "plural_name": "vegetable oil"
+        "plural_name": ""
       },
       "canola oil": {
         "name": "canola oil",
@@ -1939,19 +1939,19 @@
     "foods": {
       "cocoa": {
         "name": "kakao",
-        "plural_name": "cocoa"
+        "plural_name": ""
       },
       "baking chocolate": {
         "name": "čokoláda na varenie",
-        "plural_name": "baking chocolate"
+        "plural_name": ""
       },
       "sugar": {
         "name": "cukor",
-        "plural_name": "sugar"
+        "plural_name": ""
       },
       "brown sugar": {
         "name": "hnedý cukor",
-        "plural_name": "brown sugar"
+        "plural_name": ""
       },
       "confectioners sugar": {
         "name": "confectioners sugar",
@@ -1959,7 +1959,7 @@
       },
       "maple syrup": {
         "name": "javorový sirup",
-        "plural_name": "maple syrup"
+        "plural_name": ""
       },
       "corn syrup": {
         "name": "corn syrup",
@@ -1983,11 +1983,11 @@
       },
       "vanilla extract": {
         "name": "vanilkový extrakt",
-        "plural_name": "vanilla extract"
+        "plural_name": ""
       },
       "baking powder": {
         "name": "prášok do pečiva",
-        "plural_name": "baking powder"
+        "plural_name": ""
       },
       "baking soda": {
         "name": "sóda bikarbóna",
@@ -2084,11 +2084,11 @@
     "foods": {
       "dark chocolate": {
         "name": "horká čokoláda",
-        "plural_name": "dark chocolate"
+        "plural_name": ""
       },
       "chocolate": {
         "name": "čokoláda",
-        "plural_name": "chocolate"
+        "plural_name": ""
       },
       "marshmallow": {
         "name": "marshmallow",
@@ -2100,7 +2100,7 @@
       },
       "white chocolate": {
         "name": "biela čokoláda",
-        "plural_name": "white chocolate"
+        "plural_name": ""
       },
       "chocolate hazelnut spread": {
         "name": "chocolate hazelnut spread",
@@ -2116,7 +2116,7 @@
       },
       "jam": {
         "name": "džem",
-        "plural_name": "jam"
+        "plural_name": ""
       },
       "orange marmalade": {
         "name": "orange marmalade",
@@ -2234,11 +2234,11 @@
     "foods": {
       "orange juice": {
         "name": "pomarančový džús",
-        "plural_name": "orange juice"
+        "plural_name": ""
       },
       "coffee": {
         "name": "káva",
-        "plural_name": "coffee"
+        "plural_name": ""
       },
       "club soda": {
         "name": "club soda",
@@ -2250,15 +2250,15 @@
       },
       "pineapple juice": {
         "name": "ananásový džús",
-        "plural_name": "pineapple juice"
+        "plural_name": ""
       },
       "apple juice": {
         "name": "jablkový džús",
-        "plural_name": "apple juice"
+        "plural_name": ""
       },
       "tea": {
         "name": "čaj",
-        "plural_name": "tea"
+        "plural_name": ""
       },
       "cranberry juice": {
         "name": "cranberry juice",
@@ -2266,7 +2266,7 @@
       },
       "tomato juice": {
         "name": "paradajkový džús",
-        "plural_name": "tomato juice"
+        "plural_name": ""
       },
       "ginger beer": {
         "name": "ginger beer",
@@ -2364,11 +2364,11 @@
     "foods": {
       "coconut milk": {
         "name": "kokosové mlieko",
-        "plural_name": "coconut milk"
+        "plural_name": ""
       },
       "almond milk": {
         "name": "mandľové mlieko",
-        "plural_name": "almond milk"
+        "plural_name": ""
       },
       "tofu": {
         "name": "tofu",
@@ -2376,11 +2376,11 @@
       },
       "coconut cream": {
         "name": "kokosové mlieko",
-        "plural_name": "coconut cream"
+        "plural_name": ""
       },
       "soy milk": {
         "name": "sójové mlieko",
-        "plural_name": "soy milk"
+        "plural_name": ""
       },
       "extra firm tofu": {
         "name": "extra firm tofu",
@@ -2396,7 +2396,7 @@
       },
       "oat milk": {
         "name": "ovsené mlieko",
-        "plural_name": "oat milk"
+        "plural_name": ""
       },
       "seitan": {
         "name": "seitan",
