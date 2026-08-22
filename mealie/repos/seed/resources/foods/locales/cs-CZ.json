@@ -36,7 +36,7 @@
       },
       "yellow onion": {
         "name": "žlutá cibule",
-        "plural_name": "cibule"
+        "plural_name": "žluté cibule"
       },
       "celery": {
         "name": "celer",
@@ -905,10 +905,6 @@
       "shrimp": {
         "name": "shrimp",
         "plural_name": ""
-      },
-      "prawn": {
-        "name": "prawn",
-        "plural_name": "prawns"
       },
       "crab": {
         "name": "crab",

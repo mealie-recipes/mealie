@@ -592,8 +592,8 @@
         "plural_name": ""
       },
       "noodle": {
-        "name": "spaghetto",
-        "plural_name": "spaghetti"
+        "name": "noodles",
+        "plural_name": ""
       },
       "tortellini": {
         "name": "tortellini",
@@ -903,10 +903,6 @@
         "plural_name": "Eglefini"
       },
       "shrimp": {
-        "name": "gamberetto",
-        "plural_name": "gamberetti"
-      },
-      "prawn": {
         "name": "gamberetto",
         "plural_name": "gamberetti"
       },

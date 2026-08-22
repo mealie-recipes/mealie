@@ -171,8 +171,8 @@
         "plural_name": "зелени домати"
       },
       "horseradish": {
-        "name": "репичка",
-        "plural_name": "репички"
+        "name": "хрян",
+        "plural_name": ""
       },
       "chard": {
         "name": "манголд",
@@ -906,17 +906,13 @@
         "name": "скариди",
         "plural_name": ""
       },
-      "prawn": {
-        "name": "скариди",
-        "plural_name": ""
-      },
       "crab": {
         "name": "раци",
         "plural_name": ""
       },
       "scallop": {
-        "name": "миди",
-        "plural_name": ""
+        "name": "морски гребен",
+        "plural_name": "морски гребени"
       },
       "mussel": {
         "name": "мида",
@@ -1428,7 +1424,7 @@
       },
       "hot sauce": {
         "name": "лютив сос",
-        "plural_name": "соев сос"
+        "plural_name": "лютиви сосове"
       },
       "worcestershire sauce": {
         "name": "сос Уорчестър",

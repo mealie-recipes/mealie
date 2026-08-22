@@ -104,7 +104,7 @@
       },
       "kale": {
         "name": "couve kale",
-        "plural_name": "couve"
+        "plural_name": ""
       },
       "arugula": {
         "name": "rúcula",
@@ -905,10 +905,6 @@
       "shrimp": {
         "name": "shrimp",
         "plural_name": ""
-      },
-      "prawn": {
-        "name": "prawn",
-        "plural_name": "prawns"
       },
       "crab": {
         "name": "crab",
