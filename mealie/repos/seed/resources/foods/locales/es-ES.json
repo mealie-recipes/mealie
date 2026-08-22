@@ -51,8 +51,8 @@
         "plural_name": "aguacates"
       },
       "shallot": {
-        "name": "cebolleta",
-        "plural_name": "cebolletas"
+        "name": "chalota",
+        "plural_name": "chalotas"
       },
       "cherry tomato": {
         "name": "tomate cherry",
@@ -905,10 +905,6 @@
       "shrimp": {
         "name": "camarón",
         "plural_name": "camarones"
-      },
-      "prawn": {
-        "name": "gamba",
-        "plural_name": "gambas"
       },
       "crab": {
         "name": "cangrejo",

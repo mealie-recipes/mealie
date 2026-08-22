@@ -104,7 +104,7 @@
       },
       "kale": {
         "name": "grønnkål",
-        "plural_name": "kål"
+        "plural_name": ""
       },
       "arugula": {
         "name": "ruccola",
@@ -905,10 +905,6 @@
       "shrimp": {
         "name": "reke",
         "plural_name": "reker"
-      },
-      "prawn": {
-        "name": "prawn",
-        "plural_name": "prawns"
       },
       "crab": {
         "name": "krabbe",

@@ -906,10 +906,6 @@
         "name": "räka",
         "plural_name": "räkor"
       },
-      "prawn": {
-        "name": "räka",
-        "plural_name": ""
-      },
       "crab": {
         "name": "krabba",
         "plural_name": "krabbor"
@@ -1057,7 +1053,7 @@
       },
       "heavy cream": {
         "name": "vispgrädde",
-        "plural_name": "grädde"
+        "plural_name": ""
       },
       "sour cream": {
         "name": "gräddfil",
@@ -1081,7 +1077,7 @@
       },
       "whipped cream": {
         "name": "vispad grädde",
-        "plural_name": "vispgrädde"
+        "plural_name": ""
       },
       "ghee": {
         "name": "ghee",

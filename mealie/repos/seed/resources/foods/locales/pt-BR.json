@@ -40,7 +40,7 @@
       },
       "celery": {
         "name": "salsão",
-        "plural_name": "aipo"
+        "plural_name": ""
       },
       "jalapeño": {
         "name": "jalapenho",
@@ -903,10 +903,6 @@
         "plural_name": ""
       },
       "shrimp": {
-        "name": "camarão",
-        "plural_name": "camarões"
-      },
-      "prawn": {
         "name": "camarão",
         "plural_name": "camarões"
       },

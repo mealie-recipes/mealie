@@ -68,7 +68,7 @@
       },
       "sweet corn": {
         "name": "tatlı mısır",
-        "plural_name": "süt mısır"
+        "plural_name": ""
       },
       "chile pepper": {
         "name": "acı biber",
@@ -905,10 +905,6 @@
       "shrimp": {
         "name": "shrimp",
         "plural_name": ""
-      },
-      "prawn": {
-        "name": "prawn",
-        "plural_name": "prawns"
       },
       "crab": {
         "name": "crab",

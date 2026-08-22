@@ -765,7 +765,7 @@
         "plural_name": "млевене кокошке"
       },
       "rotisserie chicken": {
-        "name": "ротиссерие цхицкен",
+        "name": "пиле за печење",
         "plural_name": "пилићи за печење"
       },
       "duck": {
@@ -777,7 +777,7 @@
         "plural_name": ""
       },
       "cornish hen": {
-        "name": "цорнисх хен",
+        "name": "корниш кокош",
         "plural_name": "корниш кокоши"
       },
       "veal": {
@@ -830,8 +830,8 @@
         "plural_name": ""
       },
       "chorizo": {
-        "name": "цхоризо",
-        "plural_name": "цхоризоес"
+        "name": "чоризо",
+        "plural_name": ""
       },
       "pancetta": {
         "name": "панцета",
@@ -905,10 +905,6 @@
       "shrimp": {
         "name": "шкампи",
         "plural_name": ""
-      },
-      "prawn": {
-        "name": "козица",
-        "plural_name": "козице"
       },
       "crab": {
         "name": "рак",
@@ -1129,8 +1125,8 @@
         "plural_name": "теста за пицу"
       },
       "phyllo": {
-        "name": "пхилло",
-        "plural_name": "пхиллоес"
+        "name": "фило тесто",
+        "plural_name": ""
       },
       "dumpling wrapper": {
         "name": "омот за кнедле",
@@ -1181,8 +1177,8 @@
         "plural_name": "енглески муффинс"
       },
       "brioche": {
-        "name": "бриоцхе",
-        "plural_name": "бриоцхес"
+        "name": "бриош",
+        "plural_name": ""
       },
       "rye bread": {
         "name": "ражени хлеб",
@@ -1193,7 +1189,7 @@
         "plural_name": "наанс"
       },
       "taco shell": {
-        "name": "тацо схелл",
+        "name": "тако љуска",
         "plural_name": "тако љуске"
       },
       "bagel": {
@@ -1209,8 +1205,8 @@
         "plural_name": "хавајске ролнице"
       },
       "challah": {
-        "name": "цхаллах",
-        "plural_name": "цхаллахс"
+        "name": "хала",
+        "plural_name": ""
       },
       "bao bun": {
         "name": "бао бун",
@@ -1262,7 +1258,7 @@
         "plural_name": "кисели краставци"
       },
       "chipotle in adobo": {
-        "name": "цхипотле ин адобо",
+        "name": "чипотле у адобо сосу",
         "plural_name": ""
       },
       "canned anchovy": {
@@ -1318,8 +1314,8 @@
         "plural_name": ""
       },
       "kimchi": {
-        "name": "кимцхи",
-        "plural_name": "кимцхис"
+        "name": "кимчи",
+        "plural_name": ""
       },
       "baked bean": {
         "name": "печени пасуљ",
@@ -1390,8 +1386,8 @@
         "plural_name": ""
       },
       "dashi": {
-        "name": "дасхи",
-        "plural_name": "дасхис"
+        "name": "даши",
+        "plural_name": ""
       },
       "olive": {
         "name": "olive",
@@ -1483,8 +1479,8 @@
         "plural_name": ""
       },
       "gochujang": {
-        "name": "гоцхујанг",
-        "plural_name": "гоцхујангс"
+        "name": "гочуџанг",
+        "plural_name": ""
       },
       "wasabi": {
         "name": "васаби",
@@ -1551,7 +1547,7 @@
         "plural_name": ""
       },
       "enchilada sauce": {
-        "name": "енцхилада сос",
+        "name": "сос за енчиладе",
         "plural_name": ""
       },
       "salsa verde": {
@@ -1816,8 +1812,8 @@
         "plural_name": "кинеских пет зачина"
       },
       "chaat masala": {
-        "name": "цхаат масала",
-        "plural_name": "цхаат масалас"
+        "name": "чат масала",
+        "plural_name": ""
       },
       "thai red curry paste": {
         "name": "тајландска црвена кари паста",
@@ -2087,8 +2083,8 @@
         "plural_name": ""
       },
       "marshmallow": {
-        "name": "марсхмаллов",
-        "plural_name": "марсхмалловс"
+        "name": "маршмелоу",
+        "plural_name": ""
       },
       "applesauce": {
         "name": "сос од јабуке",
@@ -2139,7 +2135,7 @@
         "plural_name": "лимун цурдс"
       },
       "dulce de leche": {
-        "name": "дулце де лецхе",
+        "name": "дулсе де лече",
         "plural_name": ""
       }
     }
@@ -2346,8 +2342,8 @@
         "plural_name": "сакес"
       },
       "shaoxing wine": {
-        "name": "схаокинг вине",
-        "plural_name": "схаокинг вина"
+        "name": "шаоксинг вино",
+        "plural_name": ""
       },
       "wine": {
         "name": "wine",
