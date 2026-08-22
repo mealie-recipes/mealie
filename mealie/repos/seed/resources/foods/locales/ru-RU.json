@@ -2246,7 +2246,7 @@
       },
       "espresso": {
         "name": "эспрессо",
-        "plural_name": "espressos"
+        "plural_name": ""
       },
       "pineapple juice": {
         "name": "ананасовый сок",
@@ -2331,7 +2331,7 @@
       },
       "coffee liqueur": {
         "name": "кофейный ликёр",
-        "plural_name": "coffee liqueurs"
+        "plural_name": ""
       },
       "champagne": {
         "name": "champagne",

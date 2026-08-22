@@ -316,7 +316,7 @@
       },
       "cantaloupe": {
         "name": "meló cantalup",
-        "plural_name": "cantaloupes"
+        "plural_name": ""
       },
       "tamarind": {
         "name": "tamarind",
@@ -670,7 +670,7 @@
       },
       "beef roast": {
         "name": "rostit de vedella",
-        "plural_name": "beef roasts"
+        "plural_name": ""
       },
       "ground pork": {
         "name": "ground pork",
@@ -678,7 +678,7 @@
       },
       "beef stew meat": {
         "name": "estofat de carn de vedella",
-        "plural_name": "beef stew meats"
+        "plural_name": ""
       },
       "pork fillet": {
         "name": "filet de porc",
@@ -698,7 +698,7 @@
       },
       "beef sirloin": {
         "name": "rellom de vedella",
-        "plural_name": "beef sirloins"
+        "plural_name": ""
       },
       "brisket": {
         "name": "brisket",
@@ -2144,7 +2144,7 @@
       },
       "dulce de leche": {
         "name": "dolç de llet",
-        "plural_name": "dulce de leche"
+        "plural_name": ""
       }
     }
   },

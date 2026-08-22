@@ -376,7 +376,7 @@
       },
       "cherry": {
         "name": "cereja",
-        "plural_name": "cherries"
+        "plural_name": ""
       },
       "blackberry": {
         "name": "blackberry",
@@ -961,7 +961,7 @@
     "foods": {
       "parmesan cheese": {
         "name": "queijo parmesão",
-        "plural_name": "parmesan cheese"
+        "plural_name": ""
       },
       "cheddar cheese": {
         "name": "queijo cheddar",
@@ -2153,7 +2153,7 @@
     "foods": {
       "walnut": {
         "name": "noz",
-        "plural_name": "walnuts"
+        "plural_name": ""
       },
       "pecan": {
         "name": "pecan",

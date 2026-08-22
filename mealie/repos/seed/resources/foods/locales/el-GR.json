@@ -1797,7 +1797,7 @@
       },
       "garam masala": {
         "name": "γκαράμ μασάλα",
-        "plural_name": "garam masalas"
+        "plural_name": ""
       },
       "pumpkin pie spice": {
         "name": "pumpkin pie spice",
@@ -1882,7 +1882,7 @@
       },
       "olive oil": {
         "name": "ελαιόλαδο",
-        "plural_name": "olive oil"
+        "plural_name": ""
       },
       "vegetable oil": {
         "name": "vegetable oil",
@@ -1979,15 +1979,15 @@
       },
       "flour": {
         "name": "αλεύρι",
-        "plural_name": "flour"
+        "plural_name": ""
       },
       "vanilla extract": {
         "name": "εκχύλισμα βανίλιας",
-        "plural_name": "vanilla extract"
+        "plural_name": ""
       },
       "baking powder": {
         "name": "μπέικιν πάουντερ",
-        "plural_name": "baking powder"
+        "plural_name": ""
       },
       "baking soda": {
         "name": "μαγειρική σόδα",

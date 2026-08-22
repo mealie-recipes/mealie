@@ -1061,7 +1061,7 @@
       },
       "sour cream": {
         "name": "бита сметана",
-        "plural_name": "sour cream"
+        "plural_name": ""
       },
       "buttermilk": {
         "name": "buttermilk",
@@ -1093,7 +1093,7 @@
       },
       "sweetened condensed milk": {
         "name": "подсладено кондензирано мляко",
-        "plural_name": "sweetened condensed milk"
+        "plural_name": ""
       },
       "kefir": {
         "name": "кефир",
@@ -1701,7 +1701,7 @@
       },
       "onion powder": {
         "name": "лук на прах",
-        "plural_name": "onion powder"
+        "plural_name": ""
       },
       "ginger powder": {
         "name": "джинджифил на прах",
@@ -1902,7 +1902,7 @@
       },
       "sesame oil": {
         "name": "сусамово олио",
-        "plural_name": "sesame oil"
+        "plural_name": ""
       },
       "avocado oil": {
         "name": "avocado oil",

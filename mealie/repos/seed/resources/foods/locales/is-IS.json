@@ -4,7 +4,7 @@
     "foods": {
       "garlic": {
         "name": "hvítlaukur",
-        "plural_name": "garlic"
+        "plural_name": ""
       },
       "onion": {
         "name": "laukur",
@@ -40,7 +40,7 @@
       },
       "celery": {
         "name": "sellerí",
-        "plural_name": "celery"
+        "plural_name": ""
       },
       "jalapeño": {
         "name": "jalapeño",
@@ -64,11 +64,11 @@
       },
       "spinach": {
         "name": "spínat",
-        "plural_name": "spinach"
+        "plural_name": ""
       },
       "sweet corn": {
         "name": "maís",
-        "plural_name": "sweet corn"
+        "plural_name": ""
       },
       "chile pepper": {
         "name": "chili pipar",
@@ -92,7 +92,7 @@
       },
       "cauliflower": {
         "name": "blómkál",
-        "plural_name": "cauliflower"
+        "plural_name": ""
       },
       "cabbage": {
         "name": "hvítkál",
@@ -104,11 +104,11 @@
       },
       "kale": {
         "name": "grænkál",
-        "plural_name": "kale"
+        "plural_name": ""
       },
       "arugula": {
         "name": "klettasalat",
-        "plural_name": "arugula"
+        "plural_name": ""
       },
       "leek": {
         "name": "blaðlaukur",
@@ -120,7 +120,7 @@
       },
       "lettuce": {
         "name": "salat",
-        "plural_name": "lettuce"
+        "plural_name": ""
       },
       "butternut squash": {
         "name": "grasker",
@@ -176,7 +176,7 @@
       },
       "chard": {
         "name": "blaðbeðja",
-        "plural_name": "chard"
+        "plural_name": ""
       },
       "spaghetti squash": {
         "name": "spaghetti grasker",
@@ -388,7 +388,7 @@
       },
       "cilantro": {
         "name": "kóríander",
-        "plural_name": "cilantro"
+        "plural_name": ""
       },
       "basil": {
         "name": "basilíka",
@@ -1584,31 +1584,31 @@
       },
       "mayonnaise": {
         "name": "majónes",
-        "plural_name": "mayonnaise"
+        "plural_name": ""
       },
       "apple cider vinegar": {
         "name": "eplaedik",
-        "plural_name": "apple cider vinegar"
+        "plural_name": ""
       },
       "balsamic vinegar": {
         "name": "balsamik edik",
-        "plural_name": "balsamic vinegar"
+        "plural_name": ""
       },
       "vinegar": {
         "name": "edik",
-        "plural_name": "vinegar"
+        "plural_name": ""
       },
       "red wine vinegar": {
         "name": "rauðvínsedik",
-        "plural_name": "red wine vinegar"
+        "plural_name": ""
       },
       "rice wine vinegar": {
         "name": "hrísgrjónaedik",
-        "plural_name": "rice wine vinegar"
+        "plural_name": ""
       },
       "white wine vinegar": {
         "name": "hvítvínsedik",
-        "plural_name": "white wine vinegar"
+        "plural_name": ""
       },
       "ranch dressing": {
         "name": "ranch dressing",
@@ -1616,7 +1616,7 @@
       },
       "distilled white vinegar": {
         "name": "hvítt edik",
-        "plural_name": "distilled white vinegar"
+        "plural_name": ""
       },
       "sweet chili sauce": {
         "name": "sweet chili sósa",
@@ -1624,7 +1624,7 @@
       },
       "caesar dressing": {
         "name": "sesar dressing",
-        "plural_name": "caesar dressing"
+        "plural_name": ""
       },
       "agave nectar": {
         "name": "agave nectar",
@@ -1641,11 +1641,11 @@
     "foods": {
       "cayenne pepper": {
         "name": "cayenne pipar",
-        "plural_name": "cayenne pepper"
+        "plural_name": ""
       },
       "cinnamon": {
         "name": "kanill",
-        "plural_name": "cinnamon"
+        "plural_name": ""
       },
       "cumin": {
         "name": "kúmín",
@@ -1653,11 +1653,11 @@
       },
       "thyme": {
         "name": "timjan",
-        "plural_name": "thyme"
+        "plural_name": ""
       },
       "garlic powder": {
         "name": "hvítlauksduft",
-        "plural_name": "garlic powder"
+        "plural_name": ""
       },
       "oregano": {
         "name": "oregano",
@@ -1673,7 +1673,7 @@
       },
       "chili powder": {
         "name": "chilíduft",
-        "plural_name": "chili powder"
+        "plural_name": ""
       },
       "paprika": {
         "name": "paprika",
@@ -1701,11 +1701,11 @@
       },
       "onion powder": {
         "name": "laukduft",
-        "plural_name": "onion powder"
+        "plural_name": ""
       },
       "ginger powder": {
         "name": "engiferduft",
-        "plural_name": "ginger powder"
+        "plural_name": ""
       },
       "dill": {
         "name": "dill",
@@ -1717,7 +1717,7 @@
       },
       "smoked paprika": {
         "name": "reykt paprika",
-        "plural_name": "smoked paprika"
+        "plural_name": ""
       },
       "sage": {
         "name": "salvía",
@@ -1741,7 +1741,7 @@
       },
       "white pepper": {
         "name": "hvítur pipar",
-        "plural_name": "white pepper"
+        "plural_name": ""
       },
       "curry leaf": {
         "name": "karrílauf",
@@ -2071,7 +2071,7 @@
       },
       "orange extract": {
         "name": "appelsínu þykkni",
-        "plural_name": "orange extract"
+        "plural_name": ""
       },
       "sprinkles": {
         "name": "sprinkles",
@@ -2096,7 +2096,7 @@
       },
       "applesauce": {
         "name": "eplasósa",
-        "plural_name": "applesauce"
+        "plural_name": ""
       },
       "white chocolate": {
         "name": "white chocolate",
@@ -2234,7 +2234,7 @@
     "foods": {
       "orange juice": {
         "name": "appelsínusafi",
-        "plural_name": "orange juice"
+        "plural_name": ""
       },
       "coffee": {
         "name": "coffee",
@@ -2250,11 +2250,11 @@
       },
       "pineapple juice": {
         "name": "ananassafi",
-        "plural_name": "pineapple juice"
+        "plural_name": ""
       },
       "apple juice": {
         "name": "eplasafi",
-        "plural_name": "apple juice"
+        "plural_name": ""
       },
       "tea": {
         "name": "tea",

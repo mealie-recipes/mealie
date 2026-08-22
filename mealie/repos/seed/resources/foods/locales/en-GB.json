@@ -179,12 +179,12 @@
         "plural_name": ""
       },
       "spaghetti squash": {
-        "name": "pimientos",
+        "name": "spaghetti squash",
         "plural_name": "spaghetti squashes"
       },
       "napa cabbage": {
         "name": "chinese leaves",
-        "plural_name": "napa cabbages"
+        "plural_name": ""
       },
       "celeriac": {
         "name": "celeriac",
@@ -654,7 +654,7 @@
     "foods": {
       "ground beef": {
         "name": "minced beef",
-        "plural_name": "ground beefs"
+        "plural_name": ""
       },
       "beef steak": {
         "name": "beef steak",
@@ -674,7 +674,7 @@
       },
       "ground pork": {
         "name": "minced pork",
-        "plural_name": "ground porks"
+        "plural_name": ""
       },
       "beef stew meat": {
         "name": "beef stew meat",
@@ -690,7 +690,7 @@
       },
       "ground lamb": {
         "name": "minced lamb",
-        "plural_name": "ground lambs"
+        "plural_name": ""
       },
       "pork rib": {
         "name": "pork rib",
@@ -738,7 +738,7 @@
       },
       "ground turkey": {
         "name": "minced turkey",
-        "plural_name": "ground turkeys"
+        "plural_name": ""
       },
       "whole chicken": {
         "name": "whole chicken",
@@ -762,7 +762,7 @@
       },
       "ground chicken": {
         "name": "minced chicken",
-        "plural_name": "ground chickens"
+        "plural_name": ""
       },
       "rotisserie chicken": {
         "name": "rotisserie chicken",
@@ -1991,7 +1991,7 @@
       },
       "baking soda": {
         "name": "bicarbonate of soda",
-        "plural_name": "baking sodas"
+        "plural_name": ""
       },
       "cornstarch": {
         "name": "cornstarch",
@@ -2063,7 +2063,7 @@
       },
       "food coloring": {
         "name": "food colouring",
-        "plural_name": "food colorings"
+        "plural_name": ""
       },
       "peppermint extract": {
         "name": "peppermint extract",

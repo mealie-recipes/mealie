@@ -1319,7 +1319,7 @@
       },
       "kimchi": {
         "name": "Canned Food",
-        "plural_name": "kimchis"
+        "plural_name": ""
       },
       "baked bean": {
         "name": "feijão com carne de lata",
@@ -2384,7 +2384,7 @@
       },
       "extra firm tofu": {
         "name": "tôfu firme",
-        "plural_name": "extra firm tofus"
+        "plural_name": ""
       },
       "silken tofu": {
         "name": "silken tofu",

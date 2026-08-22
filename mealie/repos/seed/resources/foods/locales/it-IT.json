@@ -264,7 +264,7 @@
       },
       "date": {
         "name": "data",
-        "plural_name": "date"
+        "plural_name": ""
       },
       "coconut": {
         "name": "cocco",
@@ -1456,7 +1456,7 @@
       },
       "wholegrain mustard": {
         "name": "senape integrale",
-        "plural_name": "wholegrain mustard"
+        "plural_name": ""
       },
       "oyster sauce": {
         "name": "salsa di ostriche",
@@ -1504,7 +1504,7 @@
       },
       "tartar sauce": {
         "name": "salsa tartara",
-        "plural_name": "tartar sauce"
+        "plural_name": ""
       },
       "ponzu": {
         "name": "ponzu",
@@ -2234,7 +2234,7 @@
     "foods": {
       "orange juice": {
         "name": "succo d'arancia",
-        "plural_name": "orange juice"
+        "plural_name": ""
       },
       "coffee": {
         "name": "caffè",
@@ -2262,7 +2262,7 @@
       },
       "cranberry juice": {
         "name": "succo di mirtillo",
-        "plural_name": "cranberry juice"
+        "plural_name": ""
       },
       "tomato juice": {
         "name": "succo di pomodoro",

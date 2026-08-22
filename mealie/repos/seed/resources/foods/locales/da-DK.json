@@ -1029,11 +1029,11 @@
       },
       "fontina cheese": {
         "name": "fontina",
-        "plural_name": "queso fresco"
+        "plural_name": ""
       },
       "queso fresco cheese": {
         "name": "queso fresco",
-        "plural_name": "fontina"
+        "plural_name": ""
       },
       "halloumi cheese": {
         "name": "halloumi",
@@ -1286,7 +1286,7 @@
         "plural_name": "dåse-kidneybønner"
       },
       "refried bean": {
-        "name": "refried beans",
+        "name": "refried bean",
         "plural_name": ""
       },
       "canned whole tomato": {
