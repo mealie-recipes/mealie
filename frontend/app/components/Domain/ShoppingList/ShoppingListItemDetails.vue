@@ -18,7 +18,7 @@
       :icon="$globals.icons.units"
       :menu-props="{ location: menuDirection }"
       style="flex: 3"
-      create
+      :create="canOrganize"
       @create="createAssignUnit"
     />
   </div>
@@ -76,6 +76,7 @@ defineProps({
 const emit = defineEmits<{ (e: "save"): void }>();
 
 const { assignLabelToFood, createAssignUnit } = useShoppingListItemEditor(listItem);
+const canOrganize = useCanOrganize();
 
 const { smAndDown } = useDisplay();
 const menuDirection = computed(() => smAndDown.value ? "top" : "bottom");

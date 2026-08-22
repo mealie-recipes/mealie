@@ -83,12 +83,18 @@
             </v-tooltip>
           </template>
           <template #no-data>
-            <div class="caption text-center pb-2">
+            <div
+              v-if="canOrganize"
+              class="caption text-center pb-2"
+            >
               {{ $t("recipe.press-enter-to-create") }}
             </div>
           </template>
           <template #append-item>
-            <div v-if="showCreateUnit" class="px-2">
+            <div
+              v-if="showCreateUnit"
+              class="px-2"
+            >
               <BaseButton
                 block
                 size="small"
@@ -142,12 +148,18 @@
             </v-tooltip>
           </template>
           <template #no-data>
-            <div class="caption text-center pb-2">
+            <div
+              v-if="canOrganize"
+              class="caption text-center pb-2"
+            >
               {{ $t("recipe.press-enter-to-create") }}
             </div>
           </template>
           <template #append-item>
-            <div v-if="showCreateFood" class="px-2">
+            <div
+              v-if="showCreateFood"
+              class="px-2"
+            >
               <BaseButton
                 block
                 size="small"
@@ -234,6 +246,7 @@ import { useNuxtApp } from "#app";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
+import { alert } from "~/composables/use-toast";
 
 // defineModel replaces modelValue prop
 const model = defineModel<RecipeIngredient>({ required: true });
@@ -287,6 +300,7 @@ defineEmits([
 const { mdAndUp } = useDisplay();
 const i18n = useI18n();
 const { $globals } = useNuxtApp();
+const canOrganize = useCanOrganize();
 
 const state = reactive({
   showTitle: false,
@@ -345,13 +359,17 @@ const foodAutocomplete = ref<HTMLInputElement>();
 const { search: foodSearch, filtered: filteredFoods } = useSearch(foodStore.store);
 
 const showCreateFood = computed(() =>
-  !!foodSearch.value
+  canOrganize.value
+  && !!foodSearch.value
   && !filteredFoods.value.some((f: any) => (f.name ?? "").toLowerCase() === foodSearch.value.toLowerCase()),
 );
 
 async function createAssignFood() {
   foodData.data.name = foodSearch.value;
   model.value.food = await foodStore.actions.createOne(foodData.data) || undefined;
+  if (!model.value.food) {
+    alert.error(i18n.t("recipe.failed-to-create-organizer", { item: i18n.t("shopping-list.food").toLowerCase() }));
+  }
   foodData.reset();
   foodAutocomplete.value?.blur();
 }
@@ -382,13 +400,17 @@ const unitAutocomplete = ref<HTMLInputElement>();
 const { search: unitSearch, filtered: filteredUnits } = useSearch(unitStore.store);
 
 const showCreateUnit = computed(() =>
-  !!unitSearch.value
+  canOrganize.value
+  && !!unitSearch.value
   && !filteredUnits.value.some((u: any) => (u.name ?? "").toLowerCase() === unitSearch.value.toLowerCase()),
 );
 
 async function createAssignUnit() {
   unitsData.data.name = unitSearch.value;
   model.value.unit = await unitStore.actions.createOne(unitsData.data) || undefined;
+  if (!model.value.unit) {
+    alert.error(i18n.t("recipe.failed-to-create-organizer", { item: i18n.t("recipe.unit").toLowerCase() }));
+  }
   unitsData.reset();
   unitAutocomplete.value?.blur();
 }
@@ -412,6 +434,9 @@ function toggleIsRecipe() {
 }
 
 function handleUnitEnter() {
+  if (!canOrganize.value) {
+    return;
+  }
   if (
     model.value.unit === undefined
     || model.value.unit === null
@@ -422,6 +447,9 @@ function handleUnitEnter() {
 }
 
 function handleFoodEnter() {
+  if (!canOrganize.value) {
+    return;
+  }
   if (
     model.value.food === undefined
     || model.value.food === null

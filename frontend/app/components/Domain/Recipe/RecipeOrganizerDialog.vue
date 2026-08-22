@@ -32,6 +32,7 @@
 import { useUserApi } from "~/composables/api";
 import { useCategoryStore, useTagStore, useToolStore } from "~/composables/store";
 import { type RecipeOrganizer, Organizer } from "~/lib/api/types/non-generated";
+import { alert } from "~/composables/use-toast";
 
 const { $globals } = useNuxtApp();
 
@@ -109,10 +110,25 @@ const rules = {
   required: (val: string) => !!val || (i18n.t("general.a-name-is-required") as string),
 };
 
+const singularTranslationKey = computed(() => {
+  switch (props.itemType) {
+    case Organizer.Tag:
+      return "tag.tag";
+    case Organizer.Tool:
+      return "tool.tool";
+    default:
+      return "category.category";
+  }
+});
+
 async function select() {
   if (store) {
     // @ts-expect-error the same state is used for different organizer types, which have different requirements
     const newItem = await store.actions.createOne({ name: name.value, onHand: onHand.value });
+    if (!newItem) {
+      alert.error(i18n.t("recipe.failed-to-create-organizer", { item: i18n.t(singularTranslationKey.value).toLowerCase() }));
+      return;
+    }
     emit(CREATED_ITEM_EVENT, newItem);
   }
   dialog.value = false;

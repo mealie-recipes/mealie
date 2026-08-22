@@ -13,7 +13,7 @@
     multiple
     :variant="variant"
     :prepend-inner-icon="icon"
-    :append-icon="showAdd ? $globals.icons.create : undefined"
+    :append-icon="effectiveShowAdd ? $globals.icons.create : undefined"
     return-object
     auto-select-first
     class="pa-0 ma-0"
@@ -34,7 +34,7 @@
       />
     </template>
     <template
-      v-if="showAdd"
+      v-if="effectiveShowAdd"
       #no-data
     >
       <div class="caption text-center pb-2">
@@ -42,7 +42,7 @@
       </div>
     </template>
     <template
-      v-if="showAdd && searchInput"
+      v-if="effectiveShowAdd && searchInput"
       #append-item
     >
       <div class="px-2">
@@ -54,7 +54,7 @@
       </div>
     </template>
     <template
-      v-if="showAdd"
+      v-if="effectiveShowAdd"
       #append
     >
       <RecipeOrganizerDialog
@@ -73,6 +73,7 @@ import type { HouseholdSummary } from "~/lib/api/types/household";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
 import { useUserStore } from "~/composables/store/use-user-store";
 import { normalizeFilter } from "~/composables/use-utils";
+import { alert } from "~/composables/use-toast";
 import type { UserSummary } from "~/lib/api/types/user";
 
 interface Props {
@@ -109,6 +110,10 @@ onMounted(() => {
 
 const i18n = useI18n();
 const { $globals } = useNuxtApp();
+const canOrganize = useCanOrganize();
+
+// Inline creation of organizers requires the organize permission on the backend
+const effectiveShowAdd = computed(() => props.showAdd && canOrganize.value);
 
 const label = computed(() => {
   if (!props.showLabel) {
@@ -162,6 +167,21 @@ const itemTitle = computed(() =>
     : "name",
 );
 
+const singularTranslationKey = computed(() => {
+  switch (props.selectorType) {
+    case Organizer.Tag:
+      return "tag.tag";
+    case Organizer.Category:
+      return "category.category";
+    case Organizer.Tool:
+      return "tool.tool";
+    case Organizer.Food:
+      return "shopping-list.food";
+    default:
+      return "general.organizer";
+  }
+});
+
 // ===========================================================================
 // Store & Items Setup
 
@@ -202,7 +222,7 @@ function appendCreated(item: any) {
 }
 
 function handleEnter() {
-  if (!searchInput.value) {
+  if (!effectiveShowAdd.value || !searchInput.value) {
     return;
   }
   const exactMatch = items.value.some(
@@ -221,7 +241,10 @@ async function createItem() {
   const actions = storeMap[props.selectorType].actions;
   // @ts-expect-error different organizer types have different required fields
   const newItem = await actions.createOne({ name: searchInput.value });
-  if (newItem) {
+  if (!newItem) {
+    alert.error(i18n.t("recipe.failed-to-create-organizer", { item: i18n.t(singularTranslationKey.value).toLowerCase() }));
+  }
+  else {
     appendCreated(newItem);
   }
   searchInput.value = "";

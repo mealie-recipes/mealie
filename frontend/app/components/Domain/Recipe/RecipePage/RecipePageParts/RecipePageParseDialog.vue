@@ -69,7 +69,7 @@
             <v-card-actions>
               <v-spacer />
               <BaseButton
-                v-if="currentMissingUnit && !currentIng.ingredient.unit?.id"
+                v-if="currentMissingUnit && !currentIng.ingredient.unit?.id && canOrganize"
                 color="warning"
                 size="small"
                 @click="createMissingUnit"
@@ -89,7 +89,7 @@
                 {{ i18n.t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingUnit, item: currentIng.ingredient.unit.name }) }}
               </BaseButton>
               <BaseButton
-                v-if="currentMissingFood && !currentIng.ingredient.food?.id"
+                v-if="currentMissingFood && !currentIng.ingredient.food?.id && canOrganize"
                 color="warning"
                 size="small"
                 @click="createMissingFood"
@@ -219,6 +219,7 @@ const emit = defineEmits<{
 const { group } = useGroupSelf();
 const i18n = useGlobalI18n();
 const api = useUserApi();
+const canOrganize = useCanOrganize();
 const drag = ref(false);
 
 const unitStore = useUnitStore();

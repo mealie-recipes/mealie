@@ -22,7 +22,7 @@
             :style="rail ? 'margin-inline: 3px;' : undefined"
             :search="rail"
             :menu-props="{ location: menuDirection }"
-            create
+            :create="canOrganize"
             @create="createAssignFood"
           />
           <!-- Intercept clicks when collapsed so the drawer expands before the autocomplete opens -->
@@ -93,6 +93,7 @@ defineEmits<{
 }>();
 
 const { createAssignFood } = useShoppingListItemEditor(listItem);
+const canOrganize = useCanOrganize();
 
 const { smAndDown } = useDisplay();
 const menuDirection = computed(() => smAndDown.value ? "top" : "bottom");

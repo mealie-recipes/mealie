@@ -73,6 +73,7 @@
       </v-toolbar-title>
       <v-spacer />
       <BaseButton
+        v-if="canOrganize"
         create
         @click="dialogs.organizer = true"
       />
@@ -110,6 +111,7 @@
                 {{ item.name }}
               </v-card-title>
               <ContextMenu
+                v-if="canOrganize"
                 :items="[presets.delete, presets.edit]"
                 @delete="confirmDelete(item)"
                 @edit="openUpdateDialog(item)"
@@ -166,6 +168,7 @@ const state = reactive({
 const auth = useMealieAuth();
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || auth.user?.value?.groupSlug || "");
+const canOrganize = useCanOrganize();
 
 // =================================================================
 // Context Menu

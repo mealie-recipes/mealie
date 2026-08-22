@@ -87,7 +87,7 @@ const itemVal = computed({
 });
 
 function emitCreate() {
-  if (props.items.some(item => item.name === searchInput.value)) {
+  if (!props.create || props.items.some(item => item.name === searchInput.value)) {
     return;
   }
   emit("create", searchInput.value);

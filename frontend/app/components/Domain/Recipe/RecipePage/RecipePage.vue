@@ -238,12 +238,15 @@ import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useNavigationWarning } from "~/composables/use-navigation-warning";
+import { alert } from "~/composables/use-toast";
+import { useI18n } from "vue-i18n";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 
 const display = useDisplay();
 const auth = useMealieAuth();
 const route = useRoute();
+const i18n = useI18n();
 const { isOwnGroup } = useLoggedInState();
 
 const groupSlug = computed(() => (route.params.groupSlug as string) || auth.user?.value?.groupSlug || "");
@@ -405,6 +408,10 @@ async function saveRecipe() {
       isNavigatingAfterRename.value = true;
     }
     setMode(PageMode.VIEW);
+  }
+  else {
+    console.error("Failed to save recipe:", error);
+    alert.error(i18n.t("recipe.failed-to-update-recipe"));
   }
   if (data?.slug) {
     recipe.value = data as NoUndefinedField<Recipe>;
