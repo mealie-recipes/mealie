@@ -214,7 +214,7 @@ def generate_typescript_types() -> None:  # noqa: C901
 
     # Run ESLint --fix on the files to clean up any formatting issues
     subprocess.run(
-        ["yarn", "lint", "--fix", *(str(path) for path in out_paths)],
+        ["pnpm", "lint", "--fix", *(str(path) for path in out_paths)],
         check=True,
         cwd=PROJECT_DIR / "frontend",
     )

@@ -190,12 +190,12 @@
 
 <script setup lang="ts">
 import { toRefs } from "@vueuse/core";
-import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import type { RecipeIngredient, ShoppingListAddRecipeParamsBulk, ShoppingListSummary } from "~/lib/api/types/household";
 import type { Recipe } from "~/lib/api/types/recipe";
+import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
 
 export interface RecipeWithScale extends Recipe {
   scale: number;
@@ -234,6 +234,7 @@ const i18n = useI18n();
 const auth = useMealieAuth();
 const api = useUserApi();
 const preferences = useShoppingListPreferences();
+const router = useRouter();
 const ready = ref(false);
 
 // Capture values at initialization to avoid reactive updates
@@ -459,10 +460,17 @@ async function addRecipesToList() {
       },
     );
   });
-
-  const { error } = await api.shopping.lists.addRecipes(selectedShoppingList.value.id, recipeData);
+  const listId = selectedShoppingList.value.id;
+  const { error } = await api.shopping.lists.addRecipes(listId, recipeData);
   // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-  error ? alert.error(i18n.t("recipe.failed-to-add-recipes-to-list")) : alert.success(i18n.t("recipe.successfully-added-to-list"));
+  error
+    ? alert.error(i18n.t("recipe.failed-to-add-recipes-to-list"))
+    : alert.success(i18n.t("recipe.successfully-added-to-list"), null, {
+        action: {
+          message: i18n.t("general.view"),
+          onClick: () => router.push(`/shopping-lists/${listId ?? ""}`),
+        },
+      });
 
   state.shoppingListDialog = false;
   state.shoppingListIngredientDialog = false;

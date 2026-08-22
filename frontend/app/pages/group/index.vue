@@ -76,6 +76,14 @@ useSeoMeta({
   title: i18n.t("group.group"),
 });
 
+// useGroupSelf() caches data in a module-level singleton for the lifetime of the tab,
+// so revisiting this page via client-side navigation can otherwise show stale
+// preferences/AI settings if they were changed elsewhere (e.g. Admin Groups panel)
+// in the same session. Force a revalidation whenever this page is entered.
+onMounted(() => {
+  groupActions.refresh();
+});
+
 const refGroupPrefsEditForm = ref<VForm | null>(null);
 const refGroupAISettingsForm = ref<VForm | null>(null);
 

@@ -493,7 +493,7 @@
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "varză collard",
+                "name": "frunză de varză furajeră",
                 "plural_name": "frunze de collard"
             },
             "french-fried onion": {
@@ -2230,7 +2230,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "brânză burrata",
-                "plural_name": "burrata cheese"
+                "plural_name": "brânză burrata"
             },
             "havarti cheese": {
                 "aliases": [],
@@ -2679,7 +2679,7 @@
                     "unt clarifiat"
                 ],
                 "description": "",
-                "name": "ghee",
+                "name": "unt clarificat",
                 "plural_name": "ghee"
             },
             "shortening": {
@@ -2704,7 +2704,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "lapte condensat îndulcit",
-                "plural_name": "sweetened condensed milk"
+                "plural_name": "lapte condensat îndulcit"
             },
             "ice cream": {
                 "aliases": [],
@@ -4450,7 +4450,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "piept de raţă",
-                "plural_name": "duck breasts"
+                "plural_name": "piept de raţă"
             },
             "boneless chicken": {
                 "aliases": [],
