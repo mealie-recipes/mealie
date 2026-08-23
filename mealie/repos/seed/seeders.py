@@ -86,19 +86,21 @@ class IngredientFoodsSeeder(AbstractSeeder):
     def load_data(self, locale: str | None = None) -> Generator[SaveIngredientFood, None, None]:
         file = self.get_file(locale)
 
-        # get all current unique foods
+        # de-duplicate on the localized name rather than the English seed key, otherwise seeding
+        # a second locale skips every food whose English key already exists in the group
         seen_foods_names = {food.name for food in self.get_all_foods()}
         for values in self.load_file(file).values():
             label_out = self.get_label(values["name"])
 
-            for food_name, attributes in values["foods"].items():
-                if food_name in seen_foods_names:
+            for attributes in values["foods"].values():
+                name = attributes["name"]
+                if name in seen_foods_names:
                     continue
 
-                seen_foods_names.add(food_name)
+                seen_foods_names.add(name)
                 yield SaveIngredientFood(
                     group_id=self.repos.group_id,
-                    name=attributes["name"],
+                    name=name,
                     plural_name=attributes.get("plural_name") or None,
                     description="",  # description expected to be empty string by UnitFoodBase class
                     label_id=label_out.id if label_out and label_out.id else None,
