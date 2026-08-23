@@ -9,6 +9,7 @@ from mealie.services.seeder.seeder_service import SeederService
 from tests.utils import api_routes, jsonify
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
+from tests.utils.seed_data import seeded_label_names
 
 
 def create_labels(api_client: TestClient, unique_user: TestUser, count: int = 10) -> list[MultiPurposeLabelOut]:
@@ -114,7 +115,7 @@ def test_new_label_creates_list_labels_in_all_households(
 
 
 def test_seed_label_creates_list_labels(api_client: TestClient, unique_user: TestUser):
-    CREATED_LABELS = 32
+    CREATED_LABELS = len(seeded_label_names("en-US"))
     database = unique_user.repos
 
     # create a list with some labels

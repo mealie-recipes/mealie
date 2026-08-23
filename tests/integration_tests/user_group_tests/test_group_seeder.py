@@ -27,7 +27,8 @@ def test_seed_foods(api_client: TestClient, unique_user: TestUser):
     assert {food.name for food in foods} == seeded_food_names(LOCALE)
 
 
-def test_seed_foods_also_seeds_labels(api_client: TestClient, unique_user: TestUser):
+def test_seed_foods_also_seeds_labels(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    unique_user = unique_user_fn_scoped
     database = unique_user.repos
 
     labels = database.group_multi_purpose_labels.page_all(PaginationQuery(page=1, per_page=-1)).items
@@ -40,7 +41,8 @@ def test_seed_foods_also_seeds_labels(api_client: TestClient, unique_user: TestU
     assert {label.name for label in labels} == seeded_label_names(LOCALE)
 
 
-def test_seed_foods_links_foods_to_labels(api_client: TestClient, unique_user: TestUser):
+def test_seed_foods_links_foods_to_labels(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    unique_user = unique_user_fn_scoped
     database = unique_user.repos
 
     resp = api_client.post(api_routes.groups_seeders_foods, json={"locale": LOCALE}, headers=unique_user.token)
@@ -53,12 +55,13 @@ def test_seed_foods_links_foods_to_labels(api_client: TestClient, unique_user: T
     assert {food.label.name for food in foods if food.label} <= seeded_label_names(LOCALE)
 
 
-def test_seed_foods_second_locale_is_not_skipped(api_client: TestClient, unique_user: TestUser):
+def test_seed_foods_second_locale_is_not_skipped(api_client: TestClient, unique_user_fn_scoped: TestUser):
     """Seeding a second locale must not be skipped just because the English foods already exist.
 
     Regression test for #7409: de-duplication keyed off the English seed key rather than the
     localized name, so seeding da-DK after en-US silently created nothing.
     """
+    unique_user = unique_user_fn_scoped
     database = unique_user.repos
     other_locale = "da-DK"
 
