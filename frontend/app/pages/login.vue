@@ -6,6 +6,13 @@
       'bg-off-white': !$vuetify.theme.current.dark && !isDark,
     }"
   >
+    <v-progress-circular
+      v-if="reverseProxyLoggingIn"
+      indeterminate
+      color="primary"
+      size="64"
+    />
+    <template v-else>
     <v-alert
       v-if="isFirstLogin"
       class="my-4"
@@ -207,6 +214,7 @@
         </div>
       </v-card-text>
     </v-card>
+    </template>
   </v-container>
 </template>
 
@@ -298,6 +306,7 @@ whenever(
 
 const loggingIn = ref(false);
 const oidcLoggingIn = ref(false);
+const reverseProxyLoggingIn = ref($appInfo.enableReverseProxyAuth && !isDirectLogin());
 
 const { passwordIcon, inputType, togglePasswordShow } = usePasswordField();
 
@@ -310,7 +319,18 @@ whenever(
 onBeforeMount(async () => {
   if (isCallback()) {
     await oidcAuthenticate(true);
+    return;
   }
+
+  if ($appInfo.enableReverseProxyAuth && !isDirectLogin() && !loggedIn.value) {
+    try {
+      await auth.reverseProxySignIn();
+    }
+    catch {
+      // Header missing/invalid - fall back to the regular login form
+    }
+  }
+  reverseProxyLoggingIn.value = false;
 });
 
 function isCallback() {

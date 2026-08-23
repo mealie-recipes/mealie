@@ -432,6 +432,29 @@ class AppSettings(AppLoggingSettings):
         return self.OIDC_FEATURE.enabled
 
     # ===============================================
+    # Reverse Proxy Auth Configuration
+    REVERSE_PROXY_AUTH_ENABLED: bool = False
+    REVERSE_PROXY_AUTH_HEADER: str = "X-Forwarded-User"
+    REVERSE_PROXY_AUTH_SIGNUP_ENABLED: bool = True
+
+    @property
+    def REVERSE_PROXY_AUTH_FEATURE(self) -> FeatureDetails:
+        description = None if self.REVERSE_PROXY_AUTH_ENABLED else "REVERSE_PROXY_AUTH_ENABLED is false"
+        has_header = bool(self.REVERSE_PROXY_AUTH_HEADER)
+        if not has_header and not description:
+            description = "REVERSE_PROXY_AUTH_HEADER is not set"
+
+        return FeatureDetails(
+            enabled=self.REVERSE_PROXY_AUTH_ENABLED and has_header,
+            description=description,
+        )
+
+    @property
+    def REVERSE_PROXY_AUTH_READY(self) -> bool:
+        """Validates reverse proxy auth settings are all set"""
+        return self.REVERSE_PROXY_AUTH_FEATURE.enabled
+
+    # ===============================================
     # OpenAI Configuration
 
     OPENAI_CUSTOM_PROMPT_DIR: str | None = None
