@@ -1,5 +1,5 @@
 import { BaseAPI } from "../base/base-clients";
-import type { AllBackups } from "~/lib/api/types/admin";
+import type { AllBackups, CreateBackupResponse } from "~/lib/api/types/admin";
 import type { ErrorResponse, FileTokenResponse, SuccessResponse } from "~/lib/api/types/response";
 
 const prefix = "/api";
@@ -16,7 +16,7 @@ export class AdminBackupsApi extends BaseAPI {
   }
 
   async create() {
-    return await this.requests.post<SuccessResponse | ErrorResponse>(routes.base, {});
+    return await this.requests.post<CreateBackupResponse | ErrorResponse>(routes.base, {});
   }
 
   async get(fileName: string) {

@@ -10,7 +10,7 @@ from mealie.core.security import create_file_token
 from mealie.pkgs.stats.fs_stats import pretty_size
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin.backup import AllBackups, BackupFile
-from mealie.schema.response.responses import ErrorResponse, FileTokenResponse, SuccessResponse
+from mealie.schema.response.responses import CreateBackupResponse, ErrorResponse, FileTokenResponse, SuccessResponse
 from mealie.services.backups_v2.backup_v2 import BackupSchemaMismatch, BackupV2
 
 logger = get_logger()
@@ -41,17 +41,24 @@ class AdminBackupController(BaseAdminController):
 
         return AllBackups(imports=imports, templates=templates)
 
-    @router.post("", status_code=status.HTTP_201_CREATED, response_model=SuccessResponse)
+    @router.post("", status_code=status.HTTP_201_CREATED, response_model=CreateBackupResponse)
     def create_one(self):
         backup = BackupV2()
 
         try:
-            backup.backup()
+            result = backup.backup()
         except Exception as e:
             logger.exception(e)
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR) from e
 
-        return SuccessResponse.respond("Backup created successfully")
+        if result.duplicate:
+            return CreateBackupResponse.respond(
+                "Duplicate backup, creating link to existing backup",
+                duplicate=True,
+                duplicateOf=result.duplicateOf,
+            )
+
+        return CreateBackupResponse.respond("Backup created successfully")
 
     @router.get("/{file_name}", response_model=FileTokenResponse)
     def get_one(self, file_name: str):
@@ -71,6 +78,9 @@ class AdminBackupController(BaseAdminController):
             raise HTTPException(status.HTTP_400_BAD_REQUEST)
         try:
             file.unlink()
+            sidecar = file.with_suffix(".zip.md5")
+            if sidecar.is_file():
+                sidecar.unlink()
         except Exception as e:
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR) from e
 
@@ -98,6 +108,11 @@ class AdminBackupController(BaseAdminController):
 
         if not dest.is_file():
             raise HTTPException(status.HTTP_400_BAD_REQUEST)
+
+        backup_v2 = BackupV2()
+        new_hash = backup_v2._hash_zip(dest)
+        dest.with_suffix(".zip.md5").write_text(new_hash)
+
         return SuccessResponse.respond("Upload successful")
 
     @router.post("/{file_name}/restore", response_model=SuccessResponse)

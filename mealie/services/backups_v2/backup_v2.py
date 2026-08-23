@@ -1,9 +1,12 @@
 import datetime
+import hashlib
 import json
+import os
 import re
 import shutil
+from dataclasses import dataclass
 from pathlib import Path
-from zipfile import ZipFile
+from zipfile import ZIP_DEFLATED, ZipFile, ZipInfo
 
 from mealie.core.config import get_app_settings
 from mealie.core.settings.static import APP_VERSION
@@ -13,6 +16,13 @@ from mealie.services.backups_v2.backup_file import BackupFile
 
 
 class BackupSchemaMismatch(Exception): ...
+
+
+@dataclass
+class BackupResult:
+    path: Path
+    duplicate: bool = False
+    duplicateOf: str | None = None
 
 
 class BackupV2(BaseService):
@@ -41,7 +51,21 @@ class BackupV2(BaseService):
     def _postgres(self) -> None:
         pass
 
-    def backup(self) -> Path:
+    def _hash_zip(self, zip_path: Path) -> str:
+        h = hashlib.md5()
+        with zip_path.open("rb") as f:
+            for chunk in iter(lambda: f.read(8192), b""):
+                h.update(chunk)
+        return h.hexdigest()
+
+    def _find_duplicate(self, hash: str) -> Path | None:
+        for zip_path in self.directories.BACKUP_DIR.glob("*.zip"):
+            sidecar = zip_path.with_suffix(".zip.md5")
+            if sidecar.is_file() and sidecar.read_text().strip() == hash:
+                return zip_path
+        return None
+
+    def backup(self) -> BackupResult:
         # sourcery skip: merge-nested-ifs, reintroduce-else, remove-redundant-continue
         timestamp = datetime.datetime.now(datetime.UTC).strftime("%Y.%m.%d.%H.%M.%S")
         short_hash = self.settings.GIT_COMMIT_HASH[:7]
@@ -55,25 +79,52 @@ class BackupV2(BaseService):
 
         backup_file = self.directories.BACKUP_DIR / backup_name
 
-        database_json = self.db_exporter.dump()
+        temp_file = self.directories.BACKUP_DIR / f".temp_{backup_name}"
 
-        with ZipFile(backup_file, "w") as zip_file:
-            zip_file.writestr("database.json", json.dumps(database_json))
+        try:
+            database_json = self.db_exporter.dump()
+            database_str = json.dumps(database_json, sort_keys=True)
 
-            for data_file in self.directories.DATA_DIR.glob("**/*"):
-                if data_file.name in self.EXCLUDE_FILES:
-                    continue
+            with ZipFile(temp_file, "w", compression=ZIP_DEFLATED) as zip_file:
+                epoch_time = (1980, 1, 1, 0, 0, 0)
 
-                if any(pattern.search(data_file.name) for pattern in self.EXCLUDE_FILES_REGEX):
-                    continue
+                db_info = ZipInfo("database.json")
+                db_info.date_time = epoch_time
+                db_info.compress_type = ZIP_DEFLATED
+                zip_file.writestr(db_info, database_str)
 
-                if data_file.is_file() and data_file.suffix not in self.EXCLUDE_EXTENTIONS:
-                    if data_file.parent.name in self.EXCLUDE_DIRS:
+                for data_file in sorted(self.directories.DATA_DIR.glob("**/*")):
+                    if data_file.name in self.EXCLUDE_FILES:
                         continue
+                    if any(pattern.search(data_file.name) for pattern in self.EXCLUDE_FILES_REGEX):
+                        continue
+                    if data_file.is_file() and data_file.suffix not in self.EXCLUDE_EXTENTIONS:
+                        if data_file.parent.name in self.EXCLUDE_DIRS:
+                            continue
+                        archive_path = f"data/{data_file.relative_to(self.directories.DATA_DIR)}"
+                        file_info = ZipInfo(archive_path)
+                        file_info.date_time = epoch_time
+                        file_info.compress_type = ZIP_DEFLATED
+                        zip_file.writestr(file_info, data_file.read_bytes())
 
-                    zip_file.write(data_file, f"data/{data_file.relative_to(self.directories.DATA_DIR)}")
+            new_hash = self._hash_zip(temp_file)
+            duplicate = self._find_duplicate(new_hash)
 
-        return backup_file
+            backup_file = self.directories.BACKUP_DIR / backup_name
+            backup_file.with_suffix(".zip.md5").write_text(new_hash)
+
+            if duplicate:
+                os.link(duplicate, backup_file)
+                temp_file.unlink()
+                return BackupResult(path=backup_file, duplicate=True, duplicateOf=duplicate.name)
+
+            temp_file.rename(backup_file)
+            return BackupResult(path=backup_file, duplicate=False)
+
+        except Exception:
+            if temp_file.is_file():
+                temp_file.unlink()
+            raise
 
     def _copy_data(self, data_path: Path) -> None:
         for f in data_path.iterdir():

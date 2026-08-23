@@ -79,6 +79,12 @@ export interface AppTheme {
   darkWarning?: string;
   darkError?: string;
 }
+export interface CreateBackupResponse {
+  message: string;
+  error: boolean;
+  duplicate: boolean;
+  duplicateOf: string | null;
+}
 export interface BackupOptions {
   recipes?: boolean;
   settings?: boolean;
