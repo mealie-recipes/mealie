@@ -42,6 +42,28 @@
       variant="underlined"
       flat
     />
+    <v-select
+      v-model="local.defaultUnitSystem"
+      :prepend-icon="$globals.icons.units"
+      :items="unitSystemOptions"
+      item-title="label"
+      item-value="value"
+      :label="$t('household.default-unit-system')"
+      :hint="$t('household.default-unit-system-description')"
+      persistent-hint
+      variant="underlined"
+      flat
+    />
+    <v-select
+      v-model="local.defaultTemperatureUnit"
+      :prepend-icon="$globals.icons.thermometer"
+      :items="temperatureUnitOptions"
+      item-title="label"
+      item-value="value"
+      :label="$t('household.default-temperature-unit')"
+      variant="underlined"
+      flat
+    />
 
     <BaseCardSectionTitle class="mt-5" :title="$t('household.household-recipe-preferences')">
       {{ $t("household.default-recipe-preferences-description") }}
@@ -59,6 +81,7 @@
 
 <script setup lang="ts">
 import type { ReadHouseholdPreferences } from "~/lib/api/types/household";
+import { useUnitSystem } from "~/composables/recipes";
 
 const preferences = defineModel<ReadHouseholdPreferences>({ required: true });
 const local = reactive({ ...preferences.value });
@@ -66,6 +89,7 @@ watch(local, (newVal) => { preferences.value = { ...newVal }; });
 watch(preferences, (newVal) => { if (newVal) Object.assign(local, newVal); });
 
 const i18n = useI18n();
+const { unitSystemOptions, temperatureUnitOptions } = useUnitSystem();
 
 type Preference = {
   key: keyof ReadHouseholdPreferences;

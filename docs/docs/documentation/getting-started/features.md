@@ -41,6 +41,26 @@ You can access these options on your installation at the `/group/migrations` pag
 [Import Demo](https://demo.mealie.io/group/migrations){ .md-button .md-button--primary }
 
 
+### Viewing Recipes in Your Own Units
+
+Recipes are stored exactly as they were written, but you don't have to read them that way. The unit
+button next to the serving scaler switches a recipe between **as written**, **metric**, **imperial (UK)**
+and **US customary**, and can rewrite oven temperatures between °C and °F. Nothing is saved back to the
+recipe — it only changes what's on screen, including cook mode and printing.
+
+Pick a default for yourself under **Profile → Edit**, or for everyone in your household under
+**Household Settings**. A personal setting always wins over the household one, and the button on a recipe
+overrides both for that visit.
+
+Temperature is its own setting, so measuring in grams while keeping a Fahrenheit oven works.
+
+!!! tip "Two things worth knowing"
+    - Weights convert to weights and volumes to volumes. Cups are never turned into grams, because how
+      much a cup weighs depends on what's in it.
+    - A unit can only be converted if it has standardization data. The seeded units come with it; units
+      you created yourself may need **Standard Quantity** and **Standard Unit** filled in under
+      **Data Management → Units**.
+
 ### Organizing Recipes
 
 Mealie has a robust and flexible recipe organization system with a few different ways to organize your recipes in a way that fits your household.

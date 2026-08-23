@@ -114,3 +114,60 @@ def test_admin_updates(api_client: TestClient, admin_user: TestUser, unique_user
         tmp_user[permission] = not admin[permission]
         response = api_client.put(api_routes.users_item_id(admin_user.user_id), json=tmp_user, headers=admin_user.token)
         assert response.status_code == 403
+
+
+def test_display_preferences_default_to_null(api_client: TestClient, unique_user: TestUser):
+    """A fresh user inherits from their household rather than carrying their own preference."""
+    response = api_client.get(api_routes.users_self, headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["preferredUnitSystem"] is None
+    assert response.json()["preferredTemperatureUnit"] is None
+
+
+@pytest.mark.parametrize(
+    ("field", "value"),
+    [
+        ("preferredUnitSystem", "metric"),
+        ("preferredUnitSystem", "imperial"),
+        ("preferredUnitSystem", "us"),
+        ("preferredUnitSystem", "original"),
+        ("preferredTemperatureUnit", "celsius"),
+        ("preferredTemperatureUnit", "fahrenheit"),
+        ("preferredTemperatureUnit", "system"),
+    ],
+)
+def test_display_preferences_round_trip(api_client: TestClient, unique_user: TestUser, field: str, value: str):
+    user = api_client.get(api_routes.users_self, headers=unique_user.token).json()
+    user[field] = value
+
+    response = api_client.put(api_routes.users_item_id(unique_user.user_id), json=user, headers=unique_user.token)
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.users_self, headers=unique_user.token)
+    assert response.json()[field] == value
+
+
+def test_display_preferences_can_be_cleared(api_client: TestClient, unique_user: TestUser):
+    user = api_client.get(api_routes.users_self, headers=unique_user.token).json()
+
+    user["preferredUnitSystem"] = "us"
+    user["preferredTemperatureUnit"] = "fahrenheit"
+    api_client.put(api_routes.users_item_id(unique_user.user_id), json=user, headers=unique_user.token)
+
+    user["preferredUnitSystem"] = None
+    user["preferredTemperatureUnit"] = None
+    response = api_client.put(api_routes.users_item_id(unique_user.user_id), json=user, headers=unique_user.token)
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.users_self, headers=unique_user.token)
+    assert response.json()["preferredUnitSystem"] is None
+    assert response.json()["preferredTemperatureUnit"] is None
+
+
+@pytest.mark.parametrize("field", ["preferredUnitSystem", "preferredTemperatureUnit"])
+def test_display_preferences_reject_unknown_values(api_client: TestClient, unique_user: TestUser, field: str):
+    user = api_client.get(api_routes.users_self, headers=unique_user.token).json()
+    user[field] = "klingon"
+
+    response = api_client.put(api_routes.users_item_id(unique_user.user_id), json=user, headers=unique_user.token)
+    assert response.status_code == 422

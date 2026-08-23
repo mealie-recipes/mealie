@@ -61,3 +61,32 @@ def test_update_preferences(api_client: TestClient, user_tuple: list[TestUser]) 
     assert preferences["recipePublic"] == new_data.recipe_public
     assert preferences["recipeShowNutrition"] == new_data.recipe_show_nutrition
     assert_ignore_keys(new_data.model_dump(by_alias=True), preferences, ["id", "householdId"])
+
+
+def test_display_preference_defaults(api_client: TestClient, unique_user: TestUser) -> None:
+    """Households start out showing recipes as written, so nothing changes for existing installs."""
+    response = api_client.get(api_routes.households_preferences, headers=unique_user.token)
+    assert response.status_code == 200
+
+    preferences = response.json()
+    assert preferences["defaultUnitSystem"] == "original"
+    assert preferences["defaultTemperatureUnit"] == "system"
+
+
+def test_update_display_preferences(api_client: TestClient, unique_user: TestUser) -> None:
+    new_data = UpdateHouseholdPreferences(default_unit_system="metric", default_temperature_unit="fahrenheit")
+    response = api_client.put(api_routes.households_preferences, json=new_data.model_dump(), headers=unique_user.token)
+    assert response.status_code == 200
+
+    preferences = api_client.get(api_routes.households_preferences, headers=unique_user.token).json()
+    assert preferences["defaultUnitSystem"] == "metric"
+    assert preferences["defaultTemperatureUnit"] == "fahrenheit"
+
+
+def test_display_preferences_reject_unknown_values(api_client: TestClient, unique_user: TestUser) -> None:
+    response = api_client.put(
+        api_routes.households_preferences,
+        json={"defaultUnitSystem": "klingon"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 422

@@ -59,7 +59,7 @@
             <RecipePageIngredientEditor v-if="isEditForm" v-model="recipe" />
           </div>
           <div>
-            <RecipePageScale v-model="scale" :recipe="recipe" />
+            <RecipePageScale v-model:scale="scale" v-model:unit-system="unitSystem" v-model:temperature-unit="temperatureUnit" :recipe="recipe" />
           </div>
 
           <!--
@@ -76,7 +76,7 @@
               md="4"
               :class="$vuetify.display.mdAndUp ? 'border-e-thin' : null"
             >
-              <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" class="pr-2" />
+              <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="displayedRecipe" :scale="scale" class="pr-2" />
               <RecipePageOrganizers v-if="$vuetify.display.mdAndUp" v-model="recipe" class="pr-2" @item-selected="chipClicked" />
             </v-col>
             <!--
@@ -85,9 +85,9 @@
             -->
             <v-col cols="12" sm="12" :md="8 + (isCookMode ? 1 : 0) * 4">
               <RecipePageInstructions
-                v-model="recipe.recipeInstructions"
+                v-model="instructionsModel"
                 v-model:assets="recipe.assets"
-                :recipe="recipe"
+                :recipe="displayedRecipe"
                 :scale="scale"
               />
               <div v-if="isEditForm" class="d-flex">
@@ -111,7 +111,7 @@
         v-model="recipe"
         class="px-1 my-4 d-print-none"
       />
-      <RecipePrintContainer :recipe="recipe" :scale="scale" />
+      <RecipePrintContainer :recipe="displayedRecipe" :scale="scale" />
     </v-container>
     <!-- Floating save button when toolbar scrolls out of view -->
     <v-fab
@@ -141,11 +141,11 @@
       <v-row style="height: 100%" no-gutters class="overflow-hidden">
         <v-col cols="12" sm="5" class="overflow-y-auto pl-4 pr-3 py-2" style="height: 100%">
           <div class="d-flex align-center">
-            <RecipePageScale v-model="scale" :recipe="recipe" />
+            <RecipePageScale v-model:scale="scale" v-model:unit-system="unitSystem" v-model:temperature-unit="temperatureUnit" :recipe="recipe" />
           </div>
           <RecipePageIngredientToolsView
             v-if="!isEditForm"
-            :recipe="recipe"
+            :recipe="displayedRecipe"
             :scale="scale"
             :is-cook-mode="isCookMode"
           />
@@ -162,10 +162,10 @@
             {{ $t('recipe.instructions') }}
           </h2>
           <RecipePageInstructions
-            v-model="recipe.recipeInstructions"
+            v-model="instructionsModel"
             v-model:assets="recipe.assets"
             class="overflow-y-hidden px-4"
-            :recipe="recipe"
+            :recipe="displayedRecipe"
             :scale="scale"
           />
         </v-col>
@@ -173,13 +173,13 @@
     </v-sheet>
     <v-sheet v-show="isCookMode && hasLinkedIngredients">
       <div class="mt-2 px-2 px-md-4">
-        <RecipePageScale v-model="scale" :recipe="recipe" />
+        <RecipePageScale v-model:scale="scale" v-model:unit-system="unitSystem" v-model:temperature-unit="temperatureUnit" :recipe="recipe" />
       </div>
       <RecipePageInstructions
-        v-model="recipe.recipeInstructions"
+        v-model="instructionsModel"
         v-model:assets="recipe.assets"
         class="overflow-y-hidden mt-n5 px-2 px-md-4"
-        :recipe="recipe"
+        :recipe="displayedRecipe"
         :scale="scale"
       />
 
@@ -231,7 +231,9 @@ import {
 } from "~/composables/recipe-page/shared-state";
 import { useCookModeQuery, type BooleanString } from "~/composables/recipe-page/use-cook-mode-query";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe, RecipeCategory, RecipeIngredient, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeCategory, RecipeIngredient, RecipeStep, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { TemperatureUnit, UnitSystem } from "~/lib/api/types/user";
+import { useUnitConversion, useUnitSystem } from "~/composables/recipes";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
@@ -255,8 +257,10 @@ const { pageMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isPar
   = usePageState(recipe.value.slug);
 const { deactivateNavigationWarning } = useNavigationWarning();
 const notLinkedIngredients = computed(() => {
-  return recipe.value.recipeIngredient.filter((ingredient) => {
-    return !recipe.value.recipeInstructions.some(step =>
+  // Reads the displayed recipe so this list matches the ingredient list above it; conversion
+  // keeps referenceId, so the linking check is unaffected.
+  return displayedRecipe.value.recipeIngredient.filter((ingredient) => {
+    return !displayedRecipe.value.recipeInstructions.some(step =>
       step.ingredientReferences?.map(ref => ref.referenceId).includes(ingredient.referenceId),
     );
   });
@@ -492,6 +496,71 @@ function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: st
 }
 
 const scale = ref(1);
+
+/** =============================================================
+ * Unit system (display only)
+ *
+ * The recipe in the database always keeps what its author wrote. The toggle in
+ * RecipePageScale re-expresses quantities and oven temperatures on the way to the screen,
+ * seeded from the user's (or their household's) preference. Substituting a single
+ * `displayedRecipe` here means cook mode, the print container and the ingredient list all
+ * pick the conversion up without threading the setting through every component.
+ *
+ * Edit mode always shows the canonical recipe, so what gets saved is what was typed.
+ */
+const { unitSystem: preferredUnitSystem, temperatureUnit: preferredTemperatureUnit } = useUnitSystem();
+const { convertIngredients, convertInstructions } = useUnitConversion();
+
+const unitSystem = ref<UnitSystem>(preferredUnitSystem.value);
+const temperatureUnit = ref<TemperatureUnit>(preferredTemperatureUnit.value);
+
+// The household fetch can land after this component mounts, so the preference is followed
+// as it arrives — but only while the reader is still sitting on the value we last applied.
+// Once they pick something in the toggle, their choice stands for the rest of the visit.
+let lastApplied = { system: unitSystem.value, temperature: temperatureUnit.value };
+watch([preferredUnitSystem, preferredTemperatureUnit], ([system, temperature]) => {
+  if (unitSystem.value === lastApplied.system) {
+    unitSystem.value = system;
+  }
+  if (temperatureUnit.value === lastApplied.temperature) {
+    temperatureUnit.value = temperature;
+  }
+  lastApplied = { system, temperature };
+});
+
+const isConverted = computed(() =>
+  !isEditForm.value && (unitSystem.value !== "original" || temperatureUnit.value !== "system"),
+);
+
+const displayedRecipe = computed<NoUndefinedField<Recipe>>(() => {
+  if (!isConverted.value) {
+    return recipe.value;
+  }
+
+  return {
+    ...recipe.value,
+    recipeIngredient: convertIngredients(recipe.value.recipeIngredient, unitSystem.value, scale.value),
+    recipeInstructions: convertInstructions(recipe.value.recipeInstructions, unitSystem.value, temperatureUnit.value),
+  } as NoUndefinedField<Recipe>;
+});
+
+/**
+ * Instruction steps for RecipePageInstructions. Reads converted text in view mode and
+ * writes to the canonical recipe — which is the same object whenever editing is possible,
+ * since conversion is off in edit mode.
+ */
+const instructionsModel = computed<RecipeStep[]>({
+  get: () => displayedRecipe.value.recipeInstructions,
+  set: (steps) => {
+    if (isConverted.value) {
+      // Defensive: a write while a converted view is on screen would persist converted
+      // text back into the recipe. Nothing does this today because the editor is only
+      // reachable in edit mode, where isConverted is false.
+      return;
+    }
+    recipe.value.recipeInstructions = steps;
+  },
+});
 
 // expose to template
 // (all variables used in template are top-level in <script setup>)

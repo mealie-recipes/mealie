@@ -88,6 +88,7 @@ from .recipe_timeline_events import (
 )
 from .recipe_tool import RecipeToolCreate, RecipeToolOut, RecipeToolResponse, RecipeToolSave
 from .request_helpers import RecipeDuplicate, RecipeSlug, SlugResponse, UpdateImageResponse
+from .unit_system import TemperatureUnit, UnitSystem
 
 __all__ = [
     "RecipeToolCreate",
@@ -111,6 +112,8 @@ __all__ = [
     "RecipeSlug",
     "SlugResponse",
     "UpdateImageResponse",
+    "TemperatureUnit",
+    "UnitSystem",
     "RecipeNote",
     "CategoryBase",
     "CategoryIn",

@@ -16,6 +16,7 @@ from mealie.schema._mealie import MealieModel
 from mealie.schema.group.ai_providers import AIProviderSettingsOut
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.household.webhook import CreateWebhook, ReadWebhook
+from mealie.schema.recipe.unit_system import TemperatureUnit, UnitSystem
 from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.group import Group
@@ -120,6 +121,10 @@ class UserBase(MealieModel):
     # Announcements
     show_announcements: bool = True
     last_read_announcement: str | None = None
+
+    # Recipe display preferences; null means "fall back to the household default"
+    preferred_unit_system: UnitSystem | None = None
+    preferred_temperature_unit: TemperatureUnit | None = None
 
     # Permissions
     can_invite: bool = False

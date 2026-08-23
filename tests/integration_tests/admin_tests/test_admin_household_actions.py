@@ -50,6 +50,8 @@ def test_admin_update_household(api_client: TestClient, admin_user: TestUser, un
             "recipeShowAssets": random_bool(),
             "recipeLandscapeView": random_bool(),
             "recipeDisableComments": random_bool(),
+            "defaultUnitSystem": "metric",
+            "defaultTemperatureUnit": "celsius",
         },
     }
 
