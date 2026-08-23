@@ -1,3 +1,5 @@
+from typing import ClassVar
+
 from pydantic import UUID4, ConfigDict, field_validator
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -20,6 +22,7 @@ class RecipeToolOut(RecipeToolCreate):
     group_id: UUID4
     slug: str
 
+    _searchable_properties: ClassVar[list[str]] = ["name", "slug"]
     model_config = ConfigDict(from_attributes=True)
 
     @field_validator("households_with_tool", mode="before")

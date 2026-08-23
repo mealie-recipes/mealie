@@ -164,10 +164,10 @@ class MealieModel(BaseModel):
         else:
             filters = []
             for prop in model_properties:
-                filters.extend([prop.like(f"%{s}%") for s in search_list])
+                filters.extend([prop.ilike(f"%{s}%") for s in search_list])
 
             # order by how close the result is to the first searchable property
-            return query.filter(or_(*filters)).order_by(desc(model_properties[0].like(f"%{search}%")))
+            return query.filter(or_(*filters)).order_by(desc(model_properties[0].ilike(f"%{search}%")))
 
 
 class HasUUID(Protocol):
