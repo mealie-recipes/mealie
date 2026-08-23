@@ -3,22 +3,10 @@
     v-if="shoppingListChoices && ready"
     class="narrow-container"
   >
-    <BaseDialog
+    <ShoppingListCreateDialog
       v-model="state.createDialog"
-      bottom-sheet
-      :title="$t('shopping-list.create-shopping-list')"
-      :icon="$globals.icons.formatListCheck"
-      can-submit
-      @submit="createOne"
-    >
-      <v-card-text>
-        <v-text-field
-          v-model="state.createName"
-          autofocus
-          :label="$t('shopping-list.new-list')"
-        />
-      </v-card-text>
-    </BaseDialog>
+      @submit="refresh"
+    />
 
     <!-- Settings -->
     <BaseDialog
@@ -205,15 +193,6 @@ async function fetchShoppingLists() {
 
 async function refresh() {
   shoppingLists.value = await fetchShoppingLists();
-}
-
-async function createOne() {
-  const { data } = await userApi.shopping.lists.createOne({ name: state.createName });
-
-  if (data) {
-    refresh();
-    state.createName = "";
-  }
 }
 
 async function toggleOwnerDialog(list: ShoppingListOut) {

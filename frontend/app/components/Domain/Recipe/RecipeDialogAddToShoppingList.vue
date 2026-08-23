@@ -1,4 +1,8 @@
 <template>
+  <ShoppingListCreateDialog
+    v-model="state.createDialog"
+    @submit="refresh"
+  />
   <div v-if="dialog">
     <BaseDialog
       v-if="shoppingListDialog && ready"
@@ -13,6 +17,12 @@
             {{ $t('shopping-list.no-shopping-lists-found') }}
           </template>
         </BasePageTitle>
+        <div class="d-flex justify-center">
+          <BaseButton
+            class="flex-1-1-0"
+            @click="state.createDialog = true"
+          />
+        </div>
       </v-container>
       <v-card-text>
         <v-card
@@ -223,6 +233,7 @@ export interface ShoppingListRecipeIngredientSection {
 interface Props {
   recipes?: RecipeWithScale[];
   shoppingLists?: ShoppingListSummary[];
+  refresh: () => Promise<void>;
 }
 const props = withDefaults(defineProps<Props>(), {
   recipes: undefined,
@@ -246,6 +257,7 @@ const state = reactive({
   shoppingListDialog: false,
   shoppingListIngredientDialog: false,
   shoppingListShowAllToggled: false,
+  createDialog: false,
 });
 
 const { shoppingListDialog, shoppingListIngredientDialog, shoppingListShowAllToggled: _shoppingListShowAllToggled } = toRefs(state);
@@ -253,7 +265,7 @@ const { shoppingListDialog, shoppingListIngredientDialog, shoppingListShowAllTog
 const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
 const selectedShoppingList = ref<ShoppingListSummary | null>(null);
 
-watch([dialog, () => preferences.value.viewAllLists], () => {
+watch([dialog, () => preferences.value.viewAllLists, () => props.shoppingLists], () => {
   if (dialog.value) {
     currentHouseholdSlug.value = auth.user.value?.householdSlug || "";
     filteredShoppingLists.value = props.shoppingLists.filter(

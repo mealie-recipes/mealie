@@ -71,6 +71,7 @@
     v-model="shoppingListDialog"
     :recipes="[recipeRefWithScale]"
     :shopping-lists="shoppingLists"
+    :refresh="getShoppingLists"
   />
 
   <v-list density="compact">
