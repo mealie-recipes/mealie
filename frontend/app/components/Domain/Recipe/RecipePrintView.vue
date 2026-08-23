@@ -130,6 +130,32 @@
               :source="step.text"
               class="recipe-step-body"
             />
+            <!-- Step Ingredients -->
+            <div
+              v-if="preferences.showLinkedIngredients && step.ingredientReferences && step.ingredientReferences.length > 0"
+              class="print-section"
+            >
+              <h6
+                class="ingredient-title mt-2 mb-0"
+              >
+                {{ $t("recipe.ingredients") }}
+              </h6>
+              <div
+                class="step-ingredient-grid"
+                :style="{ gridTemplateRows: `repeat(${Math.ceil(step.ingredientReferences.length / 2)}, min-content)` }"
+              >
+                <template
+                  v-for="(ingredient, ingredientIndex) in stepLinkedIngredients.get(`${sectionIndex}-${stepIndex}`) ?? []"
+                  :key="`ingredient-${ingredientIndex}`"
+                >
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <p
+                    class="ingredient-body"
+                    v-html="parseText(ingredient)"
+                  />
+                </template>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -362,6 +388,27 @@ const hasNotes = computed(() => {
   return props.recipe.notes && props.recipe.notes.length > 0;
 });
 
+// Precompute each step's linked ingredients so the template doesn't re-filter recipeIngredient on every render
+const stepLinkedIngredients = computed(() => {
+  const map = new Map<string, RecipeIngredient[]>();
+
+  instructionSections.value.forEach((section, sectionIndex) => {
+    section.instructions.forEach((step, stepIndex) => {
+      if (!step.ingredientReferences?.length) {
+        return;
+      }
+
+      const referenceIds = new Set(step.ingredientReferences.map(ref => ref.referenceId));
+      map.set(
+        `${sectionIndex}-${stepIndex}`,
+        props.recipe.recipeIngredient.filter(ing => ing.referenceId && referenceIds.has(ing.referenceId)),
+      );
+    });
+  });
+
+  return map;
+});
+
 const { parseIngredientText } = useIngredientTextParser();
 
 function parseText(ingredient: RecipeIngredient) {
@@ -401,6 +448,13 @@ p {
   grid-auto-flow: column;
   grid-template-columns: 1fr 1fr;
   grid-gap: 0.5rem;
+}
+
+.step-ingredient-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0.2rem;
 }
 
 .ingredient-title,

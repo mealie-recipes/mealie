@@ -20,15 +20,30 @@
         },
         "and-amount": "i {amount}",
         "or-ingredient": "lub {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Tworzenie przepisu z pomocą AI...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Tworzenie przepisu z transkryptu z pomocą AI...",
             "creating-recipe-from-webpage-data": "Tworzenie przepisu na podstawie danych ze strony...",
             "downloading-image": "Pobieranie zdjęcia...",
             "downloading-video": "Pobieranie wideo...",
             "extracting-recipe-data": "Wyodrębnianie danych przepisu...",
             "fetching-webpage": "Pobieranie strony...",
-            "transcribing-audio-with-ai": "Transkrypcja audio przy użyciu AI..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Transkrypcja audio przy użyciu AI...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "Nie masz uprawnień do wykonania tej akcji",
         "recursive-recipe-link": "Przepis nie może odnosić się do samego siebie bezpośrednio, ani pośrednio",
         "no-entry-found": "Wskazany zasób jest niedostępny",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Błąd spójności bazy danych",
         "username-conflict-error": "Ta nazwa użytkownika jest już zajęta",
         "email-conflict-error": "Ten adres e-mail już jest zajęty"

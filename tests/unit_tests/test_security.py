@@ -344,3 +344,66 @@ def test_user_login_ldap_auth_method(monkeypatch: MonkeyPatch, ldap_user: Privat
     assert result.full_name == ldap_user.full_name
     assert result.admin == ldap_user.admin
     assert result.auth_method == AuthMethod.LDAP
+
+
+class PermissiveBindConnMock(LdapConnMock):
+    """Simulates a directory that accepts a bind with a valid DN and an empty
+    password (anonymous/unauthenticated bind) as success."""
+
+    def simple_bind_s(self, dn, bind_pw):
+        if bind_pw == "":
+            return
+        return super().simple_bind_s(dn, bind_pw)
+
+
+class CapturingConnMock(LdapConnMock):
+    """Records the search filter passed to search_s and returns no matches."""
+
+    captured_filter: str | None = None
+
+    def search_s(self, dn, scope, filter, attrlist):
+        if filter != self.app_settings.LDAP_ADMIN_FILTER:
+            CapturingConnMock.captured_filter = filter
+        return []
+
+
+def test_ldap_rejects_empty_password(monkeypatch: MonkeyPatch):
+    user, mail, name, _, query_bind, query_password = setup_env(monkeypatch)
+
+    def ldap_initialize_mock(url):
+        # Even against a directory that would accept the empty-password bind,
+        # the provider must refuse before binding.
+        return PermissiveBindConnMock(user, "", False, query_bind, query_password, mail, name)
+
+    monkeypatch.setattr(ldap, "initialize", ldap_initialize_mock)
+
+    get_app_settings.cache_clear()
+
+    with session_context() as session:
+        provider = get_provider(session, user, "")
+        result = provider.get_user()
+
+    assert result is None
+
+
+def test_ldap_escapes_username_in_search_filter(monkeypatch: MonkeyPatch):
+    _, mail, name, password, query_bind, query_password = setup_env(monkeypatch)
+    injected_username = "a*)(uid=*"
+    CapturingConnMock.captured_filter = None
+
+    def ldap_initialize_mock(url):
+        return CapturingConnMock(injected_username, password, False, query_bind, query_password, mail, name)
+
+    monkeypatch.setattr(ldap, "initialize", ldap_initialize_mock)
+
+    get_app_settings.cache_clear()
+
+    with session_context() as session:
+        provider = get_provider(session, injected_username, password)
+        provider.get_user()
+
+    captured = CapturingConnMock.captured_filter
+    assert captured is not None
+    # Metacharacters from the username must be escaped, never present as raw syntax.
+    assert "\\2a" in captured  # '*' -> \2a
+    assert "*" not in captured

@@ -20,15 +20,30 @@
         },
         "and-amount": "i {amount}",
         "or-ingredient": "o {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "S'està creant recepta amb IA...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "S'està creant la recepta a partir de la transcripció amb IA...",
             "creating-recipe-from-webpage-data": "S'està creant la recepta a partir de les dades del lloc web...",
             "downloading-image": "S'est baixant l'imatge...",
             "downloading-video": "S'est baixant el vídeo...",
             "extracting-recipe-data": "S'estan extraient les dades de la recepta...",
             "fetching-webpage": "S'està recuperant la pàgina web...",
-            "transcribing-audio-with-ai": "Transcripció àudio amb IA..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Transcripció àudio amb IA...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "No teniu autorització per executar aquesta acció",
         "recursive-recipe-link": "Una recepta no pot fer referència a ella mateixa, tant directa com indirectament",
         "no-entry-found": "No s'ha trobat el recurs demanat",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "S'ha produït un error en la integritat de la base de dades",
         "username-conflict-error": "Aquest nom d'usuari ja està en ús",
         "email-conflict-error": "Aquest correu electrònic ja està en ús"

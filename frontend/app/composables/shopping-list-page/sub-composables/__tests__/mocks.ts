@@ -41,6 +41,7 @@ export const MOCK_LABEL: ShoppingListMultiPurposeLabelOut = {
     name: "MOCK_LABEL",
     groupId: "",
     id: "",
+    color: "color1",
   },
 };
 
@@ -50,6 +51,18 @@ export const MOCK_LABEL2: ShoppingListMultiPurposeLabelOut = {
   id: "",
   label: {
     name: "MOCK_LABEL2",
+    groupId: "",
+    id: "",
+    color: "color2",
+  },
+};
+
+export const MOCK_LABEL3: ShoppingListMultiPurposeLabelOut = {
+  shoppingListId: "",
+  labelId: "",
+  id: "",
+  label: {
+    name: "",
     groupId: "",
     id: "",
   },

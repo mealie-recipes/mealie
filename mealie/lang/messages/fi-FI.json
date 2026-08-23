@@ -20,15 +20,30 @@
         },
         "and-amount": "ja {amount}",
         "or-ingredient": "tai {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Luodaan reseptiä AI:lla...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Luodaan reseptiä transkriptistä AI:lla...",
             "creating-recipe-from-webpage-data": "Luodaan reseptiä verkkosivun tiedoista...",
             "downloading-image": "Ladataan kuvaa...",
             "downloading-video": "Ladataan videota...",
             "extracting-recipe-data": "Puretaan reseptitietoja...",
             "fetching-webpage": "Haetaan verkkosivua...",
-            "transcribing-audio-with-ai": "Transkriptataan ääntä AI:lla..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Transkriptataan ääntä AI:lla...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "Sinulla ei ole oikeutta tämän toiminnon suorittamiseen",
         "recursive-recipe-link": "Reseptillä ei voida viitata itseensä, joko suoraan tai välillisesti",
         "no-entry-found": "Pyydettyä resurssia ei löytynyt",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Tietokannan eheysvirhe",
         "username-conflict-error": "Tämä käyttäjätunnus on jo käytössä",
         "email-conflict-error": "Tämä sähköpostiosoite on jo käytössä"
