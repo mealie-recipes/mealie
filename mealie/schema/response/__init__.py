@@ -20,7 +20,6 @@ from .responses import (
 from .validation import ValidationResponse
 
 __all__ = [
-    "SearchFilter",
     "ErrorResponse",
     "FileTokenResponse",
     "SSEDataEventBase",
@@ -28,6 +27,7 @@ __all__ = [
     "SSEDataEventMessage",
     "SSEDataEventStatus",
     "SuccessResponse",
+    "SearchFilter",
     "OrderByNullPosition",
     "OrderDirection",
     "PaginationBase",
