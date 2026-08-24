@@ -71,12 +71,27 @@ export default defineNuxtPlugin((nuxtApp) => {
       ) {
         config._retriedAfterRefresh = true;
 
+        let refreshed = true;
         try {
           await nuxtApp.runWithContext(() => useAuthBackend().refresh());
-          return await axiosInstance(config);
         }
         catch {
           // Refresh failed, so the session really is over. Fall through to the logout path.
+          refreshed = false;
+        }
+
+        if (refreshed) {
+          try {
+            return await axiosInstance(config);
+          }
+          catch (retryError: any) {
+            // The replay carried a good token, so anything other than a second 401 is the request's
+            // own problem — a 500, a dropped connection — and has to surface as itself. Treating it
+            // as a dead session would log the user out over an unrelated server error.
+            if (retryError?.response?.status !== 401) {
+              return Promise.reject(retryError);
+            }
+          }
         }
       }
 
