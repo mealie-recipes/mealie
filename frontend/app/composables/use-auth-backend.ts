@@ -2,7 +2,7 @@ import { ref, computed, watch } from "vue";
 import type { UserOut } from "~/lib/api/types/user";
 import { clearAllStores } from "~/composables/store";
 import { clearComposableCaches } from "~/composables/use-clear-composable-caches";
-import { getTokenCookieOptions, getTokenExpiry, isRememberedSession, readTokenCookie } from "~/composables/use-token-cookie";
+import { getTokenCookieOptions, getTokenExpiry, isRememberedSession, nextRefreshDelay, readTokenCookie } from "~/composables/use-token-cookie";
 
 interface AuthData {
   value: UserOut | null;
@@ -25,21 +25,8 @@ interface AuthState {
   initTokenRefresh: () => void;
 }
 
-/** Refresh once this fraction of the token's remaining life has elapsed. */
-const REFRESH_AFTER_FRACTION = 0.6;
-/** Never schedule a refresh tighter than this, so a near-expired token can't spin the timer. */
-const MIN_REFRESH_DELAY_MS = 30_000;
-/** Spread concurrent refreshes across tabs so they don't all fire on the same millisecond. */
-const REFRESH_JITTER_MS = 30_000;
 /** Retry a refresh that failed for reasons other than auth (offline, server hiccup). */
 const REFRESH_RETRY_DELAY_MS = 60_000;
-/**
- * setTimeout stores its delay as a 32-bit signed integer, so anything longer overflows and fires
- * straight away instead of waiting. There is no constant exposed for this — `Number.MAX_SAFE_INTEGER`
- * is a different limit entirely — so the ceiling is spelled out. Waiting out a token longer than
- * ~24.8 days just means refreshing it early, which costs one request and keeps the session sliding.
- */
-const MAX_TIMEOUT_MS = 2 ** 31 - 1;
 
 const authUser = ref<UserOut | null>(null);
 const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("loading");
@@ -88,18 +75,10 @@ export const useAuthBackend = function (): AuthState {
       return;
     }
 
-    const remaining = expiresAt - Date.now();
-    if (remaining <= 0) {
-      // Already expired. Nothing can be done with it — refreshing requires a token the server will
-      // still accept — so leave the next request's 401 to send the user to the login page.
+    const delay = nextRefreshDelay(expiresAt - Date.now());
+    if (delay === null) {
       return;
     }
-
-    // Jitter goes on before the clamp, not after: adding it to an already-clamped delay can push the
-    // total past the 32-bit ceiling, which overflows to "fire now" and spins into a refresh loop.
-    const target = Math.max(remaining * REFRESH_AFTER_FRACTION, MIN_REFRESH_DELAY_MS)
-      + Math.random() * REFRESH_JITTER_MS;
-    const delay = Math.min(target, MAX_TIMEOUT_MS);
 
     refreshTimer = setTimeout(() => {
       refreshTimer = null;

@@ -1,5 +1,5 @@
 import { describe, expect, test, vi, beforeEach, afterEach } from "vitest";
-import { getTokenCookieOptions, getTokenExpiry, isRememberedSession, readTokenCookie } from "../use-token-cookie";
+import { getTokenCookieOptions, getTokenExpiry, isRememberedSession, nextRefreshDelay, readTokenCookie } from "../use-token-cookie";
 
 function setLocation(protocol: string) {
   Object.defineProperty(window, "location", {
@@ -158,5 +158,46 @@ describe("readTokenCookie", () => {
 
   test("returns null when the cookie is absent", () => {
     expect(readTokenCookie("mealie.access_token")).toBeNull();
+  });
+});
+
+const MAX_TIMEOUT_MS = 2 ** 31 - 1;
+const MINUTE = 60 * 1000;
+const HOUR = 60 * MINUTE;
+const DAY = 24 * HOUR;
+
+describe("nextRefreshDelay", () => {
+  test("waits 60% of the remaining life, so each refresh lands well before expiry", () => {
+    expect(nextRefreshDelay(10 * HOUR, 0)).toBe(6 * HOUR);
+  });
+
+  test("floors short delays, so a nearly-expired token can't spin the timer", () => {
+    // 60% of 10s is 6s, which would re-arm faster than a refresh round-trip completes
+    expect(nextRefreshDelay(10_000, 0)).toBe(30_000);
+  });
+
+  test("adds jitter on top, to spread simultaneous refreshes across tabs", () => {
+    const base = nextRefreshDelay(10 * HOUR, 0)!;
+
+    expect(nextRefreshDelay(10 * HOUR, 1)).toBe(base + 30_000);
+    expect(nextRefreshDelay(10 * HOUR, 0.5)).toBe(base + 15_000);
+  });
+
+  test("never exceeds the setTimeout ceiling, even at maximum jitter", () => {
+    // Regression: jitter used to be added *after* the clamp, so a long-lived token overflowed the
+    // 32-bit delay, fired immediately, refreshed, and looped. Reachable at TOKEN_TIME >= ~992h.
+    for (const remaining of [42 * DAY, 400 * DAY, Number.MAX_SAFE_INTEGER]) {
+      expect(nextRefreshDelay(remaining, 1)).toBeLessThanOrEqual(MAX_TIMEOUT_MS);
+    }
+  });
+
+  test("still schedules something for a very long-lived token", () => {
+    // Clamped rather than skipped: refreshing a 400-day token early is harmless and keeps it sliding
+    expect(nextRefreshDelay(400 * DAY, 0)).toBe(MAX_TIMEOUT_MS);
+  });
+
+  test("returns null once the token has expired, since there is nothing left to refresh with", () => {
+    expect(nextRefreshDelay(0, 0)).toBeNull();
+    expect(nextRefreshDelay(-1 * HOUR, 0)).toBeNull();
   });
 });
