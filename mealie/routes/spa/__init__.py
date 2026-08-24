@@ -40,6 +40,13 @@ class SPAStaticFiles(StaticFiles):
             else:
                 raise ex
 
+        # StaticFiles(html=True) serves 404.html (which IS the SPA shell) with
+        # status_code=404 for any unknown path, without raising HTTPException.
+        # Rewrite to 200 so reverse proxies that intercept 4xx don't replace the
+        # body with a generic error page.
+        if response.status_code == 404 and response.media_type == "text/html":
+            response.status_code = 200
+
         # Hashed assets (_nuxt/*) are safe to cache forever since new builds produce new filenames.
         # HTML must revalidate so browsers always fetch the correct bundle references after a
         # container rebuild (prevents blank white page from stale index.html in HA iframes, etc).
