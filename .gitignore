@@ -23,14 +23,17 @@ dev/data/migration/*
 dev/data/templates/*
 dev/data/users/*
 dev/data/groups/*
+dev/data/postgres/*
 
 .DS_Store
 node_modules
 
+.pnpm-store
 
-# local env files
+# local files
 .env.local
 .env.*.local
+*.local.*
 
 
 # Log files

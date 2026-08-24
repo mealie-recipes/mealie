@@ -95,6 +95,15 @@ test_cases = [
         },
     ),
     MigrationTestData(
+        typ=SupportedMigrations.plantoeat,
+        archive=test_data.migrations_plantoeat_csv,
+        search_slug="test-recipe",
+        nutrition_filter={
+            "unsaturatedFatContent",
+            "transFatContent",
+        },
+    ),
+    MigrationTestData(
         typ=SupportedMigrations.myrecipebox,
         archive=test_data.migrations_myrecipebox,
         search_slug="beef-cheese-piroshki",
@@ -124,6 +133,7 @@ test_ids = [
     "mealie_alpha_archive",
     "tandoor_archive",
     "plantoeat_archive",
+    "plantoeat_csv",
     "myrecipebox_csv",
     "recipekeeper_archive",
     "cookn_archive",
@@ -188,6 +198,30 @@ def test_recipe_migration(api_client: TestClient, unique_user_fn_scoped: TestUse
             assert k in nutrition and nutrition[k] is not None
 
     # TODO: validate other types of content
+
+
+def test_plantoeat_rejects_invalid_file_type(api_client: TestClient, unique_user: TestUser) -> None:
+    # Simulate uploading a binary file (e.g. PDF) that is neither ZIP nor CSV/TXT
+    binary_content = bytes(range(256)) * 4  # arbitrary binary data that is not valid UTF-8
+    payload = {"migration_type": SupportedMigrations.plantoeat.value}
+    file_payload = {"archive": binary_content}
+
+    response = api_client.post(
+        api_routes.groups_migrations,
+        data=payload,
+        files=file_payload,
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 200
+    report_id = response.json()["id"]
+
+    response = api_client.get(api_routes.groups_reports_item_id(report_id), headers=unique_user.token)
+    assert response.status_code == 200
+    report = response.json()
+    assert report["entries"]
+    assert not report["entries"][0]["success"]
+    assert "ZIP" in report["entries"][0]["message"] or "CSV" in report["entries"][0]["message"]
 
 
 def test_bad_mealie_alpha_data_is_ignored(api_client: TestClient, unique_user: TestUser):

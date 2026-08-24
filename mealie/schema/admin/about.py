@@ -22,6 +22,7 @@ class AppInfo(MealieModel):
     oidc_redirect: bool
     oidc_provider_name: str
     token_time: int
+    allowed_iframe_hosts: list[str] = []
 
 
 class AppTheme(MealieModel):
@@ -68,6 +69,8 @@ class AdminAboutInfo(AppInfo):
 class CheckAppConfig(MealieModel):
     email_ready: bool
     ldap_ready: bool
+    ldap_disabled: bool
     oidc_ready: bool
+    oidc_disabled: bool
     base_url_set: bool
     is_up_to_date: bool

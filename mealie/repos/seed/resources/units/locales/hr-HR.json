@@ -1,146 +1,146 @@
 {
     "teaspoon": {
         "name": "žličica",
-        "plural_name": "teaspoons",
+        "plural_name": "žličice",
         "description": "",
         "abbreviation": "žlič"
     },
     "tablespoon": {
         "name": "žlica",
-        "plural_name": "tablespoons",
+        "plural_name": "žlice",
         "description": "",
         "abbreviation": "žlic"
     },
     "cup": {
         "name": "šalica",
-        "plural_name": "cups",
+        "plural_name": "šalice",
         "description": "",
         "abbreviation": "c"
     },
     "fluid-ounce": {
         "name": "tekuća unca",
-        "plural_name": "fluid ounces",
+        "plural_name": "tekuće unce",
         "description": "",
         "abbreviation": "fl oz"
     },
     "pint": {
         "name": "pint",
-        "plural_name": "pints",
+        "plural_name": "pinte",
         "description": "",
         "abbreviation": "pt"
     },
     "quart": {
         "name": "kvart",
-        "plural_name": "quarts",
+        "plural_name": "kvarti",
         "description": "",
         "abbreviation": "qt"
     },
     "gallon": {
         "name": "galon",
-        "plural_name": "gallons",
+        "plural_name": "galoni",
         "description": "",
         "abbreviation": "gal"
     },
     "milliliter": {
         "name": "mililitar",
-        "plural_name": "milliliters",
+        "plural_name": "mililitri",
         "description": "",
         "abbreviation": "ml"
     },
     "liter": {
         "name": "litra",
-        "plural_name": "liters",
+        "plural_name": "litre",
         "description": "",
         "abbreviation": "l"
     },
     "pound": {
         "name": "funta",
-        "plural_name": "pounds",
+        "plural_name": "funte",
         "description": "",
         "abbreviation": "lb",
         "plural_abbreviation": "lbs"
     },
     "ounce": {
         "name": "unca",
-        "plural_name": "ounces",
+        "plural_name": "unce",
         "description": "",
         "abbreviation": "oz"
     },
     "gram": {
         "name": "gram",
-        "plural_name": "grams",
+        "plural_name": "grami",
         "description": "",
         "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogram",
-        "plural_name": "kilograms",
+        "plural_name": "kilogrami",
         "description": "",
         "abbreviation": "kg"
     },
     "milligram": {
         "name": "miligram",
-        "plural_name": "milligrams",
+        "plural_name": "miligrami",
         "description": "",
         "abbreviation": "mg"
     },
     "splash": {
         "name": "splash",
-        "plural_name": "splashes",
+        "plural_name": "prskanja",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
         "name": "dash",
-        "plural_name": "dashes",
+        "plural_name": "prstohvati",
         "description": "",
         "abbreviation": ""
     },
     "serving": {
         "name": "porcija",
-        "plural_name": "servings",
+        "plural_name": "porcije",
         "description": "",
         "abbreviation": ""
     },
     "head": {
         "name": "glava",
-        "plural_name": "heads",
+        "plural_name": "glavice",
         "description": "",
         "abbreviation": ""
     },
     "clove": {
         "name": "klinčić",
-        "plural_name": "cloves",
+        "plural_name": "češnjevi",
         "description": "",
         "abbreviation": ""
     },
     "can": {
         "name": "limenka",
-        "plural_name": "cans",
+        "plural_name": "konzerve",
         "description": "",
         "abbreviation": ""
     },
     "bunch": {
-        "name": "bunch",
-        "plural_name": "bunches",
+        "name": "vezica",
+        "plural_name": "vezice",
         "description": "",
         "abbreviation": ""
     },
     "pack": {
-        "name": "pack",
-        "plural_name": "packs",
+        "name": "pakiranje",
+        "plural_name": "pakiranja",
         "description": "",
         "abbreviation": ""
     },
     "pinch": {
-        "name": "pinch",
-        "plural_name": "pinches",
+        "name": "prstohvat",
+        "plural_name": "prstohvati",
         "description": "",
         "abbreviation": ""
     },
     "sprig": {
-        "name": "sprig",
-        "plural_name": "sprigs",
+        "name": "grančica",
+        "plural_name": "grančice",
         "description": "",
         "abbreviation": ""
     }

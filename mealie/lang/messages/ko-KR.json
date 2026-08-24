@@ -20,15 +20,30 @@
         },
         "and-amount": "and {amount}",
         "or-ingredient": "or {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
             "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
             "downloading-image": "Downloading image...",
             "downloading-video": "Downloading video...",
             "extracting-recipe-data": "Extracting recipe data...",
             "fetching-webpage": "Fetching webpage...",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Transcribing audio with AI...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "이 작업을 수행할 권한이 없습니다.",
         "recursive-recipe-link": "레시피는 직접적이든 간접적이든 자신을 참조할 수 없습니다.",
         "no-entry-found": "요청한 페이지를 찾을 수 없습니다. 주소를 정확히 입력했는지 확인해보세요.",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "데이터베이스 무결성 오류",
         "username-conflict-error": "이미 사용 중인 사용자 이름입니다.",
         "email-conflict-error": "이 이메일은 이미 사용중입니다"

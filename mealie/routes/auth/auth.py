@@ -1,6 +1,5 @@
 from typing import Annotated, Any
 
-from authlib.integrations.starlette_client import OAuth
 from fastapi import APIRouter, Depends, Header, Request, Response, status
 from fastapi.exceptions import HTTPException
 from fastapi.responses import RedirectResponse
@@ -12,13 +11,12 @@ from mealie.core import root_logger, security
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies import get_current_user
 from mealie.core.exceptions import MissingClaimException, UserLockedOut
-from mealie.core.security.providers.openid_provider import OpenIDProvider
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
 from mealie.lang import get_locale_provider
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
-from mealie.schema.user.auth import CredentialsRequestForm
+from mealie.schema.user.auth import CredentialsRequestForm, NativeOIDCTokenRequest, OIDCNativeConfig
 
 from .auth_cache import AuthCache
 
@@ -28,7 +26,10 @@ logger = root_logger.get_logger("auth")
 
 
 settings = get_app_settings()
+oauth = None
 if settings.OIDC_READY:
+    from authlib.integrations.starlette_client import OAuth
+
     oauth = OAuth(cache=AuthCache())
     scope = None
     if settings.OIDC_SCOPES_OVERRIDE:
@@ -123,6 +124,8 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
 
     token = await client.authorize_access_token(request)
 
+    from mealie.core.security.providers.openid_provider import OpenIDProvider
+
     auth = None
     try:
         auth_provider = OpenIDProvider(session, token["userinfo"])
@@ -130,6 +133,75 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
     except MissingClaimException:
         try:
             logger.debug("[OIDC] Claims not present in the ID token, pulling user info")
+            userinfo = await client.userinfo(token=token)
+            auth_provider = OpenIDProvider(session, userinfo, use_default_groups=True)
+            auth = auth_provider.authenticate()
+        except MissingClaimException:
+            logger.error("[OIDC] Required claims not present in ID token or userinfo endpoint")
+            auth = None
+
+    if not auth:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+    access_token, _ = auth
+    return MealieAuthToken.respond(access_token)
+
+
+@public_router.get("/oauth/native/config", response_model=OIDCNativeConfig)
+async def oauth_native_config():
+    """Return the parameters a native client needs to build its own OIDC authorization request."""
+    if not settings.OIDC_READY or not oauth:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="OIDC is not configured",
+        )
+
+    client = oauth.create_client("oidc")
+    metadata = await client.load_server_metadata()
+    return OIDCNativeConfig(
+        authorization_endpoint=metadata["authorization_endpoint"],
+        client_id=client.client_id,
+        scope=client.client_kwargs.get("scope", "openid email profile"),
+    )
+
+
+@public_router.post("/oauth/native/token")
+async def oauth_native_token(data: NativeOIDCTokenRequest, session: Session = Depends(generate_session)):
+    """Exchange a native client's authorization code for a Mealie token.
+
+    The native client owns PKCE and state, so the exchange happens server-side without a browser
+    session cookie. This lets passkey-capable system-browser logins (e.g. Pocket ID) work, which
+    the cookie-coupled web callback cannot support.
+    """
+    if not settings.OIDC_READY or not oauth:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="OIDC is not configured",
+        )
+
+    from authlib.integrations.starlette_client import OAuthError
+
+    client = oauth.create_client("oidc")
+    try:
+        token = await client.fetch_access_token(
+            code=data.code,
+            code_verifier=data.code_verifier,
+            redirect_uri=data.redirect_uri,
+        )
+        userinfo = await client.parse_id_token(token, nonce=data.nonce)
+    except OAuthError as e:
+        logger.error("[OIDC] Native token exchange failed: %s", e)
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED) from e
+
+    from mealie.core.security.providers.openid_provider import OpenIDProvider
+
+    auth = None
+    try:
+        auth_provider = OpenIDProvider(session, userinfo)
+        auth = auth_provider.authenticate()
+    except MissingClaimException:
+        try:
+            logger.debug("[OIDC] Claims not present in the id_token, pulling user info")
             userinfo = await client.userinfo(token=token)
             auth_provider = OpenIDProvider(session, userinfo, use_default_groups=True)
             auth = auth_provider.authenticate()

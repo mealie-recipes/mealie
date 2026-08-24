@@ -1,12 +1,16 @@
+from __future__ import annotations
+
 from dataclasses import dataclass, field
 from fractions import Fraction
 from itertools import zip_longest
+from typing import TYPE_CHECKING
 
-from ingredient_parser import parse_ingredient
-from ingredient_parser.dataclasses import CompositeIngredientAmount, IngredientAmount
-from ingredient_parser.dataclasses import ParsedIngredient as IngredientParserParsedIngredient
 from pydantic import UUID4
 from sqlalchemy.orm import Session
+
+if TYPE_CHECKING:
+    from ingredient_parser.dataclasses import IngredientAmount
+    from ingredient_parser.dataclasses import ParsedIngredient as IngredientParserParsedIngredient
 
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
@@ -21,7 +25,7 @@ from mealie.schema.recipe.recipe_ingredient import (
     RegisteredParser,
 )
 
-from . import brute, openai
+from . import brute
 from ._base import ABCIngredientParser
 from .parser_utils import extract_quantity_from_string
 
@@ -96,6 +100,8 @@ class NLPParser(ABCIngredientParser):
 
     @classmethod
     def _extract_amount(cls, ingredient: IngredientParserParsedIngredient) -> IngredientAmount:
+        from ingredient_parser.dataclasses import CompositeIngredientAmount, IngredientAmount
+
         if not (ingredient_amounts := ingredient.amount):
             return IngredientAmount(
                 quantity=Fraction(0), quantity_max=Fraction(0), unit="", text="", confidence=0, starting_index=-1
@@ -162,6 +168,8 @@ class NLPParser(ABCIngredientParser):
         return note, confidence
 
     def _convert_ingredient(self, ingredient: IngredientParserParsedIngredient) -> ParsedIngredient:
+        from ingredient_parser.dataclasses import CompositeIngredientAmount
+
         ing_parts: list[_IngredientPart] = []
 
         for amount, ing_name in zip_longest(ingredient.amount, ingredient.name, fillvalue=None):
@@ -252,6 +260,8 @@ class NLPParser(ABCIngredientParser):
         return self.find_ingredient_match(parsed_ingredient)
 
     async def parse_one(self, ingredient_string: str) -> ParsedIngredient:
+        from ingredient_parser import parse_ingredient
+
         database_units = {}
         for ingredient_unit in self.data_matcher.units_by_id.values():
             if ingredient_unit.name:
@@ -272,7 +282,6 @@ class NLPParser(ABCIngredientParser):
 __registrar: dict[RegisteredParser, type[ABCIngredientParser]] = {
     RegisteredParser.nlp: NLPParser,
     RegisteredParser.brute: BruteForceParser,
-    RegisteredParser.openai: openai.OpenAIParser,
 }
 
 
@@ -280,7 +289,11 @@ def get_parser(
     parser: RegisteredParser, group_id: UUID4, session: Session, translator: Translator
 ) -> ABCIngredientParser:
     """
-    get_parser returns an ingrdeint parser based on the string enum value
+    get_parser returns an ingredient parser based on the string enum value
     passed in.
     """
+    if parser == RegisteredParser.openai:
+        from .openai import OpenAIParser
+
+        return OpenAIParser(group_id, session, translator)
     return __registrar.get(parser, NLPParser)(group_id, session, translator)

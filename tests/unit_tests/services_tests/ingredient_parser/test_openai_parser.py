@@ -56,11 +56,10 @@ def test_openai_parser(
     monkeypatch.setattr(OpenAIService, "__init__", mock_openai_init)
 
     with session_context() as session:
-        loop = asyncio.get_event_loop()
         parser = get_parser(RegisteredParser.openai, unique_local_group_id, session, get_locale_provider())
 
         inputs = [random_string() for _ in range(ingredient_count)]
-        parsed = loop.run_until_complete(parser.parse(inputs))
+        parsed = asyncio.run(parser.parse(inputs))
 
         # since OpenAI is mocked, we don't need to validate the data, we just need to make sure parsing works
         # and that it preserves order
@@ -109,10 +108,10 @@ def test_openai_parser_sanitize_output(
     monkeypatch.setattr(OpenAIService, "__init__", mock_openai_init)
 
     with session_context() as session:
-        loop = asyncio.get_event_loop()
         parser = get_parser(RegisteredParser.openai, unique_local_group_id, session, get_locale_provider())
 
-        parsed = loop.run_until_complete(parser.parse([""]))
+        parsed = asyncio.run(parser.parse([""]))
+
         assert len(parsed) == 1
         parsed_ing = cast(ParsedIngredient, parsed[0])
         assert parsed_ing.ingredient.food

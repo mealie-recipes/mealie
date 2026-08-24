@@ -1,3 +1,4 @@
+import { mount } from "@vue/test-utils";
 import { createI18n } from "vue-i18n";
 
 function loadEnLocales() {
@@ -14,3 +15,12 @@ export function stubI18n() {
   });
   return i18n.global;
 }
+
+export const makeWrapper = <T>(setup: () => T) => {
+  const Wrapper = {
+    template: "<div />",
+    setup,
+  };
+  const { vm } = mount(Wrapper);
+  return vm as unknown as ReturnType<typeof Wrapper.setup>;
+};

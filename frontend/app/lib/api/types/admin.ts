@@ -17,6 +17,7 @@ export interface AdminAboutInfo {
   oidcRedirect: boolean;
   oidcProviderName: string;
   tokenTime: number;
+  allowedIframeHosts?: string[];
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
@@ -48,6 +49,7 @@ export interface AppInfo {
   oidcRedirect: boolean;
   oidcProviderName: string;
   tokenTime: number;
+  allowedIframeHosts?: string[];
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;
@@ -88,7 +90,9 @@ export interface BackupOptions {
 export interface CheckAppConfig {
   emailReady: boolean;
   ldapReady: boolean;
+  ldapDisabled: boolean;
   oidcReady: boolean;
+  oidcDisabled: boolean;
   baseUrlSet: boolean;
   isUpToDate: boolean;
 }

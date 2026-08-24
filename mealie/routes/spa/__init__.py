@@ -4,7 +4,6 @@ import pathlib
 from dataclasses import dataclass
 from typing import Any
 
-from bs4 import BeautifulSoup
 from fastapi import Depends, FastAPI, Response
 from fastapi.encoders import jsonable_encoder
 from fastapi.staticfiles import StaticFiles
@@ -75,6 +74,8 @@ def escape(content: Any) -> Any:
 
 
 def inject_meta(contents: str, tags: list[MetaTag]) -> str:
+    from bs4 import BeautifulSoup
+
     soup = BeautifulSoup(contents, "lxml")
     scraped_meta_tags = soup.find_all("meta")
 

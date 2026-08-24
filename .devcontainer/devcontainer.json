@@ -6,17 +6,13 @@
     "dockerfile": "Dockerfile",
     "context": "..",
     "args": {
-      // Update 'VARIANT' to pick a Python version: 3, 3.10, 3.9, 3.8, 3.7, 3.6
-      // Append -bullseye or -buster to pin to an OS version.
-      // Use -bullseye variants on local on arm64/Apple Silicon.
-      "VARIANT": "3.12-bullseye",
-      // Options
-      "NODE_VERSION": "22"
+      "VARIANT": "3.12-trixie"
     }
   },
   "mounts": [
     "source=mealie-devcontainer-workspace,target=/workspaces/mealie/frontend/node_modules,type=volume",
-    "source=mealie-bashhistory,target=/home/vscode/commandhistory,type=volume"
+    "source=mealie-bashhistory,target=/home/vscode/commandhistory,type=volume",
+    "source=mealie-gh-config,target=/home/vscode/.config/gh,type=volume"
   ],
   "customizations": {
     "vscode": {
@@ -44,17 +40,16 @@
     8000, // used by mkdocs
     9000,
     9091, // used by docker production
+    51204, // used for test coverage report
     24678 // used by nuxt when hot-reloading using polling
   ],
-  // Use 'onCreateCommand' to run commands at the end of container creation.
-  // Use 'postCreateCommand' to run commands after the container is created.
-  "onCreateCommand": "sudo chown -R vscode:vscode /workspaces/mealie/frontend/node_modules /home/vscode/commandhistory && task setup --force",
-  // Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+  "onCreateCommand": "task setup --force",
   "remoteUser": "vscode",
   "features": {
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {
-      "dockerDashComposeVersion": "v2"
-    }
+    "ghcr.io/devcontainers/features/node:2": {
+      "version": "24"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
   },
   "appPort": [
     "3000:3000",
