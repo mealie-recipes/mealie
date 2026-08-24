@@ -27,6 +27,8 @@ interface AuthState {
 
 /** Retry a refresh that failed for reasons other than auth (offline, server hiccup). */
 const REFRESH_RETRY_DELAY_MS = 60_000;
+/** Cap those retries, so a persistent server error doesn't become a poll for the life of the tab. */
+const MAX_REFRESH_RETRIES = 5;
 
 const authUser = ref<UserOut | null>(null);
 const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("loading");
@@ -38,6 +40,7 @@ const accessToken = ref<string | null>(null);
 
 let refreshTimer: ReturnType<typeof setTimeout> | null = null;
 let refreshInFlight: Promise<void> | null = null;
+let refreshRetries = 0;
 
 export function resetAuth() {
   authUser.value = null;
@@ -183,42 +186,59 @@ export const useAuthBackend = function (): AuthState {
    * and each one retrying separately would stampede the endpoint and race over the cookie.
    */
   async function refresh(): Promise<void> {
-    if (!accessToken.value) return;
-    if (refreshInFlight) return refreshInFlight;
+    // The cookie is the real credential — the interceptor gates on it, and it is populated before
+    // initTokenRefresh() hydrates the ref. Gating only on the ref would make refresh a silent no-op
+    // during boot, turning a recoverable 401 into a logout.
+    if (!accessToken.value && !readTokenCookie(tokenName)) return;
 
-    refreshInFlight = (async () => {
-      try {
+    if (!refreshInFlight) {
+      // Deliberately covers the token exchange alone. getSession() goes through the same axios
+      // instance, so a 401 there sends the interceptor back into refresh(), which would hand it this
+      // very promise — one that is waiting on the request the interceptor is holding. Nothing
+      // settles, the lock never clears, and the session wedges silently.
+      refreshInFlight = (async () => {
         const response = await $axios.post("/api/auth/refresh", null, { suppressAlert: true });
         setToken(response.data.access_token);
-        await getSession();
-      }
-      catch (error: any) {
-        handleAuthError(error, true);
-        throw error;
-      }
-      finally {
+      })().finally(() => {
         refreshInFlight = null;
-      }
-    })();
+      });
+    }
 
-    return refreshInFlight;
+    try {
+      await refreshInFlight;
+    }
+    catch (error: any) {
+      handleAuthError(error, true);
+      throw error;
+    }
+
+    await getSession();
   }
 
   /** A background refresh, where there is no caller to surface a failure to. */
   async function refreshQuietly(): Promise<void> {
     try {
       await refresh();
+      refreshRetries = 0;
     }
     catch (error: any) {
       // A 401 has already cleared the session and redirected. Anything else — offline, a restarting
       // backend — is transient, so try again rather than letting the session lapse over a blip.
-      if (error?.response?.status !== 401 && accessToken.value) {
-        clearScheduledRefresh();
-        refreshTimer = setTimeout(() => {
-          refreshTimer = null;
-          void refreshQuietly();
-        }, REFRESH_RETRY_DELAY_MS);
+      if (error?.response?.status === 401 || !accessToken.value) {
+        return;
       }
+      if (refreshRetries >= MAX_REFRESH_RETRIES) {
+        return;
+      }
+
+      // Backing off, because a 500 that isn't going away shouldn't be retried at the same rate as a
+      // dropped connection. Attempts stop well before the token would have expired anyway.
+      refreshRetries += 1;
+      clearScheduledRefresh();
+      refreshTimer = setTimeout(() => {
+        refreshTimer = null;
+        void refreshQuietly();
+      }, REFRESH_RETRY_DELAY_MS * refreshRetries);
     }
   }
 
@@ -240,13 +260,29 @@ export const useAuthBackend = function (): AuthState {
     // Nuxt syncs cookie refs between tabs, so this also picks up a refresh performed elsewhere and
     // re-schedules against the new expiry instead of duplicating the work.
     watch(tokenCookie, (value) => {
-      if (value && value !== accessToken.value) {
+      if (!value) {
+        // Signed out in another tab. Drop this tab's session too, instead of holding a stale token
+        // and a live refresh timer while still rendering as authenticated.
+        //
+        // Cleared by hand rather than through setToken(null): that writes the cookie, which
+        // broadcasts, which lands back here — a loop between tabs.
+        accessToken.value = null;
+        clearScheduledRefresh();
+        resetAuth();
+        return;
+      }
+
+      if (value !== accessToken.value) {
         accessToken.value = value;
         scheduleTokenRefresh(value);
       }
     });
 
-    const reschedule = () => scheduleTokenRefresh(accessToken.value);
+    const reschedule = () => {
+      // The user is back, so give a session that exhausted its retries another chance
+      refreshRetries = 0;
+      scheduleTokenRefresh(accessToken.value);
+    };
 
     window.addEventListener("focus", reschedule);
     window.addEventListener("online", reschedule);
