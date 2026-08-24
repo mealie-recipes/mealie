@@ -50,6 +50,12 @@ export default defineNuxtConfig({
           content: "Mealie is a recipe management app for your kitchen.",
         },
       ],
+      script: [
+        {
+          innerHTML: `(function(){try{var d=localStorage.getItem('vueuse-color-scheme');var m=d==='dark'||(d!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches);document.documentElement.style.backgroundColor=m?'#1E1E1E':'#FFFFFF'}catch(e){}})()`,
+          type: "text/javascript",
+        },
+      ],
       link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
         { rel: "shortcut icon", type: "image/png", href: "/icons/icon-x64.png" },
@@ -101,9 +107,6 @@ export default defineNuxtConfig({
       },
     },
   },
-  dir: {
-    static: "static",
-  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
@@ -117,10 +120,10 @@ export default defineNuxtConfig({
     transpile: process.env.NODE_ENV !== "production" ? [/@vue[\\/]composition-api/] : [],
   },
   future: {
-    compatibilityVersion: 3,
+    compatibilityVersion: 4,
   },
 
-  compatibilityDate: "2025-03-28",
+  compatibilityDate: "2026-04-08",
 
   nitro: {
     baseURL: process.env.SUB_PATH || "",
@@ -196,7 +199,7 @@ export default defineNuxtConfig({
     strategy: "no_prefix",
     lazy: true,
     types: "composition",
-    langDir: "./../lang/locales", // note: we need to up one ../ because the default root of lang dir is the /frontend/i18n, which can not be configured
+    langDir: "./../app/lang/locales", // note: we need to up one ../ because the default root of lang dir is the /frontend/i18n, which can not be configured
     defaultLocale: "en-US",
     detectBrowserLanguage: {
       useCookie: true,
@@ -207,7 +210,7 @@ export default defineNuxtConfig({
       strictMessage: false,
       escapeHtml: true,
     },
-    vueI18n: "./../i18n.config.ts", // note: we need to up one ../ because the default root of lang dir is the /frontend/i18n, which can not be configured
+    vueI18n: "./../app/i18n.config.ts", // note: we need to up one ../ because the default root of lang dir is the /frontend/i18n, which can not be configured
   },
 
   // PWA module configuration: https://vite-pwa-org.netlify.app/frameworks/nuxt.html
@@ -231,151 +234,7 @@ export default defineNuxtConfig({
       periodicSyncForUpdates: 120,
     },
     includeAssets: ["favicon.ico", "apple-touch-icon.png", "safari-pinned-tab.svg"],
-    manifest: {
-      name: "Mealie",
-      short_name: "Mealie",
-      id: "/",
-      start_url: "/",
-      scope: "/",
-      display: "standalone",
-      background_color: "#FFFFFF",
-      theme_color: process.env.THEME_LIGHT_PRIMARY || "#E58325",
-      description: "Mealie is a recipe management and meal planning app",
-      lang: "en",
-      display_override: [
-        "standalone",
-        "minimal-ui",
-        "browser",
-        "window-controls-overlay",
-      ],
-      categories: ["food", "lifestyle"],
-      prefer_related_applications: false,
-      handle_links: "preferred",
-      launch_handler: {
-        client_mode: ["focus-existing", "auto"],
-      },
-      edge_side_panel: {
-        preferred_width: 400,
-      },
-      share_target: {
-        action: "/r/create/url",
-        method: "GET",
-        enctype: "application/x-www-form-urlencoded",
-        params: {
-          text: "recipe_import_url",
-        },
-      },
-      icons: [
-        {
-          src: "/icons/android-chrome-192x192.png",
-          sizes: "192x192",
-          type: "image/png",
-          purpose: "any",
-        },
-        {
-          src: "/icons/android-chrome-512x512.png",
-          sizes: "512x512",
-          type: "image/png",
-          purpose: "any",
-        },
-        {
-          src: "/icons/android-chrome-maskable-192x192.png",
-          sizes: "192x192",
-          type: "image/png",
-          purpose: "maskable",
-        },
-        {
-          src: "/icons/android-chrome-maskable-512x512.png",
-          sizes: "512x512",
-          type: "image/png",
-          purpose: "maskable",
-        },
-      ],
-      screenshots: [
-        {
-          src: "/screenshots/home-narrow.png",
-          sizes: "1600x2420",
-          form_factor: "narrow",
-          label: "Home Page",
-        },
-        {
-          src: "/screenshots/recipe-narrow.png",
-          sizes: "1600x2420",
-          form_factor: "narrow",
-          label: "Recipe Page",
-        },
-        {
-          src: "/screenshots/editor-narrow.png",
-          sizes: "1600x2420",
-          form_factor: "narrow",
-          label: "Editor Page",
-        },
-        {
-          src: "/screenshots/parser-narrow.png",
-          sizes: "1600x2420",
-          form_factor: "narrow",
-          label: "Parser Page",
-        },
-        {
-          src: "/screenshots/home-wide.png",
-          sizes: "2560x1460",
-          form_factor: "wide",
-          label: "Home Page",
-        },
-        {
-          src: "/screenshots/recipe-wide.png",
-          sizes: "2560x1460",
-          form_factor: "wide",
-          label: "Recipe Page",
-        },
-        {
-          src: "/screenshots/editor-wide.png",
-          sizes: "2560x1460",
-          form_factor: "wide",
-          label: "Editor Page",
-        },
-        {
-          src: "/screenshots/parser-wide.png",
-          sizes: "2560x1460",
-          form_factor: "wide",
-          label: "Parser Page",
-        },
-      ],
-      shortcuts: [
-        {
-          name: "Shopping Lists",
-          short_name: "Shopping Lists",
-          description: "Open the shopping lists",
-          url: "/shopping-lists",
-          icons: [
-            {
-              src: "/icons/mdiFormatListChecks-192x192.png",
-              sizes: "192x192",
-            },
-            {
-              src: "/icons/mdiFormatListChecks-96x96.png",
-              sizes: "96x96",
-            },
-          ],
-        },
-        {
-          name: "Meal Planner",
-          short_name: "Meal Planner",
-          description: "Open the meal planner",
-          url: "/household/mealplan/planner/view",
-          icons: [
-            {
-              src: "/icons/mdiCalendarMultiselect-192x192.png",
-              sizes: "192x192",
-            },
-            {
-              src: "/icons/mdiCalendarMultiselect-96x96.png",
-              sizes: "96x96",
-            },
-          ],
-        },
-      ],
-    },
+    manifest: false, // This is served via the backend, see mealie/routes/spa/manifest.py
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

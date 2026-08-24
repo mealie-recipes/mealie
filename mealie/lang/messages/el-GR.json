@@ -20,15 +20,30 @@
         },
         "and-amount": "και {amount}",
         "or-ingredient": "ή {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "Ο πάροχος AI δεν ήταν σε θέση να ολοκληρώσει το αίτημα. Παρακαλώ δοκιμάστε ξανά",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Κάτι πήγε στραβά κατά τη δημιουργία της συνταγής. Παρακαλώ προσπαθήστε ξανά",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Δεν είναι δυνατή η λήψη του βίντεο. Μπορεί να είναι ιδιωτικό, να έχει διαγραφεί ή να προέρχεται από μια μη υποστηριζόμενη ιστοσελίδα"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Δημιουργία συνταγής με AI...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Δημιουργία συνταγής από απομαγνητοφώνηση με AI...",
             "creating-recipe-from-webpage-data": "Δημιουργία συνταγής από δεδομένα ιστοσελίδας...",
             "downloading-image": "Λήψη εικόνας...",
             "downloading-video": "Λήψη βίντεο...",
             "extracting-recipe-data": "Εξαγωγή δεδομένων συνταγής...",
             "fetching-webpage": "Λήψη ιστοσελίδας...",
-            "transcribing-audio-with-ai": "Μεταγραφή ήχου με AI..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Μεταγραφή ήχου με AI...",
+            "translating-recipe": "Μετάφραση συνταγής..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "Δεν έχετε δικαιώματα για την εκτέλεση αυτής της ενέργειας",
         "recursive-recipe-link": "Μια συνταγή δεν μπορεί να αναφερθεί στον εαυτό της, είτε άμεσα είτε έμμεσα",
         "no-entry-found": "Η σελίδα που ζητήσατε δε βρέθηκε",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Σφάλμα ακεραιότητας βάσης δεδομένων",
         "username-conflict-error": "Το όνομα χρήστη χρησιμοποιείται ήδη",
         "email-conflict-error": "Αυτό το email χρησιμοποιείται ήδη"
@@ -56,7 +72,7 @@
         "generic-updated": "Ενημερώθηκε το {name}",
         "generic-created-with-url": "Το {name} δημιουργήθηκε, {url}",
         "generic-updated-with-url": "Το {name} ενημερώθηκε, {url}",
-        "generic-duplicated": "Δημιουργήθηκε διπλότυπο του {name}",
+        "generic-duplicated": "Δημιουργήθηκε αντίγραφο του {name}",
         "generic-deleted": "Το {name} διαγράφηκε",
         "logged-out": "Αποσυνδεδεμένος"
     },

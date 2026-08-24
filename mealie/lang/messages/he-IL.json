@@ -5,7 +5,7 @@
     "recipe": {
         "unique-name-error": "שמות מתכונים חייבים להיות ייחודיים",
         "recipe-created": "מתכון נוצר",
-        "recipe-image-deleted": "Recipe image deleted",
+        "recipe-image-deleted": "תמונת מתכון נמחקה",
         "recipe-defaults": {
             "ingredient-note": "כוס קמח",
             "step-text": "שלבי המתכון, כמו גם שדות אחרים בעמוד המתכון, תומכים בתחביר markdown.\n\n**הוספת קישור**\n\n[הקישור שלי](https://demo.mealie.io)\n"
@@ -20,15 +20,30 @@
         },
         "and-amount": "and {amount}",
         "or-ingredient": "or {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
-            "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
-            "extracting-recipe-data": "Extracting recipe data...",
+            "creating-recipe-from-webpage-data": "יוצר מתכון ממידע מהאתר...",
+            "downloading-image": "מוריד תמונה...",
+            "downloading-video": "מוריד וידאו...",
+            "extracting-recipe-data": "מחלץ פרטי מתכון...",
             "fetching-webpage": "Fetching webpage...",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "מתמלל שמע עם בינה מלאכותית...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "אין לך הרשאות לביצוע פעולה זו",
         "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "המשאב המבוקש לא נמצא",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "שגיאת שלמות מסד נתונים",
         "username-conflict-error": "שם המשתמש הזה כבר נמצא בשימוש",
         "email-conflict-error": "כתובת דואר אלקטרוני זאת כבר נמצאת בשימוש"

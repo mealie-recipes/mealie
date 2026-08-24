@@ -132,4 +132,4 @@ class TandoorMigrator(BaseMigrator):
                     except StopIteration:
                         continue
 
-                    self.import_image(slug, r.image, recipe_id)
+                    self.import_image(slug, r.image, recipe_id, extraction_root=source_dir)

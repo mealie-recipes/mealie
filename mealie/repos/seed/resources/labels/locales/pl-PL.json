@@ -1,6 +1,6 @@
 [
     {
-        "name": "Wyroby"
+        "name": "Produkty świeże"
     },
     {
         "name": "Ziarna"
@@ -24,10 +24,10 @@
         "name": "Wyroby piekarnicze"
     },
     {
-        "name": "Wyroby puszkowe"
+        "name": "Konserwy"
     },
     {
-        "name": "Geurmiddels"
+        "name": "Przyprawy"
     },
     {
         "name": "Wyroby cukiernicze"
@@ -36,13 +36,13 @@
         "name": "Nabiał"
     },
     {
-        "name": "Mrożona żywność"
+        "name": "Mrożonki"
     },
     {
-        "name": "Żywność zdrowotna"
+        "name": "Zdrowa żywność"
     },
     {
-        "name": "Wyroby gospodarstwa domowego"
+        "name": "Artykuły domowe"
     },
     {
         "name": "Produkty mięsne"

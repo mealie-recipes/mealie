@@ -21,7 +21,7 @@ jobs:
           private-key: ${{ secrets.COMMIT_BOT_APP_PRIVATE_KEY }}
 
       - name: Checkout 🛎
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: ${{ steps.app-token.outputs.token }}
 
@@ -124,7 +124,7 @@ jobs:
           private-key: ${{ secrets.COMMIT_BOT_APP_PRIVATE_KEY }}
 
       - name: Checkout 🛎
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           token: ${{ steps.app-token.outputs.token }}
           fetch-depth: 0

@@ -15,6 +15,7 @@ from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import try_get_current_user
 from mealie.db.db_setup import generate_session
 from mealie.repos.repository_factory import AllRepositories
+from mealie.routes.spa.manifest import serve_manifest
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.user.user import PrivateUser
 
@@ -32,14 +33,22 @@ class MetaTag:
 class SPAStaticFiles(StaticFiles):
     async def get_response(self, path: str, scope):
         try:
-            return await super().get_response(path, scope)
+            response = await super().get_response(path, scope)
         except HTTPException as ex:
             if ex.status_code == 404:
-                return await super().get_response("index.html", scope)
+                response = await super().get_response("index.html", scope)
             else:
                 raise ex
-        except Exception as e:
-            raise e
+
+        # Hashed assets (_nuxt/*) are safe to cache forever since new builds produce new filenames.
+        # HTML must revalidate so browsers always fetch the correct bundle references after a
+        # container rebuild (prevents blank white page from stale index.html in HA iframes, etc).
+        if path.startswith("_nuxt/"):
+            response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
+        elif path == "." or response.media_type == "text/html":
+            response.headers["Cache-Control"] = "no-cache"
+
+        return response
 
 
 __app_settings = get_app_settings()
@@ -244,4 +253,5 @@ def mount_spa(app: FastAPI):
 
     app.get("/g/{group_slug}/r/{recipe_slug}", include_in_schema=False)(serve_recipe_with_meta)
     app.get("/g/{group_slug}/shared/r/{token_id}", include_in_schema=False)(serve_shared_recipe_with_meta)
+    app.get("/manifest.webmanifest", include_in_schema=False)(serve_manifest)
     app.mount("/", SPAStaticFiles(directory=__app_settings.STATIC_FILES, html=True), name="spa")

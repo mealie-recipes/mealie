@@ -13,6 +13,7 @@ from mealie.db.models.users import User
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import AuthMethod, LongLiveToken
 from mealie.schema._mealie import MealieModel
+from mealie.schema.group.ai_providers import AIProviderSettingsOut
 from mealie.schema.group.group_preferences import ReadGroupPreferences
 from mealie.schema.household.webhook import CreateWebhook, ReadWebhook
 from mealie.schema.response.pagination import PaginationBase
@@ -116,6 +117,11 @@ class UserBase(MealieModel):
     household: str | None = None
     advanced: bool = False
 
+    # Announcements
+    show_announcements: bool = True
+    last_read_announcement: str | None = None
+
+    # Permissions
     can_invite: bool = False
     can_manage: bool = False
     can_manage_household: bool = False
@@ -251,6 +257,7 @@ class GroupInDB(UpdateGroup):
     households: list[GroupHouseholdSummary] | None = None
     users: list[UserSummary] | None = None
     preferences: ReadGroupPreferences | None = None
+    ai_provider_settings: AIProviderSettingsOut | None = None
     webhooks: list[ReadWebhook] = []
 
     model_config = ConfigDict(from_attributes=True)
@@ -292,6 +299,7 @@ class GroupSummary(GroupBase):
     name: str
     slug: str
     preferences: ReadGroupPreferences | None = None
+    ai_provider_settings: AIProviderSettingsOut | None = None
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:

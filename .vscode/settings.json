@@ -17,6 +17,8 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
+  "editor.insertSpaces": true,
+  "editor.tabSize": 2,
   "editor.formatOnSave": true,
   "eslint.useFlatConfig": true,
   "eslint.workingDirectories": [
@@ -30,11 +32,12 @@
     "**/.svn": true,
     "**/CVS": true
   },
+  "files.insertFinalNewline": true,
   "i18n-ally.enabledFrameworks": [
     "vue"
   ],
   "i18n-ally.keystyle": "nested",
-  "i18n-ally.localesPaths": "frontend/lang/messages",
+  "i18n-ally.localesPaths": "frontend/app/lang/messages",
   "i18n-ally.sourceLanguage": "en-US",
   "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
   "python.testing.autoTestDiscoverOnSaveEnabled": false,
@@ -54,7 +57,7 @@
   ],
   "explorer.fileNesting.enabled": true,
   "explorer.fileNesting.patterns": {
-    "package.json": "package-lock.json, yarn.lock, .eslintrc.js, tsconfig.json, .prettierrc, .editorconfig",
+    "package.json": "package-lock.json, pnpm-lock.yaml, .eslintrc.js, tsconfig.json, .prettierrc, .editorconfig",
     "pyproject.toml": "uv.lock, alembic.ini, .pylintrc",
     "netlify.toml": "runtime.txt",
     "README.md": "LICENSE, SECURITY.md"
@@ -67,6 +70,7 @@
   },
   "[python]": {
     "editor.formatOnSave": true,
-    "editor.defaultFormatter": "charliermarsh.ruff"
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.tabSize": 4
   }
 }

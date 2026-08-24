@@ -8,6 +8,7 @@ import yaml
 from PIL import UnidentifiedImageError
 from pydantic import UUID4
 
+from mealie.core import root_logger
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 
@@ -100,15 +101,44 @@ def glob_walker(directory: Path, glob_str: str, return_parent=True) -> list[Path
     return matches
 
 
-def import_image(src: str | Path, recipe_id: UUID4):
-    """Read the successful migrations attribute and for each import the image
-    appropriately into the image directory. Minification is done in mass
-    after the migration occurs.
+def safe_local_path(candidate: str | Path, root: Path) -> Path | None:
+    """
+    Returns the resolved path only if it is safely contained within root.
+
+    Returns ``None`` for any path that would escape the root directory,
+    including ``../../`` traversal sequences and absolute paths outside root.
+    Symlinks are followed by ``resolve()``, so a symlink pointing outside root
+    is also rejected.
+    """
+    try:
+        # OSError: symlink resolution failure; ValueError: null bytes on some platforms
+        resolved = Path(candidate).resolve()
+        if resolved.is_relative_to(root.resolve()):
+            return resolved
+    except (OSError, ValueError):
+        pass
+    return None
+
+
+def import_image(src: str | Path, recipe_id: UUID4, extraction_root: Path | None = None):
+    """Import a local image file into the recipe image directory.
+
     May raise an UnidentifiedImageError if the file is not a recognised format.
+
+    If extraction_root is provided, the src path must be contained within it.
+    Paths that escape the extraction_root are silently rejected to prevent
+    arbitrary local file reads via archive-controlled image paths.
     """
 
     if isinstance(src, str):
         src = Path(src)
+
+    if extraction_root is not None:
+        if safe_local_path(src, extraction_root) is None:
+            root_logger.get_logger().warning(
+                "Rejected image path outside extraction root: %s (root: %s)", src, extraction_root
+            )
+            return
 
     if not src.exists():
         return

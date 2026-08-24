@@ -5,7 +5,7 @@ import sqlalchemy.orm as orm
 from pydantic import ConfigDict
 from sqlalchemy.orm import Mapped, mapped_column
 
-from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
 from .._model_utils.auto_init import auto_init
 from .._model_utils.guid import GUID
 from ..recipe.ingredient import households_to_ingredient_foods
@@ -33,9 +33,9 @@ class Household(SqlAlchemyBase, BaseMixins):
         sa.UniqueConstraint("group_id", "slug", name="household_slug_group_id_key"),
     )
 
-    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    name: Mapped[str] = mapped_column(sa.String, index=True, nullable=False)
-    slug: Mapped[str | None] = mapped_column(sa.String, index=True)
+    id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    name: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
+    slug: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
 
     invite_tokens: Mapped[list["GroupInviteToken"]] = orm.relationship(
         "GroupInviteToken", back_populates="household", cascade="all, delete-orphan"
@@ -48,7 +48,7 @@ class Household(SqlAlchemyBase, BaseMixins):
         cascade="all, delete-orphan",
     )
 
-    group_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
+    group_id: FilterableColumn[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="households")
     users: Mapped[list["User"]] = orm.relationship("User", back_populates="household")
 

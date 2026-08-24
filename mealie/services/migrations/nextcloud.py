@@ -97,4 +97,4 @@ class NextcloudMigrator(BaseMigrator):
                 if status:
                     nc_dir = nextcloud_dirs[slug]
                     if nc_dir.image:
-                        self.import_image(slug, nc_dir.image, recipe_id)
+                        self.import_image(slug, nc_dir.image, recipe_id, extraction_root=base_dir)

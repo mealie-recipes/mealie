@@ -33,7 +33,7 @@
     6. Click the Edit button/icon again
     7. Scroll to the ingredients and you should see new fields for Amount, Unit, Food, and Note. The Note in particular will contain the original text of the Recipe.
     8. Click `Parse` and you will be taken to the ingredient parsing page.
-    9. Choose your parser. The `Natural Language Parser` works very well, but you can also use the `Brute Parser`, or the `OpenAI Parser` if you've [enabled OpenAI support](./installation/backend-config.md#openai).
+    9. Choose your parser. The `Natural Language Parser` works very well, but you can also use the `Brute Parser`, or the `OpenAI Parser` if you've [enabled AI support](./installation/ai-providers.md).
     10. Click `Parse All`, and your ingredients should be separated out into Units and Foods based on your seeding in Step 1 above.
     11. For ingredients where the Unit or Food was not found, you can click a button to accept an automatically suggested Food to add to the database. Or, manually enter the Unit/Food and hit `Enter` (or click `Create`) to add it to the database
     12. When done, click `Save All` and you will be taken back to the recipe. Now the Unit and Food fields of the recipe should be filled out.
@@ -261,6 +261,22 @@
 
 
 ## Technical Considerations
+
+
+??? question "Why do some recipe imports fail or get blocked?"
+
+    ### Why do some recipe imports fail or get blocked?
+
+    Some recipe websites sit behind bot-protection (e.g. Cloudflare) that can block Mealie from
+    fetching the page or its image. Mealie already impersonates real browsers and rotates between
+    several of them to get around most of this automatically, with no configuration needed.
+
+    If particular sites still fail to import, you can optionally route scraping through a **proxy**
+    with a better IP reputation, and/or fall back to a self-hosted **FlareSolverr** instance that
+    uses a real browser to solve challenges. Both are opt-in and configured via environment
+    variables:
+
+    - [Backend Config - Recipe Scraper](./installation/backend-config.md#recipe-scraper)
 
 
 ??? question "Why setup Email?"

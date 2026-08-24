@@ -11,7 +11,7 @@ from mealie.services.parser_services._base import DataMatcher
 from mealie.services.parser_services.parser_utils.string_utils import extract_quantity_from_string
 
 from ._migration_base import BaseMigrator
-from .utils.migration_helpers import format_time
+from .utils.migration_helpers import format_time, safe_local_path
 
 
 class DSVParser:
@@ -157,15 +157,21 @@ class CooknMigrator(BaseMigrator):
                 if _media_type != "":
                     # Determine file extension based on media type
                     _extension = _media_type.split("/")[-1]
-                    _old_image_path = os.path.join(db.directory, str(_media_id))
-                    new_image_path = f"{_old_image_path}.{_extension}"
+                    _old_image_path = Path(db.directory) / str(_media_id)
+                    new_image_path = _old_image_path.with_suffix(f".{_extension}")
+                    if safe_local_path(_old_image_path, db.directory) is None:
+                        return None
+                    if safe_local_path(new_image_path, db.directory) is None:
+                        return None
                     # Rename the file if it exists and has no extension
-                    if os.path.exists(_old_image_path) and not os.path.exists(new_image_path):
+                    if _old_image_path.exists() and not new_image_path.exists():
                         os.rename(_old_image_path, new_image_path)
-                    if Path(new_image_path).exists():
-                        return new_image_path
+                    if new_image_path.exists():
+                        return str(new_image_path)
             else:
-                return os.path.join(db.directory, str(_media_id))
+                candidate = Path(db.directory) / str(_media_id)
+                if safe_local_path(candidate, db.directory) is not None:
+                    return str(candidate)
         return None
 
     def _parse_ingredients(self, _recipe_id: str, db: DSVParser) -> list[RecipeIngredient]:
@@ -388,14 +394,14 @@ class CooknMigrator(BaseMigrator):
                 recipe = recipe_lookup.get(slug)
                 if recipe:
                     if recipe.image:
-                        self.import_image(slug, recipe.image, recipe_id)
+                        self.import_image(slug, recipe.image, recipe_id, extraction_root=db.directory)
                 else:
                     index_len = len(slug.split("-")[-1])
                     recipe = recipe_lookup.get(slug[: -(index_len + 1)])
                     if recipe:
                         self.logger.warning("Duplicate recipe (%s) found! Saved as copy...", recipe.name)
                         if recipe.image:
-                            self.import_image(slug, recipe.image, recipe_id)
+                            self.import_image(slug, recipe.image, recipe_id, extraction_root=db.directory)
                     else:
                         self.logger.warning("Failed to lookup recipe! (%s)", slug)
 

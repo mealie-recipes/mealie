@@ -84,6 +84,6 @@ class PaprikaMigrator(BaseMigrator):
                     temp_file.write(image.read())
                     temp_file.flush()
                     path = Path(temp_file.name)
-                    self.import_image(slug, path, recipe_id)
+                    self.import_image(slug, path, recipe_id, extraction_root=path.parent)
             except Exception as e:
                 self.logger.error(f"Failed to import image for {slug}: {e}")

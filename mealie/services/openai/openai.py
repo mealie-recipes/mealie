@@ -10,6 +10,7 @@ from textwrap import dedent
 from typing import TYPE_CHECKING, TypeVar
 
 if TYPE_CHECKING:
+    from openai import AsyncOpenAI
     from openai.types.chat import ChatCompletion
 
 from pydantic import BaseModel, field_validator
@@ -17,6 +18,8 @@ from pydantic import BaseModel, field_validator
 from mealie.core import exceptions, root_logger
 from mealie.core.config import get_app_settings
 from mealie.pkgs import img
+from mealie.repos.repository_factory import AllRepositories
+from mealie.schema.group.ai_providers import AIProviderOut
 from mealie.schema.openai._base import OpenAIBase
 from mealie.schema.openai.general import OpenAIText
 
@@ -24,6 +27,12 @@ from .._base_service import BaseService
 
 T = TypeVar("T", bound=OpenAIBase)
 logger = root_logger.get_logger(__name__)
+
+
+class OpenAINotEnabledException(Exception):
+    def __init__(self, message: str = "OpenAI not enabled"):
+        self.message = message
+        super().__init__(self.message)
 
 
 class OpenAIDataInjection(BaseModel):
@@ -102,28 +111,66 @@ class OpenAILocalAudio(OpenAIAttachment):
 class OpenAIService(BaseService):
     PROMPTS_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "prompts"
 
-    def __init__(self) -> None:
-        settings = get_app_settings()
-        if not settings.OPENAI_ENABLED:
-            raise ValueError("OpenAI is not enabled")
+    def __init__(self, repos: AllRepositories) -> None:
+        self.repos = repos
+        self.provider_settings = repos.group_ai_provider_settings.get_one(repos.group_id)
 
-        self.model = settings.OPENAI_MODEL
-        self.audio_model = settings.OPENAI_AUDIO_MODEL
-        self.workers = settings.OPENAI_WORKERS
-        self.send_db_data = settings.OPENAI_SEND_DATABASE_DATA
-        self.custom_prompt_dir = settings.OPENAI_CUSTOM_PROMPT_DIR
-
-        from openai import AsyncOpenAI
-
-        self.get_client = lambda: AsyncOpenAI(
-            base_url=settings.OPENAI_BASE_URL,
-            api_key=settings.OPENAI_API_KEY,
-            timeout=settings.OPENAI_REQUEST_TIMEOUT,
-            default_headers=settings.OPENAI_CUSTOM_HEADERS,
-            default_query=settings.OPENAI_CUSTOM_PARAMS,
+        # Load providers
+        self.default_provider = (
+            self.repos.group_ai_providers.get_one(self.provider_settings.default_provider_id)
+            if self.provider_settings and self.provider_settings.default_provider_id
+            else None
+        )
+        self.audio_provider = (
+            self.repos.group_ai_providers.get_one(self.provider_settings.audio_provider_id)
+            if self.provider_settings and self.provider_settings.audio_provider_id
+            else None
+        )
+        self.image_provider = (
+            self.repos.group_ai_providers.get_one(self.provider_settings.image_provider_id)
+            if self.provider_settings and self.provider_settings.image_provider_id
+            else None
         )
 
+        # Build client
+        settings = get_app_settings()
+        self.custom_prompt_dir = settings.OPENAI_CUSTOM_PROMPT_DIR
+
         super().__init__()
+
+    def get_client(self, provider: AIProviderOut) -> AsyncOpenAI:
+        from openai import AsyncOpenAI
+
+        return AsyncOpenAI(
+            base_url=provider.base_url or None,
+            api_key=provider.api_key,
+            timeout=provider.timeout,
+            default_headers=provider.request_headers or None,
+            default_query=provider.request_params or None,
+        )
+
+    def _get_provider(self, attachments: list[OpenAIAttachment] | None = None) -> AIProviderOut:
+        """Select the appropriate provider based on attachment types, falling back to the default."""
+        has_image = any(isinstance(a, OpenAIImageBase) for a in (attachments or []))
+        has_audio = any(isinstance(a, OpenAILocalAudio) for a in (attachments or []))
+
+        if has_image and has_audio:
+            raise ValueError("Cannot process both images and audio in one request")
+
+        if has_image:
+            if not self.image_provider:
+                raise OpenAINotEnabledException("No image provider set")
+            return self.image_provider
+
+        if has_audio:
+            if not self.audio_provider:
+                raise OpenAINotEnabledException("No audio provider set")
+            return self.audio_provider
+
+        else:
+            if not self.default_provider:
+                raise OpenAINotEnabledException("No default provider set")
+            return self.default_provider
 
     def _get_prompt_file_candidates(self, name: str) -> list[Path]:
         """
@@ -133,19 +180,24 @@ class OpenAIService(BaseService):
         """
         tree = name.split(".")
         relative_path = Path(*tree[:-1], tree[-1] + ".txt")
-        default_prompt_file = Path(self.PROMPTS_DIR, relative_path)
+
+        default_prompt_file = (self.PROMPTS_DIR / relative_path).resolve()
+        if not default_prompt_file.is_relative_to(self.PROMPTS_DIR.resolve()):
+            raise ValueError(f"Invalid prompt name '{name}': resolves outside prompts directory")
 
         try:
             # Only include custom files if the custom_dir is configured, is a directory, and the prompt file exists
-            custom_dir = Path(self.custom_prompt_dir) if self.custom_prompt_dir else None
+            custom_dir = Path(self.custom_prompt_dir).resolve() if self.custom_prompt_dir else None
             if custom_dir and not custom_dir.is_dir():
                 custom_dir = None
         except Exception:
             custom_dir = None
 
         if custom_dir:
-            custom_prompt_file = Path(custom_dir, relative_path)
-            if custom_prompt_file.exists():
+            custom_prompt_file = (custom_dir / relative_path).resolve()
+            if not custom_prompt_file.is_relative_to(custom_dir):
+                logger.warning(f"Custom prompt file resolves outside custom dir, skipping: {custom_prompt_file}")
+            elif custom_prompt_file.exists():
                 logger.debug(f"Found valid custom prompt file: {custom_prompt_file}")
                 return [custom_prompt_file, default_prompt_file]
             else:
@@ -214,8 +266,10 @@ class OpenAIService(BaseService):
             )
         return "\n".join(content_parts)
 
-    async def _get_raw_response(self, prompt: str, content: list[dict], response_schema: type[T]) -> ChatCompletion:
-        client = self.get_client()
+    async def _get_raw_response(
+        self, prompt: str, content: list[dict], response_schema: type[T], provider: AIProviderOut
+    ) -> ChatCompletion:
+        client = self.get_client(provider)
         return await client.chat.completions.parse(
             messages=[
                 {
@@ -227,7 +281,7 @@ class OpenAIService(BaseService):
                     "content": content,
                 },
             ],
-            model=self.model,
+            model=provider.model,
             response_format=response_schema,
         )
 
@@ -238,16 +292,18 @@ class OpenAIService(BaseService):
         *,
         response_schema: type[T],
         attachments: list[OpenAIAttachment] | None = None,
+        provider: AIProviderOut | None = None,
     ) -> T | None:
         """Send data to OpenAI and return the response message content"""
         import openai
 
         try:
-            user_messages = [{"type": "text", "text": message}]
+            provider = provider or self._get_provider(attachments)
+            user_messages: list[dict] = [{"type": "text", "text": message}]
             for attachment in attachments or []:
                 user_messages.append(attachment.build_message())
 
-            response = await self._get_raw_response(prompt, user_messages, response_schema)
+            response = await self._get_raw_response(prompt, user_messages, response_schema, provider)
             if not response.choices:
                 return None
 
@@ -261,13 +317,16 @@ class OpenAIService(BaseService):
     async def transcribe_audio(self, audio_file_path: Path) -> str | None:
         import openai
 
-        client = self.get_client()
+        if not self.audio_provider:
+            raise OpenAINotEnabledException("No audio provider set")
+
+        client = self.get_client(self.audio_provider)
 
         # Create a transcription from the audio
         try:
             with open(audio_file_path, "rb") as audio_file:
                 transcript = await client.audio.transcriptions.create(
-                    model=self.audio_model,
+                    model=self.audio_provider.model,
                     file=audio_file,
                 )
             return transcript.text

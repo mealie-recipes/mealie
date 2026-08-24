@@ -16,7 +16,7 @@ from mealie.db.models._model_utils.datetime import NaiveDateTime, get_utc_today
 from mealie.db.models._model_utils.guid import GUID
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel
 
-from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
 from ..household.household_to_recipe import HouseholdToRecipe
 from ..users.user_to_recipe import UserToRecipe
 from .api_extras import ApiExtras, api_extras
@@ -45,20 +45,20 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         sa.UniqueConstraint("slug", "group_id", name="recipe_slug_group_id_key"),
     )
 
-    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    slug: Mapped[str | None] = mapped_column(sa.String, index=True)
+    id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    slug: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
 
     # ID Relationships
-    group_id: Mapped[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
+    group_id: FilterableColumn[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="recipes", foreign_keys=[group_id])
 
     household_id: AssociationProxy[GUID] = association_proxy("user", "household_id")
     household: AssociationProxy["Household"] = association_proxy("user", "household")
 
-    user_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("users.id", use_alter=True), index=True)
+    user_id: FilterableColumn[GUID | None] = mapped_column(GUID, sa.ForeignKey("users.id", use_alter=True), index=True)
     user: Mapped["User"] = orm.relationship("User", uselist=False, foreign_keys=[user_id])
 
-    rating: Mapped[float | None] = mapped_column(sa.Float, index=True, nullable=True)
+    rating: FilterableColumn[float | None] = mapped_column(sa.Float, index=True, nullable=True)
     rated_by: Mapped[list["User"]] = orm.relationship(
         "User",
         secondary=UserToRecipe.__tablename__,
@@ -78,20 +78,20 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
 
     # General Recipe Properties
-    name: Mapped[str] = mapped_column(sa.String, nullable=False)
-    description: Mapped[str | None] = mapped_column(sa.String)
+    name: FilterableColumn[str] = mapped_column(sa.String, nullable=False)
+    description: FilterableColumn[str | None] = mapped_column(sa.String)
 
-    image: Mapped[str | None] = mapped_column(sa.String)
+    image: FilterableColumn[str | None] = mapped_column(sa.String)
 
     # Time Related Properties
-    total_time: Mapped[str | None] = mapped_column(sa.String)
-    prep_time: Mapped[str | None] = mapped_column(sa.String)
-    perform_time: Mapped[str | None] = mapped_column(sa.String)
-    cook_time: Mapped[str | None] = mapped_column(sa.String)
+    total_time: FilterableColumn[str | None] = mapped_column(sa.String)
+    prep_time: FilterableColumn[str | None] = mapped_column(sa.String)
+    perform_time: FilterableColumn[str | None] = mapped_column(sa.String)
+    cook_time: FilterableColumn[str | None] = mapped_column(sa.String)
 
-    recipe_yield: Mapped[str | None] = mapped_column(sa.String)
-    recipe_yield_quantity: Mapped[float] = mapped_column(sa.Float, index=True, default=0)
-    recipe_servings: Mapped[float] = mapped_column(sa.Float, index=True, default=0)
+    recipe_yield: FilterableColumn[str | None] = mapped_column(sa.String)
+    recipe_yield_quantity: FilterableColumn[float] = mapped_column(sa.Float, index=True, default=0)
+    recipe_servings: FilterableColumn[float] = mapped_column(sa.Float, index=True, default=0)
 
     assets: Mapped[list[RecipeAsset]] = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
     nutrition: Mapped[Nutrition] = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
@@ -137,14 +137,14 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
     tags: Mapped[list["Tag"]] = orm.relationship("Tag", secondary=recipes_to_tags, back_populates="recipes")
     notes: Mapped[list[Note]] = orm.relationship("Note", cascade="all, delete-orphan")
-    org_url: Mapped[str | None] = mapped_column(sa.String)
+    org_url: FilterableColumn[str | None] = mapped_column(sa.String)
     extras: Mapped[list[ApiExtras]] = orm.relationship("ApiExtras", cascade="all, delete-orphan")
 
     # Time Stamp Properties
-    date_added: Mapped[date | None] = mapped_column(sa.Date, default=get_utc_today)
-    date_updated: Mapped[datetime | None] = mapped_column(NaiveDateTime)
+    date_added: FilterableColumn[date | None] = mapped_column(sa.Date, default=get_utc_today)
+    date_updated: FilterableColumn[datetime | None] = mapped_column(NaiveDateTime)
 
-    last_made: Mapped[datetime | None] = mapped_column(NaiveDateTime)
+    last_made: FilterableColumn[datetime | None] = mapped_column(NaiveDateTime)
     made_by: Mapped[list["Household"]] = orm.relationship(
         "Household", secondary=HouseholdToRecipe.__tablename__, back_populates="made_recipes"
     )
@@ -162,8 +162,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
 
     # Automatically updated by sqlalchemy event, do not write to this manually
-    name_normalized: Mapped[str] = mapped_column(sa.String, nullable=False, index=True)
-    description_normalized: Mapped[str | None] = mapped_column(sa.String, index=True)
+    name_normalized: FilterableColumn[str] = mapped_column(sa.String, nullable=False, index=True)
+    description_normalized: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
     model_config = ConfigDict(
         get_attr="slug",
         exclude={

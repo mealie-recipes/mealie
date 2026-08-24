@@ -1,0 +1,321 @@
+import { SSE } from "sse.js";
+import type { ReadyStateEvent, SSEvent } from "sse.js";
+import { BaseCRUDAPI } from "../../base/base-clients";
+import { route } from "../../base";
+import { CommentsApi } from "./recipe-comments";
+import { RecipeShareApi } from "./recipe-share";
+import type {
+  Recipe,
+  CreateRecipe,
+  RecipeAsset,
+  CreateRecipeByUrlBulk,
+  ParsedIngredient,
+  UpdateImageResponse,
+  RecipeLastMade,
+  RecipeSuggestionQuery,
+  RecipeSuggestionResponse,
+  RecipeTimelineEventIn,
+  RecipeTimelineEventOut,
+  RecipeTimelineEventUpdate,
+} from "~/lib/api/types/recipe";
+import type { SSEDataEventDone, SSEDataEventMessage } from "~/lib/api/types/response";
+import type { ApiRequestInstance, PaginationData, RequestResponse } from "~/lib/api/types/non-generated";
+import { SSEDataEventStatus } from "~/lib/api/types/non-generated";
+
+export type Parser = "nlp" | "brute" | "openai";
+
+export interface CreateAsset {
+  name: string;
+  icon: string;
+  extension: string;
+  file: File;
+}
+
+const prefix = "/api";
+
+const routes = {
+  recipesCreate: `${prefix}/recipes/create`,
+  recipesBase: `${prefix}/recipes`,
+  recipesSuggestions: `${prefix}/recipes/suggestions`,
+  recipesTestScrapeUrl: `${prefix}/recipes/test-scrape-url`,
+  recipesCreateUrl: `${prefix}/recipes/create/url/stream`,
+  recipesCreateUrlBulk: `${prefix}/recipes/create/url/bulk`,
+  recipesCreateFromZip: `${prefix}/recipes/create/zip`,
+  recipesCreateWithAI: `${prefix}/recipes/create/ai/stream`,
+  recipesCreateFromHtmlOrJson: `${prefix}/recipes/create/html-or-json/stream`,
+  recipesCategory: `${prefix}/recipes/category`,
+  recipesParseIngredient: `${prefix}/parser/ingredient`,
+  recipesParseIngredients: `${prefix}/parser/ingredients`,
+  recipesTimelineEvent: `${prefix}/recipes/timeline/events`,
+
+  recipesRecipeSlug: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}`,
+  recipesRecipeSlugImage: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/image`,
+  recipesRecipeSlugAssets: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets`,
+
+  recipesSlugComments: (slug: string) => `${prefix}/recipes/${slug}/comments`,
+  recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
+
+  recipesSlugLastMade: (slug: string) => `${prefix}/recipes/${slug}/last-made`,
+  recipesTimelineEventId: (id: string) => `${prefix}/recipes/timeline/events/${id}`,
+  recipesTimelineEventIdImage: (id: string) => `${prefix}/recipes/timeline/events/${id}/image`,
+};
+
+export type RecipeSearchQuery = {
+  search?: string;
+  orderDirection?: "asc" | "desc";
+  groupId?: string;
+
+  queryFilter?: string;
+
+  cookbook?: string;
+  households?: string[];
+
+  categories?: string[];
+  requireAllCategories?: boolean;
+
+  tags?: string[];
+  requireAllTags?: boolean;
+
+  tools?: string[];
+  requireAllTools?: boolean;
+
+  foods?: string[];
+  requireAllFoods?: boolean;
+
+  page?: number;
+  perPage?: number;
+  orderBy?: string;
+  orderByNullPosition?: "first" | "last";
+
+  _searchSeed?: string;
+};
+
+export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
+  baseRoute: string = routes.recipesBase;
+  itemRoute = routes.recipesRecipeSlug;
+
+  comments: CommentsApi;
+  share: RecipeShareApi;
+
+  constructor(requests: ApiRequestInstance) {
+    super(requests);
+
+    this.comments = new CommentsApi(requests);
+    this.share = new RecipeShareApi(requests);
+  }
+
+  async search(rsq: RecipeSearchQuery) {
+    return await this.requests.get<PaginationData<Recipe>>(route(routes.recipesBase, rsq));
+  }
+
+  async getAllByCategory(categories: string[]) {
+    return await this.requests.get<Recipe[]>(routes.recipesCategory, {
+      categories,
+    });
+  }
+
+  async getSuggestions(q: RecipeSuggestionQuery, foods: string[] | null = null, tools: string[] | null = null) {
+    return await this.requests.get<RecipeSuggestionResponse>(
+      route(routes.recipesSuggestions, { ...q, foods, tools }),
+    );
+  }
+
+  async createAsset(recipeSlug: string, payload: CreateAsset) {
+    const formData = new FormData();
+    formData.append("file", payload.file);
+    formData.append("name", payload.name);
+    formData.append("extension", payload.extension);
+    formData.append("icon", payload.icon);
+
+    return await this.requests.post<RecipeAsset>(routes.recipesRecipeSlugAssets(recipeSlug), formData);
+  }
+
+  updateImage(slug: string, fileObject: File) {
+    const formData = new FormData();
+    formData.append("image", fileObject);
+    formData.append("extension", fileObject.name.split(".").pop() ?? "");
+
+    return this.requests.put<UpdateImageResponse, FormData>(routes.recipesRecipeSlugImage(slug), formData);
+  }
+
+  updateImagebyURL(slug: string, url: string) {
+    return this.requests.post<UpdateImageResponse>(routes.recipesRecipeSlugImage(slug), { url });
+  }
+
+  deleteImage(slug: string) {
+    return this.requests.delete<string>(routes.recipesRecipeSlugImage(slug));
+  }
+
+  async testCreateOneUrl(url: string, useOpenAI = false) {
+    return await this.requests.post<Recipe | null>(routes.recipesTestScrapeUrl, { url, useOpenAI });
+  }
+
+  private streamRecipeCreate(streamRoute: string, payload: object | FormData, onProgress?: (message: string) => void): Promise<RequestResponse<string>> {
+    return new Promise((resolve) => {
+      const { token } = useMealieAuth();
+      const isFormData = payload instanceof FormData;
+
+      const sse = new SSE(streamRoute, {
+        headers: {
+          // the browser has to set the multipart Content-Type itself, so it includes the boundary
+          ...(isFormData ? {} : { "Content-Type": "application/json" }),
+          ...(token.value ? { Authorization: `Bearer ${token.value}` } : {}),
+        },
+        payload: isFormData ? payload : JSON.stringify(payload),
+        withCredentials: true,
+        autoReconnect: false,
+      });
+
+      let settled = false;
+      const settle = (result: RequestResponse<string>) => {
+        if (settled) {
+          return;
+        }
+        settled = true;
+        sse.close();
+        resolve(result);
+      };
+
+      if (onProgress) {
+        sse.addEventListener(SSEDataEventStatus.Progress, (e: SSEvent) => {
+          const { message } = JSON.parse(e.data) as SSEDataEventMessage;
+          onProgress(message);
+        });
+      }
+
+      sse.addEventListener(SSEDataEventStatus.Done, (e: SSEvent) => {
+        const { slug } = JSON.parse(e.data) as SSEDataEventDone;
+        settle({ response: { status: 201, data: slug } as any, data: slug, error: null });
+      });
+
+      sse.addEventListener(SSEDataEventStatus.Error, (e: SSEvent) => {
+        let message: string | undefined;
+        try {
+          ({ message } = JSON.parse(e.data) as SSEDataEventMessage);
+        }
+        catch {
+          // Not a backend error payload (e.g. an XHR failure carrying the raw response body)
+        }
+        settle({ response: null, data: null, error: new Error(message || "Recipe creation failed") });
+      });
+
+      // The stream can also close without ever emitting a done/error event, e.g. when the
+      // request fails before the route handler runs. Settle here so callers always get a
+      // response instead of waiting on a promise that never resolves.
+      sse.addEventListener("readystatechange", (e: ReadyStateEvent) => {
+        if (e.readyState === SSE.CLOSED) {
+          settle({ response: null, data: null, error: new Error("Recipe creation failed") });
+        }
+      });
+
+      sse.stream();
+    });
+  }
+
+  async createOneByHtmlOrJson(
+    data: string,
+    includeTags: boolean,
+    includeCategories: boolean,
+    url: string | null = null,
+    onProgress?: (message: string) => void,
+  ): Promise<RequestResponse<string>> {
+    return this.streamRecipeCreate(routes.recipesCreateFromHtmlOrJson, { data, includeTags, includeCategories, url }, onProgress);
+  }
+
+  async createOneByUrl(
+    url: string,
+    includeTags: boolean,
+    includeCategories: boolean,
+    onProgress?: (message: string) => void,
+  ): Promise<RequestResponse<string>> {
+    return this.streamRecipeCreate(routes.recipesCreateUrl, { url, includeTags, includeCategories }, onProgress);
+  }
+
+  async createManyByUrl(payload: CreateRecipeByUrlBulk) {
+    return await this.requests.post<string>(routes.recipesCreateUrlBulk, payload);
+  }
+
+  async createOneWithAI(
+    payload: {
+      content?: string | null;
+      url?: string | null;
+      images?: (Blob | File)[];
+      translateLanguage?: string | null;
+      createNewOrganizers?: boolean;
+    },
+    onProgress?: (message: string) => void,
+  ): Promise<RequestResponse<string>> {
+    const formData = new FormData();
+
+    if (payload.content) {
+      formData.append("content", payload.content);
+    }
+    if (payload.url) {
+      formData.append("url", payload.url);
+    }
+    if (payload.translateLanguage) {
+      formData.append("translateLanguage", payload.translateLanguage);
+    }
+    if (payload.createNewOrganizers) {
+      formData.append("createNewOrganizers", "true");
+    }
+
+    (payload.images || []).forEach((image, index) => {
+      // blobs from the cropper have no filename of their own, and the backend needs one
+      formData.append("images", image, image instanceof File ? image.name : `image-${index}.webp`);
+    });
+
+    return this.streamRecipeCreate(routes.recipesCreateWithAI, formData, onProgress);
+  }
+
+  async parseIngredients(parser: Parser, ingredients: Array<string>) {
+    parser = parser || "nlp";
+    return await this.requests.post<ParsedIngredient[]>(routes.recipesParseIngredients, { parser, ingredients });
+  }
+
+  async parseIngredient(parser: Parser, ingredient: string) {
+    parser = parser || "nlp";
+    return await this.requests.post<ParsedIngredient>(routes.recipesParseIngredient, { parser, ingredient });
+  }
+
+  async updateMany(payload: Recipe[]) {
+    return await this.requests.put<Recipe[]>(routes.recipesBase, payload);
+  }
+
+  async patchMany(payload: Recipe[]) {
+    return await this.requests.patch<Recipe[]>(routes.recipesBase, payload);
+  }
+
+  async updateLastMade(recipeSlug: string, timestamp: string) {
+    return await this.requests.patch<Recipe, RecipeLastMade>(routes.recipesSlugLastMade(recipeSlug), { timestamp });
+  }
+
+  async createTimelineEvent(payload: RecipeTimelineEventIn) {
+    return await this.requests.post<RecipeTimelineEventOut>(routes.recipesTimelineEvent, payload);
+  }
+
+  async updateTimelineEvent(eventId: string, payload: RecipeTimelineEventUpdate) {
+    return await this.requests.put<RecipeTimelineEventOut, RecipeTimelineEventUpdate>(
+      routes.recipesTimelineEventId(eventId),
+      payload,
+    );
+  }
+
+  async deleteTimelineEvent(eventId: string) {
+    return await this.requests.delete<RecipeTimelineEventOut>(routes.recipesTimelineEventId(eventId));
+  }
+
+  async getAllTimelineEvents(page = 1, perPage = -1, params = {} as any) {
+    return await this.requests.get<PaginationData<RecipeTimelineEventOut>>(
+      routes.recipesTimelineEvent, { page, perPage, ...params },
+    );
+  }
+
+  async updateTimelineEventImage(eventId: string, fileObject: Blob | File, fileName: string) {
+    const formData = new FormData();
+    formData.append("image", fileObject);
+    formData.append("extension", fileName.split(".").pop() ?? "");
+
+    return await this.requests.put<UpdateImageResponse, FormData>(routes.recipesTimelineEventIdImage(eventId), formData);
+  }
+}

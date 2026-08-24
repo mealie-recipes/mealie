@@ -11,8 +11,6 @@ admin_backups = "/api/admin/backups"
 """`/api/admin/backups`"""
 admin_backups_upload = "/api/admin/backups/upload"
 """`/api/admin/backups/upload`"""
-admin_debug_openai = "/api/admin/debug/openai"
-"""`/api/admin/debug/openai`"""
 admin_email = "/api/admin/email"
 """`/api/admin/email`"""
 admin_groups = "/api/admin/groups"
@@ -47,6 +45,10 @@ auth_oauth = "/api/auth/oauth"
 """`/api/auth/oauth`"""
 auth_oauth_callback = "/api/auth/oauth/callback"
 """`/api/auth/oauth/callback`"""
+auth_oauth_native_config = "/api/auth/oauth/native/config"
+"""`/api/auth/oauth/native/config`"""
+auth_oauth_native_token = "/api/auth/oauth/native/token"
+"""`/api/auth/oauth/native/token`"""
 auth_refresh = "/api/auth/refresh"
 """`/api/auth/refresh`"""
 auth_token = "/api/auth/token"
@@ -57,6 +59,10 @@ foods = "/api/foods"
 """`/api/foods`"""
 foods_merge = "/api/foods/merge"
 """`/api/foods/merge`"""
+groups_ai_providers_providers = "/api/groups/ai-providers/providers"
+"""`/api/groups/ai-providers/providers`"""
+groups_ai_providers_settings = "/api/groups/ai-providers/settings"
+"""`/api/groups/ai-providers/settings`"""
 groups_households = "/api/groups/households"
 """`/api/groups/households`"""
 groups_labels = "/api/groups/labels"
@@ -147,12 +153,14 @@ recipes_bulk_actions_settings = "/api/recipes/bulk-actions/settings"
 """`/api/recipes/bulk-actions/settings`"""
 recipes_bulk_actions_tag = "/api/recipes/bulk-actions/tag"
 """`/api/recipes/bulk-actions/tag`"""
+recipes_create_ai = "/api/recipes/create/ai"
+"""`/api/recipes/create/ai`"""
+recipes_create_ai_stream = "/api/recipes/create/ai/stream"
+"""`/api/recipes/create/ai/stream`"""
 recipes_create_html_or_json = "/api/recipes/create/html-or-json"
 """`/api/recipes/create/html-or-json`"""
 recipes_create_html_or_json_stream = "/api/recipes/create/html-or-json/stream"
 """`/api/recipes/create/html-or-json/stream`"""
-recipes_create_image = "/api/recipes/create/image"
-"""`/api/recipes/create/image`"""
 recipes_create_url = "/api/recipes/create/url"
 """`/api/recipes/create/url`"""
 recipes_create_url_bulk = "/api/recipes/create/url/bulk"
@@ -193,16 +201,6 @@ users_self_ratings = "/api/users/self/ratings"
 """`/api/users/self/ratings`"""
 utils_download = "/api/utils/download"
 """`/api/utils/download`"""
-validators_group = "/api/validators/group"
-"""`/api/validators/group`"""
-validators_household = "/api/validators/household"
-"""`/api/validators/household`"""
-validators_recipe = "/api/validators/recipe"
-"""`/api/validators/recipe`"""
-validators_user_email = "/api/validators/user/email"
-"""`/api/validators/user/email`"""
-validators_user_name = "/api/validators/user/name"
-"""`/api/validators/user/name`"""
 
 
 def admin_backups_file_name(file_name):
@@ -213,6 +211,21 @@ def admin_backups_file_name(file_name):
 def admin_backups_file_name_restore(file_name):
     """`/api/admin/backups/{file_name}/restore`"""
     return f"{prefix}/admin/backups/{file_name}/restore"
+
+
+def admin_debug_openai_provider_id(provider_id):
+    """`/api/admin/debug/openai/{provider_id}`"""
+    return f"{prefix}/admin/debug/openai/{provider_id}"
+
+
+def admin_groups_group_id_ai_providers_providers(group_id):
+    """`/api/admin/groups/{group_id}/ai-providers/providers`"""
+    return f"{prefix}/admin/groups/{group_id}/ai-providers/providers"
+
+
+def admin_groups_group_id_ai_providers_providers_provider_id(group_id, provider_id):
+    """`/api/admin/groups/{group_id}/ai-providers/providers/{provider_id}`"""
+    return f"{prefix}/admin/groups/{group_id}/ai-providers/providers/{provider_id}"
 
 
 def admin_groups_item_id(item_id):
@@ -313,6 +326,11 @@ def explore_groups_group_slug_recipes_suggestions(group_slug):
 def foods_item_id(item_id):
     """`/api/foods/{item_id}`"""
     return f"{prefix}/foods/{item_id}"
+
+
+def groups_ai_providers_providers_provider_id(provider_id):
+    """`/api/groups/ai-providers/providers/{provider_id}`"""
+    return f"{prefix}/groups/ai-providers/providers/{provider_id}"
 
 
 def groups_households_household_slug(household_slug):
