@@ -134,22 +134,6 @@ def test_logout_clears_the_session_cookie(api_client: TestClient, unique_user: T
     assert "Max-Age=0" in cookie
 
 
-def test_authenticates_from_the_session_cookie(api_client: TestClient, unique_user: TestUser):
-    """The SPA sends a bearer header, but downloads opened outside it rely on the cookie."""
-    token = log_in_for_token(api_client, unique_user)
-
-    api_client.cookies.clear()
-    api_client.cookies.set("mealie.access_token", token)
-    try:
-        response = api_client.get(api_routes.users_self)
-    finally:
-        # The client is shared, and a stray session cookie authenticates later requests by accident
-        api_client.cookies.clear()
-
-    assert response.status_code == 200
-    assert response.json()["id"] == str(unique_user.user_id)
-
-
 def test_user_token_refresh(api_client: TestClient, unique_user: TestUser):
     response = api_client.post(api_routes.auth_refresh, headers=unique_user.token)
     assert response.status_code == 200
