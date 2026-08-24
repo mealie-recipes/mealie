@@ -84,8 +84,14 @@ export default defineNuxtPlugin((nuxtApp) => {
         alert.error(error.response.data.detail.message as string);
       };
 
+      // A 401 from the logout call itself only means the token was already dead — expired, or
+      // invalidated by a password change. We're on our way out regardless, so let signOut finish with
+      // its own SPA redirect instead of reloading the page over it. The reload would also wipe any
+      // toast the preceding request raised, which is how "password updated" used to vanish.
+      const isLoggingOut = config?.url?.startsWith("/api/auth/logout") ?? false;
+
       // If we receive a 401 Unauthorized response, clear the token cookie and redirect to login
-      if (error?.response?.status === 401) {
+      if (error?.response?.status === 401 && !isLoggingOut) {
         // If tokenCookie is not set, we may just be an unauthenticated user using the wrong API, so don't redirect
         if (readTokenCookie(tokenName)) {
           nuxtApp.runWithContext(() => useAuthBackend().setToken(null));

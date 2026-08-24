@@ -300,7 +300,9 @@ async function updatePassword() {
   });
 
   if (response?.status === 200) {
-    console.log("Password Changed");
+    // The new password invalidates this session server-side, so end it here rather than letting the
+    // next request fail its way to the login page.
+    await auth.signOut();
   }
 }
 </script>
