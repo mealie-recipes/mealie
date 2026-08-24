@@ -358,7 +358,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "λείο κεφαλωτό μαρούλι",
-                "plural_name": "butter lettuce"
+                "plural_name": "λείο κεφαλωτό μαρούλι"
             },
             "hash brown": {
                 "aliases": [],
@@ -6427,8 +6427,8 @@
             "sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "sugar",
-                "plural_name": "sugar"
+                "name": "ζάχαρη",
+                "plural_name": "ζάχαρη"
             },
             "brown sugar": {
                 "aliases": [
@@ -6542,8 +6542,8 @@
             "raw sugar": {
                 "aliases": [],
                 "description": "",
-                "name": "raw sugar",
-                "plural_name": "raw sugar"
+                "name": "ακατέργαστη ζάχαρη",
+                "plural_name": "ακατέργαστη ζάχαρη"
             },
             "golden syrup": {
                 "aliases": [],
@@ -6560,8 +6560,8 @@
             "liquid stevia": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid stevia",
-                "plural_name": "liquid stevia"
+                "name": "υγρή στέβια",
+                "plural_name": "υγρή στέβια"
             },
             "grenadine": {
                 "aliases": [],
@@ -13725,11 +13725,11 @@
                 "name": "anchovy stock",
                 "plural_name": "anchovy stock"
             },
-            "cream of chicken soup mix:": {
+            "cream of chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "κρέμα μείγματος σούπας κοτόπουλου",
+                "plural_name": "κρέμα μείγματος σούπας κοτόπουλου"
             },
             "noodle soup mix": {
                 "aliases": [],
@@ -16087,8 +16087,8 @@
             "fish oil": {
                 "aliases": [],
                 "description": "",
-                "name": "fish oil",
-                "plural_name": "fish oil"
+                "name": "ιχθυέλαιο",
+                "plural_name": "ιχθυέλαιο"
             },
             "lime essential oil": {
                 "aliases": [],
@@ -16099,8 +16099,8 @@
             "probiotic": {
                 "aliases": [],
                 "description": "",
-                "name": "probiotic",
-                "plural_name": "probiotics"
+                "name": "προβιοτικό",
+                "plural_name": "προβιοτικά"
             },
             "activated charcoal": {
                 "aliases": [],
@@ -16111,8 +16111,8 @@
             "egg powder": {
                 "aliases": [],
                 "description": "",
-                "name": "egg powder",
-                "plural_name": "egg powder"
+                "name": "σκόνη αυγών",
+                "plural_name": "σκόνη αυγών"
             },
             "reishi mushroom": {
                 "aliases": [],
@@ -16267,8 +16267,8 @@
             "banana powder": {
                 "aliases": [],
                 "description": "",
-                "name": "banana powder",
-                "plural_name": "banana powder"
+                "name": "σκόνη μπανάνας",
+                "plural_name": "σκόνη μπανάνας"
             },
             "chaga mushroom powder": {
                 "aliases": [],

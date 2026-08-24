@@ -6,6 +6,7 @@ import { AdminBackupsApi } from "./admin/admin-backups";
 import { AdminMaintenanceApi } from "./admin/admin-maintenance";
 import { AdminAnalyticsApi } from "./admin/admin-analytics";
 import { AdminDebugAPI } from "./admin/admin-debug";
+import { AdminAIProvidersApi } from "./admin/admin-ai-providers";
 import type { ApiRequestInstance } from "~/lib/api/types/non-generated";
 
 export class AdminAPI {
@@ -17,6 +18,7 @@ export class AdminAPI {
   public maintenance: AdminMaintenanceApi;
   public analytics: AdminAnalyticsApi;
   public debug: AdminDebugAPI;
+  public aiProviders: AdminAIProvidersApi;
 
   constructor(requests: ApiRequestInstance) {
     this.about = new AdminAboutAPI(requests);
@@ -27,6 +29,7 @@ export class AdminAPI {
     this.maintenance = new AdminMaintenanceApi(requests);
     this.analytics = new AdminAnalyticsApi(requests);
     this.debug = new AdminDebugAPI(requests);
+    this.aiProviders = new AdminAIProvidersApi(requests);
 
     Object.freeze(this);
   }

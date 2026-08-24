@@ -40,7 +40,7 @@ async function loadPublicRecipe() {
     const { data, error } = await api.explore.recipes.getOne(slug);
     if (error) {
       console.error("error loading recipe -> ", error);
-      router.push(`/g/${groupSlug.value}`);
+      router.push({ path: `/g/${groupSlug.value}`, query: { redirect: route.fullPath } });
     }
 
     return data;

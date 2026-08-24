@@ -1,4 +1,4 @@
-Parse ingredient strings into components. You will receive a list of one or more ingredients.
+Parse ingredient strings into components. You will receive a list of one or more ingredients. It is critical that you return the same number of ingredients as given and in the same order.
 
 When parsing:
 - If uncertain about quantity, unit, or food, put the entire string in the note field

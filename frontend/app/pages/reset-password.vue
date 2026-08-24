@@ -14,7 +14,7 @@
       </v-card-title>
       <BaseDivider />
       <v-card-text>
-        <v-form @submit.prevent="requestLink()">
+        <v-form ref="form" @submit.prevent="requestLink()">
           <v-text-field
             v-model="state.email"
             :prepend-inner-icon="$globals.icons.email"
@@ -86,6 +86,7 @@ import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { validators } from "@/composables/use-validators";
 import { useRouteQuery } from "~/composables/use-router";
+import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
   layout: "basic",
@@ -98,6 +99,8 @@ const state = reactive({
   loading: false,
   error: false,
 });
+
+const form = ref<VForm | null>(null);
 
 const i18n = useI18n();
 const passwordMatch = () => state.password === state.passwordConfirm || i18n.t("user.password-must-match");
@@ -115,6 +118,15 @@ const token = useRouteQuery("token", "");
 // API
 const api = useUserApi();
 async function requestLink() {
+  if (!form.value) {
+    return;
+  };
+
+  const { valid } = await form.value.validate();
+  if (!valid) {
+    return;
+  };
+
   state.loading = true;
   // TODO: Fix Response to send meaningful error
   const { response } = await api.users.resetPassword({
@@ -127,12 +139,11 @@ async function requestLink() {
   state.loading = false;
 
   if (response?.status === 200) {
-    state.loading = false;
     state.error = false;
     alert.success(i18n.t("user.password-updated"));
+    await navigateTo("/login");
   }
   else {
-    state.loading = false;
     state.error = true;
     alert.error(i18n.t("events.something-went-wrong"));
   }

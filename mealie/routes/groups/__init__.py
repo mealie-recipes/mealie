@@ -1,6 +1,7 @@
 from fastapi import APIRouter
 
 from . import (
+    controller_group_ai_providers,
     controller_group_households,
     controller_group_reports,
     controller_group_self_service,
@@ -11,6 +12,8 @@ from . import (
 
 router = APIRouter()
 
+router.include_router(controller_group_ai_providers.providers_router)
+router.include_router(controller_group_ai_providers.settings_router)
 router.include_router(controller_group_households.router)
 router.include_router(controller_group_self_service.router)
 router.include_router(controller_migrations.router)

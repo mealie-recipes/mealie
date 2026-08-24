@@ -51,6 +51,7 @@ class RecipeCategoryController(BaseCrudController):
     @router.post("", status_code=201)
     def create_one(self, category: CategoryIn):
         """Creates a Category in the database"""
+        self.checks.can_organize()
         save_data = mapper.cast(category, CategorySave, group_id=self.group_id)
         new_category = self.mixins.create_one(save_data)
         if new_category:
@@ -83,6 +84,7 @@ class RecipeCategoryController(BaseCrudController):
     @router.put("/{item_id}", response_model=CategorySummary)
     def update_one(self, item_id: UUID4, update_data: CategoryIn):
         """Updates an existing Tag in the database"""
+        self.checks.can_organize()
         save_data = mapper.cast(update_data, CategorySave, group_id=self.group_id)
         category = self.mixins.update_one(save_data, item_id)
 
@@ -108,6 +110,7 @@ class RecipeCategoryController(BaseCrudController):
         category does not impact a recipe. The category will be removed
         from any recipes that contain it
         """
+        self.checks.can_organize()
         if category := self.mixins.delete_one(item_id):
             self.publish_event(
                 event_type=EventTypes.category_deleted,

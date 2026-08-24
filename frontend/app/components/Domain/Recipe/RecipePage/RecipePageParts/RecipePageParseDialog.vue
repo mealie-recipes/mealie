@@ -8,7 +8,7 @@
   >
     <v-container fluid class="pa-2 ma-0" style="background-color: rgb(var(--v-theme-background));">
       <div v-if="state.loading.parser" class="my-6">
-        <AppLoader waiting-text="" class="my-6" />
+        <AppLoader class="my-6" :waiting-text="$t('recipe.parser.parsing-ingredients')" />
       </div>
       <div v-else>
         <BaseCardSectionTitle :title="$t('recipe.parser.ingredient-parser')">
@@ -200,6 +200,7 @@ import { useUserApi } from "~/composables/api";
 import { useIngredientTextParser } from "~/composables/recipes";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
 import { useGlobalI18n } from "~/composables/use-global-i18n";
+import { useGroupSelf } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
 import { useParsingPreferences } from "~/composables/use-users/preferences";
 
@@ -215,7 +216,7 @@ const emit = defineEmits<{
   (e: "save", value: NoUndefinedField<RecipeIngredient[]>): void;
 }>();
 
-const { $appInfo } = useNuxtApp();
+const { group } = useGroupSelf();
 const i18n = useGlobalI18n();
 const api = useUserApi();
 const drag = ref(false);
@@ -240,7 +241,7 @@ const availableParsers = computed(() => {
     {
       text: i18n.t("recipe.parser.openai-parser"),
       value: "openai",
-      hide: !$appInfo.enableOpenai,
+      hide: !group.value?.aiProviderSettings?.aiEnabled,
     },
   ];
 });
@@ -360,10 +361,26 @@ function nextIngredient() {
   state.allReviewed = true;
 }
 
+/** Clear everything left over from a previous run, so re-opening the dialog starts clean */
+function resetParserState() {
+  parsedIngs.value = [];
+  currentIng.value = null;
+  currentMissingUnit.value = "";
+  currentMissingFood.value = "";
+  currentIngShouldDelete.value = false;
+  state.currentParsedIndex = -1;
+  state.allReviewed = false;
+  state.loading.save = false;
+  createdUnits.clear();
+  createdFoods.clear();
+}
+
 async function parseIngredients() {
   if (state.loading.parser) {
     return;
   }
+
+  resetParserState();
 
   if (!props.ingredients || props.ingredients.length === 0) {
     state.loading.parser = false;
@@ -390,11 +407,6 @@ async function parseIngredients() {
       ingredient: ing,
     }));
     parsedIngs.value = [...parsed, ...recipeRefs];
-    state.currentParsedIndex = -1;
-    state.allReviewed = false;
-    createdUnits.clear();
-    createdFoods.clear();
-    currentIngShouldDelete.value = false;
     nextIngredient();
   }
   catch (error) {

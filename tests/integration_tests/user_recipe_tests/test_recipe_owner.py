@@ -160,6 +160,24 @@ def test_other_user_cant_delete_recipe(api_client: TestClient, user_tuple: list[
     assert response.status_code == 403
 
 
+def test_other_user_cant_delete_unlocked_recipe(api_client: TestClient, user_tuple: list[TestUser]):
+    """Non-owner must not delete an unlocked recipe — BOLA regression (GHSA-x5v9-9jvh-7c7q)."""
+    slug = random_string(10)
+    unique_user, other_user = user_tuple
+
+    unique_user.repos.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            settings=RecipeSettings(locked=False),
+        )
+    )
+
+    response = api_client.delete(api_routes.recipes_slug(slug), headers=other_user.token)
+    assert response.status_code == 403
+
+
 def test_other_user_bulk_delete(api_client: TestClient, user_tuple: list[TestUser]):
     slug_locked = random_string(10)
     slug_unlocked = random_string(10)
@@ -185,6 +203,30 @@ def test_other_user_bulk_delete(api_client: TestClient, user_tuple: list[TestUse
     response = api_client.post(
         api_routes.recipes_bulk_actions_delete,
         json={"recipes": [slug_locked, slug_unlocked]},
+        headers=other_user.token,
+    )
+    assert response.status_code == 403
+
+
+def test_other_user_cant_bulk_delete_unlocked_recipes(api_client: TestClient, user_tuple: list[TestUser]):
+    """Non-owner must not bulk-delete unlocked recipes — BOLA regression (GHSA-x5v9-9jvh-7c7q)."""
+    slug_1 = random_string(10)
+    slug_2 = random_string(10)
+    unique_user, other_user = user_tuple
+
+    for slug in (slug_1, slug_2):
+        unique_user.repos.recipes.create(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=slug,
+                settings=RecipeSettings(locked=False),
+            )
+        )
+
+    response = api_client.post(
+        api_routes.recipes_bulk_actions_delete,
+        json={"recipes": [slug_1, slug_2]},
         headers=other_user.token,
     )
     assert response.status_code == 403

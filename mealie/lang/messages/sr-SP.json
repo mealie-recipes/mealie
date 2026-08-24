@@ -20,15 +20,30 @@
         },
         "and-amount": "додај {amount}",
         "or-ingredient": "или {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Креирање рецепта помоћу AI-a...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Креирање рецепта из транскрипта помоћу AI-a...",
             "creating-recipe-from-webpage-data": "Креирање рецепта из веб-сајт података...",
             "downloading-image": "Преузимање слика...",
             "downloading-video": "Преузимање видеа...",
             "extracting-recipe-data": "Издвајање података рецепта...",
             "fetching-webpage": "Преузимање веб странице...",
-            "transcribing-audio-with-ai": "Транскрипција звука помоћу AI-a..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Транскрипција звука помоћу AI-a...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "Немате дозволу за извршење ове радње",
         "recursive-recipe-link": "Рецепт не може да референцира сам себе, директно или индиректно",
         "no-entry-found": "Захтевани ресурс није пронађен",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Грешка у интегритету базе података",
         "username-conflict-error": "Корисничко име је већ заузето",
         "email-conflict-error": "Овај имејл је већ у употреби"

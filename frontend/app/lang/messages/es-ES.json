@@ -98,7 +98,7 @@
     "dashboard": "Panel de control",
     "delete": "Eliminar",
     "disabled": "Deshabilitado",
-    "done": "Done",
+    "done": "Hecho",
     "download": "Descargar",
     "duplicate": "Duplicar",
     "edit": "Editar",
@@ -166,9 +166,10 @@
     "themes": "Temas",
     "thursday": "Jueves",
     "title": "Título",
-    "token": "Token",
+    "token": "Ficha",
     "tuesday": "Martes",
     "type": "Tipo",
+    "undo": "Deshacer",
     "update": "Actualizar",
     "updated": "Actualizado",
     "upload": "Subir",
@@ -208,6 +209,7 @@
     "copied-items-to-clipboard": "Ningún elemento se ha copiado al portapapeles|Un elemento se ha copiado al portapapeles|Copiados {count} elementos al portapapeles",
     "actions": "Acciones",
     "selected-count": "Seleccionado/s {count}",
+    "selected": "Selected",
     "export-all": "Exportar todo",
     "refresh": "Actualizar",
     "upload-file": "Subir Archivo",
@@ -222,7 +224,9 @@
     "show-advanced": "Mostrar Avanzado",
     "add-field": "Añadir campo",
     "date-created": "Fecha de creación",
-    "date-updated": "Fecha de actualización"
+    "date-updated": "Fecha de actualización",
+    "key": "Clave",
+    "value": "Valor"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Por favor, confirma que deseas eliminar <b>{groupName}<b/>",
@@ -249,7 +253,7 @@
       "keep-my-recipes-private-description": "Establece su grupo y todas las recetas por defecto como privadas. Puede cambiarlo más tarde."
     },
     "manage-members": "Gestionar miembros",
-    "manage-members-description": "Gestione los permisos de los miembros de su hogar. {manage} permite al usuario acceder a la página de administración de datos, y {invite} permite al usuario generar enlaces de invitación para otros usuarios. Los propietarios de los grupos no pueden cambiar sus propios permisos.",
+    "manage-members-description": "Administre los permisos de los miembros de su hogar. {manage} permite al usuario acceder a áreas de administración de grupos, {organize} permite al usuario administrar datos de grupo como comidas, etiquetas, y categorías, y {invite} permite al usuario generar enlaces de invitación para otros usuarios. Los propietarios de grupos no pueden cambiar sus propios permisos.",
     "manage": "Gestionar",
     "manage-household": "Administrar Casa",
     "invite": "Invitar",
@@ -282,7 +286,41 @@
     "admin-group-management-text": "Los cambios en este grupo se reflejarán inmediatamente.",
     "group-id-value": "Id del Grupo: {0}",
     "total-households": "Total de Casas",
-    "you-must-select-a-group-before-selecting-a-household": "Debe seleccionar un grupo antes de seleccionar un hogar"
+    "you-must-select-a-group-before-selecting-a-household": "Debe seleccionar un grupo antes de seleccionar un hogar",
+    "ai-provider-settings": {
+      "ai-provider-settings": "Ajustes de proveedor de IA",
+      "ai-provider": "Proveedor de IA",
+      "ai-providers": "Proveedores de IA",
+      "ai-providers-description": "Add an AI provider to enable features like enhanced ingredient parsing and creating recipes from photos or videos. This step is optional, and can be set up later in your group settings.",
+      "ai-provider-settings-description": "Configure los proveedores de IA para habilitar funciones alimentadas por AI, como análisis mejorado de ingredientes, creando recetas a partir de vídeos, ¡y más!",
+      "providers": "Proveedores",
+      "create-provider": "Crear proveedor",
+      "edit-provider": "Editar proveedor",
+      "default-provider": "Proveedor predeterminado",
+      "default-provider-description": "Necesario para habilitar funciones de IA",
+      "audio-provider": "Proveedor de audio",
+      "audio-provider-description": "Activa las funciones de transcripción de audio, como la creación de recetas a partir de vídeos",
+      "image-provider": "Proveedor de imágenes",
+      "image-provider-description": "Permite funciones de reconocimiento de imágenes, como la creación de recetas a partir de imágenes",
+      "provider-name": "Nombre del proveedor",
+      "api-key": "Clave API",
+      "api-key-description-create": "La clave API de tu proveedor para la autenticación. Si tu servicio (por ejemplo, Ollama) no usa una clave API, todavía tienes que poner algo aquí.",
+      "api-key-description-edit": "Deja esto en blanco a menos que quieras cambiarlo.",
+      "base-url": "URL base",
+      "base-url-description": "Si estás usando OpenAI deja esto en blanco. Debe ser un endpoint compatible con OpenAI (por ejemplo, \"http://localhost:11434/v1\").",
+      "model": "Modelo",
+      "model-description": "Qué modelo debe utilizar su proveedor de IA (por ejemplo, \"gpt-5\").",
+      "request-timeout-seconds": "Tiempo de espera de solicitud (segundos)",
+      "provider-created": "Proveedor creado",
+      "provider-updated": "Proveedor actualizado",
+      "provider-deleted": "Proveedor eliminado",
+      "provider-create-failed": "No se pudo crear el proveedor",
+      "provider-update-failed": "No se pudo actualizar el proveedor",
+      "provider-delete-failed": "No se pudo eliminar el proveedor",
+      "request-headers": "Encabezados de solicitud",
+      "request-params": "Parámetros de solicitud",
+      "no-default-provider-warning": "No ha establecido un proveedor por defecto, por lo que las características de IA están desactivadas"
+    }
   },
   "household": {
     "household": "Casa",
@@ -332,8 +370,8 @@
     "any-household": "Cualquier casa",
     "no-meal-plan-defined-yet": "Todavía no hay ningún menú",
     "no-meal-planned-for-today": "No hay ningún menú para hoy",
-    "numberOfDaysPast-hint": "Number of days in the past on page load",
-    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDaysPast-hint": "Número de días en el pasado al cargar la página",
+    "numberOfDaysPast-label": "Días por defecto en el pasado",
     "numberOfDays-hint": "Número de días al cargar la página",
     "numberOfDays-label": "Días por defecto",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Sólo las recetas con estas categorías se utilizarán en los menús",
@@ -353,10 +391,11 @@
     "type-any": "Cualquiera",
     "day-any": "Cualquier",
     "editor": "Editor",
-    "meal-recipe": "Receta de comida",
     "meal-title": "Título de la comida",
     "meal-note": "Nota de la Comida",
-    "note-only": "Solo notas",
+    "note": "Note",
+    "ignore-rules": "Ignore Planner Rules",
+    "no-recipes-match-your-rules": "No recipes match your meal plan rules",
     "random-meal": "Comida aleatoria",
     "random-dinner": "Cena al azar",
     "random-side": "Segundo plato aleatorio",
@@ -374,7 +413,8 @@
     "applies-on-days": "Se aplica en {0}s",
     "meal-plan-settings": "Configuración del Plan de Comidas",
     "add-all-to-list": "Añadir todos a la lista",
-    "add-day-to-list": "Añadir Día a la Lista"
+    "add-day-to-list": "Añadir Día a la Lista",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Datos de migración eliminados",
@@ -429,7 +469,7 @@
       "description-long": "Mealie puede importar recetas de Plan to Eat."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
+      "title": "Mi Caja de Receta",
       "description-long": "Mealie puede importar recetas de My Recipe Box. Exporta tus recetas en formato CSV y sube el archivo a continuación."
     },
     "recipekeeper": {
@@ -444,6 +484,7 @@
     "from-url": "Importar una receta",
     "github-issues": "Incidencia de Github",
     "google-ld-json-info": "Google ld+json Info",
+    "html-or-json-error-details": "No se pudo encontrar una receta en los datos proporcionados. Solo se pueden importar ld+json o microdatos que contengan una receta de schema.org. Si está pegando JSON, asegúrese de que declara tanto \"@context\": \"https://schema.org/\" como \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Debe ser una URL válida",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Pegar los datos de tu receta. Cada línea será tratada como un elemento de una lista",
     "recipe-markup-specification": "Definición de Markup de la receta",
@@ -623,17 +664,26 @@
     "select-one-of-the-various-ways-to-create-a-recipe": "Selecciona una de las diversas formas de crear una receta",
     "looking-for-migrations": "¿Buscas las Migraciones?",
     "import-with-url": "Importar por url",
+    "import-with-ai": "Import with AI",
+    "import-with-ai-description": "Create a recipe from just about anything using AI. Give it a link, upload photos of a recipe, paste a recipe as text, HTML, or JSON, or use any combination of the three. Everything you provide is read together as a single recipe.",
+    "import-with-ai-subtitle": "Import from text, photos, or URL",
+    "import-with-ai-video-description": "You can import from videos too, like those on Instagram or YouTube. Paste the video's URL and Mealie will transcribe it, along with anything else you provide.",
+    "import-with-ai-without-ai-question": "Want to create a recipe without using AI?",
+    "import-with-ai-use-url-import": "Use the URL importer",
+    "import-with-ai-url-hint": "Optional. Saved as the recipe's source. Videos are transcribed; other pages are read for their content.",
+    "import-with-ai-content": "Recipe text, HTML, JSON, or notes",
+    "import-with-ai-content-hint": "Optional. Paste a recipe, or the contents of a page Mealie can't reach. Combined with anything else you provide, so you can also use it for notes, like what to name the recipe or a detail to correct.",
+    "import-with-ai-provider-required": "To import recipes with AI, configure a default provider in your group's AI settings.",
+    "import-with-ai-image-provider-required": "To create recipes from photos, configure an image provider in your group's AI settings.",
+    "import-with-ai-error-details": "AI was unable to create a recipe from what you provided. Check that it contains a recipe, and try again.",
+    "create-new-organizers": "Create new organizers",
+    "create-new-organizers-hint": "Tags, categories, and tools found on the recipe are always matched against the ones you already have. Turn this on to also create the ones you don't.",
     "create-recipe": "Crear receta",
     "create-recipe-description": "Crear nueva receta desde cero.",
     "create-recipes": "Crear Recetas",
     "import-with-zip": "Importar desde .zip",
-    "create-recipe-from-an-image": "Crear receta a partir de una imagen",
-    "create-recipe-from-an-image-description": "Crea una receta cargando una imagen de ella. Mealie intentará extraer el texto de la imagen usando IA y crear una receta de ella.",
     "crop-and-rotate-the-image": "Recortar y rotar la imagen de manera que sólo el texto sea visible, y esté en la orientación correcta.",
-    "create-from-images": "Crear a partir de imágenes",
     "should-translate-description": "Traducir la receta a mi idioma",
-    "please-wait-image-procesing": "Por favor, espere, la imagen se está procesando. Esto puede tardar un tiempo.",
-    "please-wait-images-processing": "Por favor, espere, las imágenes se están procesando. Esto puede tardar algún tiempo.",
     "bulk-url-import": "Importación masiva desde URL",
     "debug-scraper": "Depurar analizador",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Crear una receta proporcionando el nombre. Todas las recetas deben tener nombres únicos.",
@@ -643,6 +693,8 @@
     "scrape-recipe-description-transcription": "También puedes proporcionar la url a un video y Mealie intentará transcribirla a una receta.",
     "scrape-recipe-have-a-lot-of-recipes": "¿Tienes muchas recetas que quieres raspar a la vez?",
     "scrape-recipe-suggest-bulk-importer": "Prueba el importador masivo",
+    "scrape-recipe-have-ai-read-the-page": "Want AI to read the page instead?",
+    "import-from-html-or-json-have-ai-read-it": "Want AI to read your data instead?",
     "scrape-recipe-have-raw-html-or-json-data": "¿Tiene datos HTML o JSON?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Puede importar directamente desde datos brutos",
     "scrape-recipe-website-being-blocked": "¿Sitio web bloqueado?",
@@ -702,7 +754,8 @@
       "ingredient-parser-description": "Tus ingredientes se han analizado correctamente. Revisa los ingredientes que no nos convencen.",
       "ingredient-parser-final-review-description": "Una vez que se hayan revisado todos los ingredientes, tendrás una oportunidad más de revisarlos todos antes de aplicar los cambios a tu receta.",
       "add-text-as-alias-for-item": "Añadir \"{text}\" como alias para {item}",
-      "delete-item": "Borrar elemento"
+      "delete-item": "Borrar elemento",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Restablecer contador de porciones",
     "not-linked-ingredients": "Ingredientes adicionales",
@@ -904,7 +957,10 @@
     "openai-ready": "OpenAI Listo",
     "openai-not-ready": "OpenAI no está listo",
     "openai-ready-error-text": "No todos los valores OpenAI están configurados. Puedes ignorar esto si no estás usando funciones de OpenAI.",
-    "openai-ready-success-text": "Las variables OpenAI requeridas están todas definidas."
+    "openai-ready-success-text": "Las variables OpenAI requeridas están todas definidas.",
+    "site-statistics": "Estadísticas del Sitio",
+    "uncategorized-recipes": "Recetas sin categorizar",
+    "untagged-recipes": "Recetas sin etiquetar"
   },
   "shopping-list": {
     "all-lists": "Todas las listas",
@@ -916,6 +972,7 @@
     "quantity": "Cantidad: {0}",
     "shopping-list": "Lista de la compra",
     "shopping-lists": "Listas de la compra",
+    "add-item": "Agregar elemento",
     "food": "Alimentos",
     "note": "Nota",
     "label": "Etiqueta",
@@ -940,7 +997,8 @@
     "are-you-sure-you-want-to-check-all-items": "¿Seguro que quieres seleccionar todos los elementos?",
     "are-you-sure-you-want-to-uncheck-all-items": "¿Seguro que quieres de-seleccionar todos los elementos?",
     "are-you-sure-you-want-to-delete-checked-items": "¿Está seguro que deseas eliminar los elementos seleccionados?",
-    "no-shopping-lists-found": "No hay listas de la compra"
+    "no-shopping-lists-found": "No hay listas de la compra",
+    "item-checked-off": "Comprobado {item}"
   },
   "sidebar": {
     "all-recipes": "Recetas",
@@ -1085,9 +1143,9 @@
     "permissions": "Permisos",
     "administrator": "Administrador",
     "user-can-invite-other-to-group": "El usuario puede invitar a otros al grupo",
-    "user-can-manage-group": "El usuario puede administrar el grupo",
+    "user-can-manage-group": "El usuario puede administrar la configuración del grupo",
     "user-can-manage-household": "El usuario puede administrar el hogar",
-    "user-can-organize-group-data": "El usuario puede organizar los datos del grupo",
+    "user-can-organize-group-data": "El usuario puede administrar comidas, etiquetas y categorías",
     "enable-advanced-features": "Habilitar Características Avanzadas",
     "it-looks-like-this-is-your-first-time-logging-in": "Parece que esta es la primera vez que inicias sesión.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "¿No quieres ver esto más? ¡Asegúrate de cambiar tu correo electrónico en tu configuración de usuario!",
@@ -1106,6 +1164,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Advertencia: esta comida se utiliza en {count} recetas(s). Al eliminarla dejará un ingrediente vacío en la receta(s).",
+      "delete-affects-recipes-more": "Ver todas las recetas {count}",
       "merge-dialog-text": "Combinar los alimentos seleccionados fusionará el alimento origen y destinatario en un solo alimento. El alimento origen será eliminado y todas las referencias a él serán actualizadas para apuntar al nuevo alimento.",
       "merge-food-example": "Fusionando {food1} con {food2}",
       "seed-dialog-text": "Rellena la base de datos con alimentos basados en tu idioma local. Esto creará más de 200 alimentos comunes que se pueden usar para organizar tu base de datos. Los alimentos son traducidos a través de un esfuerzo comunitario.",
@@ -1356,9 +1416,11 @@
     "setup": {
       "first-time-setup": "Configuración Inicial",
       "welcome-to-mealie-get-started": "¡Bienvenido a Mealie! Empecemos",
+      "previous-mealie-instance": "¿Tienes una instancia anterior de Mealie?",
       "already-set-up-bring-to-homepage": "Estoy bien, solo llévame al Inicio",
       "common-settings-for-new-sites": "Aquí hay algunos ajustes comunes para sitios nuevos",
       "setup-complete": "¡Configuración completada!",
+      "ai-providers-description": "Configura opcionalmente los proveedores de IA para tu grupo. Los proveedores de IA permiten características como la creación de recetas a partir de imágenes, la importación de recetas de vídeos, y el análisis mejorado de ingredientes. Siempre puedes configurar esto más tarde desde la configuración de tu grupo.",
       "here-are-a-few-things-to-help-you-get-started": "Aquí hay algunas cosas para ayudarte a empezar con Mealie",
       "restore-from-v1-backup": "¿Tienes una copia de seguridad de Mealie v1? Puedes restaurarla aquí.",
       "manage-profile-or-get-invite-link": "Gestiona tu perfil, o usa un enlace de invitación para compartir con otros."
@@ -1463,7 +1525,7 @@
       "is-not-like": "no es como"
     },
     "dates": {
-      "days-ago": "days ago|day ago|days ago"
+      "days-ago": "hace días|hace día|días"
     }
   },
   "validators": {
@@ -1475,10 +1537,10 @@
     "max-length": "Debe Ser Como Máximo {max} Carácter|Debe Ser Como Máximo {max} Caracteres"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Anuncios",
+    "all-announcements": "Todos los anuncios",
+    "mark-all-as-read": "Marcar todo como leído",
+    "show-announcements-from-mealie": "Mostrar anuncios de Mealie",
+    "show-announcements-setting-description": "Determina si se permite a los usuarios ver los anuncios de Mealie. Si esta opción está habilitada, los usuarios pueden optar por no verlos desde su configuración de usuario"
   }
 }

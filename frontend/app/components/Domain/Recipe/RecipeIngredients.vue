@@ -19,11 +19,11 @@
       >
         <h3
           v-if="showTitleEditor[index]"
-          class="mt-2"
+          class="mt-4 mb-0"
         >
           {{ ingredient.title }}
         </h3>
-        <v-divider v-if="showTitleEditor[index]" />
+        <v-divider v-if="showTitleEditor[index]" class="my-2" />
         <v-list-item
           density="compact"
           class="pa-0"

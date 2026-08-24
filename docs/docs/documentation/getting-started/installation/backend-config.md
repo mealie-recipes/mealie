@@ -29,6 +29,7 @@
 | --------------------------- | :-----: | ----------------------------------------------------------------------------------- |
 | SECURITY_MAX_LOGIN_ATTEMPTS |    5    | Maximum times a user can provide an invalid password before their account is locked |
 | SECURITY_USER_LOCKOUT_TIME  |   24    | Time in hours for how long a users account is locked                                |
+| ALLOWED_IFRAME_HOSTS        |  `""`   | Comma-separated extra hostnames allowed as `<iframe>` sources in recipe content. Extends the built-in list of trusted video providers (YouTube, Vimeo). Subdomains are included automatically. Only `https` sources are permitted. Adding hosts here opts into rendering embeds from those origins to all viewers, including the public, so add only origins you trust. |
 
 ### Database
 
@@ -100,6 +101,7 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 | ----------------------------------------------------------------------------------- | :-----: | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | OIDC_AUTH_ENABLED                                                                   |  False  | Enables authentication via OpenID Connect                                                                                                                                                                                                                                                              |
 | OIDC_SIGNUP_ENABLED                                                                 |  True   | Enables new users to be created when signing in for the first time with OIDC                                                                                                                                                                                                                           |
+| OIDC_REQUIRES_EMAIL_VERIFICATION <br/> :octicons-tag-24: v3.21.0                    |  True   | Requires the `email_verified` claim to be true before a user can sign in. This prevents an unverified email from being used to match an existing account. Only disable this if your identity provider does not emit the `email_verified` claim. For more information see [this page](../authentication/oidc-v2.md#email-verification)                    |
 | OIDC_CONFIGURATION_URL<super>[&dagger;][secrets]</super>                            |  None   | The URL to the OIDC configuration of your provider. This is usually something like https://auth.example.com/.well-known/openid-configuration                                                                                                                                                           |
 | OIDC_CLIENT_ID<super>[&dagger;][secrets]</super>                                    |  None   | The client id of your configured client in your provider                                                                                                                                                                                                                                               |
 | OIDC_CLIENT_SECRET<super>[&dagger;][secrets]</super> <br/> :octicons-tag-24: v2.0.0 |  None   | The client secret of your configured client in your provider                                                                                                                                                                                                                                           |
@@ -120,23 +122,73 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 
 :octicons-tag-24: v1.7.0
 
-Mealie supports various integrations using OpenAI. For more information, check out our [OpenAI documentation](./open-ai.md).
-For custom mapping variables (e.g. OPENAI_CUSTOM_HEADERS) you should pass values as JSON encoded strings (e.g. `OPENAI_CUSTOM_PARAMS='{"k1": "v1", "k2": "v2"}'`)
+Mealie supports various integrations using OpenAI. For more information, check out our [OpenAI documentation](./ai-providers.md).
 
 | Variables                                                               | Default     | Description                                                                                                                                                                                                                                                                                                            |
 |-------------------------------------------------------------------------|:-----------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| OPENAI_BASE_URL<super>[&dagger;][secrets]</super>                       |    None     | The base URL for the OpenAI API. If you're not sure, leave this empty to use the standard OpenAI platform                                                                                                                                                                                                              |
-| OPENAI_API_KEY<super>[&dagger;][secrets]</super>                        |    None     | Your OpenAI API Key. Enables OpenAI-related features                                                                                                                                                                                                                                                                   |
-| OPENAI_MODEL                                                            |   gpt-4o    | Which OpenAI model to use. If you're not sure, leave this empty                                                                                                                                                                                                                                                        |
-| OPENAI_AUDIO_MODEL <br/> :octicons-tag-24: v3.13.0                      |  whisper-1  | Which OpenAI model to use for audio transcriptions, if enabled. If you're not sure, leave this empty                                                                                                                                                                                                                   |
-| OPENAI_CUSTOM_HEADERS <br/> :octicons-tag-24: v2.0.0                    |    None     | Custom HTTP headers to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                                                                                                                                                                        |
-| OPENAI_CUSTOM_PARAMS <br/> :octicons-tag-24: v2.0.0                     |    None     | Custom HTTP query params to add to all OpenAI requests. This should generally be left empty unless your custom service requires them                                                                                                                                                                                   |
-| OPENAI_ENABLE_IMAGE_SERVICES <br/> :octicons-tag-24: v1.12.0            |    True     | Whether to enable OpenAI image services, such as creating recipes via image. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs                                                                                                                                               |
-| OPENAI_ENABLE_TRANSCRIPTION_SERVICES <br/> :octicons-tag-24: v3.13.0    |    True     | Whether to enable OpenAI transcription services, such as creating recipes via video URL. Leave this enabled unless your custom model doesn't support it, or you want to reduce costs                                                                                                                                   |
-| OPENAI_WORKERS                                                          |      2      | Number of OpenAI workers per request. Higher values may increase processing speed, but will incur additional API costs                                                                                                                                                                                                 |
-| OPENAI_SEND_DATABASE_DATA                                               |    True     | Whether to send Mealie data to OpenAI to improve request accuracy. This will incur additional API costs                                                                                                                                                                                                                |
-| OPENAI_REQUEST_TIMEOUT                                                  |     300     | The number of seconds to wait for an OpenAI request to complete before cancelling the request. Leave this empty unless you're running into timeout issues on slower hardware                                                                                                                                           |
 | OPENAI_CUSTOM_PROMPT_DIR <br/> :octicons-tag-24: v3.10.0                |    None.    | Path to custom prompt files. Only existing files in your custom directory will override the defaults; any missing or empty custom files will automatically fall back to the system defaults. See https://github.com/mealie-recipes/mealie/tree/mealie-next/mealie/services/openai/prompts for expected file names.     |
+
+### Recipe Scraper
+
+When you import a recipe from a URL, Mealie fetches the page (and its image) before parsing it. Many
+sites sit behind bot-protection (e.g. Cloudflare) that can block these requests. Out of the box Mealie
+mitigates this by impersonating real browsers' TLS fingerprints and rotating between several of them,
+which is enough for most sites and requires no configuration. If you still run into sites that block
+imports, the **opt-in** settings below add two further layers.
+
+| Variables                    | Default | Description                                                                                                                                                                                                                                                             |
+| ---------------------------- | :-----: | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| SCRAPER_PROXY_URL            |  None   | Optional proxy for all outbound scraping and image requests (e.g. `http://user:pass@host:port`). Routing through an IP with a better reputation helps bypass IP-based blocks. Unset disables it.                                                                        |
+| SCRAPER_PROXY_MODE           | always  | How the proxy is used (when `SCRAPER_PROXY_URL` is set): `always` routes every request through it; `fallback` tries a direct request first and only retries through the proxy when a block is detected. Any unrecognized value falls back to `always`.                   |
+| SCRAPER_FLARESOLVERR_URL     |  None   | Optional base URL of a self-hosted [FlareSolverr](https://github.com/FlareSolverr/FlareSolverr) instance (e.g. `http://flaresolverr:8191`). Used only as a last resort to solve JS/Cloudflare challenges. Unset disables it.                                            |
+| SCRAPER_FLARESOLVERR_TIMEOUT |   60    | Maximum seconds FlareSolverr may spend solving a single challenge before giving up.                                                                                                                                                                                    |
+
+#### How Mealie fetches a page
+
+For each import Mealie escalates only as far as it needs to, stopping at the first step that succeeds:
+
+1. **Direct fetch** with rotating browser TLS impersonations — always on, no configuration.
+2. **Proxy** — if `SCRAPER_PROXY_URL` is set (see modes below).
+3. **FlareSolverr** — if `SCRAPER_FLARESOLVERR_URL` is set, and only when the page is still blocked.
+
+Steps 2 and 3 are opt-in, so a default install uses only step 1. Genuine "not found" responses (e.g.
+`404`) are treated as real errors and are never retried through the later steps.
+
+#### Proxy
+
+Most IP-based blocks trigger on the very first request, so `always` mode (the default when a proxy is
+set) is recommended — it routes every request through the proxy from the start. Use `fallback` mode if
+you're on a **metered proxy** and want to avoid paying for requests that would have succeeded directly;
+Mealie will then only route through the proxy after a direct attempt is blocked. The proxy applies to
+both the recipe page and its image download.
+
+#### FlareSolverr
+
+FlareSolverr runs a real headless browser to solve challenges that TLS impersonation alone can't.
+**Mealie neither ships nor manages it** — you host it yourself and point Mealie at it. Because it
+returns rendered **HTML**, it is only used for the recipe page; **image downloads never use
+FlareSolverr** and continue to rely on the direct/proxy path.
+
+Run it as a sidecar container and set `SCRAPER_FLARESOLVERR_URL` to its address:
+
+```yaml
+services:
+  mealie:
+    image: ghcr.io/mealie-recipes/mealie:latest
+    environment:
+      SCRAPER_FLARESOLVERR_URL: http://flaresolverr:8191
+      # optional; default shown
+      # SCRAPER_FLARESOLVERR_TIMEOUT: 60
+
+  flaresolverr:
+    image: ghcr.io/flaresolverr/flaresolverr:latest
+    restart: unless-stopped
+    # No ports need to be published — Mealie reaches it over the internal Docker network.
+```
+
+Because FlareSolverr drives a browser, requests through it are much slower (seconds) and far more
+resource-intensive than a direct fetch. That's why Mealie only falls back to it when a page is actually
+blocked, rather than using it for every import.
 
 ### YT DLP
 
@@ -322,7 +374,6 @@ at least these sensitive environment variables when working within shared enviro
 - `POSTGRES_PASSWORD`
 - `SMTP_PASSWORD`
 - `LDAP_QUERY_PASSWORD`
-- `OPENAI_API_KEY`
 
 [docker-secrets]: https://docs.docker.com/compose/use-secrets/
 [secrets]: #docker-secrets

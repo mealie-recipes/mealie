@@ -25,7 +25,7 @@ function onScroll() {
 }
 
 function scrollToTop() {
-  document.documentElement.scrollTop = 0;
+  window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 onMounted(() => {

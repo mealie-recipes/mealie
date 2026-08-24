@@ -201,19 +201,12 @@ def test_delete_recipes_from_other_households(
     assert recipe_json["id"] == h2_recipe_id
 
     response = api_client.delete(api_routes.recipes_slug(recipe_json["slug"]), headers=unique_user.token)
-    if household_lock_recipe_edits:
-        assert response.status_code == 403
+    assert response.status_code == 403
 
-        # confirm the recipe still exists
-        response = api_client.get(api_routes.recipes_slug(h2_recipe_id), headers=unique_user.token)
-        assert response.status_code == 200
-        assert response.json()["id"] == h2_recipe_id
-    else:
-        assert response.status_code == 200
-
-        # confirm the recipe was deleted
-        response = api_client.get(api_routes.recipes_slug(h2_recipe_id), headers=unique_user.token)
-        assert response.status_code == 404
+    # confirm the recipe still exists
+    response = api_client.get(api_routes.recipes_slug(h2_recipe_id), headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["id"] == h2_recipe_id
 
 
 @pytest.mark.parametrize("is_private_household", [True, False])

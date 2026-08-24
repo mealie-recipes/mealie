@@ -169,6 +169,7 @@
     "token": "Žeton",
     "tuesday": "Torek",
     "type": "Tip",
+    "undo": "Razveljavi",
     "update": "Posodobi",
     "updated": "Posodobljen",
     "upload": "Naloži",
@@ -208,6 +209,7 @@
     "copied-items-to-clipboard": "Nič ni kopirano na odložišče|Ena postavka kopirana na odložišče|{count} postavk kopiranih na odložišče",
     "actions": "Dejanja",
     "selected-count": "Izbrano: {count}",
+    "selected": "Selected",
     "export-all": "Izvozi vse",
     "refresh": "Osveži",
     "upload-file": "Naloži datoteko",
@@ -222,7 +224,9 @@
     "show-advanced": "Prikaži napredno",
     "add-field": "Dodaj polje",
     "date-created": "Datum nastanka",
-    "date-updated": "Datum posodobitve"
+    "date-updated": "Datum posodobitve",
+    "key": "Ključ",
+    "value": "Vrednost"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Ste prepričani, da želite izbrisati <b>{groupName}<b/>?",
@@ -249,7 +253,7 @@
       "keep-my-recipes-private-description": "Nastavi vaše skupine in vse recepte privzeto kot privatni. Kasneje lahko to vedno spremenite."
     },
     "manage-members": "Urejanje članov",
-    "manage-members-description": "Upravljajte dovoljenja članov v vašem gospodinjstvu. {manage} omogoča uporabniku dostop do strani za upravljanje podatkov, {invite} pa uporabniku omogoča ustvarjanje povezav za povabila za druge uporabnike. Lastniki skupine ne morejo spremeniti lastnih dovoljenj.",
+    "manage-members-description": "Upravljajte dovoljenja članov v vašem gospodinjstvu. {manage} uporabniku omogoča dostop do območij za upravljanje skupin, {organize} upravlja podatke skupine, kot so hrana, oznake in kategorije, {invite} pa uporabniku omogoča ustvarjanje povezav za povabila za druge uporabnike. Lastniki skupin ne morejo spreminjati svojih dovoljenj.",
     "manage": "Upravljaj",
     "manage-household": "Upravljanje gospodinjstva",
     "invite": "Povabi",
@@ -282,7 +286,41 @@
     "admin-group-management-text": "Spremembe v tej skupini se poznajo takoj.",
     "group-id-value": "ID skupine: {0}",
     "total-households": "Skupaj gospodinjstev",
-    "you-must-select-a-group-before-selecting-a-household": "Preden izberete gospodinjstvo, morate izbrati skupino"
+    "you-must-select-a-group-before-selecting-a-household": "Preden izberete gospodinjstvo, morate izbrati skupino",
+    "ai-provider-settings": {
+      "ai-provider-settings": "Nastavitve ponudnika umetne inteligence",
+      "ai-provider": "Ponudnik umetne inteligence",
+      "ai-providers": "Ponudniki umetne inteligence",
+      "ai-providers-description": "Dodajte ponudnika umetne inteligence, da omogočite funkcije, kot sta izboljšano razčlenjevanje sestavin in ustvarjanje receptov iz fotografij ali videoposnetkov. Ta korak je neobvezen in ga je mogoče nastaviti pozneje v nastavitvah skupine.",
+      "ai-provider-settings-description": "Konfigurirajte ponudnike umetne inteligence, da omogočite funkcije, ki jih poganja umetna inteligenca, kot so izboljšano razčlenjevanje sestavin, ustvarjanje receptov iz videoposnetkov in še več!",
+      "providers": "Ponudniki",
+      "create-provider": "Ustvari ponudnika",
+      "edit-provider": "Uredi ponudnika",
+      "default-provider": "Privzeti ponudnik",
+      "default-provider-description": "Potrebno za omogočanje funkcij umetne inteligence",
+      "audio-provider": "Ponudnik zvoka",
+      "audio-provider-description": "Omogoča funkcije prepisovanja zvoka, kot je ustvarjanje receptov iz videoposnetkov",
+      "image-provider": "Ponudnik slik",
+      "image-provider-description": "Omogoča funkcije prepoznavanja slik, kot je ustvarjanje receptov iz slik",
+      "provider-name": "Ime ponudnika",
+      "api-key": "API Ključ",
+      "api-key-description-create": "Ključ API vašega ponudnika za preverjanje pristnosti. Če vaša storitev (npr. Ollama) ne uporablja ključa API, morate vseeno nekaj vnesti tukaj.",
+      "api-key-description-edit": "Pustite to prazno, razen če želite to spremeniti.",
+      "base-url": "Osnovni URL",
+      "base-url-description": "Če uporabljate OpenAI, pustite to polje prazno. Mora biti končna točka, združljiva z OpenAI (npr. \"http://localhost:11434/v1\").",
+      "model": "Model",
+      "model-description": "Kateri model naj uporablja vaš ponudnik umetne inteligence (npr. \"gpt-5\").",
+      "request-timeout-seconds": "Časovna omejitev zahteve (sekunde)",
+      "provider-created": "Ponudnik ustvarjen",
+      "provider-updated": "Ponudnik posodobljen",
+      "provider-deleted": "Ponudnik izbrisan",
+      "provider-create-failed": "Ustvarjanje ponudnika ni uspelo",
+      "provider-update-failed": "Ponudnika ni bilo mogoče posodobiti",
+      "provider-delete-failed": "Brisanje ponudnika ni uspelo",
+      "request-headers": "Glave zahtev",
+      "request-params": "Parametri zahteve",
+      "no-default-provider-warning": "Niste nastavili privzetega ponudnika, zato so funkcije umetne inteligence onemogočene"
+    }
   },
   "household": {
     "household": "Gospodinjstvo",
@@ -353,10 +391,11 @@
     "type-any": "Katerikoli",
     "day-any": "Katerikoli",
     "editor": "Urednik",
-    "meal-recipe": "Recept za obrok",
     "meal-title": "Naslov obroka",
     "meal-note": "Zaznamek k obroku",
-    "note-only": "Samo zaznamek",
+    "note": "Note",
+    "ignore-rules": "Ignore Planner Rules",
+    "no-recipes-match-your-rules": "No recipes match your meal plan rules",
     "random-meal": "Naključni obrok",
     "random-dinner": "Naključna večerja",
     "random-side": "Naključna priloga",
@@ -374,7 +413,8 @@
     "applies-on-days": "Velja za {0}",
     "meal-plan-settings": "Nastavitve jedilnika",
     "add-all-to-list": "Dodaj vse na seznam",
-    "add-day-to-list": "Dodaj dan na seznam"
+    "add-day-to-list": "Dodaj dan na seznam",
+    "randomize-recipe": "Naključni recept"
   },
   "migration": {
     "migration-data-removed": "Migrirani podatki so odstranjeni",
@@ -426,7 +466,7 @@
     "mealie-text": "Mealie lahko uvozi recepte izpred Mealie verzije v1.0. Izvozi recepte iz stare instance in spodaj uvozi zip datoteko. Omogočen je uvoz samo za recepte.",
     "plantoeat": {
       "title": "Načrt za pojesti",
-      "description-long": "Mealie lahko uvozi recepte iz aplikacije Plan to Eat."
+      "description-long": "Mealie lahko uvozi recepte iz aplikacije Plan to Eat. Naložite ZIP arhiv, CSV ali TXT datoteko, izvoženo iz Plan to Eat."
     },
     "myrecipebox": {
       "title": "Moj zaboj z recepti",
@@ -444,6 +484,7 @@
     "from-url": "Uvozi recept",
     "github-issues": "GitHub težave",
     "google-ld-json-info": "Google Id+json podatki",
+    "html-or-json-error-details": "Mealie v podatkih, ki ste jih posredovali, ni našla recepta. Uvoziti je mogoče samo ld+json ali mikropodatke, ki vsebujejo recept s schema.org. Če lepite JSON, se prepričajte, da je deklariran tako \"@context\": \"https://schema.org/\" kot \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Mora biti veljaven URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Prilepi podatke recepta. Vsaka vrsta bo obravnavana kot element v seznamu",
     "recipe-markup-specification": "Markup specifikacija recepta",
@@ -623,17 +664,26 @@
     "select-one-of-the-various-ways-to-create-a-recipe": "Izberi način ustvarjanja recepta",
     "looking-for-migrations": "Iščeš migracije?",
     "import-with-url": "Uvozi preko URLja",
+    "import-with-ai": "Uvoz z umetno inteligenco",
+    "import-with-ai-description": "Create a recipe from just about anything using AI. Give it a link, upload photos of a recipe, paste a recipe as text, HTML, or JSON, or use any combination of the three. Everything you provide is read together as a single recipe.",
+    "import-with-ai-subtitle": "Uvozi iz besedila, fotografij ali URL-ja",
+    "import-with-ai-video-description": "You can import from videos too, like those on Instagram or YouTube. Paste the video's URL and Mealie will transcribe it, along with anything else you provide.",
+    "import-with-ai-without-ai-question": "Želite ustvariti recept brez uporabe umetne inteligence?",
+    "import-with-ai-use-url-import": "Uporabite uvoznik URL-jev",
+    "import-with-ai-url-hint": "Neobvezno. Shranjeno kot vir recepta. Videoposnetki so prepisani; druge strani so prebrane zaradi njihove vsebine.",
+    "import-with-ai-content": "Besedilo recepta, HTML, JSON ali opombe",
+    "import-with-ai-content-hint": "Neobvezno. Prilepite recept ali vsebino strani, do katere Mealie ne more dostopati. V kombinaciji z vsem drugim, kar navedete, ga lahko uporabite tudi za opombe, na primer kako poimenovati recept ali podrobnost, ki jo je treba popraviti.",
+    "import-with-ai-provider-required": "Če želite uvoziti recepte z umetno inteligenco, konfigurirajte privzetega ponudnika v nastavitvah umetne inteligence vaše skupine.",
+    "import-with-ai-image-provider-required": "Če želite ustvariti recepte iz fotografij, konfigurirajte ponudnika slik v nastavitvah umetne inteligence vaše skupine.",
+    "import-with-ai-error-details": "Umetna inteligenca ni mogla ustvariti recepta iz vnesenih podatkov. Preverite, ali vsebuje recept, in poskusite znova.",
+    "create-new-organizers": "Ustvari nove organizatorje",
+    "create-new-organizers-hint": "Oznake, kategorije in orodja, ki jih najdete v receptu, se vedno ujemajo s tistimi, ki jih že imate. Vklopite to možnost, da ustvarite tudi tiste, ki jih še nimate.",
     "create-recipe": "Ustvari recept",
     "create-recipe-description": "Ustvari nov recept.",
     "create-recipes": "Ustvari recepte",
     "import-with-zip": "Uvozi z .zip",
-    "create-recipe-from-an-image": "Ustvari recept iz slike",
-    "create-recipe-from-an-image-description": "Ustvarite recept tako, da naložite njegovo sliko. Mealie bo s pomočjo umetne inteligence poskušal izluščiti besedilo iz slike in iz njega ustvariti recept.",
     "crop-and-rotate-the-image": "Obrežite in zasukajte sliko, tako da bo vidno samo besedilo in da bo v pravilnem položaju.",
-    "create-from-images": "Ustvari iz slik",
     "should-translate-description": "Prevedi recept v moj jezik",
-    "please-wait-image-procesing": "Počakajte, slika je v obdelavi. To lahko traja nekaj časa.",
-    "please-wait-images-processing": "Počakajte, slike se obdelujejo. To lahko traja nekaj časa.",
     "bulk-url-import": "Masovno uvozi preko URLja",
     "debug-scraper": "Odpravljanje težav s strgalnikom",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Ustvari recept z izbranim imenom. Vsi recepti morajo imeti unikatna imena.",
@@ -643,6 +693,8 @@
     "scrape-recipe-description-transcription": "Lahko pa navedete tudi URL videoposnetka in Mealie ga bo poskušal prepisati v recept.",
     "scrape-recipe-have-a-lot-of-recipes": "Imaš veliko receptov, ki jih želiš naenkrat postrgati s spleta?",
     "scrape-recipe-suggest-bulk-importer": "Preizkusi masovni uvoz",
+    "scrape-recipe-have-ai-read-the-page": "Želite, da stran namesto tega prebere umetna inteligenca?",
+    "import-from-html-or-json-have-ai-read-it": "Želite, da umetna inteligenca namesto tega bere vaše podatke?",
     "scrape-recipe-have-raw-html-or-json-data": "Imaš surove HTML ali JSON podatke?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Uvoziš lahko neposredno iz surovih podatkov",
     "scrape-recipe-website-being-blocked": "Je spletna stran blokirana?",
@@ -702,7 +754,8 @@
       "ingredient-parser-description": "Vaše sestavine so bile uspešno razčlenjene. Prosimo, preglejte sestavine, glede katerih nismo prepričani.",
       "ingredient-parser-final-review-description": "Ko bodo vse sestavine pregledane, boste imeli še eno priložnost, da jih pregledate, preden spremembe uveljavite v svojem receptu.",
       "add-text-as-alias-for-item": "Dodaj \"{text}\" kot vzdevek za {item}",
-      "delete-item": "Izbriši element"
+      "delete-item": "Izbriši element",
+      "parsing-ingredients": "Razčlenjevanje sestavin..."
     },
     "reset-servings-count": "Ponastavi števec obrokov",
     "not-linked-ingredients": "Dodatne sestavine",
@@ -904,7 +957,10 @@
     "openai-ready": "OpenAI pripravljen",
     "openai-not-ready": "OpenAI ni pripravljen",
     "openai-ready-error-text": "Niso nastavljene vse OpenAI vrednosti. To lahko prezrete, če ne uporabljate OpenAi funkcij.",
-    "openai-ready-success-text": "Vse zahtevane spremenljivke OpenAI so nastavljene."
+    "openai-ready-success-text": "Vse zahtevane spremenljivke OpenAI so nastavljene.",
+    "site-statistics": "Statistika spletnega mesta",
+    "uncategorized-recipes": "Nekategorizirani recepti",
+    "untagged-recipes": "Neoznačeni recepti"
   },
   "shopping-list": {
     "all-lists": "Vsi seznami",
@@ -916,6 +972,7 @@
     "quantity": "Količina: {0}",
     "shopping-list": "Nakupovalni seznam",
     "shopping-lists": "Nakupovalni seznami",
+    "add-item": "Dodaj element",
     "food": "Živilo",
     "note": "Opomba",
     "label": "Oznaka",
@@ -940,7 +997,8 @@
     "are-you-sure-you-want-to-check-all-items": "Ali res želite izbrati vse elemente?",
     "are-you-sure-you-want-to-uncheck-all-items": "Ali res ne želite izbrati vseh elementov?",
     "are-you-sure-you-want-to-delete-checked-items": "Ali ste prepričani, da želite izbrisati vse izbrane elemente?",
-    "no-shopping-lists-found": "Ni nakupovalnih seznamov"
+    "no-shopping-lists-found": "Ni nakupovalnih seznamov",
+    "item-checked-off": "Odkljukano {item}"
   },
   "sidebar": {
     "all-recipes": "Vsi recepti",
@@ -1085,9 +1143,9 @@
     "permissions": "Dovoljenja",
     "administrator": "Skrbnik",
     "user-can-invite-other-to-group": "Uporabnih lahko povabi druge v skupino",
-    "user-can-manage-group": "Uporabnik lahko upravlja s skupino",
+    "user-can-manage-group": "Uporabnik lahko upravlja nastavitve skupine",
     "user-can-manage-household": "Uporabnik lahko upravlja gospodinjstvo",
-    "user-can-organize-group-data": "Uporabnik lahko organizira podatke skupine",
+    "user-can-organize-group-data": "Uporabnik lahko upravlja živila, oznake in kategorije",
     "enable-advanced-features": "Vključi napredne funkcije",
     "it-looks-like-this-is-your-first-time-logging-in": "Zgleda, kot da se prvič prijavljaš.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Ne želiš več videti tega sporočila? Spremeni svoj email v uporabiških nastavitvah!",
@@ -1106,6 +1164,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Opozorilo: ta jed se uporablja v {count} receptih. Če jo izbrišete, bo v receptu(-ih) ostala prazna sestavina.",
+      "delete-affects-recipes-more": "Oglejte si vse recepte ({count})",
       "merge-dialog-text": "Združitev izbranih živil bo združila izvorno živilo in ciljno živilo v eno samo živilo. Izvorno živilo bo izbrisano in vse povezave na izvorno živilo, bodo po novem kazale na ciljno živilo.",
       "merge-food-example": "Združujem {food1} v {food2}",
       "seed-dialog-text": "Napolnite zbirko podatkov z živili, ki temeljijo na vašem lokalnem jeziku. Tako boste ustvarili več kot 200 običajnih živil, ki jih lahko uporabite za organizacijo vaše zbirke podatkov. Živila so prevedena s prizadevanjem skupnosti.",
@@ -1356,9 +1416,11 @@
     "setup": {
       "first-time-setup": "Prva namestitev",
       "welcome-to-mealie-get-started": "Dobrodošli v Mealie! Pa začnimo",
+      "previous-mealie-instance": "Ste že imeli primerek Mealie?",
       "already-set-up-bring-to-homepage": "Vse imam že nastavljeno, odpri glavno stran",
       "common-settings-for-new-sites": "Tule je par pogostih nastavitev za nove spletne strani",
       "setup-complete": "Namestitev je zaključena!",
+      "ai-providers-description": "Po želji lahko konfigurirate ponudnike umetne inteligence za svojo skupino. Ponudniki umetne inteligence omogočajo funkcije, kot so ustvarjanje receptov iz slik, uvoz receptov iz videoposnetkov in izboljšano razčlenjevanje sestavin. To lahko vedno konfigurirate pozneje v nastavitvah skupine.",
       "here-are-a-few-things-to-help-you-get-started": "Par stvari, ki to bodo pomagale začeti z Mealie",
       "restore-from-v1-backup": "Imaš varnostno kopijo iz predhodnje instance Mealie v1? Obnoviš jo lahko tule.",
       "manage-profile-or-get-invite-link": "Upravljaj s svojim profilom ali skopiraj povezavo z vabilom in jo deli z drugimi."

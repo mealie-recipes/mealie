@@ -169,6 +169,7 @@
     "token": "Токен",
     "tuesday": "уторак",
     "type": "Тип",
+    "undo": "Undo",
     "update": "Ажурирај",
     "updated": "Ажурирано",
     "upload": "Отпреми",
@@ -208,6 +209,7 @@
     "copied-items-to-clipboard": "Ниједна ставка није копирана на привремену меморију|Једна ставка је копирана на привремену меморију|Копираних {count} ставки на привремену меморију",
     "actions": "Радње",
     "selected-count": "Изабрано: {count}",
+    "selected": "Selected",
     "export-all": "Извези све",
     "refresh": "Освежи",
     "upload-file": "Учитај датотеку",
@@ -222,7 +224,9 @@
     "show-advanced": "Прикажи напредно",
     "add-field": "Додај поље",
     "date-created": "Датум креирања",
-    "date-updated": "Датум измене"
+    "date-updated": "Датум измене",
+    "key": "Key",
+    "value": "Value"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Да ли сте сигурни да желите да обришете <b>{groupName}<b/>?",
@@ -249,7 +253,7 @@
       "keep-my-recipes-private-description": "Поставља вашу групу и све рецепте као подразумевано приватне. Увек можете касније променити ово."
     },
     "manage-members": "Управљај члановима",
-    "manage-members-description": "Управљање дозволама у сопственом домаћинству. {manage} дозвољава кориснику приступ менаџменту података, а {invite} омогућава кориснику да генерише позивнице за друге кориснике. Власници групе не могу променити сопствене дозволе.",
+    "manage-members-description": "Manage the permissions of the members in your household. {manage} allows the user to access group management areas, {organize} allows the user to manage group data such as foods, tags, and categories, and {invite} allows the user to generate invitation links for other users. Group owners cannot change their own permissions.",
     "manage": "Управљај",
     "manage-household": "Менаџмент домаћинства",
     "invite": "Позови",
@@ -282,7 +286,41 @@
     "admin-group-management-text": "Промене у овој групи биће одмах видљиве.",
     "group-id-value": "ИД групе: {0}",
     "total-households": "Укупно домаћинстава",
-    "you-must-select-a-group-before-selecting-a-household": "Морате селектовати групу пре селектовања домаћинства"
+    "you-must-select-a-group-before-selecting-a-household": "Морате селектовати групу пре селектовања домаћинства",
+    "ai-provider-settings": {
+      "ai-provider-settings": "AI Provider Settings",
+      "ai-provider": "AI Provider",
+      "ai-providers": "AI Providers",
+      "ai-providers-description": "Add an AI provider to enable features like enhanced ingredient parsing and creating recipes from photos or videos. This step is optional, and can be set up later in your group settings.",
+      "ai-provider-settings-description": "Configure AI providers to enable AI-powered features, such as enhanced ingredient parsing, creating recipes from videos, and more!",
+      "providers": "Providers",
+      "create-provider": "Create Provider",
+      "edit-provider": "Edit Provider",
+      "default-provider": "Default Provider",
+      "default-provider-description": "Required to enable AI features",
+      "audio-provider": "Audio Provider",
+      "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
+      "image-provider": "Image Provider",
+      "image-provider-description": "Enables image recognition features, such as creating recipes from images",
+      "provider-name": "Provider Name",
+      "api-key": "API Key",
+      "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
+      "api-key-description-edit": "Leave this blank unless you want to change it.",
+      "base-url": "Base URL",
+      "base-url-description": "If you're using OpenAI leave this blank. Must be an OpenAI-compatible endpoint (e.g. \"http://localhost:11434/v1\").",
+      "model": "Model",
+      "model-description": "Which model your AI provider should use (e.g. \"gpt-5\").",
+      "request-timeout-seconds": "Request Timeout (seconds)",
+      "provider-created": "Provider created",
+      "provider-updated": "Provider updated",
+      "provider-deleted": "Provider deleted",
+      "provider-create-failed": "Failed to create provider",
+      "provider-update-failed": "Failed to update provider",
+      "provider-delete-failed": "Failed to delete provider",
+      "request-headers": "Request Headers",
+      "request-params": "Request Parameters",
+      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+    }
   },
   "household": {
     "household": "Домаћинство",
@@ -353,10 +391,11 @@
     "type-any": "Било који",
     "day-any": "Било који",
     "editor": "Уређивач",
-    "meal-recipe": "Рецепт за оброк",
     "meal-title": "Назив оброка",
     "meal-note": "Белешка за оброк",
-    "note-only": "Само белешка",
+    "note": "Note",
+    "ignore-rules": "Ignore Planner Rules",
+    "no-recipes-match-your-rules": "No recipes match your meal plan rules",
     "random-meal": "Насумични оброк",
     "random-dinner": "Насумична вечера",
     "random-side": "Насумични прилог",
@@ -374,7 +413,8 @@
     "applies-on-days": "Примењује се на {0}",
     "meal-plan-settings": "Подешавања јеловника",
     "add-all-to-list": "Додај све на списак",
-    "add-day-to-list": "Додај дан на списак"
+    "add-day-to-list": "Додај дан на списак",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Подаци о миграцији су уклоњени",
@@ -425,15 +465,15 @@
     "paprika-text": "Mealie може да увезе рецепте из апликације Paprika. Извезите ваше рецепте из Paprika апликације, промените екстензију извоза у .zip и отпремите је испод.",
     "mealie-text": "Mealie може да увезе рецепте из Mealie апликације пре верзије 1.0. Извезите ваше рецепте са ваше старе инстанце и отпремите zip датотеку испод. Напомена: само рецепти се могу увести из овог извоза.",
     "plantoeat": {
-      "title": "Plan to Eat",
+      "title": "Планирајте јело",
       "description-long": "Mealie може да увезе рецепте из Plan to Eat."
     },
     "myrecipebox": {
-      "title": "My Recipe Box",
+      "title": "Моја кутија за рецепте",
       "description-long": "Mealie може да увезе рецепте из My Recipe Box. Извезите ваше рецепте у CSV формату, затим отпремите .csv датотеку испод."
     },
     "recipekeeper": {
-      "title": "Recipe Keeper",
+      "title": "Чувар рецепата",
       "description-long": "Mealie може да увезе рецепте из Recipe Keeper-а. Извезите ваше рецепте у zip формату, затим отпремите .zip датотеку испод."
     }
   },
@@ -444,6 +484,7 @@
     "from-url": "Увези рецепт",
     "github-issues": "GitHub Problemi",
     "google-ld-json-info": "Google ld+json информације",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Мора бити валидан URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Налепите ваше податке о рецепту. Свака линија ће бити третирана као ставка на списку",
     "recipe-markup-specification": "Спецификација за означавање рецепата",
@@ -623,17 +664,26 @@
     "select-one-of-the-various-ways-to-create-a-recipe": "Изаберите један од различитих начина за прављење рецепта",
     "looking-for-migrations": "Тражите миграције?",
     "import-with-url": "Увези помоћу URL везе",
+    "import-with-ai": "Import with AI",
+    "import-with-ai-description": "Create a recipe from just about anything using AI. Give it a link, upload photos of a recipe, paste a recipe as text, HTML, or JSON, or use any combination of the three. Everything you provide is read together as a single recipe.",
+    "import-with-ai-subtitle": "Import from text, photos, or URL",
+    "import-with-ai-video-description": "You can import from videos too, like those on Instagram or YouTube. Paste the video's URL and Mealie will transcribe it, along with anything else you provide.",
+    "import-with-ai-without-ai-question": "Want to create a recipe without using AI?",
+    "import-with-ai-use-url-import": "Use the URL importer",
+    "import-with-ai-url-hint": "Optional. Saved as the recipe's source. Videos are transcribed; other pages are read for their content.",
+    "import-with-ai-content": "Recipe text, HTML, JSON, or notes",
+    "import-with-ai-content-hint": "Optional. Paste a recipe, or the contents of a page Mealie can't reach. Combined with anything else you provide, so you can also use it for notes, like what to name the recipe or a detail to correct.",
+    "import-with-ai-provider-required": "To import recipes with AI, configure a default provider in your group's AI settings.",
+    "import-with-ai-image-provider-required": "To create recipes from photos, configure an image provider in your group's AI settings.",
+    "import-with-ai-error-details": "AI was unable to create a recipe from what you provided. Check that it contains a recipe, and try again.",
+    "create-new-organizers": "Create new organizers",
+    "create-new-organizers-hint": "Tags, categories, and tools found on the recipe are always matched against the ones you already have. Turn this on to also create the ones you don't.",
     "create-recipe": "Направи рецепт",
     "create-recipe-description": "Креирајте нови рецепт од нуле.",
     "create-recipes": "Направите рецепте",
     "import-with-zip": "Увези помоћу .zip архиве",
-    "create-recipe-from-an-image": "Направи рецепт на основи слике",
-    "create-recipe-from-an-image-description": "Креирајте рецепт отпремањем његове слике. Mealie ће покушати да издвоји текст из слике користећи АИ и од њега направи рецепт.",
     "crop-and-rotate-the-image": "Исеците и ротирајте слику тако да је видљив само текст и да је у исправној оријентацији.",
-    "create-from-images": "Креирај из слика",
     "should-translate-description": "Преведи рецепт на мој језик",
-    "please-wait-image-procesing": "Молимо сачекајте, слика се обрађује. Ово може потрајати.",
-    "please-wait-images-processing": "Молимо сачекајте, слике се обрађују. Ово може потрајати.",
     "bulk-url-import": "Масовни увоз помоћу URL",
     "debug-scraper": "Отклони грешке Scraper-а",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Направи рецепт додајући име. Сви рецепти морају имати јединствена имена.",
@@ -643,6 +693,8 @@
     "scrape-recipe-description-transcription": "Такође можете пружити URL видео снимка и Mealie ће покушати да га транскрибује у рецепт.",
     "scrape-recipe-have-a-lot-of-recipes": "Имате много рецепата које желите да преузмете одједном?",
     "scrape-recipe-suggest-bulk-importer": "Испробајте алат за масовни увоз",
+    "scrape-recipe-have-ai-read-the-page": "Want AI to read the page instead?",
+    "import-from-html-or-json-have-ai-read-it": "Want AI to read your data instead?",
     "scrape-recipe-have-raw-html-or-json-data": "Имате сирове HTML или JSON податке?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Можете увозити директно из сирових података",
     "scrape-recipe-website-being-blocked": "Вебсајт је блокиран?",
@@ -702,7 +754,8 @@
       "ingredient-parser-description": "Ваши састојци су успешно разложени. Молимо прегледајте састојке за које нисмо сигурни.",
       "ingredient-parser-final-review-description": "Када се прегледају сви састојци, имаћете још једну прилику да прегледате све састојке пре него што примените измене на свој рецепт.",
       "add-text-as-alias-for-item": "Додај \"{text}\" као алијас за {item}",
-      "delete-item": "Обриши ставку"
+      "delete-item": "Обриши ставку",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Ресетуј број порција",
     "not-linked-ingredients": "Додатни састојци",
@@ -904,7 +957,10 @@
     "openai-ready": "OpenAI спреман",
     "openai-not-ready": "OpenAI није спреман",
     "openai-ready-error-text": "Нису конфигурисане све OpenAI вредности. Ово можете игнорисати ако не користите OpenAI функције.",
-    "openai-ready-success-text": "Потребне OpenAI променљиве су све постављене."
+    "openai-ready-success-text": "Потребне OpenAI променљиве су све постављене.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Сви спискови",
@@ -916,6 +972,7 @@
     "quantity": "Количина: {0}",
     "shopping-list": "Списак за куповину",
     "shopping-lists": "Спискови за куповину",
+    "add-item": "Додај ставку",
     "food": "Храна",
     "note": "Белешка",
     "label": "Натпис",
@@ -940,7 +997,8 @@
     "are-you-sure-you-want-to-check-all-items": "Да ли сте сигурни да желите да означите све ставке?",
     "are-you-sure-you-want-to-uncheck-all-items": "Да ли сте сигурни да желите да одзначите све ставке?",
     "are-you-sure-you-want-to-delete-checked-items": "Да ли сте сигурни да желите да обришете све означене ставке?",
-    "no-shopping-lists-found": "Нису пронађени спискови за куповину"
+    "no-shopping-lists-found": "Нису пронађени спискови за куповину",
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "all-recipes": "Сви рецепти",
@@ -1085,9 +1143,9 @@
     "permissions": "Дозволе",
     "administrator": "Администратор",
     "user-can-invite-other-to-group": "Корисник може позивати друге у групу",
-    "user-can-manage-group": "Корисник може управљати групом",
+    "user-can-manage-group": "User can manage group settings",
     "user-can-manage-household": "Корисник може управљати домаћинством",
-    "user-can-organize-group-data": "Корисник може организовати податке групе",
+    "user-can-organize-group-data": "User can manage foods, tags, and categories",
     "enable-advanced-features": "Омогући напредне функције",
     "it-looks-like-this-is-your-first-time-logging-in": "Изгледа да се први пут пријављујете.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Не желите више ово да видите? Обавезно промените е-пошту у корисничким подешавањима!",
@@ -1106,6 +1164,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
+      "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Комбиновање изабраних намирница спојиће изворну и циљну храну у једну храну. Изворна храна ће бити избрисана и све референце на изворну храну биће ажуриране да показују на циљну храну.",
       "merge-food-example": "Спајање {food1} у {food2}",
       "seed-dialog-text": "Попуните базу података храном на основу вашег локалног језика. Ово ће креирати преко 200 уобичајених намирница које се могу користити за организовање ваше базе података. Намирнице се преводе залагањем заједнице.",
@@ -1356,9 +1416,11 @@
     "setup": {
       "first-time-setup": "Подешавање по први пут",
       "welcome-to-mealie-get-started": "Добродошли у Mealie! Хајде да почнемо",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Већ сам подешен, само ме одведи на почетну страницу",
       "common-settings-for-new-sites": "Ево неколико уобичајених подешавања за нове сајтове",
       "setup-complete": "Подешавање је завршено!",
+      "ai-providers-description": "Optionally configure AI providers for your group. AI providers enable features like creating recipes from images, importing recipes from videos, and enhanced ingredient parsing. You can always configure this later from your group settings.",
       "here-are-a-few-things-to-help-you-get-started": "Ево неколико ствари које ће вам помоћи да започнете са Mealieјем",
       "restore-from-v1-backup": "Имате резервну копију из претходне инстанце Mealie v1? Можете је вратити овде.",
       "manage-profile-or-get-invite-link": "Управљајте сопственим профилом или узмите линк за позивницу да бисте га поделили са другима."
@@ -1476,9 +1538,9 @@
   },
   "announcements": {
     "announcements": "Најава",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
+    "all-announcements": "Најава",
+    "mark-all-as-read": "Означи све као прочитано",
     "show-announcements-from-mealie": "Најава",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "show-announcements-setting-description": "Да ли желите да дозволите корисницима да виде обавештења од Mealie-а. Када је омогућено, корисници и даље могу да се искључе из приказивања обавештења у својим корисничким подешавањима."
   }
 }

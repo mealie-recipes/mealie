@@ -45,6 +45,7 @@
 <script setup lang="ts">
 import type { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import AdvancedOnly from "~/components/global/AdvancedOnly.vue";
+import { useGroupSelf } from "~/composables/use-groups";
 
 definePageMeta({
   middleware: ["group-only"],
@@ -52,7 +53,8 @@ definePageMeta({
 
 const i18n = useI18n();
 const auth = useMealieAuth();
-const { $appInfo, $globals } = useNuxtApp();
+const { $globals } = useNuxtApp();
+const { group } = useGroupSelf();
 
 useSeoMeta({
   title: i18n.t("general.create"),
@@ -75,10 +77,10 @@ const subpages = computed<MenuItem[]>(() => [
     value: "html",
   },
   {
-    icon: $globals.icons.fileImage,
-    text: i18n.t("recipe.create-from-images"),
-    value: "image",
-    hide: !$appInfo.enableOpenaiImageServices,
+    icon: $globals.icons.autoFix,
+    text: i18n.t("recipe.import-with-ai"),
+    value: "ai",
+    hide: !group.value?.aiProviderSettings?.aiEnabled,
   },
   {
     icon: $globals.icons.edit,

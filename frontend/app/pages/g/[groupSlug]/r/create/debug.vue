@@ -25,7 +25,7 @@
             persistent-hint
           />
         </v-card-text>
-        <v-card-text v-if="$appInfo.enableOpenai">
+        <v-card-text v-if="group?.aiProviderSettings?.aiEnabled">
           {{ $t('recipe.recipe-debugger-use-openai-description') }}
           <v-checkbox
             v-model="state.useOpenAI"
@@ -69,6 +69,7 @@
 
 <script setup lang="ts">
 import { useUserApi } from "~/composables/api";
+import { useGroupSelf } from "~/composables/use-groups";
 import { validators } from "~/composables/use-validators";
 import type { Recipe } from "~/lib/api/types/recipe";
 
@@ -80,6 +81,7 @@ const state = reactive({
 const api = useUserApi();
 const route = useRoute();
 const router = useRouter();
+const { group } = useGroupSelf();
 
 const recipeUrl = computed({
   set(recipe_import_url: string | null) {

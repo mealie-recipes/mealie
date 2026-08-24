@@ -337,16 +337,8 @@ const _content: Record<string, MigrationContent> = {
   },
   [MIGRATIONS.plantoeat]: {
     text: i18n.t("migration.plantoeat.description-long"),
-    acceptedFileType: ".zip",
-    tree: [
-      {
-        icon: $globals.icons.zip,
-        title: "plantoeat-recipes-508318_10-13-2023.zip",
-        children: [
-          { title: "plantoeat-recipes-508318_10-13-2023.csv", icon: $globals.icons.codeJson },
-        ],
-      },
-    ],
+    acceptedFileType: ".zip,.csv,.txt",
+    tree: false,
   },
   [MIGRATIONS.recipekeeper]: {
     text: i18n.t("migration.recipekeeper.description-long"),

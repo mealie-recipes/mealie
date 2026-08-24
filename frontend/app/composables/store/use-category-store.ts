@@ -5,12 +5,16 @@ import { usePublicExploreApi, useUserApi } from "~/composables/api";
 
 const store: Ref<RecipeCategory[]> = ref([]);
 const loading = ref(false);
+const initialized = ref(false);
 const publicLoading = ref(false);
+const publicInitialized = ref(false);
 
 export function resetCategoryStore() {
   store.value = [];
   loading.value = false;
+  initialized.value = false;
   publicLoading.value = false;
+  publicInitialized.value = false;
 }
 
 export const useCategoryData = function () {
@@ -23,10 +27,10 @@ export const useCategoryData = function () {
 
 export const useCategoryStore = function (i18n?: Composer) {
   const api = useUserApi(i18n);
-  return useStore<RecipeCategory>("category", store, loading, api.categories);
+  return useStore<RecipeCategory>("category", store, loading, initialized, api.categories);
 };
 
 export const usePublicCategoryStore = function (groupSlug: string, i18n?: Composer) {
   const api = usePublicExploreApi(groupSlug, i18n).explore;
-  return useReadOnlyStore<RecipeCategory>("category", store, publicLoading, api.categories);
+  return useReadOnlyStore<RecipeCategory>("category", store, publicLoading, publicInitialized, api.categories);
 };

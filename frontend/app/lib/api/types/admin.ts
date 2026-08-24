@@ -16,10 +16,8 @@ export interface AdminAboutInfo {
   enableOidc: boolean;
   oidcRedirect: boolean;
   oidcProviderName: string;
-  enableOpenai: boolean;
-  enableOpenaiImageServices: boolean;
-  enableOpenaiTranscriptionServices: boolean;
   tokenTime: number;
+  allowedIframeHosts?: string[];
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
@@ -50,10 +48,8 @@ export interface AppInfo {
   enableOidc: boolean;
   oidcRedirect: boolean;
   oidcProviderName: string;
-  enableOpenai: boolean;
-  enableOpenaiImageServices: boolean;
-  enableOpenaiTranscriptionServices: boolean;
   tokenTime: number;
+  allowedIframeHosts?: string[];
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;
@@ -94,8 +90,9 @@ export interface BackupOptions {
 export interface CheckAppConfig {
   emailReady: boolean;
   ldapReady: boolean;
+  ldapDisabled: boolean;
   oidcReady: boolean;
-  enableOpenai: boolean;
+  oidcDisabled: boolean;
   baseUrlSet: boolean;
   isUpToDate: boolean;
 }
