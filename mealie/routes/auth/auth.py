@@ -226,7 +226,6 @@ async def oauth_native_token(data: NativeOIDCTokenRequest, session: Session = De
 
 
 @user_router.post("/refresh")
-@user_router.get("/refresh", deprecated=True)
 async def refresh_token(
     current_user: PrivateUser = Depends(get_current_user),
     token: str = Depends(get_auth_token),

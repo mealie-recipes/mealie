@@ -1,13 +1,40 @@
 import os
 
+import jwt
 import pytest
 from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
+from mealie.core.security import ALGORITHM
 from mealie.services.user_services.user_service import UserService
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
+
+
+def decode_token(token: str) -> dict:
+    return jwt.decode(token, get_app_settings().SECRET, algorithms=[ALGORITHM])
+
+
+def auth_header(token: str) -> dict[str, str]:
+    return {"Authorization": f"Bearer {token}"}
+
+
+def log_in_for_token(api_client: TestClient, user: TestUser, remember_me: bool = False) -> str:
+    """Logs in and returns the raw token.
+
+    `utils.login` returns ready-made headers and drops the token itself, which these tests need in
+    order to read the claims back out of it.
+    """
+    form_data = {
+        "username": user.email,
+        "password": user.password,
+        "remember_me": str(remember_me).lower(),
+    }
+    response = api_client.post(api_routes.auth_token, data=form_data)
+    assert response.status_code == 200
+
+    return response.json()["access_token"]
 
 
 def test_failed_login(api_client: TestClient):
@@ -31,10 +58,46 @@ def test_superuser_login(api_client: TestClient, admin_token):
     assert response.status_code == 200
 
 
-def test_user_token_refresh(api_client: TestClient, admin_user: TestUser):
-    response = api_client.post(api_routes.auth_refresh, headers=admin_user.token)
-    response = api_client.get(api_routes.users_self, headers=admin_user.token)
+def test_user_token_refresh(api_client: TestClient, unique_user: TestUser):
+    response = api_client.post(api_routes.auth_refresh, headers=unique_user.token)
     assert response.status_code == 200
+
+    refreshed = response.json()
+    assert refreshed["token_type"] == "bearer"
+    # clients schedule their refresh off this, so it has to be the lifetime actually granted
+    assert refreshed["expires_in"] == get_app_settings().TOKEN_TIME * 60 * 60
+
+    # the point of refreshing is a token that works, so check it rather than just its shape
+    response = api_client.get(api_routes.users_self, headers=auth_header(refreshed["access_token"]))
+    assert response.status_code == 200
+    assert response.json()["id"] == str(unique_user.user_id)
+
+
+@pytest.mark.parametrize("remember_me", [True, False], ids=["remembered", "not remembered"])
+def test_token_refresh_preserves_remember_me(api_client: TestClient, unique_user: TestUser, remember_me: bool):
+    """A refreshed session must keep the remember-me choice, or it silently becomes a shorter one."""
+    token = log_in_for_token(api_client, unique_user, remember_me=remember_me)
+    assert decode_token(token)["rme"] is remember_me
+
+    response = api_client.post(api_routes.auth_refresh, headers=auth_header(token))
+    assert response.status_code == 200
+    assert decode_token(response.json()["access_token"])["rme"] is remember_me
+
+
+def test_api_tokens_cannot_be_refreshed(api_client: TestClient, admin_token):
+    """An API token is revocable; exchanging one for a session token would outlive its revocation."""
+    response = api_client.post(api_routes.users_api_tokens, json={"name": "Refresh Test Token"}, headers=admin_token)
+    assert response.status_code == 201
+
+    response = api_client.post(api_routes.auth_refresh, headers=auth_header(response.json()["token"]))
+    assert response.status_code == 400
+
+
+@pytest.mark.parametrize("use_token", [True, False], ids=["invalid token", "no token"])
+def test_token_refresh_rejects_unauthenticated(api_client: TestClient, use_token: bool):
+    headers = auth_header(random_string()) if use_token else {}
+    response = api_client.post(api_routes.auth_refresh, headers=headers)
+    assert response.status_code == 401
 
 
 @pytest.mark.parametrize("use_token", [True, False], ids=["with token", "without token"])
