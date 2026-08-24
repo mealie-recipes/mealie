@@ -1,6 +1,7 @@
 import axios from "axios";
 import { alert } from "~/composables/use-toast";
 import { getTokenCookieOptions } from "~/composables/use-token-cookie";
+import { getApiErrorMessage } from "~/lib/api/error";
 import { isSafeRedirectTarget } from "~/lib/validators/redirect";
 
 declare module "axios" {
@@ -37,8 +38,9 @@ export default defineNuxtPlugin(() => {
       return response;
     },
     (error) => {
-      if (error?.response?.data?.detail?.message) {
-        alert.error(error.response.data.detail.message as string);
+      const errorMessage = getApiErrorMessage(error);
+      if (errorMessage) {
+        alert.error(errorMessage);
       };
 
       // If we receive a 401 Unauthorized response, clear the token cookie and redirect to login

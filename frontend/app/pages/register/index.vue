@@ -307,6 +307,7 @@ import { validators, useAsyncValidator } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import type { CreateUserRegistration } from "~/lib/api/types/user";
+import { getApiErrorMessage } from "~/lib/api/error";
 import { usePublicApi } from "~/composables/api/api-client";
 import { useLocales } from "~/composables/use-locales";
 import UserRegistrationForm from "~/components/Domain/User/UserRegistrationForm.vue";
@@ -497,14 +498,14 @@ async function submitRegistration() {
   else {
     payload.groupToken = token.value;
   }
-  const { response } = await api.register.register(payload);
+  const { response, error } = await api.register.register(payload);
   if (response?.status === 201) {
     accountDetails.reset();
     credentials.reset();
     alert.success(i18n.t("user-registration.registration-success"));
     router.push("/login");
   }
-  else {
+  else if (!getApiErrorMessage(error)) {
     alert.error(i18n.t("events.something-went-wrong"));
   }
 }
