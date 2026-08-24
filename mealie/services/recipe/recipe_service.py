@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 import json
-import os
 import shutil
 from datetime import UTC, datetime
 from pathlib import Path
@@ -13,18 +14,14 @@ import sqlalchemy as sa
 from fastapi import UploadFile
 
 from mealie.core import exceptions
-from mealie.core.config import get_app_settings
-from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeUpdate
-from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe, create_recipe_slug
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
-from mealie.schema.recipe.recipe_notes import RecipeNote
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
@@ -32,11 +29,11 @@ from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
 from mealie.services.household_services.household_service import HouseholdService
-from mealie.services.openai import OpenAILocalImage, OpenAIService
 from mealie.services.recipe.recipe_data_service import RecipeDataService
-from mealie.services.scraper import cleaner
 
 from .template_service import TemplateService
+
+RECIPE_CREATED_EVENT_SUBJECT = "recipe.recipe-created"
 
 
 class RecipeServiceBase(BaseService):
@@ -69,8 +66,19 @@ class RecipeService(RecipeServiceBase):
     def can_delete(self, recipe_slugs: list[str]) -> bool:
         if self.user.admin:
             return True
-        else:
-            return self.can_update(recipe_slugs)
+
+        # Deletion requires ownership; collaborative editing rules (can_update) do not apply
+        model = self.group_recipes.model
+        owned_count = self.group_recipes.session.scalar(
+            sa.select(sa.func.count())
+            .select_from(model)
+            .where(
+                model.slug.in_(recipe_slugs),
+                model.group_id == self.user.group_id,
+                model.user_id == self.user.id,
+            )
+        )
+        return owned_count == len(recipe_slugs)
 
     def can_update(self, recipe_slugs: list[str]) -> bool:
         sql = dedent(
@@ -224,7 +232,7 @@ class RecipeService(RecipeServiceBase):
         timeline_event_data = RecipeTimelineEventCreate(
             user_id=new_recipe.user_id,
             recipe_id=new_recipe.id,
-            subject=self.t("recipe.recipe-created"),
+            subject=RECIPE_CREATED_EVENT_SUBJECT,
             event_type=TimelineEventType.system,
             timestamp=new_recipe.created_at or datetime.now(UTC),
         )
@@ -319,29 +327,6 @@ class RecipeService(RecipeServiceBase):
             data_service.write_image(recipe_image, "webp")
 
         return recipe
-
-    async def create_from_images(self, images: list[UploadFile], translate_language: str | None = None) -> Recipe:
-        openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
-        with get_temporary_path() as temp_path:
-            local_images: list[Path] = []
-            for image in images:
-                safe_filename = Path(image.filename).name
-                image_path = temp_path.joinpath(safe_filename)
-                with image_path.open("wb") as buffer:
-                    shutil.copyfileobj(image.file, buffer)
-                local_images.append(image_path)
-
-            recipe_data = await openai_recipe_service.build_recipe_from_images(
-                local_images, translate_language=translate_language
-            )
-            recipe_data = cleaner.clean(recipe_data, self.translator)
-
-            recipe = self.create_one(recipe_data)
-            data_service = RecipeDataService(recipe.id)
-
-            with open(local_images[0], "rb") as f:
-                data_service.write_image(f.read(), "webp")
-            return recipe
 
     def duplicate_one(self, old_slug_or_id: str | UUID, dup_data: RecipeDuplicate) -> Recipe:
         """Duplicates a recipe and returns the new recipe."""
@@ -581,67 +566,3 @@ class RecipeService(RecipeServiceBase):
     def render_template(self, recipe: Recipe, temp_dir: Path, template: str) -> Path:
         t_service = TemplateService(temp_dir)
         return t_service.render(recipe, template)
-
-
-class OpenAIRecipeService(RecipeServiceBase):
-    def _convert_recipe(self, openai_recipe: OpenAIRecipe) -> Recipe:
-        return Recipe(
-            user_id=self.user.id,
-            group_id=self.user.group_id,
-            household_id=self.household.id,
-            name=openai_recipe.name,
-            slug=create_recipe_slug(openai_recipe.name),
-            description=openai_recipe.description,
-            recipe_yield=openai_recipe.recipe_yield,
-            total_time=openai_recipe.total_time,
-            prep_time=openai_recipe.prep_time,
-            perform_time=openai_recipe.perform_time,
-            recipe_ingredient=[
-                RecipeIngredient(title=ingredient.title, note=ingredient.text)
-                for ingredient in openai_recipe.ingredients
-                if ingredient.text
-            ],
-            recipe_instructions=[
-                RecipeStep(title=instruction.title, text=instruction.text)
-                for instruction in openai_recipe.instructions
-                if instruction.text
-            ],
-            notes=[RecipeNote(title=note.title or "", text=note.text) for note in openai_recipe.notes if note.text],
-        )
-
-    async def build_recipe_from_images(self, images: list[Path], translate_language: str | None) -> Recipe:
-        settings = get_app_settings()
-        if not (settings.OPENAI_ENABLED and settings.OPENAI_ENABLE_IMAGE_SERVICES):
-            raise ValueError("OpenAI image services are not available")
-
-        openai_service = OpenAIService()
-        prompt = openai_service.get_prompt("recipes.parse-recipe-image")
-
-        openai_images = [OpenAILocalImage(filename=os.path.basename(image), path=image) for image in images]
-        message = (
-            f"Please extract the recipe from the {'images' if len(openai_images) > 1 else 'image'} provided."
-            "There should be exactly one recipe."
-        )
-
-        if translate_language:
-            message += f" Please translate the recipe to {translate_language}."
-
-        try:
-            response = await openai_service.get_response(
-                prompt,
-                message,
-                response_schema=OpenAIRecipe,
-                attachments=openai_images,
-            )
-            if not response:
-                raise ValueError("Received empty response from OpenAI")
-
-        except Exception as e:
-            raise Exception("Failed to call OpenAI services") from e
-
-        try:
-            recipe = self._convert_recipe(response)
-        except Exception as e:
-            raise ValueError("Unable to parse recipe from image") from e
-
-        return recipe

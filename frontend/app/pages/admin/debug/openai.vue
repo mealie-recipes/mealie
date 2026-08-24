@@ -6,7 +6,7 @@
         <br>
         <DocLink
           class="mt-2"
-          link="/documentation/getting-started/installation/open-ai"
+          link="/documentation/getting-started/installation/ai-providers"
         />
       </BaseCardSectionTitle>
     </v-container>
@@ -17,6 +17,36 @@
       <div>
         <v-card-text>
           <v-container class="pa-0">
+            <v-row>
+              <v-col cols="12" md="6">
+                <v-select
+                  v-if="groups"
+                  v-model="selectedGroupId"
+                  :items="groups"
+                  item-title="name"
+                  item-value="id"
+                  :label="$t('group.group')"
+                  density="compact"
+                  variant="outlined"
+                  clearable
+                  hide-details
+                />
+              </v-col>
+              <v-col cols="12" md="6">
+                <v-select
+                  v-model="selectedProviderId"
+                  :items="groupProviders"
+                  item-title="name"
+                  item-value="id"
+                  :label="$t('group.ai-provider-settings.ai-provider')"
+                  density="compact"
+                  variant="outlined"
+                  clearable
+                  hide-details
+                  :disabled="!selectedGroupId"
+                />
+              </v-col>
+            </v-row>
             <v-row>
               <v-col
                 cols="auto"
@@ -61,6 +91,7 @@
         <v-card-actions>
           <BaseButton
             type="submit"
+            :disabled="!selectedProviderId"
             :text="$t('admin.run-test')"
             :icon="$globals.icons.check"
             :loading="loading"
@@ -85,7 +116,9 @@
 
 <script setup lang="ts">
 import { useAdminApi } from "~/composables/api";
+import { useGroups } from "~/composables/use-groups";
 import { alert } from "~/composables/use-toast";
+import type { AIProviderSummary } from "~/lib/api/types/group";
 
 definePageMeta({
   layout: "admin",
@@ -106,10 +139,24 @@ const uploadedImage = ref<Blob | File>();
 const uploadedImageName = ref<string>("");
 const uploadedImagePreviewUrl = ref<string>();
 
-function uploadImage(fileObject: File) {
-  uploadedImage.value = fileObject;
-  uploadedImageName.value = fileObject.name;
-  uploadedImagePreviewUrl.value = URL.createObjectURL(fileObject);
+// Group + provider selection
+const { groups } = useGroups();
+const selectedGroupId = ref<string | null>(null);
+const groupProviders = ref<AIProviderSummary[]>([]);
+const selectedProviderId = ref<string | null>(null);
+
+watch(selectedGroupId, (id) => {
+  groupProviders.value = [];
+  selectedProviderId.value = null;
+  if (!id) return;
+  const group = groups.value?.find(g => g.id === id);
+  groupProviders.value = group?.aiProviderSettings?.providers ?? [];
+});
+
+function uploadImage(fileObject: unknown) {
+  uploadedImage.value = fileObject as File;
+  uploadedImageName.value = (fileObject as File).name;
+  uploadedImagePreviewUrl.value = URL.createObjectURL(fileObject as File);
 }
 
 function clearImage() {
@@ -119,10 +166,15 @@ function clearImage() {
 }
 
 async function testOpenAI() {
+  if (!selectedProviderId.value) {
+    alert.error("Please select a provider");
+    return;
+  }
+
   response.value = "";
 
   loading.value = true;
-  const { data } = await api.debug.debugOpenAI(uploadedImage.value);
+  const { data } = await api.debug.debugOpenAI(selectedProviderId.value, uploadedImage.value);
   loading.value = false;
 
   if (!data) {

@@ -11,18 +11,28 @@
   >
     <div class="d-flex flex-column ga-3">
       <v-card-actions class="pa-0">
-        <InputLabelType
-          v-model="listItem.food"
-          v-model:item-id="listItem.foodId!"
-          :items="foods"
-          :label="rail ? $t('shopping-list.add-item') : $t('shopping-list.food')"
-          :icon="$globals.icons.foods"
-          :style="rail ? 'margin-inline: 3px;' : undefined"
-          :search="rail"
-          create
-          @create="createAssignFood"
-          @focus="rail = false"
-        />
+        <div class="position-relative" style="flex: 1;">
+          <InputLabelType
+            ref="foodInputRef"
+            v-model="listItem.food"
+            v-model:item-id="listItem.foodId!"
+            :items="foods"
+            :label="rail ? $t('shopping-list.add-item') : $t('shopping-list.food')"
+            :icon="$globals.icons.foods"
+            :style="rail ? 'margin-inline: 3px;' : undefined"
+            :search="rail"
+            :menu-props="{ location: menuDirection }"
+            create
+            @create="createAssignFood"
+          />
+          <!-- Intercept clicks when collapsed so the drawer expands before the autocomplete opens -->
+          <div
+            v-if="rail"
+            class="position-absolute"
+            style="inset: 0; cursor: text;"
+            @click="expandAndFocus"
+          />
+        </div>
         <BaseButtonGroup
           v-if="!rail"
           :buttons="[
@@ -84,6 +94,20 @@ defineEmits<{
 
 const { createAssignFood } = useShoppingListItemEditor(listItem);
 
+const { smAndDown } = useDisplay();
+const menuDirection = computed(() => smAndDown.value ? "top" : "bottom");
+
+const foodInputRef = ref<{ focus: () => void } | null>(null);
+const rail = ref(true);
+
+async function expandAndFocus() {
+  rail.value = false;
+  await nextTick();
+  setTimeout(() => {
+    foodInputRef.value?.focus();
+  }, 200);
+}
+
 watch(
   () => listItem.value.quantity,
   (newQty) => {
@@ -100,6 +124,4 @@ watch(
     listItem.value.labelId = listItem.value.label?.id || null;
   },
 );
-
-const rail = ref(true);
 </script>

@@ -7,6 +7,11 @@ import type { Recipe } from "~/lib/api/types/recipe";
 const groupRecipeActions = ref<GroupRecipeActionOut[] | null>(null);
 const loading = ref(false);
 
+export function resetGroupRecipeActions() {
+  groupRecipeActions.value = null;
+  loading.value = false;
+}
+
 export function useGroupRecipeActionData() {
   const data = reactive({
     id: "",
@@ -85,9 +90,6 @@ export const useGroupRecipeActions = function (
       loading,
       { orderBy: orderBy },
     ),
-    flushStore() {
-      groupRecipeActions.value = [];
-    },
   };
 
   return {

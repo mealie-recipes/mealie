@@ -4,7 +4,7 @@ from sqlalchemy import Select
 from sqlalchemy.orm import Session
 from text_unidecode import unidecode
 
-from ...db.models._model_base import SqlAlchemyBase
+from ...db.models._model_base import NORMALIZE_PUNCTUATION, SqlAlchemyBase
 from .._mealie import MealieModel, SearchType
 
 
@@ -16,7 +16,7 @@ class SearchFilter:
     3. remove special characters from each non-literal search string
     """
 
-    punctuation = r"!\#$%&()*+,-./:;<=>?@[\\]^_`{|}~"  # string.punctuation with ' & " removed
+    punctuation = NORMALIZE_PUNCTUATION
     quoted_regex = re.compile(r"""(["'])(?:(?=(\\?))\2.)*?\1""")
     remove_quotes_regex = re.compile(r"""['"](.*)['"]""")
 

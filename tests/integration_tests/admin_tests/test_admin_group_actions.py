@@ -2,6 +2,7 @@ from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
 from mealie.repos.repository_factory import AllRepositories
+from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.user.user import GroupInDB
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_ignore_keys
@@ -77,6 +78,100 @@ def test_admin_update_group(api_client: TestClient, admin_user: TestUser, unique
 
     assert as_json["name"] == update_payload["name"]
     assert_ignore_keys(as_json["preferences"], update_payload["preferences"])  # type: ignore
+
+
+def test_admin_update_group_name_only(api_client: TestClient, admin_user: TestUser, unique_user: TestUser):
+    """Updating only the name leaves preferences and ai_provider_settings untouched."""
+    new_name = random_string()
+    response = api_client.put(
+        api_routes.admin_groups_item_id(unique_user.group_id),
+        json={"id": unique_user.group_id, "name": new_name},
+        headers=admin_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json()["name"] == new_name
+
+
+def test_admin_update_group_ai_provider_settings(api_client: TestClient, admin_user: TestUser, unique_user: TestUser):
+    """Admin can update ai_provider_settings for a group via the PUT endpoint."""
+    provider = unique_user.repos.group_ai_providers.create(
+        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
+    )
+    try:
+        update_payload = {
+            "id": unique_user.group_id,
+            "name": unique_user.group_id,  # name is required but unchanged
+            "aiProviderSettings": {
+                "defaultProviderId": str(provider.id),
+                "audioProviderId": str(provider.id),
+                "imageProviderId": str(provider.id),
+            },
+        }
+        response = api_client.put(
+            api_routes.admin_groups_item_id(unique_user.group_id),
+            json=update_payload,
+            headers=admin_user.token,
+        )
+        assert response.status_code == 200
+
+        settings = response.json()["aiProviderSettings"]
+        assert settings["defaultProviderId"] == str(provider.id)
+        assert settings["audioProviderId"] == str(provider.id)
+        assert settings["imageProviderId"] == str(provider.id)
+    finally:
+        # Clear provider references before deleting the provider
+        unique_user.repos.group_ai_provider_settings.update(
+            unique_user.repos.group_id,
+            AIProviderSettingsUpdate(default_provider_id=None, audio_provider_id=None, image_provider_id=None),
+        )
+        unique_user.repos.group_ai_providers.delete(provider.id)
+
+
+def test_admin_update_group_ai_provider_settings_clear(
+    api_client: TestClient, admin_user: TestUser, unique_user: TestUser
+):
+    """Admin can clear ai_provider_settings provider IDs for a group."""
+    provider = unique_user.repos.group_ai_providers.create(
+        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
+    )
+    try:
+        # First set the providers
+        api_client.put(
+            api_routes.admin_groups_item_id(unique_user.group_id),
+            json={
+                "id": unique_user.group_id,
+                "name": unique_user.group_id,
+                "aiProviderSettings": {
+                    "defaultProviderId": str(provider.id),
+                    "audioProviderId": None,
+                    "imageProviderId": None,
+                },
+            },
+            headers=admin_user.token,
+        )
+
+        # Now clear them
+        response = api_client.put(
+            api_routes.admin_groups_item_id(unique_user.group_id),
+            json={
+                "id": unique_user.group_id,
+                "name": unique_user.group_id,
+                "aiProviderSettings": {
+                    "defaultProviderId": None,
+                    "audioProviderId": None,
+                    "imageProviderId": None,
+                },
+            },
+            headers=admin_user.token,
+        )
+        assert response.status_code == 200
+
+        settings = response.json()["aiProviderSettings"]
+        assert settings["defaultProviderId"] is None
+        assert settings["audioProviderId"] is None
+        assert settings["imageProviderId"] is None
+    finally:
+        unique_user.repos.group_ai_providers.delete(provider.id)
 
 
 def test_admin_delete_group(unfiltered_database: AllRepositories, api_client: TestClient, admin_user: TestUser):

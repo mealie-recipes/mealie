@@ -15,6 +15,7 @@ from mealie.schema.recipe.recipe_timeline_events import (
     RecipeTimelineEventPagination,
     RecipeTimelineEventUpdate,
     TimelineEventImage,
+    TimelineEventType,
 )
 from mealie.schema.recipe.request_helpers import UpdateImageResponse
 from mealie.schema.response.pagination import PaginationQuery
@@ -50,6 +51,10 @@ class RecipeTimelineEventsController(BaseCrudController):
             override=RecipeTimelineEventOut,
         )
 
+        for event in response.items:
+            if event.event_type == TimelineEventType.system.value:
+                event.subject = self.t(event.subject)
+
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
@@ -83,7 +88,10 @@ class RecipeTimelineEventsController(BaseCrudController):
 
     @router.get("/{item_id}", response_model=RecipeTimelineEventOut)
     def get_one(self, item_id: UUID4):
-        return self.mixins.get_one(item_id)
+        event = self.mixins.get_one(item_id)
+        if event.event_type == TimelineEventType.system.value:
+            event.subject = self.t(event.subject)
+        return event
 
     @router.put("/{item_id}", response_model=RecipeTimelineEventOut)
     def update_one(self, item_id: UUID4, data: RecipeTimelineEventUpdate):

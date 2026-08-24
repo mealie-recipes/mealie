@@ -225,6 +225,55 @@ instruction_test_cases = (
         expected=None,
     ),
     CleanerCase(
+        test_id="how to steps with empty section (e.g. NYT Cooking)",
+        input=[
+            {
+                "@type": "HowToSection",
+            },
+            {
+                "@type": "HowToSection",
+                "itemListElement": [
+                    {
+                        "@type": "HowToStep",
+                        "text": "Instruction A",
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "text": "Instruction B",
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "text": "Instruction C",
+                    },
+                ],
+            },
+        ],
+        expected=None,
+    ),
+    CleanerCase(
+        test_id="how to steps using 'item' key (schema.org alternate)",
+        input=[
+            {
+                "@type": "HowToSection",
+                "item": [
+                    {
+                        "@type": "HowToStep",
+                        "text": "Instruction A",
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "text": "Instruction B",
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "text": "Instruction C",
+                    },
+                ],
+            },
+        ],
+        expected=None,
+    ),
+    CleanerCase(
         test_id="excessive whitespace str (1)",
         input="Instruction A\n\nInstruction B\n\nInstruction C\n\n",
         expected=None,

@@ -43,10 +43,6 @@ export class HouseholdAPI extends BaseCRUDAPIReadOnly<HouseholdSummary> {
     return await this.requests.get<HouseholdRecipeSummary>(routes.householdsSelfRecipesSlug(recipeSlug));
   }
 
-  async getPreferences() {
-    return await this.requests.get<ReadHouseholdPreferences>(routes.preferences);
-  }
-
   async setPreferences(payload: UpdateHouseholdPreferences) {
     // TODO: This should probably be a patch request, which isn't offered by the API currently
     return await this.requests.put<ReadHouseholdPreferences, UpdateHouseholdPreferences>(routes.preferences, payload);

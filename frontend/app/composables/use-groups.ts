@@ -4,6 +4,11 @@ import type { GroupBase, GroupInDB, GroupSummary } from "~/lib/api/types/user";
 const groupSelfRef = ref<GroupSummary | null>(null);
 const loading = ref(false);
 
+export function resetGroupSelf() {
+  groupSelfRef.value = null;
+  loading.value = false;
+}
+
 export const useGroupSelf = function () {
   const api = useUserApi();
   const auth = useMealieAuth();
@@ -41,6 +46,25 @@ export const useGroupSelf = function () {
       }
 
       return data || undefined;
+    },
+    async updateAIProviderSettings() {
+      if (!groupSelfRef.value) {
+        await refreshGroupSelf();
+      }
+      if (!groupSelfRef.value?.aiProviderSettings) {
+        return;
+      }
+
+      const { data } = await api.groups.setAIProviderSettings(groupSelfRef.value.aiProviderSettings);
+
+      if (data) {
+        groupSelfRef.value.aiProviderSettings = data;
+      }
+
+      return data || undefined;
+    },
+    async refresh() {
+      await refreshGroupSelf();
     },
   };
 

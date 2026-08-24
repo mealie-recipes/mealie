@@ -258,11 +258,15 @@
               class="text-center"
               @update:model-value="setRightParenthesisValue(field, index, $event)"
             />
+          </v-col>
+
+          <!-- field actions -->
+          <v-col
             v-if="!$vuetify.display.smAndDown || index === fields.length - 1"
             :cols="config.items.fieldActions.cols(index)"
             :sm="config.items.fieldActions.sm(index)"
             :class="config.col.class"
-            >
+          >
             <BaseButtonGroup
               :buttons="[
                 {

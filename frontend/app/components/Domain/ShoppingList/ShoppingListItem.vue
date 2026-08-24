@@ -10,22 +10,9 @@
       }"
     >
       <v-row
-        v-touch="{
-          move: ({ originalEvent: { touches: [{ screenX }] } }) => {
-            swipeInfo.touchendX = screenX;
-          },
-          start: ({ originalEvent: { touches: [{ screenX }] } }) => {
-            swipeInfo.touchstartX = screenX;
-          },
-          end: () => {
-            if (swiping < SWIPE_THRESHOLD) {
-              swipeInfo = {};
-              return;
-            }
-            swipeInfo = {};
-            toggleChecked();
-          },
-        }"
+        ref="swipeRowRef"
+        v-touch="{ move: onSwipeMove, start: onSwipeStart, end: onSwipeEnd }"
+        style="touch-action: pan-y;"
         no-gutters
         class="flex-nowrap align-center"
       >
@@ -81,7 +68,7 @@
                       @click="displayRecipeRefs = !displayRecipeRefs"
                     >
                       <v-icon>
-                        {{ $globals.icons.potSteam }}
+                        {{ $globals.icons.silverwareForkKnife }}
                       </v-icon>
                     </v-btn>
                   </template>
@@ -92,7 +79,7 @@
                   variant="text"
                   class="ml-2"
                   icon
-                  @click="toggleEdit(true)"
+                  @click="toggleEdit(!edit)"
                 >
                   <v-icon>
                     {{ $globals.icons.edit }}
@@ -126,24 +113,17 @@
           </div>
         </v-col>
       </v-row>
-      <v-row
+      <v-container
         v-if="!listItem.checked && recipeList && recipeList.length && displayRecipeRefs"
-        no-gutters
-        class="mb-2"
+        class="pa-0"
       >
-        <v-col
-          cols="auto"
-          style="width: 100%;"
-        >
-          <RecipeList
-            :recipes="recipeList"
-            :list-item="listItem"
-            :disabled="isOffline"
-            size="small"
-            tile
-          />
-        </v-col>
-      </v-row>
+        <RecipeList
+          :recipes="recipeList"
+          :list-item="listItem"
+          :disabled="isOffline"
+          :tile="true"
+        />
+      </v-container>
       <v-row
         v-if="listItem.checked"
         no-gutters
@@ -159,8 +139,8 @@
       </v-row>
     </v-container>
     <div
-      v-else
-      class="mb-1 mt-6"
+      v-if="edit"
+      class="mb-4"
     >
       <ShoppingListItemEditor
         v-model="localListItem"
@@ -214,6 +194,21 @@ const emit = defineEmits<{
 const SWIPE_THRESHOLD = 50;
 
 const { isRtl } = useRtl();
+const swipeRowRef = ref<InstanceType<typeof import("vuetify/components").VRow> | null>(null);
+
+onMounted(() => {
+  const el = swipeRowRef.value?.$el as HTMLElement | undefined;
+  if (!el) return;
+  el.addEventListener(
+    "touchmove",
+    (e: TouchEvent) => {
+      if (swipeInfo.value.gesture === "swipe") {
+        e.preventDefault();
+      }
+    },
+    { passive: false },
+  );
+});
 const i18n = useI18n();
 const displayRecipeRefs = ref(false);
 const itemLabelCols = computed<string>(() => (model.value?.checked ? "auto" : "6"));
@@ -264,14 +259,66 @@ function save() {
   edit.value = false;
 }
 
-const swipeInfo: Ref<{ touchstartX?: number; touchendX?: number }> = ref({ touchstartX: undefined, touchendX: undefined });
+type SwipeGesture = null | "scroll" | "swipe";
+
+const swipeInfo = ref({
+  touchstartX: 0,
+  touchstartY: 0,
+  touchendX: 0,
+  touchendY: 0,
+  gesture: null as SwipeGesture,
+});
+
+function getSwipePoint(e: any) {
+  const touch = e?.touches?.[0] ?? e?.changedTouches?.[0] ?? e;
+  return { x: touch?.clientX ?? 0, y: touch?.clientY ?? 0 };
+}
+
+function resetSwipe() {
+  swipeInfo.value = { touchstartX: 0, touchstartY: 0, touchendX: 0, touchendY: 0, gesture: null };
+}
+
+function onSwipeStart(payload: any) {
+  const { x, y } = getSwipePoint(payload.originalEvent);
+  swipeInfo.value = { touchstartX: x, touchstartY: y, touchendX: x, touchendY: y, gesture: null };
+}
+
+function onSwipeMove(payload: any) {
+  const { x, y } = getSwipePoint(payload.originalEvent);
+  swipeInfo.value.touchendX = x;
+  swipeInfo.value.touchendY = y;
+
+  if (!swipeInfo.value.gesture) {
+    const deltaX = Math.abs(x - swipeInfo.value.touchstartX);
+    const deltaY = Math.abs(y - swipeInfo.value.touchstartY);
+    if (deltaY > 8 && deltaY > deltaX) {
+      swipeInfo.value.gesture = "scroll";
+    }
+    else if (deltaX > 8 && deltaX > deltaY) {
+      swipeInfo.value.gesture = "swipe";
+    }
+    else if (deltaX > 8 || deltaY > 8) {
+      // Diagonal / ambiguous — default to scroll
+      swipeInfo.value.gesture = "scroll";
+    }
+  }
+}
+
+function onSwipeEnd() {
+  if (swipeInfo.value.gesture === "swipe" && swiping.value >= SWIPE_THRESHOLD) {
+    toggleChecked();
+  }
+  resetSwipe();
+}
+
 const swiping = computed(() => {
-  const { touchstartX, touchendX } = swipeInfo.value ?? {};
-  if (touchstartX === undefined || touchendX === undefined) {
+  if (swipeInfo.value.gesture !== "swipe") {
     return 0;
   }
-  const delta = isRtl.value ? touchstartX - touchendX : touchendX - touchstartX;
-  return Math.min(Math.max(0, delta), 100);
+  const deltaX = isRtl.value
+    ? swipeInfo.value.touchstartX - swipeInfo.value.touchendX
+    : swipeInfo.value.touchendX - swipeInfo.value.touchstartX;
+  return Math.max(0, Math.min(deltaX, 100));
 });
 
 const recipeList = computed<RecipeSummary[]>(() => {

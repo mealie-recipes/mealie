@@ -50,9 +50,8 @@ def normalize(val: str) -> str:
 )
 def test_nlp_parser(unique_local_group_id: UUID4, test_ingredient: TestIngredient):
     with session_context() as session:
-        loop = asyncio.get_event_loop()
         parser = get_parser(RegisteredParser.nlp, unique_local_group_id, session, get_locale_provider())
-        parsed = loop.run_until_complete(parser.parse_one(test_ingredient.input))
+        parsed = asyncio.run(parser.parse_one(test_ingredient.input))
         ing = parsed.ingredient
 
         assert ing.quantity == pytest.approx(test_ingredient.quantity)

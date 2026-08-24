@@ -98,7 +98,7 @@
     "dashboard": "Startsida",
     "delete": "Ta bort",
     "disabled": "Inaktiverad",
-    "done": "Done",
+    "done": "Färdig",
     "download": "Ladda ner",
     "duplicate": "Duplicera",
     "edit": "Redigera",
@@ -169,7 +169,7 @@
     "token": "Token",
     "tuesday": "Tisdag",
     "type": "Typ",
-    "undo": "Undo",
+    "undo": "Ångra",
     "update": "Uppdatera",
     "updated": "Uppdaterad",
     "upload": "Ladda upp",
@@ -209,6 +209,7 @@
     "copied-items-to-clipboard": "Inget objekt kopierat till urklipp|Ett objekt kopierat till urklipp|Kopierade {count} objekt till urklipp",
     "actions": "Hantera",
     "selected-count": "Valda: {count}",
+    "selected": "Selected",
     "export-all": "Exportera allt",
     "refresh": "Uppdatera",
     "upload-file": "Ladda upp fil",
@@ -223,7 +224,9 @@
     "show-advanced": "Visa avancerat",
     "add-field": "Lägg till fält",
     "date-created": "Datum skapad",
-    "date-updated": "Datum uppdaterat"
+    "date-updated": "Datum uppdaterat",
+    "key": "Nyckel",
+    "value": "Värde"
   },
   "group": {
     "are-you-sure-you-want-to-delete-the-group": "Är du säker på att du vill radera <b>{groupName}<b/>?",
@@ -250,7 +253,7 @@
       "keep-my-recipes-private-description": "Sätter din grupp och alla recept till privata som förval. Du kan alltid ändra detta senare."
     },
     "manage-members": "Hantera medlemmar",
-    "manage-members-description": "Hantera behörigheter för medlemmarna i ditt hushåll. {manage} ger användaren tillgång till datahanteringssidan. {invite} ger användaren möjlighet att generera inbjudningslänkar för andra användare. Gruppägare kan inte ändra sina egna rättigheter.",
+    "manage-members-description": "Hantera behörigheterna för medlemmarna i ditt hushåll. {manage} ger användaren tillgång till grupphanteringsområden. {organize} tillåter användaren att hantera gruppdata som livsmedel, taggar och kategorier. {invite} tillåter användaren att generera inbjudningslänkar för andra användare. Gruppägare kan inte ändra sina egna behörigheter.",
     "manage": "Hantera",
     "manage-household": "Hantera hushåll",
     "invite": "Bjud in",
@@ -283,7 +286,41 @@
     "admin-group-management-text": "Ändringar i denna grupp kommer att återspeglas omedelbart.",
     "group-id-value": "Grupp-Id: {0}",
     "total-households": "Totalt antal hushåll",
-    "you-must-select-a-group-before-selecting-a-household": "Du måste välja en grupp innan du kan välja ett hushåll"
+    "you-must-select-a-group-before-selecting-a-household": "Du måste välja en grupp innan du kan välja ett hushåll",
+    "ai-provider-settings": {
+      "ai-provider-settings": "Inställningar för AI Leverantör",
+      "ai-provider": "AI-leverantör",
+      "ai-providers": "AI-leverantörer",
+      "ai-providers-description": "Add an AI provider to enable features like enhanced ingredient parsing and creating recipes from photos or videos. This step is optional, and can be set up later in your group settings.",
+      "ai-provider-settings-description": "Konfigurera AI-leverantörer för att aktivera AI-drivna funktioner, såsom förbättrad ingrediensanalysering, skapa recept från videor och mycket mer!",
+      "providers": "Leverantörer",
+      "create-provider": "Skapa leverantör",
+      "edit-provider": "Ändra leverantör",
+      "default-provider": "Standard leverantör",
+      "default-provider-description": "Krävs för att aktivera AI-funktioner",
+      "audio-provider": "Ljudleverantör",
+      "audio-provider-description": "Möjliggör funktioner för ljudtranskription, till exempel att skapa recept från videor",
+      "image-provider": "Bildleverantör",
+      "image-provider-description": "Möjliggör bildigenkänningsfunktioner, till exempel att skapa recept från bilder",
+      "provider-name": "Leverantörsnamn",
+      "api-key": "API-nyckel",
+      "api-key-description-create": "Din leverantörs API-nyckel för autentisering. Om din tjänst (t.ex. Ollama) inte använder en API-nyckel, måste du fortfarande sätta något här.",
+      "api-key-description-edit": "Lämna detta tomt om du inte vill ändra det.",
+      "base-url": "Bas URL",
+      "base-url-description": "Om du använder OpenAI lämna detta tomt. Måste vara en OpenAI-kompatibel slutpunkt (t.ex. \"http://localhost:11434/v1\").",
+      "model": "Modell",
+      "model-description": "Vilken modell din AI-leverantör ska använda (t.ex. \"gpt-5\").",
+      "request-timeout-seconds": "Tidsgräns för begäran (sekunder)",
+      "provider-created": "Leverantör skapad",
+      "provider-updated": "Leverantör uppdaterad",
+      "provider-deleted": "Leverantör borttagen",
+      "provider-create-failed": "Kunde inte skapa leverantör",
+      "provider-update-failed": "Kunde inte uppdatera leverantör",
+      "provider-delete-failed": "Kunde inte ta bort leverantör",
+      "request-headers": "Begär rubriker",
+      "request-params": "Begär parametrar",
+      "no-default-provider-warning": "Du har inte angett en standardleverantör, så AI-funktioner är inaktiverade"
+    }
   },
   "household": {
     "household": "Hushåll",
@@ -333,8 +370,8 @@
     "any-household": "Valfritt hushåll",
     "no-meal-plan-defined-yet": "Ingen måltidsplan definierad ännu",
     "no-meal-planned-for-today": "Ingen måltidsplan för idag",
-    "numberOfDaysPast-hint": "Number of days in the past on page load",
-    "numberOfDaysPast-label": "Default Days in the Past",
+    "numberOfDaysPast-hint": "Antal förflutna dagar vid sidhämtning",
+    "numberOfDaysPast-label": "Förvalda förflutna dagar",
     "numberOfDays-hint": "Antal dagar vid sidhämtning",
     "numberOfDays-label": "Förvalda dagar",
     "only-recipes-with-these-categories-will-be-used-in-meal-plans": "Endast recept med dessa kategorier kommer att användas i måltidsplaner",
@@ -350,14 +387,15 @@
     "dinner": "Middag",
     "snack": "Snacks",
     "drink": "Drinkar",
-    "dessert": "Dessert",
+    "dessert": "Efterrätt",
     "type-any": "Alla",
     "day-any": "Alla",
     "editor": "Redigerare",
-    "meal-recipe": "Måltidsrecept",
     "meal-title": "Måltidstitel",
     "meal-note": "Måltidsanteckning",
-    "note-only": "Enbart anteckning",
+    "note": "Note",
+    "ignore-rules": "Ignore Planner Rules",
+    "no-recipes-match-your-rules": "No recipes match your meal plan rules",
     "random-meal": "Slumpmässig måltid",
     "random-dinner": "Slumpmässig middag",
     "random-side": "Slumpmässigt tillbehör",
@@ -375,7 +413,8 @@
     "applies-on-days": "Gäller på {0}s",
     "meal-plan-settings": "Inställningar för måltidsplanering",
     "add-all-to-list": "Lägg till alla i inköpslista",
-    "add-day-to-list": "Lägg till dag i inköpslista"
+    "add-day-to-list": "Lägg till dag i inköpslista",
+    "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
     "migration-data-removed": "Importerad data borttagen",
@@ -404,7 +443,7 @@
     },
     "mealie-pre-v1": {
       "description-long": "Mealie kan importera recept från Mealieapplikationen från en pre v1.0 release. Exportera dina recept från din gamla instans, och ladda upp zip-filen nedan. Observera att endast recept kan importeras från exporten.",
-      "title": "Mealie Pre v1.0"
+      "title": "Mealie före v1.0"
     },
     "tandoor": {
       "description-long": "Mealie kan importera recept från Tandoor. Exportera dina data i \"Standard\"-format, ladda sedan upp .zip nedan.",
@@ -445,6 +484,7 @@
     "from-url": "Från länk",
     "github-issues": "GitHub problem",
     "google-ld-json-info": "Google ld+json Info",
+    "html-or-json-error-details": "Mealie could not find a recipe in the data you provided. Only ld+json or microdata containing a schema.org Recipe can be imported. If you're pasting JSON, make sure it declares both \"@context\": \"https://schema.org/\" and \"@type\": \"Recipe\".",
     "must-be-a-valid-url": "Måste vara en korrekt URL",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Klistra in din receptdata, varje rad kommer att hanteras som ett listelement",
     "recipe-markup-specification": "Specifikation för receptmärkning",
@@ -624,17 +664,26 @@
     "select-one-of-the-various-ways-to-create-a-recipe": "Välj ett av de olika sätten att skapa ett recept",
     "looking-for-migrations": "Letar du efter migreringar?",
     "import-with-url": "Importera från URL",
+    "import-with-ai": "Import with AI",
+    "import-with-ai-description": "Create a recipe from just about anything using AI. Give it a link, upload photos of a recipe, paste a recipe as text, HTML, or JSON, or use any combination of the three. Everything you provide is read together as a single recipe.",
+    "import-with-ai-subtitle": "Import from text, photos, or URL",
+    "import-with-ai-video-description": "You can import from videos too, like those on Instagram or YouTube. Paste the video's URL and Mealie will transcribe it, along with anything else you provide.",
+    "import-with-ai-without-ai-question": "Want to create a recipe without using AI?",
+    "import-with-ai-use-url-import": "Use the URL importer",
+    "import-with-ai-url-hint": "Optional. Saved as the recipe's source. Videos are transcribed; other pages are read for their content.",
+    "import-with-ai-content": "Recipe text, HTML, JSON, or notes",
+    "import-with-ai-content-hint": "Optional. Paste a recipe, or the contents of a page Mealie can't reach. Combined with anything else you provide, so you can also use it for notes, like what to name the recipe or a detail to correct.",
+    "import-with-ai-provider-required": "To import recipes with AI, configure a default provider in your group's AI settings.",
+    "import-with-ai-image-provider-required": "To create recipes from photos, configure an image provider in your group's AI settings.",
+    "import-with-ai-error-details": "AI was unable to create a recipe from what you provided. Check that it contains a recipe, and try again.",
+    "create-new-organizers": "Create new organizers",
+    "create-new-organizers-hint": "Tags, categories, and tools found on the recipe are always matched against the ones you already have. Turn this on to also create the ones you don't.",
     "create-recipe": "Skapa recept",
     "create-recipe-description": "Skapa nytt recept från grunden.",
     "create-recipes": "Skapa recept",
     "import-with-zip": "Importera från .zip",
-    "create-recipe-from-an-image": "Skapa recept från en bild",
-    "create-recipe-from-an-image-description": "Skapa ett recept genom att ladda upp en bild på det. Mealie kommer att försöka extrahera texten från bilden med hjälp av AI och skapa ett recept från det.",
     "crop-and-rotate-the-image": "Beskär och rotera bilden så att endast texten är synlig och den är åt rätt håll.",
-    "create-from-images": "Skapa från bild",
     "should-translate-description": "Översätt receptet till mitt språk",
-    "please-wait-image-procesing": "Vänligen vänta, bilden bearbetas. Detta kan ta lite tid.",
-    "please-wait-images-processing": "Bilderna behandlas. Detta kan ta lite tid.",
     "bulk-url-import": "Massimport från URL",
     "debug-scraper": "Felsökningsskrapa",
     "create-a-recipe-by-providing-the-name-all-recipes-must-have-unique-names": "Skapa ett recept genom att ange namnet. Alla recept måste ha unika namn.",
@@ -644,6 +693,8 @@
     "scrape-recipe-description-transcription": "Du kan också ge URL: en till en video och Mealie kommer att försöka transkribera det till ett recept.",
     "scrape-recipe-have-a-lot-of-recipes": "Har du många recept som du vill skrapa på en gång?",
     "scrape-recipe-suggest-bulk-importer": "Testa massimportören",
+    "scrape-recipe-have-ai-read-the-page": "Want AI to read the page instead?",
+    "import-from-html-or-json-have-ai-read-it": "Want AI to read your data instead?",
     "scrape-recipe-have-raw-html-or-json-data": "Har rå HTML eller JSON-data?",
     "scrape-recipe-you-can-import-from-raw-data-directly": "Du kan importera från rådata direkt",
     "scrape-recipe-website-being-blocked": "Är websidan blockerad?",
@@ -690,7 +741,7 @@
       "select-parser": "Välj tolk",
       "natural-language-processor": "Naturlig språkbehandlare",
       "brute-parser": "Brute parser",
-      "openai-parser": "OpenAI Parser",
+      "openai-parser": "OpenAI syntaxanalyserare",
       "parse-all": "Analysera allt",
       "no-unit": "Ingen enhet",
       "missing-unit": "Skapa saknad enhet: {unit}",
@@ -703,7 +754,8 @@
       "ingredient-parser-description": "Dina ingredienser har blivit tolkade. Se över ingredienserna vi inte är säkra på.",
       "ingredient-parser-final-review-description": "När alla ingredienser har granskats har du ytterligare en chans att granska alla ingredienser innan du tillämpar ändringarna i ditt recept.",
       "add-text-as-alias-for-item": "Lägg till \"{text}\" som alias för {item}",
-      "delete-item": "Radera objekt"
+      "delete-item": "Radera objekt",
+      "parsing-ingredients": "Parsing ingredients..."
     },
     "reset-servings-count": "Nollställ antal portioner",
     "not-linked-ingredients": "Ytterligare ingredienser",
@@ -812,7 +864,7 @@
     "settings-updated": "Inställningar uppdaterade",
     "site-settings": "Systeminställningar",
     "theme": {
-      "accent": "Accent",
+      "accent": "Accentfärg",
       "dark": "Mörkt",
       "default-to-system": "Standard",
       "error": "Fel",
@@ -893,19 +945,22 @@
     "server-side-base-url-error-text": "`BASE_URL` är fortfarande standardvärdet på API-servern. Detta kommer att orsaka problem med meddelanden som genereras på servern för e-postmeddelanden, etc.",
     "server-side-base-url-success-text": "Serversidans URL matchar inte standard",
     "ldap-ready": "LDAP Redo",
-    "ldap-not-ready": "LDAP Not Ready",
+    "ldap-not-ready": "LDAP ej tillgängligt",
     "ldap-ready-error-text": "Alla LDAP-värden är inte konfigurerade. Detta kan ignoreras om du inte använder LDAP-autentisering.",
     "ldap-ready-success-text": "Alla obligatoriska LDAP-variabler är satta.",
     "build": "Bygge",
     "recipe-scraper-version": "Version av Recept-scraper",
     "oidc-ready": "OIDC Klar",
-    "oidc-not-ready": "OIDC Not Ready",
+    "oidc-not-ready": "OIDC ej tillgängligt",
     "oidc-ready-error-text": "Alla OIDC-värden är inte konfigurerade. Detta kan ignoreras om du inte använder OIDC-autentisering.",
     "oidc-ready-success-text": "Alla obligatoriska OIDC-variabler är satta.",
     "openai-ready": "OpenAI redo",
-    "openai-not-ready": "OpenAI Not Ready",
+    "openai-not-ready": "OpenAI ej tillgängligt",
     "openai-ready-error-text": "Alla OpenAI-värden är inte konfigurerade. Detta kan ignoreras om du inte använder OpenAI-funktioner.",
-    "openai-ready-success-text": "Alla obligatoriska OpenAI-variabler är satta."
+    "openai-ready-success-text": "Alla obligatoriska OpenAI-variabler är satta.",
+    "site-statistics": "Site Statistics",
+    "uncategorized-recipes": "Uncategorized Recipes",
+    "untagged-recipes": "Untagged Recipes"
   },
   "shopping-list": {
     "all-lists": "Visa alla listor",
@@ -917,7 +972,7 @@
     "quantity": "Antal {0}",
     "shopping-list": "Inköpslista",
     "shopping-lists": "Inköpslistor",
-    "add-item": "Add item",
+    "add-item": "Lägg till vara",
     "food": "Mat",
     "note": "Anteckning",
     "label": "Etikett",
@@ -943,7 +998,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Är du säker på att du vill avmarkera alla objekt?",
     "are-you-sure-you-want-to-delete-checked-items": "Är du säker på att du vill ta bort alla markerade objekt?",
     "no-shopping-lists-found": "Inga inköpslistor hittades",
-    "item-checked-off": "{item} was checked off"
+    "item-checked-off": "Kryssat av {item}"
   },
   "sidebar": {
     "all-recipes": "Recept",
@@ -1088,9 +1143,9 @@
     "permissions": "Behörigheter",
     "administrator": "Administratör",
     "user-can-invite-other-to-group": "Användaren kan bjuda in andra till gruppen",
-    "user-can-manage-group": "Användare kan hantera grupp",
+    "user-can-manage-group": "Användaren kan hantera gruppinställningar",
     "user-can-manage-household": "Användaren kan hantera hushållet",
-    "user-can-organize-group-data": "Användaren kan organisera gruppdata",
+    "user-can-organize-group-data": "Användaren kan hantera livsmedel, taggar och kategorier",
     "enable-advanced-features": "Aktivera avancerade funktioner",
     "it-looks-like-this-is-your-first-time-logging-in": "Det ser ut som om detta är första gången du loggar in.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vill du inte se detta längre? Se till att ändra din e-post i dina användarinställningar!",
@@ -1109,6 +1164,8 @@
   },
   "data-pages": {
     "foods": {
+      "delete-affects-recipes": "Varning: denna ingrediens används i {count} recept. Raderingen av den kommer att lämna en tom ingrediens i receptet/-en.",
+      "delete-affects-recipes-more": "Visa alla {count} recept",
       "merge-dialog-text": "Kombinera valda livsmedel kommer att slå samman de valda livsmedlen till ett livsmedel. Ursprungslivsmedlet kommer att raderas och alla hänvisningar till detta kommer att uppdateras för att peka på det kombinerade livsmedlet.",
       "merge-food-example": "Slå ihop {food1} till {food2}",
       "seed-dialog-text": "Fyll databasen med livsmedel baserat på ditt språk. Detta kommer att skapa över 200 vanliga livsmedel som kan användas för att organisera din databas. Alla livsmedel är översatta med genom en kollektiv insats.",
@@ -1197,7 +1254,7 @@
       "action-type": "Åtgärdstyp",
       "action-types": {
         "link": "Länk",
-        "post": "Post"
+        "post": "Lägg upp"
       }
     },
     "create-alias": "Skapa alias",
@@ -1359,9 +1416,11 @@
     "setup": {
       "first-time-setup": "Första installationen",
       "welcome-to-mealie-get-started": "Välkommen till Mealie! Låt oss komma igång",
+      "previous-mealie-instance": "Did you have a previous Mealie instance?",
       "already-set-up-bring-to-homepage": "Jag har redan gjort inställningarna, ta mig bara till hemsidan",
       "common-settings-for-new-sites": "Här är några vanliga inställningar för nya webbplatser",
       "setup-complete": "Konfigurationen slutförd!",
+      "ai-providers-description": "Alternativt konfigurera AI-leverantörer för din grupp. AI-leverantörer möjliggör funktioner såsom att skapa recept från bilder, importera recept från videor och förbättrad ingrediens tolkning. Du kan alltid konfigurera detta senare från dina gruppinställningar.",
       "here-are-a-few-things-to-help-you-get-started": "Här är några saker som hjälper dig att komma igång med Mealie",
       "restore-from-v1-backup": "Har du en säkerhetskopia från en tidigare instans av Mealie v1? Du kan återställa den här.",
       "manage-profile-or-get-invite-link": "Hantera din egen profil eller hämta en inbjudningslänk för att dela med andra."
@@ -1478,10 +1537,10 @@
     "max-length": "Måste Vara Som Mest {max} Tecken|Måste Vara Som Mest {max} Tecken"
   },
   "announcements": {
-    "announcements": "Announcements",
-    "all-announcements": "All announcements",
-    "mark-all-as-read": "Mark All as Read",
-    "show-announcements-from-mealie": "Show announcements from Mealie",
-    "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+    "announcements": "Meddelanden",
+    "all-announcements": "Alla meddelanden",
+    "mark-all-as-read": "Markera alla som lästa",
+    "show-announcements-from-mealie": "Visa meddelanden från Mealie",
+    "show-announcements-setting-description": "Om du vill tillåta användare att se meddelanden från Mealie eller inte. När funktionen är aktiverad kan användarna fortfarande välja att inte se dem i sina användarinställningar"
   }
 }

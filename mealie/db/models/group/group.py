@@ -5,9 +5,9 @@ import sqlalchemy.orm as orm
 from pydantic import ConfigDict
 from sqlalchemy.orm import Mapped, mapped_column
 
-from mealie.db.models.labels import MultiPurposeLabel
+from mealie.db.models.recipe.labels import MultiPurposeLabel
 
-from .._model_base import BaseMixins, SqlAlchemyBase
+from .._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
 from .._model_utils.auto_init import auto_init
 from .._model_utils.guid import GUID
 from ..household.cookbook import CookBook
@@ -16,6 +16,7 @@ from ..household.mealplan import GroupMealPlan
 from ..household.webhooks import GroupWebhooksModel
 from ..recipe.category import Category, group_to_categories
 from ..server.task import ServerTaskModel
+from .ai_providers import AIProviderSettings
 from .preferences import GroupPreferencesModel
 
 if TYPE_CHECKING:
@@ -31,9 +32,9 @@ if TYPE_CHECKING:
 
 class Group(SqlAlchemyBase, BaseMixins):
     __tablename__ = "groups"
-    id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    name: Mapped[str] = mapped_column(sa.String, index=True, nullable=False, unique=True)
-    slug: Mapped[str | None] = mapped_column(sa.String, index=True, unique=True)
+    id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+    name: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False, unique=True)
+    slug: FilterableColumn[str | None] = mapped_column(sa.String, index=True, unique=True)
     households: Mapped[list["Household"]] = orm.relationship("Household", back_populates="group")
     users: Mapped[list["User"]] = orm.relationship("User", back_populates="group")
     categories: Mapped[list[Category]] = orm.relationship(Category, secondary=group_to_categories, single_parent=True)
@@ -41,8 +42,17 @@ class Group(SqlAlchemyBase, BaseMixins):
     invite_tokens: Mapped[list[GroupInviteToken]] = orm.relationship(
         GroupInviteToken, back_populates="group", cascade="all, delete-orphan"
     )
+
+    # Config
     preferences: Mapped[GroupPreferencesModel] = orm.relationship(
         GroupPreferencesModel,
+        back_populates="group",
+        uselist=False,
+        single_parent=True,
+        cascade="all, delete-orphan",
+    )
+    ai_provider_settings: Mapped[AIProviderSettings] = orm.relationship(
+        AIProviderSettings,
         back_populates="group",
         uselist=False,
         single_parent=True,
@@ -89,6 +99,7 @@ class Group(SqlAlchemyBase, BaseMixins):
             "shopping_lists",
             "cookbooks",
             "preferences",
+            "ai_provider_settings",
             "invite_tokens",
             "mealplans",
             "data_exports",

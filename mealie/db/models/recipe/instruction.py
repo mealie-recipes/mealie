@@ -38,5 +38,7 @@ class RecipeInstruction(SqlAlchemyBase):
     )
 
     @auto_init()
-    def __init__(self, ingredient_references, session, **_) -> None:
-        self.ingredient_references = [RecipeIngredientRefLink(**ref, session=session) for ref in ingredient_references]
+    def __init__(self, session, ingredient_references=None, **_) -> None:
+        self.ingredient_references = [
+            RecipeIngredientRefLink(**ref, session=session) for ref in (ingredient_references or [])
+        ]

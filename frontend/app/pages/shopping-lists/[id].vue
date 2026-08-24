@@ -71,84 +71,72 @@
       <template #header>
         <v-container class="px-0">
           <v-row no-gutters>
-            <v-col
-              class="text-left"
-            >
-              <ButtonLink
-                :to="`/shopping-lists?disableRedirect=true`"
-                :text="$t('shopping-list.all-lists')"
-                :icon="$globals.icons.backArrow"
-              />
-            </v-col>
-            <v-col
-              v-if="mdAndUp"
-              cols="6"
-              class="d-none d-sm-flex justify-center"
-            >
-              <v-img
-                max-height="100"
-                max-width="100"
-                src="/svgs/shopping-cart.svg"
-              />
-            </v-col>
-            <v-col class="d-flex justify-end">
-              <BaseButtonGroup
-                class="d-flex"
-                :buttons="[
-                  {
-                    icon: $globals.icons.contentCopy,
-                    text: '',
-                    event: 'edit',
-                    children: [
-                      {
-                        icon: $globals.icons.contentCopy,
-                        text: $t('shopping-list.copy-as-text'),
-                        event: 'copy-plain',
-                      },
-                      {
-                        icon: $globals.icons.contentCopy,
-                        text: $t('shopping-list.copy-as-markdown'),
-                        event: 'copy-markdown',
-                      },
-                    ],
-                  },
-                  {
-                    icon: $globals.icons.checkboxOutline,
-                    text: $t('shopping-list.check-all-items'),
-                    event: 'check',
-                  },
-                  {
-                    icon: $globals.icons.dotsVertical,
-                    text: '',
-                    event: 'three-dot',
-                    children: [
-                      {
-                        icon: $globals.icons.tags,
-                        text: $t('shopping-list.reorder-labels'),
-                        event: 'reorder-labels',
-                      },
-                      {
-                        icon: $globals.icons.tags,
-                        text: $t('shopping-list.manage-labels'),
-                        event: 'manage-labels',
-                      },
-                    ],
-                  },
-                ]"
-                @edit="edit = true"
-                @three-dot="threeDot = true"
-                @check="openCheckAll"
-                @copy-plain="copyListItems('plain')"
-                @copy-markdown="copyListItems('markdown')"
-                @reorder-labels="toggleReorderLabelsDialog()"
-                @manage-labels="$router.push(`/group/data/labels`)"
-              />
-            </v-col>
+            <ButtonLink
+              :to="`/shopping-lists?disableRedirect=true`"
+              :text="$t('shopping-list.all-lists')"
+              :icon="$globals.icons.backArrow"
+            />
+            <v-spacer />
+            <h2 v-if="smAndUp" class="text-h5">
+              {{ shoppingList.name }}
+            </h2>
+            <v-spacer />
+            <BaseButtonGroup
+              class="d-flex"
+              :buttons="[
+                {
+                  icon: $globals.icons.contentCopy,
+                  text: '',
+                  event: 'edit',
+                  children: [
+                    {
+                      icon: $globals.icons.contentCopy,
+                      text: $t('shopping-list.copy-as-text'),
+                      event: 'copy-plain',
+                    },
+                    {
+                      icon: $globals.icons.contentCopy,
+                      text: $t('shopping-list.copy-as-markdown'),
+                      event: 'copy-markdown',
+                    },
+                  ],
+                },
+                {
+                  icon: $globals.icons.checkboxMultipleMarkedOutline,
+                  text: $t('shopping-list.check-all-items'),
+                  event: 'check',
+                },
+                {
+                  icon: $globals.icons.dotsVertical,
+                  text: '',
+                  event: 'three-dot',
+                  children: [
+                    {
+                      icon: $globals.icons.tags,
+                      text: $t('shopping-list.reorder-labels'),
+                      event: 'reorder-labels',
+                    },
+                    {
+                      icon: $globals.icons.tags,
+                      text: $t('shopping-list.manage-labels'),
+                      event: 'manage-labels',
+                    },
+                  ],
+                },
+              ]"
+              @edit="edit = true"
+              @three-dot="threeDot = true"
+              @check="openCheckAll"
+              @copy-plain="copyListItems('plain')"
+              @copy-markdown="copyListItems('markdown')"
+              @reorder-labels="toggleReorderLabelsDialog()"
+              @manage-labels="$router.push(`/group/data/labels`)"
+            />
           </v-row>
         </v-container>
       </template>
       <template #title>
-        {{ shoppingList.name }}
+        {{ smAndUp ? "" : shoppingList.name }}
       </template>
     </BasePageTitle>
     <BannerWarning
@@ -248,7 +236,7 @@
                 <BaseButtonGroup
                   :buttons="[
                     {
-                      icon: $globals.icons.checkboxBlankOutline,
+                      icon: $globals.icons.checkboxMultipleBlankOutline,
                       text: $t('shopping-list.uncheck-all-items'),
                       event: 'uncheck',
                     },
@@ -293,7 +281,7 @@
         <div>
           <span>
             <v-icon start class="mb-1">
-              {{ $globals.icons.primary }}
+              {{ $globals.icons.silverwareForkKnife }}
             </v-icon>
           </span>
           {{ $t('shopping-list.linked-recipes-count', shoppingList.recipeReferences
@@ -361,7 +349,7 @@ import { useLabelStore, useUnitStore, useFoodStore } from "~/composables/store";
 import { alert } from "~/composables/use-toast";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 
-const { mdAndUp } = useDisplay();
+const { smAndUp } = useDisplay();
 const i18n = useI18n();
 
 useSeoMeta({
@@ -377,20 +365,22 @@ const { store: allUnits } = useUnitStore();
 const { store: allFoods } = useFoodStore();
 
 function itemCheckedToast(item: ShoppingListItemOut) {
-  alert.info(
-    i18n.t("shopping-list.item-checked-off", { item: item.food?.name || item.note || i18n.t("recipe.ingredient") }),
-    undefined,
-    {
-      timeout: 4000,
-      action: {
-        message: i18n.t("general.undo"),
-        onClick: () => {
-          item.checked = false;
-          shoppingListPage.saveListItem(item);
+  setTimeout(() => {
+    alert.info(
+      i18n.t("shopping-list.item-checked-off", { item: item.food?.name || item.note || i18n.t("recipe.ingredient") }),
+      undefined,
+      {
+        timeout: 4000,
+        action: {
+          message: i18n.t("general.undo"),
+          onClick: () => {
+            item.checked = false;
+            shoppingListPage.saveListItem(item);
+          },
         },
       },
-    },
-  );
+    );
+  }, 500);
 }
 
 const {

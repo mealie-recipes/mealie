@@ -54,7 +54,11 @@ class MultiPurposeLabelsController(BaseCrudController):
 
     @router.post("", response_model=MultiPurposeLabelOut)
     def create_one(self, data: MultiPurposeLabelCreate):
-        new_label = self.service.create_one(data)
+        try:
+            new_label = self.service.create_one(data)
+        except Exception as ex:
+            self.mixins.handle_exception(ex)
+            raise  # handle_exception always raises; this satisfies static analysis
         self.publish_event(
             event_type=EventTypes.label_created,
             document_data=EventLabelData(operation=EventOperation.create, label_id=new_label.id),

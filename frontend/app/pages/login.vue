@@ -211,11 +211,12 @@
 </template>
 
 <script setup lang="ts">
-import { useDark, whenever } from "@vueuse/core";
+import { useDark, useSessionStorage, whenever } from "@vueuse/core";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";
 import { useAsyncKey } from "~/composables/use-utils";
+import { isSafeRedirectTarget } from "~/lib/validators/redirect";
 import type { AppStartupInfo } from "~/lib/api/types/admin";
 import { useUserActivityPreferences } from "~/composables/use-users/preferences";
 
@@ -225,6 +226,7 @@ definePageMeta({
 const isDark = useDark();
 
 const router = useRouter();
+const route = useRoute();
 const i18n = useI18n();
 const auth = useMealieAuth();
 const { $appInfo, $axios } = useNuxtApp();
@@ -234,6 +236,9 @@ const isDemo = ref(false);
 const isFirstLogin = ref(false);
 const activityPreferences = useUserActivityPreferences();
 const { getDefaultActivityRoute } = useDefaultActivity();
+
+// Survives the page reload that happens during OIDC redirect
+const pendingShareRedirect = useSessionStorage<string | null>("pwa_share_redirect", null);
 
 useSeoMeta({
   title: i18n.t("user.login"),
@@ -259,14 +264,29 @@ useAsyncData(useAsyncKey(), async () => {
 whenever(
   () => loggedIn.value && groupSlug.value,
   () => {
+    // First-login setup always takes priority
+    if (!isDemo.value && isFirstLogin.value && auth.user.value?.admin) {
+      router.push("/admin/setup");
+      return;
+    }
+
+    // After login, honour a pending PWA share redirect.
+    // The redirect param can arrive via the URL query string (password login)
+    // or via sessionStorage (OIDC login, where the OIDC provider reload clears
+    // the query string).
+    const redirectFromQuery = route.query.redirect as string | undefined;
+    const redirectTarget = redirectFromQuery ?? pendingShareRedirect.value;
+    if (isSafeRedirectTarget(redirectTarget)) {
+      pendingShareRedirect.value = null;
+      router.push(redirectTarget);
+      return;
+    }
+
     const defaultActivityRoute = getDefaultActivityRoute(
       activityPreferences.value.defaultActivity,
       groupSlug.value,
     );
-    if (!isDemo.value && isFirstLogin.value && auth.user.value?.admin) {
-      router.push("/admin/setup");
-    }
-    else if (defaultActivityRoute) {
+    if (defaultActivityRoute) {
       router.push(defaultActivityRoute);
     }
     else {
@@ -316,6 +336,13 @@ async function oidcAuthenticate(callback = false) {
     oidcLoggingIn.value = false;
   }
   else {
+    // Save any pending PWA share redirect before leaving for the OIDC provider.
+    // The OIDC callback reloads the page, which clears the query string, so we
+    // persist the target in sessionStorage and restore it after login.
+    const redirectTarget = route.query.redirect as string | undefined;
+    if (isSafeRedirectTarget(redirectTarget)) {
+      pendingShareRedirect.value = redirectTarget;
+    }
     navigateTo("/api/auth/oauth", { external: true }); // start the redirect process
   }
 }

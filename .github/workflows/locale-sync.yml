@@ -14,6 +14,10 @@ permissions:
 jobs:
   sync-locales:
     runs-on: ubuntu-latest
+    env:
+      # Install from the committed lockfile; never re-resolve (see pyproject
+      # [tool.uv] exclude-newer cooling window).
+      UV_FROZEN: "1"
     steps:
       - name: Generate GitHub App Token
         id: app-token

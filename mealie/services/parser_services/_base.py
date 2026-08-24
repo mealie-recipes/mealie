@@ -1,7 +1,6 @@
 from abc import ABC, abstractmethod
 
 from pydantic import UUID4, BaseModel
-from rapidfuzz import fuzz, process
 from sqlalchemy.orm import Session
 
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
@@ -16,6 +15,7 @@ from mealie.schema.recipe.recipe_ingredient import (
     ParsedIngredient,
 )
 from mealie.schema.response.pagination import PaginationQuery
+from mealie.services.matching import find_match
 
 
 class DataMatcher:
@@ -100,18 +100,7 @@ class DataMatcher:
     def find_match[T: BaseModel](
         cls, match_value: str, *, store_map: dict[str, T], fuzzy_match_threshold: int = 0
     ) -> T | None:
-        # check for literal matches
-        if match_value in store_map:
-            return store_map[match_value]
-
-        # fuzzy match against food store
-        fuzz_result = process.extractOne(
-            match_value, store_map.keys(), scorer=fuzz.ratio, score_cutoff=fuzzy_match_threshold
-        )
-        if fuzz_result is None:
-            return None
-
-        return store_map[fuzz_result[0]]
+        return find_match(match_value, store_map=store_map, fuzzy_match_threshold=fuzzy_match_threshold)
 
     def find_food_match(self, food: IngredientFood | CreateIngredientFood | str) -> IngredientFood | None:
         if isinstance(food, IngredientFood):
@@ -146,13 +135,13 @@ class ABCIngredientParser(ABC):
     def __init__(self, group_id: UUID4, session: Session, translator: Translator) -> None:
         self.group_id = group_id
         self.session = session
-        self.data_matcher = DataMatcher(self._repos, self.food_fuzzy_match_threshold, self.unit_fuzzy_match_threshold)
+        self.data_matcher = DataMatcher(self.repos, self.food_fuzzy_match_threshold, self.unit_fuzzy_match_threshold)
 
         self.translator = translator
         self.t = self.translator.t
 
     @property
-    def _repos(self) -> AllRepositories:
+    def repos(self) -> AllRepositories:
         return get_repositories(self.session, group_id=self.group_id)
 
     @property
