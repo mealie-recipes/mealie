@@ -39,8 +39,8 @@ export const useMealieAuth = function () {
 
   async function oauthSignIn() {
     const params = new URLSearchParams(window.location.search);
-    const { data: token } = await $axios.get<{ access_token: string; token_type: "bearer" }>("/api/auth/oauth/callback", { params });
-    auth.setToken(token.access_token);
+    const { data: token } = await $axios.get<{ access_token: string; token_type: "bearer"; expires_in: number }>("/api/auth/oauth/callback", { params });
+    auth.setToken(token.access_token, token.expires_in);
     await auth.getSession();
   }
 

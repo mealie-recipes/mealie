@@ -1,8 +1,8 @@
-import { ref, computed } from "vue";
+import { ref, computed, watch } from "vue";
 import type { UserOut } from "~/lib/api/types/user";
 import { clearAllStores } from "~/composables/store";
 import { clearComposableCaches } from "~/composables/use-clear-composable-caches";
-import { getTokenCookieOptions } from "~/composables/use-token-cookie";
+import { getTokenCookieOptions, getTokenExpiry, isRememberedSession, readTokenCookie } from "~/composables/use-token-cookie";
 
 interface AuthData {
   value: UserOut | null;
@@ -20,11 +20,37 @@ interface AuthState {
   signOut: (callbackUrl?: string) => Promise<void>;
   refresh: () => Promise<void>;
   getSession: () => Promise<void>;
-  setToken: (token: string | null) => void;
+  setToken: (token: string | null, expiresInSeconds?: number) => void;
+  /** Hydrates the token from the cookie and starts the refresh loop. Called once, by the auth plugin. */
+  initTokenRefresh: () => void;
 }
+
+/** Refresh once this fraction of the token's remaining life has elapsed. */
+const REFRESH_AFTER_FRACTION = 0.6;
+/** Never schedule a refresh tighter than this, so a near-expired token can't spin the timer. */
+const MIN_REFRESH_DELAY_MS = 30_000;
+/** Spread concurrent refreshes across tabs so they don't all fire on the same millisecond. */
+const REFRESH_JITTER_MS = 30_000;
+/** Retry a refresh that failed for reasons other than auth (offline, server hiccup). */
+const REFRESH_RETRY_DELAY_MS = 60_000;
+/**
+ * setTimeout stores its delay as a 32-bit signed integer, so anything longer overflows and fires
+ * straight away instead of waiting. There is no constant exposed for this — `Number.MAX_SAFE_INTEGER`
+ * is a different limit entirely — so the ceiling is spelled out. Waiting out a token longer than
+ * ~24.8 days just means refreshing it early, which costs one request and keeps the session sliding.
+ */
+const MAX_TIMEOUT_MS = 2 ** 31 - 1;
 
 const authUser = ref<UserOut | null>(null);
 const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("loading");
+
+// The cookie persists the token; this ref is the reactive view of it. Keeping a plain ref as the
+// source of truth means writes are visible synchronously, which the cookie ref can't guarantee — it
+// propagates between tabs over a BroadcastChannel, and those messages arrive a tick later.
+const accessToken = ref<string | null>(null);
+
+let refreshTimer: ReturnType<typeof setTimeout> | null = null;
+let refreshInFlight: Promise<void> | null = null;
 
 export function resetAuth() {
   authUser.value = null;
@@ -37,10 +63,73 @@ export const useAuthBackend = function (): AuthState {
 
   const runtimeConfig = useRuntimeConfig();
   const tokenName = runtimeConfig.public.AUTH_TOKEN;
-  const tokenCookie = useCookie(tokenName, getTokenCookieOptions());
 
-  function setToken(token: string | null) {
-    tokenCookie.value = token;
+  function clearScheduledRefresh() {
+    if (refreshTimer) {
+      clearTimeout(refreshTimer);
+      refreshTimer = null;
+    }
+  }
+
+  /**
+   * Queues the next refresh from the token's own expiry.
+   *
+   * Recomputing from the remaining time (rather than a fixed interval) means this self-corrects
+   * after the machine sleeps or the tab is backgrounded and the timer fires late.
+   */
+  function scheduleTokenRefresh(token: string | null) {
+    clearScheduledRefresh();
+    if (!token) {
+      return;
+    }
+
+    const expiresAt = getTokenExpiry(token);
+    if (expiresAt === null) {
+      return;
+    }
+
+    const remaining = expiresAt - Date.now();
+    if (remaining <= 0) {
+      // Already expired. Nothing can be done with it — refreshing requires a token the server will
+      // still accept — so leave the next request's 401 to send the user to the login page.
+      return;
+    }
+
+    // Jitter goes on before the clamp, not after: adding it to an already-clamped delay can push the
+    // total past the 32-bit ceiling, which overflows to "fire now" and spins into a refresh loop.
+    const target = Math.max(remaining * REFRESH_AFTER_FRACTION, MIN_REFRESH_DELAY_MS)
+      + Math.random() * REFRESH_JITTER_MS;
+    const delay = Math.min(target, MAX_TIMEOUT_MS);
+
+    refreshTimer = setTimeout(() => {
+      refreshTimer = null;
+      void refreshQuietly();
+    }, delay);
+  }
+
+  function setToken(token: string | null, expiresInSeconds?: number) {
+    if (!token) {
+      accessToken.value = null;
+      clearScheduledRefresh();
+      useCookie(tokenName, getTokenCookieOptions()).value = null;
+      return;
+    }
+
+    // "Remember me" decides whether the cookie outlives the browser session, not how long the token
+    // is valid — every session is TOKEN_TIME. Without it we write a session cookie, so closing the
+    // browser ends the session as the unticked checkbox promises.
+    const expiresAt = getTokenExpiry(token);
+    const maxAge = isRememberedSession(token)
+      ? (expiresInSeconds ?? (expiresAt === null ? undefined : Math.max(Math.round((expiresAt - Date.now()) / 1000), 1)))
+      : undefined;
+
+    accessToken.value = token;
+
+    // A fresh ref each time, because the cookie's max-age has to match this particular token's
+    // lifetime and `useCookie` fixes its options when the ref is created.
+    useCookie(tokenName, getTokenCookieOptions(maxAge)).value = token;
+
+    scheduleTokenRefresh(token);
   }
 
   function handleAuthError(error: any, redirect = false) {
@@ -55,7 +144,7 @@ export const useAuthBackend = function (): AuthState {
   }
 
   async function getSession(): Promise<void> {
-    if (!tokenCookie.value) {
+    if (!accessToken.value) {
       authUser.value = null;
       authStatus.value = "unauthenticated";
       return;
@@ -84,8 +173,8 @@ export const useAuthBackend = function (): AuthState {
         },
       });
 
-      const { access_token } = response.data;
-      setToken(access_token);
+      const { access_token, expires_in } = response.data;
+      setToken(access_token, expires_in);
       await getSession();
     }
     catch (error) {
@@ -119,29 +208,99 @@ export const useAuthBackend = function (): AuthState {
     }
   }
 
+  /**
+   * Trades the current token for a fresh one.
+   *
+   * Concurrent callers share a single request — a page load can easily fire several 401s at once,
+   * and each one retrying separately would stampede the endpoint and race over the cookie.
+   */
   async function refresh(): Promise<void> {
-    if (!tokenCookie.value) return;
+    if (!accessToken.value) return;
+    if (refreshInFlight) return refreshInFlight;
 
+    refreshInFlight = (async () => {
+      try {
+        const response = await $axios.post("/api/auth/refresh", null, { suppressAlert: true });
+        const { access_token, expires_in } = response.data;
+        setToken(access_token, expires_in);
+        await getSession();
+      }
+      catch (error: any) {
+        handleAuthError(error, true);
+        throw error;
+      }
+      finally {
+        refreshInFlight = null;
+      }
+    })();
+
+    return refreshInFlight;
+  }
+
+  /** A background refresh, where there is no caller to surface a failure to. */
+  async function refreshQuietly(): Promise<void> {
     try {
-      const response = await $axios.get("/api/auth/refresh");
-      const { access_token } = response.data;
-      setToken(access_token);
-      await getSession();
+      await refresh();
     }
     catch (error: any) {
-      handleAuthError(error, true);
-      throw error;
+      // A 401 has already cleared the session and redirected. Anything else — offline, a restarting
+      // backend — is transient, so try again rather than letting the session lapse over a blip.
+      if (error?.response?.status !== 401 && accessToken.value) {
+        clearScheduledRefresh();
+        refreshTimer = setTimeout(() => {
+          refreshTimer = null;
+          void refreshQuietly();
+        }, REFRESH_RETRY_DELAY_MS);
+      }
     }
+  }
+
+  /**
+   * Starts keeping the session alive. Called once, from the auth plugin.
+   *
+   * Timers alone aren't enough: they don't run while the device sleeps, and a laptop reopened after
+   * a day would otherwise come back to an expired token. Re-scheduling on focus, visibility and
+   * reconnect recomputes the delay against the real clock without costing a request.
+   */
+  function initTokenRefresh() {
+    accessToken.value = readTokenCookie(tokenName);
+
+    // Read-only, and deliberately without a max-age: a ref carrying one starts an expiry timer that
+    // clears the cookie when it elapses, which would cut a 14-day remembered session down to
+    // TOKEN_TIME. This ref exists only to observe, never to write.
+    const tokenCookie = useCookie<string | null>(tokenName, { readonly: true });
+
+    // Nuxt syncs cookie refs between tabs, so this also picks up a refresh performed elsewhere and
+    // re-schedules against the new expiry instead of duplicating the work.
+    watch(tokenCookie, (value) => {
+      if (value && value !== accessToken.value) {
+        accessToken.value = value;
+        scheduleTokenRefresh(value);
+      }
+    });
+
+    const reschedule = () => scheduleTokenRefresh(accessToken.value);
+
+    window.addEventListener("focus", reschedule);
+    window.addEventListener("online", reschedule);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") {
+        reschedule();
+      }
+    });
+
+    scheduleTokenRefresh(accessToken.value);
   }
 
   return {
     data: computed(() => authUser.value),
     status: computed(() => authStatus.value),
-    token: computed(() => tokenCookie.value),
+    token: computed(() => accessToken.value),
     signIn,
     signOut,
     refresh,
     getSession,
     setToken,
+    initTokenRefresh,
   };
 };
