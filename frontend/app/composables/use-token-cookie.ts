@@ -1,19 +1,17 @@
 /**
- * Cookie options for the session token.
+ * Cookie options used to clear the session token.
  *
- * Pass the lifetime the backend granted this token to get a persistent cookie ("remember me").
- * Omit it for a session cookie, which the browser drops when it closes. There is deliberately no
- * `TOKEN_TIME` fallback: guessing the lifetime is what used to expire the cookie while the token it
- * held was still valid.
+ * The server sets the cookie; the client only ever removes it, on logout or a dead session. A cookie
+ * is matched for removal by name and path, but these have to line up with what the server sent for
+ * the embedded (partitioned, SameSite=None) case to clear reliably.
  */
-export function getTokenCookieOptions(maxAgeSeconds?: number) {
+export function getTokenCookieOptions() {
   const { $appInfo } = useNuxtApp();
 
   const isSecureConnection = $appInfo.production && window?.location?.protocol === "https:";
   const isEmbedded = isSecureConnection && window?.self !== window?.top;
 
   return {
-    ...(maxAgeSeconds === undefined ? {} : { maxAge: maxAgeSeconds }),
     secure: isSecureConnection,
     sameSite: (isEmbedded ? "none" : "lax") as "none" | "lax",
     partitioned: isEmbedded,
@@ -48,16 +46,6 @@ function decodeTokenPayload(token: string): Record<string, unknown> | null {
 export function getTokenExpiry(token: string): number | null {
   const exp = decodeTokenPayload(token)?.exp;
   return typeof exp === "number" ? exp * 1000 : null;
-}
-
-/**
- * Whether this session should outlive the browser session.
- *
- * Set from the "remember me" checkbox at login and carried across refreshes, so a remembered session
- * keeps its persistent cookie instead of quietly becoming one that dies on the next browser close.
- */
-export function isRememberedSession(token: string): boolean {
-  return decodeTokenPayload(token)?.rme === true;
 }
 
 /**

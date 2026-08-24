@@ -2,7 +2,7 @@ import { ref, computed, watch } from "vue";
 import type { UserOut } from "~/lib/api/types/user";
 import { clearAllStores } from "~/composables/store";
 import { clearComposableCaches } from "~/composables/use-clear-composable-caches";
-import { getTokenCookieOptions, getTokenExpiry, isRememberedSession, nextRefreshDelay, readTokenCookie } from "~/composables/use-token-cookie";
+import { getTokenCookieOptions, getTokenExpiry, nextRefreshDelay, readTokenCookie } from "~/composables/use-token-cookie";
 
 interface AuthData {
   value: UserOut | null;
@@ -20,7 +20,7 @@ interface AuthState {
   signOut: (callbackUrl?: string) => Promise<void>;
   refresh: () => Promise<void>;
   getSession: () => Promise<void>;
-  setToken: (token: string | null, expiresInSeconds?: number) => void;
+  setToken: (token: string | null) => void;
   /** Hydrates the token from the cookie and starts the refresh loop. Called once, by the auth plugin. */
   initTokenRefresh: () => void;
 }
@@ -86,7 +86,7 @@ export const useAuthBackend = function (): AuthState {
     }, delay);
   }
 
-  function setToken(token: string | null, expiresInSeconds?: number) {
+  function setToken(token: string | null) {
     if (!token) {
       accessToken.value = null;
       clearScheduledRefresh();
@@ -94,20 +94,10 @@ export const useAuthBackend = function (): AuthState {
       return;
     }
 
-    // "Remember me" decides whether the cookie outlives the browser session, not how long the token
-    // is valid — every session is TOKEN_TIME. Without it we write a session cookie, so closing the
-    // browser ends the session as the unticked checkbox promises.
-    const expiresAt = getTokenExpiry(token);
-    const maxAge = isRememberedSession(token)
-      ? (expiresInSeconds ?? (expiresAt === null ? undefined : Math.max(Math.round((expiresAt - Date.now()) / 1000), 1)))
-      : undefined;
-
+    // Only the in-memory copy is set here. The cookie arrives on the response's Set-Cookie header —
+    // writing it again from script would re-apply Safari's seven-day cap to a cookie the server just
+    // set correctly, which is the bug this whole arrangement exists to avoid.
     accessToken.value = token;
-
-    // A fresh ref each time, because the cookie's max-age has to match this particular token's
-    // lifetime and `useCookie` fixes its options when the ref is created.
-    useCookie(tokenName, getTokenCookieOptions(maxAge)).value = token;
-
     scheduleTokenRefresh(token);
   }
 
@@ -152,8 +142,7 @@ export const useAuthBackend = function (): AuthState {
         },
       });
 
-      const { access_token, expires_in } = response.data;
-      setToken(access_token, expires_in);
+      setToken(response.data.access_token);
       await getSession();
     }
     catch (error) {
@@ -200,8 +189,7 @@ export const useAuthBackend = function (): AuthState {
     refreshInFlight = (async () => {
       try {
         const response = await $axios.post("/api/auth/refresh", null, { suppressAlert: true });
-        const { access_token, expires_in } = response.data;
-        setToken(access_token, expires_in);
+        setToken(response.data.access_token);
         await getSession();
       }
       catch (error: any) {

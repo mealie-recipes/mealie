@@ -1,5 +1,5 @@
 import { describe, expect, test, vi, beforeEach, afterEach } from "vitest";
-import { getTokenCookieOptions, getTokenExpiry, isRememberedSession, nextRefreshDelay, readTokenCookie } from "../use-token-cookie";
+import { getTokenCookieOptions, getTokenExpiry, nextRefreshDelay, readTokenCookie } from "../use-token-cookie";
 
 function setLocation(protocol: string) {
   Object.defineProperty(window, "location", {
@@ -79,19 +79,11 @@ describe("getTokenCookieOptions", () => {
     expect(options.partitioned).toBe(false);
   });
 
-  test("omits max-age when no lifetime is given, producing a session cookie", () => {
+  test("carries no max-age, since the server owns the cookie's lifetime", () => {
     stubNuxtApp(true);
     setLocation("https:");
 
     expect(getTokenCookieOptions()).not.toHaveProperty("maxAge");
-  });
-
-  test("uses the granted lifetime when one is given, so a remembered session isn't cut short", () => {
-    stubNuxtApp(true);
-    setLocation("https:");
-
-    const twoDays = 48 * 60 * 60;
-    expect(getTokenCookieOptions(twoDays).maxAge).toBe(twoDays);
   });
 });
 
@@ -120,18 +112,6 @@ describe("getTokenExpiry", () => {
     expect(getTokenExpiry("not-a-jwt")).toBeNull();
     expect(getTokenExpiry("header.@@@notbase64@@@.signature")).toBeNull();
     expect(getTokenExpiry("")).toBeNull();
-  });
-});
-
-describe("isRememberedSession", () => {
-  test("is true only when the token carries rme", () => {
-    expect(isRememberedSession(encodeToken({ sub: "abc", rme: true }))).toBe(true);
-    expect(isRememberedSession(encodeToken({ sub: "abc", rme: false }))).toBe(false);
-    expect(isRememberedSession(encodeToken({ sub: "abc" }))).toBe(false);
-  });
-
-  test("is false for a malformed token rather than throwing", () => {
-    expect(isRememberedSession("not-a-jwt")).toBe(false);
   });
 });
 
