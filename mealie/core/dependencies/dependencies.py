@@ -128,6 +128,14 @@ async def get_current_user(
     session.commit()
     if user is None:
         raise credentials_exception
+
+    # A password change invalidates everything issued before it. Tokens minted before `iat` existed
+    # carry no issue time, and since they necessarily predate any password change, they fail closed.
+    if user.tokens_valid_after is not None:
+        issued_at = payload.get("iat")
+        if issued_at is None or issued_at < user.tokens_valid_after.timestamp():
+            raise credentials_exception
+
     return user
 
 
