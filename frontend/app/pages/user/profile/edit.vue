@@ -13,7 +13,7 @@
             file-name="profile"
             accept="image/*"
             :url="`/api/users/${userCopy.id}/image`"
-            @uploaded="auth.refresh()"
+            @uploaded="auth.getSession()"
           />
         </div>
       </template>
@@ -286,7 +286,7 @@ async function updateUser() {
 
   const { response } = await api.users.updateOne(userData.id, updatePayload);
   if (response?.status === 200) {
-    auth.refresh();
+    auth.getSession();
   }
 }
 

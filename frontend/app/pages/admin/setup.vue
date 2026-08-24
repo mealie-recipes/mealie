@@ -459,7 +459,7 @@ async function updateUser() {
     alert.error(i18n.t("events.something-went-wrong"));
   }
   else {
-    auth.refresh();
+    auth.getSession();
   }
 }
 

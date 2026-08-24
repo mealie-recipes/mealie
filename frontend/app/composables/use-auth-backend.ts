@@ -180,39 +180,38 @@ export const useAuthBackend = function (): AuthState {
   }
 
   /**
-   * Trades the current token for a fresh one.
+   * Trades the current token for a fresh one, and nothing else.
    *
    * Concurrent callers share a single request — a page load can easily fire several 401s at once,
    * and each one retrying separately would stampede the endpoint and race over the cookie.
+   *
+   * It used to reload the user too, which is why callers reached for it when they wanted fresh
+   * session data. That request goes through the same intercepted axios instance, so a 401 on it sent
+   * the interceptor straight back into refresh() and restarted the cycle. Reloading the user is
+   * getSession's job.
    */
   async function refresh(): Promise<void> {
     // The cookie is the real credential — the interceptor gates on it, and it is populated before
     // initTokenRefresh() hydrates the ref. Gating only on the ref would make refresh a silent no-op
     // during boot, turning a recoverable 401 into a logout.
     if (!accessToken.value && !readTokenCookie(tokenName)) return;
+    if (refreshInFlight) return refreshInFlight;
 
-    if (!refreshInFlight) {
-      // Deliberately covers the token exchange alone. getSession() goes through the same axios
-      // instance, so a 401 there sends the interceptor back into refresh(), which would hand it this
-      // very promise — one that is waiting on the request the interceptor is holding. Nothing
-      // settles, the lock never clears, and the session wedges silently.
-      refreshInFlight = (async () => {
+    refreshInFlight = (async () => {
+      try {
         const response = await $axios.post("/api/auth/refresh", null, { suppressAlert: true });
         setToken(response.data.access_token);
-      })().finally(() => {
+      }
+      catch (error: any) {
+        handleAuthError(error, true);
+        throw error;
+      }
+      finally {
         refreshInFlight = null;
-      });
-    }
+      }
+    })();
 
-    try {
-      await refreshInFlight;
-    }
-    catch (error: any) {
-      handleAuthError(error, true);
-      throw error;
-    }
-
-    await getSession();
+    return refreshInFlight;
   }
 
   /** A background refresh, where there is no caller to surface a failure to. */

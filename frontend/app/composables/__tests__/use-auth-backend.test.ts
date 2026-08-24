@@ -113,6 +113,19 @@ describe("refresh", () => {
     expect(auth.token.value).toBe(replacement);
   });
 
+  test("does not reload the session, which would re-enter the interceptor", async () => {
+    const auth = useAuthBackend();
+    auth.setToken(validToken());
+    axiosMock.post.mockResolvedValue({ data: { access_token: validToken() } });
+
+    await auth.refresh();
+
+    // getSession() runs on the same intercepted instance. A 401 there sends the interceptor back
+    // into refresh() carrying a fresh config, which the one-retry guard can't recognise, and the
+    // cycle starts over. Reloading the user belongs to callers who actually want fresh data.
+    expect(axiosMock.get).not.toHaveBeenCalled();
+  });
+
   test("does nothing without a token", async () => {
     const auth = useAuthBackend();
 
