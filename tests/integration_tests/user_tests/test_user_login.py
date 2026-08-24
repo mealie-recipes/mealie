@@ -1,4 +1,5 @@
 import os
+import time
 
 import jwt
 import pytest
@@ -137,7 +138,14 @@ def test_authenticates_from_the_session_cookie(api_client: TestClient, unique_us
     """The SPA sends a bearer header, but downloads opened outside it rely on the cookie."""
     token = log_in_for_token(api_client, unique_user)
 
-    response = api_client.get(api_routes.users_self, headers={"Cookie": f"mealie.access_token={token}"})
+    api_client.cookies.clear()
+    api_client.cookies.set("mealie.access_token", token)
+    try:
+        response = api_client.get(api_routes.users_self)
+    finally:
+        # The client is shared, and a stray session cookie authenticates later requests by accident
+        api_client.cookies.clear()
+
     assert response.status_code == 200
     assert response.json()["id"] == str(unique_user.user_id)
 
@@ -189,6 +197,9 @@ def test_password_change_invalidates_sessions_but_not_api_tokens(
     user = unique_user_fn_scoped
 
     session_token = log_in_for_token(api_client, user)
+    # JWT `iat` is whole seconds and the watermark is floored to match, so a token minted in the same
+    # second as the change survives it. Real sessions are hours old; this one needs a moment.
+    time.sleep(1)
     response = api_client.post(api_routes.users_api_tokens, json={"name": "Survivor"}, headers=user.token)
     assert response.status_code == 201
     api_token = response.json()["token"]
@@ -229,6 +240,9 @@ def test_tokens_issued_after_a_password_change_still_work(api_client: TestClient
 
 @pytest.mark.parametrize("use_token", [True, False], ids=["invalid token", "no token"])
 def test_token_refresh_rejects_unauthenticated(api_client: TestClient, use_token: bool):
+    # Logins now leave a cookie on the shared client, and the server accepts it in place of a header
+    api_client.cookies.clear()
+
     headers = auth_header(random_string()) if use_token else {}
     response = api_client.post(api_routes.auth_refresh, headers=headers)
     assert response.status_code == 401
