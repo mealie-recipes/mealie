@@ -3,7 +3,7 @@ repos:
     rev: v6.0.0
     hooks:
       - id: check-yaml
-        exclude: "mkdocs.yml"
+        exclude: (mkdocs.yml|pnpm-lock.yaml)
       - id: check-json
         exclude: (.vscode|.devcontainer)
       - id: check-toml
