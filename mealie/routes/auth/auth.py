@@ -56,6 +56,46 @@ if settings.OIDC_READY:
     )
 
 
+SESSION_COOKIE_NAME = "mealie.access_token"
+
+
+def session_cookie_attrs(request: Request) -> dict:
+    """Cookie attributes that have to match between setting and clearing the session cookie.
+
+    Mealie is sometimes embedded in another site, which needs `SameSite=None` and a partitioned
+    cookie. The server can't detect embedding, so the client flags it — and we only honour the flag
+    over HTTPS, since browsers reject `SameSite=None` without `Secure`.
+    """
+    secure = request.url.scheme == "https"
+    embedded = secure and request.headers.get("x-mealie-embedded", "").lower() == "true"
+
+    return {
+        "path": "/",
+        "secure": secure,
+        "samesite": "none" if embedded else "lax",
+        "partitioned": embedded,
+    }
+
+
+def set_session_cookie(response: Response, request: Request, token: str, expires_in: timedelta, remember_me: bool):
+    """Sends the session cookie from the server instead of letting the client write it.
+
+    Safari caps any cookie created through `document.cookie` at seven days, whatever max-age it asks
+    for, which silently truncated every iOS session regardless of TOKEN_TIME. Cookies that arrive on
+    a Set-Cookie header aren't subject to that cap.
+    """
+    response.set_cookie(
+        SESSION_COOKIE_NAME,
+        token,
+        # Remember-me decides whether the cookie outlives the browser session. Omitting max-age makes
+        # it a session cookie; the token is valid for TOKEN_TIME either way.
+        max_age=int(expires_in.total_seconds()) if remember_me else None,
+        # The SPA reads this to set its Authorization header, so it can't be HttpOnly yet.
+        httponly=False,
+        **session_cookie_attrs(request),
+    )
+
+
 class MealieAuthToken(BaseModel):
     access_token: str
     token_type: str = "bearer"
@@ -72,7 +112,12 @@ class MealieAuthToken(BaseModel):
 
 
 @public_router.post("/token")
-def get_token(request: Request, data: CredentialsRequestForm = Depends(), session: Session = Depends(generate_session)):
+def get_token(
+    request: Request,
+    response: Response,
+    data: CredentialsRequestForm = Depends(),
+    session: Session = Depends(generate_session),
+):
     if "x-forwarded-for" in request.headers:
         ip = request.headers["x-forwarded-for"]
         if "," in ip:  # if there are multiple IPs, the first one is canonically the true client
@@ -95,6 +140,7 @@ def get_token(request: Request, data: CredentialsRequestForm = Depends(), sessio
         )
 
     access_token, duration = auth
+    set_session_cookie(response, request, access_token, duration, data.remember_me)
     return MealieAuthToken.respond(access_token, duration)
 
 
@@ -123,7 +169,7 @@ async def oauth_login(request: Request):
 
 
 @public_router.get("/oauth/callback")
-async def oauth_callback(request: Request, session: Session = Depends(generate_session)):
+async def oauth_callback(request: Request, response: Response, session: Session = Depends(generate_session)):
     if not oauth:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -153,6 +199,7 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
     access_token, duration = auth
+    set_session_cookie(response, request, access_token, duration, settings.OIDC_REMEMBER_ME)
     return MealieAuthToken.respond(access_token, duration)
 
 
@@ -175,7 +222,12 @@ async def oauth_native_config():
 
 
 @public_router.post("/oauth/native/token")
-async def oauth_native_token(data: NativeOIDCTokenRequest, session: Session = Depends(generate_session)):
+async def oauth_native_token(
+    request: Request,
+    response: Response,
+    data: NativeOIDCTokenRequest,
+    session: Session = Depends(generate_session),
+):
     """Exchange a native client's authorization code for a Mealie token.
 
     The native client owns PKCE and state, so the exchange happens server-side without a browser
@@ -222,11 +274,14 @@ async def oauth_native_token(data: NativeOIDCTokenRequest, session: Session = De
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
     access_token, duration = auth
+    set_session_cookie(response, request, access_token, duration, settings.OIDC_REMEMBER_ME)
     return MealieAuthToken.respond(access_token, duration)
 
 
 @user_router.post("/refresh")
 async def refresh_token(
+    request: Request,
+    response: Response,
     current_user: PrivateUser = Depends(get_current_user),
     token: str = Depends(get_auth_token),
 ):
@@ -250,15 +305,19 @@ async def refresh_token(
 
     remember_me = bool(payload.get("rme", False))
     access_token, duration = security.create_access_token({"sub": str(current_user.id), "rme": remember_me})
+    set_session_cookie(response, request, access_token, duration, remember_me)
     return MealieAuthToken.respond(access_token, duration)
 
 
 @user_router.post("/logout")
 async def logout(
+    request: Request,
     response: Response,
     accept_language: Annotated[str | None, Header()] = None,
 ):
-    response.delete_cookie("mealie.access_token")
+    # Clearing a cookie only works when the attributes match the ones it was set with, which the old
+    # bare delete_cookie() call didn't manage for embedded (partitioned, SameSite=None) deployments.
+    response.set_cookie(SESSION_COOKIE_NAME, "", max_age=0, expires=0, **session_cookie_attrs(request))
 
     translator = get_locale_provider(accept_language)
     return {"message": translator.t("notifications.logged-out")}

@@ -90,6 +90,49 @@ def test_remember_me_does_not_change_the_session_length(api_client: TestClient, 
     assert plain["rme"] is False
 
 
+@pytest.mark.parametrize("remember_me", [True, False], ids=["remembered", "not remembered"])
+def test_login_sets_the_session_cookie(api_client: TestClient, unique_user: TestUser, remember_me: bool):
+    """The server owns the cookie now.
+
+    Safari caps anything written through `document.cookie` at seven days regardless of max-age, so a
+    client-written cookie silently truncated every iOS session. Persistence still follows remember-me:
+    a max-age when it's ticked, a session cookie when it isn't.
+    """
+    form_data = {
+        "username": unique_user.email,
+        "password": unique_user.password,
+        "remember_me": str(remember_me).lower(),
+    }
+    response = api_client.post(api_routes.auth_token, data=form_data)
+    assert response.status_code == 200
+
+    cookie = response.headers["set-cookie"]
+    assert cookie.startswith("mealie.access_token=")
+    assert "Path=/" in cookie
+    assert ("Max-Age" in cookie) is remember_me
+
+
+def test_refresh_renews_the_session_cookie(api_client: TestClient, unique_user: TestUser):
+    """Refreshing has to re-send the cookie, or the browser keeps serving the superseded token."""
+    token = log_in_for_token(api_client, unique_user, remember_me=True)
+
+    response = api_client.post(api_routes.auth_refresh, headers=auth_header(token))
+    assert response.status_code == 200
+
+    cookie = response.headers["set-cookie"]
+    assert f"mealie.access_token={response.json()['access_token']}" in cookie
+    assert "Max-Age" in cookie
+
+
+def test_logout_clears_the_session_cookie(api_client: TestClient, unique_user: TestUser):
+    response = api_client.post(api_routes.auth_logout, headers=unique_user.token)
+    assert response.status_code == 200
+
+    cookie = response.headers["set-cookie"]
+    assert cookie.startswith("mealie.access_token=")
+    assert "Max-Age=0" in cookie
+
+
 def test_authenticates_from_the_session_cookie(api_client: TestClient, unique_user: TestUser):
     """The SPA sends a bearer header, but downloads opened outside it rely on the cookie."""
     token = log_in_for_token(api_client, unique_user)
