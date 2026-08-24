@@ -150,7 +150,7 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
 @public_router.get("/oauth/native/config", response_model=OIDCNativeConfig)
 async def oauth_native_config():
     """Return the parameters a native client needs to build its own OIDC authorization request."""
-    if not settings.OIDC_READY:
+    if not settings.OIDC_READY or not oauth:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="OIDC is not configured",
@@ -173,7 +173,7 @@ async def oauth_native_token(data: NativeOIDCTokenRequest, session: Session = De
     session cookie. This lets passkey-capable system-browser logins (e.g. Pocket ID) work, which
     the cookie-coupled web callback cannot support.
     """
-    if not settings.OIDC_READY:
+    if not settings.OIDC_READY or not oauth:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="OIDC is not configured",
