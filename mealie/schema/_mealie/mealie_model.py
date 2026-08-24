@@ -50,6 +50,11 @@ class MealieModel(BaseModel):
     Searchable properties for the search API.
     The first property will be used for sorting (order_by)
     """
+    # defer_build=True delays pydantic-core schema compilation until first use, speeding up app
+    # startup. If a subclass is used as a FastAPI query-parameter dependency (`= Depends(Model)`),
+    # FastAPI needs its schema built eagerly for route registration -- override with
+    # `model_config = ConfigDict(defer_build=False)` on that subclass (see RecipeSearchQuery/
+    # RequestQuery in mealie/schema/response/pagination.py for examples).
     model_config = ConfigDict(alias_generator=camelize, populate_by_name=True, defer_build=True)
 
     @model_validator(mode="before")
