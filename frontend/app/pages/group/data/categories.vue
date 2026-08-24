@@ -1,5 +1,43 @@
 <template>
   <div>
+    <!-- Merge Dialog -->
+    <BaseDialog
+      v-model="mergeDialog"
+      :icon="$globals.icons.categories"
+      :title="$t('data-pages.categories.combine-category')"
+      can-confirm
+      @confirm="mergeCategories"
+    >
+      <v-card-text>
+        <div>
+          {{ $t("data-pages.categories.merge-dialog-text") }}
+        </div>
+        <v-autocomplete
+          v-model="fromCategory"
+          return-object
+          :items="categoryStore.store.value"
+          :custom-filter="normalizeFilter"
+          item-title="name"
+          :label="$t('data-pages.categories.source-category')"
+        />
+        <v-autocomplete
+          v-model="toCategory"
+          return-object
+          :items="categoryStore.store.value"
+          :custom-filter="normalizeFilter"
+          item-title="name"
+          :label="$t('data-pages.categories.target-category')"
+        />
+
+        <template v-if="canMerge && fromCategory && toCategory">
+          <div class="text-center">
+            {{ $t("data-pages.categories.merge-category-example", { category1: fromCategory.name, category2: toCategory.name }) }}
+          </div>
+        </template>
+      </v-card-text>
+    </BaseDialog>
+
+    <!-- Delete Unused Dialog -->
     <BaseDialog
       v-model="deleteUnusedDialog"
       :title="$t('general.confirm')"
@@ -9,7 +47,15 @@
       @confirm="confirmDeleteUnused"
     >
       <v-card-text>
-        Delete {{ unusedCategoryIds.length }} unused category(s)? This cannot be undone.
+        {{ $t('data-pages.categories.delete-unused-confirm', { count: unusedCategoryIds.length }, unusedCategoryIds.length) }}
+        <ul style="margin: 0.5rem 0 0; padding-left: 1.25rem; font-size: 0.85rem; color: rgba(var(--v-theme-on-surface), 0.7); line-height: 1.8;">
+          <li v-for="name in unusedCategoryNamesPreview" :key="name">
+            {{ name }}
+          </li>
+        </ul>
+        <div v-if="unusedCategoryNamesRemaining > 0" class="text-body-2 pl-2">
+          {{ $t('data-pages.delete-unused-more', { count: unusedCategoryNamesRemaining }) }}
+        </div>
       </v-card-text>
     </BaseDialog>
 
@@ -30,16 +76,25 @@
       @bulk-action="handleBulkAction"
     >
       <template #[`item.recipeCount`]="{ item }">
-        <NuxtLink v-if="item.recipeCount > 0" :to="`/g/${groupSlug}?categories=${item.id}`">{{ item.recipeCount }}</NuxtLink>
-        <span v-else>0</span>
+        <NuxtLink v-if="groupSlug && item.recipeCount > 0" :to="`/g/${groupSlug}?categories=${item.id}`">{{ item.recipeCount }}</NuxtLink>
+        <span v-else>{{ item.recipeCount || 0 }}</span>
       </template>
 
       <template #table-button-row>
-        <BaseButton :loading="loadingEmpty" @click="openDeleteUnusedDialog">
+        <BaseButton @click="mergeDialog = true">
           <template #icon>
-            {{ $globals.icons.delete }}
+            {{ $globals.icons.externalLink }}
           </template>
-          Delete Unused
+          {{ $t("data-pages.combine") }}
+        </BaseButton>
+
+        <v-divider vertical class="mx-2" />
+
+        <BaseButton color="error" :loading="loadingEmpty" @click="openDeleteUnusedDialog">
+          <template #icon>
+            {{ $globals.icons.broom }}
+          </template>
+          {{ $t("data-pages.delete-unused") }}
         </BaseButton>
       </template>
     </GroupDataPage>
@@ -51,6 +106,8 @@ import { useCategoryStore } from "~/composables/store";
 import { useUserApi } from "~/composables/api";
 import { validators } from "~/composables/use-validators";
 import { fieldTypes } from "~/composables/forms";
+import { normalizeFilter } from "~/composables/use-utils";
+import { alert } from "~/composables/use-toast";
 import type { AutoFormItems } from "~/types/auto-forms";
 import type { RecipeCategory } from "~/lib/api/types/recipe";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
@@ -77,7 +134,7 @@ const tableHeaders: TableHeaders[] = [
     sortable: true,
   },
   {
-    text: "Recipe Count",
+    text: i18n.t("data-pages.recipe-count"),
     value: "recipeCount",
     show: true,
     sortable: true,
@@ -130,21 +187,60 @@ async function handleBulkAction(event: string, items: RecipeCategory[]) {
 }
 
 // ============================================================
+// Merge Categories
+const mergeDialog = ref(false);
+const fromCategory = ref<RecipeCategory | null>(null);
+const toCategory = ref<RecipeCategory | null>(null);
+
+const canMerge = computed(() => {
+  return fromCategory.value && toCategory.value && fromCategory.value.id !== toCategory.value.id;
+});
+
+async function mergeCategories() {
+  if (!canMerge.value || !fromCategory.value?.id || !toCategory.value?.id) {
+    return;
+  }
+
+  const { data } = await userApi.categories.merge(fromCategory.value.id, toCategory.value.id);
+
+  if (data) {
+    fromCategory.value = null;
+    toCategory.value = null;
+    categoryStore.actions.refresh();
+  }
+}
+
+// ============================================================
 // Delete Unused
+const DELETE_UNUSED_PREVIEW_LIMIT = 10;
+
 const deleteUnusedDialog = ref(false);
-const unusedCategoryIds = ref<string[]>([]);
+const unusedCategories = ref<RecipeCategory[]>([]);
+const unusedCategoryIds = computed(() => unusedCategories.value.filter(c => c.id != null).map(c => c.id!));
+const unusedCategoryNamesPreview = computed(() =>
+  unusedCategories.value.slice(0, DELETE_UNUSED_PREVIEW_LIMIT).map(c => c.name),
+);
+const unusedCategoryNamesRemaining = computed(() =>
+  Math.max(unusedCategories.value.length - DELETE_UNUSED_PREVIEW_LIMIT, 0),
+);
 const loadingEmpty = ref(false);
 
 async function openDeleteUnusedDialog() {
   loadingEmpty.value = true;
   const { data } = await userApi.categories.getEmpty();
   loadingEmpty.value = false;
-  unusedCategoryIds.value = (data ?? []).filter(c => c.id != null).map(c => c.id!);
+  unusedCategories.value = data ?? [];
+
+  if (unusedCategories.value.length === 0) {
+    alert.info(i18n.t("data-pages.categories.no-unused-categories"));
+    return;
+  }
+
   deleteUnusedDialog.value = true;
 }
 
 async function confirmDeleteUnused() {
   await categoryStore.actions.deleteMany(unusedCategoryIds.value);
-  unusedCategoryIds.value = [];
+  unusedCategories.value = [];
 }
 </script>

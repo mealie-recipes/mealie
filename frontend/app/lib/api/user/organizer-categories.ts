@@ -9,6 +9,7 @@ const routes = {
   categoriesId: (category: string) => `${prefix}/categories/${category}`,
   categoriesSlug: (category: string) => `${prefix}/categories/slug/${category}`,
   categoriesEmpty: `${prefix}/categories/empty`,
+  categoriesMerge: `${prefix}/categories/merge`,
 };
 
 export class CategoriesAPI extends BaseCRUDAPI<CategoryIn, RecipeCategoryResponse> {
@@ -21,5 +22,9 @@ export class CategoriesAPI extends BaseCRUDAPI<CategoryIn, RecipeCategoryRespons
 
   async getEmpty() {
     return await this.requests.get<RecipeCategoryResponse[]>(routes.categoriesEmpty);
+  }
+
+  merge(fromId: string, toId: string) {
+    return this.requests.post<RecipeCategoryResponse>(routes.categoriesMerge, { fromId, toId });
   }
 }

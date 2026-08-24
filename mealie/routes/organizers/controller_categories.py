@@ -2,9 +2,7 @@ from functools import cached_property
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4, BaseModel, ConfigDict
-from sqlalchemy import delete, select, update
 
-from mealie.db.models.recipe.category import recipes_to_categories
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
@@ -89,23 +87,7 @@ class RecipeCategoryController(BaseCrudController):
         if not self.repos.categories.get_one(body.to_id):
             raise HTTPException(status.HTTP_404_NOT_FOUND, "to_id category not found")
 
-        session = self.repos.session
-
-        already_in_to = select(recipes_to_categories.c.recipe_id).where(
-            recipes_to_categories.c.category_id == body.to_id
-        )
-
-        session.execute(
-            update(recipes_to_categories)
-            .where(recipes_to_categories.c.category_id == body.from_id)
-            .where(recipes_to_categories.c.recipe_id.not_in(already_in_to))
-            .values(category_id=body.to_id)
-        )
-        session.execute(delete(recipes_to_categories).where(recipes_to_categories.c.category_id == body.from_id))
-
-        self.repos.categories.delete(body.from_id)
-
-        return self.repos.categories.get_one(body.to_id)
+        return self.repos.categories.merge(body.from_id, body.to_id)
 
     @router.get("/{item_id}", response_model=CategorySummary)
     def get_one(self, item_id: UUID4):

@@ -1,5 +1,43 @@
 <template>
   <div>
+    <!-- Merge Dialog -->
+    <BaseDialog
+      v-model="mergeDialog"
+      :icon="$globals.icons.tags"
+      :title="$t('data-pages.tags.combine-tag')"
+      can-confirm
+      @confirm="mergeTags"
+    >
+      <v-card-text>
+        <div>
+          {{ $t("data-pages.tags.merge-dialog-text") }}
+        </div>
+        <v-autocomplete
+          v-model="fromTag"
+          return-object
+          :items="tagStore.store.value"
+          :custom-filter="normalizeFilter"
+          item-title="name"
+          :label="$t('data-pages.tags.source-tag')"
+        />
+        <v-autocomplete
+          v-model="toTag"
+          return-object
+          :items="tagStore.store.value"
+          :custom-filter="normalizeFilter"
+          item-title="name"
+          :label="$t('data-pages.tags.target-tag')"
+        />
+
+        <template v-if="canMerge && fromTag && toTag">
+          <div class="text-center">
+            {{ $t("data-pages.tags.merge-tag-example", { tag1: fromTag.name, tag2: toTag.name }) }}
+          </div>
+        </template>
+      </v-card-text>
+    </BaseDialog>
+
+    <!-- Delete Unused Dialog -->
     <BaseDialog
       v-model="deleteUnusedDialog"
       :title="$t('general.confirm')"
@@ -9,7 +47,15 @@
       @confirm="confirmDeleteUnused"
     >
       <v-card-text>
-        Delete {{ unusedTagIds.length }} unused tag(s)? This cannot be undone.
+        {{ $t('data-pages.tags.delete-unused-confirm', { count: unusedTagIds.length }, unusedTagIds.length) }}
+        <ul style="margin: 0.5rem 0 0; padding-left: 1.25rem; font-size: 0.85rem; color: rgba(var(--v-theme-on-surface), 0.7); line-height: 1.8;">
+          <li v-for="name in unusedTagNamesPreview" :key="name">
+            {{ name }}
+          </li>
+        </ul>
+        <div v-if="unusedTagNamesRemaining > 0" class="text-body-2 pl-2">
+          {{ $t('data-pages.delete-unused-more', { count: unusedTagNamesRemaining }) }}
+        </div>
       </v-card-text>
     </BaseDialog>
 
@@ -30,16 +76,25 @@
       @bulk-action="handleBulkAction"
     >
       <template #[`item.recipeCount`]="{ item }">
-        <NuxtLink v-if="item.recipeCount > 0" :to="`/g/${groupSlug}?tags=${item.id}`">{{ item.recipeCount }}</NuxtLink>
-        <span v-else>0</span>
+        <NuxtLink v-if="groupSlug && item.recipeCount > 0" :to="`/g/${groupSlug}?tags=${item.id}`">{{ item.recipeCount }}</NuxtLink>
+        <span v-else>{{ item.recipeCount || 0 }}</span>
       </template>
 
       <template #table-button-row>
-        <BaseButton :loading="loadingEmpty" @click="openDeleteUnusedDialog">
+        <BaseButton @click="mergeDialog = true">
           <template #icon>
-            {{ $globals.icons.delete }}
+            {{ $globals.icons.externalLink }}
           </template>
-          Delete Unused
+          {{ $t("data-pages.combine") }}
+        </BaseButton>
+
+        <v-divider vertical class="mx-2" />
+
+        <BaseButton color="error" :loading="loadingEmpty" @click="openDeleteUnusedDialog">
+          <template #icon>
+            {{ $globals.icons.broom }}
+          </template>
+          {{ $t("data-pages.delete-unused") }}
         </BaseButton>
       </template>
     </GroupDataPage>
@@ -51,6 +106,8 @@ import { validators } from "~/composables/use-validators";
 import { useTagStore } from "~/composables/store";
 import { useUserApi } from "~/composables/api";
 import { fieldTypes } from "~/composables/forms";
+import { normalizeFilter } from "~/composables/use-utils";
+import { alert } from "~/composables/use-toast";
 import type { AutoFormItems } from "~/types/auto-forms";
 import type { RecipeTag } from "~/lib/api/types/recipe";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
@@ -77,7 +134,7 @@ const tableHeaders: TableHeaders[] = [
     sortable: true,
   },
   {
-    text: "Recipe Count",
+    text: i18n.t("data-pages.recipe-count"),
     value: "recipeCount",
     show: true,
     sortable: true,
@@ -130,21 +187,56 @@ async function handleBulkAction(event: string, items: RecipeTag[]) {
 }
 
 // ============================================================
+// Merge Tags
+const mergeDialog = ref(false);
+const fromTag = ref<RecipeTag | null>(null);
+const toTag = ref<RecipeTag | null>(null);
+
+const canMerge = computed(() => {
+  return fromTag.value && toTag.value && fromTag.value.id !== toTag.value.id;
+});
+
+async function mergeTags() {
+  if (!canMerge.value || !fromTag.value?.id || !toTag.value?.id) {
+    return;
+  }
+
+  const { data } = await userApi.tags.merge(fromTag.value.id, toTag.value.id);
+
+  if (data) {
+    fromTag.value = null;
+    toTag.value = null;
+    tagStore.actions.refresh();
+  }
+}
+
+// ============================================================
 // Delete Unused
+const DELETE_UNUSED_PREVIEW_LIMIT = 10;
+
 const deleteUnusedDialog = ref(false);
-const unusedTagIds = ref<string[]>([]);
+const unusedTags = ref<RecipeTag[]>([]);
+const unusedTagIds = computed(() => unusedTags.value.filter(t => t.id != null).map(t => t.id!));
+const unusedTagNamesPreview = computed(() => unusedTags.value.slice(0, DELETE_UNUSED_PREVIEW_LIMIT).map(t => t.name));
+const unusedTagNamesRemaining = computed(() => Math.max(unusedTags.value.length - DELETE_UNUSED_PREVIEW_LIMIT, 0));
 const loadingEmpty = ref(false);
 
 async function openDeleteUnusedDialog() {
   loadingEmpty.value = true;
   const { data } = await userApi.tags.getEmpty();
   loadingEmpty.value = false;
-  unusedTagIds.value = (data ?? []).filter(t => t.id != null).map(t => t.id!);
+  unusedTags.value = data ?? [];
+
+  if (unusedTags.value.length === 0) {
+    alert.info(i18n.t("data-pages.tags.no-unused-tags"));
+    return;
+  }
+
   deleteUnusedDialog.value = true;
 }
 
 async function confirmDeleteUnused() {
   await tagStore.actions.deleteMany(unusedTagIds.value);
-  unusedTagIds.value = [];
+  unusedTags.value = [];
 }
 </script>

@@ -2,9 +2,7 @@ from functools import cached_property
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
-from sqlalchemy import delete, select, update
 
-from mealie.db.models.recipe.tag import recipes_to_tags
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
@@ -58,21 +56,7 @@ class TagController(BaseCrudController):
         if not self.repo.get_one(body.to_id):
             raise HTTPException(status.HTTP_404_NOT_FOUND, "to_id tag not found")
 
-        session = self.repos.session
-
-        already_in_to = select(recipes_to_tags.c.recipe_id).where(recipes_to_tags.c.tag_id == body.to_id)
-
-        session.execute(
-            update(recipes_to_tags)
-            .where(recipes_to_tags.c.tag_id == body.from_id)
-            .where(recipes_to_tags.c.recipe_id.not_in(already_in_to))
-            .values(tag_id=body.to_id)
-        )
-        session.execute(delete(recipes_to_tags).where(recipes_to_tags.c.tag_id == body.from_id))
-
-        self.repo.delete(body.from_id)
-
-        return self.repo.get_one(body.to_id)
+        return self.repo.merge(body.from_id, body.to_id)
 
     @router.get("/{item_id}", response_model=RecipeTagResponse)
     def get_one(self, item_id: UUID4):
