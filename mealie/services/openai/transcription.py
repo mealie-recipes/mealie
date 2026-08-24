@@ -5,6 +5,7 @@ from pathlib import Path
 from typing import TypedDict
 
 from mealie.core import exceptions
+from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
 
 from .openai import OpenAIService
@@ -79,6 +80,10 @@ def download_video(url: str, temp_path: Path) -> TranscribedAudio:
         ],
         "postprocessor_args": ["-ac", "1"],
     }
+
+    settings = get_app_settings()
+    if settings.YTDLP_COOKIEFILE:
+        ydl_opts["cookiefile"] = settings.YTDLP_COOKIEFILE
 
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
