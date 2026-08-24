@@ -179,8 +179,11 @@ def validate_file_token(token: str | None = None) -> Path:
 
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
-        file_path = Path(payload.get("file"))
-    except PyJWTError as e:
+        # A valid signature isn't enough on its own: session and API tokens are signed with the same
+        # secret and decode fine here. Only tokens from create_file_token carry a path, so a missing
+        # or unusable claim is an invalid file token rather than a server error.
+        file_path = Path(payload["file"])
+    except (PyJWTError, KeyError, TypeError) as e:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="could not validate file token",

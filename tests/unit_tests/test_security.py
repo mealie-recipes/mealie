@@ -162,6 +162,20 @@ def test_create_file_token():
     assert file_path == validate_file_token(file_token)
 
 
+def test_validate_file_token_rejects_a_token_without_a_file_claim():
+    """Session and API tokens share the signing secret, so they decode here — the claim is the check.
+
+    Previously these raised TypeError on `Path(None)`, surfacing as a 500 instead of the documented
+    401.
+    """
+    session_token, _ = security.create_access_token({"sub": "abc"})
+
+    with pytest.raises(HTTPException) as exc_info:
+        validate_file_token(session_token)
+
+    assert exc_info.value.status_code == 401
+
+
 @pytest.mark.asyncio
 async def test_download_file_security_restrictions():
     dirs = get_app_dirs()
