@@ -53,6 +53,23 @@ def api_client():
         settings.DB_PROVIDER.db_path.unlink()  # Handle SQLite Provider
 
 
+@fixture(autouse=True)
+def isolate_session_cookies(api_client: TestClient):
+    """Stops one test's login from authenticating the next test's requests.
+
+    `api_client` is session-scoped, and the server sets a session cookie on every login, so its jar
+    accumulates real credentials as the suite runs. Without this, a request that deliberately sends
+    no Authorization header is still authenticated by whoever logged in last — which silently turns
+    an anonymous-access test into an authenticated one and hides the very thing it was checking.
+
+    Fixtures that log in during setup are higher-scoped, so their cookies are cleared here too. That
+    is safe: every fixture hands back an Authorization header, never a cookie.
+    """
+    api_client.cookies.clear()
+    yield
+    api_client.cookies.clear()
+
+
 @fixture(scope="session")
 def test_image_jpg():
     return test_data.images_test_image_1
