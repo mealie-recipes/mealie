@@ -58,6 +58,47 @@ def test_superuser_login(api_client: TestClient, admin_token):
     assert response.status_code == 200
 
 
+def test_login_response_reports_the_token_lifetime(api_client: TestClient, unique_user: TestUser):
+    """Clients schedule their refresh off `expires_in`; without it they have to decode the token."""
+    form_data = {"username": unique_user.email, "password": unique_user.password}
+    response = api_client.post(api_routes.auth_token, data=form_data)
+    assert response.status_code == 200
+
+    body = response.json()
+    assert body["token_type"] == "bearer"
+    assert body["expires_in"] == get_app_settings().TOKEN_TIME * 60 * 60
+
+    payload = decode_token(body["access_token"])
+    assert payload["exp"] - payload["iat"] == body["expires_in"]
+
+
+def test_remember_me_does_not_change_the_session_length(api_client: TestClient, unique_user: TestUser):
+    """Remember-me decides whether the client persists the token, not how long it stays valid.
+
+    It used to widen the token's lifetime instead, which made the checkbox a no-op whenever
+    TOKEN_TIME was already longer than the remember-me window.
+    """
+    remembered = decode_token(log_in_for_token(api_client, unique_user, remember_me=True))
+    plain = decode_token(log_in_for_token(api_client, unique_user, remember_me=False))
+
+    expected = get_app_settings().TOKEN_TIME * 60 * 60
+    assert remembered["exp"] - remembered["iat"] == expected
+    assert plain["exp"] - plain["iat"] == expected
+
+    # ...and the choice still travels on the token, for the client to act on
+    assert remembered["rme"] is True
+    assert plain["rme"] is False
+
+
+def test_authenticates_from_the_session_cookie(api_client: TestClient, unique_user: TestUser):
+    """The SPA sends a bearer header, but downloads opened outside it rely on the cookie."""
+    token = log_in_for_token(api_client, unique_user)
+
+    response = api_client.get(api_routes.users_self, headers={"Cookie": f"mealie.access_token={token}"})
+    assert response.status_code == 200
+    assert response.json()["id"] == str(unique_user.user_id)
+
+
 def test_user_token_refresh(api_client: TestClient, unique_user: TestUser):
     response = api_client.post(api_routes.auth_refresh, headers=unique_user.token)
     assert response.status_code == 200
