@@ -9,8 +9,7 @@ from typing import TypeVar
 
 import openai
 from openai import AsyncOpenAI
-from openai.types.chat import ChatCompletion
-from pydantic import BaseModel, field_validator
+from pydantic import BaseModel, ValidationError, field_validator
 
 from mealie.core import exceptions, root_logger
 from mealie.core.config import get_app_settings
@@ -263,22 +262,48 @@ class OpenAIService(BaseService):
 
     async def _get_raw_response(
         self, prompt: str, content: list[dict], response_schema: type[T], provider: AIProviderOut
-    ) -> ChatCompletion:
+    ) -> T | None:
         client = self.get_client(provider)
-        return await client.chat.completions.parse(
-            messages=[
-                {
-                    "role": "system",
-                    "content": prompt,
-                },
-                {
-                    "role": "user",
-                    "content": content,
-                },
-            ],
-            model=provider.model,
-            response_format=response_schema,
-        )
+        messages: list[dict] = [
+            {
+                "role": "system",
+                "content": prompt,
+            },
+            {
+                "role": "user",
+                "content": content,
+            },
+        ]
+
+        try:
+            response = await client.chat.completions.parse(
+                messages=messages,
+                model=provider.model,
+                response_format=response_schema,
+            )
+        except ValidationError:
+            # Some OpenAI-compatible providers (e.g. Ollama Cloud) silently ignore strict
+            # json_schema response_format and reply in prose instead, which fails validation
+            # here. Fall back to loose json_object mode with the schema described in the prompt.
+            logger.warning(
+                f"Provider '{provider.name}' did not honor the structured output schema; "
+                "falling back to json_object mode"
+            )
+            schema_prompt = (
+                f"{prompt}\n\n###\nRespond only with a single JSON object matching this JSON schema. "
+                f"Do not include any other text.\n{response_schema.model_json_schema()}"
+            )
+            messages[0]["content"] = schema_prompt
+            response = await client.chat.completions.create(
+                messages=messages,
+                model=provider.model,
+                response_format={"type": "json_object"},
+            )
+
+        if not response.choices:
+            return None
+
+        return response_schema.parse_openai_response(response.choices[0].message.content)
 
     async def get_response(
         self,
@@ -297,12 +322,7 @@ class OpenAIService(BaseService):
             for attachment in attachments or []:
                 user_messages.append(attachment.build_message())
 
-            response = await self._get_raw_response(prompt, user_messages, response_schema, provider)
-            if not response.choices:
-                return None
-
-            response_text = response.choices[0].message.content
-            return response_schema.parse_openai_response(response_text)
+            return await self._get_raw_response(prompt, user_messages, response_schema, provider)
         except openai.RateLimitError as e:
             raise exceptions.RateLimitError(str(e)) from e
         except Exception as e:
