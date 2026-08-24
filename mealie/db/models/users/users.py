@@ -209,7 +209,11 @@ class User(SqlAlchemyBase, BaseMixins):
         # Changing a password is how people evict someone who got into their account, so every token
         # issued before now stops working. Stamped here rather than at the call sites so the password
         # reset flow can't forget it.
-        self.tokens_valid_after = datetime.now(UTC)
+        #
+        # Floored to the second because JWT `iat` is whole seconds: against a sub-second watermark, a
+        # token minted in the same second as the change would have a lower `iat` and be rejected,
+        # locking the user out until the clock ticked over.
+        self.tokens_valid_after = datetime.now(UTC).replace(microsecond=0)
 
     def _set_permissions(
         self, admin, can_manage_household=False, can_manage=False, can_invite=False, can_organize=False, **_

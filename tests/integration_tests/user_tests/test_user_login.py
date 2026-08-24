@@ -177,6 +177,56 @@ def test_api_tokens_cannot_be_refreshed(api_client: TestClient, admin_token):
     assert response.status_code == 400
 
 
+def test_password_change_invalidates_sessions_but_not_api_tokens(
+    api_client: TestClient, unique_user_fn_scoped: TestUser
+):
+    """Changing a password is how you evict someone from your account, so sessions have to die.
+
+    API tokens deliberately survive: they're explicitly created and separately revocable, and killing
+    them would break a user's integrations every time they rotated a password. Uses the
+    function-scoped fixture because it leaves the user's password changed.
+    """
+    user = unique_user_fn_scoped
+
+    session_token = log_in_for_token(api_client, user)
+    response = api_client.post(api_routes.users_api_tokens, json={"name": "Survivor"}, headers=user.token)
+    assert response.status_code == 201
+    api_token = response.json()["token"]
+
+    assert api_client.get(api_routes.users_self, headers=auth_header(session_token)).status_code == 200
+    assert api_client.get(api_routes.users_self, headers=auth_header(api_token)).status_code == 200
+
+    response = api_client.put(
+        api_routes.users_password,
+        json={"currentPassword": user.password, "newPassword": random_string(15)},
+        headers=auth_header(session_token),
+    )
+    assert response.status_code == 200
+
+    assert api_client.get(api_routes.users_self, headers=auth_header(session_token)).status_code == 401
+    assert api_client.get(api_routes.users_self, headers=auth_header(api_token)).status_code == 200
+
+
+def test_tokens_issued_after_a_password_change_still_work(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    """The watermark must not lock the user out of the account they just secured."""
+    user = unique_user_fn_scoped
+    new_password = random_string(15)
+
+    response = api_client.put(
+        api_routes.users_password,
+        json={"currentPassword": user.password, "newPassword": new_password},
+        headers=user.token,
+    )
+    assert response.status_code == 200
+
+    form_data = {"username": user.email, "password": new_password}
+    response = api_client.post(api_routes.auth_token, data=form_data)
+    assert response.status_code == 200
+
+    fresh = response.json()["access_token"]
+    assert api_client.get(api_routes.users_self, headers=auth_header(fresh)).status_code == 200
+
+
 @pytest.mark.parametrize("use_token", [True, False], ids=["invalid token", "no token"])
 def test_token_refresh_rejects_unauthenticated(api_client: TestClient, use_token: bool):
     headers = auth_header(random_string()) if use_token else {}
