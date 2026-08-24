@@ -1,4 +1,7 @@
 import { describe, expect, test, vi, beforeEach, afterEach } from "vitest";
+// Reused rather than reimplemented: the production reader escapes the full set of regex
+// metacharacters, and it has its own coverage in use-token-cookie.test.ts.
+import { readTokenCookie } from "../use-token-cookie";
 
 // Pulled in by use-auth-backend purely to wipe cached data on logout. They drag in most of the
 // composable graph, none of which this file exercises.
@@ -15,11 +18,6 @@ function encodeToken(payload: Record<string, unknown>): string {
 /** A token that expires far enough out that no refresh is scheduled during the test. */
 function validToken(): string {
   return encodeToken({ sub: "abc", rme: true, exp: Math.floor(Date.now() / 1000) + 86_400 });
-}
-
-function readCookie(name: string): string | null {
-  const match = document.cookie.match(new RegExp(`(?:^|; )${name.replace(/\./g, "\\.")}=([^;]*)`));
-  return match?.[1] ? decodeURIComponent(match[1]) : null;
 }
 
 function unauthorized() {
@@ -45,7 +43,7 @@ beforeEach(async () => {
   vi.stubGlobal("clearNuxtData", vi.fn());
   vi.stubGlobal("useCookie", (name: string) => ({
     get value() {
-      return readCookie(name);
+      return readTokenCookie(name);
     },
     set value(next: string | null) {
       document.cookie = next === null ? `${name}=; max-age=0` : `${name}=${encodeURIComponent(next)}`;
@@ -185,7 +183,7 @@ describe("signOut", () => {
     await auth.signOut();
 
     expect(auth.token.value).toBeNull();
-    expect(readCookie(TOKEN_NAME)).toBeNull();
+    expect(readTokenCookie(TOKEN_NAME)).toBeNull();
     expect(routerMock.push).toHaveBeenCalledWith("/login");
   });
 
