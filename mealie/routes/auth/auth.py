@@ -59,6 +59,26 @@ if settings.OIDC_READY:
 SESSION_COOKIE_NAME = "mealie.access_token"
 
 
+def request_is_https(request: Request) -> bool:
+    """Whether the browser reached Mealie over HTTPS.
+
+    `request.url.scheme` only reflects the browser's own connection when uvicorn's proxy-header
+    handling trusted the proxy, which it stops doing as soon as an admin narrows `HOST_IP` from its
+    default. Falling back to the header keeps `Secure` — and with it the embedded `SameSite=None`
+    path — working behind a proxy Mealie hasn't been told to trust.
+
+    Reading it unverified is safe here in a way it wouldn't be for authorization: it only alters
+    attributes on the sender's own cookie in the same response, so forging it achieves nothing beyond
+    breaking your own session.
+    """
+    if request.url.scheme == "https":
+        return True
+
+    forwarded_proto = request.headers.get("x-forwarded-proto", "")
+    # a chain of proxies appends to this, and the client's own protocol is the first entry
+    return forwarded_proto.split(",")[0].strip().lower() == "https"
+
+
 def session_cookie_attrs(request: Request) -> dict:
     """Cookie attributes that have to match between setting and clearing the session cookie.
 
@@ -66,7 +86,7 @@ def session_cookie_attrs(request: Request) -> dict:
     cookie. The server can't detect embedding, so the client flags it — and we only honour the flag
     over HTTPS, since browsers reject `SameSite=None` without `Secure`.
     """
-    secure = request.url.scheme == "https"
+    secure = request_is_https(request)
     embedded = secure and request.headers.get("x-mealie-embedded", "").lower() == "true"
 
     return {
