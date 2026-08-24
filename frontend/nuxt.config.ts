@@ -239,7 +239,9 @@ export default defineNuxtConfig({
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
   vuetify: {
-    moduleOptions: {},
+    moduleOptions: {
+      prefixComposables: ["useLayout"],
+    },
     vuetifyOptions: {
       icons: {
         defaultSet: "mdi-svg",
