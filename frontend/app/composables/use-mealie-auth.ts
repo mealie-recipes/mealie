@@ -50,7 +50,7 @@ export const useMealieAuth = function () {
     token: auth.token,
     signIn: auth.signIn,
     signOut: auth.signOut,
-    refresh: auth.refresh,
+    getSession: auth.getSession,
     oauthSignIn,
   };
 };
