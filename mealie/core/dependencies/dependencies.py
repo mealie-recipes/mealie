@@ -14,6 +14,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
 from mealie.core.config import get_app_dirs, get_app_settings
+from mealie.core.security.tokens import ALGORITHM
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser, TokenData
@@ -21,7 +22,6 @@ from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupInDB
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
-ALGORITHM = "HS256"
 app_dirs = get_app_dirs()
 settings = get_app_settings()
 logger = root_logger.get_logger("dependencies")
@@ -74,28 +74,36 @@ async def get_public_group(group_slug: str = fastapi.Path(...), session=Depends(
         return group
 
 
-async def try_get_current_user(
+async def get_auth_token(
     request: Request,
-    token: str = Depends(oauth2_scheme_soft_fail),
+    token: str | None = Depends(oauth2_scheme_soft_fail),
+) -> str:
+    """The raw bearer token for this request, from the Authorization header or the session cookie.
+
+    FastAPI caches dependency results per request, so routes that need the token itself as well as
+    the user it resolves to share a single extraction.
+    """
+    if token is None and "mealie.access_token" in request.cookies:
+        # Try extract from cookie
+        return request.cookies.get("mealie.access_token", "")
+
+    return token or ""
+
+
+async def try_get_current_user(
+    token: str = Depends(get_auth_token),
     session=Depends(generate_session),
 ) -> PrivateUser | None:
     try:
-        return await get_current_user(request, token, session)
+        return await get_current_user(token, session)
     except Exception:
         return None
 
 
 async def get_current_user(
-    request: Request,
-    token: str | None = Depends(oauth2_scheme_soft_fail),
+    token: str = Depends(get_auth_token),
     session=Depends(generate_session),
 ) -> PrivateUser:
-    if token is None and "mealie.access_token" in request.cookies:
-        # Try extract from cookie
-        token = request.cookies.get("mealie.access_token", "")
-    else:
-        token = token or ""
-
     try:
         payload = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         user_id: str | None = payload.get("sub")

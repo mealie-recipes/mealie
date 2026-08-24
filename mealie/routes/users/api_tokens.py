@@ -33,7 +33,7 @@ class UserApiTokensController(BaseUserController):
         }
 
         five_years = timedelta(1825)
-        token = create_access_token(token_data, five_years)
+        token, _ = create_access_token(token_data, five_years)
 
         token_model = CreateToken(
             name=token_params.name,

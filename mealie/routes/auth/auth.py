@@ -1,15 +1,18 @@
+from datetime import timedelta
 from typing import Annotated, Any
 
+import jwt
 from fastapi import APIRouter, Depends, Header, Request, Response, status
 from fastapi.exceptions import HTTPException
 from fastapi.responses import RedirectResponse
+from jwt.exceptions import PyJWTError
 from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
 from starlette.datastructures import URLPath
 
 from mealie.core import root_logger, security
 from mealie.core.config import get_app_settings
-from mealie.core.dependencies import get_current_user
+from mealie.core.dependencies import get_auth_token, get_current_user
 from mealie.core.exceptions import MissingClaimException, UserLockedOut
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
@@ -56,10 +59,16 @@ if settings.OIDC_READY:
 class MealieAuthToken(BaseModel):
     access_token: str
     token_type: str = "bearer"
+    expires_in: int
+    """seconds until the token expires, so clients can refresh before it does"""
 
     @classmethod
-    def respond(cls, token: str, token_type: str = "bearer") -> dict:
-        return cls(access_token=token, token_type=token_type).model_dump()
+    def respond(cls, token: str, expires_in: timedelta, token_type: str = "bearer") -> dict:
+        return cls(
+            access_token=token,
+            token_type=token_type,
+            expires_in=int(expires_in.total_seconds()),
+        ).model_dump()
 
 
 @public_router.post("/token")
@@ -85,8 +94,8 @@ def get_token(request: Request, data: CredentialsRequestForm = Depends(), sessio
             status_code=status.HTTP_401_UNAUTHORIZED,
         )
 
-    access_token, _ = auth
-    return MealieAuthToken.respond(access_token)
+    access_token, duration = auth
+    return MealieAuthToken.respond(access_token, duration)
 
 
 @public_router.get("/oauth")
@@ -143,8 +152,8 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
     if not auth:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
-    access_token, _ = auth
-    return MealieAuthToken.respond(access_token)
+    access_token, duration = auth
+    return MealieAuthToken.respond(access_token, duration)
 
 
 @public_router.get("/oauth/native/config", response_model=OIDCNativeConfig)
@@ -212,15 +221,37 @@ async def oauth_native_token(data: NativeOIDCTokenRequest, session: Session = De
     if not auth:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
-    access_token, _ = auth
-    return MealieAuthToken.respond(access_token)
+    access_token, duration = auth
+    return MealieAuthToken.respond(access_token, duration)
 
 
-@user_router.get("/refresh")
-async def refresh_token(current_user: PrivateUser = Depends(get_current_user)):
-    """Use a valid token to get another token"""
-    access_token = security.create_access_token(data={"sub": str(current_user.id)})
-    return MealieAuthToken.respond(access_token)
+@user_router.post("/refresh")
+@user_router.get("/refresh", deprecated=True)
+async def refresh_token(
+    current_user: PrivateUser = Depends(get_current_user),
+    token: str = Depends(get_auth_token),
+):
+    """Exchange a valid session token for a fresh one.
+
+    The new token carries over the remember-me choice recorded on the old one, so refreshing doesn't
+    downgrade a remembered session to one that dies with the browser.
+    """
+    try:
+        payload = jwt.decode(token, settings.SECRET, algorithms=[security.ALGORITHM])
+    except PyJWTError as e:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED) from e
+
+    if payload.get("long_token"):
+        # A long-lived API token is revocable by its owner; exchanging one for a session token would
+        # produce a credential that survives that revocation.
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="API tokens cannot be exchanged for a session token",
+        )
+
+    remember_me = bool(payload.get("rme", False))
+    access_token, duration = security.create_access_token({"sub": str(current_user.id), "rme": remember_me})
+    return MealieAuthToken.respond(access_token, duration)
 
 
 @user_router.post("/logout")
