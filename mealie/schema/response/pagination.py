@@ -3,7 +3,7 @@ from typing import Annotated, Any
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from humps import camelize
-from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator
+from pydantic import UUID4, BaseModel, Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 
 from mealie.schema._mealie import MealieModel
@@ -20,8 +20,6 @@ class OrderByNullPosition(enum.StrEnum):
 
 
 class RecipeSearchQuery(MealieModel):
-    # Eager build: FastAPI needs the schema compiled at startup for query-parameter injection
-    model_config = ConfigDict(defer_build=False)
     cookbook: UUID4 | str | None = None
     require_all_categories: bool = False
     require_all_tags: bool = False
@@ -32,8 +30,6 @@ class RecipeSearchQuery(MealieModel):
 
 
 class RequestQuery(MealieModel):
-    # Eager build: FastAPI needs the schema compiled at startup for query-parameter injection
-    model_config = ConfigDict(defer_build=False)
     order_by: str | None = None
     order_by_null_position: OrderByNullPosition | None = None
     order_direction: OrderDirection = OrderDirection.desc
