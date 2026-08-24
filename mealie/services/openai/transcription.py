@@ -4,9 +4,6 @@ from collections.abc import Awaitable, Callable
 from pathlib import Path
 from typing import TypedDict
 
-import yt_dlp
-from yt_dlp.extractor.generic import GenericIE
-
 from mealie.core import exceptions
 from mealie.core.root_logger import get_logger
 
@@ -29,6 +26,9 @@ class TranscribedAudio(TypedDict):
 @functools.cache
 def get_yt_dlp_extractors() -> list:
     """Build and cache the yt-dlp extractor list once per process lifetime."""
+    import yt_dlp
+    from yt_dlp.extractor.generic import GenericIE
+
     return [ie for ie in yt_dlp.extractor.gen_extractors() if ie.working() and not isinstance(ie, GenericIE)]
 
 
@@ -56,6 +56,8 @@ def parse_subtitle_content(subtitle_content: str) -> str:
 
 def download_video(url: str, temp_path: Path) -> TranscribedAudio:
     """Downloads audio and subtitles from a video URL."""
+
+    import yt_dlp
 
     output_template = temp_path / "mealie"  # No extension here
 

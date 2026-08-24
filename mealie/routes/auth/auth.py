@@ -1,6 +1,5 @@
 from typing import Annotated, Any
 
-from authlib.integrations.starlette_client import OAuth, OAuthError
 from fastapi import APIRouter, Depends, Header, Request, Response, status
 from fastapi.exceptions import HTTPException
 from fastapi.responses import RedirectResponse
@@ -12,7 +11,6 @@ from mealie.core import root_logger, security
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies import get_current_user
 from mealie.core.exceptions import MissingClaimException, UserLockedOut
-from mealie.core.security.providers.openid_provider import OpenIDProvider
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
 from mealie.lang import get_locale_provider
@@ -28,7 +26,10 @@ logger = root_logger.get_logger("auth")
 
 
 settings = get_app_settings()
+oauth = None
 if settings.OIDC_READY:
+    from authlib.integrations.starlette_client import OAuth
+
     oauth = OAuth(cache=AuthCache())
     scope = None
     if settings.OIDC_SCOPES_OVERRIDE:
@@ -123,6 +124,8 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
 
     token = await client.authorize_access_token(request)
 
+    from mealie.core.security.providers.openid_provider import OpenIDProvider
+
     auth = None
     try:
         auth_provider = OpenIDProvider(session, token["userinfo"])
@@ -147,7 +150,7 @@ async def oauth_callback(request: Request, session: Session = Depends(generate_s
 @public_router.get("/oauth/native/config", response_model=OIDCNativeConfig)
 async def oauth_native_config():
     """Return the parameters a native client needs to build its own OIDC authorization request."""
-    if not settings.OIDC_READY:
+    if not settings.OIDC_READY or not oauth:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="OIDC is not configured",
@@ -170,11 +173,13 @@ async def oauth_native_token(data: NativeOIDCTokenRequest, session: Session = De
     session cookie. This lets passkey-capable system-browser logins (e.g. Pocket ID) work, which
     the cookie-coupled web callback cannot support.
     """
-    if not settings.OIDC_READY:
+    if not settings.OIDC_READY or not oauth:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="OIDC is not configured",
         )
+
+    from authlib.integrations.starlette_client import OAuthError
 
     client = oauth.create_client("oidc")
     try:
@@ -187,6 +192,8 @@ async def oauth_native_token(data: NativeOIDCTokenRequest, session: Session = De
     except OAuthError as e:
         logger.error("[OIDC] Native token exchange failed: %s", e)
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED) from e
+
+    from mealie.core.security.providers.openid_provider import OpenIDProvider
 
     auth = None
     try:
