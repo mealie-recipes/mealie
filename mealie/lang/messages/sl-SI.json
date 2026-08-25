@@ -21,29 +21,29 @@
         "and-amount": "in {amount}",
         "or-ingredient": "ali {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
-            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
-            "image-provider-not-enabled": "AI image services are not enabled",
-            "no-recipe-found": "No recipe was found in the provided source",
-            "no-source": "No content, images, or URL were provided",
-            "provider-returned-nothing": "The AI provider did not return a recipe",
-            "unknown-error": "Something went wrong while creating the recipe. Please try again",
-            "unreadable-source": "Unable to read any content from the provided source",
-            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+            "ai-not-enabled": "Storitve umetne inteligence niso omogočene",
+            "ai-request-failed": "Ponudnik umetne inteligence ni mogel dokončati zahteve. Poskusite znova",
+            "image-provider-not-enabled": "Storitve slikanja z umetno inteligenco niso omogočene",
+            "no-recipe-found": "V navedenem viru ni bilo mogoče najti nobenega recepta",
+            "no-source": "Niso bili posredovani nobena vsebina, slike ali URL",
+            "provider-returned-nothing": "Ponudnik umetne inteligence ni vrnil recepta",
+            "unknown-error": "Pri ustvarjanju recepta je prišlo do napake. Poskusite znova",
+            "unreadable-source": "Vsebine iz navedenega vira ni mogoče prebrati",
+            "video-download-failed": "Videoposnetka ni mogoče prenesti. Morda je zaseben, odstranjen ali pa prihaja z nepodprtega spletnega mesta"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Ustvarjanje recepta...",
             "creating-recipe-from-transcript-with-ai": "Ustvarjanje recepta iz prepisa z umetno inteligenco...",
             "creating-recipe-from-webpage-data": "Ustvarjanje recepta iz podatkov spletne strani...",
             "downloading-image": "Prenašanje slike...",
             "downloading-video": "Prenašanje videoposnetka...",
             "extracting-recipe-data": "Pridobivanje podatkov o receptih...",
             "fetching-webpage": "Pridobivanje spletne strani...",
-            "organizing-recipe": "Organizing recipe...",
-            "reading-images-with-ai": "Reading images with AI...",
-            "reading-source-with-ai": "Reading source with AI...",
+            "organizing-recipe": "Organizacija recepta...",
+            "reading-images-with-ai": "Branje slik z umetno inteligenco...",
+            "reading-source-with-ai": "Branje vira z umetno inteligenco...",
             "transcribing-audio-with-ai": "Prepisovanje zvoka z umetno inteligenco...",
-            "translating-recipe": "Translating recipe..."
+            "translating-recipe": "Prevajanje recepta..."
         }
     },
     "mealplan": {
@@ -62,7 +62,7 @@
         "permission_denied": "Nimate dovoljenja za izvedbo zahtevanega dejanja",
         "recursive-recipe-link": "Recept se ne more sklicevati na samega sebe, niti neposredno niti posredno",
         "no-entry-found": "Zahtevanega vira ni moč najti",
-        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
+        "rate-limit-error": "Ponudnik umetne inteligence omejuje število zahtev. Počakajte trenutek in poskusite znova",
         "integrity-error": "Napaka pri preverjanju integritete baze",
         "username-conflict-error": "To uporabniško ime je že zasedeno",
         "email-conflict-error": "Ta e-mail je že v uporabi"
