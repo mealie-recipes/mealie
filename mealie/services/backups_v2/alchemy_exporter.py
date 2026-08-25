@@ -181,7 +181,7 @@ class AlchemyExporter(BaseService):
 
             result = {
                 table.name: [dict(row) for row in connection.execute(table.select()).mappings()]
-                for table in self.meta.sorted_tables
+                for table in self.meta.tables.values()
             }
 
         return jsonable_encoder(result)
@@ -248,11 +248,11 @@ class AlchemyExporter(BaseService):
 
     def drop_all(self) -> None:
         """Drops all data from the database"""
-        from sqlalchemy.engine.reflection import Inspector
+        from sqlalchemy import inspect
         from sqlalchemy.schema import DropConstraint, DropTable, MetaData, Table
 
         with self.engine.begin() as connection:
-            inspector = Inspector.from_engine(self.engine)
+            inspector = inspect(self.engine)
 
             # We need to re-create a minimal metadata with only the required things to
             # successfully emit drop constraints and tables commands for postgres (based

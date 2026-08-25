@@ -1,5 +1,5 @@
 import type { ModelRef } from "vue";
-import type { ShoppingListItemOut, ShoppingListItemCreate } from "~/lib/api/types/household";
+import type { ShoppingListItemOut, ShoppingListItemCreate, IngredientFood } from "~/lib/api/types/household";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "../store";
 
 export function useShoppingListItemEditor(listItem: ModelRef<ShoppingListItemOut | ShoppingListItemCreate, string, ShoppingListItemOut | ShoppingListItemCreate, ShoppingListItemOut | ShoppingListItemCreate>) {
@@ -43,7 +43,7 @@ export function useShoppingListItemEditor(listItem: ModelRef<ShoppingListItemOut
     }
 
     listItem.value.food.labelId = listItem.value.labelId;
-    await foodStore.actions.updateOne(listItem.value.food);
+    await foodStore.actions.updateOne(listItem.value.food as IngredientFood);
   }
 
   return {

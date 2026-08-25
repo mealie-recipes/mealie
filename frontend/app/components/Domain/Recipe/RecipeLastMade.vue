@@ -22,7 +22,7 @@
               rows="4"
             />
             <div v-if="childRecipes?.length">
-              <v-card-text class="pt-6 pb-0">
+              <v-card-text class="pt-6 pb-0 text-title-medium">
                 {{ $t('recipe.include-linked-recipes') }}
               </v-card-text>
               <v-list>
@@ -45,14 +45,13 @@
               </v-list>
             </div>
             <v-container>
-              <v-row>
-                <v-col cols="6">
+              <v-row class="mt-4">
+                <v-col cols="5">
                   <v-menu
                     v-model="datePickerMenu"
                     :close-on-content-click="false"
                     transition="scale-transition"
                     offset-y
-                    max-width="290px"
                   >
                     <template #activator="{ props: activatorProps }">
                       <v-text-field
@@ -60,6 +59,8 @@
                         :prepend-icon="$globals.icons.calendar"
                         v-bind="activatorProps"
                         readonly
+                        density="compact"
+                        min-width="160"
                       />
                     </template>
                     <v-date-picker
@@ -72,7 +73,7 @@
                   </v-menu>
                 </v-col>
                 <v-spacer />
-                <v-col cols="auto" align-self="center">
+                <v-col cols="auto">
                   <AppButtonUpload
                     v-if="!newTimelineEventImage"
                     class="ml-auto"
@@ -93,7 +94,7 @@
                 </v-col>
               </v-row>
               <v-row v-if="newTimelineEventImage && newTimelineEventImagePreviewUrl">
-                <v-col cols="12" align-self="center">
+                <v-col cols="12">
                   <ImageCropper
                     :img="newTimelineEventImagePreviewUrl"
                     cropper-height="20vh"
@@ -115,16 +116,17 @@
               <v-btn
                 rounded
                 variant="outlined"
-                size="x-large"
+                size="large"
                 v-bind="tooltipProps"
+                class="font-weight-400"
                 style="border-color: rgb(var(--v-theme-primary));"
                 @click="madeThisDialog = true"
               >
                 <v-icon start size="large" color="primary">
                   {{ $globals.icons.calendar }}
                 </v-icon>
-                <span class="text-body-1 opacity-80">
-                  <b>{{ $t("general.last-made") }}</b>
+                <span class="opacity-80">
+                  <strong>{{ $t("general.last-made") }}</strong>
                   <br>
                   {{ lastMade ? $d(new Date(lastMade)) : $t("general.never") }}
                 </span>

@@ -18,13 +18,11 @@
               bordered
             >
               <v-btn
-                class="rounded-circle"
-                size="small"
-                color="info"
+                variant="text"
                 v-bind="activatorProps"
-                icon
+                :prepend-icon="$globals.icons.filter"
               >
-                <v-icon> {{ $globals.icons.filter }} </v-icon>
+                {{ $t("general.filter") }}
               </v-btn>
             </v-badge>
           </template>
@@ -39,28 +37,24 @@
               <v-list-item
                 v-for="option, idx in eventTypeFilterState"
                 :key="idx"
+                :active="option.checked"
+                :color="option.checked ? 'primary' : undefined"
+                @click="toggleEventTypeOption(option.value)"
               >
-                <v-checkbox
-                  :model-value="option.checked"
-                  color="primary"
-                  readonly
-                  hide-details
-                  @click="toggleEventTypeOption(option.value)"
-                >
-                  <template #label>
-                    <v-icon start>
-                      {{ option.icon }}
-                    </v-icon>
-                    {{ option.label }}
-                  </template>
-                </v-checkbox>
+                <template #prepend>
+                  <v-icon>
+                    {{ option.icon }}
+                  </v-icon>
+                </template>
+                <v-list-item-title>
+                  {{ option.label }}
+                </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-card>
         </v-menu>
       </v-col>
     </v-row>
-    <v-divider class="mx-2" />
     <div
       v-if="timelineEvents.length"
       id="timeline-container"
@@ -213,7 +207,10 @@ async function deleteTimelineEvent(index: number) {
 }
 
 async function getRecipes(recipeIds: string[]): Promise<Recipe[]> {
-  const qf = "id IN [" + recipeIds.map(id => `"${id}"`).join(", ") + "]";
+  let qf = "";
+  if (recipeIds.length) {
+    qf = "id IN [" + recipeIds.map(id => `"${id}"`).join(", ") + "]";
+  }
   const { data } = await api.recipes.getAll(1, -1, { queryFilter: qf });
   return data?.items || [];
 }

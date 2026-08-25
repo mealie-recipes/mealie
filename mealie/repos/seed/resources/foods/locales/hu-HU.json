@@ -127,7 +127,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pálmarügy",
-                "plural_name": "heart of palm"
+                "plural_name": "pálmaszív"
             },
             "baby greens": {
                 "aliases": [],
@@ -462,7 +462,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "bébi bordáskel",
-                "plural_name": "baby bok choy"
+                "plural_name": "bébi bordáskel"
             },
             "jicama": {
                 "aliases": [],
@@ -493,8 +493,8 @@
             "collard greens": {
                 "aliases": [],
                 "description": "",
-                "name": "collard greens",
-                "plural_name": "collard greens"
+                "name": "tépőkáposzta",
+                "plural_name": "tépőkáposzta"
             },
             "french-fried onion": {
                 "aliases": [],
@@ -547,14 +547,14 @@
             "microgreens": {
                 "aliases": [],
                 "description": "",
-                "name": "microgreens",
-                "plural_name": "microgreens"
+                "name": "mikrozöldek",
+                "plural_name": "mikrozöldek"
             },
             "boston lettuce": {
                 "aliases": [],
                 "description": "",
                 "name": "fejes saláta",
-                "plural_name": "boston lettuce"
+                "plural_name": "fejes saláta"
             },
             "kohlrabi": {
                 "aliases": [],
@@ -1939,8 +1939,8 @@
             "honey-roasted pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "honey-roasted pecan",
-                "plural_name": "honey-roasted pecans"
+                "name": "mézes-pörkölt pekándió",
+                "plural_name": "mézes-pörkölt pekándió"
             },
             "tigernut": {
                 "aliases": [],
@@ -1951,8 +1951,8 @@
             "sunflower sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower sprout",
-                "plural_name": "sunflower sprouts"
+                "name": "napraforgócsíra",
+                "plural_name": "napraforgócsíra"
             },
             "apricot kernel": {
                 "aliases": [],
@@ -1969,8 +1969,8 @@
             "ginkgo nut": {
                 "aliases": [],
                 "description": "",
-                "name": "ginkgo nut",
-                "plural_name": "ginkgo nuts"
+                "name": "ginkgo mag",
+                "plural_name": "ginkgo mag"
             },
             "keto trail mix": {
                 "aliases": [],
@@ -2121,8 +2121,8 @@
             "provolone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "provolone cheese",
-                "plural_name": "provolone cheese"
+                "name": "provolone sajt",
+                "plural_name": "provolone sajt"
             },
             "mexican cheese blend": {
                 "aliases": [],
@@ -2169,8 +2169,8 @@
             "gouda cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gouda cheese",
-                "plural_name": "gouda cheese"
+                "name": "gouda sajt",
+                "plural_name": "gouda sajt"
             },
             "cotija cheese": {
                 "aliases": [],
@@ -2319,8 +2319,8 @@
             "edam cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "edam cheese",
-                "plural_name": "edam cheese"
+                "name": "edámi sajt",
+                "plural_name": "edámi sajt"
             },
             "creamy cheese wedge": {
                 "aliases": [],
@@ -2630,25 +2630,25 @@
                 "aliases": [],
                 "description": "",
                 "name": "tej",
-                "plural_name": "milk"
+                "plural_name": "tej"
             },
             "heavy cream": {
                 "aliases": [],
                 "description": "",
                 "name": "tejszín",
-                "plural_name": "heavy cream"
+                "plural_name": "habtejszín"
             },
             "sour cream": {
                 "aliases": [],
                 "description": "",
                 "name": "tejföl",
-                "plural_name": "sour cream"
+                "plural_name": "tejföl"
             },
             "buttermilk": {
                 "aliases": [],
                 "description": "",
                 "name": "író",
-                "plural_name": "buttermilk"
+                "plural_name": "író"
             },
             "yogurt": {
                 "aliases": [],
@@ -2666,13 +2666,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "tejszín",
-                "plural_name": "cream"
+                "plural_name": "tejszín"
             },
             "whipped cream": {
                 "aliases": [],
                 "description": "",
                 "name": "tejszínhab",
-                "plural_name": "whipped cream"
+                "plural_name": "tejszínhab"
             },
             "ghee": {
                 "aliases": [
@@ -2685,14 +2685,14 @@
             "shortening": {
                 "aliases": [],
                 "description": "",
-                "name": "shortening",
-                "plural_name": "shortenings"
+                "name": "növényi zsír",
+                "plural_name": "növényi zsír"
             },
             "condensed milk": {
                 "aliases": [],
                 "description": "",
                 "name": "sűrített tej",
-                "plural_name": "condensed milk"
+                "plural_name": "sűrített tej"
             },
             "half and half": {
                 "aliases": [],
@@ -2704,13 +2704,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "édesített sűrített tej",
-                "plural_name": "sweetened condensed milk"
+                "plural_name": "édesített sűrített tej"
             },
             "ice cream": {
                 "aliases": [],
                 "description": "",
                 "name": "fagylalt",
-                "plural_name": "ice cream"
+                "plural_name": "fagylalt"
             },
             "margarine": {
                 "aliases": [],
@@ -2734,7 +2734,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tejpor",
-                "plural_name": "milk powder"
+                "plural_name": "tejpor"
             },
             "curd": {
                 "aliases": [],
@@ -2746,7 +2746,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sűrített tejszín",
-                "plural_name": "thickened cream"
+                "plural_name": "zsíros tejszín"
             },
             "lemon curd": {
                 "aliases": [],
@@ -2764,7 +2764,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vaníliakrém",
-                "plural_name": "custard"
+                "plural_name": "sodó"
             },
             "chocolate frosting": {
                 "aliases": [],
@@ -2782,13 +2782,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "sörbet",
-                "plural_name": "sherbets"
+                "plural_name": "szörbet"
             },
             "chocolate milk": {
                 "aliases": [],
                 "description": "",
                 "name": "kakaós tej",
-                "plural_name": "chocolate milk"
+                "plural_name": "kakaós tej"
             },
             "liquid egg substitute": {
                 "aliases": [],
@@ -2823,8 +2823,8 @@
             "frozen yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen yogurt",
-                "plural_name": "frozen yogurts"
+                "name": "fagyasztott joghurt",
+                "plural_name": "fagyasztott joghurt"
             },
             "khoya": {
                 "aliases": [],
@@ -2835,8 +2835,8 @@
             "milk cream": {
                 "aliases": [],
                 "description": "",
-                "name": "milk cream",
-                "plural_name": "milk cream"
+                "name": "tejszín",
+                "plural_name": "tejszín"
             },
             "coffee creamer": {
                 "aliases": [],
@@ -2847,38 +2847,38 @@
             "clotted cream": {
                 "aliases": [],
                 "description": "",
-                "name": "clotted cream",
-                "plural_name": "clotted cream"
+                "name": "sűrű aludttejszín",
+                "plural_name": "sűrű aludttejszín"
             },
             "goat milk": {
                 "aliases": [],
                 "description": "",
                 "name": "kecsketej",
-                "plural_name": "goat milk"
+                "plural_name": "kecsketej"
             },
             "cheese curd": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese curd",
-                "plural_name": "cheese curds"
+                "name": "sajttúró",
+                "plural_name": "sajttúró"
             },
             "sour milk": {
                 "aliases": [],
                 "description": "",
                 "name": "aludttej",
-                "plural_name": "sour milk"
+                "plural_name": "aludttej"
             },
             "ganache": {
                 "aliases": [],
                 "description": "",
-                "name": "ganache",
-                "plural_name": "ganaches"
+                "name": "párizsi krém",
+                "plural_name": "párizsi krém"
             },
             "cajeta": {
                 "aliases": [],
                 "description": "",
                 "name": "cajeta",
-                "plural_name": "cajetas"
+                "plural_name": "cajeta"
             },
             "duck egg": {
                 "aliases": [],
@@ -2889,32 +2889,32 @@
             "salted egg": {
                 "aliases": [],
                 "description": "",
-                "name": "salted egg",
-                "plural_name": "salted eggs"
+                "name": "sózott tojás",
+                "plural_name": "sózott tojás"
             },
             "skyr": {
                 "aliases": [],
                 "description": "",
                 "name": "skyr",
-                "plural_name": "skyrs"
+                "plural_name": "skyr"
             },
             "pumpkin spice coffee creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin spice coffee creamer",
+                "name": "sütőtök fűszeres kávékrém",
                 "plural_name": "pumpkin spice coffee creamers"
             },
             "raw milk": {
                 "aliases": [],
                 "description": "",
                 "name": "nyers tej",
-                "plural_name": "raw milk"
+                "plural_name": "nyers tej"
             },
             "lime curd": {
                 "aliases": [],
                 "description": "",
-                "name": "lime curd",
-                "plural_name": "lime curds"
+                "name": "lime-krém",
+                "plural_name": "lime-krém"
             },
             "powdered coffee creamer": {
                 "aliases": [],
@@ -2925,20 +2925,20 @@
             "chantilly": {
                 "aliases": [],
                 "description": "",
-                "name": "chantilly",
-                "plural_name": "chantillies"
+                "name": "chantilly-krém",
+                "plural_name": "chantilly-krém"
             },
             "milkfat": {
                 "aliases": [],
                 "description": "",
-                "name": "milkfat",
-                "plural_name": "milkfats"
+                "name": "tejzsír",
+                "plural_name": "tejzsír"
             },
             "yogurt starter": {
                 "aliases": [],
                 "description": "",
-                "name": "yogurt starter",
-                "plural_name": "yogurt starters"
+                "name": "joghurtkultúra",
+                "plural_name": "joghurtkultúra"
             },
             "rainbow sherbet": {
                 "aliases": [],
@@ -2974,7 +2974,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "epres krémsajt",
-                "plural_name": "strawberry cream cheese"
+                "plural_name": "epres krémsajt"
             },
             "goat butter": {
                 "aliases": [],
@@ -3009,8 +3009,8 @@
             "cinnamon sugar butter spread": {
                 "aliases": [],
                 "description": "",
-                "name": "cinnamon sugar butter spread",
-                "plural_name": "cinnamon sugar butter spreads"
+                "name": "fahéjas-cukros vajkrém",
+                "plural_name": "fahéjas-cukros vajkrém"
             },
             "bulgarian yogurt": {
                 "aliases": [],
@@ -3022,7 +3022,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "tvorog",
-                "plural_name": "tvorogs"
+                "plural_name": "tvorog"
             },
             "chocolate milk powder": {
                 "aliases": [],
@@ -3033,8 +3033,8 @@
             "liquid rennet": {
                 "aliases": [],
                 "description": "",
-                "name": "liquid rennet",
-                "plural_name": "liquid rennets"
+                "name": "folyékony tejoltó",
+                "plural_name": "folyékony tejoltó"
             },
             "sheep’s milk yoghurt": {
                 "aliases": [],
@@ -3046,7 +3046,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "epres tej",
-                "plural_name": "strawberry milk"
+                "plural_name": "epres tej"
             },
             "ayran": {
                 "aliases": [],
@@ -3082,7 +3082,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "juhtej",
-                "plural_name": "sheep milk"
+                "plural_name": "juhtej"
             },
             "starter culture": {
                 "aliases": [],
@@ -3106,7 +3106,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vanilliástej",
-                "plural_name": "vanilla milk"
+                "plural_name": "vaníliás tej"
             },
             "yoplait whip": {
                 "aliases": [],
@@ -3175,8 +3175,8 @@
             "non-dairy milk": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy milk",
-                "plural_name": "non-dairy milk"
+                "name": "növényi tej",
+                "plural_name": "növényi tej"
             },
             "soy milk": {
                 "aliases": [],
@@ -3187,14 +3187,14 @@
             "extra firm tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "extra firm tofu",
-                "plural_name": "extra firm tofus"
+                "name": "extra kemény tofu",
+                "plural_name": "extra kemény tofu"
             },
             "silken tofu": {
                 "aliases": [],
                 "description": "",
-                "name": "silken tofu",
-                "plural_name": "silken tofus"
+                "name": "selyemtofu",
+                "plural_name": "selyemtofu"
             },
             "kala namak salt": {
                 "aliases": [],
@@ -3205,8 +3205,8 @@
             "coconut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut butter",
-                "plural_name": "coconut butter"
+                "name": "kókuszvaj",
+                "plural_name": "kókuszvaj"
             },
             "egg replacer": {
                 "aliases": [],
@@ -3218,13 +3218,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "vegán majonéz",
-                "plural_name": "vegan mayonnaise"
+                "plural_name": "vegán majonéz"
             },
             "vegan cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan cheese",
-                "plural_name": "vegan cheese"
+                "name": "vegán sajt",
+                "plural_name": "vegán sajt"
             },
             "cashew butter": {
                 "aliases": [],
@@ -3242,67 +3242,67 @@
                 "aliases": [],
                 "description": "",
                 "name": "vegán krémsajt",
-                "plural_name": "vegan cream cheese"
+                "plural_name": "vegán krémsajt"
             },
             "coconut yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut yogurt",
-                "plural_name": "coconut yogurts"
+                "name": "kókuszjoghurt",
+                "plural_name": "kókuszjoghurt"
             },
             "non-dairy yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy yogurt",
-                "plural_name": "non-dairy yogurts"
+                "name": "növényi alapú joghurt",
+                "plural_name": "növényi alapú joghurt"
             },
             "seed butter": {
                 "aliases": [],
                 "description": "",
-                "name": "seed butter",
-                "plural_name": "seed butter"
+                "name": "magvaj",
+                "plural_name": "magvaj"
             },
             "cashew milk": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew milk",
-                "plural_name": "cashew milk"
+                "name": "kesudió-ital",
+                "plural_name": "kesudió-ital"
             },
             "oat milk": {
                 "aliases": [],
                 "description": "",
                 "name": "zabtej",
-                "plural_name": "oat milk"
+                "plural_name": "zabtej"
             },
             "nut butter": {
                 "aliases": [],
                 "description": "",
-                "name": "nut butter",
-                "plural_name": "nut butter"
+                "name": "csonthéjas-krém",
+                "plural_name": "magkrém"
             },
             "rice milk": {
                 "aliases": [],
                 "description": "",
-                "name": "rice milk",
-                "plural_name": "rice milk"
+                "name": "rizstej",
+                "plural_name": "rizstej"
             },
             "vegan sour cream": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan sour cream",
-                "plural_name": "vegan sour cream"
+                "name": "vegán tejföl",
+                "plural_name": "vegán tejföl"
             },
             "textured vegetable protein": {
                 "aliases": [],
                 "description": "",
-                "name": "textured vegetable protein",
-                "plural_name": "textured vegetable proteins"
+                "name": "texturált növényi fehérje",
+                "plural_name": "texturált növényi fehérje"
             },
             "vegan worcestershire": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan worcestershire",
-                "plural_name": "vegan worcestershires"
+                "name": "vegán Worcestershire-szósz",
+                "plural_name": "vegán Worcestershire-szósz"
             },
             "soy yogurt": {
                 "aliases": [],
@@ -3319,8 +3319,8 @@
             "non-dairy creamer": {
                 "aliases": [],
                 "description": "",
-                "name": "non-dairy creamer",
-                "plural_name": "non-dairy creamers"
+                "name": "növényi kávéfehérítő",
+                "plural_name": "növényi kávéfehérítő"
             },
             "vegan sausage": {
                 "aliases": [],
@@ -3331,8 +3331,8 @@
             "coconut whipped cream": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut whipped cream",
-                "plural_name": "coconut whipped cream"
+                "name": "kókusztejszínhab",
+                "plural_name": "kókusztejszínhab"
             },
             "smoked tofu": {
                 "aliases": [],
@@ -3343,20 +3343,20 @@
             "coconut powder": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut powder",
-                "plural_name": "coconut powder"
+                "name": "kókusztejpor",
+                "plural_name": "kókusztejpor"
             },
             "soy cream": {
                 "aliases": [],
                 "description": "",
-                "name": "soy cream",
-                "plural_name": "soy cream"
+                "name": "szója főzőkrém",
+                "plural_name": "szója főzőkrém"
             },
             "seitan": {
                 "aliases": [],
                 "description": "",
-                "name": "seitan",
-                "plural_name": "seitans"
+                "name": "szejtán",
+                "plural_name": "szejtán"
             },
             "coconut milk powder": {
                 "aliases": [],
@@ -3373,8 +3373,8 @@
             "nut milk": {
                 "aliases": [],
                 "description": "",
-                "name": "nut milk",
-                "plural_name": "nut milk"
+                "name": "magtej",
+                "plural_name": "magtej"
             },
             "non-dairy cream": {
                 "aliases": [],
@@ -3433,8 +3433,8 @@
             "vegan feta": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan feta",
-                "plural_name": "vegan fetas"
+                "name": "vegán feta",
+                "plural_name": "vegán feta"
             },
             "soy chorizo": {
                 "aliases": [],
@@ -3785,8 +3785,8 @@
             "pork loin": {
                 "aliases": [],
                 "description": "",
-                "name": "pork loin",
-                "plural_name": "pork loins"
+                "name": "sertéskaraj",
+                "plural_name": "sertéskaraj"
             },
             "prosciutto": {
                 "aliases": [],
@@ -3803,26 +3803,26 @@
             "beef roast": {
                 "aliases": [],
                 "description": "",
-                "name": "beef roast",
-                "plural_name": "beef roasts"
+                "name": "marhasült",
+                "plural_name": "marhasült"
             },
             "ground pork": {
                 "aliases": [],
                 "description": "",
-                "name": "ground pork",
-                "plural_name": "ground porks"
+                "name": "darált sertéshús",
+                "plural_name": "darált sertéshús"
             },
             "beef stew meat": {
                 "aliases": [],
                 "description": "",
-                "name": "beef stew meat",
-                "plural_name": "beef stew meats"
+                "name": "marhapörköltnek való hús",
+                "plural_name": "marhapörköltnek való hús"
             },
             "pepperoni": {
                 "aliases": [],
                 "description": "",
                 "name": "pepperoni",
-                "plural_name": "pepperonis"
+                "plural_name": "pepperoni"
             },
             "chorizo": {
                 "aliases": [],
@@ -3839,7 +3839,7 @@
             "pork fillet": {
                 "aliases": [],
                 "description": "",
-                "name": "pork fillet",
+                "name": "szűzpecsenye",
                 "plural_name": "pork fillets"
             },
             "pork shoulder": {
@@ -3887,14 +3887,14 @@
             "salami": {
                 "aliases": [],
                 "description": "",
-                "name": "salami",
-                "plural_name": "salamis"
+                "name": "szalámi",
+                "plural_name": "szalámi"
             },
             "brisket": {
                 "aliases": [],
                 "description": "",
-                "name": "brisket",
-                "plural_name": "briskets"
+                "name": "marhaszegy",
+                "plural_name": "marhaszegy"
             },
             "deli ham": {
                 "aliases": [],
@@ -4043,8 +4043,8 @@
             "ham steak": {
                 "aliases": [],
                 "description": "",
-                "name": "ham steak",
-                "plural_name": "ham steaks"
+                "name": "sonkaszelet",
+                "plural_name": "sonkaszelet"
             },
             "venison": {
                 "aliases": [],
@@ -13725,11 +13725,11 @@
                 "name": "anchovy stock",
                 "plural_name": "anchovy stock"
             },
-            "cream of chicken soup mix:": {
+            "cream of chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "csirke krémleves-keverék",
+                "plural_name": "csirke krémleves-keverék"
             },
             "noodle soup mix": {
                 "aliases": [],
