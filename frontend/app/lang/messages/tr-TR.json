@@ -960,15 +960,32 @@
     "select-language": "Dil Seç",
     "columns": "Sütunlar",
     "combine": "Birleştir",
+    "delete-unused": "Delete Unused",
+    "delete-unused-more": "+ {count} more",
+    "recipe-count": "Recipe Count",
     "categories": {
       "edit-category": "Kategori Düzenle",
       "new-category": "Yeni Kategori",
-      "category-data": "Kategori Verisi"
+      "category-data": "Kategori Verisi",
+      "combine-category": "Combine Category",
+      "source-category": "Source Category",
+      "target-category": "Target Category",
+      "merge-dialog-text": "Combining the selected categories will merge the source category and target category into a single category. The source category will be deleted and all of the references to the source category will be updated to point to the target category.",
+      "merge-category-example": "Merging {category1} into {category2}",
+      "delete-unused-confirm": "Okay to delete this unused category? This cannot be undone. | Okay to delete these {count} unused categories? This cannot be undone.",
+      "no-unused-categories": "No unused categories to delete"
     },
     "tags": {
       "new-tag": "Yeni Etiket",
       "edit-tag": "Etiketi Düzenle",
-      "tag-data": "Etiket Verisi"
+      "tag-data": "Etiket Verisi",
+      "combine-tag": "Combine Tag",
+      "source-tag": "Source Tag",
+      "target-tag": "Target Tag",
+      "merge-dialog-text": "Combining the selected tags will merge the source tag and target tag into a single tag. The source tag will be deleted and all of the references to the source tag will be updated to point to the target tag.",
+      "merge-tag-example": "Merging {tag1} into {tag2}",
+      "delete-unused-confirm": "Okay to delete this unused tag? This cannot be undone. | Okay to delete these {count} unused tags? This cannot be undone.",
+      "no-unused-tags": "No unused tags to delete"
     },
     "tools": {
       "new-tool": "Yeni Araç",
