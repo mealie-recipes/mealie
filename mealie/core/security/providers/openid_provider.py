@@ -1,9 +1,14 @@
+import hashlib
+import ipaddress
+import socket
 from datetime import timedelta
 from pathlib import Path
+from urllib.parse import urlparse
 from uuid import uuid4
 
 import requests
 from authlib.oidc.core import UserInfo
+from pydantic import UUID4
 from sqlalchemy.orm.session import Session
 
 from mealie.core import root_logger
@@ -15,6 +20,10 @@ from mealie.db.models.users.users import AuthMethod
 from mealie.pkgs import cache, img
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser
+
+# Avatars are downscaled to a small webp thumbnail anyway, so anything past this is either a
+# mistake on the provider's side or an attempt to exhaust our disk/memory.
+MAX_PICTURE_BYTES = 5 * 1024 * 1024
 
 
 class OpenIDProvider(AuthProvider[UserInfo]):
@@ -141,25 +150,88 @@ class OpenIDProvider(AuthProvider[UserInfo]):
             claims.add(settings.OIDC_GROUPS_CLAIM)
         return claims
 
-    def _update_profile_image_from_claim(self, user_id, claims: UserInfo) -> None:
+    def _is_safe_picture_url(self, url: str) -> bool:
+        """
+        Vets the picture claim before we make a request to it.
+
+        The claim is not necessarily set by the provider -- IdPs that let users edit their own
+        profile would otherwise hand any user a request-forgery primitive -- so the URL must use
+        HTTPS and resolve to a public address. The exception is the provider's own host, which
+        Mealie already contacts on every login and which self-hosted setups routinely run on a
+        private network, often over plain HTTP.
+        """
+        settings = get_app_settings()
+        parsed = urlparse(url)
+        host = parsed.hostname
+        if not host:
+            return False
+
+        if settings.OIDC_CONFIGURATION_URL and host == urlparse(settings.OIDC_CONFIGURATION_URL).hostname:
+            return parsed.scheme in ("http", "https")
+
+        if parsed.scheme != "https":
+            self._logger.warning("[OIDC] refusing to fetch profile image over a non-HTTPS URL")
+            return False
+
+        try:
+            addresses = {info[4][0] for info in socket.getaddrinfo(host, None)}
+        except socket.gaierror:
+            return False
+
+        # `is_global` is false for private, loopback and link-local ranges, so a single check
+        # covers RFC1918, 127/8, and the 169.254.169.254 cloud metadata endpoint.
+        if not addresses or any(not ipaddress.ip_address(address).is_global for address in addresses):
+            self._logger.warning("[OIDC] refusing to fetch profile image from a non-public address")
+            return False
+
+        return True
+
+    @staticmethod
+    def _read_capped(response: requests.Response) -> bytes:
+        """Reads the body, refusing anything over `MAX_PICTURE_BYTES`."""
+        declared_length = response.headers.get("content-length")
+        if declared_length and declared_length.isdigit() and int(declared_length) > MAX_PICTURE_BYTES:
+            raise ValueError(f"declared content-length {declared_length} exceeds {MAX_PICTURE_BYTES} bytes")
+
+        content = bytearray()
+        for chunk in response.iter_content(chunk_size=8192):
+            content.extend(chunk)
+            # Servers that omit or understate Content-Length are caught by the running total.
+            if len(content) > MAX_PICTURE_BYTES:
+                raise ValueError(f"profile image exceeds {MAX_PICTURE_BYTES} bytes")
+        return bytes(content)
+
+    def _update_profile_image_from_claim(self, user_id: UUID4, claims: UserInfo) -> None:
         picture = claims.get("picture")
         if not picture or not isinstance(picture, str):
             return
 
+        if not self._is_safe_picture_url(picture):
+            return
+
+        repos = get_repositories(self.session, group_id=None, household_id=None)
+        user = repos.users.get_one(user_id)
+        if user is None:
+            return
+
+        # Skip the download entirely when the claim still points at the image we already stored.
+        picture_hash = hashlib.sha256(picture.encode()).hexdigest()
+        if user.oidc_picture_hash == picture_hash:
+            return
+
         try:
-            response = requests.get(picture, timeout=15)
+            response = requests.get(picture, timeout=15, stream=True)
             response.raise_for_status()
+            content = self._read_capped(response)
 
             with get_temporary_path() as temp_path:
                 temp_img = Path(temp_path).joinpath(str(uuid4()))
-                with temp_img.open("wb") as file:
-                    file.write(response.content)
+                temp_img.write_bytes(content)
 
                 image = img.PillowMinifier.to_webp(temp_img)
                 dest = PrivateUser.get_directory(user_id) / "profile.webp"
                 dest.write_bytes(Path(image).read_bytes())
 
-                repos = get_repositories(self.session, group_id=None, household_id=None)
-                repos.users.patch(user_id, {"cache_key": cache.new_key()})
+            repos.users.patch(user_id, {"cache_key": cache.new_key(), "oidc_picture_hash": picture_hash})
         except Exception as e:
             self._logger.debug("[OIDC] Could not update profile image from picture claim: %s", e)

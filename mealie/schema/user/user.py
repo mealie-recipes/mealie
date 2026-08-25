@@ -209,6 +209,7 @@ class PrivateUser(UserOut):
     password: str
     login_attemps: int = 0
     locked_at: datetime | None = None
+    oidc_picture_hash: str | None = None
     model_config = ConfigDict(from_attributes=True)
 
     @field_validator("login_attemps", mode="before")
