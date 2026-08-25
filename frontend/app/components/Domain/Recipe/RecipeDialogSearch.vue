@@ -89,6 +89,7 @@ const auth = useMealieAuth();
 const loading = ref(false);
 const selectedIndex = ref(-1);
 const router = useRouter();
+const attrs = useAttrs();
 
 // ===========================================================================
 // Dialog State Management
@@ -116,8 +117,17 @@ function scrollSelectedRecipeIntoView() {
   recipeCards[selectedIndex.value]?.scrollIntoView({ block: "center" });
 }
 
-function navigateToRecipe(recipe: RecipeSummary | undefined) {
-  if (!recipe?.slug) {
+function activateRecipe(recipe: RecipeSummary | undefined) {
+  if (!recipe) {
+    return;
+  }
+
+  if (attrs.selected) {
+    handleSelect(recipe);
+    return;
+  }
+
+  if (!recipe.slug) {
     return;
   }
 
@@ -141,7 +151,7 @@ function onSearchKeydown(e: KeyboardEvent) {
   if (e.key === "Enter") {
     e.preventDefault();
     const index = Math.max(selectedIndex.value, 0);
-    navigateToRecipe(search.data.value[index]);
+    activateRecipe(search.data.value[index]);
   }
   else if (e.key === "ArrowUp") {
     e.preventDefault();
@@ -203,7 +213,7 @@ defineExpose({
 });
 </script>
 
-<style>
+<style scoped>
 .scroll {
   overflow-y: auto;
 }
