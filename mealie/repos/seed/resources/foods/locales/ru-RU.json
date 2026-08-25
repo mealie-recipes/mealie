@@ -5161,152 +5161,152 @@
             "rockfish": {
                 "aliases": [],
                 "description": "",
-                "name": "rockfish",
-                "plural_name": "rockfish"
+                "name": "морской окунь",
+                "plural_name": "морской окунь"
             },
             "branzino": {
                 "aliases": [],
                 "description": "",
-                "name": "branzino",
-                "plural_name": "branzinoes"
+                "name": "барабулька",
+                "plural_name": "барабулька"
             },
             "pomfret": {
                 "aliases": [],
                 "description": "",
-                "name": "pomfret",
-                "plural_name": "pomfrets"
+                "name": "памфрет",
+                "plural_name": "памфрет"
             },
             "eel": {
                 "aliases": [],
                 "description": "",
-                "name": "eel",
-                "plural_name": "eels"
+                "name": "угорь",
+                "plural_name": "угорь"
             },
             "dried anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "dried anchovy",
-                "plural_name": "dried anchovies"
+                "name": "сушёный анчоус",
+                "plural_name": "сушёный анчоусы"
             },
             "arctic char": {
                 "aliases": [],
                 "description": "",
-                "name": "arctic char",
-                "plural_name": "arctic chars"
+                "name": "арктический голец",
+                "plural_name": "арктический голец"
             },
             "fresh anchovy": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh anchovy",
-                "plural_name": "fresh anchovies"
+                "name": "свежий анчоус",
+                "plural_name": "свежие анчоусы"
             },
             "lemon sole": {
                 "aliases": [],
                 "description": "",
-                "name": "lemon sole",
-                "plural_name": "lemon soles"
+                "name": "лимонная камбала",
+                "plural_name": "лимонная камбала"
             },
             "yellowtail": {
                 "aliases": [],
                 "description": "",
-                "name": "yellowtail",
-                "plural_name": "yellowtails"
+                "name": "желтопёрый хвост",
+                "plural_name": "желтопёрый хвост"
             },
             "battered fish": {
                 "aliases": [],
                 "description": "",
-                "name": "battered fish",
-                "plural_name": "battered fish"
+                "name": "рыба в кляре",
+                "plural_name": "рыба в кляре"
             },
             "pike": {
                 "aliases": [],
                 "description": "",
-                "name": "pike",
-                "plural_name": "pikes"
+                "name": "щука",
+                "plural_name": "щуки"
             },
             "pickled herring": {
                 "aliases": [],
                 "description": "",
-                "name": "pickled herring",
-                "plural_name": "pickled herrings"
+                "name": "маринованная сельдь",
+                "plural_name": "маринованная сельдь"
             },
             "john dory": {
                 "aliases": [],
                 "description": "",
-                "name": "john dory",
-                "plural_name": "john dories"
+                "name": "светящийся окунь",
+                "plural_name": "светящийся окунь"
             },
             "swai fish": {
                 "aliases": [],
                 "description": "",
-                "name": "swai fish",
-                "plural_name": "swai fish"
+                "name": "пангасиус",
+                "plural_name": "пангасиус"
             },
             "walleye": {
                 "aliases": [],
                 "description": "",
-                "name": "walleye",
-                "plural_name": "walleyes"
+                "name": "судак\n",
+                "plural_name": "судак\n"
             },
             "fresh mackerel": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mackerel",
-                "plural_name": "fresh mackerel"
+                "name": "свежая скумбрия",
+                "plural_name": "свежая скумбрия"
             },
             "salmon trout": {
                 "aliases": [],
                 "description": "",
-                "name": "salmon trout",
-                "plural_name": "salmon trout"
+                "name": "лосось‑форель",
+                "plural_name": "лосось‑форель"
             },
             "basa fish": {
                 "aliases": [],
                 "description": "",
-                "name": "basa fish",
-                "plural_name": "basa fish"
+                "name": "пангасиус",
+                "plural_name": "пангасиус"
             },
             "smoked eel": {
                 "aliases": [],
                 "description": "",
-                "name": "smoked eel",
-                "plural_name": "smoked eels"
+                "name": "копчёный угорь",
+                "plural_name": "копчёные угри"
             },
             "fish ball": {
                 "aliases": [],
                 "description": "",
-                "name": "fish ball",
-                "plural_name": "fish balls"
+                "name": "рыбный шарик",
+                "plural_name": "рыбные шарики"
             },
             "sturgeon": {
                 "aliases": [],
                 "description": "",
-                "name": "sturgeon",
-                "plural_name": "sturgeons"
+                "name": "осётр",
+                "plural_name": "осётр"
             },
             "bluefish": {
                 "aliases": [],
                 "description": "",
-                "name": "bluefish",
-                "plural_name": "bluefish"
+                "name": "синяя рыба",
+                "plural_name": "синяя рыба"
             },
             "red mullet": {
                 "aliases": [],
                 "description": "",
-                "name": "red mullet",
-                "plural_name": "red mullets"
+                "name": "красная султанка",
+                "plural_name": "красная султанка"
             },
             "gurnard": {
                 "aliases": [],
                 "description": "",
-                "name": "gurnard",
-                "plural_name": "gurnards"
+                "name": "морской петух",
+                "plural_name": "морской петух"
             },
             "plaice": {
                 "aliases": [],
                 "description": "",
-                "name": "plaice",
-                "plural_name": "plaices"
+                "name": "камбала",
+                "plural_name": "камбала"
             },
             "pompano": {
                 "aliases": [],
