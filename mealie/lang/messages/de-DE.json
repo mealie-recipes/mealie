@@ -21,29 +21,29 @@
         "and-amount": "und {amount}",
         "or-ingredient": "oder {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
-            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
-            "image-provider-not-enabled": "AI image services are not enabled",
-            "no-recipe-found": "No recipe was found in the provided source",
-            "no-source": "No content, images, or URL were provided",
-            "provider-returned-nothing": "The AI provider did not return a recipe",
-            "unknown-error": "Something went wrong while creating the recipe. Please try again",
-            "unreadable-source": "Unable to read any content from the provided source",
-            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+            "ai-not-enabled": "KI-Dienste sind nicht aktiviert",
+            "ai-request-failed": "Der KI-Provider konnte die Anfrage nicht abschließen. Bitte versuchen Sie es erneut",
+            "image-provider-not-enabled": "KI-Bilddienste sind nicht aktiviert",
+            "no-recipe-found": "Es wurde kein Rezept in der angegebenen Quelle gefunden",
+            "no-source": "Keine Inhalte, Bilder oder URL angegeben",
+            "provider-returned-nothing": "Der KI-Anbieter hat kein Rezept zurückgegeben",
+            "unknown-error": "Beim Erstellen des Rezepts ist etwas schiefgelaufen. Bitte versuchen Sie es erneut",
+            "unreadable-source": "Es können keine Inhalte von der angegebenen Quelle extrahiert werden",
+            "video-download-failed": "Das Video kann nicht heruntergeladen werden. Es kann privat, entfernt oder von einer nicht unterstützten Seite sein"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Rezept erstellen...",
             "creating-recipe-from-transcript-with-ai": "Erstelle Rezept aus Transkript mit KI...",
             "creating-recipe-from-webpage-data": "Erstelle Rezept aus Website-Daten...",
             "downloading-image": "Bild wird heruntergeladen...",
             "downloading-video": "Video wird heruntergeladen...",
             "extracting-recipe-data": "Entpacken von Rezeptdaten...",
             "fetching-webpage": "Webseite wird abgerufen...",
-            "organizing-recipe": "Organizing recipe...",
-            "reading-images-with-ai": "Reading images with AI...",
-            "reading-source-with-ai": "Reading source with AI...",
+            "organizing-recipe": "Rezept organisieren...",
+            "reading-images-with-ai": "Lese Bilder mit KI...",
+            "reading-source-with-ai": "Lese Quelle mit KI...",
             "transcribing-audio-with-ai": "Transkribiere Audio mit KI...",
-            "translating-recipe": "Translating recipe..."
+            "translating-recipe": "Rezept wird übersetzt..."
         }
     },
     "mealplan": {
@@ -62,7 +62,7 @@
         "permission_denied": "Du hast keine Berechtigung, um diese Aktion auszuführen",
         "recursive-recipe-link": "Ein Rezept kann sich nicht direkt oder indirekt referenzieren",
         "no-entry-found": "Die angeforderte Ressource wurde nicht gefunden",
-        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
+        "rate-limit-error": "Der KI-Anbieter limitiert die Anfragen. Bitte warten Sie einen Moment und versuchen es erneut",
         "integrity-error": "Datenbankintegritätsfehler",
         "username-conflict-error": "Dieser Benutzername ist bereits vergeben",
         "email-conflict-error": "Diese E-Mail-Adresse wird bereits verwendet"
