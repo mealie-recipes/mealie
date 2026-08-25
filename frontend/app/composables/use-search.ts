@@ -58,7 +58,11 @@ function searchableStrings(item: ISearchItemInternal): string[] {
   return out;
 }
 
-function rankItem(item: ISearchItemInternal, query: string): { tier: number; matchLength: number } {
+function rankItem(
+  item: ISearchItemInternal,
+  query: string,
+  wordPrefixRe: RegExp,
+): { tier: number; matchLength: number } {
   let bestTier = TIER_NONE;
   let bestLength = Number.POSITIVE_INFINITY;
 
@@ -73,7 +77,7 @@ function rankItem(item: ISearchItemInternal, query: string): { tier: number; mat
     else if (candidate.startsWith(query)) {
       tier = TIER_PREFIX;
     }
-    else if (new RegExp(`(?:^|\\s)${escapeRegExp(query)}`).test(candidate)) {
+    else if (wordPrefixRe.test(candidate)) {
       tier = TIER_WORD_PREFIX;
     }
     else if (candidate.includes(query)) {
@@ -177,6 +181,9 @@ export function useSearch<T extends ISearchableItem>(
       return itemsArray;
     }
 
+    // Built once per query rather than per candidate string per item.
+    const wordPrefixRe = new RegExp(`(?:^|\\s)${escapeRegExp(normalizedQuery)}`);
+
     const ranked: RankedHit<T>[] = [];
     const fuzzyPool: ISearchItemInternal[] = [];
 
@@ -185,7 +192,7 @@ export function useSearch<T extends ISearchableItem>(
       const original = itemsArray[i];
       if (!internal || !original) continue;
 
-      const { tier, matchLength } = rankItem(internal, normalizedQuery);
+      const { tier, matchLength } = rankItem(internal, normalizedQuery, wordPrefixRe);
       if (tier === TIER_NONE) {
         fuzzyPool.push(internal);
         continue;
