@@ -320,20 +320,15 @@ class AppSettings(AppLoggingSettings):
             "SMTP_FROM_EMAIL": from_email,
             "SMTP_AUTH_STRATEGY": strategy,
         }
-        missing_values = [key for (key, value) in required.items() if value is None]
+        if user or password:
+            required["SMTP_USER"] = user
+            required["SMTP_PASSWORD"] = password
+
+        missing_values = [key for (key, value) in required.items() if value is None or value == ""]
         if missing_values:
             description = f"Missing required values for {missing_values}"
 
-        if strategy and strategy.upper() in {"TLS", "SSL"}:
-            required["SMTP_USER"] = user
-            required["SMTP_PASSWORD"] = password
-            if not description:
-                missing_values = [key for (key, value) in required.items() if value is None]
-                description = f"Missing required values for {missing_values} because SMTP_AUTH_STRATEGY is not None"
-
-        not_none = "" not in required.values() and None not in required.values()
-
-        return FeatureDetails(enabled=not_none, description=description)
+        return FeatureDetails(enabled=not missing_values, description=description)
 
     # ===============================================
     # LDAP Configuration

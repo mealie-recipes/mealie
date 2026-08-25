@@ -53,8 +53,8 @@
 | SMTP_FROM_NAME                                  | Mealie  | Required For email                                |
 | SMTP_AUTH_STRATEGY                              |   TLS   | Required For email, Options: 'TLS', 'SSL', 'NONE' |
 | SMTP_FROM_EMAIL                                 |  None   | Required For email                                |
-| SMTP_USER<super>[&dagger;][secrets]</super>     |  None   | Required if SMTP_AUTH_STRATEGY is 'TLS' or 'SSL'  |
-| SMTP_PASSWORD<super>[&dagger;][secrets]</super> |  None   | Required if SMTP_AUTH_STRATEGY is 'TLS' or 'SSL'  |
+| SMTP_USER<super>[&dagger;][secrets]</super>     |  None   | Optional; must be set together with SMTP_PASSWORD |
+| SMTP_PASSWORD<super>[&dagger;][secrets]</super> |  None   | Optional; must be set together with SMTP_USER     |
 
 ### Webworker
 
