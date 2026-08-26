@@ -6,6 +6,7 @@ import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
 export interface UserPrintPreferences {
   imagePosition: string;
   showDescription: boolean;
+  showLinkedIngredients: boolean;
   showNotes: boolean;
   showNutrition: boolean;
   expandChildRecipes: boolean;
@@ -98,6 +99,7 @@ export function useUserPrintPreferences(): Ref<UserPrintPreferences> {
     {
       imagePosition: "left" as ImagePosition,
       showDescription: true,
+      showLinkedIngredients: false,
       showNotes: true,
       showNutrition: false,
       expandChildRecipes: false,

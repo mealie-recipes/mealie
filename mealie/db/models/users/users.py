@@ -1,5 +1,5 @@
 import enum
-from datetime import datetime
+from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Optional
 
 from pydantic import ConfigDict
@@ -70,6 +70,9 @@ class User(SqlAlchemyBase, BaseMixins):
     cache_key: Mapped[str | None] = mapped_column(String, default="1234")
     login_attemps: Mapped[int | None] = mapped_column(Integer, default=0)
     locked_at: Mapped[datetime | None] = mapped_column(NaiveDateTime, default=None)
+    tokens_valid_after: Mapped[datetime | None] = mapped_column(NaiveDateTime, default=None)
+    """Tokens issued before this are rejected. Set when the password changes, so that changing it
+    actually evicts whoever was already signed in."""
 
     # Announcements
     show_announcements: Mapped[bool] = mapped_column(Boolean, default=True)
@@ -203,6 +206,14 @@ class User(SqlAlchemyBase, BaseMixins):
 
     def update_password(self, password):
         self.password = password
+        # Changing a password is how people evict someone who got into their account, so every token
+        # issued before now stops working. Stamped here rather than at the call sites so the password
+        # reset flow can't forget it.
+        #
+        # Floored to the second because JWT `iat` is whole seconds: against a sub-second watermark, a
+        # token minted in the same second as the change would have a lower `iat` and be rejected,
+        # locking the user out until the clock ticked over.
+        self.tokens_valid_after = datetime.now(UTC).replace(microsecond=0)
 
     def _set_permissions(
         self, admin, can_manage_household=False, can_manage=False, can_invite=False, can_organize=False, **_

@@ -148,7 +148,7 @@ function deleteUser(id: string) {
   deleteUserMixin(id);
 
   if (isUserOwnAccount.value) {
-    auth.refresh();
+    auth.getSession();
   }
 }
 

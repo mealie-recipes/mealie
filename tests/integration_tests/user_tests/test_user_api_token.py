@@ -4,6 +4,7 @@ from fastapi.testclient import TestClient
 from pytest import fixture
 
 from tests.utils import api_routes
+from tests.utils.fixture_schemas import TestUser
 
 
 @fixture
@@ -49,4 +50,22 @@ def test_delete_token(api_client: TestClient, admin_token):
     assert response.status_code == 200
 
     response = api_client.delete(api_routes.users_api_tokens_token_id(2), headers=admin_token)
+    assert response.status_code == 200
+
+
+def test_delete_token_denies_other_users(api_client: TestClient, unique_user: TestUser, unique_admin: TestUser):
+    """Another user's token isn't yours to revoke, even when you share a group.
+
+    Both users have to be in one group: repositories are group-scoped, so a token belonging to an
+    outsider 404s on lookup and never reaches the ownership check at all.
+    """
+    response = api_client.post(api_routes.users_api_tokens, json={"name": "Not Yours"}, headers=unique_admin.token)
+    assert response.status_code == 201
+    token_id = response.json()["id"]
+
+    response = api_client.delete(api_routes.users_api_tokens_token_id(token_id), headers=unique_user.token)
+    assert response.status_code == 403
+
+    # still there, and still the owner's to delete
+    response = api_client.delete(api_routes.users_api_tokens_token_id(token_id), headers=unique_admin.token)
     assert response.status_code == 200
