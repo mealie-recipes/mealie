@@ -16,6 +16,7 @@
     v-if="lightboxOpen"
     v-model="lightboxOpen"
     :image-url="recipeFullImageUrl"
+    :image-alt="recipe.name"
   />
 </template>
 

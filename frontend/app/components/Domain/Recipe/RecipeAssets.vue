@@ -104,6 +104,7 @@
       v-if="lightbox.open"
       v-model="lightbox.open"
       :image-url="lightbox.imageUrl"
+      :image-alt="lightbox.imageAlt"
     />
     <div class="d-flex ml-auto mt-2">
       <v-spacer />
@@ -234,10 +235,12 @@ function isImage(fileName?: string | null) {
 const lightbox = reactive({
   open: false,
   imageUrl: undefined as string | undefined,
+  imageAlt: undefined as string | undefined,
 });
 
 function openLightbox(item: RecipeAsset) {
   lightbox.imageUrl = assetURL(item.fileName ?? "");
+  lightbox.imageAlt = item.name;
   lightbox.open = true;
 }
 

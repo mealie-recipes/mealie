@@ -14,6 +14,7 @@
         <img
           v-if="imageUrl"
           :src="imageUrl"
+          :alt="imageAlt"
           class="lightbox-img"
           draggable="false"
           :style="imgStyle"
@@ -25,6 +26,15 @@
           @pointercancel="onPointerUp"
         >
       </div>
+      <v-btn
+        icon
+        variant="text"
+        class="lightbox-close"
+        :aria-label="$t('general.close')"
+        @click.stop="model = false"
+      >
+        <v-icon>{{ $globals.icons.close }}</v-icon>
+      </v-btn>
     </div>
   </v-dialog>
 </template>
@@ -34,6 +44,7 @@ import { useTheme } from "vuetify";
 
 interface Props {
   imageUrl?: string;
+  imageAlt?: string;
 }
 
 defineProps<Props>();
@@ -171,6 +182,7 @@ const imgStyle = computed(() => ({
 
 <style scoped>
 .lightbox-content {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -179,6 +191,12 @@ const imgStyle = computed(() => ({
   cursor: zoom-out;
   transition: background-color 0.2s ease;
   overflow: hidden;
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
 }
 
 .lightbox-frame {
