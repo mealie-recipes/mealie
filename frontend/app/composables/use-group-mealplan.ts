@@ -33,7 +33,6 @@ export interface DateRange {
 export const useMealplans = function (range: Ref<DateRange>) {
   const api = useUserApi();
   const loading = ref(false);
-  const validForm = ref(true);
 
   const actions = {
     getAll() {
@@ -99,6 +98,7 @@ export const useMealplans = function (range: Ref<DateRange>) {
       if (data) {
         this.refreshAll();
       }
+      loading.value = false;
     },
 
     async setType(payload: UpdatePlanEntry, type: PlanEntryType) {
@@ -111,5 +111,5 @@ export const useMealplans = function (range: Ref<DateRange>) {
 
   watch(range, actions.refreshAll);
 
-  return { mealplans, actions, validForm, loading };
+  return { mealplans, actions, loading };
 };

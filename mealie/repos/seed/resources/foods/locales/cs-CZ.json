@@ -1201,7 +1201,7 @@
             "bergamot orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bergamot orange",
+                "name": "bergamot",
                 "plural_name": "bergamoty"
             },
             "luo han guo": {
@@ -2659,7 +2659,7 @@
             "greek yogurt": {
                 "aliases": [],
                 "description": "",
-                "name": "greek yogurt",
+                "name": "řecký jogurt",
                 "plural_name": "greek yogurts"
             },
             "cream": {
@@ -2671,7 +2671,7 @@
             "whipped cream": {
                 "aliases": [],
                 "description": "",
-                "name": "whipped cream",
+                "name": "šlehačka",
                 "plural_name": "whipped cream"
             },
             "ghee": {
@@ -2691,7 +2691,7 @@
             "condensed milk": {
                 "aliases": [],
                 "description": "",
-                "name": "condensed milk",
+                "name": "kondenzované mléko",
                 "plural_name": "condensed milk"
             },
             "half and half": {
@@ -2710,7 +2710,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "zmrzlina",
-                "plural_name": "ice cream"
+                "plural_name": "zmrzlina"
             },
             "margarine": {
                 "aliases": [],
@@ -2788,7 +2788,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "čokoládové mléko",
-                "plural_name": "chocolate milk"
+                "plural_name": "čokoládové mléko"
             },
             "liquid egg substitute": {
                 "aliases": [],
@@ -2854,7 +2854,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "kozí mléko",
-                "plural_name": "goat milk"
+                "plural_name": "kozí mléko"
             },
             "cheese curd": {
                 "aliases": [],
@@ -3283,7 +3283,7 @@
             "rice milk": {
                 "aliases": [],
                 "description": "",
-                "name": "rice milk",
+                "name": "rýžové mléko",
                 "plural_name": "rice milk"
             },
             "vegan sour cream": {
@@ -3505,8 +3505,8 @@
             "vegan fish sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan fish sauce",
-                "plural_name": "vegan fish sauce"
+                "name": "veganská rybí omáčka",
+                "plural_name": "veganská rybí omáčka"
             },
             "vegetarian hot dog": {
                 "aliases": [],
@@ -3697,7 +3697,7 @@
             "banana milk": {
                 "aliases": [],
                 "description": "",
-                "name": "banana milk",
+                "name": "banánové mléko",
                 "plural_name": "banana milk"
             },
             "soy quark": {
@@ -3887,7 +3887,7 @@
             "salami": {
                 "aliases": [],
                 "description": "",
-                "name": "salami",
+                "name": "salám",
                 "plural_name": "salamis"
             },
             "brisket": {
@@ -3924,7 +3924,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vepřový bok",
-                "plural_name": "pork bellies"
+                "plural_name": "vepřové boky"
             },
             "andouille": {
                 "aliases": [],
@@ -4915,7 +4915,7 @@
             "tilapia": {
                 "aliases": [],
                 "description": "",
-                "name": "tilapia",
+                "name": "tilápie",
                 "plural_name": "tilapias"
             },
             "tuna steak": {
@@ -5083,7 +5083,7 @@
             "carp": {
                 "aliases": [],
                 "description": "",
-                "name": "carp",
+                "name": "kapr",
                 "plural_name": "carp"
             },
             "cuttlefish": {
@@ -5377,7 +5377,7 @@
             "shark meat": {
                 "aliases": [],
                 "description": "",
-                "name": "shark meat",
+                "name": "žraločí maso",
                 "plural_name": "shark meats"
             },
             "garoupa": {
@@ -11536,8 +11536,8 @@
             "fish sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "fish sauce",
-                "plural_name": "fish sauce"
+                "name": "rybí omáčka",
+                "plural_name": "rybí omáčka"
             },
             "bbq sauce": {
                 "aliases": [],
@@ -13725,11 +13725,11 @@
                 "name": "anchovy stock",
                 "plural_name": "anchovy stock"
             },
-            "cream of chicken soup mix:": {
+            "cream of chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "cream of chicken soup mix",
+                "plural_name": "cream of chicken soup mix"
             },
             "noodle soup mix": {
                 "aliases": [],
@@ -14038,13 +14038,13 @@
             "wafer": {
                 "aliases": [],
                 "description": "",
-                "name": "wafer",
+                "name": "oplatka",
                 "plural_name": "wafers"
             },
             "cookie": {
                 "aliases": [],
                 "description": "",
-                "name": "cookie",
+                "name": "sušenka",
                 "plural_name": "cookies"
             },
             "peanut butter cup": {
@@ -14305,7 +14305,7 @@
             "marmalade": {
                 "aliases": [],
                 "description": "",
-                "name": "marmalade",
+                "name": "marmeláda",
                 "plural_name": "marmalades"
             },
             "egg candy": {
@@ -14347,7 +14347,7 @@
             "licorice": {
                 "aliases": [],
                 "description": "",
-                "name": "licorice",
+                "name": "lékořice",
                 "plural_name": "licorices"
             },
             "plum jam": {
@@ -14431,7 +14431,7 @@
             "doughnut": {
                 "aliases": [],
                 "description": "",
-                "name": "doughnut",
+                "name": "kobliha",
                 "plural_name": "doughnuts"
             },
             "biscotti": {
@@ -14507,7 +14507,7 @@
             "red wine": {
                 "aliases": [],
                 "description": "",
-                "name": "red wine",
+                "name": "červené víno",
                 "plural_name": "red wines"
             },
             "whisky": {
@@ -14531,7 +14531,7 @@
             "beer": {
                 "aliases": [],
                 "description": "",
-                "name": "beer",
+                "name": "pivo",
                 "plural_name": "beers"
             },
             "orange liqueur": {
@@ -14597,7 +14597,7 @@
             "champagne": {
                 "aliases": [],
                 "description": "",
-                "name": "champagne",
+                "name": "šampaňské",
                 "plural_name": "champagnes"
             },
             "irish cream": {
@@ -14639,13 +14639,13 @@
             "sake": {
                 "aliases": [],
                 "description": "",
-                "name": "sake",
+                "name": "saké",
                 "plural_name": "sakes"
             },
             "rice wine": {
                 "aliases": [],
                 "description": "",
-                "name": "rice wine",
+                "name": "rýžové víno",
                 "plural_name": "rice wines"
             },
             "shaoxing wine": {
@@ -15105,13 +15105,13 @@
             "orange juice": {
                 "aliases": [],
                 "description": "",
-                "name": "orange juice",
+                "name": "pomerančový džus",
                 "plural_name": "orange juice"
             },
             "coffee": {
                 "aliases": [],
                 "description": "",
-                "name": "coffee",
+                "name": "káva",
                 "plural_name": "coffee"
             },
             "club soda": {
@@ -15141,7 +15141,7 @@
             "tea": {
                 "aliases": [],
                 "description": "",
-                "name": "tea",
+                "name": "čaj",
                 "plural_name": "tea"
             },
             "cranberry juice": {
@@ -15153,7 +15153,7 @@
             "tomato juice": {
                 "aliases": [],
                 "description": "",
-                "name": "tomato juice",
+                "name": "rajčatový džus",
                 "plural_name": "tomato juice"
             },
             "coconut water": {
@@ -15309,7 +15309,7 @@
             "carrot juice": {
                 "aliases": [],
                 "description": "",
-                "name": "carrot juice",
+                "name": "mrkvový džus",
                 "plural_name": "carrot juice"
             },
             "limeade concentrate": {
