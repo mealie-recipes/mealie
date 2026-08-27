@@ -34,7 +34,7 @@ from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.recipe_timeline import RecipeTimelineEvent
 from mealie.db.models.recipe.shared import RecipeShareTokenModel
 from mealie.db.models.recipe.tag import Tag, recipes_to_tags
-from mealie.db.models.recipe.tool import Tool
+from mealie.db.models.recipe.tool import Tool, recipes_to_tools
 from mealie.db.models.users import LongLiveToken, User
 from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.db.models.users.user_to_recipe import UserToRecipe
@@ -167,6 +167,101 @@ class RepositoryTags(GroupRepositoryGeneric[TagOut, Tag]):
 
         return self.get_one(to_tag)
 
+    def remove_from_recipes(self, tag_id: UUID4, recipe_ids: list[UUID4]) -> TagOut | None:
+        try:
+            self.session.execute(
+                delete(recipes_to_tags)
+                .where(recipes_to_tags.c.tag_id == tag_id)
+                .where(recipes_to_tags.c.recipe_id.in_(recipe_ids))
+            )
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            raise e
+
+        return self.get_one(tag_id)
+
+
+class RepositoryTools(GroupRepositoryGeneric[RecipeToolOut, Tool]):
+    def _query(self, override_schema=None, with_options=True):
+        q = super()._query(override_schema=override_schema, with_options=with_options)
+        count_sq = (
+            select(func.count(recipes_to_tools.c.recipe_id))
+            .where(recipes_to_tools.c.tool_id == Tool.id)
+            .correlate(Tool)
+            .scalar_subquery()
+        )
+        return q.options(with_expression(Tool.recipe_count, count_sq))
+
+    def get_empty(self) -> Sequence[Tool]:
+        stmt = select(Tool).filter(~Tool.recipes.any())
+        return self.session.execute(stmt).scalars().all()
+
+    def merge(self, from_tool: UUID4, to_tool: UUID4) -> RecipeToolOut | None:
+        already_in_to = select(recipes_to_tools.c.recipe_id).where(recipes_to_tools.c.tool_id == to_tool)
+
+        try:
+            self.session.execute(
+                update(recipes_to_tools)
+                .where(recipes_to_tools.c.tool_id == from_tool)
+                .where(recipes_to_tools.c.recipe_id.not_in(already_in_to))
+                .values(tool_id=to_tool)
+            )
+            self.session.execute(delete(recipes_to_tools).where(recipes_to_tools.c.tool_id == from_tool))
+
+            from_model = self._query_one(from_tool)
+            self.session.delete(from_model)
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            raise e
+
+        return self.get_one(to_tool)
+
+
+class RepositoryMultiPurposeLabels(GroupRepositoryGeneric[MultiPurposeLabelOut, MultiPurposeLabel]):
+    def get_empty(self) -> Sequence[MultiPurposeLabel]:
+        stmt = select(MultiPurposeLabel).filter(
+            ~MultiPurposeLabel.foods.any(), ~MultiPurposeLabel.shopping_list_items.any()
+        )
+        return self.session.execute(stmt).scalars().all()
+
+    def merge(self, from_label: UUID4, to_label: UUID4) -> MultiPurposeLabelOut | None:
+        # Unlike tags/categories, labels are referenced from two independent tables (foods and
+        # shopping list items) rather than a single association table, plus a third table
+        # (shopping list label settings) with a uniqueness constraint on (shopping_list_id, label_id)
+        # that needs the same overlap de-duplication as the tag/category association-table merge.
+        already_in_to_lists = select(ShoppingListMultiPurposeLabel.shopping_list_id).where(
+            ShoppingListMultiPurposeLabel.label_id == to_label
+        )
+
+        try:
+            self.session.execute(
+                update(IngredientFoodModel).where(IngredientFoodModel.label_id == from_label).values(label_id=to_label)
+            )
+            self.session.execute(
+                update(ShoppingListItem).where(ShoppingListItem.label_id == from_label).values(label_id=to_label)
+            )
+            self.session.execute(
+                delete(ShoppingListMultiPurposeLabel)
+                .where(ShoppingListMultiPurposeLabel.label_id == from_label)
+                .where(ShoppingListMultiPurposeLabel.shopping_list_id.in_(already_in_to_lists))
+            )
+            self.session.execute(
+                update(ShoppingListMultiPurposeLabel)
+                .where(ShoppingListMultiPurposeLabel.label_id == from_label)
+                .values(label_id=to_label)
+            )
+
+            from_model = self._query_one(from_label)
+            self.session.delete(from_model)
+            self.session.commit()
+        except Exception as e:
+            self.session.rollback()
+            raise e
+
+        return self.get_one(to_label)
+
 
 class AllRepositories:
     """
@@ -211,8 +306,8 @@ class AllRepositories:
         return RepositoryUnit(self.session, PK_ID, IngredientUnitModel, IngredientUnit, group_id=self.group_id)
 
     @cached_property
-    def tools(self) -> GroupRepositoryGeneric[RecipeToolOut, Tool]:
-        return GroupRepositoryGeneric(self.session, PK_ID, Tool, RecipeToolOut, group_id=self.group_id)
+    def tools(self) -> RepositoryTools:
+        return RepositoryTools(self.session, PK_ID, Tool, RecipeToolOut, group_id=self.group_id)
 
     @cached_property
     def comments(self) -> GroupRepositoryGeneric[RecipeCommentOut, RecipeComment]:
@@ -437,8 +532,8 @@ class AllRepositories:
         )
 
     @cached_property
-    def group_multi_purpose_labels(self) -> GroupRepositoryGeneric[MultiPurposeLabelOut, MultiPurposeLabel]:
-        return GroupRepositoryGeneric(
+    def group_multi_purpose_labels(self) -> RepositoryMultiPurposeLabels:
+        return RepositoryMultiPurposeLabels(
             self.session, PK_ID, MultiPurposeLabel, MultiPurposeLabelOut, group_id=self.group_id
         )
 

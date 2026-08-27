@@ -2,8 +2,8 @@ from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 from pydantic import ConfigDict
-from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, literal, orm
+from sqlalchemy.orm import Mapped, mapped_column, query_expression
 from sqlalchemy.orm.session import Session
 
 from mealie.db.models._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
@@ -164,6 +164,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     name: FilterableColumn[str | None] = mapped_column(String)
     plural_name: FilterableColumn[str | None] = mapped_column(String)
     description: FilterableColumn[str | None] = mapped_column(String)
+    recipe_count: Mapped[int] = query_expression(default_expr=literal(0))
 
     ingredients: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
         "RecipeIngredientModel", back_populates="food"

@@ -8,7 +8,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.recipe import RecipeTagResponse, TagIn
 from mealie.schema.recipe.recipe import RecipeTag, RecipeTagPagination
-from mealie.schema.recipe.recipe_category import TagMerge, TagOut, TagSave
+from mealie.schema.recipe.recipe_category import TagMerge, TagOut, TagRecipesRemove, TagSave
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import EventOperation, EventTagData, EventTypes
@@ -57,6 +57,16 @@ class TagController(BaseCrudController):
             raise HTTPException(status.HTTP_404_NOT_FOUND, "to_id tag not found")
 
         return self.repo.merge(body.from_id, body.to_id)
+
+    @router.post("/{item_id}/remove-from-recipes", response_model=TagOut)
+    def remove_from_recipes(self, item_id: UUID4, body: TagRecipesRemove):
+        """Removes this tag from each of the given recipes in a single transaction."""
+        self.checks.can_organize()
+
+        if not self.repo.get_one(item_id):
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "tag not found")
+
+        return self.repo.remove_from_recipes(item_id, body.recipe_ids)
 
     @router.get("/{item_id}", response_model=RecipeTagResponse)
     def get_one(self, item_id: UUID4):
