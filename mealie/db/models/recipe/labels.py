@@ -25,8 +25,10 @@ class MultiPurposeLabel(SqlAlchemyBase, BaseMixins):
     group_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
     group: Mapped["Group"] = orm.relationship("Group", back_populates="labels")
 
-    shopping_list_items: Mapped["ShoppingListItem"] = orm.relationship("ShoppingListItem", back_populates="label")
-    foods: Mapped["IngredientFoodModel"] = orm.relationship("IngredientFoodModel", back_populates="label")
+    shopping_list_items: Mapped[list["ShoppingListItem"]] = orm.relationship(
+        "ShoppingListItem", back_populates="label"
+    )
+    foods: Mapped[list["IngredientFoodModel"]] = orm.relationship("IngredientFoodModel", back_populates="label")
     shopping_lists_label_settings: Mapped[list["ShoppingListMultiPurposeLabel"]] = orm.relationship(
         "ShoppingListMultiPurposeLabel", back_populates="label", cascade="all, delete, delete-orphan"
     )
