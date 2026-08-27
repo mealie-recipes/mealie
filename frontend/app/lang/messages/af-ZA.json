@@ -232,7 +232,7 @@
       "audio-provider": "Audio Provider",
       "audio-provider-description": "Enables audio transcription features, such as creating recipes from videos",
       "image-provider": "Image Provider",
-      "image-provider-description": "Enables image recognition features, such as creating recipes from images",
+      "image-provider-description": "Aktiveer beeld-herkennings funksies, soos om resepte vanaf beelde te skep",
       "provider-name": "Provider Name",
       "api-key": "API Key",
       "api-key-description-create": "Your provider's API key for authentication. If your service (e.g. Ollama) doesn't use an API key, you still have to put something here.",
