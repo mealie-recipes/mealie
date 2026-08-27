@@ -8,9 +8,9 @@
     :height="hideImage ? undefined : imageHeight"
     :src="recipeImageUrl"
     class="d-print-none"
-    style="cursor: zoom-in"
+    :style="hideImage ? undefined : 'cursor: zoom-in'"
     @error="hideImage = true"
-    @click="lightboxOpen = true"
+    @click="openLightbox"
   />
   <RecipeImageLightbox
     v-if="lightboxOpen"
@@ -49,6 +49,14 @@ if (user) {
 
 const hideImage = ref(false);
 const lightboxOpen = ref(false);
+
+function openLightbox() {
+  if (hideImage.value) {
+    return;
+  }
+  lightboxOpen.value = true;
+}
+
 const imageHeight = computed(() => {
   return display.xs.value ? "200" : "400";
 });
