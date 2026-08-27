@@ -97,7 +97,6 @@
                 <v-col cols="12">
                   <ImageCropper
                     :img="newTimelineEventImagePreviewUrl"
-                    cropper-height="20vh"
                     cropper-width="100%"
                     @save="updateUploadedImage"
                   />

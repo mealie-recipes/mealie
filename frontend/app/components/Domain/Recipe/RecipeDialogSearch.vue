@@ -54,8 +54,8 @@
           <RecipeCardMobile
             v-for="(recipe, index) in search.data.value"
             :key="index"
-            :tabindex="index"
             class="ma-1 arrow-nav"
+            :class="{ 'keyboard-selected': index === selectedIndex }"
             :name="recipe.name ?? ''"
             :description="recipe.description ?? ''"
             :slug="recipe.slug ?? ''"
@@ -88,6 +88,8 @@ const emit = defineEmits<{
 const auth = useMealieAuth();
 const loading = ref(false);
 const selectedIndex = ref(-1);
+const router = useRouter();
+const attrs = useAttrs();
 
 // ===========================================================================
 // Dialog State Management
@@ -105,49 +107,76 @@ watch(dialog, (val) => {
 // ===========================================================================
 // Event Handlers
 
-function selectRecipe() {
+function scrollSelectedRecipeIntoView() {
   const recipeCards = document.getElementsByClassName("arrow-nav");
-  if (recipeCards) {
-    if (selectedIndex.value < 0) {
-      selectedIndex.value = -1;
-      document.getElementById("arrow-search")?.focus();
-      return;
-    }
 
-    if (selectedIndex.value >= recipeCards.length) {
-      selectedIndex.value = recipeCards.length - 1;
-    }
-
-    (recipeCards[selectedIndex.value] as HTMLElement).focus();
+  if (!recipeCards.length || selectedIndex.value < 0 || selectedIndex.value >= recipeCards.length) {
+    return;
   }
+
+  recipeCards[selectedIndex.value]?.scrollIntoView({ block: "center" });
 }
 
-function onUpDown(e: KeyboardEvent) {
+function activateRecipe(recipe: RecipeSummary | undefined) {
+  if (!recipe) {
+    return;
+  }
+
+  if (attrs.selected) {
+    handleSelect(recipe);
+    return;
+  }
+
+  if (!recipe.slug) {
+    return;
+  }
+
+  close();
+  router.push(`/g/${groupSlug.value}/r/${recipe.slug}`);
+}
+
+async function selectRecipe(positionChange: number) {
+  selectedIndex.value += positionChange;
+  selectedIndex.value = Math.max(selectedIndex.value, -1);
+  selectedIndex.value = Math.min(selectedIndex.value, search.data.value.length - 1);
+  await nextTick();
+  scrollSelectedRecipeIntoView();
+}
+
+function onSearchKeydown(e: KeyboardEvent) {
+  if (e.isComposing) {
+    return;
+  }
+
   if (e.key === "Enter") {
-    console.log(document.activeElement);
-    // (document.activeElement as HTMLElement).click();
+    e.preventDefault();
+    const index = Math.max(selectedIndex.value, 0);
+    activateRecipe(search.data.value[index]);
   }
   else if (e.key === "ArrowUp") {
     e.preventDefault();
-    selectedIndex.value--;
+    void selectRecipe(-1);
   }
   else if (e.key === "ArrowDown") {
     e.preventDefault();
-    selectedIndex.value++;
+    void selectRecipe(1);
   }
   else {
     return;
   }
-  selectRecipe();
 }
 
 watch(dialog, (val) => {
   if (!val) {
-    document.removeEventListener("keyup", onUpDown);
+    document.removeEventListener("keydown", onSearchKeydown);
   }
   else {
-    document.addEventListener("keyup", onUpDown);
+    document.addEventListener("keydown", onSearchKeydown);
   }
+});
+
+onBeforeUnmount(() => {
+  document.removeEventListener("keydown", onSearchKeydown);
 });
 
 const route = useRoute();
@@ -167,6 +196,10 @@ const { isOwnGroup } = useLoggedInState();
 const api = isOwnGroup.value ? useUserApi() : usePublicExploreApi(groupSlug.value).explore;
 const search = useRecipeSearch(api);
 
+watch(() => search.data.value, () => {
+  selectedIndex.value = -1;
+});
+
 // Select Handler
 function handleSelect(recipe: RecipeSummary) {
   close();
@@ -180,8 +213,13 @@ defineExpose({
 });
 </script>
 
-<style>
+<style scoped>
 .scroll {
   overflow-y: auto;
+}
+
+.keyboard-selected {
+  outline: 2px solid rgb(var(--v-theme-primary));
+  border-radius: 4px;
 }
 </style>

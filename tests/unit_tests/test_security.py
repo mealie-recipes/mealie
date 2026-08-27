@@ -1,5 +1,7 @@
+from datetime import timedelta
 from pathlib import Path
 
+import jwt
 import ldap
 import pytest
 from fastapi import HTTPException
@@ -117,11 +119,61 @@ def setup_env(monkeypatch: MonkeyPatch, **kwargs):
     return user, mail, name, password, query_bind, query_password
 
 
+def decode_token(token: str) -> dict:
+    return jwt.decode(token, get_app_settings().SECRET, algorithms=[security.ALGORITHM])
+
+
+def test_create_access_token_defaults_to_token_time():
+    settings = get_app_settings()
+    token, duration = security.create_access_token({"sub": "abc"})
+
+    assert duration == timedelta(hours=settings.TOKEN_TIME)
+
+    payload = decode_token(token)
+    assert payload["sub"] == "abc"
+    # the returned duration is what clients schedule against, so it must match the token's own claims
+    assert payload["exp"] - payload["iat"] == duration.total_seconds()
+
+
+def test_create_access_token_honors_an_explicit_lifetime():
+    token, duration = security.create_access_token({"sub": "abc"}, timedelta(minutes=5))
+
+    assert duration == timedelta(minutes=5)
+
+    payload = decode_token(token)
+    assert payload["exp"] - payload["iat"] == 5 * 60
+
+
+def test_every_token_is_stamped_with_issuer_and_issued_at():
+    """One factory signs session, API and file tokens, so all three carry the same base claims."""
+    session_token, _ = security.create_access_token({"sub": "abc"})
+    file_token = security.create_file_token(Path(__file__))
+
+    for token in (session_token, file_token):
+        payload = decode_token(token)
+        assert payload["iss"] == security.ISS
+        assert payload["iat"]
+
+
 def test_create_file_token():
     file_path = Path(__file__).parent
     file_token = security.create_file_token(file_path)
 
     assert file_path == validate_file_token(file_token)
+
+
+def test_validate_file_token_rejects_a_token_without_a_file_claim():
+    """Session and API tokens share the signing secret, so they decode here — the claim is the check.
+
+    Previously these raised TypeError on `Path(None)`, surfacing as a 500 instead of the documented
+    401.
+    """
+    session_token, _ = security.create_access_token({"sub": "abc"})
+
+    with pytest.raises(HTTPException) as exc_info:
+        validate_file_token(session_token)
+
+    assert exc_info.value.status_code == 401
 
 
 @pytest.mark.asyncio
@@ -344,3 +396,66 @@ def test_user_login_ldap_auth_method(monkeypatch: MonkeyPatch, ldap_user: Privat
     assert result.full_name == ldap_user.full_name
     assert result.admin == ldap_user.admin
     assert result.auth_method == AuthMethod.LDAP
+
+
+class PermissiveBindConnMock(LdapConnMock):
+    """Simulates a directory that accepts a bind with a valid DN and an empty
+    password (anonymous/unauthenticated bind) as success."""
+
+    def simple_bind_s(self, dn, bind_pw):
+        if bind_pw == "":
+            return
+        return super().simple_bind_s(dn, bind_pw)
+
+
+class CapturingConnMock(LdapConnMock):
+    """Records the search filter passed to search_s and returns no matches."""
+
+    captured_filter: str | None = None
+
+    def search_s(self, dn, scope, filter, attrlist):
+        if filter != self.app_settings.LDAP_ADMIN_FILTER:
+            CapturingConnMock.captured_filter = filter
+        return []
+
+
+def test_ldap_rejects_empty_password(monkeypatch: MonkeyPatch):
+    user, mail, name, _, query_bind, query_password = setup_env(monkeypatch)
+
+    def ldap_initialize_mock(url):
+        # Even against a directory that would accept the empty-password bind,
+        # the provider must refuse before binding.
+        return PermissiveBindConnMock(user, "", False, query_bind, query_password, mail, name)
+
+    monkeypatch.setattr(ldap, "initialize", ldap_initialize_mock)
+
+    get_app_settings.cache_clear()
+
+    with session_context() as session:
+        provider = get_provider(session, user, "")
+        result = provider.get_user()
+
+    assert result is None
+
+
+def test_ldap_escapes_username_in_search_filter(monkeypatch: MonkeyPatch):
+    _, mail, name, password, query_bind, query_password = setup_env(monkeypatch)
+    injected_username = "a*)(uid=*"
+    CapturingConnMock.captured_filter = None
+
+    def ldap_initialize_mock(url):
+        return CapturingConnMock(injected_username, password, False, query_bind, query_password, mail, name)
+
+    monkeypatch.setattr(ldap, "initialize", ldap_initialize_mock)
+
+    get_app_settings.cache_clear()
+
+    with session_context() as session:
+        provider = get_provider(session, injected_username, password)
+        provider.get_user()
+
+    captured = CapturingConnMock.captured_filter
+    assert captured is not None
+    # Metacharacters from the username must be escaped, never present as raw syntax.
+    assert "\\2a" in captured  # '*' -> \2a
+    assert "*" not in captured

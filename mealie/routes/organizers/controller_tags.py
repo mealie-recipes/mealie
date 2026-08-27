@@ -8,7 +8,7 @@ from mealie.routes._base.mixins import HttpRepo
 from mealie.schema import mapper
 from mealie.schema.recipe import RecipeTagResponse, TagIn
 from mealie.schema.recipe.recipe import RecipeTag, RecipeTagPagination
-from mealie.schema.recipe.recipe_category import TagSave
+from mealie.schema.recipe.recipe_category import TagMerge, TagOut, TagSave
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import EventOperation, EventTagData, EventTypes
@@ -42,6 +42,21 @@ class TagController(BaseCrudController):
     def get_empty_tags(self):
         """Returns a list of tags that do not contain any recipes"""
         return self.repo.get_empty()
+
+    @router.post("/merge", response_model=TagOut)
+    def merge_tags(self, body: TagMerge):
+        """Merges the from_id tag into the to_id tag, then deletes from_id."""
+        self.checks.can_organize()
+
+        if body.from_id == body.to_id:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, "from_id and to_id must be different")
+
+        if not self.repo.get_one(body.from_id):
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "from_id tag not found")
+        if not self.repo.get_one(body.to_id):
+            raise HTTPException(status.HTTP_404_NOT_FOUND, "to_id tag not found")
+
+        return self.repo.merge(body.from_id, body.to_id)
 
     @router.get("/{item_id}", response_model=RecipeTagResponse)
     def get_one(self, item_id: UUID4):

@@ -8,7 +8,7 @@
   >
     <v-container fluid class="pa-2 ma-0" style="background-color: rgb(var(--v-theme-background));">
       <div v-if="state.loading.parser" class="my-6">
-        <AppLoader class="my-6" />
+        <AppLoader class="my-6" :waiting-text="$t('recipe.parser.parsing-ingredients')" />
       </div>
       <div v-else>
         <BaseCardSectionTitle :title="$t('recipe.parser.ingredient-parser')">
@@ -361,10 +361,26 @@ function nextIngredient() {
   state.allReviewed = true;
 }
 
+/** Clear everything left over from a previous run, so re-opening the dialog starts clean */
+function resetParserState() {
+  parsedIngs.value = [];
+  currentIng.value = null;
+  currentMissingUnit.value = "";
+  currentMissingFood.value = "";
+  currentIngShouldDelete.value = false;
+  state.currentParsedIndex = -1;
+  state.allReviewed = false;
+  state.loading.save = false;
+  createdUnits.clear();
+  createdFoods.clear();
+}
+
 async function parseIngredients() {
   if (state.loading.parser) {
     return;
   }
+
+  resetParserState();
 
   if (!props.ingredients || props.ingredients.length === 0) {
     state.loading.parser = false;
@@ -391,11 +407,6 @@ async function parseIngredients() {
       ingredient: ing,
     }));
     parsedIngs.value = [...parsed, ...recipeRefs];
-    state.currentParsedIndex = -1;
-    state.allReviewed = false;
-    createdUnits.clear();
-    createdFoods.clear();
-    currentIngShouldDelete.value = false;
     nextIngredient();
   }
   catch (error) {
