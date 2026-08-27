@@ -56,7 +56,20 @@ class AlchemyExporter(BaseService):
     engine: base.Engine
     meta: MetaData
 
-    look_for_datetime = {"created_at", "update_at", "date_updated", "timestamp", "expires_at", "locked_at", "last_made"}
+    look_for_datetime = {
+        "created_at",
+        "update_at",
+        "date_updated",
+        "timestamp",
+        "expires_at",
+        "locked_at",
+        "last_made",
+        "completed_date",
+        "tokens_valid_after",
+    }
+    """Column names restored back into datetimes. Anything stored as a `NaiveDateTime` and missing
+    here comes back from a backup as a string; `test_every_datetime_column_survives_a_backup` guards
+    against forgetting to add one."""
     look_for_date = {"date_added", "date"}
     look_for_time = {"scheduled_time"}
 
@@ -181,7 +194,7 @@ class AlchemyExporter(BaseService):
 
             result = {
                 table.name: [dict(row) for row in connection.execute(table.select()).mappings()]
-                for table in self.meta.sorted_tables
+                for table in self.meta.tables.values()
             }
 
         return jsonable_encoder(result)
@@ -248,11 +261,11 @@ class AlchemyExporter(BaseService):
 
     def drop_all(self) -> None:
         """Drops all data from the database"""
-        from sqlalchemy.engine.reflection import Inspector
+        from sqlalchemy import inspect
         from sqlalchemy.schema import DropConstraint, DropTable, MetaData, Table
 
         with self.engine.begin() as connection:
-            inspector = Inspector.from_engine(self.engine)
+            inspector = inspect(self.engine)
 
             # We need to re-create a minimal metadata with only the required things to
             # successfully emit drop constraints and tables commands for postgres (based

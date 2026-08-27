@@ -20,15 +20,30 @@
         },
         "and-amount": "a {amount}",
         "or-ingredient": "alebo {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Vytváranie receptu pomocou umelej inteligencie...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Vytvorenie receptu na základe prepisu pomocou umelej inteligencie...",
             "creating-recipe-from-webpage-data": "Vytváranie receptu na základe údajov z webovej stránky...",
             "downloading-image": "Sťahovanie obrázka...",
             "downloading-video": "Sťahovanie videa...",
             "extracting-recipe-data": "Získavam údaje z receptu...",
             "fetching-webpage": "Načítavam webovú stránku...",
-            "transcribing-audio-with-ai": "Prepisujem audio pomocou umelej inteligencie..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Prepisujem audio pomocou umelej inteligencie...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "Nemáte oprávnenia na vykonanie tejto akcie",
         "recursive-recipe-link": "Recept nemôže odkazovať na seba, priamo alebo nepriamo",
         "no-entry-found": "404 - Požadovaná stránka nebola nájdená",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Chyba integrity databázy",
         "username-conflict-error": "Toto meno používateľa je už obsadené",
         "email-conflict-error": "Tento e-mail sa už používa"

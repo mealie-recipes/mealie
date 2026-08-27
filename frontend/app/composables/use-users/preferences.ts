@@ -6,6 +6,7 @@ import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
 export interface UserPrintPreferences {
   imagePosition: string;
   showDescription: boolean;
+  showLinkedIngredients: boolean;
   showNotes: boolean;
   showNutrition: boolean;
   expandChildRecipes: boolean;
@@ -67,6 +68,8 @@ export interface UserRecipeCreatePreferences {
   importCategories: boolean;
   stayInEditMode: boolean;
   parseRecipe: boolean;
+  translateRecipe: boolean;
+  createNewOrganizers: boolean;
 }
 
 export interface UserActivityPreferences {
@@ -96,6 +99,7 @@ export function useUserPrintPreferences(): Ref<UserPrintPreferences> {
     {
       imagePosition: "left" as ImagePosition,
       showDescription: true,
+      showLinkedIngredients: false,
       showNotes: true,
       showNutrition: false,
       expandChildRecipes: false,
@@ -224,6 +228,8 @@ export function useRecipeCreatePreferences(): Ref<UserRecipeCreatePreferences> {
       importCategories: false,
       stayInEditMode: false,
       parseRecipe: true,
+      translateRecipe: false,
+      createNewOrganizers: false,
     },
     { mergeDefaults: true },
   );
