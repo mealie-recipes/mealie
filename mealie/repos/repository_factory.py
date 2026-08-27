@@ -221,8 +221,12 @@ class RepositoryTools(GroupRepositoryGeneric[RecipeToolOut, Tool]):
 
 class RepositoryMultiPurposeLabels(GroupRepositoryGeneric[MultiPurposeLabelOut, MultiPurposeLabel]):
     def get_empty(self) -> Sequence[MultiPurposeLabel]:
+        # MultiPurposeLabel.foods and .shopping_list_items are declared as scalar
+        # relationships (Mapped[X], not Mapped[list[X]]), so SQLAlchemy configures them
+        # with uselist=False despite being logically one-to-many; .any() only works on
+        # collection relationships, so this must use .has() instead.
         stmt = select(MultiPurposeLabel).filter(
-            ~MultiPurposeLabel.foods.any(), ~MultiPurposeLabel.shopping_list_items.any()
+            ~MultiPurposeLabel.foods.has(), ~MultiPurposeLabel.shopping_list_items.has()
         )
         return self.session.execute(stmt).scalars().all()
 

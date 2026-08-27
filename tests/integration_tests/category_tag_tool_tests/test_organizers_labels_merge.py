@@ -29,7 +29,7 @@ def _create_label(api_client: TestClient, user: TestUser) -> dict:
 
 
 def _create_food(api_client: TestClient, user: TestUser, label_id: str | None = None) -> dict:
-    data = CreateIngredientFood(name=random_string(10), label_id=label_id).model_dump(by_alias=True)
+    data = CreateIngredientFood(name=random_string(10), label_id=label_id).model_dump(mode="json", by_alias=True)
     response = api_client.post(api_routes.foods, json=data, headers=user.token)
     assert response.status_code == 201
     return response.json()
@@ -99,10 +99,10 @@ def test_label_merge_reassigns_foods_and_shopping_list_items(api_client: TestCli
     result = response.json()
     assert result["id"] == to_label["id"]
 
-    # from_label must be deleted
-    assert (
-        api_client.get(api_routes.groups_labels_item_id(from_label["id"]), headers=unique_user.token).status_code == 404
-    )
+    # from_label must be deleted (GET /groups/labels/{id} 500s instead of 404ing on a
+    # missing id, pre-existing behavior unrelated to merge, so check the list instead)
+    labels_after = api_client.get(api_routes.groups_labels, headers=unique_user.token).json()["items"]
+    assert from_label["id"] not in [label["id"] for label in labels_after]
 
     # food must now point at to_label
     food_after = api_client.get(api_routes.foods_item_id(food["id"]), headers=unique_user.token).json()
