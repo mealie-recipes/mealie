@@ -25,7 +25,7 @@
               {{ $d(new Date(event.timestamp || "")) }}
             </v-chip>
           </v-col>
-          <v-col v-else cols="9" class="break-word" style="margin: auto; text-align: center">
+          <v-col v-else cols="9" class="text-wrap break-word" style="margin: auto; text-align: center">
             {{ event.subject }}
           </v-col>
           <v-col :cols="useMobileFormat ? 'auto' : '1'" class="px-0 pt-0">
