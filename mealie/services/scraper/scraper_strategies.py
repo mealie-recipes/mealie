@@ -1,13 +1,14 @@
+from __future__ import annotations
+
 import asyncio
 from abc import ABC, abstractmethod
 from collections.abc import Awaitable, Callable
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
-import extruct
 from fastapi import HTTPException, status
-from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
-from slugify import slugify
-from w3lib.html import get_base_url
+
+if TYPE_CHECKING:
+    from recipe_scrapers import SchemaScraperFactory
 
 from mealie.core import exceptions
 from mealie.core.dependencies.dependencies import get_temporary_path
@@ -208,6 +209,8 @@ class RecipeScraperPackage(ABCScraperStrategy):
         return recipe, extras
 
     async def scrape_url(self) -> SchemaScraperFactory.SchemaScraper | Any | None:
+        from recipe_scrapers import NoSchemaFoundInWildMode, scrape_html
+
         recipe_html = await self.get_html(self.url)
 
         try:
@@ -402,6 +405,10 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
 
         def og_fields(properties: list[tuple[str, str]], field_name: str) -> list[str]:
             return list({val for name, val in properties if name == field_name})
+
+        import extruct
+        from slugify import slugify
+        from w3lib.html import get_base_url
 
         base_url = get_base_url(html, self.url)
         data = extruct.extract(html, base_url=base_url, errors="log")

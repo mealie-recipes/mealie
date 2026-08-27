@@ -1,5 +1,6 @@
 import hashlib
 import ipaddress
+import shutil
 import socket
 from datetime import timedelta
 from pathlib import Path
@@ -216,11 +217,17 @@ class OpenIDProvider(AuthProvider[UserInfo]):
 
         # Skip the download entirely when the claim still points at the image we already stored.
         picture_hash = hashlib.sha256(picture.encode()).hexdigest()
-        if user.oidc_picture_hash == picture_hash:
+        if user.external_avatar_hash == picture_hash:
             return
 
         try:
-            response = requests.get(picture, timeout=15, stream=True)
+            # Redirects are refused: `_is_safe_picture_url` vetted this URL only, and a redirect
+            # would land us on an unvetted host, undoing that check.
+            response = requests.get(picture, timeout=15, stream=True, allow_redirects=False)
+            if response.is_redirect:
+                # `raise_for_status` treats 3xx as success, so reject it explicitly rather than
+                # letting an empty body fail further down with a confusing error.
+                raise ValueError(f"refusing to follow redirect to an unvetted host ({response.status_code})")
             response.raise_for_status()
             content = self._read_capped(response)
 
@@ -230,8 +237,8 @@ class OpenIDProvider(AuthProvider[UserInfo]):
 
                 image = img.PillowMinifier.to_webp(temp_img)
                 dest = PrivateUser.get_directory(user_id) / "profile.webp"
-                dest.write_bytes(Path(image).read_bytes())
+                shutil.move(image, dest)
 
-            repos.users.patch(user_id, {"cache_key": cache.new_key(), "oidc_picture_hash": picture_hash})
+            repos.users.patch(user_id, {"cache_key": cache.new_key(), "external_avatar_hash": picture_hash})
         except Exception as e:
             self._logger.debug("[OIDC] Could not update profile image from picture claim: %s", e)

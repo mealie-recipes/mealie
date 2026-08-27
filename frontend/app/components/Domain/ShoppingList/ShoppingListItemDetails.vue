@@ -24,6 +24,7 @@
   </div>
   <v-textarea
     v-model="listItem.note"
+    clearable
     hide-details
     :label="$t('shopping-list.note')"
     rows="1"

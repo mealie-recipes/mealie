@@ -2,6 +2,7 @@ import hashlib
 import io
 import logging
 import socket
+from pathlib import Path
 from unittest.mock import MagicMock
 
 import pytest
@@ -355,9 +356,14 @@ def _png_bytes() -> bytes:
 
 
 class _FakeResponse:
-    def __init__(self, body: bytes, headers: dict | None = None):
+    def __init__(self, body: bytes, headers: dict | None = None, status_code: int = 200):
         self.headers = headers or {}
+        self.status_code = status_code
         self._body = body
+
+    @property
+    def is_redirect(self) -> bool:
+        return self.status_code in (301, 302, 303, 307, 308) and "location" in {key.lower() for key in self.headers}
 
     def raise_for_status(self) -> None:
         return None
@@ -399,7 +405,7 @@ def _oidc_env(monkeypatch: MonkeyPatch):
 
 def test_stores_picture_and_rotates_cache_key(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser):
     _resolve_to(monkeypatch, "93.184.216.34")
-    before = unique_user.repos.users.patch(unique_user.user_id, {"oidc_picture_hash": None})
+    before = unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
 
     url = "https://cdn.example.com/avatar.png"
     fake_get = MagicMock(return_value=_FakeResponse(_png_bytes()))
@@ -414,14 +420,16 @@ def test_stores_picture_and_rotates_cache_key(_oidc_env, monkeypatch: MonkeyPatc
     assert after is not None
     assert (PrivateUser.get_directory(unique_user.user_id) / "profile.webp").is_file()
     assert after.cache_key != before.cache_key
-    assert after.oidc_picture_hash == hashlib.sha256(url.encode()).hexdigest()
+    assert after.external_avatar_hash == hashlib.sha256(url.encode()).hexdigest()
 
 
 def test_unchanged_picture_claim_skips_download(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser):
     """Genson's point: a repeat login must not refetch an image that hasn't changed."""
     _resolve_to(monkeypatch, "93.184.216.34")
     url = "https://cdn.example.com/avatar.png"
-    unique_user.repos.users.patch(unique_user.user_id, {"oidc_picture_hash": hashlib.sha256(url.encode()).hexdigest()})
+    unique_user.repos.users.patch(
+        unique_user.user_id, {"external_avatar_hash": hashlib.sha256(url.encode()).hexdigest()}
+    )
 
     fake_get = MagicMock(return_value=_FakeResponse(_png_bytes()))
     monkeypatch.setattr(openid_provider.requests, "get", fake_get)
@@ -499,7 +507,7 @@ def test_provider_own_host_is_allowed_on_a_private_network(
 ):
     """A self-hosted IdP sits on the LAN, so its own avatars must stay reachable."""
     _resolve_to(monkeypatch, "192.168.1.10")
-    unique_user.repos.users.patch(unique_user.user_id, {"oidc_picture_hash": None})
+    unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
 
     fake_get = MagicMock(return_value=_FakeResponse(_png_bytes()))
     monkeypatch.setattr(openid_provider.requests, "get", fake_get)
@@ -513,7 +521,7 @@ def test_provider_own_host_is_allowed_on_a_private_network(
 
 def test_oversized_declared_content_length_is_refused(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser):
     _resolve_to(monkeypatch, "93.184.216.34")
-    unique_user.repos.users.patch(unique_user.user_id, {"oidc_picture_hash": None})
+    unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
 
     too_big = str(openid_provider.MAX_PICTURE_BYTES + 1)
     response = _FakeResponse(_png_bytes(), headers={"content-length": too_big})
@@ -525,13 +533,13 @@ def test_oversized_declared_content_length_is_refused(_oidc_env, monkeypatch: Mo
 
     after = unique_user.repos.users.get_one(unique_user.user_id)
     assert after is not None
-    assert after.oidc_picture_hash is None
+    assert after.external_avatar_hash is None
 
 
 def test_oversized_stream_is_refused(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser):
     """A server that lies about (or omits) Content-Length is caught while streaming."""
     _resolve_to(monkeypatch, "93.184.216.34")
-    unique_user.repos.users.patch(unique_user.user_id, {"oidc_picture_hash": None})
+    unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
 
     body = b"x" * (openid_provider.MAX_PICTURE_BYTES + 1)
     response = _FakeResponse(body, headers={"content-length": "10"})
@@ -543,12 +551,12 @@ def test_oversized_stream_is_refused(_oidc_env, monkeypatch: MonkeyPatch, unique
 
     after = unique_user.repos.users.get_one(unique_user.user_id)
     assert after is not None
-    assert after.oidc_picture_hash is None
+    assert after.external_avatar_hash is None
 
 
 def test_failed_download_does_not_break_login(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser):
     _resolve_to(monkeypatch, "93.184.216.34")
-    before = unique_user.repos.users.patch(unique_user.user_id, {"oidc_picture_hash": None})
+    before = unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
 
     monkeypatch.setattr(openid_provider.requests, "get", MagicMock(side_effect=requests.ConnectionError("boom")))
 
@@ -559,12 +567,12 @@ def test_failed_download_does_not_break_login(_oidc_env, monkeypatch: MonkeyPatc
     after = unique_user.repos.users.get_one(unique_user.user_id)
     assert after is not None
     assert after.cache_key == before.cache_key
-    assert after.oidc_picture_hash is None
+    assert after.external_avatar_hash is None
 
 
 def test_undecodable_image_does_not_break_login(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser):
     _resolve_to(monkeypatch, "93.184.216.34")
-    unique_user.repos.users.patch(unique_user.user_id, {"oidc_picture_hash": None})
+    unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
 
     response = _FakeResponse(b"definitely not a png")
     monkeypatch.setattr(openid_provider.requests, "get", MagicMock(return_value=response))
@@ -575,4 +583,49 @@ def test_undecodable_image_does_not_break_login(_oidc_env, monkeypatch: MonkeyPa
 
     after = unique_user.repos.users.get_one(unique_user.user_id)
     assert after is not None
-    assert after.oidc_picture_hash is None
+    assert after.external_avatar_hash is None
+
+
+@pytest.mark.parametrize("status_code", [301, 302, 303, 307, 308])
+def test_redirects_are_not_followed(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser, status_code: int):
+    """A redirect would land on a host the pre-flight check never vetted, so it is refused."""
+    _resolve_to(monkeypatch, "93.184.216.34")
+    unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
+
+    response = _FakeResponse(b"", headers={"location": "http://169.254.169.254/"}, status_code=status_code)
+    fake_get = MagicMock(return_value=response)
+    monkeypatch.setattr(openid_provider.requests, "get", fake_get)
+
+    data = _picture_claims("https://cdn.example.com/a.png")
+    data["email"] = unique_user.email
+    assert OpenIDProvider(unique_user.repos.session, data).authenticate() is not None
+
+    # requests itself is told not to follow, and the 3xx is rejected rather than parsed as an image.
+    assert fake_get.call_args.kwargs["allow_redirects"] is False
+    after = unique_user.repos.users.get_one(unique_user.user_id)
+    assert after is not None
+    assert after.external_avatar_hash is None
+
+
+def test_temp_file_is_moved_not_left_behind(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser):
+    """`shutil.move` leaves no copy behind in the temp directory."""
+    _resolve_to(monkeypatch, "93.184.216.34")
+    unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
+
+    moved: list[tuple] = []
+    real_move = openid_provider.shutil.move
+    monkeypatch.setattr(
+        openid_provider.shutil,
+        "move",
+        lambda src, dst: (moved.append((src, dst)), real_move(src, dst))[1],
+    )
+    monkeypatch.setattr(openid_provider.requests, "get", MagicMock(return_value=_FakeResponse(_png_bytes())))
+
+    data = _picture_claims("https://cdn.example.com/a.png")
+    data["email"] = unique_user.email
+    assert OpenIDProvider(unique_user.repos.session, data).authenticate() is not None
+
+    assert len(moved) == 1
+    source, _ = moved[0]
+    assert not Path(source).exists()
+    assert (PrivateUser.get_directory(unique_user.user_id) / "profile.webp").is_file()
