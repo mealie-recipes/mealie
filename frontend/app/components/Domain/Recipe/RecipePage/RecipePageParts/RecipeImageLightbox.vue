@@ -63,6 +63,45 @@ const imageShadow = computed(() =>
     : "0 6px 16px rgba(0, 0, 0, 0.55), 0 18px 80px rgba(0, 0, 0, 0.7)",
 );
 
+// The <img> box must be sized to the actual rendered pixels of the image (not the
+// frame's bounding box) so the box-shadow/glow hugs the photo's real edges rather
+// than the invisible letterboxed area object-fit:contain would otherwise leave.
+const frameRef = ref<HTMLElement | null>(null);
+const frameSize = reactive({ w: 0, h: 0 });
+const naturalSize = reactive({ w: 0, h: 0 });
+
+function updateFrameSize() {
+  if (frameRef.value) {
+    frameSize.w = frameRef.value.clientWidth;
+    frameSize.h = frameRef.value.clientHeight;
+  }
+}
+
+function onImageLoad(event: Event) {
+  const img = event.target as HTMLImageElement;
+  naturalSize.w = img.naturalWidth;
+  naturalSize.h = img.naturalHeight;
+  updateFrameSize();
+}
+
+onMounted(() => {
+  updateFrameSize();
+  window.addEventListener("resize", updateFrameSize);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateFrameSize);
+});
+
+const renderedSize = computed(() => {
+  if (!naturalSize.w || !naturalSize.h || !frameSize.w || !frameSize.h) {
+    return null;
+  }
+
+  const scale = Math.min(frameSize.w / naturalSize.w, frameSize.h / naturalSize.h);
+  return { width: naturalSize.w * scale, height: naturalSize.h * scale };
+});
+
 const ZOOM_SCALE = 2;
 
 const zoomed = ref(false);
@@ -70,6 +109,20 @@ const pan = reactive({ x: 0, y: 0 });
 const dragging = ref(false);
 const dragMoved = ref(false);
 let dragStart = { x: 0, y: 0, panX: 0, panY: 0 };
+
+// Keep the zoomed image overlapping its frame: at most half the overhang in each
+// direction, so it can never be dragged completely out of view.
+function applyPan(x: number, y: number) {
+  const limitX = renderedSize.value
+    ? Math.max(0, (renderedSize.value.width * ZOOM_SCALE - frameSize.w) / 2)
+    : 0;
+  const limitY = renderedSize.value
+    ? Math.max(0, (renderedSize.value.height * ZOOM_SCALE - frameSize.h) / 2)
+    : 0;
+
+  pan.x = Math.min(Math.max(x, -limitX), limitX);
+  pan.y = Math.min(Math.max(y, -limitY), limitY);
+}
 
 function resetZoom() {
   zoomed.value = false;
@@ -121,53 +174,13 @@ function onPointerMove(event: PointerEvent) {
   if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
     dragMoved.value = true;
   }
-  pan.x = dragStart.panX + dx;
-  pan.y = dragStart.panY + dy;
+  applyPan(dragStart.panX + dx, dragStart.panY + dy);
 }
 
 function onPointerUp(event: PointerEvent) {
   event.stopPropagation();
   dragging.value = false;
 }
-
-// The <img> box must be sized to the actual rendered pixels of the image (not the
-// frame's bounding box) so the box-shadow/glow hugs the photo's real edges rather
-// than the invisible letterboxed area object-fit:contain would otherwise leave.
-const frameRef = ref<HTMLElement | null>(null);
-const frameSize = reactive({ w: 0, h: 0 });
-const naturalSize = reactive({ w: 0, h: 0 });
-
-function updateFrameSize() {
-  if (frameRef.value) {
-    frameSize.w = frameRef.value.clientWidth;
-    frameSize.h = frameRef.value.clientHeight;
-  }
-}
-
-function onImageLoad(event: Event) {
-  const img = event.target as HTMLImageElement;
-  naturalSize.w = img.naturalWidth;
-  naturalSize.h = img.naturalHeight;
-  updateFrameSize();
-}
-
-onMounted(() => {
-  updateFrameSize();
-  window.addEventListener("resize", updateFrameSize);
-});
-
-onUnmounted(() => {
-  window.removeEventListener("resize", updateFrameSize);
-});
-
-const renderedSize = computed(() => {
-  if (!naturalSize.w || !naturalSize.h || !frameSize.w || !frameSize.h) {
-    return null;
-  }
-
-  const scale = Math.min(frameSize.w / naturalSize.w, frameSize.h / naturalSize.h);
-  return { width: naturalSize.w * scale, height: naturalSize.h * scale };
-});
 
 const imgStyle = computed(() => ({
   ...(renderedSize.value
