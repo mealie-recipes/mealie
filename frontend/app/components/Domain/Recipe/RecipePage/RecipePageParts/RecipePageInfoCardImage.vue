@@ -15,7 +15,7 @@
   <RecipeImageLightbox
     v-if="lightboxOpen"
     v-model="lightboxOpen"
-    :image-url="recipeImageUrl"
+    :image-url="recipeFullImageUrl"
   />
 </template>
 
@@ -53,10 +53,14 @@ const imageHeight = computed(() => {
   return display.xs.value ? "200" : "400";
 });
 
+const recipeFullImageUrl = computed(() => {
+  return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
+});
+
 const recipeImageUrl = computed(() => {
   return display.smAndDown.value
     ? recipeSmallImage(props.recipe.id, props.recipe.image, imageKey.value)
-    : recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
+    : recipeFullImageUrl.value;
 });
 
 watch(
