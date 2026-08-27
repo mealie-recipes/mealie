@@ -160,8 +160,16 @@ def validate_long_live_token(session: Session, client_token: str, user_id: str) 
     token = repos.api_tokens.multi_query({"token": client_token, "user_id": user_id})
 
     try:
-        return token[0].user
+        user = token[0].user
+        # Match get_current_user(): end the read transaction opened during auth
+        # immediately, otherwise long-lived/API-token auth can hold a DB
+        # connection idle-in-transaction until request teardown. Browsers/PWAs
+        # and automation issuing many concurrent requests can then exhaust
+        # SQLAlchemy's connection pool.
+        session.commit()
+        return user
     except IndexError as e:
+        session.rollback()
         raise HTTPException(status.HTTP_401_UNAUTHORIZED) from e
 
 
