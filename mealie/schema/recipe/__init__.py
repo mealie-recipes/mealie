@@ -72,7 +72,7 @@ from .recipe_ingredient import (
 )
 from .recipe_notes import RecipeNote
 from .recipe_nutrition import Nutrition
-from .recipe_scraper import ScrapeRecipe, ScrapeRecipeBase, ScrapeRecipeData, ScrapeRecipeTest
+from .recipe_scraper import ScrapeRecipe, ScrapeRecipeAI, ScrapeRecipeBase, ScrapeRecipeData, ScrapeRecipeTest
 from .recipe_settings import RecipeSettings
 from .recipe_share_token import RecipeShareToken, RecipeShareTokenCreate, RecipeShareTokenSave, RecipeShareTokenSummary
 from .recipe_step import IngredientReferences, RecipeStep
@@ -179,6 +179,7 @@ __all__ = [
     "RecipeTool",
     "RecipeToolPagination",
     "ScrapeRecipe",
+    "ScrapeRecipeAI",
     "ScrapeRecipeBase",
     "ScrapeRecipeData",
     "ScrapeRecipeTest",

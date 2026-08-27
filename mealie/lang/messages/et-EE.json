@@ -20,15 +20,30 @@
         },
         "and-amount": "ja {amount}",
         "or-ingredient": "või {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Retsepti loomine tehisaru abil...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Retsepti loomine transkriptist tehisiaru abil...",
             "creating-recipe-from-webpage-data": "Retsepti loomine veebilehe andmetest...",
             "downloading-image": "Pildi allalaadimine...",
             "downloading-video": "Video allalaadimine...",
             "extracting-recipe-data": "Retsepti andmete eraldamine...",
             "fetching-webpage": "Veebilehe pärimine...",
-            "transcribing-audio-with-ai": "Helisalvestise transkribeerimine tehisaru abil..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Helisalvestise transkribeerimine tehisaru abil...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "Sul puuduvad selle toimingu tegemiseks õigused",
         "recursive-recipe-link": "Retsept ei saa viidata iseendale ei otseselt ega kaudselt",
         "no-entry-found": "Soovitud ressurssi ei leitud",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Tõrge andmebaasi terviklikkuses",
         "username-conflict-error": "See kasutajanimi on juba kasutusel",
         "email-conflict-error": "See e-maili aadress on juba kasutuses"

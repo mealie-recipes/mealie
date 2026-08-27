@@ -83,6 +83,22 @@ There are two (optional) [environment variables](../installation/backend-config.
 
 `OIDC_ADMIN_GROUP`: Users that are in this group (within your IdP) will be made an **admin** in Mealie. Users in this group do not need to be in the `OIDC_USER_GROUP`
 
+## Native and mobile clients
+
+Native apps (mobile or desktop) authenticate using the **system browser** instead of an embedded WebView. This is required for **passkey-only** providers such as [Pocket ID](https://pocket-id.org), because WebAuthn/passkeys do not work inside embedded WebViews.
+
+Unlike the web flow, a native client performs its own [PKCE](https://oauth.net/2/pkce/) authorization request, captures the authorization code at an app-controlled redirect URI, and then has Mealie exchange it. No browser session cookie is involved, so the exchange works from a native HTTP client.
+
+These endpoints are available automatically whenever OIDC is configured — there is no separate flag to enable them:
+
+- `GET /api/auth/oauth/native/config` — returns the `authorization_endpoint`, `client_id`, and `scope` the client needs to build its own authorization request.
+- `POST /api/auth/oauth/native/token` — exchanges `{ code, code_verifier, redirect_uri, nonce? }` for a Mealie access token.
+
+The native flow reuses your existing **confidential** OIDC client and `OIDC_CLIENT_SECRET` — the same setup as the web flow. The only additional step is in your identity provider: **register the native client's redirect URI** (a custom scheme such as `app-scheme://oauth/callback`, supplied by the app) on the same OIDC client. The provider validates this redirect URI, so it is the access control for native logins — no Mealie-side configuration is required.
+
+!!! note
+    Providers that require a separate **public** (secret-less) native client — notably Google and Microsoft Entra — are not yet supported by this flow. Self-hosted providers that let you add a redirect URI to the existing confidential client (Pocket ID, Authentik, Authelia, Keycloak, …) work today.
+
 ## Examples
 
 Example configurations for several Identity Providers have been provided by the Community in the [GitHub Discussions](https://github.com/mealie-recipes/mealie/discussions/categories/oauth-provider-example).
