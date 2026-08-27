@@ -7,6 +7,7 @@
       :title="$t('data-pages.foods.combine-food')"
       can-confirm
       @confirm="mergeFoods"
+      @close="resetMergeDialog"
     >
       <v-card-text>
         <div>
@@ -34,6 +35,28 @@
             {{ $t("data-pages.foods.merge-food-example", { food1: fromFood.name, food2: toFood.name }) }}
           </div>
         </template>
+      </v-card-text>
+    </BaseDialog>
+
+    <!-- Delete Unused Dialog -->
+    <BaseDialog
+      v-model="deleteUnusedDialog"
+      :title="$t('general.confirm')"
+      :icon="$globals.icons.alertCircle"
+      color="error"
+      can-confirm
+      @confirm="confirmDeleteUnused"
+    >
+      <v-card-text>
+        {{ $t('data-pages.foods.delete-unused-confirm', { count: unusedFoodIds.length }, unusedFoodIds.length) }}
+        <ul style="margin: 0.5rem 0 0; padding-left: 1.25rem; font-size: 0.85rem; color: rgba(var(--v-theme-on-surface), 0.7); line-height: 1.8;">
+          <li v-for="name in unusedFoodNamesPreview" :key="name">
+            {{ name }}
+          </li>
+        </ul>
+        <div v-if="unusedFoodNamesRemaining > 0" class="text-body-2 pl-2">
+          {{ $t('data-pages.delete-unused-more', { count: unusedFoodNamesRemaining }) }}
+        </div>
       </v-card-text>
     </BaseDialog>
 
@@ -134,6 +157,7 @@
       :create-form="createForm"
       :edit-form="editForm"
       :on-delete-dialog-open="onDeleteDialogOpen"
+      :on-edit-dialog-open="onEditDialogOpen"
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="foodStore.actions.deleteOne"
@@ -146,6 +170,20 @@
           </template>
           {{ $t("data-pages.combine") }}
         </BaseButton>
+
+        <v-divider vertical class="mx-2" />
+
+        <BaseButton color="error" :loading="loadingEmpty" @click="openDeleteUnusedDialog">
+          <template #icon>
+            {{ $globals.icons.broom }}
+          </template>
+          {{ $t("data-pages.delete-unused") }}
+        </BaseButton>
+      </template>
+
+      <template #[`item.recipeCount`]="{ item }">
+        <NuxtLink v-if="userGroup && item.recipeCount > 0" :to="`/g/${userGroup}?foods=${item.id}`">{{ item.recipeCount }}</NuxtLink>
+        <span v-else>{{ item.recipeCount || 0 }}</span>
       </template>
 
       <template #[`item.label`]="{ item }">
@@ -179,6 +217,25 @@
         </BaseButton>
       </template>
 
+      <template #edit-dialog-bottom>
+        <div v-if="editRecipes.length > 0" class="mt-4">
+          <div class="text-subtitle-2 mb-1">
+            {{ $t("data-pages.foods.associated-recipes") }}
+          </div>
+          <v-list density="compact">
+            <v-list-item
+              v-for="recipe in editRecipesPreview"
+              :key="recipe.slug"
+              :to="`/g/${userGroup}/r/${recipe.slug}`"
+              :title="recipe.name || recipe.slug"
+            />
+          </v-list>
+          <div v-if="editRecipesRemaining > 0" class="text-body-2 pl-2">
+            {{ $t('data-pages.delete-unused-more', { count: editRecipesRemaining }) }}
+          </div>
+        </div>
+      </template>
+
       <template #delete-dialog-bottom>
         <v-alert v-if="affectedRecipes.length > 0" type="warning" density="compact" class="mt-4 mb-0">
           {{ $t("data-pages.foods.delete-affects-recipes", { count: affectedRecipesTotal }) }}
@@ -205,10 +262,11 @@ import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias } from "~/lib/api/types/recipe";
+import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias, RecipeSummary } from "~/lib/api/types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
+import { alert } from "~/composables/use-toast";
 import { useFoodStore, useLabelStore } from "~/composables/store";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import type { AutoFormItems } from "~/types/auto-forms";
@@ -253,6 +311,12 @@ const tableHeaders: TableHeaders[] = [
     text: i18n.t("recipe.description"),
     value: "description",
     show: true,
+  },
+  {
+    text: i18n.t("data-pages.recipe-count"),
+    value: "recipeCount",
+    show: true,
+    sortable: true,
   },
   {
     text: i18n.t("shopping-list.label"),
@@ -384,6 +448,24 @@ async function handleEdit() {
 
   await foodStore.actions.updateOne(editForm.data);
   editForm.data = {} as IngredientFoodWithOnHand;
+  editRecipes.value = [];
+}
+
+// ============================================================
+// Edit Dialog: Associated Recipes
+const EDIT_RECIPES_PREVIEW_LIMIT = 10;
+
+const editRecipes = ref<RecipeSummary[]>([]);
+const editRecipesPreview = computed(() => editRecipes.value.slice(0, EDIT_RECIPES_PREVIEW_LIMIT));
+const editRecipesRemaining = computed(() => Math.max(editRecipes.value.length - EDIT_RECIPES_PREVIEW_LIMIT, 0));
+
+async function onEditDialogOpen(item: IngredientFoodWithOnHand) {
+  editRecipes.value = [];
+  if (!item?.id) {
+    return;
+  }
+  const { data } = await userApi.recipes.search({ foods: [item.id], perPage: -1 });
+  editRecipes.value = data?.items ?? [];
 }
 
 // ============================================================
@@ -444,6 +526,11 @@ const canMerge = computed(() => {
   return fromFood.value && toFood.value && fromFood.value.id !== toFood.value.id;
 });
 
+function resetMergeDialog() {
+  fromFood.value = null;
+  toFood.value = null;
+}
+
 async function mergeFoods() {
   if (!canMerge.value || !fromFood.value || !toFood.value) {
     return;
@@ -454,6 +541,36 @@ async function mergeFoods() {
   if (data) {
     foodStore.actions.refresh();
   }
+}
+
+// ============================================================
+// Delete Unused
+const DELETE_UNUSED_PREVIEW_LIMIT = 10;
+
+const deleteUnusedDialog = ref(false);
+const unusedFoods = ref<IngredientFoodWithOnHand[]>([]);
+const unusedFoodIds = computed(() => unusedFoods.value.filter(f => f.id != null).map(f => f.id!));
+const unusedFoodNamesPreview = computed(() => unusedFoods.value.slice(0, DELETE_UNUSED_PREVIEW_LIMIT).map(f => f.name));
+const unusedFoodNamesRemaining = computed(() => Math.max(unusedFoods.value.length - DELETE_UNUSED_PREVIEW_LIMIT, 0));
+const loadingEmpty = ref(false);
+
+async function openDeleteUnusedDialog() {
+  loadingEmpty.value = true;
+  const { data } = await userApi.foods.getEmpty();
+  loadingEmpty.value = false;
+  unusedFoods.value = (data ?? []) as IngredientFoodWithOnHand[];
+
+  if (unusedFoods.value.length === 0) {
+    alert.info(i18n.t("data-pages.foods.no-unused-foods"));
+    return;
+  }
+
+  deleteUnusedDialog.value = true;
+}
+
+async function confirmDeleteUnused() {
+  await foodStore.actions.deleteMany(unusedFoodIds.value);
+  unusedFoods.value = [];
 }
 
 // ============================================================

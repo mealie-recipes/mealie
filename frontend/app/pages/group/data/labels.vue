@@ -1,5 +1,65 @@
 <template>
   <div>
+    <!-- Merge Dialog -->
+    <BaseDialog
+      v-model="mergeDialog"
+      :icon="$globals.icons.tags"
+      :title="$t('data-pages.labels.combine-label')"
+      can-confirm
+      @confirm="mergeLabels"
+      @close="resetMergeDialog"
+    >
+      <v-card-text>
+        <div>
+          {{ $t("data-pages.labels.merge-dialog-text") }}
+        </div>
+        <v-autocomplete
+          v-model="fromLabel"
+          return-object
+          :items="labelStore.store.value"
+          :custom-filter="normalizeFilter"
+          item-title="name"
+          :label="$t('data-pages.labels.source-label')"
+        />
+        <v-autocomplete
+          v-model="toLabel"
+          return-object
+          :items="labelStore.store.value"
+          :custom-filter="normalizeFilter"
+          item-title="name"
+          :label="$t('data-pages.labels.target-label')"
+        />
+
+        <template v-if="canMerge && fromLabel && toLabel">
+          <div class="text-center">
+            {{ $t("data-pages.labels.merge-label-example", { label1: fromLabel.name, label2: toLabel.name }) }}
+          </div>
+        </template>
+      </v-card-text>
+    </BaseDialog>
+
+    <!-- Delete Unused Dialog -->
+    <BaseDialog
+      v-model="deleteUnusedDialog"
+      :title="$t('general.confirm')"
+      :icon="$globals.icons.alertCircle"
+      color="error"
+      can-confirm
+      @confirm="confirmDeleteUnused"
+    >
+      <v-card-text>
+        {{ $t('data-pages.labels.delete-unused-confirm', { count: unusedLabelIds.length }, unusedLabelIds.length) }}
+        <ul style="margin: 0.5rem 0 0; padding-left: 1.25rem; font-size: 0.85rem; color: rgba(var(--v-theme-on-surface), 0.7); line-height: 1.8;">
+          <li v-for="name in unusedLabelNamesPreview" :key="name">
+            {{ name }}
+          </li>
+        </ul>
+        <div v-if="unusedLabelNamesRemaining > 0" class="text-body-2 pl-2">
+          {{ $t('data-pages.delete-unused-more', { count: unusedLabelNamesRemaining }) }}
+        </div>
+      </v-card-text>
+    </BaseDialog>
+
     <!-- Seed Dialog -->
     <BaseDialog
       v-model="seedDialog"
@@ -75,6 +135,24 @@
         <MultiPurposeLabel v-if="editForm.data.name" :label="editForm.data" class="my-2" />
       </template>
 
+      <template #table-button-row>
+        <BaseButton @click="mergeDialog = true">
+          <template #icon>
+            {{ $globals.icons.externalLink }}
+          </template>
+          {{ $t("data-pages.combine") }}
+        </BaseButton>
+
+        <v-divider vertical class="mx-2" />
+
+        <BaseButton color="error" :loading="loadingEmpty" @click="openDeleteUnusedDialog">
+          <template #icon>
+            {{ $globals.icons.broom }}
+          </template>
+          {{ $t("data-pages.delete-unused") }}
+        </BaseButton>
+      </template>
+
       <template #table-button-bottom>
         <BaseButton @click="seedDialog = true">
           <template #icon>
@@ -92,10 +170,11 @@ import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { fieldTypes } from "~/composables/forms";
-import type { MultiPurposeLabelSummary } from "~/lib/api/types/labels";
+import type { MultiPurposeLabelOut, MultiPurposeLabelSummary } from "~/lib/api/types/labels";
 import type { AutoFormItems } from "~/types/auto-forms";
 import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
+import { alert } from "~/composables/use-toast";
 import { useLabelStore } from "~/composables/store";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
 
@@ -172,6 +251,65 @@ async function handleBulkAction(event: string, items: MultiPurposeLabelSummary[]
     const ids = items.filter(item => item.id != null).map(item => item.id!);
     await labelStore.actions.deleteMany(ids);
   }
+}
+
+// ============================================================
+// Merge Labels
+const mergeDialog = ref(false);
+const fromLabel = ref<MultiPurposeLabelOut | null>(null);
+const toLabel = ref<MultiPurposeLabelOut | null>(null);
+
+const canMerge = computed(() => {
+  return fromLabel.value && toLabel.value && fromLabel.value.id !== toLabel.value.id;
+});
+
+function resetMergeDialog() {
+  fromLabel.value = null;
+  toLabel.value = null;
+}
+
+async function mergeLabels() {
+  if (!canMerge.value || !fromLabel.value?.id || !toLabel.value?.id) {
+    return;
+  }
+
+  const { data } = await userApi.multiPurposeLabels.merge(fromLabel.value.id, toLabel.value.id);
+
+  if (data) {
+    fromLabel.value = null;
+    toLabel.value = null;
+    labelStore.actions.refresh();
+  }
+}
+
+// ============================================================
+// Delete Unused
+const DELETE_UNUSED_PREVIEW_LIMIT = 10;
+
+const deleteUnusedDialog = ref(false);
+const unusedLabels = ref<MultiPurposeLabelOut[]>([]);
+const unusedLabelIds = computed(() => unusedLabels.value.filter(l => l.id != null).map(l => l.id!));
+const unusedLabelNamesPreview = computed(() => unusedLabels.value.slice(0, DELETE_UNUSED_PREVIEW_LIMIT).map(l => l.name));
+const unusedLabelNamesRemaining = computed(() => Math.max(unusedLabels.value.length - DELETE_UNUSED_PREVIEW_LIMIT, 0));
+const loadingEmpty = ref(false);
+
+async function openDeleteUnusedDialog() {
+  loadingEmpty.value = true;
+  const { data } = await userApi.multiPurposeLabels.getEmpty();
+  loadingEmpty.value = false;
+  unusedLabels.value = data ?? [];
+
+  if (unusedLabels.value.length === 0) {
+    alert.info(i18n.t("data-pages.labels.no-unused-labels"));
+    return;
+  }
+
+  deleteUnusedDialog.value = true;
+}
+
+async function confirmDeleteUnused() {
+  await labelStore.actions.deleteMany(unusedLabelIds.value);
+  unusedLabels.value = [];
 }
 
 // ============================================================
