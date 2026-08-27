@@ -7,6 +7,17 @@
         </h3>
         <p>{{ $t("recipe.parser.ingredient-parser-description") }}</p>
         <p>{{ $t("recipe.parser.ingredient-parser-final-review-description") }}</p>
+        <h3 class="mb-0">
+          {{ $t("recipe.parser.ingredient-parser-result-title") }}
+        </h3>
+        <div class="d-flex ga-2 flex-wrap">
+          <v-chip v-if="autoParsed" size="large" color="success" :prepend-icon="$globals.icons.checkboxMarkedCircle">
+            {{ $t("recipe.parser.ingredient-parser-result-success", autoParsed) }}
+          </v-chip>
+          <v-chip size="large" color="warning" :prepend-icon="$globals.icons.alert">
+            {{ $t("recipe.parser.ingredient-parser-result-failed", toReview) }}
+          </v-chip>
+        </div>
       </div>
     </v-empty-state>
   </SpinTransition>
@@ -20,4 +31,8 @@
 
 <script setup lang="ts">
 const dontShowAgain = defineModel<boolean>({ default: true });
+defineProps<{
+  autoParsed: number;
+  toReview: number;
+}>();
 </script>

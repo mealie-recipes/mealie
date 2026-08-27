@@ -13,7 +13,7 @@
           <AppLoader class="my-6" />
         </div>
         <div v-else-if="state.step === ParseStep.INFO">
-          <ParseDialogInfo v-model="dontShowInfoPage" />
+          <ParseDialogInfo v-model="dontShowInfoPage" :auto-parsed="autoParsedIngredientsCount" :to-review="ingredientsToReviewCount" />
         </div>
         <div
           v-else-if="state.step === ParseStep.PARSE && currentIng"
@@ -88,6 +88,8 @@ const {
   currentIng,
   currentIngShouldDelete,
   state,
+  autoParsedIngredientsCount,
+  ingredientsToReviewCount,
   nextStep,
   saveIngs,
   nextIngredient,

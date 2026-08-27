@@ -6,7 +6,7 @@ import { uuid4 } from "../../use-utils";
 import { ParseStep, useParseIngredientsDialog } from "../use-parse-ingredients-dialog";
 import type { Parser } from "~/lib/api/user/recipes/recipe";
 
-global.uuid4 = uuid4;
+(global as any).uuid4 = uuid4;
 
 const mockError = vi.spyOn((await import("~/composables/use-toast")).alert, "error");
 
@@ -175,6 +175,8 @@ describe("useParseIngredientsDialog", () => {
         confidence: { average: 0.5 },
       }]);
       const { state } = wrapped.vm;
+      expect(wrapped.vm.ingredientsToReviewCount).toBe(2);
+      expect(wrapped.vm.autoParsedIngredientsCount).toBe(2);
       expect(state.currentParsedIndex).toBe(-1);
       expect(state.allReviewed).toBe(false);
       nextIngredient();

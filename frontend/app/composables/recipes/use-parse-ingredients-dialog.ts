@@ -158,6 +158,8 @@ export function useParseIngredientsDialog(
     ing.ingredient.food = undefined;
   }
 
+  const ingredientsToReview = computed(() => parsedIngs.value.filter(shouldReview));
+
   function nextIngredient() {
     let nextIndex = state.currentParsedIndex;
     if (currentIngShouldDelete.value) {
@@ -387,6 +389,9 @@ export function useParseIngredientsDialog(
     state.saveLoading = true;
   }
 
+  const ingredientsToReviewCount = computed(() => ingredientsToReview.value.length);
+  const autoParsedIngredientsCount = computed(() => parsedIngs.value.length - ingredientsToReviewCount.value);
+
   return {
     currentIngHasError,
     availableParsers,
@@ -400,6 +405,8 @@ export function useParseIngredientsDialog(
     currentMissingFood,
     currentIngShouldDelete,
     state,
+    ingredientsToReviewCount,
+    autoParsedIngredientsCount,
     nextStep,
     saveIngs,
     nextIngredient,
