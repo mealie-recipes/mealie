@@ -26,7 +26,7 @@
           :href="!edit && !isImage(item.fileName) ? assetURL(item.fileName ?? '') : undefined"
           :target="!edit && !isImage(item.fileName) ? '_blank' : undefined"
           class="pr-2"
-          @click="!edit && isImage(item.fileName) && handleViewClick($event, item)"
+          @click="handleRowClick($event, item)"
         >
           <template #prepend>
             <v-avatar size="48" rounded="lg" class="elevation-1">
@@ -63,7 +63,7 @@
                   :target="!isImage(item.fileName) ? '_blank' : undefined"
                   :prepend-icon="$globals.icons.eye"
                   :title="$t('general.view')"
-                  @click="isImage(item.fileName) && handleViewClick($event, item)"
+                  @click="handleViewClick($event, item)"
                 />
                 <v-list-item
                   :href="assetURL(item.fileName ?? '')"
@@ -245,8 +245,22 @@ function openLightbox(item: RecipeAsset) {
 }
 
 function handleViewClick(event: Event, item: RecipeAsset) {
+  if (!isImage(item.fileName)) {
+    return;
+  }
+
   event.preventDefault();
   openLightbox(item);
+}
+
+// The row itself only opens the lightbox outside edit mode; the menu's view action
+// (which exists only while editing) goes straight to handleViewClick.
+function handleRowClick(event: Event, item: RecipeAsset) {
+  if (props.edit) {
+    return;
+  }
+
+  handleViewClick(event, item);
 }
 
 const { recipeAssetPath } = useStaticRoutes();
