@@ -42,6 +42,7 @@
         :items="editForm.items"
         class="py-2"
       />
+      <slot name="edit-dialog-bottom" />
     </div>
     <template #custom-card-action>
       <slot name="edit-dialog-custom-action" />
@@ -191,6 +192,10 @@ const props = defineProps({
     type: Function as PropType<(items: any[]) => Promise<void>>,
     default: null,
   },
+  onEditDialogOpen: {
+    type: Function as PropType<(item: any) => Promise<void>>,
+    default: null,
+  },
 });
 
 // ============================================================
@@ -208,8 +213,11 @@ function handleBulkAction(event: string, items: any[]) {
 const createFormValid = ref(false);
 const editFormValid = ref(false);
 const itemSlotNames = computed(() => Object.keys(slots).filter(slotName => slotName.startsWith("item.")));
-const editEventHandler = (item: any) => {
+const editEventHandler = async (item: any) => {
   editForm.value.data = { ...item };
+  if (props.onEditDialogOpen) {
+    await props.onEditDialogOpen(editForm.value.data);
+  }
   editDialog.value = true;
 };
 

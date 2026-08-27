@@ -7,6 +7,7 @@
       :title="$t('data-pages.tags.combine-tag')"
       can-confirm
       @confirm="mergeTags"
+      @close="resetMergeDialog"
     >
       <v-card-text>
         <div>
@@ -70,6 +71,7 @@
       :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
       :create-form="createForm"
       :edit-form="editForm"
+      :on-edit-dialog-open="onEditDialogOpen"
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="tagStore.actions.deleteOne"
@@ -78,6 +80,32 @@
       <template #[`item.recipeCount`]="{ item }">
         <NuxtLink v-if="groupSlug && item.recipeCount > 0" :to="`/g/${groupSlug}?tags=${item.id}`">{{ item.recipeCount }}</NuxtLink>
         <span v-else>{{ item.recipeCount || 0 }}</span>
+      </template>
+
+      <template #edit-dialog-bottom>
+        <div v-if="editRecipes.length > 0" class="mt-4">
+          <div class="text-subtitle-2 mb-1">
+            {{ $t("data-pages.tags.associated-recipes") }}
+          </div>
+          <div class="text-caption text-medium-emphasis mb-1">
+            {{ $t("data-pages.tags.associated-recipes-help") }}
+          </div>
+          <v-chip
+            v-for="recipe in editRecipesPreview"
+            :key="recipe.id"
+            label
+            closable
+            class="mr-1 mt-1"
+            color="accent"
+            variant="flat"
+            @click:close="removeRecipeChip(recipe.id!)"
+          >
+            {{ recipe.name }}
+          </v-chip>
+          <div v-if="editRecipesRemaining > 0" class="text-body-2 mt-1">
+            {{ $t('data-pages.delete-unused-more', { count: editRecipesRemaining }) }}
+          </div>
+        </div>
       </template>
 
       <template #table-button-row>
@@ -109,7 +137,7 @@ import { fieldTypes } from "~/composables/forms";
 import { normalizeFilter } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import type { AutoFormItems } from "~/types/auto-forms";
-import type { RecipeTag } from "~/lib/api/types/recipe";
+import type { RecipeTag, RecipeSummary } from "~/lib/api/types/recipe";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
 
 const i18n = useI18n();
@@ -173,8 +201,37 @@ const editForm = reactive({
 });
 
 async function handleEdit(editFormData: RecipeTag) {
+  if (removedRecipeIds.value.length > 0 && editFormData.id) {
+    await userApi.tags.removeFromRecipes(editFormData.id, removedRecipeIds.value);
+  }
   await tagStore.actions.updateOne(editFormData);
   editForm.data = {} as RecipeTag;
+  editRecipes.value = [];
+  removedRecipeIds.value = [];
+}
+
+// ============================================================
+// Edit Dialog: Associated Recipes
+const EDIT_RECIPES_PREVIEW_LIMIT = 10;
+
+const editRecipes = ref<RecipeSummary[]>([]);
+const removedRecipeIds = ref<string[]>([]);
+const editRecipesPreview = computed(() => editRecipes.value.slice(0, EDIT_RECIPES_PREVIEW_LIMIT));
+const editRecipesRemaining = computed(() => Math.max(editRecipes.value.length - EDIT_RECIPES_PREVIEW_LIMIT, 0));
+
+async function onEditDialogOpen(item: RecipeTag) {
+  removedRecipeIds.value = [];
+  editRecipes.value = [];
+  if (!item?.id) {
+    return;
+  }
+  const { data } = await userApi.tags.getOne(item.id);
+  editRecipes.value = (data?.recipes ?? []).filter(recipe => recipe.id);
+}
+
+function removeRecipeChip(recipeId: string) {
+  removedRecipeIds.value.push(recipeId);
+  editRecipes.value = editRecipes.value.filter(recipe => recipe.id !== recipeId);
 }
 
 // ============================================================
@@ -195,6 +252,11 @@ const toTag = ref<RecipeTag | null>(null);
 const canMerge = computed(() => {
   return fromTag.value && toTag.value && fromTag.value.id !== toTag.value.id;
 });
+
+function resetMergeDialog() {
+  fromTag.value = null;
+  toTag.value = null;
+}
 
 async function mergeTags() {
   if (!canMerge.value || !fromTag.value?.id || !toTag.value?.id) {

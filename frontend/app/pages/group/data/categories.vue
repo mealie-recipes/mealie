@@ -7,6 +7,7 @@
       :title="$t('data-pages.categories.combine-category')"
       can-confirm
       @confirm="mergeCategories"
+      @close="resetMergeDialog"
     >
       <v-card-text>
         <div>
@@ -70,6 +71,7 @@
       :bulk-actions="[{ icon: $globals.icons.delete, text: $t('general.delete'), event: 'delete-selected' }]"
       :create-form="createForm"
       :edit-form="editForm"
+      :on-edit-dialog-open="onEditDialogOpen"
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="categoryStore.actions.deleteOne"
@@ -78,6 +80,25 @@
       <template #[`item.recipeCount`]="{ item }">
         <NuxtLink v-if="groupSlug && item.recipeCount > 0" :to="`/g/${groupSlug}?categories=${item.id}`">{{ item.recipeCount }}</NuxtLink>
         <span v-else>{{ item.recipeCount || 0 }}</span>
+      </template>
+
+      <template #edit-dialog-bottom>
+        <div v-if="editRecipes.length > 0" class="mt-4">
+          <div class="text-subtitle-2 mb-1">
+            {{ $t("data-pages.categories.associated-recipes") }}
+          </div>
+          <v-list density="compact">
+            <v-list-item
+              v-for="recipe in editRecipesPreview"
+              :key="recipe.slug"
+              :to="`/g/${groupSlug}/r/${recipe.slug}`"
+              :title="recipe.name || recipe.slug"
+            />
+          </v-list>
+          <div v-if="editRecipesRemaining > 0" class="text-body-2 pl-2">
+            {{ $t('data-pages.delete-unused-more', { count: editRecipesRemaining }) }}
+          </div>
+        </div>
       </template>
 
       <template #table-button-row>
@@ -109,7 +130,7 @@ import { fieldTypes } from "~/composables/forms";
 import { normalizeFilter } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import type { AutoFormItems } from "~/types/auto-forms";
-import type { RecipeCategory } from "~/lib/api/types/recipe";
+import type { RecipeCategory, RecipeSummary } from "~/lib/api/types/recipe";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
 
 const i18n = useI18n();
@@ -175,6 +196,24 @@ const editForm = reactive({
 async function handleEdit(editFormData: RecipeCategory) {
   await categoryStore.actions.updateOne(editFormData);
   editForm.data = {} as RecipeCategory;
+  editRecipes.value = [];
+}
+
+// ============================================================
+// Edit Dialog: Associated Recipes
+const EDIT_RECIPES_PREVIEW_LIMIT = 10;
+
+const editRecipes = ref<RecipeSummary[]>([]);
+const editRecipesPreview = computed(() => editRecipes.value.slice(0, EDIT_RECIPES_PREVIEW_LIMIT));
+const editRecipesRemaining = computed(() => Math.max(editRecipes.value.length - EDIT_RECIPES_PREVIEW_LIMIT, 0));
+
+async function onEditDialogOpen(item: RecipeCategory) {
+  editRecipes.value = [];
+  if (!item?.slug) {
+    return;
+  }
+  const { data } = await userApi.categories.bySlug(item.slug);
+  editRecipes.value = data?.recipes ?? [];
 }
 
 // ============================================================
@@ -195,6 +234,11 @@ const toCategory = ref<RecipeCategory | null>(null);
 const canMerge = computed(() => {
   return fromCategory.value && toCategory.value && fromCategory.value.id !== toCategory.value.id;
 });
+
+function resetMergeDialog() {
+  fromCategory.value = null;
+  toCategory.value = null;
+}
 
 async function mergeCategories() {
   if (!canMerge.value || !fromCategory.value?.id || !toCategory.value?.id) {
