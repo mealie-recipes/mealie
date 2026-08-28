@@ -39,6 +39,7 @@ def test_get_household_members_unauthorized(api_client: TestClient, unique_user:
     response = api_client.get(api_routes.households_members, headers=unique_user.token)
     assert response.status_code == 403
 
+
 def test_get_household_recipe_default(api_client: TestClient, unique_user: TestUser):
     recipe = unique_user.repos.recipes.create(
         Recipe(
