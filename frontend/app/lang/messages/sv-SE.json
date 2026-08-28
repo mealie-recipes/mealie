@@ -161,7 +161,7 @@
     "copied-items-to-clipboard": "Inget objekt kopierat till urklipp|Ett objekt kopierat till urklipp|Kopierade {count} objekt till urklipp",
     "actions": "Hantera",
     "selected-count": "Valda: {count}",
-    "selected": "Selected",
+    "selected": "Markerad",
     "export-all": "Exportera allt",
     "upload-file": "Ladda upp fil",
     "created-on-date": "Skapad {0}",
@@ -297,9 +297,9 @@
     "day-any": "Alla",
     "meal-title": "Måltidstitel",
     "meal-note": "Måltidsanteckning",
-    "note": "Note",
-    "ignore-rules": "Ignore Planner Rules",
-    "no-recipes-match-your-rules": "No recipes match your meal plan rules",
+    "note": "Anteckning",
+    "ignore-rules": "Ignorera planeringsregler",
+    "no-recipes-match-your-rules": "Inga recept matchar dina regler för måltidsplan",
     "random-meal": "Slumpmässig måltid",
     "random-dinner": "Slumpmässig middag",
     "random-side": "Slumpmässigt tillbehör",
@@ -318,7 +318,7 @@
     "meal-plan-settings": "Inställningar för måltidsplanering",
     "add-all-to-list": "Lägg till alla i inköpslista",
     "add-day-to-list": "Lägg till dag i inköpslista",
-    "randomize-recipe": "Randomize Recipe"
+    "randomize-recipe": "Slumpa recept"
   },
   "migration": {
     "new-migration": "Ny migrering",
