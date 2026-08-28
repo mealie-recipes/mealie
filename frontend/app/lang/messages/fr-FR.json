@@ -961,7 +961,7 @@
     "columns": "Colonnes",
     "combine": "Combiner",
     "delete-unused": "Supprime les inutilisés",
-    "delete-unused-more": "+ {count} more",
+    "delete-unused-more": "+ {count} de plus",
     "recipe-count": "Nombre de recettes",
     "categories": {
       "edit-category": "Modifier la catégorie",
@@ -970,22 +970,22 @@
       "combine-category": "Combiner une catégorie",
       "source-category": "Catégorie source",
       "target-category": "Catégorie cible",
-      "merge-dialog-text": "Combining the selected categories will merge the source category and target category into a single category. The source category will be deleted and all of the references to the source category will be updated to point to the target category.",
-      "merge-category-example": "Merging {category1} into {category2}",
-      "delete-unused-confirm": "Okay to delete this unused category? This cannot be undone. | Okay to delete these {count} unused categories? This cannot be undone.",
-      "no-unused-categories": "No unused categories to delete"
+      "merge-dialog-text": "La combinaison des catégories sélectionnées fusionnera la catégorie source et la catégorie cible en un seule catégorie. La catégorie source sera supprimée et toutes les références à la catégorie source seront mises à jour pour pointer vers la catégorie cible.",
+      "merge-category-example": "Fusionner {category1} vers {category2}",
+      "delete-unused-confirm": "Voulez-vous supprimer cette catégorie inutilisée ? Cela ne peut pas être annulé. | Voulez-vous supprimer ces {count} catégories inutilisées ? Cela ne peut pas être annulé.",
+      "no-unused-categories": "Aucune catégorie inutilisée à supprimer"
     },
     "tags": {
       "new-tag": "Nouveau mot-clé",
       "edit-tag": "Modifier le mot-clé",
       "tag-data": "Données du mot-clé",
-      "combine-tag": "Combine Tag",
-      "source-tag": "Source Tag",
-      "target-tag": "Target Tag",
-      "merge-dialog-text": "Combining the selected tags will merge the source tag and target tag into a single tag. The source tag will be deleted and all of the references to the source tag will be updated to point to the target tag.",
-      "merge-tag-example": "Merging {tag1} into {tag2}",
-      "delete-unused-confirm": "Okay to delete this unused tag? This cannot be undone. | Okay to delete these {count} unused tags? This cannot be undone.",
-      "no-unused-tags": "No unused tags to delete"
+      "combine-tag": "Fusionner le mot-clé",
+      "source-tag": "Mot-clé source",
+      "target-tag": "Mot-clé cible",
+      "merge-dialog-text": "La combinaison des mots-clés sélectionnés fusionnera le mot-clé source et le mot-clé cible en un seul tag. Le mot-clé source sera supprimé et toutes les références au mot-clé source seront mises à jour pour pointer vers le mot-clé cible.",
+      "merge-tag-example": "Fusionner {tag1} vers {tag2}",
+      "delete-unused-confirm": "Voulez-vous supprimer ce mot-clé inutilisé ? Cela ne peut pas être annulé. | Voulez-vous supprimer ces {count} mots-clés inutilisés ? Cela ne peut pas être annulé.",
+      "no-unused-tags": "Aucun mot-clé inutilisé à supprimer"
     },
     "tools": {
       "new-tool": "Nouvel ustensile",
