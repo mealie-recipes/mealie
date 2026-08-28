@@ -23,7 +23,7 @@
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
-            "image-provider-not-enabled": "AI image services are not enabled",
+            "image-provider-not-enabled": "AI obrazové služby nejsou povoleny",
             "no-recipe-found": "No recipe was found in the provided source",
             "no-source": "No content, images, or URL were provided",
             "provider-returned-nothing": "The AI provider did not return a recipe",

@@ -206,7 +206,8 @@
                     v-for="(item, index) in value"
                     :key="item.id"
                     v-model="value[index]"
-                    class="ml-2 my-2 w-auto"
+                    class="my-2 w-auto"
+                    :edit="editingItem === item.id"
                     :labels="allLabels || []"
                     :units="allUnits || []"
                     :foods="allFoods || []"
@@ -215,8 +216,13 @@
                       saveListItem(item);
                       itemCheckedToast(item);
                     }"
-                    @save="saveListItem"
+                    @save="(item) => {
+                      editingItem = undefined;
+                      saveListItem(item);
+                    }"
                     @delete="deleteListItem(item)"
+                    @view="editingItem = undefined"
+                    @edit="editingItem = item.id"
                   />
                 </TransitionGroup>
               </VueDraggable>
@@ -359,6 +365,7 @@ useSeoMeta({
 const route = useRoute();
 const id = route.params.id as string;
 
+const editingItem = ref<string | undefined>(undefined);
 const shoppingListPage = useShoppingListPage(id);
 const { store: allLabels } = useLabelStore();
 const { store: allUnits } = useUnitStore();

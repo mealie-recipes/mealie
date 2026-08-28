@@ -22,7 +22,7 @@
         "or-ingredient": "eller {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI-tjenester er ikke slået til",
-            "ai-request-failed": "AI-udbyderen var ikke is tand til at færdiggøre forespørgslen. Prøv igen",
+            "ai-request-failed": "AI-udbyderen var ikke i stand til at færdiggøre forespørgslen. Prøv igen",
             "image-provider-not-enabled": "AI-billedservice ikke tilgængelig",
             "no-recipe-found": "Der blev ikke fundet en opskrift i den angivne kilde",
             "no-source": "Der blev ikke angivet indhold, billeder eller en URL",
