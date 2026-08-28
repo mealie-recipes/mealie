@@ -161,7 +161,7 @@
     "copied-items-to-clipboard": "Ingen elementer kopiert til utklippstavlen|Ett element kopiert til utklippstavlen|{count} elementer til kopiert til utklippstavlen",
     "actions": "Handlinger",
     "selected-count": "Valgt: {count}",
-    "selected": "Selected",
+    "selected": "Valgt",
     "export-all": "Eksporter alle",
     "upload-file": "Last opp fil",
     "created-on-date": "Opprettet: {0}",
