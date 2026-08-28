@@ -146,6 +146,7 @@
             <v-card-text>
               <v-form
                 ref="domGroupForm"
+                v-model="isGroupFormValid"
                 @submit.prevent
               >
                 <v-text-field
@@ -189,6 +190,7 @@
               </BaseButton>
               <BaseButton
                 icon-right
+                :disabled="!isGroupFormValid || !groupNameValid"
                 @click="groupDetails.next"
               >
                 <template #icon>
@@ -202,7 +204,7 @@
 
         <template v-else-if="state.ctx.state === States.ProvideAccountDetails">
           <div>
-            <UserRegistrationForm />
+            <UserRegistrationForm v-model="isAccountFormValid"/>
             <v-divider />
             <v-card-actions class="justify-space-between">
               <BaseButton
@@ -216,6 +218,7 @@
               </BaseButton>
               <BaseButton
                 icon-right
+                :disabled="!isAccountFormValid"
                 @click="accountDetailsNext"
               >
                 <template #icon>
@@ -384,6 +387,7 @@ const provideToken = {
 // Provide Group Details
 const publicApi = usePublicApi();
 const domGroupForm = ref<VForm | null>(null);
+const isGroupFormValid = ref(false);
 const groupName = ref("");
 const groupSeed = ref(false);
 const groupPrivate = ref(false);
@@ -420,6 +424,7 @@ const groupDetails = {
   },
 };
 
+const isAccountFormValid = ref(false);
 const {
   accountDetails,
   credentials,
