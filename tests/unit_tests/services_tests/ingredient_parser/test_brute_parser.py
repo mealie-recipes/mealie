@@ -89,6 +89,9 @@ def build_parsed_ing(food: str | None, unit: str | None) -> ParsedIngredient:
         pytest.param(
             "bell peppers, cut in pieces", 0, "", "bell peppers", "cut in pieces", id="bell peppers, cut in pieces"
         ),
+        pytest.param("2 Tbsp cooking oil*", 2, "Tbsp", "cooking oil", "", id="trailing footnote marker"),
+        pytest.param("2 Tbsp cooking oil* ($0.10)", 2, "Tbsp", "cooking oil", "$0.10", id="footnote marker with price"),
+        pytest.param("1 cup all-purpose flour**", 1, "Cups", "all-purpose flour", "", id="double footnote marker"),
     ],
 )
 def test_brute_parser(

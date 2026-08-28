@@ -1,4 +1,4 @@
-from datetime import UTC, datetime
+from datetime import datetime
 from enum import Enum
 from pathlib import Path
 from typing import Annotated
@@ -8,6 +8,7 @@ from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.core.config import get_app_dirs
+from mealie.db.models._model_utils.datetime import get_utc_now
 from mealie.db.models.recipe.recipe_timeline import RecipeTimelineEvent
 from mealie.db.models.users.users import User
 from mealie.schema._mealie import MealieModel
@@ -40,7 +41,7 @@ class RecipeTimelineEventIn(MealieModel):
     message: str | None = Field(None, alias="eventMessage")
     image: Annotated[TimelineEventImage | None, Field(validate_default=True)] = TimelineEventImage.does_not_have_image
 
-    timestamp: datetime = datetime.now(UTC)
+    timestamp: datetime = Field(default_factory=get_utc_now)
     model_config = ConfigDict(use_enum_values=True)
 
 
