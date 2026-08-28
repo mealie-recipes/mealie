@@ -204,7 +204,7 @@
 
         <template v-else-if="state.ctx.state === States.ProvideAccountDetails">
           <div>
-            <UserRegistrationForm v-model="isAccountFormValid"/>
+            <UserRegistrationForm v-model="isAccountFormValid" />
             <v-divider />
             <v-card-actions class="justify-space-between">
               <BaseButton

@@ -110,7 +110,7 @@ watch(
   (val) => {
     emit("update:modelValue", val);
   },
-  { immediate: true }
+  { immediate: true },
 );
 </script>
 
