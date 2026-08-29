@@ -11,219 +11,553 @@
     height: 100%;
   }
 
-  .tx-container {
-    padding-top: 0rem;
+  /*
+   * Everything on this page renders in the tabs block, so the content column
+   * is empty but still reserves ~76px under the social row. Collapse it.
+   * Main itself has to stay: it carries the drawer navigation and back-to-top.
+   * The theme's own rule is .md-sidebar--secondary:not([hidden]), so match
+   * that specificity or the sidebar stays visible.
+   */
+  .md-sidebar--secondary:not([hidden]) {
+    display: none;
   }
 
-  .tx-hero {
-    margin: 12px 2.8rem;
-    justify-content: center;
+  .md-main__inner {
+    margin-top: 0;
   }
 
-  .tx-hero h1 {
-    margin-bottom: 1rem;
-    font-family: "Roboto";
-    color: var(--md-custom-h2-color);
-    font-weight: 500;
+  .md-content__inner {
+    padding: 0;
+    margin: 0;
   }
 
-  .tx-hero__content {
-    padding-bottom: 1rem;
-    margin: 0 auto;
-  }
-
-  .tx-hero__image {
-    order: 1;
-    padding-right: 2.5rem;
-  }
-
-  .tx-hero .md-button {
-    margin-top: 0.5rem;
-    margin-right: 0.5rem;
-    color: var(--md-primary-fg-color);
-  }
-
-  .tx-hero .md-button--primary {
-    background-color: var(--md-primary--color);
-    border-color: var(--md-primary-bg-color);
-  }
-
-  .tx-hero .md-button:focus,
-  .tx-hero .md-button:hover {
-    background-color: var(--md-accent-fg-color);
-    color: var(--md-default-bg-color);
-    border-color: var(--md-accent-fg-color);
-  }
-
-  .feature-item h2 svg {
-    height: 30px;
-    float: left;
-    margin-right: 10px;
-    transform: translateY(10%);
-  }
-
-  .feature-container {
-    background-color: var(--md-default-accent-bg-color);
-  }
-
-  .top-hr {
-    margin-top: 42px;
-    margin-bottom: 42px;
-  }
-
-  .feature-item {
-    font-family: "Lato", sans-serif;
-    font-weight: 300;
-    box-sizing: border-box;
-    padding: 0 15px;
-    word-break: break-word;
-  }
-
-  .feature-item h2 {
-    color: var(--md-custom-h2-color);
-    font-weight: 300;
-    font-size: 25px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    line-height: normal;
-    margin-top: 20px;
-    margin-bottom: 10px;
-    font-family: inherit;
-  }
-
-  .feature-item p {
-    font-size: 16px;
-    line-height: 1.8em;
-    text-rendering: optimizeLegibility;
-    -webkit-font-smoothing: antialiased;
-    color: var(--webkit-print-color-adjust);
-    margin: 0 0 10px;
-    display: block;
-  }
-
-  @media screen and (max-width: 30em) {
-    .tx-hero h1 {
-      font-size: 1.4rem;
-    }
-  }
-
-  @media screen and (min-width: 60em) {
-    .md-sidebar--secondary {
-      display: none;
-    }
-
-    .tx-hero {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .tx-hero__content {
-      max-width: 22rem;
-      margin-top: 3.5rem;
-      margin-bottom: 3.5rem;
-      margin-left: 1rem;
-      margin-right: 4rem;
-      align-items: center;
-    }
+  .md-content__inner::before {
+    display: none;
   }
 
   @media screen and (min-width: 76.25em) {
     .md-sidebar--primary {
       display: none;
     }
-
-    .top-hr {
-      width: 100%;
-      display: flex;
-      max-width: 61rem;
-      margin-right: auto;
-      margin-left: auto;
-      padding: 0 0.2rem;
-    }
-
-    .bottom-hr {
-      margin-top: 10px;
-      width: 100%;
-      display: flex;
-      max-width: 61rem;
-      margin-right: auto;
-      margin-left: auto;
-      padding: 0 0.2rem;
-    }
-
-    .feature-item {
-      flex: 1;
-      min-width: 0;
-    }
   }
 
-  .hr {
-    border-bottom: 1px solid #eee;
-    width: 100%;
-    margin: 20px 0;
+  /*
+   * Landing page sections. Everything is driven by the palette variables so the
+   * page follows the mealie (light) and slate (dark) schemes without a second
+   * set of rules.
+   */
+  .tx-section {
+    padding: 3.5rem 0;
   }
 
-  .text-center {
+  .tx-section--alt {
+    background-color: var(--md-default-accent-bg-color);
+  }
+
+  .tx-section__inner {
+    max-width: 61rem;
+    margin: 0 auto;
+    padding: 0 1.2rem;
+  }
+
+  .tx-section__head {
+    margin-bottom: 2rem;
+  }
+
+  .tx-section--strip {
+    padding: 2rem 0;
+    border-top: 1px solid var(--md-default-fg-color--lightest);
+  }
+
+  .tx-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem 1.5rem;
+  }
+
+  .tx-strip h2 {
+    margin: 0;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--md-default-fg-color--light);
+  }
+
+  .tx-section__head h2 {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1.25;
+    margin: 0 0 0.4rem;
+    color: var(--md-default-fg-color);
+  }
+
+  .tx-section__head p {
+    margin: 0;
+    max-width: 42rem;
+    font-size: 0.78rem;
+    line-height: 1.7;
+    color: var(--md-default-fg-color--light);
+  }
+
+  /* Hero */
+  .tx-hero {
+    padding: 3rem 0 3.5rem;
+  }
+
+  .tx-hero__inner {
+    max-width: 61rem;
+    margin: 0 auto;
+    padding: 0 1.2rem;
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+    grid-template-columns: 1fr;
+  }
+
+  .tx-hero h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    margin: 0 0 0.75rem;
+    color: var(--md-default-fg-color);
+  }
+
+  .tx-hero__tagline {
+    font-size: 1.15rem;
+    font-weight: 500;
+    line-height: 1.3;
+    margin: 0 0 0.9rem;
+    color: var(--md-primary-fg-color);
+  }
+
+  .tx-hero__body {
+    font-size: 0.82rem;
+    line-height: 1.75;
+    margin: 0 0 1.6rem;
+    max-width: 30rem;
+    color: var(--md-default-fg-color--light);
+  }
+
+  /*
+   * Screenshot slots. Each one is a placeholder until a maintainer drops the
+   * real image in; see the swap instructions above the markup below.
+   */
+  .tx-shot {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+    padding: 1rem;
+    aspect-ratio: 16 / 10;
     text-align: center;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 15px;
-    font-family: "Lato", sans-serif;
-    font-size: 23px;
-    font-weight: 300;
-    padding-bottom: 10px;
+    border: 2px dashed var(--md-default-fg-color--lighter);
+    border-radius: 0.3rem;
+    background-color: var(--md-default-bg-color);
   }
 
-  .logos {
+  .tx-shot__label {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--md-default-fg-color--light);
+  }
+
+  .tx-shot__path {
+    font-family: var(--md-code-font-family, "Roboto Mono", monospace);
+    font-size: 0.62rem;
+    line-height: 1.5;
+    word-break: break-all;
+    color: var(--md-default-fg-color--lighter);
+  }
+
+  .tx-shot__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 0.3rem;
+    border: 1px solid var(--md-default-fg-color--lightest);
+  }
+
+  .tx-shots {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  .tx-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  /*
+   * Zensical's modern theme renders .md-button as a borderless pill with a
+   * tinted fill, which flattens the primary/secondary distinction the hero
+   * relies on. Style both variants here rather than leaning on the theme.
+   */
+  .tx-hero__actions .md-button {
+    margin: 0;
+    padding: 0.5rem 1.1rem !important;
+    border-radius: 0.2rem;
+    border: 2px solid var(--md-primary-fg-color);
+    font-size: 0.76rem;
+    font-weight: 700;
+    background-color: transparent;
+    color: var(--md-primary-fg-color);
+    transition: background-color 125ms, color 125ms;
+  }
+
+  .tx-hero__actions .md-button--primary {
+    background-color: var(--md-primary-fg-color);
+    color: #fff;
+  }
+
+  .tx-hero__actions .md-button:focus,
+  .tx-hero__actions .md-button:hover {
+    background-color: var(--md-primary-fg-color);
+    border-color: var(--md-primary-fg-color);
+    color: #fff;
+  }
+
+  /*
+   * Brand marks keep their own color, set per icon as --brand. A few are too
+   * dark to read on the slate scheme and fall back to the page foreground.
+   */
+  .tx-brand {
+    display: block;
+    color: var(--brand);
+  }
+
+  .tx-brand svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  [data-md-color-scheme="slate"] .tx-brand--needs-light {
+    color: var(--md-default-fg-color);
+  }
+
+  /* Quick start */
+  .tx-deploy {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  .tx-deploy a {
+    display: flex;
+    align-items: center;
+    gap: 1.3rem;
+    padding: 2rem 1.75rem;
+    border-radius: 0.4rem;
+    background-color: var(--md-default-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    transition: border-color 125ms;
+  }
+
+  .tx-deploy a:hover {
+    border-color: var(--md-primary-fg-color);
+  }
+
+  .tx-deploy .tx-brand {
+    flex: none;
+    width: 3.4rem;
+    height: 3.4rem;
+  }
+
+  .tx-deploy strong {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.35rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--md-default-fg-color);
+  }
+
+  .tx-deploy__desc {
+    font-size: 0.72rem;
+    line-height: 1.6;
+    color: var(--md-default-fg-color--light);
+  }
+
+  .tx-badge {
+    padding: 0.1rem 0.4rem;
+    border-radius: 0.6rem;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--md-primary-fg-color);
+    background-color: var(--md-accent-fg-color--transparent);
+  }
+
+  /* Feature highlights */
+  .tx-highlight {
+    display: grid;
+    gap: 1.75rem;
+    grid-template-columns: 1fr;
+    align-items: center;
+  }
+
+  .tx-highlight + .tx-highlight {
+    margin-top: 3.5rem;
+  }
+
+  .tx-highlight h3 {
+    margin: 0 0 0.6rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    line-height: 1.25;
+    color: var(--md-default-fg-color);
+  }
+
+  .tx-highlight p {
+    margin: 0 0 1rem;
+    font-size: 0.78rem;
+    line-height: 1.75;
+    color: var(--md-default-fg-color--light);
+  }
+
+  .tx-highlight a {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--md-primary-fg-color);
+  }
+
+  .tx-linklist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-top: 1rem;
+    font-size: 0.72rem;
+  }
+
+  .tx-linklist a {
+    color: var(--md-primary-fg-color);
+    font-weight: 600;
+  }
+
+  /* Feature cards */
+  .tx-features {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  .tx-feature {
+    padding: 1.25rem;
+    border-radius: 0.3rem;
+    background-color: var(--md-default-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+  }
+
+  .tx-feature__icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-flow: row wrap;
-    margin: 0 auto;
+    width: 2.2rem;
+    height: 2.2rem;
+    margin-bottom: 0.8rem;
+    border-radius: 0.25rem;
+    color: var(--md-primary-fg-color);
+    background-color: var(--md-accent-fg-color--transparent);
   }
 
-  .logos img {
-    flex: 1 1 auto;
-    padding: 25px;
-    max-height: 130px;
-    vertical-align: middle;
+  .tx-feature__icon svg {
+    width: 1.2rem;
+    height: 1.2rem;
   }
 
-  .hr-logos {
-    margin-top: 0;
-    margin-bottom: 30px;
+  .tx-feature h3 {
+    margin: 0 0 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--md-default-fg-color);
   }
 
-  .md-footer-meta__inner {
+  .tx-feature p {
+    margin: 0;
+    font-size: 0.72rem;
+    line-height: 1.7;
+    color: var(--md-default-fg-color--light);
+  }
+
+  /* Chip lists, used for import sources and the stack */
+  .tx-chips {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    margin-top: 1rem;
+    gap: 0.5rem;
+  }
+
+  .tx-chip--brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .tx-chip--brand .tx-brand {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .tx-chip {
+    padding: 0.35rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: var(--md-default-fg-color);
+    background-color: var(--md-default-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+  }
+
+  .tx-section--alt .tx-feature,
+  .tx-section--alt .tx-chip {
+    background-color: var(--md-default-bg-color);
+  }
+
+  /* Community */
+  .tx-community {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  .tx-community a {
+    display: block;
+    padding: 1.1rem 1.25rem;
+    border-radius: 0.3rem;
+    background-color: var(--md-default-bg-color);
+    border: 1px solid var(--md-default-fg-color--lightest);
+    transition: border-color 125ms;
+  }
+
+  .tx-community a:hover {
+    border-color: var(--md-primary-fg-color);
+  }
+
+  /* Outrank custom.css's external-link icon, which lands mid-card here. */
+  .tx-community a[target="_blank"]:not([class*="md-"])::after {
+    content: none;
+  }
+
+  .tx-community .tx-brand {
+    width: 1.4rem;
+    height: 1.4rem;
+    margin-bottom: 0.7rem;
+  }
+
+  .tx-community strong {
+    display: block;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+    color: var(--md-primary-fg-color);
+  }
+
+  .tx-community__desc {
+    font-size: 0.72rem;
+    line-height: 1.6;
+    color: var(--md-default-fg-color--light);
+  }
+
+  /*
+   * Social row. The links are inline anchors around 32px icons, so the line
+   * box collapses to 11px and the icons end up shoulder to shoulder; the
+   * single flex child also sat left under space-between. Lay the row out as a
+   * centered flex line with real spacing instead.
+   */
+  .md-footer-meta__inner {
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 2.5rem 1.2rem 2rem;
   }
 
   .md-footer-social {
-    padding-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 1.4rem;
+    padding: 0;
+    color: var(--md-default-fg-color--light);
+  }
+
+  .md-footer-social__link {
+    display: flex;
+    align-items: center;
+    transition: color 125ms;
+  }
+
+  .md-footer-social__link svg {
+    display: block;
+    fill: currentColor;
+  }
+
+  .md-footer-social__link:hover {
+    color: var(--md-primary-fg-color);
+  }
+
+  @media screen and (min-width: 45em) {
+    .tx-features {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tx-community {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tx-shots {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  @media screen and (min-width: 60em) {
+    .tx-hero__inner {
+      grid-template-columns: 1fr 1.15fr;
+    }
+
+    .tx-deploy {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .tx-highlight {
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    /* Alternate which side the screenshot sits on down the column. */
+    .tx-highlight:nth-child(even) .tx-highlight__media {
+      order: -1;
+    }
+
+    .tx-features {
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .tx-shots {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .tx-community {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
 </style>
 
-<!-- Main site Entry button descriptions -->
-<section class="tx-container">
-  <div class="md-grid md-typeset">
-    <div class="tx-hero">
-      <div class="tx-hero__image">
-        <img src="assets/img/home_screenshot.png" draggable="false" />
-      </div>
-      <div class="tx-hero__content">
-        <h1>Mealie</h1>
-        <p>
-          A self-hosted recipe manager and meal planner with a RestAPI backend
-          and a reactive frontend application built in Vue for a pleasant user
-          experience for the whole family.
-        </p>
+<section class="tx-hero">
+  <div class="tx-hero__inner">
+    <div class="tx-hero__content">
+      <h1>Mealie</h1>
+      <p class="tx-hero__tagline">A Place For All Your Recipes</p>
+      <p class="tx-hero__body">
+        A self-hosted recipe manager, meal planner and shopping list with a
+        RestAPI backend and a reactive frontend built in Vue.
+      </p>
+      <div class="tx-hero__actions">
         <a href="{{ page.next_page.url | url }}" title="{{ page.next_page.title | striptags }}"
           class="md-button md-button--primary">
           Get started
@@ -233,117 +567,279 @@
         </a>
       </div>
     </div>
+    <!--
+      Screenshot slot. To fill one in, add the image at the path printed in the
+      placeholder, then replace the whole <div class="tx-shot"> with:
+        <img class="tx-shot__img" src="assets/img/home/<name>.png" alt="..." />
+    -->
+    <div class="tx-hero__image">
+      <div class="tx-shot">
+        <span class="tx-shot__label">Recipe page</span>
+        <span class="tx-shot__path">assets/img/home/recipe-page.png</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- Main site box descriptions -->
-<!-- Row 1 -->
-<section class="feature-container">
-  <div class="top-hr">
-    <div class="feature-item">
-      <h2>
-        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,4.5L8.95,4.53C8.71,5.05 8.34,5.93 8.07,7H10.93C10.66,5.93 10.29,5.05 10.05,4.53C9.87,4.5 9.69,4.5 9.5,4.5M13.83,7C13.24,5.97 12.29,5.17 11.15,4.78C11.39,5.31 11.7,6.08 11.93,7H13.83M5.17,7H7.07C7.3,6.08 7.61,5.31 7.85,4.78C6.71,5.17 5.76,5.97 5.17,7M4.5,9.5C4.5,10 4.58,10.53 4.73,11H6.87L6.75,9.5L6.87,8H4.73C4.58,8.47 4.5,9 4.5,9.5M14.27,11C14.42,10.53 14.5,10 14.5,9.5C14.5,9 14.42,8.47 14.27,8H12.13C12.21,8.5 12.25,9 12.25,9.5C12.25,10 12.21,10.5 12.13,11H14.27M7.87,8L7.75,9.5L7.87,11H11.13C11.21,10.5 11.25,10 11.25,9.5C11.25,9 11.21,8.5 11.13,8H7.87M9.5,14.5C9.68,14.5 9.86,14.5 10.03,14.47C10.28,13.95 10.66,13.07 10.93,12H8.07C8.34,13.07 8.72,13.95 8.97,14.47L9.5,14.5M13.83,12H11.93C11.7,12.92 11.39,13.69 11.15,14.22C12.29,13.83 13.24,13.03 13.83,12M5.17,12C5.76,13.03 6.71,13.83 7.85,14.22C7.61,13.69 7.3,12.92 7.07,12H5.17Z" />
-        </svg>
-        Import Recipes
-      </h2>
+<section class="tx-section tx-section--alt">
+  <div class="tx-section__inner">
+    <div class="tx-section__head">
+      <h2>Quick start</h2>
       <p>
-        Quickly and easily import recipes from sites around the web using the
-        built in <b>recipe scraper</b>.
+        You can deploy with either SQLite (default) or Postgres. SQLite is
+        sufficient for most use cases.
       </p>
     </div>
-    <div class="feature-item">
-      <h2>
-        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M12,3A9,9 0 0,0 3,12H0L4,16L8,12H5A7,7 0 0,1 12,5A7,7 0 0,1 19,12A7,7 0 0,1 12,19C10.5,19 9.09,18.5 7.94,17.7L6.5,19.14C8.04,20.3 9.94,21 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3M14,12A2,2 0 0,0 12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12Z" />
-        </svg>
-        Automatic Backups
-      </h2>
-      <p>
-        Keep your data safe with automatic backups in any format supported by
-        <b>Jinja2</b> templates
-      </p>
+    <div class="tx-deploy">
+      <a href="documentation/getting-started/installation/sqlite/">
+        <span class="tx-brand tx-brand--needs-light" style="--brand: #003B57"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.678.521c-1.032-.92-2.28-.55-3.513.544a8.71 8.71 0 0 0-.547.535c-2.109 2.237-4.066 6.38-4.674 9.544.237.48.422 1.093.544 1.561a13.044 13.044 0 0 1 .164.703s-.019-.071-.096-.296l-.05-.146a1.689 1.689 0 0 0-.033-.08c-.138-.32-.518-.995-.686-1.289-.143.423-.27.818-.376 1.176.484.884.778 2.4.778 2.4s-.025-.099-.147-.442c-.107-.303-.644-1.244-.772-1.464-.217.804-.304 1.346-.226 1.478.152.256.296.698.422 1.186.286 1.1.485 2.44.485 2.44l.017.224a22.41 22.41 0 0 0 .056 2.748c.095 1.146.273 2.13.5 2.657l.155-.084c-.334-1.038-.47-2.399-.41-3.967.09-2.398.642-5.29 1.661-8.304 1.723-4.55 4.113-8.201 6.3-9.945-1.993 1.8-4.692 7.63-5.5 9.788-.904 2.416-1.545 4.684-1.931 6.857.666-2.037 2.821-2.912 2.821-2.912s1.057-1.304 2.292-3.166c-.74.169-1.955.458-2.362.629-.6.251-.762.337-.762.337s1.945-1.184 3.613-1.72C21.695 7.9 24.195 2.767 21.678.521m-18.573.543A1.842 1.842 0 0 0 1.27 2.9v16.608a1.84 1.84 0 0 0 1.835 1.834h9.418a22.953 22.953 0 0 1-.052-2.707c-.006-.062-.011-.141-.016-.2a27.01 27.01 0 0 0-.473-2.378c-.121-.47-.275-.898-.369-1.057-.116-.197-.098-.31-.097-.432 0-.12.015-.245.037-.386a9.98 9.98 0 0 1 .234-1.045l.217-.028c-.017-.035-.014-.065-.031-.097l-.041-.381a32.8 32.8 0 0 1 .382-1.194l.2-.019c-.008-.016-.01-.038-.018-.053l-.043-.316c.63-3.28 2.587-7.443 4.8-9.791.066-.069.133-.128.198-.194Z"/></svg></span>
+        <span class="tx-deploy__body">
+          <strong>SQLite <span class="tx-badge">Default</span></strong>
+          <span class="tx-deploy__desc">
+            Self-contained and zero-configuration. The ideal choice when you
+            have 1-20 users.
+          </span>
+        </span>
+      </a>
+      <a href="documentation/getting-started/installation/postgres/">
+        <span class="tx-brand" style="--brand: #4169E1"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.5594 14.7228a.5269.5269 0 0 0-.0563-.1191c-.139-.2632-.4768-.3418-1.0074-.2321-1.6533.3411-2.2935.1312-2.5256-.0191 1.342-2.0482 2.445-4.522 3.0411-6.8297.2714-1.0507.7982-3.5237.1222-4.7316a1.5641 1.5641 0 0 0-.1509-.235C21.6931.9086 19.8007.0248 17.5099.0005c-1.4947-.0158-2.7705.3461-3.1161.4794a9.449 9.449 0 0 0-.5159-.0816 8.044 8.044 0 0 0-1.3114-.1278c-1.1822-.0184-2.2038.2642-3.0498.8406-.8573-.3211-4.7888-1.645-7.2219.0788C.9359 2.1526.3086 3.8733.4302 6.3043c.0409.818.5069 3.334 1.2423 5.7436.4598 1.5065.9387 2.7019 1.4334 3.582.553.9942 1.1259 1.5933 1.7143 1.7895.4474.1491 1.1327.1441 1.8581-.7279.8012-.9635 1.5903-1.8258 1.9446-2.2069.4351.2355.9064.3625 1.39.3772a.0569.0569 0 0 0 .0004.0041 11.0312 11.0312 0 0 0-.2472.3054c-.3389.4302-.4094.5197-1.5002.7443-.3102.064-1.1344.2339-1.1464.8115-.0025.1224.0329.2309.0919.3268.2269.4231.9216.6097 1.015.6331 1.3345.3335 2.5044.092 3.3714-.6787-.017 2.231.0775 4.4174.3454 5.0874.2212.5529.7618 1.9045 2.4692 1.9043.2505 0 .5263-.0291.8296-.0941 1.7819-.3821 2.5557-1.1696 2.855-2.9059.1503-.8707.4016-2.8753.5388-4.1012.0169-.0703.0357-.1207.057-.1362.0007-.0005.0697-.0471.4272.0307a.3673.3673 0 0 0 .0443.0068l.2539.0223.0149.001c.8468.0384 1.9114-.1426 2.5312-.4308.6438-.2988 1.8057-1.0323 1.5951-1.6698zM2.371 11.8765c-.7435-2.4358-1.1779-4.8851-1.2123-5.5719-.1086-2.1714.4171-3.6829 1.5623-4.4927 1.8367-1.2986 4.8398-.5408 6.108-.13-.0032.0032-.0066.0061-.0098.0094-2.0238 2.044-1.9758 5.536-1.9708 5.7495-.0002.0823.0066.1989.0162.3593.0348.5873.0996 1.6804-.0735 2.9184-.1609 1.1504.1937 2.2764.9728 3.0892.0806.0841.1648.1631.2518.2374-.3468.3714-1.1004 1.1926-1.9025 2.1576-.5677.6825-.9597.5517-1.0886.5087-.3919-.1307-.813-.5871-1.2381-1.3223-.4796-.839-.9635-2.0317-1.4155-3.5126zm6.0072 5.0871c-.1711-.0428-.3271-.1132-.4322-.1772.0889-.0394.2374-.0902.4833-.1409 1.2833-.2641 1.4815-.4506 1.9143-1.0002.0992-.126.2116-.2687.3673-.4426a.3549.3549 0 0 0 .0737-.1298c.1708-.1513.2724-.1099.4369-.0417.156.0646.3078.26.3695.4752.0291.1016.0619.2945-.0452.4444-.9043 1.2658-2.2216 1.2494-3.1676 1.0128zm2.094-3.988-.0525.141c-.133.3566-.2567.6881-.3334 1.003-.6674-.0021-1.3168-.2872-1.8105-.8024-.6279-.6551-.9131-1.5664-.7825-2.5004.1828-1.3079.1153-2.4468.079-3.0586-.005-.0857-.0095-.1607-.0122-.2199.2957-.2621 1.6659-.9962 2.6429-.7724.4459.1022.7176.4057.8305.928.5846 2.7038.0774 3.8307-.3302 4.7363-.084.1866-.1633.3629-.2311.5454zm7.3637 4.5725c-.0169.1768-.0358.376-.0618.5959l-.146.4383a.3547.3547 0 0 0-.0182.1077c-.0059.4747-.054.6489-.115.8693-.0634.2292-.1353.4891-.1794 1.0575-.11 1.4143-.8782 2.2267-2.4172 2.5565-1.5155.3251-1.7843-.4968-2.0212-1.2217a6.5824 6.5824 0 0 0-.0769-.2266c-.2154-.5858-.1911-1.4119-.1574-2.5551.0165-.5612-.0249-1.9013-.3302-2.6462.0044-.2932.0106-.5909.019-.8918a.3529.3529 0 0 0-.0153-.1126 1.4927 1.4927 0 0 0-.0439-.208c-.1226-.4283-.4213-.7866-.7797-.9351-.1424-.059-.4038-.1672-.7178-.0869.067-.276.1831-.5875.309-.9249l.0529-.142c.0595-.16.134-.3257.213-.5012.4265-.9476 1.0106-2.2453.3766-5.1772-.2374-1.0981-1.0304-1.6343-2.2324-1.5098-.7207.0746-1.3799.3654-1.7088.5321a5.6716 5.6716 0 0 0-.1958.1041c.0918-1.1064.4386-3.1741 1.7357-4.4823a4.0306 4.0306 0 0 1 .3033-.276.3532.3532 0 0 0 .1447-.0644c.7524-.5706 1.6945-.8506 2.802-.8325.4091.0067.8017.0339 1.1742.081 1.939.3544 3.2439 1.4468 4.0359 2.3827.8143.9623 1.2552 1.9315 1.4312 2.4543-1.3232-.1346-2.2234.1268-2.6797.779-.9926 1.4189.543 4.1729 1.2811 5.4964.1353.2426.2522.4522.2889.5413.2403.5825.5515.9713.7787 1.2552.0696.087.1372.1714.1885.245-.4008.1155-1.1208.3825-1.0552 1.717-.0123.1563-.0423.4469-.0834.8148-.0461.2077-.0702.4603-.0994.7662zm.8905-1.6211c-.0405-.8316.2691-.9185.5967-1.0105a2.8566 2.8566 0 0 0 .135-.0406 1.202 1.202 0 0 0 .1342.103c.5703.3765 1.5823.4213 3.0068.1344-.2016.1769-.5189.3994-.9533.6011-.4098.1903-1.0957.333-1.7473.3636-.7197.0336-1.0859-.0807-1.1721-.151zm.5695-9.2712c-.0059.3508-.0542.6692-.1054 1.0017-.055.3576-.112.7274-.1264 1.1762-.0142.4368.0404.8909.0932 1.3301.1066.887.216 1.8003-.2075 2.7014a3.5272 3.5272 0 0 1-.1876-.3856c-.0527-.1276-.1669-.3326-.3251-.6162-.6156-1.1041-2.0574-3.6896-1.3193-4.7446.3795-.5427 1.3408-.5661 2.1781-.463zm.2284 7.0137a12.3762 12.3762 0 0 0-.0853-.1074l-.0355-.0444c.7262-1.1995.5842-2.3862.4578-3.4385-.0519-.4318-.1009-.8396-.0885-1.2226.0129-.4061.0666-.7543.1185-1.0911.0639-.415.1288-.8443.1109-1.3505.0134-.0531.0188-.1158.0118-.1902-.0457-.4855-.5999-1.938-1.7294-3.253-.6076-.7073-1.4896-1.4972-2.6889-2.0395.5251-.1066 1.2328-.2035 2.0244-.1859 2.0515.0456 3.6746.8135 4.8242 2.2824a.908.908 0 0 1 .0667.1002c.7231 1.3556-.2762 6.2751-2.9867 10.5405zm-8.8166-6.1162c-.025.1794-.3089.4225-.6211.4225a.5821.5821 0 0 1-.0809-.0056c-.1873-.026-.3765-.144-.5059-.3156-.0458-.0605-.1203-.178-.1055-.2844.0055-.0401.0261-.0985.0925-.1488.1182-.0894.3518-.1226.6096-.0867.3163.0441.6426.1938.6113.4186zm7.9305-.4114c.0111.0792-.049.201-.1531.3102-.0683.0717-.212.1961-.4079.2232a.5456.5456 0 0 1-.075.0052c-.2935 0-.5414-.2344-.5607-.3717-.024-.1765.2641-.3106.5611-.352.297-.0414.6111.0088.6356.1851z"/></svg></span>
+        <span class="tx-deploy__body">
+          <strong>PostgreSQL</strong>
+          <span class="tx-deploy__desc">
+            Worth considering if you need to support many concurrent users, or
+            want fuzzy search.
+          </span>
+        </span>
+      </a>
     </div>
-    <div class="feature-item">
-      <h2>
-        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M19,4C20.11,4 21,4.9 21,6V18A2,2 0 0,1 19,20H5C3.89,20 3,19.1 3,18V6A2,2 0 0,1 5,4H19M19,18V8H5V18H19Z" />
-        </svg>
-        Rich User Interface
-      </h2>
-      <p>
-        Use a beautiful and intuitive user interface to create, edit, and delete
-        recipes. Recipe editor supports <b>markdown syntax</b>
-      </p>
-    </div>
-    <div class="feature-item">
-      <h2>
-        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M9,10V12H7V10H9M13,10V12H11V10H13M17,10V12H15V10H17M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H6V1H8V3H16V1H18V3H19M19,19V8H5V19H19M9,14V16H7V14H9M13,14V16H11V14H13M17,14V16H15V14H17Z" />
-        </svg>
-        Meal Planner
-      </h2>
-      <p>Create Meal Plans for the week, month, or year!</p>
+    <div class="tx-linklist">
+      <a href="documentation/getting-started/installation/installation-checklist/">Installation checklist</a>
+      <a href="documentation/getting-started/installation/backend-config/">Backend configuration</a>
     </div>
   </div>
-  <!-- Row 2 -->
+</section>
 
-  <div class="top-hr">
-    <div class="feature-item">
-      <h2>
-        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
-        </svg>
-        Users
-      </h2>
+<section class="tx-section">
+  <div class="tx-section__inner">
+      <div class="tx-highlight">
+        <div class="tx-highlight__text">
+          <h3>Creating recipes</h3>
+          <p>Create recipes from hundreds of websites by simply providing a URL, copy/paste structured HTML or JSON, or build one from scratch using the integrated editor.</p>
+          <a href="https://demo.mealie.io/g/home/r/create/url" rel="noopener" target="_blank">Creation demo</a>
+        </div>
+        <div class="tx-highlight__media">
+          <div class="tx-shot">
+            <span class="tx-shot__label">Recipe import</span>
+            <span class="tx-shot__path">assets/img/home/recipe-import.png</span>
+          </div>
+        </div>
+      </div>
+      <div class="tx-highlight">
+        <div class="tx-highlight__text">
+          <h3>Meal planning</h3>
+          <p>Mealie uses a calendar like view to help you plan your meals. It shows you the previous day and the next 6 days by default. Use the random recipe buttons or add an entry by hand.</p>
+          <a href="https://demo.mealie.io/household/mealplan/planner/view" rel="noopener" target="_blank">Mealplanner demo</a>
+        </div>
+        <div class="tx-highlight__media">
+          <div class="tx-shot">
+            <span class="tx-shot__label">Meal planner</span>
+            <span class="tx-shot__path">assets/img/home/meal-planner.png</span>
+          </div>
+        </div>
+      </div>
+      <div class="tx-highlight">
+        <div class="tx-highlight__text">
+          <h3>Shopping lists</h3>
+          <p>Keep track of what you need to buy for your next meal. Add items directly to the shopping list, or link a recipe and all of its ingredients to track meals during the week.</p>
+          <a href="https://demo.mealie.io/shopping-lists" rel="noopener" target="_blank">Shopping list demo</a>
+        </div>
+        <div class="tx-highlight__media">
+          <div class="tx-shot">
+            <span class="tx-shot__label">Shopping list</span>
+            <span class="tx-shot__path">assets/img/home/shopping-list.png</span>
+          </div>
+        </div>
+      </div>
+  </div>
+</section>
+
+<section class="tx-section tx-section--alt">
+  <div class="tx-section__inner">
+    <div class="tx-section__head">
+      <h2>Key features</h2>
+    </div>
+    <div class="tx-features">
+      <div class="tx-feature">
+        <div class="tx-feature__icon">
+          <svg viewBox="0 0 24 24">
+            <path fill="currentColor"
+              d="M15.5,14L20.5,19L19,20.5L14,15.5V14.71L13.73,14.43C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.43,13.73L14.71,14H15.5M9.5,4.5L8.95,4.53C8.71,5.05 8.34,5.93 8.07,7H10.93C10.66,5.93 10.29,5.05 10.05,4.53C9.87,4.5 9.69,4.5 9.5,4.5M13.83,7C13.24,5.97 12.29,5.17 11.15,4.78C11.39,5.31 11.7,6.08 11.93,7H13.83M5.17,7H7.07C7.3,6.08 7.61,5.31 7.85,4.78C6.71,5.17 5.76,5.97 5.17,7M4.5,9.5C4.5,10 4.58,10.53 4.73,11H6.87L6.75,9.5L6.87,8H4.73C4.58,8.47 4.5,9 4.5,9.5M14.27,11C14.42,10.53 14.5,10 14.5,9.5C14.5,9 14.42,8.47 14.27,8H12.13C12.21,8.5 12.25,9 12.25,9.5C12.25,10 12.21,10.5 12.13,11H14.27M7.87,8L7.75,9.5L7.87,11H11.13C11.21,10.5 11.25,10 11.25,9.5C11.25,9 11.21,8.5 11.13,8H7.87M9.5,14.5C9.68,14.5 9.86,14.5 10.03,14.47C10.28,13.95 10.66,13.07 10.93,12H8.07C8.34,13.07 8.72,13.95 8.97,14.47L9.5,14.5M13.83,12H11.93C11.7,12.92 11.39,13.69 11.15,14.22C12.29,13.83 13.24,13.03 13.83,12M5.17,12C5.76,13.03 6.71,13.83 7.85,14.22C7.61,13.69 7.3,12.92 7.07,12H5.17Z" />
+          </svg>
+        </div>
+        <h3>Import Recipes</h3>
+        <p>
+          Quickly and easily import recipes from sites around the web using the
+          built in recipe scraper.
+        </p>
+      </div>
+      <div class="tx-feature">
+        <div class="tx-feature__icon">
+          <svg viewBox="0 0 24 24">
+            <path fill="currentColor"
+              d="M12,3A9,9 0 0,0 3,12H0L4,16L8,12H5A7,7 0 0,1 12,5A7,7 0 0,1 19,12A7,7 0 0,1 12,19C10.5,19 9.09,18.5 7.94,17.7L6.5,19.14C8.04,20.3 9.94,21 12,21A9,9 0 0,0 21,12A9,9 0 0,0 12,3M14,12A2,2 0 0,0 12,10A2,2 0 0,0 10,12A2,2 0 0,0 12,14A2,2 0 0,0 14,12Z" />
+          </svg>
+        </div>
+        <h3>Automatic Backups</h3>
+        <p>
+          Keep your data safe with automatic backups in any format supported by
+          Jinja2 templates.
+        </p>
+      </div>
+      <div class="tx-feature">
+        <div class="tx-feature__icon">
+          <svg viewBox="0 0 24 24">
+            <path fill="currentColor"
+              d="M19,4C20.11,4 21,4.9 21,6V18A2,2 0 0,1 19,20H5C3.89,20 3,19.1 3,18V6A2,2 0 0,1 5,4H19M19,18V8H5V18H19Z" />
+          </svg>
+        </div>
+        <h3>Rich User Interface</h3>
+        <p>
+          Use a beautiful and intuitive user interface to create, edit, and
+          delete recipes. Recipe editor supports markdown syntax.
+        </p>
+      </div>
+      <div class="tx-feature">
+        <div class="tx-feature__icon">
+          <svg viewBox="0 0 24 24">
+            <path fill="currentColor"
+              d="M9,10V12H7V10H9M13,10V12H11V10H13M17,10V12H15V10H17M19,3A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H6V1H8V3H16V1H18V3H19M19,19V8H5V19H19M9,14V16H7V14H9M13,14V16H11V14H13M17,14V16H15V14H17Z" />
+          </svg>
+        </div>
+        <h3>Meal Planner</h3>
+        <p>Create Meal Plans for the week, month, or year.</p>
+      </div>
+      <div class="tx-feature">
+        <div class="tx-feature__icon">
+          <svg viewBox="0 0 24 24">
+            <path fill="currentColor"
+              d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
+          </svg>
+        </div>
+        <h3>Users</h3>
+        <p>
+          Add new users with sign-up links or simply create a new user in the
+          admin panel.
+        </p>
+      </div>
+      <div class="tx-feature">
+        <div class="tx-feature__icon">
+          <svg viewBox="0 0 24 24">
+            <path fill="currentColor"
+              d="M12,5.5A3.5,3.5 0 0,1 15.5,9A3.5,3.5 0 0,1 12,12.5A3.5,3.5 0 0,1 8.5,9A3.5,3.5 0 0,1 12,5.5M5,8C5.56,8 6.08,8.15 6.53,8.42C6.38,9.85 6.8,11.27 7.66,12.38C7.16,13.34 6.16,14 5,14A3,3 0 0,1 2,11A3,3 0 0,1 5,8M19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14C17.84,14 16.84,13.34 16.34,12.38C17.2,11.27 17.62,9.85 17.47,8.42C17.92,8.15 18.44,8 19,8M5.5,18.25C5.5,16.18 8.41,14.5 12,14.5C15.59,14.5 18.5,16.18 18.5,18.25V20H5.5V18.25M0,20V18.5C0,17.11 1.89,15.94 4.45,15.6C3.86,16.28 3.5,17.22 3.5,18.25V20H0M24,20H20.5V18.25C20.5,17.22 20.14,16.28 19.55,15.6C22.11,15.94 24,17.11 24,18.5V20Z" />
+          </svg>
+        </div>
+        <h3>Groups</h3>
+        <p>
+          Full multi-user support with groups for sharing recipes and meal plans
+          with family.
+        </p>
+      </div>
+      <div class="tx-feature">
+        <div class="tx-feature__icon">
+          <svg viewBox="0 0 24 24">
+            <path fill="currentColor"
+              d="M10.46,19C9,21.07 6.15,21.59 4.09,20.15C2.04,18.71 1.56,15.84 3,13.75C3.87,12.5 5.21,11.83 6.58,11.77L6.63,13.2C5.72,13.27 4.84,13.74 4.27,14.56C3.27,16 3.58,17.94 4.95,18.91C6.33,19.87 8.26,19.5 9.26,18.07C9.57,17.62 9.75,17.13 9.82,16.63V15.62L15.4,15.58L15.47,15.47C16,14.55 17.15,14.23 18.05,14.75C18.95,15.27 19.26,16.43 18.73,17.35C18.2,18.26 17.04,18.58 16.14,18.06C15.73,17.83 15.44,17.46 15.31,17.04L11.24,17.06C11.13,17.73 10.87,18.38 10.46,19M17.74,11.86C20.27,12.17 22.07,14.44 21.76,16.93C21.45,19.43 19.15,21.2 16.62,20.89C15.13,20.71 13.9,19.86 13.19,18.68L14.43,17.96C14.92,18.73 15.75,19.28 16.75,19.41C18.5,19.62 20.05,18.43 20.26,16.76C20.47,15.09 19.23,13.56 17.5,13.35C16.96,13.29 16.44,13.36 15.97,13.53L15.12,13.97L12.54,9.2H12.32C11.26,9.16 10.44,8.29 10.47,7.25C10.5,6.21 11.4,5.4 12.45,5.44C13.5,5.5 14.33,6.35 14.3,7.39C14.28,7.83 14.11,8.23 13.84,8.54L15.74,12.05C16.36,11.85 17.04,11.78 17.74,11.86M8.25,9.14C7.25,6.79 8.31,4.1 10.62,3.12C12.94,2.14 15.62,3.25 16.62,5.6C17.21,6.97 17.09,8.47 16.42,9.67L15.18,8.95C15.6,8.14 15.67,7.15 15.27,6.22C14.59,4.62 12.78,3.85 11.23,4.5C9.67,5.16 8.97,7 9.65,8.6C9.93,9.26 10.4,9.77 10.97,10.11L11.36,10.32L8.29,15.31C8.32,15.36 8.36,15.42 8.39,15.5C8.88,16.41 8.54,17.56 7.62,18.05C6.71,18.54 5.56,18.18 5.06,17.24C4.57,16.31 4.91,15.16 5.83,14.67C6.22,14.46 6.65,14.41 7.06,14.5L9.37,10.73C8.9,10.3 8.5,9.76 8.25,9.14Z" />
+          </svg>
+        </div>
+        <h3>Webhooks</h3>
+        <p>
+          Schedule webhooks to send notifications to 3rd party services with
+          todays Meal Plan data.
+        </p>
+      </div>
+      <div class="tx-feature">
+        <div class="tx-feature__icon">
+          <svg viewBox="0 0 24 24">
+            <path fill="currentColor"
+              d="M7 7H5A2 2 0 0 0 3 9V17H5V13H7V17H9V9A2 2 0 0 0 7 7M7 11H5V9H7M14 7H10V17H12V13H14A2 2 0 0 0 16 11V9A2 2 0 0 0 14 7M14 11H12V9H14M20 9V15H21V17H17V15H18V9H17V7H21V9Z" />
+          </svg>
+        </div>
+        <h3>Open API</h3>
+        <p>
+          API driven application gives you full control of the backend server
+          with interactive documentation.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tx-section">
+  <div class="tx-section__inner">
+    <div class="tx-section__head">
+      <h2>Import from other apps</h2>
       <p>
-        Add new users with sign-up links or simply create a new user in the
-        admin panel.
+        Create recipes from hundreds of websites by providing a URL, or migrate
+        from another recipe manager.
       </p>
     </div>
-    <div class="feature-item">
-      <h2>
-        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M12,5.5A3.5,3.5 0 0,1 15.5,9A3.5,3.5 0 0,1 12,12.5A3.5,3.5 0 0,1 8.5,9A3.5,3.5 0 0,1 12,5.5M5,8C5.56,8 6.08,8.15 6.53,8.42C6.38,9.85 6.8,11.27 7.66,12.38C7.16,13.34 6.16,14 5,14A3,3 0 0,1 2,11A3,3 0 0,1 5,8M19,8A3,3 0 0,1 22,11A3,3 0 0,1 19,14C17.84,14 16.84,13.34 16.34,12.38C17.2,11.27 17.62,9.85 17.47,8.42C17.92,8.15 18.44,8 19,8M5.5,18.25C5.5,16.18 8.41,14.5 12,14.5C15.59,14.5 18.5,16.18 18.5,18.25V20H5.5V18.25M0,20V18.5C0,17.11 1.89,15.94 4.45,15.6C3.86,16.28 3.5,17.22 3.5,18.25V20H0M24,20H20.5V18.25C20.5,17.22 20.14,16.28 19.55,15.6C22.11,15.94 24,17.11 24,18.5V20Z" />
-        </svg>
-        Groups
-      </h2>
-      <p>
-        Full multi-user support with groups for sharing recipes and meal plans
-        with family.
-      </p>
+    <div class="tx-chips">
+      <span class="tx-chip">Tandoor</span>
+      <span class="tx-chip">Nextcloud Cookbooks</span>
+      <span class="tx-chip">Paprika</span>
+      <span class="tx-chip">Chowdown</span>
+      <span class="tx-chip">Plan to Eat</span>
+      <span class="tx-chip">Recipe Keeper</span>
+      <span class="tx-chip">Copy Me That</span>
+      <span class="tx-chip">My Recipe Box</span>
+      <span class="tx-chip">DVO Cook'n X3</span>
     </div>
-    <div class="feature-item">
-      <h2>
-        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M10.46,19C9,21.07 6.15,21.59 4.09,20.15C2.04,18.71 1.56,15.84 3,13.75C3.87,12.5 5.21,11.83 6.58,11.77L6.63,13.2C5.72,13.27 4.84,13.74 4.27,14.56C3.27,16 3.58,17.94 4.95,18.91C6.33,19.87 8.26,19.5 9.26,18.07C9.57,17.62 9.75,17.13 9.82,16.63V15.62L15.4,15.58L15.47,15.47C16,14.55 17.15,14.23 18.05,14.75C18.95,15.27 19.26,16.43 18.73,17.35C18.2,18.26 17.04,18.58 16.14,18.06C15.73,17.83 15.44,17.46 15.31,17.04L11.24,17.06C11.13,17.73 10.87,18.38 10.46,19M17.74,11.86C20.27,12.17 22.07,14.44 21.76,16.93C21.45,19.43 19.15,21.2 16.62,20.89C15.13,20.71 13.9,19.86 13.19,18.68L14.43,17.96C14.92,18.73 15.75,19.28 16.75,19.41C18.5,19.62 20.05,18.43 20.26,16.76C20.47,15.09 19.23,13.56 17.5,13.35C16.96,13.29 16.44,13.36 15.97,13.53L15.12,13.97L12.54,9.2H12.32C11.26,9.16 10.44,8.29 10.47,7.25C10.5,6.21 11.4,5.4 12.45,5.44C13.5,5.5 14.33,6.35 14.3,7.39C14.28,7.83 14.11,8.23 13.84,8.54L15.74,12.05C16.36,11.85 17.04,11.78 17.74,11.86M8.25,9.14C7.25,6.79 8.31,4.1 10.62,3.12C12.94,2.14 15.62,3.25 16.62,5.6C17.21,6.97 17.09,8.47 16.42,9.67L15.18,8.95C15.6,8.14 15.67,7.15 15.27,6.22C14.59,4.62 12.78,3.85 11.23,4.5C9.67,5.16 8.97,7 9.65,8.6C9.93,9.26 10.4,9.77 10.97,10.11L11.36,10.32L8.29,15.31C8.32,15.36 8.36,15.42 8.39,15.5C8.88,16.41 8.54,17.56 7.62,18.05C6.71,18.54 5.56,18.18 5.06,17.24C4.57,16.31 4.91,15.16 5.83,14.67C6.22,14.46 6.65,14.41 7.06,14.5L9.37,10.73C8.9,10.3 8.5,9.76 8.25,9.14Z" />
-        </svg>
-        Webhooks
-      </h2>
-      <p>
-        Schedule webhooks to send notifications to 3rd party services with
-        todays Meal Plan data.
-      </p>
+    <div class="tx-linklist">
+      <a href="documentation/getting-started/features/">See the full feature set</a>
     </div>
-    <div class="feature-item">
-      <h2>
-        <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
-          <path fill="currentColor"
-            d="M7 7H5A2 2 0 0 0 3 9V17H5V13H7V17H9V9A2 2 0 0 0 7 7M7 11H5V9H7M14 7H10V17H12V13H14A2 2 0 0 0 16 11V9A2 2 0 0 0 14 7M14 11H12V9H14M20 9V15H21V17H17V15H18V9H17V7H21V9Z" />
-        </svg>
-        Open API
-      </h2>
-      <p>
-        <b>API Driven</b> application gives you full control of the backend
-        server with interactive documentation
-      </p>
+  </div>
+</section>
+
+<section class="tx-section tx-section--strip">
+  <div class="tx-section__inner">
+    <div class="tx-strip">
+      <h2>Built with</h2>
+      <div class="tx-chips">
+        <span class="tx-chip tx-chip--brand"><span class="tx-brand" style="--brand: #4FC08D"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M24,1.61H14.06L12,5.16,9.94,1.61H0L12,22.39ZM12,14.08,5.16,2.23H9.59L12,6.41l2.41-4.18h4.43Z"/></svg></span>Vue.js</span>
+        <span class="tx-chip tx-chip--brand"><span class="tx-brand" style="--brand: #1867C0"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.312 12.564 12.636 1.2H0l6.312 11.364ZM14.94 1.2 7.464 14.64 12 22.8 24 1.2h-9.06Zm4.98 2.4L12 17.856l-1.788-3.216L16.344 3.6h3.576ZM6.312 7.62 4.08 3.6h4.476L6.312 7.62Z"/></svg></span>Vuetify</span>
+        <span class="tx-chip tx-chip--brand"><span class="tx-brand" style="--brand: #009688"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .0387C5.3729.0384.0003 5.3931 0 11.9988c-.001 6.6066 5.372 11.9628 12 11.9625 6.628.0003 12.001-5.3559 12-11.9625-.0003-6.6057-5.3729-11.9604-12-11.96m-.829 5.4153h7.55l-7.5805 5.3284h5.1828L5.279 18.5436q2.9466-6.5444 5.892-13.0896"/></svg></span>FastAPI</span>
+        <span class="tx-chip tx-chip--brand"><span class="tx-brand" style="--brand: #2496ED"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M13.983 11.078h2.119a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.119a.185.185 0 00-.185.185v1.888c0 .102.083.185.185.185m-2.954-5.43h2.118a.186.186 0 00.186-.186V3.574a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m0 2.716h2.118a.187.187 0 00.186-.186V6.29a.186.186 0 00-.186-.185h-2.118a.185.185 0 00-.185.185v1.887c0 .102.082.185.185.186m-2.93 0h2.12a.186.186 0 00.184-.186V6.29a.185.185 0 00-.185-.185H8.1a.185.185 0 00-.185.185v1.887c0 .102.083.185.185.186m-2.964 0h2.119a.186.186 0 00.185-.186V6.29a.185.185 0 00-.185-.185H5.136a.186.186 0 00-.186.185v1.887c0 .102.084.185.186.186m5.893 2.715h2.118a.186.186 0 00.186-.185V9.006a.186.186 0 00-.186-.186h-2.118a.185.185 0 00-.185.185v1.888c0 .102.082.185.185.185m-2.93 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.083.185.185.185m-2.964 0h2.119a.185.185 0 00.185-.185V9.006a.185.185 0 00-.184-.186h-2.12a.186.186 0 00-.186.186v1.887c0 .102.084.185.186.185m-2.92 0h2.12a.185.185 0 00.184-.185V9.006a.185.185 0 00-.184-.186h-2.12a.185.185 0 00-.184.185v1.888c0 .102.082.185.185.185M23.763 9.89c-.065-.051-.672-.51-1.954-.51-.338.001-.676.03-1.01.087-.248-1.7-1.653-2.53-1.716-2.566l-.344-.199-.226.327c-.284.438-.49.922-.612 1.43-.23.97-.09 1.882.403 2.661-.595.332-1.55.413-1.744.42H.751a.751.751 0 00-.75.748 11.376 11.376 0 00.692 4.062c.545 1.428 1.355 2.48 2.41 3.124 1.18.723 3.1 1.137 5.275 1.137.983.003 1.963-.086 2.93-.266a12.248 12.248 0 003.823-1.389c.98-.567 1.86-1.288 2.61-2.136 1.252-1.418 1.998-2.997 2.553-4.4h.221c1.372 0 2.215-.549 2.68-1.009.309-.293.55-.65.707-1.046l.098-.288Z"/></svg></span>Docker</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tx-section tx-section--alt">
+  <div class="tx-section__inner">
+    <div class="tx-section__head">
+      <h2>Community</h2>
+    </div>
+    <div class="tx-community">
+      <a href="https://discord.gg/QuStdQGSGK" rel="noopener" target="_blank">
+        <span class="tx-brand" style="--brand: #5865F2"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg></span>
+        <strong>Discord</strong>
+        <span class="tx-community__desc">Questions, help, and project chat.</span>
+      </a>
+      <a href="https://github.com/mealie-recipes/mealie/issues" rel="noopener" target="_blank">
+        <span class="tx-brand tx-brand--needs-light" style="--brand: #181717"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg></span>
+        <strong>Issues</strong>
+        <span class="tx-community__desc">Bug reports and feature requests on GitHub.</span>
+      </a>
+      <a href="https://crowdin.com/project/mealie" rel="noopener" target="_blank">
+        <span class="tx-brand tx-brand--needs-light" style="--brand: #2E3340"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.119 17.793a2.619 2.619 0 0 1-1.667-.562c-.546-.436-1.004-1.09-1.018-1.858-.008-.388.414-.388.414-.388l1.018-.008c.332.008.43.47.445.586.128 1.04.717 1.495 1.168 1.702.273.123.204.513-.362.528zm-5.695-5.287L8.5 12.252c-.867-.214-.844-.982-.807-1.247a5.119 5.119 0 0 1 .814-2.125c.545-.804 1.303-1.508 2.29-2.073 1.856-1.074 4.45-1.673 7.31-1.673 2.09 0 4.256.27 4.29.27.197.025.328.213.333.437a.377.377 0 0 1-.355.393l-.92-.01c-2.902 0-4.968.394-6.506 1.248-1.527.837-2.57 2.117-3.287 4.012-.076.163-.335 1.12-1.24 1.022zm2.533 7.823c-1.44 0-2.797-.622-3.825-1.746-.87-.96-1.397-1.931-1.493-3.164-.06-.813.3-1.094.788-1.044l1.988.218c.45.092.75.34.825.854.397 2.736 2.122 3.814 3.15 4.046.18.042.292.157.283.365a.412.412 0 0 1-.322.398c-.458.074-.936.073-1.394.073zm-4.101 2.418a14.216 14.216 0 0 1-2.307-.214c-1.202-.214-2.208-.582-3.072-1.13C1.41 20.095.163 17.786.014 15.048c-.037-.65-.11-1.89 1.427-1.797.638.033 1.653.343 2.368.548.887.247 1.314.933 1.314 1.608 0 3.858 3.494 6.408 5.02 6.408.654 0 .414.701.127.779-.502.136-1.15.153-1.413.153zM3.525 11.419c-.605-.109-1.194-.358-1.768-.5C-.018 10.479.284 8.688.45 8.196c1.617-4.757 6.746-6.35 10.887-6.773 3.898-.4 7.978-.092 11.778.967.31.083 1.269.327.718.891-.35.358-1.7-.016-2.073-.041-2.23-.167-4.434-.192-6.656.15-2.349.357-4.768 1.099-6.71 2.665-.938.758-1.76 1.723-2.313 2.866-.144.3-.256.6-.354.9-.11.327-.47 1.91-2.215 1.6zm9.94.917c.332-1.488 1.81-3.848 6.385-3.686 1.05.033.57.749.052.731-2.586-.09-3.815 1.578-4.457 3.27-.219.546-.68.626-1.271.53-.415-.074-.866-.123-.71-.846Z"/></svg></span>
+        <strong>Translations</strong>
+        <span class="tx-community__desc">35+ languages, managed on Crowdin.</span>
+      </a>
+      <a href="https://github.com/sponsors/hay-kot" rel="noopener" target="_blank">
+        <span class="tx-brand" style="--brand: #EA4AAA"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.625 1.499c-2.32 0-4.354 1.203-5.625 3.03-1.271-1.827-3.305-3.03-5.625-3.03C3.129 1.499 0 4.253 0 8.249c0 4.275 3.068 7.847 5.828 10.227a33.14 33.14 0 0 0 5.616 3.876l.028.017.008.003-.001.003c.163.085.342.126.521.125.179.001.358-.041.521-.125l-.001-.003.008-.003.028-.017a33.14 33.14 0 0 0 5.616-3.876C20.932 16.096 24 12.524 24 8.249c0-3.996-3.129-6.75-6.375-6.75zm-.919 15.275a30.766 30.766 0 0 1-4.703 3.316l-.004-.002-.004.002a30.955 30.955 0 0 1-4.703-3.316c-2.677-2.307-5.047-5.298-5.047-8.523 0-2.754 2.121-4.5 4.125-4.5 2.06 0 3.914 1.479 4.544 3.684.143.495.596.797 1.086.796.49.001.943-.302 1.085-.796.63-2.205 2.484-3.684 4.544-3.684 2.004 0 4.125 1.746 4.125 4.5 0 3.225-2.37 6.216-5.048 8.523z"/></svg></span>
+        <strong>Sponsor</strong>
+        <span class="tx-community__desc">GitHub Sponsors and Buy Me a Coffee.</span>
+      </a>
     </div>
   </div>
 </section>
