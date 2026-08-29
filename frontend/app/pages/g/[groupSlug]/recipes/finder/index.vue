@@ -135,7 +135,7 @@
                     <v-card-text>
                       <div>
                         <v-number-input
-                          v-model="state.settings.maxMissingFoods"
+                          v-model="maxMissingFoods"
                           :precision="null"
                           :min="0"
                           control-variant="stacked"
@@ -144,7 +144,7 @@
                           :label="$t('recipe-finder.max-missing-ingredients')"
                         />
                         <v-number-input
-                          v-model="state.settings.maxMissingTools"
+                          v-model="maxMissingTools"
                           :precision="null"
                           :min="0"
                           control-variant="stacked"
@@ -421,6 +421,7 @@ import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
 import type { FieldDefinition } from "~/composables/use-query-filter-builder";
 import { useRecipeFinderPreferences } from "~/composables/use-users/preferences";
+import { normalizeMissingItemLimit } from "~/lib/recipe/recipe-finder";
 
 interface RecipeSuggestions {
   readyToMake: RecipeSuggestionResponseItem[];
@@ -454,12 +455,26 @@ const state = reactive({
   queryFilterEditorValueJSON: {},
   queryFilterJSON: preferences.value.queryFilterJSON,
   settings: {
-    maxMissingFoods: preferences.value.maxMissingFoods,
-    maxMissingTools: preferences.value.maxMissingTools,
+    maxMissingFoods: normalizeMissingItemLimit(preferences.value.maxMissingFoods),
+    maxMissingTools: normalizeMissingItemLimit(preferences.value.maxMissingTools),
     includeFoodsOnHand: preferences.value.includeFoodsOnHand,
     includeToolsOnHand: preferences.value.includeToolsOnHand,
     queryFilter: preferences.value.queryFilter,
     limit: 20,
+  },
+});
+
+const maxMissingFoods = computed({
+  get: () => state.settings.maxMissingFoods,
+  set: (value) => {
+    state.settings.maxMissingFoods = normalizeMissingItemLimit(value);
+  },
+});
+
+const maxMissingTools = computed({
+  get: () => state.settings.maxMissingTools,
+  set: (value) => {
+    state.settings.maxMissingTools = normalizeMissingItemLimit(value);
   },
 });
 
