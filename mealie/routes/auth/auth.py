@@ -300,7 +300,11 @@ async def oauth_native_token(
 
 
 @public_router.get("/reverse-proxy")
-async def reverse_proxy_login(request: Request, session: Session = Depends(generate_session)):
+async def reverse_proxy_login(
+    request: Request,
+    response: Response,
+    session: Session = Depends(generate_session),
+):
     """Authenticate a user using a username forwarded by a trusted reverse proxy header"""
     if not settings.REVERSE_PROXY_AUTH_READY:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
@@ -314,8 +318,9 @@ async def reverse_proxy_login(request: Request, session: Session = Depends(gener
     if not auth:
         raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
-    access_token, _ = auth
-    return MealieAuthToken.respond(access_token)
+    access_token, duration = auth
+    set_session_cookie(response, request, access_token, duration, remember_me=True)
+    return MealieAuthToken.respond(access_token, duration)
 
 
 @user_router.post("/refresh")
