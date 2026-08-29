@@ -222,12 +222,10 @@ export interface ShoppingListRecipeIngredientSection {
 interface Props {
   recipes?: RecipeWithScale[];
   shoppingLists?: ShoppingListSummary[];
-  missingStructuredOnly?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   recipes: undefined,
   shoppingLists: () => [],
-  missingStructuredOnly: false,
 });
 
 const dialog = defineModel<boolean>({ default: false });
@@ -260,7 +258,7 @@ function shouldCheckIngredient(ingredient: RecipeIngredient) {
     return false;
   }
 
-  return !props.missingStructuredOnly || Boolean(ingredient.food);
+  return true;
 }
 
 watch([dialog, () => preferences.value.viewAllLists], () => {

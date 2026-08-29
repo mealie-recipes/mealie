@@ -17,7 +17,7 @@ function recipe(id: string, ingredients: RecipeIngredient[]): Recipe {
 }
 
 describe("getRecipePantryStatus", () => {
-  test("separates on-hand and missing structured foods and deduplicates them", () => {
+  test("separates on-hand foods from needed ingredients and deduplicates them", () => {
     const flour = food("flour", "Flour", true);
     const salt = food("salt", "Salt");
     const status = getRecipePantryStatus(
@@ -30,10 +30,8 @@ describe("getRecipePantryStatus", () => {
       householdSlug,
     );
 
-    expect(status.structuredFoods.map(item => item.name)).toEqual(["Flour", "Salt"]);
     expect(status.onHandFoods.map(item => item.name)).toEqual(["Flour"]);
-    expect(status.missingFoods.map(item => item.name)).toEqual(["Salt"]);
-    expect(status.unlinkedIngredientCount).toBe(1);
+    expect(status.neededIngredients).toEqual(["a splash of water", "Salt"]);
   });
 
   test("includes structured foods from referenced recipes", () => {
@@ -43,6 +41,6 @@ describe("getRecipePantryStatus", () => {
       householdSlug,
     );
 
-    expect(status.missingFoods.map(item => item.name)).toEqual(["Tomato"]);
+    expect(status.neededIngredients).toEqual(["Tomato"]);
   });
 });

@@ -1,15 +1,13 @@
 import type { IngredientFood, Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 
 export interface RecipePantryStatus {
-  structuredFoods: IngredientFood[];
   onHandFoods: IngredientFood[];
-  missingFoods: IngredientFood[];
-  unlinkedIngredientCount: number;
+  neededIngredients: string[];
 }
 
 export function getRecipePantryStatus(recipe: Recipe, householdSlug: string): RecipePantryStatus {
-  const foods = new Map<string, IngredientFood>();
-  let unlinkedIngredientCount = 0;
+  const onHandFoods = new Map<string, IngredientFood>();
+  const neededIngredients = new Map<string, string>();
   const activeRecipes = new Set<string>();
 
   function collectIngredients(ingredients: RecipeIngredient[], recipeKey: string) {
@@ -26,10 +24,16 @@ export function getRecipePantryStatus(recipe: Recipe, householdSlug: string): Re
       }
       else if (ingredient.food) {
         const key = ingredient.food.id || ingredient.food.name.trim().toLocaleLowerCase();
-        foods.set(key, ingredient.food as IngredientFood);
+        if (ingredient.food.householdsWithIngredientFood?.includes(householdSlug)) {
+          onHandFoods.set(key, ingredient.food as IngredientFood);
+        }
+        else {
+          neededIngredients.set(key, ingredient.food.name);
+        }
       }
       else if (ingredient.note || ingredient.display || ingredient.originalText) {
-        unlinkedIngredientCount++;
+        const name = ingredient.note || ingredient.display || ingredient.originalText || "";
+        neededIngredients.set(name.trim().toLocaleLowerCase(), name);
       }
     }
 
@@ -37,9 +41,10 @@ export function getRecipePantryStatus(recipe: Recipe, householdSlug: string): Re
   }
 
   collectIngredients(recipe.recipeIngredient || [], recipe.id || recipe.slug);
-  const structuredFoods = Array.from(foods.values()).sort((left, right) => left.name.localeCompare(right.name));
-  const onHandFoods = structuredFoods.filter(food => food.householdsWithIngredientFood?.includes(householdSlug));
-  const missingFoods = structuredFoods.filter(food => !food.householdsWithIngredientFood?.includes(householdSlug));
+  const sortByName = <T extends { name: string }>(left: T, right: T) => left.name.localeCompare(right.name);
 
-  return { structuredFoods, onHandFoods, missingFoods, unlinkedIngredientCount };
+  return {
+    onHandFoods: Array.from(onHandFoods.values()).sort(sortByName),
+    neededIngredients: Array.from(neededIngredients.values()).sort((left, right) => left.localeCompare(right)),
+  };
 }
