@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.23.1"
+version = "3.24.0"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -11,12 +11,12 @@ dependencies = [
     "PyYAML==6.0.3",
     "SQLAlchemy==2.0.52",
     "alembic==1.19.1",
-    "apprise==1.12.0",
+    "apprise==1.13.0",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
     "fastapi==0.141.1",
     "httpx==0.28.1",
-    "lxml==6.1.1",
+    "lxml==6.1.2",
     "orjson==3.12.0",
     "pydantic==2.13.4",
     "pyhumps==3.8.0",
@@ -28,7 +28,7 @@ dependencies = [
     "recipe-scrapers==15.12.0",
     "requests==2.34.2",
     "tzdata==2026.3",
-    "uvicorn[standard]==0.52.3",
+    "uvicorn[standard]==0.52.4",
     "beautifulsoup4==4.15.0",
     "isodate==0.7.2",
     "text-unidecode==1.3",
@@ -39,10 +39,10 @@ dependencies = [
     "pydantic-settings==2.15.0",
     "pillow-heif==1.5.0",
     "pyjwt==2.13.0",
-    "openai==3.1.0",
+    "openai==3.3.1",
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
-    "yt-dlp==2026.7.4",
+    "yt-dlp==2026.8.19",
     "ingredient-parser-nlp==2.7.0",
     "pint==0.25.3",
     "httpx-curl-cffi==0.1.5",
@@ -70,7 +70,7 @@ dev = [
     "pytest==9.1.1",
     "pytest-asyncio==1.4.0",
     "rich==15.0.0",
-    "ruff==0.16.3",
+    "ruff==0.16.4",
     "types-PyYAML==6.0.12.20260815",
     "types-python-dateutil==2.9.0.20260807",
     "types-python-slugify==8.0.2.20240310",
@@ -78,7 +78,7 @@ dev = [
     "types-urllib3==1.26.25.14",
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
-    "httpx2==2.10.0",
+    "httpx2==2.12.0",
 ]
 
 [build-system]

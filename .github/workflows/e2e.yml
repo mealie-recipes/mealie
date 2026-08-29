@@ -11,14 +11,9 @@ jobs:
         working-directory: ./tests/e2e
     steps:
       - uses: actions/checkout@v6
-      # Work around pnpm/action-setup v6 resolving the wrong version from package.json
-      # https://github.com/pnpm/action-setup/issues/227
-      - name: Read pnpm version
-        id: pnpm-version
-        run: 'echo "version=$(jq --raw-output ''.packageManager | split("@")[1]'' package.json)" >> "$GITHUB_OUTPUT"'
       - uses: pnpm/action-setup@v6
         with:
-          version: ${{ steps.pnpm-version.outputs.version }}
+          version: 11
       - uses: actions/setup-node@v6
         with:
           node-version: 24
