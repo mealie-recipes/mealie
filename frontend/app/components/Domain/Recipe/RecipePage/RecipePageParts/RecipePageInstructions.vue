@@ -152,6 +152,46 @@
         {{ $t("recipe.cook-mode") }}
       </BaseButton>
     </div>
+    <v-bottom-sheet
+      v-model="linkedNotesSheetOpen"
+      max-width="900"
+      inset
+    >
+      <v-card>
+        <v-card-title class="d-flex align-center">
+          <v-icon size="20" class="mr-2">
+            {{ $globals.icons.noteTextOutline }}
+          </v-icon>
+          {{ $t('recipe.linked-notes-with-count', { count: activeStepLinkedNotes.length }) }}
+          <v-spacer />
+          <v-btn
+            icon
+            variant="text"
+            density="comfortable"
+            :aria-label="$t('general.close')"
+            @click="linkedNotesSheetOpen = false"
+          >
+            <v-icon>{{ $globals.icons.close }}</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-divider />
+        <v-card-text class="pt-4">
+          <template
+            v-for="(note, noteIndex) in activeStepLinkedNotes"
+            :key="note.referenceId ?? note.title"
+          >
+            <v-divider
+              v-if="noteIndex > 0"
+              class="my-3"
+            />
+            <div class="text-title-large mb-1">
+              {{ note.title || $t('recipe.note') }}
+            </div>
+            <SafeMarkdown :source="note.text" />
+          </template>
+        </v-card-text>
+      </v-card>
+    </v-bottom-sheet>
     <VueDraggable
       v-model="instructionList"
       :disabled="!isEditForm"
@@ -312,6 +352,21 @@
                     </div>
                   </template>
                   <div v-if="!isEditForm" class="ml-auto d-flex align-center gap-1">
+                    <v-btn
+                      v-if="hasLinkedNotes(step) && !isCookMode"
+                      variant="text"
+                      icon
+                      density="comfortable"
+                      size="small"
+                      @click.stop="openLinkedNotesSheet(step)"
+                    >
+                      <v-icon size="18">
+                        {{ $globals.icons.noteTextOutline }}
+                      </v-icon>
+                      <v-tooltip activator="parent" location="top">
+                        {{ $t('recipe.linked-notes-with-count', { count: linkedNotesForStep(step).length }) }}
+                      </v-tooltip>
+                    </v-btn>
                     <v-fade-transition>
                       <v-icon
                         v-show="isChecked(index)"
@@ -576,6 +631,8 @@ const activeLinkerIndex = ref(0);
 const activeRefs = ref<string[]>([]);
 const activeNoteReferenceIds = ref<string[]>([]);
 const activeText = ref("");
+const linkedNotesSheetOpen = ref(false);
+const activeStepLinkedNotes = ref<RecipeNote[]>([]);
 
 const availableDialogNextStep = computed(() => activeLinkerIndex.value < instructionList.value.length - 1);
 const activeDialogStepText = computed(() => activeText.value);
@@ -695,6 +752,11 @@ function linkedNotesForStep(step: RecipeStep): RecipeNote[] {
   return (step.noteReferences ?? [])
     .map(ref => ref.referenceId ? notesByReferenceId.value[ref.referenceId] : undefined)
     .filter((note): note is RecipeNote => note !== undefined);
+}
+
+function openLinkedNotesSheet(step: RecipeStep) {
+  activeStepLinkedNotes.value = linkedNotesForStep(step);
+  linkedNotesSheetOpen.value = activeStepLinkedNotes.value.length > 0;
 }
 
 function hasLinkedIngredients(step: RecipeStep): boolean {
