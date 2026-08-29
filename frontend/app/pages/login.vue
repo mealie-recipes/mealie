@@ -255,7 +255,12 @@ useSeoMeta({
 const form = reactive({
   email: "",
   password: "",
-  remember: false,
+  // Defaults on: this is a self-hosted app people mostly reach from their own devices, and an
+  // unticked box now ends the session when the browser closes.
+  // Ideally this is off by default, but we've trained users for years to ignore this checkbox,
+  // so turning it off would cause a headache for the majority of users.
+  // Maybe we can revisit this in the future.
+  remember: true,
 });
 
 useAsyncData(useAsyncKey(), async () => {

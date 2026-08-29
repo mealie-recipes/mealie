@@ -523,6 +523,11 @@ class AppSettings(AppLoggingSettings):
     TLS_PRIVATE_KEY_PATH: str | os.PathLike[str] | None = None
     """Path where the private key resides."""
 
+    # ===============================================
+    # YtDLP Configuration
+    YTDLP_COOKIEFILE: str | None = None
+    """Path to a cookies file for yt_dlp (used for video transcription scraping)"""
+
 
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:
     """
