@@ -153,6 +153,8 @@ export function useSearch<T extends ISearchableItem>(
     ...customFuseOptions,
   }));
 
+  const fuse = computed(() => new Fuse(searchItems.value, fuseOptions.value));
+
   // Debounce search input
   watchDebounced(
     () => search.value,
@@ -200,14 +202,14 @@ export function useSearch<T extends ISearchableItem>(
       ranked.push({ item: original, tier, matchLength, fuseScore: 0 });
     }
 
-    // Run Fuse only over items that didn't already match deterministically.
-    // Typo-tolerance still works without letting fuzzy hits push past exact
-    // or prefix matches.
     if (fuzzyPool.length > 0) {
-      const fuzzyFuse = new Fuse(fuzzyPool, fuseOptions.value);
-      const fuzzyHits = fuzzyFuse.search(searchTerm);
+      const rankedIds = new Set(ranked.map(r => r.item.id));
+      // Fuse indexes the raw item fields, so a normalized query would be scored against
+      // un-normalized text, and every stripped accent would count against the threshold.
+      const fuzzyHits = fuse.value.search(searchTerm);
       const byId = new Map(itemsArray.map(it => [it.id, it]));
       for (const hit of fuzzyHits) {
+        if (rankedIds.has(hit.item.id)) continue;
         const original = byId.get(hit.item.id);
         if (!original) continue;
         ranked.push({
