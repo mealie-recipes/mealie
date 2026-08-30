@@ -8,7 +8,7 @@
       @ready="onSearchReady"
     />
     <v-divider />
-    <v-container class="mt-6 px-md-6">
+    <v-container class="mt-6 px-md-6 pb-16">
       <RecipeCardSection
         v-if="ready"
         class="mt-n5"
