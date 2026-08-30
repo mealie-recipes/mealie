@@ -64,6 +64,15 @@ class AIProviderOut(AIProviderCreate):
         ]
 
 
+class AIProviderTestResult(MealieModel):
+    success: bool
+    message: str | None = None
+    latency_ms: int | None = None
+    # None means the provider's model list couldn't be used to check this (e.g. it came back
+    # empty), not that the model is confirmed to be valid.
+    model_found: bool | None = None
+
+
 class AIProviderSummary(MealieModel):
     id: UUID4
     name: str

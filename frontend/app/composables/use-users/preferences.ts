@@ -248,3 +248,19 @@ export function useUserExperiencePreferences(): Ref<UserExperiencePreferences> {
 
   return fromStorage;
 }
+
+export interface AIProviderPreferences {
+  autoTest: boolean;
+}
+
+export function useAIProviderPreferences(): Ref<AIProviderPreferences> {
+  const fromStorage = useLocalStorage(
+    "ai-provider-preferences",
+    {
+      autoTest: false,
+    },
+    { mergeDefaults: true },
+  );
+
+  return fromStorage;
+}

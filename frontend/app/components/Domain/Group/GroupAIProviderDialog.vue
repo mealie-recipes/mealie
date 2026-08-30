@@ -87,16 +87,37 @@
             </v-expansion-panel-text>
           </v-expansion-panel>
         </v-expansion-panels>
+
+        <v-alert
+          v-if="testResult"
+          :type="testResultAlertType"
+          density="compact"
+          variant="tonal"
+          class="mt-4"
+        >
+          {{ testResultMessage }}
+        </v-alert>
       </v-form>
     </v-card-text>
     <AppLoader v-else />
+
+    <template #custom-card-action>
+      <v-btn
+        variant="text"
+        :loading="testing"
+        :disabled="submitDisabled"
+        @click="handleTest"
+      >
+        {{ $t('group.ai-provider-settings.test-connection') }}
+      </v-btn>
+    </template>
   </BaseDialog>
 </template>
 
 <script setup lang="ts">
 import { useAIProviders } from "~/composables/use-ai-providers";
 import { validators } from "~/composables/use-validators";
-import type { AIProviderCreate, AIProviderUpdate } from "~/lib/api/types/group";
+import type { AIProviderCreate, AIProviderTestResult, AIProviderUpdate } from "~/lib/api/types/group";
 
 const props = withDefaults(defineProps<{
   providerId?: string;
@@ -112,7 +133,8 @@ const emit = defineEmits<{
 const dialog = defineModel<boolean>({ default: false });
 
 const { $globals } = useNuxtApp();
-const { loading, getOne } = useAIProviders();
+const i18n = useI18n();
+const { loading, getOne, testOne, testSavedOne } = useAIProviders();
 const init = ref(false);
 
 const form = ref();
@@ -132,8 +154,34 @@ const defaultForm = () => ({
 
 const formData = reactive(defaultForm());
 
+const testing = ref(false);
+const testResult = ref<AIProviderTestResult | null>(null);
+
+// Bumped every time the dialog starts testing a (possibly different) provider, so a slow
+// response that's still in flight when the user switches providers gets ignored instead of
+// silently overwriting the result now being shown for someone else's config.
+let testRequestId = 0;
+
 const submitDisabled = computed(() => {
   return !formData.name?.trim() || !formData.model?.trim() || (!isEdit.value && !formData.apiKey?.trim());
+});
+
+const testResultAlertType = computed(() => {
+  if (!testResult.value) return "success";
+  if (!testResult.value.success) return "error";
+  return testResult.value.modelFound === false ? "warning" : "success";
+});
+
+const testResultMessage = computed(() => {
+  const result = testResult.value;
+  if (!result) return "";
+  if (!result.success) {
+    return result.message || i18n.t("group.ai-provider-settings.test-connection-failed");
+  }
+  if (result.modelFound === false) {
+    return result.message || i18n.t("group.ai-provider-settings.test-connection-model-not-found");
+  }
+  return `${i18n.t("group.ai-provider-settings.test-connection-succeeded")} (${result.latencyMs}ms)`;
 });
 
 // Fetch existing provider when editing; reset form for create mode
@@ -141,6 +189,8 @@ watch(
   () => [dialog.value, props.providerId] as const,
   async ([open, id]) => {
     if (!open) return;
+    testResult.value = null;
+    testRequestId++; // invalidate any test still in flight for whatever was shown before
     if (!id) {
       // Create mode — just show the empty form
       resetForm();
@@ -200,5 +250,49 @@ function resetForm() {
   Object.assign(formData, defaultForm());
   form.value?.reset();
   advancedPanel.value = undefined;
+  testResult.value = null;
+}
+
+async function handleTest() {
+  const requestId = ++testRequestId;
+  testing.value = true;
+  testResult.value = null;
+  try {
+    let data: AIProviderTestResult | null;
+    if (isEdit.value && props.providerId) {
+      // Test the form's CURRENT values, not what's saved in the DB — the user may have just
+      // changed the model/base_url. If they left the API key blank (meaning "keep the existing
+      // one"), the backend falls back to the saved key since we don't have that value here.
+      const overrides: AIProviderUpdate & { apiKey?: string } = {
+        name: formData.name,
+        model: formData.model,
+        baseUrl: formData.baseUrl || null,
+        timeout: formData.timeout,
+        requestHeaders: Object.keys(formData.requestHeaders).length ? formData.requestHeaders : undefined,
+        requestParams: Object.keys(formData.requestParams).length ? formData.requestParams : undefined,
+      };
+      if (formData.apiKey) {
+        overrides.apiKey = formData.apiKey;
+      }
+      ({ data } = await testSavedOne(props.providerId, overrides));
+    }
+    else {
+      ({ data } = await testOne({
+        name: formData.name,
+        model: formData.model,
+        apiKey: formData.apiKey,
+        baseUrl: formData.baseUrl || null,
+        timeout: formData.timeout,
+        requestHeaders: Object.keys(formData.requestHeaders).length ? formData.requestHeaders : undefined,
+        requestParams: Object.keys(formData.requestParams).length ? formData.requestParams : undefined,
+      } as AIProviderCreate));
+    }
+
+    if (requestId !== testRequestId) return; // stale — dialog has moved on to another provider
+    testResult.value = data;
+  }
+  finally {
+    if (requestId === testRequestId) testing.value = false;
+  }
 }
 </script>

@@ -58,6 +58,7 @@
             :color="btn.color"
             :large="large"
             :disabled="btn.disabled"
+            :loading="btn.loading"
             :style="stretch ? `width: ${maxButtonWidth};` : ''"
             variant="plain"
             v-bind="tooltipProps"
@@ -80,6 +81,7 @@ export interface ButtonOption {
   event: string;
   children?: ButtonOption[];
   disabled?: boolean;
+  loading?: boolean;
   divider?: boolean;
 }
 
