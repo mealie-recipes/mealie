@@ -601,7 +601,7 @@
       "ingredient-parser-final-review-description": "Jakmile budou všechny ingredience zkontrolovány, budete mít ještě jednu šanci zkontrolovat všechny ingredience před použitím změn ve vašem receptu.",
       "add-text-as-alias-for-item": "Přidat \"{text}\" jako alias pro {item}",
       "delete-item": "Odstranit položku",
-      "parsing-ingredients": "Parsing ingredients..."
+      "parsing-ingredients": "Analýza ingrediencí..."
     },
     "reset-servings-count": "Resetovat počet porcí",
     "not-linked-ingredients": "Další ingredience",
