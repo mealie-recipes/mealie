@@ -38,6 +38,7 @@ from tests.utils.helpers import parse_sse_events
 from tests.utils.recipe_data import get_recipe_test_cases
 
 recipe_test_data = get_recipe_test_cases()
+RECIPES_CHECK_URL = "/api/recipes/create/url/check"
 
 
 @pytest.fixture(scope="module")
@@ -148,7 +149,6 @@ def test_create_by_url(
         recipe = api_client.get(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
 
         assert recipe.status_code == 200
-
         recipe_dict: dict = json.loads(recipe.text)
 
         assert recipe_dict["slug"] == recipe_data.expected_slug
@@ -163,6 +163,117 @@ def test_create_by_url(
 
         for tag in recipe_dict["tags"]:
             assert tag["name"] in expected_tags
+
+
+def test_check_recipe_url_is_scoped_to_group(
+    api_client: TestClient,
+    unique_user: TestUser,
+    h2_user: TestUser,
+    g2_user: TestUser,
+):
+    source_url = f"https://example.com/recipes/{random_string(10)}"
+    response = api_client.post(
+        api_routes.recipes,
+        json={"name": random_string(10)},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 201
+    recipe_slug = response.json()
+
+    response = api_client.patch(
+        api_routes.recipes_slug(recipe_slug),
+        json={"orgURL": source_url},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json()["orgURL"] == source_url
+
+    response = api_client.get(RECIPES_CHECK_URL, params={"url": source_url}, headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["slug"] == recipe_slug
+    assert response.json()["orgURL"] == source_url
+
+    response = api_client.get(RECIPES_CHECK_URL, params={"url": source_url}, headers=h2_user.token)
+    assert response.status_code == 200
+    assert response.json()["slug"] == recipe_slug
+
+    response = api_client.get(RECIPES_CHECK_URL, params={"url": source_url}, headers=g2_user.token)
+    assert response.status_code == 200
+    assert response.json() is None
+
+    response = api_client.get(
+        RECIPES_CHECK_URL,
+        params={"url": f"{source_url}/not-found"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json() is None
+
+
+def test_check_recipe_url_normalizes_tracking_parameters(
+    api_client: TestClient,
+    unique_user: TestUser,
+):
+    recipe_path = f"recipes/{random_string(10)}"
+    source_url = f"https://example.com/{recipe_path}/?utm_source=newsletter&fbclid=tracking#ingredients"
+    response = api_client.post(
+        api_routes.recipes,
+        json={"name": random_string(10)},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 201
+    recipe_slug = response.json()
+
+    response = api_client.patch(
+        api_routes.recipes_slug(recipe_slug),
+        json={"orgURL": source_url},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json()["orgURL"] == source_url
+
+    normalized_variant = f"https://EXAMPLE.com:443/{recipe_path}?utm_medium=email&gclid=tracking"
+    response = api_client.get(RECIPES_CHECK_URL, params={"url": normalized_variant}, headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["slug"] == recipe_slug
+
+
+def test_check_recipe_url_preserves_meaningful_query_parameters(
+    api_client: TestClient,
+    unique_user: TestUser,
+):
+    source_url = f"https://example.com/recipe?id={random_int(1, 100_000)}"
+    response = api_client.post(
+        api_routes.recipes,
+        json={"name": random_string(10)},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 201
+    recipe_slug = response.json()
+
+    response = api_client.patch(
+        api_routes.recipes_slug(recipe_slug),
+        json={"orgURL": source_url},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json()["orgURL"] == source_url
+
+    response = api_client.get(
+        RECIPES_CHECK_URL,
+        params={"url": f"{source_url}&utm_source=newsletter#method"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json()["slug"] == recipe_slug
+
+    response = api_client.get(
+        RECIPES_CHECK_URL,
+        params={"url": f"https://example.com/recipe?id={random_int(100_001, 200_000)}"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json() is None
 
 
 @pytest.mark.parametrize("use_json", [True, False])

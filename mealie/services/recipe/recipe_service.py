@@ -7,6 +7,7 @@ from pathlib import Path
 from shutil import copytree, rmtree
 from textwrap import dedent
 from typing import Any
+from urllib.parse import parse_qsl, urlencode, urlsplit, urlunsplit
 from uuid import UUID, uuid4
 from zipfile import ZipFile
 
@@ -35,6 +36,65 @@ from .template_service import TemplateService
 
 RECIPE_CREATED_EVENT_SUBJECT = "recipe.recipe-created"
 
+TRACKING_QUERY_PARAMETERS = {
+    "_hsenc",
+    "_hsmi",
+    "dclid",
+    "fbclid",
+    "gad_campaignid",
+    "gad_source",
+    "gbraid",
+    "gclid",
+    "igshid",
+    "mc_cid",
+    "mc_eid",
+    "msclkid",
+    "vero_conv",
+    "vero_id",
+    "wbraid",
+    "wickedid",
+    "yclid",
+}
+
+
+def normalize_source_url(source_url: str) -> str:
+    """Normalize a source URL for duplicate comparison without changing meaningful query parameters."""
+    parsed = urlsplit(source_url.strip())
+    if parsed.scheme.lower() not in {"http", "https"} or not parsed.hostname:
+        return source_url.strip()
+
+    scheme = parsed.scheme.lower()
+    hostname = parsed.hostname.lower()
+    try:
+        hostname = hostname.encode("idna").decode("ascii")
+    except UnicodeError:
+        pass
+
+    if ":" in hostname:
+        hostname = f"[{hostname}]"
+
+    try:
+        port = parsed.port
+    except ValueError:
+        return source_url.strip()
+
+    if port is not None and not ((scheme == "http" and port == 80) or (scheme == "https" and port == 443)):
+        hostname = f"{hostname}:{port}"
+
+    user_info = parsed.netloc.rpartition("@")[0]
+    netloc = f"{user_info}@{hostname}" if user_info else hostname
+    path = parsed.path.rstrip("/") or "/"
+    query = urlencode(
+        [
+            (key, value)
+            for key, value in parse_qsl(parsed.query, keep_blank_values=True)
+            if not key.lower().startswith("utm_") and key.lower() not in TRACKING_QUERY_PARAMETERS
+        ],
+        doseq=True,
+    )
+
+    return urlunsplit((scheme, netloc, path, query, ""))
+
 
 class RecipeServiceBase(BaseService):
     def __init__(self, repos: AllRepositories, user: PrivateUser, household: HouseholdInDB, translator: Translator):
@@ -57,6 +117,23 @@ class RecipeServiceBase(BaseService):
 
 
 class RecipeService(RecipeServiceBase):
+    def get_by_source_url(self, source_url: str) -> Recipe | None:
+        """Return a recipe in the user's group with an equivalent source URL."""
+        normalized_source_url = normalize_source_url(source_url)
+        model = self.group_recipes.model
+        recipe_urls = self.group_recipes.session.execute(
+            sa.select(model.id, model.org_url).where(
+                model.group_id == self.group_recipes.group_id,
+                model.org_url.is_not(None),
+            )
+        )
+
+        for recipe_id, recipe_url in recipe_urls:
+            if recipe_url and normalize_source_url(recipe_url) == normalized_source_url:
+                return self.group_recipes.get_one(recipe_id, "id")
+
+        return None
+
     def _get_recipe(self, data: str | UUID, key: str | None = None) -> Recipe:
         recipe = self.group_recipes.get_one(data, key)
         if recipe is None:

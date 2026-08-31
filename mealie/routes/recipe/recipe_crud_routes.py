@@ -186,6 +186,11 @@ class RecipeController(BaseRecipeController):
         async for event in self._create_recipe_from_web(req):
             yield event
 
+    @router.get("/create/url/check", response_model=RecipeSummary | None)
+    def check_recipe_url(self, url: Annotated[str, Query(min_length=1)]) -> RecipeSummary | None:
+        """Check whether the user's group already has a recipe with this source URL."""
+        return self.service.get_by_source_url(url)
+
     @router.post("/create/url", status_code=201, response_model=str)
     async def parse_recipe_url(self, req: ScrapeRecipe) -> str:
         """Takes in a URL and attempts to scrape data and load it into the database"""

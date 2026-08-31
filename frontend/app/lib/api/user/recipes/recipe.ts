@@ -6,6 +6,7 @@ import { CommentsApi } from "./recipe-comments";
 import { RecipeShareApi } from "./recipe-share";
 import type {
   Recipe,
+  RecipeSummary,
   CreateRecipe,
   RecipeAsset,
   CreateRecipeByUrlBulk,
@@ -38,6 +39,7 @@ const routes = {
   recipesBase: `${prefix}/recipes`,
   recipesSuggestions: `${prefix}/recipes/suggestions`,
   recipesTestScrapeUrl: `${prefix}/recipes/test-scrape-url`,
+  recipesCheckUrl: `${prefix}/recipes/create/url/check`,
   recipesCreateUrl: `${prefix}/recipes/create/url/stream`,
   recipesCreateUrlBulk: `${prefix}/recipes/create/url/bulk`,
   recipesCreateFromZip: `${prefix}/recipes/create/zip`,
@@ -148,6 +150,10 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
 
   async testCreateOneUrl(url: string, useOpenAI = false) {
     return await this.requests.post<Recipe | null>(routes.recipesTestScrapeUrl, { url, useOpenAI });
+  }
+
+  async getBySourceUrl(url: string) {
+    return await this.requests.get<RecipeSummary | null>(route(routes.recipesCheckUrl, { url }));
   }
 
   private streamRecipeCreate(streamRoute: string, payload: object | FormData, onProgress?: (message: string) => void): Promise<RequestResponse<string>> {

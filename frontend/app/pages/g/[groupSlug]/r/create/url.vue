@@ -1,5 +1,26 @@
 <template>
   <div>
+    <BaseDialog
+      v-model="duplicateDialog"
+      :title="$t('recipe.duplicate-source-url-title')"
+      :icon="$globals.icons.alertCircle"
+      :loading="state.loading"
+      :submit-text="$t('recipe.import-anyway')"
+      can-submit
+      @submit="importDuplicate"
+    >
+      <v-card-text>
+        {{ $t('recipe.duplicate-source-url-description', { name: duplicateRecipe?.name }) }}
+      </v-card-text>
+      <template #custom-card-action>
+        <BaseButton
+          :icon="$globals.icons.openInNew"
+          @click="openExistingRecipe"
+        >
+          {{ $t('recipe.open-existing-recipe') }}
+        </BaseButton>
+      </template>
+    </BaseDialog>
     <v-form
       ref="domUrlForm"
       @submit.prevent="createByUrl(recipeUrl, importKeywordsAsTags, importCategories)"
@@ -157,6 +178,7 @@ import { useGroupSelf } from "~/composables/use-groups";
 import { useTagStore } from "~/composables/store/use-tag-store";
 import { useNewRecipeOptions } from "~/composables/use-new-recipe-options";
 import { validators } from "~/composables/use-validators";
+import type { RecipeSummary } from "~/lib/api/types/recipe";
 import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
@@ -271,6 +293,10 @@ onBeforeRouteLeave((to) => {
 });
 
 const createStatus = ref<string | null>(null);
+const duplicateDialog = ref(false);
+const duplicateRecipe = ref<RecipeSummary | null>(null);
+const pendingImport = ref<{ url: string; importKeywordsAsTags: boolean; importCategories: boolean } | null>(null);
+
 async function createByUrl(url: string | null, importKeywordsAsTags: boolean, importCategories: boolean) {
   if (url === null) {
     return;
@@ -281,6 +307,28 @@ async function createByUrl(url: string | null, importKeywordsAsTags: boolean, im
     return;
   }
   state.loading = true;
+  state.error = false;
+
+  const { data: existingRecipe, error } = await api.recipes.getBySourceUrl(url);
+  if (error) {
+    state.error = true;
+    state.loading = false;
+    return;
+  }
+
+  if (existingRecipe) {
+    duplicateRecipe.value = existingRecipe;
+    pendingImport.value = { url, importKeywordsAsTags, importCategories };
+    duplicateDialog.value = true;
+    state.loading = false;
+    return;
+  }
+
+  await importRecipe(url, importKeywordsAsTags, importCategories);
+}
+
+async function importRecipe(url: string, importKeywordsAsTags: boolean, importCategories: boolean) {
+  state.loading = true;
   const { response } = await api.recipes.createOneByUrl(
     url,
     importKeywordsAsTags,
@@ -289,6 +337,25 @@ async function createByUrl(url: string | null, importKeywordsAsTags: boolean, im
   );
   createStatus.value = null;
   handleResponse(response, importKeywordsAsTags);
+}
+
+async function importDuplicate() {
+  if (!pendingImport.value) {
+    return;
+  }
+
+  const { url, importKeywordsAsTags, importCategories } = pendingImport.value;
+  await importRecipe(url, importKeywordsAsTags, importCategories);
+  pendingImport.value = null;
+}
+
+function openExistingRecipe() {
+  if (!duplicateRecipe.value?.slug) {
+    return;
+  }
+
+  duplicateDialog.value = false;
+  navigateToRecipe(duplicateRecipe.value.slug, groupSlug.value, `/g/${groupSlug.value}/r/create/url`);
 }
 </script>
 
