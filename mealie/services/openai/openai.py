@@ -89,8 +89,16 @@ class OpenAILocalImage(OpenAIImageBase):
     path: Path
 
     def get_image_url(self) -> str:
+        # Downscale and re-encode at a moderate quality before base64-encoding for the
+        # provider. The previous default (quality=100, no resize) inflated typical phone
+        # photos well past their original size, exceeding stricter providers' image-size
+        # limits (e.g. Anthropic's OpenAI-compatible endpoint rejects images >10MB
+        # base64-encoded). Vision models downscale internally, so this loses no accuracy.
         image = img.PillowMinifier.to_jpg(
-            self.path, dest=self.path.parent.joinpath(f"{self.filename}-min-original.jpg")
+            self.path,
+            dest=self.path.parent.joinpath(f"{self.filename}-min-original.jpg"),
+            quality=80,
+            max_dimension=2048,
         )
         with open(image, "rb") as f:
             b64content = base64.b64encode(f.read()).decode("utf-8")
