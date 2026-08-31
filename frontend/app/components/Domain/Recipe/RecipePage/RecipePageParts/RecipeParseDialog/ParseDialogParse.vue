@@ -31,7 +31,16 @@
       :food-error="!!currentMissingFood"
       :food-error-tooltip="$t('recipe.parser.this-food-could-not-be-parsed-automatically')"
     />
-    <div class="d-flex flex-wrap justify-end ga-2">
+    <v-card-actions class="flex-wrap">
+      <v-checkbox
+        v-model="currentIngShouldDelete"
+        color="error"
+        hide-details
+        density="compact"
+        class="mt-8"
+        :label="$t('recipe.parser.delete-item')"
+      />
+      <v-spacer />
       <BaseButton
         v-if="currentMissingUnit && !currentIng.ingredient.unit?.id"
         :icon="$globals.icons.units"
@@ -76,16 +85,8 @@
       >
         {{ $t("recipe.parser.add-text-as-alias-for-item", { text: currentMissingFood, item: currentIng.ingredient.food.name }) }}
       </BaseButton>
-    </div>
+    </v-card-actions>
   </v-card-text>
-  <v-checkbox
-    v-model="currentIngShouldDelete"
-    color="error"
-    hide-details
-    density="compact"
-    class="mt-8"
-    :label="$t('recipe.parser.delete-item')"
-  />
 </template>
 
 <script setup lang="ts">

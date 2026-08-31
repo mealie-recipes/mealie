@@ -32,6 +32,7 @@
                 enable-drag-handle
                 enable-context-menu
                 :delete-disabled="parsedIngs.length <= 1"
+                class="mb-5"
                 @delete="parsedIngs.splice(index, 1)"
                 @insert-above="insertNewIngredient(index)"
                 @insert-below="insertNewIngredient(index + 1)"

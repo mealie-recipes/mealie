@@ -21,6 +21,7 @@
   </v-empty-state>
   <v-checkbox
     v-model="dontShowAgain"
+    class="ml-3"
     hide-details
     density="compact"
     :label="$t('recipe.parser.dont-show-again')"
