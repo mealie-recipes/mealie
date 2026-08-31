@@ -1242,7 +1242,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "口蘑",
-                "plural_name": "button mushrooms"
+                "plural_name": "白蘑菇"
             },
             "shiitake mushroom": {
                 "aliases": [],
@@ -1403,50 +1403,50 @@
             "nameko": {
                 "aliases": [],
                 "description": "",
-                "name": "nameko",
-                "plural_name": "namekos"
+                "name": "滑子菇",
+                "plural_name": "滑子菇（复数）"
             },
             "djon djon mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "djon djon mushroom",
-                "plural_name": "djon djon mushrooms"
+                "name": "海地黑蘑菇",
+                "plural_name": "海地黑蘑菇（复数）"
             },
             "mixed asian mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed asian mushroom",
-                "plural_name": "mixed asian mushrooms"
+                "name": "亚洲混合蘑菇",
+                "plural_name": "亚洲混合蘑菇（复数）"
             },
             "puffball": {
                 "aliases": [],
                 "description": "",
-                "name": "puffball",
-                "plural_name": "puffballs"
+                "name": "马勃",
+                "plural_name": "马勃（复数）"
             },
             "honey fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "honey fungus",
-                "plural_name": "honey fungus"
+                "name": "蜜环菌",
+                "plural_name": "蜜环菌（复数）"
             },
             "caesar's mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "caesar's mushroom",
-                "plural_name": "caesar's mushrooms"
+                "name": "橙盖鹅膏菌",
+                "plural_name": "橙盖鹅膏菌（复数）"
             },
             "candy cap mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "candy cap mushroom",
-                "plural_name": "candy cap mushrooms"
+                "name": "糖帽菇",
+                "plural_name": "糖帽菇（复数）"
             },
             "lion’s mane mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "lion’s mane mushroom",
-                "plural_name": "lion’s mane mushrooms"
+                "name": "猴头菇",
+                "plural_name": "猴头菇（复数）"
             }
         }
     },
@@ -1455,103 +1455,103 @@
             "strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "strawberry",
-                "plural_name": "strawberries"
+                "name": "草莓",
+                "plural_name": "草莓（复数）"
             },
             "blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blueberry",
-                "plural_name": "blueberries"
+                "name": "蓝莓",
+                "plural_name": "蓝莓（复数）"
             },
             "raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "raspberry",
-                "plural_name": "raspberries"
+                "name": "覆盆子",
+                "plural_name": "覆盆子（复数）"
             },
             "cranberry": {
                 "aliases": [],
                 "description": "",
-                "name": "cranberry",
-                "plural_name": "cranberries"
+                "name": "蔓越莓",
+                "plural_name": "蔓越莓（复数）"
             },
             "cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "cherry",
-                "plural_name": "cherries"
+                "name": "樱桃",
+                "plural_name": "樱桃（复数）"
             },
             "blackberry": {
                 "aliases": [],
                 "description": "",
-                "name": "blackberry",
-                "plural_name": "blackberries"
+                "name": "黑莓",
+                "plural_name": "黑莓（复数）"
             },
             "berry mix": {
                 "aliases": [],
                 "description": "",
-                "name": "berry mix",
-                "plural_name": "berry mixes"
+                "name": "混合浆果",
+                "plural_name": "混合浆果（复数）"
             },
             "maraschino cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "maraschino cherry",
-                "plural_name": "maraschino cherries"
+                "name": "酒渍红樱桃",
+                "plural_name": "酒渍红樱桃（复数）"
             },
             "dried cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried cherry",
-                "plural_name": "dried cherries"
+                "name": "樱桃干",
+                "plural_name": "樱桃干（复数）"
             },
             "juniper berry": {
                 "aliases": [],
                 "description": "",
-                "name": "juniper berry",
-                "plural_name": "juniper berries"
+                "name": "杜松子",
+                "plural_name": "杜松子（复数）"
             },
             "sour cherry": {
                 "aliases": [],
                 "description": "",
-                "name": "sour cherry",
-                "plural_name": "sour cherries"
+                "name": "酸樱桃",
+                "plural_name": "酸樱桃（复数）"
             },
             "goji berry": {
                 "aliases": [],
                 "description": "",
-                "name": "goji berry",
-                "plural_name": "goji berries"
+                "name": "枸杞",
+                "plural_name": "枸杞（复数）"
             },
             "dried blueberry": {
                 "aliases": [],
                 "description": "",
-                "name": "dried blueberry",
-                "plural_name": "dried blueberries"
+                "name": "蓝莓干",
+                "plural_name": "蓝莓干（复数）"
             },
             "freeze-dried strawberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried strawberry",
-                "plural_name": "freeze-dried strawberries"
+                "name": "冻干草莓",
+                "plural_name": "冻干草莓（复数）"
             },
             "gooseberry": {
                 "aliases": [],
                 "description": "",
-                "name": "gooseberry",
-                "plural_name": "gooseberries"
+                "name": "醋栗",
+                "plural_name": "醋栗（复数）"
             },
             "freeze-dried raspberry": {
                 "aliases": [],
                 "description": "",
-                "name": "freeze-dried raspberry",
-                "plural_name": "freeze-dried raspberries"
+                "name": "冻干树莓",
+                "plural_name": "冻干树莓（复数）"
             },
             "lingonberry": {
                 "aliases": [],
                 "description": "",
-                "name": "lingonberry",
+                "name": "越橘",
                 "plural_name": "越橘"
             },
             "canned sour cherry": {
@@ -1702,13 +1702,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "黑刺李果",
-                "plural_name": "sloe berries"
+                "plural_name": "黑刺李果"
             },
             "oregon grape": {
                 "aliases": [],
                 "description": "",
-                "name": "oregon grape",
-                "plural_name": "oregon grapes"
+                "name": "俄勒冈葡萄（复数）",
+                "plural_name": "俄勒冈葡萄"
             }
         }
     },
@@ -1717,145 +1717,145 @@
             "walnut": {
                 "aliases": [],
                 "description": "",
-                "name": "walnut",
-                "plural_name": "walnuts"
+                "name": "核桃",
+                "plural_name": "核桃（复数）"
             },
             "pecan": {
                 "aliases": [],
                 "description": "",
-                "name": "pecan",
-                "plural_name": "pecans"
+                "name": "山核桃",
+                "plural_name": "山核桃（复数）"
             },
             "almond": {
                 "aliases": [],
                 "description": "",
-                "name": "almond",
-                "plural_name": "almonds"
+                "name": "杏仁",
+                "plural_name": "杏仁（复数）"
             },
             "sesame seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame seed",
-                "plural_name": "sesame seeds"
+                "name": "芝麻",
+                "plural_name": "芝麻（复数）"
             },
             "cashew": {
                 "aliases": [],
                 "description": "",
-                "name": "cashew",
-                "plural_name": "cashews"
+                "name": "腰果",
+                "plural_name": "腰果（复数）"
             },
             "pine nut": {
                 "aliases": [],
                 "description": "",
-                "name": "pine nut",
-                "plural_name": "pine nuts"
+                "name": "松子",
+                "plural_name": "松子（复数）"
             },
             "pistachio": {
                 "aliases": [],
                 "description": "",
-                "name": "pistachio",
-                "plural_name": "pistachios"
+                "name": "开心果",
+                "plural_name": "开心果（复数）"
             },
             "peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut",
-                "plural_name": "peanuts"
+                "name": "花生",
+                "plural_name": "花生（复数）"
             },
             "chia": {
                 "aliases": [],
                 "description": "",
-                "name": "chia",
-                "plural_name": "chias"
+                "name": "奇亚籽",
+                "plural_name": "奇亚籽（复数）"
             },
             "flax": {
                 "aliases": [],
                 "description": "",
-                "name": "flax",
-                "plural_name": "flaxes"
+                "name": "亚麻籽",
+                "plural_name": "亚麻籽（复数）"
             },
             "slivered almond": {
                 "aliases": [],
                 "description": "",
-                "name": "slivered almond",
-                "plural_name": "slivered almonds"
+                "name": "杏仁片",
+                "plural_name": "杏仁片（复数）"
             },
             "pumpkin seed": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpkin seed",
-                "plural_name": "pumpkin seeds"
+                "name": "南瓜子",
+                "plural_name": "南瓜子（复数）"
             },
             "hazelnut": {
                 "aliases": [],
                 "description": "",
-                "name": "hazelnut",
-                "plural_name": "hazelnuts"
+                "name": "榛子",
+                "plural_name": "榛子（复数）"
             },
             "poppy seed": {
                 "aliases": [],
                 "description": "",
-                "name": "poppy seed",
-                "plural_name": "poppy seeds"
+                "name": "罂粟籽",
+                "plural_name": "罂粟籽（复数）"
             },
             "sunflower seed": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower seed",
-                "plural_name": "sunflower seeds"
+                "name": "向日葵籽",
+                "plural_name": "向日葵籽（复数）"
             },
             "macadamia": {
                 "aliases": [],
                 "description": "",
-                "name": "macadamia",
-                "plural_name": "macadamias"
+                "name": "夏威夷果",
+                "plural_name": "夏威夷果（复数）"
             },
             "roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted peanut",
-                "plural_name": "roasted peanuts"
+                "name": "烤花生",
+                "plural_name": "烤花生（复数）"
             },
             "chopped nut": {
                 "aliases": [],
                 "description": "",
-                "name": "chopped nut",
-                "plural_name": "chopped nuts"
+                "name": "碎坚果",
+                "plural_name": "碎坚果（复数）"
             },
             "hemp heart": {
                 "aliases": [],
                 "description": "",
-                "name": "hemp heart",
-                "plural_name": "hemp hearts"
+                "name": "大麻仁",
+                "plural_name": "大麻仁（复数）"
             },
             "nigella seed": {
                 "aliases": [],
                 "description": "",
-                "name": "nigella seed",
-                "plural_name": "nigella seeds"
+                "name": "黑种草籽",
+                "plural_name": "黑种草籽（复数）"
             },
             "mixed nut": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed nut",
-                "plural_name": "mixed nuts"
+                "name": "混合坚果",
+                "plural_name": "混合坚果（复数）"
             },
             "brazil nut": {
                 "aliases": [],
                 "description": "",
-                "name": "brazil nut",
-                "plural_name": "brazil nuts"
+                "name": "巴西坚果",
+                "plural_name": "巴西坚果（复数）"
             },
             "mixed seed": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed seed",
-                "plural_name": "mixed seeds"
+                "name": "混合种子",
+                "plural_name": "混合种子"
             },
             "onion seed": {
                 "aliases": [],
                 "description": "",
-                "name": "onion seed",
+                "name": "洋葱种子",
                 "plural_name": "洋葱种子（复数）"
             },
             "watermelon seed": {
@@ -2011,153 +2011,153 @@
                     "切达干酪"
                 ],
                 "description": "",
-                "name": "cheddar cheese",
-                "plural_name": "cheddar cheese"
+                "name": "切达干酪",
+                "plural_name": "切达干酪（复数）"
             },
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheese"
+                "name": "奶油干酪",
+                "plural_name": "奶油干酪"
             },
             "sharp cheddar cheese": {
                 "aliases": [
-                    "sharp cheddar"
+                    "浓香切达干酪"
                 ],
                 "description": "",
-                "name": "sharp cheddar cheese",
-                "plural_name": "sharp cheddar cheese"
+                "name": "浓香切达干酪",
+                "plural_name": "浓香切达干酪"
             },
             "cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese",
-                "plural_name": "cheese"
+                "name": "奶酪",
+                "plural_name": "奶酪"
             },
             "mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mozzarella cheese",
-                "plural_name": "mozzarella cheese"
+                "name": "马苏里拉奶酪",
+                "plural_name": "马苏里拉奶酪"
             },
             "feta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "feta cheese",
-                "plural_name": "feta cheese"
+                "name": "菲达干酪",
+                "plural_name": "菲达干酪"
             },
             "ricotta cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "ricotta cheese",
-                "plural_name": "ricotta cheese"
+                "name": "里科塔干酪",
+                "plural_name": "里科塔干酪"
             },
             "cheddar-jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cheddar-jack cheese",
-                "plural_name": "cheddar-jack cheese"
+                "name": "切达杰克干酪",
+                "plural_name": "切达杰克干酪"
             },
             "monterey jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "monterey jack cheese",
-                "plural_name": "monterey jack cheese"
+                "name": "蒙特利杰克干酪",
+                "plural_name": "蒙特利杰克干酪"
             },
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "蓝纹干酪",
+                "plural_name": "蓝纹干酪"
             },
             "goat cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "goat cheese",
-                "plural_name": "goat cheese"
+                "name": "山羊干酪",
+                "plural_name": "山羊干酪"
             },
             "fresh mozzarella cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fresh mozzarella cheese",
-                "plural_name": "fresh mozzarella cheese"
+                "name": "鲜马苏里拉干酪",
+                "plural_name": "鲜马苏里拉干酪"
             },
             "swis cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "swis cheese",
-                "plural_name": "swis cheese"
+                "name": "瑞士干酪",
+                "plural_name": "瑞士干酪"
             },
             "pecorino cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pecorino cheese",
-                "plural_name": "pecorino cheese"
+                "name": "佩科里诺奶酪",
+                "plural_name": "佩科里诺奶酪"
             },
             "gruyere cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gruyere cheese",
-                "plural_name": "gruyere cheese"
+                "name": "格鲁耶尔干酪",
+                "plural_name": "格鲁耶尔干酪"
             },
             "mascarpone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mascarpone cheese",
-                "plural_name": "mascarpone cheese"
+                "name": "马斯卡彭干酪",
+                "plural_name": "马斯卡彭干酪"
             },
             "cottage cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cottage cheese",
-                "plural_name": "cottage cheese"
+                "name": "茅屋奶酪",
+                "plural_name": "茅屋奶酪"
             },
             "american cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "american cheese",
-                "plural_name": "american cheese"
+                "name": "美式干酪",
+                "plural_name": "美式干酪"
             },
             "provolone cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "provolone cheese",
-                "plural_name": "provolone cheese"
+                "name": "普罗沃洛内奶酪",
+                "plural_name": "普罗沃洛内奶酪"
             },
             "mexican cheese blend": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican cheese blend",
-                "plural_name": "mexican cheese blend"
+                "name": "墨西哥混合干酪",
+                "plural_name": "墨西哥混合干酪"
             },
             "pepper jack cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "pepper jack cheese",
-                "plural_name": "pepper jack cheese"
+                "name": "辣椒杰克干酪",
+                "plural_name": "辣椒杰克干酪"
             },
             "brie cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brie cheese",
-                "plural_name": "brie cheese"
+                "name": "布里奶酪",
+                "plural_name": "布里奶酪"
             },
             "paneer cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "paneer cheese",
-                "plural_name": "paneer cheese"
+                "name": "帕尼尔干酪",
+                "plural_name": "帕尼尔干酪"
             },
             "fontina cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "fontina cheese",
-                "plural_name": "fontina cheese"
+                "name": "丰缇娜干酪",
+                "plural_name": "丰缇娜干酪"
             },
             "queso fresco cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "queso fresco cheese",
+                "name": "新鲜奶酪",
                 "plural_name": "queso fresco cheese"
             },
             "quark cheese": {
