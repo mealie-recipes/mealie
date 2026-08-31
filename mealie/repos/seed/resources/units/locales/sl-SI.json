@@ -18,7 +18,7 @@
         "abbreviation": "c"
     },
     "fluid-ounce": {
-        "name": "fluid ounce",
+        "name": "tekoča unča",
         "plural_name": "tekoče unče",
         "description": "",
         "abbreviation": "fl oz"
@@ -30,7 +30,7 @@
         "abbreviation": "pt"
     },
     "quart": {
-        "name": "quart",
+        "name": "četrt galone",
         "plural_name": "četrtine",
         "description": "",
         "abbreviation": "qt"
