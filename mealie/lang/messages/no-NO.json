@@ -21,25 +21,29 @@
         "and-amount": "og {amount}",
         "or-ingredient": "eller {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
-            "image-provider-not-enabled": "AI image services are not enabled",
-            "no-recipe-found": "No recipe was found in the provided source",
-            "no-source": "No content, images, or URL were provided",
-            "provider-returned-nothing": "The AI provider did not return a recipe",
-            "unreadable-source": "Unable to read any content from the provided source"
+            "ai-not-enabled": "AI-tjenester er ikke aktivert",
+            "ai-request-failed": "AI-leverandøren kunne ikke fullføre forespørselen. Prøv på nytt",
+            "image-provider-not-enabled": "AI-bildetjenester er ikke aktivert",
+            "no-recipe-found": "Ingen oppskrift ble funnet i den angitte kilden",
+            "no-source": "Ingen innhold, bilder eller nettadresse ble oppgitt",
+            "provider-returned-nothing": "AI-leverandøren returnerte ikke en oppskrift",
+            "unknown-error": "Noe gikk galt under oppretting av oppskriften. Vennligst prøv igjen",
+            "unreadable-source": "Kan ikke lese noen innhold fra oppgitt kilde",
+            "video-download-failed": "Kan ikke laste ned videoen. Den kan være privat, fjernet, eller fra et nettsted som ikke er støttet"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Oppretter oppskrift...",
             "creating-recipe-from-transcript-with-ai": "Oppretter oppskrift fra transkribering med AI...",
             "creating-recipe-from-webpage-data": "Oppretter oppskrift fra nettsidedata...",
             "downloading-image": "Laster ned bilde...",
             "downloading-video": "Laster ned video...",
             "extracting-recipe-data": "Henter ut oppskriftsdata...",
             "fetching-webpage": "Henter nettside...",
-            "organizing-recipe": "Organizing recipe...",
-            "reading-images-with-ai": "Reading images with AI...",
-            "reading-source-with-ai": "Reading source with AI...",
-            "transcribing-audio-with-ai": "Forskriver lyd med AI..."
+            "organizing-recipe": "Organiserer oppskrift...",
+            "reading-images-with-ai": "Leser bilder med AI...",
+            "reading-source-with-ai": "Leser kilde med AI...",
+            "transcribing-audio-with-ai": "Forskriver lyd med AI...",
+            "translating-recipe": "Oversetter oppskrift..."
         }
     },
     "mealplan": {
@@ -58,7 +62,7 @@
         "permission_denied": "Du har ikke rettigheter til å utføre denne handlingen",
         "recursive-recipe-link": "En oppskrift kan ikke referere seg selv, enten direkte eller indirekte",
         "no-entry-found": "Den forespurte ressursen ble ikke funnet",
-        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
+        "rate-limit-error": "AI-leverandøren er hastighetsbegrensende forespørsler. Vennligst vent et øyeblikk og prøv igjen",
         "integrity-error": "Feil i databaseintegritet",
         "username-conflict-error": "Dette brukernavnet er allerede i bruk",
         "email-conflict-error": "Denne e-postadressen er allerede i bruk"

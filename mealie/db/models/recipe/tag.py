@@ -3,7 +3,8 @@ from typing import TYPE_CHECKING
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
 from slugify import slugify
-from sqlalchemy.orm import Mapped, mapped_column, validates
+from sqlalchemy import literal
+from sqlalchemy.orm import Mapped, mapped_column, query_expression, validates
 
 from mealie.core import root_logger
 from mealie.db.models._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
@@ -54,6 +55,7 @@ class Tag(SqlAlchemyBase, BaseMixins):
 
     name: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
     slug: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
+    recipe_count: Mapped[int] = query_expression(default_expr=literal(0))
     recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_tags, back_populates="tags"
     )

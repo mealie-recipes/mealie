@@ -21,25 +21,29 @@
         "and-amount": "i {amount}",
         "or-ingredient": "lub {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
+            "ai-not-enabled": "Usługi AI nie są włączone",
+            "ai-request-failed": "Dostawca AI nie był w stanie wykonać żądania. Spróbuj ponownie później",
             "image-provider-not-enabled": "AI image services are not enabled",
-            "no-recipe-found": "No recipe was found in the provided source",
+            "no-recipe-found": "Nie znaleziono przepisu w podanym źródle",
             "no-source": "No content, images, or URL were provided",
             "provider-returned-nothing": "The AI provider did not return a recipe",
-            "unreadable-source": "Unable to read any content from the provided source"
+            "unknown-error": "Coś poszło nie tak podczas tworzenia przepisu. Spróbuj ponownie później",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Tworzenie przepisu...",
             "creating-recipe-from-transcript-with-ai": "Tworzenie przepisu z transkryptu z pomocą AI...",
             "creating-recipe-from-webpage-data": "Tworzenie przepisu na podstawie danych ze strony...",
             "downloading-image": "Pobieranie zdjęcia...",
             "downloading-video": "Pobieranie wideo...",
             "extracting-recipe-data": "Wyodrębnianie danych przepisu...",
             "fetching-webpage": "Pobieranie strony...",
-            "organizing-recipe": "Organizing recipe...",
-            "reading-images-with-ai": "Reading images with AI...",
-            "reading-source-with-ai": "Reading source with AI...",
-            "transcribing-audio-with-ai": "Transkrypcja audio przy użyciu AI..."
+            "organizing-recipe": "Organizowanie przepisu...",
+            "reading-images-with-ai": "Czytanie obrazków przy pomocy AI...",
+            "reading-source-with-ai": "Czytanie źródeł przy pomocy AI...",
+            "transcribing-audio-with-ai": "Transkrypcja audio przy użyciu AI...",
+            "translating-recipe": "Tłumaczenie przepisu..."
         }
     },
     "mealplan": {

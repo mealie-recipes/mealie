@@ -21,25 +21,29 @@
         "and-amount": "και {amount}",
         "or-ingredient": "ή {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
-            "image-provider-not-enabled": "AI image services are not enabled",
-            "no-recipe-found": "No recipe was found in the provided source",
-            "no-source": "No content, images, or URL were provided",
-            "provider-returned-nothing": "The AI provider did not return a recipe",
-            "unreadable-source": "Unable to read any content from the provided source"
+            "ai-not-enabled": "Οι υπηρεσίες τεχνητής νοημοσύνης δεν είναι ενεργοποιημένες",
+            "ai-request-failed": "Ο πάροχος AI δεν ήταν σε θέση να ολοκληρώσει το αίτημα. Παρακαλώ δοκιμάστε ξανά",
+            "image-provider-not-enabled": "Οι υπηρεσίες εικόνας τεχνητής νοημοσύνης δεν είναι ενεργοποιημένες",
+            "no-recipe-found": "Δεν βρέθηκε συνταγή στην παρεχόμενη πηγή",
+            "no-source": "Δεν δόθηκε περιεχόμενο, εικόνες ή διεύθυνση URL",
+            "provider-returned-nothing": "Ο πάροχος τεχνητής νοημοσύνης δεν επέστρεψε κάποια συνταγή",
+            "unknown-error": "Κάτι πήγε στραβά κατά τη δημιουργία της συνταγής. Παρακαλώ προσπαθήστε ξανά",
+            "unreadable-source": "Δεν είναι δυνατή η ανάγνωση οποιουδήποτε περιεχομένου από την παρεχόμενη πηγή",
+            "video-download-failed": "Δεν είναι δυνατή η λήψη του βίντεο. Μπορεί να είναι ιδιωτικό, να έχει διαγραφεί ή να προέρχεται από μια μη υποστηριζόμενη ιστοσελίδα"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Δημιουργία συνταγής...",
             "creating-recipe-from-transcript-with-ai": "Δημιουργία συνταγής από απομαγνητοφώνηση με AI...",
             "creating-recipe-from-webpage-data": "Δημιουργία συνταγής από δεδομένα ιστοσελίδας...",
             "downloading-image": "Λήψη εικόνας...",
             "downloading-video": "Λήψη βίντεο...",
             "extracting-recipe-data": "Εξαγωγή δεδομένων συνταγής...",
             "fetching-webpage": "Λήψη ιστοσελίδας...",
-            "organizing-recipe": "Organizing recipe...",
-            "reading-images-with-ai": "Reading images with AI...",
-            "reading-source-with-ai": "Reading source with AI...",
-            "transcribing-audio-with-ai": "Μεταγραφή ήχου με AI..."
+            "organizing-recipe": "Οργάνωση συνταγής...",
+            "reading-images-with-ai": "Ανάγνωση εικόνων με AI...",
+            "reading-source-with-ai": "Ανάγνωση πηγής με AI...",
+            "transcribing-audio-with-ai": "Μεταγραφή ήχου με AI...",
+            "translating-recipe": "Μετάφραση συνταγής..."
         }
     },
     "mealplan": {
@@ -58,7 +62,7 @@
         "permission_denied": "Δεν έχετε δικαιώματα για την εκτέλεση αυτής της ενέργειας",
         "recursive-recipe-link": "Μια συνταγή δεν μπορεί να αναφερθεί στον εαυτό της, είτε άμεσα είτε έμμεσα",
         "no-entry-found": "Η σελίδα που ζητήσατε δε βρέθηκε",
-        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
+        "rate-limit-error": "Ο πάροχος τεχνητής νοημοσύνης αξιολογεί τα αιτήματα περιορισμού. Παρακαλώ περιμένετε ένα λεπτό και προσπαθήστε ξανά",
         "integrity-error": "Σφάλμα ακεραιότητας βάσης δεδομένων",
         "username-conflict-error": "Το όνομα χρήστη χρησιμοποιείται ήδη",
         "email-conflict-error": "Αυτό το email χρησιμοποιείται ήδη"

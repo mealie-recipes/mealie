@@ -153,6 +153,7 @@ export interface PrivateUser {
   password: string;
   loginAttemps?: number;
   lockedAt?: string | null;
+  tokensValidAfter?: string | null;
 }
 export interface LongLiveTokenOut {
   name: string;

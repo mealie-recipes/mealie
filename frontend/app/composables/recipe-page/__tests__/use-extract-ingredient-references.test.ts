@@ -1,8 +1,8 @@
 import { describe, expect, test, vi, beforeEach } from "vitest";
-import { useExtractIngredientReferences } from "./use-extract-ingredient-references";
-import { useLocales } from "../use-locales";
+import { useExtractIngredientReferences } from "../use-extract-ingredient-references";
+import { useLocales } from "../../use-locales";
 
-vi.mock("../use-locales");
+vi.mock("../../use-locales");
 
 const punctuationMarks = ["*", "?", "/", "!", "**", "&", "."];
 

@@ -229,7 +229,6 @@ async function sharePlainLink() {
     await share({
       title: props.name,
       url: getPlainRecipeLink(),
-      text: i18n.t("recipe.share-recipe-message", [props.name]) as string,
     });
     return;
   }
@@ -436,10 +435,15 @@ async function addRecipeToPlan() {
   });
 
   if (response?.status === 201) {
-    alert.success(i18n.t("recipe.recipe-added-to-mealplan") as string);
+    alert.success(i18n.t("recipe.recipe-added-to-mealplan"), null, {
+      action: {
+        message: i18n.t("general.view"),
+        onClick: () => router.push("/household/mealplan/planner/view"),
+      },
+    });
   }
   else {
-    alert.error(i18n.t("recipe.failed-to-add-recipe-to-mealplan") as string);
+    alert.error(i18n.t("recipe.failed-to-add-recipe-to-mealplan"));
   }
 }
 

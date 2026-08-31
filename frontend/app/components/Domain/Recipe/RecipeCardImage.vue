@@ -3,7 +3,7 @@
     v-if="showImage"
     :height="height"
     cover
-    min-height="125"
+    :min-height="minHeight"
     max-height="fill-height"
     :src="getImage(recipeId)"
     @click="$emit('click')"
@@ -40,6 +40,7 @@ interface Props {
   recipeId: string;
   imageVersion?: string | unknown;
   height?: number | string;
+  minHeight?: number | string;
 }
 const props = withDefaults(defineProps<Props>(), {
   tiny: null,
@@ -49,6 +50,7 @@ const props = withDefaults(defineProps<Props>(), {
   slug: null,
   imageVersion: null,
   height: "100%",
+  minHeight: 125,
 });
 
 defineEmits<{

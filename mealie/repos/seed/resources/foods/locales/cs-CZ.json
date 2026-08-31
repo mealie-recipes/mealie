@@ -1201,7 +1201,7 @@
             "bergamot orange": {
                 "aliases": [],
                 "description": "",
-                "name": "bergamot orange",
+                "name": "bergamot",
                 "plural_name": "bergamoty"
             },
             "luo han guo": {
@@ -3505,8 +3505,8 @@
             "vegan fish sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "vegan fish sauce",
-                "plural_name": "vegan fish sauce"
+                "name": "veganská rybí omáčka",
+                "plural_name": "veganská rybí omáčka"
             },
             "vegetarian hot dog": {
                 "aliases": [],
@@ -3924,7 +3924,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "vepřový bok",
-                "plural_name": "pork bellies"
+                "plural_name": "vepřové boky"
             },
             "andouille": {
                 "aliases": [],
@@ -11536,8 +11536,8 @@
             "fish sauce": {
                 "aliases": [],
                 "description": "",
-                "name": "fish sauce",
-                "plural_name": "fish sauce"
+                "name": "rybí omáčka",
+                "plural_name": "rybí omáčka"
             },
             "bbq sauce": {
                 "aliases": [],

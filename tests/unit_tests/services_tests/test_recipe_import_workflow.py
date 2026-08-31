@@ -7,12 +7,17 @@ import pytest
 import mealie
 from mealie.lang import get_locale_provider
 from mealie.lang.providers import TRANSLATIONS
+from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.services.openai.content import (
     MAX_SOURCE_CONTENT_LENGTH,
     TRUNCATION_NOTICE,
     truncate_source_content,
+    truncate_source_parts,
 )
 from mealie.services.recipe.import_workflow.compilers import DEFAULT_SOURCE_COMPILERS
+from mealie.services.recipe.import_workflow.compilers.base import SourceCompiler, SourceType
+from mealie.services.recipe.import_workflow.context import WorkflowInput
+from mealie.services.recipe.import_workflow.steps.compile_source import CompileSourceStep
 from mealie.services.recipe.import_workflow.workflow import DEFAULT_WORKFLOW_STEPS
 
 MEALIE_DIR = Path(mealie.__file__).parent
@@ -100,6 +105,32 @@ def test_content_can_be_truncated_to_a_custom_length():
     assert truncate_source_content("abcdef", max_length=3) == "abc" + TRUNCATION_NOTICE
 
 
+def test_parts_that_fit_the_budget_are_left_alone():
+    parts = ["a" * 10, "b" * 10]
+    assert truncate_source_parts(parts, max_length=100) == parts
+
+
+def test_parts_share_the_budget_evenly_when_all_are_too_long():
+    parts = ["a" * 100, "b" * 100]
+    assert truncate_source_parts(parts, max_length=10) == ["a" * 5 + TRUNCATION_NOTICE, "b" * 5 + TRUNCATION_NOTICE]
+
+
+def test_a_short_part_is_not_crowded_out_by_a_long_one():
+    """A huge webpage must not swallow the budget and drop the content pasted alongside it."""
+
+    page = "a" * 1000
+    pasted = "b" * 10
+
+    truncated_page, truncated_pasted = truncate_source_parts([page, pasted], max_length=100)
+
+    assert truncated_pasted == pasted
+    assert truncated_page == "a" * 90 + TRUNCATION_NOTICE
+
+
+def test_no_parts_is_not_an_error():
+    assert truncate_source_parts([]) == []
+
+
 def test_no_orphaned_import_error_keys():
     """Import error translations that nothing references anymore should be removed."""
 
@@ -118,3 +149,107 @@ def test_no_orphaned_progress_keys():
     used = {key.rsplit(".", 1)[-1] for key in progress_keys_in_source()}
 
     assert defined - used == set()
+
+
+class StubContext:
+    """Only the parts of WorkflowContext that CompileSourceStep touches.
+
+    The real one needs live repositories and an AI service, neither of which these tests reach.
+    """
+
+    def __init__(self, url: str | None = None, page_content: str | None = None) -> None:
+        self.input = WorkflowInput(url=url, page_content=page_content)
+        self.progress: list[str] = []
+
+    async def report_progress(self, key: str) -> None:
+        self.progress.append(key)
+
+
+class FailingUrlCompiler(SourceCompiler):
+    """Stands in for the transcription compiler meeting a page that turns out to have no video."""
+
+    source_type = SourceType.URL
+
+    def can_compile(self) -> bool:
+        return True
+
+    async def compile(self) -> OpenAICompiledSource | None:
+        raise RuntimeError("ERROR: unable to download video")
+
+
+class UnreachableUrlCompiler(SourceCompiler):
+    source_type = SourceType.URL
+
+    def can_compile(self) -> bool:
+        return True
+
+    async def compile(self) -> OpenAICompiledSource | None:
+        return OpenAICompiledSource(contains_recipe=True, content="from the second url compiler")
+
+
+class EchoContentCompiler(SourceCompiler):
+    source_type = SourceType.CONTENT
+
+    def can_compile(self) -> bool:
+        return True
+
+    async def compile(self) -> OpenAICompiledSource | None:
+        return OpenAICompiledSource(contains_recipe=True, content=self.content or "")
+
+
+@pytest.mark.asyncio
+async def test_a_failing_compiler_hands_over_to_the_next():
+    step = CompileSourceStep(compilers=[FailingUrlCompiler, UnreachableUrlCompiler])
+
+    compiled = await step._compile(StubContext(url="https://example.test/x"), SourceType.URL)
+
+    assert compiled is not None
+    assert compiled.content == "from the second url compiler"
+
+
+@pytest.mark.asyncio
+async def test_a_failing_url_compiler_falls_back_to_reading_the_page(monkeypatch: pytest.MonkeyPatch):
+    """`can_compile` judges the shape of a URL, not whether the page really holds what it expects.
+
+    yt-dlp recognises every cooking.nytimes.com/recipes/<id> URL, but most of those pages carry no
+    video, so the download raises. That used to abort the whole import even though the page itself
+    was perfectly readable.
+    """
+    monkeypatch.setattr(
+        "mealie.services.recipe.import_workflow.steps.compile_source.safe_scrape_html",
+        _fake_scrape,
+    )
+
+    step = CompileSourceStep(compilers=[FailingUrlCompiler, EchoContentCompiler])
+    ctx = StubContext(url="https://cooking.nytimes.com/recipes/785347515-heirloom-tomato-and-cheddar-pie")
+
+    compiled = await step._compile_page(ctx)
+
+    assert compiled is not None
+    assert compiled.content == "<html>the recipe page</html>"
+    assert "recipe.create-progress.fetching-webpage" in ctx.progress
+
+
+async def _fake_scrape(url: str) -> str:
+    return "<html>the recipe page</html>"
+
+
+@pytest.mark.asyncio
+async def test_a_compiler_returning_nothing_also_hands_over():
+    """The no-transcript path already returned None rather than raising; both must fall through."""
+
+    class EmptyUrlCompiler(SourceCompiler):
+        source_type = SourceType.URL
+
+        def can_compile(self) -> bool:
+            return True
+
+        async def compile(self) -> OpenAICompiledSource | None:
+            return None
+
+    step = CompileSourceStep(compilers=[EmptyUrlCompiler, UnreachableUrlCompiler])
+
+    compiled = await step._compile(StubContext(url="https://example.test/x"), SourceType.URL)
+
+    assert compiled is not None
+    assert compiled.content == "from the second url compiler"

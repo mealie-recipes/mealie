@@ -65,6 +65,7 @@ from mealie.services.event_bus_service.event_types import (
     EventRecipeData,
     EventTypes,
 )
+from mealie.services.openai import OpenAINotEnabledException
 from mealie.services.recipe.ai_recipe_service import AIProviderNotEnabledError, AIRecipeService
 from mealie.services.recipe.import_workflow.exceptions import NoRecipeDataError
 from mealie.services.recipe.recipe_data_service import (
@@ -210,26 +211,41 @@ class RecipeController(BaseRecipeController):
 
     def _error_message(self, ex: Exception) -> str:
         """
-        Extract a meaningful message from an exception raised during recipe creation.
+        Turn an exception raised during recipe creation into something worth showing a user.
 
-        Scraper failures surface as an HTTPException carrying a `ParserErrors` value
-        (e.g. BAD_RECIPE_DATA), which is far more useful to the client than the class name.
+        The AI import page renders this message as-is, so every failure has to map to a
+        translated string. An exception's own text is not usable here: it carries provider and
+        library internals, and a bare class name like "OpenAIServiceError" is no better. Anything
+        unrecognized falls back to a generic message, and the caller logs the exception itself.
         """
 
         if isinstance(ex, exceptions.RateLimitError):
             return self.t("exceptions.rate-limit-error")
 
         if isinstance(ex, NoRecipeDataError | AIProviderNotEnabledError):
-            return str(ex)
+            # these are raised with an already-translated message
+            if message := str(ex):
+                return message
+
+        if isinstance(ex, OpenAINotEnabledException):
+            return self.t("recipe.import-errors.ai-not-enabled")
+
+        if isinstance(ex, exceptions.VideoDownloadError):
+            return self.t("recipe.import-errors.video-download-failed")
+
+        if isinstance(ex, exceptions.OpenAIServiceError):
+            return self.t("recipe.import-errors.ai-request-failed")
 
         if isinstance(ex, HTTPException):
+            # scraper failures carry a `ParserErrors` value (e.g. BAD_RECIPE_DATA), which the URL
+            # and HTML importers expect verbatim. They render their own message rather than this one
             detail = ex.detail
             if isinstance(detail, dict) and (details := detail.get("details")):
                 return str(details)
             if isinstance(detail, str) and detail:
                 return detail
 
-        return ex.__class__.__name__
+        return self.t("recipe.import-errors.unknown-error")
 
     async def _stream_recipe_creation(
         self, create: Callable[[Callable[[str], Awaitable[None]]], Awaitable[str]]
