@@ -38,7 +38,9 @@ interface Props {
   iconSize?: number | string;
   slug?: string | null;
   recipeId: string;
-  imageVersion?: string | unknown;
+  // Recipe.image is typed unknown in the generated API types, so callers
+  // passing it directly cannot narrow to string here.
+  imageVersion?: unknown;
   height?: number | string;
   minHeight?: number | string;
 }
