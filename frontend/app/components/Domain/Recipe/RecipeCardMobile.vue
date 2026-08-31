@@ -147,7 +147,7 @@ interface Props {
 }
 const props = withDefaults(defineProps<Props>(), {
   rating: 0,
-  image: "abc123",
+  image: undefined,
   tags: () => [],
   vertical: false,
   isFlat: false,
