@@ -1,3 +1,4 @@
+import pytest
 from pytest import MonkeyPatch
 
 from mealie.core.config import get_app_settings
@@ -6,6 +7,13 @@ from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
+
+
+@pytest.fixture(autouse=True)
+def reset_settings_cache():
+    """monkeypatch restores the env vars, but the cached settings object would keep the patched values."""
+    yield
+    get_app_settings.cache_clear()
 
 
 def _enable_reverse_proxy_auth(monkeypatch: MonkeyPatch, header: str = "X-Forwarded-User") -> None:
