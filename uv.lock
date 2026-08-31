@@ -1039,7 +1039,7 @@ requires-dist = [
     { name = "itsdangerous", specifier = "==2.2.0" },
     { name = "jinja2", specifier = "==3.1.6" },
     { name = "lxml", specifier = "==6.1.2" },
-    { name = "openai", specifier = "==3.3.1" },
+    { name = "openai", specifier = "==3.4.0" },
     { name = "orjson", specifier = "==3.12.0" },
     { name = "paho-mqtt", specifier = "==1.6.1" },
     { name = "pillow", specifier = "==12.3.0" },
@@ -1269,7 +1269,7 @@ wheels = [
 
 [[package]]
 name = "openai"
-version = "3.3.1"
+version = "3.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
@@ -1279,9 +1279,9 @@ dependencies = [
     { name = "sniffio" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/7d/9c/ba0c292b4032ede74c249ca314ad64eb1bb5a03a843f6e01facb02f80cd8/openai-3.3.1.tar.gz", hash = "sha256:6f22807de1a976c932cecda620e8172a8c3fdbaeed29c7f21564e0c2410edf56", size = 1282113, upload-time = "2026-08-19T16:31:35.006Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/70/2b/1a90f5383fe2ee218a9b1bf2aea7bee19ec321936196aadc336f0fb5c17d/openai-3.4.0.tar.gz", hash = "sha256:6b946c2aef1965559ec2de4e28b56ea278a985ac428369e3aefa6e6a5334b4dc", size = 1355398, upload-time = "2026-08-26T21:49:33.068Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6a/db/2b7a1b3de659bb82aef979116c74e809982b13e42c057759767552b5155f/openai-3.3.1-py3-none-any.whl", hash = "sha256:9652df7fdf8ee6f5bd58e0a12f2b1d414a18e0f06bb7a9a57c8643a5f5469bd3", size = 1690337, upload-time = "2026-08-19T16:31:32.812Z" },
+    { url = "https://files.pythonhosted.org/packages/06/ff/c4c6b62ad0886916776936805cf0d5075be28a48ab267329affdb60790f9/openai-3.4.0-py3-none-any.whl", hash = "sha256:b641bb1e5a9d977530f451bdc8d01e8f4b23df395d49e5428f8fdbce07ac14f0", size = 1697926, upload-time = "2026-08-26T21:49:31.103Z" },
 ]
 
 [[package]]
