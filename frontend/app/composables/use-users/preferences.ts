@@ -178,11 +178,16 @@ export function useTimelinePreferences(): Ref<UserTimelinePreferences> {
   return fromStorage;
 }
 
-export function useParsingPreferences(): Ref<UserParsingPreferences> {
+/**
+ * @param defaultParser used only when no preference has been stored yet. Callers that know the
+ * user's locale can pass a parser better suited to it, since the natural language parser is
+ * trained on English recipes.
+ */
+export function useParsingPreferences(defaultParser: RegisteredParser = "nlp" as RegisteredParser): Ref<UserParsingPreferences> {
   const fromStorage = useLocalStorage(
     "parsing-preferences",
     {
-      parser: "nlp" as RegisteredParser,
+      parser: defaultParser,
       dontShowInfoPage: false,
     },
     { mergeDefaults: true },
