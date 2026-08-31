@@ -6,11 +6,11 @@
     disable-submit-on-enter
     @update:model-value="emit('update:modelValue', $event)"
   >
-    <v-container fluid class="pa-2 ma-0" style="background-color: rgb(var(--v-theme-background));">
+    <v-container fluid class="pa-2 ma-0">
       <SwipeTransition direction="left">
         <!-- These wrapping divs appear to be load-bearing in making sure the transition renders correctly -->
         <div v-if="state.step === ParseStep.LOADING">
-          <AppLoader class="my-6" />
+          <AppLoader class="my-6" :waiting-text="$t('recipe.parser.parsing-ingredients')" />
         </div>
         <div v-else-if="state.step === ParseStep.INFO">
           <ParseDialogInfo v-model="dontShowInfoPage" :auto-parsed="autoParsedIngredientsCount" :to-review="ingredientsToReviewCount" />
@@ -33,7 +33,7 @@
       </SwipeTransition>
     </v-container>
     <template v-if="state.step !== ParseStep.LOADING" #custom-card-action>
-      <SpinTransition>
+      <SwipeTransition direction="left">
         <BaseButton
           v-if="state.step === ParseStep.INFO"
           color="info"
@@ -58,7 +58,7 @@
           :loading="state.saveLoading"
           @click="saveIngs"
         />
-      </SpinTransition>
+      </SwipeTransition>
     </template>
   </BaseDialog>
 </template>

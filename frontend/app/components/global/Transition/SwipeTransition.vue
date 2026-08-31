@@ -1,8 +1,8 @@
 <template>
-  <TransitionGroup v-if="group" :name="`swipe-${direction}`" appear>
+  <TransitionGroup v-if="group" :name="`swipe-${direction}`" appear class="overflow-x-hidden-child">
     <slot />
   </TransitionGroup>
-  <Transition v-else :name="`swipe-${direction}`" mode="out-in" appear>
+  <Transition v-else :name="`swipe-${direction}`" mode="out-in" appear class="overflow-x-hidden-child">
     <slot />
   </Transition>
 </template>
@@ -52,5 +52,8 @@ withDefaults(defineProps<{
   &-leave-to {
     transform: translateX(30px);
   }
+}
+*:has(.overflow-x-hidden-child) {
+  overflow-x: hidden;
 }
 </style>
