@@ -219,7 +219,7 @@ import RecipePageIngredientEditor from "./RecipePageParts/RecipePageIngredientEd
 import RecipePageIngredientToolsView from "./RecipePageParts/RecipePageIngredientToolsView.vue";
 import RecipePageInstructions from "./RecipePageParts/RecipePageInstructions.vue";
 import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
-import RecipePageParseDialog from "./RecipePageParts/RecipePageParseDialog.vue";
+import RecipePageParseDialog from "./RecipePageParts/RecipeParseDialog/RecipePageParseDialog.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageInfoEditor from "./RecipePageParts/RecipePageInfoEditor.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
@@ -423,9 +423,13 @@ async function saveRecipe() {
 }
 
 async function saveParsedIngredients(ingredients: NoUndefinedField<RecipeIngredient[]>) {
+  const returnToEdit = isEditMode.value;
   recipe.value.recipeIngredient = ingredients;
   await saveRecipe();
   toggleIsParsing(false);
+  if (returnToEdit) {
+    setMode(PageMode.EDIT);
+  }
 }
 
 async function deleteRecipe() {

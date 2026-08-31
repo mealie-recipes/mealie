@@ -140,6 +140,7 @@ import {
   mdiWindowClose,
   mdiWrench,
   mdiHandWaveOutline,
+  mdiProgressCheck,
 
 } from "@mdi/js";
 
@@ -176,6 +177,7 @@ export const icons = {
   checkboxMultipleBlankOutline: mdiCheckboxMultipleBlankOutline,
   checkboxMultipleMarkedOutline: mdiCheckboxMultipleOutline,
   checkboxMarkedCircle: mdiCheckboxMarkedCircle,
+  progressCheck: mdiProgressCheck,
   chefHat: mdiChefHat,
   clipboardCheck: mdiClipboardCheck,
   clockOutline: mdiClockTimeFourOutline,

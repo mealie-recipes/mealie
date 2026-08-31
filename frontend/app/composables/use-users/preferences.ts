@@ -46,6 +46,7 @@ export interface UserTimelinePreferences {
 
 export interface UserParsingPreferences {
   parser: RegisteredParser;
+  dontShowInfoPage: boolean;
 }
 
 export interface UserCookbooksPreferences {
@@ -182,6 +183,7 @@ export function useParsingPreferences(): Ref<UserParsingPreferences> {
     "parsing-preferences",
     {
       parser: "nlp" as RegisteredParser,
+      dontShowInfoPage: false,
     },
     { mergeDefaults: true },
   );
