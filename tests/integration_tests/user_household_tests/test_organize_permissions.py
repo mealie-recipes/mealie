@@ -14,8 +14,10 @@ from tests.utils.fixture_schemas import TestUser
 # (id, collection route, item-id route builder)
 RESOURCES = [
     ("foods", api_routes.foods, api_routes.foods_item_id),
+    ("units", api_routes.units, api_routes.units_item_id),
     ("tags", api_routes.organizers_tags, api_routes.organizers_tags_item_id),
     ("categories", api_routes.organizers_categories, api_routes.organizers_categories_item_id),
+    ("tools", api_routes.organizers_tools, api_routes.organizers_tools_item_id),
 ]
 RESOURCE_IDS = [resource[0] for resource in RESOURCES]
 
@@ -96,6 +98,21 @@ def test_food_merge_requires_organize_permission(api_client: TestClient, unique_
 
     set_can_organize(user, True)
     response = api_client.put(api_routes.foods_merge, json=payload, headers=user.token)
+    assert response.status_code == 200
+
+
+def test_unit_merge_requires_organize_permission(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    user = unique_user_fn_scoped
+    from_unit = create_item(api_client, user, api_routes.units)
+    to_unit = create_item(api_client, user, api_routes.units)
+    payload = {"fromUnit": from_unit, "toUnit": to_unit}
+
+    set_can_organize(user, False)
+    response = api_client.put(api_routes.units_merge, json=payload, headers=user.token)
+    assert response.status_code == 403
+
+    set_can_organize(user, True)
+    response = api_client.put(api_routes.units_merge, json=payload, headers=user.token)
     assert response.status_code == 200
 
 

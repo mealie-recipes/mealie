@@ -37,6 +37,7 @@ class RecipeToolController(BaseUserController):
 
     @router.post("", response_model=RecipeTool, status_code=201)
     def create_one(self, data: RecipeToolCreate):
+        self.checks.can_organize()
         save_data = mapper.cast(data, RecipeToolSave, group_id=self.group_id)
         return self.mixins.create_one(save_data)
 
@@ -46,11 +47,13 @@ class RecipeToolController(BaseUserController):
 
     @router.put("/{item_id}", response_model=RecipeTool)
     def update_one(self, item_id: UUID4, data: RecipeToolCreate):
+        self.checks.can_organize()
         data = mapper.cast(data, RecipeToolSave, group_id=self.group_id)
         return self.mixins.update_one(data, item_id)
 
     @router.delete("/{item_id}", response_model=RecipeTool)
     def delete_one(self, item_id: UUID4):
+        self.checks.can_organize()
         return self.mixins.delete_one(item_id)  # type: ignore
 
     @router.get("/slug/{tool_slug}", response_model=RecipeToolResponse)

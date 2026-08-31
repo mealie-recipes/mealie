@@ -8,7 +8,7 @@
         :label="$t('shopping-list.food')"
         :icon="$globals.icons.foods"
         :autofocus="autoFocus === 'food'"
-        create
+        :create="canOrganize"
         @create="createAssignFood"
       />
       <ShoppingListItemDetails
@@ -85,6 +85,7 @@ defineEmits<{
 }>();
 
 const { createAssignFood } = useShoppingListItemEditor(listItem);
+const canOrganize = useCanOrganize();
 
 watch(
   () => listItem.value.quantity,
