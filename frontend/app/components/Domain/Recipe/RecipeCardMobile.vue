@@ -25,6 +25,7 @@
             :recipe-id="recipeId"
             :image-version="image"
             :height="height"
+            :cover="cover"
           />
         </v-img>
         <v-list-item
@@ -48,6 +49,7 @@
                 :image-version="image"
                 width="125"
                 :height="height"
+                :cover="cover"
               />
             </slot>
           </template>
@@ -144,6 +146,7 @@ interface Props {
   isFlat?: boolean;
   height?: number;
   disableHighlight?: boolean;
+  cover?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   rating: 0,
@@ -153,6 +156,7 @@ const props = withDefaults(defineProps<Props>(), {
   isFlat: false,
   height: 150,
   disableHighlight: false,
+  cover: true,
 });
 
 defineEmits<{

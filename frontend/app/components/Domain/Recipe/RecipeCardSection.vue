@@ -148,6 +148,7 @@
               :image="recipe.image!"
               :tags="recipe.tags!"
               :recipe-id="recipe.id!"
+              :cover="false"
             />
           </v-col>
         </v-row>
