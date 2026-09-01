@@ -11,7 +11,6 @@
       :content-props="{
         style: 'overflow: hidden',
       }"
-      :width="width"
       :max-width="maxWidth ?? undefined"
       @keydown.enter="submitOnEnter"
       @click:outside="emit('cancel')"
@@ -175,11 +174,7 @@ const bindings = computed(() => ({
   color: props.color,
   title: props.title,
   icon: props.icon,
-  width: props.width,
-  maxWidth: props.maxWidth,
   loading: props.loading,
-  top: props.top,
-  keepOpen: props.keepOpen,
   submitIcon: props.submitIcon,
   submitText: props.submitText,
   submitDisabled: props.submitDisabled,
@@ -187,7 +182,6 @@ const bindings = computed(() => ({
   canDelete: props.canDelete,
   canConfirm: props.canConfirm,
   canSubmit: props.canSubmit,
-  disableSubmitOnEnter: props.disableSubmitOnEnter,
   onCancel: () => {
     emit("cancel");
     dialog.value = false;
@@ -200,3 +194,10 @@ const bindings = computed(() => ({
   onDelete: deleteEvent,
 }));
 </script>
+
+<style>
+.top-dialog {
+  position: fixed;
+  top: 0;
+}
+</style>

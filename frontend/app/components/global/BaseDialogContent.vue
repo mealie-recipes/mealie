@@ -26,29 +26,26 @@
 
     <v-spacer />
     <v-divider />
-
-    <v-card-actions class="pb-4">
+    <v-card-actions :class="$vuetify.display.mdAndUp ? 'grid-large' : 'pb-4 grid-small'">
       <slot name="card-actions">
         <v-btn
-          class="flex-1-1-0"
           variant="text"
           color="grey"
+          class="place-start"
           @click="emit('cancel')"
         >
           {{ cancelText }}
         </v-btn>
-
+        <v-spacer v-if="$vuetify.display.mdAndUp" />
         <slot name="custom-card-action" />
         <BaseButton
           v-if="canDelete"
-          class="flex-1-1-0"
           delete
           @click="emit('delete')"
         />
         <BaseButton
           v-if="canConfirm"
           :color="color"
-          class="flex-1-1-0"
           type="submit"
           :disabled="submitDisabled"
           @click="emit('confirm')"
@@ -61,7 +58,6 @@
         <BaseButton
           v-if="canSubmit"
           type="submit"
-          class="flex-1-1-0"
           :disabled="submitDisabled || loading"
           @click="emit('submit')"
         >
@@ -85,11 +81,7 @@ interface DialogProps {
   color?: string;
   title?: string;
   icon?: string | null;
-  width?: number | string;
-  maxWidth?: number | string | null;
   loading?: boolean;
-  top?: boolean | null;
-  keepOpen?: boolean;
 
   // submit
   submitIcon?: string | null;
@@ -103,12 +95,10 @@ interface DialogProps {
   canDelete?: boolean;
   canConfirm?: boolean;
   canSubmit?: boolean;
-  disableSubmitOnEnter?: boolean;
 }
 
 interface DialogEmits {
-  (e: "update:modelValue", value: boolean): void;
-  (e: "submit" | "cancel" | "confirm" | "delete" | "close"): void;
+  (e: "submit" | "cancel" | "confirm" | "delete"): void;
 }
 
 // Using TypeScript interface with withDefaults for props
@@ -116,11 +106,7 @@ withDefaults(defineProps<DialogProps>(), {
   color: "primary",
   title: "Modal Title",
   icon: null,
-  width: "500",
-  maxWidth: null,
   loading: false,
-  top: null,
-  keepOpen: false,
 
   // submit
   submitIcon: null,
@@ -134,7 +120,27 @@ withDefaults(defineProps<DialogProps>(), {
   canDelete: false,
   canConfirm: false,
   canSubmit: false,
-  disableSubmitOnEnter: false,
 });
 const emit = defineEmits<DialogEmits>();
 </script>
+
+<style lang="css">
+.grid-small {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(min-content, 1fr);
+}
+.grid-large {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: min-content 1fr min-content;
+
+  .place-start {
+    place-self: start;
+  }
+
+  .place-end {
+    place-self: end;
+  }
+}
+</style>
