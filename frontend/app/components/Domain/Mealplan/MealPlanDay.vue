@@ -18,7 +18,7 @@
     <div class="d-flex justify-end">
       <BaseButtonGroup
         v-bind="bindings"
-        :buttons="inlineButtons"
+        :buttons="[...commonButtons, ...inlineButtons]"
       />
     </div>
   </template>
@@ -39,7 +39,7 @@
               disabled: !props.recipes.length,
             },
             ...commonButtons,
-            ...randomButtons,
+            ...inlineButtons,
           ],
         }]"
       />
@@ -86,7 +86,6 @@ const commonButtons = [
     icon: $globals.icons.bowlMixOutline,
     text: i18n.t("meal-plan.random-side"),
     event: "randomSide",
-    divider: true,
   },
 ];
 const randomButtons = [
@@ -128,7 +127,6 @@ const inlineButtons = [
     event: "random",
     children: randomButtons,
   },
-  ...commonButtons,
 ];
 
 const recipesWithScales = computed(() => {
