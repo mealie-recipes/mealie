@@ -1,109 +1,97 @@
 <template>
-  <v-container class="mx-0 my-3">
-    <v-row>
-      <v-col
-        v-for="(day, index) in plan"
-        :key="index"
-        cols="12"
-        sm="12"
-        md="6"
-        lg="4"
-        xl="3"
-        xxl="2"
-        class="col-borders my-1 d-flex flex-column"
-      >
-        <v-card class="mb-2 border-left-primary rounded-sm px-2">
-          <v-container class="px-0 d-flex align-center" style="height: 56px">
-            <v-row no-gutters style="width: 100%;">
-              <v-col cols="10" class="d-flex align-center">
-                <p class="pl-2 my-1" :class="{ 'text-primary': isToday(day.date) }">
-                  {{ $d(day.date, "short") }}
-                </p>
-              </v-col>
-              <v-col class="d-flex align-center" cols="2">
-                <GroupMealPlanDayContextMenu v-if="day.recipes.length" :recipes="day.recipes" />
-              </v-col>
-            </v-row>
-          </v-container>
-        </v-card>
-        <div v-for="section in day.sections" :key="section.type">
-          <div class="pt-3 pb-1 d-flex flex-column">
-            <p class="text-overline my-0">
-              {{ section.title }}
-            </p>
-          </div>
-
-          <RecipeCardMobile
-            v-for="mealplan in section.meals"
-            :key="mealplan.id"
-            :recipe-id="mealplan.recipe ? mealplan.recipe.id! : ''"
-            class="mb-2"
-            :rating="mealplan.recipe ? mealplan.recipe.rating! : 0"
-            :slug="mealplan.recipe ? mealplan.recipe.slug! : ''"
-            :description="mealplan.recipe ? mealplan.recipe.description! : mealplan.text!"
-            :name="mealplan.recipe ? mealplan.recipe.name! : mealplan.title!"
-            :image="mealplan.recipe ? mealplan.recipe.image! : undefined"
-            :tags="mealplan.recipe ? mealplan.recipe.tags! : []"
-          />
-        </div>
-      </v-col>
-    </v-row>
+  <v-container class="mx-0 pa-0">
+    <GroupMealPlanEntryDialog
+      v-model="dialog.open"
+      :entry="dialog.entry"
+      :date="dialog.date"
+      @create="actions.createOne($event)"
+      @update="actions.updateOne($event)"
+    />
+    <MealPlanLayout :mealplans="mealplans">
+      <template #default="{ day }">
+        <MealPlanDay :day="day.date" :actions="actions" :recipes="day.recipes">
+          <SpinTransition>
+            <v-card v-if="day.sections.length" variant="flat" class="pl-4 pr-2">
+              <SpinTransition>
+                <div v-for="section in day.sections" :key="section.title">
+                  <div class="py-2 d-flex flex-column">
+                    <p class="text-overline my-0">
+                      {{ section.title }}
+                    </p>
+                  </div>
+                  <SpinTransition>
+                    <RecipeCardMobile
+                      v-for="mealplan in section.meals"
+                      :key="mealplan.id"
+                      :recipe-id="mealplan.recipe ? mealplan.recipe.id! : ''"
+                      class="mb-2"
+                      :rating="mealplan.recipe ? mealplan.recipe.rating! : 0"
+                      :slug="mealplan.recipe ? mealplan.recipe.slug! : mealplan.title!"
+                      :description="mealplan.recipe ? mealplan.recipe.description! : mealplan.text!"
+                      :name="mealplan.recipe ? mealplan.recipe.name! : mealplan.title!"
+                      :image="mealplan.recipe ? mealplan.recipe.image! : undefined"
+                      :tags="mealplan.recipe ? mealplan.recipe.tags! : []"
+                      :context-menu-leading-items="[
+                        {
+                          title: $t('meal-plan.remove-from-plan'),
+                          icon: $globals.icons.calendarRemove,
+                          color: undefined,
+                          event: 'mealplanRemove',
+                          isPublic: false,
+                        },
+                        {
+                          title: $t('meal-plan.edit-meal-plan'),
+                          icon: $globals.icons.calendarEdit,
+                          color: undefined,
+                          event: 'mealplanEdit',
+                          isPublic: false,
+                        },
+                      ]"
+                      @mealplan-remove="actions.deleteOne(mealplan.id)"
+                      @mealplan-edit="editMeal(mealplan)"
+                    >
+                      <template v-if="!mealplan.recipe" #context-menu>
+                        <MealPlanNoteMenu
+                          @mealplan-remove="actions.deleteOne(mealplan.id)"
+                          @mealplan-edit="editMeal(mealplan)"
+                        />
+                      </template>
+                    </RecipeCardMobile>
+                  </SpinTransition>
+                </div>
+              </SpinTransition>
+            </v-card>
+          </SpinTransition>
+        </MealPlanDay>
+      </template>
+    </MealPlanLayout>
   </v-container>
 </template>
 
 <script setup lang="ts">
-import { isSameDay } from "date-fns";
-
-import type { PlanEntryType, ReadPlanEntry } from "~/lib/api/types/meal-plan";
-import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
-import GroupMealPlanDayContextMenu from "~/components/Domain/Household/GroupMealPlanDayContextMenu.vue";
+import MealPlanNoteMenu from "~/components/Domain/Mealplan/MealPlanNoteMenu.vue";
 import RecipeCardMobile from "~/components/Domain/Recipe/RecipeCardMobile.vue";
-import type { RecipeSummary } from "~/lib/api/types/recipe";
+import type { MealsByDate } from "~/composables/use-group-mealplan";
+import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 
-export type MealsByDate = {
-  date: Date;
-  meals: ReadPlanEntry[];
-};
-
-const props = defineProps<{
+defineProps<{
   mealplans: MealsByDate[];
+  actions: ReturnType<typeof useMealplans>["actions"];
 }>();
 
-type DaySection = {
-  type: PlanEntryType;
-  title: string;
-  meals: ReadPlanEntry[];
-};
-
-type Days = {
-  date: Date;
-  sections: DaySection[];
-  recipes: RecipeSummary[];
-};
-
-const i18n = useI18n();
-const planTypeOptions = usePlanTypeOptions();
-
-const plan = computed<Days[]>(() => {
-  return props.mealplans.map((day) => {
-    return {
-      date: day.date,
-      sections: planTypeOptions
-        .map(({ value }) => ({
-          type: value,
-          title: i18n.t(`meal-plan.${value}`),
-          meals: day.meals.filter(meal => meal.entryType === value),
-        }))
-        // Drop empty sections
-        .filter(section => section.meals.length),
-      recipes: day.meals.flatMap(meal => meal.recipe ?? []),
-    };
-  });
+const dialog = reactive({
+  open: false,
+  entry: null as ReadPlanEntry | null,
+  date: null as Date | null,
 });
 
-const isToday = (date: Date) => {
-  return isSameDay(date, new Date());
-};
+function editMeal(mealplan: ReadPlanEntry) {
+  if (!mealplan.entryType) return;
+
+  dialog.entry = mealplan;
+  dialog.date = null;
+  dialog.open = true;
+}
 </script>
 
 <style scoped>

@@ -141,6 +141,8 @@ import {
   mdiWrench,
   mdiHandWaveOutline,
   mdiProgressCheck,
+  mdiCalendarRemove,
+  mdiCalendarEdit,
 
 } from "@mdi/js";
 
@@ -169,6 +171,8 @@ export const icons = {
   bellPlus: mdiBellPlus,
   bullhornVariant: mdiBullhornVariant,
   calendar: mdiCalendar,
+  calendarRemove: mdiCalendarRemove,
+  calendarEdit: mdiCalendarEdit,
   calendarMultiselect: mdiCalendarMultiselect,
   calendarWeekBegin: mdiCalendarWeekBegin,
   cartCheck: mdiCartCheck,
