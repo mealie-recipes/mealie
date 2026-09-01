@@ -588,6 +588,8 @@
     "parser": {
       "ingredient-parser": "Malzeme Ayrıştırıcı",
       "select-parser": "Ayrıştırıcıyı Seçin",
+      "dont-show-again": "Don't show this again",
+      "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Doğal Dil İşleme",
       "brute-parser": "Kaba Ayrıştırıcı",
       "openai-parser": "OpenAI Ayrıştırıcı",
@@ -597,11 +599,16 @@
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "review-parsed-ingredients": "Review parsed ingredients",
       "confidence-score": "Güven Puanı",
-      "ingredient-parser-description": "İçerikleriniz başarıyla ayrıştırıldı. Emin olmadığımız içerikleri lütfen gözden geçirin.",
-      "ingredient-parser-final-review-description": "Tüm malzemeler incelendikten sonra, tarifinize değişiklikleri uygulamadan önce bir kez daha tüm malzemeleri inceleme şansınız olur.",
+      "ingredient-parser-headline": "Ingredients Parsed",
+      "ingredient-parser-title": "What's next",
+      "ingredient-parser-description": "You may need to confirm results we're not sure about or create new foods or units that are required by this recipe. We'll let you know what's needed.",
+      "ingredient-parser-final-review-description": "Once everything looks good, you can review the final results, then apply the changes to this recipe.",
       "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
       "delete-item": "Ögeyi sil",
-      "parsing-ingredients": "Malzemeler ayrıştırılıyor..."
+      "parsing-ingredients": "Malzemeler ayrıştırılıyor...",
+      "ingredient-parser-result-title": "For this recipe",
+      "ingredient-parser-result-success": "No ingredients auto parsed | {count} ingredient auto parsed | {count} ingredients auto parsed",
+      "ingredient-parser-result-failed": "No ingredients to review | {count} ingredient to review | {count} ingredients to review"
     },
     "reset-servings-count": "Reset Servings Count",
     "not-linked-ingredients": "Ek Malzemeler",
