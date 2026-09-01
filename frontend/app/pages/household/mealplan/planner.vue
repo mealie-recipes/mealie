@@ -114,7 +114,7 @@
 </template>
 
 <script setup lang="ts">
-import { addDays, format, isSameDay, isValid, parseISO } from "date-fns";
+import { addDays, differenceInCalendarDays, format, isSameDay, isValid, parseISO } from "date-fns";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
 import { useAddToShoppingListDialog } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
 import { useMealplans } from "~/composables/use-group-mealplan";
@@ -193,9 +193,10 @@ const firstDayOfWeek = computed(() => {
 
 function changeWeek(step: number) {
   const { start, end } = weekRange.value;
+  const stepSize = differenceInCalendarDays(end, start) + 1;
   state.value.range = [
-    addDays(start, step * numberOfDays.value),
-    addDays(end, step * numberOfDays.value),
+    addDays(start, step * stepSize),
+    addDays(end, step * stepSize),
   ];
 }
 

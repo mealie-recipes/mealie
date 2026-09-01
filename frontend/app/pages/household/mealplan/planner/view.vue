@@ -15,7 +15,6 @@
               <SpinTransition>
                 <div v-for="section in day.sections" :key="section.title">
                   <div class="py-2 d-flex flex-column">
-                    <div class="primary" style="width: 50px; height: 2.5px" />
                     <p class="text-overline my-0">
                       {{ section.title }}
                     </p>

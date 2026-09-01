@@ -99,7 +99,6 @@
               <slot name="context-menu">
                 <RecipeContextMenu
                   v-if="isOwnGroup && showRecipeContent"
-                  v-bind="$attrs"
                   :slug="slug"
                   :menu-icon="$globals.icons.dotsHorizontal"
                   :name="name"
@@ -118,6 +117,8 @@
                   :leading-items="contextMenuLeadingItems"
                   :append-items="contextMenuAppendItems"
                   @deleted="$emit('delete', slug)"
+                  @mealplan-remove="$emit('mealplanRemove')"
+                  @mealplan-edit="$emit('mealplanEdit')"
                 />
               </slot>
             </v-card-actions>
@@ -164,7 +165,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 defineEmits<{
-  [key: string]: [] | [slug: string];
+  mealplanRemove: [];
+  mealplanEdit: [];
   selected: [];
   delete: [slug: string];
 }>();

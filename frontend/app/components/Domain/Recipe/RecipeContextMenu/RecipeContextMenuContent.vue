@@ -1,6 +1,6 @@
 <template>
   <RecipeDialogShare v-model="shareDialog" :recipe-id="recipeId" :name="name" />
-  <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipeRef as NoUndefinedField<Recipe>" />
+  <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipeRef" />
   <BaseDialog
     v-model="recipeDeleteDialog"
     :title="$t('recipe.delete-recipe')"
@@ -115,7 +115,6 @@ import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { alert } from "~/composables/use-toast";
 import type { GroupRecipeActionOut, HouseholdSummary } from "~/lib/api/types/household";
 import type { PlanEntryType } from "~/lib/api/types/meal-plan";
-import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
 import { isRecipeFullyPublic } from "~/lib/recipe/recipe-visibility";
 

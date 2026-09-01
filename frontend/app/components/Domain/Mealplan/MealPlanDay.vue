@@ -17,22 +17,15 @@
     <!-- Day Column Actions -->
     <div class="d-flex justify-end">
       <BaseButtonGroup
+        v-bind="bindings"
         :buttons="inlineButtons"
-        @create="openDialog"
-        @random-breakfast="randomMeal(day, 'breakfast')"
-        @random-lunch="randomMeal(day, 'lunch')"
-        @random-dinner="randomMeal(day, 'dinner')"
-        @random-side="randomMeal(day, 'side')"
-        @random-snack="randomMeal(day, 'snack')"
-        @random-drink="randomMeal(day, 'drink')"
-        @random-dessert="randomMeal(day, 'dessert')"
-        @shopping-list="addAllToList"
       />
     </div>
   </template>
   <template v-else>
     <MealPlanDayHeader :day="day">
       <BaseButtonGroup
+        v-bind="bindings"
         :buttons="[{
           icon: $globals.icons.dotsVertical,
           event: '',
@@ -49,15 +42,6 @@
             ...randomButtons,
           ],
         }]"
-        @create="openDialog"
-        @random-breakfast="randomMeal(day, 'breakfast')"
-        @random-lunch="randomMeal(day, 'lunch')"
-        @random-dinner="randomMeal(day, 'dinner')"
-        @random-side="randomMeal(day, 'side')"
-        @random-snack="randomMeal(day, 'snack')"
-        @random-drink="randomMeal(day, 'drink')"
-        @random-dessert="randomMeal(day, 'dessert')"
-        @shopping-list="addAllToList"
       />
     </MealPlanDayHeader>
     <slot />
@@ -173,4 +157,16 @@ function openDialog() {
   dialog.date = props.day;
   dialog.open = true;
 }
+
+const bindings = {
+  onCreate: openDialog,
+  onRandomBreakfast: () => randomMeal(props.day, "breakfast"),
+  onRandomLunch: () => randomMeal(props.day, "lunch"),
+  onRandomDinner: () => randomMeal(props.day, "dinner"),
+  onRandomSide: () => randomMeal(props.day, "side"),
+  onRandomSnack: () => randomMeal(props.day, "snack"),
+  onRandomDrink: () => randomMeal(props.day, "drink"),
+  onRandomDessert: () => randomMeal(props.day, "dessert"),
+  onShoppingList: addAllToList,
+};
 </script>
