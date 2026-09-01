@@ -17,34 +17,7 @@
       @click:outside="emit('cancel')"
       @keydown.esc="emit('cancel')"
     >
-      <BaseDialogContent
-        :color="color"
-        :title="title"
-        :icon="icon"
-        :width="width"
-        :max-width="maxWidth"
-        :loading="loading"
-        :top="top"
-        :keep-open="keepOpen"
-        :submit-icon="submitIcon"
-        :submit-text="submitText"
-        :submit-disabled="submitDisabled"
-        :cancel-text="cancelText"
-        :can-delete="canDelete"
-        :can-confirm="canConfirm"
-        :can-submit="canSubmit"
-        :disable-submit-on-enter="disableSubmitOnEnter"
-        @cancel="
-          emit('cancel');
-          dialog = false;
-        "
-        @confirm="
-          emit('confirm');
-          dialog = false;
-        "
-        @submit="submitEvent"
-        @delete="deleteEvent"
-      >
+      <BaseDialogContent v-bind="bindings">
         <template #default>
           <slot />
         </template>
@@ -67,34 +40,7 @@
       @click:outside="emit('cancel')"
       @keydown.esc="emit('cancel')"
     >
-      <BaseDialogContent
-        :color="color"
-        :title="title"
-        :icon="icon"
-        :width="width"
-        :max-width="maxWidth"
-        :loading="loading"
-        :top="top"
-        :keep-open="keepOpen"
-        :submit-icon="submitIcon"
-        :submit-text="submitText"
-        :submit-disabled="submitDisabled"
-        :cancel-text="cancelText"
-        :can-delete="canDelete"
-        :can-confirm="canConfirm"
-        :can-submit="canSubmit"
-        :disable-submit-on-enter="disableSubmitOnEnter"
-        @cancel="
-          emit('cancel');
-          dialog = false;
-        "
-        @confirm="
-          emit('confirm');
-          dialog = false;
-        "
-        @submit="submitEvent"
-        @delete="deleteEvent"
-      >
+      <BaseDialogContent v-bind="bindings">
         <template #default>
           <slot />
         </template>
@@ -224,4 +170,33 @@ function deleteEvent() {
 function open() {
   dialog.value = true;
 }
+
+const bindings = computed(() => ({
+  color: props.color,
+  title: props.title,
+  icon: props.icon,
+  width: props.width,
+  maxWidth: props.maxWidth,
+  loading: props.loading,
+  top: props.top,
+  keepOpen: props.keepOpen,
+  submitIcon: props.submitIcon,
+  submitText: props.submitText,
+  submitDisabled: props.submitDisabled,
+  cancelText: props.cancelText,
+  canDelete: props.canDelete,
+  canConfirm: props.canConfirm,
+  canSubmit: props.canSubmit,
+  disableSubmitOnEnter: props.disableSubmitOnEnter,
+  onCancel: () => {
+    emit("cancel");
+    dialog.value = false;
+  },
+  onConfirm: () => {
+    emit("confirm");
+    dialog.value = false;
+  },
+  onSubmit: submitEvent,
+  onDelete: deleteEvent,
+}));
 </script>
