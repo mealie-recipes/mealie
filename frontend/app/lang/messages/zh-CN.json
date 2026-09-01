@@ -588,6 +588,8 @@
     "parser": {
       "ingredient-parser": "食材解析器",
       "select-parser": "选取解析器",
+      "dont-show-again": "Don't show this again",
+      "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "自然语言处理器",
       "brute-parser": "暴力解析器",
       "openai-parser": "OpenAI 解析器",
@@ -597,11 +599,16 @@
       "this-food-could-not-be-parsed-automatically": "这种食物不能被自动解析",
       "review-parsed-ingredients": "复查解析后的食材",
       "confidence-score": "置信度",
-      "ingredient-parser-description": "您的食材已成功解析。请检查我们不确定的食材。",
-      "ingredient-parser-final-review-description": "一旦所有食材都检查完毕，在将更改应用到您的菜谱之前，您还有最后一次机会检查所有食材。",
+      "ingredient-parser-headline": "Ingredients Parsed",
+      "ingredient-parser-title": "What's next",
+      "ingredient-parser-description": "You may need to confirm results we're not sure about or create new foods or units that are required by this recipe. We'll let you know what's needed.",
+      "ingredient-parser-final-review-description": "Once everything looks good, you can review the final results, then apply the changes to this recipe.",
       "add-text-as-alias-for-item": "将“{text}”添加为“{item}”的别名",
       "delete-item": "删除项目",
-      "parsing-ingredients": "正在解析食材……"
+      "parsing-ingredients": "正在解析食材……",
+      "ingredient-parser-result-title": "For this recipe",
+      "ingredient-parser-result-success": "No ingredients auto parsed | {count} ingredient auto parsed | {count} ingredients auto parsed",
+      "ingredient-parser-result-failed": "No ingredients to review | {count} ingredient to review | {count} ingredients to review"
     },
     "reset-servings-count": "重置份量数量",
     "not-linked-ingredients": "附加配料",

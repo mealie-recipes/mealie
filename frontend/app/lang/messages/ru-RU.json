@@ -588,6 +588,8 @@
     "parser": {
       "ingredient-parser": "Разделитель ингредиентов",
       "select-parser": "Выбрать Разделитель",
+      "dont-show-again": "Don't show this again",
+      "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Обработчик естественного языка",
       "brute-parser": "Грубый Парсер",
       "openai-parser": "Анализ OpenAI",
@@ -597,11 +599,16 @@
       "this-food-could-not-be-parsed-automatically": "Этот продукт не может быть обработан автоматически",
       "review-parsed-ingredients": "Посмотреть распознанные ингредиенты",
       "confidence-score": "Оценка уверенности",
-      "ingredient-parser-description": "Ваши ингредиенты успешно распознаны. Просмотрите ингредиенты, насчёт которых мы не уверены.",
-      "ingredient-parser-final-review-description": "После того как вы проверите все ингредиенты, у вас будет еще одна возможность проверить их, прежде чем применить изменения к рецепту.",
+      "ingredient-parser-headline": "Ingredients Parsed",
+      "ingredient-parser-title": "What's next",
+      "ingredient-parser-description": "You may need to confirm results we're not sure about or create new foods or units that are required by this recipe. We'll let you know what's needed.",
+      "ingredient-parser-final-review-description": "Once everything looks good, you can review the final results, then apply the changes to this recipe.",
       "add-text-as-alias-for-item": "Добавить \"{text}\" как псевдоним для {item}",
       "delete-item": "Удалить",
-      "parsing-ingredients": "Анализ ингредиентов..."
+      "parsing-ingredients": "Анализ ингредиентов...",
+      "ingredient-parser-result-title": "For this recipe",
+      "ingredient-parser-result-success": "No ingredients auto parsed | {count} ingredient auto parsed | {count} ingredients auto parsed",
+      "ingredient-parser-result-failed": "No ingredients to review | {count} ingredient to review | {count} ingredients to review"
     },
     "reset-servings-count": "Сбросить количество порций",
     "not-linked-ingredients": "Дополнительные ингредиенты",

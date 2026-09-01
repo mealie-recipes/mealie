@@ -588,6 +588,8 @@
     "parser": {
       "ingredient-parser": "재료 분석기",
       "select-parser": "분석기 선택",
+      "dont-show-again": "Don't show this again",
+      "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "자연어 처리기",
       "brute-parser": "무차별 분석기",
       "openai-parser": "OpenAI 분석기",
@@ -597,11 +599,16 @@
       "this-food-could-not-be-parsed-automatically": "이 식품은 자동으로 분석(추출)할 수 없습니다.",
       "review-parsed-ingredients": "분석(추출)된 재료 확인",
       "confidence-score": "신뢰도 점수",
-      "ingredient-parser-description": "재료가 성공적으로 분석되었습니다. 확실하지 않은 재료는 검토해 주세요.",
-      "ingredient-parser-final-review-description": "모든 재료를 검토한 후, 레시피에 변경 사항을 적용하기 전에 모든 재료를 한 번 더 검토할 기회가 주어집니다.",
+      "ingredient-parser-headline": "Ingredients Parsed",
+      "ingredient-parser-title": "What's next",
+      "ingredient-parser-description": "You may need to confirm results we're not sure about or create new foods or units that are required by this recipe. We'll let you know what's needed.",
+      "ingredient-parser-final-review-description": "Once everything looks good, you can review the final results, then apply the changes to this recipe.",
       "add-text-as-alias-for-item": "{text}을(를) {item}의 별칭으로 추가",
       "delete-item": "항목 삭제",
-      "parsing-ingredients": "Parsing ingredients..."
+      "parsing-ingredients": "Parsing ingredients...",
+      "ingredient-parser-result-title": "For this recipe",
+      "ingredient-parser-result-success": "No ingredients auto parsed | {count} ingredient auto parsed | {count} ingredients auto parsed",
+      "ingredient-parser-result-failed": "No ingredients to review | {count} ingredient to review | {count} ingredients to review"
     },
     "reset-servings-count": "제공량 재설정",
     "not-linked-ingredients": "추가 재료",

@@ -588,6 +588,8 @@
     "parser": {
       "ingredient-parser": "Koostisosade analüüser",
       "select-parser": "Vali parser",
+      "dont-show-again": "Don't show this again",
+      "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Loomuliku keele töötlus",
       "brute-parser": "Jõuline parser",
       "openai-parser": "OpenAI parser",
@@ -597,11 +599,16 @@
       "this-food-could-not-be-parsed-automatically": "Seda toitu ei saanud automaatselt tuvastada",
       "review-parsed-ingredients": "Vaata läbi tuvastatud koostisosad",
       "confidence-score": "Kindluse tase",
-      "ingredient-parser-description": "Koostisosad on edukalt tuvastatud. Palun vaadake üle koostisosad, mille puhul me pole kindlad.",
-      "ingredient-parser-final-review-description": "Kui kõik koostisosad on üle vaadatud, on teil enne muudatuste retsepti salvestamist veel üks võimalus kõik koostisosad üle vaadata.",
+      "ingredient-parser-headline": "Ingredients Parsed",
+      "ingredient-parser-title": "What's next",
+      "ingredient-parser-description": "You may need to confirm results we're not sure about or create new foods or units that are required by this recipe. We'll let you know what's needed.",
+      "ingredient-parser-final-review-description": "Once everything looks good, you can review the final results, then apply the changes to this recipe.",
       "add-text-as-alias-for-item": "Lisa \"{text}\" kui teine nimetus {item} jaoks",
       "delete-item": "Kustuta element",
-      "parsing-ingredients": "Parsing ingredients..."
+      "parsing-ingredients": "Parsing ingredients...",
+      "ingredient-parser-result-title": "For this recipe",
+      "ingredient-parser-result-success": "No ingredients auto parsed | {count} ingredient auto parsed | {count} ingredients auto parsed",
+      "ingredient-parser-result-failed": "No ingredients to review | {count} ingredient to review | {count} ingredients to review"
     },
     "reset-servings-count": "Lähtesta portsionite arv",
     "not-linked-ingredients": "Lisa-koostisosad",

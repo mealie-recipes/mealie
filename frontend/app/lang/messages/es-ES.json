@@ -588,6 +588,8 @@
     "parser": {
       "ingredient-parser": "Analizador de Ingredientes",
       "select-parser": "Seleccionar Analizador",
+      "dont-show-again": "Don't show this again",
+      "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Procesador de Lenguaje Natural",
       "brute-parser": "Analizador Bruto",
       "openai-parser": "Analizador OpenAI",
@@ -597,11 +599,16 @@
       "this-food-could-not-be-parsed-automatically": "Esta comida no pudo ser procesada automáticamente",
       "review-parsed-ingredients": "Revisar los ingredientes analizados",
       "confidence-score": "Puntuación de confianza",
-      "ingredient-parser-description": "Tus ingredientes se han analizado correctamente. Revisa los ingredientes que no nos convencen.",
-      "ingredient-parser-final-review-description": "Una vez que se hayan revisado todos los ingredientes, tendrás una oportunidad más de revisarlos todos antes de aplicar los cambios a tu receta.",
+      "ingredient-parser-headline": "Ingredients Parsed",
+      "ingredient-parser-title": "What's next",
+      "ingredient-parser-description": "You may need to confirm results we're not sure about or create new foods or units that are required by this recipe. We'll let you know what's needed.",
+      "ingredient-parser-final-review-description": "Once everything looks good, you can review the final results, then apply the changes to this recipe.",
       "add-text-as-alias-for-item": "Añadir \"{text}\" como alias para {item}",
       "delete-item": "Borrar elemento",
-      "parsing-ingredients": "Parsing ingredients..."
+      "parsing-ingredients": "Parsing ingredients...",
+      "ingredient-parser-result-title": "For this recipe",
+      "ingredient-parser-result-success": "No ingredients auto parsed | {count} ingredient auto parsed | {count} ingredients auto parsed",
+      "ingredient-parser-result-failed": "No ingredients to review | {count} ingredient to review | {count} ingredients to review"
     },
     "reset-servings-count": "Restablecer contador de porciones",
     "not-linked-ingredients": "Ingredientes adicionales",

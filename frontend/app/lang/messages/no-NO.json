@@ -588,6 +588,8 @@
     "parser": {
       "ingredient-parser": "Ingrediens-analyserer",
       "select-parser": "Velg analyserer",
+      "dont-show-again": "Don't show this again",
+      "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Prosessor for naturlig språk",
       "brute-parser": "Enkel analyse",
       "openai-parser": "OpenAI-analyse",
@@ -597,11 +599,16 @@
       "this-food-could-not-be-parsed-automatically": "Denne maten kunne ikke leses automatisk",
       "review-parsed-ingredients": "Gjennomgå de analyserte ingrediensene",
       "confidence-score": "Tillit score",
-      "ingredient-parser-description": "Ingrediensene har blitt analysert. Venligst gjennomgå ingrediensene vi ikke er sikkre på.",
-      "ingredient-parser-final-review-description": "Når alle ingredienser er gjennomgått, har du en siste sjanse til å gjennomgå alle ingrediensene før du tar i bruk endringene på oppskriften din.",
+      "ingredient-parser-headline": "Ingredients Parsed",
+      "ingredient-parser-title": "What's next",
+      "ingredient-parser-description": "You may need to confirm results we're not sure about or create new foods or units that are required by this recipe. We'll let you know what's needed.",
+      "ingredient-parser-final-review-description": "Once everything looks good, you can review the final results, then apply the changes to this recipe.",
       "add-text-as-alias-for-item": "Legg til \"{text}\" som kallenavn for {item}",
       "delete-item": "Slett gjenstanden",
-      "parsing-ingredients": "Parsing ingredients..."
+      "parsing-ingredients": "Parsing ingredients...",
+      "ingredient-parser-result-title": "For this recipe",
+      "ingredient-parser-result-success": "No ingredients auto parsed | {count} ingredient auto parsed | {count} ingredients auto parsed",
+      "ingredient-parser-result-failed": "No ingredients to review | {count} ingredient to review | {count} ingredients to review"
     },
     "reset-servings-count": "Nullstill antall porsjoner",
     "not-linked-ingredients": "Tilleggsingredienser",

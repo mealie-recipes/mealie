@@ -588,6 +588,8 @@
     "parser": {
       "ingredient-parser": "Ingredient Parser",
       "select-parser": "パーサを選択",
+      "dont-show-again": "Don't show this again",
+      "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "自然言語処理",
       "brute-parser": "Bruteパーサ",
       "openai-parser": "OpenAIパーサ",
@@ -597,11 +599,16 @@
       "this-food-could-not-be-parsed-automatically": "This food could not be parsed automatically",
       "review-parsed-ingredients": "Review parsed ingredients",
       "confidence-score": "Confidence Score",
-      "ingredient-parser-description": "Your ingredients have been successfully parsed. Please review the ingredients we're not sure about.",
-      "ingredient-parser-final-review-description": "Once all ingredients have been reviewed, you'll have one more chance to review all ingredients before applying the changes to your recipe.",
+      "ingredient-parser-headline": "Ingredients Parsed",
+      "ingredient-parser-title": "What's next",
+      "ingredient-parser-description": "You may need to confirm results we're not sure about or create new foods or units that are required by this recipe. We'll let you know what's needed.",
+      "ingredient-parser-final-review-description": "Once everything looks good, you can review the final results, then apply the changes to this recipe.",
       "add-text-as-alias-for-item": "Add \"{text}\" as alias for {item}",
       "delete-item": "Delete Item",
-      "parsing-ingredients": "Parsing ingredients..."
+      "parsing-ingredients": "Parsing ingredients...",
+      "ingredient-parser-result-title": "For this recipe",
+      "ingredient-parser-result-success": "No ingredients auto parsed | {count} ingredient auto parsed | {count} ingredients auto parsed",
+      "ingredient-parser-result-failed": "No ingredients to review | {count} ingredient to review | {count} ingredients to review"
     },
     "reset-servings-count": "サービング数をリセット",
     "not-linked-ingredients": "追加の材料",
