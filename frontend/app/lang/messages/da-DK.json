@@ -588,6 +588,8 @@
     "parser": {
       "ingredient-parser": "Ingrediensfortolker",
       "select-parser": "Vælg fortolker",
+      "dont-show-again": "Don't show this again",
+      "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Naturlig sprogbehandler",
       "brute-parser": "Rå parser",
       "openai-parser": "OpenAI-parser",
@@ -597,11 +599,16 @@
       "this-food-could-not-be-parsed-automatically": "Denne fødevare kunne ikke fortolkes automatisk",
       "review-parsed-ingredients": "Gennemgå fortolkede ingredienser",
       "confidence-score": "Tillidsscore",
-      "ingredient-parser-description": "Dine ingredienser er blevet fortolket. Gennemgå de ingredienser, vi ikke er sikker på.",
-      "ingredient-parser-final-review-description": "Når alle ingredienser er blevet gennemgået, har du endnu en chance for at gennemgå alle ingredienser, før du anvender ændringerne til din opskrift.",
+      "ingredient-parser-headline": "Ingredients Parsed",
+      "ingredient-parser-title": "What's next",
+      "ingredient-parser-description": "You may need to confirm results we're not sure about or create new foods or units that are required by this recipe. We'll let you know what's needed.",
+      "ingredient-parser-final-review-description": "Once everything looks good, you can review the final results, then apply the changes to this recipe.",
       "add-text-as-alias-for-item": "Tilføj \"{text}\" som alias for {item}",
       "delete-item": "Slet Element",
-      "parsing-ingredients": "Fortolker ingredienser..."
+      "parsing-ingredients": "Fortolker ingredienser...",
+      "ingredient-parser-result-title": "For this recipe",
+      "ingredient-parser-result-success": "No ingredients auto parsed | {count} ingredient auto parsed | {count} ingredients auto parsed",
+      "ingredient-parser-result-failed": "No ingredients to review | {count} ingredient to review | {count} ingredients to review"
     },
     "reset-servings-count": "Nulstil antal serveringer",
     "not-linked-ingredients": "Yderligere ingredienser",
