@@ -63,6 +63,7 @@ export interface UserRecipeFinderPreferences {
   maxMissingTools: number;
   includeFoodsOnHand: boolean;
   includeToolsOnHand: boolean;
+  includeSubstitutions: boolean;
 }
 
 export interface UserRecipeCreatePreferences {
@@ -217,6 +218,7 @@ export function useRecipeFinderPreferences(): Ref<UserRecipeFinderPreferences> {
       maxMissingTools: 20,
       includeFoodsOnHand: true,
       includeToolsOnHand: true,
+      includeSubstitutions: true,
     },
     { mergeDefaults: true },
   );

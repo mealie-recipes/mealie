@@ -15,7 +15,7 @@
         <v-col v-if="organizer.show" cols="12">
           <div class="d-flex flex-row flex-wrap align-center pt-2">
             <v-icon class="ma-0 pa-0" />
-            <v-card-text class="mr-0 my-0 pl-1 py-0" style="width: min-content">
+            <v-card-text class="mr-0 my-0 pl-1 py-0 flex-grow-0" style="width: max-content">
               {{ $t("recipe-finder.missing") }}:
             </v-card-text>
             <v-chip
@@ -35,13 +35,43 @@
           </div>
         </v-col>
       </div>
+      <!-- foods the recipe calls for that the user doesn't have, and what covers them. no
+           checkbox: the point is that nothing needs adding to the search -->
+      <v-col v-if="substitutedFoods?.length" cols="12">
+        <div class="d-flex flex-row flex-wrap align-center pt-2">
+          <v-icon class="ma-0 pa-0" />
+          <v-card-text class="mr-0 my-0 pl-1 py-0 flex-grow-0" style="width: max-content">
+            {{ $t("recipe-finder.substituting") }}:
+          </v-card-text>
+          <v-chip
+            v-for="(substituted, idx) in substitutedFoods"
+            :key="idx"
+            label
+            color="info custom-transparent"
+            class="mr-2 my-1"
+            variant="flat"
+            :prepend-icon="$globals.icons.swapHorizontal"
+          >
+            {{ $t("recipe-finder.substitute-for-food", {
+              substitute: foodLabel(substituted.substituteFood),
+              food: foodLabel(substituted.food),
+            }) }}
+          </v-chip>
+        </div>
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
 import RecipeCardMobile from "./RecipeCardMobile.vue";
-import type { IngredientFood, RecipeSummary, RecipeTool } from "~/lib/api/types/recipe";
+import type {
+  IngredientFood,
+  IngredientFoodSummary,
+  RecipeSuggestionSubstitutedFood,
+  RecipeSummary,
+  RecipeTool,
+} from "~/lib/api/types/recipe";
 
 interface Organizer {
   type: "food" | "tool";
@@ -53,13 +83,20 @@ interface Props {
   recipe: RecipeSummary;
   missingFoods?: IngredientFood[] | null;
   missingTools?: RecipeTool[] | null;
+  substitutedFoods?: RecipeSuggestionSubstitutedFood[] | null;
   disableCheckbox?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   missingFoods: null,
   missingTools: null,
+  substitutedFoods: null,
   disableCheckbox: false,
 });
+
+// same label rule the missing-food chips use
+function foodLabel(food: IngredientFood | IngredientFoodSummary) {
+  return food.pluralName || food.name;
+}
 
 const emit = defineEmits<{
   "add-food": [food: IngredientFood];

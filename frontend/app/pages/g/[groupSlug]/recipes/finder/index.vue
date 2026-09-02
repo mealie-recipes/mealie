@@ -173,6 +173,14 @@
                           class="my-auto"
                           :label="$t('recipe-finder.include-tools-on-hand')"
                         />
+                        <v-checkbox
+                          v-model="state.settings.includeSubstitutions"
+                          density="compact"
+                          size="small"
+                          hide-details
+                          class="my-auto"
+                          :label="$t('recipe-finder.include-substitutions')"
+                        />
                       </div>
                     </v-card-text>
                   </v-card>
@@ -328,6 +336,7 @@
                     :recipe="item.recipe"
                     :missing-foods="item.missingFoods"
                     :missing-tools="item.missingTools"
+                    :substituted-foods="item.substitutedFoods"
                     :disable-checkbox="state.loading"
                     @add-food="addFood"
                     @remove-food="removeFood"
@@ -356,6 +365,7 @@
                     :recipe="item.recipe"
                     :missing-foods="item.missingFoods"
                     :missing-tools="item.missingTools"
+                    :substituted-foods="item.substitutedFoods"
                     :disable-checkbox="state.loading"
                     @add-food="addFood"
                     @remove-food="removeFood"
@@ -458,6 +468,7 @@ const state = reactive({
     maxMissingTools: preferences.value.maxMissingTools,
     includeFoodsOnHand: preferences.value.includeFoodsOnHand,
     includeToolsOnHand: preferences.value.includeToolsOnHand,
+    includeSubstitutions: preferences.value.includeSubstitutions,
     queryFilter: preferences.value.queryFilter,
     limit: 20,
   },
@@ -479,6 +490,7 @@ watch(
     preferences.value.maxMissingTools = newState.settings.maxMissingTools;
     preferences.value.includeFoodsOnHand = newState.settings.includeFoodsOnHand;
     preferences.value.includeToolsOnHand = newState.settings.includeToolsOnHand;
+    preferences.value.includeSubstitutions = newState.settings.includeSubstitutions;
   },
   {
     deep: true,
@@ -622,6 +634,7 @@ watchDebounced(
         maxMissingTools: state.settings.maxMissingTools,
         includeFoodsOnHand: state.settings.includeFoodsOnHand,
         includeToolsOnHand: state.settings.includeToolsOnHand,
+        includeSubstitutions: state.settings.includeSubstitutions,
       } as RecipeSuggestionQuery,
       selectedFoods.value.map(food => food.id),
       selectedTools.value.map(tool => tool.id),
