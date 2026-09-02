@@ -15,6 +15,7 @@ import type BaseDialog from "@/components/global/BaseDialog.vue";
 import type BaseDivider from "@/components/global/BaseDivider.vue";
 import type BaseExpansionPanels from "@/components/global/BaseExpansionPanels.vue";
 import type BaseKeyValueEditor from "@/components/global/BaseKeyValueEditor.vue";
+import type BaseMenu from "@/components/global/BaseMenu.vue";
 import type BaseOverflowButton from "@/components/global/BaseOverflowButton.vue";
 import type BasePageTitle from "@/components/global/BasePageTitle.vue";
 import type ButtonLink from "@/components/global/ButtonLink.vue";
@@ -56,6 +57,7 @@ declare module "vue" {
     BaseDivider: typeof BaseDivider;
     BaseExpansionPanels: typeof BaseExpansionPanels;
     BaseKeyValueEditor: typeof BaseKeyValueEditor;
+    BaseMenu: typeof BaseMenu;
     BaseOverflowButton: typeof BaseOverflowButton;
     BasePageTitle: typeof BasePageTitle;
     ButtonLink: typeof ButtonLink;
