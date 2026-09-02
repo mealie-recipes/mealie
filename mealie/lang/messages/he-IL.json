@@ -21,7 +21,7 @@
         "and-amount": "and {amount}",
         "or-ingredient": "or {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
+            "ai-not-enabled": "שירותי AI אינם מופעלים",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
             "image-provider-not-enabled": "AI image services are not enabled",
             "no-recipe-found": "No recipe was found in the provided source",
