@@ -4,14 +4,14 @@ import datetime
 import enum
 from enum import StrEnum
 from fractions import Fraction
-from typing import ClassVar
+from typing import Any, ClassVar
 from uuid import UUID, uuid4
 
 from pydantic import UUID4, ConfigDict, Field, field_validator, model_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
-from mealie.db.models.recipe import IngredientFoodModel
+from mealie.db.models.recipe import IngredientFoodModel, IngredientFoodSubstitutionModel
 from mealie.lang.locale_config import LocalePluralFoodHandling
 from mealie.lang.providers import get_locale_context
 from mealie.schema._mealie import MealieModel
@@ -89,10 +89,124 @@ class IngredientFoodAlias(CreateIngredientFoodAlias):
     model_config = ConfigDict(from_attributes=True)
 
 
+class IngredientFoodSummary(MealieModel):
+    """
+    A trimmed projection of a food, with nothing on it that can recurse.
+
+    Substitutions reference this rather than the full IngredientFood, which would make
+    Pydantic walk food -> substitutions -> food forever and generate an equally circular
+    TypeScript type.
+    """
+
+    id: UUID4
+    name: str
+    plural_name: str | None = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class SubstitutionBase(MealieModel):
+    """
+    One "may be replaced by" edge. The substitute food and the note are independently
+    optional, but at least one must be present, so an edge may be another food
+    ("chicken broth"), free text ("water and a bouillon cube"), or a food with a caveat.
+    """
+
+    substitute_food_id: UUID4 | None = None
+    note: str | None = None
+
+    @field_validator("substitute_food_id", mode="before")
+    def convert_empty_id_to_none(cls, v):
+        # the frontend sometimes sends an empty string rather than null
+        return v or None
+
+    @field_validator("note", mode="before")
+    def convert_blank_note_to_none(cls, v):
+        return (v.strip() or None) if isinstance(v, str) else v
+
+    @model_validator(mode="after")
+    def validate_not_empty(self):
+        if not self.substitute_food_id and not self.note:
+            raise ValueError("a substitution must have a substitute food, a note, or both")
+
+        return self
+
+    @staticmethod
+    def prune(value: Any) -> Any:
+        """
+        Drops empty substitutions and de-dupes them by substitute food, keeping the first.
+
+        Parents call this before their substitutions validate, because an empty row is a UI
+        artifact rather than a client bug, and validate_not_empty rejects it outright.
+        """
+
+        if not isinstance(value, list):
+            return value
+
+        pruned = []
+        seen_food_ids: set[str] = set()
+        for substitution in value:
+            if isinstance(substitution, dict):
+                food_id = substitution.get("substituteFoodId", substitution.get("substitute_food_id"))
+                note = substitution.get("note")
+            else:
+                food_id = getattr(substitution, "substitute_food_id", None)
+                note = getattr(substitution, "note", None)
+
+            if isinstance(note, str):
+                note = note.strip()
+
+            if not food_id and not note:
+                continue
+
+            if food_id:
+                # note-only edges have no id to de-dupe on, and repeated notes are legitimate,
+                # so they must not be collapsed together here
+                food_id = str(food_id)
+                if food_id in seen_food_ids:
+                    continue
+
+                seen_food_ids.add(food_id)
+
+            pruned.append(substitution)
+
+        return pruned
+
+
+class CreateIngredientFoodSubstitution(SubstitutionBase): ...
+
+
+class IngredientFoodSubstitution(CreateIngredientFoodSubstitution):
+    substitute_food: IngredientFoodSummary | None = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
+class CreateRecipeIngredientSubstitution(SubstitutionBase): ...
+
+
+class RecipeIngredientSubstitution(CreateRecipeIngredientSubstitution):
+    substitute_food: IngredientFoodSummary | None = None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class CreateIngredientFood(UnitFoodBase):
     label_id: UUID4 | None = None
     aliases: list[CreateIngredientFoodAlias] = []
+    substitutions: list[CreateIngredientFoodSubstitution] = []
     households_with_ingredient_food: list[str] = []
+
+    @field_validator("substitutions", mode="before")
+    def remove_empty_substitutions(cls, v):
+        return SubstitutionBase.prune(v)
+
+    @model_validator(mode="after")
+    def validate_no_self_substitution(self):
+        if self.id and any(sub.substitute_food_id == self.id for sub in self.substitutions):
+            raise ValueError("a food cannot be substituted with itself")
+
+        return self
 
 
 class SaveIngredientFood(CreateIngredientFood):
@@ -103,6 +217,7 @@ class IngredientFood(CreateIngredientFood):
     id: UUID4
     label: MultiPurposeLabelSummary | None = None
     aliases: list[IngredientFoodAlias] = []
+    substitutions: list[IngredientFoodSubstitution] = []
 
     created_at: datetime.datetime | None = None
     updated_at: datetime.datetime | None = UpdatedAtField(None)
@@ -120,6 +235,7 @@ class IngredientFood(CreateIngredientFood):
             selectinload(IngredientFoodModel.households_with_ingredient_food),
             joinedload(IngredientFoodModel.extras),
             joinedload(IngredientFoodModel.label),
+            selectinload(IngredientFoodModel.substitutions).joinedload(IngredientFoodSubstitutionModel.substitute_food),
         ]
 
     @field_validator("households_with_ingredient_food", mode="before")
@@ -194,6 +310,8 @@ class RecipeIngredientBase(MealieModel):
     food: IngredientFood | CreateIngredientFood | None = None
     referenced_recipe: Recipe | None = None
 
+    substitutions: list[RecipeIngredientSubstitution] = []
+
     note: str | None = ""
     display: str = ""
     """
@@ -201,6 +319,11 @@ class RecipeIngredientBase(MealieModel):
 
     Automatically calculated after the object is created, unless overwritten
     """
+
+    @field_validator("substitutions", mode="before")
+    @classmethod
+    def remove_empty_substitutions(cls, v):
+        return SubstitutionBase.prune(v)
 
     @model_validator(mode="after")
     def format_display(self):
