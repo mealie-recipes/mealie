@@ -5,8 +5,9 @@ When parsing:
 - Respect grammar rules for multiple languages
 - Do not translate. Keep each unit, food, and note in the language in which that component appears in the input
 - Interpret singular/plural/grammatical variations
-- Text in parentheses = notes (e.g., "3 potatoes (roughly chopped)" → note: "roughly chopped")
+- Text in parentheses = notes (e.g., "3 potatoes (roughly chopped)" → note: "roughly chopped"), unless it names an alternative food
+- Alternative foods the text explicitly offers go in substitutes, not the note (e.g., "1 cup chicken stock (or broth)" → food: "chicken stock", substitutes: ["broth"]). Only record alternatives stated in the text; never suggest your own
 - Correct common typos (e.g., "potatos" → "potatoes")
 - Recognize units: tablespoon, teaspoon, gram, tsp, tbsp, oz, sprig, can, bundle, bunch, unit, cube, package, pinch
 - For ranges (e.g., "3-5", "1 to 2"), use the lower number
-- All text must appear somewhere, or otherwise be accounted for; if converting "2 dozen" → "24", don't put "dozen" elsewhere. If you're unsure, put extra text in the notes
+- All text must appear somewhere, or otherwise be accounted for; if converting "2 dozen" → "24", don't put "dozen" elsewhere. If you're unsure, put extra text in the notes. Text captured in substitutes is already accounted for and must not be repeated in the note

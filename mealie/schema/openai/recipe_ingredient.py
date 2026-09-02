@@ -25,6 +25,14 @@ class OpenAIIngredient(OpenAIBase):
             "If there are any elements you're not sure about, put them here."
         ),
     )
+    substitutes: list[str] = Field(
+        default_factory=list,
+        description=(
+            "Alternative foods the source explicitly offers for this ingredient, "
+            "e.g. '1 cup chicken stock (or broth)' -> ['broth']. "
+            "Only include alternatives stated in the text. Never suggest your own."
+        ),
+    )
 
     @field_validator("quantity", mode="before")
     def coerce_none_float(cls, v: Any) -> Any:
