@@ -1,3 +1,4 @@
+import { computed } from "vue";
 import type { IngredientFood, IngredientFoodSubstitution, RecipeIngredient } from "~/lib/api/types/recipe";
 
 // the food is typed as a read-or-create union because either shape is accepted on input;
