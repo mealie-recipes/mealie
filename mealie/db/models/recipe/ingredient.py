@@ -210,6 +210,77 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     # Deprecated
     on_hand: Mapped[bool] = mapped_column(Boolean, default=False)
 
+    def _set_substitutions(self, session: Session, group_id: GUID, substitutions: list[dict] | None) -> None:
+        """
+        Builds the substitution rows by hand, since auto_init creates any related row it
+        fails to look up and would manufacture a food out of an unrecognized id.
+        """
+
+        if not substitutions:
+            self.substitutions = []
+            return
+
+        requested_food_ids = {sub.get("substitute_food_id") for sub in substitutions}
+        requested_food_ids.discard(None)
+
+        # substitute ids come straight from the payload, so the repository's group scoping
+        # doesn't cover them; resolve them against this food's group so an id belonging to
+        # another group can't be linked and leak that food's name
+        resolvable_food_ids: set = set()
+        if requested_food_ids:
+            resolvable_food_ids = set(
+                session.execute(
+                    sa.select(IngredientFoodModel.id).filter(
+                        IngredientFoodModel.group_id == group_id,
+                        IngredientFoodModel.id.in_(requested_food_ids),
+                    )
+                )
+                .scalars()
+                .all()
+            )
+
+        # Existing rows are reused rather than rebuilt. SQLAlchemy inserts before it deletes
+        # within a single flush, so replacing the collection wholesale would insert a copy of
+        # a row still on its way out and trip the (food_id, substitute_food_id) constraint.
+        reusable_by_food_id = {row.substitute_food_id: row for row in self.substitutions if row.substitute_food_id}
+        reusable_note_only = [row for row in self.substitutions if not row.substitute_food_id]
+
+        rows: list[IngredientFoodSubstitutionModel] = []
+        seen_food_ids: set = set()
+        for sub in substitutions:
+            substitute_food_id = sub.get("substitute_food_id")
+            note = (sub.get("note") or "").strip() or None
+
+            if substitute_food_id is None:
+                # note-only rows are deliberately not de-duped: two textual workarounds are
+                # two legitimate rows, and there is no id to collapse them on
+                if not note:
+                    continue
+
+                row = reusable_note_only.pop(0) if reusable_note_only else None
+            else:
+                # a note qualifies the food it travels with, so an id that resolves to nothing
+                # -- deleted, or belonging to another group -- invalidates the whole edge
+                if substitute_food_id not in resolvable_food_ids or substitute_food_id == self.id:
+                    continue
+
+                if substitute_food_id in seen_food_ids:
+                    continue
+
+                seen_food_ids.add(substitute_food_id)
+                row = reusable_by_food_id.get(substitute_food_id)
+
+            if row is None:
+                row = IngredientFoodSubstitutionModel(substitute_food_id=substitute_food_id, note=note)
+            else:
+                row.substitute_food_id = substitute_food_id
+                row.note = note
+
+            rows.append(row)
+
+        # rows left over are orphaned by the assignment and cascade-deleted
+        self.substitutions = rows
+
     @api_extras
     @auto_init()
     def __init__(
@@ -219,6 +290,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         name: str | None = None,
         plural_name: str | None = None,
         households_with_ingredient_food: list[str] | None = None,
+        substitutions: list[dict] | None = None,
         **_,
     ) -> None:
         from ..household import Household
@@ -236,6 +308,8 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
                 .filter(Household.group_id == group_id, Household.slug.in_(households_with_ingredient_food))
                 .all()
             )
+
+        self._set_substitutions(session, group_id, substitutions)
 
         tableargs = [
             sa.UniqueConstraint("name", "group_id", name="ingredient_foods_name_group_id_key"),
