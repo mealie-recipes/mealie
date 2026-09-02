@@ -6,7 +6,15 @@ from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.schema._mealie import MealieModel
 
-from ...db.models.recipe import RecipeIngredientModel, RecipeInstruction, RecipeModel, RecipeShareTokenModel
+from ...db.models.recipe import (
+    IngredientFoodModel,
+    IngredientFoodSubstitutionModel,
+    RecipeIngredientModel,
+    RecipeIngredientSubstitutionModel,
+    RecipeInstruction,
+    RecipeModel,
+    RecipeShareTokenModel,
+)
 from .recipe import Recipe
 
 
@@ -58,4 +66,13 @@ class RecipeShareToken(RecipeShareTokenSummary):
             selectinload(RecipeShareTokenModel.recipe)
             .joinedload(RecipeModel.recipe_ingredient)
             .joinedload(RecipeIngredientModel.food),
+            selectinload(RecipeShareTokenModel.recipe)
+            .joinedload(RecipeModel.recipe_ingredient)
+            .joinedload(RecipeIngredientModel.food)
+            .selectinload(IngredientFoodModel.substitutions)
+            .joinedload(IngredientFoodSubstitutionModel.substitute_food),
+            selectinload(RecipeShareTokenModel.recipe)
+            .joinedload(RecipeModel.recipe_ingredient)
+            .selectinload(RecipeIngredientModel.substitutions)
+            .joinedload(RecipeIngredientSubstitutionModel.substitute_food),
         ]
