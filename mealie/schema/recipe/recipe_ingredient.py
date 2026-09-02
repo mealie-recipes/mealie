@@ -310,8 +310,6 @@ class RecipeIngredientBase(MealieModel):
     food: IngredientFood | CreateIngredientFood | None = None
     referenced_recipe: Recipe | None = None
 
-    substitutions: list[RecipeIngredientSubstitution] = []
-
     note: str | None = ""
     display: str = ""
     """
@@ -319,11 +317,6 @@ class RecipeIngredientBase(MealieModel):
 
     Automatically calculated after the object is created, unless overwritten
     """
-
-    @field_validator("substitutions", mode="before")
-    @classmethod
-    def remove_empty_substitutions(cls, v):
-        return SubstitutionBase.prune(v)
 
     @model_validator(mode="after")
     def format_display(self):
@@ -454,11 +447,20 @@ class RecipeIngredient(RecipeIngredientBase):
     title: str | None = None
     original_text: str | None = None
 
+    # kept off RecipeIngredientBase: its only other subclass is ShoppingListItemBase, which has
+    # nowhere to store these, so inheriting them would advertise a field that is always empty
+    substitutions: list[RecipeIngredientSubstitution] = []
+
     # Ref is used as a way to distinguish between an individual ingredient on the frontend
     # It is required for the reorder and section titles to function properly because of how
     # Vue handles reactivity. ref may serve another purpose in the future.
     reference_id: UUID = Field(default_factory=uuid4)
     model_config = ConfigDict(from_attributes=True)
+
+    @field_validator("substitutions", mode="before")
+    @classmethod
+    def remove_empty_substitutions(cls, v):
+        return SubstitutionBase.prune(v)
 
     @field_validator("reference_id", mode="before")
     @classmethod
