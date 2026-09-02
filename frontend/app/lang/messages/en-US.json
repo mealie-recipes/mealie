@@ -485,6 +485,7 @@
     "clear-substitutions": "Clear Substitutions",
     "substitutions": "Substitutions",
     "commonly-substituted-with": "Commonly substituted with",
+    "substitutions-with-value": "Substitutions: {substitutions}",
     "choose-substitute-food": "Choose Substitute Food",
     "original-text-with-value": "Original Text: {originalText}",
     "ingredient-linker": "Ingredient Linker",

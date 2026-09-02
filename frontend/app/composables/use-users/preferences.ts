@@ -9,6 +9,7 @@ export interface UserPrintPreferences {
   showLinkedIngredients: boolean;
   showNotes: boolean;
   showNutrition: boolean;
+  showSubstitutions: boolean;
   expandChildRecipes: boolean;
 }
 
@@ -103,6 +104,7 @@ export function useUserPrintPreferences(): Ref<UserPrintPreferences> {
       showLinkedIngredients: false,
       showNotes: true,
       showNutrition: false,
+      showSubstitutions: true,
       expandChildRecipes: false,
     },
     { mergeDefaults: true },
