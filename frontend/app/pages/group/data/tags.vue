@@ -142,6 +142,10 @@ const tableHeaders: TableHeaders[] = [
 ];
 const tagStore = useTagStore();
 
+onMounted(() => {
+  tagStore.actions.refresh();
+});
+
 // ============================================================
 // Form items (shared)
 const formItems = [

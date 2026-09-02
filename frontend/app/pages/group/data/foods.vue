@@ -289,6 +289,10 @@ const foods = computed(() =>
   }),
 );
 
+onMounted(() => {
+  foodStore.actions.refresh();
+});
+
 // ============================================================
 // Labels
 const { store: allLabels } = useLabelStore();
