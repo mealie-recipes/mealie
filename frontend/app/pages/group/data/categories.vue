@@ -142,6 +142,10 @@ const tableHeaders: TableHeaders[] = [
 ];
 const categoryStore = useCategoryStore();
 
+onMounted(() => {
+  categoryStore.actions.refresh();
+});
+
 // ============================================================
 // Form items (shared)
 const formItems = [
