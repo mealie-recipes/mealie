@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-text-field
-      v-if="model.title || showTitle"
+      v-if="titleVisible"
       v-model="model.title"
       density="compact"
       variant="underlined"
@@ -25,6 +25,7 @@
           :buttons="btns"
           @toggle-section="toggleTitle"
           @toggle-subrecipe="toggleIsRecipe"
+          @toggle-substitutions="toggleSubstitutions"
           @insert-above="$emit('insert-above')"
           @insert-below="$emit('insert-below')"
           @delete="$emit('delete')"
@@ -182,6 +183,64 @@
       </template>
     </RecipeIngredientEditorLayout>
     <div class="px-2" :class="{ 'ml-10': !$vuetify.display.mdAndDown }">
+      <!-- shown whenever the ingredient carries substitutions, so the toggle can't hide saved data -->
+      <div v-if="substitutionsVisible" class="py-2">
+        <div class="d-flex align-center text-caption mb-1">
+          <v-icon size="small" class="mr-1">
+            {{ $globals.icons.swapHorizontal }}
+          </v-icon>
+          {{ $t("recipe.substitutions") }}
+        </div>
+        <div
+          v-for="substitution, i in model.substitutions"
+          :key="i"
+          class="d-flex ga-2 align-center mb-1"
+          :class="$vuetify.display.mdAndDown ? 'flex-column align-stretch' : ''"
+        >
+          <v-autocomplete
+            v-model="substitution.substituteFoodId"
+            :items="allFoods"
+            :custom-filter="normalizeFilter"
+            item-value="id"
+            item-title="name"
+            :placeholder="$t('recipe.choose-substitute-food')"
+            :style="$vuetify.display.mdAndDown ? '' : 'flex: 4 0 50px;'"
+            :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
+            density="compact"
+            variant="filled"
+            clearable
+            hide-details
+          />
+          <v-text-field
+            v-model="substitution.note"
+            :placeholder="$t('recipe.note')"
+            :style="$vuetify.display.mdAndDown ? '' : 'flex: 4 0 50px;'"
+            density="compact"
+            variant="filled"
+            hide-details
+          />
+          <v-btn
+            icon
+            variant="text"
+            size="small"
+            :title="$t('general.delete')"
+            @click="deleteSubstitution(i)"
+          >
+            <v-icon>{{ $globals.icons.delete }}</v-icon>
+          </v-btn>
+        </div>
+        <v-btn
+          variant="text"
+          size="small"
+          color="primary"
+          @click="addSubstitution"
+        >
+          <v-icon start>
+            {{ $globals.icons.create }}
+          </v-icon>
+          {{ $t("general.add") }}
+        </v-btn>
+      </div>
       <slot name="before-divider" />
     </div>
   </div>
@@ -189,12 +248,13 @@
 
 <script setup lang="ts">
 import { useNuxtApp } from "#app";
-import { computed, reactive, ref, toRefs, watch } from "vue";
+import { computed, reactive, ref, watch } from "vue";
 import { useI18n } from "vue-i18n";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
 import { useSearch } from "~/composables/use-search";
+import { normalizeFilter } from "~/composables/use-utils";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
 // defineModel replaces modelValue prop
@@ -251,18 +311,34 @@ const { $globals } = useNuxtApp();
 
 const state = reactive({
   showTitle: false,
+  showSubstitutions: false,
   isRecipe: props.isRecipe,
 });
 
+// an ingredient that arrives with a title or substitutions shows them without being toggled on,
+// so what the menu entries act on is this, not the flag on its own -- otherwise the first press
+// is a no-op and the second one is the destructive half of a toggle nobody saw move
+const titleVisible = computed(() => !!model.value.title || state.showTitle);
+const substitutionsVisible = computed(() => !!model.value.substitutions?.length || state.showSubstitutions);
+
 const contextMenuOptions = computed(() => {
+  // these entries clear what they hide, so they name the action instead of saying "toggle"
   const options = [
     {
-      text: i18n.t("recipe.toggle-section"),
+      text: titleVisible.value
+        ? i18n.t("recipe.clear-section")
+        : i18n.t("recipe.add-section"),
       event: "toggle-section",
     },
     {
       text: i18n.t("recipe.toggle-recipe"),
       event: "toggle-subrecipe",
+    },
+    {
+      text: substitutionsVisible.value
+        ? i18n.t("recipe.clear-substitutions")
+        : i18n.t("recipe.add-substitutions"),
+      event: "toggle-substitutions",
     },
     {
       text: i18n.t("recipe.insert-above"),
@@ -304,6 +380,10 @@ const foodStore = useFoodStore();
 const foodData = useFoodData();
 const foodAutocomplete = ref<HTMLInputElement>();
 const { search: foodSearch, filtered: filteredFoods } = useSearch(foodStore.store);
+
+// the substitution pickers offer every food; unlike the main field they can't create one,
+// since a substitute the user has to invent is what the note is for
+const allFoods = computed(() => foodStore.store.value);
 
 const showCreateFood = computed(() =>
   !!foodSearch.value
@@ -355,10 +435,34 @@ async function createAssignUnit() {
 }
 
 function toggleTitle() {
-  if (state.showTitle) {
+  if (titleVisible.value) {
     model.value.title = "";
+    state.showTitle = false;
   }
-  state.showTitle = !state.showTitle;
+  else {
+    state.showTitle = true;
+  }
+}
+
+function addSubstitution() {
+  model.value.substitutions = [...(model.value.substitutions || []), { substituteFoodId: null, note: "" }];
+  state.showSubstitutions = true;
+}
+
+function deleteSubstitution(index: number) {
+  model.value.substitutions?.splice(index, 1);
+  // removing the last row leaves the section open; the user is still working in it
+  state.showSubstitutions = true;
+}
+
+function toggleSubstitutions() {
+  if (substitutionsVisible.value) {
+    model.value.substitutions = [];
+    state.showSubstitutions = false;
+  }
+  else {
+    addSubstitution();
+  }
 }
 
 function toggleIsRecipe() {
@@ -397,6 +501,4 @@ function quantityFilter(e: KeyboardEvent) {
     e.preventDefault();
   }
 }
-
-const { showTitle } = toRefs(state);
 </script>
