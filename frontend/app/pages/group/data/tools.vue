@@ -70,6 +70,10 @@ const tools = computed(() => toolStore.store.value.map((tools) => {
   return { ...tools, onHand } as RecipeToolWithOnHand;
 }));
 
+onMounted(() => {
+  toolStore.actions.refresh();
+});
+
 // ============================================================
 // Form items (shared)
 const formItems = [
