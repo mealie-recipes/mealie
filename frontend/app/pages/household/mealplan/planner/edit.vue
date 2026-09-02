@@ -7,186 +7,108 @@
       @create="actions.createOne($event)"
       @update="actions.updateOne($event)"
     />
-    <v-row>
-      <v-col
-        v-for="(plan, index) in mealplans"
-        :key="index"
-        cols="12"
-        sm="12"
-        md="6"
-        lg="4"
-        xl="3"
-        xxl="2"
-        class="col-borders my-1 d-flex flex-column"
-      >
-        <v-card class="mb-2 border-left-primary rounded-sm pa-2">
-          <p class="pl-2 mb-1">
-            {{ $d(plan.date, "short") }}
-          </p>
-        </v-card>
-        <VueDraggable
-          v-model="mealplansByDate[plan.date.toString()]"
-          tag="div"
-          handle=".handle"
-          :delay="250"
-          :delay-on-touch-only="true"
-          group="meals"
-          :data-index="index"
-          :data-box="plan.date"
-          style="min-height: 150px"
-          @end="onMoveCallback"
-        >
-          <v-card
-            v-for="mealplan in mealplansByDate[plan.date.toString()]"
-            :key="mealplan.id"
-            class="my-1"
-            :class="{ handle: $vuetify.display.smAndUp }"
+    <MealPlanLayout :mealplans="mealplans">
+      <template #default="{ plan, index, day }">
+        <MealPlanDay :day="day.date" :recipes="day.recipes" :actions="actions" inline-actions>
+          <VueDraggable
+            v-model="mealplansByDate[plan.date.toString()]!"
+            tag="div"
+            handle=".handle"
+            :delay="250"
+            :delay-on-touch-only="true"
+            group="meals"
+            :data-index="index"
+            :data-box="plan.date"
+            style="min-height: 150px"
+            @end="onMoveCallback"
           >
-            <RecipeCardLineItem
-              v-if="mealplan.recipe"
-              class="py-2"
-              :recipe="mealplan.recipe"
-              disable-link
-              @click="editMeal(mealplan)"
-            />
-            <v-list-item
-              v-else
-              class="py-2"
-              @click="editMeal(mealplan)"
-            >
-              <template #prepend>
-                <v-avatar>
-                  <v-icon>
-                    {{ $globals.icons.primary }}
-                  </v-icon>
-                </v-avatar>
-              </template>
-              <v-list-item-title>
-                {{ mealplan.title }}
-              </v-list-item-title>
-              <v-list-item-subtitle v-if="mealplan.text">
-                {{ mealplan.text }}
-              </v-list-item-subtitle>
-            </v-list-item>
-            <v-divider class="mx-2" />
-            <div class="py-2 px-2 d-flex" style="align-items: center">
-              <v-btn size="small" icon variant="text" :class="{ handle: !$vuetify.display.smAndUp }">
-                <v-icon>
-                  {{ $globals.icons.arrowUpDown }}
-                </v-icon>
-              </v-btn>
-              <v-menu offset-y>
-                <template #activator="{ props: menuProps }">
-                  <v-chip
-                    v-bind="menuProps"
-                    label
-                    variant="elevated"
-                    size="small"
-                    color="accent"
-                    @click.prevent
-                  >
-                    <v-icon start>
-                      {{ $globals.icons.tags }}
-                    </v-icon>
-                    {{ getEntryTypeText(mealplan.entryType!) }}
-                  </v-chip>
-                </template>
-                <v-list>
-                  <v-list-item
-                    v-for="mealType in planTypeOptions"
-                    :key="mealType.value"
-                    @click="actions.setType(mealplan, mealType.value)"
-                  >
-                    <v-list-item-title> {{ mealType.text }} </v-list-item-title>
-                  </v-list-item>
-                </v-list>
-              </v-menu>
-              <v-btn
-                v-if="mealplan.recipe && mealplan.entryType"
-                class="ml-auto"
-                size="small"
-                variant="text"
-                icon
-                :title="$t('meal-plan.randomize-recipe')"
-                @click="randomizeMeal(mealplan)"
+            <SpinTransition>
+              <v-card
+                v-for="mealplan in mealplansByDate[plan.date.toString()]"
+                :key="mealplan.id"
+                class="my-2 ml-4 mr-1"
+                :class="{ handle: $vuetify.display.smAndUp }"
               >
-                <v-icon>{{ $globals.icons.diceMultiple }}</v-icon>
-              </v-btn>
-              <v-btn :class="{ 'ml-auto': !mealplan.recipe || !mealplan.entryType }" size="small" variant="text" icon @click="actions.deleteOne(mealplan.id)">
-                <v-icon>{{ $globals.icons.delete }}</v-icon>
-              </v-btn>
-            </div>
-          </v-card>
-        </VueDraggable>
-        <!-- Day Column Actions -->
-        <div class="d-flex justify-end mt-auto">
-          <BaseButtonGroup
-            :buttons="[
-              {
-                icon: $globals.icons.diceMultiple,
-                text: $t('meal-plan.random-meal'),
-                event: 'random',
-                children: [
-                  {
-                    icon: $globals.icons.diceMultiple,
-                    text: $t('meal-plan.breakfast'),
-                    event: 'randomBreakfast',
-                  },
-                  {
-                    icon: $globals.icons.diceMultiple,
-                    text: $t('meal-plan.lunch'),
-                    event: 'randomLunch',
-                  },
-                  {
-                    icon: $globals.icons.diceMultiple,
-                    text: $t('meal-plan.side'),
-                    event: 'randomSide',
-                  },
-                  {
-                    icon: $globals.icons.diceMultiple,
-                    text: $t('meal-plan.snack'),
-                    event: 'randomSnack',
-                  },
-                  {
-                    icon: $globals.icons.diceMultiple,
-                    text: $t('meal-plan.drink'),
-                    event: 'randomDrink',
-                  },
-                  {
-                    icon: $globals.icons.diceMultiple,
-                    text: $t('meal-plan.dessert'),
-                    event: 'randomDessert',
-                  },
-                ],
-              },
-              {
-                icon: $globals.icons.potSteam,
-                text: $t('meal-plan.random-dinner'),
-                event: 'randomDinner',
-              },
-              {
-                icon: $globals.icons.bowlMixOutline,
-                text: $t('meal-plan.random-side'),
-                event: 'randomSide',
-              },
-              {
-                icon: $globals.icons.createAlt,
-                text: $t('general.new'),
-                event: 'create',
-              },
-            ]"
-            @create="openDialog(plan.date)"
-            @random-breakfast="randomMeal(plan.date, 'breakfast')"
-            @random-lunch="randomMeal(plan.date, 'lunch')"
-            @random-dinner="randomMeal(plan.date, 'dinner')"
-            @random-side="randomMeal(plan.date, 'side')"
-            @random-snack="randomMeal(plan.date, 'snack')"
-            @random-drink="randomMeal(plan.date, 'drink')"
-            @random-dessert="randomMeal(plan.date, 'dessert')"
-          />
-        </div>
-      </v-col>
-    </v-row>
+                <RecipeCardLineItem
+                  v-if="mealplan.recipe"
+                  class="py-2"
+                  :recipe="mealplan.recipe"
+                  disable-link
+                  @click="editMeal(mealplan)"
+                />
+                <v-list-item
+                  v-else
+                  class="py-2"
+                  @click="editMeal(mealplan)"
+                >
+                  <template #prepend>
+                    <v-avatar>
+                      <v-icon>
+                        {{ $globals.icons.primary }}
+                      </v-icon>
+                    </v-avatar>
+                  </template>
+                  <v-list-item-title>
+                    {{ mealplan.title }}
+                  </v-list-item-title>
+                  <v-list-item-subtitle v-if="mealplan.text">
+                    {{ mealplan.text }}
+                  </v-list-item-subtitle>
+                </v-list-item>
+                <v-divider class="mx-2" />
+                <div class="py-2 px-2 d-flex" style="align-items: center">
+                  <v-btn size="small" icon variant="text" :class="{ handle: !$vuetify.display.smAndUp }">
+                    <v-icon>
+                      {{ $globals.icons.arrowUpDown }}
+                    </v-icon>
+                  </v-btn>
+                  <v-menu offset-y>
+                    <template #activator="{ props: menuProps }">
+                      <v-chip
+                        v-bind="menuProps"
+                        label
+                        variant="elevated"
+                        size="small"
+                        color="accent"
+                        @click.prevent
+                      >
+                        <v-icon start>
+                          {{ $globals.icons.tags }}
+                        </v-icon>
+                        {{ getEntryTypeText(mealplan.entryType!) }}
+                      </v-chip>
+                    </template>
+                    <v-list>
+                      <v-list-item
+                        v-for="mealType in planTypeOptions"
+                        :key="mealType.value"
+                        @click="actions.setType(mealplan, mealType.value)"
+                      >
+                        <v-list-item-title> {{ mealType.text }} </v-list-item-title>
+                      </v-list-item>
+                    </v-list>
+                  </v-menu>
+                  <v-btn
+                    v-if="mealplan.recipe && mealplan.entryType"
+                    class="ml-auto"
+                    size="small"
+                    variant="text"
+                    icon
+                    :title="$t('meal-plan.randomize-recipe')"
+                    @click="randomizeMeal(mealplan)"
+                  >
+                    <v-icon>{{ $globals.icons.diceMultiple }}</v-icon>
+                  </v-btn>
+                  <v-btn :class="{ 'ml-auto': !mealplan.recipe || !mealplan.entryType }" size="small" variant="text" icon @click="actions.deleteOne(mealplan.id)">
+                    <v-icon>{{ $globals.icons.delete }}</v-icon>
+                  </v-btn>
+                </div>
+              </v-card>
+            </SpinTransition>
+          </VueDraggable>
+        </MealPlanDay>
+      </template>
+    </MealPlanLayout>
   </div>
 </template>
 
@@ -194,13 +116,12 @@
 import { format } from "date-fns";
 import type { SortableEvent } from "sortablejs";
 import { VueDraggable } from "vue-draggable-plus";
-import type { MealsByDate } from "./view.vue";
-import type { useMealplans } from "~/composables/use-group-mealplan";
-import { usePlanTypeOptions, getEntryTypeText } from "~/composables/use-group-mealplan";
 import GroupMealPlanEntryDialog from "~/components/Domain/Household/GroupMealPlanEntryDialog.vue";
 import RecipeCardLineItem from "~/components/Domain/Recipe/RecipeCardLineItem.vue";
-import type { PlanEntryType, ReadPlanEntry } from "~/lib/api/types/meal-plan";
 import { useUserApi } from "~/composables/api";
+import type { MealsByDate, useMealplans } from "~/composables/use-group-mealplan";
+import { getEntryTypeText, usePlanTypeOptions } from "~/composables/use-group-mealplan";
+import type { ReadPlanEntry } from "~/lib/api/types/meal-plan";
 
 const props = defineProps<{
   mealplans: MealsByDate[];
@@ -208,6 +129,7 @@ const props = defineProps<{
 }>();
 
 const api = useUserApi();
+const planTypeOptions = usePlanTypeOptions();
 
 // Local mutable meals object
 const mealplansByDate = reactive<{ [date: string]: ReadPlanEntry[] }>({});
@@ -251,29 +173,12 @@ const dialog = reactive({
   date: null as Date | null,
 });
 
-function openDialog(date: Date) {
-  dialog.entry = null;
-  dialog.date = date;
-  dialog.open = true;
-}
-
 function editMeal(mealplan: ReadPlanEntry) {
   if (!mealplan.entryType) return;
 
   dialog.entry = mealplan;
   dialog.date = null;
   dialog.open = true;
-}
-
-async function randomMeal(date: Date, type: PlanEntryType) {
-  const { data } = await api.mealplans.setRandom({
-    date: format(date, "yyyy-MM-dd"),
-    entryType: type,
-  });
-
-  if (data) {
-    props.actions.refreshAll();
-  }
 }
 
 async function randomizeMeal(mealplan: ReadPlanEntry) {
@@ -292,6 +197,4 @@ async function randomizeMeal(mealplan: ReadPlanEntry) {
     props.actions.refreshAll();
   }
 }
-
-const planTypeOptions = usePlanTypeOptions();
 </script>

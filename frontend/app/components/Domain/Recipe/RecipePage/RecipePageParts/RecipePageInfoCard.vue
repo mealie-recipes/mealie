@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex justify-end flex-wrap align-stretch">
       <RecipePageInfoCardImage
-        v-if="landscape"
+        v-if="landscape && recipe.image"
         :recipe="recipe"
       />
       <v-card

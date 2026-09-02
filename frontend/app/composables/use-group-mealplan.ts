@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import type { CreatePlanEntry, PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
+import type { CreatePlanEntry, PlanEntryType, ReadPlanEntry, RecipeSummary, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
 
 type PlanOption = {
   text: string;
@@ -28,6 +28,35 @@ export function getEntryTypeText(value: PlanEntryType) {
 export interface DateRange {
   start: Date;
   end: Date;
+}
+export type DaySection = {
+  title: string;
+  meals: ReadPlanEntry[];
+};
+
+export type Days = {
+  date: Date;
+  sections: DaySection[];
+  recipes: RecipeSummary[];
+};
+
+export type MealsByDate = {
+  date: Date;
+  meals: ReadPlanEntry[];
+};
+
+export interface Meal {
+  date: Date;
+  title: string;
+  text: string;
+  recipeId?: string;
+  entryType: PlanEntryType;
+  existing: boolean;
+  id: number;
+  groupId: string;
+  userId: string;
+  note: boolean;
+  householdId: string;
 }
 
 export const useMealplans = function (range: Ref<DateRange>) {
