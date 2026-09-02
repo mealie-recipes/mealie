@@ -84,7 +84,12 @@ from .recipe_scraper import ScrapeRecipe, ScrapeRecipeAI, ScrapeRecipeBase, Scra
 from .recipe_settings import RecipeSettings
 from .recipe_share_token import RecipeShareToken, RecipeShareTokenCreate, RecipeShareTokenSave, RecipeShareTokenSummary
 from .recipe_step import IngredientReferences, RecipeStep
-from .recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse, RecipeSuggestionResponseItem
+from .recipe_suggestion import (
+    RecipeSuggestionQuery,
+    RecipeSuggestionResponse,
+    RecipeSuggestionResponseItem,
+    RecipeSuggestionSubstitutedFood,
+)
 from .recipe_timeline_events import (
     RecipeTimelineEventCreate,
     RecipeTimelineEventIn,
@@ -181,6 +186,7 @@ __all__ = [
     "RecipeSuggestionQuery",
     "RecipeSuggestionResponse",
     "RecipeSuggestionResponseItem",
+    "RecipeSuggestionSubstitutedFood",
     "CreateRecipe",
     "CreateRecipeBulk",
     "CreateRecipeByUrlBulk",
