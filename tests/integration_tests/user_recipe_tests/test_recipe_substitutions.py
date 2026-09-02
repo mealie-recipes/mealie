@@ -148,7 +148,7 @@ def test_substitute_food_from_another_group_is_dropped(
 
     stored = get_food(unique_user, api_client, food["id"])["substitutions"]
 
-    # the note qualified the food it travelled with, so the whole edge goes
+    # the note qualified the food it travelled with, so the whole substitution goes
     assert len(stored) == 1
     assert stored[0]["substituteFoodId"] is None
     assert stored[0]["note"] == "a standalone note"

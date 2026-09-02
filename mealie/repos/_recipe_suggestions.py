@@ -82,10 +82,10 @@ class RecipeSuggestionMixin:
         """
         Whether an ingredient can be covered by a substitution to one of `food_ids`.
 
-        The edge runs from the recipe's food to the user's: if the recipe calls for chicken
-        stock and the user has chicken broth, the edge that makes the recipe cookable is
-        `stock -> broth`. Expanding the user's foods by what they can substitute for is the
-        same query backwards, and quietly wrong.
+        The substitution runs from the recipe's food to the user's: if the recipe calls for
+        chicken stock and the user has chicken broth, the substitution that makes the recipe
+        cookable is `stock -> broth`. Expanding the user's foods by what they can substitute
+        for is the same query backwards, and quietly wrong.
 
         Both branches require a non-null substitute food. Note-only substitutions have no
         food to match against and can never satisfy an ingredient.

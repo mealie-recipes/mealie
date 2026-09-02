@@ -457,7 +457,7 @@ function updateFoodAlias(newAliases: IngredientFoodAlias[]) {
 
 const substitutionManagerDialog = ref(false);
 
-// reverse edges live on other foods, so they can't ride along with the food being edited.
+// reverse substitutions live on other foods, so they can't ride along with the food being edited.
 // they're held until the edit is confirmed, and tagged with the food they were built for so
 // a cancelled edit can't leak them onto the next food the user opens
 const pendingReverseSubstitutions = ref<({ foodId: string } & ReverseSubstitutionChanges) | null>(null);

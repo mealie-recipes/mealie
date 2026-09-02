@@ -107,8 +107,8 @@ class IngredientFoodSummary(MealieModel):
 
 class SubstitutionBase(MealieModel):
     """
-    One "may be replaced by" edge. The substitute food and the note are independently
-    optional, but at least one must be present, so an edge may be another food
+    One "may be replaced by" substitution. The substitute food and the note are independently
+    optional, but at least one must be present, so a substitution may be another food
     ("chicken broth"), free text ("water and a bouillon cube"), or a food with a caveat.
     """
 
@@ -160,7 +160,7 @@ class SubstitutionBase(MealieModel):
                 continue
 
             if food_id:
-                # note-only edges have no id to de-dupe on, and repeated notes are legitimate,
+                # note-only substitutions have no id to de-dupe on, and repeated notes are legitimate,
                 # so they must not be collapsed together here
                 food_id = str(food_id)
                 if food_id in seen_food_ids:

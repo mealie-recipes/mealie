@@ -122,7 +122,7 @@ def test_self_substitution_check_ignores_other_foods():
 
 def test_ingredient_food_summary_does_not_recurse():
     """
-    The summary exists so an edge can reference a food without Pydantic walking
+    The summary exists so a substitution can reference a food without Pydantic walking
     food -> substitutions -> food forever.
     """
 

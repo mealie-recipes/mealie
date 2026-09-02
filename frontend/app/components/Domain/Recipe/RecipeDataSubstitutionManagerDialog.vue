@@ -96,7 +96,7 @@ interface Props {
 const props = defineProps<Props>();
 
 const emit = defineEmits<{
-  // reverse edges live on the other food, so they are reported separately for the page to write
+  // reverse substitutions live on the other food, so the page writes them separately
   submit: [substitutions: IngredientFoodSubstitution[], reverseChanges: ReverseSubstitutionChanges];
   cancel: [];
 }>();
@@ -115,7 +115,7 @@ function substituteFood(substituteFoodId: string | null) {
   return substituteFoodId ? foodStore.store.value.find(food => food.id === substituteFoodId) : undefined;
 }
 
-// the reverse edge lives on the other food, so it is read back off that food
+// the reverse substitution lives on the other food, so it is read back off that food
 function reverseExists(substituteFoodId: string | null) {
   return !!substituteFood(substituteFoodId)?.substitutions?.some(sub => sub.substituteFoodId === props.data.id);
 }

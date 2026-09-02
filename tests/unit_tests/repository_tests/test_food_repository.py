@@ -139,7 +139,7 @@ def test_food_merger_moves_outbound_substitutions(unique_user: TestUser):
 
 
 def test_food_merger_repoints_inbound_substitutions(unique_user: TestUser):
-    """`X -> from` becomes `X -> to`, or the edge is left pointing at a food that no longer exists."""
+    """`X -> from` becomes `X -> to`, or it is left pointing at a food that no longer exists."""
 
     target = create_food_with_substitutions(unique_user)
     source = create_food_with_substitutions(unique_user)
@@ -195,7 +195,7 @@ def test_food_merger_collapses_duplicate_substitutions(unique_user: TestUser):
 
 
 def test_food_merger_keeps_note_only_substitutions(unique_user: TestUser):
-    """Note-only edges carry no food reference, so nothing about a merge can invalidate them."""
+    """Note-only substitutions carry no food reference, so nothing about a merge can invalidate them."""
 
     target = create_food_with_substitutions(unique_user)
     source = create_food_with_substitutions(
@@ -215,7 +215,7 @@ def test_food_merger_keeps_note_only_substitutions(unique_user: TestUser):
 
 
 def test_food_delete_leaves_no_orphaned_substitutions(unique_user: TestUser):
-    """Deleting a food must clean up edges in both directions, not just the ones it owns."""
+    """Deleting a food must clean up substitutions in both directions, not just the ones it owns."""
 
     substitute = create_food_with_substitutions(unique_user)
     doomed = create_food_with_substitutions(

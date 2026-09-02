@@ -715,8 +715,8 @@ def test_recipe_level_substitution_satisfies_a_recipe(api_client: TestClient, un
 
 def test_note_only_substitution_does_not_suppress_a_food_bearing_one(api_client: TestClient, unique_user: TestUser):
     """
-    A note-only edge has no food to match against. It must be ignored without swallowing the
-    food-bearing edges on the same food -- the failure mode a NULL in a NOT IN set produces.
+    A note-only substitution has no food to match against. It must be ignored without swallowing
+    the food-bearing ones on the same food -- the failure mode a NULL in a NOT IN set produces.
     """
 
     stock = create_food(unique_user)

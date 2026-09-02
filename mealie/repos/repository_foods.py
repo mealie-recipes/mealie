@@ -15,10 +15,10 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]
 
     def _merge_substitutions(self, from_model: IngredientFoodModel, to_model: IngredientFoodModel) -> None:
         """
-        Moves both directions of the merged-away food's substitution edges onto the target.
+        Moves both directions of the merged-away food's substitutions onto the target.
 
         Left alone these are cascade-deleted with the food, silently dropping substitutions
-        the user never touched. Edges that would become self-referential or duplicate once
+        the user never touched. Substitutions that would become self-referential or duplicate once
         the two foods are one are deliberately left behind to go with it.
         """
 
@@ -32,18 +32,18 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]
 
         for row in outbound:
             if row.substitute_food_id is not None:
-                # `from -> to` collapses into a self-edge once the foods are one, and
+                # `from -> to` becomes a self-substitution once the foods are one, and
                 # `from -> S` duplicates an existing `to -> S`
                 if row.substitute_food_id == to_food or row.substitute_food_id in existing_substitute_ids:
                     continue
 
                 existing_substitute_ids.add(row.substitute_food_id)
 
-            # note-only edges carry no food reference and always survive the merge
+            # note-only substitutions carry no food reference and always survive the merge
             to_model.substitutions.append(row)
 
         for row in inbound:
-            # `to -> from` is the mirror self-edge, and `X -> from` duplicates an `X -> to`
+            # `to -> from` is the mirror self-substitution, and `X -> from` duplicates an `X -> to`
             if row.food_id == to_food or row.food_id in existing_source_ids:
                 continue
 

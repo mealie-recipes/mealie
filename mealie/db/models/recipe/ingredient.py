@@ -39,7 +39,7 @@ def resolve_substitutions(
 
     Substitute ids arrive straight from the payload, so the repository's group scoping does
     not cover them. They are resolved against `group_id`, and an id resolving to nothing --
-    deleted, or belonging to another group -- invalidates the whole edge, since the note
+    deleted, or belonging to another group -- invalidates the whole substitution, since the note
     qualifies the food it travels with. `exclude_food_id` rejects self-substitution the same
     way. Both tiers share this; only the row they build from it differs.
     """
@@ -243,7 +243,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         order_by="IngredientFoodSubstitutionModel.position",
         collection_class=ordering_list("position"),
     )
-    # substitutions pointing at this food; exists so deleting a food cleans up inbound edges
+    # substitutions pointing at this food; exists so deleting a food cleans up the ones aimed at it
     substitution_references: Mapped[list["IngredientFoodSubstitutionModel"]] = orm.relationship(
         "IngredientFoodSubstitutionModel",
         back_populates="substitute_food",
@@ -460,7 +460,7 @@ class IngredientFoodAliasModel(SqlAlchemyBase, BaseMixins):
 
 class IngredientFoodSubstitutionModel(SqlAlchemyBase, BaseMixins):
     """
-    A directed "this food may be replaced by that one" edge.
+    A directed "this food may be replaced by that one" substitution.
 
     Both the substitute food and the note are optional, but at least one must be
     present: a substitution can be another food ("chicken broth"), a free-text
