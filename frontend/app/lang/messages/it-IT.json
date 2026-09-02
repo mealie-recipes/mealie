@@ -588,6 +588,8 @@
     "parser": {
       "ingredient-parser": "Analizzatore ingredienti",
       "select-parser": "Seleziona Analizzatore",
+      "dont-show-again": "Don't show this again",
+      "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Analizzatore di Linguaggio Naturale",
       "brute-parser": "Analizzatore brutale",
       "openai-parser": "Parser OpenAI",
@@ -597,11 +599,16 @@
       "this-food-could-not-be-parsed-automatically": "Questo alimento non può essere analizzato automaticamente",
       "review-parsed-ingredients": "Controlla ingredienti analizzati",
       "confidence-score": "Punteggio Di Confidenza",
-      "ingredient-parser-description": "I tuoi ingredienti sono stati analizzati con successo. Controlla gli ingredienti di cui non siamo sicuri.",
-      "ingredient-parser-final-review-description": "Una volta che tutti gli ingredienti sono stati controllati, avrai ancora una possibilità di rivederli tutti prima di applicare le modifiche alla ricetta.",
+      "ingredient-parser-headline": "Ingredients Parsed",
+      "ingredient-parser-title": "What's next",
+      "ingredient-parser-description": "You may need to confirm results we're not sure about or create new foods or units that are required by this recipe. We'll let you know what's needed.",
+      "ingredient-parser-final-review-description": "Once everything looks good, you can review the final results, then apply the changes to this recipe.",
       "add-text-as-alias-for-item": "Aggiungi \"{text}\" come alias per {item}",
       "delete-item": "Elimina elemento",
-      "parsing-ingredients": "Parsing ingredients..."
+      "parsing-ingredients": "Parsing ingredients...",
+      "ingredient-parser-result-title": "For this recipe",
+      "ingredient-parser-result-success": "No ingredients auto parsed | {count} ingredient auto parsed | {count} ingredients auto parsed",
+      "ingredient-parser-result-failed": "No ingredients to review | {count} ingredient to review | {count} ingredients to review"
     },
     "reset-servings-count": "Reimposta conteggio porzioni",
     "not-linked-ingredients": "Ingredienti Aggiuntivi",

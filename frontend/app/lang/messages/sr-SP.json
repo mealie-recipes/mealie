@@ -588,6 +588,8 @@
     "parser": {
       "ingredient-parser": "Парсер састојака",
       "select-parser": "Изабери парсер",
+      "dont-show-again": "Don't show this again",
+      "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Процесор природног језика (NLP)",
       "brute-parser": "Брутални парсер (Brute)",
       "openai-parser": "OpenAI парсер",
@@ -597,11 +599,16 @@
       "this-food-could-not-be-parsed-automatically": "Ова храна се није могла аутоматски разложити",
       "review-parsed-ingredients": "Прегледај разложене састојке",
       "confidence-score": "Оцена сигурности",
-      "ingredient-parser-description": "Ваши састојци су успешно разложени. Молимо прегледајте састојке за које нисмо сигурни.",
-      "ingredient-parser-final-review-description": "Када се прегледају сви састојци, имаћете још једну прилику да прегледате све састојке пре него што примените измене на свој рецепт.",
+      "ingredient-parser-headline": "Ingredients Parsed",
+      "ingredient-parser-title": "What's next",
+      "ingredient-parser-description": "You may need to confirm results we're not sure about or create new foods or units that are required by this recipe. We'll let you know what's needed.",
+      "ingredient-parser-final-review-description": "Once everything looks good, you can review the final results, then apply the changes to this recipe.",
       "add-text-as-alias-for-item": "Додај \"{text}\" као алијас за {item}",
       "delete-item": "Обриши ставку",
-      "parsing-ingredients": "Parsing ingredients..."
+      "parsing-ingredients": "Parsing ingredients...",
+      "ingredient-parser-result-title": "For this recipe",
+      "ingredient-parser-result-success": "No ingredients auto parsed | {count} ingredient auto parsed | {count} ingredients auto parsed",
+      "ingredient-parser-result-failed": "No ingredients to review | {count} ingredient to review | {count} ingredients to review"
     },
     "reset-servings-count": "Ресетуј број порција",
     "not-linked-ingredients": "Додатни састојци",
