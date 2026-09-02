@@ -28,6 +28,66 @@ households_to_ingredient_foods = sa.Table(
 )
 
 
+def resolve_substitutions(
+    session: Session,
+    group_id: GUID | None,
+    substitutions: list[dict] | None,
+    exclude_food_id: GUID | None = None,
+) -> list[tuple[GUID | None, str | None]]:
+    """
+    Normalizes a substitution payload into (substitute_food_id, note) pairs safe to persist.
+
+    Substitute ids arrive straight from the payload, so the repository's group scoping does
+    not cover them. They are resolved against `group_id`, and an id resolving to nothing --
+    deleted, or belonging to another group -- invalidates the whole edge, since the note
+    qualifies the food it travels with. `exclude_food_id` rejects self-substitution the same
+    way. Both tiers share this; only the row they build from it differs.
+    """
+
+    if not substitutions or not group_id:
+        return []
+
+    requested_food_ids = {sub.get("substitute_food_id") for sub in substitutions}
+    requested_food_ids.discard(None)
+
+    resolvable_food_ids: set = set()
+    if requested_food_ids:
+        resolvable_food_ids = set(
+            session.execute(
+                sa.select(IngredientFoodModel.id).filter(
+                    IngredientFoodModel.group_id == group_id,
+                    IngredientFoodModel.id.in_(requested_food_ids),
+                )
+            )
+            .scalars()
+            .all()
+        )
+
+    resolved: list[tuple[GUID | None, str | None]] = []
+    seen_food_ids: set = set()
+    for sub in substitutions:
+        substitute_food_id = sub.get("substitute_food_id")
+        note = (sub.get("note") or "").strip() or None
+
+        if substitute_food_id is None:
+            # note-only rows are deliberately not de-duped: two textual workarounds are
+            # two legitimate rows, and there is no id to collapse them on
+            if not note:
+                continue
+        else:
+            if substitute_food_id not in resolvable_food_ids or substitute_food_id == exclude_food_id:
+                continue
+
+            if substitute_food_id in seen_food_ids:
+                continue
+
+            seen_food_ids.add(substitute_food_id)
+
+        resolved.append((substitute_food_id, note))
+
+    return resolved
+
+
 class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ingredient_units"
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
@@ -216,28 +276,10 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         fails to look up and would manufacture a food out of an unrecognized id.
         """
 
-        if not substitutions:
+        resolved = resolve_substitutions(session, group_id, substitutions, exclude_food_id=self.id)
+        if not resolved:
             self.substitutions = []
             return
-
-        requested_food_ids = {sub.get("substitute_food_id") for sub in substitutions}
-        requested_food_ids.discard(None)
-
-        # substitute ids come straight from the payload, so the repository's group scoping
-        # doesn't cover them; resolve them against this food's group so an id belonging to
-        # another group can't be linked and leak that food's name
-        resolvable_food_ids: set = set()
-        if requested_food_ids:
-            resolvable_food_ids = set(
-                session.execute(
-                    sa.select(IngredientFoodModel.id).filter(
-                        IngredientFoodModel.group_id == group_id,
-                        IngredientFoodModel.id.in_(requested_food_ids),
-                    )
-                )
-                .scalars()
-                .all()
-            )
 
         # Existing rows are reused rather than rebuilt. SQLAlchemy inserts before it deletes
         # within a single flush, so replacing the collection wholesale would insert a copy of
@@ -246,29 +288,11 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         reusable_note_only = [row for row in self.substitutions if not row.substitute_food_id]
 
         rows: list[IngredientFoodSubstitutionModel] = []
-        seen_food_ids: set = set()
-        for sub in substitutions:
-            substitute_food_id = sub.get("substitute_food_id")
-            note = (sub.get("note") or "").strip() or None
-
-            if substitute_food_id is None:
-                # note-only rows are deliberately not de-duped: two textual workarounds are
-                # two legitimate rows, and there is no id to collapse them on
-                if not note:
-                    continue
-
-                row = reusable_note_only.pop(0) if reusable_note_only else None
-            else:
-                # a note qualifies the food it travels with, so an id that resolves to nothing
-                # -- deleted, or belonging to another group -- invalidates the whole edge
-                if substitute_food_id not in resolvable_food_ids or substitute_food_id == self.id:
-                    continue
-
-                if substitute_food_id in seen_food_ids:
-                    continue
-
-                seen_food_ids.add(substitute_food_id)
+        for substitute_food_id, note in resolved:
+            if substitute_food_id is not None:
                 row = reusable_by_food_id.get(substitute_food_id)
+            else:
+                row = reusable_note_only.pop(0) if reusable_note_only else None
 
             if row is None:
                 row = IngredientFoodSubstitutionModel(substitute_food_id=substitute_food_id, note=note)
@@ -520,12 +544,29 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
         }
     )
 
+    def _set_substitutions(self, session: Session, group_id: GUID | None, substitutions: list[dict] | None) -> None:
+        """
+        Builds the substitution rows by hand, since auto_init creates any related row it
+        fails to look up and would manufacture a food out of an unrecognized id.
+
+        Rows are always built fresh rather than reused, unlike the food tier: ingredient rows
+        are destroyed and recreated on every recipe save, so there is never an existing set to
+        reconcile with, and no unique constraint for a re-insert to collide with.
+        """
+
+        self.substitutions = [
+            RecipeIngredientSubstitutionModel(substitute_food_id=substitute_food_id, note=note)
+            for substitute_food_id, note in resolve_substitutions(session, group_id, substitutions)
+        ]
+
     @auto_init()
     def __init__(
         self,
         session: Session,
         note: str | None = None,
         orginal_text: str | None = None,
+        group_id: GUID | None = None,
+        substitutions: list[dict] | None = None,
         **_,
     ) -> None:
         # SQLAlchemy events do not seem to register things that are set during auto_init
@@ -534,6 +575,8 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
 
         if orginal_text is not None:
             self.orginal_text = self.normalize(orginal_text)
+
+        self._set_substitutions(session, group_id, substitutions)
 
         tableargs = [  # base set of indices
             sa.Index(
