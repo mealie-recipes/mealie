@@ -903,8 +903,6 @@
       "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list.",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
-      "create-substitution": "Create Substitution",
-      "substitute-food": "Substitute Food",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
       "reverse-substitution-add": "Also use {food} in place of {substitute}"
     },

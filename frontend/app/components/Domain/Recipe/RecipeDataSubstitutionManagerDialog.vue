@@ -14,58 +14,27 @@
         <p class="text-body-2 pb-3">
           {{ $t("data-pages.foods.substitution-dialog-text", { food: data.name }) }}
         </p>
-        <v-container class="pa-0">
-          <v-row v-for="substitution, i in substitutions" :key="i" dense>
-            <v-col cols="12" sm="7">
-              <v-autocomplete
-                v-model="substitution.substituteFoodId"
-                :items="foodOptions"
-                :custom-filter="normalizeFilter"
-                item-value="id"
-                item-title="name"
-                :label="$t('data-pages.foods.substitute-food')"
-                clearable
-                hide-details
-                @update:model-value="substitution.addReverse = null"
-              />
-            </v-col>
-            <v-col cols="10" sm="4">
-              <v-text-field v-model="substitution.note" :label="$t('recipe.note')" hide-details />
-            </v-col>
-            <v-col cols="2" sm="1" class="d-flex align-center justify-end">
-              <BaseButtonGroup
-                :buttons="[
-                  {
-                    icon: $globals.icons.delete,
-                    text: $t('general.delete'),
-                    event: 'delete',
-                  },
-                ]"
-                @delete="deleteSubstitution(i)"
-              />
-            </v-col>
-            <!-- spelled out rather than tooltipped: this has to read on a phone, where nothing hovers -->
-            <v-col v-if="substitution.substituteFoodId" cols="12" class="pt-0">
-              <v-checkbox
-                :model-value="reverseChecked(substitution)"
-                :label="reverseLabel(substitution)"
-                density="compact"
-                hide-details
-                class="ml-2"
-                @update:model-value="substitution.addReverse = !!$event"
-              />
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-card-text>
-      <template #custom-card-action>
-        <BaseButton edit @click="createSubstitution">
-          {{ $t('data-pages.foods.create-substitution') }}
-          <template #icon>
-            {{ $globals.icons.create }}
+        <RecipeIngredientSubstitutionEditor
+          :substitutions="substitutions"
+          :foods="foodOptions"
+          @add="createSubstitution"
+          @delete="deleteSubstitution"
+          @food-changed="resetReverse"
+        >
+          <!-- spelled out rather than tooltipped: this has to read on a phone, where nothing hovers -->
+          <template #after-row="{ index }">
+            <v-checkbox
+              v-if="substitutions[index]?.substituteFoodId"
+              :model-value="reverseChecked(index)"
+              :label="reverseLabel(index)"
+              density="compact"
+              hide-details
+              class="ml-2"
+              @update:model-value="setReverse(index, !!$event)"
+            />
           </template>
-        </BaseButton>
-      </template>
+        </RecipeIngredientSubstitutionEditor>
+      </v-card-text>
     </BaseDialog>
   </div>
 </template>
@@ -73,8 +42,8 @@
 <script setup lang="ts">
 import { whenever } from "@vueuse/core";
 import { useI18n } from "vue-i18n";
+import RecipeIngredientSubstitutionEditor from "~/components/Domain/Recipe/RecipeIngredientSubstitutionEditor.vue";
 import { useFoodStore } from "~/composables/store";
-import { normalizeFilter } from "~/composables/use-utils";
 import type { IngredientFood, IngredientFoodSubstitution } from "~/lib/api/types/recipe";
 
 interface SubstitutionRow {
@@ -122,15 +91,23 @@ function reverseExists(substituteFoodId: string | null) {
 
 // the control is per-row because the dialog mixes saved and unsaved rows; a single checkbox
 // at the bottom couldn't say which of them it meant
-function reverseChecked(substitution: SubstitutionRow) {
-  return substitution.addReverse ?? reverseExists(substitution.substituteFoodId);
+function reverseChecked(index: number) {
+  const substitution = substitutions.value[index];
+  return substitution ? (substitution.addReverse ?? reverseExists(substitution.substituteFoodId)) : false;
 }
 
 // echoes the "in place of" wording of the intro line, read backwards; the checkbox itself
 // carries whether the reverse is already there
-function reverseLabel(substitution: SubstitutionRow) {
-  const substitute = substituteFood(substitution.substituteFoodId)?.name || "";
+function reverseLabel(index: number) {
+  const substitute = substituteFood(substitutions.value[index]?.substituteFoodId ?? null)?.name || "";
   return i18n.t("data-pages.foods.reverse-substitution-add", { food: props.data.name, substitute });
+}
+
+function setReverse(index: number, addReverse: boolean | null) {
+  const substitution = substitutions.value[index];
+  if (substitution) {
+    substitution.addReverse = addReverse;
+  }
 }
 
 function createSubstitution() {
@@ -143,6 +120,12 @@ function createSubstitution() {
 
 function deleteSubstitution(index: number) {
   substitutions.value.splice(index, 1);
+}
+
+// a row pointed at a different food has a different reverse to report on, so the choice made
+// about the previous one is dropped rather than carried over
+function resetReverse(index: number) {
+  setReverse(index, null);
 }
 
 function initSubstitutions() {

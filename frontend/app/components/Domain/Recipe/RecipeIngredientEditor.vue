@@ -191,55 +191,13 @@
           </v-icon>
           {{ $t("recipe.substitutions") }}
         </div>
-        <div
-          v-for="substitution, i in model.substitutions"
-          :key="i"
-          class="d-flex ga-2 align-center mb-1"
-          :class="$vuetify.display.mdAndDown ? 'flex-column align-stretch' : ''"
-        >
-          <v-autocomplete
-            v-model="substitution.substituteFoodId"
-            :items="allFoods"
-            :custom-filter="normalizeFilter"
-            item-value="id"
-            item-title="name"
-            :placeholder="$t('recipe.choose-substitute-food')"
-            :style="$vuetify.display.mdAndDown ? '' : 'flex: 4 0 50px;'"
-            :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
-            density="compact"
-            variant="filled"
-            clearable
-            hide-details
-          />
-          <v-text-field
-            v-model="substitution.note"
-            :placeholder="$t('recipe.note')"
-            :style="$vuetify.display.mdAndDown ? '' : 'flex: 4 0 50px;'"
-            density="compact"
-            variant="filled"
-            hide-details
-          />
-          <v-btn
-            icon
-            variant="text"
-            size="small"
-            :title="$t('general.delete')"
-            @click="deleteSubstitution(i)"
-          >
-            <v-icon>{{ $globals.icons.delete }}</v-icon>
-          </v-btn>
-        </div>
-        <v-btn
-          variant="text"
-          size="small"
-          color="primary"
-          @click="addSubstitution"
-        >
-          <v-icon start>
-            {{ $globals.icons.create }}
-          </v-icon>
-          {{ $t("general.add") }}
-        </v-btn>
+        <RecipeIngredientSubstitutionEditor
+          :substitutions="model.substitutions || []"
+          :foods="allFoods"
+          :menu-attach-target="props.menuAttachTarget"
+          @add="addSubstitution"
+          @delete="deleteSubstitution"
+        />
       </div>
       <slot name="before-divider" />
     </div>
@@ -254,7 +212,7 @@ import { usePublicExploreApi, useUserApi } from "~/composables/api";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
 import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
 import { useSearch } from "~/composables/use-search";
-import { normalizeFilter } from "~/composables/use-utils";
+import RecipeIngredientSubstitutionEditor from "~/components/Domain/Recipe/RecipeIngredientSubstitutionEditor.vue";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
 // defineModel replaces modelValue prop
