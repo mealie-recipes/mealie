@@ -3,7 +3,7 @@
  *
  * The server sets the cookie; the client only ever removes it, on logout or a dead session. A cookie
  * is matched for removal by name and path, but these have to line up with what the server sent for
- * the embedded (partitioned, SameSite=None) case to clear reliably.
+ * the embedded (SameSite=None) case to clear reliably.
  */
 export function getTokenCookieOptions() {
   const { $appInfo } = useNuxtApp();
@@ -14,7 +14,6 @@ export function getTokenCookieOptions() {
   return {
     secure: isSecureConnection,
     sameSite: (isEmbedded ? "none" : "lax") as "none" | "lax",
-    partitioned: isEmbedded,
   };
 }
 
