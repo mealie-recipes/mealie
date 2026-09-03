@@ -41,7 +41,20 @@ export function useShoppingListSearch(
     })),
   );
 
-  const { search, debouncedSearch, filtered, reset: clearSearch } = useSearch(searchableItems);
+  // `useSearch` ranks results and falls back to a fuzzy tier for typos, which is
+  // right for a dropdown where the best match sorts to the top and stray matches
+  // sit harmlessly at the bottom. This list is grouped by label and keeps the
+  // user's aisle order instead, so there is no "bottom" for a weak match to fall
+  // to: a fuzzy hit appears under its own aisle, indistinguishable from a real
+  // one. Measured against a 130-item list, the fuzzy tier turned "cash" into 11
+  // matches (every "wash"/"washes"/"stash") and "milk" into 2 (camomile, family)
+  // while finding nothing the deterministic tiers missed. A zero threshold keeps
+  // Fuse from contributing those without touching the exact/prefix/word-prefix/
+  // substring tiers, which do all the useful work here.
+  const { search, debouncedSearch, filtered, reset: clearSearch } = useSearch(
+    searchableItems,
+    { fuseOptions: { threshold: 0 } },
+  );
 
   const isSearching = computed(() => debouncedSearch.value.trim().length > 0);
 

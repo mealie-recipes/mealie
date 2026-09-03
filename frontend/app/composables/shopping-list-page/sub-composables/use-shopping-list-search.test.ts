@@ -103,3 +103,46 @@ describe("useShoppingListSearch matching", () => {
     expect(composable.countMatches(items)).toBe(2);
   });
 });
+
+describe("useShoppingListSearch fuzzy noise", () => {
+  test("does not match items that merely look similar to the query", () => {
+    // Grouping the list by label removes any notion of a weaker match sorting
+    // lower, so a fuzzy hit would read as a real one. These are the cases a
+    // fuzzy tier actually produced against a real list.
+    const items = [
+      listItem("wash-liquid", { note: "Washing up liquid" }),
+      listItem("wash-gloves", { note: "Washing up gloves" }),
+      listItem("stash", { note: "Extra chocolate treat - secret surprise stash" }),
+      listItem("cash", { note: "Get cash out" }),
+    ];
+    const { matchesSearch } = searchFor(items, "cash");
+
+    expect(items.filter(matchesSearch).map(i => i.id)).toEqual(["cash"]);
+  });
+
+  test("a query with no real match returns nothing rather than a near-miss", () => {
+    const items = [
+      listItem("a", { note: "Twinings honey & camomile tea" }),
+      listItem("b", { note: "Toilet paper, family pack of 16" }),
+    ];
+    const { matchesSearch, hasMatches } = searchFor(items, "milk");
+
+    expect(items.some(matchesSearch)).toBe(false);
+    expect(hasMatches(items)).toBe(false);
+  });
+
+  test("a multi-word query matches as a phrase, like every other search in the app", () => {
+    // useSearch matches the query as a single string rather than as independent
+    // terms, so word order matters. Kept as a test because it is the one
+    // behaviour that differs from a naive per-term matcher.
+    const items = [
+      listItem("beans", { note: "Green beans, bags" }),
+      listItem("peppers", { note: "Green peppers" }),
+    ];
+
+    expect(items.filter(searchFor(items, "green bean").matchesSearch).map(i => i.id))
+      .toEqual(["beans"]);
+    expect(items.filter(searchFor(items, "bean green").matchesSearch))
+      .toEqual([]);
+  });
+});
