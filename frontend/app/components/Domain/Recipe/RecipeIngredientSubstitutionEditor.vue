@@ -79,8 +79,8 @@ interface Props {
 defineProps<Props>();
 
 const emit = defineEmits<{
-  add: [];
-  delete: [index: number];
+  "add": [];
+  "delete": [index: number];
   "food-changed": [index: number];
 }>();
 </script>
