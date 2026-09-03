@@ -4,7 +4,7 @@ import shutil
 import socket
 from datetime import timedelta
 from pathlib import Path
-from urllib.parse import urlparse
+from urllib.parse import urljoin, urlparse
 from uuid import uuid4
 
 import requests
@@ -25,6 +25,9 @@ from mealie.schema.user import PrivateUser
 # Avatars are downscaled to a small webp thumbnail anyway, so anything past this is either a
 # mistake on the provider's side or an attempt to exhaust our disk/memory.
 MAX_PICTURE_BYTES = 5 * 1024 * 1024
+
+# Enough for the CDN hand-offs avatar hosts normally use, low enough to bound a redirect loop.
+MAX_PICTURE_REDIRECTS = 3
 
 
 class OpenIDProvider(AuthProvider[UserInfo]):
@@ -187,6 +190,35 @@ class OpenIDProvider(AuthProvider[UserInfo]):
 
         return True
 
+    def _fetch_picture(self, url: str) -> requests.Response:
+        """
+        Fetches `url`, following redirects only to hosts that pass the same vetting.
+
+        `requests` follows redirects itself by default, which would let a vetted URL hand us off
+        to a host nobody checked -- the validation has to be re-applied per hop, not once up
+        front. So we follow them ourselves and run every target through `_is_safe_picture_url`
+        before requesting it.
+        """
+        for _ in range(MAX_PICTURE_REDIRECTS + 1):
+            response = requests.get(url, timeout=15, stream=True, allow_redirects=False)
+            if not response.is_redirect:
+                response.raise_for_status()
+                return response
+
+            location = response.headers.get("location", "")
+            # The body is streamed, so an intermediate response holds its connection open.
+            response.close()
+
+            if not location:
+                raise ValueError("redirect without a Location header")
+
+            # A Location may be relative (RFC 9110), so resolve it against the URL we just asked.
+            url = urljoin(url, location)
+            if not self._is_safe_picture_url(url):
+                raise ValueError("refusing to follow redirect to an unvetted host")
+
+        raise ValueError(f"profile image exceeded {MAX_PICTURE_REDIRECTS} redirects")
+
     @staticmethod
     def _read_capped(response: requests.Response) -> bytes:
         """Reads the body, refusing anything over `MAX_PICTURE_BYTES`."""
@@ -221,14 +253,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
             return
 
         try:
-            # Redirects are refused: `_is_safe_picture_url` vetted this URL only, and a redirect
-            # would land us on an unvetted host, undoing that check.
-            response = requests.get(picture, timeout=15, stream=True, allow_redirects=False)
-            if response.is_redirect:
-                # `raise_for_status` treats 3xx as success, so reject it explicitly rather than
-                # letting an empty body fail further down with a confusing error.
-                raise ValueError(f"refusing to follow redirect to an unvetted host ({response.status_code})")
-            response.raise_for_status()
+            response = self._fetch_picture(picture)
             content = self._read_capped(response)
 
             with get_temporary_path() as temp_path:
