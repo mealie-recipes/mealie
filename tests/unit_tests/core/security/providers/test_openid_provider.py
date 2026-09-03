@@ -368,9 +368,16 @@ class _FakeResponse:
     def raise_for_status(self) -> None:
         return None
 
+    def close(self) -> None:
+        self.closed = True
+
     def iter_content(self, chunk_size: int = 8192):
         for i in range(0, len(self._body), chunk_size):
             yield self._body[i : i + chunk_size]
+
+
+def _redirect(location: str, status_code: int = 302) -> _FakeResponse:
+    return _FakeResponse(b"", headers={"location": location}, status_code=status_code)
 
 
 def _picture_claims(picture: object = None) -> dict:
@@ -392,6 +399,26 @@ def _resolve_to(monkeypatch: MonkeyPatch, address: str) -> None:
         "getaddrinfo",
         lambda host, port, *a, **kw: [(None, None, None, "", (address, 0))],
     )
+
+
+def _resolve_hosts(monkeypatch: MonkeyPatch, mapping: dict[str, str], default: str = "93.184.216.34") -> None:
+    """Per-host DNS pinning, so a redirect chain can cross from a public host to a private one."""
+    monkeypatch.setattr(
+        openid_provider.socket,
+        "getaddrinfo",
+        lambda host, port, *a, **kw: [(None, None, None, "", (mapping.get(host, default), 0))],
+    )
+
+
+def _fake_gets(monkeypatch: MonkeyPatch, responses: list[_FakeResponse]) -> MagicMock:
+    """Scripts consecutive `requests.get` calls, so a redirect chain can be walked."""
+    fake_get = MagicMock(side_effect=responses)
+    monkeypatch.setattr(openid_provider.requests, "get", fake_get)
+    return fake_get
+
+
+def _requested_urls(fake_get: MagicMock) -> list[str]:
+    return [call.args[0] for call in fake_get.call_args_list]
 
 
 @pytest.fixture
@@ -586,22 +613,104 @@ def test_undecodable_image_does_not_break_login(_oidc_env, monkeypatch: MonkeyPa
     assert after.external_avatar_hash is None
 
 
+def _authenticate_with_picture(user: TestUser, url: str):
+    data = _picture_claims(url)
+    data["email"] = user.email
+    return OpenIDProvider(user.repos.session, data).authenticate()
+
+
 @pytest.mark.parametrize("status_code", [301, 302, 303, 307, 308])
-def test_redirects_are_not_followed(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser, status_code: int):
-    """A redirect would land on a host the pre-flight check never vetted, so it is refused."""
-    _resolve_to(monkeypatch, "93.184.216.34")
+def test_follows_redirect_to_a_vetted_host(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser, status_code):
+    """Redirects are followed, but we walk them ourselves so each hop can be checked."""
+    _resolve_hosts(monkeypatch, {})  # everything public
     unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
 
-    response = _FakeResponse(b"", headers={"location": "http://169.254.169.254/"}, status_code=status_code)
-    fake_get = MagicMock(return_value=response)
-    monkeypatch.setattr(openid_provider.requests, "get", fake_get)
+    fake_get = _fake_gets(
+        monkeypatch,
+        [_redirect("https://cdn2.example.com/real.png", status_code), _FakeResponse(_png_bytes())],
+    )
 
-    data = _picture_claims("https://cdn.example.com/a.png")
-    data["email"] = unique_user.email
-    assert OpenIDProvider(unique_user.repos.session, data).authenticate() is not None
+    assert _authenticate_with_picture(unique_user, "https://cdn.example.com/a.png") is not None
 
-    # requests itself is told not to follow, and the 3xx is rejected rather than parsed as an image.
-    assert fake_get.call_args.kwargs["allow_redirects"] is False
+    assert _requested_urls(fake_get) == ["https://cdn.example.com/a.png", "https://cdn2.example.com/real.png"]
+    # requests must never follow on its own -- that would skip our per-hop check.
+    assert all(call.kwargs["allow_redirects"] is False for call in fake_get.call_args_list)
+    assert (PrivateUser.get_directory(unique_user.user_id) / "profile.webp").is_file()
+
+
+def test_refuses_redirect_to_a_private_address(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser):
+    """The case Genson was worried about: hop one is public, hop two points inward."""
+    _resolve_hosts(monkeypatch, {"metadata.internal": "169.254.169.254"})
+    unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
+
+    fake_get = _fake_gets(monkeypatch, [_redirect("https://metadata.internal/latest/meta-data/")])
+
+    assert _authenticate_with_picture(unique_user, "https://cdn.example.com/a.png") is not None
+
+    # The redirect target is never requested.
+    assert _requested_urls(fake_get) == ["https://cdn.example.com/a.png"]
+    after = unique_user.repos.users.get_one(unique_user.user_id)
+    assert after is not None
+    assert after.external_avatar_hash is None
+
+
+def test_refuses_redirect_downgrading_to_http(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser):
+    _resolve_hosts(monkeypatch, {})
+    unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
+
+    fake_get = _fake_gets(monkeypatch, [_redirect("http://cdn2.example.com/a.png")])
+
+    assert _authenticate_with_picture(unique_user, "https://cdn.example.com/a.png") is not None
+
+    assert len(_requested_urls(fake_get)) == 1
+    after = unique_user.repos.users.get_one(unique_user.user_id)
+    assert after is not None
+    assert after.external_avatar_hash is None
+
+
+def test_relative_location_is_resolved_against_the_current_url(
+    _oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser
+):
+    """A Location may be relative (RFC 9110); treating it as absolute would break the check."""
+    _resolve_hosts(monkeypatch, {})
+    unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
+
+    fake_get = _fake_gets(monkeypatch, [_redirect("/avatars/real.png"), _FakeResponse(_png_bytes())])
+
+    assert _authenticate_with_picture(unique_user, "https://cdn.example.com/users/1/a.png") is not None
+
+    assert _requested_urls(fake_get) == [
+        "https://cdn.example.com/users/1/a.png",
+        "https://cdn.example.com/avatars/real.png",
+    ]
+
+
+def test_redirect_chain_is_capped(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser):
+    """A loop must terminate rather than spin."""
+    _resolve_hosts(monkeypatch, {})
+    unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
+
+    hops = openid_provider.MAX_PICTURE_REDIRECTS + 2
+    fake_get = _fake_gets(monkeypatch, [_redirect(f"https://cdn.example.com/{i}.png") for i in range(hops)])
+
+    assert _authenticate_with_picture(unique_user, "https://cdn.example.com/a.png") is not None
+
+    assert len(_requested_urls(fake_get)) == openid_provider.MAX_PICTURE_REDIRECTS + 1
+    after = unique_user.repos.users.get_one(unique_user.user_id)
+    assert after is not None
+    assert after.external_avatar_hash is None
+
+
+def test_redirect_without_location_is_refused(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser):
+    _resolve_hosts(monkeypatch, {})
+    unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
+
+    # A 302 carrying no Location: urljoin would resolve to the same URL and spin until the cap.
+    fake_get = _fake_gets(monkeypatch, [_FakeResponse(b"", headers={"location": ""}, status_code=302)])
+
+    assert _authenticate_with_picture(unique_user, "https://cdn.example.com/a.png") is not None
+
+    assert len(_requested_urls(fake_get)) == 1
     after = unique_user.repos.users.get_one(unique_user.user_id)
     assert after is not None
     assert after.external_avatar_hash is None
