@@ -153,6 +153,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
   private streamRecipeCreate(streamRoute: string, payload: object | FormData, onProgress?: (message: string) => void): Promise<RequestResponse<string>> {
     return new Promise((resolve) => {
       const { token } = useMealieAuth();
+      const { locale } = useGlobalI18n();
       const isFormData = payload instanceof FormData;
 
       const sse = new SSE(streamRoute, {
@@ -160,6 +161,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
           // the browser has to set the multipart Content-Type itself, so it includes the boundary
           ...(isFormData ? {} : { "Content-Type": "application/json" }),
           ...(token.value ? { Authorization: `Bearer ${token.value}` } : {}),
+          "Accept-Language": locale.value,
         },
         payload: isFormData ? payload : JSON.stringify(payload),
         withCredentials: true,
