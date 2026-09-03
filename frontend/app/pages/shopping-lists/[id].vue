@@ -182,61 +182,79 @@
         />
       </div>
 
+      <v-text-field
+        :model-value="search"
+        :label="$t('search.search')"
+        :prepend-inner-icon="$globals.icons.search"
+        clearable
+        hide-details
+        density="compact"
+        variant="solo"
+        flat
+        single-line
+        @update:model-value="value => search = value ?? ''"
+        @click:clear="clearSearch"
+      />
+
       <TransitionGroup name="scroll-x-transition">
-        <BaseExpansionPanels v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" start-open>
-          <v-expansion-panel class="shopping-list-section">
-            <v-expansion-panel-title
-              :color="getLabelColor(key)"
-              class="body-1 font-weight-bold section-title"
-            >
-              {{ key }}
-            </v-expansion-panel-title>
-            <v-expansion-panel-text eager>
-              <VueDraggable
-                :model-value="value"
-                handle=".handle"
-                :delay="250"
-                :delay-on-touch-only="true"
-                @start="loadingCounter += 1"
-                @end="loadingCounter -= 1"
-                @update:model-value="updateIndexUncheckedByLabel(key.toString(), $event)"
+        <template v-for="(value, key) in itemsByLabel" :key="key">
+          <BaseExpansionPanels v-if="hasMatches(value)" :v-model="0" start-open>
+            <v-expansion-panel class="shopping-list-section">
+              <v-expansion-panel-title
+                :color="getLabelColor(key)"
+                class="body-1 font-weight-bold section-title"
               >
-                <TransitionGroup name="scroll-x-transition">
-                  <ShoppingListItem
-                    v-for="(item, index) in value"
-                    :key="item.id"
-                    v-model="value[index]"
-                    class="my-2 w-auto"
-                    :edit="editingItem === item.id"
-                    :labels="allLabels || []"
-                    :units="allUnits || []"
-                    :foods="allFoods || []"
-                    :recipes="recipeMap"
-                    @checked="(item) => {
-                      saveListItem(item);
-                      itemCheckedToast(item);
-                    }"
-                    @save="(item) => {
-                      editingItem = undefined;
-                      saveListItem(item);
-                    }"
-                    @delete="deleteListItem(item)"
-                    @view="editingItem = undefined"
-                    @edit="editingItem = item.id"
-                  />
-                </TransitionGroup>
-              </VueDraggable>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-        </BaseExpansionPanels>
+                {{ key }}
+              </v-expansion-panel-title>
+              <v-expansion-panel-text eager>
+                <VueDraggable
+                  :model-value="value"
+                  handle=".handle"
+                  :delay="250"
+                  :delay-on-touch-only="true"
+                  :disabled="isSearching"
+                  @start="loadingCounter += 1"
+                  @end="loadingCounter -= 1"
+                  @update:model-value="updateIndexUncheckedByLabel(key.toString(), $event)"
+                >
+                  <TransitionGroup name="scroll-x-transition">
+                    <template v-for="(item, index) in value" :key="item.id">
+                      <ShoppingListItem
+                        v-if="matchesSearch(item)"
+                        v-model="value[index]"
+                        class="my-2 w-auto"
+                        :edit="editingItem === item.id"
+                        :labels="allLabels || []"
+                        :units="allUnits || []"
+                        :foods="allFoods || []"
+                        :recipes="recipeMap"
+                        @checked="(item) => {
+                          saveListItem(item);
+                          itemCheckedToast(item);
+                        }"
+                        @save="(item) => {
+                          editingItem = undefined;
+                          saveListItem(item);
+                        }"
+                        @delete="deleteListItem(item)"
+                        @view="editingItem = undefined"
+                        @edit="editingItem = item.id"
+                      />
+                    </template>
+                  </TransitionGroup>
+                </VueDraggable>
+              </v-expansion-panel-text>
+            </v-expansion-panel>
+          </BaseExpansionPanels>
+        </template>
       </TransitionGroup>
       <!-- Checked Items -->
-      <v-expansion-panels flat>
-        <v-expansion-panel v-if="listItems.checked && listItems.checked.length > 0">
+      <v-expansion-panels v-model="checkedPanel" flat>
+        <v-expansion-panel v-if="listItems.checked && hasMatches(listItems.checked)">
           <v-expansion-panel-title class="border-solid border-thin py-1">
             <div class="d-flex align-center flex-0-1-100">
               <div class="flex-1-0">
-                {{ $t('shopping-list.items-checked-count', listItems.checked ? listItems.checked.length : 0) }}
+                {{ $t('shopping-list.items-checked-count', visibleCheckedCount) }}
               </div>
               <div class="justify-end">
                 <BaseButtonGroup
@@ -260,7 +278,7 @@
           </v-expansion-panel-title>
           <v-expansion-panel-text eager>
             <TransitionGroup name="scroll-x-transition">
-              <div v-for="(item, idx) in listItems.checked" :key="item.id">
+              <div v-for="(item, idx) in listItems.checked" v-show="matchesSearch(item)" :key="item.id">
                 <ShoppingListItem
                   v-model="listItems.checked[idx]"
                   class="strike-through-note"
@@ -276,6 +294,15 @@
           </v-expansion-panel-text>
         </v-expansion-panel>
       </v-expansion-panels>
+
+      <v-alert
+        v-if="!hasSearchResults"
+        type="info"
+        variant="tonal"
+        density="compact"
+      >
+        {{ $t('search.no-results') }}
+      </v-alert>
     </section>
 
     <!-- Recipe References -->
@@ -423,7 +450,21 @@ const {
   recipeList,
   removeRecipeReferenceToList,
   addRecipeReferenceToList,
+  search,
+  isSearching,
+  matchesSearch,
+  hasMatches,
+  clearSearch,
+  visibleCheckedCount,
+  hasSearchResults,
 } = shoppingListPage;
+
+// Expand the checked section while searching, so an item that has already been
+// checked off can be found and unchecked without expanding the section by hand.
+const checkedPanel = ref<number | undefined>(undefined);
+watch(isSearching, (searching) => {
+  checkedPanel.value = searching ? 0 : undefined;
+});
 </script>
 
 <style>
