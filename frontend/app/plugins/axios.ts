@@ -30,7 +30,7 @@ export default defineNuxtPlugin((nuxtApp) => {
         config.headers.Authorization = `Bearer ${token}`;
       }
       // The server writes the session cookie now, but can't tell it's being framed — and an embedded
-      // deployment needs SameSite=None and a partitioned cookie. So the client flags it.
+      // deployment needs SameSite=None. So the client flags it.
       if (window.self !== window.top) {
         config.headers["X-Mealie-Embedded"] = "true";
       }
