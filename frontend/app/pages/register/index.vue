@@ -117,6 +117,7 @@
               </BaseButton>
               <BaseButton
                 icon-right
+                :disabled="!isTokenValid"
                 @click="provideToken.next"
               >
                 <template #icon>
@@ -374,6 +375,7 @@ const domTokenForm = ref<VForm | null>(null);
 function validateToken() {
   return Boolean(token.value && token.value.trim());
 }
+const isTokenValid = computed(() => validateToken());
 const provideToken = {
   next: async () => {
     if (!safeValidate(domTokenForm as Ref<VForm>)) {
