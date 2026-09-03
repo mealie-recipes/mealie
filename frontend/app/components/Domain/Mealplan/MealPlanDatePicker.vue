@@ -29,11 +29,11 @@
 </template>
 
 <script setup lang="ts">
-import { addMonths, format } from "date-fns";
+import { addMonths, format, isDate } from "date-fns";
 import type { DatePickerEventColorValue } from "vuetify/lib/components/VDatePicker/VDatePickerMonth.mjs";
 import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 
-const selectedDate = defineModel<Date>();
+const selectedDate = defineModel<Date | [Date, Date]>();
 const props = defineProps<{
   entryType?: PlanEntryType;
 }>();
@@ -67,7 +67,9 @@ function hasMealPlanned(date: string): DatePickerEventColorValue {
   const planned = mealplans.value ?? [];
   const dateMatched = planned.filter(meal => meal.date === date);
   const typeMatched = dateMatched.filter(meal => !props.entryType || meal.entryType === props.entryType);
-  const isSelected = selectedDate.value && date === format(selectedDate.value, "yyyy-MM-dd");
+  const earlierDate = isDate(selectedDate.value) ? selectedDate.value : selectedDate.value?.[0];
+  const laterDate = isDate(selectedDate.value) ? selectedDate.value : selectedDate.value?.[1];
+  const isSelected = (earlierDate && date === format(earlierDate, "yyyy-MM-dd")) || (laterDate && date === format(laterDate, "yyyy-MM-dd"));
   if (!dateMatched.length) return false;
   if (typeMatched.length) return isSelected ? "primary-lighten-3" : "primary";
   return isSelected ? "grey-lighten-3" : "grey";
