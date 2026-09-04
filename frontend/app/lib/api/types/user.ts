@@ -154,6 +154,7 @@ export interface PrivateUser {
   loginAttemps?: number;
   lockedAt?: string | null;
   tokensValidAfter?: string | null;
+  externalAvatarHash?: string | null;
 }
 export interface LongLiveTokenOut {
   name: string;
