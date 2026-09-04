@@ -160,7 +160,11 @@ class _LocalServer:
         return self
 
     def __exit__(self, *exc):
+        # `shutdown` only stops the serve_forever loop; without `server_close` the listening
+        # socket stays open and pytest fails the test on the resulting ResourceWarning.
         self.server.shutdown()
+        self.thread.join()
+        self.server.server_close()
 
 
 @pytest.mark.asyncio
