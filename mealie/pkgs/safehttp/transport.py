@@ -105,6 +105,14 @@ class _SafeTransportMixin:
         self._deny = _parse_host_list(deny_hosts)
         if timeout is not None:
             self.timeout = timeout
+
+        # httpx-curl-cffi computes a NOPROXY curl option but then hands the session the
+        # caller's original mapping, so when none is passed the option is dropped. Without it
+        # curl falls back to ambient HTTP_PROXY/HTTPS_PROXY, and a proxied request is resolved
+        # by the proxy -- which would make the pin below inert without anything saying so.
+        # Passing a non-empty mapping keeps the option; the library fills in the right value.
+        kwargs.setdefault("curl_options", {CurlOpt.NOPROXY: "*"})
+
         super().__init__(**kwargs)
 
     def _validate(self, request: httpx.Request) -> list[str] | None:

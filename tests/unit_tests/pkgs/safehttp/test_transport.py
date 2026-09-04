@@ -5,12 +5,14 @@ import threading
 
 import httpx
 import pytest
+from curl_cffi import CurlOpt
 
 from mealie.pkgs import safehttp
 from mealie.pkgs.safehttp import transport as safehttp_transport
 from mealie.pkgs.safehttp.transport import (
     AsyncSafeTransport,
     InvalidDomainError,
+    SafeTransport,
     is_blocked_ip,
 )
 
@@ -187,3 +189,33 @@ def test_sync_post_allows_configured_host():
             allow_hosts=["127.0.0.1"],
         )
         assert resp.status_code == 200
+
+
+# ---------------------------------------------------------------------------
+# Proxy handling
+# ---------------------------------------------------------------------------
+def test_noproxy_is_set_when_no_proxy_is_configured():
+    """
+    Without this, curl silently honors ambient HTTP_PROXY/HTTPS_PROXY -- and a proxied request
+    is resolved by the proxy, so the connection pin would no longer apply.
+    """
+    transport = SafeTransport()
+    assert transport._session.curl_options[CurlOpt.NOPROXY] == "*"
+
+
+def test_noproxy_is_cleared_when_a_proxy_is_configured():
+    """An explicitly configured proxy must apply to every host, env vars notwithstanding."""
+    transport = SafeTransport(proxy="http://proxy:8080")
+    assert transport._session.curl_options[CurlOpt.NOPROXY] == ""
+
+
+def test_pin_and_proxy_options_coexist(monkeypatch):
+    """Applying the pin must not clobber the proxy option living in the same mapping."""
+    _patch_resolver(monkeypatch, ["93.184.216.34"])
+    transport = SafeTransport(proxy="http://proxy:8080")
+
+    transport._apply_pin(transport._validate(_request("https://example.test/")))
+
+    options = transport._session.curl_options
+    assert options[CurlOpt.RESOLVE] == ["example.test:443:93.184.216.34"]
+    assert options[CurlOpt.NOPROXY] == ""
