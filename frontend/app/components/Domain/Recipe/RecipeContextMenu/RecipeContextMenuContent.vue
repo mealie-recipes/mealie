@@ -3,6 +3,7 @@
   <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipeRef" />
   <BaseDialog
     v-model="recipeDeleteDialog"
+    bottom-sheet
     :title="$t('recipe.delete-recipe')"
     color="error"
     :icon="$globals.icons.alertCircle"
@@ -20,6 +21,7 @@
   </BaseDialog>
   <BaseDialog
     v-model="recipeDuplicateDialog"
+    bottom-sheet
     :title="$t('recipe.duplicate')"
     color="primary"
     :icon="$globals.icons.duplicate"
@@ -37,6 +39,7 @@
   </BaseDialog>
   <BaseDialog
     v-model="mealplannerDialog"
+    bottom-sheet
     :title="$t('recipe.add-recipe-to-mealplan')"
     color="primary"
     :icon="$globals.icons.calendar"
@@ -100,19 +103,23 @@
 </template>
 
 <script setup lang="ts">
+import { useClipboard, useShare } from "@vueuse/core";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
 import RecipeDialogPrintPreferences from "~/components/Domain/Recipe/RecipeDialogPrintPreferences.vue";
 import RecipeDialogShare from "~/components/Domain/Recipe/RecipeDialogShare.vue";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useUserApi } from "~/composables/api";
-import { useGroupRecipeActions } from "~/composables/use-group-recipe-actions";
-import { useHouseholdSelf } from "~/composables/use-households";
-import { alert } from "~/composables/use-toast";
-import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
-import type { Recipe } from "~/lib/api/types/recipe";
-import type { GroupRecipeActionOut, ShoppingListSummary } from "~/lib/api/types/household";
-import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 import { useDownloader } from "~/composables/api/use-downloader";
+import { useAddToShoppingListDialog } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
+import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
+import { useGroupRecipeActions } from "~/composables/use-group-recipe-actions";
+import { useGroupSelf } from "~/composables/use-groups";
+import { useHouseholdSelf } from "~/composables/use-households";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
+import { alert } from "~/composables/use-toast";
+import type { GroupRecipeActionOut, HouseholdSummary } from "~/lib/api/types/household";
+import type { PlanEntryType } from "~/lib/api/types/meal-plan";
+import type { Recipe } from "~/lib/api/types/recipe";
+import { isRecipeFullyPublic } from "~/lib/recipe/recipe-visibility";
 
 export interface ContextMenuIncludes {
   delete: boolean;
@@ -176,15 +183,17 @@ const emit = defineEmits<{
   [key: string]: any;
   deleted: [slug: string];
   print: [];
+  mealplanEdit: [];
+  mealplanRemove: [];
 }>();
 
 const api = useUserApi();
+const { open: shoppingListDialog, shoppingLists, getShoppingLists } = useAddToShoppingListDialog();
 
 const printPreferencesDialog = ref(false);
 const shareDialog = ref(false);
 const recipeDeleteDialog = ref(false);
 const mealplannerDialog = ref(false);
-const shoppingListDialog = ref(false);
 const recipeDuplicateDialog = ref(false);
 const recipeName = ref(props.name);
 const loading = ref(false);
@@ -204,14 +213,40 @@ const i18n = useI18n();
 const auth = useMealieAuth();
 const { $globals } = useNuxtApp();
 const { household } = useHouseholdSelf();
+const { group, actions: groupActions } = useGroupSelf();
 const { isOwnGroup } = useLoggedInState();
 
 const route = useRoute();
-const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
+const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const firstDayOfWeek = computed(() => {
   return household.value?.preferences?.firstDayOfWeek || 0;
 });
+
+const { share, isSupported: shareIsSupported } = useShare();
+const { copy, copied, isSupported: clipboardIsSupported } = useClipboard();
+
+function getPlainRecipeLink() {
+  return `${window.location.origin}/g/${groupSlug.value}/r/${props.slug}`;
+}
+
+async function sharePlainLink() {
+  if (shareIsSupported.value) {
+    await share({
+      title: props.name,
+      url: getPlainRecipeLink(),
+    });
+    return;
+  }
+  if (!clipboardIsSupported.value) {
+    alert.error(i18n.t("general.clipboard-not-supported") as string);
+    return;
+  }
+  await copy(getPlainRecipeLink());
+  alert[copied.value ? "success" : "error"](
+    i18n.t(copied.value ? "recipe-share.recipe-link-copied-message" : "general.clipboard-copy-failure") as string,
+  );
+}
 
 // ===========================================================================
 // Context Menu Setup
@@ -288,10 +323,35 @@ menuItems.value = [...menuItems.value, ...props.leadingItems, ...props.appendIte
 // ===========================================================================
 // Context Menu Event Handler
 
-const shoppingLists = ref<ShoppingListSummary[]>();
 const recipeRef = ref<Recipe | undefined>(props.recipe);
 const recipeRefWithScale = computed(() =>
   recipeRef.value ? { scale: props.recipeScale, ...recipeRef.value } : undefined,
+);
+// the recipe may belong to another household in our group, so we can't reuse the current user's
+const recipeHousehold = ref<HouseholdSummary | undefined>();
+
+async function refreshRecipeHousehold() {
+  const householdId = recipeRef.value?.householdId;
+  if (!householdId || !isOwnGroup.value) {
+    recipeHousehold.value = undefined;
+    return;
+  }
+  if (householdId === recipeHousehold.value?.id) {
+    return;
+  }
+  if (householdId === household.value?.id) {
+    recipeHousehold.value = household.value;
+    return;
+  }
+
+  const { data } = await api.households.getOne(householdId);
+  recipeHousehold.value = data || undefined;
+}
+
+watch(() => recipeRef.value?.householdId, refreshRecipeHousehold, { immediate: true });
+
+const isFullyPublic = computed(() =>
+  isRecipeFullyPublic(recipeRef.value, group.value, recipeHousehold.value),
 );
 const isAdminAndNotOwner = computed(() => {
   return (
@@ -315,13 +375,6 @@ for (const [key, value] of Object.entries(props.useItems)) {
   const item = defaultItems[key];
   if (item && (item.isPublic || isOwnGroup.value)) {
     menuItems.value.push(item);
-  }
-}
-
-async function getShoppingLists() {
-  const { data } = await api.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
-  if (data) {
-    shoppingLists.value = data.items ?? [];
   }
 }
 
@@ -380,10 +433,15 @@ async function addRecipeToPlan() {
   });
 
   if (response?.status === 201) {
-    alert.success(i18n.t("recipe.recipe-added-to-mealplan") as string);
+    alert.success(i18n.t("recipe.recipe-added-to-mealplan"), null, {
+      action: {
+        message: i18n.t("general.view"),
+        onClick: () => router.push("/household/mealplan/planner/view"),
+      },
+    });
   }
   else {
-    alert.error(i18n.t("recipe.failed-to-add-recipe-to-mealplan") as string);
+    alert.error(i18n.t("recipe.failed-to-add-recipe-to-mealplan"));
   }
 }
 
@@ -424,8 +482,23 @@ const eventHandlers: { [key: string]: () => void | Promise<any> } = {
       shoppingListDialog.value = true;
     });
   },
-  share: () => {
-    shareDialog.value = true;
+  share: async () => {
+    // resolve everything the visibility check needs, so we don't fall back to a
+    // share token just because the recipe/group/household hadn't loaded yet
+    if (!recipeRef.value) {
+      await refreshRecipe();
+    }
+    if (!group.value) {
+      await groupActions.refresh();
+    }
+    await refreshRecipeHousehold();
+
+    if (isFullyPublic.value) {
+      await sharePlainLink();
+    }
+    else {
+      shareDialog.value = true;
+    }
   },
 };
 

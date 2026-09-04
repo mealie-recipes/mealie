@@ -412,3 +412,33 @@ def test_average_recipe_rating_includes_all_households(
     assert response.status_code == 200
     data = response.json()
     assert data["rating"] == 3.5
+
+
+def test_cannot_read_other_users_ratings_or_favorites_cross_group(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    # g2_user is in a different group entirely
+    response = api_client.get(api_routes.users_id_ratings(unique_user.user_id), headers=g2_user.token)
+    assert response.status_code == 403
+
+    response = api_client.get(api_routes.users_id_favorites(unique_user.user_id), headers=g2_user.token)
+    assert response.status_code == 403
+
+
+def test_cannot_read_other_users_ratings_or_favorites_same_group(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser
+):
+    # h2_user is in the same group but a different household
+    response = api_client.get(api_routes.users_id_ratings(unique_user.user_id), headers=h2_user.token)
+    assert response.status_code == 403
+
+    response = api_client.get(api_routes.users_id_favorites(unique_user.user_id), headers=h2_user.token)
+    assert response.status_code == 403
+
+
+def test_can_read_own_ratings_and_favorites_via_id_route(api_client: TestClient, unique_user: TestUser):
+    response = api_client.get(api_routes.users_id_ratings(unique_user.user_id), headers=unique_user.token)
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.users_id_favorites(unique_user.user_id), headers=unique_user.token)
+    assert response.status_code == 200

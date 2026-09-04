@@ -2,6 +2,7 @@
   <div>
     <BaseDialog
       v-model="discardDialog"
+      bottom-sheet
       :title="$t('general.discard-changes')"
       color="warning"
       :icon="$globals.icons.alertCircle"
@@ -23,6 +24,7 @@
     <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
       <v-card flat class="d-print-none">
         <RecipePageHeader
+          ref="recipeToolbar"
           :recipe="recipe"
           :recipe-scale="scale"
           :landscape="landscape"
@@ -112,6 +114,22 @@
       />
       <RecipePrintContainer :recipe="recipe" :scale="scale" />
     </v-container>
+    <!-- Floating save button when toolbar scrolls out of view -->
+    <v-fab
+      v-if="isEditMode && !toolbarVisible"
+      color="success"
+      location="bottom end"
+      size="large"
+      app
+      appear
+      class="d-print-none"
+      @click="saveRecipe"
+    >
+      <v-icon>{{ $globals.icons.save }}</v-icon>
+      <v-tooltip activator="parent" location="left">
+        {{ $t("general.save") }}
+      </v-tooltip>
+    </v-fab>
     <!-- Cook mode displayes two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same time -->
     <!-- The calc is to account for the navabar height (48px) -->
     <v-sheet
@@ -191,6 +209,7 @@
 </template>
 
 <script setup lang="ts">
+import type { ComponentPublicInstance } from "vue";
 import { invoke, until } from "@vueuse/core";
 import type { RouteLocationNormalized } from "vue-router";
 import RecipeIngredients from "../RecipeIngredients.vue";
@@ -201,7 +220,7 @@ import RecipePageIngredientEditor from "./RecipePageParts/RecipePageIngredientEd
 import RecipePageIngredientToolsView from "./RecipePageParts/RecipePageIngredientToolsView.vue";
 import RecipePageInstructions from "./RecipePageParts/RecipePageInstructions.vue";
 import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
-import RecipePageParseDialog from "./RecipePageParts/RecipePageParseDialog.vue";
+import RecipePageParseDialog from "./RecipePageParts/RecipeParseDialog/RecipePageParseDialog.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageInfoEditor from "./RecipePageParts/RecipePageInfoEditor.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
@@ -211,6 +230,7 @@ import {
   PageMode,
   usePageState,
 } from "~/composables/recipe-page/shared-state";
+import { useCookModeQuery, type BooleanString } from "~/composables/recipe-page/use-cook-mode-query";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe, RecipeCategory, RecipeIngredient, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
@@ -232,7 +252,7 @@ const groupSlug = computed(() => (route.params.groupSlug as string) || auth.user
 
 const router = useRouter();
 const api = useUserApi();
-const { setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isParsing, toggleCookMode, toggleIsParsing }
+const { pageMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isParsing, toggleCookMode, toggleIsParsing }
   = usePageState(recipe.value.slug);
 const { deactivateNavigationWarning } = useNavigationWarning();
 const notLinkedIngredients = computed(() => {
@@ -242,6 +262,26 @@ const notLinkedIngredients = computed(() => {
     );
   });
 });
+
+/** =============================================================
+ * Floating save button — track toolbar visibility
+ */
+const recipeToolbar = ref<ComponentPublicInstance | null>(null);
+const toolbarVisible = ref(true);
+let toolbarObserver: IntersectionObserver | undefined;
+
+onMounted(async () => {
+  await nextTick();
+  const el = recipeToolbar.value?.$el as HTMLElement | undefined;
+  if (!el) return;
+  toolbarObserver = new IntersectionObserver(
+    ([entry]) => { toolbarVisible.value = entry.isIntersecting; },
+    { threshold: 0 },
+  );
+  toolbarObserver.observe(el);
+});
+
+onUnmounted(() => toolbarObserver?.disconnect());
 
 /** =============================================================
  * Recipe Snapshot on Mount
@@ -309,7 +349,6 @@ onBeforeRouteLeave((to) => {
 
 onUnmounted(() => {
   deactivateNavigationWarning();
-  toggleCookMode();
   clearPageState(recipe.value.slug || "");
 });
 const hasLinkedIngredients = computed(() => {
@@ -321,10 +360,15 @@ const hasLinkedIngredients = computed(() => {
  * Set State onMounted
  */
 
-type BooleanString = "true" | "false" | "";
-
 const paramsEdit = useRouteQuery<BooleanString>("edit", "");
 const paramsParse = useRouteQuery<BooleanString>("parse", "");
+const paramsCook = useRouteQuery<BooleanString>("cook", "");
+const { hydrateCookMode } = useCookModeQuery({
+  cookQuery: paramsCook,
+  isEditMode,
+  pageMode,
+  setMode,
+});
 
 onMounted(() => {
   if (paramsEdit.value === "true" && isOwnGroup.value) {
@@ -334,6 +378,8 @@ onMounted(() => {
   if (paramsParse.value === "true" && isOwnGroup.value) {
     toggleIsParsing(true);
   }
+
+  hydrateCookMode();
 });
 
 // When set, the isEditMode watcher skips its URL cleanup because saveRecipe
@@ -378,9 +424,13 @@ async function saveRecipe() {
 }
 
 async function saveParsedIngredients(ingredients: NoUndefinedField<RecipeIngredient[]>) {
+  const returnToEdit = isEditMode.value;
   recipe.value.recipeIngredient = ingredients;
   await saveRecipe();
   toggleIsParsing(false);
+  if (returnToEdit) {
+    setMode(PageMode.EDIT);
+  }
 }
 
 async function deleteRecipe() {

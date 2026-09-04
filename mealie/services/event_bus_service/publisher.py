@@ -1,10 +1,7 @@
 from typing import Protocol
 
-import apprise
 from fastapi.encoders import jsonable_encoder
 
-from mealie.core.config import get_app_settings
-from mealie.pkgs import safehttp
 from mealie.services.event_bus_service.event_types import Event
 
 
@@ -14,6 +11,8 @@ class PublisherLike(Protocol):
 
 class ApprisePublisher:
     def __init__(self, hard_fail=False) -> None:
+        import apprise
+
         asset = apprise.AppriseAsset(
             async_mode=True,
             image_url_mask="https://raw.githubusercontent.com/mealie-recipes/mealie/9571816ac4eed5beacfc0abf6c03eff1427fd0eb/frontend/static/icons/android-chrome-maskable-512x512.png",
@@ -43,6 +42,9 @@ class WebhookPublisher:
         self.hard_fail = hard_fail
 
     def publish(self, event: Event, notification_urls: list[str]):
+        from mealie.core.config import get_app_settings
+        from mealie.pkgs import safehttp
+
         event_payload = jsonable_encoder(event)
         settings = get_app_settings()
         for url in notification_urls:

@@ -8,8 +8,6 @@ from pydantic import UUID4
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin.debug import DebugResponse
-from mealie.schema.openai.general import OpenAIText
-from mealie.services.openai import OpenAILocalImage, OpenAIService
 
 router = APIRouter(prefix="/debug")
 
@@ -21,6 +19,9 @@ class AdminDebugController(BaseAdminController):
         provider = self.repos.group_ai_providers.get_one(provider_id)
         if not provider:
             return DebugResponse(success=False, response="Provider not found")
+
+        from mealie.schema.openai.general import OpenAIText
+        from mealie.services.openai import OpenAILocalImage, OpenAIService
 
         with get_temporary_path() as temp_path:
             if image:

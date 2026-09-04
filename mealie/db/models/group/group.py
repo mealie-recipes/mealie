@@ -35,7 +35,9 @@ class Group(SqlAlchemyBase, BaseMixins):
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
     name: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False, unique=True)
     slug: FilterableColumn[str | None] = mapped_column(sa.String, index=True, unique=True)
-    households: Mapped[list["Household"]] = orm.relationship("Household", back_populates="group")
+    households: Mapped[list["Household"]] = orm.relationship(
+        "Household", back_populates="group", cascade="all, delete-orphan"
+    )
     users: Mapped[list["User"]] = orm.relationship("User", back_populates="group")
     categories: Mapped[list[Category]] = orm.relationship(Category, secondary=group_to_categories, single_parent=True)
 
@@ -60,7 +62,9 @@ class Group(SqlAlchemyBase, BaseMixins):
     )
 
     # Recipes
-    recipes: Mapped[list["RecipeModel"]] = orm.relationship("RecipeModel", back_populates="group")
+    recipes: Mapped[list["RecipeModel"]] = orm.relationship(
+        "RecipeModel", back_populates="group", cascade="all, delete-orphan"
+    )
 
     # CRUD From Others
     common_args = {

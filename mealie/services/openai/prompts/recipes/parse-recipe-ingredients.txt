@@ -3,9 +3,11 @@ Parse ingredient strings into components. You will receive a list of one or more
 When parsing:
 - If uncertain about quantity, unit, or food, put the entire string in the note field
 - Respect grammar rules for multiple languages
+- Do not translate. Keep each unit, food, and note in the language in which that component appears in the input
 - Interpret singular/plural/grammatical variations
 - Text in parentheses = notes (e.g., "3 potatoes (roughly chopped)" → note: "roughly chopped")
 - Correct common typos (e.g., "potatos" → "potatoes")
 - Recognize units: tablespoon, teaspoon, gram, tsp, tbsp, oz, sprig, can, bundle, bunch, unit, cube, package, pinch
 - For ranges (e.g., "3-5", "1 to 2"), use the lower number
 - All text must appear somewhere, or otherwise be accounted for; if converting "2 dozen" → "24", don't put "dozen" elsewhere. If you're unsure, put extra text in the notes
+- When a single input ingredient contains multiple quantities or phrases such as "plus", "and", or commas, do not split it into multiple ingredients. Return exactly one parsed ingredient for that input and keep the secondary quantity or preparation detail in the note field. For example, "1 tablespoon fresh lemon juice, plus 2 teaspoons zest" must be returned as one ingredient, not two.

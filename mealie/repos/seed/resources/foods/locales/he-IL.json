@@ -65,7 +65,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "חלפיניו",
-                "plural_name": "jalapeños"
+                "plural_name": "חלפיניו"
             },
             "avocado": {
                 "aliases": [],
@@ -132,8 +132,8 @@
             "baby greens": {
                 "aliases": [],
                 "description": "",
-                "name": "baby greens",
-                "plural_name": "baby greens"
+                "name": "עלי בייבי",
+                "plural_name": "עלי בייבי"
             },
             "pumpkin": {
                 "aliases": [],
@@ -157,13 +157,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "אספרגוס",
-                "plural_name": "asparagus"
+                "plural_name": "אספרגוס"
             },
             "kale": {
                 "aliases": [],
                 "description": "",
                 "name": "כרוב על",
-                "plural_name": "kale"
+                "plural_name": "קייל"
             },
             "arugula": {
                 "aliases": [],
@@ -2017,8 +2017,8 @@
             "cream cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "cream cheese",
-                "plural_name": "cream cheese"
+                "name": "גבינת שמנת",
+                "plural_name": "גבינת שמנת"
             },
             "sharp cheddar cheese": {
                 "aliases": [
@@ -13725,11 +13725,11 @@
                 "name": "anchovy stock",
                 "plural_name": "anchovy stock"
             },
-            "cream of chicken soup mix:": {
+            "cream of chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "cream of chicken soup mix",
+                "plural_name": "cream of chicken soup mix"
             },
             "noodle soup mix": {
                 "aliases": [],

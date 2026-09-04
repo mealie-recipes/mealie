@@ -20,15 +20,30 @@
         },
         "and-amount": "и {amount}",
         "or-ingredient": "или {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Създаване на рецепта с изкуствен интелект...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Създаване на рецепта от транскрипция с изкуствен интелект...",
             "creating-recipe-from-webpage-data": "Създаване на рецепта от данни от уеб страница...",
             "downloading-image": "Изтегляне на изображениeтo...",
             "downloading-video": "Изтегляне на видеото...",
             "extracting-recipe-data": "Извличане на данни за рецептата...",
             "fetching-webpage": "Извличане на уеб страница...",
-            "transcribing-audio-with-ai": "Транскрибиране на аудио с изкуствен интелект..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Транскрибиране на аудио с изкуствен интелект...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
@@ -47,6 +62,7 @@
         "permission_denied": "Нямате разрешение да изпълните това действие",
         "recursive-recipe-link": "Рецептата не може да се позовава на самата себе си, нито пряко, нито косвено",
         "no-entry-found": "Търсената страница не е намерена",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Проверка на интегритета на данните",
         "username-conflict-error": "Потребителското име вече е заето",
         "email-conflict-error": "Този имейл адрес вече се използва"

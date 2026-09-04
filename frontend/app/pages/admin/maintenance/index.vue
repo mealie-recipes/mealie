@@ -2,6 +2,7 @@
   <v-container fluid class="narrow-container">
     <BaseDialog
       v-model="state.storageDetails"
+      bottom-sheet
       :title="$t('admin.maintenance.storage-details')"
       :icon="$globals.icons.folderOutline"
     >

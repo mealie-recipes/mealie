@@ -17,12 +17,16 @@ from mealie.services.parser_services.parser_utils import extract_quantity_from_s
 
 logger = get_logger("recipe-scraper")
 
+NO_IMAGE = "no image"
+"""Placeholder stored on a recipe that has no image. Not a URL, and must never be fetched."""
+
 
 MATCH_DIGITS = re.compile(r"\d+([.,]\d+)?")
 """ Allow for commas as decimals (common in Europe) """
 
 MATCH_ISO_STR = re.compile(
-    r"^P((\d+)Y)?((\d+)M)?((?P<days>\d+)D)?" r"T((?P<hours>\d+)H)?((?P<minutes>\d+)M)?((?P<seconds>\d+(?:\.\d+)?)S)?$",
+    r"^P((\d+)Y)?((\d+)M)?((?P<weeks>\d+)W)?((?P<days>\d+)D)?"
+    r"(T((?P<hours>\d+)H)?((?P<minutes>\d+)M)?((?P<seconds>\d+(?:\.\d+)?)S)?)?$",
 )
 """ Match Duration Strings """
 
@@ -47,9 +51,13 @@ def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recip
         dict: cleaned recipe dictionary
     """
     if not isinstance(recipe_data, dict):
-        # format the recipe like a scraped dictionary
+        # format the recipe like a scraped dictionary. Ingredients are flattened to their display
+        # text, but keep their section titles, which are otherwise lost on the way through
         recipe_data_dict = recipe_data.model_dump(by_alias=True)
-        recipe_data_dict["recipeIngredient"] = [ing.display for ing in recipe_data.recipe_ingredient]
+        recipe_data_dict["recipeIngredient"] = [
+            {"title": ing.title, "note": ing.display} if ing.title else {"note": ing.display}
+            for ing in recipe_data.recipe_ingredient
+        ]
 
         recipe_data = recipe_data_dict
 
@@ -102,7 +110,7 @@ def clean_string(text: str | list | int | float) -> str:
     return cleaned_text
 
 
-def clean_image(image: str | list | dict | None = None, default: str = "no image") -> list[str]:
+def clean_image(image: str | list | dict | None = None, default: str = NO_IMAGE) -> list[str]:
     """
     image attempts to parse the image field from a recipe and return a string. Currenty
 
@@ -166,6 +174,7 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
             #
             return [
                 {"text": _sanitize_instruction_text(instruction["text"])}
+                | ({"title": instruction["title"]} if instruction.get("title") else {})
                 for instruction in steps_object
                 if "text" in instruction and instruction["text"].strip()
             ]
@@ -220,11 +229,14 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
             #    },
             # }
             #
+            # Some sites (e.g. NYT Cooking) emit empty HowToSection placeholders
+            # with no itemListElement key, or use "item" per the schema.org spec.
+            # Use .get() with both fallbacks so those sections are skipped gracefully.
             steps_object = typing.cast(list[dict[str, str]], steps_object)
             return clean_instructions(
                 functools.reduce(
                     operator.concat,  # type: ignore
-                    [x["itemListElement"] for x in steps_object],
+                    [x.get("itemListElement", x.get("item", [])) for x in steps_object],
                     [],
                 )
             )
@@ -404,6 +416,7 @@ def clean_time(time_entry: str | timedelta | int | float | None, translator: Tra
         - `None` - returns None
         - `"PT1H"` - returns "1 hour"
         - `"PT1H30M"` - returns "1 hour 30 minutes"
+        - `"P1D"` - returns "1 day"
         - `timedelta(hours=1, minutes=30)` - returns "1 hour 30 minutes"
         - `{"minValue": "PT1H30M"}` - returns "1 hour 30 minutes"
         - `30` - as a `int` or `float` assumed to be in minutes, returns "30 minutes"
@@ -469,7 +482,7 @@ def parse_duration(iso_duration: str) -> timedelta:
     # microseconds internally, and therefore we'd have to
     # convert parsed years and months to specific number of days.
 
-    times = {"days": 0, "hours": 0, "minutes": 0, "seconds": 0}
+    times = {"weeks": 0, "days": 0, "hours": 0, "minutes": 0, "seconds": 0}
     for unit in times.keys():
         if m.group(unit):
             times[unit] = int(float(m.group(unit)))

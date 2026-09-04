@@ -101,7 +101,7 @@ def test_post_test_webhook(
         mock_calls.append((args, kwargs))
         return MockResponse()
 
-    monkeypatch.setattr("mealie.services.event_bus_service.publisher.safehttp.post", mock_post)
+    monkeypatch.setattr("mealie.pkgs.safehttp.post", mock_post)
 
     # Create a webhook and post it
     response = api_client.post(

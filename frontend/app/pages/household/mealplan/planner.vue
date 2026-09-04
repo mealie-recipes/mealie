@@ -2,91 +2,106 @@
   <v-container>
     <RecipeDialogAddToShoppingList
       v-if="shoppingLists"
-      v-model="state.shoppingListDialog"
+      v-model="shoppingListDialog"
       :recipes="weekRecipesWithScales"
       :shopping-lists="shoppingLists"
     />
-    <v-menu
-      v-model="state.picker"
-      :close-on-content-click="false"
-      transition="scale-transition"
-      offset-y
-      min-width="auto"
-    >
-      <template #activator="{ props }">
-        <v-btn
-          color="primary"
-          class="mb-2"
-          v-bind="props"
-        >
-          <v-icon start>
-            {{ $globals.icons.calendar }}
-          </v-icon>
-          {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
-        </v-btn>
-      </template>
+    <div :class="`d-flex ga-2 ${$vuetify.display.xs ? 'justify-center' : 'justify-start'}`">
+      <v-btn :icon="$globals.icons.chevronLeft" flat rounded="md" density="comfortable" @click="() => changeWeek(-1)" />
+      <v-menu
+        v-model="state.picker"
+        :close-on-content-click="false"
+        transition="scale-transition"
+        offset-y
+        min-width="auto"
+      >
+        <template #activator="{ props }">
+          <v-btn
+            color="primary"
+            class="mb-2"
+            v-bind="props"
+          >
+            <v-icon start>
+              {{ $globals.icons.calendar }}
+            </v-icon>
+            {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
+          </v-btn>
+        </template>
 
-      <v-card>
-        <v-date-picker
-          v-model="state.range"
-          hide-header
-          :multiple="'range'"
-          :first-day-of-week="firstDayOfWeek"
-          :local="$i18n.locale"
-        />
-
-        <v-card-text>
-          <v-number-input
-            v-model="numberOfDaysPast"
-            :min="0"
-            control-variant="stacked"
-            inset
-            :label="$t('meal-plan.numberOfDaysPast-label')"
-            :hint="$t('meal-plan.numberOfDaysPast-hint')"
-            persistent-hint
+        <v-card>
+          <v-date-picker
+            v-model="state.range"
+            hide-header
+            :multiple="'range'"
+            :first-day-of-week="firstDayOfWeek"
+            :local="$i18n.locale"
           />
-        </v-card-text>
 
-        <v-card-text>
-          <v-number-input
-            v-model="numberOfDays"
-            :min="1"
-            control-variant="stacked"
-            inset
-            :label="$t('meal-plan.numberOfDays-label')"
-            :hint="$t('meal-plan.numberOfDays-hint')"
-            persistent-hint
-          />
-        </v-card-text>
-      </v-card>
-    </v-menu>
+          <v-card-text>
+            <v-number-input
+              v-model="numberOfDaysPast"
+              :min="0"
+              control-variant="stacked"
+              inset
+              :label="$t('meal-plan.numberOfDaysPast-label')"
+              :hint="$t('meal-plan.numberOfDaysPast-hint')"
+              persistent-hint
+            />
+          </v-card-text>
 
-    <div class="d-flex flex-wrap align-center justify-space-between mb-2">
-      <v-tabs style="width: fit-content;">
-        <v-tab :to="{ name: TABS.view, query: route.query }">
-          {{ $t('meal-plan.meal-planner') }}
-        </v-tab>
-        <v-tab :to="{ name: TABS.edit, query: route.query }">
-          {{ $t('general.edit') }}
-        </v-tab>
-      </v-tabs>
-      <BaseButton
-        v-if="route.name === TABS.view"
-        color="info"
-        :icon="$globals.icons.cartCheck"
-        :text="$t('meal-plan.add-all-to-list')"
-        :disabled="!hasRecipes"
-        :loading="state.addAllLoading"
-        class="ml-auto mr-4"
-        @click="addAllToList"
-      />
-      <ButtonLink
-        :icon="$globals.icons.calendar"
-        :to="`/household/mealplan/settings`"
-        :text="$t('general.settings')"
+          <v-card-text>
+            <v-number-input
+              v-model="numberOfDays"
+              :min="1"
+              control-variant="stacked"
+              inset
+              :label="$t('meal-plan.numberOfDays-label')"
+              :hint="$t('meal-plan.numberOfDays-hint')"
+              persistent-hint
+            />
+          </v-card-text>
+        </v-card>
+      </v-menu>
+      <v-btn :icon="$globals.icons.chevronRight" flat rounded="md" density="comfortable" @click="() => changeWeek(1)" />
+    </div>
+    <div class="d-flex justify-end">
+      <BaseButtonGroup
+        class="d-flex"
+        :buttons="[
+          edit ? {
+            icon: $globals.icons.calendar,
+            text: $t('general.view'),
+            event: 'view',
+          } : {
+            icon: $globals.icons.edit,
+            text: $t('general.edit'),
+            event: 'edit',
+          },
+          {
+            icon: $globals.icons.dotsVertical,
+            text: '',
+            event: 'three-dot',
+            children: [
+              {
+                icon: $globals.icons.cartCheck,
+                text: $t('meal-plan.add-all-to-list'),
+                event: 'add-to-list',
+                disabled: !hasRecipes,
+              },
+              {
+                icon: $globals.icons.cog,
+                text: $t('general.settings'),
+                event: 'settings',
+              },
+            ],
+          },
+        ]"
+        @add-to-list="addAllToList"
+        @edit="router.push({ name: TABS.edit, query: route.query })"
+        @view="router.push({ name: TABS.view, query: route.query })"
+        @settings="router.push('/household/mealplan/settings')"
       />
     </div>
-
     <div>
       <NuxtPage
         :mealplans="mealsByDate"
@@ -99,13 +114,12 @@
 </template>
 
 <script setup lang="ts">
-import { isSameDay, addDays, parseISO, format, isValid } from "date-fns";
+import { addDays, differenceInCalendarDays, format, isSameDay, isValid, parseISO } from "date-fns";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
-import { useHouseholdSelf } from "~/composables/use-households";
+import { useAddToShoppingListDialog } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
 import { useMealplans } from "~/composables/use-group-mealplan";
+import { useHouseholdSelf } from "~/composables/use-households";
 import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
-import type { ShoppingListSummary } from "~/lib/api/types/household";
-import { useUserApi } from "~/composables/api";
 
 const TABS = {
   view: "household-mealplan-planner-view",
@@ -115,11 +129,19 @@ const TABS = {
 const route = useRoute();
 const router = useRouter();
 const i18n = useI18n();
-const api = useUserApi();
-const { household } = useHouseholdSelf();
+const { household, actions: householdActions } = useHouseholdSelf();
+const { shoppingLists, open: shoppingListDialog, addAllToList } = useAddToShoppingListDialog();
 
 useSeoMeta({
   title: i18n.t("meal-plan.dinner-this-week"),
+});
+
+// useHouseholdSelf() caches data in a module-level singleton for the lifetime of the tab,
+// so revisiting this page via client-side navigation can otherwise use a stale
+// firstDayOfWeek value if household preferences were changed elsewhere (e.g. Admin
+// Households panel) in the same session. Force a revalidation whenever this page is entered.
+onMounted(() => {
+  householdActions.refresh();
 });
 
 const mealPlanPreferences = useUserMealPlanPreferences();
@@ -140,6 +162,10 @@ if (route.path === "/household/mealplan/planner") {
   });
 }
 
+const edit = computed(() => {
+  return route.path.startsWith("/household/mealplan/planner/edit");
+});
+
 function safeParseISO(date: string, fallback: Date | undefined = undefined) {
   try {
     const parsed = parseISO(date);
@@ -159,15 +185,20 @@ const state = ref({
   start: initialStartDate,
   picker: false,
   end: initialEndDate,
-  shoppingListDialog: false,
-  addAllLoading: false,
 });
-
-const shoppingLists = ref<ShoppingListSummary[]>();
 
 const firstDayOfWeek = computed(() => {
   return household.value?.preferences?.firstDayOfWeek || 0;
 });
+
+function changeWeek(step: number) {
+  const { start, end } = weekRange.value;
+  const stepSize = differenceInCalendarDays(end, start) + 1;
+  state.value.range = [
+    addDays(start, step * stepSize),
+    addDays(end, step * stepSize),
+  ];
+}
 
 const weekRange = computed(() => {
   const sorted = [...state.value.range].sort((a, b) => a.getTime() - b.getTime());
@@ -241,41 +272,10 @@ const hasRecipes = computed(() => {
 });
 
 const weekRecipesWithScales = computed(() => {
-  const allRecipes: any[] = [];
-  for (const day of mealsByDate.value) {
-    for (const meal of day.meals) {
-      if (meal.recipe) {
-        allRecipes.push(meal.recipe);
-      }
-    }
-  }
-  return allRecipes.map(recipe => ({
-    scale: 1,
-    ...recipe,
-  }));
+  return mealsByDate.value
+    .flatMap(({ meals }) => meals)
+    .map(({ recipe }) => recipe)
+    .filter(recipe => recipe)
+    .map(recipe => ({ scale: 1, ...recipe }));
 });
-
-async function getShoppingLists() {
-  const { data } = await api.shopping.lists.getAll(1, -1, { orderBy: "name", orderDirection: "asc" });
-  if (data) {
-    shoppingLists.value = data.items as ShoppingListSummary[] ?? [];
-  }
-}
-
-async function addAllToList() {
-  state.value.addAllLoading = true;
-  await getShoppingLists();
-  state.value.shoppingListDialog = true;
-  state.value.addAllLoading = false;
-}
 </script>
-
-<style lang="css">
-.left-color-border {
-  border-left: 5px solid var(--v-primary-base) !important;
-}
-
-.bottom-color-border {
-  border-bottom: 2px solid var(--v-primary-base) !important;
-}
-</style>

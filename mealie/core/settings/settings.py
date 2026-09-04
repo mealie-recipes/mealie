@@ -2,8 +2,10 @@ import logging
 import os
 import secrets
 from datetime import UTC, datetime
+from enum import StrEnum
 from pathlib import Path
 from typing import Annotated, Literal, NamedTuple
+from urllib.parse import urlparse
 
 from dateutil.tz import tzlocal
 from pydantic import PlainSerializer, field_validator
@@ -13,6 +15,20 @@ from mealie.core.settings.themes import Theme
 
 from .db_providers import AbstractDBProvider, db_provider_factory
 from .static import PACKAGE_DIR
+
+
+class ScraperProxyMode(StrEnum):
+    """How the scraper uses a configured proxy."""
+
+    always = "always"
+    """Route every request through the proxy (IP-based blocks trigger on the first request)."""
+    fallback = "fallback"
+    """Try direct first; only retry through the proxy when a block is detected."""
+
+    @classmethod
+    def _missing_(cls, value: object) -> "ScraperProxyMode":
+        # Default any unrecognized configuration value to the safest, most useful mode.
+        return cls.always
 
 
 class ScheduleTime(NamedTuple):
@@ -385,6 +401,7 @@ class AppSettings(AppLoggingSettings):
     OIDC_CLIENT_SECRET: MaskedNoneString = None
     OIDC_CONFIGURATION_URL: str | None = None
     OIDC_SIGNUP_ENABLED: bool = True
+    OIDC_REQUIRES_EMAIL_VERIFICATION: bool = True
     OIDC_USER_GROUP: str | None = None
     OIDC_ADMIN_GROUP: str | None = None
     OIDC_AUTO_REDIRECT: bool = False
@@ -441,6 +458,42 @@ class AppSettings(AppLoggingSettings):
     """
 
     # ===============================================
+    # Scraper Configuration
+
+    SCRAPER_PROXY_URL: str | None = None
+    """Optional proxy for all outbound recipe/image scraping requests (e.g. ``http://user:pass@host:port``).
+    Routing through a proxy with a better IP reputation helps bypass IP-based bot blocks. Unset disables it."""
+
+    SCRAPER_PROXY_MODE: ScraperProxyMode = ScraperProxyMode.always
+    """How the scraper uses ``SCRAPER_PROXY_URL`` (when set): ``always`` routes every request through the
+    proxy (recommended, since IP-based blocks trigger on the first request); ``fallback`` tries a direct
+    request first and only retries through the proxy when a block is detected (useful for metered proxies).
+    Any unrecognized value falls back to ``always``."""
+
+    SCRAPER_FLARESOLVERR_URL: str | None = None
+    """Optional base URL of a self-hosted FlareSolverr instance (e.g. ``http://flaresolverr:8191``). When
+    set, HTML scrapes that remain blocked after the direct/proxy attempts are retried through FlareSolverr,
+    which drives a real browser to solve JS/Cloudflare challenges. Mealie neither ships nor manages it.
+    Image downloads never use it, since FlareSolverr returns HTML rather than binary content."""
+
+    SCRAPER_FLARESOLVERR_TIMEOUT: int = 60
+    """Maximum seconds FlareSolverr may spend solving a single challenge before giving up."""
+
+    @field_validator("SCRAPER_PROXY_URL", "SCRAPER_FLARESOLVERR_URL")
+    @classmethod
+    def validate_scraper_url(cls, v: str | None, info) -> str | None:
+        """Fail fast at startup if a scraper URL is set but malformed (e.g. missing the scheme)."""
+        if not v:
+            return v
+
+        parsed = urlparse(v)
+        if not parsed.scheme or not parsed.netloc:
+            raise ValueError(
+                f"{info.field_name} must be a full URL including scheme and host, e.g. 'http://host:port' (got '{v}')"
+            )
+        return v
+
+    # ===============================================
     # Web Concurrency
 
     WORKER_PER_CORE: int = 1
@@ -463,6 +516,11 @@ class AppSettings(AppLoggingSettings):
 
     TLS_PRIVATE_KEY_PATH: str | os.PathLike[str] | None = None
     """Path where the private key resides."""
+
+    # ===============================================
+    # YtDLP Configuration
+    YTDLP_COOKIEFILE: str | None = None
+    """Path to a cookies file for yt_dlp (used for video transcription scraping)"""
 
 
 def app_settings_constructor(data_dir: Path, production: bool, env_file: Path, env_encoding="utf-8") -> AppSettings:

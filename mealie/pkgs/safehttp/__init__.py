@@ -1,3 +1,10 @@
+from .fetch import (
+    BROWSER_IMPERSONATIONS,
+    SCRAPER_TIMEOUT,
+    FetchResult,
+    ForceTimeoutException,
+    resilient_fetch,
+)
 from .transport import (
     AsyncSafeTransport,
     ForcedTimeoutException,
@@ -14,4 +21,9 @@ __all__ = [
     "InvalidDomainError",
     "is_blocked_ip",
     "post",
+    "BROWSER_IMPERSONATIONS",
+    "SCRAPER_TIMEOUT",
+    "FetchResult",
+    "ForceTimeoutException",
+    "resilient_fetch",
 ]

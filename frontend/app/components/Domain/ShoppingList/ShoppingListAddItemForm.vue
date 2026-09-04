@@ -1,5 +1,6 @@
 <template>
   <v-navigation-drawer
+    ref="target"
     permanent
     rounded="t-xl"
     location="bottom"
@@ -69,6 +70,7 @@ import type { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/type
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 import ShoppingListItemDetails from "./ShoppingListItemDetails.vue";
+import { onClickOutside } from "@vueuse/core";
 
 // modelValue as reactive v-model
 const listItem = defineModel<ShoppingListItemCreate | ShoppingListItemOut>({ required: true });
@@ -107,6 +109,11 @@ async function expandAndFocus() {
     foodInputRef.value?.focus();
   }, 200);
 }
+
+const target = ref();
+// Autocomplete menus are teleported outside the drawer, so selecting an item
+// would otherwise register as an outside click and collapse the form
+onClickOutside(target, () => rail.value = true, { ignore: [".v-overlay-container"] });
 
 watch(
   () => listItem.value.quantity,

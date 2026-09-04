@@ -26,6 +26,23 @@ class CredentialsRequest(BaseModel):
     remember_me: bool = False
 
 
+class OIDCNativeConfig(BaseModel):
+    """Parameters a native client needs to start an OIDC authorization request itself."""
+
+    authorization_endpoint: str
+    client_id: str
+    scope: str
+
+
+class NativeOIDCTokenRequest(BaseModel):
+    """An authorization code captured by a native client, for server-side exchange."""
+
+    code: str
+    code_verifier: str
+    redirect_uri: str
+    nonce: str | None = None
+
+
 class CredentialsRequestForm:
     """Class that represents a user's credentials from the login form"""
 

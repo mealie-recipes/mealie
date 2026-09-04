@@ -3,6 +3,7 @@
     <UserInviteDialog v-model="inviteDialog" />
     <BaseDialog
       v-model="state.deleteDialog"
+      bottom-sheet
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
@@ -148,7 +149,7 @@ function deleteUser(id: string) {
   deleteUserMixin(id);
 
   if (isUserOwnAccount.value) {
-    auth.refresh();
+    auth.getSession();
   }
 }
 
