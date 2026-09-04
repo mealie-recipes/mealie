@@ -253,6 +253,15 @@ const { shoppingListDialog, shoppingListIngredientDialog, shoppingListShowAllTog
 const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
 const selectedShoppingList = ref<ShoppingListSummary | null>(null);
 
+function shouldCheckIngredient(ingredient: RecipeIngredient) {
+  const householdsWithFood = ingredient.food?.householdsWithIngredientFood || [];
+  if (householdsWithFood.includes(currentHouseholdSlug.value)) {
+    return false;
+  }
+
+  return true;
+}
+
 watch([dialog, () => preferences.value.viewAllLists], () => {
   if (dialog.value) {
     currentHouseholdSlug.value = auth.user.value?.householdSlug || "";
@@ -320,9 +329,8 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
         subRefIngs.push(subIng);
       }
       else {
-        const householdsWithFood = subIng.food?.householdsWithIngredientFood || [];
         ownIngs.push({
-          checked: !householdsWithFood.includes(currentHouseholdSlug.value),
+          checked: shouldCheckIngredient(subIng),
           ingredient: subIng,
         });
       }
@@ -377,9 +385,8 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
         subRefIngs.push(ing);
       }
       else {
-        const householdsWithFood = ing.food?.householdsWithIngredientFood || [];
         ownIngs.push({
-          checked: !householdsWithFood.includes(currentHouseholdSlug.value),
+          checked: shouldCheckIngredient(ing),
           ingredient: ing,
         });
       }

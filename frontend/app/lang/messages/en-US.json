@@ -434,6 +434,13 @@
     "note": "Note",
     "nutrition": "Nutrition",
     "linked-ingredients": "Linked Ingredients",
+    "pantry-check": "Pantry Check",
+    "pantry-on-hand-count": "No ingredients on hand|One ingredient on hand|{count} ingredients on hand",
+    "pantry-needed-count": "No ingredients needed|One ingredient needed|{count} ingredients needed",
+    "pantry-all-ingredients-on-hand": "Every ingredient is marked on hand.",
+    "pantry-parse-ingredients-description": "Parse this recipe's ingredients into foods to compare them with your pantry.",
+    "pantry-add-needed-to-shopping-list": "Add Needed to Shopping List",
+    "pantry-dismiss": "Dismiss pantry check",
     "original-url": "Original URL",
     "perform-time": "Cook Time",
     "prep-time": "Prep Time",
@@ -766,6 +773,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
     "no-shopping-lists-found": "No Shopping Lists Found",
+    "failed-to-load-shopping-lists": "Shopping lists could not be loaded.",
     "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
