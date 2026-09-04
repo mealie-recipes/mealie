@@ -7,6 +7,7 @@
   >
     <BaseDialog
       v-model="deleteDialog"
+      bottom-sheet
       :title="$t('recipe.delete-recipe')"
       color="error"
       :icon="$globals.icons.alertCircle"

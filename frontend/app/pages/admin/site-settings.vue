@@ -21,6 +21,7 @@
     <!-- Bug Report -->
     <BaseDialog
       v-model="bugReportDialog"
+      bottom-sheet
       :title="$t('settings.bug-report')"
       :width="800"
       :icon="$globals.icons.github"

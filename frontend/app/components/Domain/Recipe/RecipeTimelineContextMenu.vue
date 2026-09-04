@@ -19,6 +19,7 @@
 
     <BaseDialog
       v-model="recipeEventDeleteDialog"
+      bottom-sheet
       :title="$t('events.delete-event')"
       color="error"
       :icon="$globals.icons.alertCircle"

@@ -72,37 +72,36 @@
       <v-divider />
 
       <template #card-actions>
-        <BaseButton
-          cancel
-          @click="dialog = false"
-        />
-        <v-spacer />
-        <div class="d-flex flex-wrap justify-end">
+        <div class="d-flex flex-grow-1">
           <BaseButton
-            class="my-1"
-            color="info"
-            @click="autoSetReferences"
-          >
-            <template #icon>
-              {{ $globals.icons.robot }}
-            </template>
-            {{ $t("recipe.auto") }}
-          </BaseButton>
-          <BaseButton
-            class="ml-2 my-1"
-            save
-            @click="setIngredientIds"
+            cancel
+            @click="dialog = false"
           />
-          <BaseButton
-            v-if="availableNextStep"
-            class="ml-2 my-1"
-            @click="saveAndOpenNextLinkIngredients"
-          >
-            <template #icon>
-              {{ $globals.icons.forward }}
-            </template>
-            {{ $t("recipe.nextStep") }}
-          </BaseButton>
+          <v-spacer />
+          <div class="d-flex flex-wrap justify-end ga-2">
+            <BaseButton
+              color="info"
+              @click="autoSetReferences"
+            >
+              <template #icon>
+                {{ $globals.icons.robot }}
+              </template>
+              {{ $t("recipe.auto") }}
+            </BaseButton>
+            <BaseButton
+              save
+              @click="setIngredientIds"
+            />
+            <BaseButton
+              v-if="availableNextStep"
+              @click="saveAndOpenNextLinkIngredients"
+            >
+              <template #icon>
+                {{ $globals.icons.forward }}
+              </template>
+              {{ $t("recipe.nextStep") }}
+            </BaseButton>
+          </div>
         </div>
       </template>
     </BaseDialog>
