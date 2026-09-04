@@ -416,3 +416,45 @@ async def test_flaresolverr_failure_degrades_gracefully(monkeypatch):
 
     assert result is None
     assert len(calls) == 1  # it tried, then gave up cleanly
+
+
+# ---------------------------------------------------------------------------
+# Transport construction
+# ---------------------------------------------------------------------------
+def test_build_transport_applies_operator_host_lists(monkeypatch):
+    # The scraper builds its own transports, so the operator's allow/deny lists have to be
+    # threaded through here or scraping silently loses them.
+    captured: dict = {}
+
+    monkeypatch.setattr(
+        fetch,
+        "get_app_settings",
+        lambda: SimpleNamespace(
+            http_allow_list=["internal.example"],
+            http_disallow_list=["blocked.example"],
+        ),
+    )
+    monkeypatch.setattr(fetch, "AsyncSafeTransport", lambda **kwargs: captured.update(kwargs))
+
+    fetch._build_transport("chrome")
+
+    assert captured["allow_hosts"] == ["internal.example"]
+    assert captured["deny_hosts"] == ["blocked.example"]
+    assert "proxy" not in captured
+
+
+def test_build_transport_passes_proxy_through(monkeypatch):
+    captured: dict = {}
+
+    monkeypatch.setattr(
+        fetch,
+        "get_app_settings",
+        lambda: SimpleNamespace(http_allow_list=[], http_disallow_list=[]),
+    )
+    monkeypatch.setattr(fetch, "AsyncSafeTransport", lambda **kwargs: captured.update(kwargs))
+
+    fetch._build_transport("chrome", "http://proxy:8080")
+
+    assert captured["proxy"] == "http://proxy:8080"
+    assert captured["allow_hosts"] == []
+    assert captured["deny_hosts"] == []
