@@ -647,6 +647,40 @@ def test_order_by_last_made(unique_user: TestUser, h2_user: TestUser):
     assert [item.id for item in h2_query.items] == [recipe_2.id, recipe_1.id]
 
 
+def test_order_by_name_is_accent_folded(unique_user: TestUser):
+    # Names chosen so that raw code-point sorting (the previous behavior) would place the
+    # umlaut/accented entries after "Zebra". Accent-folded sorting must instead place them
+    # next to their base letter: "ärtsoppa" near "a", "Über" near "u". See GH #6853.
+    names = ["Zebra", "ärtsoppa", "Apple", "Über"]
+    recipes = [
+        unique_user.repos.recipes.create(Recipe(user_id=unique_user.user_id, group_id=unique_user.group_id, name=name))
+        for name in names
+    ]
+    recipe_ids = ", ".join(str(recipe.id) for recipe in recipes)
+
+    ascending = unique_user.repos.recipes.page_all(
+        PaginationQuery(
+            page=1,
+            per_page=-1,
+            order_by="name",
+            order_direction=OrderDirection.asc,
+            query_filter=f"id IN [{recipe_ids}]",
+        )
+    )
+    assert [item.name for item in ascending.items] == ["Apple", "ärtsoppa", "Über", "Zebra"]
+
+    descending = unique_user.repos.recipes.page_all(
+        PaginationQuery(
+            page=1,
+            per_page=-1,
+            order_by="name",
+            order_direction=OrderDirection.desc,
+            query_filter=f"id IN [{recipe_ids}]",
+        )
+    )
+    assert [item.name for item in descending.items] == ["Zebra", "Über", "ärtsoppa", "Apple"]
+
+
 def test_coalesce_last_made(unique_user: TestUser):
     dt = datetime.now(UTC)
 

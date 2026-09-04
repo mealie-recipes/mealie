@@ -26,7 +26,7 @@ from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_
 from mealie.schema.recipe.recipe_ingredient import IngredientFood
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponseItem
 from mealie.schema.recipe.recipe_tool import RecipeToolOut
-from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.response.pagination import OrderByNullPosition, OrderDirection, PaginationQuery
 from mealie.services.query_filter.builder import QueryFilterBuilder
 
 from ..db.models._model_base import SqlAlchemyBase
@@ -91,6 +91,20 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             ),
         )
         return sa.cast(effective_rating, sa.Float)
+
+    def add_order_attr_to_query(
+        self,
+        query: sa.Select,
+        order_attr: orm.InstrumentedAttribute,
+        order_dir: OrderDirection,
+        order_by_null: OrderByNullPosition | None,
+    ) -> sa.Select:
+        # Sort recipe names by their normalized (accent-folded, lowercased) form so that
+        # accented and umlaut characters sort next to their base letter (e.g. "Über" near
+        # "U") instead of after "Z" by raw code point. See GH #6853.
+        if order_attr is RecipeModel.name:
+            order_attr = RecipeModel.name_normalized
+        return super().add_order_attr_to_query(query, order_attr, order_dir, order_by_null)
 
     def create(self, document: Recipe) -> Recipe:  # type: ignore
         max_retries = 10
