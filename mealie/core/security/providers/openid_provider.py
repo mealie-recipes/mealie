@@ -1,13 +1,16 @@
+from __future__ import annotations
+
 import hashlib
-import ipaddress
 import shutil
-import socket
 from datetime import timedelta
 from pathlib import Path
-from urllib.parse import urljoin, urlparse
+from typing import TYPE_CHECKING
+from urllib.parse import urlparse
 from uuid import uuid4
 
-import requests
+if TYPE_CHECKING:
+    import httpx
+
 from authlib.oidc.core import UserInfo
 from pydantic import UUID4
 from sqlalchemy.orm.session import Session
@@ -154,15 +157,36 @@ class OpenIDProvider(AuthProvider[UserInfo]):
             claims.add(settings.OIDC_GROUPS_CLAIM)
         return claims
 
-    def _is_safe_picture_url(self, url: str) -> bool:
+    @staticmethod
+    def _picture_allow_hosts() -> list[str]:
         """
-        Vets the picture claim before we make a request to it.
+        Hosts the avatar fetch may reach even when they resolve to a private address.
+
+        The provider's own host is one: Mealie already contacts it on every login, and
+        self-hosted setups routinely run it on a private network. `HTTP_DISALLOW_LIST` still
+        wins over this, since `safehttp` checks the deny list first.
+        """
+        settings = get_app_settings()
+        allow = list(settings.http_allow_list)
+
+        if settings.OIDC_CONFIGURATION_URL:
+            provider_host = urlparse(settings.OIDC_CONFIGURATION_URL).hostname
+            if provider_host:
+                allow.append(provider_host)
+
+        return allow
+
+    def _is_safe_picture_scheme(self, url: str) -> bool:
+        """
+        Vets the picture claim's scheme before we make a request to it.
 
         The claim is not necessarily set by the provider -- IdPs that let users edit their own
         profile would otherwise hand any user a request-forgery primitive -- so the URL must use
-        HTTPS and resolve to a public address. The exception is the provider's own host, which
-        Mealie already contacts on every login and which self-hosted setups routinely run on a
-        private network, often over plain HTTP.
+        HTTPS. The exception is the provider's own host, which self-hosted setups routinely run
+        over plain HTTP.
+
+        Which addresses the URL is allowed to reach is enforced by `safehttp` at connect time,
+        per redirect hop, rather than here.
         """
         settings = get_app_settings()
         parsed = urlparse(url)
@@ -177,58 +201,59 @@ class OpenIDProvider(AuthProvider[UserInfo]):
             self._logger.warning("[OIDC] refusing to fetch profile image over a non-HTTPS URL")
             return False
 
-        try:
-            addresses = {info[4][0] for info in socket.getaddrinfo(host, None)}
-        except (socket.gaierror, UnicodeError):
-            # `UnicodeError`, not `gaierror`, is what an unencodable hostname raises.
-            return False
-
-        # `is_global` is false for private, loopback and link-local ranges, so a single check
-        # covers RFC1918, 127/8, and the 169.254.169.254 cloud metadata endpoint.
-        if not addresses or any(not ipaddress.ip_address(address).is_global for address in addresses):
-            self._logger.warning("[OIDC] refusing to fetch profile image from a non-public address")
-            return False
-
         return True
 
-    def _fetch_picture(self, url: str) -> requests.Response:
+    def _enforce_picture_scheme(self, request: httpx.Request) -> None:
         """
-        Fetches `url`, following redirects only to hosts that pass the same vetting.
+        Re-checks the scheme on every hop, including redirects.
 
-        `requests` follows redirects itself by default, which would let a vetted URL hand us off
-        to a host nobody checked -- the validation has to be re-applied per hop, not once up
-        front. So we follow them ourselves and run every target through `_is_safe_picture_url`
-        before requesting it.
+        httpx follows the redirect chain for us, so without this an https URL could hand us off
+        to a plain-http host and downgrade the fetch.
         """
-        for _ in range(MAX_PICTURE_REDIRECTS + 1):
-            response = requests.get(url, timeout=15, stream=True, allow_redirects=False)
-            if not response.is_redirect:
+        if not self._is_safe_picture_scheme(str(request.url)):
+            raise ValueError(f"refusing to fetch profile image from {request.url.scheme} URL")
+
+    def _fetch_picture(self, url: str) -> bytes:
+        """
+        Fetches `url` through the SSRF-protected transport and returns the body.
+
+        `safehttp` resolves the host, vets every address it resolves to, and then pins the
+        connection to those addresses, so a rebinding DNS answer cannot redirect us between the
+        check and the connect. httpx re-enters the transport for each redirect hop, so every hop
+        is vetted and pinned the same way -- which is why the redirect chain no longer has to be
+        walked by hand here.
+        """
+        import httpx
+
+        from mealie.pkgs import safehttp
+
+        settings = get_app_settings()
+        transport = safehttp.SafeTransport(
+            log=self._logger,
+            allow_hosts=self._picture_allow_hosts(),
+            deny_hosts=settings.http_disallow_list,
+            timeout=15,
+        )
+
+        with httpx.Client(
+            transport=transport,
+            follow_redirects=True,
+            max_redirects=MAX_PICTURE_REDIRECTS,
+            event_hooks={"request": [self._enforce_picture_scheme]},
+        ) as client:
+            with client.stream("GET", url) as response:
                 response.raise_for_status()
-                return response
-
-            location = response.headers.get("location", "")
-            # The body is streamed, so an intermediate response holds its connection open.
-            response.close()
-
-            if not location:
-                raise ValueError("redirect without a Location header")
-
-            # A Location may be relative (RFC 9110), so resolve it against the URL we just asked.
-            url = urljoin(url, location)
-            if not self._is_safe_picture_url(url):
-                raise ValueError("refusing to follow redirect to an unvetted host")
-
-        raise ValueError(f"profile image exceeded {MAX_PICTURE_REDIRECTS} redirects")
+                return self._read_capped(response)
 
     @staticmethod
-    def _read_capped(response: requests.Response) -> bytes:
+    def _read_capped(response: httpx.Response) -> bytes:
         """Reads the body, refusing anything over `MAX_PICTURE_BYTES`."""
         declared_length = response.headers.get("content-length")
         if declared_length and declared_length.isdigit() and int(declared_length) > MAX_PICTURE_BYTES:
             raise ValueError(f"declared content-length {declared_length} exceeds {MAX_PICTURE_BYTES} bytes")
 
         content = bytearray()
-        for chunk in response.iter_content(chunk_size=8192):
+        for chunk in response.iter_bytes(chunk_size=8192):
             content.extend(chunk)
             # Servers that omit or understate Content-Length are caught by the running total.
             if len(content) > MAX_PICTURE_BYTES:
@@ -243,7 +268,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
         # The claim is attacker-controlled on IdPs that let users edit their own profile, and a
         # value that trips up parsing or resolution must skip the avatar, never fail the login.
         try:
-            if not self._is_safe_picture_url(picture):
+            if not self._is_safe_picture_scheme(picture):
                 return
 
             repos = get_repositories(self.session, group_id=None, household_id=None)
@@ -256,8 +281,7 @@ class OpenIDProvider(AuthProvider[UserInfo]):
             if user.external_avatar_hash == picture_hash:
                 return
 
-            response = self._fetch_picture(picture)
-            content = self._read_capped(response)
+            content = self._fetch_picture(picture)
 
             with get_temporary_path() as temp_path:
                 temp_img = Path(temp_path).joinpath(str(uuid4()))
