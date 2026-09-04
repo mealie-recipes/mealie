@@ -33,7 +33,7 @@
           color="grey"
           @click="emit('cancel')"
         >
-          {{ cancelText }}
+          {{ cancelLabel }}
         </v-btn>
         <v-spacer v-if="!$vuetify.display.xs" />
         <slot name="custom-card-action" />
@@ -60,7 +60,7 @@
           :disabled="submitDisabled || loading"
           @click="emit('submit')"
         >
-          {{ submitText }}
+          {{ submitLabel }}
           <template
             v-if="submitIcon"
             #icon
@@ -74,7 +74,7 @@
 </template>
 
 <script setup lang="ts">
-import { useNuxtApp } from "#app";
+import { useGlobalI18n } from "~/composables/use-global-i18n";
 
 interface DialogProps {
   color?: string;
@@ -101,7 +101,7 @@ interface DialogEmits {
 }
 
 // Using TypeScript interface with withDefaults for props
-withDefaults(defineProps<DialogProps>(), {
+const props = withDefaults(defineProps<DialogProps>(), {
   color: "primary",
   title: "Modal Title",
   icon: null,
@@ -109,11 +109,7 @@ withDefaults(defineProps<DialogProps>(), {
 
   // submit
   submitIcon: null,
-  submitText: () => useNuxtApp().$i18n.t("general.create"),
   submitDisabled: false,
-
-  // cancel
-  cancelText: () => useNuxtApp().$i18n.t("general.cancel"),
 
   // actions
   canDelete: false,
@@ -121,6 +117,11 @@ withDefaults(defineProps<DialogProps>(), {
   canSubmit: false,
 });
 const emit = defineEmits<DialogEmits>();
+
+const i18n = useGlobalI18n();
+
+const submitLabel = computed(() => props.submitText ?? i18n.t("general.create"));
+const cancelLabel = computed(() => props.cancelText ?? i18n.t("general.cancel"));
 </script>
 
 <style scoped>
