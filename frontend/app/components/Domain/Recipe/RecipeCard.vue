@@ -125,7 +125,7 @@ const props = withDefaults(defineProps<Props>(), {
   description: null,
   rating: 0,
   ratingColor: "secondary",
-  image: "abc123",
+  image: undefined,
   tags: () => [],
   imageHeight: 200,
 });

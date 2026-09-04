@@ -9,55 +9,65 @@
       max-width="600px"
       max-height="40%"
     >
-      <v-card-text class="pt-4">
-        <p>
-          {{ activeText }}
-        </p>
-        <v-divider class="my-4" />
-        <template v-if="Object.keys(groupedUnusedIngredients).length > 0">
-          <h4 class="ml-1">
-            {{ $t("recipe.unlinked") }}
-          </h4>
-          <template v-for="(ingredients, title) in groupedUnusedIngredients" :key="title">
-            <h4 v-if="title" class="py-3 ml-1 pl-4">
-              {{ title }}
-            </h4>
-            <v-checkbox-btn
-              v-for="ing in ingredients"
-              :key="ing.referenceId"
-              v-model="activeRefs"
-              :value="ing.referenceId"
-              class="ml-4"
-            >
-              <template #label>
-                <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+      <div class="grid">
+        <div class="sticky">
+          <v-card flat style="max-height: 40dvh; overflow-y: auto;">
+            <v-card-text>
+              <p>
+                {{ activeText }}
+              </p>
+            </v-card-text>
+          </v-card>
+          <v-divider />
+        </div>
+        <v-card flat>
+          <v-card-text>
+            <template v-if="Object.keys(groupedUnusedIngredients).length > 0">
+              <h4 class="ml-1">
+                {{ $t("recipe.unlinked") }}
+              </h4>
+              <template v-for="(ingredients, title) in groupedUnusedIngredients" :key="title">
+                <h4 v-if="title" class="py-3 ml-1 pl-4">
+                  {{ title }}
+                </h4>
+                <v-checkbox-btn
+                  v-for="ing in ingredients"
+                  :key="ing.referenceId"
+                  v-model="activeRefs"
+                  :value="ing.referenceId"
+                  class="ml-4"
+                >
+                  <template #label>
+                    <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+                  </template>
+                </v-checkbox-btn>
               </template>
-            </v-checkbox-btn>
-          </template>
-        </template>
+            </template>
 
-        <template v-if="Object.keys(groupedUsedIngredients).length > 0">
-          <h4 class="py-3 ml-1">
-            {{ $t("recipe.linked-to-other-step") }}
-          </h4>
-          <template v-for="(ingredients, title) in groupedUsedIngredients" :key="title">
-            <h4 v-if="title" class="py-3 ml-1 pl-4">
-              {{ title }}
-            </h4>
-            <v-checkbox-btn
-              v-for="ing in ingredients"
-              :key="ing.referenceId"
-              v-model="activeRefs"
-              :value="ing.referenceId"
-              class="ml-4"
-            >
-              <template #label>
-                <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+            <template v-if="Object.keys(groupedUsedIngredients).length > 0">
+              <h4 class="py-3 ml-1">
+                {{ $t("recipe.linked-to-other-step") }}
+              </h4>
+              <template v-for="(ingredients, title) in groupedUsedIngredients" :key="title">
+                <h4 v-if="title" class="py-3 ml-1 pl-4">
+                  {{ title }}
+                </h4>
+                <v-checkbox-btn
+                  v-for="ing in ingredients"
+                  :key="ing.referenceId"
+                  v-model="activeRefs"
+                  :value="ing.referenceId"
+                  class="ml-4"
+                >
+                  <template #label>
+                    <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+                  </template>
+                </v-checkbox-btn>
               </template>
-            </v-checkbox-btn>
-          </template>
-        </template>
-      </v-card-text>
+            </template>
+          </v-card-text>
+        </v-card>
+      </div>
 
       <v-divider />
 
@@ -779,6 +789,23 @@ function openImageUpload(index: number) {
 </script>
 
 <style lang="css" scoped>
+.grid {
+  display: grid;
+  gap: 0.5rem;
+  height: 100%;
+  box-sizing: border-box;
+
+  > * {
+    overflow-y: auto;
+  }
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
 .v-card--link:before {
   background: none;
 }
