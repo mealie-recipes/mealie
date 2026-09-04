@@ -29,8 +29,12 @@ export function useParseIngredientsDialog(
   const foodStore = useFoodStore();
   const foodData = useFoodData();
 
-  const parserPreferences = useParsingPreferences();
+  // The natural language parser is trained on English recipes, so it isn't a sensible default for
+  // other languages: it recognises the quantity but leaves the unit in the food name.
+  const isEnglishLocale = computed(() => (i18n.locale.value || "").toLowerCase().startsWith("en"));
+  const parserPreferences = useParsingPreferences(isEnglishLocale.value ? "nlp" : "brute");
   const parser = ref<Parser>(parserPreferences.value.parser || "nlp");
+  const showNlpLanguageHint = computed(() => parser.value === "nlp" && !isEnglishLocale.value);
   const dontShowInfoPage = ref(parserPreferences.value.dontShowInfoPage);
   const availableParsers = computed(() => {
     return [
@@ -397,6 +401,7 @@ export function useParseIngredientsDialog(
     availableParsers,
     parserPreferences,
     parser,
+    showNlpLanguageHint,
     dontShowInfoPage,
     confidenceThreshold,
     parsedIngs,
