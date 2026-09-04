@@ -751,6 +751,8 @@ def test_malformed_picture_claim_does_not_break_login(
     _oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser, picture: str
 ):
     """A claim that trips up parsing or resolution must skip the avatar, not fail the login."""
+    unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
+
     fake_get = MagicMock()
     monkeypatch.setattr(openid_provider.requests, "get", fake_get)
 
