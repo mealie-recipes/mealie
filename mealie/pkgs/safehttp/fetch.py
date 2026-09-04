@@ -96,14 +96,20 @@ def body_indicates_challenge(content: bytes) -> bool:
 
 
 def _build_transport(impersonate: str, proxy: str | None = None) -> AsyncSafeTransport:
+    settings = get_app_settings()
     kwargs: dict = {
         "impersonate": impersonate,
         "default_headers": True,
         # disable SSL verification since we can handle untrusted data and some sites don't have certs
         # (this also covers the proxy connection, so no separate proxy-verify knob is needed)
         "verify": False,
+        "allow_hosts": settings.http_allow_list,
+        "deny_hosts": settings.http_disallow_list,
     }
     if proxy:
+        # The transport still validates the target host, but it cannot pin the connection: curl
+        # hands the hostname to the proxy, which does its own resolution. Routing egress through a
+        # proxy is an explicit operator choice, so that trade-off is theirs to make.
         kwargs["proxy"] = proxy
     return AsyncSafeTransport(**kwargs)
 
