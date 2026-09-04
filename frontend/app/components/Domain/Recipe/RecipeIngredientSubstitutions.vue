@@ -9,12 +9,11 @@
       <v-btn
         v-bind="menuProps"
         icon
-        variant="text"
-        size="x-small"
+        variant="plain"
         :aria-label="$t('recipe.substitutions')"
         @click.stop
       >
-        <v-icon size="small">
+        <v-icon>
           {{ $globals.icons.swapHorizontal }}
         </v-icon>
       </v-btn>
