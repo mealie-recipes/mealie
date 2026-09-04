@@ -4,7 +4,32 @@
       name="activator"
       v-bind="{ open }"
     />
+    <v-bottom-sheet
+      v-if="bottomSheet && $vuetify.display.xs"
+      v-model="dialog"
+      content-class="rounded-t-xl"
+      :content-props="{
+        style: 'overflow: hidden',
+      }"
+      :max-width="maxWidth ?? undefined"
+      @keydown.enter="submitOnEnter"
+      @click:outside="emit('cancel')"
+      @keydown.esc="emit('cancel')"
+    >
+      <BaseDialogContent v-bind="bindings">
+        <template #default>
+          <slot v-bind="{ submitEvent }" />
+        </template>
+        <template #card-actions>
+          <slot name="card-actions" />
+        </template>
+        <template #custom-card-action>
+          <slot name="custom-card-action" />
+        </template>
+      </BaseDialogContent>
+    </v-bottom-sheet>
     <v-dialog
+      v-else
       v-model="dialog"
       :width="width"
       :max-width="maxWidth ?? undefined"
@@ -14,86 +39,17 @@
       @click:outside="emit('cancel')"
       @keydown.esc="emit('cancel')"
     >
-      <v-card height="100%" :loading="loading">
-        <template #loader="{ isActive }">
-          <v-progress-linear
-            :active="isActive"
-            indeterminate
-          />
-        </template>
-        <v-toolbar
-          dark
-          density="comfortable"
-          :color="color"
-          class="px-3 position-relative top-0 left-0 w-100"
-        >
-          <v-icon size="large">
-            {{ icon }}
-          </v-icon>
-          <v-toolbar-title class="headline">
-            {{ title }}
-          </v-toolbar-title>
-        </v-toolbar>
-
-        <div style="flex: 1 1 auto; min-height: 0; overflow: auto">
+      <BaseDialogContent v-bind="bindings">
+        <template #default>
           <slot v-bind="{ submitEvent }" />
-        </div>
-
-        <v-spacer />
-        <v-divider />
-
-        <v-card-actions :class="$vuetify.display.xs ? 'pb-4' : 'undefined'">
-          <slot name="card-actions">
-            <v-btn
-              variant="text"
-              color="grey"
-              @click="
-                dialog = false;
-                emit('cancel');
-              "
-            >
-              {{ cancelText }}
-            </v-btn>
-            <v-spacer />
-
-            <slot name="custom-card-action" />
-            <BaseButton
-              v-if="canDelete"
-              delete
-              @click="deleteEvent"
-            />
-            <BaseButton
-              v-if="canConfirm"
-              :color="color"
-              type="submit"
-              :disabled="submitDisabled"
-              @click="
-                emit('confirm');
-                dialog = false;
-              "
-            >
-              <template #icon>
-                {{ $globals.icons.check }}
-              </template>
-              {{ $t("general.confirm") }}
-            </BaseButton>
-            <BaseButton
-              v-if="canSubmit"
-              type="submit"
-              :disabled="submitDisabled || loading"
-              @click="submitEvent"
-            >
-              {{ submitText }}
-              <template
-                v-if="submitIcon"
-                #icon
-              >
-                {{ submitIcon }}
-              </template>
-            </BaseButton>
-          </slot>
-        </v-card-actions>
-      </v-card>
+        </template>
+        <template #card-actions>
+          <slot name="card-actions" />
+        </template>
+        <template #custom-card-action>
+          <slot name="custom-card-action" />
+        </template>
+      </BaseDialogContent>
     </v-dialog>
   </div>
 </template>
@@ -111,6 +67,7 @@ interface DialogProps {
   loading?: boolean;
   top?: boolean | null;
   keepOpen?: boolean;
+  bottomSheet?: boolean;
 
   // submit
   submitIcon?: string | null;
@@ -142,6 +99,7 @@ const props = withDefaults(defineProps<DialogProps>(), {
   loading: false,
   top: null,
   keepOpen: false,
+  bottomSheet: false,
 
   // submit
   submitIcon: null,
@@ -210,19 +168,31 @@ function deleteEvent() {
 
 function open() {
   dialog.value = true;
-  logDeprecatedProp("open");
 }
 
-/* function close() {
-  dialog.value = false;
-  logDeprecatedProp("close");
-} */
-
-function logDeprecatedProp(val: string) {
-  console.warn(
-    `[BaseDialog] The method '${val}' is deprecated. Please use v-model="value" to manage state instead.`,
-  );
-}
+const bindings = computed(() => ({
+  color: props.color,
+  title: props.title,
+  icon: props.icon,
+  loading: props.loading,
+  submitIcon: props.submitIcon,
+  submitText: props.submitText,
+  submitDisabled: props.submitDisabled,
+  cancelText: props.cancelText,
+  canDelete: props.canDelete,
+  canConfirm: props.canConfirm,
+  canSubmit: props.canSubmit,
+  onCancel: () => {
+    emit("cancel");
+    dialog.value = false;
+  },
+  onConfirm: () => {
+    emit("confirm");
+    dialog.value = false;
+  },
+  onSubmit: submitEvent,
+  onDelete: deleteEvent,
+}));
 </script>
 
 <style>

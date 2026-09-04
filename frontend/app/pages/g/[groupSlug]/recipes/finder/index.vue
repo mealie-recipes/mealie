@@ -159,7 +159,6 @@
                           v-if="isOwnGroup"
                           v-model="state.settings.includeFoodsOnHand"
                           density="compact"
-                          size="small"
                           hide-details
                           class="my-auto"
                           :label="$t('recipe-finder.include-ingredients-on-hand')"
@@ -168,7 +167,6 @@
                           v-if="isOwnGroup"
                           v-model="state.settings.includeToolsOnHand"
                           density="compact"
-                          size="small"
                           hide-details
                           class="my-auto"
                           :label="$t('recipe-finder.include-tools-on-hand')"
@@ -606,8 +604,8 @@ const recipeSuggestions = computed<RecipeSuggestions>(() => {
 
 watchDebounced(
   [selectedFoods, selectedTools, state.settings], async () => {
-    // don't search for suggestions if no foods are selected
-    if (!selectedFoods.value.length) {
+    // don't search for suggestions if no filter are selected
+    if (!selectedFoods.value.length && !selectedTools.value.length && !state.settings.queryFilter) {
       recipeResponseItems.value = [];
       state.recipesReady = true;
       return;
@@ -663,6 +661,11 @@ const queryFilterBuilderFields: FieldDefinition[] = [
     name: "last_made",
     label: i18n.t("general.last-made"),
     type: "relativeDate",
+  },
+  {
+    name: "rating",
+    label: i18n.t("general.rating"),
+    type: "number",
   },
 ];
 

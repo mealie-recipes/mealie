@@ -21,29 +21,29 @@
         "and-amount": "a {amount}",
         "or-ingredient": "nebo {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
-            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
-            "image-provider-not-enabled": "AI image services are not enabled",
-            "no-recipe-found": "No recipe was found in the provided source",
-            "no-source": "No content, images, or URL were provided",
-            "provider-returned-nothing": "The AI provider did not return a recipe",
-            "unknown-error": "Something went wrong while creating the recipe. Please try again",
-            "unreadable-source": "Unable to read any content from the provided source",
-            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+            "ai-not-enabled": "AI služby nejsou povoleny",
+            "ai-request-failed": "Poskytovatel AI nemohl požadavek dokončit. Zkuste to prosím znovu",
+            "image-provider-not-enabled": "AI obrazové služby nejsou povoleny",
+            "no-recipe-found": "V poskytnutém zdroji nebyl nalezen žádný recept",
+            "no-source": "Nebyl poskytnut žádný obsah, obrázky nebo URL",
+            "provider-returned-nothing": "Poskytovatel AI nevrátil recept",
+            "unknown-error": "Při vytváření receptu nastala chyba. Zkuste to prosím znovu",
+            "unreadable-source": "Ze zadaného zdroje nelze číst žádný obsah",
+            "video-download-failed": "Video nelze stáhnout. Může být soukromé, odstraněno nebo z nepodporovaného webu"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Vytváření receptu...",
             "creating-recipe-from-transcript-with-ai": "Vytváření receptu pomocí AI přepisu...",
             "creating-recipe-from-webpage-data": "Vytváření receptu z webových stránek...",
             "downloading-image": "Stahování obrázku...",
             "downloading-video": "Stahování videa...",
             "extracting-recipe-data": "Extrahování dat receptu...",
             "fetching-webpage": "Načítání webové stránky...",
-            "organizing-recipe": "Organizing recipe...",
-            "reading-images-with-ai": "Reading images with AI...",
-            "reading-source-with-ai": "Reading source with AI...",
+            "organizing-recipe": "Organizování receptu...",
+            "reading-images-with-ai": "Čtení obrázků s AI...",
+            "reading-source-with-ai": "Čtení zdroje s AI...",
             "transcribing-audio-with-ai": "Přepisování zvuku pomocí AI...",
-            "translating-recipe": "Translating recipe..."
+            "translating-recipe": "Překládání receptu..."
         }
     },
     "mealplan": {
@@ -62,7 +62,7 @@
         "permission_denied": "Nemáte oprávnění k provedení této akce",
         "recursive-recipe-link": "Recept se nemůže sám sebe přímo ani nepřímo odkazovat",
         "no-entry-found": "Požadovaný prostředek nebyl nalezen",
-        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
+        "rate-limit-error": "Poskytovatel AI momentálně limituje počet požadavků. Počkejte prosím chvíli a zkuste to znovu",
         "integrity-error": "Chyba integrity databáze",
         "username-conflict-error": "Toto uživatelské jméno je již používáno",
         "email-conflict-error": "Tento e-mail je již používán"

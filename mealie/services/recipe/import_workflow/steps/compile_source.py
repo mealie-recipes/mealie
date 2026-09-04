@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+from mealie.core.root_logger import get_logger
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.services.openai.content import truncate_source_parts
 from mealie.services.scraper.fetch import safe_scrape_html
@@ -45,6 +46,7 @@ class CompileSourceStep(WorkflowStep):
 
     def __init__(self, compilers: list[type[SourceCompiler]] | None = None) -> None:
         self.compilers = DEFAULT_SOURCE_COMPILERS if compilers is None else compilers
+        self.logger = get_logger()
 
     async def _compile(
         self, ctx: WorkflowContext, source_type: SourceType, content: str | None = None
@@ -60,7 +62,17 @@ class CompileSourceStep(WorkflowStep):
             if compiler.progress_key:
                 await ctx.report_progress(compiler.progress_key)
 
-            if compiled := await compiler.compile():
+            try:
+                compiled = await compiler.compile()
+            except Exception:
+                # `can_compile` judges the shape of the source, not whether it can actually be read.
+                # yt-dlp recognises every cooking.nytimes.com/recipes/<id> URL, for instance, but
+                # most of those pages carry no video at all. Hand the source to the next compiler —
+                # and, for a URL, on to fetching the page as HTML — rather than failing the import.
+                self.logger.exception("Failed to compile source with %s", CompilerClass.__name__)
+                continue
+
+            if compiled:
                 return compiled
 
         return None
