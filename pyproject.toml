@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.25.0"
+version = "3.25.1"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -39,7 +39,7 @@ dependencies = [
     "pydantic-settings==2.15.0",
     "pillow-heif==1.5.0",
     "pyjwt==2.13.0",
-    "openai==3.5.0",
+    "openai==3.6.0",
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.8.19",
@@ -61,12 +61,12 @@ docs = [
     "mkdocs-material==9.7.7",
 ]
 dev = [
-    "coverage==7.15.4",
+    "coverage==7.16.0",
     "coveragepy-lcov==0.1.2",
     "mkdocs-material==9.7.7",
     "mypy==2.3.1",
     "pre-commit==4.6.2",
-    "pylint==4.0.7",
+    "pylint==4.0.8",
     "pytest==9.1.1",
     "pytest-asyncio==1.4.0",
     "rich==15.0.0",
