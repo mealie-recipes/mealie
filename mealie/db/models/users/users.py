@@ -68,6 +68,9 @@ class User(SqlAlchemyBase, BaseMixins):
     household: Mapped["Household"] = orm.relationship("Household", back_populates="users")
 
     cache_key: Mapped[str | None] = mapped_column(String, default="1234")
+    # Digest of the OIDC picture claim the stored avatar was built from, so repeat logins
+    # don't re-download an image that hasn't changed.
+    external_avatar_hash: Mapped[str | None] = mapped_column(String, default=None)
     login_attemps: Mapped[int | None] = mapped_column(Integer, default=0)
     locked_at: Mapped[datetime | None] = mapped_column(NaiveDateTime, default=None)
     tokens_valid_after: Mapped[datetime | None] = mapped_column(NaiveDateTime, default=None)

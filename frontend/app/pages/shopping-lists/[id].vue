@@ -5,8 +5,9 @@
   >
     <BaseDialog
       v-model="state.checkAllDialog"
+      bottom-sheet
       :title="$t('general.confirm')"
-      :icon="$globals.icons.checkboxOutline"
+      :icon="$globals.icons.checkboxMultipleMarkedOutline"
       can-confirm
       @confirm="checkAll"
     >
@@ -17,8 +18,9 @@
 
     <BaseDialog
       v-model="state.uncheckAllDialog"
+      bottom-sheet
       :title="$t('general.confirm')"
-      :icon="$globals.icons.checkboxBlankOutline"
+      :icon="$globals.icons.checkboxMultipleBlankOutline"
       can-confirm
       @confirm="uncheckAll"
     >
@@ -29,6 +31,7 @@
 
     <BaseDialog
       v-model="state.deleteCheckedDialog"
+      bottom-sheet
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       can-confirm
@@ -231,7 +234,7 @@
         </BaseExpansionPanels>
       </TransitionGroup>
       <!-- Checked Items -->
-      <v-expansion-panels flat>
+      <v-expansion-panels flat rounded>
         <v-expansion-panel v-if="listItems.checked && listItems.checked.length > 0">
           <v-expansion-panel-title class="border-solid border-thin py-1">
             <div class="d-flex align-center flex-0-1-100">

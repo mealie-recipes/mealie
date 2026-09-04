@@ -3,6 +3,7 @@
     <!-- Merge Dialog -->
     <BaseDialog
       v-model="mergeDialog"
+      bottom-sheet
       :icon="$globals.icons.foods"
       :title="$t('data-pages.foods.combine-food')"
       can-confirm
@@ -40,6 +41,7 @@
     <!-- Seed Dialog -->
     <BaseDialog
       v-model="seedDialog"
+      bottom-sheet
       :icon="$globals.icons.foods"
       :title="$t('data-pages.seed-data')"
       can-confirm
@@ -96,6 +98,7 @@
     <!-- Bulk Assign Labels Dialog -->
     <BaseDialog
       v-model="bulkAssignLabelDialog"
+      bottom-sheet
       :title="$t('data-pages.labels.assign-label')"
       :icon="$globals.icons.tags"
       can-confirm

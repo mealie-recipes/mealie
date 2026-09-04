@@ -1,5 +1,5 @@
 <template>
-  <v-expansion-panels v-model="open">
+  <v-expansion-panels v-model="open" rounded>
     <slot />
   </v-expansion-panels>
 </template>

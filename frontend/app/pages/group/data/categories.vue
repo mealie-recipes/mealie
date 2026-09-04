@@ -3,6 +3,7 @@
     <!-- Merge Dialog -->
     <BaseDialog
       v-model="mergeDialog"
+      bottom-sheet
       :icon="$globals.icons.categories"
       :title="$t('data-pages.categories.combine-category')"
       can-confirm
@@ -40,6 +41,7 @@
     <!-- Delete Unused Dialog -->
     <BaseDialog
       v-model="deleteUnusedDialog"
+      bottom-sheet
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
