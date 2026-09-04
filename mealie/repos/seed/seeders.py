@@ -108,14 +108,15 @@ class IngredientFoodsSeeder(AbstractSeeder):
         for label, values in self.load_file(file).items():
             label_out = self.get_label(label)
 
-            for food_name, attributes in values["foods"].items():
-                if food_name in seen_foods_names:
+            for attributes in values["foods"].values():
+                translated_name = attributes["name"]
+                if translated_name in seen_foods_names:
                     continue
 
-                seen_foods_names.add(food_name)
+                seen_foods_names.add(translated_name)
                 yield SaveIngredientFood(
                     group_id=self.repos.group_id,
-                    name=attributes["name"],
+                    name=translated_name,
                     plural_name=attributes.get("plural_name"),
                     description="",  # description expected to be empty string by UnitFoodBase class
                     label_id=label_out.id if label_out and label_out.id else None,
