@@ -2,6 +2,7 @@
   <div>
     <BaseDialog
       v-model="discardDialog"
+      bottom-sheet
       :title="$t('general.discard-changes')"
       color="warning"
       :icon="$globals.icons.alertCircle"

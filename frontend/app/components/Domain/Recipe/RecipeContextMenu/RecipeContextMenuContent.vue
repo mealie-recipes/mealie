@@ -3,6 +3,7 @@
   <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipeRef" />
   <BaseDialog
     v-model="recipeDeleteDialog"
+    bottom-sheet
     :title="$t('recipe.delete-recipe')"
     color="error"
     :icon="$globals.icons.alertCircle"
@@ -20,6 +21,7 @@
   </BaseDialog>
   <BaseDialog
     v-model="recipeDuplicateDialog"
+    bottom-sheet
     :title="$t('recipe.duplicate')"
     color="primary"
     :icon="$globals.icons.duplicate"
@@ -37,6 +39,7 @@
   </BaseDialog>
   <BaseDialog
     v-model="mealplannerDialog"
+    bottom-sheet
     :title="$t('recipe.add-recipe-to-mealplan')"
     color="primary"
     :icon="$globals.icons.calendar"

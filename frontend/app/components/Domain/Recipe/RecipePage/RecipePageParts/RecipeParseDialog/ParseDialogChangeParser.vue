@@ -16,6 +16,7 @@
   </v-card>
   <BaseDialog
     v-model="open"
+    bottom-sheet
     :title="$t('recipe.parser.select-parser')"
     :icon="$globals.icons.fileSign"
   >
