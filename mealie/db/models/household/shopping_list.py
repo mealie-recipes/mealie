@@ -153,7 +153,13 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
     household_id: AssociationProxy[GUID] = association_proxy("user", "household_id")
     household: AssociationProxy["Household"] = association_proxy("user", "household")
     user_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("users.id"), nullable=False, index=True)
-    user: Mapped["User"] = orm.relationship("User", back_populates="shopping_lists")
+    user: Mapped["User"] = orm.relationship(
+        "User", back_populates="shopping_lists", primaryjoin="User.id==ShoppingList.user_id"
+    )
+
+    favorited_by: Mapped[list["User"]] = orm.relationship(
+        "User", back_populates="favorite_shopping_list", primaryjoin="User.favorite_shopping_list_id==ShoppingList.id"
+    )
 
     name: FilterableColumn[str | None] = mapped_column(String)
     list_items: Mapped[list[ShoppingListItem]] = orm.relationship(

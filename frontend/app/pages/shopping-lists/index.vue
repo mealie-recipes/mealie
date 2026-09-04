@@ -93,6 +93,22 @@
             {{ list.name }}
           </span>
           <v-btn
+            v-if="auth.user.value"
+            icon
+            variant="flat"
+            rounded="circle"
+            size="small"
+            @click.prevent="updateFavorite(list.id)"
+          >
+            <v-icon
+              size="x-large"
+              color="secondary"
+            >
+              {{ auth.user.value.favoriteShoppingListId === list.id ? $globals.icons.heart : $globals.icons.heartOutline }}
+            </v-icon>
+          </v-btn>
+
+          <v-btn
             icon
             variant="plain"
             @click.prevent="toggleOwnerDialog(list)"
@@ -149,6 +165,17 @@ const state = reactive({
 const { data: shoppingLists } = useAsyncData(useAsyncKey(), async () => {
   return await fetchShoppingLists();
 });
+
+function updateFavorite(id: string) {
+  if (!auth.user.value) return;
+  if (auth.user.value.favoriteShoppingListId === id) {
+    auth.user.value.favoriteShoppingListId = null;
+  }
+  else {
+    auth.user.value.favoriteShoppingListId = id;
+  }
+  userApi.users.updateOne(auth.user.value?.id, auth.user.value);
+}
 
 const shoppingListChoices = computed(() => {
   if (!shoppingLists.value) {
