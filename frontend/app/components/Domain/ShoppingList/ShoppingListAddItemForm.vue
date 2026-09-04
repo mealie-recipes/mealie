@@ -111,7 +111,9 @@ async function expandAndFocus() {
 }
 
 const target = ref();
-onClickOutside(target, () => rail.value = true);
+// Autocomplete menus are teleported outside the drawer, so selecting an item
+// would otherwise register as an outside click and collapse the form
+onClickOutside(target, () => rail.value = true, { ignore: [".v-overlay-container"] });
 
 watch(
   () => listItem.value.quantity,
