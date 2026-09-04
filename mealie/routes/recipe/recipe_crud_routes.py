@@ -3,7 +3,7 @@ from collections import defaultdict
 from collections.abc import AsyncIterable, Awaitable, Callable
 from shutil import copyfileobj
 from typing import Annotated
-from uuid import UUID
+from uuid import UUID, uuid4
 
 import orjson
 import sqlalchemy
@@ -817,7 +817,6 @@ class RecipeController(BaseRecipeController):
             raise HTTPException(status_code=400, detail="Missing required fields")
 
         file_name = f"{file_slug}.{extension}"
-        asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
         recipe = self.service.get_one(slug)
 
@@ -829,6 +828,14 @@ class RecipeController(BaseRecipeController):
                 status_code=400,
                 detail=f"File name {file_name} or extension {extension} not valid",
             )
+
+        # Client-supplied names aren't guaranteed to be unique (e.g. iOS camera captures are all
+        # named "image.jpg"), so avoid silently overwriting an existing asset with the same name.
+        if dest.is_file():
+            file_name = f"{file_slug}_{uuid4().hex[:8]}.{extension}"
+            dest = recipe.asset_dir / file_name
+
+        asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
         with dest.open("wb") as buffer:
             copyfileobj(file.file, buffer)
