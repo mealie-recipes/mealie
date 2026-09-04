@@ -179,7 +179,8 @@ class OpenIDProvider(AuthProvider[UserInfo]):
 
         try:
             addresses = {info[4][0] for info in socket.getaddrinfo(host, None)}
-        except socket.gaierror:
+        except (socket.gaierror, UnicodeError):
+            # `UnicodeError`, not `gaierror`, is what an unencodable hostname raises.
             return False
 
         # `is_global` is false for private, loopback and link-local ranges, so a single check
@@ -239,20 +240,22 @@ class OpenIDProvider(AuthProvider[UserInfo]):
         if not picture or not isinstance(picture, str):
             return
 
-        if not self._is_safe_picture_url(picture):
-            return
-
-        repos = get_repositories(self.session, group_id=None, household_id=None)
-        user = repos.users.get_one(user_id)
-        if user is None:
-            return
-
-        # Skip the download entirely when the claim still points at the image we already stored.
-        picture_hash = hashlib.sha256(picture.encode()).hexdigest()
-        if user.external_avatar_hash == picture_hash:
-            return
-
+        # The claim is attacker-controlled on IdPs that let users edit their own profile, and a
+        # value that trips up parsing or resolution must skip the avatar, never fail the login.
         try:
+            if not self._is_safe_picture_url(picture):
+                return
+
+            repos = get_repositories(self.session, group_id=None, household_id=None)
+            user = repos.users.get_one(user_id)
+            if user is None:
+                return
+
+            # Skip the download entirely when the claim still points at the image we already stored.
+            picture_hash = hashlib.sha256(picture.encode()).hexdigest()
+            if user.external_avatar_hash == picture_hash:
+                return
+
             response = self._fetch_picture(picture)
             content = self._read_capped(response)
 

@@ -738,3 +738,27 @@ def test_temp_file_is_moved_not_left_behind(_oidc_env, monkeypatch: MonkeyPatch,
     source, _ = moved[0]
     assert not Path(source).exists()
     assert (PrivateUser.get_directory(unique_user.user_id) / "profile.webp").is_file()
+
+
+@pytest.mark.parametrize(
+    "picture",
+    [
+        "https://[::1",  # malformed IPv6 literal -- urlparse raises ValueError
+        "https://" + "a" * 300 + ".com/a.png",  # over-long label -- getaddrinfo raises UnicodeError
+    ],
+)
+def test_malformed_picture_claim_does_not_break_login(
+    _oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser, picture: str
+):
+    """A claim that trips up parsing or resolution must skip the avatar, not fail the login."""
+    fake_get = MagicMock()
+    monkeypatch.setattr(openid_provider.requests, "get", fake_get)
+
+    data = _picture_claims(picture)
+    data["email"] = unique_user.email
+    assert OpenIDProvider(unique_user.repos.session, data).authenticate() is not None
+
+    fake_get.assert_not_called()
+    after = unique_user.repos.users.get_one(unique_user.user_id)
+    assert after is not None
+    assert after.external_avatar_hash is None
