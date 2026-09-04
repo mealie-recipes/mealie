@@ -189,8 +189,8 @@ class SMTPValidationCase:
     auth_strategy: str
     from_name: str
     from_email: str
-    user: str
-    password: str
+    user: str | None
+    password: str | None
     is_valid: bool
 
 
@@ -206,6 +206,24 @@ smtp_validation_cases = [
     (
         "no_auth",
         SMTPValidationCase("email.mealie.io", "25", "none", "Mealie", "mealie@mealie.io", "", "", True),
+    ),
+    (
+        "tls_without_credentials",
+        SMTPValidationCase("email.mealie.io", "587", "tls", "Mealie", "mealie@mealie.io", None, None, True),
+    ),
+    (
+        "ssl_without_credentials",
+        SMTPValidationCase("email.mealie.io", "465", "ssl", "Mealie", "mealie@mealie.io", "", "", True),
+    ),
+    (
+        "tls_with_username_only",
+        SMTPValidationCase(
+            "email.mealie.io", "587", "tls", "Mealie", "mealie@mealie.io", "mealie@mealie.io", "", False
+        ),
+    ),
+    (
+        "ssl_with_password_only",
+        SMTPValidationCase("email.mealie.io", "465", "ssl", "Mealie", "mealie@mealie.io", "", "mealie-password", False),
     ),
     (
         "good_data_tls",
@@ -225,7 +243,7 @@ smtp_validation_cases = [
         SMTPValidationCase(
             "email.mealie.io",
             "465",
-            "tls",
+            "ssl",
             "Mealie",
             "mealie@mealie.io",
             "mealie@mealie.io",
