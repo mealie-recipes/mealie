@@ -7,6 +7,7 @@ from uuid import UUID
 
 import sqlalchemy as sa
 from fastapi import HTTPException
+from humps import decamelize
 from pydantic import UUID4
 from sqlalchemy import orm
 from sqlalchemy.exc import IntegrityError
@@ -91,6 +92,22 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             ),
         )
         return sa.cast(effective_rating, sa.Float)
+
+    def _validate_last_made_query(self, query: PaginationQuery | RecipeSuggestionQuery) -> None:
+        if self.user_id:
+            return
+
+        if query.order_by and any(
+            decamelize(value.split(":", 1)[0].strip()) == "last_made" for value in query.order_by.split(",")
+        ):
+            raise HTTPException(400, "last_made is only available for authenticated household queries")
+
+        if query.query_filter:
+            builder = QueryFilterBuilder(query.query_filter)
+            if any(
+                getattr(component, "attribute_name", None) == "last_made" for component in builder.filter_components
+            ):
+                raise HTTPException(400, "last_made is only available for authenticated household queries")
 
     def create(self, document: Recipe) -> Recipe:  # type: ignore
         max_retries = 10
@@ -267,6 +284,8 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         if search:
             q = self.add_search_to_query(q, self.schema, search)
 
+        self._validate_last_made_query(pagination_result)
+
         if not pagination_result.order_by and not search:
             # default ordering if not searching
             pagination_result.order_by = "created_at"
@@ -373,6 +392,8 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
 
         if not params.order_by:
             params.order_by = "created_at"
+
+        self._validate_last_made_query(params)
 
         user_food_ids = list(set(food_ids or []))
         user_tool_ids = list(set(tool_ids or []))

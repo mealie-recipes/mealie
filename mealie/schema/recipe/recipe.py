@@ -146,7 +146,6 @@ class RecipeSummary(MealieModel):
 
     created_at: datetime.datetime | None = None
     updated_at: datetime.datetime | None = UpdatedAtField(None)
-    last_made: datetime.datetime | None = None
     model_config = ConfigDict(from_attributes=True)
 
     @field_validator("recipe_servings", "recipe_yield_quantity", mode="before")

@@ -283,49 +283,49 @@ def test_pagination_filter_null(unique_user_fn_scoped: TestUser):
         )
     )
 
-    # give one recipe a last made date
-    recipe_made = database.recipes.create(
+    # give one recipe a non-null URL
+    recipe_with_url = database.recipes.create(
         Recipe(
             user_id=unique_user_fn_scoped.user_id,
             group_id=unique_user_fn_scoped.group_id,
             name=random_string(),
-            last_made=datetime.now(UTC),
+            org_url="https://example.com",
         )
     )
 
     recipe_repo = database.recipes
 
-    query = PaginationQuery(page=1, per_page=-1, query_filter="lastMade IS NONE")
+    query = PaginationQuery(page=1, per_page=-1, query_filter="orgURL IS NONE")
     recipe_results = recipe_repo.page_all(query).items
     assert len(recipe_results) == 2
     result_ids = {result.id for result in recipe_results}
     assert recipe_not_made_1.id in result_ids
     assert recipe_not_made_2.id in result_ids
-    assert recipe_made.id not in result_ids
+    assert recipe_with_url.id not in result_ids
 
-    query = PaginationQuery(page=1, per_page=-1, query_filter="lastMade IS NULL")
+    query = PaginationQuery(page=1, per_page=-1, query_filter="orgURL IS NULL")
     recipe_results = recipe_repo.page_all(query).items
     assert len(recipe_results) == 2
     result_ids = {result.id for result in recipe_results}
     assert recipe_not_made_1.id in result_ids
     assert recipe_not_made_2.id in result_ids
-    assert recipe_made.id not in result_ids
+    assert recipe_with_url.id not in result_ids
 
-    query = PaginationQuery(page=1, per_page=-1, query_filter="lastMade IS NOT NONE")
+    query = PaginationQuery(page=1, per_page=-1, query_filter="orgURL IS NOT NONE")
     recipe_results = recipe_repo.page_all(query).items
     assert len(recipe_results) == 1
     result_ids = {result.id for result in recipe_results}
     assert recipe_not_made_1.id not in result_ids
     assert recipe_not_made_2.id not in result_ids
-    assert recipe_made.id in result_ids
+    assert recipe_with_url.id in result_ids
 
-    query = PaginationQuery(page=1, per_page=-1, query_filter="lastMade IS NOT NULL")
+    query = PaginationQuery(page=1, per_page=-1, query_filter="orgURL IS NOT NULL")
     recipe_results = recipe_repo.page_all(query).items
     assert len(recipe_results) == 1
     result_ids = {result.id for result in recipe_results}
     assert recipe_not_made_1.id not in result_ids
     assert recipe_not_made_2.id not in result_ids
-    assert recipe_made.id in result_ids
+    assert recipe_with_url.id in result_ids
 
 
 def test_pagination_filter_in(query_units: tuple[RepositoryUnit, IngredientUnit, IngredientUnit, IngredientUnit]):

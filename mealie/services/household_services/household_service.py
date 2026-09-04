@@ -1,8 +1,11 @@
 from uuid import UUID
 
 from pydantic import UUID4
+from sqlalchemy import or_, update
+from sqlalchemy.exc import IntegrityError
 
 from mealie.core import exceptions
+from mealie.db.models.household import HouseholdToRecipe
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household import HouseholdCreate, HouseholdRecipeSummary
@@ -87,13 +90,35 @@ class HouseholdService(BaseService):
 
         existing_household_recipe = self.repos.household_recipes.get_by_recipe(recipe.id)
 
-        if existing_household_recipe:
-            updated_data = existing_household_recipe.cast(HouseholdRecipeUpdate, **data.model_dump())
-            household_recipe_out = self.repos.household_recipes.patch(existing_household_recipe.id, updated_data)
-        else:
+        if not existing_household_recipe:
             create_data = HouseholdRecipeCreate(
                 household_id=self.household_id, recipe_id=recipe.id, **data.model_dump()
             )
-            household_recipe_out = self.repos.household_recipes.create(create_data)
+            try:
+                household_recipe_out = self.repos.household_recipes.create(create_data)
+                return household_recipe_out.cast(HouseholdRecipeSummary)
+            except IntegrityError:
+                self.repos.session.rollback()
+                existing_household_recipe = self.repos.household_recipes.get_by_recipe(recipe.id)
+                if not existing_household_recipe:
+                    raise
 
+        if data.last_made:
+            stmt = (
+                update(HouseholdToRecipe)
+                .where(
+                    HouseholdToRecipe.id == existing_household_recipe.id,
+                    or_(HouseholdToRecipe.last_made.is_(None), HouseholdToRecipe.last_made < data.last_made),
+                )
+                .values(last_made=data.last_made)
+            )
+            self.repos.session.execute(stmt)
+            self.repos.session.commit()
+            updated_household_recipe = self.repos.household_recipes.get_by_recipe(recipe.id)
+            if not updated_household_recipe:
+                raise exceptions.NoEntryFound("Household recipe not found.")
+            return updated_household_recipe.cast(HouseholdRecipeSummary)
+
+        updated_data = existing_household_recipe.cast(HouseholdRecipeUpdate, **data.model_dump())
+        household_recipe_out = self.repos.household_recipes.patch(existing_household_recipe.id, updated_data)
         return household_recipe_out.cast(HouseholdRecipeSummary)

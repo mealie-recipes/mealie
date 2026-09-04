@@ -104,7 +104,6 @@ def _create_mealplan_timeline_events_for_household(
 
     for recipe in recipes_to_update.values():
         household_service.set_household_recipe(recipe.slug, HouseholdRecipeUpdate(last_made=event_time))
-        repos.recipes.patch(recipe.slug, {"last_made": event_time})
         event_bus_service.dispatch(
             integration_id=DEFAULT_INTEGRATION_ID,
             group_id=group_id,

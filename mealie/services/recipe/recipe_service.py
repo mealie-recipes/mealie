@@ -214,7 +214,6 @@ class RecipeService(RecipeServiceBase):
                 data.settings = RecipeSettings()
 
         rating_input = data.rating
-        data.last_made = None
         new_recipe = self.repos.recipes.create(data)
 
         # convert rating into user rating
@@ -363,8 +362,6 @@ class RecipeService(RecipeServiceBase):
             if old_recipe.recipe_ingredient is None
             else list(map(copy_recipe_ingredient, old_recipe.recipe_ingredient))
         )
-        new_recipe.last_made = None
-
         new_recipe = self._recipe_creation_factory(new_name, additional_attrs=new_recipe.model_dump())
 
         new_recipe = self.repos.recipes.create(new_recipe)
