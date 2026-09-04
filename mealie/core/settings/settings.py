@@ -11,6 +11,7 @@ from dateutil.tz import tzlocal
 from pydantic import PlainSerializer, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from mealie.core.settings.branding import Branding
 from mealie.core.settings.themes import Theme
 
 from .db_providers import AbstractDBProvider, db_provider_factory
@@ -138,6 +139,7 @@ class AppLoggingSettings(BaseSettings):
 
 class AppSettings(AppLoggingSettings):
     theme: Theme = Theme()
+    branding: Branding = Branding()
 
     BASE_URL: str = "http://localhost:8080"
     """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""

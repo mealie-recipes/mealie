@@ -13,6 +13,7 @@ from text_unidecode import os
 
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import try_get_current_user
+from mealie.core.settings.branding import Branding
 from mealie.db.db_setup import generate_session
 from mealie.repos.repository_factory import AllRepositories
 from mealie.routes.spa.manifest import serve_manifest
@@ -53,6 +54,10 @@ class SPAStaticFiles(StaticFiles):
         if path.startswith("_nuxt/"):
             response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
         elif path == "." or response.media_type == "text/html":
+            # Serve the in-memory, branding-applied copy of index.html rather than the raw file on
+            # disk, so title/favicon overrides apply to every HTML response (not just the recipe
+            # meta routes below, which already build off of the same in-memory contents).
+            response = Response(get_contents(), media_type="text/html", status_code=response.status_code)
             response.headers["Cache-Control"] = "no-cache"
 
         return response
@@ -60,6 +65,10 @@ class SPAStaticFiles(StaticFiles):
 
 __app_settings = get_app_settings()
 __contents = ""
+
+
+def get_contents() -> str:
+    return __contents
 
 
 def escape(content: Any) -> Any:
@@ -119,6 +128,30 @@ def inject_meta(contents: str, tags: list[MetaTag]) -> str:
 def inject_recipe_json(contents: str, schema: dict) -> str:
     schema_as_html_tag = f"""<script type="application/ld+json">{json.dumps(jsonable_encoder(schema))}</script>"""
     return contents.replace("</head>", schema_as_html_tag + "\n</head>", 1)
+
+
+def apply_branding(contents: str, branding: Branding) -> str:
+    from bs4 import BeautifulSoup
+
+    soup = BeautifulSoup(contents, "lxml")
+
+    if soup.title:
+        soup.title.string = branding.html_title
+
+    if branding.favicon_file:
+        # matches both `rel="icon"` and `rel="shortcut icon"`, since "icon" is one of the
+        # whitespace-separated tokens in both; leaves apple-touch-icon/mask-icon untouched, as
+        # those need their own format-specific assets
+        for link in soup.find_all("link", rel="icon"):
+            link["href"] = "/api/app/about/branding/favicon"
+
+    contents = str(soup)
+
+    meta_tags = [
+        MetaTag(hid="og:title", property_name="og:title", content=branding.name),
+        MetaTag(hid="og:site_name", property_name="og:site_name", content=branding.name),
+    ]
+    return inject_meta(contents, meta_tags)
 
 
 def content_with_meta(group_slug: str, recipe: Recipe) -> str:
@@ -257,6 +290,7 @@ def mount_spa(app: FastAPI):
 
     global __contents
     __contents = pathlib.Path(__app_settings.STATIC_FILES).joinpath("index.html").read_text()
+    __contents = apply_branding(__contents, __app_settings.branding)
 
     app.get("/g/{group_slug}/r/{recipe_slug}", include_in_schema=False)(serve_recipe_with_meta)
     app.get("/g/{group_slug}/shared/r/{token_id}", include_in_schema=False)(serve_shared_recipe_with_meta)

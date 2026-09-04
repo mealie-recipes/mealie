@@ -1,4 +1,7 @@
-from fastapi import APIRouter, Depends, Response
+import mimetypes
+
+from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi.responses import FileResponse
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
@@ -6,7 +9,7 @@ from mealie.core.settings.static import APP_VERSION
 from mealie.db.db_setup import generate_session
 from mealie.db.models.users.users import User
 from mealie.repos.all_repositories import get_repositories
-from mealie.schema.admin.about import AppInfo, AppStartupInfo, AppTheme
+from mealie.schema.admin.about import AppBranding, AppInfo, AppStartupInfo, AppTheme
 
 router = APIRouter(prefix="/about")
 
@@ -70,3 +73,43 @@ def get_app_theme(resp: Response):
 
     resp.headers["Cache-Control"] = "public, max-age=604800"
     return AppTheme(**settings.theme.model_dump())
+
+
+@router.get("/branding", response_model=AppBranding)
+def get_app_branding(resp: Response):
+    """Get's the current branding settings"""
+    settings = get_app_settings()
+
+    resp.headers["Cache-Control"] = "public, max-age=604800"
+    return AppBranding(
+        name=settings.branding.name,
+        html_title=settings.branding.html_title,
+        icon_url="/api/app/about/branding/icon" if settings.branding.icon_file else None,
+        favicon_url="/api/app/about/branding/favicon" if settings.branding.favicon_file else None,
+    )
+
+
+@router.get("/branding/icon", response_class=FileResponse)
+def get_app_branding_icon():
+    """Get's the custom branding icon, if configured"""
+    settings = get_app_settings()
+
+    icon_file = settings.branding.icon_file
+    if icon_file is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+
+    media_type = mimetypes.guess_type(icon_file)[0]
+    return FileResponse(icon_file, media_type=media_type, headers={"Cache-Control": "public, max-age=604800"})
+
+
+@router.get("/branding/favicon", response_class=FileResponse)
+def get_app_branding_favicon():
+    """Get's the custom branding favicon, if configured"""
+    settings = get_app_settings()
+
+    favicon_file = settings.branding.favicon_file
+    if favicon_file is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+
+    media_type = mimetypes.guess_type(favicon_file)[0]
+    return FileResponse(favicon_file, media_type=media_type, headers={"Cache-Control": "public, max-age=604800"})
