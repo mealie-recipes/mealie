@@ -241,12 +241,9 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
         q = q.filter_by(**fltr)
 
         if cookbook:
-            if pagination_result.query_filter and cookbook.query_filter_string:
-                pagination_result.query_filter = (
-                    f"({pagination_result.query_filter}) AND ({cookbook.query_filter_string})"
-                )
-            else:
-                pagination_result.query_filter = cookbook.query_filter_string
+            pagination_result.query_filter = QueryFilterBuilder.combine_filters(
+                pagination_result.query_filter, cookbook.query_filter_string
+            )
         else:
             category_ids = self._uuids_for_items(categories, Category)
             tag_ids = self._uuids_for_items(tags, Tag)
