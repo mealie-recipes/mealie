@@ -277,7 +277,12 @@ watch([dialog, () => preferences.value.viewAllLists, () => props.shoppingLists],
       list => preferences.value.viewAllLists || list.userId === auth.user.value?.id,
     );
 
-    if (filteredShoppingLists.value.length === 1 && !state.shoppingListShowAllToggled) {
+    const defaultShoppingList = getDefaultShoppingList();
+    if (defaultShoppingList) {
+      ready.value = true;
+      openShoppingListIngredientDialog(defaultShoppingList);
+    }
+    else if (filteredShoppingLists.value.length === 1 && !state.shoppingListShowAllToggled) {
       selectedShoppingList.value = filteredShoppingLists.value[0];
       openShoppingListIngredientDialog(selectedShoppingList.value);
     }
@@ -420,10 +425,15 @@ function initState() {
   state.shoppingListIngredientDialog = false;
   state.shoppingListShowAllToggled = false;
   recipeIngredientSections.value = [];
-  selectedShoppingList.value = null;
+  selectedShoppingList.value = getDefaultShoppingList();
 }
 
 initState();
+
+function getDefaultShoppingList(): ShoppingListSummary | null {
+  const favoriteShoppingListId = auth.user.value?.favoriteShoppingListId;
+  return props.shoppingLists.find(({ id }) => id === favoriteShoppingListId) ?? null;
+}
 
 async function openShoppingListIngredientDialog(list: ShoppingListSummary) {
   if (!props.recipes?.length) {

@@ -102,6 +102,7 @@ export interface AIProviderSettingsOut {
 export interface AIProviderSummary {
   id: string;
   name: string;
+  [k: string]: unknown;
 }
 export interface GroupSummary {
   name: string;
@@ -138,6 +139,7 @@ export interface PrivateUser {
   group: string;
   household: string;
   advanced?: boolean;
+  favoriteShoppingListId?: string | null;
   showAnnouncements?: boolean;
   lastReadAnnouncement?: string | null;
   canInvite?: boolean;
@@ -225,6 +227,7 @@ export interface UserBase {
   group?: string | null;
   household?: string | null;
   advanced?: boolean;
+  favoriteShoppingListId?: string | null;
   showAnnouncements?: boolean;
   lastReadAnnouncement?: string | null;
   canInvite?: boolean;
@@ -242,6 +245,7 @@ export interface UserIn {
   group?: string | null;
   household?: string | null;
   advanced?: boolean;
+  favoriteShoppingListId?: string | null;
   showAnnouncements?: boolean;
   lastReadAnnouncement?: string | null;
   canInvite?: boolean;
@@ -260,6 +264,7 @@ export interface UserOut {
   group: string;
   household: string;
   advanced?: boolean;
+  favoriteShoppingListId?: string | null;
   showAnnouncements?: boolean;
   lastReadAnnouncement?: string | null;
   canInvite?: boolean;

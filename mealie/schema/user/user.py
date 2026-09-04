@@ -116,6 +116,7 @@ class UserBase(MealieModel):
     group: str | None = None
     household: str | None = None
     advanced: bool = False
+    favorite_shopping_list_id: UUID4 | None = None
 
     # Announcements
     show_announcements: bool = True
