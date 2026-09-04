@@ -1,10 +1,9 @@
 <template>
   <div>
     <div v-for="substitution, i in substitutions" :key="i" class="mb-2">
-      <div
-        class="d-flex ga-2 align-center"
-        :class="$vuetify.display.mdAndDown ? 'flex-column align-stretch' : ''"
-      >
+      <!-- wraps rather than stacking: on a narrow screen the food takes its own line and the
+           note keeps the delete button company, instead of stranding it on a line of its own -->
+      <div class="d-flex ga-2 align-center flex-wrap">
         <v-autocomplete
           v-model="substitution.substituteFoodId"
           :items="foods"
@@ -12,7 +11,7 @@
           item-value="id"
           item-title="name"
           :placeholder="$t('recipe.choose-substitute-food')"
-          :style="$vuetify.display.mdAndDown ? '' : 'flex: 6 0 50px;'"
+          :style="$vuetify.display.mdAndDown ? 'flex: 1 1 100%;' : 'flex: 6 0 50px;'"
           :menu-props="{ attach: menuAttachTarget, maxHeight: '250px' }"
           density="compact"
           variant="filled"
@@ -23,15 +22,16 @@
         <v-text-field
           v-model="substitution.note"
           :placeholder="$t('recipe.note')"
-          :style="$vuetify.display.mdAndDown ? '' : 'flex: 4 0 50px;'"
+          :style="$vuetify.display.mdAndDown ? 'flex: 1 1 0;' : 'flex: 4 0 50px;'"
           density="compact"
           variant="filled"
           hide-details
         />
+        <!-- left at the default size: an icon button is a 36px touch target everywhere else in
+             the app, and the smaller sizes fall under the 24px accessible minimum -->
         <v-btn
           icon
-          variant="text"
-          size="small"
+          variant="plain"
           :title="$t('general.delete')"
           @click="emit('delete', i)"
         >
@@ -42,7 +42,6 @@
     </div>
     <v-btn
       variant="text"
-      size="small"
       color="primary"
       @click="emit('add')"
     >
