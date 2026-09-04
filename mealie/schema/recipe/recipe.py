@@ -164,7 +164,11 @@ class RecipeSummary(MealieModel):
 
     @property
     def recipe_yield_display(self) -> str:
-        return f"{self.recipe_yield_quantity} {self.recipe_yield}".strip()
+        # Fall back to recipe_servings when no explicit yield quantity is set, otherwise
+        # a servings-only recipe emits a bare "0.0" (or "0.0 None") into schema.org.
+        quantity = self.recipe_yield_quantity or self.recipe_servings
+        number = f"{quantity:g}" if quantity else ""
+        return f"{number} {self.recipe_yield or ''}".strip()
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
