@@ -72,13 +72,13 @@
       <v-divider />
 
       <template #card-actions>
-        <div class="d-flex" :style="$vuetify.display.mdAndUp ? 'grid-column-start: 2;' : ''">
+        <div class="d-flex flex-grow-1">
           <BaseButton
             cancel
             @click="dialog = false"
           />
           <v-spacer />
-          <div class="d-flex flex-wrap justify-end ga-2" style="flex-grow: 3;">
+          <div class="d-flex flex-wrap justify-end ga-2">
             <BaseButton
               color="info"
               @click="autoSetReferences"

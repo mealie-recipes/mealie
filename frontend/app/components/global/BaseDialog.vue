@@ -18,7 +18,7 @@
     >
       <BaseDialogContent v-bind="bindings">
         <template #default>
-          <slot />
+          <slot v-bind="{ submitEvent }" />
         </template>
         <template #card-actions>
           <slot name="card-actions" />
@@ -41,7 +41,7 @@
     >
       <BaseDialogContent v-bind="bindings">
         <template #default>
-          <slot />
+          <slot v-bind="{ submitEvent }" />
         </template>
         <template #card-actions>
           <slot name="card-actions" />

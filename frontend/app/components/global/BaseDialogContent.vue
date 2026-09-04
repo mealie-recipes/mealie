@@ -21,22 +21,21 @@
     </v-toolbar>
 
     <div style="flex: 1 1 auto; min-height: 0; overflow: auto">
-      <slot v-bind="{ submitEvent: () => emit('submit') }" />
+      <slot />
     </div>
 
     <v-spacer />
     <v-divider />
-    <v-card-actions :class="$vuetify.display.mdAndUp ? 'grid-large' : 'pb-4 grid-small'">
+    <v-card-actions :class="$vuetify.display.xs ? 'pb-4 grid-small' : undefined">
       <slot name="card-actions">
         <v-btn
           variant="text"
           color="grey"
-          class="place-start"
           @click="emit('cancel')"
         >
           {{ cancelText }}
         </v-btn>
-        <v-spacer v-if="$vuetify.display.mdAndUp" />
+        <v-spacer v-if="!$vuetify.display.xs" />
         <slot name="custom-card-action" />
         <BaseButton
           v-if="canDelete"
@@ -124,23 +123,13 @@ withDefaults(defineProps<DialogProps>(), {
 const emit = defineEmits<DialogEmits>();
 </script>
 
-<style lang="css">
+<style scoped>
+/* On extra-small displays the dialog is a bottom sheet or fullscreen, so the
+   actions stretch evenly across the full width. Larger displays keep the
+   default v-card-actions flex row, where the spacer pushes the actions right. */
 .grid-small {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(min-content, 1fr);
-}
-.grid-large {
-  display: grid;
-  grid-auto-flow: column;
-  grid-auto-columns: min-content 1fr min-content;
-
-  .place-start {
-    place-self: start;
-  }
-
-  .place-end {
-    place-self: end;
-  }
 }
 </style>
