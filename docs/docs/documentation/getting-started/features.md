@@ -168,6 +168,15 @@ A common use case for "link" recipe actions is to integrate with the Bring! shop
 https://api.getbring.com/rest/bringrecipes/deeplink?url=${url}&source=web
 ```
 
+#### Sharing Private Recipes
+
+If your Mealie instance hosts private recipes and you want to use external services like Bring!, the service won't be able to read your standard `${url}`. Instead, you can use a temporary share link to grant the service brief access.
+
+By replacing `${url}` with `${share-link-expires-seconds-20}`, Mealie will automatically generate a private share link that expires in 20 seconds:
+```
+https://api.getbring.com/rest/bringrecipes/deeplink?url=${share-link-expires-seconds-20}&source=web
+```
+
 Below is a list of all valid merge fields:
 
 - ${id}
@@ -176,6 +185,7 @@ Below is a list of all valid merge fields:
 - ${servings}
 - ${yieldQuantity}
 - ${yieldText}
+- ${share-link-expires-seconds-x} : Expires after x seconds.
 
 To add, modify, or delete Recipe Actions, visit the Data Management page (more on that below).
 
