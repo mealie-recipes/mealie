@@ -9,7 +9,6 @@
       :title="$t('new-recipe.bulk-add')"
       :icon="$globals.icons.createAlt"
       :submit-text="$t('general.add')"
-      :cancel-text="$t('general.cancel')"
       :submit-disabled="!canSave"
       :disable-submit-on-enter="true"
       can-submit

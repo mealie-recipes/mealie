@@ -55,7 +55,9 @@
 </template>
 
 <script setup lang="ts">
-import { useNuxtApp } from "#app";
+import { useGlobalI18n } from "~/composables/use-global-i18n";
+
+const i18n = useGlobalI18n();
 
 interface DialogProps {
   modelValue: boolean;
@@ -103,11 +105,7 @@ const props = withDefaults(defineProps<DialogProps>(), {
 
   // submit
   submitIcon: null,
-  submitText: () => useNuxtApp().$i18n.t("general.create"),
   submitDisabled: false,
-
-  // cancel
-  cancelText: () => useNuxtApp().$i18n.t("general.cancel"),
 
   // actions
   canDelete: false,
@@ -176,9 +174,9 @@ const bindings = computed(() => ({
   icon: props.icon,
   loading: props.loading,
   submitIcon: props.submitIcon,
-  submitText: props.submitText,
+  submitText: props.submitText ?? i18n.t("general.create"),
   submitDisabled: props.submitDisabled,
-  cancelText: props.cancelText,
+  cancelText: props.cancelText ?? i18n.t("general.cancel"),
   canDelete: props.canDelete,
   canConfirm: props.canConfirm,
   canSubmit: props.canSubmit,
