@@ -22,6 +22,7 @@ from mealie.services.event_bus_service.event_types import (
     EventOperation,
     EventTypes,
 )
+from mealie.services.query_filter.builder import QueryFilterBuilder
 
 router = APIRouter(prefix="/households/mealplans", tags=["Households: Mealplans"])
 
@@ -61,7 +62,7 @@ class GroupMealplanController(BaseCrudController):
             self.session, group_id=self.group_id, household_id=None
         ).recipes.by_user(self.user.id)
 
-        qf_string = " AND ".join([f"({rule.query_filter_string})" for rule in rules if rule.query_filter_string])
+        qf_string = QueryFilterBuilder.combine_filters(*[rule.query_filter_string for rule in rules])
         recipes_data = cross_household_recipes.page_all(
             pagination=PaginationQuery(
                 page=1,
@@ -91,11 +92,7 @@ class GroupMealplanController(BaseCrudController):
             else:
                 date_filter = f"date >= {start_date} AND date <= {end_date}"
 
-            if q.query_filter:
-                q.query_filter = f"({q.query_filter}) AND ({date_filter})"
-
-            else:
-                q.query_filter = date_filter
+            q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, date_filter)
 
         return self.repo.page_all(pagination=q)
 
