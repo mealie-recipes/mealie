@@ -223,6 +223,9 @@ export interface MergeUnit {
   fromUnit: string;
   toUnit: string;
 }
+export interface NoteReference {
+  referenceId?: string | null;
+}
 export interface Nutrition {
   calories?: string | null;
   carbohydrateContent?: string | null;
@@ -298,10 +301,6 @@ export interface RecipeTool {
   recipeCount?: number;
   householdsWithTool?: string[];
 }
-export interface NoteReference {
-  referenceId?: string | null;
-}
-
 export interface RecipeStep {
   id?: string | null;
   title?: string | null;
