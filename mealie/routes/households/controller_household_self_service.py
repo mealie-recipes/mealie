@@ -39,7 +39,7 @@ class HouseholdSelfServiceController(BaseUserController):
     @router.get("/members", response_model=PaginationBase[UserOut])
     def get_household_members(self, q: PaginationQuery = Depends()):
         """Returns all users belonging to the current household"""
-
+        self.checks.can_manage()
         qf_part = f"household_id={self.household_id}"
         if q.query_filter:
             q.query_filter = f"({q.query_filter}) AND {qf_part}"

@@ -62,6 +62,7 @@
                 :min-width="$vuetify.display.xs ? '100%' : '158'"
                 :icon="getStatsIcon(key)"
                 :to="getStatsTo(key)"
+                @click="handleStatsClick(key)"
               >
                 <template #title>
                   {{ getStatsTitle(key) }}
@@ -271,6 +272,30 @@
         </AdvancedOnly>
       </v-row>
     </section>
+    <BaseDialog
+      v-model="permissionDialog"
+      color="warning"
+      :icon="$globals.icons.lock || 'mdi-lock'"
+      :title="$t('general.error')"
+      width="450"
+    >
+      <div class="py-10 text-center">
+        <h3 class="text-h6 font-weight-bold">
+          {{ $t('profile.permission-denied-desc') }}
+        </h3>
+      </div>
+      <template #card-actions>
+        <v-spacer />
+        <v-btn
+          variant="text"
+          color="grey"
+          @click="permissionDialog = false"
+        >
+          {{ $t("general.close") }}
+        </v-btn>
+        <v-spacer />
+      </template>
+    </BaseDialog>
   </v-container>
 </template>
 
@@ -312,6 +337,7 @@ const user = computed<UserOut | null>(() => {
 });
 
 const inviteDialog = ref(false);
+const permissionDialog = ref(false);
 const api = useUserApi();
 
 const { data: stats } = useAsyncData(useAsyncKey(), async () => {
@@ -358,6 +384,15 @@ const statsTo = computed<{ [key: string]: string }>(() => {
 });
 
 function getStatsTo(key: string) {
+  if (key === "totalUsers" && !user.value?.canManage) {
+    return "";
+  }
   return statsTo.value[key] ?? "unknown";
+}
+function handleStatsClick(key: string) {
+  if (key === "totalUsers" && !user.value?.canManage) {
+    permissionDialog.value = true;
+    return;
+  }
 }
 </script>
