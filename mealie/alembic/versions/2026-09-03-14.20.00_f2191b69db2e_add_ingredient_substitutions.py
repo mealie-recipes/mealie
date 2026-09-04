@@ -1,8 +1,8 @@
 """add ingredient substitutions
 
 Revision ID: f2191b69db2e
-Revises: 69e942bab3aa
-Create Date: 2026-09-02 11:01:39.000000
+Revises: b3f1c9a27d84
+Create Date: 2026-09-03 14:20:00.000000
 
 """
 
@@ -13,7 +13,7 @@ import mealie.db.migration_types
 
 # revision identifiers, used by Alembic.
 revision = "f2191b69db2e"
-down_revision: str | None = "69e942bab3aa"
+down_revision: str | None = "b3f1c9a27d84"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
 
