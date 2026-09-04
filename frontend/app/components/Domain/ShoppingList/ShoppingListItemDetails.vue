@@ -29,6 +29,7 @@
     :label="$t('shopping-list.note')"
     rows="1"
     auto-grow
+    autocapitalize="none"
     @keypress="handleNoteKeyPress"
   />
   <div class="d-flex flex-wrap align-end ga-3">
