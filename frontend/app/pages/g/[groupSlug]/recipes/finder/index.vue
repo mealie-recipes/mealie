@@ -174,7 +174,6 @@
                         <v-checkbox
                           v-model="state.settings.includeSubstitutions"
                           density="compact"
-                          size="small"
                           hide-details
                           class="my-auto"
                           :label="$t('recipe-finder.include-substitutions')"
