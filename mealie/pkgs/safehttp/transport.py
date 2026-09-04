@@ -125,7 +125,9 @@ class _SafeTransportMixin:
         else:
             try:
                 infos = socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
-            except socket.gaierror as e:
+            except (socket.gaierror, UnicodeError) as e:
+                # An unencodable hostname (e.g. an over-long label) raises UnicodeError, not
+                # gaierror. Either way the host is unusable, so it fails as an invalid domain.
                 raise InvalidDomainError(f"could not resolve host: {host}") from e
 
             ips = []
