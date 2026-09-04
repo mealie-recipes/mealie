@@ -1393,6 +1393,10 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
     "qf",
     [
         pytest.param('(name="test name" AND useAbbreviation=f))', id="unbalanced parenthesis"),
+        pytest.param(
+            'name <> "test name") OR (useAbbreviation=f',
+            id="parenthesis closed before they're opened",
+        ),
         pytest.param('id="this is not a valid UUID"', id="invalid UUID"),
         pytest.param(
             'createdAt="this is not a valid datetime format"',
