@@ -21,18 +21,18 @@
         "and-amount": "un {amount}",
         "or-ingredient": "vai {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
-            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
-            "image-provider-not-enabled": "AI image services are not enabled",
-            "no-recipe-found": "No recipe was found in the provided source",
-            "no-source": "No content, images, or URL were provided",
-            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "ai-not-enabled": "AI pakalpojumi nav ieslēgti",
+            "ai-request-failed": "Mākslīgā intelekta pakalpojuma sniedzējs nevarēja izpildīt pieprasījumu. Lūdzu, mēģiniet vēlreiz",
+            "image-provider-not-enabled": "AI attēlu pakalpojumi nav ieslēgti",
+            "no-recipe-found": "Norādītajā avotā netika atrasta neviena recepte",
+            "no-source": "Netika norādīts ne saturs, ne attēli, ne URL",
+            "provider-returned-nothing": "Mākslīgā intelekta pakalpojumu sniedzējs neatsūtīja recepti",
             "unknown-error": "Something went wrong while creating the recipe. Please try again",
-            "unreadable-source": "Unable to read any content from the provided source",
-            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+            "unreadable-source": "Nav iespējams nolasīt nekādu saturu no norādītā avota",
+            "video-download-failed": "Video nevar lejupielādēt. Iespējams, tas ir privāts, ir dzēsts vai atrodas vietnē, kas netiek atbalstīta"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Veido recepti...",
             "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
             "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
             "downloading-image": "Lejupielādē attēlu...",
@@ -43,7 +43,7 @@
             "reading-images-with-ai": "Reading images with AI...",
             "reading-source-with-ai": "Reading source with AI...",
             "transcribing-audio-with-ai": "Transcribing audio with AI...",
-            "translating-recipe": "Translating recipe..."
+            "translating-recipe": "Tulko recepti..."
         }
     },
     "mealplan": {
