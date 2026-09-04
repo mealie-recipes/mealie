@@ -1,7 +1,7 @@
 """'add recipe_note_ref_link'
 
 Revision ID: 3527efeeec34
-Revises: 69e942bab3aa
+Revises: b3f1c9a27d84
 Create Date: 2026-08-29 00:03:01.424415
 
 """
@@ -15,7 +15,7 @@ import mealie.db.migration_types
 
 # revision identifiers, used by Alembic.
 revision = "3527efeeec34"
-down_revision: str | None = "69e942bab3aa"
+down_revision: str | None = "b3f1c9a27d84"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
 

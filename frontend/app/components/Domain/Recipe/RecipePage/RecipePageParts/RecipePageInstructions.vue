@@ -430,7 +430,7 @@
                       <v-icon size="14" class="mr-1" style="cursor: default;">
                         {{ $globals.icons.noteTextOutline }}
                       </v-icon>
-                      {{ noteRef.referenceId != null ? noteLookup[noteRef.referenceId] : '' }}
+                      {{ noteRef.referenceId != null ? (noteLookup[noteRef.referenceId] || $t('recipe.note')) : '' }}
                     </div>
                   </div>
                 </v-card-text>
@@ -474,7 +474,7 @@
                               class="my-3"
                             />
                             <div class="text-title-large mb-1">
-                              {{ note.title }}
+                              {{ note.title || $t('recipe.note') }}
                             </div>
                             <SafeMarkdown :source="note.text" />
                           </template>
