@@ -32,6 +32,8 @@
           :activator="child"
           :children="child.children"
           open-on-hover
+          open-on-focus
+          open-on-click
           submenu
           @menu="(childEvent) => $emit('menu', childEvent)"
         >
