@@ -19,7 +19,6 @@
             "yields": "Ergibt"
         },
         "and-amount": "und {amount}",
-        "or-ingredient": "oder {ingredient}",
         "import-errors": {
             "ai-not-enabled": "KI-Dienste sind nicht aktiviert",
             "ai-request-failed": "Der KI-Provider konnte die Anfrage nicht abschließen. Bitte versuchen Sie es erneut",

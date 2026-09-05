@@ -19,7 +19,6 @@
             "yields": "Késleltetve"
         },
         "and-amount": "és {amount}",
-        "or-ingredient": "vagy {ingredient}",
         "import-errors": {
             "ai-not-enabled": "Az AI szolgáltatások nem engedélyezettek",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",

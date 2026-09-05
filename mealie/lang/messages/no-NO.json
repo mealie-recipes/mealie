@@ -19,7 +19,6 @@
             "yields": "Gir"
         },
         "and-amount": "og {amount}",
-        "or-ingredient": "eller {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI-tjenester er ikke aktivert",
             "ai-request-failed": "AI-leverandøren kunne ikke fullføre forespørselen. Prøv på nytt",
