@@ -62,8 +62,6 @@ describe("convertIngredient", () => {
       expect(convertIngredient(millilitres(60), "us").unit?.name).toBe("cup");
     });
 
-
-
     test("falls back to the smallest rung below the whole ladder", () => {
       const converted = convertIngredient(millilitres(1), "us");
 
