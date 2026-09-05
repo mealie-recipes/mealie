@@ -275,6 +275,7 @@ export interface RecipeStep {
   summary?: string | null;
   text: string;
   ingredientReferences?: IngredientReferences[];
+  cookTime?: string | null;
 }
 export interface RecipeAsset {
   name: string;
