@@ -493,6 +493,13 @@ class RecipeService(RecipeServiceBase):
     def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug_or_id, update_data)
 
+        # A PUT replaces the whole recipe, so a body that omits the name would blank it out.
+        # Nothing downstream can cope with that, so reject it before the update rather than
+        # failing deeper in. This runs after the checks above so that a missing or forbidden
+        # recipe still answers 404 or 403 regardless of what the body contains.
+        if not update_data.name:
+            raise exceptions.MissingRequiredData("Recipe name is required")
+
         update_data = self._remove_non_existent_ingredient_references(update_data)
         update_data = self._resolve_ingredient_sub_recipes(update_data)
 
