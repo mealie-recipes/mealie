@@ -19,7 +19,6 @@
             "yields": "donosi"
         },
         "and-amount": "in {amount}",
-        "or-ingredient": "ali {ingredient}",
         "import-errors": {
             "ai-not-enabled": "Storitve umetne inteligence niso omogočene",
             "ai-request-failed": "Ponudnik umetne inteligence ni mogel dokončati zahteve. Poskusite znova",
