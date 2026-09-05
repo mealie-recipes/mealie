@@ -77,7 +77,7 @@
               md="4"
               :class="$vuetify.display.mdAndUp ? 'border-e-thin' : null"
             >
-              <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" class="pr-2" />
+              <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="displayedRecipe" :scale="scale" class="pr-2" />
               <RecipePageOrganizers v-if="$vuetify.display.mdAndUp" v-model="recipe" class="pr-2" @item-selected="chipClicked" />
             </v-col>
             <!--
@@ -88,7 +88,7 @@
               <RecipePageInstructions
                 v-model="recipe.recipeInstructions"
                 v-model:assets="recipe.assets"
-                :recipe="recipe"
+                :recipe="displayedRecipe"
                 :scale="scale"
               />
               <div v-if="isEditForm" class="d-flex">
@@ -112,7 +112,7 @@
         v-model="recipe"
         class="px-1 my-4 d-print-none"
       />
-      <RecipePrintContainer :recipe="recipe" :scale="scale" />
+      <RecipePrintContainer :recipe="displayedRecipe" :scale="scale" />
     </v-container>
     <!-- Floating save button when toolbar scrolls out of view -->
     <v-fab
@@ -146,7 +146,7 @@
           </div>
           <RecipePageIngredientToolsView
             v-if="!isEditForm"
-            :recipe="recipe"
+            :recipe="displayedRecipe"
             :scale="scale"
             :is-cook-mode="isCookMode"
           />
@@ -166,7 +166,7 @@
             v-model="recipe.recipeInstructions"
             v-model:assets="recipe.assets"
             class="overflow-y-hidden px-4"
-            :recipe="recipe"
+            :recipe="displayedRecipe"
             :scale="scale"
           />
         </v-col>
@@ -180,7 +180,7 @@
         v-model="recipe.recipeInstructions"
         v-model:assets="recipe.assets"
         class="overflow-y-hidden mt-n5 px-2 px-md-4"
-        :recipe="recipe"
+        :recipe="displayedRecipe"
         :scale="scale"
       />
 
@@ -240,6 +240,7 @@ import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useNavigationWarning } from "~/composables/use-navigation-warning";
+import { useUnitConversion, useUnitSystem } from "~/composables/recipes";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 
@@ -255,8 +256,35 @@ const api = useUserApi();
 const { pageMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isParsing, toggleCookMode, toggleIsParsing }
   = usePageState(recipe.value.slug);
 const { deactivateNavigationWarning } = useNavigationWarning();
+const scale = ref(1);
+
+const { unitSystem } = useUnitSystem();
+const { convertIngredient } = useUnitConversion();
+
+/**
+ * The recipe as the reader asked to see it — the recipe itself unless they've opted into a unit
+ * system. Cook mode, print and the ingredient list all read this, so they convert together.
+ *
+ * Returns `recipe` by identity whenever nothing is being converted, and always does so in edit
+ * mode. That is load-bearing rather than cosmetic: `recipe` is a defineModel the editors below
+ * mutate in place, so handing them a derived copy would silently drop edits. Conversion is
+ * display-only and never reaches anything that saves.
+ */
+const displayedRecipe = computed<NoUndefinedField<Recipe>>(() => {
+  if (isEditMode.value || !unitSystem.value) {
+    return recipe.value;
+  }
+
+  return {
+    ...recipe.value,
+    recipeIngredient: recipe.value.recipeIngredient.map(
+      ingredient => convertIngredient(ingredient, unitSystem.value!, scale.value),
+    ),
+  };
+});
+
 const notLinkedIngredients = computed(() => {
-  return recipe.value.recipeIngredient.filter((ingredient) => {
+  return displayedRecipe.value.recipeIngredient.filter((ingredient) => {
     return !recipe.value.recipeInstructions.some(step =>
       step.ingredientReferences?.map(ref => ref.referenceId).includes(ingredient.referenceId),
     );
@@ -495,8 +523,6 @@ function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: st
   }
   router.push(`/g/${groupSlug.value}?${itemType}=${item.id}`);
 }
-
-const scale = ref(1);
 
 // expose to template
 // (all variables used in template are top-level in <script setup>)
