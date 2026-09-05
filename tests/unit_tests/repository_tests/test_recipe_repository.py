@@ -855,3 +855,37 @@ def test_recipe_inject_organizer_group_id(unique_user: TestUser, route: str):
     assert updated_recipe.tools
     assert len(updated_recipe.tools) == 1
     assert updated_recipe.tools[0].name == new_tool_name
+
+
+def test_recipe_note_step_references(unique_user: TestUser) -> None:
+    """Note references on a step round-trip through save and load."""
+    from mealie.schema.recipe.recipe_notes import RecipeNote
+    from mealie.schema.recipe.recipe_step import NoteReference, RecipeStep
+
+    database = unique_user.repos
+
+    # Create a recipe with one note
+    recipe = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(),
+            notes=[RecipeNote(title="my note", text="note body")],
+            recipe_instructions=[RecipeStep(text="step one", note_references=[])],
+        )
+    )
+
+    # Get the note reference_id from the saved recipe
+    assert recipe.notes, "expected at least one note"
+    reference_id = recipe.notes[0].reference_id
+    assert reference_id is not None
+
+    # Update the step to reference the note
+    recipe.recipe_instructions[0].note_references = [NoteReference(reference_id=reference_id)]
+    updated = database.recipes.update(recipe.slug, recipe)
+
+    # Assert the reference survived the round-trip
+    assert updated.recipe_instructions is not None
+    step = updated.recipe_instructions[0]
+    assert len(step.note_references) == 1
+    assert step.note_references[0].reference_id == reference_id

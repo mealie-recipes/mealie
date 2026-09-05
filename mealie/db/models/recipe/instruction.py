@@ -17,6 +17,16 @@ class RecipeIngredientRefLink(SqlAlchemyBase, BaseMixins):
         pass
 
 
+class RecipeNoteRefLink(SqlAlchemyBase, BaseMixins):
+    __tablename__ = "recipe_note_ref_link"
+    instruction_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipe_instructions.id"), index=True)
+    reference_id: Mapped[GUID | None] = mapped_column(GUID, index=True)
+
+    @auto_init()
+    def __init__(self, **_) -> None:
+        pass
+
+
 class RecipeInstruction(SqlAlchemyBase):
     __tablename__ = "recipe_instructions"
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
@@ -30,15 +40,18 @@ class RecipeInstruction(SqlAlchemyBase):
     ingredient_references: Mapped[list[RecipeIngredientRefLink]] = orm.relationship(
         RecipeIngredientRefLink, cascade="all, delete-orphan"
     )
+    note_references: Mapped[list[RecipeNoteRefLink]] = orm.relationship(RecipeNoteRefLink, cascade="all, delete-orphan")
     model_config = ConfigDict(
         exclude={
             "id",
             "ingredient_references",
+            "note_references",
         }
     )
 
     @auto_init()
-    def __init__(self, session, ingredient_references=None, **_) -> None:
+    def __init__(self, session, ingredient_references=None, note_references=None, **_) -> None:
         self.ingredient_references = [
             RecipeIngredientRefLink(**ref, session=session) for ref in (ingredient_references or [])
         ]
+        self.note_references = [RecipeNoteRefLink(**ref, session=session) for ref in (note_references or [])]

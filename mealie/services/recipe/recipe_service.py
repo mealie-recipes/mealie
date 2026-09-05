@@ -468,6 +468,20 @@ class RecipeService(RecipeServiceBase):
 
         return update_data
 
+    def _remove_non_existent_note_references(self, update_data: Recipe) -> Recipe:
+        """Removes the references to notes from steps when the note no longer exists on the recipe."""
+
+        current_note_reference_ids = {note.reference_id for note in (update_data.notes or [])}
+
+        recipe_instructions = update_data.recipe_instructions
+        if recipe_instructions is not None:
+            for instruction in recipe_instructions:
+                instruction.note_references = [
+                    ref for ref in instruction.note_references if ref.reference_id in current_note_reference_ids
+                ]
+
+        return update_data
+
     def _resolve_ingredient_sub_recipes(self, update_data: Recipe) -> Recipe:
         """Resolve all referenced_recipe slugs to IDs within the current group."""
         if not update_data.recipe_ingredient:
@@ -494,6 +508,7 @@ class RecipeService(RecipeServiceBase):
         recipe = self._pre_update_check(slug_or_id, update_data)
 
         update_data = self._remove_non_existent_ingredient_references(update_data)
+        update_data = self._remove_non_existent_note_references(update_data)
         update_data = self._resolve_ingredient_sub_recipes(update_data)
 
         new_data = self.group_recipes.update(recipe.slug, update_data)

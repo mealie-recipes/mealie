@@ -62,6 +62,7 @@
 </template>
 
 <script setup lang="ts">
+import { uuid4 } from "~/composables/use-utils";
 import type { RecipeNote } from "~/lib/api/types/recipe";
 
 const model = defineModel<RecipeNote[]>({ default: () => [] });
@@ -74,7 +75,7 @@ defineProps({
 });
 
 function addNote() {
-  model.value = [...model.value, { title: "", text: "" }];
+  model.value = [...model.value, { title: "", text: "", referenceId: uuid4() }];
 }
 
 function removeByIndex(index: number) {

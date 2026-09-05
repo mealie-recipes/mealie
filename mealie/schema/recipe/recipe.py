@@ -314,6 +314,7 @@ class Recipe(RecipeSummary):
             .joinedload(RecipeIngredientModel.food)
             .joinedload(IngredientFoodModel.label),
             selectinload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.ingredient_references),
+            selectinload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.note_references),
             joinedload(RecipeModel.nutrition),
             joinedload(RecipeModel.settings),
             # for whatever reason, joinedload can mess up the order here, so use selectinload just this once

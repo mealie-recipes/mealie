@@ -143,6 +143,7 @@ import {
   mdiProgressCheck,
   mdiCalendarRemove,
   mdiCalendarEdit,
+  mdiNoteTextOutline,
 
 } from "@mdi/js";
 
@@ -226,6 +227,7 @@ export const icons = {
   informationVariant: mdiInformationVariant,
   link: mdiLink,
   linkVariantPlus: mdiLinkVariantPlus,
+  noteTextOutline: mdiNoteTextOutline,
   lock: mdiLock,
   logout: mdiLogout,
   manageData: mdiTableEdit,

@@ -47,11 +47,16 @@ export interface TagBase {
 export interface CategoryIn {
   name: string;
 }
+export interface CategoryMerge {
+  fromId: string;
+  toId: string;
+}
 export interface CategoryOut {
   name: string;
   id: string;
   groupId: string;
   slug: string;
+  recipeCount?: number;
 }
 export interface CategorySave {
   name: string;
@@ -104,12 +109,14 @@ export interface RecipeCategory {
   groupId?: string | null;
   name: string;
   slug: string;
+  recipeCount?: number;
 }
 export interface RecipeTag {
   id?: string | null;
   groupId?: string | null;
   name: string;
   slug: string;
+  recipeCount?: number;
 }
 export interface CreateRecipeByUrlBulk {
   imports: CreateRecipeBulk[];
@@ -196,6 +203,9 @@ export interface MergeUnit {
   fromUnit: string;
   toUnit: string;
 }
+export interface NoteReference {
+  referenceId?: string | null;
+}
 export interface Nutrition {
   calories?: string | null;
   carbohydrateContent?: string | null;
@@ -267,6 +277,7 @@ export interface RecipeTool {
   groupId?: string | null;
   name: string;
   slug: string;
+  recipeCount?: number;
   householdsWithTool?: string[];
 }
 export interface RecipeStep {
@@ -275,6 +286,7 @@ export interface RecipeStep {
   summary?: string | null;
   text: string;
   ingredientReferences?: IngredientReferences[];
+  noteReferences?: NoteReference[];
 }
 export interface RecipeAsset {
   name: string;
@@ -284,6 +296,7 @@ export interface RecipeAsset {
 export interface RecipeNote {
   title: string;
   text: string;
+  referenceId?: string;
 }
 export interface RecipeCommentOut {
   recipeId: string;
@@ -535,11 +548,16 @@ export interface SlugResponse {}
 export interface TagIn {
   name: string;
 }
+export interface TagMerge {
+  fromId: string;
+  toId: string;
+}
 export interface TagOut {
   name: string;
   groupId: string;
   id: string;
   slug: string;
+  recipeCount?: number;
 }
 export interface TagSave {
   name: string;
