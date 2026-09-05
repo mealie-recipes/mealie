@@ -8,13 +8,13 @@
     <template v-if="parsedIng.unit">
       {{ parsedIng.unit }}
     </template>
-    <SafeMarkdown
-      v-if="parsedIng.note && !parsedIng.name"
-      class="text-bold d-inline"
-      :source="parsedIng.note"
-    />
+    <template v-if="parsedIng.note && !parsedIng.name">
+      <SafeMarkdown class="text-bold d-inline" :source="parsedIng.note" />
+      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" />
+    </template>
     <template v-else-if="parsedIng.recipeLink">
-      <SafeMarkdown v-if="parsedIng.recipeLink" class="text-bold d-inline" :source="parsedIng.recipeLink" />
+      <SafeMarkdown class="text-bold d-inline" :source="parsedIng.recipeLink" />
+      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" />
       <SafeMarkdown v-if="parsedIng.note" class="note" :source="parsedIng.note" />
     </template>
     <template v-else>
@@ -23,6 +23,8 @@
         class="text-bold d-inline"
         :source="parsedIng.name"
       />
+      <!-- sits before the note, which takes a full flex row of its own -->
+      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" />
       <SafeMarkdown
         v-if="parsedIng.note"
         class="note"
@@ -35,13 +37,18 @@
 <script setup lang="ts">
 import type { RecipeIngredient } from "~/lib/api/types/household";
 import { useIngredientTextParser } from "~/composables/recipes";
+import RecipeIngredientSubstitutions from "~/components/Domain/Recipe/RecipeIngredientSubstitutions.vue";
 
 interface Props {
   ingredient: RecipeIngredient;
   scale?: number;
+  // off by default: the shopping list and the add-to-list dialog reuse this row, and a menu
+  // button is noise in both. the recipe renderer opts in
+  showSubstitutions?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   scale: 1,
+  showSubstitutions: false,
 });
 const route = useRoute();
 const auth = useMealieAuth();
