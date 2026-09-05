@@ -1,3 +1,4 @@
+import { fileURLToPath } from "node:url";
 import { defineNuxtConfig } from "nuxt/config";
 
 const AUTH_TOKEN = "mealie.access_token";
@@ -14,6 +15,21 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
   ],
   ssr: false,
+
+  vite: {
+    server: {
+      fs: {
+        // app/lang/locales/*.ts import the seeded unit names from mealie/, which is outside
+        // this project. Vite's fs.allow *replaces* its default rather than extending it, and
+        // the default here resolves to frontend/ itself — there's no pnpm-workspace.yaml or
+        // root package.json for vite to detect — so the project root has to be listed too.
+        allow: [
+          fileURLToPath(new URL(".", import.meta.url)),
+          fileURLToPath(new URL("../mealie/repos/seed/resources/units/locales", import.meta.url)),
+        ],
+      },
+    },
+  },
 
   components: [
     {

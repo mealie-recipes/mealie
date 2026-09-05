@@ -2,8 +2,13 @@ import { config } from "@vue/test-utils";
 import { createI18n } from "vue-i18n";
 
 function loadEnLocales() {
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  return require("../lang/messages/en-US.json") as Record<string, string>;
+  /* eslint-disable @typescript-eslint/no-require-imports */
+  return {
+    ...require("../lang/messages/en-US.json"),
+    // app/lang/locales/*.ts merge these in at runtime; do the same here so unit names resolve
+    "unit-names": require("../../../mealie/repos/seed/resources/units/locales/en-US.json"),
+  } as Record<string, unknown>;
+  /* eslint-enable @typescript-eslint/no-require-imports */
 }
 
 const i18n = createI18n({
