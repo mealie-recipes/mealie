@@ -70,7 +70,7 @@ class MultiPurposeLabelsController(BaseCrudController):
 
     @router.get("/{item_id}", response_model=MultiPurposeLabelOut)
     def get_one(self, item_id: UUID4):
-        return self.repo.get_one(item_id)
+        return self.mixins.get_one(item_id)
 
     @router.put("/{item_id}", response_model=MultiPurposeLabelOut)
     def update_one(self, item_id: UUID4, data: MultiPurposeLabelUpdate):
