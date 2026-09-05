@@ -126,7 +126,7 @@ function close() {
 
 const i18n = useI18n();
 
-const utilities = [
+const utilities = computed(() => [
   {
     id: "trim-whitespace",
     description: i18n.t("new-recipe.trim-whitespace-description"),
@@ -142,7 +142,7 @@ const utilities = [
     description: i18n.t("new-recipe.split-by-numbered-line-description"),
     action: splitByNumberedLine,
   },
-];
+]);
 
 // Expose functions to parent components
 defineExpose({
