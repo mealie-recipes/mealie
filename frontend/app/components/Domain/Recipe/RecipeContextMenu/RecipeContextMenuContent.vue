@@ -37,35 +37,7 @@
       />
     </v-card-text>
   </BaseDialog>
-  <BaseDialog
-    v-model="mealplannerDialog"
-    bottom-sheet
-    :title="$t('recipe.add-recipe-to-mealplan')"
-    color="primary"
-    :icon="$globals.icons.calendar"
-    can-confirm
-    @confirm="addRecipeToPlan()"
-  >
-    <v-card-text>
-      <v-date-picker
-        v-model="newMealdate"
-        class="mx-auto mb-3"
-        hide-header
-        show-adjacent-months
-        color="primary"
-        :first-day-of-week="firstDayOfWeek"
-        :local="$i18n.locale"
-      />
-      <v-select
-        v-model="newMealType"
-        :return-object="false"
-        :items="planTypeOptions"
-        :label="$t('recipe.entry-type')"
-        item-title="text"
-        item-value="value"
-      />
-    </v-card-text>
-  </BaseDialog>
+  <MealPlanAddRecipeDialog v-model="mealplannerDialog" :recipe-id="recipeId" />
   <RecipeDialogAddToShoppingList
     v-if="shoppingLists && recipeRefWithScale"
     v-model="shoppingListDialog"
@@ -110,14 +82,11 @@ import RecipeDialogShare from "~/components/Domain/Recipe/RecipeDialogShare.vue"
 import { useUserApi } from "~/composables/api";
 import { useDownloader } from "~/composables/api/use-downloader";
 import { useAddToShoppingListDialog } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
-import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { useGroupRecipeActions } from "~/composables/use-group-recipe-actions";
 import { useGroupSelf } from "~/composables/use-groups";
-import { useHouseholdSelf } from "~/composables/use-households";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { alert } from "~/composables/use-toast";
 import type { GroupRecipeActionOut, HouseholdSummary } from "~/lib/api/types/household";
-import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 import type { Recipe } from "~/lib/api/types/recipe";
 import { isRecipeFullyPublic } from "~/lib/recipe/recipe-visibility";
 
@@ -198,30 +167,15 @@ const recipeDuplicateDialog = ref(false);
 const recipeName = ref(props.name);
 const loading = ref(false);
 const menuItems = ref<ContextMenuItem[]>([]);
-const newMealdate = ref(new Date());
-const newMealType = ref<PlanEntryType>("dinner");
-
-const newMealdateString = computed(() => {
-  // Format the date to YYYY-MM-DD in the same timezone as newMealdate
-  const year = newMealdate.value.getFullYear();
-  const month = String(newMealdate.value.getMonth() + 1).padStart(2, "0");
-  const day = String(newMealdate.value.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-});
 
 const i18n = useI18n();
 const auth = useMealieAuth();
 const { $globals } = useNuxtApp();
-const { household } = useHouseholdSelf();
 const { group, actions: groupActions } = useGroupSelf();
 const { isOwnGroup } = useLoggedInState();
 
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
-
-const firstDayOfWeek = computed(() => {
-  return household.value?.preferences?.firstDayOfWeek || 0;
-});
 
 const { share, isSupported: shareIsSupported } = useShare();
 const { copy, copied, isSupported: clipboardIsSupported } = useClipboard();
@@ -423,28 +377,6 @@ async function handleDownloadEvent() {
   download(api.recipes.share.getZipRedirectUrl(shareToken.id), `${props.slug}.zip`);
 }
 
-async function addRecipeToPlan() {
-  const { response } = await api.mealplans.createOne({
-    date: newMealdateString.value,
-    entryType: newMealType.value,
-    title: "",
-    text: "",
-    recipeId: props.recipeId,
-  });
-
-  if (response?.status === 201) {
-    alert.success(i18n.t("recipe.recipe-added-to-mealplan"), null, {
-      action: {
-        message: i18n.t("general.view"),
-        onClick: () => router.push("/household/mealplan/planner/view"),
-      },
-    });
-  }
-  else {
-    alert.error(i18n.t("recipe.failed-to-add-recipe-to-mealplan"));
-  }
-}
-
 async function duplicateRecipe() {
   const { data } = await api.recipes.duplicateOne(props.slug, recipeName.value);
   if (data && data.slug) {
@@ -515,6 +447,5 @@ function contextMenuEventHandler(eventKey: string) {
   loading.value = false;
 }
 
-const planTypeOptions = usePlanTypeOptions();
 const recipeActions = groupRecipeActionsStore.recipeActions;
 </script>
