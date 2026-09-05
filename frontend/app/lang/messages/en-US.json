@@ -738,6 +738,7 @@
   },
   "shopping-list": {
     "all-lists": "All Lists",
+    "choose-list": "Change shopping list",
     "create-shopping-list": "Create Shopping List",
     "ingredient-of-recipe": "Ingredient of {recipe}",
     "new-list": "New List",

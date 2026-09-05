@@ -3,6 +3,7 @@
     v-model="shoppingListDialog"
     :recipes="recipesWithScales"
     :shopping-lists="shoppingLists"
+    :refresh="getShoppingLists"
   />
   <GroupMealPlanEntryDialog
     v-model="dialog.open"
@@ -62,7 +63,7 @@ interface Props {
   inlineActions?: boolean;
 }
 
-const { open: shoppingListDialog, shoppingLists, addAllLoading, addAllToList } = useAddToShoppingListDialog();
+const { open: shoppingListDialog, shoppingLists, addAllLoading, addAllToList, getShoppingLists } = useAddToShoppingListDialog();
 const { $globals } = useNuxtApp();
 const i18n = useI18n();
 const api = useUserApi();
