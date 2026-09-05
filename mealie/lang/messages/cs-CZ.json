@@ -19,7 +19,6 @@
             "yields": "Výnosy"
         },
         "and-amount": "a {amount}",
-        "or-ingredient": "nebo {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI služby nejsou povoleny",
             "ai-request-failed": "Poskytovatel AI nemohl požadavek dokončit. Zkuste to prosím znovu",
