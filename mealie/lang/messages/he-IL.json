@@ -19,7 +19,6 @@
             "yields": "כמויות"
         },
         "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}",
         "import-errors": {
             "ai-not-enabled": "שירותי AI אינם מופעלים",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
