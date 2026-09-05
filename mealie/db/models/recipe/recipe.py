@@ -270,7 +270,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
 @event.listens_for(RecipeModel.name, "set")
 def receive_name(target: RecipeModel, value: str, oldvalue, initiator):
-    target.name_normalized = RecipeModel.normalize(value)
+    target.name_normalized = RecipeModel.normalize(value) if value else None
 
 
 @event.listens_for(RecipeModel.description, "set")
