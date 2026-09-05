@@ -34,7 +34,6 @@ class UnitDimension(StrEnum):
 class UnitSystem(StrEnum):
     METRIC = "metric"
     US = "us"
-    IMPERIAL = "imperial"
 
 
 #: The unit each dimension is measured in. This asserts nothing about Pint: Pint decides which
@@ -47,20 +46,18 @@ BASE_UNITS: dict[UnitDimension, str] = {
     UnitDimension.VOLUME: "milliliter",
 }
 
-#: Pint systems backing our own, used to derive the fraction flag and to verify each ladder
-#: belongs to the system it claims.
+#: Pint systems whose members are customary rather than metric, used to derive the fraction
+#: flag. Both are listed because that is what "customary" means, not because both are offered
+#: as ladders -- `ounce` and `pound` belong to either one.
 #:
-#: Naming these is unavoidable. Pint's `SI` system is just its root group -- it has 417 members
-#: including `cup`, `ounce` and `pound` -- so "customary" cannot be derived as the complement of
+#: Naming them is unavoidable. Pint's `SI` system is just its root group -- 417 members,
+#: including `cup`, `ounce` and `pound` -- so customary cannot be derived as the complement of
 #: metric. These are Pint's own identifiers, and `get_system` raises on an unknown name, so a
 #: typo fails the build rather than silently emitting a wrong table.
 #:
-#: Metric has no entry: metric kitchen units are generated from SI prefixes rather than being
-#: members of any group, so `mks` contains `liter` but neither `milliliter` nor `kilogram`.
-PINT_SYSTEMS: dict[UnitSystem, str] = {
-    UnitSystem.US: "US",
-    UnitSystem.IMPERIAL: "imperial",
-}
+#: There is no metric entry: metric kitchen units are generated from SI prefixes rather than
+#: being members of any group, so `mks` holds `liter` but neither `milliliter` nor `kilogram`.
+CUSTOMARY_PINT_SYSTEMS: tuple[str, ...] = ("US", "imperial")
 
 #: The only hand-authored policy in this module: for each system and dimension, which Pint
 #: units may be displayed, and the takeover multiple for each — how many whole units are
@@ -69,9 +66,10 @@ PINT_SYSTEMS: dict[UnitSystem, str] = {
 #:
 #: Order is not authored; rungs are sorted by magnitude, which Pint supplies.
 #:
-#: `imperial` deliberately omits `imperial_cup`. Pint puts it at 284 ml, but UK and AU recipes
-#: mean roughly 250 ml, and there is no agreed imperial teaspoon or tablespoon either. Leaving
-#: them out *is* the policy: imperial renders volumes below a pint in millilitres.
+#: There is deliberately no imperial ladder. It would share `ounce` and `pound` with `us` — pint
+#: puts both in either system — so it would only differ on volume, and essentially nobody cooks
+#: in imperial: the UK weighs in grams, Australia and New Zealand are metric, and Canada follows
+#: US customary. If a third ladder is ever wanted, metric-with-cups for AU/NZ is the likelier ask.
 SELECTION: dict[tuple[UnitSystem, UnitDimension], dict[str, float]] = {
     (UnitSystem.METRIC, UnitDimension.MASS): {"gram": 1.0, "kilogram": 1.0},
     (UnitSystem.METRIC, UnitDimension.VOLUME): {"milliliter": 1.0, "liter": 1.0},
@@ -83,23 +81,8 @@ SELECTION: dict[tuple[UnitSystem, UnitDimension], dict[str, float]] = {
         "quart": 1.0,
         "gallon": 1.0,
     },
-    (UnitSystem.IMPERIAL, UnitDimension.MASS): {"ounce": 1.0, "pound": 1.0},
-    (UnitSystem.IMPERIAL, UnitDimension.VOLUME): {
-        "milliliter": 1.0,
-        "imperial_pint": 1.0,
-        "imperial_quart": 1.0,
-        "imperial_gallon": 1.0,
-    },
 }
 
-
-#: Rungs whose display name comes from a seed unit with a different key than their pint name.
-#: The imperial ladder only ever renders for imperial readers, so it uses the unqualified names.
-SEED_KEYS: dict[str, str] = {
-    "imperial_pint": "pint",
-    "imperial_quart": "quart",
-    "imperial_gallon": "gallon",
-}
 
 #: Display names are not authored here. They come from the ingredient unit seed data, which is
 #: already translated into every locale Mealie ships and is managed in Crowdin. The frontend
@@ -145,12 +128,12 @@ def _customary_units() -> frozenset[str]:
     """Every unit belonging to a Pint system we treat as customary rather than metric.
 
     Used to decide whether a rung renders as a fraction. Derived rather than authored, so a
-    metric rung inside the imperial ladder (millilitres below a pint) correctly stays decimal.
+    metric rung sitting inside a customary ladder would correctly stay decimal.
     """
 
     registry = _registry()
     members: set[str] = set()
-    for pint_system in PINT_SYSTEMS.values():
+    for pint_system in CUSTOMARY_PINT_SYSTEMS:
         members |= set(registry.get_system(pint_system, create_if_needed=False).members)
 
     return frozenset(members)
@@ -200,13 +183,17 @@ def _seed_unit_keys() -> frozenset[str]:
 
 
 def seed_key_for(unit: str) -> str:
-    """The seed data key holding this unit's translated display names."""
+    """The seed data key holding this unit's translated display names.
 
-    key = SEED_KEYS.get(unit, unit)
-    if key not in _seed_unit_keys():
-        raise UnitNotSupported(f"Unit '{unit}' has no seed data under '{key}', so it has no translated names")
+    Currently always the pint unit name, but kept distinct because it is a translation key
+    rather than a physics identifier. The two diverge as soon as a ladder uses a qualified pint
+    unit — `imperial_pint` would display under the seed data's unqualified `pint`.
+    """
 
-    return key
+    if unit not in _seed_unit_keys():
+        raise UnitNotSupported(f"Unit '{unit}' has no seed data, so it has no translated names")
+
+    return unit
 
 
 def rungs_for(system: UnitSystem, dimension: UnitDimension) -> list[Rung]:
