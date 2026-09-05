@@ -1702,3 +1702,72 @@ def test_e2e_parse_now_placeholder(
 
     # Verify that the placeholder parsing was called
     assert mock_parse.call_count
+
+
+def test_pagination_filter_multi_tag_page_is_not_short(unique_user: TestUser):
+    """https://github.com/mealie-recipes/mealie/issues/7828"""
+    database = unique_user.repos
+
+    tag_names = [random_string(10) for _ in range(3)]
+    tags = [database.tags.create(TagSave(group_id=unique_user.group_id, name=n, slug=n)) for n in tag_names]
+
+    for _ in range(5):
+        slug = random_string()
+        database.recipes.create(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=slug,
+                slug=slug,
+                tags=tags,
+            )
+        )
+
+    query_filter = f"tags.name IN [{', '.join(tag_names)}]"
+
+    query = PaginationQuery(page=1, per_page=-1, query_filter=query_filter)
+    assert len(database.recipes.page_all(query).items) == 5
+
+    query = PaginationQuery(page=1, per_page=5, query_filter=query_filter)
+    result = database.recipes.page_all(query)
+    assert result.total == 5
+    assert len(result.items) == 5
+
+
+def test_pagination_filter_two_tag_conditions_anded(unique_user: TestUser):
+    """https://github.com/mealie-recipes/mealie/issues/7828"""
+    database = unique_user.repos
+
+    name_1, name_2 = (random_string(10) for _ in range(2))
+    tag_1 = database.tags.create(TagSave(group_id=unique_user.group_id, name=name_1, slug=name_1))
+    tag_2 = database.tags.create(TagSave(group_id=unique_user.group_id, name=name_2, slug=name_2))
+
+    slug = random_string()
+    both = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            slug=slug,
+            tags=[tag_1, tag_2],
+        )
+    )
+
+    slug = random_string()
+    database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            slug=slug,
+            tags=[tag_1],
+        )
+    )
+
+    query = PaginationQuery(
+        page=1,
+        per_page=-1,
+        query_filter=f"tags.name IN [{tag_1.name}] AND tags.name IN [{tag_2.name}]",
+    )
+    results = database.recipes.page_all(query).items
+    assert [recipe.id for recipe in results] == [both.id]
