@@ -10,7 +10,7 @@ from mealie.services.migrations.utils.migration_alias import MigrationAlias
 from mealie.services.scraper import cleaner
 
 from ._migration_base import BaseMigrator
-from .utils.migration_helpers import scrape_image, split_by_line_break, split_by_semicolon
+from .utils.migration_helpers import split_by_line_break, split_by_semicolon
 
 nutrition_map = {
     "carbohydrate": "carbohydrateContent",
@@ -139,6 +139,6 @@ class MyRecipeBoxMigrator(BaseMigrator):
                 continue
 
             try:
-                asyncio.run(scrape_image(recipe_image_url, recipe_id))
+                asyncio.run(self.scrape_image(slug, recipe_image_url, recipe_id))
             except Exception as e:
                 self.logger.error(f"Failed to download image for {slug}: {e}")

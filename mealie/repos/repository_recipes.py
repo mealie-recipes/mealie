@@ -1,7 +1,6 @@
 import re as re
 from collections.abc import Iterable, Sequence
 from datetime import UTC, datetime
-from random import randint
 from typing import Self, cast
 from uuid import UUID
 
@@ -20,6 +19,7 @@ from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool, households_to_tools, recipes_to_tools
 from mealie.db.models.users.user_to_recipe import UserToRecipe
 from mealie.db.models.users.users import User
+from mealie.pkgs import cache
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_recipe_slug
@@ -152,9 +152,9 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
 
         return results
 
-    def update_image(self, slug: str, _: str | None = None) -> int:
+    def update_image(self, slug: str, _: str | None = None) -> str:
         entry: RecipeModel = self._query_one(match_value=slug)
-        entry.image = randint(0, 255)
+        entry.image = cache.new_key()
         self.session.commit()
 
         return entry.image
