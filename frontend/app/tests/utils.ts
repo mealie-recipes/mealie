@@ -7,7 +7,7 @@ function loadEnLocales() {
     ...require("../lang/messages/en-US.json"),
     // app/lang/locales/*.ts merge these in at runtime; do the same here so unit names resolve
     "unit-names": require("../../../mealie/repos/seed/resources/units/locales/en-US.json"),
-  } as Record<string, unknown>;
+  } as Record<string, string>;
   /* eslint-enable @typescript-eslint/no-require-imports */
 }
 
