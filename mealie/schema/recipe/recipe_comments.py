@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import UUID4, ConfigDict
+from pydantic import UUID4, ConfigDict, field_validator
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -19,9 +19,18 @@ class UserBase(MealieModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+def validate_comment_text(value: str) -> str:
+    stripped = value.strip()
+    if not stripped:
+        raise ValueError("comment text must not be empty")
+    return stripped
+
+
 class RecipeCommentCreate(MealieModel):
     recipe_id: UUID4
     text: str
+
+    _validate_text = field_validator("text")(validate_comment_text)
 
 
 class RecipeCommentSave(RecipeCommentCreate):
@@ -32,10 +41,13 @@ class RecipeCommentUpdate(MealieModel):
     id: UUID4
     text: str
 
+    _validate_text = field_validator("text")(validate_comment_text)
 
-class RecipeCommentOut(RecipeCommentCreate):
+
+class RecipeCommentOut(MealieModel):
     id: UUID4
     recipe_id: UUID4
+    text: str
     created_at: datetime
     updated_at: datetime = UpdatedAtField(...)
     user_id: UUID4

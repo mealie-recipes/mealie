@@ -142,3 +142,19 @@ def test_user_can_comment_on_other_household(api_client: TestClient, unique_reci
     response = api_client.get(api_routes.comments_item_id(comment_id), headers=h2_user.token)
 
     assert response.status_code == 404
+
+
+@pytest.mark.parametrize("text", ["", "   ", "\n\t  \n"])
+def test_whitespace_only_comment_rejected(
+    api_client: TestClient, unique_recipe: Recipe, unique_user: TestUser, text: str
+):
+    create_data = {"recipeId": str(unique_recipe.id), "text": text}
+    response = api_client.post(api_routes.comments, json=create_data, headers=unique_user.token)
+    assert response.status_code == 422
+
+
+def test_comment_text_is_trimmed(api_client: TestClient, unique_recipe: Recipe, unique_user: TestUser):
+    create_data = {"recipeId": str(unique_recipe.id), "text": "  hello  "}
+    response = api_client.post(api_routes.comments, json=create_data, headers=unique_user.token)
+    assert response.status_code == 201
+    assert response.json()["text"] == "hello"
