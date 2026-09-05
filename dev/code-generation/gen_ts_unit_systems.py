@@ -11,6 +11,8 @@ export interface StandardizedUnit {
   dimension: UnitDimension;
   /** How many base units (grams for mass, millilitres for volume) are in one of this unit. */
   base: number;
+  /** Customary rather than metric, so a recipe using it is already in a customary system. */
+  customary: boolean;
 }
 
 export interface UnitRung {
@@ -26,9 +28,12 @@ export interface UnitRung {
 
 export const STANDARDIZED_UNITS: Record<string, StandardizedUnit> = {
 {%- for name, unit in units.items() %}
-  {{ name }}: { dimension: "{{ unit.dimension }}", base: {{ unit.base }} },
+  {{ name }}: { dimension: "{{ unit.dimension }}", base: {{ unit.base }}, customary: {{ unit.customary }} },
 {%- endfor %}
 };
+
+/** Systems made of customary units. An ingredient already in the reader's system is left alone. */
+export const CUSTOMARY_SYSTEMS: UnitSystem[] = [{{ customary_systems }}];
 
 export const UNIT_SYSTEMS: Record<UnitSystem, Record<UnitDimension, UnitRung[]>> = {
 {%- for system, dimensions in systems.items() %}
@@ -75,9 +80,14 @@ def generate_unit_systems_ts_file():
         dimension_union=" | ".join(f'"{dimension.value}"' for dimension in UnitDimension),
         system_union=" | ".join(f'"{system.value}"' for system in UnitSystem),
         units={
-            name: {"dimension": unit["dimension"], "base": number(unit["base"])}
+            name: {
+                "dimension": unit["dimension"],
+                "base": number(unit["base"]),
+                "customary": "true" if unit["customary"] else "false",
+            }
             for name, unit in table["units"].items()
         },
+        customary_systems=", ".join(f'"{system}"' for system in table["customary_systems"]),
         systems={
             system: {dimension: [rung_literal(rung) for rung in rungs] for dimension, rungs in dimensions.items()}
             for system, dimensions in table["systems"].items()

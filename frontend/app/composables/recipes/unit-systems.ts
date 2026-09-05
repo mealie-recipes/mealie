@@ -7,6 +7,8 @@ export interface StandardizedUnit {
   dimension: UnitDimension;
   /** How many base units (grams for mass, millilitres for volume) are in one of this unit. */
   base: number;
+  /** Customary rather than metric, so a recipe using it is already in a customary system. */
+  customary: boolean;
 }
 
 export interface UnitRung {
@@ -21,15 +23,18 @@ export interface UnitRung {
 }
 
 export const STANDARDIZED_UNITS: Record<string, StandardizedUnit> = {
-  fluid_ounce: { dimension: "volume", base: 29.5735295625 },
-  cup: { dimension: "volume", base: 236.5882365 },
-  ounce: { dimension: "mass", base: 28.349523125 },
-  pound: { dimension: "mass", base: 453.59237 },
-  milliliter: { dimension: "volume", base: 1.0 },
-  liter: { dimension: "volume", base: 1000.0 },
-  gram: { dimension: "mass", base: 1.0 },
-  kilogram: { dimension: "mass", base: 1000.0 },
+  fluid_ounce: { dimension: "volume", base: 29.5735295625, customary: true },
+  cup: { dimension: "volume", base: 236.5882365, customary: true },
+  ounce: { dimension: "mass", base: 28.349523125, customary: true },
+  pound: { dimension: "mass", base: 453.59237, customary: true },
+  milliliter: { dimension: "volume", base: 1.0, customary: false },
+  liter: { dimension: "volume", base: 1000.0, customary: false },
+  gram: { dimension: "mass", base: 1.0, customary: false },
+  kilogram: { dimension: "mass", base: 1000.0, customary: false },
 };
+
+/** Systems made of customary units. An ingredient already in the reader's system is left alone. */
+export const CUSTOMARY_SYSTEMS: UnitSystem[] = ["us"];
 
 export const UNIT_SYSTEMS: Record<UnitSystem, Record<UnitDimension, UnitRung[]>> = {
   metric: {

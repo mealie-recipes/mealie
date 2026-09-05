@@ -64,6 +64,10 @@ CUSTOMARY_PINT_SYSTEMS: tuple[str, ...] = ("US", "imperial")
 #: needed before it takes over from the rung below. 1.0 is the norm; cups take over at a
 #: quarter cup, which is how US recipes are written.
 #:
+#: This only ever applies to quantities being converted *into* this system. An ingredient the
+#: author already wrote in cups or tablespoons is passed through untouched, so the boundary
+#: cannot restate "4 tablespoons" as "1/4 cup".
+#:
 #: Order is not authored; rungs are sorted by magnitude, which Pint supplies.
 #:
 #: There is deliberately no imperial ladder. It would share `ounce` and `pound` with `us` — pint
@@ -196,6 +200,17 @@ def seed_key_for(unit: str) -> str:
     return unit
 
 
+def is_customary_system(system: UnitSystem) -> bool:
+    """Whether a system is made of customary units rather than metric ones.
+
+    Lets the client skip a recipe already written in the system the reader asked for, instead of
+    restating "1 pint" as "2 cups".
+    """
+
+    customary = _customary_units()
+    return any(rung.unit in customary for dimension in UnitDimension for rung in rungs_for(system, dimension))
+
+
 def rungs_for(system: UnitSystem, dimension: UnitDimension) -> list[Rung]:
     """The display ladder for a system and dimension, ordered smallest to largest."""
 
@@ -223,15 +238,22 @@ def rungs_for(system: UnitSystem, dimension: UnitDimension) -> list[Rung]:
 def build_table() -> dict[str, Any]:
     """Resolve everything through Pint into a JSON-able table for the frontend.
 
-    `units` maps each standardized unit an ingredient may be stored in to its dimension and
-    base factor, which is what lets the client compute an ingredient's base magnitude.
-    `systems` holds the display ladders.
+    `units` maps each standardized unit an ingredient may be stored in to its dimension, base
+    factor and whether it is customary, which is what lets the client compute an ingredient's
+    base magnitude and tell whether it already matches the reader's chosen system. `systems`
+    holds the display ladders.
     """
+
+    customary = _customary_units()
 
     units: dict[str, Any] = {}
     for standardized_unit in StandardizedUnitType:
         dimension, base = base_factor(standardized_unit.value)
-        units[standardized_unit.value] = {"dimension": dimension.value, "base": base}
+        units[standardized_unit.value] = {
+            "dimension": dimension.value,
+            "base": base,
+            "customary": standardized_unit.value in customary,
+        }
 
     systems: dict[str, Any] = {}
     for system in UnitSystem:
@@ -239,4 +261,8 @@ def build_table() -> dict[str, Any]:
             dimension.value: [asdict(rung) for rung in rungs_for(system, dimension)] for dimension in UnitDimension
         }
 
-    return {"units": units, "systems": systems}
+    return {
+        "units": units,
+        "systems": systems,
+        "customary_systems": [system.value for system in UnitSystem if is_customary_system(system)],
+    }

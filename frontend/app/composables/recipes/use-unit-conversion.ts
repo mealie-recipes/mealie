@@ -1,4 +1,4 @@
-import { STANDARDIZED_UNITS, UNIT_SYSTEMS, type StandardizedUnit, type UnitRung, type UnitSystem } from "./unit-systems";
+import { CUSTOMARY_SYSTEMS, STANDARDIZED_UNITS, UNIT_SYSTEMS, type StandardizedUnit, type UnitRung, type UnitSystem } from "./unit-systems";
 import type { CreateIngredientUnit, RecipeIngredient } from "~/lib/api/types/recipe";
 
 interface ConvertibleIngredient {
@@ -77,9 +77,13 @@ export function useUnitConversion() {
   /**
    * Restate an ingredient in the given unit system. Display only — nothing is written back.
    *
-   * The display unit is chosen from the *scaled* magnitude, but the quantity returned is
-   * unscaled, so callers keep applying scale themselves and existing call sites are unaffected.
-   * A 100g ingredient at 10x comes back as 0.1 kilogram and renders as "1 kg", not "1000 g".
+   * An ingredient already measured in the reader's own system is returned untouched, so
+   * choosing a system only ever rewrites units that are foreign to it.
+   *
+   * Where conversion does happen, the display unit is chosen from the *scaled* magnitude while
+   * the quantity returned stays unscaled, so callers keep applying scale themselves and
+   * existing call sites are unaffected. 4oz of something at 10x comes back as 1.13 kilogram
+   * rather than 1134 grams.
    *
    * Ingredients that can't be converted are returned unchanged, with the same object identity.
    */
@@ -90,6 +94,13 @@ export function useUnitConversion() {
     }
 
     const { quantity, standardQuantity, unit, standard } = convertible;
+
+    // Already written in the system the reader asked for, so leave it exactly as authored
+    // rather than restating "1 pint" as "2 cups". Only genuinely foreign units get rewritten.
+    if (standard.customary === CUSTOMARY_SYSTEMS.includes(system)) {
+      return ingredient;
+    }
+
     const magnitude = quantity * standardQuantity * standard.base;
     const rung = pickRung(UNIT_SYSTEMS[system][standard.dimension], magnitude * scale);
 
