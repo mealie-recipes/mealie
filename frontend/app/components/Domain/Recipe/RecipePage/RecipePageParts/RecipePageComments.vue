@@ -35,7 +35,7 @@
       <div class="ml-auto mt-1">
         <BaseButton
           size="small"
-          :disabled="!comment"
+          :disabled="!comment.trim()"
           @click="submitComment"
         >
           <template #icon>
@@ -96,9 +96,13 @@ const { user } = usePageUser();
 const comment = ref("");
 
 async function submitComment() {
+  const text = comment.value.trim();
+  if (!text) {
+    return;
+  }
   const { data } = await api.recipes.comments.createOne({
     recipeId: recipe.value.id,
-    text: comment.value,
+    text,
   });
 
   if (data) {
