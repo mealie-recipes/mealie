@@ -19,7 +19,6 @@
             "yields": "Racions"
         },
         "and-amount": "i {amount}",
-        "or-ingredient": "o {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",

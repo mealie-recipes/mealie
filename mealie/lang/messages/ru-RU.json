@@ -19,7 +19,6 @@
             "yields": "Можно получить порций"
         },
         "and-amount": "и {amount}",
-        "or-ingredient": "или {ingredient}",
         "import-errors": {
             "ai-not-enabled": "ИИ сервисы выключены",
             "ai-request-failed": "Провайдер ИИ не смог выполнить запрос. Пожалуйста, попробуйте еще раз",

@@ -19,7 +19,6 @@
             "yields": "Skilar"
         },
         "and-amount": "og {amount}",
-        "or-ingredient": "eða {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",

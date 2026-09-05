@@ -19,31 +19,30 @@
             "yields": "Rendements"
         },
         "and-amount": "et {amount}",
-        "or-ingredient": "ou {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
-            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
-            "image-provider-not-enabled": "AI image services are not enabled",
-            "no-recipe-found": "No recipe was found in the provided source",
-            "no-source": "No content, images, or URL were provided",
-            "provider-returned-nothing": "The AI provider did not return a recipe",
-            "unknown-error": "Something went wrong while creating the recipe. Please try again",
-            "unreadable-source": "Unable to read any content from the provided source",
-            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+            "ai-not-enabled": "Les services IA ne sont pas activés",
+            "ai-request-failed": "Le fournisseur d'IA n'a pas pu répondre à la demande. Veuillez réessayer",
+            "image-provider-not-enabled": "Les services d'images d'IA ne sont pas activés",
+            "no-recipe-found": "Aucune recette n'a été trouvée dans la source fournie",
+            "no-source": "Aucun contenu, image ou URL n'a été fourni",
+            "provider-returned-nothing": "Le fournisseur d'IA n'a pas renvoyé de recette",
+            "unknown-error": "Une erreur s'est produite lors de la création de la recette. Veuillez réessayer",
+            "unreadable-source": "Impossible de lire le contenu de la source fournie",
+            "video-download-failed": "Impossible de télécharger la vidéo. Elle peut être privée, retirée ou d'un site non pris en charge"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Création de la recette...",
             "creating-recipe-from-transcript-with-ai": "Création de la recette à partir de la transcription avec l'IA...",
             "creating-recipe-from-webpage-data": "Création de la recette à partir des données d'une page web...",
             "downloading-image": "Téléchargement de l'image...",
             "downloading-video": "Téléchargement de la vidéo...",
             "extracting-recipe-data": "Extraction des données de la recette...",
             "fetching-webpage": "Récupération de la page web...",
-            "organizing-recipe": "Organizing recipe...",
-            "reading-images-with-ai": "Reading images with AI...",
-            "reading-source-with-ai": "Reading source with AI...",
+            "organizing-recipe": "Organisation de la recette...",
+            "reading-images-with-ai": "Lecture d'images avec IA...",
+            "reading-source-with-ai": "Lecture de la source avec IA...",
             "transcribing-audio-with-ai": "Transcodage audio avec l'AI...",
-            "translating-recipe": "Translating recipe..."
+            "translating-recipe": "Traduction de la recette..."
         }
     },
     "mealplan": {
@@ -62,7 +61,7 @@
         "permission_denied": "Vous n'avez pas le droit d'exécuter cette action",
         "recursive-recipe-link": "Une recette ne peut pas se référencer elle-même, ni directement, ni indirectement",
         "no-entry-found": "La ressource demandée n'a pas été trouvée",
-        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
+        "rate-limit-error": "Le fournisseur d'IA limite la fréquence des requêtes. Veuillez patienter un moment et réessayer",
         "integrity-error": "Erreur d'intégrité de la base de données",
         "username-conflict-error": "Ce nom d'utilisateur est déjà pris",
         "email-conflict-error": "Cette adresse courriel est déjà utilisée"
