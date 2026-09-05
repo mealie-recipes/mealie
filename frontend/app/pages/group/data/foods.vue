@@ -86,6 +86,15 @@
       @cancel="aliasManagerDialog = false"
     />
 
+    <!-- Substitution Sub-Dialog -->
+    <RecipeDataSubstitutionManagerDialog
+      v-if="editForm.data"
+      v-model="substitutionManagerDialog"
+      :data="editForm.data"
+      @submit="updateFoodSubstitutions"
+      @cancel="substitutionManagerDialog = false"
+    />
+
     <!-- Bulk Assign Labels Dialog -->
     <BaseDialog
       v-model="bulkAssignLabelDialog"
@@ -163,6 +172,10 @@
         </v-icon>
       </template>
 
+      <template #[`item.substitutions`]="{ item }">
+        {{ item.substitutions ? item.substitutions.length : 0 }}
+      </template>
+
       <template #[`item.createdAt`]="{ item }">
         {{ item.createdAt ? $d(new Date(item.createdAt)) : "" }}
       </template>
@@ -179,6 +192,9 @@
       <template #edit-dialog-custom-action>
         <BaseButton edit @click="aliasManagerDialog = true">
           {{ $t("data-pages.manage-aliases") }}
+        </BaseButton>
+        <BaseButton edit @click="substitutionManagerDialog = true">
+          {{ $t("data-pages.foods.manage-substitutions") }}
         </BaseButton>
       </template>
 
@@ -206,9 +222,16 @@
 <script setup lang="ts">
 import type { LocaleObject } from "@nuxtjs/i18n";
 import RecipeDataAliasManagerDialog from "~/components/Domain/Recipe/RecipeDataAliasManagerDialog.vue";
+import RecipeDataSubstitutionManagerDialog from "~/components/Domain/Recipe/RecipeDataSubstitutionManagerDialog.vue";
+import type { ReverseSubstitutionChanges } from "~/components/Domain/Recipe/RecipeDataSubstitutionManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import type { CreateIngredientFood, IngredientFood, IngredientFoodAlias } from "~/lib/api/types/recipe";
+import type {
+  CreateIngredientFood,
+  IngredientFood,
+  IngredientFoodAlias,
+  IngredientFoodSubstitution,
+} from "~/lib/api/types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
 import { normalizeFilter } from "~/composables/use-utils";
@@ -273,6 +296,15 @@ const tableHeaders: TableHeaders[] = [
     value: "onHand",
     show: true,
     sortable: true,
+  },
+  {
+    text: i18n.t("data-pages.foods.substitutions"),
+    value: "substitutions",
+    show: true,
+    sortable: true,
+    sort: (subs1: IngredientFoodSubstitution[] | null, subs2: IngredientFoodSubstitution[] | null) => {
+      return (subs1?.length || 0) - (subs2?.length || 0);
+    },
   },
   {
     text: i18n.t("general.date-added"),
@@ -381,6 +413,8 @@ async function handleEdit() {
     editForm.data.householdsWithIngredientFood = [];
   }
 
+  const foodId = editForm.data.id;
+
   if (editForm.data.onHand && !editForm.data.householdsWithIngredientFood.includes(userHousehold.value)) {
     editForm.data.householdsWithIngredientFood.push(userHousehold.value);
   }
@@ -391,6 +425,7 @@ async function handleEdit() {
 
   await foodStore.actions.updateOne(editForm.data);
   editForm.data = {} as IngredientFoodWithOnHand;
+  await applyReverseSubstitutions(foodId);
 }
 
 // ============================================================
@@ -418,6 +453,65 @@ function updateFoodAlias(newAliases: IngredientFoodAlias[]) {
   }
   editForm.data.aliases = newAliases;
   aliasManagerDialog.value = false;
+}
+
+// ============================================================
+// Substitution Manager
+
+const substitutionManagerDialog = ref(false);
+
+// reverse substitutions live on other foods, so they can't ride along with the food being edited.
+// they're held until the edit is confirmed, and tagged with the food they were built for so
+// a cancelled edit can't leak them onto the next food the user opens
+const pendingReverseSubstitutions = ref<({ foodId: string } & ReverseSubstitutionChanges) | null>(null);
+
+function updateFoodSubstitutions(
+  newSubstitutions: IngredientFoodSubstitution[],
+  reverseChanges: ReverseSubstitutionChanges,
+) {
+  if (!editForm.data) {
+    return;
+  }
+  editForm.data.substitutions = newSubstitutions;
+  pendingReverseSubstitutions.value = reverseChanges.add.length || reverseChanges.remove.length
+    ? { foodId: editForm.data.id, ...reverseChanges }
+    : null;
+  substitutionManagerDialog.value = false;
+}
+
+async function applyReverseSubstitutions(foodId: string) {
+  const pending = pendingReverseSubstitutions.value;
+  pendingReverseSubstitutions.value = null;
+  if (!pending || !foodId || pending.foodId !== foodId) {
+    return;
+  }
+
+  let updated = false;
+  for (const reverseFoodId of [...pending.add, ...pending.remove]) {
+    const reverseFood = foodStore.store.value.find(food => food.id === reverseFoodId);
+    if (!reverseFood) {
+      continue;
+    }
+
+    // rebuilt from what's on the other food right now, so a stale dialog can't resurrect
+    // a row someone else removed in the meantime
+    const others = (reverseFood.substitutions || []).filter(sub => sub.substituteFoodId !== foodId);
+    const substitutions = pending.add.includes(reverseFoodId)
+      ? [...others, { substituteFoodId: foodId }]
+      : others;
+
+    if (substitutions.length === (reverseFood.substitutions || []).length) {
+      continue;
+    }
+
+    const payload = { ...reverseFood, substitutions };
+    await userApi.foods.updateOne(reverseFoodId, payload);
+    updated = true;
+  }
+
+  if (updated) {
+    await foodStore.actions.refresh();
+  }
 }
 
 // ============================================================

@@ -232,7 +232,7 @@
                             event: 'open',
                             children: [
                               {
-                                text: $t('recipe.toggle-section'),
+                                text: sectionTitleLabel(step.id),
                                 event: 'toggle-section',
                               },
                               {
@@ -423,6 +423,7 @@ const props = defineProps({
 
 const emit = defineEmits(["click-instruction-field", "update:assets"]);
 
+const i18n = useI18n();
 const { isCookMode, toggleCookMode, isEditForm } = usePageState(props.recipe.slug);
 const { extractIngredientReferences } = useExtractIngredientReferences();
 
@@ -491,12 +492,28 @@ function isChecked(stepIndex: number) {
   }
 }
 
+function sectionTitleLabel(id?: string) {
+  return id && showTitleEditor.value[id]
+    ? i18n.t("recipe.clear-section")
+    : i18n.t("recipe.add-section");
+}
+
 function toggleShowTitle(id?: string) {
   if (!id) {
     return;
   }
 
-  showTitleEditor.value[id] = !showTitleEditor.value[id];
+  const showing = showTitleEditor.value[id];
+  if (showing) {
+    // visibility is re-derived from the title whenever the list changes, so hiding a section
+    // only sticks if the title goes with it
+    const step = instructionList.value.find(element => element.id === id);
+    if (step) {
+      step.title = "";
+    }
+  }
+
+  showTitleEditor.value[id] = !showing;
 
   const temp = { ...showTitleEditor.value };
   showTitleEditor.value = temp;

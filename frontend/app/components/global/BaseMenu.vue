@@ -1,8 +1,11 @@
 <template>
+  <!-- the list already scrolls when the overlay is bounded, but nothing bounds it by default,
+       so a menu taller than the screen simply runs off the bottom -->
   <v-menu
     :key="'menu-' + activator.event"
     active-class="pa-0"
     start
+    max-height="80vh"
     :style="stretch ? 'width: 100%;' : ''"
   >
     <template #activator="{ props: hoverProps }">
