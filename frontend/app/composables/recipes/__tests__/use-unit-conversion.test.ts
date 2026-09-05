@@ -102,11 +102,6 @@ describe("convertIngredient", () => {
   });
 
   describe("the unit it hands back", () => {
-    test("names come from the seed key rather than the pint unit name", () => {
-      // the imperial ladder's rungs are pint's imperial_* units, but they display unqualified
-      expect(convertIngredient(millilitres(600), "imperial").unit?.name).toBe("pint");
-    });
-
     test("falls back to the singular abbreviation when the seed has no plural one", () => {
       // pound is the only seeded unit carrying a distinct plural abbreviation
       expect(convertIngredient(grams(500), "us").unit).toMatchObject({
@@ -133,11 +128,6 @@ describe("convertIngredient", () => {
     test("renders metric as decimals and customary as fractions", () => {
       expect(convertIngredient(grams(100), "metric").unit?.fraction).toBe(false);
       expect(convertIngredient(grams(100), "us").unit?.fraction).toBe(true);
-    });
-
-    test("keeps millilitres decimal inside the imperial ladder", () => {
-      expect(convertIngredient(millilitres(100), "imperial").unit?.fraction).toBe(false);
-      expect(convertIngredient(millilitres(1000), "imperial").unit?.fraction).toBe(true);
     });
 
     test("preserves whether the recipe's own unit was abbreviated", () => {

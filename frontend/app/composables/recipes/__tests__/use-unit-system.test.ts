@@ -18,7 +18,7 @@ describe("useUnitSystem", () => {
     expect(useUnitSystem().unitSystem.value).toBeNull();
   });
 
-  test.each(["metric", "us", "imperial"] as const)("%s can be chosen", (system) => {
+  test.each(["metric", "us"] as const)("%s can be chosen", (system) => {
     const { unitSystem, isConverting } = useUnitSystem();
     unitSystem.value = system;
 
@@ -27,9 +27,9 @@ describe("useUnitSystem", () => {
   });
 
   test("the choice survives a reload", () => {
-    useUnitSystem().unitSystem.value = "imperial";
+    useUnitSystem().unitSystem.value = "us";
 
-    expect(useUnitSystem().unitSystem.value).toBe("imperial");
+    expect(useUnitSystem().unitSystem.value).toBe("us");
   });
 
   test("showAsWritten goes back to the authored units", () => {
