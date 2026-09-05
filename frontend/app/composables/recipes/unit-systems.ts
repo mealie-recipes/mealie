@@ -10,8 +10,10 @@ export interface StandardizedUnit {
 }
 
 export interface UnitRung {
-  /** The pint unit name. Doubles as the i18n key for the unit's display names. */
+  /** The pint unit name. */
   unit: string;
+  /** Key into the seeded unit names merged into i18n messages under `unit-names`. */
+  seedKey: string;
   base: number;
   /** Whole units needed before this rung takes over from the one below it. */
   takeover: number;
@@ -32,37 +34,37 @@ export const STANDARDIZED_UNITS: Record<string, StandardizedUnit> = {
 export const UNIT_SYSTEMS: Record<UnitSystem, Record<UnitDimension, UnitRung[]>> = {
   metric: {
     mass: [
-      { unit: "gram", base: 1.0, takeover: 1.0, fraction: false },
-      { unit: "kilogram", base: 1000.0, takeover: 1.0, fraction: false },
+      { unit: "gram", seedKey: "gram", base: 1.0, takeover: 1.0, fraction: false },
+      { unit: "kilogram", seedKey: "kilogram", base: 1000.0, takeover: 1.0, fraction: false },
     ],
     volume: [
-      { unit: "milliliter", base: 1.0, takeover: 1.0, fraction: false },
-      { unit: "liter", base: 1000.0, takeover: 1.0, fraction: false },
+      { unit: "milliliter", seedKey: "milliliter", base: 1.0, takeover: 1.0, fraction: false },
+      { unit: "liter", seedKey: "liter", base: 1000.0, takeover: 1.0, fraction: false },
     ],
   },
   us: {
     mass: [
-      { unit: "ounce", base: 28.349523125, takeover: 1.0, fraction: true },
-      { unit: "pound", base: 453.59237, takeover: 1.0, fraction: true },
+      { unit: "ounce", seedKey: "ounce", base: 28.349523125, takeover: 1.0, fraction: true },
+      { unit: "pound", seedKey: "pound", base: 453.59237, takeover: 1.0, fraction: true },
     ],
     volume: [
-      { unit: "teaspoon", base: 4.92892159375, takeover: 1.0, fraction: true },
-      { unit: "tablespoon", base: 14.78676478125, takeover: 1.0, fraction: true },
-      { unit: "cup", base: 236.5882365, takeover: 0.25, fraction: true },
-      { unit: "quart", base: 946.352946, takeover: 1.0, fraction: true },
-      { unit: "gallon", base: 3785.411784, takeover: 1.0, fraction: true },
+      { unit: "teaspoon", seedKey: "teaspoon", base: 4.92892159375, takeover: 1.0, fraction: true },
+      { unit: "tablespoon", seedKey: "tablespoon", base: 14.78676478125, takeover: 1.0, fraction: true },
+      { unit: "cup", seedKey: "cup", base: 236.5882365, takeover: 0.25, fraction: true },
+      { unit: "quart", seedKey: "quart", base: 946.352946, takeover: 1.0, fraction: true },
+      { unit: "gallon", seedKey: "gallon", base: 3785.411784, takeover: 1.0, fraction: true },
     ],
   },
   imperial: {
     mass: [
-      { unit: "ounce", base: 28.349523125, takeover: 1.0, fraction: true },
-      { unit: "pound", base: 453.59237, takeover: 1.0, fraction: true },
+      { unit: "ounce", seedKey: "ounce", base: 28.349523125, takeover: 1.0, fraction: true },
+      { unit: "pound", seedKey: "pound", base: 453.59237, takeover: 1.0, fraction: true },
     ],
     volume: [
-      { unit: "milliliter", base: 1.0, takeover: 1.0, fraction: false },
-      { unit: "imperial_pint", base: 568.26125, takeover: 1.0, fraction: true },
-      { unit: "imperial_quart", base: 1136.5225, takeover: 1.0, fraction: true },
-      { unit: "imperial_gallon", base: 4546.09, takeover: 1.0, fraction: true },
+      { unit: "milliliter", seedKey: "milliliter", base: 1.0, takeover: 1.0, fraction: false },
+      { unit: "imperial_pint", seedKey: "pint", base: 568.26125, takeover: 1.0, fraction: true },
+      { unit: "imperial_quart", seedKey: "quart", base: 1136.5225, takeover: 1.0, fraction: true },
+      { unit: "imperial_gallon", seedKey: "gallon", base: 4546.09, takeover: 1.0, fraction: true },
     ],
   },
 };
