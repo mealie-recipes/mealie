@@ -77,12 +77,12 @@ class RecipeKeeperMigrator(BaseMigrator):
             MigrationAlias(key="prepTime", alias="prepTime", func=parse_iso8601_duration),
             MigrationAlias(key="image", alias="photo0"),
             MigrationAlias(key="tags", alias="recipeCourse", func=to_list),
-            MigrationAlias(key="recipe_category", alias="recipeCategory", func=to_list),
+            MigrationAlias(key="recipeCategory", alias="recipeCategory", func=to_list),
             MigrationAlias(key="notes", alias="recipeNotes"),
             MigrationAlias(key="nutrition", alias="nutrition", func=cleaner.clean_nutrition),
             MigrationAlias(key="rating", alias="recipeRating"),
             MigrationAlias(key="orgURL", alias="recipeSource"),
-            MigrationAlias(key="recipe_yield", alias="recipeYield"),
+            MigrationAlias(key="recipeYield", alias="recipeYield"),
         ]
 
     def _migrate(self) -> None:
