@@ -13,9 +13,11 @@ into `mealie/services/` and gains a caller — until then it stays out of the sh
 
 from __future__ import annotations
 
+import json
 from dataclasses import asdict, dataclass
 from enum import StrEnum
 from functools import cache
+from pathlib import Path
 from typing import TYPE_CHECKING, Any
 
 from mealie.schema.recipe.recipe_ingredient import StandardizedUnitType
@@ -91,6 +93,22 @@ SELECTION: dict[tuple[UnitSystem, UnitDimension], dict[str, float]] = {
 }
 
 
+#: Rungs whose display name comes from a seed unit with a different key than their pint name.
+#: The imperial ladder only ever renders for imperial readers, so it uses the unqualified names.
+SEED_KEYS: dict[str, str] = {
+    "imperial_pint": "pint",
+    "imperial_quart": "quart",
+    "imperial_gallon": "gallon",
+}
+
+#: Display names are not authored here. They come from the ingredient unit seed data, which is
+#: already translated into every locale Mealie ships and is managed in Crowdin. The frontend
+#: loads the same files, so this only has to emit the key to look up.
+SEED_UNITS_FILE = (
+    Path(__file__).parents[2] / "mealie" / "repos" / "seed" / "resources" / "units" / "locales" / "en-US.json"
+)
+
+
 @dataclass(frozen=True)
 class Rung:
     """A display unit, and the point at which it takes over from the rung below it."""
@@ -106,6 +124,9 @@ class Rung:
 
     fraction: bool
     """Whether to render as a fraction rather than a decimal."""
+
+    seed_key: str
+    """Key into the ingredient unit seed data, where this rung's translated names live."""
 
 
 class UnitNotSupported(Exception):
@@ -170,6 +191,24 @@ def base_factor(unit: str) -> tuple[UnitDimension, float]:
     return dimension, float(quantity.magnitude)
 
 
+@cache
+def _seed_unit_keys() -> frozenset[str]:
+    """The keys available in the ingredient unit seed data."""
+
+    with open(SEED_UNITS_FILE) as f:
+        return frozenset(json.load(f))
+
+
+def seed_key_for(unit: str) -> str:
+    """The seed data key holding this unit's translated display names."""
+
+    key = SEED_KEYS.get(unit, unit)
+    if key not in _seed_unit_keys():
+        raise UnitNotSupported(f"Unit '{unit}' has no seed data under '{key}', so it has no translated names")
+
+    return key
+
+
 def rungs_for(system: UnitSystem, dimension: UnitDimension) -> list[Rung]:
     """The display ladder for a system and dimension, ordered smallest to largest."""
 
@@ -180,7 +219,15 @@ def rungs_for(system: UnitSystem, dimension: UnitDimension) -> list[Rung]:
         if unit_dimension != dimension:
             raise UnitNotSupported(f"Unit '{unit}' is {unit_dimension}, but was selected for {dimension}")
 
-        rungs.append(Rung(unit=unit, base=base, takeover=takeover, fraction=unit in customary))
+        rungs.append(
+            Rung(
+                unit=unit,
+                base=base,
+                takeover=takeover,
+                fraction=unit in customary,
+                seed_key=seed_key_for(unit),
+            )
+        )
 
     rungs.sort(key=lambda rung: rung.base)
     return rungs

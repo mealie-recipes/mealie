@@ -14,8 +14,10 @@ export interface StandardizedUnit {
 }
 
 export interface UnitRung {
-  /** The pint unit name. Doubles as the i18n key for the unit's display names. */
+  /** The pint unit name. */
   unit: string;
+  /** Key into the seeded unit names merged into i18n messages under `unit-names`. */
+  seedKey: string;
   base: number;
   /** Whole units needed before this rung takes over from the one below it. */
   takeover: number;
@@ -60,7 +62,7 @@ def rung_literal(rung: dict) -> str:
     """Render one rung as a single-line object literal, so the template stays readable."""
 
     return (
-        f'{{ unit: "{rung["unit"]}", base: {number(rung["base"])}, '
+        f'{{ unit: "{rung["unit"]}", seedKey: "{rung["seed_key"]}", base: {number(rung["base"])}, '
         f"takeover: {number(rung['takeover'])}, fraction: {'true' if rung['fraction'] else 'false'} }}"
     )
 
