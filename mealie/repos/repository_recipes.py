@@ -21,6 +21,7 @@ from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_recipe_slug
 from mealie.schema.response.pagination import PaginationQuery
+from mealie.services.query_filter.builder import QueryFilterBuilder
 
 from ..db.models._model_base import SqlAlchemyBase
 from ._recipe_suggestions import RecipeSuggestionMixin
