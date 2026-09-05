@@ -26,9 +26,12 @@ describe("useUnitSystem", () => {
     expect(isConverting.value).toBe(true);
   });
 
-  test("the choice survives a reload", () => {
+  test("the choice survives a reload", async () => {
     useUnitSystem().unitSystem.value = "us";
+    // useStorage writes on flush: "pre", so the value only reaches localStorage on the next tick
+    await nextTick();
 
+    expect(localStorage.getItem("recipe-unit-system-preferences")).toContain("us");
     expect(useUnitSystem().unitSystem.value).toBe("us");
   });
 

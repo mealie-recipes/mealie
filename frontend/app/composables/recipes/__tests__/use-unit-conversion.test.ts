@@ -15,6 +15,10 @@ const ingredient = (quantity: number, unit: Partial<CreateIngredientUnit> | null
 const grams = (quantity: number) =>
   ingredient(quantity, { name: "gram", standardUnit: "gram", standardQuantity: 1 });
 
+/** An ingredient measured in whole ounces — customary, so it converts when metric is asked for. */
+const ounces = (quantity: number) =>
+  ingredient(quantity, { name: "ounce", standardUnit: "ounce", standardQuantity: 1 });
+
 /** An ingredient measured in whole millilitres. */
 const millilitres = (quantity: number) =>
   ingredient(quantity, { name: "milliliter", standardUnit: "milliliter", standardQuantity: 1 });
@@ -37,17 +41,19 @@ describe("convertIngredient", () => {
 
   describe("choosing a rung", () => {
     test("stays on the smaller unit below the takeover point", () => {
-      const converted = convertIngredient(grams(900), "metric");
+      // 30oz is 850g, short of the kilogram rung
+      const converted = convertIngredient(ounces(30), "metric");
 
       expect(converted.unit?.name).toBe("gram");
-      expect(converted.quantity).toBe(900);
+      expect(converted.quantity).toBeCloseTo(850.5, 1);
     });
 
     test("moves up once the takeover point is reached", () => {
-      const converted = convertIngredient(grams(1000), "metric");
+      // 40oz is 1134g, past it
+      const converted = convertIngredient(ounces(40), "metric");
 
       expect(converted.unit?.name).toBe("kilogram");
-      expect(converted.quantity).toBe(1);
+      expect(converted.quantity).toBeCloseTo(1.134, 3);
     });
 
     test("cups take over at a quarter cup rather than a whole one", () => {
@@ -55,6 +61,8 @@ describe("convertIngredient", () => {
       expect(convertIngredient(millilitres(59), "us").unit?.name).toBe("tablespoon");
       expect(convertIngredient(millilitres(60), "us").unit?.name).toBe("cup");
     });
+
+
 
     test("falls back to the smallest rung below the whole ladder", () => {
       const converted = convertIngredient(millilitres(1), "us");
@@ -64,19 +72,48 @@ describe("convertIngredient", () => {
     });
   });
 
+  describe("ingredients already in the reader's system", () => {
+    const tablespoons = (quantity: number) =>
+      ingredient(quantity, { name: "tbsp", standardUnit: "fluid_ounce", standardQuantity: 0.5 });
+
+    test("customary units are untouched when a customary system is chosen", () => {
+      // "4 tbsp" must not come back as "1/4 cup" — a lateral restatement, not a conversion
+      const input = tablespoons(4);
+
+      expect(convertIngredient(input, "us")).toBe(input);
+    });
+
+    test("metric units are untouched when metric is chosen", () => {
+      const input = grams(1000);
+
+      expect(convertIngredient(input, "metric")).toBe(input);
+    });
+
+    test("stays untouched when scaled, so the unit never changes under the reader", () => {
+      const input = grams(1000);
+
+      expect(convertIngredient(input, "metric", 10)).toBe(input);
+    });
+
+    test("but foreign units still convert", () => {
+      expect(convertIngredient(tablespoons(4), "metric").unit?.name).toBe("milliliter");
+      expect(convertIngredient(grams(1000), "us").unit?.name).toBe("pound");
+    });
+  });
+
   describe("scale", () => {
     // Spec §4.3: the rung comes from the scaled magnitude, but the quantity handed back is
     // unscaled, so existing `useParsedIngredientText(ingredient, scale)` call sites still work.
     test("picks the rung from the scaled magnitude", () => {
-      expect(convertIngredient(grams(100), "metric", 1).unit?.name).toBe("gram");
-      expect(convertIngredient(grams(100), "metric", 10).unit?.name).toBe("kilogram");
+      expect(convertIngredient(ounces(4), "metric", 1).unit?.name).toBe("gram");
+      expect(convertIngredient(ounces(4), "metric", 10).unit?.name).toBe("kilogram");
     });
 
-    test("returns an unscaled quantity, so 100g at 10x reads as 1kg", () => {
-      const converted = convertIngredient(grams(100), "metric", 10);
+    test("returns an unscaled quantity, so 4oz at 10x reads as 1.13kg", () => {
+      const converted = convertIngredient(ounces(4), "metric", 10);
 
-      expect(converted.quantity).toBe(0.1);
-      expect((converted.quantity as number) * 10).toBe(1);
+      expect(converted.quantity).toBeCloseTo(0.1134, 4);
+      expect((converted.quantity as number) * 10).toBeCloseTo(1.134, 3);
     });
   });
 
@@ -108,14 +145,14 @@ describe("convertIngredient", () => {
         abbreviation: "lb",
         pluralAbbreviation: "lbs",
       });
-      expect(convertIngredient(grams(1000), "metric").unit).toMatchObject({
+      expect(convertIngredient(ounces(40), "metric").unit).toMatchObject({
         abbreviation: "kg",
         pluralAbbreviation: "kg",
       });
     });
 
     test("carries translated names and abbreviations", () => {
-      const converted = convertIngredient(grams(1000), "metric");
+      const converted = convertIngredient(ounces(40), "metric");
 
       expect(converted.unit).toMatchObject({
         name: "kilogram",
@@ -126,7 +163,7 @@ describe("convertIngredient", () => {
     });
 
     test("renders metric as decimals and customary as fractions", () => {
-      expect(convertIngredient(grams(100), "metric").unit?.fraction).toBe(false);
+      expect(convertIngredient(ounces(4), "metric").unit?.fraction).toBe(false);
       expect(convertIngredient(grams(100), "us").unit?.fraction).toBe(true);
     });
 
