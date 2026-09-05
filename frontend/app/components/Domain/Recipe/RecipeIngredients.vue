@@ -42,6 +42,7 @@
             <RecipeIngredientListItem
               :ingredient="ingredient"
               :scale="scale"
+              show-substitutions
             />
           </v-list-item-title>
         </v-list-item>

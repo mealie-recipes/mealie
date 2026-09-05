@@ -80,16 +80,23 @@
           class="ingredient-grid"
           :style="{ gridTemplateRows: `repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, min-content)` }"
         >
-          <template
+          <div
             v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients"
             :key="`ingredient-${ingredientIndex}`"
+            class="ingredient-cell"
           >
             <!-- eslint-disable-next-line vue/no-v-html -->
             <p
               class="ingredient-body"
               v-html="parseText(ingredient)"
             />
-          </template>
+            <!-- paper has nothing to tap, so what the menu holds on screen is spelled out here -->
+            <SafeMarkdown
+              v-if="preferences.showSubstitutions && ingredientSubstitutionSummary(ingredient)"
+              class="substitution-body"
+              :source="$t('recipe.substitutions-with-value', { substitutions: ingredientSubstitutionSummary(ingredient) })"
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -218,7 +225,7 @@ import { useStaticRoutes } from "~/composables/api";
 import type { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
-import { useIngredientTextParser, useNutritionLabels } from "~/composables/recipes";
+import { ingredientSubstitutionSummary, useIngredientTextParser, useNutritionLabels } from "~/composables/recipes";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
@@ -468,6 +475,20 @@ p {
 .recipe-step-body,
 .note-body {
   font-size: 14px;
+}
+
+.ingredient-cell {
+  break-inside: avoid;
+}
+
+.substitution-body {
+  font-size: 12px;
+  line-height: 1.3;
+  opacity: 0.7;
+}
+
+.substitution-body :deep(p) {
+  margin: 0;
 }
 
 ul {

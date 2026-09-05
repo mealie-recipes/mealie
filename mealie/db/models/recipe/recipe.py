@@ -208,7 +208,11 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             self.recipe_instructions = [RecipeInstruction(**step, session=session) for step in recipe_instructions]
 
         if recipe_ingredient is not None:
-            self.recipe_ingredient = [RecipeIngredientModel(**ingr, session=session) for ingr in recipe_ingredient]
+            # group_id is passed down so ingredient substitutions can be scoped to this
+            # recipe's group; the ingredient itself has no group of its own
+            self.recipe_ingredient = [
+                RecipeIngredientModel(**ingr, session=session, group_id=self.group_id) for ingr in recipe_ingredient
+            ]
 
         if assets:
             self.assets = [RecipeAsset(**a) for a in assets]
