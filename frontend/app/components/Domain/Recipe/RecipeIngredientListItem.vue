@@ -10,11 +10,11 @@
     </template>
     <template v-if="parsedIng.note && !parsedIng.name">
       <SafeMarkdown class="text-bold d-inline" :source="parsedIng.note" />
-      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" />
+      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" :scale="scale" />
     </template>
     <template v-else-if="parsedIng.recipeLink">
       <SafeMarkdown class="text-bold d-inline" :source="parsedIng.recipeLink" />
-      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" />
+      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" :scale="scale" />
       <SafeMarkdown v-if="parsedIng.note" class="note" :source="parsedIng.note" />
     </template>
     <template v-else>
@@ -24,7 +24,7 @@
         :source="parsedIng.name"
       />
       <!-- sits before the note, which takes a full flex row of its own -->
-      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" />
+      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" :scale="scale" />
       <SafeMarkdown
         v-if="parsedIng.note"
         class="note"
