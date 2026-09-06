@@ -73,6 +73,10 @@ class UnitFoodBase(MealieModel):
 
         return v
 
+    @field_validator("description", mode="before")
+    def convert_none_description_to_empty(cls, v):
+        return "" if v is None else v
+
     @field_validator("extras", mode="before")
     def convert_extras_to_dict(cls, v):
         if isinstance(v, dict):
