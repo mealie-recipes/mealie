@@ -65,7 +65,9 @@ const parsedIng = computed(() => {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.25em;
+  // column only: the note takes a flex row of its own, and it reads as belonging to the
+  // ingredient above it only if it sits tighter to that line than the rows sit to each other
+  column-gap: 0.25em;
   word-break: break-word;
   min-width: 0;
 
@@ -97,11 +99,22 @@ const parsedIng = computed(() => {
     word-break: break-word;
   }
 
-  // the substitution button keeps a finger-sized tap target, but its box is taller than the
-  // line of text it sits on; left alone it sets the row's height and pushes the note down.
-  // it overflows the line instead of growing it
+  // vuetify sizes an icon button for a toolbar, far taller than the line of text this one
+  // sits on; left alone it sets the row's height and pushes the note down. sized to the line
+  // instead, so the box, the icon glyph and the line are all the same height -- the glyph
+  // follows font-size, not the box, so it renders unchanged
   .v-btn--icon {
-    margin-block: calc((1.75rem - 48px) / 2);
+    line-height: inherit;
+    width: 1lh;
+    height: 1lh;
+
+    // the tap target stays finger-sized as a transparent halo over the rows either side,
+    // rather than a taller box that would push them apart
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -0.75rem;
+    }
   }
 }
 
