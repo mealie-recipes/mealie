@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 import sqlalchemy as sa
 from pydantic import ConfigDict
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm
+from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.orm.session import Session
 
@@ -25,6 +26,66 @@ households_to_ingredient_foods = sa.Table(
     sa.Column("food_id", GUID, sa.ForeignKey("ingredient_foods.id"), index=True),
     sa.UniqueConstraint("household_id", "food_id", name="household_id_food_id_key"),
 )
+
+
+def resolve_substitutions(
+    session: Session,
+    group_id: GUID | None,
+    substitutions: list[dict] | None,
+    exclude_food_id: GUID | None = None,
+) -> list[tuple[GUID | None, str | None]]:
+    """
+    Normalizes a substitution payload into (substitute_food_id, note) pairs safe to persist.
+
+    Substitute ids arrive straight from the payload, so the repository's group scoping does
+    not cover them. They are resolved against `group_id`, and an id resolving to nothing --
+    deleted, or belonging to another group -- invalidates the whole substitution, since the note
+    qualifies the food it travels with. `exclude_food_id` rejects self-substitution the same
+    way. Both tiers share this; only the row they build from it differs.
+    """
+
+    if not substitutions or not group_id:
+        return []
+
+    requested_food_ids = {sub.get("substitute_food_id") for sub in substitutions}
+    requested_food_ids.discard(None)
+
+    resolvable_food_ids: set = set()
+    if requested_food_ids:
+        resolvable_food_ids = set(
+            session.execute(
+                sa.select(IngredientFoodModel.id).filter(
+                    IngredientFoodModel.group_id == group_id,
+                    IngredientFoodModel.id.in_(requested_food_ids),
+                )
+            )
+            .scalars()
+            .all()
+        )
+
+    resolved: list[tuple[GUID | None, str | None]] = []
+    seen_food_ids: set = set()
+    for sub in substitutions:
+        substitute_food_id = sub.get("substitute_food_id")
+        note = (sub.get("note") or "").strip() or None
+
+        if substitute_food_id is None:
+            # note-only rows are deliberately not de-duped: two textual workarounds are
+            # two legitimate rows, and there is no id to collapse them on
+            if not note:
+                continue
+        else:
+            if substitute_food_id not in resolvable_food_ids or substitute_food_id == exclude_food_id:
+                continue
+
+            if substitute_food_id in seen_food_ids:
+                continue
+
+            seen_food_ids.add(substitute_food_id)
+
+        resolved.append((substitute_food_id, note))
+
+    return resolved
 
 
 class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
@@ -173,6 +234,22 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         back_populates="food",
         cascade="all, delete, delete-orphan",
     )
+    # substitutions this food offers, e.g. chicken stock -> chicken broth
+    substitutions: Mapped[list["IngredientFoodSubstitutionModel"]] = orm.relationship(
+        "IngredientFoodSubstitutionModel",
+        back_populates="food",
+        foreign_keys="IngredientFoodSubstitutionModel.food_id",
+        cascade="all, delete, delete-orphan",
+        order_by="IngredientFoodSubstitutionModel.position",
+        collection_class=ordering_list("position"),
+    )
+    # substitutions pointing at this food; exists so deleting a food cleans up the ones aimed at it
+    substitution_references: Mapped[list["IngredientFoodSubstitutionModel"]] = orm.relationship(
+        "IngredientFoodSubstitutionModel",
+        back_populates="substitute_food",
+        foreign_keys="IngredientFoodSubstitutionModel.substitute_food_id",
+        cascade="all, delete, delete-orphan",
+    )
     extras: Mapped[list[IngredientFoodExtras]] = orm.relationship("IngredientFoodExtras", cascade="all, delete-orphan")
 
     label_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"), index=True)
@@ -185,11 +262,48 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     model_config = ConfigDict(
         exclude={
             "households_with_ingredient_food",
+            # substitutions are resolved explicitly, since auto_init creates rows it can't find
+            "substitutions",
         }
     )
 
     # Deprecated
     on_hand: Mapped[bool] = mapped_column(Boolean, default=False)
+
+    def _set_substitutions(self, session: Session, group_id: GUID, substitutions: list[dict] | None) -> None:
+        """
+        Builds the substitution rows by hand, since auto_init creates any related row it
+        fails to look up and would manufacture a food out of an unrecognized id.
+        """
+
+        resolved = resolve_substitutions(session, group_id, substitutions, exclude_food_id=self.id)
+        if not resolved:
+            self.substitutions = []
+            return
+
+        # Existing rows are reused rather than rebuilt. SQLAlchemy inserts before it deletes
+        # within a single flush, so replacing the collection wholesale would insert a copy of
+        # a row still on its way out and trip the (food_id, substitute_food_id) constraint.
+        reusable_by_food_id = {row.substitute_food_id: row for row in self.substitutions if row.substitute_food_id}
+        reusable_note_only = [row for row in self.substitutions if not row.substitute_food_id]
+
+        rows: list[IngredientFoodSubstitutionModel] = []
+        for substitute_food_id, note in resolved:
+            if substitute_food_id is not None:
+                row = reusable_by_food_id.get(substitute_food_id)
+            else:
+                row = reusable_note_only.pop(0) if reusable_note_only else None
+
+            if row is None:
+                row = IngredientFoodSubstitutionModel(substitute_food_id=substitute_food_id, note=note)
+            else:
+                row.substitute_food_id = substitute_food_id
+                row.note = note
+
+            rows.append(row)
+
+        # rows left over are orphaned by the assignment and cascade-deleted
+        self.substitutions = rows
 
     @api_extras
     @auto_init()
@@ -200,6 +314,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         name: str | None = None,
         plural_name: str | None = None,
         households_with_ingredient_food: list[str] | None = None,
+        substitutions: list[dict] | None = None,
         **_,
     ) -> None:
         from ..household import Household
@@ -217,6 +332,8 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
                 .filter(Household.group_id == group_id, Household.slug.in_(households_with_ingredient_food))
                 .all()
             )
+
+        self._set_substitutions(session, group_id, substitutions)
 
         tableargs = [
             sa.UniqueConstraint("name", "group_id", name="ingredient_foods_name_group_id_key"),
@@ -341,6 +458,45 @@ class IngredientFoodAliasModel(SqlAlchemyBase, BaseMixins):
         self.__table_args__ = tableargs
 
 
+class IngredientFoodSubstitutionModel(SqlAlchemyBase, BaseMixins):
+    """
+    A directed "this food may be replaced by that one" substitution.
+
+    Both the substitute food and the note are optional, but at least one must be
+    present: a substitution can be another food ("chicken broth"), a free-text
+    workaround ("water and a bouillon cube"), or a food with a caveat attached.
+    """
+
+    __tablename__ = "ingredient_foods_substitutions"
+    __table_args__ = (
+        sa.UniqueConstraint("food_id", "substitute_food_id", name="ingredient_foods_substitutions_food_ids_key"),
+        sa.CheckConstraint("food_id != substitute_food_id", name="ingredient_foods_substitutions_no_self_substitution"),
+        sa.CheckConstraint(
+            "substitute_food_id IS NOT NULL OR note IS NOT NULL",
+            name="ingredient_foods_substitutions_food_or_note",
+        ),
+    )
+
+    id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+
+    food_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), index=True, nullable=False)
+    food: Mapped["IngredientFoodModel"] = orm.relationship(
+        "IngredientFoodModel", back_populates="substitutions", foreign_keys=[food_id]
+    )
+
+    substitute_food_id: FilterableColumn[GUID | None] = mapped_column(
+        GUID, ForeignKey("ingredient_foods.id"), index=True
+    )
+    substitute_food: Mapped["IngredientFoodModel | None"] = orm.relationship(
+        "IngredientFoodModel", back_populates="substitution_references", foreign_keys=[substitute_food_id]
+    )
+
+    note: FilterableColumn[str | None] = mapped_column(String)
+
+    # note-only substitutions have no name to sort by, so display order is stored
+    position: FilterableColumn[int | None] = mapped_column(Integer, index=True)
+
+
 class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes_ingredients"
     id: FilterableColumn[int] = mapped_column(Integer, primary_key=True)
@@ -368,9 +524,40 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
         "RecipeModel", back_populates="referenced_ingredients", foreign_keys=[referenced_recipe_id]
     )
 
+    substitutions: Mapped[list["RecipeIngredientSubstitutionModel"]] = orm.relationship(
+        "RecipeIngredientSubstitutionModel",
+        back_populates="ingredient",
+        cascade="all, delete, delete-orphan",
+        order_by="RecipeIngredientSubstitutionModel.position",
+        collection_class=ordering_list("position"),
+    )
+
     # Automatically updated by sqlalchemy event, do not write to this manually
     note_normalized: FilterableColumn[str | None] = mapped_column(String, index=True)
     original_text_normalized: FilterableColumn[str | None] = mapped_column(String, index=True)
+
+    model_config = ConfigDict(
+        exclude={
+            "id",
+            # substitutions are resolved explicitly, since auto_init creates rows it can't find
+            "substitutions",
+        }
+    )
+
+    def _set_substitutions(self, session: Session, group_id: GUID | None, substitutions: list[dict] | None) -> None:
+        """
+        Builds the substitution rows by hand, since auto_init creates any related row it
+        fails to look up and would manufacture a food out of an unrecognized id.
+
+        Rows are always built fresh rather than reused, unlike the food tier: ingredient rows
+        are destroyed and recreated on every recipe save, so there is never an existing set to
+        reconcile with, and no unique constraint for a re-insert to collide with.
+        """
+
+        self.substitutions = [
+            RecipeIngredientSubstitutionModel(substitute_food_id=substitute_food_id, note=note)
+            for substitute_food_id, note in resolve_substitutions(session, group_id, substitutions)
+        ]
 
     @auto_init()
     def __init__(
@@ -378,6 +565,8 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
         session: Session,
         note: str | None = None,
         orginal_text: str | None = None,
+        group_id: GUID | None = None,
+        substitutions: list[dict] | None = None,
         **_,
     ) -> None:
         # SQLAlchemy events do not seem to register things that are set during auto_init
@@ -386,6 +575,8 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
 
         if orginal_text is not None:
             self.orginal_text = self.normalize(orginal_text)
+
+        self._set_substitutions(session, group_id, substitutions)
 
         tableargs = [  # base set of indices
             sa.Index(
@@ -424,6 +615,45 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
             )
         # add indices
         self.__table_args__ = tuple(tableargs)
+
+
+class RecipeIngredientSubstitutionModel(SqlAlchemyBase, BaseMixins):
+    """
+    A substitution scoped to one ingredient line on one recipe.
+
+    Structurally identical to IngredientFoodSubstitutionModel, but the left side is an
+    ingredient row rather than a food. There is no unique constraint: ingredient rows are
+    rebuilt from scratch on every recipe save, so the write path always starts from an
+    empty set and deduping happens in the schema.
+    """
+
+    __tablename__ = "recipes_ingredients_substitutions"
+    __table_args__ = (
+        sa.CheckConstraint(
+            "substitute_food_id IS NOT NULL OR note IS NOT NULL",
+            name="recipes_ingredients_substitutions_food_or_note",
+        ),
+    )
+
+    id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
+
+    # Integer, because recipes_ingredients.id is an autoincrement integer PK
+    ingredient_id: FilterableColumn[int] = mapped_column(
+        Integer, ForeignKey("recipes_ingredients.id"), index=True, nullable=False
+    )
+    ingredient: Mapped["RecipeIngredientModel"] = orm.relationship(
+        "RecipeIngredientModel", back_populates="substitutions"
+    )
+
+    substitute_food_id: FilterableColumn[GUID | None] = mapped_column(
+        GUID, ForeignKey("ingredient_foods.id"), index=True
+    )
+    substitute_food: Mapped["IngredientFoodModel | None"] = orm.relationship("IngredientFoodModel")
+
+    note: FilterableColumn[str | None] = mapped_column(String)
+
+    # note-only substitutions have no name to sort by, so display order is stored
+    position: FilterableColumn[int | None] = mapped_column(Integer, index=True)
 
 
 @event.listens_for(IngredientUnitModel.name, "set")
