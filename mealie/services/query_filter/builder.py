@@ -11,7 +11,7 @@ from dateutil.parser import ParserError
 from fastapi import HTTPException
 from humps import decamelize
 from sqlalchemy.ext.associationproxy import AssociationProxyInstance
-from sqlalchemy.orm import InstrumentedAttribute, Mapper
+from sqlalchemy.orm import InstrumentedAttribute, Mapper, RelationshipProperty
 from sqlalchemy.sql import sqltypes
 
 from mealie.db.models._model_base import SqlAlchemyBase
@@ -257,12 +257,12 @@ class QueryFilterBuilder:
         attr_string: str,
         model: type[Model],
         *,
-        query: sa.Select | None = None,
         collect_relationships: RelationshipChain | None = None,
-    ) -> tuple[type[SqlAlchemyBase], InstrumentedAttribute, sa.Select | None]:
+    ) -> tuple[type[SqlAlchemyBase], InstrumentedAttribute]:
         """
         Take an attribute string and traverse a database model and its relationships to get the desired
-        model and model attribute. Optionally provide a query to apply the necessary table joins.
+        model and model attribute. Optionally collect the relationships traversed along the way, which can
+        then be expressed in a query with `join_relationships` or `aggregate_over_relationships`.
 
         If the attribute string is invalid, raises a `ValueError`.
 
@@ -284,15 +284,12 @@ class QueryFilterBuilder:
             try:
                 model_attr = getattr(current_model, attribute_link)
 
-                # proxied attributes can't be joined to the query directly, so we need to inspect the proxy
+                # proxied attributes can't be traversed directly, so we need to inspect the proxy
                 # and get the actual model and its attribute
                 if isinstance(model_attr, AssociationProxyInstance):
                     proxied_attribute_link = model_attr.target_collection
                     next_attribute_link = model_attr.value_attr
                     model_attr = getattr(current_model, proxied_attribute_link)
-
-                    if query is not None:
-                        query = query.join(model_attr, isouter=True)
 
                     mapper = sa.inspect(current_model)
                     relationship = mapper.relationships[proxied_attribute_link]
@@ -304,9 +301,6 @@ class QueryFilterBuilder:
                 # at the end of the chain there are no more relationships to inspect
                 if i == len(attribute_chain) - 1:
                     break
-
-                if query is not None:
-                    query = query.join(model_attr, isouter=True)
 
                 mapper = sa.inspect(current_model)
                 relationship = mapper.relationships[attribute_link]
@@ -323,7 +317,7 @@ class QueryFilterBuilder:
         if not getattr(model_attr, "info", {}).get("filterable"):
             raise NonFilterableValueError(model_attr)
 
-        return current_model, model_attr, query
+        return current_model, model_attr
 
     @staticmethod
     def _wrap_in_relationships(element: sa.ColumnElement, relationships: RelationshipChain) -> sa.ColumnElement:
@@ -337,6 +331,40 @@ class QueryFilterBuilder:
             element = relationship_attr.any(element) if uselist else relationship_attr.has(element)
 
         return element
+
+    @staticmethod
+    def join_relationships(query: sa.Select, relationships: RelationshipChain) -> sa.Select:
+        """
+        Join every relationship traversed by an attribute string onto a query.
+
+        Only safe for chains of "to-one" relationships: a "to-many" join duplicates a row per related record.
+        Use `aggregate_over_relationships` for those instead.
+        """
+        for relationship_attr, _ in relationships:
+            query = query.join(relationship_attr, isouter=True)
+
+        return query
+
+    @staticmethod
+    def aggregate_over_relationships[Model: SqlAlchemyBase](
+        element: sa.ColumnElement, relationships: RelationshipChain, model: type[Model], *, descending: bool
+    ) -> sa.ColumnElement:
+        """
+        Reduce a related attribute to one value per record using a correlated subquery.
+
+        Joining the relationships instead would duplicate a row per related record, which breaks LIMIT/OFFSET.
+        Aggregating keeps one row per record and picks the related value an ordering would have surfaced
+        anyway: the lowest one when ascending, the highest when descending.
+        """
+        join_conditions: list[sa.ColumnElement] = []
+        for relationship_attr, _ in relationships:
+            relationship = cast(RelationshipProperty, relationship_attr.property)
+            join_conditions.append(relationship.primaryjoin)
+            if relationship.secondary is not None:
+                join_conditions.append(relationship.secondaryjoin)
+
+        aggregate = sa.func.max if descending else sa.func.min
+        return sa.select(aggregate(element)).where(*join_conditions).correlate(model).scalar_subquery()
 
     @classmethod
     def _transform_model_attr(cls, model_attr: InstrumentedAttribute, model_attr_type: Any) -> InstrumentedAttribute:
@@ -417,7 +445,7 @@ class QueryFilterBuilder:
                 continue
 
             relationships: RelationshipChain = []
-            nested_model, model_attr, _ = self.get_model_and_model_attr_from_attr_string(
+            nested_model, model_attr = self.get_model_and_model_attr_from_attr_string(
                 component.attribute_name, model, collect_relationships=relationships
             )
             attr_map[i] = (nested_model, model_attr, relationships)
