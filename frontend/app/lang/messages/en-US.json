@@ -647,7 +647,8 @@
     "selected-tools": "Selected Tools",
     "other-filters": "Other Filters",
     "ready-to-make": "Ready to Make",
-    "almost-ready-to-make": "Almost Ready to Make"
+    "almost-ready-to-make": "Almost Ready to Make",
+    "max-missing-must-be-non-negative": "Must be 0 or greater"
   },
   "search": {
     "has-any": "Has Any",

@@ -138,6 +138,7 @@
                           v-model="state.settings.maxMissingFoods"
                           :precision="null"
                           :min="0"
+                          :rules="[(v: number) => v >= 0 || $t('recipe-finder.max-missing-must-be-non-negative')]"
                           control-variant="stacked"
                           inset
                           hide-details
@@ -147,6 +148,7 @@
                           v-model="state.settings.maxMissingTools"
                           :precision="null"
                           :min="0"
+                          :rules="[(v: number) => v >= 0 || $t('recipe-finder.max-missing-must-be-non-negative')]"
                           control-variant="stacked"
                           inset
                           hide-details
@@ -477,6 +479,21 @@ onMounted(() => {
     state.settings.includeToolsOnHand = false;
   }
 });
+
+// Clamp the max-missing fields so a negative value never reaches the API
+// even if the user bypasses the input's min/rules via paste or keyboard.
+// See https://github.com/mealie-recipes/mealie/issues/8238
+watch(
+  () => [state.settings.maxMissingFoods, state.settings.maxMissingTools],
+  ([foods, tools]) => {
+    if (typeof foods === "number" && foods < 0) {
+      state.settings.maxMissingFoods = 0;
+    }
+    if (typeof tools === "number" && tools < 0) {
+      state.settings.maxMissingTools = 0;
+    }
+  },
+);
 
 watch(
   () => state,
