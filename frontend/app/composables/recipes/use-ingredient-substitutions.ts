@@ -1,4 +1,5 @@
 import { computed } from "vue";
+import { useFoodName } from "./use-recipe-ingredients";
 import type { IngredientFood, IngredientFoodSubstitution, RecipeIngredient } from "~/lib/api/types/recipe";
 
 // the food is typed as a read-or-create union because either shape is accepted on input;
@@ -6,6 +7,14 @@ import type { IngredientFood, IngredientFoodSubstitution, RecipeIngredient } fro
 function foodSubstitutionsOf(ingredient: RecipeIngredient): IngredientFoodSubstitution[] {
   const food = ingredient.food as IngredientFood | null | undefined;
   return food?.substitutions || [];
+}
+
+/**
+ * The name a substitute food shows under, inflected to match the line it stands in for: a
+ * substitution for "2 onions" reads "shallots", not "shallot".
+ */
+export function substitutionFoodName(substitution: IngredientFoodSubstitution, usePluralFood = false): string {
+  return useFoodName(substitution.substituteFood || undefined, usePluralFood);
 }
 
 /**
@@ -28,10 +37,10 @@ export function useIngredientSubstitutions(ingredient: () => RecipeIngredient) {
  *
  * Returns "" when there are none, which is also the "don't render a line" signal.
  */
-export function ingredientSubstitutionSummary(ingredient: RecipeIngredient): string {
+export function ingredientSubstitutionSummary(ingredient: RecipeIngredient, usePluralFood = false): string {
   return [...(ingredient.substitutions || []), ...foodSubstitutionsOf(ingredient)]
     .map((substitution) => {
-      const food = substitution.substituteFood?.name;
+      const food = substitutionFoodName(substitution, usePluralFood);
       if (food && substitution.note) {
         return `${food} (${substitution.note})`;
       }

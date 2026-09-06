@@ -34,7 +34,7 @@
             class="substitution"
           >
             <template v-if="substitution.substituteFood">
-              <span class="substitution-primary">{{ substitution.substituteFood.name }}</span>
+              <span class="substitution-primary">{{ substitutionFoodName(substitution, pluralFood) }}</span>
               <SafeMarkdown v-if="substitution.note" class="substitution-note" :source="substitution.note" />
             </template>
             <!-- with no food the note is the substitution itself, so it reads like one, the way
@@ -48,17 +48,25 @@
 </template>
 
 <script setup lang="ts">
-import { useIngredientSubstitutions } from "~/composables/recipes";
+import { substitutionFoodName, useFoodPlurality, useIngredientSubstitutions } from "~/composables/recipes";
 import type { IngredientFoodSubstitution, RecipeIngredient } from "~/lib/api/types/recipe";
 
 interface Props {
   ingredient: RecipeIngredient;
+  scale?: number;
 }
 
-const props = defineProps<Props>();
+const props = withDefaults(defineProps<Props>(), {
+  scale: 1,
+});
 
 const i18n = useI18n();
 const { recipeSubstitutions, foodSubstitutions, hasSubstitutions } = useIngredientSubstitutions(() => props.ingredient);
+
+// a substitute stands in for the food at this line's quantity and unit, so it takes the same
+// plural form the food itself does -- both sections alike, since they sit under the one line
+const { shouldPluralizeFood } = useFoodPlurality();
+const pluralFood = computed(() => shouldPluralizeFood(props.ingredient, props.scale));
 
 interface SubstitutionSection {
   key: string;
