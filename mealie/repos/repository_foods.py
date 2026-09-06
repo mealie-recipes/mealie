@@ -85,6 +85,11 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]
             repointed_ingredient_ids.add(row.ingredient_id)
             row.substitute_food_id = to_food
 
+        # the session doesn't autoflush, and deleting the food actively loads its substitution
+        # rows to cascade over them. Without this the repoints are still only in memory, so that
+        # load pulls them back off the database pointing at the old food and deletes them anyway.
+        self.session.flush()
+
     def merge(self, from_food: UUID4, to_food: UUID4) -> IngredientFood | None:
         from_model = self._get_food(from_food)
         to_model = self._get_food(to_food)
