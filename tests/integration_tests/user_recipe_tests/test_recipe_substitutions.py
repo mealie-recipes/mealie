@@ -243,3 +243,45 @@ def test_explore_foods_include_substitutions(api_client: TestClient, unique_user
     assert len(stored) == 1
     assert stored[0]["substituteFoodId"] == substitute["id"]
     assert stored[0]["substituteFood"]["name"] == substitute["name"]
+
+
+def test_recipe_search_by_food_matches_substitute_usage(api_client: TestClient, unique_user: TestUser):
+    """
+    The food delete confirmation asks "which recipes use this food?" through this search, and
+    links to it for the full list. A food that only appears as a substitute is still used by the
+    recipe, so counting only direct ingredients deletes it with no warning at all.
+    """
+
+    substitute = create_food(unique_user, api_client)
+    recipe = create_recipe_with_substitutions(
+        unique_user, api_client, [{"substituteFoodId": substitute["id"], "note": "pork works"}]
+    )
+
+    response = api_client.get(api_routes.recipes, params={"foods": [substitute["id"]]}, headers=unique_user.token)
+    assert response.status_code == 200
+    assert [item["id"] for item in response.json()["items"]] == [recipe["id"]]
+
+
+def test_deleting_a_substitute_food_removes_the_substitution(api_client: TestClient, unique_user: TestUser):
+    """
+    Nothing cascaded to the recipe tier, so the substitution was left pointing at a food that no
+    longer existed: an empty popover on SQLite, and a foreign key violation on Postgres.
+    """
+
+    doomed = create_food(unique_user, api_client)
+    kept = create_food(unique_user, api_client)
+    recipe = create_recipe_with_substitutions(
+        unique_user,
+        api_client,
+        [{"substituteFoodId": doomed["id"]}, {"substituteFoodId": kept["id"]}, {"note": "or use tofu"}],
+    )
+    assert len(recipe["recipeIngredient"][0]["substitutions"]) == 3
+
+    response = api_client.delete(api_routes.foods_item_id(doomed["id"]), headers=unique_user.token)
+    assert response.status_code == 200
+
+    reloaded = api_client.get(api_routes.recipes_slug(recipe["slug"]), headers=unique_user.token).json()
+    remaining = reloaded["recipeIngredient"][0]["substitutions"]
+
+    assert [sub["substituteFoodId"] for sub in remaining] == [kept["id"], None]
+    assert remaining[1]["note"] == "or use tofu"
