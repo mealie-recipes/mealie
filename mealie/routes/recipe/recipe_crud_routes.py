@@ -761,7 +761,7 @@ class RecipeController(BaseRecipeController):
         data_service = RecipeDataService(recipe.id)
 
         try:
-            await data_service.scrape_image(url.url)
+            image_path = await data_service.scrape_image(url.url)
         except NotAnImageError as e:
             raise HTTPException(
                 status_code=400,
@@ -772,6 +772,14 @@ class RecipeController(BaseRecipeController):
                 status_code=400,
                 detail=ErrorResponse.respond("Url is not from an allowed domain"),
             ) from e
+
+        # A failed download must not leave the recipe claiming an image, or every render
+        # asks the media route for a file that isn't there.
+        if image_path is None:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Image could not be downloaded"),
+            )
 
         recipe.image = cache.cache_key.new_key()
         self.service.update_one(recipe.slug, recipe)
