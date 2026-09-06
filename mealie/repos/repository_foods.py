@@ -1,8 +1,9 @@
 from pydantic import UUID4
 from sqlalchemy import select, update
+from sqlalchemy.orm import joinedload
 
 from mealie.db.models.household.shopping_list import ShoppingListItem
-from mealie.db.models.recipe.ingredient import IngredientFoodModel
+from mealie.db.models.recipe.ingredient import IngredientFoodModel, RecipeIngredientSubstitutionModel
 from mealie.schema.recipe.recipe_ingredient import IngredientFood
 
 from .repository_generic import GroupRepositoryGeneric
@@ -50,12 +51,47 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]
             existing_source_ids.add(row.food_id)
             to_model.substitution_references.append(row)
 
+    def _merge_recipe_substitutions(self, from_food: UUID4, to_food: UUID4) -> None:
+        """
+        Repoints the recipe-tier substitutions aimed at the merged-away food.
+
+        These rows hang off ingredient lines rather than off the food, so moving the ingredients
+        does not carry them along; left alone they are cascade-deleted with the food, dropping
+        substitutions the recipes still want. Rows that would become self-referential or
+        duplicate once the two foods are one are deleted instead, since that is what they say.
+        """
+
+        # both ids are matched, so this reads the same whether or not the ingredient move has
+        # been flushed yet: either way those ingredients end up calling for the target
+        merged_food_ids = [from_food, to_food]
+        stmt = (
+            select(RecipeIngredientSubstitutionModel)
+            .filter(RecipeIngredientSubstitutionModel.substitute_food_id.in_(merged_food_ids))
+            .options(joinedload(RecipeIngredientSubstitutionModel.ingredient))
+            .order_by(
+                RecipeIngredientSubstitutionModel.ingredient_id,
+                RecipeIngredientSubstitutionModel.position,
+            )
+        )
+
+        # the recipe tier has no unique constraint to lean on, so duplicates are collapsed here,
+        # keeping the first the same way the schema does when it prunes a payload
+        repointed_ingredient_ids: set[int] = set()
+        for row in self.session.execute(stmt).unique().scalars().all():
+            if row.ingredient.food_id in merged_food_ids or row.ingredient_id in repointed_ingredient_ids:
+                self.session.delete(row)
+                continue
+
+            repointed_ingredient_ids.add(row.ingredient_id)
+            row.substitute_food_id = to_food
+
     def merge(self, from_food: UUID4, to_food: UUID4) -> IngredientFood | None:
         from_model = self._get_food(from_food)
         to_model = self._get_food(to_food)
 
         to_model.ingredients += from_model.ingredients
         self._merge_substitutions(from_model, to_model)
+        self._merge_recipe_substitutions(from_food, to_food)
 
         # Shopping list items reference the food directly rather than through the ingredients
         # relationship, so they have to be repointed explicitly. Without this the delete below
