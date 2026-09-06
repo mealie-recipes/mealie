@@ -68,6 +68,44 @@ def test_openai_parser(
             assert output.input == input
 
 
+def test_openai_parser_rejects_extra(
+    unique_local_group_id: UUID4,
+    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+    monkeypatch: pytest.MonkeyPatch,
+):
+    async def mock_get_response(self, prompt: str, message: str, *args, **kwargs) -> OpenAIIngredients:
+        return OpenAIIngredients(
+            ingredients=[
+                OpenAIIngredient(
+                    quantity=1,
+                    unit="tablespoon",
+                    food="fresh lemon juice",
+                    note="",
+                ),
+                OpenAIIngredient(
+                    quantity=2,
+                    unit="teaspoon",
+                    food="zest",
+                    note="",
+                ),
+            ]
+        )
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    def mock_openai_init(self, repos):
+        self.repos = repos
+        self.custom_prompt_dir = None
+
+    monkeypatch.setattr(OpenAIService, "__init__", mock_openai_init)
+
+    with session_context() as session:
+        parser = get_parser(RegisteredParser.openai, unique_local_group_id, session, get_locale_provider())
+
+        with pytest.raises(ValueError, match="Expected 1, got 2"):
+            asyncio.run(parser.parse(["1 tablespoon fresh lemon juice, plus 2 teaspoons zest"]))
+
+
 def test_openai_parser_sanitize_output(
     unique_local_group_id: UUID4,
     unique_user: TestUser,
@@ -131,6 +169,41 @@ def test_openai_parser_sanitize_output(
                 recipe_ingredient=[parsed_ing.ingredient],
             )
         )
+
+
+def test_openai_parser_substitutes(
+    unique_local_group_id: UUID4,
+    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+):
+    """
+    An extracted alternative that resolves to an existing food becomes a food substitution, and
+    one that resolves to nothing is kept as a note, so the alternative survives either way.
+    """
+
+    unknown = "unobtainium extract"
+
+    with session_context() as session:
+        from mealie.services.parser_services.openai.parser import OpenAIParser
+
+        parser = cast(
+            OpenAIParser, get_parser(RegisteredParser.openai, unique_local_group_id, session, get_locale_provider())
+        )
+
+        substitutions = parser._convert_substitutes(
+            ["onion", "thisismyalias", "   ", unknown, "potatoes"],
+            CreateIngredientFood(name="potatoes"),
+        )
+
+        onion = parser.data_matcher.find_food_match("onion")
+        aliased = parser.data_matcher.find_food_match("thisismyalias")
+        assert onion and aliased
+
+    # the blank is dropped, and "potatoes" resolves back to the ingredient's own food
+    assert [(sub.substitute_food_id, sub.note) for sub in substitutions] == [
+        (onion.id, None),
+        (aliased.id, None),
+        (None, unknown),
+    ]
 
 
 @pytest.mark.parametrize(

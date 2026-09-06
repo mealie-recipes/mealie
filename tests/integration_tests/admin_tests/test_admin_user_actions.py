@@ -174,3 +174,30 @@ def test_delete_user_with_multiple_mealplans_and_shopping_lists(
 
     response = api_client.delete(api_routes.admin_users_item_id(unique_user_fn_scoped.user_id), headers=admin_token)
     assert response.status_code == 200
+
+
+def test_delete_user_with_rated_and_favorited_recipe(
+    api_client: TestClient, admin_token, unique_user_fn_scoped: TestUser
+):
+    """
+    Regression test for https://github.com/mealie-recipes/mealie/issues/8121
+
+    `User.rated_recipes` and `User.favorite_recipes` are two relationships mapped
+    onto the same `users_to_recipes` secondary table (favorites filtered to
+    `is_favorite == True`). When a recipe is both rated and favorited it belongs
+    to both collections, so on user delete SQLAlchemy tried to delete the shared
+    secondary row twice and the second delete raised `StaleDataError`.
+    """
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user_fn_scoped.token)
+    assert response.status_code == 201
+    slug = response.json()
+
+    response = api_client.post(
+        api_routes.users_id_ratings_slug(unique_user_fn_scoped.user_id, slug),
+        json={"rating": 5, "isFavorite": True},
+        headers=unique_user_fn_scoped.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.delete(api_routes.admin_users_item_id(unique_user_fn_scoped.user_id), headers=admin_token)
+    assert response.status_code == 200

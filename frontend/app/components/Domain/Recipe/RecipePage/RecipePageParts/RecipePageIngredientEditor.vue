@@ -4,9 +4,29 @@
       <h2 class="mb-4 text-h5 font-weight-medium opacity-80">
         {{ $t("recipe.ingredients") }}
       </h2>
-      <BannerWarning v-if="!hasFoodOrUnit">
-        {{ $t("recipe.ingredients-not-parsed-description", { parse: $t('recipe.parse') }) }}
-      </BannerWarning>
+      <v-alert
+        v-if="!hasFoodOrUnit"
+        border="start"
+        color="info"
+        :icon="$globals.icons.information"
+        variant="tonal"
+      >
+        <div>
+          {{ $t('recipe.ingredients-not-parsed-description', { parse: $t('recipe.parse') }) }}
+        </div>
+        <div class="d-flex flex-wrap justify-end mt-3">
+          <BaseButton
+            class="mb-1"
+            color="info"
+            @click="toggleIsParsing(true)"
+          >
+            <template #icon>
+              {{ $globals.icons.foods }}
+            </template>
+            {{ $t('recipe.parse') }}
+          </BaseButton>
+        </div>
+      </v-alert>
     </div>
     <VueDraggable
       v-if="recipe.recipeIngredient.length > 0"
@@ -23,22 +43,17 @@
       @start="drag = true"
       @end="drag = false"
     >
-      <TransitionGroup
-        type="transition"
-      >
-        <RecipeIngredientEditor
-          v-for="(ingredient, index) in recipe.recipeIngredient"
-          :key="ingredient.referenceId"
-          v-model="recipe.recipeIngredient[index]"
-          :is-recipe="ingredientIsRecipe(ingredient)"
-          enable-drag-handle
-          enable-context-menu
-          class="list-group-item"
-          @delete="recipe.recipeIngredient.splice(index, 1)"
-          @insert-above="insertNewIngredient(index)"
-          @insert-below="insertNewIngredient(index + 1)"
-        />
-      </TransitionGroup>
+      <RecipeIngredientEditor
+        v-for="(ingredient, index) in recipe.recipeIngredient"
+        :key="ingredient.referenceId"
+        v-model="recipe.recipeIngredient[index]"
+        :is-recipe="ingredientIsRecipe(ingredient)"
+        enable-drag-handle
+        enable-context-menu
+        @delete="recipe.recipeIngredient.splice(index, 1)"
+        @insert-above="insertNewIngredient(index)"
+        @insert-below="insertNewIngredient(index + 1)"
+      />
     </VueDraggable>
     <v-skeleton-loader
       v-else
@@ -47,28 +62,6 @@
       type="list-item"
     />
     <div class="d-flex flex-wrap justify-center justify-sm-end mt-3">
-      <v-tooltip
-        location="top"
-        color="accent"
-      >
-        <template #activator="{ props }">
-          <span>
-            <BaseButton
-              class="mb-1"
-              :disabled="hasFoodOrUnit"
-              color="accent"
-              v-bind="props"
-              @click="toggleIsParsing(true)"
-            >
-              <template #icon>
-                {{ $globals.icons.foods }}
-              </template>
-              {{ $t('recipe.parse') }}
-            </BaseButton>
-          </span>
-        </template>
-        <span>{{ parserToolTip }}</span>
-      </v-tooltip>
       <RecipeDialogBulkAdd
         ref="domBulkAddDialog"
         class="mx-1 mb-1"
@@ -138,7 +131,6 @@ import { uuid4 } from "~/composables/use-utils";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 const ingredientsWithRecipe = new Map<string, boolean>();
-const i18n = useI18n();
 
 const drag = ref(false);
 const domBulkAddDialog = ref<InstanceType<typeof RecipeDialogBulkAdd> | null>(null);
@@ -156,13 +148,6 @@ const hasFoodOrUnit = computed(() => {
     }
   }
   return false;
-});
-
-const parserToolTip = computed(() => {
-  if (hasFoodOrUnit.value) {
-    return i18n.t("recipe.recipes-with-units-or-foods-defined-cannot-be-parsed");
-  }
-  return i18n.t("recipe.parse-ingredients");
 });
 
 function showBulkAdd() {

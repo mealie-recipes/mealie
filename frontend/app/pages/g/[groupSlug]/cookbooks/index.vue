@@ -23,6 +23,7 @@
     <!-- Delete Dialog -->
     <BaseDialog
       v-model="dialogStates.delete"
+      bottom-sheet
       :title="$t('general.delete-with-name', { name: $t('cookbook.cookbook') })"
       :icon="$globals.icons.alertCircle"
       color="error"

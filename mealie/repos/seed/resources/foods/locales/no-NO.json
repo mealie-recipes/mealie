@@ -1271,8 +1271,8 @@
             "mixed mushroom": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed mushroom",
-                "plural_name": "mixed mushrooms"
+                "name": "blandet sopp",
+                "plural_name": "blandet sopp"
             },
             "oyster mushroom": {
                 "aliases": [],
@@ -2067,8 +2067,8 @@
             "blue cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "blue cheese",
-                "plural_name": "blue cheese"
+                "name": "blåmuggost",
+                "plural_name": "blåmuggost"
             },
             "goat cheese": {
                 "aliases": [],
@@ -2295,8 +2295,8 @@
             "jarlsberg cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "jarlsberg cheese",
-                "plural_name": "jarlsberg cheese"
+                "name": "jarlsbergost",
+                "plural_name": "jarlsbergost"
             },
             "taleggio cheese": {
                 "aliases": [],
@@ -2889,8 +2889,8 @@
             "salted egg": {
                 "aliases": [],
                 "description": "",
-                "name": "salted egg",
-                "plural_name": "salted eggs"
+                "name": "saltet egg",
+                "plural_name": "saltede egg"
             },
             "skyr": {
                 "aliases": [],
@@ -7428,8 +7428,8 @@
             "truffle salt": {
                 "aliases": [],
                 "description": "",
-                "name": "truffle salt",
-                "plural_name": "truffle salt"
+                "name": "trøffelsalt",
+                "plural_name": "trøffelsalt"
             },
             "biryani masala": {
                 "aliases": [],
@@ -7796,13 +7796,13 @@
             },
             "unbleached all-purpose flour": {
                 "aliases": [
-                    "unbleached flour",
+                    "mel (ubleket)",
                     "siktet hvetemel",
                     "siktet hvetemel"
                 ],
                 "description": "",
                 "name": "siktet hvetemel",
-                "plural_name": "unbleached all-purpose flour"
+                "plural_name": "siktet hvetemel (ubleket)"
             },
             "white baking chip": {
                 "aliases": [],
@@ -7856,7 +7856,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "havremel",
-                "plural_name": "oat flour"
+                "plural_name": "havremel"
             },
             "whole-wheat pastry flour": {
                 "aliases": [],
@@ -10030,7 +10030,7 @@
             "bread": {
                 "aliases": [],
                 "description": "",
-                "name": "bread",
+                "name": "brød",
                 "plural_name": "breads"
             }
         }
@@ -10100,8 +10100,8 @@
             "sourdough bread": {
                 "aliases": [],
                 "description": "",
-                "name": "sourdough bread",
-                "plural_name": "sourdough breads"
+                "name": "surdeigsbrød",
+                "plural_name": "surdeigsbrød"
             },
             "rustic italian bread": {
                 "aliases": [],
@@ -10112,14 +10112,14 @@
             "popcorn": {
                 "aliases": [],
                 "description": "",
-                "name": "popcorn",
-                "plural_name": "popcorns"
+                "name": "popkorn",
+                "plural_name": "popkorn"
             },
             "crouton": {
                 "aliases": [],
                 "description": "",
-                "name": "crouton",
-                "plural_name": "croutons"
+                "name": "krutong",
+                "plural_name": "krutonger"
             },
             "whole-wheat tortilla": {
                 "aliases": [],
@@ -10148,14 +10148,14 @@
             "rye bread": {
                 "aliases": [],
                 "description": "",
-                "name": "rye bread",
-                "plural_name": "rye breads"
+                "name": "rugbrød",
+                "plural_name": "rugbrød"
             },
             "flatbread": {
                 "aliases": [],
                 "description": "",
-                "name": "flatbread",
-                "plural_name": "flatbreads"
+                "name": "flatbrød",
+                "plural_name": "flatbrød"
             },
             "dry-roasted peanut": {
                 "aliases": [],
@@ -10166,8 +10166,8 @@
             "potato chip": {
                 "aliases": [],
                 "description": "",
-                "name": "potato chip",
-                "plural_name": "potato chips"
+                "name": "potetgull",
+                "plural_name": "potetgull"
             },
             "naan": {
                 "aliases": [],
@@ -10184,14 +10184,14 @@
             "cornbread": {
                 "aliases": [],
                 "description": "",
-                "name": "cornbread",
-                "plural_name": "cornbreads"
+                "name": "maisbrød",
+                "plural_name": "maisbrød"
             },
             "taco shell": {
                 "aliases": [],
                 "description": "",
-                "name": "taco shell",
-                "plural_name": "taco shells"
+                "name": "tacoskjell",
+                "plural_name": "tacoskjell"
             },
             "tater tot": {
                 "aliases": [],
@@ -10214,14 +10214,14 @@
             "unpopped popcorn": {
                 "aliases": [],
                 "description": "",
-                "name": "unpopped popcorn",
-                "plural_name": "unpopped popcorns"
+                "name": "upoppet popkorn",
+                "plural_name": "upoppet popkorn"
             },
             "croissant": {
                 "aliases": [],
                 "description": "",
                 "name": "croissant",
-                "plural_name": "croissants"
+                "plural_name": "croissanter"
             },
             "pork rind": {
                 "aliases": [],
@@ -10448,8 +10448,8 @@
             "frozen onion ring": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen onion ring",
-                "plural_name": "frozen onion rings"
+                "name": "fryst løkring",
+                "plural_name": "fryste løkringer"
             },
             "corn muffin": {
                 "aliases": [],
@@ -10514,8 +10514,8 @@
             "chocolate muffin": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate muffin",
-                "plural_name": "chocolate muffins"
+                "name": "sjokolademuffins",
+                "plural_name": "sjokolademuffins"
             },
             "milk bread": {
                 "aliases": [],

@@ -12,6 +12,7 @@ from mealie.schema.household.household_statistics import HouseholdStatistics
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
 from mealie.schema.user.user import UserOut
 from mealie.services.household_services.household_service import HouseholdService
+from mealie.services.query_filter.builder import QueryFilterBuilder
 
 router = UserAPIRouter(prefix="/households", tags=["Households: Self Service"])
 
@@ -40,11 +41,7 @@ class HouseholdSelfServiceController(BaseUserController):
     def get_household_members(self, q: PaginationQuery = Depends()):
         """Returns all users belonging to the current household"""
 
-        qf_part = f"household_id={self.household_id}"
-        if q.query_filter:
-            q.query_filter = f"({q.query_filter}) AND {qf_part}"
-        else:
-            q.query_filter = qf_part
+        q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, f"household_id={self.household_id}")
 
         response = self.repos.users.page_all(q, override=UserOut)
 

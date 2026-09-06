@@ -56,7 +56,20 @@ class AlchemyExporter(BaseService):
     engine: base.Engine
     meta: MetaData
 
-    look_for_datetime = {"created_at", "update_at", "date_updated", "timestamp", "expires_at", "locked_at", "last_made"}
+    look_for_datetime = {
+        "created_at",
+        "update_at",
+        "date_updated",
+        "timestamp",
+        "expires_at",
+        "locked_at",
+        "last_made",
+        "completed_date",
+        "tokens_valid_after",
+    }
+    """Column names restored back into datetimes. Anything stored as a `NaiveDateTime` and missing
+    here comes back from a backup as a string; `test_every_datetime_column_survives_a_backup` guards
+    against forgetting to add one."""
     look_for_date = {"date_added", "date"}
     look_for_time = {"scheduled_time"}
 

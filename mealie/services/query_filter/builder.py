@@ -8,6 +8,7 @@ from uuid import UUID
 import sqlalchemy as sa
 from dateutil import parser as date_parser
 from dateutil.parser import ParserError
+from fastapi import HTTPException
 from humps import decamelize
 from sqlalchemy.ext.associationproxy import AssociationProxyInstance
 from sqlalchemy.orm import InstrumentedAttribute, Mapper
@@ -172,10 +173,7 @@ class QueryFilterBuilder:
         # parse filter string
         components = QueryFilterBuilder._break_filter_string_into_components(filter_string)
         base_components = QueryFilterBuilder._break_components_into_base_components(components)
-        if base_components.count(QueryFilterBuilder.l_group_sep) != base_components.count(
-            QueryFilterBuilder.r_group_sep
-        ):
-            raise ValueError("invalid query string: parenthesis are unbalanced")
+        QueryFilterBuilder._validate_parenthesis(base_components)
 
         # parse base components into a filter group
         self.filter_components = QueryFilterBuilder._parse_base_components_into_filter_components(base_components)
@@ -189,6 +187,46 @@ class QueryFilterBuilder:
         )
 
         return f"<<{joined}>>"
+
+    @staticmethod
+    def _validate_parenthesis(base_components: list[str | list[str]]) -> None:
+        """Validate that every group is opened before it's closed, and that all groups are closed."""
+
+        VALUE_ERROR = ValueError("invalid query string: parenthesis are unbalanced")
+
+        depth = 0
+        for base_component in base_components:
+            if base_component == QueryFilterBuilder.l_group_sep:
+                depth += 1
+            elif base_component == QueryFilterBuilder.r_group_sep:
+                depth -= 1
+                if depth < 0:
+                    raise VALUE_ERROR
+
+        if depth:
+            raise VALUE_ERROR
+
+    @classmethod
+    def combine_filters(cls, *filter_strings: str | None) -> str:
+        """
+        Combine filter strings into one filter string joined by `AND`, ignoring empty ones.
+
+        Validates each sub-filter individually, throwing an HTTPException if any are invalid.
+        """
+
+        parts: list[str] = []
+        for filter_string in filter_strings:
+            if not filter_string:
+                continue
+
+            try:
+                cls(filter_string)
+            except ValueError as e:
+                raise HTTPException(status_code=400, detail=str(e)) from e
+
+            parts.append(f"({filter_string})")
+
+        return " AND ".join(parts)
 
     @classmethod
     def _consolidate_group(
