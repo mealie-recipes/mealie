@@ -96,6 +96,13 @@ const parsedIng = computed(() => {
     white-space: normal;
     word-break: break-word;
   }
+
+  // the substitution button keeps a finger-sized tap target, but its box is taller than the
+  // line of text it sits on; left alone it sets the row's height and pushes the note down.
+  // it overflows the line instead of growing it
+  .v-btn--icon {
+    margin-block: calc((1.75rem - 48px) / 2);
+  }
 }
 
 .note {
