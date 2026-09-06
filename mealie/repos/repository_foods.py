@@ -77,6 +77,7 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]
         # the recipe tier has no unique constraint to lean on, so duplicates are collapsed here,
         # keeping the first the same way the schema does when it prunes a payload
         repointed_ingredient_ids: set[int] = set()
+        repointed_rows: list[RecipeIngredientSubstitutionModel] = []
         for row in self.session.execute(stmt).unique().scalars().all():
             if row.ingredient.food_id in merged_food_ids or row.ingredient_id in repointed_ingredient_ids:
                 self.session.delete(row)
@@ -84,11 +85,14 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]
 
             repointed_ingredient_ids.add(row.ingredient_id)
             row.substitute_food_id = to_food
+            repointed_rows.append(row)
 
-        # the session doesn't autoflush, and deleting the food actively loads its substitution
-        # rows to cascade over them. Without this the repoints are still only in memory, so that
-        # load pulls them back off the database pointing at the old food and deletes them anyway.
-        self.session.flush()
+        # the session doesn't autoflush, and deleting the food actively loads its substitution rows
+        # to cascade over them, so an unwritten repoint is read back off the database still pointing
+        # at the old food and deleted with it. Only these rows are written: a full flush would also
+        # write the ingredient move, which the delete then undoes by clearing their food.
+        if repointed_rows:
+            self.session.flush(repointed_rows)
 
     def merge(self, from_food: UUID4, to_food: UUID4) -> IngredientFood | None:
         from_model = self._get_food(from_food)
