@@ -20,7 +20,6 @@ from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser, TokenData
 from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupInDB
 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/auth/token")
 oauth2_scheme_soft_fail = OAuth2PasswordBearer(tokenUrl="/api/auth/token", auto_error=False)
 app_dirs = get_app_dirs()
 settings = get_app_settings()
@@ -139,7 +138,10 @@ async def get_current_user(
     return user
 
 
-async def get_integration_id(token: str = Depends(oauth2_scheme)) -> str:
+async def get_integration_id(token: str = Depends(get_auth_token)) -> str:
+    # Shares get_current_user's token source, cookie fallback included. Reading the header directly
+    # would 401 every cookie-authenticated request to a BaseUserController route, which depends on
+    # both.
     try:
         decoded_token = jwt.decode(token, settings.SECRET, algorithms=[ALGORITHM])
         return decoded_token.get("integration_id", DEFAULT_INTEGRATION_ID)
