@@ -89,6 +89,11 @@ const fieldDefs: FieldDefinition[] = [
     type: Organizer.User,
   },
   {
+    name: "rating",
+    label: i18n.t("general.rating"),
+    type: "number",
+  },
+  {
     name: "created_at",
     label: i18n.t("general.date-created"),
     type: "date",

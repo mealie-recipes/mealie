@@ -355,6 +355,8 @@ class ShoppingListService:
                 continue
 
             if isinstance(ingredient.food, IngredientFood):
+                if self._is_on_hand(list_id, ingredient.food):
+                    continue
                 food_id = ingredient.food.id
                 label_id = ingredient.food.label_id
             else:
@@ -409,6 +411,15 @@ class ShoppingListService:
                 list_items.append(new_item)
 
         return list_items
+
+    def _is_on_hand(self, list_id: UUID4, food: IngredientFood) -> bool:
+        shopping_list = self.shopping_lists.get_one(list_id)
+        if shopping_list is None:
+            return False
+        household = self.repos.households.get_by_slug_or_id(shopping_list.household_id)
+        if household is None:
+            return False
+        return household.slug in food.households_with_ingredient_food
 
     def add_recipe_ingredients_to_list(
         self,
@@ -472,6 +483,8 @@ class ShoppingListService:
         update_items: list[ShoppingListItemUpdateBulk] = []
         delete_items: list[UUID4] = []
         for item in shopping_list.list_items:
+            if item.food is not None and self._is_on_hand(list_id, item.food):
+                continue
             found = False
 
             refs = cast(list[ShoppingListItemRecipeRefOut], item.recipe_references)

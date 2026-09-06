@@ -1,6 +1,6 @@
 {
   "name": "mealie",
-  "version": "3.24.0",
+  "version": "3.25.1",
   "private": true,
   "scripts": {
     "dev": "nuxt dev",
@@ -68,7 +68,7 @@
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
-      "version": "3.24.0",
+      "version": "11",
       "onFail": "warn"
     }
   },

@@ -16,6 +16,7 @@ export interface OpenAIIngredient {
   unit?: string | null;
   food?: string | null;
   note?: string | null;
+  substitutes?: string[];
 }
 export interface OpenAIIngredients {
   ingredients?: OpenAIIngredient[];

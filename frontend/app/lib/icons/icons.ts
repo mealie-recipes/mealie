@@ -123,6 +123,7 @@ import {
   mdiSortVariant,
   mdiSquareEditOutline,
   mdiStar,
+  mdiSwapHorizontal,
   mdiTableEdit,
   mdiTagArrowRight,
   mdiTagArrowUpOutline,
@@ -140,6 +141,9 @@ import {
   mdiWindowClose,
   mdiWrench,
   mdiHandWaveOutline,
+  mdiProgressCheck,
+  mdiCalendarRemove,
+  mdiCalendarEdit,
 
 } from "@mdi/js";
 
@@ -168,6 +172,8 @@ export const icons = {
   bellPlus: mdiBellPlus,
   bullhornVariant: mdiBullhornVariant,
   calendar: mdiCalendar,
+  calendarRemove: mdiCalendarRemove,
+  calendarEdit: mdiCalendarEdit,
   calendarMultiselect: mdiCalendarMultiselect,
   calendarWeekBegin: mdiCalendarWeekBegin,
   cartCheck: mdiCartCheck,
@@ -176,6 +182,7 @@ export const icons = {
   checkboxMultipleBlankOutline: mdiCheckboxMultipleBlankOutline,
   checkboxMultipleMarkedOutline: mdiCheckboxMultipleOutline,
   checkboxMarkedCircle: mdiCheckboxMarkedCircle,
+  progressCheck: mdiProgressCheck,
   chefHat: mdiChefHat,
   clipboardCheck: mdiClipboardCheck,
   clockOutline: mdiClockTimeFourOutline,
@@ -246,6 +253,7 @@ export const icons = {
   sortClockAscending: mdiSortClockAscending,
   sortClockDescending: mdiSortClockDescending,
   star: mdiStar,
+  swapHorizontal: mdiSwapHorizontal,
   testTube: mdiTestTube,
   textBox: mdiTextBoxOutline,
   textBoxCheckOutline: mdiTextBoxCheckOutline,
