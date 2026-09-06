@@ -4,13 +4,13 @@ import random
 from collections.abc import Iterable
 from datetime import UTC, datetime
 from math import ceil
-from typing import Any, cast
+from typing import Any
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import ColumnElement, Select, case, delete, func, nulls_first, nulls_last, select
 from sqlalchemy.ext.associationproxy import AssociationProxyInstance
-from sqlalchemy.orm import InstrumentedAttribute, RelationshipProperty
+from sqlalchemy.orm import InstrumentedAttribute
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
 
@@ -408,26 +408,6 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
         return query.offset((pagination.page - 1) * pagination.per_page), count, total_pages
 
-    def _aggregate_related_order_attr(
-        self, order_attr: ColumnElement, order_dir: OrderDirection, relationships: RelationshipChain
-    ) -> ColumnElement:
-        """
-        Reduce a related attribute to one value per record using a correlated subquery.
-
-        Joining a "to-many" relationship produces one row per related record, which duplicates records and
-        breaks LIMIT/OFFSET. Aggregating instead keeps one row per record, and picks the same related value
-        the ordering would have surfaced anyway: the lowest one when ascending, the highest when descending.
-        """
-        join_conditions: list[ColumnElement] = []
-        for relationship_attr, _ in relationships:
-            relationship = cast(RelationshipProperty, relationship_attr.property)
-            join_conditions.append(relationship.primaryjoin)
-            if relationship.secondary is not None:
-                join_conditions.append(relationship.secondaryjoin)
-
-        aggregate = func.max if order_dir is OrderDirection.desc else func.min
-        return select(aggregate(order_attr)).where(*join_conditions).correlate(self.model).scalar_subquery()
-
     def add_order_attr_to_query(
         self,
         query: Select,
@@ -447,11 +427,12 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
         if relationships:
             if any(uselist for _, uselist in relationships):
-                order_attr = self._aggregate_related_order_attr(order_attr, order_dir, relationships)
+                order_attr = QueryFilterBuilder.aggregate_over_relationships(
+                    order_attr, relationships, self.model, descending=order_dir is OrderDirection.desc
+                )
             else:
-                # "to-one" relationships can be joined directly, since they can't duplicate records
-                for relationship_attr, _ in relationships:
-                    query = query.join(relationship_attr, isouter=True)
+                # "to-one" relationships can't duplicate records, so they're cheaper to join than to aggregate
+                query = QueryFilterBuilder.join_relationships(query, relationships)
 
         if order_dir is OrderDirection.asc:
             order_attr = order_attr.asc()
@@ -496,7 +477,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                         order_dir = request_query.order_direction
 
                     relationships: RelationshipChain = []
-                    _, order_attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
+                    _, order_attr = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
                         order_by, self.model, collect_relationships=relationships
                     )
 
