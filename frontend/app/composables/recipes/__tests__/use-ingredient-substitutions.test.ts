@@ -1,10 +1,11 @@
 import { ref } from "vue";
 import { describe, expect, test } from "vitest";
-import { ingredientSubstitutionSummary, useIngredientSubstitutions } from "../use-ingredient-substitutions";
+import { ingredientSubstitutionSummary, substitutionFoodName, useIngredientSubstitutions } from "../use-ingredient-substitutions";
 import type { IngredientFood, IngredientFoodSummary, RecipeIngredient } from "~/lib/api/types/recipe";
 
 const broth: IngredientFoodSummary = { id: "broth-id", name: "Chicken broth" };
 const pork: IngredientFoodSummary = { id: "pork-id", name: "Pork" };
+const shallot: IngredientFoodSummary = { id: "shallot-id", name: "Shallot", pluralName: "Shallots" };
 
 /** A food carrying its own substitutions, i.e. the ones that apply everywhere it is used. */
 function foodWithSubstitutions(): IngredientFood {
@@ -14,6 +15,23 @@ function foodWithSubstitutions(): IngredientFood {
     substitutions: [{ substituteFoodId: broth.id, substituteFood: broth }],
   };
 }
+
+describe("substitutionFoodName", () => {
+  test("inflects with the line the substitute stands in for", () => {
+    const substitution = { substituteFoodId: shallot.id, substituteFood: shallot };
+
+    expect(substitutionFoodName(substitution, true)).toStrictEqual("Shallots");
+    expect(substitutionFoodName(substitution, false)).toStrictEqual("Shallot");
+  });
+
+  test("falls back to the one name a food without a plural form has", () => {
+    expect(substitutionFoodName({ substituteFoodId: broth.id, substituteFood: broth }, true)).toStrictEqual("Chicken broth");
+  });
+
+  test("is empty for a substitution that is only a note", () => {
+    expect(substitutionFoodName({ note: "pork works" }, true)).toStrictEqual("");
+  });
+});
 
 describe("useIngredientSubstitutions", () => {
   test("keeps the two tiers apart", () => {
@@ -98,6 +116,18 @@ describe("ingredientSubstitutionSummary", () => {
   test("is empty when there is nothing to show, which is also the don't-render signal", () => {
     expect(ingredientSubstitutionSummary({})).toStrictEqual("");
     expect(ingredientSubstitutionSummary({ food: { id: "stock-id", name: "Chicken stock" } })).toStrictEqual("");
+  });
+
+  test("inflects the substitute foods when the line they replace is plural", () => {
+    const ingredient: RecipeIngredient = {
+      quantity: 2,
+      food: { id: "onion-id", name: "Onion", pluralName: "Onions" },
+      substitutions: [{ substituteFoodId: shallot.id, substituteFood: shallot, note: "milder" }],
+    };
+
+    const summary = ingredientSubstitutionSummary(ingredient, true);
+
+    expect(summary).toStrictEqual("Shallots (milder)");
   });
 
   test("skips a substitution carrying neither a food nor a note", () => {

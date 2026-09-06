@@ -92,9 +92,9 @@
             />
             <!-- paper has nothing to tap, so what the menu holds on screen is spelled out here -->
             <SafeMarkdown
-              v-if="preferences.showSubstitutions && ingredientSubstitutionSummary(ingredient)"
+              v-if="preferences.showSubstitutions && substitutionSummary(ingredient)"
               class="substitution-body"
-              :source="$t('recipe.substitutions-with-value', { substitutions: ingredientSubstitutionSummary(ingredient) })"
+              :source="$t('recipe.substitutions-with-value', { substitutions: substitutionSummary(ingredient) })"
             />
           </div>
         </div>
@@ -225,7 +225,7 @@ import { useStaticRoutes } from "~/composables/api";
 import type { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
-import { ingredientSubstitutionSummary, useIngredientTextParser, useNutritionLabels } from "~/composables/recipes";
+import { ingredientSubstitutionSummary, useFoodPlurality, useIngredientTextParser, useNutritionLabels } from "~/composables/recipes";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
@@ -420,6 +420,13 @@ const { parseIngredientText } = useIngredientTextParser();
 
 function parseText(ingredient: RecipeIngredient) {
   return parseIngredientText(ingredient, props.scale);
+}
+
+const { shouldPluralizeFood } = useFoodPlurality();
+
+// the substitutes inflect with the line they stand in for, the same as on screen
+function substitutionSummary(ingredient: RecipeIngredient) {
+  return ingredientSubstitutionSummary(ingredient, shouldPluralizeFood(ingredient, props.scale));
 }
 </script>
 
