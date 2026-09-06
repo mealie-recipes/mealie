@@ -12,7 +12,9 @@ a 404 on every render. This reconciles the column with what is actually on disk,
 
 """
 
+import uuid
 from pathlib import Path
+from typing import Any
 
 from sqlalchemy import orm, text
 
@@ -32,10 +34,24 @@ NO_IMAGE = "no image"
 """Legacy placeholder the scraper wrote when it had no image. Truthy, so it reads as "has one"."""
 
 
-def _image_on_disk(recipe_data_dir: Path, recipe_id: str) -> bool:
+def _directory_name(recipe_id: Any) -> str:
+    """The name `Recipe.directory_from_id` gave this recipe's folder.
+
+    Raw SQL bypasses the `GUID` type decorator, so the id arrives in whichever spelling the
+    database stores: a `UUID` from Postgres, but the undashed CHAR(32) from SQLite. The
+    directories are named with `str(uuid)`, the dashed form, so without this the SQLite
+    spelling matches nothing on disk and the backfill silently restores nothing.
+    """
+    try:
+        return str(uuid.UUID(str(recipe_id)))
+    except ValueError:
+        return str(recipe_id)
+
+
+def _image_on_disk(recipe_data_dir: Path, recipe_id: Any) -> bool:
     # Mirrors Recipe.image_dir_from_id, which can't be used here because it creates the
     # directories it looks in. original.webp is the one file the minifier always writes.
-    return recipe_data_dir.joinpath(recipe_id, "images", "original.webp").is_file()
+    return recipe_data_dir.joinpath(_directory_name(recipe_id), "images", "original.webp").is_file()
 
 
 def upgrade() -> None:
@@ -45,7 +61,7 @@ def upgrade() -> None:
     session = orm.Session(bind=op.get_bind())
 
     rows = session.execute(text("SELECT id, image FROM recipes")).fetchall()
-    on_disk = {str(row[0]): _image_on_disk(recipe_data_dir, str(row[0])) for row in rows}
+    on_disk = {str(row[0]): _image_on_disk(recipe_data_dir, row[0]) for row in rows}
 
     # An unmounted or misconfigured data volume is indistinguishable from "no recipe has an
     # image", and clearing on that reading would drop every reference in the database. The
