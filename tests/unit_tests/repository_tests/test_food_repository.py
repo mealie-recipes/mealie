@@ -9,6 +9,7 @@ from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFoodSubstitution,
     IngredientFood,
     RecipeIngredient,
+    RecipeIngredientSubstitution,
     SaveIngredientFood,
 )
 from tests.utils.factories import random_string
@@ -234,3 +235,94 @@ def test_food_delete_leaves_no_orphaned_substitutions(unique_user: TestUser):
     assert count_edges_touching(unique_user, doomed.id) == 0
     assert substitution_pairs(unique_user, referrer.id) == set()
     assert substitution_pairs(unique_user, substitute.id) == set()
+
+
+def create_recipe_with_ingredient(
+    user: TestUser, food: IngredientFood | None, substitute_food_ids: list | None = None
+) -> Recipe:
+    return user.repos.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=user.user_id,
+            group_id=UUID(user.group_id),
+            recipe_ingredient=[
+                RecipeIngredient(
+                    note="",
+                    food=food,  # type: ignore
+                    substitutions=[
+                        RecipeIngredientSubstitution(substitute_food_id=food_id)
+                        for food_id in substitute_food_ids or []
+                    ],
+                )
+            ],
+        )  # type: ignore
+    )
+
+
+def recipe_substitute_ids(user: TestUser, recipe: Recipe) -> list:
+    """The substitute food ids stored against the recipe's only ingredient."""
+
+    stored = user.repos.recipes.get_one(recipe.slug)
+    assert stored
+    return [sub.substitute_food_id for sub in stored.recipe_ingredient[0].substitutions]
+
+
+def test_food_delete_removes_recipe_substitutions(unique_user: TestUser):
+    """
+    A food used only as a recipe-level substitute is still a reference. Left behind it points at
+    a row that is gone, which renders as an empty substitutions popover and breaks the delete
+    outright on Postgres, where the foreign key is enforced.
+    """
+
+    food = create_food_with_substitutions(unique_user)
+    doomed = create_food_with_substitutions(unique_user)
+    recipe = create_recipe_with_ingredient(unique_user, food, [doomed.id])
+
+    assert recipe_substitute_ids(unique_user, recipe) == [doomed.id]
+
+    unique_user.repos.ingredient_foods.delete(doomed.id)
+
+    assert recipe_substitute_ids(unique_user, recipe) == []
+
+
+def test_food_merger_repoints_recipe_substitutions(unique_user: TestUser):
+    """`ingredient -> from` becomes `ingredient -> to`, rather than dying with the merged-away food."""
+
+    food = create_food_with_substitutions(unique_user)
+    target = create_food_with_substitutions(unique_user)
+    source = create_food_with_substitutions(unique_user)
+    recipe = create_recipe_with_ingredient(unique_user, food, [source.id])
+
+    unique_user.repos.ingredient_foods.merge(source.id, target.id)
+
+    assert recipe_substitute_ids(unique_user, recipe) == [target.id]
+
+
+def test_food_merger_drops_resulting_recipe_self_substitutions(unique_user: TestUser):
+    """
+    An ingredient calling for one of the two foods and substituting the other ends up telling the
+    reader to replace a food with itself, in both directions.
+    """
+
+    target = create_food_with_substitutions(unique_user)
+    source = create_food_with_substitutions(unique_user)
+    substituting_source = create_recipe_with_ingredient(unique_user, target, [source.id])
+    substituting_target = create_recipe_with_ingredient(unique_user, source, [target.id])
+
+    unique_user.repos.ingredient_foods.merge(source.id, target.id)
+
+    assert recipe_substitute_ids(unique_user, substituting_source) == []
+    assert recipe_substitute_ids(unique_user, substituting_target) == []
+
+
+def test_food_merger_collapses_duplicate_recipe_substitutions(unique_user: TestUser):
+    """Repointing must not leave the same substitute listed twice on one ingredient."""
+
+    food = create_food_with_substitutions(unique_user)
+    target = create_food_with_substitutions(unique_user)
+    source = create_food_with_substitutions(unique_user)
+    recipe = create_recipe_with_ingredient(unique_user, food, [target.id, source.id])
+
+    unique_user.repos.ingredient_foods.merge(source.id, target.id)
+
+    assert recipe_substitute_ids(unique_user, recipe) == [target.id]

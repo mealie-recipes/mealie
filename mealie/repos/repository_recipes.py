@@ -11,7 +11,7 @@ from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models.household import Household, HouseholdToRecipe
 from mealie.db.models.recipe.category import Category
-from mealie.db.models.recipe.ingredient import RecipeIngredientModel
+from mealie.db.models.recipe.ingredient import RecipeIngredientModel, RecipeIngredientSubstitutionModel
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
@@ -284,6 +284,27 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             items=items,
         )
 
+    @staticmethod
+    def _ingredient_uses_food(food: UUID4) -> sa.ColumnElement:
+        """
+        An ingredient counts as using a food when it calls for it, or offers it as a substitute.
+
+        The two are the same thing as far as the recipe is concerned: both are lost if the food
+        goes away, which is what makes this the right question for the food delete warning.
+        """
+
+        return sa.or_(
+            RecipeIngredientModel.food_id == food,
+            RecipeIngredientModel.substitutions.any(RecipeIngredientSubstitutionModel.substitute_food_id == food),
+        )
+
+    @staticmethod
+    def _ingredient_uses_any_food(foods: list[UUID4]) -> sa.ColumnElement:
+        return sa.or_(
+            RecipeIngredientModel.food_id.in_(foods),
+            RecipeIngredientModel.substitutions.any(RecipeIngredientSubstitutionModel.substitute_food_id.in_(foods)),
+        )
+
     def _build_recipe_filter(
         self,
         categories: list[UUID4] | None = None,
@@ -321,9 +342,9 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
                 fltr.append(RecipeModel.tools.any(Tool.id.in_(tools)))
         if foods:
             if require_all_foods:
-                fltr.extend(RecipeModel.recipe_ingredient.any(RecipeIngredientModel.food_id == food) for food in foods)
+                fltr.extend(RecipeModel.recipe_ingredient.any(self._ingredient_uses_food(food)) for food in foods)
             else:
-                fltr.append(RecipeModel.recipe_ingredient.any(RecipeIngredientModel.food_id.in_(foods)))
+                fltr.append(RecipeModel.recipe_ingredient.any(self._ingredient_uses_any_food(foods)))
         if households:
             fltr.append(RecipeModel.household_id.in_(households))
         return fltr
