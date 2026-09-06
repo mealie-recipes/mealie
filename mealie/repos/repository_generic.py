@@ -4,13 +4,13 @@ import random
 from collections.abc import Iterable
 from datetime import UTC, datetime
 from math import ceil
-from typing import Any
+from typing import Any, cast
 
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import ColumnElement, Select, case, delete, func, nulls_first, nulls_last, select
 from sqlalchemy.ext.associationproxy import AssociationProxyInstance
-from sqlalchemy.orm import InstrumentedAttribute
+from sqlalchemy.orm import InstrumentedAttribute, RelationshipProperty
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql import sqltypes
 
@@ -25,7 +25,7 @@ from mealie.schema.response.pagination import (
     RequestQuery,
 )
 from mealie.schema.response.query_search import SearchFilter
-from mealie.services.query_filter.builder import NonFilterableValueError, QueryFilterBuilder
+from mealie.services.query_filter.builder import NonFilterableValueError, QueryFilterBuilder, RelationshipChain
 
 from ._utils import NOT_SET, NotSet
 
@@ -408,18 +408,50 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
         return query.offset((pagination.page - 1) * pagination.per_page), count, total_pages
 
+    def _aggregate_related_order_attr(
+        self, order_attr: ColumnElement, order_dir: OrderDirection, relationships: RelationshipChain
+    ) -> ColumnElement:
+        """
+        Reduce a related attribute to one value per record using a correlated subquery.
+
+        Joining a "to-many" relationship produces one row per related record, which duplicates records and
+        breaks LIMIT/OFFSET. Aggregating instead keeps one row per record, and picks the same related value
+        the ordering would have surfaced anyway: the lowest one when ascending, the highest when descending.
+        """
+        join_conditions: list[ColumnElement] = []
+        for relationship_attr, _ in relationships:
+            relationship = cast(RelationshipProperty, relationship_attr.property)
+            join_conditions.append(relationship.primaryjoin)
+            if relationship.secondary is not None:
+                join_conditions.append(relationship.secondaryjoin)
+
+        aggregate = func.max if order_dir is OrderDirection.desc else func.min
+        return select(aggregate(order_attr)).where(*join_conditions).correlate(self.model).scalar_subquery()
+
     def add_order_attr_to_query(
         self,
         query: Select,
         order_attr: InstrumentedAttribute,
         order_dir: OrderDirection,
         order_by_null: OrderByNullPosition | None,
+        relationships: RelationshipChain | None = None,
     ) -> Select:
-        order_attr = self.column_aliases.get(order_attr.key, order_attr)
+        if order_attr.key in self.column_aliases:
+            # aliases are already expressed in terms of the base model, so there's nothing left to traverse
+            order_attr = self.column_aliases[order_attr.key]
+            relationships = None
 
         # queries handle uppercase and lowercase differently, which is undesirable
         if isinstance(order_attr.type, sqltypes.String):
             order_attr = func.lower(order_attr)
+
+        if relationships:
+            if any(uselist for _, uselist in relationships):
+                order_attr = self._aggregate_related_order_attr(order_attr, order_dir, relationships)
+            else:
+                # "to-one" relationships can be joined directly, since they can't duplicate records
+                for relationship_attr, _ in relationships:
+                    query = query.join(relationship_attr, isouter=True)
 
         if order_dir is OrderDirection.asc:
             order_attr = order_attr.asc()
@@ -463,12 +495,13 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                         order_by = order_by_val
                         order_dir = request_query.order_direction
 
-                    _, order_attr, query = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
-                        order_by, self.model, query=query
+                    relationships: RelationshipChain = []
+                    _, order_attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
+                        order_by, self.model, collect_relationships=relationships
                     )
 
                     query = self.add_order_attr_to_query(
-                        query, order_attr, order_dir, request_query.order_by_null_position
+                        query, order_attr, order_dir, request_query.order_by_null_position, relationships
                     )
 
                 except NonFilterableValueError as e:
