@@ -250,6 +250,14 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         foreign_keys="IngredientFoodSubstitutionModel.substitute_food_id",
         cascade="all, delete, delete-orphan",
     )
+    # the same, for the recipe tier: without it a deleted food leaves ingredient substitutions
+    # pointing at a row that is gone, which renders as an empty popover on SQLite and fails the
+    # foreign key outright on Postgres
+    recipe_substitution_references: Mapped[list["RecipeIngredientSubstitutionModel"]] = orm.relationship(
+        "RecipeIngredientSubstitutionModel",
+        back_populates="substitute_food",
+        cascade="all, delete, delete-orphan",
+    )
     extras: Mapped[list[IngredientFoodExtras]] = orm.relationship("IngredientFoodExtras", cascade="all, delete-orphan")
 
     label_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"), index=True)
@@ -648,7 +656,9 @@ class RecipeIngredientSubstitutionModel(SqlAlchemyBase, BaseMixins):
     substitute_food_id: FilterableColumn[GUID | None] = mapped_column(
         GUID, ForeignKey("ingredient_foods.id"), index=True
     )
-    substitute_food: Mapped["IngredientFoodModel | None"] = orm.relationship("IngredientFoodModel")
+    substitute_food: Mapped["IngredientFoodModel | None"] = orm.relationship(
+        "IngredientFoodModel", back_populates="recipe_substitution_references"
+    )
 
     note: FilterableColumn[str | None] = mapped_column(String)
 
