@@ -242,31 +242,16 @@
               variant="underlined"
               @update:model-value="val => setFieldOrganizers(field, index, (val || []) as OrganizerBase[])"
             />
-            <v-autocomplete
-              v-else-if="field.type === 'foodLabel'"
-              :model-value="field.organizers"
-              :items="labelItems"
-              item-title="name"
-              item-value="id"
-              chips
-              closable-chips
-              multiple
-              return-object
-              auto-select-first
+            <RecipeOrganizerSelector
+              v-else-if="field.type === Organizer.Label"
+              v-model="field.organizers"
+              :selector-type="Organizer.Label"
+              :show-add="false"
+              :show-label="false"
+              :show-icon="false"
               variant="underlined"
-              class="pa-0 ma-0"
               @update:model-value="val => setFieldOrganizers(field, index, (val || []) as OrganizerBase[])"
-            >
-              <template #chip="{ props: chipProps }">
-                <v-chip
-                  v-bind="chipProps"
-                  class="ma-1"
-                  color="accent"
-                  variant="flat"
-                  label
-                />
-              </template>
-            </v-autocomplete>
+            />
           </v-col>
 
           <!-- right parenthesis -->
@@ -344,7 +329,7 @@ import type {
 } from "~/lib/api/types/non-generated";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useLabelStore, useTagStore, useToolStore } from "~/composables/store";
 import { useUserStore } from "~/composables/store/use-user-store";
-import { type Field, type FieldDefinition, type FieldType, type FieldValue, type OrganizerBase, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";
+import { type Field, type FieldDefinition, type FieldValue, type OrganizerBase, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";
 
 const props = defineProps({
   fieldDefs: {
@@ -370,7 +355,6 @@ const {
   buildQueryFilterString,
   getFieldFromFieldDef,
   isOrganizerType,
-  isMultiSelectType,
 } = useQueryFilterBuilder();
 
 const firstDayOfWeek = computed(() => {
@@ -390,22 +374,10 @@ const storeMap = {
   [Organizer.Tag]: useTagStore(),
   [Organizer.Tool]: useToolStore(),
   [Organizer.Food]: useFoodStore(),
+  [Organizer.Label]: useLabelStore(),
   [Organizer.Household]: useHouseholdStore(),
   [Organizer.User]: useUserStore(),
 };
-
-// Food labels are picked from a store like the organizers are, but they aren't recipe organizers,
-// so they get their own store rather than being folded into the Organizer enum.
-const labelStore = useLabelStore();
-const labelItems = computed(() => labelStore.store.value);
-
-function storeForType(type: FieldType) {
-  if (type === "foodLabel") {
-    return labelStore;
-  }
-
-  return isOrganizerType(type) ? storeMap[type] : undefined;
-}
 
 function onDragEnd(event: any) {
   state.drag = false;
@@ -527,12 +499,11 @@ const fieldsUpdater = useDebounceFn(() => {
 watch(fields, fieldsUpdater, { deep: true });
 
 async function hydrateOrganizers(field: FieldWithId, _index: number) {
-  const fieldStore = field.values?.length ? storeForType(field.type) : undefined;
-  if (!fieldStore) {
+  if (!field.values?.length || !isOrganizerType(field.type)) {
     return;
   }
 
-  const { store, actions } = fieldStore;
+  const { store, actions } = storeMap[field.type];
   if (!store.value.length) {
     await actions.refresh();
   }
@@ -599,7 +570,7 @@ async function initializeFields() {
       state.showAdvanced = true;
     }
 
-    if (field.fieldChoices?.length || isMultiSelectType(field.type)) {
+    if (field.fieldChoices?.length || isOrganizerType(field.type)) {
       if (typeof part.value === "string") {
         field.values = part.value ? [part.value] : [];
       }
@@ -607,7 +578,7 @@ async function initializeFields() {
         field.values = part.value || [];
       }
 
-      if (isMultiSelectType(field.type)) {
+      if (isOrganizerType(field.type)) {
         await hydrateOrganizers(field, index);
       }
     }
@@ -668,7 +639,7 @@ function buildQueryFilterJSON(): QueryFilterJSON {
       relationalOperator: field.relationalOperatorValue?.value,
     };
 
-    if (field.fieldChoices?.length || isMultiSelectType(field.type)) {
+    if (field.fieldChoices?.length || isOrganizerType(field.type)) {
       part.value = field.values.map(value => value.toString());
     }
     else if (field.type === "boolean") {

@@ -18,7 +18,6 @@ export interface FieldPlaceholderKeyword {
 
 export interface OrganizerBase {
   id: string;
-  slug?: string;
   name: string;
 }
 
@@ -28,7 +27,6 @@ export type FieldType
     | "boolean"
     | "date"
     | "relativeDate"
-    | "foodLabel"
     | RecipeOrganizer;
 
 export type FieldValue
@@ -204,17 +202,10 @@ export function useQueryFilterBuilder() {
       || type === Organizer.Tag
       || type === Organizer.Tool
       || type === Organizer.Food
+      || type === Organizer.Label
       || type === Organizer.Household
       || type === Organizer.User
     );
-  };
-
-  /**
-   * Field types whose value is a list of ids picked from a store, rather than free input.
-   * Food labels are not recipe organizers, but behave identically from the filter's point of view.
-   */
-  function isMultiSelectType(type: FieldType): boolean {
-    return isOrganizerType(type) || type === "foodLabel";
   };
 
   function getFieldFromFieldDef(field: Field | FieldDefinition, resetValue = false): Field {
@@ -224,7 +215,7 @@ export function useQueryFilterBuilder() {
     } as Field;
 
     let operatorChoices: FieldRelationalOperator[];
-    if (updatedField.fieldChoices?.length || isMultiSelectType(updatedField.type)) {
+    if (updatedField.fieldChoices?.length || isOrganizerType(updatedField.type)) {
       operatorChoices = [
         relOps.value["IN"],
         relOps.value["NOT IN"],
@@ -327,10 +318,10 @@ export function useQueryFilterBuilder() {
         isValid = false;
       }
 
-      if (field.fieldChoices?.length || isMultiSelectType(field.type)) {
+      if (field.fieldChoices?.length || isOrganizerType(field.type)) {
         if (field.values?.length) {
           let val: string;
-          if (field.type === "string" || field.type === "date" || isMultiSelectType(field.type)) {
+          if (field.type === "string" || field.type === "date" || isOrganizerType(field.type)) {
             val = field.values.map(value => `"${value.toString()}"`).join(",");
           }
           else {
@@ -377,6 +368,5 @@ export function useQueryFilterBuilder() {
     buildQueryFilterString,
     getFieldFromFieldDef,
     isOrganizerType,
-    isMultiSelectType,
   };
 }

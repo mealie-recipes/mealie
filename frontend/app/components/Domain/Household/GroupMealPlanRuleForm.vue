@@ -97,8 +97,8 @@ const fieldDefs: FieldDefinition[] = [
   },
   {
     name: "recipe_ingredient.food.label_id",
-    label: i18n.t("general.food-label"),
-    type: "foodLabel",
+    label: i18n.t("data-pages.foods.food-label"),
+    type: Organizer.Label,
   },
   {
     name: "tools.id",

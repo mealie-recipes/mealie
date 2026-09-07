@@ -1,5 +1,6 @@
 import { describe, expect, test, vi } from "vitest";
 import { useQueryFilterBuilder } from "../use-query-filter-builder";
+import { Organizer } from "~/lib/api/types/non-generated";
 
 vi.mock("vue-i18n", async (importOriginal) => {
   const actual = await importOriginal<typeof import("vue-i18n")>();
@@ -15,16 +16,14 @@ const OTHER_LABEL_ID = "a5f1c6d2-0000-4000-8000-000000000002";
 const FOOD_LABEL_FIELD_DEF = {
   name: "recipe_ingredient.food.label_id",
   label: "Food Label",
-  type: "foodLabel" as const,
+  type: Organizer.Label,
 };
 
 describe("food label fields", () => {
-  test("are treated as multi-select fields", () => {
-    const { isMultiSelectType, isOrganizerType } = useQueryFilterBuilder();
+  test("are handled as an organizer, so the shared picker and hydration apply", () => {
+    const { isOrganizerType } = useQueryFilterBuilder();
 
-    expect(isMultiSelectType("foodLabel")).toBe(true);
-    // food labels are not recipe organizers, so organizer-specific handling must not pick them up
-    expect(isOrganizerType("foodLabel")).toBe(false);
+    expect(isOrganizerType(Organizer.Label)).toBe(true);
   });
 
   test("default to the IN operator", () => {
@@ -56,7 +55,7 @@ describe("food label fields", () => {
 
     const field = getFieldFromFieldDef(FOOD_LABEL_FIELD_DEF);
     field.values = [LABEL_ID];
-    field.relationalOperatorValue = getRelOps("foodLabel").value["NOT IN"];
+    field.relationalOperatorValue = getRelOps(Organizer.Label).value["NOT IN"];
 
     expect(buildQueryFilterString([field], false)).toBe(
       `recipe_ingredient.food.label_id NOT IN ["${LABEL_ID}"]`,

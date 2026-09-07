@@ -176,8 +176,12 @@ def test_filter_query_by_food_label_joins_through_ingredients():
     query = builder.filter_query(sa.select(RecipeModel.id), RecipeModel)
 
     sql = " ".join(str(query.compile(compile_kwargs={"literal_binds": True})).split())
-    assert "JOIN recipes_ingredients" in sql
-    assert "JOIN ingredient_foods" in sql
+    # The builder correlates through the relationship chain with EXISTS rather than joining, so a
+    # recipe comes back once no matter how many of its ingredients carry the label.
+    assert "EXISTS (SELECT 1 FROM recipes_ingredients" in sql
+    assert "recipes.id = recipes_ingredients.recipe_id" in sql
+    assert "EXISTS (SELECT 1 FROM ingredient_foods" in sql
+    assert "ingredient_foods.id = recipes_ingredients.food_id" in sql
     assert "ingredient_foods.label_id IN" in sql
 
 
@@ -191,4 +195,7 @@ def test_filter_query_excluding_food_label_excludes_the_whole_recipe():
     query = builder.filter_query(sa.select(RecipeModel.id), RecipeModel)
 
     sql = " ".join(str(query.compile(compile_kwargs={"literal_binds": True})).split())
-    assert "recipes.id NOT IN (SELECT" in sql
+    # NOT wraps the whole correlated EXISTS, so the recipe drops out as soon as one of its
+    # ingredients carries the label, rather than being matched on its other ingredients.
+    assert "NOT (EXISTS (SELECT 1 FROM recipes_ingredients" in sql
+    assert "ingredient_foods.label_id IN" in sql
