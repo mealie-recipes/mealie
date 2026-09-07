@@ -70,7 +70,7 @@
       </v-card>
     </BaseDialog>
 
-    <BasePageTitle divider>
+    <BasePageTitle divider :class="{ 'shopping-list-title--condensed': preferences.condensed }">
       <template #header>
         <v-container class="px-0">
           <v-row no-gutters>
@@ -454,6 +454,31 @@ const {
 
   .v-expansion-panel-text__wrapper {
     padding: 0;
+  }
+}
+
+/* Condensed view: the page header reserves room for an icon row, a subtitle and generous
+   margins; pull those in so the list starts near the top of the screen */
+.shopping-list-title--condensed {
+  margin-top: 0 !important;
+
+  .v-container {
+    padding-top: 4px;
+    padding-bottom: 0;
+  }
+
+  h2 {
+    font-size: 1.1rem !important;
+    line-height: 1.4;
+  }
+
+  h3 {
+    display: none;
+  }
+
+  .v-divider {
+    margin-top: 6px !important;
+    margin-bottom: 2px !important;
   }
 }
 
