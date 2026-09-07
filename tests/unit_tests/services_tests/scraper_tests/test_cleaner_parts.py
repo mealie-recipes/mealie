@@ -293,20 +293,137 @@ instruction_test_cases = (
         input="Instruction A\r\nInstruction B\r\nInstruction C\r\n",
         expected=None,
     ),
+    CleanerCase(
+        test_id="how to sections with names",
+        input=[
+            {
+                "@type": "HowToSection",
+                "name": "Section A",
+                "itemListElement": [
+                    {"@type": "HowToStep", "text": "Instruction A"},
+                    {"@type": "HowToStep", "text": "Instruction B"},
+                ],
+            },
+            {
+                "@type": "HowToSection",
+                "name": "Section B",
+                "itemListElement": [
+                    {"@type": "HowToStep", "text": "Instruction C"},
+                ],
+            },
+        ],
+        expected=[
+            {"text": "Instruction A", "title": "Section A"},
+            {"text": "Instruction B"},
+            {"text": "Instruction C", "title": "Section B"},
+        ],
+    ),
+    CleanerCase(
+        test_id="how to sections with names using 'item' key",
+        input=[
+            {
+                "@type": "HowToSection",
+                "name": "Section A",
+                "item": [
+                    {"@type": "HowToStep", "text": "Instruction A"},
+                    {"@type": "HowToStep", "text": "Instruction B"},
+                ],
+            },
+        ],
+        expected=[
+            {"text": "Instruction A", "title": "Section A"},
+            {"text": "Instruction B"},
+        ],
+    ),
+    CleanerCase(
+        test_id="how to section name is cleaned like any other string",
+        input=[
+            {
+                "@type": "HowToSection",
+                "name": "<p> Section&nbsp;A </p>",
+                "itemListElement": [
+                    {"@type": "HowToStep", "text": "Instruction A"},
+                ],
+            },
+        ],
+        expected=[{"text": "Instruction A", "title": "Section A"}],
+    ),
+    CleanerCase(
+        test_id="empty how to section name is not stored as a title",
+        input=[
+            {
+                "@type": "HowToSection",
+                "name": "",
+                "itemListElement": [
+                    {"@type": "HowToStep", "text": "Instruction A"},
+                ],
+            },
+        ],
+        expected=[{"text": "Instruction A"}],
+    ),
+    CleanerCase(
+        test_id="named how to section skipped when it has no steps",
+        input=[
+            {"@type": "HowToSection", "name": "Section A"},
+            {
+                "@type": "HowToSection",
+                "name": "Section B",
+                "itemListElement": [
+                    {"@type": "HowToStep", "text": "Instruction A"},
+                ],
+            },
+        ],
+        expected=[{"text": "Instruction A", "title": "Section B"}],
+    ),
+    CleanerCase(
+        test_id="bare how to section dict wrapping a single step dict (rezeptwelt.de)",
+        input={
+            "@type": "HowToSection",
+            "name": "Section A",
+            "itemListElement": {"@type": "HowToStep", "text": "Instruction A"},
+        },
+        expected=[{"text": "Instruction A", "title": "Section A"}],
+    ),
+    CleanerCase(
+        test_id="loose steps mixed with sections in one list (cookbook.pfeiffer.net.au)",
+        input=[
+            {"@type": "HowToStep", "text": "Instruction A"},
+            {
+                "@type": "HowToSection",
+                "name": "Section B",
+                "itemListElement": [
+                    {"@type": "HowToStep", "text": "Instruction B"},
+                    {"@type": "HowToStep", "text": "Instruction C"},
+                ],
+            },
+        ],
+        expected=[
+            {"text": "Instruction A"},
+            {"text": "Instruction B", "title": "Section B"},
+            {"text": "Instruction C"},
+        ],
+    ),
+    CleanerCase(
+        test_id="bare how to step dict",
+        input={"@type": "HowToStep", "text": "Instruction A"},
+        expected=[{"text": "Instruction A"}],
+    ),
 )
 
 
 @pytest.mark.parametrize("instructions", instruction_test_cases, ids=(x.test_id for x in instruction_test_cases))
 def test_cleaner_instructions(instructions: CleanerCase):
-    reuslt = cleaner.clean_instructions(instructions.input)
+    result = cleaner.clean_instructions(instructions.input)
 
-    expected = [
+    # most inputs boil down to the same three plain steps, so only cases that keep
+    # section titles carry an expectation of their own
+    expected = instructions.expected or [
         {"text": "Instruction A"},
         {"text": "Instruction B"},
         {"text": "Instruction C"},
     ]
 
-    assert reuslt == expected
+    assert result == expected
 
 
 ingredients_test_cases = (

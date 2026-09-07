@@ -42,6 +42,14 @@ from .fetch import (  # noqa: F401
 logger = get_logger()
 
 
+def contains_how_to_section(instructions: Any) -> bool:
+    """Check whether schema.org instructions group any of their steps into HowToSections."""
+    if isinstance(instructions, list):
+        return any(contains_how_to_section(item) for item in instructions)
+
+    return cleaner.is_how_to_section(instructions)
+
+
 class ABCScraperStrategy(ABC):
     """
     Abstract class for all recipe parsers.
@@ -133,6 +141,42 @@ class RecipeScraperPackage(ABCScraperStrategy):
             return value
 
         def get_instructions() -> list[RecipeStep]:
+            instructions = get_sectioned_instructions() or get_flat_instructions()
+
+            self.logger.debug(f"Cleaned Instructions: (Type: {type(instructions)}) \n {instructions}")
+
+            try:
+                return [RecipeStep(title=x.get("title", ""), text=x.get("text")) for x in instructions]
+            except TypeError:
+                return []
+
+        def get_sectioned_instructions() -> list[dict]:
+            """Parse the recipe's own structured data when it groups steps into sections.
+
+            recipe_scrapers renders instructions as plain text, which flattens HowToSections
+            and emits each section name as a line of its own, so the section headings arrive
+            as bogus steps. Reading the schema data directly keeps them as step titles.
+            Only sectioned recipes take this path; everything else keeps using the scraper's
+            own parsing, which for a site specific scraper is the more reliable source.
+            """
+            try:
+                raw_instructions = scraped_data.schema.data.get("recipeInstructions")
+            except Exception:
+                self.logger.error("Error reading structured recipeInstructions")
+                return []
+
+            if not contains_how_to_section(raw_instructions):
+                return []
+
+            self.logger.debug(f"Scraped Sections: (Type: {type(raw_instructions)}) \n {raw_instructions}")
+
+            try:
+                return cleaner.clean_instructions(raw_instructions)
+            except TypeError:
+                self.logger.error("Error parsing HowToSections, falling back to the scraped instruction text")
+                return []
+
+        def get_flat_instructions() -> list[dict]:
             instruction_as_text = try_get_default(
                 scraped_data.instructions,
                 "recipeInstructions",
@@ -141,14 +185,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
             self.logger.debug(f"Scraped Instructions: (Type: {type(instruction_as_text)}) \n {instruction_as_text}")
 
-            instruction_as_text = cleaner.clean_instructions(instruction_as_text)
-
-            self.logger.debug(f"Cleaned Instructions: (Type: {type(instruction_as_text)}) \n {instruction_as_text}")
-
-            try:
-                return [RecipeStep(title="", text=x.get("text")) for x in instruction_as_text]
-            except TypeError:
-                return []
+            return cleaner.clean_instructions(instruction_as_text)
 
         def get_notes() -> list[RecipeNote]:
             """Extract notes from schema.org recipe data and convert to RecipeNote objects"""

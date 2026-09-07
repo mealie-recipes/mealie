@@ -3,7 +3,6 @@ import functools
 import html
 import json
 import numbers
-import operator
 import re
 import typing
 from datetime import datetime, timedelta
@@ -146,6 +145,11 @@ def clean_image(image: str | list | dict | None = None, default: str = NO_IMAGE)
             return [default]
 
 
+def is_how_to_section(entry: typing.Any) -> bool:
+    """schema.org groups steps with `@type: HowToSection`; some sites spell the key `type`."""
+    return isinstance(entry, dict) and "HowToSection" in (entry.get("@type"), entry.get("type"))
+
+
 def clean_instructions(steps_object: list | dict | str, default: list | None = None) -> list[dict]:
     """
     instructions attempts to parse the instructions field from a recipe and return a list of
@@ -155,14 +159,50 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
         TypeError: If the instructions field is not a supported type a TypeError is raised.
 
     Returns:
-        list[dict]: An ordered list of dictionaries with the keys `text`
+        list[dict]: An ordered list of dictionaries with the key `text`, plus `title` on the
+        first step of a named HowToSection, which is where Mealie stores a section heading
     """
     if not steps_object:
         return default or []
 
     match steps_object:
-        case [{"text": str()}]:  # Base Case
-            return steps_object
+        case [*_] if any(is_how_to_section(step) for step in steps_object):
+            # HowToSections should have the following layout,
+            # {
+            #  "@type": "HowToSection",
+            #  "name": "Section A",
+            #  "itemListElement": [
+            #    {
+            #      "@type": "HowToStep",
+            #      "text": "Instruction A"
+            #    },
+            # }
+            #
+            # Some sites (e.g. NYT Cooking) emit empty HowToSection placeholders
+            # with no itemListElement key, or use "item" per the schema.org spec.
+            # Use .get() with both fallbacks so those sections are skipped gracefully.
+            steps_object = typing.cast(list, steps_object)
+
+            instructions: list[dict] = []
+            for entry in steps_object:
+                if not is_how_to_section(entry):
+                    # a recipe can open with a few loose steps and only then start
+                    # grouping them, so both kinds share the one list
+                    instructions.extend(clean_instructions([entry]))
+                    continue
+
+                section_steps = clean_instructions(entry.get("itemListElement", entry.get("item", [])))
+                if not section_steps:
+                    continue
+
+                # a section heading lives on the first step of the section (RecipeStep.title),
+                # which is how the frontend groups the steps that follow it
+                if section_title := clean_string(entry.get("name", "")):
+                    section_steps = [section_steps[0] | {"title": section_title}, *section_steps[1:]]
+
+                instructions.extend(section_steps)
+
+            return instructions
         case [{"text": str()}, *_]:
             # The is the most common case. Most other operations eventually resolve to this
             # match case before being converted to a list of instructions
@@ -178,6 +218,15 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
                 for instruction in steps_object
                 if "text" in instruction and instruction["text"].strip()
             ]
+        case {"text": str()}:
+            # A single step is sometimes passed as a bare dict rather than a list of one
+            #
+            # {"@type": "HowToStep", "text": "Instruction A"}
+            #
+            return clean_instructions([steps_object])
+        case {"@type": "HowToSection"} | {"type": "HowToSection"}:
+            # Likewise, a recipe with only one section may pass that section on its own
+            return clean_instructions([steps_object])
         case {0: {"text": str()}} | {"0": {"text": str()}} | {1: {"text": str()}} | {"1": {"text": str()}}:
             # Some recipes have a dict with a string key representing the index, unsure if these can
             # be an int or not so we match against both. Additionally, we match against both 0 and 1 indexed
@@ -218,28 +267,6 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
             return [
                 {"text": _sanitize_instruction_text(instruction)} for instruction in steps_object if instruction.strip()
             ]
-        case [{"@type": "HowToSection"}, *_] | [{"type": "HowToSection"}, *_]:
-            # HowToSections should have the following layout,
-            # {
-            #  "@type": "HowToSection",
-            #  "itemListElement": [
-            #    {
-            #      "@type": "HowToStep",
-            #      "text": "Instruction A"
-            #    },
-            # }
-            #
-            # Some sites (e.g. NYT Cooking) emit empty HowToSection placeholders
-            # with no itemListElement key, or use "item" per the schema.org spec.
-            # Use .get() with both fallbacks so those sections are skipped gracefully.
-            steps_object = typing.cast(list[dict[str, str]], steps_object)
-            return clean_instructions(
-                functools.reduce(
-                    operator.concat,  # type: ignore
-                    [x.get("itemListElement", x.get("item", [])) for x in steps_object],
-                    [],
-                )
-            )
         case _:
             raise TypeError(f"Unexpected type for instructions: {type(steps_object)}, {steps_object}")
 
