@@ -21,7 +21,7 @@
         <v-col class="flex-grow-1 flex-shrink-1" style="min-width: 0;">
           <div class="d-flex align-center flex-nowrap">
             <v-checkbox
-              :model-value="listItem.checked"
+              :model-value="displayChecked"
               hide-details
               density="compact"
               class="mt-0 flex-shrink-0"
@@ -30,7 +30,7 @@
             />
             <div
               class="ml-2 text-truncate shopping-list-item__text"
-              :class="listItem.checked ? 'strike-through' : ''"
+              :class="displayChecked ? 'strike-through' : ''"
               style="min-width: 0;"
             >
               <RecipeIngredientListItem :ingredient="listItem" />
@@ -42,7 +42,7 @@
           class="text-right flex-shrink-0"
         >
           <div
-            v-if="!listItem.checked"
+            v-if="!displayChecked"
             style="min-width: 72px"
           >
             <v-menu
@@ -103,7 +103,9 @@
                   v-for="action in contextMenu"
                   :key="action.event"
                   density="compact"
-                  @click="$emit(action.event as any)"
+                  :prepend-icon="action.icon"
+                  :to="action.to"
+                  @click="action.to ? undefined : $emit(action.event as any)"
                 >
                   <v-list-item-title>
                     {{ action.text }}
@@ -219,10 +221,23 @@ const displayRecipeRefs = ref(false);
 const online = useOnline();
 const isOffline = computed(() => online.value === false);
 
-type actions = { text: string; event: string };
-const contextMenu = ref<actions[]>([
+type actions = { text: string; event: string; icon?: string; to?: string };
+
+// the item's recipes get a menu entry each, so the source of an ingredient is one tap away
+const auth = useMealieAuth();
+const route = useRoute();
+const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
+const { $globals } = useNuxtApp();
+
+const contextMenu = computed<actions[]>(() => [
   { text: i18n.t("general.edit") as string, event: "edit" },
   { text: i18n.t("general.delete") as string, event: "delete" },
+  ...recipeList.value.map(recipe => ({
+    text: recipe.name ?? "",
+    event: `recipe-${recipe.id}`,
+    icon: $globals.icons.silverwareForkKnife,
+    to: `/g/${groupSlug.value}/r/${recipe.slug}`,
+  })),
 ]);
 
 // copy prop value so a refresh doesn't interrupt the user
@@ -236,11 +251,48 @@ const listItem = computed<ShoppingListItemOut>({
   },
 });
 
-function toggleChecked() {
-  const updated = { ...model.value, checked: !model.value.checked } as ShoppingListItemOut;
+// Checking an item shows it crossed out where it is for a moment before it is saved and moves
+// to the checked section, so a mis-tap can be reversed in place. Nothing is sent until the
+// grace period ends; a second tap inside it just cancels. Unchecking is immediate.
+const CHECK_GRACE_MS = 5000;
+const pendingCheck = ref(false);
+let pendingCheckTimer: ReturnType<typeof setTimeout> | undefined;
+
+const displayChecked = computed(() => model.value.checked || pendingCheck.value);
+
+function commitChecked(checked: boolean) {
+  if (pendingCheckTimer) {
+    clearTimeout(pendingCheckTimer);
+    pendingCheckTimer = undefined;
+  }
+  pendingCheck.value = false;
+  const updated = { ...model.value, checked } as ShoppingListItemOut;
   model.value = updated;
   emit("checked", updated);
 }
+
+function toggleChecked() {
+  if (pendingCheckTimer) {
+    // reversed within the grace period: nothing was saved, so nothing to undo
+    clearTimeout(pendingCheckTimer);
+    pendingCheckTimer = undefined;
+    pendingCheck.value = false;
+    return;
+  }
+  if (model.value.checked) {
+    commitChecked(false);
+    return;
+  }
+  pendingCheck.value = true;
+  pendingCheckTimer = setTimeout(() => commitChecked(true), CHECK_GRACE_MS);
+}
+
+// leaving the page mid-grace-period must not lose the check
+onBeforeUnmount(() => {
+  if (pendingCheckTimer) {
+    commitChecked(true);
+  }
+});
 
 function save() {
   emit("save", localListItem.value);
