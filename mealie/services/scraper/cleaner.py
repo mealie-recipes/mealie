@@ -215,6 +215,7 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
             return [
                 {"text": _sanitize_instruction_text(instruction["text"])}
                 | ({"title": instruction["title"]} if instruction.get("title") else {})
+                | ({"summary": instruction["summary"]} if instruction.get("summary") else {})
                 for instruction in steps_object
                 if "text" in instruction and instruction["text"].strip()
             ]

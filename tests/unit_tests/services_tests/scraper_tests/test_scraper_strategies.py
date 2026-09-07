@@ -3,7 +3,7 @@ import json
 from recipe_scrapers import scrape_html
 
 from mealie.lang.providers import get_locale_provider
-from mealie.services.scraper.scraper_strategies import RecipeScraperPackage, contains_how_to_section
+from mealie.services.scraper.scraper_strategies import RecipeScraperPackage, carries_step_structure
 
 SECTIONED_RECIPE = {
     "@context": "https://schema.org/",
@@ -131,10 +131,35 @@ def test_unparseable_sections_fall_back_to_the_scraper(monkeypatch):
     assert [step.text for step in steps] == ["Dice the onion.", "Brown the beef."]
 
 
-def test_contains_how_to_section():
-    assert contains_how_to_section(SECTIONED_RECIPE["recipeInstructions"]) is True
-    assert contains_how_to_section({"@type": "HowToSection", "itemListElement": []}) is True
-    assert contains_how_to_section({"type": "HowToSection", "itemListElement": []}) is True
-    assert contains_how_to_section(FLAT_RECIPE["recipeInstructions"]) is False
-    assert contains_how_to_section("Dice the onion.") is False
-    assert contains_how_to_section(None) is False
+def test_step_summaries_are_kept():
+    """`summary` is Mealie's own step heading, and pasted JSON is where it comes from.
+
+    recipe_scrapers renders instructions as plain text, so the key is gone before the
+    cleaner runs and a pasted Mealie export or AI generated recipe lost its step headings
+    (mealie-recipes/mealie#6406). The structured data still has them.
+    """
+    recipe_data = dict(FLAT_RECIPE)
+    recipe_data["recipeInstructions"] = [
+        {"@type": "HowToStep", "summary": "Sear the beef", "text": "Sear for 2 minutes a side."},
+        {"@type": "HowToStep", "text": "Deglaze with the wine."},
+    ]
+
+    steps = scrape(recipe_data).recipe_instructions
+    assert steps is not None
+
+    assert [(step.summary, step.text) for step in steps] == [
+        ("Sear the beef", "Sear for 2 minutes a side."),
+        ("", "Deglaze with the wine."),
+    ]
+
+
+def test_carries_step_structure():
+    assert carries_step_structure(SECTIONED_RECIPE["recipeInstructions"]) is True
+    assert carries_step_structure({"@type": "HowToSection", "itemListElement": []}) is True
+    assert carries_step_structure({"type": "HowToSection", "itemListElement": []}) is True
+    assert carries_step_structure([{"@type": "HowToStep", "summary": "A", "text": "B"}]) is True
+    assert carries_step_structure([{"@type": "HowToStep", "title": "A", "text": "B"}]) is True
+    assert carries_step_structure(FLAT_RECIPE["recipeInstructions"]) is False
+    assert carries_step_structure([{"@type": "HowToStep", "summary": "", "text": "B"}]) is False
+    assert carries_step_structure("Dice the onion.") is False
+    assert carries_step_structure(None) is False

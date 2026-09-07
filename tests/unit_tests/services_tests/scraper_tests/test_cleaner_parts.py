@@ -404,6 +404,30 @@ instruction_test_cases = (
         ],
     ),
     CleanerCase(
+        test_id="step summaries are preserved",
+        input=[
+            {"@type": "HowToStep", "summary": "Step heading A", "text": "Instruction A"},
+            {"@type": "HowToStep", "text": "Instruction B"},
+        ],
+        expected=[
+            {"text": "Instruction A", "summary": "Step heading A"},
+            {"text": "Instruction B"},
+        ],
+    ),
+    CleanerCase(
+        test_id="section headings and step summaries live side by side",
+        input=[
+            {
+                "@type": "HowToSection",
+                "name": "Section A",
+                "itemListElement": [
+                    {"@type": "HowToStep", "summary": "Step heading A", "text": "Instruction A"},
+                ],
+            },
+        ],
+        expected=[{"text": "Instruction A", "title": "Section A", "summary": "Step heading A"}],
+    ),
+    CleanerCase(
         test_id="bare how to step dict",
         input={"@type": "HowToStep", "text": "Instruction A"},
         expected=[{"text": "Instruction A"}],

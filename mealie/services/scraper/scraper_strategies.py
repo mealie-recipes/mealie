@@ -42,12 +42,19 @@ from .fetch import (  # noqa: F401
 logger = get_logger()
 
 
-def contains_how_to_section(instructions: Any) -> bool:
-    """Check whether schema.org instructions group any of their steps into HowToSections."""
-    if isinstance(instructions, list):
-        return any(contains_how_to_section(item) for item in instructions)
+def carries_step_structure(instructions: Any) -> bool:
+    """Check whether structured instructions hold more than the scraper's flat text can carry.
 
-    return cleaner.is_how_to_section(instructions)
+    That is a HowToSection grouping the steps, or a step that names itself with the fields
+    Mealie stores as a section heading (`title`) or a step heading (`summary`).
+    """
+    if isinstance(instructions, list):
+        return any(carries_step_structure(item) for item in instructions)
+
+    if cleaner.is_how_to_section(instructions):
+        return True
+
+    return isinstance(instructions, dict) and bool(instructions.get("title") or instructions.get("summary"))
 
 
 class ABCScraperStrategy(ABC):
@@ -141,23 +148,27 @@ class RecipeScraperPackage(ABCScraperStrategy):
             return value
 
         def get_instructions() -> list[RecipeStep]:
-            instructions = get_sectioned_instructions() or get_flat_instructions()
+            instructions = get_structured_instructions() or get_flat_instructions()
 
             self.logger.debug(f"Cleaned Instructions: (Type: {type(instructions)}) \n {instructions}")
 
             try:
-                return [RecipeStep(title=x.get("title", ""), text=x.get("text")) for x in instructions]
+                return [
+                    RecipeStep(title=x.get("title", ""), summary=x.get("summary", ""), text=x.get("text"))
+                    for x in instructions
+                ]
             except TypeError:
                 return []
 
-        def get_sectioned_instructions() -> list[dict]:
-            """Parse the recipe's own structured data when it groups steps into sections.
+        def get_structured_instructions() -> list[dict]:
+            """Parse the recipe's own structured data when it holds more than plain text.
 
-            recipe_scrapers renders instructions as plain text, which flattens HowToSections
-            and emits each section name as a line of its own, so the section headings arrive
-            as bogus steps. Reading the schema data directly keeps them as step titles.
-            Only sectioned recipes take this path; everything else keeps using the scraper's
-            own parsing, which for a site specific scraper is the more reliable source.
+            recipe_scrapers renders instructions as text, which flattens HowToSections and
+            emits each section name as a line of its own (so headings arrive as bogus steps),
+            and drops a step's own heading entirely. Reading the schema data directly keeps
+            both. Only recipes carrying that structure take this path; everything else keeps
+            using the scraper's own parsing, which for a site specific scraper is the more
+            reliable source.
             """
             try:
                 raw_instructions = scraped_data.schema.data.get("recipeInstructions")
@@ -165,15 +176,17 @@ class RecipeScraperPackage(ABCScraperStrategy):
                 self.logger.error("Error reading structured recipeInstructions")
                 return []
 
-            if not contains_how_to_section(raw_instructions):
+            if not carries_step_structure(raw_instructions):
                 return []
 
-            self.logger.debug(f"Scraped Sections: (Type: {type(raw_instructions)}) \n {raw_instructions}")
+            self.logger.debug(
+                f"Scraped Structured Instructions: (Type: {type(raw_instructions)}) \n {raw_instructions}"
+            )
 
             try:
                 return cleaner.clean_instructions(raw_instructions)
             except TypeError:
-                self.logger.error("Error parsing HowToSections, falling back to the scraped instruction text")
+                self.logger.error("Error parsing structured instructions, falling back to the scraped text")
                 return []
 
         def get_flat_instructions() -> list[dict]:
