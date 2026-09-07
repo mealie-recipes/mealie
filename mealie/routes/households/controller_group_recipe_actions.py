@@ -1,11 +1,12 @@
 from functools import cached_property
 
-import requests
+import httpx
 from fastapi import APIRouter, BackgroundTasks, Body, Depends, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from pydantic import UUID4
 
 from mealie.core.exceptions import NoEntryFound
+from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
@@ -22,6 +23,19 @@ from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.recipe.recipe_service import RecipeService
 
 router = APIRouter(prefix="/households/recipe-actions", tags=["Households: Recipe Actions"])
+
+
+async def _safe_post(url: str, payload: dict) -> None:
+    transport = AsyncSafeTransport(timeout=15)
+
+    async with httpx.AsyncClient(
+        transport=transport,
+        follow_redirects=True,
+    ) as client:
+        await client.post(
+            url,
+            json=payload,
+        )
 
 
 @controller(router)
@@ -79,7 +93,7 @@ class GroupRecipeActionController(BaseUserController):
             )
 
         if recipe_action.action_type == GroupRecipeActionType.post.value:
-            task_action = requests.post
+            task_action = _safe_post
         else:
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST,
@@ -99,6 +113,5 @@ class GroupRecipeActionController(BaseUserController):
         bg_tasks.add_task(
             task_action,
             url=recipe_action.url,
-            json=jsonable_encoder(payload.model_dump()),
-            timeout=15,
+            payload=jsonable_encoder(payload.model_dump()),
         )

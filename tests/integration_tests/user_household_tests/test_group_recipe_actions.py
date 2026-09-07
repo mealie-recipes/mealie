@@ -1,9 +1,10 @@
 from uuid import UUID, uuid4
 
 import pytest
-import requests
 from fastapi.testclient import TestClient
 
+from mealie.pkgs.safehttp.transport import InvalidDomainError
+from mealie.routes.households.controller_group_recipe_actions import _safe_post
 from mealie.schema.household.group_recipe_action import (
     CreateGroupRecipeAction,
     GroupRecipeActionOut,
@@ -17,8 +18,14 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(autouse=True)
-def mock_requests_post(monkeypatch: pytest.MonkeyPatch):
-    monkeypatch.setattr(requests, "post", lambda *args, **kwargs: None)
+def mock_safe_post(monkeypatch: pytest.MonkeyPatch):
+    async def _mock_safe_post(*args, **kwargs):
+        return None
+
+    monkeypatch.setattr(
+        "mealie.routes.households.controller_group_recipe_actions._safe_post",
+        _mock_safe_post,
+    )
 
 
 def create_action(action_type: GroupRecipeActionType = GroupRecipeActionType.link) -> CreateGroupRecipeAction:
@@ -194,6 +201,15 @@ def test_group_recipe_actions_trigger_invalid_type(api_client: TestClient, uniqu
     )
 
     assert response.status_code == 400
+
+
+@pytest.mark.asyncio
+async def test_group_recipe_action_safe_post_blocks_private_ip():
+    with pytest.raises(InvalidDomainError):
+        await _safe_post(
+            "http://127.0.0.1:12345",
+            {"test": "payload"},
+        )
 
 
 @pytest.mark.parametrize(
