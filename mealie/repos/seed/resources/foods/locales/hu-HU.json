@@ -1232,7 +1232,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "szarvasdinnye",
-                "plural_name": "kiwanos"
+                "plural_name": "szarvasdinnye"
             }
         }
     },
@@ -1295,7 +1295,7 @@
             "black fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "black fungus",
+                "name": "júdásfülgomba",
                 "plural_name": "fekete gomba"
             },
             "black truffle": {
@@ -1361,7 +1361,7 @@
             "white fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "white fungus",
+                "name": "ezüst rezgőgomba",
                 "plural_name": "fehér fafülgomba"
             },
             "pioppini": {
@@ -1373,7 +1373,7 @@
             "snow fungu": {
                 "aliases": [],
                 "description": "",
-                "name": "snow fungus",
+                "name": "ezüst rezgőgomba",
                 "plural_name": "hógomba"
             },
             "white beech mushroom": {
@@ -9097,7 +9097,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "pea",
-                "plural_name": "peas"
+                "plural_name": "borsó"
             },
             "green bean": {
                 "aliases": [],
@@ -9109,7 +9109,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chickpea",
-                "plural_name": "chickpeas"
+                "plural_name": "csicseriborsó"
             },
             "black bean": {
                 "aliases": [],
@@ -9145,13 +9145,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "snow pea",
-                "plural_name": "snow peas"
+                "plural_name": "cukorborsó"
             },
             "snap pea": {
                 "aliases": [],
                 "description": "",
                 "name": "snap pea",
-                "plural_name": "snap peas"
+                "plural_name": "cukorborsó"
             },
             "red lentil": {
                 "aliases": [],
@@ -9211,7 +9211,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "black-eyed pea",
-                "plural_name": "black-eyed peas"
+                "plural_name": "fekete szemű bab"
             },
             "moong dal": {
                 "aliases": [],
@@ -9223,13 +9223,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "split pea",
-                "plural_name": "split peas"
+                "plural_name": "felesborsó"
             },
             "pigeon pea": {
                 "aliases": [],
                 "description": "",
                 "name": "pigeon pea",
-                "plural_name": "pigeon peas"
+                "plural_name": "galambborsó"
             },
             "red bean": {
                 "aliases": [],
@@ -9265,7 +9265,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "yellow split pea",
-                "plural_name": "yellow split peas"
+                "plural_name": "sárgaborsó"
             },
             "black lentil": {
                 "aliases": [],
@@ -9337,7 +9337,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "dried pea",
-                "plural_name": "dried peas"
+                "plural_name": "szárított borsó"
             },
             "pink bean": {
                 "aliases": [],
@@ -9355,7 +9355,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "white pea",
-                "plural_name": "white peas"
+                "plural_name": "fehér borsó"
             },
             "black soybean": {
                 "aliases": [],

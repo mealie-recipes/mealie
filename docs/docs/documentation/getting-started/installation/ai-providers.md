@@ -32,10 +32,10 @@ While Mealie has prompts for each AI task, you can override these with your own 
 The **Import with AI** page, found under *Create ➞ Import with AI*, creates a recipe from any combination of:
 
 - **A URL.** Mealie fetches the page and reads the recipe from it. Give it a link to a video (e.g. YouTube or Instagram) and the video is transcribed instead, provided you've configured an audio provider. The URL is always saved as the recipe's source.
-- **Content.** Paste a recipe as plain text, or paste raw HTML or a [schema.org Recipe](https://schema.org/Recipe) JSON object. This is useful when a site blocks Mealie from reading it directly. If you provide content, it's used instead of reading the URL.
+- **Content.** Paste a recipe as plain text, or paste raw HTML or a [schema.org Recipe](https://schema.org/Recipe) JSON object. This is useful when a site blocks Mealie from reading it directly. It's also where you write notes about a recipe you're importing from somewhere else.
 - **Images.** Upload one or more photos of a recipe, hand-written or typed. Multiple photos are treated as pages of a single recipe, and the first one becomes the recipe's image. This requires an image provider.
 
-When you supply your own text alongside photos or a video, your text wins wherever the two disagree, so you can correct a detail or name the recipe yourself.
+Every source you provide is read, and the results are combined into one description of the recipe. Content you paste alongside a URL, a video, or photos adds to them rather than replacing them, so a page that only partly loaded can be topped up by hand. Where your own content disagrees with the other sources it wins, so it doubles as a place for notes: what to name the recipe, a correction to an ingredient, a step the video skipped over. If content is the only thing you provide, it's simply the recipe's source material.
 
 You can also optionally have the recipe translated into your own language.
 

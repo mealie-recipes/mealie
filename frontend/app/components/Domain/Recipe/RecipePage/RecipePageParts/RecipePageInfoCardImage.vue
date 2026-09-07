@@ -8,7 +8,15 @@
     :height="hideImage ? undefined : imageHeight"
     :src="recipeImageUrl"
     class="d-print-none"
+    :style="hideImage ? undefined : 'cursor: zoom-in'"
     @error="hideImage = true"
+    @click="openLightbox"
+  />
+  <RecipeImageLightbox
+    v-if="lightboxOpen"
+    v-model="lightboxOpen"
+    :image-url="recipeFullImageUrl"
+    :image-alt="recipe.name"
   />
 </template>
 
@@ -41,14 +49,27 @@ if (user) {
 }
 
 const hideImage = ref(false);
+const lightboxOpen = ref(false);
+
+function openLightbox() {
+  if (hideImage.value) {
+    return;
+  }
+  lightboxOpen.value = true;
+}
+
 const imageHeight = computed(() => {
   return display.xs.value ? "200" : "400";
+});
+
+const recipeFullImageUrl = computed(() => {
+  return recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
 });
 
 const recipeImageUrl = computed(() => {
   return display.smAndDown.value
     ? recipeSmallImage(props.recipe.id, props.recipe.image, imageKey.value)
-    : recipeImage(props.recipe.id, props.recipe.image, imageKey.value);
+    : recipeFullImageUrl.value;
 });
 
 watch(

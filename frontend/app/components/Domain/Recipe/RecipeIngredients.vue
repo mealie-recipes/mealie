@@ -26,7 +26,7 @@
         <v-divider v-if="showTitleEditor[index]" class="my-2" />
         <v-list-item
           density="compact"
-          class="pa-0"
+          class="px-0 py-1 ingredient-list-item"
           @click.stop="toggleChecked(index)"
         >
           <template #prepend>
@@ -42,6 +42,7 @@
             <RecipeIngredientListItem
               :ingredient="ingredient"
               :scale="scale"
+              show-substitutions
             />
           </v-list-item-title>
         </v-list-item>
@@ -102,5 +103,12 @@ function toggleChecked(index: number) {
 <style>
 .dense-markdown p {
   margin: auto !important;
+}
+
+/* vuetify clips both of these, which would swallow the substitution button's tap target
+   where it reaches past the line of text */
+.ingredient-list-item .v-list-item__content,
+.ingredient-list-item .v-list-item-title {
+  overflow: visible;
 }
 </style>

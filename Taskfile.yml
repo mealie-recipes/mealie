@@ -40,10 +40,10 @@ tasks:
     dir: frontend
     run: once
     cmds:
-      - yarn install
+      - pnpm install
     sources:
       - package.json
-      - yarn.lock
+      - pnpm-lock.yaml
 
   setup:py:
     desc: setup python dependencies
@@ -61,12 +61,12 @@ tasks:
     dir: tests/e2e
     run: once
     cmds:
-      - yarn install
-      - yarn playwright install --with-deps
+      - pnpm install
+      - pnpm run playwright install --with-deps
     sources:
       - package.json
       - playwright.config.ts
-      - yarn.lock
+      - pnpm-lock.yaml
 
   setup:
     desc: setup all dependencies
@@ -151,18 +151,23 @@ tasks:
       - mealie/frontend/**
 
   py:package:generate-requirements:
-    desc: Generate requirements file to pin all packages, effectively a "pip freeze" before installation begins
+    desc: Generate requirements file to pin all packages, effectively a "pip freeze"
+      before installation begins
     internal: true
     cmds:
-      - uv export --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/requirements.txt
+      - uv export --no-editable --no-emit-project --extra pgsql --format
+        requirements-txt --output-file dist/requirements.txt
       # Include mealie in the requirements, hashing the package that was just built to ensure it's the one installed
       - echo "mealie[pgsql]=={{.MEALIE_VERSION}} \\" >> dist/requirements.txt
-      - pip hash dist/mealie-{{.MEALIE_VERSION}}-py3-none-any.whl | tail -n1 | tr -d '\n' >> dist/requirements.txt
+      - pip hash dist/mealie-{{.MEALIE_VERSION}}-py3-none-any.whl | tail -n1 |
+        tr -d '\n' >> dist/requirements.txt
       - echo " \\" >> dist/requirements.txt
-      - pip hash dist/mealie-{{.MEALIE_VERSION}}.tar.gz | tail -n1 >> dist/requirements.txt
+      - pip hash dist/mealie-{{.MEALIE_VERSION}}.tar.gz | tail -n1 >>
+        dist/requirements.txt
     vars:
       MEALIE_VERSION:
-         sh: python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])"
+        sh: python -c "import tomllib; print(tomllib.load(open('pyproject.toml',
+          'rb'))['project']['version'])"
     sources:
       - uv.lock
       - pyproject.toml
@@ -184,7 +189,7 @@ tasks:
     cmds:
       - task: py:package:deps-parallel
     status:
-      - '{{ .SKIP_PACKAGE_DEPS | default "false"}}'
+      - "{{ .SKIP_PACKAGE_DEPS | default \"false\"}}"
 
   py:package:build:
     internal: true
@@ -221,16 +226,18 @@ tasks:
       - uv run python mealie/app.py
 
   py:migrate:
-    desc: generates a new database migration file e.g. task py:migrate -- "add new column"
+    desc: generates a new database migration file e.g. task py:migrate -- "add new
+      column"
     cmds:
-      - uv run alembic --config mealie/alembic/alembic.ini revision --autogenerate -m "{{ .CLI_ARGS }}"
+      - uv run alembic --config mealie/alembic/alembic.ini revision
+        --autogenerate -m "{{ .CLI_ARGS }}"
       - task: py:format
 
   ui:build:
     desc: builds the frontend in frontend/dist
     dir: frontend
     cmds:
-      - yarn build
+      - pnpm build
     sources:
       - "**"
       - exclude: .nuxt/**
@@ -244,7 +251,7 @@ tasks:
     deps:
       - setup:ui
     cmds:
-      - yarn generate
+      - pnpm generate
     sources:
       - "**"
       - exclude: .nuxt/**
@@ -256,7 +263,7 @@ tasks:
     desc: runs the frontend linter
     dir: frontend
     cmds:
-      - yarn lint --max-warnings=0
+      - pnpm lint --max-warnings=0
     sources:
       - "**"
       - exclude: .nuxt/**
@@ -268,7 +275,7 @@ tasks:
     desc: runs the frontend tests
     dir: frontend
     cmds:
-      - yarn test
+      - pnpm test
     sources:
       - "**"
       - exclude: .nuxt/**
@@ -286,14 +293,15 @@ tasks:
     desc: runs the frontend server
     dir: frontend
     cmds:
-      - yarn run dev --no-fork
+      - pnpm run dev --no-fork
 
   docker:build-from-package:
     desc: Builds the Docker image from the existing Python package in dist/
     deps:
-       - py:package
+      - py:package
     cmds:
-       - docker build --tag mealie:dev --file docker/Dockerfile --build-arg COMMIT={{.GIT_COMMIT}} --build-context packages=dist .
+      - docker build --tag mealie:dev --file docker/Dockerfile --build-arg
+        COMMIT={{.GIT_COMMIT}} --build-context packages=dist .
     vars:
       GIT_COMMIT:
         sh: git rev-parse HEAD
@@ -307,9 +315,10 @@ tasks:
   e2e:build-image:
     desc: builds the e2e test docker image
     deps:
-       - py:package
+      - py:package
     cmds:
-      - docker build --tag mealie:e2e --file docker/Dockerfile --build-context packages=dist .
+      - docker build --tag mealie:e2e --file docker/Dockerfile --build-context
+        packages=dist .
     sources:
       - docker/Dockerfile
       - dist/**
@@ -318,9 +327,9 @@ tasks:
     desc: Builds the image and starts the containers for e2e testing
     dir: tests/e2e/docker
     deps:
-       - e2e:build-image
+      - e2e:build-image
     vars:
-      WAIT_UNTIL_HEALTHY: '{{if .WAIT_UNTIL_HEALTHY}}--wait{{else}}{{end}}'
+      WAIT_UNTIL_HEALTHY: "{{if .WAIT_UNTIL_HEALTHY}}--wait{{else}}{{end}}"
     cmds:
       - docker compose up -d {{.WAIT_UNTIL_HEALTHY}}
 
@@ -336,9 +345,9 @@ tasks:
     deps:
       - setup:e2e
     vars:
-      PREVENT_REPORT_OPEN: '{{if .PREVENT_REPORT_OPEN}}PLAYWRIGHT_HTML_OPEN=never{{else}}{{end}}'
+      PREVENT_REPORT_OPEN: "{{if .PREVENT_REPORT_OPEN}}PLAYWRIGHT_HTML_OPEN=never{{else}}{{end}}"
     cmds:
-      - '{{.PREVENT_REPORT_OPEN}} yarn playwright test'
+      - "{{.PREVENT_REPORT_OPEN}} pnpm playwright test"
 
   e2e:
     desc: runs the full e2e test suite

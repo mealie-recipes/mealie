@@ -1,12 +1,16 @@
+from __future__ import annotations
+
 from dataclasses import dataclass, field
 from fractions import Fraction
 from itertools import zip_longest
+from typing import TYPE_CHECKING
 
-from ingredient_parser import parse_ingredient
-from ingredient_parser.dataclasses import CompositeIngredientAmount, IngredientAmount
-from ingredient_parser.dataclasses import ParsedIngredient as IngredientParserParsedIngredient
 from pydantic import UUID4
 from sqlalchemy.orm import Session
+
+if TYPE_CHECKING:
+    from ingredient_parser.dataclasses import IngredientAmount
+    from ingredient_parser.dataclasses import ParsedIngredient as IngredientParserParsedIngredient
 
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
@@ -18,10 +22,11 @@ from mealie.schema.recipe.recipe_ingredient import (
     IngredientFood,
     IngredientUnit,
     ParsedIngredient,
+    RecipeIngredientSubstitution,
     RegisteredParser,
 )
 
-from . import brute, openai
+from . import brute
 from ._base import ABCIngredientParser
 from .parser_utils import extract_quantity_from_string
 
@@ -96,6 +101,8 @@ class NLPParser(ABCIngredientParser):
 
     @classmethod
     def _extract_amount(cls, ingredient: IngredientParserParsedIngredient) -> IngredientAmount:
+        from ingredient_parser.dataclasses import CompositeIngredientAmount, IngredientAmount
+
         if not (ingredient_amounts := ingredient.amount):
             return IngredientAmount(
                 quantity=Fraction(0), quantity_max=Fraction(0), unit="", text="", confidence=0, starting_index=-1
@@ -161,7 +168,36 @@ class NLPParser(ABCIngredientParser):
 
         return note, confidence
 
+    def _convert_extra_ingredients(
+        self, extra_ingredients: list[RecipeIngredient]
+    ) -> list[RecipeIngredientSubstitution]:
+        """
+        Turns the alternatives the parser found -- the second and later names in "stock or
+        broth" -- into substitutions on the primary ingredient.
+
+        A substitution holds a food and a note and nothing else, so an alternative carrying its
+        own quantity or unit is kept as text instead: reducing it to a bare food reference would
+        lose the "2 cups" in "1 cup stock or 2 cups broth". Converting between the two is out of
+        scope. An alternative whose food matches nothing in the database falls back to text for
+        the same reason the AI parser does -- the column holds a food id, and one that resolves
+        to nothing is dropped on save.
+        """
+
+        substitutions: list[RecipeIngredientSubstitution] = []
+        for extra in extra_ingredients:
+            if extra.food and not extra.quantity and not extra.unit and not extra.note:
+                if food_match := self.data_matcher.find_food_match(extra.food):
+                    substitutions.append(RecipeIngredientSubstitution(substitute_food_id=food_match.id))
+                    continue
+
+            if extra.display:
+                substitutions.append(RecipeIngredientSubstitution(note=extra.display))
+
+        return substitutions
+
     def _convert_ingredient(self, ingredient: IngredientParserParsedIngredient) -> ParsedIngredient:
+        from ingredient_parser.dataclasses import CompositeIngredientAmount
+
         ing_parts: list[_IngredientPart] = []
 
         for amount, ing_name in zip_longest(ingredient.amount, ingredient.name, fillvalue=None):
@@ -225,17 +261,8 @@ class NLPParser(ABCIngredientParser):
         primary_ingredient = recipe_ingredients[0]  # there will always be at least one recipe ingredient
         extra_ingredients = recipe_ingredients[1:] if len(recipe_ingredients) > 1 else []
 
-        # TODO: handle extra ingredients when we support them
-        # For now, just add them to the note ("or ing_1, or ing_2, or ...")
         if extra_ingredients:
-            extras_note_parts = [
-                self.t("recipe.or-ingredient", ingredient=extra_ing.display) for extra_ing in extra_ingredients
-            ]
-            extras_note = ", ".join(extras_note_parts)
-            primary_ingredient.note = " ".join(filter(None, [extras_note, primary_ingredient.note]))
-
-            # re-calculate display property since we modified the note
-            primary_ingredient.display = primary_ingredient._format_display()
+            primary_ingredient.substitutions = self._convert_extra_ingredients(extra_ingredients)
 
         parsed_ingredient = ParsedIngredient(
             input=ingredient.sentence,
@@ -252,6 +279,8 @@ class NLPParser(ABCIngredientParser):
         return self.find_ingredient_match(parsed_ingredient)
 
     async def parse_one(self, ingredient_string: str) -> ParsedIngredient:
+        from ingredient_parser import parse_ingredient
+
         database_units = {}
         for ingredient_unit in self.data_matcher.units_by_id.values():
             if ingredient_unit.name:
@@ -272,7 +301,6 @@ class NLPParser(ABCIngredientParser):
 __registrar: dict[RegisteredParser, type[ABCIngredientParser]] = {
     RegisteredParser.nlp: NLPParser,
     RegisteredParser.brute: BruteForceParser,
-    RegisteredParser.openai: openai.OpenAIParser,
 }
 
 
@@ -280,7 +308,11 @@ def get_parser(
     parser: RegisteredParser, group_id: UUID4, session: Session, translator: Translator
 ) -> ABCIngredientParser:
     """
-    get_parser returns an ingrdeint parser based on the string enum value
+    get_parser returns an ingredient parser based on the string enum value
     passed in.
     """
+    if parser == RegisteredParser.openai:
+        from .openai import OpenAIParser
+
+        return OpenAIParser(group_id, session, translator)
     return __registrar.get(parser, NLPParser)(group_id, session, translator)

@@ -2565,8 +2565,8 @@
             "derby cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "derby cheese",
-                "plural_name": "derby cheese"
+                "name": "derbyost",
+                "plural_name": "derbyostar"
             },
             "fontal cheese": {
                 "aliases": [],
@@ -4097,8 +4097,8 @@
             "veal cutlet": {
                 "aliases": [],
                 "description": "",
-                "name": "veal cutlet",
-                "plural_name": "veal cutlets"
+                "name": "kalvkotlett",
+                "plural_name": "kalvkotletter"
             },
             "soup bone": {
                 "aliases": [],
@@ -4151,7 +4151,7 @@
             "oxtail": {
                 "aliases": [],
                 "description": "",
-                "name": "oxtail",
+                "name": "oxsvans",
                 "plural_name": "oxsvansar"
             },
             "smoked ham hock": {
@@ -4575,8 +4575,8 @@
             "chicken giblet": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken giblet",
-                "plural_name": "chicken giblets"
+                "name": "kycklingkrås",
+                "plural_name": "kycklingkrås"
             },
             "turkey wing": {
                 "aliases": [],
@@ -4587,8 +4587,8 @@
             "turkey giblet": {
                 "aliases": [],
                 "description": "",
-                "name": "turkey giblet",
-                "plural_name": "turkey giblets"
+                "name": "kalkonkrås",
+                "plural_name": "kalkonkrås"
             },
             "turkey neck": {
                 "aliases": [],

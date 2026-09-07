@@ -11,10 +11,13 @@ Mealie offers several ways to create recipes:
 - **Recipe HTML or JSON:** Copy/paste structured HTML or JSON and Mealie can import it.
 - **Manual Editor:** Create recipes from scratch using the integrated editor.
 
-Mealie's [AI integration](./installation/ai-providers.md) greatly expands the ways you can create recipes:
+Mealie's [AI integration](./installation/ai-providers.md) adds an **Import with AI** page, which creates a recipe out of just about anything:
 
-- **Image Import:** Upload an image of a written or typed recipe and Mealie will use OCR and AI to import it.
-- **Video URL Import:** Provide a video URL (e.g., YouTube) and Mealie will transcribe the audio and turn it into a recipe.
+- **A URL:** Mealie reads the page, or, for a video URL (e.g., YouTube or Instagram), transcribes the audio.
+- **Images:** Upload photos of a written or typed recipe and Mealie will read them.
+- **Text:** Paste a recipe as plain text, HTML, or JSON.
+
+Everything you provide is read and combined into a single recipe, so you can pair a link or photos with a few notes of your own to name the recipe or correct a detail.
 
 [Creation Demo](https://demo.mealie.io/g/home/r/create/url){ .md-button .md-button--primary .align-right }
 

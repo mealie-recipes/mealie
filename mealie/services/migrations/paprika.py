@@ -13,6 +13,10 @@ from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
 
 
+def split_paprika_ingredients(value: str) -> list[str]:
+    return [line for line in value.splitlines() if line.strip()]
+
+
 def paprika_recipes(file: Path):
     """Yields all recipes inside the export file as JSON"""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -35,7 +39,7 @@ class PaprikaMigrator(BaseMigrator):
         re_num_list = re.compile(r"^\d+\.\s")
 
         self.key_aliases = [
-            MigrationAlias(key="recipeIngredient", alias="ingredients", func=lambda x: x.split("\n") if x else ""),
+            MigrationAlias(key="recipeIngredient", alias="ingredients", func=split_paprika_ingredients),
             MigrationAlias(key="orgURL", alias="source_url", func=None),
             MigrationAlias(key="totalTime", alias="total_time", func=None),
             MigrationAlias(key="prepTime", alias="prep_time", func=None),

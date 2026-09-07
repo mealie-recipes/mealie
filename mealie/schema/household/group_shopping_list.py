@@ -13,7 +13,7 @@ from mealie.db.models.household import (
     ShoppingListMultiPurposeLabel,
     ShoppingListRecipeReference,
 )
-from mealie.db.models.recipe import IngredientFoodModel, RecipeModel
+from mealie.db.models.recipe import IngredientFoodModel, IngredientFoodSubstitutionModel, RecipeModel
 from mealie.db.models.users.users import User
 from mealie.schema._mealie import MealieModel
 from mealie.schema._mealie.mealie_model import UpdatedAtField
@@ -134,6 +134,9 @@ class ShoppingListItemOut(ShoppingListItemBase):
             selectinload(ShoppingListItem.extras),
             selectinload(ShoppingListItem.food).joinedload(IngredientFoodModel.extras),
             selectinload(ShoppingListItem.food).joinedload(IngredientFoodModel.label),
+            selectinload(ShoppingListItem.food)
+            .selectinload(IngredientFoodModel.substitutions)
+            .joinedload(IngredientFoodSubstitutionModel.substitute_food),
             joinedload(ShoppingListItem.label),
             joinedload(ShoppingListItem.unit),
             selectinload(ShoppingListItem.recipe_references),
@@ -268,6 +271,10 @@ class ShoppingListOut(ShoppingListUpdate):
             selectinload(ShoppingList.list_items)
             .joinedload(ShoppingListItem.food)
             .joinedload(IngredientFoodModel.label),
+            selectinload(ShoppingList.list_items)
+            .joinedload(ShoppingListItem.food)
+            .selectinload(IngredientFoodModel.substitutions)
+            .joinedload(IngredientFoodSubstitutionModel.substitute_food),
             selectinload(ShoppingList.list_items).joinedload(ShoppingListItem.label),
             selectinload(ShoppingList.list_items).joinedload(ShoppingListItem.unit),
             selectinload(ShoppingList.list_items).joinedload(ShoppingListItem.recipe_references),
