@@ -42,19 +42,43 @@ from .fetch import (  # noqa: F401
 logger = get_logger()
 
 
-def carries_step_structure(instructions: Any) -> bool:
-    """Check whether structured instructions hold more than the scraper's flat text can carry.
+def _comparable(text: str) -> str:
+    return " ".join(str(text).split()).casefold()
 
-    That is a HowToSection grouping the steps, or a step that names itself with the fields
-    Mealie stores as a section heading (`title`) or a step heading (`summary`).
+
+def _is_stringified_mapping(text: str) -> bool:
+    """Detect a step dict that reached us as its own repr rather than as text.
+
+    recipe_scrapers stringifies the value when a site nests a single step where the spec
+    wants a list (hhursev/recipe-scrapers#2006), so this is never real instruction text and
+    must not count as content worth preserving.
     """
-    if isinstance(instructions, list):
-        return any(carries_step_structure(item) for item in instructions)
+    return text.strip().startswith(("{'", '{"'))
 
-    if cleaner.is_how_to_section(instructions):
-        return True
 
-    return isinstance(instructions, dict) and bool(instructions.get("title") or instructions.get("summary"))
+def prefer_structured_instructions(structured: list[dict], flat: list[dict]) -> bool:
+    """Decide whether the structured parse should replace the scraper's flattened text.
+
+    Two things have to hold. The structured parse must gain a heading, otherwise there is
+    nothing the flat text could not already express. And it must account for every piece of
+    text the flat parse produced, as either a step or a heading: a site specific scraper
+    reads the instructions off the page rather than out of the structured data, and its text
+    can differ from, or beat, what the page publishes as JSON-LD. That keeps the structured
+    data a refinement of the same content, never a replacement of better content.
+    """
+    headings = [step["title"] for step in structured if step.get("title")]
+    headings += [step["summary"] for step in structured if step.get("summary")]
+    if not headings:
+        return False
+
+    covered = {_comparable(step.get("text", "")) for step in structured}
+    covered |= {_comparable(heading) for heading in headings}
+
+    return all(
+        _comparable(step["text"]) in covered
+        for step in flat
+        if step.get("text") and not _is_stringified_mapping(step["text"])
+    )
 
 
 class ABCScraperStrategy(ABC):
@@ -148,7 +172,8 @@ class RecipeScraperPackage(ABCScraperStrategy):
             return value
 
         def get_instructions() -> list[RecipeStep]:
-            instructions = get_structured_instructions() or get_flat_instructions()
+            flat = get_flat_instructions()
+            instructions = pick_structured_instructions(flat) or flat
 
             self.logger.debug(f"Cleaned Instructions: (Type: {type(instructions)}) \n {instructions}")
 
@@ -160,15 +185,15 @@ class RecipeScraperPackage(ABCScraperStrategy):
             except TypeError:
                 return []
 
-        def get_structured_instructions() -> list[dict]:
-            """Parse the recipe's own structured data when it holds more than plain text.
+        def pick_structured_instructions(flat: list[dict]) -> list[dict]:
+            """Parse the recipe's own structured data, and use it only when it is strictly better.
 
-            recipe_scrapers renders instructions as text, which flattens HowToSections and
-            emits each section name as a line of its own (so headings arrive as bogus steps),
-            and drops a step's own heading entirely. Reading the schema data directly keeps
-            both. Only recipes carrying that structure take this path; everything else keeps
-            using the scraper's own parsing, which for a site specific scraper is the more
-            reliable source.
+            recipe_scrapers renders instructions as text, which flattens HowToSections and emits
+            each section name as a line of its own (so headings arrive as bogus steps), and drops
+            a step's own heading entirely. The structured data still holds both.
+
+            It is not always the better source though, so `prefer_structured_instructions`
+            decides: see there for when the scraper's own parsing wins instead.
             """
             try:
                 raw_instructions = scraped_data.schema.data.get("recipeInstructions")
@@ -176,18 +201,19 @@ class RecipeScraperPackage(ABCScraperStrategy):
                 self.logger.error("Error reading structured recipeInstructions")
                 return []
 
-            if not carries_step_structure(raw_instructions):
+            try:
+                structured = cleaner.clean_instructions(raw_instructions or [])
+            except TypeError:
+                self.logger.error("Error parsing structured instructions, falling back to the scraped text")
+                return []
+
+            if not prefer_structured_instructions(structured, flat):
                 return []
 
             self.logger.debug(
                 f"Scraped Structured Instructions: (Type: {type(raw_instructions)}) \n {raw_instructions}"
             )
-
-            try:
-                return cleaner.clean_instructions(raw_instructions)
-            except TypeError:
-                self.logger.error("Error parsing structured instructions, falling back to the scraped text")
-                return []
+            return structured
 
         def get_flat_instructions() -> list[dict]:
             instruction_as_text = try_get_default(

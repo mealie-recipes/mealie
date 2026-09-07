@@ -150,6 +150,38 @@ def is_how_to_section(entry: typing.Any) -> bool:
     return isinstance(entry, dict) and "HowToSection" in (entry.get("@type"), entry.get("type"))
 
 
+def _step_heading(instruction: dict) -> str:
+    """Return the step's own heading, which Mealie stores as `summary`.
+
+    schema.org calls it `HowToStep.name`, but sites routinely fill that with a copy of the
+    text, or with the text truncated, so a name the text already opens with is dropped
+    rather than shown twice. This is the rule recipe_scrapers applies to the same field.
+    """
+    if summary := instruction.get("summary"):
+        return clean_string(summary)
+
+    name = instruction.get("name")
+    if not isinstance(name, str) or not name.strip():
+        return ""
+
+    # compare the cleaned forms: a name carrying HTML entities would otherwise sail past
+    # the check against text that has already had them decoded
+    heading = clean_string(name).strip()
+    if not heading:
+        return ""
+
+    # sites also truncate the text into the name (yummly's "Step 1: Preheat oven to 425…"),
+    # and a heading cut off mid word is worse than no heading at all
+    if heading.endswith(("...", "\u2026")):
+        return ""
+
+    text = clean_string(instruction.get("text") or "")
+    if text.casefold().startswith(heading.rstrip(". \u2026").casefold()):
+        return ""
+
+    return heading
+
+
 def clean_instructions(steps_object: list | dict | str, default: list | None = None) -> list[dict]:
     """
     instructions attempts to parse the instructions field from a recipe and return a list of
@@ -197,7 +229,7 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
 
                 # a section heading lives on the first step of the section (RecipeStep.title),
                 # which is how the frontend groups the steps that follow it
-                if section_title := clean_string(entry.get("name", "")):
+                if section_title := clean_string(entry.get("name") or entry.get("Name") or ""):
                     section_steps = [section_steps[0] | {"title": section_title}, *section_steps[1:]]
 
                 instructions.extend(section_steps)
@@ -215,7 +247,7 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
             return [
                 {"text": _sanitize_instruction_text(instruction["text"])}
                 | ({"title": instruction["title"]} if instruction.get("title") else {})
-                | ({"summary": instruction["summary"]} if instruction.get("summary") else {})
+                | ({"summary": heading} if (heading := _step_heading(instruction)) else {})
                 for instruction in steps_object
                 if "text" in instruction and instruction["text"].strip()
             ]

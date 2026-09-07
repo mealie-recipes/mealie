@@ -428,6 +428,59 @@ instruction_test_cases = (
         expected=[{"text": "Instruction A", "title": "Section A", "summary": "Step heading A"}],
     ),
     CleanerCase(
+        test_id="capitalised section Name key (atelierdeschefs.fr)",
+        input=[
+            {
+                "@type": "HowToSection",
+                "Name": "Section A",
+                "itemListElement": [
+                    {"@type": "HowToStep", "text": "Instruction A"},
+                ],
+            },
+        ],
+        expected=[{"text": "Instruction A", "title": "Section A"}],
+    ),
+    CleanerCase(
+        test_id="step name becomes the step summary",
+        input=[
+            {"@type": "HowToStep", "name": "Mix", "text": "Instruction A"},
+            {"@type": "HowToStep", "text": "Instruction B"},
+        ],
+        expected=[
+            {"text": "Instruction A", "summary": "Mix"},
+            {"text": "Instruction B"},
+        ],
+    ),
+    CleanerCase(
+        test_id="step name repeating the text is not stored twice",
+        input=[
+            {"@type": "HowToStep", "name": "Instruction A", "text": "Instruction A"},
+            {"@type": "HowToStep", "name": "Instruction B, but truncat", "text": "Instruction B, but truncated"},
+        ],
+        expected=[
+            {"text": "Instruction A"},
+            {"text": "Instruction B, but truncated"},
+        ],
+    ),
+    CleanerCase(
+        test_id="step name repeating the text through html entities is not stored twice",
+        input=[
+            {"@type": "HowToStep", "name": "1. K&auml;...", "text": "1. K&auml;se in St&uuml;cken geben"},
+        ],
+        expected=[{"text": "1. Käse in Stücken geben"}],
+    ),
+    CleanerCase(
+        test_id="step name truncated from the text is not stored as a summary (yummly.com)",
+        input=[
+            {"@type": "HowToStep", "name": "Step 1: Preheat oven to 425\u2026", "text": "Preheat oven to 425 F."},
+            {"@type": "HowToStep", "name": "Mix", "text": "mix it all together"},
+        ],
+        expected=[
+            {"text": "Preheat oven to 425 F."},
+            {"text": "mix it all together"},
+        ],
+    ),
+    CleanerCase(
         test_id="bare how to step dict",
         input={"@type": "HowToStep", "text": "Instruction A"},
         expected=[{"text": "Instruction A"}],

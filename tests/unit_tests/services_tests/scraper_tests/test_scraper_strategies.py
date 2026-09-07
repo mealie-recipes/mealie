@@ -3,7 +3,7 @@ import json
 from recipe_scrapers import scrape_html
 
 from mealie.lang.providers import get_locale_provider
-from mealie.services.scraper.scraper_strategies import RecipeScraperPackage, carries_step_structure
+from mealie.services.scraper.scraper_strategies import RecipeScraperPackage, prefer_structured_instructions
 
 SECTIONED_RECIPE = {
     "@context": "https://schema.org/",
@@ -153,13 +153,75 @@ def test_step_summaries_are_kept():
     ]
 
 
-def test_carries_step_structure():
-    assert carries_step_structure(SECTIONED_RECIPE["recipeInstructions"]) is True
-    assert carries_step_structure({"@type": "HowToSection", "itemListElement": []}) is True
-    assert carries_step_structure({"type": "HowToSection", "itemListElement": []}) is True
-    assert carries_step_structure([{"@type": "HowToStep", "summary": "A", "text": "B"}]) is True
-    assert carries_step_structure([{"@type": "HowToStep", "title": "A", "text": "B"}]) is True
-    assert carries_step_structure(FLAT_RECIPE["recipeInstructions"]) is False
-    assert carries_step_structure([{"@type": "HowToStep", "summary": "", "text": "B"}]) is False
-    assert carries_step_structure("Dice the onion.") is False
-    assert carries_step_structure(None) is False
+def test_structured_data_is_ignored_when_it_would_merge_steps(monkeypatch):
+    """Some sites put a whole method in one step, and only the scraper splits it up.
+
+    rezeptwelt.de publishes an unnamed section holding a single step whose text is the entire
+    method, while its own recipe_scrapers scraper reads the page and returns the steps
+    separately. Preferring the structured data there would replace readable steps with one
+    wall of text, so the scraper's own parsing has to win.
+    """
+    html = RecipeScraperPackage.ld_json_to_html(json.dumps(FLAT_RECIPE))
+    scraped_data = scrape_html(html, org_url="https://example.com", supported_only=False)
+    scraped_data.schema.data["recipeInstructions"] = [
+        {
+            "@type": "HowToSection",
+            "itemListElement": [
+                {"@type": "HowToStep", "name": "Salad", "text": "Boil the water.\nAdd the pasta.\nDrain it."}
+            ],
+        }
+    ]
+    monkeypatch.setattr(scraped_data, "instructions", lambda: "Boil the water.\nAdd the pasta.\nDrain it.")
+
+    strategy = RecipeScraperPackage(
+        "https://example.com",
+        get_locale_provider(),
+        repos=None,  # type: ignore[arg-type]
+    )
+    recipe, _ = strategy.clean_scraper(scraped_data, "https://example.com")
+    steps = recipe.recipe_instructions
+    assert steps is not None
+
+    assert [step.text for step in steps] == ["Boil the water.", "Add the pasta.", "Drain it."]
+
+
+def test_step_names_are_kept_as_step_summaries():
+    """schema.org names a step with `HowToStep.name`, which is Mealie's `summary`."""
+    recipe_data = dict(FLAT_RECIPE)
+    recipe_data["recipeInstructions"] = [
+        {"@type": "HowToStep", "name": "Mix", "text": "Whisk the eggs and the sugar."},
+        {"@type": "HowToStep", "text": "Fold in the flour."},
+    ]
+
+    steps = scrape(recipe_data).recipe_instructions
+    assert steps is not None
+
+    assert [(step.summary, step.text) for step in steps] == [
+        ("Mix", "Whisk the eggs and the sugar."),
+        ("", "Fold in the flour."),
+    ]
+
+
+def test_prefer_structured_instructions_needs_a_heading():
+    """Without a heading the structured data says nothing the flat text could not."""
+    structured = [{"text": "Dice the onion."}]
+    flat = [{"text": "Dice the onion."}]
+
+    assert prefer_structured_instructions(structured, flat) is False
+
+
+def test_prefer_structured_instructions_keeps_every_piece_of_flat_text():
+    structured = [{"text": "Dice the onion.", "title": "Prep"}, {"text": "Brown the beef."}]
+
+    # the flat text is the same content with the heading flattened into a line of its own
+    assert prefer_structured_instructions(structured, [{"text": "Prep"}, {"text": "Dice the onion."}]) is True
+    # ...but a scraper that read the page itself can produce text the structured data lacks
+    assert prefer_structured_instructions(structured, [{"text": "Dice the onion, finely."}]) is False
+
+
+def test_prefer_structured_instructions_ignores_a_stringified_step_dict():
+    """A site nesting one step where a list belongs makes recipe_scrapers hand back a repr."""
+    structured = [{"text": "Dice the onion.", "title": "Prep"}]
+    flat = [{"text": "{'@type': 'HowToStep', 'text': 'Dice the onion.'}"}]
+
+    assert prefer_structured_instructions(structured, flat) is True
