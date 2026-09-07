@@ -83,6 +83,35 @@ There are two (optional) [environment variables](../installation/backend-config.
 
 `OIDC_ADMIN_GROUP`: Users that are in this group (within your IdP) will be made an **admin** in Mealie. Users in this group do not need to be in the `OIDC_USER_GROUP`
 
+### Profile images
+
+If your IdP returns a `picture` claim, Mealie downloads that image on login and uses it as the user's avatar.
+
+The image is only re-downloaded when the claim's value changes, so repeat logins cost nothing.
+
+The claim's value is treated as untrusted input, because many IdPs let users edit their own profile — without that care, any user could point Mealie at an internal address. The rules are:
+
+- **On your provider's own host** (the host in `OIDC_CONFIGURATION_URL`): fetched as-is, including over plain HTTP and on a private address. This is what a self-hosted IdP on your LAN needs, and it reaches nothing Mealie doesn't already contact on every login.
+- **On any other host**: the URL must use HTTPS and must resolve to a public address.
+
+Redirects are followed, but every hop is checked against the same rules before it is requested — so a URL that passes cannot hand Mealie off to a host that would not. Either way the download is size-capped. An image that fails any check is skipped silently — it never blocks the login.
+
+## Native and mobile clients
+
+Native apps (mobile or desktop) authenticate using the **system browser** instead of an embedded WebView. This is required for **passkey-only** providers such as [Pocket ID](https://pocket-id.org), because WebAuthn/passkeys do not work inside embedded WebViews.
+
+Unlike the web flow, a native client performs its own [PKCE](https://oauth.net/2/pkce/) authorization request, captures the authorization code at an app-controlled redirect URI, and then has Mealie exchange it. No browser session cookie is involved, so the exchange works from a native HTTP client.
+
+These endpoints are available automatically whenever OIDC is configured — there is no separate flag to enable them:
+
+- `GET /api/auth/oauth/native/config` — returns the `authorization_endpoint`, `client_id`, and `scope` the client needs to build its own authorization request.
+- `POST /api/auth/oauth/native/token` — exchanges `{ code, code_verifier, redirect_uri, nonce? }` for a Mealie access token.
+
+The native flow reuses your existing **confidential** OIDC client and `OIDC_CLIENT_SECRET` — the same setup as the web flow. The only additional step is in your identity provider: **register the native client's redirect URI** (a custom scheme such as `app-scheme://oauth/callback`, supplied by the app) on the same OIDC client. The provider validates this redirect URI, so it is the access control for native logins — no Mealie-side configuration is required.
+
+!!! note
+    Providers that require a separate **public** (secret-less) native client — notably Google and Microsoft Entra — are not yet supported by this flow. Self-hosted providers that let you add a redirect URI to the existing confidential client (Pocket ID, Authentik, Authelia, Keycloak, …) work today.
+
 ## Examples
 
 Example configurations for several Identity Providers have been provided by the Community in the [GitHub Discussions](https://github.com/mealie-recipes/mealie/discussions/categories/oauth-provider-example).

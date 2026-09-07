@@ -38,6 +38,8 @@
         v-bind="contentProps"
         @print="$emit('print')"
         @deleted="$emit('deleted', $event)"
+        @mealplan-edit="$emit('mealplanEdit')"
+        @mealplan-remove="$emit('mealplanRemove')"
       />
     </v-menu>
   </div>
@@ -45,21 +47,9 @@
 
 <script setup lang="ts">
 import type { Recipe } from "~/lib/api/types/recipe";
+import type { ContextMenuIncludes } from "./RecipeContextMenuContent.vue";
 
-interface ContextMenuIncludes {
-  delete?: boolean;
-  edit?: boolean;
-  download?: boolean;
-  duplicate?: boolean;
-  mealplanner?: boolean;
-  shoppingList?: boolean;
-  print?: boolean;
-  printPreferences?: boolean;
-  share?: boolean;
-  recipeActions?: boolean;
-}
-
-interface ContextMenuItem {
+export interface ContextMenuItem {
   title: string;
   icon: string;
   color?: string;
@@ -68,7 +58,7 @@ interface ContextMenuItem {
 }
 
 interface Props {
-  useItems?: ContextMenuIncludes;
+  useItems?: Partial<ContextMenuIncludes>;
   appendItems?: ContextMenuItem[];
   leadingItems?: ContextMenuItem[];
   menuTop?: boolean;
@@ -109,6 +99,8 @@ defineEmits<{
   [key: string]: any;
   print: [];
   deleted: [slug: string];
+  mealplanRemove: [];
+  mealplanEdit: [];
 }>();
 
 const { $globals } = useNuxtApp();

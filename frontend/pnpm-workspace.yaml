@@ -1,0 +1,6 @@
+allowBuilds:
+  '@parcel/watcher': true
+  esbuild: true
+  json-editor-vue: true
+  unrs-resolver: true
+  vue-demi: true

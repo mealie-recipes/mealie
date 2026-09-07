@@ -3,6 +3,7 @@
     <div>
       <BaseDialog
         v-model="madeThisDialog"
+        bottom-sheet
         :loading="madeThisFormLoading"
         :icon="$globals.icons.chefHat"
         :title="$t('recipe.made-this')"
@@ -97,7 +98,6 @@
                 <v-col cols="12">
                   <ImageCropper
                     :img="newTimelineEventImagePreviewUrl"
-                    cropper-height="20vh"
                     cropper-width="100%"
                     @save="updateUploadedImage"
                   />

@@ -5,6 +5,7 @@
   >
     <BaseDialog
       v-model="state.createDialog"
+      bottom-sheet
       :title="$t('shopping-list.create-shopping-list')"
       :icon="$globals.icons.formatListCheck"
       can-submit
@@ -22,6 +23,7 @@
     <!-- Settings -->
     <BaseDialog
       v-model="state.ownerDialog"
+      bottom-sheet
       :icon="$globals.icons.admin"
       :title="$t('user.edit-user')"
       can-confirm
@@ -43,6 +45,7 @@
 
     <BaseDialog
       v-model="state.deleteDialog"
+      bottom-sheet
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"

@@ -140,7 +140,7 @@ function resetCreate() {
   createdToken.value = "";
   loading.value = false;
   name.value = "";
-  auth.refresh();
+  auth.getSession();
 }
 
 async function createToken(name: string) {
@@ -164,7 +164,7 @@ async function createToken(name: string) {
 
 async function deleteToken(id: number) {
   const { data } = await api.users.deleteAPIToken(id);
-  auth.refresh();
+  auth.getSession();
   return data;
 }
 </script>

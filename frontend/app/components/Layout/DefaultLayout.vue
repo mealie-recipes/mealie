@@ -133,7 +133,7 @@ const cookbooks = computed(() => {
   return [];
 });
 
-const showImageImport = computed(() => group.value?.aiProviderSettings?.imageProviderEnabled);
+const showAIImport = computed(() => group.value?.aiProviderSettings?.aiEnabled);
 
 const sidebar = ref<boolean>(false);
 onMounted(() => {
@@ -205,12 +205,12 @@ const createLinks = computed(() => [
   },
   {
     insertDivider: false,
-    icon: $globals.icons.fileImage,
-    title: i18n.t("recipe.create-from-images"),
-    subtitle: i18n.t("recipe.create-recipe-from-images"),
-    to: `/g/${groupSlug.value}/r/create/image`,
+    icon: $globals.icons.autoFix,
+    title: i18n.t("recipe.import-with-ai"),
+    subtitle: i18n.t("recipe.import-with-ai-subtitle"),
+    to: `/g/${groupSlug.value}/r/create/ai`,
     restricted: true,
-    hide: !showImageImport.value,
+    hide: !showAIImport.value,
   },
   {
     insertDivider: true,

@@ -153,11 +153,24 @@ export interface PrivateUser {
   password: string;
   loginAttemps?: number;
   lockedAt?: string | null;
+  tokensValidAfter?: string | null;
+  externalAvatarHash?: string | null;
 }
 export interface LongLiveTokenOut {
   name: string;
   id: number;
   createdAt?: string | null;
+}
+export interface NativeOIDCTokenRequest {
+  code: string;
+  code_verifier: string;
+  redirect_uri: string;
+  nonce?: string | null;
+}
+export interface OIDCNativeConfig {
+  authorization_endpoint: string;
+  client_id: string;
+  scope: string;
 }
 export interface PasswordResetToken {
   token: string;

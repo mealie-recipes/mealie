@@ -60,4 +60,14 @@ describe("use-shopping-list-state", () => {
       expect(checked[0]).toEqual(mockCheckedItem);
     });
   });
+
+  describe("recipe list", () => {
+    test("Updates to match shopping list recipe references", () => {
+      const { recipeList } = wrapper();
+      expect(recipeList).toEqual([
+        MOCK_RECIPE,
+        MOCK_RECIPE2,
+      ]);
+    });
+  });
 });
