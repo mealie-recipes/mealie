@@ -45,7 +45,7 @@ function useRecipeLink(recipe: Recipe | undefined, groupSlug: string | undefined
     return undefined;
   }
 
-  return `<a href="/g/${groupSlug}/r/${recipe.slug}" target="_blank">${recipe.name}</a>`;
+  return `<a href="/g/${groupSlug}/r/${recipe.slug}">${recipe.name}</a>`;
 }
 
 type ParsedIngredientText = {
