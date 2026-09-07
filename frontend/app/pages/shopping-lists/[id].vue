@@ -199,8 +199,9 @@
         <BaseExpansionPanels v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" start-open>
           <v-expansion-panel class="shopping-list-section">
             <v-expansion-panel-title
-              :color="getLabelColor(key)"
-              class="body-1 font-weight-bold section-title"
+              :color="preferences.condensed ? undefined : getLabelColor(key)"
+              class="body-1 section-title"
+              :class="preferences.condensed ? 'text-medium-emphasis' : 'font-weight-bold'"
             >
               {{ key }}
             </v-expansion-panel-title>
@@ -485,10 +486,14 @@ const {
 /* Condensed view: strip most of the vertical padding so more items fit on a phone screen,
    and lean on indentation (label header flush left, items inset) to keep sections readable */
 .shopping-list--condensed {
+  /* quiet header: regular weight, muted text, no label colour; the panel's own surface
+     (white in light mode, the dark surface in dark mode) is the background */
   .shopping-list-section .section-title {
     min-height: 30px !important;
     padding: 2px 10px;
     font-size: 0.9rem;
+    font-weight: 400;
+    background: transparent;
   }
 
   .shopping-list-section .v-expansion-panel-text__wrapper,
