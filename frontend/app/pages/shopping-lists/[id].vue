@@ -115,6 +115,11 @@
                   event: 'three-dot',
                   children: [
                     {
+                      icon: preferences.condensed ? $globals.icons.arrowExpandVertical : $globals.icons.arrowCollapseVertical,
+                      text: preferences.condensed ? $t('shopping-list.default-view') : $t('shopping-list.condensed-view'),
+                      event: 'toggle-condensed',
+                    },
+                    {
                       icon: $globals.icons.tags,
                       text: $t('shopping-list.reorder-labels'),
                       event: 'reorder-labels',
@@ -129,6 +134,7 @@
               ]"
               @edit="edit = true"
               @three-dot="threeDot = true"
+              @toggle-condensed="preferences.condensed = !preferences.condensed"
               @check="openCheckAll"
               @copy-plain="copyListItems('plain')"
               @copy-markdown="copyListItems('markdown')"
@@ -149,7 +155,11 @@
     />
 
     <!-- Viewer -->
-    <section v-if="!edit" class="py-2 d-flex flex-column ga-4">
+    <section
+      v-if="!edit"
+      class="py-2 d-flex flex-column"
+      :class="preferences.condensed ? 'ga-1 shopping-list--condensed' : 'ga-4'"
+    >
       <!-- Create Item -->
       <ShoppingListAddItemForm
         v-if="$vuetify.display.smAndDown"
@@ -209,7 +219,7 @@
                     v-for="(item, index) in value"
                     :key="item.id"
                     v-model="value[index]"
-                    class="my-2 w-auto"
+                    class="my-2 w-auto shopping-list-item-row"
                     :edit="editingItem === item.id"
                     :labels="allLabels || []"
                     :units="allUnits || []"
@@ -266,7 +276,7 @@
               <div v-for="(item, idx) in listItems.checked" :key="item.id">
                 <ShoppingListItem
                   v-model="listItems.checked[idx]"
-                  class="strike-through-note"
+                  class="strike-through-note shopping-list-item-row"
                   :labels="allLabels || []"
                   :units="allUnits || []"
                   :foods="allFoods || []"
@@ -356,10 +366,12 @@ import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingLis
 import { useShoppingListPage } from "~/composables/shopping-list-page/use-shopping-list-page";
 import { useLabelStore, useUnitStore, useFoodStore } from "~/composables/store";
 import { alert } from "~/composables/use-toast";
+import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 
 const { smAndUp } = useDisplay();
 const i18n = useI18n();
+const preferences = useShoppingListPreferences();
 
 useSeoMeta({
   title: i18n.t("shopping-list.shopping-list"),
@@ -442,6 +454,58 @@ const {
 
   .v-expansion-panel-text__wrapper {
     padding: 0;
+  }
+}
+
+/* Condensed view: strip most of the vertical padding so more items fit on a phone screen,
+   and lean on indentation (label header flush left, items inset) to keep sections readable */
+.shopping-list--condensed {
+  .shopping-list-section .section-title {
+    min-height: 30px !important;
+    padding: 2px 10px;
+    font-size: 0.9rem;
+  }
+
+  .shopping-list-section .v-expansion-panel-text__wrapper,
+  .v-expansion-panel-text__wrapper {
+    padding: 2px 0 2px 12px;
+  }
+
+  .v-expansion-panel-title {
+    min-height: 32px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  /* each item row */
+  .shopping-list-item-row {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .shopping-list-item-row .v-container {
+    margin-left: 0 !important;
+  }
+
+  .shopping-list-item-row .v-selection-control {
+    --v-selection-control-size: 28px;
+    min-height: 28px;
+  }
+
+  .shopping-list-item-row .v-selection-control__wrapper,
+  .shopping-list-item-row .v-selection-control__input {
+    width: 28px;
+    height: 28px;
+  }
+
+  .shopping-list-item-row .v-btn--size-small {
+    width: 28px;
+    height: 28px;
+    margin-left: 0 !important;
+  }
+
+  .shopping-list-item-row .mb-2 {
+    margin-bottom: 0 !important;
   }
 }
 </style>

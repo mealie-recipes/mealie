@@ -38,6 +38,8 @@ export interface UserRecipePreferences {
 
 export interface UserShoppingListPreferences {
   viewAllLists: boolean;
+  // tighter spacing so more items fit on a phone screen
+  condensed: boolean;
 }
 
 export interface UserTimelinePreferences {
@@ -161,6 +163,7 @@ export function useShoppingListPreferences(): Ref<UserShoppingListPreferences> {
     "shopping-list-preferences",
     {
       viewAllLists: false,
+      condensed: false,
     },
     { mergeDefaults: true },
   );
