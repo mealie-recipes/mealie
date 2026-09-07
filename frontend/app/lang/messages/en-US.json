@@ -780,7 +780,9 @@
     "no-shopping-lists-found": "No Shopping Lists Found",
     "item-checked-off": "Checked off {item}",
     "condensed-view": "Condensed view",
-    "default-view": "Default view"
+    "default-view": "Default view",
+    "hide-labels": "Hide labels",
+    "show-labels": "Show labels"
   },
   "sidebar": {
     "backups": "Backups",

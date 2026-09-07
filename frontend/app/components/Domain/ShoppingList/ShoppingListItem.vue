@@ -77,7 +77,7 @@
                 <v-btn
                   size="small"
                   variant="text"
-                  class="ml-2"
+                  class="ml-2 shopping-list-item__edit"
                   icon
                   @click="$emit('edit')"
                 >

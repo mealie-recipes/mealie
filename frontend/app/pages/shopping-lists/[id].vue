@@ -120,6 +120,11 @@
                       event: 'toggle-condensed',
                     },
                     {
+                      icon: preferences.hideLabels ? $globals.icons.eye : $globals.icons.eyeOff,
+                      text: preferences.hideLabels ? $t('shopping-list.show-labels') : $t('shopping-list.hide-labels'),
+                      event: 'toggle-hide-labels',
+                    },
+                    {
                       icon: $globals.icons.tags,
                       text: $t('shopping-list.reorder-labels'),
                       event: 'reorder-labels',
@@ -135,6 +140,7 @@
               @edit="edit = true"
               @three-dot="threeDot = true"
               @toggle-condensed="preferences.condensed = !preferences.condensed"
+              @toggle-hide-labels="preferences.hideLabels = !preferences.hideLabels"
               @check="openCheckAll"
               @copy-plain="copyListItems('plain')"
               @copy-markdown="copyListItems('markdown')"
@@ -158,7 +164,10 @@
     <section
       v-if="!edit"
       class="py-2 d-flex flex-column"
-      :class="preferences.condensed ? 'ga-1 shopping-list--condensed' : 'ga-4'"
+      :class="[
+        preferences.condensed ? 'ga-1 shopping-list--condensed' : 'ga-4',
+        preferences.hideLabels ? 'shopping-list--hide-labels' : '',
+      ]"
     >
       <!-- Create Item -->
       <ShoppingListAddItemForm
@@ -536,6 +545,37 @@ const {
 
   .shopping-list-item-row .mb-2 {
     margin-bottom: 0 !important;
+  }
+
+  /* edit is also in the drag handle's menu, so the pencil is just noise here */
+  .shopping-list-item-row .shopping-list-item__edit {
+    display: none;
+  }
+
+  /* sections barely outlined: no shadow, only a faint hairline */
+  .shopping-list-section {
+    border: thin solid rgba(var(--v-border-color), 0.08);
+  }
+
+  .shopping-list-section .v-expansion-panel__shadow {
+    box-shadow: none;
+  }
+}
+
+/* Hidden labels: items keep their label order, but the headers, borders and shadows go */
+.shopping-list--hide-labels {
+  .shopping-list-section {
+    border: none;
+    background: transparent;
+  }
+
+  .shopping-list-section .section-title,
+  .shopping-list-section .v-expansion-panel__shadow {
+    display: none;
+  }
+
+  .shopping-list-section .v-expansion-panel-text__wrapper {
+    padding-left: 0;
   }
 }
 </style>

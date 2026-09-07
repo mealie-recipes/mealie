@@ -40,6 +40,8 @@ export interface UserShoppingListPreferences {
   viewAllLists: boolean;
   // tighter spacing so more items fit on a phone screen
   condensed: boolean;
+  // keep items grouped in label order, but don't show the label headers
+  hideLabels: boolean;
 }
 
 export interface UserTimelinePreferences {
@@ -164,6 +166,7 @@ export function useShoppingListPreferences(): Ref<UserShoppingListPreferences> {
     {
       viewAllLists: false,
       condensed: false,
+      hideLabels: false,
     },
     { mergeDefaults: true },
   );
