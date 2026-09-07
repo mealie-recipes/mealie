@@ -80,31 +80,13 @@
       class="pt-2"
     >
       <template #append-title>
-        <div class="d-flex align-center ms-auto">
-          <v-switch
-            v-model="autoTestPreferences.autoTest"
-            :label="$t('group.ai-provider-settings.auto-test')"
-            color="primary"
-            density="compact"
-            hide-details
-            class="me-1"
-          />
-          <v-tooltip location="bottom">
-            <template #activator="{ props: tooltipProps }">
-              <v-icon v-bind="tooltipProps" size="small" class="me-4">
-                {{ $globals.icons.informationOutline }}
-              </v-icon>
-            </template>
-            <span>{{ $t('group.ai-provider-settings.auto-test-description') }}</span>
-          </v-tooltip>
-          <BaseButton
-            :text="$t('group.ai-provider-settings.create-provider')"
-            class="my-2"
-            create
-            small
-            @click="openCreate"
-          />
-        </div>
+        <BaseButton
+          :text="$t('group.ai-provider-settings.create-provider')"
+          class="my-2 ms-auto"
+          create
+          small
+          @click="openCreate"
+        />
       </template>
     </BaseCardSectionTitle>
 
@@ -122,22 +104,8 @@
         </v-col>
 
         <v-col :cols="6" class="d-flex align-center justify-end">
-          <GroupAIProviderTestBadge
-            :ref="(el) => setTestBadgeRef(provider.id, el)"
-            :provider-id="provider.id"
-            :auto-test="autoTestPreferences.autoTest"
-            class="me-2"
-            @testing-change="(testing) => setTesting(provider.id, testing)"
-          />
           <BaseButtonGroup
             :buttons="[
-              {
-                icon: $globals.icons.refresh,
-                text: $t('group.ai-provider-settings.test-connection'),
-                event: 'test',
-                loading: testingProviderIds.has(provider.id),
-                disabled: testingProviderIds.has(provider.id),
-              },
               {
                 icon: $globals.icons.edit,
                 text: $t('general.edit'),
@@ -149,7 +117,6 @@
                 event: 'delete',
               },
             ]"
-            @test="testBadgeRefs.get(provider.id)?.runTest()"
             @edit="openEdit(provider.id)"
             @delete="$emit('delete', provider.id)"
           />
@@ -162,9 +129,6 @@
 <script setup lang="ts">
 import type { AIProviderCreate, AIProviderUpdate } from "~/lib/api/types/group";
 import type { AIProviderSettingsOut } from "~/lib/api/types/user";
-import { useAIProviderPreferences } from "~/composables/use-users/preferences";
-
-const autoTestPreferences = useAIProviderPreferences();
 
 const providerSettings = defineModel<AIProviderSettingsOut>({ required: true });
 
@@ -193,24 +157,6 @@ defineEmits<{
 
 const dialogOpen = ref(false);
 const editingProviderId = ref<string | null>(null);
-
-interface TestBadgeInstance {
-  runTest: () => Promise<void>;
-}
-
-const testBadgeRefs = new Map<string, TestBadgeInstance>();
-function setTestBadgeRef(providerId: string, el: unknown) {
-  if (el) testBadgeRefs.set(providerId, el as TestBadgeInstance);
-  else testBadgeRefs.delete(providerId);
-}
-
-// Tracks which rows currently have a test in flight (manual click or AutoTest-triggered) so the
-// button group can show a loading state and block repeat clicks until the result comes back.
-const testingProviderIds = reactive(new Set<string>());
-function setTesting(providerId: string, testing: boolean) {
-  if (testing) testingProviderIds.add(providerId);
-  else testingProviderIds.delete(providerId);
-}
 
 function openCreate() {
   editingProviderId.value = null;

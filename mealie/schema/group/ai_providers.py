@@ -67,10 +67,9 @@ class AIProviderOut(AIProviderCreate):
 class AIProviderTestResult(MealieModel):
     success: bool
     message: str | None = None
-    latency_ms: int | None = None
-    # None means the provider's model list couldn't be used to check this (e.g. it came back
-    # empty), not that the model is confirmed to be valid.
-    model_found: bool | None = None
+    # None if the text check above didn't succeed, so the image check never ran.
+    image_test_passed: bool | None = None
+    image_test_message: str | None = None
 
 
 class AIProviderSummary(MealieModel):

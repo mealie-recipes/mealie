@@ -2,7 +2,6 @@
 Integration tests for AI provider CRUD, settings, permissions, and API key security.
 """
 
-from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 
 from fastapi.testclient import TestClient
@@ -14,26 +13,26 @@ from tests.utils.factories import random_string, user_registration_factory
 from tests.utils.fixture_schemas import TestUser
 
 
-class _FakeModel:
-    def __init__(self, model_id: str):
-        self.id = model_id
+class _FakeOpenAIText:
+    def __init__(self, text: str):
+        self.text = text
 
 
-class _FakeModelsResponse:
-    def __init__(self, model_ids: list[str]):
-        self.data = [_FakeModel(m) for m in model_ids]
+def _patch_ping(monkeypatch, *, succeeds: bool, error: str = "", image_matches_recipe: bool = True) -> None:
+    """
+    Stand in for OpenAIService.ping() (used for both the text and image legs of test_connection)
+    so tests never make a real network call.
+    """
 
+    async def _fake_ping(self, provider, message, images=None):
+        if not succeeds:
+            raise Exception(error)
+        if images:
+            text = "This shows a Tomato & Egg Stir-Fry recipe." if image_matches_recipe else "I'm not sure."
+            return _FakeOpenAIText(text)
+        return _FakeOpenAIText("Hello!")
 
-def _patch_openai_client(monkeypatch, *, succeeds: bool, error: str = "", model_ids: list[str] | None = None) -> None:
-    """Stand in for the real AsyncOpenAI client so tests never make a real network call."""
-    fake_client = MagicMock()
-    if succeeds:
-        response = _FakeModelsResponse(model_ids if model_ids is not None else ["gpt-4o"])
-        fake_client.models.list = AsyncMock(return_value=response)
-    else:
-        fake_client.models.list = AsyncMock(side_effect=Exception(error))
-    fake_client.with_options.return_value = fake_client
-    monkeypatch.setattr(OpenAIService, "get_client", lambda self, _provider: fake_client)
+    monkeypatch.setattr(OpenAIService, "ping", _fake_ping)
 
 
 # ==========================================
@@ -540,7 +539,7 @@ def test_api_key_not_in_groups_self_response(api_client: TestClient, unique_user
 
 
 def test_test_unsaved_provider_success(api_client: TestClient, unique_user: TestUser, monkeypatch):
-    _patch_openai_client(monkeypatch, succeeds=True)
+    _patch_ping(monkeypatch, succeeds=True)
 
     data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
     response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=unique_user.token)
@@ -548,11 +547,11 @@ def test_test_unsaved_provider_success(api_client: TestClient, unique_user: Test
 
     result = response.json()
     assert result["success"] is True
-    assert result["latencyMs"] is not None
+    assert result["imageTestPassed"] is True
 
 
 def test_test_unsaved_provider_failure(api_client: TestClient, unique_user: TestUser, monkeypatch):
-    _patch_openai_client(monkeypatch, succeeds=False, error="invalid api key")
+    _patch_ping(monkeypatch, succeeds=False, error="invalid api key")
 
     data = {"name": random_string(), "model": "gpt-4o", "apiKey": "wrong-key"}
     response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=unique_user.token)
@@ -562,25 +561,25 @@ def test_test_unsaved_provider_failure(api_client: TestClient, unique_user: Test
     result = response.json()
     assert result["success"] is False
     assert "invalid api key" in result["message"]
+    assert result["imageTestPassed"] is None
 
 
-def test_test_unsaved_provider_flags_unknown_model(api_client: TestClient, unique_user: TestUser, monkeypatch):
-    # Connects fine, but the configured model isn't in this provider's list - should still be
-    # a "success" (base_url/api_key are valid), just flagged so the UI can warn about it.
-    _patch_openai_client(monkeypatch, succeeds=True, model_ids=["gpt-4o-mini"])
+def test_test_unsaved_provider_flags_unrecognized_image(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    # Text check passes (base_url/api_key/model all work), but the reply to the follow-up image
+    # doesn't mention the bundled test recipe - e.g. a text-only model that silently ignores images.
+    _patch_ping(monkeypatch, succeeds=True, image_matches_recipe=False)
 
-    data = {"name": random_string(), "model": "gpt-4o-typo", "apiKey": "test-key"}
+    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
     response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=unique_user.token)
     assert response.status_code == 200
 
     result = response.json()
     assert result["success"] is True
-    assert result["modelFound"] is False
-    assert "gpt-4o-typo" in result["message"]
+    assert result["imageTestPassed"] is False
 
 
 def test_test_unsaved_provider_never_persists(api_client: TestClient, unique_user: TestUser, monkeypatch):
-    _patch_openai_client(monkeypatch, succeeds=True)
+    _patch_ping(monkeypatch, succeeds=True)
 
     data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
     response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=unique_user.token)
@@ -594,7 +593,7 @@ def test_test_saved_provider_success(api_client: TestClient, unique_user: TestUs
     provider = unique_user.repos.group_ai_providers.create(
         AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
     )
-    _patch_openai_client(monkeypatch, succeeds=True)
+    _patch_ping(monkeypatch, succeeds=True)
 
     try:
         response = api_client.post(
@@ -609,11 +608,18 @@ def test_test_saved_provider_success(api_client: TestClient, unique_user: TestUs
 def test_test_saved_provider_uses_override_values(api_client: TestClient, unique_user: TestUser, monkeypatch):
     # Simulates editing a provider (changing the model) and testing before saving, without
     # entering a new API key. The override's model should be what actually gets tested, not the
-    # one still in the database - proven here by only listing the override model as "known".
+    # one still in the database, and the saved API key should still be used since none was given.
     provider = unique_user.repos.group_ai_providers.create(
         AIProviderCreate(name=random_string(), model="gpt-4o", api_key="original-key")
     )
-    _patch_openai_client(monkeypatch, succeeds=True, model_ids=["gpt-4o-mini"])
+
+    seen_providers = []
+
+    async def _fake_ping(self, provider, message, images=None):
+        seen_providers.append(provider)
+        return _FakeOpenAIText("Hello!") if not images else _FakeOpenAIText("Tomato & Egg Stir-Fry")
+
+    monkeypatch.setattr(OpenAIService, "ping", _fake_ping)
 
     try:
         overrides = {"name": provider.name, "model": "gpt-4o-mini"}  # no apiKey - keep the saved one
@@ -623,10 +629,11 @@ def test_test_saved_provider_uses_override_values(api_client: TestClient, unique
             headers=unique_user.token,
         )
         assert response.status_code == 200
+        assert response.json()["success"] is True
 
-        result = response.json()
-        assert result["success"] is True
-        assert result["modelFound"] is True
+        assert seen_providers
+        assert all(p.model == "gpt-4o-mini" for p in seen_providers)
+        assert all(p.api_key == "original-key" for p in seen_providers)
     finally:
         api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 

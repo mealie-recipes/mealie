@@ -88,15 +88,27 @@
           </v-expansion-panel>
         </v-expansion-panels>
 
-        <v-alert
-          v-if="testResult"
-          :type="testResultAlertType"
-          density="compact"
-          variant="tonal"
-          class="mt-4"
-        >
-          {{ testResultMessage }}
-        </v-alert>
+        <div v-if="testResult" class="mt-4">
+          <div class="d-flex align-center">
+            <v-icon :color="checkColor(textCheckState)" size="small" class="me-2">
+              {{ checkIcon(textCheckState) }}
+            </v-icon>
+            <span class="text-body-2">{{ $t('group.ai-provider-settings.test-check-text') }}</span>
+          </div>
+          <div v-if="!testResult.success && testResult.message" class="text-caption text-medium-emphasis ms-7 mb-2">
+            {{ testResult.message }}
+          </div>
+
+          <div class="d-flex align-center mt-1">
+            <v-icon :color="checkColor(imageCheckState)" size="small" class="me-2">
+              {{ checkIcon(imageCheckState) }}
+            </v-icon>
+            <span class="text-body-2">{{ $t('group.ai-provider-settings.test-check-image') }}</span>
+          </div>
+          <div v-if="imageCheckMessage" class="text-caption text-medium-emphasis ms-7">
+            {{ imageCheckMessage }}
+          </div>
+        </div>
       </v-form>
     </v-card-text>
     <AppLoader v-else />
@@ -166,23 +178,39 @@ const submitDisabled = computed(() => {
   return !formData.name?.trim() || !formData.model?.trim() || (!isEdit.value && !formData.apiKey?.trim());
 });
 
-const testResultAlertType = computed(() => {
-  if (!testResult.value) return "success";
-  if (!testResult.value.success) return "error";
-  return testResult.value.modelFound === false ? "warning" : "success";
+type CheckState = "passed" | "failed" | "pending";
+
+const textCheckState = computed<CheckState | null>(() => {
+  if (!testResult.value) return null;
+  return testResult.value.success ? "passed" : "failed";
 });
 
-const testResultMessage = computed(() => {
+const imageCheckState = computed<CheckState | null>(() => {
   const result = testResult.value;
-  if (!result) return "";
-  if (!result.success) {
-    return result.message || i18n.t("group.ai-provider-settings.test-connection-failed");
-  }
-  if (result.modelFound === false) {
-    return result.message || i18n.t("group.ai-provider-settings.test-connection-model-not-found");
-  }
-  return `${i18n.t("group.ai-provider-settings.test-connection-succeeded")} (${result.latencyMs}ms)`;
+  if (!result) return null;
+  if (!result.success) return "pending"; // text check failed - image check never ran
+  return result.imageTestPassed ? "passed" : "failed";
 });
+
+// Only shown for a failure - a passing image check needs no further explanation, and "pending"
+// already reads as self-explanatory next to the failed text check above it.
+const imageCheckMessage = computed(() => {
+  const result = testResult.value;
+  if (!result?.success || result.imageTestPassed) return "";
+  return result.imageTestMessage || i18n.t("group.ai-provider-settings.test-connection-image-not-recognized");
+});
+
+function checkIcon(state: CheckState | null) {
+  if (state === "passed") return $globals.icons.check;
+  if (state === "failed") return $globals.icons.close;
+  return $globals.icons.minus;
+}
+
+function checkColor(state: CheckState | null) {
+  if (state === "passed") return "success";
+  if (state === "failed") return "error";
+  return undefined;
+}
 
 // Fetch existing provider when editing; reset form for create mode
 watch(

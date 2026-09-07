@@ -79,8 +79,8 @@ export interface AIProviderSettingsUpdate {
 export interface AIProviderTestResult {
   success: boolean;
   message?: string | null;
-  latencyMs?: number | null;
-  modelFound?: boolean | null;
+  imageTestPassed?: boolean | null;
+  imageTestMessage?: string | null;
 }
 export interface AIProviderUpdate {
   name: string;

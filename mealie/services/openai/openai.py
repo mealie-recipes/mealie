@@ -4,7 +4,7 @@ import base64
 import inspect
 import json
 import os
-import time
+import shutil
 from abc import ABC, abstractmethod
 from functools import cached_property
 from pathlib import Path
@@ -42,6 +42,26 @@ def _truncate_error_message(text: str, limit: int = _MAX_TEST_ERROR_MESSAGE_LENG
     if len(text) <= limit:
         return text
     return f"{text[:limit].rstrip()}…"
+
+
+def _describe_ping_error(e: Exception) -> str:
+    """
+    ping() (via get_response()) wraps every failure into a plain Exception, so the SDK's own
+    structured error - a status code plus the provider's actual message - is only reachable via
+    __cause__. Prefer that over the wrapped exception's text, which is Python's dict repr of the
+    entire response body (e.g. "Error code: 404 - {'error': {'message': '...', 'type': ...}}")
+    and reads as noise rather than something a user configuring a provider can act on.
+    """
+    import openai
+
+    cause = e.__cause__
+    if isinstance(cause, openai.APIStatusError) and isinstance(cause.body, dict):
+        error_body = cause.body.get("error", cause.body)
+        message = error_body.get("message") if isinstance(error_body, dict) else None
+        if message:
+            return f"HTTP {cause.status_code}: {message}"
+
+    return str(e)
 
 
 class OpenAINotEnabledException(Exception):
@@ -133,6 +153,7 @@ class OpenAILocalAudio(OpenAIAttachment):
 
 class OpenAIService(BaseService):
     PROMPTS_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "prompts"
+    TESTING_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "testing"
 
     def __init__(self, repos: AllRepositories) -> None:
         self.repos = repos
@@ -184,58 +205,73 @@ class OpenAIService(BaseService):
             default_query=provider.request_params or None,
         )
 
-    async def test_connection(self, provider: AIProviderOut, timeout_seconds: float = 2.0) -> AIProviderTestResult:
-        """
-        Lightweight connectivity check for a provider's base_url/api_key/model.
-
-        Lists available models instead of generating a completion, since listing is a metadata
-        call that OpenAI (and most OpenAI-compatible providers) don't meter or bill for, unlike
-        a chat completion. Uses its own short timeout, independent of the provider's configured
-        (and much longer) functional request timeout.
-        """
-        import openai
-
-        client = self.get_client(provider).with_options(timeout=timeout_seconds)
-        start = time.monotonic()
-        try:
-            models_response = await client.models.list()
-        except openai.AuthenticationError:
-            # Provider error bodies for a bad key often echo back a masked fragment of it (e.g.
-            # "Incorrect API key provided: sk-proj-***...LEuz") - don't pass that through to the UI.
-            return AIProviderTestResult(
-                success=False, message="Authentication failed. Double check that your API key is correct."
-            )
-        except openai.RateLimitError as e:
-            return AIProviderTestResult(success=False, message=_truncate_error_message(str(e)))
-        except openai.APIStatusError as e:
-            # Covers AuthenticationError, PermissionDeniedError, NotFoundError, etc. - leads with
-            # the actual HTTP status since that's the clearest signal for a misconfigured provider.
-            return AIProviderTestResult(success=False, message=_truncate_error_message(f"HTTP {e.status_code}: {e}"))
-        except Exception as e:
-            return AIProviderTestResult(success=False, message=_truncate_error_message(f"{e.__class__.__name__}: {e}"))
-
-        latency_ms = round((time.monotonic() - start) * 1000)
-
-        # A successful call only proves the base_url/api_key work - it says nothing about
-        # whether `provider.model` is one this provider actually serves. Cross-check it against
-        # the list we just got back, but don't fail the whole test over it: some OpenAI-compatible
-        # providers don't populate /v1/models accurately (or at all), so an empty/unmatched list
-        # isn't strong enough evidence to call the model wrong, only to flag it as unconfirmed.
-        model_ids = {m.id for m in models_response.data}
-        if not model_ids:
-            return AIProviderTestResult(success=True, latency_ms=latency_ms, model_found=None)
-
-        model_found = provider.model in model_ids
-        message = (
-            None
-            if model_found
-            else (
-                f"Connected, but model \"{provider.model}\" wasn't in the provider's published model list. "
-                "This doesn't necessarily mean the name is wrong — some providers omit models this account "
-                "doesn't have access to yet (e.g. paid tiers) or haven't listed newly released ones."
-            )
+    async def ping(
+        self, provider: AIProviderOut, message: str, images: list[OpenAILocalImage] | None = None
+    ) -> OpenAIText | None:
+        """Send a one-off chat message to a provider. Shared by the admin debug endpoint and test_connection."""
+        prompt = self.get_prompt("general.debug")
+        return await self.get_response(
+            prompt, message, response_schema=OpenAIText, attachments=images, provider=provider
         )
-        return AIProviderTestResult(success=True, latency_ms=latency_ms, model_found=model_found, message=message)
+
+    async def test_connection(self, provider: AIProviderOut) -> AIProviderTestResult:
+        """
+        Confirm a provider's base_url/api_key/model actually work by sending a real chat message,
+        rather than just listing models - a provider can pass a /models check and still fail to
+        complete a request (see discussion #8051).
+
+        If that succeeds, follow up with a photo of a short recipe bundled in `testing/` and check
+        whether the reply mentions it. This catches providers that accept an image parameter without
+        erroring but don't actually look at it (e.g. text-only models like DeepSeek-chat) - a gap a
+        text-only check can't see.
+        """
+        try:
+            response = await self.ping(provider, "Hello, checking to see if I can reach you.")
+        except Exception as e:
+            return AIProviderTestResult(success=False, message=_truncate_error_message(_describe_ping_error(e)))
+
+        if not response:
+            return AIProviderTestResult(success=False, message="No response received from the provider.")
+
+        image_test_passed, image_test_message = await self._test_image_recognition(provider)
+        return AIProviderTestResult(
+            success=True, image_test_passed=image_test_passed, image_test_message=image_test_message
+        )
+
+    async def _test_image_recognition(self, provider: AIProviderOut) -> tuple[bool, str | None]:
+        from mealie.core.dependencies.dependencies import get_temporary_path
+
+        try:
+            with get_temporary_path() as temp_path:
+                filename = self._test_image_path.name
+                image_path = temp_path / filename
+                shutil.copy(self._test_image_path, image_path)
+
+                response = await self.ping(
+                    provider,
+                    "What recipe is shown in the attached image? Reply with its name and main ingredients.",
+                    images=[OpenAILocalImage(filename=filename, path=image_path)],
+                )
+        except Exception as e:
+            return False, _truncate_error_message(_describe_ping_error(e))
+
+        if not response:
+            return False, "No response received from the provider."
+
+        text = response.text.lower()
+        if any(keyword in text for keyword in self._test_image_keywords):
+            return True, None
+
+        return False, None
+
+    @cached_property
+    def _test_image_path(self) -> Path:
+        return self.TESTING_DIR / "recipe-image.jpg"
+
+    @cached_property
+    def _test_image_keywords(self) -> list[str]:
+        data = json.loads((self.TESTING_DIR / "recipe.json").read_text())
+        return [keyword.lower() for keyword in data["test_keywords"]]
 
     def _get_provider(self, attachments: list[OpenAIAttachment] | None = None) -> AIProviderOut:
         """Select the appropriate provider based on attachment types, falling back to the default."""

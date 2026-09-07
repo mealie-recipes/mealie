@@ -1,4 +1,4 @@
-from unittest.mock import AsyncMock, MagicMock
+from unittest.mock import MagicMock
 from uuid import uuid4
 
 import httpx
@@ -100,91 +100,129 @@ def _make_test_provider() -> AIProviderOut:
     )
 
 
-class _FakeModel:
-    def __init__(self, model_id: str):
-        self.id = model_id
+class _FakeOpenAIText:
+    def __init__(self, text: str):
+        self.text = text
 
 
-class _FakeModelsResponse:
-    def __init__(self, model_ids: list[str]):
-        self.data = [_FakeModel(m) for m in model_ids]
+def _patch_ping(monkeypatch, *, text_response="Hello!", image_response: str | None = "unused", image_error=None):
+    """
+    Stubs OpenAIService.ping() so test_connection's two calls (text, then image) can be driven
+    independently without going through the real OpenAI client.
 
+    - text_response: what the plain-text ping returns (a falsy value simulates no response)
+    - image_response: what the image ping returns; ignored if image_error is set
+    - image_error: if set, the image ping raises this instead of returning
+    """
 
-def _make_fake_client(*, list_result: AsyncMock) -> MagicMock:
-    """A stand-in for AsyncOpenAI that records the timeout passed to with_options()."""
-    fake_client = MagicMock()
-    fake_client.models.list = list_result
+    async def _fake_ping(self, provider, message, images=None):
+        if images:
+            if image_error:
+                raise image_error
+            return _FakeOpenAIText(image_response) if image_response else None
+        return _FakeOpenAIText(text_response) if text_response else None
 
-    def _with_options(**kwargs):
-        fake_client.with_options_kwargs = kwargs
-        return fake_client
-
-    fake_client.with_options.side_effect = _with_options
-    return fake_client
+    monkeypatch.setattr(OpenAIService, "ping", _fake_ping)
 
 
 @pytest.mark.asyncio
-async def test_connection_success_known_model(settings_stub, monkeypatch):
-    # Provider fixture uses model="gpt-test", so include it in the fake model list
-    response = _FakeModelsResponse(["gpt-test", "gpt-other"])
-    fake_client = _make_fake_client(list_result=AsyncMock(return_value=response))
-    monkeypatch.setattr(OpenAIService, "get_client", lambda self, provider: fake_client)
+async def test_ping_builds_debug_prompt_and_delegates_to_get_response(settings_stub, monkeypatch):
+    monkeypatch.setattr(OpenAIService, "get_prompt", lambda self, name: f"PROMPT:{name}")
+
+    captured = {}
+
+    async def _fake_get_response(self, prompt, message, *, response_schema, attachments=None, provider=None):
+        captured.update(prompt=prompt, message=message, attachments=attachments, provider=provider)
+        return _FakeOpenAIText("ok")
+
+    monkeypatch.setattr(OpenAIService, "get_response", _fake_get_response)
+
+    svc = OpenAIService(_make_mock_repos())
+    provider = _make_test_provider()
+    result = await svc.ping(provider, "hello there", images=["fake-image"])
+
+    assert result.text == "ok"
+    assert captured == {
+        "prompt": "PROMPT:general.debug",
+        "message": "hello there",
+        "attachments": ["fake-image"],
+        "provider": provider,
+    }
+
+
+@pytest.mark.asyncio
+async def test_connection_success_recognizes_test_image(settings_stub, monkeypatch):
+    # The bundled test image is a screenshot of a "Tomato & Egg Stir-Fry" recipe - a response that
+    # actually describes it should satisfy the keyword check.
+    _patch_ping(monkeypatch, image_response="This looks like a Tomato & Egg Stir-Fry with eggs and tomato.")
 
     svc = OpenAIService(_make_mock_repos())
     result = await svc.test_connection(_make_test_provider())
 
     assert result.success is True
-    assert result.model_found is True
     assert result.message is None
-    assert result.latency_ms is not None
-    assert result.latency_ms >= 0
+    assert result.image_test_passed is True
 
 
 @pytest.mark.asyncio
-async def test_connection_succeeds_but_flags_unknown_model(settings_stub, monkeypatch):
-    # Connection works, but "gpt-test" (from the provider fixture) isn't in this list
-    response = _FakeModelsResponse(["some-other-model"])
-    fake_client = _make_fake_client(list_result=AsyncMock(return_value=response))
-    monkeypatch.setattr(OpenAIService, "get_client", lambda self, provider: fake_client)
+async def test_connection_success_but_image_reply_does_not_mention_recipe(settings_stub, monkeypatch):
+    # Some providers accept an image parameter without erroring but don't actually look at it -
+    # the text check alone can't tell the two apart, which is the whole point of this second step.
+    _patch_ping(monkeypatch, image_response="I'm not sure what you mean, could you clarify?")
 
     svc = OpenAIService(_make_mock_repos())
     result = await svc.test_connection(_make_test_provider())
 
     assert result.success is True
-    assert result.model_found is False
-    assert result.message is not None
-    assert "gpt-test" in result.message
+    assert result.image_test_passed is False
+    assert result.image_test_message is None  # a clean miss, not an error - nothing to show
 
 
 @pytest.mark.asyncio
-async def test_connection_empty_model_list_leaves_model_unconfirmed(settings_stub, monkeypatch):
-    # Some OpenAI-compatible providers return an empty /v1/models list - not enough evidence
-    # to call the configured model wrong, so this should stay a plain, unflagged success.
-    response = _FakeModelsResponse([])
-    fake_client = _make_fake_client(list_result=AsyncMock(return_value=response))
-    monkeypatch.setattr(OpenAIService, "get_client", lambda self, provider: fake_client)
+async def test_connection_success_but_image_request_errors(settings_stub, monkeypatch):
+    # e.g. a text-only model that rejects an image_url content part outright
+    _patch_ping(monkeypatch, image_error=Exception("model does not support image input"))
 
     svc = OpenAIService(_make_mock_repos())
     result = await svc.test_connection(_make_test_provider())
 
     assert result.success is True
-    assert result.model_found is None
-    assert result.message is None
+    assert result.image_test_passed is False
+    assert result.image_test_message is not None
+    assert "model does not support image input" in result.image_test_message
 
 
 @pytest.mark.asyncio
-async def test_connection_failure_returns_structured_result(settings_stub, monkeypatch):
-    fake_client = _make_fake_client(list_result=AsyncMock(side_effect=Exception("connection refused")))
-    monkeypatch.setattr(OpenAIService, "get_client", lambda self, provider: fake_client)
+async def test_connection_text_failure_never_attempts_image_test(settings_stub, monkeypatch):
+    calls: list[list | None] = []
+
+    async def _fake_ping(self, provider, message, images=None):
+        calls.append(images)
+        raise Exception("connection refused")
+
+    monkeypatch.setattr(OpenAIService, "ping", _fake_ping)
 
     svc = OpenAIService(_make_mock_repos())
     result = await svc.test_connection(_make_test_provider())
 
     assert result.success is False
-    assert result.latency_ms is None
     assert result.message is not None
     assert "connection refused" in result.message
-    # Failures shouldn't raise — callers rely on a structured result, not an exception
+    assert result.image_test_passed is None
+    assert result.image_test_message is None
+    assert calls == [None]  # only the text ping ran
+
+
+@pytest.mark.asyncio
+async def test_connection_empty_response_is_a_failure(settings_stub, monkeypatch):
+    _patch_ping(monkeypatch, text_response=None)
+
+    svc = OpenAIService(_make_mock_repos())
+    result = await svc.test_connection(_make_test_provider())
+
+    assert result.success is False
+    assert result.message == "No response received from the provider."
+    assert result.image_test_passed is None
 
 
 @pytest.mark.asyncio
@@ -193,8 +231,11 @@ async def test_connection_failure_truncates_long_error_messages(settings_stub, m
     # Cloudflare block page, a load balancer default vhost, ...) and return a huge non-JSON body,
     # which the SDK includes verbatim in the exception message. That must not flood the UI.
     huge_html = "<!DOCTYPE html>" + ("<div>error page content</div>\n" * 200)
-    fake_client = _make_fake_client(list_result=AsyncMock(side_effect=Exception(huge_html)))
-    monkeypatch.setattr(OpenAIService, "get_client", lambda self, provider: fake_client)
+
+    async def _fake_ping(self, provider, message, images=None):
+        raise Exception(huge_html)
+
+    monkeypatch.setattr(OpenAIService, "ping", _fake_ping)
 
     svc = OpenAIService(_make_mock_repos())
     result = await svc.test_connection(_make_test_provider())
@@ -207,63 +248,33 @@ async def test_connection_failure_truncates_long_error_messages(settings_stub, m
 
 
 @pytest.mark.asyncio
-async def test_connection_api_status_error_includes_status_code(settings_stub, monkeypatch):
+async def test_connection_extracts_clean_message_from_api_status_error(settings_stub, monkeypatch):
+    # get_response() wraps every failure into a plain Exception before it reaches test_connection,
+    # so the raw exception text is the SDK's dict repr of the whole response body (ugly, and not
+    # what the user actually needs to see) - the real, human-written message is only reachable via
+    # __cause__. This proves that extraction actually works against the real SDK error type.
     response = httpx.Response(
         status_code=404,
-        request=httpx.Request("GET", "https://example.com/v1/models"),
-        content=b"Not Found",
+        request=httpx.Request("POST", "https://example.com/v1/chat/completions"),
+        content=b"irrelevant, .body below is what's read",
     )
-    error = openai.NotFoundError(message="Error code: 404", response=response, body=None)
-
-    fake_client = _make_fake_client(list_result=AsyncMock(side_effect=error))
-    monkeypatch.setattr(OpenAIService, "get_client", lambda self, provider: fake_client)
-
-    svc = OpenAIService(_make_mock_repos())
-    result = await svc.test_connection(_make_test_provider())
-
-    assert result.success is False
-    assert result.message is not None
-    assert "404" in result.message
-
-
-@pytest.mark.asyncio
-async def test_connection_authentication_error_does_not_leak_key_fragment(settings_stub, monkeypatch):
-    response = httpx.Response(
-        status_code=401,
-        request=httpx.Request("GET", "https://example.com/v1/models"),
-        content=b"Unauthorized",
-    )
-    error = openai.AuthenticationError(
-        message="Incorrect API key provided: sk-proj-***************************LEuz.",
+    sdk_error = openai.NotFoundError(
+        message="Error code: 404 - {'error': {'message': 'model not found', ...}}",
         response=response,
-        body=None,
+        body={"error": {"message": "The model `gpt-4o-mini111` does not exist or you do not have access to it."}},
     )
 
-    fake_client = _make_fake_client(list_result=AsyncMock(side_effect=error))
-    monkeypatch.setattr(OpenAIService, "get_client", lambda self, provider: fake_client)
+    async def _fake_ping(self, provider, message, images=None):
+        try:
+            raise sdk_error
+        except Exception as e:
+            # Mirrors get_response()'s own wrapping (`raise Exception(...) from e`)
+            raise Exception(f"OpenAI Request Failed. {e.__class__.__name__}: {e}") from e
+
+    monkeypatch.setattr(OpenAIService, "ping", _fake_ping)
 
     svc = OpenAIService(_make_mock_repos())
     result = await svc.test_connection(_make_test_provider())
 
     assert result.success is False
-    assert result.message is not None
-    assert "sk-proj" not in result.message
-    assert "LEuz" not in result.message
-
-
-@pytest.mark.asyncio
-async def test_connection_uses_its_own_short_timeout(settings_stub, monkeypatch):
-    """
-    The connectivity check must not block for the provider's full (much longer) functional
-    timeout - it should apply its own short-lived override via with_options().
-    """
-    fake_client = _make_fake_client(list_result=AsyncMock(return_value=_FakeModelsResponse([])))
-    monkeypatch.setattr(OpenAIService, "get_client", lambda self, provider: fake_client)
-
-    svc = OpenAIService(_make_mock_repos())
-    provider = _make_test_provider()
-    assert provider.timeout == 300  # the provider's functional timeout, should NOT be used below
-
-    await svc.test_connection(provider, timeout_seconds=2.0)
-
-    assert fake_client.with_options_kwargs == {"timeout": 2.0}
+    assert result.message == "HTTP 404: The model `gpt-4o-mini111` does not exist or you do not have access to it."
