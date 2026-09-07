@@ -25,7 +25,7 @@ from mealie.schema.response.pagination import (
     RequestQuery,
 )
 from mealie.schema.response.query_search import SearchFilter
-from mealie.services.query_filter.builder import NonFilterableValueError, QueryFilterBuilder
+from mealie.services.query_filter.builder import NonFilterableValueError, QueryFilterBuilder, RelationshipChain
 
 from ._utils import NOT_SET, NotSet
 
@@ -414,12 +414,25 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         order_attr: InstrumentedAttribute,
         order_dir: OrderDirection,
         order_by_null: OrderByNullPosition | None,
+        relationships: RelationshipChain | None = None,
     ) -> Select:
-        order_attr = self.column_aliases.get(order_attr.key, order_attr)
+        if order_attr.key in self.column_aliases:
+            # aliases are already expressed on the base model, so there is nothing left to traverse
+            order_attr = self.column_aliases[order_attr.key]
+            relationships = None
 
         # queries handle uppercase and lowercase differently, which is undesirable
         if isinstance(order_attr.type, sqltypes.String):
             order_attr = func.lower(order_attr)
+
+        if relationships:
+            if any(uselist for _, uselist in relationships):
+                order_attr = QueryFilterBuilder.aggregate_over_relationships(
+                    order_attr, relationships, self.model, descending=order_dir is OrderDirection.desc
+                )
+            else:
+                # "to-one" relationships cannot duplicate records, so joining is cheaper than aggregating
+                query = QueryFilterBuilder.join_relationships(query, relationships)
 
         if order_dir is OrderDirection.asc:
             order_attr = order_attr.asc()
@@ -463,12 +476,13 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                         order_by = order_by_val
                         order_dir = request_query.order_direction
 
-                    _, order_attr, query = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
-                        order_by, self.model, query=query
+                    relationships: RelationshipChain = []
+                    _, order_attr = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
+                        order_by, self.model, collect_relationships=relationships
                     )
 
                     query = self.add_order_attr_to_query(
-                        query, order_attr, order_dir, request_query.order_by_null_position
+                        query, order_attr, order_dir, request_query.order_by_null_position, relationships
                     )
 
                 except NonFilterableValueError as e:
