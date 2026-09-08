@@ -1,6 +1,6 @@
 <template>
   <v-menu
-    v-if="hasConvertibleIngredients"
+    :disabled="!hasConvertibleIngredients"
     offset-y
     top
     nudge-top="6"
@@ -17,6 +17,7 @@
             dark
             color="secondary-darken-1"
             size="small"
+            :disabled="!hasConvertibleIngredients"
             v-bind="{ ...activatorProps, ...tooltipProps }"
           >
             <v-icon size="small" class="mr-2">
@@ -74,8 +75,9 @@ const activeLabel = computed(() => {
   }
 });
 
-// Hidden entirely when nothing on the recipe carries the standardization data conversion needs,
-// so the control never appears only to do nothing when used.
+// Disabled when nothing on the recipe carries the standardization data conversion needs, so the
+// control stays in place — the reader can see units are a thing here — but never does nothing
+// when used.
 const hasConvertibleIngredients = computed(() =>
   props.recipe.recipeIngredient.some(canConvertIngredient),
 );
