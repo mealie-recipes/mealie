@@ -19,7 +19,6 @@
             "yields": "Rezultāts"
         },
         "and-amount": "un {amount}",
-        "or-ingredient": "vai {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI pakalpojumi nav ieslēgti",
             "ai-request-failed": "Mākslīgā intelekta pakalpojuma sniedzējs nevarēja izpildīt pieprasījumu. Lūdzu, mēģiniet vēlreiz",

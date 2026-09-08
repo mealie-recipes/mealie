@@ -160,6 +160,9 @@ class QueryFilterBuilderComponent:
         )
 
 
+RelationshipChain = list[tuple[InstrumentedAttribute, bool]]
+
+
 class QueryFilterBuilder:
     l_group_sep: str = "("
     r_group_sep: str = ")"
@@ -250,7 +253,12 @@ class QueryFilterBuilder:
 
     @classmethod
     def get_model_and_model_attr_from_attr_string[Model: SqlAlchemyBase](
-        cls, attr_string: str, model: type[Model], *, query: sa.Select | None = None
+        cls,
+        attr_string: str,
+        model: type[Model],
+        *,
+        query: sa.Select | None = None,
+        collect_relationships: RelationshipChain | None = None,
     ) -> tuple[type[SqlAlchemyBase], InstrumentedAttribute, sa.Select | None]:
         """
         Take an attribute string and traverse a database model and its relationships to get the desired
@@ -288,6 +296,8 @@ class QueryFilterBuilder:
 
                     mapper = sa.inspect(current_model)
                     relationship = mapper.relationships[proxied_attribute_link]
+                    if collect_relationships is not None:
+                        collect_relationships.append((model_attr, relationship.uselist))
                     current_model = relationship.mapper.class_
                     model_attr = getattr(current_model, next_attribute_link)
 
@@ -300,6 +310,8 @@ class QueryFilterBuilder:
 
                 mapper = sa.inspect(current_model)
                 relationship = mapper.relationships[attribute_link]
+                if collect_relationships is not None:
+                    collect_relationships.append((model_attr, relationship.uselist))
                 current_model = relationship.mapper.class_
 
             except (AttributeError, KeyError) as e:
@@ -313,6 +325,19 @@ class QueryFilterBuilder:
 
         return current_model, model_attr, query
 
+    @staticmethod
+    def _wrap_in_relationships(element: sa.ColumnElement, relationships: RelationshipChain) -> sa.ColumnElement:
+        """
+        Wrap a filter element in EXISTS subqueries, one per relationship traversed by the attribute string.
+
+        Joining the relationship instead would duplicate a row per related record, which breaks LIMIT/OFFSET,
+        and would make two conditions on the same relationship contradict each other on a single joined row.
+        """
+        for relationship_attr, uselist in reversed(relationships):
+            element = relationship_attr.any(element) if uselist else relationship_attr.has(element)
+
+        return element
+
     @classmethod
     def _transform_model_attr(cls, model_attr: InstrumentedAttribute, model_attr_type: Any) -> InstrumentedAttribute:
         if isinstance(model_attr_type, sqltypes.String):
@@ -323,13 +348,12 @@ class QueryFilterBuilder:
     @classmethod
     def _get_filter_element[Model: SqlAlchemyBase](
         cls,
-        query: sa.Select,
         component: QueryFilterBuilderComponent,
         model: type[Model],
         model_attr: InstrumentedAttribute,
         model_attr_type: Any,
+        relationships: RelationshipChain,
     ) -> sa.ColumnElement:
-        original_model_attr = model_attr
         model_attr = cls._transform_model_attr(model_attr, model_attr_type)
         value = component.validate(model_attr_type)
 
@@ -341,9 +365,9 @@ class QueryFilterBuilder:
         elif component.relationship is RelationalKeyword.IN:
             element = model_attr.in_(value)
         elif component.relationship is RelationalKeyword.NOT_IN:
-            if original_model_attr.parent.entity != model:
-                subq = query.with_only_columns(model.id).where(model_attr.in_(value))
-                element = sa.not_(model.id.in_(subq))
+            if relationships:
+                # "none of the related rows match", rather than "some related row doesn't match"
+                return sa.not_(cls._wrap_in_relationships(model_attr.in_(value), relationships))
             else:
                 element = sa.not_(model_attr.in_(value))
 
@@ -351,8 +375,8 @@ class QueryFilterBuilder:
             if len(value) == 1:
                 element = model_attr.in_(value)
             else:
-                primary_model_attr: InstrumentedAttribute = getattr(model, component.attribute_name.split(".")[0])
-                element = sa.and_(*(primary_model_attr.any(model_attr == v) for v in value))
+                # every value must be matched by a different related row, so each gets its own EXISTS
+                return sa.and_(*(cls._wrap_in_relationships(model_attr == v, relationships) for v in value))
         elif component.relationship is RelationalKeyword.LIKE:
             element = model_attr.ilike(value)
         elif component.relationship is RelationalKeyword.NOT_LIKE:
@@ -374,7 +398,7 @@ class QueryFilterBuilder:
         else:
             raise ValueError(f"invalid relationship {component.relationship}")
 
-        return element
+        return cls._wrap_in_relationships(element, relationships)
 
     def filter_query[Model: SqlAlchemyBase](
         self, query: sa.Select, model: type[Model], column_aliases: dict[str, sa.ColumnElement] | None = None
@@ -385,17 +409,18 @@ class QueryFilterBuilder:
         """
         column_aliases = column_aliases or {}
 
-        # join tables and build model chain
-        attr_map: dict[int, tuple[type[SqlAlchemyBase], InstrumentedAttribute]] = {}
+        # resolve each attribute string to its model attribute and the relationships it traverses
+        attr_map: dict[int, tuple[type[SqlAlchemyBase], InstrumentedAttribute, RelationshipChain]] = {}
         model_attr: InstrumentedAttribute
         for i, component in enumerate(self.filter_components):
             if not isinstance(component, QueryFilterBuilderComponent):
                 continue
 
-            nested_model, model_attr, query = self.get_model_and_model_attr_from_attr_string(
-                component.attribute_name, model, query=query
+            relationships: RelationshipChain = []
+            nested_model, model_attr, _ = self.get_model_and_model_attr_from_attr_string(
+                component.attribute_name, model, collect_relationships=relationships
             )
-            attr_map[i] = (nested_model, model_attr)
+            attr_map[i] = (nested_model, model_attr, relationships)
 
         # build query filter
         partial_group: list[sa.ColumnElement] = []
@@ -419,13 +444,14 @@ class QueryFilterBuilder:
 
             else:
                 component = cast(QueryFilterBuilderComponent, component)
-                nested_model, model_attr = attr_map[i]
+                nested_model, model_attr, relationships = attr_map[i]
 
                 base_attribute_name = component.attribute_name.split(".")[-1]
                 if (column_alias := column_aliases.get(base_attribute_name)) is not None:
                     model_attr = column_alias
+                    relationships = []
 
-                element = self._get_filter_element(query, component, model, model_attr, model_attr.type)
+                element = self._get_filter_element(component, model, model_attr, model_attr.type, relationships)
                 partial_group.append(element)
 
         # combine the completed groups into one filter
