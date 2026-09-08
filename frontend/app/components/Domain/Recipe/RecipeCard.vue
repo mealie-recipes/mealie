@@ -81,8 +81,9 @@
                 :menu-icon="$globals.icons.dotsVertical"
                 :name="name"
                 :recipe-id="recipeId"
+                :recipe="recipe"
                 :use-items="{
-                  delete: false,
+                  delete: true,
                   edit: false,
                   download: true,
                   mealplanner: true,
@@ -109,8 +110,10 @@ import RecipeContextMenu from "./RecipeContextMenu/RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
 import RecipeCardRating from "./RecipeCardRating.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
+import type { Recipe } from "~/lib/api/types/recipe";
 
 interface Props {
+  recipe?: Recipe;
   name: string;
   slug: string;
   description?: string | null;

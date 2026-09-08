@@ -117,6 +117,7 @@
             :xl="3"
           >
             <RecipeCard
+              :recipe="recipe"
               :name="recipe.name!"
               :description="recipe.description!"
               :slug="recipe.slug!"
@@ -124,6 +125,7 @@
               :image="recipe.image!"
               :tags="recipe.tags!"
               :recipe-id="recipe.id!"
+              @delete="removeRecipe"
             />
           </v-col>
         </v-row>
@@ -336,6 +338,11 @@ async function initRecipes() {
   page.value = page.value + 1;
 
   emit(REPLACE_RECIPES_EVENT, newRecipes);
+}
+
+function removeRecipe(slug: string) {
+  const updatedRecipes = props.recipes.filter(recipe => recipe.slug !== slug);
+  emit(REPLACE_RECIPES_EVENT, updatedRecipes);
 }
 
 const infiniteScroll = useThrottleFn(async () => {
