@@ -542,6 +542,40 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
     async def get_html(self, url: str) -> str:
         return self.raw_html or await safe_scrape_html(url)
 
+    @staticmethod
+    def extract_recipe_name(title: str) -> str:
+        """Extract a recipe name from social-media Open Graph titles.
+
+        Instagram may put the account name and the entire post caption into
+        og:title. In that case, extract the likely recipe title instead of
+        using the full caption as the recipe name.
+        """
+        title = cleaner.clean_string(title)
+
+        instagram_match = re.search(
+            r"\bon Instagram:\s*(.+)",
+            title,
+            flags=re.IGNORECASE | re.DOTALL,
+        )
+
+        if not instagram_match:
+            return title
+
+        caption = instagram_match.group(1).strip().strip("\"'")
+
+        section_match = re.search(
+            r"\s+(?=(?:follow\b|ingredients?\b|instructions?\b|method\b|directions?\b))",
+            caption,
+            flags=re.IGNORECASE,
+        )
+
+        if section_match:
+            caption = caption[:section_match.start()]
+
+        recipe_name = caption.strip().strip("\"' -")
+
+        return recipe_name or title
+
     def get_recipe_fields(self, html) -> dict | None:
         """
         Get the recipe fields from the Open Graph data.
@@ -560,14 +594,16 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
         except Exception:
             return None
 
+        title = og_field(properties, "og:title")
+        recipe_name = self.extract_recipe_name(title)
         return {
-            "name": og_field(properties, "og:title"),
+            "name": recipe_name,
             "description": og_field(properties, "og:description"),
             "image": og_field(properties, "og:image"),
             "recipeYield": "",
             "recipeIngredient": ["Could not detect ingredients"],
             "recipeInstructions": [{"text": "Could not detect instructions"}],
-            "slug": slugify(og_field(properties, "og:title")),
+            "slug": slugify(recipe_name),
             "orgURL": self.url or og_field(properties, "og:url"),
             "categories": [],
             "tags": og_fields(properties, "og:article:tag"),
