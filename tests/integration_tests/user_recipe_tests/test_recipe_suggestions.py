@@ -775,3 +775,43 @@ def test_exact_matches_outrank_substitute_matches(api_client: TestClient, unique
     finally:
         for recipe in [exact_recipe, substituted_recipe]:
             unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_negative_max_missing_foods_rejected(api_client: TestClient, unique_user: TestUser):
+    """See https://github.com/mealie-recipes/mealie/issues/8238
+
+    A negative value for maxMissingFoods must be rejected by the API rather
+    than silently accepted. The frontend also clamps these values, but the
+    server is the source of truth.
+    """
+    response = api_client.get(
+        api_routes.recipes_suggestions,
+        params={"maxMissingFoods": -1},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 422
+
+
+def test_negative_max_missing_tools_rejected(api_client: TestClient, unique_user: TestUser):
+    """See https://github.com/mealie-recipes/mealie/issues/8238
+
+    A negative value for maxMissingTools must be rejected by the API rather
+    than silently accepted. The frontend also clamps these values, but the
+    server is the source of truth.
+    """
+    response = api_client.get(
+        api_routes.recipes_suggestions,
+        params={"maxMissingTools": -1},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 422
+
+
+def test_zero_max_missing_accepted(api_client: TestClient, unique_user: TestUser):
+    """A value of 0 is a valid lower bound and must continue to be accepted."""
+    response = api_client.get(
+        api_routes.recipes_suggestions,
+        params={"maxMissingFoods": 0, "maxMissingTools": 0},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
