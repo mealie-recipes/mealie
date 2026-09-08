@@ -358,6 +358,7 @@
                             })"
                             :scale="scale"
                             :is-cook-mode="isCookMode"
+                            :storage-key="ingredientStorageKey"
                           />
                         </div>
                       </v-col>
@@ -418,6 +419,10 @@ const props = defineProps({
   scale: {
     type: Number,
     default: 1,
+  },
+  ingredientStorageKey: {
+    type: String,
+    default: undefined,
   },
 });
 
