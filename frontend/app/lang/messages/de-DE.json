@@ -991,7 +991,7 @@
       "new-category": "Neue Kategorie",
       "category-data": "Kategorien-Daten",
       "combine-category": "Combine Category",
-      "source-category": "Source Category",
+      "source-category": "Quelle",
       "target-category": "Target Category",
       "merge-dialog-text": "Combining the selected categories will merge the source category and target category into a single category. The source category will be deleted and all of the references to the source category will be updated to point to the target category.",
       "merge-category-example": "Merging {category1} into {category2}",
