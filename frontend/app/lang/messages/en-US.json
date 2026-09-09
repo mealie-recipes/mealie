@@ -1162,8 +1162,7 @@
     "manage-members": "Manage Members",
     "manage-webhooks": "Manage Webhooks",
     "manage-notifiers": "Manage Notifiers",
-    "manage-data-migrations": "Manage Data Migrations",
-    "permission-denied-desc": "If you need access, please contact your administrator."
+    "manage-data-migrations": "Manage Data Migrations"
   },
   "cookbook": {
     "cookbooks": "Cookbooks",
