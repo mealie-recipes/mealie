@@ -450,6 +450,20 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
+    @staticmethod
+    def _preserve_omitted_image(recipe: Recipe, update_data: Recipe) -> Recipe:
+        """Keeps the stored image when the payload doesn't mention it.
+
+        Updates are a full overwrite, so a client that round-trips a recipe without echoing
+        `image` back would otherwise clear it. The image files stay on disk, leaving a recipe
+        that has a picture but no longer says so - which reads to the frontend as "no image".
+        The image is owned by the `/{slug}/image` endpoints; an update only carries it along.
+        """
+        if "image" not in update_data.model_fields_set:
+            update_data.image = recipe.image
+
+        return update_data
+
     def _remove_non_existent_ingredient_references(self, update_data: Recipe) -> Recipe:
         """Removes the references of ingredients from steps that no longer exist."""
 
@@ -493,6 +507,7 @@ class RecipeService(RecipeServiceBase):
     def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug_or_id, update_data)
 
+        update_data = self._preserve_omitted_image(recipe, update_data)
         update_data = self._remove_non_existent_ingredient_references(update_data)
         update_data = self._resolve_ingredient_sub_recipes(update_data)
 

@@ -10,11 +10,11 @@
     </template>
     <template v-if="parsedIng.note && !parsedIng.name">
       <SafeMarkdown class="text-bold d-inline" :source="parsedIng.note" />
-      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" />
+      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" :scale="scale" />
     </template>
     <template v-else-if="parsedIng.recipeLink">
       <SafeMarkdown class="text-bold d-inline" :source="parsedIng.recipeLink" />
-      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" />
+      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" :scale="scale" />
       <SafeMarkdown v-if="parsedIng.note" class="note" :source="parsedIng.note" />
     </template>
     <template v-else>
@@ -24,7 +24,7 @@
         :source="parsedIng.name"
       />
       <!-- sits before the note, which takes a full flex row of its own -->
-      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" />
+      <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" :scale="scale" />
       <SafeMarkdown
         v-if="parsedIng.note"
         class="note"
@@ -65,7 +65,9 @@ const parsedIng = computed(() => {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.25em;
+  // column only: the note takes a flex row of its own, and it reads as belonging to the
+  // ingredient above it only if it sits tighter to that line than the rows sit to each other
+  column-gap: 0.25em;
   word-break: break-word;
   min-width: 0;
 
@@ -95,6 +97,24 @@ const parsedIng = computed(() => {
     font-weight: bold;
     white-space: normal;
     word-break: break-word;
+  }
+
+  // vuetify sizes an icon button for a toolbar, far taller than the line of text this one
+  // sits on; left alone it sets the row's height and pushes the note down. sized to the line
+  // instead, so the box, the icon glyph and the line are all the same height -- the glyph
+  // follows font-size, not the box, so it renders unchanged
+  .v-btn--icon {
+    line-height: inherit;
+    width: 1lh;
+    height: 1lh;
+
+    // the tap target stays finger-sized as a transparent halo over the rows either side,
+    // rather than a taller box that would push them apart
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -0.75rem;
+    }
   }
 }
 
