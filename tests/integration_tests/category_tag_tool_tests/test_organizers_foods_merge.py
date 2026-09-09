@@ -36,6 +36,24 @@ def _set_recipe_foods(api_client: TestClient, user: TestUser, slug: str, foods: 
     assert response.status_code == 200
 
 
+def _create_shopping_list(api_client: TestClient, user: TestUser) -> dict:
+    response = api_client.post(
+        api_routes.households_shopping_lists, json={"name": random_string(10)}, headers=user.token
+    )
+    assert response.status_code == 201
+    return response.json()
+
+
+def _create_shopping_list_item_with_food(api_client: TestClient, user: TestUser, list_id: str, food_id: str) -> dict:
+    response = api_client.post(
+        api_routes.households_shopping_items,
+        json={"shoppingListId": list_id, "foodId": food_id, "note": random_string(10)},
+        headers=user.token,
+    )
+    assert response.status_code == 201
+    return response.json()["createdItems"][0]
+
+
 # ---------------------------------------------------------------------------
 # Foods — recipe_count
 # ---------------------------------------------------------------------------
@@ -90,6 +108,28 @@ def test_foods_empty_includes_unused_food_and_excludes_used_food(api_client: Tes
     api_client.delete(api_routes.recipes_slug(slug), headers=unique_user.token)
     api_client.delete(api_routes.foods_item_id(unused_food["id"]), headers=unique_user.token)
     api_client.delete(api_routes.foods_item_id(used_food["id"]), headers=unique_user.token)
+
+
+def test_foods_empty_excludes_food_still_on_shopping_list(api_client: TestClient, unique_user: TestUser):
+    """
+    A food with no recipe references but still referenced by a shopping list item must not be
+    treated as "unused" — deleting it would violate the shopping_list_items_food_id_fkey
+    constraint.
+    """
+    food = _create_food(api_client, unique_user)
+    shopping_list = _create_shopping_list(api_client, unique_user)
+    _create_shopping_list_item_with_food(api_client, unique_user, shopping_list["id"], food["id"])
+
+    # simulating the "Delete Unused" UI flow: only foods returned by /foods/empty are ever
+    # deleted, so a food still on a shopping list must be excluded from this list, otherwise
+    # deleting it would violate the shopping_list_items_food_id_fkey constraint.
+    response = api_client.get(api_routes.foods_empty, headers=unique_user.token)
+    assert response.status_code == 200
+    ids = [f["id"] for f in response.json()]
+    assert food["id"] not in ids
+
+    api_client.delete(api_routes.households_shopping_lists_item_id(shopping_list["id"]), headers=unique_user.token)
+    api_client.delete(api_routes.foods_item_id(food["id"]), headers=unique_user.token)
 
 
 # ---------------------------------------------------------------------------

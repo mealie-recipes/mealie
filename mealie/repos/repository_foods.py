@@ -4,6 +4,7 @@ from pydantic import UUID4
 from sqlalchemy import func, select
 from sqlalchemy.orm import with_expression
 
+from mealie.db.models.household.shopping_list import ShoppingListItem
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, RecipeIngredientModel
 from mealie.schema.recipe.recipe_ingredient import IngredientFood
 
@@ -26,7 +27,16 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]
         return self.session.execute(stmt).scalars().one()
 
     def get_empty(self) -> Sequence[IngredientFoodModel]:
-        stmt = select(IngredientFoodModel).filter(~IngredientFoodModel.ingredients.any())
+        # a food is only "unused" if it's absent from both recipe ingredients and
+        # shopping list items; IngredientFoodModel has no ORM relationship to
+        # ShoppingListItem, so we check the latter via an EXISTS subquery
+        used_in_shopping_lists = (
+            select(ShoppingListItem.id)
+            .where(ShoppingListItem.food_id == IngredientFoodModel.id)
+            .correlate(IngredientFoodModel)
+            .exists()
+        )
+        stmt = select(IngredientFoodModel).filter(~IngredientFoodModel.ingredients.any(), ~used_in_shopping_lists)
         return self.session.execute(stmt).scalars().all()
 
     def merge(self, from_food: UUID4, to_food: UUID4) -> IngredientFood | None:
