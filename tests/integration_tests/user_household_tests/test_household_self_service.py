@@ -30,6 +30,7 @@ def test_get_household_members(api_client: TestClient, user_tuple: list[TestUser
     assert str(usr_2.user_id) in all_ids
     assert str(h2_user.user_id) not in all_ids
 
+
 def test_get_household_members_unauthorized(api_client: TestClient, unique_user: TestUser):
     user = unique_user.repos.users.get_one(unique_user.user_id)
     user.can_manage = False

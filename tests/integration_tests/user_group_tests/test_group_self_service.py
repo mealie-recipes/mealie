@@ -34,6 +34,7 @@ def test_get_group_members_unauthorized(api_client: TestClient, unique_user: Tes
     response = api_client.get(api_routes.groups_members, headers=unique_user.token)
     assert response.status_code == 403
 
+
 @pytest.mark.parametrize("query", ["id", "username"])
 def test_get_group_member(api_client: TestClient, unique_user: TestUser, h2_user: TestUser, query: str):
     if query == "id":
