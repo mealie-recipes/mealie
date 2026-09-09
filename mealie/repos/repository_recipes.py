@@ -1,6 +1,7 @@
 import re as re
-from collections.abc import Iterable, Sequence
-from datetime import UTC, datetime
+from collections.abc import Generator, Iterable, Sequence
+from contextlib import contextmanager
+from datetime import UTC, datetime, timedelta
 from typing import Self
 from uuid import UUID
 
@@ -8,6 +9,7 @@ import sqlalchemy as sa
 from pydantic import UUID4
 from sqlalchemy.exc import IntegrityError
 
+from mealie.core.exceptions import RecipeEditConflict
 from mealie.db.models.household import Household, HouseholdToRecipe
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel, RecipeIngredientSubstitutionModel
@@ -196,21 +198,76 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
-    def update(self, match_value: str | int | UUID4, new_data: dict | Recipe) -> Recipe:
-        new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
+    @contextmanager
+    def update_transaction(self) -> Generator[None, None, None]:
+        """Keep bulk recipe writes in a single transaction."""
+        previous = self.session.info.get("defer_recipe_commit", False)
+        self.session.info["defer_recipe_commit"] = True
+        try:
+            yield
+            if not previous:
+                self.session.commit()
+        except Exception:
+            self.session.rollback()
+            raise
+        finally:
+            self.session.info["defer_recipe_commit"] = previous
+
+    def reserve_update(self, match_value: str | int | UUID4, expected: datetime | None = None) -> datetime:
+        """Compare-and-swap before changing any recipe content or relationships.
+
+        Missing preconditions retain legacy API behavior. Supplied timestamps are
+        always enforced, including for PATCH and bulk updates.
+        """
         entry = self._query_one(match_value=match_value)
+        previous = entry.update_at
+        timestamp = datetime.now(UTC)
+        if previous is not None:
+            timestamp = max(timestamp, previous + timedelta(microseconds=1))
+        expected = expected if expected is not None else previous
+        result = self.session.execute(
+            sa.update(RecipeModel)
+            .where(
+                RecipeModel.id == entry.id, RecipeModel.group_id == entry.group_id, RecipeModel.update_at == expected
+            )
+            .values(update_at=timestamp)
+            .execution_options(synchronize_session=False)
+        )
+        if result.rowcount != 1:
+            raise RecipeEditConflict()
+        # Keep the ORM flush from replacing our reserved timestamp via onupdate.
+        entry.update_at = timestamp
+        return timestamp
 
-        if new_name := new_data.get("name"):
-            new_data["slug"] = entry.slug if new_name == entry.name else create_recipe_slug(new_name)
+    def update(self, match_value: str | int | UUID4, new_data: dict | Recipe) -> Recipe:
+        new_data = dict(new_data) if isinstance(new_data, dict) else new_data.model_dump()
+        entry = self._query_one(match_value=match_value)
+        expected = new_data.pop("updated_at", None)
+        try:
+            timestamp = self.reserve_update(match_value, expected)
+        except Exception:
+            self.session.rollback()
+            raise
+        new_data["update_at"] = timestamp
 
-        # Handle explicit group_id injection for related items that require it
-        for organizer_field in ["tags", "recipe_category", "tools"]:
-            for organizer in new_data.get(organizer_field, []):
-                organizer["group_id"] = self.group_id
+        try:
+            if new_name := new_data.get("name"):
+                new_data["slug"] = entry.slug if new_name == entry.name else create_recipe_slug(new_name)
 
-        entry.update(session=self.session, **new_data)
-        self.session.commit()
-        return self.schema.model_validate(entry)
+            # Handle explicit group_id injection for related items that require it
+            for organizer_field in ["tags", "recipe_category", "tools"]:
+                for organizer in new_data.get(organizer_field, []):
+                    organizer["group_id"] = self.group_id
+
+            entry.update(session=self.session, **new_data)
+            self.session.flush()
+            result = self.schema.model_validate(entry)
+            if not self.session.info.get("defer_recipe_commit", False):
+                self.session.commit()
+            return result
+        except Exception:
+            self.session.rollback()
+            raise
 
     def page_all(  # type: ignore
         self,
