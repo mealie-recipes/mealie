@@ -57,7 +57,7 @@
               style="gap: 0.8rem"
             >
               <StatsCards
-                v-for="(value, key) in stats"
+                v-for="(value, key) in filteredStats"
                 :key="`${key}-${value}`"
                 :min-width="$vuetify.display.xs ? '100%' : '158'"
                 :icon="getStatsIcon(key)"
@@ -320,6 +320,16 @@ const { data: stats } = useAsyncData(useAsyncKey(), async () => {
   if (data) {
     return data;
   }
+});
+
+const filteredStats = computed(() => {
+  const statsData = stats.value;
+  if (!statsData) return {};
+  if (!user.value?.canManage) {
+    const { totalUsers, ...rest } = statsData;
+    return rest;
+  }
+  return statsData;
 });
 
 const statsText: { [key: string]: string } = {

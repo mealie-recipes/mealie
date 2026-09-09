@@ -30,7 +30,7 @@ class GroupSelfServiceController(BaseUserController):
     @router.get("/members", response_model=PaginationBase[UserSummary])
     def get_group_members(self, q: PaginationQuery = Depends()):
         """Returns all users belonging to the current group"""
-
+        self.checks.can_manage()
         response = self.repos.users.page_all(q, override=UserSummary)
         response.set_pagination_guides(router.url_path_for("get_group_members"), q.model_dump())
         return response

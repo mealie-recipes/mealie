@@ -9,6 +9,11 @@ from tests.utils.fixture_schemas import TestUser
 
 
 def test_get_group_members(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+
+    user = unique_user.repos.users.get_one(unique_user.user_id)
+    user.can_manage = True
+    unique_user.repos.users.update(user.id, user)
+
     response = api_client.get(api_routes.groups_members, params={"perPage": -1}, headers=unique_user.token)
     assert response.status_code == 200
 
@@ -20,6 +25,14 @@ def test_get_group_members(api_client: TestClient, unique_user: TestUser, h2_use
     assert str(unique_user.user_id) in all_ids
     assert str(h2_user.user_id) in all_ids
 
+
+def test_get_group_members_unauthorized(api_client: TestClient, unique_user: TestUser):
+    user = unique_user.repos.users.get_one(unique_user.user_id)
+    user.can_manage = False
+    unique_user.repos.users.update(user.id, user)
+
+    response = api_client.get(api_routes.groups_members, headers=unique_user.token)
+    assert response.status_code == 403
 
 @pytest.mark.parametrize("query", ["id", "username"])
 def test_get_group_member(api_client: TestClient, unique_user: TestUser, h2_user: TestUser, query: str):
