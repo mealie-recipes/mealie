@@ -96,12 +96,14 @@ function saveAliases() {
   const seenAliasNames: string[] = [];
   const keepAliases: GenericAlias[] = [];
   aliases.value.forEach((alias) => {
+    const abbreviation = "abbreviation" in props.data ? props.data.abbreviation : undefined;
+    const pluralAbbreviation = "pluralAbbreviation" in props.data ? props.data.pluralAbbreviation : undefined;
     if (
       !alias.name
       || alias.name === props.data.name
       || alias.name === props.data.pluralName
-      || alias.name === props.data.abbreviation
-      || alias.name === props.data.pluralAbbreviation
+      || alias.name === abbreviation
+      || alias.name === pluralAbbreviation
       || seenAliasNames.includes(alias.name)
     ) {
       return;
