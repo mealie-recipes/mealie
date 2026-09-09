@@ -361,6 +361,10 @@ import type { ShoppingListItemOut } from "~/lib/api/types/household";
 const { smAndUp } = useDisplay();
 const i18n = useI18n();
 
+definePageMeta({
+  middleware: ["auth-only"],
+});
+
 useSeoMeta({
   title: i18n.t("shopping-list.shopping-list"),
 });

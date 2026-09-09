@@ -141,6 +141,10 @@ const ready = ref(false);
 const userApi = useUserApi();
 const route = useRoute();
 
+definePageMeta({
+  middleware: ["auth-only"],
+});
+
 useSeoMeta({
   title: i18n.t("shopping-list.shopping-list"),
 });

@@ -1,15 +1,10 @@
 import { isSafeRedirectTarget } from "~/lib/validators/redirect";
 
 export default defineNuxtRouteMiddleware((to) => {
-  const { loggedIn, user } = useMealieAuth();
+  const { loggedIn } = useMealieAuth();
 
   if (!loggedIn.value) {
     const redirect = isSafeRedirectTarget(to.fullPath) ? `?redirect=${encodeURIComponent(to.fullPath)}` : "";
     return navigateTo(`/login${redirect}`, { redirectCode: 302 });
-  }
-
-  // this can only be used for routes that have a groupSlug parameter (e.g. /g/:groupSlug/...)
-  if (to.params.groupSlug !== user.value?.groupSlug) {
-    return navigateTo("/");
   }
 });
