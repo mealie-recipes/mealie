@@ -81,6 +81,7 @@
 </template>
 
 <script setup lang="ts">
+import { useImageEdit } from "~/composables/recipe-page/use-image-edit";
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
 
@@ -98,6 +99,7 @@ const emit = defineEmits<{
 
 const i18n = useI18n();
 const api = useUserApi();
+const editImage = useImageEdit();
 
 const url = ref("");
 const loading = ref(false);
@@ -112,7 +114,8 @@ function uploadImage(fileObject: File) {
 async function deleteImage() {
   loading.value = true;
   try {
-    await api.recipes.deleteImage(props.slug);
+    const result = await editImage(config => api.recipes.deleteImage(props.slug, config));
+    if (!result || result.error) return;
     emit(DELETE_EVENT);
     menu.value = false;
   }
@@ -127,7 +130,8 @@ async function deleteImage() {
 
 async function getImageFromURL() {
   loading.value = true;
-  const { data } = await api.recipes.updateImagebyURL(props.slug, url.value);
+  const result = await editImage(config => api.recipes.updateImagebyURL(props.slug, url.value, config));
+  const data = result?.data;
   if (data?.image) {
     emit(REFRESH_EVENT, data.image);
   }
