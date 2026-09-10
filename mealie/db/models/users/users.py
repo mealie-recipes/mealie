@@ -105,7 +105,13 @@ class User(SqlAlchemyBase, BaseMixins):
     mealplans: Mapped[list["GroupMealPlan"]] = orm.relationship(
         "GroupMealPlan", order_by="GroupMealPlan.date", **sp_args
     )
-    shopping_lists: Mapped[list["ShoppingList"]] = orm.relationship("ShoppingList", **sp_args)
+    shopping_lists: Mapped[list["ShoppingList"]] = orm.relationship(
+        "ShoppingList", **sp_args, primaryjoin="User.id==ShoppingList.user_id"
+    )
+    favorite_shopping_list_id: Mapped[GUID | None] = mapped_column(ForeignKey("shopping_lists.id"))
+    favorite_shopping_list: Mapped[Optional["ShoppingList"]] = orm.relationship(
+        back_populates="favorited_by", primaryjoin="User.favorite_shopping_list_id==ShoppingList.id"
+    )
     rated_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel",
         secondary=UserToRecipe.__tablename__,

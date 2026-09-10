@@ -5,6 +5,7 @@
       v-model="shoppingListDialog"
       :recipes="weekRecipesWithScales"
       :shopping-lists="shoppingLists"
+      :refresh="getShoppingLists"
     />
     <div :class="`d-flex ga-2 ${$vuetify.display.xs ? 'justify-center' : 'justify-start'}`">
       <v-btn :icon="$globals.icons.chevronLeft" flat rounded="md" density="comfortable" @click="() => changeWeek(-1)" />
@@ -130,7 +131,7 @@ const route = useRoute();
 const router = useRouter();
 const i18n = useI18n();
 const { household, actions: householdActions } = useHouseholdSelf();
-const { shoppingLists, open: shoppingListDialog, addAllToList } = useAddToShoppingListDialog();
+const { shoppingLists, open: shoppingListDialog, addAllToList, getShoppingLists } = useAddToShoppingListDialog();
 
 useSeoMeta({
   title: i18n.t("meal-plan.dinner-this-week"),
