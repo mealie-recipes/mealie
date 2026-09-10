@@ -9,90 +9,99 @@
       max-width="600px"
       max-height="40%"
     >
-      <v-card-text class="pt-4">
-        <p>
-          {{ activeText }}
-        </p>
-        <v-divider class="my-4" />
-        <template v-if="Object.keys(groupedUnusedIngredients).length > 0">
-          <h4 class="ml-1">
-            {{ $t("recipe.unlinked") }}
-          </h4>
-          <template v-for="(ingredients, title) in groupedUnusedIngredients" :key="title">
-            <h4 v-if="title" class="py-3 ml-1 pl-4">
-              {{ title }}
-            </h4>
-            <v-checkbox-btn
-              v-for="ing in ingredients"
-              :key="ing.referenceId"
-              v-model="activeRefs"
-              :value="ing.referenceId"
-              class="ml-4"
-            >
-              <template #label>
-                <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+      <div class="grid">
+        <div class="sticky">
+          <v-card flat style="max-height: 40dvh; overflow-y: auto;">
+            <v-card-text>
+              <p>
+                {{ activeText }}
+              </p>
+            </v-card-text>
+          </v-card>
+          <v-divider />
+        </div>
+        <v-card flat>
+          <v-card-text>
+            <template v-if="Object.keys(groupedUnusedIngredients).length > 0">
+              <h4 class="ml-1">
+                {{ $t("recipe.unlinked") }}
+              </h4>
+              <template v-for="(ingredients, title) in groupedUnusedIngredients" :key="title">
+                <h4 v-if="title" class="py-3 ml-1 pl-4">
+                  {{ title }}
+                </h4>
+                <v-checkbox-btn
+                  v-for="ing in ingredients"
+                  :key="ing.referenceId"
+                  v-model="activeRefs"
+                  :value="ing.referenceId"
+                  class="ml-4"
+                >
+                  <template #label>
+                    <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+                  </template>
+                </v-checkbox-btn>
               </template>
-            </v-checkbox-btn>
-          </template>
-        </template>
+            </template>
 
-        <template v-if="Object.keys(groupedUsedIngredients).length > 0">
-          <h4 class="py-3 ml-1">
-            {{ $t("recipe.linked-to-other-step") }}
-          </h4>
-          <template v-for="(ingredients, title) in groupedUsedIngredients" :key="title">
-            <h4 v-if="title" class="py-3 ml-1 pl-4">
-              {{ title }}
-            </h4>
-            <v-checkbox-btn
-              v-for="ing in ingredients"
-              :key="ing.referenceId"
-              v-model="activeRefs"
-              :value="ing.referenceId"
-              class="ml-4"
-            >
-              <template #label>
-                <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+            <template v-if="Object.keys(groupedUsedIngredients).length > 0">
+              <h4 class="py-3 ml-1">
+                {{ $t("recipe.linked-to-other-step") }}
+              </h4>
+              <template v-for="(ingredients, title) in groupedUsedIngredients" :key="title">
+                <h4 v-if="title" class="py-3 ml-1 pl-4">
+                  {{ title }}
+                </h4>
+                <v-checkbox-btn
+                  v-for="ing in ingredients"
+                  :key="ing.referenceId"
+                  v-model="activeRefs"
+                  :value="ing.referenceId"
+                  class="ml-4"
+                >
+                  <template #label>
+                    <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+                  </template>
+                </v-checkbox-btn>
               </template>
-            </v-checkbox-btn>
-          </template>
-        </template>
-      </v-card-text>
+            </template>
+          </v-card-text>
+        </v-card>
+      </div>
 
       <v-divider />
 
       <template #card-actions>
-        <BaseButton
-          cancel
-          @click="dialog = false"
-        />
-        <v-spacer />
-        <div class="d-flex flex-wrap justify-end">
+        <div class="d-flex flex-grow-1">
           <BaseButton
-            class="my-1"
-            color="info"
-            @click="autoSetReferences"
-          >
-            <template #icon>
-              {{ $globals.icons.robot }}
-            </template>
-            {{ $t("recipe.auto") }}
-          </BaseButton>
-          <BaseButton
-            class="ml-2 my-1"
-            save
-            @click="setIngredientIds"
+            cancel
+            @click="dialog = false"
           />
-          <BaseButton
-            v-if="availableNextStep"
-            class="ml-2 my-1"
-            @click="saveAndOpenNextLinkIngredients"
-          >
-            <template #icon>
-              {{ $globals.icons.forward }}
-            </template>
-            {{ $t("recipe.nextStep") }}
-          </BaseButton>
+          <v-spacer />
+          <div class="d-flex flex-wrap justify-end ga-2">
+            <BaseButton
+              color="info"
+              @click="autoSetReferences"
+            >
+              <template #icon>
+                {{ $globals.icons.robot }}
+              </template>
+              {{ $t("recipe.auto") }}
+            </BaseButton>
+            <BaseButton
+              save
+              @click="setIngredientIds"
+            />
+            <BaseButton
+              v-if="availableNextStep"
+              @click="saveAndOpenNextLinkIngredients"
+            >
+              <template #icon>
+                {{ $globals.icons.forward }}
+              </template>
+              {{ $t("recipe.nextStep") }}
+            </BaseButton>
+          </div>
         </div>
       </template>
     </BaseDialog>
@@ -223,7 +232,7 @@
                             event: 'open',
                             children: [
                               {
-                                text: $t('recipe.toggle-section'),
+                                text: sectionTitleLabel(step.id),
                                 event: 'toggle-section',
                               },
                               {
@@ -349,6 +358,7 @@
                             })"
                             :scale="scale"
                             :is-cook-mode="isCookMode"
+                            :storage-key="ingredientStorageKey"
                           />
                         </div>
                       </v-col>
@@ -410,10 +420,15 @@ const props = defineProps({
     type: Number,
     default: 1,
   },
+  ingredientStorageKey: {
+    type: String,
+    default: undefined,
+  },
 });
 
 const emit = defineEmits(["click-instruction-field", "update:assets"]);
 
+const i18n = useI18n();
 const { isCookMode, toggleCookMode, isEditForm } = usePageState(props.recipe.slug);
 const { extractIngredientReferences } = useExtractIngredientReferences();
 
@@ -482,12 +497,28 @@ function isChecked(stepIndex: number) {
   }
 }
 
+function sectionTitleLabel(id?: string) {
+  return id && showTitleEditor.value[id]
+    ? i18n.t("recipe.clear-section")
+    : i18n.t("recipe.add-section");
+}
+
 function toggleShowTitle(id?: string) {
   if (!id) {
     return;
   }
 
-  showTitleEditor.value[id] = !showTitleEditor.value[id];
+  const showing = showTitleEditor.value[id];
+  if (showing) {
+    // visibility is re-derived from the title whenever the list changes, so hiding a section
+    // only sticks if the title goes with it
+    const step = instructionList.value.find(element => element.id === id);
+    if (step) {
+      step.title = "";
+    }
+  }
+
+  showTitleEditor.value[id] = !showing;
 
   const temp = { ...showTitleEditor.value };
   showTitleEditor.value = temp;
@@ -779,6 +810,23 @@ function openImageUpload(index: number) {
 </script>
 
 <style lang="css" scoped>
+.grid {
+  display: grid;
+  gap: 0.5rem;
+  height: 100%;
+  box-sizing: border-box;
+
+  > * {
+    overflow-y: auto;
+  }
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
 .v-card--link:before {
   background: none;
 }

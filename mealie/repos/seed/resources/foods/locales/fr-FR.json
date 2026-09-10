@@ -8087,7 +8087,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chocolat blanc à pâtisserie",
-                "plural_name": "white baking chocolate"
+                "plural_name": "chocolat blanc pâtissier"
             },
             "cassava flour": {
                 "aliases": [],
@@ -13907,7 +13907,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chocolat de cuisson",
-                "plural_name": "baking chocolate"
+                "plural_name": "chocolat pâtissier"
             },
             "marshmallow": {
                 "aliases": [],

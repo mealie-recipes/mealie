@@ -24,7 +24,7 @@
         "abbreviation": "fl oz"
     },
     "pint": {
-        "name": "pint",
+        "name": "pt",
         "plural_name": "pinte",
         "description": "",
         "abbreviation": "pt"
@@ -85,13 +85,13 @@
         "abbreviation": "mg"
     },
     "splash": {
-        "name": "splash",
+        "name": "prskanje",
         "plural_name": "prskanja",
         "description": "",
         "abbreviation": ""
     },
     "dash": {
-        "name": "dash",
+        "name": "prstohvat",
         "plural_name": "prstohvati",
         "description": "",
         "abbreviation": ""

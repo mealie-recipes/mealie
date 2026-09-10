@@ -2,7 +2,7 @@
   <div style="overflow-x: hidden;">
     <v-container
       v-if="!edit"
-      class="pa-0"
+      class="ml-2 pa-0"
       :style="{
         transform: `translateX(${isRtl ? -swiping : swiping}px)`,
         transition: swiping === 0 ? 'transform 0.2s ease' : 'none',
@@ -79,7 +79,7 @@
                   variant="text"
                   class="ml-2"
                   icon
-                  @click="toggleEdit(!edit)"
+                  @click="$emit('edit')"
                 >
                   <v-icon>
                     {{ $globals.icons.edit }}
@@ -102,7 +102,7 @@
                   v-for="action in contextMenu"
                   :key="action.event"
                   density="compact"
-                  @click="contextHandler(action.event)"
+                  @click="$emit(action.event as any)"
                 >
                   <v-list-item-title>
                     {{ action.text }}
@@ -149,7 +149,7 @@
         :foods="foods"
         class="ma-2"
         @save="save"
-        @cancel="toggleEdit(false)"
+        @cancel="$emit('view')"
         @delete="$emit('delete')"
       />
     </div>
@@ -184,11 +184,15 @@ const props = defineProps({
     type: Map as unknown as () => Map<string, RecipeSummary>,
     default: undefined,
   },
+  edit: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits<{
   (e: "checked" | "save", item: ShoppingListItemOut): void;
-  (e: "delete"): void;
+  (e: "delete" | "edit" | "view"): void;
 }>();
 
 const SWIPE_THRESHOLD = 50;
@@ -232,31 +236,14 @@ const listItem = computed<ShoppingListItemOut>({
   },
 });
 
-const edit = ref(false);
-function toggleEdit(val = !edit.value) {
-  if (edit.value === val) return;
-  if (val) localListItem.value = model.value;
-  edit.value = val;
-}
-
 function toggleChecked() {
   const updated = { ...model.value, checked: !model.value.checked } as ShoppingListItemOut;
   model.value = updated;
   emit("checked", updated);
 }
 
-function contextHandler(event: string) {
-  if (event === "edit") {
-    toggleEdit(true);
-  }
-  else {
-    emit(event as any);
-  }
-}
-
 function save() {
   emit("save", localListItem.value);
-  edit.value = false;
 }
 
 type SwipeGesture = null | "scroll" | "swipe";

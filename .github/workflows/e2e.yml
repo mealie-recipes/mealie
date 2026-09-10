@@ -11,14 +11,9 @@ jobs:
         working-directory: ./tests/e2e
     steps:
       - uses: actions/checkout@v6
-      # Work around pnpm/action-setup v6 resolving the wrong version from package.json
-      # https://github.com/pnpm/action-setup/issues/227
-      - name: Read pnpm version
-        id: pnpm-version
-        run: 'echo "version=$(jq --raw-output ''.packageManager | split("@")[1]'' package.json)" >> "$GITHUB_OUTPUT"'
       - uses: pnpm/action-setup@v6
         with:
-          version: ${{ steps.pnpm-version.outputs.version }}
+          version: 11
       - uses: actions/setup-node@v6
         with:
           node-version: 24
@@ -54,6 +49,18 @@ jobs:
         run: docker ps
       - name: Run Playwright tests
         run: pnpm playwright test
+      - name: Archive Playwright report
+        if: failure()
+        uses: actions/upload-artifact@v6
+        with:
+          name: playwright-report
+          path: |
+            tests/e2e/playwright-report
+            tests/e2e/test-results
+          retention-days: 5
+      - name: Dump server logs
+        if: failure()
+        run: docker logs mealie-e2e
       - name: Destroy Test Environment
         if: always()
         run: docker compose down --volumes

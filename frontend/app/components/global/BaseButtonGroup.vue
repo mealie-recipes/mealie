@@ -1,47 +1,14 @@
 <template>
   <v-item-group>
     <template v-for="btn in buttons">
-      <v-menu
+      <BaseMenu
         v-if="btn.children"
         :key="'menu-' + btn.event"
-        active-class="pa-0"
-        offset-y
-        top
-        start
-        :style="stretch ? 'width: 100%;' : ''"
-      >
-        <template #activator="{ props: hoverProps }">
-          <v-btn
-            tile
-            :large="large"
-            icon
-            variant="plain"
-            v-bind="hoverProps"
-          >
-            <v-icon>
-              {{ btn.icon }}
-            </v-icon>
-          </v-btn>
-        </template>
-        <v-list density="compact">
-          <template
-            v-for="(child, idx) in btn.children"
-            :key="idx"
-          >
-            <v-list-item
-              density="compact"
-              @click="$emit(child.event)"
-            >
-              <v-list-item-title>{{ child.text }}</v-list-item-title>
-            </v-list-item>
-            <v-divider
-              v-if="child.divider"
-              :key="`divider-${idx}`"
-              class="my-1"
-            />
-          </template>
-        </v-list>
-      </v-menu>
+        :large="large"
+        :activator="btn"
+        :children="btn.children"
+        @menu="(childEvent) => $emit(childEvent)"
+      />
       <v-tooltip
         v-else
         :key="'btn-' + btn.event"
@@ -73,15 +40,8 @@
 </template>
 
 <script setup lang="ts">
-export interface ButtonOption {
-  icon?: string;
-  color?: string;
-  text: string;
-  event: string;
-  children?: ButtonOption[];
-  disabled?: boolean;
-  divider?: boolean;
-}
+import type { ButtonOption } from "./BaseMenu.vue";
+import BaseMenu from "./BaseMenu.vue";
 
 const props = defineProps({
   buttons: {

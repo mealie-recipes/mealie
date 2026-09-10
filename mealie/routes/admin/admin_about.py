@@ -1,5 +1,4 @@
 from fastapi import APIRouter
-from recipe_scrapers import __version__ as recipe_scraper_version
 
 from mealie.core.release_checker import get_latest_version
 from mealie.core.settings.static import APP_VERSION
@@ -14,6 +13,7 @@ class AdminAboutController(BaseAdminController):
     @router.get("", response_model=AdminAboutInfo)
     def get_app_info(self):
         """Get general application information"""
+        from recipe_scrapers import __version__ as recipe_scraper_version
 
         settings = self.settings
 

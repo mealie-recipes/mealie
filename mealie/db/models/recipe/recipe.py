@@ -69,7 +69,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
         "User",
         secondary=UserToRecipe.__tablename__,
         primaryjoin="and_(RecipeModel.id==UserToRecipe.recipe_id, UserToRecipe.is_favorite==True)",
-        back_populates="favorite_recipes",
+        viewonly=True,
         overlaps="recipe,rated_by,rated_recipes",
     )
 
@@ -208,7 +208,11 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
             self.recipe_instructions = [RecipeInstruction(**step, session=session) for step in recipe_instructions]
 
         if recipe_ingredient is not None:
-            self.recipe_ingredient = [RecipeIngredientModel(**ingr, session=session) for ingr in recipe_ingredient]
+            # group_id is passed down so ingredient substitutions can be scoped to this
+            # recipe's group; the ingredient itself has no group of its own
+            self.recipe_ingredient = [
+                RecipeIngredientModel(**ingr, session=session, group_id=self.group_id) for ingr in recipe_ingredient
+            ]
 
         if assets:
             self.assets = [RecipeAsset(**a) for a in assets]
@@ -270,7 +274,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
 @event.listens_for(RecipeModel.name, "set")
 def receive_name(target: RecipeModel, value: str, oldvalue, initiator):
-    target.name_normalized = RecipeModel.normalize(value)
+    target.name_normalized = RecipeModel.normalize(value) if value else None
 
 
 @event.listens_for(RecipeModel.description, "set")

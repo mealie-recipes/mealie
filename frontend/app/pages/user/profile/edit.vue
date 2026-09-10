@@ -13,7 +13,7 @@
             file-name="profile"
             accept="image/*"
             :url="`/api/users/${userCopy.id}/image`"
-            @uploaded="auth.refresh()"
+            @uploaded="auth.getSession()"
           />
         </div>
       </template>
@@ -286,7 +286,7 @@ async function updateUser() {
 
   const { response } = await api.users.updateOne(userData.id, updatePayload);
   if (response?.status === 200) {
-    auth.refresh();
+    auth.getSession();
   }
 }
 
@@ -300,7 +300,9 @@ async function updatePassword() {
   });
 
   if (response?.status === 200) {
-    console.log("Password Changed");
+    // The new password invalidates this session server-side, so end it here rather than letting the
+    // next request fail its way to the login page.
+    await auth.signOut();
   }
 }
 </script>
