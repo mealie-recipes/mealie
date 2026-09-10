@@ -278,11 +278,13 @@ class OpenAIService(BaseService):
         self, prompt: str, content: list[dict], response_schema: type[T], provider: AIProviderOut
     ) -> ChatCompletion:
         client = self.get_client(provider)
-        return await client.chat.completions.parse(
+        schema_json = json.dumps(response_schema.model_json_schema())
+        system_content = f"{prompt}\n\nRespond with a JSON object that matches this schema:\n{schema_json}"
+        return await client.chat.completions.create(
             messages=[
                 {
                     "role": "system",
-                    "content": prompt,
+                    "content": system_content,
                 },
                 {
                     "role": "user",
@@ -290,7 +292,7 @@ class OpenAIService(BaseService):
                 },
             ],
             model=provider.model,
-            response_format=response_schema,
+            response_format={"type": "json_object"},
         )
 
     async def get_response(
@@ -315,7 +317,12 @@ class OpenAIService(BaseService):
             if not response.choices:
                 return None
 
-            response_text = response.choices[0].message.content
+            message = response.choices[0].message
+            response_text = message.content
+            if not response_text:
+                reasoning = getattr(message, "reasoning", None)
+                if isinstance(reasoning, str) and reasoning:
+                    response_text = reasoning
             return response_schema.parse_openai_response(response_text)
         except openai.RateLimitError as e:
             raise exceptions.RateLimitError(str(e)) from e
