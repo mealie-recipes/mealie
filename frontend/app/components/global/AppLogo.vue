@@ -7,7 +7,14 @@
       :size="size"
     >
       <slot>
+        <v-img
+          v-if="$branding.iconUrl"
+          :src="$branding.iconUrl"
+          :width="size"
+          :height="size"
+        />
         <svg
+          v-else
           class="icon-white"
           viewBox="0 0 24 24"
           :style="{ width: size + 'px', height: size + 'px' }"

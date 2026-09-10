@@ -189,3 +189,9 @@ export interface UserImport {
   status: boolean;
   exception?: string | null;
 }
+export interface AppBranding {
+  name?: string;
+  htmlTitle?: string;
+  iconUrl?: string | null;
+  faviconUrl?: string | null;
+}
