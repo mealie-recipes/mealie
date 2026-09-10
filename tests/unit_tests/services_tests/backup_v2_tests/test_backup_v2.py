@@ -1,5 +1,7 @@
 import statistics
+from pathlib import Path
 from typing import Any
+from unittest.mock import patch
 
 from sqlalchemy.orm import Session
 
@@ -61,6 +63,24 @@ def test_database_restore():
 
     for s1, s2 in zip(snapshop_1, snapshop_2, strict=False):
         assert snapshop_1[s1].sort(key=dict_sorter) == snapshop_2[s2].sort(key=dict_sorter)
+
+
+def test_copy_data_skips_mounted_directories(tmp_path: Path):
+    backup_v2 = BackupV2()
+
+    source_dir = tmp_path / "source"
+    mounted_dir = source_dir / "mealie-pgdata"
+    mounted_dir.mkdir(parents=True)
+
+    with (
+        patch.object(Path, "is_mount", return_value=True),
+        patch("mealie.services.backups_v2.backup_v2.shutil.rmtree") as mock_rmtree,
+        patch("mealie.services.backups_v2.backup_v2.shutil.copytree") as mock_copytree,
+    ):
+        backup_v2._copy_data(source_dir)
+
+    mock_rmtree.assert_not_called()
+    mock_copytree.assert_not_called()
 
 
 def _5ab195a474eb_add_normalized_search_properties(session: Session):
