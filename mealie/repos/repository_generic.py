@@ -10,9 +10,7 @@ from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import ColumnElement, Select, case, delete, func, nulls_first, nulls_last, select
 from sqlalchemy.ext.associationproxy import AssociationProxyInstance
-from sqlalchemy.orm import InstrumentedAttribute
 from sqlalchemy.orm.session import Session
-from sqlalchemy.sql import sqltypes
 
 from mealie.core.root_logger import get_logger
 from mealie.db.models._model_base import SqlAlchemyBase
@@ -25,7 +23,7 @@ from mealie.schema.response.pagination import (
     RequestQuery,
 )
 from mealie.schema.response.query_search import SearchFilter
-from mealie.services.query_filter.builder import NonFilterableValueError, QueryFilterBuilder, RelationshipChain
+from mealie.services.query_filter.builder import NonFilterableValueError, QueryFilterBuilder
 
 from ._utils import NOT_SET, NotSet
 
@@ -411,29 +409,10 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
     def add_order_attr_to_query(
         self,
         query: Select,
-        order_attr: InstrumentedAttribute,
+        order_attr: ColumnElement,
         order_dir: OrderDirection,
         order_by_null: OrderByNullPosition | None,
-        relationships: RelationshipChain | None = None,
     ) -> Select:
-        if order_attr.key in self.column_aliases:
-            # aliases are already expressed on the base model, so there is nothing left to traverse
-            order_attr = self.column_aliases[order_attr.key]
-            relationships = None
-
-        # queries handle uppercase and lowercase differently, which is undesirable
-        if isinstance(order_attr.type, sqltypes.String):
-            order_attr = func.lower(order_attr)
-
-        if relationships:
-            if any(uselist for _, uselist in relationships):
-                order_attr = QueryFilterBuilder.aggregate_over_relationships(
-                    order_attr, relationships, self.model, descending=order_dir is OrderDirection.desc
-                )
-            else:
-                # "to-one" relationships cannot duplicate records, so joining is cheaper than aggregating
-                query = QueryFilterBuilder.join_relationships(query, relationships)
-
         if order_dir is OrderDirection.asc:
             order_attr = order_attr.asc()
         elif order_dir is OrderDirection.desc:
@@ -476,13 +455,16 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                         order_by = order_by_val
                         order_dir = request_query.order_direction
 
-                    relationships: RelationshipChain = []
-                    _, order_attr = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
-                        order_by, self.model, collect_relationships=relationships
+                    query, order_attr = QueryFilterBuilder.get_order_attr(
+                        query,
+                        order_by,
+                        self.model,
+                        descending=order_dir is OrderDirection.desc,
+                        column_aliases=self.column_aliases,
                     )
 
                     query = self.add_order_attr_to_query(
-                        query, order_attr, order_dir, request_query.order_by_null_position, relationships
+                        query, order_attr, order_dir, request_query.order_by_null_position
                     )
 
                 except NonFilterableValueError as e:

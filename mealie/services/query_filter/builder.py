@@ -320,7 +320,7 @@ class QueryFilterBuilder:
         return current_model, model_attr
 
     @staticmethod
-    def join_relationships(query: sa.Select, relationships: RelationshipChain) -> sa.Select:
+    def _join_relationships(query: sa.Select, relationships: RelationshipChain) -> sa.Select:
         """Join every relationship traversed by an attribute string onto a query."""
         for relationship_attr, _ in relationships:
             query = query.join(relationship_attr, isouter=True)
@@ -328,7 +328,7 @@ class QueryFilterBuilder:
         return query
 
     @staticmethod
-    def aggregate_over_relationships[Model: SqlAlchemyBase](
+    def _aggregate_over_relationships[Model: SqlAlchemyBase](
         element: sa.ColumnElement, relationships: RelationshipChain, model: type[Model], *, descending: bool
     ) -> sa.ColumnElement:
         """
@@ -347,6 +347,43 @@ class QueryFilterBuilder:
 
         aggregate = sa.func.max if descending else sa.func.min
         return sa.select(aggregate(element)).where(*join_conditions).correlate(model).scalar_subquery()
+
+    @classmethod
+    def get_order_attr[Model: SqlAlchemyBase](
+        cls,
+        query: sa.Select,
+        attr_string: str,
+        model: type[Model],
+        *,
+        descending: bool,
+        column_aliases: dict[str, sa.ColumnElement] | None = None,
+    ) -> tuple[sa.Select, sa.ColumnElement]:
+        """
+        Resolve an attribute string into something a query can be ordered by.
+
+        Returns the query, joined if the attribute string traverses only "to-one" relationships, along with
+        the element to order on. If you need to order on a custom column expression, you can supply column
+        aliases.
+        """
+        relationships: RelationshipChain = []
+        _, order_attr = cls.get_model_and_model_attr_from_attr_string(
+            attr_string, model, collect_relationships=relationships
+        )
+
+        if column_aliases and (column_alias := column_aliases.get(order_attr.key)) is not None:
+            # aliases are already expressed on the base model, so there is nothing left to traverse
+            return query, cls._transform_model_attr(column_alias, column_alias.type)
+
+        order_attr = cls._transform_model_attr(order_attr, order_attr.type)
+
+        if not relationships:
+            return query, order_attr
+
+        if any(uselist for _, uselist in relationships):
+            return query, cls._aggregate_over_relationships(order_attr, relationships, model, descending=descending)
+
+        # "to-one" relationships cannot duplicate records, so joining is cheaper than aggregating
+        return cls._join_relationships(query, relationships), order_attr
 
     @staticmethod
     def _wrap_in_relationships(element: sa.ColumnElement, relationships: RelationshipChain) -> sa.ColumnElement:
