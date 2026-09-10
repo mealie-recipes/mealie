@@ -82,9 +82,9 @@ def request_is_https(request: Request) -> bool:
 def session_cookie_attrs(request: Request) -> dict:
     """Cookie attributes that have to match between setting and clearing the session cookie.
 
-    Mealie is sometimes embedded in another site, which needs `SameSite=None` and a partitioned
-    cookie. The server can't detect embedding, so the client flags it — and we only honour the flag
-    over HTTPS, since browsers reject `SameSite=None` without `Secure`.
+    Mealie is sometimes embedded in another site, which needs `SameSite=None`. The server can't
+    detect embedding, so the client flags it — and we only honour the flag over HTTPS, since
+    browsers reject `SameSite=None` without `Secure`.
     """
     secure = request_is_https(request)
     embedded = secure and request.headers.get("x-mealie-embedded", "").lower() == "true"
@@ -93,7 +93,6 @@ def session_cookie_attrs(request: Request) -> dict:
         "path": "/",
         "secure": secure,
         "samesite": "none" if embedded else "lax",
-        "partitioned": embedded,
     }
 
 
@@ -336,7 +335,7 @@ async def logout(
     accept_language: Annotated[str | None, Header()] = None,
 ):
     # Clearing a cookie only works when the attributes match the ones it was set with, which the old
-    # bare delete_cookie() call didn't manage for embedded (partitioned, SameSite=None) deployments.
+    # bare delete_cookie() call didn't manage for embedded (SameSite=None) deployments.
     response.set_cookie(SESSION_COOKIE_NAME, "", max_age=0, expires=0, **session_cookie_attrs(request))
 
     translator = get_locale_provider(accept_language)

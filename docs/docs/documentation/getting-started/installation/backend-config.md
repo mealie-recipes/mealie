@@ -30,6 +30,8 @@
 | SECURITY_MAX_LOGIN_ATTEMPTS |    5    | Maximum times a user can provide an invalid password before their account is locked |
 | SECURITY_USER_LOCKOUT_TIME  |   24    | Time in hours for how long a users account is locked                                |
 | ALLOWED_IFRAME_HOSTS        |  `""`   | Comma-separated extra hostnames allowed as `<iframe>` sources in recipe content. Extends the built-in list of trusted video providers (YouTube, Vimeo). Subdomains are included automatically. Only `https` sources are permitted. Adding hosts here opts into rendering embeds from those origins to all viewers, including the public, so add only origins you trust. |
+| HTTP_ALLOW_LIST             |  `""`   | Comma-separated hosts or CIDRs that server-initiated requests (recipe scraping, webhooks, recipe actions, OIDC profile images) may reach even when they resolve to an otherwise-blocked private/internal address. Use to allow a known internal server. |
+| HTTP_DISALLOW_LIST          |  `""`   | Comma-separated hosts or CIDRs that server-initiated requests may never reach, even if public. Takes precedence over `HTTP_ALLOW_LIST`. |
 
 ### Database
 
@@ -211,14 +213,14 @@ Setting the following environmental variables will change the theme of the front
 | --------------------- | :-----: | ---------------------------------- |
 | THEME_LIGHT_PRIMARY   | #E58325 | Main brand color and headers       |
 | THEME_LIGHT_ACCENT    | #007A99 | Buttons and interactive elements   |
-| THEME_LIGHT_SECONDARY | #973542 | Navigation and sidebar backgrounds |
+| THEME_LIGHT_SECONDARY | #973542 | Secondary UI elements and interactive accents |
 | THEME_LIGHT_SUCCESS   | #43A047 | Success messages and confirmations |
 | THEME_LIGHT_INFO      | #1976D2 | Information alerts and tooltips    |
 | THEME_LIGHT_WARNING   | #FF6D00 | Warning notifications              |
 | THEME_LIGHT_ERROR     | #EF5350 | Error messages and alerts          |
 | THEME_DARK_PRIMARY    | #E58325 | Main brand color and headers       |
 | THEME_DARK_ACCENT     | #007A99 | Buttons and interactive elements   |
-| THEME_DARK_SECONDARY  | #973542 | Navigation and sidebar backgrounds |
+| THEME_DARK_SECONDARY  | #973542 | Secondary UI elements and interactive accents |
 | THEME_DARK_SUCCESS    | #43A047 | Success messages and confirmations |
 | THEME_DARK_INFO       | #1976D2 | Information alerts and tooltips    |
 | THEME_DARK_WARNING    | #FF6D00 | Warning notifications              |

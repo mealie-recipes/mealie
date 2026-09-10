@@ -3,6 +3,7 @@
     <BaseDialog
       v-if="shoppingListDialog && ready"
       v-model="dialog"
+      bottom-sheet
       :title="$t('recipe.add-to-list')"
       :icon="$globals.icons.cartCheck"
     >
