@@ -8432,104 +8432,104 @@
             "croissant dough": {
                 "aliases": [],
                 "description": "",
-                "name": "croissant dough",
-                "plural_name": "croissant doughs"
+                "name": "тесто для круассанов",
+                "plural_name": "тесто для круассанов"
             },
             "tofu skin": {
                 "aliases": [],
                 "description": "",
-                "name": "tofu skin",
-                "plural_name": "tofu skins"
+                "name": "соевый лист",
+                "plural_name": "соевый лист"
             },
             "brisee": {
                 "aliases": [],
                 "description": "",
-                "name": "brisee",
-                "plural_name": "brisees"
+                "name": "бризе",
+                "plural_name": "бризе"
             },
             "sausage roll": {
                 "aliases": [],
                 "description": "",
-                "name": "sausage roll",
-                "plural_name": "sausage rolls"
+                "name": "сосиска в тесте",
+                "plural_name": "сосиска в тесте"
             },
             "kataifi": {
                 "aliases": [],
                 "description": "",
-                "name": "kataifi",
-                "plural_name": "kataifis"
+                "name": "катаифи",
+                "plural_name": "катаифи"
             },
             "korean rice cake": {
                 "aliases": [],
                 "description": "",
-                "name": "korean rice cake",
-                "plural_name": "korean rice cakes"
+                "name": "корейский рисовый пирожок",
+                "plural_name": "корейский рисовый пирожок"
             },
             "corn dog": {
                 "aliases": [],
                 "description": "",
-                "name": "corn dog",
-                "plural_name": "corn dogs"
+                "name": "корндог (сосиска в кукурузном тесте)",
+                "plural_name": "корндог (сосиска в кукурузном тесте)"
             },
             "tortilla dough": {
                 "aliases": [],
                 "description": "",
-                "name": "tortilla dough",
-                "plural_name": "tortilla doughs"
+                "name": "тесто для тортильи",
+                "plural_name": "тесто для тортильи"
             },
             "empanada wrapper": {
                 "aliases": [],
                 "description": "",
-                "name": "empanada wrapper",
-                "plural_name": "empanada wrappers"
+                "name": "тесто‑оболочка для эмпанада\n",
+                "plural_name": "тесто‑оболочка для эмпанада\n"
             },
             "rough-puff pastry": {
                 "aliases": [],
                 "description": "",
-                "name": "rough-puff pastry",
-                "plural_name": "rough-puff pastries"
+                "name": "слоёное тесто «быстрой сборки»\n",
+                "plural_name": "слоёное тесто «быстрой сборки»\n"
             },
             "gingerbread cookie dough": {
                 "aliases": [],
                 "description": "",
-                "name": "gingerbread cookie dough",
-                "plural_name": "gingerbread cookie doughs"
+                "name": "тесто для имбирного печенья",
+                "plural_name": "тесто для имбирного печенья"
             },
             "yufka": {
                 "aliases": [],
                 "description": "",
-                "name": "yufka",
-                "plural_name": "yufkas"
+                "name": "юфка",
+                "plural_name": "юфка"
             },
             "cob loaf": {
                 "aliases": [],
                 "description": "",
-                "name": "cob loaf",
-                "plural_name": "cob loaves"
+                "name": "круглый хлеб‑«булка»",
+                "plural_name": "круглый хлеб‑«булка»"
             },
             "egg wrap": {
                 "aliases": [],
                 "description": "",
-                "name": "egg wrap",
-                "plural_name": "egg wraps"
+                "name": "яичная лепёшка",
+                "plural_name": "яичная лепёшка"
             },
             "samosa sheet": {
                 "aliases": [],
                 "description": "",
-                "name": "samosa sheet",
-                "plural_name": "samosa sheets"
+                "name": "тонкое тесто для самосы",
+                "plural_name": "тонкое тесто для самосы"
             },
             "frozen pizza roll": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen pizza roll",
-                "plural_name": "frozen pizza rolls"
+                "name": "замороженные пицца‑роллы",
+                "plural_name": "замороженные пицца‑роллы"
             },
             "brick pastry": {
                 "aliases": [],
                 "description": "",
                 "name": "",
-                "plural_name": "brick pastries"
+                "plural_name": "изделия из теста брик"
             }
         }
     },
@@ -8538,556 +8538,556 @@
             "rolled oat": {
                 "aliases": [],
                 "description": "",
-                "name": "rolled oat",
-                "plural_name": "rolled oats"
+                "name": "изделия из теста брик",
+                "plural_name": "овсяные хлопья\n"
             },
             "rice": {
                 "aliases": [],
                 "description": "",
-                "name": "rice",
-                "plural_name": "rices"
+                "name": "рис",
+                "plural_name": "рис"
             },
             "Rice Krispie Cereal": {
                 "aliases": [
-                    "Rice Krispie"
+                    "рисовые хлопья"
                 ],
                 "description": "",
-                "name": "Rice Krispie Cereal",
-                "plural_name": "Rice Krispie Cereal"
+                "name": "рисовые хлопья",
+                "plural_name": "рисовые хлопья"
             },
             "quinoa": {
                 "aliases": [],
                 "description": "",
-                "name": "quinoa",
-                "plural_name": "quinoas"
+                "name": "киноа",
+                "plural_name": "киноа"
             },
             "basmati rice": {
                 "aliases": [],
                 "description": "",
-                "name": "basmati rice",
-                "plural_name": "basmati rices"
+                "name": "рис бамати",
+                "plural_name": "рис бамати"
             },
             "brown rice": {
                 "aliases": [],
                 "description": "",
-                "name": "brown rice",
-                "plural_name": "brown rices"
+                "name": "коричневый рис",
+                "plural_name": "коричневый рис"
             },
             "quick-cooking oat": {
                 "aliases": [],
                 "description": "",
-                "name": "quick-cooking oat",
-                "plural_name": "quick-cooking oats"
+                "name": "быстрорастворимые овсяные хлопья",
+                "plural_name": "быстрорастворимые овсяные хлопья"
             },
             "breakfast cereal": {
                 "aliases": [],
                 "description": "",
-                "name": "breakfast cereal",
-                "plural_name": "breakfast cereals"
+                "name": "хлопья для завтрака",
+                "plural_name": "хлопья для завтрака"
             },
             "risotto rice": {
                 "aliases": [],
                 "description": "",
-                "name": "risotto rice",
-                "plural_name": "risotto rices"
+                "name": "рис ризотто",
+                "plural_name": "рис ризотто"
             },
             "couscous": {
                 "aliases": [],
                 "description": "",
-                "name": "couscous",
-                "plural_name": "couscous"
+                "name": "кускус",
+                "plural_name": "кускус"
             },
             "rice cereal": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cereal",
-                "plural_name": "rice cereals"
+                "name": "рисовые хлопья",
+                "plural_name": "рисовые хлопья"
             },
             "wild rice": {
                 "aliases": [],
                 "description": "",
-                "name": "wild rice",
-                "plural_name": "wild rices"
+                "name": "дикий рис",
+                "plural_name": "дикий рис"
             },
             "semolina": {
                 "aliases": [],
                 "description": "",
-                "name": "semolina",
-                "plural_name": "semolinas"
+                "name": "манная крупа",
+                "plural_name": "манная крупа"
             },
             "jasmine rice": {
                 "aliases": [],
                 "description": "",
-                "name": "jasmine rice",
-                "plural_name": "jasmine rices"
+                "name": "рис жасмин",
+                "plural_name": "рис жасмин"
             },
             "polenta": {
                 "aliases": [],
                 "description": "",
-                "name": "polenta",
-                "plural_name": "polentas"
+                "name": "полента",
+                "plural_name": "полента"
             },
             "granola cereal": {
                 "aliases": [],
                 "description": "",
-                "name": "granola cereal",
-                "plural_name": "granola cereals"
+                "name": "хрустящие мюсли",
+                "plural_name": "хрустящие мюсли"
             },
             "bulgur": {
                 "aliases": [],
                 "description": "",
-                "name": "bulgur",
-                "plural_name": "bulgurs"
+                "name": "булгур",
+                "plural_name": "булгур"
             },
             "pearl barley": {
                 "aliases": [],
                 "description": "",
-                "name": "pearl barley",
-                "plural_name": "pearl barleys"
+                "name": "перловка",
+                "plural_name": "перловка"
             },
             "farro": {
                 "aliases": [],
                 "description": "",
-                "name": "farro",
-                "plural_name": "farroes"
+                "name": "полба",
+                "plural_name": "полба"
             },
             "barley": {
                 "aliases": [],
                 "description": "",
-                "name": "barley",
-                "plural_name": "barleys"
+                "name": "ячмень",
+                "plural_name": "ячмень"
             },
             "wheat germ": {
                 "aliases": [],
                 "description": "",
-                "name": "wheat germ",
-                "plural_name": "wheat germs"
+                "name": "пшеничные зародыши",
+                "plural_name": "пшеничные зародыши"
             },
             "grit": {
                 "aliases": [],
                 "description": "",
-                "name": "grit",
-                "plural_name": "grits"
+                "name": "крупка",
+                "plural_name": "крупка"
             },
             "steel cut oat": {
                 "aliases": [],
                 "description": "",
-                "name": "steel cut oat",
-                "plural_name": "steel cut oats"
+                "name": "овсяная крупа",
+                "plural_name": "овсяная крупа"
             },
             "millet": {
                 "aliases": [],
                 "description": "",
-                "name": "millet",
-                "plural_name": "millets"
+                "name": "просо",
+                "plural_name": "просо"
             },
             "oat bran": {
                 "aliases": [],
                 "description": "",
-                "name": "oat bran",
-                "plural_name": "oat brans"
+                "name": "отрубь овсяная",
+                "plural_name": "отрубь овсяная"
             },
             "sushi rice": {
                 "aliases": [],
                 "description": "",
-                "name": "sushi rice",
-                "plural_name": "sushi rices"
+                "name": "рис для суши",
+                "plural_name": "рис для суши"
             },
             "glutinous rice": {
                 "aliases": [],
                 "description": "",
-                "name": "glutinous rice",
-                "plural_name": "glutinous rices"
+                "name": "клейкий рис",
+                "plural_name": "клейкий рис"
             },
             "instant rice": {
                 "aliases": [],
                 "description": "",
-                "name": "instant rice",
-                "plural_name": "instant rices"
+                "name": "рис быстрого приготовления",
+                "plural_name": "рис быстрого приготовления"
             },
             "hominy": {
                 "aliases": [],
                 "description": "",
-                "name": "hominy",
-                "plural_name": "hominies"
+                "name": "лущёная кукуруза",
+                "plural_name": "лущёная кукуруза"
             },
             "red quinoa": {
                 "aliases": [],
                 "description": "",
-                "name": "red quinoa",
-                "plural_name": "red quinoas"
+                "name": "красная киноа",
+                "plural_name": "красная киноа"
             },
             "raw buckwheat": {
                 "aliases": [],
                 "description": "",
-                "name": "raw buckwheat",
-                "plural_name": "raw buckwheats"
+                "name": "сырая гречка",
+                "plural_name": "сырая гречка"
             },
             "wheat bran": {
                 "aliases": [],
                 "description": "",
-                "name": "wheat bran",
-                "plural_name": "wheat brans"
+                "name": "пшеничные отруби",
+                "plural_name": "пшеничные отруби"
             },
             "instant oat": {
                 "aliases": [],
                 "description": "",
-                "name": "instant oat",
-                "plural_name": "instant oats"
+                "name": "овсянка быстрого приготовления",
+                "plural_name": "овсянка быстрого приготовления"
             },
             "wheat berry": {
                 "aliases": [],
                 "description": "",
-                "name": "wheat berry",
-                "plural_name": "wheat berries"
+                "name": "пшеничное зерно",
+                "plural_name": "пшеничное зерно"
             },
             "poha": {
                 "aliases": [],
                 "description": "",
-                "name": "poha",
-                "plural_name": "pohas"
+                "name": "поха (сплющенный рис)",
+                "plural_name": "поха (сплющенный рис)"
             },
             "black rice": {
                 "aliases": [],
                 "description": "",
-                "name": "black rice",
-                "plural_name": "black rices"
+                "name": "чёрный рис",
+                "plural_name": "чёрный рис"
             },
             "yellow rice": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow rice",
-                "plural_name": "yellow rices"
+                "name": "жёлтый рис",
+                "plural_name": "жёлтый рис"
             },
             "fine semolina": {
                 "aliases": [],
                 "description": "",
-                "name": "fine semolina",
-                "plural_name": "fine semolinas"
+                "name": "мелкая манка",
+                "plural_name": "мелкая манка"
             },
             "muesli": {
                 "aliases": [],
                 "description": "",
-                "name": "muesli",
-                "plural_name": "mueslis"
+                "name": "мюсли",
+                "plural_name": "мюсли"
             },
             "amaranth": {
                 "aliases": [],
                 "description": "",
-                "name": "amaranth",
-                "plural_name": "amaranths"
+                "name": "амарант",
+                "plural_name": "амарант"
             },
             "kasha": {
                 "aliases": [],
                 "description": "",
-                "name": "kasha",
-                "plural_name": "kashas"
+                "name": "каша",
+                "plural_name": "каша"
             },
             "quinoa flake": {
                 "aliases": [],
                 "description": "",
-                "name": "quinoa flake",
-                "plural_name": "quinoa flakes"
+                "name": "хлопья киноа",
+                "plural_name": "хлопья киноа"
             },
             "puffed rice": {
                 "aliases": [],
                 "description": "",
-                "name": "puffed rice",
-                "plural_name": "puffed rices"
+                "name": "воздушный рис",
+                "plural_name": "воздушный рис"
             },
             "pearled farro": {
                 "aliases": [],
                 "description": "",
-                "name": "pearled farro",
-                "plural_name": "pearled farroes"
+                "name": "перловая полба",
+                "plural_name": "перловая полба"
             },
             "cracked wheat": {
                 "aliases": [],
                 "description": "",
-                "name": "cracked wheat",
-                "plural_name": "cracked wheats"
+                "name": "дроблёная пшеница",
+                "plural_name": "дроблёная пшеница"
             },
             "freekeh": {
                 "aliases": [],
                 "description": "",
-                "name": "freekeh",
-                "plural_name": "freekehs"
+                "name": "фрике",
+                "plural_name": "фрике"
             },
             "paella rice": {
                 "aliases": [],
                 "description": "",
-                "name": "paella rice",
-                "plural_name": "paella rices"
+                "name": "рис для паэльи",
+                "plural_name": "рис для паэльи"
             },
             "sorghum": {
                 "aliases": [],
                 "description": "",
-                "name": "sorghum",
-                "plural_name": "sorghums"
+                "name": "сорго",
+                "plural_name": "сорго"
             },
             "red rice": {
                 "aliases": [],
                 "description": "",
-                "name": "red rice",
-                "plural_name": "red rices"
+                "name": "красный рис",
+                "plural_name": "красный рис"
             },
             "mexican rice": {
                 "aliases": [],
                 "description": "",
-                "name": "mexican rice",
-                "plural_name": "mexican rices"
+                "name": "мексиканский рис\n",
+                "plural_name": "мексиканский рис"
             },
             "idli rice": {
                 "aliases": [],
                 "description": "",
-                "name": "idli rice",
-                "plural_name": "idli rices"
+                "name": "рис идли",
+                "plural_name": "рис идли"
             },
             "brown jasmine rice": {
                 "aliases": [],
                 "description": "",
-                "name": "brown jasmine rice",
-                "plural_name": "brown jasmine rices"
+                "name": "коричневый жасминовый рис",
+                "plural_name": "коричневый жасминовый рис"
             },
             "cream of wheat": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of wheat",
-                "plural_name": "cream of wheat"
+                "name": "манная крупа",
+                "plural_name": "манная крупа"
             },
             "rice pilaf": {
                 "aliases": [],
                 "description": "",
-                "name": "rice pilaf",
-                "plural_name": "rice pilafs"
+                "name": "рисовый пилаф",
+                "plural_name": "рисовый пилаф"
             },
             "barnyard millet": {
                 "aliases": [],
                 "description": "",
-                "name": "barnyard millet",
-                "plural_name": "barnyard millets"
+                "name": "просо\n",
+                "plural_name": "просо"
             },
             "weetabix": {
                 "aliases": [],
                 "description": "",
-                "name": "weetabix",
-                "plural_name": "weetabixes"
+                "name": "витабикс",
+                "plural_name": "витабикс"
             },
             "jambalaya rice mix": {
                 "aliases": [],
                 "description": "",
-                "name": "jambalaya rice mix",
-                "plural_name": "jambalaya rice mixes"
+                "name": "смесь для риса джамбалайя",
+                "plural_name": "смесь для риса джамбалайя"
             },
             "black glutinous rice": {
                 "aliases": [],
                 "description": "",
-                "name": "black glutinous rice",
-                "plural_name": "black glutinous rices"
+                "name": "чёрный клейкий рис",
+                "plural_name": "чёрный клейкий рис"
             },
             "whole-grain oat": {
                 "aliases": [],
                 "description": "",
-                "name": "whole-grain oat",
-                "plural_name": "whole-grain oats"
+                "name": "цельнозерновой овёс",
+                "plural_name": "цельнозерновой овёс"
             },
             "puffed quinoa": {
                 "aliases": [],
                 "description": "",
-                "name": "puffed quinoa",
-                "plural_name": "puffed quinoas"
+                "name": "вспученная киноа",
+                "plural_name": "вспученная киноа"
             },
             "cilantro lime rice": {
                 "aliases": [],
                 "description": "",
-                "name": "cilantro lime rice",
-                "plural_name": "cilantro lime rices"
+                "name": "рис с кинзой и лаймом",
+                "plural_name": "рис с кинзой и лаймом"
             },
             "dirty rice mix": {
                 "aliases": [],
                 "description": "",
-                "name": "dirty rice mix",
-                "plural_name": "dirty rice mixes"
+                "name": "смесь для грязного риса",
+                "plural_name": "смесь для грязного риса"
             },
             "puffed wheat": {
                 "aliases": [],
                 "description": "",
-                "name": "puffed wheat",
-                "plural_name": "puffed wheats"
+                "name": "воздушная пшеница",
+                "plural_name": "воздушная пшеница"
             },
             "hulled barley": {
                 "aliases": [],
                 "description": "",
-                "name": "hulled barley",
-                "plural_name": "hulled barleys"
+                "name": "очищенный ячмень",
+                "plural_name": "очищенный ячмень"
             },
             "brown long grain rice": {
                 "aliases": [],
                 "description": "",
-                "name": "brown long grain rice",
-                "plural_name": "brown long grain rices"
+                "name": "коричневый длиннозёрный рис",
+                "plural_name": "коричневый длиннозёрный рис"
             },
             "finger millet": {
                 "aliases": [],
                 "description": "",
-                "name": "finger millet",
-                "plural_name": "finger millets"
+                "name": "просо раги",
+                "plural_name": "просо раги"
             },
             "foxtail millet": {
                 "aliases": [],
                 "description": "",
-                "name": "foxtail millet",
-                "plural_name": "foxtail millets"
+                "name": "лисохвостное просо",
+                "plural_name": "лисохвостное просо"
             },
             "matta rice": {
                 "aliases": [],
                 "description": "",
-                "name": "matta rice",
-                "plural_name": "matta rices"
+                "name": "рис матта",
+                "plural_name": "рис матта"
             },
             "rye berry": {
                 "aliases": [],
                 "description": "",
-                "name": "rye berry",
-                "plural_name": "rye berries"
+                "name": "ржаная крупа",
+                "plural_name": "ржаная крупа"
             },
             "spelt flake": {
                 "aliases": [],
                 "description": "",
-                "name": "spelt flake",
-                "plural_name": "spelt flakes"
+                "name": "хлопья спельты",
+                "plural_name": "хлопья спельты"
             },
             "kodo millet": {
                 "aliases": [],
                 "description": "",
-                "name": "kodo millet",
-                "plural_name": "kodo millets"
+                "name": "просо кодо",
+                "plural_name": "просо кодо"
             },
             "oat groat": {
                 "aliases": [],
                 "description": "",
-                "name": "oat groat",
-                "plural_name": "oat groats"
+                "name": "овсяная крупа",
+                "plural_name": "овсяная крупа"
             },
             "teff": {
                 "aliases": [],
                 "description": "",
-                "name": "teff",
-                "plural_name": "teffs"
+                "name": "тефф",
+                "plural_name": "тефф"
             },
             "rye flake": {
                 "aliases": [],
                 "description": "",
-                "name": "rye flake",
-                "plural_name": "rye flakes"
+                "name": "ржаные хлопья",
+                "plural_name": "ржаные хлопья"
             },
             "little millet": {
                 "aliases": [],
                 "description": "",
-                "name": "little millet",
-                "plural_name": "little millets"
+                "name": "малое просо",
+                "plural_name": "малое просо"
             },
             "gluten-free breakfast cereal": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free breakfast cereal",
-                "plural_name": "gluten-free breakfast cereals"
+                "name": "безглютеновые хлопья для завтрака",
+                "plural_name": "безглютеновые хлопья для завтрака"
             },
             "puffed amaranth": {
                 "aliases": [],
                 "description": "",
-                "name": "puffed amaranth",
-                "plural_name": "puffed amaranths"
+                "name": "воздушный амарант",
+                "plural_name": "воздушный амарант"
             },
             "coconut rice": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut rice",
-                "plural_name": "coconut rices"
+                "name": "кокосовый рис",
+                "plural_name": "кокосовый рис"
             },
             "amaranth flake": {
                 "aliases": [],
                 "description": "",
-                "name": "amaranth flake",
-                "plural_name": "amaranth flakes"
+                "name": "хлопья амаранта",
+                "plural_name": "хлопья амаранта"
             },
             "puffed kamut": {
                 "aliases": [],
                 "description": "",
-                "name": "puffed kamut",
-                "plural_name": "puffed kamuts"
+                "name": "воздушный камут",
+                "plural_name": "воздушный камут"
             },
             "bamboo rice": {
                 "aliases": [],
                 "description": "",
-                "name": "bamboo rice",
-                "plural_name": "bamboo rices"
+                "name": "бамбуковый рис",
+                "plural_name": "бамбуковый рис"
             },
             "pearled sorghum": {
                 "aliases": [],
                 "description": "",
-                "name": "pearled sorghum",
-                "plural_name": "pearled sorghums"
+                "name": "перловое сорго\n",
+                "plural_name": "перловое сорго\n"
             },
             "shirataki rice": {
                 "aliases": [],
                 "description": "",
-                "name": "shirataki rice",
-                "plural_name": "shirataki rices"
+                "name": "рис ширатакки",
+                "plural_name": "рис ширатакки"
             },
             "vegetable fried rice": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable fried rice",
-                "plural_name": "vegetable fried rices"
+                "name": "жареный рис с овощами",
+                "plural_name": "жареный рис с овощами"
             },
             "grünkern": {
                 "aliases": [],
                 "description": "",
-                "name": "grünkern",
-                "plural_name": "grünkerns"
+                "name": "грюнкёрн",
+                "plural_name": "грюнкёрн"
             },
             "jeera rice": {
                 "aliases": [],
                 "description": "",
-                "name": "jeera rice",
-                "plural_name": "jeera rices"
+                "name": "рис с тмином",
+                "plural_name": "рис с тмином"
             },
             "fonio": {
                 "aliases": [],
                 "description": "",
-                "name": "fonio",
-                "plural_name": "fonios"
+                "name": "фонио",
+                "plural_name": "фонио"
             },
             "kamut flake": {
                 "aliases": [],
                 "description": "",
-                "name": "kamut flake",
-                "plural_name": "kamut flakes"
+                "name": "хлопья камута",
+                "plural_name": "хлопья камута"
             },
             "texmati rice": {
                 "aliases": [],
                 "description": "",
-                "name": "texmati rice",
-                "plural_name": "texmati rices"
+                "name": "рис тексмати",
+                "plural_name": "рис тексмати"
             },
             "cream of rice": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of rice",
-                "plural_name": "cream of rice"
+                "name": "рисовая манка",
+                "plural_name": "рисовая манка"
             },
             "kañiwa": {
                 "aliases": [],
                 "description": "",
-                "name": "kañiwa",
-                "plural_name": "kañiwas"
+                "name": "каньива",
+                "plural_name": "каньива"
             },
             "proso millet": {
                 "aliases": [],
                 "description": "",
-                "name": "proso millet",
-                "plural_name": "proso millets"
+                "name": "просо",
+                "plural_name": "просо"
             }
         }
     },
@@ -9096,398 +9096,398 @@
             "pea": {
                 "aliases": [],
                 "description": "",
-                "name": "pea",
-                "plural_name": "peas"
+                "name": "горох",
+                "plural_name": "горох"
             },
             "green bean": {
                 "aliases": [],
                 "description": "",
-                "name": "green bean",
-                "plural_name": "green beans"
+                "name": "зелёная фасоль",
+                "plural_name": "зелёная фасоль"
             },
             "chickpea": {
                 "aliases": [],
                 "description": "",
-                "name": "chickpea",
-                "plural_name": "chickpeas"
+                "name": "нут",
+                "plural_name": "нут"
             },
             "black bean": {
                 "aliases": [],
                 "description": "",
-                "name": "black bean",
-                "plural_name": "black beans"
+                "name": "чёрная фасоль",
+                "plural_name": "чёрная фасоль"
             },
             "kidney bean": {
                 "aliases": [],
                 "description": "",
-                "name": "kidney bean",
-                "plural_name": "kidney beans"
+                "name": "красная фасоль",
+                "plural_name": "красная фасоль"
             },
             "white bean": {
                 "aliases": [],
                 "description": "",
-                "name": "white bean",
-                "plural_name": "white beans"
+                "name": "белая фасоль",
+                "plural_name": "белая фасоль"
             },
             "lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "lentil",
-                "plural_name": "lentils"
+                "name": "чечевица",
+                "plural_name": "чечевица"
             },
             "pinto bean": {
                 "aliases": [],
                 "description": "",
-                "name": "pinto bean",
-                "plural_name": "pinto beans"
+                "name": "пинто фасоль",
+                "plural_name": "пинто фасоль"
             },
             "snow pea": {
                 "aliases": [],
                 "description": "",
-                "name": "snow pea",
-                "plural_name": "snow peas"
+                "name": "сахарный горох",
+                "plural_name": "сахарный горох"
             },
             "snap pea": {
                 "aliases": [],
                 "description": "",
-                "name": "snap pea",
-                "plural_name": "snap peas"
+                "name": "ломкий горох",
+                "plural_name": "ломкий горох"
             },
             "red lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "red lentil",
-                "plural_name": "red lentils"
+                "name": "красная чечевица",
+                "plural_name": "красная чечевица"
             },
             "cannellini bean": {
                 "aliases": [],
                 "description": "",
-                "name": "cannellini bean",
-                "plural_name": "cannellini beans"
+                "name": "фасоль каннеллини",
+                "plural_name": "фасоль каннеллини"
             },
             "bean sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "bean sprout",
-                "plural_name": "bean sprouts"
+                "name": "ростки фасоли",
+                "plural_name": "ростки фасоли"
             },
             "edamame": {
                 "aliases": [],
                 "description": "",
-                "name": "edamame",
-                "plural_name": "edamames"
+                "name": "эдамаме",
+                "plural_name": "эдамаме"
             },
             "green lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "green lentil",
-                "plural_name": "green lentils"
+                "name": "зелёная чечевица",
+                "plural_name": "зелёная чечевица"
             },
             "urad dal": {
                 "aliases": [],
                 "description": "",
-                "name": "urad dal",
-                "plural_name": "urad dals"
+                "name": "урад дал",
+                "plural_name": "урад дал"
             },
             "lima bean": {
                 "aliases": [],
                 "description": "",
-                "name": "lima bean",
-                "plural_name": "lima beans"
+                "name": "лима фасоль",
+                "plural_name": "лима фасоль"
             },
             "chana dal": {
                 "aliases": [],
                 "description": "",
-                "name": "chana dal",
-                "plural_name": "chana dals"
+                "name": "чана дал",
+                "plural_name": "чана дал"
             },
             "fava bean": {
                 "aliases": [],
                 "description": "",
-                "name": "fava bean",
-                "plural_name": "fava beans"
+                "name": "бобы фава",
+                "plural_name": "бобы фава"
             },
             "black-eyed pea": {
                 "aliases": [],
                 "description": "",
-                "name": "black-eyed pea",
-                "plural_name": "black-eyed peas"
+                "name": "чёрноглазый горох",
+                "plural_name": "чёрноглазый горох"
             },
             "moong dal": {
                 "aliases": [],
                 "description": "",
-                "name": "moong dal",
-                "plural_name": "moong dals"
+                "name": "мунг дал",
+                "plural_name": "мунг дал"
             },
             "split pea": {
                 "aliases": [],
                 "description": "",
-                "name": "split pea",
-                "plural_name": "split peas"
+                "name": "колотый горох",
+                "plural_name": "колотый горох"
             },
             "pigeon pea": {
                 "aliases": [],
                 "description": "",
-                "name": "pigeon pea",
-                "plural_name": "pigeon peas"
+                "name": "голубиный горох",
+                "plural_name": "голубиный горох"
             },
             "red bean": {
                 "aliases": [],
                 "description": "",
-                "name": "red bean",
-                "plural_name": "red beans"
+                "name": "красная фасоль",
+                "plural_name": "красная фасоль"
             },
             "mung bean sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "mung bean sprout",
-                "plural_name": "mung bean sprouts"
+                "name": "ростки мунг-бобов",
+                "plural_name": "ростки мунг-бобов"
             },
             "soybean": {
                 "aliases": [],
                 "description": "",
-                "name": "soybean",
-                "plural_name": "soybeans"
+                "name": "соевые бобы",
+                "plural_name": "соевые бобы"
             },
             "mung bean": {
                 "aliases": [],
                 "description": "",
-                "name": "mung bean",
-                "plural_name": "mung beans"
+                "name": "бобы мунг",
+                "plural_name": "бобы мунг"
             },
             "string bean": {
                 "aliases": [],
                 "description": "",
-                "name": "string bean",
-                "plural_name": "string beans"
+                "name": "стручковая фасоль",
+                "plural_name": "стручковая фасоль"
             },
             "yellow split pea": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow split pea",
-                "plural_name": "yellow split peas"
+                "name": "жёлтый колотый горох",
+                "plural_name": "жёлтый колотый горох"
             },
             "black lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "black lentil",
-                "plural_name": "black lentils"
+                "name": "чёрная чечевица",
+                "plural_name": "чёрная чечевица"
             },
             "borlotti bean": {
                 "aliases": [],
                 "description": "",
-                "name": "borlotti bean",
-                "plural_name": "borlotti beans"
+                "name": "фасоль борлотти",
+                "plural_name": "фасоль борлотти"
             },
             "aquafaba": {
                 "aliases": [],
                 "description": "",
-                "name": "aquafaba",
-                "plural_name": "aquafabas"
+                "name": "аквафаба",
+                "plural_name": "аквафаба"
             },
             "chana": {
                 "aliases": [],
                 "description": "",
-                "name": "chana",
-                "plural_name": "chanas"
+                "name": "чана",
+                "plural_name": "чана"
             },
             "snake bean": {
                 "aliases": [],
                 "description": "",
-                "name": "snake bean",
-                "plural_name": "snake beans"
+                "name": "змеиная фасоль",
+                "plural_name": "змеиная фасоль"
             },
             "yellow lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "yellow lentil",
-                "plural_name": "yellow lentils"
+                "name": "жёлтая чечевица",
+                "plural_name": "жёлтая чечевица"
             },
             "mixed bean": {
                 "aliases": [],
                 "description": "",
-                "name": "mixed bean",
-                "plural_name": "mixed beans"
+                "name": "смешаная фасоль",
+                "plural_name": "смешаная фасоль"
             },
             "kala chana": {
                 "aliases": [],
                 "description": "",
-                "name": "kala chana",
-                "plural_name": "kala chanas"
+                "name": "кала чана",
+                "plural_name": "кала чана"
             },
             "fermented black bean": {
                 "aliases": [],
                 "description": "",
-                "name": "fermented black bean",
-                "plural_name": "fermented black beans"
+                "name": "ферментированные чёрные бобы",
+                "plural_name": "ферментированные чёрные бобы"
             },
             "black gram": {
                 "aliases": [],
                 "description": "",
-                "name": "black gram",
-                "plural_name": "black grams"
+                "name": "чёрный грам",
+                "plural_name": "чёрный грам"
             },
             "wax bean": {
                 "aliases": [],
                 "description": "",
-                "name": "wax bean",
-                "plural_name": "wax beans"
+                "name": "восковая фасоль",
+                "plural_name": "восковая фасоль"
             },
             "dried pea": {
                 "aliases": [],
                 "description": "",
-                "name": "dried pea",
-                "plural_name": "dried peas"
+                "name": "сушёный горох",
+                "plural_name": "сушёный горох"
             },
             "pink bean": {
                 "aliases": [],
                 "description": "",
-                "name": "pink bean",
-                "plural_name": "pink beans"
+                "name": "розовая фасоль",
+                "plural_name": "розовая фасоль"
             },
             "lentil sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "lentil sprout",
-                "plural_name": "lentil sprouts"
+                "name": "ростки чечевицы",
+                "plural_name": "ростки чечевицы"
             },
             "white pea": {
                 "aliases": [],
                 "description": "",
-                "name": "white pea",
-                "plural_name": "white peas"
+                "name": "белый горох",
+                "plural_name": "белый горох"
             },
             "black soybean": {
                 "aliases": [],
                 "description": "",
-                "name": "black soybean",
-                "plural_name": "black soybeans"
+                "name": "чёрная соя",
+                "plural_name": "чёрная соя"
             },
             "field pea": {
                 "aliases": [],
                 "description": "",
-                "name": "field pea",
-                "plural_name": "field peas"
+                "name": "полевой горох",
+                "plural_name": "полевой горох"
             },
             "gigante": {
                 "aliases": [],
                 "description": "",
-                "name": "gigante",
-                "plural_name": "gigantes"
+                "name": "гиганте (крупная фасоль)",
+                "plural_name": "гиганте (крупная фасоль)"
             },
             "flageolet": {
                 "aliases": [],
                 "description": "",
-                "name": "flageolet",
-                "plural_name": "flageolets"
+                "name": "фасоль флажоле",
+                "plural_name": "фасоль флажоле"
             },
             "horse gram": {
                 "aliases": [],
                 "description": "",
-                "name": "horse gram",
-                "plural_name": "horse grams"
+                "name": "лошадинный грам",
+                "plural_name": "лошадинный грам"
             },
             "soy sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "soy sprout",
-                "plural_name": "soy sprouts"
+                "name": "ростки сои",
+                "plural_name": "ростки сои"
             },
             "honey bean": {
                 "aliases": [],
                 "description": "",
-                "name": "honey bean",
-                "plural_name": "honey beans"
+                "name": "медовая фасоль",
+                "plural_name": "медовая фасоль"
             },
             "cluster bean": {
                 "aliases": [],
                 "description": "",
-                "name": "cluster bean",
-                "plural_name": "cluster beans"
+                "name": "кластерная фасоль",
+                "plural_name": "кластерная фасоль"
             },
             "brown bean": {
                 "aliases": [],
                 "description": "",
-                "name": "brown bean",
-                "plural_name": "brown beans"
+                "name": "коричневая фасоль",
+                "plural_name": "коричневая фасоль"
             },
             "mayocoba bean": {
                 "aliases": [],
                 "description": "",
-                "name": "mayocoba bean",
-                "plural_name": "mayocoba beans"
+                "name": "фасоль майокоба",
+                "plural_name": "фасоль майокоба"
             },
             "winged bean": {
                 "aliases": [],
                 "description": "",
-                "name": "winged bean",
-                "plural_name": "winged beans"
+                "name": "крылатая фасоль",
+                "plural_name": "крылатая фасоль"
             },
             "castelluccio lentil": {
                 "aliases": [],
                 "description": "",
-                "name": "castelluccio lentil",
-                "plural_name": "castelluccio lentils"
+                "name": "чечевица кастеллучо",
+                "plural_name": "чечевица кастеллучо"
             },
             "golden wax bean": {
                 "aliases": [],
                 "description": "",
-                "name": "golden wax bean",
-                "plural_name": "golden wax beans"
+                "name": "золотая восковая фасоль",
+                "plural_name": "золотая восковая фасоль"
             },
             "moth bean": {
                 "aliases": [],
                 "description": "",
-                "name": "moth bean",
-                "plural_name": "moth beans"
+                "name": "фасоль мот",
+                "plural_name": "фасоль мот"
             },
             "chickpea sprout": {
                 "aliases": [],
                 "description": "",
-                "name": "chickpea sprout",
-                "plural_name": "chickpea sprouts"
+                "name": "ростки нута",
+                "plural_name": "ростки нута"
             },
             "hara chana": {
                 "aliases": [],
                 "description": "",
-                "name": "hara chana",
-                "plural_name": "hara chanas"
+                "name": "хара чана",
+                "plural_name": "хара чана"
             },
             "lupini bean": {
                 "aliases": [],
                 "description": "",
-                "name": "lupini bean",
-                "plural_name": "lupini beans"
+                "name": "лупини",
+                "plural_name": "лупини"
             },
             "natto": {
                 "aliases": [],
                 "description": "",
-                "name": "natto",
-                "plural_name": "nattoes"
+                "name": "натто",
+                "plural_name": "натто"
             },
             "hyacinth bean": {
                 "aliases": [],
                 "description": "",
-                "name": "hyacinth bean",
-                "plural_name": "hyacinth beans"
+                "name": "гиацинтовая фасоль",
+                "plural_name": "гиацинтовая фасоль"
             },
             "petai": {
                 "aliases": [],
                 "description": "",
-                "name": "petai",
-                "plural_name": "petais"
+                "name": "петай",
+                "plural_name": "петай"
             },
             "scarlet runner bean": {
                 "aliases": [],
                 "description": "",
-                "name": "scarlet runner bean",
-                "plural_name": "scarlet runner beans"
+                "name": "алый боб-бегун",
+                "plural_name": "алый боб-бегун"
             },
             "soy flake": {
                 "aliases": [],
                 "description": "",
-                "name": "soy flake",
-                "plural_name": "soy flakes"
+                "name": "соевые хлопья",
+                "plural_name": "соевые хлопья"
             }
         }
     },
@@ -9496,532 +9496,532 @@
             "short-cut pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "short-cut pasta",
-                "plural_name": "short-cut pastas"
+                "name": "короткая паста",
+                "plural_name": "короткая паста"
             },
             "spaghetti": {
                 "aliases": [],
                 "description": "",
-                "name": "spaghetti",
-                "plural_name": "spaghettis"
+                "name": "спагетти",
+                "plural_name": "спагетти"
             },
             "macaroni": {
                 "aliases": [],
                 "description": "",
-                "name": "macaroni",
-                "plural_name": "macaronis"
+                "name": "макароны",
+                "plural_name": "макароны"
             },
             "egg noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "egg noodle",
-                "plural_name": "egg noodles"
+                "name": "макароны",
+                "plural_name": "макароны"
             },
             "spiral pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "spiral pasta",
-                "plural_name": "spiral pastas"
+                "name": "спиральная паста",
+                "plural_name": "спиральная паста"
             },
             "lasagna noodle": {
                 "aliases": [
-                    "lasagnas"
+                    "лазанья\n"
                 ],
                 "description": "",
-                "name": "lasagna noodle",
-                "plural_name": "lasagna noodles"
+                "name": "лапша для лазаньи",
+                "plural_name": "лапша для лазаньи"
             },
             "linguine": {
                 "aliases": [],
                 "description": "",
-                "name": "linguine",
-                "plural_name": "linguines"
+                "name": "лингвини",
+                "plural_name": "лингвини"
             },
             "fettuccine": {
                 "aliases": [],
                 "description": "",
-                "name": "fettuccine",
-                "plural_name": "fettuccines"
+                "name": "феттучини",
+                "plural_name": "феттучини"
             },
             "orzo": {
                 "aliases": [],
                 "description": "",
-                "name": "orzo",
-                "plural_name": "orzoes"
+                "name": "орзо",
+                "plural_name": "орзо"
             },
             "pasta shell": {
                 "aliases": [],
                 "description": "",
-                "name": "pasta shell",
-                "plural_name": "pasta shells"
+                "name": "ракушки (паста)",
+                "plural_name": "ракушки (паста)"
             },
             "bow-tie pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "bow-tie pasta",
-                "plural_name": "bow-tie pastas"
+                "name": "бантики (паста)",
+                "plural_name": "бантики (паста)"
             },
             "noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "noodle",
-                "plural_name": "noodles"
+                "name": "лапша",
+                "plural_name": "лапша"
             },
             "tortellini": {
                 "aliases": [],
                 "description": "",
-                "name": "tortellini",
-                "plural_name": "tortellinis"
+                "name": "тортеллини",
+                "plural_name": "тортеллини"
             },
             "cheese tortellini": {
                 "aliases": [],
                 "description": "",
-                "name": "cheese tortellini",
-                "plural_name": "cheese tortellinis"
+                "name": "сырные тортеллини",
+                "plural_name": "сырные тортеллини"
             },
             "rice noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "rice noodle",
-                "plural_name": "rice noodles"
+                "name": "рисовая лапша",
+                "plural_name": "рисовая лапша"
             },
             "rigatoni": {
                 "aliases": [],
                 "description": "",
-                "name": "rigatoni",
-                "plural_name": "rigatonis"
+                "name": "риготони",
+                "plural_name": "риготони"
             },
             "gnocchi": {
                 "aliases": [],
                 "description": "",
-                "name": "gnocchi",
-                "plural_name": "gnocchis"
+                "name": "ньокки",
+                "plural_name": "ньокки"
             },
             "angel hair pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "angel hair pasta",
-                "plural_name": "angel hair pastas"
+                "name": "тонкая ангельская паста",
+                "plural_name": "тонкая ангельская паста"
             },
             "ramen noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "ramen noodle",
-                "plural_name": "ramen noodles"
+                "name": "лапша рамэн",
+                "plural_name": "лапша рамэн"
             },
             "vermicelli": {
                 "aliases": [],
                 "description": "",
-                "name": "vermicelli",
-                "plural_name": "vermicellis"
+                "name": "вермишель",
+                "plural_name": "вермишель"
             },
             "tagliatelle": {
                 "aliases": [],
                 "description": "",
-                "name": "tagliatelle",
-                "plural_name": "tagliatelles"
+                "name": "тальятелле",
+                "plural_name": "тальятелле"
             },
             "soba noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "soba noodle",
-                "plural_name": "soba noodles"
+                "name": "лапша соба",
+                "plural_name": "лапша соба"
             },
             "ravioli": {
                 "aliases": [],
                 "description": "",
-                "name": "ravioli",
-                "plural_name": "raviolis"
+                "name": "равиоли",
+                "plural_name": "равиоли"
             },
             "ziti": {
                 "aliases": [],
                 "description": "",
-                "name": "ziti",
-                "plural_name": "zitis"
+                "name": "зити",
+                "plural_name": "зити"
             },
             "orecchiette": {
                 "aliases": [],
                 "description": "",
-                "name": "orecchiette",
-                "plural_name": "orecchiettes"
+                "name": "орекьетте",
+                "plural_name": "орекьетте\n"
             },
             "israeli couscous": {
                 "aliases": [],
                 "description": "",
-                "name": "israeli couscous",
-                "plural_name": "israeli couscous"
+                "name": "израильский кускус",
+                "plural_name": "израильский кускус"
             },
             "zoodle": {
                 "aliases": [],
                 "description": "",
-                "name": "zoodle",
-                "plural_name": "zoodles"
+                "name": "зудл (овощная лапша)",
+                "plural_name": "зудл (овощная лапша)"
             },
             "udon noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "udon noodle",
-                "plural_name": "udon noodles"
+                "name": "лапша удон",
+                "plural_name": "лапша удон"
             },
             "ditalini": {
                 "aliases": [],
                 "description": "",
-                "name": "ditalini",
-                "plural_name": "ditalinis"
+                "name": "диталини",
+                "plural_name": "диталини"
             },
             "rice vermicelli": {
                 "aliases": [],
                 "description": "",
-                "name": "rice vermicelli",
-                "plural_name": "rice vermicellis"
+                "name": "рисовая вермишель",
+                "plural_name": "рисовая вермишель"
             },
             "pappardelle": {
                 "aliases": [],
                 "description": "",
-                "name": "pappardelle",
-                "plural_name": "pappardelles"
+                "name": "паппарделле",
+                "plural_name": "паппарделле"
             },
             "glass noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "glass noodle",
-                "plural_name": "glass noodles"
+                "name": "стеклянная лапша",
+                "plural_name": "стеклянная лапша"
             },
             "gluten-free pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free pasta",
-                "plural_name": "gluten-free pastas"
+                "name": "безглютеновая паста",
+                "plural_name": "безглютеновая паста"
             },
             "mac 'n cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mac 'n cheese",
-                "plural_name": "mac 'n cheese"
+                "name": "мак-н-чиз (макароны с сыром)",
+                "plural_name": "мак-н-чиз (макароны с сыром)"
             },
             "penne rigate": {
                 "aliases": [],
                 "description": "",
-                "name": "penne rigate",
-                "plural_name": "penne rigates"
+                "name": "пенне ригате",
+                "plural_name": "пенне ригате"
             },
             "manicotti": {
                 "aliases": [],
                 "description": "",
-                "name": "manicotti",
-                "plural_name": "manicottis"
+                "name": "маникотти",
+                "plural_name": "маникотти"
             },
             "bucatini": {
                 "aliases": [],
                 "description": "",
-                "name": "bucatini",
-                "plural_name": "bucatinis"
+                "name": "букатини",
+                "plural_name": "букатини"
             },
             "cannelloni": {
                 "aliases": [],
                 "description": "",
-                "name": "cannelloni",
-                "plural_name": "cannellonis"
+                "name": "каннеллони",
+                "plural_name": "каннеллони"
             },
             "thai rice noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "thai rice noodle",
-                "plural_name": "thai rice noodles"
+                "name": "тайская рисовая лапша",
+                "plural_name": "тайская рисовая лапша"
             },
             "brown rice pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "brown rice pasta",
-                "plural_name": "brown rice pastas"
+                "name": "паста из коричневого риса",
+                "plural_name": "паста из коричневого риса"
             },
             "rotelle": {
                 "aliases": [],
                 "description": "",
-                "name": "rotelle",
-                "plural_name": "rotelles"
+                "name": "ротелле",
+                "plural_name": "ротелле"
             },
             "shirataki noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "shirataki noodle",
-                "plural_name": "shirataki noodles"
+                "name": "лапша ширатакки",
+                "plural_name": "лапша ширатакки"
             },
             "chicken raman": {
                 "aliases": [],
                 "description": "",
-                "name": "chicken raman",
-                "plural_name": "chicken ramen"
+                "name": "куриный раман\n",
+                "plural_name": "куриный раман"
             },
             "pierogi": {
                 "aliases": [],
                 "description": "",
-                "name": "pierogi",
-                "plural_name": "pierogis"
+                "name": "пироги",
+                "plural_name": "пироги"
             },
             "soup pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "soup pasta",
-                "plural_name": "soup pastas"
+                "name": "паста для супа",
+                "plural_name": "паста для супа"
             },
             "sweet potato noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato noodle",
-                "plural_name": "sweet potato noodles"
+                "name": "лапша из сладкого картофеля",
+                "plural_name": "лапша из сладкого картофеля"
             },
             "acini di pepe": {
                 "aliases": [],
                 "description": "",
-                "name": "acini di pepe",
-                "plural_name": "acini di pepes"
+                "name": "ачини ди пепе",
+                "plural_name": "ачини ди пепе"
             },
             "cavatelli": {
                 "aliases": [],
                 "description": "",
-                "name": "cavatelli",
-                "plural_name": "cavatellis"
+                "name": "кавателли",
+                "plural_name": "кавателли"
             },
             "instant noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "instant noodle",
-                "plural_name": "instant noodles"
+                "name": "лапша быстрого приготовления",
+                "plural_name": "лапша быстрого приготовления"
             },
             "somen noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "somen noodle",
-                "plural_name": "somen noodles"
+                "name": "лапша сомэн",
+                "plural_name": "лапша сомэн"
             },
             "yakisoba noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "yakisoba noodle",
-                "plural_name": "yakisoba noodles"
+                "name": "лапша якисоба",
+                "plural_name": "лапша якисоба"
             },
             "beef ravioli": {
                 "aliases": [],
                 "description": "",
-                "name": "beef ravioli",
-                "plural_name": "beef raviolis"
+                "name": "равиоли с говядиной",
+                "plural_name": "равиоли с говядиной"
             },
             "hakka noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "hakka noodle",
-                "plural_name": "hakka noodles"
+                "name": "лапша хакка",
+                "plural_name": "лапша хакка"
             },
             "kelp noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "kelp noodle",
-                "plural_name": "kelp noodles"
+                "name": "лапша из морских водорослей",
+                "plural_name": "лапша из морских водорослей"
             },
             "fideo pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "fideo pasta",
-                "plural_name": "fideo pastas"
+                "name": "фидео",
+                "plural_name": "фидео"
             },
             "spaetzle": {
                 "aliases": [],
                 "description": "",
-                "name": "spaetzle",
-                "plural_name": "spaetzles"
+                "name": "шпецле",
+                "plural_name": "шпецле"
             },
             "radiatore": {
                 "aliases": [],
                 "description": "",
-                "name": "radiatore",
-                "plural_name": "radiatores"
+                "name": "радиаторе",
+                "plural_name": "радиаторе"
             },
             "paccheri": {
                 "aliases": [],
                 "description": "",
-                "name": "paccheri",
-                "plural_name": "paccheris"
+                "name": "паккери",
+                "plural_name": "паккери"
             },
             "kluski noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "kluski noodle",
-                "plural_name": "kluski noodles"
+                "name": "клюски-лапша",
+                "plural_name": "клюски-лапша"
             },
             "yolk-free noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "yolk-free noodle",
-                "plural_name": "yolk-free noodles"
+                "name": "лапша без яиц",
+                "plural_name": "лапша без яиц"
             },
             "black bean pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "black bean pasta",
-                "plural_name": "black bean pastas"
+                "name": "паста из чёрной фасоли",
+                "plural_name": "паста из чёрной фасоли"
             },
             "matzo farfel": {
                 "aliases": [],
                 "description": "",
-                "name": "matzo farfel",
-                "plural_name": "matzo farfels"
+                "name": "мацо-фарфель",
+                "plural_name": "мацо-фарфель"
             },
             "spinach fettuccine": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach fettuccine",
-                "plural_name": "spinach fettuccines"
+                "name": "шпинатная паста феттучини\n",
+                "plural_name": "шпинатная паста феттучини\n"
             },
             "rice-a-roni": {
                 "aliases": [],
                 "description": "",
-                "name": "rice-a-roni",
-                "plural_name": "rice-a-ronis"
+                "name": "райс-а-рони",
+                "plural_name": "райс-а-рони"
             },
             "frozen dumpling": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen dumpling",
-                "plural_name": "frozen dumplings"
+                "name": "замороженные пельмени",
+                "plural_name": "замороженные пельмени"
             },
             "fregola": {
                 "aliases": [],
                 "description": "",
-                "name": "fregola",
-                "plural_name": "fregolas"
+                "name": "фрегола",
+                "plural_name": "фрегола"
             },
             "beef tortellini": {
                 "aliases": [],
                 "description": "",
-                "name": "beef tortellini",
-                "plural_name": "beef tortellinis"
+                "name": "тортеллини с говядиной",
+                "plural_name": "тортеллини с говядиной"
             },
             "banh pho": {
                 "aliases": [],
                 "description": "",
-                "name": "banh pho",
-                "plural_name": "banh phoes"
+                "name": "бан фо",
+                "plural_name": "бан фо"
             },
             "butternut squash noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "butternut squash noodle",
-                "plural_name": "butternut squash noodles"
+                "name": "лапша из мускатной тыквы",
+                "plural_name": "лапша из мускатной тыквы"
             },
             "mie noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "mie noodle",
-                "plural_name": "mie noodles"
+                "name": "ми-лапша",
+                "plural_name": "ми-лапша"
             },
             "trahana": {
                 "aliases": [],
                 "description": "",
-                "name": "trahana",
-                "plural_name": "trahanas"
+                "name": "трахана",
+                "plural_name": "трахана"
             },
             "busiate": {
                 "aliases": [],
                 "description": "",
-                "name": "busiate",
-                "plural_name": "busiates"
+                "name": "бузиате",
+                "plural_name": "бузиате"
             },
             "lobster ravioli": {
                 "aliases": [],
                 "description": "",
-                "name": "lobster ravioli",
-                "plural_name": "lobster raviolis"
+                "name": "равиоли с лобстером\n",
+                "plural_name": "равиоли с лобстером\n"
             },
             "mafalde": {
                 "aliases": [],
                 "description": "",
-                "name": "mafalde",
-                "plural_name": "mafaldes"
+                "name": "мафальде (широкая волнистая паста)",
+                "plural_name": "мафальде (широкая волнистая паста)"
             },
             "misua": {
                 "aliases": [],
                 "description": "",
-                "name": "misua",
-                "plural_name": "misuas"
+                "name": "мисуа (тонкая китайская пшеничная лапша)",
+                "plural_name": "мисуа (тонкая китайская пшеничная лапша)"
             },
             "palmini": {
                 "aliases": [],
                 "description": "",
-                "name": "palmini",
-                "plural_name": "palminis"
+                "name": "палмини (лапша из сердцевины пальмы)",
+                "plural_name": "палмини (лапша из сердцевины пальмы)"
             },
             "trottole": {
                 "aliases": [],
                 "description": "",
-                "name": "trottole",
-                "plural_name": "trottoles"
+                "name": "троттоле (спиральная паста)",
+                "plural_name": "троттоле (спиральная паста)"
             },
             "mandu": {
                 "aliases": [],
                 "description": "",
-                "name": "mandu",
-                "plural_name": "mandu"
+                "name": "манду (корейские пельмени)",
+                "plural_name": "манду (корейские пельмени)"
             },
             "pasta salad mix": {
                 "aliases": [],
                 "description": "",
-                "name": "pasta salad mix",
-                "plural_name": "pasta salad mix"
+                "name": "смесь для пасты‑салата",
+                "plural_name": "смесь для пасты‑салата"
             },
             "pot pie noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "pot pie noodle",
-                "plural_name": "pot pie noodles"
+                "name": "лапша для пирога",
+                "plural_name": "лапша для пирога"
             },
             "casarecce": {
                 "aliases": [],
                 "description": "",
-                "name": "casarecce",
-                "plural_name": "casarecces"
+                "name": "казаречче (итальянская короткая паста)",
+                "plural_name": "казаречче (итальянская короткая паста)"
             },
             "quinoa pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "quinoa pasta",
-                "plural_name": "quinoa pastas"
+                "name": "киноа‑паста",
+                "plural_name": "киноа‑паста"
             },
             "bean pasta": {
                 "aliases": [],
                 "description": "",
-                "name": "bean pasta",
-                "plural_name": "bean pastas"
+                "name": "бобовая паста",
+                "plural_name": "бобовая паста"
             },
             "bean sheet": {
                 "aliases": [],
                 "description": "",
-                "name": "bean sheet",
-                "plural_name": "bean sheets"
+                "name": "бобовый лист",
+                "plural_name": "бобовый лист\n"
             },
             "hilopite": {
                 "aliases": [],
                 "description": "",
-                "name": "hilopite",
-                "plural_name": "hilopites"
+                "name": "хилопите (греческая плоская лапша)",
+                "plural_name": "хилопите (греческая плоская лапша)"
             },
             "jjolmyeon": {
                 "aliases": [],
                 "description": "",
-                "name": "jjolmyeon",
-                "plural_name": "jjolmyeons"
+                "name": "чжольмён (корейская жёсткая жевательная лапша)",
+                "plural_name": "чжольмён (корейская жёсткая жевательная лапша)"
             },
             "naengmyeon noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "naengmyeon noodle",
-                "plural_name": "naengmyeon noodles"
+                "name": "нэнмён‑лапша (лапша для холодного корейского супа нэнмён)",
+                "plural_name": "нэнмён‑лапша (лапша для холодного корейского супа нэнмён)"
             },
             "yuba noodle": {
                 "aliases": [],
                 "description": "",
-                "name": "yuba noodle",
-                "plural_name": "yuba noodles"
+                "name": "юба‑лапша (лапша из соевой плёнки)",
+                "plural_name": "юба‑лапша (лапша из соевой плёнки)"
             }
         }
     },
@@ -10030,8 +10030,8 @@
             "bread": {
                 "aliases": [],
                 "description": "",
-                "name": "bread",
-                "plural_name": "breads"
+                "name": "хлеб",
+                "plural_name": "хлеб"
             }
         }
     },
@@ -10040,596 +10040,596 @@
             "bread crumb": {
                 "aliases": [],
                 "description": "",
-                "name": "bread crumb",
-                "plural_name": "bread crumbs"
+                "name": "хлебные крошки",
+                "plural_name": "хлебные крошки"
             },
             "panko": {
                 "aliases": [],
                 "description": "",
-                "name": "panko",
-                "plural_name": "pankoes"
+                "name": "панко (японские хлебные сухари)",
+                "plural_name": "панко (японские хлебные сухари)"
             },
             "flour tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "flour tortilla",
-                "plural_name": "flour tortillas"
+                "name": "пшеничная тортилья",
+                "plural_name": "пшеничная тортилья"
             },
             "almond flour tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "almond flour tortilla",
-                "plural_name": "almond flour tortillas"
+                "name": "миндальная тортилья",
+                "plural_name": "миндальная тортилья"
             },
             "corn tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "corn tortilla",
-                "plural_name": "corn tortillas"
+                "name": "кукурузная тортилья",
+                "plural_name": "кукурузная тортилья"
             },
             "cracker": {
                 "aliases": [],
                 "description": "",
-                "name": "cracker",
-                "plural_name": "crackers"
+                "name": "крекер",
+                "plural_name": "крекеры"
             },
             "baguette": {
                 "aliases": [],
                 "description": "",
-                "name": "baguette",
-                "plural_name": "baguettes"
+                "name": "багет",
+                "plural_name": "багеты"
             },
             "tortilla chip": {
                 "aliases": [],
                 "description": "",
-                "name": "tortilla chip",
-                "plural_name": "tortilla chips"
+                "name": "чипсы из тортильи",
+                "plural_name": "чипсы из тортильи"
             },
             "pita": {
                 "aliases": [],
                 "description": "",
-                "name": "pita",
-                "plural_name": "pitas"
+                "name": "пита",
+                "plural_name": "пита"
             },
             "pretzel": {
                 "aliases": [],
                 "description": "",
-                "name": "pretzel",
-                "plural_name": "pretzels"
+                "name": "крендель",
+                "plural_name": "крендели"
             },
             "sourdough bread": {
                 "aliases": [],
                 "description": "",
-                "name": "sourdough bread",
-                "plural_name": "sourdough breads"
+                "name": "хлеб на закваске (саурдо)",
+                "plural_name": "хлеб на закваске (саурдо)"
             },
             "rustic italian bread": {
                 "aliases": [],
                 "description": "",
-                "name": "rustic italian bread",
-                "plural_name": "rustic italian breads"
+                "name": "деревенский итальянский хлеб",
+                "plural_name": "деревенский итальянский хлеб"
             },
             "popcorn": {
                 "aliases": [],
                 "description": "",
-                "name": "popcorn",
-                "plural_name": "popcorns"
+                "name": "попкорн",
+                "plural_name": "попкорн"
             },
             "crouton": {
                 "aliases": [],
                 "description": "",
-                "name": "crouton",
-                "plural_name": "croutons"
+                "name": "крутон",
+                "plural_name": "крутоны"
             },
             "whole-wheat tortilla": {
                 "aliases": [],
                 "description": "",
-                "name": "whole-wheat tortilla",
-                "plural_name": "whole-wheat tortillas"
+                "name": "цельнозерновая тортилья",
+                "plural_name": "цельнозерновая тортилья"
             },
             "english muffin": {
                 "aliases": [],
                 "description": "",
-                "name": "english muffin",
-                "plural_name": "english muffins"
+                "name": "английская булочка",
+                "plural_name": "английская булочка"
             },
             "brioche": {
                 "aliases": [],
                 "description": "",
-                "name": "brioche",
-                "plural_name": "brioches"
+                "name": "бриошь",
+                "plural_name": "бриошь"
             },
             "italian bread crumb": {
                 "aliases": [],
                 "description": "",
-                "name": "italian bread crumb",
-                "plural_name": "italian bread crumbs"
+                "name": "итальянские хлебные крошки",
+                "plural_name": "итальянские хлебные крошки"
             },
             "rye bread": {
                 "aliases": [],
                 "description": "",
-                "name": "rye bread",
-                "plural_name": "rye breads"
+                "name": "ржаной хлеб",
+                "plural_name": "ржаной хлеб"
             },
             "flatbread": {
                 "aliases": [],
                 "description": "",
-                "name": "flatbread",
-                "plural_name": "flatbreads"
+                "name": "лепёшка",
+                "plural_name": "лепёшки"
             },
             "dry-roasted peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "dry-roasted peanut",
-                "plural_name": "dry-roasted peanuts"
+                "name": "арахис жареный всухую",
+                "plural_name": "арахис жареный всухую"
             },
             "potato chip": {
                 "aliases": [],
                 "description": "",
-                "name": "potato chip",
-                "plural_name": "potato chips"
+                "name": "картофельные чипсы",
+                "plural_name": "картофельные чипсы"
             },
             "naan": {
                 "aliases": [],
                 "description": "",
-                "name": "naan",
-                "plural_name": "naans"
+                "name": "наан (индийская лепёшка)",
+                "plural_name": "наан (индийская лепёшка)"
             },
             "stuffing mix": {
                 "aliases": [],
                 "description": "",
-                "name": "stuffing mix",
-                "plural_name": "stuffing mixes"
+                "name": "смесь для начинки",
+                "plural_name": "смесь для начинки"
             },
             "cornbread": {
                 "aliases": [],
                 "description": "",
-                "name": "cornbread",
-                "plural_name": "cornbreads"
+                "name": "кукурузный хлеб",
+                "plural_name": "кукурузный хлеб"
             },
             "taco shell": {
                 "aliases": [],
                 "description": "",
-                "name": "taco shell",
-                "plural_name": "taco shells"
+                "name": "ракушка для тако",
+                "plural_name": "ракушка для тако"
             },
             "tater tot": {
                 "aliases": [],
                 "description": "",
-                "name": "tater tot",
-                "plural_name": "tater tots"
+                "name": "татер‑тоты (картофельные шарики)",
+                "plural_name": "татер‑тоты (картофельные шарики)"
             },
             "bagel": {
                 "aliases": [],
                 "description": "",
-                "name": "bagel",
-                "plural_name": "bagels"
+                "name": "бублик (бейгл)",
+                "plural_name": "бублик (бейгл)"
             },
             "corn chip": {
                 "aliases": [],
                 "description": "",
-                "name": "corn chip",
-                "plural_name": "corn chips"
+                "name": "кукурузные чипсы\n",
+                "plural_name": "кукурузные чипсы"
             },
             "unpopped popcorn": {
                 "aliases": [],
                 "description": "",
-                "name": "unpopped popcorn",
-                "plural_name": "unpopped popcorns"
+                "name": "непопкорн (неразорвавшиеся зёрна кукурузы)",
+                "plural_name": "непопкорн (неразорвавшиеся зёрна кукурузы)"
             },
             "croissant": {
                 "aliases": [],
                 "description": "",
-                "name": "croissant",
-                "plural_name": "croissants"
+                "name": "круассан",
+                "plural_name": "круассан"
             },
             "pork rind": {
                 "aliases": [],
                 "description": "",
-                "name": "pork rind",
-                "plural_name": "pork rinds"
+                "name": "свиная шкварка\n",
+                "plural_name": "свиные шкварки"
             },
             "pumpernickel": {
                 "aliases": [],
                 "description": "",
-                "name": "pumpernickel",
-                "plural_name": "pumpernickels"
+                "name": "пумперникель (тёмный ржаной хлеб)",
+                "plural_name": "пумперникель (тёмный ржаной хлеб)"
             },
             "sweet bread": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet bread",
-                "plural_name": "sweet breads"
+                "name": "сладкий хлеб",
+                "plural_name": "сладкий хлеб"
             },
             "hawaiian roll": {
                 "aliases": [],
                 "description": "",
-                "name": "hawaiian roll",
-                "plural_name": "hawaiian rolls"
+                "name": "гавайская булочка\n",
+                "plural_name": "гавайские булочки"
             },
             "pita chip": {
                 "aliases": [],
                 "description": "",
-                "name": "pita chip",
-                "plural_name": "pita chips"
+                "name": "чипсы из питы",
+                "plural_name": "чипсы из питы"
             },
             "gluten free bread": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten free bread",
-                "plural_name": "gluten free breads"
+                "name": "безглютеновый хлеб",
+                "plural_name": "безглютеновый хлеб"
             },
             "potato bread": {
                 "aliases": [],
                 "description": "",
-                "name": "potato bread",
-                "plural_name": "potato breads"
+                "name": "картофельный хлеб",
+                "plural_name": "картофельный хлеб"
             },
             "muffin": {
                 "aliases": [],
                 "description": "",
-                "name": "muffin",
-                "plural_name": "muffins"
+                "name": "маффин",
+                "plural_name": "маффин"
             },
             "breadstick": {
                 "aliases": [],
                 "description": "",
-                "name": "breadstick",
-                "plural_name": "breadsticks"
+                "name": "хлебная палочка\n",
+                "plural_name": "хлебные палочки\n"
             },
             "focaccia": {
                 "aliases": [],
                 "description": "",
-                "name": "focaccia",
-                "plural_name": "focaccias"
+                "name": "фокачча",
+                "plural_name": "фокачча"
             },
             "gluten-free bread crumb": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten-free bread crumb",
-                "plural_name": "gluten-free bread crumbs"
+                "name": "безглютеновые хлебные крошки",
+                "plural_name": "безглютеновые хлебные крошки"
             },
             "tostada shell": {
                 "aliases": [],
                 "description": "",
-                "name": "tostada shell",
-                "plural_name": "tostada shells"
+                "name": "тосада‑ракушка (хрустящая кукурузная основа)",
+                "plural_name": "тосада‑ракушка (хрустящая кукурузная основа)"
             },
             "crispy fried onion": {
                 "aliases": [],
                 "description": "",
-                "name": "crispy fried onion",
-                "plural_name": "crispy fried onions"
+                "name": "хрустящий жареный лук",
+                "plural_name": "хрустящий жареный лук"
             },
             "matzo": {
                 "aliases": [],
                 "description": "",
-                "name": "matzo",
-                "plural_name": "matzoes"
+                "name": "маца",
+                "plural_name": "маца"
             },
             "garlic bread": {
                 "aliases": [],
                 "description": "",
-                "name": "garlic bread",
-                "plural_name": "garlic breads"
+                "name": "чесночный хлеб",
+                "plural_name": "чесночный хлеб"
             },
             "yeast extract spread": {
                 "aliases": [],
                 "description": "",
-                "name": "yeast extract spread",
-                "plural_name": "yeast extract spreads"
+                "name": "дрожжевая намазка (паста из дрожжевого экстракта)",
+                "plural_name": "дрожжевая намазка (паста из дрожжевого экстракта)"
             },
             "challah": {
                 "aliases": [],
                 "description": "",
-                "name": "challah",
-                "plural_name": "challahs"
+                "name": "хала (плетёный еврейский хлеб)",
+                "plural_name": "хала (плетёный еврейский хлеб)"
             },
             "roasted gram": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted gram",
-                "plural_name": "roasted grams"
+                "name": "жареный нут\n",
+                "plural_name": "жареный нут"
             },
             "crostini": {
                 "aliases": [],
                 "description": "",
-                "name": "crostini",
-                "plural_name": "crostinis"
+                "name": "кростини (итальянские хрустящие ломтики хлеба)",
+                "plural_name": "кростини (итальянские хрустящие ломтики хлеба)"
             },
             "rice cake": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cake",
-                "plural_name": "rice cakes"
+                "name": "рисовый хлебец",
+                "plural_name": "рисовый хлебец"
             },
             "panettone": {
                 "aliases": [],
                 "description": "",
-                "name": "panettone",
-                "plural_name": "panettones"
+                "name": "панеттоне (итальянский сладкий праздничный хлеб)",
+                "plural_name": "панеттоне (итальянский сладкий праздничный хлеб)"
             },
             "sweet potato fry": {
                 "aliases": [],
                 "description": "",
-                "name": "sweet potato fry",
-                "plural_name": "sweet potato fries"
+                "name": "батат‑фри (хрустящие полоски из сладкого картофеля)",
+                "plural_name": "батат‑фри (хрустящие полоски из сладкого картофеля)"
             },
             "sev": {
                 "aliases": [],
                 "description": "",
-                "name": "sev",
-                "plural_name": "sevs"
+                "name": "сев (индийская хрустящая лапша из нутовой муки)",
+                "plural_name": "сев (индийская хрустящая лапша из нутовой муки)"
             },
             "vegetable chip": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable chip",
-                "plural_name": "vegetable chips"
+                "name": "овощные чипсы",
+                "plural_name": "овощные чипсы"
             },
             "papad": {
                 "aliases": [],
                 "description": "",
-                "name": "papad",
-                "plural_name": "papads"
+                "name": "папад (индийская тонкая хрустящая лепёшка)",
+                "plural_name": "папад (индийская тонкая хрустящая лепёшка)"
             },
             "spinach wrap": {
                 "aliases": [],
                 "description": "",
-                "name": "spinach wrap",
-                "plural_name": "spinach wraps"
+                "name": "шпинатная лепёшка‑ролл",
+                "plural_name": "шпинатная лепёшка‑ролл"
             },
             "plantain chip": {
                 "aliases": [],
                 "description": "",
-                "name": "plantain chip",
-                "plural_name": "plantain chips"
+                "name": "чипсы из плантана (хрустящие ломтики банана плантана)",
+                "plural_name": "чипсы из плантана (хрустящие ломтики банана плантана)"
             },
             "roasted chickpea": {
                 "aliases": [],
                 "description": "",
-                "name": "roasted chickpea",
-                "plural_name": "roasted chickpeas"
+                "name": "жаренный нут",
+                "plural_name": "жаренный нут"
             },
             "cheeto": {
                 "aliases": [],
                 "description": "",
-                "name": "cheeto",
-                "plural_name": "cheetos"
+                "name": "чито (хрустящая кукурузная закуска)",
+                "plural_name": "чито (хрустящая кукурузная закуска)"
             },
             "chapati": {
                 "aliases": [],
                 "description": "",
-                "name": "chapati",
-                "plural_name": "chapatis"
+                "name": "чапати (индийская пресная лепёшка)",
+                "plural_name": "чапати (индийская пресная лепёшка)"
             },
             "crumpet": {
                 "aliases": [],
                 "description": "",
-                "name": "crumpet",
-                "plural_name": "crumpets"
+                "name": "крампет (воздушная британская лепёшка)",
+                "plural_name": "крампет (воздушная британская лепёшка)"
             },
             "seed bread": {
                 "aliases": [],
                 "description": "",
-                "name": "seed bread",
-                "plural_name": "seed breads"
+                "name": "хлеб с семенами",
+                "plural_name": "хлеб с семенами"
             },
             "keto bread": {
                 "aliases": [],
                 "description": "",
-                "name": "keto bread",
-                "plural_name": "keto breads"
+                "name": "кето‑хлеб",
+                "plural_name": "кето‑хлеб"
             },
             "bread bowl": {
                 "aliases": [],
                 "description": "",
-                "name": "bread bowl",
-                "plural_name": "bread bowls"
+                "name": "хлебная миска",
+                "plural_name": "хлебная миска"
             },
             "sprouted grain bread": {
                 "aliases": [],
                 "description": "",
-                "name": "sprouted grain bread",
-                "plural_name": "sprouted grain breads"
+                "name": "хлеб из пророщенного зерна",
+                "plural_name": "хлеб из пророщенного зерна"
             },
             "cornbread stuffing mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cornbread stuffing mix",
-                "plural_name": "cornbread stuffing mixes"
+                "name": "кукурузная смесь для начинки",
+                "plural_name": "кукурузная смесь для начинки"
             },
             "low-carb wrap": {
                 "aliases": [],
                 "description": "",
-                "name": "low-carb wrap",
-                "plural_name": "low-carb wraps"
+                "name": "низкоуглеводная лепёшка‑ролл",
+                "plural_name": "низкоуглеводная лепёшка‑ролл"
             },
             "frozen onion ring": {
                 "aliases": [],
                 "description": "",
-                "name": "frozen onion ring",
-                "plural_name": "frozen onion rings"
+                "name": "замороженные луковые кольца",
+                "plural_name": "замороженные луковые кольца"
             },
             "corn muffin": {
                 "aliases": [],
                 "description": "",
-                "name": "corn muffin",
-                "plural_name": "corn muffins"
+                "name": "кукурузный маффин",
+                "plural_name": "кукурузные маффины"
             },
             "pav bun": {
                 "aliases": [],
                 "description": "",
-                "name": "pav bun",
-                "plural_name": "pav buns"
+                "name": "пав‑булочка (индийская мягкая булочка)",
+                "plural_name": "пав‑булочка (индийская мягкая булочка)"
             },
             "corn nut": {
                 "aliases": [],
                 "description": "",
-                "name": "corn nut",
-                "plural_name": "corn nuts"
+                "name": "кукурузный орешек (хрустящая кукурузная закуска)",
+                "plural_name": "кукурузный орешек (хрустящая кукурузная закуска)"
             },
             "rice cracker": {
                 "aliases": [],
                 "description": "",
-                "name": "rice cracker",
-                "plural_name": "rice crackers"
+                "name": "рисовый крекер\n",
+                "plural_name": "рисовые крекеры"
             },
             "rusk": {
                 "aliases": [],
                 "description": "",
-                "name": "rusk",
-                "plural_name": "rusks"
+                "name": "сухарь\n",
+                "plural_name": "сухари"
             },
             "fruit bread": {
                 "aliases": [],
                 "description": "",
-                "name": "fruit bread",
-                "plural_name": "fruit breads"
+                "name": "фруктовый хлеб",
+                "plural_name": "фруктовый хлеб"
             },
             "sprouted bread": {
                 "aliases": [],
                 "description": "",
-                "name": "sprouted bread",
-                "plural_name": "sprouted breads"
+                "name": "пророщенный хлеб",
+                "plural_name": "пророщенный хлеб"
             },
             "pretzel bun": {
                 "aliases": [],
                 "description": "",
-                "name": "pretzel bun",
-                "plural_name": "pretzel buns"
+                "name": "крендельная булочка",
+                "plural_name": "крендельная булочка"
             },
             "roti bread": {
                 "aliases": [],
                 "description": "",
-                "name": "roti bread",
-                "plural_name": "roti breads"
+                "name": "роти‑хлеб (индийская пресная лепёшка)",
+                "plural_name": "роти‑хлеб (индийская пресная лепёшка)"
             },
             "crispbread": {
                 "aliases": [],
                 "description": "",
-                "name": "crispbread",
-                "plural_name": "crispbreads"
+                "name": "хлебец (хрустящий тонкий хлеб)",
+                "plural_name": "хлебец (хрустящий тонкий хлеб)"
             },
             "chocolate muffin": {
                 "aliases": [],
                 "description": "",
-                "name": "chocolate muffin",
-                "plural_name": "chocolate muffins"
+                "name": "шоколадный маффин",
+                "plural_name": "шоколадный маффин"
             },
             "milk bread": {
                 "aliases": [],
                 "description": "",
-                "name": "milk bread",
-                "plural_name": "milk breads"
+                "name": "молочный хлеб",
+                "plural_name": "молочный хлеб"
             },
             "popcorn shrimp": {
                 "aliases": [],
                 "description": "",
-                "name": "popcorn shrimp",
-                "plural_name": "popcorn shrimps"
+                "name": "креветка‑попкорн (хрустящая жареная креветка)",
+                "plural_name": "креветка‑попкорн (хрустящая жареная креветка)"
             },
             "prawn cracker": {
                 "aliases": [],
                 "description": "",
-                "name": "prawn cracker",
-                "plural_name": "prawn crackers"
+                "name": "креветочный крекер",
+                "plural_name": "креветочный крекер"
             },
             "bao bun": {
                 "aliases": [],
                 "description": "",
-                "name": "bao bun",
-                "plural_name": "bao buns"
+                "name": "бао‑булочка (мягкая паровая булочка)",
+                "plural_name": "бао‑булочка (мягкая паровая булочка)"
             },
             "ezekiel bread": {
                 "aliases": [],
                 "description": "",
-                "name": "ezekiel bread",
-                "plural_name": "ezekiel breads"
+                "name": "эзикиль‑хлеб (цельнозерновой пророщенный хлеб)",
+                "plural_name": "эзикиль‑хлеб (цельнозерновой пророщенный хлеб)"
             },
             "wasabi pea": {
                 "aliases": [],
                 "description": "",
-                "name": "wasabi pea",
-                "plural_name": "wasabi peas"
+                "name": "васаби‑горох",
+                "plural_name": "васаби‑горох"
             },
             "arabic bread": {
                 "aliases": [],
                 "description": "",
-                "name": "arabic bread",
-                "plural_name": "arabic breads"
+                "name": "арабский хлеб",
+                "plural_name": "арабский хлеб"
             },
             "boboli": {
                 "aliases": [],
                 "description": "",
-                "name": "boboli",
-                "plural_name": "bobolis"
+                "name": "боболи (итальянская основа для пиццы)",
+                "plural_name": "боболи (итальянская основа для пиццы)"
             },
             "zwieback": {
                 "aliases": [],
                 "description": "",
-                "name": "zwieback",
-                "plural_name": "zwiebacks"
+                "name": "цвибак (дважды запечённый сладкий сухарь)",
+                "plural_name": "цвибак (дважды запечённый сладкий сухарь)"
             },
             "oven chip": {
                 "aliases": [],
                 "description": "",
-                "name": "oven chip",
-                "plural_name": "oven chips"
+                "name": "духовные чипсы (картофель, приготовленный в духовке)",
+                "plural_name": "духовные чипсы (картофель, приготовленный в духовке)"
             },
             "taco kit": {
                 "aliases": [],
                 "description": "",
-                "name": "taco kit",
-                "plural_name": "taco kits"
+                "name": "набор для тако",
+                "plural_name": "наборы для тако"
             },
             "gluten free pita": {
                 "aliases": [],
                 "description": "",
-                "name": "gluten free pita",
-                "plural_name": "gluten free pitas"
+                "name": "безглютеновая пита",
+                "plural_name": "безглютеновая пита"
             },
             "ready-made arepa": {
                 "aliases": [],
                 "description": "",
-                "name": "ready-made arepa",
-                "plural_name": "ready-made arepas"
+                "name": "готовая арепа (кукурузная лепёшка)",
+                "plural_name": "готовая арепа (кукурузная лепёшка)"
             },
             "ready-made pancake": {
                 "aliases": [],
                 "description": "",
-                "name": "ready-made pancake",
-                "plural_name": "ready-made pancakes"
+                "name": "готовый блин",
+                "plural_name": "готовый блин"
             },
             "breading mix": {
                 "aliases": [],
                 "description": "",
-                "name": "breading mix",
-                "plural_name": "breading mixes"
+                "name": "панировочная смесь",
+                "plural_name": "панировочная смесь"
             },
             "japanese peanut": {
                 "aliases": [],
                 "description": "",
-                "name": "japanese peanut",
-                "plural_name": "japanese peanuts"
+                "name": "японский арахис (арахис в хрустящей оболочке)",
+                "plural_name": "японский арахис (арахис в хрустящей оболочке)"
             },
             "khari boondi": {
                 "aliases": [],
                 "description": "",
-                "name": "khari boondi",
-                "plural_name": "khari boondis"
+                "name": "хари бунди (индийские хрустящие шарики из нутовой муки)",
+                "plural_name": "хари бунди (индийские хрустящие шарики из нутовой муки)"
             },
             "potato waffle": {
                 "aliases": [],
                 "description": "",
-                "name": "potato waffle",
-                "plural_name": "potato waffles"
+                "name": "картофельная вафля",
+                "plural_name": "картофельная вафля"
             },
             "tartlet shell": {
                 "aliases": [],
                 "description": "",
-                "name": "tartlet shell",
-                "plural_name": "tartlet shells"
+                "name": "тарталетка\n",
+                "plural_name": "тарталетки"
             }
         }
     },
@@ -10638,93 +10638,93 @@
             "olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "olive oil",
-                "plural_name": "olive oil"
+                "name": "оливковое масло",
+                "plural_name": "оливковое масло"
             },
             "vegetable oil": {
                 "aliases": [],
                 "description": "",
-                "name": "vegetable oil",
-                "plural_name": "vegetable oil"
+                "name": "растительное масло",
+                "plural_name": "растительное масло"
             },
             "extra virgin olive oil": {
                 "aliases": [],
                 "description": "",
-                "name": "extra virgin olive oil",
-                "plural_name": "extra virgin olive oil"
+                "name": "оливковое масло Extra Virgin",
+                "plural_name": "оливковое масло Extra Virgin"
             },
             "canola oil": {
                 "aliases": [],
                 "description": "",
-                "name": "canola oil",
-                "plural_name": "canola oil"
+                "name": "рапсовое масло",
+                "plural_name": "рапсовое масло"
             },
             "coconut oil": {
                 "aliases": [],
                 "description": "",
-                "name": "coconut oil",
-                "plural_name": "coconut oil"
+                "name": "кокосовое масло",
+                "plural_name": "кокосовое масло"
             },
             "cooking spray": {
                 "aliases": [],
                 "description": "",
-                "name": "cooking spray",
-                "plural_name": "cooking sprays"
+                "name": "кулинарный спрей",
+                "plural_name": "кулинарный спрей"
             },
             "sesame oil": {
                 "aliases": [],
                 "description": "",
-                "name": "sesame oil",
-                "plural_name": "sesame oil"
+                "name": "кунжутное масло",
+                "plural_name": "кунжутное масло"
             },
             "frying oil": {
                 "aliases": [],
                 "description": "",
-                "name": "frying oil",
-                "plural_name": "frying oil"
+                "name": "масло для жарки",
+                "plural_name": "масло для жарки"
             },
             "sunflower oil": {
                 "aliases": [],
                 "description": "",
-                "name": "sunflower oil",
-                "plural_name": "sunflower oil"
+                "name": "подсолнечное масло",
+                "plural_name": "подсолнечное масло"
             },
             "avocado oil": {
                 "aliases": [],
                 "description": "",
-                "name": "avocado oil",
-                "plural_name": "avocado oil"
+                "name": "масло авокадо",
+                "plural_name": "масло авокадо"
             },
             "toasted sesame oil": {
                 "aliases": [],
                 "description": "",
-                "name": "toasted sesame oil",
-                "plural_name": "toasted sesame oil"
+                "name": "жареное кунжутное масло",
+                "plural_name": "жареное кунжутное масло"
             },
             "peanut oil": {
                 "aliases": [],
                 "description": "",
-                "name": "peanut oil",
-                "plural_name": "peanut oil"
+                "name": "арахисовое масло",
+                "plural_name": "арахисовое масло"
             },
             "grapeseed oil": {
                 "aliases": [
-                    "grape seed oil"
+                    "масло виноградных косточек"
                 ],
                 "description": "",
-                "name": "grapeseed oil",
-                "plural_name": "grapeseed oil"
+                "name": "масло виноградных косточек",
+                "plural_name": "масло виноградных косточек"
             },
             "lard": {
                 "aliases": [],
                 "description": "",
-                "name": "lard",
-                "plural_name": "lards"
+                "name": "смалец (топлёный животный жир)",
+                "plural_name": "смалец (топлёный животный жир)"
             },
             "corn oil": {
                 "aliases": [],
                 "description": "",
-                "name": "corn oil",
+                "name": "кукурузное масло",
                 "plural_name": "corn oil"
             },
             "virgin coconut oil": {
@@ -10736,7 +10736,7 @@
             "chili oil": {
                 "aliases": [],
                 "description": "",
-                "name": "chili oil",
+                "name": "масло чили",
                 "plural_name": "chili oil"
             },
             "mustard oil": {
@@ -10773,7 +10773,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "safflower oil",
-                "plural_name": "safflower oil"
+                "plural_name": "сафлоровое масло"
             },
             "cacao butter": {
                 "aliases": [],
@@ -10821,7 +10821,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "flaxseed oil",
-                "plural_name": "flaxseed oil"
+                "plural_name": "льняное масло"
             },
             "white truffle oil": {
                 "aliases": [],

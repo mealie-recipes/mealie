@@ -2,6 +2,7 @@
   <div>
     <BaseDialog
       v-model="discardDialog"
+      bottom-sheet
       :title="$t('general.discard-changes')"
       color="warning"
       :icon="$globals.icons.alertCircle"
@@ -76,7 +77,13 @@
               md="4"
               :class="$vuetify.display.mdAndUp ? 'border-e-thin' : null"
             >
-              <RecipePageIngredientToolsView v-if="!isEditForm" :recipe="recipe" :scale="scale" class="pr-2" />
+              <RecipePageIngredientToolsView
+                v-if="!isEditForm"
+                :recipe="recipe"
+                :scale="scale"
+                :ingredient-storage-key="ingredientStorageKey"
+                class="pr-2"
+              />
               <RecipePageOrganizers v-if="$vuetify.display.mdAndUp" v-model="recipe" class="pr-2" @item-selected="chipClicked" />
             </v-col>
             <!--
@@ -89,6 +96,7 @@
                 v-model:assets="recipe.assets"
                 :recipe="recipe"
                 :scale="scale"
+                :ingredient-storage-key="ingredientStorageKey"
               />
               <div v-if="isEditForm" class="d-flex">
                 <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />
@@ -148,6 +156,7 @@
             :recipe="recipe"
             :scale="scale"
             :is-cook-mode="isCookMode"
+            :ingredient-storage-key="ingredientStorageKey"
           />
           <v-divider />
         </v-col>
@@ -167,6 +176,7 @@
             class="overflow-y-hidden px-4"
             :recipe="recipe"
             :scale="scale"
+            :ingredient-storage-key="ingredientStorageKey"
           />
         </v-col>
       </v-row>
@@ -181,6 +191,7 @@
         class="overflow-y-hidden mt-n5 px-2 px-md-4"
         :recipe="recipe"
         :scale="scale"
+        :ingredient-storage-key="ingredientStorageKey"
       />
 
       <div v-if="notLinkedIngredients.length > 0" class="px-2 px-md-4 pb-4">
@@ -191,6 +202,7 @@
             :value="notLinkedIngredients"
             :scale="scale"
             :is-cook-mode="isCookMode"
+            :storage-key="ingredientStorageKey"
           />
         </v-card>
       </div>
@@ -219,7 +231,7 @@ import RecipePageIngredientEditor from "./RecipePageParts/RecipePageIngredientEd
 import RecipePageIngredientToolsView from "./RecipePageParts/RecipePageIngredientToolsView.vue";
 import RecipePageInstructions from "./RecipePageParts/RecipePageInstructions.vue";
 import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
-import RecipePageParseDialog from "./RecipePageParts/RecipePageParseDialog.vue";
+import RecipePageParseDialog from "./RecipePageParts/RecipeParseDialog/RecipePageParseDialog.vue";
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageInfoEditor from "./RecipePageParts/RecipePageInfoEditor.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
@@ -248,6 +260,7 @@ const route = useRoute();
 const { isOwnGroup } = useLoggedInState();
 
 const groupSlug = computed(() => (route.params.groupSlug as string) || auth.user?.value?.groupSlug || "");
+const ingredientStorageKey = computed(() => `recipe-ingredients:${recipe.value.id || recipe.value.slug}:checked`);
 
 const router = useRouter();
 const api = useUserApi();
@@ -423,9 +436,13 @@ async function saveRecipe() {
 }
 
 async function saveParsedIngredients(ingredients: NoUndefinedField<RecipeIngredient[]>) {
+  const returnToEdit = isEditMode.value;
   recipe.value.recipeIngredient = ingredients;
   await saveRecipe();
   toggleIsParsing(false);
+  if (returnToEdit) {
+    setMode(PageMode.EDIT);
+  }
 }
 
 async function deleteRecipe() {
