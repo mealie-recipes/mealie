@@ -5,6 +5,7 @@ from mealie.routes._base.base_controllers import BasePublicGroupExploreControlle
 from mealie.schema.household.household import HouseholdSummary
 from mealie.schema.make_dependable import make_dependable
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
+from mealie.services.query_filter.builder import QueryFilterBuilder
 
 router = APIRouter(prefix="/households")
 
@@ -20,10 +21,7 @@ class PublicHouseholdsController(BasePublicGroupExploreController):
         self, q: PaginationQuery = Depends(make_dependable(PaginationQuery))
     ) -> PaginationBase[HouseholdSummary]:
         public_filter = "(preferences.private_household = FALSE)"
-        if q.query_filter:
-            q.query_filter = f"({q.query_filter}) AND {public_filter}"
-        else:
-            q.query_filter = public_filter
+        q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, public_filter)
 
         response = self.households.page_all(pagination=q, override=HouseholdSummary)
         response.set_pagination_guides(self.get_explore_url_path(router.url_path_for("get_all")), q.model_dump())

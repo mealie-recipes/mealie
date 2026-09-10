@@ -19,7 +19,6 @@
             "yields": "العائد"
         },
         "and-amount": "و {amount}",
-        "or-ingredient": "أو {ingredient}",
         "import-errors": {
             "ai-not-enabled": "خدمات الذكاء الاصطناعي غير مفعلة",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",

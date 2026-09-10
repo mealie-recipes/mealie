@@ -3,6 +3,7 @@
     <!-- Seed Dialog -->
     <BaseDialog
       v-model="seedDialog"
+      bottom-sheet
       :icon="$globals.icons.foods"
       :title="$t('data-pages.seed-data')"
       can-confirm

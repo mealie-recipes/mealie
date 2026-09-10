@@ -76,6 +76,53 @@ def test_update_provider(api_client: TestClient, unique_user: TestUser):
         api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
 
 
+def test_update_provider_rotates_the_api_key(api_client: TestClient, unique_user: TestUser):
+    """A submitted key must actually replace the stored one.
+
+    The key is write-only, so the response can't confirm this; read it back off the repository.
+    """
+    provider = unique_user.repos.group_ai_providers.create(
+        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="original-key")
+    )
+
+    try:
+        response = api_client.put(
+            api_routes.groups_ai_providers_providers_provider_id(provider.id),
+            json={"name": provider.name, "model": provider.model, "apiKey": "rotated-key"},
+            headers=unique_user.token,
+        )
+        assert response.status_code == 200
+
+        stored = unique_user.repos.group_ai_providers.get_one(provider.id)
+        assert stored is not None
+        assert stored.api_key == "rotated-key"
+    finally:
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
+def test_update_provider_without_an_api_key_keeps_the_stored_one(api_client: TestClient, unique_user: TestUser):
+    """Editing other fields must not wipe the key, since the client never receives it to resend."""
+
+    provider = unique_user.repos.group_ai_providers.create(
+        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="original-key")
+    )
+
+    try:
+        response = api_client.put(
+            api_routes.groups_ai_providers_providers_provider_id(provider.id),
+            json={"name": provider.name, "model": "gpt-4-turbo"},
+            headers=unique_user.token,
+        )
+        assert response.status_code == 200
+        assert response.json()["model"] == "gpt-4-turbo"
+
+        stored = unique_user.repos.group_ai_providers.get_one(provider.id)
+        assert stored is not None
+        assert stored.api_key == "original-key"
+    finally:
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
 def test_delete_provider(api_client: TestClient, unique_user: TestUser):
     provider = unique_user.repos.group_ai_providers.create(
         AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")

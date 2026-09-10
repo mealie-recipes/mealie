@@ -159,7 +159,6 @@
                           v-if="isOwnGroup"
                           v-model="state.settings.includeFoodsOnHand"
                           density="compact"
-                          size="small"
                           hide-details
                           class="my-auto"
                           :label="$t('recipe-finder.include-ingredients-on-hand')"
@@ -168,10 +167,16 @@
                           v-if="isOwnGroup"
                           v-model="state.settings.includeToolsOnHand"
                           density="compact"
-                          size="small"
                           hide-details
                           class="my-auto"
                           :label="$t('recipe-finder.include-tools-on-hand')"
+                        />
+                        <v-checkbox
+                          v-model="state.settings.includeSubstitutions"
+                          density="compact"
+                          hide-details
+                          class="my-auto"
+                          :label="$t('recipe-finder.include-substitutions')"
                         />
                       </div>
                     </v-card-text>
@@ -328,6 +333,7 @@
                     :recipe="item.recipe"
                     :missing-foods="item.missingFoods"
                     :missing-tools="item.missingTools"
+                    :substituted-foods="item.substitutedFoods"
                     :disable-checkbox="state.loading"
                     @add-food="addFood"
                     @remove-food="removeFood"
@@ -356,6 +362,7 @@
                     :recipe="item.recipe"
                     :missing-foods="item.missingFoods"
                     :missing-tools="item.missingTools"
+                    :substituted-foods="item.substitutedFoods"
                     :disable-checkbox="state.loading"
                     @add-food="addFood"
                     @remove-food="removeFood"
@@ -459,6 +466,7 @@ const state = reactive({
     maxMissingTools: normalizeMissingItemLimit(preferences.value.maxMissingTools),
     includeFoodsOnHand: preferences.value.includeFoodsOnHand,
     includeToolsOnHand: preferences.value.includeToolsOnHand,
+    includeSubstitutions: preferences.value.includeSubstitutions,
     queryFilter: preferences.value.queryFilter,
     limit: 20,
   },
@@ -494,6 +502,7 @@ watch(
     preferences.value.maxMissingTools = newState.settings.maxMissingTools;
     preferences.value.includeFoodsOnHand = newState.settings.includeFoodsOnHand;
     preferences.value.includeToolsOnHand = newState.settings.includeToolsOnHand;
+    preferences.value.includeSubstitutions = newState.settings.includeSubstitutions;
   },
   {
     deep: true,
@@ -621,8 +630,8 @@ const recipeSuggestions = computed<RecipeSuggestions>(() => {
 
 watchDebounced(
   [selectedFoods, selectedTools, state.settings], async () => {
-    // don't search for suggestions if no foods are selected
-    if (!selectedFoods.value.length) {
+    // don't search for suggestions if no filter are selected
+    if (!selectedFoods.value.length && !selectedTools.value.length && !state.settings.queryFilter) {
       recipeResponseItems.value = [];
       state.recipesReady = true;
       return;
@@ -637,6 +646,7 @@ watchDebounced(
         maxMissingTools: state.settings.maxMissingTools,
         includeFoodsOnHand: state.settings.includeFoodsOnHand,
         includeToolsOnHand: state.settings.includeToolsOnHand,
+        includeSubstitutions: state.settings.includeSubstitutions,
       } as RecipeSuggestionQuery,
       selectedFoods.value.map(food => food.id),
       selectedTools.value.map(tool => tool.id),

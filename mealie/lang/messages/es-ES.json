@@ -19,7 +19,6 @@
             "yields": "Raciones"
         },
         "and-amount": "y {amount}",
-        "or-ingredient": "o {ingredient}",
         "import-errors": {
             "ai-not-enabled": "Los servicios de IA no están activado",
             "ai-request-failed": "El proveedor de IA no pudo completar la solicitud. Por favor, inténtelo de nuevo",
