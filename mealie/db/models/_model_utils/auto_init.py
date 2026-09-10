@@ -39,7 +39,15 @@ def _get_config(relation_cls: type[SqlAlchemyBase]) -> AutoInitConfig:
         return cfg
     # Map all matching attributes in Config to all AutoInitConfig attributes
     for attr in class_config:
-        if attr in cfgKeys:
+        if attr not in cfgKeys:
+            continue
+
+        if attr == "exclude":
+            # A model's own `exclude` adds to the default exclusions (e.g. "id")
+            # rather than replacing them -- otherwise a model that declares
+            # `exclude` loses primary-key protection during `auto_init`.
+            cfg.exclude = cfg.exclude | set(class_config[attr])
+        else:
             setattr(cfg, attr, class_config[attr])
 
     return cfg

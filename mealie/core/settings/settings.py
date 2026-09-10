@@ -189,6 +189,23 @@ class AppSettings(AppLoggingSettings):
         extra = [host.strip().lower() for host in self.ALLOWED_IFRAME_HOSTS.split(",") if host.strip()]
         return list(dict.fromkeys(DEFAULT_ALLOWED_IFRAME_HOSTS + extra))
 
+    HTTP_ALLOW_LIST: str = ""
+    """Comma-separated hosts or CIDRs that server-initiated requests (recipe scraping, webhooks,
+    recipe actions) may reach even if they resolve to an otherwise-blocked private/internal address.
+    Use this to allow a known internal server."""
+
+    HTTP_DISALLOW_LIST: str = ""
+    """Comma-separated hosts or CIDRs that server-initiated requests may never reach, even if public.
+    Takes precedence over `HTTP_ALLOW_LIST`."""
+
+    @property
+    def http_allow_list(self) -> list[str]:
+        return [host.strip() for host in self.HTTP_ALLOW_LIST.split(",") if host.strip()]
+
+    @property
+    def http_disallow_list(self) -> list[str]:
+        return [host.strip() for host in self.HTTP_DISALLOW_LIST.split(",") if host.strip()]
+
     DAILY_SCHEDULE_TIME: str = "23:45"
     """Local server time, in HH:MM format. See `DAILY_SCHEDULE_TIME_UTC` for the parsed UTC equivalent"""
 

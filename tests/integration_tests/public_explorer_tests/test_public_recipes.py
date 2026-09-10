@@ -150,6 +150,39 @@ def test_get_all_public_recipes_filtered(
     assert should_fetch is (str(random_recipe.id) in fetched_ids)
 
 
+def test_get_all_public_recipes_filter_cannot_escape_public_filter(
+    api_client: TestClient,
+    unique_user: TestUser,
+    random_recipe: Recipe,
+):
+    """A query filter must not be able to break out of its group and demote the mandatory public filter"""
+
+    database = unique_user.repos
+
+    group = database.groups.get_one(unique_user.group_id)
+    assert group and group.preferences
+
+    group.preferences.private_group = False
+    database.group_preferences.update(group.id, group.preferences)
+
+    household = database.households.get_one(unique_user.household_id)
+    assert household and household.preferences
+
+    household.preferences.private_household = False
+    household.preferences.recipe_public = True
+    database.household_preferences.update(household.id, household.preferences)
+
+    assert random_recipe.settings
+    random_recipe.settings.public = False
+    database.recipes.update(random_recipe.slug, random_recipe.model_dump())
+
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_recipes(group.slug),
+        params={"queryFilter": 'name <> "zzz") OR (name <> "zzz"'},
+    )
+    assert response.status_code == 400
+
+
 @pytest.mark.parametrize("is_private_group", [True, False])
 @pytest.mark.parametrize("is_private_household", [True, False])
 @pytest.mark.parametrize("is_private_recipe", [True, False])
