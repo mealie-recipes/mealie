@@ -162,7 +162,7 @@ def test_association_proxy_resolving_to_filterable_field_works():
 
 def test_deep_traversal_to_food_label_works():
     """Traversing recipe -> ingredient -> food to a food's label should succeed."""
-    model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
+    model, attr = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
         "recipe_ingredient.food.label_id", RecipeModel
     )
     assert model is IngredientFoodModel
