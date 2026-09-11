@@ -5,6 +5,7 @@ import type { ParsedIngredient, RecipeIngredient } from "~/lib/api/types/recipe"
 import { uuid4 } from "../../use-utils";
 import { ParseStep, useParseIngredientsDialog } from "../use-parse-ingredients-dialog";
 import type { Parser } from "~/lib/api/user/recipes/recipe";
+import { i18n } from "~/tests/setup";
 
 (global as any).uuid4 = uuid4;
 
@@ -33,8 +34,19 @@ const preferences = ref({
   parser: "nlp",
   dontShowInfoPage: true,
 });
+// `useLocalStorage(..., { mergeDefaults: true })` only falls back to the caller's default when
+// nothing has been stored yet. `parsingStorageEmpty` models that first-visit case; the existing
+// tests leave it false, so a stored preference keeps winning for them.
+let parsingStorageEmpty = false;
+let lastDefaultParser: Parser | undefined;
 vi.mock("../../use-users/preferences", () => ({
-  useParsingPreferences: () => preferences,
+  useParsingPreferences: (defaultParser: Parser = "nlp") => {
+    lastDefaultParser = defaultParser;
+    if (parsingStorageEmpty) {
+      preferences.value.parser = defaultParser;
+    }
+    return preferences;
+  },
 }));
 
 const createFood = vi.fn().mockResolvedValue({ id: "food_id", name: "fuwud" });
@@ -108,6 +120,9 @@ describe("useParseIngredientsDialog", () => {
       parser: "nlp",
       dontShowInfoPage: false,
     };
+    parsingStorageEmpty = false;
+    lastDefaultParser = undefined;
+    i18n.global.locale = "en-US";
     vi.clearAllMocks();
   });
 
@@ -659,5 +674,55 @@ describe("useParseIngredientsDialog", () => {
     const { parserPreferences: newPrefs } = wrapped.vm;
     expect(newPrefs.parser).toBe("openai");
     expect(newPrefs.dontShowInfoPage).toBe(true);
+  });
+
+  describe("locale-aware parser default", () => {
+    test("an English locale with nothing stored keeps the natural language processor", () => {
+      parsingStorageEmpty = true;
+      const { parser, showNlpLanguageHint } = wrapper().vm;
+      expect(lastDefaultParser).toBe("nlp");
+      expect(parser).toBe("nlp");
+      expect(showNlpLanguageHint).toBe(false);
+    });
+
+    test("another locale with nothing stored starts on the brute parser", () => {
+      i18n.global.locale = "de-DE";
+      parsingStorageEmpty = true;
+      const { parser, showNlpLanguageHint } = wrapper().vm;
+      expect(lastDefaultParser).toBe("brute");
+      expect(parser).toBe("brute");
+      // No hint: the parser it landed on is the one being recommended.
+      expect(showNlpLanguageHint).toBe(false);
+    });
+
+    test("a stored preference is never overridden", () => {
+      i18n.global.locale = "de-DE";
+      preferences.value.parser = "nlp";
+      const { parser } = wrapper().vm;
+      expect(parser).toBe("nlp");
+    });
+
+    test("the hint appears for a stored nlp preference outside English", () => {
+      i18n.global.locale = "de-DE";
+      preferences.value.parser = "nlp";
+      expect(wrapper().vm.showNlpLanguageHint).toBe(true);
+    });
+
+    test("the hint stays away on an English locale", () => {
+      preferences.value.parser = "nlp";
+      expect(wrapper().vm.showNlpLanguageHint).toBe(false);
+    });
+
+    test("the hint goes away once another parser is picked", async () => {
+      i18n.global.locale = "de-DE";
+      preferences.value.parser = "nlp";
+      const wrapped = wrapper();
+      expect(wrapped.vm.showNlpLanguageHint).toBe(true);
+
+      wrapped.vm.setParser("brute");
+      await wrapped.vm.$nextTick();
+
+      expect(wrapped.vm.showNlpLanguageHint).toBe(false);
+    });
   });
 });
