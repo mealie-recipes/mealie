@@ -1043,7 +1043,7 @@ requires-dist = [
     { name = "orjson", specifier = "==3.12.0" },
     { name = "paho-mqtt", specifier = "==1.6.1" },
     { name = "pillow", specifier = "==12.3.0" },
-    { name = "pillow-heif", specifier = "==1.6.0" },
+    { name = "pillow-heif", specifier = "==1.7.0" },
     { name = "pint", specifier = "==0.25.3" },
     { name = "psycopg2-binary", marker = "extra == 'pgsql'", specifier = "==2.9.12" },
     { name = "pydantic", specifier = "==2.13.5" },
@@ -1355,21 +1355,21 @@ wheels = [
 
 [[package]]
 name = "pillow-heif"
-version = "1.6.0"
+version = "1.7.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "pillow" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/6e/15/f29791ccff3b99e0e040b84642774662b498e4cb9f031c2dca1545c04a15/pillow_heif-1.6.0.tar.gz", hash = "sha256:5fb08da332fc44521611b646a3aa2f3455c14556c968a23723b76ec2ce8ade21", size = 17116904, upload-time = "2026-08-31T13:00:27.801Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/e8/be/0202b6492a225ec0a6cebc615fbf587179a72cf3a7fa91c0753cba7b986f/pillow_heif-1.7.0.tar.gz", hash = "sha256:1caa5a97364665d45056d25be302e586c39df64ee42ce55241e3735e089809ed", size = 17118169, upload-time = "2026-09-06T09:36:53.109Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/bc/04/67a8bc2ff113e1c9ccf3640bb1433bcf7f2008d6ff5df35cd38dc3f664a3/pillow_heif-1.6.0-cp312-cp312-macosx_10_15_x86_64.whl", hash = "sha256:4f9ab96cf1aca56547ba1228cf8c124a1459453a16176abf1714a8dbb991c1ac", size = 4750777, upload-time = "2026-08-31T12:58:54.61Z" },
-    { url = "https://files.pythonhosted.org/packages/7d/85/f75e3f80490ecba121099aec3d467074b0cd33e6803d7b45713aa22d9780/pillow_heif-1.6.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:97b05d72725a1936c860015ca48f5e6e8fc9236cf5e9032eb7b9c237c786c9d3", size = 4272438, upload-time = "2026-08-31T12:58:56.322Z" },
-    { url = "https://files.pythonhosted.org/packages/50/86/7ff92514bd07da2eacf1877b4cf3d7d0997a434e0f42466119045601d114/pillow_heif-1.6.0-cp312-cp312-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:d40e72954f398d920d75693c228dabd694bace696416122cfebdf857b9340dba", size = 6357433, upload-time = "2026-08-31T12:58:58.085Z" },
-    { url = "https://files.pythonhosted.org/packages/8f/94/f015d25bbe6cd0212ea8fd4bcfd0696e57efce2ef889a704f549adf305f9/pillow_heif-1.6.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:d3a8c9bd430b4036980656e35f92703cc90ce7af441936664b6155fbea1033c5", size = 5611117, upload-time = "2026-08-31T12:59:00.016Z" },
-    { url = "https://files.pythonhosted.org/packages/2a/5b/a6d95be37236775ce7967f5d1652f7b35a2ffa1809479c0a7b012053f9ee/pillow_heif-1.6.0-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:50a89a200c7ccce076fcbf4fed16473d2ee393762c302ec3213bf30211af2c4f", size = 7384797, upload-time = "2026-08-31T12:59:01.632Z" },
-    { url = "https://files.pythonhosted.org/packages/fa/a4/f2d293e17c552c8af1995e592f09eb2bd0696502d58a9ee694d1d90aa2cd/pillow_heif-1.6.0-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:ccd5339b1846b305d820280a183ae19b6f0769ea804bd56da0342b638ad79d85", size = 6643178, upload-time = "2026-08-31T12:59:03.67Z" },
-    { url = "https://files.pythonhosted.org/packages/06/50/1325fd1e74fe9345ada903d694f6de84f02ca6633f931b1389a7c1f48f8c/pillow_heif-1.6.0-cp312-cp312-win_amd64.whl", hash = "sha256:7b4e6e6b3936da5ff548f1c7a913bee066039c5eb001ec43bfd74b593efef7ea", size = 6576612, upload-time = "2026-08-31T12:59:05.35Z" },
-    { url = "https://files.pythonhosted.org/packages/cc/de/45e39542332d482e6d54d04e409bba59110fa851e197f5a206804b4f2f33/pillow_heif-1.6.0-cp312-cp312-win_arm64.whl", hash = "sha256:a33d57fee589fc669c473c3349abd9b1a7b9e9b6c1e1b3d67a4930893dc9cbd3", size = 3841788, upload-time = "2026-08-31T12:59:06.984Z" },
+    { url = "https://files.pythonhosted.org/packages/6e/ee/ec6ee6fc94088f213ab17738966f9670e832f18a6b5d03ceba1e74dfa653/pillow_heif-1.7.0-cp312-cp312-macosx_10_15_x86_64.whl", hash = "sha256:cba79f030caf9e543b6c9a7c77cd8df465785bc6dcc1361b3fd5f905b3ca4e01", size = 4759735, upload-time = "2026-09-06T09:34:58.392Z" },
+    { url = "https://files.pythonhosted.org/packages/bc/4f/15a43142f42d29e302d3054df18bdbedc744af4002b490deea74cf543ce9/pillow_heif-1.7.0-cp312-cp312-macosx_11_0_arm64.whl", hash = "sha256:a1f1d001576e4cc2a37f1a7a3c06b3241e7966be16670789daba428a3edf8e30", size = 4279520, upload-time = "2026-09-06T09:35:00.316Z" },
+    { url = "https://files.pythonhosted.org/packages/7b/17/5bc352ebdc2924edcb3798d284416dfb77f5d90c7c08273104bda7edeeac/pillow_heif-1.7.0-cp312-cp312-manylinux_2_26_aarch64.manylinux_2_28_aarch64.whl", hash = "sha256:f23113505672a6c55e88d7c96cbd82f3d8a5f902d31a3c071be96a9a7e98c5dc", size = 6366611, upload-time = "2026-09-06T09:35:02.208Z" },
+    { url = "https://files.pythonhosted.org/packages/3a/4d/b7be3eebd23e042b738ee57ed211e5fc0d6fc037b24e0047f99e3a16ba9c/pillow_heif-1.7.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl", hash = "sha256:7c4751fcffb55f555a7559cfa6721bdfb30f50f14b7f0cbd2b1cba3b5d5961b7", size = 5620429, upload-time = "2026-09-06T09:35:04.15Z" },
+    { url = "https://files.pythonhosted.org/packages/76/c4/b4cc21989894938e49b20a6c58e14719ce8a8b2991b1c297d92bf9525442/pillow_heif-1.7.0-cp312-cp312-musllinux_1_2_aarch64.whl", hash = "sha256:b37df3c08df3401085737e7ed68026398046eb01a8850df27b7a461e9045ed92", size = 7399452, upload-time = "2026-09-06T09:35:06.321Z" },
+    { url = "https://files.pythonhosted.org/packages/92/0d/272a1b5ba521dc1448a434a7a043861b0a9b5264e470d40c6cfd02efa6fa/pillow_heif-1.7.0-cp312-cp312-musllinux_1_2_x86_64.whl", hash = "sha256:b156781538370f3b30a3d2e9899d71a5bc1c89c7e5264123e55d21153e0aa555", size = 6655604, upload-time = "2026-09-06T09:35:08.255Z" },
+    { url = "https://files.pythonhosted.org/packages/e6/f7/5bf5eb718f0c4dfb844f012b787943d75ca1bc5c1eb83bfc049430d86080/pillow_heif-1.7.0-cp312-cp312-win_amd64.whl", hash = "sha256:bf8e46cfe653a9a43830a7e9993ddf70dcf3877c474b7f1c1e8364d0c85214a5", size = 6583574, upload-time = "2026-09-06T09:35:10.893Z" },
+    { url = "https://files.pythonhosted.org/packages/ad/c3/26cd5ee278b21819c14dc74deb9b1b0002ec64f127c60495623a0c650549/pillow_heif-1.7.0-cp312-cp312-win_arm64.whl", hash = "sha256:78d77d94456d95444683b4539ffe3946554bcc25cad97564b60ae5cc7d22286c", size = 3851353, upload-time = "2026-09-06T09:35:12.765Z" },
 ]
 
 [[package]]
