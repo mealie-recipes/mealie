@@ -1,9 +1,9 @@
 <template>
   <v-img
-    v-if="!fallBackImage"
+    v-if="showImage"
     :height="height"
     cover
-    min-height="125"
+    :min-height="minHeight"
     max-height="fill-height"
     :src="getImage(recipeId)"
     @click="$emit('click')"
@@ -38,8 +38,11 @@ interface Props {
   iconSize?: number | string;
   slug?: string | null;
   recipeId: string;
-  imageVersion?: string | null;
+  // Recipe.image is typed unknown in the generated API types, so callers
+  // passing it directly cannot narrow to string here.
+  imageVersion?: unknown;
   height?: number | string;
+  minHeight?: number | string;
 }
 const props = withDefaults(defineProps<Props>(), {
   tiny: null,
@@ -49,6 +52,7 @@ const props = withDefaults(defineProps<Props>(), {
   slug: null,
   imageVersion: null,
   height: "100%",
+  minHeight: 125,
 });
 
 defineEmits<{
@@ -58,6 +62,11 @@ defineEmits<{
 const { recipeImage, recipeSmallImage, recipeTinyImage } = useStaticRoutes();
 
 const fallBackImage = ref(false);
+
+// Recipes without an image have no image version, so there is nothing to fetch.
+// Rendering the image anyway would only produce a 404 before falling back.
+const showImage = computed(() => !!props.imageVersion && !fallBackImage.value);
+
 const imageSize = computed(() => {
   if (props.tiny) return "tiny";
   if (props.small) return "small";
@@ -66,7 +75,7 @@ const imageSize = computed(() => {
 });
 
 watch(
-  () => props.recipeId,
+  [() => props.recipeId, () => props.imageVersion],
   () => {
     fallBackImage.value = false;
   },

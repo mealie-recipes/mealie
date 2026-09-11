@@ -126,10 +126,11 @@
             />
             <v-number-input
               v-else-if="field.type === 'number'"
-              :model-value="field.value"
+              :model-value="field.value as number || 0"
               variant="underlined"
-              control-variant="stacked"
               inset
+              :min="0"
+              :max="5"
               :precision="null"
               @update:model-value="setFieldValue(field, index, $event)"
             />
@@ -174,7 +175,6 @@
               :model-value="parseRelativeDateOffset(field.value)"
               :suffix="$t('query-filter.dates.days-ago', parseRelativeDateOffset(field.value))"
               variant="underlined"
-              control-variant="stacked"
               density="compact"
               inset
               :min="0"

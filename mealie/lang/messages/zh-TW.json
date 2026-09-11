@@ -19,7 +19,6 @@
             "yields": "產出"
         },
         "and-amount": "和 {amount}",
-        "or-ingredient": "或 {ingredient}",
         "import-errors": {
             "ai-not-enabled": "尚未啟用 AI 服務",
             "ai-request-failed": "AI 服務無法完成請求，請重試",

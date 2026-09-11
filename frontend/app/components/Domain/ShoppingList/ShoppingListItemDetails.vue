@@ -6,8 +6,7 @@
       :label="$t('form.quantity-label-abbreviated')"
       :min="0"
       :precision="null"
-      control-variant="stacked"
-      style="flex: 1"
+      style="flex: 5"
       inset
     />
     <InputLabelType
@@ -17,17 +16,19 @@
       :label="$t('recipe.unit')"
       :icon="$globals.icons.units"
       :menu-props="{ location: menuDirection }"
-      style="flex: 3"
+      style="flex: 7"
       create
       @create="createAssignUnit"
     />
   </div>
   <v-textarea
     v-model="listItem.note"
+    clearable
     hide-details
     :label="$t('shopping-list.note')"
     rows="1"
     auto-grow
+    autocapitalize="none"
     @keypress="handleNoteKeyPress"
   />
   <div class="d-flex flex-wrap align-end ga-3">

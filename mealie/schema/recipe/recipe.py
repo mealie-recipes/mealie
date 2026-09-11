@@ -22,8 +22,10 @@ from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.recipe import (
     IngredientFoodModel,
+    IngredientFoodSubstitutionModel,
     RecipeComment,
     RecipeIngredientModel,
+    RecipeIngredientSubstitutionModel,
     RecipeInstruction,
     RecipeModel,
 )
@@ -63,6 +65,7 @@ class RecipeTag(MealieModel):
     group_id: UUID4 | None = None
     name: str
     slug: str
+    recipe_count: int = 0
 
     _searchable_properties: ClassVar[list[str]] = ["name"]
     model_config = ConfigDict(from_attributes=True)
@@ -312,6 +315,13 @@ class Recipe(RecipeSummary):
             selectinload(RecipeModel.recipe_ingredient)
             .joinedload(RecipeIngredientModel.food)
             .joinedload(IngredientFoodModel.label),
+            selectinload(RecipeModel.recipe_ingredient)
+            .joinedload(RecipeIngredientModel.food)
+            .selectinload(IngredientFoodModel.substitutions)
+            .joinedload(IngredientFoodSubstitutionModel.substitute_food),
+            selectinload(RecipeModel.recipe_ingredient)
+            .selectinload(RecipeIngredientModel.substitutions)
+            .joinedload(RecipeIngredientSubstitutionModel.substitute_food),
             selectinload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.ingredient_references),
             joinedload(RecipeModel.nutrition),
             joinedload(RecipeModel.settings),

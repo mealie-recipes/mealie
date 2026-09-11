@@ -2,6 +2,7 @@
   <div class="text-center">
     <BaseDialog
       v-model="dialogDeleteImage"
+      bottom-sheet
       :title="$t('recipe.delete-image')"
       :icon="$globals.icons.alertCircle"
       color="error"

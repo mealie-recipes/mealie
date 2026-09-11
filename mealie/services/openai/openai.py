@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import base64
 import inspect
 import json
@@ -5,11 +7,11 @@ import os
 from abc import ABC, abstractmethod
 from pathlib import Path
 from textwrap import dedent
-from typing import TypeVar
+from typing import TYPE_CHECKING, TypeVar
 
-import openai
-from openai import AsyncOpenAI
-from openai.lib._parsing._completions import type_to_response_format_param
+if TYPE_CHECKING:
+    from openai import AsyncOpenAI
+
 from pydantic import BaseModel, field_validator
 
 from mealie.core import exceptions, root_logger
@@ -86,8 +88,16 @@ class OpenAILocalImage(OpenAIImageBase):
     path: Path
 
     def get_image_url(self) -> str:
+        # Downscale and re-encode at a moderate quality before base64-encoding for the
+        # provider. The previous default (quality=100, no resize) inflated typical phone
+        # photos well past their original size, exceeding stricter providers' image-size
+        # limits (e.g. Anthropic's OpenAI-compatible endpoint rejects images >10MB
+        # base64-encoded). Vision models downscale internally, so this loses no accuracy.
         image = img.PillowMinifier.to_jpg(
-            self.path, dest=self.path.parent.joinpath(f"{self.filename}-min-original.jpg")
+            self.path,
+            dest=self.path.parent.joinpath(f"{self.filename}-min-original.jpg"),
+            quality=80,
+            max_dimension=2048,
         )
         with open(image, "rb") as f:
             b64content = base64.b64encode(f.read()).decode("utf-8")
@@ -136,6 +146,8 @@ class OpenAIService(BaseService):
         super().__init__()
 
     def get_client(self, provider: AIProviderOut) -> AsyncOpenAI:
+        from openai import AsyncOpenAI
+
         return AsyncOpenAI(
             base_url=provider.base_url or None,
             api_key=provider.api_key,
@@ -264,6 +276,8 @@ class OpenAIService(BaseService):
     async def _get_raw_response(
         self, prompt: str, content: list[dict], response_schema: type[T], provider: AIProviderOut
     ) -> T | None:
+        from openai.lib._parsing._completions import type_to_response_format_param
+
         client = self.get_client(provider)
         response = await client.chat.completions.create(
             messages=[
@@ -299,6 +313,7 @@ class OpenAIService(BaseService):
         provider: AIProviderOut | None = None,
     ) -> T | None:
         """Send data to OpenAI and return the response message content"""
+        import openai
 
         try:
             provider = provider or self._get_provider(attachments)
@@ -313,6 +328,8 @@ class OpenAIService(BaseService):
             raise Exception(f"OpenAI Request Failed. {e.__class__.__name__}: {e}") from e
 
     async def transcribe_audio(self, audio_file_path: Path) -> str | None:
+        import openai
+
         if not self.audio_provider:
             raise OpenAINotEnabledException("No audio provider set")
 

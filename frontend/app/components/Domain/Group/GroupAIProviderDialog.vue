@@ -59,7 +59,6 @@
           type="number"
           :min="0"
           hide-details
-          control-variant="stacked"
           density="compact"
           variant="outlined"
           class="mb-4"

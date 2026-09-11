@@ -5,7 +5,7 @@
       <v-container class="ma-0 pa-0">
         <v-row>
           <v-col
-            v-if="preferences.imagePosition && preferences.imagePosition != ImagePosition.hidden"
+            v-if="recipe.image && preferences.imagePosition && preferences.imagePosition != ImagePosition.hidden"
             :order="preferences.imagePosition == ImagePosition.left ? -1 : 1"
             cols="4"
             align-self="center"
@@ -80,16 +80,23 @@
           class="ingredient-grid"
           :style="{ gridTemplateRows: `repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, min-content)` }"
         >
-          <template
+          <div
             v-for="(ingredient, ingredientIndex) in ingredientSection.ingredients"
             :key="`ingredient-${ingredientIndex}`"
+            class="ingredient-cell"
           >
             <!-- eslint-disable-next-line vue/no-v-html -->
             <p
               class="ingredient-body"
               v-html="parseText(ingredient)"
             />
-          </template>
+            <!-- paper has nothing to tap, so what the menu holds on screen is spelled out here -->
+            <SafeMarkdown
+              v-if="preferences.showSubstitutions && substitutionSummary(ingredient)"
+              class="substitution-body"
+              :source="$t('recipe.substitutions-with-value', { substitutions: substitutionSummary(ingredient) })"
+            />
+          </div>
         </div>
       </div>
     </section>
@@ -130,6 +137,32 @@
               :source="step.text"
               class="recipe-step-body"
             />
+            <!-- Step Ingredients -->
+            <div
+              v-if="preferences.showLinkedIngredients && step.ingredientReferences && step.ingredientReferences.length > 0"
+              class="print-section"
+            >
+              <h6
+                class="ingredient-title mt-2 mb-0"
+              >
+                {{ $t("recipe.ingredients") }}
+              </h6>
+              <div
+                class="step-ingredient-grid"
+                :style="{ gridTemplateRows: `repeat(${Math.ceil(step.ingredientReferences.length / 2)}, min-content)` }"
+              >
+                <template
+                  v-for="(ingredient, ingredientIndex) in stepLinkedIngredients.get(`${sectionIndex}-${stepIndex}`) ?? []"
+                  :key="`ingredient-${ingredientIndex}`"
+                >
+                  <!-- eslint-disable-next-line vue/no-v-html -->
+                  <p
+                    class="ingredient-body"
+                    v-html="parseText(ingredient)"
+                  />
+                </template>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -192,7 +225,7 @@ import { useStaticRoutes } from "~/composables/api";
 import type { Recipe, RecipeIngredient, RecipeStep } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import { ImagePosition, useUserPrintPreferences } from "~/composables/use-users/preferences";
-import { useIngredientTextParser, useNutritionLabels } from "~/composables/recipes";
+import { ingredientSubstitutionSummary, useFoodPlurality, useIngredientTextParser, useNutritionLabels } from "~/composables/recipes";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useScaledAmount } from "~/composables/recipes/use-scaled-amount";
 
@@ -362,10 +395,38 @@ const hasNotes = computed(() => {
   return props.recipe.notes && props.recipe.notes.length > 0;
 });
 
+// Precompute each step's linked ingredients so the template doesn't re-filter recipeIngredient on every render
+const stepLinkedIngredients = computed(() => {
+  const map = new Map<string, RecipeIngredient[]>();
+
+  instructionSections.value.forEach((section, sectionIndex) => {
+    section.instructions.forEach((step, stepIndex) => {
+      if (!step.ingredientReferences?.length) {
+        return;
+      }
+
+      const referenceIds = new Set(step.ingredientReferences.map(ref => ref.referenceId));
+      map.set(
+        `${sectionIndex}-${stepIndex}`,
+        props.recipe.recipeIngredient.filter(ing => ing.referenceId && referenceIds.has(ing.referenceId)),
+      );
+    });
+  });
+
+  return map;
+});
+
 const { parseIngredientText } = useIngredientTextParser();
 
 function parseText(ingredient: RecipeIngredient) {
   return parseIngredientText(ingredient, props.scale);
+}
+
+const { shouldPluralizeFood } = useFoodPlurality();
+
+// the substitutes inflect with the line they stand in for, the same as on screen
+function substitutionSummary(ingredient: RecipeIngredient) {
+  return ingredientSubstitutionSummary(ingredient, shouldPluralizeFood(ingredient, props.scale));
 }
 </script>
 
@@ -403,6 +464,13 @@ p {
   grid-gap: 0.5rem;
 }
 
+.step-ingredient-grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 0.2rem;
+}
+
 .ingredient-title,
 .instruction-title {
   grid-column: 1 / span 2;
@@ -414,6 +482,20 @@ p {
 .recipe-step-body,
 .note-body {
   font-size: 14px;
+}
+
+.ingredient-cell {
+  break-inside: avoid;
+}
+
+.substitution-body {
+  font-size: 12px;
+  line-height: 1.3;
+  opacity: 0.7;
+}
+
+.substitution-body :deep(p) {
+  margin: 0;
 }
 
 ul {
