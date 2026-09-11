@@ -9,7 +9,8 @@ from typing import TypeVar
 
 import openai
 from openai import AsyncOpenAI
-from pydantic import BaseModel, ValidationError, field_validator
+from openai.lib._parsing._completions import type_to_response_format_param
+from pydantic import BaseModel, field_validator
 
 from mealie.core import exceptions, root_logger
 from mealie.core.config import get_app_settings
@@ -264,41 +265,24 @@ class OpenAIService(BaseService):
         self, prompt: str, content: list[dict], response_schema: type[T], provider: AIProviderOut
     ) -> T | None:
         client = self.get_client(provider)
-        messages: list[dict] = [
-            {
-                "role": "system",
-                "content": prompt,
-            },
-            {
-                "role": "user",
-                "content": content,
-            },
-        ]
-
-        try:
-            response = await client.chat.completions.parse(
-                messages=messages,
-                model=provider.model,
-                response_format=response_schema,
-            )
-        except ValidationError:
-            # Some OpenAI-compatible providers (e.g. Ollama Cloud) silently ignore strict
-            # json_schema response_format and reply in prose instead, which fails validation
-            # here. Fall back to loose json_object mode with the schema described in the prompt.
-            logger.warning(
-                f"Provider '{provider.name}' did not honor the structured output schema; "
-                "falling back to json_object mode"
-            )
-            schema_prompt = (
-                f"{prompt}\n\n###\nRespond only with a single JSON object matching this JSON schema. "
-                f"Do not include any other text.\n{response_schema.model_json_schema()}"
-            )
-            messages[0]["content"] = schema_prompt
-            response = await client.chat.completions.create(
-                messages=messages,
-                model=provider.model,
-                response_format={"type": "json_object"},
-            )
+        response = await client.chat.completions.create(
+            messages=[
+                {
+                    "role": "system",
+                    "content": prompt,
+                },
+                {
+                    "role": "user",
+                    "content": content,
+                },
+            ],
+            model=provider.model,
+            # The same response_format payload parse() would send, built with the SDK's own
+            # strict-schema helper. Calling create() directly skips the SDK's client-side
+            # validation, so responses we can parse ourselves (e.g. markdown-fenced JSON)
+            # are validated by parse_openai_response() below instead of being discarded.
+            response_format=type_to_response_format_param(response_schema),
+        )
 
         if not response.choices:
             return None

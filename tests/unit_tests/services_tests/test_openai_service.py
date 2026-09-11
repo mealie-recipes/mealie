@@ -2,7 +2,6 @@ from types import SimpleNamespace
 from unittest.mock import MagicMock
 from uuid import uuid4
 
-import pydantic
 import pytest
 
 import mealie.services.openai.openai as openai_module
@@ -103,28 +102,16 @@ def _make_response(content: str | None) -> SimpleNamespace:
     return SimpleNamespace(choices=choices)
 
 
-def _make_schema_validation_error() -> pydantic.ValidationError:
-    try:
-        _SampleSchema.model_validate_json("this is plain prose, not JSON")
-    except pydantic.ValidationError as e:
-        return e
-    raise AssertionError("expected model_validate_json to raise")
-
-
 class _FakeCompletions:
-    def __init__(self, *, parse_result=None, parse_exc=None, create_result=None):
-        self._parse_result = parse_result
-        self._parse_exc = parse_exc
+    def __init__(self, *, create_result=None, create_exc=None):
         self._create_result = create_result
+        self._create_exc = create_exc
         self.create_calls: list[dict] = []
-
-    async def parse(self, **kwargs):
-        if self._parse_exc:
-            raise self._parse_exc
-        return self._parse_result
 
     async def create(self, **kwargs):
         self.create_calls.append(kwargs)
+        if self._create_exc:
+            raise self._create_exc
         return self._create_result
 
 
@@ -134,25 +121,9 @@ class _FakeClient:
 
 
 @pytest.mark.asyncio
-async def test_get_response_uses_strict_parse_when_supported(settings_stub):
+async def test_get_response_creates_with_strict_schema(settings_stub):
     svc = OpenAIService(_make_mock_repos())
-    completions = _FakeCompletions(parse_result=_make_response('{"answer": "hi"}'))
-    svc.get_client = MagicMock(return_value=_FakeClient(completions))
-
-    result = await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
-
-    assert result is not None
-    assert result.answer == "hi"
-    assert completions.create_calls == []
-
-
-@pytest.mark.asyncio
-async def test_get_response_falls_back_to_json_object_when_schema_ignored(settings_stub):
-    svc = OpenAIService(_make_mock_repos())
-    completions = _FakeCompletions(
-        parse_exc=_make_schema_validation_error(),
-        create_result=_make_response('{"answer": "hi"}'),
-    )
+    completions = _FakeCompletions(create_result=_make_response('{"answer": "hi"}'))
     svc.get_client = MagicMock(return_value=_FakeClient(completions))
 
     result = await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
@@ -160,20 +131,41 @@ async def test_get_response_falls_back_to_json_object_when_schema_ignored(settin
     assert result is not None
     assert result.answer == "hi"
     assert len(completions.create_calls) == 1
-    assert completions.create_calls[0]["response_format"] == {"type": "json_object"}
+    response_format = completions.create_calls[0]["response_format"]
+    assert response_format["type"] == "json_schema"
+    assert response_format["json_schema"]["name"] == "_SampleSchema"
+    assert response_format["json_schema"]["strict"] is True
 
 
 @pytest.mark.asyncio
-async def test_get_response_raises_when_fallback_also_fails(settings_stub):
+async def test_get_response_strips_markdown_fence_from_strict_response(settings_stub):
     svc = OpenAIService(_make_mock_repos())
-    completions = _FakeCompletions(
-        parse_exc=_make_schema_validation_error(),
-        create_result=_make_response("still not JSON"),
-    )
+    completions = _FakeCompletions(create_result=_make_response('```json\n{"answer": "hi"}\n```'))
+    svc.get_client = MagicMock(return_value=_FakeClient(completions))
+
+    result = await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
+
+    assert result is not None
+    assert result.answer == "hi"
+    assert len(completions.create_calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_get_response_returns_none_when_no_choices(settings_stub):
+    svc = OpenAIService(_make_mock_repos())
+    completions = _FakeCompletions(create_result=_make_response(None))
+    svc.get_client = MagicMock(return_value=_FakeClient(completions))
+
+    result = await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
+
+    assert result is None
+
+
+@pytest.mark.asyncio
+async def test_get_response_raises_when_response_not_json(settings_stub):
+    svc = OpenAIService(_make_mock_repos())
+    completions = _FakeCompletions(create_result=_make_response("still not JSON"))
     svc.get_client = MagicMock(return_value=_FakeClient(completions))
 
     with pytest.raises(Exception, match="OpenAI Request Failed"):
         await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
-
-    # confirms the fallback was actually attempted, not just the initial strict-mode failure surfacing
-    assert len(completions.create_calls) == 1

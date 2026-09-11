@@ -93,7 +93,7 @@ def test_openai_parser_sanitize_output(
 
     def mock_get_client(self, provider) -> MagicMock:
         client = MagicMock()
-        client.chat.completions.parse = AsyncMock(return_value=mock_response)
+        client.chat.completions.create = AsyncMock(return_value=mock_response)
         return client
 
     # Mock the client here since we want to make sure our service executes processing before loading the model
