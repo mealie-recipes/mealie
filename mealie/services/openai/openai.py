@@ -276,10 +276,15 @@ class OpenAIService(BaseService):
     async def _get_raw_response(
         self, prompt: str, content: list[dict], response_schema: type[T], provider: AIProviderOut
     ) -> T | None:
-        from openai.lib._parsing._completions import type_to_response_format_param
+        import openai
+        from openai.types.chat import ChatCompletion
 
         client = self.get_client(provider)
-        response = await client.chat.completions.create(
+        # parse() builds the same response_format payload create() would send, but its
+        # client-side validation runs as a post_parser that the raw-response path never
+        # triggers, so we read the body ourselves and let parse_openai_response() below
+        # do the parsing (e.g. of markdown-fenced JSON the SDK would otherwise discard).
+        async with client.chat.completions.with_streaming_response.parse(
             messages=[
                 {
                     "role": "system",
@@ -291,17 +296,20 @@ class OpenAIService(BaseService):
                 },
             ],
             model=provider.model,
-            # The same response_format payload parse() would send, built with the SDK's own
-            # strict-schema helper. Calling create() directly skips the SDK's client-side
-            # validation, so responses we can parse ourselves (e.g. markdown-fenced JSON)
-            # are validated by parse_openai_response() below instead of being discarded.
-            response_format=type_to_response_format_param(response_schema),
-        )
+            response_format=response_schema,
+        ) as response:
+            completion = ChatCompletion.model_validate(json.loads(await response.text()))
 
-        if not response.choices:
+        for choice in completion.choices:
+            if choice.finish_reason == "length":
+                raise openai.LengthFinishReasonError(completion=completion)
+            if choice.finish_reason == "content_filter":
+                raise openai.ContentFilterFinishReasonError()
+
+        if not completion.choices:
             return None
 
-        return response_schema.parse_openai_response(response.choices[0].message.content)
+        return response_schema.parse_openai_response(completion.choices[0].message.content)
 
     async def get_response(
         self,

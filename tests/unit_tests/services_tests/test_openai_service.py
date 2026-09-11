@@ -1,3 +1,4 @@
+import json
 from types import SimpleNamespace
 from unittest.mock import MagicMock
 from uuid import uuid4
@@ -97,63 +98,90 @@ def _make_provider() -> MagicMock:
     return provider
 
 
-def _make_response(content: str | None) -> SimpleNamespace:
-    choices = [SimpleNamespace(message=SimpleNamespace(content=content))] if content is not None else []
-    return SimpleNamespace(choices=choices)
+def _make_body(content: str | None, finish_reason: str = "stop") -> str:
+    choices = (
+        [{"message": {"content": content, "role": "assistant"}, "finish_reason": finish_reason, "index": 0}]
+        if content is not None
+        else []
+    )
+    return json.dumps(
+        {
+            "id": "chatcmpl-test",
+            "object": "chat.completion",
+            "created": 0,
+            "model": "test-model",
+            "choices": choices,
+        }
+    )
+
+
+class _FakeStream:
+    def __init__(self, body: str | None, exc: Exception | None = None):
+        self._body = body
+        self._exc = exc
+
+    async def __aenter__(self):
+        return self
+
+    async def __aexit__(self, *args):
+        return False
+
+    async def text(self):
+        if self._exc:
+            raise self._exc
+        return self._body
 
 
 class _FakeCompletions:
-    def __init__(self, *, create_result=None, create_exc=None):
-        self._create_result = create_result
-        self._create_exc = create_exc
-        self.create_calls: list[dict] = []
+    def __init__(self, *, parse_result=None, parse_exc=None):
+        self._parse_result = parse_result
+        self._parse_exc = parse_exc
+        self.parse_calls: list[dict] = []
 
-    async def create(self, **kwargs):
-        self.create_calls.append(kwargs)
-        if self._create_exc:
-            raise self._create_exc
-        return self._create_result
+    def parse(self, **kwargs):
+        self.parse_calls.append(kwargs)
+        return _FakeStream(self._parse_result, self._parse_exc)
 
 
 class _FakeClient:
     def __init__(self, completions: _FakeCompletions):
         self.chat = SimpleNamespace(completions=completions)
+        self.chat.completions.with_streaming_response = SimpleNamespace(parse=completions.parse)
 
 
 @pytest.mark.asyncio
-async def test_get_response_creates_with_strict_schema(settings_stub):
+async def test_get_response_sends_schema_as_response_format(settings_stub):
     svc = OpenAIService(_make_mock_repos())
-    completions = _FakeCompletions(create_result=_make_response('{"answer": "hi"}'))
+    completions = _FakeCompletions(parse_result=_make_body('{"answer": "hi"}'))
     svc.get_client = MagicMock(return_value=_FakeClient(completions))
 
     result = await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
 
     assert result is not None
     assert result.answer == "hi"
-    assert len(completions.create_calls) == 1
-    response_format = completions.create_calls[0]["response_format"]
-    assert response_format["type"] == "json_schema"
-    assert response_format["json_schema"]["name"] == "_SampleSchema"
-    assert response_format["json_schema"]["strict"] is True
+    assert len(completions.parse_calls) == 1
+    call = completions.parse_calls[0]
+    assert call["response_format"] is _SampleSchema
+    assert call["model"] == "test-model"
 
 
 @pytest.mark.asyncio
 async def test_get_response_strips_markdown_fence_from_strict_response(settings_stub):
     svc = OpenAIService(_make_mock_repos())
-    completions = _FakeCompletions(create_result=_make_response('```json\n{"answer": "hi"}\n```'))
+    completions = _FakeCompletions(parse_result=_make_body('```json\n{"answer": "hi"}\n```'))
     svc.get_client = MagicMock(return_value=_FakeClient(completions))
 
     result = await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
 
     assert result is not None
     assert result.answer == "hi"
-    assert len(completions.create_calls) == 1
+    assert len(completions.parse_calls) == 1
 
 
 @pytest.mark.asyncio
 async def test_get_response_returns_none_when_no_choices(settings_stub):
     svc = OpenAIService(_make_mock_repos())
-    completions = _FakeCompletions(create_result=_make_response(None))
+    completions = _FakeCompletions(parse_result=_make_body(None))
     svc.get_client = MagicMock(return_value=_FakeClient(completions))
 
     result = await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
@@ -164,8 +192,28 @@ async def test_get_response_returns_none_when_no_choices(settings_stub):
 @pytest.mark.asyncio
 async def test_get_response_raises_when_response_not_json(settings_stub):
     svc = OpenAIService(_make_mock_repos())
-    completions = _FakeCompletions(create_result=_make_response("still not JSON"))
+    completions = _FakeCompletions(parse_result=_make_body("still not JSON"))
     svc.get_client = MagicMock(return_value=_FakeClient(completions))
 
     with pytest.raises(Exception, match="OpenAI Request Failed"):
+        await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
+
+
+@pytest.mark.asyncio
+async def test_get_response_raises_on_length_finish_reason(settings_stub):
+    svc = OpenAIService(_make_mock_repos())
+    completions = _FakeCompletions(parse_result=_make_body('{"answer": "hi"}', finish_reason="length"))
+    svc.get_client = MagicMock(return_value=_FakeClient(completions))
+
+    with pytest.raises(Exception, match="length limit"):
+        await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
+
+
+@pytest.mark.asyncio
+async def test_get_response_raises_on_content_filter_finish_reason(settings_stub):
+    svc = OpenAIService(_make_mock_repos())
+    completions = _FakeCompletions(parse_result=_make_body('{"answer": "hi"}', finish_reason="content_filter"))
+    svc.get_client = MagicMock(return_value=_FakeClient(completions))
+
+    with pytest.raises(Exception, match="content filter"):
         await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
