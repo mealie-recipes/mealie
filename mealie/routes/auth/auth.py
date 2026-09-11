@@ -4,7 +4,7 @@ from authlib.integrations.starlette_client import OAuth, OAuthError
 from fastapi import APIRouter, Depends, Header, Request, Response, status
 from fastapi.exceptions import HTTPException
 from fastapi.responses import RedirectResponse
-from pydantic import BaseModel
+from pydantic import UUID4, BaseModel
 from sqlalchemy.orm.session import Session
 from starlette.datastructures import URLPath
 
@@ -30,14 +30,54 @@ logger = root_logger.get_logger("auth")
 
 
 def _get_client_ip(request: Request) -> str:
-    if "x-forwarded-for" in request.headers:
-        ip = request.headers["x-forwarded-for"]
-        if "," in ip:  # if there are multiple IPs, the first one is canonically the true client
-            ip = str(ip.split(",")[0])
-    else:
-        # request.client should never be null, except sometimes during testing
-        ip = request.client.host if request.client else "unknown"
-    return ip
+    # Uvicorn applies X-Forwarded-For only for trusted proxies (HOST_IP / forwarded_allow_ips).
+    # Do not read X-Forwarded-For directly; clients could spoof it when not behind a trusted proxy.
+    if request.client and request.client.host:
+        return request.client.host
+    return "unknown"
+
+
+def _is_ip_blocked(session: Session, user_id: UUID4, ip: str) -> bool:
+    repos = get_repositories(session, group_id=None, household_id=None)
+    rows = repos.userIpBlocklist.multi_query({"user_id": user_id, "ip_address": ip}, limit=100)
+    return bool(rows)
+
+
+def _raise_if_ip_blocked(
+    session: Session,
+    request: Request,
+    user: PrivateUser,
+    *,
+    username: str | None = None,
+    auth_method: AuthMethod | None = None,
+) -> None:
+    ip = _get_client_ip(request)
+    if not ip or ip == "unknown":
+        _write_login_history(
+            session,
+            request,
+            success=False,
+            reason="ip_address_not_found",
+            username=username,
+            user=user,
+            auth_method=auth_method or user.auth_method,
+        )
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="IP address not found")
+
+    if _is_ip_blocked(session, user.id, ip):
+        _write_login_history(
+            session,
+            request,
+            success=False,
+            reason=f"ip_blocked- {ip}",
+            username=username,
+            user=user,
+            auth_method=auth_method or user.auth_method,
+        )
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Your IP address is blocked. Please contact support.",
+        )
 
 
 def _write_login_history(
@@ -77,18 +117,6 @@ def _finalize_login(
     user: PrivateUser | None = None,
     auth_method: AuthMethod | None = None,
 ) -> dict:
-    ip = _get_client_ip(request)
-    if not ip:
-        _write_login_history(
-            session,
-            request,
-            success=False,
-            reason="ip_address_not_found",
-            username=username,
-            user=user,
-            auth_method=auth_method or (user.auth_method if user else None),
-        )
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="IP address not found")
     if not user:
         _write_login_history(
             session,
@@ -100,31 +128,20 @@ def _finalize_login(
         )
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="User not found")
 
-    repos = get_repositories(session, group_id=None, household_id=None)
-    rows = repos.userIpBlocklist.multi_query(
-        {"user_id": user.id, "ip_address": ip},
-        limit=100,  # 一般只会1条，防止历史脏数据
+    _raise_if_ip_blocked(
+        session,
+        request,
+        user,
+        username=username,
+        auth_method=auth_method or user.auth_method,
     )
-    if rows:
-        _write_login_history(
-            session,
-            request,
-            success=False,
-            reason=f"ip_blocked- {ip}",
-            username=username,
-            user=user,
-            auth_method=auth_method or (user.auth_method if user else None),
-        )
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN, detail="Your IP address is blocked. Please contact support."
-        )
     _write_login_history(
         session,
         request,
         success=True,
         username=username,
         user=user,
-        auth_method=auth_method or (user.auth_method if user else None),
+        auth_method=auth_method or user.auth_method,
     )
     return MealieAuthToken.respond(access_token)
 
@@ -165,23 +182,49 @@ class MealieAuthToken(BaseModel):
 
 @public_router.post("/login")
 def login(request: Request, data: CredentialsRequestForm = Depends(), session: Session = Depends(generate_session)):
+    ip = _get_client_ip(request)
     auth_provider = get_auth_provider(session, data)
-    auth = auth_provider.authenticate()
+    known_user = auth_provider.try_get_user(data.username)
+    if known_user:
+        _raise_if_ip_blocked(
+            session,
+            request,
+            known_user,
+            username=data.username,
+            auth_method=known_user.auth_method,
+        )
+
+    try:
+        auth = auth_provider.authenticate()
+    except UserLockedOut as e:
+        failed_user = getattr(auth_provider, "user", None)
+        _write_login_history(
+            session,
+            request,
+            success=False,
+            reason="user_locked_out",
+            username=data.username,
+            user=failed_user,
+            auth_method=failed_user.auth_method if failed_user else None,
+        )
+        logger.error(f"User is locked out from {ip}")
+        raise HTTPException(status_code=status.HTTP_423_LOCKED, detail="User is locked out") from e
+
     if not auth:
         failed_user = getattr(auth_provider, "user", None)
         _write_login_history(
             session,
             request,
             success=False,
-            reason=f"invalid_credentials. {data.username} / {data.password}",
+            reason="invalid_credentials",
             username=data.username,
             user=failed_user,
             auth_method=failed_user.auth_method if failed_user else None,
         )
-        logger.error(f"Incorrect username or password from {request.client.host}")
+        logger.error(f"Incorrect username or password from {ip}")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=(f"Incorrect username or password from {request.client.host}"),
+            detail="Incorrect username or password",
         )
     return _finalize_login(session, request, auth[0], username=data.username, user=auth_provider.user)
 
@@ -189,9 +232,18 @@ def login(request: Request, data: CredentialsRequestForm = Depends(), session: S
 @public_router.post("/token")
 def get_token(request: Request, data: CredentialsRequestForm = Depends(), session: Session = Depends(generate_session)):
     ip = _get_client_ip(request)
-    auth_provider = None
+    auth_provider = get_auth_provider(session, data)
+    known_user = auth_provider.try_get_user(data.username)
+    if known_user:
+        _raise_if_ip_blocked(
+            session,
+            request,
+            known_user,
+            username=data.username,
+            auth_method=known_user.auth_method,
+        )
+
     try:
-        auth_provider = get_auth_provider(session, data)
         auth = auth_provider.authenticate()
     except UserLockedOut as e:
         failed_user = getattr(auth_provider, "user", None)
@@ -386,8 +438,13 @@ async def oauth_native_token(
 
 
 @user_router.get("/refresh")
-async def refresh_token(current_user: PrivateUser = Depends(get_current_user)):
+async def refresh_token(
+    request: Request,
+    current_user: PrivateUser = Depends(get_current_user),
+    session: Session = Depends(generate_session),
+):
     """Use a valid token to get another token"""
+    _raise_if_ip_blocked(session, request, current_user)
     access_token = security.create_access_token(data={"sub": str(current_user.id)})
     return MealieAuthToken.respond(access_token)
 

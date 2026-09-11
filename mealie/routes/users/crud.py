@@ -1,6 +1,8 @@
+import ipaddress
+
 from fastapi import HTTPException, status
 from fastapi.params import Depends
-from pydantic import UUID4, BaseModel
+from pydantic import UUID4, BaseModel, field_validator
 
 from mealie.core.security import hash_password
 from mealie.core.security.providers.credentials_provider import CredentialsProvider
@@ -24,6 +26,16 @@ class AddIpBlocklistIn(BaseModel):
     user_id: UUID4 | None = None
     ip_address: str
     reason: str | None = None
+
+    @field_validator("ip_address")
+    @classmethod
+    def validate_ip_address(cls, value: str) -> str:
+        value = value.strip()
+        try:
+            ipaddress.ip_address(value)
+        except ValueError as e:
+            raise ValueError("Invalid IP address") from e
+        return value
 
 
 class DeleteIpBlocklistOut(BaseModel):
@@ -167,7 +179,8 @@ class UserController(BaseUserController):
             )
         except Exception as e:
             raise HTTPException(
-                status.HTTP_400_BAD_REQUEST, ErrorResponse.respond(f"Failed to add IP to blocklist. {str(e)}")
+                status.HTTP_400_BAD_REQUEST,
+                ErrorResponse.respond("Failed to add IP to blocklist"),
             ) from e
         return SuccessResponse.respond("IP address added to blocklist")
 
