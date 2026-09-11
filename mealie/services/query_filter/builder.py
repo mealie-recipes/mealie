@@ -262,7 +262,7 @@ class QueryFilterBuilder:
         """
         Take an attribute string and traverse a database model and its relationships to get the desired
         model and model attribute. Optionally collect the relationships traversed on the way, which can then
-        be applied to a query with `join_relationships` or `aggregate_over_relationships`.
+        be applied with `_wrap_in_relationships` when filtering or `_aggregate_over_relationships` when ordering.
 
         If the attribute string is invalid, raises a `ValueError`.
 
@@ -320,21 +320,14 @@ class QueryFilterBuilder:
         return current_model, model_attr
 
     @staticmethod
-    def _join_relationships(query: sa.Select, relationships: RelationshipChain) -> sa.Select:
-        """Join every relationship traversed by an attribute string onto a query."""
-        for relationship_attr, _ in relationships:
-            query = query.join(relationship_attr, isouter=True)
-
-        return query
-
-    @staticmethod
     def _aggregate_over_relationships[Model: SqlAlchemyBase](
         element: sa.ColumnElement, relationships: RelationshipChain, model: type[Model], *, descending: bool
     ) -> sa.ColumnElement:
         """
         Reduce a related attribute to a single value per record with a correlated subquery.
 
-        Joining a "to-many" relationship duplicates a row per related record, which breaks LIMIT and OFFSET.
+        Joining a relationship can return more than one row per record, which breaks LIMIT and OFFSET. That holds
+        for "to-one" relationships too, since `uselist=False` is an ORM declaration rather than a unique constraint.
         Aggregating keeps one row per record and picks the value the ordering would have surfaced anyway:
         the lowest when ascending, the highest when descending.
         """
@@ -351,19 +344,15 @@ class QueryFilterBuilder:
     @classmethod
     def get_order_attr[Model: SqlAlchemyBase](
         cls,
-        query: sa.Select,
         attr_string: str,
         model: type[Model],
         *,
         descending: bool,
         column_aliases: dict[str, sa.ColumnElement] | None = None,
-    ) -> tuple[sa.Select, sa.ColumnElement]:
+    ) -> sa.ColumnElement:
         """
-        Resolve an attribute string into something a query can be ordered by.
-
-        Returns the query, joined if the attribute string traverses only "to-one" relationships, along with
-        the element to order on. If you need to order on a custom column expression, you can supply column
-        aliases.
+        Resolve an attribute string into an element a query can be ordered by.
+        If you need to order on a custom column expression (e.g. a computed property), you can supply column aliases
         """
         relationships: RelationshipChain = []
         _, order_attr = cls.get_model_and_model_attr_from_attr_string(
@@ -372,18 +361,13 @@ class QueryFilterBuilder:
 
         if column_aliases and (column_alias := column_aliases.get(order_attr.key)) is not None:
             # aliases are already expressed on the base model, so there is nothing left to traverse
-            return query, cls._transform_model_attr(column_alias, column_alias.type)
+            return cls._transform_model_attr(column_alias, column_alias.type)
 
         order_attr = cls._transform_model_attr(order_attr, order_attr.type)
-
         if not relationships:
-            return query, order_attr
+            return order_attr
 
-        if any(uselist for _, uselist in relationships):
-            return query, cls._aggregate_over_relationships(order_attr, relationships, model, descending=descending)
-
-        # "to-one" relationships cannot duplicate records, so joining is cheaper than aggregating
-        return cls._join_relationships(query, relationships), order_attr
+        return cls._aggregate_over_relationships(order_attr, relationships, model, descending=descending)
 
     @staticmethod
     def _wrap_in_relationships(element: sa.ColumnElement, relationships: RelationshipChain) -> sa.ColumnElement:

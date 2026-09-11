@@ -455,8 +455,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                         order_by = order_by_val
                         order_dir = request_query.order_direction
 
-                    query, order_attr = QueryFilterBuilder.get_order_attr(
-                        query,
+                    order_attr = QueryFilterBuilder.get_order_attr(
                         order_by,
                         self.model,
                         descending=order_dir is OrderDirection.desc,
