@@ -1,9 +1,10 @@
-from unittest.mock import MagicMock
+from unittest.mock import AsyncMock, MagicMock
 from uuid import uuid4
 
 import pytest
 
 import mealie.services.openai.openai as openai_module
+from mealie.schema.openai.general import OpenAIText
 from mealie.services.openai.openai import OpenAIService
 
 
@@ -82,3 +83,49 @@ def test_get_prompt_raises_when_no_files(settings_stub, monkeypatch):
     with pytest.raises(OSError) as ei:
         svc.get_prompt("recipes.parse-recipe-ingredients")
     assert "Unable to load prompt" in str(ei.value)
+
+
+@pytest.mark.asyncio
+async def test_get_response_parses_fenced_json_via_create():
+    """Fenced content from local providers must reach preprocessing via create."""
+    svc = OpenAIService(_make_mock_repos())
+
+    fenced = '```json\n{"text": "fenced via create"}\n```'
+    mock_response = MagicMock()
+    mock_response.choices = [MagicMock()]
+    mock_response.choices[0].message.content = fenced
+
+    mock_create = AsyncMock(return_value=mock_response)
+    mock_client = MagicMock()
+    mock_client.chat.completions.create = mock_create
+    svc.get_client = MagicMock(return_value=mock_client)
+
+    provider = MagicMock()
+    result = await svc.get_response("system prompt", "hello", response_schema=OpenAIText, provider=provider)
+
+    assert result is not None
+    assert result.text == "fenced via create"
+    mock_create.assert_awaited_once()
+    assert mock_create.call_args.kwargs["response_format"] is OpenAIText
+
+
+@pytest.mark.asyncio
+async def test_get_response_parses_messy_content_via_create():
+    """Surrounding prose plus outer fence must still parse through get_response."""
+    svc = OpenAIService(_make_mock_repos())
+
+    messy = 'Sure! Here you go:\n```json\n{"text": "**kept** `code`"}\n```\nHope that helps.'
+    mock_response = MagicMock()
+    mock_response.choices = [MagicMock()]
+    mock_response.choices[0].message.content = messy
+
+    mock_create = AsyncMock(return_value=mock_response)
+    mock_client = MagicMock()
+    mock_client.chat.completions.create = mock_create
+    svc.get_client = MagicMock(return_value=mock_client)
+
+    provider = MagicMock()
+    result = await svc.get_response("system prompt", "hello", response_schema=OpenAIText, provider=provider)
+
+    assert result is not None
+    assert result.text == "**kept** `code`"

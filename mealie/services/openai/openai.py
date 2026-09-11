@@ -278,7 +278,11 @@ class OpenAIService(BaseService):
         self, prompt: str, content: list[dict], response_schema: type[T], provider: AIProviderOut
     ) -> ChatCompletion:
         client = self.get_client(provider)
-        return await client.chat.completions.parse(
+        # Use create (not parse) so raw message.content reaches
+        # parse_openai_response, where preprocessing handles fenced or wrapped
+        # JSON from OpenAI-compatible local servers. The schema is still passed
+        # as response_format so structured outputs are requested from the provider.
+        return await client.chat.completions.create(
             messages=[
                 {
                     "role": "system",

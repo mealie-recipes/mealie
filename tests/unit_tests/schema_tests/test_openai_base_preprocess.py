@@ -31,9 +31,20 @@ def test_parse_strips_markdown_code_fences(raw: str):
     assert result.text == "fenced"
 
 
-def test_parse_strips_markdown_bold_markers():
+def test_parse_preserves_markdown_bold_inside_string_values():
     result = OpenAIText.parse_openai_response('{"text": "**bold** value"}')
-    assert result.text == "bold value"
+    assert result.text == "**bold** value"
+
+
+def test_parse_preserves_backticks_inside_string_values():
+    result = OpenAIText.parse_openai_response('{"text": "use `code` here and **bold** too"}')
+    assert result.text == "use `code` here and **bold** too"
+
+
+def test_parse_preserves_fence_like_content_inside_string_values():
+    raw = json.dumps({"text": "outer ```json fence``` inside value"})
+    result = OpenAIText.parse_openai_response(raw)
+    assert result.text == "outer ```json fence``` inside value"
 
 
 def test_parse_extracts_json_object_surrounded_by_text():
@@ -44,9 +55,7 @@ def test_parse_extracts_json_object_surrounded_by_text():
 
 def test_parse_extracts_json_array_surrounded_by_text():
     raw = (
-        "Parsed ingredients:\n"
-        '[{"food": "onion", "quantity": 1, "unit": null, "note": null, "substitutes": []}]\n'
-        "Done."
+        'Parsed ingredients:\n[{"food": "onion", "quantity": 1, "unit": null, "note": null, "substitutes": []}]\nDone.'
     )
     result = OpenAIIngredients.parse_openai_response(raw)
     assert len(result.ingredients) == 1

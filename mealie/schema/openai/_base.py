@@ -6,7 +6,6 @@ from pydantic import BaseModel
 from mealie.core.root_logger import get_logger
 
 RE_NULLS = re.compile(r"[\x00\u0000]|\\u0000")
-RE_CODE_FENCES = re.compile(r"```(?:json)?", re.IGNORECASE)
 
 logger = get_logger()
 
@@ -50,15 +49,32 @@ class OpenAIBase(BaseModel):
         return response
 
     @classmethod
+    def _strip_outer_code_fence(cls, response: str) -> str:
+        """Remove a single outer markdown code fence, if present.
+
+        Only strips an opening fence at the very start and a closing fence at
+        the very end of the response (e.g. ```json\\n{...}\\n```). Backticks
+        inside JSON string values are left untouched.
+        """
+        stripped = response.strip()
+        opening = re.match(r"```(?:json)?", stripped, re.IGNORECASE)
+        if opening:
+            stripped = stripped[opening.end() :].lstrip()
+        if stripped.endswith("```"):
+            stripped = stripped[: -len("```")].rstrip()
+        return stripped
+
+    @classmethod
     def _preprocess_response(cls, response: str | None) -> str:
         if not response:
             return ""
 
         response = re.sub(RE_NULLS, "", response)
 
-        # Local OpenAI-compatible servers (e.g. Ollama) often wrap JSON in markdown.
-        response = RE_CODE_FENCES.sub("", response)
-        response = response.replace("**", "")
+        # Local OpenAI-compatible servers (e.g. Ollama) often wrap JSON in an
+        # outer markdown code fence. Strip only the outer fence so markdown
+        # inside string values (bold, inline code) is preserved.
+        response = cls._strip_outer_code_fence(response)
         response = response.strip()
         response = cls._extract_outermost_json(response)
         return cls._wrap_bare_json_array(response)
