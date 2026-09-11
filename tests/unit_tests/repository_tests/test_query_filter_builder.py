@@ -107,7 +107,7 @@ def test_non_filterable_field_long_live_token_raises():
 
 def test_filterable_field_does_not_raise():
     """Filtering on a FilterableColumn field should not raise."""
-    model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("full_name", User)
+    model, attr = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("full_name", User)
     assert model is User
     assert attr is User.full_name
 
@@ -119,7 +119,7 @@ def test_filterable_field_does_not_raise():
 
 def test_deep_traversal_to_filterable_field_works():
     """Traversing a relationship to a FilterableColumn field should succeed."""
-    model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.full_name", RecipeModel)
+    model, attr = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.full_name", RecipeModel)
     assert model is User
     assert attr is User.full_name
 
@@ -154,6 +154,6 @@ def test_filter_query_user_password_raises():
 
 def test_association_proxy_resolving_to_filterable_field_works():
     """Single-hop association proxy (e.g. household_id) resolving to a FilterableColumn should succeed."""
-    model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("household_id", RecipeModel)
+    model, attr = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("household_id", RecipeModel)
     assert model is User
     assert attr is User.household_id
