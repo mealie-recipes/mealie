@@ -67,13 +67,14 @@ Each of the above organizers can be filtered in searches and have their own page
 
 #### Cookbooks
 
-Mealie also has the concept of cookbooks. These can be created inside of a group and can use a cross section of Categories, Tags, and Tools to filter recipes and view them in one specific page. Cookbooks are a great way to keep a subset of recipes easily accessible to you. You can think of them as a saved search results page. While most examples are simple, you can use as many organizers to filter a cookbook as you'd like.
+Mealie also has the concept of cookbooks. These can be created inside of a group and can use a cross section of Categories, Tags, and Tools to filter recipes and view them in one specific page. Recipes can also be filtered by their ingredients, either by a specific food or by the Food Label a food belongs to. Cookbooks are a great way to keep a subset of recipes easily accessible to you. You can think of them as a saved search results page. While most examples are simple, you can use as many organizers to filter a cookbook as you'd like.
 
 #### Examples:
 
 - Main Courses: This cookbooks has all the recipes that have the **Dinner** category
 - Pasta Sides: Recipes that have both the **Side** category and the **Pasta** tag
 - Dessert Breads: Recipes that have both the **Bread** category and the **Dessert** tag
+- Seafood: Recipes with an ingredient whose food carries the **Fish** label
 
 [Cookbooks Demo](https://demo.mealie.io/g/home/cookbooks){ .md-button .md-button--primary }
 
