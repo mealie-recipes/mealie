@@ -1384,6 +1384,42 @@ def test_delete(api_client: TestClient, unique_user: TestUser):
     assert response.status_code == 200
 
 
+def test_update_missing_name_returns_error_not_500(api_client: TestClient, unique_user: TestUser):
+    """A PUT body without a name used to blank the name out and fail with a 500."""
+    name = random_string()
+    api_client.post(api_routes.recipes, json={"name": name}, headers=unique_user.token)
+
+    response = api_client.put(
+        api_routes.recipes_slug(name),
+        json={"recipeIngredient": [{"quantity": 2.0, "note": random_string()}]},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 422
+
+    # the recipe is left untouched
+    get_response = api_client.get(api_routes.recipes_slug(name), headers=unique_user.token)
+    assert get_response.status_code == 200
+    assert get_response.json()["name"] == name
+
+
+def test_patch_without_name_still_updates(api_client: TestClient, unique_user: TestUser):
+    """PATCH is the partial-update verb, so a body without a name must keep working."""
+    name = random_string()
+    api_client.post(api_routes.recipes, json={"name": name}, headers=unique_user.token)
+
+    note = random_string()
+    response = api_client.patch(
+        api_routes.recipes_slug(name),
+        json={"recipeIngredient": [{"quantity": 2.0, "note": note}]},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    recipe = api_client.get(api_routes.recipes_slug(name), headers=unique_user.token).json()
+    assert recipe["name"] == name
+    assert recipe["recipeIngredient"][0]["note"] == note
+
+
 def test_recipe_crud_404(api_client: TestClient, unique_user: TestUser):
     response = api_client.put(api_routes.recipes_slug("test"), json={"test": "stest"}, headers=unique_user.token)
     assert response.status_code == 404
