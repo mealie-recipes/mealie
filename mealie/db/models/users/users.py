@@ -46,6 +46,7 @@ class AuthMethod(enum.Enum):
     MEALIE = "Mealie"
     LDAP = "LDAP"
     OIDC = "OIDC"
+    REVERSE_PROXY = "ReverseProxy"
 
 
 class User(SqlAlchemyBase, BaseMixins):

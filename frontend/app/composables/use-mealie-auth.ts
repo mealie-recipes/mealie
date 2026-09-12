@@ -48,6 +48,12 @@ export const useMealieAuth = function () {
     }
   }
 
+  async function reverseProxySignIn() {
+    const { data: token } = await $axios.get<{ access_token: string; token_type: "bearer" }>("/api/auth/reverse-proxy");
+    auth.setToken(token.access_token);
+    await auth.getSession();
+  }
+
   return {
     user,
     loggedIn,
@@ -56,5 +62,6 @@ export const useMealieAuth = function () {
     signOut: auth.signOut,
     getSession: auth.getSession,
     oauthSignIn,
+    reverseProxySignIn,
   };
 };
