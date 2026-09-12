@@ -176,7 +176,8 @@
     "date-created": "Opprettet dato",
     "date-updated": "Dato oppdatert",
     "key": "Nøkkel",
-    "value": "Verdi"
+    "value": "Verdi",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Opprett gruppe",
