@@ -547,7 +547,7 @@ def test_test_unsaved_provider_success(api_client: TestClient, unique_user: Test
 
     result = response.json()
     assert result["success"] is True
-    assert result["imageTestPassed"] is True
+    assert result["supportsImages"] is True
 
 
 def test_test_unsaved_provider_failure(api_client: TestClient, unique_user: TestUser, monkeypatch):
@@ -560,13 +560,15 @@ def test_test_unsaved_provider_failure(api_client: TestClient, unique_user: Test
 
     result = response.json()
     assert result["success"] is False
-    assert "invalid api key" in result["message"]
-    assert result["imageTestPassed"] is None
+    # The error is identified by type, without relaying what the provider actually returned
+    assert result["message"] == "Exception"
+    assert "invalid api key" not in result["message"]
+    assert result["supportsImages"] is None
 
 
-def test_test_unsaved_provider_flags_unrecognized_image(api_client: TestClient, unique_user: TestUser, monkeypatch):
-    # Text check passes (base_url/api_key/model all work), but the reply to the follow-up image
-    # doesn't mention the bundled test recipe - e.g. a text-only model that silently ignores images.
+def test_test_unsaved_provider_reports_text_only_provider(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    # Connection works, but the reply to the follow-up image doesn't mention the bundled test
+    # recipe - e.g. a text-only model. That's capability info, not a failed connection.
     _patch_ping(monkeypatch, succeeds=True, image_matches_recipe=False)
 
     data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
@@ -575,7 +577,7 @@ def test_test_unsaved_provider_flags_unrecognized_image(api_client: TestClient, 
 
     result = response.json()
     assert result["success"] is True
-    assert result["imageTestPassed"] is False
+    assert result["supportsImages"] is False
 
 
 def test_test_unsaved_provider_never_persists(api_client: TestClient, unique_user: TestUser, monkeypatch):

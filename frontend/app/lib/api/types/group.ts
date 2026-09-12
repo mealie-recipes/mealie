@@ -79,8 +79,7 @@ export interface AIProviderSettingsUpdate {
 export interface AIProviderTestResult {
   success: boolean;
   message?: string | null;
-  imageTestPassed?: boolean | null;
-  imageTestMessage?: string | null;
+  supportsImages?: boolean | null;
 }
 export interface AIProviderUpdate {
   name: string;

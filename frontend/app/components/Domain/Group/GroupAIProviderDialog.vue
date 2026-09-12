@@ -88,27 +88,15 @@
           </v-expansion-panel>
         </v-expansion-panels>
 
-        <div v-if="testResult" class="mt-4">
-          <div class="d-flex align-center">
-            <v-icon :color="checkColor(textCheckState)" size="small" class="me-2">
-              {{ checkIcon(textCheckState) }}
-            </v-icon>
-            <span class="text-body-2">{{ $t('group.ai-provider-settings.test-check-text') }}</span>
-          </div>
-          <div v-if="!testResult.success && testResult.message" class="text-caption text-medium-emphasis ms-7 mb-2">
-            {{ testResult.message }}
-          </div>
-
-          <div class="d-flex align-center mt-1">
-            <v-icon :color="checkColor(imageCheckState)" size="small" class="me-2">
-              {{ checkIcon(imageCheckState) }}
-            </v-icon>
-            <span class="text-body-2">{{ $t('group.ai-provider-settings.test-check-image') }}</span>
-          </div>
-          <div v-if="imageCheckMessage" class="text-caption text-medium-emphasis ms-7">
-            {{ imageCheckMessage }}
-          </div>
-        </div>
+        <v-alert
+          v-if="testResult"
+          :type="testResult.success ? 'success' : 'error'"
+          density="compact"
+          variant="tonal"
+          class="mt-4"
+        >
+          {{ connectionMessage }}{{ imageSupportMessage }}
+        </v-alert>
       </v-form>
     </v-card-text>
     <AppLoader v-else />
@@ -117,7 +105,7 @@
       <v-btn
         variant="text"
         :loading="testing"
-        :disabled="submitDisabled"
+        :disabled="submitDisabled || testing"
         @click="handleTest"
       >
         {{ $t('group.ai-provider-settings.test-connection') }}
@@ -169,48 +157,26 @@ const formData = reactive(defaultForm());
 const testing = ref(false);
 const testResult = ref<AIProviderTestResult | null>(null);
 
-// Bumped every time the dialog starts testing a (possibly different) provider, so a slow
-// response that's still in flight when the user switches providers gets ignored instead of
-// silently overwriting the result now being shown for someone else's config.
-let testRequestId = 0;
-
 const submitDisabled = computed(() => {
   return !formData.name?.trim() || !formData.model?.trim() || (!isEdit.value && !formData.apiKey?.trim());
 });
 
-type CheckState = "passed" | "failed" | "pending";
-
-const textCheckState = computed<CheckState | null>(() => {
-  if (!testResult.value) return null;
-  return testResult.value.success ? "passed" : "failed";
-});
-
-const imageCheckState = computed<CheckState | null>(() => {
+const connectionMessage = computed(() => {
   const result = testResult.value;
-  if (!result) return null;
-  if (!result.success) return "pending"; // text check failed - image check never ran
-  return result.imageTestPassed ? "passed" : "failed";
+  if (!result) return "";
+  if (result.success) return i18n.t("group.ai-provider-settings.test-connection-succeeded");
+  return result.message || i18n.t("group.ai-provider-settings.test-connection-failed");
 });
 
-// Only shown for a failure - a passing image check needs no further explanation, and "pending"
-// already reads as self-explanatory next to the failed text check above it.
-const imageCheckMessage = computed(() => {
+// Capability info rather than a second pass/fail check - a text-only provider is a valid setup,
+// it just can't be used as the image provider. Appended to the connection message above.
+const imageSupportMessage = computed(() => {
   const result = testResult.value;
-  if (!result?.success || result.imageTestPassed) return "";
-  return result.imageTestMessage || i18n.t("group.ai-provider-settings.test-connection-image-not-recognized");
+  if (!result?.success) return "";
+  return result.supportsImages
+    ? ` — ${i18n.t("group.ai-provider-settings.supports-images")}`
+    : ` — ${i18n.t("group.ai-provider-settings.text-only-provider")}`;
 });
-
-function checkIcon(state: CheckState | null) {
-  if (state === "passed") return $globals.icons.check;
-  if (state === "failed") return $globals.icons.close;
-  return $globals.icons.minus;
-}
-
-function checkColor(state: CheckState | null) {
-  if (state === "passed") return "success";
-  if (state === "failed") return "error";
-  return undefined;
-}
 
 // Fetch existing provider when editing; reset form for create mode
 watch(
@@ -218,7 +184,6 @@ watch(
   async ([open, id]) => {
     if (!open) return;
     testResult.value = null;
-    testRequestId++; // invalidate any test still in flight for whatever was shown before
     if (!id) {
       // Create mode — just show the empty form
       resetForm();
@@ -282,7 +247,6 @@ function resetForm() {
 }
 
 async function handleTest() {
-  const requestId = ++testRequestId;
   testing.value = true;
   testResult.value = null;
   try {
@@ -316,11 +280,10 @@ async function handleTest() {
       } as AIProviderCreate));
     }
 
-    if (requestId !== testRequestId) return; // stale — dialog has moved on to another provider
     testResult.value = data;
   }
   finally {
-    if (requestId === testRequestId) testing.value = false;
+    testing.value = false;
   }
 }
 </script>

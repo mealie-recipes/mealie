@@ -152,48 +152,46 @@ async def test_ping_builds_debug_prompt_and_delegates_to_get_response(settings_s
 
 @pytest.mark.asyncio
 async def test_connection_success_recognizes_test_image(settings_stub, monkeypatch):
-    # The bundled test image is a screenshot of a "Tomato & Egg Stir-Fry" recipe - a response that
-    # actually describes it should satisfy the keyword check.
-    _patch_ping(monkeypatch, image_response="This looks like a Tomato & Egg Stir-Fry with eggs and tomato.")
+    # The bundled test image is a screenshot of a "Tomato & Egg Stir-Fry" recipe - a reply that
+    # actually read it will contain the recipe's keywords.
+    _patch_ping(monkeypatch, image_response="Tomato & Egg Stir-Fry")
 
     svc = OpenAIService(_make_mock_repos())
     result = await svc.test_connection(_make_test_provider())
 
     assert result.success is True
     assert result.message is None
-    assert result.image_test_passed is True
+    assert result.supports_images is True
 
 
 @pytest.mark.asyncio
 async def test_connection_success_but_image_reply_does_not_mention_recipe(settings_stub, monkeypatch):
-    # Some providers accept an image parameter without erroring but don't actually look at it -
-    # the text check alone can't tell the two apart, which is the whole point of this second step.
+    # Some providers accept an image parameter without erroring but don't actually look at it.
+    # That's reported as "no image support", not as a failed connection.
     _patch_ping(monkeypatch, image_response="I'm not sure what you mean, could you clarify?")
 
     svc = OpenAIService(_make_mock_repos())
     result = await svc.test_connection(_make_test_provider())
 
     assert result.success is True
-    assert result.image_test_passed is False
-    assert result.image_test_message is None  # a clean miss, not an error - nothing to show
+    assert result.supports_images is False
 
 
 @pytest.mark.asyncio
 async def test_connection_success_but_image_request_errors(settings_stub, monkeypatch):
-    # e.g. a text-only model that rejects an image_url content part outright
+    # e.g. a text-only model that rejects an image_url content part outright - still a working
+    # provider, just not one that can be used as the image provider.
     _patch_ping(monkeypatch, image_error=Exception("model does not support image input"))
 
     svc = OpenAIService(_make_mock_repos())
     result = await svc.test_connection(_make_test_provider())
 
     assert result.success is True
-    assert result.image_test_passed is False
-    assert result.image_test_message is not None
-    assert "model does not support image input" in result.image_test_message
+    assert result.supports_images is False
 
 
 @pytest.mark.asyncio
-async def test_connection_text_failure_never_attempts_image_test(settings_stub, monkeypatch):
+async def test_connection_text_failure_never_attempts_image_check(settings_stub, monkeypatch):
     calls: list[list | None] = []
 
     async def _fake_ping(self, provider, message, images=None):
@@ -206,10 +204,7 @@ async def test_connection_text_failure_never_attempts_image_test(settings_stub, 
     result = await svc.test_connection(_make_test_provider())
 
     assert result.success is False
-    assert result.message is not None
-    assert "connection refused" in result.message
-    assert result.image_test_passed is None
-    assert result.image_test_message is None
+    assert result.supports_images is None
     assert calls == [None]  # only the text ping ran
 
 
@@ -222,46 +217,24 @@ async def test_connection_empty_response_is_a_failure(settings_stub, monkeypatch
 
     assert result.success is False
     assert result.message == "No response received from the provider."
-    assert result.image_test_passed is None
+    assert result.supports_images is None
 
 
 @pytest.mark.asyncio
-async def test_connection_failure_truncates_long_error_messages(settings_stub, monkeypatch):
-    # A misconfigured base_url can land on something that isn't the intended API at all (a
-    # Cloudflare block page, a load balancer default vhost, ...) and return a huge non-JSON body,
-    # which the SDK includes verbatim in the exception message. That must not flood the UI.
-    huge_html = "<!DOCTYPE html>" + ("<div>error page content</div>\n" * 200)
-
-    async def _fake_ping(self, provider, message, images=None):
-        raise Exception(huge_html)
-
-    monkeypatch.setattr(OpenAIService, "ping", _fake_ping)
-
-    svc = OpenAIService(_make_mock_repos())
-    result = await svc.test_connection(_make_test_provider())
-
-    assert result.success is False
-    assert result.message is not None
-    assert len(result.message) <= openai_module._MAX_TEST_ERROR_MESSAGE_LENGTH + 1  # +1 for the "…"
-    assert result.message.endswith("…")
-    assert "\n" not in result.message
-
-
-@pytest.mark.asyncio
-async def test_connection_extracts_clean_message_from_api_status_error(settings_stub, monkeypatch):
-    # get_response() wraps every failure into a plain Exception before it reaches test_connection,
-    # so the raw exception text is the SDK's dict repr of the whole response body (ugly, and not
-    # what the user actually needs to see) - the real, human-written message is only reachable via
-    # __cause__. This proves that extraction actually works against the real SDK error type.
+async def test_connection_failure_never_returns_the_providers_response_body(settings_stub, monkeypatch):
+    """
+    This route is open to group managers, not just admins, so a manager could point base_url at an
+    internal host. The result must identify the error without relaying anything that host returned.
+    """
     response = httpx.Response(
         status_code=404,
-        request=httpx.Request("POST", "https://example.com/v1/chat/completions"),
-        content=b"irrelevant, .body below is what's read",
+        request=httpx.Request("POST", "https://internal-host.local/v1/chat/completions"),
+        content=b"<html>internal service page, top secret</html>",
     )
     sdk_error = openai.NotFoundError(
-        message="Error code: 404 - {'error': {'message': 'model not found', ...}}",
+        message="Error code: 404 - {'error': {'message': 'super secret internal detail'}}",
         response=response,
-        body={"error": {"message": "The model `gpt-4o-mini111` does not exist or you do not have access to it."}},
+        body={"error": {"message": "super secret internal detail"}},
     )
 
     async def _fake_ping(self, provider, message, images=None):
@@ -277,4 +250,5 @@ async def test_connection_extracts_clean_message_from_api_status_error(settings_
     result = await svc.test_connection(_make_test_provider())
 
     assert result.success is False
-    assert result.message == "HTTP 404: The model `gpt-4o-mini111` does not exist or you do not have access to it."
+    assert result.message == "NotFoundError (HTTP 404)"
+    assert "secret" not in result.message

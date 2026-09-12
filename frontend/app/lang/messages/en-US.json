@@ -252,9 +252,10 @@
       "request-params": "Request Parameters",
       "no-default-provider-warning": "You have not set a default provider, so AI features are disabled",
       "test-connection": "Test Connection",
-      "test-check-text": "Text check",
-      "test-check-image": "Image check",
-      "test-connection-image-not-recognized": "Connected, but the response didn't seem to reference the test image. This provider may not actually support image input, even if it accepted one without an error."
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {

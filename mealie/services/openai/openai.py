@@ -6,7 +6,6 @@ import json
 import os
 import shutil
 from abc import ABC, abstractmethod
-from functools import cached_property
 from pathlib import Path
 from textwrap import dedent
 from typing import TYPE_CHECKING, TypeVar
@@ -29,39 +28,6 @@ from .._base_service import BaseService
 
 T = TypeVar("T", bound=OpenAIBase)
 logger = root_logger.get_logger(__name__)
-
-# Some misconfigured base_urls (e.g. a typo'd domain) route to something that isn't the intended
-# API at all - a Cloudflare block page, a load balancer's default vhost, etc. Those responses
-# aren't JSON, so the SDK falls back to including their raw (often very long, HTML) body in the
-# exception message. Collapse whitespace and cap the length so that never floods the UI.
-_MAX_TEST_ERROR_MESSAGE_LENGTH = 300
-
-
-def _truncate_error_message(text: str, limit: int = _MAX_TEST_ERROR_MESSAGE_LENGTH) -> str:
-    text = " ".join(text.split())
-    if len(text) <= limit:
-        return text
-    return f"{text[:limit].rstrip()}…"
-
-
-def _describe_ping_error(e: Exception) -> str:
-    """
-    ping() (via get_response()) wraps every failure into a plain Exception, so the SDK's own
-    structured error - a status code plus the provider's actual message - is only reachable via
-    __cause__. Prefer that over the wrapped exception's text, which is Python's dict repr of the
-    entire response body (e.g. "Error code: 404 - {'error': {'message': '...', 'type': ...}}")
-    and reads as noise rather than something a user configuring a provider can act on.
-    """
-    import openai
-
-    cause = e.__cause__
-    if isinstance(cause, openai.APIStatusError) and isinstance(cause.body, dict):
-        error_body = cause.body.get("error", cause.body)
-        message = error_body.get("message") if isinstance(error_body, dict) else None
-        if message:
-            return f"HTTP {cause.status_code}: {message}"
-
-    return str(e)
 
 
 class OpenAINotEnabledException(Exception):
@@ -157,42 +123,30 @@ class OpenAIService(BaseService):
 
     def __init__(self, repos: AllRepositories) -> None:
         self.repos = repos
+        self.provider_settings = repos.group_ai_provider_settings.get_one(repos.group_id)
 
-        settings = get_app_settings()
-        self.custom_prompt_dir = settings.OPENAI_CUSTOM_PROMPT_DIR
-
-        super().__init__()
-
-    # provider_settings/default_provider/audio_provider/image_provider are lazy: most callers
-    # (e.g. test_connection) only need get_client() for one already-known provider and never
-    # touch these, so eagerly loading them in __init__ would be up to 4 wasted DB lookups.
-    @cached_property
-    def provider_settings(self):
-        return self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
-
-    @cached_property
-    def default_provider(self):
-        return (
+        # Load providers
+        self.default_provider = (
             self.repos.group_ai_providers.get_one(self.provider_settings.default_provider_id)
             if self.provider_settings and self.provider_settings.default_provider_id
             else None
         )
-
-    @cached_property
-    def audio_provider(self):
-        return (
+        self.audio_provider = (
             self.repos.group_ai_providers.get_one(self.provider_settings.audio_provider_id)
             if self.provider_settings and self.provider_settings.audio_provider_id
             else None
         )
-
-    @cached_property
-    def image_provider(self):
-        return (
+        self.image_provider = (
             self.repos.group_ai_providers.get_one(self.provider_settings.image_provider_id)
             if self.provider_settings and self.provider_settings.image_provider_id
             else None
         )
+
+        # Build client
+        settings = get_app_settings()
+        self.custom_prompt_dir = settings.OPENAI_CUSTOM_PROMPT_DIR
+
+        super().__init__()
 
     def get_client(self, provider: AIProviderOut) -> AsyncOpenAI:
         from openai import AsyncOpenAI
@@ -220,58 +174,56 @@ class OpenAIService(BaseService):
         rather than just listing models - a provider can pass a /models check and still fail to
         complete a request (see discussion #8051).
 
-        If that succeeds, follow up with a photo of a short recipe bundled in `testing/` and check
-        whether the reply mentions it. This catches providers that accept an image parameter without
-        erroring but don't actually look at it (e.g. text-only models like DeepSeek-chat) - a gap a
-        text-only check can't see.
+        If that succeeds, additionally report whether the provider can read an image, so someone
+        setting one up learns at config time that it can't be used as the image provider, rather
+        than when a recipe-from-image import fails later. That's reported as capability info, not
+        as a failure: a text-only provider is a perfectly valid setup.
         """
         try:
             response = await self.ping(provider, "Hello, checking to see if I can reach you.")
         except Exception as e:
-            return AIProviderTestResult(success=False, message=_truncate_error_message(_describe_ping_error(e)))
+            # Report the error type/status only, never the provider's response body: this route is
+            # open to group managers, who could otherwise point base_url at an internal host and
+            # read its error pages back through the test result. The full error is logged instead,
+            # where it's only visible to whoever runs the server.
+            self.logger.exception("AI provider connection test failed")
+            cause = e.__cause__ or e
+            status = getattr(cause, "status_code", None)
+            name = type(cause).__name__
+            return AIProviderTestResult(success=False, message=f"{name} (HTTP {status})" if status else name)
 
         if not response:
             return AIProviderTestResult(success=False, message="No response received from the provider.")
 
-        image_test_passed, image_test_message = await self._test_image_recognition(provider)
-        return AIProviderTestResult(
-            success=True, image_test_passed=image_test_passed, image_test_message=image_test_message
-        )
+        return AIProviderTestResult(success=True, supports_images=await self._check_image_support(provider))
 
-    async def _test_image_recognition(self, provider: AIProviderOut) -> tuple[bool, str | None]:
+    async def _check_image_support(self, provider: AIProviderOut) -> bool:
+        """
+        Best-effort check of whether this provider can actually read an image, by sending it a
+        bundled screenshot of a short recipe (see `testing/`) and looking for that recipe in the
+        reply. Advisory only - a provider that can't do this is still perfectly usable for
+        everything except the image provider role.
+        """
         from mealie.core.dependencies.dependencies import get_temporary_path
 
         try:
             with get_temporary_path() as temp_path:
-                filename = self._test_image_path.name
-                image_path = temp_path / filename
-                shutil.copy(self._test_image_path, image_path)
+                image_path = temp_path / "recipe-image.jpg"
+                shutil.copy(self.TESTING_DIR / "recipe-image.jpg", image_path)
 
                 response = await self.ping(
                     provider,
-                    "What recipe is shown in the attached image? Reply with its name and main ingredients.",
-                    images=[OpenAILocalImage(filename=filename, path=image_path)],
+                    "Read the attached image and reply in English with the recipe title exactly as written in it.",
+                    images=[OpenAILocalImage(filename=image_path.name, path=image_path)],
                 )
-        except Exception as e:
-            return False, _truncate_error_message(_describe_ping_error(e))
+        except Exception:
+            return False
 
         if not response:
-            return False, "No response received from the provider."
+            return False
 
-        text = response.text.lower()
-        if any(keyword in text for keyword in self._test_image_keywords):
-            return True, None
-
-        return False, None
-
-    @cached_property
-    def _test_image_path(self) -> Path:
-        return self.TESTING_DIR / "recipe-image.jpg"
-
-    @cached_property
-    def _test_image_keywords(self) -> list[str]:
-        data = json.loads((self.TESTING_DIR / "recipe.json").read_text())
-        return [keyword.lower() for keyword in data["test_keywords"]]
+        keywords = json.loads((self.TESTING_DIR / "recipe.json").read_text())["test_keywords"]
+        return any(keyword.lower() in response.text.lower() for keyword in keywords)
 
     def _get_provider(self, attachments: list[OpenAIAttachment] | None = None) -> AIProviderOut:
         """Select the appropriate provider based on attachment types, falling back to the default."""

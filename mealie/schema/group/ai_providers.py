@@ -67,9 +67,8 @@ class AIProviderOut(AIProviderCreate):
 class AIProviderTestResult(MealieModel):
     success: bool
     message: str | None = None
-    # None if the text check above didn't succeed, so the image check never ran.
-    image_test_passed: bool | None = None
-    image_test_message: str | None = None
+    # None if the check above didn't succeed, so image support was never checked.
+    supports_images: bool | None = None
 
 
 class AIProviderSummary(MealieModel):

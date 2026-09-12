@@ -82,7 +82,7 @@
       <template #append-title>
         <BaseButton
           :text="$t('group.ai-provider-settings.create-provider')"
-          class="my-2 ms-auto"
+          class="ms-auto my-2"
           create
           small
           @click="openCreate"
@@ -96,14 +96,14 @@
       variant="tonal"
       class="pa-0 mb-4"
     >
-      <v-row no-gutters align="center">
-        <v-col :cols="6">
+      <v-row no-gutters>
+        <v-col :cols="10">
           <v-card-text>
             {{ provider.name }}
           </v-card-text>
         </v-col>
 
-        <v-col :cols="6" class="d-flex align-center justify-end">
+        <v-col :cols="2">
           <BaseButtonGroup
             :buttons="[
               {
