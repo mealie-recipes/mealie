@@ -286,7 +286,7 @@ export function useParseIngredientsDialog(
       }
 
       if (!newUnit) {
-        alert.error(i18n.t("events.something-went-wrong"));
+        alert.error(i18n.t("general.cant-create-permission"));
         return;
       }
 
