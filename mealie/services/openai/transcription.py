@@ -3,6 +3,7 @@ import re
 from collections.abc import Awaitable, Callable
 from pathlib import Path
 from typing import TypedDict
+from urllib.parse import urlsplit
 
 from mealie.core import exceptions
 from mealie.core.config import get_app_settings
@@ -33,13 +34,30 @@ def get_yt_dlp_extractors() -> list:
     return [ie for ie in yt_dlp.extractor.gen_extractors() if ie.working() and not isinstance(ie, GenericIE)]
 
 
+def _is_facebook_reel_share_url(url: str) -> bool:
+    try:
+        parsed = urlsplit(url)
+    except ValueError:
+        return False
+
+    return (
+        parsed.scheme in {"http", "https"}
+        and parsed.hostname in {"facebook.com", "www.facebook.com", "m.facebook.com"}
+        and re.fullmatch(r"/share/r/[A-Za-z0-9]+/?", parsed.path) is not None
+    )
+
+
 def is_video_url(url: str) -> bool:
     """Whether yt-dlp recognizes the URL as something it can download."""
 
     if not url:
         return False
 
-    return any(ie.suitable(url) for ie in get_yt_dlp_extractors())
+    if any(ie.suitable(url) for ie in get_yt_dlp_extractors()):
+        return True
+
+    # These links need yt-dlp's generic redirect handling before its Facebook extractor.
+    return _is_facebook_reel_share_url(url)
 
 
 def parse_subtitle_content(subtitle_content: str) -> str:
