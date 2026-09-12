@@ -600,6 +600,7 @@
       "dont-show-again": "Να μην εμφανιστεί ξανά",
       "try-again-with-parser": "Προσπαθήστε ξανά με το {parser}",
       "natural-language-processor": "Αναλυτής Φυσικής Γλώσσας",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Αναλυτής Ωμής Βίας",
       "openai-parser": "Αναλυτής OpenAI",
       "missing-unit": "Δημιουργία μονάδας που λείπει: {unit}",

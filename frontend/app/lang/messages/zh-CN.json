@@ -600,6 +600,7 @@
       "dont-show-again": "不再显示",
       "try-again-with-parser": "使用 {parser} 重试",
       "natural-language-processor": "自然语言处理器",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "暴力解析器",
       "openai-parser": "OpenAI 解析器",
       "missing-unit": "创建缺失的计量单位：{unit}",
