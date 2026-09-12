@@ -69,7 +69,14 @@ def test_pin_covers_all_resolved_addresses(monkeypatch):
     _patch_resolver(monkeypatch, ["93.184.216.34", "93.184.216.35"])
     transport = AsyncSafeTransport()
     resolve = transport._validate(_request("http://example.test/"))
-    assert resolve == ["example.test:80:93.184.216.34", "example.test:80:93.184.216.35"]
+    assert resolve == ["example.test:80:93.184.216.34,93.184.216.35"]
+
+
+def test_pin_brackets_ipv6_addresses(monkeypatch):
+    _patch_resolver(monkeypatch, ["2606:4700:4700::1111", "93.184.216.34"])
+    transport = AsyncSafeTransport()
+    resolve = transport._validate(_request("https://example.test/"))
+    assert resolve == ["example.test:443:[2606:4700:4700::1111],93.184.216.34"]
 
 
 def test_rejects_when_any_resolved_address_is_unsafe(monkeypatch):
@@ -172,6 +179,19 @@ async def test_async_transport_pins_connection_to_validated_ip(monkeypatch):
     with _LocalServer() as server:
         # host does not really resolve to localhost; the resolver + pin make it so
         _patch_resolver(monkeypatch, ["127.0.0.1"])
+        transport = AsyncSafeTransport(allow_hosts=["pinned.example"])
+        async with httpx.AsyncClient(transport=transport) as client:
+            resp = await client.get(f"http://pinned.example:{server.port}/")
+        assert resp.status_code == 200
+        assert resp.text == "OK"
+
+
+@pytest.mark.asyncio
+@pytest.mark.parametrize("ips", [["127.0.0.1", "2001:db8::1"], ["2001:db8::1", "127.0.0.1"]])
+async def test_async_transport_falls_back_to_reachable_pinned_address(monkeypatch, ips: list[str]):
+    with _LocalServer() as server:
+        # a dual-stack host in a container without IPv6 connectivity
+        _patch_resolver(monkeypatch, ips)
         transport = AsyncSafeTransport(allow_hosts=["pinned.example"])
         async with httpx.AsyncClient(transport=transport) as client:
             resp = await client.get(f"http://pinned.example:{server.port}/")

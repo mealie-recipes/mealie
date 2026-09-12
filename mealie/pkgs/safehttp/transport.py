@@ -74,6 +74,10 @@ def _matches(host: str, ips: Sequence[IPAddress], hosts: set[str], networks: lis
     return False
 
 
+def _resolve_address(ip: IPAddress) -> str:
+    return f"[{ip}]" if isinstance(ip, ipaddress.IPv6Address) else str(ip)
+
+
 class _SafeTransportMixin:
     """
     Shared SSRF protection for the sync and async curl transports.
@@ -161,7 +165,7 @@ class _SafeTransportMixin:
         if literal is not None:
             # curl connects straight to the literal address; nothing to pin.
             return None
-        return [f"{host}:{port}:{ip}" for ip in ips]
+        return [f"{host}:{port}:{','.join(_resolve_address(ip) for ip in ips)}"]
 
     def _warn(self, request: httpx.Request, reason: str) -> None:
         if self._log:
