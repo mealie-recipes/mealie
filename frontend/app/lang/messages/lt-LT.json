@@ -176,7 +176,8 @@
     "date-created": "Sukūrimo data",
     "date-updated": "Atnaujinimo data",
     "key": "Key",
-    "value": "Value"
+    "value": "Value",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Sukurti grupę",
