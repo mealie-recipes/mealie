@@ -7,6 +7,7 @@ import { isSafeRedirectTarget } from "~/lib/validators/redirect";
 declare module "axios" {
   interface AxiosRequestConfig {
     suppressAlert?: boolean;
+    suppressErrorAlertStatuses?: number[];
   }
 }
 
@@ -95,7 +96,8 @@ export default defineNuxtPlugin((nuxtApp) => {
         }
       }
 
-      if (error?.response?.data?.detail?.message) {
+      const suppressed = error.config?.suppressErrorAlertStatuses?.includes(error.response?.status);
+      if (error?.response?.data?.detail?.message && !suppressed) {
         alert.error(error.response.data.detail.message as string);
       };
 
