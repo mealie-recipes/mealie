@@ -176,7 +176,8 @@
     "date-created": "Búið til",
     "date-updated": "Dagsetning uppfærð",
     "key": "Key",
-    "value": "Value"
+    "value": "Value",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Búa til hóp",

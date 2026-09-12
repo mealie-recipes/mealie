@@ -176,7 +176,8 @@
     "date-created": "Data di Creazione",
     "date-updated": "Data di aggiornamento",
     "key": "Chiave",
-    "value": "Valore"
+    "value": "Valore",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Crea Gruppo",

@@ -176,7 +176,8 @@
     "date-created": "תאריך יצירה",
     "date-updated": "תאריך עדכון",
     "key": "Key",
-    "value": "Value"
+    "value": "Value",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "צור קבוצה",

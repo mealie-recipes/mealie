@@ -176,7 +176,8 @@
     "date-created": "Дата Створення",
     "date-updated": "Дата Оновлення",
     "key": "Ключ",
-    "value": "Значення"
+    "value": "Значення",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Створити групу",

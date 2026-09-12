@@ -176,7 +176,8 @@
     "date-created": "Дата на създаване",
     "date-updated": "Дата на актуализация",
     "key": "Ключ",
-    "value": "Стойност"
+    "value": "Стойност",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Създаване на група",
