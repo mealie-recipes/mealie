@@ -176,7 +176,8 @@
     "date-created": "Datum vytvoření",
     "date-updated": "Datum aktualizace",
     "key": "Klíč",
-    "value": "Hodnota"
+    "value": "Hodnota",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Vytvořit skupinu",
