@@ -600,6 +600,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Procesor de limbaj natural",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Analizator brut",
       "openai-parser": "Analizator OpenAI",
       "missing-unit": "Creează unitate lipsă: {unit}",
