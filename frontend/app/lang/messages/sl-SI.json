@@ -600,6 +600,7 @@
       "dont-show-again": "Tega ne prikaži več",
       "try-again-with-parser": "Poskusite znova z {parser}",
       "natural-language-processor": "Procesor naravnega jezika",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Surov razčlenjevalnik",
       "openai-parser": "Razčlenjevalnik OpenAI",
       "missing-unit": "Ustvari manjkajočo enoto: {unit}",
