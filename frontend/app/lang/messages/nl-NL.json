@@ -176,7 +176,8 @@
     "date-created": "Datum aangemaakt",
     "date-updated": "Datum bijgewerkt",
     "key": "Sleutel",
-    "value": "Waarde"
+    "value": "Waarde",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Groep aanmaken",
