@@ -600,6 +600,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "자연어 처리기",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "무차별 분석기",
       "openai-parser": "OpenAI 분석기",
       "missing-unit": "새 단위 생성: {unit}",
