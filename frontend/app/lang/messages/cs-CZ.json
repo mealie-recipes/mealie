@@ -600,6 +600,7 @@
       "dont-show-again": "Příště nezobrazovat",
       "try-again-with-parser": "Zkusit znovu s {parser}",
       "natural-language-processor": "Procesor přirozeného jazyka",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Analýza hrubou silou",
       "openai-parser": "Analyzátor OpenAI",
       "missing-unit": "Vytvořit chybějící jednotku: {unit}",

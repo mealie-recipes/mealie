@@ -600,6 +600,7 @@
       "dont-show-again": "Vis ikke dette igen",
       "try-again-with-parser": "Prøv igen med {parser}",
       "natural-language-processor": "Naturlig sprogbehandler",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Rå parser",
       "openai-parser": "OpenAI-parser",
       "missing-unit": "Opret manglende måleenhed: {unit}",
