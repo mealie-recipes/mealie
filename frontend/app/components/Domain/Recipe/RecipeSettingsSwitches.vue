@@ -7,7 +7,7 @@
       color="primary"
       xs
       density="compact"
-      :disabled="key == 'locked' && !isOwner"
+      :disabled="['locked', 'private'].includes(key) && !isOwner"
       class="my-1"
       :label="labels[key]"
       hide-details
@@ -31,6 +31,7 @@ const labels: Record<keyof RecipeSettings, string> = {
   landscapeView: i18n.t("recipe.landscape-view-coming-soon"),
   disableComments: i18n.t("recipe.disable-comments"),
   locked: i18n.t("recipe.locked"),
+  private: i18n.t("recipe.private-recipe"),
 };
 </script>
 

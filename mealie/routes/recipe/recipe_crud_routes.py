@@ -519,7 +519,7 @@ class RecipeController(BaseRecipeController):
         # We use "group_recipes" here so we can return all recipes regardless of household. The query filter can
         # include a household_id to filter by household.
         # We use "by_user" so we can sort favorites and other user-specific data correctly.
-        pagination_response = self.group_recipes.by_user(self.user.id).page_all(
+        pagination_response = self.group_recipes.by_user(self.user.id, is_admin=self.user.admin).page_all(
             pagination=q,
             cookbook=cookbook_data,
             categories=categories,
@@ -555,7 +555,7 @@ class RecipeController(BaseRecipeController):
     ) -> RecipeSuggestionResponse:
         group_recipes_by_user = get_repositories(
             self.session, group_id=self.group_id, household_id=None
-        ).recipes.by_user(self.user.id)
+        ).recipes.by_user(self.user.id, is_admin=self.user.admin)
 
         recipes = group_recipes_by_user.find_suggested_recipes(q, foods, tools)
         response = RecipeSuggestionResponse(items=recipes)
@@ -765,7 +765,7 @@ class RecipeController(BaseRecipeController):
 
     @router.post("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
     async def scrape_image_url(self, slug: str, url: ScrapeRecipe):
-        recipe = self.mixins.get_one(slug)
+        recipe = self.service.get_one(slug)
         data_service = RecipeDataService(recipe.id)
 
         try:

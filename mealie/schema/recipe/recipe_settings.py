@@ -10,4 +10,5 @@ class RecipeSettings(MealieModel):
     landscape_view: bool = False
     disable_comments: bool = True
     locked: bool = False
+    private: bool = False
     model_config = ConfigDict(from_attributes=True)

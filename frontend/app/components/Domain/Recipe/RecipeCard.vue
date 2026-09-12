@@ -36,9 +36,13 @@
             </div>
           </v-expand-transition>
         </RecipeCardImage>
-        <v-card-title class="mb-n3 px-4" style="font-size: 1.25rem;">
+        <v-card-title class="mb-1" style="font-size: 1.25rem; padding-left: 16px; padding-right: 16px;">
           {{ name }}
         </v-card-title>
+
+        <div v-if="author" class="pb-2 text-caption text-medium-emphasis" style="padding-left: 16px; padding-right: 16px;">
+          {{ $t("recipe.by") }} {{ author }}
+        </div>
 
         <div
           class="recipe-card-footer"
@@ -109,6 +113,7 @@ import RecipeContextMenu from "./RecipeContextMenu/RecipeContextMenu.vue";
 import RecipeCardImage from "./RecipeCardImage.vue";
 import RecipeCardRating from "./RecipeCardRating.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
+import { useUserStore } from "~/composables/store/use-user-store";
 
 interface Props {
   name: string;
@@ -120,6 +125,7 @@ interface Props {
   tags?: Array<any>;
   recipeId: string;
   imageHeight?: number;
+  userId?: string;
 }
 const props = withDefaults(defineProps<Props>(), {
   description: null,
@@ -128,6 +134,7 @@ const props = withDefaults(defineProps<Props>(), {
   image: undefined,
   tags: () => [],
   imageHeight: 200,
+  userId: undefined,
 });
 
 defineEmits<{
@@ -137,6 +144,8 @@ defineEmits<{
 
 const auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
+const userStore = useUserStore();
+const author = computed(() => userStore.store.value.find((u) => u.id === props.userId)?.fullName);
 
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");

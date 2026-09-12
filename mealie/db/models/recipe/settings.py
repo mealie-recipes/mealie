@@ -15,6 +15,7 @@ class RecipeSettings(SqlAlchemyBase):
     landscape_view: FilterableColumn[bool | None] = mapped_column(sa.Boolean)
     disable_comments: FilterableColumn[bool | None] = mapped_column(sa.Boolean, default=False)
     locked: FilterableColumn[bool | None] = mapped_column(sa.Boolean, default=False)
+    private: FilterableColumn[bool | None] = mapped_column(sa.Boolean, default=False)
 
     # Deprecated
     disable_amount: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
@@ -28,9 +29,11 @@ class RecipeSettings(SqlAlchemyBase):
         disable_amount=True,
         disable_comments=False,
         locked=False,
+        private=False,
     ) -> None:
         self.locked = locked
         self.public = public
+        self.private = private
         self.show_nutrition = show_nutrition
         self.show_assets = show_assets
         self.landscape_view = landscape_view

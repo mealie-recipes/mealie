@@ -47,7 +47,11 @@ class RecipeServiceBase(BaseService):
         if repos.household_id != user.household_id != household.id:
             raise Exception("household ids do not match")
 
-        self.group_recipes = get_repositories(repos.session, group_id=repos.group_id, household_id=None).recipes
+        # Scope the repo to the current user so private recipes are hidden from everyone else
+        # (group admins keep full visibility)
+        self.group_recipes = get_repositories(
+            repos.session, group_id=repos.group_id, household_id=None
+        ).recipes.by_user(user.id, is_admin=user.admin)
         """Recipes repo without a Household filter"""
 
         self.translator = translator

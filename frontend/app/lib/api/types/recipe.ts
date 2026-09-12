@@ -33,6 +33,7 @@ export interface RecipeSettings {
   landscapeView?: boolean;
   disableComments?: boolean;
   locked?: boolean;
+  private?: boolean;
 }
 export interface AssignTags {
   recipes: string[];

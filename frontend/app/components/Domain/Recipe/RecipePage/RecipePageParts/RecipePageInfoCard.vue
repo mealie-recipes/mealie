@@ -15,6 +15,9 @@
             <v-card-title class="text-h5 font-weight-regular pa-0 text-wrap text-center opacity-80">
               {{ recipe.name }}
             </v-card-title>
+            <div v-if="author" class="text-caption text-medium-emphasis">
+              {{ $t("recipe.by") }} {{ author }}
+            </div>
             <RecipeRating
               :key="recipe.slug"
               :model-value="recipe.rating"
@@ -83,6 +86,7 @@ import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeTimeCard from "~/components/Domain/Recipe/RecipeTimeCard.vue";
 import RecipeYield from "~/components/Domain/Recipe/RecipeYield.vue";
 import RecipePageInfoCardImage from "~/components/Domain/Recipe/RecipePage/RecipePageParts/RecipePageInfoCardImage.vue";
+import { useUserStore } from "~/composables/store/use-user-store";
 import type { Recipe } from "~/lib/api/types/recipe";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 
@@ -92,9 +96,11 @@ interface Props {
   landscape: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   recipeScale: 1,
 });
 
 const { isOwnGroup } = useLoggedInState();
+const userStore = useUserStore();
+const author = computed(() => userStore.store.value.find((u) => u.id === props.recipe.userId)?.fullName);
 </script>

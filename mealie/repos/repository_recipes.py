@@ -12,6 +12,7 @@ from mealie.db.models.household import Household, HouseholdToRecipe
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel, RecipeIngredientSubstitutionModel
 from mealie.db.models.recipe.recipe import RecipeModel
+from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users.user_to_recipe import UserToRecipe
@@ -30,6 +31,7 @@ from .repository_generic import HouseholdRepositoryGeneric
 
 class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe, RecipeModel]):
     user_id: UUID4 | None = None
+    user_is_admin: bool = False
 
     @property
     def column_aliases(self):
@@ -41,10 +43,47 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             "rating": self._get_rating_col_alias(),
         }
 
-    def by_user(self: Self, user_id: UUID4) -> Self:
+    def by_user(self: Self, user_id: UUID4, is_admin: bool = False) -> Self:
         """Add a user_id to the repo, which will be used to handle recipe ratings and other user-specific data"""
         self.user_id = user_id
+        self.user_is_admin = is_admin
         return self
+
+    def _private_recipe_visibility_filter(self) -> sa.ColumnElement:
+        """
+        Recipes marked `private` are only visible to their author. Group admins can see every recipe.
+        """
+        if self.user_is_admin:
+            return sa.true()
+
+        return sa.or_(
+            RecipeModel.user_id == self.user_id,
+            sa.not_(RecipeModel.settings.has(RecipeSettings.private.is_(True))),
+        )
+
+    def _is_private_recipe_hidden(self, recipe: Recipe) -> bool:
+        """Whether a private recipe must be hidden from the current user."""
+        if not self.user_id or self.user_is_admin:
+            return False
+
+        return bool(recipe.settings and recipe.settings.private and recipe.user_id != self.user_id)
+
+    def get_one(  # type: ignore[override]
+        self,
+        value: str | int | UUID4,
+        key: str | None = None,
+        any_case: bool = False,
+        override_schema=None,
+    ) -> Recipe | None:
+        """
+        Fetch a single recipe, hiding private recipes from users other than their author.
+        """
+        recipe = super().get_one(value, key, any_case, override_schema)
+
+        if recipe is None or self._is_private_recipe_hidden(recipe):
+            return None
+
+        return recipe
 
     def _get_last_made_col_alias(self) -> sa.ColumnElement | None:
         """
@@ -256,6 +295,11 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
                 require_all_foods=require_all_foods,
             )
             q = q.filter(*filters)
+
+        # Private recipes are only visible to their author (group admins see everything)
+        if self.user_id:
+            q = q.filter(self._private_recipe_visibility_filter())
+
         if search:
             q = self.add_search_to_query(q, self.schema, search)
 
@@ -357,6 +401,8 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             stmt = stmt.filter(RecipeModel.group_id == self.group_id)
         if self.household_id:
             stmt = stmt.filter(RecipeModel.household_id == self.household_id)
+        if self.user_id:
+            stmt = stmt.filter(self._private_recipe_visibility_filter())
 
         return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
 
@@ -365,7 +411,12 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         dbrecipe = self.session.execute(stmt).scalars().one_or_none()
         if dbrecipe is None:
             return None
-        return self.schema.model_validate(dbrecipe)
+
+        recipe = self.schema.model_validate(dbrecipe)
+        if self._is_private_recipe_hidden(recipe):
+            return None
+
+        return recipe
 
     def all_ids(self, group_id: UUID4) -> Sequence[UUID4]:
         stmt = sa.select(RecipeModel.id).filter(RecipeModel.group_id == group_id)

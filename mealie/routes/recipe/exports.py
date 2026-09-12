@@ -1,8 +1,10 @@
 from shutil import rmtree
 
+from fastapi import HTTPException
 from starlette.background import BackgroundTask
 from starlette.responses import FileResponse
 
+from mealie.core import exceptions
 from mealie.core.dependencies import get_temporary_path
 from mealie.routes._base import controller
 from mealie.routes._base.routers import UserAPIRouter
@@ -32,6 +34,10 @@ class RecipeExportController(BaseRecipeController):
 
         """
         with get_temporary_path(auto_unlink=False) as temp_path:
-            recipe = self.mixins.get_one(slug)
+            try:
+                recipe = self.service.get_one(slug)
+            except exceptions.NoEntryFound as e:
+                raise HTTPException(status_code=404, detail="Recipe not found.") from e
+
             file = self.service.render_template(recipe, temp_path, template_name)
             return FileResponse(file, background=BackgroundTask(rmtree, temp_path))

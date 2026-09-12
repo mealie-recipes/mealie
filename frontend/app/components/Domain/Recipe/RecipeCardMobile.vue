@@ -55,6 +55,9 @@
             <v-list-item-title class="mt-3 mb-1 text-top text-truncate w-100">
               {{ name }}
             </v-list-item-title>
+            <v-list-item-subtitle v-if="author" class="ma-0 text-top">
+              {{ $t("recipe.by") }} {{ author }}
+            </v-list-item-subtitle>
             <v-list-item-subtitle class="ma-0 text-top">
               <SafeMarkdown v-if="description" :source="description" />
               <p v-else>
@@ -137,6 +140,7 @@ import RecipeCardRating from "./RecipeCardRating.vue";
 import RecipeChips from "./RecipeChips.vue";
 import RecipeContextMenu from "./RecipeContextMenu/RecipeContextMenu.vue";
 import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
+import { useUserStore } from "~/composables/store/use-user-store";
 import type { ContextMenuItem } from "./RecipeContextMenu/RecipeContextMenu.vue";
 
 interface Props {
@@ -151,6 +155,7 @@ interface Props {
   isFlat?: boolean;
   height?: number;
   disableHighlight?: boolean;
+  userId?: string;
   contextMenuAppendItems?: ContextMenuItem[];
   contextMenuLeadingItems?: ContextMenuItem[];
 }
@@ -162,6 +167,7 @@ const props = withDefaults(defineProps<Props>(), {
   isFlat: false,
   height: 150,
   disableHighlight: false,
+  userId: undefined,
 });
 
 defineEmits<{
@@ -173,6 +179,8 @@ defineEmits<{
 
 const auth = useMealieAuth();
 const { isOwnGroup } = useLoggedInState();
+const userStore = useUserStore();
+const author = computed(() => userStore.store.value.find((u) => u.id === props.userId)?.fullName);
 
 const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");

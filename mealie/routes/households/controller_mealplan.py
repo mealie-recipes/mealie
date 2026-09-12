@@ -60,7 +60,7 @@ class GroupMealplanController(BaseCrudController):
         rules = self.repos.group_meal_plan_rules.get_rules(PlanRulesDay.from_date(plan_date), entry_type.value)
         cross_household_recipes = get_repositories(
             self.session, group_id=self.group_id, household_id=None
-        ).recipes.by_user(self.user.id)
+        ).recipes.by_user(self.user.id, is_admin=self.user.admin)
 
         qf_string = QueryFilterBuilder.combine_filters(*[rule.query_filter_string for rule in rules])
         recipes_data = cross_household_recipes.page_all(

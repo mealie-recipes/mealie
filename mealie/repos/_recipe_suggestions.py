@@ -50,12 +50,15 @@ class RecipeSuggestionMixin:
         session: Session
         logger: logging.Logger
         user_id: UUID4 | None
+        user_is_admin: bool
         group_id: UUID4 | None
         household_id: UUID4 | None
 
         def _filter_builder(self, **kwargs) -> dict[str, Any]: ...
 
         def _log_exception(self, e: Exception) -> None: ...
+
+        def _private_recipe_visibility_filter(self) -> sa.ColumnElement: ...
 
         def add_order_by_to_query(self, query: sa.Select, request_query: RequestQuery) -> sa.Select: ...
 
@@ -357,6 +360,8 @@ class RecipeSuggestionMixin:
             q = q.filter(self.model.group_id == self.group_id)
         if self.household_id:
             q = q.filter(self.model.household_id == self.household_id)
+        if self.user_id:
+            q = q.filter(self._private_recipe_visibility_filter())
         if params.query_filter:
             try:
                 query_filter_builder = QueryFilterBuilder(params.query_filter)

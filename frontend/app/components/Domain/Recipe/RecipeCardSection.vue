@@ -14,6 +14,18 @@
       <span class="text-headline-small">{{ title }}</span>
       <v-spacer />
       <v-btn
+        v-if="showMineFilter"
+        variant="text"
+        density="compact"
+        :color="mineOnly ? 'primary' : ''"
+        @click="toggleMineOnly"
+      >
+        <v-icon :start="true">
+          {{ $globals.icons.chefHat }}
+        </v-icon>
+        {{ $t("recipe.mine") }}
+      </v-btn>
+      <v-btn
         :icon="$vuetify.display.xs"
         variant="text"
         :disabled="recipes.length === 0"
@@ -124,6 +136,7 @@
               :image="recipe.image!"
               :tags="recipe.tags!"
               :recipe-id="recipe.id!"
+              :user-id="recipe.userId"
             />
           </v-col>
         </v-row>
@@ -148,6 +161,7 @@
               :image="recipe.image!"
               :tags="recipe.tags!"
               :recipe-id="recipe.id!"
+              :user-id="recipe.userId"
             />
           </v-col>
         </v-row>
@@ -217,6 +231,15 @@ const EVENTS = {
 const auth = useMealieAuth();
 const { $globals } = useNuxtApp();
 const { isOwnGroup } = useLoggedInState();
+
+const showMineFilter = computed(() => Boolean(auth.user.value?.id));
+const mineOnly = ref(false);
+async function toggleMineOnly() {
+  mineOnly.value = !mineOnly.value;
+  ready.value = false;
+  await initRecipes();
+  ready.value = true;
+}
 const useMobileCards = computed(() => {
   return display.smAndDown.value || preferences.value.useMobileCards;
 });
@@ -242,7 +265,12 @@ const { savePosition, getSavedPage, restorePosition } = useScrollPosition();
 const router = useRouter();
 
 const queryFilter = computed(() => {
-  return props.query?.queryFilter || null;
+  const base = props.query?.queryFilter || null;
+  const mineFilter = mineOnly.value && auth.user.value?.id ? `user_id = ${auth.user.value.id}` : null;
+  if (mineFilter) {
+    return base ? `(${base}) AND ${mineFilter}` : mineFilter;
+  }
+  return base;
 
   // TODO: allow user to filter out null values when ordering by a value that may be null (such as lastMade)
 
