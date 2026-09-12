@@ -176,7 +176,8 @@
     "date-created": "Oluşturma Tarihi",
     "date-updated": "Güncellenme tarihi",
     "key": "Anahtar",
-    "value": "Değer"
+    "value": "Değer",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Grup Oluştur",

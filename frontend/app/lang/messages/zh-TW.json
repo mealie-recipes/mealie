@@ -176,7 +176,8 @@
     "date-created": "建立日期",
     "date-updated": "更新日期",
     "key": "鍵",
-    "value": "值"
+    "value": "值",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "新增群組",

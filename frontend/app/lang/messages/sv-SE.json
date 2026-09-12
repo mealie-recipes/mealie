@@ -176,7 +176,8 @@
     "date-created": "Datum skapad",
     "date-updated": "Datum uppdaterat",
     "key": "Nyckel",
-    "value": "Värde"
+    "value": "Värde",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Skapa grupp",

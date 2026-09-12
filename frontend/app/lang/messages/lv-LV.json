@@ -176,7 +176,8 @@
     "date-created": "Izveidošanas datums",
     "date-updated": "Atjaunināšanas datums",
     "key": "Atslēga",
-    "value": "Vērtība"
+    "value": "Vērtība",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Izveidot grupu",
