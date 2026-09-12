@@ -41,7 +41,6 @@
             <v-number-input
               v-model="numberOfDaysPast"
               :min="0"
-              control-variant="stacked"
               inset
               :label="$t('meal-plan.numberOfDaysPast-label')"
               :hint="$t('meal-plan.numberOfDaysPast-hint')"
@@ -53,7 +52,6 @@
             <v-number-input
               v-model="numberOfDays"
               :min="1"
-              control-variant="stacked"
               inset
               :label="$t('meal-plan.numberOfDays-label')"
               :hint="$t('meal-plan.numberOfDays-hint')"

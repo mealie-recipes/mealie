@@ -600,6 +600,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "自然言語処理",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Bruteパーサ",
       "openai-parser": "OpenAIパーサ",
       "missing-unit": "欠けている単位を作成: {unit}",

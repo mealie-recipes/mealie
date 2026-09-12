@@ -219,7 +219,7 @@ const state = reactive({
 const { data: notifiers } = useAsyncData(useAsyncKey(), async () => {
   const { data } = await api.groupEventNotifier.getAll();
   return data?.items;
-});
+}, { deep: true });
 
 async function refreshNotifiers() {
   const { data } = await api.groupEventNotifier.getAll();

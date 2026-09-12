@@ -11,7 +11,7 @@ from dateutil.parser import ParserError
 from fastapi import HTTPException
 from humps import decamelize
 from sqlalchemy.ext.associationproxy import AssociationProxyInstance
-from sqlalchemy.orm import InstrumentedAttribute, Mapper
+from sqlalchemy.orm import InstrumentedAttribute, Mapper, RelationshipProperty
 from sqlalchemy.sql import sqltypes
 
 from mealie.db.models._model_base import SqlAlchemyBase
@@ -257,12 +257,12 @@ class QueryFilterBuilder:
         attr_string: str,
         model: type[Model],
         *,
-        query: sa.Select | None = None,
         collect_relationships: RelationshipChain | None = None,
-    ) -> tuple[type[SqlAlchemyBase], InstrumentedAttribute, sa.Select | None]:
+    ) -> tuple[type[SqlAlchemyBase], InstrumentedAttribute]:
         """
         Take an attribute string and traverse a database model and its relationships to get the desired
-        model and model attribute. Optionally provide a query to apply the necessary table joins.
+        model and model attribute. Optionally collect the relationships traversed on the way, which can then
+        be applied with `_wrap_in_relationships` when filtering or `_aggregate_over_relationships` when ordering.
 
         If the attribute string is invalid, raises a `ValueError`.
 
@@ -291,9 +291,6 @@ class QueryFilterBuilder:
                     next_attribute_link = model_attr.value_attr
                     model_attr = getattr(current_model, proxied_attribute_link)
 
-                    if query is not None:
-                        query = query.join(model_attr, isouter=True)
-
                     mapper = sa.inspect(current_model)
                     relationship = mapper.relationships[proxied_attribute_link]
                     if collect_relationships is not None:
@@ -304,9 +301,6 @@ class QueryFilterBuilder:
                 # at the end of the chain there are no more relationships to inspect
                 if i == len(attribute_chain) - 1:
                     break
-
-                if query is not None:
-                    query = query.join(model_attr, isouter=True)
 
                 mapper = sa.inspect(current_model)
                 relationship = mapper.relationships[attribute_link]
@@ -323,7 +317,57 @@ class QueryFilterBuilder:
         if not getattr(model_attr, "info", {}).get("filterable"):
             raise NonFilterableValueError(model_attr)
 
-        return current_model, model_attr, query
+        return current_model, model_attr
+
+    @staticmethod
+    def _aggregate_over_relationships[Model: SqlAlchemyBase](
+        element: sa.ColumnElement, relationships: RelationshipChain, model: type[Model], *, descending: bool
+    ) -> sa.ColumnElement:
+        """
+        Reduce a related attribute to a single value per record with a correlated subquery.
+
+        Joining a relationship can return more than one row per record, which breaks LIMIT and OFFSET. That holds
+        for "to-one" relationships too, since `uselist=False` is an ORM declaration rather than a unique constraint.
+        Aggregating keeps one row per record and picks the value the ordering would have surfaced anyway:
+        the lowest when ascending, the highest when descending.
+        """
+        join_conditions: list[sa.ColumnElement] = []
+        for relationship_attr, _ in relationships:
+            relationship = cast(RelationshipProperty, relationship_attr.property)
+            join_conditions.append(relationship.primaryjoin)
+            if relationship.secondary is not None:
+                join_conditions.append(relationship.secondaryjoin)
+
+        aggregate = sa.func.max if descending else sa.func.min
+        return sa.select(aggregate(element)).where(*join_conditions).correlate(model).scalar_subquery()
+
+    @classmethod
+    def get_order_attr[Model: SqlAlchemyBase](
+        cls,
+        attr_string: str,
+        model: type[Model],
+        *,
+        descending: bool,
+        column_aliases: dict[str, sa.ColumnElement] | None = None,
+    ) -> sa.ColumnElement:
+        """
+        Resolve an attribute string into an element a query can be ordered by.
+        If you need to order on a custom column expression (e.g. a computed property), you can supply column aliases
+        """
+        relationships: RelationshipChain = []
+        _, order_attr = cls.get_model_and_model_attr_from_attr_string(
+            attr_string, model, collect_relationships=relationships
+        )
+
+        if column_aliases and (column_alias := column_aliases.get(order_attr.key)) is not None:
+            # aliases are already expressed on the base model, so there is nothing left to traverse
+            return cls._transform_model_attr(column_alias, column_alias.type)
+
+        order_attr = cls._transform_model_attr(order_attr, order_attr.type)
+        if not relationships:
+            return order_attr
+
+        return cls._aggregate_over_relationships(order_attr, relationships, model, descending=descending)
 
     @staticmethod
     def _wrap_in_relationships(element: sa.ColumnElement, relationships: RelationshipChain) -> sa.ColumnElement:
@@ -417,7 +461,7 @@ class QueryFilterBuilder:
                 continue
 
             relationships: RelationshipChain = []
-            nested_model, model_attr, _ = self.get_model_and_model_attr_from_attr_string(
+            nested_model, model_attr = self.get_model_and_model_attr_from_attr_string(
                 component.attribute_name, model, collect_relationships=relationships
             )
             attr_map[i] = (nested_model, model_attr, relationships)

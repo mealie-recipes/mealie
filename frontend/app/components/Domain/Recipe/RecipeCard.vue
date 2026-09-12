@@ -171,6 +171,7 @@ const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
   -webkit-line-clamp: 8;
   line-clamp: 8;
   overflow: hidden;
+  overflow-wrap: anywhere;
 }
 .recipe-card-footer {
   display: flex;
