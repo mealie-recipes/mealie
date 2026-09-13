@@ -78,6 +78,63 @@ def test_get_scheduled_webhooks_filter_query(unique_user: TestUser):
                 break
 
 
+def test_get_scheduled_webhooks_filter_query_spanning_midnight(unique_user_fn_scoped: TestUser):
+    """
+    Webhooks store a time of day, so a query window that crosses midnight UTC must still match
+    webhooks scheduled on either side of it.
+    """
+
+    unique_user = unique_user_fn_scoped
+    database = unique_user.repos
+
+    def webhook_at(hour: int, minute: int) -> SaveWebhook:
+        return webhook_factory(
+            group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
+            scheduled_time=datetime(2026, 1, 1, hour, minute, tzinfo=UTC),
+        )
+
+    before_midnight = database.webhooks.create(webhook_at(23, 58))
+    after_midnight = database.webhooks.create(webhook_at(0, 2))
+    out_of_range = database.webhooks.create(webhook_at(12, 0))
+
+    start = datetime(2026, 1, 1, 23, 55, tzinfo=UTC)
+    end = datetime(2026, 1, 2, 0, 5, tzinfo=UTC)
+
+    event_bus_listener = WebhookEventListener(UUID(unique_user.group_id), UUID(unique_user.household_id))
+    results = event_bus_listener.get_scheduled_webhooks(start, end)
+
+    result_ids = {result.id for result in results}
+    assert result_ids == {before_midnight.id, after_midnight.id}
+    assert out_of_range.id not in result_ids
+
+
+def test_get_scheduled_webhooks_filter_query_full_day(unique_user_fn_scoped: TestUser):
+    """A query window of a day or more should match webhooks at every time of day."""
+
+    unique_user = unique_user_fn_scoped
+    database = unique_user.repos
+
+    created = [
+        database.webhooks.create(
+            webhook_factory(
+                group_id=unique_user.group_id,
+                household_id=unique_user.household_id,
+                scheduled_time=datetime(2026, 1, 1, hour, 0, tzinfo=UTC),
+            )
+        )
+        for hour in (0, 6, 12, 18, 23)
+    ]
+
+    start = datetime(2026, 1, 1, 9, 30, tzinfo=UTC)
+    end = start + timedelta(days=1)
+
+    event_bus_listener = WebhookEventListener(UUID(unique_user.group_id), UUID(unique_user.household_id))
+    results = event_bus_listener.get_scheduled_webhooks(start, end)
+
+    assert {result.id for result in results} == {webhook.id for webhook in created}
+
+
 def test_event_listener_get_meals_by_date_range(unique_user: TestUser):
     """
     Test that WebhookEventListener correctly uses the get_meals_by_date_range method
