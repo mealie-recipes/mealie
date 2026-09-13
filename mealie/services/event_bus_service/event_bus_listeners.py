@@ -2,13 +2,14 @@ import contextlib
 import json
 from abc import ABC, abstractmethod
 from collections.abc import Generator
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import UUID4
-from sqlalchemy import select
+from sqlalchemy import and_, or_, select, true
 from sqlalchemy.orm.session import Session
+from sqlalchemy.sql.elements import ColumnElement
 
 from mealie.db.db_setup import session_context
 from mealie.db.models.household.webhooks import GroupWebhooksModel
@@ -168,11 +169,31 @@ class WebhookEventListener(EventListenerBase):
 
     def get_scheduled_webhooks(self, start_dt: datetime, end_dt: datetime) -> list[ReadWebhook]:
         """Fetches all scheduled webhooks from the database"""
+        start_time = start_dt.astimezone(UTC).time()
+        end_time = end_dt.astimezone(UTC).time()
+
+        # Webhooks store a time of day, not a datetime, so we compare against the window's time of day.
+        # This means the window can wrap around midnight UTC, which inverts the comparison.
+        time_filter: ColumnElement[bool]
+        if end_dt - start_dt >= timedelta(days=1):
+            # the window covers every time of day
+            time_filter = true()
+        elif start_time <= end_time:
+            time_filter = and_(
+                GroupWebhooksModel.scheduled_time > start_time,
+                GroupWebhooksModel.scheduled_time <= end_time,
+            )
+        else:
+            # the window spans midnight UTC
+            time_filter = or_(
+                GroupWebhooksModel.scheduled_time > start_time,
+                GroupWebhooksModel.scheduled_time <= end_time,
+            )
+
         with self.ensure_session() as session:
             stmt = select(GroupWebhooksModel).where(
                 GroupWebhooksModel.enabled == True,  # noqa: E712 - required for SQLAlchemy comparison
-                GroupWebhooksModel.scheduled_time > start_dt.astimezone(UTC).time(),
-                GroupWebhooksModel.scheduled_time <= end_dt.astimezone(UTC).time(),
+                time_filter,
                 GroupWebhooksModel.group_id == self.group_id,
                 GroupWebhooksModel.household_id == self.household_id,
             )
