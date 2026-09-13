@@ -176,7 +176,8 @@
     "date-created": "Ημερομηνία δημιουργίας",
     "date-updated": "Ημερομηνία ενημέρωσης",
     "key": "Κλειδί",
-    "value": "Τιμή"
+    "value": "Τιμή",
+    "cant-create-permission": "Δεν είναι δυνατή η δημιουργία. Παρακαλώ επικοινωνήστε με το διαχειριστή σας για να λάβετε άδεια."
   },
   "group": {
     "create-group": "Δημιουργία ομάδας",
@@ -600,6 +601,7 @@
       "dont-show-again": "Να μην εμφανιστεί ξανά",
       "try-again-with-parser": "Προσπαθήστε ξανά με το {parser}",
       "natural-language-processor": "Αναλυτής Φυσικής Γλώσσας",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Αναλυτής Ωμής Βίας",
       "openai-parser": "Αναλυτής OpenAI",
       "missing-unit": "Δημιουργία μονάδας που λείπει: {unit}",

@@ -2,6 +2,7 @@
   <ParseDialogChangeParser
     v-model="parser"
     :available-parsers="availableParsers"
+    :show-nlp-language-hint="showNlpLanguageHint"
     @update:model-value="(newParser) => parser = newParser"
     @parse="parseIngredients"
   />
@@ -103,6 +104,7 @@ const props = defineProps<{
 const {
   state,
   currentIng,
+  showNlpLanguageHint,
   availableParsers,
   currentIngShouldDelete,
   parser,

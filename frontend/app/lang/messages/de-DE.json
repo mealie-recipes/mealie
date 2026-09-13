@@ -176,7 +176,8 @@
     "date-created": "Erstellungsdatum",
     "date-updated": "Aktualisiert am",
     "key": "Schlüssel",
-    "value": "Wert"
+    "value": "Wert",
+    "cant-create-permission": "Kann nicht erstellt werden. Bitte den Administrator kontaktieren, um die Berechtigung zu erhalten."
   },
   "group": {
     "create-group": "Gruppe anlegen",
@@ -481,7 +482,7 @@
     "notes": "Notizen",
     "add-section": "Abschnitt hinzufügen",
     "clear-section": "Abschnitt löschen",
-    "add-substitutions": "Add Substitutions",
+    "add-substitutions": "Alternativen hinzufügen",
     "clear-substitutions": "Clear Substitutions",
     "substitutions": "Substitutions",
     "commonly-substituted-with": "Commonly substituted with",
@@ -600,6 +601,7 @@
       "dont-show-again": "Nicht wieder anzeigen",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Natürliche Sprachverarbeitung",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Brute-Parser",
       "openai-parser": "OpenAI-Parser",
       "missing-unit": "Fehlende Einheit erstellen: {unit}",
@@ -985,13 +987,13 @@
     "combine": "Zusammenführen",
     "delete-unused": "Delete Unused",
     "delete-unused-more": "+ {count} more",
-    "recipe-count": "Recipe Count",
+    "recipe-count": "Anzahl Rezepte",
     "categories": {
       "edit-category": "Kategorie bearbeiten",
       "new-category": "Neue Kategorie",
       "category-data": "Kategorien-Daten",
-      "combine-category": "Combine Category",
-      "source-category": "Source Category",
+      "combine-category": "Kategorie zusammenführen",
+      "source-category": "Quelle",
       "target-category": "Target Category",
       "merge-dialog-text": "Combining the selected categories will merge the source category and target category into a single category. The source category will be deleted and all of the references to the source category will be updated to point to the target category.",
       "merge-category-example": "Merging {category1} into {category2}",
