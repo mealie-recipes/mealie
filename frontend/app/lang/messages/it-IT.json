@@ -176,7 +176,8 @@
     "date-created": "Data di Creazione",
     "date-updated": "Data di aggiornamento",
     "key": "Chiave",
-    "value": "Valore"
+    "value": "Valore",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Crea Gruppo",
@@ -600,6 +601,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Analizzatore di Linguaggio Naturale",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Analizzatore brutale",
       "openai-parser": "Parser OpenAI",
       "missing-unit": "Crea unità mancante: {unit}",
