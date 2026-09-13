@@ -2,12 +2,12 @@ import contextlib
 import json
 from abc import ABC, abstractmethod
 from collections.abc import Generator
-from datetime import UTC, datetime, timedelta
+from datetime import UTC, datetime
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
 from fastapi.encoders import jsonable_encoder
 from pydantic import UUID4
-from sqlalchemy import and_, or_, select, true
+from sqlalchemy import and_, or_, select
 from sqlalchemy.orm.session import Session
 from sqlalchemy.sql.elements import ColumnElement
 
@@ -175,10 +175,7 @@ class WebhookEventListener(EventListenerBase):
         # Webhooks store a time of day, not a datetime, so we compare against the window's time of day.
         # This means the window can wrap around midnight UTC, which inverts the comparison.
         time_filter: ColumnElement[bool]
-        if end_dt - start_dt >= timedelta(days=1):
-            # the window covers every time of day
-            time_filter = true()
-        elif start_time <= end_time:
+        if start_time <= end_time:
             time_filter = and_(
                 GroupWebhooksModel.scheduled_time > start_time,
                 GroupWebhooksModel.scheduled_time <= end_time,
