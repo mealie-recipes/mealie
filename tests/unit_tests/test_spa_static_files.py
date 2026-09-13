@@ -28,6 +28,9 @@ def spa_dir(tmp_path):
     """Temporary directory with the two HTML files the SPA build produces."""
     (tmp_path / "index.html").write_text("<!DOCTYPE html><html><head></head><body>index</body></html>")
     (tmp_path / "404.html").write_text("<!DOCTYPE html><html><head></head><body>spa-shell</body></html>")
+    (tmp_path / "_nuxt" / "builds" / "meta").mkdir(parents=True)
+    (tmp_path / "_nuxt" / "builds" / "meta" / "test-build.json").write_text("{}")
+    (tmp_path / "_nuxt" / "entry.js").write_text("export default {}")
     return tmp_path
 
 
@@ -72,3 +75,23 @@ async def test_without_404_html_falls_back_to_index(tmp_path):
 
     assert response.status_code == 200
     assert response.media_type == "text/html"
+
+
+@pytest.mark.asyncio
+async def test_nuxt_build_metadata_revalidates(spa_dir):
+    """Nuxt app manifest files must not be cached forever by installed PWAs."""
+    spa = SPAStaticFiles(directory=str(spa_dir), html=True)
+    response = await spa.get_response("_nuxt/builds/meta/test-build.json", _SCOPE)
+
+    assert response.status_code == 200
+    assert response.headers["Cache-Control"] == "no-cache"
+
+
+@pytest.mark.asyncio
+async def test_nuxt_hashed_assets_remain_immutable(spa_dir):
+    """Regular hashed Nuxt assets keep their long-lived cache policy."""
+    spa = SPAStaticFiles(directory=str(spa_dir), html=True)
+    response = await spa.get_response("_nuxt/entry.js", _SCOPE)
+
+    assert response.status_code == 200
+    assert response.headers["Cache-Control"] == "public, max-age=31536000, immutable"
