@@ -2,6 +2,7 @@ import axios from "axios";
 import type { InternalAxiosRequestConfig } from "axios";
 import { alert } from "~/composables/use-toast";
 import { readTokenCookie } from "~/composables/use-token-cookie";
+import { getApiErrorMessage } from "~/lib/api/error";
 import { isSafeRedirectTarget } from "~/lib/validators/redirect";
 
 declare module "axios" {
@@ -95,9 +96,10 @@ export default defineNuxtPlugin((nuxtApp) => {
         }
       }
 
-      if (error?.response?.data?.detail?.message) {
-        alert.error(error.response.data.detail.message as string);
-      };
+      const errorMessage = getApiErrorMessage(error);
+      if (errorMessage) {
+        alert.error(errorMessage);
+      }
 
       // A 401 from the logout call itself only means the token was already dead — expired, or
       // invalidated by a password change. We're on our way out regardless, so let signOut finish with
