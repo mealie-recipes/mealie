@@ -131,15 +131,18 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
 
     ingredients: list[str] = []
     for ing in recipe.recipe_ingredient:
-        s = ""
+        components: list[str] = []
         if ing.quantity:
-            s += f"{ing.quantity} "
+            # Keep decimals machine-readable, even for units displayed as fractions.
+            quantity = int(ing.quantity) if ing.quantity.is_integer() else ing.quantity
+            components.append(str(quantity))
         if ing.unit:
-            s += f"{ing.unit.name} "
+            components.append(ing._format_unit_for_display())
         if ing.food:
-            s += f"{ing.food.name} "
+            components.append(ing.food.name)
+        s = " ".join(components)
         if ing.note:
-            s += f"{ing.note}"
+            s = f"{s}, {ing.note}" if s else ing.note
 
         ingredients.append(escape(s))
 
