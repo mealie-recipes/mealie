@@ -76,9 +76,9 @@ function deleteAlias(index: number) {
   aliases.value.splice(index, 1);
 }
 
-const aliases = ref<GenericAlias[]>(props.data.aliases || []);
+const aliases = ref<GenericAlias[]>([]);
 function initAliases() {
-  aliases.value = [...props.data.aliases || []];
+  aliases.value = (props.data.aliases || []).map(alias => ({ ...alias }));
   if (!aliases.value.length) {
     createAlias();
   }
