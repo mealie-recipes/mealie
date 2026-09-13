@@ -176,7 +176,8 @@
     "date-created": "作成日",
     "date-updated": "更新日",
     "key": "Key",
-    "value": "Value"
+    "value": "Value",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "グループを作成",
@@ -600,6 +601,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "自然言語処理",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Bruteパーサ",
       "openai-parser": "OpenAIパーサ",
       "missing-unit": "欠けている単位を作成: {unit}",
