@@ -736,6 +736,18 @@ def test_cleaner_clean_nutrition(case: CleanerCase):
     assert case.expected == result
 
 
+@pytest.mark.parametrize("key", ["sodiumContent", "cholesterolContent"])
+@pytest.mark.parametrize("value", ["g", "trace g", "negligible", "", None, 10, ["10g"]])
+def test_clean_nutrition_skips_unparseable_nutrients(key: str, value: object) -> None:
+    assert cleaner.clean_nutrition({key: value, "proteinContent": "12 g"}) == {"proteinContent": "12"}
+
+
+@pytest.mark.parametrize("key", ["sodiumContent", "cholesterolContent"])
+@pytest.mark.parametrize("value, expected", [("0 g", "0.0"), ("0.5 g", "500.0"), ("0,5 g", "500.0")])
+def test_clean_nutrition_converts_nutrients_to_milligrams(key: str, value: str, expected: str) -> None:
+    assert cleaner.clean_nutrition({key: value}) == {key: expected}
+
+
 clean_notes_test_cases = (
     CleanerCase(
         test_id="valid dicts with title and text",

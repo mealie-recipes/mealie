@@ -613,6 +613,30 @@ def test_create_preserves_sections_and_nutrition(
     assert recipe["nutrition"]["proteinContent"] == "12"
 
 
+@pytest.mark.parametrize("field", ["sodium_content", "cholesterol_content"])
+def test_create_ignores_unparseable_nutrition(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    field: str,
+) -> None:
+    assert openai_recipe.nutrition is not None
+    setattr(openai_recipe.nutrition, field, "trace g")
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    r = post_ai(api_client, unique_user, {"content": random_string()})
+    assert r.status_code == 201
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == openai_recipe.name
+    assert recipe["nutrition"]["calories"] == "250"
+    assert recipe["nutrition"]["proteinContent"] == "12"
+    assert recipe["nutrition"]["sodiumContent"] is None
+    assert recipe["nutrition"]["cholesterolContent"] is None
+
+
 def test_requesting_a_translation_does_not_change_the_build_request(
     api_client: TestClient,
     unique_user: TestUser,
