@@ -1,3 +1,5 @@
+import json
+
 import pytest
 from bs4 import BeautifulSoup
 
@@ -107,6 +109,27 @@ def test_spa_recipe_json_injection():
     assert "@context" in html
     assert "https://schema.org" in html
     assert recipe_name in html
+
+
+def test_spa_recipe_json_uses_iso8601_durations(unique_user: TestUser):
+    recipe = Recipe(
+        user_id=unique_user.user_id,
+        group_id=unique_user.group_id,
+        name=random_string(),
+        prep_time="10 minutes",
+        cook_time="30 minutes",
+        total_time="40 minutes",
+    )
+
+    html = spa.content_with_meta(unique_user.group_id, recipe)
+    soup = BeautifulSoup(html, "lxml")
+    script = soup.find("script", type="application/ld+json")
+    assert script and script.string
+
+    schema = json.loads(script.string)
+    assert schema["prepTime"] == "PT10M"
+    assert schema["cookTime"] == "PT30M"
+    assert schema["totalTime"] == "PT40M"
 
 
 @pytest.mark.parametrize("use_public_user", [True, False])
