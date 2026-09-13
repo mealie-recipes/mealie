@@ -26,14 +26,19 @@ from mealie.db.models.household.shopping_list import (
     ShoppingListRecipeReference,
 )
 from mealie.db.models.household.webhooks import GroupWebhooksModel
-from mealie.db.models.recipe.category import Category, recipes_to_categories
+from mealie.db.models.recipe.category import (
+    Category,
+    cookbooks_to_categories,
+    plan_rules_to_categories,
+    recipes_to_categories,
+)
 from mealie.db.models.recipe.comment import RecipeComment
 from mealie.db.models.recipe.ingredient import IngredientFoodModel, IngredientUnitModel
 from mealie.db.models.recipe.labels import MultiPurposeLabel
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.recipe_timeline import RecipeTimelineEvent
 from mealie.db.models.recipe.shared import RecipeShareTokenModel
-from mealie.db.models.recipe.tag import Tag, recipes_to_tags
+from mealie.db.models.recipe.tag import Tag, cookbooks_to_tags, plan_rules_to_tags, recipes_to_tags
 from mealie.db.models.recipe.tool import Tool
 from mealie.db.models.users import LongLiveToken, User
 from mealie.db.models.users.password_reset import PasswordResetModel
@@ -101,24 +106,68 @@ class RepositoryCategories(GroupRepositoryGeneric[CategoryOut, Category]):
         return q.options(with_expression(Category.recipe_count, count_sq))
 
     def get_empty(self) -> Sequence[Category]:
-        stmt = select(Category).filter(~Category.recipes.any())
+        # a category is only "unused" if it's absent from recipes AND from cookbook filters
+        # AND from meal plan rules; Category has no ORM relationship to the cookbook/plan-rule
+        # join tables, so those are checked via EXISTS subqueries instead of .any()
+        used_in_cookbooks = (
+            select(cookbooks_to_categories.c.cookbook_id)
+            .where(cookbooks_to_categories.c.category_id == Category.id)
+            .correlate(Category)
+            .exists()
+        )
+        used_in_plan_rules = (
+            select(plan_rules_to_categories.c.group_plan_rule_id)
+            .where(plan_rules_to_categories.c.category_id == Category.id)
+            .correlate(Category)
+            .exists()
+        )
+        stmt = select(Category).filter(~Category.recipes.any(), ~used_in_cookbooks, ~used_in_plan_rules)
 
         return self.session.execute(stmt).scalars().all()
 
     def merge(self, from_category: UUID4, to_category: UUID4) -> CategoryOut | None:
-        already_in_to = select(recipes_to_categories.c.recipe_id).where(
+        already_in_to_recipes = select(recipes_to_categories.c.recipe_id).where(
             recipes_to_categories.c.category_id == to_category
+        )
+        already_in_to_cookbooks = select(cookbooks_to_categories.c.cookbook_id).where(
+            cookbooks_to_categories.c.category_id == to_category
+        )
+        already_in_to_plan_rules = select(plan_rules_to_categories.c.group_plan_rule_id).where(
+            plan_rules_to_categories.c.category_id == to_category
         )
 
         try:
             self.session.execute(
                 update(recipes_to_categories)
                 .where(recipes_to_categories.c.category_id == from_category)
-                .where(recipes_to_categories.c.recipe_id.not_in(already_in_to))
+                .where(recipes_to_categories.c.recipe_id.not_in(already_in_to_recipes))
                 .values(category_id=to_category)
             )
             self.session.execute(
                 delete(recipes_to_categories).where(recipes_to_categories.c.category_id == from_category)
+            )
+
+            # cookbook filters and meal plan rules also reference categories, so any row
+            # still pointing at from_category needs to move to to_category before from_category
+            # is deleted, de-duplicating against rows that already reference to_category
+            self.session.execute(
+                update(cookbooks_to_categories)
+                .where(cookbooks_to_categories.c.category_id == from_category)
+                .where(cookbooks_to_categories.c.cookbook_id.not_in(already_in_to_cookbooks))
+                .values(category_id=to_category)
+            )
+            self.session.execute(
+                delete(cookbooks_to_categories).where(cookbooks_to_categories.c.category_id == from_category)
+            )
+
+            self.session.execute(
+                update(plan_rules_to_categories)
+                .where(plan_rules_to_categories.c.category_id == from_category)
+                .where(plan_rules_to_categories.c.group_plan_rule_id.not_in(already_in_to_plan_rules))
+                .values(category_id=to_category)
+            )
+            self.session.execute(
+                delete(plan_rules_to_categories).where(plan_rules_to_categories.c.category_id == from_category)
             )
 
             from_model = self._query_one(from_category)
@@ -143,20 +192,55 @@ class RepositoryTags(GroupRepositoryGeneric[TagOut, Tag]):
         return q.options(with_expression(Tag.recipe_count, count_sq))
 
     def get_empty(self) -> Sequence[Tag]:
-        stmt = select(Tag).filter(~Tag.recipes.any())
+        # a tag is only "unused" if it's absent from recipes AND from cookbook filters AND
+        # from meal plan rules; Tag has no ORM relationship to the cookbook/plan-rule join
+        # tables, so those are checked via EXISTS subqueries instead of .any()
+        used_in_cookbooks = (
+            select(cookbooks_to_tags.c.cookbook_id).where(cookbooks_to_tags.c.tag_id == Tag.id).correlate(Tag).exists()
+        )
+        used_in_plan_rules = (
+            select(plan_rules_to_tags.c.plan_rule_id)
+            .where(plan_rules_to_tags.c.tag_id == Tag.id)
+            .correlate(Tag)
+            .exists()
+        )
+        stmt = select(Tag).filter(~Tag.recipes.any(), ~used_in_cookbooks, ~used_in_plan_rules)
         return self.session.execute(stmt).scalars().all()
 
     def merge(self, from_tag: UUID4, to_tag: UUID4) -> TagOut | None:
-        already_in_to = select(recipes_to_tags.c.recipe_id).where(recipes_to_tags.c.tag_id == to_tag)
+        already_in_to_recipes = select(recipes_to_tags.c.recipe_id).where(recipes_to_tags.c.tag_id == to_tag)
+        already_in_to_cookbooks = select(cookbooks_to_tags.c.cookbook_id).where(cookbooks_to_tags.c.tag_id == to_tag)
+        already_in_to_plan_rules = select(plan_rules_to_tags.c.plan_rule_id).where(
+            plan_rules_to_tags.c.tag_id == to_tag
+        )
 
         try:
             self.session.execute(
                 update(recipes_to_tags)
                 .where(recipes_to_tags.c.tag_id == from_tag)
-                .where(recipes_to_tags.c.recipe_id.not_in(already_in_to))
+                .where(recipes_to_tags.c.recipe_id.not_in(already_in_to_recipes))
                 .values(tag_id=to_tag)
             )
             self.session.execute(delete(recipes_to_tags).where(recipes_to_tags.c.tag_id == from_tag))
+
+            # cookbook filters and meal plan rules also reference tags, so any row still
+            # pointing at from_tag needs to move to to_tag before from_tag is deleted,
+            # de-duplicating against rows that already reference to_tag
+            self.session.execute(
+                update(cookbooks_to_tags)
+                .where(cookbooks_to_tags.c.tag_id == from_tag)
+                .where(cookbooks_to_tags.c.cookbook_id.not_in(already_in_to_cookbooks))
+                .values(tag_id=to_tag)
+            )
+            self.session.execute(delete(cookbooks_to_tags).where(cookbooks_to_tags.c.tag_id == from_tag))
+
+            self.session.execute(
+                update(plan_rules_to_tags)
+                .where(plan_rules_to_tags.c.tag_id == from_tag)
+                .where(plan_rules_to_tags.c.plan_rule_id.not_in(already_in_to_plan_rules))
+                .values(tag_id=to_tag)
+            )
+            self.session.execute(delete(plan_rules_to_tags).where(plan_rules_to_tags.c.tag_id == from_tag))
 
             from_model = self._query_one(from_tag)
             self.session.delete(from_model)
