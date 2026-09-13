@@ -11,7 +11,6 @@ from typing import TYPE_CHECKING, TypeVar
 
 if TYPE_CHECKING:
     from openai import AsyncOpenAI
-    from openai.types.chat import ChatCompletion
 
 from pydantic import BaseModel, field_validator
 
@@ -276,9 +275,16 @@ class OpenAIService(BaseService):
 
     async def _get_raw_response(
         self, prompt: str, content: list[dict], response_schema: type[T], provider: AIProviderOut
-    ) -> ChatCompletion:
+    ) -> T | None:
+        import openai
+        from openai.types.chat import ChatCompletion
+
         client = self.get_client(provider)
-        return await client.chat.completions.parse(
+        # parse() builds the same response_format payload create() would send, but its
+        # client-side validation runs as a post_parser that the raw-response path never
+        # triggers, so we read the body ourselves and let parse_openai_response() below
+        # do the parsing (e.g. of markdown-fenced JSON the SDK would otherwise discard).
+        async with client.chat.completions.with_streaming_response.parse(
             messages=[
                 {
                     "role": "system",
@@ -291,7 +297,19 @@ class OpenAIService(BaseService):
             ],
             model=provider.model,
             response_format=response_schema,
-        )
+        ) as response:
+            completion = ChatCompletion.model_validate(json.loads(await response.text()))
+
+        for choice in completion.choices:
+            if choice.finish_reason == "length":
+                raise openai.LengthFinishReasonError(completion=completion)
+            if choice.finish_reason == "content_filter":
+                raise openai.ContentFilterFinishReasonError()
+
+        if not completion.choices:
+            return None
+
+        return response_schema.parse_openai_response(completion.choices[0].message.content)
 
     async def get_response(
         self,
@@ -311,12 +329,7 @@ class OpenAIService(BaseService):
             for attachment in attachments or []:
                 user_messages.append(attachment.build_message())
 
-            response = await self._get_raw_response(prompt, user_messages, response_schema, provider)
-            if not response.choices:
-                return None
-
-            response_text = response.choices[0].message.content
-            return response_schema.parse_openai_response(response_text)
+            return await self._get_raw_response(prompt, user_messages, response_schema, provider)
         except openai.RateLimitError as e:
             raise exceptions.RateLimitError(str(e)) from e
         except Exception as e:

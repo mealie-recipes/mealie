@@ -176,7 +176,8 @@
     "date-created": "Izveidošanas datums",
     "date-updated": "Atjaunināšanas datums",
     "key": "Atslēga",
-    "value": "Vērtība"
+    "value": "Vērtība",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Izveidot grupu",
@@ -488,12 +489,13 @@
     "substitutions-with-value": "Substitutions: {substitutions}",
     "choose-substitute-food": "Choose Substitute Food",
     "original-text-with-value": "Oriģinālais teksts: {originalText}",
-    "ingredient-linker": "Sastāvdaļu Linker",
     "unlinked": "Not linked yet",
     "linked-to-other-step": "Saistīts ar citu soli",
     "auto": "Automātiski",
     "cook-mode": "Gatavošanas režīms",
-    "link-ingredients": "Saites sastāvdaļas",
+    "link-references": "Link references",
+    "linked-notes-with-count": "Linked Notes ({count})",
+    "no-notes-to-link": "No notes to link",
     "merge-above": "Apvienot augstāk",
     "move-to-bottom": "Pārvietot uz leju",
     "move-to-top": "Pārvietot uz augšu",
@@ -600,6 +602,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Dabiskās valodas procesors",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Brutāls parsētājs",
       "openai-parser": "OpenAI parsētājs",
       "missing-unit": "Izveidot trūkstošo vienību: {unit}",
