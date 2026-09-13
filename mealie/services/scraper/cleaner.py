@@ -594,6 +594,8 @@ def clean_nutrition(nutrition: dict | None) -> dict[str, str]:
                 output_nutrition[key] = matched_digits.group(0).replace(",", ".")
 
     for key in ["sodiumContent", "cholesterolContent"]:
+        if key not in output_nutrition:
+            continue
         if val := nutrition.get(key, None):
             if isinstance(val, str) and "m" not in val and "g" in val:
                 with contextlib.suppress(AttributeError, TypeError):
