@@ -2,6 +2,14 @@ import type { AxiosInstance, InternalAxiosRequestConfig } from "axios";
 import { describe, expect, test, vi, beforeEach, afterEach } from "vitest";
 
 const TOKEN_NAME = "mealie.access_token";
+const toastMocks = vi.hoisted(() => ({
+  error: vi.fn(),
+  info: vi.fn(),
+}));
+
+vi.mock("~/composables/use-toast", () => ({
+  alert: toastMocks,
+}));
 
 /** Rejects the way axios does, so the interceptor sees the config it needs in order to retry. */
 function unauthorized(config: InternalAxiosRequestConfig) {
@@ -14,6 +22,14 @@ function unauthorized(config: InternalAxiosRequestConfig) {
 
 function ok(config: InternalAxiosRequestConfig) {
   return Promise.resolve({ data: { ok: true }, status: 200, statusText: "OK", headers: {}, config });
+}
+
+function unprocessable(config: InternalAxiosRequestConfig, detail: unknown) {
+  const error = new Error("Unprocessable Entity") as Error & Record<string, unknown>;
+  error.config = config;
+  error.response = { status: 422, data: { detail }, config, headers: {}, statusText: "Unprocessable Entity" };
+  error.isAxiosError = true;
+  return Promise.reject(error);
 }
 
 let refreshMock: ReturnType<typeof vi.fn>;
@@ -31,6 +47,8 @@ async function buildClient(adapter: (config: InternalAxiosRequestConfig) => Prom
 }
 
 beforeEach(() => {
+  toastMocks.error.mockClear();
+  toastMocks.info.mockClear();
   document.cookie = `${TOKEN_NAME}=a.valid.token`;
 
   refreshMock = vi.fn().mockResolvedValue(undefined);
@@ -164,5 +182,27 @@ describe("request headers", () => {
     Object.defineProperty(window, "top", { value: top, configurable: true });
 
     expect(seen).toBe("true");
+  });
+});
+
+describe("error alerts", () => {
+  test("shows validation messages returned as a detail array", async () => {
+    const client = await buildClient(config => unprocessable(config, [
+      { loc: ["body", "tools", 0, "id"], msg: "Field required", type: "missing" },
+      { loc: ["body", "tools", 0, "slug"], msg: "Field required", type: "missing" },
+    ]));
+
+    await expect(client.put("/api/recipes/test-recipe", {})).rejects.toBeDefined();
+
+    expect(toastMocks.error).toHaveBeenCalledOnce();
+    expect(toastMocks.error).toHaveBeenCalledWith("Field required");
+  });
+
+  test("preserves structured API error messages", async () => {
+    const client = await buildClient(config => unprocessable(config, { message: "Recipe could not be saved" }));
+
+    await expect(client.put("/api/recipes/test-recipe", {})).rejects.toBeDefined();
+
+    expect(toastMocks.error).toHaveBeenCalledWith("Recipe could not be saved");
   });
 });
