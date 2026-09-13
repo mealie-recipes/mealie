@@ -30,7 +30,6 @@ class GroupSelfServiceController(BaseUserController):
     @router.get("/members", response_model=PaginationBase[UserSummary])
     def get_group_members(self, q: PaginationQuery = Depends()):
         """Returns all users belonging to the current group"""
-
         response = self.repos.users.page_all(q, override=UserSummary)
         response.set_pagination_guides(router.url_path_for("get_group_members"), q.model_dump())
         return response
@@ -57,6 +56,7 @@ class GroupSelfServiceController(BaseUserController):
 
     @router.put("/preferences", response_model=ReadGroupPreferences)
     def update_group_preferences(self, new_pref: UpdateGroupPreferences):
+        self.checks.can_manage()
         return self.repos.group_preferences.update(self.group_id, new_pref)
 
     @router.get("/storage", response_model=GroupStorage)
