@@ -4,6 +4,7 @@ import base64
 import inspect
 import json
 import os
+import shutil
 from abc import ABC, abstractmethod
 from pathlib import Path
 from textwrap import dedent
@@ -18,7 +19,7 @@ from mealie.core import exceptions, root_logger
 from mealie.core.config import get_app_settings
 from mealie.pkgs import img
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group.ai_providers import AIProviderOut
+from mealie.schema.group.ai_providers import AIProviderOut, AIProviderTestResult
 from mealie.schema.openai._base import OpenAIBase
 from mealie.schema.openai.general import OpenAIText
 
@@ -117,6 +118,7 @@ class OpenAILocalAudio(OpenAIAttachment):
 
 class OpenAIService(BaseService):
     PROMPTS_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "prompts"
+    TESTING_DIR = Path(os.path.dirname(os.path.abspath(__file__))) / "testing"
 
     def __init__(self, repos: AllRepositories) -> None:
         self.repos = repos
@@ -155,6 +157,72 @@ class OpenAIService(BaseService):
             default_headers=provider.request_headers or None,
             default_query=provider.request_params or None,
         )
+
+    async def ping(
+        self, provider: AIProviderOut, message: str, images: list[OpenAILocalImage] | None = None
+    ) -> OpenAIText | None:
+        """Send a one-off chat message to a provider. Shared by the admin debug endpoint and test_connection."""
+        prompt = self.get_prompt("general.debug")
+        return await self.get_response(
+            prompt, message, response_schema=OpenAIText, attachments=images, provider=provider
+        )
+
+    async def test_connection(self, provider: AIProviderOut) -> AIProviderTestResult:
+        """
+        Confirm a provider's base_url/api_key/model actually work by sending a real chat message,
+        rather than just listing models - a provider can pass a /models check and still fail to
+        complete a request (see discussion #8051).
+
+        If that succeeds, additionally report whether the provider can read an image, so someone
+        setting one up learns at config time that it can't be used as the image provider, rather
+        than when a recipe-from-image import fails later. That's reported as capability info, not
+        as a failure: a text-only provider is a perfectly valid setup.
+        """
+        try:
+            response = await self.ping(provider, "Hello, checking to see if I can reach you.")
+        except Exception as e:
+            # Report the error type/status only, never the provider's response body: this route is
+            # open to group managers, who could otherwise point base_url at an internal host and
+            # read its error pages back through the test result. The full error is logged instead,
+            # where it's only visible to whoever runs the server.
+            self.logger.exception("AI provider connection test failed")
+            cause = e.__cause__ or e
+            status = getattr(cause, "status_code", None)
+            name = type(cause).__name__
+            return AIProviderTestResult(success=False, message=f"{name} (HTTP {status})" if status else name)
+
+        if not response:
+            return AIProviderTestResult(success=False, message="No response received from the provider.")
+
+        return AIProviderTestResult(success=True, supports_images=await self._check_image_support(provider))
+
+    async def _check_image_support(self, provider: AIProviderOut) -> bool:
+        """
+        Best-effort check of whether this provider can actually read an image, by sending it a
+        bundled screenshot of a short recipe (see `testing/`) and looking for that recipe in the
+        reply. Advisory only - a provider that can't do this is still perfectly usable for
+        everything except the image provider role.
+        """
+        from mealie.core.dependencies.dependencies import get_temporary_path
+
+        try:
+            with get_temporary_path() as temp_path:
+                image_path = temp_path / "recipe-image.jpg"
+                shutil.copy(self.TESTING_DIR / "recipe-image.jpg", image_path)
+
+                response = await self.ping(
+                    provider,
+                    "Read the attached image and reply in English with the recipe title exactly as written in it.",
+                    images=[OpenAILocalImage(filename=image_path.name, path=image_path)],
+                )
+        except Exception:
+            return False
+
+        if not response:
+            return False
+
+        keywords = json.loads((self.TESTING_DIR / "recipe.json").read_text())["test_keywords"]
+        return any(keyword.lower() in response.text.lower() for keyword in keywords)
 
     def _get_provider(self, attachments: list[OpenAIAttachment] | None = None) -> AIProviderOut:
         """Select the appropriate provider based on attachment types, falling back to the default."""

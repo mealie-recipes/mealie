@@ -64,6 +64,13 @@ class AIProviderOut(AIProviderCreate):
         ]
 
 
+class AIProviderTestResult(MealieModel):
+    success: bool
+    message: str | None = None
+    # None if the check above didn't succeed, so image support was never checked.
+    supports_images: bool | None = None
+
+
 class AIProviderSummary(MealieModel):
     id: UUID4
     name: str
