@@ -486,8 +486,12 @@ export interface RecipeStep {
   summary?: string | null;
   text: string;
   ingredientReferences?: IngredientReferences[];
+  noteReferences?: NoteReference[];
 }
 export interface IngredientReferences {
+  referenceId?: string | null;
+}
+export interface NoteReference {
   referenceId?: string | null;
 }
 export interface Nutrition {
@@ -519,6 +523,7 @@ export interface RecipeAsset {
 export interface RecipeNote {
   title: string;
   text: string;
+  referenceId?: string;
 }
 export interface RecipeCommentOut {
   recipeId: string;

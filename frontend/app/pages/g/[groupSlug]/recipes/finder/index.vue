@@ -138,7 +138,6 @@
                           v-model="maxMissingFoods"
                           :precision="null"
                           :min="0"
-                          control-variant="stacked"
                           inset
                           hide-details
                           :label="$t('recipe-finder.max-missing-ingredients')"
@@ -147,7 +146,6 @@
                           v-model="maxMissingTools"
                           :precision="null"
                           :min="0"
-                          control-variant="stacked"
                           inset
                           hide-details
                           :label="$t('recipe-finder.max-missing-tools')"
