@@ -1,6 +1,6 @@
 import { BaseCRUDAPI } from "../base/base-clients";
 import { config } from "../config";
-import type { RecipeTagResponse, TagIn } from "~/lib/api/types/recipe";
+import type { RecipeTag, RecipeTagResponse, TagIn } from "~/lib/api/types/recipe";
 
 const prefix = config.PREFIX + "/organizers";
 
@@ -10,6 +10,7 @@ const routes = {
   tagsSlug: (tag: string) => `${prefix}/tags/slug/${tag}`,
   tagsEmpty: `${prefix}/tags/empty`,
   tagsMerge: `${prefix}/tags/merge`,
+  tagsOrder: `${prefix}/tags/order`,
 };
 
 export class TagsAPI extends BaseCRUDAPI<TagIn, RecipeTagResponse> {
@@ -26,5 +27,9 @@ export class TagsAPI extends BaseCRUDAPI<TagIn, RecipeTagResponse> {
 
   merge(fromId: string, toId: string) {
     return this.requests.post<RecipeTagResponse>(routes.tagsMerge, { fromId, toId });
+  }
+
+  updateOrder(tagIds: string[]) {
+    return this.requests.put<RecipeTag[]>(routes.tagsOrder, tagIds);
   }
 }

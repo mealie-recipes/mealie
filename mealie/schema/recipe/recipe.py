@@ -29,6 +29,7 @@ from ...db.models.recipe import (
     RecipeInstruction,
     RecipeModel,
 )
+from ...db.models.recipe.tag import DEFAULT_TAG_POSITION
 from .recipe_asset import RecipeAsset
 from .recipe_comments import RecipeCommentOut
 from .recipe_notes import RecipeNote
@@ -60,7 +61,7 @@ def create_recipe_slug(name: str, max_length: int = 250) -> str:
     return generated_slug
 
 
-class RecipeTag(MealieModel):
+class _RecipeOrganizer(MealieModel):
     id: UUID4 | None = None
     group_id: UUID4 | None = None
     name: str
@@ -71,11 +72,15 @@ class RecipeTag(MealieModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class RecipeTag(_RecipeOrganizer):
+    position: int = DEFAULT_TAG_POSITION
+
+
 class RecipeTagPagination(PaginationBase):
     items: list[RecipeTag]
 
 
-class RecipeCategory(RecipeTag):
+class RecipeCategory(_RecipeOrganizer):
     pass
 
 
@@ -83,7 +88,7 @@ class RecipeCategoryPagination(PaginationBase):
     items: list[RecipeCategory]
 
 
-class RecipeTool(RecipeTag):
+class RecipeTool(_RecipeOrganizer):
     id: UUID4
     households_with_tool: list[str] = []
 
@@ -154,6 +159,12 @@ class RecipeSummary(MealieModel):
     @field_validator("recipe_servings", "recipe_yield_quantity", mode="before")
     def clean_numbers(val: Any):
         return val or 0
+
+    @field_validator("tags", mode="after")
+    def sort_tags(tags: list[RecipeTag] | None):
+        if tags is None:
+            return tags
+        return sorted(tags, key=lambda tag: (tag.position, tag.name.casefold()))
 
     @field_validator("recipe_yield", "total_time", "prep_time", "cook_time", "perform_time", mode="before")
     def clean_strings(val: Any):

@@ -17,6 +17,8 @@ if TYPE_CHECKING:
 
 logger = root_logger.get_logger()
 
+DEFAULT_TAG_POSITION = 2_147_483_647
+
 recipes_to_tags = sa.Table(
     "recipes_to_tags",
     SqlAlchemyBase.metadata,
@@ -55,6 +57,12 @@ class Tag(SqlAlchemyBase, BaseMixins):
 
     name: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
     slug: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
+    position: FilterableColumn[int] = mapped_column(
+        sa.Integer,
+        nullable=False,
+        default=DEFAULT_TAG_POSITION,
+        server_default=str(DEFAULT_TAG_POSITION),
+    )
     recipe_count: Mapped[int] = query_expression(default_expr=literal(0))
     recipes: Mapped[list["RecipeModel"]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_tags, back_populates="tags"

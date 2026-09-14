@@ -3,6 +3,7 @@ from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
 from mealie.db.models.recipe import RecipeModel, Tag
+from mealie.db.models.recipe.tag import DEFAULT_TAG_POSITION
 from mealie.schema._mealie import MealieModel
 
 
@@ -47,12 +48,13 @@ class TagSave(TagIn):
 
 
 class TagBase(CategoryBase):
-    pass
+    position: int = DEFAULT_TAG_POSITION
 
 
 class TagOut(TagSave):
     id: UUID4
     slug: str
+    position: int = DEFAULT_TAG_POSITION
     recipe_count: int = 0
     model_config = ConfigDict(from_attributes=True)
 
@@ -63,6 +65,8 @@ class TagMerge(MealieModel):
 
 
 class RecipeTagResponse(RecipeCategoryResponse):
+    position: int = DEFAULT_TAG_POSITION
+
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return [
