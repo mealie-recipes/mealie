@@ -177,7 +177,7 @@
     "date-updated": "Дата обновления",
     "key": "Ключ",
     "value": "Значение",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Не удается создать. Пожалуйста, обратитесь к администратору для получения разрешения."
   },
   "group": {
     "create-group": "Создать группу",
@@ -489,12 +489,13 @@
     "substitutions-with-value": "Замены: {substitutions}",
     "choose-substitute-food": "Выберите заменитель",
     "original-text-with-value": "Исходный текст: {originalText}",
-    "ingredient-linker": "Связка ингредиентов",
     "unlinked": "Еще не привязано",
     "linked-to-other-step": "Связан с другим шагом",
     "auto": "Авто",
     "cook-mode": "Режим готовки",
-    "link-ingredients": "Связать ингредиенты",
+    "link-references": "Ссылки",
+    "linked-notes-with-count": "Связанные заметки ({count})",
+    "no-notes-to-link": "Нет заметок для связи",
     "merge-above": "Объединить с верхними",
     "move-to-bottom": "Перейти в конец",
     "move-to-top": "Переместить в начало",
@@ -601,7 +602,7 @@
       "dont-show-again": "Не показывать снова",
       "try-again-with-parser": "Попробуйте снова с помощью {parser}",
       "natural-language-processor": "Обработчик естественного языка",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "Обработчик естественного языка обучается по рецептам на английском. Для рецептов на других языках он обычно распознает количество, но не единицу. Грубый парсер или ИИ-парсер сработают лучше.",
       "brute-parser": "Грубый Парсер",
       "openai-parser": "Анализ OpenAI",
       "missing-unit": "Создать недостающую единицу: {unit}",
