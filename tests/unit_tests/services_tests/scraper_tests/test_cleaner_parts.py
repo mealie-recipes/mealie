@@ -517,6 +517,21 @@ time_test_cases = (
         expected="none",
     ),
     CleanerCase(
+        test_id="timedelta string day only",
+        input="P1D",
+        expected="1 day",
+    ),
+    CleanerCase(
+        test_id="timedelta string days only",
+        input="P3D",
+        expected="3 days",
+    ),
+    CleanerCase(
+        test_id="timedelta string weeks only",
+        input="P1W",
+        expected="7 days",
+    ),
+    CleanerCase(
         test_id="timedelta string (6) PT-3H",
         input="PT-3H",
         expected="PT-3H",

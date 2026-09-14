@@ -1,12 +1,12 @@
 from functools import cached_property
 
-import httpx
 from fastapi import APIRouter, BackgroundTasks, Body, Depends, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from pydantic import UUID4
 
+from mealie.core.config import get_app_settings
 from mealie.core.exceptions import NoEntryFound
-from mealie.pkgs.safehttp.transport import AsyncSafeTransport
+from mealie.pkgs import safehttp
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
@@ -23,19 +23,6 @@ from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.recipe.recipe_service import RecipeService
 
 router = APIRouter(prefix="/households/recipe-actions", tags=["Households: Recipe Actions"])
-
-
-async def _safe_post(url: str, payload: dict) -> None:
-    transport = AsyncSafeTransport(timeout=15)
-
-    async with httpx.AsyncClient(
-        transport=transport,
-        follow_redirects=True,
-    ) as client:
-        await client.post(
-            url,
-            json=payload,
-        )
 
 
 @controller(router)
@@ -93,7 +80,7 @@ class GroupRecipeActionController(BaseUserController):
             )
 
         if recipe_action.action_type == GroupRecipeActionType.post.value:
-            task_action = _safe_post
+            task_action = safehttp.post
         else:
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST,
@@ -109,9 +96,18 @@ class GroupRecipeActionController(BaseUserController):
                 detail=ErrorResponse.respond(message="Not found."),
             ) from e
 
-        payload = GroupRecipeActionPayload(action=recipe_action, content=recipe, recipe_scale=recipe_scale)
+        settings = get_app_settings()
+        payload = GroupRecipeActionPayload(
+            action=recipe_action,
+            content=recipe,
+            recipe_scale=recipe_scale,
+        )
+
         bg_tasks.add_task(
             task_action,
             url=recipe_action.url,
-            payload=jsonable_encoder(payload.model_dump()),
+            json=jsonable_encoder(payload.model_dump()),
+            timeout=15,
+            allow_hosts=settings.http_allow_list,
+            deny_hosts=settings.http_disallow_list,
         )

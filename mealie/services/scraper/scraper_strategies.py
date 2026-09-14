@@ -1,62 +1,45 @@
+from __future__ import annotations
+
 import asyncio
-import functools
-import re
 from abc import ABC, abstractmethod
 from collections.abc import Awaitable, Callable
-from pathlib import Path
-from typing import Any, TypedDict
+from typing import TYPE_CHECKING, Any
 
-import bs4
-import extruct
-import yt_dlp
 from fastapi import HTTPException, status
-from recipe_scrapers import NoSchemaFoundInWildMode, SchemaScraperFactory, scrape_html
-from slugify import slugify
-from w3lib.html import get_base_url
-from yt_dlp.extractor.generic import GenericIE
+
+if TYPE_CHECKING:
+    from recipe_scrapers import SchemaScraperFactory
 
 from mealie.core import exceptions
 from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
-from mealie.pkgs import safehttp
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.openai.general import OpenAIText
 from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import Recipe, RecipeStep
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
 from mealie.schema.recipe.recipe_notes import RecipeNote
-from mealie.services.openai import OpenAIService
+from mealie.services.openai import OpenAIService, transcription
+from mealie.services.recipe.import_workflow import (
+    RecipeImportWorkflow,
+    WorkflowContext,
+    WorkflowInput,
+    WorkflowOptions,
+)
 from mealie.services.scraper.scraped_extras import ScrapedExtras
 
 from . import cleaner
 
 # Re-exported for backwards compatibility with existing importers (e.g. recipe route error handling).
-SCRAPER_TIMEOUT = safehttp.SCRAPER_TIMEOUT
-BROWSER_IMPERSONATIONS = safehttp.BROWSER_IMPERSONATIONS
-ForceTimeoutException = safehttp.ForceTimeoutException
+# safe_scrape_html lives in `fetch` so the import workflow can fetch pages without importing this module.
+from .fetch import (  # noqa: F401
+    BROWSER_IMPERSONATIONS,
+    SCRAPER_TIMEOUT,
+    ForceTimeoutException,
+    safe_scrape_html,
+)
 
 logger = get_logger()
-
-
-@functools.cache
-def _get_yt_dlp_extractors() -> list:
-    """Build and cache the yt-dlp extractor list once per process lifetime."""
-    return [ie for ie in yt_dlp.extractor.gen_extractors() if ie.working() and not isinstance(ie, GenericIE)]
-
-
-async def safe_scrape_html(url: str) -> str:
-    """
-    Scrapes the html from a url but will cancel the request
-    if the request takes longer than SCRAPER_TIMEOUT seconds. This is used to mitigate
-    DDOS attacks from users providing a url with arbitrary large content.
-
-    Cycles through browser TLS impersonations (via httpx-curl-cffi) to bypass
-    bot-detection systems that fingerprint the TLS handshake (JA3/JA4),
-    such as Cloudflare.
-    """
-    result = await safehttp.resilient_fetch(url)
-    return result.text if result else ""
 
 
 class ABCScraperStrategy(ABC):
@@ -72,12 +55,19 @@ class ABCScraperStrategy(ABC):
         translator: Translator,
         repos: AllRepositories,
         raw_html: str | None = None,
+        include_tags: bool = False,
+        include_categories: bool = False,
     ) -> None:
         self.logger = get_logger()
         self.url = url
         self.raw_html = raw_html
         self.translator = translator
         self.repos = repos
+
+        # only used by strategies that have to ask for organizers, rather than reading them
+        # out of the page's structured data
+        self.include_tags = include_tags
+        self.include_categories = include_categories
 
     @abstractmethod
     def can_scrape(self) -> bool: ...
@@ -219,6 +209,8 @@ class RecipeScraperPackage(ABCScraperStrategy):
         return recipe, extras
 
     async def scrape_url(self) -> SchemaScraperFactory.SchemaScraper | Any | None:
+        from recipe_scrapers import NoSchemaFoundInWildMode, scrape_html
+
         recipe_html = await self.get_html(self.url)
 
         try:
@@ -264,109 +256,51 @@ class RecipeScraperPackage(ABCScraperStrategy):
         return self.clean_scraper(scraped_data, self.url)
 
 
-class RecipeScraperOpenAI(RecipeScraperPackage):
+class RecipeScraperOpenAI(ABCScraperStrategy):
     """
-    A wrapper around the `RecipeScraperPackage` class that uses OpenAI to extract the recipe from the URL,
-    rather than trying to scrape it directly.
+    Extracts a recipe from a URL using AI, by running the recipe import workflow over the
+    page's contents rather than trying to scrape it directly.
     """
 
     def can_scrape(self) -> bool:
         settings = self.repos.group_ai_provider_settings.get_one(self.repos.group_id)
-        return bool(settings and settings.ai_enabled and super().can_scrape())
-
-    def extract_json_ld_data_from_html(self, soup: bs4.BeautifulSoup) -> str:
-        data_parts: list[str] = []
-        for script in soup.find_all("script", type="application/ld+json"):
-            try:
-                script_data = script.string
-                if script_data:
-                    data_parts.append(str(script_data))
-            except AttributeError:
-                pass
-
-        return "\n\n".join(data_parts)
-
-    def find_image(self, soup: bs4.BeautifulSoup) -> str | None:
-        # find the open graph image tag
-        og_image = soup.find("meta", property="og:image")
-        if og_image and og_image.get("content"):
-            return og_image["content"]
-
-        # find the largest image on the page
-        largest_img = None
-        max_size = 0
-        for img in soup.find_all("img"):
-            width = img.get("width", 0)
-            height = img.get("height", 0)
-            if not width or not height:
-                continue
-
-            try:
-                size = int(width) * int(height)
-            except (ValueError, TypeError):
-                size = 1
-            if size > max_size:
-                max_size = size
-                largest_img = img
-
-        if largest_img:
-            return largest_img.get("src")
-
-        return None
-
-    def format_html_to_text(self, html: str) -> str:
-        soup = bs4.BeautifulSoup(html, "lxml")
-
-        text = soup.get_text(separator="\n", strip=True)
-        text += self.extract_json_ld_data_from_html(soup)
-        if not text:
-            raise Exception("No text or ld+json data found in HTML")
-
-        try:
-            image = self.find_image(soup)
-        except Exception:
-            image = None
-
-        components = [f"Convert this content to JSON: {text}"]
-        if image:
-            components.append(f"Recipe Image: {image}")
-        return "\n".join(components)
+        return bool(settings and settings.ai_enabled and (self.url or self.raw_html))
 
     async def get_html(self, url: str) -> str:
-        service = OpenAIService(self.repos)
-        html = self.raw_html or await safe_scrape_html(url)
-        text = self.format_html_to_text(html)
-        try:
-            prompt = service.get_prompt("recipes.scrape-recipe")
+        # required by the base class, but unused: the workflow fetches the page itself
+        return self.raw_html or await safe_scrape_html(url)
 
-            response = await service.get_response(prompt, text, response_schema=OpenAIText)
-            if not (response and response.text):
-                raise Exception("OpenAI did not return any data")
-
-            return self.ld_json_to_html(response.text)
-        except Exception:
-            self.logger.exception(f"OpenAI was unable to extract a recipe from {url}")
-            return ""
+    def build_context(self, on_progress: Callable[[str], Awaitable[None]] | None = None) -> WorkflowContext:
+        return WorkflowContext(
+            # the HTML belongs to the URL, so it's passed as the page's content rather than as
+            # extra material, which would compile the same page twice
+            input=WorkflowInput(page_content=self.raw_html, url=self.url),
+            options=WorkflowOptions(
+                # organizers are only worth asking for if the caller intends to use them, and
+                # they're reported back through ScrapedExtras so the caller stays in control
+                resolve_organizers=self.include_tags or self.include_categories,
+                attach_organizers=False,
+            ),
+            repos=self.repos,
+            translator=self.translator,
+            ai=OpenAIService(self.repos),
+            on_progress=on_progress,
+        )
 
     async def parse(self, on_progress: Callable[[str], Awaitable[None]] | None = None):
-        if on_progress:
-            await on_progress(self.translator.t("recipe.create-progress.creating-recipe-with-ai"))
+        ctx = self.build_context(on_progress)
+        result = await RecipeImportWorkflow().run(ctx)
 
-        return await super().parse()
+        extras = ScrapedExtras()
+        if ctx.organizer_names:
+            # normalized the same way as organizers read out of a page's structured data
+            extras.set_tags(cleaner.clean_tags(ctx.organizer_names.tags))
+            extras.set_categories(cleaner.clean_categories(ctx.organizer_names.categories))
 
-
-class TranscribedAudio(TypedDict):
-    audio: Path
-    subtitle: Path | None
-    title: str
-    description: str
-    thumbnail_url: str | None
-    transcription: str
+        return result.recipe, extras
 
 
 class RecipeScraperOpenAITranscription(ABCScraperStrategy):
-    SUBTITLE_LANGS = ["en", "fr", "es", "de", "it"]
-
     def can_scrape(self) -> bool:
         if not self.url:
             return False
@@ -376,72 +310,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             return False
 
         # Check if we can actually download something to transcribe
-        return any(ie.suitable(self.url) for ie in _get_yt_dlp_extractors())
-
-    @staticmethod
-    def _parse_subtitle_content(subtitle_content: str) -> str:
-        # TODO: is there a better way to parse subtitles that's more efficient?
-
-        lines = []
-        for line in subtitle_content.split("\n"):
-            if line.strip() and not line.startswith("WEBVTT") and "-->" not in line and not line.isdigit():
-                lines.append(line.strip())
-
-        raw_content = " ".join(lines)
-        content = re.sub(r"<[^>]+>", "", raw_content)
-        return content
-
-    def _download_audio(self, temp_path: Path) -> TranscribedAudio:
-        """Downloads audio and subtitles from the video URL."""
-        output_template = temp_path / "mealie"  # No extension here
-
-        ydl_opts = {
-            "format": "bestaudio/best",
-            "outtmpl": str(output_template) + ".%(ext)s",
-            "quiet": True,
-            "writesubtitles": True,
-            "writeautomaticsub": True,
-            "subtitleslangs": self.SUBTITLE_LANGS,
-            "skip_download": False,
-            "ignoreerrors": True,
-            "postprocessors": [
-                {
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "mp3",
-                    "preferredquality": "32",
-                }
-            ],
-            "postprocessor_args": ["-ac", "1"],
-        }
-
-        try:
-            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-                info = ydl.extract_info(self.url, download=True)
-
-                if info is None:
-                    raise exceptions.VideoDownloadError(
-                        "Failed to extract video information. The video may be unavailable or the URL is invalid."
-                    )
-
-                sub_path = None
-                for lang in self.SUBTITLE_LANGS:
-                    potential_path = output_template.with_suffix(f".{lang}.vtt")
-                    if potential_path.exists():
-                        sub_path = potential_path
-                        break
-
-                return {
-                    "audio": output_template.with_suffix(".mp3"),
-                    "subtitle": sub_path,
-                    "title": info.get("title", ""),
-                    "description": info.get("description", ""),
-                    "thumbnail_url": info.get("thumbnail") or None,
-                    "transcription": "",
-                }
-        except exceptions.VideoDownloadError:
-            raise
-        except Exception as e:
-            raise exceptions.VideoDownloadError(f"Failed to download video: {e}") from e
+        return transcription.is_video_url(self.url)
 
     async def get_html(self, url: str) -> str:
         return self.raw_html or ""  # we don't use HTML with this scraper since we use ytdlp
@@ -456,31 +325,15 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             if on_progress:
                 await on_progress(self.translator.t("recipe.create-progress.downloading-video"))
 
-            video_data = await asyncio.to_thread(self._download_audio, temp_path)
+            video_data = await asyncio.to_thread(transcription.download_video, self.url, temp_path)
 
-            if video_data["subtitle"]:
-                try:
-                    with open(video_data["subtitle"], encoding="utf-8") as f:
-                        subtitle_content = f.read()
-                    video_data["transcription"] = self._parse_subtitle_content(subtitle_content)
-                    self.logger.info("Using subtitles from video instead of transcription")
-                except Exception:
-                    self.logger.exception("Failed to read subtitles, falling back to transcription")
-                    video_data["transcription"] = ""
-
-            if not video_data["transcription"]:
+            async def report_transcribing() -> None:
                 if on_progress:
                     await on_progress(self.translator.t("recipe.create-progress.transcribing-audio-with-ai"))
 
-                try:
-                    transcription = await openai_service.transcribe_audio(video_data["audio"])
-                except exceptions.RateLimitError:
-                    raise
-                except Exception as e:
-                    raise exceptions.OpenAIServiceError(f"Failed to transcribe audio: {e}") from e
-                if not transcription:
-                    raise exceptions.OpenAIServiceError("No transcription returned from OpenAI")
-                video_data["transcription"] = transcription
+            video_data["transcription"] = await transcription.resolve_transcription(
+                video_data, openai_service, before_transcribe=report_transcribing
+            )
 
         if not video_data["transcription"]:
             self.logger.error("Could not extract a transcript (no data)")
@@ -552,6 +405,10 @@ class RecipeScraperOpenGraph(ABCScraperStrategy):
 
         def og_fields(properties: list[tuple[str, str]], field_name: str) -> list[str]:
             return list({val for name, val in properties if name == field_name})
+
+        import extruct
+        from slugify import slugify
+        from w3lib.html import get_base_url
 
         base_url = get_base_url(html, self.url)
         data = extruct.extract(html, base_url=base_url, errors="log")

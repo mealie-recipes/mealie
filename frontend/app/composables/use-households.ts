@@ -48,6 +48,9 @@ export const useHouseholdSelf = function () {
 
       return data || undefined;
     },
+    async refresh() {
+      await refreshHouseholdSelf();
+    },
   };
 
   const household = actions.get();

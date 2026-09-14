@@ -1,7 +1,10 @@
+from datetime import UTC, datetime
+
 from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
 from mealie.db.models.users.users import AuthMethod
+from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_email, random_string
@@ -137,4 +140,64 @@ def test_self_promote_admin(api_client: TestClient, unique_user: TestUser):
 
 def test_delete_user(api_client: TestClient, admin_token, unique_user: TestUser):
     response = api_client.delete(api_routes.admin_users_item_id(unique_user.user_id), headers=admin_token)
+    assert response.status_code == 200
+
+
+def test_delete_user_with_multiple_mealplans_and_shopping_lists(
+    api_client: TestClient, admin_token, unique_user_fn_scoped: TestUser
+):
+    """
+    Regression test for https://github.com/mealie-recipes/mealie/issues/7529
+
+    `User.mealplans` and `User.shopping_lists` were mapped as scalar relationships
+    (`Mapped[Optional[...]]`) instead of collections (`Mapped[list[...]]`), so
+    SQLAlchemy only ever cascade-deleted a single row on user delete. A user with
+    two or more meal plans or shopping lists would leave the rest behind and the
+    subsequent `DELETE FROM users` would fail with a foreign key violation.
+    """
+    for _ in range(3):
+        new_plan = CreatePlanEntry(
+            date=datetime.now(UTC).date(), entry_type="dinner", title=random_string(), text=random_string()
+        ).model_dump()
+        new_plan["date"] = datetime.now(UTC).date().strftime("%Y-%m-%d")
+
+        response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user_fn_scoped.token)
+        assert response.status_code == 201
+
+    for _ in range(3):
+        response = api_client.post(
+            api_routes.households_shopping_lists,
+            json={"name": random_string()},
+            headers=unique_user_fn_scoped.token,
+        )
+        assert response.status_code == 201
+
+    response = api_client.delete(api_routes.admin_users_item_id(unique_user_fn_scoped.user_id), headers=admin_token)
+    assert response.status_code == 200
+
+
+def test_delete_user_with_rated_and_favorited_recipe(
+    api_client: TestClient, admin_token, unique_user_fn_scoped: TestUser
+):
+    """
+    Regression test for https://github.com/mealie-recipes/mealie/issues/8121
+
+    `User.rated_recipes` and `User.favorite_recipes` are two relationships mapped
+    onto the same `users_to_recipes` secondary table (favorites filtered to
+    `is_favorite == True`). When a recipe is both rated and favorited it belongs
+    to both collections, so on user delete SQLAlchemy tried to delete the shared
+    secondary row twice and the second delete raised `StaleDataError`.
+    """
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user_fn_scoped.token)
+    assert response.status_code == 201
+    slug = response.json()
+
+    response = api_client.post(
+        api_routes.users_id_ratings_slug(unique_user_fn_scoped.user_id, slug),
+        json={"rating": 5, "isFavorite": True},
+        headers=unique_user_fn_scoped.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.delete(api_routes.admin_users_item_id(unique_user_fn_scoped.user_id), headers=admin_token)
     assert response.status_code == 200

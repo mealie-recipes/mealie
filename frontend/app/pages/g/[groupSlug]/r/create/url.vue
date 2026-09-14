@@ -24,6 +24,10 @@
               {{ $t('recipe.scrape-recipe-have-raw-html-or-json-data') }}
               <router-link :to="htmlOrJsonImporterTarget" class="text-primary">{{ $t('recipe.scrape-recipe-you-can-import-from-raw-data-directly') }}</router-link>.
             </p>
+            <p v-if="aiEnabled">
+              {{ $t('recipe.scrape-recipe-have-ai-read-the-page') }}
+              <router-link :to="aiImporterTarget" class="text-primary">{{ $t('recipe.import-with-ai') }}</router-link>.
+            </p>
           </v-card-text>
           <v-text-field
             v-model="recipeUrl"
@@ -106,6 +110,10 @@
             {{ $t("recipe.scrape-recipe-website-being-blocked") }}
             <router-link :to="htmlOrJsonImporterTarget">{{ $t("recipe.scrape-recipe-try-importing-raw-html-instead") }}</router-link>
           </p>
+          <p v-if="aiEnabled">
+            {{ $t("recipe.scrape-recipe-have-ai-read-the-page") }}
+            <router-link :to="aiImporterTarget">{{ $t("recipe.import-with-ai") }}</router-link>.
+          </p>
           <br>
           <p>
             {{ $t("new-recipe.error-details") }}
@@ -178,6 +186,8 @@ const {
 
 const bulkImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/bulk`);
 const htmlOrJsonImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/html`);
+const aiImporterTarget = computed(() => `/g/${groupSlug.value}/r/create/ai`);
+const aiEnabled = computed(() => !!group.value?.aiProviderSettings?.aiEnabled);
 
 function handleResponse(response: AxiosResponse<string> | null, refreshTags = false) {
   if (response?.status !== 201) {
