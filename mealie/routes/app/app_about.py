@@ -41,6 +41,7 @@ def get_app_info(session: Session = Depends(generate_session)):
         enable_oidc=settings.OIDC_READY,
         oidc_redirect=settings.OIDC_AUTO_REDIRECT,
         oidc_provider_name=settings.OIDC_PROVIDER_NAME,
+        enable_reverse_proxy_auth=settings.REVERSE_PROXY_AUTH_READY,
         allow_password_login=settings.ALLOW_PASSWORD_LOGIN,
         token_time=settings.TOKEN_TIME,
         allowed_iframe_hosts=settings.allowed_iframe_hosts,
