@@ -45,14 +45,7 @@
             </v-btn>
           </v-btn-toggle>
 
-          <v-date-picker
-            v-model="selectedDate"
-            class="mx-auto"
-            hide-header
-            show-adjacent-months
-            color="primary"
-            :first-day-of-week="firstDayOfWeek"
-          />
+          <MealPlanDatePicker v-model="selectedDate" :entry-type="entryType" />
 
           <v-select
             v-model="entryType"
@@ -140,7 +133,6 @@ import { format } from "date-fns";
 import RecipeSelector from "~/components/Domain/Recipe/RecipeSelector.vue";
 import { usePlanTypeOptions } from "~/composables/use-group-mealplan";
 import { buildRuleQueryFilter, useMealplanRules } from "~/composables/use-mealplan-rules";
-import { useHouseholdSelf } from "~/composables/use-households";
 import { validators } from "~/composables/use-validators";
 import type { CreatePlanEntry, PlanEntryType, ReadPlanEntry, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
 import type { RecipeSummary } from "~/lib/api/types/recipe";
@@ -161,7 +153,6 @@ const emit = defineEmits<{
 
 const dialog = defineModel<boolean>({ required: true });
 
-const { household } = useHouseholdSelf();
 const { rules } = useMealplanRules();
 const planTypeOptions = usePlanTypeOptions();
 
@@ -176,7 +167,6 @@ const text = ref("");
 const ignoreRules = ref(false);
 
 const isRecipe = computed(() => entryMode.value === "recipe");
-const firstDayOfWeek = computed(() => household.value?.preferences?.firstDayOfWeek || 0);
 
 const applicableRuleFilter = computed(() => buildRuleQueryFilter(rules.value, selectedDate.value, entryType.value));
 const ruleQueryFilter = computed(() => ignoreRules.value ? null : applicableRuleFilter.value);
