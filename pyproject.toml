@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.25.1"
+version = "3.26.0"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -39,7 +39,7 @@ dependencies = [
     "pydantic-settings==2.15.0",
     "pillow-heif==1.7.0",
     "pyjwt==2.13.0",
-    "openai==3.9.0",
+    "openai==3.10.0",
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.8.19",
