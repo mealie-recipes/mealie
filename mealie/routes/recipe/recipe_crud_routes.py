@@ -1,6 +1,7 @@
 import asyncio
 from collections import defaultdict
 from collections.abc import AsyncIterable, Awaitable, Callable
+from datetime import datetime
 from shutil import copyfileobj
 from typing import Annotated
 from uuid import UUID
@@ -13,10 +14,12 @@ from fastapi import (
     Depends,
     File,
     Form,
+    Header,
     HTTPException,
     Path,
     Query,
     Request,
+    Response,
     status,
 )
 from fastapi.datastructures import UploadFile
@@ -28,7 +31,6 @@ from mealie.core import exceptions
 from mealie.core.dependencies import (
     get_temporary_zip_path,
 )
-from mealie.pkgs import cache
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import controller
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
@@ -94,6 +96,14 @@ class RecipeController(BaseRecipeController):
     def handle_exceptions(self, ex: Exception) -> None:
         thrownType = type(ex)
 
+        if thrownType == exceptions.RecipeEditConflict:
+            self.session.rollback()
+            raise HTTPException(
+                status_code=status.HTTP_409_CONFLICT,
+                detail=ErrorResponse.respond(
+                    message="This recipe has been updated. Copy your changes, then refresh before saving."
+                ),
+            )
         if thrownType == exceptions.PermissionDenied:
             self.logger.error("Permission Denied on recipe controller action")
             raise HTTPException(
@@ -649,9 +659,13 @@ class RecipeController(BaseRecipeController):
         updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
             lambda: defaultdict(list)
         )
-        for recipe in data:
-            r = self.service.update_one(recipe.id, recipe)  # type: ignore
-            updated_by_group_and_household[r.group_id][r.household_id].append(r)
+        try:
+            with self.group_recipes.update_transaction():
+                for recipe in data:
+                    r = self.service.update_one(recipe.id, recipe)  # type: ignore
+                    updated_by_group_and_household[r.group_id][r.household_id].append(r)
+        except Exception as e:
+            self.handle_exceptions(e)
 
         all_updated: list[Recipe] = []
         if updated_by_group_and_household:
@@ -697,9 +711,13 @@ class RecipeController(BaseRecipeController):
         updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
             lambda: defaultdict(list)
         )
-        for recipe in data:
-            r = self.service.patch_one(recipe.id, recipe)  # type: ignore
-            updated_by_group_and_household[r.group_id][r.household_id].append(r)
+        try:
+            with self.group_recipes.update_transaction():
+                for recipe in data:
+                    r = self.service.patch_one(recipe.id, recipe)  # type: ignore
+                    updated_by_group_and_household[r.group_id][r.household_id].append(r)
+        except Exception as e:
+            self.handle_exceptions(e)
 
         all_updated: list[Recipe] = []
         if updated_by_group_and_household:
@@ -764,8 +782,20 @@ class RecipeController(BaseRecipeController):
     # Image and Assets
 
     @router.post("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
-    async def scrape_image_url(self, slug: str, url: ScrapeRecipe):
-        recipe = self.mixins.get_one(slug)
+    async def scrape_image_url(
+        self,
+        slug: str,
+        url: ScrapeRecipe,
+        response: Response,
+        expected: datetime | None = Header(None, alias="X-Recipe-Updated-At"),
+    ):
+        recipe = self.service.get_one(slug)
+        if not self.service.can_update([recipe.slug]):
+            self.handle_exceptions(exceptions.PermissionDenied())
+        try:
+            timestamp = self.group_recipes.reserve_update(slug, expected)
+        except Exception as e:
+            self.handle_exceptions(e)
         data_service = RecipeDataService(recipe.id)
 
         try:
@@ -789,23 +819,43 @@ class RecipeController(BaseRecipeController):
                 detail=ErrorResponse.respond("Image could not be downloaded"),
             )
 
-        recipe.image = cache.cache_key.new_key()
-        self.service.update_one(recipe.slug, recipe)
-        return UpdateImageResponse(image=recipe.image)
+        image = self.group_recipes.update_image(recipe.slug)
+        response.headers["X-Recipe-Updated-At"] = timestamp.isoformat()
+        return UpdateImageResponse(image=image)
 
     @router.put("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
-    def update_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):
+    def update_recipe_image(
+        self,
+        slug: str,
+        response: Response,
+        image: bytes = File(...),
+        extension: str = Form(...),
+        expected: datetime | None = Header(None, alias="X-Recipe-Updated-At"),
+    ):
         try:
+            if not self.service.can_update([slug]):
+                raise exceptions.PermissionDenied()
+            timestamp = self.group_recipes.reserve_update(slug, expected)
             new_version = self.service.update_recipe_image(slug, image, extension)
+            response.headers["X-Recipe-Updated-At"] = timestamp.isoformat()
             return UpdateImageResponse(image=new_version)
         except Exception as e:
             self.handle_exceptions(e)
             return None
 
     @router.delete("/{slug}/image", tags=["Recipe: Images and Assets"])
-    def delete_recipe_image(self, slug: str):
+    def delete_recipe_image(
+        self,
+        slug: str,
+        response: Response,
+        expected: datetime | None = Header(None, alias="X-Recipe-Updated-At"),
+    ):
         try:
+            if not self.service.can_update([slug]):
+                raise exceptions.PermissionDenied()
+            timestamp = self.group_recipes.reserve_update(slug, expected)
             self.service.delete_recipe_image(slug)
+            response.headers["X-Recipe-Updated-At"] = timestamp.isoformat()
             return SuccessResponse.respond(message=self.t("recipe.recipe-image-deleted"))
         except Exception as e:
             self.handle_exceptions(e)

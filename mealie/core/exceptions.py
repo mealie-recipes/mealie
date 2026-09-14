@@ -22,6 +22,10 @@ class PermissionDenied(Exception):
     pass
 
 
+class RecipeEditConflict(Exception):
+    """The recipe changed since the client read it."""
+
+
 class RecursiveRecipe(Exception):
     """
     This exception is raised when a recipe references itself, either directly or indirectly.

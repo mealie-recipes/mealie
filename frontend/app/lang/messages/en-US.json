@@ -406,6 +406,7 @@
     "an-error-occurred": "An error occurred"
   },
   "recipe": {
+    "edit-conflict": "This recipe has been updated elsewhere. Your changes have not been saved. Copy your changes, then refresh to load the latest version.",
     "add-to-favorites": "Add to Favorites",
     "api-extras": "API Extras",
     "calories": "Calories",

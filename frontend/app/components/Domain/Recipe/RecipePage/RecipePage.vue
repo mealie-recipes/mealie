@@ -14,6 +14,9 @@
         {{ $t("general.discard-changes-description") }}
       </v-card-text>
     </BaseDialog>
+    <v-alert v-if="saveConflict" type="warning" role="alert" class="mb-4">
+      {{ $t("recipe.edit-conflict") }}
+    </v-alert>
     <RecipePageParseDialog
       :model-value="isParsing"
       :ingredients="recipe.recipeIngredient"
@@ -224,6 +227,7 @@ import type { ComponentPublicInstance } from "vue";
 import { invoke, until } from "@vueuse/core";
 import type { RouteLocationNormalized } from "vue-router";
 import RecipeIngredients from "../RecipeIngredients.vue";
+import { createImageEdit, imageEditKey } from "~/composables/recipe-page/use-image-edit";
 import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
 import RecipePageFooter from "./RecipePageParts/RecipePageFooter.vue";
 import RecipePageHeader from "./RecipePageParts/RecipePageHeader.vue";
@@ -302,6 +306,9 @@ onUnmounted(() => toolbarObserver?.disconnect());
  */
 const originalRecipe = ref<Recipe | null>(null);
 const discardDialog = ref(false);
+const saveConflict = ref(false);
+const saving = ref(false);
+provide(imageEditKey, createImageEdit({ recipe, originalRecipe, saving, saveConflict }));
 const pendingRoute = ref<RouteLocationNormalized | null>(null);
 
 invoke(async () => {
@@ -419,7 +426,24 @@ watch(isParsing, () => {
  */
 
 async function saveRecipe() {
-  const { data, error } = await api.recipes.updateOne(recipe.value.slug, recipe.value);
+  if (saving.value) return false;
+  saving.value = true;
+  saveConflict.value = false;
+  let result;
+  try {
+    result = await api.recipes.updateOne(originalRecipe.value?.id ?? recipe.value.slug, {
+      ...recipe.value,
+      updatedAt: originalRecipe.value?.updatedAt,
+    }, { suppressErrorAlertStatuses: [409] });
+  }
+  finally {
+    saving.value = false;
+  }
+  const { data, error } = result;
+  if (error) {
+    saveConflict.value = error.response?.status === 409;
+    return false;
+  }
   if (!error) {
     if (data?.slug && data.slug !== route.params.slug) {
       isNavigatingAfterRename.value = true;
@@ -433,12 +457,13 @@ async function saveRecipe() {
       router.replace(`/g/${groupSlug.value}/r/` + data.slug);
     }
   }
+  return true;
 }
 
 async function saveParsedIngredients(ingredients: NoUndefinedField<RecipeIngredient[]>) {
   const returnToEdit = isEditMode.value;
   recipe.value.recipeIngredient = ingredients;
-  await saveRecipe();
+  if (!await saveRecipe()) return;
   toggleIsParsing(false);
   if (returnToEdit) {
     setMode(PageMode.EDIT);
