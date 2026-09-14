@@ -176,7 +176,8 @@
     "date-created": "Oluşturma Tarihi",
     "date-updated": "Güncellenme tarihi",
     "key": "Anahtar",
-    "value": "Değer"
+    "value": "Değer",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Grup Oluştur",
@@ -488,12 +489,13 @@
     "substitutions-with-value": "Substitutions: {substitutions}",
     "choose-substitute-food": "Choose Substitute Food",
     "original-text-with-value": "Orijinal Metin: {originalText}",
-    "ingredient-linker": "Malzeme Bağlayıcı",
     "unlinked": "Henüz bağlanmadı",
     "linked-to-other-step": "Başka bir adıma bağlı",
     "auto": "Otomatik",
     "cook-mode": "Pişirme Modu",
-    "link-ingredients": "Malzemeleri Bağla",
+    "link-references": "Link references",
+    "linked-notes-with-count": "Linked Notes ({count})",
+    "no-notes-to-link": "No notes to link",
     "merge-above": "Yukarıda Birleştir",
     "move-to-bottom": "En Alta taşı",
     "move-to-top": "En Üste Taşı",
@@ -600,6 +602,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Doğal Dil İşleme",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Kaba Ayrıştırıcı",
       "openai-parser": "OpenAI Ayrıştırıcı",
       "missing-unit": "Eksik birimi oluştur: {unit}",

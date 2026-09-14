@@ -176,7 +176,8 @@
     "date-created": "Датум креирања",
     "date-updated": "Датум измене",
     "key": "Key",
-    "value": "Value"
+    "value": "Value",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Направи групу",
@@ -488,12 +489,13 @@
     "substitutions-with-value": "Substitutions: {substitutions}",
     "choose-substitute-food": "Choose Substitute Food",
     "original-text-with-value": "Оригинални текст: {originalText}",
-    "ingredient-linker": "Повезивач састојака",
     "unlinked": "Још није повезано",
     "linked-to-other-step": "Повезан са другим кораком",
     "auto": "Ауто",
     "cook-mode": "Режим за кување",
-    "link-ingredients": "Повежи састојке",
+    "link-references": "Link references",
+    "linked-notes-with-count": "Linked Notes ({count})",
+    "no-notes-to-link": "No notes to link",
     "merge-above": "Споји са претходним",
     "move-to-bottom": "Помери на дно",
     "move-to-top": "Помери на врх",
@@ -600,6 +602,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Процесор природног језика (NLP)",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Брутални парсер (Brute)",
       "openai-parser": "OpenAI парсер",
       "missing-unit": "Креирај недостајућу јединицу: {unit}",

@@ -176,7 +176,8 @@
     "date-created": "تاريخ الإنشاء",
     "date-updated": "تاريخ التحديث",
     "key": "Key",
-    "value": "Value"
+    "value": "Value",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "انشئ مجموعة",
@@ -488,12 +489,13 @@
     "substitutions-with-value": "Substitutions: {substitutions}",
     "choose-substitute-food": "Choose Substitute Food",
     "original-text-with-value": "النص الأصلي: {originalText}",
-    "ingredient-linker": "رابط المكون",
     "unlinked": "غير مرتبط بعد",
     "linked-to-other-step": "مرتبط بخطوة أخرى",
     "auto": "تلقائي",
     "cook-mode": "وضع الطبخ",
-    "link-ingredients": "ربط المكونات",
+    "link-references": "Link references",
+    "linked-notes-with-count": "Linked Notes ({count})",
+    "no-notes-to-link": "No notes to link",
     "merge-above": "دمج مع الأعلى",
     "move-to-bottom": "نقل إلى الأسفل",
     "move-to-top": "نقل إلى الأعلى",
@@ -600,6 +602,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "معالج اللغة الطبيعية",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "المحلل القسري",
       "openai-parser": "محلل OpenAI",
       "missing-unit": "إنشاء وحدة مفقودة: {unit}",

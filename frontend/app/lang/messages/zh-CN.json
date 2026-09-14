@@ -176,7 +176,8 @@
     "date-created": "创建日期",
     "date-updated": "修改日期",
     "key": "键",
-    "value": "值"
+    "value": "值",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "创建群组",
@@ -488,12 +489,13 @@
     "substitutions-with-value": "Substitutions: {substitutions}",
     "choose-substitute-food": "Choose Substitute Food",
     "original-text-with-value": "原文: {originalText}",
-    "ingredient-linker": "食材关联器",
     "unlinked": "未链接",
     "linked-to-other-step": "已关联到其他步骤",
     "auto": "自动",
     "cook-mode": "烹饪模式",
-    "link-ingredients": "关联食材",
+    "link-references": "Link references",
+    "linked-notes-with-count": "Linked Notes ({count})",
+    "no-notes-to-link": "No notes to link",
     "merge-above": "合并上一步",
     "move-to-bottom": "置底",
     "move-to-top": "置顶",
@@ -600,6 +602,7 @@
       "dont-show-again": "不再显示",
       "try-again-with-parser": "使用 {parser} 重试",
       "natural-language-processor": "自然语言处理器",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "暴力解析器",
       "openai-parser": "OpenAI 解析器",
       "missing-unit": "创建缺失的计量单位：{unit}",

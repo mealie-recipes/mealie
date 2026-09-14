@@ -176,7 +176,8 @@
     "date-created": "작성 날짜",
     "date-updated": "업데이트 일자",
     "key": "Key",
-    "value": "Value"
+    "value": "Value",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "그룹 생성",
@@ -488,12 +489,13 @@
     "substitutions-with-value": "Substitutions: {substitutions}",
     "choose-substitute-food": "Choose Substitute Food",
     "original-text-with-value": "원래 텍스트: {originalText}",
-    "ingredient-linker": "단계별로 재료 연결하기",
     "unlinked": "아직 연결되지 않음",
     "linked-to-other-step": "다른 단계와 연결됨",
     "auto": "자동",
     "cook-mode": "요리 모드",
-    "link-ingredients": "재료 연결하기",
+    "link-references": "Link references",
+    "linked-notes-with-count": "Linked Notes ({count})",
+    "no-notes-to-link": "No notes to link",
     "merge-above": "위 항목과 합치기",
     "move-to-bottom": "맨 아래로 이동",
     "move-to-top": "맨 위로 이동",
@@ -600,6 +602,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "자연어 처리기",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "무차별 분석기",
       "openai-parser": "OpenAI 분석기",
       "missing-unit": "새 단위 생성: {unit}",

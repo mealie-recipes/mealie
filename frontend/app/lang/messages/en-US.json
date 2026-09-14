@@ -176,7 +176,8 @@
     "date-created": "Date Created",
     "date-updated": "Date Updated",
     "key": "Key",
-    "value": "Value"
+    "value": "Value",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Create Group",
@@ -488,12 +489,13 @@
     "substitutions-with-value": "Substitutions: {substitutions}",
     "choose-substitute-food": "Choose Substitute Food",
     "original-text-with-value": "Original Text: {originalText}",
-    "ingredient-linker": "Ingredient Linker",
     "unlinked": "Not linked yet",
     "linked-to-other-step": "Linked to other step",
     "auto": "Auto",
     "cook-mode": "Cook Mode",
-    "link-ingredients": "Link Ingredients",
+    "link-references": "Link references",
+    "linked-notes-with-count": "Linked Notes ({count})",
+    "no-notes-to-link": "No notes to link",
     "merge-above": "Merge Above",
     "move-to-bottom": "Move To Bottom",
     "move-to-top": "Move To Top",
@@ -600,6 +602,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Natural Language Processor",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Brute Parser",
       "openai-parser": "OpenAI Parser",
       "missing-unit": "Create missing unit: {unit}",

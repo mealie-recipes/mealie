@@ -41,9 +41,8 @@
               :min="0"
               hide-details
               inset
-              control-variant="stacked"
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 1 0 50px;'"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 3 0 50px;'"
               :placeholder="$t('recipe.quantity')"
               @keypress="quantityFilter"
             />
@@ -54,7 +53,7 @@
               auto-select-first
               hide-details
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 2 0 50px;'"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 4 0 50px;'"
               variant="filled"
               return-object
               :items="filteredUnits"
@@ -106,7 +105,7 @@
               auto-select-first
               hide-details
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 4 0 50px;'"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 0 50px;'"
               variant="filled"
               return-object
               :items="filteredFoods"
@@ -157,7 +156,7 @@
               auto-select-first
               hide-details
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 4 0 50px;'"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 0 50px;'"
               variant="filled"
               return-object
               :items="search.data.value || []"
@@ -172,7 +171,7 @@
               v-model="model.note"
               hide-details
               density="compact"
-              :style="$vuetify.display.mdAndDown ? '' : 'flex: 4 0 50px;'"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 0 50px;'"
               variant="filled"
               :placeholder="$t('recipe.notes')"
               class=""
