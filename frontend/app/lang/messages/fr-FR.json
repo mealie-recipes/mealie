@@ -177,7 +177,7 @@
     "date-updated": "Date de mise à jour",
     "key": "Clé",
     "value": "Valeur",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Impossible de créer. Veuillez contacter votre administrateur pour obtenir la permission."
   },
   "group": {
     "create-group": "Créer un groupe",
@@ -493,9 +493,9 @@
     "linked-to-other-step": "Déjà associé à une autre étape",
     "auto": "Auto",
     "cook-mode": "Mode Cuisine",
-    "link-references": "Link references",
-    "linked-notes-with-count": "Linked Notes ({count})",
-    "no-notes-to-link": "No notes to link",
+    "link-references": "Lier les références",
+    "linked-notes-with-count": "Notes liées ({count})",
+    "no-notes-to-link": "Aucune note à lier",
     "merge-above": "Fusionner avec au-dessus",
     "move-to-bottom": "Déplacer à la fin",
     "move-to-top": "Déplacer au début",
