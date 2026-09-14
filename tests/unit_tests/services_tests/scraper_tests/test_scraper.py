@@ -38,3 +38,56 @@ async def test_create_from_html_truncates_long_slug(monkeypatch):
     assert recipe.name == long_name
     # ...but the slug is truncated to a filesystem-safe length.
     assert 0 < len(recipe.slug) <= 250
+
+
+@pytest.mark.asyncio
+async def test_create_from_html_adds_scraped_step_images_as_assets(monkeypatch):
+    extras = ScrapedExtras()
+    extras.set_step_images(
+        [
+            ["https://i2.chuimg.com/step-1.gif?imageView2/2/w/300"],
+            ["https://i2.chuimg.com/step-2.gif?imageView2/2/w/300"],
+        ]
+    )
+
+    async def fake_scrape(self, url, html=None, on_progress=None):
+        return (
+            Recipe(
+                name="Xiachufang Test Recipe",
+                image=None,
+                recipe_instructions=[
+                    {"text": "First step"},
+                    {"text": "Second step"},
+                ],
+            ),
+            extras,
+        )
+
+    async def fake_download_asset(self, image_url, file_name):
+        return self.dir_assets / file_name
+
+    monkeypatch.setattr(RecipeScraper, "scrape", fake_scrape)
+    monkeypatch.setattr(
+        "mealie.services.recipe.recipe_data_service.RecipeDataService.download_asset",
+        fake_download_asset,
+    )
+
+    translator = get_locale_provider()
+
+    recipe, returned_extras = await scraper.create_from_html(
+        "https://www.xiachufang.com/recipe/106382966/",
+        repos=None,  # type: ignore[arg-type]
+        translator=translator,
+        html="<html></html>",
+    )
+
+    assert returned_extras is extras
+
+    assert recipe.assets is not None
+    assert len(recipe.assets) == 2
+
+    assert recipe.assets[0].file_name == "step-1-1.gif"
+    assert recipe.assets[1].file_name == "step-2-1.gif"
+
+    assert f"/api/media/recipes/{recipe.id}/assets/step-1-1.gif" in recipe.recipe_instructions[0].text
+    assert f"/api/media/recipes/{recipe.id}/assets/step-2-1.gif" in recipe.recipe_instructions[1].text

@@ -166,3 +166,32 @@ class RecipeDataService(BaseService):
         self.logger.debug(f"File Name Suffix {file_path.suffix}")
         self.write_image(r.content, file_path.suffix)
         file_path.unlink(missing_ok=True)
+
+    async def download_asset(self, image_url: str, file_name: str) -> Path | None:
+        """Download a scraped image and store it as a recipe asset."""
+        try:
+            response = await safehttp.resilient_fetch(
+                image_url,
+                allow_flaresolverr=False,
+            )
+        except Exception:
+            self.logger.exception(f"Failed to download recipe asset: {image_url}")
+            return None
+
+        if response is None:
+            return None
+
+        content_type = response.headers.get("content-type", "")
+        if not content_type.lower().startswith("image/"):
+            self.logger.error(f"Content-Type: {content_type} is not an image")
+            return None
+
+        file_path = self.dir_assets.joinpath(file_name)
+
+        try:
+            file_path.write_bytes(response.content)
+        except Exception:
+            self.logger.exception(f"Failed to save recipe asset: {file_path}")
+            return None
+
+        return file_path

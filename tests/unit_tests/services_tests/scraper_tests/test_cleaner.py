@@ -88,3 +88,89 @@ def test_clean_scraper_preserves_notes():
     assert recipe.notes[0].text == "Keep refrigerated up to 3 days"
     assert recipe.notes[1].title == "Variation"
     assert recipe.notes[1].text == "Add chili flakes for extra heat"
+
+
+def test_clean_scraper_extracts_xiachufang_step_images():
+    html = """
+    <html>
+      <body>
+        <div class="steps">
+          <ol>
+            <li class="container">
+              <p class="text">Step one</p>
+              <img src="https://i2.chuimg.com/step-1.gif">
+            </li>
+            <li class="container">
+              <p class="text">Step two</p>
+              <img src="https://i2.chuimg.com/step-2.gif">
+            </li>
+          </ol>
+        </div>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Recipe",
+          "name": "Xiachufang Test Recipe",
+          "recipeIngredient": ["1 cup flour"],
+          "recipeInstructions": [
+            {"@type": "HowToStep", "text": "Step one"},
+            {"@type": "HowToStep", "text": "Step two"}
+          ]
+        }
+        </script>
+      </body>
+    </html>
+    """
+
+    url = "https://www.xiachufang.com/recipe/106382966/"
+    scraped = scrape_html(html, org_url=url, supported_only=False)
+
+    translator = get_locale_provider()
+    strategy = RecipeScraperPackage(url, translator, None)  # type: ignore[arg-type]
+
+    _, extras = strategy.clean_scraper(scraped, url)
+
+    assert extras.get_step_images() == [
+        ["https://i2.chuimg.com/step-1.gif"],
+        ["https://i2.chuimg.com/step-2.gif"],
+    ]
+
+
+def test_clean_scraper_does_not_extract_step_images_for_other_sites():
+    html = """
+    <html>
+      <body>
+        <div class="steps">
+          <ol>
+            <li class="container">
+              <p class="text">Step one</p>
+              <img src="https://example.com/step-1.gif">
+            </li>
+          </ol>
+        </div>
+
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "Recipe",
+          "name": "Other Site Recipe",
+          "recipeIngredient": ["1 cup flour"],
+          "recipeInstructions": [
+            {"@type": "HowToStep", "text": "Step one"}
+          ]
+        }
+        </script>
+      </body>
+    </html>
+    """
+
+    url = "https://example.com/recipe"
+    scraped = scrape_html(html, org_url=url, supported_only=False)
+
+    translator = get_locale_provider()
+    strategy = RecipeScraperPackage(url, translator, None)  # type: ignore[arg-type]
+
+    _, extras = strategy.clean_scraper(scraped, url)
+
+    assert extras.get_step_images() == []

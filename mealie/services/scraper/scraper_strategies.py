@@ -5,6 +5,7 @@ from abc import ABC, abstractmethod
 from collections.abc import Awaitable, Callable
 from pathlib import Path
 from typing import Any, TypedDict
+from urllib.parse import urlparse
 
 import bs4
 import extruct
@@ -142,6 +143,24 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
             return value
 
+        def get_step_images() -> list[list[str]]:
+            hostname = urlparse(url).hostname or ""
+
+            if hostname != "xiachufang.com" and not hostname.endswith(".xiachufang.com"):
+                return []
+
+            step_images = []
+
+            for step in scraped_data.soup.select("div.steps ol li.container"):
+                text = step.select_one("p.text")
+                if not text or not text.get_text(strip=True):
+                    continue
+
+                images = [image.get("src") for image in step.select("img[src]") if image.get("src")]
+                step_images.append(images)
+
+            return step_images
+
         def get_instructions() -> list[RecipeStep]:
             instruction_as_text = try_get_default(
                 scraped_data.instructions,
@@ -190,6 +209,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
         extras.set_tags(try_get_default(scraped_data.keywords, "keywords", "", cleaner.clean_tags))
         extras.set_categories(try_get_default(scraped_data.category, "recipeCategory", "", cleaner.clean_categories))
+        extras.set_step_images(get_step_images())
 
         recipe = Recipe(
             name=try_get_default(scraped_data.title, "name", "No Name Found", cleaner.clean_string),

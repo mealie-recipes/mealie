@@ -20,12 +20,19 @@ class ScrapedExtras:
     def __init__(self) -> None:
         self._tags: list[str] = []
         self._categories: list[str] = []
+        self._step_images: list[list[str]] = []
 
     def set_tags(self, tags: list[str]) -> None:
         self._tags = tags
 
     def set_categories(self, categories: list[str]) -> None:
         self._categories = categories
+
+    def set_step_images(self, step_images: list[list[str]]) -> None:
+        self._step_images = step_images
+
+    def get_step_images(self) -> list[list[str]]:
+        return self._step_images
 
     def use_tags(self, ctx: ScraperContext) -> list[TagOut]:
         if not self._tags:
