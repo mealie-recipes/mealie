@@ -177,7 +177,7 @@
     "date-updated": "Dato oppdatert",
     "key": "Nøkkel",
     "value": "Verdi",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Kan ikke opprette. Kontakt systemansvarlig for å få tilgang."
   },
   "group": {
     "create-group": "Opprett gruppe",
@@ -251,7 +251,7 @@
       "provider-delete-failed": "Kunne ikke slette tilbyder",
       "request-headers": "Forespørselshoder",
       "request-params": "Forespørsel Parametere",
-      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+      "no-default-provider-warning": "Du har ikke angitt en standardtilbyder, så AI-funksjoner er deaktivert"
     }
   },
   "household": {
@@ -277,7 +277,7 @@
     "create-a-new-meal-plan": "Opprett en ny måltidsplan",
     "update-this-meal-plan": "Oppdater denne måltidsplanen",
     "dinner-this-week": "Middag denne uken",
-    "edit-meal-plan": "Edit Meal Plan",
+    "edit-meal-plan": "Rediger måltidsplan",
     "remove-from-plan": "Remove from Meal Plan",
     "meal-planner": "Måltidsplanlegger",
     "any-category": "Enhver kategori",
@@ -340,7 +340,7 @@
     },
     "copymethat": {
       "description-long": "Mealie kan importere oppskrifter fra Copy Me That. Eksporter oppskrifter i HTML-format, last deretter opp .zip-filen under.",
-      "title": "Copy Me That Recipe Manager"
+      "title": "Copy Me That - oppskriftsbehandler"
     },
     "paprika": {
       "description-long": "Mealie kan importere oppskrifter fra Paprika. Eksporter oppskriftene fra Paprika, endre filnavnutvidelsen til .zip og last den opp nedenfor.",
