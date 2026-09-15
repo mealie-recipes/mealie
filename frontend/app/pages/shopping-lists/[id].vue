@@ -206,7 +206,11 @@
 
       <TransitionGroup name="scroll-x-transition">
         <BaseExpansionPanels v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" start-open>
-          <v-expansion-panel class="shopping-list-section">
+          <!-- the label colour is handed to the stylesheet so condensed view can tint the whole group -->
+          <v-expansion-panel
+            class="shopping-list-section"
+            :style="getLabelColor(key) ? { '--shopping-list-label-color': getLabelColor(key) } : undefined"
+          >
             <v-expansion-panel-title
               :color="preferences.condensed ? undefined : getLabelColor(key)"
               class="body-1 section-title"
@@ -495,8 +499,8 @@ const {
 /* Condensed view: strip most of the vertical padding so more items fit on a phone screen,
    and lean on indentation (label header flush left, items inset) to keep sections readable */
 .shopping-list--condensed {
-  /* quiet header: regular weight, muted text, no label colour; the panel's own surface
-     (white in light mode, the dark surface in dark mode) is the background */
+  /* quiet header: regular weight, muted text, no fill of its own; the group tint below
+     shows through it */
   .shopping-list-section .section-title {
     min-height: 30px !important;
     padding: 2px 10px;
@@ -552,9 +556,12 @@ const {
     display: none;
   }
 
-  /* sections barely outlined: no shadow, only a faint hairline */
+  /* The label colour is kept as a wash behind the whole group (header and items alike) at
+     half strength over the panel surface, instead of the default view's solid header bar.
+     No border and no shadow: the tint alone marks where one group ends and the next begins. */
   .shopping-list-section {
-    border: thin solid rgba(var(--v-border-color), 0.08);
+    border: none;
+    background: color-mix(in srgb, var(--shopping-list-label-color, transparent) 50%, transparent);
   }
 
   .shopping-list-section .v-expansion-panel__shadow {
@@ -567,6 +574,11 @@ const {
   .shopping-list-section {
     border: none;
     background: transparent;
+  }
+
+  /* ...except in condensed view, where the label wash stays so the groups are still told apart */
+  &.shopping-list--condensed .shopping-list-section {
+    background: color-mix(in srgb, var(--shopping-list-label-color, transparent) 50%, transparent);
   }
 
   .shopping-list-section .section-title,
