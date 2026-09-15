@@ -47,10 +47,14 @@ class SPAStaticFiles(StaticFiles):
         if response.status_code == 404 and response.media_type == "text/html":
             response.status_code = 200
 
+        # Nuxt build metadata uses the current build id in the URL and must revalidate
+        # so installed PWAs do not get stuck on stale app manifests after an update.
+        if path.startswith("_nuxt/builds/"):
+            response.headers["Cache-Control"] = "no-cache"
         # Hashed assets (_nuxt/*) are safe to cache forever since new builds produce new filenames.
         # HTML must revalidate so browsers always fetch the correct bundle references after a
         # container rebuild (prevents blank white page from stale index.html in HA iframes, etc).
-        if path.startswith("_nuxt/"):
+        elif path.startswith("_nuxt/"):
             response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
         elif path == "." or response.media_type == "text/html":
             response.headers["Cache-Control"] = "no-cache"
