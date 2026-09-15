@@ -77,15 +77,25 @@ class BackupV2(BaseService):
 
     def _copy_data(self, data_path: Path) -> None:
         for f in data_path.iterdir():
+            destination = self.directories.DATA_DIR / f.name
+
             if f.is_file():
                 if f.name not in self.RESTORE_FILES:
                     continue
 
-                shutil.copyfile(f, self.directories.DATA_DIR / f.name)
+                shutil.copyfile(f, destination)
                 continue
 
-            shutil.rmtree(self.directories.DATA_DIR / f.name)
-            shutil.copytree(f, self.directories.DATA_DIR / f.name)
+            if destination.is_mount():
+                self.logger.warning(
+                    f"Skipping mounted data directory during restore: {destination}"
+                )
+                continue
+
+            if destination.exists():
+                shutil.rmtree(destination)
+
+            shutil.copytree(f, destination)
 
         # since we copied a new .secret, AppSettings has the wrong secret info
         self.logger.info("invalidating appsettings cache")
