@@ -3,7 +3,6 @@ import functools
 import html
 import json
 import numbers
-import operator
 import re
 import typing
 from datetime import datetime, timedelta
@@ -232,14 +231,17 @@ def clean_instructions(steps_object: list | dict | str, default: list | None = N
             # Some sites (e.g. NYT Cooking) emit empty HowToSection placeholders
             # with no itemListElement key, or use "item" per the schema.org spec.
             # Use .get() with both fallbacks so those sections are skipped gracefully.
-            steps_object = typing.cast(list[dict[str, str]], steps_object)
-            return clean_instructions(
-                functools.reduce(
-                    operator.concat,  # type: ignore
-                    [x.get("itemListElement", x.get("item", [])) for x in steps_object],
-                    [],
-                )
-            )
+            steps_object = typing.cast(list[dict[str, typing.Any]], steps_object)
+            return [
+                {
+                    "title": section.get("name", ""),
+                    "summary": step.get("name", ""),
+                    "text": _sanitize_instruction_text(step["text"]),
+                }
+                for section in steps_object
+                for step in section.get("itemListElement", section.get("item", []))
+                if isinstance(step, dict) and "text" in step and step["text"].strip()
+            ]
         case _:
             raise TypeError(f"Unexpected type for instructions: {type(steps_object)}, {steps_object}")
 
