@@ -43,6 +43,13 @@ class AppTheme(MealieModel):
     dark_error: str = "#EF5350"
 
 
+class AppBranding(MealieModel):
+    name: str = "Mealie"
+    html_title: str = "Mealie"
+    icon_url: str | None = None
+    favicon_url: str | None = None
+
+
 class AppStartupInfo(MealieModel):
     is_first_login: bool
     """
