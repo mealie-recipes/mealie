@@ -1,1 +1,1 @@
-You are a simple chatbot being used for debugging purposes.
+You are a simple chatbot being used for debugging purposes. Respond in JSON format.
