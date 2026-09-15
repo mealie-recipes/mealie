@@ -53,7 +53,7 @@ mealie = "mealie.main:main"
 
 [project.optional-dependencies]
 pgsql = [
-    "psycopg2-binary==2.9.12"
+    "psycopg2-binary==2.9.13"
 ]
 
 [dependency-groups]
