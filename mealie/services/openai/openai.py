@@ -273,6 +273,16 @@ class OpenAIService(BaseService):
             )
         return "\n".join(content_parts)
 
+    @staticmethod
+    def _is_unsupported_response_format_error(e: Exception) -> bool:
+        msg = str(e).lower()
+        if message := getattr(e, "message", None):
+            msg = f"{msg} {str(message).lower()}"
+        if body := getattr(e, "body", None):
+            msg = f"{msg} {str(body).lower()}"
+        keywords = ["response_format", "json_schema", "structured_output", "structured output"]
+        return any(keyword in msg for keyword in keywords)
+
     async def _get_raw_response(
         self, prompt: str, content: list[dict], response_schema: type[T], provider: AIProviderOut
     ) -> T | None:
@@ -280,25 +290,41 @@ class OpenAIService(BaseService):
         from openai.types.chat import ChatCompletion
 
         client = self.get_client(provider)
+        messages = [
+            {
+                "role": "system",
+                "content": prompt,
+            },
+            {
+                "role": "user",
+                "content": content,
+            },
+        ]
         # parse() builds the same response_format payload create() would send, but its
         # client-side validation runs as a post_parser that the raw-response path never
         # triggers, so we read the body ourselves and let parse_openai_response() below
         # do the parsing (e.g. of markdown-fenced JSON the SDK would otherwise discard).
-        async with client.chat.completions.with_streaming_response.parse(
-            messages=[
-                {
-                    "role": "system",
-                    "content": prompt,
-                },
-                {
-                    "role": "user",
-                    "content": content,
-                },
-            ],
-            model=provider.model,
-            response_format=response_schema,
-        ) as response:
-            completion = ChatCompletion.model_validate(json.loads(await response.text()))
+        try:
+            async with client.chat.completions.with_streaming_response.parse(
+                messages=messages,
+                model=provider.model,
+                response_format=response_schema,
+            ) as response:
+                completion = ChatCompletion.model_validate(json.loads(await response.text()))
+        except openai.BadRequestError as e:
+            if self._is_unsupported_response_format_error(e):
+                logger.info(
+                    f"Provider '{provider.name}' ({provider.model}) does not support json_schema structured outputs; "
+                    "falling back to json_object response_format"
+                )
+                async with client.chat.completions.with_streaming_response.create(
+                    messages=messages,
+                    model=provider.model,
+                    response_format={"type": "json_object"},
+                ) as response:
+                    completion = ChatCompletion.model_validate(json.loads(await response.text()))
+            else:
+                raise
 
         for choice in completion.choices:
             if choice.finish_reason == "length":
