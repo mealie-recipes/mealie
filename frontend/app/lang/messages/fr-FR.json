@@ -602,7 +602,7 @@
       "dont-show-again": "Ne plus afficher",
       "try-again-with-parser": "Réessayer avec {parser}",
       "natural-language-processor": "Traitement du Langage Naturel",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "Le Traitement du Langage Naturel est formé sur des recettes anglaises. Pour les recettes dans d'autres langues, il reconnaît généralement la quantité mais pas l'unité, donc l'analyseur Brute ou l'analyseur OpenAI a tendance à donner de meilleurs résultats.",
       "brute-parser": "Analyseur brut",
       "openai-parser": "Parseur OpenAI",
       "missing-unit": "Créer une unité manquante : {unit}",
