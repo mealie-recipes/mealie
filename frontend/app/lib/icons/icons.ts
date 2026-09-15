@@ -1,6 +1,8 @@
 import {
   mdiAccount,
   mdiAccountCog,
+  mdiArrowCollapseVertical,
+  mdiArrowExpandVertical,
   mdiAccountGroup,
   mdiAccountPlusOutline,
   mdiAlert,
@@ -178,6 +180,8 @@ export const icons = {
   calendarMultiselect: mdiCalendarMultiselect,
   calendarWeekBegin: mdiCalendarWeekBegin,
   cartCheck: mdiCartCheck,
+  arrowCollapseVertical: mdiArrowCollapseVertical,
+  arrowExpandVertical: mdiArrowExpandVertical,
   check: mdiCheck,
   checkBold: mdiCheckBold,
   checkboxMultipleBlankOutline: mdiCheckboxMultipleBlankOutline,

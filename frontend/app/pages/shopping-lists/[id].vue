@@ -70,7 +70,7 @@
       </v-card>
     </BaseDialog>
 
-    <BasePageTitle divider>
+    <BasePageTitle divider :class="{ 'shopping-list-title--condensed': preferences.condensed }">
       <template #header>
         <v-container class="px-0">
           <v-row no-gutters>
@@ -115,6 +115,16 @@
                   event: 'three-dot',
                   children: [
                     {
+                      icon: preferences.condensed ? $globals.icons.arrowExpandVertical : $globals.icons.arrowCollapseVertical,
+                      text: preferences.condensed ? $t('shopping-list.default-view') : $t('shopping-list.condensed-view'),
+                      event: 'toggle-condensed',
+                    },
+                    {
+                      icon: preferences.hideLabels ? $globals.icons.eye : $globals.icons.eyeOff,
+                      text: preferences.hideLabels ? $t('shopping-list.show-labels') : $t('shopping-list.hide-labels'),
+                      event: 'toggle-hide-labels',
+                    },
+                    {
                       icon: $globals.icons.tags,
                       text: $t('shopping-list.reorder-labels'),
                       event: 'reorder-labels',
@@ -129,6 +139,8 @@
               ]"
               @edit="edit = true"
               @three-dot="threeDot = true"
+              @toggle-condensed="preferences.condensed = !preferences.condensed"
+              @toggle-hide-labels="preferences.hideLabels = !preferences.hideLabels"
               @check="openCheckAll"
               @copy-plain="copyListItems('plain')"
               @copy-markdown="copyListItems('markdown')"
@@ -149,7 +161,14 @@
     />
 
     <!-- Viewer -->
-    <section v-if="!edit" class="py-2 d-flex flex-column ga-4">
+    <section
+      v-if="!edit"
+      class="py-2 d-flex flex-column"
+      :class="[
+        preferences.condensed ? 'ga-1 shopping-list--condensed' : 'ga-4',
+        preferences.hideLabels ? 'shopping-list--hide-labels' : '',
+      ]"
+    >
       <!-- Create Item -->
       <ShoppingListAddItemForm
         v-if="$vuetify.display.smAndDown"
@@ -187,10 +206,15 @@
 
       <TransitionGroup name="scroll-x-transition">
         <BaseExpansionPanels v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" start-open>
-          <v-expansion-panel class="shopping-list-section">
+          <!-- the label colour is handed to the stylesheet so condensed view can tint the whole group -->
+          <v-expansion-panel
+            class="shopping-list-section"
+            :style="getLabelColor(key) ? { '--shopping-list-label-color': getLabelColor(key) } : undefined"
+          >
             <v-expansion-panel-title
-              :color="getLabelColor(key)"
-              class="body-1 font-weight-bold section-title"
+              :color="preferences.condensed ? undefined : getLabelColor(key)"
+              class="body-1 section-title"
+              :class="preferences.condensed ? 'text-medium-emphasis' : 'font-weight-bold'"
             >
               {{ key }}
             </v-expansion-panel-title>
@@ -209,7 +233,7 @@
                     v-for="(item, index) in value"
                     :key="item.id"
                     v-model="value[index]"
-                    class="my-2 w-auto"
+                    class="my-2 w-auto shopping-list-item-row"
                     :edit="editingItem === item.id"
                     :labels="allLabels || []"
                     :units="allUnits || []"
@@ -266,7 +290,7 @@
               <div v-for="(item, idx) in listItems.checked" :key="item.id">
                 <ShoppingListItem
                   v-model="listItems.checked[idx]"
-                  class="strike-through-note"
+                  class="strike-through-note shopping-list-item-row"
                   :labels="allLabels || []"
                   :units="allUnits || []"
                   :foods="allFoods || []"
@@ -356,10 +380,12 @@ import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingLis
 import { useShoppingListPage } from "~/composables/shopping-list-page/use-shopping-list-page";
 import { useLabelStore, useUnitStore, useFoodStore } from "~/composables/store";
 import { alert } from "~/composables/use-toast";
+import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 
 const { smAndUp } = useDisplay();
 const i18n = useI18n();
+const preferences = useShoppingListPreferences();
 
 useSeoMeta({
   title: i18n.t("shopping-list.shopping-list"),
@@ -442,6 +468,126 @@ const {
 
   .v-expansion-panel-text__wrapper {
     padding: 0;
+  }
+}
+
+/* Condensed view: the page header reserves room for an icon row, a subtitle and generous
+   margins; pull those in so the list starts near the top of the screen */
+.shopping-list-title--condensed {
+  margin-top: 0 !important;
+
+  .v-container {
+    padding-top: 4px;
+    padding-bottom: 0;
+  }
+
+  h2 {
+    font-size: 1.1rem !important;
+    line-height: 1.4;
+  }
+
+  h3 {
+    display: none;
+  }
+
+  .v-divider {
+    margin-top: 6px !important;
+    margin-bottom: 2px !important;
+  }
+}
+
+/* Condensed view: strip most of the vertical padding so more items fit on a phone screen,
+   and lean on indentation (label header flush left, items inset) to keep sections readable */
+.shopping-list--condensed {
+  /* quiet header: regular weight, muted text, no fill of its own; the group tint below
+     shows through it */
+  .shopping-list-section .section-title {
+    min-height: 30px !important;
+    padding: 2px 10px;
+    font-size: 0.9rem;
+    font-weight: 400;
+    background: transparent;
+  }
+
+  .shopping-list-section .v-expansion-panel-text__wrapper,
+  .v-expansion-panel-text__wrapper {
+    padding: 2px 0 2px 12px;
+  }
+
+  .v-expansion-panel-title {
+    min-height: 32px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  /* each item row */
+  .shopping-list-item-row {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .shopping-list-item-row .v-container {
+    margin-left: 0 !important;
+  }
+
+  .shopping-list-item-row .v-selection-control {
+    --v-selection-control-size: 28px;
+    min-height: 28px;
+  }
+
+  .shopping-list-item-row .v-selection-control__wrapper,
+  .shopping-list-item-row .v-selection-control__input {
+    width: 28px;
+    height: 28px;
+  }
+
+  .shopping-list-item-row .v-btn--size-small {
+    width: 28px;
+    height: 28px;
+    margin-left: 0 !important;
+  }
+
+  .shopping-list-item-row .mb-2 {
+    margin-bottom: 0 !important;
+  }
+
+  /* edit is also in the drag handle's menu, so the pencil is just noise here */
+  .shopping-list-item-row .shopping-list-item__edit {
+    display: none;
+  }
+
+  /* The label colour is kept as a wash behind the whole group (header and items alike) at
+     half strength over the panel surface, instead of the default view's solid header bar.
+     No border and no shadow: the tint alone marks where one group ends and the next begins. */
+  .shopping-list-section {
+    border: none;
+    background: color-mix(in srgb, var(--shopping-list-label-color, transparent) 50%, transparent);
+  }
+
+  .shopping-list-section .v-expansion-panel__shadow {
+    box-shadow: none;
+  }
+}
+
+/* Hidden labels: items keep their label order, but the headers, borders and shadows go */
+.shopping-list--hide-labels {
+  .shopping-list-section {
+    border: none;
+    background: transparent;
+  }
+
+  /* ...except in condensed view, where the label wash stays so the groups are still told apart */
+  &.shopping-list--condensed .shopping-list-section {
+    background: color-mix(in srgb, var(--shopping-list-label-color, transparent) 50%, transparent);
+  }
+
+  .shopping-list-section .section-title,
+  .shopping-list-section .v-expansion-panel__shadow {
+    display: none;
+  }
+
+  .shopping-list-section .v-expansion-panel-text__wrapper {
+    padding-left: 0;
   }
 }
 </style>
