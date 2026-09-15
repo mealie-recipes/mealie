@@ -135,7 +135,9 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     settings: Mapped[list["RecipeSettings"]] = orm.relationship(
         "RecipeSettings", uselist=False, cascade="all, delete-orphan"
     )
-    tags: Mapped[list["Tag"]] = orm.relationship("Tag", secondary=recipes_to_tags, back_populates="recipes")
+    tags: Mapped[list["Tag"]] = orm.relationship(
+        "Tag", secondary=recipes_to_tags, back_populates="recipes", order_by="Tag.position, Tag.name"
+    )
     notes: Mapped[list[Note]] = orm.relationship("Note", cascade="all, delete-orphan")
     org_url: FilterableColumn[str | None] = mapped_column(sa.String)
     extras: Mapped[list[ApiExtras]] = orm.relationship("ApiExtras", cascade="all, delete-orphan")

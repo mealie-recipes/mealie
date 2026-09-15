@@ -1,5 +1,49 @@
 <template>
   <div>
+    <!-- Reorder Dialog -->
+    <BaseDialog
+      v-model="orderDialog"
+      max-width="600px"
+      :icon="$globals.icons.arrowUpDown"
+      :title="$t('data-pages.tags.reorder-tags')"
+      :submit-icon="$globals.icons.save"
+      :submit-text="$t('general.save')"
+      can-submit
+      @submit="saveTagOrder"
+    >
+      <v-card-text>
+        <p class="mb-4">
+          {{ $t("data-pages.tags.reorder-tags-description") }}
+        </p>
+        <div class="tag-order-list">
+          <VueDraggable
+            v-model="orderedTags"
+            handle=".tag-order-handle"
+            :delay="250"
+            :delay-on-touch-only="true"
+          >
+            <v-list-item
+              v-for="(tag, index) in orderedTags"
+              :key="tag.id"
+              :title="tag.name"
+              border
+              rounded
+              class="mb-2"
+            >
+              <template #prepend>
+                <v-icon class="tag-order-handle mr-3">
+                  {{ $globals.icons.arrowUpDown }}
+                </v-icon>
+              </template>
+              <template #append>
+                <span class="text-medium-emphasis">{{ index + 1 }}</span>
+              </template>
+            </v-list-item>
+          </VueDraggable>
+        </div>
+      </v-card-text>
+    </BaseDialog>
+
     <!-- Merge Dialog -->
     <BaseDialog
       v-model="mergeDialog"
@@ -83,6 +127,13 @@
       </template>
 
       <template #table-button-row>
+        <BaseButton :disabled="!tagStore.store.value.length" @click="openOrderDialog">
+          <template #icon>
+            {{ $globals.icons.arrowUpDown }}
+          </template>
+          {{ $t("data-pages.tags.reorder-tags") }}
+        </BaseButton>
+
         <BaseButton @click="mergeDialog = true">
           <template #icon>
             {{ $globals.icons.externalLink }}
@@ -104,6 +155,7 @@
 </template>
 
 <script setup lang="ts">
+import { VueDraggable } from "vue-draggable-plus";
 import { validators } from "~/composables/use-validators";
 import { useTagStore } from "~/composables/store";
 import { useUserApi } from "~/composables/api";
@@ -147,6 +199,33 @@ const tagStore = useTagStore();
 onMounted(() => {
   tagStore.actions.refresh();
 });
+
+// ============================================================
+// Reorder Tags
+const orderDialog = ref(false);
+const orderedTags = ref<RecipeTag[]>([]);
+
+async function openOrderDialog() {
+  const { data } = await userApi.tags.getAll(1, -1, {
+    orderBy: "position,name",
+    orderDirection: "asc",
+  });
+  orderedTags.value = data?.items ?? [];
+  orderDialog.value = true;
+}
+
+async function saveTagOrder() {
+  const tagIds = orderedTags.value.flatMap(tag => tag.id ? [tag.id] : []);
+  if (tagIds.length !== orderedTags.value.length) {
+    return;
+  }
+
+  const { data } = await userApi.tags.updateOrder(tagIds);
+  if (data) {
+    orderedTags.value = data;
+    orderDialog.value = false;
+  }
+}
 
 // ============================================================
 // Form items (shared)
@@ -246,3 +325,18 @@ async function confirmDeleteUnused() {
   unusedTags.value = [];
 }
 </script>
+
+<style scoped>
+.tag-order-list {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.tag-order-handle {
+  cursor: grab;
+}
+
+.tag-order-handle:active {
+  cursor: grabbing;
+}
+</style>
