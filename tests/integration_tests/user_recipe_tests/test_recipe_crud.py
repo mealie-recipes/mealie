@@ -22,6 +22,7 @@ import mealie.services.scraper.recipe_scraper as recipe_scraper_module
 from mealie.db.models.recipe import RecipeModel
 from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.schema.cookbook.cookbook import SaveCookBook
+from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave
 from mealie.schema.recipe.recipe import Recipe, RecipeCategory, RecipeSummary, RecipeTag
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientFood
@@ -1723,6 +1724,55 @@ def test_get_cookbook_recipes(api_client: TestClient, unique_user: utils.TestUse
             group_id=unique_user.group_id,
             household_id=unique_user.household_id,
             query_filter_string=f'tags.id IN ["{tag.id}"]',
+        )
+    )
+
+    response = api_client.get(api_routes.recipes, params={"cookbook": cookbook.slug}, headers=unique_user.token)
+    assert response.status_code == 200
+    recipes = [Recipe.model_validate(data) for data in response.json()["items"]]
+
+    fetched_recipe_ids = {recipe.id for recipe in recipes}
+    for recipe in cookbook_recipes:
+        assert recipe.id in fetched_recipe_ids
+    for recipe in other_recipes:
+        assert recipe.id not in fetched_recipe_ids
+
+
+def test_get_cookbook_recipes_by_food_label(api_client: TestClient, unique_user: utils.TestUser):
+    label = unique_user.repos.group_multi_purpose_labels.create(
+        MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id)
+    )
+    food = unique_user.repos.ingredient_foods.create(
+        SaveIngredientFood(name=random_string(), group_id=unique_user.group_id, label_id=label.id)
+    )
+    cookbook_recipes = unique_user.repos.recipes.create_many(
+        [
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                recipe_ingredient=[RecipeIngredient(food=food)],
+            )
+            for _ in range(3)
+        ]
+    )
+    other_recipes = unique_user.repos.recipes.create_many(
+        [
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+            )
+            for _ in range(3)
+        ]
+    )
+
+    cookbook = unique_user.repos.cookbooks.create(
+        SaveCookBook(
+            name=random_string(),
+            group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
+            query_filter_string=f'recipe_ingredient.food.label_id IN ["{label.id}"]',
         )
     )
 

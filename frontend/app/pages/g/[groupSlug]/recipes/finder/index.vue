@@ -658,6 +658,16 @@ const queryFilterBuilderFields: FieldDefinition[] = [
     type: Organizer.Tag,
   },
   {
+    name: "recipe_ingredient.food.id",
+    label: i18n.t("recipe.ingredients"),
+    type: Organizer.Food,
+  },
+  {
+    name: "recipe_ingredient.food.label_id",
+    label: i18n.t("data-pages.foods.food-label"),
+    type: Organizer.Label,
+  },
+  {
     name: "household_id",
     label: i18n.t("household.households"),
     type: Organizer.Household,
