@@ -15,6 +15,26 @@ const NO_REFRESH_PATHS = ["/api/auth/token", "/api/auth/refresh", "/api/auth/log
 
 type RetriableConfig = InternalAxiosRequestConfig & { _retriedAfterRefresh?: boolean };
 
+function getErrorDetailMessage(detail: unknown): string | null {
+  if (typeof detail === "string") {
+    return detail;
+  }
+
+  if (detail && typeof detail === "object" && "message" in detail && typeof detail.message === "string") {
+    return detail.message;
+  }
+
+  if (Array.isArray(detail)) {
+    const messages = detail
+      .map(item => item && typeof item === "object" && "msg" in item ? item.msg : null)
+      .filter((message): message is string => typeof message === "string");
+
+    return [...new Set(messages)].join("; ") || null;
+  }
+
+  return null;
+}
+
 export default defineNuxtPlugin((nuxtApp) => {
   const tokenName = useRuntimeConfig().public.AUTH_TOKEN;
   const axiosInstance = axios.create({
@@ -95,9 +115,10 @@ export default defineNuxtPlugin((nuxtApp) => {
         }
       }
 
-      if (error?.response?.data?.detail?.message) {
-        alert.error(error.response.data.detail.message as string);
-      };
+      const errorMessage = getErrorDetailMessage(error?.response?.data?.detail);
+      if (errorMessage) {
+        alert.error(errorMessage);
+      }
 
       // A 401 from the logout call itself only means the token was already dead — expired, or
       // invalidated by a password change. We're on our way out regardless, so let signOut finish with
