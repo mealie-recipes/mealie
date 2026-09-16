@@ -251,7 +251,12 @@
       "provider-delete-failed": "A szolgáltató törlése sikertelen",
       "request-headers": "Kérés fejléce",
       "request-params": "Kérelem paraméterek",
-      "no-default-provider-warning": "Mivel nem állított be alapértelmezett szolgáltatót, az AI-funkciók le vannak tiltva"
+      "no-default-provider-warning": "Mivel nem állított be alapértelmezett szolgáltatót, az AI-funkciók le vannak tiltva",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {

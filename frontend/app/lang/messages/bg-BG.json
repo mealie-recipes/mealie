@@ -251,7 +251,12 @@
       "provider-delete-failed": "Грешка при изтриването на доставчик",
       "request-headers": "Хедъри на заявката",
       "request-params": "Параметри на заявката",
-      "no-default-provider-warning": "Не сте задали доставчик по подразбиране, така че функциите на изкуствения интелект са деактивирани"
+      "no-default-provider-warning": "Не сте задали доставчик по подразбиране, така че функциите на изкуствения интелект са деактивирани",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {
