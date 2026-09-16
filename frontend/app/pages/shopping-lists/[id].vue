@@ -206,15 +206,12 @@
 
       <TransitionGroup name="scroll-x-transition">
         <BaseExpansionPanels v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" start-open>
-          <!-- the label colour is handed to the stylesheet so condensed view can tint the whole group -->
-          <v-expansion-panel
-            class="shopping-list-section"
-            :style="getLabelColor(key) ? { '--shopping-list-label-color': getLabelColor(key) } : undefined"
-          >
+          <v-expansion-panel class="shopping-list-section">
+            <!-- the label colour is the header's fill in both views; condensed only slims the bar -->
             <v-expansion-panel-title
-              :color="preferences.condensed ? undefined : getLabelColor(key)"
+              :color="getLabelColor(key)"
               class="body-1 section-title"
-              :class="preferences.condensed ? 'text-medium-emphasis' : 'font-weight-bold'"
+              :class="preferences.condensed ? (getLabelColor(key) ? '' : 'text-medium-emphasis') : 'font-weight-bold'"
             >
               {{ key }}
             </v-expansion-panel-title>
@@ -499,14 +496,12 @@ const {
 /* Condensed view: strip most of the vertical padding so more items fit on a phone screen,
    and lean on indentation (label header flush left, items inset) to keep sections readable */
 .shopping-list--condensed {
-  /* quiet header: regular weight, muted text, no fill of its own; the group tint below
-     shows through it */
+  /* slim header: regular weight and a low bar, keeping the label colour as its fill */
   .shopping-list-section .section-title {
     min-height: 30px !important;
     padding: 2px 10px;
     font-size: 0.9rem;
     font-weight: 400;
-    background: transparent;
   }
 
   .shopping-list-section .v-expansion-panel-text__wrapper,
@@ -556,12 +551,9 @@ const {
     display: none;
   }
 
-  /* The label colour is kept as a wash behind the whole group (header and items alike) at
-     half strength over the panel surface, instead of the default view's solid header bar.
-     No border and no shadow: the tint alone marks where one group ends and the next begins. */
+  /* no border and no shadow around a group: the coloured header is what marks it */
   .shopping-list-section {
     border: none;
-    background: color-mix(in srgb, var(--shopping-list-label-color, transparent) 50%, transparent);
   }
 
   .shopping-list-section .v-expansion-panel__shadow {
@@ -574,11 +566,6 @@ const {
   .shopping-list-section {
     border: none;
     background: transparent;
-  }
-
-  /* ...except in condensed view, where the label wash stays so the groups are still told apart */
-  &.shopping-list--condensed .shopping-list-section {
-    background: color-mix(in srgb, var(--shopping-list-label-color, transparent) 50%, transparent);
   }
 
   .shopping-list-section .section-title,
