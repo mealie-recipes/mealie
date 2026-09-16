@@ -13,9 +13,6 @@ export function useRecipePermissions(
     if (!user?.id) {
       return false;
     }
-    if (user.admin) {
-      return true;
-    }
     if (user.id === recipe.userId) {
       return true;
     }
@@ -23,6 +20,9 @@ export function useRecipePermissions(
     // Check group and household
     if (user.groupId !== recipe.groupId) {
       return false;
+    }
+    if (user.admin) {
+      return true;
     }
     if (user.householdId !== recipe.householdId) {
       if (!recipeHousehold.value?.preferences) {

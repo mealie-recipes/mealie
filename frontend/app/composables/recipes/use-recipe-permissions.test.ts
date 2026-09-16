@@ -123,12 +123,21 @@ describe("test use recipe permissions", () => {
     expect(result.canEditRecipe.value).toBe(true);
   });
 
-  test("when user is admin, and user is other household, and household is locked, can edit", () => {
+  test("when user is admin, and user is same group but other household, and household is locked, can edit", () => {
     const result = useRecipePermissions(
       createRecipe({}),
       createRecipeHousehold({}, true),
       createUser({ id: "other-user-id", householdId: "other-household-id", admin: true }),
     );
     expect(result.canEditRecipe.value).toBe(true);
+  });
+
+  test("when user is admin, but user is other group, cannot edit", () => {
+    const result = useRecipePermissions(
+      createRecipe({}),
+      createRecipeHousehold({}),
+      createUser({ id: "other-user-id", groupId: "other-group-id", admin: true }),
+    );
+    expect(result.canEditRecipe.value).toBe(false);
   });
 });
