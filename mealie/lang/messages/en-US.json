@@ -52,7 +52,10 @@
             "breakfast": "breakfast",
             "lunch": "lunch",
             "dinner": "dinner",
-            "side": "side"
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
         }
     },
     "user": {
