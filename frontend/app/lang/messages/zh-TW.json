@@ -251,7 +251,12 @@
       "provider-delete-failed": "提供者刪除失敗",
       "request-headers": "請求標頭",
       "request-params": "請求參數",
-      "no-default-provider-warning": "你未設置預設提供者，所以AI功能已停用"
+      "no-default-provider-warning": "你未設置預設提供者，所以AI功能已停用",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {

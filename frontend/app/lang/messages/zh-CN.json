@@ -251,7 +251,12 @@
       "provider-delete-failed": "删除提供者失败",
       "request-headers": "请求标头",
       "request-params": "请求参数",
-      "no-default-provider-warning": "您尚未设置默认提供者，所以AI 功能已被禁用"
+      "no-default-provider-warning": "您尚未设置默认提供者，所以AI 功能已被禁用",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {

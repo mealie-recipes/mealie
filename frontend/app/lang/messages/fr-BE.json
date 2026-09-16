@@ -177,7 +177,7 @@
     "date-updated": "Date de mise à jour",
     "key": "Clé",
     "value": "Valeur",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Impossible de créer. Veuillez contacter votre administrateur pour obtenir la permission."
   },
   "group": {
     "create-group": "Créer un groupe",
@@ -251,7 +251,12 @@
       "provider-delete-failed": "Échec de la suppression du fournisseur",
       "request-headers": "En-têtes de la requête",
       "request-params": "Paramètres de la requête",
-      "no-default-provider-warning": "Vous n'avez pas défini de fournisseur par défaut, donc les fonctionnalités IA sont désactivées"
+      "no-default-provider-warning": "Vous n'avez pas défini de fournisseur par défaut, donc les fonctionnalités IA sont désactivées",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {
@@ -493,9 +498,9 @@
     "linked-to-other-step": "Déjà associé à une autre étape",
     "auto": "Auto",
     "cook-mode": "Mode Cuisine",
-    "link-references": "Link references",
-    "linked-notes-with-count": "Linked Notes ({count})",
-    "no-notes-to-link": "No notes to link",
+    "link-references": "Lier les références",
+    "linked-notes-with-count": "Notes liées ({count})",
+    "no-notes-to-link": "Aucune note à lier",
     "merge-above": "Fusionner avec au-dessus",
     "move-to-bottom": "Déplacer à la fin",
     "move-to-top": "Déplacer au début",
@@ -602,7 +607,7 @@
       "dont-show-again": "Ne plus afficher",
       "try-again-with-parser": "Réessayer avec {parser}",
       "natural-language-processor": "Traitement du Langage Naturel",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "Le Traitement du Langage Naturel est formé sur des recettes anglaises. Pour les recettes dans d'autres langues, il reconnaît généralement la quantité mais pas l'unité, donc l'analyseur Brute ou l'analyseur OpenAI a tendance à donner de meilleurs résultats.",
       "brute-parser": "Analyseur brut",
       "openai-parser": "Parseur OpenAI",
       "missing-unit": "Créer une unité manquante : {unit}",
