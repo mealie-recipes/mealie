@@ -176,7 +176,7 @@ const disabledFields = computed(() => {
   if (user.value?.admin) {
     fields.push("canManageHousehold", "canManage", "advanced");
   }
-  if (user.value?.admin || !user.value?.canManage) {
+  if (user.value?.admin) {
     fields.push("canOrganize", "canInvite");
   }
   return fields;
@@ -201,19 +201,6 @@ watch(
       user.value.canOrganize = false;
       user.value.canInvite = false;
       user.value.advanced = false;
-    }
-  },
-);
-
-watch(
-  () => user.value?.canManage,
-  (canManage, wasCanManage) => {
-    if (!user.value || user.value.admin) {
-      return;
-    }
-    if (!canManage && wasCanManage) {
-      user.value.canOrganize = false;
-      user.value.canInvite = false;
     }
   },
 );
