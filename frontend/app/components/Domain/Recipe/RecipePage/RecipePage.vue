@@ -265,7 +265,7 @@ const { household } = useHouseholdSelf();
 const disableComments = computed(() =>
   household.value?.preferences?.recipeDisableComments
   || recipe.value?.settings?.disableComments
-  || false
+  || false,
 );
 
 const groupSlug = computed(() => (route.params.groupSlug as string) || auth.user?.value?.groupSlug || "");
