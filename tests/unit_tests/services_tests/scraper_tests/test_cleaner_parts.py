@@ -225,6 +225,55 @@ instruction_test_cases = (
         expected=None,
     ),
     CleanerCase(
+        test_id="how to steps with empty section (e.g. NYT Cooking)",
+        input=[
+            {
+                "@type": "HowToSection",
+            },
+            {
+                "@type": "HowToSection",
+                "itemListElement": [
+                    {
+                        "@type": "HowToStep",
+                        "text": "Instruction A",
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "text": "Instruction B",
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "text": "Instruction C",
+                    },
+                ],
+            },
+        ],
+        expected=None,
+    ),
+    CleanerCase(
+        test_id="how to steps using 'item' key (schema.org alternate)",
+        input=[
+            {
+                "@type": "HowToSection",
+                "item": [
+                    {
+                        "@type": "HowToStep",
+                        "text": "Instruction A",
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "text": "Instruction B",
+                    },
+                    {
+                        "@type": "HowToStep",
+                        "text": "Instruction C",
+                    },
+                ],
+            },
+        ],
+        expected=None,
+    ),
+    CleanerCase(
         test_id="excessive whitespace str (1)",
         input="Instruction A\n\nInstruction B\n\nInstruction C\n\n",
         expected=None,
@@ -466,6 +515,21 @@ time_test_cases = (
         test_id="timedelta string (5) invalid",
         input="PT",
         expected="none",
+    ),
+    CleanerCase(
+        test_id="timedelta string day only",
+        input="P1D",
+        expected="1 day",
+    ),
+    CleanerCase(
+        test_id="timedelta string days only",
+        input="P3D",
+        expected="3 days",
+    ),
+    CleanerCase(
+        test_id="timedelta string weeks only",
+        input="P1W",
+        expected="7 days",
     ),
     CleanerCase(
         test_id="timedelta string (6) PT-3H",

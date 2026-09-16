@@ -1,3 +1,4 @@
+import sqlite3
 from collections.abc import Callable
 from logging import Logger
 
@@ -5,8 +6,30 @@ import sqlalchemy.exc
 from fastapi import HTTPException, status
 from pydantic import UUID4, BaseModel
 
+from mealie.core.config import get_app_settings
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.response import ErrorResponse
+
+
+def is_postgres() -> bool:
+    return get_app_settings().DB_ENGINE == "postgres"
+
+
+def is_unique_violation(ex: sqlalchemy.exc.IntegrityError) -> bool:
+
+    try:
+        import psycopg2  # noqa: I001
+
+        if is_postgres() and isinstance(ex.orig, psycopg2.Error):
+            return getattr(ex.orig, "pgcode", None) == "23505"
+
+    except ImportError:
+        pass
+
+    if isinstance(ex.orig, sqlite3.Error):
+        return getattr(ex.orig, "sqlite_errorcode", None) == sqlite3.SQLITE_CONSTRAINT_UNIQUE
+
+    return False
 
 
 class HttpRepo[C: BaseModel, R: BaseModel, U: BaseModel]:
@@ -56,6 +79,13 @@ class HttpRepo[C: BaseModel, R: BaseModel, U: BaseModel]:
         if isinstance(ex, sqlalchemy.exc.NoResultFound):
             raise HTTPException(
                 status.HTTP_404_NOT_FOUND,
+                detail=ErrorResponse.respond(message=msg, exception=str(ex)),
+            )
+        elif isinstance(ex, sqlalchemy.exc.IntegrityError):
+            if is_unique_violation(ex):
+                msg = "This item already exists."
+            raise HTTPException(
+                status.HTTP_409_CONFLICT,
                 detail=ErrorResponse.respond(message=msg, exception=str(ex)),
             )
         else:

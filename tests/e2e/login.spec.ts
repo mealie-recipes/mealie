@@ -51,6 +51,7 @@ test('oidc initial login', async ({ page }) => {
     const claims = {
         "sub": username,
         "email": `${username}@example.com`,
+        "email_verified": true,
         "preferred_username": username,
         "name": name,
         "groups": ["user"]
@@ -73,6 +74,7 @@ test('oidc login with user not in propery group', async ({ page }) => {
     const claims = {
         "sub": username,
         "email": `${username}@example.com`,
+        "email_verified": true,
         "preferred_username": username,
         "name": name,
         "groups": []
@@ -93,6 +95,7 @@ test('oidc sequential login', async ({ page }) => {
     const claims = {
         "sub": username,
         "email": `${username}@example.com`,
+        "email_verified": true,
         "preferred_username": username,
         "name": name,
         "groups": ["user"]
@@ -121,6 +124,7 @@ test('settings page verify oidc', async ({ page }) => {
     const claims = {
         "sub": username,
         "email": `${username}@example.com`,
+        "email_verified": true,
         "preferred_username": username,
         "name": name,
         "groups": ["user"]
@@ -156,6 +160,7 @@ test('oidc admin user', async ({ page }) => {
     const claims = {
         "sub": username,
         "email": `${username}@example.com`,
+        "email_verified": true,
         "preferred_username": username,
         "name": name,
         "groups": ["user", "admin"]

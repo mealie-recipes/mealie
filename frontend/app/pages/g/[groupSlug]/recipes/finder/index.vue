@@ -138,7 +138,6 @@
                           v-model="state.settings.maxMissingFoods"
                           :precision="null"
                           :min="0"
-                          control-variant="stacked"
                           inset
                           hide-details
                           :label="$t('recipe-finder.max-missing-ingredients')"
@@ -147,7 +146,6 @@
                           v-model="state.settings.maxMissingTools"
                           :precision="null"
                           :min="0"
-                          control-variant="stacked"
                           inset
                           hide-details
                           :label="$t('recipe-finder.max-missing-tools')"
@@ -159,7 +157,6 @@
                           v-if="isOwnGroup"
                           v-model="state.settings.includeFoodsOnHand"
                           density="compact"
-                          size="small"
                           hide-details
                           class="my-auto"
                           :label="$t('recipe-finder.include-ingredients-on-hand')"
@@ -168,10 +165,16 @@
                           v-if="isOwnGroup"
                           v-model="state.settings.includeToolsOnHand"
                           density="compact"
-                          size="small"
                           hide-details
                           class="my-auto"
                           :label="$t('recipe-finder.include-tools-on-hand')"
+                        />
+                        <v-checkbox
+                          v-model="state.settings.includeSubstitutions"
+                          density="compact"
+                          hide-details
+                          class="my-auto"
+                          :label="$t('recipe-finder.include-substitutions')"
                         />
                       </div>
                     </v-card-text>
@@ -328,6 +331,7 @@
                     :recipe="item.recipe"
                     :missing-foods="item.missingFoods"
                     :missing-tools="item.missingTools"
+                    :substituted-foods="item.substitutedFoods"
                     :disable-checkbox="state.loading"
                     @add-food="addFood"
                     @remove-food="removeFood"
@@ -356,6 +360,7 @@
                     :recipe="item.recipe"
                     :missing-foods="item.missingFoods"
                     :missing-tools="item.missingTools"
+                    :substituted-foods="item.substitutedFoods"
                     :disable-checkbox="state.loading"
                     @add-food="addFood"
                     @remove-food="removeFood"
@@ -372,9 +377,7 @@
                 cols="12"
                 class="d-flex justify-center"
               >
-                <div class="text-center">
-                  <AppLoader waiting-text="" />
-                </div>
+                <AppLoader :waiting-text="$t('general.loading-recipes')" />
               </v-col>
             </v-row>
           </v-container>
@@ -402,9 +405,7 @@
           cols="12"
           class="d-flex justify-center"
         >
-          <div class="text-center">
-            <AppLoader waiting-text="" />
-          </div>
+          <AppLoader :waiting-text="$t('general.loading-recipes')" />
         </v-col>
       </v-row>
     </v-container>
@@ -462,6 +463,7 @@ const state = reactive({
     maxMissingTools: preferences.value.maxMissingTools,
     includeFoodsOnHand: preferences.value.includeFoodsOnHand,
     includeToolsOnHand: preferences.value.includeToolsOnHand,
+    includeSubstitutions: preferences.value.includeSubstitutions,
     queryFilter: preferences.value.queryFilter,
     limit: 20,
   },
@@ -483,6 +485,7 @@ watch(
     preferences.value.maxMissingTools = newState.settings.maxMissingTools;
     preferences.value.includeFoodsOnHand = newState.settings.includeFoodsOnHand;
     preferences.value.includeToolsOnHand = newState.settings.includeToolsOnHand;
+    preferences.value.includeSubstitutions = newState.settings.includeSubstitutions;
   },
   {
     deep: true,
@@ -610,8 +613,8 @@ const recipeSuggestions = computed<RecipeSuggestions>(() => {
 
 watchDebounced(
   [selectedFoods, selectedTools, state.settings], async () => {
-    // don't search for suggestions if no foods are selected
-    if (!selectedFoods.value.length) {
+    // don't search for suggestions if no filter are selected
+    if (!selectedFoods.value.length && !selectedTools.value.length && !state.settings.queryFilter) {
       recipeResponseItems.value = [];
       state.recipesReady = true;
       return;
@@ -626,6 +629,7 @@ watchDebounced(
         maxMissingTools: state.settings.maxMissingTools,
         includeFoodsOnHand: state.settings.includeFoodsOnHand,
         includeToolsOnHand: state.settings.includeToolsOnHand,
+        includeSubstitutions: state.settings.includeSubstitutions,
       } as RecipeSuggestionQuery,
       selectedFoods.value.map(food => food.id),
       selectedTools.value.map(tool => tool.id),
@@ -667,6 +671,11 @@ const queryFilterBuilderFields: FieldDefinition[] = [
     name: "last_made",
     label: i18n.t("general.last-made"),
     type: "relativeDate",
+  },
+  {
+    name: "rating",
+    label: i18n.t("general.rating"),
+    type: "number",
   },
 ];
 

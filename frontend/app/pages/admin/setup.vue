@@ -81,9 +81,22 @@
           <v-stepper-window-item :value="Pages.LANDING">
             <v-container class="mb-12">
               <AppLogo />
-              <v-card-title class="text-h4 justify-center text-center text-break text-pre-wrap">
+              <v-card-title class="text-headline-medium my-5 justify-center text-center text-break text-pre-wrap">
                 {{ $t('admin.setup.welcome-to-mealie-get-started') }}
               </v-card-title>
+              <p class="text-body-1 text-center">
+                {{ $t('admin.setup.previous-mealie-instance') }}
+              </p>
+              <v-btn
+                to="backups"
+                rounded
+                variant="outlined"
+                color="primary"
+                class="text-subtitle-2 d-flex mx-auto my-3"
+                style="width: fit-content;"
+              >
+                {{ $t('settings.backup.restore-backup') }}
+              </v-btn>
               <v-btn
                 :to="groupSlug ? `/g/${groupSlug}` : '/login'"
                 rounded
@@ -446,17 +459,37 @@ async function updateUser() {
     alert.error(i18n.t("events.something-went-wrong"));
   }
   else {
-    auth.refresh();
+    auth.getSession();
   }
 }
 
 async function updatePassword() {
+  // Read before updateUser can change it: the account is still identified by its current email at
+  // the point we have to sign back in.
+  const currentEmail = auth.user.value!.email;
+  const newPassword = credentials.password1.value;
+
   const { response } = await userApi.users.changePassword({
     currentPassword: "MyPassword",
-    newPassword: credentials.password1.value,
+    newPassword,
   });
 
   if (!response || response.status !== 200) {
+    alert.error(i18n.t("events.something-went-wrong"));
+    return;
+  }
+
+  // Changing the password invalidates this session, and setup has several authenticated steps left,
+  // so sign straight back in rather than letting the rest of the wizard 401.
+  const formData = new FormData();
+  formData.append("username", currentEmail);
+  formData.append("password", newPassword);
+  formData.append("remember_me", "true");
+
+  try {
+    await auth.signIn(formData);
+  }
+  catch {
     alert.error(i18n.t("events.something-went-wrong"));
   }
 }
@@ -558,8 +591,11 @@ async function submitCommonSettings() {
 }
 
 async function submitAll() {
+  // Not part of the parallel batch: changing the password invalidates the session and establishes a
+  // new one, and any request landing in that window would 401 and bounce the admin out of setup.
+  await submitRegistration();
+
   const tasks = [
-    submitRegistration(),
     submitCommonSettings(),
     groupActions.updateAIProviderSettings(),
   ];

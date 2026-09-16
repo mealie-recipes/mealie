@@ -2,6 +2,7 @@
   <div>
     <BaseDialog
       v-model="dialog"
+      bottom-sheet
       :title="$t('recipe-share.share-recipe')"
       :icon="$globals.icons.link"
     >
@@ -162,10 +163,6 @@ async function refreshTokens() {
 const { share, isSupported: shareIsSupported } = useShare();
 const { copy, copied, isSupported } = useClipboard();
 
-function getRecipeText() {
-  return i18n.t("recipe.share-recipe-message", [props.name]);
-}
-
 function getTokenLink(token: string) {
   return `${window.location.origin}/g/${groupSlug.value}/shared/r/${token}`;
 }
@@ -186,11 +183,10 @@ async function copyTokenLink(token: string) {
 }
 
 async function shareRecipe(token: string) {
-  if (shareIsSupported) {
+  if (shareIsSupported.value) {
     share({
       title: props.name,
       url: getTokenLink(token),
-      text: getRecipeText() as string,
     });
   }
   else {

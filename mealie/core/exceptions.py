@@ -1,4 +1,4 @@
-from sqlite3 import IntegrityError
+from sqlalchemy.exc import IntegrityError
 
 from mealie.lang.providers import Translator
 
@@ -33,6 +33,15 @@ class RecursiveRecipe(Exception):
 class SlugError(Exception):
     """
     This exception is raised when the recipe name generates an invalid slug.
+    """
+
+    pass
+
+
+class MissingRequiredData(Exception):
+    """
+    This exception is raised when a full-replacement update is missing data that the
+    resource cannot exist without.
     """
 
     pass

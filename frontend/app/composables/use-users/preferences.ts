@@ -6,8 +6,10 @@ import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
 export interface UserPrintPreferences {
   imagePosition: string;
   showDescription: boolean;
+  showLinkedIngredients: boolean;
   showNotes: boolean;
   showNutrition: boolean;
+  showSubstitutions: boolean;
   expandChildRecipes: boolean;
 }
 
@@ -45,6 +47,7 @@ export interface UserTimelinePreferences {
 
 export interface UserParsingPreferences {
   parser: RegisteredParser;
+  dontShowInfoPage: boolean;
 }
 
 export interface UserCookbooksPreferences {
@@ -60,6 +63,7 @@ export interface UserRecipeFinderPreferences {
   maxMissingTools: number;
   includeFoodsOnHand: boolean;
   includeToolsOnHand: boolean;
+  includeSubstitutions: boolean;
 }
 
 export interface UserRecipeCreatePreferences {
@@ -67,6 +71,8 @@ export interface UserRecipeCreatePreferences {
   importCategories: boolean;
   stayInEditMode: boolean;
   parseRecipe: boolean;
+  translateRecipe: boolean;
+  createNewOrganizers: boolean;
 }
 
 export interface UserActivityPreferences {
@@ -96,8 +102,10 @@ export function useUserPrintPreferences(): Ref<UserPrintPreferences> {
     {
       imagePosition: "left" as ImagePosition,
       showDescription: true,
+      showLinkedIngredients: false,
       showNotes: true,
       showNutrition: false,
+      showSubstitutions: true,
       expandChildRecipes: false,
     },
     { mergeDefaults: true },
@@ -173,11 +181,17 @@ export function useTimelinePreferences(): Ref<UserTimelinePreferences> {
   return fromStorage;
 }
 
-export function useParsingPreferences(): Ref<UserParsingPreferences> {
+/**
+ * @param defaultParser used only when no preference has been stored yet. Callers that know the
+ * user's locale can pass a parser better suited to it, since the natural language parser is
+ * trained on English recipes.
+ */
+export function useParsingPreferences(defaultParser: RegisteredParser = "nlp" as RegisteredParser): Ref<UserParsingPreferences> {
   const fromStorage = useLocalStorage(
     "parsing-preferences",
     {
-      parser: "nlp" as RegisteredParser,
+      parser: defaultParser,
+      dontShowInfoPage: false,
     },
     { mergeDefaults: true },
   );
@@ -209,6 +223,7 @@ export function useRecipeFinderPreferences(): Ref<UserRecipeFinderPreferences> {
       maxMissingTools: 20,
       includeFoodsOnHand: true,
       includeToolsOnHand: true,
+      includeSubstitutions: true,
     },
     { mergeDefaults: true },
   );
@@ -224,6 +239,8 @@ export function useRecipeCreatePreferences(): Ref<UserRecipeCreatePreferences> {
       importCategories: false,
       stayInEditMode: false,
       parseRecipe: true,
+      translateRecipe: false,
+      createNewOrganizers: false,
     },
     { mergeDefaults: true },
   );

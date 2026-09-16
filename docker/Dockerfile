@@ -1,22 +1,18 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:24@sha256:d5adb040f90e206d1dc91453d08a4fa4165ec0faebd62a3421e6181a14e7f41f \
+FROM node:24@sha256:6dac556d980b7f0e5498d08f08cee0ca67798b4ad6c23964a9214920e67758d0 \
     AS frontend-builder
+
+RUN npm install --global pnpm@11
 
 WORKDIR /frontend
 
 COPY frontend .
 
-RUN yarn install \
-    --prefer-offline \
-    --frozen-lockfile \
-    --non-interactive \
-    --production=false \
-    # https://github.com/docker/build-push-action/issues/471
-    --network-timeout 1000000
+RUN pnpm clean-install
 
-RUN yarn generate
+RUN pnpm generate
 
 ###############################################
 # Base Image - Python
@@ -154,7 +150,7 @@ COPY ./docker/healthcheck.sh $MEALIE_HOME/healthcheck.sh
 RUN chmod +x $MEALIE_HOME/healthcheck.sh
 HEALTHCHECK CMD $MEALIE_HOME/healthcheck.sh
 
-ENV HOST 0.0.0.0
+ENV HOST=0.0.0.0
 
 EXPOSE ${APP_PORT}
 COPY ./docker/entry.sh $MEALIE_HOME/run.sh
