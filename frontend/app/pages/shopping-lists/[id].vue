@@ -543,6 +543,10 @@ const {
 
 /* Hidden labels: items keep their label order, but the headers, borders and shadows go */
 .shopping-list--hide-labels {
+  /* with no headers the groups are invisible, so nothing may hint at their edges: no gap
+     between groups and no padding inside them, leaving every row the same distance apart */
+  gap: 0 !important;
+
   .shopping-list-section {
     border: none;
     background: transparent;
@@ -554,7 +558,7 @@ const {
   }
 
   .shopping-list-section .v-expansion-panel-text__wrapper {
-    padding-left: 0;
+    padding: 0;
   }
 }
 </style>
