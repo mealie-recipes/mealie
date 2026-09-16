@@ -251,7 +251,12 @@
       "provider-delete-failed": "Kunde inte ta bort leverantör",
       "request-headers": "Begär rubriker",
       "request-params": "Begär parametrar",
-      "no-default-provider-warning": "Du har inte angett en standardleverantör, så AI-funktioner är inaktiverade"
+      "no-default-provider-warning": "Du har inte angett en standardleverantör, så AI-funktioner är inaktiverade",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {
