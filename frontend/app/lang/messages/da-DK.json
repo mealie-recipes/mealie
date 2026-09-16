@@ -252,11 +252,11 @@
       "request-headers": "Forespørgsels-headers",
       "request-params": "Forespørgselsparametre",
       "no-default-provider-warning": "Du har ikke sat en standardudbyder, så AI-funktioner er slået fra",
-      "test-connection": "Test Connection",
-      "test-connection-succeeded": "Connection successful",
-      "test-connection-failed": "Connection failed",
-      "supports-images": "Supports images",
-      "text-only-provider": "Text-only, can't be your image provider"
+      "test-connection": "Afprøv forbindelse",
+      "test-connection-succeeded": "Forbindelsesforsøg lykkedes",
+      "test-connection-failed": "Forbindelsesforsøg mislykkedes",
+      "supports-images": "Understøt billeder",
+      "text-only-provider": "Kun tekst, kan ikke benyttes som billedudbyder"
     }
   },
   "household": {
@@ -498,9 +498,9 @@
     "linked-to-other-step": "Linket til andet trin",
     "auto": "Automatisk",
     "cook-mode": "Tilberedningsvisning",
-    "link-references": "Link references",
-    "linked-notes-with-count": "Linked Notes ({count})",
-    "no-notes-to-link": "No notes to link",
+    "link-references": "Link-referencer",
+    "linked-notes-with-count": "Linkede noter ({count})",
+    "no-notes-to-link": "Ingen noter at linke til",
     "merge-above": "Sammenflet ovenstående",
     "move-to-bottom": "Flyt til bunden",
     "move-to-top": "Flyt til toppen",
