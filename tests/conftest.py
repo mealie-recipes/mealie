@@ -1,17 +1,25 @@
 import contextlib
+import os
 from collections.abc import Generator
+from pathlib import Path
 
+import pytest
 from pytest import MonkeyPatch, fixture
+
+# Under pytest-xdist, each worker (gw0, gw1, ...) imports this module in its own
+# process. Give each worker its own data dir so they don't fight over the same
+# SQLite file / uploads / temp files. Unset when not running under xdist, which
+# keeps today's single shared tests/.temp behavior for a plain `pytest` run.
+_WORKER_ID = os.environ.get("PYTEST_XDIST_WORKER", "")
+_TEMP_DIR = Path(__file__).parent / (f".temp/{_WORKER_ID}" if _WORKER_ID else ".temp")
 
 
 def _clean_temp_dir():
     with contextlib.suppress(Exception):
-        temp_dir = Path(__file__).parent / ".temp"
-
-        if temp_dir.exists():
+        if _TEMP_DIR.exists():
             import shutil
 
-            shutil.rmtree(temp_dir, ignore_errors=True)
+            shutil.rmtree(_TEMP_DIR, ignore_errors=True)
 
 
 _clean_temp_dir()
@@ -20,7 +28,8 @@ mp = MonkeyPatch()
 mp.setenv("PRODUCTION", "True")
 mp.setenv("TESTING", "True")
 mp.setenv("ALLOW_SIGNUP", "True")
-from pathlib import Path
+if _WORKER_ID:
+    mp.setenv("DATA_DIR", f"tests/.temp/{_WORKER_ID}")
 
 from fastapi.testclient import TestClient
 
@@ -86,3 +95,17 @@ def global_cleanup() -> Generator[None, None, None]:
 
     yield None
     _clean_temp_dir()
+
+
+def pytest_collection_modifyitems(items: list[pytest.Item]) -> None:
+    """
+    Requires --dist loadgroup (see Taskfile py:test). Many test modules share
+    mutable state via module-scoped fixtures/globals, and rely on their tests
+    running together, in order, on one xdist worker. Default every test to a
+    group keyed by its file, so that's true unless a test explicitly opts out
+    with its own @pytest.mark.xdist_group (e.g. verified-independent tests
+    that can be scheduled freely across workers for better parallelism).
+    """
+    for item in items:
+        if not item.get_closest_marker("xdist_group"):
+            item.add_marker(pytest.mark.xdist_group(name=str(item.fspath)))

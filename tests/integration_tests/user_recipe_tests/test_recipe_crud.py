@@ -2,7 +2,6 @@ import inspect
 import json
 import os
 import random
-import shutil
 import tempfile
 from collections.abc import Generator
 from pathlib import Path
@@ -54,7 +53,6 @@ def tempdir() -> Generator[str, None, None]:
         yield td
 
 
-
 def zip_recipe(tempdir: str, recipe: RecipeSummary) -> dict:
     data_file = tempfile.NamedTemporaryFile(mode="w+", dir=tempdir, suffix=".json", delete=False)
     json.dump(json.loads(recipe.model_dump_json()), data_file)
@@ -64,7 +62,7 @@ def zip_recipe(tempdir: str, recipe: RecipeSummary) -> dict:
     with ZipFile(zip_path, "w") as zf:
         zf.write(data_file.name, arcname=os.path.basename(data_file.name))
 
-    return {"archive": Path(zip_path).read_bytes()}    
+    return {"archive": Path(zip_path).read_bytes()}
 
 
 def get_init(html_path: Path):

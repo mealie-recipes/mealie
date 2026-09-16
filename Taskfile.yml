@@ -106,9 +106,14 @@ tasks:
       - uv run mypy mealie
 
   py:test:
-    desc: runs python tests (support args after '--')
+    desc: runs python tests in parallel across CPU cores (support args after '--', e.g. -- -n 0 to disable)
     cmds:
-      - uv run pytest {{ .CLI_ARGS }}
+      # --dist loadgroup: distribute by xdist_group (see tests/conftest.py),
+      # which defaults every test to its file -- same as --dist loadfile,
+      # since several test modules use module-scoped fixtures that later
+      # tests in the same file depend on running in order on one worker --
+      # but lets specific tests opt out of that default to run in parallel.
+      - uv run pytest -n auto --dist loadgroup {{ .CLI_ARGS }}
 
   py:format:
     desc: runs python code formatter
