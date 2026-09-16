@@ -838,18 +838,18 @@ class RecipeController(BaseRecipeController):
 
         dest = recipe.asset_dir / file_name
 
+        # Client-supplied names aren't guaranteed to be unique (e.g. iOS camera captures are all
+        # named "image.jpg"), so avoid silently overwriting an existing asset with the same name.
+        if dest.is_file():
+            file_name = f"{file_slug}_{uuid4().hex[:8]}.{extension}"
+            dest = recipe.asset_dir / file_name
+
         # Ensure path is relative to the recipe's asset directory
         if dest.absolute().parent != recipe.asset_dir:
             raise HTTPException(
                 status_code=400,
                 detail=f"File name {file_name} or extension {extension} not valid",
             )
-
-        # Client-supplied names aren't guaranteed to be unique (e.g. iOS camera captures are all
-        # named "image.jpg"), so avoid silently overwriting an existing asset with the same name.
-        if dest.is_file():
-            file_name = f"{file_slug}_{uuid4().hex[:8]}.{extension}"
-            dest = recipe.asset_dir / file_name
 
         asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
