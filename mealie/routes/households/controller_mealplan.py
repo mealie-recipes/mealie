@@ -113,7 +113,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry created for {data.date} for {data.entry_type}",
+            message=f"Meal plan entry created for {data.date} for {data.entry_type}",
         )
 
         return result
@@ -162,7 +162,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry created for {data.date} for {data.entry_type}",
+            message=f"Meal plan entry created for {data.date} for {data.entry_type}",
         )
 
         return result
@@ -187,7 +187,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry updated for {result.date} for {result.entry_type}",
+            message=f"Meal plan entry updated for {result.date} for {result.entry_type}",
         )
 
         return result
@@ -208,7 +208,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry deleted for {result.date} for {result.entry_type}",
+            message=f"Meal plan entry deleted for {result.date} for {result.entry_type}",
         )
 
         return result
