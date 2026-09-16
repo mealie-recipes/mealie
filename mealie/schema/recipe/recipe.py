@@ -166,9 +166,9 @@ class RecipeSummary(MealieModel):
 
     @property
     def recipe_yield_display(self) -> str:
-        # Fall back to recipe_servings when no explicit yield quantity is set, otherwise
+        # Fall back to recipe_servings when no yield is set at all, otherwise
         # a servings-only recipe emits a bare "0.0" (or "0.0 None") into schema.org.
-        quantity = self.recipe_yield_quantity or self.recipe_servings
+        quantity = self.recipe_yield_quantity or (self.recipe_servings if not self.recipe_yield else 0)
         number = f"{quantity:g}" if quantity else ""
         return f"{number} {self.recipe_yield or ''}".strip()
 
