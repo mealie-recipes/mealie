@@ -74,6 +74,8 @@ def test_recipe_string_sanitation(field: str, val: Any, expected: Any):
         (2.25, "loaves", 0, "2.25 loaves"),
         # Yield text only, no quantity
         (0, "a dozen cookies", 0, "a dozen cookies"),
+        # Yield text only, with servings set: servings don't get prefixed onto the text
+        (0, "a dozen cookies", 4, "a dozen cookies"),
         # Servings-only recipe: falls back to recipe_servings instead of "0.0"
         (0, None, 4, "4"),
         (0, "", 4, "4"),
