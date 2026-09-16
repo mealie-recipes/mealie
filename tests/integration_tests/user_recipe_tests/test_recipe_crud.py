@@ -242,7 +242,14 @@ def test_create_by_url_stream_done(
         return Response(200, content=b"")
 
     monkeypatch.setattr(AsyncSafeTransport, "handle_async_request", return_empty_response)
-    monkeypatch.setattr(RecipeDataService, "scrape_image", lambda *_: "TEST_IMAGE")
+
+    image_recipe_ids: list[str] = []
+
+    async def scrape_image(self: RecipeDataService, *_):
+        image_recipe_ids.append(str(self.recipe_id))
+        return "TEST_IMAGE"
+
+    monkeypatch.setattr(RecipeDataService, "scrape_image", scrape_image)
 
     api_client.delete(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token)
 
@@ -261,6 +268,9 @@ def test_create_by_url_stream_done(
     assert done_event["data"]["slug"] == recipe_data.expected_slug
 
     assert any(e["event"] == "progress" for e in events)
+
+    recipe = api_client.get(api_routes.recipes_slug(recipe_data.expected_slug), headers=unique_user.token).json()
+    assert image_recipe_ids == [recipe["id"]]
 
 
 def test_create_by_url_stream_error(
