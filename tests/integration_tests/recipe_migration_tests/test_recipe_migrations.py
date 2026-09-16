@@ -285,3 +285,29 @@ def test_bad_mealie_alpha_data_is_ignored(api_client: TestClient, unique_user: T
     report_entry = ReportEntryOut.model_validate(failed_item)
     assert report_entry.message == "Failed to import invalid-recipe.json"
     assert report_entry.exception == "JSONDecodeError: Expecting value: line 1 column 1 (char 0)"
+
+
+def test_recipekeeper_imports_categories_and_yield(api_client: TestClient, unique_user_fn_scoped: TestUser) -> None:
+    """Recipe Keeper categories and yields were dropped by the migrator's snake_case alias keys."""
+    unique_user = unique_user_fn_scoped
+
+    response = api_client.post(
+        api_routes.groups_migrations,
+        data={"migration_type": SupportedMigrations.recipekeeper.value},
+        files={"archive": test_data.migrations_recipekeeper.read_bytes()},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    def get(slug: str) -> Recipe:
+        return Recipe(**assert_deserialize(api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)))
+
+    # a bare number in recipeYield is a yield quantity
+    recipe = get("zucchini-bread")
+    assert [c.name for c in recipe.recipe_category or []] == ["Bread"]
+    assert recipe.recipe_yield_quantity == 16
+
+    # a number with a unit is a serving count
+    recipe = get("baked-salmon-fillets-dijon")
+    assert [c.name for c in recipe.recipe_category or []] == ["Fish"]
+    assert recipe.recipe_servings == 4

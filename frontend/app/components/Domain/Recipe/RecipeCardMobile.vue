@@ -96,25 +96,31 @@
 
               <!-- If we're not logged-in, no items display, so we hide this menu -->
               <!-- We also add padding to the v-rating above to compensate -->
-              <RecipeContextMenu
-                v-if="isOwnGroup && showRecipeContent"
-                :slug="slug"
-                :menu-icon="$globals.icons.dotsHorizontal"
-                :name="name"
-                :recipe-id="recipeId"
-                class="ml-auto"
-                :use-items="{
-                  delete: false,
-                  edit: false,
-                  download: true,
-                  mealplanner: true,
-                  shoppingList: true,
-                  print: false,
-                  printPreferences: false,
-                  share: true,
-                }"
-                @deleted="$emit('delete', slug)"
-              />
+              <slot name="context-menu">
+                <RecipeContextMenu
+                  v-if="isOwnGroup && showRecipeContent"
+                  :slug="slug"
+                  :menu-icon="$globals.icons.dotsHorizontal"
+                  :name="name"
+                  :recipe-id="recipeId"
+                  class="ml-auto"
+                  :use-items="{
+                    delete: false,
+                    edit: false,
+                    download: true,
+                    mealplanner: true,
+                    shoppingList: true,
+                    print: false,
+                    printPreferences: false,
+                    share: true,
+                  }"
+                  :leading-items="contextMenuLeadingItems"
+                  :append-items="contextMenuAppendItems"
+                  @deleted="$emit('delete', slug)"
+                  @mealplan-remove="$emit('mealplanRemove')"
+                  @mealplan-edit="$emit('mealplanEdit')"
+                />
+              </slot>
             </v-card-actions>
           </slot>
         </v-list-item>
@@ -125,12 +131,13 @@
 </template>
 
 <script setup lang="ts">
-import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
-import RecipeContextMenu from "./RecipeContextMenu/RecipeContextMenu.vue";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
 import RecipeCardImage from "./RecipeCardImage.vue";
 import RecipeCardRating from "./RecipeCardRating.vue";
 import RecipeChips from "./RecipeChips.vue";
-import { useLoggedInState } from "~/composables/use-logged-in-state";
+import RecipeContextMenu from "./RecipeContextMenu/RecipeContextMenu.vue";
+import RecipeFavoriteBadge from "./RecipeFavoriteBadge.vue";
+import type { ContextMenuItem } from "./RecipeContextMenu/RecipeContextMenu.vue";
 
 interface Props {
   name: string;
@@ -144,10 +151,12 @@ interface Props {
   isFlat?: boolean;
   height?: number;
   disableHighlight?: boolean;
+  contextMenuAppendItems?: ContextMenuItem[];
+  contextMenuLeadingItems?: ContextMenuItem[];
 }
 const props = withDefaults(defineProps<Props>(), {
   rating: 0,
-  image: "abc123",
+  image: undefined,
   tags: () => [],
   vertical: false,
   isFlat: false,
@@ -156,6 +165,8 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 defineEmits<{
+  mealplanRemove: [];
+  mealplanEdit: [];
   selected: [];
   delete: [slug: string];
 }>();

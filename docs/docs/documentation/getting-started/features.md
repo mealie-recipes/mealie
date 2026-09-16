@@ -11,10 +11,13 @@ Mealie offers several ways to create recipes:
 - **Recipe HTML or JSON:** Copy/paste structured HTML or JSON and Mealie can import it.
 - **Manual Editor:** Create recipes from scratch using the integrated editor.
 
-Mealie's [AI integration](./installation/ai-providers.md) greatly expands the ways you can create recipes:
+Mealie's [AI integration](./installation/ai-providers.md) adds an **Import with AI** page, which creates a recipe out of just about anything:
 
-- **Image Import:** Upload an image of a written or typed recipe and Mealie will use OCR and AI to import it.
-- **Video URL Import:** Provide a video URL (e.g., YouTube) and Mealie will transcribe the audio and turn it into a recipe.
+- **A URL:** Mealie reads the page, or, for a video URL (e.g., YouTube or Instagram), transcribes the audio.
+- **Images:** Upload photos of a written or typed recipe and Mealie will read them.
+- **Text:** Paste a recipe as plain text, HTML, or JSON.
+
+Everything you provide is read and combined into a single recipe, so you can pair a link or photos with a few notes of your own to name the recipe or correct a detail.
 
 [Creation Demo](https://demo.mealie.io/g/home/r/create/url){ .md-button .md-button--primary .align-right }
 
@@ -85,7 +88,7 @@ Mealie uses a calendar like view to help you plan your meals. It shows you the p
 
 ### Planner Rules
 
-The meal planner has the concept of plan rules. These offer a flexible way to use your organizers to customize how a random recipe is inserted into your meal plan. You can set rules to restrict the pool of recipes based on the Tags and/or Categories of a recipe. Additionally, since meal plans have a Breakfast, Lunch, Dinner, and Snack labels, you can specifically set a rule to be active for a **specific meal type** or even a **specific day of the week.**
+The meal planner has the concept of plan rules. These offer a flexible way to use your organizers to customize how a random recipe is inserted into your meal plan. You can set rules to restrict the pool of recipes based on the Tags and/or Categories of a recipe, or on its ingredients. Ingredients can be matched by their Food Label as well, so a "fish day" only takes one rule instead of a list of every fish you cook with. Additionally, since meal plans have a Breakfast, Lunch, Dinner, and Snack labels, you can specifically set a rule to be active for a **specific meal type** or even a **specific day of the week.**
 
 [Planner Settings Demo](https://demo.mealie.io/household/mealplan/settings){ .md-button .md-button--primary }
 

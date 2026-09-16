@@ -2,6 +2,7 @@
   <v-container fluid>
     <BaseDialog
       v-model="state.createDialog"
+      bottom-sheet
       :title="$t('group.create-group')"
       :icon="$globals.icons.group"
       can-submit
@@ -19,6 +20,7 @@
 
     <BaseDialog
       v-model="state.confirmDialog"
+      bottom-sheet
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"
