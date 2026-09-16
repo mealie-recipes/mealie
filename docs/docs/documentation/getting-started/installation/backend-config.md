@@ -11,7 +11,7 @@
 | DEFAULT_GROUP                 |         Home          | The default group for users                                                                                                                             |
 | DEFAULT_HOUSEHOLD             |        Family         | The default household for users in each group                                                                                                           |
 | BASE_URL                      | http://localhost:8080 | Used for notifications and the OIDC callback url                                                                                                        |
-| TOKEN_TIME                    |          48           | The time in hours that a login/auth token is valid. Must be <= 9600 (400 days, in hours).                                                               |
+| TOKEN_TIME                    |          48           | The time in hours a login session lasts. Must be <= 9600 (400 days, in hours).                                                                          |
 | API_PORT                      |         9000          | The port exposed by backend API. **Do not change this if you're running in Docker**                                                                     |
 | API_DOCS                      |         True          | Turns on/off access to the API documentation locally                                                                                                    |
 | TZ                            |          UTC          | Must be set to get correct date/time on the server                                                                                                      |
@@ -30,6 +30,8 @@
 | SECURITY_MAX_LOGIN_ATTEMPTS |    5    | Maximum times a user can provide an invalid password before their account is locked |
 | SECURITY_USER_LOCKOUT_TIME  |   24    | Time in hours for how long a users account is locked                                |
 | ALLOWED_IFRAME_HOSTS        |  `""`   | Comma-separated extra hostnames allowed as `<iframe>` sources in recipe content. Extends the built-in list of trusted video providers (YouTube, Vimeo). Subdomains are included automatically. Only `https` sources are permitted. Adding hosts here opts into rendering embeds from those origins to all viewers, including the public, so add only origins you trust. |
+| HTTP_ALLOW_LIST             |  `""`   | Comma-separated hosts or CIDRs that server-initiated requests (recipe scraping, webhooks, recipe actions, OIDC profile images) may reach even when they resolve to an otherwise-blocked private/internal address. Use to allow a known internal server. |
+| HTTP_DISALLOW_LIST          |  `""`   | Comma-separated hosts or CIDRs that server-initiated requests may never reach, even if public. Takes precedence over `HTTP_ALLOW_LIST`. |
 
 ### Database
 
@@ -109,7 +111,7 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 | OIDC_ADMIN_GROUP                                                                    |  None   | If specified, users belonging to this group will be made an admin. For more information see [this page](../authentication/oidc.md#groups)                                                                                                                                                              |
 | OIDC_AUTO_REDIRECT                                                                  |  False  | If `True`, then the login page will be bypassed an you will be sent directly to your Identity Provider. You can still get to the login page by adding `?direct=1` to the login URL                                                                                                                     |
 | OIDC_PROVIDER_NAME                                                                  |  OAuth  | The provider name is shown in SSO login button. "Login with <OIDC_PROVIDER_NAME\>"                                                                                                                                                                                                                     |
-| OIDC_REMEMBER_ME                                                                    |  False  | Because redirects bypass the login screen, you cant extend your session by clicking the "Remember Me" checkbox. By setting this value to true, a session will be extended as if "Remember Me" was checked                                                                                              |
+| OIDC_REMEMBER_ME                                                                    |  False  | Because redirects bypass the login screen, you can't tick the "Remember Me" checkbox. Setting this to true treats an OIDC login as if it had been checked, so the session survives closing the browser                                                                                              |
 | OIDC_SIGNING_ALGORITHM                                                              |  RS256  | The algorithm used to sign the id token (examples: RS256, HS256)                                                                                                                                                                                                                                       |
 | OIDC_USER_CLAIM                                                                     |  email  | This is the claim which Mealie will use to look up an existing user by (e.g. "email", "preferred_username")                                                                                                                                                                                            |
 | OIDC_NAME_CLAIM                                                                     |  name   | This is the claim which Mealie will use for the users Full Name                                                                                                                                                                                                                                        |
@@ -127,6 +129,12 @@ Mealie supports various integrations using OpenAI. For more information, check o
 | Variables                                                               | Default     | Description                                                                                                                                                                                                                                                                                                            |
 |-------------------------------------------------------------------------|:-----------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | OPENAI_CUSTOM_PROMPT_DIR <br/> :octicons-tag-24: v3.10.0                |    None.    | Path to custom prompt files. Only existing files in your custom directory will override the defaults; any missing or empty custom files will automatically fall back to the system defaults. See https://github.com/mealie-recipes/mealie/tree/mealie-next/mealie/services/openai/prompts for expected file names.     |
+
+Recipe import can also transcribe a video's audio with AI (e.g. to import a recipe from a cooking video). This uses yt-dlp to download the video, which you can configure with the env variables below:
+
+| Variables | Default | Description |
+|-------------------------------------------------------------------------|:-----------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| YTDLP_COOKIEFILE | None | Cookiefile for yt-dlp to use when downloading a video, needed for content that requires sign-in |
 
 ### Recipe Scraper
 
@@ -205,14 +213,14 @@ Setting the following environmental variables will change the theme of the front
 | --------------------- | :-----: | ---------------------------------- |
 | THEME_LIGHT_PRIMARY   | #E58325 | Main brand color and headers       |
 | THEME_LIGHT_ACCENT    | #007A99 | Buttons and interactive elements   |
-| THEME_LIGHT_SECONDARY | #973542 | Navigation and sidebar backgrounds |
+| THEME_LIGHT_SECONDARY | #973542 | Secondary UI elements and interactive accents |
 | THEME_LIGHT_SUCCESS   | #43A047 | Success messages and confirmations |
 | THEME_LIGHT_INFO      | #1976D2 | Information alerts and tooltips    |
 | THEME_LIGHT_WARNING   | #FF6D00 | Warning notifications              |
 | THEME_LIGHT_ERROR     | #EF5350 | Error messages and alerts          |
 | THEME_DARK_PRIMARY    | #E58325 | Main brand color and headers       |
 | THEME_DARK_ACCENT     | #007A99 | Buttons and interactive elements   |
-| THEME_DARK_SECONDARY  | #973542 | Navigation and sidebar backgrounds |
+| THEME_DARK_SECONDARY  | #973542 | Secondary UI elements and interactive accents |
 | THEME_DARK_SUCCESS    | #43A047 | Success messages and confirmations |
 | THEME_DARK_INFO       | #1976D2 | Information alerts and tooltips    |
 | THEME_DARK_WARNING    | #FF6D00 | Warning notifications              |

@@ -120,8 +120,10 @@ def safe_local_path(candidate: str | Path, root: Path) -> Path | None:
     return None
 
 
-def import_image(src: str | Path, recipe_id: UUID4, extraction_root: Path | None = None):
+def import_image(src: str | Path, recipe_id: UUID4, extraction_root: Path | None = None) -> Path | None:
     """Import a local image file into the recipe image directory.
+
+    Returns the path the image was written to, or `None` if there was nothing to import.
 
     May raise an UnidentifiedImageError if the file is not a recognised format.
 
@@ -138,30 +140,32 @@ def import_image(src: str | Path, recipe_id: UUID4, extraction_root: Path | None
             root_logger.get_logger().warning(
                 "Rejected image path outside extraction root: %s (root: %s)", src, extraction_root
             )
-            return
+            return None
 
     if not src.exists():
-        return
+        return None
 
     data_service = RecipeDataService(recipe_id=recipe_id)
-    data_service.write_image(src, src.suffix)
+    return data_service.write_image(src, src.suffix)
 
 
-async def scrape_image(image_url: str, recipe_id: UUID4):
+async def scrape_image(image_url: str, recipe_id: UUID4) -> Path | None:
     """Read the successful migrations attribute and for each scrape the image
     appropriately into the image directory. Minification is done in mass
     after the migration occurs.
+
+    Returns the path the image was written to, or `None` if nothing was downloaded.
     """
 
     if not isinstance(image_url, str):
-        return
+        return None
 
     data_service = RecipeDataService(recipe_id=recipe_id)
 
     try:
-        await data_service.scrape_image(image_url)
+        return await data_service.scrape_image(image_url)
     except UnidentifiedImageError:
-        return
+        return None
 
 
 def parse_iso8601_duration(time: str | None) -> str:

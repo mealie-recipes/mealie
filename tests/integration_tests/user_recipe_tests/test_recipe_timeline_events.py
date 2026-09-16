@@ -1,3 +1,4 @@
+from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
@@ -69,6 +70,35 @@ def test_create_timeline_event(
     event = RecipeTimelineEventOut.model_validate(event_response.json())
     assert event.recipe_id == recipe.id
     assert str(event.user_id) == str(user.user_id)
+
+
+def test_create_timeline_event_defaults_timestamp_to_request_time(
+    api_client: TestClient,
+    unique_user: TestUser,
+    recipes: list[Recipe],
+):
+    recipe = recipes[0]
+    new_event = {
+        "recipe_id": str(recipe.id),
+        "user_id": str(unique_user.user_id),
+        "subject": random_string(),
+        "event_type": "info",
+    }
+
+    before = datetime.now(UTC) - timedelta(seconds=5)
+    event_response = api_client.post(
+        api_routes.recipes_timeline_events,
+        json=new_event,
+        headers=unique_user.token,
+    )
+    after = datetime.now(UTC) + timedelta(seconds=5)
+    assert event_response.status_code == 201
+
+    event = RecipeTimelineEventOut.model_validate(event_response.json())
+    timestamp = event.timestamp
+    if timestamp.tzinfo is None:
+        timestamp = timestamp.replace(tzinfo=UTC)
+    assert before <= timestamp <= after
 
 
 @pytest.mark.parametrize("use_other_household_user", [True, False])

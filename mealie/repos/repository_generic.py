@@ -10,9 +10,7 @@ from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import ColumnElement, Select, case, delete, func, nulls_first, nulls_last, select
 from sqlalchemy.ext.associationproxy import AssociationProxyInstance
-from sqlalchemy.orm import InstrumentedAttribute
 from sqlalchemy.orm.session import Session
-from sqlalchemy.sql import sqltypes
 
 from mealie.core.root_logger import get_logger
 from mealie.db.models._model_base import SqlAlchemyBase
@@ -411,16 +409,10 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
     def add_order_attr_to_query(
         self,
         query: Select,
-        order_attr: InstrumentedAttribute,
+        order_attr: ColumnElement,
         order_dir: OrderDirection,
         order_by_null: OrderByNullPosition | None,
     ) -> Select:
-        order_attr = self.column_aliases.get(order_attr.key, order_attr)
-
-        # queries handle uppercase and lowercase differently, which is undesirable
-        if isinstance(order_attr.type, sqltypes.String):
-            order_attr = func.lower(order_attr)
-
         if order_dir is OrderDirection.asc:
             order_attr = order_attr.asc()
         elif order_dir is OrderDirection.desc:
@@ -463,8 +455,11 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
                         order_by = order_by_val
                         order_dir = request_query.order_direction
 
-                    _, order_attr, query = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
-                        order_by, self.model, query=query
+                    order_attr = QueryFilterBuilder.get_order_attr(
+                        order_by,
+                        self.model,
+                        descending=order_dir is OrderDirection.desc,
+                        column_aliases=self.column_aliases,
                     )
 
                     query = self.add_order_attr_to_query(

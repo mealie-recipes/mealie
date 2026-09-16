@@ -116,7 +116,13 @@ class RecipeDataService(BaseService):
             image_path = image_dir.joinpath(img_type.value)
             image_path.unlink(missing_ok=True)
 
-    async def scrape_image(self, image_url: str | dict[str, str] | list[str]) -> None:
+    async def scrape_image(self, image_url: str | dict[str, str] | list[str]) -> Path | None:
+        """Downloads the image at `image_url` into the recipe's image directory.
+
+        Returns the path the image was written to, or `None` if nothing could be
+        downloaded. Callers must not record a cache key for a recipe unless a path
+        comes back, or the recipe claims an image the media route cannot serve.
+        """
         self.logger.info(f"Image URL: {image_url}")
 
         image_url_str = ""
@@ -164,5 +170,7 @@ class RecipeDataService(BaseService):
             raise NotAnImageError(f"Content-Type {content_type} is not an image")
 
         self.logger.debug(f"File Name Suffix {file_path.suffix}")
-        self.write_image(r.content, file_path.suffix)
+        image_path = self.write_image(r.content, file_path.suffix)
         file_path.unlink(missing_ok=True)
+
+        return image_path

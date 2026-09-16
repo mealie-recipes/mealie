@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 import json
 import shutil
 from datetime import UTC, datetime
@@ -550,6 +552,20 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
+    @staticmethod
+    def _preserve_omitted_image(recipe: Recipe, update_data: Recipe) -> Recipe:
+        """Keeps the stored image when the payload doesn't mention it.
+
+        Updates are a full overwrite, so a client that round-trips a recipe without echoing
+        `image` back would otherwise clear it. The image files stay on disk, leaving a recipe
+        that has a picture but no longer says so - which reads to the frontend as "no image".
+        The image is owned by the `/{slug}/image` endpoints; an update only carries it along.
+        """
+        if "image" not in update_data.model_fields_set:
+            update_data.image = recipe.image
+
+        return update_data
+
     def _remove_non_existent_ingredient_references(self, update_data: Recipe) -> Recipe:
         """Removes the references of ingredients from steps that no longer exist."""
 
@@ -564,6 +580,20 @@ class RecipeService(RecipeServiceBase):
                     ref
                     for ref in instruction.ingredient_references
                     if ref.reference_id in current_ingredient_reference_ids
+                ]
+
+        return update_data
+
+    def _remove_non_existent_note_references(self, update_data: Recipe) -> Recipe:
+        """Removes the references to notes from steps when the note no longer exists on the recipe."""
+
+        current_note_reference_ids = {note.reference_id for note in (update_data.notes or [])}
+
+        recipe_instructions = update_data.recipe_instructions
+        if recipe_instructions is not None:
+            for instruction in recipe_instructions:
+                instruction.note_references = [
+                    ref for ref in instruction.note_references if ref.reference_id in current_note_reference_ids
                 ]
 
         return update_data
@@ -593,7 +623,16 @@ class RecipeService(RecipeServiceBase):
     def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug_or_id, update_data)
 
+        # A PUT replaces the whole recipe, so a body that omits the name would blank it out.
+        # Nothing downstream can cope with that, so reject it before the update rather than
+        # failing deeper in. This runs after the checks above so that a missing or forbidden
+        # recipe still answers 404 or 403 regardless of what the body contains.
+        if not update_data.name:
+            raise exceptions.MissingRequiredData("Recipe name is required")
+
+        update_data = self._preserve_omitted_image(recipe, update_data)
         update_data = self._remove_non_existent_ingredient_references(update_data)
+        update_data = self._remove_non_existent_note_references(update_data)
         update_data = self._resolve_ingredient_sub_recipes(update_data)
 
         new_data = self.group_recipes.update(recipe.slug, update_data)

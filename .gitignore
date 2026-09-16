@@ -28,6 +28,7 @@ dev/data/postgres/*
 .DS_Store
 node_modules
 
+.pnpm-store
 
 # local files
 .env.local

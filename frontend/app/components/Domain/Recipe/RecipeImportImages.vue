@@ -28,7 +28,6 @@
           <v-col>
             <ImageCropper
               :img="imageUrl"
-              cropper-height="100%"
               cropper-width="100%"
               :submitted="disabled"
               class="mt-4 mb-2"

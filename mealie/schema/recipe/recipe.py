@@ -22,8 +22,10 @@ from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.recipe import (
     IngredientFoodModel,
+    IngredientFoodSubstitutionModel,
     RecipeComment,
     RecipeIngredientModel,
+    RecipeIngredientSubstitutionModel,
     RecipeInstruction,
     RecipeModel,
 )
@@ -63,6 +65,7 @@ class RecipeTag(MealieModel):
     group_id: UUID4 | None = None
     name: str
     slug: str
+    recipe_count: int = 0
 
     _searchable_properties: ClassVar[list[str]] = ["name"]
     model_config = ConfigDict(from_attributes=True)
@@ -163,7 +166,11 @@ class RecipeSummary(MealieModel):
 
     @property
     def recipe_yield_display(self) -> str:
-        return f"{self.recipe_yield_quantity} {self.recipe_yield}".strip()
+        # Fall back to recipe_servings when no yield is set at all, otherwise
+        # a servings-only recipe emits a bare "0.0" (or "0.0 None") into schema.org.
+        quantity = self.recipe_yield_quantity or (self.recipe_servings if not self.recipe_yield else 0)
+        number = f"{quantity:g}" if quantity else ""
+        return f"{number} {self.recipe_yield or ''}".strip()
 
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
@@ -312,7 +319,15 @@ class Recipe(RecipeSummary):
             selectinload(RecipeModel.recipe_ingredient)
             .joinedload(RecipeIngredientModel.food)
             .joinedload(IngredientFoodModel.label),
+            selectinload(RecipeModel.recipe_ingredient)
+            .joinedload(RecipeIngredientModel.food)
+            .selectinload(IngredientFoodModel.substitutions)
+            .joinedload(IngredientFoodSubstitutionModel.substitute_food),
+            selectinload(RecipeModel.recipe_ingredient)
+            .selectinload(RecipeIngredientModel.substitutions)
+            .joinedload(RecipeIngredientSubstitutionModel.substitute_food),
             selectinload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.ingredient_references),
+            selectinload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.note_references),
             joinedload(RecipeModel.nutrition),
             joinedload(RecipeModel.settings),
             # for whatever reason, joinedload can mess up the order here, so use selectinload just this once
