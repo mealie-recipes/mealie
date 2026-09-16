@@ -105,7 +105,6 @@ import { useThrottleFn, whenever } from "@vueuse/core";
 import RecipeTimelineItem from "./RecipeTimelineItem.vue";
 import { useTimelinePreferences } from "~/composables/use-users/preferences";
 import { useTimelineEventTypes } from "~/composables/recipes/use-recipe-timeline-events";
-import { useAsyncKey } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
 import type { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate, TimelineEventType } from "~/lib/api/types/recipe";
@@ -277,16 +276,17 @@ async function initializeTimelineEvents() {
   loading.value = false;
 }
 
-const infiniteScroll = useThrottleFn(() => {
-  useAsyncData(useAsyncKey(), async () => {
-    if (!hasMore.value || loading.value) {
-      return;
-    }
-
-    loading.value = true;
+const infiniteScroll = useThrottleFn(async () => {
+  if (!hasMore.value || loading.value) {
+    return;
+  }
+  loading.value = true;
+  try {
     await scrollTimelineEvents();
+  }
+  finally {
     loading.value = false;
-  });
+  }
 }, 500);
 
 // preload events

@@ -14,6 +14,15 @@
       </BaseButton>
     </v-card-actions>
   </v-card>
+  <v-alert
+    v-if="showNlpLanguageHint"
+    type="info"
+    variant="tonal"
+    density="compact"
+    class="mt-3 text-body-2"
+  >
+    {{ $t("recipe.parser.natural-language-processor-english-only") }}
+  </v-alert>
   <BaseDialog
     v-model="open"
     bottom-sheet
@@ -41,7 +50,7 @@
 import type { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import type { Parser } from "~/lib/api/user/recipes/recipe";
 
-defineProps<{ availableParsers: MenuItem[] }>();
+defineProps<{ availableParsers: MenuItem[]; showNlpLanguageHint: boolean }>();
 const emit = defineEmits<{ parse: [] }>();
 const currentParser = defineModel<Parser>({ default: "nlp" });
 
