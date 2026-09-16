@@ -251,7 +251,12 @@
       "provider-delete-failed": "Falha ao apagar fornecedor",
       "request-headers": "Cabeçalhos de solicitação (Request Headers)",
       "request-params": "Parâmetros da solicitação (Request Parameters)",
-      "no-default-provider-warning": "Não definiu um fornecedor padrão, portanto, os recursos de IA estão desativados"
+      "no-default-provider-warning": "Não definiu um fornecedor padrão, portanto, os recursos de IA estão desativados",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {

@@ -251,7 +251,12 @@
       "provider-delete-failed": "Verwijderen van aanbieder mislukt",
       "request-headers": "Aanvraagheaders",
       "request-params": "Aanvraag parameters",
-      "no-default-provider-warning": "Je hebt geen standaard aanbieder ingesteld, AI-functies zijn uitgeschakeld"
+      "no-default-provider-warning": "Je hebt geen standaard aanbieder ingesteld, AI-functies zijn uitgeschakeld",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {

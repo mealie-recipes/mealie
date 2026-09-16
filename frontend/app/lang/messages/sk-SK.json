@@ -251,7 +251,12 @@
       "provider-delete-failed": "Nepodarilo sa odstrániť poskytovateľa AI",
       "request-headers": "Hlavičky požiadavky",
       "request-params": "Parametre požiadavky",
-      "no-default-provider-warning": "Nemáte nastaveného predvoleného poskytovateľa AI, preto sú funkcie AI neaktívne"
+      "no-default-provider-warning": "Nemáte nastaveného predvoleného poskytovateľa AI, preto sú funkcie AI neaktívne",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {

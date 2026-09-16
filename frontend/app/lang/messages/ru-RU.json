@@ -251,7 +251,12 @@
       "provider-delete-failed": "Не удалось удалить помощника",
       "request-headers": "Заголовки",
       "request-params": "Параметры запроса",
-      "no-default-provider-warning": "Вы не установили провайдера по умолчанию, поэтому функции ИИ отключены"
+      "no-default-provider-warning": "Вы не установили провайдера по умолчанию, поэтому функции ИИ отключены",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {

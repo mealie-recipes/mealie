@@ -251,7 +251,12 @@
       "provider-delete-failed": "Anbieter konnte nicht gelöscht werden",
       "request-headers": "Anfrage-Header",
       "request-params": "Anfrageparameter",
-      "no-default-provider-warning": "Sie haben keinen Standard-Anbieter gesetzt, daher sind die KI-Funktionen deaktiviert"
+      "no-default-provider-warning": "Sie haben keinen Standard-Anbieter gesetzt, daher sind die KI-Funktionen deaktiviert",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {

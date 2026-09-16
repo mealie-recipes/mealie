@@ -251,7 +251,12 @@
       "provider-delete-failed": "Odstranění providera se nezdařilo",
       "request-headers": "Hlavičky požadavků",
       "request-params": "Parametry požadavků",
-      "no-default-provider-warning": "Nezvolili jste výchozího providera, AI funkce jsou zakázané"
+      "no-default-provider-warning": "Nezvolili jste výchozího providera, AI funkce jsou zakázané",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {
