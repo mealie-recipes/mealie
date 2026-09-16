@@ -39,6 +39,14 @@ from tests.utils.recipe_data import get_recipe_test_cases
 
 recipe_test_data = get_recipe_test_cases()
 
+# Most tests in this module read/mutate the shared `recipe_test_data[0]` object
+# above (e.g. test_rename updates its expected_slug for later tests), so by
+# default they must all run on the same xdist worker, in order. The
+# test_create_recipe_from_zip* tests below are the exception -- each creates
+# its own independent, randomly-named recipe and never touches shared state --
+# so they're individually marked to let xdist schedule them freely instead.
+pytestmark = pytest.mark.xdist_group(name="recipe_crud")
+
 
 @pytest.fixture(scope="module")
 def tempdir() -> Generator[str, None, None]:
@@ -46,16 +54,17 @@ def tempdir() -> Generator[str, None, None]:
         yield td
 
 
+
 def zip_recipe(tempdir: str, recipe: RecipeSummary) -> dict:
     data_file = tempfile.NamedTemporaryFile(mode="w+", dir=tempdir, suffix=".json", delete=False)
     json.dump(json.loads(recipe.model_dump_json()), data_file)
     data_file.flush()
 
-    zip_file = shutil.make_archive(os.path.join(tempdir, "zipfile"), "zip")
-    with ZipFile(zip_file, "w") as zf:
-        zf.write(data_file.name)
+    zip_path = os.path.join(tempdir, "zipfile.zip")
+    with ZipFile(zip_path, "w") as zf:
+        zf.write(data_file.name, arcname=os.path.basename(data_file.name))
 
-    return {"archive": Path(zip_file).read_bytes()}
+    return {"archive": Path(zip_path).read_bytes()}    
 
 
 def get_init(html_path: Path):
@@ -376,6 +385,7 @@ def test_create_by_html_or_json_invalid_data(api_client: TestClient, unique_user
     assert response.json()["detail"]["message"] == ParserErrors.BAD_RECIPE_DATA.value
 
 
+@pytest.mark.xdist_group(name="recipe_crud_zip_1")
 def test_create_recipe_from_zip(api_client: TestClient, unique_user: TestUser, tempdir: str):
     database = unique_user.repos
     recipe_name = random_string()
@@ -394,6 +404,7 @@ def test_create_recipe_from_zip(api_client: TestClient, unique_user: TestUser, t
     assert fetched_recipe
 
 
+@pytest.mark.xdist_group(name="recipe_crud_zip_2")
 def test_create_recipe_from_zip_invalid_group(api_client: TestClient, unique_user: TestUser, tempdir: str):
     database = unique_user.repos
     recipe_name = random_string()
@@ -415,6 +426,7 @@ def test_create_recipe_from_zip_invalid_group(api_client: TestClient, unique_use
     assert str(fetched_recipe.group_id) == str(unique_user.group_id)
 
 
+@pytest.mark.xdist_group(name="recipe_crud_zip_3")
 def test_create_recipe_from_zip_invalid_user(api_client: TestClient, unique_user: TestUser, tempdir: str):
     database = unique_user.repos
     recipe_name = random_string()
@@ -436,6 +448,7 @@ def test_create_recipe_from_zip_invalid_user(api_client: TestClient, unique_user
     assert str(fetched_recipe.user_id) == str(unique_user.user_id)
 
 
+@pytest.mark.xdist_group(name="recipe_crud_zip_4")
 def test_create_recipe_from_zip_existing_category(api_client: TestClient, unique_user: TestUser, tempdir: str):
     database = unique_user.repos
     categories = database.categories.create_many(
@@ -463,6 +476,7 @@ def test_create_recipe_from_zip_existing_category(api_client: TestClient, unique
     assert str(fetched_recipe.recipe_category[0].id) == str(category.id)
 
 
+@pytest.mark.xdist_group(name="recipe_crud_zip_5")
 def test_create_recipe_from_zip_existing_tag(api_client: TestClient, unique_user: TestUser, tempdir: str):
     database = unique_user.repos
     tags = database.tags.create_many(
@@ -490,6 +504,7 @@ def test_create_recipe_from_zip_existing_tag(api_client: TestClient, unique_user
     assert str(fetched_recipe.tags[0].id) == str(tag.id)
 
 
+@pytest.mark.xdist_group(name="recipe_crud_zip_6")
 def test_create_recipe_from_zip_existing_category_wrong_ids(
     api_client: TestClient, unique_user: TestUser, tempdir: str
 ):
@@ -520,6 +535,7 @@ def test_create_recipe_from_zip_existing_category_wrong_ids(
     assert str(fetched_recipe.recipe_category[0].id) == str(category.id)
 
 
+@pytest.mark.xdist_group(name="recipe_crud_zip_7")
 def test_create_recipe_from_zip_existing_tag_wrong_ids(api_client: TestClient, unique_user: TestUser, tempdir: str):
     database = unique_user.repos
     tags = database.tags.create_many(
@@ -548,6 +564,7 @@ def test_create_recipe_from_zip_existing_tag_wrong_ids(api_client: TestClient, u
     assert str(fetched_recipe.tags[0].id) == str(tag.id)
 
 
+@pytest.mark.xdist_group(name="recipe_crud_zip_8")
 def test_create_recipe_from_zip_invalid_category(api_client: TestClient, unique_user: TestUser, tempdir: str):
     database = unique_user.repos
     invalid_name = random_string()
@@ -576,6 +593,7 @@ def test_create_recipe_from_zip_invalid_category(api_client: TestClient, unique_
     assert fetched_recipe.recipe_category[0].slug == invalid_name
 
 
+@pytest.mark.xdist_group(name="recipe_crud_zip_9")
 def test_create_recipe_from_zip_invalid_tag(api_client: TestClient, unique_user: TestUser, tempdir: str):
     database = unique_user.repos
     invalid_name = random_string()
