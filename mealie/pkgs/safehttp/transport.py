@@ -165,7 +165,9 @@ class _SafeTransportMixin:
         # ("old addresses discarded"), so separate entries would leave only the last address
         # and strand hosts whose first-choice family isn't routable here (e.g. AAAA records
         # on a host without IPv6). One comma-joined entry lets curl try them all in order.
-        return [f"{host}:{port}:{','.join(str(ip) for ip in ips)}"]
+        # IPv6 addresses are bracketed so their colons can't be read as field separators.
+        addresses = ",".join(f"[{ip}]" if ip.version == 6 else str(ip) for ip in ips)
+        return [f"{host}:{port}:{addresses}"]
 
     def _warn(self, request: httpx.Request, reason: str) -> None:
         if self._log:
