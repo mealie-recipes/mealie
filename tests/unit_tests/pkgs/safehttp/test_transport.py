@@ -66,10 +66,12 @@ def test_allows_public_host_and_returns_pin(monkeypatch):
 
 
 def test_pin_covers_all_resolved_addresses(monkeypatch):
-    _patch_resolver(monkeypatch, ["93.184.216.34", "93.184.216.35"])
+    # all addresses must share one entry: curl keeps a single cached entry per host:port,
+    # so one entry per address would leave curl only the last address to try
+    _patch_resolver(monkeypatch, ["2606:2800:220:1::1", "93.184.216.34"])
     transport = AsyncSafeTransport()
     resolve = transport._validate(_request("http://example.test/"))
-    assert resolve == ["example.test:80:93.184.216.34", "example.test:80:93.184.216.35"]
+    assert resolve == ["example.test:80:2606:2800:220:1::1,93.184.216.34"]
 
 
 def test_rejects_when_any_resolved_address_is_unsafe(monkeypatch):
