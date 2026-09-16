@@ -251,7 +251,12 @@
       "provider-delete-failed": "Не вдалося видалити постачальника",
       "request-headers": "Заголовки запиту",
       "request-params": "Параметри запиту",
-      "no-default-provider-warning": "Ви не встановили постачальника за замовчуванням, тому ШІ функції вимкнено"
+      "no-default-provider-warning": "Ви не встановили постачальника за замовчуванням, тому ШІ функції вимкнено",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {
