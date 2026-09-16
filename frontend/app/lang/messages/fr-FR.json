@@ -251,7 +251,12 @@
       "provider-delete-failed": "Échec de la suppression du fournisseur",
       "request-headers": "En-têtes de la requête",
       "request-params": "Paramètres de la requête",
-      "no-default-provider-warning": "Vous n'avez pas défini de fournisseur par défaut, donc les fonctionnalités IA sont désactivées"
+      "no-default-provider-warning": "Vous n'avez pas défini de fournisseur par défaut, donc les fonctionnalités IA sont désactivées",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {

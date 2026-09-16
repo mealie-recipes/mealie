@@ -251,7 +251,12 @@
       "provider-delete-failed": "Errore nella rimozione del provider",
       "request-headers": "Header della Richiesta",
       "request-params": "Parametri Della Richiesta",
-      "no-default-provider-warning": "Non hai impostato un provider predefinito, quindi le funzioni AI sono disabilitate"
+      "no-default-provider-warning": "Non hai impostato un provider predefinito, quindi le funzioni AI sono disabilitate",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {

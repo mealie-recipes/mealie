@@ -251,7 +251,12 @@
       "provider-delete-failed": "Brisanje ponudnika ni uspelo",
       "request-headers": "Glave zahtev",
       "request-params": "Parametri zahteve",
-      "no-default-provider-warning": "Niste nastavili privzetega ponudnika, zato so funkcije umetne inteligence onemogočene"
+      "no-default-provider-warning": "Niste nastavili privzetega ponudnika, zato so funkcije umetne inteligence onemogočene",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {

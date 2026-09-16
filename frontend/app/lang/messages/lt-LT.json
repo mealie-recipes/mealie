@@ -251,7 +251,12 @@
       "provider-delete-failed": "Failed to delete provider",
       "request-headers": "Request Headers",
       "request-params": "Request Parameters",
-      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {

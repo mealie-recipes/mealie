@@ -251,7 +251,12 @@
       "provider-delete-failed": "Kunne ikke slette tilbyder",
       "request-headers": "Forespørselshoder",
       "request-params": "Forespørsel Parametere",
-      "no-default-provider-warning": "Du har ikke angitt en standardtilbyder, så AI-funksjoner er deaktivert"
+      "no-default-provider-warning": "Du har ikke angitt en standardtilbyder, så AI-funksjoner er deaktivert",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {
