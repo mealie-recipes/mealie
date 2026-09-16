@@ -176,7 +176,8 @@
     "date-created": "Opprettet dato",
     "date-updated": "Dato oppdatert",
     "key": "Nøkkel",
-    "value": "Verdi"
+    "value": "Verdi",
+    "cant-create-permission": "Kan ikke opprette. Kontakt systemansvarlig for å få tilgang."
   },
   "group": {
     "create-group": "Opprett gruppe",
@@ -250,7 +251,12 @@
       "provider-delete-failed": "Kunne ikke slette tilbyder",
       "request-headers": "Forespørselshoder",
       "request-params": "Forespørsel Parametere",
-      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+      "no-default-provider-warning": "Du har ikke angitt en standardtilbyder, så AI-funksjoner er deaktivert",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {
@@ -276,7 +282,7 @@
     "create-a-new-meal-plan": "Opprett en ny måltidsplan",
     "update-this-meal-plan": "Oppdater denne måltidsplanen",
     "dinner-this-week": "Middag denne uken",
-    "edit-meal-plan": "Edit Meal Plan",
+    "edit-meal-plan": "Rediger måltidsplan",
     "remove-from-plan": "Remove from Meal Plan",
     "meal-planner": "Måltidsplanlegger",
     "any-category": "Enhver kategori",
@@ -339,7 +345,7 @@
     },
     "copymethat": {
       "description-long": "Mealie kan importere oppskrifter fra Copy Me That. Eksporter oppskrifter i HTML-format, last deretter opp .zip-filen under.",
-      "title": "Copy Me That Recipe Manager"
+      "title": "Copy Me That - oppskriftsbehandler"
     },
     "paprika": {
       "description-long": "Mealie kan importere oppskrifter fra Paprika. Eksporter oppskriftene fra Paprika, endre filnavnutvidelsen til .zip og last den opp nedenfor.",
@@ -488,12 +494,13 @@
     "substitutions-with-value": "Substitutions: {substitutions}",
     "choose-substitute-food": "Choose Substitute Food",
     "original-text-with-value": "Opprinnelig tekst: {originalText}",
-    "ingredient-linker": "Tilknytt ingredienser",
     "unlinked": "Ingen lenke enda",
     "linked-to-other-step": "Tilknyttet et annet steg",
     "auto": "Automatisk",
     "cook-mode": "Tilberedelsesmodus",
-    "link-ingredients": "Tilknytt ingredienser",
+    "link-references": "Link references",
+    "linked-notes-with-count": "Linked Notes ({count})",
+    "no-notes-to-link": "No notes to link",
     "merge-above": "Slå sammen med steget over",
     "move-to-bottom": "Flytt til bunnen",
     "move-to-top": "Flytt til toppen",
@@ -600,6 +607,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Prosessor for naturlig språk",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Enkel analyse",
       "openai-parser": "OpenAI-analyse",
       "missing-unit": "Opprett manglende enhet: {unit}",

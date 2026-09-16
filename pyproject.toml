@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.25.1"
+version = "3.26.0"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -24,7 +24,7 @@ dependencies = [
     "python-dotenv==1.2.3",
     "python-ldap==3.4.7",
     "python-multipart==0.0.32",
-    "python-slugify==8.0.4",
+    "python-slugify==9.0.0",
     "recipe-scrapers==15.12.0",
     "requests==2.34.2",
     "tzdata==2026.3",
@@ -37,14 +37,14 @@ dependencies = [
     "html2text==2025.4.15",
     "paho-mqtt==1.6.1",
     "pydantic-settings==2.15.0",
-    "pillow-heif==1.6.0",
-    "pyjwt==2.13.0",
-    "openai==3.8.0",
+    "pillow-heif==1.7.0",
+    "pyjwt==2.14.0",
+    "openai==3.13.0",
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.8.19",
     "ingredient-parser-nlp==2.7.0",
-    "pint==0.25.3",
+    "pint==0.26.1",
     "httpx-curl-cffi==0.1.5",
 ]
 
@@ -53,7 +53,7 @@ mealie = "mealie.main:main"
 
 [project.optional-dependencies]
 pgsql = [
-    "psycopg2-binary==2.9.12"
+    "psycopg2-binary==2.9.13"
 ]
 
 [dependency-groups]
@@ -70,11 +70,11 @@ dev = [
     "pytest==9.1.1",
     "pytest-asyncio==1.4.0",
     "rich==15.0.0",
-    "ruff==0.16.6",
-    "types-PyYAML==6.0.12.20260815",
+    "ruff==0.16.7",
+    "types-PyYAML==6.0.12.20260906",
     "types-python-dateutil==2.9.0.20260807",
     "types-python-slugify==8.0.2.20240310",
-    "types-requests==2.33.0.20260712",
+    "types-requests==2.33.0.20260906",
     "types-urllib3==1.26.25.14",
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",

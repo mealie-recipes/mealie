@@ -176,7 +176,8 @@
     "date-created": "Datum aangemaakt",
     "date-updated": "Datum bijgewerkt",
     "key": "Sleutel",
-    "value": "Waarde"
+    "value": "Waarde",
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
   },
   "group": {
     "create-group": "Groep aanmaken",
@@ -250,7 +251,12 @@
       "provider-delete-failed": "Verwijderen van aanbieder mislukt",
       "request-headers": "Aanvraagheaders",
       "request-params": "Aanvraag parameters",
-      "no-default-provider-warning": "Je hebt geen standaard aanbieder ingesteld, AI-functies zijn uitgeschakeld"
+      "no-default-provider-warning": "Je hebt geen standaard aanbieder ingesteld, AI-functies zijn uitgeschakeld",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {
@@ -488,12 +494,13 @@
     "substitutions-with-value": "Substitutions: {substitutions}",
     "choose-substitute-food": "Choose Substitute Food",
     "original-text-with-value": "Oorspronkelijke tekst: {originalText}",
-    "ingredient-linker": "Ingrediëntenkoppelaar",
     "unlinked": "Nog niet gelinkt",
     "linked-to-other-step": "Gekoppeld aan andere stap",
     "auto": "Automatisch",
     "cook-mode": "Kookmodus",
-    "link-ingredients": "Koppel ingrediënten",
+    "link-references": "Link references",
+    "linked-notes-with-count": "Linked Notes ({count})",
+    "no-notes-to-link": "No notes to link",
     "merge-above": "Samenvoegen met bovenstaande",
     "move-to-bottom": "Verplaats naar onderen",
     "move-to-top": "Verplaats naar begin",
@@ -600,6 +607,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Natuurlijke taalverwerker",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
       "brute-parser": "Ruwe ontleder",
       "openai-parser": "OpenAI ontleder",
       "missing-unit": "Maak ontbrekende eenheid aan: {unit}",

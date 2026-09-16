@@ -176,7 +176,8 @@
     "date-created": "Datum nastanka",
     "date-updated": "Datum posodobitve",
     "key": "Ključ",
-    "value": "Vrednost"
+    "value": "Vrednost",
+    "cant-create-permission": "Ustvarjanje ni mogoče. Za pridobitev dovoljenja se obrnite na skrbnika."
   },
   "group": {
     "create-group": "Ustvari skupino",
@@ -250,7 +251,12 @@
       "provider-delete-failed": "Brisanje ponudnika ni uspelo",
       "request-headers": "Glave zahtev",
       "request-params": "Parametri zahteve",
-      "no-default-provider-warning": "Niste nastavili privzetega ponudnika, zato so funkcije umetne inteligence onemogočene"
+      "no-default-provider-warning": "Niste nastavili privzetega ponudnika, zato so funkcije umetne inteligence onemogočene",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {
@@ -488,12 +494,13 @@
     "substitutions-with-value": "Zamenjave: {substitutions}",
     "choose-substitute-food": "Izberite nadomestno hrano",
     "original-text-with-value": "Originalno besedilo: {originalText}",
-    "ingredient-linker": "Povezovanje sestavin",
     "unlinked": "Še ni povezano",
     "linked-to-other-step": "Povezano s naslednjim korakom",
     "auto": "Samodejno",
     "cook-mode": "Način kuhanja",
-    "link-ingredients": "Poveži sestavine",
+    "link-references": "Povezave do virov",
+    "linked-notes-with-count": "Povezane opombe ({count})",
+    "no-notes-to-link": "Ni zapiskov za povezavo",
     "merge-above": "Združi skupaj",
     "move-to-bottom": "Premakni na dno",
     "move-to-top": "Premakni na vrh",
@@ -600,6 +607,7 @@
       "dont-show-again": "Tega ne prikaži več",
       "try-again-with-parser": "Poskusite znova z {parser}",
       "natural-language-processor": "Procesor naravnega jezika",
+      "natural-language-processor-english-only": "Orodje za obdelavo naravnega jezika je usposobljeno na receptih v angleščini. Pri receptih v drugih jezikih običajno prepozna količino, ne pa tudi enote, zato Brute Parser ali OpenAI Parser običajno zagotavljata boljše rezultate.",
       "brute-parser": "Surov razčlenjevalnik",
       "openai-parser": "Razčlenjevalnik OpenAI",
       "missing-unit": "Ustvari manjkajočo enoto: {unit}",
