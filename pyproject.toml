@@ -39,12 +39,12 @@ dependencies = [
     "pydantic-settings==2.15.0",
     "pillow-heif==1.7.0",
     "pyjwt==2.13.0",
-    "openai==3.11.0",
+    "openai==3.13.0",
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.8.19",
     "ingredient-parser-nlp==2.7.0",
-    "pint==0.25.3",
+    "pint==0.26.1",
     "httpx-curl-cffi==0.1.5",
 ]
 
@@ -70,7 +70,7 @@ dev = [
     "pytest==9.1.1",
     "pytest-asyncio==1.4.0",
     "rich==15.0.0",
-    "ruff==0.16.6",
+    "ruff==0.16.7",
     "types-PyYAML==6.0.12.20260906",
     "types-python-dateutil==2.9.0.20260807",
     "types-python-slugify==8.0.2.20240310",

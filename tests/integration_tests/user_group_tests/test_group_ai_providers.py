@@ -7,9 +7,33 @@ from uuid import uuid4
 from fastapi.testclient import TestClient
 
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
+from mealie.services.openai import OpenAIService
 from tests.utils import api_routes
 from tests.utils.factories import random_string, user_registration_factory
 from tests.utils.fixture_schemas import TestUser
+
+
+class _FakeOpenAIText:
+    def __init__(self, text: str):
+        self.text = text
+
+
+def _patch_ping(monkeypatch, *, succeeds: bool, error: str = "", image_matches_recipe: bool = True) -> None:
+    """
+    Stand in for OpenAIService.ping() (used for both the text and image legs of test_connection)
+    so tests never make a real network call.
+    """
+
+    async def _fake_ping(self, provider, message, images=None):
+        if not succeeds:
+            raise Exception(error)
+        if images:
+            text = "This shows a Tomato & Egg Stir-Fry recipe." if image_matches_recipe else "I'm not sure."
+            return _FakeOpenAIText(text)
+        return _FakeOpenAIText("Hello!")
+
+    monkeypatch.setattr(OpenAIService, "ping", _fake_ping)
+
 
 # ==========================================
 # Provider CRUD
@@ -554,6 +578,154 @@ def test_api_key_not_in_groups_self_response(api_client: TestClient, unique_user
         assert "groups-self-secret" not in str(data)
     finally:
         api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
+# ==========================================
+# Provider connectivity test
+# ==========================================
+
+
+def test_test_unsaved_provider_success(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    _patch_ping(monkeypatch, succeeds=True)
+
+    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
+    response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=unique_user.token)
+    assert response.status_code == 200
+
+    result = response.json()
+    assert result["success"] is True
+    assert result["supportsImages"] is True
+
+
+def test_test_unsaved_provider_failure(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    _patch_ping(monkeypatch, succeeds=False, error="invalid api key")
+
+    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "wrong-key"}
+    response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=unique_user.token)
+    # A failed connectivity check is a normal response, not an HTTP error
+    assert response.status_code == 200
+
+    result = response.json()
+    assert result["success"] is False
+    # The error is identified by type, without relaying what the provider actually returned
+    assert result["message"] == "Exception"
+    assert "invalid api key" not in result["message"]
+    assert result["supportsImages"] is None
+
+
+def test_test_unsaved_provider_reports_text_only_provider(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    # Connection works, but the reply to the follow-up image doesn't mention the bundled test
+    # recipe - e.g. a text-only model. That's capability info, not a failed connection.
+    _patch_ping(monkeypatch, succeeds=True, image_matches_recipe=False)
+
+    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
+    response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=unique_user.token)
+    assert response.status_code == 200
+
+    result = response.json()
+    assert result["success"] is True
+    assert result["supportsImages"] is False
+
+
+def test_test_unsaved_provider_never_persists(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    _patch_ping(monkeypatch, succeeds=True)
+
+    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
+    response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=unique_user.token)
+    assert response.status_code == 200
+
+    settings_response = api_client.get(api_routes.groups_ai_providers_settings, headers=unique_user.token)
+    assert settings_response.json()["providers"] == []
+
+
+def test_test_saved_provider_success(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    provider = unique_user.repos.group_ai_providers.create(
+        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
+    )
+    _patch_ping(monkeypatch, succeeds=True)
+
+    try:
+        response = api_client.post(
+            api_routes.groups_ai_providers_providers_provider_id_test(provider.id), headers=unique_user.token
+        )
+        assert response.status_code == 200
+        assert response.json()["success"] is True
+    finally:
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
+def test_test_saved_provider_uses_override_values(api_client: TestClient, unique_user: TestUser, monkeypatch):
+    # Simulates editing a provider (changing the model) and testing before saving, without
+    # entering a new API key. The override's model should be what actually gets tested, not the
+    # one still in the database, and the saved API key should still be used since none was given.
+    provider = unique_user.repos.group_ai_providers.create(
+        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="original-key")
+    )
+
+    seen_providers = []
+
+    async def _fake_ping(self, provider, message, images=None):
+        seen_providers.append(provider)
+        return _FakeOpenAIText("Hello!") if not images else _FakeOpenAIText("Tomato & Egg Stir-Fry")
+
+    monkeypatch.setattr(OpenAIService, "ping", _fake_ping)
+
+    try:
+        overrides = {"name": provider.name, "model": "gpt-4o-mini"}  # no apiKey - keep the saved one
+        response = api_client.post(
+            api_routes.groups_ai_providers_providers_provider_id_test(provider.id),
+            json=overrides,
+            headers=unique_user.token,
+        )
+        assert response.status_code == 200
+        assert response.json()["success"] is True
+
+        assert seen_providers
+        assert all(p.model == "gpt-4o-mini" for p in seen_providers)
+        assert all(p.api_key == "original-key" for p in seen_providers)
+    finally:
+        api_client.delete(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=unique_user.token)
+
+
+def test_test_saved_provider_not_found(api_client: TestClient, unique_user: TestUser):
+    response = api_client.post(
+        api_routes.groups_ai_providers_providers_provider_id_test(uuid4()), headers=unique_user.token
+    )
+    assert response.status_code == 404
+
+
+def test_test_unsaved_provider_requires_can_manage(api_client: TestClient, user_tuple: list[TestUser]):
+    usr, _ = user_tuple
+
+    user = usr.repos.users.get_one(usr.user_id)
+    assert user
+    user.can_manage = False
+    usr.repos.users.update(user.id, user)
+
+    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
+    response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=usr.token)
+    assert response.status_code == 403
+
+
+def test_test_saved_provider_requires_can_manage(api_client: TestClient, user_tuple: list[TestUser]):
+    usr, _ = user_tuple
+
+    provider = usr.repos.group_ai_providers.create(
+        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
+    )
+
+    user = usr.repos.users.get_one(usr.user_id)
+    assert user
+    user.can_manage = False
+    usr.repos.users.update(user.id, user)
+
+    try:
+        response = api_client.post(
+            api_routes.groups_ai_providers_providers_provider_id_test(provider.id), headers=usr.token
+        )
+        assert response.status_code == 403
+    finally:
+        usr.repos.group_ai_providers.delete(provider.id)
 
 
 # ==========================================
