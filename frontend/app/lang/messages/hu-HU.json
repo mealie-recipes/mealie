@@ -252,11 +252,11 @@
       "request-headers": "Kérés fejléce",
       "request-params": "Kérelem paraméterek",
       "no-default-provider-warning": "Mivel nem állított be alapértelmezett szolgáltatót, az AI-funkciók le vannak tiltva",
-      "test-connection": "Test Connection",
-      "test-connection-succeeded": "Connection successful",
-      "test-connection-failed": "Connection failed",
-      "supports-images": "Supports images",
-      "text-only-provider": "Text-only, can't be your image provider"
+      "test-connection": "Kapcsolat tesztelése",
+      "test-connection-succeeded": "Sikeres kapcsolódás",
+      "test-connection-failed": "Sikertelen kapcsolódás",
+      "supports-images": "Képek támogatása",
+      "text-only-provider": "Csak szöveges tartalom érhető el, képeket nem tud biztosítani"
     }
   },
   "household": {
