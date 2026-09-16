@@ -161,7 +161,11 @@ class _SafeTransportMixin:
         if literal is not None:
             # curl connects straight to the literal address; nothing to pin.
             return None
-        return [f"{host}:{port}:{ip}" for ip in ips]
+        # Every address goes in one entry: curl keeps a single cached entry per host:port
+        # ("old addresses discarded"), so separate entries would leave only the last address
+        # and strand hosts whose first-choice family isn't routable here (e.g. AAAA records
+        # on a host without IPv6). One comma-joined entry lets curl try them all in order.
+        return [f"{host}:{port}:{','.join(str(ip) for ip in ips)}"]
 
     def _warn(self, request: httpx.Request, reason: str) -> None:
         if self._log:
