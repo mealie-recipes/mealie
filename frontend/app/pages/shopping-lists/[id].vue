@@ -70,7 +70,7 @@
       </v-card>
     </BaseDialog>
 
-    <BasePageTitle divider :class="{ 'shopping-list-title--condensed': preferences.condensed }">
+    <BasePageTitle divider class="shopping-list-title">
       <template #header>
         <v-container class="px-0">
           <v-row no-gutters>
@@ -115,11 +115,6 @@
                   event: 'three-dot',
                   children: [
                     {
-                      icon: preferences.condensed ? $globals.icons.arrowExpandVertical : $globals.icons.arrowCollapseVertical,
-                      text: preferences.condensed ? $t('shopping-list.default-view') : $t('shopping-list.condensed-view'),
-                      event: 'toggle-condensed',
-                    },
-                    {
                       icon: preferences.hideLabels ? $globals.icons.eye : $globals.icons.eyeOff,
                       text: preferences.hideLabels ? $t('shopping-list.show-labels') : $t('shopping-list.hide-labels'),
                       event: 'toggle-hide-labels',
@@ -139,7 +134,6 @@
               ]"
               @edit="edit = true"
               @three-dot="threeDot = true"
-              @toggle-condensed="preferences.condensed = !preferences.condensed"
               @toggle-hide-labels="preferences.hideLabels = !preferences.hideLabels"
               @check="openCheckAll"
               @copy-plain="copyListItems('plain')"
@@ -163,11 +157,8 @@
     <!-- Viewer -->
     <section
       v-if="!edit"
-      class="py-2 d-flex flex-column"
-      :class="[
-        preferences.condensed ? 'ga-1 shopping-list--condensed' : 'ga-4',
-        preferences.hideLabels ? 'shopping-list--hide-labels' : '',
-      ]"
+      class="py-2 d-flex flex-column ga-1 shopping-list-view"
+      :class="preferences.hideLabels ? 'shopping-list--hide-labels' : ''"
     >
       <!-- Create Item -->
       <ShoppingListAddItemForm
@@ -207,11 +198,11 @@
       <TransitionGroup name="scroll-x-transition">
         <BaseExpansionPanels v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" start-open>
           <v-expansion-panel class="shopping-list-section">
-            <!-- the label colour is the header's fill in both views; condensed only slims the bar -->
+            <!-- the label colour fills the header bar; an uncoloured (or unlabelled) header is muted instead -->
             <v-expansion-panel-title
               :color="getLabelColor(key)"
               class="body-1 section-title"
-              :class="preferences.condensed ? (getLabelColor(key) ? '' : 'text-medium-emphasis') : 'font-weight-bold'"
+              :class="getLabelColor(key) ? '' : 'text-medium-emphasis'"
             >
               {{ key }}
             </v-expansion-panel-title>
@@ -457,20 +448,9 @@ const {
   max-width: 50px;
 }
 
-.shopping-list-section {
-  .section-title {
-    font-size: 1rem;
-    min-height: 48px !important;
-  }
-
-  .v-expansion-panel-text__wrapper {
-    padding: 0;
-  }
-}
-
-/* Condensed view: the page header reserves room for an icon row, a subtitle and generous
-   margins; pull those in so the list starts near the top of the screen */
-.shopping-list-title--condensed {
+/* The page header reserves room for an icon row, a subtitle and generous margins; pull
+   those in so the list starts near the top of the screen */
+.shopping-list-title {
   margin-top: 0 !important;
 
   .v-container {
@@ -493,9 +473,9 @@ const {
   }
 }
 
-/* Condensed view: strip most of the vertical padding so more items fit on a phone screen,
-   and lean on indentation (label header flush left, items inset) to keep sections readable */
-.shopping-list--condensed {
+/* Strip most of the vertical padding so more items fit on a phone screen, and lean on
+   indentation (label header flush left, items inset) to keep sections readable */
+.shopping-list-view {
   /* slim header: regular weight and a low bar, keeping the label colour as its fill */
   .shopping-list-section .section-title {
     min-height: 30px !important;
