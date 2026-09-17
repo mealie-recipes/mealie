@@ -115,7 +115,7 @@
       </v-card>
       <WakelockSwitch />
       <RecipePageComments
-        v-if="!recipe.settings?.disableComments && !isEditForm && !isCookMode"
+        v-if="!disableComments && !isEditForm && !isCookMode"
         v-model="recipe"
         class="px-1 my-4 d-print-none"
       />
@@ -252,6 +252,7 @@ import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useNavigationWarning } from "~/composables/use-navigation-warning";
 import { useUnitConversion, useUnitSystem } from "~/composables/recipes";
+import { useHouseholdSelf } from "~/composables/use-households";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 
@@ -259,6 +260,14 @@ const display = useDisplay();
 const auth = useMealieAuth();
 const route = useRoute();
 const { isOwnGroup } = useLoggedInState();
+
+const { household } = useHouseholdSelf();
+
+const disableComments = computed(() =>
+  household.value?.preferences?.recipeDisableComments
+  || recipe.value?.settings?.disableComments
+  || false,
+);
 
 const groupSlug = computed(() => (route.params.groupSlug as string) || auth.user?.value?.groupSlug || "");
 const ingredientStorageKey = computed(() => `recipe-ingredients:${recipe.value.id || recipe.value.slug}:checked`);
@@ -509,7 +518,7 @@ function addStep(steps: Array<string> | null = null) {
 
   if (steps) {
     const cleanedSteps = steps.map((step) => {
-      return { id: uuid4(), text: step, title: "", summary: "", ingredientReferences: [] };
+      return { id: uuid4(), text: step, title: "", summary: "", ingredientReferences: [], noteReferences: [] };
     });
 
     recipe.value.recipeInstructions.push(...cleanedSteps);
@@ -521,6 +530,7 @@ function addStep(steps: Array<string> | null = null) {
       title: "",
       summary: "",
       ingredientReferences: [],
+      noteReferences: [],
     });
   }
 }

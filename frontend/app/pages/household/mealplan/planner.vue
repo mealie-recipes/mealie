@@ -29,7 +29,7 @@
         </template>
 
         <v-card>
-          <v-date-picker
+          <MealPlanDatePicker
             v-model="state.range"
             hide-header
             :multiple="'range'"
