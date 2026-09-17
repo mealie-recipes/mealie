@@ -28,8 +28,17 @@ def test_public_recipes_reject_household_last_made_queries(api_client: TestClien
     response = api_client.get(route, params={"queryFilter": "lastMade IS NOT NULL"})
     assert response.status_code == 400
 
+    response = api_client.get(route, params={"queryFilter": 'name IS "last_made"'})
+    assert response.status_code == 400
+
     response = api_client.get(
         api_routes.explore_groups_group_slug_recipes_suggestions(group.slug), params={"orderBy": "lastMade"}
+    )
+    assert response.status_code == 400
+
+    response = api_client.get(
+        api_routes.explore_groups_group_slug_recipes_suggestions(group.slug),
+        params={"queryFilter": 'name IS "last_made"'},
     )
     assert response.status_code == 400
 

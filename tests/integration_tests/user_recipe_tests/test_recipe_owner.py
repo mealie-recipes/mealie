@@ -122,7 +122,9 @@ def test_user_update_last_made(api_client: TestClient, user_tuple: list[TestUser
     assert response.status_code == 200
     assert response.json()["lastMade"] == last_made_json["timestamp"]
 
-    earlier_last_made_json = {"timestamp": (datetime.now(UTC) - timedelta(days=1)).isoformat()}
+    earlier_last_made_json = {
+        "timestamp": (datetime.now(UTC) - timedelta(days=1)).isoformat().replace("+00:00", "Z")
+    }
     response = api_client.patch(
         api_routes.recipes_slug_last_made(recipe_name), json=earlier_last_made_json, headers=usr_2.token
     )
@@ -130,7 +132,7 @@ def test_user_update_last_made(api_client: TestClient, user_tuple: list[TestUser
 
     response = api_client.get(api_routes.households_self_recipes_recipe_slug(recipe_name), headers=usr_2.token)
     assert response.status_code == 200
-    assert response.json()["lastMade"] == last_made_json["timestamp"]
+    assert response.json()["lastMade"] == earlier_last_made_json["timestamp"]
 
     response = api_client.get(api_routes.recipes + f"/{recipe_name}", headers=usr_1.token)
     assert response.status_code == 200

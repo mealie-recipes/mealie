@@ -308,7 +308,10 @@ async function createTimelineEvent() {
 
     if (newTimelineEvent.value.timestamp) {
       try {
-        await userApi.recipes.updateLastMade(childRecipe.slug || "", newTimelineEvent.value.timestamp);
+        const { data } = await userApi.households.getCurrentUserHouseholdRecipe(childRecipe.slug || "");
+        if (!data?.lastMade || newTimelineEvent.value.timestamp > data.lastMade) {
+          await userApi.recipes.updateLastMade(childRecipe.slug || "", newTimelineEvent.value.timestamp);
+        }
       }
       catch (error) {
         console.error(`Failed to update last made date for child recipe ${childRecipe.slug}:`, error);

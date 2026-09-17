@@ -103,7 +103,12 @@ class RepositoryRecipes(HouseholdRepositoryGeneric[Recipe, RecipeModel]):
             raise HTTPException(400, "last_made is only available for authenticated household queries")
 
         if query.query_filter:
-            builder = QueryFilterBuilder(query.query_filter)
+            try:
+                builder = QueryFilterBuilder(query.query_filter)
+            except ValueError:
+                # Let the existing query filter handling return the API's normal 400 response.
+                return
+
             if any(
                 getattr(component, "attribute_name", None) == "last_made" for component in builder.filter_components
             ):
