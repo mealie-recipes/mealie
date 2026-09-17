@@ -1350,3 +1350,68 @@ def test_bulk_modify_shopping_list_items_updates_shopping_list(
     )
     assert updated_list and updated_list.updated_at
     assert updated_list.updated_at > last_update_at
+
+
+def test_shopping_lists_add_recipe_on_hand_food(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
+):
+    shopping_list = random.choice(shopping_lists)
+    database = unique_user.repos
+
+    household = database.households.get_by_slug_or_id(unique_user.household_id)
+    assert household
+    on_hand_food = database.ingredient_foods.create(
+        SaveIngredientFood(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+            households_with_ingredient_food=[household.slug],
+        )
+    )
+    other_food = database.ingredient_foods.create(
+        SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id)
+    )
+    recipe: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note=random_string(10), food=on_hand_food, quantity=1),
+                RecipeIngredient(note=random_string(10), food=other_food, quantity=1),
+            ],
+        )
+    )
+
+    # without explicit ingredients, on hand foods are left off the list
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
+        json=utils.jsonify([ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id).model_dump()]),
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.households_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
+    as_json = utils.assert_deserialize(response, 200)
+    assert len(as_json["listItems"]) == 1
+    assert as_json["listItems"][0]["foodId"] == str(other_food.id)
+
+    # explicitly selected ingredients are added even if the food is on hand
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
+        json=utils.jsonify(
+            [
+                ShoppingListAddRecipeParamsBulk(
+                    recipe_id=recipe.id, recipe_ingredients=recipe.recipe_ingredient
+                ).model_dump()
+            ]
+        ),
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.households_shopping_lists_item_id(shopping_list.id), headers=unique_user.token)
+    as_json = utils.assert_deserialize(response, 200)
+    food_ids = {item["foodId"] for item in as_json["listItems"]}
+    assert food_ids == {str(on_hand_food.id), str(other_food.id)}
