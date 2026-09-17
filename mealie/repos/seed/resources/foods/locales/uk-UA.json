@@ -2511,62 +2511,62 @@
             "manouri cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "manouri cheese",
-                "plural_name": "manouri cheese"
+                "name": "сир манурі",
+                "plural_name": "сири манурі"
             },
             "mimolette cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "mimolette cheese",
-                "plural_name": "mimolette cheese"
+                "name": "сир мімолет",
+                "plural_name": "сири мімолет"
             },
             "queso quesadilla cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "queso quesadilla cheese",
-                "plural_name": "queso quesadilla cheese"
+                "name": "сир кесо кесаділья",
+                "plural_name": "сири кесо кесаділья"
             },
             "caciocavallo cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "caciocavallo cheese",
-                "plural_name": "caciocavalloe cheese"
+                "name": "сир качокавалло",
+                "plural_name": "сири качокавалло"
             },
             "requeijão cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "requeijão cheese",
-                "plural_name": "requeijãoe cheese"
+                "name": "сир рекейжан",
+                "plural_name": "сири рекейжан"
             },
             "vacherin cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "vacherin cheese",
-                "plural_name": "vacherin cheese"
+                "name": "сир вашран",
+                "plural_name": "сири вашран"
             },
             "brown cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "brown cheese",
-                "plural_name": "brown cheese"
+                "name": "сир брюност",
+                "plural_name": "сири брюност"
             },
             "gloucester cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "gloucester cheese",
-                "plural_name": "gloucester cheese"
+                "name": "сир глостер",
+                "plural_name": "сири глостер"
             },
             "port salut cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "port salut cheese",
-                "plural_name": "port salut cheese"
+                "name": "сир пор-салю",
+                "plural_name": "сири пор-салю"
             },
             "derby cheese": {
                 "aliases": [],
                 "description": "",
-                "name": "derby cheese",
-                "plural_name": "derby cheese"
+                "name": "сир дерби",
+                "plural_name": "сири дерби"
             },
             "fontal cheese": {
                 "aliases": [],
@@ -3284,13 +3284,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "Рисове молоко",
-                "plural_name": "rice milk"
+                "plural_name": "рисового молока"
             },
             "vegan sour cream": {
                 "aliases": [],
                 "description": "",
                 "name": "Веганська сметана",
-                "plural_name": "vegan sour cream"
+                "plural_name": "веганської сметани"
             },
             "textured vegetable protein": {
                 "aliases": [],
@@ -3332,7 +3332,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Кокосові збиті вершки",
-                "plural_name": "coconut whipped cream"
+                "plural_name": "кокосових збитих вершків"
             },
             "smoked tofu": {
                 "aliases": [],
@@ -3344,7 +3344,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "Кокосова пудра",
-                "plural_name": "coconut powder"
+                "plural_name": "кокосової пудри"
             },
             "soy cream": {
                 "aliases": [],
