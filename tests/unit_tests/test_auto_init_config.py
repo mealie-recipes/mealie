@@ -39,3 +39,8 @@ def test_get_config_preserves_default_exclude_for_unrelated_config_keys():
     cfg = _get_config(_OtherConfigKeyOnly)
     assert cfg.get_attr == "slug"
     assert cfg.exclude == {"id"}
+
+
+def test_get_config_without_primary_key_protection_uses_custom_exclude_as_is():
+    cfg = _get_config(_CustomExcludeOnly, protect_primary_key=False)
+    assert cfg.exclude == {"households_with_ingredient_food"}
