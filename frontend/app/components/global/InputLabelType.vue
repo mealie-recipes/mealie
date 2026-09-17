@@ -42,7 +42,7 @@ import { useSearch } from "~/composables/use-search";
 const modelValue = defineModel<MultiPurposeLabelSummary | IngredientFood | IngredientUnit | null>({ default: () => null });
 
 // support v-model:item-id binding
-const itemId = defineModel<string | undefined>("item-id", { default: undefined });
+const itemId = defineModel<string | null | undefined>("item-id", { default: undefined });
 
 const props = defineProps({
   items: {
@@ -81,7 +81,7 @@ const itemVal = computed({
     return modelValue.value;
   },
   set: (val) => {
-    itemId.value = val?.id || "";
+    itemId.value = val?.id ?? null;
     modelValue.value = val;
   },
 });

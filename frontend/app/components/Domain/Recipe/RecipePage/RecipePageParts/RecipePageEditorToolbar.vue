@@ -4,7 +4,7 @@
       class="my-2"
       :slug="recipe.slug"
       @upload="uploadImage"
-      @refresh="imageKey++"
+      @refresh="refreshImage"
       @delete="deleteImage"
     />
     <RecipeSettingsMenu
@@ -76,6 +76,13 @@ async function uploadImage(fileObject: File) {
   const newVersion = await api.recipes.updateImage(recipe.value.slug, fileObject);
   if (newVersion?.data?.image) {
     recipe.value.image = newVersion.data.image;
+  }
+  imageKey.value++;
+}
+
+function refreshImage(image: string) {
+  if (image) {
+    recipe.value.image = image;
   }
   imageKey.value++;
 }

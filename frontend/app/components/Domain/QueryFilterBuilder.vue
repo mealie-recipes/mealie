@@ -126,10 +126,11 @@
             />
             <v-number-input
               v-else-if="field.type === 'number'"
-              :model-value="field.value"
+              :model-value="field.value as number || 0"
               variant="underlined"
-              control-variant="stacked"
               inset
+              :min="0"
+              :max="5"
               :precision="null"
               @update:model-value="setFieldValue(field, index, $event)"
             />
@@ -174,7 +175,6 @@
               :model-value="parseRelativeDateOffset(field.value)"
               :suffix="$t('query-filter.dates.days-ago', parseRelativeDateOffset(field.value))"
               variant="underlined"
-              control-variant="stacked"
               density="compact"
               inset
               :min="0"
@@ -236,6 +236,16 @@
               v-else-if="field.type === Organizer.User"
               v-model="field.organizers"
               :selector-type="Organizer.User"
+              :show-add="false"
+              :show-label="false"
+              :show-icon="false"
+              variant="underlined"
+              @update:model-value="val => setFieldOrganizers(field, index, (val || []) as OrganizerBase[])"
+            />
+            <RecipeOrganizerSelector
+              v-else-if="field.type === Organizer.Label"
+              v-model="field.organizers"
+              :selector-type="Organizer.Label"
               :show-add="false"
               :show-label="false"
               :show-icon="false"
@@ -317,7 +327,7 @@ import type {
   RelationalKeyword,
   RelationalOperator,
 } from "~/lib/api/types/non-generated";
-import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
+import { useCategoryStore, useFoodStore, useHouseholdStore, useLabelStore, useTagStore, useToolStore } from "~/composables/store";
 import { useUserStore } from "~/composables/store/use-user-store";
 import { type Field, type FieldDefinition, type FieldValue, type OrganizerBase, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";
 
@@ -364,6 +374,7 @@ const storeMap = {
   [Organizer.Tag]: useTagStore(),
   [Organizer.Tool]: useToolStore(),
   [Organizer.Food]: useFoodStore(),
+  [Organizer.Label]: useLabelStore(),
   [Organizer.Household]: useHouseholdStore(),
   [Organizer.User]: useUserStore(),
 };

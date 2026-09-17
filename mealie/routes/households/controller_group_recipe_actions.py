@@ -1,11 +1,12 @@
 from functools import cached_property
 
-import requests
 from fastapi import APIRouter, BackgroundTasks, Body, Depends, HTTPException, status
 from fastapi.encoders import jsonable_encoder
 from pydantic import UUID4
 
+from mealie.core.config import get_app_settings
 from mealie.core.exceptions import NoEntryFound
+from mealie.pkgs import safehttp
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
@@ -79,7 +80,7 @@ class GroupRecipeActionController(BaseUserController):
             )
 
         if recipe_action.action_type == GroupRecipeActionType.post.value:
-            task_action = requests.post
+            task_action = safehttp.post
         else:
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST,
@@ -95,10 +96,13 @@ class GroupRecipeActionController(BaseUserController):
                 detail=ErrorResponse.respond(message="Not found."),
             ) from e
 
+        settings = get_app_settings()
         payload = GroupRecipeActionPayload(action=recipe_action, content=recipe, recipe_scale=recipe_scale)
         bg_tasks.add_task(
             task_action,
             url=recipe_action.url,
             json=jsonable_encoder(payload.model_dump()),
             timeout=15,
+            allow_hosts=settings.http_allow_list,
+            deny_hosts=settings.http_disallow_list,
         )

@@ -7411,7 +7411,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement pour bouillir le crabe",
-                "plural_name": "crab boil seasoning"
+                "plural_name": "assaisonnements pour crabe bouilli"
             },
             "shichimi togarashi": {
                 "aliases": [],
@@ -7453,7 +7453,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement chipotle",
-                "plural_name": "chipotle seasoning"
+                "plural_name": "assaisonnements au chipotle"
             },
             "meat masala": {
                 "aliases": [],
@@ -7489,13 +7489,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement pour tacos au poulet",
-                "plural_name": "chicken taco seasoning"
+                "plural_name": "assaisonnements pour tacos au poulet"
             },
             "mushroom seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement aux champignons",
-                "plural_name": "mushroom seasoning"
+                "plural_name": "assaisonnement aux champignons"
             },
             "au jus mix": {
                 "aliases": [],
@@ -7513,7 +7513,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement pour popcorn",
-                "plural_name": "popcorn seasoning"
+                "plural_name": "assaisonnement de maïs soufflé"
             },
             "berbere": {
                 "aliases": [],
@@ -7525,7 +7525,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement chili-lime",
-                "plural_name": "chili-lime seasoning"
+                "plural_name": "assaisonnements au chipotle"
             },
             "brown miso": {
                 "aliases": [],
@@ -7537,13 +7537,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement blackened",
-                "plural_name": "blackening seasoning"
+                "plural_name": "assaisonnement noircissant"
             },
             "pizza seasoning": {
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement pour pizza",
-                "plural_name": "pizza seasoning"
+                "plural_name": "assaisonnement pizza"
             },
             "fines herbe": {
                 "aliases": [],
@@ -7555,7 +7555,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement shawarma",
-                "plural_name": "shawarma seasoning"
+                "plural_name": "assaisonnement shawarma"
             },
             "chai masala": {
                 "aliases": [],
@@ -7579,7 +7579,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement citron et fines herbes",
-                "plural_name": "lemon & herb seasoning"
+                "plural_name": "assaisonnement au citron et aux herbes"
             },
             "vanilla salt": {
                 "aliases": [],
@@ -7591,7 +7591,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement thaï",
-                "plural_name": "thai seasoning"
+                "plural_name": "assaisonnement thaï"
             },
             "mulling spice": {
                 "aliases": [],
@@ -7603,7 +7603,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "assaisonnement sriracha",
-                "plural_name": "sriracha seasoning"
+                "plural_name": "assaisonnement sriracha"
             },
             "coffee rub": {
                 "aliases": [],
@@ -7615,7 +7615,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "sel hawaïen",
-                "plural_name": "hawaiian salt"
+                "plural_name": "sel hawaiien"
             },
             "mesquite seasoning": {
                 "aliases": [],
@@ -7714,13 +7714,13 @@
                 "aliases": [],
                 "description": "",
                 "name": "farine d'amande",
-                "plural_name": "almond flour"
+                "plural_name": "farine d'amande"
             },
             "self-raising flour": {
                 "aliases": [],
                 "description": "",
                 "name": "farine auto-levante",
-                "plural_name": "self-raising flour"
+                "plural_name": "farine auto-levante"
             },
             "shredded coconut": {
                 "aliases": [],
@@ -7750,7 +7750,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "farine à pâtisserie",
-                "plural_name": "pastry flour"
+                "plural_name": "farine de pâtisserie"
             },
             "coconut flour": {
                 "aliases": [],
@@ -7768,7 +7768,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "farine à gâteaux",
-                "plural_name": "cake flour"
+                "plural_name": "farine patissière"
             },
             "corn flour": {
                 "aliases": [],
@@ -7814,7 +7814,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "farine sans gluten",
-                "plural_name": "gluten-free flour"
+                "plural_name": "farine sans gluten"
             },
             "rice flour": {
                 "aliases": [],
@@ -7961,7 +7961,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "farine de seigle",
-                "plural_name": "rye flour"
+                "plural_name": "farine de seigle"
             },
             "psyllium husk": {
                 "aliases": [],
@@ -7973,7 +7973,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "semoule de blé",
-                "plural_name": "semolina flour"
+                "plural_name": "semoule"
             },
             "glutinous rice flour": {
                 "aliases": [],
@@ -8087,7 +8087,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chocolat blanc à pâtisser",
-                "plural_name": "white baking chocolate"
+                "plural_name": "chocolat blanc pâtissier"
             },
             "cassava flour": {
                 "aliases": [],
@@ -8147,7 +8147,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "farine de quinoa",
-                "plural_name": "quinoa flour"
+                "plural_name": "farine de quinoa"
             },
             "finger millet flour": {
                 "aliases": [],
@@ -13725,11 +13725,11 @@
                 "name": "anchovy stock",
                 "plural_name": "anchovy stock"
             },
-            "cream of chicken soup mix:": {
+            "cream of chicken soup mix": {
                 "aliases": [],
                 "description": "",
-                "name": "cream of chicken soup mix:",
-                "plural_name": "cream of chicken soup mix:"
+                "name": "cream of chicken soup mix",
+                "plural_name": "cream of chicken soup mix"
             },
             "noodle soup mix": {
                 "aliases": [],
@@ -13907,7 +13907,7 @@
                 "aliases": [],
                 "description": "",
                 "name": "chocolat à pâtisser",
-                "plural_name": "baking chocolate"
+                "plural_name": "chocolat pâtissier"
             },
             "marshmallow": {
                 "aliases": [],
