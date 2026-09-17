@@ -1,4 +1,5 @@
 import random
+from uuid import uuid4
 
 import pytest
 from fastapi.testclient import TestClient
@@ -172,6 +173,59 @@ def test_shopping_lists_add_recipe(
     assert len(refs) == 1
     assert refs[0]["recipeId"] == str(recipe.id)
     assert refs[0]["recipeQuantity"] == 2
+
+
+def test_shopping_lists_add_explicit_on_hand_ingredient(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_lists: list[ShoppingListOut],
+    recipe_ingredient_only: Recipe,
+):
+    """Explicitly selected on-hand ingredients should be added to the shopping list."""
+    sample_list = random.choice(shopping_lists)
+    recipe = recipe_ingredient_only
+
+    household = unique_user.repos.households.get_by_slug_or_id(unique_user.household_id)
+    assert household
+
+    food = unique_user.repos.ingredient_foods.create(
+        SaveIngredientFood(
+            id=uuid4(),
+            name=random_string(),
+            group_id=unique_user.group_id,
+            households_with_ingredient_food=[household.slug],
+        )
+    )
+
+    ingredient = RecipeIngredient(
+        quantity=1,
+        note=random_string(),
+        food=food,
+    )
+
+    recipes_post_data = utils.jsonify(
+        [
+            ShoppingListAddRecipeParamsBulk(
+                recipe_id=recipe.id,
+                recipe_ingredients=[ingredient],
+            ).model_dump()
+        ]
+    )
+
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe(sample_list.id),
+        json=recipes_post_data,
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(sample_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
+
+    assert any(item["note"] == ingredient.note for item in as_json["listItems"])
 
 
 def test_shopping_lists_add_recipes(

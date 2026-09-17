@@ -329,6 +329,8 @@ class ShoppingListService:
     ) -> list[ShoppingListItemCreate]:
         """Generates a list of new list items based on a recipe"""
 
+        recipe_ingredients_provided = recipe_ingredients is not None
+
         if recipe_ingredients is None:
             group_recipes_repo = get_repositories(
                 self.repos.session, group_id=self.repos.group_id, household_id=None
@@ -349,13 +351,13 @@ class ShoppingListService:
                     list_id,
                     sub_recipe.id,
                     sub_scale,
-                    sub_recipe.recipe_ingredient,
+                    sub_recipe.recipe_ingredient if recipe_ingredients_provided else None,
                 )
                 list_items.extend(sub_items)
                 continue
 
             if isinstance(ingredient.food, IngredientFood):
-                if self._is_on_hand(list_id, ingredient.food):
+                if not recipe_ingredients_provided and self._is_on_hand(list_id, ingredient.food):
                     continue
                 food_id = ingredient.food.id
                 label_id = ingredient.food.label_id
