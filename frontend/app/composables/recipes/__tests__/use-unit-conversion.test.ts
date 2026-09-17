@@ -45,7 +45,7 @@ describe("convertIngredient", () => {
       const converted = convertIngredient(ounces(30), "metric");
 
       expect(converted.unit?.name).toBe("gram");
-      expect(converted.quantity).toBeCloseTo(850.5, 1);
+      expect(converted.quantity).toBeCloseTo(860, 6);
     });
 
     test("moves up once the takeover point is reached", () => {
@@ -53,7 +53,7 @@ describe("convertIngredient", () => {
       const converted = convertIngredient(ounces(40), "metric");
 
       expect(converted.unit?.name).toBe("kilogram");
-      expect(converted.quantity).toBeCloseTo(1.134, 3);
+      expect(converted.quantity).toBeCloseTo(1.15, 6);
     });
 
     test("cups take over at a quarter cup rather than a whole one", () => {
@@ -66,7 +66,58 @@ describe("convertIngredient", () => {
       const converted = convertIngredient(millilitres(1), "us");
 
       expect(converted.unit?.name).toBe("teaspoon");
-      expect(converted.quantity).toBeCloseTo(0.203, 3);
+      expect(converted.quantity).toBeCloseTo(0.25, 6);
+    });
+  });
+
+  describe("rounding", () => {
+    // A converted quantity is an approximation either way, so it may as well be an approximation
+    // a cook can measure. Every case below is within the rounding threshold of the exact value.
+    /** A customary volume, given as the millilitres it comes to. */
+    const customaryVolume = (millilitres: number) =>
+      ingredient(millilitres / 29.5735295625, { name: "fl oz", standardUnit: "fluid_ounce", standardQuantity: 1 });
+
+    const cases: [string, RecipeIngredient, number][] = [
+      ["2oz is 56.699g", ounces(2), 56],
+      ["4oz is 113.398g", ounces(4), 115],
+      ["1lb is 453.592g", ounces(16), 460],
+      ["a teaspoon is 4.929ml", customaryVolume(4.92892159375), 5],
+      ["a tablespoon is 14.787ml", customaryVolume(14.78676478125), 15],
+      ["a cup is 236.588ml", customaryVolume(236.5882365), 240],
+    ];
+
+    test.each(cases)("%s", (_label, input, expected) => {
+      expect(convertIngredient(input, "metric").quantity).toBeCloseTo(expected, 6);
+    });
+
+    test("snaps customary quantities to fractions a measuring cup has", () => {
+      // 100g is 3.527oz and 1kg is 2.205lb — halves and quarters, not 5/10ths and 1/5ths
+      expect(convertIngredient(grams(100), "us").quantity).toBeCloseTo(3.5, 6);
+      expect(convertIngredient(grams(1000), "us").quantity).toBeCloseTo(2.25, 6);
+    });
+
+    test("keeps the rung when a whole unit of it is close enough", () => {
+      // 250ml is 1.057 cups; "1 cup" is what a cook wants, not 16 15/16 tablespoons
+      const converted = convertIngredient(millilitres(250), "us");
+
+      expect(converted.unit?.name).toBe("cup");
+      expect(converted.quantity).toBeCloseTo(1, 6);
+    });
+
+    test("drops a rung when the chosen one has no fraction close enough", () => {
+      // 100ml is 0.423 of a cup, and the nearest eighth is 11% out — so tablespoons instead
+      const converted = convertIngredient(millilitres(100), "us");
+
+      expect(converted.unit?.name).toBe("tablespoon");
+      expect(converted.quantity).toBeCloseTo(7, 6);
+    });
+
+    test("leaves a trace amount unrounded rather than rounding it to nothing", () => {
+      // Rounded to the nearest eighth of an ounce this would be zero, and a zero quantity
+      // renders as no quantity at all — the ingredient would lose its measurement entirely
+      const converted = convertIngredient(grams(0.1), "us");
+
+      expect(converted.quantity).toBeCloseTo(0.0035, 4);
     });
   });
 
@@ -100,18 +151,27 @@ describe("convertIngredient", () => {
   });
 
   describe("scale", () => {
-    // Spec §4.3: the rung comes from the scaled magnitude, but the quantity handed back is
-    // unscaled, so existing `useParsedIngredientText(ingredient, scale)` call sites still work.
+    // Spec §4.3: the rung and the rounding both come from the scaled magnitude, but the
+    // quantity handed back is unscaled, so existing `useParsedIngredientText(ingredient, scale)`
+    // call sites still work.
     test("picks the rung from the scaled magnitude", () => {
       expect(convertIngredient(ounces(4), "metric", 1).unit?.name).toBe("gram");
       expect(convertIngredient(ounces(4), "metric", 10).unit?.name).toBe("kilogram");
     });
 
-    test("returns an unscaled quantity, so 4oz at 10x reads as 1.13kg", () => {
+    test("returns an unscaled quantity, so 4oz at 10x reads as 1.15kg", () => {
       const converted = convertIngredient(ounces(4), "metric", 10);
 
-      expect(converted.quantity).toBeCloseTo(0.1134, 4);
-      expect((converted.quantity as number) * 10).toBeCloseTo(1.134, 3);
+      expect(converted.quantity).toBeCloseTo(0.115, 6);
+      expect((converted.quantity as number) * 10).toBeCloseTo(1.15, 6);
+    });
+
+    test("rounds the scaled quantity, not the unscaled one", () => {
+      // 4oz is 113.4g, which rounds to 115 on its own. At 3x it's 340.2g, and rounding that
+      // gives 340 — not the 345 that scaling a pre-rounded 115 would produce.
+      const converted = convertIngredient(ounces(4), "metric", 3);
+
+      expect((converted.quantity as number) * 3).toBeCloseTo(340, 6);
     });
   });
 
@@ -124,7 +184,7 @@ describe("convertIngredient", () => {
       const converted = convertIngredient(ounces, "metric");
 
       expect(converted.unit?.name).toBe("gram");
-      expect(converted.quantity).toBeCloseTo(113.4, 1);
+      expect(converted.quantity).toBeCloseTo(115, 6);
     });
 
     test("a fluid ounce converts to millilitres", () => {
@@ -132,7 +192,7 @@ describe("convertIngredient", () => {
       const converted = convertIngredient(fluidOunces, "metric");
 
       expect(converted.unit?.name).toBe("milliliter");
-      expect(converted.quantity).toBeCloseTo(118.3, 1);
+      expect(converted.quantity).toBeCloseTo(120, 6);
     });
   });
 
