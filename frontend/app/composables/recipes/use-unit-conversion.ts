@@ -4,7 +4,6 @@ import type { CreateIngredientUnit, RecipeIngredient } from "~/lib/api/types/rec
 interface ConvertibleIngredient {
   quantity: number;
   standardQuantity: number;
-  unit: CreateIngredientUnit;
   standard: StandardizedUnit;
 }
 
@@ -44,7 +43,7 @@ function resolveConvertible(ingredient: RecipeIngredient): ConvertibleIngredient
     return null;
   }
 
-  return { quantity, standardQuantity: unit.standardQuantity, unit, standard };
+  return { quantity, standardQuantity: unit.standardQuantity, standard };
 }
 
 export function canConvertIngredient(ingredient: RecipeIngredient): boolean {
@@ -151,7 +150,7 @@ export function useUnitConversion() {
    * messages under `unit-names`. That data is already translated into every locale Mealie
    * ships, so nothing here is authored per-locale.
    */
-  function unitFromRung(rung: UnitRung, source: CreateIngredientUnit): CreateIngredientUnit {
+  function unitFromRung(rung: UnitRung): CreateIngredientUnit {
     const key = `unit-names.${rung.seedKey}`;
     const abbreviation = t(`${key}.abbreviation`);
 
@@ -162,9 +161,11 @@ export function useUnitConversion() {
       // Most seeded units have no distinct plural abbreviation, and a missing key would render
       // as the key itself rather than falling back to the singular
       pluralAbbreviation: te(`${key}.plural_abbreviation`) ? t(`${key}.plural_abbreviation`) : abbreviation,
+      // A converted unit follows its own system's conventions rather than the source unit's
+      // display settings: decimals for metric, fractions for customary, and both abbreviated.
+      // Inheriting useAbbreviation put "ml" and "milliliters" in the same ingredient list.
       fraction: rung.fraction,
-      // Only the unit changes; the reader keeps whatever display style the recipe's own unit used
-      useAbbreviation: source.useAbbreviation,
+      useAbbreviation: true,
     };
   }
 
@@ -187,7 +188,7 @@ export function useUnitConversion() {
       return ingredient;
     }
 
-    const { quantity, standardQuantity, unit, standard } = convertible;
+    const { quantity, standardQuantity, standard } = convertible;
 
     // Already written in the system the reader asked for, so leave it exactly as authored
     // rather than restating "1 pint" as "2 cups". Only genuinely foreign units get rewritten.
@@ -202,7 +203,7 @@ export function useUnitConversion() {
     return {
       ...ingredient,
       quantity: displayed / scale,
-      unit: unitFromRung(rung, unit),
+      unit: unitFromRung(rung),
     };
   }
 

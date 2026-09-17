@@ -225,16 +225,18 @@ describe("convertIngredient", () => {
       expect(convertIngredient(grams(100), "us").unit?.fraction).toBe(true);
     });
 
-    test("preserves whether the recipe's own unit was abbreviated", () => {
+    test("abbreviates whichever way the recipe's own unit was written", () => {
+      // Inheriting this put "ml" and "milliliters" in the same list. An ingredient shown as
+      // written keeps its own setting, since it never reaches here.
       const abbreviated = ingredient(100, {
-        name: "gram",
+        name: "g",
         standardUnit: "gram",
         standardQuantity: 1,
         useAbbreviation: true,
       });
 
       expect(convertIngredient(abbreviated, "us").unit?.useAbbreviation).toBe(true);
-      expect(convertIngredient(grams(100), "us").unit?.useAbbreviation).toBeFalsy();
+      expect(convertIngredient(grams(100), "us").unit?.useAbbreviation).toBe(true);
     });
 
     test("drops the source unit's identity and standardization data", () => {
