@@ -24,7 +24,7 @@ from mealie.services.event_bus_service.event_types import (
 )
 from mealie.services.query_filter.builder import QueryFilterBuilder
 
-router = APIRouter(prefix="/households/mealplans", tags=["Households: Mealplans"])
+router = APIRouter(prefix="/households/mealplans", tags=["Households: Meal Plans"])
 
 
 @controller(router)
@@ -113,7 +113,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry created for {data.date} for {data.entry_type}",
+            message=f"Meal plan entry created for {data.date} for {data.entry_type}",
         )
 
         return result
@@ -126,11 +126,11 @@ class GroupMealplanController(BaseCrudController):
     @router.post("/random", response_model=ReadPlanEntry)
     def create_random_meal(self, data: CreateRandomEntry):
         """
-        `create_random_meal` is a route that provides the randomized functionality for mealplaners.
-        It operates by following the rules set out in the household's mealplan settings. If no settings
+        `create_random_meal` is a route that provides the randomized functionality for meal planners.
+        It operates by following the rules set out in the household's meal plan settings. If no settings
         are set, it will return any random meal.
 
-        Refer to the mealplan settings routes for more information on how rules can be applied
+        Refer to the meal plan settings routes for more information on how rules can be applied
         to the random meal selector.
         """
         random_recipes = self._get_random_recipes_from_mealplan(data.date, data.entry_type)
@@ -162,7 +162,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry created for {data.date} for {data.entry_type}",
+            message=f"Meal plan entry created for {data.date} for {data.entry_type}",
         )
 
         return result
@@ -187,7 +187,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry updated for {result.date} for {result.entry_type}",
+            message=f"Meal plan entry updated for {result.date} for {result.entry_type}",
         )
 
         return result
@@ -208,7 +208,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry deleted for {result.date} for {result.entry_type}",
+            message=f"Meal plan entry deleted for {result.date} for {result.entry_type}",
         )
 
         return result
