@@ -488,8 +488,8 @@ const {
 
   /* each item row */
   .shopping-list-item-row {
-    margin-top: 0 !important;
-    margin-bottom: 0 !important;
+    margin-top: 3px !important;
+    margin-bottom: 3px !important;
   }
 
   .shopping-list-item-row .v-container {
@@ -508,8 +508,8 @@ const {
   }
 
   .shopping-list-item-row .v-btn--size-small {
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     margin-left: 0 !important;
   }
 
