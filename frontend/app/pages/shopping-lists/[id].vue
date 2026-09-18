@@ -515,7 +515,7 @@ const {
 
   /* the row's action icons are secondary to the item text, so they sit back until used */
   .shopping-list-item-row .v-btn--size-small .v-icon {
-    opacity: 0.4;
+    opacity: 0.55;
   }
 
   .shopping-list-item-row .v-btn--size-small:hover .v-icon,
