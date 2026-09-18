@@ -778,9 +778,7 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
     "no-shopping-lists-found": "No Shopping Lists Found",
-    "item-checked-off": "Checked off {item}",
-    "hide-labels": "Hide labels",
-    "show-labels": "Show labels"
+    "item-checked-off": "Checked off {item}"
   },
   "sidebar": {
     "backups": "Backups",

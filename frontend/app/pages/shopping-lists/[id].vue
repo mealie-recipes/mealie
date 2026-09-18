@@ -115,11 +115,6 @@
                   event: 'three-dot',
                   children: [
                     {
-                      icon: preferences.hideLabels ? $globals.icons.eye : $globals.icons.eyeOff,
-                      text: preferences.hideLabels ? $t('shopping-list.show-labels') : $t('shopping-list.hide-labels'),
-                      event: 'toggle-hide-labels',
-                    },
-                    {
                       icon: $globals.icons.tags,
                       text: $t('shopping-list.reorder-labels'),
                       event: 'reorder-labels',
@@ -134,7 +129,6 @@
               ]"
               @edit="edit = true"
               @three-dot="threeDot = true"
-              @toggle-hide-labels="preferences.hideLabels = !preferences.hideLabels"
               @check="openCheckAll"
               @copy-plain="copyListItems('plain')"
               @copy-markdown="copyListItems('markdown')"
@@ -158,7 +152,6 @@
     <section
       v-if="!edit"
       class="py-2 d-flex flex-column ga-1 shopping-list-view"
-      :class="preferences.hideLabels ? 'shopping-list--hide-labels' : ''"
     >
       <!-- Create Item -->
       <ShoppingListAddItemForm
@@ -368,12 +361,10 @@ import ShoppingListItemEditor from "~/components/Domain/ShoppingList/ShoppingLis
 import { useShoppingListPage } from "~/composables/shopping-list-page/use-shopping-list-page";
 import { useLabelStore, useUnitStore, useFoodStore } from "~/composables/store";
 import { alert } from "~/composables/use-toast";
-import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 
 const { smAndUp } = useDisplay();
 const i18n = useI18n();
-const preferences = useShoppingListPreferences();
 
 useSeoMeta({
   title: i18n.t("shopping-list.shopping-list"),
@@ -538,27 +529,6 @@ const {
 
   .shopping-list-section .v-expansion-panel__shadow {
     box-shadow: none;
-  }
-}
-
-/* Hidden labels: items keep their label order, but the headers, borders and shadows go */
-.shopping-list--hide-labels {
-  /* with no headers the groups are invisible, so nothing may hint at their edges: no gap
-     between groups and no padding inside them, leaving every row the same distance apart */
-  gap: 0 !important;
-
-  .shopping-list-section {
-    border: none;
-    background: transparent;
-  }
-
-  .shopping-list-section .section-title,
-  .shopping-list-section .v-expansion-panel__shadow {
-    display: none;
-  }
-
-  .shopping-list-section .v-expansion-panel-text__wrapper {
-    padding: 0;
   }
 }
 </style>
