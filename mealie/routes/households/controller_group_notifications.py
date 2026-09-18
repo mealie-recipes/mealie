@@ -94,7 +94,11 @@ class GroupEventsNotifierController(BaseUserController):
 
         event_type = EventTypes.test_message
         test_event = Event(
-            message=EventBusMessage.from_type(event_type, "test message"),
+            message=EventBusMessage.from_type(
+                event_type,
+                body=self.t("notifications.test-message-body"),
+                translator=self.translator,
+            ),
             event_type=event_type,
             integration_id="test_event",
             document_data=EventDocumentDataBase(document_type=EventDocumentType.generic, operation=EventOperation.info),
