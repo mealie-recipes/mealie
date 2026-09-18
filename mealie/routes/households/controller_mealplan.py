@@ -22,8 +22,9 @@ from mealie.services.event_bus_service.event_types import (
     EventOperation,
     EventTypes,
 )
+from mealie.services.query_filter.builder import QueryFilterBuilder
 
-router = APIRouter(prefix="/households/mealplans", tags=["Households: Mealplans"])
+router = APIRouter(prefix="/households/mealplans", tags=["Households: Meal Plans"])
 
 
 @controller(router)
@@ -61,7 +62,7 @@ class GroupMealplanController(BaseCrudController):
             self.session, group_id=self.group_id, household_id=None
         ).recipes.by_user(self.user.id)
 
-        qf_string = " AND ".join([f"({rule.query_filter_string})" for rule in rules if rule.query_filter_string])
+        qf_string = QueryFilterBuilder.combine_filters(*[rule.query_filter_string for rule in rules])
         recipes_data = cross_household_recipes.page_all(
             pagination=PaginationQuery(
                 page=1,
@@ -91,11 +92,7 @@ class GroupMealplanController(BaseCrudController):
             else:
                 date_filter = f"date >= {start_date} AND date <= {end_date}"
 
-            if q.query_filter:
-                q.query_filter = f"({q.query_filter}) AND ({date_filter})"
-
-            else:
-                q.query_filter = date_filter
+            q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, date_filter)
 
         return self.repo.page_all(pagination=q)
 
@@ -116,7 +113,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry created for {data.date} for {data.entry_type}",
+            message=f"Meal plan entry created for {data.date} for {data.entry_type}",
         )
 
         return result
@@ -129,11 +126,11 @@ class GroupMealplanController(BaseCrudController):
     @router.post("/random", response_model=ReadPlanEntry)
     def create_random_meal(self, data: CreateRandomEntry):
         """
-        `create_random_meal` is a route that provides the randomized functionality for mealplaners.
-        It operates by following the rules set out in the household's mealplan settings. If no settings
+        `create_random_meal` is a route that provides the randomized functionality for meal planners.
+        It operates by following the rules set out in the household's meal plan settings. If no settings
         are set, it will return any random meal.
 
-        Refer to the mealplan settings routes for more information on how rules can be applied
+        Refer to the meal plan settings routes for more information on how rules can be applied
         to the random meal selector.
         """
         random_recipes = self._get_random_recipes_from_mealplan(data.date, data.entry_type)
@@ -165,7 +162,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry created for {data.date} for {data.entry_type}",
+            message=f"Meal plan entry created for {data.date} for {data.entry_type}",
         )
 
         return result
@@ -190,7 +187,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry updated for {result.date} for {result.entry_type}",
+            message=f"Meal plan entry updated for {result.date} for {result.entry_type}",
         )
 
         return result
@@ -211,7 +208,7 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Mealplan entry deleted for {result.date} for {result.entry_type}",
+            message=f"Meal plan entry deleted for {result.date} for {result.entry_type}",
         )
 
         return result

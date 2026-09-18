@@ -7,6 +7,7 @@ import pytest
 import mealie
 from mealie.lang import get_locale_provider
 from mealie.lang.providers import TRANSLATIONS
+from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.services.openai.content import (
     MAX_SOURCE_CONTENT_LENGTH,
     TRUNCATION_NOTICE,
@@ -14,6 +15,14 @@ from mealie.services.openai.content import (
     truncate_source_parts,
 )
 from mealie.services.recipe.import_workflow.compilers import DEFAULT_SOURCE_COMPILERS
+from mealie.services.recipe.import_workflow.compilers.base import SourceCompiler, SourceType
+from mealie.services.recipe.import_workflow.context import WorkflowInput
+from mealie.services.recipe.import_workflow.recipe_conversion import (
+    DEFAULT_RECIPE_NAME,
+    DEFAULT_RECIPE_SLUG,
+    resolve_name_and_slug,
+)
+from mealie.services.recipe.import_workflow.steps.compile_source import CompileSourceStep
 from mealie.services.recipe.import_workflow.workflow import DEFAULT_WORKFLOW_STEPS
 
 MEALIE_DIR = Path(mealie.__file__).parent
@@ -145,3 +154,149 @@ def test_no_orphaned_progress_keys():
     used = {key.rsplit(".", 1)[-1] for key in progress_keys_in_source()}
 
     assert defined - used == set()
+
+
+class StubContext:
+    """Only the parts of WorkflowContext that CompileSourceStep touches.
+
+    The real one needs live repositories and an AI service, neither of which these tests reach.
+    """
+
+    def __init__(self, url: str | None = None, page_content: str | None = None) -> None:
+        self.input = WorkflowInput(url=url, page_content=page_content)
+        self.progress: list[str] = []
+
+    async def report_progress(self, key: str) -> None:
+        self.progress.append(key)
+
+
+class FailingUrlCompiler(SourceCompiler):
+    """Stands in for the transcription compiler meeting a page that turns out to have no video."""
+
+    source_type = SourceType.URL
+
+    def can_compile(self) -> bool:
+        return True
+
+    async def compile(self) -> OpenAICompiledSource | None:
+        raise RuntimeError("ERROR: unable to download video")
+
+
+class UnreachableUrlCompiler(SourceCompiler):
+    source_type = SourceType.URL
+
+    def can_compile(self) -> bool:
+        return True
+
+    async def compile(self) -> OpenAICompiledSource | None:
+        return OpenAICompiledSource(contains_recipe=True, content="from the second url compiler")
+
+
+class EchoContentCompiler(SourceCompiler):
+    source_type = SourceType.CONTENT
+
+    def can_compile(self) -> bool:
+        return True
+
+    async def compile(self) -> OpenAICompiledSource | None:
+        return OpenAICompiledSource(contains_recipe=True, content=self.content or "")
+
+
+@pytest.mark.asyncio
+async def test_a_failing_compiler_hands_over_to_the_next():
+    step = CompileSourceStep(compilers=[FailingUrlCompiler, UnreachableUrlCompiler])
+
+    compiled = await step._compile(StubContext(url="https://example.test/x"), SourceType.URL)
+
+    assert compiled is not None
+    assert compiled.content == "from the second url compiler"
+
+
+@pytest.mark.asyncio
+async def test_a_failing_url_compiler_falls_back_to_reading_the_page(monkeypatch: pytest.MonkeyPatch):
+    """`can_compile` judges the shape of a URL, not whether the page really holds what it expects.
+
+    yt-dlp recognises every cooking.nytimes.com/recipes/<id> URL, but most of those pages carry no
+    video, so the download raises. That used to abort the whole import even though the page itself
+    was perfectly readable.
+    """
+    monkeypatch.setattr(
+        "mealie.services.recipe.import_workflow.steps.compile_source.safe_scrape_html",
+        _fake_scrape,
+    )
+
+    step = CompileSourceStep(compilers=[FailingUrlCompiler, EchoContentCompiler])
+    ctx = StubContext(url="https://cooking.nytimes.com/recipes/785347515-heirloom-tomato-and-cheddar-pie")
+
+    compiled = await step._compile_page(ctx)
+
+    assert compiled is not None
+    assert compiled.content == "<html>the recipe page</html>"
+    assert "recipe.create-progress.fetching-webpage" in ctx.progress
+
+
+async def _fake_scrape(url: str) -> str:
+    return "<html>the recipe page</html>"
+
+
+@pytest.mark.asyncio
+async def test_a_compiler_returning_nothing_also_hands_over():
+    """The no-transcript path already returned None rather than raising; both must fall through."""
+
+    class EmptyUrlCompiler(SourceCompiler):
+        source_type = SourceType.URL
+
+        def can_compile(self) -> bool:
+            return True
+
+        async def compile(self) -> OpenAICompiledSource | None:
+            return None
+
+    step = CompileSourceStep(compilers=[EmptyUrlCompiler, UnreachableUrlCompiler])
+
+    compiled = await step._compile(StubContext(url="https://example.test/x"), SourceType.URL)
+
+    assert compiled is not None
+    assert compiled.content == "from the second url compiler"
+
+
+class StubTranslator:
+    """Translator is a Protocol with a single method, so a stub is enough here."""
+
+    def __init__(self, translation: str | None = None) -> None:
+        self.translation = translation
+
+    def t(self, key, default=None, **kwargs) -> str:
+        return self.translation if self.translation is not None else (default or key)
+
+
+class NameContext:
+    """Only the part of WorkflowContext that `resolve_name_and_slug` touches."""
+
+    def __init__(self, translator=None) -> None:
+        self.translator = translator or get_locale_provider("en-US")
+
+
+def test_a_usable_name_is_kept():
+    assert resolve_name_and_slug(NameContext(), "Grilled Cheese") == ("Grilled Cheese", "grilled-cheese")
+
+
+@pytest.mark.parametrize("name", ["", "   ", "!!!", "🍞🧀"])
+def test_an_unsluggable_name_falls_back_to_the_default(name: str):
+    """A provider returning a junk name shouldn't throw away an otherwise good recipe."""
+
+    assert resolve_name_and_slug(NameContext(), name) == (DEFAULT_RECIPE_NAME, DEFAULT_RECIPE_SLUG)
+
+
+def test_the_default_name_is_translated():
+    name, slug = resolve_name_and_slug(NameContext(StubTranslator("Neues Rezept")), "")
+
+    assert (name, slug) == ("Neues Rezept", "neues-rezept")
+
+
+def test_an_unsluggable_translation_falls_back_to_an_ascii_slug():
+    """slugify can come back empty for a script it can't transliterate."""
+
+    name, slug = resolve_name_and_slug(NameContext(StubTranslator("🍲")), "")
+
+    assert (name, slug) == ("🍲", DEFAULT_RECIPE_SLUG)

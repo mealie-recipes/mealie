@@ -18,7 +18,6 @@ export interface FieldPlaceholderKeyword {
 
 export interface OrganizerBase {
   id: string;
-  slug: string;
   name: string;
 }
 
@@ -203,6 +202,7 @@ export function useQueryFilterBuilder() {
       || type === Organizer.Tag
       || type === Organizer.Tool
       || type === Organizer.Food
+      || type === Organizer.Label
       || type === Organizer.Household
       || type === Organizer.User
     );
