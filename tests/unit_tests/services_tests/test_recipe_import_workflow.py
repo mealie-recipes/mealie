@@ -17,6 +17,11 @@ from mealie.services.openai.content import (
 from mealie.services.recipe.import_workflow.compilers import DEFAULT_SOURCE_COMPILERS
 from mealie.services.recipe.import_workflow.compilers.base import SourceCompiler, SourceType
 from mealie.services.recipe.import_workflow.context import WorkflowInput
+from mealie.services.recipe.import_workflow.recipe_conversion import (
+    DEFAULT_RECIPE_NAME,
+    DEFAULT_RECIPE_SLUG,
+    resolve_name_and_slug,
+)
 from mealie.services.recipe.import_workflow.steps.compile_source import CompileSourceStep
 from mealie.services.recipe.import_workflow.workflow import DEFAULT_WORKFLOW_STEPS
 
@@ -253,3 +258,45 @@ async def test_a_compiler_returning_nothing_also_hands_over():
 
     assert compiled is not None
     assert compiled.content == "from the second url compiler"
+
+
+class StubTranslator:
+    """Translator is a Protocol with a single method, so a stub is enough here."""
+
+    def __init__(self, translation: str | None = None) -> None:
+        self.translation = translation
+
+    def t(self, key, default=None, **kwargs) -> str:
+        return self.translation if self.translation is not None else (default or key)
+
+
+class NameContext:
+    """Only the part of WorkflowContext that `resolve_name_and_slug` touches."""
+
+    def __init__(self, translator=None) -> None:
+        self.translator = translator or get_locale_provider("en-US")
+
+
+def test_a_usable_name_is_kept():
+    assert resolve_name_and_slug(NameContext(), "Grilled Cheese") == ("Grilled Cheese", "grilled-cheese")
+
+
+@pytest.mark.parametrize("name", ["", "   ", "!!!", "🍞🧀"])
+def test_an_unsluggable_name_falls_back_to_the_default(name: str):
+    """A provider returning a junk name shouldn't throw away an otherwise good recipe."""
+
+    assert resolve_name_and_slug(NameContext(), name) == (DEFAULT_RECIPE_NAME, DEFAULT_RECIPE_SLUG)
+
+
+def test_the_default_name_is_translated():
+    name, slug = resolve_name_and_slug(NameContext(StubTranslator("Neues Rezept")), "")
+
+    assert (name, slug) == ("Neues Rezept", "neues-rezept")
+
+
+def test_an_unsluggable_translation_falls_back_to_an_ascii_slug():
+    """slugify can come back empty for a script it can't transliterate."""
+
+    name, slug = resolve_name_and_slug(NameContext(StubTranslator("🍲")), "")
+
+    assert (name, slug) == ("🍲", DEFAULT_RECIPE_SLUG)

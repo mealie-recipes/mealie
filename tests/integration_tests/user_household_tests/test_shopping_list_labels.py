@@ -1,4 +1,5 @@
 import random
+from uuid import uuid4
 
 from fastapi.testclient import TestClient
 
@@ -33,6 +34,14 @@ def test_label_create_duplicate_name_returns_409(api_client: TestClient, unique_
 
     response = api_client.post(api_routes.groups_labels, json=payload, headers=unique_user_fn_scoped.token)
     assert response.status_code == 409
+
+
+def test_label_get_one_404(api_client: TestClient, unique_user: TestUser):
+    # Regression test for the get-by-id endpoint returning a 500 instead of a
+    # 404 when the label doesn't exist, matching the other organizer endpoints
+    # (tags, categories, tools, units, foods).
+    response = api_client.get(api_routes.groups_labels_item_id(uuid4()), headers=unique_user.token)
+    assert response.status_code == 404
 
 
 def test_new_list_creates_list_labels(api_client: TestClient, unique_user: TestUser):
