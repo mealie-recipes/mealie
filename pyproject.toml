@@ -102,6 +102,9 @@ python_classes = '*Tests'
 python_files = 'test_*'
 python_functions = 'test_*'
 testpaths = ["tests"]
+markers = [
+    "xdist_group: mark test to run in a specific xdist group",
+]
 filterwarnings = [
     # Treat every warning not explicitly ignored below as a test failure.
     "error",
