@@ -1,3 +1,4 @@
+import type { AxiosRequestConfig } from "axios";
 import { SSE } from "sse.js";
 import type { ReadyStateEvent, SSEvent } from "sse.js";
 import { BaseCRUDAPI } from "../../base/base-clients";
@@ -130,20 +131,20 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return await this.requests.post<RecipeAsset>(routes.recipesRecipeSlugAssets(recipeSlug), formData);
   }
 
-  updateImage(slug: string, fileObject: File) {
+  updateImage(slug: string, fileObject: File, config?: AxiosRequestConfig) {
     const formData = new FormData();
     formData.append("image", fileObject);
     formData.append("extension", fileObject.name.split(".").pop() ?? "");
 
-    return this.requests.put<UpdateImageResponse, FormData>(routes.recipesRecipeSlugImage(slug), formData);
+    return this.requests.put<UpdateImageResponse, FormData>(routes.recipesRecipeSlugImage(slug), formData, config);
   }
 
-  updateImagebyURL(slug: string, url: string) {
-    return this.requests.post<UpdateImageResponse>(routes.recipesRecipeSlugImage(slug), { url });
+  updateImagebyURL(slug: string, url: string, config?: AxiosRequestConfig) {
+    return this.requests.post<UpdateImageResponse>(routes.recipesRecipeSlugImage(slug), { url }, config);
   }
 
-  deleteImage(slug: string) {
-    return this.requests.delete<string>(routes.recipesRecipeSlugImage(slug));
+  deleteImage(slug: string, config?: AxiosRequestConfig) {
+    return this.requests.delete<string>(routes.recipesRecipeSlugImage(slug), config);
   }
 
   async testCreateOneUrl(url: string, useOpenAI = false) {

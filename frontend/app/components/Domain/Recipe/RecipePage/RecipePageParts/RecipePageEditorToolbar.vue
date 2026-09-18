@@ -37,6 +37,7 @@
 
 <script setup lang="ts">
 import { computed } from "vue";
+import { useImageEdit } from "~/composables/recipe-page/use-image-edit";
 import { usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
@@ -51,6 +52,7 @@ const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 
 const { user } = usePageUser();
 const api = useUserApi();
+const editImage = useImageEdit();
 const { imageKey } = usePageState(recipe.value.slug);
 
 const canEditOwner = computed(() => {
@@ -73,7 +75,7 @@ async function uploadImage(fileObject: File) {
   if (!recipe.value || !recipe.value.slug) {
     return;
   }
-  const newVersion = await api.recipes.updateImage(recipe.value.slug, fileObject);
+  const newVersion = await editImage(config => api.recipes.updateImage(recipe.value.slug, fileObject, config));
   if (newVersion?.data?.image) {
     recipe.value.image = newVersion.data.image;
   }
