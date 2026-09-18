@@ -309,6 +309,22 @@ def test_cleaner_instructions(instructions: CleanerCase):
     assert reuslt == expected
 
 
+def test_cleaner_instructions_preserves_title_and_summary():
+    """Regression test for GH #6887: JSON-edited recipes with per-step title/summary
+    fields were silently dropped by clean_instructions before ever reaching the DB."""
+    result = cleaner.clean_instructions(
+        [
+            {"text": "Preheat the oven to 400F.", "title": "Prep", "summary": "Get the oven ready"},
+            {"text": "Bake for 20 minutes."},
+        ]
+    )
+
+    assert result == [
+        {"text": "Preheat the oven to 400F.", "title": "Prep", "summary": "Get the oven ready"},
+        {"text": "Bake for 20 minutes."},
+    ]
+
+
 ingredients_test_cases = (
     CleanerCase(
         input="",
