@@ -2,6 +2,7 @@
   <v-container fluid>
     <BaseDialog
       v-model="createDialog"
+      bottom-sheet
       :title="$t('household.create-household')"
       :icon="$globals.icons.household"
     >
@@ -37,6 +38,7 @@
 
     <BaseDialog
       v-model="confirmDialog"
+      bottom-sheet
       :title="$t('general.confirm')"
       :icon="$globals.icons.alertCircle"
       color="error"

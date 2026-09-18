@@ -135,19 +135,17 @@
                     <v-card-text>
                       <div>
                         <v-number-input
-                          v-model="state.settings.maxMissingFoods"
+                          v-model="maxMissingFoods"
                           :precision="null"
                           :min="0"
-                          control-variant="stacked"
                           inset
                           hide-details
                           :label="$t('recipe-finder.max-missing-ingredients')"
                         />
                         <v-number-input
-                          v-model="state.settings.maxMissingTools"
+                          v-model="maxMissingTools"
                           :precision="null"
                           :min="0"
-                          control-variant="stacked"
                           inset
                           hide-details
                           :label="$t('recipe-finder.max-missing-tools')"
@@ -159,7 +157,6 @@
                           v-if="isOwnGroup"
                           v-model="state.settings.includeFoodsOnHand"
                           density="compact"
-                          size="small"
                           hide-details
                           class="my-auto"
                           :label="$t('recipe-finder.include-ingredients-on-hand')"
@@ -168,10 +165,16 @@
                           v-if="isOwnGroup"
                           v-model="state.settings.includeToolsOnHand"
                           density="compact"
-                          size="small"
                           hide-details
                           class="my-auto"
                           :label="$t('recipe-finder.include-tools-on-hand')"
+                        />
+                        <v-checkbox
+                          v-model="state.settings.includeSubstitutions"
+                          density="compact"
+                          hide-details
+                          class="my-auto"
+                          :label="$t('recipe-finder.include-substitutions')"
                         />
                       </div>
                     </v-card-text>
@@ -328,6 +331,7 @@
                     :recipe="item.recipe"
                     :missing-foods="item.missingFoods"
                     :missing-tools="item.missingTools"
+                    :substituted-foods="item.substitutedFoods"
                     :disable-checkbox="state.loading"
                     @add-food="addFood"
                     @remove-food="removeFood"
@@ -356,6 +360,7 @@
                     :recipe="item.recipe"
                     :missing-foods="item.missingFoods"
                     :missing-tools="item.missingTools"
+                    :substituted-foods="item.substitutedFoods"
                     :disable-checkbox="state.loading"
                     @add-food="addFood"
                     @remove-food="removeFood"
@@ -421,6 +426,7 @@ import SearchFilter from "~/components/Domain/SearchFilter.vue";
 import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
 import type { FieldDefinition } from "~/composables/use-query-filter-builder";
 import { useRecipeFinderPreferences } from "~/composables/use-users/preferences";
+import { normalizeMissingItemLimit } from "~/lib/recipe/recipe-finder";
 
 interface RecipeSuggestions {
   readyToMake: RecipeSuggestionResponseItem[];
@@ -454,12 +460,27 @@ const state = reactive({
   queryFilterEditorValueJSON: {},
   queryFilterJSON: preferences.value.queryFilterJSON,
   settings: {
-    maxMissingFoods: preferences.value.maxMissingFoods,
-    maxMissingTools: preferences.value.maxMissingTools,
+    maxMissingFoods: normalizeMissingItemLimit(preferences.value.maxMissingFoods),
+    maxMissingTools: normalizeMissingItemLimit(preferences.value.maxMissingTools),
     includeFoodsOnHand: preferences.value.includeFoodsOnHand,
     includeToolsOnHand: preferences.value.includeToolsOnHand,
+    includeSubstitutions: preferences.value.includeSubstitutions,
     queryFilter: preferences.value.queryFilter,
     limit: 20,
+  },
+});
+
+const maxMissingFoods = computed({
+  get: () => state.settings.maxMissingFoods,
+  set: (value) => {
+    state.settings.maxMissingFoods = normalizeMissingItemLimit(value);
+  },
+});
+
+const maxMissingTools = computed({
+  get: () => state.settings.maxMissingTools,
+  set: (value) => {
+    state.settings.maxMissingTools = normalizeMissingItemLimit(value);
   },
 });
 
@@ -479,6 +500,7 @@ watch(
     preferences.value.maxMissingTools = newState.settings.maxMissingTools;
     preferences.value.includeFoodsOnHand = newState.settings.includeFoodsOnHand;
     preferences.value.includeToolsOnHand = newState.settings.includeToolsOnHand;
+    preferences.value.includeSubstitutions = newState.settings.includeSubstitutions;
   },
   {
     deep: true,
@@ -606,8 +628,8 @@ const recipeSuggestions = computed<RecipeSuggestions>(() => {
 
 watchDebounced(
   [selectedFoods, selectedTools, state.settings], async () => {
-    // don't search for suggestions if no foods are selected
-    if (!selectedFoods.value.length) {
+    // don't search for suggestions if no filter are selected
+    if (!selectedFoods.value.length && !selectedTools.value.length && !state.settings.queryFilter) {
       recipeResponseItems.value = [];
       state.recipesReady = true;
       return;
@@ -622,6 +644,7 @@ watchDebounced(
         maxMissingTools: state.settings.maxMissingTools,
         includeFoodsOnHand: state.settings.includeFoodsOnHand,
         includeToolsOnHand: state.settings.includeToolsOnHand,
+        includeSubstitutions: state.settings.includeSubstitutions,
       } as RecipeSuggestionQuery,
       selectedFoods.value.map(food => food.id),
       selectedTools.value.map(tool => tool.id),
@@ -650,6 +673,16 @@ const queryFilterBuilderFields: FieldDefinition[] = [
     type: Organizer.Tag,
   },
   {
+    name: "recipe_ingredient.food.id",
+    label: i18n.t("recipe.ingredients"),
+    type: Organizer.Food,
+  },
+  {
+    name: "recipe_ingredient.food.label_id",
+    label: i18n.t("data-pages.foods.food-label"),
+    type: Organizer.Label,
+  },
+  {
     name: "household_id",
     label: i18n.t("household.households"),
     type: Organizer.Household,
@@ -663,6 +696,11 @@ const queryFilterBuilderFields: FieldDefinition[] = [
     name: "last_made",
     label: i18n.t("general.last-made"),
     type: "relativeDate",
+  },
+  {
+    name: "rating",
+    label: i18n.t("general.rating"),
+    type: "number",
   },
 ];
 

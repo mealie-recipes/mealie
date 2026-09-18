@@ -5,6 +5,8 @@ export interface UseNewRecipeOptionsProps {
   enableImportCategories?: boolean;
   enableStayInEditMode?: boolean;
   enableParseRecipe?: boolean;
+  enableTranslateRecipe?: boolean;
+  enableCreateNewOrganizers?: boolean;
 }
 
 export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
@@ -13,6 +15,8 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
     enableImportCategories = true,
     enableStayInEditMode = true,
     enableParseRecipe = true,
+    enableTranslateRecipe = false,
+    enableCreateNewOrganizers = false,
   } = props;
 
   const router = useRouter();
@@ -62,6 +66,28 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
     },
   });
 
+  const translateRecipe = computed({
+    get() {
+      if (!enableTranslateRecipe) return false;
+      return recipeCreatePreferences.value.translateRecipe;
+    },
+    set(v: boolean) {
+      if (!enableTranslateRecipe) return;
+      recipeCreatePreferences.value.translateRecipe = v;
+    },
+  });
+
+  const createNewOrganizers = computed({
+    get() {
+      if (!enableCreateNewOrganizers) return false;
+      return recipeCreatePreferences.value.createNewOrganizers;
+    },
+    set(v: boolean) {
+      if (!enableCreateNewOrganizers) return;
+      recipeCreatePreferences.value.createNewOrganizers = v;
+    },
+  });
+
   function navigateToRecipe(recipeSlug: string, groupSlug: string, createPagePath: string) {
     const editParam = enableStayInEditMode ? stayInEditMode.value : false;
     const parseParam = enableParseRecipe ? parseRecipe.value : false;
@@ -87,6 +113,8 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
     importCategories,
     stayInEditMode,
     parseRecipe,
+    translateRecipe,
+    createNewOrganizers,
 
     // Helper functions
     navigateToRecipe,
@@ -96,5 +124,7 @@ export function useNewRecipeOptions(props: UseNewRecipeOptionsProps = {}) {
     enableImportCategories,
     enableStayInEditMode,
     enableParseRecipe,
+    enableTranslateRecipe,
+    enableCreateNewOrganizers,
   };
 }

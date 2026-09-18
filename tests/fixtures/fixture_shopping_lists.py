@@ -2,6 +2,7 @@ import pytest
 import sqlalchemy
 from pydantic import UUID4
 
+from mealie.db.models.household.shopping_list import ShoppingList
 from mealie.schema.household.group_shopping_list import ShoppingListItemCreate, ShoppingListOut, ShoppingListSave
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -89,6 +90,12 @@ def list_with_items(unique_user: TestUser):
     yield list_model
 
     try:
+        # tests may delete individual items directly; expire just this list's own ORM
+        # object (not the whole session) so the cascade delete re-reads list_items from
+        # the database instead of the stale collection captured when it was seeded
+        orm_list = database.session.get(ShoppingList, list_model.id)
+        if orm_list is not None:
+            database.session.expire(orm_list)
         database.group_shopping_lists.delete(list_model.id)
     except sqlalchemy.exc.NoResultFound:  # Entry Deleted in Test
         pass

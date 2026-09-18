@@ -134,9 +134,15 @@ watch(
 );
 
 async function handleSubmit() {
-  if (!refNewUserForm.value?.validate()) return;
+  const { valid } = (await refNewUserForm.value?.validate()) ?? {
+    valid: false,
+  };
 
-  const { response } = await adminApi.users.createOne(newUserData.value as UserIn);
+  if (!valid) return;
+
+  const { response } = await adminApi.users.createOne(
+    newUserData.value as UserIn,
+  );
 
   if (response?.status === 201) {
     router.push("/admin/manage/users");

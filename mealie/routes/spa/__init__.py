@@ -3,13 +3,14 @@ import json
 import pathlib
 from dataclasses import dataclass
 from typing import Any
+from urllib.parse import urlsplit, urlunsplit
 
-from bs4 import BeautifulSoup
 from fastapi import Depends, FastAPI, Response
 from fastapi.encoders import jsonable_encoder
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm.session import Session
 from starlette.exceptions import HTTPException
+from starlette.responses import RedirectResponse
 from text_unidecode import os
 
 from mealie.core.config import get_app_settings
@@ -41,6 +42,21 @@ class SPAStaticFiles(StaticFiles):
             else:
                 raise ex
 
+        # StaticFiles(html=True) redirects directory URLs without a trailing slash (e.g. /login -> /login/)
+        # to an absolute URL built from the request's Host header. That breaks behind reverse proxies that
+        # rewrite Host, and lets a spoofed Host pick the redirect target. Redirect to a relative path instead,
+        # collapsing leading slashes so it can't become a protocol-relative URL (//host/...).
+        if isinstance(response, RedirectResponse):
+            location = urlsplit(response.headers["location"])
+            response.headers["location"] = urlunsplit(("", "", "/" + location.path.lstrip("/"), location.query, ""))
+
+        # StaticFiles(html=True) serves 404.html (which IS the SPA shell) with
+        # status_code=404 for any unknown path, without raising HTTPException.
+        # Rewrite to 200 so reverse proxies that intercept 4xx don't replace the
+        # body with a generic error page.
+        if response.status_code == 404 and response.media_type == "text/html":
+            response.status_code = 200
+
         # Hashed assets (_nuxt/*) are safe to cache forever since new builds produce new filenames.
         # HTML must revalidate so browsers always fetch the correct bundle references after a
         # container rebuild (prevents blank white page from stale index.html in HA iframes, etc).
@@ -68,6 +84,8 @@ def escape(content: Any) -> Any:
 
 
 def inject_meta(contents: str, tags: list[MetaTag]) -> str:
+    from bs4 import BeautifulSoup
+
     soup = BeautifulSoup(contents, "lxml")
     scraped_meta_tags = soup.find_all("meta")
 
