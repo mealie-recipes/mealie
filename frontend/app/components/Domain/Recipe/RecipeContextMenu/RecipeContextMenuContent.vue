@@ -84,6 +84,7 @@ import { useDownloader } from "~/composables/api/use-downloader";
 import { useAddToShoppingListDialog } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
 import { useGroupRecipeActions } from "~/composables/use-group-recipe-actions";
 import { useGroupSelf } from "~/composables/use-groups";
+import { useHouseholdSelf } from "~/composables/use-households";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { alert } from "~/composables/use-toast";
 import type { GroupRecipeActionOut, HouseholdSummary } from "~/lib/api/types/household";
@@ -172,6 +173,7 @@ const i18n = useI18n();
 const auth = useMealieAuth();
 const { $globals } = useNuxtApp();
 const { group, actions: groupActions } = useGroupSelf();
+const { household } = useHouseholdSelf();
 const { isOwnGroup } = useLoggedInState();
 
 const route = useRoute();
