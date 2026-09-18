@@ -91,7 +91,7 @@ def test_delete_webhook(api_client: TestClient, webhook_data, unique_user: TestU
 def test_post_test_webhook(
     monkeypatch: pytest.MonkeyPatch, api_client: TestClient, unique_user: TestUser, webhook_data
 ):
-    # Mock the requests.post to avoid actual HTTP calls
+    # Mock the outbound post to avoid actual HTTP calls
     class MockResponse:
         status_code = 200
 
@@ -101,7 +101,7 @@ def test_post_test_webhook(
         mock_calls.append((args, kwargs))
         return MockResponse()
 
-    monkeypatch.setattr("requests.post", mock_post)
+    monkeypatch.setattr("mealie.pkgs.safehttp.post", mock_post)
 
     # Create a webhook and post it
     response = api_client.post(
@@ -124,7 +124,7 @@ def test_post_test_webhook(
     test_message = "This is a test webhook message"
     post_test_webhook(webhook, test_message)
 
-    # Verify that requests.post was called with the correct parameters
+    # Verify that the outbound post was called with the correct parameters
     assert len(mock_calls) == 1
     args, kwargs = mock_calls[0]
 

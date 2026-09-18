@@ -36,7 +36,7 @@
             </div>
           </v-expand-transition>
         </RecipeCardImage>
-        <v-card-title class="mb-n3 px-4" style="font-size: 1.25rem;">
+        <v-card-title class="px-4" style="font-size: 1.25rem;">
           {{ name }}
         </v-card-title>
 
@@ -125,7 +125,7 @@ const props = withDefaults(defineProps<Props>(), {
   description: null,
   rating: 0,
   ratingColor: "secondary",
-  image: "abc123",
+  image: undefined,
   tags: () => [],
   imageHeight: 200,
 });
@@ -171,6 +171,7 @@ const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
   -webkit-line-clamp: 8;
   line-clamp: 8;
   overflow: hidden;
+  overflow-wrap: anywhere;
 }
 .recipe-card-footer {
   display: flex;

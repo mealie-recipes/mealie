@@ -19,7 +19,6 @@
             "yields": "Ποσότητα"
         },
         "and-amount": "και {amount}",
-        "or-ingredient": "ή {ingredient}",
         "import-errors": {
             "ai-not-enabled": "Οι υπηρεσίες τεχνητής νοημοσύνης δεν είναι ενεργοποιημένες",
             "ai-request-failed": "Ο πάροχος AI δεν ήταν σε θέση να ολοκληρώσει το αίτημα. Παρακαλώ δοκιμάστε ξανά",

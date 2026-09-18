@@ -19,7 +19,6 @@
             "yields": "份量"
         },
         "and-amount": "和 {amount}",
-        "or-ingredient": "或 {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI 服务未启用",
             "ai-request-failed": "AI 提供商无法完成请求。请重试",

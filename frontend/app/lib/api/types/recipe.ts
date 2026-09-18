@@ -72,10 +72,15 @@ export interface CreateIngredientFood {
   } | null;
   labelId?: string | null;
   aliases?: CreateIngredientFoodAlias[];
+  substitutions?: CreateIngredientFoodSubstitution[];
   householdsWithIngredientFood?: string[];
 }
 export interface CreateIngredientFoodAlias {
   name: string;
+}
+export interface CreateIngredientFoodSubstitution {
+  substituteFoodId?: string | null;
+  note?: string | null;
 }
 export interface CreateIngredientUnit {
   id?: string | null;
@@ -121,6 +126,10 @@ export interface RecipeTag {
 export interface CreateRecipeByUrlBulk {
   imports: CreateRecipeBulk[];
 }
+export interface CreateRecipeIngredientSubstitution {
+  substituteFoodId?: string | null;
+  note?: string | null;
+}
 export interface DeleteRecipes {
   recipes: string[];
 }
@@ -149,6 +158,7 @@ export interface IngredientFood {
   } | null;
   labelId?: string | null;
   aliases?: IngredientFoodAlias[];
+  substitutions?: IngredientFoodSubstitution[];
   householdsWithIngredientFood?: string[];
   label?: MultiPurposeLabelSummary | null;
   recipeCount?: number;
@@ -157,6 +167,16 @@ export interface IngredientFood {
 }
 export interface IngredientFoodAlias {
   name: string;
+}
+export interface IngredientFoodSubstitution {
+  substituteFoodId?: string | null;
+  note?: string | null;
+  substituteFood?: IngredientFoodSummary | null;
+}
+export interface IngredientFoodSummary {
+  id: string;
+  name: string;
+  pluralName?: string | null;
 }
 export interface MultiPurposeLabelSummary {
   name: string;
@@ -204,6 +224,9 @@ export interface MergeUnit {
   fromUnit: string;
   toUnit: string;
 }
+export interface NoteReference {
+  referenceId?: string | null;
+}
 export interface Nutrition {
   calories?: string | null;
   carbohydrateContent?: string | null;
@@ -231,6 +254,7 @@ export interface RecipeIngredient {
   display?: string;
   title?: string | null;
   originalText?: string | null;
+  substitutions?: RecipeIngredientSubstitution[];
   referenceId?: string;
 }
 export interface Recipe {
@@ -284,6 +308,7 @@ export interface RecipeStep {
   summary?: string | null;
   text: string;
   ingredientReferences?: IngredientReferences[];
+  noteReferences?: NoteReference[];
 }
 export interface RecipeAsset {
   name: string;
@@ -293,11 +318,12 @@ export interface RecipeAsset {
 export interface RecipeNote {
   title: string;
   text: string;
+  referenceId?: string;
 }
 export interface RecipeCommentOut {
+  id: string;
   recipeId: string;
   text: string;
-  id: string;
   createdAt: string;
   updatedAt: string;
   userId: string;
@@ -308,6 +334,11 @@ export interface UserBase {
   username?: string | null;
   admin: boolean;
   fullName?: string | null;
+}
+export interface RecipeIngredientSubstitution {
+  substituteFoodId?: string | null;
+  note?: string | null;
+  substituteFood?: IngredientFoodSummary | null;
 }
 export interface RecipeCategoryResponse {
   name: string;
@@ -408,6 +439,7 @@ export interface RecipeSuggestionQuery {
   maxMissingTools?: number;
   includeFoodsOnHand?: boolean;
   includeToolsOnHand?: boolean;
+  includeSubstitutions?: boolean;
 }
 export interface RecipeSuggestionResponse {
   items: RecipeSuggestionResponseItem[];
@@ -415,7 +447,12 @@ export interface RecipeSuggestionResponse {
 export interface RecipeSuggestionResponseItem {
   recipe: RecipeSummary;
   missingFoods: IngredientFood[];
+  substitutedFoods: RecipeSuggestionSubstitutedFood[];
   missingTools: RecipeTool[];
+}
+export interface RecipeSuggestionSubstitutedFood {
+  food: IngredientFood;
+  substituteFood: IngredientFoodSummary;
 }
 export interface RecipeTagResponse {
   name: string;
@@ -497,6 +534,7 @@ export interface SaveIngredientFood {
   } | null;
   labelId?: string | null;
   aliases?: CreateIngredientFoodAlias[];
+  substitutions?: CreateIngredientFoodSubstitution[];
   householdsWithIngredientFood?: string[];
   groupId: string;
 }
@@ -543,6 +581,10 @@ export interface ScrapeRecipeTest {
   useOpenAI?: boolean;
 }
 export interface SlugResponse {}
+export interface SubstitutionBase {
+  substituteFoodId?: string | null;
+  note?: string | null;
+}
 export interface TagIn {
   name: string;
 }

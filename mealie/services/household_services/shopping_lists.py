@@ -326,8 +326,12 @@ class ShoppingListService:
         recipe_id: UUID4,
         scale: float = 1,
         recipe_ingredients: list[RecipeIngredient] | None = None,
+        skip_on_hand: bool | None = None,
     ) -> list[ShoppingListItemCreate]:
         """Generates a list of new list items based on a recipe"""
+
+        if skip_on_hand is None:
+            skip_on_hand = recipe_ingredients is None
 
         if recipe_ingredients is None:
             group_recipes_repo = get_repositories(
@@ -350,12 +354,13 @@ class ShoppingListService:
                     sub_recipe.id,
                     sub_scale,
                     sub_recipe.recipe_ingredient,
+                    skip_on_hand,
                 )
                 list_items.extend(sub_items)
                 continue
 
             if isinstance(ingredient.food, IngredientFood):
-                if self._is_on_hand(list_id, ingredient.food):
+                if skip_on_hand and self._is_on_hand(list_id, ingredient.food):
                     continue
                 food_id = ingredient.food.id
                 label_id = ingredient.food.label_id

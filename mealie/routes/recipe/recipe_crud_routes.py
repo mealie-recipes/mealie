@@ -3,7 +3,7 @@ from collections import defaultdict
 from collections.abc import AsyncIterable, Awaitable, Callable
 from shutil import copyfileobj
 from typing import Annotated
-from uuid import UUID
+from uuid import UUID, uuid4
 
 import orjson
 import sqlalchemy
@@ -114,6 +114,14 @@ class RecipeController(BaseRecipeController):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=ErrorResponse.respond(message=self.t("exceptions.recursive-recipe-link")),
+            )
+        elif thrownType == exceptions.MissingRequiredData:
+            self.logger.error("Missing required data on recipe controller action")
+            raise HTTPException(
+                status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+                detail=ErrorResponse.respond(
+                    message=f"{ex}. PUT replaces the entire recipe; use PATCH to update only some fields."
+                ),
             )
         elif thrownType == exceptions.SlugError:
             self.logger.error("Failed to generate a valid slug from recipe name")
@@ -761,7 +769,7 @@ class RecipeController(BaseRecipeController):
         data_service = RecipeDataService(recipe.id)
 
         try:
-            await data_service.scrape_image(url.url)
+            image_path = await data_service.scrape_image(url.url)
         except NotAnImageError as e:
             raise HTTPException(
                 status_code=400,
@@ -772,6 +780,14 @@ class RecipeController(BaseRecipeController):
                 status_code=400,
                 detail=ErrorResponse.respond("Url is not from an allowed domain"),
             ) from e
+
+        # A failed download must not leave the recipe claiming an image, or every render
+        # asks the media route for a file that isn't there.
+        if image_path is None:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Image could not be downloaded"),
+            )
 
         recipe.image = cache.cache_key.new_key()
         self.service.update_one(recipe.slug, recipe)
@@ -817,11 +833,16 @@ class RecipeController(BaseRecipeController):
             raise HTTPException(status_code=400, detail="Missing required fields")
 
         file_name = f"{file_slug}.{extension}"
-        asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
         recipe = self.service.get_one(slug)
 
         dest = recipe.asset_dir / file_name
+
+        # Client-supplied names aren't guaranteed to be unique (e.g. iOS camera captures are all
+        # named "image.jpg"), so avoid silently overwriting an existing asset with the same name.
+        if dest.is_file():
+            file_name = f"{file_slug}_{uuid4().hex[:8]}.{extension}"
+            dest = recipe.asset_dir / file_name
 
         # Ensure path is relative to the recipe's asset directory
         if dest.absolute().parent != recipe.asset_dir:
@@ -829,6 +850,8 @@ class RecipeController(BaseRecipeController):
                 status_code=400,
                 detail=f"File name {file_name} or extension {extension} not valid",
             )
+
+        asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
         with dest.open("wb") as buffer:
             copyfileobj(file.file, buffer)
