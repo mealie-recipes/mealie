@@ -19,7 +19,6 @@
             "yields": "Mængde"
         },
         "and-amount": "og {amount}",
-        "or-ingredient": "eller {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI-tjenester er ikke slået til",
             "ai-request-failed": "AI-udbyderen var ikke i stand til at færdiggøre forespørgslen. Prøv igen",

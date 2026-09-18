@@ -8,5 +8,11 @@
     "@types/node": "^24.12.4"
   },
   "scripts": {},
-  "packageManager": "pnpm@11.18.0"
+  "devEngines": {
+    "packageManager": {
+      "name": "pnpm",
+      "version": "11",
+      "onFail": "warn"
+    }
+  }
 }

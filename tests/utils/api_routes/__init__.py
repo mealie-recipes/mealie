@@ -61,6 +61,8 @@ foods_merge = "/api/foods/merge"
 """`/api/foods/merge`"""
 groups_ai_providers_providers = "/api/groups/ai-providers/providers"
 """`/api/groups/ai-providers/providers`"""
+groups_ai_providers_providers_test = "/api/groups/ai-providers/providers/test"
+"""`/api/groups/ai-providers/providers/test`"""
 groups_ai_providers_settings = "/api/groups/ai-providers/settings"
 """`/api/groups/ai-providers/settings`"""
 groups_households = "/api/groups/households"
@@ -127,10 +129,14 @@ organizers_categories = "/api/organizers/categories"
 """`/api/organizers/categories`"""
 organizers_categories_empty = "/api/organizers/categories/empty"
 """`/api/organizers/categories/empty`"""
+organizers_categories_merge = "/api/organizers/categories/merge"
+"""`/api/organizers/categories/merge`"""
 organizers_tags = "/api/organizers/tags"
 """`/api/organizers/tags`"""
 organizers_tags_empty = "/api/organizers/tags/empty"
 """`/api/organizers/tags/empty`"""
+organizers_tags_merge = "/api/organizers/tags/merge"
+"""`/api/organizers/tags/merge`"""
 organizers_tools = "/api/organizers/tools"
 """`/api/organizers/tools`"""
 parser_ingredient = "/api/parser/ingredient"
@@ -329,6 +335,11 @@ def foods_item_id(item_id):
 def groups_ai_providers_providers_provider_id(provider_id):
     """`/api/groups/ai-providers/providers/{provider_id}`"""
     return f"{prefix}/groups/ai-providers/providers/{provider_id}"
+
+
+def groups_ai_providers_providers_provider_id_test(provider_id):
+    """`/api/groups/ai-providers/providers/{provider_id}/test`"""
+    return f"{prefix}/groups/ai-providers/providers/{provider_id}/test"
 
 
 def groups_households_household_slug(household_slug):

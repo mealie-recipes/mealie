@@ -5,7 +5,13 @@ import pytest
 from fastapi.testclient import TestClient
 
 from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_ingredient import IngredientFood, RecipeIngredient, SaveIngredientFood
+from mealie.schema.recipe.recipe_ingredient import (
+    CreateIngredientFoodSubstitution,
+    IngredientFood,
+    RecipeIngredient,
+    RecipeIngredientSubstitution,
+    SaveIngredientFood,
+)
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_tool import RecipeToolOut, RecipeToolSave
 from tests.utils import api_routes
@@ -600,3 +606,172 @@ def test_respect_cross_household_on_hand_tool(api_client: TestClient, unique_use
 
     finally:
         unique_user.repos.recipes.delete(recipe.slug)
+
+
+def set_food_substitutions(user: TestUser, food: IngredientFood, substitutions: list) -> IngredientFood:
+    return user.repos.ingredient_foods.update(
+        food.id,
+        SaveIngredientFood(
+            id=food.id,
+            name=food.name,
+            group_id=user.group_id,
+            substitutions=substitutions,
+        ),
+    )
+
+
+def create_recipe_with_ingredient_substitutions(user: TestUser, food: IngredientFood, substitutions: list):
+    return user.repos.recipes.create(
+        Recipe(
+            user_id=user.user_id,
+            group_id=user.group_id,
+            name=random_string(),
+            recipe_ingredient=[RecipeIngredient(food_id=food.id, food=food, substitutions=substitutions)],
+            settings=RecipeSettings(),
+        )
+    )
+
+
+def suggestion_items(api_client: TestClient, user: TestUser, food_ids: list[str], **overrides) -> list[dict]:
+    params: dict = {
+        "foods": food_ids,
+        "includeFoodsOnHand": False,
+        "includeToolsOnHand": False,
+        "limit": 50,
+    }
+    params.update(overrides)
+
+    response = api_client.get(api_routes.recipes_suggestions, params=params, headers=user.token)
+    response.raise_for_status()
+    return response.json()["items"]
+
+
+@pytest.mark.parametrize("include_substitutions", [True, False])
+def test_food_substitution_satisfies_a_recipe(
+    api_client: TestClient, unique_user: TestUser, include_substitutions: bool
+):
+    """The recipe calls for stock, the user has broth, and `stock -> broth` bridges the two."""
+
+    stock = create_food(unique_user)
+    broth = create_food(unique_user)
+    set_food_substitutions(unique_user, stock, [CreateIngredientFoodSubstitution(substitute_food_id=broth.id)])
+
+    recipe = create_recipe(unique_user, foods=[stock])
+    try:
+        items = suggestion_items(api_client, unique_user, [str(broth.id)], includeSubstitutions=include_substitutions)
+        found = [item for item in items if item["recipe"]["id"] == str(recipe.id)]
+
+        if not include_substitutions:
+            assert found == []
+            return
+
+        assert len(found) == 1
+        assert found[0]["missingFoods"] == []
+
+        substituted = found[0]["substitutedFoods"]
+        assert len(substituted) == 1
+        assert substituted[0]["food"]["id"] == str(stock.id)
+        assert substituted[0]["substituteFood"]["id"] == str(broth.id)
+    finally:
+        unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_food_substitution_direction_is_not_reversed(api_client: TestClient, unique_user: TestUser):
+    """
+    `broth -> stock` says broth may be replaced by stock. It does not make a recipe calling for
+    stock cookable with broth on hand. A symmetric fixture passes even when this is backwards.
+    """
+
+    stock = create_food(unique_user)
+    broth = create_food(unique_user)
+    set_food_substitutions(unique_user, broth, [CreateIngredientFoodSubstitution(substitute_food_id=stock.id)])
+
+    recipe = create_recipe(unique_user, foods=[stock])
+    try:
+        items = suggestion_items(api_client, unique_user, [str(broth.id)])
+        assert [item for item in items if item["recipe"]["id"] == str(recipe.id)] == []
+    finally:
+        unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_recipe_level_substitution_satisfies_a_recipe(api_client: TestClient, unique_user: TestUser):
+    chicken = create_food(unique_user)
+    pork = create_food(unique_user)
+
+    recipe = create_recipe_with_ingredient_substitutions(
+        unique_user, chicken, [RecipeIngredientSubstitution(substitute_food_id=pork.id)]
+    )
+    try:
+        items = suggestion_items(api_client, unique_user, [str(pork.id)])
+        found = [item for item in items if item["recipe"]["id"] == str(recipe.id)]
+
+        assert len(found) == 1
+        assert found[0]["missingFoods"] == []
+        assert found[0]["substitutedFoods"][0]["food"]["id"] == str(chicken.id)
+        assert found[0]["substitutedFoods"][0]["substituteFood"]["id"] == str(pork.id)
+    finally:
+        unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_note_only_substitution_does_not_suppress_a_food_bearing_one(api_client: TestClient, unique_user: TestUser):
+    """
+    A note-only substitution has no food to match against. It must be ignored without swallowing
+    the food-bearing ones on the same food -- the failure mode a NULL in a NOT IN set produces.
+    """
+
+    stock = create_food(unique_user)
+    broth = create_food(unique_user)
+    set_food_substitutions(
+        unique_user,
+        stock,
+        [
+            CreateIngredientFoodSubstitution(note="water and a bouillon cube"),
+            CreateIngredientFoodSubstitution(substitute_food_id=broth.id),
+        ],
+    )
+
+    recipe = create_recipe(unique_user, foods=[stock])
+    try:
+        items = suggestion_items(api_client, unique_user, [str(broth.id)])
+        found = [item for item in items if item["recipe"]["id"] == str(recipe.id)]
+
+        assert len(found) == 1
+        assert found[0]["substitutedFoods"][0]["substituteFood"]["id"] == str(broth.id)
+    finally:
+        unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_note_only_substitution_alone_never_satisfies(api_client: TestClient, unique_user: TestUser):
+    stock = create_food(unique_user)
+    other = create_food(unique_user)
+    set_food_substitutions(unique_user, stock, [CreateIngredientFoodSubstitution(note="water and a bouillon cube")])
+
+    recipe = create_recipe(unique_user, foods=[stock])
+    try:
+        items = suggestion_items(api_client, unique_user, [str(other.id)])
+        assert [item for item in items if item["recipe"]["id"] == str(recipe.id)] == []
+    finally:
+        unique_user.repos.recipes.delete(recipe.slug)
+
+
+def test_exact_matches_outrank_substitute_matches(api_client: TestClient, unique_user: TestUser):
+    """A recipe cookable as written should sort above one that needs a swap."""
+
+    broth = create_food(unique_user)
+    stock = create_food(unique_user)
+    set_food_substitutions(unique_user, stock, [CreateIngredientFoodSubstitution(substitute_food_id=broth.id)])
+
+    exact_recipe = create_recipe(unique_user, foods=[broth])
+    substituted_recipe = create_recipe(unique_user, foods=[stock])
+    try:
+        items = suggestion_items(api_client, unique_user, [str(broth.id)])
+        ranked = [
+            item["recipe"]["id"]
+            for item in items
+            if item["recipe"]["id"] in {str(exact_recipe.id), str(substituted_recipe.id)}
+        ]
+
+        assert ranked == [str(exact_recipe.id), str(substituted_recipe.id)]
+    finally:
+        for recipe in [exact_recipe, substituted_recipe]:
+            unique_user.repos.recipes.delete(recipe.slug)

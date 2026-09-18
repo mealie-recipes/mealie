@@ -26,22 +26,25 @@
         <v-divider v-if="showTitleEditor[index]" class="my-2" />
         <v-list-item
           density="compact"
-          class="pa-0"
+          class="px-0 py-1 ingredient-list-item"
           @click.stop="toggleChecked(index)"
         >
           <template #prepend>
             <v-checkbox
-              v-model="checked[index]"
+              :model-value="isChecked(index)"
               hide-details
               class="pt-0 my-auto py-auto"
               color="secondary"
               density="comfortable"
+              @click.stop
+              @update:model-value="setChecked(index, !!$event)"
             />
           </template>
           <v-list-item-title>
             <RecipeIngredientListItem
               :ingredient="ingredient"
               :scale="scale"
+              show-substitutions
             />
           </v-list-item-title>
         </v-list-item>
@@ -52,6 +55,7 @@
 
 <script setup lang="ts">
 import RecipeIngredientListItem from "./RecipeIngredientListItem.vue";
+import { useSessionStorage } from "@vueuse/core";
 import { useIngredientTextParser } from "~/composables/recipes";
 import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
@@ -59,11 +63,13 @@ interface Props {
   value?: RecipeIngredient[];
   scale?: number;
   isCookMode?: boolean;
+  storageKey?: string;
 }
 const props = withDefaults(defineProps<Props>(), {
   value: () => [],
   scale: 1,
   isCookMode: false,
+  storageKey: undefined,
 });
 
 const { parseIngredientText } = useIngredientTextParser();
@@ -72,7 +78,10 @@ function validateTitle(title?: string | null) {
   return !(title === undefined || title === "" || title === null);
 }
 
-const checked = ref(props.value.map(() => false));
+const transientChecked = ref<Record<string, boolean>>({});
+const sessionChecked = props.storageKey
+  ? useSessionStorage<Record<string, boolean>>(props.storageKey, {})
+  : null;
 const showTitleEditor = computed(() => props.value.map(x => validateTitle(x.title)));
 
 const ingredientCopyText = computed(() => {
@@ -93,14 +102,44 @@ const ingredientCopyText = computed(() => {
 });
 
 function toggleChecked(index: number) {
-  // TODO Find a better way to do this - $set is not available, and
-  // direct array modifications are not propagated for some reason
-  checked.value.splice(index, 1, !checked.value[index]);
+  setChecked(index, !isChecked(index));
+}
+
+function checkedState() {
+  return sessionChecked?.value ?? transientChecked.value;
+}
+
+function checkedKey(index: number) {
+  const referenceId = props.value[index]?.referenceId;
+  return referenceId ? `ref:${referenceId}` : `idx:${index}`;
+}
+
+function isChecked(index: number) {
+  return !!checkedState()[checkedKey(index)];
+}
+
+function setChecked(index: number, value: boolean) {
+  const state = checkedState();
+  state[checkedKey(index)] = value;
+
+  if (sessionChecked) {
+    sessionChecked.value = { ...state };
+  }
+  else {
+    transientChecked.value = { ...state };
+  }
 }
 </script>
 
 <style>
 .dense-markdown p {
   margin: auto !important;
+}
+
+/* vuetify clips both of these, which would swallow the substitution button's tap target
+   where it reaches past the line of text */
+.ingredient-list-item .v-list-item__content,
+.ingredient-list-item .v-list-item-title {
+  overflow: visible;
 }
 </style>
