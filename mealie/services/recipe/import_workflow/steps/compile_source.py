@@ -1,8 +1,8 @@
 from dataclasses import dataclass
 
+from mealie.pkgs.safehttp import resilient_fetch
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.services.openai.content import truncate_source_parts
-from mealie.services.scraper.fetch import safe_scrape_html
 
 from ..base import WorkflowStep
 from ..compilers import DEFAULT_SOURCE_COMPILERS, SourceCompiler, SourceType
@@ -86,7 +86,16 @@ class CompileSourceStep(WorkflowStep):
         page_content = ctx.input.page_content
         if not page_content and ctx.input.url:
             await ctx.report_progress("recipe.create-progress.fetching-webpage")
-            page_content = await safe_scrape_html(ctx.input.url)
+            result = await resilient_fetch(ctx.input.url)
+            if result:
+                page_content = result.text
+                ctx.resolved_url = result.url
+
+        # share/short links aren't recognized as videos until after redirects; give URL
+        # compilers a second chance with the landing URL before reading the page as HTML
+        if ctx.resolved_url and ctx.resolved_url != ctx.input.url:
+            if compiled := await self._compile(ctx, SourceType.URL):
+                return compiled
 
         return await self._compile_content(ctx, page_content)
 
