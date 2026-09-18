@@ -53,7 +53,7 @@
     "enable-notifier": "Aktiver varslingsagenten",
     "what-events": "Hvilke hendelser skal denne varslingsagenten abonnere på?",
     "user-events": "Brukerhendelser",
-    "mealplan-events": "Måltidsplanleggerhendelser",
+    "mealplan-events": "Meal Plan Events",
     "shopping-list-events": "Handlelistehendelser",
     "cookbook-events": "Kokebokhendelser",
     "tag-events": "Emneordhendelser",
@@ -177,7 +177,7 @@
     "date-updated": "Dato oppdatert",
     "key": "Nøkkel",
     "value": "Verdi",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Kan ikke opprette. Kontakt systemansvarlig for å få tilgang."
   },
   "group": {
     "create-group": "Opprett gruppe",
@@ -251,7 +251,12 @@
       "provider-delete-failed": "Kunne ikke slette tilbyder",
       "request-headers": "Forespørselshoder",
       "request-params": "Forespørsel Parametere",
-      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+      "no-default-provider-warning": "Du har ikke angitt en standardtilbyder, så AI-funksjoner er deaktivert",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {
@@ -277,7 +282,7 @@
     "create-a-new-meal-plan": "Opprett en ny måltidsplan",
     "update-this-meal-plan": "Oppdater denne måltidsplanen",
     "dinner-this-week": "Middag denne uken",
-    "edit-meal-plan": "Edit Meal Plan",
+    "edit-meal-plan": "Rediger måltidsplan",
     "remove-from-plan": "Remove from Meal Plan",
     "meal-planner": "Måltidsplanlegger",
     "any-category": "Enhver kategori",
@@ -340,7 +345,7 @@
     },
     "copymethat": {
       "description-long": "Mealie kan importere oppskrifter fra Copy Me That. Eksporter oppskrifter i HTML-format, last deretter opp .zip-filen under.",
-      "title": "Copy Me That Recipe Manager"
+      "title": "Copy Me That - oppskriftsbehandler"
     },
     "paprika": {
       "description-long": "Mealie kan importere oppskrifter fra Paprika. Eksporter oppskriftene fra Paprika, endre filnavnutvidelsen til .zip og last den opp nedenfor.",
@@ -462,15 +467,15 @@
     "trans-fat-content": "Transfett",
     "unsaturated-fat-content": "Umettet fett",
     "join-the-conversation": "Delta i samtalen",
-    "add-recipe-to-mealplan": "Legg til oppskrift i måltidsplan",
+    "add-recipe-to-mealplan": "Add Recipe to Meal Plan",
     "entry-type": "Oppføringstype",
     "add-to-list": "Legg til i liste",
     "add-to-plan": "Legg til i plan",
     "add-to-timeline": "Legg til tidslinje",
     "successfully-added-to-list": "Lagt til i listen",
-    "recipe-added-to-mealplan": "Oppskrift er lagt til i måltidsplan",
+    "recipe-added-to-mealplan": "Recipe added to meal plan",
     "failed-to-add-recipes-to-list": "Klarte ikke å legge til oppskrift i listen",
-    "failed-to-add-recipe-to-mealplan": "Klarte ikke å legge til oppskrift i måltidsplan",
+    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to meal plan",
     "yield": "Gir",
     "yields-amount-with-text": "Gir {amount} {text}",
     "yield-text": "Porsjonsenhet (eks. pers./stk.)",
@@ -1141,11 +1146,11 @@
     "group-settings-description": "Administrer dine felles gruppe-innstillinger, for eksempel personverninnstillinger.",
     "household-description": "Disse elementene deles innad i din husholdning. Redigering av elementenee vil føre til endringer for hele husholdningen!",
     "household-settings": "Husholdningsinnstillinger",
-    "household-settings-description": "Administrer innstillinger for husholdningen, som innstillinger for måltidsplaner og personvern.",
+    "household-settings-description": "Manage your household settings, like meal plan and privacy settings.",
     "cookbooks-description": "Administrer en samling av oppskriftskategorier og generer sider for dem.",
     "members": "Medlemmer",
     "members-description": "Se hvem som er medlem av din husholdning, og adminstrer deres rettigheter.",
-    "webhooks-description": "Sett opp webhooks som utløses på dager du har planlagt måltidsplaner.",
+    "webhooks-description": "Set up webhooks that trigger on days that you have meal plans scheduled.",
     "notifiers": "Varslingsagenter",
     "notifiers-description": "Sett opp e-post- og pushvarsler som utløses av spesifikke hendelser.",
     "manage-data": "Administrer data",

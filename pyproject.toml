@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.26.0"
+version = "3.27.0"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -10,7 +10,7 @@ dependencies = [
     "Pillow==12.3.0",
     "PyYAML==6.0.3",
     "SQLAlchemy==2.0.52",
-    "alembic==1.19.2",
+    "alembic==1.20.0",
     "apprise==1.13.1",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
@@ -27,7 +27,7 @@ dependencies = [
     "python-slugify==9.0.0",
     "recipe-scrapers==15.12.0",
     "requests==2.34.2",
-    "tzdata==2026.3",
+    "tzdata==2026.4",
     "uvicorn[standard]==0.52.4",
     "beautifulsoup4==4.15.0",
     "isodate==0.7.2",
@@ -38,13 +38,13 @@ dependencies = [
     "paho-mqtt==1.6.1",
     "pydantic-settings==2.15.0",
     "pillow-heif==1.7.0",
-    "pyjwt==2.13.0",
-    "openai==3.11.0",
+    "pyjwt==2.14.0",
+    "openai==3.13.0",
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.8.19",
     "ingredient-parser-nlp==2.7.0",
-    "pint==0.25.3",
+    "pint==0.26.1",
     "httpx-curl-cffi==0.1.5",
 ]
 
@@ -70,7 +70,7 @@ dev = [
     "pytest==9.1.1",
     "pytest-asyncio==1.4.0",
     "rich==15.0.0",
-    "ruff==0.16.6",
+    "ruff==0.16.7",
     "types-PyYAML==6.0.12.20260906",
     "types-python-dateutil==2.9.0.20260807",
     "types-python-slugify==8.0.2.20240310",

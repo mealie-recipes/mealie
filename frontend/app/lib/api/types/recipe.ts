@@ -320,9 +320,9 @@ export interface RecipeNote {
   referenceId?: string;
 }
 export interface RecipeCommentOut {
+  id: string;
   recipeId: string;
   text: string;
-  id: string;
   createdAt: string;
   updatedAt: string;
   userId: string;
