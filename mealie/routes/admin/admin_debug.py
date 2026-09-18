@@ -20,7 +20,6 @@ class AdminDebugController(BaseAdminController):
         if not provider:
             return DebugResponse(success=False, response="Provider not found")
 
-        from mealie.schema.openai.general import OpenAIText
         from mealie.services.openai import OpenAILocalImage, OpenAIService
 
         with get_temporary_path() as temp_path:
@@ -37,15 +36,12 @@ class AdminDebugController(BaseAdminController):
 
             try:
                 openai_service = OpenAIService(self.repos)
-                prompt = openai_service.get_prompt("general.debug")
 
                 message = "Hello, checking to see if I can reach you."
                 if local_images:
                     message = f"{message} Here is an image to test with:"
 
-                response = await openai_service.get_response(
-                    prompt, message, response_schema=OpenAIText, attachments=local_images, provider=provider
-                )
+                response = await openai_service.ping(provider, message, images=local_images)
 
                 if not response:
                     raise Exception("No response received from OpenAI")
