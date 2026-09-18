@@ -2,6 +2,7 @@ from unittest.mock import Mock
 
 import pytest
 
+import mealie.services.openai.transcription as transcription_module
 from mealie.services.openai import transcription
 from mealie.services.recipe.import_workflow.compilers.transcription import TranscriptionCompiler
 
@@ -40,9 +41,6 @@ def test_transcription_compiler_uses_resolved_url(monkeypatch: pytest.MonkeyPatc
     compiler = TranscriptionCompiler(ctx)
     assert compiler.can_compile() is True
     assert compiler._url() == ctx.resolved_url
-import pytest
-
-import mealie.services.openai.transcription as transcription_module
 
 
 class _SettingsStub:

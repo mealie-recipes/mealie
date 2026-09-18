@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 
-from mealie.pkgs.safehttp import resilient_fetch
 from mealie.core.root_logger import get_logger
+from mealie.pkgs.safehttp import resilient_fetch
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.services.openai.content import truncate_source_parts
 
