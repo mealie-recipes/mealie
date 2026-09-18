@@ -505,14 +505,15 @@ async function submitRegistration() {
   else {
     payload.groupToken = token.value;
   }
-  const { response } = await api.register.register(payload);
+  const { response, error } = await api.register.register(payload);
   if (response?.status === 201) {
     accountDetails.reset();
     credentials.reset();
     alert.success(i18n.t("user-registration.registration-success"));
     router.push("/login");
   }
-  else {
+  // The Axios interceptor already shows detail.message errors.
+  else if (!error?.response?.data?.detail?.message) {
     alert.error(i18n.t("events.something-went-wrong"));
   }
 }
