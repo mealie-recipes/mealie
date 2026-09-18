@@ -14,6 +14,7 @@ from mealie.core import root_logger, security
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies import get_auth_token, get_current_user
 from mealie.core.exceptions import MissingClaimException, UserLockedOut
+from mealie.core.security.providers.reverse_proxy_provider import ReverseProxyProvider
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
 from mealie.lang import get_locale_provider
@@ -294,6 +295,30 @@ async def oauth_native_token(
 
     access_token, duration = auth
     set_session_cookie(response, request, access_token, duration, settings.OIDC_REMEMBER_ME)
+    return MealieAuthToken.respond(access_token, duration)
+
+
+@public_router.get("/reverse-proxy")
+async def reverse_proxy_login(
+    request: Request,
+    response: Response,
+    session: Session = Depends(generate_session),
+):
+    """Authenticate a user using a username forwarded by a trusted reverse proxy header"""
+    if not settings.REVERSE_PROXY_AUTH_READY:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+
+    username = request.headers.get(settings.REVERSE_PROXY_AUTH_HEADER)
+    if not username:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+    auth_provider = ReverseProxyProvider(session, username)
+    auth = auth_provider.authenticate()
+    if not auth:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+    access_token, duration = auth
+    set_session_cookie(response, request, access_token, duration, remember_me=True)
     return MealieAuthToken.respond(access_token, duration)
 
 
