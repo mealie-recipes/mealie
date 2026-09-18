@@ -28,7 +28,7 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser, h2_us
     original_recipe_data: dict = response.json()
     recipe = RecipeSummary.model_validate(original_recipe_data)
     recipe_id = recipe.id
-    assert recipe.last_made is None
+    assert "lastMade" not in original_recipe_data
 
     # store the number of events, so we can compare later
     params = {"queryFilter": f"recipe_id={recipe_id}"}
@@ -63,17 +63,15 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser, h2_us
     event = response_json["items"][0]
     assert new_plan["entryType"].lower() in event["subject"].lower()
 
-    # make sure the recipe's last made date was updated
+    # make sure the aggregate last made date is not exposed on the recipe
     response = api_client.get(api_routes.recipes_slug(recipe_name), headers=unique_user.token)
     new_recipe_data: dict = response.json()
-    recipe = RecipeSummary.model_validate(new_recipe_data)
-    assert recipe.last_made and recipe.last_made.date() == datetime.now(UTC).date()
+    assert "lastMade" not in new_recipe_data
 
     # make sure nothing else was updated
     for data in [original_recipe_data, new_recipe_data]:
         data.pop("dateUpdated")
         data.pop("updatedAt")
-        data.pop("lastMade")
 
     # instructions ids are generated randomly and aren't consistent between get requests
     old_instructions: list[dict] = original_recipe_data.pop("recipeInstructions")
