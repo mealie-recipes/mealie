@@ -165,7 +165,7 @@
         @save="createListItem"
       />
 
-      <div v-else>
+      <div v-else class="mb-3">
         <ShoppingListItemEditor
           v-if="createEditorOpen"
           v-model="createListItemData"
@@ -515,11 +515,6 @@ const {
 
   .shopping-list-item-row .mb-2 {
     margin-bottom: 0 !important;
-  }
-
-  /* edit is also in the drag handle's menu, so the pencil is just noise here */
-  .shopping-list-item-row .shopping-list-item__edit {
-    display: none;
   }
 
   /* no border and no shadow around a group: the coloured header is what marks it */
