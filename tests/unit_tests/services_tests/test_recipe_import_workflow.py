@@ -2,11 +2,13 @@ import json
 import re
 from pathlib import Path
 
+import httpx
 import pytest
 
 import mealie
 from mealie.lang import get_locale_provider
 from mealie.lang.providers import TRANSLATIONS
+from mealie.pkgs.safehttp.fetch import FetchResult
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.services.openai.content import (
     MAX_SOURCE_CONTENT_LENGTH,
@@ -164,6 +166,7 @@ class StubContext:
 
     def __init__(self, url: str | None = None, page_content: str | None = None) -> None:
         self.input = WorkflowInput(url=url, page_content=page_content)
+        self.resolved_url: str | None = None
         self.progress: list[str] = []
 
     async def report_progress(self, key: str) -> None:
@@ -221,8 +224,8 @@ async def test_a_failing_url_compiler_falls_back_to_reading_the_page(monkeypatch
     was perfectly readable.
     """
     monkeypatch.setattr(
-        "mealie.services.recipe.import_workflow.steps.compile_source.safe_scrape_html",
-        _fake_scrape,
+        "mealie.services.recipe.import_workflow.steps.compile_source.resilient_fetch",
+        _fake_fetch,
     )
 
     step = CompileSourceStep(compilers=[FailingUrlCompiler, EchoContentCompiler])
@@ -235,8 +238,8 @@ async def test_a_failing_url_compiler_falls_back_to_reading_the_page(monkeypatch
     assert "recipe.create-progress.fetching-webpage" in ctx.progress
 
 
-async def _fake_scrape(url: str) -> str:
-    return "<html>the recipe page</html>"
+async def _fake_fetch(url: str) -> FetchResult:
+    return FetchResult(b"<html>the recipe page</html>", 200, url, httpx.Headers(), "utf-8")
 
 
 @pytest.mark.asyncio
