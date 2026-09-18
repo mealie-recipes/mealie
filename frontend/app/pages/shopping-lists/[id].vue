@@ -467,12 +467,12 @@ const {
 /* Strip most of the vertical padding so more items fit on a phone screen, and lean on
    indentation (label header flush left, items inset) to keep sections readable */
 .shopping-list-view {
-  /* slim header: regular weight and a low bar, keeping the label colour as its fill */
+  /* slim header: a low bar with bold text, keeping the label colour as its fill */
   .shopping-list-section .section-title {
     min-height: 30px !important;
     padding: 2px 10px;
     font-size: 0.9rem;
-    font-weight: 400;
+    font-weight: 700;
   }
 
   .shopping-list-section .v-expansion-panel-text__wrapper,
