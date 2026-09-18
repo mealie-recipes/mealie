@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Receptkép törölve",
         "recipe-defaults": {
             "ingredient-note": "1 csésze liszt",
+            "name": "Új recept",
             "step-text": "A recept lépései és a receptoldal egyéb mezői támogatják a markdown szintaxist.\n\n**Hivatkozás hozzáadása**\n\n[Saját link](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,20 +20,43 @@
             "yields": "Késleltetve"
         },
         "and-amount": "és {amount}",
-        "or-ingredient": "vagy {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "Az AI szolgáltatások nem engedélyezettek",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "Az AI képszolgáltatások nem engedélyezettek",
+            "no-recipe-found": "A megadott forrásban nem található recept",
+            "no-source": "Nincs tartalom, kép vagy URL megadva",
+            "provider-returned-nothing": "Az AI szolgáltató nem adott vissza receptet",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "A megadott forrásból nem sikerült tartalmat kiolvasni",
+            "video-download-failed": "A videó letöltése nem lehetséges. Ennek lehet, hogy privát, törölték vagy egy nem támogatott oldalról származik"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Recept létrehozás AI-val...",
+            "creating-recipe": "Recept létrehozása...",
             "creating-recipe-from-transcript-with-ai": "Recept készítése beszédfelvételből AI-val...",
             "creating-recipe-from-webpage-data": "Recept készítése a weboldal adataiból...",
             "downloading-image": "Kép letöltése...",
             "downloading-video": "Videó letöltése...",
             "extracting-recipe-data": "Recept adatok kibontása...",
             "fetching-webpage": "A weboldal betöltése folyamatban...",
-            "transcribing-audio-with-ai": "Hanganyagok átírása AI-val..."
+            "organizing-recipe": "Recept összeállítása...",
+            "reading-images-with-ai": "Képek olvasása AI-val...",
+            "reading-source-with-ai": "Források olvasása AI-val...",
+            "transcribing-audio-with-ai": "Hanganyagok átírása AI-val...",
+            "translating-recipe": "Recept fordítása..."
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Nem található recept a beállítottt szabályok alapján"
+        "no-recipes-match-your-rules": "Nem található recept a beállítottt szabályok alapján",
+        "entry-type": {
+            "breakfast": "reggeli",
+            "lunch": "ebéd",
+            "dinner": "vacsora",
+            "side": "kisétkezés",
+            "snack": "rágcsa",
+            "drink": "ital",
+            "dessert": "desszert"
+        }
     },
     "user": {
         "user-updated": "Felhasználó frissítve",
@@ -47,6 +71,7 @@
         "permission_denied": "Nincs engedélye a műveletet végrehajtásához",
         "recursive-recipe-link": "Egy recept nem hivatkozhat önmagára, sem közvetlenül, sem közvetve",
         "no-entry-found": "A kért erőforrás nem található",
+        "rate-limit-error": "Az AI-szolgáltató korlátozza a kérések számát. Kérjük, várjon egy kis időt, majd próbálja meg újra",
         "integrity-error": "Adatbázis integritás hiba",
         "username-conflict-error": "A felhasználónév már foglalt",
         "email-conflict-error": "Ez az e-mail cím már használatban van"
@@ -58,7 +83,40 @@
         "generic-updated-with-url": "{name} frissítve, {url}",
         "generic-duplicated": "{name} duplikálva",
         "generic-deleted": "{name} törölve lett",
-        "logged-out": "Kijelentkezett"
+        "logged-out": "Kijelentkezett",
+        "event-title": {
+            "test-message": "Teszt üzenet",
+            "webhook-task": "Webhook-feladat",
+            "recipe-created": "Recept létrehozva",
+            "recipe-updated": "Recept frissítve",
+            "recipe-deleted": "Recept törölve",
+            "user-signup": "Felhasználói regisztráció",
+            "data-migrations": "Adatmigráció",
+            "data-export": "Adatok exportálása",
+            "data-import": "Adatok importálása",
+            "mealplan-entry-created": "Menüterv bejegyzés létrehozva",
+            "mealplan-entry-updated": "Menüterv bejegyzés frissítve",
+            "mealplan-entry-deleted": "Menüterv bejegyzés törölve",
+            "shopping-list-created": "Bevásárlólista létrehozva",
+            "shopping-list-updated": "Bevásárlólista frissítve",
+            "shopping-list-deleted": "Bevásárlólista törölve",
+            "cookbook-created": "Szakácskönyv létrehozva",
+            "cookbook-updated": "Szakácskönyv frissítve",
+            "cookbook-deleted": "Szakácskönyv törölve",
+            "tag-created": "Címke létrehozva",
+            "tag-updated": "Címke módosítva",
+            "tag-deleted": "Címke törölve",
+            "category-created": "Kategória létrehozva",
+            "category-updated": "Kategória frissítve",
+            "category-deleted": "Kategória törölve",
+            "label-created": "Címke létrehozva",
+            "label-updated": "Címke frissítve",
+            "label-deleted": "Címke törölve"
+        },
+        "test-message-body": "Ez egy teszt értesítés a Mealie-től.",
+        "mealplan-entry-created": "Menüterv bejegyzés létrehozva {date}-ra/re, mint {entry_type} típus",
+        "mealplan-entry-updated": "Menüterv bejegyzés frissítve {date}-ra/re, mint {entry_type} típus",
+        "mealplan-entry-deleted": "Menüterv bejegyzés törölve {date}-ra/re, mint {entry_type} típus"
     },
     "datetime": {
         "year": "év",

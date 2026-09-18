@@ -1,5 +1,6 @@
+from __future__ import annotations
+
 import json
-import os
 import shutil
 from datetime import UTC, datetime
 from pathlib import Path
@@ -13,17 +14,21 @@ import sqlalchemy as sa
 from fastapi import UploadFile
 
 from mealie.core import exceptions
-from mealie.core.dependencies.dependencies import get_temporary_path
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
+from mealie.schema import mapper
 from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeUpdate
-from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe, create_recipe_slug
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
-from mealie.schema.recipe.recipe_notes import RecipeNote
+from mealie.schema.recipe.recipe_ingredient import (
+    CreateIngredientFood,
+    CreateIngredientUnit,
+    RecipeIngredient,
+    SaveIngredientFood,
+    SaveIngredientUnit,
+)
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
@@ -31,9 +36,8 @@ from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
 from mealie.services.household_services.household_service import HouseholdService
-from mealie.services.openai import OpenAILocalImage, OpenAIService
+from mealie.services.parser_services._base import DataMatcher
 from mealie.services.recipe.recipe_data_service import RecipeDataService
-from mealie.services.scraper import cleaner
 
 from .template_service import TemplateService
 
@@ -51,6 +55,7 @@ class RecipeServiceBase(BaseService):
         if repos.household_id != user.household_id != household.id:
             raise Exception("household ids do not match")
 
+        self._data_matcher: DataMatcher | None = None
         self.group_recipes = get_repositories(repos.session, group_id=repos.group_id, household_id=None).recipes
         """Recipes repo without a Household filter"""
 
@@ -85,6 +90,9 @@ class RecipeService(RecipeServiceBase):
         return owned_count == len(recipe_slugs)
 
     def can_update(self, recipe_slugs: list[str]) -> bool:
+        if self.user.admin:
+            return True
+
         sql = dedent(
             """
             SELECT
@@ -266,6 +274,96 @@ class RecipeService(RecipeServiceBase):
         new_item = repo.create(data)
         return new_item.model_dump()
 
+    def _get_data_matcher(self) -> DataMatcher:
+        if self._data_matcher is None:
+            # Exact matches only: zip imports should rematch name/plural/alias/abbreviation,
+            # not fuzzy-merge distinct foods or units from another server.
+            self._data_matcher = DataMatcher(
+                self.repos,
+                food_fuzzy_match_threshold=100,
+                unit_fuzzy_match_threshold=100,
+            )
+        return self._data_matcher
+
+    def _reset_data_matcher(self) -> None:
+        self._data_matcher = None
+
+    @staticmethod
+    def _non_empty_str(value: Any) -> str | None:
+        if isinstance(value, str) and value:
+            return value
+        return None
+
+    def _transform_food(self, data: dict[str, Any] | Any) -> dict[str, Any] | None:
+        # Ensures the food from the source instance exists in this group, creating it if necessary.
+        if not isinstance(data, dict):
+            return None
+
+        name = self._non_empty_str(data.get("name"))
+        if not name:
+            return None
+
+        if data.get("id") and self.repos.ingredient_foods.get_one(data["id"]):
+            return data
+
+        existing_food = self._get_data_matcher().find_food_match(name)
+        if existing_food:
+            data["id"] = existing_food.id
+            return data
+
+        create_data = CreateIngredientFood(
+            name=name,
+            plural_name=data.get("plural_name"),
+            description=data.get("description") or "",
+            aliases=data.get("aliases") or [],
+            label_id=None,
+        )
+        save_data = mapper.cast(create_data, SaveIngredientFood, group_id=self.user.group_id)
+        new_food = self.repos.ingredient_foods.create(save_data)
+        data["id"] = new_food.id
+        self._reset_data_matcher()
+        return data
+
+    def _transform_unit(self, data: dict[str, Any] | Any) -> dict[str, Any] | None:
+        # Ensures the unit from the source instance exists in this group, creating it if necessary.
+        if not isinstance(data, dict):
+            return None
+
+        name = self._non_empty_str(data.get("name"))
+        abbreviation = self._non_empty_str(data.get("abbreviation"))
+        match_value = name or abbreviation
+        if not match_value:
+            return None
+
+        if data.get("id") and self.repos.ingredient_units.get_one(data["id"]):
+            return data
+
+        matcher = self._get_data_matcher()
+        existing_unit = matcher.find_unit_match(match_value)
+        if existing_unit is None and abbreviation and abbreviation != match_value:
+            existing_unit = matcher.find_unit_match(abbreviation)
+        if existing_unit:
+            data["id"] = existing_unit.id
+            return data
+
+        create_data = CreateIngredientUnit(
+            name=match_value,
+            plural_name=data.get("plural_name"),
+            description=data.get("description") or "",
+            abbreviation=abbreviation or "",
+            plural_abbreviation=data.get("plural_abbreviation") or "",
+            fraction=data.get("fraction", True),
+            use_abbreviation=data.get("use_abbreviation", False),
+            aliases=data.get("aliases") or [],
+            standard_quantity=data.get("standard_quantity"),
+            standard_unit=data.get("standard_unit"),
+        )
+        save_data = mapper.cast(create_data, SaveIngredientUnit, group_id=self.user.group_id)
+        new_unit = self.repos.ingredient_units.create(save_data)
+        data["id"] = new_unit.id
+        self._reset_data_matcher()
+        return data
+
     def _process_recipe_data(self, key: str, data: list | dict | Any):
         if isinstance(data, list):
             return [self._process_recipe_data(key, item) for item in data]
@@ -284,12 +382,15 @@ class RecipeService(RecipeServiceBase):
         data["group_id"] = str(self.user.group_id)
         data["household_id"] = str(self.user.household_id)
 
-        # make sure categories and tags are valid
+        # make sure categories and tags and food/unit are valid
         if key == "recipe_category":
             return self._transform_category_or_tag(data, self.repos.categories)
         elif key == "tags":
             return self._transform_category_or_tag(data, self.repos.tags)
-
+        elif key == "food":
+            return self._transform_food(data)
+        elif key == "unit":
+            return self._transform_unit(data)
         # recursively process other objects
         for k, v in data.items():
             data[k] = self._process_recipe_data(k, v)
@@ -331,29 +432,6 @@ class RecipeService(RecipeServiceBase):
             data_service.write_image(recipe_image, "webp")
 
         return recipe
-
-    async def create_from_images(self, images: list[UploadFile], translate_language: str | None = None) -> Recipe:
-        openai_recipe_service = OpenAIRecipeService(self.repos, self.user, self.household, self.translator)
-        with get_temporary_path() as temp_path:
-            local_images: list[Path] = []
-            for image in images:
-                safe_filename = Path(image.filename).name
-                image_path = temp_path.joinpath(safe_filename)
-                with image_path.open("wb") as buffer:
-                    shutil.copyfileobj(image.file, buffer)
-                local_images.append(image_path)
-
-            recipe_data = await openai_recipe_service.build_recipe_from_images(
-                local_images, translate_language=translate_language
-            )
-            recipe_data = cleaner.clean(recipe_data, self.translator)
-
-            recipe = self.create_one(recipe_data)
-            data_service = RecipeDataService(recipe.id)
-
-            with open(local_images[0], "rb") as f:
-                data_service.write_image(f.read(), "webp")
-            return recipe
 
     def duplicate_one(self, old_slug_or_id: str | UUID, dup_data: RecipeDuplicate) -> Recipe:
         """Duplicates a recipe and returns the new recipe."""
@@ -477,6 +555,20 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
+    @staticmethod
+    def _preserve_omitted_image(recipe: Recipe, update_data: Recipe) -> Recipe:
+        """Keeps the stored image when the payload doesn't mention it.
+
+        Updates are a full overwrite, so a client that round-trips a recipe without echoing
+        `image` back would otherwise clear it. The image files stay on disk, leaving a recipe
+        that has a picture but no longer says so - which reads to the frontend as "no image".
+        The image is owned by the `/{slug}/image` endpoints; an update only carries it along.
+        """
+        if "image" not in update_data.model_fields_set:
+            update_data.image = recipe.image
+
+        return update_data
+
     def _remove_non_existent_ingredient_references(self, update_data: Recipe) -> Recipe:
         """Removes the references of ingredients from steps that no longer exist."""
 
@@ -491,6 +583,20 @@ class RecipeService(RecipeServiceBase):
                     ref
                     for ref in instruction.ingredient_references
                     if ref.reference_id in current_ingredient_reference_ids
+                ]
+
+        return update_data
+
+    def _remove_non_existent_note_references(self, update_data: Recipe) -> Recipe:
+        """Removes the references to notes from steps when the note no longer exists on the recipe."""
+
+        current_note_reference_ids = {note.reference_id for note in (update_data.notes or [])}
+
+        recipe_instructions = update_data.recipe_instructions
+        if recipe_instructions is not None:
+            for instruction in recipe_instructions:
+                instruction.note_references = [
+                    ref for ref in instruction.note_references if ref.reference_id in current_note_reference_ids
                 ]
 
         return update_data
@@ -520,7 +626,16 @@ class RecipeService(RecipeServiceBase):
     def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug_or_id, update_data)
 
+        # A PUT replaces the whole recipe, so a body that omits the name would blank it out.
+        # Nothing downstream can cope with that, so reject it before the update rather than
+        # failing deeper in. This runs after the checks above so that a missing or forbidden
+        # recipe still answers 404 or 403 regardless of what the body contains.
+        if not update_data.name:
+            raise exceptions.MissingRequiredData("Recipe name is required")
+
+        update_data = self._preserve_omitted_image(recipe, update_data)
         update_data = self._remove_non_existent_ingredient_references(update_data)
+        update_data = self._remove_non_existent_note_references(update_data)
         update_data = self._resolve_ingredient_sub_recipes(update_data)
 
         new_data = self.group_recipes.update(recipe.slug, update_data)
@@ -593,66 +708,3 @@ class RecipeService(RecipeServiceBase):
     def render_template(self, recipe: Recipe, temp_dir: Path, template: str) -> Path:
         t_service = TemplateService(temp_dir)
         return t_service.render(recipe, template)
-
-
-class OpenAIRecipeService(RecipeServiceBase):
-    def _convert_recipe(self, openai_recipe: OpenAIRecipe) -> Recipe:
-        return Recipe(
-            user_id=self.user.id,
-            group_id=self.user.group_id,
-            household_id=self.household.id,
-            name=openai_recipe.name,
-            slug=create_recipe_slug(openai_recipe.name),
-            description=openai_recipe.description,
-            recipe_yield=openai_recipe.recipe_yield,
-            total_time=openai_recipe.total_time,
-            prep_time=openai_recipe.prep_time,
-            perform_time=openai_recipe.perform_time,
-            recipe_ingredient=[
-                RecipeIngredient(title=ingredient.title, note=ingredient.text)
-                for ingredient in openai_recipe.ingredients
-                if ingredient.text
-            ],
-            recipe_instructions=[
-                RecipeStep(title=instruction.title, text=instruction.text)
-                for instruction in openai_recipe.instructions
-                if instruction.text
-            ],
-            notes=[RecipeNote(title=note.title or "", text=note.text) for note in openai_recipe.notes if note.text],
-        )
-
-    async def build_recipe_from_images(self, images: list[Path], translate_language: str | None) -> Recipe:
-        openai_service = OpenAIService(self.repos)
-        if not (openai_service.provider_settings and openai_service.provider_settings.image_provider_enabled):
-            raise ValueError("OpenAI image services are not available")
-
-        prompt = openai_service.get_prompt("recipes.parse-recipe-image")
-
-        openai_images = [OpenAILocalImage(filename=os.path.basename(image), path=image) for image in images]
-        message = (
-            f"Please extract the recipe from the {'images' if len(openai_images) > 1 else 'image'} provided."
-            "There should be exactly one recipe."
-        )
-
-        if translate_language:
-            message += f" Please translate the recipe to {translate_language}."
-
-        try:
-            response = await openai_service.get_response(
-                prompt,
-                message,
-                response_schema=OpenAIRecipe,
-                attachments=openai_images,
-            )
-            if not response:
-                raise ValueError("Received empty response from OpenAI")
-
-        except Exception as e:
-            raise Exception("Failed to call OpenAI services") from e
-
-        try:
-            recipe = self._convert_recipe(response)
-        except Exception as e:
-            raise ValueError("Unable to parse recipe from image") from e
-
-        return recipe

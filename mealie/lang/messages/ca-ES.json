@@ -8,6 +8,7 @@
         "recipe-image-deleted": "S'ha suprimit la imatge de la recepta",
         "recipe-defaults": {
             "ingredient-note": "1 tassa de farina",
+            "name": "New Recipe",
             "step-text": "Passos de recepta i altres camps són compatibles amb sintaxi markdown.\n\n**Afegir un enllaç**\n\n[El meu enllaç](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,20 +20,43 @@
             "yields": "Racions"
         },
         "and-amount": "i {amount}",
-        "or-ingredient": "o {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "S'està creant recepta amb IA...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "S'està creant la recepta a partir de la transcripció amb IA...",
             "creating-recipe-from-webpage-data": "S'està creant la recepta a partir de les dades del lloc web...",
             "downloading-image": "S'est baixant l'imatge...",
             "downloading-video": "S'est baixant el vídeo...",
             "extracting-recipe-data": "S'estan extraient les dades de la recepta...",
             "fetching-webpage": "S'està recuperant la pàgina web...",
-            "transcribing-audio-with-ai": "Transcripció àudio amb IA..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Transcripció àudio amb IA...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Cap recepta coincideix amb les teves regles"
+        "no-recipes-match-your-rules": "Cap recepta coincideix amb les teves regles",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "S'ha actualitzat l'usuari",
@@ -47,6 +71,7 @@
         "permission_denied": "No teniu autorització per executar aquesta acció",
         "recursive-recipe-link": "Una recepta no pot fer referència a ella mateixa, tant directa com indirectament",
         "no-entry-found": "No s'ha trobat el recurs demanat",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "S'ha produït un error en la integritat de la base de dades",
         "username-conflict-error": "Aquest nom d'usuari ja està en ús",
         "email-conflict-error": "Aquest correu electrònic ja està en ús"
@@ -58,7 +83,40 @@
         "generic-updated-with-url": "{name} ha estat actualitzat, {url}",
         "generic-duplicated": "S'ha duplicat {name}",
         "generic-deleted": "{name} ha estat eliminat",
-        "logged-out": "Sessió tancada"
+        "logged-out": "Sessió tancada",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "any|anys",

@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Фото рецепта удалено",
         "recipe-defaults": {
             "ingredient-note": "1 чашка муки",
+            "name": "New Recipe",
             "step-text": "Шаги рецепта и прочие поля на странице рецепта поддерживают синтаксис Markdown.\n\n**Добавить ссылку**\n\n[Моя ссылка](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -18,21 +19,44 @@
             "yield": "Количество порций",
             "yields": "Можно получить порций"
         },
-        "and-amount": "И {amount}",
-        "or-ingredient": "Или {ingredient}",
+        "and-amount": "и {amount}",
+        "import-errors": {
+            "ai-not-enabled": "ИИ сервисы выключены",
+            "ai-request-failed": "Провайдер ИИ не смог выполнить запрос. Пожалуйста, попробуйте еще раз",
+            "image-provider-not-enabled": "ИИ службы изображений выключены",
+            "no-recipe-found": "Рецепт не найден в указанном источнике",
+            "no-source": "Нет содержимого, изображений или URL-адреса",
+            "provider-returned-nothing": "Провайдер ИИ не вернул рецепт",
+            "unknown-error": "Что-то пошло не так при создании рецепта. Пожалуйста, попробуйте еще раз",
+            "unreadable-source": "Не удалось прочитать содержимое из предоставленного источника",
+            "video-download-failed": "Не удается загрузить видео. Оно может быть приватным, удаленным или с неподдерживаемого сайта"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Создание рецепта с ИИ...",
+            "creating-recipe": "Создание рецепта...",
             "creating-recipe-from-transcript-with-ai": "Создание рецепта из транскрипции с ИИ...",
             "creating-recipe-from-webpage-data": "Создание рецепта из данных веб-страницы...",
             "downloading-image": "Загрузка изображения...",
             "downloading-video": "Загрузка видео...",
             "extracting-recipe-data": "Извлечение данных рецепта...",
             "fetching-webpage": "Загрузка веб-страницы...",
-            "transcribing-audio-with-ai": "Преобразование звука с AI..."
+            "organizing-recipe": "Организация рецепта...",
+            "reading-images-with-ai": "Чтение изображений с помощью ИИ...",
+            "reading-source-with-ai": "Чтение источника с помощью ИИ...",
+            "transcribing-audio-with-ai": "Преобразование звука с AI...",
+            "translating-recipe": "Перевод рецепта..."
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Нет рецептов, соответствующих вашим правилам"
+        "no-recipes-match-your-rules": "Нет рецептов, соответствующих вашим правилам",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Профиль пользователя обновлен",
@@ -47,6 +71,7 @@
         "permission_denied": "У вас нет прав для выполнения этого действия",
         "recursive-recipe-link": "Рецепт не может ссылаться на себя ни напрямую, ни косвенно",
         "no-entry-found": "Запрашиваемый ресурс не найден",
+        "rate-limit-error": "Провайдер ИИ имеет ограничение трафика. Пожалуйста, повторите попытку позже",
         "integrity-error": "Ошибка целостности базы данных",
         "username-conflict-error": "Имя пользователя уже занято",
         "email-conflict-error": "Емейл уже используется"
@@ -58,7 +83,40 @@
         "generic-updated-with-url": "{name} обновлен, {url}",
         "generic-duplicated": "Копия {name} создана",
         "generic-deleted": "{name} удален",
-        "logged-out": "Вы вышли из системы"
+        "logged-out": "Вы вышли из системы",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "год|лет",

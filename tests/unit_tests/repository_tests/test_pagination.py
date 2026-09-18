@@ -1393,6 +1393,10 @@ def test_pagination_filter_advanced_frontend_sort(unique_user: TestUser):
     "qf",
     [
         pytest.param('(name="test name" AND useAbbreviation=f))', id="unbalanced parenthesis"),
+        pytest.param(
+            'name <> "test name") OR (useAbbreviation=f',
+            id="parenthesis closed before they're opened",
+        ),
         pytest.param('id="this is not a valid UUID"', id="invalid UUID"),
         pytest.param(
             'createdAt="this is not a valid datetime format"',
@@ -1698,3 +1702,220 @@ def test_e2e_parse_now_placeholder(
 
     # Verify that the placeholder parsing was called
     assert mock_parse.call_count
+
+
+def test_pagination_filter_multi_tag_page_is_not_short(unique_user: TestUser):
+    """https://github.com/mealie-recipes/mealie/issues/7828"""
+    database = unique_user.repos
+
+    tag_names = [random_string(10) for _ in range(3)]
+    tags = [database.tags.create(TagSave(group_id=unique_user.group_id, name=n, slug=n)) for n in tag_names]
+
+    for _ in range(5):
+        slug = random_string()
+        database.recipes.create(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=slug,
+                slug=slug,
+                tags=tags,
+            )
+        )
+
+    query_filter = f"tags.name IN [{', '.join(tag_names)}]"
+
+    query = PaginationQuery(page=1, per_page=-1, query_filter=query_filter)
+    assert len(database.recipes.page_all(query).items) == 5
+
+    query = PaginationQuery(page=1, per_page=5, query_filter=query_filter)
+    result = database.recipes.page_all(query)
+    assert result.total == 5
+    assert len(result.items) == 5
+
+
+def test_pagination_filter_two_tag_conditions_anded(unique_user: TestUser):
+    """https://github.com/mealie-recipes/mealie/issues/7828"""
+    database = unique_user.repos
+
+    name_1, name_2 = (random_string(10) for _ in range(2))
+    tag_1 = database.tags.create(TagSave(group_id=unique_user.group_id, name=name_1, slug=name_1))
+    tag_2 = database.tags.create(TagSave(group_id=unique_user.group_id, name=name_2, slug=name_2))
+
+    slug = random_string()
+    both = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            slug=slug,
+            tags=[tag_1, tag_2],
+        )
+    )
+
+    slug = random_string()
+    database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=slug,
+            slug=slug,
+            tags=[tag_1],
+        )
+    )
+
+    query = PaginationQuery(
+        page=1,
+        per_page=-1,
+        query_filter=f"tags.name IN [{tag_1.name}] AND tags.name IN [{tag_2.name}]",
+    )
+    results = database.recipes.page_all(query).items
+    assert [recipe.id for recipe in results] == [both.id]
+
+
+def test_pagination_filter_to_one_relationship(unique_user: TestUser):
+    """https://github.com/mealie-recipes/mealie/issues/7828"""
+    database = unique_user.repos
+
+    shopping_list = database.group_shopping_lists.create(
+        ShoppingListSave(
+            name=random_string(),
+            group_id=unique_user.group_id,
+            user_id=unique_user.user_id,
+        )
+    )
+
+    label_1, label_2 = database.group_multi_purpose_labels.create_many(
+        [MultiPurposeLabelSave(name=random_string(), group_id=unique_user.group_id) for _ in range(2)]
+    )
+
+    labeled_1, _labeled_2, _unlabeled = database.group_shopping_list_item.create_many(
+        [
+            ShoppingListItemCreate(note=random_string(), shopping_list_id=shopping_list.id, label_id=label_1.id),
+            ShoppingListItemCreate(note=random_string(), shopping_list_id=shopping_list.id, label_id=label_2.id),
+            ShoppingListItemCreate(note=random_string(), shopping_list_id=shopping_list.id),
+        ]
+    )
+
+    query = PaginationQuery(
+        page=1,
+        per_page=-1,
+        query_filter=f'shoppingListId = "{shopping_list.id}" AND label.name IN [{label_1.name}]',
+    )
+    results = database.group_shopping_list_item.page_all(query).items
+    assert [item.id for item in results] == [labeled_1.id]
+
+
+def test_pagination_filter_not_in_related_field(unique_user: TestUser):
+    """https://github.com/mealie-recipes/mealie/issues/7828"""
+    database = unique_user.repos
+
+    name_1, name_2 = (random_string(10) for _ in range(2))
+    tag_1 = database.tags.create(TagSave(group_id=unique_user.group_id, name=name_1, slug=name_1))
+    tag_2 = database.tags.create(TagSave(group_id=unique_user.group_id, name=name_2, slug=name_2))
+
+    recipes = []
+    for tags in ([tag_1, tag_2], [tag_2]):
+        slug = random_string()
+        recipes.append(
+            database.recipes.create(
+                Recipe(
+                    user_id=unique_user.user_id,
+                    group_id=unique_user.group_id,
+                    name=slug,
+                    slug=slug,
+                    tags=tags,
+                )
+            )
+        )
+    excluded, kept = recipes
+
+    # a recipe carrying the excluded tag is filtered out even though its other tag is not excluded
+    query = PaginationQuery(page=1, per_page=-1, query_filter=f"tags.name NOT IN [{tag_1.name}]")
+    result_ids = {recipe.id for recipe in database.recipes.page_all(query).items}
+    assert excluded.id not in result_ids
+    assert kept.id in result_ids
+
+
+def test_pagination_order_by_to_many_field_page_is_not_short(unique_user: TestUser):
+    """https://github.com/mealie-recipes/mealie/issues/8302"""
+    database = unique_user.repos
+    current_time = datetime.now(UTC)
+
+    # each recipe carries its own tags, so a recipe's duplicate rows sort next to each other
+    prefix = random_string(10)
+    for i in range(5):
+        tags = [
+            database.tags.create(TagSave(group_id=unique_user.group_id, name=name, slug=name))
+            for name in (f"{prefix}-{i}-{j}" for j in range(3))
+        ]
+
+        slug = random_string()
+        database.recipes.create(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=slug,
+                slug=slug,
+                tags=tags,
+            )
+        )
+
+    query = PaginationQuery(
+        page=1,
+        per_page=5,
+        order_by="tags.name",
+        query_filter=f'created_at >= "{current_time.isoformat()}"',
+    )
+    result = database.recipes.page_all(query)
+    assert result.total == 5
+    assert len(result.items) == 5
+
+
+@pytest.mark.parametrize(
+    "order_direction",
+    [OrderDirection.asc, OrderDirection.desc],
+    ids=["order_ascending", "order_descending"],
+)
+def test_pagination_order_by_to_many_field(unique_user: TestUser, order_direction: OrderDirection):
+    """https://github.com/mealie-recipes/mealie/issues/8302"""
+    database = unique_user.repos
+    current_time = datetime.now(UTC)
+
+    tag_a, tag_b, tag_c, tag_d = [
+        database.tags.create(TagSave(group_id=unique_user.group_id, name=name, slug=name))
+        for name in (f"{letter}{random_string(10)}" for letter in "abcd")
+    ]
+
+    recipes = []
+    for tags in ([tag_a, tag_c], [tag_b, tag_d], []):
+        slug = random_string()
+        recipes.append(
+            database.recipes.create(
+                Recipe(
+                    user_id=unique_user.user_id,
+                    group_id=unique_user.group_id,
+                    name=slug,
+                    slug=slug,
+                    tags=tags,
+                )
+            )
+        )
+    recipe_ac, recipe_bd, recipe_untagged = recipes
+
+    query = PaginationQuery(
+        page=1,
+        per_page=-1,
+        order_by="tags.name",
+        order_direction=order_direction,
+        order_by_null_position=OrderByNullPosition.last,
+        query_filter=f'created_at >= "{current_time.isoformat()}"',
+    )
+    result_ids = [recipe.id for recipe in database.recipes.page_all(query).items]
+
+    if order_direction is OrderDirection.asc:
+        # ordered by each recipe's lowest tag name: a, then b
+        assert result_ids == [recipe_ac.id, recipe_bd.id, recipe_untagged.id]
+    else:
+        # ordered by each recipe's highest tag name: d, then c
+        assert result_ids == [recipe_bd.id, recipe_ac.id, recipe_untagged.id]

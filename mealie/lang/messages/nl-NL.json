@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Receptafbeelding verwijderd",
         "recipe-defaults": {
             "ingredient-note": "250 gram bloem",
+            "name": "New Recipe",
             "step-text": "Receptstappen en andere velden op de receptpagina ondersteunen Markdown syntaxis.\n\n**Voeg een link toe**\n\n[Mijn Link](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,20 +20,43 @@
             "yields": "Opbrengsten"
         },
         "and-amount": "en {amount}",
-        "or-ingredient": "of {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Recept maken met AI...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Maak recept van een transcript met AI...",
             "creating-recipe-from-webpage-data": "Creëren recept van webpaginagegevens...",
             "downloading-image": "Afbeeldingen downloaden...",
             "downloading-video": "Video downloaden...",
             "extracting-recipe-data": "Receptgegevens ophalen...",
             "fetching-webpage": "Webpagina ophalen...",
-            "transcribing-audio-with-ai": "Audio met AI transcriberen..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Audio met AI transcriberen...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Geen recepten die overeenkomen met je regels"
+        "no-recipes-match-your-rules": "Geen recepten die overeenkomen met je regels",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Gebruiker bijgewerkt",
@@ -47,6 +71,7 @@
         "permission_denied": "Je hebt geen toestemming om deze actie uit te voeren",
         "recursive-recipe-link": "Een recept kan niet naar zichzelf verwijzen, direct of indirect",
         "no-entry-found": "Het opgevraagde is niet gevonden",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Database integriteitsfout",
         "username-conflict-error": "Deze gebruikersnaam is al in gebruik",
         "email-conflict-error": "Dit e-mailadres is al in gebruik"
@@ -58,7 +83,40 @@
         "generic-updated-with-url": "{name} is bijgewerkt, {url}",
         "generic-duplicated": "{name} is gekopieerd",
         "generic-deleted": "{name} is verwijderd",
-        "logged-out": ""
+        "logged-out": "",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "jaar|jaren",

@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Slika recepta obrisana",
         "recipe-defaults": {
             "ingredient-note": "1 šalica brašna",
+            "name": "New Recipe",
             "step-text": "Koraci u receptu, kao i druga polja u receptu podržavaju markdown.\n\n**Dodaj poveznicu**\n\n[Poveznica](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,20 +20,43 @@
             "yields": "Priprema"
         },
         "and-amount": "i {amount}",
-        "or-ingredient": "ili {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Izrada recepta pomoću AI-ja...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Izrada recepta iz transkripta pomoću AI-ja...",
             "creating-recipe-from-webpage-data": "Izrada recepta iz podataka s web-stranice...",
             "downloading-image": "Preuzimam sliku...",
             "downloading-video": "Preuzimam video...",
             "extracting-recipe-data": "Izdvajanje podataka o receptu...",
             "fetching-webpage": "Preuzimanje web-stranice...",
-            "transcribing-audio-with-ai": "Transkripcija zvuka pomoću AI-ja..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Transkripcija zvuka pomoću AI-ja...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Nema recepata koji odgovaraju vašim pravilima"
+        "no-recipes-match-your-rules": "Nema recepata koji odgovaraju vašim pravilima",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Korisnik je ažuriran",
@@ -47,6 +71,7 @@
         "permission_denied": "Nemate dozvolu za izvođenje ove akcije",
         "recursive-recipe-link": "Recept ne može upućivati sam na sebe, ni izravno ni neizravno.",
         "no-entry-found": "Traženi izvor nije pronađen",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Greška integriteta baze podataka",
         "username-conflict-error": "Ovo korisničko ime je već u upotrebi",
         "email-conflict-error": "Ovaj račun e-pošte se već koristi"
@@ -58,7 +83,40 @@
         "generic-updated-with-url": "{name} je ažuriran, {url}",
         "generic-duplicated": "{name} je dupliciran",
         "generic-deleted": "{name} je obrisan",
-        "logged-out": "Odjavljeni"
+        "logged-out": "Odjavljeni",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "godina|godine",

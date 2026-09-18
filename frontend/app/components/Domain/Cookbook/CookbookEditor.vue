@@ -74,6 +74,11 @@ const fieldDefs: FieldDefinition[] = [
     type: Organizer.Food,
   },
   {
+    name: "recipe_ingredient.food.label_id",
+    label: i18n.t("data-pages.foods.food-label"),
+    type: Organizer.Label,
+  },
+  {
     name: "tools.id",
     label: i18n.t("tool.tools"),
     type: Organizer.Tool,
@@ -87,6 +92,11 @@ const fieldDefs: FieldDefinition[] = [
     name: "user_id",
     label: i18n.t("user.users"),
     type: Organizer.User,
+  },
+  {
+    name: "rating",
+    label: i18n.t("general.rating"),
+    type: "number",
   },
   {
     name: "created_at",

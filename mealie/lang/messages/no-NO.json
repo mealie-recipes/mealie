@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Oppskriftsbilde slettet",
         "recipe-defaults": {
             "ingredient-note": "1 kopp mel",
+            "name": "New Recipe",
             "step-text": "Steg i oppskrifter og andre felter på siden støtter markdown syntax.\n\n**Legg til en link**\n\n[Min link](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,20 +20,43 @@
             "yields": "Gir"
         },
         "and-amount": "og {amount}",
-        "or-ingredient": "eller {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI-tjenester er ikke aktivert",
+            "ai-request-failed": "AI-leverandøren kunne ikke fullføre forespørselen. Prøv på nytt",
+            "image-provider-not-enabled": "AI-bildetjenester er ikke aktivert",
+            "no-recipe-found": "Ingen oppskrift ble funnet i den angitte kilden",
+            "no-source": "Ingen innhold, bilder eller nettadresse ble oppgitt",
+            "provider-returned-nothing": "AI-leverandøren returnerte ikke en oppskrift",
+            "unknown-error": "Noe gikk galt under oppretting av oppskriften. Vennligst prøv igjen",
+            "unreadable-source": "Kan ikke lese noen innhold fra oppgitt kilde",
+            "video-download-failed": "Kan ikke laste ned videoen. Den kan være privat, fjernet, eller fra et nettsted som ikke er støttet"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Oppretter oppskrift med AI...",
+            "creating-recipe": "Oppretter oppskrift...",
             "creating-recipe-from-transcript-with-ai": "Oppretter oppskrift fra transkribering med AI...",
             "creating-recipe-from-webpage-data": "Oppretter oppskrift fra nettsidedata...",
             "downloading-image": "Laster ned bilde...",
             "downloading-video": "Laster ned video...",
             "extracting-recipe-data": "Henter ut oppskriftsdata...",
             "fetching-webpage": "Henter nettside...",
-            "transcribing-audio-with-ai": "Forskriver lyd med AI..."
+            "organizing-recipe": "Organiserer oppskrift...",
+            "reading-images-with-ai": "Leser bilder med AI...",
+            "reading-source-with-ai": "Leser kilde med AI...",
+            "transcribing-audio-with-ai": "Forskriver lyd med AI...",
+            "translating-recipe": "Oversetter oppskrift..."
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Ingen oppskrifter samsvarer med reglene dine"
+        "no-recipes-match-your-rules": "Ingen oppskrifter samsvarer med reglene dine",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Bruker oppdatert",
@@ -47,6 +71,7 @@
         "permission_denied": "Du har ikke rettigheter til å utføre denne handlingen",
         "recursive-recipe-link": "En oppskrift kan ikke referere seg selv, enten direkte eller indirekte",
         "no-entry-found": "Den forespurte ressursen ble ikke funnet",
+        "rate-limit-error": "AI-leverandøren er hastighetsbegrensende forespørsler. Vennligst vent et øyeblikk og prøv igjen",
         "integrity-error": "Feil i databaseintegritet",
         "username-conflict-error": "Dette brukernavnet er allerede i bruk",
         "email-conflict-error": "Denne e-postadressen er allerede i bruk"
@@ -58,7 +83,40 @@
         "generic-updated-with-url": "{name} har blitt oppdatert, {url}",
         "generic-duplicated": "{name} har blitt duplisert",
         "generic-deleted": "{name} har blitt slettet",
-        "logged-out": "Logget ut"
+        "logged-out": "Logget ut",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "år|år",

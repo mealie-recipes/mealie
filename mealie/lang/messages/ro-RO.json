@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Imaginea rețetei a fost ștearsă",
         "recipe-defaults": {
             "ingredient-note": "1 Cană de Făină",
+            "name": "New Recipe",
             "step-text": "Pașii rețetei precum și alte domenii din sintaxa markdown de pe pagina de rețetă.\n\n**Adăugați un link**\n\n[Link-ul meu](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,20 +20,43 @@
             "yields": "Producţii"
         },
         "and-amount": "și {amount}",
-        "or-ingredient": "sau {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Se creează rețeta cu AI...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Se creează rețeta din transcriere cu AI...",
             "creating-recipe-from-webpage-data": "Se creează rețeta din datele paginii web...",
             "downloading-image": "Se descarcă imaginea...",
             "downloading-video": "Se descarcă videoclipul...",
             "extracting-recipe-data": "Se extrag datele rețetei...",
             "fetching-webpage": "Se preia pagina web...",
-            "transcribing-audio-with-ai": "Se transcrie sunetul cu AI..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Se transcrie sunetul cu AI...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Nicio rețetă nu corespunde criteriilor tale"
+        "no-recipes-match-your-rules": "Nicio rețetă nu corespunde criteriilor tale",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Date utilizator actualizate",
@@ -47,6 +71,7 @@
         "permission_denied": "Nu aveți permisiunile necesare pentru a efectua această acțiune",
         "recursive-recipe-link": "O rețetă nu poate să se refere la ea însăși, nici direct, nici indirect",
         "no-entry-found": "Pagina solicitată nu a fost găsită",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Eroare la integritatea bazei de date",
         "username-conflict-error": "Acest nume de utilizator deja există",
         "email-conflict-error": "Această adresă de e-mail este deja folosită"
@@ -58,7 +83,40 @@
         "generic-updated-with-url": "{name} a fost actualizat, {url}",
         "generic-duplicated": "{name} a fost duplicat",
         "generic-deleted": "{name} a fost șters",
-        "logged-out": "Deconectat"
+        "logged-out": "Deconectat",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "an|ani",

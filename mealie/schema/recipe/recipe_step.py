@@ -14,10 +14,16 @@ class IngredientReferences(MealieModel):
     model_config = ConfigDict(from_attributes=True)
 
 
+class NoteReference(MealieModel):
+    reference_id: UUID4 | None = None
+    model_config = ConfigDict(from_attributes=True)
+
+
 class RecipeStep(MealieModel):
     id: UUID | None = Field(default_factory=uuid4)
     title: str | None = ""  # This is the section title!!!
     summary: str | None = ""
     text: str
     ingredient_references: list[IngredientReferences] = []
+    note_references: list[NoteReference] = []
     model_config = ConfigDict(from_attributes=True)

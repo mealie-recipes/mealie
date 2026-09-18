@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Retsepti pilt kustutatud",
         "recipe-defaults": {
             "ingredient-note": "1 tass jahu",
+            "name": "New Recipe",
             "step-text": "Retsepti sammud nagu ka teised väljad retsepti lehed toetavad Markdown-i süntaksit\n\n** Lisa link **\n[Minu link](https://demo.mealie.io)"
         },
         "servings-text": {
@@ -19,20 +20,43 @@
             "yields": "Annab saagiks"
         },
         "and-amount": "ja {amount}",
-        "or-ingredient": "või {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI services are not enabled",
+            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "image-provider-not-enabled": "AI image services are not enabled",
+            "no-recipe-found": "No recipe was found in the provided source",
+            "no-source": "No content, images, or URL were provided",
+            "provider-returned-nothing": "The AI provider did not return a recipe",
+            "unknown-error": "Something went wrong while creating the recipe. Please try again",
+            "unreadable-source": "Unable to read any content from the provided source",
+            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Retsepti loomine tehisaru abil...",
+            "creating-recipe": "Creating recipe...",
             "creating-recipe-from-transcript-with-ai": "Retsepti loomine transkriptist tehisiaru abil...",
             "creating-recipe-from-webpage-data": "Retsepti loomine veebilehe andmetest...",
             "downloading-image": "Pildi allalaadimine...",
             "downloading-video": "Video allalaadimine...",
             "extracting-recipe-data": "Retsepti andmete eraldamine...",
             "fetching-webpage": "Veebilehe pärimine...",
-            "transcribing-audio-with-ai": "Helisalvestise transkribeerimine tehisaru abil..."
+            "organizing-recipe": "Organizing recipe...",
+            "reading-images-with-ai": "Reading images with AI...",
+            "reading-source-with-ai": "Reading source with AI...",
+            "transcribing-audio-with-ai": "Helisalvestise transkribeerimine tehisaru abil...",
+            "translating-recipe": "Translating recipe..."
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Ükski retsept ei vasta sinu reeglitele"
+        "no-recipes-match-your-rules": "Ükski retsept ei vasta sinu reeglitele",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Kasutaja uuendatud",
@@ -47,6 +71,7 @@
         "permission_denied": "Sul puuduvad selle toimingu tegemiseks õigused",
         "recursive-recipe-link": "Retsept ei saa viidata iseendale ei otseselt ega kaudselt",
         "no-entry-found": "Soovitud ressurssi ei leitud",
+        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Tõrge andmebaasi terviklikkuses",
         "username-conflict-error": "See kasutajanimi on juba kasutusel",
         "email-conflict-error": "See e-maili aadress on juba kasutuses"
@@ -58,7 +83,40 @@
         "generic-updated-with-url": "{name} uuendatud, {url}",
         "generic-duplicated": "{name} on duplitseeritud",
         "generic-deleted": "{name} kustutatud",
-        "logged-out": "Välja logitud"
+        "logged-out": "Välja logitud",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "aasta|aastad",

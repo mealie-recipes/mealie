@@ -8,6 +8,7 @@
         "recipe-image-deleted": "L'image de la recette a été supprimée",
         "recipe-defaults": {
             "ingredient-note": "1 tasse de Farine",
+            "name": "New Recipe",
             "step-text": "Les étapes de la recette ainsi que les autres champs de la page de recette supportent la syntaxe markdown.\n\n**Ajouter un lien**\n\n[Mon lien](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,20 +20,43 @@
             "yields": "Rendements"
         },
         "and-amount": "et {amount}",
-        "or-ingredient": "ou {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "Les services IA ne sont pas activés",
+            "ai-request-failed": "Le fournisseur d'IA n'a pas pu répondre à la demande. Veuillez réessayer",
+            "image-provider-not-enabled": "Les services d'images d'IA ne sont pas activés",
+            "no-recipe-found": "Aucune recette n'a été trouvée dans la source fournie",
+            "no-source": "Aucun contenu, image ou URL n'a été fourni",
+            "provider-returned-nothing": "Le fournisseur d'IA n'a pas renvoyé de recette",
+            "unknown-error": "Une erreur s'est produite lors de la création de la recette. Veuillez réessayer",
+            "unreadable-source": "Impossible de lire le contenu de la source fournie",
+            "video-download-failed": "Impossible de télécharger la vidéo. Elle peut être privée, retirée ou d'un site non pris en charge"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Création de la recette avec l'IA...",
+            "creating-recipe": "Création de la recette...",
             "creating-recipe-from-transcript-with-ai": "Création de la recette à partir de la transcription avec l'IA...",
             "creating-recipe-from-webpage-data": "Création de la recette à partir des données d'une page web...",
             "downloading-image": "Téléchargement de l'image...",
             "downloading-video": "Téléchargement de la vidéo...",
             "extracting-recipe-data": "Extraction des données de la recette...",
             "fetching-webpage": "Récupération de la page web...",
-            "transcribing-audio-with-ai": "Transcodage audio avec l'AI..."
+            "organizing-recipe": "Organisation de la recette...",
+            "reading-images-with-ai": "Lecture d'images avec IA...",
+            "reading-source-with-ai": "Lecture de la source avec IA...",
+            "transcribing-audio-with-ai": "Transcodage audio avec l'AI...",
+            "translating-recipe": "Traduction de la recette..."
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Aucune recette ne correspond à vos règles"
+        "no-recipes-match-your-rules": "Aucune recette ne correspond à vos règles",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Utilisateur mis à jour",
@@ -47,6 +71,7 @@
         "permission_denied": "Vous n'avez pas le droit d'exécuter cette action",
         "recursive-recipe-link": "Une recette ne peut pas se référencer elle-même, ni directement, ni indirectement",
         "no-entry-found": "La ressource demandée n'a pas été trouvée",
+        "rate-limit-error": "Le fournisseur d'IA limite la fréquence des requêtes. Veuillez patienter un moment et réessayer",
         "integrity-error": "Erreur d'intégrité de la base de données",
         "username-conflict-error": "Ce nom d'utilisateur est déjà pris",
         "email-conflict-error": "Cette adresse courriel est déjà utilisée"
@@ -58,7 +83,40 @@
         "generic-updated-with-url": "{name} a été mis à jour, {url}",
         "generic-duplicated": "{name} a été dupliqué",
         "generic-deleted": "{name} a été supprimé",
-        "logged-out": "Déconnecté(e)"
+        "logged-out": "Déconnecté(e)",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "année|années",

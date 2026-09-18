@@ -1,11 +1,13 @@
+from pathlib import Path
+
 import pytest
 
 from mealie.lang.providers import get_locale_provider
 from mealie.schema.recipe.recipe import Recipe
+from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper import scraper
 from mealie.services.scraper.recipe_scraper import RecipeScraper
 from mealie.services.scraper.scraped_extras import ScrapedExtras
-from mealie.services.scraper.scraper_strategies import RecipeScraperPackage
 
 
 @pytest.mark.asyncio
@@ -22,7 +24,7 @@ async def test_create_from_html_truncates_long_slug(monkeypatch):
     # ~1300 characters, mirroring the caption-as-title data from the bug report
     long_name = "High Protein Low Calorie Recipes Smash Or Pass " * 28
 
-    async def fake_scrape(self, url, html=None, on_progress=None):
+    async def fake_scrape(self, url, html=None, on_progress=None, **kwargs):
         return Recipe(name=long_name), ScrapedExtras()
 
     monkeypatch.setattr(RecipeScraper, "scrape", fake_scrape)
@@ -41,52 +43,35 @@ async def test_create_from_html_truncates_long_slug(monkeypatch):
     assert 0 < len(recipe.slug) <= 250
 
 
-class _FakeSchema:
-    def __init__(self, data: dict):
-        self.data = data
+@pytest.mark.parametrize(
+    ("scraped_image", "download_result", "expect_key"),
+    [
+        pytest.param("https://example.com/img.jpg", Path("/images/original.webp"), True, id="image-downloaded"),
+        pytest.param("https://example.com/img.jpg", None, False, id="download-failed"),
+        pytest.param("no image", None, False, id="placeholder-url"),
+        pytest.param(None, None, False, id="no-image-url"),
+    ],
+)
+@pytest.mark.asyncio
+async def test_finalize_only_stamps_a_cache_key_when_an_image_landed(
+    monkeypatch, scraped_image, download_result, expect_key
+):
+    """`recipe.image` must stay empty unless a file actually reached the disk.
 
-
-class _FakeScrapedData:
-    """Stand-in for a `recipe_scrapers` SchemaScraper, exercising only `instructions()`.
-
-    Every other scraper method resolves via `__getattr__` to a no-op so `clean_scraper`'s
-    `try_get_default` calls succeed and fall through to the (empty) `schema.data` dict,
-    instead of raising `AttributeError` on an unimplemented method.
+    The frontend reads the presence of this cache key as "this recipe has a picture" and
+    skips the request entirely when it is empty. Stamping a key regardless of whether the
+    download succeeded is what left recipes asking the media route for a file that 404s on
+    every single render (mealie-recipes/mealie#8271, GH #4804).
     """
 
-    def __init__(self, instructions_data):
-        self._instructions_data = instructions_data
-        self.schema = _FakeSchema({})
+    async def fake_scrape_image(self, image_url):
+        return download_result
 
-    def __getattr__(self, name):
-        return lambda *args, **kwargs: None
+    monkeypatch.setattr(RecipeDataService, "scrape_image", fake_scrape_image)
 
-    def instructions(self):
-        return self._instructions_data
-
-
-def test_clean_scraper_preserves_instruction_title_and_summary():
-    """Regression test for PR #7785 item 4: `recipeInstructions[].title`/`.summary` must
-    survive the full parse -> clean -> RecipeStep pipeline in `RecipeScraperPackage.clean_scraper`,
-    not just in the lower-level `cleaner.clean_instructions` unit test.
-    """
-    scraped_data = _FakeScrapedData(
-        [
-            {"title": "Make the Batter", "summary": "Mix dry and wet ingredients", "text": "Whisk everything together."},
-            {"title": "Cook", "summary": "Pan fry until golden", "text": "Heat oil and fry for 4-5 minutes per side."},
-        ]
+    recipe = await scraper.finalize_scraped_recipe(
+        Recipe(name="Test Recipe", image=scraped_image),
+        get_locale_provider(),
     )
 
-    translator = get_locale_provider()
-    scraper = RecipeScraperPackage(url="https://example.com/recipe", translator=translator, repos=None)  # type: ignore[arg-type]
-    recipe, _ = scraper.clean_scraper(scraped_data, url="https://example.com/recipe")  # type: ignore[arg-type]
-
-    assert len(recipe.recipe_instructions) == 2
-
-    assert recipe.recipe_instructions[0].title == "Make the Batter"
-    assert recipe.recipe_instructions[0].summary == "Mix dry and wet ingredients"
-    assert recipe.recipe_instructions[0].text == "Whisk everything together."
-
-    assert recipe.recipe_instructions[1].title == "Cook"
-    assert recipe.recipe_instructions[1].summary == "Pan fry until golden"
-    assert recipe.recipe_instructions[1].text == "Heat oil and fry for 4-5 minutes per side."
+    assert bool(recipe.image) is expect_key

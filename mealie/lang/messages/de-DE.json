@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Bild gelöscht",
         "recipe-defaults": {
             "ingredient-note": "250 g Mehl",
+            "name": "New Recipe",
             "step-text": "Zubereitungs-Schritte und andere Felder der Rezeptseite unterstützen Markdown Syntax.\n\n**Füge einen Link hinzu**\n\n[Mein Link](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,20 +20,43 @@
             "yields": "Ergibt"
         },
         "and-amount": "und {amount}",
-        "or-ingredient": "oder {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "KI-Dienste sind nicht aktiviert",
+            "ai-request-failed": "Der KI-Provider konnte die Anfrage nicht abschließen. Bitte versuchen Sie es erneut",
+            "image-provider-not-enabled": "KI-Bilddienste sind nicht aktiviert",
+            "no-recipe-found": "Es wurde kein Rezept in der angegebenen Quelle gefunden",
+            "no-source": "Keine Inhalte, Bilder oder URL angegeben",
+            "provider-returned-nothing": "Der KI-Anbieter hat kein Rezept zurückgegeben",
+            "unknown-error": "Beim Erstellen des Rezepts ist etwas schiefgelaufen. Bitte versuchen Sie es erneut",
+            "unreadable-source": "Es können keine Inhalte von der angegebenen Quelle extrahiert werden",
+            "video-download-failed": "Das Video kann nicht heruntergeladen werden. Es kann privat, entfernt oder von einer nicht unterstützten Seite sein"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "Erstelle Rezept mit KI...",
+            "creating-recipe": "Rezept erstellen...",
             "creating-recipe-from-transcript-with-ai": "Erstelle Rezept aus Transkript mit KI...",
             "creating-recipe-from-webpage-data": "Erstelle Rezept aus Website-Daten...",
             "downloading-image": "Bild wird heruntergeladen...",
             "downloading-video": "Video wird heruntergeladen...",
             "extracting-recipe-data": "Entpacken von Rezeptdaten...",
             "fetching-webpage": "Webseite wird abgerufen...",
-            "transcribing-audio-with-ai": "Transkribiere Audio mit KI..."
+            "organizing-recipe": "Rezept organisieren...",
+            "reading-images-with-ai": "Lese Bilder mit KI...",
+            "reading-source-with-ai": "Lese Quelle mit KI...",
+            "transcribing-audio-with-ai": "Transkribiere Audio mit KI...",
+            "translating-recipe": "Rezept wird übersetzt..."
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Keine Rezepte entsprechen deinen Regeln"
+        "no-recipes-match-your-rules": "Keine Rezepte entsprechen deinen Regeln",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Benutzer aktualisiert",
@@ -47,6 +71,7 @@
         "permission_denied": "Du hast keine Berechtigung, um diese Aktion auszuführen",
         "recursive-recipe-link": "Ein Rezept kann sich nicht direkt oder indirekt referenzieren",
         "no-entry-found": "Die angeforderte Ressource wurde nicht gefunden",
+        "rate-limit-error": "Der KI-Anbieter limitiert die Anfragen. Bitte warten Sie einen Moment und versuchen es erneut",
         "integrity-error": "Datenbankintegritätsfehler",
         "username-conflict-error": "Dieser Benutzername ist bereits vergeben",
         "email-conflict-error": "Diese E-Mail-Adresse wird bereits verwendet"
@@ -58,7 +83,40 @@
         "generic-updated-with-url": "{name} wurde aktualisiert, {url}",
         "generic-duplicated": "{name} wurde dupliziert",
         "generic-deleted": "{name} wurde gelöscht",
-        "logged-out": "Abgemeldet"
+        "logged-out": "Abgemeldet",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "Jahr|Jahre",

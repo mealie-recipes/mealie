@@ -8,6 +8,7 @@
         "recipe-image-deleted": "食谱图片已删除",
         "recipe-defaults": {
             "ingredient-note": "1杯面粉",
+            "name": "New Recipe",
             "step-text": "食谱步骤以及食谱页面的其他字段支持markdown语法。\n\n**添加一个链接**\n\n[我的链接](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,20 +20,43 @@
             "yields": "份量"
         },
         "and-amount": "和 {amount}",
-        "or-ingredient": "或 {ingredient}",
+        "import-errors": {
+            "ai-not-enabled": "AI 服务未启用",
+            "ai-request-failed": "AI 提供商无法完成请求。请重试",
+            "image-provider-not-enabled": "AI 图像服务未启用",
+            "no-recipe-found": "在提供的源中没有找到食谱",
+            "no-source": "未提供任何内容、图像或网址",
+            "provider-returned-nothing": "AI 提供者没有返回食谱",
+            "unknown-error": "创建食谱时出现错误。请重试",
+            "unreadable-source": "无法从提供的源读取任何内容",
+            "video-download-failed": "无法下载视频。该视频可能已设为私密、已被删除或来自不支持的网站"
+        },
         "create-progress": {
-            "creating-recipe-with-ai": "使用 AI 创建食谱……",
+            "creating-recipe": "正在加载食谱……",
             "creating-recipe-from-transcript-with-ai": "使用 AI 从转录结果创建食谱……",
             "creating-recipe-from-webpage-data": "从网页数据创建食谱……",
             "downloading-image": "正在下载图片……",
             "downloading-video": "正在下载视频……",
             "extracting-recipe-data": "正在提取食谱数据……",
             "fetching-webpage": "正在获取网页……",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "organizing-recipe": "正在组织食谱……",
+            "reading-images-with-ai": "正在用 AI读取图像……",
+            "reading-source-with-ai": "正在用 AI读取源……",
+            "transcribing-audio-with-ai": "正在用AI翻译音频……",
+            "translating-recipe": "正在翻译食谱……"
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "没有符合条件的食谱"
+        "no-recipes-match-your-rules": "没有符合条件的食谱",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "用户已更新",
@@ -47,6 +71,7 @@
         "permission_denied": "您没有执行此操作的权限",
         "recursive-recipe-link": "食谱不能直接或间接地引用自身",
         "no-entry-found": "您要找的网页不存在",
+        "rate-limit-error": "AI 提供商请求超限, 请稍候再试",
         "integrity-error": "数据库完整性错误",
         "username-conflict-error": "该用户名已被使用",
         "email-conflict-error": "该邮箱已经被使用"
@@ -58,7 +83,40 @@
         "generic-updated-with-url": "{name} 已创建， {url}",
         "generic-duplicated": "{name} 已复制",
         "generic-deleted": "{name} 已删除",
-        "logged-out": "已登出"
+        "logged-out": "已登出",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "年|年",
