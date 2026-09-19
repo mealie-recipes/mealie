@@ -25,9 +25,13 @@
     </div>
 
     <!-- TODO: proper pluralization of inputDay -->
-    {{ $t('meal-plan.this-rule-will-apply', {
-      dayCriteria: day === "unset" ? $t('meal-plan.to-all-days') : $t('meal-plan.on-days', [day]),
-      mealTypeCriteria: entryType === "unset" ? $t('meal-plan.for-all-meal-types') : $t('meal-plan.for-type-meal-types', [entryType]),
+    {{ $t("meal-plan.this-rule-will-apply", {
+      dayCriteria: day === "unset"
+        ? $t("meal-plan.to-all-days")
+        : $t("meal-plan.on-days", [$t("general." + day)]),
+      mealTypeCriteria: entryType === "unset"
+        ? $t("meal-plan.for-all-meal-types")
+        : $t("meal-plan.for-type-meal-types", [$t("meal-plan." + entryType)]),
     }) }}
   </div>
 </template>

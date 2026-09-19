@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.26.0"
+version = "3.27.0"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -27,7 +27,7 @@ dependencies = [
     "python-slugify==9.0.0",
     "recipe-scrapers==15.12.0",
     "requests==2.34.2",
-    "tzdata==2026.3",
+    "tzdata==2026.4",
     "uvicorn[standard]==0.52.4",
     "beautifulsoup4==4.15.0",
     "isodate==0.7.2",
@@ -61,7 +61,7 @@ docs = [
     "mkdocs-material==9.7.7",
 ]
 dev = [
-    "coverage==7.16.0",
+    "coverage==7.16.1",
     "coveragepy-lcov==0.1.2",
     "mkdocs-material==9.7.7",
     "mypy==2.3.1",
@@ -109,6 +109,8 @@ filterwarnings = [
     "ignore::DeprecationWarning:pyRdfa.*",
     # Suppress Python 3.12 default SQLite datetime-adapter deprecation warning
     "ignore:The default datetime adapter is deprecated as of Python 3.12:DeprecationWarning",
+    # Suppress anyio 4.15 BlockingPortal alias deprecation from starlette.testclient (fixed upstream, unreleased)
+    "ignore:The anyio.abc.BlockingPortal alias is deprecated:DeprecationWarning",
 ]
 
 [tool.coverage.report]
