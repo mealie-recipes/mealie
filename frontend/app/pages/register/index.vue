@@ -117,6 +117,7 @@
               </BaseButton>
               <BaseButton
                 icon-right
+                :disabled="!isTokenValid"
                 @click="provideToken.next"
               >
                 <template #icon>
@@ -327,13 +328,6 @@ const inputAttrs = {
 const i18n = useI18n();
 const isDark = useDark();
 
-function safeValidate(form: Ref<VForm | null>) {
-  if (form.value && form.value.validate) {
-    return form.value.validate();
-  }
-  return false;
-}
-
 // Registration Context
 const state = useRegistration();
 
@@ -371,11 +365,12 @@ const initial = {
 // Provide Token
 const domTokenForm = ref<VForm | null>(null);
 function validateToken() {
-  return true;
+  return Boolean(token.value && token.value.trim());
 }
+const isTokenValid = computed(() => validateToken());
 const provideToken = {
-  next: () => {
-    if (!safeValidate(domTokenForm as Ref<VForm>)) {
+  next: async  () => {
+    if (!await safeValidate(domTokenForm as Ref<VForm>)) {
       return;
     }
     if (validateToken()) {
@@ -428,7 +423,7 @@ const isAccountFormValid = ref(false);
 const {
   accountDetails,
   credentials,
-
+  safeValidate,
 } = useUserRegistrationForm();
 async function accountDetailsNext() {
   if (!await accountDetails.validate()) {
