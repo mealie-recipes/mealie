@@ -328,14 +328,6 @@ const inputAttrs = {
 const i18n = useI18n();
 const isDark = useDark();
 
-async function safeValidate(form: Ref<VForm | null>) {
-  if (form.value && form.value.validate) {
-    const res = await form.value.validate();
-    return typeof res === "object" && res !== null ? res.valid : Boolean(res);
-  }
-  return false;
-}
-
 // Registration Context
 const state = useRegistration();
 
@@ -378,7 +370,7 @@ function validateToken() {
 const isTokenValid = computed(() => validateToken());
 const provideToken = {
   next: async () => {
-    if (!safeValidate(domTokenForm as Ref<VForm>)) {
+    if (!await safeValidate(domTokenForm as Ref<VForm>)) {
       return;
     }
     if (validateToken()) {
@@ -431,7 +423,7 @@ const isAccountFormValid = ref(false);
 const {
   accountDetails,
   credentials,
-
+  safeValidate,
 } = useUserRegistrationForm();
 async function accountDetailsNext() {
   if (!await accountDetails.validate()) {
