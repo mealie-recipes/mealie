@@ -57,6 +57,8 @@ comments = "/api/comments"
 """`/api/comments`"""
 foods = "/api/foods"
 """`/api/foods`"""
+foods_empty = "/api/foods/empty"
+"""`/api/foods/empty`"""
 foods_merge = "/api/foods/merge"
 """`/api/foods/merge`"""
 groups_ai_providers_providers = "/api/groups/ai-providers/providers"
@@ -69,6 +71,10 @@ groups_households = "/api/groups/households"
 """`/api/groups/households`"""
 groups_labels = "/api/groups/labels"
 """`/api/groups/labels`"""
+groups_labels_empty = "/api/groups/labels/empty"
+"""`/api/groups/labels/empty`"""
+groups_labels_merge = "/api/groups/labels/merge"
+"""`/api/groups/labels/merge`"""
 groups_members = "/api/groups/members"
 """`/api/groups/members`"""
 groups_migrations = "/api/groups/migrations"
@@ -141,6 +147,10 @@ organizers_tags_merge = "/api/organizers/tags/merge"
 """`/api/organizers/tags/merge`"""
 organizers_tools = "/api/organizers/tools"
 """`/api/organizers/tools`"""
+organizers_tools_empty = "/api/organizers/tools/empty"
+"""`/api/organizers/tools/empty`"""
+organizers_tools_merge = "/api/organizers/tools/merge"
+"""`/api/organizers/tools/merge`"""
 parser_ingredient = "/api/parser/ingredient"
 """`/api/parser/ingredient`"""
 parser_ingredients = "/api/parser/ingredients"
@@ -477,6 +487,11 @@ def organizers_categories_slug_category_slug(category_slug):
 def organizers_tags_item_id(item_id):
     """`/api/organizers/tags/{item_id}`"""
     return f"{prefix}/organizers/tags/{item_id}"
+
+
+def organizers_tags_item_id_remove_from_recipes(item_id):
+    """`/api/organizers/tags/{item_id}/remove-from-recipes`"""
+    return f"{prefix}/organizers/tags/{item_id}/remove-from-recipes"
 
 
 def organizers_tags_slug_tag_slug(tag_slug):
