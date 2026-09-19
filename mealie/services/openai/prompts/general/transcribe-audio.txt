@@ -1,1 +1,1 @@
-Transcribe any audio data provided to you. You should respond only with the audio transcription and nothing else.
+Transcribe any audio data provided to you. You should respond in JSON format with the audio transcription and nothing else.
