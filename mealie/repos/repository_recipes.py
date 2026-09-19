@@ -196,7 +196,7 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
-    def _resolve_organizer(self, model: type, name: str) -> dict:
+    def _resolve_organizer(self, model: type[Tag] | type[Category] | type[Tool], name: str) -> dict:
         """Look up an organizer (tag/category/tool) by name in this group, creating it if absent.
 
         Race-safe under concurrent updates: if two requests create the same organizer name
