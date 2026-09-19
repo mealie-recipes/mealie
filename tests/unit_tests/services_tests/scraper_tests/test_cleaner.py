@@ -60,6 +60,50 @@ def test_html_with_recipe_data():
     assert url_validation_regex.match(recipe_data["image"])
 
 
+def test_open_graph_extracts_recipe_name_from_instagram_caption():
+    """Regression test for GH #6427.
+
+    Instagram may include the account name and full post caption in og:title.
+    The scraper should extract the recipe title instead of using the entire
+    caption as the recipe name.
+    """
+    html = """
+    <html>
+      <head>
+        <meta
+          property="og:title"
+          content='Jess &amp; Dan Saunders | VEGAN PUNKS on Instagram: "DOUBLE TOFU STUFFED FLATBREADS Follow @vegan_punks for more of the good stuff and grab the recipe below. Ingredients Makes 6 For the dough 350g plain flour. Instructions 1. Mix the dough."'
+        />
+        <meta
+          property="og:description"
+          content="A vegan stuffed flatbread recipe."
+        />
+        <meta
+          property="og:image"
+          content="https://example.com/image.jpg"
+        />
+        <meta
+          property="og:url"
+          content="https://www.instagram.com/reel/example/"
+        />
+      </head>
+    </html>
+    """
+
+    translator = get_locale_provider()
+    strategy = RecipeScraperOpenGraph(
+        "https://www.instagram.com/reel/example/",
+        translator,
+        None,  # type: ignore[arg-type]
+    )
+
+    recipe_data = strategy.get_recipe_fields(html)
+
+    assert recipe_data is not None
+    assert recipe_data["name"] == "DOUBLE TOFU STUFFED FLATBREADS"
+    assert recipe_data["slug"] == "double-tofu-stuffed-flatbreads"
+
+
 def test_clean_scraper_preserves_notes():
     """Regression test: notes must survive the RecipeScraperPackage pipeline (previously dropped silently)."""
     ld_json = json.dumps(
@@ -88,3 +132,11 @@ def test_clean_scraper_preserves_notes():
     assert recipe.notes[0].text == "Keep refrigerated up to 3 days"
     assert recipe.notes[1].title == "Variation"
     assert recipe.notes[1].text == "Add chili flakes for extra heat"
+
+
+def test_open_graph_preserves_normal_title():
+    title = "Healthy Pasta Bake - BBC Food"
+
+    result = RecipeScraperOpenGraph.extract_recipe_name(title)
+
+    assert result == title
