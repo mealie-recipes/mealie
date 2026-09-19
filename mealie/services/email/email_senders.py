@@ -1,9 +1,8 @@
-import base64
 import hmac
 import smtplib
 import typing
 from abc import ABC, abstractmethod
-from collections.abc import Buffer, Callable
+from collections.abc import Buffer
 from dataclasses import dataclass
 from email import message
 from email.utils import formatdate
@@ -16,55 +15,43 @@ from mealie.services._base_service import BaseService
 SMTP_TIMEOUT = 10
 """Timeout in seconds for SMTP connection"""
 
-SMTP_MAX_AUTH_CHALLENGES = 5
-"""Maximum number of AUTH challenges to answer before giving up (matches smtplib)"""
 
+class _UTF8AuthResponse(str):
+    """An AUTH response that encodes as UTF-8 whatever codec is asked for.
 
-def _encode_auth_response(response: str | None) -> str:
-    return base64.b64encode((response or "").encode("utf-8")).decode("ascii")
+    smtplib.SMTP.auth base64-encodes the auth_* helpers' return value with `.encode("ascii")`,
+    so a username or password containing non-ASCII characters (e.g. "€") raises a
+    UnicodeEncodeError before anything is sent to the server.
+    """
+
+    def encode(self, encoding: str = "utf-8", errors: str = "strict") -> bytes:
+        return super().encode("utf-8", errors)
 
 
 class UTF8AuthSMTP(smtplib.SMTP):
     """
-    smtplib encodes AUTH credentials as ASCII, so logging in with a username or password
-    containing non-ASCII characters (e.g. "€") raises a UnicodeEncodeError before anything
-    is sent to the server. PLAIN is defined as UTF-8 (RFC 4616) and servers accept UTF-8
-    for LOGIN and CRAM-MD5 as well, so encode credentials as UTF-8 instead.
+    SMTP that sends its AUTH credentials as UTF-8 instead of ASCII. PLAIN is defined as UTF-8
+    (RFC 4616), and servers accept UTF-8 for LOGIN and CRAM-MD5 as well.
     """
 
-    def auth(
-        self, mechanism: str, authobject: Callable[..., str | None], *, initial_response_ok: bool = True
-    ) -> tuple[int, bytes]:
-        # mirrors smtplib.SMTP.auth, only swapping the encoding of the responses
-        mechanism = mechanism.upper()
-        initial_response = authobject() if initial_response_ok else None
-        if initial_response is not None:
-            code, resp = self.docmd("AUTH", f"{mechanism} {_encode_auth_response(initial_response)}")
-            self._auth_challenge_count = 1
-        else:
-            code, resp = self.docmd("AUTH", mechanism)
-            self._auth_challenge_count = 0
+    def auth_plain(self, challenge: Buffer | None = None) -> str:
+        return _UTF8AuthResponse(super().auth_plain(challenge))
 
-        while code == 334:
-            self._auth_challenge_count += 1
-            challenge = base64.decodebytes(resp)
-            code, resp = self.docmd(_encode_auth_response(authobject(challenge)))
-            if self._auth_challenge_count > SMTP_MAX_AUTH_CHALLENGES:
-                raise smtplib.SMTPException(f"Server AUTH mechanism infinite loop. Last response: {(code, resp)!r}")
-
-        if code in (235, 503):
-            return code, resp
-        raise smtplib.SMTPAuthenticationError(code, resp)
+    def auth_login(self, challenge: Buffer | None = None) -> str:
+        return _UTF8AuthResponse(super().auth_login(challenge))
 
     @typing.overload
     def auth_cram_md5(self, challenge: None = None) -> None: ...
     @typing.overload
     def auth_cram_md5(self, challenge: Buffer) -> str: ...
     def auth_cram_md5(self, challenge: Buffer | None = None) -> str | None:
-        # CRAM-MD5 does not support initial-response
+        # Reimplemented rather than wrapped: CRAM-MD5 hashes the password itself, and the stdlib
+        # keys the HMAC with `self.password.encode('ascii')`, which fails before we could wrap it.
         if challenge is None:
+            # CRAM-MD5 does not support initial-response
             return None
-        return f"{self.user} {hmac.HMAC(self.password.encode('utf-8'), challenge, 'md5').hexdigest()}"
+        digest = hmac.HMAC(self.password.encode("utf-8"), challenge, "md5").hexdigest()
+        return _UTF8AuthResponse(f"{self.user} {digest}")
 
 
 class UTF8AuthSMTPSSL(smtplib.SMTP_SSL, UTF8AuthSMTP):
