@@ -278,6 +278,12 @@ class Recipe(RecipeSummary):
             return [RecipeCategory(id=uuid4(), name=c, slug=slugify(c)) for c in cats]
         return cats
 
+    @field_validator("tools", mode="before")
+    def validate_tools(tools: list[Any]):
+        if isinstance(tools, list) and tools and isinstance(tools[0], str):
+            return [RecipeTool(id=uuid4(), name=t, slug=slugify(t)) for t in tools]
+        return tools
+
     @field_validator("group_id", mode="before")
     def validate_group_id(group_id: Any):
         if isinstance(group_id, int):
