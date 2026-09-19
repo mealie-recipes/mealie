@@ -369,7 +369,7 @@ function validateToken() {
 }
 const isTokenValid = computed(() => validateToken());
 const provideToken = {
-  next: async  () => {
+  next: async () => {
     if (!await safeValidate(domTokenForm as Ref<VForm>)) {
       return;
     }
