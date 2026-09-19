@@ -43,6 +43,7 @@ export interface TagBase {
   id: string;
   groupId?: string | null;
   slug: string;
+  position?: number;
 }
 export interface CategoryIn {
   name: string;
@@ -121,6 +122,7 @@ export interface RecipeTag {
   groupId?: string | null;
   name: string;
   slug: string;
+  position?: number;
   recipeCount?: number;
 }
 export interface CreateRecipeByUrlBulk {
@@ -458,6 +460,7 @@ export interface RecipeTagResponse {
   id: string;
   groupId?: string | null;
   slug: string;
+  position?: number;
   recipes?: RecipeSummary[];
 }
 export interface RecipeTimelineEventCreate {
@@ -594,6 +597,7 @@ export interface TagOut {
   groupId: string;
   id: string;
   slug: string;
+  position?: number;
   recipeCount?: number;
 }
 export interface TagSave {

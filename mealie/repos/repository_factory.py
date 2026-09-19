@@ -146,6 +146,26 @@ class RepositoryTags(GroupRepositoryGeneric[TagOut, Tag]):
         stmt = select(Tag).filter(~Tag.recipes.any())
         return self.session.execute(stmt).scalars().all()
 
+    def update_order(self, tag_ids: list[UUID4]) -> list[TagOut]:
+        if len(tag_ids) != len(set(tag_ids)):
+            raise ValueError("tag_ids must not contain duplicates")
+
+        tags = self.session.execute(select(Tag).filter_by(group_id=self.group_id)).scalars().all()
+        tags_by_id = {tag.id: tag for tag in tags}
+
+        if set(tag_ids) != set(tags_by_id):
+            raise ValueError("tag_ids must contain every tag in the group")
+
+        try:
+            for position, tag_id in enumerate(tag_ids):
+                tags_by_id[tag_id].position = position
+            self.session.commit()
+        except Exception:
+            self.session.rollback()
+            raise
+
+        return [self.schema.model_validate(tags_by_id[tag_id]) for tag_id in tag_ids]
+
     def merge(self, from_tag: UUID4, to_tag: UUID4) -> TagOut | None:
         already_in_to = select(recipes_to_tags.c.recipe_id).where(recipes_to_tags.c.tag_id == to_tag)
 

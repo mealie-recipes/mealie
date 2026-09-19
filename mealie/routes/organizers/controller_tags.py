@@ -9,7 +9,7 @@ from mealie.schema import mapper
 from mealie.schema.recipe import RecipeTagResponse, TagIn
 from mealie.schema.recipe.recipe import RecipeTag, RecipeTagPagination
 from mealie.schema.recipe.recipe_category import TagMerge, TagOut, TagSave
-from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.response.pagination import OrderDirection, PaginationQuery
 from mealie.services import urls
 from mealie.services.event_bus_service.event_types import EventOperation, EventTagData, EventTypes
 
@@ -29,6 +29,10 @@ class TagController(BaseCrudController):
     @router.get("", response_model=RecipeTagPagination)
     async def get_all(self, q: PaginationQuery = Depends(PaginationQuery), search: str | None = None):
         """Returns a list of available tags in the database"""
+        if not q.order_by and not search:
+            q.order_by = "position,name"
+            q.order_direction = OrderDirection.asc
+
         response = self.repo.page_all(
             pagination=q,
             override=RecipeTag,
@@ -57,6 +61,16 @@ class TagController(BaseCrudController):
             raise HTTPException(status.HTTP_404_NOT_FOUND, "to_id tag not found")
 
         return self.repo.merge(body.from_id, body.to_id)
+
+    @router.put("/order", response_model=list[TagOut])
+    def update_order(self, tag_ids: list[UUID4]):
+        """Updates the display order for all tags in the group."""
+        self.checks.can_organize()
+
+        try:
+            return self.repo.update_order(tag_ids)
+        except ValueError as e:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, str(e)) from e
 
     @router.get("/{item_id}", response_model=RecipeTagResponse)
     def get_one(self, item_id: UUID4):
