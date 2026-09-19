@@ -19,6 +19,12 @@ const FOOD_LABEL_FIELD_DEF = {
   type: Organizer.Label,
 };
 
+const RATING_FIELD_DEF = {
+  name: "rating",
+  label: "Rating",
+  type: "number" as const,
+};
+
 describe("food label fields", () => {
   test("are handled as an organizer, so the shared picker and hydration apply", () => {
     const { isOrganizerType } = useQueryFilterBuilder();
@@ -68,5 +74,28 @@ describe("food label fields", () => {
     const field = getFieldFromFieldDef(FOOD_LABEL_FIELD_DEF);
 
     expect(buildQueryFilterString([field], false)).toBe("");
+  });
+});
+
+describe("null filters", () => {
+  test("are available for number fields", () => {
+    const { getFieldFromFieldDef } = useQueryFilterBuilder();
+
+    const field = getFieldFromFieldDef(RATING_FIELD_DEF);
+
+    expect(field.relationalOperatorChoices.map(choice => choice.value)).toContain("IS");
+    expect(field.relationalOperatorChoices.map(choice => choice.value)).toContain("IS NOT");
+  });
+
+  test.each([
+    ["IS", "rating IS NULL"],
+    ["IS NOT", "rating IS NOT NULL"],
+  ] as const)("builds an %s filter without a field value", (operator, expected) => {
+    const { getFieldFromFieldDef, buildQueryFilterString, getRelOps } = useQueryFilterBuilder();
+
+    const field = getFieldFromFieldDef(RATING_FIELD_DEF);
+    field.relationalOperatorValue = getRelOps(field.type).value[operator];
+
+    expect(buildQueryFilterString([field], false)).toBe(expected);
   });
 });
