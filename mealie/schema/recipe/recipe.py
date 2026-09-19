@@ -64,11 +64,15 @@ class RecipeTag(MealieModel):
     id: UUID4 | None = None
     group_id: UUID4 | None = None
     name: str
-    slug: str
+    slug: str | None = None
     recipe_count: int = 0
 
     _searchable_properties: ClassVar[list[str]] = ["name"]
     model_config = ConfigDict(from_attributes=True)
+
+    def model_post_init(self, __context: Any) -> None:
+        if not self.slug:
+            self.slug = slugify(self.name)
 
 
 class RecipeTagPagination(PaginationBase):
@@ -84,7 +88,7 @@ class RecipeCategoryPagination(PaginationBase):
 
 
 class RecipeTool(RecipeTag):
-    id: UUID4
+    id: UUID4 | None = None
     households_with_tool: list[str] = []
 
     @field_validator("households_with_tool", mode="before")
