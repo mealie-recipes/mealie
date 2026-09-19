@@ -10,6 +10,11 @@ WORKDIR /frontend
 
 COPY frontend .
 
+# The lang files import the seeded ingredient unit names, which live with the backend rather
+# than in frontend/. Copy them to the same path they occupy in the repo, so the relative import
+# in app/lang/locales/*.ts resolves identically here and in local dev.
+COPY mealie/repos/seed/resources/units/locales /mealie/repos/seed/resources/units/locales
+
 RUN pnpm clean-install
 
 RUN pnpm generate
