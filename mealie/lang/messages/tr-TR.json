@@ -49,13 +49,13 @@
     "mealplan": {
         "no-recipes-match-your-rules": "Hiçbir tarif kurallarınıza uymamaktadır",
         "entry-type": {
-            "breakfast": "breakfast",
-            "lunch": "lunch",
-            "dinner": "dinner",
+            "breakfast": "kahvaltı",
+            "lunch": "öğle yemeği",
+            "dinner": "akşam yemeği",
             "side": "side",
-            "snack": "snack",
-            "drink": "drink",
-            "dessert": "dessert"
+            "snack": "atıştırmalık",
+            "drink": "i̇çecek",
+            "dessert": "tatlı"
         }
     },
     "user": {
