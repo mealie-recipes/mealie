@@ -1,417 +1,417 @@
 {
   "produce": {
-    "name": "蔬果",
+    "name": "Produce",
     "foods": {
       "garlic": {
-        "name": "大蒜",
+        "name": "garlic",
         "plural_name": ""
       },
       "onion": {
-        "name": "洋蔥",
-        "plural_name": ""
+        "name": "onion",
+        "plural_name": "onions"
       },
       "bell pepper": {
-        "name": "甜椒",
-        "plural_name": ""
+        "name": "bell pepper",
+        "plural_name": "bell peppers"
       },
       "carrot": {
-        "name": "胡蘿蔔",
-        "plural_name": ""
+        "name": "carrot",
+        "plural_name": "carrots"
       },
       "scallion": {
-        "name": "青蔥",
-        "plural_name": ""
+        "name": "scallion",
+        "plural_name": "scallions"
       },
       "zucchini": {
-        "name": "櫛瓜",
-        "plural_name": ""
+        "name": "zucchini",
+        "plural_name": "zucchinis"
       },
       "potato": {
-        "name": "馬鈴薯",
-        "plural_name": ""
+        "name": "potato",
+        "plural_name": "potatoes"
       },
       "red onion": {
-        "name": "紫洋蔥",
-        "plural_name": ""
+        "name": "red onion",
+        "plural_name": "red onions"
       },
       "yellow onion": {
-        "name": "黃洋蔥",
-        "plural_name": ""
+        "name": "yellow onion",
+        "plural_name": "yellow onions"
       },
       "celery": {
-        "name": "芹菜",
+        "name": "celery",
         "plural_name": ""
       },
       "jalapeño": {
-        "name": "墨西哥辣椒",
-        "plural_name": ""
+        "name": "jalapeño",
+        "plural_name": "jalapeños"
       },
       "avocado": {
-        "name": "酪梨",
-        "plural_name": ""
+        "name": "avocado",
+        "plural_name": "avocados"
       },
       "shallot": {
-        "name": "紅蔥頭",
-        "plural_name": ""
+        "name": "shallot",
+        "plural_name": "shallots"
       },
       "cherry tomato": {
-        "name": "小番茄",
-        "plural_name": ""
+        "name": "cherry tomato",
+        "plural_name": "cherry tomatoes"
       },
       "cucumber": {
-        "name": "小黃瓜",
-        "plural_name": ""
+        "name": "cucumber",
+        "plural_name": "cucumbers"
       },
       "spinach": {
-        "name": "菠菜",
+        "name": "spinach",
         "plural_name": ""
       },
       "sweet corn": {
-        "name": "甜玉米",
+        "name": "sweet corn",
         "plural_name": ""
       },
       "chile pepper": {
-        "name": "辣椒",
-        "plural_name": ""
+        "name": "chile pepper",
+        "plural_name": "chile peppers"
       },
       "sweet potato": {
-        "name": "地瓜",
-        "plural_name": ""
+        "name": "sweet potato",
+        "plural_name": "sweet potatoes"
       },
       "broccoli": {
-        "name": "青花菜",
+        "name": "broccoli",
         "plural_name": ""
       },
       "heart of palm": {
-        "name": "棕櫚心",
-        "plural_name": ""
+        "name": "heart of palm",
+        "plural_name": "hearts of palm"
       },
       "pumpkin": {
-        "name": "南瓜",
-        "plural_name": ""
+        "name": "pumpkin",
+        "plural_name": "pumpkins"
       },
       "cauliflower": {
-        "name": "白花椰菜",
+        "name": "cauliflower",
         "plural_name": ""
       },
       "cabbage": {
-        "name": "高麗菜",
-        "plural_name": ""
+        "name": "cabbage",
+        "plural_name": "cabbages"
       },
       "asparagus": {
-        "name": "蘆筍",
+        "name": "asparagus",
         "plural_name": ""
       },
       "kale": {
-        "name": "羽衣甘藍",
+        "name": "kale",
         "plural_name": ""
       },
       "arugula": {
-        "name": "芝麻葉",
+        "name": "arugula",
         "plural_name": ""
       },
       "leek": {
-        "name": "韭蔥",
-        "plural_name": ""
+        "name": "leek",
+        "plural_name": "leeks"
       },
       "eggplant": {
-        "name": "茄子",
-        "plural_name": ""
+        "name": "eggplant",
+        "plural_name": "eggplants"
       },
       "lettuce": {
-        "name": "萵苣",
+        "name": "lettuce",
         "plural_name": ""
       },
       "butternut squash": {
-        "name": "奶油南瓜",
-        "plural_name": ""
+        "name": "butternut squash",
+        "plural_name": "butternut squashes"
       },
       "romaine lettuce": {
-        "name": "蘿蔓萵苣",
+        "name": "romaine lettuce",
         "plural_name": ""
       },
       "beetroot": {
-        "name": "甜菜根",
-        "plural_name": ""
+        "name": "beetroot",
+        "plural_name": "beetroots"
       },
       "brussels sprout": {
-        "name": "球芽甘藍",
-        "plural_name": ""
+        "name": "brussels sprout",
+        "plural_name": "brussels sprouts"
       },
       "fennel": {
-        "name": "茴香",
+        "name": "fennel",
         "plural_name": ""
       },
       "sun dried tomato": {
-        "name": "日曬番茄乾",
-        "plural_name": ""
+        "name": "sun dried tomato",
+        "plural_name": "sun dried tomatoes"
       },
       "radish": {
-        "name": "蘿蔔",
-        "plural_name": ""
+        "name": "radish",
+        "plural_name": "radishes"
       },
       "red cabbage": {
-        "name": "紫高麗菜",
-        "plural_name": ""
+        "name": "red cabbage",
+        "plural_name": "red cabbages"
       },
       "artichoke": {
-        "name": "朝鮮薊",
-        "plural_name": ""
+        "name": "artichoke",
+        "plural_name": "artichokes"
       },
       "parsnip": {
-        "name": "歐洲防風草",
-        "plural_name": ""
+        "name": "parsnip",
+        "plural_name": "parsnips"
       },
       "poblano pepper": {
-        "name": "波布拉諾辣椒",
-        "plural_name": ""
+        "name": "poblano pepper",
+        "plural_name": "poblano peppers"
       },
       "green tomato": {
-        "name": "青番茄",
-        "plural_name": ""
+        "name": "green tomato",
+        "plural_name": "green tomatoes"
       },
       "horseradish": {
-        "name": "辣根",
+        "name": "horseradish",
         "plural_name": ""
       },
       "chard": {
-        "name": "瑞士甜菜",
+        "name": "chard",
         "plural_name": ""
       },
       "spaghetti squash": {
-        "name": "金線瓜",
-        "plural_name": ""
+        "name": "spaghetti squash",
+        "plural_name": "spaghetti squashes"
       },
       "napa cabbage": {
-        "name": "大白菜",
-        "plural_name": ""
+        "name": "napa cabbage",
+        "plural_name": "napa cabbages"
       },
       "celeriac": {
-        "name": "根芹菜",
+        "name": "celeriac",
         "plural_name": ""
       },
       "turnip": {
-        "name": "蕪菁",
-        "plural_name": ""
+        "name": "turnip",
+        "plural_name": "turnips"
       },
       "bok choy": {
-        "name": "青江菜",
+        "name": "bok choy",
         "plural_name": ""
       },
       "okra": {
-        "name": "秋葵",
+        "name": "okra",
         "plural_name": ""
       },
       "radicchio": {
-        "name": "紫菊苣",
+        "name": "radicchio",
         "plural_name": ""
       },
       "plantain": {
-        "name": "大蕉",
-        "plural_name": ""
+        "name": "plantain",
+        "plural_name": "plantains"
       },
       "collard greens": {
-        "name": "羽衣甘藍葉",
+        "name": "collard greens",
         "plural_name": ""
       },
       "baby corn": {
-        "name": "玉米筍",
+        "name": "baby corn",
         "plural_name": ""
       },
       "broccoli rabe": {
-        "name": "義大利苦味青花菜",
+        "name": "broccoli rabe",
         "plural_name": ""
       },
       "tomato": {
-        "name": "番茄",
-        "plural_name": ""
+        "name": "tomato",
+        "plural_name": "tomatoes"
       },
       "lemon": {
-        "name": "檸檬",
-        "plural_name": ""
+        "name": "lemon",
+        "plural_name": "lemons"
       },
       "lime": {
-        "name": "萊姆",
-        "plural_name": ""
+        "name": "lime",
+        "plural_name": "limes"
       },
       "apple": {
-        "name": "蘋果",
-        "plural_name": ""
+        "name": "apple",
+        "plural_name": "apples"
       },
       "banana": {
-        "name": "香蕉",
-        "plural_name": ""
+        "name": "banana",
+        "plural_name": "bananas"
       },
       "orange": {
-        "name": "柳橙",
-        "plural_name": ""
+        "name": "orange",
+        "plural_name": "oranges"
       },
       "raisin": {
-        "name": "葡萄乾",
-        "plural_name": ""
+        "name": "raisin",
+        "plural_name": "raisins"
       },
       "pineapple": {
-        "name": "鳳梨",
-        "plural_name": ""
+        "name": "pineapple",
+        "plural_name": "pineapples"
       },
       "mango": {
-        "name": "芒果",
-        "plural_name": ""
+        "name": "mango",
+        "plural_name": "mangoes"
       },
       "peach": {
-        "name": "水蜜桃",
-        "plural_name": ""
+        "name": "peach",
+        "plural_name": "peaches"
       },
       "date": {
-        "name": "椰棗",
-        "plural_name": ""
+        "name": "date",
+        "plural_name": "dates"
       },
       "coconut": {
-        "name": "椰子",
-        "plural_name": ""
+        "name": "coconut",
+        "plural_name": "coconuts"
       },
       "pear": {
-        "name": "西洋梨",
-        "plural_name": ""
+        "name": "pear",
+        "plural_name": "pears"
       },
       "grape": {
-        "name": "葡萄",
-        "plural_name": ""
+        "name": "grape",
+        "plural_name": "grapes"
       },
       "pomegranate": {
-        "name": "石榴",
-        "plural_name": ""
+        "name": "pomegranate",
+        "plural_name": "pomegranates"
       },
       "watermelon": {
-        "name": "西瓜",
-        "plural_name": ""
+        "name": "watermelon",
+        "plural_name": "watermelons"
       },
       "rhubarb": {
-        "name": "大黃",
+        "name": "rhubarb",
         "plural_name": ""
       },
       "kiwi": {
-        "name": "奇異果",
-        "plural_name": ""
+        "name": "kiwi",
+        "plural_name": "kiwis"
       },
       "grapefruit": {
-        "name": "葡萄柚",
-        "plural_name": ""
+        "name": "grapefruit",
+        "plural_name": "grapefruits"
       },
       "plum": {
-        "name": "李子",
-        "plural_name": ""
+        "name": "plum",
+        "plural_name": "plums"
       },
       "fig": {
-        "name": "無花果",
-        "plural_name": ""
+        "name": "fig",
+        "plural_name": "figs"
       },
       "apricot": {
-        "name": "杏桃",
-        "plural_name": ""
+        "name": "apricot",
+        "plural_name": "apricots"
       },
       "mandarin": {
-        "name": "橘子",
-        "plural_name": ""
+        "name": "mandarin",
+        "plural_name": "mandarins"
       },
       "cantaloupe": {
-        "name": "哈密瓜",
-        "plural_name": ""
+        "name": "cantaloupe",
+        "plural_name": "cantaloupes"
       },
       "tamarind": {
-        "name": "羅望子",
-        "plural_name": ""
+        "name": "tamarind",
+        "plural_name": "tamarinds"
       },
       "button mushroom": {
-        "name": "洋菇",
-        "plural_name": ""
+        "name": "button mushroom",
+        "plural_name": "button mushrooms"
       },
       "shiitake mushroom": {
-        "name": "香菇",
-        "plural_name": ""
+        "name": "shiitake mushroom",
+        "plural_name": "shiitake mushrooms"
       },
       "portobello mushroom": {
-        "name": "波特貝勒菇",
-        "plural_name": ""
+        "name": "portobello mushroom",
+        "plural_name": "portobello mushrooms"
       },
       "pea": {
-        "name": "豌豆",
-        "plural_name": ""
+        "name": "pea",
+        "plural_name": "peas"
       },
       "green bean": {
-        "name": "四季豆",
-        "plural_name": ""
+        "name": "green bean",
+        "plural_name": "green beans"
       },
       "snow pea": {
-        "name": "荷蘭豆",
-        "plural_name": ""
+        "name": "snow pea",
+        "plural_name": "snow peas"
       },
       "snap pea": {
-        "name": "甜豆",
-        "plural_name": ""
+        "name": "snap pea",
+        "plural_name": "snap peas"
       },
       "bean sprout": {
-        "name": "豆芽",
-        "plural_name": ""
+        "name": "bean sprout",
+        "plural_name": "bean sprouts"
       },
       "edamame": {
-        "name": "毛豆",
+        "name": "edamame",
         "plural_name": ""
       },
       "strawberry": {
-        "name": "草莓",
-        "plural_name": ""
+        "name": "strawberry",
+        "plural_name": "strawberries"
       },
       "blueberry": {
-        "name": "藍莓",
-        "plural_name": ""
+        "name": "blueberry",
+        "plural_name": "blueberries"
       },
       "raspberry": {
-        "name": "覆盆子",
-        "plural_name": ""
+        "name": "raspberry",
+        "plural_name": "raspberries"
       },
       "cranberry": {
-        "name": "蔓越莓",
-        "plural_name": ""
+        "name": "cranberry",
+        "plural_name": "cranberries"
       },
       "cherry": {
-        "name": "櫻桃",
-        "plural_name": ""
+        "name": "cherry",
+        "plural_name": "cherries"
       },
       "blackberry": {
-        "name": "黑莓",
-        "plural_name": ""
+        "name": "blackberry",
+        "plural_name": "blackberries"
       },
       "parsley": {
-        "name": "巴西里",
+        "name": "parsley",
         "plural_name": ""
       },
       "cilantro": {
-        "name": "香菜",
+        "name": "cilantro",
         "plural_name": ""
       },
       "basil": {
-        "name": "羅勒",
+        "name": "basil",
         "plural_name": ""
       },
       "ginger root": {
-        "name": "薑",
+        "name": "ginger root",
         "plural_name": ""
       },
       "chive": {
-        "name": "細香蔥",
-        "plural_name": ""
+        "name": "chive",
+        "plural_name": "chives"
       },
       "mint": {
-        "name": "薄荷",
+        "name": "mint",
         "plural_name": ""
       },
       "lemongrass": {
-        "name": "檸檬香茅",
+        "name": "lemongrass",
         "plural_name": ""
       },
       "thai basil": {
-        "name": "泰式羅勒",
+        "name": "thai basil",
         "plural_name": ""
       },
       "mushroom": {
@@ -437,202 +437,202 @@
     }
   },
   "grains": {
-    "name": "穀物",
+    "name": "Grains",
     "foods": {
       "rolled oat": {
-        "name": "燕麥片",
-        "plural_name": ""
+        "name": "rolled oat",
+        "plural_name": "rolled oats"
       },
       "rice": {
-        "name": "米",
+        "name": "rice",
         "plural_name": ""
       },
       "quinoa": {
-        "name": "藜麥",
+        "name": "quinoa",
         "plural_name": ""
       },
       "basmati rice": {
-        "name": "印度香米",
+        "name": "basmati rice",
         "plural_name": ""
       },
       "brown rice": {
-        "name": "糙米",
+        "name": "brown rice",
         "plural_name": ""
       },
       "risotto rice": {
-        "name": "燉飯米",
+        "name": "risotto rice",
         "plural_name": ""
       },
       "couscous": {
-        "name": "庫斯庫斯",
+        "name": "couscous",
         "plural_name": ""
       },
       "wild rice": {
-        "name": "野米",
+        "name": "wild rice",
         "plural_name": ""
       },
       "semolina": {
-        "name": "粗粒小麥粉",
+        "name": "semolina",
         "plural_name": ""
       },
       "jasmine rice": {
-        "name": "茉莉香米",
+        "name": "jasmine rice",
         "plural_name": ""
       },
       "polenta": {
-        "name": "玉米糊",
+        "name": "polenta",
         "plural_name": ""
       },
       "granola cereal": {
-        "name": "格蘭諾拉穀片",
+        "name": "granola cereal",
         "plural_name": ""
       },
       "bulgur": {
-        "name": "布格麥",
+        "name": "bulgur",
         "plural_name": ""
       },
       "barley": {
-        "name": "大麥",
+        "name": "barley",
         "plural_name": ""
       },
       "steel cut oat": {
-        "name": "鋼切燕麥",
-        "plural_name": ""
+        "name": "steel cut oat",
+        "plural_name": "steel cut oats"
       },
       "millet": {
-        "name": "小米",
+        "name": "millet",
         "plural_name": ""
       },
       "sushi rice": {
-        "name": "壽司米",
+        "name": "sushi rice",
         "plural_name": ""
       },
       "hominy": {
-        "name": "均質玉米",
+        "name": "hominy",
         "plural_name": ""
       },
       "chickpea": {
-        "name": "鷹嘴豆",
-        "plural_name": ""
+        "name": "chickpea",
+        "plural_name": "chickpeas"
       },
       "black bean": {
-        "name": "黑豆",
-        "plural_name": ""
+        "name": "black bean",
+        "plural_name": "black beans"
       },
       "kidney bean": {
-        "name": "腰豆",
-        "plural_name": ""
+        "name": "kidney bean",
+        "plural_name": "kidney beans"
       },
       "white bean": {
-        "name": "白豆",
-        "plural_name": ""
+        "name": "white bean",
+        "plural_name": "white beans"
       },
       "lentil": {
-        "name": "扁豆",
-        "plural_name": ""
+        "name": "lentil",
+        "plural_name": "lentils"
       },
       "pinto bean": {
-        "name": "斑豆",
-        "plural_name": ""
+        "name": "pinto bean",
+        "plural_name": "pinto beans"
       },
       "red lentil": {
-        "name": "紅扁豆",
-        "plural_name": ""
+        "name": "red lentil",
+        "plural_name": "red lentils"
       },
       "cannellini bean": {
-        "name": "卡內利尼豆",
-        "plural_name": ""
+        "name": "cannellini bean",
+        "plural_name": "cannellini beans"
       },
       "black-eyed pea": {
-        "name": "黑眼豆",
-        "plural_name": ""
+        "name": "black-eyed pea",
+        "plural_name": "black-eyed peas"
       },
       "split pea": {
-        "name": "去皮豌豆",
-        "plural_name": ""
+        "name": "split pea",
+        "plural_name": "split peas"
       },
       "mung bean": {
-        "name": "綠豆",
-        "plural_name": ""
+        "name": "mung bean",
+        "plural_name": "mung beans"
       },
       "spaghetti": {
-        "name": "義大利直麵",
+        "name": "spaghetti",
         "plural_name": ""
       },
       "macaroni": {
-        "name": "通心粉",
+        "name": "macaroni",
         "plural_name": ""
       },
       "egg noodle": {
-        "name": "雞蛋麵",
-        "plural_name": ""
+        "name": "egg noodle",
+        "plural_name": "egg noodles"
       },
       "spiral pasta": {
-        "name": "螺旋義大利麵",
+        "name": "spiral pasta",
         "plural_name": ""
       },
       "lasagna noodle": {
-        "name": "千層麵皮",
-        "plural_name": ""
+        "name": "lasagna noodle",
+        "plural_name": "lasagna noodles"
       },
       "linguine": {
-        "name": "扁細義大利麵",
+        "name": "linguine",
         "plural_name": ""
       },
       "fettuccine": {
-        "name": "寬扁義大利麵",
+        "name": "fettuccine",
         "plural_name": ""
       },
       "orzo": {
-        "name": "米粒麵",
+        "name": "orzo",
         "plural_name": ""
       },
       "pasta shell": {
-        "name": "貝殼麵",
-        "plural_name": ""
+        "name": "pasta shell",
+        "plural_name": "pasta shells"
       },
       "noodle": {
-        "name": "麵條",
-        "plural_name": ""
+        "name": "noodle",
+        "plural_name": "noodles"
       },
       "tortellini": {
-        "name": "義大利餃",
+        "name": "tortellini",
         "plural_name": ""
       },
       "rice noodle": {
-        "name": "米粉",
-        "plural_name": ""
+        "name": "rice noodle",
+        "plural_name": "rice noodles"
       },
       "rigatoni": {
-        "name": "水管麵",
+        "name": "rigatoni",
         "plural_name": ""
       },
       "gnocchi": {
-        "name": "義大利麵疙瘩",
+        "name": "gnocchi",
         "plural_name": ""
       },
       "ramen noodle": {
-        "name": "拉麵",
-        "plural_name": ""
+        "name": "ramen noodle",
+        "plural_name": "ramen noodles"
       },
       "soba noodle": {
-        "name": "蕎麥麵",
-        "plural_name": ""
+        "name": "soba noodle",
+        "plural_name": "soba noodles"
       },
       "ravioli": {
-        "name": "義大利方餃",
+        "name": "ravioli",
         "plural_name": ""
       },
       "udon noodle": {
-        "name": "烏龍麵",
-        "plural_name": ""
+        "name": "udon noodle",
+        "plural_name": "udon noodles"
       },
       "manicotti": {
-        "name": "大管麵",
+        "name": "manicotti",
         "plural_name": ""
       },
       "farro": {
-        "name": "法羅麥",
+        "name": "farro",
         "plural_name": ""
       },
       "pasta": {
@@ -650,135 +650,135 @@
     }
   },
   "meat": {
-    "name": "肉類",
+    "name": "Meat",
     "foods": {
       "ground beef": {
-        "name": "牛絞肉",
+        "name": "ground beef",
         "plural_name": ""
       },
       "beef steak": {
-        "name": "牛排",
-        "plural_name": ""
+        "name": "beef steak",
+        "plural_name": "beef steaks"
       },
       "pork chop": {
-        "name": "豬排",
-        "plural_name": ""
+        "name": "pork chop",
+        "plural_name": "pork chops"
       },
       "pork loin": {
-        "name": "豬里肌",
-        "plural_name": ""
+        "name": "pork loin",
+        "plural_name": "pork loins"
       },
       "beef roast": {
-        "name": "烤牛肉",
-        "plural_name": ""
+        "name": "beef roast",
+        "plural_name": "beef roasts"
       },
       "ground pork": {
-        "name": "豬絞肉",
+        "name": "ground pork",
         "plural_name": ""
       },
       "beef stew meat": {
-        "name": "燉牛肉塊",
+        "name": "beef stew meat",
         "plural_name": ""
       },
       "pork fillet": {
-        "name": "豬菲力",
-        "plural_name": ""
+        "name": "pork fillet",
+        "plural_name": "pork fillets"
       },
       "pork shoulder": {
-        "name": "豬肩肉",
+        "name": "pork shoulder",
         "plural_name": ""
       },
       "ground lamb": {
-        "name": "羊絞肉",
+        "name": "ground lamb",
         "plural_name": ""
       },
       "pork rib": {
-        "name": "豬肋排",
-        "plural_name": ""
+        "name": "pork rib",
+        "plural_name": "pork ribs"
       },
       "beef sirloin": {
-        "name": "牛沙朗",
-        "plural_name": ""
+        "name": "beef sirloin",
+        "plural_name": "beef sirloins"
       },
       "brisket": {
-        "name": "牛胸肉",
+        "name": "brisket",
         "plural_name": ""
       },
       "leg of lamb": {
-        "name": "羊腿",
-        "plural_name": ""
+        "name": "leg of lamb",
+        "plural_name": "legs of lamb"
       },
       "beef short rib": {
-        "name": "牛小排",
-        "plural_name": ""
+        "name": "beef short rib",
+        "plural_name": "beef short ribs"
       },
       "pork belly": {
-        "name": "五花肉",
+        "name": "pork belly",
         "plural_name": ""
       },
       "lamb chop": {
-        "name": "羊排",
-        "plural_name": ""
+        "name": "lamb chop",
+        "plural_name": "lamb chops"
       },
       "venison": {
-        "name": "鹿肉",
+        "name": "venison",
         "plural_name": ""
       },
       "oxtail": {
-        "name": "牛尾",
-        "plural_name": ""
+        "name": "oxtail",
+        "plural_name": "oxtails"
       },
       "chicken breast": {
-        "name": "雞胸肉",
-        "plural_name": ""
+        "name": "chicken breast",
+        "plural_name": "chicken breasts"
       },
       "chicken thigh": {
-        "name": "雞腿肉",
-        "plural_name": ""
+        "name": "chicken thigh",
+        "plural_name": "chicken thighs"
       },
       "ground turkey": {
-        "name": "火雞絞肉",
+        "name": "ground turkey",
         "plural_name": ""
       },
       "whole chicken": {
-        "name": "全雞",
-        "plural_name": ""
+        "name": "whole chicken",
+        "plural_name": "whole chickens"
       },
       "whole turkey": {
-        "name": "全火雞",
-        "plural_name": ""
+        "name": "whole turkey",
+        "plural_name": "whole turkeys"
       },
       "chicken leg": {
-        "name": "雞腿",
-        "plural_name": ""
+        "name": "chicken leg",
+        "plural_name": "chicken legs"
       },
       "chicken wing": {
-        "name": "雞翅",
-        "plural_name": ""
+        "name": "chicken wing",
+        "plural_name": "chicken wings"
       },
       "turkey breast": {
-        "name": "火雞胸肉",
-        "plural_name": ""
+        "name": "turkey breast",
+        "plural_name": "turkey breasts"
       },
       "ground chicken": {
-        "name": "雞絞肉",
+        "name": "ground chicken",
         "plural_name": ""
       },
       "rotisserie chicken": {
-        "name": "烤雞",
-        "plural_name": ""
+        "name": "rotisserie chicken",
+        "plural_name": "rotisserie chickens"
       },
       "duck": {
-        "name": "鴨肉",
-        "plural_name": ""
+        "name": "duck",
+        "plural_name": "ducks"
       },
       "chicken liver": {
-        "name": "雞肝",
-        "plural_name": ""
+        "name": "chicken liver",
+        "plural_name": "chicken livers"
       },
       "cornish hen": {
-        "name": "春雞",
-        "plural_name": ""
+        "name": "cornish hen",
+        "plural_name": "cornish hens"
       },
       "veal": {
         "name": "veal",
@@ -807,140 +807,140 @@
     }
   },
   "meat-products": {
-    "name": "肉類食品",
+    "name": "Meat Products",
     "foods": {
       "bacon": {
-        "name": "培根",
+        "name": "bacon",
         "plural_name": ""
       },
       "ham": {
-        "name": "火腿",
+        "name": "ham",
         "plural_name": ""
       },
       "prosciutto": {
-        "name": "義式生火腿",
+        "name": "prosciutto",
         "plural_name": ""
       },
       "sausage": {
-        "name": "香腸",
-        "plural_name": ""
+        "name": "sausage",
+        "plural_name": "sausages"
       },
       "pepperoni": {
-        "name": "義式辣香腸",
-        "plural_name": ""
+        "name": "pepperoni",
+        "plural_name": "pepperonis"
       },
       "chorizo": {
-        "name": "西班牙辣腸",
+        "name": "chorizo",
         "plural_name": ""
       },
       "pancetta": {
-        "name": "義式培根",
+        "name": "pancetta",
         "plural_name": ""
       },
       "breakfast sausage": {
-        "name": "早餐香腸",
-        "plural_name": ""
+        "name": "breakfast sausage",
+        "plural_name": "breakfast sausages"
       },
       "hot dog": {
-        "name": "熱狗",
-        "plural_name": ""
+        "name": "hot dog",
+        "plural_name": "hot dogs"
       },
       "salami": {
-        "name": "薩拉米香腸",
+        "name": "salami",
         "plural_name": ""
       },
       "kielbasa": {
-        "name": "波蘭香腸",
+        "name": "kielbasa",
         "plural_name": ""
       },
       "corned beef": {
-        "name": "醃牛肉",
+        "name": "corned beef",
         "plural_name": ""
       }
     }
   },
   "seafood": {
-    "name": "海鮮",
+    "name": "Seafood",
     "foods": {
       "bonito flake": {
-        "name": "柴魚片",
-        "plural_name": ""
+        "name": "bonito flake",
+        "plural_name": "bonito flakes"
       },
       "salmon": {
-        "name": "鮭魚",
+        "name": "salmon",
         "plural_name": ""
       },
       "smoked salmon": {
-        "name": "煙燻鮭魚",
+        "name": "smoked salmon",
         "plural_name": ""
       },
       "cod": {
-        "name": "鱈魚",
+        "name": "cod",
         "plural_name": ""
       },
       "tilapia": {
-        "name": "吳郭魚",
+        "name": "tilapia",
         "plural_name": ""
       },
       "halibut": {
-        "name": "比目魚",
+        "name": "halibut",
         "plural_name": ""
       },
       "trout": {
-        "name": "鱒魚",
+        "name": "trout",
         "plural_name": ""
       },
       "catfish": {
-        "name": "鯰魚",
+        "name": "catfish",
         "plural_name": ""
       },
       "sardine": {
-        "name": "沙丁魚",
-        "plural_name": ""
+        "name": "sardine",
+        "plural_name": "sardines"
       },
       "haddock": {
-        "name": "黑線鱈",
+        "name": "haddock",
         "plural_name": ""
       },
       "shrimp": {
-        "name": "蝦",
+        "name": "shrimp",
         "plural_name": ""
       },
       "crab": {
-        "name": "螃蟹",
-        "plural_name": ""
+        "name": "crab",
+        "plural_name": "crabs"
       },
       "scallop": {
-        "name": "干貝",
-        "plural_name": ""
+        "name": "scallop",
+        "plural_name": "scallops"
       },
       "mussel": {
-        "name": "淡菜",
-        "plural_name": ""
+        "name": "mussel",
+        "plural_name": "mussels"
       },
       "clam": {
-        "name": "蛤蜊",
-        "plural_name": ""
+        "name": "clam",
+        "plural_name": "clams"
       },
       "squid": {
-        "name": "魷魚",
+        "name": "squid",
         "plural_name": ""
       },
       "nori": {
-        "name": "海苔",
+        "name": "nori",
         "plural_name": ""
       },
       "lobster": {
-        "name": "龍蝦",
-        "plural_name": ""
+        "name": "lobster",
+        "plural_name": "lobsters"
       },
       "oyster": {
-        "name": "牡蠣",
-        "plural_name": ""
+        "name": "oyster",
+        "plural_name": "oysters"
       },
       "octopus": {
-        "name": "章魚",
-        "plural_name": ""
+        "name": "octopus",
+        "plural_name": "octopuses"
       },
       "fish": {
         "name": "fish",
@@ -953,150 +953,150 @@
     }
   },
   "dairy-products": {
-    "name": "奶類",
+    "name": "Dairy Products",
     "foods": {
       "parmesan cheese": {
-        "name": "帕瑪森起司",
+        "name": "parmesan cheese",
         "plural_name": ""
       },
       "cheddar cheese": {
-        "name": "切達起司",
+        "name": "cheddar cheese",
         "plural_name": ""
       },
       "cream cheese": {
-        "name": "奶油起司",
+        "name": "cream cheese",
         "plural_name": ""
       },
       "cheese": {
-        "name": "起司",
+        "name": "cheese",
         "plural_name": ""
       },
       "mozzarella cheese": {
-        "name": "莫札瑞拉起司",
+        "name": "mozzarella cheese",
         "plural_name": ""
       },
       "feta cheese": {
-        "name": "菲達起司",
+        "name": "feta cheese",
         "plural_name": ""
       },
       "ricotta cheese": {
-        "name": "瑞可達起司",
+        "name": "ricotta cheese",
         "plural_name": ""
       },
       "monterey jack cheese": {
-        "name": "蒙特利傑克起司",
+        "name": "monterey jack cheese",
         "plural_name": ""
       },
       "blue cheese": {
-        "name": "藍紋起司",
+        "name": "blue cheese",
         "plural_name": ""
       },
       "goat cheese": {
-        "name": "山羊起司",
+        "name": "goat cheese",
         "plural_name": ""
       },
       "swiss cheese": {
-        "name": "瑞士起司",
+        "name": "swiss cheese",
         "plural_name": ""
       },
       "gruyere cheese": {
-        "name": "格呂耶爾起司",
+        "name": "gruyere cheese",
         "plural_name": ""
       },
       "mascarpone cheese": {
-        "name": "馬斯卡彭起司",
+        "name": "mascarpone cheese",
         "plural_name": ""
       },
       "cottage cheese": {
-        "name": "茅屋起司",
+        "name": "cottage cheese",
         "plural_name": ""
       },
       "american cheese": {
-        "name": "美式起司",
+        "name": "american cheese",
         "plural_name": ""
       },
       "brie cheese": {
-        "name": "布里起司",
+        "name": "brie cheese",
         "plural_name": ""
       },
       "paneer cheese": {
-        "name": "印度鮮起司",
+        "name": "paneer cheese",
         "plural_name": ""
       },
       "fontina cheese": {
-        "name": "芳提娜起司",
+        "name": "fontina cheese",
         "plural_name": ""
       },
       "queso fresco cheese": {
-        "name": "新鮮白起司",
+        "name": "queso fresco cheese",
         "plural_name": ""
       },
       "halloumi cheese": {
-        "name": "哈羅米起司",
+        "name": "halloumi cheese",
         "plural_name": ""
       },
       "italian cheese blend": {
-        "name": "義式綜合起司",
+        "name": "italian cheese blend",
         "plural_name": ""
       },
       "butter": {
-        "name": "奶油",
+        "name": "butter",
         "plural_name": ""
       },
       "egg": {
-        "name": "雞蛋",
-        "plural_name": ""
+        "name": "egg",
+        "plural_name": "eggs"
       },
       "milk": {
-        "name": "牛奶",
+        "name": "milk",
         "plural_name": ""
       },
       "heavy cream": {
-        "name": "鮮奶油",
+        "name": "heavy cream",
         "plural_name": ""
       },
       "sour cream": {
-        "name": "酸奶油",
+        "name": "sour cream",
         "plural_name": ""
       },
       "buttermilk": {
-        "name": "白脫牛奶",
+        "name": "buttermilk",
         "plural_name": ""
       },
       "yogurt": {
-        "name": "優格",
+        "name": "yogurt",
         "plural_name": ""
       },
       "greek yogurt": {
-        "name": "希臘優格",
+        "name": "greek yogurt",
         "plural_name": ""
       },
       "cream": {
-        "name": "奶油",
+        "name": "cream",
         "plural_name": ""
       },
       "whipped cream": {
-        "name": "打發鮮奶油",
+        "name": "whipped cream",
         "plural_name": ""
       },
       "ghee": {
-        "name": "印度酥油",
+        "name": "ghee",
         "plural_name": ""
       },
       "half and half": {
-        "name": "半對半奶油",
+        "name": "half and half",
         "plural_name": ""
       },
       "sweetened condensed milk": {
-        "name": "加糖煉乳",
+        "name": "sweetened condensed milk",
         "plural_name": ""
       },
       "kefir": {
-        "name": "克菲爾",
+        "name": "kefir",
         "plural_name": ""
       },
       "provolone cheese": {
-        "name": "波羅伏洛起司",
+        "name": "provolone cheese",
         "plural_name": ""
       },
       "egg white": {
@@ -1110,283 +1110,283 @@
     }
   },
   "baked-goods": {
-    "name": "烘培食品",
+    "name": "Baked Goods",
     "foods": {
       "pie crust": {
-        "name": "派皮",
-        "plural_name": ""
+        "name": "pie crust",
+        "plural_name": "pie crusts"
       },
       "puff pastry": {
-        "name": "千層酥皮",
-        "plural_name": ""
+        "name": "puff pastry",
+        "plural_name": "puff pastries"
       },
       "pizza dough": {
-        "name": "披薩麵團",
+        "name": "pizza dough",
         "plural_name": ""
       },
       "phyllo": {
-        "name": "菲洛酥皮",
+        "name": "phyllo",
         "plural_name": ""
       },
       "dumpling wrapper": {
-        "name": "餃子皮",
-        "plural_name": ""
+        "name": "dumpling wrapper",
+        "plural_name": "dumpling wrappers"
       },
       "rice paper": {
-        "name": "米紙",
+        "name": "rice paper",
         "plural_name": ""
       },
       "bread": {
-        "name": "麵包",
+        "name": "bread",
         "plural_name": ""
       },
       "bread crumb": {
-        "name": "麵包粉",
-        "plural_name": ""
+        "name": "bread crumb",
+        "plural_name": "bread crumbs"
       },
       "panko": {
-        "name": "日式麵包粉",
+        "name": "panko",
         "plural_name": ""
       },
       "flour tortilla": {
-        "name": "麵粉玉米餅",
-        "plural_name": ""
+        "name": "flour tortilla",
+        "plural_name": "flour tortillas"
       },
       "corn tortilla": {
-        "name": "玉米餅",
-        "plural_name": ""
+        "name": "corn tortilla",
+        "plural_name": "corn tortillas"
       },
       "baguette": {
-        "name": "法國長棍麵包",
-        "plural_name": ""
+        "name": "baguette",
+        "plural_name": "baguettes"
       },
       "pita": {
-        "name": "皮塔餅",
-        "plural_name": ""
+        "name": "pita",
+        "plural_name": "pitas"
       },
       "sourdough bread": {
-        "name": "酸麵團麵包",
+        "name": "sourdough bread",
         "plural_name": ""
       },
       "crouton": {
-        "name": "烤麵包丁",
-        "plural_name": ""
+        "name": "crouton",
+        "plural_name": "croutons"
       },
       "english muffin": {
-        "name": "英式馬芬",
-        "plural_name": ""
+        "name": "english muffin",
+        "plural_name": "english muffins"
       },
       "brioche": {
-        "name": "布里歐麵包",
+        "name": "brioche",
         "plural_name": ""
       },
       "rye bread": {
-        "name": "黑麥麵包",
+        "name": "rye bread",
         "plural_name": ""
       },
       "naan": {
-        "name": "印度烤餅",
-        "plural_name": ""
+        "name": "naan",
+        "plural_name": "naans"
       },
       "taco shell": {
-        "name": "塔可脆殼",
-        "plural_name": ""
+        "name": "taco shell",
+        "plural_name": "taco shells"
       },
       "bagel": {
-        "name": "貝果",
-        "plural_name": ""
+        "name": "bagel",
+        "plural_name": "bagels"
       },
       "croissant": {
-        "name": "可頌",
-        "plural_name": ""
+        "name": "croissant",
+        "plural_name": "croissants"
       },
       "hawaiian roll": {
-        "name": "夏威夷餐包",
-        "plural_name": ""
+        "name": "hawaiian roll",
+        "plural_name": "hawaiian rolls"
       },
       "challah": {
-        "name": "哈拉麵包",
+        "name": "challah",
         "plural_name": ""
       },
       "bao bun": {
-        "name": "包子",
-        "plural_name": ""
+        "name": "bao bun",
+        "plural_name": "bao buns"
       }
     }
   },
   "canned-goods": {
-    "name": "罐頭食品",
+    "name": "Canned Goods",
     "foods": {
       "canned tomato": {
-        "name": "罐裝番茄",
-        "plural_name": ""
+        "name": "canned tomato",
+        "plural_name": "canned tomatoes"
       },
       "caper": {
-        "name": "酸豆",
-        "plural_name": ""
+        "name": "caper",
+        "plural_name": "capers"
       },
       "green olive": {
-        "name": "綠橄欖",
-        "plural_name": ""
+        "name": "green olive",
+        "plural_name": "green olives"
       },
       "canned chickpea": {
-        "name": "罐裝鷹嘴豆",
-        "plural_name": ""
+        "name": "canned chickpea",
+        "plural_name": "canned chickpeas"
       },
       "black olive": {
-        "name": "黑橄欖",
-        "plural_name": ""
+        "name": "black olive",
+        "plural_name": "black olives"
       },
       "canned black bean": {
-        "name": "罐裝黑豆",
-        "plural_name": ""
+        "name": "canned black bean",
+        "plural_name": "canned black beans"
       },
       "canned pumpkin": {
-        "name": "罐裝南瓜",
+        "name": "canned pumpkin",
         "plural_name": ""
       },
       "kalamata olive": {
-        "name": "卡拉馬塔橄欖",
-        "plural_name": ""
+        "name": "kalamata olive",
+        "plural_name": "kalamata olives"
       },
       "canned tuna": {
-        "name": "罐裝鮪魚",
+        "name": "canned tuna",
         "plural_name": ""
       },
       "pickle": {
-        "name": "醃漬物",
-        "plural_name": ""
+        "name": "pickle",
+        "plural_name": "pickles"
       },
       "chipotle in adobo": {
-        "name": "阿斗波醬汁燻辣椒",
-        "plural_name": ""
+        "name": "chipotle in adobo",
+        "plural_name": "chipotles in adobo"
       },
       "canned anchovy": {
-        "name": "罐裝鯷魚",
-        "plural_name": ""
+        "name": "canned anchovy",
+        "plural_name": "canned anchovies"
       },
       "roasted red pepper": {
-        "name": "烤紅甜椒",
-        "plural_name": ""
+        "name": "roasted red pepper",
+        "plural_name": "roasted red peppers"
       },
       "canned artichoke": {
-        "name": "罐裝朝鮮薊",
-        "plural_name": ""
+        "name": "canned artichoke",
+        "plural_name": "canned artichokes"
       },
       "canned corn": {
-        "name": "罐裝玉米",
+        "name": "canned corn",
         "plural_name": ""
       },
       "canned kidney bean": {
-        "name": "罐裝腰豆",
-        "plural_name": ""
+        "name": "canned kidney bean",
+        "plural_name": "canned kidney beans"
       },
       "refried bean": {
-        "name": "墨西哥炒豆泥",
-        "plural_name": ""
+        "name": "refried bean",
+        "plural_name": "refried beans"
       },
       "canned whole tomato": {
-        "name": "罐裝整顆番茄",
-        "plural_name": ""
+        "name": "canned whole tomato",
+        "plural_name": "canned whole tomatoes"
       },
       "sweet pickle relish": {
-        "name": "甜醃漬物醬",
+        "name": "sweet pickle relish",
         "plural_name": ""
       },
       "sauerkraut": {
-        "name": "德式酸菜",
+        "name": "sauerkraut",
         "plural_name": ""
       },
       "creamed corn": {
-        "name": "奶油玉米",
+        "name": "creamed corn",
         "plural_name": ""
       },
       "pickled jalapeño": {
-        "name": "醃漬墨西哥辣椒",
-        "plural_name": ""
+        "name": "pickled jalapeño",
+        "plural_name": "pickled jalapeños"
       },
       "diced green chile": {
-        "name": "切丁青辣椒",
-        "plural_name": ""
+        "name": "diced green chile",
+        "plural_name": "diced green chiles"
       },
       "sun-dried tomato in oil": {
-        "name": "油漬日曬番茄乾",
-        "plural_name": ""
+        "name": "sun-dried tomato in oil",
+        "plural_name": "sun-dried tomatoes in oil"
       },
       "kimchi": {
-        "name": "泡菜",
+        "name": "kimchi",
         "plural_name": ""
       },
       "baked bean": {
-        "name": "茄汁焗豆",
-        "plural_name": ""
+        "name": "baked bean",
+        "plural_name": "baked beans"
       },
       "canned salmon": {
-        "name": "罐裝鮭魚",
+        "name": "canned salmon",
         "plural_name": ""
       },
       "canned clam": {
-        "name": "罐裝蛤蜊",
-        "plural_name": ""
+        "name": "canned clam",
+        "plural_name": "canned clams"
       },
       "canned baby corn": {
-        "name": "罐裝玉米筍",
+        "name": "canned baby corn",
         "plural_name": ""
       },
       "canned sardine": {
-        "name": "罐裝沙丁魚",
-        "plural_name": ""
+        "name": "canned sardine",
+        "plural_name": "canned sardines"
       },
       "aquafaba": {
-        "name": "鷹嘴豆水",
+        "name": "aquafaba",
         "plural_name": ""
       },
       "chicken broth": {
-        "name": "雞高湯",
+        "name": "chicken broth",
         "plural_name": ""
       },
       "vegetable broth": {
-        "name": "蔬菜高湯",
+        "name": "vegetable broth",
         "plural_name": ""
       },
       "chicken stock": {
-        "name": "雞骨高湯",
+        "name": "chicken stock",
         "plural_name": ""
       },
       "beef broth": {
-        "name": "牛肉高湯",
+        "name": "beef broth",
         "plural_name": ""
       },
       "beef stock": {
-        "name": "牛骨高湯",
+        "name": "beef stock",
         "plural_name": ""
       },
       "cream of mushroom": {
-        "name": "奶油蘑菇濃湯",
+        "name": "cream of mushroom",
         "plural_name": ""
       },
       "bouillon cube": {
-        "name": "高湯塊",
-        "plural_name": ""
+        "name": "bouillon cube",
+        "plural_name": "bouillon cubes"
       },
       "cream of chicken": {
-        "name": "奶油雞肉濃湯",
+        "name": "cream of chicken",
         "plural_name": ""
       },
       "tomato soup": {
-        "name": "番茄湯",
+        "name": "tomato soup",
         "plural_name": ""
       },
       "cream of celery": {
-        "name": "奶油芹菜濃湯",
+        "name": "cream of celery",
         "plural_name": ""
       },
       "clam juice": {
-        "name": "蛤蜊汁",
+        "name": "clam juice",
         "plural_name": ""
       },
       "dashi": {
-        "name": "柴魚昆布高湯",
+        "name": "dashi",
         "plural_name": ""
       },
       "olive": {
@@ -1408,222 +1408,222 @@
     }
   },
   "frozen-foods": {
-    "name": "冷凍食物",
+    "name": "Frozen Foods",
     "foods": {}
   },
   "condiments": {
-    "name": "調料",
+    "name": "Condiments",
     "foods": {
       "soy sauce": {
-        "name": "醬油",
+        "name": "soy sauce",
         "plural_name": ""
       },
       "dijon mustard": {
-        "name": "第戎芥末醬",
+        "name": "dijon mustard",
         "plural_name": ""
       },
       "hot sauce": {
-        "name": "辣醬",
+        "name": "hot sauce",
         "plural_name": ""
       },
       "worcestershire sauce": {
-        "name": "伍斯特醬",
+        "name": "worcestershire sauce",
         "plural_name": ""
       },
       "ketchup": {
-        "name": "番茄醬",
+        "name": "ketchup",
         "plural_name": ""
       },
       "mustard": {
-        "name": "芥末醬",
+        "name": "mustard",
         "plural_name": ""
       },
       "fish sauce": {
-        "name": "魚露",
+        "name": "fish sauce",
         "plural_name": ""
       },
       "bbq sauce": {
-        "name": "烤肉醬",
+        "name": "bbq sauce",
         "plural_name": ""
       },
       "sriracha": {
-        "name": "是拉差辣椒醬",
+        "name": "sriracha",
         "plural_name": ""
       },
       "wholegrain mustard": {
-        "name": "全粒芥末醬",
+        "name": "wholegrain mustard",
         "plural_name": ""
       },
       "oyster sauce": {
-        "name": "蠔油",
+        "name": "oyster sauce",
         "plural_name": ""
       },
       "teriyaki sauce": {
-        "name": "照燒醬",
+        "name": "teriyaki sauce",
         "plural_name": ""
       },
       "prepared horseradish": {
-        "name": "現成辣根醬",
+        "name": "prepared horseradish",
         "plural_name": ""
       },
       "cranberry sauce": {
-        "name": "蔓越莓醬",
+        "name": "cranberry sauce",
         "plural_name": ""
       },
       "harissa": {
-        "name": "哈里薩辣醬",
+        "name": "harissa",
         "plural_name": ""
       },
       "tamarind paste": {
-        "name": "羅望子醬",
+        "name": "tamarind paste",
         "plural_name": ""
       },
       "gochujang": {
-        "name": "韓式辣椒醬",
+        "name": "gochujang",
         "plural_name": ""
       },
       "wasabi": {
-        "name": "山葵",
+        "name": "wasabi",
         "plural_name": ""
       },
       "sambal oelek": {
-        "name": "參巴辣椒醬",
+        "name": "sambal oelek",
         "plural_name": ""
       },
       "preserved lemon": {
-        "name": "醃漬檸檬",
-        "plural_name": ""
+        "name": "preserved lemon",
+        "plural_name": "preserved lemons"
       },
       "thai sweet chili sauce": {
-        "name": "泰式甜辣醬",
+        "name": "thai sweet chili sauce",
         "plural_name": ""
       },
       "tartar sauce": {
-        "name": "塔塔醬",
+        "name": "tartar sauce",
         "plural_name": ""
       },
       "ponzu": {
-        "name": "柚子醋醬油",
+        "name": "ponzu",
         "plural_name": ""
       },
       "peanut butter": {
-        "name": "花生醬",
+        "name": "peanut butter",
         "plural_name": ""
       },
       "tomato paste": {
-        "name": "番茄糊",
+        "name": "tomato paste",
         "plural_name": ""
       },
       "tomato sauce": {
-        "name": "番茄醬",
+        "name": "tomato sauce",
         "plural_name": ""
       },
       "salsa": {
-        "name": "莎莎醬",
-        "plural_name": ""
+        "name": "salsa",
+        "plural_name": "salsas"
       },
       "tahini": {
-        "name": "芝麻醬",
+        "name": "tahini",
         "plural_name": ""
       },
       "pesto": {
-        "name": "青醬",
+        "name": "pesto",
         "plural_name": ""
       },
       "marinara sauce": {
-        "name": "瑪利納拉醬",
+        "name": "marinara sauce",
         "plural_name": ""
       },
       "pasta sauce": {
-        "name": "義大利麵醬",
+        "name": "pasta sauce",
         "plural_name": ""
       },
       "hoisin sauce": {
-        "name": "海鮮醬",
+        "name": "hoisin sauce",
         "plural_name": ""
       },
       "hummus": {
-        "name": "鷹嘴豆泥",
+        "name": "hummus",
         "plural_name": ""
       },
       "enchilada sauce": {
-        "name": "安奇拉達醬",
+        "name": "enchilada sauce",
         "plural_name": ""
       },
       "salsa verde": {
-        "name": "綠莎莎醬",
+        "name": "salsa verde",
         "plural_name": ""
       },
       "alfredo sauce": {
-        "name": "白醬（阿爾弗雷多醬）",
-        "plural_name": "阿爾弗雷多白醬"
+        "name": "alfredo sauce",
+        "plural_name": ""
       },
       "balsamic glaze": {
-        "name": "巴薩米克醋醬",
+        "name": "balsamic glaze",
         "plural_name": ""
       },
       "thai peanut sauce": {
-        "name": "泰式花生醬",
+        "name": "thai peanut sauce",
         "plural_name": ""
       },
       "mole sauce": {
-        "name": "莫雷醬",
+        "name": "mole sauce",
         "plural_name": ""
       },
       "white miso": {
-        "name": "白味噌",
+        "name": "white miso",
         "plural_name": ""
       },
       "almond butter": {
-        "name": "杏仁醬",
+        "name": "almond butter",
         "plural_name": ""
       },
       "mayonnaise": {
-        "name": "美乃滋",
+        "name": "mayonnaise",
         "plural_name": ""
       },
       "apple cider vinegar": {
-        "name": "蘋果醋",
+        "name": "apple cider vinegar",
         "plural_name": ""
       },
       "balsamic vinegar": {
-        "name": "巴薩米克醋",
+        "name": "balsamic vinegar",
         "plural_name": ""
       },
       "vinegar": {
-        "name": "醋",
+        "name": "vinegar",
         "plural_name": ""
       },
       "red wine vinegar": {
-        "name": "紅酒醋",
+        "name": "red wine vinegar",
         "plural_name": ""
       },
       "rice wine vinegar": {
-        "name": "米醋",
+        "name": "rice wine vinegar",
         "plural_name": ""
       },
       "white wine vinegar": {
-        "name": "白酒醋",
+        "name": "white wine vinegar",
         "plural_name": ""
       },
       "ranch dressing": {
-        "name": "牧場沙拉醬",
+        "name": "ranch dressing",
         "plural_name": ""
       },
       "distilled white vinegar": {
-        "name": "蒸餾白醋",
+        "name": "distilled white vinegar",
         "plural_name": ""
       },
       "sweet chili sauce": {
-        "name": "甜辣醬",
+        "name": "sweet chili sauce",
         "plural_name": ""
       },
       "caesar dressing": {
-        "name": "凱薩沙拉醬",
+        "name": "caesar dressing",
         "plural_name": ""
       },
       "agave nectar": {
-        "name": "龍舌蘭蜜",
+        "name": "agave nectar",
         "plural_name": ""
       },
       "honey": {
@@ -1633,214 +1633,214 @@
     }
   },
   "spices": {
-    "name": "香料",
+    "name": "Spices",
     "foods": {
       "cayenne pepper": {
-        "name": "卡宴辣椒",
+        "name": "cayenne pepper",
         "plural_name": ""
       },
       "cinnamon": {
-        "name": "肉桂",
+        "name": "cinnamon",
         "plural_name": ""
       },
       "cumin": {
-        "name": "孜然",
+        "name": "cumin",
         "plural_name": ""
       },
       "thyme": {
-        "name": "百里香",
+        "name": "thyme",
         "plural_name": ""
       },
       "garlic powder": {
-        "name": "蒜粉",
+        "name": "garlic powder",
         "plural_name": ""
       },
       "oregano": {
-        "name": "奧勒岡",
+        "name": "oregano",
         "plural_name": ""
       },
       "nutmeg": {
-        "name": "肉豆蔻",
+        "name": "nutmeg",
         "plural_name": ""
       },
       "chili flake": {
-        "name": "辣椒片",
-        "plural_name": ""
+        "name": "chili flake",
+        "plural_name": "chili flakes"
       },
       "chili powder": {
-        "name": "辣椒粉",
+        "name": "chili powder",
         "plural_name": ""
       },
       "paprika": {
-        "name": "紅椒粉",
+        "name": "paprika",
         "plural_name": ""
       },
       "rosemary": {
-        "name": "迷迭香",
+        "name": "rosemary",
         "plural_name": ""
       },
       "bay leaf": {
-        "name": "月桂葉",
-        "plural_name": ""
+        "name": "bay leaf",
+        "plural_name": "bay leaves"
       },
       "turmeric": {
-        "name": "薑黃",
+        "name": "turmeric",
         "plural_name": ""
       },
       "clove": {
-        "name": "丁香",
-        "plural_name": ""
+        "name": "clove",
+        "plural_name": "cloves"
       },
       "onion powder": {
-        "name": "洋蔥粉",
+        "name": "onion powder",
         "plural_name": ""
       },
       "ginger powder": {
-        "name": "薑粉",
+        "name": "ginger powder",
         "plural_name": ""
       },
       "dill": {
-        "name": "蒔蘿",
+        "name": "dill",
         "plural_name": ""
       },
       "green cardamom": {
-        "name": "綠豆蔻",
+        "name": "green cardamom",
         "plural_name": ""
       },
       "smoked paprika": {
-        "name": "煙燻紅椒粉",
+        "name": "smoked paprika",
         "plural_name": ""
       },
       "sage": {
-        "name": "鼠尾草",
+        "name": "sage",
         "plural_name": ""
       },
       "coriander": {
-        "name": "芫荽",
+        "name": "coriander",
         "plural_name": ""
       },
       "allspice": {
-        "name": "多香果",
+        "name": "allspice",
         "plural_name": ""
       },
       "peppercorn": {
-        "name": "胡椒粒",
-        "plural_name": ""
+        "name": "peppercorn",
+        "plural_name": "peppercorns"
       },
       "mustard seed": {
-        "name": "芥末籽",
-        "plural_name": ""
+        "name": "mustard seed",
+        "plural_name": "mustard seeds"
       },
       "white pepper": {
-        "name": "白胡椒",
+        "name": "white pepper",
         "plural_name": ""
       },
       "curry leaf": {
-        "name": "咖哩葉",
-        "plural_name": ""
+        "name": "curry leaf",
+        "plural_name": "curry leaves"
       },
       "fennel seed": {
-        "name": "茴香籽",
-        "plural_name": ""
+        "name": "fennel seed",
+        "plural_name": "fennel seeds"
       },
       "tarragon": {
-        "name": "龍蒿",
+        "name": "tarragon",
         "plural_name": ""
       },
       "saffron": {
-        "name": "番紅花",
+        "name": "saffron",
         "plural_name": ""
       },
       "asafoetida": {
-        "name": "阿魏",
+        "name": "asafoetida",
         "plural_name": ""
       },
       "star anise": {
-        "name": "八角",
+        "name": "star anise",
         "plural_name": ""
       },
       "fenugreek": {
-        "name": "葫蘆巴",
+        "name": "fenugreek",
         "plural_name": ""
       },
       "kaffir lime leaf": {
-        "name": "箭葉橙葉",
-        "plural_name": ""
+        "name": "kaffir lime leaf",
+        "plural_name": "kaffir lime leaves"
       },
       "guajillo pepper": {
-        "name": "瓜希柳辣椒",
-        "plural_name": ""
+        "name": "guajillo pepper",
+        "plural_name": "guajillo peppers"
       },
       "galangal": {
-        "name": "南薑",
+        "name": "galangal",
         "plural_name": ""
       },
       "aleppo pepper": {
-        "name": "阿勒坡辣椒",
+        "name": "aleppo pepper",
         "plural_name": ""
       },
       "italian seasoning": {
-        "name": "義式綜合香料",
+        "name": "italian seasoning",
         "plural_name": ""
       },
       "curry": {
-        "name": "咖哩",
+        "name": "curry",
         "plural_name": ""
       },
       "garam masala": {
-        "name": "葛拉姆馬薩拉",
+        "name": "garam masala",
         "plural_name": ""
       },
       "pumpkin pie spice": {
-        "name": "南瓜派香料",
+        "name": "pumpkin pie spice",
         "plural_name": ""
       },
       "mustard powder": {
-        "name": "芥末粉",
+        "name": "mustard powder",
         "plural_name": ""
       },
       "taco seasoning": {
-        "name": "塔可調味料",
+        "name": "taco seasoning",
         "plural_name": ""
       },
       "cajun seasoning": {
-        "name": "卡疆調味料",
+        "name": "cajun seasoning",
         "plural_name": ""
       },
       "chinese five spice": {
-        "name": "中式五香粉",
+        "name": "chinese five spice",
         "plural_name": ""
       },
       "chaat masala": {
-        "name": "恰特馬薩拉",
+        "name": "chaat masala",
         "plural_name": ""
       },
       "thai red curry paste": {
-        "name": "泰式紅咖哩醬",
+        "name": "thai red curry paste",
         "plural_name": ""
       },
       "za'atar": {
-        "name": "扎阿塔爾香料",
+        "name": "za'atar",
         "plural_name": ""
       },
       "ras el hanout": {
-        "name": "拉斯哈努特香料",
+        "name": "ras el hanout",
         "plural_name": ""
       },
       "furikake": {
-        "name": "香鬆",
+        "name": "furikake",
         "plural_name": ""
       },
       "tom yum paste": {
-        "name": "冬蔭功醬",
+        "name": "tom yum paste",
         "plural_name": ""
       },
       "old bay seasoning": {
-        "name": "老灣調味料",
+        "name": "old bay seasoning",
         "plural_name": ""
       },
       "liquid smoke": {
-        "name": "液態煙燻調味料",
+        "name": "liquid smoke",
         "plural_name": ""
       },
       "salt": {
@@ -1869,55 +1869,55 @@
     "name": "Oils",
     "foods": {
       "shortening": {
-        "name": "白油",
+        "name": "shortening",
         "plural_name": ""
       },
       "olive oil": {
-        "name": "橄欖油",
+        "name": "olive oil",
         "plural_name": ""
       },
       "vegetable oil": {
-        "name": "蔬菜油",
+        "name": "vegetable oil",
         "plural_name": ""
       },
       "canola oil": {
-        "name": "芥花油",
+        "name": "canola oil",
         "plural_name": ""
       },
       "coconut oil": {
-        "name": "椰子油",
+        "name": "coconut oil",
         "plural_name": ""
       },
       "cooking spray": {
-        "name": "烹飪噴霧油",
+        "name": "cooking spray",
         "plural_name": ""
       },
       "sesame oil": {
-        "name": "芝麻油",
+        "name": "sesame oil",
         "plural_name": ""
       },
       "avocado oil": {
-        "name": "酪梨油",
+        "name": "avocado oil",
         "plural_name": ""
       },
       "peanut oil": {
-        "name": "花生油",
+        "name": "peanut oil",
         "plural_name": ""
       },
       "lard": {
-        "name": "豬油",
+        "name": "lard",
         "plural_name": ""
       },
       "chili oil": {
-        "name": "辣椒油",
+        "name": "chili oil",
         "plural_name": ""
       },
       "truffle oil": {
-        "name": "松露油",
+        "name": "truffle oil",
         "plural_name": ""
       },
       "duck fat": {
-        "name": "鴨油",
+        "name": "duck fat",
         "plural_name": ""
       },
       "oil": {
@@ -1930,290 +1930,290 @@
     "name": "Baking",
     "foods": {
       "cocoa": {
-        "name": "可可粉",
+        "name": "cocoa",
         "plural_name": ""
       },
       "baking chocolate": {
-        "name": "烘焙用巧克力",
+        "name": "baking chocolate",
         "plural_name": ""
       },
       "sugar": {
-        "name": "糖",
+        "name": "sugar",
         "plural_name": ""
       },
       "brown sugar": {
-        "name": "紅糖",
+        "name": "brown sugar",
         "plural_name": ""
       },
       "confectioners sugar": {
-        "name": "糖粉",
+        "name": "confectioners sugar",
         "plural_name": ""
       },
       "maple syrup": {
-        "name": "楓糖漿",
+        "name": "maple syrup",
         "plural_name": ""
       },
       "corn syrup": {
-        "name": "玉米糖漿",
+        "name": "corn syrup",
         "plural_name": ""
       },
       "molasses": {
-        "name": "糖蜜",
+        "name": "molasses",
         "plural_name": ""
       },
       "stevia": {
-        "name": "甜菊糖",
+        "name": "stevia",
         "plural_name": ""
       },
       "jaggery": {
-        "name": "棕櫚糖",
+        "name": "jaggery",
         "plural_name": ""
       },
       "flour": {
-        "name": "麵粉",
+        "name": "flour",
         "plural_name": ""
       },
       "vanilla extract": {
-        "name": "香草精",
+        "name": "vanilla extract",
         "plural_name": ""
       },
       "baking powder": {
-        "name": "泡打粉",
+        "name": "baking powder",
         "plural_name": ""
       },
       "baking soda": {
-        "name": "小蘇打粉",
+        "name": "baking soda",
         "plural_name": ""
       },
       "cornstarch": {
-        "name": "玉米澱粉",
+        "name": "cornstarch",
         "plural_name": ""
       },
       "yeast": {
-        "name": "酵母",
+        "name": "yeast",
         "plural_name": ""
       },
       "chocolate chip": {
-        "name": "巧克力豆",
-        "plural_name": ""
+        "name": "chocolate chip",
+        "plural_name": "chocolate chips"
       },
       "whole-wheat flour": {
-        "name": "全麥麵粉",
+        "name": "whole-wheat flour",
         "plural_name": ""
       },
       "almond flour": {
-        "name": "杏仁粉",
+        "name": "almond flour",
         "plural_name": ""
       },
       "self-raising flour": {
-        "name": "自發麵粉",
+        "name": "self-raising flour",
         "plural_name": ""
       },
       "shredded coconut": {
-        "name": "椰子絲",
+        "name": "shredded coconut",
         "plural_name": ""
       },
       "cornmeal": {
-        "name": "玉米粉",
+        "name": "cornmeal",
         "plural_name": ""
       },
       "gelatin": {
-        "name": "吉利丁",
+        "name": "gelatin",
         "plural_name": ""
       },
       "cake flour": {
-        "name": "蛋糕粉",
+        "name": "cake flour",
         "plural_name": ""
       },
       "cream of tartar": {
-        "name": "塔塔粉",
+        "name": "cream of tartar",
         "plural_name": ""
       },
       "bread flour": {
-        "name": "高筋麵粉",
+        "name": "bread flour",
         "plural_name": ""
       },
       "potato starch": {
-        "name": "馬鈴薯澱粉",
+        "name": "potato starch",
         "plural_name": ""
       },
       "buckwheat flour": {
-        "name": "蕎麥粉",
+        "name": "buckwheat flour",
         "plural_name": ""
       },
       "masa harina": {
-        "name": "玉米麵粉",
+        "name": "masa harina",
         "plural_name": ""
       },
       "matzo meal": {
-        "name": "無酵餅粉",
+        "name": "matzo meal",
         "plural_name": ""
       },
       "almond extract": {
-        "name": "杏仁萃取液",
+        "name": "almond extract",
         "plural_name": ""
       },
       "food coloring": {
-        "name": "食用色素",
+        "name": "food coloring",
         "plural_name": ""
       },
       "peppermint extract": {
-        "name": "薄荷萃取液",
+        "name": "peppermint extract",
         "plural_name": ""
       },
       "orange extract": {
-        "name": "柳橙萃取液",
+        "name": "orange extract",
         "plural_name": ""
       },
       "sprinkles": {
-        "name": "糖果彩色糖粒",
+        "name": "sprinkles",
         "plural_name": ""
       }
     }
   },
   "sweets": {
-    "name": "甜食",
+    "name": "Sweets",
     "foods": {
       "dark chocolate": {
-        "name": "黑巧克力",
+        "name": "dark chocolate",
         "plural_name": ""
       },
       "chocolate": {
-        "name": "巧克力",
+        "name": "chocolate",
         "plural_name": ""
       },
       "marshmallow": {
-        "name": "棉花糖",
-        "plural_name": ""
+        "name": "marshmallow",
+        "plural_name": "marshmallows"
       },
       "applesauce": {
-        "name": "蘋果醬",
+        "name": "applesauce",
         "plural_name": ""
       },
       "white chocolate": {
-        "name": "白巧克力",
+        "name": "white chocolate",
         "plural_name": ""
       },
       "chocolate hazelnut spread": {
-        "name": "巧克力榛果醬",
+        "name": "chocolate hazelnut spread",
         "plural_name": ""
       },
       "caramel sauce": {
-        "name": "焦糖醬",
+        "name": "caramel sauce",
         "plural_name": ""
       },
       "marshmallow creme": {
-        "name": "棉花糖霜",
+        "name": "marshmallow creme",
         "plural_name": ""
       },
       "jam": {
-        "name": "果醬",
+        "name": "jam",
         "plural_name": ""
       },
       "orange marmalade": {
-        "name": "柳橙果醬",
+        "name": "orange marmalade",
         "plural_name": ""
       },
       "cookie": {
-        "name": "餅乾",
-        "plural_name": ""
+        "name": "cookie",
+        "plural_name": "cookies"
       },
       "lady finger": {
-        "name": "手指餅乾",
-        "plural_name": ""
+        "name": "lady finger",
+        "plural_name": "lady fingers"
       },
       "apple butter": {
-        "name": "蘋果奶油醬",
+        "name": "apple butter",
         "plural_name": ""
       },
       "ice cream": {
-        "name": "冰淇淋",
+        "name": "ice cream",
         "plural_name": ""
       },
       "lemon curd": {
-        "name": "檸檬凝乳",
+        "name": "lemon curd",
         "plural_name": ""
       },
       "dulce de leche": {
-        "name": "焦糖牛奶醬",
+        "name": "dulce de leche",
         "plural_name": ""
       }
     }
   },
   "snacks": {
-    "name": "零食",
+    "name": "Snacks",
     "foods": {
       "walnut": {
-        "name": "核桃",
-        "plural_name": ""
+        "name": "walnut",
+        "plural_name": "walnuts"
       },
       "pecan": {
-        "name": "胡桃",
-        "plural_name": ""
+        "name": "pecan",
+        "plural_name": "pecans"
       },
       "almond": {
-        "name": "杏仁",
-        "plural_name": ""
+        "name": "almond",
+        "plural_name": "almonds"
       },
       "sesame seed": {
-        "name": "芝麻",
-        "plural_name": ""
+        "name": "sesame seed",
+        "plural_name": "sesame seeds"
       },
       "cashew": {
-        "name": "腰果",
-        "plural_name": ""
+        "name": "cashew",
+        "plural_name": "cashews"
       },
       "pine nut": {
-        "name": "松子",
-        "plural_name": ""
+        "name": "pine nut",
+        "plural_name": "pine nuts"
       },
       "pistachio": {
-        "name": "開心果",
-        "plural_name": ""
+        "name": "pistachio",
+        "plural_name": "pistachios"
       },
       "peanut": {
-        "name": "花生",
-        "plural_name": ""
+        "name": "peanut",
+        "plural_name": "peanuts"
       },
       "chia": {
-        "name": "奇亞籽",
+        "name": "chia",
         "plural_name": ""
       },
       "pumpkin seed": {
-        "name": "南瓜籽",
-        "plural_name": ""
+        "name": "pumpkin seed",
+        "plural_name": "pumpkin seeds"
       },
       "hazelnut": {
-        "name": "榛果",
-        "plural_name": ""
+        "name": "hazelnut",
+        "plural_name": "hazelnuts"
       },
       "sunflower seed": {
-        "name": "葵花籽",
-        "plural_name": ""
+        "name": "sunflower seed",
+        "plural_name": "sunflower seeds"
       },
       "graham cracker": {
-        "name": "全麥餅乾",
-        "plural_name": ""
+        "name": "graham cracker",
+        "plural_name": "graham crackers"
       },
       "cracker": {
-        "name": "餅乾",
-        "plural_name": ""
+        "name": "cracker",
+        "plural_name": "crackers"
       },
       "tortilla chip": {
-        "name": "玉米餅片",
-        "plural_name": ""
+        "name": "tortilla chip",
+        "plural_name": "tortilla chips"
       },
       "pretzel": {
-        "name": "椒鹽捲餅",
-        "plural_name": ""
+        "name": "pretzel",
+        "plural_name": "pretzels"
       },
       "popcorn": {
-        "name": "爆米花",
+        "name": "popcorn",
         "plural_name": ""
       },
       "potato chip": {
-        "name": "洋芋片",
-        "plural_name": ""
+        "name": "potato chip",
+        "plural_name": "potato chips"
       },
       "nut": {
         "name": "nut",
@@ -2222,46 +2222,46 @@
     }
   },
   "beverages": {
-    "name": "飲料",
+    "name": "Beverages",
     "foods": {
       "orange juice": {
-        "name": "柳橙汁",
+        "name": "orange juice",
         "plural_name": ""
       },
       "coffee": {
-        "name": "咖啡",
+        "name": "coffee",
         "plural_name": ""
       },
       "club soda": {
-        "name": "蘇打水",
+        "name": "club soda",
         "plural_name": ""
       },
       "espresso": {
-        "name": "義式濃縮咖啡",
+        "name": "espresso",
         "plural_name": ""
       },
       "pineapple juice": {
-        "name": "鳳梨汁",
+        "name": "pineapple juice",
         "plural_name": ""
       },
       "apple juice": {
-        "name": "蘋果汁",
+        "name": "apple juice",
         "plural_name": ""
       },
       "tea": {
-        "name": "茶",
+        "name": "tea",
         "plural_name": ""
       },
       "cranberry juice": {
-        "name": "蔓越莓汁",
+        "name": "cranberry juice",
         "plural_name": ""
       },
       "tomato juice": {
-        "name": "番茄汁",
+        "name": "tomato juice",
         "plural_name": ""
       },
       "ginger beer": {
-        "name": "薑汁啤酒",
+        "name": "ginger beer",
         "plural_name": ""
       },
       "water": {
@@ -2271,78 +2271,78 @@
     }
   },
   "alcohol": {
-    "name": "酒精類",
+    "name": "Alcohol",
     "foods": {
       "white wine": {
-        "name": "白葡萄酒",
+        "name": "white wine",
         "plural_name": ""
       },
       "red wine": {
-        "name": "紅葡萄酒",
+        "name": "red wine",
         "plural_name": ""
       },
       "whisky": {
-        "name": "威士忌",
+        "name": "whisky",
         "plural_name": ""
       },
       "rum": {
-        "name": "蘭姆酒",
+        "name": "rum",
         "plural_name": ""
       },
       "vodka": {
-        "name": "伏特加",
+        "name": "vodka",
         "plural_name": ""
       },
       "beer": {
-        "name": "啤酒",
+        "name": "beer",
         "plural_name": ""
       },
       "orange liqueur": {
-        "name": "柳橙香甜酒",
+        "name": "orange liqueur",
         "plural_name": ""
       },
       "tequila": {
-        "name": "龍舌蘭酒",
+        "name": "tequila",
         "plural_name": ""
       },
       "sherry": {
-        "name": "雪莉酒",
+        "name": "sherry",
         "plural_name": ""
       },
       "gin": {
-        "name": "琴酒",
+        "name": "gin",
         "plural_name": ""
       },
       "brandy": {
-        "name": "白蘭地",
+        "name": "brandy",
         "plural_name": ""
       },
       "mirin": {
-        "name": "味醂",
+        "name": "mirin",
         "plural_name": ""
       },
       "coffee liqueur": {
-        "name": "咖啡香甜酒",
+        "name": "coffee liqueur",
         "plural_name": ""
       },
       "champagne": {
-        "name": "香檳",
+        "name": "champagne",
         "plural_name": ""
       },
       "vermouth": {
-        "name": "苦艾酒",
+        "name": "vermouth",
         "plural_name": ""
       },
       "marsala wine": {
-        "name": "馬薩拉葡萄酒",
+        "name": "marsala wine",
         "plural_name": ""
       },
       "sake": {
-        "name": "清酒",
+        "name": "sake",
         "plural_name": ""
       },
       "shaoxing wine": {
-        "name": "紹興酒",
+        "name": "shaoxing wine",
         "plural_name": ""
       },
       "wine": {
@@ -2352,64 +2352,64 @@
     }
   },
   "health-foods": {
-    "name": "健康食品",
+    "name": "Health Foods",
     "foods": {
       "coconut milk": {
-        "name": "椰奶",
+        "name": "coconut milk",
         "plural_name": ""
       },
       "almond milk": {
-        "name": "杏仁奶",
+        "name": "almond milk",
         "plural_name": ""
       },
       "tofu": {
-        "name": "豆腐",
+        "name": "tofu",
         "plural_name": ""
       },
       "coconut cream": {
-        "name": "椰漿",
+        "name": "coconut cream",
         "plural_name": ""
       },
       "soy milk": {
-        "name": "豆漿",
+        "name": "soy milk",
         "plural_name": ""
       },
       "extra firm tofu": {
-        "name": "超硬豆腐",
+        "name": "extra firm tofu",
         "plural_name": ""
       },
       "silken tofu": {
-        "name": "嫩豆腐",
+        "name": "silken tofu",
         "plural_name": ""
       },
       "tempeh": {
-        "name": "天貝",
+        "name": "tempeh",
         "plural_name": ""
       },
       "oat milk": {
-        "name": "燕麥奶",
+        "name": "oat milk",
         "plural_name": ""
       },
       "seitan": {
-        "name": "麵筋",
+        "name": "seitan",
         "plural_name": ""
       },
       "nutritional yeast": {
-        "name": "營養酵母",
+        "name": "nutritional yeast",
         "plural_name": ""
       },
       "vegan cheese": {
-        "name": "純素起司",
+        "name": "vegan cheese",
         "plural_name": ""
       }
     }
   },
   "household": {
-    "name": "家庭",
+    "name": "Household",
     "foods": {}
   },
   "other": {
-    "name": "其它",
+    "name": "Other",
     "foods": {
       "ice": {
         "name": "ice",
