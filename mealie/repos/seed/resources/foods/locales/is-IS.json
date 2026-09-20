@@ -1,45 +1,45 @@
 {
   "produce": {
-    "name": "Ávextir og grænmeti",
+    "name": "Produce",
     "foods": {
       "garlic": {
-        "name": "hvítlaukur",
+        "name": "garlic",
         "plural_name": ""
       },
       "onion": {
-        "name": "laukur",
-        "plural_name": "laukar"
+        "name": "onion",
+        "plural_name": "onions"
       },
       "bell pepper": {
-        "name": "paprika",
-        "plural_name": "paprikur"
+        "name": "bell pepper",
+        "plural_name": "bell peppers"
       },
       "carrot": {
-        "name": "gulrót",
-        "plural_name": "gulrætur"
+        "name": "carrot",
+        "plural_name": "carrots"
       },
       "scallion": {
-        "name": "vorlaukur",
-        "plural_name": "vorlaukar"
+        "name": "scallion",
+        "plural_name": "scallions"
       },
       "zucchini": {
-        "name": "kúrbítur",
-        "plural_name": "kúrbítar"
+        "name": "zucchini",
+        "plural_name": "zucchinis"
       },
       "potato": {
-        "name": "kartafla",
-        "plural_name": "kartöflur"
+        "name": "potato",
+        "plural_name": "potatoes"
       },
       "red onion": {
-        "name": "rauðlaukur",
-        "plural_name": "rauðlaukar"
+        "name": "red onion",
+        "plural_name": "red onions"
       },
       "yellow onion": {
-        "name": "gulur laukur",
-        "plural_name": ""
+        "name": "yellow onion",
+        "plural_name": "yellow onions"
       },
       "celery": {
-        "name": "sellerí",
+        "name": "celery",
         "plural_name": ""
       },
       "jalapeño": {
@@ -47,155 +47,155 @@
         "plural_name": "jalapeños"
       },
       "avocado": {
-        "name": "avókadó",
-        "plural_name": ""
+        "name": "avocado",
+        "plural_name": "avocados"
       },
       "shallot": {
-        "name": "skalottlaukur",
-        "plural_name": "skalottlaukar"
+        "name": "shallot",
+        "plural_name": "shallots"
       },
       "cherry tomato": {
-        "name": "kirsuberjatómatur",
-        "plural_name": "kirsuberjatómatar"
+        "name": "cherry tomato",
+        "plural_name": "cherry tomatoes"
       },
       "cucumber": {
-        "name": "gúrka",
-        "plural_name": "gúrkur"
+        "name": "cucumber",
+        "plural_name": "cucumbers"
       },
       "spinach": {
-        "name": "spínat",
+        "name": "spinach",
         "plural_name": ""
       },
       "sweet corn": {
-        "name": "maís",
+        "name": "sweet corn",
         "plural_name": ""
       },
       "chile pepper": {
-        "name": "chili pipar",
-        "plural_name": "eldpiprar"
+        "name": "chile pepper",
+        "plural_name": "chile peppers"
       },
       "sweet potato": {
-        "name": "sæt kartafla",
-        "plural_name": "sætar kartöflur"
+        "name": "sweet potato",
+        "plural_name": "sweet potatoes"
       },
       "broccoli": {
-        "name": "spergilkál",
+        "name": "broccoli",
         "plural_name": ""
       },
       "heart of palm": {
-        "name": "pálmahjarta",
-        "plural_name": "pálmahjörtu"
+        "name": "heart of palm",
+        "plural_name": "hearts of palm"
       },
       "pumpkin": {
-        "name": "grasker",
-        "plural_name": ""
+        "name": "pumpkin",
+        "plural_name": "pumpkins"
       },
       "cauliflower": {
-        "name": "blómkál",
+        "name": "cauliflower",
         "plural_name": ""
       },
       "cabbage": {
-        "name": "hvítkál",
-        "plural_name": ""
+        "name": "cabbage",
+        "plural_name": "cabbages"
       },
       "asparagus": {
         "name": "asparagus",
         "plural_name": ""
       },
       "kale": {
-        "name": "grænkál",
+        "name": "kale",
         "plural_name": ""
       },
       "arugula": {
-        "name": "klettasalat",
+        "name": "arugula",
         "plural_name": ""
       },
       "leek": {
-        "name": "blaðlaukur",
-        "plural_name": "blaðlaukar"
+        "name": "leek",
+        "plural_name": "leeks"
       },
       "eggplant": {
-        "name": "eggaldin",
-        "plural_name": ""
+        "name": "eggplant",
+        "plural_name": "eggplants"
       },
       "lettuce": {
-        "name": "salat",
+        "name": "lettuce",
         "plural_name": ""
       },
       "butternut squash": {
-        "name": "grasker",
-        "plural_name": ""
+        "name": "butternut squash",
+        "plural_name": "butternut squashes"
       },
       "romaine lettuce": {
         "name": "romaine lettuce",
         "plural_name": ""
       },
       "beetroot": {
-        "name": "rauðrófa",
-        "plural_name": "rauðrófur"
+        "name": "beetroot",
+        "plural_name": "beetroots"
       },
       "brussels sprout": {
-        "name": "rósakál",
-        "plural_name": ""
+        "name": "brussels sprout",
+        "plural_name": "brussels sprouts"
       },
       "fennel": {
         "name": "fennel",
         "plural_name": ""
       },
       "sun dried tomato": {
-        "name": "sólþurrkaður tómatur",
-        "plural_name": "sólþurrkaðir tómatar"
+        "name": "sun dried tomato",
+        "plural_name": "sun dried tomatoes"
       },
       "radish": {
-        "name": "radísa",
-        "plural_name": "radísur"
+        "name": "radish",
+        "plural_name": "radishes"
       },
       "red cabbage": {
-        "name": "rauðkál",
-        "plural_name": ""
+        "name": "red cabbage",
+        "plural_name": "red cabbages"
       },
       "artichoke": {
-        "name": "þistilhjarta",
-        "plural_name": "þistilhjörtu"
+        "name": "artichoke",
+        "plural_name": "artichokes"
       },
       "parsnip": {
-        "name": "nípa",
-        "plural_name": "nípur"
+        "name": "parsnip",
+        "plural_name": "parsnips"
       },
       "poblano pepper": {
-        "name": "poblano pipar",
-        "plural_name": ""
+        "name": "poblano pepper",
+        "plural_name": "poblano peppers"
       },
       "green tomato": {
-        "name": "grænn tómatur",
-        "plural_name": "grænir tómatar"
+        "name": "green tomato",
+        "plural_name": "green tomatoes"
       },
       "horseradish": {
-        "name": "piparrót",
+        "name": "horseradish",
         "plural_name": ""
       },
       "chard": {
-        "name": "blaðbeðja",
+        "name": "chard",
         "plural_name": ""
       },
       "spaghetti squash": {
-        "name": "spaghetti grasker",
-        "plural_name": ""
+        "name": "spaghetti squash",
+        "plural_name": "spaghetti squashes"
       },
       "napa cabbage": {
-        "name": "kínakál",
-        "plural_name": ""
+        "name": "napa cabbage",
+        "plural_name": "napa cabbages"
       },
       "celeriac": {
-        "name": "hnúðsellerí",
+        "name": "celeriac",
         "plural_name": ""
       },
       "turnip": {
-        "name": "rófa",
-        "plural_name": "rófur"
+        "name": "turnip",
+        "plural_name": "turnips"
       },
       "bok choy": {
-        "name": "blaðkál",
+        "name": "bok choy",
         "plural_name": ""
       },
       "okra": {
@@ -203,136 +203,136 @@
         "plural_name": ""
       },
       "radicchio": {
-        "name": "rauðlaufssalat",
+        "name": "radicchio",
         "plural_name": ""
       },
       "plantain": {
-        "name": "mjölbanani",
-        "plural_name": ""
+        "name": "plantain",
+        "plural_name": "plantains"
       },
       "collard greens": {
         "name": "collard greens",
         "plural_name": ""
       },
       "baby corn": {
-        "name": "dvergmaís",
+        "name": "baby corn",
         "plural_name": ""
       },
       "broccoli rabe": {
-        "name": "spergilkál",
+        "name": "broccoli rabe",
         "plural_name": ""
       },
       "tomato": {
-        "name": "tómatur",
-        "plural_name": "tómatar"
+        "name": "tomato",
+        "plural_name": "tomatoes"
       },
       "lemon": {
-        "name": "sítróna",
-        "plural_name": "sítrónur"
+        "name": "lemon",
+        "plural_name": "lemons"
       },
       "lime": {
-        "name": "límóna",
-        "plural_name": "límónur"
+        "name": "lime",
+        "plural_name": "limes"
       },
       "apple": {
-        "name": "epli",
-        "plural_name": ""
+        "name": "apple",
+        "plural_name": "apples"
       },
       "banana": {
-        "name": "banani",
-        "plural_name": "bananar"
+        "name": "banana",
+        "plural_name": "bananas"
       },
       "orange": {
-        "name": "appelsína",
-        "plural_name": "appelsínur"
+        "name": "orange",
+        "plural_name": "oranges"
       },
       "raisin": {
-        "name": "rúsína",
-        "plural_name": "rúsínur"
+        "name": "raisin",
+        "plural_name": "raisins"
       },
       "pineapple": {
-        "name": "ananas",
-        "plural_name": ""
+        "name": "pineapple",
+        "plural_name": "pineapples"
       },
       "mango": {
-        "name": "mangó",
-        "plural_name": ""
+        "name": "mango",
+        "plural_name": "mangoes"
       },
       "peach": {
-        "name": "ferskja",
-        "plural_name": "ferskjur"
+        "name": "peach",
+        "plural_name": "peaches"
       },
       "date": {
-        "name": "daðla",
-        "plural_name": "döðlur"
+        "name": "date",
+        "plural_name": "dates"
       },
       "coconut": {
-        "name": "kókoshneta",
-        "plural_name": "kókoshnetur"
+        "name": "coconut",
+        "plural_name": "coconuts"
       },
       "pear": {
-        "name": "pera",
-        "plural_name": "perur"
+        "name": "pear",
+        "plural_name": "pears"
       },
       "grape": {
-        "name": "vínber",
-        "plural_name": ""
+        "name": "grape",
+        "plural_name": "grapes"
       },
       "pomegranate": {
-        "name": "granatepli",
-        "plural_name": ""
+        "name": "pomegranate",
+        "plural_name": "pomegranates"
       },
       "watermelon": {
-        "name": "vatnsmelóna",
-        "plural_name": ""
+        "name": "watermelon",
+        "plural_name": "watermelons"
       },
       "rhubarb": {
-        "name": "rabbarbari",
-        "plural_name": "rabbarbarar"
+        "name": "rhubarb",
+        "plural_name": ""
       },
       "kiwi": {
-        "name": "kíví",
-        "plural_name": ""
+        "name": "kiwi",
+        "plural_name": "kiwis"
       },
       "grapefruit": {
-        "name": "greipaldin",
-        "plural_name": ""
+        "name": "grapefruit",
+        "plural_name": "grapefruits"
       },
       "plum": {
-        "name": "plóma",
-        "plural_name": "plómur"
+        "name": "plum",
+        "plural_name": "plums"
       },
       "fig": {
-        "name": "fíkja",
-        "plural_name": "fíkjur"
+        "name": "fig",
+        "plural_name": "figs"
       },
       "apricot": {
-        "name": "aprikósa",
-        "plural_name": "aprikósur"
+        "name": "apricot",
+        "plural_name": "apricots"
       },
       "mandarin": {
-        "name": "mandarína",
-        "plural_name": "mandarínur"
+        "name": "mandarin",
+        "plural_name": "mandarins"
       },
       "cantaloupe": {
-        "name": "kantalópu melóna",
-        "plural_name": "kantalópu melónur"
+        "name": "cantaloupe",
+        "plural_name": "cantaloupes"
       },
       "tamarind": {
         "name": "tamarind",
         "plural_name": "tamarinds"
       },
       "button mushroom": {
-        "name": "ætisveppur",
-        "plural_name": "ætisveppir"
+        "name": "button mushroom",
+        "plural_name": "button mushrooms"
       },
       "shiitake mushroom": {
-        "name": "shiitake-sveppur",
-        "plural_name": "shiitake-sveppir"
+        "name": "shiitake mushroom",
+        "plural_name": "shiitake mushrooms"
       },
       "portobello mushroom": {
-        "name": "portobello sveppur",
-        "plural_name": "portobello sveppir"
+        "name": "portobello mushroom",
+        "plural_name": "portobello mushrooms"
       },
       "pea": {
         "name": "pea",
@@ -351,63 +351,63 @@
         "plural_name": "snap peas"
       },
       "bean sprout": {
-        "name": "bauna spíra",
-        "plural_name": "bauna spírur"
+        "name": "bean sprout",
+        "plural_name": "bean sprouts"
       },
       "edamame": {
         "name": "edamame",
         "plural_name": ""
       },
       "strawberry": {
-        "name": "jarðarber",
-        "plural_name": ""
+        "name": "strawberry",
+        "plural_name": "strawberries"
       },
       "blueberry": {
-        "name": "bláber",
-        "plural_name": ""
+        "name": "blueberry",
+        "plural_name": "blueberries"
       },
       "raspberry": {
-        "name": "hindber",
-        "plural_name": ""
+        "name": "raspberry",
+        "plural_name": "raspberries"
       },
       "cranberry": {
-        "name": "trönuber",
-        "plural_name": ""
+        "name": "cranberry",
+        "plural_name": "cranberries"
       },
       "cherry": {
-        "name": "kirsuber",
-        "plural_name": "kirsiber"
+        "name": "cherry",
+        "plural_name": "cherries"
       },
       "blackberry": {
-        "name": "brómber",
-        "plural_name": ""
+        "name": "blackberry",
+        "plural_name": "blackberries"
       },
       "parsley": {
-        "name": "steinselja",
+        "name": "parsley",
         "plural_name": ""
       },
       "cilantro": {
-        "name": "kóríander",
+        "name": "cilantro",
         "plural_name": ""
       },
       "basil": {
-        "name": "basilíka",
+        "name": "basil",
         "plural_name": ""
       },
       "ginger root": {
-        "name": "engifer",
+        "name": "ginger root",
         "plural_name": ""
       },
       "chive": {
-        "name": "graslaukur",
-        "plural_name": "graslaukar"
+        "name": "chive",
+        "plural_name": "chives"
       },
       "mint": {
-        "name": "mynta",
-        "plural_name": "myntur"
+        "name": "mint",
+        "plural_name": ""
       },
       "lemongrass": {
-        "name": "sítrónugras",
+        "name": "lemongrass",
         "plural_name": ""
       },
       "thai basil": {
@@ -437,7 +437,7 @@
     }
   },
   "grains": {
-    "name": "Korn",
+    "name": "Grains",
     "foods": {
       "rolled oat": {
         "name": "rolled oat",
@@ -650,7 +650,7 @@
     }
   },
   "meat": {
-    "name": "Kjöt",
+    "name": "Meat",
     "foods": {
       "ground beef": {
         "name": "ground beef",
@@ -807,7 +807,7 @@
     }
   },
   "meat-products": {
-    "name": "Kjötvörur",
+    "name": "Meat Products",
     "foods": {
       "bacon": {
         "name": "bacon",
@@ -860,7 +860,7 @@
     }
   },
   "seafood": {
-    "name": "Sjávarréttir",
+    "name": "Seafood",
     "foods": {
       "bonito flake": {
         "name": "bonito flake",
@@ -953,7 +953,7 @@
     }
   },
   "dairy-products": {
-    "name": "Mjólkurvörur",
+    "name": "Dairy Products",
     "foods": {
       "parmesan cheese": {
         "name": "parmesan cheese",
@@ -1110,7 +1110,7 @@
     }
   },
   "baked-goods": {
-    "name": "Bakað",
+    "name": "Baked Goods",
     "foods": {
       "pie crust": {
         "name": "pie crust",
@@ -1215,7 +1215,7 @@
     }
   },
   "canned-goods": {
-    "name": "Dósamatur",
+    "name": "Canned Goods",
     "foods": {
       "canned tomato": {
         "name": "canned tomato",
@@ -1306,8 +1306,8 @@
         "plural_name": "pickled jalapeños"
       },
       "diced green chile": {
-        "name": "skorinn grænn chili",
-        "plural_name": ""
+        "name": "diced green chile",
+        "plural_name": "diced green chiles"
       },
       "sun-dried tomato in oil": {
         "name": "sun-dried tomato in oil",
@@ -1408,11 +1408,11 @@
     }
   },
   "frozen-foods": {
-    "name": "Frosinn matur",
+    "name": "Frozen Foods",
     "foods": {}
   },
   "condiments": {
-    "name": "Bragðbætar",
+    "name": "Condiments",
     "foods": {
       "soy sauce": {
         "name": "soy sauce",
@@ -1491,8 +1491,8 @@
         "plural_name": ""
       },
       "preserved lemon": {
-        "name": "sultuð sítróna",
-        "plural_name": "sultaðar sítrónur"
+        "name": "preserved lemon",
+        "plural_name": "preserved lemons"
       },
       "thai sweet chili sauce": {
         "name": "thai sweet chili sauce",
@@ -1579,31 +1579,31 @@
         "plural_name": ""
       },
       "mayonnaise": {
-        "name": "majónes",
+        "name": "mayonnaise",
         "plural_name": ""
       },
       "apple cider vinegar": {
-        "name": "eplaedik",
+        "name": "apple cider vinegar",
         "plural_name": ""
       },
       "balsamic vinegar": {
-        "name": "balsamik edik",
+        "name": "balsamic vinegar",
         "plural_name": ""
       },
       "vinegar": {
-        "name": "edik",
+        "name": "vinegar",
         "plural_name": ""
       },
       "red wine vinegar": {
-        "name": "rauðvínsedik",
+        "name": "red wine vinegar",
         "plural_name": ""
       },
       "rice wine vinegar": {
-        "name": "hrísgrjónaedik",
+        "name": "rice wine vinegar",
         "plural_name": ""
       },
       "white wine vinegar": {
-        "name": "hvítvínsedik",
+        "name": "white wine vinegar",
         "plural_name": ""
       },
       "ranch dressing": {
@@ -1611,15 +1611,15 @@
         "plural_name": ""
       },
       "distilled white vinegar": {
-        "name": "hvítt edik",
+        "name": "distilled white vinegar",
         "plural_name": ""
       },
       "sweet chili sauce": {
-        "name": "sweet chili sósa",
-        "plural_name": "sweet chilli sauce"
+        "name": "sweet chili sauce",
+        "plural_name": ""
       },
       "caesar dressing": {
-        "name": "sesar dressing",
+        "name": "caesar dressing",
         "plural_name": ""
       },
       "agave nectar": {
@@ -1633,26 +1633,26 @@
     }
   },
   "spices": {
-    "name": "Krydd",
+    "name": "Spices",
     "foods": {
       "cayenne pepper": {
-        "name": "cayenne pipar",
+        "name": "cayenne pepper",
         "plural_name": ""
       },
       "cinnamon": {
-        "name": "kanill",
+        "name": "cinnamon",
         "plural_name": ""
       },
       "cumin": {
-        "name": "kúmín",
+        "name": "cumin",
         "plural_name": ""
       },
       "thyme": {
-        "name": "timjan",
+        "name": "thyme",
         "plural_name": ""
       },
       "garlic powder": {
-        "name": "hvítlauksduft",
+        "name": "garlic powder",
         "plural_name": ""
       },
       "oregano": {
@@ -1660,15 +1660,15 @@
         "plural_name": ""
       },
       "nutmeg": {
-        "name": "múskat",
+        "name": "nutmeg",
         "plural_name": ""
       },
       "chili flake": {
-        "name": "chilíflögur",
-        "plural_name": ""
+        "name": "chili flake",
+        "plural_name": "chili flakes"
       },
       "chili powder": {
-        "name": "chilíduft",
+        "name": "chili powder",
         "plural_name": ""
       },
       "paprika": {
@@ -1676,27 +1676,27 @@
         "plural_name": ""
       },
       "rosemary": {
-        "name": "rósmarín",
+        "name": "rosemary",
         "plural_name": ""
       },
       "bay leaf": {
-        "name": "lárviðarlauf",
-        "plural_name": ""
+        "name": "bay leaf",
+        "plural_name": "bay leaves"
       },
       "turmeric": {
-        "name": "túrmerik",
+        "name": "turmeric",
         "plural_name": ""
       },
       "clove": {
-        "name": "negull",
-        "plural_name": ""
+        "name": "clove",
+        "plural_name": "cloves"
       },
       "onion powder": {
-        "name": "laukduft",
+        "name": "onion powder",
         "plural_name": ""
       },
       "ginger powder": {
-        "name": "engiferduft",
+        "name": "ginger powder",
         "plural_name": ""
       },
       "dill": {
@@ -1704,75 +1704,75 @@
         "plural_name": ""
       },
       "green cardamom": {
-        "name": "kardimomma",
+        "name": "green cardamom",
         "plural_name": ""
       },
       "smoked paprika": {
-        "name": "reykt paprika",
+        "name": "smoked paprika",
         "plural_name": ""
       },
       "sage": {
-        "name": "salvía",
-        "plural_name": "salvíur"
+        "name": "sage",
+        "plural_name": ""
       },
       "coriander": {
-        "name": "kóríander",
+        "name": "coriander",
         "plural_name": ""
       },
       "allspice": {
-        "name": "allrahanda",
+        "name": "allspice",
         "plural_name": ""
       },
       "peppercorn": {
-        "name": "piparkorn",
-        "plural_name": ""
+        "name": "peppercorn",
+        "plural_name": "peppercorns"
       },
       "mustard seed": {
-        "name": "sinnepsfræ",
-        "plural_name": ""
+        "name": "mustard seed",
+        "plural_name": "mustard seeds"
       },
       "white pepper": {
-        "name": "hvítur pipar",
+        "name": "white pepper",
         "plural_name": ""
       },
       "curry leaf": {
-        "name": "karrílauf",
-        "plural_name": ""
+        "name": "curry leaf",
+        "plural_name": "curry leaves"
       },
       "fennel seed": {
-        "name": "svartkummin",
-        "plural_name": ""
+        "name": "fennel seed",
+        "plural_name": "fennel seeds"
       },
       "tarragon": {
-        "name": "fáfnisgras",
-        "plural_name": "fafnisgrös"
+        "name": "tarragon",
+        "plural_name": ""
       },
       "saffron": {
-        "name": "saffran",
+        "name": "saffron",
         "plural_name": ""
       },
       "asafoetida": {
-        "name": "djöflamjöður",
+        "name": "asafoetida",
         "plural_name": ""
       },
       "star anise": {
-        "name": "stjörnuanís",
+        "name": "star anise",
         "plural_name": ""
       },
       "fenugreek": {
-        "name": "grikkjasmári",
-        "plural_name": "grikkjasmárar"
+        "name": "fenugreek",
+        "plural_name": ""
       },
       "kaffir lime leaf": {
-        "name": "kaffírlímónu lauf",
-        "plural_name": ""
+        "name": "kaffir lime leaf",
+        "plural_name": "kaffir lime leaves"
       },
       "guajillo pepper": {
         "name": "guajillo pepper",
         "plural_name": "guajillo peppers"
       },
       "galangal": {
-        "name": "stórgalangal",
+        "name": "galangal",
         "plural_name": ""
       },
       "aleppo pepper": {
@@ -2062,7 +2062,7 @@
         "plural_name": ""
       },
       "orange extract": {
-        "name": "appelsínu þykkni",
+        "name": "orange extract",
         "plural_name": ""
       },
       "sprinkles": {
@@ -2072,7 +2072,7 @@
     }
   },
   "sweets": {
-    "name": "Sætindi",
+    "name": "Sweets",
     "foods": {
       "dark chocolate": {
         "name": "dark chocolate",
@@ -2087,7 +2087,7 @@
         "plural_name": "marshmallows"
       },
       "applesauce": {
-        "name": "eplasósa",
+        "name": "applesauce",
         "plural_name": ""
       },
       "white chocolate": {
@@ -2111,7 +2111,7 @@
         "plural_name": ""
       },
       "orange marmalade": {
-        "name": "appelsínu marmelaði",
+        "name": "orange marmalade",
         "plural_name": ""
       },
       "cookie": {
@@ -2123,7 +2123,7 @@
         "plural_name": "lady fingers"
       },
       "apple butter": {
-        "name": "epla smjör",
+        "name": "apple butter",
         "plural_name": ""
       },
       "ice cream": {
@@ -2131,7 +2131,7 @@
         "plural_name": ""
       },
       "lemon curd": {
-        "name": "límónusmjör",
+        "name": "lemon curd",
         "plural_name": ""
       },
       "dulce de leche": {
@@ -2141,39 +2141,39 @@
     }
   },
   "snacks": {
-    "name": "Snakk",
+    "name": "Snacks",
     "foods": {
       "walnut": {
-        "name": "valhneta",
-        "plural_name": "valhnetur"
+        "name": "walnut",
+        "plural_name": "walnuts"
       },
       "pecan": {
-        "name": "pecanhneta",
-        "plural_name": "pecanhnetur"
+        "name": "pecan",
+        "plural_name": "pecans"
       },
       "almond": {
-        "name": "mandla",
-        "plural_name": "möndlur"
+        "name": "almond",
+        "plural_name": "almonds"
       },
       "sesame seed": {
-        "name": "sesam fræ",
-        "plural_name": ""
+        "name": "sesame seed",
+        "plural_name": "sesame seeds"
       },
       "cashew": {
-        "name": "kasúhneta",
-        "plural_name": "kasúhnetur"
+        "name": "cashew",
+        "plural_name": "cashews"
       },
       "pine nut": {
-        "name": "furuhneta",
-        "plural_name": "furuhnetur"
+        "name": "pine nut",
+        "plural_name": "pine nuts"
       },
       "pistachio": {
-        "name": "pistasía",
-        "plural_name": "pistasíur"
+        "name": "pistachio",
+        "plural_name": "pistachios"
       },
       "peanut": {
-        "name": "jarðhneta",
-        "plural_name": "jarðhnetur"
+        "name": "peanut",
+        "plural_name": "peanuts"
       },
       "chia": {
         "name": "chia",
@@ -2222,10 +2222,10 @@
     }
   },
   "beverages": {
-    "name": "Drykkir",
+    "name": "Beverages",
     "foods": {
       "orange juice": {
-        "name": "appelsínusafi",
+        "name": "orange juice",
         "plural_name": ""
       },
       "coffee": {
@@ -2241,11 +2241,11 @@
         "plural_name": ""
       },
       "pineapple juice": {
-        "name": "ananassafi",
+        "name": "pineapple juice",
         "plural_name": ""
       },
       "apple juice": {
-        "name": "eplasafi",
+        "name": "apple juice",
         "plural_name": ""
       },
       "tea": {
@@ -2271,7 +2271,7 @@
     }
   },
   "alcohol": {
-    "name": "Áfengi",
+    "name": "Alcohol",
     "foods": {
       "white wine": {
         "name": "white wine",
@@ -2298,7 +2298,7 @@
         "plural_name": ""
       },
       "orange liqueur": {
-        "name": "appelsínu líkjör",
+        "name": "orange liqueur",
         "plural_name": ""
       },
       "tequila": {
@@ -2352,7 +2352,7 @@
     }
   },
   "health-foods": {
-    "name": "Heilsumatur",
+    "name": "Health Foods",
     "foods": {
       "coconut milk": {
         "name": "coconut milk",
@@ -2405,11 +2405,11 @@
     }
   },
   "household": {
-    "name": "Heimili",
+    "name": "Household",
     "foods": {}
   },
   "other": {
-    "name": "Annað",
+    "name": "Other",
     "foods": {
       "ice": {
         "name": "ice",
