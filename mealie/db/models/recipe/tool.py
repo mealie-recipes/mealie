@@ -2,8 +2,8 @@ from typing import TYPE_CHECKING
 
 from pydantic import ConfigDict
 from slugify import slugify
-from sqlalchemy import Boolean, Column, ForeignKey, String, Table, UniqueConstraint, orm
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy import Boolean, Column, ForeignKey, String, Table, UniqueConstraint, literal, orm
+from sqlalchemy.orm import Mapped, mapped_column, query_expression
 
 from mealie.db.models._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
 from mealie.db.models._model_utils.auto_init import auto_init
@@ -50,6 +50,7 @@ class Tool(SqlAlchemyBase, BaseMixins):
 
     name: FilterableColumn[str] = mapped_column(String, index=True, nullable=False)
     slug: FilterableColumn[str] = mapped_column(String, index=True, nullable=False)
+    recipe_count: Mapped[int] = query_expression(default_expr=literal(0))
 
     households_with_tool: Mapped[list["Household"]] = orm.relationship(
         "Household", secondary=households_to_tools, back_populates="tools_on_hand"

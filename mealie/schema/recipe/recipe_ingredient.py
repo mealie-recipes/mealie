@@ -221,6 +221,7 @@ class IngredientFood(CreateIngredientFood):
     id: UUID4
     label: MultiPurposeLabelSummary | None = None
     aliases: list[IngredientFoodAlias] = []
+    recipe_count: int = 0
     substitutions: list[IngredientFoodSubstitution] = []
 
     created_at: datetime.datetime | None = None

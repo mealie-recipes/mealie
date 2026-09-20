@@ -19,6 +19,7 @@ class RecipeToolOut(RecipeToolCreate):
     id: UUID4
     group_id: UUID4
     slug: str
+    recipe_count: int = 0
 
     model_config = ConfigDict(from_attributes=True)
 
@@ -37,6 +38,11 @@ class RecipeToolOut(RecipeToolCreate):
         return [
             selectinload(Tool.households_with_tool),
         ]
+
+
+class RecipeToolMerge(MealieModel):
+    from_id: UUID4
+    to_id: UUID4
 
 
 class RecipeToolResponse(RecipeToolOut):
