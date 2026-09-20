@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "سيؤدي دمج الأطعمة المختارة إلى دمج الطعام الأصلي والطعام المستهدف في طعام واحد. سيتم حذف الطعام الأصلي، وسيتم تحديث جميع الإشارات إليه لتشير إلى الطعام المستهدف.",
       "merge-food-example": "دمج {food1} مع {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "دمج الطعام",
       "source-food": "مصدر الطعام",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "قم بتعبئة قاعدة البيانات بتصنيفات شائعة بناءً على لغتك المحلية.",
       "edit-label": "تعديل التصنيف",
       "new-label": "تصنيف جديد",
       "labels": "التصنيفات",
