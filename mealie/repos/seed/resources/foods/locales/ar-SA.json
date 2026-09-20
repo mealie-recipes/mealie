@@ -1,417 +1,417 @@
 {
   "produce": {
-    "name": "خَضْراوات وفواكه",
+    "name": "Produce",
     "foods": {
       "garlic": {
-        "name": "ثوم",
+        "name": "garlic",
         "plural_name": ""
       },
       "onion": {
-        "name": "بصل",
-        "plural_name": ""
+        "name": "onion",
+        "plural_name": "onions"
       },
       "bell pepper": {
-        "name": "فليفلة حلوة",
-        "plural_name": ""
+        "name": "bell pepper",
+        "plural_name": "bell peppers"
       },
       "carrot": {
-        "name": "جزر",
-        "plural_name": ""
+        "name": "carrot",
+        "plural_name": "carrots"
       },
       "scallion": {
-        "name": "بصل أخضر",
-        "plural_name": ""
+        "name": "scallion",
+        "plural_name": "scallions"
       },
       "zucchini": {
-        "name": "كوسا",
-        "plural_name": ""
+        "name": "zucchini",
+        "plural_name": "zucchinis"
       },
       "potato": {
-        "name": "بطاطا",
-        "plural_name": ""
+        "name": "potato",
+        "plural_name": "potatoes"
       },
       "red onion": {
-        "name": "بصل أحمر",
-        "plural_name": ""
+        "name": "red onion",
+        "plural_name": "red onions"
       },
       "yellow onion": {
-        "name": "بصل أصفر",
-        "plural_name": ""
+        "name": "yellow onion",
+        "plural_name": "yellow onions"
       },
       "celery": {
-        "name": "كرفس",
+        "name": "celery",
         "plural_name": ""
       },
       "jalapeño": {
-        "name": "هلابينيو",
-        "plural_name": ""
+        "name": "jalapeño",
+        "plural_name": "jalapeños"
       },
       "avocado": {
-        "name": "أفوكادو",
-        "plural_name": ""
+        "name": "avocado",
+        "plural_name": "avocados"
       },
       "shallot": {
-        "name": "شالوت",
-        "plural_name": ""
+        "name": "shallot",
+        "plural_name": "shallots"
       },
       "cherry tomato": {
-        "name": "طماطم كرزية",
-        "plural_name": ""
+        "name": "cherry tomato",
+        "plural_name": "cherry tomatoes"
       },
       "cucumber": {
-        "name": "خيار",
-        "plural_name": ""
+        "name": "cucumber",
+        "plural_name": "cucumbers"
       },
       "spinach": {
-        "name": "سبانخ",
+        "name": "spinach",
         "plural_name": ""
       },
       "sweet corn": {
-        "name": "ذرة حلوة",
+        "name": "sweet corn",
         "plural_name": ""
       },
       "chile pepper": {
-        "name": "فلفل حار",
-        "plural_name": ""
+        "name": "chile pepper",
+        "plural_name": "chile peppers"
       },
       "sweet potato": {
-        "name": "بطاطا حلوة",
-        "plural_name": ""
+        "name": "sweet potato",
+        "plural_name": "sweet potatoes"
       },
       "broccoli": {
-        "name": "بروكلي",
+        "name": "broccoli",
         "plural_name": ""
       },
       "heart of palm": {
-        "name": "قلب النخيل",
-        "plural_name": ""
+        "name": "heart of palm",
+        "plural_name": "hearts of palm"
       },
       "pumpkin": {
-        "name": "قرع",
-        "plural_name": ""
+        "name": "pumpkin",
+        "plural_name": "pumpkins"
       },
       "cauliflower": {
-        "name": "قرنبيط",
+        "name": "cauliflower",
         "plural_name": ""
       },
       "cabbage": {
-        "name": "كرنب",
-        "plural_name": ""
+        "name": "cabbage",
+        "plural_name": "cabbages"
       },
       "asparagus": {
-        "name": "هليون",
+        "name": "asparagus",
         "plural_name": ""
       },
       "kale": {
-        "name": "كرنب أجعد",
+        "name": "kale",
         "plural_name": ""
       },
       "arugula": {
-        "name": "جرجير",
+        "name": "arugula",
         "plural_name": ""
       },
       "leek": {
-        "name": "كراث",
-        "plural_name": ""
+        "name": "leek",
+        "plural_name": "leeks"
       },
       "eggplant": {
-        "name": "باذنجان",
-        "plural_name": ""
+        "name": "eggplant",
+        "plural_name": "eggplants"
       },
       "lettuce": {
-        "name": "خس",
+        "name": "lettuce",
         "plural_name": ""
       },
       "butternut squash": {
-        "name": "قرع الجوز",
-        "plural_name": ""
+        "name": "butternut squash",
+        "plural_name": "butternut squashes"
       },
       "romaine lettuce": {
-        "name": "خس روماني",
+        "name": "romaine lettuce",
         "plural_name": ""
       },
       "beetroot": {
-        "name": "بنجر",
-        "plural_name": ""
+        "name": "beetroot",
+        "plural_name": "beetroots"
       },
       "brussels sprout": {
-        "name": "كرنب بروكسل",
-        "plural_name": ""
+        "name": "brussels sprout",
+        "plural_name": "brussels sprouts"
       },
       "fennel": {
-        "name": "شمر",
+        "name": "fennel",
         "plural_name": ""
       },
       "sun dried tomato": {
-        "name": "طماطم مجففة بالشمس",
-        "plural_name": ""
+        "name": "sun dried tomato",
+        "plural_name": "sun dried tomatoes"
       },
       "radish": {
-        "name": "فجل",
-        "plural_name": ""
+        "name": "radish",
+        "plural_name": "radishes"
       },
       "red cabbage": {
-        "name": "كرنب أحمر",
-        "plural_name": ""
+        "name": "red cabbage",
+        "plural_name": "red cabbages"
       },
       "artichoke": {
-        "name": "خرشوف",
-        "plural_name": ""
+        "name": "artichoke",
+        "plural_name": "artichokes"
       },
       "parsnip": {
-        "name": "جزر أبيض",
-        "plural_name": ""
+        "name": "parsnip",
+        "plural_name": "parsnips"
       },
       "poblano pepper": {
-        "name": "فلفل بوبلانو",
-        "plural_name": ""
+        "name": "poblano pepper",
+        "plural_name": "poblano peppers"
       },
       "green tomato": {
-        "name": "طماطم خضراء",
-        "plural_name": ""
+        "name": "green tomato",
+        "plural_name": "green tomatoes"
       },
       "horseradish": {
-        "name": "فجل حار",
+        "name": "horseradish",
         "plural_name": ""
       },
       "chard": {
-        "name": "سلق",
+        "name": "chard",
         "plural_name": ""
       },
       "spaghetti squash": {
-        "name": "قرع السباغيتي",
-        "plural_name": ""
+        "name": "spaghetti squash",
+        "plural_name": "spaghetti squashes"
       },
       "napa cabbage": {
-        "name": "كرنب نابا",
-        "plural_name": ""
+        "name": "napa cabbage",
+        "plural_name": "napa cabbages"
       },
       "celeriac": {
-        "name": "كرفس جذري",
+        "name": "celeriac",
         "plural_name": ""
       },
       "turnip": {
-        "name": "لفت",
-        "plural_name": ""
+        "name": "turnip",
+        "plural_name": "turnips"
       },
       "bok choy": {
-        "name": "بوك تشوي",
+        "name": "bok choy",
         "plural_name": ""
       },
       "okra": {
-        "name": "بامية",
+        "name": "okra",
         "plural_name": ""
       },
       "radicchio": {
-        "name": "راديكيو",
+        "name": "radicchio",
         "plural_name": ""
       },
       "plantain": {
-        "name": "موز الجنة",
-        "plural_name": ""
+        "name": "plantain",
+        "plural_name": "plantains"
       },
       "collard greens": {
-        "name": "خضروات الكولارد",
+        "name": "collard greens",
         "plural_name": ""
       },
       "baby corn": {
-        "name": "ذرة صغيرة",
+        "name": "baby corn",
         "plural_name": ""
       },
       "broccoli rabe": {
-        "name": "بروكلي رابي",
+        "name": "broccoli rabe",
         "plural_name": ""
       },
       "tomato": {
-        "name": "طماطم",
-        "plural_name": ""
+        "name": "tomato",
+        "plural_name": "tomatoes"
       },
       "lemon": {
-        "name": "ليمون",
-        "plural_name": ""
+        "name": "lemon",
+        "plural_name": "lemons"
       },
       "lime": {
-        "name": "ليمون حامض",
-        "plural_name": ""
+        "name": "lime",
+        "plural_name": "limes"
       },
       "apple": {
-        "name": "تفاح",
-        "plural_name": ""
+        "name": "apple",
+        "plural_name": "apples"
       },
       "banana": {
-        "name": "موز",
-        "plural_name": ""
+        "name": "banana",
+        "plural_name": "bananas"
       },
       "orange": {
-        "name": "برتقال",
-        "plural_name": ""
+        "name": "orange",
+        "plural_name": "oranges"
       },
       "raisin": {
-        "name": "زبيب",
-        "plural_name": ""
+        "name": "raisin",
+        "plural_name": "raisins"
       },
       "pineapple": {
-        "name": "أناناس",
-        "plural_name": ""
+        "name": "pineapple",
+        "plural_name": "pineapples"
       },
       "mango": {
-        "name": "مانجو",
-        "plural_name": ""
+        "name": "mango",
+        "plural_name": "mangoes"
       },
       "peach": {
-        "name": "خوخ",
-        "plural_name": ""
+        "name": "peach",
+        "plural_name": "peaches"
       },
       "date": {
-        "name": "تمر",
-        "plural_name": ""
+        "name": "date",
+        "plural_name": "dates"
       },
       "coconut": {
-        "name": "جوز هند",
-        "plural_name": ""
+        "name": "coconut",
+        "plural_name": "coconuts"
       },
       "pear": {
-        "name": "كمثرى",
-        "plural_name": ""
+        "name": "pear",
+        "plural_name": "pears"
       },
       "grape": {
-        "name": "عنب",
-        "plural_name": ""
+        "name": "grape",
+        "plural_name": "grapes"
       },
       "pomegranate": {
-        "name": "رمان",
-        "plural_name": ""
+        "name": "pomegranate",
+        "plural_name": "pomegranates"
       },
       "watermelon": {
-        "name": "بطيخ",
-        "plural_name": ""
+        "name": "watermelon",
+        "plural_name": "watermelons"
       },
       "rhubarb": {
-        "name": "راوند",
+        "name": "rhubarb",
         "plural_name": ""
       },
       "kiwi": {
-        "name": "كيوي",
-        "plural_name": ""
+        "name": "kiwi",
+        "plural_name": "kiwis"
       },
       "grapefruit": {
-        "name": "جريب فروت",
-        "plural_name": ""
+        "name": "grapefruit",
+        "plural_name": "grapefruits"
       },
       "plum": {
-        "name": "برقوق",
-        "plural_name": ""
+        "name": "plum",
+        "plural_name": "plums"
       },
       "fig": {
-        "name": "تين",
-        "plural_name": ""
+        "name": "fig",
+        "plural_name": "figs"
       },
       "apricot": {
-        "name": "مشمش",
-        "plural_name": ""
+        "name": "apricot",
+        "plural_name": "apricots"
       },
       "mandarin": {
-        "name": "يوسفي",
-        "plural_name": ""
+        "name": "mandarin",
+        "plural_name": "mandarins"
       },
       "cantaloupe": {
-        "name": "شمام",
-        "plural_name": ""
+        "name": "cantaloupe",
+        "plural_name": "cantaloupes"
       },
       "tamarind": {
-        "name": "تمر هندي",
-        "plural_name": ""
+        "name": "tamarind",
+        "plural_name": "tamarinds"
       },
       "button mushroom": {
-        "name": "فطر أبيض",
-        "plural_name": ""
+        "name": "button mushroom",
+        "plural_name": "button mushrooms"
       },
       "shiitake mushroom": {
-        "name": "فطر شيتاكي",
-        "plural_name": ""
+        "name": "shiitake mushroom",
+        "plural_name": "shiitake mushrooms"
       },
       "portobello mushroom": {
-        "name": "فطر بورتوبيللو",
-        "plural_name": ""
+        "name": "portobello mushroom",
+        "plural_name": "portobello mushrooms"
       },
       "pea": {
-        "name": "بازلاء",
-        "plural_name": ""
+        "name": "pea",
+        "plural_name": "peas"
       },
       "green bean": {
-        "name": "فاصوليا خضراء",
-        "plural_name": ""
+        "name": "green bean",
+        "plural_name": "green beans"
       },
       "snow pea": {
-        "name": "بازلاء الثلج",
-        "plural_name": ""
+        "name": "snow pea",
+        "plural_name": "snow peas"
       },
       "snap pea": {
-        "name": "بازلاء السكر",
-        "plural_name": ""
+        "name": "snap pea",
+        "plural_name": "snap peas"
       },
       "bean sprout": {
-        "name": "براعم فاصوليا",
-        "plural_name": ""
+        "name": "bean sprout",
+        "plural_name": "bean sprouts"
       },
       "edamame": {
-        "name": "إدامامي",
+        "name": "edamame",
         "plural_name": ""
       },
       "strawberry": {
-        "name": "فراولة",
-        "plural_name": ""
+        "name": "strawberry",
+        "plural_name": "strawberries"
       },
       "blueberry": {
-        "name": "توت أزرق",
-        "plural_name": ""
+        "name": "blueberry",
+        "plural_name": "blueberries"
       },
       "raspberry": {
-        "name": "توت أحمر",
-        "plural_name": ""
+        "name": "raspberry",
+        "plural_name": "raspberries"
       },
       "cranberry": {
-        "name": "توت بري",
-        "plural_name": ""
+        "name": "cranberry",
+        "plural_name": "cranberries"
       },
       "cherry": {
-        "name": "كرز",
-        "plural_name": ""
+        "name": "cherry",
+        "plural_name": "cherries"
       },
       "blackberry": {
-        "name": "توت أسود",
-        "plural_name": ""
+        "name": "blackberry",
+        "plural_name": "blackberries"
       },
       "parsley": {
-        "name": "بقدونس",
+        "name": "parsley",
         "plural_name": ""
       },
       "cilantro": {
-        "name": "كزبرة",
+        "name": "cilantro",
         "plural_name": ""
       },
       "basil": {
-        "name": "ريحان",
+        "name": "basil",
         "plural_name": ""
       },
       "ginger root": {
-        "name": "زنجبيل",
+        "name": "ginger root",
         "plural_name": ""
       },
       "chive": {
-        "name": "ثوم معمر",
-        "plural_name": ""
+        "name": "chive",
+        "plural_name": "chives"
       },
       "mint": {
-        "name": "نعناع",
+        "name": "mint",
         "plural_name": ""
       },
       "lemongrass": {
-        "name": "عشبة الليمون",
+        "name": "lemongrass",
         "plural_name": ""
       },
       "thai basil": {
-        "name": "ريحان تايلندي",
+        "name": "thai basil",
         "plural_name": ""
       },
       "mushroom": {
@@ -437,202 +437,202 @@
     }
   },
   "grains": {
-    "name": "الحبوب",
+    "name": "Grains",
     "foods": {
       "rolled oat": {
-        "name": "شوفان ملفوف",
-        "plural_name": ""
+        "name": "rolled oat",
+        "plural_name": "rolled oats"
       },
       "rice": {
-        "name": "أرز",
+        "name": "rice",
         "plural_name": ""
       },
       "quinoa": {
-        "name": "كينوا",
+        "name": "quinoa",
         "plural_name": ""
       },
       "basmati rice": {
-        "name": "أرز بسمتي",
+        "name": "basmati rice",
         "plural_name": ""
       },
       "brown rice": {
-        "name": "أرز بني",
+        "name": "brown rice",
         "plural_name": ""
       },
       "risotto rice": {
-        "name": "أرز الريزوتو",
+        "name": "risotto rice",
         "plural_name": ""
       },
       "couscous": {
-        "name": "كسكس",
+        "name": "couscous",
         "plural_name": ""
       },
       "wild rice": {
-        "name": "أرز بري",
+        "name": "wild rice",
         "plural_name": ""
       },
       "semolina": {
-        "name": "سميد",
+        "name": "semolina",
         "plural_name": ""
       },
       "jasmine rice": {
-        "name": "أرز ياسمين",
+        "name": "jasmine rice",
         "plural_name": ""
       },
       "polenta": {
-        "name": "بولينتا",
+        "name": "polenta",
         "plural_name": ""
       },
       "granola cereal": {
-        "name": "حبوب جرانولا",
+        "name": "granola cereal",
         "plural_name": ""
       },
       "bulgur": {
-        "name": "برغل",
+        "name": "bulgur",
         "plural_name": ""
       },
       "barley": {
-        "name": "شعير",
+        "name": "barley",
         "plural_name": ""
       },
       "steel cut oat": {
-        "name": "شوفان مقطع",
-        "plural_name": ""
+        "name": "steel cut oat",
+        "plural_name": "steel cut oats"
       },
       "millet": {
-        "name": "دخن",
+        "name": "millet",
         "plural_name": ""
       },
       "sushi rice": {
-        "name": "أرز سوشي",
+        "name": "sushi rice",
         "plural_name": ""
       },
       "hominy": {
-        "name": "هوميني",
+        "name": "hominy",
         "plural_name": ""
       },
       "chickpea": {
-        "name": "حمص",
-        "plural_name": ""
+        "name": "chickpea",
+        "plural_name": "chickpeas"
       },
       "black bean": {
-        "name": "فاصوليا سوداء",
-        "plural_name": ""
+        "name": "black bean",
+        "plural_name": "black beans"
       },
       "kidney bean": {
-        "name": "فاصوليا حمراء",
-        "plural_name": ""
+        "name": "kidney bean",
+        "plural_name": "kidney beans"
       },
       "white bean": {
-        "name": "فاصوليا بيضاء",
-        "plural_name": ""
+        "name": "white bean",
+        "plural_name": "white beans"
       },
       "lentil": {
-        "name": "عدس",
-        "plural_name": ""
+        "name": "lentil",
+        "plural_name": "lentils"
       },
       "pinto bean": {
-        "name": "فاصوليا بينتو",
-        "plural_name": ""
+        "name": "pinto bean",
+        "plural_name": "pinto beans"
       },
       "red lentil": {
-        "name": "عدس أحمر",
-        "plural_name": ""
+        "name": "red lentil",
+        "plural_name": "red lentils"
       },
       "cannellini bean": {
-        "name": "فاصوليا كانيليني",
-        "plural_name": ""
+        "name": "cannellini bean",
+        "plural_name": "cannellini beans"
       },
       "black-eyed pea": {
-        "name": "لوبيا",
-        "plural_name": ""
+        "name": "black-eyed pea",
+        "plural_name": "black-eyed peas"
       },
       "split pea": {
-        "name": "بازلاء مجروشة",
-        "plural_name": ""
+        "name": "split pea",
+        "plural_name": "split peas"
       },
       "mung bean": {
-        "name": "مونغ",
-        "plural_name": ""
+        "name": "mung bean",
+        "plural_name": "mung beans"
       },
       "spaghetti": {
-        "name": "سباغيتي",
+        "name": "spaghetti",
         "plural_name": ""
       },
       "macaroni": {
-        "name": "معكرونة",
+        "name": "macaroni",
         "plural_name": ""
       },
       "egg noodle": {
-        "name": "نودلز البيض",
-        "plural_name": ""
+        "name": "egg noodle",
+        "plural_name": "egg noodles"
       },
       "spiral pasta": {
-        "name": "باستا حلزونية",
+        "name": "spiral pasta",
         "plural_name": ""
       },
       "lasagna noodle": {
-        "name": "نودلز لازانيا",
-        "plural_name": ""
+        "name": "lasagna noodle",
+        "plural_name": "lasagna noodles"
       },
       "linguine": {
-        "name": "لينغويني",
+        "name": "linguine",
         "plural_name": ""
       },
       "fettuccine": {
-        "name": "فيتوتشيني",
+        "name": "fettuccine",
         "plural_name": ""
       },
       "orzo": {
-        "name": "أورزو",
+        "name": "orzo",
         "plural_name": ""
       },
       "pasta shell": {
-        "name": "صدف باستا",
-        "plural_name": ""
+        "name": "pasta shell",
+        "plural_name": "pasta shells"
       },
       "noodle": {
-        "name": "نودلز",
-        "plural_name": ""
+        "name": "noodle",
+        "plural_name": "noodles"
       },
       "tortellini": {
-        "name": "تورتيليني",
+        "name": "tortellini",
         "plural_name": ""
       },
       "rice noodle": {
-        "name": "نودلز الأرز",
-        "plural_name": ""
+        "name": "rice noodle",
+        "plural_name": "rice noodles"
       },
       "rigatoni": {
-        "name": "ريغاتوني",
+        "name": "rigatoni",
         "plural_name": ""
       },
       "gnocchi": {
-        "name": "نيوكي",
+        "name": "gnocchi",
         "plural_name": ""
       },
       "ramen noodle": {
-        "name": "نودلز رامن",
-        "plural_name": ""
+        "name": "ramen noodle",
+        "plural_name": "ramen noodles"
       },
       "soba noodle": {
-        "name": "نودلز سوبا",
-        "plural_name": ""
+        "name": "soba noodle",
+        "plural_name": "soba noodles"
       },
       "ravioli": {
-        "name": "رافيولي",
+        "name": "ravioli",
         "plural_name": ""
       },
       "udon noodle": {
-        "name": "نودلز أودون",
-        "plural_name": ""
+        "name": "udon noodle",
+        "plural_name": "udon noodles"
       },
       "manicotti": {
-        "name": "مانيكوتي",
+        "name": "manicotti",
         "plural_name": ""
       },
       "farro": {
-        "name": "فارو",
+        "name": "farro",
         "plural_name": ""
       },
       "pasta": {
@@ -650,135 +650,135 @@
     }
   },
   "meat": {
-    "name": "اللحوم",
+    "name": "Meat",
     "foods": {
       "ground beef": {
-        "name": "لحم بقري مفروم",
+        "name": "ground beef",
         "plural_name": ""
       },
       "beef steak": {
-        "name": "ستيك لحم بقري",
-        "plural_name": ""
+        "name": "beef steak",
+        "plural_name": "beef steaks"
       },
       "pork chop": {
-        "name": "شريحة لحم  ",
-        "plural_name": "شرائح لحم "
+        "name": "pork chop",
+        "plural_name": "pork chops"
       },
       "pork loin": {
-        "name": "فيليه لحم ",
-        "plural_name": ""
+        "name": "pork loin",
+        "plural_name": "pork loins"
       },
       "beef roast": {
-        "name": "روستو لحم بقري",
-        "plural_name": ""
+        "name": "beef roast",
+        "plural_name": "beef roasts"
       },
       "ground pork": {
-        "name": "لحم    مفروم",
+        "name": "ground pork",
         "plural_name": ""
       },
       "beef stew meat": {
-        "name": "لحم بقري لليخنة",
+        "name": "beef stew meat",
         "plural_name": ""
       },
       "pork fillet": {
-        "name": "فيليه لحم   ",
-        "plural_name": ""
+        "name": "pork fillet",
+        "plural_name": "pork fillets"
       },
       "pork shoulder": {
-        "name": "كتف لحم   ",
+        "name": "pork shoulder",
         "plural_name": ""
       },
       "ground lamb": {
-        "name": "لحم خروف مفروم",
+        "name": "ground lamb",
         "plural_name": ""
       },
       "pork rib": {
-        "name": "ضلع لحم   ",
-        "plural_name": "أضلاع لحم   "
+        "name": "pork rib",
+        "plural_name": "pork ribs"
       },
       "beef sirloin": {
-        "name": "ستيك لحم بقري",
-        "plural_name": ""
+        "name": "beef sirloin",
+        "plural_name": "beef sirloins"
       },
       "brisket": {
-        "name": "بريسكت",
+        "name": "brisket",
         "plural_name": ""
       },
       "leg of lamb": {
-        "name": "فخذ خروف",
-        "plural_name": ""
+        "name": "leg of lamb",
+        "plural_name": "legs of lamb"
       },
       "beef short rib": {
-        "name": "ضلع بقري قصير",
-        "plural_name": "أضلاع بقري قصيرة"
+        "name": "beef short rib",
+        "plural_name": "beef short ribs"
       },
       "pork belly": {
-        "name": "بطن لحم   ",
+        "name": "pork belly",
         "plural_name": ""
       },
       "lamb chop": {
-        "name": "شريحة خروف",
-        "plural_name": "شرائح خروف"
+        "name": "lamb chop",
+        "plural_name": "lamb chops"
       },
       "venison": {
-        "name": "لحم الغزال",
+        "name": "venison",
         "plural_name": ""
       },
       "oxtail": {
-        "name": "ذيل بقري",
-        "plural_name": ""
+        "name": "oxtail",
+        "plural_name": "oxtails"
       },
       "chicken breast": {
-        "name": "صدر دجاج",
-        "plural_name": "صدور دجاج"
+        "name": "chicken breast",
+        "plural_name": "chicken breasts"
       },
       "chicken thigh": {
-        "name": "فخذ دجاج",
-        "plural_name": "أفخاذ دجاج"
+        "name": "chicken thigh",
+        "plural_name": "chicken thighs"
       },
       "ground turkey": {
-        "name": "لحم ديك رومي مفروم",
+        "name": "ground turkey",
         "plural_name": ""
       },
       "whole chicken": {
-        "name": "دجاجة كاملة",
-        "plural_name": "دجاج كامل"
+        "name": "whole chicken",
+        "plural_name": "whole chickens"
       },
       "whole turkey": {
-        "name": "ديك رومي كامل",
-        "plural_name": ""
+        "name": "whole turkey",
+        "plural_name": "whole turkeys"
       },
       "chicken leg": {
-        "name": "ساق دجاج",
-        "plural_name": ""
+        "name": "chicken leg",
+        "plural_name": "chicken legs"
       },
       "chicken wing": {
-        "name": "جناح دجاج",
-        "plural_name": "أجنحة دجاج"
+        "name": "chicken wing",
+        "plural_name": "chicken wings"
       },
       "turkey breast": {
-        "name": "صدر ديك رومي",
-        "plural_name": "صدور ديك رومي"
+        "name": "turkey breast",
+        "plural_name": "turkey breasts"
       },
       "ground chicken": {
-        "name": "لحم دجاج مفروم",
+        "name": "ground chicken",
         "plural_name": ""
       },
       "rotisserie chicken": {
-        "name": "دجاج مشوي على الفحم",
-        "plural_name": ""
+        "name": "rotisserie chicken",
+        "plural_name": "rotisserie chickens"
       },
       "duck": {
-        "name": "بط",
-        "plural_name": ""
+        "name": "duck",
+        "plural_name": "ducks"
       },
       "chicken liver": {
-        "name": "كبد دجاج",
-        "plural_name": ""
+        "name": "chicken liver",
+        "plural_name": "chicken livers"
       },
       "cornish hen": {
-        "name": "دجاج كورنيش",
-        "plural_name": ""
+        "name": "cornish hen",
+        "plural_name": "cornish hens"
       },
       "veal": {
         "name": "veal",
@@ -807,140 +807,140 @@
     }
   },
   "meat-products": {
-    "name": "منتجات اللحوم",
+    "name": "Meat Products",
     "foods": {
       "bacon": {
-        "name": "بيكون",
+        "name": "bacon",
         "plural_name": ""
       },
       "ham": {
-        "name": "هام",
+        "name": "ham",
         "plural_name": ""
       },
       "prosciutto": {
-        "name": "بروسيوتو",
+        "name": "prosciutto",
         "plural_name": ""
       },
       "sausage": {
-        "name": "سجق",
-        "plural_name": ""
+        "name": "sausage",
+        "plural_name": "sausages"
       },
       "pepperoni": {
-        "name": "بيبروني",
-        "plural_name": ""
+        "name": "pepperoni",
+        "plural_name": "pepperonis"
       },
       "chorizo": {
-        "name": "كوريزو",
+        "name": "chorizo",
         "plural_name": ""
       },
       "pancetta": {
-        "name": "بانشيتا",
+        "name": "pancetta",
         "plural_name": ""
       },
       "breakfast sausage": {
-        "name": "سجق فطور",
-        "plural_name": ""
+        "name": "breakfast sausage",
+        "plural_name": "breakfast sausages"
       },
       "hot dog": {
-        "name": "هوت دوج",
-        "plural_name": ""
+        "name": "hot dog",
+        "plural_name": "hot dogs"
       },
       "salami": {
-        "name": "سلامي",
+        "name": "salami",
         "plural_name": ""
       },
       "kielbasa": {
-        "name": "كيلباسا",
+        "name": "kielbasa",
         "plural_name": ""
       },
       "corned beef": {
-        "name": "لحم بقري محفوظ",
+        "name": "corned beef",
         "plural_name": ""
       }
     }
   },
   "seafood": {
-    "name": "المأكولات البحرية",
+    "name": "Seafood",
     "foods": {
       "bonito flake": {
-        "name": "رقائق بونيتو",
-        "plural_name": ""
+        "name": "bonito flake",
+        "plural_name": "bonito flakes"
       },
       "salmon": {
-        "name": "سلمون",
+        "name": "salmon",
         "plural_name": ""
       },
       "smoked salmon": {
-        "name": "سلمون مدخن",
+        "name": "smoked salmon",
         "plural_name": ""
       },
       "cod": {
-        "name": "قد",
+        "name": "cod",
         "plural_name": ""
       },
       "tilapia": {
-        "name": "بلطي",
+        "name": "tilapia",
         "plural_name": ""
       },
       "halibut": {
-        "name": "هلبوت",
+        "name": "halibut",
         "plural_name": ""
       },
       "trout": {
-        "name": "سلمون مرقط",
+        "name": "trout",
         "plural_name": ""
       },
       "catfish": {
-        "name": "سمك السلور",
+        "name": "catfish",
         "plural_name": ""
       },
       "sardine": {
-        "name": "سردين",
-        "plural_name": ""
+        "name": "sardine",
+        "plural_name": "sardines"
       },
       "haddock": {
-        "name": "حدوق",
+        "name": "haddock",
         "plural_name": ""
       },
       "shrimp": {
-        "name": "روبيان",
+        "name": "shrimp",
         "plural_name": ""
       },
       "crab": {
-        "name": "سلطعون",
-        "plural_name": ""
+        "name": "crab",
+        "plural_name": "crabs"
       },
       "scallop": {
-        "name": "إسكالوب",
-        "plural_name": ""
+        "name": "scallop",
+        "plural_name": "scallops"
       },
       "mussel": {
-        "name": "بلح البحر",
-        "plural_name": ""
+        "name": "mussel",
+        "plural_name": "mussels"
       },
       "clam": {
-        "name": "محار",
-        "plural_name": ""
+        "name": "clam",
+        "plural_name": "clams"
       },
       "squid": {
-        "name": "حبار",
+        "name": "squid",
         "plural_name": ""
       },
       "nori": {
-        "name": "نوري",
+        "name": "nori",
         "plural_name": ""
       },
       "lobster": {
-        "name": "استاكوزا",
-        "plural_name": ""
+        "name": "lobster",
+        "plural_name": "lobsters"
       },
       "oyster": {
-        "name": "محار",
-        "plural_name": ""
+        "name": "oyster",
+        "plural_name": "oysters"
       },
       "octopus": {
-        "name": "أخطبوط",
-        "plural_name": ""
+        "name": "octopus",
+        "plural_name": "octopuses"
       },
       "fish": {
         "name": "fish",
@@ -953,150 +953,150 @@
     }
   },
   "dairy-products": {
-    "name": "منتجات الألبان",
+    "name": "Dairy Products",
     "foods": {
       "parmesan cheese": {
-        "name": "جبن بارميزان",
+        "name": "parmesan cheese",
         "plural_name": ""
       },
       "cheddar cheese": {
-        "name": "جبن شيدر",
+        "name": "cheddar cheese",
         "plural_name": ""
       },
       "cream cheese": {
-        "name": "جبن كريمي",
+        "name": "cream cheese",
         "plural_name": ""
       },
       "cheese": {
-        "name": "جبن",
+        "name": "cheese",
         "plural_name": ""
       },
       "mozzarella cheese": {
-        "name": "جبن موزاريلا",
+        "name": "mozzarella cheese",
         "plural_name": ""
       },
       "feta cheese": {
-        "name": "جبن فيتا",
+        "name": "feta cheese",
         "plural_name": ""
       },
       "ricotta cheese": {
-        "name": "جبن ريكوتا",
+        "name": "ricotta cheese",
         "plural_name": ""
       },
       "monterey jack cheese": {
-        "name": "جبن مونتيري جاك",
+        "name": "monterey jack cheese",
         "plural_name": ""
       },
       "blue cheese": {
-        "name": "جبن أزرق",
+        "name": "blue cheese",
         "plural_name": ""
       },
       "goat cheese": {
-        "name": "جبن الماعز",
+        "name": "goat cheese",
         "plural_name": ""
       },
       "swiss cheese": {
-        "name": "جبن سويسري",
+        "name": "swiss cheese",
         "plural_name": ""
       },
       "gruyere cheese": {
-        "name": "جبن جرويير",
+        "name": "gruyere cheese",
         "plural_name": ""
       },
       "mascarpone cheese": {
-        "name": "جبن ماسكاربوني",
+        "name": "mascarpone cheese",
         "plural_name": ""
       },
       "cottage cheese": {
-        "name": "جبن قريش",
+        "name": "cottage cheese",
         "plural_name": ""
       },
       "american cheese": {
-        "name": "جبن أمريكي",
+        "name": "american cheese",
         "plural_name": ""
       },
       "brie cheese": {
-        "name": "جبن بري",
+        "name": "brie cheese",
         "plural_name": ""
       },
       "paneer cheese": {
-        "name": "جبن بانير",
+        "name": "paneer cheese",
         "plural_name": ""
       },
       "fontina cheese": {
-        "name": "جبن فونتينيا",
+        "name": "fontina cheese",
         "plural_name": ""
       },
       "queso fresco cheese": {
-        "name": "جبن كيسو فرييسكو",
+        "name": "queso fresco cheese",
         "plural_name": ""
       },
       "halloumi cheese": {
-        "name": "جبن حلوم",
+        "name": "halloumi cheese",
         "plural_name": ""
       },
       "italian cheese blend": {
-        "name": "خليط جبن إيطالي",
+        "name": "italian cheese blend",
         "plural_name": ""
       },
       "butter": {
-        "name": "زبدة",
+        "name": "butter",
         "plural_name": ""
       },
       "egg": {
-        "name": "بيض",
-        "plural_name": ""
+        "name": "egg",
+        "plural_name": "eggs"
       },
       "milk": {
-        "name": "حليب",
+        "name": "milk",
         "plural_name": ""
       },
       "heavy cream": {
-        "name": "قشطة ثقيلة",
+        "name": "heavy cream",
         "plural_name": ""
       },
       "sour cream": {
-        "name": "قشطة حامضة",
+        "name": "sour cream",
         "plural_name": ""
       },
       "buttermilk": {
-        "name": "لبن خاثر",
+        "name": "buttermilk",
         "plural_name": ""
       },
       "yogurt": {
-        "name": "زبادي",
+        "name": "yogurt",
         "plural_name": ""
       },
       "greek yogurt": {
-        "name": "زبادي يوناني",
+        "name": "greek yogurt",
         "plural_name": ""
       },
       "cream": {
-        "name": "قشطة",
+        "name": "cream",
         "plural_name": ""
       },
       "whipped cream": {
-        "name": "قشطة مخفوقة",
+        "name": "whipped cream",
         "plural_name": ""
       },
       "ghee": {
-        "name": "سمن",
+        "name": "ghee",
         "plural_name": ""
       },
       "half and half": {
-        "name": "قشطة نصف بنصف",
+        "name": "half and half",
         "plural_name": ""
       },
       "sweetened condensed milk": {
-        "name": "حليب مكثف محلى",
+        "name": "sweetened condensed milk",
         "plural_name": ""
       },
       "kefir": {
-        "name": "كفير",
+        "name": "kefir",
         "plural_name": ""
       },
       "provolone cheese": {
-        "name": "جبن بروفولوني",
+        "name": "provolone cheese",
         "plural_name": ""
       },
       "egg white": {
@@ -1110,283 +1110,283 @@
     }
   },
   "baked-goods": {
-    "name": "المخبوزات",
+    "name": "Baked Goods",
     "foods": {
       "pie crust": {
-        "name": "قاعدة فطيرة",
-        "plural_name": "قواعد فطيرة"
+        "name": "pie crust",
+        "plural_name": "pie crusts"
       },
       "puff pastry": {
-        "name": "عجينة منتفخة",
-        "plural_name": ""
+        "name": "puff pastry",
+        "plural_name": "puff pastries"
       },
       "pizza dough": {
-        "name": "عجينة بيتزا",
+        "name": "pizza dough",
         "plural_name": ""
       },
       "phyllo": {
-        "name": "عجينة فيلو",
+        "name": "phyllo",
         "plural_name": ""
       },
       "dumpling wrapper": {
-        "name": "عجينة دمبلينغ",
-        "plural_name": ""
+        "name": "dumpling wrapper",
+        "plural_name": "dumpling wrappers"
       },
       "rice paper": {
-        "name": "ورق الأرز",
+        "name": "rice paper",
         "plural_name": ""
       },
       "bread": {
-        "name": "خبز",
+        "name": "bread",
         "plural_name": ""
       },
       "bread crumb": {
-        "name": "فتات خبز",
-        "plural_name": ""
+        "name": "bread crumb",
+        "plural_name": "bread crumbs"
       },
       "panko": {
-        "name": "بانكو",
+        "name": "panko",
         "plural_name": ""
       },
       "flour tortilla": {
-        "name": "تورتيلا دقيق",
-        "plural_name": ""
+        "name": "flour tortilla",
+        "plural_name": "flour tortillas"
       },
       "corn tortilla": {
-        "name": "تورتيلا ذرة",
-        "plural_name": ""
+        "name": "corn tortilla",
+        "plural_name": "corn tortillas"
       },
       "baguette": {
-        "name": "باغيت",
-        "plural_name": ""
+        "name": "baguette",
+        "plural_name": "baguettes"
       },
       "pita": {
-        "name": "خبز بيتا",
-        "plural_name": ""
+        "name": "pita",
+        "plural_name": "pitas"
       },
       "sourdough bread": {
-        "name": "خبز العجين المخمر",
+        "name": "sourdough bread",
         "plural_name": ""
       },
       "crouton": {
-        "name": "خبز محمص مكعب",
-        "plural_name": ""
+        "name": "crouton",
+        "plural_name": "croutons"
       },
       "english muffin": {
-        "name": "مافن إنجليزي",
-        "plural_name": ""
+        "name": "english muffin",
+        "plural_name": "english muffins"
       },
       "brioche": {
-        "name": "بريوش",
+        "name": "brioche",
         "plural_name": ""
       },
       "rye bread": {
-        "name": "خبز الجاودار",
+        "name": "rye bread",
         "plural_name": ""
       },
       "naan": {
-        "name": "خبز نان",
-        "plural_name": ""
+        "name": "naan",
+        "plural_name": "naans"
       },
       "taco shell": {
-        "name": "قشرة تاكو",
-        "plural_name": ""
+        "name": "taco shell",
+        "plural_name": "taco shells"
       },
       "bagel": {
-        "name": "بيغل",
-        "plural_name": ""
+        "name": "bagel",
+        "plural_name": "bagels"
       },
       "croissant": {
-        "name": "كرواسون",
-        "plural_name": ""
+        "name": "croissant",
+        "plural_name": "croissants"
       },
       "hawaiian roll": {
-        "name": "لفائف هاواي",
-        "plural_name": ""
+        "name": "hawaiian roll",
+        "plural_name": "hawaiian rolls"
       },
       "challah": {
-        "name": "خبز تشالاه",
+        "name": "challah",
         "plural_name": ""
       },
       "bao bun": {
-        "name": "خبز باو",
-        "plural_name": ""
+        "name": "bao bun",
+        "plural_name": "bao buns"
       }
     }
   },
   "canned-goods": {
-    "name": "المعلبات",
+    "name": "Canned Goods",
     "foods": {
       "canned tomato": {
-        "name": "طماطم معلبة",
-        "plural_name": ""
+        "name": "canned tomato",
+        "plural_name": "canned tomatoes"
       },
       "caper": {
-        "name": "كبر",
-        "plural_name": ""
+        "name": "caper",
+        "plural_name": "capers"
       },
       "green olive": {
-        "name": "زيتون أخضر",
-        "plural_name": ""
+        "name": "green olive",
+        "plural_name": "green olives"
       },
       "canned chickpea": {
-        "name": "حمص معلب",
-        "plural_name": ""
+        "name": "canned chickpea",
+        "plural_name": "canned chickpeas"
       },
       "black olive": {
-        "name": "زيتون أسود",
-        "plural_name": ""
+        "name": "black olive",
+        "plural_name": "black olives"
       },
       "canned black bean": {
-        "name": "فاصوليا سوداء معلبة",
-        "plural_name": ""
+        "name": "canned black bean",
+        "plural_name": "canned black beans"
       },
       "canned pumpkin": {
-        "name": "قرع معلب",
+        "name": "canned pumpkin",
         "plural_name": ""
       },
       "kalamata olive": {
-        "name": "زيتون كالاماتا",
-        "plural_name": ""
+        "name": "kalamata olive",
+        "plural_name": "kalamata olives"
       },
       "canned tuna": {
-        "name": "تونة معلبة",
+        "name": "canned tuna",
         "plural_name": ""
       },
       "pickle": {
-        "name": "مخلل",
-        "plural_name": ""
+        "name": "pickle",
+        "plural_name": "pickles"
       },
       "chipotle in adobo": {
-        "name": "تشيبوتلي في أدوبو",
-        "plural_name": ""
+        "name": "chipotle in adobo",
+        "plural_name": "chipotles in adobo"
       },
       "canned anchovy": {
-        "name": "أنشوجة معلبة",
-        "plural_name": ""
+        "name": "canned anchovy",
+        "plural_name": "canned anchovies"
       },
       "roasted red pepper": {
-        "name": "فلفل أحمر مشوي",
-        "plural_name": ""
+        "name": "roasted red pepper",
+        "plural_name": "roasted red peppers"
       },
       "canned artichoke": {
-        "name": "خرشوف معلب",
-        "plural_name": ""
+        "name": "canned artichoke",
+        "plural_name": "canned artichokes"
       },
       "canned corn": {
-        "name": "ذرة معلبة",
+        "name": "canned corn",
         "plural_name": ""
       },
       "canned kidney bean": {
-        "name": "فاصوليا حمراء معلبة",
-        "plural_name": ""
+        "name": "canned kidney bean",
+        "plural_name": "canned kidney beans"
       },
       "refried bean": {
-        "name": "فاصوليا مقلية",
-        "plural_name": ""
+        "name": "refried bean",
+        "plural_name": "refried beans"
       },
       "canned whole tomato": {
-        "name": "طماطم كاملة معلبة",
-        "plural_name": ""
+        "name": "canned whole tomato",
+        "plural_name": "canned whole tomatoes"
       },
       "sweet pickle relish": {
-        "name": "مخلل حلو",
+        "name": "sweet pickle relish",
         "plural_name": ""
       },
       "sauerkraut": {
-        "name": "مخلل ملفوف",
+        "name": "sauerkraut",
         "plural_name": ""
       },
       "creamed corn": {
-        "name": "ذرة بالكريمة",
+        "name": "creamed corn",
         "plural_name": ""
       },
       "pickled jalapeño": {
-        "name": "هالبينيو مخلل",
-        "plural_name": ""
+        "name": "pickled jalapeño",
+        "plural_name": "pickled jalapeños"
       },
       "diced green chile": {
-        "name": "فلفل حار أخضر مكعب",
-        "plural_name": ""
+        "name": "diced green chile",
+        "plural_name": "diced green chiles"
       },
       "sun-dried tomato in oil": {
-        "name": "طماطم مجففة بالشمس بالزيت",
-        "plural_name": ""
+        "name": "sun-dried tomato in oil",
+        "plural_name": "sun-dried tomatoes in oil"
       },
       "kimchi": {
-        "name": "كيمتشي",
+        "name": "kimchi",
         "plural_name": ""
       },
       "baked bean": {
-        "name": "فاصوليا مخبوزة",
-        "plural_name": ""
+        "name": "baked bean",
+        "plural_name": "baked beans"
       },
       "canned salmon": {
-        "name": "سلمون معلب",
+        "name": "canned salmon",
         "plural_name": ""
       },
       "canned clam": {
-        "name": "محار معلب",
-        "plural_name": ""
+        "name": "canned clam",
+        "plural_name": "canned clams"
       },
       "canned baby corn": {
-        "name": "ذرة صغيرة معلبة",
+        "name": "canned baby corn",
         "plural_name": ""
       },
       "canned sardine": {
-        "name": "سردين معلب",
-        "plural_name": ""
+        "name": "canned sardine",
+        "plural_name": "canned sardines"
       },
       "aquafaba": {
-        "name": "أكوافابا",
+        "name": "aquafaba",
         "plural_name": ""
       },
       "chicken broth": {
-        "name": "مرق دجاج",
+        "name": "chicken broth",
         "plural_name": ""
       },
       "vegetable broth": {
-        "name": "مرق خضروات",
+        "name": "vegetable broth",
         "plural_name": ""
       },
       "chicken stock": {
-        "name": "مرق دجاج",
+        "name": "chicken stock",
         "plural_name": ""
       },
       "beef broth": {
-        "name": "مرق لحم بقري",
+        "name": "beef broth",
         "plural_name": ""
       },
       "beef stock": {
-        "name": "مرق لحم بقري",
+        "name": "beef stock",
         "plural_name": ""
       },
       "cream of mushroom": {
-        "name": "شوربة كريمة الفطر",
+        "name": "cream of mushroom",
         "plural_name": ""
       },
       "bouillon cube": {
-        "name": "مكعب مرق",
-        "plural_name": ""
+        "name": "bouillon cube",
+        "plural_name": "bouillon cubes"
       },
       "cream of chicken": {
-        "name": "شوربة كريمة الدجاج",
+        "name": "cream of chicken",
         "plural_name": ""
       },
       "tomato soup": {
-        "name": "شوربة طماطم",
+        "name": "tomato soup",
         "plural_name": ""
       },
       "cream of celery": {
-        "name": "شوربة كريمة الكرفس",
+        "name": "cream of celery",
         "plural_name": ""
       },
       "clam juice": {
-        "name": "عصير محار",
+        "name": "clam juice",
         "plural_name": ""
       },
       "dashi": {
-        "name": "داشي",
+        "name": "dashi",
         "plural_name": ""
       },
       "olive": {
@@ -1408,222 +1408,222 @@
     }
   },
   "frozen-foods": {
-    "name": "الأطعمة المجمدة",
+    "name": "Frozen Foods",
     "foods": {}
   },
   "condiments": {
-    "name": "الباهرات",
+    "name": "Condiments",
     "foods": {
       "soy sauce": {
-        "name": "صلصة صويا",
+        "name": "soy sauce",
         "plural_name": ""
       },
       "dijon mustard": {
-        "name": "خردل ديجون",
+        "name": "dijon mustard",
         "plural_name": ""
       },
       "hot sauce": {
-        "name": "صلصة حارة",
+        "name": "hot sauce",
         "plural_name": ""
       },
       "worcestershire sauce": {
-        "name": "صلصة ورشستر",
+        "name": "worcestershire sauce",
         "plural_name": ""
       },
       "ketchup": {
-        "name": "كاتشب",
+        "name": "ketchup",
         "plural_name": ""
       },
       "mustard": {
-        "name": "خردل",
+        "name": "mustard",
         "plural_name": ""
       },
       "fish sauce": {
-        "name": "صلصة سمك",
+        "name": "fish sauce",
         "plural_name": ""
       },
       "bbq sauce": {
-        "name": "صلصة باربكيو",
+        "name": "bbq sauce",
         "plural_name": ""
       },
       "sriracha": {
-        "name": "سريراتشا",
+        "name": "sriracha",
         "plural_name": ""
       },
       "wholegrain mustard": {
-        "name": "خردل بالحبوب الكاملة",
+        "name": "wholegrain mustard",
         "plural_name": ""
       },
       "oyster sauce": {
-        "name": "صلصة المحار",
+        "name": "oyster sauce",
         "plural_name": ""
       },
       "teriyaki sauce": {
-        "name": "صلصة ترياكي",
+        "name": "teriyaki sauce",
         "plural_name": ""
       },
       "prepared horseradish": {
-        "name": "فجل حار جاهز",
+        "name": "prepared horseradish",
         "plural_name": ""
       },
       "cranberry sauce": {
-        "name": "صلصة توت بري",
+        "name": "cranberry sauce",
         "plural_name": ""
       },
       "harissa": {
-        "name": "هريسة",
+        "name": "harissa",
         "plural_name": ""
       },
       "tamarind paste": {
-        "name": "معجون تمر هندي",
+        "name": "tamarind paste",
         "plural_name": ""
       },
       "gochujang": {
-        "name": "غوتشوجانغ",
+        "name": "gochujang",
         "plural_name": ""
       },
       "wasabi": {
-        "name": "واسابي",
+        "name": "wasabi",
         "plural_name": ""
       },
       "sambal oelek": {
-        "name": "سامبال أوليك",
+        "name": "sambal oelek",
         "plural_name": ""
       },
       "preserved lemon": {
-        "name": "ليمون مخلل",
-        "plural_name": ""
+        "name": "preserved lemon",
+        "plural_name": "preserved lemons"
       },
       "thai sweet chili sauce": {
-        "name": "صلصة فلفل حار حلوة تايلندية",
+        "name": "thai sweet chili sauce",
         "plural_name": ""
       },
       "tartar sauce": {
-        "name": "صلصة تارتار",
+        "name": "tartar sauce",
         "plural_name": ""
       },
       "ponzu": {
-        "name": "بونزو",
+        "name": "ponzu",
         "plural_name": ""
       },
       "peanut butter": {
-        "name": "زبدة الفول السوداني",
+        "name": "peanut butter",
         "plural_name": ""
       },
       "tomato paste": {
-        "name": "معجون طماطم",
+        "name": "tomato paste",
         "plural_name": ""
       },
       "tomato sauce": {
-        "name": "صلصة طماطم",
+        "name": "tomato sauce",
         "plural_name": ""
       },
       "salsa": {
-        "name": "صلصة سالسا",
-        "plural_name": ""
+        "name": "salsa",
+        "plural_name": "salsas"
       },
       "tahini": {
-        "name": "طحينة",
+        "name": "tahini",
         "plural_name": ""
       },
       "pesto": {
-        "name": "صلصة بيستو",
+        "name": "pesto",
         "plural_name": ""
       },
       "marinara sauce": {
-        "name": "صلصة مارينارا",
+        "name": "marinara sauce",
         "plural_name": ""
       },
       "pasta sauce": {
-        "name": "صلصة باستا",
+        "name": "pasta sauce",
         "plural_name": ""
       },
       "hoisin sauce": {
-        "name": "صلصة هويسن",
+        "name": "hoisin sauce",
         "plural_name": ""
       },
       "hummus": {
-        "name": "حمص بطحينة",
+        "name": "hummus",
         "plural_name": ""
       },
       "enchilada sauce": {
-        "name": "صلصة إنتشيلادا",
+        "name": "enchilada sauce",
         "plural_name": ""
       },
       "salsa verde": {
-        "name": "سالسا فيردي",
+        "name": "salsa verde",
         "plural_name": ""
       },
       "alfredo sauce": {
-        "name": "صلصة ألفريدو",
+        "name": "alfredo sauce",
         "plural_name": ""
       },
       "balsamic glaze": {
-        "name": "طلاء بلسمي",
+        "name": "balsamic glaze",
         "plural_name": ""
       },
       "thai peanut sauce": {
-        "name": "صلصة فول سوداني تايلندية",
+        "name": "thai peanut sauce",
         "plural_name": ""
       },
       "mole sauce": {
-        "name": "صلصة مول",
+        "name": "mole sauce",
         "plural_name": ""
       },
       "white miso": {
-        "name": "ميسو أبيض",
+        "name": "white miso",
         "plural_name": ""
       },
       "almond butter": {
-        "name": "زبدة اللوز",
+        "name": "almond butter",
         "plural_name": ""
       },
       "mayonnaise": {
-        "name": "مايونيز",
+        "name": "mayonnaise",
         "plural_name": ""
       },
       "apple cider vinegar": {
-        "name": "خل تفاح",
+        "name": "apple cider vinegar",
         "plural_name": ""
       },
       "balsamic vinegar": {
-        "name": "خل بلسمي",
+        "name": "balsamic vinegar",
         "plural_name": ""
       },
       "vinegar": {
-        "name": "خل",
+        "name": "vinegar",
         "plural_name": ""
       },
       "red wine vinegar": {
-        "name": "خل نبيذ أحمر",
+        "name": "red wine vinegar",
         "plural_name": ""
       },
       "rice wine vinegar": {
-        "name": "خل نبيذ الأرز",
+        "name": "rice wine vinegar",
         "plural_name": ""
       },
       "white wine vinegar": {
-        "name": "خل نبيذ أبيض",
+        "name": "white wine vinegar",
         "plural_name": ""
       },
       "ranch dressing": {
-        "name": "صلصة رانتش",
+        "name": "ranch dressing",
         "plural_name": ""
       },
       "distilled white vinegar": {
-        "name": "خل أبيض مقطر",
+        "name": "distilled white vinegar",
         "plural_name": ""
       },
       "sweet chili sauce": {
-        "name": "صلصة فلفل حار حلوة",
+        "name": "sweet chili sauce",
         "plural_name": ""
       },
       "caesar dressing": {
-        "name": "صلصة سيزر",
+        "name": "caesar dressing",
         "plural_name": ""
       },
       "agave nectar": {
-        "name": "رحيق الأغاف",
+        "name": "agave nectar",
         "plural_name": ""
       },
       "honey": {
@@ -1633,214 +1633,214 @@
     }
   },
   "spices": {
-    "name": "التوابل",
+    "name": "Spices",
     "foods": {
       "cayenne pepper": {
-        "name": "فلفل كايين",
+        "name": "cayenne pepper",
         "plural_name": ""
       },
       "cinnamon": {
-        "name": "قرفة",
+        "name": "cinnamon",
         "plural_name": ""
       },
       "cumin": {
-        "name": "كمون",
+        "name": "cumin",
         "plural_name": ""
       },
       "thyme": {
-        "name": "زعتر",
+        "name": "thyme",
         "plural_name": ""
       },
       "garlic powder": {
-        "name": "ثوم بودرة",
+        "name": "garlic powder",
         "plural_name": ""
       },
       "oregano": {
-        "name": "أوريجانو",
+        "name": "oregano",
         "plural_name": ""
       },
       "nutmeg": {
-        "name": "جوزة الطيب",
+        "name": "nutmeg",
         "plural_name": ""
       },
       "chili flake": {
-        "name": "رقائق فلفل حار",
-        "plural_name": ""
+        "name": "chili flake",
+        "plural_name": "chili flakes"
       },
       "chili powder": {
-        "name": "مسحوق الفلفل الحار",
+        "name": "chili powder",
         "plural_name": ""
       },
       "paprika": {
-        "name": "بابريكا",
+        "name": "paprika",
         "plural_name": ""
       },
       "rosemary": {
-        "name": "إكليل الجبل",
+        "name": "rosemary",
         "plural_name": ""
       },
       "bay leaf": {
-        "name": "ورق الغار",
-        "plural_name": ""
+        "name": "bay leaf",
+        "plural_name": "bay leaves"
       },
       "turmeric": {
-        "name": "كركم",
+        "name": "turmeric",
         "plural_name": ""
       },
       "clove": {
-        "name": "قرنفل",
-        "plural_name": ""
+        "name": "clove",
+        "plural_name": "cloves"
       },
       "onion powder": {
-        "name": "بصل بودرة",
+        "name": "onion powder",
         "plural_name": ""
       },
       "ginger powder": {
-        "name": "زنجبيل بودرة",
+        "name": "ginger powder",
         "plural_name": ""
       },
       "dill": {
-        "name": "شبت",
+        "name": "dill",
         "plural_name": ""
       },
       "green cardamom": {
-        "name": "هيل أخضر",
+        "name": "green cardamom",
         "plural_name": ""
       },
       "smoked paprika": {
-        "name": "بابريكا مدخنة",
+        "name": "smoked paprika",
         "plural_name": ""
       },
       "sage": {
-        "name": "ميرمية",
+        "name": "sage",
         "plural_name": ""
       },
       "coriander": {
-        "name": "كزبرة",
+        "name": "coriander",
         "plural_name": ""
       },
       "allspice": {
-        "name": "بهار مشكل",
+        "name": "allspice",
         "plural_name": ""
       },
       "peppercorn": {
-        "name": "حب الفلفل",
-        "plural_name": ""
+        "name": "peppercorn",
+        "plural_name": "peppercorns"
       },
       "mustard seed": {
-        "name": "بذور الخردل",
-        "plural_name": ""
+        "name": "mustard seed",
+        "plural_name": "mustard seeds"
       },
       "white pepper": {
-        "name": "فلفل أبيض",
+        "name": "white pepper",
         "plural_name": ""
       },
       "curry leaf": {
-        "name": "ورق كاري",
-        "plural_name": ""
+        "name": "curry leaf",
+        "plural_name": "curry leaves"
       },
       "fennel seed": {
-        "name": "بذور الشمر",
-        "plural_name": ""
+        "name": "fennel seed",
+        "plural_name": "fennel seeds"
       },
       "tarragon": {
-        "name": "طرخون",
+        "name": "tarragon",
         "plural_name": ""
       },
       "saffron": {
-        "name": "زعفران",
+        "name": "saffron",
         "plural_name": ""
       },
       "asafoetida": {
-        "name": "حلتيت",
+        "name": "asafoetida",
         "plural_name": ""
       },
       "star anise": {
-        "name": "يانسون نجمي",
+        "name": "star anise",
         "plural_name": ""
       },
       "fenugreek": {
-        "name": "حلبة",
+        "name": "fenugreek",
         "plural_name": ""
       },
       "kaffir lime leaf": {
-        "name": "ورق ليمون كافير",
-        "plural_name": ""
+        "name": "kaffir lime leaf",
+        "plural_name": "kaffir lime leaves"
       },
       "guajillo pepper": {
-        "name": "فلفل غواخيو",
-        "plural_name": ""
+        "name": "guajillo pepper",
+        "plural_name": "guajillo peppers"
       },
       "galangal": {
-        "name": "خولنجان",
+        "name": "galangal",
         "plural_name": ""
       },
       "aleppo pepper": {
-        "name": "فلفل حلب",
+        "name": "aleppo pepper",
         "plural_name": ""
       },
       "italian seasoning": {
-        "name": "توابل إيطالية",
+        "name": "italian seasoning",
         "plural_name": ""
       },
       "curry": {
-        "name": "كاري",
+        "name": "curry",
         "plural_name": ""
       },
       "garam masala": {
-        "name": "غرام ماسالا",
+        "name": "garam masala",
         "plural_name": ""
       },
       "pumpkin pie spice": {
-        "name": "توابل فطيرة اليقطين",
+        "name": "pumpkin pie spice",
         "plural_name": ""
       },
       "mustard powder": {
-        "name": "خردل بودرة",
+        "name": "mustard powder",
         "plural_name": ""
       },
       "taco seasoning": {
-        "name": "توابل تاكو",
+        "name": "taco seasoning",
         "plural_name": ""
       },
       "cajun seasoning": {
-        "name": "توابل كاجون",
+        "name": "cajun seasoning",
         "plural_name": ""
       },
       "chinese five spice": {
-        "name": "بهار صيني خمسة توابل",
+        "name": "chinese five spice",
         "plural_name": ""
       },
       "chaat masala": {
-        "name": "تشات ماسالا",
+        "name": "chaat masala",
         "plural_name": ""
       },
       "thai red curry paste": {
-        "name": "معجون كاري أحمر تايلندي",
+        "name": "thai red curry paste",
         "plural_name": ""
       },
       "za'atar": {
-        "name": "زعتر",
+        "name": "za'atar",
         "plural_name": ""
       },
       "ras el hanout": {
-        "name": "راس الحانوت",
+        "name": "ras el hanout",
         "plural_name": ""
       },
       "furikake": {
-        "name": "فوريكاكي",
+        "name": "furikake",
         "plural_name": ""
       },
       "tom yum paste": {
-        "name": "معجون توم يام",
+        "name": "tom yum paste",
         "plural_name": ""
       },
       "old bay seasoning": {
-        "name": "توابل أولد باي",
+        "name": "old bay seasoning",
         "plural_name": ""
       },
       "liquid smoke": {
-        "name": "دخان سائل",
+        "name": "liquid smoke",
         "plural_name": ""
       },
       "salt": {
@@ -1869,55 +1869,55 @@
     "name": "Oils",
     "foods": {
       "shortening": {
-        "name": "دهن نباتي",
+        "name": "shortening",
         "plural_name": ""
       },
       "olive oil": {
-        "name": "زيت زيتون",
+        "name": "olive oil",
         "plural_name": ""
       },
       "vegetable oil": {
-        "name": "زيت نباتي",
+        "name": "vegetable oil",
         "plural_name": ""
       },
       "canola oil": {
-        "name": "زيت كانولا",
+        "name": "canola oil",
         "plural_name": ""
       },
       "coconut oil": {
-        "name": "زيت جوز هند",
+        "name": "coconut oil",
         "plural_name": ""
       },
       "cooking spray": {
-        "name": "رشة طبخ",
+        "name": "cooking spray",
         "plural_name": ""
       },
       "sesame oil": {
-        "name": "زيت سمسم",
+        "name": "sesame oil",
         "plural_name": ""
       },
       "avocado oil": {
-        "name": "زيت أفوكادو",
+        "name": "avocado oil",
         "plural_name": ""
       },
       "peanut oil": {
-        "name": "زيت فول سوداني",
+        "name": "peanut oil",
         "plural_name": ""
       },
       "lard": {
-        "name": "شحم ال  ",
+        "name": "lard",
         "plural_name": ""
       },
       "chili oil": {
-        "name": "زيت الفلفل الحار",
+        "name": "chili oil",
         "plural_name": ""
       },
       "truffle oil": {
-        "name": "زيت الكمأة",
+        "name": "truffle oil",
         "plural_name": ""
       },
       "duck fat": {
-        "name": "دهن البط",
+        "name": "duck fat",
         "plural_name": ""
       },
       "oil": {
@@ -1930,290 +1930,290 @@
     "name": "Baking",
     "foods": {
       "cocoa": {
-        "name": "كاكاو",
+        "name": "cocoa",
         "plural_name": ""
       },
       "baking chocolate": {
-        "name": "شوكولاتة الخبز",
+        "name": "baking chocolate",
         "plural_name": ""
       },
       "sugar": {
-        "name": "سكر",
+        "name": "sugar",
         "plural_name": ""
       },
       "brown sugar": {
-        "name": "سكر بني",
+        "name": "brown sugar",
         "plural_name": ""
       },
       "confectioners sugar": {
-        "name": "سكر بودرة",
+        "name": "confectioners sugar",
         "plural_name": ""
       },
       "maple syrup": {
-        "name": "شراب القيقب",
+        "name": "maple syrup",
         "plural_name": ""
       },
       "corn syrup": {
-        "name": "شراب الذرة",
+        "name": "corn syrup",
         "plural_name": ""
       },
       "molasses": {
-        "name": "دبس",
+        "name": "molasses",
         "plural_name": ""
       },
       "stevia": {
-        "name": "ستيفيا",
+        "name": "stevia",
         "plural_name": ""
       },
       "jaggery": {
-        "name": "جاغري",
+        "name": "jaggery",
         "plural_name": ""
       },
       "flour": {
-        "name": "طحين",
+        "name": "flour",
         "plural_name": ""
       },
       "vanilla extract": {
-        "name": "مستخلص الفانيليا",
+        "name": "vanilla extract",
         "plural_name": ""
       },
       "baking powder": {
-        "name": "بيكنج باودر",
+        "name": "baking powder",
         "plural_name": ""
       },
       "baking soda": {
-        "name": "بيكربونات الصوديوم",
+        "name": "baking soda",
         "plural_name": ""
       },
       "cornstarch": {
-        "name": "نشا الذرة",
+        "name": "cornstarch",
         "plural_name": ""
       },
       "yeast": {
-        "name": "خميرة",
+        "name": "yeast",
         "plural_name": ""
       },
       "chocolate chip": {
-        "name": "رقائق شوكولاتة",
-        "plural_name": ""
+        "name": "chocolate chip",
+        "plural_name": "chocolate chips"
       },
       "whole-wheat flour": {
-        "name": "طحين قمح كامل",
+        "name": "whole-wheat flour",
         "plural_name": ""
       },
       "almond flour": {
-        "name": "طحين اللوز",
+        "name": "almond flour",
         "plural_name": ""
       },
       "self-raising flour": {
-        "name": "طحين ذاتي الرفع",
+        "name": "self-raising flour",
         "plural_name": ""
       },
       "shredded coconut": {
-        "name": "جوز هند مبشور",
+        "name": "shredded coconut",
         "plural_name": ""
       },
       "cornmeal": {
-        "name": "دقيق الذرة",
+        "name": "cornmeal",
         "plural_name": ""
       },
       "gelatin": {
-        "name": "جيلاتين",
+        "name": "gelatin",
         "plural_name": ""
       },
       "cake flour": {
-        "name": "طحين الكيك",
+        "name": "cake flour",
         "plural_name": ""
       },
       "cream of tartar": {
-        "name": "كريم التارتار",
+        "name": "cream of tartar",
         "plural_name": ""
       },
       "bread flour": {
-        "name": "طحين الخبز",
+        "name": "bread flour",
         "plural_name": ""
       },
       "potato starch": {
-        "name": "نشا البطاطا",
+        "name": "potato starch",
         "plural_name": ""
       },
       "buckwheat flour": {
-        "name": "طحين الحنطة السوداء",
+        "name": "buckwheat flour",
         "plural_name": ""
       },
       "masa harina": {
-        "name": "ماسا هارينا",
+        "name": "masa harina",
         "plural_name": ""
       },
       "matzo meal": {
-        "name": "دقيق الماتزو",
+        "name": "matzo meal",
         "plural_name": ""
       },
       "almond extract": {
-        "name": "مستخلص اللوز",
+        "name": "almond extract",
         "plural_name": ""
       },
       "food coloring": {
-        "name": "ملون طعام",
+        "name": "food coloring",
         "plural_name": ""
       },
       "peppermint extract": {
-        "name": "مستخلص النعناع الفلفلي",
+        "name": "peppermint extract",
         "plural_name": ""
       },
       "orange extract": {
-        "name": "مستخلص البرتقال",
+        "name": "orange extract",
         "plural_name": ""
       },
       "sprinkles": {
-        "name": "رشات حلوى",
+        "name": "sprinkles",
         "plural_name": ""
       }
     }
   },
   "sweets": {
-    "name": "الحَلْوَيَات",
+    "name": "Sweets",
     "foods": {
       "dark chocolate": {
-        "name": "شوكولاتة داكنة",
+        "name": "dark chocolate",
         "plural_name": ""
       },
       "chocolate": {
-        "name": "شوكولاتة",
+        "name": "chocolate",
         "plural_name": ""
       },
       "marshmallow": {
-        "name": "مارشميلو",
-        "plural_name": ""
+        "name": "marshmallow",
+        "plural_name": "marshmallows"
       },
       "applesauce": {
-        "name": "صلصة تفاح",
+        "name": "applesauce",
         "plural_name": ""
       },
       "white chocolate": {
-        "name": "شوكولاتة بيضاء",
+        "name": "white chocolate",
         "plural_name": ""
       },
       "chocolate hazelnut spread": {
-        "name": "دهن شوكولاتة بالبندق",
+        "name": "chocolate hazelnut spread",
         "plural_name": ""
       },
       "caramel sauce": {
-        "name": "صلصة كراميل",
+        "name": "caramel sauce",
         "plural_name": ""
       },
       "marshmallow creme": {
-        "name": "كريم مارشميلو",
+        "name": "marshmallow creme",
         "plural_name": ""
       },
       "jam": {
-        "name": "مربى",
+        "name": "jam",
         "plural_name": ""
       },
       "orange marmalade": {
-        "name": "مربى البرتقال",
+        "name": "orange marmalade",
         "plural_name": ""
       },
       "cookie": {
-        "name": "بسكويت",
-        "plural_name": ""
+        "name": "cookie",
+        "plural_name": "cookies"
       },
       "lady finger": {
-        "name": "أصابع السيدة",
-        "plural_name": ""
+        "name": "lady finger",
+        "plural_name": "lady fingers"
       },
       "apple butter": {
-        "name": "زبدة التفاح",
+        "name": "apple butter",
         "plural_name": ""
       },
       "ice cream": {
-        "name": "آيس كريم",
+        "name": "ice cream",
         "plural_name": ""
       },
       "lemon curd": {
-        "name": "خثارة الليمون",
+        "name": "lemon curd",
         "plural_name": ""
       },
       "dulce de leche": {
-        "name": "دولسي دي ليتشي",
+        "name": "dulce de leche",
         "plural_name": ""
       }
     }
   },
   "snacks": {
-    "name": "الوجبات الخفيفة",
+    "name": "Snacks",
     "foods": {
       "walnut": {
-        "name": "جوز",
-        "plural_name": ""
+        "name": "walnut",
+        "plural_name": "walnuts"
       },
       "pecan": {
-        "name": "جوز البقان",
-        "plural_name": ""
+        "name": "pecan",
+        "plural_name": "pecans"
       },
       "almond": {
-        "name": "لوز",
-        "plural_name": ""
+        "name": "almond",
+        "plural_name": "almonds"
       },
       "sesame seed": {
-        "name": "سمسم",
-        "plural_name": ""
+        "name": "sesame seed",
+        "plural_name": "sesame seeds"
       },
       "cashew": {
-        "name": "كاجو",
-        "plural_name": ""
+        "name": "cashew",
+        "plural_name": "cashews"
       },
       "pine nut": {
-        "name": "صنوبر",
-        "plural_name": ""
+        "name": "pine nut",
+        "plural_name": "pine nuts"
       },
       "pistachio": {
-        "name": "فستق حلبي",
-        "plural_name": ""
+        "name": "pistachio",
+        "plural_name": "pistachios"
       },
       "peanut": {
-        "name": "فول سوداني",
-        "plural_name": ""
+        "name": "peanut",
+        "plural_name": "peanuts"
       },
       "chia": {
-        "name": "شيا",
+        "name": "chia",
         "plural_name": ""
       },
       "pumpkin seed": {
-        "name": "بذور اليقطين",
-        "plural_name": ""
+        "name": "pumpkin seed",
+        "plural_name": "pumpkin seeds"
       },
       "hazelnut": {
-        "name": "بندق",
-        "plural_name": ""
+        "name": "hazelnut",
+        "plural_name": "hazelnuts"
       },
       "sunflower seed": {
-        "name": "بذور دوار الشمس",
-        "plural_name": ""
+        "name": "sunflower seed",
+        "plural_name": "sunflower seeds"
       },
       "graham cracker": {
-        "name": "بسكويت غراهام",
-        "plural_name": ""
+        "name": "graham cracker",
+        "plural_name": "graham crackers"
       },
       "cracker": {
-        "name": "بسكويت مالح",
-        "plural_name": ""
+        "name": "cracker",
+        "plural_name": "crackers"
       },
       "tortilla chip": {
-        "name": "رقائق تورتيلا",
-        "plural_name": ""
+        "name": "tortilla chip",
+        "plural_name": "tortilla chips"
       },
       "pretzel": {
-        "name": "بريتزل",
-        "plural_name": ""
+        "name": "pretzel",
+        "plural_name": "pretzels"
       },
       "popcorn": {
-        "name": "فشار",
+        "name": "popcorn",
         "plural_name": ""
       },
       "potato chip": {
-        "name": "رقائق بطاطا",
-        "plural_name": ""
+        "name": "potato chip",
+        "plural_name": "potato chips"
       },
       "nut": {
         "name": "nut",
@@ -2222,46 +2222,46 @@
     }
   },
   "beverages": {
-    "name": "المشروبات",
+    "name": "Beverages",
     "foods": {
       "orange juice": {
-        "name": "عصير برتقال",
+        "name": "orange juice",
         "plural_name": ""
       },
       "coffee": {
-        "name": "قهوة",
+        "name": "coffee",
         "plural_name": ""
       },
       "club soda": {
-        "name": "صودا كلوب",
+        "name": "club soda",
         "plural_name": ""
       },
       "espresso": {
-        "name": "إسبرسو",
+        "name": "espresso",
         "plural_name": ""
       },
       "pineapple juice": {
-        "name": "عصير أناناس",
+        "name": "pineapple juice",
         "plural_name": ""
       },
       "apple juice": {
-        "name": "عصير تفاح",
+        "name": "apple juice",
         "plural_name": ""
       },
       "tea": {
-        "name": "شاي",
+        "name": "tea",
         "plural_name": ""
       },
       "cranberry juice": {
-        "name": "عصير توت بري",
+        "name": "cranberry juice",
         "plural_name": ""
       },
       "tomato juice": {
-        "name": "عصير طماطم",
+        "name": "tomato juice",
         "plural_name": ""
       },
       "ginger beer": {
-        "name": "بيرة زنجبيل",
+        "name": "ginger beer",
         "plural_name": ""
       },
       "water": {
@@ -2271,7 +2271,7 @@
     }
   },
   "alcohol": {
-    "name": "الكحول",
+    "name": "Alcohol",
     "foods": {
       "white wine": {
         "name": "white wine",
@@ -2352,64 +2352,64 @@
     }
   },
   "health-foods": {
-    "name": "الأغذية الصحية",
+    "name": "Health Foods",
     "foods": {
       "coconut milk": {
-        "name": "حليب جوز هند",
+        "name": "coconut milk",
         "plural_name": ""
       },
       "almond milk": {
-        "name": "حليب لوز",
+        "name": "almond milk",
         "plural_name": ""
       },
       "tofu": {
-        "name": "توفو",
+        "name": "tofu",
         "plural_name": ""
       },
       "coconut cream": {
-        "name": "قشطة جوز هند",
+        "name": "coconut cream",
         "plural_name": ""
       },
       "soy milk": {
-        "name": "حليب صويا",
+        "name": "soy milk",
         "plural_name": ""
       },
       "extra firm tofu": {
-        "name": "توفو صلب جدا",
+        "name": "extra firm tofu",
         "plural_name": ""
       },
       "silken tofu": {
-        "name": "توفو حريري",
+        "name": "silken tofu",
         "plural_name": ""
       },
       "tempeh": {
-        "name": "تمبيه",
+        "name": "tempeh",
         "plural_name": ""
       },
       "oat milk": {
-        "name": "حليب شوفان",
+        "name": "oat milk",
         "plural_name": ""
       },
       "seitan": {
-        "name": "سيتان",
+        "name": "seitan",
         "plural_name": ""
       },
       "nutritional yeast": {
-        "name": "خميرة غذائية",
+        "name": "nutritional yeast",
         "plural_name": ""
       },
       "vegan cheese": {
-        "name": "جبن نباتي",
+        "name": "vegan cheese",
         "plural_name": ""
       }
     }
   },
   "household": {
-    "name": "المنزل",
+    "name": "Household",
     "foods": {}
   },
   "other": {
-    "name": "أخرى",
+    "name": "Other",
     "foods": {
       "ice": {
         "name": "ice",
