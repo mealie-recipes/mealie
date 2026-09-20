@@ -61,6 +61,7 @@ const parsedIng = computed(() => {
 </script>
 
 <style lang="scss">
+// Ensure continuous inline flow to prevent orphan quantities on line wrap
 .ingredient-item {
   display: block;
   line-height: 1.5;
