@@ -1,45 +1,45 @@
 {
   "produce": {
-    "name": "Sebze-Meyve",
+    "name": "Produce",
     "foods": {
       "garlic": {
-        "name": "sarımsak",
+        "name": "garlic",
         "plural_name": ""
       },
       "onion": {
-        "name": "soğan",
-        "plural_name": ""
+        "name": "onion",
+        "plural_name": "onions"
       },
       "bell pepper": {
-        "name": "dolma biber",
-        "plural_name": ""
+        "name": "bell pepper",
+        "plural_name": "bell peppers"
       },
       "carrot": {
-        "name": "havuç",
-        "plural_name": ""
+        "name": "carrot",
+        "plural_name": "carrots"
       },
       "scallion": {
-        "name": "taze soğan",
-        "plural_name": ""
+        "name": "scallion",
+        "plural_name": "scallions"
       },
       "zucchini": {
-        "name": "kabak",
-        "plural_name": ""
+        "name": "zucchini",
+        "plural_name": "zucchinis"
       },
       "potato": {
-        "name": "patates",
-        "plural_name": ""
+        "name": "potato",
+        "plural_name": "potatoes"
       },
       "red onion": {
-        "name": "kırmızı soğan",
-        "plural_name": ""
+        "name": "red onion",
+        "plural_name": "red onions"
       },
       "yellow onion": {
-        "name": "soğan",
-        "plural_name": ""
+        "name": "yellow onion",
+        "plural_name": "yellow onions"
       },
       "celery": {
-        "name": "kereviz",
+        "name": "celery",
         "plural_name": ""
       },
       "jalapeño": {
@@ -47,280 +47,280 @@
         "plural_name": "jalapeños"
       },
       "avocado": {
-        "name": "avokado",
-        "plural_name": ""
+        "name": "avocado",
+        "plural_name": "avocados"
       },
       "shallot": {
-        "name": "arpacık soğan",
-        "plural_name": ""
+        "name": "shallot",
+        "plural_name": "shallots"
       },
       "cherry tomato": {
-        "name": "çeri domates",
-        "plural_name": ""
+        "name": "cherry tomato",
+        "plural_name": "cherry tomatoes"
       },
       "cucumber": {
-        "name": "salatalık",
-        "plural_name": ""
+        "name": "cucumber",
+        "plural_name": "cucumbers"
       },
       "spinach": {
-        "name": "ıspanak",
+        "name": "spinach",
         "plural_name": ""
       },
       "sweet corn": {
-        "name": "tatlı mısır",
+        "name": "sweet corn",
         "plural_name": ""
       },
       "chile pepper": {
-        "name": "acı biber",
-        "plural_name": ""
+        "name": "chile pepper",
+        "plural_name": "chile peppers"
       },
       "sweet potato": {
-        "name": "tatlı patates",
-        "plural_name": ""
+        "name": "sweet potato",
+        "plural_name": "sweet potatoes"
       },
       "broccoli": {
-        "name": "brokoli",
+        "name": "broccoli",
         "plural_name": ""
       },
       "heart of palm": {
-        "name": "palmiye kalbi",
-        "plural_name": ""
+        "name": "heart of palm",
+        "plural_name": "hearts of palm"
       },
       "pumpkin": {
-        "name": "balkabağı",
-        "plural_name": ""
+        "name": "pumpkin",
+        "plural_name": "pumpkins"
       },
       "cauliflower": {
-        "name": "karnabahar",
+        "name": "cauliflower",
         "plural_name": ""
       },
       "cabbage": {
-        "name": "lahana",
-        "plural_name": ""
+        "name": "cabbage",
+        "plural_name": "cabbages"
       },
       "asparagus": {
-        "name": "kuşkonmaz",
+        "name": "asparagus",
         "plural_name": ""
       },
       "kale": {
-        "name": "kıvırcık lahana",
+        "name": "kale",
         "plural_name": ""
       },
       "arugula": {
-        "name": "roka",
+        "name": "arugula",
         "plural_name": ""
       },
       "leek": {
-        "name": "pırasa",
-        "plural_name": ""
+        "name": "leek",
+        "plural_name": "leeks"
       },
       "eggplant": {
-        "name": "patlıcan",
-        "plural_name": ""
+        "name": "eggplant",
+        "plural_name": "eggplants"
       },
       "lettuce": {
-        "name": "marul",
+        "name": "lettuce",
         "plural_name": ""
       },
       "butternut squash": {
-        "name": "Bambu kabak",
-        "plural_name": ""
+        "name": "butternut squash",
+        "plural_name": "butternut squashes"
       },
       "romaine lettuce": {
         "name": "romaine lettuce",
         "plural_name": ""
       },
       "beetroot": {
-        "name": "pancar kökü",
-        "plural_name": ""
+        "name": "beetroot",
+        "plural_name": "beetroots"
       },
       "brussels sprout": {
-        "name": "brüksel lahanası",
-        "plural_name": ""
+        "name": "brussels sprout",
+        "plural_name": "brussels sprouts"
       },
       "fennel": {
-        "name": "rezene",
+        "name": "fennel",
         "plural_name": ""
       },
       "sun dried tomato": {
-        "name": "kurutulmuş domates",
-        "plural_name": ""
+        "name": "sun dried tomato",
+        "plural_name": "sun dried tomatoes"
       },
       "radish": {
-        "name": "turp",
-        "plural_name": ""
+        "name": "radish",
+        "plural_name": "radishes"
       },
       "red cabbage": {
-        "name": "kırmızı lahana",
-        "plural_name": ""
+        "name": "red cabbage",
+        "plural_name": "red cabbages"
       },
       "artichoke": {
-        "name": "enginar",
-        "plural_name": ""
+        "name": "artichoke",
+        "plural_name": "artichokes"
       },
       "parsnip": {
-        "name": "yaban havucu",
-        "plural_name": ""
+        "name": "parsnip",
+        "plural_name": "parsnips"
       },
       "poblano pepper": {
-        "name": "poblano biberi",
-        "plural_name": ""
+        "name": "poblano pepper",
+        "plural_name": "poblano peppers"
       },
       "green tomato": {
-        "name": "yeşil domates",
-        "plural_name": ""
+        "name": "green tomato",
+        "plural_name": "green tomatoes"
       },
       "horseradish": {
-        "name": "yaban turpu",
+        "name": "horseradish",
         "plural_name": ""
       },
       "chard": {
-        "name": "pazı",
+        "name": "chard",
         "plural_name": ""
       },
       "spaghetti squash": {
-        "name": "spagetti kabak",
-        "plural_name": ""
+        "name": "spaghetti squash",
+        "plural_name": "spaghetti squashes"
       },
       "napa cabbage": {
-        "name": "çin lahanası",
-        "plural_name": ""
+        "name": "napa cabbage",
+        "plural_name": "napa cabbages"
       },
       "celeriac": {
-        "name": "kereviz kökü",
+        "name": "celeriac",
         "plural_name": ""
       },
       "turnip": {
-        "name": "şalgam",
-        "plural_name": ""
+        "name": "turnip",
+        "plural_name": "turnips"
       },
       "bok choy": {
-        "name": "çin lahanası",
+        "name": "bok choy",
         "plural_name": ""
       },
       "okra": {
-        "name": "bamya",
+        "name": "okra",
         "plural_name": ""
       },
       "radicchio": {
-        "name": "kırmızı hindiba",
+        "name": "radicchio",
         "plural_name": ""
       },
       "plantain": {
-        "name": "yemeklik muz",
-        "plural_name": ""
+        "name": "plantain",
+        "plural_name": "plantains"
       },
       "collard greens": {
         "name": "collard greens",
         "plural_name": ""
       },
       "baby corn": {
-        "name": "süt mısır",
+        "name": "baby corn",
         "plural_name": ""
       },
       "broccoli rabe": {
-        "name": "rapini",
+        "name": "broccoli rabe",
         "plural_name": ""
       },
       "tomato": {
-        "name": "domates",
-        "plural_name": ""
+        "name": "tomato",
+        "plural_name": "tomatoes"
       },
       "lemon": {
-        "name": "limon",
-        "plural_name": ""
+        "name": "lemon",
+        "plural_name": "lemons"
       },
       "lime": {
-        "name": "misket limonu",
-        "plural_name": ""
+        "name": "lime",
+        "plural_name": "limes"
       },
       "apple": {
-        "name": "elma",
-        "plural_name": ""
+        "name": "apple",
+        "plural_name": "apples"
       },
       "banana": {
-        "name": "muz",
-        "plural_name": ""
+        "name": "banana",
+        "plural_name": "bananas"
       },
       "orange": {
-        "name": "portakal",
-        "plural_name": ""
+        "name": "orange",
+        "plural_name": "oranges"
       },
       "raisin": {
-        "name": "kuru üzüm",
-        "plural_name": ""
+        "name": "raisin",
+        "plural_name": "raisins"
       },
       "pineapple": {
-        "name": "ananas",
-        "plural_name": ""
+        "name": "pineapple",
+        "plural_name": "pineapples"
       },
       "mango": {
         "name": "mango",
         "plural_name": "mangoes"
       },
       "peach": {
-        "name": "şeftali",
-        "plural_name": ""
+        "name": "peach",
+        "plural_name": "peaches"
       },
       "date": {
-        "name": "hurma",
-        "plural_name": ""
+        "name": "date",
+        "plural_name": "dates"
       },
       "coconut": {
-        "name": "hindistan cevizi",
-        "plural_name": ""
+        "name": "coconut",
+        "plural_name": "coconuts"
       },
       "pear": {
-        "name": "armut",
-        "plural_name": ""
+        "name": "pear",
+        "plural_name": "pears"
       },
       "grape": {
-        "name": "üzüm",
-        "plural_name": ""
+        "name": "grape",
+        "plural_name": "grapes"
       },
       "pomegranate": {
-        "name": "nar",
-        "plural_name": ""
+        "name": "pomegranate",
+        "plural_name": "pomegranates"
       },
       "watermelon": {
-        "name": "karpuz",
-        "plural_name": ""
+        "name": "watermelon",
+        "plural_name": "watermelons"
       },
       "rhubarb": {
-        "name": "ravent",
+        "name": "rhubarb",
         "plural_name": ""
       },
       "kiwi": {
-        "name": "kivi",
-        "plural_name": ""
+        "name": "kiwi",
+        "plural_name": "kiwis"
       },
       "grapefruit": {
-        "name": "greyfurt",
-        "plural_name": ""
+        "name": "grapefruit",
+        "plural_name": "grapefruits"
       },
       "plum": {
-        "name": "erik",
-        "plural_name": ""
+        "name": "plum",
+        "plural_name": "plums"
       },
       "fig": {
-        "name": "incir",
-        "plural_name": ""
+        "name": "fig",
+        "plural_name": "figs"
       },
       "apricot": {
-        "name": "kayısı",
-        "plural_name": ""
+        "name": "apricot",
+        "plural_name": "apricots"
       },
       "mandarin": {
-        "name": "mandalina",
-        "plural_name": ""
+        "name": "mandarin",
+        "plural_name": "mandarins"
       },
       "cantaloupe": {
-        "name": "kavun",
-        "plural_name": ""
+        "name": "cantaloupe",
+        "plural_name": "cantaloupes"
       },
       "tamarind": {
-        "name": "hint hurması",
-        "plural_name": ""
+        "name": "tamarind",
+        "plural_name": "tamarinds"
       },
       "button mushroom": {
         "name": "button mushroom",
@@ -359,20 +359,20 @@
         "plural_name": ""
       },
       "strawberry": {
-        "name": "çilek",
-        "plural_name": ""
+        "name": "strawberry",
+        "plural_name": "strawberries"
       },
       "blueberry": {
-        "name": "yaban mersini",
-        "plural_name": ""
+        "name": "blueberry",
+        "plural_name": "blueberries"
       },
       "raspberry": {
-        "name": "ahududu",
-        "plural_name": ""
+        "name": "raspberry",
+        "plural_name": "raspberries"
       },
       "cranberry": {
-        "name": "kızılcık",
-        "plural_name": ""
+        "name": "cranberry",
+        "plural_name": "cranberries"
       },
       "cherry": {
         "name": "cherry",
@@ -437,7 +437,7 @@
     }
   },
   "grains": {
-    "name": "Hububat",
+    "name": "Grains",
     "foods": {
       "rolled oat": {
         "name": "rolled oat",
@@ -650,15 +650,15 @@
     }
   },
   "meat": {
-    "name": "Et",
+    "name": "Meat",
     "foods": {
       "ground beef": {
-        "name": "dana kıyması",
+        "name": "ground beef",
         "plural_name": ""
       },
       "beef steak": {
-        "name": "biftek",
-        "plural_name": ""
+        "name": "beef steak",
+        "plural_name": "beef steaks"
       },
       "pork chop": {
         "name": "pork chop",
@@ -669,8 +669,8 @@
         "plural_name": "pork loins"
       },
       "beef roast": {
-        "name": "rozbif",
-        "plural_name": ""
+        "name": "beef roast",
+        "plural_name": "beef roasts"
       },
       "ground pork": {
         "name": "ground pork",
@@ -807,14 +807,14 @@
     }
   },
   "meat-products": {
-    "name": "Et Ürünleri",
+    "name": "Meat Products",
     "foods": {
       "bacon": {
         "name": "bacon",
         "plural_name": ""
       },
       "ham": {
-        "name": "jambon",
+        "name": "ham",
         "plural_name": ""
       },
       "prosciutto": {
@@ -822,8 +822,8 @@
         "plural_name": ""
       },
       "sausage": {
-        "name": "sucuk",
-        "plural_name": ""
+        "name": "sausage",
+        "plural_name": "sausages"
       },
       "pepperoni": {
         "name": "pepperoni",
@@ -842,11 +842,11 @@
         "plural_name": "breakfast sausages"
       },
       "hot dog": {
-        "name": "sosisli sandviç",
-        "plural_name": ""
+        "name": "hot dog",
+        "plural_name": "hot dogs"
       },
       "salami": {
-        "name": "salam",
+        "name": "salami",
         "plural_name": ""
       },
       "kielbasa": {
@@ -860,7 +860,7 @@
     }
   },
   "seafood": {
-    "name": "Deniz Ürünleri",
+    "name": "Seafood",
     "foods": {
       "bonito flake": {
         "name": "bonito flake",
@@ -931,12 +931,12 @@
         "plural_name": ""
       },
       "lobster": {
-        "name": "ıstakoz",
-        "plural_name": ""
+        "name": "lobster",
+        "plural_name": "lobsters"
       },
       "oyster": {
-        "name": "istiridye",
-        "plural_name": ""
+        "name": "oyster",
+        "plural_name": "oysters"
       },
       "octopus": {
         "name": "octopus",
@@ -953,34 +953,34 @@
     }
   },
   "dairy-products": {
-    "name": "Süt Ürünleri",
+    "name": "Dairy Products",
     "foods": {
       "parmesan cheese": {
-        "name": "parmesan peyniri",
+        "name": "parmesan cheese",
         "plural_name": ""
       },
       "cheddar cheese": {
-        "name": "çedar peyniri",
+        "name": "cheddar cheese",
         "plural_name": ""
       },
       "cream cheese": {
-        "name": "krem peynir",
+        "name": "cream cheese",
         "plural_name": ""
       },
       "cheese": {
-        "name": "peynir",
+        "name": "cheese",
         "plural_name": ""
       },
       "mozzarella cheese": {
-        "name": "mozzarella peyniri",
+        "name": "mozzarella cheese",
         "plural_name": ""
       },
       "feta cheese": {
-        "name": "beyaz peynir",
+        "name": "feta cheese",
         "plural_name": ""
       },
       "ricotta cheese": {
-        "name": "lor peyniri",
+        "name": "ricotta cheese",
         "plural_name": ""
       },
       "monterey jack cheese": {
@@ -988,7 +988,7 @@
         "plural_name": ""
       },
       "blue cheese": {
-        "name": "rokfor peyniri",
+        "name": "blue cheese",
         "plural_name": ""
       },
       "goat cheese": {
@@ -1044,11 +1044,11 @@
         "plural_name": ""
       },
       "egg": {
-        "name": "yumurta",
-        "plural_name": ""
+        "name": "egg",
+        "plural_name": "eggs"
       },
       "milk": {
-        "name": "süt",
+        "name": "milk",
         "plural_name": ""
       },
       "heavy cream": {
@@ -1064,7 +1064,7 @@
         "plural_name": ""
       },
       "yogurt": {
-        "name": "yoğurt",
+        "name": "yogurt",
         "plural_name": ""
       },
       "greek yogurt": {
@@ -1072,7 +1072,7 @@
         "plural_name": ""
       },
       "cream": {
-        "name": "krema",
+        "name": "cream",
         "plural_name": ""
       },
       "whipped cream": {
@@ -1110,7 +1110,7 @@
     }
   },
   "baked-goods": {
-    "name": "Unlu Mamüller",
+    "name": "Baked Goods",
     "foods": {
       "pie crust": {
         "name": "pie crust",
@@ -1215,7 +1215,7 @@
     }
   },
   "canned-goods": {
-    "name": "Konserve Ürünleri",
+    "name": "Canned Goods",
     "foods": {
       "canned tomato": {
         "name": "canned tomato",
@@ -1408,11 +1408,11 @@
     }
   },
   "frozen-foods": {
-    "name": "Donmuş Gıdalar",
+    "name": "Frozen Foods",
     "foods": {}
   },
   "condiments": {
-    "name": "Çeşniler",
+    "name": "Condiments",
     "foods": {
       "soy sauce": {
         "name": "soy sauce",
@@ -1633,10 +1633,10 @@
     }
   },
   "spices": {
-    "name": "Baharatlar",
+    "name": "Spices",
     "foods": {
       "cayenne pepper": {
-        "name": "kırmızı biber",
+        "name": "cayenne pepper",
         "plural_name": ""
       },
       "cinnamon": {
@@ -1938,15 +1938,15 @@
         "plural_name": ""
       },
       "sugar": {
-        "name": "şeker",
+        "name": "sugar",
         "plural_name": ""
       },
       "brown sugar": {
-        "name": "esmer şeker",
+        "name": "brown sugar",
         "plural_name": ""
       },
       "confectioners sugar": {
-        "name": "pudra şekeri",
+        "name": "confectioners sugar",
         "plural_name": ""
       },
       "maple syrup": {
@@ -2072,7 +2072,7 @@
     }
   },
   "sweets": {
-    "name": "Tatlılar",
+    "name": "Sweets",
     "foods": {
       "dark chocolate": {
         "name": "dark chocolate",
@@ -2127,7 +2127,7 @@
         "plural_name": ""
       },
       "ice cream": {
-        "name": "dondurma",
+        "name": "ice cream",
         "plural_name": ""
       },
       "lemon curd": {
@@ -2141,55 +2141,55 @@
     }
   },
   "snacks": {
-    "name": "Atıştırmalıklar",
+    "name": "Snacks",
     "foods": {
       "walnut": {
-        "name": "ceviz",
-        "plural_name": ""
+        "name": "walnut",
+        "plural_name": "walnuts"
       },
       "pecan": {
         "name": "pecan",
         "plural_name": "pecans"
       },
       "almond": {
-        "name": "badem",
-        "plural_name": ""
+        "name": "almond",
+        "plural_name": "almonds"
       },
       "sesame seed": {
-        "name": "susam",
-        "plural_name": ""
+        "name": "sesame seed",
+        "plural_name": "sesame seeds"
       },
       "cashew": {
-        "name": "kaju",
-        "plural_name": ""
+        "name": "cashew",
+        "plural_name": "cashews"
       },
       "pine nut": {
-        "name": "çam fıstığı",
-        "plural_name": ""
+        "name": "pine nut",
+        "plural_name": "pine nuts"
       },
       "pistachio": {
-        "name": "antep fıstığı",
-        "plural_name": ""
+        "name": "pistachio",
+        "plural_name": "pistachios"
       },
       "peanut": {
-        "name": "fıstık",
-        "plural_name": ""
+        "name": "peanut",
+        "plural_name": "peanuts"
       },
       "chia": {
         "name": "chia",
         "plural_name": ""
       },
       "pumpkin seed": {
-        "name": "kabak çekirdeği",
-        "plural_name": ""
+        "name": "pumpkin seed",
+        "plural_name": "pumpkin seeds"
       },
       "hazelnut": {
-        "name": "fındık",
-        "plural_name": ""
+        "name": "hazelnut",
+        "plural_name": "hazelnuts"
       },
       "sunflower seed": {
-        "name": "ayçekirdeği",
-        "plural_name": ""
+        "name": "sunflower seed",
+        "plural_name": "sunflower seeds"
       },
       "graham cracker": {
         "name": "graham cracker",
@@ -2222,7 +2222,7 @@
     }
   },
   "beverages": {
-    "name": "İçecekler",
+    "name": "Beverages",
     "foods": {
       "orange juice": {
         "name": "orange juice",
@@ -2271,7 +2271,7 @@
     }
   },
   "alcohol": {
-    "name": "Alkol",
+    "name": "Alcohol",
     "foods": {
       "white wine": {
         "name": "white wine",
@@ -2352,7 +2352,7 @@
     }
   },
   "health-foods": {
-    "name": "Sağlıklı Gıdalar",
+    "name": "Health Foods",
     "foods": {
       "coconut milk": {
         "name": "coconut milk",
@@ -2387,7 +2387,7 @@
         "plural_name": ""
       },
       "oat milk": {
-        "name": "yulaf sütü",
+        "name": "oat milk",
         "plural_name": ""
       },
       "seitan": {
@@ -2405,11 +2405,11 @@
     }
   },
   "household": {
-    "name": "Ev Halkı",
+    "name": "Household",
     "foods": {}
   },
   "other": {
-    "name": "Diğer",
+    "name": "Other",
     "foods": {
       "ice": {
         "name": "ice",
