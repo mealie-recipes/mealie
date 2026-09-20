@@ -1,45 +1,45 @@
 {
   "produce": {
-    "name": "농산물",
+    "name": "Produce",
     "foods": {
       "garlic": {
-        "name": "마늘",
+        "name": "garlic",
         "plural_name": ""
       },
       "onion": {
-        "name": "양파",
-        "plural_name": ""
+        "name": "onion",
+        "plural_name": "onions"
       },
       "bell pepper": {
-        "name": "피망",
-        "plural_name": ""
+        "name": "bell pepper",
+        "plural_name": "bell peppers"
       },
       "carrot": {
-        "name": "당근",
-        "plural_name": ""
+        "name": "carrot",
+        "plural_name": "carrots"
       },
       "scallion": {
-        "name": "파",
-        "plural_name": ""
+        "name": "scallion",
+        "plural_name": "scallions"
       },
       "zucchini": {
-        "name": "주키니",
-        "plural_name": ""
+        "name": "zucchini",
+        "plural_name": "zucchinis"
       },
       "potato": {
-        "name": "감자",
-        "plural_name": ""
+        "name": "potato",
+        "plural_name": "potatoes"
       },
       "red onion": {
-        "name": "적양파",
-        "plural_name": ""
+        "name": "red onion",
+        "plural_name": "red onions"
       },
       "yellow onion": {
-        "name": "노란 양파",
-        "plural_name": ""
+        "name": "yellow onion",
+        "plural_name": "yellow onions"
       },
       "celery": {
-        "name": "셀러리",
+        "name": "celery",
         "plural_name": ""
       },
       "jalapeño": {
@@ -47,23 +47,23 @@
         "plural_name": "jalapeños"
       },
       "avocado": {
-        "name": "아보카도",
-        "plural_name": ""
+        "name": "avocado",
+        "plural_name": "avocados"
       },
       "shallot": {
-        "name": "샬롯",
-        "plural_name": ""
+        "name": "shallot",
+        "plural_name": "shallots"
       },
       "cherry tomato": {
-        "name": "방울토마토",
-        "plural_name": ""
+        "name": "cherry tomato",
+        "plural_name": "cherry tomatoes"
       },
       "cucumber": {
-        "name": "오이",
-        "plural_name": ""
+        "name": "cucumber",
+        "plural_name": "cucumbers"
       },
       "spinach": {
-        "name": "시금치",
+        "name": "spinach",
         "plural_name": ""
       },
       "sweet corn": {
@@ -75,11 +75,11 @@
         "plural_name": "chile peppers"
       },
       "sweet potato": {
-        "name": "고구마",
-        "plural_name": ""
+        "name": "sweet potato",
+        "plural_name": "sweet potatoes"
       },
       "broccoli": {
-        "name": "브로콜리",
+        "name": "broccoli",
         "plural_name": ""
       },
       "heart of palm": {
@@ -87,8 +87,8 @@
         "plural_name": "hearts of palm"
       },
       "pumpkin": {
-        "name": "호박",
-        "plural_name": ""
+        "name": "pumpkin",
+        "plural_name": "pumpkins"
       },
       "cauliflower": {
         "name": "cauliflower",
@@ -379,8 +379,8 @@
         "plural_name": "cherries"
       },
       "blackberry": {
-        "name": "블랙베리",
-        "plural_name": ""
+        "name": "blackberry",
+        "plural_name": "blackberries"
       },
       "parsley": {
         "name": "parsley",
@@ -437,7 +437,7 @@
     }
   },
   "grains": {
-    "name": "곡물",
+    "name": "Grains",
     "foods": {
       "rolled oat": {
         "name": "rolled oat",
@@ -650,7 +650,7 @@
     }
   },
   "meat": {
-    "name": "육류",
+    "name": "Meat",
     "foods": {
       "ground beef": {
         "name": "ground beef",
@@ -807,7 +807,7 @@
     }
   },
   "meat-products": {
-    "name": "가구",
+    "name": "Meat Products",
     "foods": {
       "bacon": {
         "name": "bacon",
@@ -860,7 +860,7 @@
     }
   },
   "seafood": {
-    "name": "해산물",
+    "name": "Seafood",
     "foods": {
       "bonito flake": {
         "name": "bonito flake",
@@ -953,7 +953,7 @@
     }
   },
   "dairy-products": {
-    "name": "유제품",
+    "name": "Dairy Products",
     "foods": {
       "parmesan cheese": {
         "name": "parmesan cheese",
@@ -1110,7 +1110,7 @@
     }
   },
   "baked-goods": {
-    "name": "제빵 음식",
+    "name": "Baked Goods",
     "foods": {
       "pie crust": {
         "name": "pie crust",
@@ -1215,7 +1215,7 @@
     }
   },
   "canned-goods": {
-    "name": "통조림",
+    "name": "Canned Goods",
     "foods": {
       "canned tomato": {
         "name": "canned tomato",
@@ -1408,11 +1408,11 @@
     }
   },
   "frozen-foods": {
-    "name": "냉동식품",
+    "name": "Frozen Foods",
     "foods": {}
   },
   "condiments": {
-    "name": "조미료",
+    "name": "Condiments",
     "foods": {
       "soy sauce": {
         "name": "soy sauce",
@@ -1633,7 +1633,7 @@
     }
   },
   "spices": {
-    "name": "향신료",
+    "name": "Spices",
     "foods": {
       "cayenne pepper": {
         "name": "cayenne pepper",
@@ -2141,7 +2141,7 @@
     }
   },
   "snacks": {
-    "name": "간식",
+    "name": "Snacks",
     "foods": {
       "walnut": {
         "name": "walnut",
@@ -2222,7 +2222,7 @@
     }
   },
   "beverages": {
-    "name": "음료",
+    "name": "Beverages",
     "foods": {
       "orange juice": {
         "name": "orange juice",
@@ -2271,7 +2271,7 @@
     }
   },
   "alcohol": {
-    "name": "주류",
+    "name": "Alcohol",
     "foods": {
       "white wine": {
         "name": "white wine",
@@ -2409,7 +2409,7 @@
     "foods": {}
   },
   "other": {
-    "name": "기타",
+    "name": "Other",
     "foods": {
       "ice": {
         "name": "ice",
