@@ -1,6 +1,6 @@
 {
   "produce": {
-    "name": "Vrugte en groente",
+    "name": "Produce",
     "foods": {
       "garlic": {
         "name": "garlic",
@@ -437,7 +437,7 @@
     }
   },
   "grains": {
-    "name": "Graankosse",
+    "name": "Grains",
     "foods": {
       "rolled oat": {
         "name": "rolled oat",
@@ -650,7 +650,7 @@
     }
   },
   "meat": {
-    "name": "Vleis",
+    "name": "Meat",
     "foods": {
       "ground beef": {
         "name": "ground beef",
@@ -807,7 +807,7 @@
     }
   },
   "meat-products": {
-    "name": "Vleis produkte",
+    "name": "Meat Products",
     "foods": {
       "bacon": {
         "name": "bacon",
@@ -860,7 +860,7 @@
     }
   },
   "seafood": {
-    "name": "Seekos",
+    "name": "Seafood",
     "foods": {
       "bonito flake": {
         "name": "bonito flake",
@@ -953,7 +953,7 @@
     }
   },
   "dairy-products": {
-    "name": "Suiwelprodukte",
+    "name": "Dairy Products",
     "foods": {
       "parmesan cheese": {
         "name": "parmesan cheese",
@@ -1110,7 +1110,7 @@
     }
   },
   "baked-goods": {
-    "name": "Gebakte goedere",
+    "name": "Baked Goods",
     "foods": {
       "pie crust": {
         "name": "pie crust",
@@ -1215,7 +1215,7 @@
     }
   },
   "canned-goods": {
-    "name": "Geblikte goedere",
+    "name": "Canned Goods",
     "foods": {
       "canned tomato": {
         "name": "canned tomato",
@@ -1408,11 +1408,11 @@
     }
   },
   "frozen-foods": {
-    "name": "Bevrore kosse",
+    "name": "Frozen Foods",
     "foods": {}
   },
   "condiments": {
-    "name": "Geurmiddels",
+    "name": "Condiments",
     "foods": {
       "soy sauce": {
         "name": "soy sauce",
@@ -1633,7 +1633,7 @@
     }
   },
   "spices": {
-    "name": "Speserye",
+    "name": "Spices",
     "foods": {
       "cayenne pepper": {
         "name": "cayenne pepper",
@@ -2072,7 +2072,7 @@
     }
   },
   "sweets": {
-    "name": "Lekkers",
+    "name": "Sweets",
     "foods": {
       "dark chocolate": {
         "name": "dark chocolate",
@@ -2141,7 +2141,7 @@
     }
   },
   "snacks": {
-    "name": "Peuselhappies",
+    "name": "Snacks",
     "foods": {
       "walnut": {
         "name": "walnut",
@@ -2222,7 +2222,7 @@
     }
   },
   "beverages": {
-    "name": "Drinkgoed",
+    "name": "Beverages",
     "foods": {
       "orange juice": {
         "name": "orange juice",
@@ -2271,7 +2271,7 @@
     }
   },
   "alcohol": {
-    "name": "Drank",
+    "name": "Alcohol",
     "foods": {
       "white wine": {
         "name": "white wine",
@@ -2352,7 +2352,7 @@
     }
   },
   "health-foods": {
-    "name": "Gesondheidskos",
+    "name": "Health Foods",
     "foods": {
       "coconut milk": {
         "name": "coconut milk",
@@ -2405,11 +2405,11 @@
     }
   },
   "household": {
-    "name": "Huishouding",
+    "name": "Household",
     "foods": {}
   },
   "other": {
-    "name": "Ander",
+    "name": "Other",
     "foods": {
       "ice": {
         "name": "ice",
