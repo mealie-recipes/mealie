@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Valitud toitude kombineerimine ühendab koostisained ja keskendub ühele roale. Lähtetoidud eemaldatakse ja kõik viited lähtetoidule värskendatakse, et osutada sihttoidule.",
       "merge-food-example": "{food1} liitmine {food2}-ga",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Liida toidud",
       "source-food": "Lähtetoid",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Alusta andmebaasi täitmist tüüpiliste siltidega kohalikus keeles.",
       "edit-label": "Muuda silti",
       "new-label": "Uus silt",
       "labels": "Sildid",
