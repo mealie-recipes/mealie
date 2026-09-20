@@ -1,6 +1,6 @@
 {
   "produce": {
-    "name": "Fresh Produce",
+    "name": "Produce",
     "foods": {
       "garlic": {
         "name": "garlic",
@@ -19,12 +19,12 @@
         "plural_name": "carrots"
       },
       "scallion": {
-        "name": "spring onion",
-        "plural_name": "spring onions"
+        "name": "scallion",
+        "plural_name": "scallions"
       },
       "zucchini": {
-        "name": "courgette",
-        "plural_name": "courgettes"
+        "name": "zucchini",
+        "plural_name": "zucchinis"
       },
       "potato": {
         "name": "potato",
@@ -67,12 +67,12 @@
         "plural_name": ""
       },
       "sweet corn": {
-        "name": "sweetcorn",
+        "name": "sweet corn",
         "plural_name": ""
       },
       "chile pepper": {
-        "name": "chilli pepper",
-        "plural_name": "chilli peppers"
+        "name": "chile pepper",
+        "plural_name": "chile peppers"
       },
       "sweet potato": {
         "name": "sweet potato",
@@ -107,7 +107,7 @@
         "plural_name": ""
       },
       "arugula": {
-        "name": "rocket",
+        "name": "arugula",
         "plural_name": ""
       },
       "leek": {
@@ -115,8 +115,8 @@
         "plural_name": "leeks"
       },
       "eggplant": {
-        "name": "aubergine",
-        "plural_name": "aubergines"
+        "name": "eggplant",
+        "plural_name": "eggplants"
       },
       "lettuce": {
         "name": "lettuce",
@@ -143,8 +143,8 @@
         "plural_name": ""
       },
       "sun dried tomato": {
-        "name": "sun-dried tomato",
-        "plural_name": "sun-dried tomatoes"
+        "name": "sun dried tomato",
+        "plural_name": "sun dried tomatoes"
       },
       "radish": {
         "name": "radish",
@@ -183,8 +183,8 @@
         "plural_name": "spaghetti squashes"
       },
       "napa cabbage": {
-        "name": "chinese leaves",
-        "plural_name": ""
+        "name": "napa cabbage",
+        "plural_name": "napa cabbages"
       },
       "celeriac": {
         "name": "celeriac",
@@ -195,7 +195,7 @@
         "plural_name": "turnips"
       },
       "bok choy": {
-        "name": "pak choi",
+        "name": "bok choy",
         "plural_name": ""
       },
       "okra": {
@@ -211,7 +211,7 @@
         "plural_name": "plantains"
       },
       "collard greens": {
-        "name": "spring greens",
+        "name": "collard greens",
         "plural_name": ""
       },
       "baby corn": {
@@ -343,12 +343,12 @@
         "plural_name": "green beans"
       },
       "snow pea": {
-        "name": "mangetout",
-        "plural_name": ""
+        "name": "snow pea",
+        "plural_name": "snow peas"
       },
       "snap pea": {
-        "name": "sugar snap pea",
-        "plural_name": "sugar snap peas"
+        "name": "snap pea",
+        "plural_name": "snap peas"
       },
       "bean sprout": {
         "name": "bean sprout",
@@ -387,7 +387,7 @@
         "plural_name": ""
       },
       "cilantro": {
-        "name": "coriander",
+        "name": "cilantro",
         "plural_name": ""
       },
       "basil": {
@@ -653,7 +653,7 @@
     "name": "Meat",
     "foods": {
       "ground beef": {
-        "name": "minced beef",
+        "name": "ground beef",
         "plural_name": ""
       },
       "beef steak": {
@@ -673,7 +673,7 @@
         "plural_name": "beef roasts"
       },
       "ground pork": {
-        "name": "minced pork",
+        "name": "ground pork",
         "plural_name": ""
       },
       "beef stew meat": {
@@ -689,7 +689,7 @@
         "plural_name": ""
       },
       "ground lamb": {
-        "name": "minced lamb",
+        "name": "ground lamb",
         "plural_name": ""
       },
       "pork rib": {
@@ -737,7 +737,7 @@
         "plural_name": "chicken thighs"
       },
       "ground turkey": {
-        "name": "minced turkey",
+        "name": "ground turkey",
         "plural_name": ""
       },
       "whole chicken": {
@@ -761,7 +761,7 @@
         "plural_name": "turkey breasts"
       },
       "ground chicken": {
-        "name": "minced chicken",
+        "name": "ground chicken",
         "plural_name": ""
       },
       "rotisserie chicken": {
@@ -1946,7 +1946,7 @@
         "plural_name": ""
       },
       "confectioners sugar": {
-        "name": "icing sugar",
+        "name": "confectioners sugar",
         "plural_name": ""
       },
       "maple syrup": {
@@ -1958,7 +1958,7 @@
         "plural_name": ""
       },
       "molasses": {
-        "name": "black treacle",
+        "name": "molasses",
         "plural_name": ""
       },
       "stevia": {
@@ -1982,7 +1982,7 @@
         "plural_name": ""
       },
       "baking soda": {
-        "name": "bicarbonate of soda",
+        "name": "baking soda",
         "plural_name": ""
       },
       "cornstarch": {
@@ -2054,7 +2054,7 @@
         "plural_name": ""
       },
       "food coloring": {
-        "name": "food colouring",
+        "name": "food coloring",
         "plural_name": ""
       },
       "peppermint extract": {
@@ -2115,8 +2115,8 @@
         "plural_name": ""
       },
       "cookie": {
-        "name": "biscuit",
-        "plural_name": "biscuits"
+        "name": "cookie",
+        "plural_name": "cookies"
       },
       "lady finger": {
         "name": "lady finger",
@@ -2192,8 +2192,8 @@
         "plural_name": "sunflower seeds"
       },
       "graham cracker": {
-        "name": "digestive biscuit",
-        "plural_name": "digestive biscuits"
+        "name": "graham cracker",
+        "plural_name": "graham crackers"
       },
       "cracker": {
         "name": "cracker",
