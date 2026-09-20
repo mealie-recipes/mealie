@@ -1,45 +1,45 @@
 {
   "produce": {
-    "name": "Vaisiai ir daržovės",
+    "name": "Produce",
     "foods": {
       "garlic": {
-        "name": "česnakas",
+        "name": "garlic",
         "plural_name": ""
       },
       "onion": {
-        "name": "svogūnas",
-        "plural_name": "svogūnai"
+        "name": "onion",
+        "plural_name": "onions"
       },
       "bell pepper": {
-        "name": "paprika",
-        "plural_name": "paprikos"
+        "name": "bell pepper",
+        "plural_name": "bell peppers"
       },
       "carrot": {
-        "name": "morka",
-        "plural_name": "morkos"
+        "name": "carrot",
+        "plural_name": "carrots"
       },
       "scallion": {
-        "name": "laiškinis svogūnas",
-        "plural_name": "laiškiniai svogūnai"
+        "name": "scallion",
+        "plural_name": "scallions"
       },
       "zucchini": {
-        "name": "cukinija",
-        "plural_name": "cukinijos"
+        "name": "zucchini",
+        "plural_name": "zucchinis"
       },
       "potato": {
-        "name": "bulvė",
-        "plural_name": "bulvės"
+        "name": "potato",
+        "plural_name": "potatoes"
       },
       "red onion": {
-        "name": "raudonasis svogūnas",
-        "plural_name": "raudonieji svogūnai"
+        "name": "red onion",
+        "plural_name": "red onions"
       },
       "yellow onion": {
-        "name": "geltonasis svogūnas",
-        "plural_name": "geltonieji svogūnai"
+        "name": "yellow onion",
+        "plural_name": "yellow onions"
       },
       "celery": {
-        "name": "salieras",
+        "name": "celery",
         "plural_name": ""
       },
       "jalapeño": {
@@ -47,23 +47,23 @@
         "plural_name": "jalapeños"
       },
       "avocado": {
-        "name": "avokadas",
-        "plural_name": "avokadai"
+        "name": "avocado",
+        "plural_name": "avocados"
       },
       "shallot": {
-        "name": "šalotas",
-        "plural_name": "šalotai"
+        "name": "shallot",
+        "plural_name": "shallots"
       },
       "cherry tomato": {
-        "name": "vyšninis pomidoras",
-        "plural_name": "vyšniniai pomidorai"
+        "name": "cherry tomato",
+        "plural_name": "cherry tomatoes"
       },
       "cucumber": {
-        "name": "agurkas",
-        "plural_name": "agurkai"
+        "name": "cucumber",
+        "plural_name": "cucumbers"
       },
       "spinach": {
-        "name": "špinatai",
+        "name": "spinach",
         "plural_name": ""
       },
       "sweet corn": {
@@ -75,11 +75,11 @@
         "plural_name": "chile peppers"
       },
       "sweet potato": {
-        "name": "batatas",
-        "plural_name": "batatai"
+        "name": "sweet potato",
+        "plural_name": "sweet potatoes"
       },
       "broccoli": {
-        "name": "brokolis",
+        "name": "broccoli",
         "plural_name": ""
       },
       "heart of palm": {
@@ -87,16 +87,16 @@
         "plural_name": "hearts of palm"
       },
       "pumpkin": {
-        "name": "moliūgas",
-        "plural_name": "moliūgai"
+        "name": "pumpkin",
+        "plural_name": "pumpkins"
       },
       "cauliflower": {
-        "name": "žiedinis kopūstas",
+        "name": "cauliflower",
         "plural_name": ""
       },
       "cabbage": {
-        "name": "kopūstas",
-        "plural_name": "kopūstai"
+        "name": "cabbage",
+        "plural_name": "cabbages"
       },
       "asparagus": {
         "name": "asparagus",
@@ -111,64 +111,64 @@
         "plural_name": ""
       },
       "leek": {
-        "name": "poras",
-        "plural_name": "porai"
+        "name": "leek",
+        "plural_name": "leeks"
       },
       "eggplant": {
-        "name": "baklažanas",
-        "plural_name": "baklažanai"
+        "name": "eggplant",
+        "plural_name": "eggplants"
       },
       "lettuce": {
-        "name": "salota",
+        "name": "lettuce",
         "plural_name": ""
       },
       "butternut squash": {
-        "name": "sviestinis moliūgas",
-        "plural_name": "sviestiniai moliūgai"
+        "name": "butternut squash",
+        "plural_name": "butternut squashes"
       },
       "romaine lettuce": {
         "name": "romaine lettuce",
         "plural_name": ""
       },
       "beetroot": {
-        "name": "burokėlis",
-        "plural_name": "burokėliai"
+        "name": "beetroot",
+        "plural_name": "beetroots"
       },
       "brussels sprout": {
-        "name": "briuselio kopūstas",
-        "plural_name": "briuselio kopūstai"
+        "name": "brussels sprout",
+        "plural_name": "brussels sprouts"
       },
       "fennel": {
-        "name": "pankolis",
+        "name": "fennel",
         "plural_name": ""
       },
       "sun dried tomato": {
-        "name": "saulėje džiovintas pomidoras",
-        "plural_name": "saulėje džiovinti pomidorai"
+        "name": "sun dried tomato",
+        "plural_name": "sun dried tomatoes"
       },
       "radish": {
-        "name": "ridikėlis",
-        "plural_name": "ridikėliai"
+        "name": "radish",
+        "plural_name": "radishes"
       },
       "red cabbage": {
         "name": "red cabbage",
         "plural_name": "red cabbages"
       },
       "artichoke": {
-        "name": "artišokas",
-        "plural_name": "artišokai"
+        "name": "artichoke",
+        "plural_name": "artichokes"
       },
       "parsnip": {
-        "name": "pastarnokas",
-        "plural_name": "pastarnokai"
+        "name": "parsnip",
+        "plural_name": "parsnips"
       },
       "poblano pepper": {
         "name": "poblano pepper",
         "plural_name": "poblano peppers"
       },
       "green tomato": {
-        "name": "žalias pomidoras",
-        "plural_name": "žali pomidorai"
+        "name": "green tomato",
+        "plural_name": "green tomatoes"
       },
       "horseradish": {
         "name": "horseradish",
@@ -191,8 +191,8 @@
         "plural_name": ""
       },
       "turnip": {
-        "name": "ropė",
-        "plural_name": "ropės"
+        "name": "turnip",
+        "plural_name": "turnips"
       },
       "bok choy": {
         "name": "bok choy",
@@ -437,7 +437,7 @@
     }
   },
   "grains": {
-    "name": "Grūdai",
+    "name": "Grains",
     "foods": {
       "rolled oat": {
         "name": "rolled oat",
@@ -650,7 +650,7 @@
     }
   },
   "meat": {
-    "name": "Mėsa",
+    "name": "Meat",
     "foods": {
       "ground beef": {
         "name": "ground beef",
@@ -807,7 +807,7 @@
     }
   },
   "meat-products": {
-    "name": "Mėsos produktai",
+    "name": "Meat Products",
     "foods": {
       "bacon": {
         "name": "bacon",
@@ -860,7 +860,7 @@
     }
   },
   "seafood": {
-    "name": "Jūros gėrybės",
+    "name": "Seafood",
     "foods": {
       "bonito flake": {
         "name": "bonito flake",
@@ -953,7 +953,7 @@
     }
   },
   "dairy-products": {
-    "name": "Pieno produktai",
+    "name": "Dairy Products",
     "foods": {
       "parmesan cheese": {
         "name": "parmesan cheese",
@@ -1110,7 +1110,7 @@
     }
   },
   "baked-goods": {
-    "name": "Kepiniai",
+    "name": "Baked Goods",
     "foods": {
       "pie crust": {
         "name": "pie crust",
@@ -1215,7 +1215,7 @@
     }
   },
   "canned-goods": {
-    "name": "Konservuoti produktai",
+    "name": "Canned Goods",
     "foods": {
       "canned tomato": {
         "name": "canned tomato",
@@ -1408,11 +1408,11 @@
     }
   },
   "frozen-foods": {
-    "name": "Šaldyti produktai",
+    "name": "Frozen Foods",
     "foods": {}
   },
   "condiments": {
-    "name": "Padažai",
+    "name": "Condiments",
     "foods": {
       "soy sauce": {
         "name": "soy sauce",
@@ -1633,10 +1633,10 @@
     }
   },
   "spices": {
-    "name": "Prieskoniai",
+    "name": "Spices",
     "foods": {
       "cayenne pepper": {
-        "name": "kajeno pipiras",
+        "name": "cayenne pepper",
         "plural_name": ""
       },
       "cinnamon": {
@@ -2072,7 +2072,7 @@
     }
   },
   "sweets": {
-    "name": "Saldumynai",
+    "name": "Sweets",
     "foods": {
       "dark chocolate": {
         "name": "dark chocolate",
@@ -2141,7 +2141,7 @@
     }
   },
   "snacks": {
-    "name": "Užkandžiai",
+    "name": "Snacks",
     "foods": {
       "walnut": {
         "name": "walnut",
@@ -2222,7 +2222,7 @@
     }
   },
   "beverages": {
-    "name": "Gėrimai",
+    "name": "Beverages",
     "foods": {
       "orange juice": {
         "name": "orange juice",
@@ -2271,7 +2271,7 @@
     }
   },
   "alcohol": {
-    "name": "Alkoholiniai gėrimai",
+    "name": "Alcohol",
     "foods": {
       "white wine": {
         "name": "white wine",
@@ -2352,7 +2352,7 @@
     }
   },
   "health-foods": {
-    "name": "Sveikas maistas",
+    "name": "Health Foods",
     "foods": {
       "coconut milk": {
         "name": "coconut milk",
@@ -2405,11 +2405,11 @@
     }
   },
   "household": {
-    "name": "Buitinės prekės",
+    "name": "Household",
     "foods": {}
   },
   "other": {
-    "name": "Kita",
+    "name": "Other",
     "foods": {
       "ice": {
         "name": "ice",
