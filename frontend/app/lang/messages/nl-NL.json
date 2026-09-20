@@ -372,7 +372,7 @@
     "recipe-2": "Tweede recept",
     "plantoeat": {
       "title": "Plan to Eat",
-      "description-long": "Mealie kan recepten importeren van Plan naar Eet."
+      "description-long": "Mealie kan recepten importeren van Plan to Eat."
     },
     "myrecipebox": {
       "title": "My Recipe Box",
@@ -387,7 +387,7 @@
     "bulk-add": "Toevoegen in bulk",
     "error-details": "Alleen websites met ld+json of microdata kunnen worden geïmporteerd door Mealie. De meeste grote receptenwebsites ondersteunen deze gegevensstructuur. Als je site niet kan worden geïmporteerd, maar er zijn json-gegevens in de log, maak dan een github issue aan met de URL en gegevens.",
     "error-title": "Het lijkt erop dat we niets konden vinden",
-    "github-issues": "GitHubproblemen",
+    "github-issues": "GitHub Issues",
     "google-ld-json-info": "Google ld+json Info",
     "html-or-json-error-details": "Mealie kon geen recept vinden in de gegevens die u heeft verstrekt. Alleen ld+json of microdata met een schema.org recept kunnen worden geïmporteerd. Als je de JSON plakt, zorg er dan voor dat deze zowel \"@context\": \"https://schema.org/\" en \"@type\": \"Recipe\" bevat.",
     "paste-in-your-recipe-data-each-line-will-be-treated-as-an-item-in-a-list": "Plak je receptgegevens. Elke regel wordt behandeld als een item in een lijst",
