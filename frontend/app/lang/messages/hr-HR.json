@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Spajanje odabrane hrane će spojiti izvornu hranu i ciljanu hranu u jednu hranu. Izvorna hrana će biti izbrisana, a sve reference na izvornu hranu će biti ažurirane kako bi pokazivale na ciljanu hranu.",
       "merge-food-example": "Spajanje {food1} u {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Kombiniraj Hranu",
       "source-food": "Izvor Hrane",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Popunite bazu podataka uobičajenim oznakama na temelju vašeg lokalnog jezika.",
       "edit-label": "Uredi oznaku",
       "new-label": "Nova Oznaka",
       "labels": "Oznake",
