@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "Посмотреть все {count} рецепты(ов)",
       "merge-dialog-text": "Сочетание выбранных продуктов позволит объединить первый и второй продукт в один. Первый продукт будет удалён, и все ссылки на него будут указывать на второй продукт.",
       "merge-food-example": "Объединение {food1} в {food2}",
-      "seed-dialog-text": "Заполняет базу данных с продуктами на основе локального языка. Это добавит ~2700 типичных продуктов, которые могут быть использованы для организации вашей базы данных. Продукты переводятся с помощью усилий сообщества.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "У вас уже есть некоторые элементы в базе данных. Новый элемент не будет добавлен, если элемент с таким именем уже существует.",
       "combine-food": "Объединить продукты",
       "source-food": "Первый продукт",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Дополнить базу данных типичными единицами измерений на основе выбранного языка.",
       "edit-label": "Изменить метку",
       "new-label": "Новая метка",
       "labels": "Метки",
