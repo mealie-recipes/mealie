@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "查看全部 {count} 個食譜",
       "merge-dialog-text": "合併所選食材將把來源食材與目標食材合併為單一食材。來源食材將被刪除，所有對來源食材的參照將更新為指向目標食材。",
       "merge-food-example": "將 {food1} 合併至 {food2}",
-      "seed-dialog-text": "根據您的本地語言，將常見食材植入資料庫。這將建立 200 種以上可用於整理資料庫的常見食材。食材翻譯由社群共同維護。",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "您的資料庫中已有部分項目。此操作不會自動處理重複項目，您需要手動管理。",
       "combine-food": "合併食材",
       "source-food": "來源食材",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "根據您的本地語言，將常見標籤植入資料庫。",
       "edit-label": "編輯標籤",
       "new-label": "新增標籤",
       "labels": "標籤",
