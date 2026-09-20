@@ -1,6 +1,6 @@
 {
   "produce": {
-    "name": "青果物",
+    "name": "Produce",
     "foods": {
       "garlic": {
         "name": "garlic",
@@ -437,7 +437,7 @@
     }
   },
   "grains": {
-    "name": "穀物",
+    "name": "Grains",
     "foods": {
       "rolled oat": {
         "name": "rolled oat",
@@ -650,7 +650,7 @@
     }
   },
   "meat": {
-    "name": "肉",
+    "name": "Meat",
     "foods": {
       "ground beef": {
         "name": "ground beef",
@@ -807,7 +807,7 @@
     }
   },
   "meat-products": {
-    "name": "食肉製品",
+    "name": "Meat Products",
     "foods": {
       "bacon": {
         "name": "bacon",
@@ -860,7 +860,7 @@
     }
   },
   "seafood": {
-    "name": "魚介類",
+    "name": "Seafood",
     "foods": {
       "bonito flake": {
         "name": "bonito flake",
@@ -953,7 +953,7 @@
     }
   },
   "dairy-products": {
-    "name": "乳製品",
+    "name": "Dairy Products",
     "foods": {
       "parmesan cheese": {
         "name": "parmesan cheese",
@@ -1110,7 +1110,7 @@
     }
   },
   "baked-goods": {
-    "name": "焼き物",
+    "name": "Baked Goods",
     "foods": {
       "pie crust": {
         "name": "pie crust",
@@ -1215,7 +1215,7 @@
     }
   },
   "canned-goods": {
-    "name": "缶詰",
+    "name": "Canned Goods",
     "foods": {
       "canned tomato": {
         "name": "canned tomato",
@@ -1408,11 +1408,11 @@
     }
   },
   "frozen-foods": {
-    "name": "冷凍食品",
+    "name": "Frozen Foods",
     "foods": {}
   },
   "condiments": {
-    "name": "調味料",
+    "name": "Condiments",
     "foods": {
       "soy sauce": {
         "name": "soy sauce",
@@ -1633,7 +1633,7 @@
     }
   },
   "spices": {
-    "name": "香辛料",
+    "name": "Spices",
     "foods": {
       "cayenne pepper": {
         "name": "cayenne pepper",
@@ -2072,7 +2072,7 @@
     }
   },
   "sweets": {
-    "name": "お菓子",
+    "name": "Sweets",
     "foods": {
       "dark chocolate": {
         "name": "dark chocolate",
@@ -2141,7 +2141,7 @@
     }
   },
   "snacks": {
-    "name": "おやつ",
+    "name": "Snacks",
     "foods": {
       "walnut": {
         "name": "walnut",
@@ -2222,7 +2222,7 @@
     }
   },
   "beverages": {
-    "name": "飲料",
+    "name": "Beverages",
     "foods": {
       "orange juice": {
         "name": "orange juice",
@@ -2271,7 +2271,7 @@
     }
   },
   "alcohol": {
-    "name": "お酒",
+    "name": "Alcohol",
     "foods": {
       "white wine": {
         "name": "white wine",
@@ -2352,7 +2352,7 @@
     }
   },
   "health-foods": {
-    "name": "健康食品",
+    "name": "Health Foods",
     "foods": {
       "coconut milk": {
         "name": "coconut milk",
@@ -2405,11 +2405,11 @@
     }
   },
   "household": {
-    "name": "家庭",
+    "name": "Household",
     "foods": {}
   },
   "other": {
-    "name": "その他",
+    "name": "Other",
     "foods": {
       "ice": {
         "name": "ice",
