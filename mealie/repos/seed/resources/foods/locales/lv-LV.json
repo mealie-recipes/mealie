@@ -1,166 +1,166 @@
 {
   "produce": {
-    "name": "Augļi un dārzeņi",
+    "name": "Produce",
     "foods": {
       "garlic": {
-        "name": "ķiploks",
-        "plural_name": "ķiploki"
+        "name": "garlic",
+        "plural_name": ""
       },
       "onion": {
-        "name": "sīpols",
-        "plural_name": "sīpoli"
+        "name": "onion",
+        "plural_name": "onions"
       },
       "bell pepper": {
-        "name": "paprika",
-        "plural_name": "paprikas"
+        "name": "bell pepper",
+        "plural_name": "bell peppers"
       },
       "carrot": {
-        "name": "burkāns",
-        "plural_name": "burkāni"
+        "name": "carrot",
+        "plural_name": "carrots"
       },
       "scallion": {
         "name": "scallion",
         "plural_name": "scallions"
       },
       "zucchini": {
-        "name": "cukini",
-        "plural_name": ""
+        "name": "zucchini",
+        "plural_name": "zucchinis"
       },
       "potato": {
-        "name": "kartupelis",
-        "plural_name": "kartupeļi"
+        "name": "potato",
+        "plural_name": "potatoes"
       },
       "red onion": {
-        "name": "sarkanais sīpols",
-        "plural_name": "sarkanie sīpoli"
+        "name": "red onion",
+        "plural_name": "red onions"
       },
       "yellow onion": {
-        "name": "dzeltenais sīpols",
-        "plural_name": "dzeltenie sīpoli"
+        "name": "yellow onion",
+        "plural_name": "yellow onions"
       },
       "celery": {
-        "name": "selerija",
-        "plural_name": "selerijas"
+        "name": "celery",
+        "plural_name": ""
       },
       "jalapeño": {
-        "name": "halapenjo",
-        "plural_name": ""
+        "name": "jalapeño",
+        "plural_name": "jalapeños"
       },
       "avocado": {
-        "name": "avokado",
-        "plural_name": ""
+        "name": "avocado",
+        "plural_name": "avocados"
       },
       "shallot": {
-        "name": "šalote",
-        "plural_name": "šalotes"
+        "name": "shallot",
+        "plural_name": "shallots"
       },
       "cherry tomato": {
-        "name": "ķirštomāts",
-        "plural_name": "ķirštomāti"
+        "name": "cherry tomato",
+        "plural_name": "cherry tomatoes"
       },
       "cucumber": {
-        "name": "gurķis",
-        "plural_name": "gurķi"
+        "name": "cucumber",
+        "plural_name": "cucumbers"
       },
       "spinach": {
-        "name": "spināts",
-        "plural_name": "spināti"
+        "name": "spinach",
+        "plural_name": ""
       },
       "sweet corn": {
-        "name": "saldā kukurūza",
-        "plural_name": "saldās kukurūzas"
+        "name": "sweet corn",
+        "plural_name": ""
       },
       "chile pepper": {
         "name": "chile pepper",
         "plural_name": "chile peppers"
       },
       "sweet potato": {
-        "name": "saldais kartupelis",
-        "plural_name": "saldie kartupeļi"
+        "name": "sweet potato",
+        "plural_name": "sweet potatoes"
       },
       "broccoli": {
-        "name": "brokolis",
-        "plural_name": "brokoļi"
+        "name": "broccoli",
+        "plural_name": ""
       },
       "heart of palm": {
         "name": "heart of palm",
         "plural_name": "hearts of palm"
       },
       "pumpkin": {
-        "name": "ķirbis",
-        "plural_name": "ķirbji"
+        "name": "pumpkin",
+        "plural_name": "pumpkins"
       },
       "cauliflower": {
-        "name": "ziedkāposts",
-        "plural_name": "ziedkāposti"
+        "name": "cauliflower",
+        "plural_name": ""
       },
       "cabbage": {
-        "name": "kāposts",
-        "plural_name": "kāposti"
+        "name": "cabbage",
+        "plural_name": "cabbages"
       },
       "asparagus": {
-        "name": "sparģelis",
-        "plural_name": "sparģeļi"
+        "name": "asparagus",
+        "plural_name": ""
       },
       "kale": {
         "name": "kale",
         "plural_name": ""
       },
       "arugula": {
-        "name": "rukola",
+        "name": "arugula",
         "plural_name": ""
       },
       "leek": {
-        "name": "puravs",
-        "plural_name": "puravi"
+        "name": "leek",
+        "plural_name": "leeks"
       },
       "eggplant": {
-        "name": "baklažāns",
-        "plural_name": "baklažāni"
+        "name": "eggplant",
+        "plural_name": "eggplants"
       },
       "lettuce": {
-        "name": "salāti",
+        "name": "lettuce",
         "plural_name": ""
       },
       "butternut squash": {
-        "name": "sviesta ķirbis",
-        "plural_name": "sviesta ķirbji"
+        "name": "butternut squash",
+        "plural_name": "butternut squashes"
       },
       "romaine lettuce": {
-        "name": "romiešu salāti",
+        "name": "romaine lettuce",
         "plural_name": ""
       },
       "beetroot": {
-        "name": "biete",
-        "plural_name": "bietes"
+        "name": "beetroot",
+        "plural_name": "beetroots"
       },
       "brussels sprout": {
-        "name": "Briseles kāposts",
-        "plural_name": "Briseles kāposti"
+        "name": "brussels sprout",
+        "plural_name": "brussels sprouts"
       },
       "fennel": {
         "name": "fennel",
         "plural_name": ""
       },
       "sun dried tomato": {
-        "name": "saulē kaltēts tomāts",
-        "plural_name": "saulē kaltēti tomāti"
+        "name": "sun dried tomato",
+        "plural_name": "sun dried tomatoes"
       },
       "radish": {
-        "name": "redīss",
-        "plural_name": "redīsi"
+        "name": "radish",
+        "plural_name": "radishes"
       },
       "red cabbage": {
-        "name": "sarkanais kāposts",
-        "plural_name": "sarkanie kāposti"
+        "name": "red cabbage",
+        "plural_name": "red cabbages"
       },
       "artichoke": {
-        "name": "artišoks",
-        "plural_name": "artišoki"
+        "name": "artichoke",
+        "plural_name": "artichokes"
       },
       "parsnip": {
-        "name": "pastinaks",
-        "plural_name": "pastinaki"
+        "name": "parsnip",
+        "plural_name": "parsnips"
       },
       "poblano pepper": {
         "name": "poblano pepper",
@@ -171,28 +171,28 @@
         "plural_name": "green tomatoes"
       },
       "horseradish": {
-        "name": "mārrutks",
-        "plural_name": "mārrutki"
+        "name": "horseradish",
+        "plural_name": ""
       },
       "chard": {
         "name": "chard",
         "plural_name": ""
       },
       "spaghetti squash": {
-        "name": "spageti ķirbis",
-        "plural_name": "spageti ķirbji"
+        "name": "spaghetti squash",
+        "plural_name": "spaghetti squashes"
       },
       "napa cabbage": {
         "name": "napa cabbage",
         "plural_name": "napa cabbages"
       },
       "celeriac": {
-        "name": "selerijas sakne",
-        "plural_name": "selerijas saknes"
+        "name": "celeriac",
+        "plural_name": ""
       },
       "turnip": {
-        "name": "rācenis",
-        "plural_name": "rāceņi"
+        "name": "turnip",
+        "plural_name": "turnips"
       },
       "bok choy": {
         "name": "bok choy",
@@ -223,92 +223,92 @@
         "plural_name": ""
       },
       "tomato": {
-        "name": "tomāts",
-        "plural_name": "tomāti"
+        "name": "tomato",
+        "plural_name": "tomatoes"
       },
       "lemon": {
-        "name": "citrons",
-        "plural_name": "citroni"
+        "name": "lemon",
+        "plural_name": "lemons"
       },
       "lime": {
-        "name": "laims",
-        "plural_name": "laimi"
+        "name": "lime",
+        "plural_name": "limes"
       },
       "apple": {
-        "name": "ābols",
-        "plural_name": "āboli"
+        "name": "apple",
+        "plural_name": "apples"
       },
       "banana": {
-        "name": "banāns",
-        "plural_name": "banāni"
+        "name": "banana",
+        "plural_name": "bananas"
       },
       "orange": {
-        "name": "apelsīns",
-        "plural_name": "apelsīni"
+        "name": "orange",
+        "plural_name": "oranges"
       },
       "raisin": {
-        "name": "rozīne",
-        "plural_name": "rozīnes"
+        "name": "raisin",
+        "plural_name": "raisins"
       },
       "pineapple": {
-        "name": "ananass",
-        "plural_name": "ananasi"
+        "name": "pineapple",
+        "plural_name": "pineapples"
       },
       "mango": {
         "name": "mango",
         "plural_name": "mangoes"
       },
       "peach": {
-        "name": "persiks",
-        "plural_name": "persiki"
+        "name": "peach",
+        "plural_name": "peaches"
       },
       "date": {
-        "name": "datele",
-        "plural_name": "dateles"
+        "name": "date",
+        "plural_name": "dates"
       },
       "coconut": {
-        "name": "kokosrieksts",
-        "plural_name": "kokosrieksti"
+        "name": "coconut",
+        "plural_name": "coconuts"
       },
       "pear": {
-        "name": "bumbieris",
-        "plural_name": "bumbieri"
+        "name": "pear",
+        "plural_name": "pears"
       },
       "grape": {
-        "name": "vīnoga",
-        "plural_name": "vīnogas"
+        "name": "grape",
+        "plural_name": "grapes"
       },
       "pomegranate": {
         "name": "pomegranate",
         "plural_name": "pomegranates"
       },
       "watermelon": {
-        "name": "arbūzs",
-        "plural_name": "arbūzi"
+        "name": "watermelon",
+        "plural_name": "watermelons"
       },
       "rhubarb": {
         "name": "rhubarb",
         "plural_name": ""
       },
       "kiwi": {
-        "name": "kivi",
-        "plural_name": ""
+        "name": "kiwi",
+        "plural_name": "kiwis"
       },
       "grapefruit": {
-        "name": "greipfrūts",
-        "plural_name": "greipfrūti"
+        "name": "grapefruit",
+        "plural_name": "grapefruits"
       },
       "plum": {
-        "name": "plūme",
-        "plural_name": "plūmes"
+        "name": "plum",
+        "plural_name": "plums"
       },
       "fig": {
-        "name": "vīģe",
-        "plural_name": "vīģes"
+        "name": "fig",
+        "plural_name": "figs"
       },
       "apricot": {
-        "name": "aprikoze",
-        "plural_name": "aprikozes"
+        "name": "apricot",
+        "plural_name": "apricots"
       },
       "mandarin": {
         "name": "mandarin",
@@ -359,24 +359,24 @@
         "plural_name": ""
       },
       "strawberry": {
-        "name": "zemene",
-        "plural_name": "zemenes"
+        "name": "strawberry",
+        "plural_name": "strawberries"
       },
       "blueberry": {
         "name": "blueberry",
         "plural_name": "blueberries"
       },
       "raspberry": {
-        "name": "avene",
-        "plural_name": "avenes"
+        "name": "raspberry",
+        "plural_name": "raspberries"
       },
       "cranberry": {
-        "name": "dzērvene",
-        "plural_name": "dzērvenes"
+        "name": "cranberry",
+        "plural_name": "cranberries"
       },
       "cherry": {
-        "name": "ķirsis",
-        "plural_name": "ķirši"
+        "name": "cherry",
+        "plural_name": "cherries"
       },
       "blackberry": {
         "name": "blackberry",
@@ -437,7 +437,7 @@
     }
   },
   "grains": {
-    "name": "Labība",
+    "name": "Grains",
     "foods": {
       "rolled oat": {
         "name": "rolled oat",
@@ -528,16 +528,16 @@
         "plural_name": "white beans"
       },
       "lentil": {
-        "name": "lēcas",
-        "plural_name": ""
+        "name": "lentil",
+        "plural_name": "lentils"
       },
       "pinto bean": {
         "name": "pinto bean",
         "plural_name": "pinto beans"
       },
       "red lentil": {
-        "name": "sarkanās lēcas",
-        "plural_name": ""
+        "name": "red lentil",
+        "plural_name": "red lentils"
       },
       "cannellini bean": {
         "name": "cannellini bean",
@@ -556,7 +556,7 @@
         "plural_name": "mung beans"
       },
       "spaghetti": {
-        "name": "spageti",
+        "name": "spaghetti",
         "plural_name": ""
       },
       "macaroni": {
@@ -564,8 +564,8 @@
         "plural_name": ""
       },
       "egg noodle": {
-        "name": "olu nūdele",
-        "plural_name": "olu nūdeles"
+        "name": "egg noodle",
+        "plural_name": "egg noodles"
       },
       "spiral pasta": {
         "name": "spiral pasta",
@@ -592,23 +592,23 @@
         "plural_name": "pasta shells"
       },
       "noodle": {
-        "name": "nūdele",
-        "plural_name": "nūdeles"
+        "name": "noodle",
+        "plural_name": "noodles"
       },
       "tortellini": {
         "name": "tortellini",
         "plural_name": ""
       },
       "rice noodle": {
-        "name": "rīsu nūdele",
-        "plural_name": "rīsu nūdeles"
+        "name": "rice noodle",
+        "plural_name": "rice noodles"
       },
       "rigatoni": {
         "name": "rigatoni",
         "plural_name": ""
       },
       "gnocchi": {
-        "name": "ņoki",
+        "name": "gnocchi",
         "plural_name": ""
       },
       "ramen noodle": {
@@ -624,8 +624,8 @@
         "plural_name": ""
       },
       "udon noodle": {
-        "name": "udon nūdele",
-        "plural_name": "udon nūdeles"
+        "name": "udon noodle",
+        "plural_name": "udon noodles"
       },
       "manicotti": {
         "name": "manicotti",
@@ -650,7 +650,7 @@
     }
   },
   "meat": {
-    "name": "Gaļa",
+    "name": "Meat",
     "foods": {
       "ground beef": {
         "name": "ground beef",
@@ -807,7 +807,7 @@
     }
   },
   "meat-products": {
-    "name": "Gaļas produkti",
+    "name": "Meat Products",
     "foods": {
       "bacon": {
         "name": "bacon",
@@ -860,7 +860,7 @@
     }
   },
   "seafood": {
-    "name": "Jūras veltes",
+    "name": "Seafood",
     "foods": {
       "bonito flake": {
         "name": "bonito flake",
@@ -953,7 +953,7 @@
     }
   },
   "dairy-products": {
-    "name": "Piena produkti",
+    "name": "Dairy Products",
     "foods": {
       "parmesan cheese": {
         "name": "parmesan cheese",
@@ -968,8 +968,8 @@
         "plural_name": ""
       },
       "cheese": {
-        "name": "siers",
-        "plural_name": "sieri"
+        "name": "cheese",
+        "plural_name": ""
       },
       "mozzarella cheese": {
         "name": "mozzarella cheese",
@@ -1040,15 +1040,15 @@
         "plural_name": ""
       },
       "butter": {
-        "name": "sviests",
+        "name": "butter",
         "plural_name": ""
       },
       "egg": {
-        "name": "ola",
-        "plural_name": "olas"
+        "name": "egg",
+        "plural_name": "eggs"
       },
       "milk": {
-        "name": "piens",
+        "name": "milk",
         "plural_name": ""
       },
       "heavy cream": {
@@ -1056,19 +1056,19 @@
         "plural_name": ""
       },
       "sour cream": {
-        "name": "skābais krējums",
+        "name": "sour cream",
         "plural_name": ""
       },
       "buttermilk": {
-        "name": "paniņas",
+        "name": "buttermilk",
         "plural_name": ""
       },
       "yogurt": {
-        "name": "jogurts",
+        "name": "yogurt",
         "plural_name": ""
       },
       "greek yogurt": {
-        "name": "grieķu jogurts",
+        "name": "greek yogurt",
         "plural_name": ""
       },
       "cream": {
@@ -1076,7 +1076,7 @@
         "plural_name": ""
       },
       "whipped cream": {
-        "name": "putukrējums",
+        "name": "whipped cream",
         "plural_name": ""
       },
       "ghee": {
@@ -1092,8 +1092,8 @@
         "plural_name": ""
       },
       "kefir": {
-        "name": "kefīrs",
-        "plural_name": "kefīri"
+        "name": "kefir",
+        "plural_name": ""
       },
       "provolone cheese": {
         "name": "provolone cheese",
@@ -1110,7 +1110,7 @@
     }
   },
   "baked-goods": {
-    "name": "Ceptas preces",
+    "name": "Baked Goods",
     "foods": {
       "pie crust": {
         "name": "pie crust",
@@ -1137,8 +1137,8 @@
         "plural_name": ""
       },
       "bread": {
-        "name": "maize",
-        "plural_name": "maizes"
+        "name": "bread",
+        "plural_name": ""
       },
       "bread crumb": {
         "name": "bread crumb",
@@ -1197,8 +1197,8 @@
         "plural_name": "bagels"
       },
       "croissant": {
-        "name": "kruasāns",
-        "plural_name": "kruasāni"
+        "name": "croissant",
+        "plural_name": "croissants"
       },
       "hawaiian roll": {
         "name": "hawaiian roll",
@@ -1215,7 +1215,7 @@
     }
   },
   "canned-goods": {
-    "name": "Konservētas preces",
+    "name": "Canned Goods",
     "foods": {
       "canned tomato": {
         "name": "canned tomato",
@@ -1374,8 +1374,8 @@
         "plural_name": ""
       },
       "tomato soup": {
-        "name": "tomātu zupa",
-        "plural_name": "tomātu zupas"
+        "name": "tomato soup",
+        "plural_name": ""
       },
       "cream of celery": {
         "name": "cream of celery",
@@ -1408,11 +1408,11 @@
     }
   },
   "frozen-foods": {
-    "name": "Saldēti pārtikas produkti",
+    "name": "Frozen Foods",
     "foods": {}
   },
   "condiments": {
-    "name": "Garšas piedevas",
+    "name": "Condiments",
     "foods": {
       "soy sauce": {
         "name": "soy sauce",
@@ -1507,16 +1507,16 @@
         "plural_name": ""
       },
       "peanut butter": {
-        "name": "zemesriekstu sviests",
+        "name": "peanut butter",
         "plural_name": ""
       },
       "tomato paste": {
-        "name": "tomātu pasta",
-        "plural_name": "tomātu pastas"
+        "name": "tomato paste",
+        "plural_name": ""
       },
       "tomato sauce": {
-        "name": "tomātu mērce",
-        "plural_name": "tomātu mērces"
+        "name": "tomato sauce",
+        "plural_name": ""
       },
       "salsa": {
         "name": "salsa",
@@ -1575,7 +1575,7 @@
         "plural_name": ""
       },
       "almond butter": {
-        "name": "mandeļu sviests",
+        "name": "almond butter",
         "plural_name": ""
       },
       "mayonnaise": {
@@ -1587,7 +1587,7 @@
         "plural_name": ""
       },
       "balsamic vinegar": {
-        "name": "balzāmetiķis",
+        "name": "balsamic vinegar",
         "plural_name": ""
       },
       "vinegar": {
@@ -1633,7 +1633,7 @@
     }
   },
   "spices": {
-    "name": "Garšvielas",
+    "name": "Spices",
     "foods": {
       "cayenne pepper": {
         "name": "cayenne pepper",
@@ -1877,7 +1877,7 @@
         "plural_name": ""
       },
       "vegetable oil": {
-        "name": "augu eļļa",
+        "name": "vegetable oil",
         "plural_name": ""
       },
       "canola oil": {
@@ -1930,7 +1930,7 @@
     "name": "Baking",
     "foods": {
       "cocoa": {
-        "name": "kakao",
+        "name": "cocoa",
         "plural_name": ""
       },
       "baking chocolate": {
@@ -1970,19 +1970,19 @@
         "plural_name": ""
       },
       "flour": {
-        "name": "milti",
+        "name": "flour",
         "plural_name": ""
       },
       "vanilla extract": {
-        "name": "vaniļas ekstrakts",
+        "name": "vanilla extract",
         "plural_name": ""
       },
       "baking powder": {
-        "name": "cepamais pulveris",
+        "name": "baking powder",
         "plural_name": ""
       },
       "baking soda": {
-        "name": "dzeramā soda",
+        "name": "baking soda",
         "plural_name": ""
       },
       "cornstarch": {
@@ -1990,8 +1990,8 @@
         "plural_name": ""
       },
       "yeast": {
-        "name": "raugs",
-        "plural_name": "raugi"
+        "name": "yeast",
+        "plural_name": ""
       },
       "chocolate chip": {
         "name": "chocolate chip",
@@ -2002,7 +2002,7 @@
         "plural_name": ""
       },
       "almond flour": {
-        "name": "mandeļu milti",
+        "name": "almond flour",
         "plural_name": ""
       },
       "self-raising flour": {
@@ -2010,7 +2010,7 @@
         "plural_name": ""
       },
       "shredded coconut": {
-        "name": "kokosriekstu skaidiņas",
+        "name": "shredded coconut",
         "plural_name": ""
       },
       "cornmeal": {
@@ -2018,7 +2018,7 @@
         "plural_name": ""
       },
       "gelatin": {
-        "name": "želatīns",
+        "name": "gelatin",
         "plural_name": ""
       },
       "cake flour": {
@@ -2030,11 +2030,11 @@
         "plural_name": ""
       },
       "bread flour": {
-        "name": "maizes milti",
+        "name": "bread flour",
         "plural_name": ""
       },
       "potato starch": {
-        "name": "kartupeļu ciete",
+        "name": "potato starch",
         "plural_name": ""
       },
       "buckwheat flour": {
@@ -2072,15 +2072,15 @@
     }
   },
   "sweets": {
-    "name": "Saldumi",
+    "name": "Sweets",
     "foods": {
       "dark chocolate": {
         "name": "dark chocolate",
         "plural_name": ""
       },
       "chocolate": {
-        "name": "šokolāde",
-        "plural_name": "šokolādes"
+        "name": "chocolate",
+        "plural_name": ""
       },
       "marshmallow": {
         "name": "marshmallow",
@@ -2107,8 +2107,8 @@
         "plural_name": ""
       },
       "jam": {
-        "name": "ievārījums",
-        "plural_name": "ievārījumi"
+        "name": "jam",
+        "plural_name": ""
       },
       "orange marmalade": {
         "name": "orange marmalade",
@@ -2119,16 +2119,16 @@
         "plural_name": "cookies"
       },
       "lady finger": {
-        "name": "dāmu pirkstiņš",
-        "plural_name": "dāmu pirkstiņi"
+        "name": "lady finger",
+        "plural_name": "lady fingers"
       },
       "apple butter": {
         "name": "apple butter",
         "plural_name": ""
       },
       "ice cream": {
-        "name": "saldējums",
-        "plural_name": "saldējumi"
+        "name": "ice cream",
+        "plural_name": ""
       },
       "lemon curd": {
         "name": "lemon curd",
@@ -2141,15 +2141,15 @@
     }
   },
   "snacks": {
-    "name": "Uzkodas",
+    "name": "Snacks",
     "foods": {
       "walnut": {
-        "name": "valrieksts",
-        "plural_name": "valrieksti"
+        "name": "walnut",
+        "plural_name": "walnuts"
       },
       "pecan": {
-        "name": "pekanrieksts",
-        "plural_name": "pekanrieksti"
+        "name": "pecan",
+        "plural_name": "pecans"
       },
       "almond": {
         "name": "almond",
@@ -2172,8 +2172,8 @@
         "plural_name": "pistachios"
       },
       "peanut": {
-        "name": "zemesrieksts",
-        "plural_name": "zemesrieksti"
+        "name": "peanut",
+        "plural_name": "peanuts"
       },
       "chia": {
         "name": "chia",
@@ -2222,7 +2222,7 @@
     }
   },
   "beverages": {
-    "name": "Dzērieni",
+    "name": "Beverages",
     "foods": {
       "orange juice": {
         "name": "orange juice",
@@ -2245,7 +2245,7 @@
         "plural_name": ""
       },
       "apple juice": {
-        "name": "ābolu sula",
+        "name": "apple juice",
         "plural_name": ""
       },
       "tea": {
@@ -2257,8 +2257,8 @@
         "plural_name": ""
       },
       "tomato juice": {
-        "name": "tomātu sula",
-        "plural_name": "tomātu sulas"
+        "name": "tomato juice",
+        "plural_name": ""
       },
       "ginger beer": {
         "name": "ginger beer",
@@ -2271,31 +2271,31 @@
     }
   },
   "alcohol": {
-    "name": "Alkohols",
+    "name": "Alcohol",
     "foods": {
       "white wine": {
         "name": "white wine",
         "plural_name": ""
       },
       "red wine": {
-        "name": "sarkanvīns",
+        "name": "red wine",
         "plural_name": ""
       },
       "whisky": {
-        "name": "viskijs",
-        "plural_name": "viskiji"
+        "name": "whisky",
+        "plural_name": ""
       },
       "rum": {
-        "name": "rums",
-        "plural_name": "rumi"
+        "name": "rum",
+        "plural_name": ""
       },
       "vodka": {
         "name": "vodka",
         "plural_name": ""
       },
       "beer": {
-        "name": "alus",
-        "plural_name": "ali"
+        "name": "beer",
+        "plural_name": ""
       },
       "orange liqueur": {
         "name": "orange liqueur",
@@ -2310,12 +2310,12 @@
         "plural_name": ""
       },
       "gin": {
-        "name": "džins",
-        "plural_name": "džini"
+        "name": "gin",
+        "plural_name": ""
       },
       "brandy": {
-        "name": "brendijs",
-        "plural_name": "brendiji"
+        "name": "brandy",
+        "plural_name": ""
       },
       "mirin": {
         "name": "mirin",
@@ -2352,7 +2352,7 @@
     }
   },
   "health-foods": {
-    "name": "Veselīga pārtika",
+    "name": "Health Foods",
     "foods": {
       "coconut milk": {
         "name": "coconut milk",
@@ -2405,11 +2405,11 @@
     }
   },
   "household": {
-    "name": "Mājsaimniecība",
+    "name": "Household",
     "foods": {}
   },
   "other": {
-    "name": "Cits",
+    "name": "Other",
     "foods": {
       "ice": {
         "name": "ice",
