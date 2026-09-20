@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "선택한 식품을 병합하면 원본 식품과 대상 식품이 하나의 식품으로 합쳐집니다. 원본 식품은 삭제되며, 원본 식품에 대한 모든 참조는 대상 식품을 가리키도록 업데이트됩니다.",
       "merge-food-example": "{food1}을 {food2}에 병합",
-      "seed-dialog-text": "당신이 사용하는 언어에 맞춰 데이터베이스에 음식 정보를 추가하세요. 이렇게 하면 데이터베이스를 구성하는 데 사용할 수 있는 약 2700가지의 일반적인 음식 정보가 생성됩니다. 음식 정보는 커뮤니티 참여를 통해 번역됩니다.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "데이터베이스에 이미 일부 항목이 있습니다. 이름이 같은 항목이 이미 존재하는 경우 새 항목은 추가되지 않습니다.",
       "combine-food": "식품 병합",
       "source-food": "원본 식품",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "당신의 언어를 기반으로 한 일반적인 라벨을 데이터베이스에 설정하십시오.",
       "edit-label": "라벨 편집",
       "new-label": "새 라벨",
       "labels": "라벨",
