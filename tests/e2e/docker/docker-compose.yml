@@ -9,8 +9,7 @@ services:
 
   ldap:
     image: rroemhild/test-openldap
-    # The image declares a health command but no interval, so Docker probes it
-    # every 30s by default and `up --wait` holds for that long.
+    # shorten the image's default 30s health check interval
     healthcheck:
       interval: 2s
       timeout: 5s
@@ -28,9 +27,7 @@ services:
       additional_contexts:
         packages: ../../../dist
     restart: always
-    # The image declares a health command but no interval. The server needs a
-    # few seconds to migrate and seed, and `up --wait` reports it healthy as
-    # soon as it answers.
+    # shorten the image's default 30s health check interval
     healthcheck:
       interval: 2s
       timeout: 5s

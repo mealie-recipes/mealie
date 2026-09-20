@@ -32,15 +32,11 @@ jobs:
           POSTGRES_USER: mealie
           POSTGRES_PASSWORD: mealie
           POSTGRES_DB: mealie
-        # Probe every 2s. The runner waits for every service before it runs the
-        # first step, so a long interval holds up the whole job.
         options: --health-cmd pg_isready --health-interval 2s --health-timeout 5s --health-retries 15
         ports:
           - 5432:5432
       ldap:
         image: rroemhild/test-openldap
-        # The image declares a health command but no interval, so Docker probes
-        # it every 30s by default and the job waits about 45s for it.
         options: --health-interval 2s --health-timeout 5s --health-retries 15
         ports:
           - 10389:10389

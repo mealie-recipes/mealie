@@ -19,9 +19,8 @@ jobs:
           name: backend-dist
           path: dist
 
-      # Build from the wheel that the release uses, and not from a second copy
-      # that this job builds. The image build then skips the frontend and the
-      # wheel stages.
+      # Scan the wheel that the release uses, and not a second copy that this
+      # job builds.
       - name: Build Dockerfile
         run: |
           docker build -t mealie --file=./docker/Dockerfile --build-context packages=dist .

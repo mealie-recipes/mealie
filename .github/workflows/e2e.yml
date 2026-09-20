@@ -21,9 +21,8 @@ jobs:
           cache-dependency-path: "**/pnpm-lock.yaml"
       - name: Install dependencies
         run: pnpm install
-      # The browsers and the OS packages they need take about 50 seconds to
-      # install, and the image build takes minutes. Start the install here and
-      # collect its result after the build, so the two overlap.
+      # This install takes about 50 seconds and needs nothing the image build
+      # produces, so the two run at the same time.
       - name: Start Playwright browser install
         run: |
           rm -f /tmp/playwright-install.status
@@ -51,8 +50,7 @@ jobs:
       - name: Deploy E2E Test Environment
         run: |
           docker compose up -d --wait
-          # The mock OIDC server has no shell, so compose cannot health check
-          # it. Ask it for its configuration instead.
+          # The mock OIDC server has no shell, so compose cannot health check it.
           for _ in $(seq 1 60); do
             curl -fsS http://localhost:8080/default/.well-known/openid-configuration > /dev/null && exit 0
             sleep 1

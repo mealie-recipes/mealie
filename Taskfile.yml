@@ -155,8 +155,6 @@ tasks:
       before installation begins
     internal: true
     cmds:
-      # dependencies.txt holds the pinned dependencies alone. The Docker venv
-      # build installs from it in a layer that only uv.lock invalidates.
       - uv export --no-editable --no-emit-project --extra pgsql --format
         requirements-txt --output-file dist/dependencies.txt
       - cp dist/dependencies.txt dist/requirements.txt

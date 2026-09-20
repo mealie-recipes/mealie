@@ -65,10 +65,9 @@ COPY --from=frontend-builder /frontend/dist ./mealie/frontend
 # Build the source and binary package
 RUN uv build --out-dir dist
 
-# Create two requirements files. dependencies.txt pins everything mealie depends
-# on and changes only when uv.lock does, which lets the venv build cache it.
-# requirements.txt adds the package that was just built, so an install from it
-# gets that exact wheel.
+# dependencies.txt changes only when uv.lock does, so the venv build can cache
+# the install. requirements.txt adds the wheel that was just built, so an
+# install from it gets that exact one.
 RUN uv export --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/dependencies.txt \
     && cp dist/dependencies.txt dist/requirements.txt \
     && MEALIE_VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])") \
@@ -104,9 +103,7 @@ RUN python3 -m venv --upgrade-deps $VENV_PATH
 # Install the wheel and all dependencies into the venv
 FROM venv-builder-base AS venv-builder
 
-# Install the dependencies on their own first. This layer's cache key is the
-# content of dependencies.txt, so a commit that touches only mealie's own code
-# reuses it instead of rebuilding about 100 packages, python-ldap among them.
+# Cache key is dependencies.txt, so a mealie-only commit reuses this layer.
 COPY --from=packages dependencies.txt /dist/dependencies.txt
 RUN . $VENV_PATH/bin/activate \
     && pip install --require-hashes -r /dist/dependencies.txt
@@ -114,8 +111,7 @@ RUN . $VENV_PATH/bin/activate \
 # Copy built package (wheel) and its dependency requirements
 COPY --from=packages * /dist/
 
-# Install the wheel with exact versions of dependencies into the venv. The
-# dependencies are already in place, so pip only installs mealie itself.
+# The dependencies are already in place, so pip only installs mealie itself.
 RUN . $VENV_PATH/bin/activate \
     && pip install --require-hashes -r /dist/requirements.txt --find-links /dist
 
