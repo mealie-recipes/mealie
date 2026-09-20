@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "Vezi toate rețetele {count}",
       "merge-dialog-text": "Combinarea alimentelor selectate va fuziona alimentul sursă și alimentul țintă într-un singur aliment. Alimentul sursă va fi șters, iar toate referințele către alimentul sursă vor fi actualizate pentru a indica alimentul țintă.",
       "merge-food-example": "Combinarea {food1} în {food2}",
-      "seed-dialog-text": "Populează baza de date cu alimente în funcție de limba ta locală. Aceasta va crea peste 200 de alimente comune care pot fi utilizate pentru a organiza baza de date. Alimentele sunt traduse printr-un efort comunitar.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "Aveți deja unele elemente în baza dvs. de date. Această acțiune nu va reconcilia duplicatele, va trebui să le gestionați manual.",
       "combine-food": "Combină mâncarea",
       "source-food": "Sursa de mâncare",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Populează baza de date cu unități comune în funcție de limba ta locală.",
       "edit-label": "Editare etichetă",
       "new-label": "Etichetă Nouă",
       "labels": "Etichete",
