@@ -123,8 +123,16 @@ class IngredientFoodsSeeder(AbstractSeeder):
 
     def seed(self, locale: str | None = None) -> None:
         self.logger.info("Seeding Ingredient Foods")
-        for food in self.load_data(locale):
-            try:
-                self.repos.ingredient_foods.create(food)
-            except Exception as e:
-                self.logger.error(e)
+        to_seed = list(self.load_data(locale))
+        if not to_seed:
+            return
+
+        try:
+            self.repos.ingredient_foods.create_many(to_seed)
+        except Exception:
+            self.logger.exception("Failed to seed ingredient foods in bulk, falling back to one at a time")
+            for food in to_seed:
+                try:
+                    self.repos.ingredient_foods.create(food)
+                except Exception as e:
+                    self.logger.error(e)
