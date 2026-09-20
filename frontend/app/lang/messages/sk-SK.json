@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "Zobraziť všetkých {count} receptov",
       "merge-dialog-text": "Kombináciou vybraných potravín sa zdrojové jedlo a cieľové jedlo zlúčia do jedného jedla. Zdrojové jedlo bude vymazané a všetky odkazy na zdrojové jedlo budú aktualizované tak, aby ukazovali na cieľové jedlo.",
       "merge-food-example": "Zlučujem {food1} do {food2}",
-      "seed-dialog-text": "Naplňte databázu potravinami vo vašom jazyku. Tým vytvoríte viac ako 2700 bežných potravín, ktoré môžete použiť na organizovanie vašej databáze. Potraviny sú preložené vďaka úsiliu komunity.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "V databáze už máte nejaké údaje. Táto akcia neodstráni duplicitné položky, budete ich musieť odstrániť ručne.",
       "combine-food": "Kombinované jedlo",
       "source-food": "Zdrojové jedlo",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
       "edit-label": "Upraviť štítok",
       "new-label": "Nový štítok",
       "labels": "Štítky",
