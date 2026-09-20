@@ -1,6 +1,6 @@
 {
   "produce": {
-    "name": "Trái cây và rau củ",
+    "name": "Produce",
     "foods": {
       "garlic": {
         "name": "garlic",
@@ -437,7 +437,7 @@
     }
   },
   "grains": {
-    "name": "Các loại hạt",
+    "name": "Grains",
     "foods": {
       "rolled oat": {
         "name": "rolled oat",
@@ -650,7 +650,7 @@
     }
   },
   "meat": {
-    "name": "Thịt",
+    "name": "Meat",
     "foods": {
       "ground beef": {
         "name": "ground beef",
@@ -807,7 +807,7 @@
     }
   },
   "meat-products": {
-    "name": "Sản phẩm thịt",
+    "name": "Meat Products",
     "foods": {
       "bacon": {
         "name": "bacon",
@@ -860,7 +860,7 @@
     }
   },
   "seafood": {
-    "name": "Hải sản",
+    "name": "Seafood",
     "foods": {
       "bonito flake": {
         "name": "bonito flake",
@@ -953,7 +953,7 @@
     }
   },
   "dairy-products": {
-    "name": "Sản phẩm từ sữa",
+    "name": "Dairy Products",
     "foods": {
       "parmesan cheese": {
         "name": "parmesan cheese",
@@ -1110,7 +1110,7 @@
     }
   },
   "baked-goods": {
-    "name": "Bánh",
+    "name": "Baked Goods",
     "foods": {
       "pie crust": {
         "name": "pie crust",
@@ -1215,7 +1215,7 @@
     }
   },
   "canned-goods": {
-    "name": "Đồ hộp",
+    "name": "Canned Goods",
     "foods": {
       "canned tomato": {
         "name": "canned tomato",
@@ -1408,11 +1408,11 @@
     }
   },
   "frozen-foods": {
-    "name": "Đồ đông lạnh",
+    "name": "Frozen Foods",
     "foods": {}
   },
   "condiments": {
-    "name": "Đồ gia vị",
+    "name": "Condiments",
     "foods": {
       "soy sauce": {
         "name": "soy sauce",
@@ -1633,7 +1633,7 @@
     }
   },
   "spices": {
-    "name": "Gia vị",
+    "name": "Spices",
     "foods": {
       "cayenne pepper": {
         "name": "cayenne pepper",
@@ -2072,7 +2072,7 @@
     }
   },
   "sweets": {
-    "name": "Đồ ngọt",
+    "name": "Sweets",
     "foods": {
       "dark chocolate": {
         "name": "dark chocolate",
@@ -2141,7 +2141,7 @@
     }
   },
   "snacks": {
-    "name": "Đồ ăn vặt",
+    "name": "Snacks",
     "foods": {
       "walnut": {
         "name": "walnut",
@@ -2222,7 +2222,7 @@
     }
   },
   "beverages": {
-    "name": "Đồ uống",
+    "name": "Beverages",
     "foods": {
       "orange juice": {
         "name": "orange juice",
@@ -2271,7 +2271,7 @@
     }
   },
   "alcohol": {
-    "name": "Cồn",
+    "name": "Alcohol",
     "foods": {
       "white wine": {
         "name": "white wine",
@@ -2352,7 +2352,7 @@
     }
   },
   "health-foods": {
-    "name": "Đồ tốt cho sức khỏe",
+    "name": "Health Foods",
     "foods": {
       "coconut milk": {
         "name": "coconut milk",
@@ -2405,11 +2405,11 @@
     }
   },
   "household": {
-    "name": "Gia đình",
+    "name": "Household",
     "foods": {}
   },
   "other": {
-    "name": "Khác",
+    "name": "Other",
     "foods": {
       "ice": {
         "name": "ice",
