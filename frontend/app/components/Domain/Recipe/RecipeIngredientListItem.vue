@@ -23,7 +23,7 @@
         class="text-bold d-inline"
         :source="parsedIng.name"
       />
-      <!-- sits before the note, which takes a full flex row of its own -->
+      <!-- sits before the note, which takes a full block row beneath -->
       <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" :scale="scale" />
       <SafeMarkdown
         v-if="parsedIng.note"
@@ -62,17 +62,12 @@ const parsedIng = computed(() => {
 
 <style lang="scss">
 .ingredient-item {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  // column only: the note takes a flex row of its own, and it reads as belonging to the
-  // ingredient above it only if it sits tighter to that line than the rows sit to each other
-  column-gap: 0.25em;
+  display: block;
   line-height: 1.5;
-  word-break: break-word;
-  min-width: 0;
+  word-break: normal;
 
   .d-inline {
+    display: inline;
     & > p {
       display: inline;
       &:has(> sub) > sup {
@@ -92,12 +87,24 @@ const parsedIng = computed(() => {
         letter-spacing: 0rem;
       }
     }
+
+    &:not(.text-bold):not(.note)::after {
+      content: " ";
+    }
   }
 
   .text-bold {
+    display: inline;
     font-weight: bold;
     white-space: normal;
     word-break: break-word;
+
+    &::before {
+      content: " ";
+    }
+    & > p {
+      display: inline;
+    }
   }
 
   // vuetify sizes an icon button for a toolbar, far taller than the line of text this one
@@ -120,7 +127,6 @@ const parsedIng = computed(() => {
 }
 
 .note {
-  flex-basis: 100%;
   width: 100%;
   display: block;
   margin-top: 2px;
