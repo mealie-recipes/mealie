@@ -9,6 +9,12 @@ services:
 
   ldap:
     image: rroemhild/test-openldap
+    # The image declares a health command but no interval, so Docker probes it
+    # every 30s by default and `up --wait` holds for that long.
+    healthcheck:
+      interval: 2s
+      timeout: 5s
+      retries: 15
     ports:
       - 10389:10389
 
@@ -22,6 +28,14 @@ services:
       additional_contexts:
         packages: ../../../dist
     restart: always
+    # The image declares a health command but no interval. The server needs a
+    # few seconds to migrate and seed, and `up --wait` reports it healthy as
+    # soon as it answers.
+    healthcheck:
+      interval: 2s
+      timeout: 5s
+      retries: 60
+      start_period: 5s
     volumes:
       - mealie-data:/app/data/
     network_mode: host
