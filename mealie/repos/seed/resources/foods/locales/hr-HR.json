@@ -1,34 +1,34 @@
 {
   "produce": {
-    "name": "Svježe namirnice",
+    "name": "Produce",
     "foods": {
       "garlic": {
-        "name": "češnjak",
+        "name": "garlic",
         "plural_name": ""
       },
       "onion": {
-        "name": "luk",
-        "plural_name": ""
+        "name": "onion",
+        "plural_name": "onions"
       },
       "bell pepper": {
-        "name": "paprika",
-        "plural_name": "paprike"
+        "name": "bell pepper",
+        "plural_name": "bell peppers"
       },
       "carrot": {
-        "name": "mrkva",
-        "plural_name": "mrkve"
+        "name": "carrot",
+        "plural_name": "carrots"
       },
       "scallion": {
         "name": "scallion",
         "plural_name": "scallions"
       },
       "zucchini": {
-        "name": "tikvica",
-        "plural_name": "tikvice"
+        "name": "zucchini",
+        "plural_name": "zucchinis"
       },
       "potato": {
-        "name": "krumpir",
-        "plural_name": "krumpiri"
+        "name": "potato",
+        "plural_name": "potatoes"
       },
       "red onion": {
         "name": "red onion",
@@ -39,7 +39,7 @@
         "plural_name": "yellow onions"
       },
       "celery": {
-        "name": "celer",
+        "name": "celery",
         "plural_name": ""
       },
       "jalapeño": {
@@ -47,27 +47,27 @@
         "plural_name": "jalapeños"
       },
       "avocado": {
-        "name": "avokado",
-        "plural_name": ""
+        "name": "avocado",
+        "plural_name": "avocados"
       },
       "shallot": {
         "name": "shallot",
         "plural_name": "shallots"
       },
       "cherry tomato": {
-        "name": "cherry rajčica",
-        "plural_name": "cherry rajčice"
+        "name": "cherry tomato",
+        "plural_name": "cherry tomatoes"
       },
       "cucumber": {
-        "name": "krastavac",
-        "plural_name": "krastavci"
+        "name": "cucumber",
+        "plural_name": "cucumbers"
       },
       "spinach": {
-        "name": "špinat",
+        "name": "spinach",
         "plural_name": ""
       },
       "sweet corn": {
-        "name": "slatki kukuruz",
+        "name": "sweet corn",
         "plural_name": ""
       },
       "chile pepper": {
@@ -155,8 +155,8 @@
         "plural_name": "red cabbages"
       },
       "artichoke": {
-        "name": "artičoka",
-        "plural_name": "artičoke"
+        "name": "artichoke",
+        "plural_name": "artichokes"
       },
       "parsnip": {
         "name": "parsnip",
@@ -223,28 +223,28 @@
         "plural_name": ""
       },
       "tomato": {
-        "name": "rajčica",
-        "plural_name": "rajčice"
+        "name": "tomato",
+        "plural_name": "tomatoes"
       },
       "lemon": {
-        "name": "limun",
-        "plural_name": "limuni"
+        "name": "lemon",
+        "plural_name": "lemons"
       },
       "lime": {
-        "name": "limeta",
-        "plural_name": "limete"
+        "name": "lime",
+        "plural_name": "limes"
       },
       "apple": {
-        "name": "jabuka",
-        "plural_name": "jabuke"
+        "name": "apple",
+        "plural_name": "apples"
       },
       "banana": {
         "name": "banana",
         "plural_name": "bananas"
       },
       "orange": {
-        "name": "naranča",
-        "plural_name": "naranče"
+        "name": "orange",
+        "plural_name": "oranges"
       },
       "raisin": {
         "name": "raisin",
@@ -437,7 +437,7 @@
     }
   },
   "grains": {
-    "name": "Žitarice",
+    "name": "Grains",
     "foods": {
       "rolled oat": {
         "name": "rolled oat",
@@ -650,7 +650,7 @@
     }
   },
   "meat": {
-    "name": "Meso",
+    "name": "Meat",
     "foods": {
       "ground beef": {
         "name": "ground beef",
@@ -807,7 +807,7 @@
     }
   },
   "meat-products": {
-    "name": "Mesni proizvodi",
+    "name": "Meat Products",
     "foods": {
       "bacon": {
         "name": "bacon",
@@ -860,7 +860,7 @@
     }
   },
   "seafood": {
-    "name": "Plodovi mora",
+    "name": "Seafood",
     "foods": {
       "bonito flake": {
         "name": "bonito flake",
@@ -953,7 +953,7 @@
     }
   },
   "dairy-products": {
-    "name": "Mliječni proizvod",
+    "name": "Dairy Products",
     "foods": {
       "parmesan cheese": {
         "name": "parmesan cheese",
@@ -1110,7 +1110,7 @@
     }
   },
   "baked-goods": {
-    "name": "Pečeni proizvodi",
+    "name": "Baked Goods",
     "foods": {
       "pie crust": {
         "name": "pie crust",
@@ -1215,7 +1215,7 @@
     }
   },
   "canned-goods": {
-    "name": "Konzervirani proizvodi",
+    "name": "Canned Goods",
     "foods": {
       "canned tomato": {
         "name": "canned tomato",
@@ -1408,11 +1408,11 @@
     }
   },
   "frozen-foods": {
-    "name": "Smrznuta hrana",
+    "name": "Frozen Foods",
     "foods": {}
   },
   "condiments": {
-    "name": "Dodaci jelima",
+    "name": "Condiments",
     "foods": {
       "soy sauce": {
         "name": "soy sauce",
@@ -1633,7 +1633,7 @@
     }
   },
   "spices": {
-    "name": "Začini",
+    "name": "Spices",
     "foods": {
       "cayenne pepper": {
         "name": "cayenne pepper",
@@ -2072,7 +2072,7 @@
     }
   },
   "sweets": {
-    "name": "Slatkiši",
+    "name": "Sweets",
     "foods": {
       "dark chocolate": {
         "name": "dark chocolate",
@@ -2141,7 +2141,7 @@
     }
   },
   "snacks": {
-    "name": "Grickalice",
+    "name": "Snacks",
     "foods": {
       "walnut": {
         "name": "walnut",
@@ -2222,7 +2222,7 @@
     }
   },
   "beverages": {
-    "name": "Piće",
+    "name": "Beverages",
     "foods": {
       "orange juice": {
         "name": "orange juice",
@@ -2271,7 +2271,7 @@
     }
   },
   "alcohol": {
-    "name": "Alkohol",
+    "name": "Alcohol",
     "foods": {
       "white wine": {
         "name": "white wine",
@@ -2352,7 +2352,7 @@
     }
   },
   "health-foods": {
-    "name": "Zdrava Hrana",
+    "name": "Health Foods",
     "foods": {
       "coconut milk": {
         "name": "coconut milk",
@@ -2405,11 +2405,11 @@
     }
   },
   "household": {
-    "name": "Kućanstvo",
+    "name": "Household",
     "foods": {}
   },
   "other": {
-    "name": "Ostalo",
+    "name": "Other",
     "foods": {
       "ice": {
         "name": "ice",
