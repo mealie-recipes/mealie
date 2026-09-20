@@ -30,6 +30,21 @@ def set_sqlite_pragma_journal_wal(dbapi_connection, connection_record):
     cursor.close()
 
 
+@listens_for(Engine, "connect")
+def set_sqlite_pragma_testing(dbapi_connection, connection_record):
+    """Trades durability for speed against the disposable test database."""
+
+    global settings
+    if not settings.TESTING or settings.DB_ENGINE != "sqlite":
+        return
+
+    cursor = dbapi_connection.cursor()
+    cursor.execute("PRAGMA synchronous=OFF")
+    if not settings.SQLITE_MIGRATE_JOURNAL_WAL:
+        cursor.execute("PRAGMA journal_mode=MEMORY")
+    cursor.close()
+
+
 def sql_global_init(db_url: str):
     connect_args = {}
     if "sqlite" in db_url:
