@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "Ver todas as {count} receitas",
       "merge-dialog-text": "Combinar os alimentos selecionados irá juntar o alimento de origem e o alimento alvo num alimento único. O alimento de origem será eliminado e todas as referências a este serão atualizadas para apontar para o alimento alvo.",
       "merge-food-example": "A juntar {food1} com {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Combinar Alimentos",
       "source-food": "Alimento de Origem",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Adicionar à base de dados rótulos comuns no seu idioma local.",
       "edit-label": "Editar Rótulo",
       "new-label": "Novo rótulo",
       "labels": "Rótulos",
