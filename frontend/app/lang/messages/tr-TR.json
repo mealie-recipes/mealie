@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Seçilen gıdaların birleştirilmesi, kaynak gıdayı ve hedef gıdayı tek bir gıdada birleştirecektir. Kaynak gıda silinecek ve kaynak gıdaya yapılan tüm referanslar, hedef gıdayı işaret edecek şekilde güncellenecektir.",
       "merge-food-example": "{food1}, {food2} ile birleştiriliyor",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "Veritabanınızda zaten bazı öğeler mevcut. Bu işlem yinelenenleri birleştirmez, onları manuel olarak yönetmeniz gerekir.",
       "combine-food": "Gıdaları Birleştir",
       "source-food": "Kaynak Gıda",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Veritabanını yerel dilinize göre yaygın etiketlerle tohumlayın.",
       "edit-label": "Etiketi Düzenle",
       "new-label": "Yeni Etiket",
       "labels": "Etiketler",
