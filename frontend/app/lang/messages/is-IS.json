@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Við að sameina valdar matvörur munu matvörurnar sem þú hefur valið sameinast í eina matvöru. Upprunalegu matvörunni verður eytt og allar tengingar við matvöruna mun breytast og vísa á sameinuðu matvöruna.",
       "merge-food-example": "Sameina {food1} við {food2}",
-      "seed-dialog-text": "Bæta matvörum á þínu tungumáli við gagnagrunninn. Það munu bætast við um 2700 matvörur við gagnagrunninn sem hafa verið þýddar af notendum Mealie.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "Það eru nú þegar matvörur í gagnagrunninum. Nýrri matvöru verður ekki bætt við ef matvara með sama nafni er þegar til staðar.",
       "combine-food": "Sameina matvörur",
       "source-food": "Upprunaleg matvara",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Bæta algengum merkimiðum á þínu tungumáli við gagnarunninn.",
       "edit-label": "Breyta merkimiða",
       "new-label": "Nýr merkimiði",
       "labels": "Merkimiðar",
