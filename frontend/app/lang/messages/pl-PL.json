@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Połączenie wybranych produktów spożywczych scali produkt źródłowy i produkt docelowy w jeden produkt. Produkt źródłowy zostanie usunięty, a wszystkie odniesienia do produktu źródłowego zostaną zaktualizowane tak, aby wskazywały na produkt docelowy.",
       "merge-food-example": "Scalanie {food1} do {food2}",
-      "seed-dialog-text": "Wypełnij bazę danych produktami spożywczymi na podstawie Twojego lokalnego języka. Spowoduje to utworzenie ok. 2700 popularnych produktów spożywczych, które można wykorzystać do zorganizowania bazy danych. Produkty spożywcze są tłumaczone dzięki wysiłkom społeczności.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "W Twojej bazie danych znajdują się już niektóre pozycje. Nowa pozycja nie zostanie dodana, jeśli pozycja o tej samej nazwie już istnieje.",
       "combine-food": "Połącz Żywność",
       "source-food": "Żywność Źródłowa",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Wypełnij bazę zwyczajowymi etykietami dla wybranego języka.",
       "edit-label": "Edytuj Etykietę",
       "new-label": "Nowa Etykieta",
       "labels": "Etykiety",
