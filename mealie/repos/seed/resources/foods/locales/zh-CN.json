@@ -359,28 +359,28 @@
         "plural_name": ""
       },
       "strawberry": {
-        "name": "strawberry",
-        "plural_name": "strawberries"
+        "name": "草莓",
+        "plural_name": ""
       },
       "blueberry": {
-        "name": "blueberry",
-        "plural_name": "blueberries"
+        "name": "蓝莓",
+        "plural_name": ""
       },
       "raspberry": {
-        "name": "raspberry",
-        "plural_name": "raspberries"
+        "name": "覆盆子",
+        "plural_name": ""
       },
       "cranberry": {
-        "name": "cranberry",
-        "plural_name": "cranberries"
+        "name": "蔓越莓",
+        "plural_name": ""
       },
       "cherry": {
-        "name": "cherry",
-        "plural_name": "cherries"
+        "name": "樱桃",
+        "plural_name": ""
       },
       "blackberry": {
-        "name": "blackberry",
-        "plural_name": "blackberries"
+        "name": "黑莓",
+        "plural_name": ""
       },
       "parsley": {
         "name": "parsley",
@@ -960,39 +960,39 @@
         "plural_name": ""
       },
       "cheddar cheese": {
-        "name": "cheddar cheese",
+        "name": "切达干酪",
         "plural_name": ""
       },
       "cream cheese": {
-        "name": "cream cheese",
+        "name": "奶油干酪",
         "plural_name": ""
       },
       "cheese": {
-        "name": "cheese",
+        "name": "奶酪",
         "plural_name": ""
       },
       "mozzarella cheese": {
-        "name": "mozzarella cheese",
+        "name": "马苏里拉奶酪",
         "plural_name": ""
       },
       "feta cheese": {
-        "name": "feta cheese",
+        "name": "菲达干酪",
         "plural_name": ""
       },
       "ricotta cheese": {
-        "name": "ricotta cheese",
+        "name": "里科塔干酪",
         "plural_name": ""
       },
       "monterey jack cheese": {
-        "name": "monterey jack cheese",
+        "name": "蒙特利杰克干酪",
         "plural_name": ""
       },
       "blue cheese": {
-        "name": "blue cheese",
+        "name": "蓝纹干酪",
         "plural_name": ""
       },
       "goat cheese": {
-        "name": "goat cheese",
+        "name": "山羊干酪",
         "plural_name": ""
       },
       "swiss cheese": {
@@ -1000,79 +1000,79 @@
         "plural_name": ""
       },
       "gruyere cheese": {
-        "name": "gruyere cheese",
+        "name": "格鲁耶尔干酪",
         "plural_name": ""
       },
       "mascarpone cheese": {
-        "name": "mascarpone cheese",
+        "name": "马斯卡彭干酪",
         "plural_name": ""
       },
       "cottage cheese": {
-        "name": "cottage cheese",
+        "name": "茅屋奶酪",
         "plural_name": ""
       },
       "american cheese": {
-        "name": "american cheese",
+        "name": "美式干酪",
         "plural_name": ""
       },
       "brie cheese": {
-        "name": "brie cheese",
+        "name": "布里奶酪",
         "plural_name": ""
       },
       "paneer cheese": {
-        "name": "paneer cheese",
+        "name": "帕尼尔干酪",
         "plural_name": ""
       },
       "fontina cheese": {
-        "name": "fontina cheese",
+        "name": "丰缇娜干酪",
         "plural_name": ""
       },
       "queso fresco cheese": {
-        "name": "queso fresco cheese",
+        "name": "新鲜奶酪",
         "plural_name": ""
       },
       "halloumi cheese": {
-        "name": "halloumi cheese",
+        "name": "哈罗米奶酪",
         "plural_name": ""
       },
       "italian cheese blend": {
-        "name": "italian cheese blend",
+        "name": "意大利混合奶酪",
         "plural_name": ""
       },
       "butter": {
-        "name": "butter",
+        "name": "黄油",
         "plural_name": ""
       },
       "egg": {
-        "name": "egg",
-        "plural_name": "eggs"
+        "name": "鸡蛋",
+        "plural_name": "鸡蛋"
       },
       "milk": {
-        "name": "milk",
+        "name": "牛奶",
         "plural_name": ""
       },
       "heavy cream": {
-        "name": "heavy cream",
+        "name": "浓奶油",
         "plural_name": ""
       },
       "sour cream": {
-        "name": "sour cream",
+        "name": "酸奶油",
         "plural_name": ""
       },
       "buttermilk": {
-        "name": "buttermilk",
+        "name": "白脱牛奶",
         "plural_name": ""
       },
       "yogurt": {
-        "name": "yogurt",
+        "name": "酸奶",
         "plural_name": ""
       },
       "greek yogurt": {
-        "name": "greek yogurt",
+        "name": "希腊酸奶",
         "plural_name": ""
       },
       "cream": {
-        "name": "cream",
+        "name": "奶油",
         "plural_name": ""
       },
       "whipped cream": {
@@ -1096,7 +1096,7 @@
         "plural_name": ""
       },
       "provolone cheese": {
-        "name": "provolone cheese",
+        "name": "普罗沃洛内奶酪",
         "plural_name": ""
       },
       "egg white": {
@@ -2144,52 +2144,52 @@
     "name": "零食",
     "foods": {
       "walnut": {
-        "name": "walnut",
-        "plural_name": "walnuts"
+        "name": "核桃",
+        "plural_name": ""
       },
       "pecan": {
-        "name": "pecan",
-        "plural_name": "pecans"
+        "name": "山核桃",
+        "plural_name": ""
       },
       "almond": {
-        "name": "almond",
-        "plural_name": "almonds"
+        "name": "杏仁",
+        "plural_name": ""
       },
       "sesame seed": {
-        "name": "sesame seed",
-        "plural_name": "sesame seeds"
+        "name": "芝麻",
+        "plural_name": ""
       },
       "cashew": {
-        "name": "cashew",
-        "plural_name": "cashews"
+        "name": "腰果",
+        "plural_name": ""
       },
       "pine nut": {
-        "name": "pine nut",
-        "plural_name": "pine nuts"
+        "name": "松子",
+        "plural_name": ""
       },
       "pistachio": {
-        "name": "pistachio",
-        "plural_name": "pistachios"
+        "name": "开心果",
+        "plural_name": ""
       },
       "peanut": {
-        "name": "peanut",
-        "plural_name": "peanuts"
+        "name": "花生",
+        "plural_name": ""
       },
       "chia": {
-        "name": "chia",
+        "name": "奇亚籽",
         "plural_name": ""
       },
       "pumpkin seed": {
-        "name": "pumpkin seed",
-        "plural_name": "pumpkin seeds"
+        "name": "南瓜子",
+        "plural_name": ""
       },
       "hazelnut": {
-        "name": "hazelnut",
-        "plural_name": "hazelnuts"
+        "name": "榛子",
+        "plural_name": ""
       },
       "sunflower seed": {
-        "name": "sunflower seed",
-        "plural_name": "sunflower seeds"
+        "name": "向日葵籽",
+        "plural_name": ""
       },
       "graham cracker": {
         "name": "graham cracker",

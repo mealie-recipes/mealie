@@ -988,7 +988,7 @@
         "plural_name": ""
       },
       "blue cheese": {
-        "name": "blue cheese",
+        "name": "blåmuggost",
         "plural_name": ""
       },
       "goat cheese": {
@@ -1137,7 +1137,7 @@
         "plural_name": ""
       },
       "bread": {
-        "name": "bread",
+        "name": "brød",
         "plural_name": ""
       },
       "bread crumb": {
@@ -1165,12 +1165,12 @@
         "plural_name": "pitas"
       },
       "sourdough bread": {
-        "name": "sourdough bread",
+        "name": "surdeigsbrød",
         "plural_name": ""
       },
       "crouton": {
-        "name": "crouton",
-        "plural_name": "croutons"
+        "name": "krutong",
+        "plural_name": "krutonger"
       },
       "english muffin": {
         "name": "english muffin",
@@ -1181,7 +1181,7 @@
         "plural_name": ""
       },
       "rye bread": {
-        "name": "rye bread",
+        "name": "rugbrød",
         "plural_name": ""
       },
       "naan": {
@@ -1189,8 +1189,8 @@
         "plural_name": "naans"
       },
       "taco shell": {
-        "name": "taco shell",
-        "plural_name": "taco shells"
+        "name": "tacoskjell",
+        "plural_name": "tacoskjell"
       },
       "bagel": {
         "name": "bagel",
@@ -1198,7 +1198,7 @@
       },
       "croissant": {
         "name": "croissant",
-        "plural_name": "croissants"
+        "plural_name": "croissanter"
       },
       "hawaiian roll": {
         "name": "hawaiian roll",
@@ -2208,12 +2208,12 @@
         "plural_name": "pretzels"
       },
       "popcorn": {
-        "name": "popcorn",
+        "name": "popkorn",
         "plural_name": ""
       },
       "potato chip": {
-        "name": "potato chip",
-        "plural_name": "potato chips"
+        "name": "potetgull",
+        "plural_name": "potetgull"
       },
       "nut": {
         "name": "nut",

@@ -323,16 +323,16 @@
         "plural_name": ""
       },
       "button mushroom": {
-        "name": "button mushroom",
-        "plural_name": "button mushrooms"
+        "name": "cogumelo-de-paris",
+        "plural_name": "cogumelos-de-paris"
       },
       "shiitake mushroom": {
-        "name": "shiitake mushroom",
-        "plural_name": "shiitake mushrooms"
+        "name": "cogumelo shiitake",
+        "plural_name": "cogumelos shiitake"
       },
       "portobello mushroom": {
-        "name": "portobello mushroom",
-        "plural_name": "portobello mushrooms"
+        "name": "cogumelo portobello",
+        "plural_name": "cogumelos portobello"
       },
       "pea": {
         "name": "pea",
@@ -364,11 +364,11 @@
       },
       "blueberry": {
         "name": "blueberry",
-        "plural_name": "blueberries"
+        "plural_name": "mirtilos"
       },
       "raspberry": {
-        "name": "raspberry",
-        "plural_name": "raspberries"
+        "name": "framboesa",
+        "plural_name": "framboesas"
       },
       "cranberry": {
         "name": "cranberry",
@@ -379,7 +379,7 @@
         "plural_name": ""
       },
       "blackberry": {
-        "name": "blackberry",
+        "name": "amora",
         "plural_name": "blackberries"
       },
       "parsley": {
@@ -391,7 +391,7 @@
         "plural_name": ""
       },
       "basil": {
-        "name": "basil",
+        "name": "manjericão",
         "plural_name": ""
       },
       "ginger root": {
@@ -403,7 +403,7 @@
         "plural_name": "chives"
       },
       "mint": {
-        "name": "mint",
+        "name": "hortelã",
         "plural_name": ""
       },
       "lemongrass": {
@@ -729,12 +729,12 @@
         "plural_name": "oxtails"
       },
       "chicken breast": {
-        "name": "chicken breast",
-        "plural_name": "chicken breasts"
+        "name": "peito de frango",
+        "plural_name": "peitos de frango"
       },
       "chicken thigh": {
-        "name": "chicken thigh",
-        "plural_name": "chicken thighs"
+        "name": "coxa de frango",
+        "plural_name": "coxas de frango"
       },
       "ground turkey": {
         "name": "ground turkey",
@@ -1064,11 +1064,11 @@
         "plural_name": ""
       },
       "yogurt": {
-        "name": "yogurt",
+        "name": "iogurte",
         "plural_name": ""
       },
       "greek yogurt": {
-        "name": "greek yogurt",
+        "name": "Iogurte grego",
         "plural_name": ""
       },
       "cream": {
@@ -1415,7 +1415,7 @@
     "name": "Condimentos",
     "foods": {
       "soy sauce": {
-        "name": "soy sauce",
+        "name": "molho de soja",
         "plural_name": ""
       },
       "dijon mustard": {
@@ -1664,7 +1664,7 @@
         "plural_name": ""
       },
       "chili flake": {
-        "name": "chili flake",
+        "name": "floco de chili",
         "plural_name": "chili flakes"
       },
       "chili powder": {
@@ -1716,7 +1716,7 @@
         "plural_name": ""
       },
       "coriander": {
-        "name": "coriander",
+        "name": "coentro",
         "plural_name": ""
       },
       "allspice": {
@@ -1938,7 +1938,7 @@
         "plural_name": ""
       },
       "sugar": {
-        "name": "sugar",
+        "name": "açúcar",
         "plural_name": ""
       },
       "brown sugar": {
@@ -1998,7 +1998,7 @@
         "plural_name": "chocolate chips"
       },
       "whole-wheat flour": {
-        "name": "whole-wheat flour",
+        "name": "farinha de trigo integral",
         "plural_name": ""
       },
       "almond flour": {
@@ -2152,8 +2152,8 @@
         "plural_name": "pecans"
       },
       "almond": {
-        "name": "almond",
-        "plural_name": "almonds"
+        "name": "amêndoa",
+        "plural_name": "amêndoas"
       },
       "sesame seed": {
         "name": "sesame seed",
@@ -2168,12 +2168,12 @@
         "plural_name": "pine nuts"
       },
       "pistachio": {
-        "name": "pistachio",
+        "name": "pistácio",
         "plural_name": "pistachios"
       },
       "peanut": {
-        "name": "peanut",
-        "plural_name": "peanuts"
+        "name": "amendoim",
+        "plural_name": "amendoins"
       },
       "chia": {
         "name": "chia",
@@ -2184,8 +2184,8 @@
         "plural_name": "sementes de abóbora"
       },
       "hazelnut": {
-        "name": "hazelnut",
-        "plural_name": "hazelnuts"
+        "name": "avelã",
+        "plural_name": "avelãs"
       },
       "sunflower seed": {
         "name": "semente de girassol",
@@ -2355,7 +2355,7 @@
     "name": "Alimentos para Saúde",
     "foods": {
       "coconut milk": {
-        "name": "coconut milk",
+        "name": "Leite de coco",
         "plural_name": ""
       },
       "almond milk": {
@@ -2363,7 +2363,7 @@
         "plural_name": ""
       },
       "tofu": {
-        "name": "tofu",
+        "name": "‘tofu’",
         "plural_name": ""
       },
       "coconut cream": {

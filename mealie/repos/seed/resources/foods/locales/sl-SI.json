@@ -43,8 +43,8 @@
         "plural_name": ""
       },
       "jalapeño": {
-        "name": "Jalapeño čili",
-        "plural_name": "Jalapeño čiliji"
+        "name": "jalapeño čili",
+        "plural_name": "jalapeño čiliji"
       },
       "avocado": {
         "name": "avokado",
@@ -84,7 +84,7 @@
       },
       "heart of palm": {
         "name": "palmovi srčki",
-        "plural_name": "Palmovi srčki"
+        "plural_name": "palmovi srčki"
       },
       "pumpkin": {
         "name": "buča",
@@ -92,23 +92,23 @@
       },
       "cauliflower": {
         "name": "cvetača",
-        "plural_name": "Cvetače"
+        "plural_name": "cvetače"
       },
       "cabbage": {
         "name": "zelje",
         "plural_name": ""
       },
       "asparagus": {
-        "name": "Špargelj ali beluš",
-        "plural_name": "Šparglji ali beluši"
+        "name": "špargelj",
+        "plural_name": "šparglji"
       },
       "kale": {
         "name": "ohrovt",
-        "plural_name": "Kodrolistnati ohrovti"
+        "plural_name": "kodrolistni ohrovti"
       },
       "arugula": {
         "name": "rukola",
-        "plural_name": "Rukole"
+        "plural_name": "rukole"
       },
       "leek": {
         "name": "por",
@@ -120,15 +120,15 @@
       },
       "lettuce": {
         "name": "solata",
-        "plural_name": "Solata"
+        "plural_name": "solate"
       },
       "butternut squash": {
         "name": "muškatna buča",
         "plural_name": "muškatne buče"
       },
       "romaine lettuce": {
-        "name": "solata Romana",
-        "plural_name": "solate Romane"
+        "name": "rimska solata",
+        "plural_name": "rimske solate"
       },
       "beetroot": {
         "name": "pesa",
@@ -140,7 +140,7 @@
       },
       "fennel": {
         "name": "komarček",
-        "plural_name": "koromač"
+        "plural_name": "koromači"
       },
       "sun dried tomato": {
         "name": "sušeni paradižnik",
@@ -295,32 +295,32 @@
         "plural_name": "kiviji"
       },
       "grapefruit": {
-        "name": "grapefruit",
-        "plural_name": "grapefruits"
+        "name": "grenivka",
+        "plural_name": "grenivke"
       },
       "plum": {
-        "name": "plum",
-        "plural_name": "plums"
+        "name": "sliva",
+        "plural_name": "slive"
       },
       "fig": {
-        "name": "fig",
-        "plural_name": "figs"
+        "name": "figa",
+        "plural_name": "fige"
       },
       "apricot": {
-        "name": "apricot",
-        "plural_name": "apricots"
+        "name": "marelica",
+        "plural_name": "marelice"
       },
       "mandarin": {
-        "name": "mandarin",
-        "plural_name": "mandarins"
+        "name": "mandarina",
+        "plural_name": "mandarine"
       },
       "cantaloupe": {
-        "name": "melona",
+        "name": "mrežasta melona",
         "plural_name": ""
       },
       "tamarind": {
         "name": "tamarind",
-        "plural_name": "tamarinds"
+        "plural_name": "tamarindi"
       },
       "button mushroom": {
         "name": "dvotrosni kukmak",
@@ -331,79 +331,79 @@
         "plural_name": "šitake gobe"
       },
       "portobello mushroom": {
-        "name": "portobello goba",
-        "plural_name": "portobello gobe"
+        "name": "portobello šampinjon",
+        "plural_name": "portobello šampinjoni"
       },
       "pea": {
-        "name": "pea",
-        "plural_name": "peas"
+        "name": "grah",
+        "plural_name": "grah"
       },
       "green bean": {
-        "name": "green bean",
-        "plural_name": "green beans"
+        "name": "stročji fižol",
+        "plural_name": "stročji fižoli"
       },
       "snow pea": {
-        "name": "snow pea",
-        "plural_name": "snow peas"
+        "name": "snežni grah",
+        "plural_name": "snežni grahi"
       },
       "snap pea": {
-        "name": "snap pea",
-        "plural_name": "snap peas"
+        "name": "hrustljavi sladkorni grah",
+        "plural_name": "hrustljavi sladkorni grahi"
       },
       "bean sprout": {
-        "name": "bean sprout",
-        "plural_name": "bean sprouts"
+        "name": "fižolov kalček",
+        "plural_name": "fižolovi kalčki"
       },
       "edamame": {
         "name": "edamame",
         "plural_name": ""
       },
       "strawberry": {
-        "name": "strawberry",
-        "plural_name": "strawberries"
+        "name": "jagoda",
+        "plural_name": "jagode"
       },
       "blueberry": {
-        "name": "blueberry",
-        "plural_name": "blueberries"
+        "name": "borovnica",
+        "plural_name": "borovnice"
       },
       "raspberry": {
-        "name": "raspberry",
-        "plural_name": "raspberries"
+        "name": "malina",
+        "plural_name": "maline"
       },
       "cranberry": {
-        "name": "cranberry",
-        "plural_name": "cranberries"
+        "name": "ameriška brusnica",
+        "plural_name": "ameriške brusnice"
       },
       "cherry": {
-        "name": "cherry",
-        "plural_name": "cherries"
+        "name": "češnja",
+        "plural_name": "češnje"
       },
       "blackberry": {
-        "name": "blackberry",
-        "plural_name": "blackberries"
+        "name": "robida",
+        "plural_name": "robide"
       },
       "parsley": {
-        "name": "parsley",
+        "name": "peteršilj",
         "plural_name": ""
       },
       "cilantro": {
-        "name": "cilantro",
+        "name": "koriandrov list",
         "plural_name": ""
       },
       "basil": {
-        "name": "basil",
+        "name": "bazilika",
         "plural_name": ""
       },
       "ginger root": {
-        "name": "ginger root",
+        "name": "ingverjeva korenina",
         "plural_name": ""
       },
       "chive": {
-        "name": "chive",
-        "plural_name": "chives"
+        "name": "drobnjak",
+        "plural_name": "drobnjaki"
       },
       "mint": {
-        "name": "mint",
+        "name": "meta",
         "plural_name": ""
       },
       "lemongrass": {
@@ -411,7 +411,7 @@
         "plural_name": ""
       },
       "thai basil": {
-        "name": "thai basil",
+        "name": "tajska bazilika",
         "plural_name": ""
       },
       "mushroom": {
@@ -440,43 +440,43 @@
     "name": "Zrna",
     "foods": {
       "rolled oat": {
-        "name": "rolled oat",
-        "plural_name": "rolled oats"
+        "name": "ovseni kosmič",
+        "plural_name": "ovseni kosmiči"
       },
       "rice": {
-        "name": "rice",
+        "name": "riž",
         "plural_name": ""
       },
       "quinoa": {
-        "name": "quinoa",
+        "name": "kvinoja",
         "plural_name": ""
       },
       "basmati rice": {
-        "name": "basmati rice",
+        "name": "riž basmati",
         "plural_name": ""
       },
       "brown rice": {
-        "name": "brown rice",
+        "name": "rjavi riž",
         "plural_name": ""
       },
       "risotto rice": {
-        "name": "risotto rice",
+        "name": "riž za rižoto",
         "plural_name": ""
       },
       "couscous": {
-        "name": "couscous",
+        "name": "kuskus",
         "plural_name": ""
       },
       "wild rice": {
-        "name": "wild rice",
+        "name": "divji riž",
         "plural_name": ""
       },
       "semolina": {
-        "name": "semolina",
+        "name": "pšenični zdrob",
         "plural_name": ""
       },
       "jasmine rice": {
-        "name": "jasmine rice",
+        "name": "jasminov riž",
         "plural_name": ""
       },
       "polenta": {
@@ -484,7 +484,7 @@
         "plural_name": ""
       },
       "granola cereal": {
-        "name": "granola cereal",
+        "name": "granola",
         "plural_name": ""
       },
       "bulgur": {
@@ -492,143 +492,143 @@
         "plural_name": ""
       },
       "barley": {
-        "name": "barley",
+        "name": "ječmen",
         "plural_name": ""
       },
       "steel cut oat": {
-        "name": "steel cut oat",
-        "plural_name": "steel cut oats"
+        "name": "rezani oves",
+        "plural_name": "rezani ovsi"
       },
       "millet": {
-        "name": "millet",
+        "name": "proso",
         "plural_name": ""
       },
       "sushi rice": {
-        "name": "sushi rice",
+        "name": "riž za suši",
         "plural_name": ""
       },
       "hominy": {
-        "name": "hominy",
+        "name": "nikstamalizirana koruza",
         "plural_name": ""
       },
       "chickpea": {
-        "name": "chickpea",
-        "plural_name": "chickpeas"
+        "name": "čičerika",
+        "plural_name": "čičerike"
       },
       "black bean": {
-        "name": "black bean",
-        "plural_name": "black beans"
+        "name": "črni fižol",
+        "plural_name": "črni fižoli"
       },
       "kidney bean": {
-        "name": "kidney bean",
-        "plural_name": "kidney beans"
+        "name": "ledvičasti fižol",
+        "plural_name": "ledvičasti fižoli"
       },
       "white bean": {
-        "name": "white bean",
-        "plural_name": "white beans"
+        "name": "beli fižol",
+        "plural_name": "beli fižoli"
       },
       "lentil": {
-        "name": "lentil",
-        "plural_name": "lentils"
+        "name": "leča",
+        "plural_name": "leče"
       },
       "pinto bean": {
-        "name": "pinto bean",
-        "plural_name": "pinto beans"
+        "name": "pinto fižol",
+        "plural_name": "pinto fižoli"
       },
       "red lentil": {
-        "name": "red lentil",
-        "plural_name": "red lentils"
+        "name": "rdeča leča",
+        "plural_name": "rdeče leče"
       },
       "cannellini bean": {
-        "name": "cannellini bean",
-        "plural_name": "cannellini beans"
+        "name": "fižol cannellini",
+        "plural_name": "fižoli cannellini"
       },
       "black-eyed pea": {
-        "name": "black-eyed pea",
-        "plural_name": "black-eyed peas"
+        "name": "črnooki fižol",
+        "plural_name": "črnooki fižoli"
       },
       "split pea": {
-        "name": "split pea",
-        "plural_name": "split peas"
+        "name": "cepljeni grah",
+        "plural_name": "cepljeni grahi"
       },
       "mung bean": {
-        "name": "mung bean",
-        "plural_name": "mung beans"
+        "name": "mung fižol",
+        "plural_name": "mung fižoli"
       },
       "spaghetti": {
-        "name": "spaghetti",
+        "name": "špaget",
         "plural_name": ""
       },
       "macaroni": {
-        "name": "macaroni",
+        "name": "makaron",
         "plural_name": ""
       },
       "egg noodle": {
-        "name": "egg noodle",
-        "plural_name": "egg noodles"
+        "name": "jajčni rezanec",
+        "plural_name": "jajčni rezanci"
       },
       "spiral pasta": {
-        "name": "spiral pasta",
+        "name": "spiralna testenina",
         "plural_name": ""
       },
       "lasagna noodle": {
-        "name": "lasagna noodle",
-        "plural_name": "lasagna noodles"
+        "name": "list za lazanjo",
+        "plural_name": "listi za lazanjo"
       },
       "linguine": {
-        "name": "linguine",
+        "name": "linguina",
         "plural_name": ""
       },
       "fettuccine": {
-        "name": "fettuccine",
+        "name": "fettuccina",
         "plural_name": ""
       },
       "orzo": {
-        "name": "orzo",
+        "name": "testenina orzo",
         "plural_name": ""
       },
       "pasta shell": {
-        "name": "pasta shell",
-        "plural_name": "pasta shells"
+        "name": "školjkasta testenina",
+        "plural_name": "školjkaste testenine"
       },
       "noodle": {
-        "name": "noodle",
-        "plural_name": "noodles"
+        "name": "rezanec",
+        "plural_name": "rezanci"
       },
       "tortellini": {
-        "name": "tortellini",
+        "name": "tortelin",
         "plural_name": ""
       },
       "rice noodle": {
-        "name": "rice noodle",
-        "plural_name": "rice noodles"
+        "name": "rižev rezanec",
+        "plural_name": "riževi rezanci"
       },
       "rigatoni": {
-        "name": "rigatoni",
+        "name": "rigatone",
         "plural_name": ""
       },
       "gnocchi": {
-        "name": "gnocchi",
+        "name": "njok",
         "plural_name": ""
       },
       "ramen noodle": {
-        "name": "ramen noodle",
-        "plural_name": "ramen noodles"
+        "name": "ramen rezanec",
+        "plural_name": "ramen rezanci"
       },
       "soba noodle": {
-        "name": "soba noodle",
-        "plural_name": "soba noodles"
+        "name": "soba rezanec",
+        "plural_name": "soba rezanci"
       },
       "ravioli": {
-        "name": "ravioli",
+        "name": "raviol",
         "plural_name": ""
       },
       "udon noodle": {
-        "name": "udon noodle",
-        "plural_name": "udon noodles"
+        "name": "udon rezanec",
+        "plural_name": "udon rezanci"
       },
       "manicotti": {
-        "name": "manicotti",
+        "name": "manicotto",
         "plural_name": ""
       },
       "farro": {
@@ -653,132 +653,132 @@
     "name": "Meso",
     "foods": {
       "ground beef": {
-        "name": "ground beef",
+        "name": "mleto goveje meso",
         "plural_name": ""
       },
       "beef steak": {
-        "name": "beef steak",
-        "plural_name": "beef steaks"
+        "name": "goveji zrezek",
+        "plural_name": "goveji zrezki"
       },
       "pork chop": {
-        "name": "pork chop",
-        "plural_name": "pork chops"
+        "name": "svinjski kotlet",
+        "plural_name": "svinjski kotleti"
       },
       "pork loin": {
-        "name": "pork loin",
-        "plural_name": "pork loins"
+        "name": "svinjski kare",
+        "plural_name": "svinjski kareji"
       },
       "beef roast": {
-        "name": "beef roast",
-        "plural_name": "beef roasts"
+        "name": "goveja pečenka",
+        "plural_name": "goveje pečenke"
       },
       "ground pork": {
-        "name": "ground pork",
+        "name": "mleto svinjsko meso",
         "plural_name": ""
       },
       "beef stew meat": {
-        "name": "beef stew meat",
+        "name": "govedina za golaž",
         "plural_name": ""
       },
       "pork fillet": {
-        "name": "pork fillet",
-        "plural_name": "pork fillets"
+        "name": "svinjska ribica",
+        "plural_name": "svinjske ribice"
       },
       "pork shoulder": {
-        "name": "pork shoulder",
+        "name": "svinjsko pleče",
         "plural_name": ""
       },
       "ground lamb": {
-        "name": "ground lamb",
+        "name": "mleta jagnjetina",
         "plural_name": ""
       },
       "pork rib": {
-        "name": "pork rib",
-        "plural_name": "pork ribs"
+        "name": "svinjsko rebro",
+        "plural_name": "svinjska rebra"
       },
       "beef sirloin": {
-        "name": "beef sirloin",
-        "plural_name": "beef sirloins"
+        "name": "goveji rostbif",
+        "plural_name": "goveji rostbifi"
       },
       "brisket": {
-        "name": "brisket",
+        "name": "goveje prsi",
         "plural_name": ""
       },
       "leg of lamb": {
-        "name": "leg of lamb",
+        "name": "jagnječje stegno",
         "plural_name": "legs of lamb"
       },
       "beef short rib": {
-        "name": "beef short rib",
-        "plural_name": "beef short ribs"
+        "name": "kratko goveje rebro",
+        "plural_name": "kratka goveja rebra"
       },
       "pork belly": {
-        "name": "pork belly",
+        "name": "svinjski trebuh",
         "plural_name": ""
       },
       "lamb chop": {
-        "name": "lamb chop",
-        "plural_name": "lamb chops"
+        "name": "jagnječji kotlet",
+        "plural_name": "jagnječji kotleti"
       },
       "venison": {
-        "name": "venison",
+        "name": "jelenovina",
         "plural_name": ""
       },
       "oxtail": {
-        "name": "oxtail",
-        "plural_name": "oxtails"
+        "name": "volovski rep",
+        "plural_name": "volovski repi"
       },
       "chicken breast": {
-        "name": "chicken breast",
-        "plural_name": "chicken breasts"
+        "name": "piščančji prsni file",
+        "plural_name": "piščančji prsni fileji"
       },
       "chicken thigh": {
-        "name": "chicken thigh",
-        "plural_name": "chicken thighs"
+        "name": "piščančje stegno",
+        "plural_name": "piščančja stegna"
       },
       "ground turkey": {
-        "name": "ground turkey",
+        "name": "mleto puranje meso",
         "plural_name": ""
       },
       "whole chicken": {
-        "name": "whole chicken",
-        "plural_name": "whole chickens"
+        "name": "cel piščanec",
+        "plural_name": "celi piščanci"
       },
       "whole turkey": {
-        "name": "whole turkey",
-        "plural_name": "whole turkeys"
+        "name": "cel puran",
+        "plural_name": "celi purani"
       },
       "chicken leg": {
-        "name": "chicken leg",
-        "plural_name": "chicken legs"
+        "name": "piščančje bedro",
+        "plural_name": "piščančja bedra"
       },
       "chicken wing": {
-        "name": "chicken wing",
-        "plural_name": "chicken wings"
+        "name": "piščančje krilo",
+        "plural_name": "piščančja krila"
       },
       "turkey breast": {
-        "name": "turkey breast",
-        "plural_name": "turkey breasts"
+        "name": "puranji prsni file",
+        "plural_name": "puranji prsni fileji"
       },
       "ground chicken": {
-        "name": "ground chicken",
+        "name": "mleto piščančje meso",
         "plural_name": ""
       },
       "rotisserie chicken": {
-        "name": "rotisserie chicken",
-        "plural_name": "rotisserie chickens"
+        "name": "piščanec z ražnja",
+        "plural_name": "piščanci z ražnja"
       },
       "duck": {
-        "name": "duck",
-        "plural_name": "ducks"
+        "name": "raca",
+        "plural_name": "race"
       },
       "chicken liver": {
-        "name": "chicken liver",
-        "plural_name": "chicken livers"
+        "name": "piščančje jetro",
+        "plural_name": "piščančja jetra"
       },
       "cornish hen": {
-        "name": "cornish hen",
-        "plural_name": "cornish hens"
+        "name": "kornijski piščanec",
+        "plural_name": "kornijski piščanci"
       },
       "veal": {
         "name": "veal",
@@ -810,51 +810,51 @@
     "name": "Mesni produkti",
     "foods": {
       "bacon": {
-        "name": "bacon",
+        "name": "slanina",
         "plural_name": ""
       },
       "ham": {
-        "name": "ham",
+        "name": "šunka",
         "plural_name": ""
       },
       "prosciutto": {
-        "name": "prosciutto",
+        "name": "pršut",
         "plural_name": ""
       },
       "sausage": {
-        "name": "sausage",
-        "plural_name": "sausages"
+        "name": "klobasa",
+        "plural_name": "klobase"
       },
       "pepperoni": {
-        "name": "pepperoni",
-        "plural_name": "pepperonis"
+        "name": "salama pepperoni",
+        "plural_name": "salame pepperoni"
       },
       "chorizo": {
         "name": "chorizo",
         "plural_name": ""
       },
       "pancetta": {
-        "name": "pancetta",
+        "name": "panceta",
         "plural_name": ""
       },
       "breakfast sausage": {
-        "name": "breakfast sausage",
-        "plural_name": "breakfast sausages"
+        "name": "klobasa za zajtrk",
+        "plural_name": "klobase za zajtrk"
       },
       "hot dog": {
-        "name": "hot dog",
-        "plural_name": "hot dogs"
+        "name": "hrenovka",
+        "plural_name": "hrenovke"
       },
       "salami": {
-        "name": "salami",
+        "name": "salama",
         "plural_name": ""
       },
       "kielbasa": {
-        "name": "kielbasa",
+        "name": "poljska klobasa",
         "plural_name": ""
       },
       "corned beef": {
-        "name": "corned beef",
+        "name": "konzervirana soljena govedina",
         "plural_name": ""
       }
     }
@@ -863,83 +863,83 @@
     "name": "Morska hrana",
     "foods": {
       "bonito flake": {
-        "name": "bonito flake",
-        "plural_name": "bonito flakes"
+        "name": "kosmič palamide",
+        "plural_name": "kosmiči palamide"
       },
       "salmon": {
-        "name": "salmon",
+        "name": "losos",
         "plural_name": ""
       },
       "smoked salmon": {
-        "name": "smoked salmon",
+        "name": "dimljen losos",
         "plural_name": ""
       },
       "cod": {
-        "name": "cod",
+        "name": "trska",
         "plural_name": ""
       },
       "tilapia": {
-        "name": "tilapia",
+        "name": "tilapija",
         "plural_name": ""
       },
       "halibut": {
-        "name": "halibut",
+        "name": "morska plošča",
         "plural_name": ""
       },
       "trout": {
-        "name": "trout",
+        "name": "postrv",
         "plural_name": ""
       },
       "catfish": {
-        "name": "catfish",
+        "name": "som",
         "plural_name": ""
       },
       "sardine": {
-        "name": "sardine",
-        "plural_name": "sardines"
+        "name": "sardela",
+        "plural_name": "sardele"
       },
       "haddock": {
-        "name": "haddock",
+        "name": "vahnja",
         "plural_name": ""
       },
       "shrimp": {
-        "name": "shrimp",
+        "name": "kozica",
         "plural_name": ""
       },
       "crab": {
-        "name": "crab",
-        "plural_name": "crabs"
+        "name": "rakovica",
+        "plural_name": "rakovice"
       },
       "scallop": {
-        "name": "scallop",
-        "plural_name": "scallops"
+        "name": "pokrovača",
+        "plural_name": "pokrovače"
       },
       "mussel": {
-        "name": "mussel",
-        "plural_name": "mussels"
+        "name": "klapavica",
+        "plural_name": "klapavice"
       },
       "clam": {
-        "name": "clam",
-        "plural_name": "clams"
+        "name": "vongola",
+        "plural_name": "vongole"
       },
       "squid": {
-        "name": "squid",
+        "name": "lignj",
         "plural_name": ""
       },
       "nori": {
-        "name": "nori",
+        "name": "alga nori",
         "plural_name": ""
       },
       "lobster": {
-        "name": "lobster",
-        "plural_name": "lobsters"
+        "name": "jastog",
+        "plural_name": "jastogi"
       },
       "oyster": {
-        "name": "oyster",
-        "plural_name": "oysters"
+        "name": "ostriga",
+        "plural_name": "ostrige"
       },
       "octopus": {
-        "name": "octopus",
+        "name": "hobotnica",
         "plural_name": "octopuses"
       },
       "fish": {
@@ -956,43 +956,43 @@
     "name": "Mlečni produkti",
     "foods": {
       "parmesan cheese": {
-        "name": "parmesan cheese",
+        "name": "parmezan",
         "plural_name": ""
       },
       "cheddar cheese": {
-        "name": "cheddar cheese",
+        "name": "čedar",
         "plural_name": ""
       },
       "cream cheese": {
-        "name": "cream cheese",
+        "name": "kremni sir",
         "plural_name": ""
       },
       "cheese": {
-        "name": "cheese",
+        "name": "sir",
         "plural_name": ""
       },
       "mozzarella cheese": {
-        "name": "mozzarella cheese",
+        "name": "mocarela",
         "plural_name": ""
       },
       "feta cheese": {
-        "name": "feta cheese",
+        "name": "feta",
         "plural_name": ""
       },
       "ricotta cheese": {
-        "name": "ricotta cheese",
+        "name": "rikota",
         "plural_name": ""
       },
       "monterey jack cheese": {
-        "name": "monterey jack cheese",
+        "name": "sir Monterey Jack",
         "plural_name": ""
       },
       "blue cheese": {
-        "name": "blue cheese",
+        "name": "modri sir",
         "plural_name": ""
       },
       "goat cheese": {
-        "name": "goat cheese",
+        "name": "kozji sir",
         "plural_name": ""
       },
       "swiss cheese": {
@@ -1000,95 +1000,95 @@
         "plural_name": ""
       },
       "gruyere cheese": {
-        "name": "gruyere cheese",
+        "name": "grojer",
         "plural_name": ""
       },
       "mascarpone cheese": {
-        "name": "mascarpone cheese",
+        "name": "maskarpone",
         "plural_name": ""
       },
       "cottage cheese": {
-        "name": "cottage cheese",
+        "name": "zrnati sir",
         "plural_name": ""
       },
       "american cheese": {
-        "name": "american cheese",
+        "name": "ameriški sir",
         "plural_name": ""
       },
       "brie cheese": {
-        "name": "brie cheese",
+        "name": "brie",
         "plural_name": ""
       },
       "paneer cheese": {
-        "name": "paneer cheese",
+        "name": "panir",
         "plural_name": ""
       },
       "fontina cheese": {
-        "name": "fontina cheese",
+        "name": "fontina",
         "plural_name": ""
       },
       "queso fresco cheese": {
-        "name": "queso fresco cheese",
+        "name": "queso fresco",
         "plural_name": ""
       },
       "halloumi cheese": {
-        "name": "halloumi cheese",
+        "name": "halumi",
         "plural_name": ""
       },
       "italian cheese blend": {
-        "name": "italian cheese blend",
+        "name": "mešanica italijanskih sirov",
         "plural_name": ""
       },
       "butter": {
-        "name": "butter",
+        "name": "maslo",
         "plural_name": ""
       },
       "egg": {
-        "name": "egg",
-        "plural_name": "eggs"
+        "name": "jajce",
+        "plural_name": "jajca"
       },
       "milk": {
-        "name": "milk",
+        "name": "mleko",
         "plural_name": ""
       },
       "heavy cream": {
-        "name": "heavy cream",
+        "name": "smetana za stepanje",
         "plural_name": ""
       },
       "sour cream": {
-        "name": "sour cream",
+        "name": "kisla smetana",
         "plural_name": ""
       },
       "buttermilk": {
-        "name": "buttermilk",
+        "name": "pinjenec",
         "plural_name": ""
       },
       "yogurt": {
-        "name": "yogurt",
+        "name": "jogurt",
         "plural_name": ""
       },
       "greek yogurt": {
-        "name": "greek yogurt",
+        "name": "grški jogurt",
         "plural_name": ""
       },
       "cream": {
-        "name": "cream",
+        "name": "smetana",
         "plural_name": ""
       },
       "whipped cream": {
-        "name": "whipped cream",
+        "name": "stepena smetana",
         "plural_name": ""
       },
       "ghee": {
-        "name": "ghee",
+        "name": "prečiščeno maslo",
         "plural_name": ""
       },
       "half and half": {
-        "name": "half and half",
+        "name": "mešanica mleka in smetane",
         "plural_name": ""
       },
       "sweetened condensed milk": {
-        "name": "sweetened condensed milk",
+        "name": "sladkano kondenzirano mleko",
         "plural_name": ""
       },
       "kefir": {
@@ -1096,7 +1096,7 @@
         "plural_name": ""
       },
       "provolone cheese": {
-        "name": "provolone cheese",
+        "name": "provolone",
         "plural_name": ""
       },
       "egg white": {
@@ -1113,104 +1113,104 @@
     "name": "Pečene dobrote",
     "foods": {
       "pie crust": {
-        "name": "pie crust",
-        "plural_name": "pie crusts"
+        "name": "testo za pito",
+        "plural_name": "testa za pito"
       },
       "puff pastry": {
-        "name": "puff pastry",
-        "plural_name": "puff pastries"
+        "name": "listnato testo",
+        "plural_name": "listnata testa"
       },
       "pizza dough": {
-        "name": "pizza dough",
+        "name": "testo za pico",
         "plural_name": ""
       },
       "phyllo": {
-        "name": "phyllo",
+        "name": "vlečeno testo",
         "plural_name": ""
       },
       "dumpling wrapper": {
-        "name": "dumpling wrapper",
-        "plural_name": "dumpling wrappers"
+        "name": "ovoj za cmok",
+        "plural_name": "ovoji za cmoke"
       },
       "rice paper": {
-        "name": "rice paper",
+        "name": "rižev papir",
         "plural_name": ""
       },
       "bread": {
-        "name": "bread",
+        "name": "kruh",
         "plural_name": ""
       },
       "bread crumb": {
-        "name": "bread crumb",
-        "plural_name": "bread crumbs"
+        "name": "krušna drobtina",
+        "plural_name": "krušne drobtine"
       },
       "panko": {
-        "name": "panko",
+        "name": "panko drobtina",
         "plural_name": ""
       },
       "flour tortilla": {
-        "name": "flour tortilla",
-        "plural_name": "flour tortillas"
+        "name": "pšenična tortilja",
+        "plural_name": "pšenične tortilje"
       },
       "corn tortilla": {
-        "name": "corn tortilla",
-        "plural_name": "corn tortillas"
+        "name": "koruzna tortilja",
+        "plural_name": "koruzne tortilje"
       },
       "baguette": {
-        "name": "baguette",
-        "plural_name": "baguettes"
+        "name": "bageta",
+        "plural_name": "bagete"
       },
       "pita": {
         "name": "pita",
-        "plural_name": "pitas"
+        "plural_name": "pite"
       },
       "sourdough bread": {
-        "name": "sourdough bread",
+        "name": "kruh z drožmi",
         "plural_name": ""
       },
       "crouton": {
-        "name": "crouton",
-        "plural_name": "croutons"
+        "name": "kruhova kocka",
+        "plural_name": "kruhove kocke"
       },
       "english muffin": {
-        "name": "english muffin",
-        "plural_name": "english muffins"
+        "name": "angleški mafin",
+        "plural_name": "angleški mafini"
       },
       "brioche": {
-        "name": "brioche",
+        "name": "brioš",
         "plural_name": ""
       },
       "rye bread": {
-        "name": "rye bread",
+        "name": "rženi kruh",
         "plural_name": ""
       },
       "naan": {
         "name": "naan",
-        "plural_name": "naans"
+        "plural_name": "naani"
       },
       "taco shell": {
-        "name": "taco shell",
-        "plural_name": "taco shells"
+        "name": "taco školjka",
+        "plural_name": "taco školjke"
       },
       "bagel": {
         "name": "bagel",
-        "plural_name": "bagels"
+        "plural_name": "bagli"
       },
       "croissant": {
-        "name": "croissant",
-        "plural_name": "croissants"
+        "name": "rogljiček",
+        "plural_name": "rogljički"
       },
       "hawaiian roll": {
-        "name": "hawaiian roll",
-        "plural_name": "hawaiian rolls"
+        "name": "havajska žemljica",
+        "plural_name": "havajske žemljice"
       },
       "challah": {
-        "name": "challah",
+        "name": "hala",
         "plural_name": ""
       },
       "bao bun": {
-        "name": "bao bun",
-        "plural_name": "bao buns"
+        "name": "bao štručka",
+        "plural_name": "bao štručke"
       }
     }
   },
@@ -1218,175 +1218,175 @@
     "name": "Konzervirana hrana",
     "foods": {
       "canned tomato": {
-        "name": "canned tomato",
-        "plural_name": "canned tomatoes"
+        "name": "konzerviran paradižnik",
+        "plural_name": "konzervirani paradižniki"
       },
       "caper": {
-        "name": "caper",
-        "plural_name": "capers"
+        "name": "kapra",
+        "plural_name": "kapre"
       },
       "green olive": {
-        "name": "green olive",
-        "plural_name": "green olives"
+        "name": "zelena oljka",
+        "plural_name": "zelene oljke"
       },
       "canned chickpea": {
-        "name": "canned chickpea",
-        "plural_name": "canned chickpeas"
+        "name": "konzervirana čičerika",
+        "plural_name": "konzervirane čičerike"
       },
       "black olive": {
-        "name": "black olive",
-        "plural_name": "black olives"
+        "name": "črna oljka",
+        "plural_name": "črne oljke"
       },
       "canned black bean": {
-        "name": "canned black bean",
-        "plural_name": "canned black beans"
+        "name": "konzerviran črni fižol",
+        "plural_name": "konzervirani črni fižoli"
       },
       "canned pumpkin": {
-        "name": "canned pumpkin",
+        "name": "konzervirana buča",
         "plural_name": ""
       },
       "kalamata olive": {
-        "name": "kalamata olive",
-        "plural_name": "kalamata olives"
+        "name": "oljka Kalamata",
+        "plural_name": "oljke Kalamata"
       },
       "canned tuna": {
-        "name": "canned tuna",
+        "name": "konzervirana tuna",
         "plural_name": ""
       },
       "pickle": {
-        "name": "pickle",
-        "plural_name": "pickles"
+        "name": "vložena kumarica",
+        "plural_name": "vložene kumarice"
       },
       "chipotle in adobo": {
-        "name": "chipotle in adobo",
+        "name": "chipotle v adobo omaki",
         "plural_name": "chipotles in adobo"
       },
       "canned anchovy": {
-        "name": "canned anchovy",
-        "plural_name": "canned anchovies"
+        "name": "konzerviran inčun",
+        "plural_name": "konzervirani inčuni"
       },
       "roasted red pepper": {
-        "name": "roasted red pepper",
-        "plural_name": "roasted red peppers"
+        "name": "pečena rdeča paprika",
+        "plural_name": "pečene rdeče paprike"
       },
       "canned artichoke": {
-        "name": "canned artichoke",
-        "plural_name": "canned artichokes"
+        "name": "konzervirana artičoka",
+        "plural_name": "konzervirane artičoke"
       },
       "canned corn": {
-        "name": "canned corn",
+        "name": "konzervirana koruza",
         "plural_name": ""
       },
       "canned kidney bean": {
-        "name": "canned kidney bean",
-        "plural_name": "canned kidney beans"
+        "name": "konzerviran ledvičasti fižol",
+        "plural_name": "konzervirani ledvičasti fižoli"
       },
       "refried bean": {
-        "name": "refried bean",
-        "plural_name": "refried beans"
+        "name": "prepražen fižol",
+        "plural_name": "prepraženi fižoli"
       },
       "canned whole tomato": {
-        "name": "canned whole tomato",
-        "plural_name": "canned whole tomatoes"
+        "name": "cel konzerviran paradižnik",
+        "plural_name": "celi konzervirani paradižniki"
       },
       "sweet pickle relish": {
-        "name": "sweet pickle relish",
+        "name": "sladki kumarični relish",
         "plural_name": ""
       },
       "sauerkraut": {
-        "name": "sauerkraut",
+        "name": "kislo zelje",
         "plural_name": ""
       },
       "creamed corn": {
-        "name": "creamed corn",
+        "name": "kremna koruza",
         "plural_name": ""
       },
       "pickled jalapeño": {
-        "name": "pickled jalapeño",
-        "plural_name": "pickled jalapeños"
+        "name": "vložen jalapeño",
+        "plural_name": "vloženi jalapeñi"
       },
       "diced green chile": {
-        "name": "diced green chile",
-        "plural_name": "diced green chiles"
+        "name": "narezan zeleni čili",
+        "plural_name": "narezani zeleni čiliji"
       },
       "sun-dried tomato in oil": {
-        "name": "sun-dried tomato in oil",
-        "plural_name": "sun-dried tomatoes in oil"
+        "name": "sušen paradižnik v olju",
+        "plural_name": "sušeni paradižniki v olju"
       },
       "kimchi": {
-        "name": "kimchi",
+        "name": "kimči",
         "plural_name": ""
       },
       "baked bean": {
-        "name": "baked bean",
-        "plural_name": "baked beans"
+        "name": "pečen fižol v omaki",
+        "plural_name": "pečeni fižoli v omaki"
       },
       "canned salmon": {
-        "name": "canned salmon",
+        "name": "konzerviran losos",
         "plural_name": ""
       },
       "canned clam": {
-        "name": "canned clam",
-        "plural_name": "canned clams"
+        "name": "konzervirana školjka",
+        "plural_name": "konzervirane školjke"
       },
       "canned baby corn": {
-        "name": "canned baby corn",
+        "name": "konzervirana mlada koruza",
         "plural_name": ""
       },
       "canned sardine": {
-        "name": "canned sardine",
-        "plural_name": "canned sardines"
+        "name": "konzervirana sardela",
+        "plural_name": "konzervirane sardele"
       },
       "aquafaba": {
-        "name": "aquafaba",
+        "name": "akvafaba",
         "plural_name": ""
       },
       "chicken broth": {
-        "name": "chicken broth",
+        "name": "piščančja juha",
         "plural_name": ""
       },
       "vegetable broth": {
-        "name": "vegetable broth",
+        "name": "zelenjavna juha",
         "plural_name": ""
       },
       "chicken stock": {
-        "name": "chicken stock",
+        "name": "piščančja jušna osnova",
         "plural_name": ""
       },
       "beef broth": {
-        "name": "beef broth",
+        "name": "goveja juha",
         "plural_name": ""
       },
       "beef stock": {
-        "name": "beef stock",
+        "name": "goveja jušna osnova",
         "plural_name": ""
       },
       "cream of mushroom": {
-        "name": "cream of mushroom",
+        "name": "kremna gobova juha",
         "plural_name": ""
       },
       "bouillon cube": {
-        "name": "bouillon cube",
-        "plural_name": "bouillon cubes"
+        "name": "jušna kocka",
+        "plural_name": "jušne kocke"
       },
       "cream of chicken": {
-        "name": "cream of chicken",
+        "name": "kremna piščančja juha",
         "plural_name": ""
       },
       "tomato soup": {
-        "name": "tomato soup",
+        "name": "paradižnikova juha",
         "plural_name": ""
       },
       "cream of celery": {
-        "name": "cream of celery",
+        "name": "kremna juha iz zelene",
         "plural_name": ""
       },
       "clam juice": {
-        "name": "clam juice",
+        "name": "sok školjk",
         "plural_name": ""
       },
       "dashi": {
-        "name": "dashi",
+        "name": "daši",
         "plural_name": ""
       },
       "olive": {
@@ -1415,35 +1415,35 @@
     "name": "Omake in dodatki",
     "foods": {
       "soy sauce": {
-        "name": "soy sauce",
+        "name": "sojina omaka",
         "plural_name": ""
       },
       "dijon mustard": {
-        "name": "dijon mustard",
+        "name": "dijonska gorčica",
         "plural_name": ""
       },
       "hot sauce": {
-        "name": "hot sauce",
+        "name": "pekoča omaka",
         "plural_name": ""
       },
       "worcestershire sauce": {
-        "name": "worcestershire sauce",
+        "name": "worcestrska omaka",
         "plural_name": ""
       },
       "ketchup": {
-        "name": "ketchup",
+        "name": "kečap",
         "plural_name": ""
       },
       "mustard": {
-        "name": "mustard",
+        "name": "gorčica",
         "plural_name": ""
       },
       "fish sauce": {
-        "name": "fish sauce",
+        "name": "ribja omaka",
         "plural_name": ""
       },
       "bbq sauce": {
-        "name": "bbq sauce",
+        "name": "omaka za žar",
         "plural_name": ""
       },
       "sriracha": {
@@ -1451,35 +1451,35 @@
         "plural_name": ""
       },
       "wholegrain mustard": {
-        "name": "wholegrain mustard",
+        "name": "gorčica z zrni",
         "plural_name": ""
       },
       "oyster sauce": {
-        "name": "oyster sauce",
+        "name": "ostrigina omaka",
         "plural_name": ""
       },
       "teriyaki sauce": {
-        "name": "teriyaki sauce",
+        "name": "teriyaki omaka",
         "plural_name": ""
       },
       "prepared horseradish": {
-        "name": "prepared horseradish",
+        "name": "pripravljen hren",
         "plural_name": ""
       },
       "cranberry sauce": {
-        "name": "cranberry sauce",
+        "name": "brusnična omaka",
         "plural_name": ""
       },
       "harissa": {
-        "name": "harissa",
+        "name": "harisa",
         "plural_name": ""
       },
       "tamarind paste": {
-        "name": "tamarind paste",
+        "name": "tamarindova pasta",
         "plural_name": ""
       },
       "gochujang": {
-        "name": "gochujang",
+        "name": "gočujang",
         "plural_name": ""
       },
       "wasabi": {
@@ -1491,15 +1491,15 @@
         "plural_name": ""
       },
       "preserved lemon": {
-        "name": "preserved lemon",
-        "plural_name": "preserved lemons"
+        "name": "vložena limona",
+        "plural_name": "vložene limone"
       },
       "thai sweet chili sauce": {
-        "name": "thai sweet chili sauce",
+        "name": "tajska sladko-pikantna čilijeva omaka",
         "plural_name": ""
       },
       "tartar sauce": {
-        "name": "tartar sauce",
+        "name": "tatarska omaka",
         "plural_name": ""
       },
       "ponzu": {
@@ -1507,20 +1507,20 @@
         "plural_name": ""
       },
       "peanut butter": {
-        "name": "peanut butter",
+        "name": "arašidovo maslo",
         "plural_name": ""
       },
       "tomato paste": {
-        "name": "tomato paste",
+        "name": "paradižnikova mezga",
         "plural_name": ""
       },
       "tomato sauce": {
-        "name": "tomato sauce",
+        "name": "paradižnikova omaka",
         "plural_name": ""
       },
       "salsa": {
         "name": "salsa",
-        "plural_name": "salsas"
+        "plural_name": "salse"
       },
       "tahini": {
         "name": "tahini",
@@ -1531,87 +1531,87 @@
         "plural_name": ""
       },
       "marinara sauce": {
-        "name": "marinara sauce",
+        "name": "marinara omaka",
         "plural_name": ""
       },
       "pasta sauce": {
-        "name": "pasta sauce",
+        "name": "omaka za testenine",
         "plural_name": ""
       },
       "hoisin sauce": {
-        "name": "hoisin sauce",
+        "name": "hoisin omaka",
         "plural_name": ""
       },
       "hummus": {
-        "name": "hummus",
+        "name": "humus",
         "plural_name": ""
       },
       "enchilada sauce": {
-        "name": "enchilada sauce",
+        "name": "enchilada omaka",
         "plural_name": ""
       },
       "salsa verde": {
-        "name": "salsa verde",
+        "name": "zelena salsa",
         "plural_name": ""
       },
       "alfredo sauce": {
-        "name": "alfredo sauce",
+        "name": "Alfredo omaka",
         "plural_name": ""
       },
       "balsamic glaze": {
-        "name": "balsamic glaze",
+        "name": "balzamična glazura",
         "plural_name": ""
       },
       "thai peanut sauce": {
-        "name": "thai peanut sauce",
+        "name": "tajska arašidova omaka",
         "plural_name": ""
       },
       "mole sauce": {
-        "name": "mole sauce",
+        "name": "mole omaka",
         "plural_name": ""
       },
       "white miso": {
-        "name": "white miso",
+        "name": "beli miso",
         "plural_name": ""
       },
       "almond butter": {
-        "name": "almond butter",
+        "name": "mandljevo maslo",
         "plural_name": ""
       },
       "mayonnaise": {
-        "name": "mayonnaise",
+        "name": "majoneza",
         "plural_name": ""
       },
       "apple cider vinegar": {
-        "name": "apple cider vinegar",
+        "name": "jabolčni kis",
         "plural_name": ""
       },
       "balsamic vinegar": {
-        "name": "balsamic vinegar",
+        "name": "balzamični kis",
         "plural_name": ""
       },
       "vinegar": {
-        "name": "vinegar",
+        "name": "kis",
         "plural_name": ""
       },
       "red wine vinegar": {
-        "name": "red wine vinegar",
+        "name": "rdeči vinski kis",
         "plural_name": ""
       },
       "rice wine vinegar": {
-        "name": "rice wine vinegar",
+        "name": "rižev kis",
         "plural_name": ""
       },
       "white wine vinegar": {
-        "name": "white wine vinegar",
+        "name": "beli vinski kis",
         "plural_name": ""
       },
       "ranch dressing": {
-        "name": "ranch dressing",
+        "name": "ranch preliv",
         "plural_name": ""
       },
       "distilled white vinegar": {
-        "name": "distilled white vinegar",
+        "name": "beli destilirani kis",
         "plural_name": ""
       },
       "sweet chili sauce": {
@@ -1619,11 +1619,11 @@
         "plural_name": ""
       },
       "caesar dressing": {
-        "name": "caesar dressing",
+        "name": "Cezarjev preliv",
         "plural_name": ""
       },
       "agave nectar": {
-        "name": "agave nectar",
+        "name": "agavin sirup",
         "plural_name": ""
       },
       "honey": {
@@ -1640,115 +1640,115 @@
         "plural_name": ""
       },
       "cinnamon": {
-        "name": "cinnamon",
+        "name": "cimet",
         "plural_name": ""
       },
       "cumin": {
-        "name": "cumin",
+        "name": "rimska kumina",
         "plural_name": ""
       },
       "thyme": {
-        "name": "thyme",
+        "name": "timijan",
         "plural_name": ""
       },
       "garlic powder": {
-        "name": "garlic powder",
+        "name": "česen v prahu",
         "plural_name": ""
       },
       "oregano": {
-        "name": "oregano",
+        "name": "origano",
         "plural_name": ""
       },
       "nutmeg": {
-        "name": "nutmeg",
+        "name": "muškatni orešček",
         "plural_name": ""
       },
       "chili flake": {
-        "name": "chili flake",
-        "plural_name": "chili flakes"
+        "name": "čilijev kosmič",
+        "plural_name": "čilijevi kosmiči"
       },
       "chili powder": {
-        "name": "chili powder",
+        "name": "čili v prahu",
         "plural_name": ""
       },
       "paprika": {
-        "name": "paprika",
+        "name": "mleta paprika",
         "plural_name": ""
       },
       "rosemary": {
-        "name": "rosemary",
+        "name": "rožmarin",
         "plural_name": ""
       },
       "bay leaf": {
-        "name": "bay leaf",
-        "plural_name": "bay leaves"
+        "name": "lovorjev list",
+        "plural_name": "lovorjevi listi"
       },
       "turmeric": {
-        "name": "turmeric",
+        "name": "kurkuma",
         "plural_name": ""
       },
       "clove": {
-        "name": "clove",
-        "plural_name": "cloves"
+        "name": "nageljnova žbica",
+        "plural_name": "nageljnove žbice"
       },
       "onion powder": {
-        "name": "onion powder",
+        "name": "čebula v prahu",
         "plural_name": ""
       },
       "ginger powder": {
-        "name": "ginger powder",
+        "name": "ingver v prahu",
         "plural_name": ""
       },
       "dill": {
-        "name": "dill",
+        "name": "koper",
         "plural_name": ""
       },
       "green cardamom": {
-        "name": "green cardamom",
+        "name": "zeleni kardamom",
         "plural_name": ""
       },
       "smoked paprika": {
-        "name": "smoked paprika",
+        "name": "dimljena paprika",
         "plural_name": ""
       },
       "sage": {
-        "name": "sage",
+        "name": "žajbelj",
         "plural_name": ""
       },
       "coriander": {
-        "name": "coriander",
+        "name": "koriandrovo seme",
         "plural_name": ""
       },
       "allspice": {
-        "name": "allspice",
+        "name": "piment",
         "plural_name": ""
       },
       "peppercorn": {
-        "name": "peppercorn",
-        "plural_name": "peppercorns"
+        "name": "poprovo zrno",
+        "plural_name": "poprova zrna"
       },
       "mustard seed": {
-        "name": "mustard seed",
-        "plural_name": "mustard seeds"
+        "name": "gorčično seme",
+        "plural_name": "gorčična semena"
       },
       "white pepper": {
-        "name": "white pepper",
+        "name": "beli poper",
         "plural_name": ""
       },
       "curry leaf": {
-        "name": "curry leaf",
-        "plural_name": "curry leaves"
+        "name": "karijev list",
+        "plural_name": "karijevi listi"
       },
       "fennel seed": {
-        "name": "fennel seed",
-        "plural_name": "fennel seeds"
+        "name": "koromačevo seme",
+        "plural_name": "koromačeva semena"
       },
       "tarragon": {
-        "name": "tarragon",
+        "name": "pehtran",
         "plural_name": ""
       },
       "saffron": {
-        "name": "saffron",
+        "name": "žafran",
         "plural_name": ""
       },
       "asafoetida": {
@@ -1756,35 +1756,35 @@
         "plural_name": ""
       },
       "star anise": {
-        "name": "star anise",
+        "name": "zvezdasti janež",
         "plural_name": ""
       },
       "fenugreek": {
-        "name": "fenugreek",
+        "name": "grško seno",
         "plural_name": ""
       },
       "kaffir lime leaf": {
-        "name": "kaffir lime leaf",
-        "plural_name": "kaffir lime leaves"
+        "name": "list makrutske limete",
+        "plural_name": "listi makrutske limete"
       },
       "guajillo pepper": {
-        "name": "guajillo pepper",
-        "plural_name": "guajillo peppers"
+        "name": "guajillo čili",
+        "plural_name": "guajillo čiliji"
       },
       "galangal": {
-        "name": "galangal",
+        "name": "galanga",
         "plural_name": ""
       },
       "aleppo pepper": {
-        "name": "aleppo pepper",
+        "name": "alepski poper",
         "plural_name": ""
       },
       "italian seasoning": {
-        "name": "italian seasoning",
+        "name": "italijanska začimbna mešanica",
         "plural_name": ""
       },
       "curry": {
-        "name": "curry",
+        "name": "karijeva začimbna mešanica",
         "plural_name": ""
       },
       "garam masala": {
@@ -1792,23 +1792,23 @@
         "plural_name": ""
       },
       "pumpkin pie spice": {
-        "name": "pumpkin pie spice",
+        "name": "mešanica začimb za bučno pito",
         "plural_name": ""
       },
       "mustard powder": {
-        "name": "mustard powder",
+        "name": "gorčica v prahu",
         "plural_name": ""
       },
       "taco seasoning": {
-        "name": "taco seasoning",
+        "name": "začimbna mešanica za taco",
         "plural_name": ""
       },
       "cajun seasoning": {
-        "name": "cajun seasoning",
+        "name": "cajunska začimbna mešanica",
         "plural_name": ""
       },
       "chinese five spice": {
-        "name": "chinese five spice",
+        "name": "kitajska mešanica petih začimb",
         "plural_name": ""
       },
       "chaat masala": {
@@ -1816,7 +1816,7 @@
         "plural_name": ""
       },
       "thai red curry paste": {
-        "name": "thai red curry paste",
+        "name": "tajska rdeča karijeva pasta",
         "plural_name": ""
       },
       "za'atar": {
@@ -1832,15 +1832,15 @@
         "plural_name": ""
       },
       "tom yum paste": {
-        "name": "tom yum paste",
+        "name": "pasta tom yum",
         "plural_name": ""
       },
       "old bay seasoning": {
-        "name": "old bay seasoning",
+        "name": "začimbna mešanica Old Bay",
         "plural_name": ""
       },
       "liquid smoke": {
-        "name": "liquid smoke",
+        "name": "tekoči dim",
         "plural_name": ""
       },
       "salt": {
@@ -1869,55 +1869,55 @@
     "name": "Oils",
     "foods": {
       "shortening": {
-        "name": "shortening",
+        "name": "slaščičarska mast",
         "plural_name": ""
       },
       "olive oil": {
-        "name": "olive oil",
+        "name": "oljčno olje",
         "plural_name": ""
       },
       "vegetable oil": {
-        "name": "vegetable oil",
+        "name": "rastlinsko olje",
         "plural_name": ""
       },
       "canola oil": {
-        "name": "canola oil",
+        "name": "repično olje",
         "plural_name": ""
       },
       "coconut oil": {
-        "name": "coconut oil",
+        "name": "kokosovo olje",
         "plural_name": ""
       },
       "cooking spray": {
-        "name": "cooking spray",
+        "name": "pršilo za kuhanje",
         "plural_name": ""
       },
       "sesame oil": {
-        "name": "sesame oil",
+        "name": "sezamovo olje",
         "plural_name": ""
       },
       "avocado oil": {
-        "name": "avocado oil",
+        "name": "avokadovo olje",
         "plural_name": ""
       },
       "peanut oil": {
-        "name": "peanut oil",
+        "name": "arašidovo olje",
         "plural_name": ""
       },
       "lard": {
-        "name": "lard",
+        "name": "svinjska mast",
         "plural_name": ""
       },
       "chili oil": {
-        "name": "chili oil",
+        "name": "čilijevo olje",
         "plural_name": ""
       },
       "truffle oil": {
-        "name": "truffle oil",
+        "name": "tartufovo olje",
         "plural_name": ""
       },
       "duck fat": {
-        "name": "duck fat",
+        "name": "račja mast",
         "plural_name": ""
       },
       "oil": {
@@ -1930,31 +1930,31 @@
     "name": "Baking",
     "foods": {
       "cocoa": {
-        "name": "cocoa",
+        "name": "kakav",
         "plural_name": ""
       },
       "baking chocolate": {
-        "name": "baking chocolate",
+        "name": "čokolada za peko",
         "plural_name": ""
       },
       "sugar": {
-        "name": "sugar",
+        "name": "sladkor",
         "plural_name": ""
       },
       "brown sugar": {
-        "name": "brown sugar",
+        "name": "rjavi sladkor",
         "plural_name": ""
       },
       "confectioners sugar": {
-        "name": "confectioners sugar",
+        "name": "sladkor v prahu",
         "plural_name": ""
       },
       "maple syrup": {
-        "name": "maple syrup",
+        "name": "javorjev sirup",
         "plural_name": ""
       },
       "corn syrup": {
-        "name": "corn syrup",
+        "name": "koruzni sirup",
         "plural_name": ""
       },
       "molasses": {
@@ -1962,7 +1962,7 @@
         "plural_name": ""
       },
       "stevia": {
-        "name": "stevia",
+        "name": "stevija",
         "plural_name": ""
       },
       "jaggery": {
@@ -1970,99 +1970,99 @@
         "plural_name": ""
       },
       "flour": {
-        "name": "flour",
+        "name": "moka",
         "plural_name": ""
       },
       "vanilla extract": {
-        "name": "vanilla extract",
+        "name": "vaniljev izvleček",
         "plural_name": ""
       },
       "baking powder": {
-        "name": "baking powder",
+        "name": "pecilni prašek",
         "plural_name": ""
       },
       "baking soda": {
-        "name": "baking soda",
+        "name": "soda bikarbona",
         "plural_name": ""
       },
       "cornstarch": {
-        "name": "cornstarch",
+        "name": "koruzni škrob",
         "plural_name": ""
       },
       "yeast": {
-        "name": "yeast",
+        "name": "kvas",
         "plural_name": ""
       },
       "chocolate chip": {
-        "name": "chocolate chip",
-        "plural_name": "chocolate chips"
+        "name": "čokoladna kapljica",
+        "plural_name": "čokoladne kapljice"
       },
       "whole-wheat flour": {
-        "name": "whole-wheat flour",
+        "name": "polnozrnata pšenična moka",
         "plural_name": ""
       },
       "almond flour": {
-        "name": "almond flour",
+        "name": "mandljeva moka",
         "plural_name": ""
       },
       "self-raising flour": {
-        "name": "self-raising flour",
+        "name": "samovzhajalna moka",
         "plural_name": ""
       },
       "shredded coconut": {
-        "name": "shredded coconut",
+        "name": "nastrgan kokos",
         "plural_name": ""
       },
       "cornmeal": {
-        "name": "cornmeal",
+        "name": "koruzni zdrob",
         "plural_name": ""
       },
       "gelatin": {
-        "name": "gelatin",
+        "name": "želatina",
         "plural_name": ""
       },
       "cake flour": {
-        "name": "cake flour",
+        "name": "moka za pecivo",
         "plural_name": ""
       },
       "cream of tartar": {
-        "name": "cream of tartar",
+        "name": "vinski kamen",
         "plural_name": ""
       },
       "bread flour": {
-        "name": "bread flour",
+        "name": "krušna moka",
         "plural_name": ""
       },
       "potato starch": {
-        "name": "potato starch",
+        "name": "krompirjev škrob",
         "plural_name": ""
       },
       "buckwheat flour": {
-        "name": "buckwheat flour",
+        "name": "ajdova moka",
         "plural_name": ""
       },
       "masa harina": {
-        "name": "masa harina",
+        "name": "nikstamalizirana koruzna moka",
         "plural_name": ""
       },
       "matzo meal": {
-        "name": "matzo meal",
+        "name": "moka iz mace",
         "plural_name": ""
       },
       "almond extract": {
-        "name": "almond extract",
+        "name": "mandljev izvleček",
         "plural_name": ""
       },
       "food coloring": {
-        "name": "food coloring",
+        "name": "živilsko barvilo",
         "plural_name": ""
       },
       "peppermint extract": {
-        "name": "peppermint extract",
+        "name": "izvleček poprove mete",
         "plural_name": ""
       },
       "orange extract": {
-        "name": "orange extract",
+        "name": "pomarančni izvleček",
         "plural_name": ""
       },
       "sprinkles": {
@@ -2075,67 +2075,67 @@
     "name": "Sladkarije",
     "foods": {
       "dark chocolate": {
-        "name": "dark chocolate",
+        "name": "temna čokolada",
         "plural_name": ""
       },
       "chocolate": {
-        "name": "chocolate",
+        "name": "čokolada",
         "plural_name": ""
       },
       "marshmallow": {
-        "name": "marshmallow",
-        "plural_name": "marshmallows"
+        "name": "penasti bonbon",
+        "plural_name": "penasti bonboni"
       },
       "applesauce": {
-        "name": "applesauce",
+        "name": "jabolčna čežana",
         "plural_name": ""
       },
       "white chocolate": {
-        "name": "white chocolate",
+        "name": "bela čokolada",
         "plural_name": ""
       },
       "chocolate hazelnut spread": {
-        "name": "chocolate hazelnut spread",
+        "name": "čokoladno-lešnikov namaz",
         "plural_name": ""
       },
       "caramel sauce": {
-        "name": "caramel sauce",
+        "name": "karamelna omaka",
         "plural_name": ""
       },
       "marshmallow creme": {
-        "name": "marshmallow creme",
+        "name": "krema iz penastih bonbonov",
         "plural_name": ""
       },
       "jam": {
-        "name": "jam",
+        "name": "marmelada",
         "plural_name": ""
       },
       "orange marmalade": {
-        "name": "orange marmalade",
+        "name": "pomarančna marmelada",
         "plural_name": ""
       },
       "cookie": {
-        "name": "cookie",
-        "plural_name": "cookies"
+        "name": "piškot",
+        "plural_name": "piškoti"
       },
       "lady finger": {
-        "name": "lady finger",
-        "plural_name": "lady fingers"
+        "name": "savoiardi piškot",
+        "plural_name": "savoiardi piškoti"
       },
       "apple butter": {
-        "name": "apple butter",
+        "name": "jabolčno maslo",
         "plural_name": ""
       },
       "ice cream": {
-        "name": "ice cream",
+        "name": "sladoled",
         "plural_name": ""
       },
       "lemon curd": {
-        "name": "lemon curd",
+        "name": "limonina krema",
         "plural_name": ""
       },
       "dulce de leche": {
-        "name": "dulce de leche",
+        "name": "mlečna karamela",
         "plural_name": ""
       }
     }
@@ -2144,76 +2144,76 @@
     "name": "Priboljški",
     "foods": {
       "walnut": {
-        "name": "walnut",
-        "plural_name": "walnuts"
+        "name": "oreh",
+        "plural_name": "orehi"
       },
       "pecan": {
-        "name": "pecan",
-        "plural_name": "pecans"
+        "name": "pekan oreh",
+        "plural_name": "pekan orehi"
       },
       "almond": {
-        "name": "almond",
-        "plural_name": "almonds"
+        "name": "mandelj",
+        "plural_name": "mandlji"
       },
       "sesame seed": {
-        "name": "sesame seed",
-        "plural_name": "sesame seeds"
+        "name": "sezamovo seme",
+        "plural_name": "sezamova semena"
       },
       "cashew": {
-        "name": "cashew",
-        "plural_name": "cashews"
+        "name": "indijski orešček",
+        "plural_name": "indijski oreščki"
       },
       "pine nut": {
-        "name": "pine nut",
-        "plural_name": "pine nuts"
+        "name": "pinjola",
+        "plural_name": "pinjole"
       },
       "pistachio": {
-        "name": "pistachio",
-        "plural_name": "pistachios"
+        "name": "pistacija",
+        "plural_name": "pistacije"
       },
       "peanut": {
-        "name": "peanut",
-        "plural_name": "peanuts"
+        "name": "arašid",
+        "plural_name": "arašidi"
       },
       "chia": {
-        "name": "chia",
+        "name": "seme chia",
         "plural_name": ""
       },
       "pumpkin seed": {
-        "name": "pumpkin seed",
-        "plural_name": "pumpkin seeds"
+        "name": "bučno seme",
+        "plural_name": "bučna semena"
       },
       "hazelnut": {
-        "name": "hazelnut",
-        "plural_name": "hazelnuts"
+        "name": "lešnik",
+        "plural_name": "lešniki"
       },
       "sunflower seed": {
-        "name": "sunflower seed",
-        "plural_name": "sunflower seeds"
+        "name": "sončnično seme",
+        "plural_name": "sončnična semena"
       },
       "graham cracker": {
-        "name": "graham cracker",
-        "plural_name": "graham crackers"
+        "name": "graham kreker",
+        "plural_name": "graham krekerji"
       },
       "cracker": {
-        "name": "cracker",
-        "plural_name": "crackers"
+        "name": "kreker",
+        "plural_name": "krekerji"
       },
       "tortilla chip": {
-        "name": "tortilla chip",
-        "plural_name": "tortilla chips"
+        "name": "tortiljin čips",
+        "plural_name": "tortiljini čipsi"
       },
       "pretzel": {
-        "name": "pretzel",
-        "plural_name": "pretzels"
+        "name": "presta",
+        "plural_name": "preste"
       },
       "popcorn": {
-        "name": "popcorn",
+        "name": "pokovka",
         "plural_name": ""
       },
       "potato chip": {
-        "name": "potato chip",
-        "plural_name": "potato chips"
+        "name": "krompirjev čips",
+        "plural_name": "krompirjevi čipsi"
       },
       "nut": {
         "name": "nut",
@@ -2225,15 +2225,15 @@
     "name": "Pijače",
     "foods": {
       "orange juice": {
-        "name": "orange juice",
+        "name": "pomarančni sok",
         "plural_name": ""
       },
       "coffee": {
-        "name": "coffee",
+        "name": "kava",
         "plural_name": ""
       },
       "club soda": {
-        "name": "club soda",
+        "name": "soda voda",
         "plural_name": ""
       },
       "espresso": {
@@ -2241,27 +2241,27 @@
         "plural_name": ""
       },
       "pineapple juice": {
-        "name": "pineapple juice",
+        "name": "ananasov sok",
         "plural_name": ""
       },
       "apple juice": {
-        "name": "apple juice",
+        "name": "jabolčni sok",
         "plural_name": ""
       },
       "tea": {
-        "name": "tea",
+        "name": "čaj",
         "plural_name": ""
       },
       "cranberry juice": {
-        "name": "cranberry juice",
+        "name": "brusnični sok",
         "plural_name": ""
       },
       "tomato juice": {
-        "name": "tomato juice",
+        "name": "paradižnikov sok",
         "plural_name": ""
       },
       "ginger beer": {
-        "name": "ginger beer",
+        "name": "ingverjevo pivo",
         "plural_name": ""
       },
       "water": {
@@ -2274,15 +2274,15 @@
     "name": "Alkohol",
     "foods": {
       "white wine": {
-        "name": "white wine",
+        "name": "belo vino",
         "plural_name": ""
       },
       "red wine": {
-        "name": "red wine",
+        "name": "rdeče vino",
         "plural_name": ""
       },
       "whisky": {
-        "name": "whisky",
+        "name": "viski",
         "plural_name": ""
       },
       "rum": {
@@ -2294,27 +2294,27 @@
         "plural_name": ""
       },
       "beer": {
-        "name": "beer",
+        "name": "pivo",
         "plural_name": ""
       },
       "orange liqueur": {
-        "name": "orange liqueur",
+        "name": "pomarančni liker",
         "plural_name": ""
       },
       "tequila": {
-        "name": "tequila",
+        "name": "tekila",
         "plural_name": ""
       },
       "sherry": {
-        "name": "sherry",
+        "name": "šeri",
         "plural_name": ""
       },
       "gin": {
-        "name": "gin",
+        "name": "džin",
         "plural_name": ""
       },
       "brandy": {
-        "name": "brandy",
+        "name": "brendi",
         "plural_name": ""
       },
       "mirin": {
@@ -2322,19 +2322,19 @@
         "plural_name": ""
       },
       "coffee liqueur": {
-        "name": "coffee liqueur",
+        "name": "kavni liker",
         "plural_name": ""
       },
       "champagne": {
-        "name": "champagne",
+        "name": "šampanjec",
         "plural_name": ""
       },
       "vermouth": {
-        "name": "vermouth",
+        "name": "vermut",
         "plural_name": ""
       },
       "marsala wine": {
-        "name": "marsala wine",
+        "name": "vino marsala",
         "plural_name": ""
       },
       "sake": {
@@ -2342,7 +2342,7 @@
         "plural_name": ""
       },
       "shaoxing wine": {
-        "name": "shaoxing wine",
+        "name": "vino Shaoxing",
         "plural_name": ""
       },
       "wine": {
@@ -2355,11 +2355,11 @@
     "name": "Zdrava hrana",
     "foods": {
       "coconut milk": {
-        "name": "coconut milk",
+        "name": "kokosovo mleko",
         "plural_name": ""
       },
       "almond milk": {
-        "name": "almond milk",
+        "name": "mandljevo mleko",
         "plural_name": ""
       },
       "tofu": {
@@ -2367,19 +2367,19 @@
         "plural_name": ""
       },
       "coconut cream": {
-        "name": "coconut cream",
+        "name": "kokosova smetana",
         "plural_name": ""
       },
       "soy milk": {
-        "name": "soy milk",
+        "name": "sojino mleko",
         "plural_name": ""
       },
       "extra firm tofu": {
-        "name": "extra firm tofu",
+        "name": "zelo čvrsti tofu",
         "plural_name": ""
       },
       "silken tofu": {
-        "name": "silken tofu",
+        "name": "svilnati tofu",
         "plural_name": ""
       },
       "tempeh": {
@@ -2387,19 +2387,19 @@
         "plural_name": ""
       },
       "oat milk": {
-        "name": "oat milk",
+        "name": "ovseno mleko",
         "plural_name": ""
       },
       "seitan": {
-        "name": "seitan",
+        "name": "sejtan",
         "plural_name": ""
       },
       "nutritional yeast": {
-        "name": "nutritional yeast",
+        "name": "prehranski kvas",
         "plural_name": ""
       },
       "vegan cheese": {
-        "name": "vegan cheese",
+        "name": "veganski sir",
         "plural_name": ""
       }
     }

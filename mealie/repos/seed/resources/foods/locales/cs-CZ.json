@@ -323,8 +323,8 @@
         "plural_name": "tamarinds"
       },
       "button mushroom": {
-        "name": "button mushroom",
-        "plural_name": "button mushrooms"
+        "name": "pečárka dvouvýtrusá",
+        "plural_name": "pečárky dvouvýtrusé"
       },
       "shiitake mushroom": {
         "name": "bílý žampion",
@@ -657,23 +657,23 @@
         "plural_name": ""
       },
       "beef steak": {
-        "name": "beef steak",
-        "plural_name": "beef steaks"
+        "name": "hovězí steak",
+        "plural_name": "hovězí steaky"
       },
       "pork chop": {
-        "name": "pork chop",
-        "plural_name": "pork chops"
+        "name": "vepřová kotleta",
+        "plural_name": "vepřové kotlety"
       },
       "pork loin": {
-        "name": "pork loin",
-        "plural_name": "pork loins"
+        "name": "vepřová pečeně",
+        "plural_name": "vepřové pečeně"
       },
       "beef roast": {
-        "name": "beef roast",
-        "plural_name": "beef roasts"
+        "name": "roastbeef",
+        "plural_name": "roastbeefy"
       },
       "ground pork": {
-        "name": "ground pork",
+        "name": "mleté vepřové",
         "plural_name": ""
       },
       "beef stew meat": {
@@ -689,7 +689,7 @@
         "plural_name": ""
       },
       "ground lamb": {
-        "name": "ground lamb",
+        "name": "mleté jehněčí",
         "plural_name": ""
       },
       "pork rib": {
@@ -697,8 +697,8 @@
         "plural_name": "vepřové žebra"
       },
       "beef sirloin": {
-        "name": "beef sirloin",
-        "plural_name": "beef sirloins"
+        "name": "hovězí sirloin",
+        "plural_name": "hovězí sirloin"
       },
       "brisket": {
         "name": "brisket",
@@ -721,7 +721,7 @@
         "plural_name": "lamb chops"
       },
       "venison": {
-        "name": "venison",
+        "name": "zvěřina",
         "plural_name": ""
       },
       "oxtail": {
@@ -757,8 +757,8 @@
         "plural_name": "kuřecí křídla"
       },
       "turkey breast": {
-        "name": "turkey breast",
-        "plural_name": "turkey breasts"
+        "name": "krůtí prso",
+        "plural_name": "krůtí prsa"
       },
       "ground chicken": {
         "name": "ground chicken",
@@ -822,12 +822,12 @@
         "plural_name": ""
       },
       "sausage": {
-        "name": "sausage",
-        "plural_name": "sausages"
+        "name": "párek",
+        "plural_name": "párky"
       },
       "pepperoni": {
-        "name": "pepperoni",
-        "plural_name": "pepperonis"
+        "name": "čabajka",
+        "plural_name": "čabajky"
       },
       "chorizo": {
         "name": "chorizo",
@@ -838,19 +838,19 @@
         "plural_name": ""
       },
       "breakfast sausage": {
-        "name": "breakfast sausage",
-        "plural_name": "breakfast sausages"
+        "name": "snídaňový párek",
+        "plural_name": "snídaňové párky"
       },
       "hot dog": {
-        "name": "hot dog",
-        "plural_name": "hot dogs"
+        "name": "párek v rohlíku",
+        "plural_name": "párky v rohlíku"
       },
       "salami": {
         "name": "salám",
         "plural_name": ""
       },
       "kielbasa": {
-        "name": "kielbasa",
+        "name": "klobása",
         "plural_name": ""
       },
       "corned beef": {
@@ -887,28 +887,28 @@
         "plural_name": ""
       },
       "trout": {
-        "name": "trout",
+        "name": "pstruh",
         "plural_name": ""
       },
       "catfish": {
-        "name": "catfish",
+        "name": "sumec",
         "plural_name": ""
       },
       "sardine": {
-        "name": "sardine",
-        "plural_name": "sardines"
+        "name": "sardinka",
+        "plural_name": "sardinky"
       },
       "haddock": {
         "name": "haddock",
         "plural_name": ""
       },
       "shrimp": {
-        "name": "shrimp",
+        "name": "kreveta",
         "plural_name": ""
       },
       "crab": {
-        "name": "crab",
-        "plural_name": "crabs"
+        "name": "krab",
+        "plural_name": "krabi"
       },
       "scallop": {
         "name": "scallop",
@@ -919,11 +919,11 @@
         "plural_name": "mussels"
       },
       "clam": {
-        "name": "clam",
-        "plural_name": "clams"
+        "name": "škeble",
+        "plural_name": "škeble"
       },
       "squid": {
-        "name": "squid",
+        "name": "oliheň",
         "plural_name": ""
       },
       "nori": {
@@ -931,15 +931,15 @@
         "plural_name": ""
       },
       "lobster": {
-        "name": "lobster",
-        "plural_name": "lobsters"
+        "name": "humr",
+        "plural_name": "humři"
       },
       "oyster": {
-        "name": "oyster",
-        "plural_name": "oysters"
+        "name": "ústřice",
+        "plural_name": "ústřice"
       },
       "octopus": {
-        "name": "octopus",
+        "name": "chobotnice",
         "plural_name": "octopuses"
       },
       "fish": {
@@ -960,7 +960,7 @@
         "plural_name": "parmazány"
       },
       "cheddar cheese": {
-        "name": "cheddar cheese",
+        "name": "sýr čedar",
         "plural_name": ""
       },
       "cream cheese": {
@@ -1088,7 +1088,7 @@
         "plural_name": ""
       },
       "sweetened condensed milk": {
-        "name": "sweetened condensed milk",
+        "name": "slazené kondenzované mléko",
         "plural_name": ""
       },
       "kefir": {
@@ -1439,7 +1439,7 @@
         "plural_name": ""
       },
       "fish sauce": {
-        "name": "fish sauce",
+        "name": "rybí omáčka",
         "plural_name": ""
       },
       "bbq sauce": {
@@ -2131,7 +2131,7 @@
         "plural_name": ""
       },
       "lemon curd": {
-        "name": "lemon curd",
+        "name": "citronový krém",
         "plural_name": ""
       },
       "dulce de leche": {
@@ -2367,7 +2367,7 @@
         "plural_name": ""
       },
       "coconut cream": {
-        "name": "coconut cream",
+        "name": "kokosová smetana",
         "plural_name": ""
       },
       "soy milk": {
