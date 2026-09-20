@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "Переглянути всі {count} рецепти",
       "merge-dialog-text": "Об’єднання вибраних продуктів створить єдину позицію. При цьому вихідний продукт буде видалено, а всі посилання на нього автоматично буде оновлено на цільовий продукт.",
       "merge-food-example": "Об'єднання {food1} в {food2}",
-      "seed-dialog-text": "Заповніть базу даних продуктами вашою мовою. Це дозволить створити близько 2700 поширених продуктів, які можна використовувати для організації вашої бази даних. Продукти перекладаються спільними зусиллями спільноти.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "У вас уже є деякі елементи в базі даних. Ця дія не об'єднає дублікати, вам доведеться керувати ними вручну.",
       "combine-food": "Об'єднати продукти",
       "source-food": "Вихідний продукт",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Заповнити базу даних розповсюдженими категоріями що відповідають мові.",
       "edit-label": "Редагувати мітку",
       "new-label": "Нова мітка",
       "labels": "Мітки",
