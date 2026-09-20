@@ -898,7 +898,7 @@
       "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Die kombinasie van die geselekteerde kosse sal die oorspronklike kos en die nuwe kos kombineer. Die oorspronklike kos sal verwyder word en alle verwysings sal opgedateer word om na die nuwe kos te wys.",
       "merge-food-example": "Voeg {food1} saam met {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "You have already have some items in your database. This action will not reconcile duplicates, you will have to manage them manually.",
       "combine-food": "Kombineer kos",
       "source-food": "Bron voedsel",
@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Vul die databasis met algemene etikette gebaseer op jou plaaslike taal.",
       "edit-label": "Wysig etiket",
       "new-label": "Nuwe etiket",
       "labels": "Etikette",
