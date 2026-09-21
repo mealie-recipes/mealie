@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Naplniť databázu z bežnými štítkami podla vášho lokálneho jazyka.",
       "edit-label": "Upraviť štítok",
       "new-label": "Nový štítok",
       "labels": "Štítky",
