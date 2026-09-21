@@ -68,7 +68,7 @@
       },
       "sweet corn": {
         "name": "suikermaïs",
-        "plural_name": "mais"
+        "plural_name": ""
       },
       "chile pepper": {
         "name": "chilipeper",
@@ -84,7 +84,7 @@
       },
       "heart of palm": {
         "name": "palmhart",
-        "plural_name": ""
+        "plural_name": "hearts of palm"
       },
       "pumpkin": {
         "name": "pompoen",
@@ -100,7 +100,7 @@
       },
       "asparagus": {
         "name": "asperge",
-        "plural_name": "asperges"
+        "plural_name": ""
       },
       "kale": {
         "name": "boerenkool",
@@ -128,7 +128,7 @@
       },
       "romaine lettuce": {
         "name": "Romeinse sla",
-        "plural_name": "romaine sla"
+        "plural_name": ""
       },
       "beetroot": {
         "name": "rode biet",
@@ -164,7 +164,7 @@
       },
       "poblano pepper": {
         "name": "poblano pepers",
-        "plural_name": ""
+        "plural_name": "poblano peppers"
       },
       "green tomato": {
         "name": "groene tomaat",
@@ -172,7 +172,7 @@
       },
       "horseradish": {
         "name": "mierikswortel",
-        "plural_name": "mierikswortelen"
+        "plural_name": ""
       },
       "chard": {
         "name": "snijbiet",
@@ -188,7 +188,7 @@
       },
       "celeriac": {
         "name": "knolselderij",
-        "plural_name": "knolselders"
+        "plural_name": ""
       },
       "turnip": {
         "name": "raap",
@@ -196,7 +196,7 @@
       },
       "bok choy": {
         "name": "bokchoi",
-        "plural_name": "bokchois"
+        "plural_name": ""
       },
       "okra": {
         "name": "okra",
@@ -204,7 +204,7 @@
       },
       "radicchio": {
         "name": "radijs",
-        "plural_name": "radijzen"
+        "plural_name": ""
       },
       "plantain": {
         "name": "bakbanaan",
@@ -288,7 +288,7 @@
       },
       "rhubarb": {
         "name": "rabarber",
-        "plural_name": "rabarbers"
+        "plural_name": ""
       },
       "kiwi": {
         "name": "kiwi",
@@ -296,7 +296,7 @@
       },
       "grapefruit": {
         "name": "pompelmoes",
-        "plural_name": ""
+        "plural_name": "grapefruits"
       },
       "plum": {
         "name": "pruim",
@@ -352,7 +352,7 @@
       },
       "bean sprout": {
         "name": "tauge",
-        "plural_name": ""
+        "plural_name": "bean sprouts"
       },
       "edamame": {
         "name": "edamame",
@@ -396,11 +396,11 @@
       },
       "ginger root": {
         "name": "gemberwortel",
-        "plural_name": "gemberwortels"
+        "plural_name": ""
       },
       "chive": {
         "name": "bieslook",
-        "plural_name": ""
+        "plural_name": "chives"
       },
       "mint": {
         "name": "munt",
@@ -497,7 +497,7 @@
       },
       "steel cut oat": {
         "name": "grofgesneden havermout",
-        "plural_name": ""
+        "plural_name": "steel cut oats"
       },
       "millet": {
         "name": "gierst",
@@ -581,7 +581,7 @@
       },
       "fettuccine": {
         "name": "fettucini",
-        "plural_name": "fettucini's"
+        "plural_name": ""
       },
       "orzo": {
         "name": "orzo",
@@ -617,7 +617,7 @@
       },
       "soba noodle": {
         "name": "sobanoedels",
-        "plural_name": ""
+        "plural_name": "soba noodles"
       },
       "ravioli": {
         "name": "ravioli",
@@ -625,7 +625,7 @@
       },
       "udon noodle": {
         "name": "udon noodles",
-        "plural_name": ""
+        "plural_name": "udon noodles"
       },
       "manicotti": {
         "name": "manicotti",
@@ -670,7 +670,7 @@
       },
       "beef roast": {
         "name": "geroosterd rundvlees",
-        "plural_name": ""
+        "plural_name": "beef roasts"
       },
       "ground pork": {
         "name": "varkensgehakt",
@@ -682,11 +682,11 @@
       },
       "pork fillet": {
         "name": "varkensfilet",
-        "plural_name": ""
+        "plural_name": "pork fillets"
       },
       "pork shoulder": {
         "name": "varkensschouder",
-        "plural_name": "varkensschouders"
+        "plural_name": ""
       },
       "ground lamb": {
         "name": "lamsgehakt",
@@ -702,7 +702,7 @@
       },
       "brisket": {
         "name": "klapstuk",
-        "plural_name": "klapstukken"
+        "plural_name": ""
       },
       "leg of lamb": {
         "name": "lamsbout",
@@ -710,7 +710,7 @@
       },
       "beef short rib": {
         "name": "runder shortribs",
-        "plural_name": ""
+        "plural_name": "beef short ribs"
       },
       "pork belly": {
         "name": "buikspek",
@@ -730,11 +730,11 @@
       },
       "chicken breast": {
         "name": "kipfilet",
-        "plural_name": ""
+        "plural_name": "chicken breasts"
       },
       "chicken thigh": {
         "name": "kipdijfilet",
-        "plural_name": ""
+        "plural_name": "chicken thighs"
       },
       "ground turkey": {
         "name": "kalkoengehakt",
@@ -811,7 +811,7 @@
     "foods": {
       "bacon": {
         "name": "spek",
-        "plural_name": "spekjes"
+        "plural_name": ""
       },
       "ham": {
         "name": "ham",
@@ -851,7 +851,7 @@
       },
       "kielbasa": {
         "name": "kielbasa worst",
-        "plural_name": "kielbasa's"
+        "plural_name": ""
       },
       "corned beef": {
         "name": "corned beef",
@@ -864,19 +864,19 @@
     "foods": {
       "bonito flake": {
         "name": "bonitovlokken",
-        "plural_name": ""
+        "plural_name": "bonito flakes"
       },
       "salmon": {
         "name": "zalm",
-        "plural_name": "zalmen"
+        "plural_name": ""
       },
       "smoked salmon": {
         "name": "gerookte zalm",
-        "plural_name": "gerookte zalmen"
+        "plural_name": ""
       },
       "cod": {
         "name": "kabeljauw",
-        "plural_name": "kabeljauwen"
+        "plural_name": ""
       },
       "tilapia": {
         "name": "tilapiafiilet",
@@ -884,15 +884,15 @@
       },
       "halibut": {
         "name": "heilbot",
-        "plural_name": "heilbotten"
+        "plural_name": ""
       },
       "trout": {
         "name": "forel",
-        "plural_name": "forellen"
+        "plural_name": ""
       },
       "catfish": {
         "name": "katvis",
-        "plural_name": "katvissen"
+        "plural_name": ""
       },
       "sardine": {
         "name": "sardine",
@@ -904,7 +904,7 @@
       },
       "shrimp": {
         "name": "garnaal",
-        "plural_name": "garnalen"
+        "plural_name": ""
       },
       "crab": {
         "name": "krab",
@@ -924,7 +924,7 @@
       },
       "squid": {
         "name": "inktvis",
-        "plural_name": "inktvissen"
+        "plural_name": ""
       },
       "nori": {
         "name": "nori",
@@ -957,7 +957,7 @@
     "foods": {
       "parmesan cheese": {
         "name": "parmesaanse kaas",
-        "plural_name": "parmezaanse kaas"
+        "plural_name": ""
       },
       "cheddar cheese": {
         "name": "cheddar kaas",
@@ -1041,7 +1041,7 @@
       },
       "butter": {
         "name": "boter",
-        "plural_name": "boters"
+        "plural_name": ""
       },
       "egg": {
         "name": "ei",
@@ -1065,11 +1065,11 @@
       },
       "yogurt": {
         "name": "yoghurt",
-        "plural_name": "yoghurts"
+        "plural_name": ""
       },
       "greek yogurt": {
         "name": "griekse yoghurt",
-        "plural_name": "griekse yoghurts"
+        "plural_name": ""
       },
       "cream": {
         "name": "room",
@@ -1118,11 +1118,11 @@
       },
       "puff pastry": {
         "name": "bladerdeeg",
-        "plural_name": ""
+        "plural_name": "puff pastries"
       },
       "pizza dough": {
         "name": "pizzadeeg",
-        "plural_name": "pizzadegen"
+        "plural_name": ""
       },
       "phyllo": {
         "name": "filodeeg",
@@ -1134,7 +1134,7 @@
       },
       "rice paper": {
         "name": "rijstpapier",
-        "plural_name": "rijstpapieren"
+        "plural_name": ""
       },
       "bread": {
         "name": "brood",
@@ -1166,7 +1166,7 @@
       },
       "sourdough bread": {
         "name": "zuurdesembrood",
-        "plural_name": "zuurdesembroden"
+        "plural_name": ""
       },
       "crouton": {
         "name": "crouton",
@@ -1243,7 +1243,7 @@
       },
       "canned pumpkin": {
         "name": "pompoen in blik",
-        "plural_name": "pompoen uit blik"
+        "plural_name": ""
       },
       "kalamata olive": {
         "name": "kalamata olijf",
@@ -1263,7 +1263,7 @@
       },
       "canned anchovy": {
         "name": "ansjovis uit blik",
-        "plural_name": ""
+        "plural_name": "canned anchovies"
       },
       "roasted red pepper": {
         "name": "geroosterde rode paprika",
@@ -1271,19 +1271,19 @@
       },
       "canned artichoke": {
         "name": "artisjok in blik",
-        "plural_name": ""
+        "plural_name": "canned artichokes"
       },
       "canned corn": {
         "name": "blik mais",
-        "plural_name": "blikken mais"
+        "plural_name": ""
       },
       "canned kidney bean": {
         "name": "kidneybonen uit blik",
-        "plural_name": ""
+        "plural_name": "canned kidney beans"
       },
       "refried bean": {
         "name": "refried beans",
-        "plural_name": ""
+        "plural_name": "refried beans"
       },
       "canned whole tomato": {
         "name": "blik hele tomaat",
@@ -1307,7 +1307,7 @@
       },
       "diced green chile": {
         "name": "groene chilipeperblokjes",
-        "plural_name": ""
+        "plural_name": "diced green chiles"
       },
       "sun-dried tomato in oil": {
         "name": "zon-gedroogde tomaat in olie",
@@ -1319,7 +1319,7 @@
       },
       "baked bean": {
         "name": "baked beans",
-        "plural_name": ""
+        "plural_name": "baked beans"
       },
       "canned salmon": {
         "name": "zalm uit blik",
@@ -1335,7 +1335,7 @@
       },
       "canned sardine": {
         "name": "sardines uit blik",
-        "plural_name": ""
+        "plural_name": "canned sardines"
       },
       "aquafaba": {
         "name": "aquafaba",
@@ -1424,11 +1424,11 @@
       },
       "hot sauce": {
         "name": "pittige saus",
-        "plural_name": "pittige sauzen"
+        "plural_name": ""
       },
       "worcestershire sauce": {
         "name": "worcestershiresaus",
-        "plural_name": "worcestershiresauzen"
+        "plural_name": ""
       },
       "ketchup": {
         "name": "ketchup",
@@ -1440,11 +1440,11 @@
       },
       "fish sauce": {
         "name": "vissaus",
-        "plural_name": "vissauzen"
+        "plural_name": ""
       },
       "bbq sauce": {
         "name": "bbq saus",
-        "plural_name": "bbq sauzen"
+        "plural_name": ""
       },
       "sriracha": {
         "name": "sriracha",
@@ -1460,7 +1460,7 @@
       },
       "teriyaki sauce": {
         "name": "teriyakisaus",
-        "plural_name": "teriyakisauzen"
+        "plural_name": ""
       },
       "prepared horseradish": {
         "name": "bereide mierikswortel",
@@ -1508,15 +1508,15 @@
       },
       "peanut butter": {
         "name": "pindakaas",
-        "plural_name": "pinakazen"
+        "plural_name": ""
       },
       "tomato paste": {
         "name": "tomatenpuree",
-        "plural_name": "tomatenpurees"
+        "plural_name": ""
       },
       "tomato sauce": {
         "name": "tomatensaus",
-        "plural_name": "tomatensauzen"
+        "plural_name": ""
       },
       "salsa": {
         "name": "salsa",
@@ -1524,7 +1524,7 @@
       },
       "tahini": {
         "name": "tahin",
-        "plural_name": "tahini"
+        "plural_name": ""
       },
       "pesto": {
         "name": "pesto",
@@ -1536,7 +1536,7 @@
       },
       "pasta sauce": {
         "name": "pastasaus",
-        "plural_name": "pastasauzen"
+        "plural_name": ""
       },
       "hoisin sauce": {
         "name": "hoisinsaus",
@@ -1596,7 +1596,7 @@
       },
       "red wine vinegar": {
         "name": "rode wijn azijn",
-        "plural_name": "rode wijnazijn"
+        "plural_name": ""
       },
       "rice wine vinegar": {
         "name": "rijstwijnazijn",
@@ -1624,7 +1624,7 @@
       },
       "agave nectar": {
         "name": "agavesiroop",
-        "plural_name": "agavesiropen"
+        "plural_name": ""
       },
       "honey": {
         "name": "honey",
@@ -1637,7 +1637,7 @@
     "foods": {
       "cayenne pepper": {
         "name": "cayennepeper",
-        "plural_name": "cayenne peper"
+        "plural_name": ""
       },
       "cinnamon": {
         "name": "kaneel",
@@ -1669,7 +1669,7 @@
       },
       "chili powder": {
         "name": "chilipoeder",
-        "plural_name": "chilli poeder"
+        "plural_name": ""
       },
       "paprika": {
         "name": "paprika",
@@ -1733,7 +1733,7 @@
       },
       "white pepper": {
         "name": "witte  peper",
-        "plural_name": "witte peper"
+        "plural_name": ""
       },
       "curry leaf": {
         "name": "kerrieblad",
@@ -1741,7 +1741,7 @@
       },
       "fennel seed": {
         "name": "venkelzaad",
-        "plural_name": ""
+        "plural_name": "fennel seeds"
       },
       "tarragon": {
         "name": "dragon",
@@ -1777,7 +1777,7 @@
       },
       "aleppo pepper": {
         "name": "Aleppopeper",
-        "plural_name": "Aleppopepers"
+        "plural_name": ""
       },
       "italian seasoning": {
         "name": "Italiaanse kruiden",
@@ -1870,7 +1870,7 @@
     "foods": {
       "shortening": {
         "name": "verkorting",
-        "plural_name": "bakvetten"
+        "plural_name": ""
       },
       "olive oil": {
         "name": "olijfolie",
@@ -1947,7 +1947,7 @@
       },
       "confectioners sugar": {
         "name": "poedersuiker",
-        "plural_name": "fondant suiker"
+        "plural_name": ""
       },
       "maple syrup": {
         "name": "ahornsiroop",
@@ -1987,7 +1987,7 @@
       },
       "cornstarch": {
         "name": "maïszetmeel",
-        "plural_name": "maizena"
+        "plural_name": ""
       },
       "yeast": {
         "name": "gist",
@@ -2007,7 +2007,7 @@
       },
       "self-raising flour": {
         "name": "zelfrijzend bakmeel",
-        "plural_name": "zelfrijzend meel"
+        "plural_name": ""
       },
       "shredded coconut": {
         "name": "geraspte kokos",
@@ -2055,7 +2055,7 @@
       },
       "food coloring": {
         "name": "kleurstof",
-        "plural_name": "kleurstoffen"
+        "plural_name": ""
       },
       "peppermint extract": {
         "name": "pepermuntextract",
@@ -2275,11 +2275,11 @@
     "foods": {
       "white wine": {
         "name": "witte wijn",
-        "plural_name": "witte wijnen"
+        "plural_name": ""
       },
       "red wine": {
         "name": "rode wijn",
-        "plural_name": "rode wijnen"
+        "plural_name": ""
       },
       "whisky": {
         "name": "whisky",
@@ -2291,15 +2291,15 @@
       },
       "vodka": {
         "name": "wodka",
-        "plural_name": "vodka's"
+        "plural_name": ""
       },
       "beer": {
         "name": "bier",
-        "plural_name": "bieren"
+        "plural_name": ""
       },
       "orange liqueur": {
         "name": "sinaasappel likeur",
-        "plural_name": "sinaasappel likeuren"
+        "plural_name": ""
       },
       "tequila": {
         "name": "tequila",
@@ -2356,11 +2356,11 @@
     "foods": {
       "coconut milk": {
         "name": "kokosmelk",
-        "plural_name": "Kokosmelk"
+        "plural_name": ""
       },
       "almond milk": {
         "name": "amandelmelk",
-        "plural_name": "Amandelmelk"
+        "plural_name": ""
       },
       "tofu": {
         "name": "tofu",
@@ -2368,11 +2368,11 @@
       },
       "coconut cream": {
         "name": "kokosroom",
-        "plural_name": "Kokosroom"
+        "plural_name": ""
       },
       "soy milk": {
         "name": "sojamelk",
-        "plural_name": "Sojamelk"
+        "plural_name": ""
       },
       "extra firm tofu": {
         "name": "extra stevige tofu",
@@ -2388,7 +2388,7 @@
       },
       "oat milk": {
         "name": "havermelk",
-        "plural_name": "Havermelk"
+        "plural_name": ""
       },
       "seitan": {
         "name": "seitan",
@@ -2396,11 +2396,11 @@
       },
       "nutritional yeast": {
         "name": "edelgistvlokken",
-        "plural_name": "voedingsgist"
+        "plural_name": ""
       },
       "vegan cheese": {
         "name": "Veganistische kaas",
-        "plural_name": "Vegan kaas"
+        "plural_name": ""
       }
     }
   },
