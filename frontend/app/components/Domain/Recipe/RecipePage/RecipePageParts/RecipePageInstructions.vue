@@ -512,6 +512,7 @@ import { VueDraggable } from "vue-draggable-plus";
 import { computed, nextTick, onMounted, ref, watch } from "vue";
 import type { RecipeStep, RecipeNote, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
 import { uuid4 } from "~/composables/use-utils";
+import { alertUnreportedError } from "~/composables/use-toast";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
@@ -966,7 +967,7 @@ async function handleImageDrop(index: number, files: File[]) {
 
   loadingStates.value[index] = true;
 
-  const { data } = await api.recipes.createAsset(props.recipe.slug, {
+  const { data, error } = await api.recipes.createAsset(props.recipe.slug, {
     name: file.name,
     icon: "mdi-file-image",
     file,
@@ -975,9 +976,12 @@ async function handleImageDrop(index: number, files: File[]) {
 
   loadingStates.value[index] = false;
 
-  if (!data) {
-    return; // TODO: Handle error
+  if (error) {
+    alertUnreportedError(error, i18n.t("events.something-went-wrong"));
+    return;
   }
+
+  if (!data) return;
 
   emit("update:assets", [...assets.value, data]);
   const assetUrl = recipeAssetPath(props.recipe.id, data.fileName as string);
