@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "根據您的本地語言，將常見標籤植入資料庫。",
       "edit-label": "編輯標籤",
       "new-label": "新增標籤",
       "labels": "標籤",
