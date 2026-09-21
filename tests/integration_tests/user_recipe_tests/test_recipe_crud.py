@@ -2,7 +2,6 @@ import inspect
 import json
 import os
 import random
-import shutil
 import tempfile
 from collections.abc import Generator
 from pathlib import Path
@@ -59,7 +58,7 @@ def zip_recipe(tempdir: str, recipe: RecipeSummary) -> dict:
     json.dump(json.loads(recipe.model_dump_json()), data_file)
     data_file.flush()
 
-    zip_file = shutil.make_archive(os.path.join(tempdir, "zipfile"), "zip")
+    zip_file = os.path.join(tempdir, "zipfile.zip")
     with ZipFile(zip_file, "w") as zf:
         zf.write(data_file.name)
 

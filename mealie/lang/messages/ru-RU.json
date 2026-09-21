@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Фото рецепта удалено",
         "recipe-defaults": {
             "ingredient-note": "1 чашка муки",
+            "name": "Новый рецепт",
             "step-text": "Шаги рецепта и прочие поля на странице рецепта поддерживают синтаксис Markdown.\n\n**Добавить ссылку**\n\n[Моя ссылка](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -46,7 +47,16 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Нет рецептов, соответствующих вашим правилам"
+        "no-recipes-match-your-rules": "Нет рецептов, соответствующих вашим правилам",
+        "entry-type": {
+            "breakfast": "завтрак",
+            "lunch": "обед",
+            "dinner": "ужин",
+            "side": "перекус",
+            "snack": "закуска",
+            "drink": "напиток",
+            "dessert": "десерт"
+        }
     },
     "user": {
         "user-updated": "Профиль пользователя обновлен",
@@ -73,7 +83,40 @@
         "generic-updated-with-url": "{name} обновлен, {url}",
         "generic-duplicated": "Копия {name} создана",
         "generic-deleted": "{name} удален",
-        "logged-out": "Вы вышли из системы"
+        "logged-out": "Вы вышли из системы",
+        "event-title": {
+            "test-message": "Тестовое сообщение",
+            "webhook-task": "Задача вебхука",
+            "recipe-created": "Рецепт создан",
+            "recipe-updated": "Рецепт обновлен",
+            "recipe-deleted": "Рецепт удален",
+            "user-signup": "Регистрация пользователя",
+            "data-migrations": "Перенос данных",
+            "data-export": "Экспорт данных",
+            "data-import": "Импорт данных",
+            "mealplan-entry-created": "Запись плана питания создана",
+            "mealplan-entry-updated": "Запись плана питания обновлена",
+            "mealplan-entry-deleted": "Запись плана питания удалена",
+            "shopping-list-created": "Список покупок создан",
+            "shopping-list-updated": "Список покупок обновлен",
+            "shopping-list-deleted": "Список покупок удален",
+            "cookbook-created": "Книга рецептов создана",
+            "cookbook-updated": "Книга рецептов обновлена",
+            "cookbook-deleted": "Книга рецептов удалена",
+            "tag-created": "Тег создан",
+            "tag-updated": "Тег обновлен",
+            "tag-deleted": "Тег удален",
+            "category-created": "Категория создана",
+            "category-updated": "Категория обновлена",
+            "category-deleted": "Категория удалена",
+            "label-created": "Метка создана",
+            "label-updated": "Метка обновлена",
+            "label-deleted": "Метка удалена"
+        },
+        "test-message-body": "Это тестовое уведомление от Mealie.",
+        "mealplan-entry-created": "Запись плана питания создана на {date} для {entry_type}",
+        "mealplan-entry-updated": "Запись плана питания на {date} для {entry_type} обновлена",
+        "mealplan-entry-deleted": "Запись плана питания удалена на {date} для {entry_type}"
     },
     "datetime": {
         "year": "год|лет",

@@ -76,8 +76,9 @@ def create_recipe(
     return recipe
 
 
-@pytest.fixture(autouse=True)
+@pytest.fixture(scope="module", autouse=True)
 def base_recipes(unique_user: TestUser, h2_user: TestUser):
+    """Background recipes for the suggestion queries to filter out; no test asserts on them."""
     for user in [unique_user, h2_user]:
         for _ in range(10):
             create_recipe(

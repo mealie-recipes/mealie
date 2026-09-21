@@ -44,6 +44,7 @@ class BruteForceParser(ABCIngredientParser):
         parsed_ingredient = ParsedIngredient(
             input=ingredient_string,
             ingredient=RecipeIngredient(
+                original_text=ingredient_string,
                 unit=CreateIngredientUnit(name=bfi.unit),
                 food=CreateIngredientFood(name=bfi.food),
                 quantity=bfi.amount,
@@ -259,6 +260,7 @@ class NLPParser(ABCIngredientParser):
             )
 
         primary_ingredient = recipe_ingredients[0]  # there will always be at least one recipe ingredient
+        primary_ingredient.original_text = ingredient.sentence
         extra_ingredients = recipe_ingredients[1:] if len(recipe_ingredients) > 1 else []
 
         if extra_ingredients:

@@ -12,8 +12,6 @@ files:
     translation: /mealie/repos/seed/resources/foods/locales/%locale%.json
   - source: /mealie/repos/seed/resources/units/locales/en-US.json
     translation: /mealie/repos/seed/resources/units/locales/%locale%.json
-  - source: /mealie/repos/seed/resources/labels/locales/en-US.json
-    translation: /mealie/repos/seed/resources/labels/locales/%locale%.json
 
 # New commit messages use [skip ci] causing our ci not to run on automatic PRs
 commit_message: "New translations %original_file_name% (%language%)"
