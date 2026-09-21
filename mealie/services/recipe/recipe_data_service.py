@@ -116,22 +116,30 @@ class RecipeDataService(BaseService):
             image_path = image_dir.joinpath(img_type.value)
             image_path.unlink(missing_ok=True)
 
-    async def fetch_image(self, image_url: str) -> tuple[bytes, str] | None:
+    async def fetch_image(self, image_url: str, max_bytes: int | None = None) -> tuple[bytes, str] | None:
         """Downloads the image at `image_url` and returns its bytes and file extension.
 
         The extension comes from the response's content type rather than the URL, which is
         often extensionless or buried under query parameters. Callers are responsible for
         deciding whether that extension is one they accept.
 
+        Callers that store the bytes as-is should pass `max_bytes`, since the fetch is
+        otherwise bounded only by time. Those that re-encode (see `scrape_image`) are already
+        bounded by what the minifier writes out.
+
         Unlike `scrape_image`, nothing is written to disk, so the caller decides where the
         bytes belong. Returns `None` if nothing could be downloaded.
         """
         try:
             # FlareSolverr returns HTML, not image bytes, so it can't serve an image download.
-            r = await safehttp.resilient_fetch(image_url, allow_flaresolverr=False)
+            r = await safehttp.resilient_fetch(image_url, allow_flaresolverr=False, max_bytes=max_bytes)
         except safehttp.InvalidDomainError as e:
             # Re-raised as this module's error so callers only need one exception vocabulary.
             raise InvalidDomainError(str(e)) from e
+        except safehttp.ResponseTooLargeError:
+            # The caller set the budget, so it gets to report the overrun rather than seeing
+            # it flattened into a generic failure.
+            raise
         except Exception:
             self.logger.exception("Fatal Image Request Exception")
             return None

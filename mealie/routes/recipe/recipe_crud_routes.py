@@ -30,7 +30,7 @@ from mealie.core import exceptions
 from mealie.core.dependencies import (
     get_temporary_zip_path,
 )
-from mealie.pkgs import cache
+from mealie.pkgs import cache, safehttp
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import controller
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
@@ -87,6 +87,10 @@ from mealie.services.scraper.scraper_strategies import (
 from ._base import BaseRecipeController, JSONBytes
 
 ASSET_ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "gif", "webp", "bmp", "avif", "txt", "md", "csv", "json"}
+
+# A downloaded asset is stored as-is rather than re-encoded, so the download needs its own
+# ceiling. Matches the budget `openid_provider` uses for remotely-fetched profile images.
+ASSET_MAX_DOWNLOAD_BYTES = 5 * 1024 * 1024
 
 
 def asset_name_from_url(url: str) -> str:
@@ -896,7 +900,7 @@ class RecipeController(BaseRecipeController):
         data_service = RecipeDataService(recipe.id)
 
         try:
-            downloaded = await data_service.fetch_image(url.url)
+            downloaded = await data_service.fetch_image(url.url, max_bytes=ASSET_MAX_DOWNLOAD_BYTES)
         except NotAnImageError as e:
             raise HTTPException(
                 status_code=400,
@@ -906,6 +910,11 @@ class RecipeController(BaseRecipeController):
             raise HTTPException(
                 status_code=400,
                 detail=ErrorResponse.respond("Url is not from an allowed domain"),
+            ) from e
+        except safehttp.ResponseTooLargeError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond(f"Image is larger than {ASSET_MAX_DOWNLOAD_BYTES // (1024 * 1024)}MB"),
             ) from e
 
         if downloaded is None:
