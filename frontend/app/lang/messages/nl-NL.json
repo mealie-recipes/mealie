@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Vul de database aan met veelvoorkomende labels, gebaseerd op je lokale taal.",
       "edit-label": "Bewerk label",
       "new-label": "Nieuw label",
       "labels": "Labels",
