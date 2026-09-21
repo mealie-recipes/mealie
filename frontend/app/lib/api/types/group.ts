@@ -76,6 +76,11 @@ export interface AIProviderSettingsUpdate {
   audioProviderId: string | null;
   imageProviderId: string | null;
 }
+export interface AIProviderTestResult {
+  success: boolean;
+  message?: string | null;
+  supportsImages?: boolean | null;
+}
 export interface AIProviderUpdate {
   name: string;
   baseUrl?: string | null;

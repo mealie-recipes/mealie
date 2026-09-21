@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+from functools import lru_cache
 from typing import TYPE_CHECKING, Literal, overload
 
 if TYPE_CHECKING:
-    from pint import Quantity, Unit
+    from pint import Quantity, Unit, UnitRegistry
 
     from mealie.schema.recipe.recipe_ingredient import CreateIngredientUnit
 
@@ -19,11 +20,27 @@ class UnitNotFound(Exception):
         return f"{self.message}"
 
 
-class UnitConverter:
-    def __init__(self):
-        from pint import UnitRegistry
+@lru_cache(maxsize=1)
+def _shared_unit_registry() -> UnitRegistry:
+    from pint import UnitRegistry
 
-        self.ureg = UnitRegistry()
+    return UnitRegistry()
+
+
+class UnitConverter:
+    def __init__(self, *, private_registry: bool = False):
+        """Converters share one registry, since building one is expensive.
+
+        Pass `private_registry` before calling `define` on `ureg`, so the definition does not
+        reach every other converter.
+        """
+
+        if private_registry:
+            from pint import UnitRegistry
+
+            self.ureg = UnitRegistry()
+        else:
+            self.ureg = _shared_unit_registry()
 
     def _resolve_ounce(self, unit_1: Unit, unit_2: Unit) -> tuple[Unit, Unit]:
         """
@@ -126,7 +143,7 @@ def merge_quantity_and_unit[T: CreateIngredientUnit](
     PINT_UNIT_1_TXT = "_mealie_unit_1"
     PINT_UNIT_2_TXT = "_mealie_unit_2"
 
-    uc = UnitConverter()
+    uc = UnitConverter(private_registry=True)
 
     # pre-process units to account for ounce -> fluid_ounce conversion
     unit_1_standard = uc.parse(unit_1.standard_unit, strict=True)
