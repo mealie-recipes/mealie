@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language.",
       "edit-label": "Edit Label",
       "new-label": "New Label",
       "labels": "Labels",
