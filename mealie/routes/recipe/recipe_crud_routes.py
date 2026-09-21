@@ -23,6 +23,7 @@ from fastapi import (
 )
 from fastapi.datastructures import UploadFile
 from fastapi.sse import EventSourceResponse, ServerSentEvent
+from PIL import UnidentifiedImageError
 from pydantic import UUID4
 from slugify import slugify
 
@@ -30,7 +31,7 @@ from mealie.core import exceptions
 from mealie.core.dependencies import (
     get_temporary_zip_path,
 )
-from mealie.pkgs import cache, safehttp
+from mealie.pkgs import cache, img, safehttp
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import controller
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
@@ -811,9 +812,25 @@ class RecipeController(BaseRecipeController):
 
     @router.put("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
     def update_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):
+        # Validated outside the try below: handle_exceptions turns any HTTPException raised inside it into a 500
+        normalized = extension.strip().lower().lstrip(".")
+        if f".{normalized}" not in img.IMAGE_EXTENSIONS:
+            supported = ", ".join(sorted(ext.lstrip(".") for ext in img.IMAGE_EXTENSIONS))
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond(
+                    f"Unsupported image file type '{normalized}'. Supported types: {supported}"
+                ),
+            )
+
         try:
-            new_version = self.service.update_recipe_image(slug, image, extension)
+            new_version = self.service.update_recipe_image(slug, image, normalized)
             return UpdateImageResponse(image=new_version)
+        except UnidentifiedImageError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Uploaded file is not a valid image"),
+            ) from e
         except Exception as e:
             self.handle_exceptions(e)
             return None
