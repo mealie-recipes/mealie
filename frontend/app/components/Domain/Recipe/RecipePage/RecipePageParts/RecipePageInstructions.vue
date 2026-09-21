@@ -387,7 +387,11 @@
               />
 
               <!-- Content -->
-              <DropZone @drop="(f) => handleImageDrop(index, f)">
+              <DropZone
+                @drop="(f) => handleImageDrop(index, f)"
+                @drop-url="(u) => handleImageUrlDrop(index, u)"
+                @drop-unsupported="notifyUnsupportedDrop"
+              >
                 <v-card-text
                   v-if="isEditForm"
                   @click="$emit('click-instruction-field', `${index}.text`)"
@@ -517,6 +521,7 @@ import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
+import { alert } from "~/composables/use-toast";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 import RecipeIngredientHtml from "~/components/Domain/Recipe/RecipeIngredientHtml.vue";
 
@@ -979,8 +984,39 @@ async function handleImageDrop(index: number, files: File[]) {
     return; // TODO: Handle error
   }
 
-  emit("update:assets", [...assets.value, data]);
-  const assetUrl = recipeAssetPath(props.recipe.id, data.fileName as string);
+  embedAsset(index, data);
+}
+
+/**
+ * Images dragged out of another browser tab carry a URL instead of a file, so the server
+ * fetches the image on our behalf.
+ */
+async function handleImageUrlDrop(index: number, url: string) {
+  loadingStates.value[index] = true;
+
+  const { data } = await api.recipes.createAssetFromUrl(props.recipe.slug, url);
+
+  loadingStates.value[index] = false;
+
+  if (!data) {
+    alert.error(i18n.t("recipe.failed-to-attach-image"));
+    return;
+  }
+
+  embedAsset(index, data);
+}
+
+/**
+ * Some pages render images from blob: urls, which resolve only inside the origin that made
+ * them. Nothing can read those bytes from here, so point the user at what does work.
+ */
+function notifyUnsupportedDrop() {
+  alert.error(i18n.t("recipe.image-drop-unsupported"));
+}
+
+function embedAsset(index: number, asset: RecipeAsset) {
+  emit("update:assets", [...(assets.value ?? []), asset]);
+  const assetUrl = recipeAssetPath(props.recipe.id, asset.fileName as string);
   const text = `<img src="${assetUrl}" height="100%" width="100%"/>`;
   instructionList.value[index].text += text;
 }
