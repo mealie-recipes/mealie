@@ -157,7 +157,7 @@
 
 <script setup lang="ts">
 import { useStaticRoutes, useUserApi } from "~/composables/api";
-import { alert } from "~/composables/use-toast";
+import { alert, alertUnreportedError } from "~/composables/use-toast";
 import type { RecipeAsset } from "~/lib/api/types/recipe";
 import { useCopy } from "~/composables/use-copy";
 
@@ -293,13 +293,16 @@ async function addAsset() {
 
   const nameToUse = state.newAsset.name?.trim() || state.fileObject.name;
 
-  const { data } = await api.recipes.createAsset(props.slug, {
+  const { data, error } = await api.recipes.createAsset(props.slug, {
     name: nameToUse,
     icon: state.newAsset.icon,
     file: state.fileObject,
     extension: state.fileObject.name.split(".").pop() || "",
   });
-  if (data) {
+  if (error) {
+    alertUnreportedError(error, i18n.t("events.something-went-wrong"));
+  }
+  else if (data) {
     model.value = [...model.value, data];
   }
   state.newAsset = { name: "", icon: "mdi-file" };
