@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Añade a la base de datos etiquetas comunes basadas en su idioma local.",
       "edit-label": "Editar etiqueta",
       "new-label": "Nueva etiqueta",
       "labels": "Etiquetas",
