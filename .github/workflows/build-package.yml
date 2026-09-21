@@ -11,12 +11,18 @@ on:
         type: string
 
 jobs:
-  build-frontend:
-    name: Build frontend
+  build-package:
+    name: Build frontend and wheel
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout 🛎
+      - name: Install Task
+        uses: arduino/setup-task@v2
+        with:
+          version: 3.x
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Check out repository
         uses: actions/checkout@v6
         with:
           ref: ${{ inputs.ref || github.sha }}
@@ -48,30 +54,6 @@ jobs:
         run: yarn generate
         working-directory: "frontend"
 
-      - name: Archive built frontend
-        uses: actions/upload-artifact@v6
-        with:
-          name: frontend-dist
-          path: frontend/dist
-          retention-days: 5
-
-  build-package:
-    name: Build Python package
-    needs: build-frontend
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Install Task
-        uses: arduino/setup-task@v2
-        with:
-          version: 3.x
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Check out repository
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ inputs.ref || github.sha }}
-
       - name: Set up python
         uses: actions/setup-python@v6
         with:
@@ -80,17 +62,16 @@ jobs:
       - name: Install uv
         run: pip install uv
 
-      - name: Retrieve built frontend
-        uses: actions/download-artifact@v6
-        with:
-          name: frontend-dist
-          path: mealie/frontend
+      - name: Copy the frontend into the package
+        run: |
+          rm -rf mealie/frontend
+          cp -a frontend/dist mealie/frontend
 
       - name: Override __init__.py
         run: |
           echo "__version__ = \"${{ inputs.tag }}\"" > ./mealie/__init__.py
 
-      - name: Build package and requirements.txt
+      - name: Build package and requirements files
         env:
           SKIP_PACKAGE_DEPS: true
         run: |

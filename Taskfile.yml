@@ -156,7 +156,8 @@ tasks:
     internal: true
     cmds:
       - uv export --no-editable --no-emit-project --extra pgsql --format
-        requirements-txt --output-file dist/requirements.txt
+        requirements-txt --output-file dist/dependencies.txt
+      - cp dist/dependencies.txt dist/requirements.txt
       # Include mealie in the requirements, hashing the package that was just built to ensure it's the one installed
       - echo "mealie[pgsql]=={{.MEALIE_VERSION}} \\" >> dist/requirements.txt
       - pip hash dist/mealie-{{.MEALIE_VERSION}}-py3-none-any.whl | tail -n1 |
@@ -174,6 +175,7 @@ tasks:
       - dist/mealie-*.whl
       - dist/mealie-*.tar.gz
     generates:
+      - dist/dependencies.txt
       - dist/requirements.txt
 
   py:package:deps-parallel:
