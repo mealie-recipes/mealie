@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Lisää tietokantaan yleiset tunnisteet paikallisen kielen perusteella.",
       "edit-label": "Muokkaa tunnistetta",
       "new-label": "Uusi tunniste",
       "labels": "Tunnisteet",
