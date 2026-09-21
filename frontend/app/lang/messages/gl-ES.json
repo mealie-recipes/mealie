@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Adicionar à base de datos rótulos comuns no seu idioma local.",
       "edit-label": "Editar Rótulo",
       "new-label": "Novo Rótulo",
       "labels": "Rótulos",
