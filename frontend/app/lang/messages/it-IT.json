@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Riempie il database con etichette comuni basate sulla lingua.",
       "edit-label": "Modifica Etichetta",
       "new-label": "Nuova Etichetta",
       "labels": "Etichette",
