@@ -64,7 +64,7 @@
       },
       "spinach": {
         "name": "espinac",
-        "plural_name": "espinacs"
+        "plural_name": ""
       },
       "sweet corn": {
         "name": "blat de moro",
@@ -84,7 +84,7 @@
       },
       "heart of palm": {
         "name": "cor de palmera",
-        "plural_name": ""
+        "plural_name": "hearts of palm"
       },
       "pumpkin": {
         "name": "carabassa",
@@ -104,7 +104,7 @@
       },
       "kale": {
         "name": "col arrissada",
-        "plural_name": "col verda"
+        "plural_name": ""
       },
       "arugula": {
         "name": "rúcula",
@@ -128,7 +128,7 @@
       },
       "romaine lettuce": {
         "name": "enciam llarg",
-        "plural_name": "enciams llargs"
+        "plural_name": ""
       },
       "beetroot": {
         "name": "remolatxa",
@@ -140,7 +140,7 @@
       },
       "fennel": {
         "name": "fonoll",
-        "plural_name": "fonolls"
+        "plural_name": ""
       },
       "sun dried tomato": {
         "name": "tomàquet sec",
@@ -172,11 +172,11 @@
       },
       "horseradish": {
         "name": " rave picant",
-        "plural_name": "raves picants"
+        "plural_name": ""
       },
       "chard": {
         "name": "bleda",
-        "plural_name": "bledes"
+        "plural_name": ""
       },
       "spaghetti squash": {
         "name": "carbassa espagueti",
@@ -188,7 +188,7 @@
       },
       "celeriac": {
         "name": "apí-rave",
-        "plural_name": "apís-raves"
+        "plural_name": ""
       },
       "turnip": {
         "name": "nap",
@@ -288,7 +288,7 @@
       },
       "rhubarb": {
         "name": "ruibarbre",
-        "plural_name": "ruibarbres"
+        "plural_name": ""
       },
       "kiwi": {
         "name": "kiwi",
@@ -316,7 +316,7 @@
       },
       "cantaloupe": {
         "name": "meló cantalup",
-        "plural_name": ""
+        "plural_name": "cantaloupes"
       },
       "tamarind": {
         "name": "tamarind",
@@ -328,7 +328,7 @@
       },
       "shiitake mushroom": {
         "name": "bolets shiitake",
-        "plural_name": ""
+        "plural_name": "shiitake mushrooms"
       },
       "portobello mushroom": {
         "name": "bolet portobello",
@@ -670,7 +670,7 @@
       },
       "beef roast": {
         "name": "rostit de vedella",
-        "plural_name": ""
+        "plural_name": "beef roasts"
       },
       "ground pork": {
         "name": "ground pork",
@@ -686,7 +686,7 @@
       },
       "pork shoulder": {
         "name": "espatlla de porc",
-        "plural_name": "espatlles de porc"
+        "plural_name": ""
       },
       "ground lamb": {
         "name": "ground lamb",
@@ -698,7 +698,7 @@
       },
       "beef sirloin": {
         "name": "rellom de vedella",
-        "plural_name": ""
+        "plural_name": "beef sirloins"
       },
       "brisket": {
         "name": "brisket",
@@ -831,7 +831,7 @@
       },
       "chorizo": {
         "name": "xoriço",
-        "plural_name": "xoriços"
+        "plural_name": ""
       },
       "pancetta": {
         "name": "pancetta",
@@ -1065,11 +1065,11 @@
       },
       "yogurt": {
         "name": "iogurt",
-        "plural_name": "iogurts"
+        "plural_name": ""
       },
       "greek yogurt": {
         "name": "iogurt grec",
-        "plural_name": "iogurts grecs"
+        "plural_name": ""
       },
       "cream": {
         "name": "crema",
@@ -1231,7 +1231,7 @@
       },
       "canned chickpea": {
         "name": "cigrons en conserva",
-        "plural_name": ""
+        "plural_name": "canned chickpeas"
       },
       "black olive": {
         "name": "oliva negra",
@@ -1327,7 +1327,7 @@
       },
       "canned clam": {
         "name": "cloïsses en conserva",
-        "plural_name": ""
+        "plural_name": "canned clams"
       },
       "canned baby corn": {
         "name": "canned baby corn",
@@ -1351,7 +1351,7 @@
       },
       "chicken stock": {
         "name": "brou de pollastre",
-        "plural_name": "brous de pollastre"
+        "plural_name": ""
       },
       "beef broth": {
         "name": "brou de bou",
@@ -1637,7 +1637,7 @@
     "foods": {
       "cayenne pepper": {
         "name": "xili en pols",
-        "plural_name": "pebre de caiena"
+        "plural_name": ""
       },
       "cinnamon": {
         "name": "cinnamon",
@@ -2128,7 +2128,7 @@
       },
       "ice cream": {
         "name": "gelat",
-        "plural_name": "gelats"
+        "plural_name": ""
       },
       "lemon curd": {
         "name": "lemon curd",
