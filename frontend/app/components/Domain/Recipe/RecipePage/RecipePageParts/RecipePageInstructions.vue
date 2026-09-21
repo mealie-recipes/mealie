@@ -390,6 +390,7 @@
               <DropZone
                 @drop="(f) => handleImageDrop(index, f)"
                 @drop-url="(u) => handleImageUrlDrop(index, u)"
+                @drop-unsupported="notifyUnsupportedDrop"
               >
                 <v-card-text
                   v-if="isEditForm"
@@ -1003,6 +1004,14 @@ async function handleImageUrlDrop(index: number, url: string) {
   }
 
   embedAsset(index, data);
+}
+
+/**
+ * Some pages render images from blob: urls, which resolve only inside the origin that made
+ * them. Nothing can read those bytes from here, so point the user at what does work.
+ */
+function notifyUnsupportedDrop() {
+  alert.error(i18n.t("recipe.image-drop-unsupported"));
 }
 
 function embedAsset(index: number, asset: RecipeAsset) {

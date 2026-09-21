@@ -527,6 +527,7 @@
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
     "drop-image": "Drop image",
     "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recipes with units or foods defined cannot be parsed.",
     "parse-ingredients": "Parse ingredients",
     "edit-markdown": "Edit Markdown",
