@@ -1,8 +1,10 @@
 import asyncio
 from collections import defaultdict
 from collections.abc import AsyncIterable, Awaitable, Callable
+from pathlib import PurePosixPath
 from shutil import copyfileobj
-from typing import Annotated
+from typing import Annotated, BinaryIO
+from urllib.parse import unquote, urlparse
 from uuid import UUID, uuid4
 
 import orjson
@@ -85,6 +87,16 @@ from mealie.services.scraper.scraper_strategies import (
 from ._base import BaseRecipeController, JSONBytes
 
 ASSET_ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "gif", "webp", "bmp", "avif", "txt", "md", "csv", "json"}
+
+
+def asset_name_from_url(url: str) -> str:
+    """Derives an asset name from a URL's filename, e.g. `.../pancakes.jpg?v=2` -> `pancakes`."""
+    stem = PurePosixPath(unquote(urlparse(url).path)).stem
+
+    # The name is slugified into the filename, so a stem that slugifies to nothing (an
+    # extensionless URL, or one whose filename is entirely non-ASCII) needs a fallback.
+    return stem if slugify(stem) else "image"
+
 
 router = UserAPIRouter(prefix="/recipes", route_class=MealieCrudRoute)
 
@@ -811,16 +823,15 @@ class RecipeController(BaseRecipeController):
             self.handle_exceptions(e)
             return None
 
-    @router.post("/{slug}/assets", response_model=RecipeAsset, tags=["Recipe: Images and Assets"])
-    def upload_recipe_asset(
+    def _save_recipe_asset(
         self,
         slug: str,
-        name: str = Form(...),
-        icon: str = Form(...),
-        extension: str = Form(...),
-        file: UploadFile = File(...),
-    ):
-        """Upload a file to store as a recipe asset"""
+        name: str,
+        icon: str,
+        extension: str,
+        write: Callable[[BinaryIO], None],
+    ) -> RecipeAsset:
+        """Writes an asset into the recipe's asset directory and records it on the recipe."""
         if "." in extension:
             extension = extension.split(".")[-1]
 
@@ -854,7 +865,7 @@ class RecipeController(BaseRecipeController):
         asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
         with dest.open("wb") as buffer:
-            copyfileobj(file.file, buffer)
+            write(buffer)
 
         if not dest.is_file():
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -865,3 +876,45 @@ class RecipeController(BaseRecipeController):
         self.service.update_one(slug, recipe)
 
         return asset_in
+
+    @router.post("/{slug}/assets", response_model=RecipeAsset, tags=["Recipe: Images and Assets"])
+    def upload_recipe_asset(
+        self,
+        slug: str,
+        name: str = Form(...),
+        icon: str = Form(...),
+        extension: str = Form(...),
+        file: UploadFile = File(...),
+    ):
+        """Upload a file to store as a recipe asset"""
+        return self._save_recipe_asset(slug, name, icon, extension, lambda buffer: copyfileobj(file.file, buffer))
+
+    @router.post("/{slug}/assets/url", response_model=RecipeAsset, tags=["Recipe: Images and Assets"])
+    async def create_recipe_asset_from_url(self, slug: str, url: ScrapeRecipe):
+        """Download an image from a URL and store it as a recipe asset."""
+        recipe = self.service.get_one(slug)
+        data_service = RecipeDataService(recipe.id)
+
+        try:
+            downloaded = await data_service.fetch_image(url.url)
+        except NotAnImageError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Url is not an image"),
+            ) from e
+        except InvalidDomainError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Url is not from an allowed domain"),
+            ) from e
+
+        if downloaded is None:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Image could not be downloaded"),
+            )
+
+        content, extension = downloaded
+        return self._save_recipe_asset(
+            slug, asset_name_from_url(url.url), "mdi-file-image", extension, lambda buffer: buffer.write(content)
+        )
