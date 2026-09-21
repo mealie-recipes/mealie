@@ -22,7 +22,7 @@ dependencies = [
     "pyhumps==3.8.0",
     "python-dateutil==2.9.0.post0",
     "python-dotenv==1.2.3",
-    "python-ldap==3.4.7",
+    "python-ldap==3.4.8",
     "python-multipart==0.0.32",
     "python-slugify==9.0.0",
     "recipe-scrapers==15.12.0",
