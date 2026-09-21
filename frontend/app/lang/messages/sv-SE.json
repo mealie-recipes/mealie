@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Fyll databasen med vanliga etiketter baserade på ditt språk.",
       "edit-label": "Redigera etikett",
       "new-label": "Ny etikett",
       "labels": "Etiketter",
