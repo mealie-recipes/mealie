@@ -526,6 +526,7 @@
     "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
     "drop-image": "Drop image",
+    "failed-to-attach-image": "Failed to attach image",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recipes with units or foods defined cannot be parsed.",
     "parse-ingredients": "Parse ingredients",
     "edit-markdown": "Edit Markdown",
