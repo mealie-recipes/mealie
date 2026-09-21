@@ -855,3 +855,67 @@ def test_recipe_inject_organizer_group_id(unique_user: TestUser, route: str):
     assert updated_recipe.tools
     assert len(updated_recipe.tools) == 1
     assert updated_recipe.tools[0].name == new_tool_name
+
+
+def test_recipe_note_step_references(unique_user: TestUser) -> None:
+    """Note references on a step round-trip through save and load."""
+    from mealie.schema.recipe.recipe_notes import RecipeNote
+    from mealie.schema.recipe.recipe_step import NoteReference, RecipeStep
+
+    database = unique_user.repos
+
+    # Create a recipe with one note
+    recipe = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(),
+            notes=[RecipeNote(title="my note", text="note body")],
+            recipe_instructions=[RecipeStep(text="step one", note_references=[])],
+        )
+    )
+
+    # Get the note reference_id from the saved recipe
+    assert recipe.notes, "expected at least one note"
+    reference_id = recipe.notes[0].reference_id
+    assert reference_id is not None
+
+    # Update the step to reference the note
+    recipe.recipe_instructions[0].note_references = [NoteReference(reference_id=reference_id)]
+    updated = database.recipes.update(recipe.slug, recipe)
+
+    # Assert the reference survived the round-trip
+    assert updated.recipe_instructions is not None
+    step = updated.recipe_instructions[0]
+    assert len(step.note_references) == 1
+    assert step.note_references[0].reference_id == reference_id
+
+
+def test_recipe_create_keeps_provided_id(unique_user: TestUser) -> None:
+    recipe_id = uuid4()
+    recipe = unique_user.repos.recipes.create(
+        Recipe(
+            id=recipe_id,
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(),
+        )
+    )
+
+    assert recipe.id == recipe_id
+
+
+def test_recipe_update_ignores_id_in_payload(unique_user: TestUser) -> None:
+    database = unique_user.repos
+    recipe = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(),
+        )
+    )
+
+    updated = database.recipes.update(recipe.slug, recipe.model_copy(update={"id": None, "description": "changed"}))
+
+    assert updated.id == recipe.id
+    assert updated.description == "changed"

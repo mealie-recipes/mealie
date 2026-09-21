@@ -1,5 +1,4 @@
 import random
-import time
 from collections import defaultdict
 from datetime import UTC, datetime, timedelta
 from random import randint
@@ -7,12 +6,14 @@ from unittest.mock import patch
 from urllib.parse import parse_qsl, urlsplit
 
 import pytest
+import sqlalchemy as sa
 from dateutil.relativedelta import relativedelta
 from fastapi.testclient import TestClient
 from freezegun import freeze_time
 from humps import camelize
 from pydantic import UUID4
 
+from mealie.db.models.recipe.ingredient import IngredientUnitModel
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_units import RepositoryUnit
 from mealie.schema.household.group_shopping_list import (
@@ -206,26 +207,33 @@ def test_pagination_guides(unique_user: TestUser):
 @pytest.fixture(scope="function")
 def query_units(unique_user: TestUser):
     database = unique_user.repos
-    unit_1 = database.ingredient_units.create(
-        SaveIngredientUnit(name="test unit 1", group_id=unique_user.group_id, use_abbreviation=True)
-    )
+    units_repo = database.ingredient_units
 
-    # wait a moment so we can test datetime filters
-    time.sleep(0.25)
+    created = [
+        units_repo.create(SaveIngredientUnit(name="test unit 1", group_id=unique_user.group_id, use_abbreviation=True)),
+        units_repo.create(
+            SaveIngredientUnit(name="test unit 2", group_id=unique_user.group_id, use_abbreviation=False)
+        ),
+        units_repo.create(
+            SaveIngredientUnit(name="test unit 3", group_id=unique_user.group_id, use_abbreviation=False)
+        ),
+    ]
 
-    unit_2 = database.ingredient_units.create(
-        SaveIngredientUnit(name="test unit 2", group_id=unique_user.group_id, use_abbreviation=False)
-    )
+    # the datetime filter tests query the whole group, so these rows need a known order and
+    # must stay newer than every other unit in it
+    now = datetime.now(UTC).replace(tzinfo=None)
+    for position, unit in enumerate(created):
+        units_repo.session.execute(
+            sa.update(IngredientUnitModel)
+            .where(IngredientUnitModel.id == unit.id)
+            .values(created_at=now - timedelta(milliseconds=250 * (len(created) - 1 - position)))
+        )
+    units_repo.session.commit()
 
-    # wait a moment so we can test datetime filters
-    time.sleep(0.25)
-
-    unit_3 = database.ingredient_units.create(
-        SaveIngredientUnit(name="test unit 3", group_id=unique_user.group_id, use_abbreviation=False)
-    )
+    unit_1, unit_2, unit_3 = (units_repo.get_one(unit.id) for unit in created)
+    assert unit_1 and unit_2 and unit_3
 
     unit_ids = [unit.id for unit in [unit_1, unit_2, unit_3]]
-    units_repo = database.ingredient_units
 
     yield units_repo, unit_1, unit_2, unit_3
 
@@ -1835,3 +1843,87 @@ def test_pagination_filter_not_in_related_field(unique_user: TestUser):
     result_ids = {recipe.id for recipe in database.recipes.page_all(query).items}
     assert excluded.id not in result_ids
     assert kept.id in result_ids
+
+
+def test_pagination_order_by_to_many_field_page_is_not_short(unique_user: TestUser):
+    """https://github.com/mealie-recipes/mealie/issues/8302"""
+    database = unique_user.repos
+    current_time = datetime.now(UTC)
+
+    # each recipe carries its own tags, so a recipe's duplicate rows sort next to each other
+    prefix = random_string(10)
+    for i in range(5):
+        tags = [
+            database.tags.create(TagSave(group_id=unique_user.group_id, name=name, slug=name))
+            for name in (f"{prefix}-{i}-{j}" for j in range(3))
+        ]
+
+        slug = random_string()
+        database.recipes.create(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=slug,
+                slug=slug,
+                tags=tags,
+            )
+        )
+
+    query = PaginationQuery(
+        page=1,
+        per_page=5,
+        order_by="tags.name",
+        query_filter=f'created_at >= "{current_time.isoformat()}"',
+    )
+    result = database.recipes.page_all(query)
+    assert result.total == 5
+    assert len(result.items) == 5
+
+
+@pytest.mark.parametrize(
+    "order_direction",
+    [OrderDirection.asc, OrderDirection.desc],
+    ids=["order_ascending", "order_descending"],
+)
+def test_pagination_order_by_to_many_field(unique_user: TestUser, order_direction: OrderDirection):
+    """https://github.com/mealie-recipes/mealie/issues/8302"""
+    database = unique_user.repos
+    current_time = datetime.now(UTC)
+
+    tag_a, tag_b, tag_c, tag_d = [
+        database.tags.create(TagSave(group_id=unique_user.group_id, name=name, slug=name))
+        for name in (f"{letter}{random_string(10)}" for letter in "abcd")
+    ]
+
+    recipes = []
+    for tags in ([tag_a, tag_c], [tag_b, tag_d], []):
+        slug = random_string()
+        recipes.append(
+            database.recipes.create(
+                Recipe(
+                    user_id=unique_user.user_id,
+                    group_id=unique_user.group_id,
+                    name=slug,
+                    slug=slug,
+                    tags=tags,
+                )
+            )
+        )
+    recipe_ac, recipe_bd, recipe_untagged = recipes
+
+    query = PaginationQuery(
+        page=1,
+        per_page=-1,
+        order_by="tags.name",
+        order_direction=order_direction,
+        order_by_null_position=OrderByNullPosition.last,
+        query_filter=f'created_at >= "{current_time.isoformat()}"',
+    )
+    result_ids = [recipe.id for recipe in database.recipes.page_all(query).items]
+
+    if order_direction is OrderDirection.asc:
+        # ordered by each recipe's lowest tag name: a, then b
+        assert result_ids == [recipe_ac.id, recipe_bd.id, recipe_untagged.id]
+    else:
+        # ordered by each recipe's highest tag name: d, then c
+        assert result_ids == [recipe_bd.id, recipe_ac.id, recipe_untagged.id]

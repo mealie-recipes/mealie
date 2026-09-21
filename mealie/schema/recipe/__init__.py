@@ -83,7 +83,7 @@ from .recipe_nutrition import Nutrition
 from .recipe_scraper import ScrapeRecipe, ScrapeRecipeAI, ScrapeRecipeBase, ScrapeRecipeData, ScrapeRecipeTest
 from .recipe_settings import RecipeSettings
 from .recipe_share_token import RecipeShareToken, RecipeShareTokenCreate, RecipeShareTokenSave, RecipeShareTokenSummary
-from .recipe_step import IngredientReferences, RecipeStep
+from .recipe_step import IngredientReferences, NoteReference, RecipeStep
 from .recipe_suggestion import (
     RecipeSuggestionQuery,
     RecipeSuggestionResponse,
@@ -151,6 +151,7 @@ __all__ = [
     "ExportRecipes",
     "ExportTypes",
     "IngredientReferences",
+    "NoteReference",
     "RecipeStep",
     "RecipeImageTypes",
     "Nutrition",

@@ -157,7 +157,7 @@ def test_supplied_html_is_not_fetched_again(
     async def fail_if_fetched(_: str) -> str:
         raise AssertionError("the page was supplied by the caller, so it should not be fetched")
 
-    monkeypatch.setattr(compile_source_module, "safe_scrape_html", fail_if_fetched)
+    monkeypatch.setattr(compile_source_module, "resilient_fetch", fail_if_fetched)
 
     response = api_client.post(
         api_routes.recipes_create_html_or_json,

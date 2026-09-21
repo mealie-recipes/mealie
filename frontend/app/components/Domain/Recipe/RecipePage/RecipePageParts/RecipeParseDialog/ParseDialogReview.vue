@@ -3,6 +3,7 @@
     <ParseDialogChangeParser
       v-model="state.parser"
       :available-parsers="availableParsers"
+      :show-nlp-language-hint="showNlpLanguageHint"
       @update:model-value="$emit('changeParser', $event)"
       @parse="$emit('parse')"
     />
@@ -64,6 +65,7 @@ defineEmits<{
 const props = defineProps<{
   availableParsers: MenuItem[];
   parser: Parser;
+  showNlpLanguageHint: boolean;
 }>();
 const parsedIngs = defineModel<ParsedIngredient[]>({ required: true });
 
