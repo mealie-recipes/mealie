@@ -46,34 +46,24 @@ function isHttpUrl(value: string) {
 /**
  * An image dragged out of another browser tab carries a URL rather than a file, so there is
  * nothing to upload directly. Pull the URL out so the caller can have the server fetch it.
+ *
+ * Only text/uri-list is read. Every major browser populates it when an image is dragged, so
+ * the alternative -- parsing the accompanying text/html to find an image element -- buys
+ * little and means running untrusted markup through a parser.
  */
 function imageUrlFrom(dataTransfer: DataTransfer | null) {
   if (!dataTransfer) {
     return null;
   }
 
-  // text/uri-list may hold several URLs, and lines beginning with "#" are comments.
+  // The list may hold several URLs, and lines beginning with "#" are comments.
   const uri = dataTransfer
     .getData("text/uri-list")
     .split("\n")
     .map(line => line.trim())
     .find(line => line && !line.startsWith("#"));
 
-  if (uri && isHttpUrl(uri)) {
-    return uri;
-  }
-
-  // Some sources only offer the dragged element's markup. Read the attribute rather than
-  // `img.src`, which the parser would resolve against our own origin.
-  const html = dataTransfer.getData("text/html");
-  if (html) {
-    const src = new DOMParser().parseFromString(html, "text/html").querySelector("img")?.getAttribute("src");
-    if (src && isHttpUrl(src)) {
-      return src;
-    }
-  }
-
-  return null;
+  return uri && isHttpUrl(uri) ? uri : null;
 }
 
 function onDrop(files: File[] | null, event: DragEvent) {
