@@ -9,7 +9,7 @@ dependencies = [
     "Jinja2==3.1.6",
     "Pillow==12.3.0",
     "PyYAML==6.0.3",
-    "SQLAlchemy==2.0.53",
+    "SQLAlchemy==2.0.54",
     "alembic==1.20.0",
     "apprise==1.13.1",
     "bcrypt==5.0.0",
@@ -39,7 +39,7 @@ dependencies = [
     "pydantic-settings==2.15.0",
     "pillow-heif==1.7.0",
     "pyjwt==2.14.0",
-    "openai==3.14.0",
+    "openai==3.14.1",
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.8.19",
@@ -58,12 +58,11 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "mkdocs-material==9.7.7",
+    "zensical==0.0.62",
 ]
 dev = [
     "coverage==7.16.1",
     "coveragepy-lcov==0.1.2",
-    "mkdocs-material==9.7.7",
     "mypy==2.3.1",
     "pre-commit==4.6.2",
     "pylint==4.0.8",
@@ -79,6 +78,7 @@ dev = [
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
     "httpx2==2.13.0",
+    "zensical==0.0.62",
 ]
 
 [build-system]
