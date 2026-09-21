@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Afegeix a la base de dades etiquetes comunes en el vostre idioma.",
       "edit-label": "Edita etiqueta",
       "new-label": "Nova etiqueta",
       "labels": "Etiquetes",
