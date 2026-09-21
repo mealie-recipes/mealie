@@ -8,6 +8,7 @@
         "recipe-image-deleted": "食譜圖片已刪除",
         "recipe-defaults": {
             "ingredient-note": "1 杯麵粉",
+            "name": "New Recipe",
             "step-text": "食譜步驟以及食譜頁面中的其他欄位皆支援 Markdown 語法。\n\n**新增連結**\n\n[我的連結](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -46,7 +47,16 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "沒有符合您條件的食譜"
+        "no-recipes-match-your-rules": "沒有符合您條件的食譜",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "使用者資料已更新",
@@ -73,7 +83,40 @@
         "generic-updated-with-url": "{name} 已更新，{url}",
         "generic-duplicated": "{name} 已複製",
         "generic-deleted": "{name} 已刪除",
-        "logged-out": "已登出"
+        "logged-out": "已登出",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "年|年",

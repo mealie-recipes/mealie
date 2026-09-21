@@ -2,11 +2,13 @@ import json
 import re
 from pathlib import Path
 
+import httpx
 import pytest
 
 import mealie
 from mealie.lang import get_locale_provider
 from mealie.lang.providers import TRANSLATIONS
+from mealie.pkgs.safehttp.fetch import FetchResult
 from mealie.schema.openai.compiled_source import OpenAICompiledSource
 from mealie.services.openai.content import (
     MAX_SOURCE_CONTENT_LENGTH,
@@ -17,6 +19,11 @@ from mealie.services.openai.content import (
 from mealie.services.recipe.import_workflow.compilers import DEFAULT_SOURCE_COMPILERS
 from mealie.services.recipe.import_workflow.compilers.base import SourceCompiler, SourceType
 from mealie.services.recipe.import_workflow.context import WorkflowInput
+from mealie.services.recipe.import_workflow.recipe_conversion import (
+    DEFAULT_RECIPE_NAME,
+    DEFAULT_RECIPE_SLUG,
+    resolve_name_and_slug,
+)
 from mealie.services.recipe.import_workflow.steps.compile_source import CompileSourceStep
 from mealie.services.recipe.import_workflow.workflow import DEFAULT_WORKFLOW_STEPS
 
@@ -159,6 +166,7 @@ class StubContext:
 
     def __init__(self, url: str | None = None, page_content: str | None = None) -> None:
         self.input = WorkflowInput(url=url, page_content=page_content)
+        self.resolved_url: str | None = None
         self.progress: list[str] = []
 
     async def report_progress(self, key: str) -> None:
@@ -216,8 +224,8 @@ async def test_a_failing_url_compiler_falls_back_to_reading_the_page(monkeypatch
     was perfectly readable.
     """
     monkeypatch.setattr(
-        "mealie.services.recipe.import_workflow.steps.compile_source.safe_scrape_html",
-        _fake_scrape,
+        "mealie.services.recipe.import_workflow.steps.compile_source.resilient_fetch",
+        _fake_fetch,
     )
 
     step = CompileSourceStep(compilers=[FailingUrlCompiler, EchoContentCompiler])
@@ -230,8 +238,8 @@ async def test_a_failing_url_compiler_falls_back_to_reading_the_page(monkeypatch
     assert "recipe.create-progress.fetching-webpage" in ctx.progress
 
 
-async def _fake_scrape(url: str) -> str:
-    return "<html>the recipe page</html>"
+async def _fake_fetch(url: str) -> FetchResult:
+    return FetchResult(b"<html>the recipe page</html>", 200, url, httpx.Headers(), "utf-8")
 
 
 @pytest.mark.asyncio
@@ -253,3 +261,45 @@ async def test_a_compiler_returning_nothing_also_hands_over():
 
     assert compiled is not None
     assert compiled.content == "from the second url compiler"
+
+
+class StubTranslator:
+    """Translator is a Protocol with a single method, so a stub is enough here."""
+
+    def __init__(self, translation: str | None = None) -> None:
+        self.translation = translation
+
+    def t(self, key, default=None, **kwargs) -> str:
+        return self.translation if self.translation is not None else (default or key)
+
+
+class NameContext:
+    """Only the part of WorkflowContext that `resolve_name_and_slug` touches."""
+
+    def __init__(self, translator=None) -> None:
+        self.translator = translator or get_locale_provider("en-US")
+
+
+def test_a_usable_name_is_kept():
+    assert resolve_name_and_slug(NameContext(), "Grilled Cheese") == ("Grilled Cheese", "grilled-cheese")
+
+
+@pytest.mark.parametrize("name", ["", "   ", "!!!", "🍞🧀"])
+def test_an_unsluggable_name_falls_back_to_the_default(name: str):
+    """A provider returning a junk name shouldn't throw away an otherwise good recipe."""
+
+    assert resolve_name_and_slug(NameContext(), name) == (DEFAULT_RECIPE_NAME, DEFAULT_RECIPE_SLUG)
+
+
+def test_the_default_name_is_translated():
+    name, slug = resolve_name_and_slug(NameContext(StubTranslator("Neues Rezept")), "")
+
+    assert (name, slug) == ("Neues Rezept", "neues-rezept")
+
+
+def test_an_unsluggable_translation_falls_back_to_an_ascii_slug():
+    """slugify can come back empty for a script it can't transliterate."""
+
+    name, slug = resolve_name_and_slug(NameContext(StubTranslator("🍲")), "")
+
+    assert (name, slug) == ("🍲", DEFAULT_RECIPE_SLUG)
