@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Initialisez la base de données avec des étiquettes communes basées sur votre langue locale.",
       "edit-label": "Modifier l’étiquette",
       "new-label": "Nouvelle étiquette",
       "labels": "Étiquettes",
