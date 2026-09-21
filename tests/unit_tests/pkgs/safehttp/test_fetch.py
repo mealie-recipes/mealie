@@ -458,3 +458,68 @@ def test_build_transport_passes_proxy_through(monkeypatch):
     assert captured["proxy"] == "http://proxy:8080"
     assert captured["allow_hosts"] == []
     assert captured["deny_hosts"] == []
+
+
+# ---------------------------------------------------------------------------
+# Response size cap
+# ---------------------------------------------------------------------------
+@pytest.mark.asyncio
+async def test_no_size_cap_by_default(monkeypatch):
+    """Callers that re-encode what they download (e.g. recipe images) stay uncapped."""
+    _patch_responses(monkeypatch, [_FakeResponse(200, body=b"x" * 10_000)])
+    result = await fetch.resilient_fetch("https://x/r")
+
+    assert result is not None
+    assert len(result.content) == 10_000
+
+
+@pytest.mark.asyncio
+async def test_body_within_cap_is_returned(monkeypatch):
+    body = b"x" * 500
+    _patch_responses(monkeypatch, [_FakeResponse(200, headers={"content-length": "500"}, body=body)])
+
+    result = await fetch.resilient_fetch("https://x/r", max_bytes=1_000)
+
+    assert result is not None
+    assert result.content == body
+
+
+@pytest.mark.asyncio
+async def test_declared_content_length_over_cap_is_refused(monkeypatch):
+    """An honest Content-Length is rejected before any of the body is pulled."""
+    state = _patch_responses(monkeypatch, [_FakeResponse(200, headers={"content-length": "10000"}, body=b"x" * 10_000)])
+
+    with pytest.raises(fetch.ResponseTooLargeError, match="declared content-length"):
+        await fetch.resilient_fetch("https://x/r", max_bytes=1_000)
+
+    # A different TLS fingerprint won't make the body smaller, so there is nothing to rotate to.
+    assert state["attempts"] == 1
+
+
+@pytest.mark.asyncio
+async def test_understated_content_length_is_caught_while_reading(monkeypatch):
+    state = _patch_responses(monkeypatch, [_FakeResponse(200, headers={"content-length": "10"}, body=b"x" * 10_000)])
+
+    with pytest.raises(fetch.ResponseTooLargeError, match="response body exceeds"):
+        await fetch.resilient_fetch("https://x/r", max_bytes=1_000)
+
+    assert state["attempts"] == 1
+
+
+@pytest.mark.asyncio
+async def test_missing_content_length_is_caught_while_reading(monkeypatch):
+    _patch_responses(monkeypatch, [_FakeResponse(200, body=b"x" * 10_000)])
+
+    with pytest.raises(fetch.ResponseTooLargeError, match="response body exceeds"):
+        await fetch.resilient_fetch("https://x/r", max_bytes=1_000)
+
+
+@pytest.mark.asyncio
+async def test_head_request_ignores_size_cap(monkeypatch):
+    """HEAD reads no body, so `largest_content_len`'s probing is unaffected by a cap."""
+    _patch_responses(monkeypatch, [_FakeResponse(200, headers={"content-length": "10000"}, body=b"x" * 10_000)])
+
+    result = await fetch.resilient_fetch("https://x/r", method="HEAD", max_bytes=1_000)
+
+    assert result is not None
+    assert result.content == b""
