@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Tilfør typiske etiketter i databasen basert på ditt lokale språk.",
       "edit-label": "Rediger etikett",
       "new-label": "Ny etikett",
       "labels": "Etiketter",
