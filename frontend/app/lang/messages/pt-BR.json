@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Semente o banco de dados com rótulos comuns baseados no seu idioma local.",
       "edit-label": "Editar marcador",
       "new-label": "Novo Marcador",
       "labels": "Marcadores",
