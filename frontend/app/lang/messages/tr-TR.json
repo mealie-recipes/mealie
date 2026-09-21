@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Veritabanını yerel dilinize göre yaygın etiketlerle tohumlayın.",
       "edit-label": "Etiketi Düzenle",
       "new-label": "Yeni Etiket",
       "labels": "Etiketler",
