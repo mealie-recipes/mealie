@@ -944,7 +944,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "ローカル言語に基づいた共通ラベルをデータベースにシードします。",
       "edit-label": "ラベルの編集",
       "new-label": "新規ラベル",
       "labels": "ラベル",
