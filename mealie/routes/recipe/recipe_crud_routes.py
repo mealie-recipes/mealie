@@ -3,7 +3,7 @@ from collections import defaultdict
 from collections.abc import AsyncIterable, Awaitable, Callable
 from pathlib import PurePosixPath
 from shutil import copyfileobj
-from typing import Annotated, BinaryIO
+from typing import Annotated, Any, BinaryIO
 from urllib.parse import unquote, urlparse
 from uuid import UUID, uuid4
 
@@ -833,7 +833,7 @@ class RecipeController(BaseRecipeController):
         name: str,
         icon: str,
         extension: str,
-        write: Callable[[BinaryIO], None],
+        write: Callable[[BinaryIO], Any],
     ) -> RecipeAsset:
         """Writes an asset into the recipe's asset directory and records it on the recipe."""
         if "." in extension:
