@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Opskriftsbillede slettet",
         "recipe-defaults": {
             "ingredient-note": "1 kop mel",
+            "name": "Ny opskrift",
             "step-text": "Du kan bruge markdown-kode i beskrivelser og andre felter i opskrifter.\n\n**Tilføj et link**\n\n[Mit link](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,7 +20,6 @@
             "yields": "Mængde"
         },
         "and-amount": "og {amount}",
-        "or-ingredient": "eller {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI-tjenester er ikke slået til",
             "ai-request-failed": "AI-udbyderen var ikke i stand til at færdiggøre forespørgslen. Prøv igen",
@@ -47,7 +47,16 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Ingen opskrifter matcher dine regler"
+        "no-recipes-match-your-rules": "Ingen opskrifter matcher dine regler",
+        "entry-type": {
+            "breakfast": "morgenmad",
+            "lunch": "frokost",
+            "dinner": "aftensmad",
+            "side": "tilbehør",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Bruger opdateret",
@@ -74,7 +83,40 @@
         "generic-updated-with-url": "{name} er blevet opdateret, {url}",
         "generic-duplicated": "{name} er blevet duplikeret",
         "generic-deleted": "{name} er blevet slettet",
-        "logged-out": "Logget ud"
+        "logged-out": "Logget ud",
+        "event-title": {
+            "test-message": "Testbesked",
+            "webhook-task": "Webhook-opgave",
+            "recipe-created": "Oprettede opskrift",
+            "recipe-updated": "Opdaterede opskrift",
+            "recipe-deleted": "Slettede opskrift",
+            "user-signup": "Brugertilmelding",
+            "data-migrations": "Overførsler af data",
+            "data-export": "Eksport af data",
+            "data-import": "Import af data",
+            "mealplan-entry-created": "Oprettede madplanspunkt",
+            "mealplan-entry-updated": "Opdaterede madplanspunkt",
+            "mealplan-entry-deleted": "Slettede madplanspunkt",
+            "shopping-list-created": "Oprettede indkøbsliste",
+            "shopping-list-updated": "Opdaterede indkøbsliste",
+            "shopping-list-deleted": "Slettede indkøbsliste",
+            "cookbook-created": "Oprettede kogebog",
+            "cookbook-updated": "Opdaterede kogebog",
+            "cookbook-deleted": "Slettede kogebog",
+            "tag-created": "Oprettede anmærkning",
+            "tag-updated": "Opdaterede anmærkning",
+            "tag-deleted": "Slettede anmærkning",
+            "category-created": "Oprettede kategori",
+            "category-updated": "Opdaterede kategori",
+            "category-deleted": "Slettede kategori",
+            "label-created": "Oprettede etiket",
+            "label-updated": "Opdaterede etiket",
+            "label-deleted": "Slettede etiket"
+        },
+        "test-message-body": "Dette er en testnotifikation fra Mealie",
+        "mealplan-entry-created": "Oprettede madplanspunkt til {date} for {entry_type}",
+        "mealplan-entry-updated": "Opdaterede madplanspunkt til {date} for {entry_type}",
+        "mealplan-entry-deleted": "Slettede madplanspunkt til {date} for {entry_type}"
     },
     "datetime": {
         "year": "år|år",

@@ -1,7 +1,7 @@
 import DOMPurify from "isomorphic-dompurify";
 import { useFraction } from "./use-fraction";
 import { useLocales } from "../use-locales";
-import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientUnit, Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
+import type { CreateIngredientFood, CreateIngredientUnit, IngredientFood, IngredientFoodSummary, IngredientUnit, Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 
 const { frac } = useFraction();
 
@@ -15,7 +15,7 @@ export function sanitizeIngredientHTML(rawHtml: string) {
   });
 }
 
-function useFoodName(food: CreateIngredientFood | IngredientFood | undefined, usePlural: boolean) {
+export function useFoodName(food: CreateIngredientFood | IngredientFood | IngredientFoodSummary | undefined, usePlural: boolean) {
   if (!food) {
     return "";
   }
@@ -45,7 +45,7 @@ function useRecipeLink(recipe: Recipe | undefined, groupSlug: string | undefined
     return undefined;
   }
 
-  return `<a href="/g/${groupSlug}/r/${recipe.slug}" target="_blank">${recipe.name}</a>`;
+  return `<a href="/g/${groupSlug}/r/${recipe.slug}">${recipe.name}</a>`;
 }
 
 type ParsedIngredientText = {
@@ -79,16 +79,29 @@ function shouldUsePluralFood(quantity: number, hasUnit: boolean, pluralFoodHandl
   }
 }
 
-export function useIngredientTextParser() {
+/**
+ * The current locale's food pluralization rule, applied to one ingredient line. Anything that
+ * renders a food in place of that line's food -- a substitution, above all -- inflects with it,
+ * so the rule lives here rather than inside the text parser alone.
+ */
+export function useFoodPlurality() {
   const { locales, locale } = useLocales();
 
-  function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true, groupSlug?: string): ParsedIngredientText {
-    const filteredLocales = locales.filter(lc => lc.value === locale.value);
-    const pluralFoodHandling = filteredLocales.length ? filteredLocales[0].pluralFoodHandling : "without-unit";
+  function shouldPluralizeFood(ingredient: RecipeIngredient, scale = 1): boolean {
+    const pluralFoodHandling = locales.find(lc => lc.value === locale.value)?.pluralFoodHandling || "without-unit";
+    return shouldUsePluralFood((ingredient.quantity || 0) * scale, !!ingredient.unit, pluralFoodHandling);
+  }
 
+  return { shouldPluralizeFood };
+}
+
+export function useIngredientTextParser() {
+  const { shouldPluralizeFood } = useFoodPlurality();
+
+  function useParsedIngredientText(ingredient: RecipeIngredient, scale = 1, includeFormating = true, groupSlug?: string): ParsedIngredientText {
     const { quantity, food, unit, note, referencedRecipe } = ingredient;
     const usePluralUnit = quantity !== undefined && ((quantity || 0) * scale > 1 || (quantity || 0) * scale === 0);
-    const usePluralFood = shouldUsePluralFood((quantity || 0) * scale, !!unit, pluralFoodHandling);
+    const usePluralFood = shouldPluralizeFood(ingredient, scale);
 
     let returnQty = "";
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-text-field
-      v-if="model.title || showTitle"
+      v-if="titleVisible"
       v-model="model.title"
       density="compact"
       variant="underlined"
@@ -11,229 +11,208 @@
       style="max-width: 500px"
       @click="$emit('clickIngredientField', 'title')"
     />
-    <v-row
-      :no-gutters="mdAndUp"
-      density="comfortable"
-      class="d-flex flex-wrap my-1"
-    >
-      <v-col
-        sm="12"
-        md="2"
-        cols="12"
-        class="flex-grow-0 flex-shrink-0"
-      >
-        <v-number-input
-          v-model="model.quantity"
-          variant="solo"
-          :precision="null"
-          :min="0"
-          hide-details
-          control-variant="stacked"
-          inset
-          density="compact"
-          :placeholder="$t('recipe.quantity')"
-          @keypress="quantityFilter"
-        >
-          <template v-if="enableDragHandle" #prepend>
-            <v-icon
-              class="mr-n1 handle"
+    <RecipeIngredientEditorLayout :header="enableDragHandle || enableContextMenu">
+      <template v-if="enableDragHandle" #dragHandle>
+        <v-icon class="ma-2 handle" size="large">
+          {{ $globals.icons.arrowUpDown }}
+        </v-icon>
+      </template>
+      <template v-if="enableContextMenu" #contextMenu>
+        <BaseButtonGroup
+          hover
+          :large="false"
+          class="ml-auto"
+          :buttons="btns"
+          @toggle-section="toggleTitle"
+          @toggle-subrecipe="toggleIsRecipe"
+          @toggle-substitutions="toggleSubstitutions"
+          @insert-above="$emit('insert-above')"
+          @insert-below="$emit('insert-below')"
+          @delete="$emit('delete')"
+        />
+      </template>
+      <template #form>
+        <div class="flex-grow-1">
+          <div class="d-flex ga-2 py-2" :class="$vuetify.display.mdAndDown ? 'flex-column' : ''">
+            <v-number-input
+              v-model="model.quantity"
+              variant="filled"
+              :precision="null"
+              :min="0"
+              hide-details
+              inset
+              density="compact"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 3 0 50px;'"
+              :placeholder="$t('recipe.quantity')"
+              @keypress="quantityFilter"
+            />
+            <v-autocomplete
+              ref="unitAutocomplete"
+              v-model="model.unit"
+              v-model:search="unitSearch"
+              auto-select-first
+              hide-details
+              density="compact"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 4 0 50px;'"
+              variant="filled"
+              return-object
+              :items="filteredUnits"
+              :custom-filter="() => true"
+              item-title="name"
+              :placeholder="$t('recipe.choose-unit')"
+              clearable
+              :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
+              @keyup.enter="handleUnitEnter"
             >
-              {{ $globals.icons.arrowUpDown }}
-            </v-icon>
-          </template>
-        </v-number-input>
-      </v-col>
-      <v-col
-        sm="12"
-        md="2"
-        cols="12"
-      >
-        <v-autocomplete
-          ref="unitAutocomplete"
-          v-model="model.unit"
-          v-model:search="unitSearch"
-          auto-select-first
-          hide-details
-          density="compact"
-          variant="solo"
-          return-object
-          :items="filteredUnits"
-          :custom-filter="() => true"
-          item-title="name"
-          class="mx-1"
-          :placeholder="$t('recipe.choose-unit')"
-          clearable
-          :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
-          @keyup.enter="handleUnitEnter"
-        >
-          <template #prepend>
-            <v-tooltip v-if="unitError" location="bottom">
-              <template #activator="{ props: unitTooltipProps }">
-                <v-icon
-                  v-bind="unitTooltipProps"
-                  class="ml-2 mr-n3 opacity-100"
-                  color="primary"
-                >
-                  {{ $globals.icons.alert }}
-                </v-icon>
+              <template v-if="unitError" #prepend-inner>
+                <v-tooltip location="bottom">
+                  <template #activator="{ props: unitTooltipProps }">
+                    <v-icon
+                      v-bind="unitTooltipProps"
+                      class="opacity-100"
+                      color="primary"
+                    >
+                      {{ $globals.icons.alert }}
+                    </v-icon>
+                  </template>
+                  <span v-if="unitErrorTooltip">
+                    {{ unitErrorTooltip }}
+                  </span>
+                </v-tooltip>
               </template>
-              <span v-if="unitErrorTooltip">
-                {{ unitErrorTooltip }}
-              </span>
-            </v-tooltip>
-          </template>
-          <template #no-data>
-            <div class="caption text-center pb-2">
-              {{ $t("recipe.press-enter-to-create") }}
-            </div>
-          </template>
-          <template #append-item>
-            <div v-if="showCreateUnit" class="px-2">
-              <BaseButton
-                block
-                size="small"
-                @click="createAssignUnit()"
-              />
-            </div>
-          </template>
-        </v-autocomplete>
-      </v-col>
+              <template #no-data>
+                <div class="caption text-center pb-2">
+                  {{ $t("recipe.press-enter-to-create") }}
+                </div>
+              </template>
+              <template #append-item>
+                <div v-if="showCreateUnit" class="px-2">
+                  <BaseButton
+                    block
+                    size="small"
+                    @click="createAssignUnit()"
+                  />
+                </div>
+              </template>
+            </v-autocomplete>
 
-      <!-- Foods Input -->
-      <v-col
-        v-if="!state.isRecipe"
-        m="12"
-        md="4"
-        cols="12"
-        class=""
-      >
-        <v-autocomplete
-          ref="foodAutocomplete"
-          v-model="model.food"
-          v-model:search="foodSearch"
-          auto-select-first
-          hide-details
-          density="compact"
-          variant="solo"
-          return-object
-          :items="filteredFoods"
-          :custom-filter="() => true"
-          item-title="name"
-          class="mx-1 py-0"
-          :placeholder="$t('recipe.choose-food')"
-          clearable
-          :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
-          @keyup.enter="handleFoodEnter"
-        >
-          <template #prepend>
-            <v-tooltip v-if="foodError" location="bottom">
-              <template #activator="{ props: foodTooltipProps }">
-                <v-icon
-                  v-bind="foodTooltipProps"
-                  class="ml-2 mr-n3 opacity-100"
-                  color="primary"
-                >
-                  {{ $globals.icons.alert }}
-                </v-icon>
+            <!-- Foods Input -->
+            <v-autocomplete
+              v-if="!state.isRecipe"
+              ref="foodAutocomplete"
+              v-model="model.food"
+              v-model:search="foodSearch"
+              auto-select-first
+              hide-details
+              density="compact"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 0 50px;'"
+              variant="filled"
+              return-object
+              :items="filteredFoods"
+              :custom-filter="() => true"
+              item-title="name"
+              :placeholder="$t('recipe.choose-food')"
+              clearable
+              :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
+              @keyup.enter="handleFoodEnter"
+            >
+              <template v-if="foodError" #prepend-inner>
+                <v-tooltip location="bottom">
+                  <template #activator="{ props: foodTooltipProps }">
+                    <v-icon
+                      v-bind="foodTooltipProps"
+                      class="opacity-100"
+                      color="primary"
+                    >
+                      {{ $globals.icons.alert }}
+                    </v-icon>
+                  </template>
+                  <span v-if="foodErrorTooltip">
+                    {{ foodErrorTooltip }}
+                  </span>
+                </v-tooltip>
               </template>
-              <span v-if="foodErrorTooltip">
-                {{ foodErrorTooltip }}
-              </span>
-            </v-tooltip>
-          </template>
-          <template #no-data>
-            <div class="caption text-center pb-2">
-              {{ $t("recipe.press-enter-to-create") }}
-            </div>
-          </template>
-          <template #append-item>
-            <div v-if="showCreateFood" class="px-2">
-              <BaseButton
-                block
-                size="small"
-                @click="createAssignFood()"
-              />
-            </div>
-          </template>
-        </v-autocomplete>
-      </v-col>
-      <!-- Recipe Input -->
-      <v-col
-        v-if="state.isRecipe"
-        m="12"
-        md="4"
-        cols="12"
-        class=""
-      >
-        <v-autocomplete
-          ref="search.query"
-          v-model="model.referencedRecipe"
-          v-model:search="search.query.value"
-          auto-select-first
-          hide-details
-          density="compact"
-          variant="solo"
-          return-object
-          :items="search.data.value || []"
-          item-title="name"
-          class="mx-1 py-0"
-          :placeholder="$t('search.type-to-search')"
-          clearable
-          :label="!model.referencedRecipe ? $t('recipe.choose-recipe') : ''"
-          @click="search.trigger()"
-          @focus="search.trigger()"
-        >
-          <template #prepend />
-        </v-autocomplete>
-      </v-col>
-      <v-col
-        sm="12"
-        md=""
-        cols="12"
-      >
-        <div class="d-flex">
-          <v-text-field
-            v-model="model.note"
-            hide-details
-            density="compact"
-            variant="solo"
-            :placeholder="$t('recipe.notes')"
-            class="mb-auto"
-            @click="$emit('clickIngredientField', 'note')"
-          />
-          <BaseButtonGroup
-            v-if="enableContextMenu"
-            hover
-            :large="false"
-            class="my-auto d-flex"
-            :buttons="btns"
-            @toggle-section="toggleTitle"
-            @toggle-subrecipe="toggleIsRecipe"
-            @insert-above="$emit('insert-above')"
-            @insert-below="$emit('insert-below')"
-            @delete="$emit('delete')"
-          />
+              <template #no-data>
+                <div class="caption text-center pb-2">
+                  {{ $t("recipe.press-enter-to-create") }}
+                </div>
+              </template>
+              <template #append-item>
+                <div v-if="showCreateFood" class="px-2">
+                  <BaseButton
+                    block
+                    size="small"
+                    @click="createAssignFood()"
+                  />
+                </div>
+              </template>
+            </v-autocomplete>
+            <!-- Recipe Input -->
+            <v-autocomplete
+              v-if="state.isRecipe"
+              ref="search.query"
+              v-model="model.referencedRecipe"
+              v-model:search="search.query.value"
+              auto-select-first
+              hide-details
+              density="compact"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 0 50px;'"
+              variant="filled"
+              return-object
+              :items="search.data.value || []"
+              item-title="name"
+              :placeholder="$t('search.type-to-search')"
+              clearable
+              :label="!model.referencedRecipe ? $t('recipe.choose-recipe') : ''"
+              @click="search.trigger()"
+              @focus="search.trigger()"
+            />
+            <v-text-field
+              v-model="model.note"
+              hide-details
+              density="compact"
+              :style="$vuetify.display.mdAndDown ? '' : 'flex: 7 0 50px;'"
+              variant="filled"
+              :placeholder="$t('recipe.notes')"
+              class=""
+              @click="$emit('clickIngredientField', 'note')"
+            />
+          </div>
         </div>
-      </v-col>
-    </v-row>
-    <slot name="before-divider" />
-    <v-divider
-      v-if="!mdAndUp"
-      class="my-4"
-    />
+      </template>
+    </RecipeIngredientEditorLayout>
+    <div class="px-2" :class="{ 'ml-10': !$vuetify.display.mdAndDown }">
+      <!-- shown whenever the ingredient carries substitutions, so the toggle can't hide saved data -->
+      <div v-if="substitutionsVisible" class="py-2">
+        <div class="d-flex align-center text-caption mb-1">
+          <v-icon size="small" class="mr-1">
+            {{ $globals.icons.swapHorizontal }}
+          </v-icon>
+          {{ $t("recipe.substitutions") }}
+        </div>
+        <RecipeIngredientSubstitutionEditor
+          :substitutions="model.substitutions || []"
+          :foods="allFoods"
+          :menu-attach-target="props.menuAttachTarget"
+          @add="addSubstitution"
+          @delete="deleteSubstitution"
+        />
+      </div>
+      <slot name="before-divider" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, reactive, toRefs, watch } from "vue";
-import { useDisplay } from "vuetify";
-import { useI18n } from "vue-i18n";
-import { useFoodStore, useFoodData, useUnitStore, useUnitData } from "~/composables/store";
-import { useSearch } from "~/composables/use-search";
 import { useNuxtApp } from "#app";
-import type { RecipeIngredient } from "~/lib/api/types/recipe";
+import { computed, reactive, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 import { usePublicExploreApi, useUserApi } from "~/composables/api";
 import { useRecipeSearch } from "~/composables/recipes/use-recipe-search";
+import { useFoodData, useFoodStore, useUnitData, useUnitStore } from "~/composables/store";
+import { useSearch } from "~/composables/use-search";
+import RecipeIngredientSubstitutionEditor from "~/components/Domain/Recipe/RecipeIngredientSubstitutionEditor.vue";
+import type { RecipeIngredient } from "~/lib/api/types/recipe";
 
 // defineModel replaces modelValue prop
 const model = defineModel<RecipeIngredient>({ required: true });
@@ -284,24 +263,39 @@ defineEmits([
   "delete",
 ]);
 
-const { mdAndUp } = useDisplay();
 const i18n = useI18n();
 const { $globals } = useNuxtApp();
 
 const state = reactive({
   showTitle: false,
+  showSubstitutions: false,
   isRecipe: props.isRecipe,
 });
 
+// an ingredient that arrives with a title or substitutions shows them without being toggled on,
+// so what the menu entries act on is this, not the flag on its own -- otherwise the first press
+// is a no-op and the second one is the destructive half of a toggle nobody saw move
+const titleVisible = computed(() => !!model.value.title || state.showTitle);
+const substitutionsVisible = computed(() => !!model.value.substitutions?.length || state.showSubstitutions);
+
 const contextMenuOptions = computed(() => {
+  // these entries clear what they hide, so they name the action instead of saying "toggle"
   const options = [
     {
-      text: i18n.t("recipe.toggle-section"),
+      text: titleVisible.value
+        ? i18n.t("recipe.clear-section")
+        : i18n.t("recipe.add-section"),
       event: "toggle-section",
     },
     {
       text: i18n.t("recipe.toggle-recipe"),
       event: "toggle-subrecipe",
+    },
+    {
+      text: substitutionsVisible.value
+        ? i18n.t("recipe.clear-substitutions")
+        : i18n.t("recipe.add-substitutions"),
+      event: "toggle-substitutions",
     },
     {
       text: i18n.t("recipe.insert-above"),
@@ -343,6 +337,10 @@ const foodStore = useFoodStore();
 const foodData = useFoodData();
 const foodAutocomplete = ref<HTMLInputElement>();
 const { search: foodSearch, filtered: filteredFoods } = useSearch(foodStore.store);
+
+// the substitution pickers offer every food; unlike the main field they can't create one,
+// since a substitute the user has to invent is what the note is for
+const allFoods = computed(() => foodStore.store.value);
 
 const showCreateFood = computed(() =>
   !!foodSearch.value
@@ -394,10 +392,34 @@ async function createAssignUnit() {
 }
 
 function toggleTitle() {
-  if (state.showTitle) {
+  if (titleVisible.value) {
     model.value.title = "";
+    state.showTitle = false;
   }
-  state.showTitle = !state.showTitle;
+  else {
+    state.showTitle = true;
+  }
+}
+
+function addSubstitution() {
+  model.value.substitutions = [...(model.value.substitutions || []), { substituteFoodId: null, note: "" }];
+  state.showSubstitutions = true;
+}
+
+function deleteSubstitution(index: number) {
+  model.value.substitutions?.splice(index, 1);
+  // removing the last row leaves the section open; the user is still working in it
+  state.showSubstitutions = true;
+}
+
+function toggleSubstitutions() {
+  if (substitutionsVisible.value) {
+    model.value.substitutions = [];
+    state.showSubstitutions = false;
+  }
+  else {
+    addSubstitution();
+  }
 }
 
 function toggleIsRecipe() {
@@ -436,13 +458,4 @@ function quantityFilter(e: KeyboardEvent) {
     e.preventDefault();
   }
 }
-
-const { showTitle } = toRefs(state);
 </script>
-
-<style>
-.v-input__append-outer {
-  margin: 0 !important;
-  padding: 0 !important;
-}
-</style>

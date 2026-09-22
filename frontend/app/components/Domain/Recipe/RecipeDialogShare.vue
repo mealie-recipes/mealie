@@ -2,6 +2,7 @@
   <div>
     <BaseDialog
       v-model="dialog"
+      bottom-sheet
       :title="$t('recipe-share.share-recipe')"
       :icon="$globals.icons.link"
     >

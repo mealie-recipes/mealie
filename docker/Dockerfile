@@ -1,7 +1,7 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:24@sha256:934240a162082fd8b8a2f90cd5114446443f1eba1c5378f6687167ca405e6584 \
+FROM node:24@sha256:6dac556d980b7f0e5498d08f08cee0ca67798b4ad6c23964a9214920e67758d0 \
     AS frontend-builder
 
 RUN npm install --global pnpm@11
@@ -65,10 +65,11 @@ COPY --from=frontend-builder /frontend/dist ./mealie/frontend
 # Build the source and binary package
 RUN uv build --out-dir dist
 
-# Create the requirements file, which is used to install the built package and
-# its pinned dependencies later. mealie is included to ensure the built one is
-# what's installed.
-RUN uv export --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/requirements.txt \
+# dependencies.txt changes only when uv.lock does, so the venv build can cache
+# the install. requirements.txt adds the wheel that was just built, so an
+# install from it gets that exact one.
+RUN uv export --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/dependencies.txt \
+    && cp dist/dependencies.txt dist/requirements.txt \
     && MEALIE_VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])") \
     && echo "mealie[pgsql]==${MEALIE_VERSION} \\" >> dist/requirements.txt \
     && pip hash dist/mealie-${MEALIE_VERSION}-py3-none-any.whl | tail -n1 | tr -d '\n' >> dist/requirements.txt \
@@ -102,10 +103,15 @@ RUN python3 -m venv --upgrade-deps $VENV_PATH
 # Install the wheel and all dependencies into the venv
 FROM venv-builder-base AS venv-builder
 
+# Cache key is dependencies.txt, so a mealie-only commit reuses this layer.
+COPY --from=packages dependencies.txt /dist/dependencies.txt
+RUN . $VENV_PATH/bin/activate \
+    && pip install --require-hashes -r /dist/dependencies.txt
+
 # Copy built package (wheel) and its dependency requirements
 COPY --from=packages * /dist/
 
-# Install the wheel with exact versions of dependencies into the venv
+# The dependencies are already in place, so pip only installs mealie itself.
 RUN . $VENV_PATH/bin/activate \
     && pip install --require-hashes -r /dist/requirements.txt --find-links /dist
 

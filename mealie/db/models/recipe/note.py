@@ -11,7 +11,10 @@ class Note(SqlAlchemyBase):
     recipe_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("recipes.id"), index=True)
     title: Mapped[str | None] = mapped_column(sa.String)
     text: Mapped[str | None] = mapped_column(sa.String)
+    reference_id: Mapped[GUID | None] = mapped_column(GUID, index=True, default=GUID.generate)
 
-    def __init__(self, title, text) -> None:
+    def __init__(self, title, text, reference_id=None, **_) -> None:
         self.title = title
         self.text = text
+        if reference_id is not None:
+            self.reference_id = reference_id

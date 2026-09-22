@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Изображението на рецептата беше изтрито",
         "recipe-defaults": {
             "ingredient-note": "1 чаша брашно",
+            "name": "New Recipe",
             "step-text": "Стъпките на рецептата, както и други полета в страницата с рецепти поддържат синтаксис за маркиране.\n\n **Добавяне на връзка**\n\n [Моята връзка](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,7 +20,6 @@
             "yields": "Порции"
         },
         "and-amount": "и {amount}",
-        "or-ingredient": "или {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
@@ -47,7 +47,16 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Няма рецепти отговарящи на Вашите критерии"
+        "no-recipes-match-your-rules": "Няма рецепти отговарящи на Вашите критерии",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Потребителят е обновен",
@@ -74,7 +83,40 @@
         "generic-updated-with-url": "{name} беше актуализирано, {url}",
         "generic-duplicated": "{name} е дублирано",
         "generic-deleted": "{name} беше изтрито",
-        "logged-out": "Излязохте от профила си"
+        "logged-out": "Излязохте от профила си",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "година|години",

@@ -3,96 +3,131 @@
     <!-- Ingredient Link Editor -->
     <BaseDialog
       v-model="dialog"
-      :title="$t('recipe.ingredient-linker')"
+      :title="$t('recipe.link-references')"
       :icon="$globals.icons.link"
       width="100%"
       max-width="600px"
-      max-height="40%"
+      max-height="60%"
     >
-      <v-card-text class="pt-4">
-        <p>
-          {{ activeText }}
-        </p>
-        <v-divider class="my-4" />
-        <template v-if="Object.keys(groupedUnusedIngredients).length > 0">
-          <h4 class="ml-1">
-            {{ $t("recipe.unlinked") }}
-          </h4>
-          <template v-for="(ingredients, title) in groupedUnusedIngredients" :key="title">
-            <h4 v-if="title" class="py-3 ml-1 pl-4">
-              {{ title }}
-            </h4>
-            <v-checkbox-btn
-              v-for="ing in ingredients"
-              :key="ing.referenceId"
-              v-model="activeRefs"
-              :value="ing.referenceId"
-              class="ml-4"
-            >
-              <template #label>
-                <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
-              </template>
-            </v-checkbox-btn>
-          </template>
-        </template>
+      <div class="grid">
+        <div class="sticky">
+          <v-card flat style="max-height: 40dvh; overflow-y: auto;">
+            <v-card-text class="pt-4">
+              <p>
+                {{ activeDialogStepText }}
+              </p>
+              <v-divider class="my-4" />
 
-        <template v-if="Object.keys(groupedUsedIngredients).length > 0">
-          <h4 class="py-3 ml-1">
-            {{ $t("recipe.linked-to-other-step") }}
-          </h4>
-          <template v-for="(ingredients, title) in groupedUsedIngredients" :key="title">
-            <h4 v-if="title" class="py-3 ml-1 pl-4">
-              {{ title }}
+              <h4 class="ml-1">
+                {{ $t("recipe.ingredients") }}
+              </h4>
+            </v-card-text>
+          </v-card>
+          <v-divider />
+        </div>
+        <v-card flat>
+          <v-card-text>
+            <template v-if="Object.keys(groupedUnusedIngredients).length > 0">
+              <h4 class="ml-1">
+                {{ $t("recipe.unlinked") }}
+              </h4>
+              <template v-for="(ingredients, title) in groupedUnusedIngredients" :key="title">
+                <h4 v-if="title" class="py-3 ml-1 pl-4">
+                  {{ title }}
+                </h4>
+                <v-checkbox-btn
+                  v-for="ing in ingredients"
+                  :key="ing.referenceId"
+                  v-model="activeRefs"
+                  :value="ing.referenceId"
+                  class="ml-4"
+                >
+                  <template #label>
+                    <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+                  </template>
+                </v-checkbox-btn>
+              </template>
+            </template>
+
+            <template v-if="Object.keys(groupedUsedIngredients).length > 0">
+              <h4 class="py-3 ml-1">
+                {{ $t("recipe.linked-to-other-step") }}
+              </h4>
+              <template v-for="(ingredients, title) in groupedUsedIngredients" :key="title">
+                <h4 v-if="title" class="py-3 ml-1 pl-4">
+                  {{ title }}
+                </h4>
+                <v-checkbox-btn
+                  v-for="ing in ingredients"
+                  :key="ing.referenceId"
+                  v-model="activeRefs"
+                  :value="ing.referenceId"
+                  class="ml-4"
+                >
+                  <template #label>
+                    <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+                  </template>
+                </v-checkbox-btn>
+              </template>
+            </template>
+
+            <v-divider class="my-4" />
+
+            <h4 class="ml-1 mb-2">
+              {{ $t("recipe.notes") }}
             </h4>
+            <p v-if="linkableNotes.length === 0" class="text-body-2 text-medium-emphasis">
+              {{ $t('recipe.no-notes-to-link') }}
+            </p>
             <v-checkbox-btn
-              v-for="ing in ingredients"
-              :key="ing.referenceId"
-              v-model="activeRefs"
-              :value="ing.referenceId"
+              v-for="note in linkableNotes"
+              :key="note.referenceId"
+              v-model="activeNoteReferenceIds"
+              :value="note.referenceId"
               class="ml-4"
             >
               <template #label>
-                <RecipeIngredientHtml :ingredient="ing" :scale="scale" />
+                {{ note.title || $t('recipe.note') }}
               </template>
             </v-checkbox-btn>
-          </template>
-        </template>
-      </v-card-text>
+          </v-card-text>
+        </v-card>
+      </div>
 
       <v-divider />
 
       <template #card-actions>
-        <BaseButton
-          cancel
-          @click="dialog = false"
-        />
-        <v-spacer />
-        <div class="d-flex flex-wrap justify-end">
+        <div class="d-flex flex-grow-1">
           <BaseButton
-            class="my-1"
-            color="info"
-            @click="autoSetReferences"
-          >
-            <template #icon>
-              {{ $globals.icons.robot }}
-            </template>
-            {{ $t("recipe.auto") }}
-          </BaseButton>
-          <BaseButton
-            class="ml-2 my-1"
-            save
-            @click="setIngredientIds"
+            cancel
+            @click="closeDialog"
           />
-          <BaseButton
-            v-if="availableNextStep"
-            class="ml-2 my-1"
-            @click="saveAndOpenNextLinkIngredients"
-          >
-            <template #icon>
-              {{ $globals.icons.forward }}
-            </template>
-            {{ $t("recipe.nextStep") }}
-          </BaseButton>
+          <v-spacer />
+          <div class="d-flex flex-wrap justify-end ga-2">
+            <BaseButton
+              color="info"
+              @click="autoSetReferences"
+            >
+              <template #icon>
+                {{ $globals.icons.robot }}
+              </template>
+              {{ $t("recipe.auto") }}
+            </BaseButton>
+            <BaseButton
+              save
+              @click="saveDialogLinks"
+            />
+            <BaseButton
+              v-if="availableDialogNextStep"
+              class="ml-2 my-1"
+              @click="saveAndOpenNextDialogLinks"
+            >
+              <template #icon>
+                {{ $globals.icons.forward }}
+              </template>
+              {{ $t("recipe.nextStep") }}
+            </BaseButton>
+          </div>
         </div>
       </template>
     </BaseDialog>
@@ -117,6 +152,46 @@
         {{ $t("recipe.cook-mode") }}
       </BaseButton>
     </div>
+    <v-bottom-sheet
+      v-model="linkedNotesSheetOpen"
+      max-width="900"
+      inset
+    >
+      <v-card>
+        <v-card-title class="d-flex align-center">
+          <v-icon size="20" class="mr-2">
+            {{ $globals.icons.noteTextOutline }}
+          </v-icon>
+          {{ $t('recipe.linked-notes-with-count', { count: activeStepLinkedNotes.length }) }}
+          <v-spacer />
+          <v-btn
+            icon
+            variant="text"
+            density="comfortable"
+            :aria-label="$t('general.close')"
+            @click="linkedNotesSheetOpen = false"
+          >
+            <v-icon>{{ $globals.icons.close }}</v-icon>
+          </v-btn>
+        </v-card-title>
+        <v-divider />
+        <v-card-text class="pt-4">
+          <template
+            v-for="(note, noteIndex) in activeStepLinkedNotes"
+            :key="note.referenceId ?? note.title"
+          >
+            <v-divider
+              v-if="noteIndex > 0"
+              class="my-3"
+            />
+            <div class="text-title-large mb-1">
+              {{ note.title || $t('recipe.note') }}
+            </div>
+            <SafeMarkdown :source="note.text" />
+          </template>
+        </v-card-text>
+      </v-card>
+    </v-bottom-sheet>
     <VueDraggable
       v-model="instructionList"
       :disabled="!isEditForm"
@@ -223,12 +298,12 @@
                             event: 'open',
                             children: [
                               {
-                                text: $t('recipe.toggle-section'),
+                                text: sectionTitleLabel(step.id),
                                 event: 'toggle-section',
                               },
                               {
-                                text: $t('recipe.link-ingredients'),
-                                event: 'link-ingredients',
+                                text: $t('recipe.link-references'),
+                                event: 'link-references',
                               },
                               {
                                 text: $t('recipe.upload-image'),
@@ -269,23 +344,39 @@
                         @insert-above="insert(index)"
                         @insert-below="insert(index + 1)"
                         @toggle-section="toggleShowTitle(step.id!)"
-                        @link-ingredients="openDialog(index, step.text, step.ingredientReferences)"
+                        @link-references="openReferenceDialog(index)"
                         @preview-step="togglePreviewState(index)"
                         @upload-image="openImageUpload(index)"
                         @delete="instructionList.splice(index, 1)"
                       />
                     </div>
                   </template>
-                  <v-fade-transition>
-                    <v-icon
-                      v-show="isChecked(index)"
-                      size="24"
-                      class="ml-auto"
-                      color="success"
+                  <div v-if="!isEditForm" class="ml-auto d-flex align-center gap-1">
+                    <v-btn
+                      v-if="hasLinkedNotes(step) && !isCookMode"
+                      variant="text"
+                      icon
+                      density="comfortable"
+                      size="small"
+                      @click.stop="openLinkedNotesSheet(step)"
                     >
-                      {{ $globals.icons.checkboxMarkedCircle }}
-                    </v-icon>
-                  </v-fade-transition>
+                      <v-icon size="18">
+                        {{ $globals.icons.noteTextOutline }}
+                      </v-icon>
+                      <v-tooltip activator="parent" location="top">
+                        {{ $t('recipe.linked-notes-with-count', { count: linkedNotesForStep(step).length }) }}
+                      </v-tooltip>
+                    </v-btn>
+                    <v-fade-transition>
+                      <v-icon
+                        v-show="isChecked(index)"
+                        size="24"
+                        color="success"
+                      >
+                        {{ $globals.icons.checkboxMarkedCircle }}
+                      </v-icon>
+                    </v-fade-transition>
+                  </div>
                 </div>
               </v-card-title>
 
@@ -296,7 +387,11 @@
               />
 
               <!-- Content -->
-              <DropZone @drop="(f) => handleImageDrop(index, f)">
+              <DropZone
+                @drop="(f) => handleImageDrop(index, f)"
+                @drop-url="(u) => handleImageUrlDrop(index, u)"
+                @drop-unsupported="notifyUnsupportedDrop"
+              >
                 <v-card-text
                   v-if="isEditForm"
                   @click="$emit('click-instruction-field', `${index}.text`)"
@@ -327,6 +422,21 @@
                       />
                     </div>
                   </div>
+                  <div
+                    v-if="step.noteReferences && step.noteReferences.length"
+                    class="linked-ingredients-editor mt-1"
+                  >
+                    <div
+                      v-for="(noteRef, i) in step.noteReferences"
+                      :key="noteRef.referenceId ?? i"
+                      class="mb-1 d-flex align-center text-body-2"
+                    >
+                      <v-icon size="14" class="mr-1" style="cursor: default;">
+                        {{ $globals.icons.noteTextOutline }}
+                      </v-icon>
+                      {{ noteRef.referenceId != null ? (noteLookup[noteRef.referenceId] || $t('recipe.note')) : '' }}
+                    </div>
+                  </div>
                 </v-card-text>
               </DropZone>
               <v-expand-transition>
@@ -337,11 +447,14 @@
                   <v-card-text class="markdown">
                     <v-row>
                       <v-col
-                        v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0"
+                        v-if="isCookMode && hasCookModeLinkedContent(step)"
                         cols="12"
                         sm="5"
                       >
-                        <div class="ml-n4">
+                        <div
+                          v-if="hasLinkedIngredients(step)"
+                          class="ml-n4"
+                        >
                           <RecipeIngredients
                             :value="recipe.recipeIngredient.filter((ing) => {
                               if (!step.ingredientReferences) return false
@@ -349,11 +462,31 @@
                             })"
                             :scale="scale"
                             :is-cook-mode="isCookMode"
+                            :storage-key="ingredientStorageKey"
                           />
+                        </div>
+                        <v-divider
+                          v-if="hasLinkedIngredients(step) && hasLinkedNotes(step)"
+                          class="my-3"
+                        />
+                        <div v-if="hasLinkedNotes(step)">
+                          <template
+                            v-for="(note, noteIndex) in linkedNotesForStep(step)"
+                            :key="note.referenceId ?? note.title"
+                          >
+                            <v-divider
+                              v-if="noteIndex > 0"
+                              class="my-3"
+                            />
+                            <div class="text-title-large mb-1">
+                              {{ note.title || $t('recipe.note') }}
+                            </div>
+                            <SafeMarkdown :source="note.text" />
+                          </template>
                         </div>
                       </v-col>
                       <v-divider
-                        v-if="isCookMode && step.ingredientReferences && step.ingredientReferences.length > 0 && $vuetify.display.smAndUp"
+                        v-if="isCookMode && hasCookModeLinkedContent(step) && $vuetify.display.smAndUp"
                         vertical
                       />
                       <v-col>
@@ -381,13 +514,14 @@
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
 import { computed, nextTick, onMounted, ref, watch } from "vue";
-import type { RecipeStep, IngredientReferences, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
+import type { RecipeStep, RecipeNote, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
 import { uuid4 } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import DropZone from "~/components/global/DropZone.vue";
+import { alert } from "~/composables/use-toast";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 import RecipeIngredientHtml from "~/components/Domain/Recipe/RecipeIngredientHtml.vue";
 
@@ -410,10 +544,15 @@ const props = defineProps({
     type: Number,
     default: 1,
   },
+  ingredientStorageKey: {
+    type: String,
+    default: undefined,
+  },
 });
 
 const emit = defineEmits(["click-instruction-field", "update:assets"]);
 
+const i18n = useI18n();
 const { isCookMode, toggleCookMode, isEditForm } = usePageState(props.recipe.slug);
 const { extractIngredientReferences } = useExtractIngredientReferences();
 
@@ -482,12 +621,28 @@ function isChecked(stepIndex: number) {
   }
 }
 
+function sectionTitleLabel(id?: string) {
+  return id && showTitleEditor.value[id]
+    ? i18n.t("recipe.clear-section")
+    : i18n.t("recipe.add-section");
+}
+
 function toggleShowTitle(id?: string) {
   if (!id) {
     return;
   }
 
-  showTitleEditor.value[id] = !showTitleEditor.value[id];
+  const showing = showTitleEditor.value[id];
+  if (showing) {
+    // visibility is re-derived from the title whenever the list changes, so hiding a section
+    // only sticks if the title goes with it
+    const step = instructionList.value.find(element => element.id === id);
+    if (step) {
+      step.title = "";
+    }
+  }
+
+  showTitleEditor.value[id] = !showing;
 
   const temp = { ...showTitleEditor.value };
   showTitleEditor.value = temp;
@@ -498,61 +653,88 @@ function onDragEnd() {
 }
 
 // ===============================================================
-// Ingredient Linker
+// Reference Linker
+const activeLinkerIndex = ref(0);
 const activeRefs = ref<string[]>([]);
-const activeIndex = ref(0);
+const activeNoteReferenceIds = ref<string[]>([]);
 const activeText = ref("");
+const linkedNotesSheetOpen = ref(false);
+const activeStepLinkedNotes = ref<RecipeNote[]>([]);
 
-function openDialog(idx: number, text: string, refs?: IngredientReferences[]) {
-  if (!refs) {
-    instructionList.value[idx].ingredientReferences = [];
-    refs = instructionList.value[idx].ingredientReferences as IngredientReferences[];
+const availableDialogNextStep = computed(() => activeLinkerIndex.value < instructionList.value.length - 1);
+const activeDialogStepText = computed(() => activeText.value);
+const linkableNotes = computed(() => {
+  return (props.recipe.notes ?? []).filter((note): note is RecipeNote & { referenceId: string } => note.referenceId != null);
+});
+
+function openReferenceDialog(idx: number) {
+  activeLinkerIndex.value = idx;
+  const step = instructionList.value[idx];
+
+  if (!step) {
+    activeRefs.value = [];
+    activeNoteReferenceIds.value = [];
+    return;
   }
-  activeIndex.value = idx;
-  activeText.value = text;
+
+  activeText.value = step.text;
   setUsedIngredients();
+  activeRefs.value = (step.ingredientReferences ?? []).map(ref => ref.referenceId ?? "");
+  activeNoteReferenceIds.value = (step.noteReferences ?? [])
+    .map(ref => ref.referenceId)
+    .filter((ref): ref is string => ref != null);
   dialog.value = true;
-  activeRefs.value = refs.map(ref => ref.referenceId ?? "");
 }
 
-const availableNextStep = computed(() => activeIndex.value < instructionList.value.length - 1);
-
-function setIngredientIds() {
-  const instruction = instructionList.value[activeIndex.value];
-  instruction.ingredientReferences = activeRefs.value.map((ref) => {
-    return {
-      referenceId: ref,
-    };
-  });
-
-  // Update the visibility of the cook mode button
+function updateCookModeVisibility() {
   showCookMode.value = false;
   instructionList.value.forEach((element) => {
     if (showCookMode.value === false && element.ingredientReferences && element.ingredientReferences.length > 0) {
       showCookMode.value = true;
     }
   });
+}
+
+function saveDialogLinks() {
+  const step = instructionList.value[activeLinkerIndex.value];
+
+  if (!step) {
+    dialog.value = false;
+    return;
+  }
+
+  step.ingredientReferences = activeRefs.value.map((referenceId) => {
+    return { referenceId };
+  });
+
+  step.noteReferences = activeNoteReferenceIds.value.map((referenceId) => {
+    return { referenceId };
+  });
+
+  updateCookModeVisibility();
   dialog.value = false;
 }
 
-function saveAndOpenNextLinkIngredients() {
-  const currentStepIndex = activeIndex.value;
+function saveAndOpenNextDialogLinks() {
+  const currentStepIndex = activeLinkerIndex.value;
 
-  if (!availableNextStep.value) {
-    return; // no next step, the button calling this function should not be shown
+  if (!availableDialogNextStep.value) {
+    return;
   }
 
-  setIngredientIds();
-  const nextStep = instructionList.value[currentStepIndex + 1];
-  // close dialog before opening to reset the scroll position
-  nextTick(() => openDialog(currentStepIndex + 1, nextStep.text, nextStep.ingredientReferences));
+  saveDialogLinks();
+  nextTick(() => openReferenceDialog(currentStepIndex + 1));
+}
+
+function closeDialog() {
+  dialog.value = false;
 }
 
 function setUsedIngredients() {
   const usedRefs: { [key: string]: boolean } = {};
 
   instructionList.value.forEach((element, idx) => {
-    if (idx === activeIndex.value) return;
+    if (idx === activeLinkerIndex.value) return;
     element.ingredientReferences?.forEach((ref) => {
       if (ref.referenceId) usedRefs[ref.referenceId] = true;
     });
@@ -571,6 +753,49 @@ function autoSetReferences() {
     activeRefs.value,
     activeText.value,
   ).forEach(ingredient => activeRefs.value.push(ingredient));
+}
+
+const noteLookup = computed(() => {
+  const results: { [key: string]: string } = {};
+  return (props.recipe.notes ?? []).reduce((prev, note) => {
+    if (note.referenceId != null) {
+      prev[note.referenceId] = note.title;
+    }
+    return prev;
+  }, results);
+});
+
+const notesByReferenceId = computed(() => {
+  const results: { [key: string]: RecipeNote } = {};
+  return (props.recipe.notes ?? []).reduce((prev, note) => {
+    if (note.referenceId != null) {
+      prev[note.referenceId] = note;
+    }
+    return prev;
+  }, results);
+});
+
+function linkedNotesForStep(step: RecipeStep): RecipeNote[] {
+  return (step.noteReferences ?? [])
+    .map(ref => ref.referenceId ? notesByReferenceId.value[ref.referenceId] : undefined)
+    .filter((note): note is RecipeNote => note !== undefined);
+}
+
+function openLinkedNotesSheet(step: RecipeStep) {
+  activeStepLinkedNotes.value = linkedNotesForStep(step);
+  linkedNotesSheetOpen.value = activeStepLinkedNotes.value.length > 0;
+}
+
+function hasLinkedIngredients(step: RecipeStep): boolean {
+  return !!step.ingredientReferences && step.ingredientReferences.length > 0;
+}
+
+function hasLinkedNotes(step: RecipeStep): boolean {
+  return linkedNotesForStep(step).length > 0;
+}
+
+function hasCookModeLinkedContent(step: RecipeStep): boolean {
+  return hasLinkedIngredients(step) || hasLinkedNotes(step);
 }
 
 const ingredientLookup = computed(() => {
@@ -676,6 +901,7 @@ function undoMerge(event: KeyboardEvent) {
       title: "",
       text: lastMerge.sourceText,
       ingredientReferences: [],
+      noteReferences: [],
     });
   }
 }
@@ -690,7 +916,7 @@ function moveTo(dest: string, source: number) {
 }
 
 function insert(dest: number) {
-  instructionList.value.splice(dest, 0, { id: uuid4(), text: "", title: "", ingredientReferences: [] });
+  instructionList.value.splice(dest, 0, { id: uuid4(), text: "", title: "", ingredientReferences: [], noteReferences: [] });
 }
 
 const previewStates = ref<boolean[]>([]);
@@ -758,8 +984,39 @@ async function handleImageDrop(index: number, files: File[]) {
     return; // TODO: Handle error
   }
 
-  emit("update:assets", [...assets.value, data]);
-  const assetUrl = recipeAssetPath(props.recipe.id, data.fileName as string);
+  embedAsset(index, data);
+}
+
+/**
+ * Images dragged out of another browser tab carry a URL instead of a file, so the server
+ * fetches the image on our behalf.
+ */
+async function handleImageUrlDrop(index: number, url: string) {
+  loadingStates.value[index] = true;
+
+  const { data } = await api.recipes.createAssetFromUrl(props.recipe.slug, url);
+
+  loadingStates.value[index] = false;
+
+  if (!data) {
+    alert.error(i18n.t("recipe.failed-to-attach-image"));
+    return;
+  }
+
+  embedAsset(index, data);
+}
+
+/**
+ * Some pages render images from blob: urls, which resolve only inside the origin that made
+ * them. Nothing can read those bytes from here, so point the user at what does work.
+ */
+function notifyUnsupportedDrop() {
+  alert.error(i18n.t("recipe.image-drop-unsupported"));
+}
+
+function embedAsset(index: number, asset: RecipeAsset) {
+  emit("update:assets", [...(assets.value ?? []), asset]);
+  const assetUrl = recipeAssetPath(props.recipe.id, asset.fileName as string);
   const text = `<img src="${assetUrl}" height="100%" width="100%"/>`;
   instructionList.value[index].text += text;
 }
@@ -779,6 +1036,23 @@ function openImageUpload(index: number) {
 </script>
 
 <style lang="css" scoped>
+.grid {
+  display: grid;
+  gap: 0.5rem;
+  height: 100%;
+  box-sizing: border-box;
+
+  > * {
+    overflow-y: auto;
+  }
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
 .v-card--link:before {
   background: none;
 }

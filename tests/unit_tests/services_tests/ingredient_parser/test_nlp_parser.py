@@ -1,6 +1,7 @@
 import asyncio
 import re
 from dataclasses import dataclass
+from typing import cast
 
 import pytest
 from pydantic import UUID4
@@ -9,7 +10,15 @@ from text_unidecode import unidecode
 
 from mealie.db.db_setup import session_context
 from mealie.lang.providers import get_locale_provider
+from mealie.schema.recipe.recipe_ingredient import (
+    CreateIngredientFood,
+    CreateIngredientUnit,
+    IngredientFood,
+    IngredientUnit,
+    RecipeIngredient,
+)
 from mealie.services.parser_services import RegisteredParser, get_parser
+from mealie.services.parser_services.ingredient_parser import NLPParser
 
 
 @dataclass
@@ -54,6 +63,7 @@ def test_nlp_parser(unique_local_group_id: UUID4, test_ingredient: TestIngredien
         parsed = asyncio.run(parser.parse_one(test_ingredient.input))
         ing = parsed.ingredient
 
+        assert ing.original_text == test_ingredient.input
         assert ing.quantity == pytest.approx(test_ingredient.quantity)
         if ing.unit:
             assert ing.unit.name == test_ingredient.unit
@@ -106,7 +116,55 @@ async def test_nlp_parser_keeps_all_text(unique_local_group_id: UUID4, source_st
 
     ing = parsed.ingredient
 
-    # The parser behavior may change slightly, so we check that it's pretty close rather than exact
-    # fuzz.ratio returns a string from 0 - 100 where 100 is an exact match
-    score = fuzz.ratio(ing.display, expected_str)
-    assert score >= 90, f"'{ing.display}' does not sufficiently match expected '{expected_str}'"
+    # alternatives ("or dried rosemary") are substitutions now rather than note text, so both
+    # halves have to be read back to know nothing was dropped. this group has no foods, so every
+    # alternative falls back to its own text instead of resolving to a food id
+    parsed_text = " or ".join([ing.display, *(sub.note for sub in ing.substitutions if sub.note)])
+
+    # The parser behavior may change slightly, so we check that it's pretty close rather than exact.
+    # token_sort_ratio rather than ratio, since moving the alternatives out of the note reorders
+    # the same words and this test is about none of them going missing
+    score = fuzz.token_sort_ratio(parsed_text, expected_str)
+    assert score >= 90, f"'{parsed_text}' does not sufficiently match expected '{expected_str}'"
+
+
+def test_nlp_parser_converts_extra_ingredients(
+    unique_local_group_id: UUID4,
+    parsed_ingredient_data: tuple[list[IngredientFood], list[IngredientUnit]],  # required so database is populated
+):
+    """
+    An alternative naming a known food becomes a food substitution; anything else keeps its text,
+    so an amount the substitution cannot carry is not silently dropped.
+    """
+
+    with session_context() as session:
+        parser = cast(
+            NLPParser, get_parser(RegisteredParser.nlp, unique_local_group_id, session, get_locale_provider())
+        )
+
+        substitutions = parser._convert_extra_ingredients(
+            [
+                RecipeIngredient(food=CreateIngredientFood(name="onion")),
+                RecipeIngredient(food=CreateIngredientFood(name="unobtainium extract")),
+                RecipeIngredient(
+                    quantity=2,
+                    unit=CreateIngredientUnit(name="cups"),
+                    food=CreateIngredientFood(name="onion"),
+                ),
+            ]
+        )
+
+        onion = parser.data_matcher.find_food_match("onion")
+        assert onion
+
+    assert len(substitutions) == 3
+
+    assert substitutions[0].substitute_food_id == onion.id
+    assert substitutions[0].note is None
+
+    assert substitutions[1].substitute_food_id is None
+    assert substitutions[1].note == "unobtainium extract"
+
+    # the amount has nowhere to live on a substitution, so the whole thing stays as text
+    assert substitutions[2].substitute_food_id is None
+    assert substitutions[2].note and "onion" in substitutions[2].note

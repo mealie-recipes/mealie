@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Tarif görseli silindi",
         "recipe-defaults": {
             "ingredient-note": "1 Bardak Un",
+            "name": "New Recipe",
             "step-text": "Tarif sayfasındaki tarif adımlarının yanı sıra diğer alanlar da markdown destekler.\n\n**Bağlantı ekle**\n\n[Bağlantım](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,7 +20,6 @@
             "yields": "Yields"
         },
         "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI services are not enabled",
             "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
@@ -47,7 +47,16 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Hiçbir tarif kurallarınıza uymamaktadır"
+        "no-recipes-match-your-rules": "Hiçbir tarif kurallarınıza uymamaktadır",
+        "entry-type": {
+            "breakfast": "kahvaltı",
+            "lunch": "öğle yemeği",
+            "dinner": "akşam yemeği",
+            "side": "side",
+            "snack": "atıştırmalık",
+            "drink": "i̇çecek",
+            "dessert": "tatlı"
+        }
     },
     "user": {
         "user-updated": "Kullanıcı güncellendi",
@@ -74,7 +83,40 @@
         "generic-updated-with-url": "{name} güncellendi, {url}",
         "generic-duplicated": "{name} yinelendi",
         "generic-deleted": "{name} silindi",
-        "logged-out": "Oturum kapatıldı"
+        "logged-out": "Oturum kapatıldı",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "yıl|yıl",

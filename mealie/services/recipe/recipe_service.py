@@ -19,9 +19,16 @@ from mealie.pkgs import cache
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
+from mealie.schema import mapper
 from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeUpdate
 from mealie.schema.recipe.recipe import CreateRecipe, Recipe, create_recipe_slug
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
+from mealie.schema.recipe.recipe_ingredient import (
+    CreateIngredientFood,
+    CreateIngredientUnit,
+    RecipeIngredient,
+    SaveIngredientFood,
+    SaveIngredientUnit,
+)
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
@@ -29,6 +36,7 @@ from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
 from mealie.services.household_services.household_service import HouseholdService
+from mealie.services.parser_services._base import DataMatcher
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 from .template_service import TemplateService
@@ -47,6 +55,7 @@ class RecipeServiceBase(BaseService):
         if repos.household_id != user.household_id != household.id:
             raise Exception("household ids do not match")
 
+        self._data_matcher: DataMatcher | None = None
         self.group_recipes = get_repositories(repos.session, group_id=repos.group_id, household_id=None).recipes
         """Recipes repo without a Household filter"""
 
@@ -81,6 +90,9 @@ class RecipeService(RecipeServiceBase):
         return owned_count == len(recipe_slugs)
 
     def can_update(self, recipe_slugs: list[str]) -> bool:
+        if self.user.admin:
+            return True
+
         sql = dedent(
             """
             SELECT
@@ -262,6 +274,96 @@ class RecipeService(RecipeServiceBase):
         new_item = repo.create(data)
         return new_item.model_dump()
 
+    def _get_data_matcher(self) -> DataMatcher:
+        if self._data_matcher is None:
+            # Exact matches only: zip imports should rematch name/plural/alias/abbreviation,
+            # not fuzzy-merge distinct foods or units from another server.
+            self._data_matcher = DataMatcher(
+                self.repos,
+                food_fuzzy_match_threshold=100,
+                unit_fuzzy_match_threshold=100,
+            )
+        return self._data_matcher
+
+    def _reset_data_matcher(self) -> None:
+        self._data_matcher = None
+
+    @staticmethod
+    def _non_empty_str(value: Any) -> str | None:
+        if isinstance(value, str) and value:
+            return value
+        return None
+
+    def _transform_food(self, data: dict[str, Any] | Any) -> dict[str, Any] | None:
+        # Ensures the food from the source instance exists in this group, creating it if necessary.
+        if not isinstance(data, dict):
+            return None
+
+        name = self._non_empty_str(data.get("name"))
+        if not name:
+            return None
+
+        if data.get("id") and self.repos.ingredient_foods.get_one(data["id"]):
+            return data
+
+        existing_food = self._get_data_matcher().find_food_match(name)
+        if existing_food:
+            data["id"] = existing_food.id
+            return data
+
+        create_data = CreateIngredientFood(
+            name=name,
+            plural_name=data.get("plural_name"),
+            description=data.get("description") or "",
+            aliases=data.get("aliases") or [],
+            label_id=None,
+        )
+        save_data = mapper.cast(create_data, SaveIngredientFood, group_id=self.user.group_id)
+        new_food = self.repos.ingredient_foods.create(save_data)
+        data["id"] = new_food.id
+        self._reset_data_matcher()
+        return data
+
+    def _transform_unit(self, data: dict[str, Any] | Any) -> dict[str, Any] | None:
+        # Ensures the unit from the source instance exists in this group, creating it if necessary.
+        if not isinstance(data, dict):
+            return None
+
+        name = self._non_empty_str(data.get("name"))
+        abbreviation = self._non_empty_str(data.get("abbreviation"))
+        match_value = name or abbreviation
+        if not match_value:
+            return None
+
+        if data.get("id") and self.repos.ingredient_units.get_one(data["id"]):
+            return data
+
+        matcher = self._get_data_matcher()
+        existing_unit = matcher.find_unit_match(match_value)
+        if existing_unit is None and abbreviation and abbreviation != match_value:
+            existing_unit = matcher.find_unit_match(abbreviation)
+        if existing_unit:
+            data["id"] = existing_unit.id
+            return data
+
+        create_data = CreateIngredientUnit(
+            name=match_value,
+            plural_name=data.get("plural_name"),
+            description=data.get("description") or "",
+            abbreviation=abbreviation or "",
+            plural_abbreviation=data.get("plural_abbreviation") or "",
+            fraction=data.get("fraction", True),
+            use_abbreviation=data.get("use_abbreviation", False),
+            aliases=data.get("aliases") or [],
+            standard_quantity=data.get("standard_quantity"),
+            standard_unit=data.get("standard_unit"),
+        )
+        save_data = mapper.cast(create_data, SaveIngredientUnit, group_id=self.user.group_id)
+        new_unit = self.repos.ingredient_units.create(save_data)
+        data["id"] = new_unit.id
+        self._reset_data_matcher()
+        return data
+
     def _process_recipe_data(self, key: str, data: list | dict | Any):
         if isinstance(data, list):
             return [self._process_recipe_data(key, item) for item in data]
@@ -280,12 +382,15 @@ class RecipeService(RecipeServiceBase):
         data["group_id"] = str(self.user.group_id)
         data["household_id"] = str(self.user.household_id)
 
-        # make sure categories and tags are valid
+        # make sure categories and tags and food/unit are valid
         if key == "recipe_category":
             return self._transform_category_or_tag(data, self.repos.categories)
         elif key == "tags":
             return self._transform_category_or_tag(data, self.repos.tags)
-
+        elif key == "food":
+            return self._transform_food(data)
+        elif key == "unit":
+            return self._transform_unit(data)
         # recursively process other objects
         for k, v in data.items():
             data[k] = self._process_recipe_data(k, v)
@@ -450,6 +555,20 @@ class RecipeService(RecipeServiceBase):
 
         return recipe
 
+    @staticmethod
+    def _preserve_omitted_image(recipe: Recipe, update_data: Recipe) -> Recipe:
+        """Keeps the stored image when the payload doesn't mention it.
+
+        Updates are a full overwrite, so a client that round-trips a recipe without echoing
+        `image` back would otherwise clear it. The image files stay on disk, leaving a recipe
+        that has a picture but no longer says so - which reads to the frontend as "no image".
+        The image is owned by the `/{slug}/image` endpoints; an update only carries it along.
+        """
+        if "image" not in update_data.model_fields_set:
+            update_data.image = recipe.image
+
+        return update_data
+
     def _remove_non_existent_ingredient_references(self, update_data: Recipe) -> Recipe:
         """Removes the references of ingredients from steps that no longer exist."""
 
@@ -464,6 +583,20 @@ class RecipeService(RecipeServiceBase):
                     ref
                     for ref in instruction.ingredient_references
                     if ref.reference_id in current_ingredient_reference_ids
+                ]
+
+        return update_data
+
+    def _remove_non_existent_note_references(self, update_data: Recipe) -> Recipe:
+        """Removes the references to notes from steps when the note no longer exists on the recipe."""
+
+        current_note_reference_ids = {note.reference_id for note in (update_data.notes or [])}
+
+        recipe_instructions = update_data.recipe_instructions
+        if recipe_instructions is not None:
+            for instruction in recipe_instructions:
+                instruction.note_references = [
+                    ref for ref in instruction.note_references if ref.reference_id in current_note_reference_ids
                 ]
 
         return update_data
@@ -493,7 +626,16 @@ class RecipeService(RecipeServiceBase):
     def update_one(self, slug_or_id: str | UUID, update_data: Recipe) -> Recipe:
         recipe = self._pre_update_check(slug_or_id, update_data)
 
+        # A PUT replaces the whole recipe, so a body that omits the name would blank it out.
+        # Nothing downstream can cope with that, so reject it before the update rather than
+        # failing deeper in. This runs after the checks above so that a missing or forbidden
+        # recipe still answers 404 or 403 regardless of what the body contains.
+        if not update_data.name:
+            raise exceptions.MissingRequiredData("Recipe name is required")
+
+        update_data = self._preserve_omitted_image(recipe, update_data)
         update_data = self._remove_non_existent_ingredient_references(update_data)
+        update_data = self._remove_non_existent_note_references(update_data)
         update_data = self._resolve_ingredient_sub_recipes(update_data)
 
         new_data = self.group_recipes.update(recipe.slug, update_data)

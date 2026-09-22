@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Obrázek receptu odstraněn",
         "recipe-defaults": {
             "ingredient-note": "1 hrnek mouky",
+            "name": "Nový recept",
             "step-text": "Kroky receptu stejně jako další pole v receptu podporují syntaxi markdown.\n\n**Přidat odkaz**\n\n[Můj odkaz](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,35 +20,43 @@
             "yields": "Výnosy"
         },
         "and-amount": "a {amount}",
-        "or-ingredient": "nebo {ingredient}",
         "import-errors": {
-            "ai-not-enabled": "AI services are not enabled",
-            "ai-request-failed": "The AI provider was unable to complete the request. Please try again",
+            "ai-not-enabled": "AI služby nejsou povoleny",
+            "ai-request-failed": "Poskytovatel AI nemohl požadavek dokončit. Zkuste to prosím znovu",
             "image-provider-not-enabled": "AI obrazové služby nejsou povoleny",
-            "no-recipe-found": "No recipe was found in the provided source",
-            "no-source": "No content, images, or URL were provided",
-            "provider-returned-nothing": "The AI provider did not return a recipe",
-            "unknown-error": "Something went wrong while creating the recipe. Please try again",
-            "unreadable-source": "Unable to read any content from the provided source",
-            "video-download-failed": "Unable to download the video. It may be private, removed, or from an unsupported site"
+            "no-recipe-found": "V poskytnutém zdroji nebyl nalezen žádný recept",
+            "no-source": "Nebyl poskytnut žádný obsah, obrázky nebo URL",
+            "provider-returned-nothing": "Poskytovatel AI nevrátil recept",
+            "unknown-error": "Při vytváření receptu nastala chyba. Zkuste to prosím znovu",
+            "unreadable-source": "Ze zadaného zdroje nelze číst žádný obsah",
+            "video-download-failed": "Video nelze stáhnout. Může být soukromé, odstraněno nebo z nepodporovaného webu"
         },
         "create-progress": {
-            "creating-recipe": "Creating recipe...",
+            "creating-recipe": "Vytváření receptu...",
             "creating-recipe-from-transcript-with-ai": "Vytváření receptu pomocí AI přepisu...",
             "creating-recipe-from-webpage-data": "Vytváření receptu z webových stránek...",
             "downloading-image": "Stahování obrázku...",
             "downloading-video": "Stahování videa...",
             "extracting-recipe-data": "Extrahování dat receptu...",
             "fetching-webpage": "Načítání webové stránky...",
-            "organizing-recipe": "Organizing recipe...",
-            "reading-images-with-ai": "Reading images with AI...",
-            "reading-source-with-ai": "Reading source with AI...",
+            "organizing-recipe": "Organizování receptu...",
+            "reading-images-with-ai": "Čtení obrázků s AI...",
+            "reading-source-with-ai": "Čtení zdroje s AI...",
             "transcribing-audio-with-ai": "Přepisování zvuku pomocí AI...",
-            "translating-recipe": "Translating recipe..."
+            "translating-recipe": "Překládání receptu..."
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Žádné recepty neodpovídají vašim pravidlům"
+        "no-recipes-match-your-rules": "Žádné recepty neodpovídají vašim pravidlům",
+        "entry-type": {
+            "breakfast": "snídaně",
+            "lunch": "oběd",
+            "dinner": "večeře",
+            "side": "příloha",
+            "snack": "svačina",
+            "drink": "nápoj",
+            "dessert": "dezert"
+        }
     },
     "user": {
         "user-updated": "Uživatel aktualizován",
@@ -62,7 +71,7 @@
         "permission_denied": "Nemáte oprávnění k provedení této akce",
         "recursive-recipe-link": "Recept se nemůže sám sebe přímo ani nepřímo odkazovat",
         "no-entry-found": "Požadovaný prostředek nebyl nalezen",
-        "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
+        "rate-limit-error": "Poskytovatel AI momentálně limituje počet požadavků. Počkejte prosím chvíli a zkuste to znovu",
         "integrity-error": "Chyba integrity databáze",
         "username-conflict-error": "Toto uživatelské jméno je již používáno",
         "email-conflict-error": "Tento e-mail je již používán"
@@ -74,7 +83,40 @@
         "generic-updated-with-url": "{name} byl aktualizován, {url}",
         "generic-duplicated": "{name} byl duplikován",
         "generic-deleted": "{name} byl odstraněn",
-        "logged-out": "Odhlášení"
+        "logged-out": "Odhlášení",
+        "event-title": {
+            "test-message": "Testovací zpráva",
+            "webhook-task": "Webhook úkol",
+            "recipe-created": "Recept byl vytvořen",
+            "recipe-updated": "Recept byl aktualizován",
+            "recipe-deleted": "Recept byl smazán",
+            "user-signup": "Registrace uživatele",
+            "data-migrations": "Migrace dat",
+            "data-export": "Export dat",
+            "data-import": "Import dat",
+            "mealplan-entry-created": "Položka jídelníčku byla vytvořena",
+            "mealplan-entry-updated": "Položka jídelníčku byla aktualizována",
+            "mealplan-entry-deleted": "Položka jídelníčku byla smazána",
+            "shopping-list-created": "Nákupní seznam byl vytvořen",
+            "shopping-list-updated": "Nákupní seznam byl aktualizován",
+            "shopping-list-deleted": "Nákupní seznam byl smazán",
+            "cookbook-created": "Kuchařka byla vytvořena",
+            "cookbook-updated": "Kuchařka byla aktualizována",
+            "cookbook-deleted": "Kuchařka byla smazána",
+            "tag-created": "Štítek byl vytvořen",
+            "tag-updated": "Štítek byl aktualizován",
+            "tag-deleted": "Štítek byl smazán",
+            "category-created": "Kategorie byla vytvořen",
+            "category-updated": "Kategorie byla aktualizována",
+            "category-deleted": "Kategorie byla smazána",
+            "label-created": "Popisek byl vytvořen",
+            "label-updated": "Popisek byl aktualizován",
+            "label-deleted": "Popisek byl smazán"
+        },
+        "test-message-body": "Toto je testovací oznámení od Mealie.",
+        "mealplan-entry-created": "Položka jídelníčku na {date} pro {entry_type} byla vytvořena",
+        "mealplan-entry-updated": "Položka jídelníčku na {date} pro {entry_type} byla aktualizována",
+        "mealplan-entry-deleted": "Položka jídelníčku na {date} pro {entry_type} byla smazána"
     },
     "datetime": {
         "year": "rok|roky",

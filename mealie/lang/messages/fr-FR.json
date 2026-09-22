@@ -8,6 +8,7 @@
         "recipe-image-deleted": "L’image de la recette a été supprimée",
         "recipe-defaults": {
             "ingredient-note": "1 Tasse de farine",
+            "name": "New Recipe",
             "step-text": "Les étapes de la recette ainsi que les autres champs de la page de recette supportent la syntaxe Markdown.\n\n**Ajouter un lien**\n\n[Mon lien](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,7 +20,6 @@
             "yields": "Produit"
         },
         "and-amount": "et {amount}",
-        "or-ingredient": "ou {ingredient}",
         "import-errors": {
             "ai-not-enabled": "Les services IA ne sont pas activés",
             "ai-request-failed": "Le fournisseur d'IA n'a pas pu répondre à la demande. Veuillez réessayer",
@@ -47,7 +47,16 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Aucune recette ne correspond à vos filtres"
+        "no-recipes-match-your-rules": "Aucune recette ne correspond à vos filtres",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Utilisateur mis à jour",
@@ -74,7 +83,40 @@
         "generic-updated-with-url": "{name} a été mis à jour, {url}",
         "generic-duplicated": "{name} a été dupliqué",
         "generic-deleted": "{name} a été supprimé",
-        "logged-out": " Déconnecté "
+        "logged-out": " Déconnecté ",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "année|années",

@@ -51,6 +51,7 @@ const routes = {
   recipesRecipeSlug: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}`,
   recipesRecipeSlugImage: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/image`,
   recipesRecipeSlugAssets: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets`,
+  recipesRecipeSlugAssetsUrl: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets/url`,
 
   recipesSlugComments: (slug: string) => `${prefix}/recipes/${slug}/comments`,
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
@@ -130,6 +131,12 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     return await this.requests.post<RecipeAsset>(routes.recipesRecipeSlugAssets(recipeSlug), formData);
   }
 
+  /** Stores a remote image as an asset. The server does the download, since the browser can't
+   * read cross-origin image bytes from a drag. */
+  async createAssetFromUrl(recipeSlug: string, url: string) {
+    return await this.requests.post<RecipeAsset>(routes.recipesRecipeSlugAssetsUrl(recipeSlug), { url });
+  }
+
   updateImage(slug: string, fileObject: File) {
     const formData = new FormData();
     formData.append("image", fileObject);
@@ -153,6 +160,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
   private streamRecipeCreate(streamRoute: string, payload: object | FormData, onProgress?: (message: string) => void): Promise<RequestResponse<string>> {
     return new Promise((resolve) => {
       const { token } = useMealieAuth();
+      const { locale } = useGlobalI18n();
       const isFormData = payload instanceof FormData;
 
       const sse = new SSE(streamRoute, {
@@ -160,6 +168,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
           // the browser has to set the multipart Content-Type itself, so it includes the boundary
           ...(isFormData ? {} : { "Content-Type": "application/json" }),
           ...(token.value ? { Authorization: `Bearer ${token.value}` } : {}),
+          "Accept-Language": locale.value,
         },
         payload: isFormData ? payload : JSON.stringify(payload),
         withCredentials: true,

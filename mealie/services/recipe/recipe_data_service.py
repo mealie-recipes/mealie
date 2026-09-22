@@ -116,7 +116,55 @@ class RecipeDataService(BaseService):
             image_path = image_dir.joinpath(img_type.value)
             image_path.unlink(missing_ok=True)
 
-    async def scrape_image(self, image_url: str | dict[str, str] | list[str]) -> None:
+    async def fetch_image(self, image_url: str, max_bytes: int | None = None) -> tuple[bytes, str] | None:
+        """Downloads the image at `image_url` and returns its bytes and file extension.
+
+        The extension comes from the response's content type rather than the URL, which is
+        often extensionless or buried under query parameters. Callers are responsible for
+        deciding whether that extension is one they accept.
+
+        Callers that store the bytes as-is should pass `max_bytes`, since the fetch is
+        otherwise bounded only by time. Those that re-encode (see `scrape_image`) are already
+        bounded by what the minifier writes out.
+
+        Unlike `scrape_image`, nothing is written to disk, so the caller decides where the
+        bytes belong. Returns `None` if nothing could be downloaded.
+        """
+        try:
+            # FlareSolverr returns HTML, not image bytes, so it can't serve an image download.
+            r = await safehttp.resilient_fetch(image_url, allow_flaresolverr=False, max_bytes=max_bytes)
+        except safehttp.InvalidDomainError as e:
+            # Re-raised as this module's error so callers only need one exception vocabulary.
+            raise InvalidDomainError(str(e)) from e
+        except safehttp.ResponseTooLargeError:
+            # The caller set the budget, so it gets to report the overrun rather than seeing
+            # it flattened into a generic failure.
+            raise
+        except Exception:
+            self.logger.exception("Fatal Image Request Exception")
+            return None
+
+        if r is None:
+            # Every impersonation was rejected, or the server returned an error status.
+            return None
+
+        content_type = r.headers.get("content-type", "").split(";")[0].strip().lower()
+
+        if not content_type.startswith("image/"):
+            self.logger.error(f"Content-Type: {content_type} is not an image")
+            raise NotAnImageError(f"Content-Type {content_type} is not an image")
+
+        # For the image types we care about the subtype is the extension ("image/png" -> "png").
+        # Types where it isn't (e.g. "image/svg+xml") fall out of the caller's allowed set.
+        return r.content, content_type.removeprefix("image/")
+
+    async def scrape_image(self, image_url: str | dict[str, str] | list[str]) -> Path | None:
+        """Downloads the image at `image_url` into the recipe's image directory.
+
+        Returns the path the image was written to, or `None` if nothing could be
+        downloaded. Callers must not record a cache key for a recipe unless a path
+        comes back, or the recipe claims an image the media route cannot serve.
+        """
         self.logger.info(f"Image URL: {image_url}")
 
         image_url_str = ""
@@ -138,31 +186,13 @@ class RecipeDataService(BaseService):
         if not image_url_str:
             raise ValueError(f"image url could not be parsed from input: {image_url}")
 
-        ext = image_url_str.split(".")[-1]
+        downloaded = await self.fetch_image(image_url_str)
 
-        if ext not in img.IMAGE_EXTENSIONS:
-            ext = "jpg"  # Guess the extension
-
-        file_name = f"{self.recipe_id!s}.{ext}"
-        file_path = Recipe.directory_from_id(self.recipe_id).joinpath("images", file_name)
-
-        try:
-            # FlareSolverr returns HTML, not image bytes, so it can't serve an image download.
-            r = await safehttp.resilient_fetch(image_url_str, allow_flaresolverr=False)
-        except Exception:
-            self.logger.exception("Fatal Image Request Exception")
+        if downloaded is None:
             return None
 
-        if r is None:
-            # Every impersonation was rejected, or the server returned an error status.
-            return None
+        content, extension = downloaded
 
-        content_type = r.headers.get("content-type", "")
-
-        if "image" not in content_type:
-            self.logger.error(f"Content-Type: {content_type} is not an image")
-            raise NotAnImageError(f"Content-Type {content_type} is not an image")
-
-        self.logger.debug(f"File Name Suffix {file_path.suffix}")
-        self.write_image(r.content, file_path.suffix)
-        file_path.unlink(missing_ok=True)
+        # The extension only labels the bytes on their way into the minifier, which sniffs the
+        # real format and converts everything to webp regardless.
+        return self.write_image(content, extension)

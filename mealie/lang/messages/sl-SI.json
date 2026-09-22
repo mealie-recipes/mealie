@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Slika recepta je bila izbrisana",
         "recipe-defaults": {
             "ingredient-note": "skodelica moke",
+            "name": "New Recipe",
             "step-text": "Postopek priprave recepta, kot tudi druga polja v receptu podpirajo markdown sintakso.\n\n**Dodaj povezavo**\n\n[Moja povezava](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,7 +20,6 @@
             "yields": "donosi"
         },
         "and-amount": "in {amount}",
-        "or-ingredient": "ali {ingredient}",
         "import-errors": {
             "ai-not-enabled": "Storitve umetne inteligence niso omogočene",
             "ai-request-failed": "Ponudnik umetne inteligence ni mogel dokončati zahteve. Poskusite znova",
@@ -47,7 +47,16 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Noben recept ne ustreza vašim pogojem"
+        "no-recipes-match-your-rules": "Noben recept ne ustreza vašim pogojem",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Uporabnik posodobljen",
@@ -74,7 +83,40 @@
         "generic-updated-with-url": "{name} je bil posodobljen, {url}",
         "generic-duplicated": "{name} je bilo podvojeno",
         "generic-deleted": "{name} je bil izbrisan",
-        "logged-out": "Odjavljen/a"
+        "logged-out": "Odjavljen/a",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "leto|let",

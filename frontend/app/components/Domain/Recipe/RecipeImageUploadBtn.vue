@@ -2,6 +2,7 @@
   <div class="text-center">
     <BaseDialog
       v-model="dialogDeleteImage"
+      bottom-sheet
       :title="$t('recipe.delete-image')"
       :icon="$globals.icons.alertCircle"
       color="error"
@@ -80,7 +81,7 @@
 </template>
 
 <script setup lang="ts">
-import { alert } from "~/composables/use-toast";
+import { alertUnreportedError } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
 
 const UPLOAD_EVENT = "upload";
@@ -110,27 +111,31 @@ function uploadImage(fileObject: File) {
 
 async function deleteImage() {
   loading.value = true;
-  try {
-    await api.recipes.deleteImage(props.slug);
-    emit(DELETE_EVENT);
-    menu.value = false;
+  const { error } = await api.recipes.deleteImage(props.slug);
+  loading.value = false;
+
+  if (error) {
+    alertUnreportedError(error, i18n.t("events.something-went-wrong"));
+    return;
   }
-  catch (e) {
-    alert.error(i18n.t("events.something-went-wrong"));
-    console.error("Failed to delete image", e);
-  }
-  finally {
-    loading.value = false;
-  }
+
+  emit(DELETE_EVENT);
+  menu.value = false;
 }
 
 async function getImageFromURL() {
   loading.value = true;
-  const { data } = await api.recipes.updateImagebyURL(props.slug, url.value);
+  const { data, error } = await api.recipes.updateImagebyURL(props.slug, url.value);
+  loading.value = false;
+
+  if (error) {
+    alertUnreportedError(error, i18n.t("events.something-went-wrong"));
+    return;
+  }
+
   if (data?.image) {
     emit(REFRESH_EVENT, data.image);
   }
-  loading.value = false;
   menu.value = false;
 }
 

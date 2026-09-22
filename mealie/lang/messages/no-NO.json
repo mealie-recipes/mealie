@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Oppskriftsbilde slettet",
         "recipe-defaults": {
             "ingredient-note": "1 kopp mel",
+            "name": "Legg til oppskrift",
             "step-text": "Steg i oppskrifter og andre felter på siden støtter markdown syntax.\n\n**Legg til en link**\n\n[Min link](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -19,7 +20,6 @@
             "yields": "Gir"
         },
         "and-amount": "og {amount}",
-        "or-ingredient": "eller {ingredient}",
         "import-errors": {
             "ai-not-enabled": "AI-tjenester er ikke aktivert",
             "ai-request-failed": "AI-leverandøren kunne ikke fullføre forespørselen. Prøv på nytt",
@@ -47,7 +47,16 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Ingen oppskrifter samsvarer med reglene dine"
+        "no-recipes-match-your-rules": "Ingen oppskrifter samsvarer med reglene dine",
+        "entry-type": {
+            "breakfast": "frokost",
+            "lunch": "lunsj",
+            "dinner": "middag",
+            "side": "tilbehør",
+            "snack": "snacks",
+            "drink": "drikke",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Bruker oppdatert",
@@ -74,7 +83,40 @@
         "generic-updated-with-url": "{name} har blitt oppdatert, {url}",
         "generic-duplicated": "{name} har blitt duplisert",
         "generic-deleted": "{name} har blitt slettet",
-        "logged-out": "Logget ut"
+        "logged-out": "Logget ut",
+        "event-title": {
+            "test-message": "Test-melding",
+            "webhook-task": "Webhook-oppgave",
+            "recipe-created": "Oppskrift opprettet",
+            "recipe-updated": "Oppskrift oppdatert",
+            "recipe-deleted": "Oppskrift slettet",
+            "user-signup": "Bruker-registrering",
+            "data-migrations": "Datamigrering",
+            "data-export": "Dataeksport",
+            "data-import": "Dataimport",
+            "mealplan-entry-created": "Måltidsplan opprettet",
+            "mealplan-entry-updated": "Måltidsplan oppdatert",
+            "mealplan-entry-deleted": "Måltidsplan slettet",
+            "shopping-list-created": "Handleliste opprettet",
+            "shopping-list-updated": "Handleliste oppdatert",
+            "shopping-list-deleted": "Handleliste slettet",
+            "cookbook-created": "Kokebok opprettet",
+            "cookbook-updated": "Kokebok oppdatert",
+            "cookbook-deleted": "Kokebok slettet",
+            "tag-created": "Emneord opprettet",
+            "tag-updated": "Emneord oppdatert",
+            "tag-deleted": "Emneord slettet",
+            "category-created": "Kategori opprettet",
+            "category-updated": "Kategori oppdatert",
+            "category-deleted": "Kategori slettet",
+            "label-created": "Etikett opprettet",
+            "label-updated": "Etikett oppdatert",
+            "label-deleted": "Etikett slettet"
+        },
+        "test-message-body": "Dette er en testmelding fra Mealie.",
+        "mealplan-entry-created": "Oppføringen for {date} er opprettet: {entry_type}",
+        "mealplan-entry-updated": "Oppføringen for {date} er oppdatert: {entry_type}",
+        "mealplan-entry-deleted": "Oppføringen for {date} er slettet: {entry_type}"
     },
     "datetime": {
         "year": "år|år",
