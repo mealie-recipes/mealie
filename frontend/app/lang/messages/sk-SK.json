@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Zdá sa, že vaše suroviny neboli zatiaľ analyzované. Kliknite na tlačidlo \"{parse}\" nižšie, aby ste rozložili ingrediencie do štrukturovaných potravín.",
     "attach-images-hint": "Pridaj obrázky ich potiahnutím a pustením na editor",
     "drop-image": "Odstrániť obrázok",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recepty so stanovenými jednotkami alebo jedlami nie je možné parsovať.",
     "parse-ingredients": "Analyzuj suroviny",
     "edit-markdown": "Edituj markdown",
