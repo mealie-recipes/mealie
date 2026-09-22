@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Схоже, що ваші інгредієнти ще не оброблені. Натисніть кнопку \"{parse}\" знизу, щоб проаналізувати свої інгредієнти в структуровані продукти.",
     "attach-images-hint": "Прикріпіть зображення, перетягнувши їх у редактор",
     "drop-image": "Перетягніть зображення",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Рецепти з визначеними одиницями або продуктами не можна проаналізувати.",
     "parse-ingredients": "Проаналізувати інгредієнти",
     "edit-markdown": "Редагувати Markdown",
