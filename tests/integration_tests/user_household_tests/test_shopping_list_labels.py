@@ -1,4 +1,5 @@
 import random
+from uuid import uuid4
 
 from fastapi.testclient import TestClient
 
@@ -9,6 +10,7 @@ from mealie.services.seeder.seeder_service import SeederService
 from tests.utils import api_routes, jsonify
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
+from tests.utils.seed_data import seeded_label_names
 
 
 def create_labels(api_client: TestClient, unique_user: TestUser, count: int = 10) -> list[MultiPurposeLabelOut]:
@@ -33,6 +35,14 @@ def test_label_create_duplicate_name_returns_409(api_client: TestClient, unique_
 
     response = api_client.post(api_routes.groups_labels, json=payload, headers=unique_user_fn_scoped.token)
     assert response.status_code == 409
+
+
+def test_label_get_one_404(api_client: TestClient, unique_user: TestUser):
+    # Regression test for the get-by-id endpoint returning a 500 instead of a
+    # 404 when the label doesn't exist, matching the other organizer endpoints
+    # (tags, categories, tools, units, foods).
+    response = api_client.get(api_routes.groups_labels_item_id(uuid4()), headers=unique_user.token)
+    assert response.status_code == 404
 
 
 def test_new_list_creates_list_labels(api_client: TestClient, unique_user: TestUser):
@@ -114,7 +124,7 @@ def test_new_label_creates_list_labels_in_all_households(
 
 
 def test_seed_label_creates_list_labels(api_client: TestClient, unique_user: TestUser):
-    CREATED_LABELS = 32
+    CREATED_LABELS = len(seeded_label_names("en-US"))
     database = unique_user.repos
 
     # create a list with some labels
@@ -125,12 +135,12 @@ def test_seed_label_creates_list_labels(api_client: TestClient, unique_user: Tes
     new_list = ShoppingListOut.model_validate(response.json())
     existing_label_settings = new_list.label_settings
 
-    # seed labels and make sure they were added to the list's label settings
+    # seeding foods also seeds labels; make sure they were added to the list's label settings
     group = database.groups.get_one(unique_user.group_id)
     assert group
     database = AllRepositories(database.session, group_id=group.id)
     seeder = SeederService(database)
-    seeder.seed_labels("en-US")
+    seeder.seed_foods("en-US")
 
     response = api_client.get(api_routes.households_shopping_lists_item_id(new_list.id), headers=unique_user.token)
     updated_list = ShoppingListOut.model_validate(response.json())

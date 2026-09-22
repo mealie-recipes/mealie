@@ -889,3 +889,33 @@ def test_recipe_note_step_references(unique_user: TestUser) -> None:
     step = updated.recipe_instructions[0]
     assert len(step.note_references) == 1
     assert step.note_references[0].reference_id == reference_id
+
+
+def test_recipe_create_keeps_provided_id(unique_user: TestUser) -> None:
+    recipe_id = uuid4()
+    recipe = unique_user.repos.recipes.create(
+        Recipe(
+            id=recipe_id,
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(),
+        )
+    )
+
+    assert recipe.id == recipe_id
+
+
+def test_recipe_update_ignores_id_in_payload(unique_user: TestUser) -> None:
+    database = unique_user.repos
+    recipe = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(),
+        )
+    )
+
+    updated = database.recipes.update(recipe.slug, recipe.model_copy(update={"id": None, "description": "changed"}))
+
+    assert updated.id == recipe.id
+    assert updated.description == "changed"

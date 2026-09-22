@@ -33,7 +33,7 @@
             <v-checkbox
               :model-value="isChecked(index)"
               hide-details
-              class="pt-0 my-auto py-auto"
+              class="pt-0 mt-0"
               color="secondary"
               density="comfortable"
               @click.stop
@@ -141,5 +141,19 @@ function setChecked(index: number, value: boolean) {
 .ingredient-list-item .v-list-item__content,
 .ingredient-list-item .v-list-item-title {
   overflow: visible;
+}
+
+.ingredient-list-item {
+  align-items: flex-start;
+}
+
+.ingredient-list-item .v-list-item__prepend,
+.ingredient-list-item .v-list-item__content {
+  align-self: flex-start;
+}
+
+.ingredient-list-item .v-selection-control {
+  align-self: flex-start;
+  margin-top: -9px;
 }
 </style>
