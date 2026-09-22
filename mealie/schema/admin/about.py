@@ -23,6 +23,8 @@ class AppInfo(MealieModel):
     oidc_provider_name: str
     token_time: int
     allowed_iframe_hosts: list[str] = []
+    branding_name: str = "Mealie"
+    branding_logo_url: str | None = None
 
 
 class AppTheme(MealieModel):
@@ -41,13 +43,6 @@ class AppTheme(MealieModel):
     dark_info: str = "#1976D2"
     dark_warning: str = "#FF6D00"
     dark_error: str = "#EF5350"
-
-
-class AppBranding(MealieModel):
-    name: str = "Mealie"
-    html_title: str = "Mealie"
-    icon_url: str | None = None
-    favicon_url: str | None = None
 
 
 class AppStartupInfo(MealieModel):

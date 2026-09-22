@@ -93,59 +93,44 @@ def reset_branding_settings():
         setattr(branding, key, value)
 
 
-def test_public_about_get_app_branding_defaults(api_client: TestClient, reset_branding_settings):
+def test_public_about_get_app_info_branding_defaults(api_client: TestClient, reset_branding_settings):
     branding = reset_branding_settings
     branding.name = "Mealie"
-    branding.html_title = "Mealie"
-    branding.icon_path = None
-    branding.favicon_path = None
+    branding.logo_path = None
 
-    response = api_client.get(api_routes.app_about_branding)
+    response = api_client.get(api_routes.app_about)
     as_dict = response.json()
 
-    assert as_dict["name"] == "Mealie"
-    assert as_dict["htmlTitle"] == "Mealie"
-    assert as_dict["iconUrl"] is None
-    assert as_dict["faviconUrl"] is None
+    assert as_dict["brandingName"] == "Mealie"
+    assert as_dict["brandingLogoUrl"] is None
 
-    assert api_client.get(api_routes.app_about_branding_icon).status_code == 404
-    assert api_client.get(api_routes.app_about_branding_favicon).status_code == 404
+    assert api_client.get(api_routes.app_about_branding_logo).status_code == 404
 
 
-def test_public_about_get_app_branding_custom(api_client: TestClient, reset_branding_settings, tmp_path: Path):
+def test_public_about_get_app_info_branding_custom(api_client: TestClient, reset_branding_settings, tmp_path: Path):
     branding = reset_branding_settings
 
-    icon_file = tmp_path / "icon.svg"
-    icon_file.write_text("<svg></svg>")
-    favicon_file = tmp_path / "favicon.ico"
-    favicon_file.write_bytes(b"fake-favicon")
+    logo_file = tmp_path / "logo.svg"
+    logo_file.write_text("<svg></svg>")
 
     branding.name = "My Recipes"
-    branding.html_title = "My Recipes - Home"
-    branding.icon_path = str(icon_file)
-    branding.favicon_path = str(favicon_file)
+    branding.logo_path = str(logo_file)
 
-    response = api_client.get(api_routes.app_about_branding)
+    response = api_client.get(api_routes.app_about)
     as_dict = response.json()
 
-    assert as_dict["name"] == "My Recipes"
-    assert as_dict["htmlTitle"] == "My Recipes - Home"
-    assert as_dict["iconUrl"] == "/api/app/about/branding/icon"
-    assert as_dict["faviconUrl"] == "/api/app/about/branding/favicon"
+    assert as_dict["brandingName"] == "My Recipes"
+    assert as_dict["brandingLogoUrl"] == "/api/app/about/branding-logo"
 
-    icon_response = api_client.get(api_routes.app_about_branding_icon)
-    assert icon_response.status_code == 200
-    assert icon_response.content == b"<svg></svg>"
-
-    favicon_response = api_client.get(api_routes.app_about_branding_favicon)
-    assert favicon_response.status_code == 200
-    assert favicon_response.content == b"fake-favicon"
+    logo_response = api_client.get(api_routes.app_about_branding_logo)
+    assert logo_response.status_code == 200
+    assert logo_response.content == b"<svg></svg>"
 
 
-def test_public_about_get_app_branding_missing_file_falls_back(api_client: TestClient, reset_branding_settings):
+def test_public_about_get_app_info_branding_missing_file_falls_back(api_client: TestClient, reset_branding_settings):
     branding = reset_branding_settings
-    branding.icon_path = "/nonexistent/path/icon.svg"
+    branding.logo_path = "/nonexistent/path/logo.svg"
 
-    response = api_client.get(api_routes.app_about_branding)
-    assert response.json()["iconUrl"] is None
-    assert api_client.get(api_routes.app_about_branding_icon).status_code == 404
+    response = api_client.get(api_routes.app_about)
+    assert response.json()["brandingLogoUrl"] is None
+    assert api_client.get(api_routes.app_about_branding_logo).status_code == 404

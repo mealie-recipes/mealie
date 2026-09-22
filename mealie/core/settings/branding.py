@@ -7,16 +7,15 @@ ALLOWED_IMAGE_SUFFIXES = {".svg", ".png", ".ico", ".webp", ".jpg", ".jpeg"}
 
 class Branding(BaseSettings):
     name: str = "Mealie"
-    html_title: str = "Mealie"
-    icon_path: str | None = None
-    favicon_path: str | None = None
+    logo_path: str | None = None
     model_config = SettingsConfigDict(env_prefix="branding_", extra="allow")
 
-    def _resolve_file(self, path: str | None) -> Path | None:
-        if not path:
+    @property
+    def logo_file(self) -> Path | None:
+        if not self.logo_path:
             return None
 
-        file_path = Path(path)
+        file_path = Path(self.logo_path)
         if not file_path.is_file():
             return None
 
@@ -24,11 +23,3 @@ class Branding(BaseSettings):
             return None
 
         return file_path
-
-    @property
-    def icon_file(self) -> Path | None:
-        return self._resolve_file(self.icon_path)
-
-    @property
-    def favicon_file(self) -> Path | None:
-        return self._resolve_file(self.favicon_path)

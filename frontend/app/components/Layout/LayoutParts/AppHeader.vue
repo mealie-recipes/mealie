@@ -14,8 +14,8 @@
         color="white"
       >
         <v-img
-          v-if="$branding.iconUrl"
-          :src="$branding.iconUrl"
+          v-if="$appInfo.brandingLogoUrl"
+          :src="$appInfo.brandingLogoUrl"
           width="40"
           height="40"
         />
@@ -36,7 +36,7 @@
         style="cursor: pointer"
         @click="$router.push(routerLink)"
       >
-        {{ $branding.name }}
+        {{ $appInfo.brandingName }}
       </v-toolbar-title>
     </div>
     <RecipeDialogSearch ref="domSearchDialog" />

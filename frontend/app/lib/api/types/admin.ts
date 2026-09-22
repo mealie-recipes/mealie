@@ -18,6 +18,8 @@ export interface AdminAboutInfo {
   oidcProviderName: string;
   tokenTime: number;
   allowedIframeHosts?: string[];
+  brandingName?: string;
+  brandingLogoUrl?: string | null;
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
@@ -50,6 +52,8 @@ export interface AppInfo {
   oidcProviderName: string;
   tokenTime: number;
   allowedIframeHosts?: string[];
+  brandingName?: string;
+  brandingLogoUrl?: string | null;
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;
@@ -188,10 +192,4 @@ export interface UserImport {
   name: string;
   status: boolean;
   exception?: string | null;
-}
-export interface AppBranding {
-  name?: string;
-  htmlTitle?: string;
-  iconUrl?: string | null;
-  faviconUrl?: string | null;
 }

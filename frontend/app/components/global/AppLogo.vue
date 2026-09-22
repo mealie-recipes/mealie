@@ -8,8 +8,8 @@
     >
       <slot>
         <v-img
-          v-if="$branding.iconUrl"
-          :src="$branding.iconUrl"
+          v-if="$appInfo.brandingLogoUrl"
+          :src="$appInfo.brandingLogoUrl"
           :width="size"
           :height="size"
         />

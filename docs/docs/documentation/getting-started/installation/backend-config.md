@@ -303,17 +303,17 @@ The examples below provide copy-ready Docker Compose environment configurations 
 
 ### Branding
 
-Setting the following environment variables lets you replace Mealie's name and icon throughout the UI. Any variable left unset falls back to the default Mealie branding, so you can override just the pieces you care about.
+Setting the following environment variables lets you replace Mealie's name and logo in the UI. Any variable left unset falls back to the default Mealie branding, so you can override just the pieces you care about.
+
+This only covers the app name (top navigation bar, browser tab title, installed PWA name) and the logo (top navigation bar, login/setup pages, favicon). It does not change every other place "Mealie" appears — translation strings, outgoing emails, and links to the project's own site/docs are unaffected.
 
 | Variables              | Default   | Description                                                          |
 | ---------------------- | :-------: | ---------------------------------------------------------------------|
-| BRANDING_NAME           | Mealie   | App name shown in the top navigation bar and the installed PWA name  |
-| BRANDING_HTML_TITLE     | Mealie   | Browser tab title                                                    |
-| BRANDING_ICON_PATH      | unset    | Path *inside the container* to a custom icon (svg, png, ico, webp, jpg/jpeg), used in the top navigation bar and on the login/setup pages |
-| BRANDING_FAVICON_PATH   | unset    | Path *inside the container* to a custom favicon (svg, png, ico, webp, jpg/jpeg) |
+| BRANDING_NAME           | Mealie   | App name shown in the top navigation bar, browser tab title, and installed PWA name |
+| BRANDING_LOGO_PATH      | unset    | Path *inside the container* to a custom logo (svg, png, ico, webp, jpg/jpeg), used in the top navigation bar, the login/setup pages, and as the favicon |
 
 !!! info
-    `BRANDING_ICON_PATH` and `BRANDING_FAVICON_PATH` point at a file path, not a URL. To use your own icon, bind-mount the file into the container and point the variable at that in-container path. If the path doesn't exist, isn't a file, or isn't a recognized image type, Mealie silently falls back to the built-in icon/favicon.
+    `BRANDING_LOGO_PATH` points at a file path, not a URL. To use your own logo, bind-mount the file into the container and point the variable at that in-container path. If the path doesn't exist, isn't a file, or isn't a recognized image type, Mealie silently falls back to the built-in logo.
 
     Like the theme variables, branding is read once at startup — restart the container after changing these values.
 
@@ -322,8 +322,7 @@ volumes:
   - ./branding/logo.svg:/app/branding/logo.svg:ro
 environment:
   BRANDING_NAME: "My Recipes"
-  BRANDING_HTML_TITLE: "My Recipes"
-  BRANDING_ICON_PATH: "/app/branding/logo.svg"
+  BRANDING_LOGO_PATH: "/app/branding/logo.svg"
 ```
 
 ### Docker Secrets

@@ -9,7 +9,7 @@ from mealie.core.settings.static import APP_VERSION
 from mealie.db.db_setup import generate_session
 from mealie.db.models.users.users import User
 from mealie.repos.all_repositories import get_repositories
-from mealie.schema.admin.about import AppBranding, AppInfo, AppStartupInfo, AppTheme
+from mealie.schema.admin.about import AppInfo, AppStartupInfo, AppTheme
 
 router = APIRouter(prefix="/about")
 
@@ -47,6 +47,8 @@ def get_app_info(session: Session = Depends(generate_session)):
         allow_password_login=settings.ALLOW_PASSWORD_LOGIN,
         token_time=settings.TOKEN_TIME,
         allowed_iframe_hosts=settings.allowed_iframe_hosts,
+        branding_name=settings.branding.name,
+        branding_logo_url="/api/app/about/branding-logo" if settings.branding.logo_file else None,
     )
 
 
@@ -75,41 +77,14 @@ def get_app_theme(resp: Response):
     return AppTheme(**settings.theme.model_dump())
 
 
-@router.get("/branding", response_model=AppBranding)
-def get_app_branding(resp: Response):
-    """Get's the current branding settings"""
+@router.get("/branding-logo", response_class=FileResponse)
+def get_app_branding_logo():
+    """Get's the custom branding logo, if configured"""
     settings = get_app_settings()
 
-    resp.headers["Cache-Control"] = "public, max-age=604800"
-    return AppBranding(
-        name=settings.branding.name,
-        html_title=settings.branding.html_title,
-        icon_url="/api/app/about/branding/icon" if settings.branding.icon_file else None,
-        favicon_url="/api/app/about/branding/favicon" if settings.branding.favicon_file else None,
-    )
-
-
-@router.get("/branding/icon", response_class=FileResponse)
-def get_app_branding_icon():
-    """Get's the custom branding icon, if configured"""
-    settings = get_app_settings()
-
-    icon_file = settings.branding.icon_file
-    if icon_file is None:
+    logo_file = settings.branding.logo_file
+    if logo_file is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
 
-    media_type = mimetypes.guess_type(icon_file)[0]
-    return FileResponse(icon_file, media_type=media_type, headers={"Cache-Control": "public, max-age=604800"})
-
-
-@router.get("/branding/favicon", response_class=FileResponse)
-def get_app_branding_favicon():
-    """Get's the custom branding favicon, if configured"""
-    settings = get_app_settings()
-
-    favicon_file = settings.branding.favicon_file
-    if favicon_file is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
-
-    media_type = mimetypes.guess_type(favicon_file)[0]
-    return FileResponse(favicon_file, media_type=media_type, headers={"Cache-Control": "public, max-age=604800"})
+    media_type = mimetypes.guess_type(logo_file)[0]
+    return FileResponse(logo_file, media_type=media_type, headers={"Cache-Control": "public, max-age=604800"})
