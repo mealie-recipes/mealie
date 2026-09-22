@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Parece que tus ingredientes no han sido analizados aún. Haz clic en el botón \"{parse}\" de abajo para analizarlos y convertirlos en alimentos estructurados.",
     "attach-images-hint": "Adjuntar imágenes arrastrando y soltando en el editor",
     "drop-image": "Soltar imagen",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Las recetas con unidades o alimentos definidos no pueden ser analizadas.",
     "parse-ingredients": "Analizar ingredientes",
     "edit-markdown": "Editar Markdown",
