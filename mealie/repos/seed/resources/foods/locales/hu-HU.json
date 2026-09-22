@@ -8,15 +8,15 @@
       },
       "onion": {
         "name": "hagyma",
-        "plural_name": "onions"
+        "plural_name": "hagyma"
       },
       "bell pepper": {
         "name": "kaliforniai paprika",
-        "plural_name": "bell peppers"
+        "plural_name": "kaliforniai paprika"
       },
       "carrot": {
         "name": "sárgarépa",
-        "plural_name": "carrots"
+        "plural_name": "sárgarépa"
       },
       "scallion": {
         "name": "újhagyma",
@@ -24,15 +24,15 @@
       },
       "zucchini": {
         "name": "cukkini",
-        "plural_name": "zucchinis"
+        "plural_name": "cukkini"
       },
       "potato": {
         "name": "burgonya",
-        "plural_name": "potatoes"
+        "plural_name": "burgonya"
       },
       "red onion": {
         "name": "vöröshagyma",
-        "plural_name": "red onions"
+        "plural_name": "vöröshagyma"
       },
       "yellow onion": {
         "name": "vöröshagyma",
@@ -44,11 +44,11 @@
       },
       "jalapeño": {
         "name": "jalapeno",
-        "plural_name": "jalapeños"
+        "plural_name": "jalapeno"
       },
       "avocado": {
         "name": "avokádó",
-        "plural_name": "avocados"
+        "plural_name": "avokádó"
       },
       "shallot": {
         "name": "mogyoróhagyma",
