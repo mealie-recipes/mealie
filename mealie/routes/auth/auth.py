@@ -1,3 +1,4 @@
+import ipaddress
 from datetime import timedelta
 from typing import Annotated, Any
 
@@ -307,6 +308,22 @@ async def reverse_proxy_login(
     """Authenticate a user using a username forwarded by a trusted reverse proxy header"""
     if not settings.REVERSE_PROXY_AUTH_READY:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+
+    trusted_ips = settings.reverse_proxy_auth_trusted_ips
+    trusted_hosts, trusted_networks = trusted_ips
+    if trusted_hosts or trusted_networks:
+        # Without a trusted proxy list, anyone who can reach Mealie directly could set this header themselves.
+        client_ip = request.client.host if request.client else None
+        is_trusted = client_ip is not None and client_ip in trusted_hosts
+        if not is_trusted and client_ip is not None:
+            try:
+                parsed_ip = ipaddress.ip_address(client_ip)
+                is_trusted = any(parsed_ip in network for network in trusted_networks)
+            except ValueError:
+                is_trusted = False
+        if not is_trusted:
+            logger.error(f"Rejected reverse proxy auth from untrusted address {client_ip}")
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
 
     username = request.headers.get(settings.REVERSE_PROXY_AUTH_HEADER)
     if not username:

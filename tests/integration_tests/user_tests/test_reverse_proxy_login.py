@@ -71,3 +71,24 @@ def test_reverse_proxy_login_signup_disabled_returns_401(api_client: TestClient,
     response = api_client.get(api_routes.auth_reverse_proxy, headers={"X-Forwarded-User": username})
 
     assert response.status_code == 401
+
+
+def test_reverse_proxy_login_untrusted_ip_returns_401(
+    api_client: TestClient, monkeypatch: MonkeyPatch, unique_user: TestUser
+):
+    _enable_reverse_proxy_auth(monkeypatch)
+    monkeypatch.setattr(auth_routes.settings, "REVERSE_PROXY_AUTH_TRUSTED_IPS", "10.0.0.1")
+
+    response = api_client.get(api_routes.auth_reverse_proxy, headers={"X-Forwarded-User": unique_user.username})
+    assert response.status_code == 401
+
+
+def test_reverse_proxy_login_trusted_ip_allows_login(
+    api_client: TestClient, monkeypatch: MonkeyPatch, unique_user: TestUser
+):
+    _enable_reverse_proxy_auth(monkeypatch)
+    # the ASGI test transport reports the client address as "testclient"
+    monkeypatch.setattr(auth_routes.settings, "REVERSE_PROXY_AUTH_TRUSTED_IPS", "testclient")
+
+    response = api_client.get(api_routes.auth_reverse_proxy, headers={"X-Forwarded-User": unique_user.username})
+    assert response.status_code == 200
