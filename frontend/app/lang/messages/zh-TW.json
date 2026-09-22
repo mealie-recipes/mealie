@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "您的食材似乎尚未解析。請點擊下方的「{parse}」按鈕，將食材解析為結構化資料。",
     "attach-images-hint": "將圖片拖放至編輯器以附加圖片",
     "drop-image": "放置圖片",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "已定義單位或食材的食譜無法進行解析。",
     "parse-ingredients": "解析食材",
     "edit-markdown": "編輯 Markdown",
