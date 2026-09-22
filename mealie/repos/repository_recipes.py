@@ -5,6 +5,8 @@ from typing import Self
 from uuid import UUID
 
 import sqlalchemy as sa
+from fastapi import HTTPException
+from humps import decamelize
 from pydantic import UUID4
 from sqlalchemy.exc import IntegrityError
 
@@ -20,6 +22,7 @@ from mealie.pkgs import cache
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_recipe_slug
+from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.query_filter.builder import QueryFilterBuilder
 
@@ -86,6 +89,27 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             ),
         )
         return sa.cast(effective_rating, sa.Float)
+
+    def _validate_last_made_query(self, query: PaginationQuery | RecipeSuggestionQuery) -> None:
+        if self.user_id:
+            return
+
+        if query.order_by and any(
+            decamelize(value.split(":", 1)[0].strip()) == "last_made" for value in query.order_by.split(",")
+        ):
+            raise HTTPException(400, "last_made is only available for authenticated household queries")
+
+        if query.query_filter:
+            try:
+                builder = QueryFilterBuilder(query.query_filter)
+            except ValueError:
+                # Let the existing query filter handling return the API's normal 400 response.
+                return
+
+            if any(
+                getattr(component, "attribute_name", None) == "last_made" for component in builder.filter_components
+            ):
+                raise HTTPException(400, "last_made is only available for authenticated household queries")
 
     def create(self, document: Recipe) -> Recipe:  # type: ignore
         max_retries = 10
@@ -258,6 +282,8 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             q = q.filter(*filters)
         if search:
             q = self.add_search_to_query(q, self.schema, search)
+
+        self._validate_last_made_query(pagination_result)
 
         if not pagination_result.order_by and not search:
             # default ordering if not searching

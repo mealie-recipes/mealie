@@ -57,6 +57,8 @@ class RecipeSuggestionMixin:
 
         def _log_exception(self, e: Exception) -> None: ...
 
+        def _validate_last_made_query(self, query: RecipeSuggestionQuery) -> None: ...
+
         def add_order_by_to_query(self, query: sa.Select, request_query: RequestQuery) -> sa.Select: ...
 
     @staticmethod
@@ -329,6 +331,8 @@ class RecipeSuggestionMixin:
 
         if not params.order_by:
             params.order_by = "created_at"
+
+        self._validate_last_made_query(params)
 
         user_food_ids = list(set(food_ids or []))
         user_tool_ids = list(set(tool_ids or []))
