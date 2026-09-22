@@ -450,7 +450,7 @@ class AppSettings(AppLoggingSettings):
     # Reverse Proxy Auth Configuration
     REVERSE_PROXY_AUTH_ENABLED: bool = False
     REVERSE_PROXY_AUTH_HEADER: str = "X-Forwarded-User"
-    REVERSE_PROXY_AUTH_SIGNUP_ENABLED: bool = True
+    REVERSE_PROXY_AUTH_SIGNUP_ENABLED: bool = False
 
     REVERSE_PROXY_AUTH_TRUSTED_IPS: str = ""
     """Comma-separated IPs or CIDRs allowed to originate reverse proxy auth headers. Anyone who can
