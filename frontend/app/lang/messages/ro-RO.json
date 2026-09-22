@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Se pare că ingredientele tale nu sunt încă analizate. Apăsați butonul \"{parse}\" de mai jos pentru a analiza ingredientele în alimente structurate.",
     "attach-images-hint": "Atașează imagini trăgându-le cu mouse-ul și plasându-le în editor",
     "drop-image": "Trage imaginea",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Reţetele cu unităţi sau alimente definite nu pot fi analizate.",
     "parse-ingredients": "Analizează ingredientele",
     "edit-markdown": "Editează Markdown",
