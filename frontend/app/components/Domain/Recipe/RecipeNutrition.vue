@@ -17,7 +17,6 @@
             density="compact"
             autocomplete="off"
             variant="underlined"
-            control-variant="stacked"
             inset
             :precision="null"
             :min="0"

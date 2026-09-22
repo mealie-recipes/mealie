@@ -22,8 +22,10 @@ from mealie.schema.response.pagination import PaginationBase
 
 from ...db.models.recipe import (
     IngredientFoodModel,
+    IngredientFoodSubstitutionModel,
     RecipeComment,
     RecipeIngredientModel,
+    RecipeIngredientSubstitutionModel,
     RecipeInstruction,
     RecipeModel,
 )
@@ -313,7 +315,15 @@ class Recipe(RecipeSummary):
             selectinload(RecipeModel.recipe_ingredient)
             .joinedload(RecipeIngredientModel.food)
             .joinedload(IngredientFoodModel.label),
+            selectinload(RecipeModel.recipe_ingredient)
+            .joinedload(RecipeIngredientModel.food)
+            .selectinload(IngredientFoodModel.substitutions)
+            .joinedload(IngredientFoodSubstitutionModel.substitute_food),
+            selectinload(RecipeModel.recipe_ingredient)
+            .selectinload(RecipeIngredientModel.substitutions)
+            .joinedload(RecipeIngredientSubstitutionModel.substitute_food),
             selectinload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.ingredient_references),
+            selectinload(RecipeModel.recipe_instructions).joinedload(RecipeInstruction.note_references),
             joinedload(RecipeModel.nutrition),
             joinedload(RecipeModel.settings),
             # for whatever reason, joinedload can mess up the order here, so use selectinload just this once

@@ -25,7 +25,8 @@ MATCH_DIGITS = re.compile(r"\d+([.,]\d+)?")
 """ Allow for commas as decimals (common in Europe) """
 
 MATCH_ISO_STR = re.compile(
-    r"^P((\d+)Y)?((\d+)M)?((?P<days>\d+)D)?" r"T((?P<hours>\d+)H)?((?P<minutes>\d+)M)?((?P<seconds>\d+(?:\.\d+)?)S)?$",
+    r"^P((\d+)Y)?((\d+)M)?((?P<weeks>\d+)W)?((?P<days>\d+)D)?"
+    r"(T((?P<hours>\d+)H)?((?P<minutes>\d+)M)?((?P<seconds>\d+(?:\.\d+)?)S)?)?$",
 )
 """ Match Duration Strings """
 
@@ -415,6 +416,7 @@ def clean_time(time_entry: str | timedelta | int | float | None, translator: Tra
         - `None` - returns None
         - `"PT1H"` - returns "1 hour"
         - `"PT1H30M"` - returns "1 hour 30 minutes"
+        - `"P1D"` - returns "1 day"
         - `timedelta(hours=1, minutes=30)` - returns "1 hour 30 minutes"
         - `{"minValue": "PT1H30M"}` - returns "1 hour 30 minutes"
         - `30` - as a `int` or `float` assumed to be in minutes, returns "30 minutes"
@@ -480,7 +482,7 @@ def parse_duration(iso_duration: str) -> timedelta:
     # microseconds internally, and therefore we'd have to
     # convert parsed years and months to specific number of days.
 
-    times = {"days": 0, "hours": 0, "minutes": 0, "seconds": 0}
+    times = {"weeks": 0, "days": 0, "hours": 0, "minutes": 0, "seconds": 0}
     for unit in times.keys():
         if m.group(unit):
             times[unit] = int(float(m.group(unit)))

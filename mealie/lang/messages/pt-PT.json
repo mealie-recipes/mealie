@@ -19,7 +19,6 @@
             "yields": "Rendimentos"
         },
         "and-amount": "e {amount}",
-        "or-ingredient": "ou {ingredient}",
         "import-errors": {
             "ai-not-enabled": "Serviços IA não estão ativados",
             "ai-request-failed": "O fornecedor de IA não conseguiu concluir o pedido. Tente novamente",

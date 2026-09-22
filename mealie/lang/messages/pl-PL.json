@@ -19,7 +19,6 @@
             "yields": "Porcje"
         },
         "and-amount": "i {amount}",
-        "or-ingredient": "lub {ingredient}",
         "import-errors": {
             "ai-not-enabled": "Usługi AI nie są włączone",
             "ai-request-failed": "Dostawca AI nie był w stanie wykonać żądania. Spróbuj ponownie później",

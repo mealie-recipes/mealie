@@ -3,6 +3,7 @@
     <!-- Export Purge Confirmation Dialog -->
     <BaseDialog
       v-model="purgeExportsDialog"
+      bottom-sheet
       :title="$t('data-pages.recipes.purge-exports')"
       color="error"
       :icon="$globals.icons.alertCircle"
@@ -16,12 +17,16 @@
     <BaseDialog
       ref="domDialog"
       v-model="dialog.state"
+      bottom-sheet
       width="650px"
+      :color="dialog.mode == MODES.delete ? 'error' : undefined"
       :icon="dialog.icon"
       :title="dialog.title"
       :submit-text="$t('general.submit')"
-      can-submit
+      :can-submit="dialog.mode != MODES.delete"
+      :can-delete="dialog.mode == MODES.delete"
       @submit="dialog.callback"
+      @delete="dialog.callback"
     >
       <v-card-text v-if="dialog.mode == MODES.tag">
         <RecipeOrganizerSelector

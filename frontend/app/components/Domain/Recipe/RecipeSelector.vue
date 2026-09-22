@@ -10,6 +10,7 @@
       variant="outlined"
       density="compact"
       color="primary"
+      autofocus
       hide-details
       clearable
       :placeholder="$t('search.search-placeholder')"

@@ -90,6 +90,14 @@
                 :label="$t('recipe.linked-ingredients')"
               />
             </v-row>
+            <v-row no-gutters>
+              <v-switch
+                v-model="preferences.showSubstitutions"
+                hide-details
+                color="primary"
+                :label="$t('recipe.substitutions')"
+              />
+            </v-row>
           </v-col>
         </v-row>
       </v-container>
