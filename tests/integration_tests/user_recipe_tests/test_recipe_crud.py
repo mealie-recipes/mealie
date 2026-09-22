@@ -1677,15 +1677,56 @@ def test_create_recipe_same_name(api_client: TestClient, unique_user: TestUser):
     assert json.loads(response.text) == f"{slug}-1"
 
 
-def test_create_recipe_too_many_time(api_client: TestClient, unique_user: TestUser):
+def test_create_recipe_more_than_ten_times(api_client: TestClient, unique_user: TestUser) -> None:
     slug = random_string(10)
 
-    for _ in range(10):
+    for i in range(12):
         response = api_client.post(api_routes.recipes, json={"name": slug}, headers=unique_user.token)
         assert response.status_code == 201
+        assert response.json() == (slug if i == 0 else f"{slug}-{i}")
 
-    response = api_client.post(api_routes.recipes, json={"name": slug}, headers=unique_user.token)
-    assert response.status_code == 400
+    response = api_client.get(api_routes.recipes_slug(f"{slug}-11"), headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["name"] == f"{slug} (11)"
+
+
+def test_create_recipe_duplicate_names_across_households(
+    api_client: TestClient, unique_user: TestUser, h2_user: TestUser, g2_user: TestUser
+) -> None:
+    name = random_string(10)
+    for i in range(11):
+        response = api_client.post(api_routes.recipes, json={"name": name}, headers=h2_user.token)
+        assert response.status_code == 201
+        assert response.json() == (name if i == 0 else f"{name}-{i}")
+
+    response = api_client.post(api_routes.recipes, json={"name": name}, headers=unique_user.token)
+    assert response.status_code == 201
+    assert response.json() == f"{name}-11"
+
+    # A different group can reuse both the original slug and its numbered variants.
+    for expected_slug in (name, f"{name}-1"):
+        response = api_client.post(api_routes.recipes, json={"name": name}, headers=g2_user.token)
+        assert response.status_code == 201
+        assert response.json() == expected_slug
+
+
+def test_create_recipe_reuses_available_name_suffix(api_client: TestClient, unique_user: TestUser) -> None:
+    name = random_string(10)
+    for recipe_name in (name, f"{name} (1)", f"{name} (3)"):
+        response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token)
+        assert response.status_code == 201
+
+    response = api_client.post(api_routes.recipes, json={"name": name}, headers=unique_user.token)
+    assert response.status_code == 201
+    assert response.json() == f"{name}-2"
+
+
+def test_create_recipe_duplicate_long_name(api_client: TestClient, unique_user: TestUser) -> None:
+    name = random_string(250)
+    for expected_slug in (name, f"{name[:248]}-1", f"{name[:248]}-2"):
+        response = api_client.post(api_routes.recipes, json={"name": name}, headers=unique_user.token)
+        assert response.status_code == 201
+        assert response.json() == expected_slug
 
 
 def test_delete_recipe_same_name(api_client: TestClient, unique_user: utils.TestUser, g2_user: utils.TestUser):
