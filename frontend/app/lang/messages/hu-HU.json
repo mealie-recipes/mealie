@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Úgy tűnik, hogy az összetevőket még nem elemezték. Kattintson az alábbi „{parse}” gombra, hogy az összetevőket strukturált élelmiszerekké alakítsa.",
     "attach-images-hint": "Képek csatolása a szerkesztőbe történő húzásával és ejtésével",
     "drop-image": "Dobd ide a képet",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "A külön meghatározott mennyiségi egységeket vagy alapanyagokat tartalmazó receptek nem elemezhetők.",
     "parse-ingredients": "Hozzávalók elemzése",
     "edit-markdown": "Markdown szerkesztése",
