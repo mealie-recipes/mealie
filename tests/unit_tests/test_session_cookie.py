@@ -25,6 +25,7 @@ def test_plain_http_gets_an_insecure_lax_cookie():
 
     assert attrs["secure"] is False
     assert attrs["samesite"] == "lax"
+    assert attrs["partitioned"] is False
 
 
 def test_https_gets_a_secure_cookie():
@@ -46,10 +47,11 @@ def test_the_first_hop_of_a_forwarded_chain_decides():
     assert session_cookie_attrs(build_request(headers={"x-forwarded-proto": "http, https"}))["secure"] is False
 
 
-def test_embedded_over_https_relaxes_samesite():
+def test_embedded_over_https_relaxes_samesite_and_partitions():
     attrs = session_cookie_attrs(build_request(scheme="https", headers={"x-mealie-embedded": "true"}))
 
     assert attrs["samesite"] == "none"
+    assert attrs["partitioned"] is True
 
 
 def test_embedded_behind_an_untrusted_proxy_still_relaxes_samesite():
@@ -57,6 +59,7 @@ def test_embedded_behind_an_untrusted_proxy_still_relaxes_samesite():
     attrs = session_cookie_attrs(build_request(headers={"x-forwarded-proto": "https", "x-mealie-embedded": "true"}))
 
     assert attrs["samesite"] == "none"
+    assert attrs["partitioned"] is True
 
 
 def test_embedded_over_plain_http_stays_lax():
@@ -64,19 +67,14 @@ def test_embedded_over_plain_http_stays_lax():
     attrs = session_cookie_attrs(build_request(headers={"x-mealie-embedded": "true"}))
 
     assert attrs["samesite"] == "lax"
-
-
-# TODO: now that we're on 3.14, `Partitioned` can actually be emitted. Revisit whether embedded
-# cookies should set it (CHIPS), and update this test and `test_embedded_https_cookie_is_actually_sendable`.
-def test_no_attribute_starlette_cannot_emit():
-    """`Partitioned` needs Python 3.14; asking for it on 3.12 made every embedded login a 500."""
-    assert "partitioned" not in session_cookie_attrs(
-        build_request(scheme="https", headers={"x-mealie-embedded": "true"})
-    )
+    assert attrs["partitioned"] is False
 
 
 def test_embedded_https_cookie_is_actually_sendable():
-    """The attribute dict alone can't catch a value Starlette rejects, so set the cookie for real."""
+    """The attribute dict alone can't catch a value Starlette rejects, so set the cookie for real.
+
+    `Partitioned` needs Python 3.14; asking for it on 3.12 made every embedded login a 500.
+    """
     response = Response()
     set_session_cookie(
         response,
@@ -90,4 +88,4 @@ def test_embedded_https_cookie_is_actually_sendable():
     assert set_cookie.startswith(f"{SESSION_COOKIE_NAME}=token;")
     assert "SameSite=none" in set_cookie
     assert "Secure" in set_cookie
-    assert "Partitioned" not in set_cookie
+    assert "Partitioned" in set_cookie
