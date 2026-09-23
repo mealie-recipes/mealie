@@ -1,6 +1,7 @@
 from datetime import datetime
+from typing import Annotated
 
-from pydantic import UUID4, ConfigDict
+from pydantic import UUID4, ConfigDict, StringConstraints
 from sqlalchemy.orm import joinedload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -21,7 +22,7 @@ class UserBase(MealieModel):
 
 class RecipeCommentCreate(MealieModel):
     recipe_id: UUID4
-    text: str
+    text: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 
 class RecipeCommentSave(RecipeCommentCreate):
@@ -30,7 +31,7 @@ class RecipeCommentSave(RecipeCommentCreate):
 
 class RecipeCommentUpdate(MealieModel):
     id: UUID4
-    text: str
+    text: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
 
 
 class RecipeCommentOut(RecipeCommentCreate):
