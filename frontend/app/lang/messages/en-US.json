@@ -365,7 +365,7 @@
     },
     "recipe-data-migrations": "Recipe Data Migrations",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Choose Migration Type",
     "tag-all-recipes": "Tag all recipes with {tag-name} tag",
     "recipe-1": "Recipe 1",
