@@ -8,7 +8,7 @@
       },
       "onion": {
         "name": "løg",
-        "plural_name": "onions"
+        "plural_name": "løg"
       },
       "bell pepper": {
         "name": "peberfrugt",
@@ -20,11 +20,11 @@
       },
       "scallion": {
         "name": "forårsløg",
-        "plural_name": "scallions"
+        "plural_name": "forårsløg"
       },
       "zucchini": {
         "name": "squash",
-        "plural_name": "zucchinis"
+        "plural_name": "squash"
       },
       "potato": {
         "name": "kartoffel",
@@ -32,11 +32,11 @@
       },
       "red onion": {
         "name": "rødløg",
-        "plural_name": "red onions"
+        "plural_name": "rødløg"
       },
       "yellow onion": {
         "name": "løg",
-        "plural_name": "yellow onions"
+        "plural_name": "løg"
       },
       "celery": {
         "name": "selleri",
@@ -52,7 +52,7 @@
       },
       "shallot": {
         "name": "skalotteløg",
-        "plural_name": "shallots"
+        "plural_name": "skalotteløg"
       },
       "cherry tomato": {
         "name": "cherrytomat",
@@ -72,7 +72,7 @@
       },
       "chile pepper": {
         "name": "chilipeber",
-        "plural_name": "chile peppers"
+        "plural_name": "chilipebre"
       },
       "sweet potato": {
         "name": "sød kartoffel",
@@ -84,11 +84,11 @@
       },
       "heart of palm": {
         "name": "palmehjerte",
-        "plural_name": "hearts of palm"
+        "plural_name": "palmehjerter"
       },
       "pumpkin": {
         "name": "græskar",
-        "plural_name": "pumpkins"
+        "plural_name": "græskar"
       },
       "cauliflower": {
         "name": "blomkål",
@@ -136,7 +136,7 @@
       },
       "brussels sprout": {
         "name": "rosenkål",
-        "plural_name": "brussels sprouts"
+        "plural_name": "rosenkål"
       },
       "fennel": {
         "name": "fennikel",
@@ -152,7 +152,7 @@
       },
       "red cabbage": {
         "name": "rødkål",
-        "plural_name": "red cabbages"
+        "plural_name": "rødkål"
       },
       "artichoke": {
         "name": "artiskok",
@@ -164,7 +164,7 @@
       },
       "poblano pepper": {
         "name": "poblano peber",
-        "plural_name": "poblano peppers"
+        "plural_name": "poblanopebre"
       },
       "green tomato": {
         "name": "grøn tomat",
@@ -184,7 +184,7 @@
       },
       "napa cabbage": {
         "name": "kinakål",
-        "plural_name": "napa cabbages"
+        "plural_name": "kinakål"
       },
       "celeriac": {
         "name": "knoldselleri",
@@ -252,7 +252,7 @@
       },
       "pineapple": {
         "name": "ananas",
-        "plural_name": "pineapples"
+        "plural_name": "ananas"
       },
       "mango": {
         "name": "mango",
@@ -280,7 +280,7 @@
       },
       "pomegranate": {
         "name": "granatæble",
-        "plural_name": "pomegranates"
+        "plural_name": "granatæble"
       },
       "watermelon": {
         "name": "vandmelon",
@@ -360,27 +360,27 @@
       },
       "strawberry": {
         "name": "jordbær",
-        "plural_name": "strawberries"
+        "plural_name": "jordbær"
       },
       "blueberry": {
         "name": "blåbær",
-        "plural_name": "blueberries"
+        "plural_name": "blåbær"
       },
       "raspberry": {
         "name": "hindbær",
-        "plural_name": "raspberries"
+        "plural_name": "hindbær"
       },
       "cranberry": {
         "name": "tranebær",
-        "plural_name": "cranberries"
+        "plural_name": "tranebær"
       },
       "cherry": {
         "name": "kirsebær",
-        "plural_name": "cherries"
+        "plural_name": "kirsebær"
       },
       "blackberry": {
         "name": "brombær",
-        "plural_name": "blackberries"
+        "plural_name": "brombær"
       },
       "parsley": {
         "name": "persille",
@@ -400,7 +400,7 @@
       },
       "chive": {
         "name": "purløg",
-        "plural_name": "chives"
+        "plural_name": "purløg"
       },
       "mint": {
         "name": "mynte",
@@ -698,7 +698,7 @@
       },
       "beef sirloin": {
         "name": "okseryg",
-        "plural_name": "beef sirloins"
+        "plural_name": "oksetyndsteg"
       },
       "brisket": {
         "name": "oksespidsbryst",
@@ -710,7 +710,7 @@
       },
       "beef short rib": {
         "name": "okse‑short ribs",
-        "plural_name": "beef short ribs"
+        "plural_name": "okse‑\"short ribs\""
       },
       "pork belly": {
         "name": "kogeflæsk",
@@ -734,7 +734,7 @@
       },
       "chicken thigh": {
         "name": "kyllingelår",
-        "plural_name": "chicken thighs"
+        "plural_name": "kyllingeoverlår"
       },
       "ground turkey": {
         "name": "hakket kalkun",
@@ -750,7 +750,7 @@
       },
       "chicken leg": {
         "name": "kyllingelår",
-        "plural_name": "chicken legs"
+        "plural_name": "kyllingeunderlår"
       },
       "chicken wing": {
         "name": "kyllingevinge",
@@ -936,7 +936,7 @@
       },
       "oyster": {
         "name": "østers",
-        "plural_name": "oysters"
+        "plural_name": "østers"
       },
       "octopus": {
         "name": "ottearmet blæksprutte",
@@ -1045,7 +1045,7 @@
       },
       "egg": {
         "name": "æg",
-        "plural_name": "eggs"
+        "plural_name": "æg"
       },
       "milk": {
         "name": "mælk",
@@ -1118,7 +1118,7 @@
       },
       "puff pastry": {
         "name": "butterdej",
-        "plural_name": "puff pastries"
+        "plural_name": "butterdej"
       },
       "pizza dough": {
         "name": "pizzadej",
@@ -1130,7 +1130,7 @@
       },
       "dumpling wrapper": {
         "name": "dumplingdej",
-        "plural_name": "dumpling wrappers"
+        "plural_name": "dumplingdej"
       },
       "rice paper": {
         "name": "rispapir",
@@ -1162,7 +1162,7 @@
       },
       "pita": {
         "name": "pitabrød",
-        "plural_name": "pitas"
+        "plural_name": "pitabrød"
       },
       "sourdough bread": {
         "name": "surdejsbrød",
@@ -1223,7 +1223,7 @@
       },
       "caper": {
         "name": "kapers",
-        "plural_name": "capers"
+        "plural_name": "kapers"
       },
       "green olive": {
         "name": "grøn oliven",
@@ -1247,7 +1247,7 @@
       },
       "kalamata olive": {
         "name": "kalamata-oliven",
-        "plural_name": "kalamata olives"
+        "plural_name": "kalamata-oliven"
       },
       "canned tuna": {
         "name": "dåsetun",
@@ -1259,7 +1259,7 @@
       },
       "chipotle in adobo": {
         "name": "chipotle i adobo",
-        "plural_name": "chipotles in adobo"
+        "plural_name": "chipotle i adobo"
       },
       "canned anchovy": {
         "name": "dåseansjos",
@@ -1283,7 +1283,7 @@
       },
       "refried bean": {
         "name": "refried bean",
-        "plural_name": "refried beans"
+        "plural_name": "genopvarmede bønner"
       },
       "canned whole tomato": {
         "name": "hel dåsetomat",
@@ -1303,7 +1303,7 @@
       },
       "pickled jalapeño": {
         "name": "syltede jalapeños",
-        "plural_name": "pickled jalapeños"
+        "plural_name": "syltede jalapeños"
       },
       "diced green chile": {
         "name": "hakket grøn chili",
@@ -1327,7 +1327,7 @@
       },
       "canned clam": {
         "name": "muslinger på dåse",
-        "plural_name": "canned clams"
+        "plural_name": "muslinger på dåse"
       },
       "canned baby corn": {
         "name": "babymajs på dåse",
@@ -1725,11 +1725,11 @@
       },
       "peppercorn": {
         "name": "peberkorn",
-        "plural_name": "peppercorns"
+        "plural_name": "peberkorn"
       },
       "mustard seed": {
         "name": "sennepskorn",
-        "plural_name": "mustard seeds"
+        "plural_name": "sennepskorn"
       },
       "white pepper": {
         "name": "hvid peber",
@@ -1741,7 +1741,7 @@
       },
       "fennel seed": {
         "name": "fennikelfrø",
-        "plural_name": "fennel seeds"
+        "plural_name": "fennikelfrø"
       },
       "tarragon": {
         "name": "estragon",
@@ -1769,7 +1769,7 @@
       },
       "guajillo pepper": {
         "name": "guajillo-peber",
-        "plural_name": "guajillo peppers"
+        "plural_name": "guajillo-peber"
       },
       "galangal": {
         "name": "galgant",
@@ -2157,7 +2157,7 @@
       },
       "sesame seed": {
         "name": "sesamfrø",
-        "plural_name": "sesame seeds"
+        "plural_name": "sesamfrø"
       },
       "cashew": {
         "name": "cashewnød",
@@ -2189,15 +2189,15 @@
       },
       "sunflower seed": {
         "name": "solsikkefrø",
-        "plural_name": "sunflower seeds"
+        "plural_name": "solsikkefrø"
       },
       "graham cracker": {
         "name": "grahams-kiks",
-        "plural_name": "graham crackers"
+        "plural_name": "grahams-kiks"
       },
       "cracker": {
         "name": "knækbrød",
-        "plural_name": "crackers"
+        "plural_name": "kiks"
       },
       "tortilla chip": {
         "name": "tortillachip",
