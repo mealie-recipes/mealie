@@ -95,7 +95,7 @@ class RecipeDataService(BaseService):
         # validated it, destroying the existing image when minification fails.
         with tempfile.TemporaryDirectory(dir=image_dir) as staging_dir:
             staging_dir_path = Path(staging_dir)
-            staged_image_path = staging_dir_path.joinpath(f"upload.{extension}")
+            staged_image_path = staging_dir_path / "upload"
 
             if isinstance(file_data, Path):
                 shutil.copy2(file_data, staged_image_path)
