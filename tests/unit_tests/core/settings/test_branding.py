@@ -1,5 +1,7 @@
+import logging
 from pathlib import Path
 
+from _pytest.logging import LogCaptureFixture
 from pytest import MonkeyPatch
 
 from mealie.core.settings.branding import Branding
@@ -50,3 +52,21 @@ def test_branding_logo_file_disallowed_suffix_falls_back(tmp_path: Path):
 def test_branding_logo_file_unset():
     branding = Branding(logo_path=None)
     assert branding.logo_file is None
+
+
+def test_branding_logo_file_missing_path_logs_warning(caplog: LogCaptureFixture):
+    caplog.set_level(logging.WARNING)
+
+    Branding(logo_path="/nonexistent/path/logo.svg")
+
+    assert "/nonexistent/path/logo.svg" in caplog.text
+
+
+def test_branding_logo_file_valid_does_not_log_warning(tmp_path: Path, caplog: LogCaptureFixture):
+    caplog.set_level(logging.WARNING)
+    logo_path = tmp_path / "logo.svg"
+    logo_path.write_text("<svg></svg>")
+
+    Branding(logo_path=str(logo_path))
+
+    assert caplog.text == ""

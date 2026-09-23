@@ -9,9 +9,9 @@ export default defineNuxtPlugin({
       title: data.brandingName,
       link: data.brandingLogoUrl
         ? [
-          { rel: "icon", href: data.brandingLogoUrl },
-          { rel: "shortcut icon", href: data.brandingLogoUrl },
-        ]
+            { rel: "icon", href: data.brandingLogoUrl },
+            { rel: "shortcut icon", href: data.brandingLogoUrl },
+          ]
         : [],
     });
 
