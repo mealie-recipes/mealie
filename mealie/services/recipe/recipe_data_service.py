@@ -87,7 +87,6 @@ class RecipeDataService(BaseService):
         if not image_dir:
             image_dir = self.dir_image
 
-        extension = extension.replace(".", "")
         final_image_path = image_dir.joinpath(RecipeImageTypes.original.value)
 
         # Stage the upload and generated variants away from the live image files.
