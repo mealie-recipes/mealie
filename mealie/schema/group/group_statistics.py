@@ -9,7 +9,7 @@ class GroupStorage(MealieModel):
     total_storage_str: str
 
     @classmethod
-    def bytes(cls, used_storage_bytes: int, total_storage_bytes: int) -> "GroupStorage":
+    def bytes(cls, used_storage_bytes: int, total_storage_bytes: int) -> GroupStorage:
         return cls(
             used_storage_bytes=used_storage_bytes,
             used_storage_str=fs_stats.pretty_size(used_storage_bytes),

@@ -508,7 +508,7 @@ class RecipeService(RecipeServiceBase):
             for ing in ingredients:
                 try:
                     sub_recipe = self.get_one(ing.referenced_recipe.id)
-                except (AttributeError, exceptions.NoEntryFound):
+                except AttributeError, exceptions.NoEntryFound:
                     continue
 
                 # Recursively check - path is modified in place and cleaned up via backtracking

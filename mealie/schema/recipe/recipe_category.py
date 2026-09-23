@@ -34,7 +34,7 @@ class CategoryMerge(MealieModel):
 
 
 class RecipeCategoryResponse(CategoryBase):
-    recipes: "list[RecipeSummary]" = []
+    recipes: list[RecipeSummary] = []
     model_config = ConfigDict(from_attributes=True)
 
 

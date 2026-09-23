@@ -115,7 +115,7 @@ def safe_local_path(candidate: str | Path, root: Path) -> Path | None:
         resolved = Path(candidate).resolve()
         if resolved.is_relative_to(root.resolve()):
             return resolved
-    except (OSError, ValueError):
+    except OSError, ValueError:
         pass
     return None
 

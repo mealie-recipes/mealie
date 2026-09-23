@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Úgy tűnik, hogy az összetevőket még nem elemezték. Kattintson az alábbi „{parse}” gombra, hogy az összetevőket strukturált élelmiszerekké alakítsa.",
     "attach-images-hint": "Képek csatolása a szerkesztőbe történő húzásával és ejtésével",
     "drop-image": "Dobd ide a képet",
+    "failed-to-attach-image": "A kép csatolása nem sikerült",
+    "image-drop-unsupported": "Ezt a képet nem lehet közvetlenül csatolni. Mentse le gépére, majd húzza be a fájlt.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "A külön meghatározott mennyiségi egységeket vagy alapanyagokat tartalmazó receptek nem elemezhetők.",
     "parse-ingredients": "Hozzávalók elemzése",
     "edit-markdown": "Markdown szerkesztése",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Töltse be az Ön nyelve szerinti közös címkélet tartalmazó adatbázist.",
       "edit-label": "Címke szerkesztése",
       "new-label": "Új címke",
       "labels": "Címkék",

@@ -27,7 +27,7 @@ class ScraperProxyMode(StrEnum):
     """Try direct first; only retry through the proxy when a block is detected."""
 
     @classmethod
-    def _missing_(cls, value: object) -> "ScraperProxyMode":
+    def _missing_(cls, value: object) -> ScraperProxyMode:
         # Default any unrecognized configuration value to the safest, most useful mode.
         return cls.always
 

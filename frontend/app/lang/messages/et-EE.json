@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Tundub, et teie koostisosad pole veel tuvastatud. Klõpsake allpool olevat nuppu „{parse}”, et tuvastada teie koostisosad struktureeritud toitudeks.",
     "attach-images-hint": "Lisa pildid manustesse neid lohistades ja vabastades need redaktorisse",
     "drop-image": "Vabasta pilt",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Retsepte, millel kogused või toidud on defineeritud, ei saa analüüsida",
     "parse-ingredients": "Analüüsi koostisosi",
     "edit-markdown": "Muuda Markdowni",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Alusta andmebaasi täitmist tüüpiliste siltidega kohalikus keeles.",
       "edit-label": "Muuda silti",
       "new-label": "Uus silt",
       "labels": "Sildid",

@@ -43,7 +43,7 @@ class EventListenerBase(ABC):
         ...
 
     @contextlib.contextmanager
-    def ensure_session(self) -> Generator[Session, None, None]:
+    def ensure_session(self) -> Generator[Session]:
         """
         ensure_session ensures that a session is available for the caller by checking if a session
         was provided during construction, and if not, creating a new session with the `with_session`
@@ -61,7 +61,7 @@ class EventListenerBase(ABC):
             yield self._session
 
     @contextlib.contextmanager
-    def ensure_repos(self, group_id: UUID4, household_id: UUID4) -> Generator[AllRepositories, None, None]:
+    def ensure_repos(self, group_id: UUID4, household_id: UUID4) -> Generator[AllRepositories]:
         if self._repos is None:
             with self.ensure_session() as session:
                 self._repos = AllRepositories(session, group_id=group_id, household_id=household_id)

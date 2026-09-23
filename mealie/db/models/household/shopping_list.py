@@ -1,6 +1,6 @@
 from contextvars import ContextVar
 from datetime import UTC, datetime
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from pydantic import ConfigDict
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, UniqueConstraint, event, orm
@@ -27,7 +27,7 @@ class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
     __tablename__ = "shopping_list_item_recipe_reference"
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    shopping_list_item: Mapped["ShoppingListItem"] = orm.relationship(
+    shopping_list_item: Mapped[ShoppingListItem] = orm.relationship(
         "ShoppingListItem", back_populates="recipe_references"
     )
     shopping_list_item_id: FilterableColumn[GUID] = mapped_column(
@@ -35,7 +35,7 @@ class ShoppingListItemRecipeReference(BaseMixins, SqlAlchemyBase):
     )
 
     recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
-    recipe: Mapped[Optional["RecipeModel"]] = orm.relationship("RecipeModel", back_populates="shopping_list_item_refs")
+    recipe: Mapped[RecipeModel | None] = orm.relationship("RecipeModel", back_populates="shopping_list_item_refs")
     recipe_quantity: FilterableColumn[float] = mapped_column(Float, nullable=False)
     recipe_scale: FilterableColumn[float] = mapped_column(Float, default=1)
     recipe_note: FilterableColumn[str | None] = mapped_column(String)
@@ -53,7 +53,7 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
 
     # Id's
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
-    shopping_list: Mapped["ShoppingList"] = orm.relationship("ShoppingList", back_populates="list_items")
+    shopping_list: Mapped[ShoppingList] = orm.relationship("ShoppingList", back_populates="list_items")
     shopping_list_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("shopping_lists.id"), index=True)
 
     group_id: AssociationProxy[GUID] = association_proxy("shopping_list", "group_id")
@@ -102,13 +102,13 @@ class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):
     __tablename__ = "shopping_list_recipe_reference"
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    shopping_list: Mapped["ShoppingList"] = orm.relationship("ShoppingList", back_populates="recipe_references")
+    shopping_list: Mapped[ShoppingList] = orm.relationship("ShoppingList", back_populates="recipe_references")
     shopping_list_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("shopping_lists.id"), primary_key=True)
     group_id: AssociationProxy[GUID] = association_proxy("shopping_list", "group_id")
     household_id: AssociationProxy[GUID] = association_proxy("shopping_list", "household_id")
 
     recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
-    recipe: Mapped[Optional["RecipeModel"]] = orm.relationship(
+    recipe: Mapped[RecipeModel | None] = orm.relationship(
         "RecipeModel", uselist=False, back_populates="shopping_list_refs"
     )
 
@@ -126,10 +126,10 @@ class ShoppingListMultiPurposeLabel(SqlAlchemyBase, BaseMixins):
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     shopping_list_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("shopping_lists.id"), primary_key=True)
-    shopping_list: Mapped["ShoppingList"] = orm.relationship("ShoppingList", back_populates="label_settings")
+    shopping_list: Mapped[ShoppingList] = orm.relationship("ShoppingList", back_populates="label_settings")
 
     label_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"), primary_key=True)
-    label: Mapped["MultiPurposeLabel"] = orm.relationship(
+    label: Mapped[MultiPurposeLabel] = orm.relationship(
         "MultiPurposeLabel", back_populates="shopping_lists_label_settings"
     )
 
@@ -149,11 +149,11 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     group_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="shopping_lists")
+    group: Mapped[Group] = orm.relationship("Group", back_populates="shopping_lists")
     household_id: AssociationProxy[GUID] = association_proxy("user", "household_id")
-    household: AssociationProxy["Household"] = association_proxy("user", "household")
+    household: AssociationProxy[Household] = association_proxy("user", "household")
     user_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("users.id"), nullable=False, index=True)
-    user: Mapped["User"] = orm.relationship("User", back_populates="shopping_lists")
+    user: Mapped[User] = orm.relationship("User", back_populates="shopping_lists")
 
     name: FilterableColumn[str | None] = mapped_column(String)
     list_items: Mapped[list[ShoppingListItem]] = orm.relationship(
@@ -166,7 +166,7 @@ class ShoppingList(SqlAlchemyBase, BaseMixins):
     recipe_references: Mapped[list[ShoppingListRecipeReference]] = orm.relationship(
         ShoppingListRecipeReference, cascade="all, delete, delete-orphan"
     )
-    label_settings: Mapped[list["ShoppingListMultiPurposeLabel"]] = orm.relationship(
+    label_settings: Mapped[list[ShoppingListMultiPurposeLabel]] = orm.relationship(
         ShoppingListMultiPurposeLabel,
         cascade="all, delete, delete-orphan",
         order_by="ShoppingListMultiPurposeLabel.position",

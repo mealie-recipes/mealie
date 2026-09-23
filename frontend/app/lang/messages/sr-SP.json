@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Изгледа да ваши састојци још увек нису разложени. Кликните дугме \"{parse}\" испод да бисте разложили своје састојке у структурирану храну.",
     "attach-images-hint": "Приложите слике превлачењем и отпуштањем у уређивач",
     "drop-image": "Спусти слику овде",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Рецепти са већ дефинисаним јединицама или храном се не могу разложити.",
     "parse-ingredients": "Разложи састојке",
     "edit-markdown": "Уреди Markdown",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Попуните базу података уобичајеним натписима на основу вашег локалног језика.",
       "edit-label": "Уреди натпис",
       "new-label": "Нови натпис",
       "labels": "Натписи",
