@@ -83,7 +83,7 @@ class RecipeDataService(BaseService):
         except Exception as e:
             self.logger.exception(f"Failed to delete recipe data: {e}")
 
-    def write_image(self, file_data: bytes | Path, extension: str, image_dir: Path | None = None) -> Path:
+    def write_image(self, file_data: bytes, extension: str, image_dir: Path | None = None) -> Path:
         if not image_dir:
             image_dir = self.dir_image
 
@@ -96,13 +96,7 @@ class RecipeDataService(BaseService):
             staging_dir_path = Path(staging_dir)
             staged_image_path = staging_dir_path / "upload"
 
-            if isinstance(file_data, Path):
-                shutil.copy2(file_data, staged_image_path)
-            elif isinstance(file_data, bytes):
-                staged_image_path.write_bytes(file_data)
-            else:
-                with open(staged_image_path, "wb") as f:
-                    shutil.copyfileobj(file_data, f)
+            staged_image_path.write_bytes(file_data)
 
             self.minifier.minify(staged_image_path)
 
