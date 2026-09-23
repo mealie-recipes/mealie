@@ -3,6 +3,7 @@ from typing import TYPE_CHECKING
 import sqlalchemy as sa
 from pydantic import ConfigDict
 from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy.orm.session import Session
@@ -520,7 +521,9 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
 
     food_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), index=True)
     food: Mapped[IngredientFoodModel | None] = orm.relationship(IngredientFoodModel, uselist=False)
-    food_snapshot: Mapped[dict | None] = mapped_column(sa.JSON(none_as_null=True), nullable=True)
+    food_snapshot: Mapped[dict | None] = mapped_column(
+        sa.JSON(none_as_null=True).with_variant(JSONB(none_as_null=True), "postgresql"), nullable=True
+    )
     quantity: FilterableColumn[float | None] = mapped_column(Float)
 
     original_text: FilterableColumn[str | None] = mapped_column(String)

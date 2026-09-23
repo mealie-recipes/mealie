@@ -4,6 +4,7 @@ from typing import TYPE_CHECKING, Optional
 
 from pydantic import ConfigDict
 from sqlalchemy import JSON, Boolean, Float, ForeignKey, Integer, String, UniqueConstraint, event, orm, select
+from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.ext.orderinglist import ordering_list
 from sqlalchemy.orm import Mapped, Session, mapped_column
@@ -77,7 +78,9 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
 
     food_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_foods.id"))
     food: Mapped[IngredientFoodModel | None] = orm.relationship(IngredientFoodModel, uselist=False)
-    food_snapshot: Mapped[dict | None] = mapped_column(JSON(none_as_null=True), nullable=True)
+    food_snapshot: Mapped[dict | None] = mapped_column(
+        JSON(none_as_null=True).with_variant(JSONB(none_as_null=True), "postgresql"), nullable=True
+    )
 
     label_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"))
     label: Mapped[MultiPurposeLabel | None] = orm.relationship(
