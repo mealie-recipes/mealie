@@ -66,6 +66,8 @@ def test_embedded_over_plain_http_stays_lax():
     assert attrs["samesite"] == "lax"
 
 
+# TODO: now that we're on 3.14, `Partitioned` can actually be emitted. Revisit whether embedded
+# cookies should set it (CHIPS), and update this test and `test_embedded_https_cookie_is_actually_sendable`.
 def test_no_attribute_starlette_cannot_emit():
     """`Partitioned` needs Python 3.14; asking for it on 3.12 made every embedded login a 500."""
     assert "partitioned" not in session_cookie_attrs(
