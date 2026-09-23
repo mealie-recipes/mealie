@@ -70,7 +70,7 @@
       </v-card>
     </BaseDialog>
 
-    <BasePageTitle divider>
+    <BasePageTitle divider class="shopping-list-title">
       <template #header>
         <v-container class="px-0">
           <v-row no-gutters>
@@ -149,7 +149,10 @@
     />
 
     <!-- Viewer -->
-    <section v-if="!edit" class="py-2 d-flex flex-column ga-4">
+    <section
+      v-if="!edit"
+      class="py-2 d-flex flex-column ga-1 shopping-list-view"
+    >
       <!-- Create Item -->
       <ShoppingListAddItemForm
         v-if="$vuetify.display.smAndDown"
@@ -162,7 +165,7 @@
         @save="createListItem"
       />
 
-      <div v-else>
+      <div v-else class="mb-3">
         <ShoppingListItemEditor
           v-if="createEditorOpen"
           v-model="createListItemData"
@@ -188,9 +191,11 @@
       <TransitionGroup name="scroll-x-transition">
         <BaseExpansionPanels v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" start-open>
           <v-expansion-panel class="shopping-list-section">
+            <!-- the label colour fills the header bar; an uncoloured (or unlabelled) header is muted instead -->
             <v-expansion-panel-title
               :color="getLabelColor(key)"
-              class="body-1 font-weight-bold section-title"
+              class="body-1 section-title"
+              :class="getLabelColor(key) ? '' : 'text-medium-emphasis'"
             >
               {{ key }}
             </v-expansion-panel-title>
@@ -209,7 +214,7 @@
                     v-for="(item, index) in value"
                     :key="item.id"
                     v-model="value[index]"
-                    class="my-2 w-auto"
+                    class="my-2 w-auto shopping-list-item-row"
                     :edit="editingItem === item.id"
                     :labels="allLabels || []"
                     :units="allUnits || []"
@@ -266,7 +271,7 @@
               <div v-for="(item, idx) in listItems.checked" :key="item.id">
                 <ShoppingListItem
                   v-model="listItems.checked[idx]"
-                  class="strike-through-note"
+                  class="strike-through-note shopping-list-item-row"
                   :labels="allLabels || []"
                   :units="allUnits || []"
                   :foods="allFoods || []"
@@ -434,14 +439,101 @@ const {
   max-width: 50px;
 }
 
-.shopping-list-section {
-  .section-title {
-    font-size: 1rem;
-    min-height: 48px !important;
+/* The page header reserves room for an icon row, a subtitle and generous margins; pull
+   those in so the list starts near the top of the screen */
+.shopping-list-title {
+  margin-top: 0 !important;
+
+  .v-container {
+    padding-top: 4px;
+    padding-bottom: 0;
   }
 
+  h2 {
+    font-size: 1.1rem !important;
+    line-height: 1.4;
+  }
+
+  h3 {
+    display: none;
+  }
+
+  .v-divider {
+    margin-top: 6px !important;
+    margin-bottom: 2px !important;
+  }
+}
+
+/* Strip most of the vertical padding so more items fit on a phone screen, and lean on
+   indentation (label header flush left, items inset) to keep sections readable */
+.shopping-list-view {
+  /* slim header: a low bar with bold text, keeping the label colour as its fill */
+  .shopping-list-section .section-title {
+    min-height: 30px !important;
+    padding: 2px 10px;
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+
+  .shopping-list-section .v-expansion-panel-text__wrapper,
   .v-expansion-panel-text__wrapper {
-    padding: 0;
+    padding: 2px 0 2px 12px;
+  }
+
+  .v-expansion-panel-title {
+    min-height: 32px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  /* each item row */
+  .shopping-list-item-row {
+    margin-top: 3px !important;
+    margin-bottom: 3px !important;
+  }
+
+  .shopping-list-item-row .v-container {
+    margin-left: 0 !important;
+  }
+
+  .shopping-list-item-row .v-selection-control {
+    --v-selection-control-size: 28px;
+    min-height: 28px;
+  }
+
+  .shopping-list-item-row .v-selection-control__wrapper,
+  .shopping-list-item-row .v-selection-control__input {
+    width: 28px;
+    height: 28px;
+  }
+
+  .shopping-list-item-row .v-btn--size-small {
+    width: 32px;
+    height: 32px;
+    margin-left: 0 !important;
+  }
+
+  /* the row's action icons are secondary to the item text, so they sit back until used */
+  .shopping-list-item-row .v-btn--size-small .v-icon {
+    opacity: 0.55;
+  }
+
+  .shopping-list-item-row .v-btn--size-small:hover .v-icon,
+  .shopping-list-item-row .v-btn--size-small:focus-visible .v-icon {
+    opacity: 1;
+  }
+
+  .shopping-list-item-row .mb-2 {
+    margin-bottom: 0 !important;
+  }
+
+  /* no border and no shadow around a group: the coloured header is what marks it */
+  .shopping-list-section {
+    border: none;
+  }
+
+  .shopping-list-section .v-expansion-panel__shadow {
+    box-shadow: none;
   }
 }
 </style>

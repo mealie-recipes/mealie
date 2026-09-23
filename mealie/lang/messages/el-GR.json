@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Η εικόνα συνταγής διαγράφηκε",
         "recipe-defaults": {
             "ingredient-note": "1 Κούπα Αλεύρι",
+            "name": "Νέα συνταγή",
             "step-text": "Βήματα συνταγής, καθώς και άλλα πεδία στη σύνταξη σήμανσης της σελίδας συνταγής.\n\n**Προσθήκη συνδέσμου**\n\n[Ο σύνδεσμος μου](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -46,7 +47,16 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Καμία συνταγή δεν ταιριάζει στα κριτήρια αναζήτησης"
+        "no-recipes-match-your-rules": "Καμία συνταγή δεν ταιριάζει στα κριτήρια αναζήτησης",
+        "entry-type": {
+            "breakfast": "πρωινό",
+            "lunch": "μεσημεριανό",
+            "dinner": "βραδινό",
+            "side": "συνοδευτικό",
+            "snack": "σνακ",
+            "drink": "ποτό",
+            "dessert": "επιδόρπιο"
+        }
     },
     "user": {
         "user-updated": "Ο χρήστης ενημερώθηκε",
@@ -73,7 +83,40 @@
         "generic-updated-with-url": "Το {name} ενημερώθηκε, {url}",
         "generic-duplicated": "Δημιουργήθηκε αντίγραφο του {name}",
         "generic-deleted": "Το {name} διαγράφηκε",
-        "logged-out": "Αποσυνδεδεμένος"
+        "logged-out": "Αποσυνδεδεμένος",
+        "event-title": {
+            "test-message": "Δοκιμαστικό μήνυμα",
+            "webhook-task": "Εργασία Webhook",
+            "recipe-created": "Η συνταγή δημιουργήθηκε",
+            "recipe-updated": "Η συνταγή ενημερώθηκε",
+            "recipe-deleted": "Η συνταγή διαγράφηκε",
+            "user-signup": "Εγγραφή χρήστη",
+            "data-migrations": "Μετεγκατάσταση δεδομένων",
+            "data-export": "Εξαγωγή δεδομένων",
+            "data-import": "Εισαγωγή δεδομένων",
+            "mealplan-entry-created": "Δημιουργήθηκε καταχώρηση προγράμματος γευμάτων",
+            "mealplan-entry-updated": "Ενημερώθηκε καταχώρηση προγράμματος γευμάτων",
+            "mealplan-entry-deleted": "Διαγράφτηκε καταχώρηση προγράμματος γευμάτων",
+            "shopping-list-created": "Δημιουργήθηκε λίστα για ψώνια",
+            "shopping-list-updated": "Ενημερώθηκε λίστα για ψώνια",
+            "shopping-list-deleted": "Διαγράφτηκε λίστα για ψώνια",
+            "cookbook-created": "Δημιουργήθηκε βιβλίο μαγειρικής",
+            "cookbook-updated": "Ενημερώθηκε βιβλίο μαγειρικής",
+            "cookbook-deleted": "Διαγράφτηκε βιβλίο μαγειρικής",
+            "tag-created": "Δημιουργήθηκε tag",
+            "tag-updated": "Ενημερώθηκε tag",
+            "tag-deleted": "Διαγράφτηκε tag",
+            "category-created": "Δημιουργήθηκε κατηγορία",
+            "category-updated": "Ενημερώθηκε κατηγορία",
+            "category-deleted": "Διαγράφτηκε κατηγορία",
+            "label-created": "Δημιουργήθηκε ετικέτα",
+            "label-updated": "Ενημερώθηκε ετικέτα",
+            "label-deleted": "Διαγράφτηκε ετικέτα"
+        },
+        "test-message-body": "Αυτή είναι μια δοκιμαστική ειδοποίηση από το Mealie.",
+        "mealplan-entry-created": "Δημιουργήθηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
+        "mealplan-entry-updated": "Ενημερώθηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}",
+        "mealplan-entry-deleted": "Διαγράφτηκε καταχώρηση προγράμματος γευμάτων για {date} για {entry_type}"
     },
     "datetime": {
         "year": "χρόνος | χρόνια",

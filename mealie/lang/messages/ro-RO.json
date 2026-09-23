@@ -8,6 +8,7 @@
         "recipe-image-deleted": "Imaginea rețetei a fost ștearsă",
         "recipe-defaults": {
             "ingredient-note": "1 Cană de Făină",
+            "name": "New Recipe",
             "step-text": "Pașii rețetei precum și alte domenii din sintaxa markdown de pe pagina de rețetă.\n\n**Adăugați un link**\n\n[Link-ul meu](https://demo.mealie.io)\n"
         },
         "servings-text": {
@@ -46,7 +47,16 @@
         }
     },
     "mealplan": {
-        "no-recipes-match-your-rules": "Nicio rețetă nu corespunde criteriilor tale"
+        "no-recipes-match-your-rules": "Nicio rețetă nu corespunde criteriilor tale",
+        "entry-type": {
+            "breakfast": "breakfast",
+            "lunch": "lunch",
+            "dinner": "dinner",
+            "side": "side",
+            "snack": "snack",
+            "drink": "drink",
+            "dessert": "dessert"
+        }
     },
     "user": {
         "user-updated": "Date utilizator actualizate",
@@ -73,7 +83,40 @@
         "generic-updated-with-url": "{name} a fost actualizat, {url}",
         "generic-duplicated": "{name} a fost duplicat",
         "generic-deleted": "{name} a fost șters",
-        "logged-out": "Deconectat"
+        "logged-out": "Deconectat",
+        "event-title": {
+            "test-message": "Test Message",
+            "webhook-task": "Webhook Task",
+            "recipe-created": "Recipe Created",
+            "recipe-updated": "Recipe Updated",
+            "recipe-deleted": "Recipe Deleted",
+            "user-signup": "User Signup",
+            "data-migrations": "Data Migrations",
+            "data-export": "Data Export",
+            "data-import": "Data Import",
+            "mealplan-entry-created": "Meal Plan Entry Created",
+            "mealplan-entry-updated": "Meal Plan Entry Updated",
+            "mealplan-entry-deleted": "Meal Plan Entry Deleted",
+            "shopping-list-created": "Shopping List Created",
+            "shopping-list-updated": "Shopping List Updated",
+            "shopping-list-deleted": "Shopping List Deleted",
+            "cookbook-created": "Cookbook Created",
+            "cookbook-updated": "Cookbook Updated",
+            "cookbook-deleted": "Cookbook Deleted",
+            "tag-created": "Tag Created",
+            "tag-updated": "Tag Updated",
+            "tag-deleted": "Tag Deleted",
+            "category-created": "Category Created",
+            "category-updated": "Category Updated",
+            "category-deleted": "Category Deleted",
+            "label-created": "Label Created",
+            "label-updated": "Label Updated",
+            "label-deleted": "Label Deleted"
+        },
+        "test-message-body": "This is a test notification from Mealie.",
+        "mealplan-entry-created": "Meal plan entry created for {date} for {entry_type}",
+        "mealplan-entry-updated": "Meal plan entry updated for {date} for {entry_type}",
+        "mealplan-entry-deleted": "Meal plan entry deleted for {date} for {entry_type}"
     },
     "datetime": {
         "year": "an|ani",

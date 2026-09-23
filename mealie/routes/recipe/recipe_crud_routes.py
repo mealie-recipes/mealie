@@ -1,9 +1,11 @@
 import asyncio
 from collections import defaultdict
 from collections.abc import AsyncIterable, Awaitable, Callable
+from pathlib import PurePosixPath
 from shutil import copyfileobj
-from typing import Annotated
-from uuid import UUID
+from typing import Annotated, Any, BinaryIO
+from urllib.parse import unquote, urlparse
+from uuid import UUID, uuid4
 
 import orjson
 import sqlalchemy
@@ -28,7 +30,7 @@ from mealie.core import exceptions
 from mealie.core.dependencies import (
     get_temporary_zip_path,
 )
-from mealie.pkgs import cache
+from mealie.pkgs import cache, safehttp
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import controller
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
@@ -85,6 +87,20 @@ from mealie.services.scraper.scraper_strategies import (
 from ._base import BaseRecipeController, JSONBytes
 
 ASSET_ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "gif", "webp", "bmp", "avif", "txt", "md", "csv", "json"}
+
+# A downloaded asset is stored as-is rather than re-encoded, so the download needs its own
+# ceiling. Matches the budget `openid_provider` uses for remotely-fetched profile images.
+ASSET_MAX_DOWNLOAD_BYTES = 5 * 1024 * 1024
+
+
+def asset_name_from_url(url: str) -> str:
+    """Derives an asset name from a URL's filename, e.g. `.../pancakes.jpg?v=2` -> `pancakes`."""
+    stem = PurePosixPath(unquote(urlparse(url).path)).stem
+
+    # The name is slugified into the filename, so a stem that slugifies to nothing (an
+    # extensionless URL, or one whose filename is entirely non-ASCII) needs a fallback.
+    return stem if slugify(stem) else "image"
+
 
 router = UserAPIRouter(prefix="/recipes", route_class=MealieCrudRoute)
 
@@ -811,16 +827,15 @@ class RecipeController(BaseRecipeController):
             self.handle_exceptions(e)
             return None
 
-    @router.post("/{slug}/assets", response_model=RecipeAsset, tags=["Recipe: Images and Assets"])
-    def upload_recipe_asset(
+    def _save_recipe_asset(
         self,
         slug: str,
-        name: str = Form(...),
-        icon: str = Form(...),
-        extension: str = Form(...),
-        file: UploadFile = File(...),
-    ):
-        """Upload a file to store as a recipe asset"""
+        name: str,
+        icon: str,
+        extension: str,
+        write: Callable[[BinaryIO], Any],
+    ) -> RecipeAsset:
+        """Writes an asset into the recipe's asset directory and records it on the recipe."""
         if "." in extension:
             extension = extension.split(".")[-1]
 
@@ -833,11 +848,16 @@ class RecipeController(BaseRecipeController):
             raise HTTPException(status_code=400, detail="Missing required fields")
 
         file_name = f"{file_slug}.{extension}"
-        asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
 
         recipe = self.service.get_one(slug)
 
         dest = recipe.asset_dir / file_name
+
+        # Client-supplied names aren't guaranteed to be unique (e.g. iOS camera captures are all
+        # named "image.jpg"), so avoid silently overwriting an existing asset with the same name.
+        if dest.is_file():
+            file_name = f"{file_slug}_{uuid4().hex[:8]}.{extension}"
+            dest = recipe.asset_dir / file_name
 
         # Ensure path is relative to the recipe's asset directory
         if dest.absolute().parent != recipe.asset_dir:
@@ -846,8 +866,10 @@ class RecipeController(BaseRecipeController):
                 detail=f"File name {file_name} or extension {extension} not valid",
             )
 
+        asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
+
         with dest.open("wb") as buffer:
-            copyfileobj(file.file, buffer)
+            write(buffer)
 
         if not dest.is_file():
             raise HTTPException(status.HTTP_500_INTERNAL_SERVER_ERROR)
@@ -858,3 +880,50 @@ class RecipeController(BaseRecipeController):
         self.service.update_one(slug, recipe)
 
         return asset_in
+
+    @router.post("/{slug}/assets", response_model=RecipeAsset, tags=["Recipe: Images and Assets"])
+    def upload_recipe_asset(
+        self,
+        slug: str,
+        name: str = Form(...),
+        icon: str = Form(...),
+        extension: str = Form(...),
+        file: UploadFile = File(...),
+    ):
+        """Upload a file to store as a recipe asset"""
+        return self._save_recipe_asset(slug, name, icon, extension, lambda buffer: copyfileobj(file.file, buffer))
+
+    @router.post("/{slug}/assets/url", response_model=RecipeAsset, tags=["Recipe: Images and Assets"])
+    async def create_recipe_asset_from_url(self, slug: str, url: ScrapeRecipe):
+        """Download an image from a URL and store it as a recipe asset."""
+        recipe = self.service.get_one(slug)
+        data_service = RecipeDataService(recipe.id)
+
+        try:
+            downloaded = await data_service.fetch_image(url.url, max_bytes=ASSET_MAX_DOWNLOAD_BYTES)
+        except NotAnImageError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Url is not an image"),
+            ) from e
+        except InvalidDomainError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Url is not from an allowed domain"),
+            ) from e
+        except safehttp.ResponseTooLargeError as e:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond(f"Image is larger than {ASSET_MAX_DOWNLOAD_BYTES // (1024 * 1024)}MB"),
+            ) from e
+
+        if downloaded is None:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond("Image could not be downloaded"),
+            )
+
+        content, extension = downloaded
+        return self._save_recipe_asset(
+            slug, asset_name_from_url(url.url), "mdi-file-image", extension, lambda buffer: buffer.write(content)
+        )
