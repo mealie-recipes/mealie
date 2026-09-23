@@ -1,4 +1,8 @@
 import json
+from datetime import UTC, datetime
+
+import pytest
+from sqlalchemy import JSON, Column, DateTime, Integer, MetaData, Table, insert, select
 
 from mealie.core.config import get_app_settings
 from mealie.db.models._model_base import SqlAlchemyBase
@@ -34,3 +38,55 @@ def test_every_datetime_column_survives_a_backup():
         f"datetime columns missing from AlchemyExporter.look_for_datetime: {sorted(unregistered)}. "
         "Add them, or they will restore as strings."
     )
+
+
+@pytest.mark.parametrize("table_name", ["recipes_ingredients", "shopping_list_items"])
+@pytest.mark.parametrize(
+    "snapshot",
+    [
+        None,
+        {
+            "source_id": "c5866fe8-6d61-4e25-9f07-dc10dad33bdf",
+            "name": "tomato",
+            "extras": {
+                "origin": "garden",
+                "created_at": "not a database timestamp",
+                "date": "2026-09-24",
+                "nested": {"id": "c5866fe8-6d61-4e25-9f07-dc10dad33bdf"},
+                "values": ["text", 3, True, None, {"date": "unchanged"}],
+            },
+        },
+    ],
+)
+def test_json_snapshot_survives_backup_conversion(table_name: str, snapshot: dict | None):
+    exporter = AlchemyExporter("sqlite://")
+    metadata = MetaData()
+    table = Table(
+        table_name,
+        metadata,
+        Column("id", Integer, primary_key=True),
+        Column("created_at", DateTime),
+        Column("food_snapshot", JSON(none_as_null=True)),
+    )
+    try:
+        metadata.create_all(exporter.engine)
+        exporter.meta.reflect(bind=exporter.engine)
+        original = {
+            "id": 1,
+            "created_at": datetime(2026, 9, 24, tzinfo=UTC).replace(tzinfo=None),
+            "food_snapshot": snapshot,
+        }
+        with exporter.engine.begin() as connection:
+            connection.execute(insert(table), original)
+            rows = [dict(row) for row in connection.execute(select(table)).mappings()]
+        # Simulate the JSON file written by a backup, then restore into the reflected table.
+        backup = json.loads(json.dumps({table_name: rows}, default=str))
+        converted = exporter.convert_types(backup)
+        assert converted[table_name][0] == original
+        with exporter.engine.begin() as connection:
+            connection.execute(table.delete())
+            connection.execute(insert(exporter.meta.tables[table_name]), converted[table_name])
+            restored = dict(connection.execute(select(table)).mappings().one())
+        assert restored == original
+    finally:
+        exporter.engine.dispose()

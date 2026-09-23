@@ -262,10 +262,9 @@ def test_recipe_search_by_food_matches_substitute_usage(api_client: TestClient, 
     assert [item["id"] for item in response.json()["items"]] == [recipe["id"]]
 
 
-def test_deleting_a_substitute_food_removes_the_substitution(api_client: TestClient, unique_user: TestUser):
+def test_deleting_a_substitute_food_preserves_the_substitution_as_note(api_client: TestClient, unique_user: TestUser):
     """
-    Nothing cascaded to the recipe tier, so the substitution was left pointing at a food that no
-    longer existed: an empty popover on SQLite, and a foreign key violation on Postgres.
+    Deleted substitutes retain their names and notes without dangling food references.
     """
 
     doomed = create_food(unique_user, api_client)
@@ -273,7 +272,11 @@ def test_deleting_a_substitute_food_removes_the_substitution(api_client: TestCli
     recipe = create_recipe_with_substitutions(
         unique_user,
         api_client,
-        [{"substituteFoodId": doomed["id"]}, {"substituteFoodId": kept["id"]}, {"note": "or use tofu"}],
+        [
+            {"substituteFoodId": doomed["id"], "note": "finely chopped"},
+            {"substituteFoodId": kept["id"]},
+            {"note": "or use tofu"},
+        ],
     )
     assert len(recipe["recipeIngredient"][0]["substitutions"]) == 3
 
@@ -283,5 +286,6 @@ def test_deleting_a_substitute_food_removes_the_substitution(api_client: TestCli
     reloaded = api_client.get(api_routes.recipes_slug(recipe["slug"]), headers=unique_user.token).json()
     remaining = reloaded["recipeIngredient"][0]["substitutions"]
 
-    assert [sub["substituteFoodId"] for sub in remaining] == [kept["id"], None]
-    assert remaining[1]["note"] == "or use tofu"
+    assert [sub["substituteFoodId"] for sub in remaining] == [None, kept["id"], None]
+    assert remaining[0]["note"] == f"{doomed['name']} finely chopped"
+    assert remaining[2]["note"] == "or use tofu"
