@@ -113,14 +113,14 @@ export interface RecipeCategory {
   id?: string | null;
   groupId?: string | null;
   name: string;
-  slug: string;
+  slug?: string | null;
   recipeCount?: number;
 }
 export interface RecipeTag {
   id?: string | null;
   groupId?: string | null;
   name: string;
-  slug: string;
+  slug?: string | null;
   recipeCount?: number;
 }
 export interface CreateRecipeByUrlBulk {
@@ -294,10 +294,10 @@ export interface Recipe {
   comments?: RecipeCommentOut[] | null;
 }
 export interface RecipeTool {
-  id: string;
+  id?: string | null;
   groupId?: string | null;
   name: string;
-  slug: string;
+  slug?: string | null;
   recipeCount?: number;
   householdsWithTool?: string[];
 }
