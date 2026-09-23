@@ -265,7 +265,9 @@ class AlchemyExporter(BaseService):
         from sqlalchemy.schema import DropConstraint, DropTable, MetaData, Table
 
         with self.engine.begin() as connection:
-            inspector = inspect(self.engine)
+            # Inspect the open connection, not the engine: inspecting the engine checks out a
+            # second connection that is only released when the inspector is garbage collected.
+            inspector = inspect(connection)
 
             # We need to re-create a minimal metadata with only the required things to
             # successfully emit drop constraints and tables commands for postgres (based
