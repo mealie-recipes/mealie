@@ -6,7 +6,7 @@
     "dockerfile": "Dockerfile",
     "context": "..",
     "args": {
-      "VARIANT": "3.12-trixie"
+      "VARIANT": "3.14-trixie"
     }
   },
   "mounts": [
