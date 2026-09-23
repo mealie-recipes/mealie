@@ -110,7 +110,8 @@ filterwarnings = [
     "ignore::DeprecationWarning:pyRdfa.*",
     # Suppress Python 3.12 default SQLite datetime-adapter deprecation warning
     "ignore:The default datetime adapter is deprecated as of Python 3.12:DeprecationWarning",
-    # Suppress anyio 4.15 BlockingPortal alias deprecation from starlette.testclient (fixed upstream, unreleased)
+    # Suppress anyio 4.15 BlockingPortal alias deprecation from starlette.testclient.
+    # Fixed in starlette 1.7.0; drop this once that version clears the exclude-newer window.
     "ignore:The anyio.abc.BlockingPortal alias is deprecated:DeprecationWarning",
 ]
 
