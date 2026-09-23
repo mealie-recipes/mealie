@@ -3,6 +3,7 @@ from pathlib import Path
 
 import httpx
 import pytest
+from PIL import UnidentifiedImageError
 
 from mealie.pkgs import safehttp
 from mealie.schema.recipe.recipe import Recipe
@@ -74,7 +75,7 @@ def test_write_image_preserves_existing_files_when_webp_is_invalid(data_service)
     for name, content in existing.items():
         data_service.dir_image.joinpath(name).write_bytes(content)
 
-    with pytest.raises(Exception):
+    with pytest.raises(UnidentifiedImageError):
         data_service.write_image(b"not-an-image", "webp")
 
     for name, content in existing.items():
