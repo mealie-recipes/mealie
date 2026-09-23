@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Voeg prente by deur dit in die bewerker te sleep en los",
     "drop-image": "Drop image",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Resepte met sekere eenhede of kosse kan nie verwerk word nie.",
     "parse-ingredients": "Verwerk bestanddele",
     "edit-markdown": "Wysig Markdown",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Vul die databasis met algemene etikette gebaseer op jou plaaslike taal.",
       "edit-label": "Wysig etiket",
       "new-label": "Nuwe etiket",
       "labels": "Etikette",

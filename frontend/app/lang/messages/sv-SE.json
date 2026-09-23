@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Det verkar som om dina ingredienser inte är tolkade ännu. Klicka på knappen \"{parse}\" nedan för att tolka dina ingredienser till strukturerade livsmedel.",
     "attach-images-hint": "Bifoga bilder genom att dra och släppa dem i redigeraren",
     "drop-image": "Släpp bild",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recept med enheter eller definierade livsmedel kan inte tolkas.",
     "parse-ingredients": "Tolka ingredienser",
     "edit-markdown": "Redigera markdown",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Fyll databasen med vanliga etiketter baserade på ditt språk.",
       "edit-label": "Redigera etikett",
       "new-label": "Ny etikett",
       "labels": "Etiketter",

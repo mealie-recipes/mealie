@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Изглежда, че съставките ви все още не са анализирани. Кликнете върху бутона „{parse}“ по-долу, за да анализирате съставките си в структурирани храни.",
     "attach-images-hint": "Прикачете снимки като ги влачете и пуснете в редактора",
     "drop-image": "Премахване на изображение",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Рецепти със зададени мерни единици и храни ме могат да бъдат анализирани.",
     "parse-ingredients": "Анализирай съставките",
     "edit-markdown": "Редактирай с markdown",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Заредете базата данни с етикети на Вашия местен език.",
       "edit-label": "Редактиране на етикет",
       "new-label": "Нов етикет",
       "labels": "Етикети",

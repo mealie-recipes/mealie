@@ -20,7 +20,7 @@
       },
       "scallion": {
         "name": "ceapă verde",
-        "plural_name": ""
+        "plural_name": "scallions"
       },
       "zucchini": {
         "name": "dovlecel",
@@ -96,7 +96,7 @@
       },
       "cabbage": {
         "name": "verze",
-        "plural_name": ""
+        "plural_name": "cabbages"
       },
       "asparagus": {
         "name": "sparanghel",
@@ -112,7 +112,7 @@
       },
       "leek": {
         "name": "praz",
-        "plural_name": ""
+        "plural_name": "leeks"
       },
       "eggplant": {
         "name": "vânătă",
@@ -128,7 +128,7 @@
       },
       "romaine lettuce": {
         "name": "salată romană",
-        "plural_name": "salate romane"
+        "plural_name": ""
       },
       "beetroot": {
         "name": "sfeclă roșie",
@@ -136,7 +136,7 @@
       },
       "brussels sprout": {
         "name": "varză de Bruxelles",
-        "plural_name": ""
+        "plural_name": "brussels sprouts"
       },
       "fennel": {
         "name": "fenicul",
@@ -144,7 +144,7 @@
       },
       "sun dried tomato": {
         "name": "roșii uscate la soare",
-        "plural_name": ""
+        "plural_name": "sun dried tomatoes"
       },
       "radish": {
         "name": "ridiche",
@@ -156,7 +156,7 @@
       },
       "artichoke": {
         "name": "anghinare",
-        "plural_name": ""
+        "plural_name": "artichokes"
       },
       "parsnip": {
         "name": "păstârnac",
@@ -164,7 +164,7 @@
       },
       "poblano pepper": {
         "name": "ardei poblano",
-        "plural_name": ""
+        "plural_name": "poblano peppers"
       },
       "green tomato": {
         "name": "roșie verde",
@@ -176,7 +176,7 @@
       },
       "chard": {
         "name": "pătrunjel de grădină",
-        "plural_name": "mangold"
+        "plural_name": ""
       },
       "spaghetti squash": {
         "name": "dovleac spaghetti",
@@ -184,11 +184,11 @@
       },
       "napa cabbage": {
         "name": "verze chinezești",
-        "plural_name": ""
+        "plural_name": "napa cabbages"
       },
       "celeriac": {
         "name": "țelină rădăcină",
-        "plural_name": "țeline rădăcină"
+        "plural_name": ""
       },
       "turnip": {
         "name": "nap",
@@ -212,7 +212,7 @@
       },
       "collard greens": {
         "name": "frunză de varză furajeră",
-        "plural_name": "frunze de collard"
+        "plural_name": ""
       },
       "baby corn": {
         "name": "porumb baby",
@@ -268,7 +268,7 @@
       },
       "coconut": {
         "name": "cocos",
-        "plural_name": ""
+        "plural_name": "coconuts"
       },
       "pear": {
         "name": "pară",
@@ -288,7 +288,7 @@
       },
       "rhubarb": {
         "name": "rubarbă",
-        "plural_name": "rubarbe"
+        "plural_name": ""
       },
       "kiwi": {
         "name": "kiwi",
@@ -296,7 +296,7 @@
       },
       "grapefruit": {
         "name": "grepfrut",
-        "plural_name": ""
+        "plural_name": "grapefruits"
       },
       "plum": {
         "name": "prună",
@@ -336,7 +336,7 @@
       },
       "pea": {
         "name": "mazăre",
-        "plural_name": ""
+        "plural_name": "peas"
       },
       "green bean": {
         "name": "green bean",
@@ -400,7 +400,7 @@
       },
       "chive": {
         "name": "arpagic",
-        "plural_name": ""
+        "plural_name": "chives"
       },
       "mint": {
         "name": "mentă",
@@ -469,7 +469,7 @@
       },
       "wild rice": {
         "name": "orez sălbatic",
-        "plural_name": "orezuri sălbatice"
+        "plural_name": ""
       },
       "semolina": {
         "name": "griș",
@@ -481,11 +481,11 @@
       },
       "polenta": {
         "name": "mămăligă",
-        "plural_name": "mămăligi"
+        "plural_name": ""
       },
       "granola cereal": {
         "name": "granola",
-        "plural_name": "cereale granola"
+        "plural_name": ""
       },
       "bulgur": {
         "name": "bulgur",
@@ -501,11 +501,11 @@
       },
       "millet": {
         "name": "mei",
-        "plural_name": "meiuri"
+        "plural_name": ""
       },
       "sushi rice": {
         "name": "orez sushi",
-        "plural_name": "orezuri sushi"
+        "plural_name": ""
       },
       "hominy": {
         "name": "hominy",
@@ -529,7 +529,7 @@
       },
       "lentil": {
         "name": "linte",
-        "plural_name": ""
+        "plural_name": "lentils"
       },
       "pinto bean": {
         "name": "pinto bean",
@@ -670,7 +670,7 @@
       },
       "beef roast": {
         "name": "bucată de vită pentru friptură",
-        "plural_name": ""
+        "plural_name": "beef roasts"
       },
       "ground pork": {
         "name": "carne de porc tocată",
@@ -678,11 +678,11 @@
       },
       "beef stew meat": {
         "name": "carne de vită pentru tocăniță",
-        "plural_name": "cărnuri de vită pentru tocăniță"
+        "plural_name": ""
       },
       "pork fillet": {
         "name": "mușchiuleț de porc",
-        "plural_name": ""
+        "plural_name": "pork fillets"
       },
       "pork shoulder": {
         "name": "spată de porc",
@@ -698,7 +698,7 @@
       },
       "beef sirloin": {
         "name": "mușchi de vită",
-        "plural_name": ""
+        "plural_name": "beef sirloins"
       },
       "brisket": {
         "name": "piept de vită",
@@ -706,11 +706,11 @@
       },
       "leg of lamb": {
         "name": "pulpă de miel",
-        "plural_name": ""
+        "plural_name": "legs of lamb"
       },
       "beef short rib": {
         "name": "coaste scurte de vită",
-        "plural_name": ""
+        "plural_name": "beef short ribs"
       },
       "pork belly": {
         "name": "burtă de porc",
@@ -726,11 +726,11 @@
       },
       "oxtail": {
         "name": "coadă de vită",
-        "plural_name": ""
+        "plural_name": "oxtails"
       },
       "chicken breast": {
         "name": "piept de pui",
-        "plural_name": ""
+        "plural_name": "chicken breasts"
       },
       "chicken thigh": {
         "name": "pulpă de pui",
@@ -742,11 +742,11 @@
       },
       "whole chicken": {
         "name": "pui întreg",
-        "plural_name": ""
+        "plural_name": "whole chickens"
       },
       "whole turkey": {
         "name": "curcan întreg",
-        "plural_name": ""
+        "plural_name": "whole turkeys"
       },
       "chicken leg": {
         "name": "pulpă de pui",
@@ -758,7 +758,7 @@
       },
       "turkey breast": {
         "name": "piept de curcan",
-        "plural_name": ""
+        "plural_name": "turkey breasts"
       },
       "ground chicken": {
         "name": "carne de curcan pui",
@@ -766,19 +766,19 @@
       },
       "rotisserie chicken": {
         "name": "pui la rotisor",
-        "plural_name": ""
+        "plural_name": "rotisserie chickens"
       },
       "duck": {
         "name": "rață",
-        "plural_name": ""
+        "plural_name": "ducks"
       },
       "chicken liver": {
         "name": "ficat de pui",
-        "plural_name": ""
+        "plural_name": "chicken livers"
       },
       "cornish hen": {
         "name": "pui cornish",
-        "plural_name": ""
+        "plural_name": "cornish hens"
       },
       "veal": {
         "name": "veal",
@@ -815,7 +815,7 @@
       },
       "ham": {
         "name": "șuncă",
-        "plural_name": "șunci"
+        "plural_name": ""
       },
       "prosciutto": {
         "name": "prosciutto",
@@ -847,7 +847,7 @@
       },
       "salami": {
         "name": "salam",
-        "plural_name": "salamis"
+        "plural_name": ""
       },
       "kielbasa": {
         "name": "kielbasa",
@@ -888,7 +888,7 @@
       },
       "trout": {
         "name": "păstrăv",
-        "plural_name": "păstrăvi"
+        "plural_name": ""
       },
       "catfish": {
         "name": "somn",
@@ -904,7 +904,7 @@
       },
       "shrimp": {
         "name": "crevete",
-        "plural_name": "creveți"
+        "plural_name": ""
       },
       "crab": {
         "name": "crab",
@@ -924,7 +924,7 @@
       },
       "squid": {
         "name": "calamar",
-        "plural_name": "calamari"
+        "plural_name": ""
       },
       "nori": {
         "name": "nori",
@@ -969,7 +969,7 @@
       },
       "cheese": {
         "name": "brânză",
-        "plural_name": "brânzeturi"
+        "plural_name": ""
       },
       "mozzarella cheese": {
         "name": "brânză mozzarella",
@@ -989,15 +989,15 @@
       },
       "blue cheese": {
         "name": "brânză cu mucegai albastru",
-        "plural_name": "brânzeturi cu mucegai albastru"
+        "plural_name": ""
       },
       "goat cheese": {
         "name": "brânză de capră",
-        "plural_name": "brânzeturi de capră"
+        "plural_name": ""
       },
       "swiss cheese": {
         "name": "brânză elvețiană",
-        "plural_name": "brânzeturi elvețiene"
+        "plural_name": ""
       },
       "gruyere cheese": {
         "name": "brânză gruyère",
@@ -1069,7 +1069,7 @@
       },
       "greek yogurt": {
         "name": "iaurt grecesc",
-        "plural_name": "iaurturi grecești"
+        "plural_name": ""
       },
       "cream": {
         "name": "smântână lichidă",
@@ -1665,7 +1665,7 @@
       },
       "chili flake": {
         "name": "fulgi de chili",
-        "plural_name": ""
+        "plural_name": "chili flakes"
       },
       "chili powder": {
         "name": "chili pudră",
@@ -1689,7 +1689,7 @@
       },
       "clove": {
         "name": "cuișoare",
-        "plural_name": ""
+        "plural_name": "cloves"
       },
       "onion powder": {
         "name": "ceapă pudră",
@@ -1725,11 +1725,11 @@
       },
       "peppercorn": {
         "name": "boabe de piper",
-        "plural_name": ""
+        "plural_name": "peppercorns"
       },
       "mustard seed": {
         "name": "semințe de muștar",
-        "plural_name": ""
+        "plural_name": "mustard seeds"
       },
       "white pepper": {
         "name": "piper alb",
@@ -1737,11 +1737,11 @@
       },
       "curry leaf": {
         "name": "frunze de curry",
-        "plural_name": ""
+        "plural_name": "curry leaves"
       },
       "fennel seed": {
         "name": "semințe de fenicul",
-        "plural_name": ""
+        "plural_name": "fennel seeds"
       },
       "tarragon": {
         "name": "tarhon",
@@ -1765,11 +1765,11 @@
       },
       "kaffir lime leaf": {
         "name": "frunze de lime kaffir",
-        "plural_name": ""
+        "plural_name": "kaffir lime leaves"
       },
       "guajillo pepper": {
         "name": "ardei guajillo",
-        "plural_name": ""
+        "plural_name": "guajillo peppers"
       },
       "galangal": {
         "name": "galangal",
@@ -2161,7 +2161,7 @@
       },
       "cashew": {
         "name": "caju",
-        "plural_name": ""
+        "plural_name": "cashews"
       },
       "pine nut": {
         "name": "sămânță de pin",
@@ -2169,7 +2169,7 @@
       },
       "pistachio": {
         "name": "fistic",
-        "plural_name": ""
+        "plural_name": "pistachios"
       },
       "peanut": {
         "name": "arahidă",
@@ -2189,7 +2189,7 @@
       },
       "sunflower seed": {
         "name": "semințe de floarea-soarelui",
-        "plural_name": ""
+        "plural_name": "sunflower seeds"
       },
       "graham cracker": {
         "name": "graham cracker",

@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Parece que os teus ingredientes ainda non foron procesados. Clique no boton \"{parse}\" abaixo para converte-los en alimentos estruturados.",
     "attach-images-hint": "Anexe imaxens arrastrando e soltandoas no editor",
     "drop-image": "Arrastrar imaxen",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Receitas con unidades ou alimentos definidos non poden ser interpretadas.",
     "parse-ingredients": "Interpretar ingredientes",
     "edit-markdown": "Editar Markdown",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Adicionar à base de datos rótulos comuns no seu idioma local.",
       "edit-label": "Editar Rótulo",
       "new-label": "Novo Rótulo",
       "labels": "Rótulos",

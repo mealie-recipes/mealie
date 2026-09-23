@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "재료가 아직 분석되지 않은 것 같습니다. 아래의 \"{parse}\" 버튼을 클릭하여 재료를 구조화된 식품 목록으로 분석하세요.",
     "attach-images-hint": "이미지를 편집기로 끌어다 놓아 첨부하세요",
     "drop-image": "이미지 끌어다 놓기",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "단위나 정의된 식품이 포함된 레시피는 추출할 수 없습니다.",
     "parse-ingredients": "재료 추출하기",
     "edit-markdown": "마크다운 수정",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "당신의 언어를 기반으로 한 일반적인 라벨을 데이터베이스에 설정하십시오.",
       "edit-label": "라벨 편집",
       "new-label": "새 라벨",
       "labels": "라벨",

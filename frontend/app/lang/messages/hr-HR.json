@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Priložite slike povlačenjem i ispuštanjem u uređivaču",
     "drop-image": "Drop image",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recepti s definiranim jedinicama ili namirnicama ne mogu se razlučiti (parsirati).",
     "parse-ingredients": "Razluči (parsiraj) sastojke",
     "edit-markdown": "Uredi Markdown",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Popunite bazu podataka uobičajenim oznakama na temelju vašeg lokalnog jezika.",
       "edit-label": "Uredi oznaku",
       "new-label": "Nova Oznaka",
       "labels": "Oznake",

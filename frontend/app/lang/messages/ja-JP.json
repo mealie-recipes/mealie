@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "エディタにドラッグ＆ドロップして画像を添付する",
     "drop-image": "画像をドロップ",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "単位または定義された食品のレシピは解析できません。",
     "parse-ingredients": "材料の解析",
     "edit-markdown": "マークダウンの編集",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "ローカル言語に基づいた共通ラベルをデータベースにシードします。",
       "edit-label": "ラベルの編集",
       "new-label": "新規ラベル",
       "labels": "ラベル",
