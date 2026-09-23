@@ -62,6 +62,26 @@ def _patch_fetch(monkeypatch, result=None, *, raises: Exception | None = None) -
 
 
 # ---------------------------------------------------------------------------
+# write_image
+# ---------------------------------------------------------------------------
+def test_write_image_preserves_existing_files_when_webp_is_invalid(data_service):
+    """Regression test for https://github.com/mealie-recipes/mealie/issues/8499."""
+    existing = {
+        "original.webp": b"existing-original",
+        "min-original.webp": b"existing-mini",
+        "tiny-original.webp": b"existing-tiny",
+    }
+    for name, content in existing.items():
+        data_service.dir_image.joinpath(name).write_bytes(content)
+
+    with pytest.raises(Exception):
+        data_service.write_image(b"not-an-image", "webp")
+
+    for name, content in existing.items():
+        assert data_service.dir_image.joinpath(name).read_bytes() == content
+
+
+# ---------------------------------------------------------------------------
 # fetch_image
 # ---------------------------------------------------------------------------
 @pytest.mark.asyncio
