@@ -83,8 +83,16 @@ describe("null filters", () => {
 
     const field = getFieldFromFieldDef(RATING_FIELD_DEF);
 
-    expect(field.relationalOperatorChoices.map(choice => choice.value)).toContain("IS");
-    expect(field.relationalOperatorChoices.map(choice => choice.value)).toContain("IS NOT");
+    expect(field.relationalOperatorChoices).toEqual(expect.arrayContaining([
+      {
+        label: "query-filter.relational-operators.has-no-value",
+        value: "IS",
+      },
+      {
+        label: "query-filter.relational-operators.has-a-value",
+        value: "IS NOT",
+      },
+    ]));
   });
 
   test.each([

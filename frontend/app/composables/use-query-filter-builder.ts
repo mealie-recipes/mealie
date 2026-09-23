@@ -115,12 +115,12 @@ export function useQueryFilterBuilder() {
     } as FieldRelationalOperator;
 
     const IS = {
-      label: `${i18n.t("query-filter.relational-keywords.is")} NULL`,
+      label: i18n.t("query-filter.relational-operators.has-no-value"),
       value: "IS",
     } as FieldRelationalOperator;
 
     const IS_NOT = {
-      label: `${i18n.t("query-filter.relational-keywords.is-not")} NULL`,
+      label: i18n.t("query-filter.relational-operators.has-a-value"),
       value: "IS NOT",
     } as FieldRelationalOperator;
 
