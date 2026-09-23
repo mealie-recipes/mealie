@@ -54,6 +54,9 @@ class ShoppingListService:
         ):
             return False
 
+        if item1.food_snapshot != item2.food_snapshot:
+            return False
+
         # check if units match or if they're compatable
         if item1.unit_id != item2.unit_id:
             item1_unit = item1.unit or self.data_matcher.units_by_id.get(item1.unit_id)
@@ -374,6 +377,7 @@ class ShoppingListService:
                 note=ingredient.note,
                 quantity=ingredient.quantity * scale if ingredient.quantity else 0,
                 food_id=food_id,
+                food_snapshot=ingredient.food_snapshot,
                 label_id=label_id,
                 unit_id=unit_id,
                 recipe_references=[

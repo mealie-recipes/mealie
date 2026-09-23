@@ -3,10 +3,10 @@ from datetime import UTC, datetime
 from typing import TYPE_CHECKING, Optional
 
 from pydantic import ConfigDict
-from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, UniqueConstraint, event, orm
+from sqlalchemy import JSON, Boolean, Float, ForeignKey, Integer, String, UniqueConstraint, event, orm, select
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.ext.orderinglist import ordering_list
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, Session, mapped_column
 
 from mealie.db.models.recipe.api_extras import ShoppingListExtras, ShoppingListItemExtras, api_extras
 from mealie.db.models.recipe.labels import MultiPurposeLabel
@@ -77,6 +77,7 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
 
     food_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_foods.id"))
     food: Mapped[IngredientFoodModel | None] = orm.relationship(IngredientFoodModel, uselist=False)
+    food_snapshot: Mapped[dict | None] = mapped_column(JSON(none_as_null=True), nullable=True)
 
     label_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"))
     label: Mapped[MultiPurposeLabel | None] = orm.relationship(
@@ -94,8 +95,25 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
 
     @api_extras
     @auto_init()
-    def __init__(self, **_) -> None:
-        pass
+    def __init__(self, session: Session, **_) -> None:
+        if self.food_id is not None:
+            food = session.scalar(
+                select(IngredientFoodModel).where(IngredientFoodModel.id == self.food_id).with_for_update()
+            )
+            if food is not None:
+                self.food = food
+                self.food_snapshot = None
+            elif isinstance(_.get("food"), dict):
+                from mealie.schema.recipe.recipe_ingredient import FoodSnapshot
+
+                self.food_snapshot = FoodSnapshot.model_validate(
+                    {**_["food"], "source_id": str(self.food_id)}
+                ).model_dump(mode="json")
+                self.food_id = None
+                self.food = None
+            else:
+                # Roll back ID-only stale writes instead of storing a dangling FK.
+                raise ValueError("The selected food no longer exists")
 
 
 class ShoppingListRecipeReference(BaseMixins, SqlAlchemyBase):

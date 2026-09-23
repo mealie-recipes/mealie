@@ -520,6 +520,7 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
 
     food_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), index=True)
     food: Mapped[IngredientFoodModel | None] = orm.relationship(IngredientFoodModel, uselist=False)
+    food_snapshot: Mapped[dict | None] = mapped_column(sa.JSON(none_as_null=True), nullable=True)
     quantity: FilterableColumn[float | None] = mapped_column(Float)
 
     original_text: FilterableColumn[str | None] = mapped_column(String)
@@ -577,6 +578,22 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
         substitutions: list[dict] | None = None,
         **_,
     ) -> None:
+        # A stale editor may still submit a food deleted since it loaded the recipe.
+        # Preserve the submitted description rather than recreating that shared food.
+        if self.food is not None:
+            current_food = session.scalar(
+                sa.select(IngredientFoodModel).where(IngredientFoodModel.id == self.food.id).with_for_update()
+            )
+            self.food = current_food
+        if self.food is not None:
+            self.food_snapshot = None
+        elif isinstance(_.get("food"), dict) and _["food"].get("id"):
+            from mealie.schema.recipe.recipe_ingredient import FoodSnapshot
+
+            self.food_snapshot = FoodSnapshot.model_validate({**_["food"], "source_id": _["food"]["id"]}).model_dump(
+                mode="json"
+            )
+
         # SQLAlchemy events do not seem to register things that are set during auto_init
         if note is not None:
             self.note_normalized = self.normalize(note)
