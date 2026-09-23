@@ -366,3 +366,38 @@ describe("ingredientToParserString", () => {
     expect(ingredientToParserString(ingredient)).toEqual("2 cup");
   });
 });
+
+describe("deleted food snapshots", () => {
+  beforeEach(() => {
+    vi.mocked(useLocales).mockReturnValue({
+      locales: [{ value: "en-US", pluralFoodHandling: "always" }],
+      locale: { value: "en-US" },
+    } as any);
+    ({ parseIngredientText, ingredientToParserString } = useIngredientTextParser());
+  });
+  test("preserves names and scaling without a live food", () => {
+    const ingredient: RecipeIngredient = {
+      quantity: 2, note: "diced", food: null,
+      foodSnapshot: { name: "tomato", pluralName: "tomatoes", description: "fresh" },
+    };
+    expect(parseIngredientText(ingredient, 2, false)).toBe("4 tomatoes diced");
+    expect(ingredientToParserString(ingredient)).toBe("2 tomatoes diced");
+  });
+
+  test("uses the selected food instead of an obsolete snapshot", () => {
+    const ingredient: RecipeIngredient = {
+      quantity: 1, food: { name: "onion" }, foodSnapshot: { name: "tomato" },
+    };
+    expect(parseIngredientText(ingredient, 1, false)).toBe("1 onion");
+  });
+
+  test("sanitizes snapshot names", () => {
+    const ingredient: RecipeIngredient = {
+      foodSnapshot: { name: "<img src=x onerror=\"alert(1)\">tomato" },
+    };
+    const rendered = parseIngredientText(ingredient, 1, false);
+    expect(rendered).toContain("tomato");
+    expect(rendered).not.toContain("onerror");
+    expect(rendered).not.toContain("alert(1)");
+  });
+});

@@ -28,7 +28,7 @@ const recipeServings = computed<number>(() => {
 const hasFoodOrUnit = computed(() => {
   if (props.recipe.recipeIngredient) {
     for (const ingredient of props.recipe.recipeIngredient) {
-      if (ingredient.food || ingredient.unit) {
+      if (ingredient.food || ingredient.foodSnapshot || ingredient.unit) {
         return true;
       }
     }

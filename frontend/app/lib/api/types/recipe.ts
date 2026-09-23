@@ -140,6 +140,15 @@ export interface ExportRecipes {
   recipes: string[];
   exportType?: ExportTypes;
 }
+export interface FoodSnapshot {
+  sourceId?: string | null;
+  name: string;
+  pluralName?: string | null;
+  description?: string | null;
+  extras?: {
+    [k: string]: unknown;
+  };
+}
 export interface IngredientConfidence {
   average?: number | null;
   comment?: number | null;
@@ -248,6 +257,7 @@ export interface RecipeIngredient {
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  foodSnapshot?: FoodSnapshot | null;
   referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
@@ -393,6 +403,7 @@ export interface RecipeIngredientBase {
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  foodSnapshot?: FoodSnapshot | null;
   referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;

@@ -96,6 +96,15 @@
               </template>
             </v-autocomplete>
 
+            <v-text-field
+              v-if="!model.food && model.foodSnapshot && !state.isRecipe"
+              v-model="model.foodSnapshot.name"
+              :label="$t('shopping-list.food')"
+              density="compact"
+              variant="filled"
+              hide-details
+              @update:model-value="model.foodSnapshot.pluralName = null"
+            />
             <!-- Foods Input -->
             <v-autocomplete
               v-if="!state.isRecipe"
@@ -114,6 +123,7 @@
               :placeholder="$t('recipe.choose-food')"
               clearable
               :menu-props="{ attach: props.menuAttachTarget, maxHeight: '250px' }"
+              @update:model-value="model.foodSnapshot = null"
               @keyup.enter="handleFoodEnter"
             >
               <template v-if="foodError" #prepend-inner>
@@ -349,7 +359,11 @@ const showCreateFood = computed(() =>
 
 async function createAssignFood() {
   foodData.data.name = foodSearch.value;
-  model.value.food = await foodStore.actions.createOne(foodData.data) || undefined;
+  const food = await foodStore.actions.createOne(foodData.data);
+  if (food) {
+    model.value.food = food;
+    model.value.foodSnapshot = null;
+  }
   foodData.reset();
   foodAutocomplete.value?.blur();
 }
@@ -429,6 +443,7 @@ function toggleIsRecipe() {
   else {
     model.value.unit = undefined;
     model.value.food = undefined;
+    model.value.foodSnapshot = null;
   }
   state.isRecipe = !state.isRecipe;
 }
