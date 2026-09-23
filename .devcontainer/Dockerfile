@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1
-ARG VARIANT="3.12-trixie"
+ARG VARIANT="3.14-trixie"
 FROM mcr.microsoft.com/devcontainers/python:${VARIANT}
 
 # Install additional OS packages

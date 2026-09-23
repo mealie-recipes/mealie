@@ -44,7 +44,7 @@ def html_fetch_result(html: str, url: str) -> FetchResult:
 
 
 @pytest.fixture(autouse=True)
-def ai_providers(unique_user: TestUser) -> Generator[None, None, None]:
+def ai_providers(unique_user: TestUser) -> Generator[None]:
     """Enable both the default and image providers, restoring the original settings afterwards."""
 
     provider = unique_user.repos.group_ai_providers.create(
@@ -118,7 +118,7 @@ class AIResponses:
         self.prompts: list[str] = []
         self.messages: list[str] = []
 
-    def install(self, monkeypatch: pytest.MonkeyPatch) -> "AIResponses":
+    def install(self, monkeypatch: pytest.MonkeyPatch) -> AIResponses:
         responses = self
 
         async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):

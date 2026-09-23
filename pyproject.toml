@@ -4,7 +4,7 @@ version = "3.27.0"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
-requires-python = ">=3.12,<3.13"
+requires-python = ">=3.14,<3.15"
 dependencies = [
     "Jinja2==3.1.6",
     "Pillow==12.3.0",
@@ -110,7 +110,8 @@ filterwarnings = [
     "ignore::DeprecationWarning:pyRdfa.*",
     # Suppress Python 3.12 default SQLite datetime-adapter deprecation warning
     "ignore:The default datetime adapter is deprecated as of Python 3.12:DeprecationWarning",
-    # Suppress anyio 4.15 BlockingPortal alias deprecation from starlette.testclient (fixed upstream, unreleased)
+    # Suppress anyio 4.15 BlockingPortal alias deprecation from starlette.testclient.
+    # Fixed in starlette 1.7.0; drop this once that version clears the exclude-newer window.
     "ignore:The anyio.abc.BlockingPortal alias is deprecated:DeprecationWarning",
 ]
 
@@ -121,11 +122,11 @@ skip_empty = true
 follow_imports = "skip"
 ignore_missing_imports = true
 plugins = "pydantic.mypy"
-python_version = "3.12"
+python_version = "3.14"
 strict_optional = true
 
 [tool.ruff]
-target-version = "py312"
+target-version = "py314"
 line-length = 120
 output-format = "concise"
 

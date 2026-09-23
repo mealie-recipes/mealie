@@ -16,9 +16,9 @@ class GroupRecipeAction(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipe_actions"
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
     group_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
-    group: Mapped["Group"] = relationship("Group", back_populates="recipe_actions", single_parent=True)
+    group: Mapped[Group] = relationship("Group", back_populates="recipe_actions", single_parent=True)
     household_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("households.id"), index=True)
-    household: Mapped["Household"] = relationship("Household", back_populates="recipe_actions")
+    household: Mapped[Household] = relationship("Household", back_populates="recipe_actions")
 
     action_type: FilterableColumn[str] = mapped_column(String, index=True)
     title: FilterableColumn[str] = mapped_column(String, index=True)

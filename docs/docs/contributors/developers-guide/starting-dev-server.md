@@ -32,7 +32,7 @@ Make sure the VSCode Dev Containers extension is installed, then select "Dev Con
 
 ### Prerequisites
 
-- [Python 3.12](https://www.python.org/downloads/)
+- [Python 3.14](https://www.python.org/downloads/)
 - [uv](https://docs.astral.sh/uv/)
 - [Node](https://nodejs.org/en/)
 - [pnpm](https://pnpm.io/installation)

@@ -100,7 +100,7 @@ def test_image_png():
 
 
 @fixture(scope="session", autouse=True)
-def global_cleanup() -> Generator[None, None, None]:
+def global_cleanup() -> Generator[None]:
     """Purges the .temp directory used for testing"""
 
     yield None

@@ -48,21 +48,21 @@ recipe_test_data = get_recipe_test_cases()
 
 
 @pytest.fixture(scope="module")
-def tempdir() -> Generator[str, None, None]:
+def tempdir() -> Generator[str]:
     with tempfile.TemporaryDirectory() as td:
         yield td
 
 
 def zip_recipe(tempdir: str, recipe: RecipeSummary) -> dict:
-    data_file = tempfile.NamedTemporaryFile(mode="w+", dir=tempdir, suffix=".json", delete=False)
-    json.dump(json.loads(recipe.model_dump_json()), data_file)
-    data_file.flush()
+    with tempfile.NamedTemporaryFile(mode="w+", dir=tempdir, suffix=".json", delete=False) as data_file:
+        json.dump(json.loads(recipe.model_dump_json()), data_file)
+        data_file.flush()
 
-    zip_file = os.path.join(tempdir, "zipfile.zip")
-    with ZipFile(zip_file, "w") as zf:
-        zf.write(data_file.name)
+        zip_file = os.path.join(tempdir, "zipfile.zip")
+        with ZipFile(zip_file, "w") as zf:
+            zf.write(data_file.name)
 
-    return {"archive": Path(zip_file).read_bytes()}
+        return {"archive": Path(zip_file).read_bytes()}
 
 
 def get_init(html_path: Path):
