@@ -79,6 +79,7 @@ dev = [
     "freezegun==1.5.5",
     "httpx2==2.13.0",
     "zensical==0.0.62",
+    "pytest-xdist==3.8.0",
 ]
 
 [build-system]
