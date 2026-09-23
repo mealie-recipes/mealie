@@ -25,7 +25,7 @@ class IngredientUnitsSeeder(AbstractSeeder):
     def get_all_units(self) -> list[IngredientUnit]:
         return self.repos.ingredient_units.get_all()
 
-    def load_data(self, locale: str | None = None) -> Generator[SaveIngredientUnit, None, None]:
+    def load_data(self, locale: str | None = None) -> Generator[SaveIngredientUnit]:
         file = self.get_file(locale)
 
         seen_unit_names = {unit.name for unit in self.get_all_units()}
@@ -97,7 +97,7 @@ class IngredientFoodsSeeder(AbstractSeeder):
             except Exception as e:
                 self.logger.error(e)
 
-    def load_data(self, locale: str | None = None) -> Generator[SaveIngredientFood, None, None]:
+    def load_data(self, locale: str | None = None) -> Generator[SaveIngredientFood]:
         file = self.get_file(locale)
 
         # de-duplicate on the localized name rather than the English seed key, otherwise seeding

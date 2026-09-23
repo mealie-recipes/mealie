@@ -15,7 +15,7 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(scope="function")
-def ten_slugs(api_client: TestClient, unique_user: TestUser) -> Generator[list[str], None, None]:
+def ten_slugs(api_client: TestClient, unique_user: TestUser) -> Generator[list[str]]:
     database = unique_user.repos
     slugs: list[str] = []
 
