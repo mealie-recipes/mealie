@@ -63,6 +63,12 @@ jobs:
       - name: Install uv
         run: pip install uv
 
+      # Catches a lockfile resolved by an out-of-date uv, which silently ignores
+      # the `exclude-newer` cooling window instead of erroring. UV_FROZEN must be
+      # cleared here: for `uv lock` it means --check-exists, which conflicts with --check.
+      - name: Verify lockfile matches pyproject.toml
+        run: env -u UV_FROZEN uv lock --check
+
       - name: Load cached venv
         id: cached-python-dependencies
         uses: actions/cache@v5
