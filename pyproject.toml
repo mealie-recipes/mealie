@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.27.0"
+version = "3.28.0"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -24,7 +24,7 @@ dependencies = [
     "python-dotenv==1.2.3",
     "python-ldap==3.4.8",
     "python-multipart==0.0.32",
-    "python-slugify==9.0.0",
+    "python-slugify==9.1.0",
     "recipe-scrapers==15.12.0",
     "requests==2.34.2",
     "tzdata==2026.4",
@@ -39,7 +39,7 @@ dependencies = [
     "pydantic-settings==2.15.0",
     "pillow-heif==1.7.0",
     "pyjwt==2.14.0",
-    "openai==3.16.1",
+    "openai==3.16.2",
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.8.19",
@@ -58,7 +58,7 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "zensical==0.0.62",
+    "zensical==0.0.63",
 ]
 dev = [
     "coverage==7.16.1",
@@ -78,7 +78,7 @@ dev = [
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
     "httpx2==2.13.0",
-    "zensical==0.0.62",
+    "zensical==0.0.63",
     "pytest-xdist==3.8.0",
 ]
 

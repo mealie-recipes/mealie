@@ -352,7 +352,7 @@
       "title": "Gerenciador de Receitas Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie pode importar receitas do aplicativo Mealie a partir de uma versão pré-v1.0. Exporte suas receitas de sua instância antiga e carregue o arquivo zip abaixo. Note que apenas as receitas podem ser importadas da exportação.",
+      "description-long": "O Mealie pode importar receitas de uma versão anterior à v1.0. Exporte suas receitas da instância na versão anterior e suba o zip no campo abaixo. Esse passo se aplica somente para instâncias anteriores à v1.0. Um backup feito na v1.0 ou mais nova deve ser restaurado com as ferramentas de backup e recuperação.",
       "title": "Mealie Pré v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrações de Dados de Receita",
-    "recipe-data-migrations-explanation": "Receitas podem ser migradas de outro aplicativo suportado para o Mealie. Esta é uma ótima maneira de começar com Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Vindo de outra aplicação ou de uma versão mais antiga do Mealie? Confira as migrações e veja se seus dados podem ser importados.",
+    "recipe-data-migrations-explanation": "Receitas podem ser migradas de outra aplicação compatível com o Mealie. É uma excelente forma de começar a usar o Mealie. Mover dados entre instâncias do Mealie ou restaurar backup em compensação é feito com as ferramentas de backup e recuperação.",
+    "migration-description": "Vindo de outra aplicação ou versão anterior à v1.0? Dê uma olhada nas migrações e veja se seus dados podem ser importados.",
     "choose-migration-type": "Escolher Tipo de Migração",
     "tag-all-recipes": "Marcar todas as receitas com o marcador {tag-name}",
     "recipe-1": "Receita 1",
@@ -526,8 +526,8 @@
     "ingredients-not-parsed-description": "Parece que seus ingredientes ainda não foram analisados. Clique no botão \"{parse}\" abaixo para analisar seus ingredientes em alimentos estruturados.",
     "attach-images-hint": "Anexe imagens arrastando e soltando-as no editor",
     "drop-image": "Arrastar imagem",
-    "failed-to-attach-image": "Failed to attach image",
-    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
+    "failed-to-attach-image": "Falha ao anexar a imagem",
+    "image-drop-unsupported": "Essa imagem não pôde ser anexada diretamente. Salve-a no seu aparelho e então arraste o arquivo para cá.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Receitas com unidades ou alimentos definidos não podem ser analisadas.",
     "parse-ingredients": "Analisar ingredientes",
     "edit-markdown": "Editar Markdown",
