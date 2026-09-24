@@ -79,10 +79,15 @@
 </template>
 
 <script setup lang="ts">
+import { useRecipeTime } from "~/composables/recipes";
+
 interface Props {
   prepTime?: string | null;
   totalTime?: string | null;
   performTime?: string | null;
+  prepTimeSeconds?: number | null;
+  totalTimeSeconds?: number | null;
+  performTimeSeconds?: number | null;
   color?: string;
   small?: boolean;
 }
@@ -90,30 +95,34 @@ const props = withDefaults(defineProps<Props>(), {
   prepTime: null,
   totalTime: null,
   performTime: null,
+  prepTimeSeconds: null,
+  totalTimeSeconds: null,
+  performTimeSeconds: null,
   color: "accent custom-transparent",
   small: false,
 });
 
 const i18n = useI18n();
+const { recipeTimeDisplay } = useRecipeTime();
 
-function isEmpty(str: string | null) {
-  return !str || str.length === 0;
-}
+const totalTime = computed(() => recipeTimeDisplay(props.totalTimeSeconds, props.totalTime));
+const prepTime = computed(() => recipeTimeDisplay(props.prepTimeSeconds, props.prepTime));
+const performTime = computed(() => recipeTimeDisplay(props.performTimeSeconds, props.performTime));
 
 const _showCards = computed(() => {
-  return [props.prepTime, props.totalTime, props.performTime].some(x => !isEmpty(x));
+  return [prepTime.value, totalTime.value, performTime.value].some(x => !!x);
 });
 
 const validateTotalTime = computed(() => {
-  return !isEmpty(props.totalTime) ? { name: i18n.t("recipe.total-time"), value: props.totalTime } : null;
+  return totalTime.value ? { name: i18n.t("recipe.total-time"), value: totalTime.value } : null;
 });
 
 const validatePrepTime = computed(() => {
-  return !isEmpty(props.prepTime) ? { name: i18n.t("recipe.prep-time"), value: props.prepTime } : null;
+  return prepTime.value ? { name: i18n.t("recipe.prep-time"), value: prepTime.value } : null;
 });
 
 const validatePerformTime = computed(() => {
-  return !isEmpty(props.performTime) ? { name: i18n.t("recipe.perform-time"), value: props.performTime } : null;
+  return performTime.value ? { name: i18n.t("recipe.perform-time"), value: performTime.value } : null;
 });
 
 const fontSize = computed(() => {

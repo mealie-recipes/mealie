@@ -54,12 +54,19 @@
                 </v-col>
               </v-row>
             </div>
-            <div v-if="recipe.prepTime || recipe.totalTime || recipe.performTime" class="mx-6">
+            <div
+              v-if="recipe.prepTime || recipe.totalTime || recipe.performTime
+                || recipe.prepTimeSeconds || recipe.totalTimeSeconds || recipe.performTimeSeconds"
+              class="mx-6"
+            >
               <RecipeTimeCard
                 container-class="d-flex flex-wrap justify-center"
                 :prep-time="recipe.prepTime"
                 :total-time="recipe.totalTime"
                 :perform-time="recipe.performTime"
+                :prep-time-seconds="recipe.prepTimeSeconds"
+                :total-time-seconds="recipe.totalTimeSeconds"
+                :perform-time-seconds="recipe.performTimeSeconds"
                 class="mb-4"
               />
             </div>
