@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie poate importa rețetele din aplicația Mealie dintr-o lansare pre-v1.0. Exportă rețetele din vechea aplicație, apoi încarcă fișierul de tip \".ZIP\" folosind câmpul de mai jos. Numai rețetele pot fi importate din export.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrarea datelor rețetelor",
-    "recipe-data-migrations-explanation": "Rețetele pot fi migrate de la o altă aplicație ce este suportată de Mealie. Acesta este un mod excelent de a începe să folosiți Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Veniți dintr-o altă aplicație sau o versiune și mai veche a Mealie? Uitați-vă la migrări și vedeți dacă datele dvs. pot fi importate.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Alegeți tipul de migrare",
     "tag-all-recipes": "Etichetați toate rețetele cu eticheta {tag-name}",
     "recipe-1": "Rețeta 1",
