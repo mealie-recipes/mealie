@@ -53,7 +53,7 @@
     "enable-notifier": "Aktiver Notifikationer",
     "what-events": "Hvilke begivenheder skal denne anmelder abonnere på?",
     "user-events": "Brugerhændelser",
-    "mealplan-events": "Meal Plan Events",
+    "mealplan-events": "Måltidsplansbegivenheder",
     "shopping-list-events": "Indkøbslistebegivenheder",
     "cookbook-events": "Kogebogsbegivenheder",
     "tag-events": "Tagbegivenheder",
@@ -192,7 +192,7 @@
       "keep-my-recipes-private-description": "Ændrer din gruppe og alle opskrifter til private. Du kan altid ændre dette senere."
     },
     "manage-members": "Administrer medlemmer",
-    "manage-members-description": "Administrér brugertilladelser i din husstand. {manage} tillader brugeren at tilgå gruppeadministration, {organize} tilleder brugeren at administrere gruppedata, såsom ingredienser, etiketter og kategorier, og {invite} tillader brugeren at generere invitationslinks til andre brugere. Gruppeejere kan ikke ændre deres egne brugertilladelser.",
+    "manage-members-description": "Administrér brugertilladelser i din husstand. {manage} tillader brugeren at tilgå gruppeadministration, {organize} tilleder brugeren at administrere gruppedata, såsom ingredienser, anmærkninger og kategorier, og {invite} tillader brugeren at generere invitationslinks til andre brugere. Gruppeejere kan ikke ændre deres egne brugertilladelser.",
     "manage": "Administrer",
     "manage-household": "Administrer Husstand",
     "invite": "Invitér",
@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie kan importere opskrifter fra en før v1.0 udgivelse. Eksporter dine opskrifter fra din gamle installation, og upload zip-filen nedenfor. Bemærk, at kun opskrifter kan importeres fra eksport.",
+      "description-long": "Mealie kan importere opskrifter fra en tidligere Mealie-version end v1.0. Eksportér dine opskrifter fra den gamle instans, og upload ZIP-filen nedenfor. Bemærk, at det kun er opskrifter, der kan importeres fra en sådan eksport. Dette gælder kun eksport fra instanser med en version tidligere end v1.0. Backups, der er taget fra Mealie-version v1.0 eller senere, bør gendannes med backup- og gendannelsesværktøjerne i stedet.",
       "title": "Mealie før v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrering af opskrifter",
-    "recipe-data-migrations-explanation": "Opskrifter kan migreres fra et andet understøttet program til Mealie. Dette er en fantastisk måde at komme i gang med Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Kommer fra en anden applikation eller en endnu ældre version af Mealie? Tjek migrationer og se om dine data kan importeres.",
+    "recipe-data-migrations-explanation": "Opskrifter kan migreres fra andre understøttede applikationer til Mealie. Det er en god måde at komme i gang med Mealie på. Flytning af data mellem Mealie-instanser, eller gendannelse fra en tidligere Mealie-backup, gøres i stedet med backup- og gendannelsesværktøjerne.",
+    "migration-description": "Kommer du fra en anden applikation, eller fra en Mealie-version tidligere end v1.0? Tjek migrationer og se, om dine data kan importeres.",
     "choose-migration-type": "Vælg migreringstype",
     "tag-all-recipes": "Tag alle opskrifter med {tag-name} tag",
     "recipe-1": "Opskrift 1",
@@ -467,15 +467,15 @@
     "trans-fat-content": "Transfedtsyrer",
     "unsaturated-fat-content": "Umættet fedt",
     "join-the-conversation": "Deltag i samtalen",
-    "add-recipe-to-mealplan": "Add Recipe to Meal Plan",
+    "add-recipe-to-mealplan": "Tilføj opskrift til madplanen",
     "entry-type": "Posttype",
     "add-to-list": "Tilføj til liste",
     "add-to-plan": "Tilføj til madplan",
     "add-to-timeline": "Tilføj til tidslinje",
     "successfully-added-to-list": "Tilføjet til listen",
-    "recipe-added-to-mealplan": "Recipe added to meal plan",
+    "recipe-added-to-mealplan": "Opskrift tilføjet til madplanen",
     "failed-to-add-recipes-to-list": "Kunne ikke tilføje opskrift til listen",
-    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to meal plan",
+    "failed-to-add-recipe-to-mealplan": "Kunne ikke tilføje opskrift til madplanen",
     "yield": "Mængde",
     "yields-amount-with-text": "Mængde {amount} {text}",
     "yield-text": "Hvor mange enheder giver opskriften?",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Det ser ud til at dine ingredienser ikke er klassificeret endnu. Klik på knappen \"{parse}\" nedenfor for at analysere ingredienserne til strukturerede fødevarer.",
     "attach-images-hint": "Vedhæft billeder ved at trække dem ind i redigeringsværktøjet",
     "drop-image": "Slet billede",
+    "failed-to-attach-image": "Kunne ikke vedhæfte billede",
+    "image-drop-unsupported": "Dette billede kan ikke vedhæftes direkte. Gem det til din enhed, og tilføj det så derfra.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Opskrifter med enheder eller fødevarer defineret kan ikke fortolkes.",
     "parse-ingredients": "Fortolk ingredienser",
     "edit-markdown": "Rediger markdown",
@@ -546,7 +548,7 @@
     "import-with-ai-image-provider-required": "Konfigurér en billedudbyder i din gruppes AI-indstillinger for at danne opskrifter ud fra fotografier.",
     "import-with-ai-error-details": "AI var ude af stand til at danne en opskrift fra det, du angav. Kontrollér, at det indeholder en opskrift, og prøv igen.",
     "create-new-organizers": "Opret nye organisatorer",
-    "create-new-organizers-hint": "Etiketter, kategorier og redskaber fundet i opskriften, bliver altid sammenholdt med dem, du allerede har oprettet. Slå denne indstilling til, for også at oprette dem, der endnu ikke er oprettet.",
+    "create-new-organizers-hint": "Anmærkninger, kategorier og redskaber fundet i opskriften, bliver altid sammenholdt med dem, du allerede har oprettet. Slå denne indstilling til, for også at oprette dem, der endnu ikke er oprettet.",
     "create-recipe": "Opret opskrift",
     "create-recipe-description": "Opret ny opskrift fra bunden.",
     "create-recipes": "Opret opskrift",
@@ -752,7 +754,7 @@
     "recipe-scraper-version": "Version på opskriftsfortolker",
     "site-statistics": "Webstedsstatistik",
     "uncategorized-recipes": "Opskrifter uden kategori",
-    "untagged-recipes": "Opskrifter uden etiket"
+    "untagged-recipes": "Opskrifter uden anmærkning"
   },
   "shopping-list": {
     "all-lists": "Alle lister",
@@ -792,7 +794,7 @@
     "cookbooks": "Kogebøger",
     "manage-users": "Adm. brugere",
     "site-settings": "Sideindstillinger",
-    "tags": "Etiketter",
+    "tags": "Anmærkninger",
     "language": "Sprog",
     "maintenance": "Vedligeholdelse",
     "parser": "Parser",
@@ -800,7 +802,7 @@
     "cookbook": "Kogebog"
   },
   "tag": {
-    "tags": "Etiket",
+    "tags": "Anmærkninger",
     "create-a-tag": "Opret tag",
     "tag-name": "Tag navn",
     "tag": "Mærker"
@@ -875,7 +877,7 @@
     "user-can-invite-other-to-group": "Bruger kan invitere andre til gruppen",
     "user-can-manage-group": "Brugeren kan administrere gruppeindstillinger",
     "user-can-manage-household": "Brugeren kan administrere husstande",
-    "user-can-organize-group-data": "Brugeren kan administrere ingredienser, etiketter og kategorier",
+    "user-can-organize-group-data": "Brugeren kan administrere ingredienser, anmærkninger og kategorier",
     "enable-advanced-features": "Aktiver avancerede funktioner",
     "it-looks-like-this-is-your-first-time-logging-in": "Det ser ud til, at det er første gang, at du logger ind.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vil du ikke længere se dette? Sørg for at ændre din e-mail i dine brugerindstillinger!",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Opret standard etiketter på dit sprog.",
       "edit-label": "Redigér etiket",
       "new-label": "Ny etiket",
       "labels": "Etiketter",
@@ -1010,13 +1011,13 @@
       "new-tag": "Nyt tag",
       "edit-tag": "Rediger tag",
       "tag-data": "Tagoplysninger",
-      "combine-tag": "Kombinér etiket",
-      "source-tag": "Kildeetiket",
-      "target-tag": "Måletiket",
-      "merge-dialog-text": "At kombinere de valgte etiketter vil flette kilde- og måletiketten sammen til en enkelt etiket. Kildeetiketten vil blive slettet, og alle referencer til den vil blive ændret til at pege på måletiketten.",
+      "combine-tag": "Kombinér anmærkning",
+      "source-tag": "Kildeanmærkning",
+      "target-tag": "Målanmærkning",
+      "merge-dialog-text": "At kombinere de valgte anmærkninger vil flette kilde- og målanmærkningen sammen til en enkelt anmærkning. Kildeanmærkningen vil blive slettet, og alle referencer til den vil blive ændret til at pege på målanmærkningen.",
       "merge-tag-example": "Fletter {tag1} sammen med {tag2}",
-      "delete-unused-confirm": "Er det OK at slette denne ubrugte etiket? Det kan ikke gøres om. | Er det OK at slette disse {count} ubrugte etiketter? Det kan ikke gøres om.",
-      "no-unused-tags": "Ingen ubrugte etiketter til sletning"
+      "delete-unused-confirm": "Er det OK at slette denne ubrugte anmærkning? Det kan ikke gøres om. | Er det OK at slette disse {count} ubrugte anmærkninger? Det kan ikke gøres om.",
+      "no-unused-tags": "Ingen ubrugte anmærkninger til sletning"
     },
     "tools": {
       "new-tool": "Nyt redskab",
@@ -1146,11 +1147,11 @@
     "group-settings-description": "Administrer dine fælles gruppeindstillinger, såsom privatlivsindstillinger.",
     "household-description": "Disse elementer deles inden for din husstand. Hvis du redigerer et af dem, ændres det for hele husstanden!",
     "household-settings": "Husstands indstillinger",
-    "household-settings-description": "Manage your household settings, like meal plan and privacy settings.",
+    "household-settings-description": "Administrer din husstands indstillinger, såsom madplan og privatlivsindstillinger.",
     "cookbooks-description": "Administrer en samling af kategorier og opret sider til dem.",
     "members": "Medlemmer",
     "members-description": "Se, hvem der er i din husstand og administrer deres tilladelser.",
-    "webhooks-description": "Set up webhooks that trigger on days that you have meal plans scheduled.",
+    "webhooks-description": "Opsæt webhooks, der afvikles på dage, som du har planlagt måltider for.",
     "notifiers": "Notifikationer",
     "notifiers-description": "Opsæt e-mail og push-notifikationer, der udløser på specifikke begivenheder.",
     "manage-data": "Administrer data",

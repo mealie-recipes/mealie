@@ -40,7 +40,7 @@ class RecipeToolOut(RecipeToolCreate):
 
 
 class RecipeToolResponse(RecipeToolOut):
-    recipes: list["RecipeSummary"] = []
+    recipes: list[RecipeSummary] = []
     model_config = ConfigDict(from_attributes=True)
 
     @classmethod

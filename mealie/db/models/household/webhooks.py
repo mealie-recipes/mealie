@@ -1,5 +1,5 @@
 from datetime import UTC, datetime, time
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, ForeignKey, String, Time, orm
 from sqlalchemy.orm import Mapped, mapped_column
@@ -17,11 +17,9 @@ class GroupWebhooksModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "webhook_urls"
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="webhooks", single_parent=True)
+    group: Mapped[Group | None] = orm.relationship("Group", back_populates="webhooks", single_parent=True)
     group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
-    household: Mapped[Optional["Household"]] = orm.relationship(
-        "Household", back_populates="webhooks", single_parent=True
-    )
+    household: Mapped[Household | None] = orm.relationship("Household", back_populates="webhooks", single_parent=True)
     household_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("households.id"), index=True)
 
     enabled: Mapped[bool | None] = mapped_column(Boolean, default=False)

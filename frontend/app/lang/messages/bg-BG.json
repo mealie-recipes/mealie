@@ -352,7 +352,7 @@
       "title": "Paprika мениджър на рецепти"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie може да импортира рецепти от Mealie преди версия 1.0. Експортирайте рецептите от старата си инстанция и ги качете като .zip файл по-долу. Бележка: могат да бъдат импортирани само рецептите.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie преди версия 1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Миграция на данни на рецепти",
-    "recipe-data-migrations-explanation": "Рецептите могат да бъдат мигрирани от други приложения поддържани от Mealie. Това е добър начин да започнете използването си на Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Идваш от друго приложение или дори по-стара версия на Mealie? Провери миграциите и виж дали данните ти могат да бъдат импорторани.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Избери тип на миграцията",
     "tag-all-recipes": "Добави {tag-name} като етикет във всички рецепти",
     "recipe-1": "Рецепта 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Изглежда, че съставките ви все още не са анализирани. Кликнете върху бутона „{parse}“ по-долу, за да анализирате съставките си в структурирани храни.",
     "attach-images-hint": "Прикачете снимки като ги влачете и пуснете в редактора",
     "drop-image": "Премахване на изображение",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Рецепти със зададени мерни единици и храни ме могат да бъдат анализирани.",
     "parse-ingredients": "Анализирай съставките",
     "edit-markdown": "Редактирай с markdown",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Заредете базата данни с етикети на Вашия местен език.",
       "edit-label": "Редактиране на етикет",
       "new-label": "Нов етикет",
       "labels": "Етикети",

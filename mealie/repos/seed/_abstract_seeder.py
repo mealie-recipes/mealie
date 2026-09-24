@@ -1,5 +1,6 @@
 import json
 from abc import ABC, abstractmethod
+from functools import cached_property
 from logging import Logger
 from pathlib import Path
 
@@ -13,6 +14,7 @@ class AbstractSeeder(ABC):
     """
 
     resources = Path(__file__).parent / "resources"
+    source_locale = "en-US"
 
     def __init__(self, db: AllRepositories, logger: Logger | None = None):
         """
@@ -30,6 +32,14 @@ class AbstractSeeder(ABC):
     @classmethod
     def load_file(self, file: Path) -> dict[str, dict]:
         return json.loads(file.read_text(encoding="utf-8"))
+
+    @cached_property
+    def source_data(self) -> dict[str, dict]:
+        """
+        The seed data in the source locale, read once per seeder. A translated locale file is
+        compared against it to tell a real translation apart from an untranslated fallback.
+        """
+        return self.load_file(self.get_file(self.source_locale))
 
     @abstractmethod
     def seed(self, locale: str | None = None) -> None: ...

@@ -352,7 +352,7 @@
       "title": "Paprika Rezept-Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie kann Rezepte aus der Mealie-App in einer Version vor v1.0 importieren. Exportiere deine Rezepte aus deiner alten Instanz und lade die Zip-Datei unten hoch. Bitte beachte, dass nur Rezepte aus dem Export importiert werden können.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Rezeptdatenmigration",
-    "recipe-data-migrations-explanation": "Rezepte können aus unterstützten Programmen nach Mealie migriert werden. Das ist eine gute Möglichkeit, um mit Mealie loszulegen.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Wechselst du von einer anderen Anwendung oder einer noch älteren Version von Mealie? Prüfe die Migrations-Optionen, vielleicht können deine Daten importiert werden.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Migrationsart wählen",
     "tag-all-recipes": "Alle Rezepte mit Schlagwort {tag-name} versehen",
     "recipe-1": "Rezept 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Es scheint als ob deine Zutaten noch nicht eingelesen wurden. Klick unten auf \"{parse}\" um deine Zutaten einzulesen.",
     "attach-images-hint": "Bilder durch Ziehen & Ablegen in den Editor hinzufügen",
     "drop-image": "Bild hier ablegen",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Rezepte mit gesondert definierten Einheiten oder Lebensmitteln können nicht analysiert werden.",
     "parse-ingredients": "Zutaten parsen",
     "edit-markdown": "Markdown bearbeiten",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Füllt die Datenbank mit gängigen Kategorien basierend auf deiner Sprache.",
       "edit-label": "Kategorie bearbeiten",
       "new-label": "Neue Kategorie",
       "labels": "Bezeichnungen",

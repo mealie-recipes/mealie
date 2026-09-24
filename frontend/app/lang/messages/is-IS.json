@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie getur flutt inn uppskriftir úr eldri útgáfum en 1.0 af Mealie. Flyttu út uppskriftirnar úr eldri útgáfunni þinni og svo hleður þú .zip skránni inn hér fyrir neðan. Athugaðu að einungis er hægt að hlaða inn uppskriftum úr eldra kerfinu.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie, eldri útgáfur en 1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Flutningur uppskrifta gagna",
-    "recipe-data-migrations-explanation": "Hægt er að flytja uppskriftir úr öðrum forritum sem Mealie styður. Þetta er frábær leið til að byrja á því að nota Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Ef þú ert að koma frá öðru uppskriftar forriti eða jafnvel eldri útgáfu af Mealie, athugaðu þá gagnafluttninginn og skoðaðu hvort gögnin þín geti verið flutt inn.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Veldu tegund gagnaflutnings",
     "tag-all-recipes": "Merktu allar uppskriftirnar með {tag-name}",
     "recipe-1": "Uppskrift 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Það lítur út fyrir að innihaldsefnin þín hafi ekki verið greind. Ýttu á „{parse}“ takkann fyrir neðan til að lesa og greina uppskriftina.",
     "attach-images-hint": "Bættu við myndum með því að draga og sleppa þeim inn í ritilinn",
     "drop-image": "Setja mynd",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Uppskriftir með mælieiningum eða matvörum er ekki hægt að greina.",
     "parse-ingredients": "Greina innihald",
     "edit-markdown": "Breyta markdown",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Bæta algengum merkimiðum á þínu tungumáli við gagnarunninn.",
       "edit-label": "Breyta merkimiða",
       "new-label": "Nýr merkimiði",
       "labels": "Merkimiðar",

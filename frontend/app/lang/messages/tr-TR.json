@@ -352,7 +352,7 @@
       "title": "Paprika Tarif Yöneticisi"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie, v1.0 öncesi bir sürümden Mealie uygulamasından tarifleri içe aktarabilir. Tariflerinizi eski örneğinizden dışa aktarın ve aşağıdaki zip dosyasını yükleyin. Dışa aktarmadan yalnızca tariflerin içe aktarılabileceğini unutmayın.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Tarif Verilerini Taşı",
-    "recipe-data-migrations-explanation": "Tarifler desteklenen başka bir uygulamadan Mealie'ye taşınabilir. Bu Mealie kullanmaya başlamak için mükemmel bir yöntemdir.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Başka bir uygulamadan mı yoksa Mealie'nin daha eski bir sürümünden mi geliyorsunuz? Taşıma işlemlerine göz atın ve verilerinizin içe aktarılıp aktarılamayacağını görün.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Taşıma Türünü Seçin",
     "tag-all-recipes": "Tüm tarifleri {tag-name} etiketiyle etiketle",
     "recipe-1": "Tarif 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Görünüşe göre içerikleriniz henüz analiz edilmemiş. Aşağıdaki \"{parse}\" butonuna tıklayarak içeriklerinizi yapılandırılmış yiyeceklere ayırabilirsiniz.",
     "attach-images-hint": "Düzenleyiciye sürükleyip bırakarak görselleri ekleyin",
     "drop-image": "Yüklenecek resimi sürükleyip bırakın",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Tanımlanmış birimlere veya gıdalara sahip tarifler ayrıştırılamaz.",
     "parse-ingredients": "Malzemeleri ayrıştır",
     "edit-markdown": "Markdown'ı Düzenle",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Veritabanını yerel dilinize göre yaygın etiketlerle tohumlayın.",
       "edit-label": "Etiketi Düzenle",
       "new-label": "Yeni Etiket",
       "labels": "Etiketler",

@@ -352,7 +352,7 @@
       "title": "Xestor de receitas Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "O Mealie pode importar receitas de versións anteriores à v1.0. Exporte as suas receitas na instancia antiga e cargue o ficheiro zip abaixo. Note que só se poden importar receitas da exportación.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migracións de Datos de Receita",
-    "recipe-data-migrations-explanation": "As receitas poden ser migradas desde outra aplicación compatível a Mealie. Esta é unha boa forma de comezar a usar o Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Ven de outra aplicación ou de unha versión ainda mais antiga do Mealie? Verifique as migracións e vexa se os seus datos poden ser importados.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Escolla o tipo de migración",
     "tag-all-recipes": "Marcar todas as receitas coa etiqueta {tag-name}",
     "recipe-1": "Receita 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Parece que os teus ingredientes ainda non foron procesados. Clique no boton \"{parse}\" abaixo para converte-los en alimentos estruturados.",
     "attach-images-hint": "Anexe imaxens arrastrando e soltandoas no editor",
     "drop-image": "Arrastrar imaxen",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Receitas con unidades ou alimentos definidos non poden ser interpretadas.",
     "parse-ingredients": "Interpretar ingredientes",
     "edit-markdown": "Editar Markdown",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Adicionar à base de datos rótulos comuns no seu idioma local.",
       "edit-label": "Editar Rótulo",
       "new-label": "Novo Rótulo",
       "labels": "Rótulos",

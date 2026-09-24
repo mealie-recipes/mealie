@@ -25,7 +25,7 @@ class RecipeShareTokenModel(SqlAlchemyBase, BaseMixins):
     group_id: FilterableColumn[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
 
     recipe_id: FilterableColumn[GUID] = mapped_column(GUID, sa.ForeignKey("recipes.id"), nullable=False, index=True)
-    recipe: Mapped["RecipeModel"] = relationship("RecipeModel", back_populates="share_tokens", uselist=False)
+    recipe: Mapped[RecipeModel] = relationship("RecipeModel", back_populates="share_tokens", uselist=False)
 
     expires_at: FilterableColumn[datetime] = mapped_column(NaiveDateTime, nullable=False)
 

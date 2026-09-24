@@ -85,6 +85,9 @@ class WorkflowContext:
     compiled_source: OpenAICompiledSource | None = None
     """Output of the compile step: every source in the input, compiled and merged into one document"""
 
+    resolved_url: str | None = None
+    """Post-redirect URL of `input.url`. URL compilers read this in preference to the original."""
+
     organizer_names: OpenAIOrganizers | None = None
     """Organizer names returned by the organizer step, before they're matched to the database"""
 
