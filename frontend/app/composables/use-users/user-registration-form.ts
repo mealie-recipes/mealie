@@ -10,6 +10,16 @@ const password1 = ref("");
 const password2 = ref("");
 const advancedOptions = ref(false);
 
+export function resetUserRegistrationForm() {
+  domAccountForm.value = null;
+  username.value = "";
+  fullName.value = "";
+  email.value = "";
+  password1.value = "";
+  password2.value = "";
+  advancedOptions.value = false;
+}
+
 export const useUserRegistrationForm = () => {
   const i18n = useI18n();
 

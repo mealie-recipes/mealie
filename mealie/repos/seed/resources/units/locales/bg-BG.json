@@ -27,25 +27,25 @@
         "name": "пинта",
         "plural_name": "пинти",
         "description": "",
-        "abbreviation": "pt"
+        "abbreviation": "пинта"
     },
     "quart": {
-        "name": "quart",
+        "name": "кварта",
         "plural_name": "кварти",
         "description": "",
-        "abbreviation": "qt"
+        "abbreviation": "кварта"
     },
     "gallon": {
-        "name": "gallon",
+        "name": "галон",
         "plural_name": "галона",
         "description": "",
-        "abbreviation": "gal"
+        "abbreviation": "галон"
     },
     "milliliter": {
         "name": "милилитър",
         "plural_name": "милилитра",
         "description": "",
-        "abbreviation": "ml"
+        "abbreviation": "мл"
     },
     "liter": {
         "name": "литър",
@@ -54,17 +54,17 @@
         "abbreviation": "л"
     },
     "pound": {
-        "name": "pound",
+        "name": "паунд",
         "plural_name": "паунда",
         "description": "",
-        "abbreviation": "lb",
+        "abbreviation": "фунт",
         "plural_abbreviation": "либри"
     },
     "ounce": {
-        "name": "ounce",
+        "name": "унция",
         "plural_name": "унции",
         "description": "",
-        "abbreviation": "oz"
+        "abbreviation": "унция"
     },
     "gram": {
         "name": "грам",

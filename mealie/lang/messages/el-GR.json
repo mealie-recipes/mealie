@@ -56,7 +56,7 @@
         "generic-updated": "Ενημερώθηκε το {name}",
         "generic-created-with-url": "Το {name} δημιουργήθηκε, {url}",
         "generic-updated-with-url": "Το {name} ενημερώθηκε, {url}",
-        "generic-duplicated": "Δημιουργήθηκε διπλότυπο του {name}",
+        "generic-duplicated": "Δημιουργήθηκε αντίγραφο του {name}",
         "generic-deleted": "Το {name} διαγράφηκε",
         "logged-out": "Αποσυνδεδεμένος"
     },

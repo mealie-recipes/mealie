@@ -18,17 +18,17 @@
             "yield": "Saagikus",
             "yields": "Annab saagiks"
         },
-        "and-amount": "and {amount}",
-        "or-ingredient": "or {ingredient}",
+        "and-amount": "ja {amount}",
+        "or-ingredient": "või {ingredient}",
         "create-progress": {
-            "creating-recipe-with-ai": "Creating recipe with AI...",
-            "creating-recipe-from-transcript-with-ai": "Creating recipe from transcript with AI...",
-            "creating-recipe-from-webpage-data": "Creating recipe from webpage data...",
-            "downloading-image": "Downloading image...",
-            "downloading-video": "Downloading video...",
-            "extracting-recipe-data": "Extracting recipe data...",
-            "fetching-webpage": "Fetching webpage...",
-            "transcribing-audio-with-ai": "Transcribing audio with AI..."
+            "creating-recipe-with-ai": "Retsepti loomine tehisaru abil...",
+            "creating-recipe-from-transcript-with-ai": "Retsepti loomine transkriptist tehisiaru abil...",
+            "creating-recipe-from-webpage-data": "Retsepti loomine veebilehe andmetest...",
+            "downloading-image": "Pildi allalaadimine...",
+            "downloading-video": "Video allalaadimine...",
+            "extracting-recipe-data": "Retsepti andmete eraldamine...",
+            "fetching-webpage": "Veebilehe pärimine...",
+            "transcribing-audio-with-ai": "Helisalvestise transkribeerimine tehisaru abil..."
         }
     },
     "mealplan": {

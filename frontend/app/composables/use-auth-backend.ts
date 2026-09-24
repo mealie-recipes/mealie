@@ -1,6 +1,8 @@
 import { ref, computed } from "vue";
 import type { UserOut } from "~/lib/api/types/user";
 import { clearAllStores } from "~/composables/store";
+import { clearComposableCaches } from "~/composables/use-clear-composable-caches";
+import { getTokenCookieOptions } from "~/composables/use-token-cookie";
 
 interface AuthData {
   value: UserOut | null;
@@ -24,16 +26,18 @@ interface AuthState {
 const authUser = ref<UserOut | null>(null);
 const authStatus = ref<"loading" | "authenticated" | "unauthenticated">("loading");
 
+export function resetAuth() {
+  authUser.value = null;
+  authStatus.value = "unauthenticated";
+}
+
 export const useAuthBackend = function (): AuthState {
-  const { $appInfo, $axios } = useNuxtApp();
+  const { $axios } = useNuxtApp();
   const router = useRouter();
 
   const runtimeConfig = useRuntimeConfig();
   const tokenName = runtimeConfig.public.AUTH_TOKEN;
-  const tokenCookie = useCookie(tokenName, {
-    maxAge: $appInfo.tokenTime * 60 * 60,
-    secure: $appInfo.production && window?.location?.protocol === "https:",
-  });
+  const tokenCookie = useCookie(tokenName, getTokenCookieOptions());
 
   function setToken(token: string | null) {
     tokenCookie.value = token;
@@ -43,8 +47,7 @@ export const useAuthBackend = function (): AuthState {
     // Only clear token on auth errors, not network errors
     if (error?.response?.status === 401) {
       setToken(null);
-      authUser.value = null;
-      authStatus.value = "unauthenticated";
+      resetAuth();
       if (redirect) {
         router.push("/login");
       }
@@ -101,11 +104,13 @@ export const useAuthBackend = function (): AuthState {
     }
     finally {
       setToken(null);
-      authUser.value = null;
-      authStatus.value = "unauthenticated";
+      resetAuth();
 
       // Clear all cached store data to prevent data leakage between users
       clearAllStores();
+
+      // Clear cached composable refs to prevent data leakage between users
+      clearComposableCaches();
 
       // Clear Nuxt's useAsyncData cache
       clearNuxtData();

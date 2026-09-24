@@ -252,7 +252,7 @@
       "keep-my-recipes-private-description": "Задай групата и всичките рецепти като лични. Винаги може да промените това по-късно."
     },
     "manage-members": "Управление на потребителите",
-    "manage-members-description": "Управлявайте правата на членовете на домакинството ви. {manage} позволява на потребителите да постъпват страницата за управление на данните, а {invite} позволява на потребителите да генерират покани към други потребители. Собствениците на групи немогат да променят собствените си права.",
+    "manage-members-description": "Управлявайте разрешенията на членовете във вашето домакинство. {manage} позволява на потребителя достъп до области за управление на група, {organize} позволява на потребителя да управлява данни за групата, като храни, етикети и категории, а {invite} позволява на потребителя да генерира линкове за покани за други потребители. Собствениците на групи не могат да променят собствените си разрешения.",
     "manage": "Управление",
     "manage-household": "Управлявай домакинство",
     "invite": "Покани",
@@ -1125,7 +1125,7 @@
     "user-can-invite-other-to-group": "Потребителя може да добавя други в групата",
     "user-can-manage-group": "Потребителя може да управлява групата",
     "user-can-manage-household": "Потребителят може да управлява домакинството",
-    "user-can-organize-group-data": "Потребителя може да организира данните на групата",
+    "user-can-organize-group-data": "Потребителят може да управлява продукти, етикети и категории",
     "enable-advanced-features": "Включване на разширени функции",
     "it-looks-like-this-is-your-first-time-logging-in": "Изглежда това е първият път, в който влизате.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Искате ли да виждате това по-често? Уверете се, че сте конфигурирали настройките си за email известяване правилно!",
@@ -1144,8 +1144,8 @@
   },
   "data-pages": {
     "foods": {
-      "delete-affects-recipes": "Warning: this food is used in {count} recipe(s). Deleting it will leave an empty ingredient in the recipe(s).",
-      "delete-affects-recipes-more": "View all {count} recipes",
+      "delete-affects-recipes": "Внимание: този продукт се използва в {count} рецепта(и). Изтриването му ще остави празна съставка в рецептата(ите).",
+      "delete-affects-recipes-more": "Вижте всичките {count} рецепти",
       "merge-dialog-text": "Комбинирането на избраните храни ще обедини изходната храна и целевата храна в една единствена храна. Изходната храна ще бъде изтрита и всички препратки към изходната храна ще бъдат актуализирани, за да сочат към целевата храна.",
       "merge-food-example": "Обединяване на {food1} с {food2}",
       "seed-dialog-text": "Seed the database with foods based on your local language. This will create 200+ common foods that can be used to organize your database. Foods are translated via a community effort.",

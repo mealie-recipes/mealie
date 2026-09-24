@@ -8,6 +8,11 @@ import type { RecipeSearchQuery } from "~/lib/api/user/recipes/recipe";
 export const allRecipes = ref<Recipe[]>([]);
 export const recentRecipes = ref<Recipe[]>([]);
 
+export function resetRecipes() {
+  allRecipes.value = [];
+  recentRecipes.value = [];
+}
+
 function getParams(
   orderBy: string | null = null,
   orderDirection = "desc",
