@@ -91,13 +91,15 @@
               rendered.
             -->
             <v-col cols="12" sm="12" :md="8 + (isCookMode ? 1 : 0) * 4">
-              <RecipePageInstructions
-                v-model="recipe.recipeInstructions"
-                v-model:assets="recipe.assets"
-                :recipe="displayedRecipe"
-                :scale="scale"
-                :ingredient-storage-key="ingredientStorageKey"
-              />
+              <v-form ref="instructionForm" @submit.prevent>
+                <RecipePageInstructions
+                  v-model="recipe.recipeInstructions"
+                  v-model:assets="recipe.assets"
+                  :recipe="displayedRecipe"
+                  :scale="scale"
+                  :ingredient-storage-key="ingredientStorageKey"
+                />
+              </v-form>
               <div v-if="isEditForm" class="d-flex">
                 <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />
                 <BaseButton class="my-2" @click="addStep()">
@@ -221,6 +223,7 @@
 
 <script setup lang="ts">
 import type { ComponentPublicInstance } from "vue";
+import type { VForm } from "~/types/auto-forms";
 import { invoke, until } from "@vueuse/core";
 import type { RouteLocationNormalized } from "vue-router";
 import RecipeIngredients from "../RecipeIngredients.vue";
@@ -462,7 +465,13 @@ watch(isParsing, () => {
  * Recipe Save Delete
  */
 
+const instructionForm = ref<VForm | null>(null);
+
 async function saveRecipe() {
+  if (isEditForm.value) {
+    const { valid } = (await instructionForm.value?.validate()) ?? { valid: false };
+    if (!valid) return;
+  }
   const { data, error } = await api.recipes.updateOne(route.params.slug as string, recipe.value);
   if (!error) {
     if (data?.slug && data.slug !== route.params.slug) {
