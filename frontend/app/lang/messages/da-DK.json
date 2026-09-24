@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie kan importere opskrifter fra en før v1.0 udgivelse. Eksporter dine opskrifter fra din gamle installation, og upload zip-filen nedenfor. Bemærk, at kun opskrifter kan importeres fra eksport.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie før v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrering af opskrifter",
-    "recipe-data-migrations-explanation": "Opskrifter kan migreres fra et andet understøttet program til Mealie. Dette er en fantastisk måde at komme i gang med Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Kommer fra en anden applikation eller en endnu ældre version af Mealie? Tjek migrationer og se om dine data kan importeres.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Vælg migreringstype",
     "tag-all-recipes": "Tag alle opskrifter med {tag-name} tag",
     "recipe-1": "Opskrift 1",

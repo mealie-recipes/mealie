@@ -352,7 +352,7 @@
       "title": "Paprika食谱管理器"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie支持从其（1.0版本之前的）早期版本中导入食谱。你需要在老版本服务器上导出食谱，并在下方上传zip文件。注意，只有食谱数据能被导入。",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "食谱数据迁移",
-    "recipe-data-migrations-explanation": "你可以从受支持的应用中将食谱迁移至Mealie，这是上手Mealie的好方法。",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "之前使用其他食谱应用或是旧版本Mealie吗？检查迁移设置，来确认你的原有数据是否可以导入。",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "选择迁移类型",
     "tag-all-recipes": "用{tag-name} 标签标记所有食谱",
     "recipe-1": "食谱 1",

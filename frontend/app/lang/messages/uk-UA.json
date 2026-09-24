@@ -352,7 +352,7 @@
       "title": "Paprika менеджер рецептів"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie може імпортувати рецепти з Mealie до версії 1.0. Експортуйте свої рецепти зі старої Mealie і відвантажте zip-файл нижче. Зверніть увагу, що тільки рецепти можуть бути імпортовані з експорту.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie до 1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Міграція рецептів",
-    "recipe-data-migrations-explanation": "Рецепти можна мігрувати з іншого застосунку до Mealie. Це чудовий спосіб розпочати роботу з Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Використовуєте іншу програму або іще старішу версію Mealie? Перевірте документацію з міграції та подивіться, чи можуть Ваші дані бути імпортовані.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Оберіть тип міграції",
     "tag-all-recipes": "Позначити усі рецепти тегом {tag-name}",
     "recipe-1": "Рецепт 1",

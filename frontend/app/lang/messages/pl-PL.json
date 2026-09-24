@@ -352,7 +352,7 @@
       "title": "Menedżer przepisów Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie może importować przepisy z aplikacji Mealie z wersji przed v1.0. Wyeksportuj swoje przepisy ze starej instancji i prześlij plik zip poniżej. Pamiętaj, że tylko przepisy mogą być zaimportowane z eksportu.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migracja danych przepisów",
-    "recipe-data-migrations-explanation": "Przepisy mogą być przeniesione z innej wspieranej aplikacji do Mealie. To świetny sposób na rozpoczęcie pracy z Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Przechodzisz z innej aplikacji, bądź starszej wersji Mealie? Sprawdź dostępne migracje i zobacz czy dane mogą zostać zaimportowane.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Wybierz typ migracji",
     "tag-all-recipes": "Oznacz wszystkie przepisy tagiem {tag-name}",
     "recipe-1": "Przepis 1",
