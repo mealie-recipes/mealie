@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie pot importar les receptes des de versions prèvies a la v1.0 d'aquesta aplicació. Exporta les teves receptes des de la teva antiga instància i carrega l'arxiu. zip a sota. Només s'importaran les receptes, i cap dada més.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migració de receptes",
-    "recipe-data-migrations-explanation": "Les receptes es poden migrar des d'una altra aplicació suportada cap a Mealie. És una manera genial de començar a utilitzar el Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Véns d'una altra aplicació o una versió més antiga de Mealia? Fés un cop d'ull a migracions i mira si pots importar les teves dades.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Elegeix un tipus de migració",
     "tag-all-recipes": "Etiqueta totes les receptes amb {tag-name}",
     "recipe-1": "Recepta 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Sembla que els teus ingredients encara no s'han analitzat. Feu clic al botó \"{parse}\" de sota per transformar els vostres ingredients en aliments estructurats.",
     "attach-images-hint": "Afegeix imatges arrossegant i deixant anar la imatge a l'editor",
     "drop-image": "Deixa anar la imatge",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Les receptes amb unitats o aliments definits no es poden analitzar.",
     "parse-ingredients": "Analitzar ingredients",
     "edit-markdown": "Editar Markdown",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Afegeix a la base de dades etiquetes comunes en el vostre idioma.",
       "edit-label": "Edita etiqueta",
       "new-label": "Nova etiqueta",
       "labels": "Etiquetes",

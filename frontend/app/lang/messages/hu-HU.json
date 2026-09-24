@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie képes a v1.0 előtti kiadású Mealie alkalmazásból származó receptek importálására. Exportálja a receptjeit a régi példányából, és töltse fel a zip fájlt lentebb. Vegye figyelembe, hogy az exportból csak receptek importálhatók.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Receptadatok migrációja",
-    "recipe-data-migrations-explanation": "A receptek átemelhetők más támogatott alkalmazásból Mealie-be. Ez egy remek módja a Mealie használatának elkezdésére.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "A Mealie egy másik verzióját használtad vagy valami teljesen más applikációt? Nézd meg az adat importálási lehetőségeinket.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Válassza ki a migrációs típusát",
     "tag-all-recipes": "Az összes recept címkézése a {tag-name} címkével",
     "recipe-1": "Recept 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Úgy tűnik, hogy az összetevőket még nem elemezték. Kattintson az alábbi „{parse}” gombra, hogy az összetevőket strukturált élelmiszerekké alakítsa.",
     "attach-images-hint": "Képek csatolása a szerkesztőbe történő húzásával és ejtésével",
     "drop-image": "Dobd ide a képet",
+    "failed-to-attach-image": "A kép csatolása nem sikerült",
+    "image-drop-unsupported": "Ezt a képet nem lehet közvetlenül csatolni. Mentse le gépére, majd húzza be a fájlt.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "A külön meghatározott mennyiségi egységeket vagy alapanyagokat tartalmazó receptek nem elemezhetők.",
     "parse-ingredients": "Hozzávalók elemzése",
     "edit-markdown": "Markdown szerkesztése",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Töltse be az Ön nyelve szerinti közös címkélet tartalmazó adatbázist.",
       "edit-label": "Címke szerkesztése",
       "new-label": "Új címke",
       "labels": "Címkék",

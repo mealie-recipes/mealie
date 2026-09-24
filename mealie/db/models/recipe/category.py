@@ -56,13 +56,13 @@ class Category(SqlAlchemyBase, BaseMixins):
 
     # ID Relationships
     group_id: FilterableColumn[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="categories", foreign_keys=[group_id])
+    group: Mapped[Group] = orm.relationship("Group", back_populates="categories", foreign_keys=[group_id])
 
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
     name: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
     slug: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
     recipe_count: Mapped[int] = query_expression(default_expr=literal(0))
-    recipes: Mapped[list["RecipeModel"]] = orm.relationship(
+    recipes: Mapped[list[RecipeModel]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_categories, back_populates="recipe_category"
     )
 

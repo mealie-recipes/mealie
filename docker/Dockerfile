@@ -17,7 +17,7 @@ RUN pnpm generate
 ###############################################
 # Base Image - Python
 ###############################################
-FROM python:3.12-slim@sha256:7026274c107626d7e940e0e5d6730481a4600ae95d5ca7eb532dd4180313fea9 \
+FROM python:3.14-slim@sha256:caaf356f40667c496d405780745b9ac25771c189a51dfcc42430d531ea09f8a2 \
     AS python-base
 
 ENV MEALIE_HOME="/app"

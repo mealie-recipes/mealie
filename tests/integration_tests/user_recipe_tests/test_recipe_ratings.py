@@ -12,7 +12,7 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(scope="function")
-def recipes(user_tuple: tuple[TestUser, TestUser]) -> Generator[list[Recipe], None, None]:
+def recipes(user_tuple: tuple[TestUser, TestUser]) -> Generator[list[Recipe]]:
     unique_user = random.choice(user_tuple)
     database = unique_user.repos
     recipes_repo = database.recipes

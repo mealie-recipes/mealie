@@ -352,7 +352,7 @@
       "title": "\"Paprika\" receptų tvarkyklė"
     },
     "mealie-pre-v1": {
-      "description-long": "Į Mealie galima importuoti receptus iš senesnių už v1.0 Mealie versijų. Eksportuokite receptus iš senosios sistemos ir įkelkite .ZIP failą žemiau. Svarbu: perkeliami tik receptų duomenys.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Senesnės Mealie versijos (iki v1.0)"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Receptų duomenų migracijos",
-    "recipe-data-migrations-explanation": "Receptai gali būti importuojami į Mealie iš kitų palaikomų sistemų. Tai - puikus būdas pradėti naudotis Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Pasirinkite migracijos tipą",
     "tag-all-recipes": "Pažymėti visus receptus {tag-name} žyma",
     "recipe-1": "Receptas 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Pridėkite vaizdus vilkdami ir numesdami juos į redaktorių",
     "drop-image": "Drop image",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Receptai su ingredientų matavimo vienetais ar produktais negali būti nuskaitomi.",
     "parse-ingredients": "Nuskaityti ingredientus",
     "edit-markdown": "Redaguoti Markdown",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Įdėkite į duomenų bazę bendras žymas pagal jūsų kalbą.",
       "edit-label": "Keisti etiketę",
       "new-label": "Nauja etiketė",
       "labels": "Etiketės",

@@ -352,7 +352,7 @@
       "title": "Paprika resepte bestuurder"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie kan resepte invoer vanaf ou weergawes van Mealie (voor weergawe 1.0). Voer jou resepte uit die ou weergawe uit en laai die zip-dokument hieronder op. Neem asseblief kennis dat slegs resepte van uitvoer ingevoer kan word.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Ou weergawes Mealie (voor weergawe 1.0)"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Resep migrasie",
-    "recipe-data-migrations-explanation": "Jy kan resepte vanaf 'n ander program in Mealie invoer. Op hierdie manier kan jy vinnig aan die gang kom.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Kies die tipe migrasie",
     "tag-all-recipes": "Merk alle resepte met {tag-name}-merker",
     "recipe-1": "Resep 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Voeg prente by deur dit in die bewerker te sleep en los",
     "drop-image": "Drop image",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Resepte met sekere eenhede of kosse kan nie verwerk word nie.",
     "parse-ingredients": "Verwerk bestanddele",
     "edit-markdown": "Wysig Markdown",
@@ -944,7 +946,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Vul die databasis met algemene etikette gebaseer op jou plaaslike taal.",
       "edit-label": "Wysig etiket",
       "new-label": "Nuwe etiket",
       "labels": "Etikette",

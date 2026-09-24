@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
@@ -20,7 +20,7 @@ class HouseholdPreferencesModel(SqlAlchemyBase, BaseMixins):
     household_id: FilterableColumn[GUID | None] = mapped_column(
         GUID, sa.ForeignKey("households.id"), nullable=False, index=True
     )
-    household: Mapped[Optional["Household"]] = orm.relationship("Household", back_populates="preferences")
+    household: Mapped[Household | None] = orm.relationship("Household", back_populates="preferences")
     group_id: AssociationProxy[GUID] = association_proxy("household", "group_id")
 
     private_household: FilterableColumn[bool | None] = mapped_column(sa.Boolean, default=True)

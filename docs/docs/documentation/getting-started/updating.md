@@ -14,7 +14,7 @@
 
     ```shell
     docker exec -it mealie bash
-    python /opt/mealie/lib64/python3.12/site-packages/mealie/scripts/reprocess_images.py
+    python /opt/mealie/lib64/python3.14/site-packages/mealie/scripts/reprocess_images.py
     ```
 
     ### Options
@@ -23,7 +23,7 @@
 
     ### Example
     ```shell
-    python /opt/mealie/lib64/python3.12/site-packages/mealie/scripts/reprocess_images.py --workers 8
+    python /opt/mealie/lib64/python3.14/site-packages/mealie/scripts/reprocess_images.py --workers 8
     ```
 
 ## Upgrading to Mealie v1 or later
