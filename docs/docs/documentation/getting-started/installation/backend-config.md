@@ -27,11 +27,9 @@
 
 #### Reverse proxy headers
 
-`HOST_IP` controls which connecting proxy IP addresses or CIDR ranges Uvicorn trusts
-for `X-Forwarded-For` and `X-Forwarded-Proto`. Set a comma-separated list matching
-your reverse proxy or Kubernetes ingress, for example `HOST_IP=127.0.0.1,10.42.1.0/24`.
-Use addresses appropriate for your network; the container's default gateway may
-not be the address of the proxy. The entrypoint preserves the value you supply.
+`HOST_IP` controls which connecting proxy IP addresses or CIDR ranges Uvicorn trusts for `X-Forwarded-For` and `X-Forwarded-Proto`.
+Set a comma-separated list matching your reverse proxy or Kubernetes ingress, for example `HOST_IP=127.0.0.1,10.42.1.0/24`.
+Depending on your container environment and network, the container's default gateway may not be the address of the proxy.
 
 The default is `*` for compatibility, which trusts forwarding headers from every
 connecting source. Use that setting only when access to the application is limited
