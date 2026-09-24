@@ -85,20 +85,49 @@
       </template>
 
       <template #edit-dialog-bottom>
-        <div v-if="editRecipes.length > 0" class="mt-4">
+        <div v-if="editRecipes.length > 0 || editRecipesLoadFailed" class="mt-4">
           <div class="text-subtitle-2 mb-1">
             {{ $t("data-pages.categories.associated-recipes") }}
           </div>
           <v-list density="compact">
             <v-list-item
-              v-for="recipe in editRecipesPreview"
+              v-for="recipe in editRecipes"
               :key="recipe.slug"
               :to="`/g/${groupSlug}/r/${recipe.slug}`"
               :title="recipe.name || recipe.slug"
             />
           </v-list>
-          <div v-if="editRecipesRemaining > 0" class="text-body-2 pl-2">
-            {{ $t('data-pages.delete-unused-more', { count: editRecipesRemaining }) }}
+          <div v-if="editRecipesLoadFailed" class="d-flex align-center text-body-2 pl-2">
+            <span class="text-error">{{ $t("data-pages.load-recipes-failed") }}</span>
+            <v-btn
+              variant="text"
+              size="small"
+              color="primary"
+              class="ml-2"
+              :loading="editRecipesLoading"
+              @click="retryEditRecipes"
+            >
+              {{ $t("data-pages.retry") }}
+            </v-btn>
+          </div>
+          <div v-if="editRecipesTotalPages > 1" class="d-flex align-center mt-2">
+            <v-btn
+              variant="text"
+              size="small"
+              :disabled="editRecipesPage <= 1 || editRecipesLoading"
+              @click="loadEditRecipesPage(editRecipesPage - 1)"
+            >
+              {{ $t("general.previous") }}
+            </v-btn>
+            <span class="text-body-2 mx-2">{{ editRecipesPage }} / {{ editRecipesTotalPages }}</span>
+            <v-btn
+              variant="text"
+              size="small"
+              :disabled="editRecipesPage >= editRecipesTotalPages || editRecipesLoading"
+              @click="loadEditRecipesPage(editRecipesPage + 1)"
+            >
+              {{ $t("general.next") }}
+            </v-btn>
           </div>
         </div>
       </template>
@@ -127,12 +156,13 @@
 <script setup lang="ts">
 import { useCategoryStore } from "~/composables/store";
 import { useUserApi } from "~/composables/api";
+import { useEditDialogRecipes } from "~/composables/use-edit-dialog-recipes";
 import { validators } from "~/composables/use-validators";
 import { fieldTypes } from "~/composables/forms";
 import { normalizeFilter } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import type { AutoFormItems } from "~/types/auto-forms";
-import type { RecipeCategory, RecipeSummary } from "~/lib/api/types/recipe";
+import type { RecipeCategory } from "~/lib/api/types/recipe";
 import type { TableHeaders, TableConfig } from "~/components/global/CrudTable.vue";
 
 const i18n = useI18n();
@@ -202,24 +232,25 @@ const editForm = reactive({
 async function handleEdit(editFormData: RecipeCategory) {
   await categoryStore.actions.updateOne(editFormData);
   editForm.data = {} as RecipeCategory;
-  editRecipes.value = [];
+  resetEditRecipes();
 }
 
 // ============================================================
 // Edit Dialog: Associated Recipes
-const EDIT_RECIPES_PREVIEW_LIMIT = 10;
-
-const editRecipes = ref<RecipeSummary[]>([]);
-const editRecipesPreview = computed(() => editRecipes.value.slice(0, EDIT_RECIPES_PREVIEW_LIMIT));
-const editRecipesRemaining = computed(() => Math.max(editRecipes.value.length - EDIT_RECIPES_PREVIEW_LIMIT, 0));
+const {
+  recipes: editRecipes,
+  page: editRecipesPage,
+  totalPages: editRecipesTotalPages,
+  loading: editRecipesLoading,
+  loadFailed: editRecipesLoadFailed,
+  open: openEditRecipes,
+  reset: resetEditRecipes,
+  loadPage: loadEditRecipesPage,
+  retry: retryEditRecipes,
+} = useEditDialogRecipes("categories");
 
 async function onEditDialogOpen(item: RecipeCategory) {
-  editRecipes.value = [];
-  if (!item?.slug) {
-    return;
-  }
-  const { data } = await userApi.categories.bySlug(item.slug);
-  editRecipes.value = data?.recipes ?? [];
+  await openEditRecipes(item?.id);
 }
 
 // ============================================================

@@ -136,6 +136,7 @@
     "units": "Units",
     "back": "Back",
     "next": "Next",
+    "previous": "Previous",
     "start": "Start",
     "toggle-view": "Toggle View",
     "date": "Date",
@@ -1003,6 +1004,8 @@
     "combine": "Combine",
     "delete-unused": "Delete Unused",
     "delete-unused-more": "+ {count} more",
+    "load-recipes-failed": "Failed to load recipes.",
+    "retry": "Retry",
     "recipe-count": "Recipe Count",
     "categories": {
       "edit-category": "Edit Category",
@@ -1029,7 +1032,8 @@
       "delete-unused-confirm": "Okay to delete this unused tag? This cannot be undone. | Okay to delete these {count} unused tags? This cannot be undone.",
       "no-unused-tags": "No unused tags to delete",
       "associated-recipes": "Associated Recipes",
-      "associated-recipes-help": "Removing a recipe here only takes effect when you click Confirm; click Cancel to discard the change."
+      "associated-recipes-help": "Removing a recipe here only takes effect when you click Confirm; click Cancel to discard the change.",
+      "too-many-pending-removals": "Too many pending removals. Please confirm your changes before removing more."
     },
     "tools": {
       "new-tool": "New Tool",

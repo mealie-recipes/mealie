@@ -237,20 +237,49 @@
       </template>
 
       <template #edit-dialog-bottom>
-        <div v-if="editRecipes.length > 0" class="mt-4">
+        <div v-if="editRecipes.length > 0 || editRecipesLoadFailed" class="mt-4">
           <div class="text-subtitle-2 mb-1">
             {{ $t("data-pages.foods.associated-recipes") }}
           </div>
           <v-list density="compact">
             <v-list-item
-              v-for="recipe in editRecipesPreview"
+              v-for="recipe in editRecipes"
               :key="recipe.slug"
               :to="`/g/${userGroup}/r/${recipe.slug}`"
               :title="recipe.name || recipe.slug"
             />
           </v-list>
-          <div v-if="editRecipesRemaining > 0" class="text-body-2 pl-2">
-            {{ $t('data-pages.delete-unused-more', { count: editRecipesRemaining }) }}
+          <div v-if="editRecipesLoadFailed" class="d-flex align-center text-body-2 pl-2">
+            <span class="text-error">{{ $t("data-pages.load-recipes-failed") }}</span>
+            <v-btn
+              variant="text"
+              size="small"
+              color="primary"
+              class="ml-2"
+              :loading="editRecipesLoading"
+              @click="retryEditRecipes"
+            >
+              {{ $t("data-pages.retry") }}
+            </v-btn>
+          </div>
+          <div v-if="editRecipesTotalPages > 1" class="d-flex align-center mt-2">
+            <v-btn
+              variant="text"
+              size="small"
+              :disabled="editRecipesPage <= 1 || editRecipesLoading"
+              @click="loadEditRecipesPage(editRecipesPage - 1)"
+            >
+              {{ $t("general.previous") }}
+            </v-btn>
+            <span class="text-body-2 mx-2">{{ editRecipesPage }} / {{ editRecipesTotalPages }}</span>
+            <v-btn
+              variant="text"
+              size="small"
+              :disabled="editRecipesPage >= editRecipesTotalPages || editRecipesLoading"
+              @click="loadEditRecipesPage(editRecipesPage + 1)"
+            >
+              {{ $t("general.next") }}
+            </v-btn>
           </div>
         </div>
       </template>
@@ -283,12 +312,12 @@ import RecipeDataSubstitutionManagerDialog from "~/components/Domain/Recipe/Reci
 import type { ReverseSubstitutionChanges } from "~/components/Domain/Recipe/RecipeDataSubstitutionManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
+import { useEditDialogRecipes } from "~/composables/use-edit-dialog-recipes";
 import type {
   CreateIngredientFood,
   IngredientFood,
   IngredientFoodAlias,
   IngredientFoodSubstitution,
-  RecipeSummary,
 } from "~/lib/api/types/recipe";
 import MultiPurposeLabel from "~/components/Domain/ShoppingList/MultiPurposeLabel.vue";
 import { useLocales } from "~/composables/use-locales";
@@ -490,25 +519,26 @@ async function handleEdit() {
 
   await foodStore.actions.updateOne(editForm.data);
   editForm.data = {} as IngredientFoodWithOnHand;
-  editRecipes.value = [];
+  resetEditRecipes();
   await applyReverseSubstitutions(foodId);
 }
 
 // ============================================================
 // Edit Dialog: Associated Recipes
-const EDIT_RECIPES_PREVIEW_LIMIT = 10;
-
-const editRecipes = ref<RecipeSummary[]>([]);
-const editRecipesPreview = computed(() => editRecipes.value.slice(0, EDIT_RECIPES_PREVIEW_LIMIT));
-const editRecipesRemaining = computed(() => Math.max(editRecipes.value.length - EDIT_RECIPES_PREVIEW_LIMIT, 0));
+const {
+  recipes: editRecipes,
+  page: editRecipesPage,
+  totalPages: editRecipesTotalPages,
+  loading: editRecipesLoading,
+  loadFailed: editRecipesLoadFailed,
+  open: openEditRecipes,
+  reset: resetEditRecipes,
+  loadPage: loadEditRecipesPage,
+  retry: retryEditRecipes,
+} = useEditDialogRecipes("foods");
 
 async function onEditDialogOpen(item: IngredientFoodWithOnHand) {
-  editRecipes.value = [];
-  if (!item?.id) {
-    return;
-  }
-  const { data } = await userApi.recipes.search({ foods: [item.id], perPage: -1 });
-  editRecipes.value = data?.items ?? [];
+  await openEditRecipes(item?.id);
 }
 
 // ============================================================
