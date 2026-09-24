@@ -24,7 +24,7 @@ dependencies = [
     "python-dotenv==1.2.3",
     "python-ldap==3.4.8",
     "python-multipart==0.0.32",
-    "python-slugify==9.0.0",
+    "python-slugify==9.1.0",
     "recipe-scrapers==15.12.0",
     "requests==2.34.2",
     "tzdata==2026.4",
