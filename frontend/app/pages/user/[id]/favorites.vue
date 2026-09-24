@@ -19,6 +19,10 @@ import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue"
 import { useLazyRecipes } from "~/composables/recipes";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 
+definePageMeta({
+  middleware: ["auth"],
+});
+
 const route = useRoute();
 const i18n = useI18n();
 const { isOwnGroup } = useLoggedInState();

@@ -119,6 +119,10 @@ import { useMealplans } from "~/composables/use-group-mealplan";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 
+definePageMeta({
+  middleware: ["auth"],
+});
+
 const TABS = {
   view: "household-mealplan-planner-view",
   edit: "household-mealplan-planner-edit",

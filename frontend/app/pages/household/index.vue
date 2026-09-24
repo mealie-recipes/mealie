@@ -39,7 +39,7 @@ import { alert } from "~/composables/use-toast";
 import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
-  middleware: ["can-manage-household-only"],
+  middleware: ["auth", "can-manage-household-only"],
 });
 
 const { household, actions: householdActions } = useHouseholdSelf();

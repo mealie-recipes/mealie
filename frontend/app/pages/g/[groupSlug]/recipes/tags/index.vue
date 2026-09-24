@@ -20,7 +20,7 @@ import RecipeOrganizerPage from "~/components/Domain/Recipe/RecipeOrganizerPage.
 import { useTagStore } from "~/composables/store";
 
 definePageMeta({
-  middleware: ["group-only"],
+  middleware: ["auth", "group-only"],
 });
 
 const { store, actions } = useTagStore();

@@ -285,6 +285,7 @@ import UserInviteDialog from "~/components/Domain/User/UserInviteDialog.vue";
 
 definePageMeta({
   name: "UserProfile",
+  middleware: ["auth"],
   scrollToTop: true,
 });
 

@@ -363,6 +363,10 @@ import { useLabelStore, useUnitStore, useFoodStore } from "~/composables/store";
 import { alert } from "~/composables/use-toast";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 
+definePageMeta({
+  middleware: ["auth"],
+});
+
 const { smAndUp } = useDisplay();
 const i18n = useI18n();
 
