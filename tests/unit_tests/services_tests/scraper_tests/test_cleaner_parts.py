@@ -706,9 +706,34 @@ time_test_cases = (
         expected="1 day 1 hour 1 minute 1 second",
     ),
     CleanerCase(
-        test_id="timedelta string (5) invalid",
+        test_id="timedelta string (5) empty",
         input="PT",
-        expected="none",
+        expected=None,
+    ),
+    CleanerCase(
+        test_id="timedelta string zero",
+        input="PT0S",
+        expected=None,
+    ),
+    CleanerCase(
+        test_id="timedelta zero",
+        input=timedelta(0),
+        expected=None,
+    ),
+    CleanerCase(
+        test_id="negative minutes",
+        input=-5,
+        expected=None,
+    ),
+    CleanerCase(
+        test_id="timedelta string months kept as text",
+        input="P1M",
+        expected="P1M",
+    ),
+    CleanerCase(
+        test_id="timedelta string negative kept as text",
+        input="-PT1H",
+        expected="-PT1H",
     ),
     CleanerCase(
         test_id="timedelta string day only",

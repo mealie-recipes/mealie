@@ -27,12 +27,6 @@ MATCH_NUMBER = re.compile(r"\d+(?:\.\d+)?")
 MATCH_DIGITS = re.compile(r"\d+([.,]\d+)?")
 """ Allow for commas as decimals (common in Europe) """
 
-MATCH_ISO_STR = re.compile(
-    r"^P((\d+)Y)?((\d+)M)?((?P<weeks>\d+)W)?((?P<days>\d+)D)?"
-    r"(T((?P<hours>\d+)H)?((?P<minutes>\d+)M)?((?P<seconds>\d+(?:\.\d+)?)S)?)?$",
-)
-""" Match Duration Strings """
-
 MATCH_HTML_TAGS = re.compile(r"<[^<]+?>")
 """ Matches HTML tags `<p>Text</p>` -> `Text` """
 
@@ -500,15 +494,7 @@ def clean_duration(time_entry: typing.Any) -> int | None:
             value = time_entry.strip()
             if MATCH_NUMBER.fullmatch(value):
                 seconds = float(value) * 60
-            elif value[:1] in ("P", "p"):
-                try:
-                    delta = isodate.parse_duration(value.upper())
-                except isodate.ISO8601Error, ValueError:
-                    return None
-
-                # Years and months parse to an isodate.Duration, which has no fixed length
-                if not isinstance(delta, timedelta):
-                    return None
+            elif (delta := parse_duration(value)) is not None:
                 seconds = delta.total_seconds()
             else:
                 return None
@@ -550,19 +536,19 @@ def clean_time(time_entry: str | timedelta | int | float | None, translator: Tra
     match time_entry:
         case numbers.Number():
             # type checked by case statement
-            time_delta = timedelta(minutes=time_entry)  # type: ignore
-            return pretty_print_timedelta(time_delta, translator)
+            return clean_time(timedelta(minutes=time_entry), translator)  # type: ignore
         case str(time_entry):
             if not time_entry.strip():
                 return None
 
-            try:
-                time_delta_instructionsect = parse_duration(time_entry)
-                return pretty_print_timedelta(time_delta_instructionsect, translator)
-            except ValueError:
+            # Anything that isn't a duration, or is a negative one, is kept as text
+            delta = parse_duration(time_entry)
+            if delta is None or delta < timedelta(0):
                 return str(time_entry)
+            return clean_time(timedelta(seconds=int(delta.total_seconds())), translator)
         case timedelta():
-            return pretty_print_timedelta(time_entry, translator)
+            # A zero or negative duration isn't a time worth showing
+            return pretty_print_timedelta(time_entry, translator) if time_entry > timedelta(0) else None
         case {"minValue": str(value)}:
             return clean_time(value, translator)
         case [str(), *_]:
@@ -577,34 +563,18 @@ def clean_time(time_entry: str | timedelta | int | float | None, translator: Tra
             return None
 
 
-def parse_duration(iso_duration: str) -> timedelta:
+def parse_duration(value: str) -> timedelta | None:
     """
-    Parses an ISO 8601 duration string into a datetime.timedelta instance.
+    Parses an ISO 8601 duration string, e.g. `"PT1H30M"`, into a timedelta.
 
-    Args:
-        iso_duration: an ISO 8601 duration string.
-
-    Raises:
-        ValueError: if the input string is not a valid ISO 8601 duration string.
+    Returns None if it isn't one, or if it has years or months, which have no fixed length.
     """
+    try:
+        delta = isodate.parse_duration(value.strip().upper())
+    except isodate.ISO8601Error, ValueError:
+        return None
 
-    m = MATCH_ISO_STR.match(iso_duration)
-
-    if m is None:
-        raise ValueError("invalid ISO 8601 duration string")
-
-    # Years and months are not being utilized here, as there is not enough
-    # information provided to determine which year and which month.
-    # Python's time_delta class stores durations as days, seconds and
-    # microseconds internally, and therefore we'd have to
-    # convert parsed years and months to specific number of days.
-
-    times = {"weeks": 0, "days": 0, "hours": 0, "minutes": 0, "seconds": 0}
-    for unit in times.keys():
-        if m.group(unit):
-            times[unit] = int(float(m.group(unit)))
-
-    return timedelta(**times)
+    return delta if isinstance(delta, timedelta) else None
 
 
 def pretty_print_timedelta(t: timedelta, translator: Translator, max_components=None, max_decimal_places=2):
