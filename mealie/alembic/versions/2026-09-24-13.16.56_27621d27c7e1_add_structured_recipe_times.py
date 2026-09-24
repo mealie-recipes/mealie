@@ -10,6 +10,8 @@ moves existing text into it, but only when the whole string is unambiguously a d
 unit words from any locale's `datetime` translations (what the scraper wrote via
 `pretty_print_timedelta`). Anything else is left as text, untouched.
 
+The one exception is "none", which the scraper wrote for a zero-length time. It's cleared.
+
 The parser lives here rather than in the app so later changes to the scraper can't change what
 this migration did.
 
@@ -45,6 +47,8 @@ UNIT_SECONDS = {"day": 86400, "hour": 3600, "minute": 60, "second": 1}
 """Largest first; components must appear in this order, each at most once"""
 
 NUMBER = r"\d+(?:\.\d+)?"
+
+EMPTY_TIME = "none"
 
 
 def load_unit_words(locales_dir: Path = LOCALES_DIR) -> dict[str, str]:
@@ -143,6 +147,11 @@ def parse_seconds(value: str | None, unit_words: dict[str, str], pattern: re.Pat
     return _parse_words(value, unit_words, pattern)
 
 
+def is_empty_time(value: str | None) -> bool:
+    """What `pretty_print_timedelta` wrote, untranslated, for a zero-length time"""
+    return value is not None and value.strip().casefold() == EMPTY_TIME
+
+
 def format_seconds(seconds: int) -> str:
     """English text for downgrading, in the shape the scraper used to write"""
     parts: list[str] = []
@@ -164,22 +173,30 @@ def upgrade() -> None:
     session = orm.Session(bind=op.get_bind())
 
     rows = session.execute(text(f"SELECT id, {', '.join(TIME_FIELDS)} FROM recipes")).fetchall()
-    converted = 0
+    converted = cleared = 0
     for recipe_id, *values in rows:
-        updates: dict[str, int] = {}
+        updates: dict[str, int | None] = {}
         for field, value in zip(TIME_FIELDS, values, strict=True):
             if (seconds := parse_seconds(value, unit_words, pattern)) is not None:
                 updates[field] = seconds
+                converted += 1
+            elif is_empty_time(value):
+                updates[field] = None
+                cleared += 1
 
         if not updates:
             continue
 
         assignments = ", ".join(f"{field}_seconds = :{field}, {field} = NULL" for field in updates)
         session.execute(text(f"UPDATE recipes SET {assignments} WHERE id = :id"), {**updates, "id": recipe_id})
-        converted += len(updates)
 
     session.commit()
-    logger.info("Converted %s recipe times to structured durations across %s recipes", converted, len(rows))
+    logger.info(
+        "Converted %s recipe times to structured durations and cleared %s empty ones across %s recipes",
+        converted,
+        cleared,
+        len(rows),
+    )
 
 
 def downgrade():

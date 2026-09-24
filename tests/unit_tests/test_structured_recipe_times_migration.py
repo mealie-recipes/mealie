@@ -102,3 +102,18 @@ def test_ambiguous_unit_words_are_dropped(tmp_path: Path) -> None:
 )
 def test_format_seconds(seconds: int, expected: str) -> None:
     assert migration.format_seconds(seconds) == expected
+
+
+@pytest.mark.parametrize(
+    "value, expected",
+    [
+        ("none", True),
+        (" None ", True),
+        (None, False),
+        ("", False),
+        ("none needed", False),
+        ("30 minutes", False),
+    ],
+)
+def test_is_empty_time(value: str | None, expected: bool) -> None:
+    assert migration.is_empty_time(value) is expected
