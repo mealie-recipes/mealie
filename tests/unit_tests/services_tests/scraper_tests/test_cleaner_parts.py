@@ -740,6 +740,40 @@ def test_cleaner_clean_time(case: CleanerCase):
     assert case.expected == result
 
 
+duration_test_cases = (
+    CleanerCase(test_id="none", input=None, expected=None),
+    CleanerCase(test_id="empty string", input="", expected=None),
+    CleanerCase(test_id="int minutes", input=30, expected=1800),
+    CleanerCase(test_id="float minutes", input=1.5, expected=90),
+    CleanerCase(test_id="string minutes", input="30", expected=1800),
+    CleanerCase(test_id="bool", input=True, expected=None),
+    CleanerCase(test_id="iso", input="PT1H30M", expected=5400),
+    CleanerCase(test_id="iso lowercase", input="pt15m", expected=900),
+    CleanerCase(test_id="iso days", input="P1DT1H", expected=90000),
+    CleanerCase(test_id="iso weeks", input="P1W", expected=604800),
+    CleanerCase(test_id="iso fractional seconds", input="PT1M1.53S", expected=62),
+    CleanerCase(test_id="timedelta", input=timedelta(hours=1), expected=3600),
+    CleanerCase(test_id="min value", input={"minValue": "PT1H"}, expected=3600),
+    CleanerCase(test_id="list", input=["PT1H", "PT2H"], expected=3600),
+    # Kept as text
+    CleanerCase(test_id="free text", input="1 hour 30 minutes", expected=None),
+    CleanerCase(test_id="iso months", input="P1M", expected=None),
+    CleanerCase(test_id="iso years", input="P1Y", expected=None),
+    CleanerCase(test_id="iso invalid", input="PT", expected=None),
+    CleanerCase(test_id="iso negative", input="PT-3H", expected=None),
+    CleanerCase(test_id="zero", input=0, expected=None),
+    CleanerCase(test_id="iso zero", input="PT0M", expected=None),
+    CleanerCase(test_id="negative", input=-5, expected=None),
+    CleanerCase(test_id="too large", input="P30000D", expected=None),
+    CleanerCase(test_id="infinite", input=float("inf"), expected=None),
+)
+
+
+@pytest.mark.parametrize("case", duration_test_cases, ids=(x.test_id for x in duration_test_cases))
+def test_cleaner_clean_duration(case: CleanerCase):
+    assert cleaner.clean_duration(case.input) == case.expected
+
+
 category_test_cases = (
     CleanerCase(
         test_id="empty string",
