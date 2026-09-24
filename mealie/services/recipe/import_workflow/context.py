@@ -38,9 +38,15 @@ class WorkflowInput(BaseModel):
     URL; otherwise URL compilers still see only `url`.
     """
 
+    document_content: str | None = None
+    """
+    Text extracted from an uploaded document. Compiled in addition to any other source, never
+    instead of one.
+    """
+
     @property
     def is_empty(self) -> bool:
-        return not (self.content or self.images or self.url or self.page_content)
+        return not (self.content or self.images or self.url or self.page_content or self.document_content)
 
 
 class WorkflowOptions(BaseModel):

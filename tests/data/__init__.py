@@ -57,6 +57,31 @@ images_test_image_1 = CWD / "images/test-image-1.jpg"
 
 images_test_image_2 = CWD / "images/test-image-2.png"
 
+document_recipe_pdf = CWD / "documents/recipe.pdf"
+
+document_recipe_docx = CWD / "documents/recipe.docx"
+
+document_recipe_odt = CWD / "documents/recipe.odt"
+
+document_recipe_md = CWD / "documents/recipe.md"
+
+document_recipe_txt = CWD / "documents/recipe.txt"
+
+document_recipe_rtf = CWD / "documents/recipe.rtf"
+
+document_recipe_html = CWD / "documents/recipe.html"
+
+document_empty_txt = CWD / "documents/empty.txt"
+
+document_scanned_recipe_pdf = CWD / "documents/scanned_recipe.pdf"
+"""A PDF with an embedded image of the recipe and no text layer, as a real scanner would produce"""
+
+document_recipe_with_text_and_image_pdf = CWD / "documents/recipe_with_text_and_image.pdf"
+"""A PDF with both a real text layer and an embedded image"""
+
+document_blank_pdf = CWD / "documents/blank.pdf"
+"""A PDF with neither a text layer nor any embedded images"""
+
 html_mealie_recipe = CWD / "html/mealie-recipe.html"
 
 html_sous_vide_smoked_beef_ribs = CWD / "html/sous-vide-smoked-beef-ribs.html"
