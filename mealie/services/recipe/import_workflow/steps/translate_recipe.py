@@ -100,8 +100,11 @@ class TranslateRecipeStep(WorkflowStep):
             return
 
         translated = to_recipe(ctx, response)
-        # nutrition never made the round trip, so it carries over untouched
+        # nutrition and structured times never made the round trip, so they carry over untouched
         translated.nutrition = recipe.nutrition
+        translated.total_time_seconds = recipe.total_time_seconds
+        translated.prep_time_seconds = recipe.prep_time_seconds
+        translated.perform_time_seconds = recipe.perform_time_seconds
 
         # cleaning again is what parses the translated times and yield back out of their new wording
         ctx.draft_recipe = cleaner.clean(translated, ctx.translator)
