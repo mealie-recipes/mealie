@@ -816,9 +816,7 @@ def test_create_from_pdf_with_text_and_image_uses_text_not_images(
 
     ai = AIResponses(recipe=openai_recipe).install(monkeypatch)
 
-    with document_file(
-        test_data.document_recipe_with_text_and_image_pdf, "recipe.pdf", "application/pdf"
-    ) as files:
+    with document_file(test_data.document_recipe_with_text_and_image_pdf, "recipe.pdf", "application/pdf") as files:
         r = post_ai(api_client, unique_user, files=files)
     assert r.status_code == 201
 
