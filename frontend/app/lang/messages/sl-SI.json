@@ -352,7 +352,7 @@
       "title": "Urejevalnik receptov Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie lahko uvozi recepte izpred Mealie verzije v1.0. Izvozi recepte iz stare instance in spodaj uvozi zip datoteko. Omogočen je uvoz samo za recepte.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie pred v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migracije receptov",
-    "recipe-data-migrations-explanation": "Recepte lahko migriraš iz drugih podprtih aplikacij v Mealie. To je super način za čim hitrejši začetek z Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Prihajaš iz druge aplijacije ali celo starejše verzije Mealie aplikacije? Poglej podprte migracije in preveri, če lahko uvoziš svoje podatke.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Izberi tip migracije",
     "tag-all-recipes": "Označi vse recepte z {tag-name} značko",
     "recipe-1": "Recept 1",
