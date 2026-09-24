@@ -12,6 +12,7 @@ from ..exceptions import NoRecipeDataError
 
 IMAGES_LABEL = "Uploaded images"
 PAGE_LABEL = "Recipe source page"
+DOCUMENT_LABEL = "Uploaded document"
 CONTENT_LABEL = "Content supplied by the user"
 
 MULTI_SOURCE_PREAMBLE = (
@@ -133,10 +134,14 @@ class CompileSourceStep(WorkflowStep):
         )
 
     async def run(self, ctx: WorkflowContext) -> None:
-        # the user's own content goes last, so it reads as an addendum to what it accompanies
+        # the user's own content goes last, so it reads as an addendum to what it accompanies.
+        # An uploaded document is also the user's own material, but `content` is typically short,
+        # deliberate notes or corrections (e.g. "name this Grandma's Pancakes") that should have
+        # the final word, so the document is placed just before it rather than after.
         sources = [
             (IMAGES_LABEL, await self._compile_images(ctx)),
             (PAGE_LABEL, await self._compile_page(ctx)),
+            (DOCUMENT_LABEL, await self._compile_content(ctx, ctx.input.document_content)),
             (CONTENT_LABEL, await self._compile_content(ctx, ctx.input.content)),
         ]
 

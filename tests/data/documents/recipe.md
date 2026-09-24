@@ -1,0 +1,11 @@
+# Grandma's Pancakes
+
+Grandma's Pancakes
+
+Ingredients:
+2 cups flour
+2 eggs
+1.5 cups milk
+
+Instructions:
+Mix all ingredients together and fry on a hot griddle until golden brown.
