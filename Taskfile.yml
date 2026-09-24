@@ -156,7 +156,7 @@ tasks:
       before installation begins
     internal: true
     cmds:
-      - uv export --no-editable --no-emit-project --extra pgsql --format
+      - uv export --no-dev --no-editable --no-emit-project --extra pgsql --format
         requirements-txt --output-file dist/dependencies.txt
       - cp dist/dependencies.txt dist/requirements.txt
       # Include mealie in the requirements, hashing the package that was just built to ensure it's the one installed
