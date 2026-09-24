@@ -3,6 +3,12 @@ import type { ISearchableItem } from "~/composables/use-search";
 import { useSearch } from "~/composables/use-search";
 
 /**
+ * A list this size or smaller fits on a screen or two, where scrolling finds an
+ * item as quickly as searching would, so the search toggle is not offered.
+ */
+export const SEARCH_MIN_LIST_SIZE = 20;
+
+/**
  * Composable for searching the items on a shopping list.
  *
  * Matching is delegated to `useSearch`, so the shopping list tolerates typos and
@@ -58,6 +64,20 @@ export function useShoppingListSearch(
 
   const isSearching = computed(() => debouncedSearch.value.trim().length > 0);
 
+  // The search field sits behind a toggle so it takes no room until it is
+  // wanted, and is only offered once the list is long enough to need it.
+  const isSearchOpen = ref(false);
+  const canSearch = computed(() => listItems.value.length > SEARCH_MIN_LIST_SIZE);
+
+  // Closing the field also clears it, so a query nobody can see never leaves
+  // items hidden.
+  function toggleSearch() {
+    isSearchOpen.value = !isSearchOpen.value;
+    if (!isSearchOpen.value) {
+      clearSearch();
+    }
+  }
+
   // `filtered` returns every item while the query is empty, so this holds the
   // full set in that case and every item matches.
   const matchedIds = computed(() => new Set(filtered.value.map(item => item.id)));
@@ -80,6 +100,9 @@ export function useShoppingListSearch(
     // actually reads, so tests can drive matching synchronously.
     debouncedSearch,
     isSearching,
+    isSearchOpen,
+    canSearch,
+    toggleSearch,
     matchesSearch,
     countMatches,
     hasMatches,

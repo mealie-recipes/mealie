@@ -1,6 +1,6 @@
 import { ref } from "vue";
 import { describe, expect, test } from "vitest";
-import { useShoppingListSearch } from "./use-shopping-list-search";
+import { SEARCH_MIN_LIST_SIZE, useShoppingListSearch } from "./use-shopping-list-search";
 import type { ShoppingListItemOut } from "~/lib/api/types/household";
 
 function listItem(id: string, overrides: Partial<ShoppingListItemOut> = {}): ShoppingListItemOut {
@@ -144,5 +144,41 @@ describe("useShoppingListSearch fuzzy noise", () => {
       .toEqual(["beans"]);
     expect(items.filter(searchFor(items, "bean green").matchesSearch))
       .toEqual([]);
+  });
+});
+
+describe("useShoppingListSearch toggle", () => {
+  const items = (count: number) => Array.from({ length: count }, (_, i) => listItem(`${i}`, { note: `Item ${i}` }));
+
+  test(`is only offered once the list has more than ${SEARCH_MIN_LIST_SIZE} items`, () => {
+    const list = ref(items(SEARCH_MIN_LIST_SIZE));
+    const { canSearch } = useShoppingListSearch(list);
+    expect(canSearch.value).toBe(false);
+
+    list.value = items(SEARCH_MIN_LIST_SIZE + 1);
+    expect(canSearch.value).toBe(true);
+  });
+
+  test("starts closed and opens on toggle", () => {
+    const { isSearchOpen, toggleSearch } = useShoppingListSearch(ref(items(30)));
+    expect(isSearchOpen.value).toBe(false);
+
+    toggleSearch();
+    expect(isSearchOpen.value).toBe(true);
+  });
+
+  test("closing the field clears the query, so nothing stays hidden", () => {
+    const list = items(30);
+    const composable = useShoppingListSearch(ref(list));
+    composable.toggleSearch();
+    composable.search.value = "Item 1";
+    composable.debouncedSearch.value = "Item 1";
+    expect(composable.isSearching.value).toBe(true);
+
+    composable.toggleSearch();
+    expect(composable.isSearchOpen.value).toBe(false);
+    expect(composable.search.value).toBe("");
+    expect(composable.isSearching.value).toBe(false);
+    expect(composable.countMatches(list)).toBe(30);
   });
 });

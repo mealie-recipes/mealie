@@ -84,9 +84,18 @@
               {{ shoppingList.name }}
             </h2>
             <v-spacer />
+            <!-- The search toggle stays while the field is open, so a list that shrinks to the
+                 threshold mid-search can still close it. "Check all" would also check items the
+                 search is hiding, so it is disabled while searching. -->
             <BaseButtonGroup
               class="d-flex"
               :buttons="[
+                ...(canSearch || isSearchOpen ? [{
+                  icon: $globals.icons.search,
+                  text: $t('search.search'),
+                  event: 'search',
+                  color: isSearchOpen ? 'primary' : undefined,
+                }] : []),
                 {
                   icon: $globals.icons.contentCopy,
                   text: '',
@@ -108,6 +117,7 @@
                   icon: $globals.icons.checkboxMultipleMarkedOutline,
                   text: $t('shopping-list.check-all-items'),
                   event: 'check',
+                  disabled: isSearching,
                 },
                 {
                   icon: $globals.icons.dotsVertical,
@@ -127,6 +137,7 @@
                   ],
                 },
               ]"
+              @search="toggleSearch"
               @edit="edit = true"
               @three-dot="threeDot = true"
               @check="openCheckAll"
@@ -153,6 +164,23 @@
       v-if="!edit"
       class="py-2 d-flex flex-column ga-1 shopping-list-view"
     >
+      <!-- Search, toggled from the page title -->
+      <v-text-field
+        v-if="isSearchOpen"
+        :model-value="search"
+        :label="$t('search.search')"
+        :prepend-inner-icon="$globals.icons.search"
+        autofocus
+        clearable
+        hide-details
+        density="compact"
+        variant="solo"
+        flat
+        single-line
+        @update:model-value="value => search = value ?? ''"
+        @click:clear="clearSearch"
+      />
+
       <!-- Create Item -->
       <ShoppingListAddItemForm
         v-if="$vuetify.display.smAndDown"
@@ -187,20 +215,6 @@
           @focus="createEditorOpen = true"
         />
       </div>
-
-      <v-text-field
-        :model-value="search"
-        :label="$t('search.search')"
-        :prepend-inner-icon="$globals.icons.search"
-        clearable
-        hide-details
-        density="compact"
-        variant="solo"
-        flat
-        single-line
-        @update:model-value="value => search = value ?? ''"
-        @click:clear="clearSearch"
-      />
 
       <TransitionGroup name="scroll-x-transition">
         <template v-for="(value, key) in itemsByLabel" :key="key">
@@ -265,17 +279,20 @@
                 {{ $t('shopping-list.items-checked-count', visibleCheckedCount) }}
               </div>
               <div class="justify-end">
+                <!-- both act on every checked item, including any the search is hiding -->
                 <BaseButtonGroup
                   :buttons="[
                     {
                       icon: $globals.icons.checkboxMultipleBlankOutline,
                       text: $t('shopping-list.uncheck-all-items'),
                       event: 'uncheck',
+                      disabled: isSearching,
                     },
                     {
                       icon: $globals.icons.delete,
                       text: $t('shopping-list.delete-checked'),
                       event: 'delete',
+                      disabled: isSearching,
                     },
                   ]"
                   @uncheck="openUncheckAll"
@@ -460,6 +477,9 @@ const {
   addRecipeReferenceToList,
   search,
   isSearching,
+  isSearchOpen,
+  canSearch,
+  toggleSearch,
   matchesSearch,
   hasMatches,
   clearSearch,
