@@ -35,23 +35,29 @@ class AIRecipeService(RecipeService):
         content: str | None = None,
         images: list[UploadFile] | None = None,
         url: str | None = None,
+        document_content: str | None = None,
+        document_images: list[tuple[str, bytes]] | None = None,
         translate_language: str | None = None,
         create_new_organizers: bool = False,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
     ) -> Recipe:
         """
-        Creates a recipe from any combination of content, images, and a URL.
+        Creates a recipe from any combination of content, images, a URL, text extracted from an
+        uploaded document, and images embedded in an uploaded document (e.g. a scanned PDF's
+        page photos, which are routed through the same vision pipeline as uploaded images).
 
         The first image, if any, becomes the recipe's cover image.
         """
 
         with get_temporary_path() as temp_path:
             local_images = self._store_images(images or [], temp_path)
+            local_images += self._store_document_images(document_images or [], temp_path)
 
             recipe_data = await self.build_recipe(
                 content=content,
                 images=local_images,
                 url=url,
+                document_content=document_content,
                 translate_language=translate_language,
                 create_new_organizers=create_new_organizers,
                 on_progress=on_progress,
@@ -70,6 +76,7 @@ class AIRecipeService(RecipeService):
         content: str | None = None,
         images: list[Path] | None = None,
         url: str | None = None,
+        document_content: str | None = None,
         translate_language: str | None = None,
         create_new_organizers: bool = False,
         on_progress: Callable[[str], Awaitable[None]] | None = None,
@@ -80,7 +87,7 @@ class AIRecipeService(RecipeService):
         The recipe is not persisted; that's up to the caller.
         """
 
-        workflow_input = WorkflowInput(content=content, images=images or [], url=url)
+        workflow_input = WorkflowInput(content=content, images=images or [], url=url, document_content=document_content)
         if workflow_input.is_empty:
             raise NoRecipeDataError(self.t("recipe.import-errors.no-source"))
 
@@ -114,6 +121,19 @@ class AIRecipeService(RecipeService):
             image_path = temp_path.joinpath(Path(image.filename).name)
             with image_path.open("wb") as buffer:
                 shutil.copyfileobj(image.file, buffer)
+            local_images.append(image_path)
+
+        return local_images
+
+    @staticmethod
+    def _store_document_images(document_images: list[tuple[str, bytes]], temp_path: Path) -> list[Path]:
+        """Writes images extracted from an uploaded document (e.g. a scanned PDF's pages) to disk."""
+        local_images: list[Path] = []
+        for index, (filename, image_bytes) in enumerate(document_images):
+            # pypdf's embedded image names are only unique within a page, so index-prefix them
+            # to avoid collisions between pages when writing into the same temp directory
+            image_path = temp_path.joinpath(f"{index}-{Path(filename).name}")
+            image_path.write_bytes(image_bytes)
             local_images.append(image_path)
 
         return local_images

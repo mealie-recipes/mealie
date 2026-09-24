@@ -1,5 +1,6 @@
 import json
 from collections.abc import Generator
+from contextlib import ExitStack, contextmanager
 from pathlib import Path
 
 import httpx
@@ -8,6 +9,7 @@ from fastapi.testclient import TestClient
 from slugify import slugify
 
 import mealie.services.openai.transcription as transcription_module
+import mealie.services.recipe.document_text_extraction as document_text_extraction_module
 import mealie.services.recipe.import_workflow.steps.compile_source as compile_source_module
 from mealie.core import exceptions
 from mealie.lang import get_locale_provider
@@ -27,6 +29,7 @@ from mealie.services.openai import OpenAINotEnabledException, OpenAIService
 from mealie.services.recipe.organizer_resolver import OrganizerResolver
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.cleaner import NO_IMAGE
+from tests import data as test_data
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -530,6 +533,328 @@ def test_new_organizers_are_created_when_requested(
     assert [tag["name"] for tag in recipe["tags"]] == [tag_name]
     assert [category["name"] for category in recipe["recipeCategory"]] == [category_name]
     assert [tool["name"] for tool in recipe["tools"]] == [tool_name]
+
+
+# =================================================================
+# Document Upload
+
+
+@contextmanager
+def document_file(path, filename: str, content_type: str):
+    with open(path, "rb") as f:
+        yield [("documents", (filename, f, content_type))]
+
+
+@contextmanager
+def document_files(*specs: tuple[Path, str, str]):
+    """Like `document_file`, but opens several files and uploads them together."""
+    with ExitStack() as stack:
+        files = [
+            ("documents", (filename, stack.enter_context(open(path, "rb")), content_type))
+            for path, filename, content_type in specs
+        ]
+        yield files
+
+
+@pytest.mark.parametrize(
+    "path,filename,content_type",
+    [
+        (test_data.document_recipe_pdf, "recipe.pdf", "application/pdf"),
+        (
+            test_data.document_recipe_docx,
+            "recipe.docx",
+            "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        ),
+        (test_data.document_recipe_odt, "recipe.odt", "application/vnd.oasis.opendocument.text"),
+        (test_data.document_recipe_md, "recipe.md", "text/markdown"),
+        (test_data.document_recipe_txt, "recipe.txt", "text/plain"),
+        (test_data.document_recipe_rtf, "recipe.rtf", "application/rtf"),
+        (test_data.document_recipe_html, "recipe.html", "text/html"),
+    ],
+)
+def test_create_from_document(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    recipe_name: str,
+    path,
+    filename: str,
+    content_type: str,
+):
+    ai = AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    with document_file(path, filename, content_type) as files:
+        r = post_ai(api_client, unique_user, files=files)
+    assert r.status_code == 201
+
+    # extracted document text is already a faithful record, so it's compiled without an AI call
+    assert "OpenAICompiledSource" not in ai.requested_schemas
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == recipe_name
+
+
+def test_create_from_document_combines_with_pasted_content(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """A document and pasted content are separate sources, and both must reach the build step."""
+
+    pasted_content = random_string()
+    messages: list[str] = []
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        messages.append(message)
+        return openai_recipe if response_schema is OpenAIRecipe else None
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    with document_file(test_data.document_recipe_txt, "recipe.txt", "text/plain") as files:
+        r = post_ai(api_client, unique_user, data={"content": pasted_content}, files=files)
+    assert r.status_code == 201
+
+    build_message = messages[0]
+    assert "Grandma's Pancakes" in build_message
+    assert pasted_content in build_message
+
+
+def test_create_from_document_combines_with_url(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """A document and a URL are separate sources, and both must reach the build step."""
+
+    page_text = random_string()
+    messages: list[str] = []
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        messages.append(message)
+        return openai_recipe if response_schema is OpenAIRecipe else None
+
+    async def mock_resilient_fetch(url: str):
+        ld_json = json.dumps({"@context": "https://schema.org", "@type": "Recipe", "name": page_text})
+        return html_fetch_result(
+            f'<html><head><script type="application/ld+json">{ld_json}</script></head><body>Recipe</body></html>',
+            url,
+        )
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+    monkeypatch.setattr(compile_source_module, "resilient_fetch", mock_resilient_fetch)
+
+    url = f"https://example.com/recipe/{random_string()}"
+    with document_file(test_data.document_recipe_txt, "recipe.txt", "text/plain") as files:
+        r = post_ai(api_client, unique_user, data={"url": url}, files=files)
+    assert r.status_code == 201
+
+    build_message = messages[0]
+    assert page_text in build_message
+    assert "Grandma's Pancakes" in build_message
+
+
+def test_create_from_document_empty_text_returns_400(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    with document_file(test_data.document_empty_txt, "empty.txt", "text/plain") as files:
+        r = post_ai(api_client, unique_user, files=files)
+    assert r.status_code == 400
+
+
+def test_create_from_document_unsupported_extension_returns_400(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    with document_file(test_data.document_recipe_txt, "recipe.doc", "application/msword") as files:
+        r = post_ai(api_client, unique_user, files=files)
+    assert r.status_code == 400
+
+
+# =================================================================
+# Multiple Document Upload
+
+
+def test_create_from_multiple_documents_combines_with_headers(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """More than one document is joined with a per-file header, unlike the single-document case."""
+
+    messages: list[str] = []
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        messages.append(message)
+        return openai_recipe if response_schema is OpenAIRecipe else None
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    with document_files(
+        (test_data.document_recipe_txt, "recipe1.txt", "text/plain"),
+        (test_data.document_recipe_md, "recipe2.md", "text/markdown"),
+    ) as files:
+        r = post_ai(api_client, unique_user, files=files)
+    assert r.status_code == 201
+
+    build_message = messages[0]
+    assert "## recipe1.txt" in build_message
+    assert "## recipe2.md" in build_message
+
+
+def test_create_from_multiple_documents_second_failure_names_that_file(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    with document_files(
+        (test_data.document_recipe_txt, "recipe1.txt", "text/plain"),
+        (test_data.document_recipe_txt, "recipe2.doc", "application/msword"),
+    ) as files:
+        r = post_ai(api_client, unique_user, files=files)
+    assert r.status_code == 400
+    assert "recipe2.doc" in r.json()["detail"]["message"]
+
+
+def test_create_from_two_scanned_pdfs_merges_images_into_one_list(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """Images extracted from multiple scanned PDFs all reach the vision path as one image list."""
+
+    ai = AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    with document_files(
+        (test_data.document_scanned_recipe_pdf, "scan1.pdf", "application/pdf"),
+        (test_data.document_scanned_recipe_pdf, "scan2.pdf", "application/pdf"),
+    ) as files:
+        r = post_ai(api_client, unique_user, files=files)
+    assert r.status_code == 201
+
+    # the images compiler describes how many images it was given in a single call
+    compile_message = ai.messages[ai.requested_schemas.index("OpenAICompiledSource")]
+    assert "2 images" in compile_message
+
+
+def test_create_from_scanned_and_text_pdf_combines_content_and_images(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """A scanned PDF and a text-layer PDF each contribute through their own path, simultaneously."""
+
+    ai = AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    with document_files(
+        (test_data.document_recipe_with_text_and_image_pdf, "recipe.pdf", "application/pdf"),
+        (test_data.document_scanned_recipe_pdf, "scanned.pdf", "application/pdf"),
+    ) as files:
+        r = post_ai(api_client, unique_user, files=files)
+    assert r.status_code == 201
+
+    # the scanned PDF's image went through the vision path
+    assert "OpenAICompiledSource" in ai.requested_schemas
+
+    # the text PDF's content reached the build step alongside it
+    build_message = ai.messages[ai.requested_schemas.index("OpenAIRecipe")]
+    assert "Grandma's Pancakes" in build_message
+
+
+def test_create_from_scanned_pdf_routes_through_images(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """A PDF with no text layer falls back to its embedded images, going through the vision pipeline."""
+
+    ai = AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    with document_file(test_data.document_scanned_recipe_pdf, "scanned_recipe.pdf", "application/pdf") as files:
+        r = post_ai(api_client, unique_user, files=files)
+    assert r.status_code == 201
+
+    # unlike plain extracted text, images always have to be read by the provider first
+    assert ai.requested_schemas[:2] == ["OpenAICompiledSource", "OpenAIRecipe"]
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    r = api_client.get(
+        api_routes.media_recipes_recipe_id_images_file_name(recipe["id"], "original.webp"),
+        headers=unique_user.token,
+    )
+    assert r.status_code == 200
+
+
+def test_create_from_pdf_with_text_and_image_uses_text_not_images(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+    recipe_name: str,
+):
+    """A successful text extraction short-circuits before the embedded-image fallback ever runs."""
+
+    ai = AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    with document_file(
+        test_data.document_recipe_with_text_and_image_pdf, "recipe.pdf", "application/pdf"
+    ) as files:
+        r = post_ai(api_client, unique_user, files=files)
+    assert r.status_code == 201
+
+    # text was extracted, so no vision call was needed to read the embedded image
+    assert "OpenAICompiledSource" not in ai.requested_schemas
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["name"] == recipe_name
+
+
+def test_create_from_pdf_with_no_text_or_images_returns_400(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    with document_file(test_data.document_blank_pdf, "blank.pdf", "application/pdf") as files:
+        r = post_ai(api_client, unique_user, files=files)
+    assert r.status_code == 400
+
+
+def test_create_from_scanned_pdf_exceeding_image_cap_returns_400(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    monkeypatch.setattr(document_text_extraction_module, "MAX_PDF_IMAGES", 0)
+    AIResponses(recipe=openai_recipe).install(monkeypatch)
+
+    with document_file(test_data.document_scanned_recipe_pdf, "scanned_recipe.pdf", "application/pdf") as files:
+        r = post_ai(api_client, unique_user, files=files)
+    assert r.status_code == 400
 
 
 def test_organizers_are_resolved_from_the_source_not_the_built_recipe(

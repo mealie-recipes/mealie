@@ -36,9 +36,15 @@ class WorkflowInput(BaseModel):
     not a separate source, so supplying it skips the fetch rather than adding to the material.
     """
 
+    document_content: str | None = None
+    """
+    Text extracted from an uploaded document. Compiled in addition to any other source, never
+    instead of one.
+    """
+
     @property
     def is_empty(self) -> bool:
-        return not (self.content or self.images or self.url or self.page_content)
+        return not (self.content or self.images or self.url or self.page_content or self.document_content)
 
 
 class WorkflowOptions(BaseModel):
