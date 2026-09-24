@@ -281,7 +281,7 @@
                         {{ $t('recipe.step-index', { step: index + 1 }) }}
                       </span>
                     </template>
-                    <CookTime v-model="step.cookTime" :is-edit-mode="isEditForm" />
+                    <CookTime v-model="step.durationMinutes" :is-edit-mode="isEditForm" />
                   </div>
                   <template v-if="isEditForm">
                     <div class="ml-auto">
@@ -438,7 +438,7 @@
                       {{ noteRef.referenceId != null ? (noteLookup[noteRef.referenceId] || $t('recipe.note')) : '' }}
                     </div>
                   </div>
-                  <CookTime v-model="step.cookTime" :is-edit-mode="isEditForm" />
+                  <CookTime v-model="step.durationMinutes" :is-edit-mode="isEditForm" />
                 </v-card-text>
               </DropZone>
 

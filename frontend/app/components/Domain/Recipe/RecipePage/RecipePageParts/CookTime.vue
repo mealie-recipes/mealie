@@ -1,81 +1,54 @@
 <template>
-  <div v-if="isEditMode && time" style="width: fit-content;">
-    <div>
-      {{ $t('recipe.perform-time') }}
-    </div>
-    <div class="d-flex ga-1 align-center">
-      <v-number-input
-        v-model="hour"
-        class="flex-grow-0"
-        style="min-width: 125px;"
-        :label="$t('general.hour')"
-        control-variant="stacked"
-        hide-details
-        density="compact"
-        inline
-        :min="0"
-      />
-      <v-number-input
-        v-model="minute"
-        class="flex-grow-0"
-        style="min-width: 125px;"
-        :label="$t('general.minute')"
-        density="compact"
-        control-variant="stacked"
-        hide-details
-        inline
-        :min="0"
-        :max="60"
-        :step="5"
-      />
-      <v-btn
-        variant="flat"
-        size="small"
-        class="rounded-e-pill"
-        :icon="$globals.icons.close"
-        @click="time = undefined"
-      />
-    </div>
-  </div>
-  <div v-else-if="isEditMode">
-    <BaseButton
-      secondary
-      color="info"
-      class="rounded-pill"
-      @click="time = '0:00'"
-    >
-      {{ $t('recipe.perform-time') }}
-    </BaseButton>
-  </div>
-  <div v-else-if="time" style="min-width: fit-content;">
-    <v-chip color="info" size="large" :prepend-icon="$globals.icons.clockOutline">
-      {{ time }}
-    </v-chip>
-  </div>
+  <v-text-field
+    v-if="isEditMode"
+    v-model="input"
+    type="number"
+    min="0"
+    max="2147483647"
+    step="1"
+    :label="$t('recipe.step-duration-minutes')"
+    :rules="[validDuration]"
+    density="compact"
+    hide-details="auto"
+    @update:model-value="updateDuration"
+    @click.stop
+  />
+  <span v-else-if="modelValue" class="text-body-2">
+    {{ formattedDuration }}
+  </span>
 </template>
 
 <script setup lang="ts">
-defineProps<{ isEditMode: boolean }>();
-const time = defineModel<string | null | undefined>();
+import { computed, ref, watch } from "vue";
+import { useI18n } from "vue-i18n";
 
-const hour = computed({
-  get() {
-    const definiteTime = time.value ?? "0:00";
-    const [definiteHour = "0"] = definiteTime.split(":");
-    return parseInt(definiteHour);
-  },
-  set(newVal) {
-    time.value = `${newVal}:${minute.value.toString().padStart(2, "0")}`;
-  },
-});
-const minute = computed({
-  get() {
-    const definiteTime = time.value ?? "0:00";
-    const [_, definiteMin = "0"] = definiteTime.split(":");
-    return parseInt(definiteMin);
-  },
-  set(newVal) {
-    time.value = `${hour.value}:${newVal.toString().padStart(2, "0")}`;
-  },
+const props = defineProps<{
+  modelValue?: number | null;
+  isEditMode: boolean;
+}>();
+const emit = defineEmits<{ "update:modelValue": [value: number | null] }>();
+const { t } = useI18n();
+const input = ref<string | number>(props.modelValue ?? "");
+watch(() => props.modelValue, value => input.value = value ?? "");
+
+function validDuration(value: string | number | null) {
+  if (value === "" || value === null) return true;
+  const minutes = Number(value);
+  return (Number.isInteger(minutes) && minutes >= 0 && minutes <= 2147483647)
+    || t("recipe.step-duration-invalid");
+}
+
+function updateDuration(value: string | number | null) {
+  if (validDuration(value) !== true) return;
+  emit("update:modelValue", Number(value) || null);
+}
+
+const formattedDuration = computed(() => {
+  const minutes = props.modelValue ?? 0;
+  const hours = Math.floor(minutes / 60);
+  const remainder = minutes % 60;
+  if (!hours) return t("recipe.step-duration-value-minutes", { minutes });
+  if (!remainder) return t("recipe.step-duration-value-hours", { hours });
+  return t("recipe.step-duration-value", { hours, minutes: remainder });
 });
 </script>
