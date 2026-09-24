@@ -74,6 +74,22 @@ def test_labels_empty_includes_unused_label_and_excludes_used_label(api_client: 
     api_client.delete(api_routes.groups_labels_item_id(used_label["id"]), headers=unique_user.token)
 
 
+def test_labels_empty_excludes_unused_label_from_other_group(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    own_label = _create_label(api_client, unique_user)
+    other_group_label = _create_label(api_client, g2_user)
+
+    response = api_client.get(api_routes.groups_labels_empty, headers=unique_user.token)
+    assert response.status_code == 200
+    ids = [item["id"] for item in response.json()]
+    assert own_label["id"] in ids
+    assert other_group_label["id"] not in ids
+
+    api_client.delete(api_routes.groups_labels_item_id(own_label["id"]), headers=unique_user.token)
+    api_client.delete(api_routes.groups_labels_item_id(other_group_label["id"]), headers=g2_user.token)
+
+
 # ---------------------------------------------------------------------------
 # Labels — merge
 # ---------------------------------------------------------------------------

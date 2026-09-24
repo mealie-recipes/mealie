@@ -94,6 +94,22 @@ def test_tools_empty_includes_unused_tool_and_excludes_used_tool(api_client: Tes
     api_client.delete(api_routes.organizers_tools_item_id(used_tool["id"]), headers=unique_user.token)
 
 
+def test_tools_empty_excludes_unused_tool_from_other_group(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    own_tool = _create_tool(api_client, unique_user)
+    other_group_tool = _create_tool(api_client, g2_user)
+
+    response = api_client.get(api_routes.organizers_tools_empty, headers=unique_user.token)
+    assert response.status_code == 200
+    ids = [item["id"] for item in response.json()]
+    assert own_tool["id"] in ids
+    assert other_group_tool["id"] not in ids
+
+    api_client.delete(api_routes.organizers_tools_item_id(own_tool["id"]), headers=unique_user.token)
+    api_client.delete(api_routes.organizers_tools_item_id(other_group_tool["id"]), headers=g2_user.token)
+
+
 # ---------------------------------------------------------------------------
 # Tools — merge
 # ---------------------------------------------------------------------------

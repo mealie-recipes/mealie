@@ -7,7 +7,7 @@ Integration tests for:
 
 from fastapi.testclient import TestClient
 
-from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood
+from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood, SaveIngredientFood
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -130,6 +130,26 @@ def test_foods_empty_excludes_food_still_on_shopping_list(api_client: TestClient
 
     api_client.delete(api_routes.households_shopping_lists_item_id(shopping_list["id"]), headers=unique_user.token)
     api_client.delete(api_routes.foods_item_id(food["id"]), headers=unique_user.token)
+
+
+def test_foods_empty_excludes_unused_food_from_other_group(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    own_food = _create_food(api_client, unique_user)
+    # created through the repo rather than the API: g2_user is created by an admin without the
+    # organize permission, and this test is only about what /empty returns
+    other_group_food = g2_user.repos.ingredient_foods.create(
+        SaveIngredientFood(name=random_string(10), group_id=g2_user.group_id)
+    )
+
+    response = api_client.get(api_routes.foods_empty, headers=unique_user.token)
+    assert response.status_code == 200
+    ids = [item["id"] for item in response.json()]
+    assert own_food["id"] in ids
+    assert str(other_group_food.id) not in ids
+
+    api_client.delete(api_routes.foods_item_id(own_food["id"]), headers=unique_user.token)
+    g2_user.repos.ingredient_foods.delete(other_group_food.id)
 
 
 # ---------------------------------------------------------------------------

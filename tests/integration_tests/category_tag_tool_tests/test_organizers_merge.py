@@ -1,12 +1,14 @@
 """
 Integration tests for:
 - recipe_count field on GET /organizers/tags and GET /organizers/categories
+- GET /organizers/tags/empty and GET /organizers/categories/empty
 - POST /organizers/tags/merge
 - POST /organizers/categories/merge
 """
 
 from fastapi.testclient import TestClient
 
+from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -90,6 +92,29 @@ def test_tag_list_recipe_count_is_zero_for_empty_tag(api_client: TestClient, uni
     assert match["recipeCount"] == 0
 
     api_client.delete(api_routes.organizers_tags_item_id(tag["id"]), headers=unique_user.token)
+
+
+# ---------------------------------------------------------------------------
+# Tags — empty
+# ---------------------------------------------------------------------------
+
+
+def test_tags_empty_excludes_unused_tag_from_other_group(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    own_tag = _create_tag(api_client, unique_user)
+    # created through the repo rather than the API: g2_user is created by an admin without the
+    # organize permission, and this test is only about what /empty returns
+    other_group_tag = g2_user.repos.tags.create(TagSave(name=random_string(10), group_id=g2_user.group_id))
+
+    response = api_client.get(api_routes.organizers_tags_empty, headers=unique_user.token)
+    assert response.status_code == 200
+    ids = [item["id"] for item in response.json()]
+    assert own_tag["id"] in ids
+    assert str(other_group_tag.id) not in ids
+
+    api_client.delete(api_routes.organizers_tags_item_id(own_tag["id"]), headers=unique_user.token)
+    g2_user.repos.tags.delete(other_group_tag.id)
 
 
 # ---------------------------------------------------------------------------
@@ -212,6 +237,31 @@ def test_category_list_includes_recipe_count_for_categorised_recipe(api_client: 
 
     api_client.delete(api_routes.recipes_slug(slug), headers=unique_user.token)
     api_client.delete(api_routes.organizers_categories_item_id(category["id"]), headers=unique_user.token)
+
+
+# ---------------------------------------------------------------------------
+# Categories — empty
+# ---------------------------------------------------------------------------
+
+
+def test_categories_empty_excludes_unused_category_from_other_group(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    own_category = _create_category(api_client, unique_user)
+    # created through the repo rather than the API: g2_user is created by an admin without the
+    # organize permission, and this test is only about what /empty returns
+    other_group_category = g2_user.repos.categories.create(
+        CategorySave(name=random_string(10), group_id=g2_user.group_id)
+    )
+
+    response = api_client.get(api_routes.organizers_categories_empty, headers=unique_user.token)
+    assert response.status_code == 200
+    ids = [item["id"] for item in response.json()]
+    assert own_category["id"] in ids
+    assert str(other_group_category.id) not in ids
+
+    api_client.delete(api_routes.organizers_categories_item_id(own_category["id"]), headers=unique_user.token)
+    g2_user.repos.categories.delete(other_group_category.id)
 
 
 # ---------------------------------------------------------------------------

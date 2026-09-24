@@ -40,7 +40,11 @@ class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]
             .correlate(IngredientFoodModel)
             .exists()
         )
-        stmt = select(IngredientFoodModel).filter(~IngredientFoodModel.ingredients.any(), ~used_in_shopping_lists)
+        stmt = (
+            select(IngredientFoodModel)
+            .filter(~IngredientFoodModel.ingredients.any(), ~used_in_shopping_lists)
+            .filter_by(**self._filter_builder())
+        )
         return self.session.execute(stmt).scalars().all()
 
     def _merge_substitutions(self, from_model: IngredientFoodModel, to_model: IngredientFoodModel) -> None:

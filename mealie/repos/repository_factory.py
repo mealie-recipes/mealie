@@ -101,7 +101,7 @@ class RepositoryCategories(GroupRepositoryGeneric[CategoryOut, Category]):
         return q.options(with_expression(Category.recipe_count, count_sq))
 
     def get_empty(self) -> Sequence[Category]:
-        stmt = select(Category).filter(~Category.recipes.any())
+        stmt = select(Category).filter(~Category.recipes.any()).filter_by(**self._filter_builder())
 
         return self.session.execute(stmt).scalars().all()
 
@@ -143,7 +143,7 @@ class RepositoryTags(GroupRepositoryGeneric[TagOut, Tag]):
         return q.options(with_expression(Tag.recipe_count, count_sq))
 
     def get_empty(self) -> Sequence[Tag]:
-        stmt = select(Tag).filter(~Tag.recipes.any())
+        stmt = select(Tag).filter(~Tag.recipes.any()).filter_by(**self._filter_builder())
         return self.session.execute(stmt).scalars().all()
 
     def merge(self, from_tag: UUID4, to_tag: UUID4) -> TagOut | None:
@@ -194,7 +194,7 @@ class RepositoryTools(GroupRepositoryGeneric[RecipeToolOut, Tool]):
         return q.options(with_expression(Tool.recipe_count, count_sq))
 
     def get_empty(self) -> Sequence[Tool]:
-        stmt = select(Tool).filter(~Tool.recipes.any())
+        stmt = select(Tool).filter(~Tool.recipes.any()).filter_by(**self._filter_builder())
         return self.session.execute(stmt).scalars().all()
 
     def merge(self, from_tool: UUID4, to_tool: UUID4) -> RecipeToolOut | None:
@@ -221,8 +221,10 @@ class RepositoryTools(GroupRepositoryGeneric[RecipeToolOut, Tool]):
 
 class RepositoryMultiPurposeLabels(GroupRepositoryGeneric[MultiPurposeLabelOut, MultiPurposeLabel]):
     def get_empty(self) -> Sequence[MultiPurposeLabel]:
-        stmt = select(MultiPurposeLabel).filter(
-            ~MultiPurposeLabel.foods.any(), ~MultiPurposeLabel.shopping_list_items.any()
+        stmt = (
+            select(MultiPurposeLabel)
+            .filter(~MultiPurposeLabel.foods.any(), ~MultiPurposeLabel.shopping_list_items.any())
+            .filter_by(**self._filter_builder())
         )
         return self.session.execute(stmt).scalars().all()
 
