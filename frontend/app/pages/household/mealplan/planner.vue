@@ -20,10 +20,10 @@
               {{ $globals.icons.calendar }}
             </v-icon>
             <template v-if="currentWeekMode">
-              {{ $t("meal-plan.current-week") }} {{ $d(weekRange.start, "dateRange") }} –
-              {{ $d(weekRange.end, "dateRange") }}
+              {{ $t("meal-plan.current-week") }} {{ $d(weekRange.start, "compact") }} –
+              {{ $d(weekRange.end, "compact") }}
             </template>
-            <template v-else> {{ $d(weekRange.start, "dateRange") }} – {{ $d(weekRange.end, "dateRange") }} </template>
+            <template v-else> {{ $d(weekRange.start, "compact") }} – {{ $d(weekRange.end, "compact") }} </template>
           </v-btn>
           <v-btn-group color="primary" density="compact" class="ml-2 ga-1">
             <v-btn icon @click="navigate(-1)">
@@ -46,18 +46,17 @@
         </v-card-text>
 
         <v-date-picker
-          v-model="state.range"
+          :model-value="state.range"
           hide-header
           :multiple="'range'"
           :first-day-of-week="firstDayOfWeek"
           :local="locale"
-          :disabled="currentWeekMode"
+          @update:model-value="onRangeInput"
         />
 
         <v-card-text>
           <v-number-input
             v-model="numberOfDaysPast"
-            :disabled="currentWeekMode"
             :min="0"
             group-separator=","
             control-variant="stacked"
@@ -71,7 +70,6 @@
         <v-card-text>
           <v-number-input
             v-model="numberOfDays"
-            :disabled="currentWeekMode"
             :min="1"
             group-separator=","
             control-variant="stacked"
@@ -119,6 +117,7 @@ import { isSameDay, addDays, parseISO, format, isValid } from "date-fns";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { useMealplans } from "~/composables/use-group-mealplan";
+import { getCurrentWeekRange, navigateRange } from "~/composables/use-meal-plan-range";
 import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 import type { ShoppingListSummary } from "~/lib/api/types/household";
 import { useUserApi } from "~/composables/api";
@@ -140,16 +139,18 @@ useSeoMeta({
 });
 
 const mealPlanPreferences = useUserMealPlanPreferences();
+const currentWeekMode = ref<boolean>(mealPlanPreferences.value.useCurrentWeek);
+
 const numberOfDaysPast = ref<number>(mealPlanPreferences.value.numberOfDaysPast || 0);
 const numberOfDays = ref<number>(mealPlanPreferences.value.numberOfDays || 7);
 watch(numberOfDaysPast, (val) => {
   mealPlanPreferences.value.numberOfDaysPast = Number(val);
+  currentWeekMode.value = false;
 });
 watch(numberOfDays, (val) => {
   mealPlanPreferences.value.numberOfDays = Number(val);
+  currentWeekMode.value = false;
 });
-
-const currentWeekMode = ref<boolean>(mealPlanPreferences.value.useCurrentWeek || false);
 
 // Force to /view if current route is /planner
 if (route.path === "/household/mealplan/planner") {
@@ -166,18 +167,6 @@ function safeParseISO(date: string, fallback: Date | undefined = undefined) {
   } catch {
     return fallback;
   }
-}
-
-function getCurrentWeekRange(startDay: number): [Date, Date] {
-  const today = new Date();
-  const currentDay = today.getDay();
-  let diff = currentDay - startDay;
-  if (diff < 0) diff += 7;
-  const start = new Date(today);
-  start.setDate(today.getDate() - diff);
-  const end = new Date(start);
-  end.setDate(start.getDate() + 6);
-  return [start, end];
 }
 
 const firstDayOfWeek = computed(() => {
@@ -209,8 +198,14 @@ const state = ref({
 
 const shoppingLists = ref<ShoppingListSummary[]>();
 
+let suppressCurrentWeekModeRangeReset = false;
+
 watch(currentWeekMode, (val) => {
   mealPlanPreferences.value.useCurrentWeek = val;
+  if (suppressCurrentWeekModeRangeReset) {
+    suppressCurrentWeekModeRangeReset = false;
+    return;
+  }
   if (val) {
     const [start, end] = getCurrentWeekRange(firstDayOfWeek.value);
     state.value.range = [start, end];
@@ -227,6 +222,15 @@ watch(firstDayOfWeek, () => {
     state.value.range = [start, end];
   }
 });
+
+// User-driven date picker changes take priority over "Current Week" mode.
+function onRangeInput(val: [Date, Date]) {
+  state.value.range = val;
+  if (currentWeekMode.value) {
+    suppressCurrentWeekModeRangeReset = true;
+    currentWeekMode.value = false;
+  }
+}
 
 const weekRange = computed(() => {
   const sorted = [...state.value.range].sort((a, b) => a.getTime() - b.getTime());
@@ -279,10 +283,7 @@ function adjustForToday(days: number) {
 
 function navigate(direction: -1 | 1) {
   const { start, end } = weekRange.value;
-  const diffDays = Math.round((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
-  const periodLength = diffDays + 1;
-  const shift = periodLength * direction;
-  state.value.range = [addDays(start, shift), addDays(end, shift)];
+  state.value.range = navigateRange(start, end, direction);
 }
 
 const days = computed(() => {

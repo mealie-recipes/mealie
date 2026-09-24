@@ -1,4 +1,8 @@
 {
+  "compact": {
+    "month": "short",
+    "day": "numeric"
+  },
   "short": {
     "month": "short",
     "day": "numeric",
@@ -17,10 +21,6 @@
     "weekday": "long",
     "hour": "numeric",
     "minute": "numeric"
-  },
-  "dateRange": {
-    "month": "short",
-    "day": "numeric"
   },
   "time": {
     "ampm": "short",

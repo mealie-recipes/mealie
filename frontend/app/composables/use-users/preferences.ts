@@ -84,7 +84,7 @@ export function useUserMealPlanPreferences(): Ref<UserMealPlanPreferences> {
     {
       numberOfDaysPast: 0,
       numberOfDays: 7,
-      useCurrentWeek: false,
+      useCurrentWeek: true,
     },
     { mergeDefaults: true },
   );
