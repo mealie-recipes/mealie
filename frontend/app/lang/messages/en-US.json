@@ -85,7 +85,6 @@
     "friday": "Friday",
     "get": "Get",
     "home": "Home",
-    "hour": "Hours",
     "image": "Image",
     "import": "Import",
     "json": "JSON",
@@ -94,7 +93,6 @@
     "loading-recipe": "Loading recipe...",
     "loading-recipes": "Loading Recipes",
     "message": "Message",
-    "minute": "Minutes",
     "monday": "Monday",
     "name": "Name",
     "new": "New",
@@ -466,6 +464,11 @@
     "an-error-occurred": "An error occurred"
   },
   "recipe": {
+    "step-duration-minutes": "Duration (minutes)",
+    "step-duration-invalid": "Enter a whole number of minutes between 0 and 2147483647",
+    "step-duration-value": "{hours}h {minutes}m",
+    "step-duration-value-hours": "{hours}h",
+    "step-duration-value-minutes": "{minutes}m",
     "add-to-favorites": "Add to Favorites",
     "api-extras": "API Extras",
     "calories": "Calories",

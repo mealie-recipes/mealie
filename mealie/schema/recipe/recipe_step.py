@@ -1,6 +1,7 @@
+from typing import Any
 from uuid import UUID, uuid4
 
-from pydantic import UUID4, ConfigDict, Field
+from pydantic import UUID4, ConfigDict, Field, field_validator
 
 from mealie.schema._mealie import MealieModel
 
@@ -28,4 +29,11 @@ class RecipeStep(MealieModel):
     note_references: list[NoteReference] = []
     model_config = ConfigDict(from_attributes=True)
 
-    cook_time: str | None = None
+    duration_minutes: int | None = Field(default=None, ge=1, le=2147483647)
+
+    @field_validator("duration_minutes", mode="before")
+    @classmethod
+    def normalize_duration(cls, value: Any) -> Any:
+        if value == 0:
+            return None
+        return value

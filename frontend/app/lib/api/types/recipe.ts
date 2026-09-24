@@ -311,6 +311,7 @@ export interface RecipeStep {
   text: string;
   ingredientReferences?: IngredientReferences[];
   noteReferences?: NoteReference[];
+  durationMinutes?: number | null;
 }
 export interface RecipeAsset {
   name: string;
