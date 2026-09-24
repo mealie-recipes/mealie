@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
+      "description-long": "Mealie kan importere oppskrifter fra utgaver av Mealie før v1.0. Eksporter oppskriftene fra den gamle utgaven, og last opp zip-filen under. Merk at bare oppskrifter kan importeres fra eksporten. Dette gjelder bare utgaver som er eldre enn v1.0. En sikkerhetskopi av Mealie v1.0 eller senere bør gjenopprettes med sikkerhetskopien og gjenopprettingsverktøyene.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Overføring av oppskrifter",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
-    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "Oppskrifter kan migreres fra et annet støttet program til Mealie. Dette er en flott måte å komme i gang med Mealie. Flytting av data mellom Mealie instanser, eller gjenoppretting av en tidligere Mealie sikkerhetskopiering, utføres med sikkerhetskopien og gjenopprettingsverktøy i stedet.",
+    "migration-description": "Kommer du fra et annet program, eller en versjon av Mealie eldre enn v1.0? Sjekk ut migrasjoner og se om dine data kan importeres.",
     "choose-migration-type": "Velg type overføring",
     "tag-all-recipes": "Merk alle oppskrifter med emneordet {tag-name}",
     "recipe-1": "Oppskrift 1",
@@ -526,8 +526,8 @@
     "ingredients-not-parsed-description": "Det ser ut som ingridensene ikke har blitt analysert enda. Klikk\"{parse}\"-knappen under for å analysere ingrediensese som strukturert matvarer.",
     "attach-images-hint": "Fest bilder ved å dra og slippe dem inn i redigereringsverktøyet",
     "drop-image": "Slipp bilde",
-    "failed-to-attach-image": "Failed to attach image",
-    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
+    "failed-to-attach-image": "Kunne ikke legge ved bilde",
+    "image-drop-unsupported": "Dette bildet kan ikke knyttes direkte. Lagre det på enheten, og dra deretter filen inn.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Oppskrifter med enheter eller matvarer som er definert kan ikke tolkes.",
     "parse-ingredients": "Analyser ingredienser",
     "edit-markdown": "Rediger Markdown",
