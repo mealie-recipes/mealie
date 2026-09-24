@@ -20,11 +20,11 @@
       },
       "scallion": {
         "name": "vårløk",
-        "plural_name": "scallions"
+        "plural_name": "vårløk"
       },
       "zucchini": {
         "name": "squash",
-        "plural_name": "zucchinis"
+        "plural_name": "squash"
       },
       "potato": {
         "name": "potet",
@@ -36,7 +36,7 @@
       },
       "yellow onion": {
         "name": "gul løk",
-        "plural_name": "yellow onions"
+        "plural_name": "gul løk"
       },
       "celery": {
         "name": "selleri",
@@ -52,7 +52,7 @@
       },
       "shallot": {
         "name": "sjalottløk",
-        "plural_name": "shallots"
+        "plural_name": "sjalottløk"
       },
       "cherry tomato": {
         "name": "cherrytomat",
@@ -72,7 +72,7 @@
       },
       "chile pepper": {
         "name": "chilipepper",
-        "plural_name": "chile peppers"
+        "plural_name": "chilipepper"
       },
       "sweet potato": {
         "name": "søtpotet",
@@ -84,11 +84,11 @@
       },
       "heart of palm": {
         "name": "palmehjerte",
-        "plural_name": "hearts of palm"
+        "plural_name": "palmehjerte"
       },
       "pumpkin": {
         "name": "gresskar",
-        "plural_name": "pumpkins"
+        "plural_name": "gresskar"
       },
       "cauliflower": {
         "name": "blomkål",
@@ -96,7 +96,7 @@
       },
       "cabbage": {
         "name": "kål",
-        "plural_name": "cabbages"
+        "plural_name": "kål"
       },
       "asparagus": {
         "name": "asparges",
@@ -112,7 +112,7 @@
       },
       "leek": {
         "name": "purre",
-        "plural_name": "leeks"
+        "plural_name": "purre"
       },
       "eggplant": {
         "name": "aubergine",
@@ -136,7 +136,7 @@
       },
       "brussels sprout": {
         "name": "rosenkål",
-        "plural_name": "brussels sprouts"
+        "plural_name": "rosenkål"
       },
       "fennel": {
         "name": "fenikkel",
@@ -152,7 +152,7 @@
       },
       "red cabbage": {
         "name": "rødkål",
-        "plural_name": "red cabbages"
+        "plural_name": "rødkål"
       },
       "artichoke": {
         "name": "artisjokk",
@@ -180,11 +180,11 @@
       },
       "spaghetti squash": {
         "name": "squashgetti",
-        "plural_name": "spaghetti squashes"
+        "plural_name": "squashgetti"
       },
       "napa cabbage": {
         "name": "napakål",
-        "plural_name": "napa cabbages"
+        "plural_name": "napakål"
       },
       "celeriac": {
         "name": "sellerirot",
@@ -260,7 +260,7 @@
       },
       "peach": {
         "name": "fersken",
-        "plural_name": "peaches"
+        "plural_name": "fersken"
       },
       "date": {
         "name": "daddel",
@@ -280,7 +280,7 @@
       },
       "pomegranate": {
         "name": "granateple",
-        "plural_name": "pomegranates"
+        "plural_name": "granateple"
       },
       "watermelon": {
         "name": "vannmelon",
@@ -296,7 +296,7 @@
       },
       "grapefruit": {
         "name": "grapefrukt",
-        "plural_name": "grapefruits"
+        "plural_name": "grapefrukt"
       },
       "plum": {
         "name": "plomme",
@@ -308,7 +308,7 @@
       },
       "apricot": {
         "name": "aprikos",
-        "plural_name": "apricots"
+        "plural_name": "aprikos"
       },
       "mandarin": {
         "name": "mandarin",
@@ -328,7 +328,7 @@
       },
       "shiitake mushroom": {
         "name": "shiitakesopp",
-        "plural_name": "shiitake mushrooms"
+        "plural_name": "shiitakesopp"
       },
       "portobello mushroom": {
         "name": "portobello",
@@ -360,19 +360,19 @@
       },
       "strawberry": {
         "name": "jordbær",
-        "plural_name": "strawberries"
+        "plural_name": "jordbær"
       },
       "blueberry": {
         "name": "blåbær",
-        "plural_name": "blueberries"
+        "plural_name": "blåbær"
       },
       "raspberry": {
         "name": "bringebær",
-        "plural_name": "raspberries"
+        "plural_name": "bringebær"
       },
       "cranberry": {
         "name": "tranebær",
-        "plural_name": "cranberries"
+        "plural_name": "tranebær"
       },
       "cherry": {
         "name": "morell",
@@ -380,7 +380,7 @@
       },
       "blackberry": {
         "name": "bjørnebær",
-        "plural_name": "blackberries"
+        "plural_name": "bjørnebær"
       },
       "parsley": {
         "name": "persille",
@@ -441,7 +441,7 @@
     "foods": {
       "rolled oat": {
         "name": "havregryn",
-        "plural_name": "rolled oats"
+        "plural_name": "havregryn"
       },
       "rice": {
         "name": "rice",
@@ -497,7 +497,7 @@
       },
       "steel cut oat": {
         "name": "stålskåret havre",
-        "plural_name": "steel cut oats"
+        "plural_name": "stålkuttet havre\nkuttet havre"
       },
       "millet": {
         "name": "millet",
@@ -698,7 +698,7 @@
       },
       "beef sirloin": {
         "name": "storfemørbrad",
-        "plural_name": "beef sirloins"
+        "plural_name": "mørbrad"
       },
       "brisket": {
         "name": "brisket",
@@ -706,7 +706,7 @@
       },
       "leg of lamb": {
         "name": "lammelår",
-        "plural_name": "legs of lamb"
+        "plural_name": "lammelår"
       },
       "beef short rib": {
         "name": "beef short rib",
@@ -940,7 +940,7 @@
       },
       "octopus": {
         "name": "blekksprut",
-        "plural_name": "octopuses"
+        "plural_name": "blekksprut"
       },
       "fish": {
         "name": "fish",
@@ -2157,7 +2157,7 @@
       },
       "sesame seed": {
         "name": "sesamfrø",
-        "plural_name": "sesame seeds"
+        "plural_name": "sesamfrø"
       },
       "cashew": {
         "name": "cashewnøtt",
@@ -2181,7 +2181,7 @@
       },
       "pumpkin seed": {
         "name": "gresskarfrø",
-        "plural_name": "pumpkin seeds"
+        "plural_name": "gresskarkjerner"
       },
       "hazelnut": {
         "name": "hasselnøtt",
@@ -2189,7 +2189,7 @@
       },
       "sunflower seed": {
         "name": "solsikkefrø",
-        "plural_name": "sunflower seeds"
+        "plural_name": "solsikkekjerner"
       },
       "graham cracker": {
         "name": "graham cracker",
