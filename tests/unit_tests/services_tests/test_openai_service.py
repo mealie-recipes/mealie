@@ -390,10 +390,18 @@ async def test_get_response_raises_on_content_filter_finish_reason(settings_stub
 
 
 def test_build_recipe_prompt_extracts_ingredients_from_instructions():
-    """Ensures the build-recipe system prompt instructs the model to extract ingredients from instructions when an explicit list is absent."""
+    """Ensures the build-recipe prompt instructs the model to extract ingredients
+    from instructions when an explicit list is absent.
+    """
     from pathlib import Path
 
-    prompt_file = Path(__file__).parents[3] / "mealie" / "services" / "openai" / "prompts" / "recipes" / "build-recipe.txt"
+    prompt_file = (
+        Path(__file__).parents[3] / "mealie" / "services" / "openai" / "prompts" / "recipes" / "build-recipe.txt"
+    )
     content = prompt_file.read_text()
-    assert "If a recipe does not contain an explicit list of ingredients, collect and extract the ingredients directly from the instructions" in content
+    expected_text = (
+        "If a recipe does not contain an explicit list of ingredients, "
+        "collect and extract the ingredients directly from the instructions"
+    )
+    assert expected_text in content
 
