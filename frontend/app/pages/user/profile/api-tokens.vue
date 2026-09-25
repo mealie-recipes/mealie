@@ -114,7 +114,7 @@ import { useUserApi } from "~/composables/api";
 import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
-  middleware: ["advanced-only"],
+  middleware: ["auth", "advanced-only"],
 });
 
 const i18n = useI18n();
