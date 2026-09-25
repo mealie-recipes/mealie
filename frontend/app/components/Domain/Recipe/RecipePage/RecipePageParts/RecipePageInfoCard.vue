@@ -54,11 +54,7 @@
                 </v-col>
               </v-row>
             </div>
-            <div
-              v-if="recipe.prepTime || recipe.totalTime || recipe.performTime
-                || recipe.prepTimeSeconds || recipe.totalTimeSeconds || recipe.performTimeSeconds"
-              class="mx-6"
-            >
+            <div v-if="hasTime" class="mx-6">
               <RecipeTimeCard
                 container-class="d-flex flex-wrap justify-center"
                 :prep-time="recipe.prepTime"
@@ -99,9 +95,14 @@ interface Props {
   landscape: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   recipeScale: 1,
 });
 
 const { isOwnGroup } = useLoggedInState();
+
+const hasTime = computed(() => {
+  const { prepTime, totalTime, performTime, prepTimeSeconds, totalTimeSeconds, performTimeSeconds } = props.recipe;
+  return [prepTime, totalTime, performTime, prepTimeSeconds, totalTimeSeconds, performTimeSeconds].some(x => !!x);
+});
 </script>
