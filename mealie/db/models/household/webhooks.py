@@ -1,4 +1,4 @@
-from datetime import UTC, datetime, time
+import datetime as dt
 from typing import TYPE_CHECKING
 
 from sqlalchemy import Boolean, ForeignKey, String, Time, orm
@@ -28,7 +28,7 @@ class GroupWebhooksModel(SqlAlchemyBase, BaseMixins):
 
     # New Fields
     webhook_type: Mapped[str | None] = mapped_column(String, default="")  # Future use for different types of webhooks
-    scheduled_time: Mapped[time | None] = mapped_column(Time, default=lambda: datetime.now(UTC).time())
+    scheduled_time: Mapped[dt.time | None] = mapped_column(Time, default=lambda: dt.datetime.now(dt.UTC).time())
 
     # Column is no longer used but is kept for since it's super annoying to
     # delete a column in SQLite and it's not a big deal to keep it around
