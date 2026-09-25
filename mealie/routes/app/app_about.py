@@ -1,4 +1,7 @@
-from fastapi import APIRouter, Depends, Response
+import mimetypes
+
+from fastapi import APIRouter, Depends, HTTPException, Response, status
+from fastapi.responses import FileResponse
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
@@ -44,6 +47,8 @@ def get_app_info(session: Session = Depends(generate_session)):
         allow_password_login=settings.ALLOW_PASSWORD_LOGIN,
         token_time=settings.TOKEN_TIME,
         allowed_iframe_hosts=settings.allowed_iframe_hosts,
+        branding_name=settings.branding.name,
+        branding_logo_url="/api/app/about/branding-logo" if settings.branding.logo_file else None,
     )
 
 
@@ -70,3 +75,16 @@ def get_app_theme(resp: Response):
 
     resp.headers["Cache-Control"] = "public, max-age=604800"
     return AppTheme(**settings.theme.model_dump())
+
+
+@router.get("/branding-logo", response_class=FileResponse)
+def get_app_branding_logo():
+    """Get's the custom branding logo, if configured"""
+    settings = get_app_settings()
+
+    logo_file = settings.branding.logo_file
+    if logo_file is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND)
+
+    media_type = mimetypes.guess_type(logo_file)[0]
+    return FileResponse(logo_file, media_type=media_type, headers={"Cache-Control": "public, max-age=604800"})
