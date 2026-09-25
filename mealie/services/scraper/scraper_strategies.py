@@ -248,9 +248,17 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
             return cleaned_notes
 
-        cook_time = try_get_default(
-            None, "performTime", None, cleaner.clean_time, translator=self.translator
-        ) or try_get_default(scraped_data.cook_time, "cookTime", None, cleaner.clean_time, translator=self.translator)
+        def get_time(raw_time: Any) -> tuple[int | None, str | None]:
+            """Seconds when the time is structured, otherwise the cleaned text"""
+            if (seconds := cleaner.clean_duration(raw_time)) is not None:
+                return seconds, None
+            return None, cleaner.clean_time(raw_time, translator=self.translator)
+
+        total_time_seconds, total_time = get_time(try_get_default(scraped_data.total_time, "totalTime", None))
+        prep_time_seconds, prep_time = get_time(try_get_default(scraped_data.prep_time, "prepTime", None))
+        perform_time_seconds, perform_time = get_time(
+            try_get_default(None, "performTime", None) or try_get_default(scraped_data.cook_time, "cookTime", None)
+        )
 
         extras = ScrapedExtras()
 
@@ -271,13 +279,12 @@ class RecipeScraperPackage(ABCScraperStrategy):
                 cleaner.clean_ingredients,
             ),
             recipe_instructions=get_instructions(),
-            total_time=try_get_default(
-                scraped_data.total_time, "totalTime", None, cleaner.clean_time, translator=self.translator
-            ),
-            prep_time=try_get_default(
-                scraped_data.prep_time, "prepTime", None, cleaner.clean_time, translator=self.translator
-            ),
-            perform_time=cook_time,
+            total_time=total_time,
+            total_time_seconds=total_time_seconds,
+            prep_time=prep_time,
+            prep_time_seconds=prep_time_seconds,
+            perform_time=perform_time,
+            perform_time_seconds=perform_time_seconds,
             org_url=url or try_get_default(None, "url", None, cleaner.clean_string),
             notes=get_notes(),
         )

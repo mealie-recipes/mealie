@@ -67,6 +67,38 @@ def test_recipe_number_sanitation(field: str, val: Any, expected: Any):
     assert getattr(recipe, field) == expected
 
 
+@pytest.mark.parametrize("field", ["total_time_seconds", "prep_time_seconds", "perform_time_seconds"])
+@pytest.mark.parametrize(
+    ["val", "expected"],
+    [
+        (None, None),
+        (0, 0),
+        (5400, 5400),
+        (2**31 - 1, 2**31 - 1),
+        # Past the Postgres INTEGER max, which SQLite would have accepted
+        (2**31, SHOULD_ERROR),
+        (-1, SHOULD_ERROR),
+    ],
+)
+def test_recipe_duration_bounds(field: str, val: Any, expected: Any):
+    try:
+        recipe = RecipeSummary(
+            id=uuid4(),
+            user_id=uuid4(),
+            household_id=uuid4(),
+            group_id=uuid4(),
+            **{field: val},
+        )
+    except ValueError:
+        if expected == SHOULD_ERROR:
+            return
+        else:
+            raise
+
+    assert expected != SHOULD_ERROR, "Value should have errored"
+    assert getattr(recipe, field) == expected
+
+
 @pytest.mark.parametrize("field", ["recipe_yield", "total_time", "prep_time", "cook_time", "perform_time"])
 @pytest.mark.parametrize(
     ["val", "expected"],
