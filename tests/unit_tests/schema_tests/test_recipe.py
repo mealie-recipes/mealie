@@ -4,8 +4,35 @@ from uuid import uuid4
 import pytest
 
 from mealie.schema.recipe import RecipeSummary
+from mealie.schema.recipe.recipe import Recipe
 
 SHOULD_ERROR = "this_test_should_error"
+
+
+@pytest.mark.parametrize("field", ["tags", "recipe_category", "tools"])
+def test_recipe_organizer_string_list_coercion(field: str):
+    """Regression test for #6887: a plain string list for tags/recipeCategory/tools
+    (as opposed to a list of {"name": ...} objects) must be coerced into real
+    organizer objects rather than rejected or silently dropped. `tools` previously
+    lacked this coercion entirely, unlike `tags`/`recipe_category`.
+
+    The before-validators live on `Recipe` (not `RecipeSummary`, despite the fields
+    themselves being declared there), matching where the actual API route validates
+    incoming data.
+    """
+    recipe = Recipe(
+        id=uuid4(),
+        user_id=uuid4(),
+        household_id=uuid4(),
+        group_id=uuid4(),
+        name="test",
+        **{field: ["Ramen", "Japanese"]},
+    )
+
+    organizers = getattr(recipe, field)
+    assert organizers is not None
+    assert [o.name for o in organizers] == ["Ramen", "Japanese"]
+    assert [o.slug for o in organizers] == ["ramen", "japanese"]
 
 
 @pytest.mark.parametrize("field", ["recipe_servings", "recipe_yield_quantity"])

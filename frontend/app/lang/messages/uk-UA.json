@@ -603,6 +603,13 @@
     "remove-image": "Видалити зображення",
     "nextStep": "Наступний крок",
     "recipe-actions": "Дії рецепту",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Аналізатор інгредієнтів",
       "select-parser": "Вибрати аналізатор",

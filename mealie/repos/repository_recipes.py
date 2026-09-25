@@ -196,6 +196,49 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         additional_ids = self.session.execute(sa.select(model.id).filter(model.slug.in_(slugs))).scalars().all()
         return ids + additional_ids
 
+    def _resolve_organizer(self, model: type[Tag] | type[Category] | type[Tool], name: str) -> dict:
+        """Look up an organizer (tag/category/tool) by name in this group, creating it if absent.
+
+        Race-safe under concurrent updates: if two requests create the same organizer name
+        at once, the loser's IntegrityError is caught and it re-selects the winner's row
+        instead of erroring or creating a duplicate.
+        """
+        normalized_name = name.strip()
+        max_attempts = 10
+
+        for attempt in range(1, max_attempts + 1):
+            existing = self.session.execute(
+                sa.select(model).where(
+                    model.group_id == self.group_id, sa.func.lower(model.name) == normalized_name.lower()
+                )
+            ).scalar_one_or_none()
+            if existing:
+                return {
+                    "id": str(existing.id),
+                    "group_id": str(existing.group_id),
+                    "name": existing.name,
+                    "slug": existing.slug,
+                }
+
+            new_obj = model(session=self.session, name=normalized_name, group_id=self.group_id)
+            self.session.add(new_obj)
+            try:
+                self.session.flush()
+            except IntegrityError:
+                self.session.rollback()
+                if attempt >= max_attempts:
+                    raise
+                continue
+
+            return {
+                "id": str(new_obj.id),
+                "group_id": str(new_obj.group_id),
+                "name": new_obj.name,
+                "slug": new_obj.slug,
+            }
+
+        raise RuntimeError(f"Failed to resolve organizer '{name}' after {max_attempts} attempts")
+
     def update(self, match_value: str | int | UUID4, new_data: dict | Recipe) -> Recipe:
         new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
         entry = self._query_one(match_value=match_value)
@@ -203,10 +246,46 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         if new_name := new_data.get("name"):
             new_data["slug"] = entry.slug if new_name == entry.name else create_recipe_slug(new_name)
 
-        # Handle explicit group_id injection for related items that require it
-        for organizer_field in ["tags", "recipe_category", "tools"]:
-            for organizer in new_data.get(organizer_field, []):
-                organizer["group_id"] = self.group_id
+        # Always preserve identity/ownership fields from the existing DB entry.
+        # User-provided JSON may omit or null these, which would cause integrity errors.
+        for field in ("id", "user_id", "household_id", "group_id"):
+            new_data[field] = getattr(entry, field)
+
+        # If slug is still missing after name-based recalculation, fall back to existing slug.
+        if not new_data.get("slug"):
+            new_data["slug"] = entry.slug
+
+        # Resolve organizers by id (validated to belong to this group) or by name, creating them
+        # in the group if needed. A client-supplied id from another group is never trusted as-is.
+        organizer_models = {"tags": Tag, "recipe_category": Category, "tools": Tool}
+        for field, model in organizer_models.items():
+            resolved = []
+            for organizer in new_data.get(field) or []:
+                existing = None
+                organizer_id = organizer.get("id")
+                if organizer_id:
+                    try:
+                        organizer_uuid = organizer_id if isinstance(organizer_id, UUID) else UUID(str(organizer_id))
+                    except ValueError:
+                        organizer_uuid = None
+
+                    if organizer_uuid:
+                        existing = self.session.execute(
+                            sa.select(model).where(model.id == organizer_uuid, model.group_id == self.group_id)
+                        ).scalar_one_or_none()
+
+                if existing:
+                    resolved.append(
+                        {
+                            "id": str(existing.id),
+                            "group_id": str(existing.group_id),
+                            "name": existing.name,
+                            "slug": existing.slug,
+                        }
+                    )
+                elif organizer.get("name"):
+                    resolved.append(self._resolve_organizer(model, organizer["name"]))
+            new_data[field] = resolved
 
         entry.update(session=self.session, **new_data)
         self.session.commit()
