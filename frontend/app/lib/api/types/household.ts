@@ -462,21 +462,21 @@ export interface RecipeCategory {
   id?: string | null;
   groupId?: string | null;
   name: string;
-  slug?: string | null;
+  slug: string;
   recipeCount?: number;
 }
 export interface RecipeTag {
   id?: string | null;
   groupId?: string | null;
   name: string;
-  slug?: string | null;
+  slug: string;
   recipeCount?: number;
 }
 export interface RecipeTool {
-  id?: string | null;
+  id: string;
   groupId?: string | null;
   name: string;
-  slug?: string | null;
+  slug: string;
   recipeCount?: number;
   householdsWithTool?: string[];
 }

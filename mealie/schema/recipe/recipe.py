@@ -64,15 +64,11 @@ class RecipeTag(MealieModel):
     id: UUID4 | None = None
     group_id: UUID4 | None = None
     name: str
-    slug: str | None = None
+    slug: str
     recipe_count: int = 0
 
     _searchable_properties: ClassVar[list[str]] = ["name"]
     model_config = ConfigDict(from_attributes=True)
-
-    def model_post_init(self, __context: Any) -> None:
-        if not self.slug:
-            self.slug = slugify(self.name)
 
 
 class RecipeTagPagination(PaginationBase):
@@ -88,7 +84,7 @@ class RecipeCategoryPagination(PaginationBase):
 
 
 class RecipeTool(RecipeTag):
-    id: UUID4 | None = None
+    id: UUID4
     households_with_tool: list[str] = []
 
     @field_validator("households_with_tool", mode="before")
@@ -104,6 +100,51 @@ class RecipeTool(RecipeTag):
 
 class RecipeToolPagination(PaginationBase):
     items: list[RecipeTool]
+
+
+class RecipeTagIn(MealieModel):
+    """Lenient variant of RecipeTag accepted only on the recipe write path (JSON import/edit),
+    where a client may omit id/slug and expect them to be resolved or generated server-side.
+    Never used for responses -- RecipeTag itself stays strictly required there.
+
+    Deliberately does not subclass RecipeTag: narrowing id/slug from required to optional in a
+    subclass would be an unsound field override (mypy correctly rejects it), so this is built as
+    an independent sibling with the same fields instead, matching how RecipeToolCreate/Save/Out
+    are already kept as separate classes elsewhere in this module rather than narrowing each other.
+    """
+
+    id: UUID4 | None = None
+    group_id: UUID4 | None = None
+    name: str
+    slug: str | None = None
+    recipe_count: int = 0
+
+    _searchable_properties: ClassVar[list[str]] = ["name"]
+    model_config = ConfigDict(from_attributes=True)
+
+    def model_post_init(self, __context: Any) -> None:
+        if not self.slug:
+            self.slug = slugify(self.name)
+
+
+class RecipeCategoryIn(RecipeTagIn):
+    pass
+
+
+class RecipeToolIn(RecipeTagIn):
+    """Lenient variant of RecipeTool accepted only on the recipe write path. See RecipeTagIn."""
+
+    households_with_tool: list[str] = []
+
+    @field_validator("households_with_tool", mode="before")
+    def convert_households_to_slugs(cls, v):
+        if not v:
+            return []
+
+        try:
+            return [household.slug for household in v]
+        except AttributeError:
+            return v
 
 
 class CreateRecipeBulk(BaseModel):
@@ -406,6 +447,19 @@ class Recipe(RecipeSummary):
                     RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
                 )
             ).order_by(desc(RecipeModel.name_normalized.like(f"%{search}%")))
+
+
+class RecipeIn(Recipe):
+    """Recipe as accepted on the write path only (create/update/patch request bodies).
+
+    Unlike Recipe -- which is also used for responses and must guarantee real ids/slugs on
+    its organizers -- this allows a client (e.g. hand-edited or re-imported JSON) to submit
+    tags/categories/tools that omit id/slug, to be resolved or generated server-side.
+    """
+
+    tags: Annotated[list[RecipeTagIn] | None, Field(validate_default=True)] = []
+    recipe_category: Annotated[list[RecipeCategoryIn] | None, Field(validate_default=True)] = []
+    tools: list[RecipeToolIn] = []
 
 
 class RecipeLastMade(BaseModel):
