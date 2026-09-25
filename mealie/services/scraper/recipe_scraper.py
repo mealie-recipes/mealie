@@ -65,11 +65,11 @@ class RecipeScraper:
             if on_progress:
                 await on_progress(self.translator.t("recipe.create-progress.fetching-webpage"))
 
-            result = await resilient_fetch(url)
-            if not result or not result.text:
+            fetched = await resilient_fetch(url)
+            if not fetched or not fetched.text:
                 return None, None
-            html = result.text
-            resolved_url = result.url
+            html = fetched.text
+            resolved_url = fetched.url
 
         for ScraperClass in self.scrapers:
             scraper = ScraperClass(
