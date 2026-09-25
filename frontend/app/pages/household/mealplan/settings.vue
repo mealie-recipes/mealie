@@ -74,80 +74,11 @@
               </span>
             </v-card-title>
             <v-card-text>
-              <template v-if="!editState[rule.id]">
-                <div v-if="rule.categories">
-                  <h4 class="py-1">
-                    {{ $t("category.categories") }}:
-                  </h4>
-                  <RecipeChips
-                    v-if="rule.categories.length"
-                    :items="rule.categories"
-                    small
-                    class="pb-3"
-                  />
-                  <v-card-text
-                    v-else
-                    label
-                    class="ma-0 px-0 pt-0 pb-3"
-                    text-color="accent"
-                    size="small"
-                    dark
-                  >
-                    {{ $t("meal-plan.any-category") }}
-                  </v-card-text>
-                </div>
-
-                <div v-if="rule.tags">
-                  <h4 class="py-1">
-                    {{ $t("tag.tags") }}:
-                  </h4>
-                  <RecipeChips
-                    v-if="rule.tags.length"
-                    :items="rule.tags"
-                    url-prefix="tags"
-                    small
-                    class="pb-3"
-                  />
-                  <v-card-text
-                    v-else
-                    label
-                    class="ma-0 px-0 pt-0 pb-3"
-                    text-color="accent"
-                    size="small"
-                    dark
-                  >
-                    {{ $t("meal-plan.any-tag") }}
-                  </v-card-text>
-                </div>
-                <div v-if="rule.households">
-                  <h4 class="py-1">
-                    {{ $t("household.households") }}:
-                  </h4>
-                  <div v-if="rule.households.length">
-                    <v-chip
-                      v-for="household in rule.households"
-                      :key="household.id"
-                      label
-                      class="ma-1"
-                      color="accent"
-                      size="small"
-                      dark
-                    >
-                      {{ household.name }}
-                    </v-chip>
-                  </div>
-                  <v-card-text
-                    v-else
-                    label
-                    class="ma-0 px-0 pt-0 pb-3"
-                    text-color="accent"
-                    size="small"
-                    dark
-                  >
-                    {{ $t("meal-plan.any-household") }}
-                  </v-card-text>
-                </div>
-              </template>
+              <GroupMealPlanRuleForm
+                v-if="!editState[rule.id]"
+                :query-filter="rule.queryFilter"
+                readonly
+              />
               <template v-else>
                 <GroupMealPlanRuleForm
                   v-model:day="allRules[idx].day"
@@ -176,7 +107,6 @@ import { useUserApi } from "~/composables/api";
 import type { PlanRulesCreate, PlanRulesOut } from "~/lib/api/types/meal-plan";
 import GroupMealPlanRuleForm from "~/components/Domain/Household/GroupMealPlanRuleForm.vue";
 import { useAsyncKey } from "~/composables/use-utils";
-import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
 
 const api = useUserApi();
 const i18n = useI18n();
