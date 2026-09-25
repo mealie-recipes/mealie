@@ -2,6 +2,7 @@ from collections.abc import Awaitable, Callable
 
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
+from mealie.pkgs.safehttp import resilient_fetch
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services.scraper import cleaner
@@ -13,7 +14,6 @@ from .scraper_strategies import (
     RecipeScraperOpenAITranscription,
     RecipeScraperOpenGraph,
     RecipeScraperPackage,
-    safe_scrape_html,
 )
 
 DEFAULT_SCRAPER_STRATEGIES: list[type[ABCScraperStrategy]] = [
@@ -60,13 +60,16 @@ class RecipeScraper:
         organizers, so that strategies which have to ask a provider for them can skip the request.
         """
 
+        resolved_url: str | None = None
         if not html:
             if on_progress:
                 await on_progress(self.translator.t("recipe.create-progress.fetching-webpage"))
 
-            html = await safe_scrape_html(url)
-            if not html:
+            result = await resilient_fetch(url)
+            if not result or not result.text:
                 return None, None
+            html = result.text
+            resolved_url = result.url
 
         for ScraperClass in self.scrapers:
             scraper = ScraperClass(
@@ -76,6 +79,7 @@ class RecipeScraper:
                 raw_html=html,
                 include_tags=include_tags,
                 include_categories=include_categories,
+                resolved_url=resolved_url,
             )
             if not scraper.can_scrape():
                 self.logger.debug(f"Skipping {scraper.__class__.__name__}")
