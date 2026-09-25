@@ -603,6 +603,13 @@
     "remove-image": "Ukloni sliku",
     "nextStep": "Sljedeći korak",
     "recipe-actions": "Akcije recepta",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Ingredient Parser",
       "select-parser": "Select Parser",
