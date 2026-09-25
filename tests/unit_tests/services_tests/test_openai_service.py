@@ -404,4 +404,3 @@ def test_build_recipe_prompt_extracts_ingredients_from_instructions():
         "collect and extract the ingredients directly from the instructions"
     )
     assert expected_text in content
-
