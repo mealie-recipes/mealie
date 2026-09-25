@@ -603,6 +603,13 @@
     "remove-image": "Bild entfernen",
     "nextStep": "Nächster Schritt",
     "recipe-actions": "Rezept-Aktionen",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Zutaten-Parser",
       "select-parser": "Parser auswählen",
