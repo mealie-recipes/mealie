@@ -161,7 +161,7 @@ async function refreshTokens() {
 }
 
 const { share, isSupported: shareIsSupported } = useShare();
-const { copy, copied, isSupported } = useClipboard();
+const { copy, copied, isSupported } = useClipboard({ legacy: true });
 
 function getTokenLink(token: string) {
   return `${window.location.origin}/g/${groupSlug.value}/shared/r/${token}`;
