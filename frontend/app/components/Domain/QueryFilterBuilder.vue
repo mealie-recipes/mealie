@@ -104,6 +104,7 @@
 
           <!-- field value -->
           <v-col
+            v-if="!isNullOperator(field.relationalOperatorValue)"
             :cols="config.items.fieldValue.cols(index)"
             :sm="config.items.fieldValue.sm(index)"
             :class="config.col.class"
@@ -355,6 +356,7 @@ const {
   buildQueryFilterString,
   getFieldFromFieldDef,
   isOrganizerType,
+  isNullOperator,
 } = useQueryFilterBuilder();
 
 const firstDayOfWeek = computed(() => {
@@ -570,7 +572,10 @@ async function initializeFields() {
       state.showAdvanced = true;
     }
 
-    if (field.fieldChoices?.length || isOrganizerType(field.type)) {
+    if (isNullOperator(field.relationalOperatorValue)) {
+      field.value = "";
+    }
+    else if (field.fieldChoices?.length || isOrganizerType(field.type)) {
       if (typeof part.value === "string") {
         field.values = part.value ? [part.value] : [];
       }
@@ -639,7 +644,10 @@ function buildQueryFilterJSON(): QueryFilterJSON {
       relationalOperator: field.relationalOperatorValue?.value,
     };
 
-    if (field.fieldChoices?.length || isOrganizerType(field.type)) {
+    if (isNullOperator(field.relationalOperatorValue)) {
+      part.value = null;
+    }
+    else if (field.fieldChoices?.length || isOrganizerType(field.type)) {
       part.value = field.values.map(value => value.toString());
     }
     else if (field.type === "boolean") {
