@@ -3,8 +3,10 @@ from pathlib import Path
 
 import httpx
 import pytest
+from PIL import UnidentifiedImageError
 
 from mealie.pkgs import safehttp
+from tests import data
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services.recipe import recipe_data_service
 from mealie.services.recipe.recipe_data_service import (
@@ -59,6 +61,45 @@ def _patch_fetch(monkeypatch, result=None, *, raises: Exception | None = None) -
 
     monkeypatch.setattr(safehttp, "resilient_fetch", fake_fetch)
     return captured
+
+
+# ---------------------------------------------------------------------------
+# write_image
+# ---------------------------------------------------------------------------
+def test_write_image_preserves_existing_files_when_webp_is_invalid(data_service):
+    """Regression test for https://github.com/mealie-recipes/mealie/issues/8499."""
+    existing = {
+        "original.webp": b"existing-original",
+        "min-original.webp": b"existing-mini",
+        "tiny-original.webp": b"existing-tiny",
+    }
+    for name, content in existing.items():
+        data_service.dir_image.joinpath(name).write_bytes(content)
+
+    with pytest.raises(UnidentifiedImageError):
+        data_service.write_image(b"not-an-image", "webp")
+
+    for name, content in existing.items():
+        assert data_service.dir_image.joinpath(name).read_bytes() == content
+
+
+def test_write_image_replaces_all_variants_after_successful_validation(data_service):
+    """A valid replacement still updates all live image variants after staging."""
+    existing = {
+        "original.webp": b"existing-original",
+        "min-original.webp": b"existing-mini",
+        "tiny-original.webp": b"existing-tiny",
+    }
+    for name, content in existing.items():
+        data_service.dir_image.joinpath(name).write_bytes(content)
+
+    result = data_service.write_image(data.images_test_image_1.read_bytes(), "jpg")
+
+    assert result == data_service.dir_image.joinpath("original.webp")
+    for name, old_content in existing.items():
+        image_path = data_service.dir_image.joinpath(name)
+        assert image_path.exists()
+        assert image_path.read_bytes() != old_content
 
 
 # ---------------------------------------------------------------------------
