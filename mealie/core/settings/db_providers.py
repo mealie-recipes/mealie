@@ -81,5 +81,9 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
 def db_provider_factory(provider_name: str, data_dir: Path, env_file: Path, env_encoding="utf-8") -> AbstractDBProvider:
     if provider_name == "postgres":
         return PostgresProvider(_env_file=env_file, _env_file_encoding=env_encoding)
-    else:
+    if provider_name == "sqlite":
         return SQLiteProvider(data_dir=data_dir)
+    raise ValueError(
+        f"DB_ENGINE must be 'sqlite' or 'postgres', got {provider_name!r}. "
+        "An unrecognized value used to start on SQLite without saying so."
+    )
