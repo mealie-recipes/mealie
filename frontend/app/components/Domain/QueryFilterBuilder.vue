@@ -25,7 +25,7 @@
           <v-col
             :cols="config.items.icon.cols(index)"
             :sm="config.items.icon.sm(index)"
-            :class="$vuetify.display.smAndDown ? 'd-flex pa-0' : 'd-flex justify-end pr-6'"
+            :class="$vuetify.display.smAndDown ? 'd-flex pa-0' : 'd-flex'"
           >
             <v-icon class="handle my-auto" :size="28" style="cursor: move;">
               {{ $globals.icons.arrowUpDown }}
@@ -278,13 +278,15 @@
           </v-col>
 
           <!-- field actions -->
+          <!-- kept on sm rows without a delete button so the columns line up -->
           <v-col
-            v-if="!$vuetify.display.smAndDown || index === fields.length - 1"
+            v-if="!$vuetify.display.xs || index === fields.length - 1"
             :cols="config.items.fieldActions.cols(index)"
             :sm="config.items.fieldActions.sm(index)"
             :class="config.col.class"
           >
             <BaseButtonGroup
+              v-if="!$vuetify.display.smAndDown || index === fields.length - 1"
               :buttons="[
                 {
                   icon: $globals.icons.delete,
@@ -713,7 +715,6 @@ function parseRelativeDateOffset(value: string): number {
 }
 
 const config = computed(() => {
-  const multiple = fields.value.length > 1;
   const adv = state.showAdvanced;
 
   return {
@@ -723,7 +724,7 @@ const config = computed(() => {
     items: {
       icon: {
         cols: (_index: number) => 2,
-        sm: (_index: number) => 1,
+        sm: (_index: number) => "auto",
         style: "width: fit-content;",
       },
       leftParens: {
@@ -732,7 +733,8 @@ const config = computed(() => {
       },
       logicalOperator: {
         cols: (_index: number) => 0,
-        sm: (_index: number) => (multiple ? 1 : 0),
+        // Fills the space left by the auto-width icon column
+        sm: (_index: number) => true,
       },
       fieldName: {
         cols: (index: number) => {
