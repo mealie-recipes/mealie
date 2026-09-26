@@ -142,7 +142,7 @@ const hasFoodOrUnit = computed(() => {
   }
   if (recipe.value.recipeIngredient) {
     for (const ingredient of recipe.value.recipeIngredient) {
-      if (ingredient.food || ingredient.unit) {
+      if (ingredient.food || ingredient.foodSnapshot || ingredient.unit) {
         return true;
       }
     }

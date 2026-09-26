@@ -1,3 +1,5 @@
+from collections.abc import Iterable
+
 from pydantic import UUID4
 from sqlalchemy import select, update
 from sqlalchemy.orm import joinedload
@@ -10,6 +12,70 @@ from .repository_generic import GroupRepositoryGeneric
 
 
 class RepositoryFood(GroupRepositoryGeneric[IngredientFood, IngredientFoodModel]):
+    def _preserve_references(self, food: IngredientFoodModel) -> None:
+        from mealie.schema.recipe.recipe_ingredient import FoodSnapshot
+
+        snapshot = FoodSnapshot(
+            source_id=food.id,
+            name=food.name or "",
+            plural_name=food.plural_name,
+            description=food.description,
+            extras={extra.key_name: extra.value for extra in food.extras},
+        ).model_dump(mode="json")
+        for ingredient in list(food.ingredients):
+            # Food-level substitutions would otherwise vanish with the shared food.
+            if not ingredient.substitutions:
+                for substitution in food.substitutions:
+                    name = substitution.substitute_food.name if substitution.substitute_food else ""
+                    note = " ".join(part for part in (name, substitution.note) if part)
+                    if note:
+                        ingredient.substitutions.append(RecipeIngredientSubstitutionModel(note=note))
+            ingredient.food_snapshot = snapshot.copy()
+            ingredient.food = None
+            ingredient.food_id = None
+
+        items = self.session.scalars(select(ShoppingListItem).where(ShoppingListItem.food_id == food.id)).all()
+        for item in items:
+            item.food_snapshot = snapshot.copy()
+            if item.label_id is None:
+                item.label_id = food.label_id
+            item.food = None
+            item.food_id = None
+
+        # Keep incoming substitutions as the already-supported note-only form.
+        # Update the FK without removing from delete-orphan collections, then reload
+        # those collections before deleting the food so preserved rows aren't cascaded.
+        for relation in ("substitution_references", "recipe_substitution_references"):
+            for substitution in list(getattr(food, relation)):
+                substitution.note = " ".join(part for part in (food.name, substitution.note) if part)
+                substitution.substitute_food_id = None
+            self.session.flush()
+            self.session.expire(food, [relation])
+
+    def _delete_foods(self, foods: list[IngredientFoodModel]) -> list[IngredientFood]:
+        try:
+            result = [self.schema.model_validate(food) for food in foods]
+            for food in foods:
+                self._preserve_references(food)
+            self.session.flush()
+            for food in foods:
+                self.session.delete(food)
+            self.session.commit()
+            return result
+        except Exception:
+            self.session.rollback()
+            raise
+
+    def delete(self, value, match_key: str | None = None) -> IngredientFood:
+        food = self._query_one(value, match_key or self.primary_key)
+        self.session.execute(select(self.model.id).where(self.model.id == food.id).with_for_update())
+        return self._delete_foods([food])[0]
+
+    def delete_many(self, values: Iterable) -> list[IngredientFood]:
+        query = self._query(with_options=False).filter(self.model.id.in_(values)).filter_by(**self._filter_builder())
+        foods = list(self.session.execute(query.order_by(self.model.id).with_for_update()).unique().scalars().all())
+        return self._delete_foods(foods)
+
     def _get_food(self, id: UUID4) -> IngredientFoodModel:
         stmt = select(self.model).filter_by(**self._filter_builder(**{"id": id}))
         return self.session.execute(stmt).scalars().one()

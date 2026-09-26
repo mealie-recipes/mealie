@@ -18,6 +18,7 @@ export function useShoppingListItemEditor(listItem: ModelRef<ShoppingListItemOut
     const newFood = await foodStore.actions.createOne(foodData.data);
     if (newFood) {
       listItem.value.food = newFood;
+      listItem.value.foodSnapshot = null;
       listItem.value.foodId = newFood.id;
     }
     foodData.reset();

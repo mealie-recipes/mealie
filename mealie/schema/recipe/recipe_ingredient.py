@@ -7,7 +7,7 @@ from fractions import Fraction
 from typing import Any, ClassVar
 from uuid import UUID, uuid4
 
-from pydantic import UUID4, ConfigDict, Field, field_validator, model_validator
+from pydantic import UUID4, ConfigDict, Field, field_serializer, field_validator, model_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -308,10 +308,27 @@ class IngredientUnit(CreateIngredientUnit):
     model_config = ConfigDict(from_attributes=True)
 
 
+class FoodSnapshot(MealieModel):
+    """An ingredient's detached food description; source_id is provenance, not a foreign key."""
+
+    source_id: UUID4 | None = None
+    name: str
+    plural_name: str | None = None
+    description: str | None = None
+    extras: dict = Field(default_factory=dict)
+
+    @field_serializer("source_id")
+    def serialize_source_id(self, value: UUID | None) -> str | None:
+        return str(value) if value else None
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class RecipeIngredientBase(MealieModel):
     quantity: NoneFloat = 0
     unit: IngredientUnit | CreateIngredientUnit | None = None
     food: IngredientFood | CreateIngredientFood | None = None
+    food_snapshot: FoodSnapshot | None = None
     referenced_recipe: Recipe | None = None
 
     note: str | None = ""
@@ -324,6 +341,8 @@ class RecipeIngredientBase(MealieModel):
 
     @model_validator(mode="after")
     def format_display(self):
+        if self.food is not None or getattr(self, "food_id", None):
+            self.food_snapshot = None
         if not self.display:
             self.display = self._format_display()
 
@@ -396,7 +415,8 @@ class RecipeIngredientBase(MealieModel):
         return unit_val
 
     def _format_food_for_display(self, plural_handling: LocalePluralFoodHandling) -> str:
-        if not self.food:
+        food = self.food or self.food_snapshot
+        if not food:
             return ""
 
         if self.quantity and self.quantity <= 1:
@@ -414,9 +434,9 @@ class RecipeIngredientBase(MealieModel):
                     use_plural = False
 
         if use_plural:
-            return self.food.plural_name or self.food.name
+            return food.plural_name or food.name
         else:
-            return self.food.name
+            return food.name
 
     def _format_display(self) -> str:
         locale_context = get_locale_context()
@@ -434,7 +454,7 @@ class RecipeIngredientBase(MealieModel):
         if self.quantity and self.unit:
             components.append(self._format_unit_for_display())
 
-        if self.food:
+        if self.food or self.food_snapshot:
             components.append(self._format_food_for_display(plural_food_handling))
 
         if self.note:

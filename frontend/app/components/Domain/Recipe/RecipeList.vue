@@ -131,8 +131,9 @@ const listItemDescriptions = computed<string[]>(() => {
 
       listItemDescription += ` ${unitDisplay}`;
     }
-    if (props.listItem.food) {
-      const foodName = props.listItem.food.name;
+    const food = props.listItem.food || props.listItem.foodSnapshot;
+    if (food) {
+      const foodName = food.name;
       listItemDescription += ` ${foodName}`;
     }
 

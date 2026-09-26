@@ -1,6 +1,14 @@
 <template>
   <v-card variant="elevated" class="pa-2" border="primary s-lg opacity-100">
     <div class="d-flex flex-column ga-3">
+      <v-text-field
+        v-if="!listItem.food && listItem.foodSnapshot"
+        v-model="listItem.foodSnapshot.name"
+        :label="$t('shopping-list.food')"
+        density="compact"
+        hide-details
+        @update:model-value="listItem.foodSnapshot.pluralName = null"
+      />
       <InputLabelType
         v-model="listItem.food"
         v-model:item-id="listItem.foodId!"
@@ -9,6 +17,7 @@
         :icon="$globals.icons.foods"
         :autofocus="autoFocus === 'food'"
         create
+        @update:model-value="listItem.foodSnapshot = null"
         @create="createAssignFood"
       />
       <ShoppingListItemDetails
