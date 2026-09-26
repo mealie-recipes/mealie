@@ -604,11 +604,11 @@
     "nextStep": "Próximo passo",
     "recipe-actions": "Ações de Receita",
     "unit-system": {
-      "as-written": "As written",
-      "metric": "Metric",
-      "metric-with-hint": "Metric (g, ml)",
+      "as-written": "Conforme escrito",
+      "metric": "SI",
+      "metric-with-hint": "SI (g, m)",
       "imperial": "Imperial",
-      "imperial-with-hint": "Imperial (cups, oz)"
+      "imperial-with-hint": "Imperial (copos, onças)"
     },
     "parser": {
       "ingredient-parser": "Analisador de Ingredientes",
