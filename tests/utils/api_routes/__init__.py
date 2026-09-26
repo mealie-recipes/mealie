@@ -95,6 +95,8 @@ households_invitations_email = "/api/households/invitations/email"
 """`/api/households/invitations/email`"""
 households_mealplans = "/api/households/mealplans"
 """`/api/households/mealplans`"""
+households_mealplans_ical = "/api/households/mealplans/ical"
+"""`/api/households/mealplans/ical`"""
 households_mealplans_random = "/api/households/mealplans/random"
 """`/api/households/mealplans/random`"""
 households_mealplans_rules = "/api/households/mealplans/rules"
@@ -375,6 +377,11 @@ def households_events_notifications_item_id(item_id):
 def households_events_notifications_item_id_test(item_id):
     """`/api/households/events/notifications/{item_id}/test`"""
     return f"{prefix}/households/events/notifications/{item_id}/test"
+
+
+def households_mealplans_ical_token(token):
+    """`/api/households/mealplans/ical/{token}`"""
+    return f"{prefix}/households/mealplans/ical/{token}"
 
 
 def households_mealplans_item_id(item_id):
