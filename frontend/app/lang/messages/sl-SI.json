@@ -352,7 +352,7 @@
       "title": "Urejevalnik receptov Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
+      "description-long": "Mealie lahko uvozi recepte iz različice aplikacije Mealie, starejše od v1.0. Izvozite recepte iz svoje stare instance in naložite spodnjo datoteko ZIP. Upoštevajte, da je iz izvožene datoteke mogoče uvoziti le recepte. To velja samo za instance, starejše od različice v1.0. Varnostne kopije, ustvarjene v različici v1.0 ali novejši, je treba obnoviti z ustreznimi orodji za varnostno kopiranje in obnovitev.",
       "title": "Mealie pred v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migracije receptov",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
-    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "Recepte je mogoče prenesti v Mealie iz druge podprte aplikacije. To je odličen način za začetek uporabe programa Mealie. Za prenos podatkov med različnimi namestitvami programa Mealie ali za obnovitev prejšnje varnostne kopije pa se namesto tega uporabljajo orodja za varnostno kopiranje in obnovitev.",
+    "migration-description": "Prihajate iz druge aplikacije ali različice programa Mealie, starejše od v1.0? Preverite možnosti migracije in poglejte, ali je mogoče uvoziti vaše podatke.",
     "choose-migration-type": "Izberi tip migracije",
     "tag-all-recipes": "Označi vse recepte z {tag-name} značko",
     "recipe-1": "Recept 1",
@@ -604,11 +604,11 @@
     "nextStep": "Naslednji korak",
     "recipe-actions": "Opravila na receptu",
     "unit-system": {
-      "as-written": "As written",
-      "metric": "Metric",
-      "metric-with-hint": "Metric (g, ml)",
-      "imperial": "Imperial",
-      "imperial-with-hint": "Imperial (cups, oz)"
+      "as-written": "Kot je zapisano",
+      "metric": "Metrični",
+      "metric-with-hint": "Metrične enote (g, ml)",
+      "imperial": "Imperialni",
+      "imperial-with-hint": "Imperialne enote (skodelice, unče)"
     },
     "parser": {
       "ingredient-parser": "Razčlenjevalnik sestavin",
