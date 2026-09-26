@@ -1,12 +1,14 @@
 import json
 from pathlib import Path
 
+import httpx
 import pytest
 from fastapi.testclient import TestClient
 
 import mealie.services.openai.transcription as transcription_module
 import mealie.services.scraper.recipe_scraper as recipe_scraper_module
 from mealie.core import exceptions
+from mealie.pkgs.safehttp.fetch import FetchResult
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.openai.recipe import OpenAIRecipe, OpenAIRecipeIngredient, OpenAIRecipeInstruction
 from mealie.services.openai import OpenAIService
@@ -45,10 +47,10 @@ def video_scraper_setup(monkeypatch: pytest.MonkeyPatch, unique_user: TestUser):
     )
 
     # Prevent any real HTTP calls during scraping
-    async def mock_safe_scrape_html(url: str) -> str:
-        return "<html></html>"
+    async def mock_resilient_fetch(url: str) -> FetchResult:
+        return FetchResult(b"<html></html>", 200, url, httpx.Headers(), "utf-8")
 
-    monkeypatch.setattr(recipe_scraper_module, "safe_scrape_html", mock_safe_scrape_html)
+    monkeypatch.setattr(recipe_scraper_module, "resilient_fetch", mock_resilient_fetch)
 
 
 def test_create_recipe_from_video(
