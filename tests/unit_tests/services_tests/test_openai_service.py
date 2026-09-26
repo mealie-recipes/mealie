@@ -387,3 +387,20 @@ async def test_get_response_raises_on_content_filter_finish_reason(settings_stub
 
     with pytest.raises(Exception, match="content filter"):
         await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
+
+
+def test_build_recipe_prompt_extracts_ingredients_from_instructions():
+    """Ensures the build-recipe prompt instructs the model to extract ingredients
+    from instructions when an explicit list is absent.
+    """
+    from pathlib import Path
+
+    prompt_file = (
+        Path(__file__).parents[3] / "mealie" / "services" / "openai" / "prompts" / "recipes" / "build-recipe.txt"
+    )
+    content = prompt_file.read_text()
+    expected_text = (
+        "If a recipe does not contain an explicit list of ingredients, "
+        "collect and extract the ingredients directly from the instructions"
+    )
+    assert expected_text in content
