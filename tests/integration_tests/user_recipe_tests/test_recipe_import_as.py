@@ -9,9 +9,7 @@ from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
 
-def test_zip_import_applies_household_public_preference(
-        api_client: TestClient, unique_user: TestUser
-) -> None:
+def test_zip_import_applies_household_public_preference(api_client: TestClient, unique_user: TestUser) -> None:
     """Recipes imported from a zip should follow the household's recipe_public preference.
 
     Regression test for https://github.com/mealie-recipes/mealie/issues/7172
@@ -22,9 +20,7 @@ def test_zip_import_applies_household_public_preference(
     prefs = response.json()
     prefs["recipePublic"] = True
 
-    response = api_client.put(
-        api_routes.households_preferences, json=prefs, headers=unique_user.token
-    )
+    response = api_client.put(api_routes.households_preferences, json=prefs, headers=unique_user.token)
     assert response.status_code == 200
 
     # 2. Create a recipe, then force its `public` setting to False
@@ -39,9 +35,7 @@ def test_zip_import_applies_household_public_preference(
     assert response.status_code == 200
 
     # 3. Export it as a zip
-    response = api_client.post(
-        api_routes.shared_recipes, json={"recipeId": recipe["id"]}, headers=unique_user.token
-    )
+    response = api_client.post(api_routes.shared_recipes, json={"recipeId": recipe["id"]}, headers=unique_user.token)
     assert response.status_code == 201
     token_id = response.json()["id"]
 
