@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="text-caption opacity-80">
+    <div
+      v-if="label"
+      class="text-caption opacity-80"
+    >
       {{ label }}
     </div>
     <div
@@ -30,6 +33,7 @@
       />
       <!-- Shown after the structured time, e.g. "3 hours" + "plus overnight" -->
       <v-text-field
+        v-if="!hideText"
         v-model="text"
         density="compact"
         variant="underlined"
@@ -42,12 +46,12 @@
 <script setup lang="ts">
 import { useRecipeTime } from "~/composables/recipes";
 
-defineProps<{ label: string }>();
+defineProps<{ label?: string; hideText?: boolean }>();
 
 const { durationUnitLabel } = useRecipeTime();
 
 const seconds = defineModel<number | null | undefined>("seconds", { required: true });
-const text = defineModel<string | null | undefined>("text", { required: true });
+const text = defineModel<string | null | undefined>("text");
 
 /** Keeps hours, minutes, and any leftover seconds under the database's 2^31 - 1 limit */
 const MAX_HOURS = Math.floor((2 ** 31 - 1 - 3599) / 3600);
