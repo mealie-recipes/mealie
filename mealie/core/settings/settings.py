@@ -1,3 +1,4 @@
+import ipaddress
 import logging
 import os
 import secrets
@@ -15,6 +16,8 @@ from mealie.core.settings.themes import Theme
 
 from .db_providers import AbstractDBProvider, db_provider_factory
 from .static import PACKAGE_DIR
+
+IPNetwork = ipaddress.IPv4Network | ipaddress.IPv6Network
 
 
 class ScraperProxyMode(StrEnum):
@@ -442,6 +445,53 @@ class AppSettings(AppLoggingSettings):
     def OIDC_READY(self) -> bool:
         """Validates OIDC settings are all set"""
         return self.OIDC_FEATURE.enabled
+
+    # ===============================================
+    # Reverse Proxy Auth Configuration
+    REVERSE_PROXY_AUTH_ENABLED: bool = False
+    REVERSE_PROXY_AUTH_HEADER: str = "X-Forwarded-User"
+    REVERSE_PROXY_AUTH_SIGNUP_ENABLED: bool = False
+
+    REVERSE_PROXY_AUTH_TRUSTED_IPS: str = ""
+    """Comma-separated IPs or CIDRs allowed to originate reverse proxy auth headers. Anyone who can
+    reach Mealie directly can otherwise set REVERSE_PROXY_AUTH_HEADER themselves and impersonate any
+    user, so this should always be set to the proxy's address(es) in production. Left unset for
+    backwards compatibility with simple setups that trust their whole network."""
+
+    @property
+    def reverse_proxy_auth_trusted_ips(self) -> tuple[set[str], list[IPNetwork]]:
+        """The configured trusted addresses, split into exact matches and IP networks.
+
+        Entries that aren't valid IPs/CIDRs (e.g. a test client's placeholder host) are kept as exact
+        strings rather than rejected, so a typo fails closed instead of crashing the setting."""
+        hosts: set[str] = set()
+        networks: list[IPNetwork] = []
+        for entry in self.REVERSE_PROXY_AUTH_TRUSTED_IPS.split(","):
+            cleaned = entry.strip()
+            if not cleaned:
+                continue
+            try:
+                networks.append(ipaddress.ip_network(cleaned, strict=False))
+            except ValueError:
+                hosts.add(cleaned)
+        return hosts, networks
+
+    @property
+    def REVERSE_PROXY_AUTH_FEATURE(self) -> FeatureDetails:
+        description = None if self.REVERSE_PROXY_AUTH_ENABLED else "REVERSE_PROXY_AUTH_ENABLED is false"
+        has_header = bool(self.REVERSE_PROXY_AUTH_HEADER)
+        if not has_header and not description:
+            description = "REVERSE_PROXY_AUTH_HEADER is not set"
+
+        return FeatureDetails(
+            enabled=self.REVERSE_PROXY_AUTH_ENABLED and has_header,
+            description=description,
+        )
+
+    @property
+    def REVERSE_PROXY_AUTH_READY(self) -> bool:
+        """Validates reverse proxy auth settings are all set"""
+        return self.REVERSE_PROXY_AUTH_FEATURE.enabled
 
     # ===============================================
     # OpenAI Configuration
