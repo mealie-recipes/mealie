@@ -60,6 +60,13 @@ def test_default_connection_args(monkeypatch):
     assert re.match(r"sqlite:////.*mealie*.db", app_settings.DB_URL)
 
 
+def test_unknown_db_engine_is_rejected(monkeypatch):
+    monkeypatch.setenv("DB_ENGINE", "postgress")
+    get_app_settings.cache_clear()
+    with pytest.raises(ValueError, match="DB_ENGINE"):
+        get_app_settings()
+
+
 def test_pg_connection_args(monkeypatch):
     monkeypatch.setenv("DB_ENGINE", "postgres")
     monkeypatch.setenv("POSTGRES_SERVER", "postgres")
