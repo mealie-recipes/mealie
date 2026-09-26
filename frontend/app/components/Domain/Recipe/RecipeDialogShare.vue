@@ -58,9 +58,12 @@
             </v-icon>
           </v-avatar>
 
-          <div class="pl-3 flex-grow-1">
-            <v-list-item-title>
-              {{ $t("recipe-share.expires-at") + ' ' + $d(new Date(token.expiresAt!), "short") }}
+          <div
+            class="pl-3 flex-grow-1"
+            style="min-width: 0;"
+          >
+            <v-list-item-title class="text-wrap">
+              {{ $t("recipe-share.expires-at") + ' ' + $d(new Date(token.expiresAt!)) }}
             </v-list-item-title>
           </div>
 
