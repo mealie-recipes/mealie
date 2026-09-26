@@ -25,6 +25,19 @@
 
 ### Security
 
+#### Reverse proxy headers
+
+`HOST_IP` controls which connecting proxy IP addresses or CIDR ranges Uvicorn trusts for `X-Forwarded-For` and `X-Forwarded-Proto`.
+Set a comma-separated list matching your reverse proxy or Kubernetes ingress, for example `HOST_IP=127.0.0.1,10.42.1.0/24`.
+Depending on your container environment and network, the container's default gateway may not be the address of the proxy.
+
+The default is `*` for compatibility, which **trusts forwarding headers from every connecting source**.
+Use that setting only when access to the application is limited to trusted proxies!
+
+Set `HOST_IP` to an empty string to trust no forwarding proxies.
+
+#### Application security
+
 | Variables                   | Default | Description                                                                         |
 | --------------------------- | :-----: | ----------------------------------------------------------------------------------- |
 | SECURITY_MAX_LOGIN_ATTEMPTS |    5    | Maximum times a user can provide an invalid password before their account is locked |
