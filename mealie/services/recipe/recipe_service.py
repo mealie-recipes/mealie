@@ -1,4 +1,4 @@
-from __future__ import annotations
+﻿from __future__ import annotations
 
 import json
 import shutil
@@ -451,7 +451,14 @@ class RecipeService(RecipeServiceBase):
         if recipe_dict is None:
             raise exceptions.UnexpectedNone("No json data found in Zip")
 
-        recipe = self.create_one(Recipe(**self.clean_recipe_dict(recipe_dict)))
+        recipe_data = Recipe(**self.clean_recipe_dict(recipe_dict))
+
+        if self.household.preferences is not None:
+            if recipe_data.settings is None:
+                recipe_data.settings = RecipeSettings()
+            recipe_data.settings.public = self.household.preferences.recipe_public
+
+        recipe = self.create_one(recipe_data)
 
         if recipe and recipe.id:
             data_service = RecipeDataService(recipe.id)
