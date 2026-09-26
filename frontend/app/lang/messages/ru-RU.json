@@ -352,7 +352,7 @@
       "title": "Менеджер рецептов Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
+      "description-long": "Mealie может импортировать рецепты из приложения версий до 1.0. Экспортируйте рецепты из старого экземпляра, и загрузите zip-файл. Заметьте, что из экспорта могут быть взяты только рецепты. Это относится только к v1.0. Резервная копия, взятая из v1.0 или выше, должна быть восстановлена с помощью инструментов резервного копирования и восстановления.",
       "title": "Mealie до v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Перенос данных рецептов",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
-    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "Рецепты могут быть перенесены в Mealie из другого поддерживаемого приложения. Это отличный способ начать работу. Перемещение данных между экземплярами Mealie или восстановление более ранней резервной копии производится с помощью инструментов резервного копирования и восстановления.",
+    "migration-description": "Переходите из другого приложения или с более поздней версии Mealie? Проверьте миграции, чтобы убедиться, что ваши данные могут быть перенесены.",
     "choose-migration-type": "Выберите тип переноса",
     "tag-all-recipes": "Отметить все рецепты тегом {tag-name}",
     "recipe-1": "Рецепт 1",
@@ -526,8 +526,8 @@
     "ingredients-not-parsed-description": "Похоже, ваши ингредиенты не разобраны. Нажмите кнопку \"{parse}\" чтобы разобрать ваши ингредиенты в структурированный список.",
     "attach-images-hint": "Прикрепляйте изображения, перетаскивая их в редактор",
     "drop-image": "Перетащите изображение",
-    "failed-to-attach-image": "Failed to attach image",
-    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
+    "failed-to-attach-image": "Не удалось прикрепить изображение",
+    "image-drop-unsupported": "Это изображение не может быть прикреплено напрямую. Сохраните его на устройстве, затем перетащите файл.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Невозможно разобрать рецепты с определенными единицами измерений или продуктами.",
     "parse-ingredients": "Анализ ингредиентов",
     "edit-markdown": "Редактировать Markdown",
@@ -604,11 +604,11 @@
     "nextStep": "След. шаг",
     "recipe-actions": "Действия с рецептом",
     "unit-system": {
-      "as-written": "As written",
-      "metric": "Metric",
-      "metric-with-hint": "Metric (g, ml)",
-      "imperial": "Imperial",
-      "imperial-with-hint": "Imperial (cups, oz)"
+      "as-written": "Как записано",
+      "metric": "Метрическая",
+      "metric-with-hint": "Метрическая (г, мл)",
+      "imperial": "Британская",
+      "imperial-with-hint": "Британская (ч, ун)"
     },
     "parser": {
       "ingredient-parser": "Разделитель ингредиентов",
