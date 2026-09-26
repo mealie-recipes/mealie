@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 import sqlalchemy.orm as orm
@@ -17,7 +17,7 @@ class GroupPreferencesModel(SqlAlchemyBase, BaseMixins):
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     group_id: Mapped[GUID | None] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
-    group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="preferences")
+    group: Mapped[Group | None] = orm.relationship("Group", back_populates="preferences")
 
     private_group: Mapped[bool | None] = mapped_column(sa.Boolean, default=True)
     show_announcements: Mapped[bool] = mapped_column(sa.Boolean, default=True)

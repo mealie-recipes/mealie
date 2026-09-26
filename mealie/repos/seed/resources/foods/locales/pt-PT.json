@@ -84,7 +84,7 @@
       },
       "heart of palm": {
         "name": "palmito",
-        "plural_name": ""
+        "plural_name": "hearts of palm"
       },
       "pumpkin": {
         "name": "abóbora",
@@ -92,7 +92,7 @@
       },
       "cauliflower": {
         "name": "couve-flor",
-        "plural_name": "couve flor"
+        "plural_name": ""
       },
       "cabbage": {
         "name": "couve",
@@ -172,11 +172,11 @@
       },
       "horseradish": {
         "name": "raiz-forte",
-        "plural_name": "raizes-forte"
+        "plural_name": ""
       },
       "chard": {
         "name": "acelga",
-        "plural_name": "acelgas"
+        "plural_name": ""
       },
       "spaghetti squash": {
         "name": "abóbora spaghetti",
@@ -188,7 +188,7 @@
       },
       "celeriac": {
         "name": "aipo",
-        "plural_name": "aipos"
+        "plural_name": ""
       },
       "turnip": {
         "name": "nabo",
@@ -196,7 +196,7 @@
       },
       "bok choy": {
         "name": "couve pak choi",
-        "plural_name": "couves pak choi"
+        "plural_name": ""
       },
       "okra": {
         "name": "quiabo",
@@ -204,7 +204,7 @@
       },
       "radicchio": {
         "name": "chicória vermelha",
-        "plural_name": "chicórias vermelha"
+        "plural_name": ""
       },
       "plantain": {
         "name": "banana-da-terra",
@@ -288,7 +288,7 @@
       },
       "rhubarb": {
         "name": "ruibarbo",
-        "plural_name": "ruibarbos"
+        "plural_name": ""
       },
       "kiwi": {
         "name": "kiwi",
@@ -320,7 +320,7 @@
       },
       "tamarind": {
         "name": "tamarindo",
-        "plural_name": ""
+        "plural_name": "tamarinds"
       },
       "button mushroom": {
         "name": "cogumelo-de-paris",
@@ -376,7 +376,7 @@
       },
       "cherry": {
         "name": "cereja",
-        "plural_name": ""
+        "plural_name": "cherries"
       },
       "blackberry": {
         "name": "amora",
@@ -815,7 +815,7 @@
       },
       "ham": {
         "name": "fiambre",
-        "plural_name": "fiambres"
+        "plural_name": ""
       },
       "prosciutto": {
         "name": "prosciutto",
@@ -831,7 +831,7 @@
       },
       "chorizo": {
         "name": "chouriço",
-        "plural_name": "chouriços"
+        "plural_name": ""
       },
       "pancetta": {
         "name": "pancetta",
@@ -961,7 +961,7 @@
       },
       "cheddar cheese": {
         "name": "queijo cheddar",
-        "plural_name": "queijos cheddar"
+        "plural_name": ""
       },
       "cream cheese": {
         "name": "queijo creme",
@@ -969,19 +969,19 @@
       },
       "cheese": {
         "name": "queijo",
-        "plural_name": "queijos"
+        "plural_name": ""
       },
       "mozzarella cheese": {
         "name": "queijo mozzarella",
-        "plural_name": "queijos mozzarella"
+        "plural_name": ""
       },
       "feta cheese": {
         "name": "queijo feta",
-        "plural_name": "queijos feta"
+        "plural_name": ""
       },
       "ricotta cheese": {
         "name": "queijo ricotta",
-        "plural_name": "queijos ricotta"
+        "plural_name": ""
       },
       "monterey jack cheese": {
         "name": "monterey jack cheese",
@@ -1017,7 +1017,7 @@
       },
       "brie cheese": {
         "name": "queijo brie",
-        "plural_name": "queijos brie"
+        "plural_name": ""
       },
       "paneer cheese": {
         "name": "paneer cheese",
@@ -1041,7 +1041,7 @@
       },
       "butter": {
         "name": "manteiga",
-        "plural_name": "manteigas"
+        "plural_name": ""
       },
       "egg": {
         "name": "ovo",
@@ -1049,11 +1049,11 @@
       },
       "milk": {
         "name": "leite",
-        "plural_name": "leites"
+        "plural_name": ""
       },
       "heavy cream": {
         "name": "nata",
-        "plural_name": "natas"
+        "plural_name": ""
       },
       "sour cream": {
         "name": "sour cream",
@@ -1089,7 +1089,7 @@
       },
       "sweetened condensed milk": {
         "name": "leite condensado açucarado",
-        "plural_name": "leites condensados açucarados"
+        "plural_name": ""
       },
       "kefir": {
         "name": "kefir",
@@ -1637,7 +1637,7 @@
     "foods": {
       "cayenne pepper": {
         "name": "pimenta caiena",
-        "plural_name": "pimenta-caiena"
+        "plural_name": ""
       },
       "cinnamon": {
         "name": "cinnamon",
@@ -2128,7 +2128,7 @@
       },
       "ice cream": {
         "name": "gelado",
-        "plural_name": "gelados"
+        "plural_name": ""
       },
       "lemon curd": {
         "name": "lemon curd",
@@ -2136,7 +2136,7 @@
       },
       "dulce de leche": {
         "name": "doce de leite",
-        "plural_name": "doces de leite"
+        "plural_name": ""
       }
     }
   },
@@ -2145,7 +2145,7 @@
     "foods": {
       "walnut": {
         "name": "noz",
-        "plural_name": ""
+        "plural_name": "walnuts"
       },
       "pecan": {
         "name": "pecan",

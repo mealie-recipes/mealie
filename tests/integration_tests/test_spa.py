@@ -1,3 +1,5 @@
+import json
+
 import pytest
 from bs4 import BeautifulSoup
 
@@ -107,6 +109,45 @@ def test_spa_recipe_json_injection():
     assert "@context" in html
     assert "https://schema.org" in html
     assert recipe_name in html
+
+
+@pytest.mark.parametrize(
+    "seconds, expected",
+    [
+        (None, None),
+        (0, None),
+        (45, "PT45S"),
+        (900, "PT15M"),
+        (5400, "PT1H30M"),
+        (3690, "PT1H1M30S"),
+        (93600, "PT26H"),
+    ],
+)
+def test_spa_iso_duration(seconds: int | None, expected: str | None):
+    assert spa.iso_duration(seconds) == expected
+
+
+def test_spa_recipe_json_times(unique_user: TestUser):
+    recipe = Recipe(
+        user_id=unique_user.user_id,
+        group_id=unique_user.group_id,
+        name=random_string(),
+        total_time_seconds=5400,
+        perform_time_seconds=3600,
+        # Free text isn't a valid schema.org duration, so it's left out
+        prep_time="a while",
+        cook_time="PT10M",
+    )
+
+    response = spa.content_with_meta(unique_user.group_id, recipe)
+    soup = BeautifulSoup(response, "lxml")
+    tag = soup.find("script", type="application/ld+json")
+    assert tag
+    schema = json.loads(tag.get_text())
+
+    assert schema["totalTime"] == "PT1H30M"
+    assert schema["cookTime"] == "PT1H"
+    assert schema["prepTime"] is None
 
 
 @pytest.mark.parametrize("use_public_user", [True, False])

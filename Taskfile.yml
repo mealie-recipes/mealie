@@ -106,9 +106,10 @@ tasks:
       - uv run mypy mealie
 
   py:test:
-    desc: runs python tests (support args after '--')
+    desc: runs python tests in parallel across CPU cores (support args after '--')
     cmds:
-      - uv run pytest {{ .CLI_ARGS }}
+      # --dist loadfile: each test file runs in order on a single worker
+      - uv run pytest -n auto --dist loadfile {{ .CLI_ARGS }}
 
   py:format:
     desc: runs python code formatter
@@ -155,7 +156,7 @@ tasks:
       before installation begins
     internal: true
     cmds:
-      - uv export --no-editable --no-emit-project --extra pgsql --format
+      - uv export --no-dev --no-editable --no-emit-project --extra pgsql --format
         requirements-txt --output-file dist/dependencies.txt
       - cp dist/dependencies.txt dist/requirements.txt
       # Include mealie in the requirements, hashing the package that was just built to ensure it's the one installed

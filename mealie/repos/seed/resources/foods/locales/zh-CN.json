@@ -8,35 +8,35 @@
       },
       "onion": {
         "name": "洋葱",
-        "plural_name": ""
+        "plural_name": "onions"
       },
       "bell pepper": {
         "name": "甜椒",
-        "plural_name": ""
+        "plural_name": "bell peppers"
       },
       "carrot": {
         "name": "胡萝卜",
-        "plural_name": ""
+        "plural_name": "carrots"
       },
       "scallion": {
         "name": "小葱",
-        "plural_name": ""
+        "plural_name": "scallions"
       },
       "zucchini": {
         "name": "西葫芦",
-        "plural_name": ""
+        "plural_name": "zucchinis"
       },
       "potato": {
         "name": "土豆",
-        "plural_name": ""
+        "plural_name": "potatoes"
       },
       "red onion": {
         "name": "紫洋葱",
-        "plural_name": ""
+        "plural_name": "red onions"
       },
       "yellow onion": {
         "name": "黄洋葱",
-        "plural_name": ""
+        "plural_name": "yellow onions"
       },
       "celery": {
         "name": "芹菜",
@@ -44,23 +44,23 @@
       },
       "jalapeño": {
         "name": "墨西哥辣椒",
-        "plural_name": ""
+        "plural_name": "jalapeños"
       },
       "avocado": {
         "name": "牛油果",
-        "plural_name": ""
+        "plural_name": "avocados"
       },
       "shallot": {
         "name": "红葱头",
-        "plural_name": ""
+        "plural_name": "shallots"
       },
       "cherry tomato": {
         "name": "圣女果",
-        "plural_name": ""
+        "plural_name": "cherry tomatoes"
       },
       "cucumber": {
         "name": "黄瓜",
-        "plural_name": ""
+        "plural_name": "cucumbers"
       },
       "spinach": {
         "name": "菠菜",
@@ -72,11 +72,11 @@
       },
       "chile pepper": {
         "name": "辣椒",
-        "plural_name": ""
+        "plural_name": "chile peppers"
       },
       "sweet potato": {
         "name": "红薯",
-        "plural_name": ""
+        "plural_name": "sweet potatoes"
       },
       "broccoli": {
         "name": "西兰花",
@@ -84,19 +84,19 @@
       },
       "heart of palm": {
         "name": "棕榈心",
-        "plural_name": ""
+        "plural_name": "hearts of palm"
       },
       "pumpkin": {
         "name": "南瓜",
-        "plural_name": ""
+        "plural_name": "pumpkins"
       },
       "cauliflower": {
         "name": "菜花",
-        "plural_name": "花菜"
+        "plural_name": ""
       },
       "cabbage": {
         "name": "卷心菜",
-        "plural_name": ""
+        "plural_name": "cabbages"
       },
       "asparagus": {
         "name": "芦笋",
@@ -112,11 +112,11 @@
       },
       "leek": {
         "name": "韭葱",
-        "plural_name": ""
+        "plural_name": "leeks"
       },
       "eggplant": {
         "name": "茄子",
-        "plural_name": ""
+        "plural_name": "eggplants"
       },
       "lettuce": {
         "name": "生菜",
@@ -124,7 +124,7 @@
       },
       "butternut squash": {
         "name": "奶油南瓜",
-        "plural_name": ""
+        "plural_name": "butternut squashes"
       },
       "romaine lettuce": {
         "name": "罗马生菜",
@@ -132,11 +132,11 @@
       },
       "beetroot": {
         "name": "甜菜根",
-        "plural_name": ""
+        "plural_name": "beetroots"
       },
       "brussels sprout": {
         "name": "抱子甘蓝",
-        "plural_name": ""
+        "plural_name": "brussels sprouts"
       },
       "fennel": {
         "name": "茴香",
@@ -152,11 +152,11 @@
       },
       "red cabbage": {
         "name": "紫甘蓝",
-        "plural_name": ""
+        "plural_name": "red cabbages"
       },
       "artichoke": {
         "name": "朝鲜蓟",
-        "plural_name": ""
+        "plural_name": "artichokes"
       },
       "parsnip": {
         "name": "防风草",
@@ -164,7 +164,7 @@
       },
       "poblano pepper": {
         "name": "波布拉诺辣椒",
-        "plural_name": ""
+        "plural_name": "poblano peppers"
       },
       "green tomato": {
         "name": "青西红柿",
@@ -172,7 +172,7 @@
       },
       "horseradish": {
         "name": "辣根",
-        "plural_name": "辣根（复数）"
+        "plural_name": ""
       },
       "chard": {
         "name": "瑞士甜菜",
@@ -188,7 +188,7 @@
       },
       "celeriac": {
         "name": "芹菜根",
-        "plural_name": "芹菜根（复数）"
+        "plural_name": ""
       },
       "turnip": {
         "name": "圆萝卜",
@@ -208,7 +208,7 @@
       },
       "plantain": {
         "name": "食用香蕉",
-        "plural_name": ""
+        "plural_name": "plantains"
       },
       "collard greens": {
         "name": "羽衣甘蓝（复数）",
@@ -216,7 +216,7 @@
       },
       "baby corn": {
         "name": "玉米笋",
-        "plural_name": "玉米笋（复数）"
+        "plural_name": ""
       },
       "broccoli rabe": {
         "name": "菜心西兰花",
@@ -276,7 +276,7 @@
       },
       "grape": {
         "name": "葡萄",
-        "plural_name": ""
+        "plural_name": "grapes"
       },
       "pomegranate": {
         "name": "石榴",
@@ -284,11 +284,11 @@
       },
       "watermelon": {
         "name": "西瓜",
-        "plural_name": ""
+        "plural_name": "watermelons"
       },
       "rhubarb": {
         "name": "大黄",
-        "plural_name": "大黄（复数）"
+        "plural_name": ""
       },
       "kiwi": {
         "name": "猕猴桃",
@@ -324,7 +324,7 @@
       },
       "button mushroom": {
         "name": "口蘑",
-        "plural_name": ""
+        "plural_name": "button mushrooms"
       },
       "shiitake mushroom": {
         "name": "香菇",
@@ -360,27 +360,27 @@
       },
       "strawberry": {
         "name": "草莓",
-        "plural_name": ""
+        "plural_name": "strawberries"
       },
       "blueberry": {
         "name": "蓝莓",
-        "plural_name": ""
+        "plural_name": "blueberries"
       },
       "raspberry": {
         "name": "覆盆子",
-        "plural_name": ""
+        "plural_name": "raspberries"
       },
       "cranberry": {
         "name": "蔓越莓",
-        "plural_name": ""
+        "plural_name": "cranberries"
       },
       "cherry": {
         "name": "樱桃",
-        "plural_name": ""
+        "plural_name": "cherries"
       },
       "blackberry": {
         "name": "黑莓",
-        "plural_name": ""
+        "plural_name": "blackberries"
       },
       "parsley": {
         "name": "parsley",
@@ -2145,35 +2145,35 @@
     "foods": {
       "walnut": {
         "name": "核桃",
-        "plural_name": ""
+        "plural_name": "walnuts"
       },
       "pecan": {
         "name": "山核桃",
-        "plural_name": ""
+        "plural_name": "pecans"
       },
       "almond": {
         "name": "杏仁",
-        "plural_name": ""
+        "plural_name": "almonds"
       },
       "sesame seed": {
         "name": "芝麻",
-        "plural_name": ""
+        "plural_name": "sesame seeds"
       },
       "cashew": {
         "name": "腰果",
-        "plural_name": ""
+        "plural_name": "cashews"
       },
       "pine nut": {
         "name": "松子",
-        "plural_name": ""
+        "plural_name": "pine nuts"
       },
       "pistachio": {
         "name": "开心果",
-        "plural_name": ""
+        "plural_name": "pistachios"
       },
       "peanut": {
         "name": "花生",
-        "plural_name": ""
+        "plural_name": "peanuts"
       },
       "chia": {
         "name": "奇亚籽",
@@ -2181,15 +2181,15 @@
       },
       "pumpkin seed": {
         "name": "南瓜子",
-        "plural_name": ""
+        "plural_name": "pumpkin seeds"
       },
       "hazelnut": {
         "name": "榛子",
-        "plural_name": ""
+        "plural_name": "hazelnuts"
       },
       "sunflower seed": {
         "name": "向日葵籽",
-        "plural_name": ""
+        "plural_name": "sunflower seeds"
       },
       "graham cracker": {
         "name": "graham cracker",

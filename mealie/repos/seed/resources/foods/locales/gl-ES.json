@@ -252,7 +252,7 @@
       },
       "pineapple": {
         "name": "ananás",
-        "plural_name": ""
+        "plural_name": "pineapples"
       },
       "mango": {
         "name": "mango",
@@ -831,7 +831,7 @@
       },
       "chorizo": {
         "name": "chourizo",
-        "plural_name": "chourizos"
+        "plural_name": ""
       },
       "pancetta": {
         "name": "pancetta",
@@ -847,7 +847,7 @@
       },
       "salami": {
         "name": "salame",
-        "plural_name": "salames"
+        "plural_name": ""
       },
       "kielbasa": {
         "name": "kielbasa",
@@ -1041,7 +1041,7 @@
       },
       "butter": {
         "name": "manteiga",
-        "plural_name": "manteigas"
+        "plural_name": ""
       },
       "egg": {
         "name": "ovo",
@@ -1065,7 +1065,7 @@
       },
       "yogurt": {
         "name": "iogurte",
-        "plural_name": "iogurtes"
+        "plural_name": ""
       },
       "greek yogurt": {
         "name": "greek yogurt",
@@ -2136,7 +2136,7 @@
       },
       "dulce de leche": {
         "name": "doce de leite",
-        "plural_name": "doces de leite"
+        "plural_name": ""
       }
     }
   },

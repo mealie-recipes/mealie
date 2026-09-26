@@ -352,7 +352,7 @@
       "title": "Paprika receptenbeheerder"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie kan recepten importeren uit oude versies van Mealie (voor versie 1.0). Exporteer je recepten vanuit de oude versie, en upload het zip-bestand hieronder. Let op dat alleen recepten uit de export kunnen worden geïmporteerd.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Oude versies van Mealie (vóór versie 1.0)"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Receptmigratie",
-    "recipe-data-migrations-explanation": "Je kunt recepten van een ander programma importeren in Mealie. Zo kun je snel aan de slag.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Kom je van een andere toepassing of een oudere versie van Mealie? Kijk eens naar de migraties. Misschien kunnen we je gegevens importeren.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Kom je van een andere toepassing of een oudere versie van Mealie? Kijk eens naar de migraties. Misschien kunnen we je gegevens importeren.",
     "choose-migration-type": "Kies het migratietype",
     "tag-all-recipes": "Label alle recepten met het label {tag-name}",
     "recipe-1": "Eerste recept",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Mealie heeft je ingrediënten nog niet verwerkt. Klik op de '{parse}' knop om je ingrediënten te verwerken als gestructureerde levensmiddelen.",
     "attach-images-hint": "Voeg afbeeldingen toe door ze te slepen en in de editor te plaatsen",
     "drop-image": "Afbeelding toevoegen",
+    "failed-to-attach-image": "Kon afbeelding niet toevoegen",
+    "image-drop-unsupported": "Deze afbeelding kan niet direct worden bijgevoegd. Sla het op uw apparaat op en sleep het bestand erin.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recepten met eenheden of levensmiddelen kunnen niet ontleed worden.",
     "parse-ingredients": "Ingrediënten ontleden",
     "edit-markdown": "Markdown bewerken",
@@ -601,6 +603,13 @@
     "remove-image": "Afbeelding verwijderen",
     "nextStep": "Volgende stap",
     "recipe-actions": "Acties met recepten ",
+    "unit-system": {
+      "as-written": "Zoals geschreven",
+      "metric": "Waarde",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Ingrediëntenontleder",
       "select-parser": "Selecteer ontleder",
@@ -944,7 +953,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Vul de database aan met veelvoorkomende labels, gebaseerd op je lokale taal.",
       "edit-label": "Bewerk label",
       "new-label": "Nieuw label",
       "labels": "Labels",

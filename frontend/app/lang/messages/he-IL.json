@@ -352,7 +352,7 @@
       "title": "מנהל מתכוני Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie יכול לייבא מתכונים מגרסאות ישנות של Mealie מתחת ל- v1.0. ייצא את המתכונים מהסביבה הישנה והעלה את קובץ ה- zip למטה. ניתן לייבא רק מתכונים מתהליך הייצוא.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "מילי לפני V1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "מגרציית מידע מתכונים",
-    "recipe-data-migrations-explanation": "ניתן לייבא מתכונים מאפליקציות תומכות אחרות אל Mealie. זו דרך מעולה להתחיל במילי.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "הגעת מתוכנה אחרת או גרסה ישנה יותר של Mealie? מומלץ לבדוק מיגרציות ולראות אם ניתן לייבא את המידע שלך.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "בחר סוג מיגרציה",
     "tag-all-recipes": "תיוג את כל המתכונים עם תגית {tag-name}",
     "recipe-1": "מתכון 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "הוסף תמונות ע\"י גרירה ושחרור אל תוך העורך",
     "drop-image": "גרור תמונה",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "לא ניתן לפענך מתכונים בהם יחידות או אוכל מוגדרים.",
     "parse-ingredients": "חילוץ רכיבים",
     "edit-markdown": "ערוך Markdown",
@@ -601,6 +603,13 @@
     "remove-image": "האם למחוק את התמונה?",
     "nextStep": "השלב הבא",
     "recipe-actions": "פעולות במתכון",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "מפענח המרכיבים",
       "select-parser": "בחירת מפענח",
@@ -944,7 +953,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "אכלס את מסד הנתונים בתוויות נפוצות בהתאם לשפה המקומית שלך.",
       "edit-label": "עריכת תווית",
       "new-label": "תוויות חדשה",
       "labels": "תוויות",

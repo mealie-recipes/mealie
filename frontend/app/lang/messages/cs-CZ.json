@@ -352,7 +352,7 @@
       "title": "Správce receptů Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie může importovat recepty z aplikace Mealie v1.0 a starší. Exportujte své recepty ze staré verze a nahrajte zip soubor níže. Upozorňujeme, že lze importovat pouze recepty.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie před verzí 1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrace dat receptů",
-    "recipe-data-migrations-explanation": "Recepty mohou být migrovány z jiné podporované aplikace na Mealie. To je skvělý způsob, jak začít s Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Migrujete z jiné aplikace nebo starší verze Mealie? Podívejte se na migrace a zjistěte, zda lze vaše data importovat.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Zvolte si typ migrace",
     "tag-all-recipes": "Označit všechny recepty pomocí štítku {tag-name}",
     "recipe-1": "Recept 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Zdá se, že vaše ingredience doposud nebyly analyzovány. Kliknutím na tlačítko „{parse}“ níže, abyste rozložili ingredience do strukturovaných jídel.",
     "attach-images-hint": "Přiložit obrázky přetažením jich do editoru",
     "drop-image": "Vložit obrázek",
+    "failed-to-attach-image": "Nepodařilo se připojit obrázek",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recepty s definovanými jednotkami nebo potravinami nelze zpracovat.",
     "parse-ingredients": "Rozbor ingrediencí",
     "edit-markdown": "Upravit Markdown",
@@ -601,6 +603,13 @@
     "remove-image": "Odstranit obrázek",
     "nextStep": "Další krok",
     "recipe-actions": "Akce receptu",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Analyzátor ingrediencí",
       "select-parser": "Vyberte analyzátor",
@@ -944,7 +953,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Naplnit databázi s běžnými popisky používanými ve vašem jazyce.",
       "edit-label": "Upravit štítek",
       "new-label": "Nový štítek",
       "labels": "Štítky",
