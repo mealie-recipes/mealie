@@ -1,6 +1,9 @@
 import filecmp
+from io import BytesIO
 
+import pytest
 from fastapi.testclient import TestClient
+from PIL import Image
 from slugify import slugify
 
 from mealie.schema.recipe.recipe import Recipe
@@ -253,3 +256,81 @@ def test_recipe_update_can_still_clear_image(
 
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
     assert recipe["image"] is None
+
+
+@pytest.mark.parametrize("extension", ["svg", "svg+xml", "pdf", "mp4", "exe", "."])
+def test_recipe_image_upload_rejects_unsupported_extension(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe, extension: str
+):
+    slug = recipe_ingredient_only.slug
+
+    response = api_client.put(
+        api_routes.recipes_slug_image(slug),
+        data={"extension": extension},
+        files={"image": b"dummy bytes"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 400
+    assert "Unsupported image file type" in response.json()["detail"]["message"]
+
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["image"] is None
+
+
+def test_recipe_image_upload_rejects_corrupt_image(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+):
+    slug = recipe_ingredient_only.slug
+
+    response = api_client.put(
+        api_routes.recipes_slug_image(slug),
+        data={"extension": "png"},
+        files={"image": b"not an image"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 400
+    assert response.json()["detail"]["message"] == "Uploaded file is not a valid image"
+
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["image"] is None
+
+
+def test_recipe_image_upload_accepts_uppercase_extension(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe
+):
+    response = api_client.put(
+        api_routes.recipes_slug_image(recipe_ingredient_only.slug),
+        data={"extension": "JPG"},
+        files={"image": data.images_test_image_1.read_bytes()},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json()["image"]
+
+
+@pytest.mark.parametrize("image_format", ["GIF", "BMP"])
+def test_recipe_image_upload_accepts_gif_and_bmp(
+    api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe, image_format: str
+):
+    buffer = BytesIO()
+    Image.new("RGB", (8, 8), "red").save(buffer, image_format)
+
+    response = api_client.put(
+        api_routes.recipes_slug_image(recipe_ingredient_only.slug),
+        data={"extension": image_format.lower()},
+        files={"image": buffer.getvalue()},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json()["image"]
+
+
+def test_recipe_image_upload_accepts_png(api_client: TestClient, unique_user: TestUser, recipe_ingredient_only: Recipe):
+    response = api_client.put(
+        api_routes.recipes_slug_image(recipe_ingredient_only.slug),
+        data={"extension": "png"},
+        files={"image": data.images_test_image_2.read_bytes()},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+    assert response.json()["image"]
