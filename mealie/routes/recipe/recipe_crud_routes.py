@@ -70,6 +70,12 @@ from mealie.services.event_bus_service.event_types import (
 )
 from mealie.services.openai import OpenAINotEnabledException
 from mealie.services.recipe.ai_recipe_service import AIProviderNotEnabledError, AIRecipeService
+from mealie.services.recipe.document_text_extraction import (
+    DocumentExtractionError,
+    EmptyPdfTextError,
+    extract_images_from_pdf,
+    extract_text_from_document,
+)
 from mealie.services.recipe.import_workflow.exceptions import NoRecipeDataError
 from mealie.services.recipe.recipe_data_service import (
     InvalidDomainError,
@@ -378,6 +384,70 @@ class RecipeController(BaseRecipeController):
     # =======================================================================
     # AI Operations
 
+    async def _extract_one_document(self, document: UploadFile) -> tuple[str | None, list[tuple[str, bytes]]]:
+        """
+        Reads one uploaded document and extracts either its text, or, for a scanned PDF with no
+        text layer, its embedded page images.
+        """
+        file_bytes = await document.read()
+        filename = document.filename or ""
+
+        try:
+            return extract_text_from_document(file_bytes, filename), []
+        except EmptyPdfTextError:
+            pass
+        except DocumentExtractionError as e:
+            raise HTTPException(
+                status_code=400, detail=ErrorResponse.respond(message=f"Couldn't read {filename}: {e}")
+            ) from e
+
+        try:
+            document_images = extract_images_from_pdf(file_bytes)
+        except DocumentExtractionError as e:
+            raise HTTPException(
+                status_code=400, detail=ErrorResponse.respond(message=f"Couldn't read {filename}: {e}")
+            ) from e
+
+        if not document_images:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond(
+                    message=f"Couldn't read {filename}: doesn't contain readable text or images."
+                ),
+            )
+
+        return None, document_images
+
+    async def _extract_document_content(
+        self, documents: list[UploadFile]
+    ) -> tuple[str | None, list[tuple[str, bytes]]]:
+        """
+        Reads every uploaded document and extracts their text and/or (for a scanned PDF with no
+        text layer) embedded page images. Returns (None, []) if no documents were given.
+
+        A single document's extracted text is returned as-is; with more than one, each is
+        labelled with its filename so the merged text still shows which file each part came from.
+        """
+        if not documents:
+            return None, []
+
+        texts: list[tuple[str, str]] = []
+        document_images: list[tuple[str, bytes]] = []
+        for document in documents:
+            text, images = await self._extract_one_document(document)
+            if text is not None:
+                texts.append((document.filename or "", text))
+            document_images.extend(images)
+
+        if not texts:
+            document_content = None
+        elif len(texts) == 1:
+            document_content = texts[0][1]
+        else:
+            document_content = "\n\n".join(f"## {filename}\n\n{text}" for filename, text in texts)
+
+        return document_content, document_images
+
     @router.post("/create/ai", status_code=201, response_model=str)
     async def create_recipe_with_ai(
         self,
@@ -386,11 +456,15 @@ class RecipeController(BaseRecipeController):
         translate_language: Annotated[str | None, Form(alias="translateLanguage")] = None,
         create_new_organizers: Annotated[bool, Form(alias="createNewOrganizers")] = False,
         images: list[UploadFile] = File(default_factory=list),
+        documents: list[UploadFile] = File(default_factory=list),
     ) -> str:
         """
-        Create a recipe from any combination of content (HTML, JSON, or text), images, and a URL,
-        using AI. Optionally specify a language for it to translate the recipe to.
+        Create a recipe from any combination of content (HTML, JSON, or text), images, a URL, and
+        uploaded documents (PDF, Word, ODT, Markdown, plain text, RTF, or HTML), using AI.
+        Optionally specify a language for it to translate the recipe to.
         """
+
+        document_content, document_images = await self._extract_document_content(documents)
 
         req = ScrapeRecipeAI(
             content=content,
@@ -398,7 +472,9 @@ class RecipeController(BaseRecipeController):
             translate_language=translate_language,
             create_new_organizers=create_new_organizers,
         )
-        async for event in self._create_recipe_with_ai(req, images):
+        async for event in self._create_recipe_with_ai(
+            req, images, document_content=document_content, document_images=document_images
+        ):
             if isinstance(event.data, SSEDataEventDone):
                 return event.data.slug
             if isinstance(event.data, SSEDataEventMessage) and event.event == SSEDataEventStatus.ERROR:
@@ -415,11 +491,14 @@ class RecipeController(BaseRecipeController):
         translate_language: Annotated[str | None, Form(alias="translateLanguage")] = None,
         create_new_organizers: Annotated[bool, Form(alias="createNewOrganizers")] = False,
         images: list[UploadFile] = File(default_factory=list),
+        documents: list[UploadFile] = File(default_factory=list),
     ) -> AsyncIterable[ServerSentEvent]:
         """
-        Create a recipe from any combination of content (HTML, JSON, or text), images, and a URL,
-        using AI, streaming progress via SSE
+        Create a recipe from any combination of content (HTML, JSON, or text), images, a URL, and
+        uploaded documents, using AI, streaming progress via SSE
         """
+
+        document_content, document_images = await self._extract_document_content(documents)
 
         req = ScrapeRecipeAI(
             content=content,
@@ -427,10 +506,18 @@ class RecipeController(BaseRecipeController):
             translate_language=translate_language,
             create_new_organizers=create_new_organizers,
         )
-        async for event in self._create_recipe_with_ai(req, images):
+        async for event in self._create_recipe_with_ai(
+            req, images, document_content=document_content, document_images=document_images
+        ):
             yield event
 
-    def _create_recipe_with_ai(self, req: ScrapeRecipeAI, images: list[UploadFile]) -> AsyncIterable[ServerSentEvent]:
+    def _create_recipe_with_ai(
+        self,
+        req: ScrapeRecipeAI,
+        images: list[UploadFile],
+        document_content: str | None = None,
+        document_images: list[tuple[str, bytes]] | None = None,
+    ) -> AsyncIterable[ServerSentEvent]:
         """Create a recipe using AI, returning progress via SSE"""
 
         ai_service = AIRecipeService(self.repos, self.user, self.household, translator=self.translator)
@@ -440,6 +527,8 @@ class RecipeController(BaseRecipeController):
                 content=req.content,
                 images=images,
                 url=req.url,
+                document_content=document_content,
+                document_images=document_images,
                 translate_language=req.translate_language,
                 create_new_organizers=req.create_new_organizers,
                 on_progress=on_progress,

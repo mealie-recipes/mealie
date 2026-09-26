@@ -1,6 +1,7 @@
 <template>
   <div>
     <AppButtonUpload
+      v-if="!hideUploadButton"
       class="ml-auto"
       url="none"
       file-name="images"
@@ -57,8 +58,10 @@
 <script setup lang="ts">
 withDefaults(defineProps<{
   disabled?: boolean;
+  hideUploadButton?: boolean;
 }>(), {
   disabled: false,
+  hideUploadButton: false,
 });
 
 const images = defineModel<(Blob | File)[]>({ default: () => [] });
@@ -107,4 +110,6 @@ function setCoverImage(index: number) {
 onBeforeUnmount(() => {
   previewUrls.value.forEach(url => URL.revokeObjectURL(url));
 });
+
+defineExpose({ uploadImages });
 </script>

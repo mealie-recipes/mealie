@@ -46,6 +46,10 @@ dependencies = [
     "ingredient-parser-nlp==2.7.0",
     "pint==0.26.1",
     "httpx-curl-cffi==0.1.5",
+    "pypdf==6.19.0",
+    "python-docx==1.2.0",
+    "odfpy==1.4.1",
+    "striprtf==0.0.33",
 ]
 
 [project.scripts]

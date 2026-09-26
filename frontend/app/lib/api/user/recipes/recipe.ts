@@ -250,6 +250,7 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
       content?: string | null;
       url?: string | null;
       images?: (Blob | File)[];
+      documents?: File[];
       translateLanguage?: string | null;
       createNewOrganizers?: boolean;
     },
@@ -263,6 +264,9 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
     if (payload.url) {
       formData.append("url", payload.url);
     }
+    (payload.documents || []).forEach((document) => {
+      formData.append("documents", document, document.name);
+    });
     if (payload.translateLanguage) {
       formData.append("translateLanguage", payload.translateLanguage);
     }
