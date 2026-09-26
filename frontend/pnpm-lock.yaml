@@ -255,6 +255,9 @@ importers:
       ufo:
         specifier: ^1.6.4
         version: 1.6.4
+      uqr:
+        specifier: ^0.1.3
+        version: 0.1.3
       vue:
         specifier: ^3.5.35
         version: 3.5.43(typescript@5.9.3)
