@@ -248,7 +248,7 @@
       },
       "raisin": {
         "name": "russin",
-        "plural_name": "raisins"
+        "plural_name": "russin"
       },
       "pineapple": {
         "name": "ananas",
@@ -272,7 +272,7 @@
       },
       "pear": {
         "name": "päron",
-        "plural_name": "pears"
+        "plural_name": "päron"
       },
       "grape": {
         "name": "druva",
@@ -300,11 +300,11 @@
       },
       "plum": {
         "name": "plommon",
-        "plural_name": "plums"
+        "plural_name": "plommon"
       },
       "fig": {
         "name": "fikon",
-        "plural_name": "figs"
+        "plural_name": "fikon"
       },
       "apricot": {
         "name": "aprikos",
@@ -340,7 +340,7 @@
       },
       "green bean": {
         "name": "Gröna bönor",
-        "plural_name": "green beans"
+        "plural_name": "gröna bönor"
       },
       "snow pea": {
         "name": "snow pea",
@@ -364,23 +364,23 @@
       },
       "blueberry": {
         "name": "blåbär",
-        "plural_name": "blueberries"
+        "plural_name": "blåbär"
       },
       "raspberry": {
         "name": "hallon",
-        "plural_name": "raspberries"
+        "plural_name": "hallon"
       },
       "cranberry": {
         "name": "tranbär",
-        "plural_name": "cranberries"
+        "plural_name": "tranbär"
       },
       "cherry": {
         "name": "körsbär",
-        "plural_name": "cherries"
+        "plural_name": "körsbär"
       },
       "blackberry": {
         "name": "björnbär",
-        "plural_name": "blackberries"
+        "plural_name": "björnbär"
       },
       "parsley": {
         "name": "Persilja",
@@ -517,7 +517,7 @@
       },
       "black bean": {
         "name": "Svarta bönor",
-        "plural_name": "black beans"
+        "plural_name": "svarta bönor"
       },
       "kidney bean": {
         "name": "kidneyböna",
@@ -730,11 +730,11 @@
       },
       "chicken breast": {
         "name": "kycklingbröst",
-        "plural_name": "chicken breasts"
+        "plural_name": "kycklingbröst"
       },
       "chicken thigh": {
         "name": "kycklinglår",
-        "plural_name": "chicken thighs"
+        "plural_name": "kycklinglår"
       },
       "ground turkey": {
         "name": "kalkonfärs",
@@ -750,7 +750,7 @@
       },
       "chicken leg": {
         "name": "kycklingben",
-        "plural_name": "chicken legs"
+        "plural_name": "kycklingben"
       },
       "chicken wing": {
         "name": "kycklingvinge",
@@ -932,15 +932,15 @@
       },
       "lobster": {
         "name": "hummer",
-        "plural_name": "lobsters"
+        "plural_name": "humrar"
       },
       "oyster": {
         "name": "ostron",
-        "plural_name": "oysters"
+        "plural_name": "ostron"
       },
       "octopus": {
         "name": "bläckfisk",
-        "plural_name": "octopuses"
+        "plural_name": "bläckfiskar"
       },
       "fish": {
         "name": "fish",
@@ -1045,7 +1045,7 @@
       },
       "egg": {
         "name": "ägg",
-        "plural_name": "eggs"
+        "plural_name": "ägg"
       },
       "milk": {
         "name": "mjölk",
@@ -1150,11 +1150,11 @@
       },
       "flour tortilla": {
         "name": "vetetortilla",
-        "plural_name": "flour tortillas"
+        "plural_name": "vetetortillas"
       },
       "corn tortilla": {
         "name": "majstortilla",
-        "plural_name": "corn tortillas"
+        "plural_name": "majstortillas"
       },
       "baguette": {
         "name": "baguette",
@@ -1162,7 +1162,7 @@
       },
       "pita": {
         "name": "pitabröd",
-        "plural_name": "pitas"
+        "plural_name": "pitabröd"
       },
       "sourdough bread": {
         "name": "surdegsbröd",
@@ -1186,11 +1186,11 @@
       },
       "naan": {
         "name": "Naanbröd",
-        "plural_name": "naans"
+        "plural_name": "naanbröd"
       },
       "taco shell": {
         "name": "tacoskal",
-        "plural_name": "taco shells"
+        "plural_name": "tacoskal"
       },
       "bagel": {
         "name": "bagel",
@@ -1223,7 +1223,7 @@
       },
       "caper": {
         "name": "kapris",
-        "plural_name": "capers"
+        "plural_name": "kapris"
       },
       "green olive": {
         "name": "grön oliv",
@@ -1263,7 +1263,7 @@
       },
       "canned anchovy": {
         "name": "Konserverad ansjovis",
-        "plural_name": "canned anchovies"
+        "plural_name": "konserverade anjovis"
       },
       "roasted red pepper": {
         "name": "roasted red pepper",
@@ -1271,7 +1271,7 @@
       },
       "canned artichoke": {
         "name": "Konserverad kronärtskocka",
-        "plural_name": "canned artichokes"
+        "plural_name": "konserverade kronärtskockor"
       },
       "canned corn": {
         "name": "Konserverad majs",
