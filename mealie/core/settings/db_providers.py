@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from pathlib import Path
 from urllib import parse as urlparse
 
-from pydantic import BaseModel, PostgresDsn
+from pydantic import BaseModel, Field, PostgresDsn
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -40,6 +40,9 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
     POSTGRES_PORT: str = "5432"
     POSTGRES_DB: str = "mealie"
     POSTGRES_URL_OVERRIDE: str | None = None
+    POSTGRES_POOL_SIZE: int = Field(default=5, ge=1)
+    POSTGRES_MAX_OVERFLOW: int = Field(default=10, ge=0)
+    POSTGRES_POOL_TIMEOUT: float = Field(default=30, ge=0, allow_inf_nan=False)
 
     model_config = SettingsConfigDict(arbitrary_types_allowed=True, extra="allow")
 
