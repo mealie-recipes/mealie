@@ -35,11 +35,10 @@ def test_configured_logger_with_config_override(tmp_path):
     custom_config = tmp_path / "custom.json"
     custom_config.write_text('{"version": 1}')
 
-    with patch(
-        "mealie.core.logger.config.logging_config.dictConfig"
-    ) as mock_dict_config, patch(
-        "mealie.core.logger.config.logging.getLogger"
-    ) as mock_get_logger:
+    with (
+        patch("mealie.core.logger.config.logging_config.dictConfig") as mock_dict_config,
+        patch("mealie.core.logger.config.logging.getLogger") as mock_get_logger,
+    ):
         configured_logger(mode="production", config_override=custom_config)
         mock_dict_config.assert_called_once_with(config={"version": 1})
         mock_get_logger.assert_called_once()
@@ -51,21 +50,21 @@ def test_configured_logger_invalid_mode():
 
 
 def test_configured_logger_modes():
-    with patch(
-        "mealie.core.logger.config._load_config"
-    ) as mock_load, patch(
-        "mealie.core.logger.config.logging_config.dictConfig"
-    ), patch("mealie.core.logger.config.logging.getLogger"):
+    with (
+        patch("mealie.core.logger.config._load_config") as mock_load,
+        patch("mealie.core.logger.config.logging_config.dictConfig"),
+        patch("mealie.core.logger.config.logging.getLogger"),
+    ):
         mock_load.return_value = {"version": 1}
         configured_logger(mode="development")
         configured_logger(mode="testing")
 
 
 def test_configured_logger_production_mode():
-    with patch(
-        "mealie.core.logger.config._load_config"
-    ) as mock_load, patch(
-        "mealie.core.logger.config.logging_config.dictConfig"
-    ), patch("mealie.core.logger.config.logging.getLogger"):
+    with (
+        patch("mealie.core.logger.config._load_config") as mock_load,
+        patch("mealie.core.logger.config.logging_config.dictConfig"),
+        patch("mealie.core.logger.config.logging.getLogger"),
+    ):
         mock_load.return_value = {"version": 1}
         configured_logger(mode="production")
