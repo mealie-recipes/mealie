@@ -20,7 +20,6 @@ def test_pretty_size_terabytes():
     assert pretty_size(1099511627776) == "1.0 TB"
 
 
-
 def test_get_dir_size_file_not_found():
     with patch("os.path.getsize", side_effect=FileNotFoundError):
         assert get_dir_size("non_existent_folder") == 0
