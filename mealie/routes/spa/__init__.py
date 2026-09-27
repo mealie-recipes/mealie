@@ -126,6 +126,16 @@ def inject_meta(contents: str, tags: list[MetaTag]) -> str:
     return str(soup)
 
 
+def iso_duration(seconds: int | None) -> str | None:
+    """schema.org requires ISO 8601 durations, e.g. 5400 -> "PT1H30M" """
+    if not seconds:
+        return None
+
+    hours, remainder = divmod(seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    return "PT" + "".join(f"{n}{unit}" for n, unit in ((hours, "H"), (minutes, "M"), (seconds, "S")) if n)
+
+
 def inject_recipe_json(contents: str, schema: dict) -> str:
     schema_as_html_tag = f"""<script type="application/ld+json">{json.dumps(jsonable_encoder(schema))}</script>"""
     return contents.replace("</head>", schema_as_html_tag + "\n</head>", 1)
@@ -165,9 +175,9 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
         "description": escape(recipe.description),
         "image": [image_url],
         "datePublished": recipe.created_at,
-        "prepTime": escape(recipe.prep_time),
-        "cookTime": escape(recipe.cook_time),
-        "totalTime": escape(recipe.total_time),
+        "prepTime": iso_duration(recipe.prep_time_seconds),
+        "cookTime": iso_duration(recipe.perform_time_seconds),
+        "totalTime": iso_duration(recipe.total_time_seconds),
         "recipeYield": escape(recipe.recipe_yield_display),
         "recipeIngredient": ingredients,
         "recipeInstructions": [escape(i.text) for i in recipe.recipe_instructions]

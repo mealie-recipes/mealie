@@ -63,6 +63,7 @@ def test_default_connection_args(monkeypatch):
 def test_pg_connection_args(monkeypatch):
     monkeypatch.setenv("DB_ENGINE", "postgres")
     monkeypatch.setenv("POSTGRES_SERVER", "postgres")
+    monkeypatch.setenv("POSTGRES_DB", "mealie")
     get_app_settings.cache_clear()
     app_settings = get_app_settings()
     assert app_settings.DB_URL == "postgresql://mealie:mealie@postgres:5432/mealie"

@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie는 v1.0 이전 버전의 Mealie 애플리케이션에서 레시피를 가져올 수 있습니다. 기존 인스턴스에서 레시피를 내보낸 후 아래에 있는 압축 파일을 업로드하세요. 내보내기 파일에서는 레시피만 가져올 수 있다는 점에 유의하세요.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "레시피 데이터 이전",
-    "recipe-data-migrations-explanation": "다른 지원되는 애플리케이션에서 Mealie로 레시피를 이전할 수 있습니다. 이것은 Mealie를 시작하는 아주 좋은 방법입니다.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "다른 애플리케이션이나 더 오래된 버전의 Mealie에서 오셨나요? 데이터 이전 기능을 확인하고 데이터를 가져올 수 있는지 살펴보세요.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "이전 종류 선택",
     "tag-all-recipes": "모든 레시피에 {태그 이름} 태그를 지정하세요",
     "recipe-1": "레시피 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "재료가 아직 분석되지 않은 것 같습니다. 아래의 \"{parse}\" 버튼을 클릭하여 재료를 구조화된 식품 목록으로 분석하세요.",
     "attach-images-hint": "이미지를 편집기로 끌어다 놓아 첨부하세요",
     "drop-image": "이미지 끌어다 놓기",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "단위나 정의된 식품이 포함된 레시피는 추출할 수 없습니다.",
     "parse-ingredients": "재료 추출하기",
     "edit-markdown": "마크다운 수정",
@@ -601,6 +603,13 @@
     "remove-image": "이미지 제거",
     "nextStep": "다음 단계",
     "recipe-actions": "레시피 액션",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "재료 분석기",
       "select-parser": "분석기 선택",
@@ -944,7 +953,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "당신의 언어를 기반으로 한 일반적인 라벨을 데이터베이스에 설정하십시오.",
       "edit-label": "라벨 편집",
       "new-label": "새 라벨",
       "labels": "라벨",

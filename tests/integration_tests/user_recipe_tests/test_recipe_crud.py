@@ -48,21 +48,21 @@ recipe_test_data = get_recipe_test_cases()
 
 
 @pytest.fixture(scope="module")
-def tempdir() -> Generator[str, None, None]:
+def tempdir() -> Generator[str]:
     with tempfile.TemporaryDirectory() as td:
         yield td
 
 
 def zip_recipe(tempdir: str, recipe: RecipeSummary) -> dict:
-    data_file = tempfile.NamedTemporaryFile(mode="w+", dir=tempdir, suffix=".json", delete=False)
-    json.dump(json.loads(recipe.model_dump_json()), data_file)
-    data_file.flush()
+    with tempfile.NamedTemporaryFile(mode="w+", dir=tempdir, suffix=".json", delete=False) as data_file:
+        json.dump(json.loads(recipe.model_dump_json()), data_file)
+        data_file.flush()
 
-    zip_file = os.path.join(tempdir, "zipfile.zip")
-    with ZipFile(zip_file, "w") as zf:
-        zf.write(data_file.name)
+        zip_file = os.path.join(tempdir, "zipfile.zip")
+        with ZipFile(zip_file, "w") as zf:
+            zf.write(data_file.name)
 
-    return {"archive": Path(zip_file).read_bytes()}
+        return {"archive": Path(zip_file).read_bytes()}
 
 
 def get_init(html_path: Path):
@@ -409,6 +409,235 @@ def test_create_recipe_from_zip(api_client: TestClient, unique_user: TestUser, t
 
     fetched_recipe = database.recipes.get_by_slug(unique_user.group_id, recipe.slug)
     assert fetched_recipe
+
+
+def test_create_recipe_from_zip_reimport_into_same_instance(api_client: TestClient, unique_user: TestUser):
+    """A recipe exported from this instance can be imported back into it.
+
+    The export keeps the original id, which collides with the recipe it was exported from.
+    """
+    recipe_name = random_string()
+    slug = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token).json()
+    original = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+
+    export = api_client.get(
+        api_routes.recipes_slug_exports(slug), params={"template_name": "zip"}, headers=unique_user.token
+    )
+    assert export.status_code == 200
+
+    r = api_client.post(api_routes.recipes_create_zip, files={"archive": export.content}, headers=unique_user.token)
+    assert r.status_code == 201
+
+    imported = api_client.get(api_routes.recipes_slug(r.json()), headers=unique_user.token).json()
+    assert imported["id"] != original["id"]
+
+    # the recipe it was exported from is still there, untouched
+    still_there = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
+    assert still_there.status_code == 200
+    assert still_there.json()["id"] == original["id"]
+
+
+def test_create_recipe_from_zip_reimport_preserves_contents(api_client: TestClient, unique_user: TestUser):
+    """Re-importing an export into the same instance keeps every part of the recipe."""
+    category = api_client.post(
+        api_routes.organizers_categories, json={"name": random_string()}, headers=unique_user.token
+    ).json()
+    tag = api_client.post(api_routes.organizers_tags, json={"name": random_string()}, headers=unique_user.token).json()
+    tool = api_client.post(
+        api_routes.organizers_tools, json={"name": random_string()}, headers=unique_user.token
+    ).json()
+    food = api_client.post(api_routes.foods, json={"name": random_string()}, headers=unique_user.token).json()
+    substitute = api_client.post(api_routes.foods, json={"name": random_string()}, headers=unique_user.token).json()
+    unit = api_client.post(api_routes.units, json={"name": random_string()}, headers=unique_user.token).json()
+
+    slug = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token).json()
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+
+    reference_id = str(uuid4())
+    note_reference_id = str(uuid4())
+    recipe.update(
+        {
+            "description": "the description",
+            "recipeYield": "4 servings",
+            "recipeServings": 4,
+            "recipeYieldQuantity": 4,
+            "totalTime": "PT25M",
+            "prepTime": "PT10M",
+            "performTime": "PT15M",
+            "orgURL": "https://example.com/original",
+            "recipeCategory": [category],
+            "tags": [tag],
+            "tools": [tool],
+            "cookTime": "PT15M",
+            "rating": 4,
+            "nutrition": {"calories": "350", "proteinContent": "25"},
+            "notes": [{"title": "Tip", "text": "Rest before serving.", "referenceId": note_reference_id}],
+            "extras": {"my_key": "my_value", "another_key": "another_value"},
+            "settings": {
+                "public": False,
+                "showNutrition": True,
+                "showAssets": True,
+                "landscapeView": True,
+                "disableComments": True,
+                "locked": False,
+            },
+            "recipeIngredient": [
+                {
+                    "referenceId": reference_id,
+                    "title": "For the sauce",
+                    "quantity": 2,
+                    "unit": unit,
+                    "food": food,
+                    "note": "warmed",
+                    "isFood": True,
+                    "substitutions": [
+                        {"substituteFoodId": substitute["id"], "note": "in a pinch"},
+                        {"note": "water and a bouillon cube"},
+                    ],
+                }
+            ],
+            "recipeInstructions": [
+                {
+                    "title": "Prep Work",
+                    "summary": "Season the meat",
+                    "text": "Season the beef.",
+                    "ingredientReferences": [{"referenceId": reference_id}],
+                    "noteReferences": [{"referenceId": note_reference_id}],
+                }
+            ],
+        }
+    )
+    assert api_client.put(api_routes.recipes_slug(slug), json=recipe, headers=unique_user.token).status_code == 200
+    original = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+
+    export = api_client.get(
+        api_routes.recipes_slug_exports(slug), params={"template_name": "zip"}, headers=unique_user.token
+    )
+    r = api_client.post(api_routes.recipes_create_zip, files={"archive": export.content}, headers=unique_user.token)
+    assert r.status_code == 201
+
+    imported = api_client.get(api_routes.recipes_slug(r.json()), headers=unique_user.token).json()
+
+    for field in [
+        "description",
+        "recipeYield",
+        "recipeServings",
+        "recipeYieldQuantity",
+        "totalTime",
+        "prepTime",
+        "performTime",
+        "cookTime",
+        "rating",
+        "orgURL",
+        "extras",
+        "settings",
+        "nutrition",
+    ]:
+        assert imported[field] == original[field], field
+
+    assert [c["name"] for c in imported["recipeCategory"]] == [category["name"]]
+    assert [t["name"] for t in imported["tags"]] == [tag["name"]]
+    assert [t["name"] for t in imported["tools"]] == [tool["name"]]
+    assert [(n["title"], n["text"]) for n in imported["notes"]] == [("Tip", "Rest before serving.")]
+
+    ingredient = imported["recipeIngredient"][0]
+    assert ingredient["title"] == "For the sauce"
+    assert ingredient["quantity"] == 2
+    assert ingredient["unit"]["name"] == unit["name"]
+    assert ingredient["food"]["name"] == food["name"]
+    assert ingredient["note"] == "warmed"
+
+    assert {(sub["substituteFoodId"], sub["note"]) for sub in ingredient["substitutions"]} == {
+        (substitute["id"], "in a pinch"),
+        (None, "water and a bouillon cube"),
+    }
+
+    step = imported["recipeInstructions"][0]
+    assert (step["title"], step["summary"], step["text"]) == ("Prep Work", "Season the meat", "Season the beef.")
+    assert [ref["referenceId"] for ref in step["ingredientReferences"]] == [ingredient["referenceId"]]
+    assert [ref["referenceId"] for ref in step["noteReferences"]] == [imported["notes"][0]["referenceId"]]
+
+
+def test_create_recipe_from_zip_keeps_unused_id(api_client: TestClient, unique_user: TestUser, tempdir: str):
+    """An id that is not already in use is kept, so imports from elsewhere are unaffected."""
+    recipe_id = uuid4()
+    recipe_name = random_string()
+    recipe = RecipeSummary(
+        id=recipe_id,
+        user_id=unique_user.user_id,
+        group_id=unique_user.group_id,
+        name=recipe_name,
+        slug=recipe_name,
+    )
+
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
+    assert r.status_code == 201
+
+    imported = api_client.get(api_routes.recipes_slug(r.json()), headers=unique_user.token).json()
+    assert imported["id"] == str(recipe_id)
+
+
+def test_create_recipe_from_zip_without_id(api_client: TestClient, unique_user: TestUser, tempdir: str):
+    """A zip whose recipe has no id at all is imported as-is."""
+    recipe_name = random_string()
+    with tempfile.NamedTemporaryFile(mode="w+", dir=tempdir, suffix=".json", delete=False) as data_file:
+        json.dump({"name": recipe_name, "slug": recipe_name}, data_file)
+        data_file.flush()
+
+        zip_file = os.path.join(tempdir, "no_id_zipfile.zip")
+        with ZipFile(zip_file, "w") as zf:
+            zf.write(data_file.name)
+
+    r = api_client.post(
+        api_routes.recipes_create_zip, files={"archive": Path(zip_file).read_bytes()}, headers=unique_user.token
+    )
+    assert r.status_code == 201
+
+
+def test_create_recipe_from_zip_id_taken_in_another_group(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser, tempdir: str
+):
+    """Recipe ids are unique across groups, so a collision outside our own group must be handled."""
+    recipe_name = random_string()
+    other_slug = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=g2_user.token).json()
+    other_recipe = api_client.get(api_routes.recipes_slug(other_slug), headers=g2_user.token).json()
+
+    recipe = RecipeSummary(
+        id=other_recipe["id"],
+        user_id=unique_user.user_id,
+        group_id=unique_user.group_id,
+        name=recipe_name,
+        slug=recipe_name,
+    )
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
+    assert r.status_code == 201
+
+    imported = api_client.get(api_routes.recipes_slug(r.json()), headers=unique_user.token).json()
+    assert imported["id"] != other_recipe["id"]
+
+    # the other group's recipe is untouched
+    still_there = api_client.get(api_routes.recipes_slug(other_slug), headers=g2_user.token)
+    assert still_there.status_code == 200
+    assert still_there.json()["id"] == other_recipe["id"]
+
+
+def test_create_recipe_from_zip_preserves_extras(api_client: TestClient, unique_user: TestUser, tempdir: str):
+    """Importing must not write its own keys into the recipe's free-form extras."""
+    recipe_name = random_string()
+    recipe = Recipe(
+        id=uuid4(),
+        user_id=unique_user.user_id,
+        group_id=unique_user.group_id,
+        name=recipe_name,
+        slug=recipe_name,
+        extras={"my_key": "my_value"},
+    )
+
+    r = api_client.post(api_routes.recipes_create_zip, files=zip_recipe(tempdir, recipe), headers=unique_user.token)
+    assert r.status_code == 201
+
+    imported = api_client.get(api_routes.recipes_slug(r.json()), headers=unique_user.token).json()
+    assert imported["extras"] == {"my_key": "my_value"}
 
 
 def test_create_recipe_from_zip_invalid_group(api_client: TestClient, unique_user: TestUser, tempdir: str):

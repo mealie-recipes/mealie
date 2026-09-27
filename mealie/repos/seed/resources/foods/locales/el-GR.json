@@ -4,7 +4,7 @@
     "foods": {
       "garlic": {
         "name": "σκόρδο",
-        "plural_name": "σκόρδα"
+        "plural_name": ""
       },
       "onion": {
         "name": "κρεμμύδι",
@@ -40,7 +40,7 @@
       },
       "celery": {
         "name": "σέλινο",
-        "plural_name": "σέλινα"
+        "plural_name": ""
       },
       "jalapeño": {
         "name": "jalapeño",
@@ -48,7 +48,7 @@
       },
       "avocado": {
         "name": "αβοκάντο",
-        "plural_name": ""
+        "plural_name": "αβοκάντο"
       },
       "shallot": {
         "name": "ασκαλώνιο",
@@ -64,11 +64,11 @@
       },
       "spinach": {
         "name": "σπανάκι",
-        "plural_name": "σπανάκια"
+        "plural_name": ""
       },
       "sweet corn": {
         "name": "γλυκό καλαμπόκι",
-        "plural_name": "γλυκά καλαμπόκια"
+        "plural_name": ""
       },
       "chile pepper": {
         "name": "πιπεριά τσίλι",
@@ -80,7 +80,7 @@
       },
       "broccoli": {
         "name": "μπρόκολο",
-        "plural_name": "μπρόκολα"
+        "plural_name": ""
       },
       "heart of palm": {
         "name": "καρδιά φοίνικα",
@@ -92,7 +92,7 @@
       },
       "cauliflower": {
         "name": "κουνουπίδι",
-        "plural_name": "κουνουπίδια"
+        "plural_name": ""
       },
       "cabbage": {
         "name": "λάχανο",
@@ -100,11 +100,11 @@
       },
       "asparagus": {
         "name": "σπαράγγι",
-        "plural_name": "σπαράγγια"
+        "plural_name": ""
       },
       "kale": {
         "name": "λαχανίδα",
-        "plural_name": "λαχανίδες"
+        "plural_name": ""
       },
       "arugula": {
         "name": "ρόκα",
@@ -120,7 +120,7 @@
       },
       "lettuce": {
         "name": "μαρούλι",
-        "plural_name": "μαρούλια"
+        "plural_name": ""
       },
       "butternut squash": {
         "name": "κολοκύθα βουτυράτη",
@@ -128,7 +128,7 @@
       },
       "romaine lettuce": {
         "name": "μαρούλι romaine",
-        "plural_name": "μαρούλια romaine"
+        "plural_name": ""
       },
       "beetroot": {
         "name": "παντζάρι",
@@ -140,7 +140,7 @@
       },
       "fennel": {
         "name": "μάραθος",
-        "plural_name": "μάραθο"
+        "plural_name": ""
       },
       "sun dried tomato": {
         "name": "αποξηραμένη ντομάτα",
@@ -172,7 +172,7 @@
       },
       "horseradish": {
         "name": "χρένο",
-        "plural_name": "χρένα"
+        "plural_name": ""
       },
       "chard": {
         "name": "σέσκουλο",
@@ -188,7 +188,7 @@
       },
       "celeriac": {
         "name": "σέλινο",
-        "plural_name": "σέλινα"
+        "plural_name": ""
       },
       "turnip": {
         "name": "γογγύλι",
@@ -204,11 +204,11 @@
       },
       "radicchio": {
         "name": "ραντίτσιο",
-        "plural_name": "ραντίτσια"
+        "plural_name": ""
       },
       "plantain": {
         "name": "μπανάνες Αντιλλών",
-        "plural_name": ""
+        "plural_name": "μπανάνες Αντιλλών"
       },
       "collard greens": {
         "name": "collard greens",
@@ -232,7 +232,7 @@
       },
       "lime": {
         "name": "λάιμ",
-        "plural_name": ""
+        "plural_name": "λάιμ"
       },
       "apple": {
         "name": "μήλο",
@@ -256,7 +256,7 @@
       },
       "mango": {
         "name": "μάνγκο",
-        "plural_name": ""
+        "plural_name": "μάνγκο"
       },
       "peach": {
         "name": "ροδάκινο",
@@ -288,7 +288,7 @@
       },
       "rhubarb": {
         "name": "ραβέντι",
-        "plural_name": "ραβέντια"
+        "plural_name": ""
       },
       "kiwi": {
         "name": "ακτινίδιο",
@@ -296,7 +296,7 @@
       },
       "grapefruit": {
         "name": "γκρέιπφρουτ",
-        "plural_name": ""
+        "plural_name": "γκρέιπφρουτ"
       },
       "plum": {
         "name": "δαμάσκηνο",
@@ -1065,11 +1065,11 @@
       },
       "yogurt": {
         "name": "γιαούρτι",
-        "plural_name": "γιαούρτια"
+        "plural_name": ""
       },
       "greek yogurt": {
         "name": "γιαούρτι",
-        "plural_name": "γιαούρτια"
+        "plural_name": ""
       },
       "cream": {
         "name": "cream",
@@ -1637,7 +1637,7 @@
     "foods": {
       "cayenne pepper": {
         "name": "πιπεριά καγιέν",
-        "plural_name": "πιπέρι καγιέν"
+        "plural_name": ""
       },
       "cinnamon": {
         "name": "cinnamon",
@@ -1987,7 +1987,7 @@
       },
       "cornstarch": {
         "name": "άμυλο αραβοσίτου",
-        "plural_name": "άμυλα αραβοσίτου"
+        "plural_name": ""
       },
       "yeast": {
         "name": "μαγιά",
@@ -2055,7 +2055,7 @@
       },
       "food coloring": {
         "name": "χρώμα ζαχαροπλαστικής",
-        "plural_name": "χρώματα ζαχαροπλαστικής"
+        "plural_name": ""
       },
       "peppermint extract": {
         "name": "peppermint extract",

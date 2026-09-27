@@ -84,9 +84,18 @@
               {{ shoppingList.name }}
             </h2>
             <v-spacer />
+            <!-- The search toggle stays while the field is open, so a list that shrinks to the
+                 threshold mid-search can still close it. "Check all" would also check items the
+                 search is hiding, so it is disabled while searching. -->
             <BaseButtonGroup
               class="d-flex"
               :buttons="[
+                ...(canSearch || isSearchOpen ? [{
+                  icon: $globals.icons.search,
+                  text: $t('search.search'),
+                  event: 'search',
+                  color: isSearchOpen ? 'primary' : undefined,
+                }] : []),
                 {
                   icon: $globals.icons.contentCopy,
                   text: '',
@@ -108,6 +117,7 @@
                   icon: $globals.icons.checkboxMultipleMarkedOutline,
                   text: $t('shopping-list.check-all-items'),
                   event: 'check',
+                  disabled: isSearching,
                 },
                 {
                   icon: $globals.icons.dotsVertical,
@@ -127,6 +137,7 @@
                   ],
                 },
               ]"
+              @search="toggleSearch"
               @edit="edit = true"
               @three-dot="threeDot = true"
               @check="openCheckAll"
@@ -153,6 +164,23 @@
       v-if="!edit"
       class="py-2 d-flex flex-column ga-1 shopping-list-view"
     >
+      <!-- Search, toggled from the page title -->
+      <v-text-field
+        v-if="isSearchOpen"
+        :model-value="search"
+        :label="$t('search.search')"
+        :prepend-inner-icon="$globals.icons.search"
+        autofocus
+        clearable
+        hide-details
+        density="compact"
+        variant="solo"
+        flat
+        single-line
+        @update:model-value="value => search = value ?? ''"
+        @click:clear="clearSearch"
+      />
+
       <!-- Create Item -->
       <ShoppingListAddItemForm
         v-if="$vuetify.display.smAndDown"
@@ -189,75 +217,82 @@
       </div>
 
       <TransitionGroup name="scroll-x-transition">
-        <BaseExpansionPanels v-for="(value, key) in itemsByLabel" :key="key" :v-model="0" start-open>
-          <v-expansion-panel class="shopping-list-section">
-            <!-- the label colour fills the header bar; an uncoloured (or unlabelled) header is muted instead -->
-            <v-expansion-panel-title
-              :color="getLabelColor(key)"
-              class="body-1 section-title"
-              :class="getLabelColor(key) ? '' : 'text-medium-emphasis'"
-            >
-              {{ key }}
-            </v-expansion-panel-title>
-            <v-expansion-panel-text eager>
-              <VueDraggable
-                :model-value="value"
-                handle=".handle"
-                :delay="250"
-                :delay-on-touch-only="true"
-                @start="loadingCounter += 1"
-                @end="loadingCounter -= 1"
-                @update:model-value="updateIndexUncheckedByLabel(key.toString(), $event)"
+        <template v-for="(value, key) in itemsByLabel" :key="key">
+          <BaseExpansionPanels v-if="hasMatches(value)" :v-model="0" start-open>
+            <v-expansion-panel class="shopping-list-section">
+              <!-- the label colour fills the header bar; an uncoloured (or unlabelled) header is muted instead -->
+              <v-expansion-panel-title
+                :color="getLabelColor(key)"
+                class="body-1 section-title"
+                :class="getLabelColor(key) ? '' : 'text-medium-emphasis'"
               >
-                <TransitionGroup name="scroll-x-transition">
-                  <ShoppingListItem
-                    v-for="(item, index) in value"
-                    :key="item.id"
-                    v-model="value[index]"
-                    class="my-2 w-auto shopping-list-item-row"
-                    :edit="editingItem === item.id"
-                    :labels="allLabels || []"
-                    :units="allUnits || []"
-                    :foods="allFoods || []"
-                    :recipes="recipeMap"
-                    @checked="(item) => {
-                      saveListItem(item);
-                      itemCheckedToast(item);
-                    }"
-                    @save="(item) => {
-                      editingItem = undefined;
-                      saveListItem(item);
-                    }"
-                    @delete="deleteListItem(item)"
-                    @view="editingItem = undefined"
-                    @edit="editingItem = item.id"
-                  />
-                </TransitionGroup>
-              </VueDraggable>
-            </v-expansion-panel-text>
-          </v-expansion-panel>
-        </BaseExpansionPanels>
+                {{ key }}
+              </v-expansion-panel-title>
+              <v-expansion-panel-text eager>
+                <VueDraggable
+                  :model-value="value"
+                  handle=".handle"
+                  :delay="250"
+                  :delay-on-touch-only="true"
+                  :disabled="isSearching"
+                  @start="loadingCounter += 1"
+                  @end="loadingCounter -= 1"
+                  @update:model-value="updateIndexUncheckedByLabel(key.toString(), $event)"
+                >
+                  <TransitionGroup name="scroll-x-transition">
+                    <template v-for="(item, index) in value" :key="item.id">
+                      <ShoppingListItem
+                        v-if="matchesSearch(item)"
+                        v-model="value[index]"
+                        class="my-2 w-auto shopping-list-item-row"
+                        :edit="editingItem === item.id"
+                        :labels="allLabels || []"
+                        :units="allUnits || []"
+                        :foods="allFoods || []"
+                        :recipes="recipeMap"
+                        @checked="(item) => {
+                          saveListItem(item);
+                          itemCheckedToast(item);
+                        }"
+                        @save="(item) => {
+                          editingItem = undefined;
+                          saveListItem(item);
+                        }"
+                        @delete="deleteListItem(item)"
+                        @view="editingItem = undefined"
+                        @edit="editingItem = item.id"
+                      />
+                    </template>
+                  </TransitionGroup>
+                </VueDraggable>
+              </v-expansion-panel-text>
+            </v-expansion-panel>
+          </BaseExpansionPanels>
+        </template>
       </TransitionGroup>
       <!-- Checked Items -->
-      <v-expansion-panels flat rounded>
-        <v-expansion-panel v-if="listItems.checked && listItems.checked.length > 0">
+      <v-expansion-panels v-model="checkedPanel" flat rounded>
+        <v-expansion-panel v-if="listItems.checked && hasMatches(listItems.checked)">
           <v-expansion-panel-title class="border-solid border-thin py-1">
             <div class="d-flex align-center flex-0-1-100">
               <div class="flex-1-0">
-                {{ $t('shopping-list.items-checked-count', listItems.checked ? listItems.checked.length : 0) }}
+                {{ $t('shopping-list.items-checked-count', visibleCheckedCount) }}
               </div>
               <div class="justify-end">
+                <!-- both act on every checked item, including any the search is hiding -->
                 <BaseButtonGroup
                   :buttons="[
                     {
                       icon: $globals.icons.checkboxMultipleBlankOutline,
                       text: $t('shopping-list.uncheck-all-items'),
                       event: 'uncheck',
+                      disabled: isSearching,
                     },
                     {
                       icon: $globals.icons.delete,
                       text: $t('shopping-list.delete-checked'),
                       event: 'delete',
+                      disabled: isSearching,
                     },
                   ]"
                   @uncheck="openUncheckAll"
@@ -268,7 +303,7 @@
           </v-expansion-panel-title>
           <v-expansion-panel-text eager>
             <TransitionGroup name="scroll-x-transition">
-              <div v-for="(item, idx) in listItems.checked" :key="item.id">
+              <div v-for="(item, idx) in listItems.checked" v-show="matchesSearch(item)" :key="item.id">
                 <ShoppingListItem
                   v-model="listItems.checked[idx]"
                   class="strike-through-note shopping-list-item-row"
@@ -284,6 +319,15 @@
           </v-expansion-panel-text>
         </v-expansion-panel>
       </v-expansion-panels>
+
+      <v-alert
+        v-if="!hasSearchResults"
+        type="info"
+        variant="tonal"
+        density="compact"
+      >
+        {{ $t('search.no-results') }}
+      </v-alert>
     </section>
 
     <!-- Recipe References -->
@@ -431,7 +475,24 @@ const {
   recipeList,
   removeRecipeReferenceToList,
   addRecipeReferenceToList,
+  search,
+  isSearching,
+  isSearchOpen,
+  canSearch,
+  toggleSearch,
+  matchesSearch,
+  hasMatches,
+  clearSearch,
+  visibleCheckedCount,
+  hasSearchResults,
 } = shoppingListPage;
+
+// Expand the checked section while searching, so an item that has already been
+// checked off can be found and unchecked without expanding the section by hand.
+const checkedPanel = ref<number | undefined>(undefined);
+watch(isSearching, (searching) => {
+  checkedPanel.value = searching ? 0 : undefined;
+});
 </script>
 
 <style>
