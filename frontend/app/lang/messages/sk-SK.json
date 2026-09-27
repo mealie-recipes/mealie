@@ -603,6 +603,13 @@
     "remove-image": "Odstrániť obrázok",
     "nextStep": "Ďalší krok",
     "recipe-actions": "Akcie s receptom",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Parser ingrediencií",
       "select-parser": "Vyber si parser",

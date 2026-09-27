@@ -603,6 +603,13 @@
     "remove-image": "이미지 제거",
     "nextStep": "다음 단계",
     "recipe-actions": "레시피 액션",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "재료 분석기",
       "select-parser": "분석기 선택",

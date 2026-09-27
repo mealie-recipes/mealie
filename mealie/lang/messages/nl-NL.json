@@ -83,7 +83,7 @@
         "generic-updated-with-url": "{name} is bijgewerkt, {url}",
         "generic-duplicated": "{name} is gekopieerd",
         "generic-deleted": "{name} is verwijderd",
-        "logged-out": "",
+        "logged-out": "Uitgelogd",
         "event-title": {
             "test-message": "Test Message",
             "webhook-task": "Webhook Task",

@@ -232,6 +232,10 @@ import useDefaultActivity from "~/composables/use-default-activity";
 import { ActivityKey } from "~/lib/api/types/activity";
 import type { UserBase } from "~/lib/api/types/user";
 
+definePageMeta({
+  middleware: ["auth"],
+});
+
 const i18n = useI18n();
 const auth = useMealieAuth();
 const { getDefaultActivityLabels, getActivityLabel, getActivityKey } = useDefaultActivity();

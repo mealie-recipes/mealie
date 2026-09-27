@@ -812,6 +812,92 @@ def test_order_by_rating(user_tuple: tuple[TestUser, TestUser]):
     assert data[2].slug == recipe_1.slug  # global rating == 4.25 (avg of 5 and 3.5)
 
 
+def test_recipe_update_preserves_identity_when_omitted(unique_user: TestUser):
+    # A client (e.g. a hand-edited JSON import) may omit or null id/user_id/household_id/group_id.
+    # update() must always preserve these from the existing DB entry rather than erroring.
+    database = unique_user.repos
+    recipe = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(),
+        )
+    )
+
+    new_name = random_string()
+    payload = {
+        "name": new_name,
+        "id": None,
+        "user_id": None,
+        "household_id": None,
+        "group_id": None,
+    }
+
+    updated_recipe = database.recipes.update(recipe.slug, payload)
+
+    assert updated_recipe.id == recipe.id
+    assert updated_recipe.user_id == recipe.user_id
+    assert updated_recipe.household_id == recipe.household_id
+    assert str(updated_recipe.group_id) == unique_user.group_id
+    assert updated_recipe.name == new_name
+
+
+def test_recipe_update_rejects_cross_group_organizer_id(unique_user: TestUser, unique_local_group_id: str):
+    # Regression test for the CHANGES_REQUESTED security fix on PR #7785:
+    # a client-supplied organizer id belonging to a *different* group must never be
+    # accepted as-is (it would force-overwrite that organizer's group_id to the caller's
+    # group). It should instead be treated as not-found and resolved/created by name.
+    database = unique_user.repos
+    foreign_repos = get_repositories(database.session, group_id=UUID(unique_local_group_id), household_id=None)
+
+    foreign_tag = foreign_repos.tags.create(TagSave(group_id=UUID(unique_local_group_id), name=random_string()))
+    foreign_category = foreign_repos.categories.create(
+        CategorySave(group_id=UUID(unique_local_group_id), name=random_string())
+    )
+    foreign_tool = foreign_repos.tools.create(
+        RecipeToolSave(group_id=UUID(unique_local_group_id), name=random_string())
+    )
+
+    recipe = database.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(),
+        )
+    )
+
+    new_tag_name = random_string()
+    new_cat_name = random_string()
+    new_tool_name = random_string()
+
+    payload = {
+        "name": recipe.name,
+        "tags": [{"id": str(foreign_tag.id), "name": new_tag_name}],
+        "recipe_category": [{"id": str(foreign_category.id), "name": new_cat_name}],
+        "tools": [{"id": str(foreign_tool.id), "name": new_tool_name}],
+    }
+
+    updated_recipe = database.recipes.update(recipe.slug, payload)
+
+    # None of the foreign organizer ids were accepted...
+    assert updated_recipe.tags[0].id != foreign_tag.id
+    assert updated_recipe.recipe_category[0].id != foreign_category.id
+    assert updated_recipe.tools[0].id != foreign_tool.id
+
+    # ...and each was resolved/created by name in the *caller's* group instead.
+    assert str(updated_recipe.tags[0].group_id) == unique_user.group_id
+    assert updated_recipe.tags[0].name == new_tag_name
+    assert str(updated_recipe.recipe_category[0].group_id) == unique_user.group_id
+    assert updated_recipe.recipe_category[0].name == new_cat_name
+    assert str(updated_recipe.tools[0].group_id) == unique_user.group_id
+    assert updated_recipe.tools[0].name == new_tool_name
+
+    # The foreign group's organizers themselves were left untouched.
+    assert foreign_repos.tags.get_one(foreign_tag.id).group_id == UUID(unique_local_group_id)
+    assert foreign_repos.categories.get_one(foreign_category.id).group_id == UUID(unique_local_group_id)
+    assert foreign_repos.tools.get_one(foreign_tool.id).group_id == UUID(unique_local_group_id)
+
+
 @pytest.mark.parametrize("route", ["patch", "update"])
 def test_recipe_inject_organizer_group_id(unique_user: TestUser, route: str):
     # Regression test for #6802 - Ensure explicit group_id injection works for new organizers

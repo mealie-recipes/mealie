@@ -603,6 +603,13 @@
     "remove-image": "Κατάργηση εικόνας",
     "nextStep": "Επόμενο βήμα",
     "recipe-actions": "Ενέργειες Συνταγής",
+    "unit-system": {
+      "as-written": "Οπως έχει γραφτεί",
+      "metric": "Μετρικό",
+      "metric-with-hint": "Μετρικό (g, ml)",
+      "imperial": "Αγγλοσαξονικό",
+      "imperial-with-hint": "Αγγλοσαξονικό (κούπες, ουγγιές)"
+    },
     "parser": {
       "ingredient-parser": "Αναλυτής Συστατικών",
       "select-parser": "Επιλέξτε Αναλυτή",

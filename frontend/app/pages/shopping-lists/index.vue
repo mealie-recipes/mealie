@@ -136,6 +136,10 @@ import { useAsyncKey } from "~/composables/use-utils";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import type { UserOut } from "~/lib/api/types/user";
 
+definePageMeta({
+  middleware: ["auth"],
+});
+
 const auth = useMealieAuth();
 const i18n = useI18n();
 const ready = ref(false);
