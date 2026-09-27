@@ -14,7 +14,7 @@ class Branding(BaseSettings):
     _logo_file: Path | None = PrivateAttr(default=None)
 
     @model_validator(mode="after")
-    def _validate_logo_file(self) -> "Branding":
+    def _validate_logo_file(self) -> Branding:
         # Resolved on construction/assignment rather than on every read, so callers (and the
         # startup warning logged in app.py's lifespan_fn) don't re-check the filesystem on every
         # /api/app/about request.
