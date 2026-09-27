@@ -275,3 +275,35 @@ def test_create_by_url_openai_disabled(
         headers=unique_user.token,
     )
     assert response.status_code == 400
+
+
+def test_create_by_url_with_instructions_but_no_ingredients(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    recipe_url: str,
+    recipe_name: str,
+):
+    """
+    Documents current behavior: BuildRecipeStep only raises NoRecipeDataError when
+    BOTH ingredients and instructions are empty. A response with instructions but no
+    ingredients is accepted as-is, and the recipe proceeds with an empty ingredient list.
+    """
+    openai_recipe = OpenAIRecipe(
+        name=recipe_name,
+        description=random_string(),
+        ingredients=[],
+        instructions=[OpenAIRecipeInstruction(text=random_string()) for _ in range(2)],
+    )
+    mock_ai(monkeypatch, openai_recipe)
+
+    response = api_client.post(
+        api_routes.recipes_create_url,
+        json={"url": recipe_url, "include_tags": False},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 201
+    slug = json.loads(response.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert len(recipe["recipeInstructions"]) == 2
