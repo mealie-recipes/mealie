@@ -180,7 +180,7 @@ const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const { share, isSupported: shareIsSupported } = useShare();
-const { copy, copied, isSupported: clipboardIsSupported } = useClipboard();
+const { copy, copied, isSupported: clipboardIsSupported } = useClipboard({ legacy: true });
 
 function getPlainRecipeLink() {
   return `${window.location.origin}/g/${groupSlug.value}/r/${props.slug}`;

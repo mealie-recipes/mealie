@@ -6,11 +6,12 @@
     "dockerfile": "Dockerfile",
     "context": "..",
     "args": {
-      "VARIANT": "3.12-trixie"
+      "VARIANT": "3.14-trixie"
     }
   },
   "mounts": [
     "source=mealie-devcontainer-workspace,target=/workspaces/mealie/frontend/node_modules,type=volume",
+    "source=mealie-venv,target=/workspaces/mealie/.venv,type=volume",
     "source=mealie-bashhistory,target=/home/vscode/commandhistory,type=volume",
     "source=mealie-gh-config,target=/home/vscode/.config/gh,type=volume"
   ],
@@ -43,7 +44,7 @@
     51204, // used for test coverage report
     24678 // used by nuxt when hot-reloading using polling
   ],
-  "onCreateCommand": "task setup --force",
+  "onCreateCommand": "sudo chown vscode:vscode /workspaces/mealie/.venv && task setup --force",
   "remoteUser": "vscode",
   "features": {
     "ghcr.io/devcontainers/features/node:2": {

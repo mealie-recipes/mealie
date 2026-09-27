@@ -61,7 +61,7 @@ SessionLocal, engine = sql_global_init(settings.DB_URL)  # type: ignore
 
 
 @contextmanager
-def session_context() -> Generator[Session, None, None]:
+def session_context() -> Generator[Session]:
     """
     session_context() provides a managed session to the database that is automatically
     closed when the context is exited. This is the preferred method of accessing the
@@ -77,7 +77,7 @@ def session_context() -> Generator[Session, None, None]:
         sess.close()
 
 
-def generate_session() -> Generator[Session, None, None]:
+def generate_session() -> Generator[Session]:
     """
     WARNING: This function should _only_ be called when used with
     using the `Depends` function from FastAPI. This function will leak

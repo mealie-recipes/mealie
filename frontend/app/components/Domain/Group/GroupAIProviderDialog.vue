@@ -178,9 +178,14 @@ const imageSupportMessage = computed(() => {
 });
 
 // Fetch existing provider when editing; reset form for create mode
+let requestToken = 0;
+
 watch(
   () => [dialog.value, props.providerId] as const,
   async ([open, id]) => {
+    // Bump the token even when bailing out below, so a fetch still in flight from a
+    // previous provider/dialog state can never apply its (now stale) result afterward.
+    const token = ++requestToken;
     if (!open) return;
     testResult.value = null;
     if (!id) {
@@ -191,6 +196,7 @@ watch(
     }
     init.value = false;
     const { data } = await getOne(id);
+    if (token !== requestToken) return;
     init.value = true;
     if (data) {
       formData.name = data.name;

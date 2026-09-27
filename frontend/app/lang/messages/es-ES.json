@@ -352,7 +352,7 @@
       "title": "Gestor de recetas de Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie puede importar recetas de la aplicación Mealie desde una versión anterior a v1.0. Exporta tus recetas de tu antigua instancia y sube el archivo zip a continuación. Ten en cuenta que solo se pueden importar recetas de la exportación.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "Cook'n DVO X3"
     },
     "recipe-data-migrations": "Migración de recetas",
-    "recipe-data-migrations-explanation": "Las recetas pueden migrarse desde otra aplicación soportada a Mealie. Esta es una excelente manera de empezar con Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "¿Vienes de otra app o una versión previa de Mealie? Revisa migraciones para ver si tus datos pueden ser importados.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Elegir tipo de migración",
     "tag-all-recipes": "Etiqueta todas las recetas con la etiqueta {tag-name}",
     "recipe-1": "Receta 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Parece que tus ingredientes no han sido analizados aún. Haz clic en el botón \"{parse}\" de abajo para analizarlos y convertirlos en alimentos estructurados.",
     "attach-images-hint": "Adjuntar imágenes arrastrando y soltando en el editor",
     "drop-image": "Soltar imagen",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Las recetas con unidades o alimentos definidos no pueden ser analizadas.",
     "parse-ingredients": "Analizar ingredientes",
     "edit-markdown": "Editar Markdown",
@@ -601,6 +603,13 @@
     "remove-image": "Eliminar imagen",
     "nextStep": "Siguiente paso",
     "recipe-actions": "Acciones de Receta",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Analizador de Ingredientes",
       "select-parser": "Seleccionar Analizador",
@@ -944,7 +953,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Añade a la base de datos etiquetas comunes basadas en su idioma local.",
       "edit-label": "Editar etiqueta",
       "new-label": "Nueva etiqueta",
       "labels": "Etiquetas",
