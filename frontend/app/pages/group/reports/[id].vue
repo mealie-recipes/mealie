@@ -51,6 +51,10 @@
 import { useUserApi } from "~/composables/api";
 import type { ReportOut } from "~/lib/api/types/reports";
 
+definePageMeta({
+  middleware: ["auth"],
+});
+
 const route = useRoute();
 const id = route.params.id as string;
 
