@@ -349,6 +349,21 @@ async def test_get_response_strips_markdown_fence_from_strict_response(settings_
 
 
 @pytest.mark.asyncio
+async def test_get_response_ignores_unknown_service_tier(settings_stub):
+    # Groq returns "on_demand", which isn't one of the OpenAI SDK's service tiers
+    body = json.loads(_make_body('{"answer": "hi"}'))
+    body["service_tier"] = "on_demand"
+    svc = OpenAIService(_make_mock_repos())
+    completions = _FakeCompletions(parse_result=json.dumps(body))
+    svc.get_client = MagicMock(return_value=_FakeClient(completions))
+
+    result = await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
+
+    assert result is not None
+    assert result.answer == "hi"
+
+
+@pytest.mark.asyncio
 async def test_get_response_returns_none_when_no_choices(settings_stub):
     svc = OpenAIService(_make_mock_repos())
     completions = _FakeCompletions(parse_result=_make_body(None))
