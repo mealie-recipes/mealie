@@ -60,6 +60,7 @@ def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recip
 
     recipe_data["slug"] = slugify(recipe_data.get("name", ""))
     recipe_data["description"] = clean_string(recipe_data.get("description", ""))
+    recipe_data["cookingMethod"] = clean_string(recipe_data.get("cookingMethod", "")) or None
 
     for time_key in ("prepTime", "performTime", "totalTime"):
         seconds_key = f"{time_key}Seconds"

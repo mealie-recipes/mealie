@@ -93,6 +93,12 @@ def test_recipes_without_sections_are_untouched():
     ]
 
 
+def test_cooking_method_is_imported_from_schema_org():
+    recipe_data = {**FLAT_RECIPE, "cookingMethod": "Air fryer"}
+
+    assert scrape(recipe_data).cooking_method == "Air fryer"
+
+
 def test_single_step_section_is_imported():
     """A section holding one step as a bare dict, rather than a list, is a real shape.
 

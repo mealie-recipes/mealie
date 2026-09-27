@@ -137,6 +137,7 @@ def test_spa_recipe_json_times(unique_user: TestUser):
         # Free text isn't a valid schema.org duration, so it's left out
         prep_time="a while",
         cook_time="PT10M",
+        cooking_method="Slow cooker",
     )
 
     response = spa.content_with_meta(unique_user.group_id, recipe)
@@ -148,6 +149,7 @@ def test_spa_recipe_json_times(unique_user: TestUser):
     assert schema["totalTime"] == "PT1H30M"
     assert schema["cookTime"] == "PT1H"
     assert schema["prepTime"] is None
+    assert schema["cookingMethod"] == "Slow cooker"
 
 
 @pytest.mark.parametrize("use_public_user", [True, False])

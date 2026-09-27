@@ -1678,6 +1678,82 @@ def test_duplicate(api_client: TestClient, unique_user: TestUser):
         assert copy_info(original_ingredients[i]) == copy_info(edited_ingredients[i])
 
 
+def test_cooking_method_variants(api_client: TestClient, unique_user: TestUser):
+    recipe_name = f"Variant Test {uuid4()}"
+    response = api_client.post(api_routes.recipes, json={"name": recipe_name}, headers=unique_user.token)
+    assert response.status_code == 201
+    original_slug = response.json()
+
+    original = api_client.get(api_routes.recipes_slug(original_slug), headers=unique_user.token).json()
+    assert original["cookingMethod"] is None
+    assert original["variantGroupId"] is None
+    original["totalTimeSeconds"] = 3600
+    original["totalTime"] = "1 hour"
+    response = api_client.put(
+        api_routes.recipes_slug(original_slug), headers=unique_user.token, json=utils.jsonify(original)
+    )
+    assert response.status_code == 200
+
+    response = api_client.post(
+        api_routes.recipes_slug_duplicate(original_slug),
+        headers=unique_user.token,
+        json={"name": recipe_name, "asVariant": True, "cookingMethod": "Slow Cooker"},
+    )
+    assert response.status_code == 201
+    slow_cooker = response.json()
+    assert slow_cooker["name"] == recipe_name
+    assert slow_cooker["slug"] == f"{original_slug}-slow-cooker"
+    assert slow_cooker["cookingMethod"] == "Slow Cooker"
+    assert slow_cooker["variantGroupId"] == original["id"]
+    slow_cooker["totalTimeSeconds"] = 8 * 3600
+    slow_cooker["totalTime"] = "8 hours, plus overnight"
+    response = api_client.put(
+        api_routes.recipes_slug(slow_cooker["slug"]), headers=unique_user.token, json=utils.jsonify(slow_cooker)
+    )
+    assert response.status_code == 200
+
+    saved_original = api_client.get(api_routes.recipes_slug(original_slug), headers=unique_user.token).json()
+    saved_slow_cooker = api_client.get(api_routes.recipes_slug(slow_cooker["slug"]), headers=unique_user.token).json()
+    assert saved_original["totalTimeSeconds"] == 3600
+    assert saved_original["totalTime"] == "1 hour"
+    assert saved_slow_cooker["totalTimeSeconds"] == 8 * 3600
+    assert saved_slow_cooker["totalTime"] == "8 hours, plus overnight"
+
+    response = api_client.post(
+        api_routes.recipes_slug_duplicate(slow_cooker["slug"]),
+        headers=unique_user.token,
+        json={"name": recipe_name, "asVariant": True, "cookingMethod": "Air Fryer"},
+    )
+    assert response.status_code == 201
+    air_fryer = response.json()
+    assert air_fryer["name"] == recipe_name
+    assert air_fryer["slug"] == f"{original_slug}-air-fryer"
+    assert air_fryer["variantGroupId"] == original["id"]
+
+    response = api_client.get(api_routes.recipes_slug_variants(air_fryer["slug"]), headers=unique_user.token)
+    assert response.status_code == 200
+    variants = response.json()
+    assert {variant["id"] for variant in variants} == {original["id"], slow_cooker["id"], air_fryer["id"]}
+    assert {variant["cookingMethod"] for variant in variants} == {None, "Slow Cooker", "Air Fryer"}
+
+    response = api_client.post(
+        api_routes.recipes_slug_duplicate(slow_cooker["slug"]),
+        headers=unique_user.token,
+        json={"name": f"{recipe_name} Standalone"},
+    )
+    assert response.status_code == 201
+    standalone = response.json()
+    assert standalone["cookingMethod"] == "Slow Cooker"
+    assert standalone["variantGroupId"] is None
+
+    response = api_client.post(
+        api_routes.recipes_slug_duplicate(original_slug),
+        headers=unique_user.token,
+        json={"asVariant": True, "cookingMethod": "  "},
+    )
+    assert response.status_code == 422
+
+
 # This needs to happen after test_duplicate,
 # otherwise that one will run into problems with comparing the instruction/ingredient lists
 def test_update_with_empty_relationship(

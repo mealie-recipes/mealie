@@ -532,6 +532,11 @@ def recipes_slug_duplicate(slug):
     return f"{prefix}/recipes/{slug}/duplicate"
 
 
+def recipes_slug_variants(slug):
+    """`/api/recipes/{slug}/variants`"""
+    return f"{prefix}/recipes/{slug}/variants"
+
+
 def recipes_slug_exports(slug):
     """`/api/recipes/{slug}/exports`"""
     return f"{prefix}/recipes/{slug}/exports"

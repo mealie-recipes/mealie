@@ -181,6 +181,8 @@ class RecipeSummary(MealieModel):
     recipe_servings: float = 0
     recipe_yield_quantity: float = 0
     recipe_yield: str | None = None
+    cooking_method: str | None = None
+    variant_group_id: UUID4 | None = None
 
     total_time: str | None = None
     prep_time: str | None = None
