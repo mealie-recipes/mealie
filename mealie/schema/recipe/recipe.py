@@ -161,6 +161,12 @@ class CreateRecipe(MealieModel):
     name: str
 
 
+MAX_DURATION_SECONDS = 2**31 - 1
+"""Postgres INTEGER max; SQLite would accept more, which would break moving data to Postgres"""
+
+DurationSeconds = Annotated[int, Field(ge=0, le=MAX_DURATION_SECONDS)]
+
+
 class RecipeSummary(MealieModel):
     id: UUID4 | None = None
     _normalize_search: ClassVar[bool] = True
@@ -180,6 +186,9 @@ class RecipeSummary(MealieModel):
     prep_time: str | None = None
     cook_time: str | None = None
     perform_time: str | None = None
+    total_time_seconds: DurationSeconds | None = None
+    prep_time_seconds: DurationSeconds | None = None
+    perform_time_seconds: DurationSeconds | None = None
 
     description: str | None = ""
     recipe_category: Annotated[list[RecipeCategory] | None, Field(validate_default=True)] = []

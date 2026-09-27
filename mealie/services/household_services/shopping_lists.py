@@ -1,8 +1,10 @@
 from typing import cast
 
 from pydantic import UUID4
+from sqlalchemy import select
 
 from mealie.core.exceptions import UnexpectedNone
+from mealie.db.models.recipe.ingredient import RecipeIngredientModel
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_shopping_list import (
@@ -132,6 +134,11 @@ class ShoppingListService:
 
         recipe_ids_to_keep: set[UUID4] = set()
         for item in shopping_list.list_items:
+            # checked items keep their recipe references so they can be restored if the item is unchecked,
+            # but they shouldn't keep the list-level references alive
+            if item.checked:
+                continue
+
             recipe_ids_to_keep.update([ref.recipe_id for ref in item.recipe_references])
 
         list_refs_to_delete: set[UUID4] = set()
@@ -141,6 +148,83 @@ class ShoppingListService:
 
         if list_refs_to_delete:
             self.list_refs.delete_many(list_refs_to_delete)
+
+    def get_nested_recipe_ids(self, recipe_ids: set[UUID4], parent_recipe_ids: set[UUID4]) -> set[UUID4]:
+        """Get the recipes from `recipe_ids` which are used as an ingredient of any recipe in `parent_recipe_ids`"""
+        if not (recipe_ids and parent_recipe_ids):
+            return set()
+
+        stmt = select(RecipeIngredientModel.referenced_recipe_id).where(
+            RecipeIngredientModel.referenced_recipe_id.in_(recipe_ids),
+            RecipeIngredientModel.recipe_id.in_(parent_recipe_ids),
+        )
+        return set(self.repos.session.execute(stmt).scalars().all())
+
+    def restore_recipe_references(self, shopping_list_id: UUID4, recipe_ids: set[UUID4]) -> None:
+        """
+        Create or increase the list-level references for these recipes, based on the unchecked items
+
+        Recipes that were only added as an ingredient of another recipe on the list are skipped,
+        since those don't get their own list-level reference
+        """
+
+        shopping_list = cast(ShoppingListOut, self.shopping_lists.get_one(shopping_list_id))
+
+        recipe_scales: dict[UUID4, float] = {}
+        all_item_recipe_ids: set[UUID4] = set()
+        for item in shopping_list.list_items:
+            for ref in item.recipe_references:
+                all_item_recipe_ids.add(ref.recipe_id)
+                if item.checked or ref.recipe_id not in recipe_ids:
+                    continue
+
+                # if the scale is missing we assume it's 1 for backwards compatibility
+                recipe_scale = 1 if ref.recipe_scale is None else ref.recipe_scale
+                if recipe_scale > 0:
+                    recipe_scales[ref.recipe_id] = max(recipe_scales.get(ref.recipe_id, 0), recipe_scale)
+
+        list_refs_by_recipe_id = {list_ref.recipe_id: list_ref for list_ref in shopping_list.recipe_references}
+        nested_recipe_ids = self.get_nested_recipe_ids(
+            set(recipe_scales) - set(list_refs_by_recipe_id),
+            all_item_recipe_ids | set(list_refs_by_recipe_id),
+        )
+
+        new_list_refs: list[dict] = []
+        for recipe_id, recipe_scale in recipe_scales.items():
+            list_ref = list_refs_by_recipe_id.get(recipe_id)
+            if list_ref is None:
+                if recipe_id not in nested_recipe_ids:
+                    new_list_refs.append(
+                        {"shopping_list_id": shopping_list_id, "recipe_id": recipe_id, "recipe_quantity": recipe_scale}
+                    )
+
+            elif list_ref.recipe_quantity < recipe_scale:
+                list_ref.recipe_quantity = recipe_scale
+                self.list_refs.update(list_ref.id, list_ref)
+
+        if new_list_refs:
+            self.list_refs.create_many(new_list_refs)
+
+    def get_recipe_ids_to_restore(self, update_items: list[ShoppingListItemUpdateBulk]) -> dict[UUID4, set[UUID4]]:
+        """Get the recipes referenced by items which are being unchecked, grouped by shopping list"""
+        unchecked_items = [item for item in update_items if not item.checked and item.recipe_references]
+        if not unchecked_items:
+            return {}
+
+        item_ids = ", ".join(f'"{item.id}"' for item in unchecked_items)
+        query = PaginationQuery(per_page=-1, query_filter=f"id IN [{item_ids}] AND checked=true")
+        checked_item_ids = {item.id for item in self.list_items.page_all(query).items}
+
+        recipe_ids_by_list: dict[UUID4, set[UUID4]] = {}
+        for item in unchecked_items:
+            if item.id not in checked_item_ids:
+                continue
+
+            recipe_ids_by_list.setdefault(item.shopping_list_id, set()).update(
+                ref.recipe_id for ref in item.recipe_references
+            )
+
+        return recipe_ids_by_list
 
     def find_matching_label(self, item: ShoppingListItemBase) -> UUID4 | None:
         if item.label_id:
@@ -204,9 +288,6 @@ class ShoppingListService:
                 continue
 
             # create the item
-            if create_item.checked:
-                # checked items should not have recipe references
-                create_item.recipe_references = []
             if auto_find_labels:
                 create_item.label_id = self.find_matching_label(create_item)
 
@@ -223,6 +304,8 @@ class ShoppingListService:
         )
 
     def bulk_update_items(self, update_items: list[ShoppingListItemUpdateBulk]) -> ShoppingListItemsCollectionOut:
+        recipe_ids_to_restore = self.get_recipe_ids_to_restore(update_items)
+
         # consolidate items to be created
         consolidated_update_items: list[ShoppingListItemUpdateBulk] = []
         delete_items: set[UUID4] = set()
@@ -286,10 +369,6 @@ class ShoppingListService:
                 delete_items.add(update_item.id)
                 continue
 
-            if update_item.checked:
-                # checked items should not have recipe references
-                update_item.recipe_references = []
-
             filtered_update_items.append(update_item)
 
         updated_items = cast(
@@ -304,6 +383,9 @@ class ShoppingListService:
 
         for list_id in {item.shopping_list_id for item in updated_items + deleted_items}:
             self.remove_unused_recipe_references(list_id)
+
+        for list_id, recipe_ids in recipe_ids_to_restore.items():
+            self.restore_recipe_references(list_id, recipe_ids)
 
         return ShoppingListItemsCollectionOut(
             created_items=[], updated_items=updated_items, deleted_items=deleted_items
@@ -488,6 +570,9 @@ class ShoppingListService:
         update_items: list[ShoppingListItemUpdateBulk] = []
         delete_items: list[UUID4] = []
         for item in shopping_list.list_items:
+            # checked items are left as they are, even if they still reference the recipe
+            if item.checked:
+                continue
             if item.food is not None and self._is_on_hand(list_id, item.food):
                 continue
             found = False
