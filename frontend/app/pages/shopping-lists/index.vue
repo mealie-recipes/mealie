@@ -172,13 +172,18 @@ const { data: shoppingLists } = useAsyncData(useAsyncKey(), async () => {
 
 function updateFavorite(id: string) {
   if (!auth.user.value) return;
+  const oldValue = auth.user.value.favoriteShoppingListId;
   if (auth.user.value.favoriteShoppingListId === id) {
     auth.user.value.favoriteShoppingListId = null;
   }
   else {
     auth.user.value.favoriteShoppingListId = id;
   }
-  userApi.users.updateOne(auth.user.value?.id, auth.user.value);
+  userApi.users.updateOne(auth.user.value?.id, auth.user.value).then((response) => {
+    if (response.response?.status !== 200) {
+      auth.user.value.favoriteShoppingListId = oldValue;
+    }
+  });
 }
 
 const shoppingListChoices = computed(() => {
