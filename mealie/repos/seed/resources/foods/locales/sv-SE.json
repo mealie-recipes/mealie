@@ -84,7 +84,7 @@
       },
       "heart of palm": {
         "name": "palmhjärta",
-        "plural_name": "hearts of palm"
+        "plural_name": "palmhjärtan"
       },
       "pumpkin": {
         "name": "pumpa",
@@ -136,7 +136,7 @@
       },
       "brussels sprout": {
         "name": "brysselkål",
-        "plural_name": "brussels sprouts"
+        "plural_name": "brysselkål"
       },
       "fennel": {
         "name": "fänkål",
@@ -152,7 +152,7 @@
       },
       "red cabbage": {
         "name": "rödkål",
-        "plural_name": "red cabbages"
+        "plural_name": "rödkål"
       },
       "artichoke": {
         "name": "jordärtskocka",
@@ -2084,7 +2084,7 @@
       },
       "marshmallow": {
         "name": "Marshmallow",
-        "plural_name": "marshmallows"
+        "plural_name": "marshmallow"
       },
       "applesauce": {
         "name": "äppelmos",
@@ -2116,7 +2116,7 @@
       },
       "cookie": {
         "name": "kaka",
-        "plural_name": "cookies"
+        "plural_name": "kakor"
       },
       "lady finger": {
         "name": "lady finger",
