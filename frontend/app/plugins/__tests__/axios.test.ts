@@ -186,6 +186,20 @@ describe("request headers", () => {
 });
 
 describe("error alerts", () => {
+  test.each([
+    [401, "Could not validate credentials"],
+    [404, "recipe not found"],
+    [422, "Invalid recipe"],
+  ])("does not show a toast for a plain string detail on %s", async (status, detail) => {
+    document.cookie = `${TOKEN_NAME}=; max-age=0`;
+    const error = { response: { status, data: { detail } } };
+    const client = await buildClient(() => Promise.reject(error));
+
+    await expect(client.get("/api/recipes/test-recipe")).rejects.toBe(error);
+
+    expect(toastMocks.error).not.toHaveBeenCalled();
+  });
+
   test("shows validation messages returned as a detail array", async () => {
     const client = await buildClient(config => unprocessable(config, [
       { loc: ["body", "tools", 0, "id"], msg: "Field required", type: "missing" },

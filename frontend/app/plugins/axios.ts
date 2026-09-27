@@ -16,10 +16,6 @@ const NO_REFRESH_PATHS = ["/api/auth/token", "/api/auth/refresh", "/api/auth/log
 type RetriableConfig = InternalAxiosRequestConfig & { _retriedAfterRefresh?: boolean };
 
 function getErrorDetailMessage(detail: unknown): string | null {
-  if (typeof detail === "string") {
-    return detail;
-  }
-
   if (detail && typeof detail === "object" && "message" in detail && typeof detail.message === "string") {
     return detail.message;
   }
