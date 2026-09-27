@@ -11,7 +11,7 @@ from zipfile import ZipFile
 import pytest
 from bs4 import BeautifulSoup
 from fastapi.testclient import TestClient
-from httpx import Response
+from httpx import Headers, Response
 from pytest import MonkeyPatch
 from recipe_scrapers._schemaorg import SchemaOrg
 from recipe_scrapers.plugins import SchemaOrgFillPlugin
@@ -19,6 +19,7 @@ from slugify import slugify
 
 import mealie.services.scraper.recipe_scraper as recipe_scraper_module
 from mealie.db.models.recipe import RecipeModel
+from mealie.pkgs.safehttp.fetch import FetchResult
 from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.schema.cookbook.cookbook import SaveCookBook
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave
@@ -112,10 +113,10 @@ def test_create_by_url(
 ):
     for recipe_data in recipe_test_data:
         # Prevent any real HTTP calls during scraping
-        async def mock_safe_scrape_html(url: str) -> str:
-            return "<html></html>"
+        async def mock_resilient_fetch(url: str) -> FetchResult:
+            return FetchResult(b"<html></html>", 200, url, Headers(), "utf-8")
 
-        monkeypatch.setattr(recipe_scraper_module, "safe_scrape_html", mock_safe_scrape_html)
+        monkeypatch.setattr(recipe_scraper_module, "resilient_fetch", mock_resilient_fetch)
 
         # Override the get_html method of the RecipeScraperOpenGraph to return the test html
         for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
@@ -232,10 +233,10 @@ def test_create_by_url_stream_done(
     unique_user: TestUser,
     monkeypatch: MonkeyPatch,
 ):
-    async def mock_safe_scrape_html(url: str) -> str:
-        return "<html></html>"
+    async def mock_resilient_fetch(url: str) -> FetchResult:
+        return FetchResult(b"<html></html>", 200, url, Headers(), "utf-8")
 
-    monkeypatch.setattr(recipe_scraper_module, "safe_scrape_html", mock_safe_scrape_html)
+    monkeypatch.setattr(recipe_scraper_module, "resilient_fetch", mock_resilient_fetch)
 
     recipe_data = recipe_test_data[0]
     for scraper_cls in DEFAULT_SCRAPER_STRATEGIES:
