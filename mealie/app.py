@@ -174,12 +174,13 @@ def main():
     }
 
     if settings.PRODUCTION:
-        # reload=True forces uvicorn to run a single worker process and to keep
-        # watching the filesystem for changes, which is dev-server behavior.
-        # In production this silently ignores WORKER_PER_CORE/UVICORN_WORKERS
-        # (settings.WORKERS) regardless of what's configured, and wastes
-        # CPU/IO on filesystem watching that will never trigger a reload.
-        uvicorn.run("app:app", workers=settings.WORKERS, **common_kwargs)
+        # reload=True is dev-server behavior: it makes uvicorn watch the
+        # filesystem for changes that will never happen in a built image,
+        # burning CPU/IO for nothing. Deliberately still hardcoding workers=1
+        # here rather than settings.WORKERS -- lifespan_fn (DB migrations,
+        # scheduler) isn't safe to run from more than one worker yet, see
+        # PR discussion.
+        uvicorn.run("app:app", workers=1, **common_kwargs)
     else:
         uvicorn.run(
             "app:app",
