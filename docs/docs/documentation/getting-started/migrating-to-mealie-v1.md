@@ -1,5 +1,13 @@
 # Migrating to Mealie v1 Release
 
+!!! info "Which versions is this guide for?"
+    This guide only applies to instances running a release **older than v1.0**. In Mealie,
+    "migration" means importing data from a *different application*, so moving data between
+    Mealie instances is not a migration. To move data to another Mealie instance, or to upgrade
+    an existing one, see [Backups and Restoring](../getting-started/usage/backups-and-restoring.md)
+    instead. A backup can be restored into any instance running the same or a newer version of
+    Mealie.
+
 The version 1 release of Mealie should be seen as an entirely different application. A whole host of changes have been made to improve the application, performance, and developer experience. Most of these improvements required significant breaking changes in the application that made a clean and easy migration impossible. However, if you've used Mealie prior to v1, there is a migration path to get most of your data from the old version to the new v1 version.
 
 !!! info "Currently Supported Migration Data"

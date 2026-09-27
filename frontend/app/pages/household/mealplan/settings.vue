@@ -178,6 +178,10 @@ import GroupMealPlanRuleForm from "~/components/Domain/Household/GroupMealPlanRu
 import { useAsyncKey } from "~/composables/use-utils";
 import RecipeChips from "~/components/Domain/Recipe/RecipeChips.vue";
 
+definePageMeta({
+  middleware: ["auth"],
+});
+
 const api = useUserApi();
 const i18n = useI18n();
 

@@ -4,7 +4,7 @@
     "foods": {
       "garlic": {
         "name": "ail",
-        "plural_name": "ails"
+        "plural_name": ""
       },
       "onion": {
         "name": "oignon",
@@ -68,7 +68,7 @@
       },
       "sweet corn": {
         "name": "maïs sucré",
-        "plural_name": "maïs doux"
+        "plural_name": ""
       },
       "chile pepper": {
         "name": "piment fort",
@@ -92,7 +92,7 @@
       },
       "cauliflower": {
         "name": "chou-fleur",
-        "plural_name": "choux-fleurs"
+        "plural_name": ""
       },
       "cabbage": {
         "name": "chou",
@@ -100,11 +100,11 @@
       },
       "asparagus": {
         "name": "asperge",
-        "plural_name": "asperges"
+        "plural_name": ""
       },
       "kale": {
         "name": "chou kale",
-        "plural_name": "chou frisé"
+        "plural_name": ""
       },
       "arugula": {
         "name": "roquette",
@@ -148,7 +148,7 @@
       },
       "radish": {
         "name": "radis",
-        "plural_name": ""
+        "plural_name": "radishes"
       },
       "red cabbage": {
         "name": "chou rouge",
@@ -160,7 +160,7 @@
       },
       "parsnip": {
         "name": "panais",
-        "plural_name": ""
+        "plural_name": "parsnips"
       },
       "poblano pepper": {
         "name": "piment poblano",
@@ -172,11 +172,11 @@
       },
       "horseradish": {
         "name": "raifort",
-        "plural_name": "raiforts"
+        "plural_name": ""
       },
       "chard": {
         "name": "bette à carde",
-        "plural_name": "blette"
+        "plural_name": ""
       },
       "spaghetti squash": {
         "name": "courge spaghetti",
@@ -188,7 +188,7 @@
       },
       "celeriac": {
         "name": "céleri-rave",
-        "plural_name": "céleri-raves"
+        "plural_name": ""
       },
       "turnip": {
         "name": "navet",
@@ -196,15 +196,15 @@
       },
       "bok choy": {
         "name": "pak-choï",
-        "plural_name": "pak-choïs"
+        "plural_name": ""
       },
       "okra": {
         "name": "gombo",
-        "plural_name": "gombos"
+        "plural_name": ""
       },
       "radicchio": {
         "name": "chicorée rouge",
-        "plural_name": "chicorées rouges"
+        "plural_name": ""
       },
       "plantain": {
         "name": "banane plantain",
@@ -212,7 +212,7 @@
       },
       "collard greens": {
         "name": "cressons",
-        "plural_name": "choux verts"
+        "plural_name": ""
       },
       "baby corn": {
         "name": "mini-maïs",
@@ -220,7 +220,7 @@
       },
       "broccoli rabe": {
         "name": "rapini",
-        "plural_name": "rapinis"
+        "plural_name": ""
       },
       "tomato": {
         "name": "tomate",
@@ -252,7 +252,7 @@
       },
       "pineapple": {
         "name": "ananas",
-        "plural_name": ""
+        "plural_name": "pineapples"
       },
       "mango": {
         "name": "mangue",
@@ -268,7 +268,7 @@
       },
       "coconut": {
         "name": "noix de coco",
-        "plural_name": ""
+        "plural_name": "coconuts"
       },
       "pear": {
         "name": "poire",
@@ -288,7 +288,7 @@
       },
       "rhubarb": {
         "name": "rhubarbe",
-        "plural_name": "rhubarbes"
+        "plural_name": ""
       },
       "kiwi": {
         "name": "kiwi",
@@ -344,7 +344,7 @@
       },
       "snow pea": {
         "name": "pois mange-tout",
-        "plural_name": ""
+        "plural_name": "pois gourmands"
       },
       "snap pea": {
         "name": "pois sucré croquant",
@@ -356,7 +356,7 @@
       },
       "edamame": {
         "name": "fève edamame",
-        "plural_name": "fèves edamame"
+        "plural_name": ""
       },
       "strawberry": {
         "name": "fraise",
@@ -384,19 +384,19 @@
       },
       "parsley": {
         "name": "persil",
-        "plural_name": "persils"
+        "plural_name": ""
       },
       "cilantro": {
         "name": "coriandre fraîche",
-        "plural_name": "coriandre"
+        "plural_name": ""
       },
       "basil": {
         "name": "basilic",
-        "plural_name": "basilics"
+        "plural_name": ""
       },
       "ginger root": {
         "name": "racine de gingembre",
-        "plural_name": "racines de gingembre"
+        "plural_name": ""
       },
       "chive": {
         "name": "ciboulette",
@@ -404,15 +404,15 @@
       },
       "mint": {
         "name": "menthe",
-        "plural_name": "menthes"
+        "plural_name": ""
       },
       "lemongrass": {
         "name": "citronnelle fraîche",
-        "plural_name": "citronnelles fraîches"
+        "plural_name": ""
       },
       "thai basil": {
         "name": "basilic thaï",
-        "plural_name": "basilics thaïs"
+        "plural_name": ""
       },
       "mushroom": {
         "name": "mushroom",
@@ -441,11 +441,11 @@
     "foods": {
       "rolled oat": {
         "name": "flocons d'avoine",
-        "plural_name": ""
+        "plural_name": "flocons d'avoine"
       },
       "rice": {
         "name": "riz blanc",
-        "plural_name": "riz blancs"
+        "plural_name": ""
       },
       "quinoa": {
         "name": "grains de quinoa",
@@ -457,7 +457,7 @@
       },
       "brown rice": {
         "name": "riz brun",
-        "plural_name": "riz bruns"
+        "plural_name": ""
       },
       "risotto rice": {
         "name": "riz à risotto",
@@ -469,11 +469,11 @@
       },
       "wild rice": {
         "name": "riz sauvage",
-        "plural_name": "riz sauvages"
+        "plural_name": ""
       },
       "semolina": {
         "name": "semoule",
-        "plural_name": "semoules"
+        "plural_name": ""
       },
       "jasmine rice": {
         "name": "riz jasmin",
@@ -481,19 +481,19 @@
       },
       "polenta": {
         "name": "polenta italienne",
-        "plural_name": "polentas italiennes"
+        "plural_name": ""
       },
       "granola cereal": {
         "name": "granola",
-        "plural_name": "granolas"
+        "plural_name": ""
       },
       "bulgur": {
         "name": "boulgour",
-        "plural_name": "boulgours"
+        "plural_name": ""
       },
       "barley": {
         "name": "orge mondée",
-        "plural_name": "orges mondées"
+        "plural_name": ""
       },
       "steel cut oat": {
         "name": "avoine coupée à l'acier",
@@ -501,7 +501,7 @@
       },
       "millet": {
         "name": "mil",
-        "plural_name": "mils"
+        "plural_name": ""
       },
       "sushi rice": {
         "name": "riz à sushi",
@@ -545,7 +545,7 @@
       },
       "black-eyed pea": {
         "name": "pois à œil noir",
-        "plural_name": ""
+        "plural_name": "black-eyed peas"
       },
       "split pea": {
         "name": "pois cassé",
@@ -565,7 +565,7 @@
       },
       "egg noodle": {
         "name": "nouilles aux œufs",
-        "plural_name": ""
+        "plural_name": "nouilles aux oeufs"
       },
       "spiral pasta": {
         "name": "pâtes fusilli",
@@ -573,7 +573,7 @@
       },
       "lasagna noodle": {
         "name": "pâtes à lasagne",
-        "plural_name": ""
+        "plural_name": "lasagnes"
       },
       "linguine": {
         "name": "linguines",
@@ -589,11 +589,11 @@
       },
       "pasta shell": {
         "name": "coquilles de pâtes",
-        "plural_name": ""
+        "plural_name": "pasta shells"
       },
       "noodle": {
         "name": "nouilles",
-        "plural_name": ""
+        "plural_name": "nouilles"
       },
       "tortellini": {
         "name": "tortellinis",
@@ -601,7 +601,7 @@
       },
       "rice noodle": {
         "name": "nouilles de riz",
-        "plural_name": ""
+        "plural_name": "nouilles de riz"
       },
       "rigatoni": {
         "name": "rigatonis",
@@ -613,11 +613,11 @@
       },
       "ramen noodle": {
         "name": "nouilles ramen",
-        "plural_name": ""
+        "plural_name": "nouilles ramen"
       },
       "soba noodle": {
         "name": "nouilles soba",
-        "plural_name": ""
+        "plural_name": "soba noodles"
       },
       "ravioli": {
         "name": "raviolis",
@@ -625,7 +625,7 @@
       },
       "udon noodle": {
         "name": "nouilles udon",
-        "plural_name": ""
+        "plural_name": "udon noodles"
       },
       "manicotti": {
         "name": "manicottis",
@@ -633,7 +633,7 @@
       },
       "farro": {
         "name": "grain de farro",
-        "plural_name": "grains de farro"
+        "plural_name": ""
       },
       "pasta": {
         "name": "pasta",
@@ -654,7 +654,7 @@
     "foods": {
       "ground beef": {
         "name": "bœuf haché",
-        "plural_name": "bœufs hachés"
+        "plural_name": ""
       },
       "beef steak": {
         "name": "steak de bœuf",
@@ -674,11 +674,11 @@
       },
       "ground pork": {
         "name": "porc haché",
-        "plural_name": "porcs hachés"
+        "plural_name": ""
       },
       "beef stew meat": {
         "name": "bœuf à ragoût",
-        "plural_name": "bœufs à ragoût"
+        "plural_name": ""
       },
       "pork fillet": {
         "name": "filet de porc",
@@ -686,11 +686,11 @@
       },
       "pork shoulder": {
         "name": "épaule de porc",
-        "plural_name": "épaules de porc"
+        "plural_name": ""
       },
       "ground lamb": {
         "name": "agneau haché",
-        "plural_name": "agneaux hachés"
+        "plural_name": ""
       },
       "pork rib": {
         "name": "côte de porc",
@@ -702,7 +702,7 @@
       },
       "brisket": {
         "name": "poitrine de bœuf",
-        "plural_name": "poitrines de bœuf"
+        "plural_name": ""
       },
       "leg of lamb": {
         "name": "gigot d'agneau",
@@ -714,7 +714,7 @@
       },
       "pork belly": {
         "name": "poitrine de porc",
-        "plural_name": "poitrines de porc"
+        "plural_name": ""
       },
       "lamb chop": {
         "name": "côtelette d'agneau",
@@ -722,7 +722,7 @@
       },
       "venison": {
         "name": "venaison",
-        "plural_name": "venaisons"
+        "plural_name": ""
       },
       "oxtail": {
         "name": "queue de bœuf",
@@ -738,7 +738,7 @@
       },
       "ground turkey": {
         "name": "dinde hachée",
-        "plural_name": "dindes hachées"
+        "plural_name": ""
       },
       "whole chicken": {
         "name": "poulet entier",
@@ -762,7 +762,7 @@
       },
       "ground chicken": {
         "name": "poulet haché",
-        "plural_name": "poulets hachés"
+        "plural_name": ""
       },
       "rotisserie chicken": {
         "name": "poulet rôti",
@@ -811,15 +811,15 @@
     "foods": {
       "bacon": {
         "name": "bacon fumé",
-        "plural_name": "bacons fumés"
+        "plural_name": ""
       },
       "ham": {
         "name": "jambon",
-        "plural_name": "jambons"
+        "plural_name": ""
       },
       "prosciutto": {
         "name": "jambon prosciutto",
-        "plural_name": "jambons prosciutto"
+        "plural_name": ""
       },
       "sausage": {
         "name": "saucisse",
@@ -831,11 +831,11 @@
       },
       "chorizo": {
         "name": "chorizo épicé",
-        "plural_name": "chorizos épicés"
+        "plural_name": ""
       },
       "pancetta": {
         "name": "pancetta fumée",
-        "plural_name": "pancettas fumées"
+        "plural_name": ""
       },
       "breakfast sausage": {
         "name": "saucisse déjeuner",
@@ -847,15 +847,15 @@
       },
       "salami": {
         "name": "salami sec",
-        "plural_name": "salamis secs"
+        "plural_name": ""
       },
       "kielbasa": {
         "name": "saucisse kielbasa",
-        "plural_name": "saucisses kielbasa"
+        "plural_name": ""
       },
       "corned beef": {
         "name": "corned-beef en conserve",
-        "plural_name": "corned-beefs en conserve"
+        "plural_name": ""
       }
     }
   },
@@ -864,19 +864,19 @@
     "foods": {
       "bonito flake": {
         "name": "flocons de bonite",
-        "plural_name": ""
+        "plural_name": "bonito flakes"
       },
       "salmon": {
         "name": "saumon",
-        "plural_name": "saumons"
+        "plural_name": ""
       },
       "smoked salmon": {
         "name": "saumon fumé",
-        "plural_name": "saumons fumés"
+        "plural_name": ""
       },
       "cod": {
         "name": "morue",
-        "plural_name": "morues"
+        "plural_name": ""
       },
       "tilapia": {
         "name": "tilapia",
@@ -884,15 +884,15 @@
       },
       "halibut": {
         "name": "flétan",
-        "plural_name": "flétans"
+        "plural_name": ""
       },
       "trout": {
         "name": "truite",
-        "plural_name": "truites"
+        "plural_name": ""
       },
       "catfish": {
         "name": "poisson-chat",
-        "plural_name": "poissons-chats"
+        "plural_name": ""
       },
       "sardine": {
         "name": "sardine entière",
@@ -900,11 +900,11 @@
       },
       "haddock": {
         "name": "aiglefin",
-        "plural_name": "aiglefins"
+        "plural_name": ""
       },
       "shrimp": {
         "name": "crevette",
-        "plural_name": "crevettes"
+        "plural_name": ""
       },
       "crab": {
         "name": "crabe",
@@ -924,11 +924,11 @@
       },
       "squid": {
         "name": "calmar",
-        "plural_name": "calmars"
+        "plural_name": ""
       },
       "nori": {
         "name": "nori séché",
-        "plural_name": "noris séchés"
+        "plural_name": ""
       },
       "lobster": {
         "name": "homard",
@@ -1009,7 +1009,7 @@
       },
       "cottage cheese": {
         "name": "fromage cottage",
-        "plural_name": "fromages cottage"
+        "plural_name": ""
       },
       "american cheese": {
         "name": "Fromage américain",
@@ -1021,7 +1021,7 @@
       },
       "paneer cheese": {
         "name": "fromage paneer",
-        "plural_name": "fromages paneer"
+        "plural_name": ""
       },
       "fontina cheese": {
         "name": "fromage fontine",
@@ -1029,19 +1029,19 @@
       },
       "queso fresco cheese": {
         "name": "fromage Queso Fresco",
-        "plural_name": "fromages Queso Fresco"
+        "plural_name": ""
       },
       "halloumi cheese": {
         "name": "fromage halloumi",
-        "plural_name": "fromages halloumi"
+        "plural_name": ""
       },
       "italian cheese blend": {
         "name": "mélange de fromages italiens",
-        "plural_name": "mélanges de fromages italiens"
+        "plural_name": ""
       },
       "butter": {
         "name": "beurre",
-        "plural_name": "beurres"
+        "plural_name": ""
       },
       "egg": {
         "name": "œuf",
@@ -1053,11 +1053,11 @@
       },
       "heavy cream": {
         "name": "crème à fouetter",
-        "plural_name": "crème épaisse"
+        "plural_name": ""
       },
       "sour cream": {
         "name": "crème sure",
-        "plural_name": "crème aigre"
+        "plural_name": ""
       },
       "buttermilk": {
         "name": "babeurre",
@@ -1065,11 +1065,11 @@
       },
       "yogurt": {
         "name": "yogourt",
-        "plural_name": "yogourts"
+        "plural_name": ""
       },
       "greek yogurt": {
         "name": "yogourt grec",
-        "plural_name": "yogourts grecs"
+        "plural_name": ""
       },
       "cream": {
         "name": "crème",
@@ -1081,19 +1081,19 @@
       },
       "ghee": {
         "name": "beurre clarifié ghee",
-        "plural_name": "beurres clarifiés ghee"
+        "plural_name": ""
       },
       "half and half": {
         "name": "crème moitié-moitié",
-        "plural_name": "crèmes moitié-moitié"
+        "plural_name": ""
       },
       "sweetened condensed milk": {
         "name": "lait condensé sucré",
-        "plural_name": "lait concentré sucré"
+        "plural_name": ""
       },
       "kefir": {
         "name": "kéfir",
-        "plural_name": "kéfirs"
+        "plural_name": ""
       },
       "provolone cheese": {
         "name": "provolone",
@@ -1122,15 +1122,15 @@
       },
       "pizza dough": {
         "name": "pâte à pizza",
-        "plural_name": "pâtes à pizza"
+        "plural_name": ""
       },
       "phyllo": {
         "name": "pâte phyllo",
-        "plural_name": "pâtes phyllo"
+        "plural_name": ""
       },
       "dumpling wrapper": {
         "name": "feuilles à dumplings",
-        "plural_name": ""
+        "plural_name": "dumpling wrappers"
       },
       "rice paper": {
         "name": "feuilles de riz",
@@ -1138,7 +1138,7 @@
       },
       "bread": {
         "name": "pain",
-        "plural_name": "pains"
+        "plural_name": ""
       },
       "bread crumb": {
         "name": "chapelure",
@@ -1146,7 +1146,7 @@
       },
       "panko": {
         "name": "chapelure panko",
-        "plural_name": "chapelures panko"
+        "plural_name": ""
       },
       "flour tortilla": {
         "name": "tortilla de farine",
@@ -1166,7 +1166,7 @@
       },
       "sourdough bread": {
         "name": "pain au levain",
-        "plural_name": "pains au levain"
+        "plural_name": ""
       },
       "crouton": {
         "name": "croûton",
@@ -1178,11 +1178,11 @@
       },
       "brioche": {
         "name": "pain brioché",
-        "plural_name": "pains briochés"
+        "plural_name": ""
       },
       "rye bread": {
         "name": "pain de seigle",
-        "plural_name": "pains de seigle"
+        "plural_name": ""
       },
       "naan": {
         "name": "pain naan",
@@ -1206,7 +1206,7 @@
       },
       "challah": {
         "name": "pain challah",
-        "plural_name": "pains challah"
+        "plural_name": ""
       },
       "bao bun": {
         "name": "pain bao",
@@ -1219,59 +1219,59 @@
     "foods": {
       "canned tomato": {
         "name": "tomates en conserve",
-        "plural_name": ""
+        "plural_name": "canned tomatoes"
       },
       "caper": {
         "name": "câpres",
-        "plural_name": ""
+        "plural_name": "capers"
       },
       "green olive": {
         "name": "olives vertes",
-        "plural_name": ""
+        "plural_name": "olives vertes"
       },
       "canned chickpea": {
         "name": "pois chiches en conserve",
-        "plural_name": ""
+        "plural_name": "canned chickpeas"
       },
       "black olive": {
         "name": "olives noires",
-        "plural_name": ""
+        "plural_name": "olives noires"
       },
       "canned black bean": {
         "name": "haricots noirs en conserve",
-        "plural_name": ""
+        "plural_name": "haricots rouges en conserve"
       },
       "canned pumpkin": {
         "name": "purée de citrouille en conserve",
-        "plural_name": "purées de citrouille en conserve"
+        "plural_name": ""
       },
       "kalamata olive": {
         "name": "olives Kalamata",
-        "plural_name": ""
+        "plural_name": "kalamata olives"
       },
       "canned tuna": {
         "name": "thon en conserve",
-        "plural_name": "thons en conserve"
+        "plural_name": ""
       },
       "pickle": {
         "name": "cornichons",
-        "plural_name": ""
+        "plural_name": "cornichons"
       },
       "chipotle in adobo": {
         "name": "piments chipotle en sauce adobo",
-        "plural_name": ""
+        "plural_name": "chipotles in adobo"
       },
       "canned anchovy": {
         "name": "anchois en conserve",
-        "plural_name": ""
+        "plural_name": "canned anchovies"
       },
       "roasted red pepper": {
         "name": "poivrons rouges rôtis",
-        "plural_name": ""
+        "plural_name": "roasted red peppers"
       },
       "canned artichoke": {
         "name": "artichauts en conserve",
-        "plural_name": ""
+        "plural_name": "canned artichokes"
       },
       "canned corn": {
         "name": "maïs en conserve",
@@ -1279,23 +1279,23 @@
       },
       "canned kidney bean": {
         "name": "haricots rouges en conserve",
-        "plural_name": ""
+        "plural_name": "canned kidney beans"
       },
       "refried bean": {
         "name": "haricots frits en conserve",
-        "plural_name": ""
+        "plural_name": "refried beans"
       },
       "canned whole tomato": {
         "name": "tomates entières en conserve",
-        "plural_name": ""
+        "plural_name": "canned whole tomatoes"
       },
       "sweet pickle relish": {
         "name": "relish de cornichons sucrée",
-        "plural_name": "relishs de cornichons sucrées"
+        "plural_name": ""
       },
       "sauerkraut": {
         "name": "choucroute",
-        "plural_name": "choucroutes"
+        "plural_name": ""
       },
       "creamed corn": {
         "name": "maïs en crème",
@@ -1307,27 +1307,27 @@
       },
       "diced green chile": {
         "name": "piments verts coupés en conserve",
-        "plural_name": ""
+        "plural_name": "diced green chiles"
       },
       "sun-dried tomato in oil": {
         "name": "tomates séchées dans l'huile",
-        "plural_name": ""
+        "plural_name": "sun-dried tomatoes in oil"
       },
       "kimchi": {
         "name": "kimchi fermenté",
-        "plural_name": "kimchis fermentés"
+        "plural_name": ""
       },
       "baked bean": {
         "name": "fèves au lard en conserve",
-        "plural_name": ""
+        "plural_name": "baked beans"
       },
       "canned salmon": {
         "name": "saumon en conserve",
-        "plural_name": "saumons en conserve"
+        "plural_name": ""
       },
       "canned clam": {
         "name": "palourdes en conserve",
-        "plural_name": ""
+        "plural_name": "palourdes en conserve"
       },
       "canned baby corn": {
         "name": "mini maïs en conserve",
@@ -1335,11 +1335,11 @@
       },
       "canned sardine": {
         "name": "sardines en conserve",
-        "plural_name": ""
+        "plural_name": "sardines en boîte"
       },
       "aquafaba": {
         "name": "aquafaba de pois chiches",
-        "plural_name": "aquafabas de pois chiches"
+        "plural_name": ""
       },
       "chicken broth": {
         "name": "chicken broth",
@@ -1448,7 +1448,7 @@
       },
       "sriracha": {
         "name": "sauce sriracha",
-        "plural_name": "sauces sriracha"
+        "plural_name": ""
       },
       "wholegrain mustard": {
         "name": "moutarde à l'ancienne",
@@ -1464,7 +1464,7 @@
       },
       "prepared horseradish": {
         "name": "raifort préparé",
-        "plural_name": "raiforts préparés"
+        "plural_name": ""
       },
       "cranberry sauce": {
         "name": "sauce aux canneberges",
@@ -1472,7 +1472,7 @@
       },
       "harissa": {
         "name": "pâte harissa",
-        "plural_name": "pâtes harissa"
+        "plural_name": ""
       },
       "tamarind paste": {
         "name": "pâte de tamarin",
@@ -1480,11 +1480,11 @@
       },
       "gochujang": {
         "name": "pâte gochujang",
-        "plural_name": "pâtes gochujang"
+        "plural_name": ""
       },
       "wasabi": {
         "name": "pâte de wasabi",
-        "plural_name": "pâtes de wasabi"
+        "plural_name": ""
       },
       "sambal oelek": {
         "name": "sambal oelek",
@@ -1572,11 +1572,11 @@
       },
       "white miso": {
         "name": "miso blanc",
-        "plural_name": "misos blancs"
+        "plural_name": ""
       },
       "almond butter": {
         "name": "beurre d'amande",
-        "plural_name": "beurres d'amande"
+        "plural_name": ""
       },
       "mayonnaise": {
         "name": "mayonnaise classique",
@@ -1616,7 +1616,7 @@
       },
       "sweet chili sauce": {
         "name": "sauce chili douce",
-        "plural_name": "sweet chilli sauce"
+        "plural_name": ""
       },
       "caesar dressing": {
         "name": "vinaigrette César",
@@ -1641,11 +1641,11 @@
       },
       "cinnamon": {
         "name": "cannelle moulue",
-        "plural_name": "cannelle"
+        "plural_name": ""
       },
       "cumin": {
         "name": "cumin moulu",
-        "plural_name": "cumins moulus"
+        "plural_name": ""
       },
       "thyme": {
         "name": "thym",
@@ -1653,11 +1653,11 @@
       },
       "garlic powder": {
         "name": "poudre d'ail",
-        "plural_name": "ail en poudre"
+        "plural_name": ""
       },
       "oregano": {
         "name": "origan",
-        "plural_name": "origans"
+        "plural_name": ""
       },
       "nutmeg": {
         "name": "noix de muscade",
@@ -1665,11 +1665,11 @@
       },
       "chili flake": {
         "name": "flocons de piment",
-        "plural_name": ""
+        "plural_name": "flocons de piment"
       },
       "chili powder": {
         "name": "poudre de piment",
-        "plural_name": "piment en poudre"
+        "plural_name": ""
       },
       "paprika": {
         "name": "paprika doux",
@@ -1677,7 +1677,7 @@
       },
       "rosemary": {
         "name": "romarin",
-        "plural_name": "romarins"
+        "plural_name": ""
       },
       "bay leaf": {
         "name": "feuille de laurier",
@@ -1685,7 +1685,7 @@
       },
       "turmeric": {
         "name": "curcuma moulu",
-        "plural_name": "curcumas moulus"
+        "plural_name": ""
       },
       "clove": {
         "name": "clou de girofle",
@@ -1693,19 +1693,19 @@
       },
       "onion powder": {
         "name": "poudre d'oignon",
-        "plural_name": "oignon en poudre"
+        "plural_name": ""
       },
       "ginger powder": {
         "name": "gingembre moulu",
-        "plural_name": "gingembre en poudre"
+        "plural_name": ""
       },
       "dill": {
         "name": "aneth",
-        "plural_name": "aneths"
+        "plural_name": ""
       },
       "green cardamom": {
         "name": "cardamome verte",
-        "plural_name": "cardamomes vertes"
+        "plural_name": ""
       },
       "smoked paprika": {
         "name": "paprika fumé",
@@ -1713,7 +1713,7 @@
       },
       "sage": {
         "name": "sauge",
-        "plural_name": "sauges"
+        "plural_name": ""
       },
       "coriander": {
         "name": "graines de coriandre",
@@ -1721,7 +1721,7 @@
       },
       "allspice": {
         "name": "piment de la Jamaïque",
-        "plural_name": "piments de la Jamaïque"
+        "plural_name": ""
       },
       "peppercorn": {
         "name": "poivre en grains",
@@ -1729,7 +1729,7 @@
       },
       "mustard seed": {
         "name": "graines de moutarde",
-        "plural_name": ""
+        "plural_name": "graines de moutarde"
       },
       "white pepper": {
         "name": "poivre blanc",
@@ -1741,27 +1741,27 @@
       },
       "fennel seed": {
         "name": "graines de fenouil",
-        "plural_name": ""
+        "plural_name": "graines du fenouil"
       },
       "tarragon": {
         "name": "estragon",
-        "plural_name": "estragons"
+        "plural_name": ""
       },
       "saffron": {
         "name": "safran",
-        "plural_name": "safrans"
+        "plural_name": ""
       },
       "asafoetida": {
         "name": "asafoetida en poudre",
-        "plural_name": "asafoetidas en poudre"
+        "plural_name": ""
       },
       "star anise": {
         "name": "anis étoilé",
-        "plural_name": "anis étoilés"
+        "plural_name": ""
       },
       "fenugreek": {
         "name": "feuille de fenugrec",
-        "plural_name": "feuilles de fenugrec"
+        "plural_name": ""
       },
       "kaffir lime leaf": {
         "name": "feuille de lime kaffir",
@@ -1773,63 +1773,63 @@
       },
       "galangal": {
         "name": "galanga",
-        "plural_name": "galangas"
+        "plural_name": ""
       },
       "aleppo pepper": {
         "name": "piment d'Alep",
-        "plural_name": "piments d'Alep"
+        "plural_name": ""
       },
       "italian seasoning": {
         "name": "assaisonnement italien",
-        "plural_name": "mélange d'épices italiennes"
+        "plural_name": ""
       },
       "curry": {
         "name": "poudre de curry",
-        "plural_name": "poudres de curry"
+        "plural_name": ""
       },
       "garam masala": {
         "name": "mélange garam masala",
-        "plural_name": "mélanges garam masala"
+        "plural_name": ""
       },
       "pumpkin pie spice": {
         "name": "épices pour tarte à la citrouille",
-        "plural_name": "épices pour tartes à la citrouille"
+        "plural_name": ""
       },
       "mustard powder": {
         "name": "poudre de moutarde",
-        "plural_name": "moutarde en poudre"
+        "plural_name": ""
       },
       "taco seasoning": {
         "name": "assaisonnement pour tacos",
-        "plural_name": "mélange d'épices de taco"
+        "plural_name": ""
       },
       "cajun seasoning": {
         "name": "assaisonnement cajun",
-        "plural_name": "mélanges d'épices cajun"
+        "plural_name": ""
       },
       "chinese five spice": {
         "name": "mélange cinq épices",
-        "plural_name": "mélanges cinq épices"
+        "plural_name": ""
       },
       "chaat masala": {
         "name": "mélange chaat masala",
-        "plural_name": "mélanges chaat masala"
+        "plural_name": ""
       },
       "thai red curry paste": {
         "name": "pâte de curry rouge thaï",
-        "plural_name": "pâtes de curry rouge thaï"
+        "plural_name": ""
       },
       "za'atar": {
         "name": "mélange zaatar",
-        "plural_name": "mélanges zaatar"
+        "plural_name": ""
       },
       "ras el hanout": {
         "name": "mélange ras el hanout",
-        "plural_name": "mélanges ras el hanout"
+        "plural_name": ""
       },
       "furikake": {
         "name": "mélange furikake",
-        "plural_name": "mélanges furikake"
+        "plural_name": ""
       },
       "tom yum paste": {
         "name": "pâte tom yum",
@@ -1837,11 +1837,11 @@
       },
       "old bay seasoning": {
         "name": "assaisonnement Old Bay",
-        "plural_name": "mélanges d'épices old bay"
+        "plural_name": ""
       },
       "liquid smoke": {
         "name": "fumée liquide",
-        "plural_name": "fumées liquides"
+        "plural_name": ""
       },
       "salt": {
         "name": "salt",
@@ -1870,7 +1870,7 @@
     "foods": {
       "shortening": {
         "name": "graisse végétale",
-        "plural_name": "graisses végétales"
+        "plural_name": ""
       },
       "olive oil": {
         "name": "huile d'olive",
@@ -1890,7 +1890,7 @@
       },
       "cooking spray": {
         "name": "aérosol de cuisson",
-        "plural_name": "aérosols de cuisson"
+        "plural_name": ""
       },
       "sesame oil": {
         "name": "huile de sésame",
@@ -1939,7 +1939,7 @@
       },
       "sugar": {
         "name": "sucre granulé",
-        "plural_name": "sucre"
+        "plural_name": ""
       },
       "brown sugar": {
         "name": "cassonade",
@@ -1947,7 +1947,7 @@
       },
       "confectioners sugar": {
         "name": "sucre à glacer",
-        "plural_name": "Sucre glace"
+        "plural_name": ""
       },
       "maple syrup": {
         "name": "sirop d'érable",
@@ -1959,7 +1959,7 @@
       },
       "molasses": {
         "name": "mélasse",
-        "plural_name": "mélasses"
+        "plural_name": ""
       },
       "stevia": {
         "name": "stevia liquide",
@@ -1967,11 +1967,11 @@
       },
       "jaggery": {
         "name": "jaggery de canne",
-        "plural_name": "jagre"
+        "plural_name": ""
       },
       "flour": {
         "name": "farine tout usage",
-        "plural_name": "farine"
+        "plural_name": ""
       },
       "vanilla extract": {
         "name": "extrait de vanille",
@@ -1979,27 +1979,27 @@
       },
       "baking powder": {
         "name": "poudre à pâte",
-        "plural_name": "levure chimique"
+        "plural_name": ""
       },
       "baking soda": {
         "name": "bicarbonate de soude",
-        "plural_name": "bicarbonates de soude"
+        "plural_name": ""
       },
       "cornstarch": {
         "name": "fécule de maïs",
-        "plural_name": "fécules de maïs"
+        "plural_name": ""
       },
       "yeast": {
         "name": "levure",
-        "plural_name": "levures"
+        "plural_name": ""
       },
       "chocolate chip": {
         "name": "pépites de chocolat",
-        "plural_name": ""
+        "plural_name": "pépites de chocolat"
       },
       "whole-wheat flour": {
         "name": "farine de blé entier",
-        "plural_name": "farine complète"
+        "plural_name": ""
       },
       "almond flour": {
         "name": "farine d'amande",
@@ -2011,15 +2011,15 @@
       },
       "shredded coconut": {
         "name": "noix de coco râpée",
-        "plural_name": "noix de coco râpées"
+        "plural_name": ""
       },
       "cornmeal": {
         "name": "semoule de maïs",
-        "plural_name": "semoules de maïs"
+        "plural_name": ""
       },
       "gelatin": {
         "name": "gélatine",
-        "plural_name": "gélatines"
+        "plural_name": ""
       },
       "cake flour": {
         "name": "farine à gâteaux",
@@ -2027,7 +2027,7 @@
       },
       "cream of tartar": {
         "name": "crème de tartre",
-        "plural_name": "crèmes de tartre"
+        "plural_name": ""
       },
       "bread flour": {
         "name": "farine à pain",
@@ -2035,7 +2035,7 @@
       },
       "potato starch": {
         "name": "fécule de pomme de terre",
-        "plural_name": "fécules de pomme de terre"
+        "plural_name": ""
       },
       "buckwheat flour": {
         "name": "farine de sarrasin",
@@ -2043,11 +2043,11 @@
       },
       "masa harina": {
         "name": "farine masa harina",
-        "plural_name": "farines masa harina"
+        "plural_name": ""
       },
       "matzo meal": {
         "name": "farine azyme",
-        "plural_name": "farines azyme"
+        "plural_name": ""
       },
       "almond extract": {
         "name": "extrait d'amande",
@@ -2055,7 +2055,7 @@
       },
       "food coloring": {
         "name": "colorant alimentaire",
-        "plural_name": "colorants alimentaires"
+        "plural_name": ""
       },
       "peppermint extract": {
         "name": "extrait de menthe poivrée",
@@ -2096,7 +2096,7 @@
       },
       "chocolate hazelnut spread": {
         "name": "tartinade chocolat-noisette",
-        "plural_name": "tartinades chocolat-noisette"
+        "plural_name": ""
       },
       "caramel sauce": {
         "name": "sauce au caramel",
@@ -2104,7 +2104,7 @@
       },
       "marshmallow creme": {
         "name": "crème de guimauve",
-        "plural_name": "crèmes de guimauve"
+        "plural_name": ""
       },
       "jam": {
         "name": "confiture",
@@ -2112,7 +2112,7 @@
       },
       "orange marmalade": {
         "name": "marmelade d'orange",
-        "plural_name": "marmelades d'orange"
+        "plural_name": ""
       },
       "cookie": {
         "name": "biscuit sucré",
@@ -2124,19 +2124,19 @@
       },
       "apple butter": {
         "name": "beurre de pomme",
-        "plural_name": "beurres de pomme"
+        "plural_name": ""
       },
       "ice cream": {
         "name": "crème glacée",
-        "plural_name": "crèmes glacées"
+        "plural_name": ""
       },
       "lemon curd": {
         "name": "crème au citron",
-        "plural_name": "crèmes au citron"
+        "plural_name": ""
       },
       "dulce de leche": {
         "name": "confiture de lait",
-        "plural_name": "confitures de lait"
+        "plural_name": ""
       }
     }
   },
@@ -2145,7 +2145,7 @@
     "foods": {
       "walnut": {
         "name": "noix",
-        "plural_name": ""
+        "plural_name": "noix"
       },
       "pecan": {
         "name": "pacane",
@@ -2161,7 +2161,7 @@
       },
       "cashew": {
         "name": "noix de cajou",
-        "plural_name": ""
+        "plural_name": "noix de cajou"
       },
       "pine nut": {
         "name": "pignon",
@@ -2177,7 +2177,7 @@
       },
       "chia": {
         "name": "graine de chia",
-        "plural_name": "graines de chia"
+        "plural_name": ""
       },
       "pumpkin seed": {
         "name": "graine de citrouille",
@@ -2201,7 +2201,7 @@
       },
       "tortilla chip": {
         "name": "chips de tortilla",
-        "plural_name": ""
+        "plural_name": "tortilla chips"
       },
       "pretzel": {
         "name": "bretzel",
@@ -2209,11 +2209,11 @@
       },
       "popcorn": {
         "name": "maïs soufflé",
-        "plural_name": "maïs soufflés"
+        "plural_name": ""
       },
       "potato chip": {
         "name": "chips de pommes de terre",
-        "plural_name": ""
+        "plural_name": "potato chips"
       },
       "nut": {
         "name": "nut",
@@ -2234,7 +2234,7 @@
       },
       "club soda": {
         "name": "soda tonique",
-        "plural_name": "sodas toniques"
+        "plural_name": ""
       },
       "espresso": {
         "name": "espresso",
@@ -2262,7 +2262,7 @@
       },
       "ginger beer": {
         "name": "bière de gingembre",
-        "plural_name": "bières de gingembre"
+        "plural_name": ""
       },
       "water": {
         "name": "water",
@@ -2275,11 +2275,11 @@
     "foods": {
       "white wine": {
         "name": "vin blanc",
-        "plural_name": "vins blancs"
+        "plural_name": ""
       },
       "red wine": {
         "name": "vin rouge",
-        "plural_name": "vins rouges"
+        "plural_name": ""
       },
       "whisky": {
         "name": "whisky",
@@ -2287,7 +2287,7 @@
       },
       "rum": {
         "name": "rhum brun",
-        "plural_name": "rhums bruns"
+        "plural_name": ""
       },
       "vodka": {
         "name": "vodka",
@@ -2295,11 +2295,11 @@
       },
       "beer": {
         "name": "bière",
-        "plural_name": "bières"
+        "plural_name": ""
       },
       "orange liqueur": {
         "name": "liqueur d'orange",
-        "plural_name": "liqueurs d'orange"
+        "plural_name": ""
       },
       "tequila": {
         "name": "tequila",
@@ -2323,7 +2323,7 @@
       },
       "coffee liqueur": {
         "name": "liqueur de café",
-        "plural_name": "liqueurs de café"
+        "plural_name": ""
       },
       "champagne": {
         "name": "champagne",
@@ -2335,15 +2335,15 @@
       },
       "marsala wine": {
         "name": "vin de marsala",
-        "plural_name": "vins de marsala"
+        "plural_name": ""
       },
       "sake": {
         "name": "saké",
-        "plural_name": "sakés"
+        "plural_name": ""
       },
       "shaoxing wine": {
         "name": "vin Shaoxing",
-        "plural_name": "vins Shaoxing"
+        "plural_name": ""
       },
       "wine": {
         "name": "wine",
@@ -2364,27 +2364,27 @@
       },
       "tofu": {
         "name": "tofu nature",
-        "plural_name": "tofus nature"
+        "plural_name": ""
       },
       "coconut cream": {
         "name": "crème de coco",
-        "plural_name": "crème de noix de coco"
+        "plural_name": ""
       },
       "soy milk": {
         "name": "lait de soya",
-        "plural_name": "lait de soja"
+        "plural_name": ""
       },
       "extra firm tofu": {
         "name": "tofu extra ferme",
-        "plural_name": "tofus extra fermes"
+        "plural_name": ""
       },
       "silken tofu": {
         "name": "tofu soyeux",
-        "plural_name": "tofus soyeux"
+        "plural_name": ""
       },
       "tempeh": {
         "name": "tempeh fermenté",
-        "plural_name": "tempehs fermentés"
+        "plural_name": ""
       },
       "oat milk": {
         "name": "lait d'avoine",
@@ -2392,15 +2392,15 @@
       },
       "seitan": {
         "name": "seitan de blé",
-        "plural_name": "seitans de blé"
+        "plural_name": ""
       },
       "nutritional yeast": {
         "name": "levure nutritionnelle",
-        "plural_name": "levures nutritionnelles"
+        "plural_name": ""
       },
       "vegan cheese": {
         "name": "fromage végane",
-        "plural_name": "fromages végétalien"
+        "plural_name": ""
       }
     }
   },

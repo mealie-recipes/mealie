@@ -352,7 +352,7 @@
       "title": "Paprikas recepšu vadītājs"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie var importēt receptes no lietojumprogrammas Mealie no pirms v1.0 izlaiduma. Eksportējiet receptes no vecās instances un augšupielādējiet zemāk esošo zip failu. Ņemiet vērā, ka no eksporta var importēt tikai receptes.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Recepšu datu migrācija",
-    "recipe-data-migrations-explanation": "Receptes var migrēt no citas atbalstītas lietojumprogrammas uz Mealie. Tas ir lielisks veids, kā sākt darbu ar Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Vai nāk no citas lietojumprogrammas vai vēl vecākas Mealie versijas? Pārbaudiet migrācijas un pārbaudiet, vai jūsu datus var importēt.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Izvēlieties migrācijas veidu",
     "tag-all-recipes": "Atzīmējiet visas receptes ar {tag-name} tagu",
     "recipe-1": "Recepte 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Pievienojiet attēlus, velkot un nometot tos redaktorā",
     "drop-image": "Nometiet attēlu",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Receptes ar definētām vienībām vai pārtikas produktiem nevar analizēt.",
     "parse-ingredients": "Parsējiet sastāvdaļas",
     "edit-markdown": "Rediģēt Markdown",
@@ -601,6 +603,13 @@
     "remove-image": "Noņemt attēlu",
     "nextStep": "Nākamais solis",
     "recipe-actions": "Recepšu darbības",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Sastāvdaļu parsētājs",
       "select-parser": "Izvēlieties parsētāju",
@@ -944,7 +953,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Izveidojiet datu bāzi ar kopējām etiķetēm, pamatojoties uz jūsu vietējo valodu.",
       "edit-label": "Rediģēt etiķeti",
       "new-label": "Jauna etiķete",
       "labels": "Etiķetes",

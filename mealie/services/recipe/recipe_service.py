@@ -364,7 +364,7 @@ class RecipeService(RecipeServiceBase):
         self._reset_data_matcher()
         return data
 
-    def _process_recipe_data(self, key: str, data: list | dict | Any):
+    def _process_recipe_data(self, key: str, data: list | dict | Any) -> Any:
         if isinstance(data, list):
             return [self._process_recipe_data(key, item) for item in data]
 
@@ -376,6 +376,11 @@ class RecipeService(RecipeServiceBase):
             return data
 
         elif not isinstance(data, dict):
+            return data
+
+        # extras is free-form user data, so it is copied as-is: walking into it would add the
+        # group and household keys stamped below to whatever the user stored there.
+        if key == "extras":
             return data
 
         # force group_id and household_id to match the group id of the current user
@@ -397,8 +402,31 @@ class RecipeService(RecipeServiceBase):
 
         return data
 
+    def _replace_taken_id(self, recipe: dict[str, Any]) -> dict[str, Any]:
+        """Drop the exported id when this instance already has a recipe using it.
+
+        An export carries the id of the recipe it came from, which collides as soon as the file is
+        imported back into the instance that produced it. Recipe ids are unique across every group,
+        so the lookup deliberately runs without the group and household filters, and matches on
+        `id` because the recipe repository is keyed by slug.
+        """
+        recipe_id = recipe.get("id")
+        if not recipe_id:
+            return recipe
+
+        try:
+            recipe_id = UUID(str(recipe_id))
+        except ValueError:
+            return recipe
+
+        all_recipes = get_repositories(self.repos.session, group_id=None, household_id=None).recipes
+        if all_recipes.get_one(recipe_id, key="id"):
+            recipe["id"] = str(uuid4())
+
+        return recipe
+
     def clean_recipe_dict(self, recipe: dict[str, Any]) -> dict[str, Any]:
-        return self._process_recipe_data("recipe", recipe)
+        return self._process_recipe_data("recipe", self._replace_taken_id(recipe))
 
     def create_from_zip(self, archive: UploadFile, temp_path: Path) -> Recipe:
         """
@@ -508,7 +536,7 @@ class RecipeService(RecipeServiceBase):
             for ing in ingredients:
                 try:
                     sub_recipe = self.get_one(ing.referenced_recipe.id)
-                except (AttributeError, exceptions.NoEntryFound):
+                except AttributeError, exceptions.NoEntryFound:
                     continue
 
                 # Recursively check - path is modified in place and cleaned up via backtracking

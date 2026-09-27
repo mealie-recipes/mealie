@@ -4,7 +4,7 @@
     "foods": {
       "garlic": {
         "name": "küüslauk",
-        "plural_name": "küüslauku"
+        "plural_name": ""
       },
       "onion": {
         "name": "sibul",
@@ -40,7 +40,7 @@
       },
       "celery": {
         "name": "seller",
-        "plural_name": "sellerit"
+        "plural_name": ""
       },
       "jalapeño": {
         "name": "jalapeño",
@@ -64,7 +64,7 @@
       },
       "spinach": {
         "name": "spinat",
-        "plural_name": "spinatit"
+        "plural_name": ""
       },
       "sweet corn": {
         "name": "suhkrumais",
@@ -92,7 +92,7 @@
       },
       "cauliflower": {
         "name": "lillkapsas",
-        "plural_name": "lillkapsast"
+        "plural_name": ""
       },
       "cabbage": {
         "name": "kapsas",
@@ -108,7 +108,7 @@
       },
       "arugula": {
         "name": "rukkola",
-        "plural_name": "rukolat"
+        "plural_name": ""
       },
       "leek": {
         "name": "porru",
@@ -172,7 +172,7 @@
       },
       "horseradish": {
         "name": "mädarõigas",
-        "plural_name": "mädarõigast"
+        "plural_name": ""
       },
       "chard": {
         "name": "chard",
@@ -188,7 +188,7 @@
       },
       "celeriac": {
         "name": "seller",
-        "plural_name": "sellerit"
+        "plural_name": ""
       },
       "turnip": {
         "name": "naeris",
@@ -288,7 +288,7 @@
       },
       "rhubarb": {
         "name": "rabarber",
-        "plural_name": "rabarberit"
+        "plural_name": ""
       },
       "kiwi": {
         "name": "kiivi",
@@ -384,7 +384,7 @@
       },
       "parsley": {
         "name": "petersell",
-        "plural_name": "peterselli"
+        "plural_name": ""
       },
       "cilantro": {
         "name": "koriander",
@@ -445,7 +445,7 @@
       },
       "rice": {
         "name": "riis",
-        "plural_name": "riisi"
+        "plural_name": ""
       },
       "quinoa": {
         "name": "quinoa",
@@ -453,15 +453,15 @@
       },
       "basmati rice": {
         "name": "basmati riis",
-        "plural_name": "basmati riisi"
+        "plural_name": ""
       },
       "brown rice": {
         "name": "pruun riis",
-        "plural_name": "pruuni riisi"
+        "plural_name": ""
       },
       "risotto rice": {
         "name": "risotto riis",
-        "plural_name": "risotto riisi"
+        "plural_name": ""
       },
       "couscous": {
         "name": "couscous",
@@ -477,7 +477,7 @@
       },
       "jasmine rice": {
         "name": "jasmiini riis",
-        "plural_name": "jasmiini riisi"
+        "plural_name": ""
       },
       "polenta": {
         "name": "polenta",
@@ -493,7 +493,7 @@
       },
       "barley": {
         "name": "oder",
-        "plural_name": "otra"
+        "plural_name": ""
       },
       "steel cut oat": {
         "name": "steel cut oat",
@@ -505,7 +505,7 @@
       },
       "sushi rice": {
         "name": "sushi riis",
-        "plural_name": "sushi riisi"
+        "plural_name": ""
       },
       "hominy": {
         "name": "hominy",
@@ -811,7 +811,7 @@
     "foods": {
       "bacon": {
         "name": "peekon",
-        "plural_name": "peekonit"
+        "plural_name": ""
       },
       "ham": {
         "name": "sink",
@@ -847,7 +847,7 @@
       },
       "salami": {
         "name": "salaami",
-        "plural_name": "salaamit"
+        "plural_name": ""
       },
       "kielbasa": {
         "name": "kielbasa",
@@ -868,31 +868,31 @@
       },
       "salmon": {
         "name": "lõhe",
-        "plural_name": "lõhet"
+        "plural_name": ""
       },
       "smoked salmon": {
         "name": "suitsutatud lõhe",
-        "plural_name": "suitsutatud lõhet"
+        "plural_name": ""
       },
       "cod": {
         "name": "tursk",
-        "plural_name": "turska"
+        "plural_name": ""
       },
       "tilapia": {
         "name": "tilaapia",
-        "plural_name": "tilaapiat"
+        "plural_name": ""
       },
       "halibut": {
         "name": "hiidlest",
-        "plural_name": "hiidlesta"
+        "plural_name": ""
       },
       "trout": {
         "name": "forell",
-        "plural_name": "forelli"
+        "plural_name": ""
       },
       "catfish": {
         "name": "säga",
-        "plural_name": "sägat"
+        "plural_name": ""
       },
       "sardine": {
         "name": "sardiin",
@@ -993,7 +993,7 @@
       },
       "goat cheese": {
         "name": "kitsejuust",
-        "plural_name": "kitsejuustu"
+        "plural_name": ""
       },
       "swiss cheese": {
         "name": "swiss cheese",
@@ -1041,15 +1041,15 @@
       },
       "butter": {
         "name": "või",
-        "plural_name": "võid"
+        "plural_name": ""
       },
       "egg": {
         "name": "muna",
-        "plural_name": ""
+        "plural_name": "eggs"
       },
       "milk": {
         "name": "piim",
-        "plural_name": "piima"
+        "plural_name": ""
       },
       "heavy cream": {
         "name": "heavy cream",
@@ -1057,7 +1057,7 @@
       },
       "sour cream": {
         "name": "hapukoor",
-        "plural_name": "hapukoort"
+        "plural_name": ""
       },
       "buttermilk": {
         "name": "buttermilk",
@@ -1065,19 +1065,19 @@
       },
       "yogurt": {
         "name": "jogurt",
-        "plural_name": "jogurtit"
+        "plural_name": ""
       },
       "greek yogurt": {
         "name": "kreeka jogurt",
-        "plural_name": "kreeka jogurtit"
+        "plural_name": ""
       },
       "cream": {
         "name": "koor",
-        "plural_name": "koort"
+        "plural_name": ""
       },
       "whipped cream": {
         "name": "vahukoor",
-        "plural_name": "vahukoort"
+        "plural_name": ""
       },
       "ghee": {
         "name": "ghee",
@@ -1089,11 +1089,11 @@
       },
       "sweetened condensed milk": {
         "name": "magustatud kondenspiim",
-        "plural_name": "magustatud kondenspiima"
+        "plural_name": ""
       },
       "kefir": {
         "name": "keefir",
-        "plural_name": "keefirit"
+        "plural_name": ""
       },
       "provolone cheese": {
         "name": "provolone cheese",
@@ -1576,7 +1576,7 @@
       },
       "almond butter": {
         "name": "mandlivõi",
-        "plural_name": "mandlivõid"
+        "plural_name": ""
       },
       "mayonnaise": {
         "name": "majonees",
@@ -1701,7 +1701,7 @@
       },
       "dill": {
         "name": "till",
-        "plural_name": "tilli"
+        "plural_name": ""
       },
       "green cardamom": {
         "name": "green cardamom",
@@ -1717,7 +1717,7 @@
       },
       "coriander": {
         "name": "koriander",
-        "plural_name": "koriandrit"
+        "plural_name": ""
       },
       "allspice": {
         "name": "allspice",
@@ -1918,7 +1918,7 @@
       },
       "duck fat": {
         "name": "pardirasv",
-        "plural_name": "pardirasva"
+        "plural_name": ""
       },
       "oil": {
         "name": "oil",
@@ -1991,7 +1991,7 @@
       },
       "yeast": {
         "name": "pärm",
-        "plural_name": "pärmi"
+        "plural_name": ""
       },
       "chocolate chip": {
         "name": "chocolate chip",
@@ -2035,7 +2035,7 @@
       },
       "potato starch": {
         "name": "kartulitärklis",
-        "plural_name": "kartulitärklist"
+        "plural_name": ""
       },
       "buckwheat flour": {
         "name": "buckwheat flour",
@@ -2055,7 +2055,7 @@
       },
       "food coloring": {
         "name": "toiduvärv",
-        "plural_name": "toiduvärvi"
+        "plural_name": ""
       },
       "peppermint extract": {
         "name": "piparmündiekstrakt",
@@ -2128,7 +2128,7 @@
       },
       "ice cream": {
         "name": "jäätis",
-        "plural_name": "jäätist"
+        "plural_name": ""
       },
       "lemon curd": {
         "name": "lemon curd",
@@ -2161,7 +2161,7 @@
       },
       "cashew": {
         "name": "India pähkel",
-        "plural_name": ""
+        "plural_name": "cashews"
       },
       "pine nut": {
         "name": "pine nut",
@@ -2238,7 +2238,7 @@
       },
       "espresso": {
         "name": "espesso",
-        "plural_name": "espressot"
+        "plural_name": ""
       },
       "pineapple juice": {
         "name": "ananassimahl",
@@ -2262,7 +2262,7 @@
       },
       "ginger beer": {
         "name": "ingverõlu",
-        "plural_name": "ingverõlut"
+        "plural_name": ""
       },
       "water": {
         "name": "water",
@@ -2275,47 +2275,47 @@
     "foods": {
       "white wine": {
         "name": "valge vein",
-        "plural_name": "valget veini"
+        "plural_name": ""
       },
       "red wine": {
         "name": "punane vein",
-        "plural_name": "punast veini"
+        "plural_name": ""
       },
       "whisky": {
         "name": "viski",
-        "plural_name": "viskit"
+        "plural_name": ""
       },
       "rum": {
         "name": "rumm",
-        "plural_name": "rummi"
+        "plural_name": ""
       },
       "vodka": {
         "name": "viin",
-        "plural_name": "viina"
+        "plural_name": ""
       },
       "beer": {
         "name": "õlu",
-        "plural_name": "õlut"
+        "plural_name": ""
       },
       "orange liqueur": {
         "name": "apelsiniliköör",
-        "plural_name": "apelsinilikööri"
+        "plural_name": ""
       },
       "tequila": {
         "name": "tekiila",
-        "plural_name": "tekiilat"
+        "plural_name": ""
       },
       "sherry": {
         "name": "šerri",
-        "plural_name": "šerrit"
+        "plural_name": ""
       },
       "gin": {
         "name": "džinn",
-        "plural_name": "džinni"
+        "plural_name": ""
       },
       "brandy": {
         "name": "brändi",
-        "plural_name": "brändit"
+        "plural_name": ""
       },
       "mirin": {
         "name": "mirin",
@@ -2323,15 +2323,15 @@
       },
       "coffee liqueur": {
         "name": "kohviliköör",
-        "plural_name": "kohvilikööri"
+        "plural_name": ""
       },
       "champagne": {
         "name": "šampanja",
-        "plural_name": "šampanjat"
+        "plural_name": ""
       },
       "vermouth": {
         "name": "vermut",
-        "plural_name": "vermutit"
+        "plural_name": ""
       },
       "marsala wine": {
         "name": "marsala wine",
@@ -2360,7 +2360,7 @@
       },
       "almond milk": {
         "name": "mandlipiim",
-        "plural_name": "mandlipiima"
+        "plural_name": ""
       },
       "tofu": {
         "name": "tofu",
@@ -2396,7 +2396,7 @@
       },
       "nutritional yeast": {
         "name": "toidupärm",
-        "plural_name": "toidupärmi"
+        "plural_name": ""
       },
       "vegan cheese": {
         "name": "vegan cheese",
