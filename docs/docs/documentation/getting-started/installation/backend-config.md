@@ -66,6 +66,11 @@ Changing the webworker settings may cause unforeseen memory leak issues with Mea
 | --------------- | :-----: | -------------------------------------------------------------------------------- |
 | UVICORN_WORKERS |    1    | Sets the number of workers for the web server. [More info here][unicorn_workers] |
 
+When more than one worker is configured, a single worker is elected at startup to run
+the database migrations and the scheduled background tasks; the remaining workers wait
+for the database to be ready and then serve traffic without a scheduler, so jobs and
+webhooks still fire only once.
+
 ### TLS
 
 Use this only when mealie is run without a webserver or reverse proxy.
