@@ -84,13 +84,13 @@ const TOTAL_TIME_FIELD_DEF = {
 };
 
 describe("duration fields", () => {
-  test("default to the <= operator and only offer comparisons", () => {
+  test("default to the <= operator and offer comparisons and null checks", () => {
     const { getFieldFromFieldDef } = useQueryFilterBuilder();
 
     const field = getFieldFromFieldDef(TOTAL_TIME_FIELD_DEF);
 
     expect(field.relationalOperatorValue.value).toBe("<=");
-    expect(field.relationalOperatorChoices.map(choice => choice.value)).toEqual(["<=", ">=", "<", ">"]);
+    expect(field.relationalOperatorChoices.map(choice => choice.value)).toEqual(["<=", ">=", "<", ">", "IS", "IS NOT"]);
   });
 
   test("build an unquoted seconds query filter string", () => {
@@ -109,9 +109,55 @@ describe("duration fields", () => {
 
     expect(buildQueryFilterString([field], false)).toBe("");
   });
+
+  test.each([
+    ["IS", "total_time_seconds IS NULL"],
+    ["IS NOT", "total_time_seconds IS NOT NULL"],
+  ] as const)("build an %s filter without a duration", (operator, expected) => {
+    const { getFieldFromFieldDef, buildQueryFilterString, getRelOps } = useQueryFilterBuilder();
+
+    const field = getFieldFromFieldDef(TOTAL_TIME_FIELD_DEF);
+    field.relationalOperatorValue = getRelOps(field.type).value[operator];
+
+    expect(buildQueryFilterString([field], false)).toBe(expected);
+  });
 });
 
 describe("null filters", () => {
+  test("restores the Last Made default when switching from a saved null filter to a comparison", () => {
+    const { getFieldFromFieldDef, getRelOps, updateRelationalOperator, buildQueryFilterString } = useQueryFilterBuilder();
+    const field = getFieldFromFieldDef({ name: "last_made", label: "Last Made", type: "relativeDate" });
+    field.relationalOperatorValue = getRelOps(field.type).value.IS;
+    field.value = "";
+
+    updateRelationalOperator(field, "IS NOT");
+    expect(field.value).toBe("");
+
+    updateRelationalOperator(field, "<=");
+    expect(field.value).toBe("$NOW-30d");
+    expect(buildQueryFilterString([field], false)).toBe("last_made <= $NOW-30d");
+  });
+
+  test("restores the Total Time default when switching from a null filter to a comparison", () => {
+    const { getFieldFromFieldDef, getRelOps, updateRelationalOperator, buildQueryFilterString } = useQueryFilterBuilder();
+    const field = getFieldFromFieldDef(TOTAL_TIME_FIELD_DEF);
+    field.relationalOperatorValue = getRelOps(field.type).value.IS;
+    field.value = "";
+
+    updateRelationalOperator(field, "<=");
+    expect(field.value).toBe(30 * 60);
+    expect(buildQueryFilterString([field], false)).toBe("total_time_seconds <= 1800");
+  });
+
+  test("are not available for date fields", () => {
+    const { getFieldFromFieldDef } = useQueryFilterBuilder();
+
+    const field = getFieldFromFieldDef({ name: "created_at", label: "Created At", type: "date" });
+
+    expect(field.relationalOperatorChoices.map(choice => choice.value)).not.toContain("IS");
+    expect(field.relationalOperatorChoices.map(choice => choice.value)).not.toContain("IS NOT");
+  });
+
   test("are available for number fields", () => {
     const { getFieldFromFieldDef } = useQueryFilterBuilder();
 

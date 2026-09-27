@@ -98,7 +98,7 @@
               item-value="value"
               variant="underlined"
               class="text-center"
-              @update:model-value="setRelationalOperatorValue(field, index, $event as unknown as RelationalKeyword | RelationalOperator)"
+              @update:model-value="updateRelationalOperator(field, $event as unknown as RelationalKeyword | RelationalOperator)"
             />
           </v-col>
 
@@ -367,6 +367,7 @@ const {
   getFieldFromFieldDef,
   isOrganizerType,
   isNullOperator,
+  updateRelationalOperator,
 } = useQueryFilterBuilder();
 
 const firstDayOfWeek = computed(() => {
@@ -465,11 +466,6 @@ function setLogicalOperatorValue(field: FieldWithId, index: number, value: Logic
   }
 
   fields.value[index]!.logicalOperator = value ? logOps.value[value] : undefined;
-}
-
-function setRelationalOperatorValue(field: FieldWithId, index: number, value: RelationalKeyword | RelationalOperator) {
-  const relOps = getRelOps(field.type);
-  fields.value[index]!.relationalOperatorValue = relOps.value[value];
 }
 
 function setFieldValue(field: FieldWithId, index: number, value: FieldValue) {

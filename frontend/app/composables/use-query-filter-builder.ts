@@ -201,6 +201,21 @@ export function useQueryFilterBuilder() {
     return operator?.value === "IS" || operator?.value === "IS NOT";
   }
 
+  function updateRelationalOperator(field: Field, value: RelationalKeyword | RelationalOperator): void {
+    const nextOperator = getRelOps(field.type).value[value];
+
+    if (isNullOperator(field.relationalOperatorValue) && !isNullOperator(nextOperator)) {
+      if (field.type === "relativeDate") {
+        field.value = "$NOW-30d";
+      }
+      else if (field.type === "duration") {
+        field.value = 30 * 60;
+      }
+    }
+
+    field.relationalOperatorValue = nextOperator;
+  }
+
   function isOrganizerType(type: FieldType): type is Organizer {
     return (
       type === Organizer.Category
@@ -262,8 +277,6 @@ export function useQueryFilterBuilder() {
             relOps.value[">="],
             relOps.value["<"],
             relOps.value["<="],
-            relOps.value.IS,
-            relOps.value["IS NOT"],
           ];
           break;
         case "relativeDate":
@@ -282,6 +295,8 @@ export function useQueryFilterBuilder() {
             relOps.value[">="],
             relOps.value["<"],
             relOps.value[">"],
+            relOps.value.IS,
+            relOps.value["IS NOT"],
           ];
           break;
         default:
@@ -394,5 +409,6 @@ export function useQueryFilterBuilder() {
     getFieldFromFieldDef,
     isOrganizerType,
     isNullOperator,
+    updateRelationalOperator,
   };
 }
