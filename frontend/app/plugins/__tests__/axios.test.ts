@@ -204,12 +204,25 @@ describe("error alerts", () => {
     const client = await buildClient(config => unprocessable(config, [
       { loc: ["body", "tools", 0, "id"], msg: "Field required", type: "missing" },
       { loc: ["body", "tools", 0, "slug"], msg: "Field required", type: "missing" },
+      { loc: ["body", "tools", 0, "id"], msg: "Field required", type: "missing" },
     ]));
 
     await expect(client.put("/api/recipes/test-recipe", {})).rejects.toBeDefined();
 
     expect(toastMocks.error).toHaveBeenCalledOnce();
-    expect(toastMocks.error).toHaveBeenCalledWith("Field required");
+    expect(toastMocks.error).toHaveBeenCalledWith("tools.0.id: Field required; tools.0.slug: Field required");
+  });
+
+  test.each([undefined, null, [], ["body"], "body.name"])("preserves validation messages without a usable location: %j", async (loc) => {
+    const client = await buildClient(config => unprocessable(config, [
+      null,
+      { msg: 123 },
+      { loc, msg: "Invalid value" },
+    ]));
+
+    await expect(client.put("/api/recipes/test-recipe", {})).rejects.toBeDefined();
+
+    expect(toastMocks.error).toHaveBeenCalledWith("Invalid value");
   });
 
   test("preserves structured API error messages", async () => {

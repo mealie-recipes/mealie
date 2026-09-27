@@ -22,7 +22,20 @@ function getErrorDetailMessage(detail: unknown): string | null {
 
   if (Array.isArray(detail)) {
     const messages = detail
-      .map(item => item && typeof item === "object" && "msg" in item ? item.msg : null)
+      .map((item) => {
+        if (!item || typeof item !== "object" || typeof item.msg !== "string") {
+          return null;
+        }
+
+        const location = Array.isArray(item.loc)
+          ? item.loc.filter((part: unknown): part is string | number => typeof part === "string" || typeof part === "number")
+          : [];
+        if (["body", "query", "path", "header", "cookie"].includes(location[0])) {
+          location.shift();
+        }
+        const field = location.join(".");
+        return field ? `${field}: ${item.msg}` : item.msg;
+      })
       .filter((message): message is string => typeof message === "string");
 
     return [...new Set(messages)].join("; ") || null;
