@@ -73,7 +73,7 @@ RUN uv build --out-dir dist
 # dependencies.txt changes only when uv.lock does, so the venv build can cache
 # the install. requirements.txt adds the wheel that was just built, so an
 # install from it gets that exact one.
-RUN uv export --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/dependencies.txt \
+RUN uv export --no-dev --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/dependencies.txt \
     && cp dist/dependencies.txt dist/requirements.txt \
     && MEALIE_VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])") \
     && echo "mealie[pgsql]==${MEALIE_VERSION} \\" >> dist/requirements.txt \

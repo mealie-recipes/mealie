@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
+      "description-long": "Mealie képes importálni a v1.0-nál korábbi verziójú Mealie-alkalmazásból származó recepteket. Exportálja a recepteket a régi példányából, majd töltse fel az alábbi Zip-fájlt. Felhívjuk figyelmét, hogy az exportból csak receptek importálhatók. Ez kizárólag a v1.0-nál régebbi példányokra vonatkozik. A v1.0-tól kezdődően készített biztonsági másolatot a biztonsági másolat-készítő és -visszaállító eszközökkel kell visszaállítani.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Receptadatok migrációja",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
-    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "A recepteket át lehet importálni egy másik támogatott alkalmazásból a Mealie-be. Ez remek módja a Mealie használatának megkezdésének. Az adatok áthelyezése a Mealie-példányok között, illetve egy korábbi Mealie-biztonsági mentés visszaállítása a biztonsági mentési és visszaállítási eszközök segítségével történik, a migráció helyett.",
+    "migration-description": "Egy másik alkalmazásból érkezik, vagy a Mealie v1.0-nál régebbi verzióját használja? Nézze meg az adatátviteli útmutatót, és ellenőrizze, hogy az adatai importálhatók-e.",
     "choose-migration-type": "Válassza ki a migrációs típusát",
     "tag-all-recipes": "Az összes recept címkézése a {tag-name} címkével",
     "recipe-1": "Recept 1",
@@ -603,6 +603,13 @@
     "remove-image": "Kép etávolítása",
     "nextStep": "Következő lépés",
     "recipe-actions": "Receptekkel kapcsolatos tevékenységek",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Hozzávaló elemző",
       "select-parser": "Válasszon elemzőt",

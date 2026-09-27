@@ -40,6 +40,7 @@ from mealie.schema.recipe import Recipe, ScrapeRecipe, ScrapeRecipeData
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
     CreateRecipeByUrlBulk,
+    RecipeIn,
     RecipeLastMade,
     RecipeSummary,
 )
@@ -638,7 +639,7 @@ class RecipeController(BaseRecipeController):
         return new_recipe
 
     @router.put("/{slug}")
-    def update_one(self, slug: str, data: Recipe):
+    def update_one(self, slug: str, data: RecipeIn):
         """Updates a recipe by existing slug and data."""
         try:
             recipe = self.service.update_one(slug, data)
@@ -661,7 +662,7 @@ class RecipeController(BaseRecipeController):
         return recipe
 
     @router.put("")
-    def update_many(self, data: list[Recipe]):
+    def update_many(self, data: list[RecipeIn]):
         updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
             lambda: defaultdict(list)
         )
@@ -686,7 +687,7 @@ class RecipeController(BaseRecipeController):
         return all_updated
 
     @router.patch("/{slug}")
-    def patch_one(self, slug: str, data: Recipe):
+    def patch_one(self, slug: str, data: RecipeIn):
         """Updates a recipe by existing slug and data."""
         try:
             recipe = self.service.patch_one(slug, data)
@@ -709,7 +710,7 @@ class RecipeController(BaseRecipeController):
         return recipe
 
     @router.patch("")
-    def patch_many(self, data: list[Recipe]):
+    def patch_many(self, data: list[RecipeIn]):
         updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
             lambda: defaultdict(list)
         )
