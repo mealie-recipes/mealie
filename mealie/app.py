@@ -163,20 +163,32 @@ for route in app.routes:
 
 
 def main():
-    uvicorn.run(
-        "app:app",
-        host="0.0.0.0",
-        port=settings.API_PORT,
-        reload=True,
-        reload_dirs=["mealie"],
-        reload_delay=2,
-        log_level="info",
-        use_colors=True,
-        log_config=None,
-        workers=1,
-        forwarded_allow_ips="*",
-        ws="websockets-sansio",
-    )
+    common_kwargs = {
+        "host": "0.0.0.0",
+        "port": settings.API_PORT,
+        "log_level": "info",
+        "use_colors": True,
+        "log_config": None,
+        "forwarded_allow_ips": "*",
+        "ws": "websockets-sansio",
+    }
+
+    if settings.PRODUCTION:
+        # reload=True forces uvicorn to run a single worker process and to keep
+        # watching the filesystem for changes, which is dev-server behavior.
+        # In production this silently ignores WORKER_PER_CORE/UVICORN_WORKERS
+        # (settings.WORKERS) regardless of what's configured, and wastes
+        # CPU/IO on filesystem watching that will never trigger a reload.
+        uvicorn.run("app:app", workers=settings.WORKERS, **common_kwargs)
+    else:
+        uvicorn.run(
+            "app:app",
+            reload=True,
+            reload_dirs=["mealie"],
+            reload_delay=2,
+            workers=1,
+            **common_kwargs,
+        )
 
 
 if __name__ == "__main__":
