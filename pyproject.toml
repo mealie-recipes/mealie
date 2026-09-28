@@ -24,7 +24,7 @@ dependencies = [
     "python-dotenv==1.2.3",
     "python-ldap==3.4.8",
     "python-multipart==0.0.32",
-    "python-slugify==9.1.0",
+    "python-slugify==9.1.1",
     "recipe-scrapers==15.12.0",
     "requests==2.34.2",
     "tzdata==2026.4",
@@ -37,13 +37,13 @@ dependencies = [
     "html2text==2025.4.15",
     "paho-mqtt==1.6.1",
     "pydantic-settings==2.15.0",
-    "pillow-heif==1.7.0",
+    "pillow-heif==1.8.0",
     "pyjwt==2.14.0",
-    "openai==3.17.0",
+    "openai==3.18.0",
     "typing-extensions==4.16.0",
     "itsdangerous==2.2.0",
     "yt-dlp==2026.8.19",
-    "ingredient-parser-nlp==2.7.0",
+    "ingredient-parser-nlp==2.8.0",
     "pint==0.26.1",
     "httpx-curl-cffi==0.1.5",
 ]
@@ -58,7 +58,7 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "zensical==0.0.63",
+    "zensical==0.0.64",
 ]
 dev = [
     "coverage==7.16.1",
@@ -78,7 +78,7 @@ dev = [
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
     "httpx2==2.13.0",
-    "zensical==0.0.63",
+    "zensical==0.0.64",
     "pytest-xdist==3.8.0",
 ]
 
