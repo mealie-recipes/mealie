@@ -489,11 +489,6 @@ def organizers_tags_item_id(item_id):
     return f"{prefix}/organizers/tags/{item_id}"
 
 
-def organizers_tags_item_id_remove_from_recipes(item_id):
-    """`/api/organizers/tags/{item_id}/remove-from-recipes`"""
-    return f"{prefix}/organizers/tags/{item_id}/remove-from-recipes"
-
-
 def organizers_tags_slug_tag_slug(tag_slug):
     """`/api/organizers/tags/slug/{tag_slug}`"""
     return f"{prefix}/organizers/tags/slug/{tag_slug}"

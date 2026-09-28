@@ -167,20 +167,6 @@ class RepositoryTags(GroupRepositoryGeneric[TagOut, Tag]):
 
         return self.get_one(to_tag)
 
-    def remove_from_recipes(self, tag_id: UUID4, recipe_ids: list[UUID4]) -> TagOut | None:
-        try:
-            self.session.execute(
-                delete(recipes_to_tags)
-                .where(recipes_to_tags.c.tag_id == tag_id)
-                .where(recipes_to_tags.c.recipe_id.in_(recipe_ids))
-            )
-            self.session.commit()
-        except Exception as e:
-            self.session.rollback()
-            raise e
-
-        return self.get_one(tag_id)
-
 
 class RepositoryTools(GroupRepositoryGeneric[RecipeToolOut, Tool]):
     def _query(self, override_schema=None, with_options=True):

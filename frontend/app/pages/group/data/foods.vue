@@ -169,7 +169,6 @@
       :create-form="createForm"
       :edit-form="editForm"
       :on-delete-dialog-open="onDeleteDialogOpen"
-      :on-edit-dialog-open="onEditDialogOpen"
       @create-one="handleCreate"
       @edit-one="handleEdit"
       @delete-one="foodStore.actions.deleteOne"
@@ -236,54 +235,6 @@
         </BaseButton>
       </template>
 
-      <template #edit-dialog-bottom>
-        <div v-if="editRecipes.length > 0 || editRecipesLoadFailed" class="mt-4">
-          <div class="text-subtitle-2 mb-1">
-            {{ $t("data-pages.foods.associated-recipes") }}
-          </div>
-          <v-list density="compact">
-            <v-list-item
-              v-for="recipe in editRecipes"
-              :key="recipe.slug"
-              :to="`/g/${userGroup}/r/${recipe.slug}`"
-              :title="recipe.name || recipe.slug"
-            />
-          </v-list>
-          <div v-if="editRecipesLoadFailed" class="d-flex align-center text-body-2 pl-2">
-            <span class="text-error">{{ $t("data-pages.load-recipes-failed") }}</span>
-            <v-btn
-              variant="text"
-              size="small"
-              color="primary"
-              class="ml-2"
-              :loading="editRecipesLoading"
-              @click="retryEditRecipes"
-            >
-              {{ $t("data-pages.retry") }}
-            </v-btn>
-          </div>
-          <div v-if="editRecipesTotalPages > 1" class="d-flex align-center mt-2">
-            <v-btn
-              variant="text"
-              size="small"
-              :disabled="editRecipesPage <= 1 || editRecipesLoading"
-              @click="loadEditRecipesPage(editRecipesPage - 1)"
-            >
-              {{ $t("general.previous") }}
-            </v-btn>
-            <span class="text-body-2 mx-2">{{ editRecipesPage }} / {{ editRecipesTotalPages }}</span>
-            <v-btn
-              variant="text"
-              size="small"
-              :disabled="editRecipesPage >= editRecipesTotalPages || editRecipesLoading"
-              @click="loadEditRecipesPage(editRecipesPage + 1)"
-            >
-              {{ $t("general.next") }}
-            </v-btn>
-          </div>
-        </div>
-      </template>
-
       <template #delete-dialog-bottom>
         <v-alert v-if="affectedRecipes.length > 0" type="warning" density="compact" class="mt-4 mb-0">
           {{ $t("data-pages.foods.delete-affects-recipes", { count: affectedRecipesTotal }) }}
@@ -312,7 +263,6 @@ import RecipeDataSubstitutionManagerDialog from "~/components/Domain/Recipe/Reci
 import type { ReverseSubstitutionChanges } from "~/components/Domain/Recipe/RecipeDataSubstitutionManagerDialog.vue";
 import { validators } from "~/composables/use-validators";
 import { useUserApi } from "~/composables/api";
-import { useEditDialogRecipes } from "~/composables/use-edit-dialog-recipes";
 import type {
   CreateIngredientFood,
   IngredientFood,
@@ -519,26 +469,7 @@ async function handleEdit() {
 
   await foodStore.actions.updateOne(editForm.data);
   editForm.data = {} as IngredientFoodWithOnHand;
-  resetEditRecipes();
   await applyReverseSubstitutions(foodId);
-}
-
-// ============================================================
-// Edit Dialog: Associated Recipes
-const {
-  recipes: editRecipes,
-  page: editRecipesPage,
-  totalPages: editRecipesTotalPages,
-  loading: editRecipesLoading,
-  loadFailed: editRecipesLoadFailed,
-  open: openEditRecipes,
-  reset: resetEditRecipes,
-  loadPage: loadEditRecipesPage,
-  retry: retryEditRecipes,
-} = useEditDialogRecipes("foods");
-
-async function onEditDialogOpen(item: IngredientFoodWithOnHand) {
-  await openEditRecipes(item?.id);
 }
 
 // ============================================================
