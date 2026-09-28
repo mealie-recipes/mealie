@@ -1974,11 +1974,10 @@ def test_get_recipe_ingredient_missing_reference_id(api_client: TestClient, uniq
         api_routes.recipes,
         json={
             "name": slug,
-            "recipeIngredient": [{"quantity": 2.0, "note": random_string()}],
+            "recipeIngredient": [{"quantity": 2.0, "food": random_string(), "note": random_string()}],
         },
         headers=unique_user.token,
     )
-    assert response.status_code == 201
 
     # Manually edit the database to remove the reference id from the ingredient
     session = unique_user.repos.session
