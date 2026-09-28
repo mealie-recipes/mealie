@@ -80,7 +80,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         try:
             if isinstance(self.model.household_id, AssociationProxyInstance):
                 q.filter(self.model.household_id.is_not(None))
-        except (AttributeError, NotImplementedError):
+        except AttributeError, NotImplementedError:
             pass
 
         if with_options:

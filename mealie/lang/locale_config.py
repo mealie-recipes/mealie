@@ -75,3 +75,45 @@ LOCALE_CONFIG: dict[str, LocaleConfig] = {
         key="zh-TW", name="繁體中文 (Chinese traditional)", plural_food_handling=LocalePluralFoodHandling.NEVER
     ),
 }
+
+
+def resolve_plural(*, source_singular: str, source_plural: str | None, singular: str, plural: str | None) -> str | None:
+    """
+    Resolve a term's translated plural form, discarding it when the translation didn't really
+    provide one.
+
+    An empty plural means "this term has no plural form", but Crowdin can't store an empty
+    translation, so translators work around it either by repeating the singular or by leaving
+    the source's English plural untouched. Both of those resolve to None.
+
+    The source arguments are the same term in the source locale (en-US).
+    """
+    # nothing to keep, or a plural that says the same thing as the singular
+    if not plural or plural == singular:
+        return None
+
+    # the whole term fell back to the source locale, so its plural is in the right language
+    if singular == source_singular:
+        return plural
+
+    # the singular was translated but the plural wasn't, so the plural is in the wrong language
+    if plural == source_plural:
+        return None
+
+    return plural
+
+
+def resolve_food_plural(
+    *, source_singular: str, source_plural: str | None, singular: str, plural: str | None, locale: str | None
+) -> str | None:
+    """
+    Resolve a food's translated plural form for a locale, honoring locales that never pluralize
+    foods at all. Otherwise identical to resolve_plural.
+    """
+    config = LOCALE_CONFIG.get(locale) if locale else None
+    if config and config.plural_food_handling is LocalePluralFoodHandling.NEVER:
+        return None
+
+    return resolve_plural(
+        source_singular=source_singular, source_plural=source_plural, singular=singular, plural=plural
+    )

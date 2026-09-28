@@ -1,5 +1,5 @@
 import datetime
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from sqlalchemy import Column, Date, ForeignKey, String, Table, UniqueConstraint, orm
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
@@ -45,7 +45,7 @@ class GroupMealPlanRules(BaseMixins, SqlAlchemyBase):
     # Old filters - deprecated in favor of query filter strings
     categories: Mapped[list[Category]] = orm.relationship(Category, secondary=plan_rules_to_categories)
     tags: Mapped[list[Tag]] = orm.relationship(Tag, secondary=plan_rules_to_tags)
-    households: Mapped[list["Household"]] = orm.relationship("Household", secondary=plan_rules_to_households)
+    households: Mapped[list[Household]] = orm.relationship("Household", secondary=plan_rules_to_households)
 
     @auto_init()
     def __init__(self, **_) -> None:
@@ -61,16 +61,14 @@ class GroupMealPlan(SqlAlchemyBase, BaseMixins):
     text: FilterableColumn[str] = mapped_column(String, nullable=False)
 
     group_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
-    group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="mealplans")
+    group: Mapped[Group | None] = orm.relationship("Group", back_populates="mealplans")
     household_id: AssociationProxy[GUID] = association_proxy("user", "household_id")
-    household: AssociationProxy["Household"] = association_proxy("user", "household")
+    household: AssociationProxy[Household] = association_proxy("user", "household")
     user_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("users.id"), index=True)
-    user: Mapped[Optional["User"]] = orm.relationship("User", back_populates="mealplans")
+    user: Mapped[User | None] = orm.relationship("User", back_populates="mealplans")
 
     recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
-    recipe: Mapped[Optional["RecipeModel"]] = orm.relationship(
-        "RecipeModel", back_populates="meal_entries", uselist=False
-    )
+    recipe: Mapped[RecipeModel | None] = orm.relationship("RecipeModel", back_populates="meal_entries", uselist=False)
 
     @auto_init()
     def __init__(self, **_) -> None:

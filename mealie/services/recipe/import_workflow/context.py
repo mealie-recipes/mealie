@@ -34,6 +34,8 @@ class WorkflowInput(BaseModel):
     """
     The page's own content, for callers that have already fetched it. Unlike `content` this is
     not a separate source, so supplying it skips the fetch rather than adding to the material.
+    Callers that followed redirects should also set `WorkflowContext.resolved_url` to the landing
+    URL; otherwise URL compilers still see only `url`.
     """
 
     @property

@@ -8,7 +8,7 @@ from mealie.repos.all_repositories import AllRepositories, get_repositories
 
 
 @pytest.fixture(scope="module")
-def session() -> Generator[sessionmaker[Session], None, None]:
+def session() -> Generator[sessionmaker[Session]]:
     try:
         sess = SessionLocal()
         yield sess
@@ -17,5 +17,5 @@ def session() -> Generator[sessionmaker[Session], None, None]:
 
 
 @pytest.fixture()
-def unfiltered_database(session: Session) -> Generator[AllRepositories, None, None]:
+def unfiltered_database(session: Session) -> Generator[AllRepositories]:
     yield get_repositories(session, group_id=None, household_id=None)

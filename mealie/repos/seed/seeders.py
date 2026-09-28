@@ -2,6 +2,7 @@ import pathlib
 from collections.abc import Generator
 from functools import cached_property
 
+from mealie.lang.locale_config import resolve_food_plural, resolve_plural
 from mealie.schema.labels import MultiPurposeLabelOut, MultiPurposeLabelSave
 from mealie.schema.recipe.recipe_ingredient import (
     IngredientFood,
@@ -24,22 +25,35 @@ class IngredientUnitsSeeder(AbstractSeeder):
     def get_all_units(self) -> list[IngredientUnit]:
         return self.repos.ingredient_units.get_all()
 
-    def load_data(self, locale: str | None = None) -> Generator[SaveIngredientUnit, None, None]:
+    def load_data(self, locale: str | None = None) -> Generator[SaveIngredientUnit]:
         file = self.get_file(locale)
 
         seen_unit_names = {unit.name for unit in self.get_all_units()}
-        for unit in self.load_file(file).values():
+        for key, unit in self.load_file(file).items():
             if unit["name"] in seen_unit_names:
                 continue
 
             seen_unit_names.add(unit["name"])
+
+            # an unrecognized key has nothing to compare against, so treat it as untranslated
+            source = self.source_data.get(key, unit)
             yield SaveIngredientUnit(
                 group_id=self.repos.group_id,
                 name=unit["name"],
-                plural_name=unit.get("plural_name"),
+                plural_name=resolve_plural(
+                    source_singular=source["name"],
+                    source_plural=source.get("plural_name"),
+                    singular=unit["name"],
+                    plural=unit.get("plural_name"),
+                ),
                 description=unit["description"],
                 abbreviation=unit["abbreviation"],
-                plural_abbreviation=unit.get("plural_abbreviation"),
+                plural_abbreviation=resolve_plural(
+                    source_singular=source["abbreviation"],
+                    source_plural=source.get("plural_abbreviation"),
+                    singular=unit["abbreviation"],
+                    plural=unit.get("plural_abbreviation"),
+                ),
             )
 
     def seed(self, locale: str | None = None) -> None:
@@ -83,25 +97,35 @@ class IngredientFoodsSeeder(AbstractSeeder):
             except Exception as e:
                 self.logger.error(e)
 
-    def load_data(self, locale: str | None = None) -> Generator[SaveIngredientFood, None, None]:
+    def load_data(self, locale: str | None = None) -> Generator[SaveIngredientFood]:
         file = self.get_file(locale)
 
         # de-duplicate on the localized name rather than the English seed key, otherwise seeding
         # a second locale skips every food whose English key already exists in the group
         seen_foods_names = {food.name for food in self.get_all_foods()}
-        for values in self.load_file(file).values():
+        for label_key, values in self.load_file(file).items():
             label_out = self.get_label(values["name"])
+            source_foods = self.source_data.get(label_key, {}).get("foods", {})
 
-            for attributes in values["foods"].values():
+            for food_key, attributes in values["foods"].items():
                 name = attributes["name"]
                 if name in seen_foods_names:
                     continue
 
                 seen_foods_names.add(name)
+
+                # an unrecognized key has nothing to compare against, so treat it as untranslated
+                source = source_foods.get(food_key, attributes)
                 yield SaveIngredientFood(
                     group_id=self.repos.group_id,
                     name=name,
-                    plural_name=attributes.get("plural_name") or None,
+                    plural_name=resolve_food_plural(
+                        source_singular=source["name"],
+                        source_plural=source.get("plural_name"),
+                        singular=name,
+                        plural=attributes.get("plural_name"),
+                        locale=locale,
+                    ),
                     description="",  # description expected to be empty string by UnitFoodBase class
                     label_id=label_out.id if label_out and label_out.id else None,
                 )
