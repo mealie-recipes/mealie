@@ -20,7 +20,6 @@ from .responses import (
 from .validation import ValidationResponse
 
 __all__ = [
-    "ValidationResponse",
     "ErrorResponse",
     "FileTokenResponse",
     "SSEDataEventBase",
@@ -35,4 +34,5 @@ __all__ = [
     "PaginationQuery",
     "RecipeSearchQuery",
     "RequestQuery",
+    "ValidationResponse",
 ]

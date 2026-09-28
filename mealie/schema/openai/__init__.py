@@ -14,12 +14,12 @@ from .recipe_ingredient import OpenAIIngredient, OpenAIIngredients
 __all__ = [
     "OpenAIOrganizers",
     "OpenAICompiledSource",
-    "OpenAIText",
+    "OpenAIIngredient",
+    "OpenAIIngredients",
     "OpenAIRecipe",
     "OpenAIRecipeIngredient",
     "OpenAIRecipeInstruction",
     "OpenAIRecipeNotes",
     "OpenAIRecipeNutrition",
-    "OpenAIIngredient",
-    "OpenAIIngredients",
+    "OpenAIText",
 ]
