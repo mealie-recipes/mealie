@@ -1970,7 +1970,14 @@ def test_get_recipe_by_slug_or_id(api_client: TestClient, unique_user: utils.Tes
 
 def test_get_recipe_ingredient_missing_reference_id(api_client: TestClient, unique_user: utils.TestUser):
     slug = random_string()
-    response = api_client.post(api_routes.recipes, json={"name": slug}, headers=unique_user.token)
+    response = api_client.post(
+        api_routes.recipes,
+        json={
+            "name": slug,
+            "recipeIngredient": [{"quantity": 2.0, "note": random_string()}],
+        },
+        headers=unique_user.token,
+    )
     assert response.status_code == 201
 
     # Manually edit the database to remove the reference id from the ingredient
