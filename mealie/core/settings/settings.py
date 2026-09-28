@@ -1,4 +1,3 @@
-import ipaddress
 import logging
 import os
 import secrets
@@ -16,8 +15,6 @@ from mealie.core.settings.themes import Theme
 
 from .db_providers import AbstractDBProvider, db_provider_factory
 from .static import PACKAGE_DIR
-
-IPNetwork = ipaddress.IPv4Network | ipaddress.IPv6Network
 
 
 class ScraperProxyMode(StrEnum):
@@ -452,29 +449,17 @@ class AppSettings(AppLoggingSettings):
     REVERSE_PROXY_AUTH_HEADER: str = "X-Forwarded-User"
     REVERSE_PROXY_AUTH_SIGNUP_ENABLED: bool = False
 
-    REVERSE_PROXY_AUTH_TRUSTED_IPS: str = ""
-    """Comma-separated IPs or CIDRs allowed to originate reverse proxy auth headers. Anyone who can
-    reach Mealie directly can otherwise set REVERSE_PROXY_AUTH_HEADER themselves and impersonate any
-    user, so this should always be set to the proxy's address(es) in production. Left unset for
-    backwards compatibility with simple setups that trust their whole network."""
+    REVERSE_PROXY_AUTH_SECRET: str | None = None
+    """Shared secret the proxy must send in REVERSE_PROXY_AUTH_SECRET_HEADER on every request. Checking
+    the connecting IP instead doesn't work: with the default HOST_IP="*", uvicorn trusts every peer and
+    will happily replace request.client with whatever X-Forwarded-For a direct request supplies, letting
+    an attacker impersonate the proxy's address; narrowing HOST_IP to the proxy instead makes
+    request.client the *end user's* IP, which isn't a fixed value to allowlist. A shared secret isn't
+    forgeable either way. Strongly recommended in production; left unset for backwards compatibility
+    with simple setups that trust their whole network."""
 
-    @property
-    def reverse_proxy_auth_trusted_ips(self) -> tuple[set[str], list[IPNetwork]]:
-        """The configured trusted addresses, split into exact matches and IP networks.
-
-        Entries that aren't valid IPs/CIDRs (e.g. a test client's placeholder host) are kept as exact
-        strings rather than rejected, so a typo fails closed instead of crashing the setting."""
-        hosts: set[str] = set()
-        networks: list[IPNetwork] = []
-        for entry in self.REVERSE_PROXY_AUTH_TRUSTED_IPS.split(","):
-            cleaned = entry.strip()
-            if not cleaned:
-                continue
-            try:
-                networks.append(ipaddress.ip_network(cleaned, strict=False))
-            except ValueError:
-                hosts.add(cleaned)
-        return hosts, networks
+    REVERSE_PROXY_AUTH_SECRET_HEADER: str = "X-Mealie-Reverse-Proxy-Secret"
+    """The header REVERSE_PROXY_AUTH_SECRET is expected in."""
 
     @property
     def REVERSE_PROXY_AUTH_FEATURE(self) -> FeatureDetails:
