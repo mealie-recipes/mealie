@@ -352,7 +352,7 @@
       "title": "Paprika recepthanterare"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie kan importera recept från Mealieapplikationen från en pre v1.0 release. Exportera dina recept från din gamla instans, och ladda upp zip-filen nedan. Observera att endast recept kan importeras från exporten.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie före v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrering av receptdata",
-    "recipe-data-migrations-explanation": "Recept kan migreras från en annan applikation som stöds till Mealie. Detta är ett bra sätt att komma igång med Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Kommer från en annan app, program eller tidigare version av Mealie? Kika på migrationer och se om din data kan bli importerad.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Välj migrationstyp",
     "tag-all-recipes": "Tagga alla recept med {tag-name} tagg",
     "recipe-1": "Recept 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Det verkar som om dina ingredienser inte är tolkade ännu. Klicka på knappen \"{parse}\" nedan för att tolka dina ingredienser till strukturerade livsmedel.",
     "attach-images-hint": "Bifoga bilder genom att dra och släppa dem i redigeraren",
     "drop-image": "Släpp bild",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recept med enheter eller definierade livsmedel kan inte tolkas.",
     "parse-ingredients": "Tolka ingredienser",
     "edit-markdown": "Redigera markdown",
@@ -601,6 +603,13 @@
     "remove-image": "Ta bort bild",
     "nextStep": "Nästa steg",
     "recipe-actions": "Recept åtgärder",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Ingrediensanalysator",
       "select-parser": "Välj tolk",
@@ -944,7 +953,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Fyll databasen med vanliga etiketter baserade på ditt språk.",
       "edit-label": "Redigera etikett",
       "new-label": "Ny etikett",
       "labels": "Etiketter",

@@ -12,7 +12,7 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(scope="function")
-def slug(api_client: TestClient, unique_user: TestUser) -> Generator[str, None, None]:
+def slug(api_client: TestClient, unique_user: TestUser) -> Generator[str]:
     database = unique_user.repos
     payload = {"name": random_string(length=20)}
     response = api_client.post(api_routes.recipes, json=payload, headers=unique_user.token)

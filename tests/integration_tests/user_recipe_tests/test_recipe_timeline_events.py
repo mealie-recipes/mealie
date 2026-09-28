@@ -18,7 +18,6 @@ from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
-
 PERSISTED_TRANSLATION_KEYS = [RECIPE_CREATED_EVENT_SUBJECT]
 
 

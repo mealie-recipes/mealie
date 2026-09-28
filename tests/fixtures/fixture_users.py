@@ -234,7 +234,7 @@ def unique_admin(session: Session, api_client: TestClient, unique_user: utils.Te
 
 
 @fixture(scope="module")
-def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generator[list[utils.TestUser], None, None]:
+def user_tuple(session: Session, admin_token, api_client: TestClient) -> Generator[list[utils.TestUser]]:
     group_name = utils.random_string()
 
     # Create the user

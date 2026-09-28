@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie 可從 v1.0 以前版本的 Mealie 匯入食譜。請從舊版匯出食譜，並將 zip 檔案上傳至下方。請注意，匯出檔案中僅能匯入食譜資料。",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "食譜資料遷移",
-    "recipe-data-migrations-explanation": "食譜可從其他支援的應用程式遷移至 Mealie，是開始使用 Mealie 的好方法。",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "從其他應用程式或更舊版本的 Mealie 轉移過來？查看遷移功能，看看您的資料是否可以匯入。",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "選擇遷移類型",
     "tag-all-recipes": "為所有食譜加上 {tag-name} 標籤",
     "recipe-1": "食譜 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "您的食材似乎尚未解析。請點擊下方的「{parse}」按鈕，將食材解析為結構化資料。",
     "attach-images-hint": "將圖片拖放至編輯器以附加圖片",
     "drop-image": "放置圖片",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "已定義單位或食材的食譜無法進行解析。",
     "parse-ingredients": "解析食材",
     "edit-markdown": "編輯 Markdown",
@@ -601,6 +603,13 @@
     "remove-image": "移除圖片",
     "nextStep": "下一步驟",
     "recipe-actions": "食譜操作",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "食材解析器",
       "select-parser": "選擇解析器",
@@ -944,7 +953,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "根據您的本地語言，將常見標籤植入資料庫。",
       "edit-label": "編輯標籤",
       "new-label": "新增標籤",
       "labels": "標籤",
