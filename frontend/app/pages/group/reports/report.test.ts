@@ -15,6 +15,7 @@ vi.mock("~/composables/api", () => ({
 afterEach(() => vi.unstubAllGlobals());
 
 test("report entries expand to show their exception and collapse again", async () => {
+  vi.stubGlobal("definePageMeta", vi.fn());
   vi.stubGlobal("useRoute", () => ({ params: { id: "report-1" } }));
   vi.stubGlobal("ResizeObserver", class {
     observe() {}
