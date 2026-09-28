@@ -324,6 +324,8 @@ whenever(
 onBeforeMount(async () => {
   if (isCallback()) {
     await oidcAuthenticate(true);
+    // Failed callback redirects to ?direct=1 without reloading, so clear the spinner ourselves
+    reverseProxyLoggingIn.value = false;
     return;
   }
 
