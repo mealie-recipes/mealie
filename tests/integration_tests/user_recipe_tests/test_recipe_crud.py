@@ -1873,6 +1873,87 @@ def test_patch_recipe_instructions_without_ingredient_references(api_client: Tes
     assert all(step["ingredientReferences"] == [] for step in recipe["recipeInstructions"])
 
 
+@pytest.mark.parametrize(
+    ("organizer_field", "organizer_route"),
+    [
+        ("tags", "organizers_tags"),
+        ("recipeCategory", "organizers_categories"),
+        ("tools", "organizers_tools"),
+    ],
+)
+def test_patch_reuses_organizer_with_colliding_slug(
+    api_client: TestClient, unique_user: TestUser, organizer_field: str, organizer_route: str
+):
+    """An organizer name that slugifies onto an existing one must resolve, not fail.
+
+    Organizers are unique per group by slug, not by name, so "Veggie!" and "Veggie" name the same
+    row. Resolving by name alone missed the existing row and the insert then violated the slug
+    constraint, which surfaced as a misleading "Recipe already exists".
+    """
+    first = random_string()
+    second = random_string()
+    first_slug = api_client.post(api_routes.recipes, json={"name": first}, headers=unique_user.token).json()
+    second_slug = api_client.post(api_routes.recipes, json={"name": second}, headers=unique_user.token).json()
+
+    response = api_client.patch(
+        api_routes.recipes_slug(first_slug), json={organizer_field: ["Quick Serve"]}, headers=unique_user.token
+    )
+    assert response.status_code == 200
+    assert [item["name"] for item in response.json()[organizer_field]] == ["Quick Serve"]
+
+    response = api_client.patch(
+        api_routes.recipes_slug(second_slug), json={organizer_field: ["Quick Serve!"]}, headers=unique_user.token
+    )
+    assert response.status_code == 200
+    # resolves to the existing organizer, keeping its canonical name
+    assert [item["name"] for item in response.json()[organizer_field]] == ["Quick Serve"]
+
+    organizers = api_client.get(getattr(api_routes, organizer_route), headers=unique_user.token).json()["items"]
+    matching = [item for item in organizers if item["slug"] == "quick-serve"]
+    assert len(matching) == 1, matching
+
+
+def test_patch_organizer_new_name_still_created(api_client: TestClient, unique_user: TestUser):
+    """The slug lookup must not stop genuinely new organizers from being created."""
+    name = random_string()
+    slug = api_client.post(api_routes.recipes, json={"name": name}, headers=unique_user.token).json()
+
+    response = api_client.patch(
+        api_routes.recipes_slug(slug), json={"tags": ["Weeknight Batch Cooking"]}, headers=unique_user.token
+    )
+
+    assert response.status_code == 200
+    assert [tag["name"] for tag in response.json()["tags"]] == ["Weeknight Batch Cooking"]
+
+
+def test_patch_organizer_slug_match_is_scoped_to_group(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    """A same-slug organizer in another group must not be reused."""
+    first_slug = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token).json()
+    second_slug = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=g2_user.token).json()
+
+    assert (
+        api_client.patch(
+            api_routes.recipes_slug(first_slug), json={"tags": ["Group Scoped"]}, headers=unique_user.token
+        ).status_code
+        == 200
+    )
+    assert (
+        api_client.patch(
+            api_routes.recipes_slug(second_slug), json={"tags": ["Group Scoped"]}, headers=g2_user.token
+        ).status_code
+        == 200
+    )
+
+    first_group = api_client.get(api_routes.organizers_tags, headers=unique_user.token).json()["items"]
+    second_group = api_client.get(api_routes.organizers_tags, headers=g2_user.token).json()["items"]
+
+    first_tag = next(item for item in first_group if item["name"] == "Group Scoped")
+    second_tag = next(item for item in second_group if item["name"] == "Group Scoped")
+    assert first_tag["id"] != second_tag["id"]
+
+
 def test_put_recipe_name_change_updates_slug(api_client: TestClient, unique_user: TestUser):
     original_name = "Original Recipe Name"
     renamed_name = "Renamed Recipe Name"

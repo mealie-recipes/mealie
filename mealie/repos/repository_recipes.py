@@ -6,6 +6,7 @@ from uuid import UUID
 
 import sqlalchemy as sa
 from pydantic import UUID4
+from slugify import slugify
 from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models.household import Household, HouseholdToRecipe
@@ -199,6 +200,12 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
     def _resolve_organizer(self, model: type[Tag] | type[Category] | type[Tool], name: str) -> dict:
         """Look up an organizer (tag/category/tool) by name in this group, creating it if absent.
 
+        Matching is by name first, then by slug. Names are not unique per group, but the slug is
+        (`tags_slug_group_id_key` and friends), so a name that only differs by characters the slug
+        drops -- "Veggie!" against an existing "Veggie" -- must resolve to the existing row. Without
+        the slug lookup the insert violates that constraint and the request fails with a misleading
+        "Recipe already exists".
+
         Race-safe under concurrent updates: if two requests create the same organizer name
         at once, the loser's IntegrityError is caught and it re-selects the winner's row
         instead of erroring or creating a duplicate.
@@ -209,7 +216,11 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         for attempt in range(1, max_attempts + 1):
             existing = self.session.execute(
                 sa.select(model).where(
-                    model.group_id == self.group_id, sa.func.lower(model.name) == normalized_name.lower()
+                    sa.or_(
+                        sa.func.lower(model.name) == normalized_name.lower(),
+                        model.slug == slugify(normalized_name),
+                    ),
+                    model.group_id == self.group_id,
                 )
             ).scalar_one_or_none()
             if existing:
