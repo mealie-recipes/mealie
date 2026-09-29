@@ -68,7 +68,7 @@
         "report-deleted": "Rapporten er slettet."
     },
     "exceptions": {
-        "permission_denied": "Du har ikke tilladelse til at udføre denne handling",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "En opskrift kan ikke henvise til sig selv, hverken direkte eller indirekte",
         "no-entry-found": "Siden kunne ikke findes",
         "rate-limit-error": "AI-udbyderen hastighedsbegrænser forespørgsler. Vent lidt, og prøv igen",

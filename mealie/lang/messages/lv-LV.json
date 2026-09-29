@@ -68,7 +68,7 @@
         "report-deleted": "Pārskats izdzēsts."
     },
     "exceptions": {
-        "permission_denied": "Jums nav atļaujas veikt šo darbību",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Recepte nevar atsaukties uz sevi pašu, ne tieši, ne netieši",
         "no-entry-found": "Pieprasītais resurss netika atrasts",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
