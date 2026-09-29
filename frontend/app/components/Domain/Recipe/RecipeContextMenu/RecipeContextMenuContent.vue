@@ -1,5 +1,6 @@
 <template>
   <RecipeDialogShare v-model="shareDialog" :recipe-id="recipeId" :name="name" />
+  <RecipeDialogShareFile v-model="shareFileDialog" :slug="slug" />
   <RecipeDialogPrintPreferences v-model="printPreferencesDialog" :recipe="recipeRef" />
   <BaseDialog
     v-model="recipeDeleteDialog"
@@ -78,6 +79,7 @@
 import { useClipboard, useShare } from "@vueuse/core";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
 import RecipeDialogPrintPreferences from "~/components/Domain/Recipe/RecipeDialogPrintPreferences.vue";
+import RecipeDialogShareFile from "~/components/Domain/Recipe/RecipeDialogShareFile.vue";
 import RecipeDialogShare from "~/components/Domain/Recipe/RecipeDialogShare.vue";
 import { useUserApi } from "~/composables/api";
 import { useDownloader } from "~/composables/api/use-downloader";
@@ -162,6 +164,7 @@ const { open: shoppingListDialog, shoppingLists, getShoppingLists } = useAddToSh
 
 const printPreferencesDialog = ref(false);
 const shareDialog = ref(false);
+const shareFileDialog = ref(false);
 const recipeDeleteDialog = ref(false);
 const mealplannerDialog = ref(false);
 const recipeDuplicateDialog = ref(false);
@@ -331,6 +334,17 @@ for (const [key, value] of Object.entries(props.useItems)) {
   const item = defaultItems[key];
   if (item && (item.isPublic || isOwnGroup.value)) {
     menuItems.value.push(item);
+    // File sharing uses exactly the same menu eligibility as download. The
+    // authenticated export endpoint remains the authority for access.
+    if (key === "download") {
+      menuItems.value.push({
+        title: i18n.t("recipe-share.share-recipe-file"),
+        icon: $globals.icons.shareVariant,
+        color: undefined,
+        event: "shareFile",
+        isPublic: false,
+      });
+    }
   }
 }
 
@@ -394,6 +408,9 @@ const eventHandlers: { [key: string]: () => void | Promise<any> } = {
   },
   edit: () => router.push(`/g/${groupSlug.value}/r/${props.slug}` + "?edit=true"),
   download: handleDownloadEvent,
+  shareFile: () => {
+    shareFileDialog.value = true;
+  },
   duplicate: () => {
     recipeDuplicateDialog.value = true;
   },
