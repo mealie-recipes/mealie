@@ -85,7 +85,7 @@ def mealie_registered_exceptions(t: Translator) -> dict:
     """
 
     return {
-        PermissionDenied: t.t("exceptions.permission_denied"),
+        PermissionDenied: t.t("exceptions.permission-denied"),
         NoEntryFound: t.t("exceptions.no-entry-found"),
         IntegrityError: t.t("exceptions.integrity-error"),
         RecursiveRecipe: t.t("exceptions.recursive-recipe-link"),
