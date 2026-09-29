@@ -1926,6 +1926,45 @@ def test_patch_organizer_new_name_still_created(api_client: TestClient, unique_u
     assert [tag["name"] for tag in response.json()["tags"]] == ["Weeknight Batch Cooking"]
 
 
+@pytest.mark.parametrize(
+    ("organizer_field", "organizer_route"),
+    [
+        ("tags", "organizers_tags"),
+        ("recipeCategory", "organizers_categories"),
+        ("tools", "organizers_tools"),
+    ],
+)
+def test_patch_does_not_resolve_organizer_on_empty_slug(
+    api_client: TestClient, unique_user: TestUser, organizer_field: str, organizer_route: str
+):
+    """An organizer name that slugifies to nothing must not match another empty-slug organizer.
+
+    Every emoji- or punctuation-only name produces the empty slug, so matching on it would let any
+    such name resolve to any other -- tagging a recipe with "🔥" would reuse an existing "🍕". The
+    insert is left to fail the constraint instead, which is the 400 this returned before.
+    """
+    first = random_string()
+    second = random_string()
+    first_slug = api_client.post(api_routes.recipes, json={"name": first}, headers=unique_user.token).json()
+    second_slug = api_client.post(api_routes.recipes, json={"name": second}, headers=unique_user.token).json()
+
+    assert (
+        api_client.patch(
+            api_routes.recipes_slug(first_slug), json={organizer_field: ["🍕"]}, headers=unique_user.token
+        ).status_code
+        == 200
+    )
+
+    # "🔥" also slugifies to "", so it must not silently resolve to the "🍕" above
+    response = api_client.patch(
+        api_routes.recipes_slug(second_slug), json={organizer_field: ["🔥"]}, headers=unique_user.token
+    )
+    assert response.status_code == 400
+
+    organizers = api_client.get(getattr(api_routes, organizer_route), headers=unique_user.token).json()["items"]
+    assert [item["name"] for item in organizers if item["slug"] == ""] == ["🍕"]
+
+
 def test_patch_organizer_slug_match_is_scoped_to_group(
     api_client: TestClient, unique_user: TestUser, g2_user: TestUser
 ):

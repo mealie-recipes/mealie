@@ -206,22 +206,23 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         the slug lookup the insert violates that constraint and the request fails with a misleading
         "Recipe already exists".
 
+        A name that slugifies to nothing is left to the insert, so it still fails the constraint
+        rather than matching some other organizer. Emoji and punctuation-only names all share the
+        empty slug, so matching on it would let "🔥" silently resolve to an existing "🍕".
+
         Race-safe under concurrent updates: if two requests create the same organizer name
         at once, the loser's IntegrityError is caught and it re-selects the winner's row
         instead of erroring or creating a duplicate.
         """
         normalized_name = name.strip()
         max_attempts = 10
+        slug = slugify(normalized_name)
 
         for attempt in range(1, max_attempts + 1):
+            name_match = sa.func.lower(model.name) == normalized_name.lower()
+            match_by = sa.or_(name_match, model.slug == slug) if slug else name_match
             existing = self.session.execute(
-                sa.select(model).where(
-                    sa.or_(
-                        sa.func.lower(model.name) == normalized_name.lower(),
-                        model.slug == slugify(normalized_name),
-                    ),
-                    model.group_id == self.group_id,
-                )
+                sa.select(model).where(match_by, model.group_id == self.group_id)
             ).scalar_one_or_none()
             if existing:
                 return {
