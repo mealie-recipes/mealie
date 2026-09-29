@@ -68,7 +68,7 @@
         "report-deleted": "Отчет удален"
     },
     "exceptions": {
-        "permission_denied": "У вас нет прав для выполнения этого действия",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Рецепт не может ссылаться на себя ни напрямую, ни косвенно",
         "no-entry-found": "Запрашиваемый ресурс не найден",
         "rate-limit-error": "Провайдер ИИ имеет ограничение трафика. Пожалуйста, повторите попытку позже",
