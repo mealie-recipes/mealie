@@ -68,7 +68,7 @@
         "report-deleted": "Sestava odstraněna."
     },
     "exceptions": {
-        "permission_denied": "Nemáte oprávnění k provedení této akce",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Recept se nemůže sám sebe přímo ani nepřímo odkazovat",
         "no-entry-found": "Požadovaný prostředek nebyl nalezen",
         "rate-limit-error": "Poskytovatel AI momentálně limituje počet požadavků. Počkejte prosím chvíli a zkuste to znovu",
