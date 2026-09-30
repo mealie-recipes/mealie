@@ -68,7 +68,7 @@
         "report-deleted": "Rapport borttagen."
     },
     "exceptions": {
-        "permission-denied": "You do not have permission to perform this action",
+        "permission-denied": "Du har inte behörighet att göra detta",
         "recursive-recipe-link": "Ett recept kan inte referera till sig självt, varken direkt eller indirekt",
         "no-entry-found": "Den begärda resursen hittades inte",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
