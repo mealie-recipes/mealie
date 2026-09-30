@@ -1934,6 +1934,56 @@ def test_patch_organizer_new_name_still_created(api_client: TestClient, unique_u
         ("tools", "organizers_tools"),
     ],
 )
+def test_patch_organizer_name_and_slug_match_different_rows(
+    api_client: TestClient, unique_user: TestUser, organizer_field: str, organizer_route: str
+):
+    """A name match and a slug match on different rows must not raise.
+
+    On SQLite `lower()` folds ASCII only, so it leaves "Ξηροί καρποί" alone while Python's
+    `str.lower()` yields "ξηροί καρποί". Patching "Ξηροί καρποί" therefore name-matches the
+    "ξηροί καρποί" row and slug-matches its own "kseroi-karpoi" row, so a single combined
+    predicate matches two rows and `scalar_one_or_none()` raises `MultipleResultsFound`, turning
+    the request into a 500. Name wins, which is what the docstring promises.
+    """
+    first = random_string()
+    second = random_string()
+    first_slug = api_client.post(api_routes.recipes, json={"name": first}, headers=unique_user.token).json()
+    second_slug = api_client.post(api_routes.recipes, json={"name": second}, headers=unique_user.token).json()
+
+    assert (
+        api_client.patch(
+            api_routes.recipes_slug(first_slug), json={organizer_field: ["Ξηροί καρποί"]}, headers=unique_user.token
+        ).status_code
+        == 200
+    )
+    assert (
+        api_client.patch(
+            api_routes.recipes_slug(second_slug), json={organizer_field: ["ξηροί καρποί"]}, headers=unique_user.token
+        ).status_code
+        == 200
+    )
+
+    response = api_client.patch(
+        api_routes.recipes_slug(first_slug), json={organizer_field: ["Ξηροί καρποί"]}, headers=unique_user.token
+    )
+
+    # the name match wins over the slug match, as it does for the pre-existing nightly behaviour
+    assert response.status_code == 200
+    assert [item["name"] for item in response.json()[organizer_field]] == ["ξηροί καρποί"]
+
+    organizers = api_client.get(getattr(api_routes, organizer_route), headers=unique_user.token).json()["items"]
+    matching = [item for item in organizers if "καρποί" in item["name"]]
+    assert len(matching) == 2, matching
+
+
+@pytest.mark.parametrize(
+    ("organizer_field", "organizer_route"),
+    [
+        ("tags", "organizers_tags"),
+        ("recipeCategory", "organizers_categories"),
+        ("tools", "organizers_tools"),
+    ],
+)
 def test_patch_does_not_resolve_organizer_on_empty_slug(
     api_client: TestClient, unique_user: TestUser, organizer_field: str, organizer_route: str
 ):
