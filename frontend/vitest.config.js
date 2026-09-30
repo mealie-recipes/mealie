@@ -11,6 +11,11 @@ export default {
     }),
   ],
   test: {
+    server: {
+      deps: {
+        inline: ["vuetify"],
+      },
+    },
     globals: true,
     environment: "jsdom",
     setupFiles: ["./app/tests/setup.ts"],
