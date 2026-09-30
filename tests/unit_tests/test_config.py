@@ -69,6 +69,13 @@ def test_pg_connection_args(monkeypatch):
     assert app_settings.DB_URL == "postgresql://mealie:mealie@postgres:5432/mealie"
 
 
+def test_unknown_db_engine_is_rejected(monkeypatch):
+    monkeypatch.setenv("DB_ENGINE", "postgress")
+    get_app_settings.cache_clear()
+    with pytest.raises(ValueError, match="DB_ENGINE"):
+        get_app_settings()
+
+
 psql_validation_cases = [
     (
         "unencoded_to_encoded_password",
