@@ -68,7 +68,7 @@
         "report-deleted": "Η αναφορά διαγράφηκε."
     },
     "exceptions": {
-        "permission-denied": "You do not have permission to perform this action",
+        "permission-denied": "Δεν έχετε δικαιώματα για την εκτέλεση αυτής της ενέργειας",
         "recursive-recipe-link": "Μια συνταγή δεν μπορεί να αναφερθεί στον εαυτό της, είτε άμεσα είτε έμμεσα",
         "no-entry-found": "Η σελίδα που ζητήσατε δε βρέθηκε",
         "rate-limit-error": "Ο πάροχος τεχνητής νοημοσύνης αξιολογεί τα αιτήματα περιορισμού. Παρακαλώ περιμένετε ένα λεπτό και προσπαθήστε ξανά",
