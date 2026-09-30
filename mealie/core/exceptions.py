@@ -38,6 +38,14 @@ class SlugError(Exception):
     pass
 
 
+class RecipeDuplicate(Exception):
+    """
+    This exception is raised when a recipe update would create a duplicate slug/name.
+    """
+
+    pass
+
+
 class MissingRequiredData(Exception):
     """
     This exception is raised when a full-replacement update is missing data that the
@@ -89,6 +97,7 @@ def mealie_registered_exceptions(t: Translator) -> dict:
         NoEntryFound: t.t("exceptions.no-entry-found"),
         IntegrityError: t.t("exceptions.integrity-error"),
         RecursiveRecipe: t.t("exceptions.recursive-recipe-link"),
+        RecipeDuplicate: t.t("exceptions.recipe-duplicate"),
     }
 
 

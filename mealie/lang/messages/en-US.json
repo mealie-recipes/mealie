@@ -74,7 +74,8 @@
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
         "integrity-error": "Database integrity error",
         "username-conflict-error": "This username is already taken",
-        "email-conflict-error": "This email is already in use"
+        "email-conflict-error": "This email is already in use",
+        "recipe-duplicate": "A recipe with this name already exists. Please choose a different name."
     },
     "notifications": {
         "generic-created": "{name} was created",

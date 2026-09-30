@@ -19,6 +19,7 @@ from mealie.db.models.users.users import User
 from mealie.pkgs import cache
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
+from mealie.core.exceptions import RecipeDuplicate
 from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_recipe_slug
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.query_filter.builder import QueryFilterBuilder
@@ -246,14 +247,20 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         if new_name := new_data.get("name"):
             new_data["slug"] = entry.slug if new_name == entry.name else create_recipe_slug(new_name)
 
+        # If slug is still missing after name-based recalculation, fall back to existing slug.
+        if not new_data.get("slug"):
+            new_data["slug"] = entry.slug
+
+        # Check for duplicate slug before updating
+        if new_data["slug"] != entry.slug:
+            existing = self.get_by_slug(self.group_id, new_data["slug"])
+            if existing and existing.id != entry.id:
+                raise RecipeDuplicate(f"A recipe with slug '{new_data['slug']}' already exists in this group")
+
         # Always preserve identity/ownership fields from the existing DB entry.
         # User-provided JSON may omit or null these, which would cause integrity errors.
         for field in ("id", "user_id", "household_id", "group_id"):
             new_data[field] = getattr(entry, field)
-
-        # If slug is still missing after name-based recalculation, fall back to existing slug.
-        if not new_data.get("slug"):
-            new_data["slug"] = entry.slug
 
         # Resolve organizers by id (validated to belong to this group) or by name, creating them
         # in the group if needed. A client-supplied id from another group is never trusted as-is.

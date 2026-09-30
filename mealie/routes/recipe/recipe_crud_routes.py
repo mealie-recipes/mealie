@@ -47,8 +47,8 @@ from mealie.schema.recipe.recipe import (
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeAI, ScrapeRecipeTest
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
+from mealie.core.exceptions import RecipeDuplicate
 from mealie.schema.recipe.request_helpers import (
-    RecipeDuplicate,
     UpdateImageResponse,
 )
 from mealie.schema.response import PaginationBase, PaginationQuery
@@ -125,6 +125,12 @@ class RecipeController(BaseRecipeController):
             self.logger.error("SQL Integrity Error on recipe controller action")
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST, detail=ErrorResponse.respond(message="Recipe already exists")
+            )
+        elif thrownType == exceptions.RecipeDuplicate:
+            self.logger.error("Recipe duplicate error on recipe controller action")
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=ErrorResponse.respond(message=self.t("exceptions.recipe-duplicate")),
             )
         elif thrownType == exceptions.RecursiveRecipe:
             self.logger.error("Recursive Recipe Link Error on recipe controller action")
