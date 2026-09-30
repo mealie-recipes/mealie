@@ -46,6 +46,12 @@ class RecipeDuplicate(Exception):
     pass
 
 
+class OrganizerDuplicate(Exception):
+    """This exception is raised when a tag/category update would create a duplicate slug."""
+
+    pass
+
+
 class MissingRequiredData(Exception):
     """
     This exception is raised when a full-replacement update is missing data that the
@@ -98,6 +104,7 @@ def mealie_registered_exceptions(t: Translator) -> dict:
         IntegrityError: t.t("exceptions.integrity-error"),
         RecursiveRecipe: t.t("exceptions.recursive-recipe-link"),
         RecipeDuplicate: t.t("exceptions.recipe-duplicate"),
+        OrganizerDuplicate: t.t("exceptions.organizer-duplicate"),
     }
 
 

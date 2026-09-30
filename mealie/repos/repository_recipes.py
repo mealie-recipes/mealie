@@ -19,7 +19,7 @@ from mealie.db.models.users.users import User
 from mealie.pkgs import cache
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
-from mealie.core.exceptions import RecipeDuplicate
+from mealie.core.exceptions import OrganizerDuplicate, RecipeDuplicate
 from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_recipe_slug
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.query_filter.builder import QueryFilterBuilder
@@ -225,8 +225,11 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             self.session.add(new_obj)
             try:
                 self.session.flush()
-            except IntegrityError:
+            except IntegrityError as e:
                 self.session.rollback()
+                # Check if the integrity error is due to a duplicate slug (unique constraint violation)
+                if "unique constraint" in str(e).lower() and "slug" in str(e).lower():
+                    raise OrganizerDuplicate(f"A {model.__name__} with this name already exists in this group")
                 if attempt >= max_attempts:
                     raise
                 continue

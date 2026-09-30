@@ -47,7 +47,7 @@ from mealie.schema.recipe.recipe import (
 from mealie.schema.recipe.recipe_asset import RecipeAsset
 from mealie.schema.recipe.recipe_scraper import ScrapeRecipeAI, ScrapeRecipeTest
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
-from mealie.core.exceptions import RecipeDuplicate
+from mealie.core.exceptions import OrganizerDuplicate, RecipeDuplicate
 from mealie.schema.recipe.request_helpers import (
     UpdateImageResponse,
 )
@@ -131,6 +131,12 @@ class RecipeController(BaseRecipeController):
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
                 detail=ErrorResponse.respond(message=self.t("exceptions.recipe-duplicate")),
+            )
+        elif thrownType == exceptions.OrganizerDuplicate:
+            self.logger.error("Organizer duplicate error on recipe controller action")
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=ErrorResponse.respond(message=self.t("exceptions.organizer-duplicate")),
             )
         elif thrownType == exceptions.RecursiveRecipe:
             self.logger.error("Recursive Recipe Link Error on recipe controller action")

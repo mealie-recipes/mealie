@@ -75,7 +75,8 @@
         "integrity-error": "Database integrity error",
         "username-conflict-error": "This username is already taken",
         "email-conflict-error": "This email is already in use",
-        "recipe-duplicate": "A recipe with this name already exists. Please choose a different name."
+        "recipe-duplicate": "A recipe with this name already exists. Please choose a different name.",
+        "organizer-duplicate": "A tag or category with this name already exists. Please choose a different name."
     },
     "notifications": {
         "generic-created": "{name} was created",
