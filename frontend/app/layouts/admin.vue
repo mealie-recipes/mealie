@@ -98,9 +98,9 @@ const developerLinks: SidebarLinks = [
     restricted: true,
     children: [
       {
-        icon: $globals.icons.robot,
-        to: "/admin/debug/openai",
-        title: i18n.t("admin.openai"),
+        icon: $globals.icons.autoFix,
+        to: "/admin/debug/ai-providers",
+        title: i18n.t("admin.ai-providers"),
         restricted: true,
       },
       {
