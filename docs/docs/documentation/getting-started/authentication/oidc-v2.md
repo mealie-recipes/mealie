@@ -109,8 +109,9 @@ These endpoints are available automatically whenever OIDC is configured — ther
 
 The native flow reuses your existing **confidential** OIDC client and `OIDC_CLIENT_SECRET` — the same setup as the web flow. The only additional step is in your identity provider: **register the native client's redirect URI** (a custom scheme such as `app-scheme://oauth/callback`, supplied by the app) on the same OIDC client. The provider validates this redirect URI, so it is the access control for native logins — no Mealie-side configuration is required.
 
-!!! note
-    Providers that require a separate **public** (secret-less) native client — notably Google and Microsoft Entra — are not yet supported by this flow. Self-hosted providers that let you add a redirect URI to the existing confidential client (Pocket ID, Authentik, Authelia, Keycloak, …) work today.
+### Public native clients (Google, Microsoft)
+
+Some providers do not allow custom-scheme or loopback redirect URIs on a confidential web client, and instead require a separate native application registration that has no client secret and relies on PKCE. For those providers, register a second client for the mobile app, set `OIDC_NATIVE_CLIENT_ID` to its client ID, and set `OIDC_NATIVE_CONFIDENTIAL=false`. Mealie then omits the client secret when exchanging the code for native logins, while the web login keeps using `OIDC_CLIENT_ID` and `OIDC_CLIENT_SECRET`. Self-hosted providers such as Authentik and Pocket ID can keep using the single web client, so these settings are not needed there.
 
 ## Examples
 
