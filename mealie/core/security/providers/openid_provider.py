@@ -276,12 +276,11 @@ class OpenIDProvider(AuthProvider[UserInfo]):
             if user is None:
                 return
 
-            # Skip the download entirely when the claim still points at the image we already stored.
-            picture_hash = hashlib.sha256(picture.encode()).hexdigest()
+            # Skip image processing and storage when the downloaded content matches the avatar we already stored.
+            content = self._fetch_picture(picture)
+            picture_hash = hashlib.sha256(content).hexdigest()
             if user.external_avatar_hash == picture_hash:
                 return
-
-            content = self._fetch_picture(picture)
 
             with get_temporary_path() as temp_path:
                 temp_img = Path(temp_path).joinpath(str(uuid4()))
