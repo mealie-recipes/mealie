@@ -591,7 +591,7 @@
     "recipe-debugger": "Fejlsøgning af opskrifter",
     "recipe-debugger-description": "Indsæt URL'en på hjemmesiden, der indeholder den opskrift, du vil fejlsøge på. URL-adressen vil blive læst og resultaterne vil blive vist. Hvis ingen data bliver vist, er indhentning af opskrifter fra hjemmesiden endnu ikke understøttet af Mealie.",
     "use-ai": "Benyt AI",
-    "recipe-debugger-use-ai-description": "BrugAI til at fortolke resultaterne i stedet for at stole på scraperbiblioteket. Når du opretter en opskrift via URL, gøres dette automatisk, hvis skraberbiblioteket fejler, men du kan teste det manuelt her.",
+    "recipe-debugger-use-ai-description": "Brug AI til at fortolke resultaterne i stedet for at stole på scraperbiblioteket. Når du opretter en opskrift via URL, gøres dette automatisk, hvis skraberbiblioteket fejler, men du kan teste det manuelt her.",
     "debug": "Fejlsøgning",
     "tree-view": "Træ visning",
     "recipe-servings": "Opskrift Servinger",
