@@ -444,6 +444,41 @@ class AppSettings(AppLoggingSettings):
         return self.OIDC_FEATURE.enabled
 
     # ===============================================
+    # Reverse Proxy Auth Configuration
+    REVERSE_PROXY_AUTH_ENABLED: bool = False
+    REVERSE_PROXY_AUTH_HEADER: str = "X-Forwarded-User"
+    REVERSE_PROXY_AUTH_SIGNUP_ENABLED: bool = False
+
+    REVERSE_PROXY_AUTH_SECRET: str | None = None
+    """Shared secret the proxy must send in REVERSE_PROXY_AUTH_SECRET_HEADER on every request. Checking
+    the connecting IP instead doesn't work: with the default HOST_IP="*", uvicorn trusts every peer and
+    will happily replace request.client with whatever X-Forwarded-For a direct request supplies, letting
+    an attacker impersonate the proxy's address; narrowing HOST_IP to the proxy instead makes
+    request.client the *end user's* IP, which isn't a fixed value to allowlist. A shared secret isn't
+    forgeable either way. Strongly recommended in production; left unset for backwards compatibility
+    with simple setups that trust their whole network."""
+
+    REVERSE_PROXY_AUTH_SECRET_HEADER: str = "X-Mealie-Reverse-Proxy-Secret"
+    """The header REVERSE_PROXY_AUTH_SECRET is expected in."""
+
+    @property
+    def REVERSE_PROXY_AUTH_FEATURE(self) -> FeatureDetails:
+        description = None if self.REVERSE_PROXY_AUTH_ENABLED else "REVERSE_PROXY_AUTH_ENABLED is false"
+        has_header = bool(self.REVERSE_PROXY_AUTH_HEADER)
+        if not has_header and not description:
+            description = "REVERSE_PROXY_AUTH_HEADER is not set"
+
+        return FeatureDetails(
+            enabled=self.REVERSE_PROXY_AUTH_ENABLED and has_header,
+            description=description,
+        )
+
+    @property
+    def REVERSE_PROXY_AUTH_READY(self) -> bool:
+        """Validates reverse proxy auth settings are all set"""
+        return self.REVERSE_PROXY_AUTH_FEATURE.enabled
+
+    # ===============================================
     # OpenAI Configuration
 
     OPENAI_CUSTOM_PROMPT_DIR: str | None = None

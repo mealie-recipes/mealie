@@ -93,6 +93,21 @@ Use this only when mealie is run without a webserver or reverse proxy.
 | LDAP_NAME_ATTRIBUTE                                   |  name   | The LDAP attribute that maps to the user's name                                                                                     |
 | LDAP_MAIL_ATTRIBUTE                                   |  mail   | The LDAP attribute that maps to the user's email                                                                                    |
 
+### Reverse Proxy Auth
+
+Mealie can trust a username forwarded by a reverse proxy that has already authenticated the user (e.g. Authelia, Authentik, oauth2-proxy, Tailscale Serve). When enabled, visiting the login page will automatically sign in as the user named in the configured header, with no extra Mealie login step. Password, LDAP, and OIDC login remain available and are not affected by this setting.
+
+!!! danger "Only enable this behind a trusted reverse proxy"
+    Mealie trusts the header's value completely. If Mealie is reachable by any path that bypasses your proxy (directly hitting the container/port, a misconfigured Ingress, etc.), an attacker can set this header themselves and impersonate any user, including admins. Make sure your proxy always overwrites/strips this header for all incoming requests before adding its own, that Mealie is not otherwise reachable, and set `REVERSE_PROXY_AUTH_SECRET` so Mealie can tell your proxy's requests apart from a direct connection (checking the connecting IP isn't reliable enough for this, since it changes depending on how `HOST_IP` is configured).
+
+| Variables                          | Default            | Description                                                                                                    |
+| ----------------------------------- | :-----------------: | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| REVERSE_PROXY_AUTH_ENABLED          |        False        | Enables authentication via a trusted reverse proxy header                                                                                                                                                                            |
+| REVERSE_PROXY_AUTH_HEADER           | X-Forwarded-User    | The name of the header your reverse proxy sets to the authenticated username (or email)                                                                                                                                              |
+| REVERSE_PROXY_AUTH_SIGNUP_ENABLED   |        False        | Enables new users to be created automatically the first time they're seen in the trusted header                                                                                                                                      |
+| REVERSE_PROXY_AUTH_SECRET           |         `""`         | Shared secret your proxy must send in `REVERSE_PROXY_AUTH_SECRET_HEADER`. Strongly recommended in production; requests missing it are rejected.                                                                                     |
+| REVERSE_PROXY_AUTH_SECRET_HEADER    | X-Mealie-Reverse-Proxy-Secret | The name of the header your reverse proxy sets to the value of `REVERSE_PROXY_AUTH_SECRET`                                                                                                                                |
+
 ### OpenID Connect (OIDC)
 
 :octicons-tag-24: v1.4.0
