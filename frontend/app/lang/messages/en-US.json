@@ -1060,6 +1060,8 @@
     "share-recipe": "Share Recipe",
     "default-30-days": "Default 30 Days",
     "expires-at": "Expires At",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Recipe link copied to clipboard"
   },
   "banner-experimental": {
