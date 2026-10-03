@@ -48,6 +48,7 @@ export const useUserForm = () => {
       label: i18n.t("user.administrator"),
       varName: "admin",
       type: fieldTypes.BOOLEAN,
+      tooltip: i18n.t("user.administrator-hint"),
       rules: [validators.required],
     },
     {
@@ -55,6 +56,7 @@ export const useUserForm = () => {
       label: i18n.t("user.user-can-invite-other-to-group"),
       varName: "canInvite",
       type: fieldTypes.BOOLEAN,
+      tooltip: i18n.t("user.user-can-invite-other-to-group-hint"),
       rules: [validators.required],
     },
     {
@@ -62,6 +64,7 @@ export const useUserForm = () => {
       label: i18n.t("user.user-can-manage-group"),
       varName: "canManage",
       type: fieldTypes.BOOLEAN,
+      tooltip: i18n.t("user.user-can-manage-group-hint"),
       rules: [validators.required],
     },
     {
@@ -69,6 +72,7 @@ export const useUserForm = () => {
       label: i18n.t("user.user-can-organize-group-data"),
       varName: "canOrganize",
       type: fieldTypes.BOOLEAN,
+      tooltip: i18n.t("user.user-can-organize-group-data-hint"),
       rules: [validators.required],
     },
     {
@@ -76,6 +80,7 @@ export const useUserForm = () => {
       label: i18n.t("user.user-can-manage-household"),
       varName: "canManageHousehold",
       type: fieldTypes.BOOLEAN,
+      tooltip: i18n.t("user.user-can-manage-household-hint"),
       rules: [validators.required],
     },
     {
@@ -83,6 +88,7 @@ export const useUserForm = () => {
       label: i18n.t("user.enable-advanced-features"),
       varName: "advanced",
       type: fieldTypes.BOOLEAN,
+      tooltip: i18n.t("user.enable-advanced-features-hint"),
       rules: [validators.required],
     },
   ];
