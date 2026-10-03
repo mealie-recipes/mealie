@@ -1056,6 +1056,9 @@
     "link-expires": "Link Expires"
   },
   "recipe-share": {
+    "share-recipe-file": "Share recipe file",
+    "file-sharing-unavailable": "File sharing is unavailable or could not be completed in this browser. You can use Download JSON instead.",
+    "recipe-file-description": "Share a Mealie JSON recipe file, or download it if file sharing is unavailable. Only compatible apps can open JSON recipes. Includes recipe notes, but not comments, account details, settings or custom extras. Images and attachments are not included. Review the content before sharing; files cannot be revoked.",
     "expiration-date": "Expiration Date",
     "share-recipe": "Share Recipe",
     "default-30-days": "Default 30 Days",
