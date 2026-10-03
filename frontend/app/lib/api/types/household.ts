@@ -318,6 +318,7 @@ export interface RecipeIngredient {
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  foodSnapshot?: FoodSnapshot | null;
   referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
@@ -420,6 +421,15 @@ export interface CreateIngredientFoodAlias {
 export interface CreateIngredientFoodSubstitution {
   substituteFoodId?: string | null;
   note?: string | null;
+}
+export interface FoodSnapshot {
+  sourceId?: string | null;
+  name: string;
+  pluralName?: string | null;
+  description?: string | null;
+  extras?: {
+    [k: string]: unknown;
+  };
 }
 export interface Recipe {
   id?: string | null;
@@ -565,6 +575,7 @@ export interface ShoppingListItemBase {
   quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  foodSnapshot?: FoodSnapshot | null;
   referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
@@ -582,6 +593,7 @@ export interface ShoppingListItemCreate {
   quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  foodSnapshot?: FoodSnapshot | null;
   referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
@@ -607,6 +619,7 @@ export interface ShoppingListItemOut {
   quantity?: number;
   unit?: IngredientUnit | null;
   food?: IngredientFood | null;
+  foodSnapshot?: FoodSnapshot | null;
   referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
@@ -647,6 +660,7 @@ export interface ShoppingListItemUpdate {
   quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  foodSnapshot?: FoodSnapshot | null;
   referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
@@ -665,6 +679,7 @@ export interface ShoppingListItemUpdateBulk {
   quantity?: number;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  foodSnapshot?: FoodSnapshot | null;
   referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
@@ -821,6 +836,7 @@ export interface RecipeIngredientBase {
   quantity?: number | null;
   unit?: IngredientUnit | CreateIngredientUnit | null;
   food?: IngredientFood | CreateIngredientFood | null;
+  foodSnapshot?: FoodSnapshot | null;
   referencedRecipe?: Recipe | null;
   note?: string | null;
   display?: string;
