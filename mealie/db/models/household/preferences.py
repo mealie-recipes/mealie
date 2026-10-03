@@ -29,6 +29,9 @@ class HouseholdPreferencesModel(SqlAlchemyBase, BaseMixins):
     lock_recipe_edits_from_other_households: FilterableColumn[bool | None] = mapped_column(sa.Boolean, default=True)
     first_day_of_week: FilterableColumn[int | None] = mapped_column(sa.Integer, default=0)
 
+    # Secret token for the public meal plan iCal feed; not filterable so it can't be probed via query filters
+    mealplan_ical_token: Mapped[str | None] = mapped_column(sa.String, unique=True, index=True, nullable=True)
+
     # Recipe Defaults
     recipe_public: FilterableColumn[bool | None] = mapped_column(sa.Boolean, default=True)
     recipe_show_nutrition: FilterableColumn[bool | None] = mapped_column(sa.Boolean, default=False)
