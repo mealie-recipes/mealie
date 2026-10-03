@@ -73,7 +73,5 @@ change_user
 init
 load_secrets
 
-# Start API
-HOST_IP=`/sbin/ip route|awk '/default/ { print $3 }'`
-
+# Preserve HOST_IP from the environment. AppSettings supplies the default when unset.
 exec mealie
