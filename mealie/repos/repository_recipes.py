@@ -6,6 +6,7 @@ from uuid import UUID
 
 import sqlalchemy as sa
 from pydantic import UUID4
+from slugify import slugify
 from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models.household import Household, HouseholdToRecipe
@@ -199,19 +200,38 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
     def _resolve_organizer(self, model: type[Tag] | type[Category] | type[Tool], name: str) -> dict:
         """Look up an organizer (tag/category/tool) by name in this group, creating it if absent.
 
+        Matching is by name first, then by slug. Names are not unique per group, but the slug is
+        (`tags_slug_group_id_key` and friends), so a name that only differs by characters the slug
+        drops -- "Veggie!" against an existing "Veggie" -- must resolve to the existing row. Without
+        the slug lookup the insert violates that constraint and the request fails with a misleading
+        "Recipe already exists".
+
+        A name that slugifies to nothing is left to the insert, so it still fails the constraint
+        rather than matching some other organizer. Emoji and punctuation-only names all share the
+        empty slug, so matching on it would let "🔥" silently resolve to an existing "🍕".
+
+        The two lookups are separate queries rather than one `or_` because a name and a slug can
+        point at different rows: on a database whose `lower()` only folds ASCII, "Ξηροί καρποί" and
+        "ξηροί καρποί" are distinct names with distinct slugs, yet the first name-matches the
+        second and slug-matches itself. Combining them matches both rows and
+        `scalar_one_or_none()` raises `MultipleResultsFound`. Name wins when both match, as above.
+
         Race-safe under concurrent updates: if two requests create the same organizer name
         at once, the loser's IntegrityError is caught and it re-selects the winner's row
         instead of erroring or creating a duplicate.
         """
         normalized_name = name.strip()
         max_attempts = 10
+        slug = slugify(normalized_name)
+        in_group = model.group_id == self.group_id
+        name_matches = sa.func.lower(model.name) == normalized_name.lower()
 
         for attempt in range(1, max_attempts + 1):
-            existing = self.session.execute(
-                sa.select(model).where(
-                    model.group_id == self.group_id, sa.func.lower(model.name) == normalized_name.lower()
-                )
-            ).scalar_one_or_none()
+            existing = self.session.execute(sa.select(model).where(in_group, name_matches)).scalar_one_or_none()
+            if existing is None and slug:
+                existing = self.session.execute(
+                    sa.select(model).where(in_group, model.slug == slug)
+                ).scalar_one_or_none()
             if existing:
                 return {
                     "id": str(existing.id),
