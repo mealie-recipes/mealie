@@ -1,4 +1,6 @@
+import io
 import json
+import wave
 from types import SimpleNamespace
 from unittest.mock import MagicMock
 from uuid import uuid4
@@ -387,3 +389,106 @@ async def test_get_response_raises_on_content_filter_finish_reason(settings_stub
 
     with pytest.raises(Exception, match="content filter"):
         await svc.get_response("system prompt", "hello", response_schema=_SampleSchema, provider=_make_provider())
+
+
+class _FakeTranscriptions:
+    def __init__(self, error: Exception | None = None):
+        self.error = error
+        self.calls: list[dict] = []
+
+    async def create(self, **kwargs):
+        self.calls.append(kwargs)
+        if self.error:
+            raise self.error
+        return SimpleNamespace(text="")
+
+
+def _patch_transcription(monkeypatch, *, error: Exception | None = None) -> _FakeTranscriptions:
+    """Stubs get_client() so the transcription leg of test_connection never reaches a real provider."""
+    transcriptions = _FakeTranscriptions(error)
+    client = SimpleNamespace(audio=SimpleNamespace(transcriptions=transcriptions))
+    monkeypatch.setattr(OpenAIService, "get_client", lambda self, provider: client)
+    return transcriptions
+
+
+def _make_audio_only_service(provider: AIProviderOut) -> OpenAIService:
+    repos = _make_mock_repos()
+    repos.group_ai_provider_settings.get_one.return_value.audio_provider_id = provider.id
+    return OpenAIService(repos)
+
+
+@pytest.mark.asyncio
+async def test_connection_audio_only_provider_passes_on_transcription(settings_stub, monkeypatch):
+    # A transcription-only model can't answer the chat ping, so an audio-only provider is tested by
+    # transcribing a moment of silence first (#8577). The chat ping is set up to fail, so a success
+    # here can only come from the transcription.
+    transcriptions = _patch_transcription(monkeypatch)
+    _patch_ping(monkeypatch, text_response=None)
+
+    provider = _make_test_provider()
+    result = await _make_audio_only_service(provider).test_connection(provider)
+
+    assert result.success is True
+    assert result.supports_images is None
+    assert len(transcriptions.calls) == 1
+    assert transcriptions.calls[0]["model"] == provider.model
+    filename, audio, content_type = transcriptions.calls[0]["file"]
+    assert (filename, content_type) == ("connection-test.wav", "audio/wav")
+    with wave.open(io.BytesIO(audio)) as wav:
+        assert wav.getnframes() > 0
+
+
+@pytest.mark.asyncio
+async def test_connection_audio_only_provider_falls_back_to_chat(settings_stub, monkeypatch):
+    # Some audio providers are chat models that take audio input, and an import falls back to chat
+    # for them. The test does the same, so they still pass.
+    transcriptions = _patch_transcription(monkeypatch, error=RuntimeError("no transcription endpoint"))
+    _patch_ping(monkeypatch, image_response="Tomato & Egg Stir-Fry")
+
+    provider = _make_test_provider()
+    result = await _make_audio_only_service(provider).test_connection(provider)
+
+    assert result.success is True
+    assert len(transcriptions.calls) == 1
+
+
+@pytest.mark.asyncio
+async def test_connection_audio_only_provider_fails_when_neither_works(settings_stub, monkeypatch):
+    _patch_transcription(monkeypatch, error=RuntimeError("bad key"))
+    _patch_ping(monkeypatch, text_response=None)
+
+    provider = _make_test_provider()
+    result = await _make_audio_only_service(provider).test_connection(provider)
+
+    assert result.success is False
+
+
+@pytest.mark.parametrize("other_role", ["default_provider_id", "image_provider_id"])
+@pytest.mark.asyncio
+async def test_connection_skips_transcription_when_provider_has_other_roles(settings_stub, monkeypatch, other_role):
+    # A provider that also handles chat or images has to pass the chat test, otherwise that role could
+    # be broken while the test still reported success.
+    transcriptions = _patch_transcription(monkeypatch)
+    _patch_ping(monkeypatch, text_response=None)
+
+    provider = _make_test_provider()
+    repos = _make_mock_repos()
+    settings = repos.group_ai_provider_settings.get_one.return_value
+    settings.audio_provider_id = provider.id
+    setattr(settings, other_role, provider.id)
+
+    result = await OpenAIService(repos).test_connection(provider)
+
+    assert result.success is False
+    assert transcriptions.calls == []
+
+
+@pytest.mark.asyncio
+async def test_connection_skips_transcription_for_non_audio_provider(settings_stub, monkeypatch):
+    transcriptions = _patch_transcription(monkeypatch)
+    _patch_ping(monkeypatch, image_response="Tomato & Egg Stir-Fry")
+
+    result = await OpenAIService(_make_mock_repos()).test_connection(_make_test_provider())
+
+    assert result.success is True
+    assert transcriptions.calls == []
