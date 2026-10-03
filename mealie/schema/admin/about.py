@@ -23,6 +23,8 @@ class AppInfo(MealieModel):
     oidc_provider_name: str
     token_time: int
     allowed_iframe_hosts: list[str] = []
+    branding_name: str = "Mealie"
+    branding_logo_url: str | None = None
 
 
 class AppTheme(MealieModel):
