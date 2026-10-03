@@ -21,6 +21,63 @@
       @update:model-value="toggleIsParsing"
       @save="saveParsedIngredients"
     />
+    <BaseDialog
+      v-model="addMethodDialog"
+      :title="$t('recipe.add-cooking-method')"
+      color="primary"
+      :icon="$globals.icons.potSteam"
+      :can-confirm="canAddCookingMethod"
+      @confirm="addCookingMethod"
+    >
+      <v-card-text>
+        <div class="text-subtitle-1 mb-2">
+          {{ $t("recipe.choose-cooking-method") }}
+        </div>
+        <v-chip-group
+          v-model="selectedCookingMethod"
+          column
+          color="primary"
+          class="mb-2"
+        >
+          <v-chip
+            v-for="method in cookingMethodOptions"
+            :key="method.name"
+            :value="method.name"
+            :disabled="existingCookingMethods.has(method.name.toLocaleLowerCase())"
+            variant="outlined"
+            filter
+          >
+            <v-icon start>
+              {{ method.icon }}
+            </v-icon>
+            {{ method.name }}
+          </v-chip>
+          <v-chip :value="customCookingMethodValue" variant="outlined" filter>
+            <v-icon start>
+              {{ $globals.icons.createAlt }}
+            </v-icon>
+            {{ $t("recipe.other-cooking-method") }}
+          </v-chip>
+        </v-chip-group>
+        <v-text-field
+          v-if="selectedCookingMethod === customCookingMethodValue"
+          v-model="customCookingMethod"
+          :label="$t('recipe.custom-cooking-method')"
+          :hint="$t('recipe.add-cooking-method-hint')"
+          persistent-hint
+          autofocus
+        />
+        <v-alert
+          v-if="customMethodAlreadyExists"
+          type="warning"
+          variant="tonal"
+          density="compact"
+          class="mt-2"
+        >
+          {{ $t("recipe.cooking-method-already-exists") }}
+        </v-alert>
+      </v-card-text>
+    </BaseDialog>
     <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
       <v-card flat class="d-print-none">
         <RecipePageHeader
@@ -32,6 +89,37 @@
           @delete="deleteRecipe"
           @close="closeEditor"
         />
+        <div v-if="!isEditMode && variants.length" class="d-flex flex-wrap align-center justify-center ga-2 px-4 pt-4">
+          <span class="text-medium-emphasis mr-1">{{ $t("recipe.cooking-method") }}:</span>
+          <v-btn-toggle
+            :model-value="recipe.slug"
+            mandatory
+            divided
+            variant="outlined"
+            color="primary"
+            density="compact"
+            @update:model-value="selectVariant"
+          >
+            <v-btn
+              v-for="variant in variantItems"
+              :key="variant.slug"
+              :value="variant.slug"
+              size="small"
+            >
+              <v-icon start>
+                {{ variant.icon }}
+              </v-icon>
+              {{ variant.title }}
+            </v-btn>
+          </v-btn-toggle>
+          <BaseButton
+            v-if="isOwnGroup"
+            small
+            :icon="$globals.icons.createAlt"
+            :text="$t('recipe.add-cooking-method')"
+            @click="openAddMethodDialog"
+          />
+        </div>
         <RecipeJsonEditor
           v-if="isEditJSON"
           v-model="recipe"
@@ -243,7 +331,7 @@ import {
 } from "~/composables/recipe-page/shared-state";
 import { useCookModeQuery, type BooleanString } from "~/composables/recipe-page/use-cook-mode-query";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
-import type { Recipe, RecipeCategory, RecipeIngredient, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
+import type { Recipe, RecipeCategory, RecipeIngredient, RecipeSummary, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
 import { useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
@@ -253,10 +341,12 @@ import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { useNavigationWarning } from "~/composables/use-navigation-warning";
 import { useUnitConversion, useUnitSystem } from "~/composables/recipes";
 import { useHouseholdSelf } from "~/composables/use-households";
+import { cookingMethodOptions, getCookingMethodIcon } from "~/lib/recipe/cooking-methods";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 
 const display = useDisplay();
+const i18n = useI18n();
 const auth = useMealieAuth();
 const route = useRoute();
 const { isOwnGroup } = useLoggedInState();
@@ -278,6 +368,66 @@ const { pageMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isPar
   = usePageState(recipe.value.slug);
 const { deactivateNavigationWarning } = useNavigationWarning();
 const scale = ref(1);
+const variants = ref<RecipeSummary[]>([]);
+const addMethodDialog = ref(false);
+const customCookingMethodValue = "__custom__";
+const selectedCookingMethod = ref<string | null>(null);
+const customCookingMethod = ref("");
+const variantItems = computed(() => variants.value.map(variant => ({
+  slug: variant.slug,
+  title: variant.cookingMethod
+    || (variant.variantGroupId ? variant.name : i18n.t("recipe.original-method")),
+  icon: getCookingMethodIcon(variant.cookingMethod),
+})));
+const existingCookingMethods = computed(() => new Set(
+  variants.value
+    .map(variant => variant.cookingMethod?.trim().toLocaleLowerCase())
+    .filter((method): method is string => Boolean(method)),
+));
+const cookingMethodToCreate = computed(() => selectedCookingMethod.value === customCookingMethodValue
+  ? customCookingMethod.value.trim()
+  : selectedCookingMethod.value?.trim() || "");
+const customMethodAlreadyExists = computed(() => selectedCookingMethod.value === customCookingMethodValue
+  && existingCookingMethods.value.has(customCookingMethod.value.trim().toLocaleLowerCase()));
+const canAddCookingMethod = computed(() => Boolean(cookingMethodToCreate.value) && !customMethodAlreadyExists.value);
+
+async function loadVariants() {
+  const { data } = await api.recipes.getVariants(recipe.value.slug);
+  variants.value = data || [];
+}
+
+watch(
+  () => recipe.value.slug,
+  () => { void loadVariants(); },
+  { immediate: true },
+);
+
+function selectVariant(slug: string) {
+  if (slug && slug !== recipe.value.slug) {
+    router.push(`/g/${groupSlug.value}/r/${slug}`);
+  }
+}
+
+function openAddMethodDialog() {
+  selectedCookingMethod.value = null;
+  customCookingMethod.value = "";
+  addMethodDialog.value = true;
+}
+
+async function addCookingMethod() {
+  const cookingMethod = cookingMethodToCreate.value;
+  if (!cookingMethod || customMethodAlreadyExists.value) return;
+
+  const { data } = await api.recipes.createCookingMethodVariant(
+    recipe.value.slug,
+    recipe.value.name,
+    cookingMethod,
+  );
+  addMethodDialog.value = false;
+  if (data?.slug) {
+    await router.push(`/g/${groupSlug.value}/r/${data.slug}?edit=true`);
+  }
+}
 
 const { unitSystem } = useUnitSystem();
 const { convertIngredient } = useUnitConversion();

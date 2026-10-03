@@ -21,7 +21,7 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema import mapper
 from mealie.schema.household.household import HouseholdInDB, HouseholdRecipeUpdate
-from mealie.schema.recipe.recipe import CreateRecipe, Recipe, create_recipe_slug
+from mealie.schema.recipe.recipe import CreateRecipe, Recipe, RecipeSummary, create_recipe_slug
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
     CreateIngredientUnit,
@@ -484,7 +484,8 @@ class RecipeService(RecipeServiceBase):
 
         new_name = dup_data.name if dup_data.name else old_recipe.name or ""
         new_recipe.id = uuid4()
-        new_recipe.slug = create_recipe_slug(new_name)
+        slug_source = f"{new_name} {dup_data.cooking_method}" if dup_data.as_variant else new_name
+        new_recipe.slug = create_recipe_slug(slug_source)
         new_recipe.image = cache.cache_key.new_key() if old_recipe.image else None
         new_recipe.recipe_instructions = (
             None
@@ -497,6 +498,12 @@ class RecipeService(RecipeServiceBase):
             else list(map(copy_recipe_ingredient, old_recipe.recipe_ingredient))
         )
         new_recipe.last_made = None
+        if dup_data.as_variant:
+            new_recipe.variant_group_id = old_recipe.variant_group_id or old_recipe.id
+            new_recipe.cooking_method = dup_data.cooking_method
+        else:
+            # A normal duplicate is a new standalone recipe, even when its source is a variant.
+            new_recipe.variant_group_id = None
 
         new_recipe = self._recipe_creation_factory(new_name, additional_attrs=new_recipe.model_dump())
 
@@ -516,6 +523,20 @@ class RecipeService(RecipeServiceBase):
             self.logger.error(f"Failed to copy assets from {old_recipe.slug} to {new_recipe.slug}: {e}")
 
         return new_recipe
+
+    def get_variants(self, slug_or_id: str | UUID) -> list[RecipeSummary]:
+        """Return every recipe in the same cooking-method variant group.
+
+        The canonical recipe acts as the group root without storing a self-reference. This lets
+        users create the first variant of a locked/shared recipe without modifying that recipe.
+        """
+
+        recipe = self.get_one(slug_or_id)
+        variant_group_id = recipe.variant_group_id or recipe.id
+        if variant_group_id is None:
+            return [RecipeSummary.model_validate(recipe)]
+
+        return self.group_recipes.get_variants(variant_group_id)
 
     def has_recursive_recipe_link(self, recipe: Recipe, path: set[str] | None = None):
         """Recursively checks if a recipe links to itself through its ingredients."""
