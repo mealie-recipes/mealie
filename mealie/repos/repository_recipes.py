@@ -90,17 +90,34 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
     def create(self, document: Recipe) -> Recipe:  # type: ignore
         max_retries = 10
         original_name: str = document.name  # type: ignore
+        name_suffix = 0
 
-        for i in range(1, 11):
+        for i in range(1, max_retries + 1):
             try:
                 return super().create(document)
             except IntegrityError:
                 self.session.rollback()
-                document.name = f"{original_name} ({i})"
-                document.slug = create_recipe_slug(document.name)
-
                 if i >= max_retries:
                     raise
+
+                # Existing names must not consume retries reserved for failed writes.
+                # Slugs are unique across the group, including other households.
+                while True:
+                    name_suffix += 1
+                    suffix = f"-{name_suffix}"
+                    base_slug = create_recipe_slug(original_name, max_length=250 - len(suffix)).rstrip("-")
+                    document.name = f"{original_name} ({name_suffix})"
+                    document.slug = f"{base_slug}{suffix}"
+                    exists = self.session.scalar(
+                        sa.select(
+                            sa.exists().where(
+                                self.model.group_id == document.group_id,
+                                self.model.slug == document.slug,
+                            )
+                        )
+                    )
+                    if not exists:
+                        break
 
     def _delete_recipe(self, recipe: RecipeModel) -> Recipe:
         recipe_as_model = self.schema.model_validate(recipe)
