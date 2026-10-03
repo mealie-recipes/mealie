@@ -30,6 +30,7 @@
             <v-lazy v-for="(ingredient, index) in parsedIngs" :key="index">
               <RecipeIngredientEditor
                 v-model="ingredient.ingredient"
+                stacked
                 enable-drag-handle
                 enable-context-menu
                 :delete-disabled="parsedIngs.length <= 1"
