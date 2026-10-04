@@ -27,6 +27,7 @@ const fieldDefs = [
   { name: "recipe_category.id", label: "Categories", type: Organizer.Category },
   { name: "user_id", label: "Users", type: Organizer.User },
   { name: "last_made", label: "Last Made", type: "relativeDate" as const },
+  { name: "total_time_seconds", label: "Total Time", type: "duration" as const },
 ];
 
 function render(parts: object[]) {
@@ -59,5 +60,13 @@ describe("QueryFilterSummary", () => {
     expect(wrapper.text()).toContain("Last Made");
     expect(wrapper.text()).toContain("is older than");
     expect(wrapper.text()).toContain("30 days ago");
+  });
+
+  test("shows durations as hours and minutes", () => {
+    const wrapper = render([{ attributeName: "total_time_seconds", relationalOperator: "<=", value: "5400" }]);
+
+    expect(wrapper.text()).toContain("Total Time");
+    expect(wrapper.text()).toContain("1 hour 30 minutes");
+    expect(wrapper.text()).not.toContain("5400");
   });
 });

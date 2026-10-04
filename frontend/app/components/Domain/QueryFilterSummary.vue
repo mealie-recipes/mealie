@@ -29,6 +29,7 @@
 
 <script setup lang="ts">
 import type { QueryFilterJSON } from "~/lib/api/types/non-generated";
+import { formatDuration } from "~/composables/recipes";
 import { useCategoryStore, useFoodStore, useHouseholdStore, useLabelStore, useTagStore, useToolStore } from "~/composables/store";
 import { useUserStore } from "~/composables/store/use-user-store";
 import { type FieldDefinition, type OrganizerBase, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";
@@ -64,6 +65,13 @@ function formatValue(fieldDef: FieldDefinition | undefined, value: string): stri
     if (match) {
       const days = parseInt(match[1]!);
       return `${days} ${i18n.t("query-filter.dates.days-ago", days)}`;
+    }
+  }
+
+  if (fieldDef?.type === "duration") {
+    const seconds = Number(value);
+    if (seconds > 0) {
+      return formatDuration(seconds, i18n.locale.value);
     }
   }
 
