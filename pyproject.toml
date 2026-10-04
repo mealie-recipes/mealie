@@ -65,7 +65,7 @@ dev = [
     "coveragepy-lcov==0.1.2",
     "mypy==2.3.1",
     "pre-commit==4.6.2",
-    "pylint==4.0.9",
+    "pylint==4.0.10",
     "pytest==9.1.1",
     "pytest-asyncio==1.4.0",
     "rich==15.0.0",
