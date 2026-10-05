@@ -38,4 +38,3 @@ body:
       options:
         - label: If this is accepted I'm willing to submit a PR to provide this feature
         - label: If this is accepted I'm willing to help maintain this feature
-        - label: I'm willing to sponsor/pay a developer to do this work

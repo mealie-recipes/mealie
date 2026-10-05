@@ -25,7 +25,7 @@
           <v-col
             :cols="config.items.icon.cols(index)"
             :sm="config.items.icon.sm(index)"
-            :class="$vuetify.display.smAndDown ? 'd-flex pa-0' : 'd-flex justify-end pr-6'"
+            :class="$vuetify.display.smAndDown ? 'd-flex pa-0' : 'd-flex'"
           >
             <v-icon class="handle my-auto" :size="28" style="cursor: move;">
               {{ $globals.icons.arrowUpDown }}
@@ -98,12 +98,13 @@
               item-value="value"
               variant="underlined"
               class="text-center"
-              @update:model-value="setRelationalOperatorValue(field, index, $event as unknown as RelationalKeyword | RelationalOperator)"
+              @update:model-value="updateRelationalOperator(field, $event as unknown as RelationalKeyword | RelationalOperator)"
             />
           </v-col>
 
           <!-- field value -->
           <v-col
+            v-if="!isNullOperator(field.relationalOperatorValue)"
             :cols="config.items.fieldValue.cols(index)"
             :sm="config.items.fieldValue.sm(index)"
             :class="config.col.class"
@@ -181,6 +182,13 @@
               :precision="0"
               class="date-input"
               @update:model-value="setFieldValue(field, index, $event)"
+            />
+            <RecipeTimeInput
+              v-else-if="field.type === 'duration'"
+              :seconds="field.value as number || null"
+              hide-text
+              class="w-100"
+              @update:seconds="setFieldValue(field, index, $event ?? '')"
             />
             <RecipeOrganizerSelector
               v-else-if="field.type === Organizer.Category"
@@ -271,13 +279,15 @@
           </v-col>
 
           <!-- field actions -->
+          <!-- kept on sm rows without a delete button so the columns line up -->
           <v-col
-            v-if="!$vuetify.display.smAndDown || index === fields.length - 1"
+            v-if="!$vuetify.display.xs || index === fields.length - 1"
             :cols="config.items.fieldActions.cols(index)"
             :sm="config.items.fieldActions.sm(index)"
             :class="config.col.class"
           >
             <BaseButtonGroup
+              v-if="!$vuetify.display.smAndDown || index === fields.length - 1"
               :buttons="[
                 {
                   icon: $globals.icons.delete,
@@ -307,7 +317,7 @@
           create
           :text="$t('general.add-field')"
           class="my-auto"
-          @click="addField(fieldDefs[0])"
+          @click="addField(fieldDefs[0]!)"
         />
       </v-row>
     </v-card-actions>
@@ -319,6 +329,7 @@ import { VueDraggable } from "vue-draggable-plus";
 import { useDebounceFn } from "@vueuse/core";
 import { useHouseholdSelf } from "~/composables/use-households";
 import RecipeOrganizerSelector from "~/components/Domain/Recipe/RecipeOrganizerSelector.vue";
+import RecipeTimeInput from "~/components/Domain/Recipe/RecipeTimeInput.vue";
 import { Organizer } from "~/lib/api/types/non-generated";
 import type {
   LogicalOperator,
@@ -355,6 +366,8 @@ const {
   buildQueryFilterString,
   getFieldFromFieldDef,
   isOrganizerType,
+  isNullOperator,
+  updateRelationalOperator,
 } = useQueryFilterBuilder();
 
 const firstDayOfWeek = computed(() => {
@@ -411,7 +424,7 @@ function setField(index: number, fieldLabel: string) {
     return;
   }
 
-  const resetValue = (fieldDef.type !== fields.value[index].type) || (fieldDef.fieldChoices !== fields.value[index].fieldChoices);
+  const resetValue = (fieldDef.type !== fields.value[index]!.type) || (fieldDef.fieldChoices !== fields.value[index]!.fieldChoices);
   const updatedField = { ...fields.value[index], ...fieldDef };
 
   // we have to set this explicitly since it might be undefined
@@ -419,7 +432,7 @@ function setField(index: number, fieldLabel: string) {
 
   fields.value[index] = {
     ...getFieldFromFieldDef(updatedField, resetValue),
-    id: fields.value[index].id, // keep the id
+    id: fields.value[index]!.id, // keep the id
   };
 
   // Defaults
@@ -430,6 +443,9 @@ function setField(index: number, fieldLabel: string) {
     case "relativeDate":
       fields.value[index].value = "$NOW-30d";
       break;
+    case "duration":
+      fields.value[index].value = 30 * 60;
+      break;
 
     default:
       break;
@@ -437,11 +453,11 @@ function setField(index: number, fieldLabel: string) {
 }
 
 function setLeftParenthesisValue(field: FieldWithId, index: number, value: string) {
-  fields.value[index].leftParenthesis = value;
+  fields.value[index]!.leftParenthesis = value;
 }
 
 function setRightParenthesisValue(field: FieldWithId, index: number, value: string) {
-  fields.value[index].rightParenthesis = value;
+  fields.value[index]!.rightParenthesis = value;
 }
 
 function setLogicalOperatorValue(field: FieldWithId, index: number, value: LogicalOperator | undefined) {
@@ -449,12 +465,7 @@ function setLogicalOperatorValue(field: FieldWithId, index: number, value: Logic
     value = logOps.value.AND.value;
   }
 
-  fields.value[index].logicalOperator = value ? logOps.value[value] : undefined;
-}
-
-function setRelationalOperatorValue(field: FieldWithId, index: number, value: RelationalKeyword | RelationalOperator) {
-  const relOps = getRelOps(field.type);
-  fields.value[index].relationalOperatorValue = relOps.value[value];
+  fields.value[index]!.logicalOperator = value ? logOps.value[value] : undefined;
 }
 
 function setFieldValue(field: FieldWithId, index: number, value: FieldValue) {
@@ -463,21 +474,21 @@ function setFieldValue(field: FieldWithId, index: number, value: FieldValue) {
   if (field.type === "relativeDate") {
     // Value is set to an int representing the offset from $NOW
     // Values are assumed to be negative offsets ('-') with a unit of days ('d')
-    fields.value[index].value = `$NOW-${Math.abs(value)}d`;
+    fields.value[index]!.value = `$NOW-${Math.abs(value)}d`;
   }
   else {
-    fields.value[index].value = value;
+    fields.value[index]!.value = value;
   }
 }
 
 function setFieldValues(field: FieldWithId, index: number, values: FieldValue[]) {
-  fields.value[index].values = values;
+  fields.value[index]!.values = values;
 }
 
 function setFieldOrganizers(field: FieldWithId, index: number, organizers: OrganizerBase[]) {
-  fields.value[index].organizers = organizers;
+  fields.value[index]!.organizers = organizers;
   // Sync the values array with the organizers array
-  fields.value[index].values = organizers.map(org => org.id?.toString() || "").filter(id => id);
+  fields.value[index]!.values = organizers.map(org => org.id?.toString() || "").filter(id => id);
 }
 
 function removeField(index: number) {
@@ -528,7 +539,7 @@ function initFieldsError(error = "") {
 
   fields.value = [];
   if (props.fieldDefs.length) {
-    addField(props.fieldDefs[0]);
+    addField(props.fieldDefs[0]!);
   }
 }
 
@@ -570,7 +581,10 @@ async function initializeFields() {
       state.showAdvanced = true;
     }
 
-    if (field.fieldChoices?.length || isOrganizerType(field.type)) {
+    if (isNullOperator(field.relationalOperatorValue)) {
+      field.value = "";
+    }
+    else if (field.fieldChoices?.length || isOrganizerType(field.type)) {
       if (typeof part.value === "string") {
         field.values = part.value ? [part.value] : [];
       }
@@ -590,7 +604,7 @@ async function initializeFields() {
         || boolString[0] === "1"
       );
     }
-    else if (field.type === "number") {
+    else if (field.type === "number" || field.type === "duration") {
       field.value = Number(part.value as string || "0");
       if (isNaN(field.value)) {
         error = true;
@@ -639,7 +653,10 @@ function buildQueryFilterJSON(): QueryFilterJSON {
       relationalOperator: field.relationalOperatorValue?.value,
     };
 
-    if (field.fieldChoices?.length || isOrganizerType(field.type)) {
+    if (isNullOperator(field.relationalOperatorValue)) {
+      part.value = null;
+    }
+    else if (field.fieldChoices?.length || isOrganizerType(field.type)) {
       part.value = field.values.map(value => value.toString());
     }
     else if (field.type === "boolean") {
@@ -702,7 +719,6 @@ function parseRelativeDateOffset(value: string): number {
 }
 
 const config = computed(() => {
-  const multiple = fields.value.length > 1;
   const adv = state.showAdvanced;
 
   return {
@@ -712,7 +728,7 @@ const config = computed(() => {
     items: {
       icon: {
         cols: (_index: number) => 2,
-        sm: (_index: number) => 1,
+        sm: (_index: number) => "auto",
         style: "width: fit-content;",
       },
       leftParens: {
@@ -721,7 +737,8 @@ const config = computed(() => {
       },
       logicalOperator: {
         cols: (_index: number) => 0,
-        sm: (_index: number) => (multiple ? 1 : 0),
+        // Fills the space left by the auto-width icon column
+        sm: (_index: number) => true,
       },
       fieldName: {
         cols: (index: number) => {

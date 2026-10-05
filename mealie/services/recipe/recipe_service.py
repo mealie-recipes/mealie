@@ -32,6 +32,7 @@ from mealie.schema.recipe.recipe_ingredient import (
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventCreate, TimelineEventType
+from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
@@ -260,10 +261,12 @@ class RecipeService(RecipeServiceBase):
             # default to the current user
             return str(self.user.id)
 
-    def _transform_category_or_tag(self, data: dict, repo: RepositoryGeneric) -> dict:
+    def _transform_category_or_tag(self, data: dict, repo: RepositoryGeneric) -> dict | None:
         slug = data.get("slug")
         if not slug:
-            return data
+            # nothing to resolve by, and passing the incoming id through would let the recipe model
+            # link, and overwrite, an organizer from another group
+            return None
 
         # if the item exists, return the actual data
         query = repo.get_one(slug, "slug")
@@ -273,6 +276,37 @@ class RecipeService(RecipeServiceBase):
         # otherwise, create the item
         new_item = repo.create(data)
         return new_item.model_dump()
+
+    def _transform_tool(self, data: dict) -> dict | None:
+        """Resolve a tool within the importing group, never through an id from another group.
+
+        The recipe model links tools by primary key and copies the incoming fields onto the row it
+        finds, so passing a foreign id through would move and rename another group's tool.
+        """
+        tool = None
+        if tool_id := self._parse_uuid(data.get("id")):
+            tool = self.repos.tools.get_one(tool_id)
+        if tool is None and (slug := data.get("slug")):
+            tool = self.repos.tools.get_one(slug, "slug")
+        if tool is None:
+            name = self._non_empty_str(data.get("name"))
+            if not name:
+                return None
+            tool = self.repos.tools.create(RecipeToolSave(name=name, group_id=self.user.group_id))
+
+        return {"id": str(tool.id), "group_id": str(tool.group_id), "name": tool.name, "slug": tool.slug}
+
+    def _transform_referenced_recipe(self, data: dict) -> dict | None:
+        """Keep a sub-recipe reference only when that recipe belongs to the importing group.
+
+        The reference is resolved by primary key without a group filter, and reading the recipe
+        serializes the referenced recipe in full, so a foreign id would expose another group's recipe.
+        """
+        recipe_id = self._parse_uuid(data.get("id"))
+        if recipe_id and self.group_recipes.get_one(recipe_id, key="id"):
+            return data
+
+        return None
 
     def _get_data_matcher(self) -> DataMatcher:
         if self._data_matcher is None:
@@ -364,9 +398,13 @@ class RecipeService(RecipeServiceBase):
         self._reset_data_matcher()
         return data
 
-    def _process_recipe_data(self, key: str, data: list | dict | Any):
+    def _process_recipe_data(self, key: str, data: list | dict | Any) -> Any:
         if isinstance(data, list):
-            return [self._process_recipe_data(key, item) for item in data]
+            items = [self._process_recipe_data(key, item) for item in data]
+            if key in ("recipe_category", "tags", "tools"):
+                # organizers that could not be resolved within the importing group are dropped
+                items = [item for item in items if item is not None]
+            return items
 
         elif isinstance(data, str):
             # make sure the user is valid
@@ -376,6 +414,11 @@ class RecipeService(RecipeServiceBase):
             return data
 
         elif not isinstance(data, dict):
+            return data
+
+        # extras is free-form user data, so it is copied as-is: walking into it would add the
+        # group and household keys stamped below to whatever the user stored there.
+        if key == "extras":
             return data
 
         # force group_id and household_id to match the group id of the current user
@@ -391,14 +434,48 @@ class RecipeService(RecipeServiceBase):
             return self._transform_food(data)
         elif key == "unit":
             return self._transform_unit(data)
+        elif key == "tools":
+            return self._transform_tool(data)
+        elif key == "referenced_recipe":
+            return self._transform_referenced_recipe(data)
         # recursively process other objects
         for k, v in data.items():
             data[k] = self._process_recipe_data(k, v)
 
         return data
 
+    def _replace_taken_id(self, recipe: dict[str, Any]) -> dict[str, Any]:
+        """Drop the exported id when this instance already has a recipe using it.
+
+        An export carries the id of the recipe it came from, which collides as soon as the file is
+        imported back into the instance that produced it. Recipe ids are unique across every group,
+        so the lookup deliberately runs without the group and household filters, and matches on
+        `id` because the recipe repository is keyed by slug.
+        """
+        recipe_id = self._parse_uuid(recipe.get("id"))
+        if not recipe_id:
+            return recipe
+
+        all_recipes = get_repositories(self.repos.session, group_id=None, household_id=None).recipes
+        if all_recipes.get_one(recipe_id, key="id"):
+            recipe["id"] = str(uuid4())
+
+        return recipe
+
+    @staticmethod
+    def _parse_uuid(value: Any) -> UUID | None:
+        if not value:
+            return None
+        try:
+            return UUID(str(value))
+        except ValueError:
+            return None
+
     def clean_recipe_dict(self, recipe: dict[str, Any]) -> dict[str, Any]:
-        return self._process_recipe_data("recipe", recipe)
+        # The checks below only recognise snake_case keys. camelCase input would skip them, and its
+        # `groupId` would win over the group stamped on each object, so normalise the keys first.
+        recipe = Recipe.model_validate(recipe).model_dump(mode="json")
+        return self._process_recipe_data("recipe", self._replace_taken_id(recipe))
 
     def create_from_zip(self, archive: UploadFile, temp_path: Path) -> Recipe:
         """
@@ -508,7 +585,7 @@ class RecipeService(RecipeServiceBase):
             for ing in ingredients:
                 try:
                     sub_recipe = self.get_one(ing.referenced_recipe.id)
-                except (AttributeError, exceptions.NoEntryFound):
+                except AttributeError, exceptions.NoEntryFound:
                     continue
 
                 # Recursively check - path is modified in place and cleaned up via backtracking

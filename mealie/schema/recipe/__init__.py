@@ -175,6 +175,7 @@ __all__ = [
     "ScrapeRecipeTest",
     "Nutrition",
     "IngredientReferences",
+    "NoteReference",
     "RecipeStep",
     "CreateIngredientFood",
     "CreateIngredientFoodAlias",
@@ -206,5 +207,4 @@ __all__ = [
     "SubstitutionBase",
     "UnitFoodBase",
     "RecipeSuggestionSubstitutedFood",
-    "NoteReference",
 ]

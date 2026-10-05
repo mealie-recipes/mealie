@@ -85,8 +85,6 @@ groups_reports = "/api/groups/reports"
 """`/api/groups/reports`"""
 groups_seeders_foods = "/api/groups/seeders/foods"
 """`/api/groups/seeders/foods`"""
-groups_seeders_labels = "/api/groups/seeders/labels"
-"""`/api/groups/seeders/labels`"""
 groups_seeders_units = "/api/groups/seeders/units"
 """`/api/groups/seeders/units`"""
 groups_self = "/api/groups/self"
@@ -527,6 +525,11 @@ def recipes_slug(slug):
 def recipes_slug_assets(slug):
     """`/api/recipes/{slug}/assets`"""
     return f"{prefix}/recipes/{slug}/assets"
+
+
+def recipes_slug_assets_url(slug):
+    """`/api/recipes/{slug}/assets/url`"""
+    return f"{prefix}/recipes/{slug}/assets/url"
 
 
 def recipes_slug_comments(slug):

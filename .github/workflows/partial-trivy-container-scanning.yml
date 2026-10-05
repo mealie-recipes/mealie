@@ -13,9 +13,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Retrieve Python package
+        uses: actions/download-artifact@v6
+        with:
+          name: backend-dist
+          path: dist
+
+      # Scan the wheel that the release uses, and not a second copy that this
+      # job builds.
       - name: Build Dockerfile
         run: |
-          docker build -t mealie --file=./docker/Dockerfile .
+          docker build -t mealie --file=./docker/Dockerfile --build-context packages=dist .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master

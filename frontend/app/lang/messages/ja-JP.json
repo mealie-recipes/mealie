@@ -352,7 +352,7 @@
       "title": "Paprika レシピマネージャー"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealieは、v1.0 より前のリリースの Mealieアプリケーションからレシピをインポートできます。古いインスタンスからレシピをエクスポートし、以下の zip ファイルをアップロードします。エクスポートからインポートできるのはレシピのみであることに注意してください。",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "レシピの移行",
-    "recipe-data-migrations-explanation": "レシピは、サポートされている別のアプリケーションからMealieに移行できます。これはMealieを始めるのに最適な方法です。",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "別のアプリケーションもしくは古いバージョンのMealieからですか？移行をチェックして、データをインポートできるかどうかを確認してください。",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "移行タイプを選択",
     "tag-all-recipes": "すべてのレシピを {tag-name} タグでタグ付けする",
     "recipe-1": "レシピ1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "エディタにドラッグ＆ドロップして画像を添付する",
     "drop-image": "画像をドロップ",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "単位または定義された食品のレシピは解析できません。",
     "parse-ingredients": "材料の解析",
     "edit-markdown": "マークダウンの編集",
@@ -588,8 +590,8 @@
     "report-deletion-failed": "レポートの削除に失敗しました",
     "recipe-debugger": "レシピのデバッガー",
     "recipe-debugger-description": "デバッグしたいレシピのURLを取得し、ここに貼り付けます。 URLはレシピスクレーパーによって削除され、結果が表示されます。 データが返されていない場合、スクレイプしようとしているサイトはMealieまたはそのスクレイパーライブラリではサポートされていません。",
-    "use-openai": "OpenAIを使用する",
-    "recipe-debugger-use-openai-description": "スクレーパーライブラリに依存するのではなく、結果を解析するためにOpenAIを使用してください。 URL経由でレシピを作成する場合は、スクレーパーライブラリが失敗した場合に自動的に行われますが、ここで手動でテストすることができます。",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "デバッグ",
     "tree-view": "ツリービュー",
     "recipe-servings": "レシピの分量",
@@ -601,15 +603,22 @@
     "remove-image": "画像を削除",
     "nextStep": "次のステップ",
     "recipe-actions": "レシピ操作",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Ingredient Parser",
       "select-parser": "パーサを選択",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "自然言語処理",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Bruteパーサ",
-      "openai-parser": "OpenAIパーサ",
+      "ai-parser": "AI Parser",
       "missing-unit": "欠けている単位を作成: {unit}",
       "missing-food": "欠けている食材を作成: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
@@ -944,7 +953,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "ローカル言語に基づいた共通ラベルをデータベースにシードします。",
       "edit-label": "ラベルの編集",
       "new-label": "新規ラベル",
       "labels": "ラベル",
@@ -1103,7 +1111,7 @@
     "ingredients-natural-language-processor-explanation-2": "これは完璧ではありませんが、一般的に優れた結果が得られ、成分を手動で個別のフィールドに解析するための良い出発点となります。あるいは、パターン マッチング技術を使用して成分を識別する「Brute」プロセッサを使用することもできます。",
     "nlp": "NLP",
     "brute": "ブルート",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "個々の信頼性を表示",
     "ingredient-text": "材料テキスト",
     "average-confident": "{0} 自信あり",
@@ -1120,8 +1128,8 @@
       "restore-from-v1-backup": "Mealie v1以前のインスタンスからのバックアップはありますか？ここで復元できます。",
       "manage-profile-or-get-invite-link": "自分のプロフィールを管理するか、招待リンクを取得して他の人と共有します。"
     },
-    "debug-openai-services": "OpenAIサービスのデバッグ",
-    "debug-openai-services-description": "このページを使用して、OpenAIサービスをデバッグします。ここでOpenAI接続をテストし、結果を確認できます。画像サービスが有効になっている場合は、画像を提供することもできます。",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "テスト実行",
     "test-results": "テスト結果",
     "group-delete-note": "ユーザーまたは世帯を含むグループは削除できません",
@@ -1197,7 +1205,9 @@
       "is-less-than": "より小さい",
       "is-less-than-or-equal-to": "以下",
       "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-newer-than": "is newer than",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "は",

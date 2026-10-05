@@ -58,7 +58,7 @@ const sections = ref([
         icon: $globals.icons.import,
         to: "/group/migrations",
         text: i18n.t("migration.recipe-migration"),
-        description: i18n.t("migration.coming-from-another-application-or-an-even-older-version-of-mealie"),
+        description: i18n.t("migration.migration-description"),
       },
     ],
   },

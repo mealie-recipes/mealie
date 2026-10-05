@@ -46,16 +46,16 @@ class Tool(SqlAlchemyBase, BaseMixins):
 
     # ID Relationships
     group_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="tools", foreign_keys=[group_id])
+    group: Mapped[Group] = orm.relationship("Group", back_populates="tools", foreign_keys=[group_id])
 
     name: FilterableColumn[str] = mapped_column(String, index=True, nullable=False)
     slug: FilterableColumn[str] = mapped_column(String, index=True, nullable=False)
     recipe_count: Mapped[int] = query_expression(default_expr=literal(0))
 
-    households_with_tool: Mapped[list["Household"]] = orm.relationship(
+    households_with_tool: Mapped[list[Household]] = orm.relationship(
         "Household", secondary=households_to_tools, back_populates="tools_on_hand"
     )
-    recipes: Mapped[list["RecipeModel"]] = orm.relationship(
+    recipes: Mapped[list[RecipeModel]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_tools, back_populates="tools"
     )
 

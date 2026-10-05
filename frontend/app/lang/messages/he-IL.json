@@ -352,7 +352,7 @@
       "title": "מנהל מתכוני Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie יכול לייבא מתכונים מגרסאות ישנות של Mealie מתחת ל- v1.0. ייצא את המתכונים מהסביבה הישנה והעלה את קובץ ה- zip למטה. ניתן לייבא רק מתכונים מתהליך הייצוא.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "מילי לפני V1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "מגרציית מידע מתכונים",
-    "recipe-data-migrations-explanation": "ניתן לייבא מתכונים מאפליקציות תומכות אחרות אל Mealie. זו דרך מעולה להתחיל במילי.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "הגעת מתוכנה אחרת או גרסה ישנה יותר של Mealie? מומלץ לבדוק מיגרציות ולראות אם ניתן לייבא את המידע שלך.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "בחר סוג מיגרציה",
     "tag-all-recipes": "תיוג את כל המתכונים עם תגית {tag-name}",
     "recipe-1": "מתכון 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "הוסף תמונות ע\"י גרירה ושחרור אל תוך העורך",
     "drop-image": "גרור תמונה",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "לא ניתן לפענך מתכונים בהם יחידות או אוכל מוגדרים.",
     "parse-ingredients": "חילוץ רכיבים",
     "edit-markdown": "ערוך Markdown",
@@ -588,8 +590,8 @@
     "report-deletion-failed": "מחיקת דוח נכשלה",
     "recipe-debugger": "מנפה שגיאות למתכון",
     "recipe-debugger-description": "ניתן להדביק פה קישור למתכון שברצונך לנפות שגיאות עבורו. הכתובת תיסרק ע\"י סורק המתכונים והתוצאות יוצגו. אם לא חוזרות תוצאות, האתר לא נתמך ע\"י Mealie או ספריית הסריקה.",
-    "use-openai": "השתמש ב-OpenAI",
-    "recipe-debugger-use-openai-description": "ניתן להשתמש ב-OpenAI כדי לפענח את התוצאות במקום להסתמך על ספריית הסריקה. כאשר מייצרים מתכון באמצעות כתובת, זה נעשה אוטומטית אם ספריית הסריקה נכשלת, אך ניתן לבדוק זאת ידנית כאן.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "ניפוי שגיאות",
     "tree-view": "תצוגת עץ",
     "recipe-servings": "מנות למתכון",
@@ -601,15 +603,22 @@
     "remove-image": "האם למחוק את התמונה?",
     "nextStep": "השלב הבא",
     "recipe-actions": "פעולות במתכון",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "מפענח המרכיבים",
       "select-parser": "בחירת מפענח",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "מעבד שפה טבעית",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "מפענח פראי",
-      "openai-parser": "מפענח OpenAI",
+      "ai-parser": "AI Parser",
       "missing-unit": "יצירת יחידה חסרה: {unit}",
       "missing-food": "יצירת אוכל חסר: {food}",
       "this-unit-could-not-be-parsed-automatically": "יחידת המידה הזאת לא יכלה להיות מחולצת אוטומטית",
@@ -944,7 +953,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "אכלס את מסד הנתונים בתוויות נפוצות בהתאם לשפה המקומית שלך.",
       "edit-label": "עריכת תווית",
       "new-label": "תוויות חדשה",
       "labels": "תוויות",
@@ -1103,7 +1111,7 @@
     "ingredients-natural-language-processor-explanation-2": "זה לא מושלם, אבל מספק תוצאות טובות באופן כללי ומספק נקודת התחלה טובה עבור עיבוד ידני של מרכיבים לשדות נפרדים. לחילופין ניתן להשתמש בעיבוד \"נוקשה\" לזיהוי המרכיבים.",
     "nlp": "NLP",
     "brute": "נוקשה",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "הראה תאימות בודדת",
     "ingredient-text": "טקסט מרכיב",
     "average-confident": "{0} דיוק",
@@ -1120,8 +1128,8 @@
       "restore-from-v1-backup": "יש לך גיבוי משרת Mealie v1? ניתן לשחזר אותו כאן.",
       "manage-profile-or-get-invite-link": "ניתן לנהל את הפרופיל שלך, או לשתף את לינק ההזמנה לאחרים."
     },
-    "debug-openai-services": "ניפוי שגיאות לשירותי OpenAI",
-    "debug-openai-services-description": "עמוד זה ישמש לניפוי שגיאות בשירותי OpenAI. ניתן לבדוק חיבור ל-OpenAI ולראות את התוצאות כאן. אם איפשרת את שירותי התמונה, ניתן גם לספק תמונה.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "הרצת בדיקה",
     "test-results": "תוצאות הבדיקה",
     "group-delete-note": "לא ניתן למחוק קבוצות עם משתמשים או משקי בית",
@@ -1197,7 +1205,9 @@
       "is-less-than": "קטן מ-",
       "is-less-than-or-equal-to": "קטן או שווה ל-",
       "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-newer-than": "is newer than",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "זהה ל-",

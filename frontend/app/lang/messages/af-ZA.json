@@ -352,7 +352,7 @@
       "title": "Paprika resepte bestuurder"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie kan resepte invoer vanaf ou weergawes van Mealie (voor weergawe 1.0). Voer jou resepte uit die ou weergawe uit en laai die zip-dokument hieronder op. Neem asseblief kennis dat slegs resepte van uitvoer ingevoer kan word.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Ou weergawes Mealie (voor weergawe 1.0)"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Resep migrasie",
-    "recipe-data-migrations-explanation": "Jy kan resepte vanaf 'n ander program in Mealie invoer. Op hierdie manier kan jy vinnig aan die gang kom.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Kies die tipe migrasie",
     "tag-all-recipes": "Merk alle resepte met {tag-name}-merker",
     "recipe-1": "Resep 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Voeg prente by deur dit in die bewerker te sleep en los",
     "drop-image": "Drop image",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Resepte met sekere eenhede of kosse kan nie verwerk word nie.",
     "parse-ingredients": "Verwerk bestanddele",
     "edit-markdown": "Wysig Markdown",
@@ -588,8 +590,8 @@
     "report-deletion-failed": "Kon nie verslag uitvee nie",
     "recipe-debugger": "Resep debugger",
     "recipe-debugger-description": "Gryp die URL van die resep wat jy wil debug en plak dit hier. Die URL sal deur die resepskraper geskraap word en die resultate sal vertoon word. As jy nie enige data terugstuur sien nie, word die webwerf wat jy probeer skraap nie deur Mealie of sy skraperbiblioteek ondersteun nie.",
-    "use-openai": "Gebruik OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Boomstruktuur",
     "recipe-servings": "Recipe Servings",
@@ -601,15 +603,22 @@
     "remove-image": "Verwyder prent",
     "nextStep": "Volgende stap",
     "recipe-actions": "Resep Aksies",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Ingredient Parser",
       "select-parser": "Select Parser",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Natural Language Processor",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Brute Parser",
-      "openai-parser": "OpenAI Parser",
+      "ai-parser": "AI Parser",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
@@ -944,7 +953,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Vul die databasis met algemene etikette gebaseer op jou plaaslike taal.",
       "edit-label": "Wysig etiket",
       "new-label": "Nuwe etiket",
       "labels": "Etikette",
@@ -1103,7 +1111,7 @@
     "ingredients-natural-language-processor-explanation-2": "Dit is nie perfek nie, maar dit lewer oor die algemeen uitstekende resultate en is 'n goeie beginpunt vir die handverwerking van bestanddele in individuele velde. Jy kan ook die \"Brute\" verwerker gebruik wat 'n patroonpastegniek gebruik om bestanddele te identifiseer.",
     "nlp": "NLP",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Wys individuele oortuiging",
     "ingredient-text": "Bestanddeel teks",
     "average-confident": "{0} oortuig",
@@ -1120,8 +1128,8 @@
       "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
       "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
     },
-    "debug-openai-services": "Debug OpenAI Services",
-    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Run Test",
     "test-results": "Test Results",
     "group-delete-note": "Groups with users or households cannot be deleted",
@@ -1197,7 +1205,9 @@
       "is-less-than": "is less than",
       "is-less-than-or-equal-to": "is less than or equal to",
       "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-newer-than": "is newer than",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "is",
