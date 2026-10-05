@@ -112,6 +112,7 @@ def test_paste_mealie_export_keeps_contents(
 
     imported = api_client.get(api_routes.recipes_slug(r.json()), headers=unique_user.token).json()
     assert imported["id"] != original["id"]
+    assert imported["slug"] != original["slug"]
     for field in ["description", "recipeYield", "recipeServings", "orgURL", "extras", "settings", "nutrition"]:
         assert imported[field] == original[field], field
 
@@ -135,6 +136,40 @@ def test_paste_mealie_export_keeps_contents(
     still_there = api_client.get(api_routes.recipes_slug(original["slug"]), headers=unique_user.token)
     assert still_there.status_code == 200
     assert still_there.json()["id"] == original["id"]
+
+
+def test_paste_mealie_export_from_another_group(api_client: TestClient, unique_user: TestUser, g2_user: TestUser):
+    original = create_populated_recipe(api_client, unique_user)
+
+    r = paste(
+        api_client,
+        g2_user,
+        camel_case_export(api_client, unique_user, original["slug"]),
+        include_tags=True,
+        include_categories=True,
+    )
+    assert r.status_code == 201, r.text
+
+    imported = api_client.get(api_routes.recipes_slug(r.json()), headers=g2_user.token).json()
+    assert imported["groupId"] == str(g2_user.group_id)
+
+    for organizer_list in ("recipeCategory", "tags", "tools"):
+        for organizer in imported[organizer_list]:
+            assert organizer["groupId"] == str(g2_user.group_id), organizer_list
+
+    ingredient = imported["recipeIngredient"][0]
+    if "groupId" in ingredient["food"]:
+        assert ingredient["food"]["groupId"] == str(g2_user.group_id)
+    if "groupId" in ingredient["unit"]:
+        assert ingredient["unit"]["groupId"] == str(g2_user.group_id)
+
+    # the recipe the export came from, and its organizers, are untouched
+    still_there = api_client.get(api_routes.recipes_slug(original["slug"]), headers=unique_user.token)
+    assert still_there.status_code == 200
+    still_there_json = still_there.json()
+    assert still_there_json["id"] == original["id"]
+    for organizer_list in ("recipeCategory", "tags", "tools"):
+        assert [o["id"] for o in still_there_json[organizer_list]] == [o["id"] for o in original[organizer_list]]
 
 
 def test_paste_mealie_export_honours_organizer_options(api_client: TestClient, unique_user: TestUser):

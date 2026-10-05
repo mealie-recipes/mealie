@@ -484,6 +484,8 @@ class RecipeService(RecipeServiceBase):
         A paste carries no files, so its image key and asset entries would point at nothing, and
         comments belong to the recipe they were written on. All three are dropped before
         validation, so a hand-edited comment cannot fail the import.
+
+        Raises `InvalidMealieExportError` with a translated message when the dump cannot be imported.
         """
         recipe = {k: v for k, v in recipe.items() if k not in ("image", "assets", "comments")}
         try:

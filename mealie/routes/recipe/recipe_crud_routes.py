@@ -185,7 +185,12 @@ class RecipeController(BaseRecipeController):
 
     @router.post("/create/html-or-json", status_code=201, response_model=str)
     async def create_recipe_from_html_or_json(self, req: ScrapeRecipeData) -> str:
-        """Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL"""
+        """Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL.
+
+        A complete recipe exported from Mealie (the JSON from an export zip, or the recipe as
+        returned by the API) is imported with its full structure instead of being parsed as
+        schema.org.
+        """
 
         async for event in self._create_recipe_from_html_or_json(req):
             if isinstance(event.data, SSEDataEventDone):
@@ -200,7 +205,11 @@ class RecipeController(BaseRecipeController):
     async def create_recipe_from_html_or_json_stream(self, req: ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
         """
         Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL,
-        streaming progress via SSE
+        streaming progress via SSE.
+
+        A complete recipe exported from Mealie (the JSON from an export zip, or the recipe as
+        returned by the API) is imported with its full structure instead of being parsed as
+        schema.org.
         """
 
         async for event in self._create_recipe_from_html_or_json(req):

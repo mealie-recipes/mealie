@@ -8,7 +8,7 @@
 Mealie offers several ways to create recipes:
 
 - **Recipe Scraper:** Create recipes from hundreds of websites by simply providing a URL.
-- **Recipe HTML or JSON:** Copy/paste structured HTML or JSON and Mealie can import it. A recipe copied from Mealie's own JSON editor, or the JSON file from a Mealie recipe export, is imported with its full structure: ingredient foods and units, step titles and ingredient links, notes, tags, categories and tools.
+- **Recipe HTML or JSON:** Copy/paste structured HTML or JSON and Mealie can import it. A recipe copied from Mealie's own JSON editor, or the JSON file from a Mealie recipe export, is imported with its full structure: ingredient foods and units, step titles and ingredient links, notes, tools, and tags and categories (when those import options are ticked).
 - **Manual Editor:** Create recipes from scratch using the integrated editor.
 
 Mealie's [AI integration](./installation/ai-providers.md) adds an **Import with AI** page, which creates a recipe out of just about anything:
