@@ -216,6 +216,12 @@ tasks:
     cmds:
       - uv run python mealie/app.py
 
+  php:
+    desc: runs the PHP backend on port 9001
+    dir: php-w1
+    cmds:
+      - php artisan serve --host=127.0.0.1 --port=9001
+
   py:postgres:
     desc: runs the backend server configured for containerized postgres
     env:
