@@ -10,7 +10,7 @@ from alembic import command
 from alembic.config import Config
 from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
-from sqlalchemy import Connection, ForeignKey, ForeignKeyConstraint, MetaData, Table, create_engine, insert, text
+from sqlalchemy import JSON, Connection, ForeignKey, ForeignKeyConstraint, MetaData, Table, create_engine, insert, text
 from sqlalchemy.engine import base
 from sqlalchemy.orm import sessionmaker
 
@@ -108,26 +108,23 @@ class AlchemyExporter(BaseService):
 
         return False
 
-    def convert_types(self, data: dict) -> dict:
-        """
-        walks the dictionary to restore all things that look like string representations of their complex types
-        used in the context of reading a json file into a database via SQLAlchemy.
-        """
-        for key, value in data.items():
-            if isinstance(value, dict):
-                data = self.convert_types(value)
-            elif isinstance(value, list):  # assume that this is a list of dictionaries
-                data[key] = [self.convert_types(item) for item in value]
-            elif isinstance(value, str):
-                if self.is_uuid(value):
-                    # convert the data to the current database's native GUID type
-                    data[key] = GUID.convert_value_to_guid(value, self.engine.dialect)
-                if key in self.look_for_datetime:
-                    data[key] = self.DateTimeParser(dt=value).dt
-                if key in self.look_for_date:
-                    data[key] = self.DateTimeParser(date=value).date
-                if key in self.look_for_time:
-                    data[key] = self.DateTimeParser(time=value).time
+    def convert_types(self, data: dict[str, list[dict]]) -> dict[str, list[dict]]:
+        """Restore database scalar types while preserving JSON column contents verbatim."""
+        for table_name, rows in data.items():
+            table = self.meta.tables[table_name]
+            json_columns = {column.name for column in table.columns if isinstance(column.type, JSON)}
+            for row in rows:
+                for key, value in row.items():
+                    if key in json_columns or not isinstance(value, str):
+                        continue
+                    if self.is_uuid(value):
+                        row[key] = GUID.convert_value_to_guid(value, self.engine.dialect)
+                    if key in self.look_for_datetime:
+                        row[key] = self.DateTimeParser(dt=value).dt
+                    if key in self.look_for_date:
+                        row[key] = self.DateTimeParser(date=value).date
+                    if key in self.look_for_time:
+                        row[key] = self.DateTimeParser(time=value).time
         return data
 
     def clean_rows(self, db_dump: dict[str, list[dict]], table: Table, rows: list[dict]) -> list[dict]:
@@ -216,9 +213,8 @@ class AlchemyExporter(BaseService):
         """Restores all data from dictionary into the database"""
         with self.engine.begin() as connection:
             with ForeignKeyDisabler(connection, self.engine.dialect.name, logger=self.logger):
-                data = self.convert_types(db_dump)
-
                 self.meta.reflect(bind=self.engine)
+                data = self.convert_types(db_dump)
                 for table_name, rows in data.items():
                     if not rows:
                         continue

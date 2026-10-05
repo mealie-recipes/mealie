@@ -15,7 +15,7 @@ export function sanitizeIngredientHTML(rawHtml: string) {
   });
 }
 
-export function useFoodName(food: CreateIngredientFood | IngredientFood | IngredientFoodSummary | undefined, usePlural: boolean) {
+export function useFoodName(food: CreateIngredientFood | IngredientFood | IngredientFoodSummary | { name: string; pluralName?: string | null } | undefined, usePlural: boolean) {
   if (!food) {
     return "";
   }
@@ -137,7 +137,7 @@ export function useIngredientTextParser() {
     }
 
     const unitName = useUnitName(unit || undefined, usePluralUnit);
-    const ingName = referencedRecipe ? referencedRecipe.name || "" : useFoodName(food || undefined, usePluralFood);
+    const ingName = referencedRecipe ? referencedRecipe.name || "" : useFoodName(food || ingredient.foodSnapshot || undefined, usePluralFood);
 
     return {
       quantity: returnQty ? sanitizeIngredientHTML(returnQty) : undefined,
@@ -163,7 +163,7 @@ export function useIngredientTextParser() {
     // If the ingredient has no unit and no food, it's unparsed — the note
     // contains the full ingredient text. Using parseIngredientText would
     // incorrectly prepend the quantity (e.g. "1 1/2 cup apples").
-    if (!ingredient.unit && !ingredient.food) {
+    if (!ingredient.unit && !ingredient.food && !ingredient.foodSnapshot) {
       return ingredient.note || "";
     }
 

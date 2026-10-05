@@ -42,7 +42,7 @@ export function useShoppingListSorting() {
         ? checkedItemKey
         : item.food?.name
           ? item.food.name
-          : item.note || "";
+          : item.foodSnapshot?.name || item.note || "";
 
       const group = listItemGroupsMap.get(key);
       if (!group) {
