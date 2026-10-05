@@ -1205,7 +1205,9 @@
       "is-less-than": "менше ніж",
       "is-less-than-or-equal-to": "менше або дорівнює",
       "is-older-than": "старіший ніж",
-      "is-newer-than": "новіше, ніж"
+      "is-newer-than": "новіше, ніж",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "є",
