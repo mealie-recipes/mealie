@@ -1205,7 +1205,9 @@
       "is-less-than": "er mindre end (Automatic Translation)",
       "is-less-than-or-equal-to": "er mindre end eller lig med (Automatic Translation)",
       "is-older-than": "er ældre end",
-      "is-newer-than": "er nyere end"
+      "is-newer-than": "er nyere end",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "er",
