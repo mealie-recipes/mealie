@@ -199,3 +199,34 @@ def test_paste_mealie_export_skips_the_scraper(api_client: TestClient, unique_us
 
     r = paste(api_client, unique_user, snake_case_export(api_client, unique_user, original["slug"]))
     assert r.status_code == 201, r.text
+
+
+INVALID_EXPORT_MESSAGE = "This looks like a recipe exported from Mealie, but it could not be imported"
+
+
+def broken_export(api_client: TestClient, user: TestUser) -> str:
+    """A recognisable export whose ingredient quantity cannot be validated."""
+    original = create_populated_recipe(api_client, user)
+    data = json.loads(camel_case_export(api_client, user, original["slug"]))
+    data["recipeIngredient"][0]["quantity"] = "not a number"
+    return json.dumps(data)
+
+
+def test_paste_broken_mealie_export_returns_a_clear_error(api_client: TestClient, unique_user: TestUser):
+    r = paste(api_client, unique_user, broken_export(api_client, unique_user))
+
+    assert r.status_code == 400
+    assert r.json()["detail"]["message"] == INVALID_EXPORT_MESSAGE
+
+
+def test_paste_broken_mealie_export_streams_a_clear_error(api_client: TestClient, unique_user: TestUser):
+    response = api_client.post(
+        api_routes.recipes_create_html_or_json_stream,
+        json={"data": broken_export(api_client, unique_user)},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    errors = [e for e in parse_sse_events(response.text) if e["event"] == "error"]
+    assert errors
+    assert errors[0]["data"]["message"] == INVALID_EXPORT_MESSAGE

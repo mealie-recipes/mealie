@@ -71,7 +71,7 @@ from mealie.services.event_bus_service.event_types import (
 from mealie.services.openai import OpenAINotEnabledException
 from mealie.services.recipe.ai_recipe_service import AIProviderNotEnabledError, AIRecipeService
 from mealie.services.recipe.import_workflow.exceptions import NoRecipeDataError
-from mealie.services.recipe.mealie_export import parse_mealie_export
+from mealie.services.recipe.mealie_export import InvalidMealieExportError, parse_mealie_export
 from mealie.services.recipe.recipe_data_service import (
     InvalidDomainError,
     NotAnImageError,
@@ -242,7 +242,7 @@ class RecipeController(BaseRecipeController):
         if isinstance(ex, exceptions.RateLimitError):
             return self.t("exceptions.rate-limit-error")
 
-        if isinstance(ex, NoRecipeDataError | AIProviderNotEnabledError):
+        if isinstance(ex, NoRecipeDataError | AIProviderNotEnabledError | InvalidMealieExportError):
             # these are raised with an already-translated message
             if message := str(ex):
                 return message

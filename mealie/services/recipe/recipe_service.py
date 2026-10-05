@@ -38,6 +38,7 @@ from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
 from mealie.services.household_services.household_service import HouseholdService
 from mealie.services.parser_services._base import DataMatcher
+from mealie.services.recipe.mealie_export import InvalidMealieExportError
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 
 from .template_service import TemplateService
@@ -485,13 +486,18 @@ class RecipeService(RecipeServiceBase):
         validation, so a hand-edited comment cannot fail the import.
         """
         recipe = {k: v for k, v in recipe.items() if k not in ("image", "assets", "comments")}
-        cleaned = self.clean_recipe_dict(recipe)
-        if not include_tags:
-            cleaned["tags"] = []
-        if not include_categories:
-            cleaned["recipe_category"] = []
+        try:
+            cleaned = self.clean_recipe_dict(recipe)
+            if not include_tags:
+                cleaned["tags"] = []
+            if not include_categories:
+                cleaned["recipe_category"] = []
 
-        return self.create_one(Recipe(**cleaned))
+            return self.create_one(Recipe(**cleaned))
+        except Exception as e:
+            # the paste was recognised as a Mealie export, so falling back to the web scraper would
+            # only produce the degraded import this path exists to avoid
+            raise InvalidMealieExportError(self.t("recipe.import-errors.invalid-mealie-export")) from e
 
     def create_from_zip(self, archive: UploadFile, temp_path: Path) -> Recipe:
         """

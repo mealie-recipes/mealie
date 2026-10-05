@@ -33,3 +33,7 @@ def parse_mealie_export(data: str) -> dict[str, Any] | None:
         return None
 
     return recipe
+
+
+class InvalidMealieExportError(Exception):
+    """A recognised Mealie export could not be imported. Raised with an already translated message."""
