@@ -1205,7 +1205,9 @@
       "is-less-than": "és menys que",
       "is-less-than-or-equal-to": "és menor o igual a",
       "is-older-than": "és més antic que",
-      "is-newer-than": "és més nou que"
+      "is-newer-than": "és més nou que",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "és",
