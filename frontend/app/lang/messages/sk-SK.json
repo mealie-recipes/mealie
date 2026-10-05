@@ -1205,7 +1205,9 @@
       "is-less-than": "je menšie ako",
       "is-less-than-or-equal-to": "je menšie alebo rovné",
       "is-older-than": "je starší ako",
-      "is-newer-than": "je novší ako"
+      "is-newer-than": "je novší ako",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "je",
