@@ -1205,7 +1205,9 @@
       "is-less-than": "е по-малко от",
       "is-less-than-or-equal-to": "e по-малко или равно на",
       "is-older-than": "е по-стар от",
-      "is-newer-than": "е по-нов от"
+      "is-newer-than": "е по-нов от",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "е",
