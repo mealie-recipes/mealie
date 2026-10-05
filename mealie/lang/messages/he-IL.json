@@ -68,7 +68,7 @@
         "report-deleted": "הדיווח נמחק."
     },
     "exceptions": {
-        "permission_denied": "אין לך הרשאות לביצוע פעולה זו",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "המשאב המבוקש לא נמצא",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
