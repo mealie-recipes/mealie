@@ -1205,7 +1205,9 @@
       "is-less-than": "on vähemmän kuin",
       "is-less-than-or-equal-to": "on vähemmän tai yhtäsuuri kuin",
       "is-older-than": "on vanhempi kuin",
-      "is-newer-than": "on uudempi kuin"
+      "is-newer-than": "on uudempi kuin",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "on",
