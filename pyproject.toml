@@ -14,7 +14,7 @@ dependencies = [
     "apprise==2.0.0",
     "bcrypt==5.0.0",
     "extruct==0.18.0",
-    "fastapi==0.142.1",
+    "fastapi==0.142.2",
     "httpx==0.28.1",
     "lxml==6.1.3",
     "orjson==3.12.0",
@@ -58,7 +58,7 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "zensical==0.0.66",
+    "zensical==0.0.67",
 ]
 dev = [
     "coverage==7.16.2",
@@ -78,7 +78,7 @@ dev = [
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
     "httpx2==2.13.1",
-    "zensical==0.0.66",
+    "zensical==0.0.67",
     "pytest-xdist==3.8.0",
 ]
 
