@@ -1,5 +1,6 @@
 from pydantic.alias_generators import to_camel
 
+from mealie.core.exceptions import SlugError
 from mealie.schema.openai.recipe import OpenAIRecipe
 from mealie.schema.recipe.recipe import Recipe, create_recipe_slug
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient
@@ -9,6 +10,31 @@ from mealie.schema.recipe.recipe_step import RecipeStep
 from mealie.services.scraper import cleaner
 
 from .context import WorkflowContext
+
+DEFAULT_RECIPE_NAME_KEY = "recipe.recipe-defaults.name"
+DEFAULT_RECIPE_NAME = "New Recipe"
+DEFAULT_RECIPE_SLUG = "new-recipe"
+
+
+def resolve_name_and_slug(ctx: WorkflowContext, name: str) -> tuple[str, str]:
+    """
+    Returns a recipe name and its slug, falling back to a default name when the provider's name
+    is missing or unsluggable.
+
+    A provider occasionally returns an empty or punctuation-only name, which has no valid slug.
+    That shouldn't fail the whole import, since the rest of the recipe is usually fine and the
+    user can rename it after the fact.
+    """
+
+    candidates = [name, ctx.translator.t(DEFAULT_RECIPE_NAME_KEY, DEFAULT_RECIPE_NAME)]
+    for candidate in candidates:
+        try:
+            return candidate, create_recipe_slug(candidate)
+        except SlugError:
+            continue
+
+    # the translated default has no valid slug in this locale, so fall back to an ASCII one
+    return candidates[-1], DEFAULT_RECIPE_SLUG
 
 
 def convert_nutrition(openai_recipe: OpenAIRecipe) -> Nutrition | None:
@@ -30,6 +56,7 @@ def to_recipe(ctx: WorkflowContext, openai_recipe: OpenAIRecipe) -> Recipe:
     """
 
     compiled = ctx.compiled_source
+    name, slug = resolve_name_and_slug(ctx, openai_recipe.name)
 
     # callers that persist the recipe themselves assign its owner, so only set it when known
     owner = (
@@ -40,8 +67,8 @@ def to_recipe(ctx: WorkflowContext, openai_recipe: OpenAIRecipe) -> Recipe:
 
     return Recipe(
         **owner,
-        name=openai_recipe.name,
-        slug=create_recipe_slug(openai_recipe.name),
+        name=name,
+        slug=slug,
         description=openai_recipe.description,
         recipe_yield=openai_recipe.recipe_yield,
         total_time=openai_recipe.total_time,

@@ -1,9 +1,14 @@
 import re
 import subprocess
+from collections.abc import Iterable, Iterator
+from contextlib import contextmanager
+from importlib import import_module
 from pathlib import Path
 
 from jinja2 import Template
+from pydantic import BaseModel
 from pydantic2ts import generate_typescript_defs
+from pydantic2ts.cli.script import extract_pydantic_models
 from utils import log
 
 # ============================================================
@@ -30,6 +35,20 @@ export {};
 
 CWD = Path(__file__).parent
 PROJECT_DIR = Path(__file__).parent.parent.parent
+
+
+@contextmanager
+def forbid_extra_fields(models: Iterable[type[BaseModel]]) -> Iterator[None]:
+    model_configs = {model: model.model_config.copy() for model in models}
+    try:
+        for model in model_configs:
+            if model.model_config.get("extra") != "allow":
+                model.model_config["extra"] = "forbid"
+        yield
+    finally:
+        for model, config in model_configs.items():
+            model.model_config.clear()
+            model.model_config.update(config)
 
 
 def generate_global_components_types() -> None:
@@ -172,14 +191,8 @@ def generate_typescript_types() -> None:  # noqa: C901
         with open(file, "w") as f:
             f.writelines(lines)
 
-    def path_to_module(path: Path):
-        str_path: str = str(path)
-
-        str_path = str_path.removeprefix(str(PROJECT_DIR))
-        str_path = str_path.removeprefix("/")
-        str_path = str_path.replace("/", ".")
-
-        return str_path
+    def path_to_module(path: Path) -> str:
+        return ".".join(path.relative_to(PROJECT_DIR).parts)
 
     schema_path = PROJECT_DIR / "mealie" / "schema"
     types_dir = PROJECT_DIR / "frontend" / "app" / "lib" / "api" / "types"
@@ -190,7 +203,7 @@ def generate_typescript_types() -> None:  # noqa: C901
     skipped_dirs: list[Path] = []
     failed_modules: list[Path] = []
 
-    out_paths: list[Path] = []
+    generator_inputs = []
     for module in schema_path.iterdir():
         if module.is_dir() and module.stem in ignore_dirs:
             skipped_dirs.append(module)
@@ -205,12 +218,23 @@ def generate_typescript_types() -> None:  # noqa: C901
 
         try:
             path_as_module = path_to_module(module)
-            generate_typescript_defs(path_as_module, str(out_path), exclude=("MealieModel"))  # type: ignore
-            clean_output_file(out_path)
-            out_paths.append(out_path)
+            models = extract_pydantic_models(import_module(path_as_module))
+            generator_inputs.append((module, path_as_module, out_path, models))
         except Exception:
             failed_modules.append(module)
             log.exception(f"Module Error: {module}")
+
+    out_paths: list[Path] = []
+    models = {model for *_, module_models in generator_inputs for model in module_models}
+    with forbid_extra_fields(models):
+        for module, path_as_module, out_path, _ in generator_inputs:
+            try:
+                generate_typescript_defs(path_as_module, str(out_path), exclude=("MealieModel"))  # type: ignore
+                clean_output_file(out_path)
+                out_paths.append(out_path)
+            except Exception:
+                failed_modules.append(module)
+                log.exception(f"Module Error: {module}")
 
     # Run ESLint --fix on the files to clean up any formatting issues
     subprocess.run(

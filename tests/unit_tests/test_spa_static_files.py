@@ -72,3 +72,50 @@ async def test_without_404_html_falls_back_to_index(tmp_path):
 
     assert response.status_code == 200
     assert response.media_type == "text/html"
+
+
+@pytest.fixture()
+def spa_dir_with_login(spa_dir):
+    """SPA build output with a prerendered route directory, like /login/index.html."""
+    (spa_dir / "login").mkdir()
+    (spa_dir / "login" / "index.html").write_text("<!DOCTYPE html><html><head></head><body>login</body></html>")
+    return spa_dir
+
+
+@pytest.mark.asyncio
+async def test_directory_redirect_is_relative(spa_dir_with_login):
+    """/login must redirect to /login/ without using the request's Host header.
+
+    Regression test for #7251: StaticFiles builds the trailing-slash redirect as an absolute URL
+    from the Host header, which breaks OIDC behind proxies that rewrite Host and lets a spoofed
+    Host header choose the redirect target.
+    """
+    scope = {
+        "type": "http",
+        "method": "GET",
+        "path": "/login",
+        "query_string": b"direct=1",
+        "headers": [(b"host", b"evil.example")],
+        "scheme": "https",
+    }
+    spa = SPAStaticFiles(directory=str(spa_dir_with_login), html=True)
+    response = await spa.get_response("login", scope)
+
+    assert response.status_code == 307
+    assert response.headers["location"] == "/login/?direct=1"
+
+
+@pytest.mark.asyncio
+async def test_directory_redirect_is_not_protocol_relative(spa_dir_with_login):
+    """A path with repeated leading slashes must not become a protocol-relative redirect (//host/...)."""
+    scope = {
+        "type": "http",
+        "method": "GET",
+        "path": "//login",
+        "headers": [(b"host", b"mealie.example")],
+    }
+    spa = SPAStaticFiles(directory=str(spa_dir_with_login), html=True)
+    response = await spa.get_response("login", scope)
+
+    assert response.status_code == 307
+    assert response.headers["location"] == "/login/"

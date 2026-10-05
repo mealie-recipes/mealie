@@ -200,7 +200,7 @@ interface OptionSection {
 }
 
 definePageMeta({
-  middleware: ["advanced-only"],
+  middleware: ["auth", "advanced-only"],
 });
 
 const api = useUserApi();

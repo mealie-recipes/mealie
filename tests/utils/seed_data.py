@@ -1,4 +1,4 @@
-from mealie.repos.seed.seeders import IngredientFoodsSeeder, IngredientUnitsSeeder, MultiPurposeLabelSeeder
+from mealie.repos.seed.seeders import IngredientFoodsSeeder, IngredientUnitsSeeder
 
 
 def seeded_food_names(locale: str) -> set[str]:
@@ -12,5 +12,5 @@ def seeded_unit_names(locale: str) -> set[str]:
 
 
 def seeded_label_names(locale: str) -> set[str]:
-    seed_data = MultiPurposeLabelSeeder.load_file(MultiPurposeLabelSeeder.get_file(locale))
-    return set(filter(None, seed_data.keys()))
+    seed_data = IngredientFoodsSeeder.load_file(IngredientFoodsSeeder.get_file(locale))
+    return {label["name"] for label in seed_data.values() if label["name"]}

@@ -42,12 +42,52 @@ from .fetch import (  # noqa: F401
 logger = get_logger()
 
 
+def _comparable(text: str) -> str:
+    return " ".join(str(text).split()).casefold()
+
+
+def _is_stringified_mapping(text: str) -> bool:
+    """Detect a step dict that reached us as its own repr rather than as text.
+
+    recipe_scrapers stringifies the value when a site nests a single step where the spec
+    wants a list (hhursev/recipe-scrapers#2006), so this is never real instruction text and
+    must not count as content worth preserving.
+    """
+    return text.strip().startswith(("{'", '{"'))
+
+
+def prefer_structured_instructions(structured: list[dict], flat: list[dict]) -> bool:
+    """Decide whether the structured parse should replace the scraper's flattened text.
+
+    Two things have to hold. The structured parse must gain a heading, otherwise there is
+    nothing the flat text could not already express. And it must account for every piece of
+    text the flat parse produced, as either a step or a heading: a site specific scraper
+    reads the instructions off the page rather than out of the structured data, and its text
+    can differ from, or beat, what the page publishes as JSON-LD. That keeps the structured
+    data a refinement of the same content, never a replacement of better content.
+    """
+    headings = [step["title"] for step in structured if step.get("title")]
+    headings += [step["summary"] for step in structured if step.get("summary")]
+    if not headings:
+        return False
+
+    covered = {_comparable(step.get("text", "")) for step in structured}
+    covered |= {_comparable(heading) for heading in headings}
+
+    return all(
+        _comparable(step["text"]) in covered
+        for step in flat
+        if step.get("text") and not _is_stringified_mapping(step["text"])
+    )
+
+
 class ABCScraperStrategy(ABC):
     """
     Abstract class for all recipe parsers.
     """
 
     url: str
+    resolved_url: str | None
 
     def __init__(
         self,
@@ -57,9 +97,11 @@ class ABCScraperStrategy(ABC):
         raw_html: str | None = None,
         include_tags: bool = False,
         include_categories: bool = False,
+        resolved_url: str | None = None,
     ) -> None:
         self.logger = get_logger()
         self.url = url
+        self.resolved_url = resolved_url
         self.raw_html = raw_html
         self.translator = translator
         self.repos = repos
@@ -68,6 +110,11 @@ class ABCScraperStrategy(ABC):
         # out of the page's structured data
         self.include_tags = include_tags
         self.include_categories = include_categories
+
+    @property
+    def resource_url(self) -> str:
+        """Landing URL after redirects, or the URL the user supplied if we have not fetched."""
+        return self.resolved_url or self.url
 
     @abstractmethod
     def can_scrape(self) -> bool: ...
@@ -133,6 +180,50 @@ class RecipeScraperPackage(ABCScraperStrategy):
             return value
 
         def get_instructions() -> list[RecipeStep]:
+            flat = get_flat_instructions()
+            instructions = pick_structured_instructions(flat) or flat
+
+            self.logger.debug(f"Cleaned Instructions: (Type: {type(instructions)}) \n {instructions}")
+
+            try:
+                return [
+                    RecipeStep(title=x.get("title", ""), summary=x.get("summary", ""), text=x.get("text"))
+                    for x in instructions
+                ]
+            except TypeError:
+                return []
+
+        def pick_structured_instructions(flat: list[dict]) -> list[dict]:
+            """Parse the recipe's own structured data, and use it only when it is strictly better.
+
+            recipe_scrapers renders instructions as text, which flattens HowToSections and emits
+            each section name as a line of its own (so headings arrive as bogus steps), and drops
+            a step's own heading entirely. The structured data still holds both.
+
+            It is not always the better source though, so `prefer_structured_instructions`
+            decides: see there for when the scraper's own parsing wins instead.
+            """
+            try:
+                raw_instructions = scraped_data.schema.data.get("recipeInstructions")
+            except Exception:
+                self.logger.error("Error reading structured recipeInstructions")
+                return []
+
+            try:
+                structured = cleaner.clean_instructions(raw_instructions or [])
+            except TypeError:
+                self.logger.error("Error parsing structured instructions, falling back to the scraped text")
+                return []
+
+            if not prefer_structured_instructions(structured, flat):
+                return []
+
+            self.logger.debug(
+                f"Scraped Structured Instructions: (Type: {type(raw_instructions)}) \n {raw_instructions}"
+            )
+            return structured
+
+        def get_flat_instructions() -> list[dict]:
             instruction_as_text = try_get_default(
                 scraped_data.instructions,
                 "recipeInstructions",
@@ -141,14 +232,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
             self.logger.debug(f"Scraped Instructions: (Type: {type(instruction_as_text)}) \n {instruction_as_text}")
 
-            instruction_as_text = cleaner.clean_instructions(instruction_as_text)
-
-            self.logger.debug(f"Cleaned Instructions: (Type: {type(instruction_as_text)}) \n {instruction_as_text}")
-
-            try:
-                return [RecipeStep(title="", text=x.get("text")) for x in instruction_as_text]
-            except TypeError:
-                return []
+            return cleaner.clean_instructions(instruction_as_text)
 
         def get_notes() -> list[RecipeNote]:
             """Extract notes from schema.org recipe data and convert to RecipeNote objects"""
@@ -172,9 +256,17 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
             return cleaned_notes
 
-        cook_time = try_get_default(
-            None, "performTime", None, cleaner.clean_time, translator=self.translator
-        ) or try_get_default(scraped_data.cook_time, "cookTime", None, cleaner.clean_time, translator=self.translator)
+        def get_time(raw_time: Any) -> tuple[int | None, str | None]:
+            """Seconds when the time is structured, otherwise the cleaned text"""
+            if (seconds := cleaner.clean_duration(raw_time)) is not None:
+                return seconds, None
+            return None, cleaner.clean_time(raw_time, translator=self.translator)
+
+        total_time_seconds, total_time = get_time(try_get_default(scraped_data.total_time, "totalTime", None))
+        prep_time_seconds, prep_time = get_time(try_get_default(scraped_data.prep_time, "prepTime", None))
+        perform_time_seconds, perform_time = get_time(
+            try_get_default(None, "performTime", None) or try_get_default(scraped_data.cook_time, "cookTime", None)
+        )
 
         extras = ScrapedExtras()
 
@@ -195,13 +287,12 @@ class RecipeScraperPackage(ABCScraperStrategy):
                 cleaner.clean_ingredients,
             ),
             recipe_instructions=get_instructions(),
-            total_time=try_get_default(
-                scraped_data.total_time, "totalTime", None, cleaner.clean_time, translator=self.translator
-            ),
-            prep_time=try_get_default(
-                scraped_data.prep_time, "prepTime", None, cleaner.clean_time, translator=self.translator
-            ),
-            perform_time=cook_time,
+            total_time=total_time,
+            total_time_seconds=total_time_seconds,
+            prep_time=prep_time,
+            prep_time_seconds=prep_time_seconds,
+            perform_time=perform_time,
+            perform_time_seconds=perform_time_seconds,
             org_url=url or try_get_default(None, "url", None, cleaner.clean_string),
             notes=get_notes(),
         )
@@ -216,7 +307,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
         try:
             # scrape_html requires a URL, but we might not have one, so we default to a dummy URL
             scraped_schema = scrape_html(recipe_html, org_url=self.url or "https://example.com", supported_only=False)
-        except (NoSchemaFoundInWildMode, AttributeError):
+        except NoSchemaFoundInWildMode, AttributeError:
             self.logger.error(f"Recipe Scraper was unable to extract a recipe from {self.url}")
             return None
 
@@ -275,6 +366,7 @@ class RecipeScraperOpenAI(ABCScraperStrategy):
             # the HTML belongs to the URL, so it's passed as the page's content rather than as
             # extra material, which would compile the same page twice
             input=WorkflowInput(page_content=self.raw_html, url=self.url),
+            resolved_url=self.resolved_url,
             options=WorkflowOptions(
                 # organizers are only worth asking for if the caller intends to use them, and
                 # they're reported back through ScrapedExtras so the caller stays in control
@@ -310,7 +402,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             return False
 
         # Check if we can actually download something to transcribe
-        return transcription.is_video_url(self.url)
+        return transcription.is_video_url(self.resource_url)
 
     async def get_html(self, url: str) -> str:
         return self.raw_html or ""  # we don't use HTML with this scraper since we use ytdlp
@@ -325,7 +417,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             if on_progress:
                 await on_progress(self.translator.t("recipe.create-progress.downloading-video"))
 
-            video_data = await asyncio.to_thread(transcription.download_video, self.url, temp_path)
+            video_data = await asyncio.to_thread(transcription.download_video, self.resource_url, temp_path)
 
             async def report_transcribing() -> None:
                 if on_progress:

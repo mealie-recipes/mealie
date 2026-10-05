@@ -4,6 +4,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import generate_session
+from mealie.lang.providers import Translator, get_locale_provider
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.event_bus_service.event_bus_listeners import (
@@ -47,9 +48,11 @@ class EventBusService:
         self,
         bg: BackgroundTasks | None = None,
         session: Session | None = None,
+        translator: Translator | None = None,
     ) -> None:
         self.bg = bg
         self.session = session
+        self.translator = translator
 
     def _get_listeners(self, group_id: UUID4, household_id: UUID4) -> list[EventListenerBase]:
         return [
@@ -73,7 +76,7 @@ class EventBusService:
         message: str = "",
     ) -> None:
         event = Event(
-            message=EventBusMessage.from_type(event_type, body=message),
+            message=EventBusMessage.from_type(event_type, body=message, translator=self.translator),
             event_type=event_type,
             integration_id=integration_id,
             document_data=document_data,
@@ -100,6 +103,7 @@ class EventBusService:
         cls,
         bg: BackgroundTasks,
         session=Depends(generate_session),
+        translator: Translator = Depends(get_locale_provider),
     ):
         """Convenience method to use as a dependency in FastAPI routes"""
-        return cls(bg, session)
+        return cls(bg, session, translator)

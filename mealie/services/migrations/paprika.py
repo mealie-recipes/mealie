@@ -7,8 +7,6 @@ import zipfile
 from gzip import GzipFile
 from pathlib import Path
 
-from mealie.schema.recipe import RecipeNote
-
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
 
@@ -53,7 +51,8 @@ class PaprikaMigrator(BaseMigrator):
             MigrationAlias(
                 key="notes",
                 alias="notes",
-                func=lambda x: [z for z in [RecipeNote(title="", text=x) if x else None] if z],
+                # the cleaner only accepts strings and dicts, so a RecipeNote here is silently dropped
+                func=lambda x: [{"title": "", "text": x}] if x else [],
             ),
             MigrationAlias(
                 key="recipeCategory",

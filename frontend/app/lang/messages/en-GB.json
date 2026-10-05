@@ -53,7 +53,7 @@
     "enable-notifier": "Enable Notifier",
     "what-events": "What events should this notifier subscribe to?",
     "user-events": "User Events",
-    "mealplan-events": "Mealplan Events",
+    "mealplan-events": "Meal Plan Events",
     "shopping-list-events": "Shopping List Events",
     "cookbook-events": "Cookbook Events",
     "tag-events": "Tag Events",
@@ -251,7 +251,12 @@
       "provider-delete-failed": "Failed to delete provider",
       "request-headers": "Request Headers",
       "request-params": "Request Parameters",
-      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {
@@ -347,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -359,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Recipe Data Migrations",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Choose Migration Type",
     "tag-all-recipes": "Tag all recipes with {tag-name} tag",
     "recipe-1": "Recipe 1",
@@ -462,7 +467,7 @@
     "trans-fat-content": "Trans-fat",
     "unsaturated-fat-content": "Unsaturated fat",
     "join-the-conversation": "Join the Conversation",
-    "add-recipe-to-mealplan": "Add Recipe to Mealplan",
+    "add-recipe-to-mealplan": "Add Recipe to Meal Plan",
     "entry-type": "Entry Type",
     "add-to-list": "Add to List",
     "add-to-plan": "Add to Plan",
@@ -521,6 +526,8 @@
     "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
     "drop-image": "Drop image",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recipes with units or foods defined cannot be parsed.",
     "parse-ingredients": "Parse ingredients",
     "edit-markdown": "Edit Markdown",
@@ -583,8 +590,8 @@
     "report-deletion-failed": "Report deletion failed",
     "recipe-debugger": "Recipe Debugger",
     "recipe-debugger-description": "Grab the URL of the recipe you want to debug and paste it here. The URL will be scraped by the recipe scraper and the results will be displayed. If you don't see any data returned, the site you are trying to scrape is not supported by Mealie or its scraper library.",
-    "use-openai": "Use OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Tree View",
     "recipe-servings": "Recipe Servings",
@@ -596,15 +603,22 @@
     "remove-image": "Remove image",
     "nextStep": "Next step",
     "recipe-actions": "Recipe Actions",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Ingredient Parser",
       "select-parser": "Select Parser",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Natural Language Processor",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Brute Parser",
-      "openai-parser": "OpenAI Parser",
+      "ai-parser": "AI Parser",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
@@ -939,7 +953,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language.",
       "edit-label": "Edit Label",
       "new-label": "New Label",
       "labels": "Labels",
@@ -1098,7 +1111,7 @@
     "ingredients-natural-language-processor-explanation-2": "It's not perfect, but it yields great results in general and is a good starting point for manually parsing ingredients into individual fields. Alternatively, you can also use the \"Brute\" processor that uses a pattern matching technique to identify ingredients.",
     "nlp": "NLP",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Show individual confidence",
     "ingredient-text": "Ingredient Text",
     "average-confident": "{0} Confident",
@@ -1115,8 +1128,8 @@
       "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
       "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
     },
-    "debug-openai-services": "Debug OpenAI Services",
-    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Run Test",
     "test-results": "Test Results",
     "group-delete-note": "Groups with users or households cannot be deleted",
@@ -1141,11 +1154,11 @@
     "group-settings-description": "Manage your common group settings, like privacy settings.",
     "household-description": "These items are shared within your household. Editing one of them will change it for the whole household!",
     "household-settings": "Household Settings",
-    "household-settings-description": "Manage your household settings, like mealplan and privacy settings.",
+    "household-settings-description": "Manage your household settings, like meal plan and privacy settings.",
     "cookbooks-description": "Manage a collection of recipe categories and generate pages for them.",
     "members": "Members",
     "members-description": "See who's in your household and manage their permissions.",
-    "webhooks-description": "Setup webhooks that trigger on days that you have have mealplan scheduled.",
+    "webhooks-description": "Set up webhooks that trigger on days that you have meal plans scheduled.",
     "notifiers": "Notifiers",
     "notifiers-description": "Setup email and push notifications that trigger on specific events.",
     "manage-data": "Manage Data",

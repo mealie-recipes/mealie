@@ -2,7 +2,7 @@ from functools import wraps
 from uuid import UUID
 
 from pydantic import BaseModel, ConfigDict, Field
-from sqlalchemy import select
+from sqlalchemy import inspect, select
 from sqlalchemy.orm import MANYTOMANY, MANYTOONE, ONETOMANY, Session
 from sqlalchemy.orm.mapper import Mapper
 from sqlalchemy.orm.relationships import RelationshipProperty
@@ -26,9 +26,11 @@ class AutoInitConfig(BaseModel):
     # auto_create: bool = False
 
 
-def _get_config(relation_cls: type[SqlAlchemyBase]) -> AutoInitConfig:
+def _get_config(relation_cls: type[SqlAlchemyBase], *, protect_primary_key: bool = True) -> AutoInitConfig:
     """
     Returns the config for the given class.
+
+    `protect_primary_key` merges the default `{"id"}` exclusion into the model's own `exclude`.
     """
     cfg = AutoInitConfig()
     cfgKeys = cfg.model_dump().keys()
@@ -42,10 +44,7 @@ def _get_config(relation_cls: type[SqlAlchemyBase]) -> AutoInitConfig:
         if attr not in cfgKeys:
             continue
 
-        if attr == "exclude":
-            # A model's own `exclude` adds to the default exclusions (e.g. "id")
-            # rather than replacing them -- otherwise a model that declares
-            # `exclude` loses primary-key protection during `auto_init`.
+        if attr == "exclude" and protect_primary_key:
             cfg.exclude = cfg.exclude | set(class_config[attr])
         else:
             setattr(cfg, attr, class_config[attr])
@@ -129,7 +128,7 @@ def auto_init():  # sourcery no-metrics
             Ref: https://github.com/tiangolo/fastapi/issues/2194
             """
             cls = self.__class__
-            config = _get_config(cls)
+            config = _get_config(cls, protect_primary_key=not inspect(self).transient)
             exclude = config.exclude
 
             alchemy_mapper: Mapper = self.__mapper__

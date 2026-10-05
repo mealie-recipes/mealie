@@ -29,10 +29,6 @@ class DataSeederController(BaseUserController):
     def seed_foods(self, data: SeederConfig) -> dict:
         return self._wrap(lambda: self.service.seed_foods(data.locale))
 
-    @router.post("/labels", response_model=SuccessResponse)
-    def seed_labels(self, data: SeederConfig) -> dict:
-        return self._wrap(lambda: self.service.seed_labels(data.locale))
-
     @router.post("/units", response_model=SuccessResponse)
     def seed_units(self, data: SeederConfig) -> dict:
         return self._wrap(lambda: self.service.seed_units(data.locale))

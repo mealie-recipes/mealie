@@ -70,3 +70,37 @@ describe("food label fields", () => {
     expect(buildQueryFilterString([field], false)).toBe("");
   });
 });
+
+const TOTAL_TIME_FIELD_DEF = {
+  name: "total_time_seconds",
+  label: "Total Time",
+  type: "duration" as const,
+};
+
+describe("duration fields", () => {
+  test("default to the <= operator and only offer comparisons", () => {
+    const { getFieldFromFieldDef } = useQueryFilterBuilder();
+
+    const field = getFieldFromFieldDef(TOTAL_TIME_FIELD_DEF);
+
+    expect(field.relationalOperatorValue.value).toBe("<=");
+    expect(field.relationalOperatorChoices.map(choice => choice.value)).toEqual(["<=", ">=", "<", ">"]);
+  });
+
+  test("build an unquoted seconds query filter string", () => {
+    const { getFieldFromFieldDef, buildQueryFilterString } = useQueryFilterBuilder();
+
+    const field = getFieldFromFieldDef(TOTAL_TIME_FIELD_DEF);
+    field.value = 1800;
+
+    expect(buildQueryFilterString([field], false)).toBe("total_time_seconds <= 1800");
+  });
+
+  test("are invalid without a duration", () => {
+    const { getFieldFromFieldDef, buildQueryFilterString } = useQueryFilterBuilder();
+
+    const field = getFieldFromFieldDef(TOTAL_TIME_FIELD_DEF);
+
+    expect(buildQueryFilterString([field], false)).toBe("");
+  });
+});

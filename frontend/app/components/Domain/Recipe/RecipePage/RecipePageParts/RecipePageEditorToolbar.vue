@@ -41,6 +41,7 @@ import { usePageState, usePageUser } from "~/composables/recipe-page/shared-stat
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
 import { useUserApi } from "~/composables/api";
+import { alertUnreportedError } from "~/composables/use-toast";
 import RecipeImageUploadBtn from "~/components/Domain/Recipe/RecipeImageUploadBtn.vue";
 import RecipeSettingsMenu from "~/components/Domain/Recipe/RecipeSettingsMenu.vue";
 import { useUserStore } from "~/composables/store/use-user-store";
@@ -51,6 +52,7 @@ const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 
 const { user } = usePageUser();
 const api = useUserApi();
+const i18n = useI18n();
 const { imageKey } = usePageState(recipe.value.slug);
 
 const canEditOwner = computed(() => {
@@ -73,9 +75,14 @@ async function uploadImage(fileObject: File) {
   if (!recipe.value || !recipe.value.slug) {
     return;
   }
-  const newVersion = await api.recipes.updateImage(recipe.value.slug, fileObject);
-  if (newVersion?.data?.image) {
-    recipe.value.image = newVersion.data.image;
+  const { data, error } = await api.recipes.updateImage(recipe.value.slug, fileObject);
+  if (error) {
+    alertUnreportedError(error, i18n.t("events.something-went-wrong"));
+    return;
+  }
+
+  if (data?.image) {
+    recipe.value.image = data.image;
   }
   imageKey.value++;
 }

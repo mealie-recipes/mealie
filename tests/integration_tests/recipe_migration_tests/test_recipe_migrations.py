@@ -1,5 +1,8 @@
+import json
 import os
 from dataclasses import dataclass, field
+from gzip import GzipFile
+from io import BytesIO
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from zipfile import ZipFile
@@ -21,6 +24,9 @@ class MigrationTestData:
     typ: SupportedMigrations
     archive: Path
     search_slug: str
+
+    times: tuple[int | None, int | None, int | None] | None = None
+    """Expected (total, prep, perform) seconds, when the migrator produces structured times"""
 
     nutrition_filter: set[str] = field(default_factory=set)
     nutrition_entries: set[str] = field(
@@ -45,6 +51,7 @@ test_cases = [
         typ=SupportedMigrations.nextcloud,
         archive=test_data.migrations_nextcloud,
         search_slug="skillet-shepherd-s-pie",
+        times=(5100, 900, 4200),
         nutrition_filter={
             "transFatContent",
             "unsaturatedFatContent",
@@ -83,6 +90,7 @@ test_cases = [
         typ=SupportedMigrations.tandoor,
         archive=test_data.migrations_tandoor,
         search_slug="texas-red-chili",
+        times=(120, None, None),
         nutrition_entries=set(),
     ),
     MigrationTestData(
@@ -107,6 +115,7 @@ test_cases = [
         typ=SupportedMigrations.myrecipebox,
         archive=test_data.migrations_myrecipebox,
         search_slug="beef-cheese-piroshki",
+        times=(6900, 5400, 1500),
         nutrition_filter={
             "cholesterolContent",
         },
@@ -115,12 +124,14 @@ test_cases = [
         typ=SupportedMigrations.recipekeeper,
         archive=test_data.migrations_recipekeeper,
         search_slug="zucchini-bread",
+        times=(None, 1800, 3600),
         nutrition_entries=set(),
     ),
     MigrationTestData(
         typ=SupportedMigrations.cookn,
         archive=test_data.migrations_cookn,
         search_slug="fresh-fruit-pizza",
+        times=(None, None, None),
         nutrition_entries=set(),
     ),
 ]
@@ -196,6 +207,10 @@ def test_recipe_migration(api_client: TestClient, unique_user_fn_scoped: TestUse
 
         for k in mig.nutrition_entries.difference(mig.nutrition_filter):
             assert k in nutrition and nutrition[k] is not None
+
+    if mig.times is not None:
+        assert (recipe.total_time_seconds, recipe.prep_time_seconds, recipe.perform_time_seconds) == mig.times
+        assert (recipe.total_time, recipe.prep_time, recipe.perform_time) == (None, None, None)
 
     # TODO: validate other types of content
 
@@ -311,3 +326,39 @@ def test_recipekeeper_imports_categories_and_yield(api_client: TestClient, uniqu
     recipe = get("baked-salmon-fillets-dijon")
     assert [c.name for c in recipe.recipe_category or []] == ["Fish"]
     assert recipe.recipe_servings == 4
+
+
+def test_paprika_imports_notes(api_client: TestClient, unique_user_fn_scoped: TestUser) -> None:
+    """Paprika exports carry recipe notes in a `notes` string, which must survive the import."""
+    unique_user = unique_user_fn_scoped
+    note_text = "Burnt brandy is brandy that has been flamed to burn off the alcohol."
+
+    recipe_json = json.dumps(
+        {
+            "name": "Paprika Notes Test",
+            "ingredients": "1 cup flour\n2 eggs",
+            "directions": "Mix everything together.",
+            "notes": note_text,
+        }
+    ).encode()
+
+    archive = BytesIO()
+    with ZipFile(archive, "w") as zip_file:
+        gzipped = BytesIO()
+        with GzipFile(fileobj=gzipped, mode="wb") as gz:
+            gz.write(recipe_json)
+        zip_file.writestr("paprika-notes-test.paprikarecipe", gzipped.getvalue())
+
+    response = api_client.post(
+        api_routes.groups_migrations,
+        data={"migration_type": SupportedMigrations.paprika.value},
+        files={"archive": archive.getvalue()},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.recipes_slug("paprika-notes-test"), headers=unique_user.token)
+    recipe = Recipe(**assert_deserialize(response))
+
+    assert recipe.notes
+    assert recipe.notes[0].text == note_text

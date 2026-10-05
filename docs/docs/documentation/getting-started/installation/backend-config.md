@@ -55,8 +55,8 @@
 | SMTP_FROM_NAME                                  | Mealie  | Required For email                                |
 | SMTP_AUTH_STRATEGY                              |   TLS   | Required For email, Options: 'TLS', 'SSL', 'NONE' |
 | SMTP_FROM_EMAIL                                 |  None   | Required For email                                |
-| SMTP_USER<super>[&dagger;][secrets]</super>     |  None   | Required if SMTP_AUTH_STRATEGY is 'TLS' or 'SSL'  |
-| SMTP_PASSWORD<super>[&dagger;][secrets]</super> |  None   | Required if SMTP_AUTH_STRATEGY is 'TLS' or 'SSL'  |
+| SMTP_USER<super>[&dagger;][secrets]</super>     |  None   | Optional; must be set together with SMTP_PASSWORD |
+| SMTP_PASSWORD<super>[&dagger;][secrets]</super> |  None   | Optional; must be set together with SMTP_USER     |
 
 ### Webworker
 
@@ -120,11 +120,11 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 | OIDC_TLS_CACERTFILE                                                                 |  None   | File path to Certificate Authority used to verify server certificate (e.g. `/path/to/ca.crt`)                                                                                                                                                                                                          |
 | OIDC_CLIENT_TIMEOUT                                                                 | default | Configures the timeout value of the httpx client used for OIDC communications. If set to the string `default`, does not configure the value (uses the library's default of 5.0s). If set to the string `None`, disables the timeout entirely. If set to a numeric value, uses that as the timeout.     |
 
-### OpenAI
+### AI
 
 :octicons-tag-24: v1.7.0
 
-Mealie supports various integrations using OpenAI. For more information, check out our [OpenAI documentation](./ai-providers.md).
+Mealie supports various integrations using AI. For more information, check out our [AI Providers documentation](./ai-providers.md).
 
 | Variables                                                               | Default     | Description                                                                                                                                                                                                                                                                                                            |
 |-------------------------------------------------------------------------|:-----------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|

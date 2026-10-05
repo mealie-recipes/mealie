@@ -115,7 +115,6 @@ class RegistrationService:
         if new_group and registration.seed_data:
             group_repos = get_repositories(self.repos.session, group_id=group.id)
             seeder_service = SeederService(group_repos)
-            seeder_service.seed_labels(registration.locale)
             seeder_service.seed_foods(registration.locale)
             seeder_service.seed_units(registration.locale)
 

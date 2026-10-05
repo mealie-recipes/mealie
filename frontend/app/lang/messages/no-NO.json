@@ -53,7 +53,7 @@
     "enable-notifier": "Aktiver varslingsagenten",
     "what-events": "Hvilke hendelser skal denne varslingsagenten abonnere på?",
     "user-events": "Brukerhendelser",
-    "mealplan-events": "Måltidsplanleggerhendelser",
+    "mealplan-events": "Meal Plan Events",
     "shopping-list-events": "Handlelistehendelser",
     "cookbook-events": "Kokebokhendelser",
     "tag-events": "Emneordhendelser",
@@ -177,7 +177,7 @@
     "date-updated": "Dato oppdatert",
     "key": "Nøkkel",
     "value": "Verdi",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Kan ikke opprette. Kontakt systemansvarlig for å få tilgang."
   },
   "group": {
     "create-group": "Opprett gruppe",
@@ -251,7 +251,12 @@
       "provider-delete-failed": "Kunne ikke slette tilbyder",
       "request-headers": "Forespørselshoder",
       "request-params": "Forespørsel Parametere",
-      "no-default-provider-warning": "You have not set a default provider, so AI features are disabled"
+      "no-default-provider-warning": "Du har ikke angitt en standardtilbyder, så AI-funksjoner er deaktivert",
+      "test-connection": "Test Connection",
+      "test-connection-succeeded": "Connection successful",
+      "test-connection-failed": "Connection failed",
+      "supports-images": "Supports images",
+      "text-only-provider": "Text-only, can't be your image provider"
     }
   },
   "household": {
@@ -277,7 +282,7 @@
     "create-a-new-meal-plan": "Opprett en ny måltidsplan",
     "update-this-meal-plan": "Oppdater denne måltidsplanen",
     "dinner-this-week": "Middag denne uken",
-    "edit-meal-plan": "Edit Meal Plan",
+    "edit-meal-plan": "Rediger måltidsplan",
     "remove-from-plan": "Remove from Meal Plan",
     "meal-planner": "Måltidsplanlegger",
     "any-category": "Enhver kategori",
@@ -340,14 +345,14 @@
     },
     "copymethat": {
       "description-long": "Mealie kan importere oppskrifter fra Copy Me That. Eksporter oppskrifter i HTML-format, last deretter opp .zip-filen under.",
-      "title": "Copy Me That Recipe Manager"
+      "title": "Copy Me That - oppskriftsbehandler"
     },
     "paprika": {
       "description-long": "Mealie kan importere oppskrifter fra Paprika. Eksporter oppskriftene fra Paprika, endre filnavnutvidelsen til .zip og last den opp nedenfor.",
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie kan importere oppskrifter fra Mealie fra versjoner eldre enn v1.0. Eksporter oppskriftene fra din gamle versjon og last opp zip-filen under. Merk at bare oppskrifter kan importeres fra eksporten.",
+      "description-long": "Mealie kan importere oppskrifter fra utgaver av Mealie før v1.0. Eksporter oppskriftene fra den gamle utgaven, og last opp zip-filen under. Merk at bare oppskrifter kan importeres fra eksporten. Dette gjelder bare utgaver som er eldre enn v1.0. En sikkerhetskopi av Mealie v1.0 eller senere bør gjenopprettes med sikkerhetskopien og gjenopprettingsverktøyene.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -359,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Overføring av oppskrifter",
-    "recipe-data-migrations-explanation": "Oppskrifter kan overføres fra et annet støttet program til Mealie. Dette er en flott måte å komme i gang med Mealie på.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Kommer du fra en annen applikasjon eller en enda eldre versjon av Mealie? Sjekk ut overføringer og se om dine data kan importeres.",
+    "recipe-data-migrations-explanation": "Oppskrifter kan migreres fra et annet støttet program til Mealie. Dette er en flott måte å komme i gang med Mealie. Flytting av data mellom Mealie instanser, eller gjenoppretting av en tidligere Mealie sikkerhetskopiering, utføres med sikkerhetskopien og gjenopprettingsverktøy i stedet.",
+    "migration-description": "Kommer du fra et annet program, eller en versjon av Mealie eldre enn v1.0? Sjekk ut migrasjoner og se om dine data kan importeres.",
     "choose-migration-type": "Velg type overføring",
     "tag-all-recipes": "Merk alle oppskrifter med emneordet {tag-name}",
     "recipe-1": "Oppskrift 1",
@@ -462,15 +467,15 @@
     "trans-fat-content": "Transfett",
     "unsaturated-fat-content": "Umettet fett",
     "join-the-conversation": "Delta i samtalen",
-    "add-recipe-to-mealplan": "Legg til oppskrift i måltidsplan",
+    "add-recipe-to-mealplan": "Add Recipe to Meal Plan",
     "entry-type": "Oppføringstype",
     "add-to-list": "Legg til i liste",
     "add-to-plan": "Legg til i plan",
     "add-to-timeline": "Legg til tidslinje",
     "successfully-added-to-list": "Lagt til i listen",
-    "recipe-added-to-mealplan": "Oppskrift er lagt til i måltidsplan",
+    "recipe-added-to-mealplan": "Recipe added to meal plan",
     "failed-to-add-recipes-to-list": "Klarte ikke å legge til oppskrift i listen",
-    "failed-to-add-recipe-to-mealplan": "Klarte ikke å legge til oppskrift i måltidsplan",
+    "failed-to-add-recipe-to-mealplan": "Failed to add recipe to meal plan",
     "yield": "Gir",
     "yields-amount-with-text": "Gir {amount} {text}",
     "yield-text": "Porsjonsenhet (eks. pers./stk.)",
@@ -521,6 +526,8 @@
     "ingredients-not-parsed-description": "Det ser ut som ingridensene ikke har blitt analysert enda. Klikk\"{parse}\"-knappen under for å analysere ingrediensese som strukturert matvarer.",
     "attach-images-hint": "Fest bilder ved å dra og slippe dem inn i redigereringsverktøyet",
     "drop-image": "Slipp bilde",
+    "failed-to-attach-image": "Kunne ikke legge ved bilde",
+    "image-drop-unsupported": "Dette bildet kan ikke knyttes direkte. Lagre det på enheten, og dra deretter filen inn.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Oppskrifter med enheter eller matvarer som er definert kan ikke tolkes.",
     "parse-ingredients": "Analyser ingredienser",
     "edit-markdown": "Rediger Markdown",
@@ -583,8 +590,8 @@
     "report-deletion-failed": "Sletting av rapport mislyktes",
     "recipe-debugger": "Oppskriftsfeilsøker",
     "recipe-debugger-description": "Hent nettadressen til oppskriften du vil feilsøke og lim den inn her. Nettsiden vil bli skrapt og resultatene vil bli vist. Hvis du ikke ser noen data returnert, er ikke nettstedet du prøver å skrape støttet av Mealie eller skraper-biblioteket.",
-    "use-openai": "Bruk OpenAI",
-    "recipe-debugger-use-openai-description": "Bruke OpenAI til å analysere resultatene i stedet for å basere seg på scraper-biblioteket. Når du oppretter en oppskrift via URL, blir dette gjort automatisk hvis scraper-biblioteket mislykkes, men du kan teste det manuelt her.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Feilsøk",
     "tree-view": "Trevisning",
     "recipe-servings": "Oppskriftsporsjoner",
@@ -596,15 +603,22 @@
     "remove-image": "Slett bilde",
     "nextStep": "Neste trinn",
     "recipe-actions": "Oppskriftshandlinger",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Ingrediens-analyserer",
       "select-parser": "Velg analyserer",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Prosessor for naturlig språk",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Enkel analyse",
-      "openai-parser": "OpenAI-analyse",
+      "ai-parser": "AI Parser",
       "missing-unit": "Opprett manglende enhet: {unit}",
       "missing-food": "Opprett manglende mat: {food}",
       "this-unit-could-not-be-parsed-automatically": "Denne enheten kunne ikke analyseres automatisk",
@@ -939,7 +953,6 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Tilfør typiske etiketter i databasen basert på ditt lokale språk.",
       "edit-label": "Rediger etikett",
       "new-label": "Ny etikett",
       "labels": "Etiketter",
@@ -1098,7 +1111,7 @@
     "ingredients-natural-language-processor-explanation-2": "Modellen er ikke perfekt, men det gir generelt sett gode resultater og er et godt utgangspunkt for å manuelt analysere ingredienser i individuelle felt. Alternativt kan du også bruke 'Brute'-prosessoren som bruker mønstergjenkjennelsesteknikker for å identifisere ingredienser.",
     "nlp": "NLP",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Vis individuell konfidens",
     "ingredient-text": "Ingredienstekst",
     "average-confident": "{0} Troverdig",
@@ -1115,8 +1128,8 @@
       "restore-from-v1-backup": "Har du en sikkerhetskopi fra en tidligere forekomst av Mealie v1? Du kan gjenopprette den her.",
       "manage-profile-or-get-invite-link": "Administrer din egen profil, eller hent en invitasjonslenke for å dele med andre."
     },
-    "debug-openai-services": "Feilsøk OpenAI-tjenester",
-    "debug-openai-services-description": "Bruk denne siden for å feilsøke OpenAI tjenester. Du kan teste din OpenAI tilkobling og se resultatene her. Hvis du har bildetjenester aktivert kan du også legge til et bilde.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Kjør test",
     "test-results": "Testresultater",
     "group-delete-note": "Grupper med brukere eller husholdninger kan ikke slettes",
@@ -1141,11 +1154,11 @@
     "group-settings-description": "Administrer dine felles gruppe-innstillinger, for eksempel personverninnstillinger.",
     "household-description": "Disse elementene deles innad i din husholdning. Redigering av elementenee vil føre til endringer for hele husholdningen!",
     "household-settings": "Husholdningsinnstillinger",
-    "household-settings-description": "Administrer innstillinger for husholdningen, som innstillinger for måltidsplaner og personvern.",
+    "household-settings-description": "Manage your household settings, like meal plan and privacy settings.",
     "cookbooks-description": "Administrer en samling av oppskriftskategorier og generer sider for dem.",
     "members": "Medlemmer",
     "members-description": "Se hvem som er medlem av din husholdning, og adminstrer deres rettigheter.",
-    "webhooks-description": "Sett opp webhooks som utløses på dager du har planlagt måltidsplaner.",
+    "webhooks-description": "Set up webhooks that trigger on days that you have meal plans scheduled.",
     "notifiers": "Varslingsagenter",
     "notifiers-description": "Sett opp e-post- og pushvarsler som utløses av spesifikke hendelser.",
     "manage-data": "Administrer data",
