@@ -68,7 +68,7 @@
         "report-deleted": "Hlásenie bolo vymazané."
     },
     "exceptions": {
-        "permission_denied": "Nemáte oprávnenia na vykonanie tejto akcie",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Recept nemôže odkazovať na seba, priamo alebo nepriamo",
         "no-entry-found": "404 - Požadovaná stránka nebola nájdená",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
