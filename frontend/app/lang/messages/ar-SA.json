@@ -1205,7 +1205,9 @@
       "is-less-than": "أقل من",
       "is-less-than-or-equal-to": "أقل من أو يساوي",
       "is-older-than": "هو أقدم من",
-      "is-newer-than": "هو أحدث من"
+      "is-newer-than": "هو أحدث من",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "هو",
