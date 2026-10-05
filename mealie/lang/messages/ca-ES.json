@@ -68,7 +68,7 @@
         "report-deleted": "S'ha suprimit l'informe."
     },
     "exceptions": {
-        "permission_denied": "No teniu autorització per executar aquesta acció",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Una recepta no pot fer referència a ella mateixa, tant directa com indirectament",
         "no-entry-found": "No s'ha trobat el recurs demanat",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

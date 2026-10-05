@@ -68,7 +68,7 @@
         "report-deleted": "Raportti poistettu."
     },
     "exceptions": {
-        "permission_denied": "Sinulla ei ole oikeutta tämän toiminnon suorittamiseen",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Reseptillä ei voida viitata itseensä, joko suoraan tai välillisesti",
         "no-entry-found": "Pyydettyä resurssia ei löytynyt",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

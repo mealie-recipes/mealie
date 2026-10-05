@@ -24,7 +24,7 @@
       },
       "zucchini": {
         "name": "Zucchini",
-        "plural_name": "zucchinis"
+        "plural_name": "Zucchini"
       },
       "potato": {
         "name": "Kartoffel",
@@ -96,7 +96,7 @@
       },
       "cabbage": {
         "name": "Kohl",
-        "plural_name": "cabbages"
+        "plural_name": "Kohle"
       },
       "asparagus": {
         "name": "Spargel",
@@ -112,7 +112,7 @@
       },
       "leek": {
         "name": "Lauch",
-        "plural_name": "leeks"
+        "plural_name": "Lauch"
       },
       "eggplant": {
         "name": "Aubergine",
@@ -132,11 +132,11 @@
       },
       "beetroot": {
         "name": "Rote Beete",
-        "plural_name": "beetroots"
+        "plural_name": "Rote Beten"
       },
       "brussels sprout": {
         "name": "Rosenkohl",
-        "plural_name": "brussels sprouts"
+        "plural_name": "Rosenkohl"
       },
       "fennel": {
         "name": "Fenchel",
@@ -152,7 +152,7 @@
       },
       "red cabbage": {
         "name": "Rotkohl",
-        "plural_name": "red cabbages"
+        "plural_name": "Rotkohl"
       },
       "artichoke": {
         "name": "Artischocke",
@@ -184,7 +184,7 @@
       },
       "napa cabbage": {
         "name": "Chinakohl",
-        "plural_name": "napa cabbages"
+        "plural_name": "Chinakohl"
       },
       "celeriac": {
         "name": "Sellerie",
@@ -252,7 +252,7 @@
       },
       "pineapple": {
         "name": "Ananas",
-        "plural_name": "pineapples"
+        "plural_name": "Ananas"
       },
       "mango": {
         "name": "Mango",
@@ -344,7 +344,7 @@
       },
       "snow pea": {
         "name": "Zuckerschote",
-        "plural_name": "snow peas"
+        "plural_name": "Zuckerschoten"
       },
       "snap pea": {
         "name": "Zuckerschoten",
@@ -400,7 +400,7 @@
       },
       "chive": {
         "name": "Schnittlauch",
-        "plural_name": "chives"
+        "plural_name": "Schnittlauch"
       },
       "mint": {
         "name": "Minze",
@@ -497,7 +497,7 @@
       },
       "steel cut oat": {
         "name": "Hafergrütze",
-        "plural_name": "steel cut oats"
+        "plural_name": "Hafergrütze"
       },
       "millet": {
         "name": "Hirse",
@@ -533,7 +533,7 @@
       },
       "pinto bean": {
         "name": "Pintobohnen",
-        "plural_name": "pinto beans"
+        "plural_name": "Pintobohnen"
       },
       "red lentil": {
         "name": "Rote Linse",
@@ -666,11 +666,11 @@
       },
       "pork loin": {
         "name": "Schweinerücken",
-        "plural_name": "pork loins"
+        "plural_name": "Schweinerücken"
       },
       "beef roast": {
         "name": "Rinderbraten",
-        "plural_name": "beef roasts"
+        "plural_name": "Rinderbraten"
       },
       "ground pork": {
         "name": "Schweinehack",
@@ -734,7 +734,7 @@
       },
       "chicken thigh": {
         "name": "Hähnchen-Oberschenkel",
-        "plural_name": "chicken thighs"
+        "plural_name": "Hähnchen-Oberschenkel"
       },
       "ground turkey": {
         "name": "Puten-Hackfleisch",
@@ -750,11 +750,11 @@
       },
       "chicken leg": {
         "name": "Hähnchenschenkel",
-        "plural_name": "chicken legs"
+        "plural_name": "Hähnchenschenkel"
       },
       "chicken wing": {
         "name": "Hähnchenflügel",
-        "plural_name": "chicken wings"
+        "plural_name": "Chicken Wings (Hähnchenflügel)"
       },
       "turkey breast": {
         "name": "Putenbrust",
@@ -766,7 +766,7 @@
       },
       "rotisserie chicken": {
         "name": "Brathähnchen",
-        "plural_name": "rotisserie chickens"
+        "plural_name": "Brathähnchen"
       },
       "duck": {
         "name": "Ente",
@@ -932,7 +932,7 @@
       },
       "lobster": {
         "name": "Hummer",
-        "plural_name": "lobsters"
+        "plural_name": "Hummer"
       },
       "oyster": {
         "name": "Auster",
@@ -1142,7 +1142,7 @@
       },
       "bread crumb": {
         "name": "Semmelbrösel",
-        "plural_name": "bread crumbs"
+        "plural_name": "Semmelbrösel"
       },
       "panko": {
         "name": "Panko",
@@ -1186,7 +1186,7 @@
       },
       "naan": {
         "name": "Naan",
-        "plural_name": "naans"
+        "plural_name": "Naan"
       },
       "taco shell": {
         "name": "Taco Schale",
@@ -1231,7 +1231,7 @@
       },
       "canned chickpea": {
         "name": "Kichererbsen a. d. Dose",
-        "plural_name": "canned chickpeas"
+        "plural_name": "Kichererbsen aus der Dose"
       },
       "black olive": {
         "name": "Schwarze Olive",
@@ -1239,7 +1239,7 @@
       },
       "canned black bean": {
         "name": "Schwarze Bohnen a. d. Dose",
-        "plural_name": "canned black beans"
+        "plural_name": "Schwarze Bohnen aus der Dose"
       },
       "canned pumpkin": {
         "name": "Kürbis a. d. Dose",
@@ -1259,11 +1259,11 @@
       },
       "chipotle in adobo": {
         "name": "Chipotle in Adobo",
-        "plural_name": "chipotles in adobo"
+        "plural_name": "Chipotles in Adobo"
       },
       "canned anchovy": {
         "name": "Anchovis a. d. Dose",
-        "plural_name": "canned anchovies"
+        "plural_name": "Anchovis aus der Dose"
       },
       "roasted red pepper": {
         "name": "Geröstete rote Paprika",
@@ -1279,11 +1279,11 @@
       },
       "canned kidney bean": {
         "name": "Kidneybohnen a. d. Dose",
-        "plural_name": "canned kidney beans"
+        "plural_name": "Kidneybohnen aus der Dose"
       },
       "refried bean": {
         "name": "Frijoles refritos",
-        "plural_name": "refried beans"
+        "plural_name": "Bohnenmus (Frijoles refritos)"
       },
       "canned whole tomato": {
         "name": "Dose ganze Tomaten",
@@ -1367,7 +1367,7 @@
       },
       "bouillon cube": {
         "name": "Brühwürfel",
-        "plural_name": "bouillon cubes"
+        "plural_name": "Brühwürfel"
       },
       "cream of chicken": {
         "name": "Hühnercremesuppe",
@@ -1741,7 +1741,7 @@
       },
       "fennel seed": {
         "name": "Fenchelsamen",
-        "plural_name": "fennel seeds"
+        "plural_name": "Fenchelsamen"
       },
       "tarragon": {
         "name": "Estragon",
@@ -2193,11 +2193,11 @@
       },
       "graham cracker": {
         "name": "Graham Cracker",
-        "plural_name": "graham crackers"
+        "plural_name": "Graham Cracker"
       },
       "cracker": {
         "name": "Cracker",
-        "plural_name": "crackers"
+        "plural_name": "Cracker"
       },
       "tortilla chip": {
         "name": "Tortilla Chip",
@@ -2205,7 +2205,7 @@
       },
       "pretzel": {
         "name": "Brezel",
-        "plural_name": "pretzels"
+        "plural_name": "Brezeln"
       },
       "popcorn": {
         "name": "Popcorn",
