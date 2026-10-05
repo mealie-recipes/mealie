@@ -55,6 +55,8 @@ def test_recognises_dump_with_surrounding_whitespace():
         "<html><body>not a recipe</body></html>",
         '{"name": "Test",,,}',
         "",
+        "[" * 100000,
+        '{"a":' * 100000,
     ],
     ids=[
         "schema-org",
@@ -71,6 +73,8 @@ def test_recognises_dump_with_surrounding_whitespace():
         "html",
         "malformed-json",
         "empty",
+        "deeply-nested-array",
+        "deeply-nested-object",
     ],
 )
 def test_ignores_anything_else(data: str):

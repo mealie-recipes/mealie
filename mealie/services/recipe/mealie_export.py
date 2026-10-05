@@ -12,7 +12,7 @@ def parse_mealie_export(data: str) -> dict[str, Any] | None:
     """
     try:
         recipe = json.loads(data)
-    except ValueError:
+    except ValueError, RecursionError:
         return None
 
     if not isinstance(recipe, dict) or "@context" in recipe or "@type" in recipe:
