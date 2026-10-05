@@ -477,6 +477,22 @@ class RecipeService(RecipeServiceBase):
         recipe = Recipe.model_validate(recipe).model_dump(mode="json")
         return self._process_recipe_data("recipe", self._replace_taken_id(recipe))
 
+    def create_from_mealie_export(self, recipe: dict[str, Any], include_tags: bool, include_categories: bool) -> Recipe:
+        """Create a recipe from a pasted recipe dump produced by Mealie (see `parse_mealie_export`).
+
+        A paste carries no files, so its image key and asset entries would point at nothing, and
+        comments belong to the recipe they were written on. All three are dropped before
+        validation, so a hand-edited comment cannot fail the import.
+        """
+        recipe = {k: v for k, v in recipe.items() if k not in ("image", "assets", "comments")}
+        cleaned = self.clean_recipe_dict(recipe)
+        if not include_tags:
+            cleaned["tags"] = []
+        if not include_categories:
+            cleaned["recipe_category"] = []
+
+        return self.create_one(Recipe(**cleaned))
+
     def create_from_zip(self, archive: UploadFile, temp_path: Path) -> Recipe:
         """
         `create_from_zip` creates a recipe in the database from a zip file exported from Mealie. This is NOT

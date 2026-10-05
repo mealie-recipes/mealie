@@ -71,6 +71,7 @@ from mealie.services.event_bus_service.event_types import (
 from mealie.services.openai import OpenAINotEnabledException
 from mealie.services.recipe.ai_recipe_service import AIProviderNotEnabledError, AIRecipeService
 from mealie.services.recipe.import_workflow.exceptions import NoRecipeDataError
+from mealie.services.recipe.mealie_export import parse_mealie_export
 from mealie.services.recipe.recipe_data_service import (
     InvalidDomainError,
     NotAnImageError,
@@ -186,10 +187,7 @@ class RecipeController(BaseRecipeController):
     async def create_recipe_from_html_or_json(self, req: ScrapeRecipeData) -> str:
         """Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL"""
 
-        if req.data.startswith("{"):
-            req.data = RecipeScraperPackage.ld_json_to_html(req.data)
-
-        async for event in self._create_recipe_from_web(req):
+        async for event in self._create_recipe_from_html_or_json(req):
             if isinstance(event.data, SSEDataEventDone):
                 return event.data.slug
             if isinstance(event.data, SSEDataEventMessage) and event.event == SSEDataEventStatus.ERROR:
@@ -205,10 +203,7 @@ class RecipeController(BaseRecipeController):
         streaming progress via SSE
         """
 
-        if req.data.startswith("{"):
-            req.data = RecipeScraperPackage.ld_json_to_html(req.data)
-
-        async for event in self._create_recipe_from_web(req):
+        async for event in self._create_recipe_from_html_or_json(req):
             yield event
 
     @router.post("/create/url", status_code=201, response_model=str)
@@ -343,6 +338,31 @@ class RecipeController(BaseRecipeController):
                 include_categories=req.include_categories,
             )
             return self._finish_recipe_from_web(req, recipe, extras)
+
+        return self._stream_recipe_creation(create)
+
+    def _create_recipe_from_html_or_json(self, req: ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
+        """Import pasted HTML or JSON, sending a recipe that Mealie itself produced to its own importer.
+
+        The web scraper only reads schema.org data and rebuilds the recipe from it, which would
+        lose the structure a Mealie export carries (ingredient foods and units, step links,
+        organizers), so a recognised export never reaches it.
+        """
+        if (export := parse_mealie_export(req.data)) is not None:
+            return self._create_recipe_from_mealie_export(req, export)
+
+        if req.data.startswith("{"):
+            req.data = RecipeScraperPackage.ld_json_to_html(req.data)
+
+        return self._create_recipe_from_web(req)
+
+    def _create_recipe_from_mealie_export(
+        self, req: ScrapeRecipeData, recipe: dict[str, Any]
+    ) -> AsyncIterable[ServerSentEvent]:
+        async def create(_: Callable[[str], Awaitable[None]]) -> str:
+            new_recipe = self.service.create_from_mealie_export(recipe, req.include_tags, req.include_categories)
+            self._publish_recipe_created(new_recipe)
+            return new_recipe.slug
 
         return self._stream_recipe_creation(create)
 
