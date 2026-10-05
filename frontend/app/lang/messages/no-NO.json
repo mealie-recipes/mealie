@@ -1205,7 +1205,9 @@
       "is-less-than": "er mindre enn",
       "is-less-than-or-equal-to": "er mindre enn eller lik",
       "is-older-than": "er høyere enn",
-      "is-newer-than": "er nyere enn"
+      "is-newer-than": "er nyere enn",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "er",

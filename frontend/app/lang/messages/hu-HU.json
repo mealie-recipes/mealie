@@ -1205,7 +1205,9 @@
       "is-less-than": "kevesebb, mint",
       "is-less-than-or-equal-to": "kevesebb vagy egyenlő",
       "is-older-than": "régebbi, mint",
-      "is-newer-than": "újabb, mint"
+      "is-newer-than": "újabb, mint",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "van",

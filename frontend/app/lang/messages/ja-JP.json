@@ -1205,7 +1205,9 @@
       "is-less-than": "より小さい",
       "is-less-than-or-equal-to": "以下",
       "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-newer-than": "is newer than",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "は",

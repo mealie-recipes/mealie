@@ -1205,7 +1205,9 @@
       "is-less-than": "小於",
       "is-less-than-or-equal-to": "小於或等於",
       "is-older-than": "早於",
-      "is-newer-than": "晚於"
+      "is-newer-than": "晚於",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "是",

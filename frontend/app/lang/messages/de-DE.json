@@ -1205,7 +1205,9 @@
       "is-less-than": "ist weniger als",
       "is-less-than-or-equal-to": "ist kleiner gleich",
       "is-older-than": "Ist älter als",
-      "is-newer-than": "Ist neuer als"
+      "is-newer-than": "Ist neuer als",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "ist",
