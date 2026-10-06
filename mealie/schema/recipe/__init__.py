@@ -40,6 +40,7 @@ from .recipe_category import (
     TagIn,
     TagMerge,
     TagOut,
+    TagRecipesRemove,
     TagSave,
 )
 from .recipe_comments import (
@@ -141,6 +142,7 @@ __all__ = [
     "TagIn",
     "TagMerge",
     "TagOut",
+    "TagRecipesRemove",
     "TagSave",
     "RecipeCommentCreate",
     "RecipeCommentOut",
