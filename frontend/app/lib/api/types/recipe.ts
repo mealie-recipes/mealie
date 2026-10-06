@@ -161,6 +161,7 @@ export interface IngredientFood {
   substitutions?: IngredientFoodSubstitution[];
   householdsWithIngredientFood?: string[];
   label?: MultiPurposeLabelSummary | null;
+  recipeCount?: number;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
@@ -572,6 +573,7 @@ export interface RecipeToolOut {
   id: string;
   groupId: string;
   slug: string;
+  recipeCount?: number;
 }
 export interface RecipeToolResponse {
   name: string;
@@ -579,6 +581,7 @@ export interface RecipeToolResponse {
   id: string;
   groupId: string;
   slug: string;
+  recipeCount?: number;
   recipes?: RecipeSummary[];
 }
 export interface RecipeToolSave {
