@@ -29,7 +29,7 @@ If a user previously accessed Mealie via credentials and you want to no longer a
 
 Because Mealie links an OIDC login to an existing account by matching on a claim (`OIDC_USER_CLAIM`, `email` by default), an IdP that lets a user self-assert an arbitrary, unverified email address would allow that user to log into someone else's Mealie account simply by claiming their email. To prevent this, Mealie requires the `email_verified` claim to be present and `true` before authenticating.
 
-Most identity providers (Authentik, Authelia, Keycloak, Google, Entra ID, ...) emit this claim as part of the `email` scope, and require no changes. If a login is rejected for this reason, the following is written to the server logs:
+Most identity providers (Authentik, Authelia, Keycloak, Google, Entra ID, ...) emit this claim as part of the `email` scope, and require no changes. Microsoft Entra ID does not emit it for personal Microsoft accounts. If a login is rejected for this reason, the following is written to the server logs:
 
     [OIDC] email_verified claim is missing or false; refusing to authenticate
 
@@ -112,6 +112,22 @@ The native flow reuses your existing **confidential** OIDC client and `OIDC_CLIE
 ### Public native clients (Google, Microsoft)
 
 Some providers do not allow custom-scheme or loopback redirect URIs on a confidential web client, and instead require a separate native application registration that has no client secret and relies on PKCE. For those providers, register a second client for the mobile app, set `OIDC_NATIVE_CLIENT_ID` to its client ID, and set `OIDC_NATIVE_CONFIDENTIAL=false`. Mealie then omits the client secret when exchanging the code for native logins, while the web login keeps using `OIDC_CLIENT_ID` and `OIDC_CLIENT_SECRET`. Self-hosted providers such as Authentik and Pocket ID can keep using the single web client, so these settings are not needed there.
+
+**Google**
+
+- Keep your existing Google OAuth client of type "Web application" as `OIDC_CLIENT_ID` and `OIDC_CLIENT_SECRET` for the web login.
+- Create a second OAuth client of type "iOS" using the mobile app's bundle ID. It has no client secret. Set its client ID as `OIDC_NATIVE_CLIENT_ID` and set `OIDC_NATIVE_CONFIDENTIAL=false`.
+- Google iOS clients have no redirect URI field. Google only accepts custom-scheme redirect URIs that contain a period, such as the app's bundle ID (`com.example.app:/oauth/callback`), so the app must use a redirect URI in that form for Google.
+- Set `OIDC_CONFIGURATION_URL=https://accounts.google.com/.well-known/openid-configuration`.
+
+**Microsoft Entra ID**
+
+- Use a single app registration for both web and native logins: set the same Application (client) ID as both `OIDC_CLIENT_ID` and `OIDC_NATIVE_CLIENT_ID`, the client secret value as `OIDC_CLIENT_SECRET`, and `OIDC_NATIVE_CONFIDENTIAL=false`.
+- Under Authentication, add the "Web" platform with your Mealie login redirect URI (`https://mealie.example.com/login`), and add the "Mobile and desktop applications" platform with the redirect URI supplied by the app as a custom redirect URI.
+- Under Authentication, set "Allow public client flows" to Yes.
+- Under Token configuration, add the `email` optional claim to the ID token (accept the prompt to turn on the Microsoft Graph email permission).
+- Use the discovery URL for your tenant: `https://login.microsoftonline.com/<tenant>/v2.0/.well-known/openid-configuration`, where `<tenant>` is your Directory (tenant) ID, or `consumers` for personal Microsoft accounts.
+- Personal Microsoft accounts do not include the `email_verified` claim, so logins are rejected until `OIDC_REQUIRES_EMAIL_VERIFICATION=false` is set. See [Email Verification](#email-verification).
 
 ## Examples
 
