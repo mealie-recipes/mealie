@@ -68,7 +68,7 @@
         "report-deleted": "Rapport supprimé."
     },
     "exceptions": {
-        "permission_denied": "Vous n’avez pas la permission d’effectuer cette action",
+        "permission-denied": "Vous n’avez pas la permission d’effectuer cette action",
         "recursive-recipe-link": "Une recette ne peut pas se référencer elle-même, directement ou indirectement",
         "no-entry-found": "La ressource demandée est introuvable",
         "rate-limit-error": "Le fournisseur d'IA limite la fréquence des requêtes. Veuillez patienter un moment et réessayer",

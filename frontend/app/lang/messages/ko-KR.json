@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie는 v1.0 이전 버전의 Mealie 애플리케이션에서 레시피를 가져올 수 있습니다. 기존 인스턴스에서 레시피를 내보낸 후 아래에 있는 압축 파일을 업로드하세요. 내보내기 파일에서는 레시피만 가져올 수 있다는 점에 유의하세요.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "레시피 데이터 이전",
-    "recipe-data-migrations-explanation": "다른 지원되는 애플리케이션에서 Mealie로 레시피를 이전할 수 있습니다. 이것은 Mealie를 시작하는 아주 좋은 방법입니다.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "다른 애플리케이션이나 더 오래된 버전의 Mealie에서 오셨나요? 데이터 이전 기능을 확인하고 데이터를 가져올 수 있는지 살펴보세요.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "이전 종류 선택",
     "tag-all-recipes": "모든 레시피에 {태그 이름} 태그를 지정하세요",
     "recipe-1": "레시피 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "재료가 아직 분석되지 않은 것 같습니다. 아래의 \"{parse}\" 버튼을 클릭하여 재료를 구조화된 식품 목록으로 분석하세요.",
     "attach-images-hint": "이미지를 편집기로 끌어다 놓아 첨부하세요",
     "drop-image": "이미지 끌어다 놓기",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "단위나 정의된 식품이 포함된 레시피는 추출할 수 없습니다.",
     "parse-ingredients": "재료 추출하기",
     "edit-markdown": "마크다운 수정",
@@ -588,8 +590,8 @@
     "report-deletion-failed": "보고서 삭제 실패",
     "recipe-debugger": "레시피 디버깅 도구",
     "recipe-debugger-description": "디버깅하려는 레시피의 URL을 복사하여 여기에 붙여넣으세요. 레시피 스크랩 도구가 URL을 추출하여 결과를 표시합니다. 데이터가 반환되지 않는다면, 해당 사이트는 Mealie 또는 그 스크랩 라이브러리가 지원하지 않는 사이트입니다.",
-    "use-openai": "OpenAI 사용하기",
-    "recipe-debugger-use-openai-description": "스크랩 라이브러리에 의존하지 말고 OpenAI를 사용하여 결과를 파싱하세요. URL을 통해 레시피를 생성할 때 스크랩 라이브러리가 실패하면 이 작업이 자동으로 수행되지만, 여기에서 수동으로 테스트할 수 있습니다.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "디버그",
     "tree-view": "계층적 보기",
     "recipe-servings": "레시피 제공량",
@@ -601,15 +603,22 @@
     "remove-image": "이미지 제거",
     "nextStep": "다음 단계",
     "recipe-actions": "레시피 액션",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "재료 분석기",
       "select-parser": "분석기 선택",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "자연어 처리기",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "무차별 분석기",
-      "openai-parser": "OpenAI 분석기",
+      "ai-parser": "AI Parser",
       "missing-unit": "새 단위 생성: {unit}",
       "missing-food": "새 식품 생성: {food}",
       "this-unit-could-not-be-parsed-automatically": "이 단위는 자동으로 분석(추출)할 수 없습니다.",
@@ -909,6 +918,8 @@
       "food-data": "식품 데이터",
       "label-overwrite-warning": "이 작업은 선택한 라벨을 모든 선택된 식품에 할당하며, 기존 라벨을 덮어쓸 수 있습니다.",
       "on-hand-checkbox-label": "이 플래그를 설정하면 장보기 목록에 레시피를 추가할 때 이 식품이 기본적으로 선택 해제된 상태로 표시됩니다.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -944,11 +955,17 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "당신의 언어를 기반으로 한 일반적인 라벨을 데이터베이스에 설정하십시오.",
       "edit-label": "라벨 편집",
       "new-label": "새 라벨",
       "labels": "라벨",
-      "assign-label": "라벨 할당"
+      "assign-label": "라벨 할당",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "내보내기 데이터 삭제",
@@ -1021,7 +1038,14 @@
     "tools": {
       "new-tool": "새 도구",
       "edit-tool": "도구 편집",
-      "tool-data": "도구 데이터"
+      "tool-data": "도구 데이터",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1103,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "완벽하지는 않지만, 일반적으로 훌륭한 결과를 내며 성분을 개별 필드로 수동으로 파싱하는 데 좋은 출발점이 됩니다. 또는 패턴 매칭 기법을 사용하여 성분을 식별하는 \"무차별\" 프로세서를 사용할 수도 있습니다.",
     "nlp": "자연어 처리",
     "brute": "무차별",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "개별 확신도 표시",
     "ingredient-text": "재료 텍스트",
     "average-confident": "{0} 확신도",
@@ -1120,8 +1144,8 @@
       "restore-from-v1-backup": "이전 버전의 Mealie v1 백업본이 있으신가요? 여기서 복원할 수 있습니다.",
       "manage-profile-or-get-invite-link": "자신의 프로필을 관리하거나, 다른 사람들과 공유할 초대 링크를 가져가세요."
     },
-    "debug-openai-services": "OpenAI 서비스 디버깅하기",
-    "debug-openai-services-description": "이 페이지를 사용하여 OpenAI 서비스를 디버깅하세요. OpenAI 연결을 테스트하고 결과를 확인할 수 있습니다. 이미지 서비스를 활성화한 경우 이미지를 제공할 수도 있습니다.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "검사 실행",
     "test-results": "검사 결과",
     "group-delete-note": "사용자 또는 가구를 포함한 그룹은 삭제할 수 없습니다.",
@@ -1197,7 +1221,9 @@
       "is-less-than": "다음보다 작음",
       "is-less-than-or-equal-to": "다음보다 작거나 같음",
       "is-older-than": "~보다 오래됨",
-      "is-newer-than": "~보다 최근임"
+      "is-newer-than": "~보다 최근임",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "같음",

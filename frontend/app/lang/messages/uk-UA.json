@@ -352,7 +352,7 @@
       "title": "Paprika менеджер рецептів"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie може імпортувати рецепти з Mealie до версії 1.0. Експортуйте свої рецепти зі старої Mealie і відвантажте zip-файл нижче. Зверніть увагу, що тільки рецепти можуть бути імпортовані з експорту.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie до 1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Міграція рецептів",
-    "recipe-data-migrations-explanation": "Рецепти можна мігрувати з іншого застосунку до Mealie. Це чудовий спосіб розпочати роботу з Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Використовуєте іншу програму або іще старішу версію Mealie? Перевірте документацію з міграції та подивіться, чи можуть Ваші дані бути імпортовані.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Оберіть тип міграції",
     "tag-all-recipes": "Позначити усі рецепти тегом {tag-name}",
     "recipe-1": "Рецепт 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Схоже, що ваші інгредієнти ще не оброблені. Натисніть кнопку \"{parse}\" знизу, щоб проаналізувати свої інгредієнти в структуровані продукти.",
     "attach-images-hint": "Прикріпіть зображення, перетягнувши їх у редактор",
     "drop-image": "Перетягніть зображення",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Рецепти з визначеними одиницями або продуктами не можна проаналізувати.",
     "parse-ingredients": "Проаналізувати інгредієнти",
     "edit-markdown": "Редагувати Markdown",
@@ -588,8 +590,8 @@
     "report-deletion-failed": "Не вдалося видалити звіт",
     "recipe-debugger": "Дебаггер рецептів",
     "recipe-debugger-description": "Скопіюйте URL-адресу рецепта, який ви хочете стягнути, і вставте її тут. URL-адреса буде вилучена за допомогою паресра рецептів, і результати будуть відображені. Якщо ви не бачите жодних даних, сайт, який ви намагаєтеся вилучити, не підтримується Mealie або його бібліотекою парсерів.",
-    "use-openai": "Використовувати OpenAI",
-    "recipe-debugger-use-openai-description": "Використовуйте OpenAI для аналізу результатів замість використання бібліотеки парсера. Під час створення рецепта через URL це робиться автоматично, якщо бібліотека парсера не впоралася, але ви можете перевірити це тут вручну.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Дебажити",
     "tree-view": "У вигляді дерева",
     "recipe-servings": "Налаштування рецепта",
@@ -601,15 +603,22 @@
     "remove-image": "Видалити зображення",
     "nextStep": "Наступний крок",
     "recipe-actions": "Дії рецепту",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Аналізатор інгредієнтів",
       "select-parser": "Вибрати аналізатор",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Аналізатор природної мови",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Простий аналізатор",
-      "openai-parser": "OpenAI аналізатор",
+      "ai-parser": "AI Parser",
       "missing-unit": "Створити відсутню одиниці: {unit}",
       "missing-food": "Створити відсутню їжу: {food}",
       "this-unit-could-not-be-parsed-automatically": "Ця одиниця не може бути оброблена автоматично",
@@ -909,6 +918,8 @@
       "food-data": "Дані про продукти",
       "label-overwrite-warning": "Це призначить обрану мітку для всіх вибраних продуктів і потенційно перезапише існуючі мітки.",
       "on-hand-checkbox-label": "Встановлення цього параметра дозволить зробити цю їжу невідміченою за замовчуванням при додаванні рецепта до списку покупок.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -944,11 +955,17 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Заповнити базу даних розповсюдженими категоріями що відповідають мові.",
       "edit-label": "Редагувати мітку",
       "new-label": "Нова мітка",
       "labels": "Мітки",
-      "assign-label": "Призначити мітку"
+      "assign-label": "Призначити мітку",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Знищити експорт",
@@ -1021,7 +1038,14 @@
     "tools": {
       "new-tool": "Новий інструмент",
       "edit-tool": "Редагувати інструмент",
-      "tool-data": "Дані інструмента"
+      "tool-data": "Дані інструмента",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1103,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Модель не ідеальна, але загалом дає чудові результати і є гарною відправною точкою для ручного розбиття інгредієнтів на окремі поля. Як альтернативу, ви також можете використовувати процесор «Brute», який використовує техніку зіставлення шаблонів для ідентифікації інгредієнтів.",
     "nlp": "ОПМ",
     "brute": "Брут",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Показати індивідуальну впевненість",
     "ingredient-text": "Текст інгредієнта",
     "average-confident": "Впевненість {0}",
@@ -1120,8 +1144,8 @@
       "restore-from-v1-backup": "Маєте резервну копію з попереднього екземпляра Меаліе v1? Ви можете використати його тут.",
       "manage-profile-or-get-invite-link": "Керуйте вашим власним профілем, або отримайте посилання-запрошення щоб поділитися з іншими."
     },
-    "debug-openai-services": "Налагодження служб OpenAI",
-    "debug-openai-services-description": "Використовуйте цю сторінку, щоб налагодити служби OpenAI. Ви можете перевірити ваше з'єднання з OpenAI й побачити результати тут. Якщо ввімкнено служби зображень, ви також можете надати зображення.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Запустити перевірку",
     "test-results": "Результати перевірки",
     "group-delete-note": "Не можна видалити групи з користувачами чи сім'ями в ній",
@@ -1197,7 +1221,9 @@
       "is-less-than": "менше ніж",
       "is-less-than-or-equal-to": "менше або дорівнює",
       "is-older-than": "старіший ніж",
-      "is-newer-than": "новіше, ніж"
+      "is-newer-than": "новіше, ніж",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "є",

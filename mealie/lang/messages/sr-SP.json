@@ -68,7 +68,7 @@
         "report-deleted": "Извештај је избрисан."
     },
     "exceptions": {
-        "permission_denied": "Немате дозволу за извршење ове радње",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Рецепт не може да референцира сам себе, директно или индиректно",
         "no-entry-found": "Захтевани ресурс није пронађен",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

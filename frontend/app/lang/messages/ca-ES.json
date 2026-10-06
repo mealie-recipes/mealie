@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie pot importar les receptes des de versions prèvies a la v1.0 d'aquesta aplicació. Exporta les teves receptes des de la teva antiga instància i carrega l'arxiu. zip a sota. Només s'importaran les receptes, i cap dada més.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migració de receptes",
-    "recipe-data-migrations-explanation": "Les receptes es poden migrar des d'una altra aplicació suportada cap a Mealie. És una manera genial de començar a utilitzar el Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Véns d'una altra aplicació o una versió més antiga de Mealia? Fés un cop d'ull a migracions i mira si pots importar les teves dades.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Elegeix un tipus de migració",
     "tag-all-recipes": "Etiqueta totes les receptes amb {tag-name}",
     "recipe-1": "Recepta 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Sembla que els teus ingredients encara no s'han analitzat. Feu clic al botó \"{parse}\" de sota per transformar els vostres ingredients en aliments estructurats.",
     "attach-images-hint": "Afegeix imatges arrossegant i deixant anar la imatge a l'editor",
     "drop-image": "Deixa anar la imatge",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Les receptes amb unitats o aliments definits no es poden analitzar.",
     "parse-ingredients": "Analitzar ingredients",
     "edit-markdown": "Editar Markdown",
@@ -588,8 +590,8 @@
     "report-deletion-failed": "No s'ha pogut suprimir l'informe",
     "recipe-debugger": "Depuradora de receptes",
     "recipe-debugger-description": "Agafa l'URL de la recepta que vols depurar i enganxa-la aquí. L'URL serà reastrejada pel rastrejador de receptes i es mostraran els resultats. Si no veieu cap dada retornada, el lloc que esteu provant de rastrejar no és compatible amb Mealie ni la seva biblioteca de rastreig.",
-    "use-openai": "Fes servir OpenAI",
-    "recipe-debugger-use-openai-description": "Fes servir OpenAI per processar els resultats en comptes d'emprar la llibreria de processat. Quan creis una recepta via URL, es fa automàticament si la llibreria falla, però ho pots provar manualment aquí.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Depuració",
     "tree-view": "Vista en arbre",
     "recipe-servings": "Serveis per la recepta",
@@ -601,15 +603,22 @@
     "remove-image": "Esborrar la imatge",
     "nextStep": "Següent pas",
     "recipe-actions": "Accions de la Recepta",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Processador d'ingredients",
       "select-parser": "Selecciona processador",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Processador de llenguatge natural",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Processador brut",
-      "openai-parser": "Analitzador d'OpenAI",
+      "ai-parser": "AI Parser",
       "missing-unit": "Crear unitat que manca: {unit}",
       "missing-food": "Crear menjar que manca: {food}",
       "this-unit-could-not-be-parsed-automatically": "Aquesta unitat no s'ha pogut analitzar automàticament",
@@ -909,6 +918,8 @@
       "food-data": "Dades de menjar",
       "label-overwrite-warning": "Això assignarà l'etiqueta escollida als menjars seleccionats i pot sobreescriure potencialment etiquetes ja existents.",
       "on-hand-checkbox-label": "Aplicar aquest atribut farà que aquest menjar no es marqui per defecte quan afegeixis una recepta a la llista de la compra.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -944,11 +955,17 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Afegeix a la base de dades etiquetes comunes en el vostre idioma.",
       "edit-label": "Edita etiqueta",
       "new-label": "Nova etiqueta",
       "labels": "Etiquetes",
-      "assign-label": "Assigna L'etiqueta"
+      "assign-label": "Assigna L'etiqueta",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Purga exportacions",
@@ -1021,7 +1038,14 @@
     "tools": {
       "new-tool": "Nova eina",
       "edit-tool": "Edita eina",
-      "tool-data": "Dades d'eina"
+      "tool-data": "Dades d'eina",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1103,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "No és perfecte, però ofereix bons resultats en general i és un bon punt de partida per processar manualment ingredients a camps individuals. Alternativament, també pots fer servir el processador \"brut\" que fa servir una tècnica de reconeixement de patrons per identificar ingredients.",
     "nlp": "NLP",
     "brute": "Brut",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Mostra confiança individual",
     "ingredient-text": "Text d'ingredient",
     "average-confident": "{0} confiança",
@@ -1120,8 +1144,8 @@
       "restore-from-v1-backup": "Tens una còpia de seguretat d'una instància prèvia de Mealie v1? Pots restaurar-la aquí.",
       "manage-profile-or-get-invite-link": "Gestiona el teu propi perfil, o agafa un enllaç d'invitació per compartir amb altres."
     },
-    "debug-openai-services": "Depurar els serveis d'OpenAI",
-    "debug-openai-services-description": "Utilitza aquesta pàgina per depurar els serveis d'OpenAI. Pots provar la teva connexió amb OpenAI i veure els resultats aquí. Si tens els serveis d'imatge activats, també pots proporcionar una imatge.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Executar prova",
     "test-results": "Resultats de la prova",
     "group-delete-note": "Grups amb usuaris o llars no poden ser esborrats",
@@ -1197,7 +1221,9 @@
       "is-less-than": "és menys que",
       "is-less-than-or-equal-to": "és menor o igual a",
       "is-older-than": "és més antic que",
-      "is-newer-than": "és més nou que"
+      "is-newer-than": "és més nou que",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "és",

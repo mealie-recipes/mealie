@@ -22,14 +22,14 @@ class RecipeTimelineEvent(SqlAlchemyBase, BaseMixins):
 
     # Parent Recipe
     recipe_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("recipes.id"), nullable=False, index=True)
-    recipe: Mapped["RecipeModel"] = relationship("RecipeModel", back_populates="timeline_events")
+    recipe: Mapped[RecipeModel] = relationship("RecipeModel", back_populates="timeline_events")
 
     group_id: AssociationProxy[GUID] = association_proxy("recipe", "group_id")
     household_id: AssociationProxy[GUID] = association_proxy("recipe", "household_id")
 
     # Related User (Actor)
     user_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("users.id"), nullable=False, index=True)
-    user: Mapped["User"] = relationship(
+    user: Mapped[User] = relationship(
         "User", back_populates="recipe_timeline_events", single_parent=True, foreign_keys=[user_id]
     )
 

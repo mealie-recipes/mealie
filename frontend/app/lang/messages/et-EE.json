@@ -352,7 +352,7 @@
       "title": "Paprika retseptihaldur"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie saab importida retsepte Mealie rakendusest enne versiooni 1.0 väljalaskmist. Eksportige oma retseptid vanast installist ja laadige alla .zip fail. Pange tähele, et ekspordist saab importida ainult retsepte.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie v1.0-le eelnev versioon"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Retsepti andmete ületoomised",
-    "recipe-data-migrations-explanation": "Retsepte saab üle tuua teisest toetatud rakendusest Mealiesse. See on hea viis tegemaks algust Mealie-ga.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Tuled teisest rakendusest või hoopis vanemast Mealie versioonist? Uuri ületoomise võimalusi ning vaata kas su andmeid saab importida.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Vali ületoomise tüüp",
     "tag-all-recipes": "Märgista kõik retseptid märgiga {tag-name}",
     "recipe-1": "Retsept 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Tundub, et teie koostisosad pole veel tuvastatud. Klõpsake allpool olevat nuppu „{parse}”, et tuvastada teie koostisosad struktureeritud toitudeks.",
     "attach-images-hint": "Lisa pildid manustesse neid lohistades ja vabastades need redaktorisse",
     "drop-image": "Vabasta pilt",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Retsepte, millel kogused või toidud on defineeritud, ei saa analüüsida",
     "parse-ingredients": "Analüüsi koostisosi",
     "edit-markdown": "Muuda Markdowni",
@@ -588,8 +590,8 @@
     "report-deletion-failed": "Raporti kustutamine ebaõnnestus",
     "recipe-debugger": "Retsepti vigadeotsing",
     "recipe-debugger-description": "Võtke selle retsepti URL, milles soovite vigu otsida, ja kleepige see siia. Retseptihaaraja otsib URL-i ja tulemused kuvatakse. Kui te ei näe tagastatud andmeid, ei toeta Mealie või selle kogumisteek lehte, mida proovite haarata.",
-    "use-openai": "Kasuta OpenAI-d",
-    "recipe-debugger-use-openai-description": "Kasutage tulemuste sõelumiseks kaabitsateegi asemel OpenAI-d. Kuigi URL-i kaudu retsepti loomisel tehakse seda  kaabitsateegi mitte-toimimise korral automaatselt, saate seda proovida siin käsitsi.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Veaotsing",
     "tree-view": "Puuvaade",
     "recipe-servings": "Portsionite arv retseptis",
@@ -601,15 +603,22 @@
     "remove-image": "Eemalda pilt",
     "nextStep": "Järgmine samm",
     "recipe-actions": "Retsepti toimingud",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Koostisosade analüüser",
       "select-parser": "Vali parser",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Loomuliku keele töötlus",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Jõuline parser",
-      "openai-parser": "OpenAI parser",
+      "ai-parser": "AI Parser",
       "missing-unit": "Loo puuduv ühik: {unit}",
       "missing-food": "Loo puuduv toit: {food}",
       "this-unit-could-not-be-parsed-automatically": "Seda ühikut ei saanud automaatselt tuvastada",
@@ -909,6 +918,8 @@
       "food-data": "Toidu andmed",
       "label-overwrite-warning": "See määrab valitud sildi kõigile valitud toitudele ja potentsiaalselt asendab olemasolevad sildid.",
       "on-hand-checkbox-label": "Sildi valimine eemaldab toidu vaikimisi nimekirjast kui lisate retsepti ostunimekirja.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -944,11 +955,17 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Alusta andmebaasi täitmist tüüpiliste siltidega kohalikus keeles.",
       "edit-label": "Muuda silti",
       "new-label": "Uus silt",
       "labels": "Sildid",
-      "assign-label": "Määra silt"
+      "assign-label": "Määra silt",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Puhasta ekspordid",
@@ -1021,7 +1038,14 @@
     "tools": {
       "new-tool": "Uus tööriist",
       "edit-tool": "Muuda tööriista",
-      "tool-data": "Tööriista andmed"
+      "tool-data": "Tööriista andmed",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1103,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "See ei ole täiuslik, kuid annab tavaliselt väga häid tulemusi ja on hea algus koostisosade käsitsi määramiseks üksikutele väljadele. Teise võimalusena võite kasutada \"jõulist\" protsessorit, mis kasutab koostisosade tuvastamiseks mustri sobitamise tehnikat.",
     "nlp": "NLP",
     "brute": "Jõuline",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Näita individuaalseid usalfusväärsusi",
     "ingredient-text": "Koostisosa tekst",
     "average-confident": "{0} usaldusväärne",
@@ -1120,8 +1144,8 @@
       "restore-from-v1-backup": "Kas sul on tagavarakoopia varasemast Mealie v1 instantsist? Sa saad taastada selle siin.",
       "manage-profile-or-get-invite-link": "Halda oma profiili, või haara kutselink teistega jagamiseks."
     },
-    "debug-openai-services": "Otsi vigu OpenAI teenustes",
-    "debug-openai-services-description": "Kasuta seda lehekülge et otsida vigu OpenAI teenustes. Sa saad testida oma OpenAI ühendust ja näha tulemusi siin. Kui sul on pildi teenused lubatud, võid esitada ka pildi.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Jooksuta testi",
     "test-results": "Testi tulemused",
     "group-delete-note": "Leibkondade või kasutajatega gruppe ei saa kustutada",
@@ -1197,7 +1221,9 @@
       "is-less-than": "on vähem kui",
       "is-less-than-or-equal-to": "on väiksem või võrdne kui",
       "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-newer-than": "is newer than",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "on",

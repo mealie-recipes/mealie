@@ -1,8 +1,8 @@
 <template>
   <v-container class="pa-0">
     <v-container>
-      <BaseCardSectionTitle :title="$t('admin.debug-openai-services')">
-        {{ $t('admin.debug-openai-services-description') }}
+      <BaseCardSectionTitle :title="$t('admin.debug-ai-providers')">
+        {{ $t('admin.debug-ai-providers-description') }}
         <br>
         <DocLink
           class="mt-2"
@@ -129,7 +129,7 @@ const i18n = useI18n();
 
 // Set page title
 useSeoMeta({
-  title: i18n.t("admin.debug-openai-services"),
+  title: i18n.t("admin.debug-ai-providers"),
 });
 
 const loading = ref(false);
@@ -178,7 +178,7 @@ async function testOpenAI() {
   loading.value = false;
 
   if (!data) {
-    alert.error("Unable to test OpenAI services");
+    alert.error("Unable to test AI services");
   }
   else {
     response.value = data.response || (data.success ? "Test Successful" : "Test Failed");

@@ -26,7 +26,7 @@ class ReportEntryModel(SqlAlchemyBase, BaseMixins):
     timestamp: Mapped[datetime] = mapped_column(NaiveDateTime, nullable=False, default=get_utc_now)
 
     report_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("group_reports.id"), nullable=False, index=True)
-    report: Mapped["ReportModel"] = orm.relationship("ReportModel", back_populates="entries")
+    report: Mapped[ReportModel] = orm.relationship("ReportModel", back_populates="entries")
 
     @auto_init()
     def __init__(self, **_) -> None:
@@ -48,7 +48,7 @@ class ReportModel(SqlAlchemyBase, BaseMixins):
 
     # Relationships
     group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="group_reports", single_parent=True)
+    group: Mapped[Group] = orm.relationship("Group", back_populates="group_reports", single_parent=True)
     model_config = ConfigDict(exclude=["entries"])
 
     @auto_init()

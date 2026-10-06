@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie kan importere opskrifter fra en før v1.0 udgivelse. Eksporter dine opskrifter fra din gamle installation, og upload zip-filen nedenfor. Bemærk, at kun opskrifter kan importeres fra eksport.",
+      "description-long": "Mealie kan importere opskrifter fra en tidligere Mealie-version end v1.0. Eksportér dine opskrifter fra den gamle instans, og upload ZIP-filen nedenfor. Bemærk, at det kun er opskrifter, der kan importeres fra en sådan eksport. Dette gælder kun eksport fra instanser med en version tidligere end v1.0. Backups, der er taget fra Mealie-version v1.0 eller senere, bør gendannes med backup- og gendannelsesværktøjerne i stedet.",
       "title": "Mealie før v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrering af opskrifter",
-    "recipe-data-migrations-explanation": "Opskrifter kan migreres fra et andet understøttet program til Mealie. Dette er en fantastisk måde at komme i gang med Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Kommer fra en anden applikation eller en endnu ældre version af Mealie? Tjek migrationer og se om dine data kan importeres.",
+    "recipe-data-migrations-explanation": "Opskrifter kan migreres fra andre understøttede applikationer til Mealie. Det er en god måde at komme i gang med Mealie på. Flytning af data mellem Mealie-instanser, eller gendannelse fra en tidligere Mealie-backup, gøres i stedet med backup- og gendannelsesværktøjerne.",
+    "migration-description": "Kommer du fra en anden applikation, eller fra en Mealie-version tidligere end v1.0? Tjek migrationer og se, om dine data kan importeres.",
     "choose-migration-type": "Vælg migreringstype",
     "tag-all-recipes": "Tag alle opskrifter med {tag-name} tag",
     "recipe-1": "Opskrift 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Det ser ud til at dine ingredienser ikke er klassificeret endnu. Klik på knappen \"{parse}\" nedenfor for at analysere ingredienserne til strukturerede fødevarer.",
     "attach-images-hint": "Vedhæft billeder ved at trække dem ind i redigeringsværktøjet",
     "drop-image": "Slet billede",
+    "failed-to-attach-image": "Kunne ikke vedhæfte billede",
+    "image-drop-unsupported": "Dette billede kan ikke vedhæftes direkte. Gem det til din enhed, og tilføj det så derfra.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Opskrifter med enheder eller fødevarer defineret kan ikke fortolkes.",
     "parse-ingredients": "Fortolk ingredienser",
     "edit-markdown": "Rediger markdown",
@@ -588,8 +590,8 @@
     "report-deletion-failed": "Sletning af rapport mislykkedes",
     "recipe-debugger": "Fejlsøgning af opskrifter",
     "recipe-debugger-description": "Indsæt URL'en på hjemmesiden, der indeholder den opskrift, du vil fejlsøge på. URL-adressen vil blive læst og resultaterne vil blive vist. Hvis ingen data bliver vist, er indhentning af opskrifter fra hjemmesiden endnu ikke understøttet af Mealie.",
-    "use-openai": "Brug OpenAI",
-    "recipe-debugger-use-openai-description": "Brug OpenAI til at fortolke resultaterne i stedet for at stole på scraperbiblioteket. Når du opretter en opskrift via URL, gøres dette automatisk, hvis skraberbiblioteket fejler, men du kan teste det manuelt her.",
+    "use-ai": "Benyt AI",
+    "recipe-debugger-use-ai-description": "Brug AI til at fortolke resultaterne i stedet for at stole på scraperbiblioteket. Når du opretter en opskrift via URL, gøres dette automatisk, hvis skraberbiblioteket fejler, men du kan teste det manuelt her.",
     "debug": "Fejlsøgning",
     "tree-view": "Træ visning",
     "recipe-servings": "Opskrift Servinger",
@@ -601,15 +603,22 @@
     "remove-image": "Fjern billede",
     "nextStep": "Næste trin",
     "recipe-actions": "Opskriftshandlinger",
+    "unit-system": {
+      "as-written": "Som skrevet",
+      "metric": "Metrisk",
+      "metric-with-hint": "Metrisk (g, mL, etc.)",
+      "imperial": "Amerikansk",
+      "imperial-with-hint": "Amerikansk (kopper, ounces, etc.)"
+    },
     "parser": {
       "ingredient-parser": "Ingrediensfortolker",
       "select-parser": "Vælg fortolker",
       "dont-show-again": "Vis ikke dette igen",
       "try-again-with-parser": "Prøv igen med {parser}",
       "natural-language-processor": "Naturlig sprogbehandler",
-      "natural-language-processor-english-only": "Den naturlige sprogbehandler er trænet på engelsksprogede opskrifter. Med opskrifter på andre sprog genkender den som regel mængden, men ikke enheden, så den rå behandler, eller OpenAI-behandleren plejer at virke bedre i de tilfælde.",
+      "natural-language-processor-english-only": "Den naturlige sprogbehandler er trænet på engelsksprogede opskrifter. Med opskrifter på andre sprog genkender den som regel mængden, men ikke enheden, så den rå behandler, eller AI-behandleren plejer at virke bedre i de tilfælde.",
       "brute-parser": "Rå parser",
-      "openai-parser": "OpenAI-parser",
+      "ai-parser": "AI-behandler",
       "missing-unit": "Opret manglende måleenhed: {unit}",
       "missing-food": "Opret manglende fødevare: {food}",
       "this-unit-could-not-be-parsed-automatically": "Denne enhed kunne ikke fortolkes automatisk",
@@ -909,6 +918,8 @@
       "food-data": "Oplysninger om fødevare",
       "label-overwrite-warning": "Dette vil tildele den valgte etiket til alle udvalgte fødevarer og potentielt overskrive dine eksisterende etiketter.",
       "on-hand-checkbox-label": "Ændring af dette flag ændrer markeringen, så denne fødevare ikke er markeret som standard, når du tilføjer en opskrift til en indkøbsliste.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Erstatninger",
       "manage-substitutions": "Håndtér erstatninger",
       "substitution-dialog-text": "Foreslå ingredienser, der kan benyttes i stedet for {food}. En erstatningsterm kan være en ingrediens, en note, eller begge.",
@@ -944,11 +955,17 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Opret standard etiketter på dit sprog.",
       "edit-label": "Redigér etiket",
       "new-label": "Ny etiket",
       "labels": "Etiketter",
-      "assign-label": "Tildel etiket"
+      "assign-label": "Tildel etiket",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Slet eksporter",
@@ -1021,7 +1038,14 @@
     "tools": {
       "new-tool": "Nyt redskab",
       "edit-tool": "Redigér redskaber",
-      "tool-data": "Redskabsoplysninger"
+      "tool-data": "Redskabsoplysninger",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1103,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Det er ikke perfekt, men giver generelt gode resultater og er et godt udgangspunkt for manuel redigering af ingredienser i individuelle felter. Alternativt kan du også bruge \"Brute\"-metoden, der bruger en mønstermatchende teknik til at identificere ingredienser.",
     "nlp": "NLP",
     "brute": "Rå",
-    "openai": "OpenAI",
+    "ai-providers": "AI-udbydere",
     "show-individual-confidence": "Vis individual konfidensscore",
     "ingredient-text": "Ingredienstekst",
     "average-confident": "{0} konfidens",
@@ -1120,8 +1144,8 @@
       "restore-from-v1-backup": "Har du en sikkerhedskopi fra en tidligere udgave af Mealie v1? Du kan gendanne den her.",
       "manage-profile-or-get-invite-link": "Administrer din egen profil, eller tag et invitationslink til at dele med andre."
     },
-    "debug-openai-services": "Fejlsøg OpenAI-tjenester",
-    "debug-openai-services-description": "Brug denne side til at fejlsøge OpenAI-tjenester. Du kan teste din OpenAI-forbindelse og se resultaterne her. Hvis du har billedetjenester aktiveret, kan du også prøve med et billede.",
+    "debug-ai-providers": "Fejlsøg AI-udbydere",
+    "debug-ai-providers-description": "Brug denne side til at fejlsøge AI-udbydere. Du kan teste din AI-forbindelse og se resultaterne her. Hvis du har billedetjenester aktiveret, kan du også prøve med et billede.",
     "run-test": "Kør test",
     "test-results": "Testresultater",
     "group-delete-note": "Grupper med brugere eller husstande kan ikke slettes",
@@ -1197,7 +1221,9 @@
       "is-less-than": "er mindre end (Automatic Translation)",
       "is-less-than-or-equal-to": "er mindre end eller lig med (Automatic Translation)",
       "is-older-than": "er ældre end",
-      "is-newer-than": "er nyere end"
+      "is-newer-than": "er nyere end",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "er",

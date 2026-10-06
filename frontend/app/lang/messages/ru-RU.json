@@ -352,7 +352,7 @@
       "title": "Менеджер рецептов Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie может импортировать рецепты из приложения Mealie из версии до версии 1.0. Экспортируйте рецепты из старой версии приложения и загрузите zip-файл ниже. Заметьте, что только рецепты могут быть импортированы из экспорта.",
+      "description-long": "Mealie может импортировать рецепты из приложения версий до 1.0. Экспортируйте рецепты из старого экземпляра, и загрузите zip-файл. Заметьте, что из экспорта могут быть взяты только рецепты. Это относится только к v1.0. Резервная копия, взятая из v1.0 или выше, должна быть восстановлена с помощью инструментов резервного копирования и восстановления.",
       "title": "Mealie до v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Перенос данных рецептов",
-    "recipe-data-migrations-explanation": "Рецепты могут быть перенесены из другого поддерживаемого приложения в Mealie. Это отличный способ начать работу с Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Переходите из другого приложения или с более поздней версии Mealie? Проверьте \"миграции\", чтобы убедиться, что ваши данные могут быть перенесены.",
+    "recipe-data-migrations-explanation": "Рецепты могут быть перенесены в Mealie из другого поддерживаемого приложения. Это отличный способ начать работу. Перемещение данных между экземплярами Mealie или восстановление более ранней резервной копии производится с помощью инструментов резервного копирования и восстановления.",
+    "migration-description": "Переходите из другого приложения или с более поздней версии Mealie? Проверьте миграции, чтобы убедиться, что ваши данные могут быть перенесены.",
     "choose-migration-type": "Выберите тип переноса",
     "tag-all-recipes": "Отметить все рецепты тегом {tag-name}",
     "recipe-1": "Рецепт 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Похоже, ваши ингредиенты не разобраны. Нажмите кнопку \"{parse}\" чтобы разобрать ваши ингредиенты в структурированный список.",
     "attach-images-hint": "Прикрепляйте изображения, перетаскивая их в редактор",
     "drop-image": "Перетащите изображение",
+    "failed-to-attach-image": "Не удалось прикрепить изображение",
+    "image-drop-unsupported": "Это изображение не может быть прикреплено напрямую. Сохраните его на устройстве, затем перетащите файл.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Невозможно разобрать рецепты с определенными единицами измерений или продуктами.",
     "parse-ingredients": "Анализ ингредиентов",
     "edit-markdown": "Редактировать Markdown",
@@ -588,8 +590,8 @@
     "report-deletion-failed": "Не удалось удалить отчёт",
     "recipe-debugger": "Отладчик рецептов",
     "recipe-debugger-description": "Вставьте сюда URL рецепта, который вы хотите отладить. Рецепт по указанному URL-адресу будет отсканирован и результаты сканирования будут указаны ниже. Если вы не видите никаких возвращенных данных, то сайт, который вы пытаетесь обработать, не поддерживается Mealie или библиотекой сканера.",
-    "use-openai": "Использовать OpenAI",
-    "recipe-debugger-use-openai-description": "Использовать OpenAI для разбора результатов вместо использования скрейпера. При создании рецепта по URL это делается автоматически, если скрейпер не справляется, но вы можете протестировать его здесь вручную.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Отладка",
     "tree-view": "В виде дерева",
     "recipe-servings": "Порции",
@@ -601,15 +603,22 @@
     "remove-image": "Удалить изображение",
     "nextStep": "След. шаг",
     "recipe-actions": "Действия с рецептом",
+    "unit-system": {
+      "as-written": "Как записано",
+      "metric": "Метрическая",
+      "metric-with-hint": "Метрическая (г, мл)",
+      "imperial": "Британская",
+      "imperial-with-hint": "Британская (ч, ун)"
+    },
     "parser": {
       "ingredient-parser": "Разделитель ингредиентов",
       "select-parser": "Выбрать Разделитель",
       "dont-show-again": "Не показывать снова",
       "try-again-with-parser": "Попробуйте снова с помощью {parser}",
       "natural-language-processor": "Обработчик естественного языка",
-      "natural-language-processor-english-only": "Обработчик естественного языка обучается по рецептам на английском. Для рецептов на других языках он обычно распознает количество, но не единицу. Грубый парсер или ИИ-парсер сработают лучше.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Грубый Парсер",
-      "openai-parser": "Анализ OpenAI",
+      "ai-parser": "AI Parser",
       "missing-unit": "Создать недостающую единицу: {unit}",
       "missing-food": "Создать недостающую еду: {food}",
       "this-unit-could-not-be-parsed-automatically": "Эта единица не может быть обработана автоматически",
@@ -909,6 +918,8 @@
       "food-data": "Данные о продуктах",
       "label-overwrite-warning": "Это назначит выбранную метку всем выбранным продуктам и потенциально перезапишет существующие метки.",
       "on-hand-checkbox-label": "Установка этого флага сделает этот продукт неотмеченным по умолчанию при добавлении рецепта в список покупок.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Замены",
       "manage-substitutions": "Управление заменами",
       "substitution-dialog-text": "Предложить ингредиенты, которые могут быть использованы вместо {food}. Может быть добавлен ингредиент и/или примечание.",
@@ -944,11 +955,17 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Дополнить базу данных типичными единицами измерений на основе выбранного языка.",
       "edit-label": "Изменить метку",
       "new-label": "Новая метка",
       "labels": "Метки",
-      "assign-label": "Присвоить метку"
+      "assign-label": "Присвоить метку",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Очистить экспорты",
@@ -1021,7 +1038,14 @@
     "tools": {
       "new-tool": "Добавить инструмент",
       "edit-tool": "Изменить инструмент",
-      "tool-data": "Данные инструмента"
+      "tool-data": "Данные инструмента",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1103,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Он не совершенен, но, в целом, дает хорошие результаты и является хорошей отправной точкой для ручного разбора ингредиентов в отдельных полях. Иначе, для определения ингредиентов можно использовать процессор \"Brute\", использующий технику сопоставления образцов (pattern matching).",
     "nlp": "NLP (работа с языком)",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Показать уверенность каждого поля",
     "ingredient-text": "Описание ингредиента",
     "average-confident": "Уверенность {0}",
@@ -1120,8 +1144,8 @@
       "restore-from-v1-backup": "У вас есть резервная копия предыдущего экземпляра Mealie v1? Вы можете восстановить ее здесь.",
       "manage-profile-or-get-invite-link": "Управляйте своим профилем или получите ссылку-приглашение, чтобы поделиться ею с другими."
     },
-    "debug-openai-services": "Отладка OpenAI сервисов",
-    "debug-openai-services-description": "Используйте эту страницу для отладки служб OpenAI. Вы можете проверить подключение к OpenAI и посмотреть результаты здесь. Если у Вас включены службы изображений, Вы также можете предоставить изображение.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Запустить тест",
     "test-results": "Результаты тестов",
     "group-delete-note": "Группы, в которых есть пользователи или домохозяйства, не могут быть удалены",
@@ -1197,7 +1221,9 @@
       "is-less-than": "меньше чем",
       "is-less-than-or-equal-to": "меньше или равно",
       "is-older-than": "старше чем",
-      "is-newer-than": "новее, чем"
+      "is-newer-than": "новее, чем",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "соответствует",

@@ -352,7 +352,7 @@
       "title": "Paprika食谱管理器"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie支持从其（1.0版本之前的）早期版本中导入食谱。你需要在老版本服务器上导出食谱，并在下方上传zip文件。注意，只有食谱数据能被导入。",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "食谱数据迁移",
-    "recipe-data-migrations-explanation": "你可以从受支持的应用中将食谱迁移至Mealie，这是上手Mealie的好方法。",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "之前使用其他食谱应用或是旧版本Mealie吗？检查迁移设置，来确认你的原有数据是否可以导入。",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "选择迁移类型",
     "tag-all-recipes": "用{tag-name} 标签标记所有食谱",
     "recipe-1": "食谱 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "看起来你的食材还没有被解析。点击下面的“{parse}”按钮，将您的配料解析为结构化食品。",
     "attach-images-hint": "如需添加图片，可将其拖拽到编辑器",
     "drop-image": "拖放图片",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "无法解析定义了单位或食品的食谱",
     "parse-ingredients": "自动解析食材",
     "edit-markdown": "编辑Markdown",
@@ -588,8 +590,8 @@
     "report-deletion-failed": "删除报告失败",
     "recipe-debugger": "食谱调试器",
     "recipe-debugger-description": "抓取你想要的食谱的URL并粘贴在此。食谱刮削器将尝试刮削该URL并显示结果。如果你没看到任何返回数据，则说明对应的网站不支持Mealie或它的刮削库。",
-    "use-openai": "使用OpenAI",
-    "recipe-debugger-use-openai-description": "使用 OpenAI 解析结果，而非依赖抓取库。通过网址创建食谱时，若抓取库运行失败，系统会自动调用此功能，但您也可在此处手动测试。",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "调试",
     "tree-view": "树状图",
     "recipe-servings": "食谱份量",
@@ -601,15 +603,22 @@
     "remove-image": "删除图片",
     "nextStep": "下一步",
     "recipe-actions": "食谱行为",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "食材解析器",
       "select-parser": "选取解析器",
       "dont-show-again": "不再显示",
       "try-again-with-parser": "使用 {parser} 重试",
       "natural-language-processor": "自然语言处理器",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "暴力解析器",
-      "openai-parser": "OpenAI 解析器",
+      "ai-parser": "AI Parser",
       "missing-unit": "创建缺失的计量单位：{unit}",
       "missing-food": "创建缺失的食物：{food}",
       "this-unit-could-not-be-parsed-automatically": "无法自动解析此单元",
@@ -909,6 +918,8 @@
       "food-data": "食品数据",
       "label-overwrite-warning": "这将为所有选定的食品分配选定的标签，可能会覆盖您现有的标签。",
       "on-hand-checkbox-label": "在将食谱添加到购物清单时，设置此标志将默认不检查该食物。",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -944,11 +955,17 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "基于你的本地语言，将一些常见标注添加到数据库。",
       "edit-label": "编辑标注",
       "new-label": "新标注",
       "labels": "标注",
-      "assign-label": "指定标签"
+      "assign-label": "指定标签",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "清除导出",
@@ -1021,7 +1038,14 @@
     "tools": {
       "new-tool": "新用具",
       "edit-tool": "编辑用具",
-      "tool-data": "用具数据"
+      "tool-data": "用具数据",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1103,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "它不完美，但通常来说结果还不错。推荐用它上手来把食材手动解析成独立字段。或者，你也可以选择“Brute解析器“，它使用一种模式匹配技术来识别食材。",
     "nlp": "自然语言处理",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "显示个体置信度",
     "ingredient-text": "食材文本",
     "average-confident": "{0} 准确度",
@@ -1120,8 +1144,8 @@
       "restore-from-v1-backup": "有之前Mealie v1实例的备份数据？你可以在这里恢复它们。",
       "manage-profile-or-get-invite-link": "管理你自己的个人资料，或者获取邀请链接分享给其他人。"
     },
-    "debug-openai-services": "调试 OpenAI 服务",
-    "debug-openai-services-description": "使用此页面调试OpenAI服务。您可以在这里测试您的OpenAI连接并查看结果。如果启用了映像服务，还可以提供映像。",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "进行测试",
     "test-results": "测试结果",
     "group-delete-note": "不能删除包含用户或家庭的组",
@@ -1197,7 +1221,9 @@
       "is-less-than": "小于",
       "is-less-than-or-equal-to": "小于等于",
       "is-older-than": "旧于",
-      "is-newer-than": "新于"
+      "is-newer-than": "新于",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "是",

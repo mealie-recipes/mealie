@@ -68,7 +68,7 @@
         "report-deleted": "Resep verwyder."
     },
     "exceptions": {
-        "permission_denied": "Jy het nie toestemming om hierdie aksie uit te voer nie",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "Die gevraagde item is nie gevind nie",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

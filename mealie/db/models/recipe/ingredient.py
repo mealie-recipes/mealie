@@ -2,9 +2,9 @@ from typing import TYPE_CHECKING
 
 import sqlalchemy as sa
 from pydantic import ConfigDict
-from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, orm
+from sqlalchemy import Boolean, Float, ForeignKey, Integer, String, event, literal, orm
 from sqlalchemy.ext.orderinglist import ordering_list
-from sqlalchemy.orm import Mapped, mapped_column
+from sqlalchemy.orm import Mapped, mapped_column, query_expression
 from sqlalchemy.orm.session import Session
 
 from mealie.db.models._model_base import BaseMixins, FilterableColumn, SqlAlchemyBase
@@ -94,7 +94,7 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
 
     # ID Relationships
     group_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="ingredient_units", foreign_keys=[group_id])
+    group: Mapped[Group] = orm.relationship("Group", back_populates="ingredient_units", foreign_keys=[group_id])
 
     name: FilterableColumn[str | None] = mapped_column(String)
     plural_name: FilterableColumn[str | None] = mapped_column(String)
@@ -104,10 +104,8 @@ class IngredientUnitModel(SqlAlchemyBase, BaseMixins):
     use_abbreviation: FilterableColumn[bool | None] = mapped_column(Boolean, default=False)
     fraction: FilterableColumn[bool | None] = mapped_column(Boolean, default=True)
 
-    ingredients: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
-        "RecipeIngredientModel", back_populates="unit"
-    )
-    aliases: Mapped[list["IngredientUnitAliasModel"]] = orm.relationship(
+    ingredients: Mapped[list[RecipeIngredientModel]] = orm.relationship("RecipeIngredientModel", back_populates="unit")
+    aliases: Mapped[list[IngredientUnitAliasModel]] = orm.relationship(
         "IngredientUnitAliasModel",
         back_populates="unit",
         cascade="all, delete, delete-orphan",
@@ -217,25 +215,24 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
 
     # ID Relationships
     group_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="ingredient_foods", foreign_keys=[group_id])
-    households_with_ingredient_food: Mapped[list["Household"]] = orm.relationship(
+    group: Mapped[Group] = orm.relationship("Group", back_populates="ingredient_foods", foreign_keys=[group_id])
+    households_with_ingredient_food: Mapped[list[Household]] = orm.relationship(
         "Household", secondary=households_to_ingredient_foods, back_populates="ingredient_foods_on_hand"
     )
 
     name: FilterableColumn[str | None] = mapped_column(String)
     plural_name: FilterableColumn[str | None] = mapped_column(String)
     description: FilterableColumn[str | None] = mapped_column(String)
+    recipe_count: Mapped[int] = query_expression(default_expr=literal(0))
 
-    ingredients: Mapped[list["RecipeIngredientModel"]] = orm.relationship(
-        "RecipeIngredientModel", back_populates="food"
-    )
-    aliases: Mapped[list["IngredientFoodAliasModel"]] = orm.relationship(
+    ingredients: Mapped[list[RecipeIngredientModel]] = orm.relationship("RecipeIngredientModel", back_populates="food")
+    aliases: Mapped[list[IngredientFoodAliasModel]] = orm.relationship(
         "IngredientFoodAliasModel",
         back_populates="food",
         cascade="all, delete, delete-orphan",
     )
     # substitutions this food offers, e.g. chicken stock -> chicken broth
-    substitutions: Mapped[list["IngredientFoodSubstitutionModel"]] = orm.relationship(
+    substitutions: Mapped[list[IngredientFoodSubstitutionModel]] = orm.relationship(
         "IngredientFoodSubstitutionModel",
         back_populates="food",
         foreign_keys="IngredientFoodSubstitutionModel.food_id",
@@ -244,7 +241,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
         collection_class=ordering_list("position"),
     )
     # substitutions pointing at this food; exists so deleting a food cleans up the ones aimed at it
-    substitution_references: Mapped[list["IngredientFoodSubstitutionModel"]] = orm.relationship(
+    substitution_references: Mapped[list[IngredientFoodSubstitutionModel]] = orm.relationship(
         "IngredientFoodSubstitutionModel",
         back_populates="substitute_food",
         foreign_keys="IngredientFoodSubstitutionModel.substitute_food_id",
@@ -253,7 +250,7 @@ class IngredientFoodModel(SqlAlchemyBase, BaseMixins):
     # the same, for the recipe tier: without it a deleted food leaves ingredient substitutions
     # pointing at a row that is gone, which renders as an empty popover on SQLite and fails the
     # foreign key outright on Postgres
-    recipe_substitution_references: Mapped[list["RecipeIngredientSubstitutionModel"]] = orm.relationship(
+    recipe_substitution_references: Mapped[list[RecipeIngredientSubstitutionModel]] = orm.relationship(
         "RecipeIngredientSubstitutionModel",
         back_populates="substitute_food",
         cascade="all, delete, delete-orphan",
@@ -389,7 +386,7 @@ class IngredientUnitAliasModel(SqlAlchemyBase, BaseMixins):
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     unit_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("ingredient_units.id"), primary_key=True)
-    unit: Mapped["IngredientUnitModel"] = orm.relationship("IngredientUnitModel", back_populates="aliases")
+    unit: Mapped[IngredientUnitModel] = orm.relationship("IngredientUnitModel", back_populates="aliases")
 
     name: FilterableColumn[str] = mapped_column(String)
 
@@ -430,7 +427,7 @@ class IngredientFoodAliasModel(SqlAlchemyBase, BaseMixins):
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     food_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), primary_key=True)
-    food: Mapped["IngredientFoodModel"] = orm.relationship("IngredientFoodModel", back_populates="aliases")
+    food: Mapped[IngredientFoodModel] = orm.relationship("IngredientFoodModel", back_populates="aliases")
 
     name: FilterableColumn[str] = mapped_column(String)
 
@@ -488,14 +485,14 @@ class IngredientFoodSubstitutionModel(SqlAlchemyBase, BaseMixins):
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     food_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), index=True, nullable=False)
-    food: Mapped["IngredientFoodModel"] = orm.relationship(
+    food: Mapped[IngredientFoodModel] = orm.relationship(
         "IngredientFoodModel", back_populates="substitutions", foreign_keys=[food_id]
     )
 
     substitute_food_id: FilterableColumn[GUID | None] = mapped_column(
         GUID, ForeignKey("ingredient_foods.id"), index=True
     )
-    substitute_food: Mapped["IngredientFoodModel | None"] = orm.relationship(
+    substitute_food: Mapped[IngredientFoodModel | None] = orm.relationship(
         "IngredientFoodModel", back_populates="substitution_references", foreign_keys=[substitute_food_id]
     )
 
@@ -528,11 +525,11 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
 
     # Recipe Reference
     referenced_recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
-    referenced_recipe: Mapped["RecipeModel"] = orm.relationship(
+    referenced_recipe: Mapped[RecipeModel] = orm.relationship(
         "RecipeModel", back_populates="referenced_ingredients", foreign_keys=[referenced_recipe_id]
     )
 
-    substitutions: Mapped[list["RecipeIngredientSubstitutionModel"]] = orm.relationship(
+    substitutions: Mapped[list[RecipeIngredientSubstitutionModel]] = orm.relationship(
         "RecipeIngredientSubstitutionModel",
         back_populates="ingredient",
         cascade="all, delete, delete-orphan",
@@ -649,14 +646,14 @@ class RecipeIngredientSubstitutionModel(SqlAlchemyBase, BaseMixins):
     ingredient_id: FilterableColumn[int] = mapped_column(
         Integer, ForeignKey("recipes_ingredients.id"), index=True, nullable=False
     )
-    ingredient: Mapped["RecipeIngredientModel"] = orm.relationship(
+    ingredient: Mapped[RecipeIngredientModel] = orm.relationship(
         "RecipeIngredientModel", back_populates="substitutions"
     )
 
     substitute_food_id: FilterableColumn[GUID | None] = mapped_column(
         GUID, ForeignKey("ingredient_foods.id"), index=True
     )
-    substitute_food: Mapped["IngredientFoodModel | None"] = orm.relationship(
+    substitute_food: Mapped[IngredientFoodModel | None] = orm.relationship(
         "IngredientFoodModel", back_populates="recipe_substitution_references"
     )
 

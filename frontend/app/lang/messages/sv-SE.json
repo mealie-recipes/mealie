@@ -352,7 +352,7 @@
       "title": "Paprika recepthanterare"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie kan importera recept från Mealieapplikationen från en pre v1.0 release. Exportera dina recept från din gamla instans, och ladda upp zip-filen nedan. Observera att endast recept kan importeras från exporten.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie före v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrering av receptdata",
-    "recipe-data-migrations-explanation": "Recept kan migreras från en annan applikation som stöds till Mealie. Detta är ett bra sätt att komma igång med Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Kommer från en annan app, program eller tidigare version av Mealie? Kika på migrationer och se om din data kan bli importerad.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Välj migrationstyp",
     "tag-all-recipes": "Tagga alla recept med {tag-name} tagg",
     "recipe-1": "Recept 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Det verkar som om dina ingredienser inte är tolkade ännu. Klicka på knappen \"{parse}\" nedan för att tolka dina ingredienser till strukturerade livsmedel.",
     "attach-images-hint": "Bifoga bilder genom att dra och släppa dem i redigeraren",
     "drop-image": "Släpp bild",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recept med enheter eller definierade livsmedel kan inte tolkas.",
     "parse-ingredients": "Tolka ingredienser",
     "edit-markdown": "Redigera markdown",
@@ -588,8 +590,8 @@
     "report-deletion-failed": "Rapporten gick inte att radera",
     "recipe-debugger": "Receptfelsökning",
     "recipe-debugger-description": "Ta tag i URL: en till det recept du vill felsöka och klistra in det här. URL-adressen kommer att skrapas av receptskrapan och resultaten kommer att visas. Om du inte ser några data returnerade, stödjs inte webbplatsen du försöker skrapa av Mealie eller dess skrapbibliotek.",
-    "use-openai": "Använd OpenAI",
-    "recipe-debugger-use-openai-description": "Använd OpenAI för att tolka resultaten istället för att förlita sig på skrapans bibliotek. När du skapar ett recept via URL görs detta automatiskt om skrapbiblioteket misslyckas, men du kan testa det manuellt här.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Felsök",
     "tree-view": "Trädvy",
     "recipe-servings": "Portioner",
@@ -601,15 +603,22 @@
     "remove-image": "Ta bort bild",
     "nextStep": "Nästa steg",
     "recipe-actions": "Recept åtgärder",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Ingrediensanalysator",
       "select-parser": "Välj tolk",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Naturlig språkbehandlare",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Brute parser",
-      "openai-parser": "OpenAI syntaxanalyserare",
+      "ai-parser": "AI Parser",
       "missing-unit": "Skapa saknad enhet: {unit}",
       "missing-food": "Skapa saknad ingrediens: {food}",
       "this-unit-could-not-be-parsed-automatically": "Enheten kunde inte översättas automatiskt",
@@ -909,6 +918,8 @@
       "food-data": "Mat data",
       "label-overwrite-warning": "Detta kommer att tilldela den valda etiketten till alla utvalda måltider och potentiellt skriva över dina befintliga etiketter.",
       "on-hand-checkbox-label": "Om du ställer in den här flaggan kommer de här livsmedlen att avmarkeras som standard när du lägger till ett recept i en inköpslista.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -944,11 +955,17 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Fyll databasen med vanliga etiketter baserade på ditt språk.",
       "edit-label": "Redigera etikett",
       "new-label": "Ny etikett",
       "labels": "Etiketter",
-      "assign-label": "Tilldela etikett"
+      "assign-label": "Tilldela etikett",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Rensa exporter",
@@ -1021,7 +1038,14 @@
     "tools": {
       "new-tool": "Nytt verktyg",
       "edit-tool": "Lägg till/ta bort verktyg",
-      "tool-data": "Verktygsdata"
+      "tool-data": "Verktygsdata",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1103,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Det är inte perfekt, men det ger bra resultat i allmänhet och är en bra utgångspunkt för att manuellt tolka ingredienser i enskilda områden. Alternativt kan du också använda \"Brute\" processor som använder en mönstermatchningsteknik för att identifiera ingredienser.",
     "nlp": "NLP",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Visa individuella självförtroende",
     "ingredient-text": "Ingrediens text",
     "average-confident": "{0} Säker",
@@ -1120,8 +1144,8 @@
       "restore-from-v1-backup": "Har du en säkerhetskopia från en tidigare instans av Mealie v1? Du kan återställa den här.",
       "manage-profile-or-get-invite-link": "Hantera din egen profil eller hämta en inbjudningslänk för att dela med andra."
     },
-    "debug-openai-services": "Felsök OpenAI-tjänster",
-    "debug-openai-services-description": "Använd denna sida för att felsöka OpenAI-tjänster. Du kan testa din OpenAI-anslutning och se resultaten här. Om du har bildtjänster aktiverade, kan du också ge en bild.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Kör test",
     "test-results": "Testresultat",
     "group-delete-note": "Grupper med användare eller hushåll kan inte raderas",
@@ -1197,7 +1221,9 @@
       "is-less-than": "är mindre än",
       "is-less-than-or-equal-to": "är mindre eller lika med",
       "is-older-than": "är äldre än",
-      "is-newer-than": "är nyare än"
+      "is-newer-than": "är nyare än",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "är",

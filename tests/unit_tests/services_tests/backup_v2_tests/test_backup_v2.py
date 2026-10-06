@@ -41,6 +41,8 @@ def test_database_backup():
     with backup as contents:
         assert contents.validate()
 
+    backup_v2.db_exporter.engine.dispose()
+
 
 def test_database_restore():
     settings = get_app_settings()
@@ -48,6 +50,7 @@ def test_database_restore():
     # Capture existing database snapshot
     original_exporter = AlchemyExporter(settings.DB_URL)
     snapshop_1 = original_exporter.dump()
+    original_exporter.engine.dispose()
 
     # Create Backup
     backup_v2 = BackupV2(settings.DB_URL)
@@ -58,6 +61,7 @@ def test_database_restore():
 
     new_exporter = AlchemyExporter(settings.DB_URL)
     snapshop_2 = new_exporter.dump()
+    new_exporter.engine.dispose()
 
     for s1, s2 in zip(snapshop_1, snapshop_2, strict=False):
         assert snapshop_1[s1].sort(key=dict_sorter) == snapshop_2[s2].sort(key=dict_sorter)

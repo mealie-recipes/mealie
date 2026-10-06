@@ -352,7 +352,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie poate importa rețetele din aplicația Mealie dintr-o lansare pre-v1.0. Exportă rețetele din vechea aplicație, apoi încarcă fișierul de tip \".ZIP\" folosind câmpul de mai jos. Numai rețetele pot fi importate din export.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migrarea datelor rețetelor",
-    "recipe-data-migrations-explanation": "Rețetele pot fi migrate de la o altă aplicație ce este suportată de Mealie. Acesta este un mod excelent de a începe să folosiți Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Veniți dintr-o altă aplicație sau o versiune și mai veche a Mealie? Uitați-vă la migrări și vedeți dacă datele dvs. pot fi importate.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Alegeți tipul de migrare",
     "tag-all-recipes": "Etichetați toate rețetele cu eticheta {tag-name}",
     "recipe-1": "Rețeta 1",
@@ -526,6 +526,8 @@
     "ingredients-not-parsed-description": "Se pare că ingredientele tale nu sunt încă analizate. Apăsați butonul \"{parse}\" de mai jos pentru a analiza ingredientele în alimente structurate.",
     "attach-images-hint": "Atașează imagini trăgându-le cu mouse-ul și plasându-le în editor",
     "drop-image": "Trage imaginea",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Reţetele cu unităţi sau alimente definite nu pot fi analizate.",
     "parse-ingredients": "Analizează ingredientele",
     "edit-markdown": "Editează Markdown",
@@ -588,8 +590,8 @@
     "report-deletion-failed": "Ștergerea raportului a eșuat",
     "recipe-debugger": "Depanare rețetă",
     "recipe-debugger-description": "Copiază URL-ul rețetei pe care vrei să o depanezi și lipește-l aici. URL-ul va fi importat și rezultatele vor fi afișate ulterior. Dacă nu vedeți date returnate, site-ul pe care încerci să îl procesezi nu este suportat de Mealie sau biblioteca sa de import.",
-    "use-openai": "Folosește OpenAI",
-    "recipe-debugger-use-openai-description": "Folosește OpenAI pentru a analiza rezultatele în loc să te bazezi pe biblioteca de \"scraping\". La crearea unei rețete prin URL, acest lucru se face automat în cazul în care biblioteca de \"scraping\" eșuează, dar puteți testa manual acest lucru aici.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Depanare",
     "tree-view": "Vizualizare Ierarhică",
     "recipe-servings": "Porții rețetă",
@@ -601,15 +603,22 @@
     "remove-image": "Șterge Imaginea",
     "nextStep": "Pasul următor",
     "recipe-actions": "Acțiuni rețetă",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Analizator de ingrediente",
       "select-parser": "Alege analizatorul",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Procesor de limbaj natural",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Analizator brut",
-      "openai-parser": "Analizator OpenAI",
+      "ai-parser": "AI Parser",
       "missing-unit": "Creează unitate lipsă: {unit}",
       "missing-food": "Creează mâncare lipsă: {food}",
       "this-unit-could-not-be-parsed-automatically": "Această unitate nu a putut fi analizată automat",
@@ -909,6 +918,8 @@
       "food-data": "Date despre mâncare",
       "label-overwrite-warning": "Acest lucru va atribui eticheta aleasă tuturor alimentelor selectate și ar putea suprascrie etichetele existente.",
       "on-hand-checkbox-label": "Setarea acestui indicator va face ca acest aliment să fie debifat în mod implicit atunci când se adaugă o rețetă pe lista de cumpărături.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -944,11 +955,17 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Populează baza de date cu unități comune în funcție de limba ta locală.",
       "edit-label": "Editare etichetă",
       "new-label": "Etichetă Nouă",
       "labels": "Etichete",
-      "assign-label": "Atribuie etichetă"
+      "assign-label": "Atribuie etichetă",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Curăță Exporturile",
@@ -1021,7 +1038,14 @@
     "tools": {
       "new-tool": "Ustensilă nouă",
       "edit-tool": "Editare Ustensilă",
-      "tool-data": "Date ustensilă"
+      "tool-data": "Date ustensilă",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1103,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Nu este perfect, dar în general oferă rezultate foarte bune și reprezintă un punct de plecare solid pentru a analiza manual ingredientele în câmpuri individuale. Alternativ, puteți utiliza procesorul \"Brute\" care folosește o tehnică de potrivire a modelelor pentru a identifica ingredientele.",
     "nlp": "NLP",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Afișare încredere individuală",
     "ingredient-text": "Textul ingredientului",
     "average-confident": "{0} Încrezător",
@@ -1120,8 +1144,8 @@
       "restore-from-v1-backup": "Aveţi o copie de rezervă dintr-o instanţă anterioară a lui Mealie v1? O puteţi restaura aici.",
       "manage-profile-or-get-invite-link": "Gestionează-ți propriul profil, sau apasă un link de invitație pentru a distribui cu alții."
     },
-    "debug-openai-services": "Depanare servicii OpenAI",
-    "debug-openai-services-description": "Utilizați această pagină pentru a depana serviciile OpenAI. Puteți testa conexiunea OpenAI și vedea rezultatele aici. Dacă aveți servicii de imagine activate, puteți de asemenea să furnizați o imagine.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Rulează Testul",
     "test-results": "Rezultate test",
     "group-delete-note": "Grupurile cu utilizatori sau gospodării nu pot fi șterse",
@@ -1197,7 +1221,9 @@
       "is-less-than": "este mai mic decât",
       "is-less-than-or-equal-to": "este mai mic sau egal cu",
       "is-older-than": "este mai vechi de",
-      "is-newer-than": "este mai nou decât"
+      "is-newer-than": "este mai nou decât",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "este",

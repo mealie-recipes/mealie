@@ -68,7 +68,7 @@
         "report-deleted": "El informe fue eliminado."
     },
     "exceptions": {
-        "permission_denied": "No tiene permiso para realizar esta acción",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Una receta no puede referenciarse, sea directa o indirectamente",
         "no-entry-found": "No se ha encontrado el recurso solicitado",
         "rate-limit-error": "El proveedor de IA está limitando las solicitudes. Por favor, espere un momento y vuelva a intentarlo",
