@@ -918,6 +918,8 @@
       "food-data": "Δεδομένα τροφίμου",
       "label-overwrite-warning": "Αυτό θα αντιστοιχίσει την επιλεγμένη ετικέτα σε όλα τα επιλεγμένα τρόφιμα και ενδεχομένως να αντικαταστήσει τις υπάρχουσες ετικέτες σας.",
       "on-hand-checkbox-label": "Η ρύθμιση αυτής της σημαίας θα κάνει αυτό το τρόφιμο αποεπιλεγμένο από προεπιλογή κατά την προσθήκη μιας συνταγής σε μια λίστα για ψώνια.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Υποκατάστατα",
       "manage-substitutions": "Διαχείριση υποκατάστατων",
       "substitution-dialog-text": "Προτείνετε τρόφιμα που μπορούν να χρησιμοποιηθούν στη θέση του {food}. Ενα υποκατάσταυο μπορεί να είναι ένα φαγητό, μια σημείωση, ή και τα δύο.",
@@ -956,7 +958,14 @@
       "edit-label": "Επεξεργασία ετικέτας",
       "new-label": "Νέα ετικέτα",
       "labels": "Ετικέτες",
-      "assign-label": "Ορισμός Ετικέτας"
+      "assign-label": "Ορισμός Ετικέτας",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Εκκαθάριση εξαγωγών",
@@ -1029,7 +1038,14 @@
     "tools": {
       "new-tool": "Νέο εργαλείο",
       "edit-tool": "Επεξεργασία εργαλείου",
-      "tool-data": "Δεδομένα εργαλείου"
+      "tool-data": "Δεδομένα εργαλείου",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1206,8 +1222,8 @@
       "is-less-than-or-equal-to": "είναι μικρότερο από ή ίσο με",
       "is-older-than": "είναι παλαιότερο από",
       "is-newer-than": "είναι νεότερο από",
-      "has-a-value": "has a value",
-      "has-no-value": "has no value"
+      "has-a-value": "έχει μια τιμή",
+      "has-no-value": "δεν έχει τιμή"
     },
     "relational-keywords": {
       "is": "είναι",

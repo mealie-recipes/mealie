@@ -918,6 +918,8 @@
       "food-data": "Dati Alimento",
       "label-overwrite-warning": "Questo assegnerà l'etichetta scelta a tutti gli alimenti selezionati e potenzialmente sovrascriverà le etichette esistenti.",
       "on-hand-checkbox-label": "Abilitando questa impostazione, l'alimento verrà deselezionato di default quando si aggiungerà una ricetta a una lista della spesa.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -956,7 +958,14 @@
       "edit-label": "Modifica Etichetta",
       "new-label": "Nuova Etichetta",
       "labels": "Etichette",
-      "assign-label": "Assegna Etichetta"
+      "assign-label": "Assegna Etichetta",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Elimina Esportazioni",
@@ -1029,7 +1038,14 @@
     "tools": {
       "new-tool": "Nuovo strumento",
       "edit-tool": "Modifica Strumento",
-      "tool-data": "Dati dello Strumento"
+      "tool-data": "Dati dello Strumento",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
