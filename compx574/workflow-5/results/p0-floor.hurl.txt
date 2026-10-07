@@ -1,0 +1,2617 @@
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:18:0
+     |
+     | GET {{candidate}}/api/admin/about
+     | ...
+  18 | status == {{s1}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:30:0
+     |
+     | GET {{candidate}}/api/admin/about/check
+     | ...
+  30 | status == {{s2}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:42:0
+     |
+     | GET {{candidate}}/api/admin/about/statistics
+     | ...
+  42 | status == {{s3}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:54:0
+     |
+     | GET {{candidate}}/api/admin/backups
+     | ...
+  54 | status == {{s4}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:83:0
+     |
+     | POST {{candidate}}/api/admin/backups/upload
+     | ...
+  83 | status == {{s6}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:107:0
+     |
+     | DELETE {{candidate}}/api/admin/backups/parity-missing.bin
+     | ...
+ 107 | status == {{s8}}
+     |   actual:   integer <404>
+     |   expected: integer <400>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:119:0
+     |
+     | POST {{candidate}}/api/admin/backups/parity-missing.bin/restore
+     | ...
+ 119 | status == {{s9}}
+     |   actual:   integer <404>
+     |   expected: integer <500>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:135:0
+     |
+     | POST {{candidate}}/api/admin/debug/openai/00000000-0000-0000-0000-000000000000
+     | ...
+ 135 | status == {{s10}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:147:0
+     |
+     | GET {{candidate}}/api/admin/email
+     | ...
+ 147 | status == {{s11}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:163:0
+     |
+     | POST {{candidate}}/api/admin/email
+     | ...
+ 163 | status == {{s12}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:175:0
+     |
+     | GET {{candidate}}/api/admin/groups?page=1&perPage=5
+     | ...
+ 175 | status == {{s13}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:191:0
+     |
+     | POST {{candidate}}/api/admin/groups
+     | ...
+ 191 | status == {{s14}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:207:0
+     |
+     | POST {{candidate}}/api/admin/groups/00000000-0000-0000-0000-000000000000/ai-providers/providers
+     | ...
+ 207 | status == {{s15}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:235:0
+     |
+     | PUT {{candidate}}/api/admin/groups/00000000-0000-0000-0000-000000000000/ai-providers/providers/00000000-0000-0000-0000-000000000000
+     | ...
+ 235 | status == {{s17}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:247:0
+     |
+     | DELETE {{candidate}}/api/admin/groups/00000000-0000-0000-0000-000000000000/ai-providers/providers/00000000-0000-0000-0000-000000000000
+     | ...
+ 247 | status == {{s18}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:275:0
+     |
+     | PUT {{candidate}}/api/admin/groups/00000000-0000-0000-0000-000000000000
+     | ...
+ 275 | status == {{s20}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:287:0
+     |
+     | DELETE {{candidate}}/api/admin/groups/00000000-0000-0000-0000-000000000000
+     | ...
+ 287 | status == {{s21}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:299:0
+     |
+     | GET {{candidate}}/api/admin/households?page=1&perPage=5
+     | ...
+ 299 | status == {{s22}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:315:0
+     |
+     | POST {{candidate}}/api/admin/households
+     | ...
+ 315 | status == {{s23}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:343:0
+     |
+     | PUT {{candidate}}/api/admin/households/00000000-0000-0000-0000-000000000000
+     | ...
+ 343 | status == {{s25}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:355:0
+     |
+     | DELETE {{candidate}}/api/admin/households/00000000-0000-0000-0000-000000000000
+     | ...
+ 355 | status == {{s26}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:367:0
+     |
+     | GET {{candidate}}/api/admin/maintenance
+     | ...
+ 367 | status == {{s27}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:418:0
+     |
+     | GET {{candidate}}/api/admin/maintenance/storage
+     | ...
+ 418 | status == {{s31}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:430:0
+     |
+     | GET {{candidate}}/api/admin/users?page=1&perPage=5
+     | ...
+ 430 | status == {{s32}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:446:0
+     |
+     | POST {{candidate}}/api/admin/users
+     | ...
+ 446 | status == {{s33}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:462:0
+     |
+     | POST {{candidate}}/api/admin/users/password-reset-token
+     | ...
+ 462 | status == {{s34}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:474:0
+     |
+     | POST {{candidate}}/api/admin/users/unlock
+     | ...
+ 474 | status == {{s35}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:502:0
+     |
+     | PUT {{candidate}}/api/admin/users/00000000-0000-0000-0000-000000000000
+     | ...
+ 502 | status == {{s37}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:514:0
+     |
+     | DELETE {{candidate}}/api/admin/users/00000000-0000-0000-0000-000000000000
+     | ...
+ 514 | status == {{s38}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:524:0
+     |
+     | GET {{candidate}}/api/app/about
+     | ...
+ 524 | status == {{s39}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:534:0
+     |
+     | GET {{candidate}}/api/app/about/startup-info
+     | ...
+ 534 | status == {{s40}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:544:0
+     |
+     | GET {{candidate}}/api/app/about/theme
+     | ...
+ 544 | status == {{s41}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:556:0
+     |
+     | POST {{candidate}}/api/auth/logout
+     | ...
+ 556 | status == {{s42}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:566:0
+     |
+     | GET {{candidate}}/api/auth/oauth
+     | ...
+ 566 | status == {{s43}}
+     |   actual:   integer <404>
+     |   expected: integer <500>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:576:0
+     |
+     | GET {{candidate}}/api/auth/oauth/callback
+     | ...
+ 576 | status == {{s44}}
+     |   actual:   integer <404>
+     |   expected: integer <500>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:600:0
+     |
+     | POST {{candidate}}/api/auth/oauth/native/token
+     | ...
+ 600 | status == {{s46}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:612:0
+     |
+     | POST {{candidate}}/api/auth/refresh
+     | ...
+ 612 | status == {{s47}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:628:0
+     |
+     | POST {{candidate}}/api/auth/token
+     | ...
+ 628 | status == {{s48}}
+     |   actual:   integer <404>
+     |   expected: integer <401>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:640:0
+     |
+     | GET {{candidate}}/api/comments?page=1&perPage=5
+     | ...
+ 640 | status == {{s49}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:641:0
+     |
+     | GET {{candidate}}/api/comments?page=1&perPage=5
+     | ...
+ 641 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:642:0
+     |
+     | GET {{candidate}}/api/comments?page=1&perPage=5
+     | ...
+ 642 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:658:0
+     |
+     | POST {{candidate}}/api/comments
+     | ...
+ 658 | status == {{s50}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:670:0
+     |
+     | GET {{candidate}}/api/comments/00000000-0000-0000-0000-000000000000
+     | ...
+ 670 | status == {{s51}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:686:0
+     |
+     | PUT {{candidate}}/api/comments/00000000-0000-0000-0000-000000000000
+     | ...
+ 686 | status == {{s52}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:698:0
+     |
+     | DELETE {{candidate}}/api/comments/00000000-0000-0000-0000-000000000000
+     | ...
+ 698 | status == {{s53}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:860:0
+     |
+     | GET {{candidate}}/api/foods?page=1&perPage=5
+     | ...
+ 860 | status == {{s69}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:861:0
+     |
+     | GET {{candidate}}/api/foods?page=1&perPage=5
+     | ...
+ 861 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:862:0
+     |
+     | GET {{candidate}}/api/foods?page=1&perPage=5
+     | ...
+ 862 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:878:0
+     |
+     | POST {{candidate}}/api/foods
+     | ...
+ 878 | status == {{s70}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:894:0
+     |
+     | PUT {{candidate}}/api/foods/merge
+     | ...
+ 894 | status == {{s71}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:922:0
+     |
+     | PUT {{candidate}}/api/foods/00000000-0000-0000-0000-000000000000
+     | ...
+ 922 | status == {{s73}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:934:0
+     |
+     | DELETE {{candidate}}/api/foods/00000000-0000-0000-0000-000000000000
+     | ...
+ 934 | status == {{s74}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:950:0
+     |
+     | POST {{candidate}}/api/groups/ai-providers/providers
+     | ...
+ 950 | status == {{s75}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:966:0
+     |
+     | POST {{candidate}}/api/groups/ai-providers/providers/test
+     | ...
+ 966 | status == {{s76}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:994:0
+     |
+     | PUT {{candidate}}/api/groups/ai-providers/providers/00000000-0000-0000-0000-000000000000
+     | ...
+ 994 | status == {{s78}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1006:0
+     |
+     | DELETE {{candidate}}/api/groups/ai-providers/providers/00000000-0000-0000-0000-000000000000
+     | ...
+1006 | status == {{s79}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1022:0
+     |
+     | POST {{candidate}}/api/groups/ai-providers/providers/00000000-0000-0000-0000-000000000000/test
+     | ...
+1022 | status == {{s80}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1034:0
+     |
+     | GET {{candidate}}/api/groups/ai-providers/settings
+     | ...
+1034 | status == {{s81}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1050:0
+     |
+     | PUT {{candidate}}/api/groups/ai-providers/settings
+     | ...
+1050 | status == {{s82}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1062:0
+     |
+     | GET {{candidate}}/api/groups/households?page=1&perPage=10
+     | ...
+1062 | status == {{s83}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1063:0
+     |
+     | GET {{candidate}}/api/groups/households?page=1&perPage=10
+     | ...
+1063 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1064:0
+     |
+     | GET {{candidate}}/api/groups/households?page=1&perPage=10
+     | ...
+1064 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1076:0
+     |
+     | GET {{candidate}}/api/groups/households/family
+     | ...
+1076 | status == {{s84}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1088:0
+     |
+     | GET {{candidate}}/api/groups/labels?page=1&perPage=10
+     | ...
+1088 | status == {{s85}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1089:0
+     |
+     | GET {{candidate}}/api/groups/labels?page=1&perPage=10
+     | ...
+1089 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1090:0
+     |
+     | GET {{candidate}}/api/groups/labels?page=1&perPage=10
+     | ...
+1090 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1106:0
+     |
+     | POST {{candidate}}/api/groups/labels
+     | ...
+1106 | status == {{s86}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1134:0
+     |
+     | PUT {{candidate}}/api/groups/labels/00000000-0000-0000-0000-000000000000
+     | ...
+1134 | status == {{s88}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1146:0
+     |
+     | DELETE {{candidate}}/api/groups/labels/00000000-0000-0000-0000-000000000000
+     | ...
+1146 | status == {{s89}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1158:0
+     |
+     | GET {{candidate}}/api/groups/members?page=1&perPage=10
+     | ...
+1158 | status == {{s90}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1159:0
+     |
+     | GET {{candidate}}/api/groups/members?page=1&perPage=10
+     | ...
+1159 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1160:0
+     |
+     | GET {{candidate}}/api/groups/members?page=1&perPage=10
+     | ...
+1160 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1172:0
+     |
+     | GET {{candidate}}/api/groups/members/bob
+     | ...
+1172 | status == {{s91}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1188:0
+     |
+     | POST {{candidate}}/api/groups/migrations
+     | ...
+1188 | status == {{s92}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1200:0
+     |
+     | GET {{candidate}}/api/groups/preferences
+     | ...
+1200 | status == {{s93}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1216:0
+     |
+     | PUT {{candidate}}/api/groups/preferences
+     | ...
+1216 | status == {{s94}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1228:0
+     |
+     | GET {{candidate}}/api/groups/reports
+     | ...
+1228 | status == {{s95}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1240:0
+     |
+     | GET {{candidate}}/api/groups/reports/00000000-0000-0000-0000-000000000000
+     | ...
+1240 | status == {{s96}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1252:0
+     |
+     | DELETE {{candidate}}/api/groups/reports/00000000-0000-0000-0000-000000000000
+     | ...
+1252 | status == {{s97}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1268:0
+     |
+     | POST {{candidate}}/api/groups/seeders/foods
+     | ...
+1268 | status == {{s98}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1284:0
+     |
+     | POST {{candidate}}/api/groups/seeders/units
+     | ...
+1284 | status == {{s99}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1296:0
+     |
+     | GET {{candidate}}/api/groups/self
+     | ...
+1296 | status == {{s100}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1308:0
+     |
+     | GET {{candidate}}/api/groups/storage
+     | ...
+1308 | status == {{s101}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1320:0
+     |
+     | GET {{candidate}}/api/households/cookbooks?page=1&perPage=10
+     | ...
+1320 | status == {{s102}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1321:0
+     |
+     | GET {{candidate}}/api/households/cookbooks?page=1&perPage=10
+     | ...
+1321 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1322:0
+     |
+     | GET {{candidate}}/api/households/cookbooks?page=1&perPage=10
+     | ...
+1322 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1338:0
+     |
+     | POST {{candidate}}/api/households/cookbooks
+     | ...
+1338 | status == {{s103}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1354:0
+     |
+     | PUT {{candidate}}/api/households/cookbooks
+     | ...
+1354 | status == {{s104}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1382:0
+     |
+     | PUT {{candidate}}/api/households/cookbooks/00000000-0000-0000-0000-000000000000
+     | ...
+1382 | status == {{s106}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1406:0
+     |
+     | GET {{candidate}}/api/households/events/notifications?page=1&perPage=10
+     | ...
+1406 | status == {{s108}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1407:0
+     |
+     | GET {{candidate}}/api/households/events/notifications?page=1&perPage=10
+     | ...
+1407 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1408:0
+     |
+     | GET {{candidate}}/api/households/events/notifications?page=1&perPage=10
+     | ...
+1408 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1424:0
+     |
+     | POST {{candidate}}/api/households/events/notifications
+     | ...
+1424 | status == {{s109}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1436:0
+     |
+     | GET {{candidate}}/api/households/events/notifications/00000000-0000-0000-0000-000000000000
+     | ...
+1436 | status == {{s110}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1452:0
+     |
+     | PUT {{candidate}}/api/households/events/notifications/00000000-0000-0000-0000-000000000000
+     | ...
+1452 | status == {{s111}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1464:0
+     |
+     | DELETE {{candidate}}/api/households/events/notifications/00000000-0000-0000-0000-000000000000
+     | ...
+1464 | status == {{s112}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1476:0
+     |
+     | POST {{candidate}}/api/households/events/notifications/00000000-0000-0000-0000-000000000000/test
+     | ...
+1476 | status == {{s113}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1488:0
+     |
+     | GET {{candidate}}/api/households/invitations
+     | ...
+1488 | status == {{s114}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1504:0
+     |
+     | POST {{candidate}}/api/households/invitations
+     | ...
+1504 | status == {{s115}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1520:0
+     |
+     | POST {{candidate}}/api/households/invitations/email
+     | ...
+1520 | status == {{s116}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1532:0
+     |
+     | GET {{candidate}}/api/households/mealplans?page=1&perPage=5
+     | ...
+1532 | status == {{s117}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1533:0
+     |
+     | GET {{candidate}}/api/households/mealplans?page=1&perPage=5
+     | ...
+1533 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1534:0
+     |
+     | GET {{candidate}}/api/households/mealplans?page=1&perPage=5
+     | ...
+1534 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1550:0
+     |
+     | POST {{candidate}}/api/households/mealplans
+     | ...
+1550 | status == {{s118}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1566:0
+     |
+     | POST {{candidate}}/api/households/mealplans/random
+     | ...
+1566 | status == {{s119}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1578:0
+     |
+     | GET {{candidate}}/api/households/mealplans/rules?page=1&perPage=10
+     | ...
+1578 | status == {{s120}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1579:0
+     |
+     | GET {{candidate}}/api/households/mealplans/rules?page=1&perPage=10
+     | ...
+1579 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1580:0
+     |
+     | GET {{candidate}}/api/households/mealplans/rules?page=1&perPage=10
+     | ...
+1580 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1596:0
+     |
+     | POST {{candidate}}/api/households/mealplans/rules
+     | ...
+1596 | status == {{s121}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1608:0
+     |
+     | GET {{candidate}}/api/households/mealplans/rules/00000000-0000-0000-0000-000000000000
+     | ...
+1608 | status == {{s122}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1624:0
+     |
+     | PUT {{candidate}}/api/households/mealplans/rules/00000000-0000-0000-0000-000000000000
+     | ...
+1624 | status == {{s123}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1636:0
+     |
+     | DELETE {{candidate}}/api/households/mealplans/rules/00000000-0000-0000-0000-000000000000
+     | ...
+1636 | status == {{s124}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1648:0
+     |
+     | GET {{candidate}}/api/households/mealplans/today
+     | ...
+1648 | status == {{s125}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1660:0
+     |
+     | GET {{candidate}}/api/households/mealplans/00000000-0000-0000-0000-000000000000
+     | ...
+1660 | status == {{s126}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1676:0
+     |
+     | PUT {{candidate}}/api/households/mealplans/00000000-0000-0000-0000-000000000000
+     | ...
+1676 | status == {{s127}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1688:0
+     |
+     | DELETE {{candidate}}/api/households/mealplans/00000000-0000-0000-0000-000000000000
+     | ...
+1688 | status == {{s128}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1700:0
+     |
+     | GET {{candidate}}/api/households/members?page=1&perPage=5
+     | ...
+1700 | status == {{s129}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1716:0
+     |
+     | PUT {{candidate}}/api/households/permissions
+     | ...
+1716 | status == {{s130}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1728:0
+     |
+     | GET {{candidate}}/api/households/preferences
+     | ...
+1728 | status == {{s131}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1744:0
+     |
+     | PUT {{candidate}}/api/households/preferences
+     | ...
+1744 | status == {{s132}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1756:0
+     |
+     | GET {{candidate}}/api/households/recipe-actions?page=1&perPage=10
+     | ...
+1756 | status == {{s133}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1757:0
+     |
+     | GET {{candidate}}/api/households/recipe-actions?page=1&perPage=10
+     | ...
+1757 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1758:0
+     |
+     | GET {{candidate}}/api/households/recipe-actions?page=1&perPage=10
+     | ...
+1758 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1774:0
+     |
+     | POST {{candidate}}/api/households/recipe-actions
+     | ...
+1774 | status == {{s134}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1786:0
+     |
+     | GET {{candidate}}/api/households/recipe-actions/00000000-0000-0000-0000-000000000000
+     | ...
+1786 | status == {{s135}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1802:0
+     |
+     | PUT {{candidate}}/api/households/recipe-actions/00000000-0000-0000-0000-000000000000
+     | ...
+1802 | status == {{s136}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1814:0
+     |
+     | DELETE {{candidate}}/api/households/recipe-actions/00000000-0000-0000-0000-000000000000
+     | ...
+1814 | status == {{s137}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1830:0
+     |
+     | POST {{candidate}}/api/households/recipe-actions/00000000-0000-0000-0000-000000000000/trigger/parity-missing
+     | ...
+1830 | status == {{s138}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1842:0
+     |
+     | GET {{candidate}}/api/households/self
+     | ...
+1842 | status == {{s139}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1866:0
+     |
+     | GET {{candidate}}/api/households/shopping/items?page=1&perPage=5
+     | ...
+1866 | status == {{s141}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1867:0
+     |
+     | GET {{candidate}}/api/households/shopping/items?page=1&perPage=5
+     | ...
+1867 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1868:0
+     |
+     | GET {{candidate}}/api/households/shopping/items?page=1&perPage=5
+     | ...
+1868 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1884:0
+     |
+     | POST {{candidate}}/api/households/shopping/items
+     | ...
+1884 | status == {{s142}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1900:0
+     |
+     | PUT {{candidate}}/api/households/shopping/items
+     | ...
+1900 | status == {{s143}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1912:0
+     |
+     | DELETE {{candidate}}/api/households/shopping/items?ids=00000000-0000-0000-0000-000000000000
+     | ...
+1912 | status == {{s144}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1928:0
+     |
+     | POST {{candidate}}/api/households/shopping/items/create-bulk
+     | ...
+1928 | status == {{s145}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1956:0
+     |
+     | PUT {{candidate}}/api/households/shopping/items/00000000-0000-0000-0000-000000000000
+     | ...
+1956 | status == {{s147}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1968:0
+     |
+     | DELETE {{candidate}}/api/households/shopping/items/00000000-0000-0000-0000-000000000000
+     | ...
+1968 | status == {{s148}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1980:0
+     |
+     | GET {{candidate}}/api/households/shopping/lists?page=1&perPage=5
+     | ...
+1980 | status == {{s149}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1981:0
+     |
+     | GET {{candidate}}/api/households/shopping/lists?page=1&perPage=5
+     | ...
+1981 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1982:0
+     |
+     | GET {{candidate}}/api/households/shopping/lists?page=1&perPage=5
+     | ...
+1982 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:1998:0
+     |
+     | POST {{candidate}}/api/households/shopping/lists
+     | ...
+1998 | status == {{s150}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2026:0
+     |
+     | PUT {{candidate}}/api/households/shopping/lists/00000000-0000-0000-0000-000000000000
+     | ...
+2026 | status == {{s152}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2038:0
+     |
+     | DELETE {{candidate}}/api/households/shopping/lists/00000000-0000-0000-0000-000000000000
+     | ...
+2038 | status == {{s153}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2054:0
+     |
+     | PUT {{candidate}}/api/households/shopping/lists/00000000-0000-0000-0000-000000000000/label-settings
+     | ...
+2054 | status == {{s154}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2070:0
+     |
+     | POST {{candidate}}/api/households/shopping/lists/00000000-0000-0000-0000-000000000000/recipe
+     | ...
+2070 | status == {{s155}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2086:0
+     |
+     | POST {{candidate}}/api/households/shopping/lists/00000000-0000-0000-0000-000000000000/recipe/00000000-0000-0000-0000-000000000000
+     | ...
+2086 | status == {{s156}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2102:0
+     |
+     | POST {{candidate}}/api/households/shopping/lists/00000000-0000-0000-0000-000000000000/recipe/00000000-0000-0000-0000-000000000000/delete
+     | ...
+2102 | status == {{s157}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2114:0
+     |
+     | GET {{candidate}}/api/households/statistics
+     | ...
+2114 | status == {{s158}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2126:0
+     |
+     | GET {{candidate}}/api/households/webhooks?page=1&perPage=10
+     | ...
+2126 | status == {{s159}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2127:0
+     |
+     | GET {{candidate}}/api/households/webhooks?page=1&perPage=10
+     | ...
+2127 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2128:0
+     |
+     | GET {{candidate}}/api/households/webhooks?page=1&perPage=10
+     | ...
+2128 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2144:0
+     |
+     | POST {{candidate}}/api/households/webhooks
+     | ...
+2144 | status == {{s160}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2169:0
+     |
+     | GET {{candidate}}/api/households/webhooks/00000000-0000-0000-0000-000000000000
+     | ...
+2169 | status == {{s162}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2185:0
+     |
+     | PUT {{candidate}}/api/households/webhooks/00000000-0000-0000-0000-000000000000
+     | ...
+2185 | status == {{s163}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2197:0
+     |
+     | DELETE {{candidate}}/api/households/webhooks/00000000-0000-0000-0000-000000000000
+     | ...
+2197 | status == {{s164}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2209:0
+     |
+     | POST {{candidate}}/api/households/webhooks/00000000-0000-0000-0000-000000000000/test
+     | ...
+2209 | status == {{s165}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2271:0
+     |
+     | GET {{candidate}}/api/organizers/categories?page=1&perPage=5
+     | ...
+2271 | status == {{s171}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2272:0
+     |
+     | GET {{candidate}}/api/organizers/categories?page=1&perPage=5
+     | ...
+2272 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2273:0
+     |
+     | GET {{candidate}}/api/organizers/categories?page=1&perPage=5
+     | ...
+2273 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2289:0
+     |
+     | POST {{candidate}}/api/organizers/categories
+     | ...
+2289 | status == {{s172}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2301:0
+     |
+     | GET {{candidate}}/api/organizers/categories/empty
+     | ...
+2301 | status == {{s173}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2317:0
+     |
+     | POST {{candidate}}/api/organizers/categories/merge
+     | ...
+2317 | status == {{s174}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2357:0
+     |
+     | PUT {{candidate}}/api/organizers/categories/00000000-0000-0000-0000-000000000000
+     | ...
+2357 | status == {{s177}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2369:0
+     |
+     | DELETE {{candidate}}/api/organizers/categories/00000000-0000-0000-0000-000000000000
+     | ...
+2369 | status == {{s178}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2381:0
+     |
+     | GET {{candidate}}/api/organizers/tags?page=1&perPage=5
+     | ...
+2381 | status == {{s179}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2382:0
+     |
+     | GET {{candidate}}/api/organizers/tags?page=1&perPage=5
+     | ...
+2382 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2383:0
+     |
+     | GET {{candidate}}/api/organizers/tags?page=1&perPage=5
+     | ...
+2383 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2399:0
+     |
+     | POST {{candidate}}/api/organizers/tags
+     | ...
+2399 | status == {{s180}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2411:0
+     |
+     | GET {{candidate}}/api/organizers/tags/empty
+     | ...
+2411 | status == {{s181}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2427:0
+     |
+     | POST {{candidate}}/api/organizers/tags/merge
+     | ...
+2427 | status == {{s182}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2439:0
+     |
+     | GET {{candidate}}/api/organizers/tags/slug/chicken-breast
+     | ...
+2439 | status == {{s183}}
+     |   actual:   integer <404>
+     |   expected: integer <500>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2467:0
+     |
+     | PUT {{candidate}}/api/organizers/tags/00000000-0000-0000-0000-000000000000
+     | ...
+2467 | status == {{s185}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2479:0
+     |
+     | DELETE {{candidate}}/api/organizers/tags/00000000-0000-0000-0000-000000000000
+     | ...
+2479 | status == {{s186}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2491:0
+     |
+     | GET {{candidate}}/api/organizers/tools?page=1&perPage=5
+     | ...
+2491 | status == {{s187}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2492:0
+     |
+     | GET {{candidate}}/api/organizers/tools?page=1&perPage=5
+     | ...
+2492 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2493:0
+     |
+     | GET {{candidate}}/api/organizers/tools?page=1&perPage=5
+     | ...
+2493 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2509:0
+     |
+     | POST {{candidate}}/api/organizers/tools
+     | ...
+2509 | status == {{s188}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2521:0
+     |
+     | GET {{candidate}}/api/organizers/tools/slug/parity-missing
+     | ...
+2521 | status == {{s189}}
+     |   actual:   integer <404>
+     |   expected: integer <500>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2533:0
+     |
+     | GET {{candidate}}/api/organizers/tools/00000000-0000-0000-0000-000000000000
+     | ...
+2533 | status == {{s190}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2549:0
+     |
+     | PUT {{candidate}}/api/organizers/tools/00000000-0000-0000-0000-000000000000
+     | ...
+2549 | status == {{s191}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2561:0
+     |
+     | DELETE {{candidate}}/api/organizers/tools/00000000-0000-0000-0000-000000000000
+     | ...
+2561 | status == {{s192}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2577:0
+     |
+     | POST {{candidate}}/api/parser/ingredient
+     | ...
+2577 | status == {{s193}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2593:0
+     |
+     | POST {{candidate}}/api/parser/ingredients
+     | ...
+2593 | status == {{s194}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2605:0
+     |
+     | GET {{candidate}}/api/recipes?page=1&perPage=3
+     | ...
+2605 | status == {{s195}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2606:0
+     |
+     | GET {{candidate}}/api/recipes?page=1&perPage=3
+     | ...
+2606 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2607:0
+     |
+     | GET {{candidate}}/api/recipes?page=1&perPage=3
+     | ...
+2607 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2623:0
+     |
+     | POST {{candidate}}/api/recipes
+     | ...
+2623 | status == {{s196}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2639:0
+     |
+     | PUT {{candidate}}/api/recipes
+     | ...
+2639 | status == {{s197}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2655:0
+     |
+     | PATCH {{candidate}}/api/recipes
+     | ...
+2655 | status == {{s198}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2671:0
+     |
+     | POST {{candidate}}/api/recipes/bulk-actions/categorize
+     | ...
+2671 | status == {{s199}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2687:0
+     |
+     | POST {{candidate}}/api/recipes/bulk-actions/delete
+     | ...
+2687 | status == {{s200}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2699:0
+     |
+     | GET {{candidate}}/api/recipes/bulk-actions/export
+     | ...
+2699 | status == {{s201}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2715:0
+     |
+     | POST {{candidate}}/api/recipes/bulk-actions/export
+     | ...
+2715 | status == {{s202}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2740:0
+     |
+     | GET {{candidate}}/api/recipes/bulk-actions/export/00000000-0000-0000-0000-000000000000/download
+     | ...
+2740 | status == {{s204}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2756:0
+     |
+     | POST {{candidate}}/api/recipes/bulk-actions/settings
+     | ...
+2756 | status == {{s205}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2772:0
+     |
+     | POST {{candidate}}/api/recipes/bulk-actions/tag
+     | ...
+2772 | status == {{s206}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2814:0
+     |
+     | POST {{candidate}}/api/recipes/create/html-or-json
+     | ...
+2814 | status == {{s209}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2830:0
+     |
+     | POST {{candidate}}/api/recipes/create/html-or-json/stream
+     | ...
+2830 | status == {{s210}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2846:0
+     |
+     | POST {{candidate}}/api/recipes/create/image
+     | ...
+2846 | status == {{s211}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2862:0
+     |
+     | POST {{candidate}}/api/recipes/create/url
+     | ...
+2862 | status == {{s212}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2878:0
+     |
+     | POST {{candidate}}/api/recipes/create/url/bulk
+     | ...
+2878 | status == {{s213}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2894:0
+     |
+     | POST {{candidate}}/api/recipes/create/url/stream
+     | ...
+2894 | status == {{s214}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2910:0
+     |
+     | POST {{candidate}}/api/recipes/create/zip
+     | ...
+2910 | status == {{s215}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2922:0
+     |
+     | GET {{candidate}}/api/recipes/exports
+     | ...
+2922 | status == {{s216}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2932:0
+     |
+     | GET {{candidate}}/api/recipes/shared/00000000-0000-0000-0000-000000000000
+     | ...
+2932 | status == {{s217}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2942:0
+     |
+     | GET {{candidate}}/api/recipes/shared/00000000-0000-0000-0000-000000000000/zip
+     | ...
+2942 | status == {{s218}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2954:0
+     |
+     | GET {{candidate}}/api/recipes/suggestions?limit=3
+     | ...
+2954 | status == {{s219}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2970:0
+     |
+     | POST {{candidate}}/api/recipes/test-scrape-url
+     | ...
+2970 | status == {{s220}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2982:0
+     |
+     | GET {{candidate}}/api/recipes/timeline/events?page=1&perPage=5
+     | ...
+2982 | status == {{s221}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2983:0
+     |
+     | GET {{candidate}}/api/recipes/timeline/events?page=1&perPage=5
+     | ...
+2983 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:2984:0
+     |
+     | GET {{candidate}}/api/recipes/timeline/events?page=1&perPage=5
+     | ...
+2984 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3000:0
+     |
+     | POST {{candidate}}/api/recipes/timeline/events
+     | ...
+3000 | status == {{s222}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3028:0
+     |
+     | PUT {{candidate}}/api/recipes/timeline/events/00000000-0000-0000-0000-000000000000
+     | ...
+3028 | status == {{s224}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3040:0
+     |
+     | DELETE {{candidate}}/api/recipes/timeline/events/00000000-0000-0000-0000-000000000000
+     | ...
+3040 | status == {{s225}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3056:0
+     |
+     | PUT {{candidate}}/api/recipes/timeline/events/00000000-0000-0000-0000-000000000000/image
+     | ...
+3056 | status == {{s226}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3084:0
+     |
+     | PUT {{candidate}}/api/recipes/parity-missing
+     | ...
+3084 | status == {{s228}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3100:0
+     |
+     | PATCH {{candidate}}/api/recipes/parity-missing
+     | ...
+3100 | status == {{s229}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3128:0
+     |
+     | POST {{candidate}}/api/recipes/parity-missing/assets
+     | ...
+3128 | status == {{s231}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3144:0
+     |
+     | POST {{candidate}}/api/recipes/parity-missing/assets/url
+     | ...
+3144 | status == {{s232}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3156:0
+     |
+     | GET {{candidate}}/api/recipes/red-curry-chicken-and-rice-bowls/comments
+     | ...
+3156 | status == {{s233}}
+     |   actual:   integer <404>
+     |   expected: integer <500>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3172:0
+     |
+     | POST {{candidate}}/api/recipes/parity-missing/duplicate
+     | ...
+3172 | status == {{s234}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3184:0
+     |
+     | GET {{candidate}}/api/recipes/red-curry-chicken-and-rice-bowls/exports
+     | ...
+3184 | status == {{s235}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3200:0
+     |
+     | POST {{candidate}}/api/recipes/parity-missing/image
+     | ...
+3200 | status == {{s236}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3216:0
+     |
+     | PUT {{candidate}}/api/recipes/parity-missing/image
+     | ...
+3216 | status == {{s237}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3244:0
+     |
+     | PATCH {{candidate}}/api/recipes/parity-missing/last-made
+     | ...
+3244 | status == {{s239}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3256:0
+     |
+     | GET {{candidate}}/api/shared/recipes?page=1&perPage=5
+     | ...
+3256 | status == {{s240}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3273:0
+     |
+     | POST {{candidate}}/api/shared/recipes
+     | ...
+3273 | status == {{s241}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3285:0
+     |
+     | GET {{candidate}}/api/shared/recipes/00000000-0000-0000-0000-000000000000
+     | ...
+3285 | status == {{s242}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3297:0
+     |
+     | DELETE {{candidate}}/api/shared/recipes/00000000-0000-0000-0000-000000000000
+     | ...
+3297 | status == {{s243}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3309:0
+     |
+     | GET {{candidate}}/api/units?page=1&perPage=5
+     | ...
+3309 | status == {{s244}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3310:0
+     |
+     | GET {{candidate}}/api/units?page=1&perPage=5
+     | ...
+3310 | jsonpath "$.per_page" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3311:0
+     |
+     | GET {{candidate}}/api/units?page=1&perPage=5
+     | ...
+3311 | jsonpath "$.total_pages" exists
+     |   actual:   none
+     |   expected: something
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3327:0
+     |
+     | POST {{candidate}}/api/units
+     | ...
+3327 | status == {{s245}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3343:0
+     |
+     | PUT {{candidate}}/api/units/merge
+     | ...
+3343 | status == {{s246}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3371:0
+     |
+     | PUT {{candidate}}/api/units/00000000-0000-0000-0000-000000000000
+     | ...
+3371 | status == {{s248}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3383:0
+     |
+     | DELETE {{candidate}}/api/units/00000000-0000-0000-0000-000000000000
+     | ...
+3383 | status == {{s249}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3395:0
+     |
+     | GET {{candidate}}/api/users/api-tokens
+     | ...
+3395 | status == {{s250}}
+     |   actual:   integer <404>
+     |   expected: integer <405>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3411:0
+     |
+     | POST {{candidate}}/api/users/api-tokens
+     | ...
+3411 | status == {{s251}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3423:0
+     |
+     | DELETE {{candidate}}/api/users/api-tokens/00000000-0000-0000-0000-000000000000
+     | ...
+3423 | status == {{s252}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3437:0
+     |
+     | POST {{candidate}}/api/users/forgot-password
+     | ...
+3437 | status == {{s253}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3453:0
+     |
+     | PUT {{candidate}}/api/users/password
+     | ...
+3453 | status == {{s254}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3467:0
+     |
+     | POST {{candidate}}/api/users/register
+     | ...
+3467 | status == {{s255}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3481:0
+     |
+     | POST {{candidate}}/api/users/reset-password
+     | ...
+3481 | status == {{s256}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3493:0
+     |
+     | GET {{candidate}}/api/users/self
+     | ...
+3493 | status == {{s257}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3494:0
+     |
+     | GET {{candidate}}/api/users/self
+     | ...
+3494 | jsonpath "$.authMethod" == "Mealie"
+     |   actual:   none
+     |   expected: string <Mealie>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3506:0
+     |
+     | GET {{candidate}}/api/users/self/favorites
+     | ...
+3506 | status == {{s258}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3518:0
+     |
+     | GET {{candidate}}/api/users/self/ratings
+     | ...
+3518 | status == {{s259}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3542:0
+     |
+     | GET {{candidate}}/api/users/506612c6-6f04-44e3-8e63-1850f7bd65fd/favorites
+     | ...
+3542 | status == {{s261}}
+     |   actual:   integer <404>
+     |   expected: integer <403>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3554:0
+     |
+     | POST {{candidate}}/api/users/00000000-0000-0000-0000-000000000000/favorites/parity-missing
+     | ...
+3554 | status == {{s262}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3566:0
+     |
+     | DELETE {{candidate}}/api/users/00000000-0000-0000-0000-000000000000/favorites/parity-missing
+     | ...
+3566 | status == {{s263}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3582:0
+     |
+     | POST {{candidate}}/api/users/00000000-0000-0000-0000-000000000000/image
+     | ...
+3582 | status == {{s264}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3594:0
+     |
+     | GET {{candidate}}/api/users/506612c6-6f04-44e3-8e63-1850f7bd65fd/ratings
+     | ...
+3594 | status == {{s265}}
+     |   actual:   integer <404>
+     |   expected: integer <403>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3610:0
+     |
+     | POST {{candidate}}/api/users/00000000-0000-0000-0000-000000000000/ratings/parity-missing
+     | ...
+3610 | status == {{s266}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3626:0
+     |
+     | PUT {{candidate}}/api/users/00000000-0000-0000-0000-000000000000
+     | ...
+3626 | status == {{s267}}
+     |   actual:   integer <404>
+     |   expected: integer <422>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3636:0
+     |
+     | GET {{candidate}}/api/utils/download
+     | ...
+3636 | status == {{s268}}
+     |   actual:   integer <404>
+     |   expected: integer <400>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3646:0
+     |
+     | GET {{candidate}}/api/validators/group?name=nobody-accuracy-check
+     | ...
+3646 | status == {{s269}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3656:0
+     |
+     | GET {{candidate}}/api/validators/household?name=nobody-accuracy-check
+     | ...
+3656 | status == {{s270}}
+     |   actual:   integer <404>
+     |   expected: integer <500>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3666:0
+     |
+     | GET {{candidate}}/api/validators/recipe?group_id=dcf19c89-e7aa-470c-9707-deaf30cb5c45&name=nobody-accuracy-check
+     | ...
+3666 | status == {{s271}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3676:0
+     |
+     | GET {{candidate}}/api/validators/user/email?email=nobody-accuracy-check@example.com
+     | ...
+3676 | status == {{s272}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.9DaA8dBnBx/parity.hurl:3686:0
+     |
+     | GET {{candidate}}/api/validators/user/name?name=nobody-accuracy-check
+     | ...
+3686 | status == {{s273}}
+     |   actual:   integer <404>
+     |   expected: integer <200>
+     |
+
+Failure /tmp/tmp.9DaA8dBnBx/parity.hurl (530 request(s) in 1733 ms)
+--------------------------------------------------------------------------------
+Executed files:    1
+Executed requests: 530 (304.4/s)
+Succeeded files:   0 (0.0%)
+Failed files:      1 (100.0%)
+Duration:          1741 ms (0h:0m:1s:741ms)

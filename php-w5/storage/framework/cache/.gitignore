@@ -1,0 +1,4 @@
+*
+!data/
+!locks/
+!.gitignore
