@@ -1,0 +1,3 @@
+nonadmin-bob: registered GET paths compared=105 same_status=105 differ=0
+admin-mikexiao: registered GET paths compared=105 same_status=105 differ=0
+no-token: registered GET paths compared=106 same_status=106 differ=0
