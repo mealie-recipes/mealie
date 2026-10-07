@@ -1,10 +1,14 @@
 from collections.abc import Generator
 from datetime import UTC, datetime, timedelta
+from typing import Any
 
 import pytest
 import sqlalchemy
 from fastapi.testclient import TestClient
+from sqlalchemy import event
+from sqlalchemy.engine import Connection, ExecutionContext
 
+from mealie.db.db_setup import engine
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken, RecipeShareTokenSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string
@@ -169,3 +173,77 @@ def test_get_recipe_from_expired_token_deletes_token_and_returns_404(
 
     fetch_token = database.recipe_share_tokens.get_one(token.id)
     assert fetch_token is None
+
+
+@pytest.mark.parametrize("operation", ["public", "token", "list", "create"])
+def test_shared_recipe_collections_do_not_multiply_query_rows(
+    api_client: TestClient, unique_user: TestUser, slug: str, operation: str
+) -> None:
+    response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
+    assert response.status_code == 200
+    payload = response.json()
+    payload.update(
+        recipeIngredient=[{"note": f"Ingredient {index}"} for index in range(6)],
+        recipeInstructions=[{"text": f"Step {index}"} for index in range(4)],
+        notes=[{"title": f"Note {index}", "text": f"Note text {index}"} for index in range(3)],
+        recipeCategory=[{"name": random_string(12)} for _ in range(2)],
+        tags=[{"name": random_string(12)} for _ in range(3)],
+        tools=[{"name": random_string(12)} for _ in range(2)],
+    )
+    response = api_client.put(api_routes.recipes_slug(slug), json=payload, headers=unique_user.token)
+    assert response.status_code == 200
+    expected = response.json()
+    token = unique_user.repos.recipe_share_tokens.create(
+        RecipeShareTokenSave(recipe_id=expected["id"], group_id=unique_user.group_id)
+    )
+    row_counts: list[int] = []
+
+    def count_query_rows(
+        connection: Connection,
+        cursor: Any,
+        statement: str,
+        parameters: Any,
+        context: ExecutionContext,
+        executemany: bool,
+    ) -> None:
+        if context.execution_options.get("count_shared_recipe_rows") or not statement.lstrip().startswith("SELECT"):
+            return
+        # Count the actual SQL result before ORM deduplication, without consuming its cursor.
+        # This catches a Cartesian explosion even when the returned recipe looks correct.
+        count = connection.exec_driver_sql(
+            f"SELECT COUNT(*) FROM ({statement}) AS shared_recipe_row_count",
+            parameters,
+            execution_options={"count_shared_recipe_rows": True},
+        ).scalar_one()
+        row_counts.append(count)
+
+    event.listen(engine, "before_cursor_execute", count_query_rows)
+    try:
+        match operation:
+            case "public":
+                response = api_client.get(api_routes.recipes_shared_token_id(token.id))
+            case "token":
+                response = api_client.get(api_routes.shared_recipes_item_id(token.id), headers=unique_user.token)
+            case "list":
+                response = api_client.get(
+                    api_routes.shared_recipes, params={"recipe_id": expected["id"]}, headers=unique_user.token
+                )
+            case "create":
+                response = api_client.post(
+                    api_routes.shared_recipes, json={"recipeId": expected["id"]}, headers=unique_user.token
+                )
+    finally:
+        event.remove(engine, "before_cursor_execute", count_query_rows)
+
+    assert response.status_code == (201 if operation == "create" else 200)
+    assert row_counts
+    # Independent collections have at most six entries. Joining them together produces 864 rows.
+    assert max(row_counts) <= 6, row_counts
+    data = response.json()
+    if operation == "list":
+        assert len(data) == 1
+        assert data[0]["recipeId"] == expected["id"]
+        return
+    shared_recipe = data if operation == "public" else data["recipe"]
+    for field in ("recipeIngredient", "recipeInstructions", "notes", "recipeCategory", "tags", "tools"):
+        assert shared_recipe[field] == expected[field]
