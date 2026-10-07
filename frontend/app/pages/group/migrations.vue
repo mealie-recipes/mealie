@@ -63,6 +63,16 @@
         </v-card-text>
 
         <v-card-text>
+          <v-select
+            v-model="state.skipDuplicates"
+            :label="$t('migration.duplicate-recipes')"
+            :items="[
+              { title: $t('migration.skip-duplicates'), value: true },
+              { title: $t('migration.create-copies'), value: false },
+            ]"
+            :hint="$t('migration.duplicate-recipes-hint')"
+            persistent-hint
+          />
           <v-checkbox v-model="state.addMigrationTag">
             <template #label>
               <i18n-t keypath="migration.tag-all-recipes">
@@ -142,6 +152,7 @@ const api = useUserApi();
 
 const state = reactive({
   addMigrationTag: false,
+  skipDuplicates: true,
   loading: false,
   treeState: true,
   migrationType: MIGRATIONS.mealie as SupportedMigrations,
@@ -461,6 +472,7 @@ async function startMigration() {
   state.loading = true;
   const payload = {
     addMigrationTag: state.addMigrationTag,
+    skipDuplicates: state.skipDuplicates,
     migrationType: state.migrationType,
     archive: state.fileObject,
   };

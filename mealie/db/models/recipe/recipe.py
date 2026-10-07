@@ -24,6 +24,7 @@ from .assets import RecipeAsset
 from .category import recipes_to_categories
 from .comment import RecipeComment
 from .instruction import RecipeInstruction
+from .migration import RecipeMigrationModel
 from .note import Note
 from .nutrition import Nutrition
 from .recipe_timeline import RecipeTimelineEvent
@@ -47,6 +48,10 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
     slug: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
+
+    migration_identities: Mapped[list[RecipeMigrationModel]] = orm.relationship(
+        RecipeMigrationModel, cascade="all, delete-orphan"
+    )
 
     # ID Relationships
     group_id: FilterableColumn[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)

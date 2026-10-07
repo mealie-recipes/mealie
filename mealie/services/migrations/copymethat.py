@@ -9,7 +9,7 @@ from mealie.schema.reports.reports import ReportEntryCreate
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import import_image, safe_local_path
+from .utils.migration_helpers import safe_local_path
 
 
 def parse_recipe_tags(tags: list) -> list[str]:
@@ -111,15 +111,6 @@ class CopyMeThatMigrator(BaseMigrator):
 
             recipes = [self.clean_recipe_dictionary(x) for x in recipes_as_dicts]
             results = self.import_recipes_to_database(recipes)
-            recipe_lookup = {r.slug: r for r in recipes}
-            for slug, recipe_id, status in results:
-                if status:
-                    try:
-                        r = recipe_lookup.get(slug)
-                        if not r or not r.image:
-                            continue
-
-                    except StopIteration:
-                        continue
-
-                    import_image(r.image, recipe_id, extraction_root=source_dir)
+            for (slug, recipe_id, status), source_recipe in zip(results, recipes, strict=True):
+                if status and source_recipe.image:
+                    self.import_image(slug, source_recipe.image, recipe_id, extraction_root=source_dir)
