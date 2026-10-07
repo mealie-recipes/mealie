@@ -83,3 +83,6 @@ Decided by the orchestrator after reading `run.sh`, `parity.hurl` and the Python
 | 02:12 | P0 | Wrote shared layer: `config/mealie.php`, `mealie` connection, `App\Auth\Jwt`, `MealieAuth` middleware (`mealie:user|admin|optional`), `App\Support\{Guid,Dates,Errors,Json,Pagination,CurrentUser}`, `routes/api.php` loader, FastAPI-shaped 404/405/500 bodies |
 | 02:13 | P0 | First `run.sh php-w5`: 0 requests executed — parse error in shared `parity.hurl`. Wrote `measure.sh` with the form-body rewrite |
 | 02:14 | P0 | Floor score 43/265 (R1 2/33, R2 9/83, R3 10/73, R4 22/76) |
+| 02:15 | A | Orchestrator wrote `compx574/workflow-5-split.md` (group's 4 areas unchanged; `utility_routes.py` added to area 3; shared layer and frozen files listed; out-of-scope list) |
+| 02:15 | Gate A | Orchestrator check (delegated): every `mealie/routes/*` package except `spa` appears in exactly one area; area route counts 32 + 86 + 74 + 80 = 272 = all decorators under `mealie/routes`; each area's PHP files are disjoint; shared files frozen. Passed without changes. DB snapshot `dev/data/mealie.p0-snapshot.db` taken (sha prefix 4197c16c). |
+| 02:16 | B | Four sub-agents launched in one message, in parallel, background (Claude Code `Agent`, general-purpose, same model). Prompt: `prompts/phase-b-subagent.md`, only area number/port/paths substituted |
