@@ -119,9 +119,7 @@ class Paginator
             self::applyOrder($query, $orderBy, $q, $opt['columns'], $table);
         }
 
-        if ($limit !== null) {
-            $query->limit($limit);
-        }
+        $query->limit($limit ?? PHP_INT_MAX); // SQLite needs LIMIT before OFFSET
         $query->offset(($page - 1) * $perPage);
 
         $rows = $query->get();

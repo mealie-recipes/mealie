@@ -117,6 +117,10 @@ Count: Python routes in area 80 (groups 27, admin 38, explore 15); implemented 6
 
 - `GroupsAdmin\Support\Pager` — a fuller port of `RepositoryGeneric.page_all` than `App\Support\Pagination`: default `created_at desc` only when no `orderBy` and no search; `orderBy` lists with `col:dir`; `orderByNullPosition`; 400 on unknown columns; `perPage=-1`/`page=-1`; 422 on non-integer `page`/`perPage` and bad `orderDirection`; `next`/`previous` built from the *requested* `perPage` (Python dumps the original query); tokenized search callback.
 - `GroupsAdmin\Support\Validator` — field-level body validation (required, str/bool/int/UUID coercion, enum) producing the dev-mode 422 shape via `Errors::validation`. The shared layer only has `Json::body` (object check).
-- `GroupsAdmin\Support\Fs` — `pretty_size`/`get_dir_size` ports (`mealie/pkgs/stats/fs_stats.py`) and Python float formatting.
-- `GroupsAdmin\Support\Slug` — `python-slugify` subset (ASCII transliteration, lowercase, non-alnum → `-`).
+- `GroupsAdmin\Support\Fs` — `pretty_size`/`get_dir_size` ports (`mealie/pkgs/stats/fs_stats.py`), app directories, Python float formatting, and `slugify` (`python-slugify` subset).
+- `GroupsAdmin\Support\Search` — tokenized `SearchFilter` (SQLite path), unidecode approximated with `Str::ascii`.
+- `GroupsAdmin\Support\Cascade` — FK-driven cascade delete standing in for the SQLAlchemy `delete-orphan` chains when an admin deletes a group.
+- `GroupsAdmin\Support\Settings` — AppSettings subset (SMTP/LDAP/OIDC/BASE_URL/DEFAULT_*), read from the process env.
+- `GroupsAdmin\Support\Auth` — wraps `MealieAuth`: the shared middleware's 401/403 (`HttpResponseException` thrown outside `Route::run`) were rendered as 500 by the catch-all in `bootstrap/app.php`. The orchestrator has since fixed bootstrap; the wrapper is now redundant but harmless.
+- Python returns unhandled errors as plain-text `Internal Server Error`; the PHP side returns `{"detail":"Internal Server Error"}` (shared renderer). Same status.
 - Error message text for 422 cannot match Python exactly (Python includes a source file/line); status and envelope match.

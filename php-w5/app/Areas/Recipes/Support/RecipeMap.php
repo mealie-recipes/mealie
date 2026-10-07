@@ -38,7 +38,7 @@ class RecipeMap
     }
 
     /** Organizers of many recipes: [recipe_id => ['categories' => [...], 'tags' => [...], 'tools' => [...]]] */
-    private static function organizers(array $ids): array
+    private static function organizers(array $ids, bool $full = false): array
     {
         $out = [];
         if ($ids === []) {
@@ -46,7 +46,7 @@ class RecipeMap
         }
         foreach ([['recipes_to_categories', 'categories', 'category_id', 'recipeCategory'], ['recipes_to_tags', 'tags', 'tag_id', 'tags']] as [$link, $table, $fk, $key]) {
             $rows = Db::table($link)->join($table, "{$table}.id", '=', "{$link}.{$fk}")
-                ->whereIn("{$link}.recipe_id", $ids)->orderBy("{$link}.rowid")
+                ->whereIn("{$link}.recipe_id", $ids)->orderBy($table === "categories" ? "{$table}.rowid" : ($full ? "{$table}.id" : "{$link}.rowid"))
                 ->get(["{$link}.recipe_id", "{$table}.*"]);
             foreach ($rows as $r) {
                 $r->recipe_count = 0;
@@ -54,7 +54,7 @@ class RecipeMap
             }
         }
         $rows = Db::table('recipes_to_tools')->join('tools', 'tools.id', '=', 'recipes_to_tools.tool_id')
-            ->whereIn('recipes_to_tools.recipe_id', $ids)->orderBy('recipes_to_tools.rowid')
+            ->whereIn("recipes_to_tools.recipe_id", $ids)->orderBy($full ? "tools.id" : "recipes_to_tools.rowid")
             ->get(['recipes_to_tools.recipe_id', 'tools.*']);
         $households = Map::toolHouseholds($rows->pluck('id')->unique()->values()->all());
         foreach ($rows as $r) {
@@ -82,10 +82,10 @@ class RecipeMap
     }
 
     /** @return array<int,array> RecipeSummary items */
-    public static function summaries(iterable $rows, bool $orjson = false): array
+    public static function summaries(iterable $rows, bool $orjson = false, bool $full = false): array
     {
         $rows = collect($rows)->values();
-        $org = self::organizers($rows->pluck('id')->all());
+        $org = self::organizers($rows->pluck("id")->all(), $full);
         $dt = fn ($v) => $orjson ? Out::dtOrjson($v) : Out::dt($v);
 
         return $rows->map(function ($r) use ($org, $dt) {
@@ -257,7 +257,7 @@ class RecipeMap
     public static function full(object $r, int $depth = 0): array
     {
         $id = $r->id;
-        $base = self::summaries([$r])[0];
+        $base = self::summaries([$r], false, true)[0];
 
         // ingredients
         $ingRows = Db::table('recipes_ingredients')->where('recipe_id', $id)->orderBy('position')->get();

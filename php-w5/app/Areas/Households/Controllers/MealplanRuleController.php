@@ -39,8 +39,8 @@ class MealplanRuleController
     {
         return Json::respond(Paginator::page(
             $request, $this->query(), fn ($r) => Out::planRule($r), 'group_meal_plan_rules',
-            ['id', 'group_id', 'household_id', 'day', 'entry_type', 'query_filter_string', 'created_at', 'update_at'],
-            ['day', 'entry_type', 'query_filter_string'], '/households/mealplans/rules',
+            ['id', 'group_id', 'household_id', 'day', 'entry_type', 'created_at', 'update_at'],
+            ['day', 'entry_type'], '/households/mealplans/rules', null, 'GroupMealPlanRules', ['query_filter_string'],
         ));
     }
 

@@ -71,10 +71,12 @@ class SelfServiceController
             $query,
             fn ($u) => Out::user($u),
             'users',
-            ['id', 'full_name', 'username', 'email', 'auth_method', 'admin', 'advanced', 'group_id', 'household_id', 'cache_key', 'login_attemps', 'locked_at', 'show_announcements', 'last_read_announcement', 'can_manage_household', 'can_manage', 'can_invite', 'can_organize', 'created_at', 'update_at'],
-            ['full_name', 'username', 'email', 'cache_key', 'last_read_announcement'],
+            ['id', 'full_name', 'username', 'group_id', 'household_id', 'created_at', 'update_at'],
+            ['full_name', 'username'],
             '/households/members',
             'household_id='.Guid::fromDb($householdId),
+            'User',
+            ['email', 'password', 'auth_method', 'admin', 'advanced', 'cache_key', 'external_avatar_hash', 'login_attemps', 'locked_at', 'tokens_valid_after', 'show_announcements', 'last_read_announcement', 'can_manage_household', 'can_manage', 'can_invite', 'can_organize', 'owned_recipes_id'],
         ));
     }
 

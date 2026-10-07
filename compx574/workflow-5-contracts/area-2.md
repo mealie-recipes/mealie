@@ -68,7 +68,7 @@ Ids: CHAR(32) hex; aliases have their own CHAR(32) id + parent id (composite PK)
 | GET /api/comments | comments:get_all | RecipeCommentPagination / RecipeCommentOut: id, recipeId, text, createdAt, updatedAt, userId, user{id, username, admin, fullName}. Group scope through the recipe | user | queryFilter |
 | POST /api/comments (201) | comments:create_one | RecipeCommentCreate (recipeId UUID4, text stripped, non-empty) → RecipeCommentOut | user | — |
 | GET /api/comments/{item_id} | comments:get_one | RecipeCommentOut; 404 ErrorResponse "Not found." | user | — |
-| PUT /api/comments/{item_id} | comments:update_one | RecipeCommentUpdate (id, text) → RecipeCommentOut | user; owner or admin (comments/__init__.py:35-41) → 403 `{"detail":{"message":"Comment does not belong to user","error":true,"exception":null}}`; missing id → 500 | — |
+| PUT /api/comments/{item_id} | comments:update_one | RecipeCommentUpdate (id, text) → RecipeCommentOut | user; owner or admin (comments/__init__.py:35-41). Python raises HTTPException with a non-serialisable ErrorResponse model, so a non-owner actually gets 500 "Internal Server Error" (copied); missing id → 500 | — |
 | DELETE /api/comments/{item_id} | comments:delete_one | SuccessResponse "Comment deleted" | same as PUT | — |
 | GET /api/recipes/{slug}/comments | recipe/comments.py:get_recipe_comments | list[RecipeCommentOut]; unknown slug → 500 | user (UserAPIRouter) | — |
 
@@ -110,4 +110,6 @@ Ids: CHAR(32) hex; aliases have their own CHAR(32) id + parent id (composite PK)
 - `App\Areas\Recipes\Support\Paginator` — own copy of pagination because the shared `Pagination` (a) uses `max(total,1)` for perPage=-1 (Python returns `per_page = total`, `total_pages = 0` when empty), (b) ignores page=-1 (last page), (c) has no search ordering, (d) turns unknown orderBy into a SQL error instead of 400, (e) cannot build the merged query-string `next` used by `GET /api/recipes`.
 - `App\Areas\Recipes\Support\Out` — datetime output that drops a `.000000` fraction like Pydantic, plus the orjson `+00:00` variant.
 - `App\Areas\Recipes\Support\Text` — `slugify` (python-slugify defaults incl. unidecode) and `normalize` (SqlAlchemyBase.normalize) — not in shared layer.
+- `App\Areas\Recipes\Support\Auth` — own copy of `mealie:user` that returns the 401 instead of throwing it, plus `Base::callAction` unwrapping HttpResponseException: written while bootstrap/app.php rendered every HttpResponseException as 500 (since fixed by the orchestrator; kept, duplicates the shared middleware).
+- `App\Areas\Recipes\Support\Input` — Pydantic-style body field reader (alias + snake name, collected 422 errors).
 - Translation of the few en-US strings needed (`recipe.recipe-created`, etc.) — no i18n helper in shared layer.

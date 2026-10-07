@@ -3,13 +3,13 @@
 namespace App\Areas\GroupsAdmin\Support;
 
 use Illuminate\Database\Connection;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\DB as Facade;
 
 class Db
 {
     public static function conn(): Connection
     {
-        return DB::connection('mealie');
+        return Facade::connection('mealie');
     }
 
     public static function table(string $table): \Illuminate\Database\Query\Builder

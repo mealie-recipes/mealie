@@ -7,7 +7,6 @@ use App\Areas\Recipes\Support\Input;
 use App\Areas\Recipes\Support\Map;
 use App\Areas\Recipes\Support\Paginator;
 use App\Support\CurrentUser;
-use App\Support\Errors;
 use App\Support\Guid;
 use Illuminate\Http\Request;
 
@@ -79,7 +78,8 @@ class CommentController extends Base
         }
         $user = CurrentUser::get();
         if ($row->user_id !== $user->id && ! $user->admin) {
-            Errors::http(403, ['message' => 'Comment does not belong to user', 'error' => true, 'exception' => null]);
+            // Python raises HTTPException(detail=ErrorResponse(...)): the model is not JSON-serialisable, so the client gets a 500
+            Db::serverError();
         }
     }
 

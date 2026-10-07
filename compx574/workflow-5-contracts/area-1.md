@@ -84,3 +84,10 @@ Count: 32 Python routes; 26 registered.
 - `App\Areas\AuthUsers\Support\Translator` — `mealie/lang` JSON lookup.
 - `App\Areas\AuthUsers\Support\Users` — `UserOut` serialiser, bcrypt helpers.
 - Shared `MealieAuth` returns `Could not validate credentials` for an unknown long-lived token; Python's `validate_long_live_token` returns 401 `{"detail":"Unauthorized"}` (dependencies.py:175). Not changed (shared layer).
+- `App\Areas\AuthUsers\Http\RequireUser` — wraps shared `MealieAuth` (`mealie:user`). The shared middleware throws `HttpResponseException`; when thrown from middleware (outside `Route::run`) the catch-all `Throwable` renderer in `bootstrap/app.php` turns it into `500 Internal Server Error` instead of 401. The wrapper returns the exception's response. Shared-layer bug: every area using `mealie:user`/`mealie:admin` gets 500 for unauthenticated requests.
+
+## Notes from verification
+
+- `POST /api/users/api-tokens` returns `createdAt: null` in Python (the row is returned before `created_at` is loaded); PHP returns `null` too.
+- Handlers that return `None` in Python (`set_rating`, favorites, `reset-password`) answer the JSON literal `null`.
+- Remaining known differences: `json_invalid` 422 message (position/text of the JSON decode error), `Set-Cookie` header formatting (Symfony re-serialises it with `expires`, lowercase `path`/`samesite`).

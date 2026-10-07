@@ -64,8 +64,8 @@ class MealplanController
 
         return Json::respond(Paginator::page(
             $request, $query, fn ($r) => Out::planEntry($r), 'group_meal_plans',
-            ['id', 'date', 'entry_type', 'title', 'text', 'group_id', 'user_id', 'recipe_id', 'created_at', 'update_at'],
-            ['entry_type', 'title', 'text'],
+            ['date', 'entry_type', 'title', 'text', 'group_id', 'user_id', 'recipe_id', 'created_at', 'update_at'],
+            ['entry_type', 'title', 'text'], null, null, 'GroupMealPlan', ['id'],
         ));
     }
 
@@ -80,7 +80,7 @@ class MealplanController
             'update_at' => $now,
         ]);
 
-        return Json::respond(Out::planEntry(Out::db()->table('group_meal_plans')->where('id', $id)->first()), 201);
+        return Json::respond(Out::planEntry(Out::db()->table('group_meal_plans')->where('id', $id)->first(), true), 201);
     }
 
     /** GET /households/mealplans/today — RepositoryMeals.get_today (household only, local date) */

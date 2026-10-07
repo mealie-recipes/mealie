@@ -71,9 +71,8 @@ class Pager
             self::applyOrder($query, $orderBy, $q['orderDirection'], $q['orderByNullPosition'], $table, $model, $filterable);
         }
 
-        if ($limit !== null) {
-            $query->limit($limit);
-        }
+        // SQLite needs a LIMIT before OFFSET
+        $query->limit($limit ?? PHP_INT_MAX);
         if ($page > 1 && $perPage > 0) {
             $query->offset(($page - 1) * $perPage);
         }

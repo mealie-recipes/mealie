@@ -18,9 +18,9 @@ use Illuminate\Http\Request;
 /** mealie/routes/households/controller_cookbooks.py + mealie/repos/repository_cookbooks.py */
 class CookbookController
 {
-    private const COLUMNS = ['id', 'position', 'group_id', 'household_id', 'name', 'slug', 'description', 'public', 'query_filter_string', 'require_all_categories', 'require_all_tags', 'require_all_tools', 'created_at', 'update_at'];
+    private const COLUMNS = ['id', 'position', 'group_id', 'household_id', 'name', 'slug', 'description', 'public', 'require_all_categories', 'require_all_tags', 'require_all_tools', 'created_at', 'update_at'];
 
-    private const STRING_COLUMNS = ['name', 'slug', 'description', 'query_filter_string'];
+    private const STRING_COLUMNS = ['name', 'slug', 'description'];
 
     private function table()
     {
@@ -99,7 +99,7 @@ class CookbookController
     {
         $query = $this->table()->where('group_id', CurrentUser::groupId());
 
-        return Json::respond(Paginator::page($request, $query, fn ($r) => Out::cookbook($r), 'cookbooks', self::COLUMNS, self::STRING_COLUMNS, '/households/cookbooks'));
+        return Json::respond(Paginator::page($request, $query, fn ($r) => Out::cookbook($r), 'cookbooks', self::COLUMNS, self::STRING_COLUMNS, '/households/cookbooks', null, 'CookBook', ['query_filter_string']));
     }
 
     /** POST /households/cookbooks */

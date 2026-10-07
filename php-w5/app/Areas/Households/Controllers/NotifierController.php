@@ -60,8 +60,9 @@ class NotifierController
     {
         return Json::respond(Paginator::page(
             $request, $this->query(), fn ($r) => Out::notifier($r), 'group_events_notifiers',
-            ['id', 'name', 'enabled', 'apprise_url', 'group_id', 'household_id', 'created_at', 'update_at'],
-            ['name', 'apprise_url'], '/households/events/notifications',
+            ['created_at', 'update_at'],
+            [], '/households/events/notifications', null, 'GroupEventNotifierModel',
+            ['id', 'name', 'enabled', 'apprise_url', 'group_id', 'household_id'],
         ));
     }
 

@@ -110,6 +110,23 @@ class AiProvidersController
         return $this->query($groupId)->where('ai_providers.id', $id)->first();
     }
 
+    /** AIProviderOut.model_validate runs the non-empty validators on stored rows too. */
+    private static function storedValid(object $p): bool
+    {
+        return $p->name !== '' && $p->api_key !== '' && $p->model !== '' && (int) $p->timeout >= 0;
+    }
+
+    /** repo.get_one: a row that fails validation raises outside any handler (500). */
+    private function findValid(string $groupId, string $id): ?object
+    {
+        $p = $this->find($groupId, $id);
+        if ($p !== null && ! self::storedValid($p)) {
+            Errors::http(500, 'Internal Server Error');
+        }
+
+        return $p;
+    }
+
     private function writeKv(string $providerId, array $headers, array $params, string $now): void
     {
         foreach (['ai_provider_headers' => $headers, 'ai_provider_params' => $params] as $table => $values) {
@@ -159,7 +176,7 @@ class AiProvidersController
 
     private function show(string $groupId, string $id)
     {
-        $provider = $this->find($groupId, $id);
+        $provider = $this->findValid($groupId, $id);
         if ($provider === null) {
             Checks::notFound();
         }
@@ -170,7 +187,7 @@ class AiProvidersController
     private function update(Request $request, string $groupId, string $id)
     {
         $data = $this->validated($request);
-        $existing = $this->find($groupId, $id);
+        $existing = $this->findValid($groupId, $id);
         if ($existing === null) {
             Checks::notFound();
         }
@@ -196,6 +213,10 @@ class AiProvidersController
         $provider = $this->find($groupId, $id);
         if ($provider === null) {
             Checks::noResult(self::DEFAULT_MESSAGE);
+        }
+        if (! self::storedValid($provider)) {
+            // repo.delete validates before deleting; the ValidationError goes through handle_exception
+            Errors::errorResponse(400, self::DEFAULT_MESSAGE, '1 validation error for AIProviderOut');
         }
         $out = Out::aiProvider($provider);
         Db::conn()->transaction(function () use ($id) {

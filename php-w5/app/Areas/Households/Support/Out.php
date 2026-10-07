@@ -240,7 +240,7 @@ class Out
     // ---------------------------------------------------------------- meal plans
 
     /** ReadPlanEntry */
-    public static function planEntry(object $m): array
+    public static function planEntry(object $m, bool $fresh = false): array
     {
         $db = self::db();
         $user = $m->user_id ? $db->table('users')->where('id', $m->user_id)->first() : null;
@@ -256,12 +256,12 @@ class Out
             'groupId' => Guid::fromDb($m->group_id),
             'userId' => Guid::fromDb($m->user_id),
             'householdId' => Guid::fromDb($user?->household_id),
-            'recipe' => $recipe ? self::recipeSummary($recipe) : null,
+            'recipe' => $recipe ? self::recipeSummary($recipe, $fresh) : null,
         ];
     }
 
     /** mealie/schema/recipe/recipe.py RecipeSummary (as embedded via a relationship: recipeCount is 0). */
-    public static function recipeSummary(object $r): array
+    public static function recipeSummary(object $r, bool $byId = false): array
     {
         $db = self::db();
         $user = $r->user_id ? $db->table('users')->where('id', $r->user_id)->first() : null;
@@ -275,11 +275,11 @@ class Out
         ];
 
         $categories = $db->table('recipes_to_categories as l')->join('categories as c', 'c.id', '=', 'l.category_id')
-            ->where('l.recipe_id', $r->id)->orderBy('l.rowid')->select('c.*')->get()->map($organizer)->all();
+            ->where('l.recipe_id', $r->id)->orderBy($byId ? 'c.id' : 'l.rowid')->select('c.*')->get()->map($organizer)->all();
         $tags = $db->table('recipes_to_tags as l')->join('tags as t', 't.id', '=', 'l.tag_id')
-            ->where('l.recipe_id', $r->id)->orderBy('l.rowid')->select('t.*')->get()->map($organizer)->all();
+            ->where('l.recipe_id', $r->id)->orderBy($byId ? 't.id' : 'l.rowid')->select('t.*')->get()->map($organizer)->all();
         $tools = $db->table('recipes_to_tools as l')->join('tools as t', 't.id', '=', 'l.tool_id')
-            ->where('l.recipe_id', $r->id)->orderBy('l.rowid')->select('t.*')->get()
+            ->where('l.recipe_id', $r->id)->orderBy($byId ? 't.id' : 'l.rowid')->select('t.*')->get()
             ->map(function ($t) use ($organizer, $db) {
                 $out = $organizer($t);
                 $out['householdsWithTool'] = $db->table('households_to_tools as ht')

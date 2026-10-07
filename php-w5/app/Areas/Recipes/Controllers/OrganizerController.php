@@ -258,7 +258,7 @@ class OrganizerController extends Base
             Db::table('categories')->where('id', $id)->delete();
         });
 
-        return $this->json(null);
+        return response('null', 200, ['Content-Type' => 'application/json']);
     }
 
     public function tagsDestroy(string $item_id)
@@ -273,7 +273,7 @@ class OrganizerController extends Base
             Db::table('tags')->where('id', $id)->delete();
         });
 
-        return $this->json(null);
+        return response('null', 200, ['Content-Type' => 'application/json']);
     }
 
     // ===================================================================== by slug
@@ -323,7 +323,21 @@ class OrganizerController extends Base
             Db::serverError(); // None fails the RecipeTagResponse response model
         }
 
-        return $this->json(Map::categoryBase($row) + ['recipes' => $this->linkedRecipes('recipes_to_tags', 'tag_id', $row->id)]);
+        $recipes = $this->linkedRecipes('recipes_to_tags', 'tag_id', $row->id);
+        // the looked-up tag sits in the identity map with its recipe_count expression loaded,
+        // so inside the nested recipes that one tag reports its real count
+        $count = Db::table('recipes_to_tags')->where('tag_id', $row->id)->count();
+        $tagId = Out::id($row->id);
+        foreach ($recipes as &$recipe) {
+            foreach ($recipe['tags'] as &$t) {
+                if ($t['id'] === $tagId) {
+                    $t['recipeCount'] = $count;
+                }
+            }
+        }
+        unset($recipe, $t);
+
+        return $this->json(Map::categoryBase($row) + ['recipes' => $recipes]);
     }
 
     // ===================================================================== tools

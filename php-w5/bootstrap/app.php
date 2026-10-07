@@ -4,6 +4,7 @@ use App\Http\Middleware\MealieAuth;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -23,6 +24,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->remove(\Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
+        // Render callbacks run before Laravel's own HttpResponseException handling, so the
+        // catch-all below would turn every Errors::* response thrown from middleware into a 500.
+        $exceptions->render(fn (HttpResponseException $e) => $e->getResponse());
         // Match FastAPI/Starlette's default bodies for routing errors.
         $exceptions->render(function (NotFoundHttpException $e, Request $request) {
             $message = $e->getMessage();

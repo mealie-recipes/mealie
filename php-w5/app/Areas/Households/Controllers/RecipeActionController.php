@@ -40,8 +40,8 @@ class RecipeActionController
     {
         return Json::respond(Paginator::page(
             $request, $this->query(), fn ($r) => Out::recipeAction($r), 'recipe_actions',
-            ['id', 'group_id', 'household_id', 'action_type', 'title', 'url', 'created_at', 'update_at'],
-            ['action_type', 'title', 'url'], '/households/recipe-actions',
+            ['id', 'group_id', 'household_id', 'action_type', 'title', 'created_at', 'update_at'],
+            ['action_type', 'title'], '/households/recipe-actions', null, 'GroupRecipeAction', ['url'],
         ));
     }
 

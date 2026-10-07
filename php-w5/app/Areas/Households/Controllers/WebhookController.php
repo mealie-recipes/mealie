@@ -74,8 +74,9 @@ class WebhookController
     {
         return Json::respond(Paginator::page(
             $request, $this->query(), fn ($r) => Out::webhook($r), 'webhook_urls',
-            ['id', 'group_id', 'household_id', 'enabled', 'name', 'url', 'time', 'webhook_type', 'scheduled_time', 'created_at', 'update_at'],
-            ['name', 'url', 'time', 'webhook_type'], '/households/webhooks',
+            ['created_at', 'update_at'],
+            [], '/households/webhooks', null, 'GroupWebhooksModel',
+            ['id', 'group_id', 'household_id', 'enabled', 'name', 'url', 'time', 'webhook_type', 'scheduled_time'],
         ));
     }
 

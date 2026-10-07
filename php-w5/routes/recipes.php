@@ -11,10 +11,11 @@ use App\Areas\Recipes\Controllers\FoodUnitController;
 use App\Areas\Recipes\Controllers\OrganizerController;
 use App\Areas\Recipes\Controllers\RecipeController;
 use App\Areas\Recipes\Controllers\TimelineController;
+use App\Areas\Recipes\Support\Auth;
 use Illuminate\Support\Facades\Route;
 
 // ---------------------------------------------------------------- recipe (mealie/routes/recipe)
-Route::middleware('mealie:user')->group(function () {
+Route::middleware(Auth::class)->group(function () {
     // exports.py
     Route::get('recipes/exports', [RecipeController::class, 'formats']);
     // recipe_crud_routes.py
@@ -29,7 +30,7 @@ Route::middleware('mealie:user')->group(function () {
 // shared_routes.py (no auth)
 Route::get('recipes/shared/{token_id}', [RecipeController::class, 'shared']);
 
-Route::middleware('mealie:user')->group(function () {
+Route::middleware(Auth::class)->group(function () {
     // timeline_events.py
     Route::get('recipes/timeline/events', [TimelineController::class, 'index']);
     Route::post('recipes/timeline/events', [TimelineController::class, 'store']);

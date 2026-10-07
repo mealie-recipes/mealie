@@ -141,4 +141,7 @@ Same `queryFilter` limitation as cookbooks (non-empty string not validated, pars
 - `Households\Support\Paginator`: own copy of the pagination envelope. The shared `Pagination` helper (a) turns `perPage=-1` on an empty table into `per_page: 1` (Python returns 0), (b) cannot put a fixed `queryFilter` (e.g. `(household_id=…)`) into `next`, (c) cannot skip next/previous (mealplans), (d) 500s on unknown `orderBy` columns (Python: 400 `Invalid order_by statement …`).
 - `Households\Support\Slug`: python-slugify equivalent (not in shared layer).
 - `Households\Support\Http`: HttpRepo 404 body and an "integer path param" validator (shared layer has only UUID validators).
-- `Households\Support\RecipeSummary`: RecipeSummary serializer for meal plan entries (area 2 owns recipes; no shared serializer).
+- `Households\Support\Out::recipeSummary`: RecipeSummary serializer for meal plan entries (area 2 owns recipes; no shared serializer). Organizer order follows Python's load path: link-table order on reads, organizer id order on the POST response.
+- `Households\Support\Input`: Pydantic-like body field parsing (camelCase or snake_case, lax bool/int); 422 bodies have the right shape but shorter `message` text than Python's.
+- `Households\Support\UserAuth`: wraps `mealie:user`. Before the orchestrator's bootstrap fix, the shared middleware's 401 became a 500; kept so the merge step can drop it.
+- `orderBy` accepts only SQLAlchemy `FilterableColumn`s per model; other mapped columns -> 400 `Cannot filter on Model.column`, unknown -> 400 `"x" is invalid` (as Python).
