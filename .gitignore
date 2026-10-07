@@ -161,6 +161,7 @@ ENV/
 node_modules/
 *.db
 *.sqlite
+!compx574/mealie.db
 scratch.py
 dev/data/backups/dev_sample_data*.zip
 !dev/data/backups/test*.zip

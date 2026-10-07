@@ -4,6 +4,10 @@
 set -eu
 
 root=$(CDPATH= cd -- "$(dirname "$0")/../.." && pwd)
+if [ ! -f "$root/dev/data/mealie.db" ]; then
+  echo "Copy compx574/mealie.db to dev/data/mealie.db before running." >&2
+  exit 1
+fi
 php_dir=${1:-php-w1}
 candidate=${2:-http://127.0.0.1:9001}
 
