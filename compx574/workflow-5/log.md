@@ -164,3 +164,7 @@ Copied from the `/usage` screen of the one Claude Code session that ran W5 (orch
 | Plan limits after the run | session 10% used; week 28% used |
 
 The `/usage` breakdown for the last 24 h on this machine (approximate, local sessions only): 90% of usage came from sub-agent-heavy sessions; 63% from `general-purpose` sub-agents; 84% at >150k context. Together with the 02:35 interruption (four parallel agents used up the remaining 5-hour budget in about 20 minutes), this is the main cost evidence for the multi-agent workflow.
+
+## Transcripts
+
+Sub-agent transcripts are in `transcripts/` (see its README for the redaction: 2 JWTs, 5 bcrypt hashes and the operator's email addresses masked, because the fork is public). The orchestrator transcript is exported separately by the operator with `/export`.
