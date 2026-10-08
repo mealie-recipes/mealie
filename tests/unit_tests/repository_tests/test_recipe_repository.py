@@ -571,6 +571,47 @@ def test_fuzzy_recipe_search(
     assert results and results[0].name == "Steinbock Sloop"
 
 
+@pytest.mark.parametrize(
+    "search, expected_name",
+    [
+        ("Steinbuck", "Steinbock Sloop"),
+        ("delicous", "Steinbock Sloop"),
+        ("mosss", "Fiddlehead Fern Stir Fry"),
+        ("alpine animl", "Steinbock Sloop"),
+    ],
+    ids=["fuzzy_title", "fuzzy_description", "fuzzy_ingredient_note", "fuzzy_ingredient_phrase"],
+)
+def test_fuzzy_recipe_search_sources(
+    unique_db: AllRepositories,
+    search: str,
+    expected_name: str,
+    search_recipes: list[Recipe],  # required so database is populated
+):
+    # fuzzy search is postgres-only
+    if unique_db.session.get_bind().name != "postgresql":
+        return
+
+    repo = unique_db.recipes
+    pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    results = repo.page_all(pagination, search=search).items
+    names = [recipe.name for recipe in results]
+
+    assert expected_name in names
+    assert len(names) == len(set(names)), "a recipe matching in several places must be returned once"
+
+
+def test_fuzzy_recipe_search_no_match(
+    unique_db: AllRepositories,
+    search_recipes: list[Recipe],  # required so database is populated
+):
+    if unique_db.session.get_bind().name != "postgresql":
+        return
+
+    repo = unique_db.recipes
+    pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    assert repo.page_all(pagination, search="qzxwvjk").items == []
+
+
 def test_random_order_recipe_search(
     unique_db: AllRepositories,
     search_recipes: list[Recipe],  # required so database is populated
