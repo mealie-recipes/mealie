@@ -147,3 +147,20 @@ What `09b932b65` does (read from the diff):
 Side effect found while measuring: with the middleware removed, php-w1's handlers accepted the `0` bodies in `parity.hurl` and wrote rows (empty-named category/tag/tool/unit/food/label, cookbook, meal plans, invite token, API token, webhook, notifier, recipe action, AI provider, migration report) and rewrote group/household preferences. Python then failed `GroupInDB` validation and returned 500 on most authenticated GETs, which first produced a bogus 9/40 accuracy for php-w1; the DB was restored and the accuracy re-run (15/40 above). So the middleware does not only align status codes, it also hides missing input validation in the handlers. W5's areas validate bodies inside each handler; no W5 run changed the DB in this way (snapshot comparisons above).
 
 Interpretation for the report: W1's 263/265 is a score obtained by tuning against the acceptance test it is measured with; W5 held the same test out from the agents. Status-only asserts plus a non-admin token make the test easy to satisfy without implementing behaviour. The body-comparison metric (15/40 vs 37/40) and the no-middleware run (110/265) are the comparable numbers.
+
+## Session usage (Claude Code `/usage`, read 2026-10-08 after the PR was opened)
+
+Copied from the `/usage` screen of the one Claude Code session that ran W5 (orchestrator + all five sub-agents). Figures are for the whole session, so they also include the planning discussion before W5 started, the php-w1 re-measurement and the PR. They cannot be split per phase.
+
+| Item | Value |
+|---|---|
+| Total cost (API pricing) | **$69.66** |
+| API duration | 2 h 3 m 16 s |
+| Wall-clock duration | 21 h 7 m 22 s (includes the ~10 h usage-limit pause and idle time) |
+| Code changes reported | 11,916 lines added, 120 removed |
+| claude-opus-5-5 | 320.4k input, 695.8k output, 156.9M cache read, 4.0M cache write ($69.66) |
+| claude-haiku-4-5 | 3.8k input, 14 output ($0.0038) |
+| Prompt cache (main) | 170 requests, 97% of input tokens from cache, 3 misses |
+| Plan limits after the run | session 10% used; week 28% used |
+
+The `/usage` breakdown for the last 24 h on this machine (approximate, local sessions only): 90% of usage came from sub-agent-heavy sessions; 63% from `general-purpose` sub-agents; 84% at >150k context. Together with the 02:35 interruption (four parallel agents used up the remaining 5-hour budget in about 20 minutes), this is the main cost evidence for the multi-agent workflow.
