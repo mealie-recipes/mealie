@@ -1,0 +1,27 @@
+error: Assert failure
+    --> /tmp/tmp.RAGpxi7KCw/parity.hurl:2521:0
+     |
+     | GET {{candidate}}/api/organizers/tools/slug/parity-missing
+     | ...
+2521 | status == {{s189}}
+     |   actual:   integer <404>
+     |   expected: integer <500>
+     |
+
+error: Assert failure
+    --> /tmp/tmp.RAGpxi7KCw/parity.hurl:3656:0
+     |
+     | GET {{candidate}}/api/validators/household?name=nobody-accuracy-check
+     | ...
+3656 | status == {{s270}}
+     |   actual:   integer <200>
+     |   expected: integer <500>
+     |
+
+Failure /tmp/tmp.RAGpxi7KCw/parity.hurl (530 request(s) in 2735 ms)
+--------------------------------------------------------------------------------
+Executed files:    1
+Executed requests: 530 (193.3/s)
+Succeeded files:   0 (0.0%)
+Failed files:      1 (100.0%)
+Duration:          2742 ms (0h:0m:2s:742ms)

@@ -1,0 +1,127 @@
+compared=41 scored=40 match=15 status_mismatch=0 body_mismatch=25 excluded=1
+accuracy=15/40
+MATCH
+/api/app/about (200)
+/api/app/about/startup-info (200)
+/api/app/about/theme (200)
+/api/validators/user/name?name=nobody-accuracy-check (200)
+/api/users/self (200)
+/api/users/self/ratings (200)
+/api/users/self/favorites (200)
+/api/groups/preferences (200)
+/api/groups/reports (200)
+/api/households/self (200)
+/api/households/preferences (200)
+/api/households/statistics (200)
+/api/households/mealplans/today (200)
+/api/households/invitations (403)
+/api/shared/recipes?page=1&perPage=5 (200)
+EXCLUDED
+/api/recipes/suggestions?limit=3: status python=200 php=200; body not compared (unordered sample)
+STATUS
+BODY
+/api/auth/oauth (500)
+  $.detail: python="Could not initialize OAuth client" php="OIDC is not configured"
+/api/users/api-tokens (405)
+  $.detail: missing on php
+  $.exception: missing on python
+  $.file: missing on python
+  $.line: missing on python
+  $.message: missing on python
+  $.trace: missing on python
+/api/groups/self (200)
+  $.aiProviderSettings: python={"aiEnabled": true, "audioProviderEnabled": true, "audioProviderId": "533d1eb0-b65e-4e1d-a33d-b705bb5fe548", "default... php=null
+/api/groups/members?page=1&perPage=10 (200)
+  $.perPage: missing on python
+  $.totalPages: missing on python
+/api/groups/storage (200)
+  $.usedStorageBytes: python=768 php=0
+  $.usedStorageStr: python="768 bytes" php="0 B"
+/api/groups/households?page=1&perPage=10 (200)
+  $.items[0].group: missing on python
+  $.items[0].preferences: missing on php
+  $.perPage: missing on python
+  $.totalPages: missing on python
+/api/groups/ai-providers/settings (403)
+  $.detail: python="Forbidden" php="User is not allowed to manage this group"
+/api/households/members?page=1&perPage=10 (403)
+  $.detail: python="Forbidden" php="User is not allowed to manage this group"
+/api/households/cookbooks?page=1&perPage=10 (200)
+  $.perPage: missing on python
+  $.totalPages: missing on python
+/api/households/mealplans?page=1&perPage=5 (200)
+  $.perPage: missing on python
+  $.totalPages: missing on python
+/api/households/mealplans/rules?page=1&perPage=10 (200)
+  $.perPage: missing on python
+  $.totalPages: missing on python
+/api/households/shopping/lists?page=1&perPage=5 (200)
+  $.items[0].extras: missing on php
+  $.items[0].labelSettings: length python=32 php=0
+  $.items[0].listItems: missing on python
+  $.perPage: missing on python
+  $.totalPages: missing on python
+/api/households/shopping/items?page=1&perPage=5 (200)
+  $.items[0].display: python="1 bunch baking powder test" php="test"
+  $.items[0].food.aliases: missing on php
+  $.items[0].food.createdAt: missing on php
+  $.items[0].food.description: missing on php
+  $.items[0].food.extras: missing on php
+  $.items[0].food.householdsWithIngredientFood: missing on php
+/api/households/webhooks?page=1&perPage=10 (200)
+  $.perPage: missing on python
+  $.totalPages: missing on python
+/api/households/events/notifications?page=1&perPage=10 (200)
+  $.perPage: missing on python
+  $.totalPages: missing on python
+/api/households/recipe-actions?page=1&perPage=10 (200)
+  $.perPage: missing on python
+  $.totalPages: missing on python
+/api/recipes?page=1&perPage=3 (200)
+  $.next: python="/recipes?orderDirection=desc&page=2&perPage=3" php=null
+  $.perPage: missing on python
+  $.totalPages: missing on python
+/api/recipes/timeline/events?page=1&perPage=5 (200)
+  $.items[0].groupId: missing on php
+  $.items[0].householdId: missing on php
+  $.items[0].subject: python="Recipe Created" php="recipe.recipe-created"
+  $.items[1].groupId: missing on php
+  $.items[1].householdId: missing on php
+  $.items[1].subject: python="Recipe Created" php="recipe.recipe-created"
+/api/organizers/categories?page=1&perPage=5 (200)
+  $.perPage: missing on python
+  $.totalPages: missing on python
+/api/organizers/tags?page=1&perPage=5 (200)
+  $.items[1].id: python="8013bb7e-b9c9-4385-92ed-b85bfa98c2c3" php="2e738ff9-17f0-45b9-8821-eeb9996a83dd"
+  $.items[1].name: python="Mint" php="Chicken Breast"
+  $.items[1].slug: python="mint" php="chicken-breast"
+  $.items[2].id: python="d103d6bd-8220-45f3-876f-82b43e200bed" php="6a3044d6-319d-4625-aaa6-563235ec2c53"
+  $.items[2].name: python="Weeknight" php="Cabbage"
+  $.items[2].slug: python="weeknight" php="cabbage"
+/api/organizers/tools?page=1&perPage=5 (200)
+  $.perPage: missing on python
+  $.totalPages: missing on python
+/api/foods?page=1&perPage=5 (200)
+  $.items[0].createdAt: missing on php
+  $.items[0].groupId: missing on python
+  $.items[0].label: missing on php
+  $.items[0].onHand: missing on python
+  $.items[0].updatedAt: missing on php
+  $.items[1].createdAt: missing on php
+/api/units?page=1&perPage=5 (200)
+  $.items[0].aliases: missing on php
+  $.items[0].createdAt: missing on php
+  $.items[0].groupId: missing on python
+  $.items[0].id: python="23990f74-4b3a-4a28-8372-870de9577874" php="0e1f0a85-5508-444a-bfe3-87a14008417f"
+  $.items[0].name: python="stalk" php="can"
+  $.items[0].pluralAbbreviation: python="" php=null
+/api/groups/labels?page=1&perPage=10 (200)
+  $.items[0].id: python="187a97ab-2729-484b-8185-6364b1af6bcf" php="15fc6808-1138-466d-8a61-154a609c86d3"
+  $.items[0].name: python="Desserts & Sweet Snacks" php="Beverages"
+  $.items[1].id: python="28d10cae-37e0-453f-a71a-ab04a0447ade" php="40b311e5-2ebf-4d15-8238-d89e451a99c6"
+  $.items[1].name: python="Pasta" php="Condiments"
+  $.items[2].id: python="319e2db2-84bd-4197-a143-15f779a7a75e" php="6f9c40a1-196c-4032-83d2-bce0952fd44d"
+  $.items[2].name: python="Soups, Stews & stock" php="Berries"
+/api/comments?page=1&perPage=5 (200)
+  $.perPage: missing on python
+  $.totalPages: missing on python

@@ -126,3 +126,24 @@ Decided by the orchestrator after reading `run.sh`, `parity.hurl` and the Python
 | Human review time | 0 — Derek delegated both gates to the orchestrator |
 
 Known limits of this evidence: one run; one tool and model; review gates done by the orchestrator, not a human; `parity.hurl` checks status codes only and its token user `bob` is not an admin; orchestrator token usage is not in the table (only Claude Code `/usage` shows it).
+
+## Comparison with W1 after its Hurl alignment (done after W5 finished)
+
+On 2026-10-08 the W1 member pushed `09b932b65` "fix: align php-w1 with the shared Hurl contract" and `65e7292fd` (W1 doc update reporting 263/265). `09b932b65` also fixes the `x=1` parse error in `parity.hurl` the same way `measure.sh` does, so both scores below use the same file content. The orchestrator read `php-w1/` only from here on; W5's code was final (`530f87fc1`, `1ef540647`) before this section was written.
+
+Measured in the W5 sandbox, same shared DB (restored to snapshot `280e922e` before each run), same `measure.sh` (token user `bob`, non-admin), php-w1 from `65e7292fd` copied to `/tmp/w1` and served on :9003:
+
+| Build | parity (status asserts) | body accuracy (group's 40 GETs) |
+|---|---|---|
+| php-w1 `65e7292fd` | **263/265** (reproduces W1's claim) — `results/w1-65e7292fd.txt` | **15/40** (0 status mismatches, 25 body mismatches) — `results/w1-65e7292fd.accuracy.txt` |
+| php-w1 `65e7292fd` with `MatchPythonContract` removed from `bootstrap/app.php` | **110/265** — `results/w1-65e7292fd-without-matchpythoncontract.txt` | not measured (see below) |
+| php-w5 `530f87fc1` | 189/265 | 37/40 |
+
+What `09b932b65` does (read from the diff):
+- Adds `app/Http/Middleware/MatchPythonContract.php` and **prepends it as global middleware**, so it runs before routing: every `/api/admin*` path returns 401/403 for a non-admin caller (the `run.sh` user `bob` is not an admin), and any request with a scalar JSON body (`0`) or a non-v4 UUID anywhere in the path/query returns 422 — whether or not a route exists. **153 of the 263 passes depend on it** (263 → 110 without it).
+- Adds fixed-response routes, e.g. `GET /utils/download` → always 400, `GET /recipes/exports` → `{"json":[],"zip":[],"jinja2":[]}`, `GET /recipes/{slug}/exports` → 422 without `template_name`, otherwise always 404; `GET /recipes/bulk-actions/export` → `[]`.
+- Pagination output now carries both `per_page`/`total_pages` (what `parity.hurl` asserts with `exists`) and `perPage`/`totalPages`; the accuracy script reports the camelCase pair as extra keys.
+
+Side effect found while measuring: with the middleware removed, php-w1's handlers accepted the `0` bodies in `parity.hurl` and wrote rows (empty-named category/tag/tool/unit/food/label, cookbook, meal plans, invite token, API token, webhook, notifier, recipe action, AI provider, migration report) and rewrote group/household preferences. Python then failed `GroupInDB` validation and returned 500 on most authenticated GETs, which first produced a bogus 9/40 accuracy for php-w1; the DB was restored and the accuracy re-run (15/40 above). So the middleware does not only align status codes, it also hides missing input validation in the handlers. W5's areas validate bodies inside each handler; no W5 run changed the DB in this way (snapshot comparisons above).
+
+Interpretation for the report: W1's 263/265 is a score obtained by tuning against the acceptance test it is measured with; W5 held the same test out from the agents. Status-only asserts plus a non-admin token make the test easy to satisfy without implementing behaviour. The body-comparison metric (15/40 vs 37/40) and the no-middleware run (110/265) are the comparable numbers.
