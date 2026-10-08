@@ -5,9 +5,10 @@ namespace App\Areas\Recipes\Controllers;
 use App\Areas\Recipes\Support\Db;
 use App\Areas\Recipes\Support\Input;
 use App\Areas\Recipes\Support\Map;
-use App\Areas\Recipes\Support\Paginator;
 use App\Support\CurrentUser;
+use App\Support\Errors;
 use App\Support\Guid;
+use App\Support\Pagination;
 use Illuminate\Http\Request;
 
 /**
@@ -23,9 +24,9 @@ class CommentController extends Base
     public function index(Request $request)
     {
         $query = Map::commentQuery($this->groupId());
-        $result = Paginator::page($request, $query, fn ($r) => Map::comment($r), '/comments', [
+        $result = Pagination::page($request, $query, fn ($rows) => array_map([Map::class, 'comment'], $rows), '/comments', [
             'table' => 'recipe_comments',
-            'columns' => ['created_at' => 'other', 'update_at' => 'other', 'id' => 'other', 'text' => 'string', 'recipe_id' => 'other', 'user_id' => 'other'],
+            'columns' => ['created_at' => false, 'update_at' => false, 'id' => false, 'text' => true, 'recipe_id' => false, 'user_id' => false],
             'search' => null,
         ]);
 
@@ -66,7 +67,7 @@ class CommentController extends Base
     {
         $id = Input::pathUuid4($item_id);
 
-        return $this->json(Map::comment($this->find($id) ?? $this->notFound()));
+        return $this->json(Map::comment($this->find($id) ?? Errors::notFound()));
     }
 
     /** _check_comment_belongs_to_user (comments/__init__.py:35); a missing comment raises AttributeError -> 500 */

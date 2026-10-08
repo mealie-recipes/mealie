@@ -3,7 +3,7 @@
 namespace App\Areas\GroupsAdmin\Support;
 
 /**
- * mealie/pkgs/stats/fs_stats.py, mealie/core/settings/directories.py and python-slugify helpers.
+ * mealie/pkgs/stats/fs_stats.py and mealie/core/settings/directories.py helpers.
  */
 class Fs
 {
@@ -95,19 +95,5 @@ class Fs
             }
         }
         @rmdir($path);
-    }
-
-    /** python-slugify `slugify(text)` with default options. */
-    public static function slugify(string $text): string
-    {
-        $text = preg_replace("/[']+/", '-', $text);
-        $text = Search::unidecode($text);
-        $text = strtolower($text);
-        $text = preg_replace("/[']+/", '', $text);
-        $text = preg_replace('/(?<=\d),(?=\d)/', '', $text);
-        $text = preg_replace('/[^-a-zA-Z0-9]+/', '-', $text);
-        $text = preg_replace('/-{2,}/', '-', $text);
-
-        return trim($text, '-');
     }
 }

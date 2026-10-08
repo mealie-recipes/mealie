@@ -5,10 +5,10 @@ namespace App\Areas\Recipes\Controllers;
 use App\Areas\Recipes\Support\Db;
 use App\Areas\Recipes\Support\Input;
 use App\Areas\Recipes\Support\Map;
-use App\Areas\Recipes\Support\Paginator;
-use App\Areas\Recipes\Support\Text;
 use App\Support\Errors;
 use App\Support\Guid;
+use App\Support\Pagination;
+use App\Support\Text;
 use Illuminate\Http\Request;
 
 /**
@@ -17,17 +17,17 @@ use Illuminate\Http\Request;
 class FoodUnitController extends Base
 {
     private const FOOD_COLUMNS = [
-        'created_at' => 'other', 'update_at' => 'other', 'id' => 'other', 'group_id' => 'other', 'name' => 'string',
-        'description' => 'string', 'label_id' => 'other', 'name_normalized' => 'string', 'plural_name' => 'string',
-        'plural_name_normalized' => 'string', 'on_hand' => 'other',
+        'created_at' => false, 'update_at' => false, 'id' => false, 'group_id' => false, 'name' => true,
+        'description' => true, 'label_id' => false, 'name_normalized' => true, 'plural_name' => true,
+        'plural_name_normalized' => true, 'on_hand' => false,
     ];
 
     private const UNIT_COLUMNS = [
-        'created_at' => 'other', 'update_at' => 'other', 'id' => 'other', 'group_id' => 'other', 'name' => 'string',
-        'description' => 'string', 'abbreviation' => 'string', 'fraction' => 'other', 'use_abbreviation' => 'other',
-        'name_normalized' => 'string', 'abbreviation_normalized' => 'string', 'plural_name' => 'string',
-        'plural_name_normalized' => 'string', 'plural_abbreviation' => 'string', 'plural_abbreviation_normalized' => 'string',
-        'standard_quantity' => 'other', 'standard_unit' => 'string',
+        'created_at' => false, 'update_at' => false, 'id' => false, 'group_id' => false, 'name' => true,
+        'description' => true, 'abbreviation' => true, 'fraction' => false, 'use_abbreviation' => false,
+        'name_normalized' => true, 'abbreviation_normalized' => true, 'plural_name' => true,
+        'plural_name_normalized' => true, 'plural_abbreviation' => true, 'plural_abbreviation_normalized' => true,
+        'standard_quantity' => false, 'standard_unit' => true,
     ];
 
     /** en-US units seed (mealie/repos/seed/resources/units/locales/en-US.json): value -> unit key */
@@ -76,7 +76,7 @@ class FoodUnitController extends Base
     public function foodsIndex(Request $request)
     {
         $query = Db::table('ingredient_foods')->select('ingredient_foods.*')->where('ingredient_foods.group_id', $this->groupId());
-        $result = Paginator::page($request, $query, fn ($r) => $r, '/foods', [
+        $result = Pagination::page($request, $query, fn ($rows) => $rows, '/foods', [
             'table' => 'ingredient_foods',
             'columns' => self::FOOD_COLUMNS,
             'search' => ['ingredient_foods.name_normalized', 'ingredient_foods.plural_name_normalized'],
@@ -238,7 +238,7 @@ class FoodUnitController extends Base
     {
         $id = Input::pathUuid4($item_id);
 
-        return $this->json(Map::food($this->findFood($id) ?? $this->notFound()));
+        return $this->json(Map::food($this->findFood($id) ?? Errors::notFound()));
     }
 
     public function foodsUpdate(Request $request, string $item_id)
@@ -247,7 +247,7 @@ class FoodUnitController extends Base
         $d = $this->readFood($request);
         $this->canOrganize();
         if (! $this->findFood($id)) {
-            $this->notFound();
+            Errors::notFound();
         }
         $this->write(fn () => $this->writeFood($d, $id), self::SERVER_ERROR_MSG, 'Database integrity error');
 
@@ -350,7 +350,7 @@ class FoodUnitController extends Base
     public function unitsIndex(Request $request)
     {
         $query = Db::table('ingredient_units')->select('ingredient_units.*')->where('ingredient_units.group_id', $this->groupId());
-        $result = Paginator::page($request, $query, fn ($r) => $r, '/units', [
+        $result = Pagination::page($request, $query, fn ($rows) => $rows, '/units', [
             'table' => 'ingredient_units',
             'columns' => self::UNIT_COLUMNS,
             'search' => [
@@ -458,7 +458,7 @@ class FoodUnitController extends Base
     {
         $id = Input::pathUuid4($item_id);
 
-        return $this->json(Map::unit($this->findUnit($id) ?? $this->notFound()));
+        return $this->json(Map::unit($this->findUnit($id) ?? Errors::notFound()));
     }
 
     public function unitsUpdate(Request $request, string $item_id)
@@ -466,7 +466,7 @@ class FoodUnitController extends Base
         $id = Input::pathUuid4($item_id);
         $d = $this->readUnit($request);
         if (! $this->findUnit($id)) {
-            $this->notFound();
+            Errors::notFound();
         }
         $this->write(fn () => $this->writeUnit($d, $id), self::SERVER_ERROR_MSG, 'Database integrity error');
 

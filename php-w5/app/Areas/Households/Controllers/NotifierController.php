@@ -5,12 +5,12 @@ namespace App\Areas\Households\Controllers;
 use App\Areas\Households\Support\Http;
 use App\Areas\Households\Support\Input;
 use App\Areas\Households\Support\Out;
-use App\Areas\Households\Support\Paginator;
 use App\Support\CurrentUser;
 use App\Support\Dates;
 use App\Support\Errors;
 use App\Support\Guid;
 use App\Support\Json;
+use App\Support\Pagination;
 use Illuminate\Http\Request;
 
 /** mealie/routes/households/controller_group_notifications.py (GroupEventNotifierOut, household-scoped repo) */
@@ -58,12 +58,9 @@ class NotifierController
 
     public function index(Request $request)
     {
-        return Json::respond(Paginator::page(
-            $request, $this->query(), fn ($r) => Out::notifier($r), 'group_events_notifiers',
-            ['created_at', 'update_at'],
-            [], '/households/events/notifications', null, 'GroupEventNotifierModel',
-            ['id', 'name', 'enabled', 'apprise_url', 'group_id', 'household_id'],
-        ));
+        return Json::respond(Pagination::page($request, $this->query(), fn ($rows) => array_map([Out::class, 'notifier'], $rows), '/households/events/notifications', [
+            'table' => 'group_events_notifiers', 'model' => 'GroupEventNotifierModel', 'columns' => [],
+        ]));
     }
 
     public function store(Request $request)
@@ -103,7 +100,7 @@ class NotifierController
     {
         $row = $this->query()->where('id', Guid::requireUuid4($itemId))->first();
         if (! $row) {
-            Http::notFound();
+            Errors::notFound();
         }
 
         return Json::respond(Out::notifier($row));
@@ -127,7 +124,7 @@ class NotifierController
                 // current_data is None -> AttributeError, unhandled
                 return response('Internal Server Error', 500, ['Content-Type' => 'text/plain; charset=utf-8']);
             }
-            Http::notFound();
+            Errors::notFound();
         }
         $url ??= $row->apprise_url;
 

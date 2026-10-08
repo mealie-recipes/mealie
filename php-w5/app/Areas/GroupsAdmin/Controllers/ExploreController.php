@@ -4,10 +4,10 @@ namespace App\Areas\GroupsAdmin\Controllers;
 
 use App\Areas\GroupsAdmin\Support\Db;
 use App\Areas\GroupsAdmin\Support\Out;
-use App\Areas\GroupsAdmin\Support\Pager;
 use App\Support\Errors;
 use App\Support\Guid;
 use App\Support\Json;
+use App\Support\Pagination;
 use Illuminate\Http\Request;
 
 /**
@@ -46,14 +46,15 @@ class ExploreController
         $group = $this->group($groupSlug);
         $query = Db::table('ingredient_foods')->where('ingredient_foods.group_id', $group->id);
 
-        return Json::respond(Pager::page(
-            $request, $query, 'ingredient_foods', 'IngredientFoodModel',
-            ['id' => false, 'group_id' => false, 'name' => true, 'plural_name' => true, 'description' => true,
-                'label_id' => false, 'name_normalized' => true, 'plural_name_normalized' => true],
-            fn ($rows) => Out::foodMany($rows),
-            $this->url($group, 'foods'),
-            'normalized', ['name_normalized', 'plural_name_normalized'],
-        ));
+        return Json::respond(Pagination::page(
+            $request, $query, fn ($rows) => Out::foodMany($rows), $this->url($group, 'foods'), [
+                'table' => 'ingredient_foods',
+                'model' => 'IngredientFoodModel',
+                'columns' => ['id' => false, 'group_id' => false, 'name' => true, 'plural_name' => true, 'description' => true,
+                    'label_id' => false, 'name_normalized' => true, 'plural_name_normalized' => true],
+                'search' => ['ingredient_foods.name_normalized', 'ingredient_foods.plural_name_normalized'],
+                'normalizeSearch' => true,
+            ]));
     }
 
     public function food(string $groupSlug, string $itemId)
@@ -80,12 +81,12 @@ class ExploreController
                 ->where('household_preferences.private_household', false))
             ->select('households.*');
 
-        return Json::respond(Pager::page(
-            $request, $query, 'households', 'Household',
-            ['id' => false, 'name' => true, 'slug' => true, 'group_id' => false],
-            fn ($rows) => Out::householdSummaryMany($rows),
-            $this->url($group, 'households'),
-        ));
+        return Json::respond(Pagination::page(
+            $request, $query, fn ($rows) => Out::householdSummaryMany($rows), $this->url($group, 'households'), [
+                'table' => 'households',
+                'model' => 'Household',
+                'columns' => ['id' => false, 'name' => true, 'slug' => true, 'group_id' => false],
+            ]));
     }
 
     public function household(string $groupSlug, string $householdSlug)
@@ -111,9 +112,13 @@ class ExploreController
             $query->select("{$table}.*")->selectRaw(Out::recipeCountSql($table));
         }
 
-        return Json::respond(Pager::page(
-            $request, $query, $table, $model, self::ORGANIZER_COLUMNS, $map, $route, 'plain', ['name'],
-        ));
+        return Json::respond(Pagination::page(
+            $request, $query, $map, $route, [
+                'table' => $table,
+                'model' => $model,
+                'columns' => self::ORGANIZER_COLUMNS,
+                'search' => ["{$table}.name"],
+            ]));
     }
 
     private function organizer(object $group, string $table, string $id): ?object

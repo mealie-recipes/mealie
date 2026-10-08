@@ -8,11 +8,6 @@ use App\Support\Guid;
 /** HttpRepo (mealie/routes/_base/mixins.py) error bodies and small shared helpers for this area. */
 class Http
 {
-    public static function notFound(): never
-    {
-        Errors::http(404, ['message' => 'Not found.', 'error' => true, 'exception' => null]);
-    }
-
     /** HttpRepo.delete_one when the row is missing: NoResultFound -> 404 with the generic message. */
     public static function deleteNotFound(string $message = 'An unexpected error occurred'): never
     {

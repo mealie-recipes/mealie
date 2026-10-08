@@ -10,7 +10,6 @@ use App\Areas\AuthUsers\Http\AppController;
 use App\Areas\AuthUsers\Http\AuthController;
 use App\Areas\AuthUsers\Http\RatingsController;
 use App\Areas\AuthUsers\Http\RegistrationController;
-use App\Areas\AuthUsers\Http\RequireUser;
 use App\Areas\AuthUsers\Http\UserController;
 use App\Areas\AuthUsers\Http\ValidatorsController;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +21,7 @@ Route::get('app/about/theme', [AppController::class, 'theme']);
 
 // auth (mealie/routes/auth/auth.py)
 Route::post('auth/token', [AuthController::class, 'token']);
-Route::middleware(RequireUser::class)->group(function () {
+Route::middleware('mealie:user')->group(function () {
     Route::post('auth/refresh', [AuthController::class, 'refresh']);
     Route::post('auth/logout', [AuthController::class, 'logout']);
 });
@@ -31,7 +30,7 @@ Route::middleware(RequireUser::class)->group(function () {
 Route::post('users/register', [RegistrationController::class, 'register']);
 
 // users: crud.py
-Route::middleware(RequireUser::class)->group(function () {
+Route::middleware('mealie:user')->group(function () {
     Route::get('users/self', [UserController::class, 'self']);
     Route::get('users/self/ratings', [UserController::class, 'selfRatings']);
     Route::get('users/self/ratings/{recipe_id}', [UserController::class, 'selfRating']);
@@ -44,7 +43,7 @@ Route::middleware(RequireUser::class)->group(function () {
 Route::post('users/reset-password', [UserController::class, 'resetPassword']);
 
 // users: api_tokens.py, ratings.py
-Route::middleware(RequireUser::class)->group(function () {
+Route::middleware('mealie:user')->group(function () {
     Route::post('users/api-tokens', [UserController::class, 'createApiToken']);
     Route::delete('users/api-tokens/{token_id}', [UserController::class, 'deleteApiToken']);
 

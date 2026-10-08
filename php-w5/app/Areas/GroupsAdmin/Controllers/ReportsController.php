@@ -2,7 +2,6 @@
 
 namespace App\Areas\GroupsAdmin\Controllers;
 
-use App\Areas\GroupsAdmin\Support\Checks;
 use App\Areas\GroupsAdmin\Support\Db;
 use App\Areas\GroupsAdmin\Support\Out;
 use App\Areas\GroupsAdmin\Support\Validator;
@@ -37,7 +36,7 @@ class ReportsController
     {
         $report = $this->find(Guid::requireUuid4($itemId));
         if ($report === null) {
-            Checks::notFound();
+            Errors::notFound();
         }
 
         return Json::respond(Out::reportOut($report));

@@ -5,11 +5,11 @@ namespace App\Areas\Households\Controllers;
 use App\Areas\Households\Support\Http;
 use App\Areas\Households\Support\Input;
 use App\Areas\Households\Support\Out;
-use App\Areas\Households\Support\Paginator;
 use App\Support\CurrentUser;
 use App\Support\Dates;
 use App\Support\Errors;
 use App\Support\Json;
+use App\Support\Pagination;
 use Illuminate\Http\Request;
 
 /** mealie/routes/households/controller_mealplan.py (ReadPlanEntry; household = entry user's household) */
@@ -62,11 +62,12 @@ class MealplanController
             $query->where('date', '<=', $end);
         }
 
-        return Json::respond(Paginator::page(
-            $request, $query, fn ($r) => Out::planEntry($r), 'group_meal_plans',
-            ['date', 'entry_type', 'title', 'text', 'group_id', 'user_id', 'recipe_id', 'created_at', 'update_at'],
-            ['entry_type', 'title', 'text'], null, null, 'GroupMealPlan', ['id'],
-        ));
+        return Json::respond(Pagination::page($request, $query, fn ($rows) => array_map([Out::class, 'planEntry'], $rows), null, [
+            'table' => 'group_meal_plans', 'model' => 'GroupMealPlan',
+            'columns' => [
+                'date' => false, 'entry_type' => true, 'title' => true, 'text' => true, 'group_id' => false, 'user_id' => false, 'recipe_id' => false,
+            ],
+        ]));
     }
 
     public function store(Request $request)
@@ -99,7 +100,7 @@ class MealplanController
     {
         $row = $this->query()->where('id', Input::pathInt($itemId))->first();
         if (! $row) {
-            Http::notFound();
+            Errors::notFound();
         }
 
         return Json::respond(Out::planEntry($row));
@@ -116,7 +117,7 @@ class MealplanController
         $values['user_id'] = Input::uuid($data, 'user_id', false);
 
         if (! $this->query()->where('id', $id)->exists()) {
-            Http::notFound();
+            Errors::notFound();
         }
         Out::db()->table('group_meal_plans')->where('id', $id)->update($values + ['update_at' => Dates::nowDb()]);
 

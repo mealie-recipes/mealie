@@ -5,14 +5,14 @@ namespace App\Areas\GroupsAdmin\Controllers;
 use App\Areas\GroupsAdmin\Support\Cascade;
 use App\Areas\GroupsAdmin\Support\Checks;
 use App\Areas\GroupsAdmin\Support\Db;
-use App\Areas\GroupsAdmin\Support\Fs;
 use App\Areas\GroupsAdmin\Support\Out;
-use App\Areas\GroupsAdmin\Support\Pager;
 use App\Areas\GroupsAdmin\Support\Validator;
 use App\Support\Dates;
 use App\Support\Errors;
 use App\Support\Guid;
 use App\Support\Json;
+use App\Support\Pagination;
+use App\Support\Text;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -41,19 +41,19 @@ class AdminHouseholdsController
 
     public function index(Request $request)
     {
-        return Json::respond(Pager::page(
-            $request, Db::table('households'), 'households', 'Household',
-            ['id' => false, 'name' => true, 'slug' => true, 'group_id' => false],
-            fn ($rows) => Out::householdInDbMany($rows),
-            '/households',
-        ));
+        return Json::respond(Pagination::page(
+            $request, Db::table('households'), fn ($rows) => Out::householdInDbMany($rows), '/households', [
+                'table' => 'households',
+                'model' => 'Household',
+                'columns' => ['id' => false, 'name' => true, 'slug' => true, 'group_id' => false],
+            ]));
     }
 
     public function show(string $itemId)
     {
         $household = $this->find(Guid::requireUuid4($itemId));
         if ($household === null) {
-            Checks::notFound();
+            Errors::notFound();
         }
 
         return Json::respond(Out::householdInDb($household));
@@ -71,7 +71,7 @@ class AdminHouseholdsController
             $now = Dates::nowDb();
             try {
                 Db::table('households')->insert([
-                    'id' => $id, 'name' => $name, 'slug' => Fs::slugify($name), 'group_id' => $groupId,
+                    'id' => $id, 'name' => $name, 'slug' => Text::slugify($name), 'group_id' => $groupId,
                     'created_at' => $now, 'update_at' => $now,
                 ]);
 
@@ -157,7 +157,7 @@ class AdminHouseholdsController
         if ($name !== '' && $name !== $household->name) {
             try {
                 Db::table('households')->where('id', $id)->update([
-                    'name' => $name, 'slug' => Fs::slugify($name), 'update_at' => Dates::nowDb(),
+                    'name' => $name, 'slug' => Text::slugify($name), 'update_at' => Dates::nowDb(),
                 ]);
             } catch (QueryException) {
                 Errors::http(500, 'Internal Server Error');

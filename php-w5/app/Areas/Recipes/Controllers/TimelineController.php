@@ -5,10 +5,10 @@ namespace App\Areas\Recipes\Controllers;
 use App\Areas\Recipes\Support\Db;
 use App\Areas\Recipes\Support\Input;
 use App\Areas\Recipes\Support\Map;
-use App\Areas\Recipes\Support\Paginator;
 use App\Support\CurrentUser;
 use App\Support\Errors;
 use App\Support\Guid;
+use App\Support\Pagination;
 use Illuminate\Http\Request;
 
 /**
@@ -28,11 +28,11 @@ class TimelineController extends Base
     public function index(Request $request)
     {
         $query = Map::timelineQuery($this->groupId());
-        $result = Paginator::page($request, $query, fn ($r) => Map::timeline($r), '/timeline/events', [
+        $result = Pagination::page($request, $query, fn ($rows) => array_map([Map::class, 'timeline'], $rows), '/timeline/events', [
             'table' => 'recipe_timeline_events',
             'columns' => [
-                'created_at' => 'other', 'update_at' => 'other', 'id' => 'other', 'recipe_id' => 'other', 'user_id' => 'other',
-                'subject' => 'string', 'message' => 'string', 'event_type' => 'string', 'image' => 'string', 'timestamp' => 'other',
+                'created_at' => false, 'update_at' => false, 'id' => false, 'recipe_id' => false, 'user_id' => false,
+                'subject' => true, 'message' => true, 'event_type' => true, 'image' => true, 'timestamp' => false,
             ],
             'search' => null,
         ]);
@@ -137,7 +137,7 @@ class TimelineController extends Base
     {
         $id = Input::pathUuid4($item_id);
 
-        return $this->crud(Map::timeline($this->find($id) ?? $this->notFound()));
+        return $this->crud(Map::timeline($this->find($id) ?? Errors::notFound()));
     }
 
     /** HttpRepo.patch_one: only fields that were set and differ from their defaults are applied. */
@@ -150,7 +150,7 @@ class TimelineController extends Base
         $image = $this->enum($in, 'image', self::IMAGES, false, null);
         $in->check();
         if (! $this->find($id)) {
-            $this->notFound();
+            Errors::notFound();
         }
 
         $values = ['subject' => $subject, 'update_at' => $this->now()];

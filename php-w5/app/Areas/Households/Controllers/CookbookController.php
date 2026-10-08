@@ -5,22 +5,23 @@ namespace App\Areas\Households\Controllers;
 use App\Areas\Households\Support\Http;
 use App\Areas\Households\Support\Input;
 use App\Areas\Households\Support\Out;
-use App\Areas\Households\Support\Paginator;
-use App\Areas\Households\Support\Slug;
 use App\Support\CurrentUser;
 use App\Support\Dates;
 use App\Support\Errors;
 use App\Support\Guid;
 use App\Support\Json;
+use App\Support\Pagination;
+use App\Support\Text;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 /** mealie/routes/households/controller_cookbooks.py + mealie/repos/repository_cookbooks.py */
 class CookbookController
 {
-    private const COLUMNS = ['id', 'position', 'group_id', 'household_id', 'name', 'slug', 'description', 'public', 'require_all_categories', 'require_all_tags', 'require_all_tools', 'created_at', 'update_at'];
-
-    private const STRING_COLUMNS = ['name', 'slug', 'description'];
+    private const COLUMNS = [
+        'id' => false, 'position' => false, 'group_id' => false, 'household_id' => false, 'name' => true, 'slug' => true, 'description' => true,
+        'public' => false, 'require_all_categories' => false, 'require_all_tags' => false, 'require_all_tools' => false,
+    ];
 
     private function table()
     {
@@ -37,7 +38,7 @@ class CookbookController
     private function parseCreate(array $data): array
     {
         $name = trim((string) Input::str($data, 'name'));
-        if ($name === '' || Slug::make($name) === '') {
+        if ($name === '' || Text::slugify($name) === '') {
             Errors::validation('Value error, Name cannot be empty at body.name');
         }
         $public = Input::raw($data, 'public');
@@ -71,7 +72,7 @@ class CookbookController
     /** RepositoryCookbooks.update slug rule + retry on unique violation */
     private function updateRow(object $existing, array $values): object
     {
-        $newSlug = Slug::make($values['name']);
+        $newSlug = Text::slugify($values['name']);
         $slug = $values['slug'] ?? null;
         if (! ($slug && preg_match('/^('.preg_quote($newSlug, '/').')(-\d+)?$/', $slug))) {
             $slug = $newSlug;
@@ -87,7 +88,7 @@ class CookbookController
                 if (! str_contains($e->getMessage(), 'constraint failed')) {
                     throw $e;
                 }
-                $slug = Slug::make("{$values['name']} (".($i + 1).')');
+                $slug = Text::slugify("{$values['name']} (".($i + 1).')');
             }
         }
 
@@ -99,7 +100,9 @@ class CookbookController
     {
         $query = $this->table()->where('group_id', CurrentUser::groupId());
 
-        return Json::respond(Paginator::page($request, $query, fn ($r) => Out::cookbook($r), 'cookbooks', self::COLUMNS, self::STRING_COLUMNS, '/households/cookbooks', null, 'CookBook', ['query_filter_string']));
+        return Json::respond(Pagination::page($request, $query, fn ($rows) => array_map([Out::class, 'cookbook'], $rows), '/households/cookbooks', [
+            'table' => 'cookbooks', 'model' => 'CookBook', 'columns' => self::COLUMNS,
+        ]));
     }
 
     /** POST /households/cookbooks */
@@ -108,7 +111,7 @@ class CookbookController
         $values = $this->parseCreate(Input::object($request));
         $id = Guid::new();
         $now = Dates::nowDb();
-        $slug = Slug::make($values['name']);
+        $slug = Text::slugify($values['name']);
         unset($values['slug']);
 
         for ($i = 0; $i < 10; $i++) {
@@ -130,7 +133,7 @@ class CookbookController
                 if (! $this->isUniqueViolation($e)) {
                     throw $e;
                 }
-                $slug = Slug::make("{$values['name']} (".($i + 1).')');
+                $slug = Text::slugify("{$values['name']} (".($i + 1).')');
             }
         }
 
@@ -150,7 +153,7 @@ class CookbookController
         foreach ($parsed as $values) {
             $existing = $this->householdQuery()->where('id', $values['id'])->first();
             if (! $existing) {
-                Http::notFound();
+                Errors::notFound();
             }
             $out[] = Out::cookbook($this->updateRow($existing, $values));
         }
@@ -182,7 +185,7 @@ class CookbookController
         }
         $existing = $this->householdQuery()->where('id', Guid::toDb($itemId))->first();
         if (! $existing) {
-            Http::notFound();
+            Errors::notFound();
         }
 
         return Json::respond(Out::cookbook($this->updateRow($existing, $values)));

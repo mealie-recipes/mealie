@@ -4,12 +4,12 @@ namespace App\Areas\Households\Controllers;
 
 use App\Areas\Households\Support\Input;
 use App\Areas\Households\Support\Out;
-use App\Areas\Households\Support\Paginator;
 use App\Support\CurrentUser;
 use App\Support\Dates;
 use App\Support\Errors;
 use App\Support\Guid;
 use App\Support\Json;
+use App\Support\Pagination;
 use Illuminate\Http\Request;
 
 /** mealie/routes/households/controller_household_self_service.py */
@@ -66,18 +66,11 @@ class SelfServiceController
         $householdId = CurrentUser::householdId();
         $query = Out::db()->table('users')->where('group_id', CurrentUser::groupId())->where('household_id', $householdId);
 
-        return Json::respond(Paginator::page(
-            $request,
-            $query,
-            fn ($u) => Out::user($u),
-            'users',
-            ['id', 'full_name', 'username', 'group_id', 'household_id', 'created_at', 'update_at'],
-            ['full_name', 'username'],
-            '/households/members',
-            'household_id='.Guid::fromDb($householdId),
-            'User',
-            ['email', 'password', 'auth_method', 'admin', 'advanced', 'cache_key', 'external_avatar_hash', 'login_attemps', 'locked_at', 'tokens_valid_after', 'show_announcements', 'last_read_announcement', 'can_manage_household', 'can_manage', 'can_invite', 'can_organize', 'owned_recipes_id'],
-        ));
+        return Json::respond(Pagination::page($request, $query, fn ($rows) => array_map([Out::class, 'user'], $rows), '/households/members', [
+            'table' => 'users', 'model' => 'User',
+            'columns' => ['id' => false, 'full_name' => true, 'username' => true, 'group_id' => false, 'household_id' => false],
+            'queryFilter' => 'household_id='.Guid::fromDb($householdId),
+        ]));
     }
 
     /** GET /households/preferences */

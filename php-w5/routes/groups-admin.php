@@ -16,11 +16,10 @@ use App\Areas\GroupsAdmin\Controllers\ExploreController;
 use App\Areas\GroupsAdmin\Controllers\GroupSelfController;
 use App\Areas\GroupsAdmin\Controllers\LabelsController;
 use App\Areas\GroupsAdmin\Controllers\ReportsController;
-use App\Areas\GroupsAdmin\Support\Auth;
 use Illuminate\Support\Facades\Route;
 
 // ---------------------------------------------------------------- groups (get_current_user)
-Route::middleware(Auth::class.':user')->prefix('groups')->group(function () {
+Route::middleware('mealie:user')->prefix('groups')->group(function () {
     Route::get('ai-providers/settings', [AiProvidersController::class, 'settings']);
     Route::put('ai-providers/settings', [AiProvidersController::class, 'updateSettings']);
     Route::post('ai-providers/providers', [AiProvidersController::class, 'groupCreate']);
@@ -50,7 +49,7 @@ Route::middleware(Auth::class.':user')->prefix('groups')->group(function () {
 });
 
 // ---------------------------------------------------------------- admin (get_admin_user)
-Route::middleware(Auth::class.':admin')->prefix('admin')->group(function () {
+Route::middleware('mealie:admin')->prefix('admin')->group(function () {
     Route::get('about/statistics', [AdminAboutController::class, 'statistics']);
     Route::get('about/check', [AdminAboutController::class, 'check']);
 

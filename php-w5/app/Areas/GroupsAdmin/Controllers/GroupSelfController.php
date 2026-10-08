@@ -6,13 +6,13 @@ use App\Areas\GroupsAdmin\Support\Checks;
 use App\Areas\GroupsAdmin\Support\Db;
 use App\Areas\GroupsAdmin\Support\Fs;
 use App\Areas\GroupsAdmin\Support\Out;
-use App\Areas\GroupsAdmin\Support\Pager;
 use App\Areas\GroupsAdmin\Support\Validator;
 use App\Support\CurrentUser;
 use App\Support\Dates;
 use App\Support\Errors;
 use App\Support\Guid;
 use App\Support\Json;
+use App\Support\Pagination;
 use Illuminate\Http\Request;
 
 /** mealie/routes/groups/controller_group_self_service.py and controller_group_households.py */
@@ -31,12 +31,12 @@ class GroupSelfController
     {
         $query = Db::table('users')->where('users.group_id', CurrentUser::groupId());
 
-        return Json::respond(Pager::page(
-            $request, $query, 'users', 'User',
-            ['id' => false, 'full_name' => true, 'username' => true, 'group_id' => false, 'household_id' => false],
-            fn ($rows) => array_map([Out::class, 'userSummary'], $rows),
-            '/groups/members',
-        ));
+        return Json::respond(Pagination::page(
+            $request, $query, fn ($rows) => array_map([Out::class, 'userSummary'], $rows), '/groups/members', [
+                'table' => 'users',
+                'model' => 'User',
+                'columns' => ['id' => false, 'full_name' => true, 'username' => true, 'group_id' => false, 'household_id' => false],
+            ]));
     }
 
     /** GET /groups/members/{username_or_id} */
@@ -107,12 +107,12 @@ class GroupSelfController
     {
         $query = Db::table('households')->where('households.group_id', CurrentUser::groupId());
 
-        return Json::respond(Pager::page(
-            $request, $query, 'households', 'Household',
-            ['id' => false, 'name' => true, 'slug' => true, 'group_id' => false],
-            fn ($rows) => Out::householdSummaryMany($rows),
-            '/groups/households',
-        ));
+        return Json::respond(Pagination::page(
+            $request, $query, fn ($rows) => Out::householdSummaryMany($rows), '/groups/households', [
+                'table' => 'households',
+                'model' => 'Household',
+                'columns' => ['id' => false, 'name' => true, 'slug' => true, 'group_id' => false],
+            ]));
     }
 
     /** GET /groups/households/{household_slug} — RepositoryHousehold.get_by_slug_or_id */

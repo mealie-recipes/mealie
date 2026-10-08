@@ -5,9 +5,9 @@ namespace App\Areas\AuthUsers\Http;
 use App\Areas\AuthUsers\Support\Pyd;
 use App\Areas\AuthUsers\Support\Users;
 use App\Support\Json;
+use App\Support\Text;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 /** mealie/routes/validators/validators.py — ValidationResponse {"valid": bool} */
 class ValidatorsController
@@ -74,22 +74,8 @@ class ValidatorsController
         $name = $v->queryStr($request, 'name');
         $v->done();
 
-        $exists = Users::db()->table('recipes')->where('group_id', $groupId)->where('slug', self::slugify($name))->exists();
+        $exists = Users::db()->table('recipes')->where('group_id', $groupId)->where('slug', Text::slugify($name))->exists();
 
         return Json::respond(['valid' => ! $exists]);
-    }
-
-    /** python-slugify defaults (lowercase, "-" separator, unidecode). */
-    public static function slugify(string $text): string
-    {
-        $text = html_entity_decode($text, ENT_QUOTES | ENT_HTML5, 'UTF-8');
-        $text = Str::ascii($text);
-        $text = strtolower($text);
-        $text = preg_replace("/'+/", '', $text);
-        $text = preg_replace('/(?<=\d),(?=\d)/', '', $text);
-        $text = preg_replace('/[^-a-z0-9]+/', '-', $text);
-        $text = preg_replace('/-{2,}/', '-', $text);
-
-        return trim($text, '-');
     }
 }

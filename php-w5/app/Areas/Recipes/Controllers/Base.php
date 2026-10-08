@@ -20,19 +20,6 @@ abstract class Base
 
     public const NO_RESULT = 'No row was found when one was required';
 
-    /**
-     * Laravel's ControllerDispatcher calls this. Errors::* throw HttpResponseException, which the shared
-     * catch-all Throwable renderer in bootstrap/app.php would turn into a 500, so unwrap it here.
-     */
-    public function callAction($method, $parameters)
-    {
-        try {
-            return $this->{$method}(...array_values($parameters));
-        } catch (\Illuminate\Http\Exceptions\HttpResponseException $e) {
-            return $e->getResponse();
-        }
-    }
-
     protected function groupId(): string
     {
         return CurrentUser::groupId();
@@ -61,12 +48,6 @@ abstract class Base
         }
 
         return $res;
-    }
-
-    /** HttpRepo.get_one / update_one 404 */
-    protected function notFound(): never
-    {
-        Errors::errorResponse(404, 'Not found.');
     }
 
     protected function now(): string

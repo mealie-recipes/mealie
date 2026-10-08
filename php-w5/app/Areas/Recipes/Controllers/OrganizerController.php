@@ -6,11 +6,11 @@ use App\Areas\Recipes\Support\Db;
 use App\Areas\Recipes\Support\Input;
 use App\Areas\Recipes\Support\Map;
 use App\Areas\Recipes\Support\Out;
-use App\Areas\Recipes\Support\Paginator;
 use App\Areas\Recipes\Support\RecipeMap;
-use App\Areas\Recipes\Support\Text;
 use App\Support\Errors;
 use App\Support\Guid;
+use App\Support\Pagination;
+use App\Support\Text;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 
@@ -19,7 +19,7 @@ use Illuminate\Http\Request;
  */
 class OrganizerController extends Base
 {
-    private const COLUMNS = ['created_at' => 'other', 'update_at' => 'other', 'id' => 'other', 'group_id' => 'other', 'name' => 'string', 'slug' => 'string'];
+    private const COLUMNS = ['created_at' => false, 'update_at' => false, 'id' => false, 'group_id' => false, 'name' => true, 'slug' => true];
 
     /** categories / tags with the recipe_count expression (RepositoryCategories._query, repository_factory.py:93) */
     private function countedQuery(string $table): Builder
@@ -46,9 +46,9 @@ class OrganizerController extends Base
             : $this->countedQuery($table);
 
         $households = [];
-        $result = Paginator::page($request, $query, fn ($r) => $r, $route, [
+        $result = Pagination::page($request, $query, fn ($rows) => $rows, $route, [
             'table' => $table,
-            'columns' => self::COLUMNS + ($table === 'tools' ? ['on_hand' => 'other'] : []),
+            'columns' => self::COLUMNS + ($table === 'tools' ? ['on_hand' => false] : []),
             'search' => ["{$table}.name"],
         ]);
         if ($table === 'tools') {
@@ -132,7 +132,7 @@ class OrganizerController extends Base
         $in->check();
         $this->canOrganize();
         if (! $this->findCounted('categories', $id)) {
-            $this->notFound();
+            Errors::notFound();
         }
         $row = $this->saveNamed('categories', $request, $id);
 
@@ -230,7 +230,7 @@ class OrganizerController extends Base
     public function categoriesShow(string $item_id)
     {
         $id = Input::pathUuid4($item_id);
-        $row = $this->findCounted('categories', $id) ?? $this->notFound();
+        $row = $this->findCounted('categories', $id) ?? Errors::notFound();
 
         return $this->json(['id' => Out::id($row->id), 'slug' => $row->slug, 'name' => $row->name]);
     }
@@ -238,7 +238,7 @@ class OrganizerController extends Base
     public function tagsShow(string $item_id)
     {
         $id = Input::pathUuid4($item_id);
-        $row = $this->findCounted('tags', $id) ?? $this->notFound();
+        $row = $this->findCounted('tags', $id) ?? Errors::notFound();
 
         // TagOut validated into RecipeTagResponse: TagOut has no recipes, so the default [] is used
         return $this->json(Map::categoryBase($row) + ['recipes' => []]);
@@ -281,7 +281,7 @@ class OrganizerController extends Base
     public function categoriesBySlug(string $category_slug)
     {
         $row = Db::table('categories')->where('group_id', $this->groupId())->where('slug', $category_slug)->first()
-            ?? $this->notFound();
+            ?? Errors::notFound();
 
         // page_all(per_page=-1, query_filter='recipe_category.id IN [...]'), default order created_at desc
         $recipes = RecipeMap::query($this->groupId())
@@ -360,7 +360,7 @@ class OrganizerController extends Base
         $households = $in->strList('households_with_tool');
         $in->check();
         if ($id !== null && ! $this->findTool($id)) {
-            $this->notFound();
+            Errors::notFound();
         }
 
         return $this->write(function () use ($id, $name, $households) {
@@ -395,7 +395,7 @@ class OrganizerController extends Base
     {
         $id = Input::pathUuid4($item_id);
 
-        return $this->json($this->toolOut($this->findTool($id) ?? $this->notFound()));
+        return $this->json($this->toolOut($this->findTool($id) ?? Errors::notFound()));
     }
 
     public function toolsUpdate(Request $request, string $item_id)

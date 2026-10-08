@@ -16,10 +16,9 @@ use App\Areas\Households\Controllers\RecipeActionController;
 use App\Areas\Households\Controllers\SelfServiceController;
 use App\Areas\Households\Controllers\SharedController;
 use App\Areas\Households\Controllers\WebhookController;
-use App\Areas\Households\Support\UserAuth;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(UserAuth::class)->group(function () {
+Route::middleware('mealie:user')->group(function () {
     // controller_cookbooks.py
     Route::get('/households/cookbooks', [CookbookController::class, 'index']);
     Route::post('/households/cookbooks', [CookbookController::class, 'store']);

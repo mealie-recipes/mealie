@@ -15,12 +15,6 @@ class Checks
         }
     }
 
-    /** HttpRepo.get_one / update_one 404 body */
-    public static function notFound(): never
-    {
-        Errors::errorResponse(404, 'Not found.');
-    }
-
     /** HttpRepo.handle_exception for NoResultFound */
     public static function noResult(string $message = 'An unexpected error occurred'): never
     {

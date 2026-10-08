@@ -5,12 +5,12 @@ namespace App\Areas\Households\Controllers;
 use App\Areas\Households\Support\Http;
 use App\Areas\Households\Support\Input;
 use App\Areas\Households\Support\Out;
-use App\Areas\Households\Support\Paginator;
 use App\Support\CurrentUser;
 use App\Support\Dates;
 use App\Support\Errors;
 use App\Support\Guid;
 use App\Support\Json;
+use App\Support\Pagination;
 use Illuminate\Http\Request;
 
 /** mealie/routes/households/controller_webhooks.py (CRUD only; rerun/test fire webhooks) */
@@ -72,12 +72,9 @@ class WebhookController
 
     public function index(Request $request)
     {
-        return Json::respond(Paginator::page(
-            $request, $this->query(), fn ($r) => Out::webhook($r), 'webhook_urls',
-            ['created_at', 'update_at'],
-            [], '/households/webhooks', null, 'GroupWebhooksModel',
-            ['id', 'group_id', 'household_id', 'enabled', 'name', 'url', 'time', 'webhook_type', 'scheduled_time'],
-        ));
+        return Json::respond(Pagination::page($request, $this->query(), fn ($rows) => array_map([Out::class, 'webhook'], $rows), '/households/webhooks', [
+            'table' => 'webhook_urls', 'model' => 'GroupWebhooksModel', 'columns' => [],
+        ]));
     }
 
     public function store(Request $request)
@@ -101,7 +98,7 @@ class WebhookController
     {
         $row = $this->query()->where('id', Guid::requireUuid4($itemId))->first();
         if (! $row) {
-            Http::notFound();
+            Errors::notFound();
         }
 
         return Json::respond(Out::webhook($row));
@@ -112,7 +109,7 @@ class WebhookController
         $id = Guid::requireUuid4($itemId);
         $values = $this->parse(Input::object($request));
         if (! $this->query()->where('id', $id)->exists()) {
-            Http::notFound();
+            Errors::notFound();
         }
         Out::db()->table('webhook_urls')->where('id', $id)->update($values + ['update_at' => Dates::nowDb()]);
 

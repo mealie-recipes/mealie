@@ -42,6 +42,12 @@ class Errors
         self::http($status, ['message' => $message, 'error' => true, 'exception' => $exception]);
     }
 
+    /** HttpRepo.get_one / update_one 404 (mealie/routes/_base/mixins.py). */
+    public static function notFound(): never
+    {
+        self::errorResponse(404, 'Not found.');
+    }
+
     public static function unauthorized(): never
     {
         self::http(401, 'Could not validate credentials', ['WWW-Authenticate' => 'Bearer']);

@@ -178,7 +178,7 @@ class AiProvidersController
     {
         $provider = $this->findValid($groupId, $id);
         if ($provider === null) {
-            Checks::notFound();
+            Errors::notFound();
         }
 
         return Json::respond(Out::aiProvider($provider));
@@ -189,7 +189,7 @@ class AiProvidersController
         $data = $this->validated($request);
         $existing = $this->findValid($groupId, $id);
         if ($existing === null) {
-            Checks::notFound();
+            Errors::notFound();
         }
         $apiKey = $data['api_key'] !== '' ? $data['api_key'] : $existing->api_key;
         $now = Dates::nowDb();

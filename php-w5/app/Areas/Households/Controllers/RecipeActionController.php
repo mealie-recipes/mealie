@@ -5,12 +5,12 @@ namespace App\Areas\Households\Controllers;
 use App\Areas\Households\Support\Http;
 use App\Areas\Households\Support\Input;
 use App\Areas\Households\Support\Out;
-use App\Areas\Households\Support\Paginator;
 use App\Support\CurrentUser;
 use App\Support\Dates;
 use App\Support\Errors;
 use App\Support\Guid;
 use App\Support\Json;
+use App\Support\Pagination;
 use Illuminate\Http\Request;
 
 /** mealie/routes/households/controller_group_recipe_actions.py (CRUD only) */
@@ -38,11 +38,10 @@ class RecipeActionController
 
     public function index(Request $request)
     {
-        return Json::respond(Paginator::page(
-            $request, $this->query(), fn ($r) => Out::recipeAction($r), 'recipe_actions',
-            ['id', 'group_id', 'household_id', 'action_type', 'title', 'created_at', 'update_at'],
-            ['action_type', 'title'], '/households/recipe-actions', null, 'GroupRecipeAction', ['url'],
-        ));
+        return Json::respond(Pagination::page($request, $this->query(), fn ($rows) => array_map([Out::class, 'recipeAction'], $rows), '/households/recipe-actions', [
+            'table' => 'recipe_actions', 'model' => 'GroupRecipeAction',
+            'columns' => ['id' => false, 'group_id' => false, 'household_id' => false, 'action_type' => true, 'title' => true],
+        ]));
     }
 
     public function store(Request $request)
@@ -65,7 +64,7 @@ class RecipeActionController
     {
         $row = $this->query()->where('id', Guid::requireUuid4($itemId))->first();
         if (! $row) {
-            Http::notFound();
+            Errors::notFound();
         }
 
         return Json::respond(Out::recipeAction($row));
@@ -81,7 +80,7 @@ class RecipeActionController
         $values['household_id'] = Input::uuid($data, 'household_id');
 
         if (! $this->query()->where('id', $id)->exists()) {
-            Http::notFound();
+            Errors::notFound();
         }
         Out::db()->table('recipe_actions')->where('id', $id)->update($values + ['update_at' => Dates::nowDb()]);
 

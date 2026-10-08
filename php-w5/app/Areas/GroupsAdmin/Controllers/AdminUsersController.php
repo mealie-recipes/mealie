@@ -6,7 +6,6 @@ use App\Areas\GroupsAdmin\Support\Checks;
 use App\Areas\GroupsAdmin\Support\Db;
 use App\Areas\GroupsAdmin\Support\Fs;
 use App\Areas\GroupsAdmin\Support\Out;
-use App\Areas\GroupsAdmin\Support\Pager;
 use App\Areas\GroupsAdmin\Support\Settings;
 use App\Areas\GroupsAdmin\Support\Validator;
 use App\Support\CurrentUser;
@@ -14,6 +13,7 @@ use App\Support\Dates;
 use App\Support\Errors;
 use App\Support\Guid;
 use App\Support\Json;
+use App\Support\Pagination;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -35,19 +35,19 @@ class AdminUsersController
 
     public function index(Request $request)
     {
-        return Json::respond(Pager::page(
-            $request, Db::table('users'), 'users', 'User',
-            ['id' => false, 'full_name' => true, 'username' => true, 'group_id' => false, 'household_id' => false],
-            fn ($rows) => Out::userOutMany($rows),
-            '/users',
-        ));
+        return Json::respond(Pagination::page(
+            $request, Db::table('users'), fn ($rows) => Out::userOutMany($rows), '/users', [
+                'table' => 'users',
+                'model' => 'User',
+                'columns' => ['id' => false, 'full_name' => true, 'username' => true, 'group_id' => false, 'household_id' => false],
+            ]));
     }
 
     public function show(string $itemId)
     {
         $user = $this->find(Guid::requireUuid4($itemId));
         if ($user === null) {
-            Checks::notFound();
+            Errors::notFound();
         }
 
         return Json::respond(Out::userOut($user));
@@ -196,7 +196,7 @@ class AdminUsersController
         }
 
         if ($this->find($id) === null) {
-            Checks::notFound();
+            Errors::notFound();
         }
 
         // auto_init iterates the `tokens` relationship; the UserOut default (None) is not iterable

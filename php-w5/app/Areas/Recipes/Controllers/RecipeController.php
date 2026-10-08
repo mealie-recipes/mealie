@@ -5,11 +5,11 @@ namespace App\Areas\Recipes\Controllers;
 use App\Areas\Recipes\Support\Db;
 use App\Areas\Recipes\Support\Input;
 use App\Areas\Recipes\Support\Out;
-use App\Areas\Recipes\Support\Paginator;
 use App\Areas\Recipes\Support\RecipeMap;
 use App\Support\CurrentUser;
 use App\Support\Errors;
 use App\Support\Guid;
+use App\Support\Pagination;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 
@@ -130,16 +130,16 @@ class RecipeController extends Base
             .'ELSE (CASE WHEN recipes.rating = 0 THEN NULL ELSE recipes.rating END) END AS FLOAT)';
         $lastMade = "coalesce((SELECT hr.last_made FROM households_to_recipes hr WHERE hr.recipe_id = recipes.id AND hr.household_id = (SELECT u.household_id FROM users u WHERE u.id = '{$uid}')), '1900-01-01 00:00:00.000000')";
 
-        $result = Paginator::page($request, $q, fn ($r) => $r, '/recipes', [
+        $result = Pagination::page($request, $q, fn ($rows) => $rows, '/recipes', [
             'table' => 'recipes',
             'columns' => [
-                'created_at' => 'other', 'update_at' => 'other', 'id' => 'other', 'slug' => 'string', 'group_id' => 'other',
-                'user_id' => 'other', 'name' => 'string', 'description' => 'string', 'image' => 'string',
-                'total_time' => 'string', 'prep_time' => 'string', 'perform_time' => 'string', 'cook_time' => 'string',
-                'recipe_yield' => 'string', 'recipe_yield_quantity' => 'other', 'recipe_servings' => 'other',
-                'rating' => 'expr:'.$rating, 'org_url' => 'string', 'date_added' => 'other', 'date_updated' => 'other',
-                'last_made' => 'expr:'.$lastMade, 'name_normalized' => 'string', 'description_normalized' => 'string',
-                'is_ocr_recipe' => 'other',
+                'created_at' => false, 'update_at' => false, 'id' => false, 'slug' => true, 'group_id' => false,
+                'user_id' => false, 'name' => true, 'description' => true, 'image' => true,
+                'total_time' => true, 'prep_time' => true, 'perform_time' => true, 'cook_time' => true,
+                'recipe_yield' => true, 'recipe_yield_quantity' => false, 'recipe_servings' => false,
+                'rating' => $rating, 'org_url' => true, 'date_added' => false, 'date_updated' => false,
+                'last_made' => $lastMade, 'name_normalized' => true, 'description_normalized' => true,
+                'is_ocr_recipe' => false,
             ],
             'search' => ['recipes.name_normalized', 'recipes.description_normalized'],
             'normalizeSearch' => true,

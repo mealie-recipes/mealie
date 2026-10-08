@@ -5,15 +5,15 @@ namespace App\Areas\GroupsAdmin\Controllers;
 use App\Areas\GroupsAdmin\Support\Cascade;
 use App\Areas\GroupsAdmin\Support\Checks;
 use App\Areas\GroupsAdmin\Support\Db;
-use App\Areas\GroupsAdmin\Support\Fs;
 use App\Areas\GroupsAdmin\Support\Out;
-use App\Areas\GroupsAdmin\Support\Pager;
 use App\Areas\GroupsAdmin\Support\Settings;
 use App\Areas\GroupsAdmin\Support\Validator;
 use App\Support\Dates;
 use App\Support\Errors;
 use App\Support\Guid;
 use App\Support\Json;
+use App\Support\Pagination;
+use App\Support\Text;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -30,19 +30,19 @@ class AdminGroupsController
 
     public function index(Request $request)
     {
-        return Json::respond(Pager::page(
-            $request, Db::table('groups'), 'groups', 'Group',
-            ['id' => false, 'name' => true, 'slug' => true],
-            fn ($rows) => Out::groupInDbMany($rows),
-            '/groups',
-        ));
+        return Json::respond(Pagination::page(
+            $request, Db::table('groups'), fn ($rows) => Out::groupInDbMany($rows), '/groups', [
+                'table' => 'groups',
+                'model' => 'Group',
+                'columns' => ['id' => false, 'name' => true, 'slug' => true],
+            ]));
     }
 
     public function show(string $itemId)
     {
         $group = $this->find(Guid::requireUuid4($itemId));
         if ($group === null) {
-            Checks::notFound();
+            Errors::notFound();
         }
 
         return Json::respond(Out::groupInDb($group));
@@ -62,7 +62,7 @@ class AdminGroupsController
             $now = Dates::nowDb();
             try {
                 Db::table('groups')->insert([
-                    'id' => $id, 'name' => $name, 'slug' => Fs::slugify($name), 'created_at' => $now, 'update_at' => $now,
+                    'id' => $id, 'name' => $name, 'slug' => Text::slugify($name), 'created_at' => $now, 'update_at' => $now,
                 ]);
                 $created = true;
             } catch (QueryException) {
@@ -133,7 +133,7 @@ class AdminGroupsController
         }
         if ($name !== '' && $name !== $group->name) {
             try {
-                Db::table('groups')->where('id', $id)->update(['name' => $name, 'slug' => Fs::slugify($name), 'update_at' => $now]);
+                Db::table('groups')->where('id', $id)->update(['name' => $name, 'slug' => Text::slugify($name), 'update_at' => $now]);
             } catch (QueryException) {
                 Errors::http(500, 'Internal Server Error');
             }

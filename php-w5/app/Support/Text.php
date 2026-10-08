@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Areas\Recipes\Support;
+namespace App\Support;
 
 /**
- * python-slugify `slugify()` defaults and SqlAlchemyBase.normalize (mealie/db/models/_model_base.py).
+ * python-slugify `slugify()` defaults, text_unidecode and SqlAlchemyBase.normalize (mealie/db/models/_model_base.py).
  */
 class Text
 {
@@ -21,6 +21,8 @@ class Text
     {
         $value = str_replace("'", '-', $value);
         $value = self::unidecode($value);
+        // entities=True, decimal=True, hexadecimal=True
+        $value = html_entity_decode($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
         $value = strtolower($value);
         $value = str_replace("'", '', $value);
         $value = preg_replace('/(?<=\d),(?=\d)/', '', $value);

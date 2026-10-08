@@ -5,13 +5,13 @@ namespace App\Areas\GroupsAdmin\Controllers;
 use App\Areas\GroupsAdmin\Support\Checks;
 use App\Areas\GroupsAdmin\Support\Db;
 use App\Areas\GroupsAdmin\Support\Out;
-use App\Areas\GroupsAdmin\Support\Pager;
 use App\Areas\GroupsAdmin\Support\Validator;
 use App\Support\CurrentUser;
 use App\Support\Dates;
 use App\Support\Errors;
 use App\Support\Guid;
 use App\Support\Json;
+use App\Support\Pagination;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
@@ -38,13 +38,13 @@ class LabelsController
     {
         $query = Db::table('multi_purpose_labels')->where('multi_purpose_labels.group_id', CurrentUser::groupId());
 
-        return Json::respond(Pager::page(
-            $request, $query, 'multi_purpose_labels', 'MultiPurposeLabel',
-            ['id' => false, 'name' => true, 'color' => true, 'group_id' => false],
-            fn ($rows) => array_map([Out::class, 'label'], $rows),
-            '/groups/labels',
-            'plain', ['name'],
-        ));
+        return Json::respond(Pagination::page(
+            $request, $query, fn ($rows) => array_map([Out::class, 'label'], $rows), '/groups/labels', [
+                'table' => 'multi_purpose_labels',
+                'model' => 'MultiPurposeLabel',
+                'columns' => ['id' => false, 'name' => true, 'color' => true, 'group_id' => false],
+                'search' => ['multi_purpose_labels.name'],
+            ]));
     }
 
     public function store(Request $request)
@@ -82,7 +82,7 @@ class LabelsController
     {
         $label = $this->find(Guid::requireUuid4($itemId));
         if ($label === null) {
-            Checks::notFound();
+            Errors::notFound();
         }
 
         return Json::respond(Out::label($label));
@@ -99,7 +99,7 @@ class LabelsController
         $v->check();
 
         if ($this->find($id) === null) {
-            Checks::notFound();
+            Errors::notFound();
         }
         try {
             Db::table('multi_purpose_labels')->where('id', $id)->update([

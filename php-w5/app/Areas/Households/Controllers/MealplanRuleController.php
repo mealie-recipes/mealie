@@ -5,11 +5,12 @@ namespace App\Areas\Households\Controllers;
 use App\Areas\Households\Support\Http;
 use App\Areas\Households\Support\Input;
 use App\Areas\Households\Support\Out;
-use App\Areas\Households\Support\Paginator;
 use App\Support\CurrentUser;
 use App\Support\Dates;
+use App\Support\Errors;
 use App\Support\Guid;
 use App\Support\Json;
+use App\Support\Pagination;
 use Illuminate\Http\Request;
 
 /** mealie/routes/households/controller_mealplan_rules.py (PlanRulesOut, household-scoped repo) */
@@ -37,11 +38,10 @@ class MealplanRuleController
 
     public function index(Request $request)
     {
-        return Json::respond(Paginator::page(
-            $request, $this->query(), fn ($r) => Out::planRule($r), 'group_meal_plan_rules',
-            ['id', 'group_id', 'household_id', 'day', 'entry_type', 'created_at', 'update_at'],
-            ['day', 'entry_type'], '/households/mealplans/rules', null, 'GroupMealPlanRules', ['query_filter_string'],
-        ));
+        return Json::respond(Pagination::page($request, $this->query(), fn ($rows) => array_map([Out::class, 'planRule'], $rows), '/households/mealplans/rules', [
+            'table' => 'group_meal_plan_rules', 'model' => 'GroupMealPlanRules',
+            'columns' => ['id' => false, 'group_id' => false, 'household_id' => false, 'day' => true, 'entry_type' => true],
+        ]));
     }
 
     public function store(Request $request)
@@ -64,7 +64,7 @@ class MealplanRuleController
     {
         $row = $this->query()->where('id', Guid::requireUuid4($itemId))->first();
         if (! $row) {
-            Http::notFound();
+            Errors::notFound();
         }
 
         return Json::respond(Out::planRule($row));
@@ -75,7 +75,7 @@ class MealplanRuleController
         $id = Guid::requireUuid4($itemId);
         $values = $this->parse(Input::object($request));
         if (! $this->query()->where('id', $id)->exists()) {
-            Http::notFound();
+            Errors::notFound();
         }
         Out::db()->table('group_meal_plan_rules')->where('id', $id)->update($values + ['update_at' => Dates::nowDb()]);
 
