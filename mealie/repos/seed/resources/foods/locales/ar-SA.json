@@ -28,7 +28,7 @@
       },
       "potato": {
         "name": "بطاطا",
-        "plural_name": "potatoes"
+        "plural_name": "بطاطا"
       },
       "red onion": {
         "name": "بصل أحمر",
@@ -48,7 +48,7 @@
       },
       "avocado": {
         "name": "أفوكادو",
-        "plural_name": "avocados"
+        "plural_name": "أفوكادو"
       },
       "shallot": {
         "name": "شالوت",
@@ -60,7 +60,7 @@
       },
       "cucumber": {
         "name": "خيار",
-        "plural_name": "cucumbers"
+        "plural_name": "خيار"
       },
       "spinach": {
         "name": "سبانخ",
