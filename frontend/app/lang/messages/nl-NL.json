@@ -365,7 +365,7 @@
     },
     "recipe-data-migrations": "Receptmigratie",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
-    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
+    "migration-description": "Kom je van een andere toepassing of een oudere versie van Mealie? Kijk eens naar de migraties. Misschien kunnen we je gegevens importeren.",
     "choose-migration-type": "Kies het migratietype",
     "tag-all-recipes": "Label alle recepten met het label {tag-name}",
     "recipe-1": "Eerste recept",
@@ -526,8 +526,8 @@
     "ingredients-not-parsed-description": "Mealie heeft je ingrediënten nog niet verwerkt. Klik op de '{parse}' knop om je ingrediënten te verwerken als gestructureerde levensmiddelen.",
     "attach-images-hint": "Voeg afbeeldingen toe door ze te slepen en in de editor te plaatsen",
     "drop-image": "Afbeelding toevoegen",
-    "failed-to-attach-image": "Failed to attach image",
-    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
+    "failed-to-attach-image": "Kon afbeelding niet toevoegen",
+    "image-drop-unsupported": "Deze afbeelding kan niet direct worden bijgevoegd. Sla het op uw apparaat op en sleep het bestand erin.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recepten met eenheden of levensmiddelen kunnen niet ontleed worden.",
     "parse-ingredients": "Ingrediënten ontleden",
     "edit-markdown": "Markdown bewerken",
@@ -590,8 +590,8 @@
     "report-deletion-failed": "Rapport verwijderen is mislukt",
     "recipe-debugger": "Recept debugger",
     "recipe-debugger-description": "Pak de URL van het recept dat u wilt debuggen en plak die hier. De URL zal door de receptenscraper worden gescrapet en de resultaten zullen worden weergegeven. Als u geen gegevens ziet, wordt de site die u probeert te scrapen niet ondersteund door Mealie of zijn scraperbibliotheek.",
-    "use-openai": "Gebruik OpenAI",
-    "recipe-debugger-use-openai-description": "Gebruik OpenAI om de resultaten te verwerken in plaats van te vertrouwen op de scraper-bibliotheek. Bij het maken van een recept via een URL wordt dit automatisch gedaan als de scraper-bibliotheek mislukt, maar u kunt het hier handmatig testen.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Boomstructuurweergave",
     "recipe-servings": "Recept porties",
@@ -603,15 +603,22 @@
     "remove-image": "Afbeelding verwijderen",
     "nextStep": "Volgende stap",
     "recipe-actions": "Acties met recepten ",
+    "unit-system": {
+      "as-written": "Zoals geschreven",
+      "metric": "Waarde",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Ingrediëntenontleder",
       "select-parser": "Selecteer ontleder",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Natuurlijke taalverwerker",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Ruwe ontleder",
-      "openai-parser": "OpenAI ontleder",
+      "ai-parser": "AI Parser",
       "missing-unit": "Maak ontbrekende eenheid aan: {unit}",
       "missing-food": "Ontbrekend levensmiddel maken: {food}",
       "this-unit-could-not-be-parsed-automatically": "Mealie kon deze meeteenheid niet automatisch verwerken",
@@ -911,6 +918,8 @@
       "food-data": "Levensmiddel-gegevens",
       "label-overwrite-warning": "Dit geeft alle geselecteerde levensmiddelen het gekozen label. Het kan bestaande labels overschrijven.",
       "on-hand-checkbox-label": "Door deze vlag in te stellen, wordt dit voedsel standaard niet aangevinkt bij het toevoegen van een recept aan een boodschappenlijst.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -949,7 +958,14 @@
       "edit-label": "Bewerk label",
       "new-label": "Nieuw label",
       "labels": "Labels",
-      "assign-label": "Label toevoegen"
+      "assign-label": "Label toevoegen",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Verwijder exports",
@@ -1022,7 +1038,14 @@
     "tools": {
       "new-tool": "Keukengerei Toevoegen",
       "edit-tool": "Keukengerei Bewerken",
-      "tool-data": "Keukengerei Overzicht"
+      "tool-data": "Keukengerei Overzicht",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1104,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Het is niet perfect, maar het levert over het algemeen uitstekende resultaten op en is een goed uitgangspunt voor het handmatig ontleden van ingrediënten in afzonderlijke velden. Je kunt ook de \"Ruwe\" ontleder gebruiken die een patroonovereenkomende techniek gebruikt om ingrediënten te identificeren.",
     "nlp": "NLP",
     "brute": "Ruw",
-    "openai": "OpenAI kunstmatige intelligentie",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Individuele overtuiging tonen",
     "ingredient-text": "Ingrediënttekst",
     "average-confident": "{0} overtuigd",
@@ -1121,8 +1144,8 @@
       "restore-from-v1-backup": "Heb je een back-up van een vorig exemplaar van Mealie v1? Deze kan je hier terugzetten.",
       "manage-profile-or-get-invite-link": "Beheer je eigen profiel, of gebruik een uitnodigingslink om te delen met anderen."
     },
-    "debug-openai-services": "Debug OpenAI diensten",
-    "debug-openai-services-description": "Gebruik deze pagina om de OpenAI-diensten te debuggen. U kunt uw OpenAI-verbinding testen en de resultaten hier bekijken. Als u afbeeldingsdiensten hebt ingeschakeld, kunt u ook een afbeelding geven.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Test starten",
     "test-results": "Resultaten van de test",
     "group-delete-note": "Groepen met gebruikers of huishoudens kunnen niet worden verwijderd",
@@ -1198,7 +1221,9 @@
       "is-less-than": "is kleiner dan",
       "is-less-than-or-equal-to": "is kleiner dan of gelijk aan",
       "is-older-than": "is ouder dan",
-      "is-newer-than": "is nieuwer dan"
+      "is-newer-than": "is nieuwer dan",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "is",

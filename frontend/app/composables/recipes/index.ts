@@ -8,3 +8,4 @@ export { useUnitSystem } from "./use-unit-system";
 export { parseNutritionValue, useNutritionLabels } from "./use-recipe-nutrition";
 export { useTools } from "./use-recipe-tools";
 export { useRecipePermissions } from "./use-recipe-permissions";
+export { durationUnitLabel, formatDuration, recipeTimeDisplay, useRecipeTime } from "./use-recipe-time";

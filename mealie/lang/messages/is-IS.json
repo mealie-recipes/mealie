@@ -68,7 +68,7 @@
         "report-deleted": "Skýrslu eytt."
     },
     "exceptions": {
-        "permission_denied": "Þú hefur ekki réttindi til að framkvæma þessa aðgerð",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Uppskrift getur ekki vísað í sjálfa sig, hvorki beint né óbeint",
         "no-entry-found": "Umbeðin síða fannst ekki",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

@@ -87,7 +87,9 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     total_time: FilterableColumn[str | None] = mapped_column(sa.String)
     prep_time: FilterableColumn[str | None] = mapped_column(sa.String)
     perform_time: FilterableColumn[str | None] = mapped_column(sa.String)
-    cook_time: FilterableColumn[str | None] = mapped_column(sa.String)
+    total_time_seconds: FilterableColumn[int | None] = mapped_column(sa.Integer)
+    prep_time_seconds: FilterableColumn[int | None] = mapped_column(sa.Integer)
+    perform_time_seconds: FilterableColumn[int | None] = mapped_column(sa.Integer)
 
     recipe_yield: FilterableColumn[str | None] = mapped_column(sa.String)
     recipe_yield_quantity: FilterableColumn[float] = mapped_column(sa.Float, index=True, default=0)
@@ -179,6 +181,7 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     )
 
     # Deprecated
+    cook_time: Mapped[str | None] = mapped_column(sa.String)
     recipeCuisine: Mapped[str | None] = mapped_column(sa.String)
     is_ocr_recipe: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
 

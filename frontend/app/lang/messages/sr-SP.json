@@ -590,8 +590,8 @@
     "report-deletion-failed": "Брисање извештаја није успело",
     "recipe-debugger": "Дебагер рецепата",
     "recipe-debugger-description": "Узмите URL рецепта који желите да отклоните грешке и налепите га овде. URL ће бити преузет од стране алата за преузимање рецепата и резултати ће бити приказани. Ако не видите никакве податке, сајт који покушавате да преузмете није подржан од стране Mealieја или његове библиотеке за преузимање.",
-    "use-openai": "Користи OpenAI",
-    "recipe-debugger-use-openai-description": "Користите OpenAI да бисте анализирали резултате уместо да се ослањате на библиотеку за преузимање. Када креирате рецепт преко URL-а, ово се ради аутоматски ако библиотека не успе, али га можете ручно тестирати овде.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Дебагуј (Debug)",
     "tree-view": "Преглед стабла",
     "recipe-servings": "Порције рецепта",
@@ -603,15 +603,22 @@
     "remove-image": "Уклони слику",
     "nextStep": "Следећи корак",
     "recipe-actions": "Акције рецепта",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Парсер састојака",
       "select-parser": "Изабери парсер",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Процесор природног језика (NLP)",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Брутални парсер (Brute)",
-      "openai-parser": "OpenAI парсер",
+      "ai-parser": "AI Parser",
       "missing-unit": "Креирај недостајућу јединицу: {unit}",
       "missing-food": "Креирај недостајућу храну: {food}",
       "this-unit-could-not-be-parsed-automatically": "Ова јединица се није могла аутоматски разложити",
@@ -911,6 +918,8 @@
       "food-data": "Подаци о храни",
       "label-overwrite-warning": "Ово ће доделити изабрани натпис свој изабраној храни и потенцијално заменити ваше постојеће натписе.",
       "on-hand-checkbox-label": "Постављањем ове опције, ова храна ће подразумевано бити неозначена приликом додавања рецепта на списак за куповину.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -949,7 +958,14 @@
       "edit-label": "Уреди натпис",
       "new-label": "Нови натпис",
       "labels": "Натписи",
-      "assign-label": "Додели натпис"
+      "assign-label": "Додели натпис",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Очисти извозе",
@@ -1022,7 +1038,14 @@
     "tools": {
       "new-tool": "Нови прибор",
       "edit-tool": "Уреди прибор",
-      "tool-data": "Подаци прибора"
+      "tool-data": "Подаци прибора",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1104,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Није савршено, али даје одличне резултате и добра је почетна тачка за ручно разлагање саставних делова у појединачна поља. Као алтернативу, такође можете користити \"Брут\" процесор који користи технику усклађивања шаблона за идентификацију састојака.",
     "nlp": "NLP",
     "brute": "Brute (Брутални)",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Прикажи појединачну сигурност",
     "ingredient-text": "Текст састојка",
     "average-confident": "{0} Сигурно",
@@ -1121,8 +1144,8 @@
       "restore-from-v1-backup": "Имате резервну копију из претходне инстанце Mealie v1? Можете је вратити овде.",
       "manage-profile-or-get-invite-link": "Управљајте сопственим профилом или узмите линк за позивницу да бисте га поделили са другима."
     },
-    "debug-openai-services": "Отклони грешке OpenAI сервиса",
-    "debug-openai-services-description": "Користите ову страницу да бисте отклонили грешке у OpenAI сервисима. Овде можете тестирати вашу OpenAI везу и видети резултате. Ако имате омогућене сервисе за слике, можете такође да обезбедите слику.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Покрени тест",
     "test-results": "Резултати теста",
     "group-delete-note": "Групе са корисницима или домаћинствима не могу бити обрисане",
@@ -1198,7 +1221,9 @@
       "is-less-than": "је мање од",
       "is-less-than-or-equal-to": "је мање или једнако са",
       "is-older-than": "је старије од",
-      "is-newer-than": "је новије од"
+      "is-newer-than": "је новије од",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "је",

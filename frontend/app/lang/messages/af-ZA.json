@@ -590,8 +590,8 @@
     "report-deletion-failed": "Kon nie verslag uitvee nie",
     "recipe-debugger": "Resep debugger",
     "recipe-debugger-description": "Gryp die URL van die resep wat jy wil debug en plak dit hier. Die URL sal deur die resepskraper geskraap word en die resultate sal vertoon word. As jy nie enige data terugstuur sien nie, word die webwerf wat jy probeer skraap nie deur Mealie of sy skraperbiblioteek ondersteun nie.",
-    "use-openai": "Gebruik OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Boomstruktuur",
     "recipe-servings": "Recipe Servings",
@@ -603,15 +603,22 @@
     "remove-image": "Verwyder prent",
     "nextStep": "Volgende stap",
     "recipe-actions": "Resep Aksies",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Ingredient Parser",
       "select-parser": "Select Parser",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Natural Language Processor",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Brute Parser",
-      "openai-parser": "OpenAI Parser",
+      "ai-parser": "AI Parser",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
@@ -911,6 +918,8 @@
       "food-data": "Voedseldata",
       "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
       "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -949,7 +958,14 @@
       "edit-label": "Wysig etiket",
       "new-label": "Nuwe etiket",
       "labels": "Etikette",
-      "assign-label": "Assign Label"
+      "assign-label": "Assign Label",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Verwyder uitvoerlêers",
@@ -1022,7 +1038,14 @@
     "tools": {
       "new-tool": "New Tool",
       "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "tool-data": "Tool Data",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1104,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Dit is nie perfek nie, maar dit lewer oor die algemeen uitstekende resultate en is 'n goeie beginpunt vir die handverwerking van bestanddele in individuele velde. Jy kan ook die \"Brute\" verwerker gebruik wat 'n patroonpastegniek gebruik om bestanddele te identifiseer.",
     "nlp": "NLP",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Wys individuele oortuiging",
     "ingredient-text": "Bestanddeel teks",
     "average-confident": "{0} oortuig",
@@ -1121,8 +1144,8 @@
       "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
       "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
     },
-    "debug-openai-services": "Debug OpenAI Services",
-    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Run Test",
     "test-results": "Test Results",
     "group-delete-note": "Groups with users or households cannot be deleted",
@@ -1198,7 +1221,9 @@
       "is-less-than": "is less than",
       "is-less-than-or-equal-to": "is less than or equal to",
       "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-newer-than": "is newer than",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "is",

@@ -7,6 +7,6 @@ def test_mealie_registered_exceptions() -> None:
 
     lookup = exceptions.mealie_registered_exceptions(provider)
 
-    assert "permission" in lookup[exceptions.PermissionDenied]
+    assert lookup[exceptions.PermissionDenied] == "You do not have permission to perform this action"
     assert "The requested resource was not found" in lookup[exceptions.NoEntryFound]
     assert "integrity" in lookup[exceptions.IntegrityError]

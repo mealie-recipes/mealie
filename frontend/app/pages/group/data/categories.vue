@@ -8,6 +8,7 @@
       :title="$t('data-pages.categories.combine-category')"
       can-confirm
       @confirm="mergeCategories"
+      @close="resetMergeDialog"
     >
       <v-card-text>
         <div>
@@ -201,6 +202,11 @@ const toCategory = ref<RecipeCategory | null>(null);
 const canMerge = computed(() => {
   return fromCategory.value && toCategory.value && fromCategory.value.id !== toCategory.value.id;
 });
+
+function resetMergeDialog() {
+  fromCategory.value = null;
+  toCategory.value = null;
+}
 
 async function mergeCategories() {
   if (!canMerge.value || !fromCategory.value?.id || !toCategory.value?.id) {

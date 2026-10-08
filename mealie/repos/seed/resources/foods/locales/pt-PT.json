@@ -84,7 +84,7 @@
       },
       "heart of palm": {
         "name": "palmito",
-        "plural_name": "hearts of palm"
+        "plural_name": "palmito"
       },
       "pumpkin": {
         "name": "abóbora",
@@ -320,7 +320,7 @@
       },
       "tamarind": {
         "name": "tamarindo",
-        "plural_name": "tamarinds"
+        "plural_name": "tamarindos"
       },
       "button mushroom": {
         "name": "cogumelo-de-paris",
@@ -376,7 +376,7 @@
       },
       "cherry": {
         "name": "cereja",
-        "plural_name": "cherries"
+        "plural_name": "cerejas"
       },
       "blackberry": {
         "name": "amora",
@@ -2145,7 +2145,7 @@
     "foods": {
       "walnut": {
         "name": "noz",
-        "plural_name": "walnuts"
+        "plural_name": "nozes"
       },
       "pecan": {
         "name": "pecan",

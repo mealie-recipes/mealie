@@ -68,7 +68,7 @@
         "report-deleted": "Rapport verwijderd."
     },
     "exceptions": {
-        "permission_denied": "Je hebt geen toestemming om deze actie uit te voeren",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Een recept kan niet naar zichzelf verwijzen, direct of indirect",
         "no-entry-found": "Het opgevraagde is niet gevonden",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
@@ -83,7 +83,7 @@
         "generic-updated-with-url": "{name} is bijgewerkt, {url}",
         "generic-duplicated": "{name} is gekopieerd",
         "generic-deleted": "{name} is verwijderd",
-        "logged-out": "",
+        "logged-out": "Uitgelogd",
         "event-title": {
             "test-message": "Test Message",
             "webhook-task": "Webhook Task",

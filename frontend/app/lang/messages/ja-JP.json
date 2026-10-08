@@ -590,8 +590,8 @@
     "report-deletion-failed": "レポートの削除に失敗しました",
     "recipe-debugger": "レシピのデバッガー",
     "recipe-debugger-description": "デバッグしたいレシピのURLを取得し、ここに貼り付けます。 URLはレシピスクレーパーによって削除され、結果が表示されます。 データが返されていない場合、スクレイプしようとしているサイトはMealieまたはそのスクレイパーライブラリではサポートされていません。",
-    "use-openai": "OpenAIを使用する",
-    "recipe-debugger-use-openai-description": "スクレーパーライブラリに依存するのではなく、結果を解析するためにOpenAIを使用してください。 URL経由でレシピを作成する場合は、スクレーパーライブラリが失敗した場合に自動的に行われますが、ここで手動でテストすることができます。",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "デバッグ",
     "tree-view": "ツリービュー",
     "recipe-servings": "レシピの分量",
@@ -603,15 +603,22 @@
     "remove-image": "画像を削除",
     "nextStep": "次のステップ",
     "recipe-actions": "レシピ操作",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Ingredient Parser",
       "select-parser": "パーサを選択",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "自然言語処理",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Bruteパーサ",
-      "openai-parser": "OpenAIパーサ",
+      "ai-parser": "AI Parser",
       "missing-unit": "欠けている単位を作成: {unit}",
       "missing-food": "欠けている食材を作成: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
@@ -911,6 +918,8 @@
       "food-data": "食品データ",
       "label-overwrite-warning": "選択したすべての食品に選択したラベルが割り当てられ、既存のラベルが上書きされます。",
       "on-hand-checkbox-label": "このフラグを設定すると、ショッピング リストにレシピを追加するときに、デフォルトでこの食品のチェックが外されます。",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -949,7 +958,14 @@
       "edit-label": "ラベルの編集",
       "new-label": "新規ラベル",
       "labels": "ラベル",
-      "assign-label": "ラベルの割り当て"
+      "assign-label": "ラベルの割り当て",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "エクスポートの削除",
@@ -1022,7 +1038,14 @@
     "tools": {
       "new-tool": "新しい調理器具",
       "edit-tool": "調理器具の編集",
-      "tool-data": "調理器具データ"
+      "tool-data": "調理器具データ",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1104,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "これは完璧ではありませんが、一般的に優れた結果が得られ、成分を手動で個別のフィールドに解析するための良い出発点となります。あるいは、パターン マッチング技術を使用して成分を識別する「Brute」プロセッサを使用することもできます。",
     "nlp": "NLP",
     "brute": "ブルート",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "個々の信頼性を表示",
     "ingredient-text": "材料テキスト",
     "average-confident": "{0} 自信あり",
@@ -1121,8 +1144,8 @@
       "restore-from-v1-backup": "Mealie v1以前のインスタンスからのバックアップはありますか？ここで復元できます。",
       "manage-profile-or-get-invite-link": "自分のプロフィールを管理するか、招待リンクを取得して他の人と共有します。"
     },
-    "debug-openai-services": "OpenAIサービスのデバッグ",
-    "debug-openai-services-description": "このページを使用して、OpenAIサービスをデバッグします。ここでOpenAI接続をテストし、結果を確認できます。画像サービスが有効になっている場合は、画像を提供することもできます。",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "テスト実行",
     "test-results": "テスト結果",
     "group-delete-note": "ユーザーまたは世帯を含むグループは削除できません",
@@ -1198,7 +1221,9 @@
       "is-less-than": "より小さい",
       "is-less-than-or-equal-to": "以下",
       "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-newer-than": "is newer than",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "は",
