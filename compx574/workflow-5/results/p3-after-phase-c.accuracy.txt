@@ -1,0 +1,47 @@
+compared=41 scored=40 match=37 status_mismatch=3 body_mismatch=0 excluded=1
+accuracy=37/40
+MATCH
+/api/app/about (200)
+/api/app/about/startup-info (200)
+/api/app/about/theme (200)
+/api/validators/user/name?name=nobody-accuracy-check (200)
+/api/users/self (200)
+/api/users/self/ratings (200)
+/api/users/self/favorites (200)
+/api/users/api-tokens (405)
+/api/groups/self (200)
+/api/groups/preferences (200)
+/api/groups/members?page=1&perPage=10 (200)
+/api/groups/storage (200)
+/api/groups/households?page=1&perPage=10 (200)
+/api/groups/reports (200)
+/api/groups/ai-providers/settings (403)
+/api/households/self (200)
+/api/households/preferences (200)
+/api/households/members?page=1&perPage=10 (403)
+/api/households/statistics (200)
+/api/households/cookbooks?page=1&perPage=10 (200)
+/api/households/mealplans/today (200)
+/api/households/mealplans?page=1&perPage=5 (200)
+/api/households/mealplans/rules?page=1&perPage=10 (200)
+/api/households/webhooks?page=1&perPage=10 (200)
+/api/households/invitations (403)
+/api/households/events/notifications?page=1&perPage=10 (200)
+/api/households/recipe-actions?page=1&perPage=10 (200)
+/api/recipes?page=1&perPage=3 (200)
+/api/recipes/timeline/events?page=1&perPage=5 (200)
+/api/organizers/categories?page=1&perPage=5 (200)
+/api/organizers/tags?page=1&perPage=5 (200)
+/api/organizers/tools?page=1&perPage=5 (200)
+/api/foods?page=1&perPage=5 (200)
+/api/units?page=1&perPage=5 (200)
+/api/groups/labels?page=1&perPage=10 (200)
+/api/comments?page=1&perPage=5 (200)
+/api/shared/recipes?page=1&perPage=5 (200)
+EXCLUDED
+/api/recipes/suggestions?limit=3: status python=200 php=404; body not compared (unordered sample)
+STATUS
+/api/auth/oauth: python=500 php=404
+/api/households/shopping/lists?page=1&perPage=5: python=200 php=404
+/api/households/shopping/items?page=1&perPage=5: python=200 php=404
+BODY

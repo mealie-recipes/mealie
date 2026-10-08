@@ -86,7 +86,7 @@ Decided by the orchestrator after reading `run.sh`, `parity.hurl` and the Python
 | 02:15 | A | Orchestrator wrote `compx574/workflow-5-split.md` (group's 4 areas unchanged; `utility_routes.py` added to area 3; shared layer and frozen files listed; out-of-scope list) |
 | 02:15 | Gate A | Orchestrator check (delegated): every `mealie/routes/*` package except `spa` appears in exactly one area; area route counts 32 + 86 + 74 + 80 = 272 = all decorators under `mealie/routes`; each area's PHP files are disjoint; shared files frozen. Passed without changes. DB snapshot `dev/data/mealie.p0-snapshot.db` taken (sha prefix 4197c16c). |
 | 02:16 | B | Four sub-agents launched in one message, in parallel, background (Claude Code `Agent`, general-purpose, same model). Prompt: `prompts/phase-b-subagent.md`, only area number/port/paths substituted |
-| ~04:xx | B | **All four sub-agents stopped at the same moment**: Claude session usage limit (HTTP 429, "resets 5am"). None had finished; last messages show each mid-way through step 2/3. Four parallel Opus agents spent the plan's session budget in under ~3 h of wall clock. |
+| ~02:35 | B | **All four sub-agents stopped at the same moment**: Claude session usage limit (HTTP 429, "resets 5am"). None had finished; last messages show each mid-way through step 2/3. Time is estimated from the last file edits of the checkpointed files (latest 02:35); the agents were launched at 02:16, so **four parallel agents exhausted the remaining 5-hour session budget in about 20 minutes**. Corrected 13:15 (first written as "~04:xx"). |
 | 12:46 | B | Limit reset. Checkpoint of the interrupted state: contracts for all 4 areas written; routes registered R1 26, R2 50, R3 48, R4 0 (area 4 wrote 2973 lines of classes but no `routes/groups-admin.php` yet). Score on local DB **151/265** (R1 28/33, R2 51/83, R3 50/73, R4 22/76 = floor) — `results/p1-interrupted-localdb.txt` |
 | 12:46 | — | Merged teammate commit `9219cc93d` (adds `compx574/mealie.db`, `run.sh` refuses to run without `dev/data/mealie.db`). `parity.hurl` still has the `x=1` parse error. A `dev/data/mealie_2026.10.07.bak.db` appeared at 12:46 during the scoring run — Python wrote a DB backup while serving a parity request (the hurl file's "leave the DB as it is" assumption does not hold for files on disk). |
 | 12:47 | — | **DB switched to the shared DB** (`compx574/mealie.db`, sha prefix 280e922e, alembic `3527efeeec34`, first user `bob`, hard-coded hurl rows present). Python stopped first, restarted on it; startup did not modify the file. Local DB kept as `dev/data/mealie.localdb.bak`; snapshot `dev/data/mealie.p1-shared-snapshot.db`. Recipe media files are not in the shared DB, so image/asset requests 404 on both sides. |
@@ -104,3 +104,25 @@ Decided by the orchestrator after reading `run.sh`, `parity.hurl` and the Python
 | 12:58 | B | Orchestrator wrote `compx574/workflow-5-merge.md`: inventory of duplicated helpers (auth wrapper ×4, paginator ×3 + unused shared one, slugify ×3–4, notFound ×3, RecipeSummary ×2, 422 builders ×4, Settings/Db ×2), plus live checks: `shape_compare.py` (0 key-set / 0 undashed-id differences on 64 non-admin and 77 admin GETs) and `perm_compare.py` (status-equal on 105/105/106 registered GETs as non-admin, admin, anonymous). **All five conflict kinds are invisible in API output; conflicts are internal duplication.** |
 | 12:58 | — | Found: first user by username in the shared DB is `bob`, **not an admin**. `run.sh`/`measure.sh` therefore test every admin route as a 403. Admin behaviour is covered only by the agents' own checks and `perm_compare.py`. |
 | 12:59 | Gate B | Orchestrator marked FIX for 1.1–1.4, KEEP for 1.5–1.7 and kinds 2–5, with acceptance criteria (see merge.md). |
+| 13:00 | C | Fresh single sub-agent launched for Phase C (one agent, no sub-agents). Prompt = group's Phase C text + pointer to the Gate B table + environment block + "baseline every registered GET before and after, diff must be empty" (`prompts/phase-c.md`). Hold-out kept: it may not run `measure.sh`/`perm_compare.py`/`shape_compare.py`. |
+| 13:13 | C | Phase C agent finished, committed `58427d58e` itself (`reports/phase-c.md`): 230,830 tokens, 74 tool uses, 986 s. Rows 1.1–1.4 done, +460/−1113 lines over 41 files; 188 routes before and after. **It broke the "no response change" instruction on purpose**: 385/5,215 GET query-variant responses changed because one paginator cannot keep three areas' different edge cases; it chose Python's behaviour each time (status match with Python on its own 5,215 probes 4,940 → 5,062; 2 lost parity, `comments?orderBy=UserId`). Reported this openly. |
+| 13:14 | C | **Orchestrator checks of claims:** (a) route count — 188 at `72720e4f8` and at `58427d58e`. The 192 in the Phase B log line was the sum of the agents' self-reports; **area 3 claimed 52 routes but registered 48**. (b) "bob can create labels, tools, …" — probed both servers as bob: Python also allows tools/units/labels/cookbooks/rules/notifiers/recipe-actions (201/200) and refuses tags/foods (403); PHP matches (PHP's 409s were duplicates of the rows Python had just created). Not a PHP bug. (c) duplicate classes gone (grep), diff size as claimed. |
+| 13:15 | C | DB restored from snapshot (fixed `env/restore-db.sh`: its readiness loop exited under `set -e` on the first refused connection). |
+| 13:15 | C | **Acceptance after Phase C — all pass:** parity **189/265** (unchanged; R1 28/33, R2 51/83, R3 48/73, R4 62/76), body accuracy **37/40** (unchanged), permissions 105/105, 105/105, 106/106 equal, shape 0/64 and 0/77 differences — `results/p3-*`. |
+
+## Summary (as of 2026-10-08 13:15)
+
+| Measure | Value |
+|---|---|
+| Python routes (all `mealie/routes`) | 272 |
+| PHP routes registered | 188 (69%); by area 26/32, 50/86, 48/74, 64/80 |
+| Parity score, shared DB | 189/265 (71%); floor with no area code 12/265 |
+| Parity failures | 76, all unregistered routes; 0 failures on registered routes |
+| Body accuracy (group's 40 GETs) | 37/40; 3 = OIDC (out of scope), shopping lists/items (not done) |
+| Status parity on registered GETs, 3 callers | 316/316 |
+| PHP code written (app + routes, excl. Laravel scaffold) | 73 files, 10,334 lines; Phase C removed a net 653 lines of duplicates |
+| Sub-agent tokens reported | B (resumed runs only): 1,271,413; C: 230,830. First B runs: not reported (ended in 429) |
+| Wall clock | 01:57–02:35 setup, P0, A and first B runs; ~10 h pause for the usage limit; 12:46–13:15 checkpoint, DB swap, resumed B, merge, C, acceptance |
+| Human review time | 0 — Derek delegated both gates to the orchestrator |
+
+Known limits of this evidence: one run; one tool and model; review gates done by the orchestrator, not a human; `parity.hurl` checks status codes only and its token user `bob` is not an admin; orchestrator token usage is not in the table (only Claude Code `/usage` shows it).
