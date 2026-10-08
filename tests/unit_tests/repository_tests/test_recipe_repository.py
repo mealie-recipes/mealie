@@ -612,6 +612,29 @@ def test_fuzzy_recipe_search_no_match(
     assert repo.page_all(pagination, search="qzxwvjk").items == []
 
 
+def test_fuzzy_recipe_search_ingredient_threshold(
+    unique_db: AllRepositories,
+    unique_ids: tuple[str, str, str],
+):
+    # ingredients match at pg_trgm's default threshold: "salt" scores ~0.57 against "salmon"
+    if unique_db.session.get_bind().name != "postgresql":
+        return
+
+    group_id, _, user_id = unique_ids
+    unique_db.recipes.create(
+        Recipe(
+            group_id=group_id,
+            user_id=user_id,
+            name="Plain Toast",
+            recipe_ingredient=[RecipeIngredient(note="1 teaspoon salt")],
+        )
+    )
+
+    repo = unique_db.recipes
+    pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    assert "Plain Toast" not in [recipe.name for recipe in repo.page_all(pagination, search="salmon").items]
+
+
 def test_random_order_recipe_search(
     unique_db: AllRepositories,
     search_recipes: list[Recipe],  # required so database is populated

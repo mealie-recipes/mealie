@@ -170,6 +170,9 @@ DurationSeconds = Annotated[int, Field(ge=0, le=MAX_DURATION_SECONDS)]
 class RecipeSummary(MealieModel):
     id: UUID4 | None = None
     _normalize_search: ClassVar[bool] = True
+    # Stricter than _fuzzy_similarity_threshold: at 0.5 short words in ingredient lines match far too
+    # much ("salt" scores ~0.57 against "salmon").
+    _fuzzy_ingredient_similarity_threshold: ClassVar[float] = 0.6
 
     user_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
     household_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
@@ -406,20 +409,34 @@ class Recipe(RecipeSummary):
         """
 
         if search_type is SearchType.fuzzy:
-            # Set the threshold first so it also applies to the ingredient match below.
+            # The threshold is a connection setting, so set it explicitly for each match rather than
+            # inheriting whatever an earlier query on this connection left behind.
+            session.execute(
+                text(f"set pg_trgm.word_similarity_threshold = {cls._fuzzy_ingredient_similarity_threshold};")
+            )
+            ingredient_recipe_ids = (
+                session.execute(
+                    select(RecipeIngredientModel.recipe_id)
+                    .filter(
+                        or_(
+                            RecipeIngredientModel.note_normalized.op("%>")(search),
+                            RecipeIngredientModel.original_text_normalized.op("%>")(search),
+                        )
+                    )
+                    .distinct()
+                )
+                .scalars()
+                .all()
+            )
+
             session.execute(text(f"set pg_trgm.word_similarity_threshold = {cls._fuzzy_similarity_threshold};"))
-            # Match each column on its own and UNION the recipe ids: an OR that mixes recipe columns
-            # with an ingredient subquery can't use the GIN trigram indexes, so every search computed
-            # word similarity against every recipe's name and description.
+            # Match each column on its own and UNION the recipe ids: an OR across these columns and
+            # the ingredient matches can't use the GIN trigram indexes, so every search computed word
+            # similarity against every recipe's name and description.
             matching_ids = union(
                 select(RecipeModel.id).filter(RecipeModel.name_normalized.op("%>")(search)),
                 select(RecipeModel.id).filter(RecipeModel.description_normalized.op("%>")(search)),
-                select(RecipeIngredientModel.recipe_id).filter(
-                    or_(
-                        RecipeIngredientModel.note_normalized.op("%>")(search),
-                        RecipeIngredientModel.original_text_normalized.op("%>")(search),
-                    )
-                ),
+                select(RecipeModel.id).filter(RecipeModel.id.in_(ingredient_recipe_ids)),
             )
             return query.filter(RecipeModel.id.in_(matching_ids)).order_by(
                 # trigram ordering could be too slow on million record db, but is fine with thousands.
