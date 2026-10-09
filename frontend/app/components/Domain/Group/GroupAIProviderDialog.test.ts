@@ -8,6 +8,7 @@ const wrappers: VueWrapper[] = [];
 
 const mocks = vi.hoisted(() => ({
   getOne: vi.fn(),
+  testSavedOne: vi.fn(),
 }));
 
 vi.mock("~/composables/use-ai-providers", () => ({
@@ -15,7 +16,7 @@ vi.mock("~/composables/use-ai-providers", () => ({
     loading: ref(false),
     getOne: mocks.getOne,
     testOne: vi.fn(),
-    testSavedOne: vi.fn(),
+    testSavedOne: mocks.testSavedOne,
   }),
 }));
 
@@ -72,6 +73,7 @@ function mountDialog(providerId?: string) {
 describe("groupAIProviderDialog", () => {
   beforeEach(() => {
     mocks.getOne.mockReset();
+    mocks.testSavedOne.mockReset();
     vi.stubGlobal("useNuxtApp", () => ({ $globals: { icons: {} } }));
   });
 
@@ -114,5 +116,39 @@ describe("groupAIProviderDialog", () => {
     await flushPromises();
 
     expect(nameInput().element.value).toBe("Provider B");
+  });
+
+  async function runSavedProviderTest(supportsImages: boolean | null) {
+    mocks.getOne.mockResolvedValue({ data: provider({ id: "provider-a", name: "Provider A", model: "model-a" }) });
+    mocks.testSavedOne.mockResolvedValue({ data: { success: true, message: null, supportsImages } });
+
+    const wrapper = mountDialog("provider-a");
+    await flushPromises();
+
+    const testButton = wrapper.findAll("button").find(button => button.text() === "Test Connection");
+    await testButton!.trigger("click");
+    await flushPromises();
+
+    return wrapper.text();
+  }
+
+  test("a successful test with no image check does not call the provider text-only", async () => {
+    // An audio-only provider is tested by transcription, so its image support is never checked
+    // and comes back as null. That must not be read as "can't do images".
+    const text = await runSavedProviderTest(null);
+
+    expect(text).toContain("Connection successful");
+    expect(text).not.toContain("Text-only");
+    expect(text).not.toContain("Supports images");
+  });
+
+  test.each([
+    [true, "Supports images"],
+    [false, "Text-only, can't be your image provider"],
+  ])("a successful test with supportsImages %s still shows the image note", async (supportsImages, note) => {
+    const text = await runSavedProviderTest(supportsImages);
+
+    expect(text).toContain("Connection successful");
+    expect(text).toContain(note);
   });
 });

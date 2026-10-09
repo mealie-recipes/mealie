@@ -2,9 +2,11 @@ from __future__ import annotations
 
 import base64
 import inspect
+import io
 import json
 import os
 import shutil
+import wave
 from abc import ABC, abstractmethod
 from pathlib import Path
 from textwrap import dedent
@@ -177,7 +179,15 @@ class OpenAIService(BaseService):
         setting one up learns at config time that it can't be used as the image provider, rather
         than when a recipe-from-image import fails later. That's reported as capability info, not
         as a failure: a text-only provider is a perfectly valid setup.
+
+        A provider that's only used as the group's audio provider is tested the way an import uses
+        it: transcription first, then the chat message. A transcription-only model (e.g.
+        gpt-4o-mini-transcribe) can't answer a chat message, so testing it with chat alone would
+        always report a failure for a provider that works fine.
         """
+        if self._is_audio_only(provider) and await self._check_transcription(provider):
+            return AIProviderTestResult(success=True)
+
         try:
             response = await self.ping(provider, "Hello, checking to see if I can reach you.")
         except Exception as e:
@@ -223,6 +233,42 @@ class OpenAIService(BaseService):
 
         keywords = json.loads((self.TESTING_DIR / "recipe.json").read_text())["test_keywords"]
         return any(keyword.lower() in response.text.lower() for keyword in keywords)
+
+    def _is_audio_only(self, provider: AIProviderOut) -> bool:
+        """
+        Whether this saved provider is the group's audio provider and has no other role. An unsaved
+        provider being tested gets a fresh id, so it never matches.
+        """
+        settings = self.provider_settings
+        if not settings or provider.id != settings.audio_provider_id:
+            return False
+        return provider.id not in (settings.default_provider_id, settings.image_provider_id)
+
+    async def _check_transcription(self, provider: AIProviderOut) -> bool:
+        """
+        Best-effort check that a provider can transcribe audio, by sending it a second of silence.
+        Only whether the request succeeds matters, not what text comes back.
+        """
+        try:
+            await self.get_client(provider).audio.transcriptions.create(
+                model=provider.model,
+                file=("connection-test.wav", self._silent_wav(), "audio/wav"),
+            )
+        except Exception:
+            self.logger.debug("AI provider transcription test failed", exc_info=True)
+            return False
+        return True
+
+    @staticmethod
+    def _silent_wav(seconds: float = 1.0, sample_rate: int = 16000) -> bytes:
+        """A short mono 16-bit WAV of silence, built in memory so no test asset has to be bundled."""
+        buffer = io.BytesIO()
+        with wave.open(buffer, "wb") as wav:
+            wav.setnchannels(1)
+            wav.setsampwidth(2)
+            wav.setframerate(sample_rate)
+            wav.writeframes(b"\x00\x00" * int(sample_rate * seconds))
+        return buffer.getvalue()
 
     def _get_provider(self, attachments: list[OpenAIAttachment] | None = None) -> AIProviderOut:
         """Select the appropriate provider based on attachment types, falling back to the default."""
