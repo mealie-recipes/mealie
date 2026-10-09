@@ -25,6 +25,48 @@
       "problemMatcher": []
     },
     {
+      "label": "Dev: Start Stack (SQLite)",
+      "detail": "gateway :8080 + Python :9000 + Java :9100 + frontend :3000",
+      "command": "task --output prefixed stack:sqlite",
+      "type": "shell",
+      "presentation": {
+        "reveal": "always",
+        "group": "groupA"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev: Start Stack (Postgres)",
+      "detail": "same as SQLite, against the dev Postgres container",
+      "command": "task --output prefixed stack:postgres",
+      "type": "shell",
+      "presentation": {
+        "reveal": "always",
+        "group": "groupA"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev: Start Java Backend",
+      "command": "task java",
+      "type": "shell",
+      "presentation": {
+        "reveal": "always",
+        "group": "groupA"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev: Start Gateway",
+      "command": "task gateway",
+      "type": "shell",
+      "presentation": {
+        "reveal": "always",
+        "group": "groupA"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Dev: Start Frontend",
       "command": "task ui",
       "type": "shell",

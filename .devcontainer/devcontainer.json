@@ -13,7 +13,9 @@
     "source=mealie-devcontainer-workspace,target=/workspaces/mealie/frontend/node_modules,type=volume",
     "source=mealie-venv,target=/workspaces/mealie/.venv,type=volume",
     "source=mealie-bashhistory,target=/home/vscode/commandhistory,type=volume",
-    "source=mealie-gh-config,target=/home/vscode/.config/gh,type=volume"
+    "source=mealie-gh-config,target=/home/vscode/.config/gh,type=volume",
+    // Maven's download cache for backend-java, kept across rebuilds
+    "source=mealie-m2,target=/home/vscode/.m2,type=volume"
   ],
   "customizations": {
     "vscode": {
@@ -31,6 +33,7 @@
         "ms-python.python",
         "ms-python.vscode-pylance",
         "streetsidesoftware.code-spell-checker-cspell-bundled-dictionaries",
+        "vscjava.vscode-java-pack",
         "Vue.volar"
       ]
     }
@@ -39,24 +42,32 @@
   "forwardPorts": [
     3000,
     8000, // used by mkdocs
+    8080, // migration gateway (gateway/Caddyfile)
     9000,
+    9100, // Java backend
     9091, // used by docker production
     51204, // used for test coverage report
     24678 // used by nuxt when hot-reloading using polling
   ],
-  "onCreateCommand": "sudo chown vscode:vscode /workspaces/mealie/.venv && task setup --force",
+  "onCreateCommand": "sudo chown vscode:vscode /workspaces/mealie/.venv /home/vscode/.m2 && task setup --force",
   "remoteUser": "vscode",
   "features": {
     "ghcr.io/devcontainers/features/node:2": {
       "version": "24"
     },
     "ghcr.io/devcontainers/features/github-cli:1": {},
+    // Java backend (backend-java/); Maven comes from the wrapper.
+    "ghcr.io/devcontainers/features/java:1": {
+      "version": "21"
+    },
     "ghcr.io/devcontainers/features/docker-in-docker:4": {
       "moby": false
     }
   },
   "appPort": [
     "3000:3000",
-    "9000:9000"
+    "8080:8080",
+    "9000:9000",
+    "9100:9100"
   ]
 }

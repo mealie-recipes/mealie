@@ -1,0 +1,9 @@
+{
+  "_example": {
+    "name": "list foods",
+    "method": "GET",
+    "path": "/api/foods?page=1&perPage=50",
+    "ignore": ["items.*.updatedAt"]
+  },
+  "cases": []
+}
