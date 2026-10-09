@@ -1,7 +1,7 @@
 import { format } from "date-fns";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import type { CreatePlanEntry, PlanEntryType, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
+import type { CreatePlanEntry, PlanEntryType, ReadPlanEntry, RecipeSummary, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
 
 type PlanOption = {
   text: string;
@@ -29,11 +29,39 @@ export interface DateRange {
   start: Date;
   end: Date;
 }
+export type DaySection = {
+  title: string;
+  meals: ReadPlanEntry[];
+};
+
+export type Days = {
+  date: Date;
+  sections: DaySection[];
+  recipes: RecipeSummary[];
+};
+
+export type MealsByDate = {
+  date: Date;
+  meals: ReadPlanEntry[];
+};
+
+export interface Meal {
+  date: Date;
+  title: string;
+  text: string;
+  recipeId?: string;
+  entryType: PlanEntryType;
+  existing: boolean;
+  id: number;
+  groupId: string;
+  userId: string;
+  note: boolean;
+  householdId: string;
+}
 
 export const useMealplans = function (range: Ref<DateRange>) {
   const api = useUserApi();
   const loading = ref(false);
-  const validForm = ref(true);
 
   const actions = {
     getAll() {
@@ -99,6 +127,7 @@ export const useMealplans = function (range: Ref<DateRange>) {
       if (data) {
         this.refreshAll();
       }
+      loading.value = false;
     },
 
     async setType(payload: UpdatePlanEntry, type: PlanEntryType) {
@@ -111,5 +140,5 @@ export const useMealplans = function (range: Ref<DateRange>) {
 
   watch(range, actions.refreshAll);
 
-  return { mealplans, actions, validForm, loading };
+  return { mealplans, actions, loading };
 };

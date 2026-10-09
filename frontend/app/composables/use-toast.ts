@@ -68,3 +68,18 @@ export const alert = {
     toastAlert.open = false;
   },
 };
+
+/**
+ * Reports a failed request that the axios interceptor left silent.
+ *
+ * The interceptor raises a toast only for errors that carry a Mealie error body. Anything else -
+ * a rejection from the web server sitting in front of Mealie, a dropped connection, a timeout -
+ * arrives without one, and would otherwise leave the user with no feedback at all.
+ */
+export function alertUnreportedError(error: { response?: { data?: { detail?: { message?: string } } } } | null, fallbackText: string) {
+  if (error?.response?.data?.detail?.message) {
+    return;
+  }
+
+  alert.error(fallbackText);
+}

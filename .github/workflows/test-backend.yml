@@ -32,11 +32,12 @@ jobs:
           POSTGRES_USER: mealie
           POSTGRES_PASSWORD: mealie
           POSTGRES_DB: mealie
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+        options: --health-cmd pg_isready --health-interval 2s --health-timeout 5s --health-retries 15
         ports:
           - 5432:5432
       ldap:
         image: rroemhild/test-openldap
+        options: --health-interval 2s --health-timeout 5s --health-retries 15
         ports:
           - 10389:10389
           - 10636:10636
@@ -57,17 +58,23 @@ jobs:
       - name: Set up python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.12"
+          python-version: "3.14"
 
       - name: Install uv
         run: pip install uv
+
+      # Catches a lockfile resolved by an out-of-date uv, which silently ignores
+      # the `exclude-newer` cooling window instead of erroring. UV_FROZEN must be
+      # cleared here: for `uv lock` it means --check-exists, which conflicts with --check.
+      - name: Verify lockfile matches pyproject.toml
+        run: env -u UV_FROZEN uv lock --check
 
       - name: Load cached venv
         id: cached-python-dependencies
         uses: actions/cache@v5
         with:
           path: .venv
-          key: venv-${{ runner.os }}-${{ hashFiles('**/uv.lock') }}
+          key: venv-${{ runner.os }}-${{ matrix.Database }}-${{ hashFiles('**/uv.lock') }}
 
       - name: Check venv cache
         id: cache-validate
@@ -81,7 +88,11 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install libsasl2-dev libldap2-dev libssl-dev
-          uv sync --group dev --extra pgsql
+          if [ "${{ matrix.Database }}" = "postgres" ]; then
+            uv sync --group dev --extra pgsql
+          else
+            uv sync --group dev
+          fi
         if: steps.cached-python-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
 
       - name: Formatting (Ruff)

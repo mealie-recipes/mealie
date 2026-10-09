@@ -2,6 +2,7 @@
   <div>
     <BaseDialog
       v-model="dialog"
+      bottom-sheet
       :title="$t('recipe-share.share-recipe')"
       :icon="$globals.icons.link"
     >
@@ -57,9 +58,12 @@
             </v-icon>
           </v-avatar>
 
-          <div class="pl-3 flex-grow-1">
-            <v-list-item-title>
-              {{ $t("recipe-share.expires-at") + ' ' + $d(new Date(token.expiresAt!), "short") }}
+          <div
+            class="pl-3 flex-grow-1"
+            style="min-width: 0;"
+          >
+            <v-list-item-title class="text-wrap">
+              {{ $t("recipe-share.expires-at") + ' ' + $d(new Date(token.expiresAt!)) }}
             </v-list-item-title>
           </div>
 
@@ -160,11 +164,7 @@ async function refreshTokens() {
 }
 
 const { share, isSupported: shareIsSupported } = useShare();
-const { copy, copied, isSupported } = useClipboard();
-
-function getRecipeText() {
-  return i18n.t("recipe.share-recipe-message", [props.name]);
-}
+const { copy, copied, isSupported } = useClipboard({ legacy: true });
 
 function getTokenLink(token: string) {
   return `${window.location.origin}/g/${groupSlug.value}/shared/r/${token}`;
@@ -186,11 +186,10 @@ async function copyTokenLink(token: string) {
 }
 
 async function shareRecipe(token: string) {
-  if (shareIsSupported) {
+  if (shareIsSupported.value) {
     share({
       title: props.name,
       url: getTokenLink(token),
-      text: getRecipeText() as string,
     });
   }
   else {

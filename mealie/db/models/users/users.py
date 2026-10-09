@@ -1,6 +1,6 @@
 import enum
-from datetime import datetime
-from typing import TYPE_CHECKING, Optional
+from datetime import UTC, datetime
+from typing import TYPE_CHECKING
 
 from pydantic import ConfigDict
 from sqlalchemy import Boolean, Enum, ForeignKey, Integer, String, orm, select
@@ -31,7 +31,7 @@ class LongLiveToken(SqlAlchemyBase, BaseMixins):
     token: Mapped[str] = mapped_column(String, nullable=False, index=True)
 
     user_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("users.id"), index=True)
-    user: Mapped[Optional["User"]] = orm.relationship("User")
+    user: Mapped[User | None] = orm.relationship("User")
 
     group_id: AssociationProxy[GUID] = association_proxy("user", "group_id")
     household_id: AssociationProxy[GUID] = association_proxy("user", "household_id")
@@ -61,15 +61,21 @@ class User(SqlAlchemyBase, BaseMixins):
     advanced: Mapped[bool | None] = mapped_column(Boolean, default=False)
 
     group_id: FilterableColumn[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="users")
+    group: Mapped[Group] = orm.relationship("Group", back_populates="users")
     household_id: FilterableColumn[GUID | None] = mapped_column(
         GUID, ForeignKey("households.id"), nullable=True, index=True
     )
-    household: Mapped["Household"] = orm.relationship("Household", back_populates="users")
+    household: Mapped[Household] = orm.relationship("Household", back_populates="users")
 
     cache_key: Mapped[str | None] = mapped_column(String, default="1234")
+    # Digest of the OIDC picture claim the stored avatar was built from, so repeat logins
+    # don't re-download an image that hasn't changed.
+    external_avatar_hash: Mapped[str | None] = mapped_column(String, default=None)
     login_attemps: Mapped[int | None] = mapped_column(Integer, default=0)
     locked_at: Mapped[datetime | None] = mapped_column(NaiveDateTime, default=None)
+    tokens_valid_after: Mapped[datetime | None] = mapped_column(NaiveDateTime, default=None)
+    """Tokens issued before this are rejected. Set when the password changes, so that changing it
+    actually evicts whoever was already signed in."""
 
     # Announcements
     show_announcements: Mapped[bool] = mapped_column(Boolean, default=True)
@@ -88,29 +94,27 @@ class User(SqlAlchemyBase, BaseMixins):
     }
 
     tokens: Mapped[list[LongLiveToken]] = orm.relationship(LongLiveToken, **sp_args)
-    comments: Mapped[list["RecipeComment"]] = orm.relationship("RecipeComment", **sp_args)
-    recipe_timeline_events: Mapped[list["RecipeTimelineEvent"]] = orm.relationship("RecipeTimelineEvent", **sp_args)
-    password_reset_tokens: Mapped[list["PasswordResetModel"]] = orm.relationship("PasswordResetModel", **sp_args)
+    comments: Mapped[list[RecipeComment]] = orm.relationship("RecipeComment", **sp_args)
+    recipe_timeline_events: Mapped[list[RecipeTimelineEvent]] = orm.relationship("RecipeTimelineEvent", **sp_args)
+    password_reset_tokens: Mapped[list[PasswordResetModel]] = orm.relationship("PasswordResetModel", **sp_args)
 
     owned_recipes_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
-    owned_recipes: Mapped[Optional["RecipeModel"]] = orm.relationship(
+    owned_recipes: Mapped[RecipeModel | None] = orm.relationship(
         "RecipeModel", single_parent=True, foreign_keys=[owned_recipes_id]
     )
-    mealplans: Mapped[Optional["GroupMealPlan"]] = orm.relationship(
-        "GroupMealPlan", order_by="GroupMealPlan.date", **sp_args
-    )
-    shopping_lists: Mapped[Optional["ShoppingList"]] = orm.relationship("ShoppingList", **sp_args)
-    rated_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
+    mealplans: Mapped[list[GroupMealPlan]] = orm.relationship("GroupMealPlan", order_by="GroupMealPlan.date", **sp_args)
+    shopping_lists: Mapped[list[ShoppingList]] = orm.relationship("ShoppingList", **sp_args)
+    rated_recipes: Mapped[list[RecipeModel]] = orm.relationship(
         "RecipeModel",
         secondary=UserToRecipe.__tablename__,
         back_populates="rated_by",
         overlaps="recipe,favorited_by,favorited_recipes",
     )
-    favorite_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
+    favorite_recipes: Mapped[list[RecipeModel]] = orm.relationship(
         "RecipeModel",
         secondary=UserToRecipe.__tablename__,
         primaryjoin="and_(User.id==UserToRecipe.user_id, UserToRecipe.is_favorite==True)",
-        back_populates="favorited_by",
+        viewonly=True,
         overlaps="recipe,rated_by,rated_recipes",
     )
     model_config = ConfigDict(
@@ -203,6 +207,14 @@ class User(SqlAlchemyBase, BaseMixins):
 
     def update_password(self, password):
         self.password = password
+        # Changing a password is how people evict someone who got into their account, so every token
+        # issued before now stops working. Stamped here rather than at the call sites so the password
+        # reset flow can't forget it.
+        #
+        # Floored to the second because JWT `iat` is whole seconds: against a sub-second watermark, a
+        # token minted in the same second as the change would have a lower `iat` and be rejected,
+        # locking the user out until the clock ticked over.
+        self.tokens_valid_after = datetime.now(UTC).replace(microsecond=0)
 
     def _set_permissions(
         self, admin, can_manage_household=False, can_manage=False, can_invite=False, can_organize=False, **_

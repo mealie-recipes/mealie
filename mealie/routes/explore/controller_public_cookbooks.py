@@ -8,6 +8,7 @@ from mealie.routes._base.base_controllers import BasePublicHouseholdExploreContr
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery
+from mealie.services.query_filter.builder import QueryFilterBuilder
 
 router = APIRouter(prefix="/cookbooks")
 
@@ -25,10 +26,7 @@ class PublicCookbooksController(BasePublicHouseholdExploreController):
         search: str | None = None,
     ) -> PaginationBase[ReadCookBook]:
         public_filter = "(household.preferences.privateHousehold = FALSE AND public = TRUE)"
-        if q.query_filter:
-            q.query_filter = f"({q.query_filter}) AND {public_filter}"
-        else:
-            q.query_filter = public_filter
+        q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, public_filter)
 
         response = self.cross_household_cookbooks.page_all(
             pagination=q,

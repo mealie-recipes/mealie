@@ -3,13 +3,14 @@ import json
 import pathlib
 from dataclasses import dataclass
 from typing import Any
+from urllib.parse import urlsplit, urlunsplit
 
-from bs4 import BeautifulSoup
 from fastapi import Depends, FastAPI, Response
 from fastapi.encoders import jsonable_encoder
 from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm.session import Session
 from starlette.exceptions import HTTPException
+from starlette.responses import RedirectResponse
 from text_unidecode import os
 
 from mealie.core.config import get_app_settings
@@ -41,6 +42,21 @@ class SPAStaticFiles(StaticFiles):
             else:
                 raise ex
 
+        # StaticFiles(html=True) redirects directory URLs without a trailing slash (e.g. /login -> /login/)
+        # to an absolute URL built from the request's Host header. That breaks behind reverse proxies that
+        # rewrite Host, and lets a spoofed Host pick the redirect target. Redirect to a relative path instead,
+        # collapsing leading slashes so it can't become a protocol-relative URL (//host/...).
+        if isinstance(response, RedirectResponse):
+            location = urlsplit(response.headers["location"])
+            response.headers["location"] = urlunsplit(("", "", "/" + location.path.lstrip("/"), location.query, ""))
+
+        # StaticFiles(html=True) serves 404.html (which IS the SPA shell) with
+        # status_code=404 for any unknown path, without raising HTTPException.
+        # Rewrite to 200 so reverse proxies that intercept 4xx don't replace the
+        # body with a generic error page.
+        if response.status_code == 404 and response.media_type == "text/html":
+            response.status_code = 200
+
         # Hashed assets (_nuxt/*) are safe to cache forever since new builds produce new filenames.
         # HTML must revalidate so browsers always fetch the correct bundle references after a
         # container rebuild (prevents blank white page from stale index.html in HA iframes, etc).
@@ -68,6 +84,8 @@ def escape(content: Any) -> Any:
 
 
 def inject_meta(contents: str, tags: list[MetaTag]) -> str:
+    from bs4 import BeautifulSoup
+
     soup = BeautifulSoup(contents, "lxml")
     scraped_meta_tags = soup.find_all("meta")
 
@@ -108,6 +126,16 @@ def inject_meta(contents: str, tags: list[MetaTag]) -> str:
     return str(soup)
 
 
+def iso_duration(seconds: int | None) -> str | None:
+    """schema.org requires ISO 8601 durations, e.g. 5400 -> "PT1H30M" """
+    if not seconds:
+        return None
+
+    hours, remainder = divmod(seconds, 3600)
+    minutes, seconds = divmod(remainder, 60)
+    return "PT" + "".join(f"{n}{unit}" for n, unit in ((hours, "H"), (minutes, "M"), (seconds, "S")) if n)
+
+
 def inject_recipe_json(contents: str, schema: dict) -> str:
     schema_as_html_tag = f"""<script type="application/ld+json">{json.dumps(jsonable_encoder(schema))}</script>"""
     return contents.replace("</head>", schema_as_html_tag + "\n</head>", 1)
@@ -123,15 +151,18 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
 
     ingredients: list[str] = []
     for ing in recipe.recipe_ingredient:
-        s = ""
+        components: list[str] = []
         if ing.quantity:
-            s += f"{ing.quantity} "
+            # Keep decimals machine-readable, even for units displayed as fractions.
+            quantity = int(ing.quantity) if ing.quantity.is_integer() else ing.quantity
+            components.append(str(quantity))
         if ing.unit:
-            s += f"{ing.unit.name} "
+            components.append(ing._format_unit_for_display())
         if ing.food:
-            s += f"{ing.food.name} "
+            components.append(ing.food.name)
+        s = " ".join(components)
         if ing.note:
-            s += f"{ing.note}"
+            s = f"{s}, {ing.note}" if s else ing.note
 
         ingredients.append(escape(s))
 
@@ -147,9 +178,9 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
         "description": escape(recipe.description),
         "image": [image_url],
         "datePublished": recipe.created_at,
-        "prepTime": escape(recipe.prep_time),
-        "cookTime": escape(recipe.cook_time),
-        "totalTime": escape(recipe.total_time),
+        "prepTime": iso_duration(recipe.prep_time_seconds),
+        "cookTime": iso_duration(recipe.perform_time_seconds),
+        "totalTime": iso_duration(recipe.total_time_seconds),
         "recipeYield": escape(recipe.recipe_yield_display),
         "recipeIngredient": ingredients,
         "recipeInstructions": [escape(i.text) for i in recipe.recipe_instructions]

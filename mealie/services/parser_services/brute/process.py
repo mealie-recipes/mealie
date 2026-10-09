@@ -3,7 +3,7 @@ import unicodedata
 
 from pydantic import BaseModel, ConfigDict
 
-from ..parser_utils import check_char, move_parens_to_end
+from ..parser_utils import check_char, move_parens_to_end, remove_footnote_markers
 
 
 class BruteParsedIngredient(BaseModel):
@@ -145,7 +145,7 @@ def parse(ing_str, parser) -> BruteParsedIngredient:
     if len(tokens) == 1:
         ingredient = tokens[0]
         # TODO Refactor to expect BFP to be returned instead of Tuple
-        return BruteParsedIngredient(food=ingredient, note=note, amount=amount, unit=unit)
+        return BruteParsedIngredient(food=remove_footnote_markers(ingredient), note=note, amount=amount, unit=unit)
 
     try:
         # try to parse first argument as amount
@@ -208,4 +208,4 @@ def parse(ing_str, parser) -> BruteParsedIngredient:
     if unit_note not in note:
         note += " " + unit_note
 
-    return BruteParsedIngredient(food=ingredient, note=note, amount=amount, unit=unit)
+    return BruteParsedIngredient(food=remove_footnote_markers(ingredient), note=note, amount=amount, unit=unit)

@@ -130,6 +130,7 @@
           <v-card-actions class="justify-center">
             <div style="width: 250px">
               <BaseButton
+                :text="$t('general.create')"
                 :disabled="bulkUrls.length === 0 || lockBulkImport"
                 rounded
                 block
@@ -223,6 +224,10 @@ async function deleteReport(id: string) {
 fetchReports();
 
 function assignUrls(urls: string[]) {
+  if (urls.length === 0) {
+    return;
+  }
+
   bulkUrls.value = urls.map(url => ({ url, categories: [], tags: [] }));
 }
 </script>

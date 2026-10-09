@@ -24,7 +24,10 @@ Before importing it's critical that you understand the following:
 
 - This is a destructive action and will delete all data in the database
 - This action cannot be undone
-- If this action is successful you will be logged out and you will need to log back in to complete the restore
+- If this action is successful you will be logged out and you will need to log back in to complete the restore.
+
+!!! tip
+    If you are unable to log in after restoring and no "Invalid credentials" error is shown, restart the Mealie container and try again.
 
 !!! tip
     If for some reason the restore does not succeed, you can review the logs of what the issue may be, download the backup .ZIP and edit the contents of database.json to potentially resolve the issue. For example, if you receive an error restoring 'shopping-list' you can edit out the contents of that list while allowing other sections to restore. If you would like any assistance on this, reach out over Discord.

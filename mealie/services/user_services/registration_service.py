@@ -113,9 +113,9 @@ class RegistrationService:
         user = self._create_new_user(group, household, new_group)
 
         if new_group and registration.seed_data:
-            seeder_service = SeederService(self.repos)
+            group_repos = get_repositories(self.repos.session, group_id=group.id)
+            seeder_service = SeederService(group_repos)
             seeder_service.seed_foods(registration.locale)
-            seeder_service.seed_labels(registration.locale)
             seeder_service.seed_units(registration.locale)
 
         if token_entry and user:

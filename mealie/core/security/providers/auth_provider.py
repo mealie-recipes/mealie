@@ -1,16 +1,11 @@
 import abc
-from datetime import UTC, datetime, timedelta
+from datetime import timedelta
 
-import jwt
 from sqlalchemy.orm.session import Session
 
-from mealie.core.config import get_app_settings
+from mealie.core.security.tokens import create_access_token
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user.user import PrivateUser
-
-ALGORITHM = "HS256"
-ISS = "mealie"
-remember_me_duration = timedelta(days=14)
 
 
 class AuthProvider[T](metaclass=abc.ABCMeta):
@@ -26,30 +21,14 @@ class AuthProvider[T](metaclass=abc.ABCMeta):
     def __subclasshook__(cls, __subclass: type) -> bool:
         return hasattr(__subclass, "authenticate") and callable(__subclass.authenticate)
 
-    def get_access_token(self, user: PrivateUser, remember_me=False) -> tuple[str, timedelta]:
-        settings = get_app_settings()
+    def get_access_token(self, user: PrivateUser, remember_me: bool = False) -> tuple[str, timedelta]:
+        """Mints a session token for a user who has just been authenticated.
 
-        duration = timedelta(hours=settings.TOKEN_TIME)
-        if remember_me:
-            duration = max(remember_me_duration, duration)
-
-        return AuthProvider.create_access_token({"sub": str(user.id)}, duration)
-
-    @staticmethod
-    def create_access_token(data: dict, expires_delta: timedelta | None = None) -> tuple[str, timedelta]:
-        settings = get_app_settings()
-
-        to_encode = data.copy()
-        expires_delta = expires_delta or timedelta(hours=settings.TOKEN_TIME)
-
-        expire = datetime.now(UTC) + expires_delta
-
-        to_encode["exp"] = expire
-        to_encode["iss"] = ISS
-        return (
-            jwt.encode(to_encode, settings.SECRET, algorithm=ALGORITHM),
-            expires_delta,
-        )
+        Every session lasts `TOKEN_TIME`. Remember-me decides whether the client keeps the token past
+        the end of the browser session, not how long it is valid for, so it travels on the token as
+        the `rme` claim for the client to act on — and survives refreshes intact.
+        """
+        return create_access_token({"sub": str(user.id), "rme": remember_me})
 
     def try_get_user(self, username: str) -> PrivateUser | None:
         """Try to get a user from the database, first trying username, then trying email"""

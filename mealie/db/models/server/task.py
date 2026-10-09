@@ -24,7 +24,7 @@ class ServerTaskModel(SqlAlchemyBase, BaseMixins):
     log: Mapped[str] = mapped_column(String, nullable=True)
 
     group_id: Mapped[GUID] = mapped_column(GUID, ForeignKey("groups.id"), nullable=False, index=True)
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="server_tasks")
+    group: Mapped[Group] = orm.relationship("Group", back_populates="server_tasks")
 
     @auto_init()
     def __init__(self, **_) -> None:

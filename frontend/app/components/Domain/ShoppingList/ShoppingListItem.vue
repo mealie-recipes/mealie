@@ -2,7 +2,7 @@
   <div style="overflow-x: hidden;">
     <v-container
       v-if="!edit"
-      class="pa-0"
+      class="ml-2 pa-0"
       :style="{
         transform: `translateX(${isRtl ? -swiping : swiping}px)`,
         transition: swiping === 0 ? 'transform 0.2s ease' : 'none',
@@ -16,7 +16,9 @@
         no-gutters
         class="flex-nowrap align-center"
       >
-        <v-col :cols="itemLabelCols">
+        <!-- the text takes every pixel the action buttons don't, so a long name only wraps
+             once the row is genuinely full rather than at an arbitrary half-way point -->
+        <v-col class="flex-grow-1 flex-shrink-1" style="min-width: 0;">
           <div class="d-flex align-center flex-nowrap">
             <v-checkbox
               :model-value="listItem.checked"
@@ -27,7 +29,7 @@
               @click="toggleChecked"
             />
             <div
-              class="ml-2 text-truncate"
+              class="ml-2 text-truncate shopping-list-item__text"
               :class="listItem.checked ? 'strike-through' : ''"
               style="min-width: 0;"
             >
@@ -35,10 +37,9 @@
             </div>
           </div>
         </v-col>
-        <v-spacer />
         <v-col
           cols="auto"
-          class="text-right"
+          class="text-right flex-shrink-0"
         >
           <div
             v-if="!listItem.checked"
@@ -79,7 +80,7 @@
                   variant="text"
                   class="ml-2"
                   icon
-                  @click="toggleEdit(!edit)"
+                  @click="$emit('edit')"
                 >
                   <v-icon>
                     {{ $globals.icons.edit }}
@@ -102,7 +103,7 @@
                   v-for="action in contextMenu"
                   :key="action.event"
                   density="compact"
-                  @click="contextHandler(action.event)"
+                  @click="$emit(action.event as any)"
                 >
                   <v-list-item-title>
                     {{ action.text }}
@@ -149,7 +150,7 @@
         :foods="foods"
         class="ma-2"
         @save="save"
-        @cancel="toggleEdit(false)"
+        @cancel="$emit('view')"
         @delete="$emit('delete')"
       />
     </div>
@@ -184,11 +185,15 @@ const props = defineProps({
     type: Map as unknown as () => Map<string, RecipeSummary>,
     default: undefined,
   },
+  edit: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const emit = defineEmits<{
   (e: "checked" | "save", item: ShoppingListItemOut): void;
-  (e: "delete"): void;
+  (e: "delete" | "edit" | "view"): void;
 }>();
 
 const SWIPE_THRESHOLD = 50;
@@ -211,7 +216,6 @@ onMounted(() => {
 });
 const i18n = useI18n();
 const displayRecipeRefs = ref(false);
-const itemLabelCols = computed<string>(() => (model.value?.checked ? "auto" : "6"));
 const online = useOnline();
 const isOffline = computed(() => online.value === false);
 
@@ -232,31 +236,14 @@ const listItem = computed<ShoppingListItemOut>({
   },
 });
 
-const edit = ref(false);
-function toggleEdit(val = !edit.value) {
-  if (edit.value === val) return;
-  if (val) localListItem.value = model.value;
-  edit.value = val;
-}
-
 function toggleChecked() {
   const updated = { ...model.value, checked: !model.value.checked } as ShoppingListItemOut;
   model.value = updated;
   emit("checked", updated);
 }
 
-function contextHandler(event: string) {
-  if (event === "edit") {
-    toggleEdit(true);
-  }
-  else {
-    emit(event as any);
-  }
-}
-
 function save() {
   emit("save", localListItem.value);
-  edit.value = false;
 }
 
 type SwipeGesture = null | "scroll" | "swipe";
@@ -335,5 +322,27 @@ const recipeList = computed<RecipeSummary[]>(() => {
 <style lang="css">
 .strike-through {
   text-decoration: line-through !important;
+}
+
+/* The text box must take the whole column, not shrink to its content: the "half the row" rule
+   below is measured against this box, and a content-sized box would make "1 pound butter"
+   wrap because "1 pound" alone is more than half of it. */
+.shopping-list-item__text {
+  flex: 1 1 auto;
+}
+
+/* The ingredient text is a wrapping flex row (quantity, unit, name, note). Left alone, a long
+   name is one unbreakable flex item, so it jumps to a new line and leaves the quantity sitting
+   on a line of its own. Let the name shrink and wrap in place instead, unless less than half
+   the row is left for it. The note keeps its own full-width line. */
+.shopping-list-item__text .ingredient-item > .text-bold {
+  flex: 1 1 0;
+  min-width: 50%;
+}
+
+/* ...and when it does wrap, the quantity and unit stay on its first line instead of floating
+   half-way down the block */
+.shopping-list-item__text .ingredient-item {
+  align-items: baseline;
 }
 </style>

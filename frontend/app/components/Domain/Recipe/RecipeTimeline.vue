@@ -18,13 +18,11 @@
               bordered
             >
               <v-btn
-                class="rounded-circle"
-                size="small"
-                color="info"
+                variant="text"
                 v-bind="activatorProps"
-                icon
+                :prepend-icon="$globals.icons.filter"
               >
-                <v-icon> {{ $globals.icons.filter }} </v-icon>
+                {{ $t("general.filter") }}
               </v-btn>
             </v-badge>
           </template>
@@ -39,28 +37,24 @@
               <v-list-item
                 v-for="option, idx in eventTypeFilterState"
                 :key="idx"
+                :active="option.checked"
+                :color="option.checked ? 'primary' : undefined"
+                @click="toggleEventTypeOption(option.value)"
               >
-                <v-checkbox
-                  :model-value="option.checked"
-                  color="primary"
-                  readonly
-                  hide-details
-                  @click="toggleEventTypeOption(option.value)"
-                >
-                  <template #label>
-                    <v-icon start>
-                      {{ option.icon }}
-                    </v-icon>
-                    {{ option.label }}
-                  </template>
-                </v-checkbox>
+                <template #prepend>
+                  <v-icon>
+                    {{ option.icon }}
+                  </v-icon>
+                </template>
+                <v-list-item-title>
+                  {{ option.label }}
+                </v-list-item-title>
               </v-list-item>
             </v-list>
           </v-card>
         </v-menu>
       </v-col>
     </v-row>
-    <v-divider class="mx-2" />
     <div
       v-if="timelineEvents.length"
       id="timeline-container"
@@ -111,7 +105,6 @@ import { useThrottleFn, whenever } from "@vueuse/core";
 import RecipeTimelineItem from "./RecipeTimelineItem.vue";
 import { useTimelinePreferences } from "~/composables/use-users/preferences";
 import { useTimelineEventTypes } from "~/composables/recipes/use-recipe-timeline-events";
-import { useAsyncKey } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
 import { useUserApi } from "~/composables/api";
 import type { Recipe, RecipeTimelineEventOut, RecipeTimelineEventUpdate, TimelineEventType } from "~/lib/api/types/recipe";
@@ -213,7 +206,10 @@ async function deleteTimelineEvent(index: number) {
 }
 
 async function getRecipes(recipeIds: string[]): Promise<Recipe[]> {
-  const qf = "id IN [" + recipeIds.map(id => `"${id}"`).join(", ") + "]";
+  let qf = "";
+  if (recipeIds.length) {
+    qf = "id IN [" + recipeIds.map(id => `"${id}"`).join(", ") + "]";
+  }
   const { data } = await api.recipes.getAll(1, -1, { queryFilter: qf });
   return data?.items || [];
 }
@@ -280,16 +276,17 @@ async function initializeTimelineEvents() {
   loading.value = false;
 }
 
-const infiniteScroll = useThrottleFn(() => {
-  useAsyncData(useAsyncKey(), async () => {
-    if (!hasMore.value || loading.value) {
-      return;
-    }
-
-    loading.value = true;
+const infiniteScroll = useThrottleFn(async () => {
+  if (!hasMore.value || loading.value) {
+    return;
+  }
+  loading.value = true;
+  try {
     await scrollTimelineEvents();
+  }
+  finally {
     loading.value = false;
-  });
+  }
 }, 500);
 
 // preload events

@@ -42,6 +42,20 @@ class OpenAIRecipeNotes(OpenAIBase):
     )
 
 
+class OpenAIRecipeNutrition(OpenAIBase):
+    calories: str | None = Field(None, description="Calories per serving, as a number without units.")
+    carbohydrate_content: str | None = Field(None, description="Carbohydrates per serving, in grams.")
+    cholesterol_content: str | None = Field(None, description="Cholesterol per serving, in milligrams.")
+    fat_content: str | None = Field(None, description="Total fat per serving, in grams.")
+    fiber_content: str | None = Field(None, description="Fiber per serving, in grams.")
+    protein_content: str | None = Field(None, description="Protein per serving, in grams.")
+    saturated_fat_content: str | None = Field(None, description="Saturated fat per serving, in grams.")
+    sodium_content: str | None = Field(None, description="Sodium per serving, in milligrams.")
+    sugar_content: str | None = Field(None, description="Sugar per serving, in grams.")
+    trans_fat_content: str | None = Field(None, description="Trans fat per serving, in grams.")
+    unsaturated_fat_content: str | None = Field(None, description="Unsaturated fat per serving, in grams.")
+
+
 class OpenAIRecipe(OpenAIBase):
     name: str = Field(
         ...,
@@ -60,17 +74,20 @@ class OpenAIRecipe(OpenAIBase):
 
     total_time: str | None = Field(
         None,
-        description="Total time as text (e.g., '1 hour 30 minutes'). Use if only one time is available.",
+        description="Total time as an ISO 8601 duration, e.g., 'PT1H30M', or plain text if it isn't a clear "
+        "duration, e.g., 'overnight'. Use if only one time is available.",
     )
 
     prep_time: str | None = Field(
         None,
-        description="Prep time as text, e.g., '30 minutes'. Do not duplicate total_time.",
+        description="Prep time as an ISO 8601 duration, e.g., 'PT30M', or plain text if it isn't a clear duration. "
+        "Do not duplicate total_time.",
     )
 
     perform_time: str | None = Field(
         None,
-        description="Cook/perform time as text, e.g., '1 hour'. Do not duplicate total_time.",
+        description="Cook/perform time as an ISO 8601 duration, e.g., 'PT1H', or plain text if it isn't a clear "
+        "duration. Do not duplicate total_time.",
     )
 
     ingredients: list[OpenAIRecipeIngredient] = Field(
@@ -86,4 +103,9 @@ class OpenAIRecipe(OpenAIBase):
     notes: list[OpenAIRecipeNotes] = Field(
         default_factory=list,
         description="List of notes, tips, or variations.",
+    )
+
+    nutrition: OpenAIRecipeNutrition | None = Field(
+        None,
+        description="Nutrition information, only if the source provides it. Do not calculate or estimate it.",
     )

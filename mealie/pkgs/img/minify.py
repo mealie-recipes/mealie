@@ -71,10 +71,15 @@ class PillowMinifier(ABCMinifier):
         dest: Path | None = None,
         quality: int = 100,
         img: Image.Image | None = None,
+        max_dimension: int | None = None,
     ) -> Path:
         """
         Converts an image to the specified format in-place. The original image is not
         removed. By default, the quality is set to 100.
+
+        If ``max_dimension`` is provided, the image is downscaled (preserving aspect
+        ratio) so that neither side exceeds it before saving. Images already within the
+        bound are left untouched (never upscaled).
         """
         if img is None:
             if image_file is None:
@@ -85,6 +90,9 @@ class PillowMinifier(ABCMinifier):
             img = img.convert(image_format.modes[0])
 
         img = ImageOps.exif_transpose(img)
+
+        if max_dimension is not None:
+            img.thumbnail((max_dimension, max_dimension), Image.LANCZOS)
 
         if dest is None:
             if image_file is None:
@@ -101,9 +109,15 @@ class PillowMinifier(ABCMinifier):
         dest: Path | None = None,
         quality: int = 100,
         img: Image.Image | None = None,
+        max_dimension: int | None = None,
     ) -> Path:
         return PillowMinifier._convert_image(
-            image_file=image_file_path, image_format=JPG, dest=dest, quality=quality, img=img
+            image_file=image_file_path,
+            image_format=JPG,
+            dest=dest,
+            quality=quality,
+            img=img,
+            max_dimension=max_dimension,
         )
 
     @staticmethod

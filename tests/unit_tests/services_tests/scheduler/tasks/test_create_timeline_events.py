@@ -1,6 +1,7 @@
 from datetime import UTC, datetime, timedelta
 
 from dateutil.parser import parse as parse_dt
+from dateutil.tz import tzlocal
 from fastapi.testclient import TestClient
 from pydantic import UUID4
 
@@ -35,10 +36,10 @@ def test_new_mealplan_event(api_client: TestClient, unique_user: TestUser, h2_us
     response_json = response.json()
     initial_event_count = len(response_json["items"])
 
-    new_plan = CreatePlanEntry(date=datetime.now(UTC).date(), entry_type="dinner", recipe_id=recipe_id).model_dump(
-        by_alias=True
-    )
-    new_plan["date"] = datetime.now(UTC).date().isoformat()
+    new_plan = CreatePlanEntry(
+        date=datetime.now(tzlocal()).date(), entry_type="dinner", recipe_id=recipe_id
+    ).model_dump(by_alias=True)
+    new_plan["date"] = datetime.now(tzlocal()).date().isoformat()
     new_plan["recipeId"] = str(recipe_id)
 
     response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
@@ -115,10 +116,10 @@ def test_new_mealplan_event_duplicates(api_client: TestClient, unique_user: Test
     response_json = response.json()
     initial_event_count = len(response_json["items"])
 
-    new_plan = CreatePlanEntry(date=datetime.now(UTC).date(), entry_type="dinner", recipe_id=recipe_id).model_dump(
-        by_alias=True
-    )
-    new_plan["date"] = datetime.now(UTC).date().isoformat()
+    new_plan = CreatePlanEntry(
+        date=datetime.now(tzlocal()).date(), entry_type="dinner", recipe_id=recipe_id
+    ).model_dump(by_alias=True)
+    new_plan["date"] = datetime.now(tzlocal()).date().isoformat()
     new_plan["recipeId"] = str(recipe_id)
 
     response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
@@ -162,9 +163,9 @@ def test_new_mealplan_events_with_multiple_recipes(api_client: TestClient, uniqu
         mealplan_count_by_recipe_id[recipe.id] = 0  # type: ignore
         for _ in range(random_int(1, 5)):
             new_plan = CreatePlanEntry(
-                date=datetime.now(UTC).date(), entry_type="dinner", recipe_id=str(recipe.id)
+                date=datetime.now(tzlocal()).date(), entry_type="dinner", recipe_id=str(recipe.id)
             ).model_dump(by_alias=True)
-            new_plan["date"] = datetime.now(UTC).date().isoformat()
+            new_plan["date"] = datetime.now(tzlocal()).date().isoformat()
             new_plan["recipeId"] = str(recipe.id)
 
             response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)
@@ -231,10 +232,10 @@ def test_preserve_future_made_date(api_client: TestClient, unique_user: TestUser
     household_recipe = HouseholdRecipeSummary.model_validate(response.json())
     assert household_recipe.last_made is None
 
-    new_plan = CreatePlanEntry(date=datetime.now(UTC).date(), entry_type="dinner", recipe_id=recipe_id).model_dump(
-        by_alias=True
-    )
-    new_plan["date"] = datetime.now(UTC).date().isoformat()
+    new_plan = CreatePlanEntry(
+        date=datetime.now(tzlocal()).date(), entry_type="dinner", recipe_id=recipe_id
+    ).model_dump(by_alias=True)
+    new_plan["date"] = datetime.now(tzlocal()).date().isoformat()
     new_plan["recipeId"] = str(recipe_id)
 
     response = api_client.post(api_routes.households_mealplans, json=new_plan, headers=unique_user.token)

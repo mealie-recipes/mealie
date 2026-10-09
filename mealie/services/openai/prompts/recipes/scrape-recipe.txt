@@ -1,5 +1,0 @@
-Extract recipe data from webpage contents (HTML, text, etc.) and return it in schema.org Recipe format. Reference: https://schema.org/Recipe
-
-Do not create or make up any information. If insufficient data is found, return an empty object.
-
-You will receive the webpage contents, including (but not necessarily limited to) text extracted from the HTML.

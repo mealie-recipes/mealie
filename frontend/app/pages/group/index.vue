@@ -66,7 +66,7 @@ import type { AIProviderCreate, AIProviderUpdate } from "~/lib/api/types/group";
 import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
-  middleware: ["can-manage-only"],
+  middleware: ["auth", "can-manage-only"],
 });
 
 const { group, actions: groupActions } = useGroupSelf();
@@ -74,6 +74,14 @@ const i18n = useI18n();
 
 useSeoMeta({
   title: i18n.t("group.group"),
+});
+
+// useGroupSelf() caches data in a module-level singleton for the lifetime of the tab,
+// so revisiting this page via client-side navigation can otherwise show stale
+// preferences/AI settings if they were changed elsewhere (e.g. Admin Groups panel)
+// in the same session. Force a revalidation whenever this page is entered.
+onMounted(() => {
+  groupActions.refresh();
 });
 
 const refGroupPrefsEditForm = ref<VForm | null>(null);

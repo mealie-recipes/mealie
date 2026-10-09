@@ -35,8 +35,10 @@ class Group(SqlAlchemyBase, BaseMixins):
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
     name: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False, unique=True)
     slug: FilterableColumn[str | None] = mapped_column(sa.String, index=True, unique=True)
-    households: Mapped[list["Household"]] = orm.relationship("Household", back_populates="group")
-    users: Mapped[list["User"]] = orm.relationship("User", back_populates="group")
+    households: Mapped[list[Household]] = orm.relationship(
+        "Household", back_populates="group", cascade="all, delete-orphan"
+    )
+    users: Mapped[list[User]] = orm.relationship("User", back_populates="group")
     categories: Mapped[list[Category]] = orm.relationship(Category, secondary=group_to_categories, single_parent=True)
 
     invite_tokens: Mapped[list[GroupInviteToken]] = orm.relationship(
@@ -60,7 +62,9 @@ class Group(SqlAlchemyBase, BaseMixins):
     )
 
     # Recipes
-    recipes: Mapped[list["RecipeModel"]] = orm.relationship("RecipeModel", back_populates="group")
+    recipes: Mapped[list[RecipeModel]] = orm.relationship(
+        "RecipeModel", back_populates="group", cascade="all, delete-orphan"
+    )
 
     # CRUD From Others
     common_args = {
@@ -75,21 +79,21 @@ class Group(SqlAlchemyBase, BaseMixins):
         GroupMealPlan, order_by="GroupMealPlan.date", **common_args
     )
     webhooks: Mapped[list[GroupWebhooksModel]] = orm.relationship(GroupWebhooksModel, **common_args)
-    recipe_actions: Mapped[list["GroupRecipeAction"]] = orm.relationship("GroupRecipeAction", **common_args)
+    recipe_actions: Mapped[list[GroupRecipeAction]] = orm.relationship("GroupRecipeAction", **common_args)
     cookbooks: Mapped[list[CookBook]] = orm.relationship(CookBook, **common_args)
-    server_tasks: Mapped[list["ServerTaskModel"]] = orm.relationship("ServerTaskModel", **common_args)
-    data_exports: Mapped[list["GroupDataExportsModel"]] = orm.relationship("GroupDataExportsModel", **common_args)
-    shopping_lists: Mapped[list["ShoppingList"]] = orm.relationship("ShoppingList", **common_args)
-    group_reports: Mapped[list["ReportModel"]] = orm.relationship("ReportModel", **common_args)
-    group_event_notifiers: Mapped[list["GroupEventNotifierModel"]] = orm.relationship(
+    server_tasks: Mapped[list[ServerTaskModel]] = orm.relationship("ServerTaskModel", **common_args)
+    data_exports: Mapped[list[GroupDataExportsModel]] = orm.relationship("GroupDataExportsModel", **common_args)
+    shopping_lists: Mapped[list[ShoppingList]] = orm.relationship("ShoppingList", **common_args)
+    group_reports: Mapped[list[ReportModel]] = orm.relationship("ReportModel", **common_args)
+    group_event_notifiers: Mapped[list[GroupEventNotifierModel]] = orm.relationship(
         "GroupEventNotifierModel", **common_args
     )
 
     # Owned Models
-    ingredient_units: Mapped[list["IngredientUnitModel"]] = orm.relationship("IngredientUnitModel", **common_args)
-    ingredient_foods: Mapped[list["IngredientFoodModel"]] = orm.relationship("IngredientFoodModel", **common_args)
-    tools: Mapped[list["Tool"]] = orm.relationship("Tool", **common_args)
-    tags: Mapped[list["Tag"]] = orm.relationship("Tag", **common_args)
+    ingredient_units: Mapped[list[IngredientUnitModel]] = orm.relationship("IngredientUnitModel", **common_args)
+    ingredient_foods: Mapped[list[IngredientFoodModel]] = orm.relationship("IngredientFoodModel", **common_args)
+    tools: Mapped[list[Tool]] = orm.relationship("Tool", **common_args)
+    tags: Mapped[list[Tag]] = orm.relationship("Tag", **common_args)
     model_config = ConfigDict(
         exclude={
             "households",

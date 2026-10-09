@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID
 
 from dateutil.parser import parse as parse_dt
@@ -14,6 +14,10 @@ from tests.utils.fixture_schemas import TestUser
 def test_get_household_members(api_client: TestClient, user_tuple: list[TestUser], h2_user: TestUser):
     usr_1, usr_2 = user_tuple
 
+    user = usr_1.repos.users.get_one(usr_1.user_id)
+    user.can_manage = True
+    usr_1.repos.users.update(user.id, user)
+
     response = api_client.get(api_routes.households_members, params={"perPage": -1}, headers=usr_1.token)
     assert response.status_code == 200
 
@@ -25,6 +29,15 @@ def test_get_household_members(api_client: TestClient, user_tuple: list[TestUser
     assert str(usr_1.user_id) in all_ids
     assert str(usr_2.user_id) in all_ids
     assert str(h2_user.user_id) not in all_ids
+
+
+def test_get_household_members_unauthorized(api_client: TestClient, unique_user: TestUser):
+    user = unique_user.repos.users.get_one(unique_user.user_id)
+    user.can_manage = False
+    unique_user.repos.users.update(user.id, user)
+
+    response = api_client.get(api_routes.households_members, headers=unique_user.token)
+    assert response.status_code == 403
 
 
 def test_get_household_recipe_default(api_client: TestClient, unique_user: TestUser):
@@ -42,7 +55,7 @@ def test_get_household_recipe_default(api_client: TestClient, unique_user: TestU
 
 
 def test_get_household_recipe(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
-    dt_now = datetime.now(tz=timezone.utc)
+    dt_now = datetime.now(tz=UTC)
     recipe = unique_user.repos.recipes.create(
         Recipe(
             user_id=unique_user.user_id,

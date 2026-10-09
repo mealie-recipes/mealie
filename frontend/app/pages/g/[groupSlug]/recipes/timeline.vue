@@ -35,7 +35,7 @@ import { useUserApi } from "~/composables/api";
 import RecipeTimeline from "~/components/Domain/Recipe/RecipeTimeline.vue";
 
 definePageMeta({
-  middleware: ["group-only"],
+  middleware: ["auth", "group-only"],
 });
 
 const i18n = useI18n();

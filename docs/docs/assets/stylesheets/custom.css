@@ -17,6 +17,73 @@
   --md-default-accent-bg-color: #1f1e1e;
 }
 
+/*
+ * Zensical's "modern" theme ships a flat header that uses the page background
+ * color. Restore the classic Material colored app-bar (and matching nav tabs)
+ * driven by the brand orange, and brand the link color to match.
+ */
+.md-header,
+.md-tabs {
+  background-color: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+}
+
+/*
+ * Brand the accent colors. The modern theme leaves links, the nav active-item
+ * pill, and the announce banner on its default indigo accent (the latter two
+ * via --md-accent-fg-color--transparent), which clashes with the orange. The
+ * [scheme][primary] selector matches the theme's own (0,2,0) accent rules so
+ * the override wins in both light (mealie) and dark (slate) modes.
+ */
+[data-md-color-scheme="mealie"][data-md-color-primary="indigo"],
+[data-md-color-scheme="slate"][data-md-color-primary="indigo"] {
+  --md-typeset-a-color: var(--md-primary-fg-color);
+  --md-accent-fg-color: #e58325;
+  --md-accent-fg-color--transparent: #e583251a;
+}
+
+/*
+ * The modern theme drops the classic dark banner and footer: the banner picks
+ * up the accent tint, the footer the page background, and the --md-footer-*
+ * variables no longer exist. Redefine them and re-apply so both bars keep the
+ * dark contrast the site has today.
+ */
+:root {
+  --md-footer-bg-color: #000000de;
+  --md-footer-bg-color--dark: #00000052;
+  --md-footer-fg-color: #fff;
+  --md-footer-fg-color--light: #ffffffb3;
+  --md-footer-fg-color--lighter: #ffffff4d;
+}
+
+.md-banner,
+.md-footer {
+  background-color: var(--md-footer-bg-color);
+  color: var(--md-footer-fg-color);
+}
+
+.md-footer-meta {
+  background-color: var(--md-footer-bg-color--dark);
+  color: var(--md-footer-fg-color);
+}
+
+.md-footer-meta a {
+  color: var(--md-footer-fg-color--light);
+}
+
+/*
+ * The modern theme underlines every body link. Keep the site's undecorated
+ * links and move the underline to hover, which the link color can no longer
+ * signal on its own now that it matches the accent color.
+ */
+.md-typeset a:not(.md-button) {
+  text-decoration: none;
+}
+
+.md-typeset a:not(.md-button):hover {
+  text-decoration: underline;
+}
+
 /* frontpage elements */
 .tx-hero h1 {
   font-size: 2.41rem !important;
@@ -64,7 +131,7 @@ th {
 }
 
 .announce-left > a {
-  color: #e0e0e0;
+  color: var(--md-footer-fg-color);
   font-weight: bold;
 }
 

@@ -1,6 +1,7 @@
 from datetime import timedelta
 
 import ldap
+import ldap.filter
 from ldap.ldapobject import LDAPObject
 from sqlalchemy.orm.session import Session
 
@@ -45,19 +46,23 @@ class LDAPProvider(CredentialsProvider):
             return None
         settings = get_app_settings()
 
+        # Escape the user-supplied username so filter metacharacters (*, (, ), \, NUL)
+        # are treated as literal data rather than LDAP filter syntax.
+        escaped_username = ldap.filter.escape_filter_chars(self.data.username)
+
         user_filter = ""
         if settings.LDAP_USER_FILTER:
             # fill in the template provided by the user to maintain backwards compatibility
             user_filter = settings.LDAP_USER_FILTER.format(
                 id_attribute=settings.LDAP_ID_ATTRIBUTE,
                 mail_attribute=settings.LDAP_MAIL_ATTRIBUTE,
-                input=self.data.username,
+                input=escaped_username,
             )
         # Don't assume the provided search filter has (|({id_attribute}={input})({mail_attribute}={input}))
         search_filter = "(&(|({id_attribute}={input})({mail_attribute}={input})){filter})".format(
             id_attribute=settings.LDAP_ID_ATTRIBUTE,
             mail_attribute=settings.LDAP_MAIL_ATTRIBUTE,
-            input=self.data.username,
+            input=escaped_username,
             filter=user_filter,
         )
 
@@ -108,6 +113,13 @@ class LDAPProvider(CredentialsProvider):
             return None
         data = self.data
 
+        # Reject empty passwords before binding. Many directories treat a bind with
+        # a valid DN and an empty password as an anonymous/unauthenticated bind that
+        # succeeds, which would otherwise let anyone log in as a known user.
+        if not data.password:
+            self._logger.error("[LDAP] Empty password is not permitted; refusing to bind")
+            return None
+
         if settings.LDAP_TLS_INSECURE:
             ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
 
@@ -124,7 +136,7 @@ class LDAPProvider(CredentialsProvider):
 
         try:
             conn.simple_bind_s(settings.LDAP_QUERY_BIND, settings.LDAP_QUERY_PASSWORD)
-        except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
+        except ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT:
             self._logger.error("[LDAP] Unable to bind to with provided user/password")
             conn.unbind_s()
             return None
@@ -138,7 +150,7 @@ class LDAPProvider(CredentialsProvider):
         try:
             self._logger.debug(f"[LDAP] Attempting to bind with '{user_dn}' using the provided password")
             conn.simple_bind_s(user_dn, data.password)
-        except (ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT):
+        except ldap.INVALID_CREDENTIALS, ldap.NO_SUCH_OBJECT:
             self._logger.error("[LDAP] Bind failed")
             conn.unbind_s()
             return None

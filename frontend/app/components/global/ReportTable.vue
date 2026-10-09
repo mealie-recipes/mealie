@@ -44,13 +44,13 @@ const emit = defineEmits<{
 const i18n = useI18n();
 const router = useRouter();
 
-const headers = [
+const headers = computed(() => [
   { title: i18n.t("category.category"), value: "category", key: "category" },
   { title: i18n.t("general.name"), value: "name", key: "name" },
   { title: i18n.t("general.timestamp"), value: "timestamp", key: "timestamp" },
   { title: i18n.t("general.status"), value: "status", key: "status" },
   { title: i18n.t("general.delete"), value: "actions", key: "actions" },
-];
+]);
 
 function handleRowClick(item: ReportSummary) {
   if (item.status === "in-progress") {

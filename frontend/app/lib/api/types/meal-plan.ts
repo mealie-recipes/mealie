@@ -89,6 +89,9 @@ export interface RecipeSummary {
   prepTime?: string | null;
   cookTime?: string | null;
   performTime?: string | null;
+  totalTimeSeconds?: number | null;
+  prepTimeSeconds?: number | null;
+  performTimeSeconds?: number | null;
   description?: string | null;
   recipeCategory?: RecipeCategory[] | null;
   tags?: RecipeTag[] | null;
@@ -106,18 +109,21 @@ export interface RecipeCategory {
   groupId?: string | null;
   name: string;
   slug: string;
+  recipeCount?: number;
 }
 export interface RecipeTag {
   id?: string | null;
   groupId?: string | null;
   name: string;
   slug: string;
+  recipeCount?: number;
 }
 export interface RecipeTool {
   id: string;
   groupId?: string | null;
   name: string;
   slug: string;
+  recipeCount?: number;
   householdsWithTool?: string[];
 }
 export interface SavePlanEntry {

@@ -1,6 +1,7 @@
 import pytest
 import sqlalchemy as sa
 
+from mealie.db.models.recipe.ingredient import IngredientFoodModel
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.users.users import LongLiveToken, User
 from mealie.services.query_filter.builder import (
@@ -107,7 +108,7 @@ def test_non_filterable_field_long_live_token_raises():
 
 def test_filterable_field_does_not_raise():
     """Filtering on a FilterableColumn field should not raise."""
-    model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("full_name", User)
+    model, attr = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("full_name", User)
     assert model is User
     assert attr is User.full_name
 
@@ -119,7 +120,7 @@ def test_filterable_field_does_not_raise():
 
 def test_deep_traversal_to_filterable_field_works():
     """Traversing a relationship to a FilterableColumn field should succeed."""
-    model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.full_name", RecipeModel)
+    model, attr = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("user.full_name", RecipeModel)
     assert model is User
     assert attr is User.full_name
 
@@ -154,6 +155,47 @@ def test_filter_query_user_password_raises():
 
 def test_association_proxy_resolving_to_filterable_field_works():
     """Single-hop association proxy (e.g. household_id) resolving to a FilterableColumn should succeed."""
-    model, attr, _ = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("household_id", RecipeModel)
+    model, attr = QueryFilterBuilder.get_model_and_model_attr_from_attr_string("household_id", RecipeModel)
     assert model is User
     assert attr is User.household_id
+
+
+def test_deep_traversal_to_food_label_works():
+    """Traversing recipe -> ingredient -> food to a food's label should succeed."""
+    model, attr = QueryFilterBuilder.get_model_and_model_attr_from_attr_string(
+        "recipe_ingredient.food.label_id", RecipeModel
+    )
+    assert model is IngredientFoodModel
+    assert attr is IngredientFoodModel.label_id
+
+
+def test_filter_query_by_food_label_joins_through_ingredients():
+    """Filtering recipes by food label should join recipes -> ingredients -> foods."""
+    label_id = "a5f1c6d2-0000-4000-8000-000000000001"
+    builder = QueryFilterBuilder(f'recipe_ingredient.food.label_id IN ["{label_id}"]')
+    query = builder.filter_query(sa.select(RecipeModel.id), RecipeModel)
+
+    sql = " ".join(str(query.compile(compile_kwargs={"literal_binds": True})).split())
+    # The builder correlates through the relationship chain with EXISTS rather than joining, so a
+    # recipe comes back once no matter how many of its ingredients carry the label.
+    assert "EXISTS (SELECT 1 FROM recipes_ingredients" in sql
+    assert "recipes.id = recipes_ingredients.recipe_id" in sql
+    assert "EXISTS (SELECT 1 FROM ingredient_foods" in sql
+    assert "ingredient_foods.id = recipes_ingredients.food_id" in sql
+    assert "ingredient_foods.label_id IN" in sql
+
+
+def test_filter_query_excluding_food_label_excludes_the_whole_recipe():
+    """
+    Excluding a food label must exclude recipes containing any matching ingredient, rather than
+    matching recipes that merely contain some other ingredient.
+    """
+    label_id = "a5f1c6d2-0000-4000-8000-000000000001"
+    builder = QueryFilterBuilder(f'recipe_ingredient.food.label_id NOT IN ["{label_id}"]')
+    query = builder.filter_query(sa.select(RecipeModel.id), RecipeModel)
+
+    sql = " ".join(str(query.compile(compile_kwargs={"literal_binds": True})).split())
+    # NOT wraps the whole correlated EXISTS, so the recipe drops out as soon as one of its
+    # ingredients carries the label, rather than being matched on its other ingredients.
+    assert "NOT (EXISTS (SELECT 1 FROM recipes_ingredients" in sql
+    assert "ingredient_foods.label_id IN" in sql

@@ -2,7 +2,7 @@ name: Auto-merge dependency PRs
 
 on:
   pull_request:
-    types: [opened, synchronize, labeled]
+    types: [ opened, synchronize, labeled ]
 
 permissions:
   contents: write
@@ -46,7 +46,7 @@ jobs:
             if [[ "$file" == "pyproject.toml" ]] || \
                [[ "$file" == "uv.lock" ]] || \
                [[ "$file" == "frontend/package.json" ]] || \
-               [[ "$file" == "frontend/yarn.lock" ]] || \
+               [[ "$file" == "frontend/pnpm-lock.yaml" ]] || \
                [[ "$file" =~ ^docker/ ]]; then
               continue
             fi

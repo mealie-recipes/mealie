@@ -63,6 +63,7 @@ import type { ReadHouseholdPreferences } from "~/lib/api/types/household";
 const preferences = defineModel<ReadHouseholdPreferences>({ required: true });
 const local = reactive({ ...preferences.value });
 watch(local, (newVal) => { preferences.value = { ...newVal }; });
+watch(preferences, (newVal) => { if (newVal) Object.assign(local, newVal); });
 
 const i18n = useI18n();
 

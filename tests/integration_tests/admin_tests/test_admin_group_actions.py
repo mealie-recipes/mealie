@@ -1,9 +1,11 @@
 from fastapi.testclient import TestClient
+from sqlalchemy.orm import Session
 
 from mealie.core.config import get_app_settings
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.user.user import GroupInDB
+from tests.fixtures.fixture_users import build_unique_user
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_ignore_keys
 from tests.utils.factories import random_bool, random_string
@@ -180,4 +182,21 @@ def test_admin_delete_group(unfiltered_database: AllRepositories, api_client: Te
     assert response.status_code == 200
 
     response = api_client.get(api_routes.admin_groups_item_id(group.id), headers=admin_user.token)
+    assert response.status_code == 404
+
+
+def test_admin_delete_group_with_recipes(session: Session, api_client: TestClient, admin_user: TestUser):
+    """https://github.com/mealie-recipes/mealie/issues/5007"""
+    user = build_unique_user(session, random_string(), api_client)
+
+    response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=user.token)
+    assert response.status_code == 201
+
+    response = api_client.delete(api_routes.admin_users_item_id(user.user_id), headers=admin_user.token)
+    assert response.status_code == 200
+
+    response = api_client.delete(api_routes.admin_groups_item_id(user.group_id), headers=admin_user.token)
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.admin_groups_item_id(user.group_id), headers=admin_user.token)
     assert response.status_code == 404

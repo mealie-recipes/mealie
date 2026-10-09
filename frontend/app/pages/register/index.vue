@@ -117,6 +117,7 @@
               </BaseButton>
               <BaseButton
                 icon-right
+                :disabled="!isTokenValid"
                 @click="provideToken.next"
               >
                 <template #icon>
@@ -146,6 +147,7 @@
             <v-card-text>
               <v-form
                 ref="domGroupForm"
+                v-model="isGroupFormValid"
                 @submit.prevent
               >
                 <v-text-field
@@ -189,6 +191,7 @@
               </BaseButton>
               <BaseButton
                 icon-right
+                :disabled="!isGroupFormValid || !groupNameValid"
                 @click="groupDetails.next"
               >
                 <template #icon>
@@ -202,7 +205,7 @@
 
         <template v-else-if="state.ctx.state === States.ProvideAccountDetails">
           <div>
-            <UserRegistrationForm />
+            <UserRegistrationForm v-model="isAccountFormValid" />
             <v-divider />
             <v-card-actions class="justify-space-between">
               <BaseButton
@@ -216,6 +219,7 @@
               </BaseButton>
               <BaseButton
                 icon-right
+                :disabled="!isAccountFormValid"
                 @click="accountDetailsNext"
               >
                 <template #icon>
@@ -324,13 +328,6 @@ const inputAttrs = {
 const i18n = useI18n();
 const isDark = useDark();
 
-function safeValidate(form: Ref<VForm | null>) {
-  if (form.value && form.value.validate) {
-    return form.value.validate();
-  }
-  return false;
-}
-
 // Registration Context
 const state = useRegistration();
 
@@ -368,11 +365,12 @@ const initial = {
 // Provide Token
 const domTokenForm = ref<VForm | null>(null);
 function validateToken() {
-  return true;
+  return Boolean(token.value && token.value.trim());
 }
+const isTokenValid = computed(() => validateToken());
 const provideToken = {
-  next: () => {
-    if (!safeValidate(domTokenForm as Ref<VForm>)) {
+  next: async () => {
+    if (!await safeValidate(domTokenForm as Ref<VForm>)) {
       return;
     }
     if (validateToken()) {
@@ -384,6 +382,7 @@ const provideToken = {
 // Provide Group Details
 const publicApi = usePublicApi();
 const domGroupForm = ref<VForm | null>(null);
+const isGroupFormValid = ref(false);
 const groupName = ref("");
 const groupSeed = ref(false);
 const groupPrivate = ref(false);
@@ -394,22 +393,37 @@ const { validate: validGroupName, valid: groupNameValid } = useAsyncValidator(
   i18n.t("validation.group-name-is-taken"),
   groupErrorMessages,
 );
+async function validateGroup() {
+  if (!groupName.value || !groupName.value.trim()) {
+    groupErrorMessages.value = [i18n.t("validation.required")];
+    return false;
+  }
+  groupErrorMessages.value = [];
+  await validGroupName();
+
+  if (!groupNameValid.value) {
+    return false;
+  }
+
+  return true;
+}
 const groupDetails = {
   groupName,
   groupSeed,
   groupPrivate,
-  next: () => {
-    if (!safeValidate(domGroupForm as Ref<VForm>) || !groupNameValid.value) {
+  next: async () => {
+    if (!await validateGroup()) {
       return;
     }
     state.setState(States.ProvideAccountDetails);
   },
 };
 
+const isAccountFormValid = ref(false);
 const {
   accountDetails,
   credentials,
-
+  safeValidate,
 } = useUserRegistrationForm();
 async function accountDetailsNext() {
   if (!await accountDetails.validate()) {
@@ -483,14 +497,15 @@ async function submitRegistration() {
   else {
     payload.groupToken = token.value;
   }
-  const { response } = await api.register.register(payload);
+  const { response, error } = await api.register.register(payload);
   if (response?.status === 201) {
     accountDetails.reset();
     credentials.reset();
     alert.success(i18n.t("user-registration.registration-success"));
     router.push("/login");
   }
-  else {
+  // The Axios interceptor already shows detail.message errors.
+  else if (!error?.response?.data?.detail?.message) {
     alert.error(i18n.t("events.something-went-wrong"));
   }
 }

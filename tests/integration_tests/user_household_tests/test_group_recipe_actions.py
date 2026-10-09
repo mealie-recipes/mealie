@@ -1,9 +1,9 @@
 from uuid import UUID, uuid4
 
 import pytest
-import requests
 from fastapi.testclient import TestClient
 
+from mealie.pkgs import safehttp
 from mealie.schema.household.group_recipe_action import (
     CreateGroupRecipeAction,
     GroupRecipeActionOut,
@@ -17,8 +17,8 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(autouse=True)
-def mock_requests_post(monkeypatch: pytest.MonkeyPatch):
-    monkeypatch.setattr(requests, "post", lambda *args, **kwargs: None)
+def mock_outbound_post(monkeypatch: pytest.MonkeyPatch):
+    monkeypatch.setattr(safehttp, "post", lambda *args, **kwargs: None)
 
 
 def create_action(action_type: GroupRecipeActionType = GroupRecipeActionType.link) -> CreateGroupRecipeAction:

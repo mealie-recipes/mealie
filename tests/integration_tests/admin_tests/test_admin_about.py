@@ -67,8 +67,16 @@ def test_admin_about_check_app_config(api_client: TestClient, admin_user: TestUs
 
     as_dict = response.json()
 
+    settings = get_app_settings()
+
     # Smoke Test - Test the endpoint returns something that's a the expected shape
     assert as_dict["emailReady"] in [True, False]
     assert as_dict["ldapReady"] in [True, False]
+    assert as_dict["oidcReady"] in [True, False]
     assert as_dict["baseUrlSet"] in [True, False]
     assert as_dict["isUpToDate"] in [True, False]
+
+    # The disabled flags report whether the auth provider is turned off entirely,
+    # which is independent of whether its remaining settings are fully configured
+    assert as_dict["ldapDisabled"] == (not settings.LDAP_AUTH_ENABLED)
+    assert as_dict["oidcDisabled"] == (not settings.OIDC_AUTH_ENABLED)

@@ -41,7 +41,11 @@ export const useMealieAuth = function () {
     const params = new URLSearchParams(window.location.search);
     const { data: token } = await $axios.get<{ access_token: string; token_type: "bearer" }>("/api/auth/oauth/callback", { params });
     auth.setToken(token.access_token);
+
     await auth.getSession();
+    if (auth.status.value !== "authenticated") {
+      throw new Error("OIDC sign-in succeeded but the session could not be established");
+    }
   }
 
   return {
@@ -50,7 +54,7 @@ export const useMealieAuth = function () {
     token: auth.token,
     signIn: auth.signIn,
     signOut: auth.signOut,
-    refresh: auth.refresh,
+    getSession: auth.getSession,
     oauthSignIn,
   };
 };

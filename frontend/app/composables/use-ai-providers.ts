@@ -45,11 +45,21 @@ export function useAIProviders() {
     }
   }
 
+  async function testOne(payload: AIProviderCreate) {
+    return await api.aiProviders.testOne(payload);
+  }
+
+  async function testSavedOne(id: string, overrides?: AIProviderUpdate & { apiKey?: string }) {
+    return await api.aiProviders.testSavedOne(id, overrides);
+  }
+
   return {
     loading: readonly(loading),
     getOne,
     createOne,
     updateOne,
     deleteOne,
+    testOne,
+    testSavedOne,
   };
 }

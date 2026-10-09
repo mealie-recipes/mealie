@@ -158,6 +158,7 @@
       <AppLoader
         v-if="loading"
         :loading="loading"
+        :waiting-text="$t('general.loading-recipes')"
       />
     </v-fade-transition>
     <AppScrollToTop />

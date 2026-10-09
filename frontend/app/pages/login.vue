@@ -216,6 +216,7 @@ import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";
 import { useAsyncKey } from "~/composables/use-utils";
+import { isSafeRedirectTarget } from "~/lib/validators/redirect";
 import type { AppStartupInfo } from "~/lib/api/types/admin";
 import { useUserActivityPreferences } from "~/composables/use-users/preferences";
 
@@ -246,7 +247,12 @@ useSeoMeta({
 const form = reactive({
   email: "",
   password: "",
-  remember: false,
+  // Defaults on: this is a self-hosted app people mostly reach from their own devices, and an
+  // unticked box now ends the session when the browser closes.
+  // Ideally this is off by default, but we've trained users for years to ignore this checkbox,
+  // so turning it off would cause a headache for the majority of users.
+  // Maybe we can revisit this in the future.
+  remember: true,
 });
 
 useAsyncData(useAsyncKey(), async () => {
@@ -275,7 +281,7 @@ whenever(
     // the query string).
     const redirectFromQuery = route.query.redirect as string | undefined;
     const redirectTarget = redirectFromQuery ?? pendingShareRedirect.value;
-    if (redirectTarget && redirectTarget.startsWith("/")) {
+    if (isSafeRedirectTarget(redirectTarget)) {
       pendingShareRedirect.value = null;
       router.push(redirectTarget);
       return;
@@ -339,7 +345,7 @@ async function oidcAuthenticate(callback = false) {
     // The OIDC callback reloads the page, which clears the query string, so we
     // persist the target in sessionStorage and restore it after login.
     const redirectTarget = route.query.redirect as string | undefined;
-    if (redirectTarget && redirectTarget.startsWith("/")) {
+    if (isSafeRedirectTarget(redirectTarget)) {
       pendingShareRedirect.value = redirectTarget;
     }
     navigateTo("/api/auth/oauth", { external: true }); // start the redirect process

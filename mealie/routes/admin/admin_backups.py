@@ -11,7 +11,6 @@ from mealie.pkgs.stats.fs_stats import pretty_size
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin.backup import AllBackups, BackupFile
 from mealie.schema.response.responses import ErrorResponse, FileTokenResponse, SuccessResponse
-from mealie.services.backups_v2.backup_v2 import BackupSchemaMismatch, BackupV2
 
 logger = get_logger()
 router = APIRouter(prefix="/backups")
@@ -43,6 +42,8 @@ class AdminBackupController(BaseAdminController):
 
     @router.post("", status_code=status.HTTP_201_CREATED, response_model=SuccessResponse)
     def create_one(self):
+        from mealie.services.backups_v2.backup_v2 import BackupV2
+
         backup = BackupV2()
 
         try:
@@ -102,6 +103,8 @@ class AdminBackupController(BaseAdminController):
 
     @router.post("/{file_name}/restore", response_model=SuccessResponse)
     def import_one(self, file_name: str):
+        from mealie.services.backups_v2.backup_v2 import BackupSchemaMismatch, BackupV2
+
         backup = BackupV2()
 
         file = self._backup_path(file_name)

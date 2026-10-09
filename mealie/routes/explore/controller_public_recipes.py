@@ -13,6 +13,7 @@ from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery, RecipeSuggestionResponse
 from mealie.schema.response.pagination import PaginationBase, PaginationQuery, RecipeSearchQuery
+from mealie.services.query_filter.builder import QueryFilterBuilder
 
 router = APIRouter(prefix="/recipes")
 
@@ -59,10 +60,7 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
                 raise COOKBOOK_NOT_FOUND_EXCEPTION
 
         public_filter = "(household.preferences.privateHousehold = FALSE AND settings.public = TRUE)"
-        if q.query_filter:
-            q.query_filter = f"({q.query_filter}) AND {public_filter}"
-        else:
-            q.query_filter = public_filter
+        q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, public_filter)
 
         pagination_response = self.cross_household_recipes.page_all(
             pagination=q,
@@ -99,10 +97,7 @@ class PublicRecipesController(BasePublicHouseholdExploreController):
         tools: list[UUID4] | None = Query(None),
     ) -> RecipeSuggestionResponse:
         public_filter = "(household.preferences.privateHousehold = FALSE AND settings.public = TRUE)"
-        if q.query_filter:
-            q.query_filter = f"({q.query_filter}) AND {public_filter}"
-        else:
-            q.query_filter = public_filter
+        q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, public_filter)
 
         recipes = self.cross_household_recipes.find_suggested_recipes(q, foods, tools)
         response = RecipeSuggestionResponse(items=recipes)

@@ -23,9 +23,10 @@
         <v-list-item
           v-for="(item, i) in model"
           :key="i"
-          :href="!edit ? assetURL(item.fileName ?? '') : ''"
-          target="_blank"
+          :href="!edit && !isImage(item.fileName) ? assetURL(item.fileName ?? '') : undefined"
+          :target="!edit && !isImage(item.fileName) ? '_blank' : undefined"
           class="pr-2"
+          @click="handleRowClick($event, item)"
         >
           <template #prepend>
             <v-avatar size="48" rounded="lg" class="elevation-1">
@@ -58,16 +59,18 @@
               </template>
               <v-list density="compact" min-width="220">
                 <v-list-item
-                  :href="assetURL(item.fileName ?? '')"
+                  :href="!isImage(item.fileName) ? assetURL(item.fileName ?? '') : undefined"
+                  :target="!isImage(item.fileName) ? '_blank' : undefined"
                   :prepend-icon="$globals.icons.eye"
                   :title="$t('general.view')"
-                  target="_blank"
+                  @click="handleViewClick($event, item)"
                 />
                 <v-list-item
                   :href="assetURL(item.fileName ?? '')"
                   :prepend-icon="$globals.icons.download"
                   :title="$t('general.download')"
                   download
+                  @click.stop
                 />
                 <v-list-item
                   v-if="edit"
@@ -89,6 +92,7 @@
               variant="plain"
               :href="assetURL(item.fileName ?? '')"
               download
+              @click.stop
             >
               <v-icon> {{ $globals.icons.download }} </v-icon>
             </v-btn>
@@ -96,6 +100,12 @@
         </v-list-item>
       </v-list>
     </v-card>
+    <RecipeImageLightbox
+      v-if="lightbox.open"
+      v-model="lightbox.open"
+      :image-url="lightbox.imageUrl"
+      :image-alt="lightbox.imageAlt"
+    />
     <div class="d-flex ml-auto mt-2">
       <v-spacer />
       <BaseDialog
@@ -125,7 +135,7 @@
                   <template #prepend>
                     <v-avatar>
                       <v-icon>
-                        {{ item.raw.icon }}
+                        {{ item.icon }}
                       </v-icon>
                     </v-avatar>
                   </template>
@@ -220,6 +230,37 @@ function getIconDefinition(icon: string) {
 function isImage(fileName?: string | null) {
   if (!fileName) return false;
   return /\.(png|jpe?g|gif|webp|bmp|avif)$/i.test(fileName);
+}
+
+const lightbox = reactive({
+  open: false,
+  imageUrl: undefined as string | undefined,
+  imageAlt: undefined as string | undefined,
+});
+
+function openLightbox(item: RecipeAsset) {
+  lightbox.imageUrl = assetURL(item.fileName ?? "");
+  lightbox.imageAlt = item.name;
+  lightbox.open = true;
+}
+
+function handleViewClick(event: Event, item: RecipeAsset) {
+  if (!isImage(item.fileName)) {
+    return;
+  }
+
+  event.preventDefault();
+  openLightbox(item);
+}
+
+// The row itself only opens the lightbox outside edit mode; the menu's view action
+// (which exists only while editing) goes straight to handleViewClick.
+function handleRowClick(event: Event, item: RecipeAsset) {
+  if (props.edit) {
+    return;
+  }
+
+  handleViewClick(event, item);
 }
 
 const { recipeAssetPath } = useStaticRoutes();

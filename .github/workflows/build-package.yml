@@ -11,53 +11,8 @@ on:
         type: string
 
 jobs:
-  build-frontend:
-    name: Build frontend
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout 🛎
-        uses: actions/checkout@v6
-        with:
-          ref: ${{ inputs.ref || github.sha }}
-
-      - name: Setup node env 🏗
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-          check-latest: true
-
-      - name: Get yarn cache directory path 🛠
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
-      - name: Cache node_modules 📦
-        uses: actions/cache@v5
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
-
-      - name: Install dependencies 👨🏻‍💻
-        run: yarn
-        working-directory: "frontend"
-
-      - name: Run Build 🚚
-        run: yarn generate
-        working-directory: "frontend"
-
-      - name: Archive built frontend
-        uses: actions/upload-artifact@v6
-        with:
-          name: frontend-dist
-          path: frontend/dist
-          retention-days: 5
-
   build-package:
-    name: Build Python package
-    needs: build-frontend
+    name: Build frontend and wheel
     runs-on: ubuntu-latest
 
     steps:
@@ -72,25 +27,43 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.sha }}
 
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 11
+
+      - name: Setup node env 🏗
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: "pnpm"
+          cache-dependency-path: "**/pnpm-lock.yaml"
+
+      - name: Install dependencies 👨🏻‍💻
+        run: pnpm install --prefer-offline
+        working-directory: "frontend"
+
+      - name: Run Build 🚚
+        run: pnpm generate
+        working-directory: "frontend"
+
       - name: Set up python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.12"
+          python-version: "3.14"
 
       - name: Install uv
         run: pip install uv
 
-      - name: Retrieve built frontend
-        uses: actions/download-artifact@v6
-        with:
-          name: frontend-dist
-          path: mealie/frontend
+      - name: Copy the frontend into the package
+        run: |
+          rm -rf mealie/frontend
+          cp -a frontend/dist mealie/frontend
 
       - name: Override __init__.py
         run: |
           echo "__version__ = \"${{ inputs.tag }}\"" > ./mealie/__init__.py
 
-      - name: Build package and requirements.txt
+      - name: Build package and requirements files
         env:
           SKIP_PACKAGE_DEPS: true
         run: |

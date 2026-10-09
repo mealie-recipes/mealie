@@ -11,10 +11,13 @@ Mealie offers several ways to create recipes:
 - **Recipe HTML or JSON:** Copy/paste structured HTML or JSON and Mealie can import it.
 - **Manual Editor:** Create recipes from scratch using the integrated editor.
 
-Mealie's [AI integration](./installation/ai-providers.md) greatly expands the ways you can create recipes:
+Mealie's [AI integration](./installation/ai-providers.md) adds an **Import with AI** page, which creates a recipe out of just about anything:
 
-- **Image Import:** Upload an image of a written or typed recipe and Mealie will use OCR and AI to import it.
-- **Video URL Import:** Provide a video URL (e.g., YouTube) and Mealie will transcribe the audio and turn it into a recipe.
+- **A URL:** Mealie reads the page, or, for a video URL (e.g., YouTube or Instagram), transcribes the audio.
+- **Images:** Upload photos of a written or typed recipe and Mealie will read them.
+- **Text:** Paste a recipe as plain text, HTML, or JSON.
+
+Everything you provide is read and combined into a single recipe, so you can pair a link or photos with a few notes of your own to name the recipe or correct a detail.
 
 [Creation Demo](https://demo.mealie.io/g/home/r/create/url){ .md-button .md-button--primary .align-right }
 
@@ -64,13 +67,14 @@ Each of the above organizers can be filtered in searches and have their own page
 
 #### Cookbooks
 
-Mealie also has the concept of cookbooks. These can be created inside of a group and can use a cross section of Categories, Tags, and Tools to filter recipes and view them in one specific page. Cookbooks are a great way to keep a subset of recipes easily accessible to you. You can think of them as a saved search results page. While most examples are simple, you can use as many organizers to filter a cookbook as you'd like.
+Mealie also has the concept of cookbooks. These can be created inside of a group and can use a cross section of Categories, Tags, and Tools to filter recipes and view them in one specific page. Recipes can also be filtered by their ingredients, either by a specific food or by the Food Label a food belongs to. Cookbooks are a great way to keep a subset of recipes easily accessible to you. You can think of them as a saved search results page. While most examples are simple, you can use as many organizers to filter a cookbook as you'd like.
 
 #### Examples:
 
 - Main Courses: This cookbooks has all the recipes that have the **Dinner** category
 - Pasta Sides: Recipes that have both the **Side** category and the **Pasta** tag
 - Dessert Breads: Recipes that have both the **Bread** category and the **Dessert** tag
+- Seafood: Recipes with an ingredient whose food carries the **Fish** label
 
 [Cookbooks Demo](https://demo.mealie.io/g/home/cookbooks){ .md-button .md-button--primary }
 
@@ -79,13 +83,13 @@ Mealie also has the concept of cookbooks. These can be created inside of a group
 Mealie uses a calendar like view to help you plan your meals. It shows you the previous day and the next 6 days by default. You can toggle through the calendar by clicking the arrows on the top of the page. In editor mode, you can use the random recipe buttons or manually add an entry.
 
 !!! tip
-    You can also add a "Note" type entry to your meal-plan when you want to include something that might not have a specific recipes. This is great for leftovers, or for ordering out.
+    You can also add a "Note" type entry to your meal plan when you want to include something that might not have a specific recipes. This is great for leftovers, or for ordering out.
 
-[Mealplanner Demo](https://demo.mealie.io/household/mealplan/planner/view){ .md-button .md-button--primary }
+[Meal Planner Demo](https://demo.mealie.io/household/mealplan/planner/view){ .md-button .md-button--primary }
 
 ### Planner Rules
 
-The meal planner has the concept of plan rules. These offer a flexible way to use your organizers to customize how a random recipe is inserted into your meal plan. You can set rules to restrict the pool of recipes based on the Tags and/or Categories of a recipe. Additionally, since meal plans have a Breakfast, Lunch, Dinner, and Snack labels, you can specifically set a rule to be active for a **specific meal type** or even a **specific day of the week.**
+The meal planner has the concept of plan rules. These offer a flexible way to use your organizers to customize how a random recipe is inserted into your meal plan. You can set rules to restrict the pool of recipes based on the Tags and/or Categories of a recipe, or on its ingredients. Ingredients can be matched by their Food Label as well, so a "fish day" only takes one rule instead of a list of every fish you cook with. Additionally, since meal plans have a Breakfast, Lunch, Dinner, and Snack labels, you can specifically set a rule to be active for a **specific meal type** or even a **specific day of the week.**
 
 [Planner Settings Demo](https://demo.mealie.io/household/mealplan/settings){ .md-button .md-button--primary }
 
@@ -127,7 +131,7 @@ Notifiers are event-driven notifications sent when specific actions are performe
 
 - Creating / Updating a recipe
 - Adding items to a shopping list
-- Creating a new mealplan
+- Creating a new meal plan
 
 Notifiers use the [Apprise library](https://github.com/caronc/apprise/wiki), which integrates with a large number of notification services. In addition, certain custom notifiers send basic event data to the consumer (e.g. the `id` of the resource). These include:
 
@@ -139,7 +143,7 @@ Notifiers use the [Apprise library](https://github.com/caronc/apprise/wiki), whi
 
 ### Webhooks
 
-Unlike notifiers, which are event-driven notifications, Webhooks allow you to send scheduled notifications to your desired endpoint. Webhooks are sent on the day of a scheduled mealplan, at the specified time, and contain the mealplan data in the request.
+Unlike notifiers, which are event-driven notifications, Webhooks allow you to send scheduled notifications to your desired endpoint. Webhooks are sent on the day of a scheduled meal plan, at the specified time, and contain the meal plan data in the request.
 
 [Webhooks Demo](https://demo.mealie.io/household/webhooks){ .md-button .md-button--primary }
 

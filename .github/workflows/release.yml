@@ -37,7 +37,7 @@ jobs:
         run: |
           sed -i 's/^version = "[^"]*"/version = "${{ env.VERSION_NUM }}"/' pyproject.toml
           sed -i '/^name = "mealie"$/,/^version = / s/^version = "[^"]*"/version = "${{ env.VERSION_NUM }}"/' uv.lock
-          sed -i 's/\("version": "\)[^"]*"/\1${{ env.VERSION_NUM }}"/' frontend/package.json
+          sed -i '0,/"version": "/{s/\("version": "\)[^"]*"/\1${{ env.VERSION_NUM }}"/}' frontend/package.json
           sed -i 's/:v[0-9]*\.[0-9]*\.[0-9]*/:v${{ env.VERSION_NUM }}/' docs/docs/documentation/getting-started/installation/installation-checklist.md
           sed -i 's/:v[0-9]*\.[0-9]*\.[0-9]*/:v${{ env.VERSION_NUM }}/' docs/docs/documentation/getting-started/installation/sqlite.md
           sed -i 's/:v[0-9]*\.[0-9]*\.[0-9]*/:v${{ env.VERSION_NUM }}/' docs/docs/documentation/getting-started/installation/postgres.md

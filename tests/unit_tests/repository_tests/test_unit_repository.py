@@ -4,6 +4,7 @@ import pytest
 from sqlalchemy.orm import Session
 
 from mealie.repos.all_repositories import AllRepositories, get_repositories
+from mealie.schema.household.group_shopping_list import ShoppingListItemCreate, ShoppingListSave
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientUnit
 from mealie.schema.user.user import GroupBase
@@ -142,3 +143,34 @@ def test_ignore_incomplete_standardization(unique_db: AllRepositories):
 
     assert unit_out.standard_quantity is None
     assert unit_out.standard_unit is None
+
+
+def test_unit_merger_with_shopping_list_reference(unique_user: TestUser):
+    """Merging a unit that a shopping list item points at should move the reference, not fail."""
+    database = unique_user.repos
+
+    unit_1 = database.ingredient_units.create(SaveIngredientUnit(name=random_string(10), group_id=unique_user.group_id))
+    unit_2 = database.ingredient_units.create(SaveIngredientUnit(name=random_string(10), group_id=unique_user.group_id))
+
+    shopping_list = database.group_shopping_lists.create(
+        ShoppingListSave(
+            name=random_string(10),
+            group_id=unique_user.group_id,
+            user_id=unique_user.user_id,
+        )
+    )
+
+    item = database.group_shopping_list_item.create(
+        ShoppingListItemCreate(
+            shopping_list_id=shopping_list.id,
+            note=random_string(10),
+            quantity=1,
+            unit_id=unit_2.id,
+        )
+    )
+
+    database.ingredient_units.merge(unit_2.id, unit_1.id)
+
+    updated_item = database.group_shopping_list_item.get_one(item.id)
+    assert updated_item
+    assert updated_item.unit_id == unit_1.id

@@ -76,9 +76,9 @@ function deleteAlias(index: number) {
   aliases.value.splice(index, 1);
 }
 
-const aliases = ref<GenericAlias[]>(props.data.aliases || []);
+const aliases = ref<GenericAlias[]>([]);
 function initAliases() {
-  aliases.value = [...props.data.aliases || []];
+  aliases.value = (props.data.aliases || []).map(alias => ({ ...alias }));
   if (!aliases.value.length) {
     createAlias();
   }
@@ -96,12 +96,14 @@ function saveAliases() {
   const seenAliasNames: string[] = [];
   const keepAliases: GenericAlias[] = [];
   aliases.value.forEach((alias) => {
+    const abbreviation = "abbreviation" in props.data ? props.data.abbreviation : undefined;
+    const pluralAbbreviation = "pluralAbbreviation" in props.data ? props.data.pluralAbbreviation : undefined;
     if (
       !alias.name
       || alias.name === props.data.name
       || alias.name === props.data.pluralName
-      || alias.name === props.data.abbreviation
-      || alias.name === props.data.pluralAbbreviation
+      || alias.name === abbreviation
+      || alias.name === pluralAbbreviation
       || seenAliasNames.includes(alias.name)
     ) {
       return;

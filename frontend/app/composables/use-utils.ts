@@ -35,7 +35,9 @@ const normalizeLigatures = replaceAllBuilder(new Map([
 ]));
 
 /**
- * @deprecated prefer fuse.js/use-search.ts
+ * @deprecated for general filtering, prefer fuse.js/use-search.ts.
+ * Still used by use-search.ts: its deterministic tiers need normalized
+ * comparison, which Fuse's single fuzzy score can't provide.
  */
 export const normalize = (str: string) => {
   if (!str) {

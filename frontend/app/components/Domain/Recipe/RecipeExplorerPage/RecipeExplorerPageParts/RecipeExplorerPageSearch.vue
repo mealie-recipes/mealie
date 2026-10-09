@@ -53,7 +53,7 @@
                 :active="state.orderBy === v.value"
                 slim
                 density="comfortable"
-                @click="v.value === 'random' ? setRandomOrderByWrapper() : setOrderBy(v.value)"
+                @click.stop="v.value === 'random' ? setRandomOrderByWrapper() : setOrderBy(v.value)"
               >
                 <template #prepend>
                   <v-icon>{{ v.icon }}</v-icon>

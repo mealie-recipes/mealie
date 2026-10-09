@@ -13,6 +13,7 @@
     <v-card-text class="mt-2">
       <v-form
         ref="domAccountForm"
+        v-model="isFormValid"
         @submit.prevent
       >
         <v-text-field
@@ -91,6 +92,8 @@ const inputAttrs = {
   class: "pb-1",
   variant: "solo-filled" as any,
 };
+const emit = defineEmits(["update:modelValue"]);
+const isFormValid = ref(false);
 
 const pwFields = usePasswordField();
 const {
@@ -102,6 +105,13 @@ const {
   validateEmail,
   domAccountForm,
 } = useUserRegistrationForm();
+watch(
+  isFormValid,
+  (val) => {
+    emit("update:modelValue", val);
+  },
+  { immediate: true },
+);
 </script>
 
 <style lang="css" scoped>

@@ -32,10 +32,10 @@ Make sure the VSCode Dev Containers extension is installed, then select "Dev Con
 
 ### Prerequisites
 
-- [Python 3.12](https://www.python.org/downloads/)
+- [Python 3.14](https://www.python.org/downloads/)
 - [uv](https://docs.astral.sh/uv/)
 - [Node](https://nodejs.org/en/)
-- [yarn](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable)
+- [pnpm](https://pnpm.io/installation)
 - [task](https://taskfile.dev/#/installation)
 
 ### Installing Dependencies

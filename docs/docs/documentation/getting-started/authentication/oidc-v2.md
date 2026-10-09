@@ -20,6 +20,21 @@ Signing in with OAuth will automatically find your account in Mealie and link to
 
 If a user previously accessed Mealie via credentials and you want to no longer allow users to log in with `LDAP` or `Mealie` credentials, then you can set the user's *Authentication Method* to `OIDC`. Conversely, if a user's auth method is not `OIDC`, then they can still log in with whatever their auth method is as well as OIDC.
 
+### Email Verification
+
+:octicons-tag-24: v3.21.0
+
+!!! warning "Breaking change in v3.21.0"
+    Mealie now requires your IdP to assert that the user's email address is verified. If your IdP does not emit the `email_verified` claim, logins will fail until you either configure the claim or set `OIDC_REQUIRES_EMAIL_VERIFICATION=false`.
+
+Because Mealie links an OIDC login to an existing account by matching on a claim (`OIDC_USER_CLAIM`, `email` by default), an IdP that lets a user self-assert an arbitrary, unverified email address would allow that user to log into someone else's Mealie account simply by claiming their email. To prevent this, Mealie requires the `email_verified` claim to be present and `true` before authenticating.
+
+Most identity providers (Authentik, Authelia, Keycloak, Google, Entra ID, ...) emit this claim as part of the `email` scope, and require no changes. If a login is rejected for this reason, the following is written to the server logs:
+
+    [OIDC] email_verified claim is missing or false; refusing to authenticate
+
+If your IdP cannot emit the claim, you can opt out by setting `OIDC_REQUIRES_EMAIL_VERIFICATION` to `false`. Only do this if you trust your IdP to not allow users to set an arbitrary email address on their own.
+
 ## Provider Setup
 
 Before you can start using OIDC Authentication, you must first configure a new client application in your identity provider. Your identity provider must support the OAuth **Authorization Code flow with PKCE**. The steps will vary by provider, but generally, the steps are as follows.
@@ -50,6 +65,8 @@ Before you can start using OIDC Authentication, you must first configure a new c
 
     The scopes required are `openid profile email`
 
+    The `email` scope is also what grants the `email_verified` claim required for [email verification](#email-verification)
+
     If you plan to use the [groups](#groups) to configure access within Mealie, you will need to also add the scope defined by the `OIDC_GROUPS_CLAIM` environment variable. The default claim is `groups`
 
 ## Mealie Setup
@@ -65,6 +82,35 @@ There are two (optional) [environment variables](../installation/backend-config.
 `OIDC_USER_GROUP`: Users must be a part of this group (within your IdP) to be able to log in.
 
 `OIDC_ADMIN_GROUP`: Users that are in this group (within your IdP) will be made an **admin** in Mealie. Users in this group do not need to be in the `OIDC_USER_GROUP`
+
+### Profile images
+
+If your IdP returns a `picture` claim, Mealie downloads that image on login and uses it as the user's avatar.
+
+The image is only re-downloaded when the claim's value changes, so repeat logins cost nothing.
+
+The claim's value is treated as untrusted input, because many IdPs let users edit their own profile — without that care, any user could point Mealie at an internal address. The rules are:
+
+- **On your provider's own host** (the host in `OIDC_CONFIGURATION_URL`): fetched as-is, including over plain HTTP and on a private address. This is what a self-hosted IdP on your LAN needs, and it reaches nothing Mealie doesn't already contact on every login.
+- **On any other host**: the URL must use HTTPS and must resolve to a public address.
+
+Redirects are followed, but every hop is checked against the same rules before it is requested — so a URL that passes cannot hand Mealie off to a host that would not. Either way the download is size-capped. An image that fails any check is skipped silently — it never blocks the login.
+
+## Native and mobile clients
+
+Native apps (mobile or desktop) authenticate using the **system browser** instead of an embedded WebView. This is required for **passkey-only** providers such as [Pocket ID](https://pocket-id.org), because WebAuthn/passkeys do not work inside embedded WebViews.
+
+Unlike the web flow, a native client performs its own [PKCE](https://oauth.net/2/pkce/) authorization request, captures the authorization code at an app-controlled redirect URI, and then has Mealie exchange it. No browser session cookie is involved, so the exchange works from a native HTTP client.
+
+These endpoints are available automatically whenever OIDC is configured — there is no separate flag to enable them:
+
+- `GET /api/auth/oauth/native/config` — returns the `authorization_endpoint`, `client_id`, and `scope` the client needs to build its own authorization request.
+- `POST /api/auth/oauth/native/token` — exchanges `{ code, code_verifier, redirect_uri, nonce? }` for a Mealie access token.
+
+The native flow reuses your existing **confidential** OIDC client and `OIDC_CLIENT_SECRET` — the same setup as the web flow. The only additional step is in your identity provider: **register the native client's redirect URI** (a custom scheme such as `app-scheme://oauth/callback`, supplied by the app) on the same OIDC client. The provider validates this redirect URI, so it is the access control for native logins — no Mealie-side configuration is required.
+
+!!! note
+    Providers that require a separate **public** (secret-less) native client — notably Google and Microsoft Entra — are not yet supported by this flow. Self-hosted providers that let you add a redirect URI to the existing confidential client (Pocket ID, Authentik, Authelia, Keycloak, …) work today.
 
 ## Examples
 

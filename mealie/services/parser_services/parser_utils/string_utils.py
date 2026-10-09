@@ -3,6 +3,7 @@ from fractions import Fraction
 
 compiled_match = re.compile(r"(.){1,6}\s\((.[^\(\)])+\)\s")
 compiled_search = re.compile(r"\((.[^\(])+\)")
+compiled_footnote = re.compile(r"\s*\*+\s*$")
 
 
 def move_parens_to_end(ing_str) -> str:
@@ -17,6 +18,15 @@ def move_parens_to_end(ing_str) -> str:
             ing_str = ing_str[:start] + ing_str[end:] + " " + ing_str[start:end]
 
     return ing_str
+
+
+def remove_footnote_markers(ing_str: str) -> str:
+    """
+    Removes trailing asterisks from an ingredient name. Some sites use them to
+    reference a footnote elsewhere on the page, so they are not part of the
+    food's name. Asterisks anywhere else in the string are left alone.
+    """
+    return compiled_footnote.sub("", ing_str)
 
 
 def check_char(char, *eql) -> bool:

@@ -6,6 +6,15 @@ export interface NutritionLabelType {
   };
 };
 
+export function parseNutritionValue(value: string | null | undefined): number | null {
+  if (!value) {
+    return null;
+  }
+
+  const parsedValue = Number.parseFloat(value);
+  return Number.isFinite(parsedValue) ? parsedValue : null;
+}
+
 export function useNutritionLabels() {
   const i18n = useI18n();
   const labels = <NutritionLabelType>{

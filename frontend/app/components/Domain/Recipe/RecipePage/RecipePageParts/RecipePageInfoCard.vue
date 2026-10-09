@@ -2,15 +2,15 @@
   <div>
     <div class="d-flex justify-end flex-wrap align-stretch">
       <RecipePageInfoCardImage
-        v-if="landscape"
+        v-if="landscape && recipe.image"
         :recipe="recipe"
       />
       <v-card
-        :width="landscape ? '100%' : '50%'"
+        :width="landscape || !recipe.image ? '100%' : '50%'"
         flat
         class="d-flex flex-column justify-center align-center"
       >
-        <v-card-text class="w-100">
+        <v-card-text>
           <div class="d-flex flex-column align-center">
             <v-card-title class="text-h5 font-weight-regular pa-0 text-wrap text-center opacity-80">
               {{ recipe.name }}
@@ -54,12 +54,15 @@
                 </v-col>
               </v-row>
             </div>
-            <div v-if="recipe.prepTime || recipe.totalTime || recipe.performTime" class="mx-6">
+            <div v-if="hasTime" class="mx-6">
               <RecipeTimeCard
                 container-class="d-flex flex-wrap justify-center"
                 :prep-time="recipe.prepTime"
                 :total-time="recipe.totalTime"
                 :perform-time="recipe.performTime"
+                :prep-time-seconds="recipe.prepTimeSeconds"
+                :total-time-seconds="recipe.totalTimeSeconds"
+                :perform-time-seconds="recipe.performTimeSeconds"
                 class="mb-4"
               />
             </div>
@@ -67,7 +70,7 @@
         </v-card-text>
       </v-card>
       <RecipePageInfoCardImage
-        v-if="!landscape"
+        v-if="!landscape && recipe.image"
         :recipe="recipe"
         max-width="50%"
         class="my-auto"
@@ -92,9 +95,14 @@ interface Props {
   landscape: boolean;
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   recipeScale: 1,
 });
 
 const { isOwnGroup } = useLoggedInState();
+
+const hasTime = computed(() => {
+  const { prepTime, totalTime, performTime, prepTimeSeconds, totalTimeSeconds, performTimeSeconds } = props.recipe;
+  return [prepTime, totalTime, performTime, prepTimeSeconds, totalTimeSeconds, performTimeSeconds].some(x => !!x);
+});
 </script>

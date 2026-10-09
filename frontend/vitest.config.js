@@ -11,13 +11,26 @@ export default {
     }),
   ],
   test: {
+    server: {
+      deps: {
+        inline: ["vuetify"],
+      },
+    },
     globals: true,
     environment: "jsdom",
     setupFiles: ["./app/tests/setup.ts"],
     coverage: {
       provider: "v8",
       include: ["app/{lib,components,composables,layouts,pages}/**/*.{ts,tsx,vue}"],
-      exclude: ["**/*.test.*", "node_modules/**", "dist/**", "coverage/**", "**/__tests__/**"],
+      exclude: [
+        "**/*.test.*",
+        "node_modules/**",
+        "dist/**",
+        "coverage/**",
+        "**/__tests__/**",
+        "app/lib/icons/**",
+        "app/lib/api/types/**",
+      ],
       reporter: ["html", "text-summary"],
       all: true,
     },

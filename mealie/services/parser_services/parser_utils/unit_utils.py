@@ -1,8 +1,11 @@
+from __future__ import annotations
+
+from functools import lru_cache
 from typing import TYPE_CHECKING, Literal, overload
 
-from pint import Quantity, Unit, UnitRegistry
-
 if TYPE_CHECKING:
+    from pint import Quantity, Unit, UnitRegistry
+
     from mealie.schema.recipe.recipe_ingredient import CreateIngredientUnit
 
 
@@ -17,9 +20,27 @@ class UnitNotFound(Exception):
         return f"{self.message}"
 
 
+@lru_cache(maxsize=1)
+def _shared_unit_registry() -> UnitRegistry:
+    from pint import UnitRegistry
+
+    return UnitRegistry()
+
+
 class UnitConverter:
-    def __init__(self):
-        self.ureg = UnitRegistry()
+    def __init__(self, *, private_registry: bool = False):
+        """Converters share one registry, since building one is expensive.
+
+        Pass `private_registry` before calling `define` on `ureg`, so the definition does not
+        reach every other converter.
+        """
+
+        if private_registry:
+            from pint import UnitRegistry
+
+            self.ureg = UnitRegistry()
+        else:
+            self.ureg = _shared_unit_registry()
 
     def _resolve_ounce(self, unit_1: Unit, unit_2: Unit) -> tuple[Unit, Unit]:
         """
@@ -53,6 +74,8 @@ class UnitConverter:
         If strict is True, raises UnitNotFound instead of returning a string.
         If the input is already a parsed pint.Unit, returns it as-is.
         """
+        from pint import Unit
+
         if isinstance(unit, Unit):
             return unit
 
@@ -65,6 +88,7 @@ class UnitConverter:
 
     def can_convert(self, unit: str | Unit, to_unit: str | Unit) -> bool:
         """Whether or not a given unit can be converted into another unit."""
+        from pint import Unit
 
         unit = self.parse(unit)
         to_unit = self.parse(to_unit)
@@ -119,7 +143,7 @@ def merge_quantity_and_unit[T: CreateIngredientUnit](
     PINT_UNIT_1_TXT = "_mealie_unit_1"
     PINT_UNIT_2_TXT = "_mealie_unit_2"
 
-    uc = UnitConverter()
+    uc = UnitConverter(private_registry=True)
 
     # pre-process units to account for ounce -> fluid_ounce conversion
     unit_1_standard = uc.parse(unit_1.standard_unit, strict=True)

@@ -70,7 +70,7 @@
 import type { IngredientFood, RecipeCategory, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { Organizer, type RecipeOrganizer } from "~/lib/api/types/non-generated";
 import type { HouseholdSummary } from "~/lib/api/types/household";
-import { useCategoryStore, useFoodStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
+import { useCategoryStore, useFoodStore, useLabelStore, useHouseholdStore, useTagStore, useToolStore } from "~/composables/store";
 import { useUserStore } from "~/composables/store/use-user-store";
 import { normalizeFilter } from "~/composables/use-utils";
 import type { UserSummary } from "~/lib/api/types/user";
@@ -124,6 +124,8 @@ const label = computed(() => {
       return i18n.t("tool.tools");
     case Organizer.Food:
       return i18n.t("general.foods");
+    case Organizer.Label:
+      return i18n.t("data-pages.foods.food-label");
     case Organizer.Household:
       return i18n.t("household.households");
     case Organizer.User:
@@ -147,6 +149,8 @@ const icon = computed(() => {
       return $globals.icons.tools;
     case Organizer.Food:
       return $globals.icons.foods;
+    case Organizer.Label:
+      return $globals.icons.tags;
     case Organizer.Household:
       return $globals.icons.household;
     case Organizer.User:
@@ -170,6 +174,7 @@ const storeMap = {
   [Organizer.Tag]: useTagStore(),
   [Organizer.Tool]: useToolStore(),
   [Organizer.Food]: useFoodStore(),
+  [Organizer.Label]: useLabelStore(),
   [Organizer.Household]: useHouseholdStore(),
   [Organizer.User]: useUserStore(),
 };
