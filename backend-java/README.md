@@ -2,7 +2,7 @@
 
 Spring Boot 4 / Java 21 backend that takes over Mealie's API from the Python backend route by route, behind the
 gateway described in [docs/rebuild/gateway.md](../docs/rebuild/gateway.md). It listens on **:9100**
-(`JAVA_API_PORT`). No API endpoints have been migrated yet.
+(`JAVA_API_PORT`). The gateway currently sends `GET /api/app/about` to Java; other routes remain on Python.
 
 ```bash
 task java           # run against the same database as `task py`
@@ -14,8 +14,9 @@ The build uses the Maven wrapper (`./mvnw`); the only prerequisite is a JDK 21.
 
 ## Database access
 
-The database layer is Spring JDBC (`JdbcTemplate` / `NamedParameterJdbcTemplate`) with plain SQL, with no JPA or
-Hibernate. The rules:
+The database layer uses MyBatis-Plus with mapper interfaces in `persistence/mapper/` and SQL XML files in
+`src/main/resources/mapper/`. Complex queries stay in XML; repositories convert mapper projections into domain
+records. There is no JPA or Hibernate. The rules:
 
 - **The schema belongs to Python/Alembic.** Java never runs DDL. `spring.sql.init.mode=never`, and SQLite is opened
   without the CREATE flag, so a missing database file is an error, not a new empty DB.
@@ -33,12 +34,8 @@ Hibernate. The rules:
   | NaiveDateTime (UTC)    | `timestamp without time zone`| TEXT `YYYY-MM-DD HH:MM:SS.ffffff`         |
   | Date                   | `date`                       | TEXT `YYYY-MM-DD`                         |
 
-  ```java
-  jdbc.query("SELECT id, admin, created_at FROM users WHERE group_id = :groupId",
-          new MapSqlParameterSource("groupId", dialect.uuid(groupId)),
-          (rs, i) -> new Row(dialect.getUuid(rs, "id"), dialect.getBool(rs, "admin"),
-                  dialect.getTimestamp(rs, "created_at")));
-  ```
+  Mapper parameters that refer to existing UUID columns must pass through `dialect.uuid(...)`. XML result maps use
+  the shared UUID and timestamp type handlers for values read from either engine.
 
   Always bind values as parameters. Never put a UUID or boolean literal into SQL text. SQLite compares datetimes as
   strings, so they must be written in exactly SQLAlchemy's format, which `dialect.timestamp()` does.

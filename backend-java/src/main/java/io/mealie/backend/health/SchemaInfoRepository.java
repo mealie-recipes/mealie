@@ -1,20 +1,20 @@
 package io.mealie.backend.health;
 
+import io.mealie.backend.persistence.mapper.SchemaInfoMapper;
 import java.util.Optional;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 @Repository
 public class SchemaInfoRepository {
 
-    private final JdbcTemplate jdbc;
+    private final SchemaInfoMapper mapper;
 
-    public SchemaInfoRepository(JdbcTemplate jdbc) {
-        this.jdbc = jdbc;
+    public SchemaInfoRepository(SchemaInfoMapper mapper) {
+        this.mapper = mapper;
     }
 
     /** The Alembic revision Python last migrated the shared schema to. */
     public Optional<String> alembicRevision() {
-        return jdbc.queryForList("SELECT version_num FROM alembic_version", String.class).stream().findFirst();
+        return Optional.ofNullable(mapper.findAlembicRevision());
     }
 }

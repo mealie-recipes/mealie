@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.mealie.backend.persistence.mapper.AppInfoMapper">
+
+    <resultMap id="publicGroupRow" type="io.mealie.backend.persistence.model.PublicGroupRow">
+        <constructor>
+            <idArg column="id" javaType="java.util.UUID"
+                   typeHandler="io.mealie.backend.persistence.typehandler.UuidTypeHandler"/>
+            <arg column="slug" javaType="java.lang.String"/>
+        </constructor>
+    </resultMap>
+
+    <select id="findPublicGroupByName" resultMap="publicGroupRow">
+        SELECT g.id, g.slug
+        FROM groups g
+        JOIN group_preferences gp ON gp.group_id = g.id
+        WHERE g.name = #{name}
+          AND (gp.private_group = FALSE OR gp.private_group IS NULL)
+    </select>
+
+    <select id="findPublicHouseholdSlug" resultType="java.lang.String">
+        SELECT h.slug
+        FROM households h
+        JOIN household_preferences hp ON hp.household_id = h.id
+        WHERE h.group_id = #{groupId}
+          AND h.name = #{name}
+          AND (hp.private_household = FALSE OR hp.private_household IS NULL)
+    </select>
+</mapper>

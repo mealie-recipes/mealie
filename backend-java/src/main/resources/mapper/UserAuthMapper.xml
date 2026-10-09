@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.mealie.backend.persistence.mapper.UserAuthMapper">
+
+    <resultMap id="userAuthRow" type="io.mealie.backend.persistence.model.UserAuthRow">
+        <constructor>
+            <idArg column="id" javaType="java.util.UUID"
+                   typeHandler="io.mealie.backend.persistence.typehandler.UuidTypeHandler"/>
+            <arg column="username" javaType="java.lang.String"/>
+            <arg column="group_id" javaType="java.util.UUID"
+                 typeHandler="io.mealie.backend.persistence.typehandler.UuidTypeHandler"/>
+            <arg column="household_id" javaType="java.util.UUID"
+                 typeHandler="io.mealie.backend.persistence.typehandler.UuidTypeHandler"/>
+            <arg column="admin" javaType="java.lang.Boolean"/>
+            <arg column="tokens_valid_after" javaType="java.time.OffsetDateTime"
+                 typeHandler="io.mealie.backend.persistence.typehandler.OffsetDateTimeTypeHandler"/>
+        </constructor>
+    </resultMap>
+
+    <sql id="userColumns">
+        u.id, u.username, u.group_id, u.household_id, u.admin, u.tokens_valid_after
+    </sql>
+
+    <select id="findById" resultMap="userAuthRow">
+        SELECT <include refid="userColumns"/>
+        FROM users u
+        WHERE u.id = #{id}
+    </select>
+
+    <select id="findByApiToken" resultMap="userAuthRow">
+        SELECT <include refid="userColumns"/>
+        FROM long_live_tokens t
+        JOIN users u ON u.id = t.user_id
+        WHERE t.token = #{token}
+          AND t.user_id = #{userId}
+    </select>
+</mapper>

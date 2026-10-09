@@ -20,6 +20,7 @@
     <properties>
         <java.version>21</java.version>
         <java-jwt.version>4.6.0</java-jwt.version>
+        <mybatis-plus.version>3.5.17</mybatis-plus.version>
         <sqlite-jdbc.version>3.53.4.0</sqlite-jdbc.version>
     </properties>
 
@@ -28,10 +29,10 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
-        <!-- Spring JDBC (JdbcTemplate / NamedParameterJdbcTemplate) + HikariCP. No JPA/Hibernate. -->
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-jdbc</artifactId>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-spring-boot4-starter</artifactId>
+            <version>${mybatis-plus.version}</version>
         </dependency>
 
         <dependency>

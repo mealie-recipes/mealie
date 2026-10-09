@@ -5,5 +5,11 @@
     "path": "/api/foods?page=1&perPage=50",
     "ignore": ["items.*.updatedAt"]
   },
-  "cases": []
+  "cases": [
+    {
+      "name": "public app information",
+      "method": "GET",
+      "path": "/api/app/about"
+    }
+  ]
 }

@@ -34,5 +34,6 @@
 	# for it that points at {$PYTHON_UPSTREAM}.
 	# ---------------------------------------------------------------------------------------------
 
+	reverse_proxy /api/app/about {$JAVA_UPSTREAM}
 	reverse_proxy {$PYTHON_UPSTREAM}
 }
