@@ -189,6 +189,8 @@ class LDAPProvider(CredentialsProvider):
 
         if settings.LDAP_ADMIN_FILTER:
             try:
+                # the connection is bound as the user at this point, who may not be allowed to search
+                conn.simple_bind_s(settings.LDAP_QUERY_BIND, settings.LDAP_QUERY_PASSWORD)
                 should_be_admin = len(conn.search_s(user_dn, ldap.SCOPE_BASE, settings.LDAP_ADMIN_FILTER, [])) > 0
             except (ldap.FILTER_ERROR, ldap.NO_SUCH_OBJECT) as e:
                 self._logger.warning(
