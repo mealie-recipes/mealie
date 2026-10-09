@@ -329,6 +329,10 @@
     "randomize-recipe": "Randomize Recipe"
   },
   "migration": {
+    "duplicate-recipes": "Previously imported recipes",
+    "skip-duplicates": "Skip duplicates",
+    "create-copies": "Create copies",
+    "duplicate-recipes-hint": "Skip matching recipes imported into this household after this feature was enabled. Your edits are preserved. Recipes imported earlier are not matched.",
     "new-migration": "New Migration",
     "no-file-selected": "No File Selected",
     "previous-migrations": "Previous Migrations",

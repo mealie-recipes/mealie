@@ -31,6 +31,7 @@ class GroupMigrationController(BaseUserController):
     def start_data_migration(
         self,
         add_migration_tag: bool = Form(False),
+        skip_duplicates: bool = Form(True),
         migration_type: SupportedMigrations = Form(...),
         archive: UploadFile = File(...),
     ):
@@ -47,6 +48,7 @@ class GroupMigrationController(BaseUserController):
                 "household_id": self.household_id,
                 "group_id": self.group_id,
                 "add_migration_tag": add_migration_tag,
+                "skip_duplicates": skip_duplicates,
                 "translator": self.translator,
             }
 
