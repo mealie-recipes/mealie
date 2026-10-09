@@ -17,9 +17,10 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.routing import APIRoute
 from starlette.middleware.sessions import SessionMiddleware
 
-from mealie.core.config import get_app_settings
+from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.core.root_logger import get_logger
 from mealie.core.settings.static import APP_VERSION
+from mealie.core.startup_coordinator import WorkerStartupCoordinator
 from mealie.middleware.locale_context import LocaleContextMiddleware
 from mealie.routes import router, spa, utility_routes
 from mealie.routes.handlers import register_debug_handler
@@ -59,14 +60,23 @@ async def lifespan_fn(_: FastAPI) -> AsyncGenerator[None]:
 
     See FastAPI documentation for more information:
       - https://fastapi.tiangolo.com/advanced/events/
+
+    Every uvicorn worker process runs this lifespan. With more than one worker, the
+    WorkerStartupCoordinator elects a single leader to run database initialization and
+    the scheduler; the other workers wait for initialization to finish and then serve
+    traffic without a scheduler.
     """
     logger.info("start: database initialization")
     import mealie.db.init_db as init_db
 
-    init_db.main()
-    logger.info("end: database initialization")
+    coordinator = WorkerStartupCoordinator(get_app_dirs().DATA_DIR)
 
-    await start_scheduler()
+    if await coordinator.elect():
+        init_db.main()
+        coordinator.publish_ready()
+        logger.info("end: database initialization")
+
+        await start_scheduler()
 
     logger.info("-----SYSTEM STARTUP-----")
     logger.info("------APP SETTINGS------")
