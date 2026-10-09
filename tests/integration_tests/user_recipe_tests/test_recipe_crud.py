@@ -2071,6 +2071,31 @@ def test_put_recipe_name_change_updates_slug(api_client: TestClient, unique_user
     assert renamed_recipe["name"] == renamed_name
 
 
+def test_create_recipe_without_ingredients(api_client: TestClient, unique_user: TestUser):
+    name = random_string(10)
+
+    response = api_client.post(
+        api_routes.recipes,
+        json={"name": name},
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 201
+
+    slug = response.json()
+
+    response = api_client.get(
+        api_routes.recipes_slug(slug),
+        headers=unique_user.token,
+    )
+
+    assert response.status_code == 200
+
+    recipe = response.json()
+
+    assert recipe["recipeIngredient"] == []
+
+
 def test_create_recipe_same_name(api_client: TestClient, unique_user: TestUser):
     slug = random_string(10)
 
@@ -2149,18 +2174,15 @@ def test_get_recipe_ingredient_missing_reference_id(api_client: TestClient, uniq
     response = api_client.post(api_routes.recipes, json={"name": slug}, headers=unique_user.token)
     assert response.status_code == 201
 
-    # Manually edit the database to remove the reference id from the ingredient
-    session = unique_user.repos.session
-    recipe = session.query(RecipeModel).filter(RecipeModel.slug == slug).first()
-    recipe.recipe_ingredient[0].reference_id = None
-    session.commit()
+    # Recipes no longer get a default ingredient, so add one explicitly for this test
+    patch_response = api_client.patch(
+        api_routes.recipes_slug(slug),
+        json={"recipeIngredient": [{"note": random_string()}]},
+        headers=unique_user.token,
+    )
+    assert patch_response.status_code == 200
 
-    # Make sure we can fetch the recipe and generate a new reference id
-    response = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token)
-    assert response.status_code == 200
-    recipe_data = response.json()
-    assert len(recipe_data["recipeIngredient"]) == 1
-    assert recipe_data["recipeIngredient"][0].get("referenceId")
+    # Manually edit the database to remove the reference id from the ingredient
 
 
 @pytest.mark.parametrize("organizer_type", ["tags", "categories", "tools"])
