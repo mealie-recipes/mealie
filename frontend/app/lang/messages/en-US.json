@@ -292,6 +292,7 @@
     "numberOfDaysPast-label": "Default Days in the Past",
     "numberOfDays-hint": "Number of days on page load",
     "numberOfDays-label": "Default Days",
+    "current-week": "Week",
     "side": "Side",
     "rule-day": "Rule Day",
     "meal-type": "Meal Type",

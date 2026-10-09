@@ -1,4 +1,8 @@
 {
+  "compact": {
+    "month": "short",
+    "day": "numeric"
+  },
   "short": {
     "month": "short",
     "day": "numeric",

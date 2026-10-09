@@ -7,7 +7,7 @@
       :shopping-lists="shoppingLists"
     />
     <div :class="`d-flex ga-2 ${$vuetify.display.xs ? 'justify-center' : 'justify-start'}`">
-      <v-btn :icon="$globals.icons.chevronLeft" flat rounded="md" density="comfortable" @click="() => changeWeek(-1)" />
+      <v-btn :icon="$globals.icons.chevronLeft" flat rounded="md" density="comfortable" @click="() => navigate(-1)" />
       <v-menu
         v-model="state.picker"
         :close-on-content-click="false"
@@ -24,17 +24,25 @@
             <v-icon start>
               {{ $globals.icons.calendar }}
             </v-icon>
+            <template v-if="currentWeekMode">
+              {{ $t("meal-plan.current-week") }}
+            </template>
             {{ $d(weekRange.start, "short") }} - {{ $d(weekRange.end, "short") }}
           </v-btn>
         </template>
 
         <v-card>
+          <v-card-text class="pb-0">
+            <v-switch v-model="currentWeekMode" :label="$t('meal-plan.current-week')" hide-details color="primary" />
+          </v-card-text>
+
           <MealPlanDatePicker
-            v-model="state.range"
+            :model-value="state.range"
             hide-header
             :multiple="'range'"
             :first-day-of-week="firstDayOfWeek"
             :local="$i18n.locale"
+            @update:model-value="onRangeInput"
           />
 
           <v-card-text>
@@ -60,7 +68,7 @@
           </v-card-text>
         </v-card>
       </v-menu>
-      <v-btn :icon="$globals.icons.chevronRight" flat rounded="md" density="comfortable" @click="() => changeWeek(1)" />
+      <v-btn :icon="$globals.icons.chevronRight" flat rounded="md" density="comfortable" @click="() => navigate(1)" />
     </div>
     <div class="d-flex justify-end">
       <BaseButtonGroup
@@ -101,10 +109,7 @@
       />
     </div>
     <div>
-      <NuxtPage
-        :mealplans="mealsByDate"
-        :actions="actions"
-      />
+      <NuxtPage :mealplans="mealsByDate" :actions="actions" />
     </div>
 
     <v-row />
@@ -112,10 +117,11 @@
 </template>
 
 <script setup lang="ts">
-import { addDays, differenceInCalendarDays, format, isSameDay, isValid, parseISO } from "date-fns";
+import { addDays, format, isSameDay, isValid, parseISO } from "date-fns";
 import RecipeDialogAddToShoppingList from "~/components/Domain/Recipe/RecipeDialogAddToShoppingList.vue";
 import { useAddToShoppingListDialog } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
 import { useMealplans } from "~/composables/use-group-mealplan";
+import { getCurrentWeekRange, navigateRange } from "~/composables/use-meal-plan-range";
 import { useHouseholdSelf } from "~/composables/use-households";
 import { useUserMealPlanPreferences } from "~/composables/use-users/preferences";
 
@@ -147,13 +153,17 @@ onMounted(() => {
 });
 
 const mealPlanPreferences = useUserMealPlanPreferences();
+const currentWeekMode = ref<boolean>(mealPlanPreferences.value.useCurrentWeek);
+
 const numberOfDaysPast = ref<number>(mealPlanPreferences.value.numberOfDaysPast || 0);
 const numberOfDays = ref<number>(mealPlanPreferences.value.numberOfDays || 7);
 watch(numberOfDaysPast, (val) => {
   mealPlanPreferences.value.numberOfDaysPast = Number(val);
+  currentWeekMode.value = false;
 });
 watch(numberOfDays, (val) => {
   mealPlanPreferences.value.numberOfDays = Number(val);
+  currentWeekMode.value = false;
 });
 
 // Force to /view if current route is /planner
@@ -172,15 +182,28 @@ function safeParseISO(date: string, fallback: Date | undefined = undefined) {
   try {
     const parsed = parseISO(date);
     return isValid(parsed) ? parsed : fallback;
-  }
-  catch {
+  } catch {
     return fallback;
   }
 }
 
+const firstDayOfWeek = computed(() => {
+  return household.value?.preferences?.firstDayOfWeek || 0;
+});
+
 // Initialize dates from query parameters or defaults
-const initialStartDate = safeParseISO(route.query.start as string, addDays(new Date(), adjustForToday(-numberOfDaysPast.value)));
-const initialEndDate = safeParseISO(route.query.end as string, addDays(new Date(), adjustForToday(numberOfDays.value)));
+let initialStartDate: Date;
+let initialEndDate: Date;
+
+if (currentWeekMode.value) {
+  [initialStartDate, initialEndDate] = getCurrentWeekRange(firstDayOfWeek.value);
+} else {
+  initialStartDate = safeParseISO(
+    route.query.start as string,
+    addDays(new Date(), adjustForToday(-numberOfDaysPast.value))
+  );
+  initialEndDate = safeParseISO(route.query.end as string, addDays(new Date(), adjustForToday(numberOfDays.value)));
+}
 
 const state = ref({
   range: [initialStartDate, initialEndDate] as [Date, Date],
@@ -189,17 +212,38 @@ const state = ref({
   end: initialEndDate,
 });
 
-const firstDayOfWeek = computed(() => {
-  return household.value?.preferences?.firstDayOfWeek || 0;
+let suppressCurrentWeekModeRangeReset = false;
+
+watch(currentWeekMode, (val) => {
+  mealPlanPreferences.value.useCurrentWeek = val;
+  if (suppressCurrentWeekModeRangeReset) {
+    suppressCurrentWeekModeRangeReset = false;
+    return;
+  }
+  if (val) {
+    const [start, end] = getCurrentWeekRange(firstDayOfWeek.value);
+    state.value.range = [start, end];
+  } else {
+    const start = addDays(new Date(), adjustForToday(-numberOfDaysPast.value));
+    const end = addDays(new Date(), adjustForToday(numberOfDays.value));
+    state.value.range = [start, end];
+  }
 });
 
-function changeWeek(step: number) {
-  const { start, end } = weekRange.value;
-  const stepSize = differenceInCalendarDays(end, start) + 1;
-  state.value.range = [
-    addDays(start, step * stepSize),
-    addDays(end, step * stepSize),
-  ];
+watch(firstDayOfWeek, () => {
+  if (currentWeekMode.value) {
+    const [start, end] = getCurrentWeekRange(firstDayOfWeek.value);
+    state.value.range = [start, end];
+  }
+});
+
+// User-driven date picker changes take priority over "Current Week" mode.
+function onRangeInput(val: [Date, Date]) {
+  state.value.range = val;
+  if (currentWeekMode.value) {
+    suppressCurrentWeekModeRangeReset = true;
+    currentWeekMode.value = false;
+  }
 }
 
 const weekRange = computed(() => {
@@ -218,18 +262,22 @@ const weekRange = computed(() => {
 });
 
 // Update query parameters when date range changes
-watch(weekRange, (newRange) => {
-  // Keep current route name and params, just update the query
-  router.replace({
-    name: route.name || TABS.view,
-    params: route.params,
-    query: {
-      ...route.query,
-      start: format(newRange.start, "yyyy-MM-dd"),
-      end: format(newRange.end, "yyyy-MM-dd"),
-    },
-  });
-}, { immediate: true });
+watch(
+  weekRange,
+  (newRange) => {
+    // Keep current route name and params, just update the query
+    router.replace({
+      name: route.name || TABS.view,
+      params: route.params,
+      query: {
+        ...route.query,
+        start: format(newRange.start, "yyyy-MM-dd"),
+        end: format(newRange.end, "yyyy-MM-dd"),
+      },
+    });
+  },
+  { immediate: true }
+);
 
 const { mealplans, actions } = useMealplans(weekRange);
 
@@ -247,20 +295,23 @@ function adjustForToday(days: number) {
   return days > 0 ? days - 1 : days;
 }
 
+function navigate(direction: -1 | 1) {
+  const { start, end } = weekRange.value;
+  state.value.range = navigateRange(start, end, direction);
+}
+
 const days = computed(() => {
-  const numDays
-    = Math.floor((weekRange.value.end.getTime() - weekRange.value.start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+  const numDays =
+    Math.floor((weekRange.value.end.getTime() - weekRange.value.start.getTime()) / (1000 * 60 * 60 * 24)) + 1;
 
   // Calculate absolute value
   if (numDays < 0) return [];
 
-  return Array.from(Array(numDays).keys()).map(
-    (i) => {
-      const date = new Date(weekRange.value.start.getTime());
-      date.setDate(date.getDate() + i);
-      return date;
-    },
-  );
+  return Array.from(Array(numDays).keys()).map((i) => {
+    const date = new Date(weekRange.value.start.getTime());
+    date.setDate(date.getDate() + i);
+    return date;
+  });
 });
 
 const mealsByDate = computed(() => {
@@ -270,7 +321,7 @@ const mealsByDate = computed(() => {
 });
 
 const hasRecipes = computed(() => {
-  return mealsByDate.value.some(day => day.meals.some(meal => meal.recipe));
+  return mealsByDate.value.some((day) => day.meals.some((meal) => meal.recipe));
 });
 
 const weekRecipesWithScales = computed(() => {
