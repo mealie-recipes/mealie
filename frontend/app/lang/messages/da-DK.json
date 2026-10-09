@@ -918,6 +918,8 @@
       "food-data": "Oplysninger om fødevare",
       "label-overwrite-warning": "Dette vil tildele den valgte etiket til alle udvalgte fødevarer og potentielt overskrive dine eksisterende etiketter.",
       "on-hand-checkbox-label": "Ændring af dette flag ændrer markeringen, så denne fødevare ikke er markeret som standard, når du tilføjer en opskrift til en indkøbsliste.",
+      "delete-unused-confirm": "Er det OK at slette denne ubrugte ingrediens? Det kan ikke gøres om. | Er det OK at slette disse {count} ubrugte ingredienser? Det kan ikke gøres om.",
+      "no-unused-foods": "Ingen ubrugte ingredienser til sletning",
       "substitutions": "Erstatninger",
       "manage-substitutions": "Håndtér erstatninger",
       "substitution-dialog-text": "Foreslå ingredienser, der kan benyttes i stedet for {food}. En erstatningsterm kan være en ingrediens, en note, eller begge.",
@@ -956,7 +958,14 @@
       "edit-label": "Redigér etiket",
       "new-label": "Ny etiket",
       "labels": "Etiketter",
-      "assign-label": "Tildel etiket"
+      "assign-label": "Tildel etiket",
+      "combine-label": "Kombinér etiketter",
+      "source-label": "Kildeetiket",
+      "target-label": "Måletiket",
+      "merge-dialog-text": "At kombinere de valgte etiketter vil flette kilde- og måletiketten sammen til en enkelt etiket. Kildeetiketten vil blive slettet, og alle referencer til den vil blive ændret til at pege på måletiketten.",
+      "merge-label-example": "Fletter {label1} sammen med {label2}",
+      "delete-unused-confirm": "Er det OK at slette denne ubrugte etiket? Det kan ikke gøres om. | Er det OK at slette disse {count} ubrugte etiketter? Det kan ikke gøres om.",
+      "no-unused-labels": "Ingen ubrugte etiketter at slette"
     },
     "recipes": {
       "purge-exports": "Slet eksporter",
@@ -1029,7 +1038,14 @@
     "tools": {
       "new-tool": "Nyt redskab",
       "edit-tool": "Redigér redskaber",
-      "tool-data": "Redskabsoplysninger"
+      "tool-data": "Redskabsoplysninger",
+      "combine-tool": "Kombinér redskaber",
+      "source-tool": "Kilderedskab",
+      "target-tool": "Målredskab",
+      "merge-dialog-text": "At kombinere de valgte redskaber vil flette kilde- og målaredskabet sammen til et enkelt redskab. Kilderedskabet vil blive slettet, og alle referencer til den vil blive ændret til at pege på målredskabet.",
+      "merge-tool-example": "Fletter {tool1} sammen med {tool2}",
+      "delete-unused-confirm": "Er det OK at slette dette ubrugte redskab? Dette kan ikke omgøres. | Er det OK at slette disse {count} ubrugte redskaber? Dette kan ikke omgøres.",
+      "no-unused-tools": "Ingen ubrugte redskaber at slette"
     }
   },
   "user-registration": {
@@ -1205,7 +1221,9 @@
       "is-less-than": "er mindre end (Automatic Translation)",
       "is-less-than-or-equal-to": "er mindre end eller lig med (Automatic Translation)",
       "is-older-than": "er ældre end",
-      "is-newer-than": "er nyere end"
+      "is-newer-than": "er nyere end",
+      "has-a-value": "har værdien",
+      "has-no-value": "har ingen værdi"
     },
     "relational-keywords": {
       "is": "er",

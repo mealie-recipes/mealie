@@ -918,6 +918,8 @@
       "food-data": "Toidu andmed",
       "label-overwrite-warning": "See määrab valitud sildi kõigile valitud toitudele ja potentsiaalselt asendab olemasolevad sildid.",
       "on-hand-checkbox-label": "Sildi valimine eemaldab toidu vaikimisi nimekirjast kui lisate retsepti ostunimekirja.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -956,7 +958,14 @@
       "edit-label": "Muuda silti",
       "new-label": "Uus silt",
       "labels": "Sildid",
-      "assign-label": "Määra silt"
+      "assign-label": "Määra silt",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Puhasta ekspordid",
@@ -1029,7 +1038,14 @@
     "tools": {
       "new-tool": "Uus tööriist",
       "edit-tool": "Muuda tööriista",
-      "tool-data": "Tööriista andmed"
+      "tool-data": "Tööriista andmed",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1205,7 +1221,9 @@
       "is-less-than": "on vähem kui",
       "is-less-than-or-equal-to": "on väiksem või võrdne kui",
       "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-newer-than": "is newer than",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "on",

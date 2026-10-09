@@ -918,6 +918,8 @@
       "food-data": "식품 데이터",
       "label-overwrite-warning": "이 작업은 선택한 라벨을 모든 선택된 식품에 할당하며, 기존 라벨을 덮어쓸 수 있습니다.",
       "on-hand-checkbox-label": "이 플래그를 설정하면 장보기 목록에 레시피를 추가할 때 이 식품이 기본적으로 선택 해제된 상태로 표시됩니다.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -956,7 +958,14 @@
       "edit-label": "라벨 편집",
       "new-label": "새 라벨",
       "labels": "라벨",
-      "assign-label": "라벨 할당"
+      "assign-label": "라벨 할당",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "내보내기 데이터 삭제",
@@ -1029,7 +1038,14 @@
     "tools": {
       "new-tool": "새 도구",
       "edit-tool": "도구 편집",
-      "tool-data": "도구 데이터"
+      "tool-data": "도구 데이터",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1205,7 +1221,9 @@
       "is-less-than": "다음보다 작음",
       "is-less-than-or-equal-to": "다음보다 작거나 같음",
       "is-older-than": "~보다 오래됨",
-      "is-newer-than": "~보다 최근임"
+      "is-newer-than": "~보다 최근임",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "같음",

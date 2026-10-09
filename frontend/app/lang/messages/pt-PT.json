@@ -590,8 +590,8 @@
     "report-deletion-failed": "Erro ao eliminar relatório",
     "recipe-debugger": "Depurador de Receitas",
     "recipe-debugger-description": "Copie o URL da receita que quer depurar e cole-o aqui. O URL será lido pelo leitor de receitas e os resultados serão apresentados. Se nenhuma informação for devolvida, a página que está a tentar ler não é suportada pelo Mealie ou pela sua biblioteca de 'scrapping'.",
-    "use-ai": "Use AI",
-    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-ai": "Use IA",
+    "recipe-debugger-use-ai-description": "Utilize a IA para analisar os resultados em vez de depender da biblioteca de scraping. Ao criar uma receita via URL, isto é feito automaticamente no caso de a biblioteca de scraping falhar, mas pode testar esta funcionalidade manualmente aqui.",
     "debug": "Depurar",
     "tree-view": "Vista em árvore",
     "recipe-servings": "Porções por receita",
@@ -616,9 +616,9 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Processador de Linguagem Natural",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
+      "natural-language-processor-english-only": "O processador de linguagem natural é treinado com receitas em inglês. Para receitas noutras línguas, geralmente reconhece a quantidade, mas não a unidade; por esta razão, o *Brute Parser* ou o Analisador de IA tendem a apresentar melhores resultados.",
       "brute-parser": "Analisador Bruto",
-      "ai-parser": "AI Parser",
+      "ai-parser": "Analisador de IA",
       "missing-unit": "Criar unidade em falta: {unit}",
       "missing-food": "Criar ingrediente em falta: {food}",
       "this-unit-could-not-be-parsed-automatically": "Não foi possível processar automaticamente esta unidade",
@@ -918,6 +918,8 @@
       "food-data": "Dados do Alimento",
       "label-overwrite-warning": "Isto irá atribuir o rótulo escolhido a todos os alimentos selecionados e, eventualmente, substituir os rótulos existentes.",
       "on-hand-checkbox-label": "A ativação deste sinalizador fará com que este alimento seja desmarcado por defeito ao adicionar uma receita a uma lista de compras.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -956,7 +958,14 @@
       "edit-label": "Editar Rótulo",
       "new-label": "Novo rótulo",
       "labels": "Rótulos",
-      "assign-label": "Atribuir Rótulo"
+      "assign-label": "Atribuir Rótulo",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Limpar exportações",
@@ -1029,7 +1038,14 @@
     "tools": {
       "new-tool": "Novo Utensílio",
       "edit-tool": "Editar Utensílio",
-      "tool-data": "Dados do Utensílio"
+      "tool-data": "Dados do Utensílio",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1111,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Não é perfeito, mas produz bons resultados em geral e é um bom ponto de partida para, manualmente, fazer corresponder ingredientes a campos individuais. Em alternativa, também pode usar o processador \"Brute\" que usa uma técnica de correspondência de padrões para identificar ingredientes.",
     "nlp": "PLN",
     "brute": "Bruto",
-    "ai-providers": "AI Providers",
+    "ai-providers": "Fornecedores de IA",
     "show-individual-confidence": "Mostrar confiança individual",
     "ingredient-text": "Texto de Ingrediente",
     "average-confident": "{0} Confiante",
@@ -1128,8 +1144,8 @@
       "restore-from-v1-backup": "Tem uma cópia de segurança de uma instância do Mealie v1? Pode restaurá-la aqui.",
       "manage-profile-or-get-invite-link": "Gira o seu próprio perfil ou pegue num convite para partilhar com outros."
     },
-    "debug-ai-providers": "Debug AI Providers",
-    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "debug-ai-providers": "Depurar fornecedores de IA",
+    "debug-ai-providers-description": "Utilize esta página para depurar fornecedores de IA. Pode testar a sua ligação com a IA e visualizar os resultados aqui. Se tiver os serviços de imagem ativados, também pode fornecer uma imagem.",
     "run-test": "Executar Teste",
     "test-results": "Resultados do Teste",
     "group-delete-note": "Os grupos com utilizadores ou casas não podem ser eliminados",
@@ -1205,7 +1221,9 @@
       "is-less-than": "é menor que",
       "is-less-than-or-equal-to": "é menor ou igual a",
       "is-older-than": "é mais antigo que",
-      "is-newer-than": "é mais recente que"
+      "is-newer-than": "é mais recente que",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "é",
