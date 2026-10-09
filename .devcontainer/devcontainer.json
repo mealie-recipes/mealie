@@ -49,16 +49,18 @@
     51204, // used for test coverage report
     24678 // used by nuxt when hot-reloading using polling
   ],
-  "onCreateCommand": "sudo chown vscode:vscode /workspaces/mealie/.venv /home/vscode/.m2 && task setup --force",
+  "onCreateCommand": "sudo chown vscode:vscode /workspaces/mealie/.venv /workspaces/mealie/frontend/node_modules /home/vscode/.m2 && task setup --force",
   "remoteUser": "vscode",
   "features": {
     "ghcr.io/devcontainers/features/node:2": {
       "version": "24"
     },
     "ghcr.io/devcontainers/features/github-cli:1": {},
-    // Java backend (backend-java/); Maven comes from the wrapper.
+    // Java backend (backend-java/); Maven comes from the wrapper. Temurin, because the default
+    // Microsoft build only offers 21.0.0 on arm64 (Apple Silicon).
     "ghcr.io/devcontainers/features/java:1": {
-      "version": "21"
+      "version": "21",
+      "jdkDistro": "tem"
     },
     "ghcr.io/devcontainers/features/docker-in-docker:4": {
       "moby": false
