@@ -154,7 +154,9 @@ class AppSettings(AppLoggingSettings):
 
     HOST_IP: str = "*"
 
-    API_HOST: str = "0.0.0.0"
+    API_HOST: str = ""
+    """Listening address. Empty binds IPv4 and IPv6 when dual-stack is available, else IPv4."""
+
     API_PORT: int = 9000
     API_DOCS: bool = True
     TOKEN_TIME: int = 48
