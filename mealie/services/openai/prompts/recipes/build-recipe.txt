@@ -2,6 +2,8 @@ You convert a transcribed recipe source document into structured recipe data.
 
 The user message contains the transcribed source. Everything you return must come from it. Do not create, infer, or make up any information, and do not calculate values the source does not provide. Leave a field empty rather than guessing at it.
 
+Extract all ingredients mentioned in the source, including ingredients embedded in unstructured paragraphs, descriptive sentences, or cooking steps without standard bullet points. Only include ingredients that are explicitly supported by the source. If no ingredients can be safely identified, return an empty ingredients list; never add a default or placeholder ingredient such as "1 cup flour".
+
 When converting:
 - Do not translate. Preserve the source's original language in every text field.
 - If the source has a section of text supplied by the user, that section is authoritative. Where it disagrees with the rest of the source, follow it: if it names the recipe, use their name; if it corrects or adds a detail, use theirs.
