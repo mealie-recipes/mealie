@@ -546,6 +546,24 @@ ingredients_test_cases = (
         test_id="multiple ingredient dictionary",
         exception=TypeError,
     ),
+    CleanerCase(
+        input=[
+            {"@type": "PronounceableText", "textValue": "1 cup of flour"},
+            {"@type": "PronounceableText", "textValue": "1 cup of sugar"},
+        ],
+        expected=["1 cup of flour", "1 cup of sugar"],
+        test_id="schema.org PronounceableText nodes",
+    ),
+    CleanerCase(
+        input=["1 cup of flour", {"@type": "PronounceableText", "textValue": "1 cup of sugar"}],
+        expected=["1 cup of flour", "1 cup of sugar"],
+        test_id="mixed strings and PronounceableText nodes",
+    ),
+    CleanerCase(
+        input=[{"name": "flour", "amount": "1 cup"}],
+        expected=[{"name": "flour", "amount": "1 cup"}],
+        test_id="dict without textValue is left untouched",
+    ),
 )
 
 
