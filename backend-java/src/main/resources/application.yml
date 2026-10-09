@@ -1,0 +1,18 @@
+# Database settings are not here on purpose: they come from the same environment variables as the Python backend
+# (DB_ENGINE, DATA_DIR, POSTGRES_*, POSTGRES_URL_OVERRIDE). See io.mealie.backend.config.DatabaseConfig.
+server:
+  port: ${JAVA_API_PORT:9100}
+  forward-headers-strategy: framework
+
+spring:
+  application:
+    name: mealie-backend
+  main:
+    banner-mode: off
+  sql:
+    init:
+      # The schema is owned by Python/Alembic. Never run schema.sql/data.sql from Java.
+      mode: never
+  web:
+    resources:
+      add-mappings: false

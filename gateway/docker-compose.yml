@@ -1,0 +1,19 @@
+# The migration gateway. The backends run on the host (task py / task java), so the container reaches
+# them through host.docker.internal.
+services:
+  gateway:
+    image: caddy:2.11.4-alpine
+    container_name: mealie_gateway
+    restart: no
+    command: ["caddy", "run", "--config", "/etc/caddy/Caddyfile", "--adapter", "caddyfile", "--watch"]
+    ports:
+      - "8080:8080"
+    environment:
+      PYTHON_UPSTREAM: ${PYTHON_UPSTREAM:-host.docker.internal:9000}
+      JAVA_UPSTREAM: ${JAVA_UPSTREAM:-host.docker.internal:9100}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      # Mount the directory, not the file: editors replace the file on save, which a file bind mount
+      # wouldn't follow.
+      - ./:/etc/caddy:ro

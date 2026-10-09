@@ -68,11 +68,22 @@ tasks:
       - playwright.config.ts
       - pnpm-lock.yaml
 
+  setup:java:
+    desc: setup java backend dependencies
+    dir: backend-java
+    run: once
+    cmds:
+      - ./mvnw -B -q dependency:go-offline
+    sources:
+      - pom.xml
+      - .mvn/wrapper/maven-wrapper.properties
+
   setup:
     desc: setup all dependencies
     deps:
       - setup:ui
       - setup:py
+      - setup:java
 
   dev:generate:
     desc: run code generators
@@ -85,6 +96,13 @@ tasks:
     dir: docker
     cmds:
       - docker compose -f docker-compose.dev.yml up
+
+  dev:postgres:
+    desc: starts the dev Postgres container in the background and waits until it accepts connections
+    dir: docker
+    cmds:
+      - docker compose -f docker-compose.dev.yml up -d postgres
+      - until docker exec mealie_dev_postgres pg_isready -U mealie -q; do sleep 1; done
 
   dev:clean:
     desc: cleans up dev environment !! removes all data files !!
@@ -293,8 +311,10 @@ tasks:
       - ui:test
 
   ui:
-    desc: runs the frontend server
+    desc: runs the frontend server (API calls go through the gateway on :8080; override with API_URL)
     dir: frontend
+    env:
+      API_URL: '{{.API_URL | default "http://localhost:8080"}}'
     cmds:
       - pnpm run dev --no-fork
 
@@ -360,3 +380,94 @@ tasks:
       - defer: { task: e2e:stop-server }
       - task: e2e:test
         vars: { PREVENT_REPORT_OPEN: true }
+
+  # ---------------------------------------------------------------------------------------------
+  # Java backend migration (docs/rebuild/gateway.md)
+  # ---------------------------------------------------------------------------------------------
+
+  java:
+    desc: runs the Java backend on :9100 against the same database as `task py`
+    dir: backend-java
+    cmds:
+      - ./mvnw -q spring-boot:run
+
+  java:test:
+    desc: runs the Java backend tests
+    dir: backend-java
+    cmds:
+      - ./mvnw -B test
+
+  java:package:
+    desc: builds the Java backend jar in backend-java/target
+    dir: backend-java
+    cmds:
+      - ./mvnw -B package
+
+  gateway:
+    desc: runs the gateway on :8080 that routes /api/* between the Python and Java backends
+    dir: gateway
+    cmds:
+      - docker compose up
+
+  gateway:down:
+    desc: stops the gateway container
+    dir: gateway
+    cmds:
+      - docker compose down
+
+  stack:sqlite:
+    desc: runs gateway, Python, Java and frontend against SQLite (dev/data/mealie.db)
+    cmds:
+      - task: stack:run
+        vars: { ENGINE: sqlite }
+
+  stack:postgres:
+    desc: runs gateway, Python, Java and frontend against the dev Postgres container
+    cmds:
+      - task: dev:postgres
+      - task: stack:run
+        vars: { ENGINE: postgres }
+
+  stack:run:
+    internal: true
+    deps:
+      - gateway
+      - task: stack:py
+        vars: { ENGINE: "{{.ENGINE}}" }
+      - task: stack:java
+        vars: { ENGINE: "{{.ENGINE}}" }
+      - ui
+
+  stack:py:
+    internal: true
+    # Both backends must see identical database settings.
+    env: &stack_db_env
+      DB_ENGINE: "{{.ENGINE}}"
+      POSTGRES_USER: mealie
+      POSTGRES_PASSWORD: mealie
+      POSTGRES_SERVER: localhost
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: mealie
+    cmds:
+      - uv run python mealie/app.py
+
+  stack:java:
+    internal: true
+    dir: backend-java
+    env: *stack_db_env
+    cmds:
+      - ./mvnw -q spring-boot:run
+
+  java:test:db:
+    desc: checks the Java SQL dialect read-only against the database Python created (ENGINE=sqlite|postgres)
+    dir: backend-java
+    vars:
+      ENGINE: '{{.ENGINE | default "sqlite"}}'
+    env: *stack_db_env
+    cmds:
+      - ./mvnw -B test -Dtest=SharedSchemaCompatibilityTest -Dmealie.dbtest=true
+
+  diff:
+    desc: sends the same requests to Python (:9000) and Java (:9100) and compares the JSON (args after '--')
+    cmds:
+      - uv run python dev/rebuild/diff_test.py {{ .CLI_ARGS }}

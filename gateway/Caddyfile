@@ -1,0 +1,38 @@
+# Mealie migration gateway: one entry point (:8080) in front of the Python and Java backends.
+# Edits are picked up automatically (caddy runs with --watch); no restart needed.
+# See docs/rebuild/gateway.md.
+{
+	auto_https off
+	admin off
+}
+
+:8080 {
+	log {
+		output stdout
+		format console
+	}
+
+	# Tag every response with the backend that served it: "X-Mealie-Backend: python" or "java".
+	map {http.reverse_proxy.upstream.hostport} {mealie_backend} {
+		{$JAVA_UPSTREAM} java
+		{$PYTHON_UPSTREAM} python
+		default none
+	}
+	header >X-Mealie-Backend {mealie_backend}
+
+	# ---------------------------------------------------------------------------------------------
+	# Routing table.
+	#
+	# Anything without a more specific rule goes to Python (all of /api/*, plus /docs and
+	# /openapi.json). Caddy sorts these lines by path specificity, longest first, so their order in
+	# the file doesn't matter.
+	#
+	# To move a route to Java, add one line, for example:
+	#     reverse_proxy /api/foods* {$JAVA_UPSTREAM}
+	# "/api/foods*" is a plain prefix: it covers /api/foods and /api/foods/{id}, and would also
+	# cover a sibling such as /api/foodsearch. To send a sub-path back to Python, add a longer rule
+	# for it that points at {$PYTHON_UPSTREAM}.
+	# ---------------------------------------------------------------------------------------------
+
+	reverse_proxy {$PYTHON_UPSTREAM}
+}
