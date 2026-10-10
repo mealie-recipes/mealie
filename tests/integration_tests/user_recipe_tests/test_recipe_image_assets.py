@@ -136,7 +136,7 @@ def test_recipe_asset_dangerous_extension_blocked(
 ):
     """Ensure scriptable extensions are rejected to prevent stored XSS (GHSA-gfwc-pjx4-mg9p)."""
     recipe = recipe_ingredient_only
-    for ext in ("html", "svg", "js", "htm", "xhtml"):
+    for ext in ("html", "svg", "js", "htm", "xhtml", "xml"):
         payload = {"name": random_string(10), "icon": "mdi-file", "extension": ext}
         file_payload = {"file": b"<script>alert(1)</script>"}
         response = api_client.post(
