@@ -9,7 +9,7 @@ from uuid import uuid4
 from pydantic import UUID4, BaseModel, ConfigDict, Field, field_validator
 from pydantic_core.core_schema import ValidationInfo
 from slugify import slugify
-from sqlalchemy import Select, desc, func, or_, select, text
+from sqlalchemy import Select, desc, func, or_, select, text, union
 from sqlalchemy.orm import Session, joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
@@ -170,6 +170,9 @@ DurationSeconds = Annotated[int, Field(ge=0, le=MAX_DURATION_SECONDS)]
 class RecipeSummary(MealieModel):
     id: UUID4 | None = None
     _normalize_search: ClassVar[bool] = True
+    # Stricter than _fuzzy_similarity_threshold: at 0.5 short words in ingredient lines match far too
+    # much ("salt" scores ~0.57 against "salmon").
+    _fuzzy_ingredient_similarity_threshold: ClassVar[float] = 0.6
 
     user_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
     household_id: Annotated[UUID4, Field(default_factory=uuid4, validate_default=True)]
@@ -406,30 +409,37 @@ class Recipe(RecipeSummary):
         """
 
         if search_type is SearchType.fuzzy:
-            # I would prefer to just do this in the recipe_ingredient.any part of the main query,
-            # but it turns out that at least sqlite wont use indexes for that correctly anymore and
-            # takes a big hit, so prefiltering it is
-            ingredient_ids = (
+            # The threshold is a connection setting, so set it explicitly for each match rather than
+            # inheriting whatever an earlier query on this connection left behind.
+            session.execute(
+                text(f"set pg_trgm.word_similarity_threshold = {cls._fuzzy_ingredient_similarity_threshold};")
+            )
+            ingredient_recipe_ids = (
                 session.execute(
-                    select(RecipeIngredientModel.id).filter(
+                    select(RecipeIngredientModel.recipe_id)
+                    .filter(
                         or_(
                             RecipeIngredientModel.note_normalized.op("%>")(search),
                             RecipeIngredientModel.original_text_normalized.op("%>")(search),
                         )
                     )
+                    .distinct()
                 )
                 .scalars()
                 .all()
             )
 
             session.execute(text(f"set pg_trgm.word_similarity_threshold = {cls._fuzzy_similarity_threshold};"))
-            return query.filter(
-                or_(
-                    RecipeModel.name_normalized.op("%>")(search),
-                    RecipeModel.description_normalized.op("%>")(search),
-                    RecipeModel.recipe_ingredient.any(RecipeIngredientModel.id.in_(ingredient_ids)),
-                )
-            ).order_by(  # trigram ordering could be too slow on million record db, but is fine with thousands.
+            # Match each column on its own and UNION the recipe ids: an OR across these columns and
+            # the ingredient matches can't use the GIN trigram indexes, so every search computed word
+            # similarity against every recipe's name and description.
+            matching_ids = union(
+                select(RecipeModel.id).filter(RecipeModel.name_normalized.op("%>")(search)),
+                select(RecipeModel.id).filter(RecipeModel.description_normalized.op("%>")(search)),
+                select(RecipeModel.id).filter(RecipeModel.id.in_(ingredient_recipe_ids)),
+            )
+            return query.filter(RecipeModel.id.in_(matching_ids)).order_by(
+                # trigram ordering could be too slow on million record db, but is fine with thousands.
                 func.least(
                     RecipeModel.name_normalized.op("<->>")(search),
                 )
