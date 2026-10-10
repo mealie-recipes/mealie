@@ -46,6 +46,21 @@
  | POSTGRES_DB<super>[&dagger;][secrets]</super>           |  mealie  | Postgres database name                                                                                                                                                                                                           |
  | POSTGRES_URL_OVERRIDE<super>[&dagger;][secrets]</super> |   None   | Optional Postgres URL override to use instead of POSTGRES\_\* variables                                                                                                                                                          |
 
+PostgreSQL connection pooling can be configured with the following optional environment variables.
+They also apply when using `POSTGRES_URL_OVERRIDE` and are ignored when using SQLite.
+
+| Variable | Default | Description |
+| --- | :---: | --- |
+| POSTGRES_POOL_SIZE | 5 | Maximum number of connections retained in the pool per worker. Must be at least 1. Connections are opened on demand. |
+| POSTGRES_MAX_OVERFLOW | 10 | Additional connections allowed while all pooled connections are in use. Must be at least 0; use 0 to disable overflow. Overflow connections are closed when returned. |
+| POSTGRES_POOL_TIMEOUT | 30 | Seconds to wait for a connection when the pool is full. Must be a finite number at least 0; use 0 to fail immediately. This is not a query or connection-establishment timeout. |
+
+The defaults preserve the existing limit of 15 simultaneous connections per worker. Budget for up to
+`UVICORN_WORKERS * (POSTGRES_POOL_SIZE + POSTGRES_MAX_OVERFLOW)` connections per instance, leaving room in
+PostgreSQL's connection limit for other clients and any additional Mealie instances. Increasing pool
+capacity does not resolve long-running transactions or excessive request retries; investigate those
+causes before raising the limits.
+
 ### Email
 
 | Variables                                       | Default | Description                                       |
