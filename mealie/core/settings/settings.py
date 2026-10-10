@@ -409,6 +409,14 @@ class AppSettings(AppLoggingSettings):
     OIDC_TLS_CACERTFILE: str | None = None
     OIDC_CLIENT_TIMEOUT: float | Literal["None", "default"] = "default"
 
+    OIDC_NATIVE_CLIENT_ID: str | None = None
+    """Client ID used by the native (mobile/desktop) OIDC endpoints. Falls back to OIDC_CLIENT_ID when unset."""
+
+    OIDC_NATIVE_CONFIDENTIAL: bool = True
+    """When false, the native client is treated as a public client: the client secret is omitted from the token
+    exchange and PKCE alone is relied on. Required for Google and Microsoft, which do not allow custom-scheme
+    redirects on confidential clients."""
+
     @property
     def OIDC_REQUIRES_GROUP_CLAIM(self) -> bool:
         return self.OIDC_USER_GROUP is not None or self.OIDC_ADMIN_GROUP is not None
