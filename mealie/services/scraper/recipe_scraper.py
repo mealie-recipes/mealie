@@ -2,7 +2,7 @@ from collections.abc import Awaitable, Callable
 
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator
-from mealie.pkgs.safehttp import resilient_fetch
+from mealie.pkgs.safehttp import fetch_via_flaresolverr, resilient_fetch
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services.scraper import cleaner
@@ -71,6 +71,51 @@ class RecipeScraper:
             html = fetched.text
             resolved_url = fetched.url
 
+            result = await self._scrape_with_strategies(
+                url,
+                html,
+                resolved_url,
+                on_progress=on_progress,
+                include_tags=include_tags,
+                include_categories=include_categories,
+            )
+            if result[0] is not None or fetched.via_flaresolverr:
+                return result
+
+            # The direct fetch returned a page no strategy could extract a recipe from.
+            # That is typically a JavaScript bot wall served with a 200 status, which the
+            # fetch-level challenge detection cannot recognize. FlareSolverr drives a real
+            # browser, so escalate to it as a last resort and try once more.
+            solved = await fetch_via_flaresolverr(url)
+            if solved is None or not solved.text or solved.text == html:
+                return result
+            return await self._scrape_with_strategies(
+                url,
+                solved.text,
+                solved.url,
+                on_progress=on_progress,
+                include_tags=include_tags,
+                include_categories=include_categories,
+            )
+
+        return await self._scrape_with_strategies(
+            url,
+            html,
+            resolved_url,
+            on_progress=on_progress,
+            include_tags=include_tags,
+            include_categories=include_categories,
+        )
+
+    async def _scrape_with_strategies(
+        self,
+        url: str,
+        html: str,
+        resolved_url: str | None,
+        on_progress: Callable[[str], Awaitable[None]] | None = None,
+        include_tags: bool = False,
+        include_categories: bool = False,
+    ) -> tuple[Recipe, ScrapedExtras] | tuple[None, None]:
         for ScraperClass in self.scrapers:
             scraper = ScraperClass(
                 url,
