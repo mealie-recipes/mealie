@@ -57,6 +57,7 @@ load_secrets() {
 
         "OIDC_CONFIGURATION_URL"
         "OIDC_CLIENT_ID"
+        "OIDC_NATIVE_CLIENT_ID"
         "OIDC_CLIENT_SECRET"
     )
 
