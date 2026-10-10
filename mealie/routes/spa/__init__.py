@@ -181,6 +181,7 @@ def content_with_meta(group_slug: str, recipe: Recipe) -> str:
         "prepTime": iso_duration(recipe.prep_time_seconds),
         "cookTime": iso_duration(recipe.perform_time_seconds),
         "totalTime": iso_duration(recipe.total_time_seconds),
+        "cookingMethod": escape(recipe.cooking_method),
         "recipeYield": escape(recipe.recipe_yield_display),
         "recipeIngredient": ingredients,
         "recipeInstructions": [escape(i.text) for i in recipe.recipe_instructions]

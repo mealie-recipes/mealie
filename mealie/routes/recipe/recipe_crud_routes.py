@@ -621,6 +621,15 @@ class RecipeController(BaseRecipeController):
 
         return recipe
 
+    @router.get("/{slug}/variants", response_model=list[RecipeSummary])
+    def get_variants(self, slug: str = Path(..., description="A recipe's slug or id")) -> list[RecipeSummary]:
+        """Return recipes linked as cooking-method variants of this recipe."""
+        try:
+            return self.service.get_variants(slug)
+        except Exception as e:
+            self.handle_exceptions(e)
+            return []
+
     @router.post("", status_code=201, response_model=str)
     def create_one(self, data: CreateRecipe) -> str | None:
         """Takes in a JSON string and loads data into the database as a new entry"""

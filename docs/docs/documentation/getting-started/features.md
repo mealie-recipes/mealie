@@ -40,6 +40,12 @@ You can access these options on your installation at the `/group/migrations` pag
 
 [Import Demo](https://demo.mealie.io/group/migrations){ .md-button .md-button--primary }
 
+### Cooking Method Variants
+
+A recipe can have linked versions for different cooking methods, such as an oven, air fryer, or slow cooker. Use the cooking-method switcher at the top of a recipe to move between versions or create a new one.
+
+Each version is a complete recipe, so its cooking time, temperature, ingredients, and instructions can be adjusted without changing the other versions. Mealie also imports and exports the Schema.org `cookingMethod` property.
+
 
 ### Organizing Recipes
 

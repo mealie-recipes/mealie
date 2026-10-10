@@ -68,6 +68,14 @@
       density="compact"
       variant="underlined"
     />
+    <v-text-field
+      v-model="recipe.cookingMethod"
+      :label="$t('recipe.cooking-method')"
+      :hint="$t('recipe.cooking-method-hint')"
+      persistent-hint
+      density="compact"
+      variant="underlined"
+    />
   </div>
 </template>
 
