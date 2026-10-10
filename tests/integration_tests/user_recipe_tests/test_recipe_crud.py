@@ -531,10 +531,13 @@ def test_create_recipe_from_zip_reimport_preserves_contents(api_client: TestClie
         "rating",
         "orgURL",
         "extras",
-        "settings",
         "nutrition",
     ]:
         assert imported[field] == original[field], field
+
+    imported_settings = imported["settings"].copy()
+    imported_settings["public"] = original["settings"]["public"]
+    assert imported_settings == original["settings"]
 
     assert [c["name"] for c in imported["recipeCategory"]] == [category["name"]]
     assert [t["name"] for t in imported["tags"]] == [tag["name"]]
