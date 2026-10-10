@@ -366,7 +366,13 @@ class OpenAIService(BaseService):
             model=provider.model,
             response_format=response_schema,
         ) as response:
-            completion = ChatCompletion.model_validate(json.loads(await response.text()))
+            data = json.loads(await response.text())
+
+        # Mealie doesn't use service_tier, and some OpenAI-compatible providers send values
+        # the SDK model rejects (e.g. Groq's "on_demand"), which would fail the whole response.
+        if isinstance(data, dict):
+            data.pop("service_tier", None)
+        completion = ChatCompletion.model_validate(data)
 
         for choice in completion.choices:
             if choice.finish_reason == "length":
