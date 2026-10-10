@@ -87,7 +87,27 @@ from mealie.services.scraper.scraper_strategies import (
 
 from ._base import BaseRecipeController, JSONBytes
 
-ASSET_ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "gif", "webp", "bmp", "avif", "txt", "md", "csv", "json"}
+ASSET_ALLOWED_EXTENSIONS = {
+    # image
+    "avif",
+    "bmp",
+    "gif",
+    "jpg",
+    "jpeg",
+    "png",
+    "webp",
+    # video
+    "mov",
+    "mp4",
+    "webm",
+    # document
+    "md",
+    "pdf",
+    "txt",
+    # data
+    "csv",
+    "json",
+}
 
 # A downloaded asset is stored as-is rather than re-encoded, so the download needs its own
 # ceiling. Matches the budget `openid_provider` uses for remotely-fetched profile images.
