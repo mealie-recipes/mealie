@@ -25,8 +25,10 @@ from tests.utils import random_string
 
 
 class LdapConnMock:
-    def __init__(self, user, password, admin, query_bind, query_password, mail, name) -> None:
+    def __init__(self, user, password, admin, query_bind, query_password, mail, name, users_can_search=True) -> None:
         self.app_settings = get_app_settings()
+        self.users_can_search = users_can_search
+        self.bound_dn = None
         self.user = user
         self.password = password
         self.query_bind = query_bind
@@ -36,6 +38,7 @@ class LdapConnMock:
         self.name = name
 
     def simple_bind_s(self, dn, bind_pw):
+        self.bound_dn = dn
         if dn == f"cn={self.user}, {self.app_settings.LDAP_BASE_DN}":
             valid_password = self.password
         elif f"cn={self.query_bind}, {self.app_settings.LDAP_BASE_DN}":
@@ -48,6 +51,10 @@ class LdapConnMock:
 
     # Default search mock implementation
     def search_s(self, dn, scope, filter, attrlist):
+        if not self.users_can_search and self.bound_dn != self.query_bind:
+            # directories that only let the query account read entries
+            raise ldap.INSUFFICIENT_ACCESS
+
         if filter == self.app_settings.LDAP_ADMIN_FILTER:
             assert attrlist == []
             assert filter == self.app_settings.LDAP_ADMIN_FILTER
@@ -348,6 +355,25 @@ def test_ldap_user_creation_admin(monkeypatch: MonkeyPatch):
     assert result.username == user
     assert result.email == mail
     assert result.full_name == name
+    assert result.admin
+
+
+def test_ldap_admin_filter_searches_as_query_account(monkeypatch: MonkeyPatch):
+    user, mail, name, password, query_bind, query_password = setup_env(monkeypatch)
+    monkeypatch.setenv("LDAP_ADMIN_FILTER", "(memberOf=cn=admins,dc=example,dc=com)")
+
+    def ldap_initialize_mock(url):
+        return LdapConnMock(user, password, True, query_bind, query_password, mail, name, users_can_search=False)
+
+    monkeypatch.setattr(ldap, "initialize", ldap_initialize_mock)
+
+    get_app_settings.cache_clear()
+
+    with session_context() as session:
+        provider = get_provider(session, user, password)
+        result = provider.get_user()
+
+    assert result
     assert result.admin
 
 
