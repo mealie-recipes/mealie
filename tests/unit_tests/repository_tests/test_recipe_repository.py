@@ -1,11 +1,14 @@
 from datetime import UTC, datetime, timedelta
+from unittest.mock import Mock
 from uuid import UUID, uuid4
 
 import pytest
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
+from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.household.household import HouseholdCreate, HouseholdRecipeCreate
 from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood
 from mealie.schema.recipe.recipe import Recipe
@@ -15,6 +18,17 @@ from mealie.schema.response import OrderDirection, PaginationQuery
 from mealie.schema.user.user import GroupBase, UserRatingCreate
 from tests.utils.factories import random_email, random_string
 from tests.utils.fixture_schemas import TestUser
+
+
+def test_create_recipe_stops_retrying_integrity_errors(unique_user: TestUser, monkeypatch: pytest.MonkeyPatch) -> None:
+    create = Mock(side_effect=IntegrityError("INSERT", {}, Exception("unrelated constraint failure")))
+    monkeypatch.setattr(RepositoryGeneric, "create", create)
+    recipe = Recipe(name=random_string(), group_id=unique_user.group_id, user_id=unique_user.user_id)
+
+    with pytest.raises(IntegrityError):
+        unique_user.repos.recipes.create(recipe)
+
+    assert create.call_count == 10
 
 
 @pytest.fixture()
