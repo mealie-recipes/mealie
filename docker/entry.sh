@@ -59,19 +59,34 @@ load_secrets() {
         "OIDC_CLIENT_ID"
         "OIDC_CLIENT_SECRET"
     )
+    local var file_var secret_file secret_value
 
     # If any secrets are set, prefer them over base environment variables.
     for var in "${secret_supported_vars[@]}"; do
         file_var="${var}_FILE"
         if [ -n "${!file_var}" ]; then
-            export "$var=$(<"${!file_var}")"
+            secret_file="${!file_var}"
+            if [ ! -f "$secret_file" ] || [ ! -r "$secret_file" ]; then
+                echo "ERROR: $file_var must point to a readable regular file." >&2
+                return 1
+            fi
+            # Check the read separately: export would mask a failed substitution.
+            if ! secret_value=$(cat -- "$secret_file" 2>/dev/null); then
+                echo "ERROR: Unable to read the secret configured by $file_var." >&2
+                return 1
+            fi
+            if [ -z "$secret_value" ]; then
+                echo "ERROR: The secret configured by $file_var must not be empty." >&2
+                return 1
+            fi
+            export "$var=$secret_value"
         fi
     done
 }
 
 change_user
 init
-load_secrets
+load_secrets || exit 1
 
 # Start API
 HOST_IP=`/sbin/ip route|awk '/default/ { print $3 }'`
