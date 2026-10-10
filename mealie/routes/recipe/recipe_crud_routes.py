@@ -92,17 +92,26 @@ ASSET_ALLOWED_EXTENSIONS = {
     "avif",
     "bmp",
     "gif",
+    "heic",
+    "heif",
     "jpg",
     "jpeg",
     "png",
     "webp",
     # video
+    "m4v",
     "mov",
     "mp4",
     "webm",
+    # audio
+    "m4a",
+    "mp3",
     # document
+    "docx",
     "md",
+    "odt",
     "pdf",
+    "rtf",
     "txt",
     # data
     "csv",
