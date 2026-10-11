@@ -25,6 +25,16 @@ Gate: Resolve or document baseline failures before implementation.
   PostgreSQL-specific tests requiring the pgsql extra.
 - Theme pilot checks passed; deployment integration remains pending.
 
+### Stage 2 — Public about endpoints
+- Added DRF views for /api/app/about and /api/app/about/startup-info.
+- Preserved response fields and group/household privacy rules.
+- Verified redirects, query preservation, and POST rejection.
+- Verified SQLAlchemy sessions close on success and errors.
+- Targeted tests: 22 passed in 10.27s.
+- - Full regression: 3196 passed, 18 skipped in 922.59s.
+- Ruff lint, formatting, and Git whitespace checks passed.
+- PostgreSQL, LDAP-service, and deployment verification remain pending.
+
 ## Later stages
 1. Add validation and database-session adapters.
 2. Migrate authentication and permissions.
