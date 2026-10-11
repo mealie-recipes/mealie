@@ -352,7 +352,7 @@
       "title": "Paprika receptenbeheerder"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
+      "description-long": "Mealie kan recepten importeren uit de Mealie toepassing uit een pre v1.0 release. Exporteer uw recepten vanaf uw oude instantie en upload het zip-bestand hieronder. Merk op dat alleen recepten uit de export kunnen worden geïmporteerd. Dit geldt alleen voor gevallen ouder dan v1. Een reservekopie van v1.0 of hoger moet worden hersteld met de back-up en herstel middelen.",
       "title": "Oude versies van Mealie (vóór versie 1.0)"
     },
     "tandoor": {
@@ -591,7 +591,7 @@
     "recipe-debugger": "Recept debugger",
     "recipe-debugger-description": "Pak de URL van het recept dat u wilt debuggen en plak die hier. De URL zal door de receptenscraper worden gescrapet en de resultaten zullen worden weergegeven. Als u geen gegevens ziet, wordt de site die u probeert te scrapen niet ondersteund door Mealie of zijn scraperbibliotheek.",
     "use-ai": "Gebruik AI",
-    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "recipe-debugger-use-ai-description": "Gebruik AI om de resultaten te parsen in plaats van te vertrouwen op de scraper-bibliotheek. Bij het maken van een recept via een URL wordt dit automatisch gedaan als de scraper-bibliotheek mislukt, maar u kunt het hier handmatig testen.",
     "debug": "Debug",
     "tree-view": "Boomstructuurweergave",
     "recipe-servings": "Recept porties",
@@ -606,9 +606,9 @@
     "unit-system": {
       "as-written": "Zoals geschreven",
       "metric": "Waarde",
-      "metric-with-hint": "Metric (g, ml)",
-      "imperial": "Imperial",
-      "imperial-with-hint": "Imperial (cups, oz)"
+      "metric-with-hint": "Metrisch (g, ml)",
+      "imperial": "Imperiaal",
+      "imperial-with-hint": "Imperiaal (kopjes, oz)"
     },
     "parser": {
       "ingredient-parser": "Ingrediëntenontleder",
@@ -965,7 +965,7 @@
       "merge-dialog-text": "Door de geselecteerde labels samen te voegen, worden het bron label en het doel label samengevoegd tot één label. Het bron label wordt verwijderd en alle verwijzingen naar het bron label worden bijgewerkt zodat ze naar het doel label verwijzen.",
       "merge-label-example": "{label1} wordt samengevoegd met {label2}",
       "delete-unused-confirm": "Weet je zeker dat je dit ongebruikte label wilt verwijderen? Dit kan niet ongedaan worden gemaakt. | Weet je zeker dat je deze {count} ongebruikte labels wilt verwijderen? Dit kan niet ongedaan worden gemaakt.",
-      "no-unused-labels": "No unused labels to delete"
+      "no-unused-labels": "Geen ongebruikte labels te verwijderen"
     },
     "recipes": {
       "purge-exports": "Verwijder exports",
@@ -1045,7 +1045,7 @@
       "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
       "merge-tool-example": "Merging {tool1} into {tool2}",
       "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
-      "no-unused-tools": "No unused tools to delete"
+      "no-unused-tools": "Geen ongebruikte gereedschappen om te verwijderen"
     }
   },
   "user-registration": {
@@ -1127,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Het is niet perfect, maar het levert over het algemeen uitstekende resultaten op en is een goed uitgangspunt voor het handmatig ontleden van ingrediënten in afzonderlijke velden. Je kunt ook de \"Ruwe\" ontleder gebruiken die een patroonovereenkomende techniek gebruikt om ingrediënten te identificeren.",
     "nlp": "NLP",
     "brute": "Ruw",
-    "ai-providers": "AI Providers",
+    "ai-providers": "AI aanbieders",
     "show-individual-confidence": "Individuele overtuiging tonen",
     "ingredient-text": "Ingrediënttekst",
     "average-confident": "{0} overtuigd",
