@@ -395,6 +395,50 @@ def test_oidc_settings_validation(data: OIDCValidationCase, monkeypatch: pytest.
     assert app_settings.OIDC_READY is data.is_valid
 
 
+VALID_OIDC_ENV = {
+    "OIDC_AUTH_ENABLED": "true",
+    "OIDC_CLIENT_ID": "id",
+    "OIDC_CLIENT_SECRET": "secret",
+    "OIDC_CONFIGURATION_URL": "url",
+}
+
+native_oidc_cases = [
+    pytest.param({}, None, True, False, id="defaults"),
+    pytest.param({"OIDC_NATIVE_CLIENT_ID": "native-app"}, "native-app", True, False, id="native id set"),
+    pytest.param({"OIDC_NATIVE_CONFIDENTIAL": "false"}, None, False, False, id="public native client"),
+    pytest.param(
+        {**VALID_OIDC_ENV, "OIDC_NATIVE_CONFIDENTIAL": "false"},
+        None,
+        False,
+        True,
+        id="native settings optional for OIDC_READY",
+    ),
+]
+
+
+@pytest.mark.parametrize(("env", "native_id", "confidential", "oidc_ready"), native_oidc_cases)
+def test_oidc_native_settings(
+    env: dict[str, str],
+    native_id: str | None,
+    confidential: bool,
+    oidc_ready: bool,
+    monkeypatch: pytest.MonkeyPatch,
+):
+    for name in ("OIDC_AUTH_ENABLED", "OIDC_CLIENT_ID", "OIDC_CLIENT_SECRET", "OIDC_CONFIGURATION_URL"):
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.delenv("OIDC_NATIVE_CLIENT_ID", raising=False)
+    monkeypatch.delenv("OIDC_NATIVE_CONFIDENTIAL", raising=False)
+    for name, value in env.items():
+        monkeypatch.setenv(name, value)
+
+    get_app_settings.cache_clear()
+    app_settings = get_app_settings()
+
+    assert app_settings.OIDC_NATIVE_CLIENT_ID == native_id
+    assert app_settings.OIDC_NATIVE_CONFIDENTIAL is confidential
+    assert app_settings.OIDC_READY is oidc_ready
+
+
 def test_sensitive_settings_mask(monkeypatch: pytest.MonkeyPatch):
     sensitive_settings = [
         "LDAP_QUERY_PASSWORD",

@@ -68,7 +68,7 @@
         "report-deleted": "Звіт видалено."
     },
     "exceptions": {
-        "permission-denied": "You do not have permission to perform this action",
+        "permission-denied": "У вас немає дозволу на виконання цієї дії",
         "recursive-recipe-link": "Рецепт не може посилатися на себе безпосередньо, або опосередковано",
         "no-entry-found": "Ресурс не знайдено",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",
