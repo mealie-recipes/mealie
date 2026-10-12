@@ -103,6 +103,7 @@
                   :menu-icon="$globals.icons.dotsHorizontal"
                   :name="name"
                   :recipe-id="recipeId"
+                  :recipe-scale="scale"
                   class="ml-auto"
                   :use-items="{
                     delete: false,
@@ -153,6 +154,7 @@ interface Props {
   disableHighlight?: boolean;
   contextMenuAppendItems?: ContextMenuItem[];
   contextMenuLeadingItems?: ContextMenuItem[];
+  scale?: number;
 }
 const props = withDefaults(defineProps<Props>(), {
   rating: 0,
@@ -162,6 +164,7 @@ const props = withDefaults(defineProps<Props>(), {
   isFlat: false,
   height: 150,
   disableHighlight: false,
+  scale: 1,
 });
 
 defineEmits<{
@@ -178,7 +181,13 @@ const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug || auth.user.value?.groupSlug || "");
 const showRecipeContent = computed(() => props.recipeId && props.slug);
 const recipeRoute = computed<string>(() => {
-  return showRecipeContent.value ? `/g/${groupSlug.value}/r/${props.slug}` : "";
+  if (!showRecipeContent.value) {
+    return "";
+  }
+
+  const recipePath = `/g/${groupSlug.value}/r/${props.slug}`;
+  // open the recipe at the same scale it's shown with here (e.g. the scale of a meal plan entry)
+  return props.scale === 1 ? recipePath : `${recipePath}?scale=${props.scale}`;
 });
 const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
 </script>
