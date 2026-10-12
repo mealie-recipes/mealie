@@ -11,7 +11,7 @@
     :rules="[validDuration]"
     density="compact"
     hide-details="auto"
-    @update:model-value="updateDuration"
+    @input="updateDuration"
     @click.stop
   />
   <span v-else-if="modelValue" class="text-body-2">
@@ -32,18 +32,37 @@ const { t } = useI18n();
 const input = ref<string | number>(props.modelValue ? props.modelValue / 60 : "");
 watch(() => props.modelValue, value => input.value = value ? value / 60 : "");
 
+const badInput = ref(false);
+
+function secondsFromMinutes(value: string | number | null) {
+  const original = props.modelValue;
+  // Division and multiplication need not round-trip at large magnitudes.
+  // Preserve the exact stored integer when the displayed minutes are unchanged.
+  if (typeof original === "number" && Number.isInteger(original)
+    && original > 0 && original <= 2147483647 && Number(value) === original / 60) {
+    return original;
+  }
+  return Number(value) * 60;
+}
+
 function validDuration(value: string | number | null) {
+  if (badInput.value) return t("recipe.step-duration-invalid");
   if (value === "" || value === null) return true;
-  const seconds = Number(value) * 60;
+  const seconds = secondsFromMinutes(value);
   // Permit floating-point representation noise, never a fractional second.
   return (Number.isFinite(seconds) && seconds >= 0 && seconds <= 2147483647
     && Math.abs(seconds - Math.round(seconds)) < 1e-7)
   || t("recipe.step-duration-invalid");
 }
 
-function updateDuration(value: string | number | null) {
+function updateDuration(event: Event) {
+  const field = event.target as HTMLInputElement;
+  // Number inputs expose incomplete entries (e.g. "1e" or "-") as "".
+  // Keep this state separate from a deliberate empty entry, including on Save.
+  badInput.value = field.validity.badInput;
+  const value = field.value;
   if (validDuration(value) !== true) return;
-  emit("update:modelValue", Math.round(Number(value) * 60) || null);
+  emit("update:modelValue", Math.round(secondsFromMinutes(value)) || null);
 }
 
 const formattedDuration = computed(() => {
