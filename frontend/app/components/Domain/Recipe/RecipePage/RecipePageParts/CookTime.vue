@@ -1,6 +1,14 @@
 <template>
+  <v-btn
+    v-if="isEditMode && !showField"
+    variant="text"
+    size="small"
+    @click.stop="showField = true"
+  >
+    {{ $t('recipe.step-duration-add') }}
+  </v-btn>
   <v-text-field
-    v-if="isEditMode"
+    v-else-if="isEditMode"
     v-model="input"
     type="number"
     min="0"
@@ -29,6 +37,11 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{ "update:modelValue": [value: number | null] }>();
 const { t } = useI18n();
+const showField = ref(Boolean(props.modelValue));
+watch(() => props.isEditMode, () => showField.value = Boolean(props.modelValue));
+watch(() => props.modelValue, (value) => {
+  if (value) showField.value = true;
+});
 const input = ref<string | number>(props.modelValue ? props.modelValue / 60 : "");
 watch(() => props.modelValue, value => input.value = value ? value / 60 : "");
 

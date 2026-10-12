@@ -17,13 +17,16 @@ function editor(value: number | null = null) {
     props: { modelValue: value, isEditMode: true },
     global: {
       plugins: [createI18n({ legacy: false, locale: "en-US", messages: { "en-US": messages } })],
-      stubs: { VTextField: Field },
+      stubs: { VTextField: Field, VBtn: { template: "<button><slot /></button>" } },
     },
   });
 }
 describe("instruction duration in minutes with seconds storage", () => {
-  it("always shows a blank optional input without emitting a duration", () => {
+  it("reveals a blank optional input without emitting a duration", async () => {
     const wrapper = editor();
+    expect(wrapper.findAll("input")).toHaveLength(0);
+    expect(wrapper.text()).toBe("Add time");
+    await wrapper.find("button").trigger("click");
     expect(wrapper.findAll("input")).toHaveLength(1);
     expect(wrapper.find("input").element.value).toBe("");
     expect(wrapper.find("input").attributes("placeholder")).toBe("Minutes");
@@ -33,12 +36,27 @@ describe("instruction duration in minutes with seconds storage", () => {
   });
   it("converts minutes to seconds, edits, and clears", async () => {
     const wrapper = editor();
+    await wrapper.find("button").trigger("click");
     for (const [input, output] of [["60", 3600], ["1.5", 90], ["42", 2520], ["", null], ["0", null]] as const) {
       await wrapper.find("input").setValue(input);
       expect(wrapper.emitted("update:modelValue")?.at(-1)).toEqual([output]);
     }
     await wrapper.setProps({ modelValue: 120 });
     expect(wrapper.find("input").element.value).toBe("2");
+    wrapper.unmount();
+  });
+  it("keeps a cleared field blank and resets disclosure on leaving edit mode", async () => {
+    const wrapper = editor(90);
+    await wrapper.find("input").setValue("");
+    await wrapper.setProps({ modelValue: null });
+    expect(wrapper.find("input").element.value).toBe("");
+    await wrapper.setProps({ isEditMode: false });
+    expect(wrapper.text()).toBe("");
+    await wrapper.setProps({ isEditMode: true });
+    expect(wrapper.findAll("input")).toHaveLength(0);
+    await wrapper.find("button").trigger("click");
+    expect(wrapper.find("input").element.value).toBe("");
+    expect(wrapper.emitted("update:modelValue")).toEqual([[null]]);
     wrapper.unmount();
   });
   it.each([1, 61, 3661, 2147483647])("preserves exact imported %s seconds on editing", async (value) => {
