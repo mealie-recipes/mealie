@@ -4,6 +4,7 @@ import os
 import random
 import tempfile
 from collections.abc import Generator
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 from uuid import uuid4
 from zipfile import ZipFile
@@ -2341,6 +2342,59 @@ def test_get_cookbook_recipes_by_food_label(api_client: TestClient, unique_user:
         assert recipe.id in fetched_recipe_ids
     for recipe in other_recipes:
         assert recipe.id not in fetched_recipe_ids
+
+
+def test_get_cookbook_recipes_not_made_recently(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
+    """
+    A "not made recently" cookbook filters on last_made with a relative date.
+
+    last_made is the date of the user's own household, so a recipe another household
+    cooked recently still counts as not made recently here. A recipe that was never
+    made counts as made long ago.
+    """
+
+    def create_recipe() -> Recipe:
+        response = api_client.post(api_routes.recipes, json={"name": random_string()}, headers=unique_user.token)
+        assert response.status_code == 201
+        recipe = unique_user.repos.recipes.get_one(response.json())
+        assert recipe
+        return recipe
+
+    def mark_made(recipe: Recipe, when: datetime, token: dict) -> None:
+        response = api_client.patch(
+            api_routes.recipes_slug_last_made(recipe.slug),
+            json={"timestamp": when.isoformat()},
+            headers=token,
+        )
+        assert response.status_code == 200
+
+    now = datetime.now(tz=UTC)
+    made_recently = create_recipe()
+    made_long_ago = create_recipe()
+    never_made = create_recipe()
+    made_recently_by_other_household = create_recipe()
+
+    mark_made(made_recently, now - timedelta(days=3), unique_user.token)
+    mark_made(made_long_ago, now - timedelta(days=90), unique_user.token)
+    mark_made(made_recently_by_other_household, now - timedelta(days=3), h2_user.token)
+
+    cookbook = unique_user.repos.cookbooks.create(
+        SaveCookBook(
+            name=random_string(),
+            group_id=unique_user.group_id,
+            household_id=unique_user.household_id,
+            query_filter_string='last_made <= "$NOW-30d"',
+        )
+    )
+
+    response = api_client.get(api_routes.recipes, params={"cookbook": cookbook.slug}, headers=unique_user.token)
+    assert response.status_code == 200
+    fetched_recipe_ids = {item["id"] for item in response.json()["items"]}
+
+    assert str(made_long_ago.id) in fetched_recipe_ids
+    assert str(never_made.id) in fetched_recipe_ids
+    assert str(made_recently_by_other_household.id) in fetched_recipe_ids
+    assert str(made_recently.id) not in fetched_recipe_ids
 
 
 def test_create_recipe_with_extremely_long_slug(api_client: TestClient, unique_user: TestUser):
