@@ -352,7 +352,7 @@
       "title": "Paprika Tarif Yöneticisi"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
+      "description-long": "Mealie, v1.0 öncesi bir Mealie sürümünden tarifleri içe aktarabilir. Tariflerinizi eski örneğinizden dışa aktarın ve zip dosyasını aşağıya yükleyin. Dışa aktarılan dosyadan yalnızca tariflerin içe aktarılabileceğini unutmayın. Bu yalnızca v1.0'dan eski örnekler için geçerlidir. v1.0 veya sonrasında alınmış bir yedek, yedekleme ve geri yükleme araçlarıyla geri yüklenmelidir.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Tarif Verilerini Taşı",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
-    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "Tarifler, desteklenen başka bir uygulamadan Mealie'ye taşınabilir. Bu, Mealie'ye başlamanın harika bir yoludur. Mealie örnekleri arasında veri taşımak veya önceki bir Mealie yedeğini geri yüklemek ise yedekleme ve geri yükleme araçlarıyla yapılır.",
+    "migration-description": "Başka bir uygulamadan ya da v1.0'dan eski bir Mealie sürümünden mi geliyorsunuz? Taşıma seçeneklerine göz atın ve verilerinizin içe aktarılıp aktarılamayacağını görün.",
     "choose-migration-type": "Taşıma Türünü Seçin",
     "tag-all-recipes": "Tüm tarifleri {tag-name} etiketiyle etiketle",
     "recipe-1": "Tarif 1",
@@ -526,8 +526,8 @@
     "ingredients-not-parsed-description": "Görünüşe göre içerikleriniz henüz analiz edilmemiş. Aşağıdaki \"{parse}\" butonuna tıklayarak içeriklerinizi yapılandırılmış yiyeceklere ayırabilirsiniz.",
     "attach-images-hint": "Düzenleyiciye sürükleyip bırakarak görselleri ekleyin",
     "drop-image": "Yüklenecek resimi sürükleyip bırakın",
-    "failed-to-attach-image": "Failed to attach image",
-    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
+    "failed-to-attach-image": "Görsel eklenemedi",
+    "image-drop-unsupported": "Bu görsel doğrudan eklenemiyor. Görseli cihazınıza kaydedin, ardından dosyayı buraya sürükleyin.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Tanımlanmış birimlere veya gıdalara sahip tarifler ayrıştırılamaz.",
     "parse-ingredients": "Malzemeleri ayrıştır",
     "edit-markdown": "Markdown'ı Düzenle",
@@ -590,8 +590,8 @@
     "report-deletion-failed": "Rapor silme başarısız oldu",
     "recipe-debugger": "Tarif Hata Ayıklayıcı",
     "recipe-debugger-description": "Hata ayıklamak istediğiniz tarifin URL'sini alın ve buraya yapıştırın. URL, tarif kazıyıcı tarafından kazınacak ve sonuçlar görüntülenecektir. Herhangi bir veri çıktısı göremiyorsanız, kazımaya çalıştığınız site Mealie veya kazıyıcı kitaplığı tarafından desteklenmiyor demektir.",
-    "use-ai": "Use AI",
-    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-ai": "YZ Kullan",
+    "recipe-debugger-use-ai-description": "Sonuçları kazıyıcı kütüphanesine güvenmek yerine YZ ile ayrıştırın. URL ile tarif oluştururken kazıyıcı kütüphanesi başarısız olursa bu otomatik olarak yapılır, ancak burada elle test edebilirsiniz.",
     "debug": "Hata ayıklama",
     "tree-view": "Ağaç Görünümü",
     "recipe-servings": "Recipe Servings",
@@ -604,11 +604,11 @@
     "nextStep": "Sonraki adım",
     "recipe-actions": "Tarif İşlemleri",
     "unit-system": {
-      "as-written": "As written",
-      "metric": "Metric",
-      "metric-with-hint": "Metric (g, ml)",
-      "imperial": "Imperial",
-      "imperial-with-hint": "Imperial (cups, oz)"
+      "as-written": "Yazıldığı gibi",
+      "metric": "Metrik",
+      "metric-with-hint": "Metrik (g, ml)",
+      "imperial": "Emperyal",
+      "imperial-with-hint": "Emperyal (cup, oz)"
     },
     "parser": {
       "ingredient-parser": "Malzeme Ayrıştırıcı",
@@ -616,9 +616,9 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Doğal Dil İşleme",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
+      "natural-language-processor-english-only": "Doğal Dil İşleyici İngilizce tariflerle eğitilmiştir. Diğer dillerdeki tariflerde genellikle miktarı tanır ancak birimi tanımaz; bu nedenle Kaba Ayrıştırıcı veya YZ Ayrıştırıcı genellikle daha iyi sonuç verir.",
       "brute-parser": "Kaba Ayrıştırıcı",
-      "ai-parser": "AI Parser",
+      "ai-parser": "YZ Ayrıştırıcı",
       "missing-unit": "Eksik birimi oluştur: {unit}",
       "missing-food": "Eksik gıdayı oluştur: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
@@ -918,8 +918,8 @@
       "food-data": "Gıda Verisi",
       "label-overwrite-warning": "Bu, seçilen etiketi seçilen tüm gıdalara atayacak ve potansiyel olarak mevcut etiketlerinizin üzerine yazacaktır.",
       "on-hand-checkbox-label": "Bu bayrağın ayarlanması, alışveriş listesine bir tarif eklerken bu gıdanın varsayılan olarak işaretini kaldıracaktır.",
-      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
-      "no-unused-foods": "No unused foods to delete",
+      "delete-unused-confirm": "Kullanılmayan bu gıda silinsin mi? Bu işlem geri alınamaz. | Kullanılmayan bu {count} gıda silinsin mi? Bu işlem geri alınamaz.",
+      "no-unused-foods": "Silinecek kullanılmayan gıda yok",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -959,13 +959,13 @@
       "new-label": "Yeni Etiket",
       "labels": "Etiketler",
       "assign-label": "Etiket Tanımla",
-      "combine-label": "Combine Label",
-      "source-label": "Source Label",
-      "target-label": "Target Label",
-      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
-      "merge-label-example": "Merging {label1} into {label2}",
-      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
-      "no-unused-labels": "No unused labels to delete"
+      "combine-label": "Etiketleri Birleştir",
+      "source-label": "Kaynak Etiket",
+      "target-label": "Hedef Etiket",
+      "merge-dialog-text": "Seçilen etiketlerin birleştirilmesi, kaynak etiketi ve hedef etiketi tek bir etikette birleştirecektir. Kaynak etiket silinecek ve kaynak etikete yapılan tüm referanslar, hedef etiketi işaret edecek şekilde güncellenecektir.",
+      "merge-label-example": "{label1}, {label2} ile birleştiriliyor",
+      "delete-unused-confirm": "Kullanılmayan bu etiket silinsin mi? Bu işlem geri alınamaz. | Kullanılmayan bu {count} etiket silinsin mi? Bu işlem geri alınamaz.",
+      "no-unused-labels": "Silinecek kullanılmayan etiket yok"
     },
     "recipes": {
       "purge-exports": "Dışa Aktarılanları Temizle",
@@ -1039,13 +1039,13 @@
       "new-tool": "Yeni Araç",
       "edit-tool": "Araçları Düzenle",
       "tool-data": "Araç Verisi",
-      "combine-tool": "Combine Tool",
-      "source-tool": "Source Tool",
-      "target-tool": "Target Tool",
-      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
-      "merge-tool-example": "Merging {tool1} into {tool2}",
-      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
-      "no-unused-tools": "No unused tools to delete"
+      "combine-tool": "Araçları Birleştir",
+      "source-tool": "Kaynak Araç",
+      "target-tool": "Hedef Araç",
+      "merge-dialog-text": "Seçilen araçların birleştirilmesi, kaynak aracı ve hedef aracı tek bir araçta birleştirecektir. Kaynak araç silinecek ve kaynak araca yapılan tüm referanslar, hedef aracı işaret edecek şekilde güncellenecektir.",
+      "merge-tool-example": "{tool1}, {tool2} ile birleştiriliyor",
+      "delete-unused-confirm": "Kullanılmayan bu araç silinsin mi? Bu işlem geri alınamaz. | Kullanılmayan bu {count} araç silinsin mi? Bu işlem geri alınamaz.",
+      "no-unused-tools": "Silinecek kullanılmayan araç yok"
     }
   },
   "user-registration": {
@@ -1127,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Mükemmel değil, ancak genel olarak harika sonuçlar veriyor ve malzemeleri manuel olarak ayrı alanlara ayrıştırmak için iyi bir başlangıç noktası. Alternatif olarak, malzemeleri tanımlamak için bir model eşleştirme tekniği kullanan \"Brute\" işlemciyi de kullanabilirsiniz.",
     "nlp": "NLP",
     "brute": "Kaba",
-    "ai-providers": "AI Providers",
+    "ai-providers": "YZ Sağlayıcıları",
     "show-individual-confidence": "Bireysel güveni göster",
     "ingredient-text": "İçerik Metni",
     "average-confident": "{0} Güven",
@@ -1144,8 +1144,8 @@
       "restore-from-v1-backup": "Mealie v1'in önceki örneğinden bir yedeğiniz mi var? Buradan geri yükleyebilirsiniz.",
       "manage-profile-or-get-invite-link": "Kendi profilinizi yönetin veya başkalarıyla paylaşmak için bir davet bağlantısı alın."
     },
-    "debug-ai-providers": "Debug AI Providers",
-    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "debug-ai-providers": "YZ Sağlayıcılarında Hata Ayıkla",
+    "debug-ai-providers-description": "YZ sağlayıcılarında hata ayıklamak için bu sayfayı kullanın. YZ bağlantınızı test edip sonuçları burada görebilirsiniz. Görsel hizmetleri etkinse bir görsel de sağlayabilirsiniz.",
     "run-test": "Testi Çalıştır",
     "test-results": "Test Sonuçları",
     "group-delete-note": "İçinde hane veya kullanıcı olan gruplar silinemez",
@@ -1222,8 +1222,8 @@
       "is-less-than-or-equal-to": "daha az veya eşit mi",
       "is-older-than": "is older than",
       "is-newer-than": "is newer than",
-      "has-a-value": "has a value",
-      "has-no-value": "has no value"
+      "has-a-value": "değeri var",
+      "has-no-value": "değeri yok"
     },
     "relational-keywords": {
       "is": "is",
