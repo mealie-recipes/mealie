@@ -25,6 +25,9 @@ class MigrationTestData:
     archive: Path
     search_slug: str
 
+    times: tuple[int | None, int | None, int | None] | None = None
+    """Expected (total, prep, perform) seconds, when the migrator produces structured times"""
+
     nutrition_filter: set[str] = field(default_factory=set)
     nutrition_entries: set[str] = field(
         default_factory=lambda: {
@@ -48,6 +51,7 @@ test_cases = [
         typ=SupportedMigrations.nextcloud,
         archive=test_data.migrations_nextcloud,
         search_slug="skillet-shepherd-s-pie",
+        times=(5100, 900, 4200),
         nutrition_filter={
             "transFatContent",
             "unsaturatedFatContent",
@@ -86,6 +90,7 @@ test_cases = [
         typ=SupportedMigrations.tandoor,
         archive=test_data.migrations_tandoor,
         search_slug="texas-red-chili",
+        times=(120, None, None),
         nutrition_entries=set(),
     ),
     MigrationTestData(
@@ -110,6 +115,7 @@ test_cases = [
         typ=SupportedMigrations.myrecipebox,
         archive=test_data.migrations_myrecipebox,
         search_slug="beef-cheese-piroshki",
+        times=(6900, 5400, 1500),
         nutrition_filter={
             "cholesterolContent",
         },
@@ -118,12 +124,14 @@ test_cases = [
         typ=SupportedMigrations.recipekeeper,
         archive=test_data.migrations_recipekeeper,
         search_slug="zucchini-bread",
+        times=(None, 1800, 3600),
         nutrition_entries=set(),
     ),
     MigrationTestData(
         typ=SupportedMigrations.cookn,
         archive=test_data.migrations_cookn,
         search_slug="fresh-fruit-pizza",
+        times=(None, None, None),
         nutrition_entries=set(),
     ),
 ]
@@ -199,6 +207,10 @@ def test_recipe_migration(api_client: TestClient, unique_user_fn_scoped: TestUse
 
         for k in mig.nutrition_entries.difference(mig.nutrition_filter):
             assert k in nutrition and nutrition[k] is not None
+
+    if mig.times is not None:
+        assert (recipe.total_time_seconds, recipe.prep_time_seconds, recipe.perform_time_seconds) == mig.times
+        assert (recipe.total_time, recipe.prep_time, recipe.perform_time) == (None, None, None)
 
     # TODO: validate other types of content
 

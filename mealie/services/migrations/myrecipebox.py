@@ -33,9 +33,9 @@ class MyRecipeBoxMigrator(BaseMigrator):
 
         self.key_aliases = [
             MigrationAlias(key="name", alias="title", func=None),
-            MigrationAlias(key="prepTime", alias="preparationTime", func=self.parse_time),
-            MigrationAlias(key="performTime", alias="cookingTime", func=self.parse_time),
-            MigrationAlias(key="totalTime", alias="totalTime", func=self.parse_time),
+            MigrationAlias(key="prepTime", alias="preparationTime", func=None),
+            MigrationAlias(key="performTime", alias="cookingTime", func=None),
+            MigrationAlias(key="totalTime", alias="totalTime", func=None),
             MigrationAlias(key="recipeYield", alias="quantity", func=str),
             MigrationAlias(key="recipeIngredient", alias="ingredients", func=None),
             MigrationAlias(key="recipeInstructions", alias="instructions", func=split_by_line_break),
@@ -45,25 +45,6 @@ class MyRecipeBoxMigrator(BaseMigrator):
             MigrationAlias(key="tags", alias="tags", func=split_by_semicolon),
             MigrationAlias(key="orgURL", alias="source", func=None),
         ]
-
-    def parse_time(self, time: Any) -> str | None:
-        """Converts a time value to a string with minutes"""
-        try:
-            if not time:
-                return None
-            if not (isinstance(time, int) or isinstance(time, float) or isinstance(time, str)):
-                time = str(time)
-
-            if isinstance(time, str):
-                try:
-                    time = int(time)
-                except ValueError:
-                    return time
-
-            unit = self.translator.t("datetime.minute", count=time)
-            return f"{time} {unit}"
-        except Exception:
-            return None
 
     def parse_nutrition(self, input_: Any) -> dict | None:
         if not input_ or not isinstance(input_, str):

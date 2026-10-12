@@ -40,6 +40,7 @@ from mealie.schema.recipe import Recipe, ScrapeRecipe, ScrapeRecipeData
 from mealie.schema.recipe.recipe import (
     CreateRecipe,
     CreateRecipeByUrlBulk,
+    RecipeIn,
     RecipeLastMade,
     RecipeSummary,
 )
@@ -86,7 +87,36 @@ from mealie.services.scraper.scraper_strategies import (
 
 from ._base import BaseRecipeController, JSONBytes
 
-ASSET_ALLOWED_EXTENSIONS = {"pdf", "jpg", "jpeg", "png", "gif", "webp", "bmp", "avif", "txt", "md", "csv", "json"}
+ASSET_ALLOWED_EXTENSIONS = {
+    # image
+    "avif",
+    "bmp",
+    "gif",
+    "heic",
+    "heif",
+    "jpg",
+    "jpeg",
+    "png",
+    "webp",
+    # video
+    "m4v",
+    "mov",
+    "mp4",
+    "webm",
+    # audio
+    "m4a",
+    "mp3",
+    # document
+    "docx",
+    "md",
+    "odt",
+    "pdf",
+    "rtf",
+    "txt",
+    # data
+    "csv",
+    "json",
+}
 
 # A downloaded asset is stored as-is rather than re-encoded, so the download needs its own
 # ceiling. Matches the budget `openid_provider` uses for remotely-fetched profile images.
@@ -638,7 +668,7 @@ class RecipeController(BaseRecipeController):
         return new_recipe
 
     @router.put("/{slug}")
-    def update_one(self, slug: str, data: Recipe):
+    def update_one(self, slug: str, data: RecipeIn):
         """Updates a recipe by existing slug and data."""
         try:
             recipe = self.service.update_one(slug, data)
@@ -661,7 +691,7 @@ class RecipeController(BaseRecipeController):
         return recipe
 
     @router.put("")
-    def update_many(self, data: list[Recipe]):
+    def update_many(self, data: list[RecipeIn]):
         updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
             lambda: defaultdict(list)
         )
@@ -686,7 +716,7 @@ class RecipeController(BaseRecipeController):
         return all_updated
 
     @router.patch("/{slug}")
-    def patch_one(self, slug: str, data: Recipe):
+    def patch_one(self, slug: str, data: RecipeIn):
         """Updates a recipe by existing slug and data."""
         try:
             recipe = self.service.patch_one(slug, data)
@@ -709,7 +739,7 @@ class RecipeController(BaseRecipeController):
         return recipe
 
     @router.patch("")
-    def patch_many(self, data: list[Recipe]):
+    def patch_many(self, data: list[RecipeIn]):
         updated_by_group_and_household: defaultdict[UUID4, defaultdict[UUID4, list[Recipe]]] = defaultdict(
             lambda: defaultdict(list)
         )

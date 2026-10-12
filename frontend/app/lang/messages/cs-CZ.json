@@ -526,7 +526,7 @@
     "ingredients-not-parsed-description": "Zdá se, že vaše ingredience doposud nebyly analyzovány. Kliknutím na tlačítko „{parse}“ níže, abyste rozložili ingredience do strukturovaných jídel.",
     "attach-images-hint": "Přiložit obrázky přetažením jich do editoru",
     "drop-image": "Vložit obrázek",
-    "failed-to-attach-image": "Failed to attach image",
+    "failed-to-attach-image": "Nepodařilo se připojit obrázek",
     "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recepty s definovanými jednotkami nebo potravinami nelze zpracovat.",
     "parse-ingredients": "Rozbor ingrediencí",
@@ -590,8 +590,8 @@
     "report-deletion-failed": "Odstranění reportu se nezdařilo",
     "recipe-debugger": "Ladění receptů",
     "recipe-debugger-description": "Získejte URL receptu, který chcete ladit a vložte jej zde. URL bude zpracováno procesorem receptů a budou zobrazeny výsledky. Pokud nevidíte žádná data, stránka, kterou se pokoušíte zpracovat, není podporována ani v Mealie ani jeho knihovně pro zpracování.",
-    "use-openai": "Použít OpenAI",
-    "recipe-debugger-use-openai-description": "Použijte OpenAI k analýze výsledků namísto spoléhání se na knihovnu pro zpracování. Při vytváření receptu prostřednictvím adresy URL se to provádí automaticky, pokud knihovna pro zpracování selže, ale můžete to zde otestovat ručně.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Ladit",
     "tree-view": "Stromové zobrazení",
     "recipe-servings": "Počet porcí",
@@ -603,15 +603,22 @@
     "remove-image": "Odstranit obrázek",
     "nextStep": "Další krok",
     "recipe-actions": "Akce receptu",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Analyzátor ingrediencí",
       "select-parser": "Vyberte analyzátor",
       "dont-show-again": "Příště nezobrazovat",
       "try-again-with-parser": "Zkusit znovu s {parser}",
       "natural-language-processor": "Procesor přirozeného jazyka",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Analýza hrubou silou",
-      "openai-parser": "Analyzátor OpenAI",
+      "ai-parser": "AI Parser",
       "missing-unit": "Vytvořit chybějící jednotku: {unit}",
       "missing-food": "Vytvořit chybějící jídlo: {food}",
       "this-unit-could-not-be-parsed-automatically": "Tuto jednotku nelze analyzovat automaticky",
@@ -911,6 +918,8 @@
       "food-data": "Data jídla",
       "label-overwrite-warning": "Toto přiřadí vybraný štítek všem vybraným jídlům a může přepsat stávající štítky.",
       "on-hand-checkbox-label": "Nastavením tohoto příznaku bude tato potravina při přidávání receptu do nákupního seznamu ve výchozím nastavení odškrtnuta.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Náhrady",
       "manage-substitutions": "Spravovat náhrady",
       "substitution-dialog-text": "Navrhněte jídla, která mohou být použita místo {food}. Náhrada může být jídlo, poznámka nebo obojí.",
@@ -949,7 +958,14 @@
       "edit-label": "Upravit štítek",
       "new-label": "Nový štítek",
       "labels": "Štítky",
-      "assign-label": "Přiřadit štítek"
+      "assign-label": "Přiřadit štítek",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Vymazat exporty",
@@ -1022,7 +1038,14 @@
     "tools": {
       "new-tool": "Nový nástroj",
       "edit-tool": "Upravit nástroj",
-      "tool-data": "Data nástroje"
+      "tool-data": "Data nástroje",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1104,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Není to dokonalé, ale obecně to přináší skvělé výsledky a je dobrým výchozím bodem pro ruční zpracování ingrediencí do jednotlivých polí. Alternativně můžete také použít procesor \"Brute\", který používá metodu porovnávání vzorců pro identifikaci ingrediencí.",
     "nlp": "ZPJ",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Zobrazit individuální důvěru",
     "ingredient-text": "Text přísady",
     "average-confident": "{0} Důvěra",
@@ -1121,8 +1144,8 @@
       "restore-from-v1-backup": "Máte zálohu z předchozí instance Mealie v1? Můžete ji obnovit zde.",
       "manage-profile-or-get-invite-link": "Spravujte svůj vlastní profil, nebo přidejte pozvánku ke sdílení s ostatními."
     },
-    "debug-openai-services": "Ladit služby OpenAI",
-    "debug-openai-services-description": "Použijte tuto stránku k ladění služeb OpenAI. Můžete zde otestovat připojení k OpenAI a vidět výsledky. Pokud máte zapnutou službu obrázků, můžete také poskytnout obrázek.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Spustit test",
     "test-results": "Výsledky testu",
     "group-delete-note": "Skupiny s uživateli nebo domácnostmi nelze odstranit",
@@ -1198,7 +1221,9 @@
       "is-less-than": "je menší než",
       "is-less-than-or-equal-to": "je menší než nebo rovno",
       "is-older-than": "je starší než",
-      "is-newer-than": "je novější než"
+      "is-newer-than": "je novější než",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "je",

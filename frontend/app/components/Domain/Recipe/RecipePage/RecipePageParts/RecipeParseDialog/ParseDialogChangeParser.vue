@@ -59,7 +59,7 @@ const { t } = useI18n();
 const currentParserText = computed(() => {
   switch (currentParser.value) {
     case "brute": return t("recipe.parser.brute-parser");
-    case "openai": return t("recipe.parser.openai-parser");
+    case "openai": return t("recipe.parser.ai-parser");
   }
   return t("recipe.parser.natural-language-processor");
 });

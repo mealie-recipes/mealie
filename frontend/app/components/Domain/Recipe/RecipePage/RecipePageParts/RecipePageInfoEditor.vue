@@ -45,29 +45,21 @@
       </v-row>
     </v-container>
 
-    <div
-      class="d-flex flex-wrap"
-      style="gap: 1rem"
-    >
-      <v-text-field
-        v-model="recipe.totalTime"
-        :label="$t('recipe.total-time')"
-        density="compact"
-        variant="underlined"
-      />
-      <v-text-field
-        v-model="recipe.prepTime"
-        :label="$t('recipe.prep-time')"
-        density="compact"
-        variant="underlined"
-      />
-      <v-text-field
-        v-model="recipe.performTime"
-        :label="$t('recipe.perform-time')"
-        density="compact"
-        variant="underlined"
-      />
-    </div>
+    <RecipeTimeInput
+      v-model:seconds="recipe.totalTimeSeconds"
+      v-model:text="recipe.totalTime"
+      :label="$t('recipe.total-time')"
+    />
+    <RecipeTimeInput
+      v-model:seconds="recipe.prepTimeSeconds"
+      v-model:text="recipe.prepTime"
+      :label="$t('recipe.prep-time')"
+    />
+    <RecipeTimeInput
+      v-model:seconds="recipe.performTimeSeconds"
+      v-model:text="recipe.performTime"
+      :label="$t('recipe.perform-time')"
+    />
     <v-textarea
       v-model="recipe.description"
       auto-grow
@@ -80,6 +72,7 @@
 </template>
 
 <script setup lang="ts">
+import RecipeTimeInput from "~/components/Domain/Recipe/RecipeTimeInput.vue";
 import { validators } from "~/composables/use-validators";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";

@@ -1,7 +1,7 @@
 ###############################################
 # Frontend Build
 ###############################################
-FROM node:24@sha256:64af3819f9275802414d7cdc38c27e9d82bd564dec4d4da87d008255d36c63b4 \
+FROM node:24@sha256:3d27e5c11e5786e309ec3e03f93ae536eb36e6e5eb3714d5eb3300a36157add0 \
     AS frontend-builder
 
 RUN npm install --global pnpm@11
@@ -73,7 +73,7 @@ RUN uv build --out-dir dist
 # dependencies.txt changes only when uv.lock does, so the venv build can cache
 # the install. requirements.txt adds the wheel that was just built, so an
 # install from it gets that exact one.
-RUN uv export --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/dependencies.txt \
+RUN uv export --no-dev --no-editable --no-emit-project --extra pgsql --format requirements-txt --output-file dist/dependencies.txt \
     && cp dist/dependencies.txt dist/requirements.txt \
     && MEALIE_VERSION=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])") \
     && echo "mealie[pgsql]==${MEALIE_VERSION} \\" >> dist/requirements.txt \

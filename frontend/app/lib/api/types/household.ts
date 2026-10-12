@@ -436,6 +436,9 @@ export interface Recipe {
   prepTime?: string | null;
   cookTime?: string | null;
   performTime?: string | null;
+  totalTimeSeconds?: number | null;
+  prepTimeSeconds?: number | null;
+  performTimeSeconds?: number | null;
   description?: string | null;
   recipeCategory?: RecipeCategory[] | null;
   tags?: RecipeTag[] | null;
@@ -738,6 +741,9 @@ export interface RecipeSummary {
   prepTime?: string | null;
   cookTime?: string | null;
   performTime?: string | null;
+  totalTimeSeconds?: number | null;
+  prepTimeSeconds?: number | null;
+  performTimeSeconds?: number | null;
   description?: string | null;
   recipeCategory?: RecipeCategory[] | null;
   tags?: RecipeTag[] | null;

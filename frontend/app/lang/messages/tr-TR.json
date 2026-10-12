@@ -590,8 +590,8 @@
     "report-deletion-failed": "Rapor silme başarısız oldu",
     "recipe-debugger": "Tarif Hata Ayıklayıcı",
     "recipe-debugger-description": "Hata ayıklamak istediğiniz tarifin URL'sini alın ve buraya yapıştırın. URL, tarif kazıyıcı tarafından kazınacak ve sonuçlar görüntülenecektir. Herhangi bir veri çıktısı göremiyorsanız, kazımaya çalıştığınız site Mealie veya kazıyıcı kitaplığı tarafından desteklenmiyor demektir.",
-    "use-openai": "OpenAI Kullan",
-    "recipe-debugger-use-openai-description": "Sonuçları ayrıştırmak için kazıyıcı kitaplığına güvenmek yerine OpenAI'yi kullanın. URL aracılığıyla bir tarif oluştururken, kazıyıcı kitaplığı başarısız olursa bu otomatik olarak yapılır, ancak burada manuel olarak test edebilirsiniz.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Hata ayıklama",
     "tree-view": "Ağaç Görünümü",
     "recipe-servings": "Recipe Servings",
@@ -603,15 +603,22 @@
     "remove-image": "Resmi kaldır",
     "nextStep": "Sonraki adım",
     "recipe-actions": "Tarif İşlemleri",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Malzeme Ayrıştırıcı",
       "select-parser": "Ayrıştırıcıyı Seçin",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Doğal Dil İşleme",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Kaba Ayrıştırıcı",
-      "openai-parser": "OpenAI Ayrıştırıcı",
+      "ai-parser": "AI Parser",
       "missing-unit": "Eksik birimi oluştur: {unit}",
       "missing-food": "Eksik gıdayı oluştur: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
@@ -911,6 +918,8 @@
       "food-data": "Gıda Verisi",
       "label-overwrite-warning": "Bu, seçilen etiketi seçilen tüm gıdalara atayacak ve potansiyel olarak mevcut etiketlerinizin üzerine yazacaktır.",
       "on-hand-checkbox-label": "Bu bayrağın ayarlanması, alışveriş listesine bir tarif eklerken bu gıdanın varsayılan olarak işaretini kaldıracaktır.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -949,7 +958,14 @@
       "edit-label": "Etiketi Düzenle",
       "new-label": "Yeni Etiket",
       "labels": "Etiketler",
-      "assign-label": "Etiket Tanımla"
+      "assign-label": "Etiket Tanımla",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Dışa Aktarılanları Temizle",
@@ -1022,7 +1038,14 @@
     "tools": {
       "new-tool": "Yeni Araç",
       "edit-tool": "Araçları Düzenle",
-      "tool-data": "Araç Verisi"
+      "tool-data": "Araç Verisi",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1104,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Mükemmel değil, ancak genel olarak harika sonuçlar veriyor ve malzemeleri manuel olarak ayrı alanlara ayrıştırmak için iyi bir başlangıç noktası. Alternatif olarak, malzemeleri tanımlamak için bir model eşleştirme tekniği kullanan \"Brute\" işlemciyi de kullanabilirsiniz.",
     "nlp": "NLP",
     "brute": "Kaba",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Bireysel güveni göster",
     "ingredient-text": "İçerik Metni",
     "average-confident": "{0} Güven",
@@ -1121,8 +1144,8 @@
       "restore-from-v1-backup": "Mealie v1'in önceki örneğinden bir yedeğiniz mi var? Buradan geri yükleyebilirsiniz.",
       "manage-profile-or-get-invite-link": "Kendi profilinizi yönetin veya başkalarıyla paylaşmak için bir davet bağlantısı alın."
     },
-    "debug-openai-services": "Debug OpenAI Services",
-    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Testi Çalıştır",
     "test-results": "Test Sonuçları",
     "group-delete-note": "İçinde hane veya kullanıcı olan gruplar silinemez",
@@ -1198,7 +1221,9 @@
       "is-less-than": "daha mı az",
       "is-less-than-or-equal-to": "daha az veya eşit mi",
       "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-newer-than": "is newer than",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "is",

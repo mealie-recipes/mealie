@@ -66,7 +66,7 @@ import type { AIProviderCreate, AIProviderUpdate } from "~/lib/api/types/group";
 import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
-  middleware: ["can-manage-only"],
+  middleware: ["auth", "can-manage-only"],
 });
 
 const { group, actions: groupActions } = useGroupSelf();

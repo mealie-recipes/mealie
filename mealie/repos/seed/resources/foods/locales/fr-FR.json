@@ -84,7 +84,7 @@
       },
       "heart of palm": {
         "name": "cœur de palmier",
-        "plural_name": "hearts of palm"
+        "plural_name": "cœurs de palmier"
       },
       "pumpkin": {
         "name": "citrouille",
@@ -148,7 +148,7 @@
       },
       "radish": {
         "name": "radis",
-        "plural_name": "radishes"
+        "plural_name": "radis"
       },
       "red cabbage": {
         "name": "chou rouge",
@@ -160,7 +160,7 @@
       },
       "parsnip": {
         "name": "panais",
-        "plural_name": "parsnips"
+        "plural_name": "panais"
       },
       "poblano pepper": {
         "name": "piment poblano",
@@ -252,7 +252,7 @@
       },
       "pineapple": {
         "name": "ananas",
-        "plural_name": "pineapples"
+        "plural_name": "ananas"
       },
       "mango": {
         "name": "mangue",
@@ -268,7 +268,7 @@
       },
       "coconut": {
         "name": "noix de coco",
-        "plural_name": "coconuts"
+        "plural_name": "noix de coco"
       },
       "pear": {
         "name": "poire",
@@ -336,7 +336,7 @@
       },
       "pea": {
         "name": "pois",
-        "plural_name": "peas"
+        "plural_name": "pois"
       },
       "green bean": {
         "name": "haricot vert",
@@ -617,7 +617,7 @@
       },
       "soba noodle": {
         "name": "nouille soba",
-        "plural_name": "soba noodles"
+        "plural_name": "nouilles soba"
       },
       "ravioli": {
         "name": "ravioli",
@@ -710,7 +710,7 @@
       },
       "beef short rib": {
         "name": "plat-de-côtes",
-        "plural_name": "beef short ribs"
+        "plural_name": "ribs de bœuf"
       },
       "pork belly": {
         "name": "poitrine de porc",
@@ -1231,7 +1231,7 @@
       },
       "canned chickpea": {
         "name": "pois chiches en boîte",
-        "plural_name": "canned chickpeas"
+        "plural_name": "pois chiches en boîte"
       },
       "black olive": {
         "name": "olive noire",
@@ -2149,7 +2149,7 @@
       },
       "pecan": {
         "name": "noix de pécan",
-        "plural_name": "pecans"
+        "plural_name": "noix de pécan"
       },
       "almond": {
         "name": "amande",

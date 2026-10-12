@@ -8,7 +8,7 @@ from mealie.services.scraper import cleaner
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import parse_iso8601_duration, safe_local_path
+from .utils.migration_helpers import safe_local_path
 
 
 def clean_instructions(instructions: list[str]) -> list[str]:
@@ -73,8 +73,8 @@ class RecipeKeeperMigrator(BaseMigrator):
                 alias="recipeIngredients",
             ),
             MigrationAlias(key="recipeInstructions", alias="recipeDirections", func=clean_instructions),
-            MigrationAlias(key="performTime", alias="cookTime", func=parse_iso8601_duration),
-            MigrationAlias(key="prepTime", alias="prepTime", func=parse_iso8601_duration),
+            MigrationAlias(key="performTime", alias="cookTime", func=None),
+            MigrationAlias(key="prepTime", alias="prepTime", func=None),
             MigrationAlias(key="image", alias="photo0"),
             MigrationAlias(key="tags", alias="recipeCourse", func=to_list),
             MigrationAlias(key="recipeCategory", alias="recipeCategory", func=to_list),

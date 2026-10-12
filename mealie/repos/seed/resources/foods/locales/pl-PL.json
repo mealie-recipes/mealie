@@ -12,7 +12,7 @@
       },
       "bell pepper": {
         "name": "słodka papryka",
-        "plural_name": "bell peppers"
+        "plural_name": "papryki"
       },
       "carrot": {
         "name": "marchew",
@@ -48,7 +48,7 @@
       },
       "avocado": {
         "name": "awokado",
-        "plural_name": "avocados"
+        "plural_name": "awokado"
       },
       "shallot": {
         "name": "szalotka",
@@ -84,7 +84,7 @@
       },
       "heart of palm": {
         "name": "serce palmy",
-        "plural_name": "hearts of palm"
+        "plural_name": "serca palmy"
       },
       "pumpkin": {
         "name": "dynia",
@@ -136,7 +136,7 @@
       },
       "brussels sprout": {
         "name": "brukselka",
-        "plural_name": "brussels sprouts"
+        "plural_name": "brukselka"
       },
       "fennel": {
         "name": "koper włoski",
@@ -180,7 +180,7 @@
       },
       "spaghetti squash": {
         "name": "dynia spaghetti",
-        "plural_name": "spaghetti squashes"
+        "plural_name": "dynia makaronowa"
       },
       "napa cabbage": {
         "name": "kapusta pekińska",
@@ -340,15 +340,15 @@
       },
       "green bean": {
         "name": "fasolka szparagowa",
-        "plural_name": "green beans"
+        "plural_name": "fasolka szparagowa"
       },
       "snow pea": {
         "name": "groszek cukrowy",
-        "plural_name": "snow peas"
+        "plural_name": "groszek cukrowy"
       },
       "snap pea": {
         "name": "groszek snap",
-        "plural_name": "snap peas"
+        "plural_name": "groszek cukrowy"
       },
       "bean sprout": {
         "name": "kiełek fasoli",
@@ -400,7 +400,7 @@
       },
       "chive": {
         "name": "szczypiorek",
-        "plural_name": "chives"
+        "plural_name": "szczypiorek"
       },
       "mint": {
         "name": "mięta",
@@ -497,7 +497,7 @@
       },
       "steel cut oat": {
         "name": "owies cięty",
-        "plural_name": "steel cut oats"
+        "plural_name": "owies cięty"
       },
       "millet": {
         "name": "proso",
@@ -513,19 +513,19 @@
       },
       "chickpea": {
         "name": "ciecierzyca",
-        "plural_name": "chickpeas"
+        "plural_name": "ciecierzyca"
       },
       "black bean": {
         "name": "czarna fasola",
-        "plural_name": "black beans"
+        "plural_name": "czarna fasola"
       },
       "kidney bean": {
         "name": "fasola kidney",
-        "plural_name": "kidney beans"
+        "plural_name": "fasola kidney"
       },
       "white bean": {
         "name": "biała fasola",
-        "plural_name": "white beans"
+        "plural_name": "biała fasola"
       },
       "lentil": {
         "name": "soczewica",
@@ -533,27 +533,27 @@
       },
       "pinto bean": {
         "name": "fasola pinto",
-        "plural_name": "pinto beans"
+        "plural_name": "fasola pinto"
       },
       "red lentil": {
         "name": "czerwona soczewica",
-        "plural_name": "red lentils"
+        "plural_name": "czerwona soczewica"
       },
       "cannellini bean": {
         "name": "fasola cannellini",
-        "plural_name": "cannellini beans"
+        "plural_name": "fasola cannellini"
       },
       "black-eyed pea": {
         "name": "fasola czarnooka",
-        "plural_name": "black-eyed peas"
+        "plural_name": "fasola czarnooka"
       },
       "split pea": {
         "name": "groch łuskany",
-        "plural_name": "split peas"
+        "plural_name": "groch łuskany"
       },
       "mung bean": {
         "name": "fasola mung",
-        "plural_name": "mung beans"
+        "plural_name": "fasola mung"
       },
       "spaghetti": {
         "name": "spaghetti",
@@ -565,7 +565,7 @@
       },
       "egg noodle": {
         "name": "makaron jajeczny",
-        "plural_name": "egg noodles"
+        "plural_name": "makaron jajeczny"
       },
       "spiral pasta": {
         "name": "makaron spiralny",
@@ -589,7 +589,7 @@
       },
       "pasta shell": {
         "name": "makaron muszelki",
-        "plural_name": "pasta shells"
+        "plural_name": "makaron muszelki"
       },
       "noodle": {
         "name": "makaron",
@@ -601,7 +601,7 @@
       },
       "rice noodle": {
         "name": "makaron ryżowy",
-        "plural_name": "rice noodles"
+        "plural_name": "makaron ryżowy"
       },
       "rigatoni": {
         "name": "rigatoni",
@@ -613,11 +613,11 @@
       },
       "ramen noodle": {
         "name": "makaron ramen",
-        "plural_name": "ramen noodles"
+        "plural_name": "makaron ramen"
       },
       "soba noodle": {
         "name": "makaron soba",
-        "plural_name": "soba noodles"
+        "plural_name": "makaron soba"
       },
       "ravioli": {
         "name": "ravioli",
@@ -625,7 +625,7 @@
       },
       "udon noodle": {
         "name": "makaron udon",
-        "plural_name": "udon noodles"
+        "plural_name": "makaron udon"
       },
       "manicotti": {
         "name": "manicotti",
@@ -666,7 +666,7 @@
       },
       "pork loin": {
         "name": "schab",
-        "plural_name": "pork loins"
+        "plural_name": "schab"
       },
       "beef roast": {
         "name": "pieczeń wołowa",
@@ -698,7 +698,7 @@
       },
       "beef sirloin": {
         "name": "rostbef wołowy",
-        "plural_name": "beef sirloins"
+        "plural_name": "polędwica wołowa"
       },
       "brisket": {
         "name": "mostek wołowy",
@@ -1118,7 +1118,7 @@
       },
       "puff pastry": {
         "name": "ciasto francuskie",
-        "plural_name": "puff pastries"
+        "plural_name": "ciastka francuskie"
       },
       "pizza dough": {
         "name": "ciasto do pizzy",

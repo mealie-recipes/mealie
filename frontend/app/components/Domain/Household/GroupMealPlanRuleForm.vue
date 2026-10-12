@@ -125,6 +125,11 @@ const fieldDefs: FieldDefinition[] = [
     type: "number",
   },
   {
+    name: "total_time_seconds",
+    label: i18n.t("recipe.total-time"),
+    type: "duration",
+  },
+  {
     name: "last_made",
     label: i18n.t("general.last-made"),
     type: "relativeDate",

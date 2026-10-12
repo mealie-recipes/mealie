@@ -590,8 +590,8 @@
     "report-deletion-failed": "Bericht löschen fehlgeschlagen",
     "recipe-debugger": "Rezept Debugger",
     "recipe-debugger-description": "Füge die URL des Rezepts, das du debuggen möchtest, hier ein. Die URL wird vom Scraper eingelesen und die Ergebnisse werden angezeigt. Wenn du keine Ausgabedaten sehen solltest, wird das Einlesen dieser Webseite nicht von Mealie oder dessen Scraper-Bibliothek unterstützt.",
-    "use-openai": "Verwende OpenAI",
-    "recipe-debugger-use-openai-description": "Verwende OpenAI anstelle der Scraper-Bibliothek, um die Einträge zu parsen. Wenn du ein Rezept über dessen URL erstellst und der Versuch über die Scraper-Bibliothek fehlschlägt, passiert das automatisch. Aber du kannst es hier auch manuell testen.",
+    "use-ai": "Verwende KI",
+    "recipe-debugger-use-ai-description": "Verwende KI anstelle der Scraper-Bibliothek, um die Einträge zu parsen. Wenn du ein Rezept über dessen URL erstellst und der Versuch über die Scraper-Bibliothek fehlschlägt, passiert das automatisch. Aber du kannst es hier auch manuell testen.",
     "debug": "Debug",
     "tree-view": "Strukturierte Ansicht",
     "recipe-servings": "Rezept Portionen",
@@ -603,15 +603,22 @@
     "remove-image": "Bild entfernen",
     "nextStep": "Nächster Schritt",
     "recipe-actions": "Rezept-Aktionen",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Zutaten-Parser",
       "select-parser": "Parser auswählen",
       "dont-show-again": "Nicht wieder anzeigen",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Natürliche Sprachverarbeitung",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "Der Natural Language Processor wurde mit englischen Rezepten trainiert. Bei Rezepten in anderen Sprachen erkennt er in der Regel zwar die Menge, jedoch nicht die Einheit, sodass der Brute Parser oder der KI Parser meist bessere Ergebnisse liefern.",
       "brute-parser": "Brute-Parser",
-      "openai-parser": "OpenAI-Parser",
+      "ai-parser": "KI Parser",
       "missing-unit": "Fehlende Einheit erstellen: {unit}",
       "missing-food": "Fehlendes Lebensmittel erstellen: {food}",
       "this-unit-could-not-be-parsed-automatically": "Diese Einheit konnte nicht automatisch analysiert werden",
@@ -911,6 +918,8 @@
       "food-data": "Lebensmitteldaten",
       "label-overwrite-warning": "Hiermit wird die ausgewählte Kategorie allen ausgewählten Lebensmitteln zugewiesen und möglicherweise bestehende Kategorien werden überschrieben.",
       "on-hand-checkbox-label": "Mit dieser Markierung wird dieses Lebensmittel standardmäßig deaktiviert, wenn ein Rezept einer Einkaufsliste hinzugefügt wird.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -949,7 +958,14 @@
       "edit-label": "Kategorie bearbeiten",
       "new-label": "Neue Kategorie",
       "labels": "Bezeichnungen",
-      "assign-label": "Kategorie zuweisen"
+      "assign-label": "Kategorie zuweisen",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Exporte bereinigen",
@@ -1022,7 +1038,14 @@
     "tools": {
       "new-tool": "Neues Utensil",
       "edit-tool": "Utensil bearbeiten",
-      "tool-data": "Utensilien-Daten"
+      "tool-data": "Utensilien-Daten",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1104,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Es ist nicht perfekt, aber es erzeugt meist sehr gute Ergebnisse und ist ein guter Anfang, um Zutaten manuell den einzelnen Feldern zuzuordnen. Alternativ kannst du auch den \"Brute\" Prozessor benutzen, der eine Musterabgleich-Technik verwendet, um Zutaten zu identifizieren.",
     "nlp": "NLP",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "KI-Anbieter",
     "show-individual-confidence": "Zeige individuelle Zuverlässigkeitswerte an",
     "ingredient-text": "Zutaten-Angabe",
     "average-confident": "{0} zuverlässig",
@@ -1121,8 +1144,8 @@
       "restore-from-v1-backup": "Hast du ein Backup von einer früheren v1 Instanz von Mealie? Hier kannst du es wiederherstellen.",
       "manage-profile-or-get-invite-link": "Verwalte dein eigenes Profil oder erstelle einen Einladungslink, den du an andere weitergeben kannst."
     },
-    "debug-openai-services": "OpenAI Services debuggen",
-    "debug-openai-services-description": "Benutzen Sie diese Seite, um OpenAI-Dienste zu debuggen. Sie können Ihre OpenAI-Verbindung testen und die Ergebnisse hier sehen. Wenn Sie Bilddienste aktiviert haben, können Sie auch ein Bild angeben.",
+    "debug-ai-providers": "KI-Anbieter debuggen",
+    "debug-ai-providers-description": "Benutze diese Seite, um KI-Anbieter zu debuggen. Du kannst deine KI-Verbindung testen und die Ergebnisse hier sehen. Wenn du Bilddienste aktiviert hast, kannst du auch ein Bild angeben.",
     "run-test": "Test durchführen",
     "test-results": "Testergebnisse",
     "group-delete-note": "Gruppen mit Benutzern oder Haushalten können nicht gelöscht werden",
@@ -1198,7 +1221,9 @@
       "is-less-than": "ist weniger als",
       "is-less-than-or-equal-to": "ist kleiner gleich",
       "is-older-than": "Ist älter als",
-      "is-newer-than": "Ist neuer als"
+      "is-newer-than": "Ist neuer als",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "ist",

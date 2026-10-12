@@ -68,7 +68,7 @@
         "report-deleted": "Rapor silindi."
     },
     "exceptions": {
-        "permission_denied": "Bu eylemi gerçekleştirme izniniz yok",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Bir tarif, doğrudan ya da dolaylı olarak kendine referans veremez",
         "no-entry-found": "İstenen kaynak bulunamadı",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

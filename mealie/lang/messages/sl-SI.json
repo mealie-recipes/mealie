@@ -68,7 +68,7 @@
         "report-deleted": "Poročilo izbrisano."
     },
     "exceptions": {
-        "permission_denied": "Nimate dovoljenja za izvedbo zahtevanega dejanja",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Recept se ne more sklicevati na samega sebe, niti neposredno niti posredno",
         "no-entry-found": "Zahtevanega vira ni moč najti",
         "rate-limit-error": "Ponudnik umetne inteligence omejuje število zahtev. Počakajte trenutek in poskusite znova",

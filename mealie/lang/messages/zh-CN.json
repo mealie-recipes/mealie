@@ -68,7 +68,7 @@
         "report-deleted": "报告已删除"
     },
     "exceptions": {
-        "permission_denied": "您没有执行此操作的权限",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "食谱不能直接或间接地引用自身",
         "no-entry-found": "您要找的网页不存在",
         "rate-limit-error": "AI 提供商请求超限, 请稍候再试",

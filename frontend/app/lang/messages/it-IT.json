@@ -365,7 +365,7 @@
     },
     "recipe-data-migrations": "Migrazione Dati Ricetta",
     "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
-    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
+    "migration-description": "Vieni da un'altra app o da una versione di Mealie precedente alla v1.0? Scopri le migrazioni e controlla se puoi importare i tuoi dati.",
     "choose-migration-type": "Scegli Il Tipo Di Migrazione",
     "tag-all-recipes": "Etichetta tutte le ricette con {tag-name} etichetta",
     "recipe-1": "Ricetta 1",
@@ -590,8 +590,8 @@
     "report-deletion-failed": "Eliminazione report fallita",
     "recipe-debugger": "Debugger Ricetta",
     "recipe-debugger-description": "Prendi l'URL della ricetta che vuoi fare il debug e incollalo qui. L'URL verrà recuperato dallo scraper di ricette e i risultati verranno visualizzati. Se non si vede alcun dato restituito, il sito che si sta cercando di analizzare non è supportato da Mealie o la sua libreria di scraping.",
-    "use-openai": "Usa OpenAI",
-    "recipe-debugger-use-openai-description": "Usa OpenAI per analizzare i risultati invece di affidarsi alla libreria scraper. Quando si crea una ricetta tramite URL, questo viene fatto automaticamente se la libreria scraper fallisce, ma è possibile testarlo manualmente qui.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Visualizzazione ad Albero",
     "recipe-servings": "Porzioni ricetta",
@@ -603,15 +603,22 @@
     "remove-image": "Rimuovi immagine",
     "nextStep": "Passo successivo",
     "recipe-actions": "Azioni Ricetta",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Analizzatore ingredienti",
       "select-parser": "Seleziona Analizzatore",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Analizzatore di Linguaggio Naturale",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Analizzatore brutale",
-      "openai-parser": "Parser OpenAI",
+      "ai-parser": "AI Parser",
       "missing-unit": "Crea unità mancante: {unit}",
       "missing-food": "Crea cibo mancante: {food}",
       "this-unit-could-not-be-parsed-automatically": "Questa unità non può essere analizzata automaticamente",
@@ -911,6 +918,8 @@
       "food-data": "Dati Alimento",
       "label-overwrite-warning": "Questo assegnerà l'etichetta scelta a tutti gli alimenti selezionati e potenzialmente sovrascriverà le etichette esistenti.",
       "on-hand-checkbox-label": "Abilitando questa impostazione, l'alimento verrà deselezionato di default quando si aggiungerà una ricetta a una lista della spesa.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -949,7 +958,14 @@
       "edit-label": "Modifica Etichetta",
       "new-label": "Nuova Etichetta",
       "labels": "Etichette",
-      "assign-label": "Assegna Etichetta"
+      "assign-label": "Assegna Etichetta",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Elimina Esportazioni",
@@ -1022,7 +1038,14 @@
     "tools": {
       "new-tool": "Nuovo strumento",
       "edit-tool": "Modifica Strumento",
-      "tool-data": "Dati dello Strumento"
+      "tool-data": "Dati dello Strumento",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1104,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Non è perfetto, ma produce ottimi risultati in generale ed è un buon punto di partenza per separare manualmente gli ingredienti in singoli campi. In alternativa, è anche possibile utilizzare il processore \"Bruto\" che utilizza una tecnica di corrispondenza di modello per identificare gli ingredienti.",
     "nlp": "NLP",
     "brute": "Bruto",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Mostra fiducia individuale",
     "ingredient-text": "Testo Ingrediente",
     "average-confident": "{0} Fiducia",
@@ -1121,8 +1144,8 @@
       "restore-from-v1-backup": "Hai un backup da un'istanza precedente di Mealie v1? Puoi ripristinarlo qui.",
       "manage-profile-or-get-invite-link": "Gestisci il tuo profilo, o parti da un link di invito per condividere con gli altri."
     },
-    "debug-openai-services": "Debug Dei Servizi OpenAI",
-    "debug-openai-services-description": "Usa questa pagina per fare debug dei servizi OpenAI. Puoi testare la tua connessione OpenAI e vedere i risultati qui. Se si dispone di servizi di immagine abilitati, è anche possibile fornire un'immagine.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Esegui test",
     "test-results": "Risultati dei test",
     "group-delete-note": "I gruppi con utenti o famiglie non possono essere eliminati",
@@ -1198,7 +1221,9 @@
       "is-less-than": "è minore di",
       "is-less-than-or-equal-to": "è minore o uguale di",
       "is-older-than": "è più vecchio di",
-      "is-newer-than": "è più recente di"
+      "is-newer-than": "è più recente di",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "è",

@@ -702,6 +702,11 @@ const queryFilterBuilderFields: FieldDefinition[] = [
     label: i18n.t("general.rating"),
     type: "number",
   },
+  {
+    name: "total_time_seconds",
+    label: i18n.t("recipe.total-time"),
+    type: "duration",
+  },
 ];
 
 function clearQueryFilter() {

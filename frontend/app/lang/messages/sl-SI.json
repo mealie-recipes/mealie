@@ -352,7 +352,7 @@
       "title": "Urejevalnik receptov Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
+      "description-long": "Mealie lahko uvozi recepte iz različice aplikacije Mealie, starejše od v1.0. Izvozite recepte iz svoje stare instance in naložite spodnjo datoteko ZIP. Upoštevajte, da je iz izvožene datoteke mogoče uvoziti le recepte. To velja samo za instance, starejše od različice v1.0. Varnostne kopije, ustvarjene v različici v1.0 ali novejši, je treba obnoviti z ustreznimi orodji za varnostno kopiranje in obnovitev.",
       "title": "Mealie pred v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migracije receptov",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
-    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "Recepte je mogoče prenesti v Mealie iz druge podprte aplikacije. To je odličen način za začetek uporabe programa Mealie. Za prenos podatkov med različnimi namestitvami programa Mealie ali za obnovitev prejšnje varnostne kopije pa se namesto tega uporabljajo orodja za varnostno kopiranje in obnovitev.",
+    "migration-description": "Prihajate iz druge aplikacije ali različice programa Mealie, starejše od v1.0? Preverite možnosti migracije in poglejte, ali je mogoče uvoziti vaše podatke.",
     "choose-migration-type": "Izberi tip migracije",
     "tag-all-recipes": "Označi vse recepte z {tag-name} značko",
     "recipe-1": "Recept 1",
@@ -590,8 +590,8 @@
     "report-deletion-failed": "Brisanje poročila ni bilo uspešno",
     "recipe-debugger": "Odpravljanje težav v strganju recepta",
     "recipe-debugger-description": "Prilepi povezavo do recepta, ki ga želiš postrgati. Strgalnik receptov bo postrgal spletno stran in prikazal rezultate. Če ne vidiš nobenih podatkov, potem spletna stran, ki jo želiš strgati ni podprta v Mealie oz. v strgalniku, ki ga uporablja.",
-    "use-openai": "Uporabi OpenAI",
-    "recipe-debugger-use-openai-description": "Za razčlenitev rezultatov uporabite OpenAI, namesto da se zanašate na knjižnico strgala. Ko ustvarjate recept prek URL-ja, se to izvede samodejno, če knjižnica strgala odpove, vendar ga lahko tukaj preizkusite ročno.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Razhroščevanje",
     "tree-view": "Drevesni prikaz",
     "recipe-servings": "Rocept obrokov",
@@ -603,15 +603,22 @@
     "remove-image": "Odstrani sliko",
     "nextStep": "Naslednji korak",
     "recipe-actions": "Opravila na receptu",
+    "unit-system": {
+      "as-written": "Kot je zapisano",
+      "metric": "Metrični",
+      "metric-with-hint": "Metrične enote (g, ml)",
+      "imperial": "Imperialni",
+      "imperial-with-hint": "Imperialne enote (skodelice, unče)"
+    },
     "parser": {
       "ingredient-parser": "Razčlenjevalnik sestavin",
       "select-parser": "Izberi razčlenjevalnik",
       "dont-show-again": "Tega ne prikaži več",
       "try-again-with-parser": "Poskusite znova z {parser}",
       "natural-language-processor": "Procesor naravnega jezika",
-      "natural-language-processor-english-only": "Orodje za obdelavo naravnega jezika je usposobljeno na receptih v angleščini. Pri receptih v drugih jezikih običajno prepozna količino, ne pa tudi enote, zato Brute Parser ali OpenAI Parser običajno zagotavljata boljše rezultate.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Surov razčlenjevalnik",
-      "openai-parser": "Razčlenjevalnik OpenAI",
+      "ai-parser": "AI Parser",
       "missing-unit": "Ustvari manjkajočo enoto: {unit}",
       "missing-food": "Ustvari manjkajoče živilo: {food}",
       "this-unit-could-not-be-parsed-automatically": "Te enote ni bilo mogoče samodejno razčleniti",
@@ -911,6 +918,8 @@
       "food-data": "Podatki o živilih",
       "label-overwrite-warning": "S tem boste izbrano oznako dodelili vsem izbranim živilom in morda prepisali vaše obstoječe oznake.",
       "on-hand-checkbox-label": "Če nastavite to zastavico, bo to živilo privzeto odstranjeno, ko dodate recept na nakupovalni seznam.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Zamenjave",
       "manage-substitutions": "Upravljanje zamenjav",
       "substitution-dialog-text": "Predlagajte živila, ki jih lahko uporabite namesto {food}. Zamenjava je lahko živilo, opomba ali oboje.",
@@ -949,7 +958,14 @@
       "edit-label": "Uredi oznako",
       "new-label": "Nova oznaka",
       "labels": "Oznake",
-      "assign-label": "Dodeli oznako"
+      "assign-label": "Dodeli oznako",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Počisti izvoze",
@@ -1022,7 +1038,14 @@
     "tools": {
       "new-tool": "Nova oprema",
       "edit-tool": "Uredi opremo",
-      "tool-data": "Podatki o opremi"
+      "tool-data": "Podatki o opremi",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1104,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Rezultati niso popolni, ampak so v splošnem uporabni in služijo kot dobro izhodišče za ročno urejanje sestavin v posamezna polja. Kot alternativo lahko uporabiš \"Brute\" procesor, ki deluje na osnovi ujemanja vzorcev za identifikacijo sestavin.",
     "nlp": "NLP",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Pokaži zaupanje v posamezne postavke",
     "ingredient-text": "Besedilo s sestavino",
     "average-confident": "{0} zanesljivost",
@@ -1121,8 +1144,8 @@
       "restore-from-v1-backup": "Imaš varnostno kopijo iz predhodnje instance Mealie v1? Obnoviš jo lahko tule.",
       "manage-profile-or-get-invite-link": "Upravljaj s svojim profilom ali skopiraj povezavo z vabilom in jo deli z drugimi."
     },
-    "debug-openai-services": "Odpravljanje napak v storitvah OpenAI",
-    "debug-openai-services-description": "Uporabite to stran za odpravljanje napak v storitvah OpenAI. Tukaj lahko preizkusite svojo povezavo OpenAI in si ogledate rezultate. Če imate omogočene slikovne storitve, lahko zagotovite tudi sliko.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Zaženi test",
     "test-results": "Rezultati testa",
     "group-delete-note": "Skupine z uporabniki ali gospodinjstvi ne morejo biti izbrisane",
@@ -1198,7 +1221,9 @@
       "is-less-than": "je manj kot",
       "is-less-than-or-equal-to": "je manj kot ali enako kot",
       "is-older-than": "je starejše od",
-      "is-newer-than": "je novejše od"
+      "is-newer-than": "je novejše od",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "je",

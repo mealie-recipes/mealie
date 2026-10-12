@@ -26,10 +26,10 @@
           />
         </v-card-text>
         <v-card-text v-if="group?.aiProviderSettings?.aiEnabled">
-          {{ $t('recipe.recipe-debugger-use-openai-description') }}
+          {{ $t('recipe.recipe-debugger-use-ai-description') }}
           <v-checkbox
             v-model="state.useOpenAI"
-            :label="$t('recipe.use-openai')"
+            :label="$t('recipe.use-ai')"
           />
         </v-card-text>
         <v-card-actions class="justify-center">

@@ -352,7 +352,7 @@
       "title": "Gestor de recetas de Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
+      "description-long": "Mealie puede importar recetas de la aplicación Mealie desde una versión pre v1.0. Exporta tus recetas de tu antigua instancia y sube el archivo zip a continuación. Tenga en cuenta que sólo se pueden importar recetas de la exportación. Esto sólo se aplica a instancias anteriores a v1. . Una copia de seguridad tomada de la v1.0 o posterior debería ser restaurada con las herramientas de copia de seguridad y restauración.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +364,8 @@
       "title": "Cook'n DVO X3"
     },
     "recipe-data-migrations": "Migración de recetas",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
-    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "Las recetas pueden migrarse desde otra aplicación soportada a Mealie. Esta es una excelente manera de empezar con Mealie. Mover datos entre las instancias de Mealie, o restaurar una copia de seguridad de Mealie anterior, se hace con las herramientas de copia de seguridad y restauración.",
+    "migration-description": "¿Procedente de otra aplicación, o una versión de Mealie anterior a la v1.0? Revisa las migraciones y mira si tus datos pueden ser importados.",
     "choose-migration-type": "Elegir tipo de migración",
     "tag-all-recipes": "Etiqueta todas las recetas con la etiqueta {tag-name}",
     "recipe-1": "Receta 1",
@@ -526,8 +526,8 @@
     "ingredients-not-parsed-description": "Parece que tus ingredientes no han sido analizados aún. Haz clic en el botón \"{parse}\" de abajo para analizarlos y convertirlos en alimentos estructurados.",
     "attach-images-hint": "Adjuntar imágenes arrastrando y soltando en el editor",
     "drop-image": "Soltar imagen",
-    "failed-to-attach-image": "Failed to attach image",
-    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
+    "failed-to-attach-image": "Error al adjuntar la imagen",
+    "image-drop-unsupported": "Esta imagen no se puede adjuntar directamente. Guárdala en tu dispositivo y arrastra el archivo.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Las recetas con unidades o alimentos definidos no pueden ser analizadas.",
     "parse-ingredients": "Analizar ingredientes",
     "edit-markdown": "Editar Markdown",
@@ -590,8 +590,8 @@
     "report-deletion-failed": "Error al eliminar el reporte",
     "recipe-debugger": "Depurador de recetas",
     "recipe-debugger-description": "Obtenga la URL de la receta que desea depurar y pegala aquí. La URL será analizadada por el extractor de recetas y los resultados se mostrarán. Si no ves ningún dato devuelta, el sitio que estás intentando rascar no está soportado por Mealie o su biblioteca de analizadores.",
-    "use-openai": "Usar OpenAI",
-    "recipe-debugger-use-openai-description": "Utilice OpenAI para analizar los resultados en lugar de depender de la biblioteca de analizadores. Cuando se crea una receta a través de la URL, esto se hace automáticamente si la biblioteca del analizador falla, pero puede probarla manualmente aquí.",
+    "use-ai": "Usar IA",
+    "recipe-debugger-use-ai-description": "Usar IA para procesar los resultados en lugar de depender de la biblioteca de extracción de datos. Cuando se crea una receta via URL, esto se hace de manera automática si la librería de extracción de datos falla, pero puede probarlo manualmente aquí.",
     "debug": "Depuración",
     "tree-view": "Vista en árbol",
     "recipe-servings": "Cantidad de personas",
@@ -603,15 +603,22 @@
     "remove-image": "Eliminar imagen",
     "nextStep": "Siguiente paso",
     "recipe-actions": "Acciones de Receta",
+    "unit-system": {
+      "as-written": "Como está escrito",
+      "metric": "Métrico",
+      "metric-with-hint": "Métrico (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (tazas, o"
+    },
     "parser": {
       "ingredient-parser": "Analizador de Ingredientes",
       "select-parser": "Seleccionar Analizador",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Procesador de Lenguaje Natural",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "El procesador de lenguaje natural está entrenado con recetas en inglés. En el caso de las recetas en otros idiomas, suele reconocer la cantidad pero no la unidad, por lo que el Brute Parser o el AI Parser tienden a ofrecer mejores resultados.",
       "brute-parser": "Analizador Bruto",
-      "openai-parser": "Analizador OpenAI",
+      "ai-parser": "Procesador IA",
       "missing-unit": "Crear unidad faltante: {unit}",
       "missing-food": "Crear comida faltante: {food}",
       "this-unit-could-not-be-parsed-automatically": "Esta unidad no pudo ser procesada automáticamente",
@@ -911,6 +918,8 @@
       "food-data": "Datos de Alimento",
       "label-overwrite-warning": "Esto asignará la etiqueta elegida a todos los alimentos seleccionados y potencialmente sobrescribirá las etiquetas existentes.",
       "on-hand-checkbox-label": "Establecer esta bandera hará que este alimento se desmarque por defecto al añadir una receta a una lista de compras.",
+      "delete-unused-confirm": "¿Eliminar este alimento sin usar? Esto no se puede deshacer. | ¿Eliminar estos {count} alimentos sin usar? Esto no se puede deshacer.",
+      "no-unused-foods": "No hay alimentos sin usar para borrar",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -949,7 +958,14 @@
       "edit-label": "Editar etiqueta",
       "new-label": "Nueva etiqueta",
       "labels": "Etiquetas",
-      "assign-label": "Asignar Etiqueta"
+      "assign-label": "Asignar Etiqueta",
+      "combine-label": "Combinar etiqueta",
+      "source-label": "Etiqueta de origen",
+      "target-label": "Etiqueta destino",
+      "merge-dialog-text": "Al combinar las etiquetas seleccionadas, la etiqueta de origen y la etiqueta de destino se fusionarán en una sola etiqueta. Se eliminará la etiqueta de origen y todas las referencias a esta se actualizarán para apuntar a la etiqueta de destino.",
+      "merge-label-example": "Combinando {label1} en {label2}",
+      "delete-unused-confirm": "¿Eliminar esta etiqueta sin usar? Esto no se puede deshacer. |  ¿Eliminar estas {count} etiquetas sin usar? Esto no se puede deshacer.",
+      "no-unused-labels": "No hay etiquetas sin usar para eliminar"
     },
     "recipes": {
       "purge-exports": "Limpiar exportaciones",
@@ -1022,7 +1038,14 @@
     "tools": {
       "new-tool": "Nuevo Utensilio",
       "edit-tool": "Editar Utensilio",
-      "tool-data": "Datos Utensilio"
+      "tool-data": "Datos Utensilio",
+      "combine-tool": "Combinar Herramienta",
+      "source-tool": "Herramienta de origen",
+      "target-tool": "Herramienta objetivo",
+      "merge-dialog-text": "Combinar las herramientas seleccionadas fusionará la herramienta de origen con la de destino en una sola herramienta. La herramienta de origen será borrada y todas las referencias a esta será actualizadas para apuntar a la herramienta de destino.",
+      "merge-tool-example": "Combinando {tool1} con {tool2}",
+      "delete-unused-confirm": "¿Eliminar esta herramienta sin usar? Esto no se puede deshacer. | ¿Eliminar estas {count} herramientas sin usar? Esto no se puede deshacer.",
+      "no-unused-tools": "No hay herramientas sin usar para eliminar"
     }
   },
   "user-registration": {
@@ -1104,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Si bien no es perfecto, entrega buenos resultados en general y es un buen punto de partida para empezar a analizar ingredientes a campos individuales. Alternativamente puedes usar el procesador \"bruto\", que utiliza una técnica de reconocimiento de patrones para identificar ingredientes.",
     "nlp": "PLN",
     "brute": "En bruto",
-    "openai": "OpenAI",
+    "ai-providers": "Proveedores de IA",
     "show-individual-confidence": "Mostrar confianza individual",
     "ingredient-text": "Texto del ingrediente",
     "average-confident": "{0} Confianza",
@@ -1121,8 +1144,8 @@
       "restore-from-v1-backup": "¿Tienes una copia de seguridad de Mealie v1? Puedes restaurarla aquí.",
       "manage-profile-or-get-invite-link": "Gestiona tu perfil, o usa un enlace de invitación para compartir con otros."
     },
-    "debug-openai-services": "Depurar servicios OpenAI",
-    "debug-openai-services-description": "Utilice esta página para depurar servicios OpenAI. Puede probar su conexión OpenAI y ver los resultados aquí. Si tiene activados los servicios de imágenes, también puede proporcionar una imagen.",
+    "debug-ai-providers": "Depurar proveedores de IA",
+    "debug-ai-providers-description": "Utilice esta página para depurar proveedores de IA. Puede probar su conexión IA y ver los resultados aquí. Si tiene activados los servicios de imágenes, también puede proporcionar una imagen.",
     "run-test": "Iniciar prueba",
     "test-results": "Resultados de la Prueba",
     "group-delete-note": "Los grupos con usuarios u hogares no pueden ser eliminados",
@@ -1198,7 +1221,9 @@
       "is-less-than": "es menor que",
       "is-less-than-or-equal-to": "es menor que o igual a",
       "is-older-than": "es anterior a",
-      "is-newer-than": "es más reciente que"
+      "is-newer-than": "es más reciente que",
+      "has-a-value": "tiene un valor",
+      "has-no-value": "no tiene ningún valor"
     },
     "relational-keywords": {
       "is": "es",

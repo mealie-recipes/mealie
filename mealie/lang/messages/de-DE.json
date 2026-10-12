@@ -68,7 +68,7 @@
         "report-deleted": "Bericht gelöscht."
     },
     "exceptions": {
-        "permission_denied": "Du hast keine Berechtigung, um diese Aktion auszuführen",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Ein Rezept kann sich nicht direkt oder indirekt referenzieren",
         "no-entry-found": "Die angeforderte Ressource wurde nicht gefunden",
         "rate-limit-error": "Der KI-Anbieter limitiert die Anfragen. Bitte warten Sie einen Moment und versuchen es erneut",

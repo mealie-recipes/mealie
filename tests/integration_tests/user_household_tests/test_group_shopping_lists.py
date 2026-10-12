@@ -578,6 +578,255 @@ def test_shopping_list_ref_removes_itself(
     assert len(shopping_list_json["recipeReferences"]) == 0
 
 
+def test_shopping_list_recipe_refs_restored_when_unchecked(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_list: ShoppingListOut,
+    recipe_ingredient_only: Recipe,
+):
+    # add a recipe to a list twice and check off all of its items
+    recipe = recipe_ingredient_only
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
+        json=utils.jsonify(
+            [ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id, recipe_increment_quantity=2).model_dump()]
+        ),
+        headers=unique_user.token,
+    )
+    utils.assert_deserialize(response, 200)
+
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    shopping_list_json = utils.assert_deserialize(response, 200)
+    for item in shopping_list_json["listItems"]:
+        item["checked"] = True
+
+    response = api_client.put(
+        api_routes.households_shopping_items,
+        json=shopping_list_json["listItems"],
+        headers=unique_user.token,
+    )
+    utils.assert_deserialize(response, 200)
+
+    # the list-level recipe ref is removed, but the checked items keep their recipe refs
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    shopping_list_json = utils.assert_deserialize(response, 200)
+    assert len(shopping_list_json["recipeReferences"]) == 0
+    assert len(shopping_list_json["listItems"]) == len(recipe.recipe_ingredient)
+    for item in shopping_list_json["listItems"]:
+        assert item["checked"]
+        assert len(item["recipeReferences"]) == 1
+        assert item["recipeReferences"][0]["recipeId"] == str(recipe.id)
+        assert item["recipeReferences"][0]["recipeScale"] == 2
+
+    # uncheck items one at a time; the list-level recipe ref should be restored once
+    items_to_uncheck = shopping_list_json["listItems"][:2]
+    for item in items_to_uncheck:
+        item["checked"] = False
+        response = api_client.put(
+            api_routes.households_shopping_items_item_id(item["id"]),
+            json=item,
+            headers=unique_user.token,
+        )
+        utils.assert_deserialize(response, 200)
+
+        response = api_client.get(
+            api_routes.households_shopping_lists_item_id(shopping_list.id),
+            headers=unique_user.token,
+        )
+        updated_list_json = utils.assert_deserialize(response, 200)
+        refs = updated_list_json["recipeReferences"]
+        assert len(refs) == 1
+        assert refs[0]["recipeId"] == str(recipe.id)
+        assert refs[0]["recipeQuantity"] == 2
+
+        updated_item = next(i for i in updated_list_json["listItems"] if i["id"] == item["id"])
+        assert not updated_item["checked"]
+        assert len(updated_item["recipeReferences"]) == 1
+        assert updated_item["recipeReferences"][0]["recipeId"] == str(recipe.id)
+
+    # uncheck the rest of the items in a single request
+    remaining_items = shopping_list_json["listItems"][2:]
+    for item in remaining_items:
+        item["checked"] = False
+
+    response = api_client.put(
+        api_routes.households_shopping_items,
+        json=remaining_items,
+        headers=unique_user.token,
+    )
+    utils.assert_deserialize(response, 200)
+
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    shopping_list_json = utils.assert_deserialize(response, 200)
+    refs = shopping_list_json["recipeReferences"]
+    assert len(refs) == 1
+    assert refs[0]["recipeId"] == str(recipe.id)
+    assert refs[0]["recipeQuantity"] == 2
+    for item in shopping_list_json["listItems"]:
+        assert not item["checked"]
+        assert item["recipeReferences"][0]["recipeScale"] == 2
+
+
+def test_shopping_list_nested_recipe_refs_restored_when_unchecked(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_list: ShoppingListOut,
+):
+    database = unique_user.repos
+    food_a, food_b = (
+        database.ingredient_foods.create(SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id))
+        for _ in range(2)
+    )
+    recipe_b: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[RecipeIngredient(note=food_b.name, food=food_b, quantity=2)],
+        )
+    )
+    recipe_a: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note=food_a.name, food=food_a, quantity=3),
+                RecipeIngredient(note="nested recipe b", referenced_recipe=recipe_b),
+            ],
+        )
+    )
+
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
+        json=utils.jsonify([ShoppingListAddRecipeParamsBulk(recipe_id=recipe_a.id).model_dump()]),
+        headers=unique_user.token,
+    )
+    utils.assert_deserialize(response, 200)
+
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    shopping_list_json = utils.assert_deserialize(response, 200)
+    assert len(shopping_list_json["listItems"]) == 2
+
+    # check off and uncheck every item; only the recipe that was added to the list should be restored
+    for checked in [True, False]:
+        for item in shopping_list_json["listItems"]:
+            item["checked"] = checked
+
+        response = api_client.put(
+            api_routes.households_shopping_items,
+            json=shopping_list_json["listItems"],
+            headers=unique_user.token,
+        )
+        utils.assert_deserialize(response, 200)
+
+        response = api_client.get(
+            api_routes.households_shopping_lists_item_id(shopping_list.id),
+            headers=unique_user.token,
+        )
+        shopping_list_json = utils.assert_deserialize(response, 200)
+        assert len(shopping_list_json["listItems"]) == 2
+        for item in shopping_list_json["listItems"]:
+            assert item["checked"] == checked
+            assert len(item["recipeReferences"]) == 1
+
+    refs = shopping_list_json["recipeReferences"]
+    assert len(refs) == 1
+    assert refs[0]["recipeId"] == str(recipe_a.id)
+    assert refs[0]["recipeQuantity"] == 1
+
+
+def test_shopping_list_remove_recipe_ignores_checked_items(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_list: ShoppingListOut,
+    recipe_ingredient_only: Recipe,
+):
+    # add a recipe to a list twice and check off one of its items
+    recipe = recipe_ingredient_only
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
+        json=utils.jsonify(
+            [ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id, recipe_increment_quantity=2).model_dump()]
+        ),
+        headers=unique_user.token,
+    )
+    utils.assert_deserialize(response, 200)
+
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    shopping_list_json = utils.assert_deserialize(response, 200)
+    checked_item = shopping_list_json["listItems"][0]
+    checked_item["checked"] = True
+    response = api_client.put(
+        api_routes.households_shopping_items_item_id(checked_item["id"]),
+        json=checked_item,
+        headers=unique_user.token,
+    )
+    utils.assert_deserialize(response, 200)
+
+    # remove one instance of the recipe; only the unchecked items should change
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe_recipe_id_delete(shopping_list.id, recipe.id),
+        headers=unique_user.token,
+    )
+    utils.assert_deserialize(response, 200)
+
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    shopping_list_json = utils.assert_deserialize(response, 200)
+    assert len(shopping_list_json["listItems"]) == len(recipe.recipe_ingredient)
+    for item in shopping_list_json["listItems"]:
+        if item["id"] == checked_item["id"]:
+            assert item["checked"]
+            assert item["quantity"] == 2
+            assert item["recipeReferences"][0]["recipeScale"] == 2
+        else:
+            assert not item["checked"]
+            assert item["quantity"] == 1
+            assert item["recipeReferences"][0]["recipeScale"] == 1
+
+    refs = shopping_list_json["recipeReferences"]
+    assert len(refs) == 1
+    assert refs[0]["recipeQuantity"] == 1
+
+    # unchecking the item brings back its recipe quantity
+    checked_item = next(i for i in shopping_list_json["listItems"] if i["id"] == checked_item["id"])
+    checked_item["checked"] = False
+    response = api_client.put(
+        api_routes.households_shopping_items_item_id(checked_item["id"]),
+        json=checked_item,
+        headers=unique_user.token,
+    )
+    utils.assert_deserialize(response, 200)
+
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    shopping_list_json = utils.assert_deserialize(response, 200)
+    refs = shopping_list_json["recipeReferences"]
+    assert len(refs) == 1
+    assert refs[0]["recipeId"] == str(recipe.id)
+    assert refs[0]["recipeQuantity"] == 2
+
+
 def test_shopping_lists_add_recipe_with_merge(
     api_client: TestClient,
     unique_user: TestUser,
