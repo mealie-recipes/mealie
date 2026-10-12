@@ -12,7 +12,7 @@
       :submit-text="$t('general.save')"
       :submit-disabled="!editTarget.queryFilterString"
       can-submit
-      disable-submit-on-enter="true"
+      disable-submit-on-enter
       @submit="editCookbook"
     >
       <v-card-text>
