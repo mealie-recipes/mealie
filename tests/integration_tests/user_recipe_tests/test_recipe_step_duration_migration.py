@@ -36,14 +36,14 @@ def test_duration_migration_preserves_populated_database(random_recipe, unique_u
         before = snapshot()
         assert before["recipe_instructions"]
         command.upgrade(config, "head")
-        column = next(c for c in inspect(engine).get_columns("recipe_instructions") if c["name"] == "duration_minutes")
+        column = next(c for c in inspect(engine).get_columns("recipe_instructions") if c["name"] == "duration_seconds")
         assert column["nullable"]
         with engine.begin() as connection:
             assert (
-                connection.scalar(text("SELECT COUNT(*) FROM recipe_instructions WHERE duration_minutes IS NOT NULL"))
+                connection.scalar(text("SELECT COUNT(*) FROM recipe_instructions WHERE duration_seconds IS NOT NULL"))
                 == 0
             )
-            connection.execute(text("UPDATE recipe_instructions SET duration_minutes = 90"))
+            connection.execute(text("UPDATE recipe_instructions SET duration_seconds = 90"))
         command.downgrade(config, predecessor)
         assert snapshot() == before
         with engine.begin() as connection:
@@ -52,7 +52,7 @@ def test_duration_migration_preserves_populated_database(random_recipe, unique_u
         command.upgrade(config, "head")
         with engine.connect() as connection:
             assert (
-                connection.scalar(text("SELECT COUNT(*) FROM recipe_instructions WHERE duration_minutes IS NOT NULL"))
+                connection.scalar(text("SELECT COUNT(*) FROM recipe_instructions WHERE duration_seconds IS NOT NULL"))
                 == 0
             )
         command.downgrade(config, predecessor)
