@@ -18,9 +18,15 @@ native_token_request = {
 class OAuthClientMock:
     """Stands in for the authlib OIDC client, failing the way a rejected code or id_token does"""
 
+    client_id = "native-client-id"
+    client_kwargs = {"scope": "openid email profile"}
+
     def __init__(self, token_error: Exception | None = None, id_token_error: Exception | None = None):
         self.token_error = token_error
         self.id_token_error = id_token_error
+
+    async def load_server_metadata(self) -> dict:
+        return {"authorization_endpoint": "https://idp.example/authorize"}
 
     async def fetch_access_token(self, **kwargs) -> dict:
         if self.token_error:
@@ -36,17 +42,21 @@ class OAuthClientMock:
 class OAuthMock:
     def __init__(self, client: OAuthClientMock):
         self.client = client
+        self.requested_names: list[str] = []
 
     def create_client(self, name: str) -> OAuthClientMock:
+        self.requested_names.append(name)
         return self.client
 
 
 def setup_oidc(
     monkeypatch: MonkeyPatch, token_error: Exception | None = None, id_token_error: Exception | None = None
-) -> None:
+) -> OAuthMock:
     monkeypatch.setattr(type(auth_routes.settings), "OIDC_READY", property(lambda self: True))
     client = OAuthClientMock(token_error=token_error, id_token_error=id_token_error)
-    monkeypatch.setattr(auth_routes, "oauth", OAuthMock(client), raising=False)
+    oauth_mock = OAuthMock(client)
+    monkeypatch.setattr(auth_routes, "oauth", oauth_mock, raising=False)
+    return oauth_mock
 
 
 def test_native_config_returns_404_when_oidc_not_configured(api_client: TestClient):
@@ -64,11 +74,27 @@ def test_native_token_returns_404_when_oidc_not_configured(api_client: TestClien
 
 
 def test_native_token_returns_401_when_code_is_rejected(api_client: TestClient, monkeypatch: MonkeyPatch):
-    setup_oidc(monkeypatch, token_error=OAuthError("invalid_grant", "authorization code is invalid or expired"))
+    oauth_mock = setup_oidc(
+        monkeypatch, token_error=OAuthError("invalid_grant", "authorization code is invalid or expired")
+    )
 
     response = api_client.post(api_routes.auth_oauth_native_token, json=native_token_request)
 
     assert response.status_code == 401
+    assert oauth_mock.requested_names == ["oidc_native"]
+
+
+def test_native_config_returns_native_client_parameters(api_client: TestClient, monkeypatch: MonkeyPatch):
+    oauth_mock = setup_oidc(monkeypatch)
+
+    response = api_client.get(api_routes.auth_oauth_native_config)
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["client_id"] == OAuthClientMock.client_id
+    assert body["scope"] == OAuthClientMock.client_kwargs["scope"]
+    assert body["authorization_endpoint"] == "https://idp.example/authorize"
+    assert oauth_mock.requested_names == ["oidc_native"]
 
 
 def test_native_token_returns_500_on_unexpected_errors(monkeypatch: MonkeyPatch):
