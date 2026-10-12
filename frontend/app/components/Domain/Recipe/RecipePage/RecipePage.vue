@@ -527,7 +527,7 @@ function addStep(steps: Array<string> | null = null) {
 
   if (steps) {
     const cleanedSteps = steps.map((step) => {
-      return { id: uuid4(), text: step, title: "", summary: "", ingredientReferences: [], noteReferences: [] };
+      return { id: uuid4(), text: step, title: "", summary: "", ingredientReferences: [], noteReferences: [], durationSeconds: null };
     });
 
     recipe.value.recipeInstructions.push(...cleanedSteps);
@@ -540,6 +540,7 @@ function addStep(steps: Array<string> | null = null) {
       summary: "",
       ingredientReferences: [],
       noteReferences: [],
+      durationSeconds: null,
     });
   }
 }

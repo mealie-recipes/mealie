@@ -29,11 +29,16 @@ class RecipeStep(MealieModel):
     note_references: list[NoteReference] = []
     model_config = ConfigDict(from_attributes=True)
 
-    duration_minutes: int | None = Field(default=None, ge=1, le=2147483647)
+    duration_seconds: int | None = Field(default=None, ge=1, le=2147483647, strict=True)
 
-    @field_validator("duration_minutes", mode="before")
+    @field_validator("duration_seconds", mode="before")
     @classmethod
     def normalize_duration(cls, value: Any) -> Any:
+        if isinstance(value, bool):
+            raise ValueError("Duration must be a whole number of seconds, not a boolean")
         if value == 0:
             return None
+        # JSON 1, 1.0 and 1e0 express the same whole number. Never round a fraction.
+        if isinstance(value, float) and 1 <= value <= 2147483647 and value.is_integer():
+            return int(value)
         return value
