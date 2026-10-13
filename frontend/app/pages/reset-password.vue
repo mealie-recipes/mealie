@@ -1,87 +1,58 @@
 <template>
-  <v-container
-    fill-height
-    fluid
-    class="d-flex justify-center align-center"
-  >
-    <v-card
-      color="background d-flex flex-column align-center"
-      flat
-      width="600px"
-    >
-      <v-card-title class="text-h5 justify-center">
-        {{ $t("user.reset-password") }}
-      </v-card-title>
-      <BaseDivider />
-      <v-card-text>
-        <v-form ref="form" @submit.prevent="requestLink()">
-          <v-text-field
-            v-model="state.email"
-            :prepend-inner-icon="$globals.icons.email"
-            variant="solo-filled"
-            flat
-            autofocus
-            name="login"
-            :label="$t('user.email')"
-            type="text"
-          />
-          <v-text-field
-            v-model="state.password"
-            variant="solo-filled"
-            flat
-            :prepend-inner-icon="$globals.icons.lock"
-            name="password"
-            :label="$t('user.password')"
-            type="password"
-            :rules="[validators.required]"
-          />
-          <v-text-field
-            v-model="state.passwordConfirm"
-            variant="solo-filled"
-            flat
-            validate-on="blur"
-            :prepend-inner-icon="$globals.icons.lock"
-            name="password"
-            :label="$t('user.confirm-password')"
-            type="password"
-            :rules="[validators.required, passwordMatch]"
-          />
-          <p class="text-center">
-            {{ $t("user.please-enter-password") }}
-          </p>
-          <v-card-actions class="justify-center">
-            <div class="max-button">
-              <v-btn
-                :loading="state.loading"
-                color="primary"
-                :disabled="token === ''"
-                type="submit"
-                size="large"
-                rounded
-                class="rounded-xl"
-                block
-              >
-                <v-icon start>
-                  {{ $globals.icons.lock }}
-                </v-icon>
-                {{ token === "" ? "Token Required" : $t("user.reset-password") }}
-              </v-btn>
-            </div>
-          </v-card-actions>
-        </v-form>
-      </v-card-text>
+  <AppAuthShell :title="$t('user.reset-password')" :subtitle="$t('user.please-enter-password')">
+    <v-form ref="form" class="auth-form" @submit.prevent="requestLink()">
+      <v-text-field
+        v-model="state.email"
+        :prepend-inner-icon="$globals.icons.email"
+        variant="solo-filled"
+        flat
+        autofocus
+        name="login"
+        :label="$t('user.email')"
+        type="text"
+      />
+      <v-text-field
+        v-model="state.password"
+        variant="solo-filled"
+        flat
+        :prepend-inner-icon="$globals.icons.lock"
+        name="password"
+        :label="$t('user.password')"
+        type="password"
+        :rules="[validators.required]"
+      />
+      <v-text-field
+        v-model="state.passwordConfirm"
+        variant="solo-filled"
+        flat
+        validate-on="blur"
+        :prepend-inner-icon="$globals.icons.lock"
+        name="password"
+        :label="$t('user.confirm-password')"
+        type="password"
+        :rules="[validators.required, passwordMatch]"
+      />
       <v-btn
-        class="mx-auto"
-        variant="text"
-        to="/login"
+        :loading="state.loading"
+        color="primary"
+        :disabled="token === ''"
+        type="submit"
+        size="large"
+        block
       >
-        {{ $t("user.login") }}
+        {{ token === "" ? "Token Required" : $t("user.reset-password") }}
       </v-btn>
-    </v-card>
-  </v-container>
+    </v-form>
+    <div class="auth-back">
+      <RouterLink to="/login">
+        {{ $t("user.login") }}
+      </RouterLink>
+    </div>
+  </AppAuthShell>
 </template>
 
 <script setup lang="ts">
+import AppAuthShell from "~/components/Layout/LayoutParts/AppAuthShell.vue";
 import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { validators } from "@/composables/use-validators";
@@ -89,7 +60,7 @@ import { useRouteQuery } from "~/composables/use-router";
 import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
-  layout: "basic",
+  layout: "blank",
 });
 
 const state = reactive({
@@ -150,8 +121,33 @@ async function requestLink() {
 }
 </script>
 
-<style lang="css">
-.max-button {
-  width: 300px;
+<style lang="css" scoped>
+.auth-form {
+  display: flex;
+  flex-direction: column;
+  margin-top: 22px;
+}
+
+.auth-form__hint {
+  margin: -4px 0 18px;
+  font-size: 14px;
+  line-height: 1.45;
+  text-align: center;
+  color: var(--mealie-text-secondary);
+}
+
+.auth-back {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.auth-back a {
+  color: rgb(var(--v-theme-primary));
+  text-decoration: none;
+}
+
+.auth-back a:hover {
+  text-decoration: underline;
 }
 </style>
