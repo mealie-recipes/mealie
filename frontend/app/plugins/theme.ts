@@ -64,7 +64,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
           colors: {
             primary: theme?.darkPrimary ?? "#E0683C",
             accent: theme?.darkAccent ?? "#007A99",
-            secondary: theme?.darkSecondary ?? "#973542",
+            secondary: theme?.darkSecondary ?? "#E08A73",
             success: theme?.darkSuccess ?? "#43A047",
             info: theme?.darkInfo ?? "#1976d2",
             warning: theme?.darkWarning ?? "#FF6D00",

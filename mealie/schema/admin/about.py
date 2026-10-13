@@ -36,7 +36,7 @@ class AppTheme(MealieModel):
 
     dark_primary: str = "#E0683C"
     dark_accent: str = "#007A99"
-    dark_secondary: str = "#973542"
+    dark_secondary: str = "#E08A73"
     dark_success: str = "#43A047"
     dark_info: str = "#1976D2"
     dark_warning: str = "#FF6D00"

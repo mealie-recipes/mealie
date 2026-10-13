@@ -89,7 +89,7 @@ export default defineNuxtConfig({
         dark: {
           primary: process.env.THEME_DARK_PRIMARY || "#E0683C",
           accent: process.env.THEME_DARK_ACCENT || "#007A99",
-          secondary: process.env.THEME_DARK_SECONDARY || "#973542",
+          secondary: process.env.THEME_DARK_SECONDARY || "#E08A73",
           success: process.env.THEME_DARK_SUCCESS || "#43A047",
           info: process.env.THEME_DARK_INFO || "#1976d2",
           warning: process.env.THEME_DARK_WARNING || "#FF6D00",
