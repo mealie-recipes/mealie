@@ -4,11 +4,11 @@
       <v-card
         :ripple="false"
         :class="[
-          isFlat ? 'mx-auto flat' : 'mx-auto',
+          isFlat ? 'mx-auto flat' : 'mx-auto mealie-row-card',
           { 'disable-highlight': disableHighlight },
         ]"
         :style="{ cursor }"
-        hover
+        :elevation="0"
         height="100%"
         :to="$attrs.selected ? undefined : recipeRoute"
         @click="$emit('selected')"
@@ -52,10 +52,10 @@
             </slot>
           </template>
           <div class="pl-4 d-flex flex-column justify-space-between align-stretch pr-2">
-            <v-list-item-title class="mt-3 mb-1 text-top text-truncate w-100">
+            <v-list-item-title class="mt-3 mb-1 text-top text-truncate w-100 mealie-row-card__title">
               {{ name }}
             </v-list-item-title>
-            <v-list-item-subtitle class="ma-0 text-top">
+            <v-list-item-subtitle class="ma-0 text-top mealie-row-card__description">
               <SafeMarkdown v-if="description" :source="description" />
               <p v-else>
                 <br>
@@ -218,6 +218,46 @@ const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
 .theme--dark .flat {
   box-shadow: none !important;
   background-color: transparent !important;
+}
+
+.mealie-row-card {
+  border-radius: 16px !important;
+  background: var(--mealie-surface) !important;
+  box-shadow: inset 0 0 0 1px var(--mealie-hairline-strong) !important;
+  transition: box-shadow 0.2s ease;
+}
+
+.mealie-row-card:hover {
+  box-shadow:
+    0 12px 28px -16px rgba(40, 30, 20, 0.35),
+    inset 0 0 0 1px var(--mealie-hairline-strong) !important;
+}
+
+.mealie-row-card :deep(.v-list-item__prepend) {
+  padding: 6px 0 6px 6px;
+}
+
+.mealie-row-card :deep(.v-list-item__prepend .v-img),
+.mealie-row-card :deep(.v-list-item__prepend .v-responsive) {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.mealie-row-card__title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.mealie-row-card__description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  font-size: 13px;
+  color: var(--mealie-text-tertiary);
+  opacity: 1;
 }
 
 .disable-highlight :deep(.v-card__overlay) {

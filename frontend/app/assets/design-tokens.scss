@@ -69,6 +69,118 @@
   }
 }
 
+// Page frame shared by the redesigned list pages (meal planner, shopping lists, ...):
+// an eyebrow and large title on the left, actions on the right, content below
+.mealie-page {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 36px 48px 96px;
+  box-sizing: border-box;
+  color: var(--mealie-ink);
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+  }
+
+  &--narrow {
+    max-width: 880px;
+  }
+}
+
+.mealie-page__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 24px;
+}
+
+.mealie-page__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.mealie-page__title {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.mealie-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.mealie-page__body {
+  margin-top: 28px;
+}
+
+@media (max-width: 960px) {
+  .mealie-page {
+    padding: 24px 24px 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .mealie-page {
+    padding: 16px 16px 72px;
+  }
+
+  .mealie-page__title {
+    font-size: 28px;
+  }
+}
+
+// White rounded panel, as used for "This Week" and the planner's days
+.mealie-card {
+  border-radius: 24px;
+  background: var(--mealie-surface);
+  box-shadow: inset 0 0 0 1px var(--mealie-hairline);
+}
+
+// Two-or-three way switch, e.g. the planner's View / Edit
+.mealie-segmented {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 10px;
+  background: var(--mealie-fill);
+}
+
+.mealie-segmented__item {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--mealie-ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &--active {
+    background: var(--mealie-surface);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    font-weight: 600;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgb(var(--v-theme-primary));
+    outline-offset: 1px;
+  }
+}
+
 // Striped stand-in shown wherever a recipe has no photo
 .mealie-photo-placeholder {
   background: repeating-linear-gradient(

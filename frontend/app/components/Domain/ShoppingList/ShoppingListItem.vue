@@ -25,7 +25,7 @@
               hide-details
               density="compact"
               class="mt-0 flex-shrink-0"
-              color="null"
+              color="primary"
               @click="toggleChecked"
             />
             <div

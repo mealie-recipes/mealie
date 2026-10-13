@@ -177,7 +177,8 @@
     "date-updated": "Date Updated",
     "key": "Key",
     "value": "Value",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission.",
+    "previous": "Previous"
   },
   "group": {
     "create-group": "Create Group",
@@ -793,7 +794,8 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
     "no-shopping-lists-found": "No Shopping Lists Found",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "Checked off {item}",
+    "list-count": "No lists | One list | {count} lists"
   },
   "sidebar": {
     "backups": "Backups",

@@ -26,7 +26,8 @@
               <v-card
                 v-for="mealplan in mealplansByDate[plan.date.toString()]"
                 :key="mealplan.id"
-                class="my-2 ml-4 mr-1"
+                flat
+                class="plan-edit-entry my-2"
                 :class="{ handle: $vuetify.display.smAndUp }"
               >
                 <RecipeCardLineItem
@@ -55,7 +56,7 @@
                     {{ mealplan.text }}
                   </v-list-item-subtitle>
                 </v-list-item>
-                <v-divider class="mx-2" />
+                <v-divider class="mx-3" />
                 <div class="py-2 px-2 d-flex" style="align-items: center">
                   <v-btn size="small" icon variant="text" :class="{ handle: !$vuetify.display.smAndUp }">
                     <v-icon>
@@ -66,10 +67,9 @@
                     <template #activator="{ props: menuProps }">
                       <v-chip
                         v-bind="menuProps"
-                        label
-                        variant="elevated"
+                        variant="tonal"
                         size="small"
-                        color="accent"
+                        color="primary"
                         @click.prevent
                       >
                         <v-icon start>
@@ -198,3 +198,11 @@ async function randomizeMeal(mealplan: ReadPlanEntry) {
   }
 }
 </script>
+
+<style scoped>
+.plan-edit-entry {
+  border-radius: 16px !important;
+  background: var(--mealie-canvas) !important;
+  box-shadow: inset 0 0 0 1px var(--mealie-hairline-strong) !important;
+}
+</style>

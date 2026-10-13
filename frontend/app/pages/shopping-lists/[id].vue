@@ -1,7 +1,7 @@
 <template>
-  <v-container
+  <div
     v-if="shoppingList"
-    class="md-container"
+    class="mealie-page mealie-page--narrow"
   >
     <BaseDialog
       v-model="state.checkAllDialog"
@@ -70,89 +70,88 @@
       </v-card>
     </BaseDialog>
 
-    <BasePageTitle divider class="shopping-list-title">
-      <template #header>
-        <v-container class="px-0">
-          <v-row no-gutters>
-            <ButtonLink
-              :to="`/shopping-lists?disableRedirect=true`"
-              :text="$t('shopping-list.all-lists')"
-              :icon="$globals.icons.backArrow"
-            />
-            <v-spacer />
-            <h2 v-if="smAndUp" class="text-h5">
-              {{ shoppingList.name }}
-            </h2>
-            <v-spacer />
-            <!-- The search toggle stays while the field is open, so a list that shrinks to the
-                 threshold mid-search can still close it. "Check all" would also check items the
-                 search is hiding, so it is disabled while searching. -->
-            <BaseButtonGroup
-              class="d-flex"
-              :buttons="[
-                ...(canSearch || isSearchOpen ? [{
-                  icon: $globals.icons.search,
-                  text: $t('search.search'),
-                  event: 'search',
-                  color: isSearchOpen ? 'primary' : undefined,
-                }] : []),
+    <header class="mealie-page__header shopping-list-header">
+      <div class="mealie-page__titles">
+        <RouterLink to="/shopping-lists?disableRedirect=true" class="shopping-list-header__back">
+          <svg width="8" height="13" viewBox="0 0 12 20" aria-hidden="true"><polyline
+            points="10,2 2,10 10,18"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.6"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          /></svg>
+          {{ $t('shopping-list.all-lists') }}
+        </RouterLink>
+        <h1 class="mealie-page__title">
+          {{ shoppingList.name }}
+        </h1>
+      </div>
+      <div class="mealie-page__actions">
+        <!-- The search toggle stays while the field is open, so a list that shrinks to the
+             threshold mid-search can still close it. "Check all" would also check items the
+             search is hiding, so it is disabled while searching. -->
+        <BaseButtonGroup
+          class="d-flex"
+          :buttons="[
+            ...(canSearch || isSearchOpen ? [{
+              icon: $globals.icons.search,
+              text: $t('search.search'),
+              event: 'search',
+              color: isSearchOpen ? 'primary' : undefined,
+            }] : []),
+            {
+              icon: $globals.icons.contentCopy,
+              text: '',
+              event: 'edit',
+              children: [
                 {
                   icon: $globals.icons.contentCopy,
-                  text: '',
-                  event: 'edit',
-                  children: [
-                    {
-                      icon: $globals.icons.contentCopy,
-                      text: $t('shopping-list.copy-as-text'),
-                      event: 'copy-plain',
-                    },
-                    {
-                      icon: $globals.icons.contentCopy,
-                      text: $t('shopping-list.copy-as-markdown'),
-                      event: 'copy-markdown',
-                    },
-                  ],
+                  text: $t('shopping-list.copy-as-text'),
+                  event: 'copy-plain',
                 },
                 {
-                  icon: $globals.icons.checkboxMultipleMarkedOutline,
-                  text: $t('shopping-list.check-all-items'),
-                  event: 'check',
-                  disabled: isSearching,
+                  icon: $globals.icons.contentCopy,
+                  text: $t('shopping-list.copy-as-markdown'),
+                  event: 'copy-markdown',
+                },
+              ],
+            },
+            {
+              icon: $globals.icons.checkboxMultipleMarkedOutline,
+              text: $t('shopping-list.check-all-items'),
+              event: 'check',
+              disabled: isSearching,
+            },
+            {
+              icon: $globals.icons.dotsVertical,
+              text: '',
+              event: 'three-dot',
+              children: [
+                {
+                  icon: $globals.icons.tags,
+                  text: $t('shopping-list.reorder-labels'),
+                  event: 'reorder-labels',
                 },
                 {
-                  icon: $globals.icons.dotsVertical,
-                  text: '',
-                  event: 'three-dot',
-                  children: [
-                    {
-                      icon: $globals.icons.tags,
-                      text: $t('shopping-list.reorder-labels'),
-                      event: 'reorder-labels',
-                    },
-                    {
-                      icon: $globals.icons.tags,
-                      text: $t('shopping-list.manage-labels'),
-                      event: 'manage-labels',
-                    },
-                  ],
+                  icon: $globals.icons.tags,
+                  text: $t('shopping-list.manage-labels'),
+                  event: 'manage-labels',
                 },
-              ]"
-              @search="toggleSearch"
-              @edit="edit = true"
-              @three-dot="threeDot = true"
-              @check="openCheckAll"
-              @copy-plain="copyListItems('plain')"
-              @copy-markdown="copyListItems('markdown')"
-              @reorder-labels="toggleReorderLabelsDialog()"
-              @manage-labels="$router.push(`/group/data/labels`)"
-            />
-          </v-row>
-        </v-container>
-      </template>
-      <template #title>
-        {{ smAndUp ? "" : shoppingList.name }}
-      </template>
-    </BasePageTitle>
+              ],
+            },
+          ]"
+          @search="toggleSearch"
+          @edit="edit = true"
+          @three-dot="threeDot = true"
+          @check="openCheckAll"
+          @copy-plain="copyListItems('plain')"
+          @copy-markdown="copyListItems('markdown')"
+          @reorder-labels="toggleReorderLabelsDialog()"
+          @manage-labels="$router.push(`/group/data/labels`)"
+        />
+      </div>
+    </header>
     <BannerWarning
       v-if="isOffline"
       :title="$t('shopping-list.you-are-offline')"
@@ -162,7 +161,7 @@
     <!-- Viewer -->
     <section
       v-if="!edit"
-      class="py-2 d-flex flex-column ga-1 shopping-list-view"
+      class="d-flex flex-column ga-1 shopping-list-view mealie-card"
     >
       <!-- Search, toggled from the page title -->
       <v-text-field
@@ -392,7 +391,7 @@
       </section>
     </v-lazy>
     <WakelockSwitch />
-  </v-container>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -411,7 +410,6 @@ definePageMeta({
   middleware: ["auth"],
 });
 
-const { smAndUp } = useDisplay();
 const i18n = useI18n();
 
 useSeoMeta({
@@ -504,40 +502,44 @@ watch(isSearching, (searching) => {
   max-width: 50px;
 }
 
-/* The page header reserves room for an icon row, a subtitle and generous margins; pull
-   those in so the list starts near the top of the screen */
-.shopping-list-title {
-  margin-top: 0 !important;
+.shopping-list-header__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: rgb(var(--v-theme-primary));
+  text-decoration: none;
+}
 
-  .v-container {
-    padding-top: 4px;
-    padding-bottom: 0;
-  }
-
-  h2 {
-    font-size: 1.1rem !important;
-    line-height: 1.4;
-  }
-
-  h3 {
-    display: none;
-  }
-
-  .v-divider {
-    margin-top: 6px !important;
-    margin-bottom: 2px !important;
-  }
+.shopping-list-header .v-btn {
+  color: var(--mealie-icon);
 }
 
 /* Strip most of the vertical padding so more items fit on a phone screen, and lean on
    indentation (label header flush left, items inset) to keep sections readable */
 .shopping-list-view {
+  margin-top: 24px;
+  padding: 16px 16px 12px;
+
+  .v-expansion-panel {
+    background: transparent;
+  }
+
+  /* checked items fold away under a quiet bar at the bottom of the card */
+  > .v-expansion-panels .v-expansion-panel-title {
+    border-radius: 12px !important;
+    border-color: var(--mealie-hairline-strong) !important;
+  }
+
   /* slim header: a low bar with bold text, keeping the label colour as its fill */
   .shopping-list-section .section-title {
     min-height: 30px !important;
-    padding: 2px 10px;
-    font-size: 0.9rem;
+    padding: 2px 12px;
+    border-radius: 10px !important;
+    font-size: 13px;
     font-weight: 700;
+    letter-spacing: 0.02em;
   }
 
   .shopping-list-section .v-expansion-panel-text__wrapper,
