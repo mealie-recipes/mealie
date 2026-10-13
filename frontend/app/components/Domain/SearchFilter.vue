@@ -17,8 +17,9 @@
         >
           <v-btn
             size="small"
-            color="accent"
-            dark
+            variant="flat"
+            rounded="pill"
+            class="mealie-filter-btn"
             v-bind="menuProps"
           >
             <slot />

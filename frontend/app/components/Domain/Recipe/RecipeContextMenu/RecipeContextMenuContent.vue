@@ -45,7 +45,7 @@
     :shopping-lists="shoppingLists"
   />
 
-  <v-list density="compact">
+  <v-list v-if="!hideList" density="compact">
     <v-list-item v-for="(item, index) in menuItems" :key="index" @click="contextMenuEventHandler(item.event)">
       <template #prepend>
         <v-icon :color="item.color">
@@ -125,6 +125,8 @@ interface Props {
   recipe?: Recipe;
   recipeId: string;
   recipeScale?: number;
+  /** render only the dialogs, for callers that trigger actions from their own buttons via `runAction` */
+  hideList?: boolean;
 }
 const props = withDefaults(defineProps<Props>(), {
   useItems: () => ({
@@ -147,6 +149,7 @@ const props = withDefaults(defineProps<Props>(), {
   menuIcon: null,
   recipe: undefined,
   recipeScale: 1,
+  hideList: false,
 });
 
 const emit = defineEmits<{
@@ -450,4 +453,8 @@ function contextMenuEventHandler(eventKey: string) {
 }
 
 const recipeActions = groupRecipeActionsStore.recipeActions;
+
+defineExpose({
+  runAction: contextMenuEventHandler,
+});
 </script>

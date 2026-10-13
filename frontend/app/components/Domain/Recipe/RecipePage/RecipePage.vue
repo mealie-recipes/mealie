@@ -21,7 +21,7 @@
       @update:model-value="toggleIsParsing"
       @save="saveParsedIngredients"
     />
-    <v-container v-show="!isCookMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
+    <v-container v-if="isEditMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
       <v-card flat class="d-print-none">
         <RecipePageHeader
           ref="recipeToolbar"
@@ -113,14 +113,49 @@
           <RecipePageFooter v-model="recipe" />
         </v-card-text>
       </v-card>
-      <WakelockSwitch />
-      <RecipePageComments
-        v-if="!disableComments && !isEditForm && !isCookMode"
-        v-model="recipe"
-        class="px-1 my-4 d-print-none"
-      />
-      <RecipePrintContainer :recipe="displayedRecipe" :scale="scale" />
     </v-container>
+    <!-- Reading view -->
+    <div v-else v-show="!isCookMode" key="recipe-view" class="recipe-view">
+      <RecipePageHero :recipe="recipe" :scale="scale" />
+      <div class="recipe-view__body d-print-none">
+        <div class="recipe-view__columns">
+          <div class="recipe-view__ingredients">
+            <RecipePageIngredientToolsView
+              :recipe="displayedRecipe"
+              :scale="scale"
+              :ingredient-storage-key="ingredientStorageKey"
+            >
+              <template #header-append>
+                <RecipeUnitSystemButton compact :recipe="recipe" />
+                <RecipePageServingsStepper v-model="scale" :recipe="recipe" />
+              </template>
+            </RecipePageIngredientToolsView>
+            <RecipePageOrganizers v-if="$vuetify.display.mdAndUp" v-model="recipe" class="mt-6" @item-selected="chipClicked" />
+          </div>
+          <div class="recipe-view__method">
+            <RecipePageInstructions
+              v-model="recipe.recipeInstructions"
+              v-model:assets="recipe.assets"
+              :recipe="displayedRecipe"
+              :scale="scale"
+              :ingredient-storage-key="ingredientStorageKey"
+            />
+            <div v-if="!$vuetify.display.mdAndUp" class="mt-6">
+              <RecipePageOrganizers v-model="recipe" @item-selected="chipClicked" />
+            </div>
+            <RecipeNotes v-model="recipe.notes" :edit="false" class="mt-6" />
+          </div>
+        </div>
+        <RecipePageFooter v-model="recipe" class="mt-8" />
+        <WakelockSwitch />
+        <RecipePageComments
+          v-if="!disableComments"
+          v-model="recipe"
+          class="px-1 my-4"
+        />
+      </div>
+    </div>
+    <RecipePrintContainer :recipe="displayedRecipe" :scale="scale" />
     <!-- Floating save button when toolbar scrolls out of view -->
     <v-fab
       v-if="isEditMode && !toolbarVisible"
@@ -137,85 +172,14 @@
         {{ $t("general.save") }}
       </v-tooltip>
     </v-fab>
-    <!-- Cook mode displayes two columns with ingredients and instructions side by side, each being scrolled individually, allowing to view both at the same time -->
-    <!-- The calc is to account for the navabar height (48px) -->
-    <v-sheet
-      v-show="isCookMode && !hasLinkedIngredients"
-      key="cookmode"
-      :height="$vuetify.display.smAndUp ? 'calc(100vh - 48px)' : 'auto'"
-      class-name="overflow-hidden"
-    >
-      <!-- the calc is to account for the toolbar a more dynamic solution could be needed  -->
-      <v-row style="height: 100%" no-gutters class="overflow-hidden">
-        <v-col cols="12" sm="5" class="overflow-y-auto pl-4 pr-3 py-2" style="height: 100%">
-          <div class="d-flex align-center">
-            <RecipePageScale v-model="scale" :recipe="recipe" />
-          </div>
-          <RecipePageIngredientToolsView
-            v-if="!isEditForm"
-            :recipe="displayedRecipe"
-            :scale="scale"
-            :is-cook-mode="isCookMode"
-            :ingredient-storage-key="ingredientStorageKey"
-          />
-          <v-divider />
-        </v-col>
-        <v-col
-          class="overflow-y-auto"
-          :class="$vuetify.display.smAndDown ? 'py-2': 'py-6'"
-          style="height: 100%"
-          cols="12"
-          sm="7"
-        >
-          <h2 class="text-h5 px-4 font-weight-medium opacity-80">
-            {{ $t('recipe.instructions') }}
-          </h2>
-          <RecipePageInstructions
-            v-model="recipe.recipeInstructions"
-            v-model:assets="recipe.assets"
-            class="overflow-y-hidden px-4"
-            :recipe="displayedRecipe"
-            :scale="scale"
-            :ingredient-storage-key="ingredientStorageKey"
-          />
-        </v-col>
-      </v-row>
-    </v-sheet>
-    <v-sheet v-show="isCookMode && hasLinkedIngredients">
-      <div class="mt-2 px-2 px-md-4">
-        <RecipePageScale v-model="scale" :recipe="recipe" />
-      </div>
-      <RecipePageInstructions
-        v-model="recipe.recipeInstructions"
-        v-model:assets="recipe.assets"
-        class="overflow-y-hidden mt-n5 px-2 px-md-4"
-        :recipe="displayedRecipe"
-        :scale="scale"
-        :ingredient-storage-key="ingredientStorageKey"
-      />
-
-      <div v-if="notLinkedIngredients.length > 0" class="px-2 px-md-4 pb-4">
-        <v-divider />
-        <v-card flat>
-          <v-card-title>{{ $t("recipe.not-linked-ingredients") }}</v-card-title>
-          <RecipeIngredients
-            :value="notLinkedIngredients"
-            :scale="scale"
-            :is-cook-mode="isCookMode"
-            :storage-key="ingredientStorageKey"
-          />
-        </v-card>
-      </div>
-    </v-sheet>
-    <v-btn
+    <!-- Cook mode fills the window, one step at a time -->
+    <RecipePageCookMode
       v-if="isCookMode"
-      icon
-      color="primary"
-      style="position: fixed; right: 12px; top: 60px"
-      @click="toggleCookMode()"
-    >
-      <v-icon>{{ $globals.icons.close }}</v-icon>
-    </v-btn>
+      v-model:scale="scale"
+      :recipe="displayedRecipe"
+      :ingredient-storage-key="ingredientStorageKey"
+      @exit="setMode(PageMode.VIEW)"
+    />
   </div>
 </template>
 
@@ -223,7 +187,6 @@
 import type { ComponentPublicInstance } from "vue";
 import { invoke, until } from "@vueuse/core";
 import type { RouteLocationNormalized } from "vue-router";
-import RecipeIngredients from "../RecipeIngredients.vue";
 import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
 import RecipePageFooter from "./RecipePageParts/RecipePageFooter.vue";
 import RecipePageHeader from "./RecipePageParts/RecipePageHeader.vue";
@@ -235,6 +198,10 @@ import RecipePageParseDialog from "./RecipePageParts/RecipeParseDialog/RecipePag
 import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageInfoEditor from "./RecipePageParts/RecipePageInfoEditor.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
+import RecipePageCookMode from "./RecipePageParts/RecipePageCookMode.vue";
+import RecipePageHero from "./RecipePageParts/RecipePageHero.vue";
+import RecipePageServingsStepper from "./RecipePageParts/RecipePageServingsStepper.vue";
+import RecipeUnitSystemButton from "~/components/Domain/Recipe/RecipeUnitSystemButton.vue";
 import RecipePrintContainer from "~/components/Domain/Recipe/RecipePrintContainer.vue";
 import {
   clearPageState,
@@ -274,7 +241,7 @@ const ingredientStorageKey = computed(() => `recipe-ingredients:${recipe.value.i
 
 const router = useRouter();
 const api = useUserApi();
-const { pageMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isParsing, toggleCookMode, toggleIsParsing }
+const { pageMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isParsing, toggleIsParsing }
   = usePageState(recipe.value.slug);
 const { deactivateNavigationWarning } = useNavigationWarning();
 const scale = ref(1);
@@ -304,14 +271,6 @@ const displayedRecipe = computed<NoUndefinedField<Recipe>>(() => {
   };
 });
 
-const notLinkedIngredients = computed(() => {
-  return displayedRecipe.value.recipeIngredient.filter((ingredient) => {
-    return !recipe.value.recipeInstructions.some(step =>
-      step.ingredientReferences?.map(ref => ref.referenceId).includes(ingredient.referenceId),
-    );
-  });
-});
-
 /** =============================================================
  * Floating save button — track toolbar visibility
  */
@@ -319,16 +278,19 @@ const recipeToolbar = ref<ComponentPublicInstance | null>(null);
 const toolbarVisible = ref(true);
 let toolbarObserver: IntersectionObserver | undefined;
 
-onMounted(async () => {
+// the editor's toolbar only exists in edit mode, so start watching it whenever it appears
+watch(recipeToolbar, async (toolbar) => {
+  toolbarObserver?.disconnect();
+  toolbarVisible.value = true;
   await nextTick();
-  const el = recipeToolbar.value?.$el as HTMLElement | undefined;
+  const el = toolbar?.$el as HTMLElement | undefined;
   if (!el) return;
   toolbarObserver = new IntersectionObserver(
     ([entry]) => { toolbarVisible.value = entry.isIntersecting; },
     { threshold: 0 },
   );
   toolbarObserver.observe(el);
-});
+}, { flush: "post" });
 
 onUnmounted(() => toolbarObserver?.disconnect());
 
@@ -399,11 +361,6 @@ onBeforeRouteLeave((to) => {
 onUnmounted(() => {
   deactivateNavigationWarning();
   clearPageState(recipe.value.slug || "");
-});
-const hasLinkedIngredients = computed(() => {
-  return recipe.value.recipeInstructions.some(
-    step => step.ingredientReferences && step.ingredientReferences.length > 0,
-  );
 });
 /** =============================================================
  * Set State onMounted
@@ -551,6 +508,39 @@ function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: st
 </script>
 
 <style lang="css">
+.recipe-view {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding-bottom: 72px;
+}
+
+.recipe-view__body {
+  padding: 36px 48px 0;
+}
+
+.recipe-view__columns {
+  display: grid;
+  grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+  gap: 56px;
+}
+
+@media (max-width: 960px) {
+  .recipe-view__body {
+    padding: 28px 24px 0;
+  }
+
+  .recipe-view__columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 36px;
+  }
+}
+
+@media (max-width: 600px) {
+  .recipe-view__body {
+    padding: 24px 16px 0;
+  }
+}
+
 .flip-list-move {
   transition: transform 0.5s;
 }

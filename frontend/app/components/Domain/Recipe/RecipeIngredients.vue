@@ -2,52 +2,58 @@
   <div v-if="value && value.length > 0">
     <div
       v-if="!isCookMode"
-      class="d-flex justify-start"
+      class="ingredients-header"
     >
-      <h2 class="mt-1 text-h5 font-weight-medium opacity-80">
+      <h2 class="ingredients-header__title">
         {{ $t("recipe.ingredients") }}
       </h2>
-      <AppButtonCopy
-        btn-class="ml-auto"
-        :copy-text="ingredientCopyText"
-      />
+      <div class="ingredients-header__actions">
+        <slot name="header-append" />
+        <AppButtonCopy
+          :copy-text="ingredientCopyText"
+        />
+      </div>
     </div>
-    <div>
+    <div class="ingredients-list">
       <div
         v-for="(ingredient, index) in value"
         :key="'ingredient' + index"
       >
         <h3
           v-if="showTitleEditor[index]"
-          class="mt-4 mb-0"
+          class="ingredients-list__section"
         >
           {{ ingredient.title }}
         </h3>
-        <v-divider v-if="showTitleEditor[index]" class="my-2" />
-        <v-list-item
-          density="compact"
-          class="px-0 py-1 ingredient-list-item"
-          @click.stop="toggleChecked(index)"
+        <div
+          class="ingredient-row ingredient-list-item"
+          :class="{ 'ingredient-row--checked': isChecked(index) }"
+          @click="toggleChecked(index)"
         >
-          <template #prepend>
-            <v-checkbox
-              :model-value="isChecked(index)"
-              hide-details
-              class="pt-0 mt-0"
-              color="secondary"
-              density="comfortable"
-              @click.stop
-              @update:model-value="setChecked(index, !!$event)"
-            />
-          </template>
-          <v-list-item-title>
-            <RecipeIngredientListItem
-              :ingredient="ingredient"
-              :scale="scale"
-              show-substitutions
-            />
-          </v-list-item-title>
-        </v-list-item>
+          <button
+            type="button"
+            role="checkbox"
+            class="ingredient-row__check"
+            :aria-checked="isChecked(index)"
+            :aria-label="parseIngredientText(ingredient, scale, false)"
+            @click.stop="toggleChecked(index)"
+          >
+            <svg v-if="isChecked(index)" width="11" height="9" viewBox="0 0 12 10" aria-hidden="true"><polyline
+              points="1.5,5 4.5,8 10.5,1.8"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            /></svg>
+          </button>
+          <RecipeIngredientListItem
+            class="ingredient-row__text"
+            :ingredient="ingredient"
+            :scale="scale"
+            show-substitutions
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -132,28 +138,96 @@ function setChecked(index: number, value: boolean) {
 </script>
 
 <style>
+.ingredients-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.ingredients-header__title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--mealie-ink);
+}
+
+.ingredients-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.ingredients-list {
+  margin-top: 8px;
+}
+
+.ingredients-list__section {
+  margin-top: 18px;
+  padding-bottom: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mealie-text-tertiary);
+  border-bottom: 1px solid var(--mealie-hairline);
+}
+
+.ingredient-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  min-height: 40px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--mealie-hairline);
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.ingredient-row__check {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  margin-top: 2px;
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  box-shadow: inset 0 0 0 1.6px var(--mealie-checkbox-ring);
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+.ingredient-row__check:focus-visible {
+  outline: 2px solid rgb(var(--v-theme-primary));
+  outline-offset: 2px;
+}
+
+.ingredient-row--checked .ingredient-row__check {
+  background: rgb(var(--v-theme-primary));
+  box-shadow: none;
+}
+
+.ingredient-row__text {
+  flex: 1;
+  min-width: 0;
+  font-size: 15px !important;
+  color: var(--mealie-ink);
+  transition: color 0.15s ease;
+}
+
+.ingredient-row--checked .ingredient-row__text {
+  color: var(--mealie-text-quaternary);
+  text-decoration: line-through;
+}
+
 .dense-markdown p {
   margin: auto !important;
-}
-
-/* vuetify clips both of these, which would swallow the substitution button's tap target
-   where it reaches past the line of text */
-.ingredient-list-item .v-list-item__content,
-.ingredient-list-item .v-list-item-title {
-  overflow: visible;
-}
-
-.ingredient-list-item {
-  align-items: flex-start;
-}
-
-.ingredient-list-item .v-list-item__prepend,
-.ingredient-list-item .v-list-item__content {
-  align-self: flex-start;
-}
-
-.ingredient-list-item .v-selection-control {
-  align-self: flex-start;
-  margin-top: -9px;
 }
 </style>

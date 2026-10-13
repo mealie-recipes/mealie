@@ -5,9 +5,13 @@
       :scale="scale"
       :is-cook-mode="isCookMode"
       :storage-key="ingredientStorageKey"
-    />
+    >
+      <template #header-append>
+        <slot name="header-append" />
+      </template>
+    </RecipeIngredients>
     <div v-if="!isEditMode && recipe.tools && recipe.tools.length > 0">
-      <h2 class="mt-4 text-h5 font-weight-medium opacity-80">
+      <h2 class="required-tools__title">
         {{ $t('tool.required-tools') }}
       </h2>
       <v-list density="compact">
@@ -100,3 +104,13 @@ function updateTool(index: number) {
   }
 }
 </script>
+
+<style scoped>
+.required-tools__title {
+  margin-top: 28px;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--mealie-ink);
+}
+</style>

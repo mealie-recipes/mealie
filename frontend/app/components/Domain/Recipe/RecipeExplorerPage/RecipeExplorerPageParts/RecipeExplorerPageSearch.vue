@@ -1,23 +1,39 @@
 <template>
-  <div class="search-container pb-8">
+  <div class="search-container">
     <form
-      class="search-box pa-2"
+      class="search-box"
       @submit.prevent="search"
     >
-      <div class="d-flex justify-center mb-2">
-        <v-text-field
-          ref="input"
-          v-model="state.search"
-          variant="outlined"
-          hide-details
-          clearable
-          color="primary"
-          :placeholder="$t('search.search-placeholder')"
-          :prepend-inner-icon="$globals.icons.search"
-          @keyup.enter="hideKeyboard"
-        />
-      </div>
       <div class="search-row">
+        <!-- Quick filters -->
+        <button
+          type="button"
+          class="mealie-chip"
+          :class="{ 'mealie-chip--active': !hasActiveFilters }"
+          @click="reset"
+        >
+          {{ $t("recipe-library.all") }}
+        </button>
+        <RouterLink
+          v-if="favoritesLink"
+          :to="favoritesLink"
+          class="mealie-chip"
+        >
+          {{ $t("general.favorites") }}
+        </RouterLink>
+        <button
+          v-for="category in quickCategories"
+          :key="category.id ?? category.slug"
+          type="button"
+          class="mealie-chip"
+          :class="{ 'mealie-chip--active': isOnlyCategory(category.id) }"
+          @click="toggleCategory(category)"
+        >
+          {{ category.name }}
+        </button>
+
+        <div class="search-row__spacer" />
+
         <RecipeExplorerPageSearchFilters />
         <!-- Sort Options -->
         <v-menu
@@ -26,9 +42,10 @@
         >
           <template #activator="{ props }">
             <v-btn
-              class="ml-auto"
               size="small"
-              color="accent"
+              variant="flat"
+              rounded="pill"
+              class="mealie-filter-btn"
               v-bind="props"
             >
               <v-icon :start="!$vuetify.display.xs">
@@ -85,8 +102,10 @@
           <template #activator="{ props }">
             <v-btn
               size="small"
-              color="accent"
-              dark
+              variant="flat"
+              rounded="pill"
+              class="mealie-filter-btn"
+              :aria-label="$t('general.settings')"
               v-bind="props"
             >
               <v-icon size="small">
@@ -118,10 +137,12 @@
         class="search-button-container"
       >
         <v-btn
-          size="x-large"
+          size="large"
           color="primary"
           type="submit"
+          rounded="pill"
           block
+          flat
         >
           <v-icon start>
             {{ $globals.icons.search }}
@@ -136,6 +157,9 @@
 <script setup lang="ts">
 import RecipeExplorerPageSearchFilters from "./RecipeExplorerPageSearchFilters.vue";
 import { useRecipeExplorerSearch, clearRecipeExplorerSearchState } from "~/composables/use-recipe-explorer-search";
+import { useLoggedInState } from "~/composables/use-logged-in-state";
+import { useCategoryStore, useHouseholdStore, usePublicCategoryStore, usePublicHouseholdStore } from "~/composables/store";
+import type { RecipeCategory } from "~/lib/api/types/recipe";
 
 const emit = defineEmits<{
   ready: [];
@@ -151,6 +175,11 @@ const groupSlug = computed(() => route.params.groupSlug as string || auth.user.v
 
 const {
   state,
+  selectedCategories,
+  selectedFoods,
+  selectedHouseholds,
+  selectedTags,
+  selectedTools,
   passedQueryWithSeed,
   search,
   reset,
@@ -161,9 +190,50 @@ const {
   initialize,
 } = useRecipeExplorerSearch(groupSlug);
 
+const { isOwnGroup } = useLoggedInState();
+const categoryStore = isOwnGroup.value ? useCategoryStore() : usePublicCategoryStore(groupSlug.value);
+
+/** the most used categories, offered as one-tap filters */
+const QUICK_CATEGORY_LIMIT = 4;
+const quickCategories = computed(() => {
+  const selected = selectedCategories.value;
+  const rest = [...categoryStore.store.value]
+    .filter(category => category.id && !selected.some(s => s.id === category.id))
+    .sort((a, b) => (b.recipeCount ?? 0) - (a.recipeCount ?? 0) || a.name.localeCompare(b.name));
+  // keep a selected category visible even when it would sort past the limit
+  return [...selected, ...rest].slice(0, Math.max(QUICK_CATEGORY_LIMIT, selected.length));
+});
+
+const householdStore = isOwnGroup.value ? useHouseholdStore() : usePublicHouseholdStore(groupSlug.value);
+const householdCount = computed(() => householdStore.store.value.length);
+
+const hasActiveFilters = computed(() =>
+  !!state.value.search
+  || selectedCategories.value.length > 0
+  || selectedFoods.value.length > 0
+  || selectedTags.value.length > 0
+  || selectedTools.value.length > 0
+  || (selectedHouseholds.value.length > 0 && selectedHouseholds.value.length < householdCount.value),
+);
+
+const favoritesLink = computed(() => isOwnGroup.value && auth.user.value ? `/user/${auth.user.value.id}/favorites` : "");
+
+function isOnlyCategory(id?: string | null) {
+  return selectedCategories.value.length === 1 && selectedCategories.value[0]!.id === id;
+}
+
+function toggleCategory(category: RecipeCategory) {
+  if (isOnlyCategory(category.id)) {
+    selectedCategories.value = [];
+    return;
+  }
+  filterItems(category, "categories");
+}
+
 defineExpose({
   passedQueryWithSeed,
   filterItems,
+  hasActiveFilters,
 });
 
 onMounted(async () => {
@@ -215,13 +285,6 @@ const sortable = computed(() => [
   },
 ]);
 
-// Methods
-const input: Ref<any> = ref(null);
-
-function hideKeyboard() {
-  input.value?.blur();
-}
-
 // function to show refresh icon
 async function setRandomOrderByWrapper() {
   if (!showRandomLoading.value) {
@@ -235,21 +298,20 @@ async function setRandomOrderByWrapper() {
 .search-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.65rem;
-  margin-top: 1rem;
+  align-items: center;
+  gap: 8px;
 }
 
-.search-container {
-  display: flex;
-  justify-content: center;
+.search-row__spacer {
+  flex: 1;
 }
 
 .search-box {
-  width: 950px;
+  width: 100%;
 }
 
 .search-button-container {
-  margin: 3rem auto 0 auto;
+  margin: 1.5rem auto 0 auto;
   max-width: 500px;
 }
 </style>

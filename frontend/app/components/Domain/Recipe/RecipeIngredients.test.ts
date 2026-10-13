@@ -30,25 +30,7 @@ function mountIngredients(value: RecipeIngredient[], storageKey = "recipe-ingred
       stubs: {
         AppButtonCopy: true,
         RecipeIngredientListItem: true,
-        VCheckbox: {
-          props: ["modelValue"],
-          emits: ["update:modelValue"],
-          template: `
-            <button
-              class="checkbox"
-              type="button"
-              :aria-pressed="modelValue ? 'true' : 'false'"
-              @click="$emit('update:modelValue', !modelValue)"
-            />
-          `,
-        },
         VDivider: true,
-        VListItem: {
-          template: "<div class=\"list-item\" @click=\"$emit('click', $event)\"><slot name=\"prepend\" /><slot /></div>",
-        },
-        VListItemTitle: {
-          template: "<div><slot /></div>",
-        },
       },
     },
   });
@@ -65,15 +47,24 @@ describe("RecipeIngredients", () => {
 
   test("restores checked ingredients from session storage by reference id", async () => {
     const firstWrapper = mountIngredients([ingredients.curryPaste, ingredients.coconutMilk]);
-    await firstWrapper.findAll(".checkbox")[0].trigger("click");
+    await firstWrapper.findAll(".ingredient-row__check")[0].trigger("click");
     await nextTick();
 
-    expect(firstWrapper.findAll(".checkbox")[0].attributes("aria-pressed")).toBe("true");
+    expect(firstWrapper.findAll(".ingredient-row__check")[0].attributes("aria-checked")).toBe("true");
     firstWrapper.unmount();
 
     const secondWrapper = mountIngredients([ingredients.coconutMilk, ingredients.curryPaste]);
 
-    expect(secondWrapper.findAll(".checkbox")[0].attributes("aria-pressed")).toBe("false");
-    expect(secondWrapper.findAll(".checkbox")[1].attributes("aria-pressed")).toBe("true");
+    expect(secondWrapper.findAll(".ingredient-row__check")[0].attributes("aria-checked")).toBe("false");
+    expect(secondWrapper.findAll(".ingredient-row__check")[1].attributes("aria-checked")).toBe("true");
+  });
+
+  test("toggles an ingredient when its row is clicked", async () => {
+    const wrapper = mountIngredients([ingredients.curryPaste], "recipe-ingredients:row-click:checked");
+    await wrapper.find(".ingredient-row").trigger("click");
+    await nextTick();
+
+    expect(wrapper.find(".ingredient-row").classes()).toContain("ingredient-row--checked");
+    expect(wrapper.find(".ingredient-row__check").attributes("aria-checked")).toBe("true");
   });
 });

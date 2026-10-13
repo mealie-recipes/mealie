@@ -7,9 +7,10 @@
     >
       <v-card
         v-bind="hoverProps"
+        class="mealie-recipe-card"
         :class="{ 'on-hover': isHovering }"
         :style="{ cursor }"
-        :elevation="isHovering ? 12 : 2"
+        :elevation="isHovering ? 6 : 0"
         :to="recipeRoute"
         :min-height="imageHeight + 75"
         @click.self="$emit('click')"
@@ -36,7 +37,7 @@
             </div>
           </v-expand-transition>
         </RecipeCardImage>
-        <v-card-title class="px-4" style="font-size: 1.25rem;">
+        <v-card-title class="px-4 mealie-recipe-card__title">
           {{ name }}
         </v-card-title>
 
@@ -201,5 +202,23 @@ const cursor = computed(() => showRecipeContent.value ? "pointer" : "auto");
 }
 .recipe-card-actions {
   width: 100%;
+}
+.mealie-recipe-card {
+  border-radius: 18px !important;
+  box-shadow: inset 0 0 0 1px var(--mealie-hairline) !important;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+.mealie-recipe-card.on-hover {
+  box-shadow:
+    0 18px 40px -20px rgba(40, 30, 20, 0.35),
+    inset 0 0 0 1px var(--mealie-hairline) !important;
+  transform: translateY(-2px);
+}
+.mealie-recipe-card__title {
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
 }
 </style>

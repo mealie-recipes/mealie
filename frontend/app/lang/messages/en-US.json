@@ -1254,5 +1254,43 @@
     "mark-all-as-read": "Mark All as Read",
     "show-announcements-from-mealie": "Show announcements from Mealie",
     "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+  },
+  "recipe-library": {
+    "new-recipe": "New Recipe",
+    "search-placeholder": "Search recipes or ingredients",
+    "all": "All",
+    "tonights-plan": "Tonight’s plan",
+    "nothing-planned-tonight": "Nothing planned for tonight",
+    "plan-a-meal": "Plan a Meal",
+    "this-week": "This Week",
+    "nothing-planned": "Nothing planned",
+    "recently-added": "Recently Added",
+    "see-all": "See All",
+    "all-recipes": "All Recipes",
+    "start-cooking": "Start Cooking"
+  },
+  "recipe-page": {
+    "prep": "Prep",
+    "cook": "Cook",
+    "total": "Total",
+    "serves": "Serves",
+    "servings-count": "{count} serving | {count} servings",
+    "fewer-servings": "Fewer servings",
+    "more-servings": "More servings"
+  },
+  "cook-mode": {
+    "exit": "Exit",
+    "step-of-total": "Step {step} of {total}",
+    "step-number": "Step {step}",
+    "all-steps": "All Steps",
+    "previous": "Previous",
+    "next-step": "Next Step",
+    "finish": "Finish",
+    "timer": "Timer",
+    "pause": "Pause",
+    "resume": "Resume",
+    "timer-done": "Timer done",
+    "keyboard-hint": "Use ← → to move between steps",
+    "no-steps": "This recipe has no steps yet."
   }
 }

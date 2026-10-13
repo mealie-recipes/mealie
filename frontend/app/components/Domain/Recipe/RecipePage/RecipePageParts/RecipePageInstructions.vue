@@ -132,26 +132,12 @@
       </template>
     </BaseDialog>
 
-    <div class="d-flex justify-space-between justify-start">
-      <h2
-        v-if="!isCookMode"
-        class="mt-1 text-h5 font-weight-medium opacity-80"
-      >
-        {{ $t("recipe.instructions") }}
-      </h2>
-      <BaseButton
-        v-if="!isEditForm && !isCookMode"
-        minor
-        cancel
-        color="primary"
-        @click="toggleCookMode()"
-      >
-        <template #icon>
-          {{ $globals.icons.primary }}
-        </template>
-        {{ $t("recipe.cook-mode") }}
-      </BaseButton>
-    </div>
+    <h2
+      v-if="!isCookMode"
+      class="method-title"
+    >
+      {{ $t("recipe.instructions") }}
+    </h2>
     <v-bottom-sheet
       v-model="linkedNotesSheetOpen"
       max-width="900"
@@ -192,7 +178,88 @@
         </v-card-text>
       </v-card>
     </v-bottom-sheet>
+    <!-- Reading view: numbered steps, tap one to mark it done -->
+    <ol v-if="!isEditForm && !isCookMode" class="method-list">
+      <template
+        v-for="(step, index) in instructionList"
+        :key="step.id!"
+      >
+        <li
+          v-if="step.id && showTitleEditor[step.id]"
+          class="method-section"
+        >
+          <button
+            type="button"
+            class="method-section__button"
+            @click="toggleCollapseSection(index)"
+          >
+            {{ step.title }}
+          </button>
+        </li>
+        <li
+          class="method-step"
+          :class="{ 'method-step--done': !!isChecked(index) }"
+          @click="toggleDisabled(index)"
+        >
+          <button
+            type="button"
+            class="method-step__number"
+            :aria-pressed="!!isChecked(index)"
+            :aria-label="$t('recipe.step-index', { step: index + 1 })"
+            @click.stop="toggleDisabled(index)"
+          >
+            <svg v-if="isChecked(index)" width="12" height="10" viewBox="0 0 12 10" aria-hidden="true"><polyline
+              points="1.5,5 4.5,8 10.5,1.8"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            /></svg>
+            <template v-else>
+              {{ index + 1 }}
+            </template>
+          </button>
+          <div class="method-step__body">
+            <SafeMarkdown
+              v-if="step.summary"
+              class="method-step__summary"
+              :source="step.summary"
+            />
+            <SafeMarkdown
+              class="method-step__text markdown"
+              :source="step.text"
+            />
+            <div
+              v-if="stepTimers[index]?.length || hasLinkedNotes(step)"
+              class="method-step__tags"
+            >
+              <span
+                v-for="(timer, timerIndex) in stepTimers[index]"
+                :key="timerIndex"
+                class="method-step__tag"
+              >
+                <v-icon size="13">{{ $globals.icons.timerOutline }}</v-icon>
+                {{ timer.label }}
+              </span>
+              <button
+                v-if="hasLinkedNotes(step)"
+                type="button"
+                class="method-step__tag method-step__tag--button"
+                @click.stop="openLinkedNotesSheet(step)"
+              >
+                <v-icon size="13">
+                  {{ $globals.icons.noteTextOutline }}
+                </v-icon>
+                {{ $t('recipe.linked-notes-with-count', { count: linkedNotesForStep(step).length }) }}
+              </button>
+            </div>
+          </div>
+        </li>
+      </template>
+    </ol>
     <VueDraggable
+      v-else
       v-model="instructionList"
       :disabled="!isEditForm"
       handle=".handle"
@@ -526,6 +593,7 @@ import DropZone from "~/components/global/DropZone.vue";
 import { alert } from "~/composables/use-toast";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 import RecipeIngredientHtml from "~/components/Domain/Recipe/RecipeIngredientHtml.vue";
+import { parseStepTimers } from "~/composables/recipe-page/use-step-timers";
 
 interface MergerHistory {
   target: number;
@@ -555,7 +623,7 @@ const props = defineProps({
 const emit = defineEmits(["click-instruction-field", "update:assets"]);
 
 const i18n = useI18n();
-const { isCookMode, toggleCookMode, isEditForm } = usePageState(props.recipe.slug);
+const { isCookMode, isEditForm } = usePageState(props.recipe.slug);
 const { extractIngredientReferences } = useExtractIngredientReferences();
 
 const dialog = ref(false);
@@ -589,6 +657,8 @@ watch(instructionList, (v) => {
 }, { deep: true });
 
 const showCookMode = ref(false);
+
+const stepTimers = computed(() => instructionList.value.map(step => parseStepTimers(step.text)));
 
 onMounted(() => {
   instructionList.value.forEach((element: RecipeStep) => {
@@ -1053,6 +1123,138 @@ function openImageUpload(index: number) {
 </script>
 
 <style lang="css" scoped>
+.method-title {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+  color: var(--mealie-ink);
+}
+
+.method-list {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  max-width: 620px;
+  margin-top: 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.method-section {
+  margin-top: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--mealie-hairline);
+}
+
+.method-section__button {
+  border: 0;
+  background: none;
+  padding: 0;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--mealie-text-tertiary);
+  cursor: pointer;
+}
+
+.method-step {
+  display: flex;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.method-step__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  flex-shrink: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 14px;
+  background: rgba(var(--v-theme-primary), 0.1);
+  color: rgb(var(--v-theme-primary));
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.method-step__number:focus-visible {
+  outline: 2px solid rgb(var(--v-theme-primary));
+  outline-offset: 2px;
+}
+
+.method-step--done .method-step__number {
+  background: rgb(var(--v-theme-primary));
+  color: #fff;
+}
+
+.method-step__body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  padding-top: 3px;
+  transition: opacity 0.15s ease;
+}
+
+.method-step--done .method-step__body {
+  opacity: 0.45;
+}
+
+.method-step__summary {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.method-step__text {
+  font-size: 16px;
+  line-height: 1.5;
+  text-wrap: pretty;
+  color: var(--mealie-ink);
+}
+
+.method-step__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.method-step__tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 26px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 13px;
+  background: var(--mealie-fill-subtle);
+  color: var(--mealie-icon);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.method-step__tag--button {
+  cursor: pointer;
+}
+
+.method-step__tag--button:hover {
+  background: var(--mealie-fill);
+}
+
 .grid {
   display: grid;
   gap: 0.5rem;

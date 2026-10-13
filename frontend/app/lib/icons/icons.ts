@@ -146,7 +146,12 @@ import {
   mdiCalendarRemove,
   mdiCalendarEdit,
   mdiNoteTextOutline,
-
+  mdiViewGrid,
+  mdiCalendarBlankOutline,
+  mdiFormatListBulleted,
+  mdiTimerOutline,
+  mdiPause,
+  mdiRestart,
 } from "@mdi/js";
 
 export const icons = {
@@ -310,4 +315,10 @@ export const icons = {
   chevronDown: mdiChevronDown,
   chevronRight: mdiChevronRight,
   chevronLeft: mdiChevronLeft,
+  viewGrid: mdiViewGrid,
+  calendarBlankOutline: mdiCalendarBlankOutline,
+  formatListBulleted: mdiFormatListBulleted,
+  timerOutline: mdiTimerOutline,
+  pause: mdiPause,
+  restart: mdiRestart,
 };
