@@ -1076,6 +1076,8 @@
     "share-recipe": "Поділитися рецептом",
     "default-30-days": "30 днів за замовчуванням",
     "expires-at": "Дійсний до",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Посилання на рецепт скопійовано в буфер обміну"
   },
   "banner-experimental": {
