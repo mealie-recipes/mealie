@@ -13,7 +13,7 @@ from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.schema.response import OrderDirection, PaginationQuery
 from mealie.schema.user.user import GroupBase, UserRatingCreate
-from tests.utils.factories import random_email, random_string
+from tests.utils.factories import random_email, random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
 
@@ -99,36 +99,38 @@ def search_recipes(unique_db: AllRepositories, unique_ids: tuple[str, str, str])
             user_id=user_id,
             name="Rátàtôuile",
         ),
-        # Add a bunch of recipes for stable randomization
+        # Add a bunch of recipes for stable randomization. Their names are digits only,
+        # so they can never share a prefix or trigram with the words searched for below
+        # and outrank the recipe a test expects first (e.g. "hor..." for "horns")
         Recipe(
             group_id=group_id,
             user_id=user_id,
-            name=f"{random_string(10)} soup",
+            name=f"{random_int(10**9, 10**10 - 1)} soup",
         ),
         Recipe(
             group_id=group_id,
             user_id=user_id,
-            name=f"{random_string(10)} soup",
+            name=f"{random_int(10**9, 10**10 - 1)} soup",
         ),
         Recipe(
             group_id=group_id,
             user_id=user_id,
-            name=f"{random_string(10)} soup",
+            name=f"{random_int(10**9, 10**10 - 1)} soup",
         ),
         Recipe(
             group_id=group_id,
             user_id=user_id,
-            name=f"{random_string(10)} soup",
+            name=f"{random_int(10**9, 10**10 - 1)} soup",
         ),
         Recipe(
             group_id=group_id,
             user_id=user_id,
-            name=f"{random_string(10)} soup",
+            name=f"{random_int(10**9, 10**10 - 1)} soup",
         ),
         Recipe(
             group_id=group_id,
             user_id=user_id,
-            name=f"{random_string(10)} soup",
+            name=f"{random_int(10**9, 10**10 - 1)} soup",
         ),
     ]
 
