@@ -1076,6 +1076,8 @@
     "share-recipe": "Deli recept",
     "default-30-days": "Privzeto 30 dni",
     "expires-at": "Poteče ob",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Povezava recepta je kopirana v odložišče"
   },
   "banner-experimental": {
