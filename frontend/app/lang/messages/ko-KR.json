@@ -1076,6 +1076,8 @@
     "share-recipe": "레시피 공유",
     "default-30-days": "기본 30일",
     "expires-at": "만료 예정: ",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "레시피 링크가 클립보드에 복사되었습니다"
   },
   "banner-experimental": {
