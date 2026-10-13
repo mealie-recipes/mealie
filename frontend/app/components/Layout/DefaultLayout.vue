@@ -20,7 +20,7 @@
     />
     <v-main :class="{ 'pt-12': !display.lgAndUp.value }">
       <v-scroll-x-transition>
-        <div>
+        <div class="mealie-safe-area">
           <NuxtPage />
         </div>
       </v-scroll-x-transition>

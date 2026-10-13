@@ -5,7 +5,7 @@
       icon
       position="fixed"
       location="bottom right"
-      class="ma-4"
+      class="scroll-to-top"
       color="primary"
       elevation="4"
       style="z-index: 999;"
@@ -17,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
+import { scrollBehavior } from "~/composables/use-utils";
+
 const showButton = ref(false);
 const threshold = 400;
 
@@ -25,7 +27,7 @@ function onScroll() {
 }
 
 function scrollToTop() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0, behavior: scrollBehavior() });
 }
 
 onMounted(() => {
@@ -36,3 +38,11 @@ onUnmounted(() => {
   window.removeEventListener("scroll", onScroll);
 });
 </script>
+
+<style scoped>
+.scroll-to-top {
+  margin: 16px;
+  margin-right: calc(16px + env(safe-area-inset-right));
+  margin-bottom: calc(16px + env(safe-area-inset-bottom));
+}
+</style>

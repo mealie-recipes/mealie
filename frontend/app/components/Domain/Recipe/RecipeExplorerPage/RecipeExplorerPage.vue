@@ -35,6 +35,7 @@ import RecipeExplorerPageRecent from "./RecipeExplorerPageParts/RecipeExplorerPa
 import RecipeExplorerPageSearch from "./RecipeExplorerPageParts/RecipeExplorerPageSearch.vue";
 import RecipeExplorerPageTonight from "./RecipeExplorerPageParts/RecipeExplorerPageTonight.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
+import { scrollBehavior } from "~/composables/use-utils";
 import RecipeCardSection from "~/components/Domain/Recipe/RecipeCardSection.vue";
 import { useLazyRecipes } from "~/composables/recipes";
 
@@ -65,7 +66,7 @@ function onItemSelected(item: any, urlPrefix: string) {
 }
 
 function scrollToAll() {
-  allRecipes.value?.scrollIntoView({ behavior: "smooth", block: "start" });
+  allRecipes.value?.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
 }
 </script>
 

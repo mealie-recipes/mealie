@@ -629,6 +629,9 @@ onBeforeUnmount(() => {
 
   position: fixed;
   inset: 0;
+  /* keep the controls clear of the notch and home indicator; the background still fills the screen */
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+  box-sizing: border-box;
   /* under Vuetify's overlays (2000+), so menus and dialogs opened from here stay on top */
   z-index: 1999;
   display: flex;
@@ -1161,7 +1164,8 @@ onBeforeUnmount(() => {
     bottom: 0;
     z-index: 1;
     max-height: 75%;
-    padding: 24px 16px 88px;
+    padding: 24px calc(16px + env(safe-area-inset-right)) calc(88px + env(safe-area-inset-bottom))
+      calc(16px + env(safe-area-inset-left));
     border-left: 0;
     border-radius: 24px 24px 0 0;
     background: #1c1b19;
@@ -1180,8 +1184,8 @@ onBeforeUnmount(() => {
 
   .cook-panel-toggle {
     position: absolute;
-    right: 24px;
-    bottom: 36px;
+    right: calc(24px + env(safe-area-inset-right));
+    bottom: calc(36px + env(safe-area-inset-bottom));
     z-index: 2;
     display: inline-flex;
     align-items: center;
@@ -1289,8 +1293,8 @@ onBeforeUnmount(() => {
   }
 
   .cook-panel-toggle {
-    right: 20px;
-    bottom: 24px;
+    right: calc(20px + env(safe-area-inset-right));
+    bottom: calc(24px + env(safe-area-inset-bottom));
     width: 50px;
     height: 50px;
     padding: 0;

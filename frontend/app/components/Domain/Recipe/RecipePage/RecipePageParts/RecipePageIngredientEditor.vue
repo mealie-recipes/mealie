@@ -35,7 +35,7 @@
       :delay="250"
       :delay-on-touch-only="true"
       v-bind="{
-        animation: 200,
+        animation: sortAnimation,
         group: 'recipe-ingredients',
         disabled: false,
         ghostClass: 'ghost',
@@ -127,7 +127,9 @@ import type { Recipe, RecipeIngredient } from "~/lib/api/types/recipe";
 import RecipeIngredientEditor from "~/components/Domain/Recipe/RecipeIngredientEditor.vue";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import { usePageState } from "~/composables/recipe-page/shared-state";
-import { uuid4 } from "~/composables/use-utils";
+import { useSortAnimation, uuid4 } from "~/composables/use-utils";
+
+const sortAnimation = useSortAnimation();
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 const ingredientsWithRecipe = new Map<string, boolean>();

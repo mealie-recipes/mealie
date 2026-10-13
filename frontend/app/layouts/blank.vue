@@ -13,7 +13,7 @@
 
     <v-main>
       <v-scroll-x-transition>
-        <div>
+        <div class="mealie-safe-area">
           <NuxtPage />
         </div>
       </v-scroll-x-transition>

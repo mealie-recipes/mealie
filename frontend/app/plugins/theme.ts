@@ -1,4 +1,7 @@
-import { readableOn } from "~/lib/theme/readable-on";
+import { withReadableOn } from "~/lib/theme/readable-on";
+
+// filled components in these colours get a label colour that meets 4.5:1 against them
+const ON_COLORS = ["primary", "accent", "secondary", "success", "info", "warning", "error"] as const;
 
 export interface ThemeConfig {
   lightPrimary: string;
@@ -49,33 +52,31 @@ export default defineNuxtPlugin(async (nuxtApp) => {
       themes: {
         light: {
           dark: false,
-          colors: {
-            "primary": theme?.lightPrimary ?? "#C4502A",
-            "on-primary": readableOn(theme?.lightPrimary ?? "#C4502A"),
-            "accent": theme?.lightAccent ?? "#007A99",
-            "secondary": theme?.lightSecondary ?? "#973542",
-            "success": theme?.lightSuccess ?? "#43A047",
-            "info": theme?.lightInfo ?? "#1976d2",
-            "warning": theme?.lightWarning ?? "#FF6D00",
-            "error": theme?.lightError ?? "#EF5350",
-            "background": "#FAF9F7",
-            "surface": "#FFFFFF",
-          },
+          colors: withReadableOn({
+            primary: theme?.lightPrimary ?? "#C4502A",
+            accent: theme?.lightAccent ?? "#007A99",
+            secondary: theme?.lightSecondary ?? "#973542",
+            success: theme?.lightSuccess ?? "#2A7531",
+            info: theme?.lightInfo ?? "#1565C0",
+            warning: theme?.lightWarning ?? "#A84B0A",
+            error: theme?.lightError ?? "#B3261E",
+            background: "#FAF9F7",
+            surface: "#FFFFFF",
+          }, ON_COLORS),
         },
         dark: {
           dark: true,
-          colors: {
-            "primary": theme?.darkPrimary ?? "#E0683C",
-            "on-primary": readableOn(theme?.darkPrimary ?? "#E0683C"),
-            "accent": theme?.darkAccent ?? "#007A99",
-            "secondary": theme?.darkSecondary ?? "#E08A73",
-            "success": theme?.darkSuccess ?? "#43A047",
-            "info": theme?.darkInfo ?? "#1976d2",
-            "warning": theme?.darkWarning ?? "#FF6D00",
-            "error": theme?.darkError ?? "#EF5350",
-            "background": "#161513",
-            "surface": "#1F1E1C",
-          },
+          colors: withReadableOn({
+            primary: theme?.darkPrimary ?? "#E0683C",
+            accent: theme?.darkAccent ?? "#007A99",
+            secondary: theme?.darkSecondary ?? "#E08A73",
+            success: theme?.darkSuccess ?? "#4CAF50",
+            info: theme?.darkInfo ?? "#5E9BD1",
+            warning: theme?.darkWarning ?? "#FF6D00",
+            error: theme?.darkError ?? "#F2706C",
+            background: "#161513",
+            surface: "#1F1E1C",
+          }, ON_COLORS),
         },
       },
     };

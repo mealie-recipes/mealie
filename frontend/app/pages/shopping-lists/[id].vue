@@ -574,6 +574,18 @@ watch(isSearching, (searching) => {
     height: 28px;
   }
 
+  /* on touch screens the box stays small, but the input it wraps reaches out to 44px
+     (Apple's minimum); the row's buttons already make each row at least that tall */
+  @media (pointer: coarse) {
+    .shopping-list-item-row .v-selection-control__input input {
+      top: 50%;
+      left: 50%;
+      width: 44px;
+      height: 44px;
+      transform: translate(-50%, -50%);
+    }
+  }
+
   .shopping-list-item-row .v-btn--size-small {
     width: 32px;
     height: 32px;

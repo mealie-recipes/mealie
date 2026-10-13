@@ -18,7 +18,7 @@
           :delay="250"
           :delay-on-touch-only="true"
           v-bind="{
-            animation: 200,
+            animation: sortAnimation,
             group: 'recipe-ingredients',
             disabled: false,
             ghostClass: 'ghost',
@@ -57,6 +57,9 @@ import { VueDraggable } from "vue-draggable-plus";
 import type { MenuItem } from "~/components/global/BaseOverflowButton.vue";
 import type { ParsedIngredient } from "~/lib/api/types/recipe";
 import type { Parser } from "~/lib/api/user/recipes/recipe";
+import { useSortAnimation } from "~/composables/use-utils";
+
+const sortAnimation = useSortAnimation();
 
 defineEmits<{
   parse: [];

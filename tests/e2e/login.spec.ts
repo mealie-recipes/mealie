@@ -108,7 +108,9 @@ test('oidc sequential login', async ({ page }) => {
     await page.getByRole('button', { name: 'Sign-in' }).click();
     await expect(page).toHaveURL(/\/g\/home/, { timeout: 15000 });
     await expect(page.getByRole('navigation')).toContainText(name);
-    await page.getByRole('button', { name: 'Logout' }).click();
+    // on desktop the sidebar replaces the top bar, and logout sits in its Settings menu
+    await page.getByText('Settings', { exact: true }).click();
+    await page.getByText('Logout', { exact: true }).click();
 
     await expect(page).toHaveURL(/\/login\?direct=1/);
     await page.getByRole('button', { name: 'Login with OAuth' }).click();
@@ -136,7 +138,9 @@ test('settings page verify oidc', async ({ page }) => {
     await page.getByPlaceholder('Optional claims JSON value,').fill(JSON.stringify(claims));
     await page.getByRole('button', { name: 'Sign-in' }).click();
     await expect(page.getByRole('navigation')).toContainText(name);
-    await page.getByRole('button', { name: 'Logout' }).click();
+    // on desktop the sidebar replaces the top bar, and logout sits in its Settings menu
+    await page.getByText('Settings', { exact: true }).click();
+    await page.getByText('Logout', { exact: true }).click();
 
     await expect(page).toHaveURL(/\/login\?direct=1/);
     await page.getByLabel('Email or Username').click();

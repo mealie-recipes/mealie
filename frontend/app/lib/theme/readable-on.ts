@@ -11,7 +11,7 @@ function relativeLuminance(hex: string): number {
   return 0.2126 * r! + 0.7152 * g! + 0.0722 * b!;
 }
 
-function contrast(a: string, b: string): number {
+export function contrast(a: string, b: string): number {
   const [light, dark] = [relativeLuminance(a), relativeLuminance(b)].sort((x, y) => y - x);
   return (light! + 0.05) / (dark! + 0.05);
 }
@@ -26,4 +26,16 @@ export function readableOn(color: string): string {
     return ON_LIGHT;
   }
   return contrast(color, ON_LIGHT) >= contrast(color, ON_DARK) ? ON_LIGHT : ON_DARK;
+}
+
+/**
+ * Adds an `on-<name>` label colour, chosen by readableOn, for each named colour in the palette,
+ * so text on any filled button, chip or alert stays legible whatever colours the theme sets
+ */
+export function withReadableOn<T extends Record<string, string>>(colors: T, names: readonly (keyof T & string)[]): Record<string, string> {
+  const result: Record<string, string> = { ...colors };
+  for (const name of names) {
+    result[`on-${name}`] = readableOn(colors[name]!);
+  }
+  return result;
 }

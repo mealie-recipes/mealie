@@ -33,7 +33,7 @@
           <button
             type="button"
             role="checkbox"
-            class="ingredient-row__check"
+            class="ingredient-row__check mealie-hit-target"
             :aria-checked="isChecked(index)"
             :aria-label="parseIngredientText(ingredient, scale, false)"
             @click.stop="toggleChecked(index)"

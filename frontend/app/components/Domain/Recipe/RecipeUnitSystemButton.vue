@@ -15,7 +15,7 @@
           <button
             v-if="compact"
             type="button"
-            class="unit-system-pill"
+            class="unit-system-pill mealie-hit-target"
             :disabled="!hasConvertibleIngredients"
             :aria-label="`${$t('general.units')}: ${activeLabel}`"
             v-bind="{ ...activatorProps, ...tooltipProps }"

@@ -95,14 +95,14 @@
         <div class="mealie-segmented" role="group">
           <RouterLink
             :to="{ name: TABS.view, query: route.query }"
-            class="mealie-segmented__item"
+            class="mealie-segmented__item mealie-hit-target"
             :class="{ 'mealie-segmented__item--active': !edit }"
           >
             {{ $t("general.view") }}
           </RouterLink>
           <RouterLink
             :to="{ name: TABS.edit, query: route.query }"
-            class="mealie-segmented__item"
+            class="mealie-segmented__item mealie-hit-target"
             :class="{ 'mealie-segmented__item--active': edit }"
           >
             {{ $t("general.edit") }}
