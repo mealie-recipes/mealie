@@ -3,23 +3,10 @@
     v-if="shoppingListChoices && ready"
     class="narrow-container"
   >
-    <BaseDialog
+    <ShoppingListCreateDialog
       v-model="state.createDialog"
-      bottom-sheet
-      :title="$t('shopping-list.create-shopping-list')"
-      :icon="$globals.icons.formatListCheck"
-      can-submit
-      :submit-disabled="!isCreateNameValid"
-      @submit="createOne"
-    >
-      <v-card-text>
-        <v-text-field
-          v-model.trim="state.createName"
-          autofocus
-          :label="$t('shopping-list.new-list')"
-        />
-      </v-card-text>
-    </BaseDialog>
+      @submit="refresh"
+    />
 
     <!-- Settings -->
     <BaseDialog
@@ -106,6 +93,22 @@
             {{ list.name }}
           </span>
           <v-btn
+            v-if="auth.user.value"
+            icon
+            variant="flat"
+            rounded="circle"
+            size="small"
+            @click.prevent="updateFavorite(list.id)"
+          >
+            <v-icon
+              size="x-large"
+              color="secondary"
+            >
+              {{ auth.user.value.favoriteShoppingListId === list.id ? $globals.icons.heart : $globals.icons.heartOutline }}
+            </v-icon>
+          </v-btn>
+
+          <v-btn
             icon
             variant="plain"
             @click.prevent="toggleOwnerDialog(list)"
@@ -162,11 +165,26 @@ const state = reactive({
   ownerDialog: false,
   ownerTarget: ref<ShoppingListOut | null>(null),
 });
-const isCreateNameValid = computed(() => state.createName.trim().length > 0);
 
 const { data: shoppingLists } = useAsyncData(useAsyncKey(), async () => {
   return await fetchShoppingLists();
 });
+
+function updateFavorite(id: string) {
+  if (!auth.user.value) return;
+  const oldValue = auth.user.value.favoriteShoppingListId;
+  if (auth.user.value.favoriteShoppingListId === id) {
+    auth.user.value.favoriteShoppingListId = null;
+  }
+  else {
+    auth.user.value.favoriteShoppingListId = id;
+  }
+  userApi.users.updateOne(auth.user.value?.id, auth.user.value).then((response) => {
+    if (response.response?.status !== 200) {
+      auth.user.value.favoriteShoppingListId = oldValue;
+    }
+  });
+}
 
 const shoppingListChoices = computed(() => {
   if (!shoppingLists.value) {
@@ -211,16 +229,6 @@ async function fetchShoppingLists() {
 
 async function refresh() {
   shoppingLists.value = await fetchShoppingLists();
-}
-
-async function createOne() {
-  if (!isCreateNameValid.value) return;
-  const { data } = await userApi.shopping.lists.createOne({ name: state.createName.trim() });
-
-  if (data) {
-    refresh();
-    state.createName = "";
-  }
 }
 
 async function toggleOwnerDialog(list: ShoppingListOut) {

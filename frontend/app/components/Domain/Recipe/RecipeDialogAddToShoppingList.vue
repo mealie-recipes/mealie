@@ -1,4 +1,8 @@
 <template>
+  <ShoppingListCreateDialog
+    v-model="state.createDialog"
+    @submit="refresh"
+  />
   <div v-if="dialog">
     <BaseDialog
       v-if="shoppingListDialog && ready"
@@ -13,6 +17,12 @@
             {{ $t('shopping-list.no-shopping-lists-found') }}
           </template>
         </BasePageTitle>
+        <div class="d-flex justify-center">
+          <BaseButton
+            class="flex-1-1-0"
+            @click="state.createDialog = true"
+          />
+        </div>
       </v-container>
       <v-card-text>
         <v-card
@@ -27,26 +37,14 @@
           </v-card-title>
         </v-card>
       </v-card-text>
-      <template #card-actions>
-        <v-btn
-          variant="text"
-          color="grey"
-          @click="dialog = false"
-        >
-          {{ $t("general.cancel") }}
-        </v-btn>
-        <div
-          class="d-flex justify-end"
-          style="width: 100%;"
-        >
-          <v-checkbox
-            v-model="preferences.viewAllLists"
-            hide-details
-            :label="$t('general.show-all')"
-            class="my-auto mr-4"
-            @click="setShowAllToggled()"
-          />
-        </div>
+      <template #custom-card-action>
+        <v-checkbox
+          v-model="preferences.viewAllLists"
+          hide-details
+          :label="$t('general.show-all')"
+          class="my-auto mr-4"
+          @click="setShowAllToggled()"
+        />
       </template>
     </BaseDialog>
     <BaseDialog
@@ -59,7 +57,21 @@
       can-submit
       @submit="addRecipesToList()"
     >
-      <div style="max-height: 70vh;  overflow-y: auto">
+      <v-card
+        v-if="shoppingLists.length > 1"
+        variant="text"
+        color="secondary"
+        class="ma-2"
+        @click="shoppingListDialog = true;"
+      >
+        <v-card-actions>
+          <v-icon>
+            {{ $globals.icons.chevronLeft }}
+          </v-icon>
+          {{ $t('shopping-list.choose-list') }}
+        </v-card-actions>
+      </v-card>
+      <div>
         <v-card
           v-for="(recipeSection, recipeSectionIndex) in recipeIngredientSections"
           :key="recipeSection.recipeId + recipeSectionIndex"
@@ -130,13 +142,14 @@
                 {{ ingredientSection.sectionName }}
               </v-card-title>
               <div
-                :class="$vuetify.display.smAndDown ? '' : 'ingredient-grid'"
-                :style="$vuetify.display.smAndDown ? '' : { gridTemplateRows: `repeat(${Math.ceil(ingredientSection.ingredients.length / 2)}, min-content)` }"
+                :class="$vuetify.display.smAndDown ? 'd-flex flex-column' : 'ingredient-grid'"
+                class="pa-2 ga-2"
               >
                 <v-list-item
                   v-for="(ingredientData, i) in ingredientSection.ingredients"
                   :key="recipeSection.recipeId + recipeSectionIndex + ingredientSectionIndex + i"
                   density="compact"
+                  class="ga-2 rounded pa-1"
                   @click="recipeIngredientSections[recipeSectionIndex]
                     .ingredientSections[ingredientSectionIndex]
                     .ingredients[i].checked = !recipeIngredientSections[recipeSectionIndex]
@@ -145,16 +158,16 @@
                       .checked"
                 >
                   <v-container class="pa-0 ma-0">
-                    <v-row no-gutters>
+                    <v-row no-gutters class="ga-2">
                       <v-checkbox
                         hide-details
                         :model-value="ingredientData.checked"
-                        class="pt-0 my-auto py-auto mr-2"
                         color="secondary"
                         density="compact"
                       />
-                      <div :key="`${ingredientData.ingredient?.quantity || 'no-qty'}-${i}`" class="pa-auto my-auto">
+                      <div :key="`${ingredientData.ingredient?.quantity || 'no-qty'}-${i}`" class="pa-auto my-auto" style="flex: 1;">
                         <RecipeIngredientListItem
+                          style="row-gap: 0;"
                           :ingredient="ingredientData.ingredient"
                           :scale="recipeSection.recipeScale"
                         />
@@ -167,8 +180,10 @@
           </div>
         </v-card>
       </div>
-      <div class="d-flex justify-end mb-4 mt-2">
+      <div class="d-flex justify-end sticky">
         <BaseButtonGroup
+          class="bg-surface"
+          style="border-top-left-radius: 4px;"
           :buttons="[
             {
               icon: $globals.icons.checkboxMultipleBlankOutline,
@@ -223,6 +238,7 @@ export interface ShoppingListRecipeIngredientSection {
 interface Props {
   recipes?: RecipeWithScale[];
   shoppingLists?: ShoppingListSummary[];
+  refresh: () => Promise<void>;
 }
 const props = withDefaults(defineProps<Props>(), {
   recipes: undefined,
@@ -246,6 +262,7 @@ const state = reactive({
   shoppingListDialog: false,
   shoppingListIngredientDialog: false,
   shoppingListShowAllToggled: false,
+  createDialog: false,
 });
 
 const { shoppingListDialog, shoppingListIngredientDialog, shoppingListShowAllToggled: _shoppingListShowAllToggled } = toRefs(state);
@@ -253,14 +270,19 @@ const { shoppingListDialog, shoppingListIngredientDialog, shoppingListShowAllTog
 const recipeIngredientSections = ref<ShoppingListRecipeIngredientSection[]>([]);
 const selectedShoppingList = ref<ShoppingListSummary | null>(null);
 
-watch([dialog, () => preferences.value.viewAllLists], () => {
+watch([dialog, () => preferences.value.viewAllLists, () => props.shoppingLists], () => {
   if (dialog.value) {
     currentHouseholdSlug.value = auth.user.value?.householdSlug || "";
     filteredShoppingLists.value = props.shoppingLists.filter(
       list => preferences.value.viewAllLists || list.userId === auth.user.value?.id,
     );
 
-    if (filteredShoppingLists.value.length === 1 && !state.shoppingListShowAllToggled) {
+    const defaultShoppingList = getDefaultShoppingList();
+    if (defaultShoppingList) {
+      ready.value = true;
+      openShoppingListIngredientDialog(defaultShoppingList);
+    }
+    else if (filteredShoppingLists.value.length === 1 && !state.shoppingListShowAllToggled) {
       selectedShoppingList.value = filteredShoppingLists.value[0];
       openShoppingListIngredientDialog(selectedShoppingList.value);
     }
@@ -403,10 +425,15 @@ function initState() {
   state.shoppingListIngredientDialog = false;
   state.shoppingListShowAllToggled = false;
   recipeIngredientSections.value = [];
-  selectedShoppingList.value = null;
+  selectedShoppingList.value = getDefaultShoppingList();
 }
 
 initState();
+
+function getDefaultShoppingList(): ShoppingListSummary | null {
+  const favoriteShoppingListId = auth.user.value?.favoriteShoppingListId;
+  return props.shoppingLists.find(({ id }) => id === favoriteShoppingListId) ?? null;
+}
 
 async function openShoppingListIngredientDialog(list: ShoppingListSummary) {
   if (!props.recipes?.length) {
@@ -482,8 +509,12 @@ async function addRecipesToList() {
 <style scoped lang="css">
 .ingredient-grid {
   display: grid;
-  grid-auto-flow: column;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 0.5rem;
+  gap: 0.5rem;
+}
+
+.sticky {
+  position: sticky;
+  bottom: 0;
 }
 </style>
