@@ -1303,5 +1303,23 @@
     "photo": "Photo",
     "organize": "Organize",
     "more": "Notes & Nutrition"
+  },
+  "recipe-create": {
+    "eyebrow": "New Recipe",
+    "how": "How would you like to add it?",
+    "url": "From a Link",
+    "url-desc": "Paste a recipe’s web address",
+    "bulk": "Many Links",
+    "bulk-desc": "Import a batch of URLs at once",
+    "html": "HTML or JSON",
+    "html-desc": "Paste a page’s source or recipe data",
+    "ai": "With AI",
+    "ai-desc": "Text, photos or a page Mealie can’t read",
+    "new": "From Scratch",
+    "new-desc": "Start with a name and fill in the rest",
+    "zip": "From a Zip",
+    "zip-desc": "Restore a recipe exported from Mealie",
+    "debug": "Debug Scraper",
+    "debug-desc": "See what Mealie finds on a page"
   }
 }
