@@ -561,7 +561,7 @@ wheels = [
 
 [[package]]
 name = "fastapi"
-version = "0.142.4"
+version = "0.143.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "annotated-doc" },
@@ -571,9 +571,9 @@ dependencies = [
     { name = "typing-extensions" },
     { name = "typing-inspection" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b8/2c/d69ce63c27bf9c5e574ab425118390102924503b4b3cdf33c07a69744dd2/fastapi-0.142.4.tar.gz", hash = "sha256:7fe2e254a0a948b88f432b02b8f627463285248233bba0998ed9640191e2ff57", size = 467841, upload-time = "2026-10-07T21:22:13.046Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/0b/d7/6a8753ab6c1d432dc53703c3e1b92974a94531b7d047c32bbaae461ea844/fastapi-0.143.0.tar.gz", hash = "sha256:1acffe48206a80917cf7dac21992b5c44b25384e8902bf745c1fd9dabcf6c51f", size = 468391, upload-time = "2026-10-08T12:29:46.54Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/75/6a/c3e85c05b2ec12e9d352b6f1700e29e0fb3f0fff2511b9c44cdf8837577d/fastapi-0.142.4-py3-none-any.whl", hash = "sha256:8a651aa071a9f92c8217cca1d0b044bf9c326f336578be0a728a1a1f22ec52d2", size = 144456, upload-time = "2026-10-07T21:22:11.386Z" },
+    { url = "https://files.pythonhosted.org/packages/bd/f4/27e386913417ad32aae42bba48b0c0cce40e9ff2fba1a871ca2702c37324/fastapi-0.143.0-py3-none-any.whl", hash = "sha256:3e9395fd35276425b61b516a31fdd7c77fe2af83e41b4da22e30696fb1304c5d", size = 144665, upload-time = "2026-10-08T12:29:44.853Z" },
 ]
 
 [[package]]
@@ -1210,7 +1210,7 @@ requires-dist = [
     { name = "bcrypt", specifier = "==5.0.0" },
     { name = "beautifulsoup4", specifier = "==4.15.0" },
     { name = "extruct", specifier = "==0.18.0" },
-    { name = "fastapi", specifier = "==0.142.4" },
+    { name = "fastapi", specifier = "==0.143.0" },
     { name = "html2text", specifier = "==2025.4.15" },
     { name = "httpx", specifier = "==0.28.1" },
     { name = "httpx-curl-cffi", specifier = "==0.1.5" },
@@ -1219,7 +1219,7 @@ requires-dist = [
     { name = "itsdangerous", specifier = "==2.2.0" },
     { name = "jinja2", specifier = "==3.1.6" },
     { name = "lxml", specifier = "==6.1.3" },
-    { name = "openai", specifier = "==3.26.0" },
+    { name = "openai", specifier = "==3.26.1" },
     { name = "orjson", specifier = "==3.13.0" },
     { name = "paho-mqtt", specifier = "==1.6.1" },
     { name = "pillow", specifier = "==12.3.0" },
@@ -1389,7 +1389,7 @@ wheels = [
 
 [[package]]
 name = "openai"
-version = "3.26.0"
+version = "3.26.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "anyio" },
@@ -1399,9 +1399,9 @@ dependencies = [
     { name = "sniffio" },
     { name = "typing-extensions" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b4/07/cd478a4595282ac72e31090531bb37f8a1b6fd9cb45c1da6d6215078a4d9/openai-3.26.0.tar.gz", hash = "sha256:73b470c09cf2171dce930e36af01c6632241adda0120ad84302ad229f9130a5a", size = 1820994, upload-time = "2026-10-06T21:31:19.019Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/36/f5/c9accd2d4077b0e56ffb63e9a943a656797c715bbd7c80f13f401865a350/openai-3.26.1.tar.gz", hash = "sha256:4b64060155596aece83aa81d270f326ee081b83da70a0d4b50091a0c60e9151c", size = 1820349, upload-time = "2026-10-08T08:54:23.757Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/fd/37/08c6d71d542b079364221fcbaee863ead900b53cd89db17f4bd0ec83f41a/openai-3.26.0-py3-none-any.whl", hash = "sha256:050597ff71ff4025177405a41fa4019d4f9feae5826645b63b8e35b6e9a3c88b", size = 2164504, upload-time = "2026-10-06T21:31:16.415Z" },
+    { url = "https://files.pythonhosted.org/packages/1a/ee/f6042342ff42116ff8018849ef24a950ef367730ab0f9912c08c2f9b8aa0/openai-3.26.1-py3-none-any.whl", hash = "sha256:6a05a4615c678922aa16a1a560cfbe059cb20d5b7ab9753d0bf38b41fce1c67a", size = 2163859, upload-time = "2026-10-08T08:54:21.963Z" },
 ]
 
 [[package]]
