@@ -41,9 +41,10 @@ function getDay(day: MealsByDate): Days {
   display: grid;
   /*
     RecipeCardMobile lays out a thumbnail + a favorite/rating/menu action row side by side,
-    and needs about 320px before the "..." menu gets clipped, so columns never go narrower
+    and needs about 320px before the "..." menu gets clipped. The day card's 18px side
+    padding comes out of the column, so columns never go narrower than 320 + 36
   */
-  grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(356px, 1fr));
   gap: 20px;
   align-items: start;
 }
@@ -62,6 +63,11 @@ function getDay(day: MealsByDate): Days {
 @media (max-width: 600px) {
   .plan-grid {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  /* a phone-width column is only just wide enough for the card, so the day keeps less padding */
+  .plan-grid__day {
+    padding: 16px 12px 12px;
   }
 }
 </style>

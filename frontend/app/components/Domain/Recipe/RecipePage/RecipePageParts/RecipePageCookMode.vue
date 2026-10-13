@@ -982,7 +982,7 @@ onBeforeUnmount(() => {
 .cook-nav__btn--primary {
   padding: 0 30px;
   background: var(--cook-accent);
-  color: #fff;
+  color: rgb(var(--v-theme-on-primary));
 }
 
 .cook-nav__hint {

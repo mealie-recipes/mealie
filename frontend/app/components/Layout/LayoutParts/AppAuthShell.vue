@@ -85,7 +85,7 @@ defineProps({
   border-radius: 16px;
   background: rgb(var(--v-theme-primary));
   box-shadow: 0 12px 28px rgba(var(--v-theme-primary), 0.3);
-  color: #fff;
+  color: rgb(var(--v-theme-on-primary));
   font-size: 28px;
   font-weight: 700;
 }
@@ -168,7 +168,7 @@ defineProps({
 .auth-shell .v-btn.bg-success {
   border-radius: 999px !important;
   background: rgb(var(--v-theme-primary)) !important;
-  color: #fff !important;
+  color: rgb(var(--v-theme-on-primary)) !important;
   box-shadow: 0 8px 20px rgba(var(--v-theme-primary), 0.25) !important;
   font-weight: 600;
   letter-spacing: 0;

@@ -581,7 +581,7 @@ function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: st
 .recipe-edit .split-main,
 .recipe-edit .split-dropdown {
   background: rgb(var(--v-theme-primary)) !important;
-  color: #fff !important;
+  color: rgb(var(--v-theme-on-primary)) !important;
   box-shadow: none !important;
 }
 

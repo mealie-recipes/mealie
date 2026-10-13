@@ -148,7 +148,7 @@ const subpage = computed(() => route.path.split("/").pop() ?? "url");
 
 .create-method--active .create-method__icon {
   background: rgb(var(--v-theme-primary));
-  color: #fff;
+  color: rgb(var(--v-theme-on-primary));
 }
 
 .create-method__text {
@@ -232,7 +232,7 @@ const subpage = computed(() => route.path.split("/").pop() ?? "url");
 .create-panel .v-btn.bg-success,
 .create-panel .v-btn.bg-primary {
   background: rgb(var(--v-theme-primary)) !important;
-  color: #fff !important;
+  color: rgb(var(--v-theme-on-primary)) !important;
   border-radius: 999px !important;
   box-shadow: 0 8px 20px rgba(var(--v-theme-primary), 0.25) !important;
   height: 44px;

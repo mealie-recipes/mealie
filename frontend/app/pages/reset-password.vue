@@ -17,6 +17,7 @@
         flat
         :prepend-inner-icon="$globals.icons.lock"
         name="password"
+        autocomplete="new-password"
         :label="$t('user.password')"
         type="password"
         :rules="[validators.required]"
@@ -28,6 +29,7 @@
         validate-on="blur"
         :prepend-inner-icon="$globals.icons.lock"
         name="password"
+        autocomplete="new-password"
         :label="$t('user.confirm-password')"
         type="password"
         :rules="[validators.required, passwordMatch]"

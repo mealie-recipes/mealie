@@ -1,5 +1,4 @@
 // Design tokens for the redesigned shell, recipe library, recipe page and cook mode.
-//
 // Colors that follow the user's theme (primary, success, ...) still come from Vuetify; these
 // tokens cover the warm neutrals around them, which Vuetify's palette has no slot for.
 
@@ -19,8 +18,10 @@
   --mealie-ink: #1c1b19;
   --mealie-ink-secondary: #3a3835;
   --mealie-icon: #4a4844;
-  --mealie-text-secondary: #6f6c66;
-  --mealie-text-tertiary: #8a8780;
+  --mealie-text-secondary: #5c5954;
+  // tertiary is the faintest grey that still meets 4.5:1 on the canvas and the sidebar;
+  // quaternary falls below that, so it is kept for icons, rules and inactive text
+  --mealie-text-tertiary: #6f6c66;
   --mealie-text-quaternary: #a8a49c;
   --mealie-hairline: rgba(0, 0, 0, 0.06);
   --mealie-hairline-strong: rgba(0, 0, 0, 0.08);
@@ -296,7 +297,7 @@
 
   &--primary {
     background: rgb(var(--v-theme-primary));
-    color: #fff;
+    color: rgb(var(--v-theme-on-primary));
     font-weight: 600;
 
     &:hover {

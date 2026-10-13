@@ -187,7 +187,7 @@ async function logout() {
   flex-shrink: 0;
   border-radius: 8px;
   background: rgb(var(--v-theme-primary));
-  color: #fff;
+  color: rgb(var(--v-theme-on-primary));
   font-size: 15px;
   font-weight: 700;
   line-height: 1;
@@ -196,7 +196,7 @@ async function logout() {
 .mealie-kbd {
   font-family: inherit;
   font-size: 12px;
-  color: var(--mealie-text-quaternary);
+  color: var(--mealie-text-tertiary);
   padding: 1px 6px;
   border-radius: 5px;
   box-shadow: inset 0 0 0 1px var(--mealie-hairline-strong);

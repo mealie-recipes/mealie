@@ -149,8 +149,11 @@ const days = computed(() =>
   }),
 );
 
-/** tonight's meal is the day's dinner, or whatever else is planned when there's no dinner */
-const tonight = computed(() => days.value[0]?.meals.find(meal => meal.link) ?? days.value[0]?.meals[0]);
+/**
+ * tonight's meal is the day's first meal in priority order (dinner first), the same one the
+ * week list shows; a note without a recipe still shows, just without "Start Cooking"
+ */
+const tonight = computed(() => days.value[0]?.meals[0]);
 const tonightTitle = computed(() => tonight.value?.title ?? "");
 const tonightLink = computed(() => tonight.value?.link ?? "");
 
@@ -342,7 +345,7 @@ a.week__meal:hover {
 
 .week__meal--empty {
   font-weight: 400;
-  color: var(--mealie-text-quaternary);
+  color: var(--mealie-text-tertiary);
 }
 
 .week__more {

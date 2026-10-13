@@ -197,7 +197,7 @@ function setChecked(index: number, value: boolean) {
   border-radius: 10px;
   background: transparent;
   box-shadow: inset 0 0 0 1.6px var(--mealie-checkbox-ring);
-  color: #fff;
+  color: rgb(var(--v-theme-on-primary));
   cursor: pointer;
   transition:
     background-color 0.15s ease,

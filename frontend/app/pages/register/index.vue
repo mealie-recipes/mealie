@@ -521,7 +521,7 @@ async function submitRegistration() {
   height: 44px;
   border-radius: 12px;
   background: rgb(var(--v-theme-primary));
-  color: #fff;
+  color: rgb(var(--v-theme-on-primary));
 }
 
 .register-choice__title {

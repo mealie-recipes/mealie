@@ -1,3 +1,5 @@
+import { readableOn } from "~/lib/theme/readable-on";
+
 export interface ThemeConfig {
   lightPrimary: string;
   lightAccent: string;
@@ -48,29 +50,31 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         light: {
           dark: false,
           colors: {
-            primary: theme?.lightPrimary ?? "#C4502A",
-            accent: theme?.lightAccent ?? "#007A99",
-            secondary: theme?.lightSecondary ?? "#973542",
-            success: theme?.lightSuccess ?? "#43A047",
-            info: theme?.lightInfo ?? "#1976d2",
-            warning: theme?.lightWarning ?? "#FF6D00",
-            error: theme?.lightError ?? "#EF5350",
-            background: "#FAF9F7",
-            surface: "#FFFFFF",
+            "primary": theme?.lightPrimary ?? "#C4502A",
+            "on-primary": readableOn(theme?.lightPrimary ?? "#C4502A"),
+            "accent": theme?.lightAccent ?? "#007A99",
+            "secondary": theme?.lightSecondary ?? "#973542",
+            "success": theme?.lightSuccess ?? "#43A047",
+            "info": theme?.lightInfo ?? "#1976d2",
+            "warning": theme?.lightWarning ?? "#FF6D00",
+            "error": theme?.lightError ?? "#EF5350",
+            "background": "#FAF9F7",
+            "surface": "#FFFFFF",
           },
         },
         dark: {
           dark: true,
           colors: {
-            primary: theme?.darkPrimary ?? "#E0683C",
-            accent: theme?.darkAccent ?? "#007A99",
-            secondary: theme?.darkSecondary ?? "#E08A73",
-            success: theme?.darkSuccess ?? "#43A047",
-            info: theme?.darkInfo ?? "#1976d2",
-            warning: theme?.darkWarning ?? "#FF6D00",
-            error: theme?.darkError ?? "#EF5350",
-            background: "#161513",
-            surface: "#1F1E1C",
+            "primary": theme?.darkPrimary ?? "#E0683C",
+            "on-primary": readableOn(theme?.darkPrimary ?? "#E0683C"),
+            "accent": theme?.darkAccent ?? "#007A99",
+            "secondary": theme?.darkSecondary ?? "#E08A73",
+            "success": theme?.darkSuccess ?? "#43A047",
+            "info": theme?.darkInfo ?? "#1976d2",
+            "warning": theme?.darkWarning ?? "#FF6D00",
+            "error": theme?.darkError ?? "#EF5350",
+            "background": "#161513",
+            "surface": "#1F1E1C",
           },
         },
       },

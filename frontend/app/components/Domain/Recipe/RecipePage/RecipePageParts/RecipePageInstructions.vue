@@ -1197,7 +1197,7 @@ function openImageUpload(index: number) {
 
 .method-step--done .method-step__number {
   background: rgb(var(--v-theme-primary));
-  color: #fff;
+  color: rgb(var(--v-theme-on-primary));
 }
 
 .method-step__body {

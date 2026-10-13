@@ -94,27 +94,28 @@
         </h2>
         <div class="organizer-grid">
           <template v-for="(item, index) in itms" :key="'cat' + index">
-            <RouterLink
-              v-if="item"
-              class="organizer-tile"
-              :to="`/g/${groupSlug}?${itemType}=${item.id}`"
-            >
-              <span class="organizer-tile__icon">
-                <v-icon size="18">{{ icon }}</v-icon>
-              </span>
-              <span class="organizer-tile__text">
-                <span class="organizer-tile__name">{{ item.name }}</span>
-                <span v-if="item.recipeCount !== undefined" class="organizer-tile__count">
-                  {{ $t("recipe-library.recipes-count", item.recipeCount) }}
+            <div v-if="item" class="organizer-tile">
+              <!-- the link and the menu are siblings; the link's ::after covers the tile -->
+              <RouterLink
+                class="organizer-tile__link"
+                :to="`/g/${groupSlug}?${itemType}=${item.id}`"
+              >
+                <span class="organizer-tile__icon">
+                  <v-icon size="18">{{ icon }}</v-icon>
                 </span>
-              </span>
+                <span class="organizer-tile__text">
+                  <span class="organizer-tile__name">{{ item.name }}</span>
+                  <span v-if="item.recipeCount !== undefined" class="organizer-tile__count">
+                    {{ $t("recipe-library.recipes-count", item.recipeCount) }}
+                  </span>
+                </span>
+              </RouterLink>
               <ContextMenu
-                class="organizer-tile__menu"
                 :items="[presets.delete, presets.edit]"
                 @delete="confirmDelete(item)"
                 @edit="openUpdateDialog(item)"
               />
-            </RouterLink>
+            </div>
           </template>
         </div>
       </section>
@@ -324,6 +325,7 @@ function isTitle(str: number | string) {
 }
 
 .organizer-tile {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -343,9 +345,28 @@ function isTitle(str: number | string) {
     0 10px 24px -18px rgba(40, 30, 20, 0.4);
 }
 
-.organizer-tile:focus-visible {
+.organizer-tile:has(.organizer-tile__link:focus-visible) {
   outline: 2px solid rgb(var(--v-theme-primary));
   outline-offset: 2px;
+}
+
+.organizer-tile__link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+
+/* the whole tile is the link's hit area; the menu sits above it */
+.organizer-tile__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
 }
 
 .organizer-tile__icon {
@@ -380,7 +401,10 @@ function isTitle(str: number | string) {
   color: var(--mealie-text-tertiary);
 }
 
-.organizer-tile__menu {
+/* the menu button sits above the link's hit area (ContextMenu renders only its activator) */
+.organizer-tile :deep(.v-btn) {
+  position: relative;
+  z-index: 1;
   flex-shrink: 0;
   color: var(--mealie-text-tertiary);
 }

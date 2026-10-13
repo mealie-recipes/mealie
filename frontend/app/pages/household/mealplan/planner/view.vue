@@ -112,6 +112,6 @@ function editMeal(mealplan: ReadPlanEntry) {
 .plan-day-empty {
   padding: 18px 2px 8px;
   font-size: 14px;
-  color: var(--mealie-text-quaternary);
+  color: var(--mealie-text-tertiary);
 }
 </style>

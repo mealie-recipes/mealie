@@ -523,7 +523,7 @@ async function logout() {
   padding: 0 5px;
   border-radius: 9px;
   background: rgb(var(--v-theme-primary));
-  color: #fff;
+  color: rgb(var(--v-theme-on-primary));
   font-size: 11px;
   font-weight: 600;
   line-height: 18px;

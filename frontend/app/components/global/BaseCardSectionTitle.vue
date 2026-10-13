@@ -15,9 +15,9 @@
       {{ title }}
       <slot name="append-title" />
     </h2>
-    <p v-if="$slots.default" class="base-section-title__text">
+    <div v-if="$slots.default" class="base-section-title__text">
       <slot />
-    </p>
+    </div>
   </div>
 </template>
 

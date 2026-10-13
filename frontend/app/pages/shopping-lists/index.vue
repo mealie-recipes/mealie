@@ -92,24 +92,26 @@
       </div>
 
       <nav v-else class="lists mealie-card">
-        <RouterLink
+        <div
           v-for="list in shoppingListChoices"
           :key="list.id"
           class="lists__row"
-          :to="`/shopping-lists/${list.id}`"
         >
-          <span class="lists__icon">
-            <v-icon size="18">
-              {{ $globals.icons.formatListBulleted }}
-            </v-icon>
-          </span>
-          <span class="lists__name">{{ list.name }}</span>
+          <!-- the link and the row's buttons are siblings; the link's ::after covers the row -->
+          <RouterLink class="lists__link" :to="`/shopping-lists/${list.id}`">
+            <span class="lists__icon">
+              <v-icon size="18">
+                {{ $globals.icons.formatListBulleted }}
+              </v-icon>
+            </span>
+            <span class="lists__name">{{ list.name }}</span>
+          </RouterLink>
           <button
             type="button"
             class="lists__action"
             :aria-label="$t('general.owner')"
             :title="$t('general.owner')"
-            @click.prevent="toggleOwnerDialog(list)"
+            @click="toggleOwnerDialog(list)"
           >
             <v-icon size="18">
               {{ $globals.icons.user }}
@@ -120,7 +122,7 @@
             class="lists__action"
             :aria-label="$t('general.delete')"
             :title="$t('general.delete')"
-            @click.prevent="openDelete(list.id)"
+            @click="openDelete(list.id)"
           >
             <v-icon size="18">
               {{ $globals.icons.delete }}
@@ -129,7 +131,7 @@
           <v-icon size="16" class="lists__chevron">
             {{ $globals.icons.chevronRight }}
           </v-icon>
-        </RouterLink>
+        </div>
       </nav>
     </div>
   </div>
@@ -297,6 +299,7 @@ async function deleteOne() {
 }
 
 .lists__row {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 14px;
@@ -304,7 +307,39 @@ async function deleteOne() {
   padding: 0 10px 0 12px;
   border-radius: 16px;
   color: var(--mealie-ink);
+}
+
+.lists__link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+  color: inherit;
   text-decoration: none;
+}
+
+/* the whole row is the link's hit area; the buttons sit above it */
+.lists__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+}
+
+.lists__link:focus-visible {
+  outline: none;
+}
+
+.lists__link:focus-visible::after {
+  outline: 2px solid rgb(var(--v-theme-primary));
+  outline-offset: -2px;
+}
+
+.lists__action {
+  position: relative;
+  z-index: 1;
 }
 
 .lists__row + .lists__row {
