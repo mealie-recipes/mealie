@@ -1076,6 +1076,8 @@
     "share-recipe": "Comparteix la recepta",
     "default-30-days": "Per defecte, 30 dies",
     "expires-at": "Expira el",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "S'ha copiat l'enllaç al porta-retalls"
   },
   "banner-experimental": {
