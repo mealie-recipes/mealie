@@ -34,6 +34,7 @@ import type { SideBarLink } from "~/types/application-types";
 import { useCookbookPreferences } from "~/composables/use-users/preferences";
 import { useCookbookStore, usePublicCookbookStore } from "~/composables/store/use-cookbook-store";
 import type { ReadCookBook } from "~/lib/api/types/cookbook";
+import { cookbookColor } from "~/lib/cookbooks/colors";
 
 const i18n = useI18n();
 const { $globals } = useNuxtApp();
@@ -75,14 +76,11 @@ watch(display.lgAndUp, (lgAndUp) => {
   sidebar.value = lgAndUp;
 });
 
-// muted swatches that sit quietly next to the sidebar text, cycled through by cookbook position
-const COOKBOOK_COLORS = ["#d9a07e", "#a9b48a", "#c98f8f", "#8fa6b8", "#c7ad7a", "#a596b8"];
-
 function cookbookAsLink(cookbook: ReadCookBook, index: number): SideBarLink {
   return {
     key: cookbook.slug || "",
     icon: $globals.icons.pages,
-    color: COOKBOOK_COLORS[index % COOKBOOK_COLORS.length],
+    color: cookbookColor(index),
     title: cookbook.name,
     to: `/g/${groupSlug.value}/cookbooks/${cookbook.slug || ""}`,
     restricted: false,

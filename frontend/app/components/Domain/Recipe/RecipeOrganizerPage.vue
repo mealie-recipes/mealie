@@ -1,5 +1,5 @@
 <template>
-  <div v-if="items">
+  <div v-if="items" class="mealie-page">
     <RecipeOrganizerDialog
       v-model="dialogs.organizer"
       :item-type="itemType"
@@ -44,82 +44,81 @@
       </v-card-text>
     </BaseDialog>
 
-    <v-row density="comfortable">
-      <v-col>
-        <v-text-field
-          v-model="searchString"
-          variant="outlined"
-          autofocus
-          color="primary accent-3"
-          :placeholder="$t('search.search-placeholder')"
-          :prepend-inner-icon="$globals.icons.search"
-          clearable
-        />
-      </v-col>
-    </v-row>
-
-    <v-row
-      color="transparent"
-      flat
-      class="mt-n1 rounded align-center position-relative w-100 left-0 top-0"
-    >
-      <v-icon
-        size="large"
-        start
-      >
-        {{ icon }}
-      </v-icon>
-      <v-toolbar-title class="headline">
-        <slot name="title" />
-      </v-toolbar-title>
-      <v-spacer />
-      <BaseButton
-        create
-        @click="dialogs.organizer = true"
-      />
-    </v-row>
-    <section
-      v-for="(itms, key, idx) in itemsSorted"
-      :key="'header' + idx"
-      :class="idx === 1 ? null : 'my-4'"
-    >
-      <BaseCardSectionTitle
-        v-if="isTitle(key)"
-        :title="key"
-      />
-      <v-row>
-        <v-col
-          v-for="(item, index) in itms"
-          :key="'cat' + index"
-          cols="12"
-          :sm="12"
-          :md="6"
-          :lg="4"
-          :xl="3"
-        >
-          <v-card
-            v-if="item"
-            class="left-border"
-            hover
-            :to="`/g/${groupSlug}?${itemType}=${item.id}`"
+    <header class="mealie-page__header">
+      <div class="mealie-page__titles">
+        <div class="mealie-eyebrow">
+          {{ $t("general.organizers") }} · {{ items.length }}
+        </div>
+        <h1 class="mealie-page__title">
+          <slot name="title" />
+        </h1>
+      </div>
+      <div class="mealie-page__actions">
+        <label class="organizer-search">
+          <v-icon size="16" class="organizer-search__icon">
+            {{ $globals.icons.search }}
+          </v-icon>
+          <input
+            v-model="searchString"
+            type="search"
+            class="organizer-search__input"
+            :placeholder="$t('search.search-placeholder')"
+            :aria-label="$t('search.search')"
+            autofocus
           >
-            <v-card-actions>
-              <v-icon>
-                {{ icon }}
-              </v-icon>
-              <v-card-title class="py-1 text-truncate flex-shrink-1 flex-grow-1">
-                {{ item.name }}
-              </v-card-title>
+        </label>
+        <button
+          type="button"
+          class="mealie-pill mealie-pill--primary"
+          @click="dialogs.organizer = true"
+        >
+          <v-icon size="16">
+            {{ $globals.icons.createAlt }}
+          </v-icon>
+          {{ $t("general.create") }}
+        </button>
+      </div>
+    </header>
+
+    <div class="mealie-page__body">
+      <div v-if="!Object.keys(itemsSorted).length" class="organizer-empty mealie-card">
+        {{ $t("search.no-results") }}
+      </div>
+      <section
+        v-for="(itms, key, idx) in itemsSorted"
+        :key="'header' + idx"
+        class="organizer-section"
+      >
+        <h2 v-if="isTitle(key)" class="organizer-section__letter">
+          {{ key }}
+        </h2>
+        <div class="organizer-grid">
+          <template v-for="(item, index) in itms" :key="'cat' + index">
+            <RouterLink
+              v-if="item"
+              class="organizer-tile"
+              :to="`/g/${groupSlug}?${itemType}=${item.id}`"
+            >
+              <span class="organizer-tile__icon">
+                <v-icon size="18">{{ icon }}</v-icon>
+              </span>
+              <span class="organizer-tile__text">
+                <span class="organizer-tile__name">{{ item.name }}</span>
+                <span v-if="item.recipeCount !== undefined" class="organizer-tile__count">
+                  {{ $t("recipe-library.recipes-count", item.recipeCount) }}
+                </span>
+              </span>
               <ContextMenu
+                class="organizer-tile__menu"
                 :items="[presets.delete, presets.edit]"
                 @delete="confirmDelete(item)"
                 @edit="openUpdateDialog(item)"
               />
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-    </section>
+            </RouterLink>
+          </template>
+        </div>
+      </section>
+    </div>
   </div>
 </template>
 
@@ -136,6 +135,7 @@ interface GenericItem {
   name: string;
   slug: string;
   onHand: boolean;
+  recipeCount?: number;
 }
 
 const props = defineProps<{
@@ -263,3 +263,138 @@ function isTitle(str: number | string) {
   return typeof str === "string" && str.length === 1;
 }
 </script>
+
+<style scoped>
+.organizer-search {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 260px;
+  max-width: 100%;
+  height: 36px;
+  padding: 0 12px;
+  border-radius: 10px;
+  background: var(--mealie-fill);
+  box-sizing: border-box;
+  cursor: text;
+}
+
+.organizer-search:focus-within {
+  box-shadow: 0 0 0 3px rgba(var(--v-theme-primary), 0.25);
+}
+
+.organizer-search__icon {
+  color: var(--mealie-text-tertiary);
+}
+
+.organizer-search__input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: var(--mealie-ink);
+  font: inherit;
+  font-size: 14px;
+}
+
+.organizer-search__input::placeholder {
+  color: var(--mealie-text-tertiary);
+  opacity: 1;
+}
+
+.organizer-section + .organizer-section {
+  margin-top: 24px;
+}
+
+.organizer-section__letter {
+  margin-bottom: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--mealie-hairline);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: var(--mealie-text-tertiary);
+}
+
+.organizer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
+}
+
+.organizer-tile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 60px;
+  padding: 10px 6px 10px 12px;
+  border-radius: 16px;
+  background: var(--mealie-surface);
+  box-shadow: inset 0 0 0 1px var(--mealie-hairline);
+  color: var(--mealie-ink);
+  text-decoration: none;
+  transition: box-shadow 0.15s ease;
+}
+
+.organizer-tile:hover {
+  box-shadow:
+    inset 0 0 0 1px var(--mealie-hairline-strong),
+    0 10px 24px -18px rgba(40, 30, 20, 0.4);
+}
+
+.organizer-tile:focus-visible {
+  outline: 2px solid rgb(var(--v-theme-primary));
+  outline-offset: 2px;
+}
+
+.organizer-tile__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(var(--v-theme-primary), 0.1);
+  color: rgb(var(--v-theme-primary));
+}
+
+.organizer-tile__text {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.organizer-tile__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.organizer-tile__count {
+  font-size: 13px;
+  color: var(--mealie-text-tertiary);
+}
+
+.organizer-tile__menu {
+  flex-shrink: 0;
+  color: var(--mealie-text-tertiary);
+}
+
+.organizer-empty {
+  padding: 32px;
+  text-align: center;
+  color: var(--mealie-text-tertiary);
+}
+
+@media (max-width: 600px) {
+  .organizer-search {
+    flex: 1;
+    width: auto;
+  }
+}
+</style>

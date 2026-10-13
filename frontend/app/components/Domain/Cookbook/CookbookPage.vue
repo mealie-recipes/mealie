@@ -21,37 +21,34 @@
       </v-card-text>
     </BaseDialog>
 
-    <v-container
+    <div
       v-if="book"
-      class="my-0"
+      class="mealie-page"
     >
-      <v-sheet
-        color="transparent"
-        class="d-flex flex-column w-100 pa-0 ma-0"
-        elevation="0"
-      >
-        <div class="d-flex align-center w-100 mb-2">
-          <v-toolbar-title class="headline mb-0">
-            <v-icon size="large" class="mr-3">
-              {{ $globals.icons.pages }}
-            </v-icon>
+      <header class="mealie-page__header">
+        <div class="mealie-page__titles">
+          <div class="mealie-eyebrow">
+            {{ $t("sidebar.cookbook") }}
+          </div>
+          <h1 class="mealie-page__title">
             {{ book.name }}
-          </v-toolbar-title>
-          <BaseButton
-            v-if="canEdit"
-            class="mx-1"
-            :edit="true"
-            @click="handleEditCookbook"
-          />
+          </h1>
+          <p v-if="book.description" class="cookbook-description">
+            {{ book.description }}
+          </p>
         </div>
-        <div v-if="book.description" class="subtitle-1 text-grey-lighten-1 mb-2">
-          {{ book.description }}
+        <div v-if="canEdit" class="mealie-page__actions">
+          <button type="button" class="mealie-pill" @click="handleEditCookbook">
+            <v-icon size="16">
+              {{ $globals.icons.edit }}
+            </v-icon>
+            {{ $t("general.edit") }}
+          </button>
         </div>
-      </v-sheet>
+      </header>
 
-      <v-container class="pa-0">
+      <div class="mealie-page__body">
         <RecipeCardSection
-          class="mb-5 mx-1"
           :recipes="recipes"
           :query="{ cookbook: slug }"
           @sort-recipes="assignSorted"
@@ -59,8 +56,8 @@
           @append-recipes="appendRecipes"
           @delete="removeRecipe"
         />
-      </v-container>
-    </v-container>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -128,3 +125,13 @@ useSeoMeta({
   title: book?.value?.name || "Cookbook",
 });
 </script>
+
+<style scoped>
+.cookbook-description {
+  max-width: 640px;
+  margin-top: 8px;
+  font-size: 17px;
+  line-height: 1.45;
+  color: var(--mealie-text-secondary);
+}
+</style>

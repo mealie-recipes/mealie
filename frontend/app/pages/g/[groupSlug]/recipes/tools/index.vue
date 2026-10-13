@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <RecipeOrganizerPage
       v-if="tools"
       :icon="$globals.icons.potSteam"
@@ -12,7 +12,7 @@
         {{ $t("tool.tools") }}
       </template>
     </RecipeOrganizerPage>
-  </v-container>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -1269,7 +1269,8 @@
     "recently-added": "Recently Added",
     "see-all": "See All",
     "all-recipes": "All Recipes",
-    "start-cooking": "Start Cooking"
+    "start-cooking": "Start Cooking",
+    "recipes-count": "No recipes | One recipe | {count} recipes"
   },
   "recipe-page": {
     "prep": "Prep",
