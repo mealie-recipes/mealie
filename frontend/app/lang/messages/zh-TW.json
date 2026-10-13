@@ -1076,6 +1076,8 @@
     "share-recipe": "分享食譜",
     "default-30-days": "預設 30 天",
     "expires-at": "到期時間",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "食譜連結已複製到剪貼簿"
   },
   "banner-experimental": {

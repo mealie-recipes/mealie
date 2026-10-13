@@ -1076,6 +1076,8 @@
     "share-recipe": "Zdieľať recept",
     "default-30-days": "Predvolené 30 dní",
     "expires-at": "Platnosť uplynie",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Odkaz na recept bol skopírovaný do schránky"
   },
   "banner-experimental": {

@@ -1076,6 +1076,8 @@
     "share-recipe": "Partager la recette",
     "default-30-days": "30 jours par défaut",
     "expires-at": "Expire le",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Lien de la recette copié dans le presse-papiers"
   },
   "banner-experimental": {

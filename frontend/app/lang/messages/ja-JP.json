@@ -1076,6 +1076,8 @@
     "share-recipe": "レシピの共有",
     "default-30-days": "デフォルトの30日間",
     "expires-at": "有効期限は",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "レシピのリンクをクリップボードにコピーしました"
   },
   "banner-experimental": {

@@ -1076,6 +1076,8 @@
     "share-recipe": "Jaga retsepti",
     "default-30-days": "Vaike päevade arv on 30",
     "expires-at": "Aegub ajal",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Retsepti link on kopeeritud puhvrisse"
   },
   "banner-experimental": {

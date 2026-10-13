@@ -1076,6 +1076,8 @@
     "share-recipe": "Recept megosztása",
     "default-30-days": "Alapértelmezetten 30 nap",
     "expires-at": "Lejárat ekkor",
+    "show-qr-code": "QR kód megjelenítése",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Recept linkje a vágólapra másolva"
   },
   "banner-experimental": {

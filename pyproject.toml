@@ -18,7 +18,7 @@ dependencies = [
     "httpx==0.28.1",
     "lxml==6.1.3",
     "orjson==3.13.0",
-    "pydantic==2.13.5",
+    "pydantic==2.14.0",
     "pyhumps==3.8.0",
     "python-dateutil==2.9.0.post0",
     "python-dotenv==1.2.4",
@@ -58,7 +58,7 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "zensical==0.0.68",
+    "zensical==0.0.69",
 ]
 dev = [
     "coverage==7.16.2",
@@ -78,7 +78,7 @@ dev = [
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
     "httpx2==2.13.1",
-    "zensical==0.0.68",
+    "zensical==0.0.69",
     "pytest-xdist==3.8.0",
 ]
 

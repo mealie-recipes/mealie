@@ -1076,6 +1076,8 @@
     "share-recipe": "Podjeli Recept",
     "default-30-days": "Zadani rok je 30 dana",
     "expires-at": "Istječe na",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Poveznica recepta je spremljena u međuspremnik"
   },
   "banner-experimental": {

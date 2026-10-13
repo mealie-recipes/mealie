@@ -1076,6 +1076,8 @@
     "share-recipe": "Deel resep",
     "default-30-days": "Standaard 30 dae",
     "expires-at": "Verval op",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Resepskakel is na knipbord gekopieer"
   },
   "banner-experimental": {
