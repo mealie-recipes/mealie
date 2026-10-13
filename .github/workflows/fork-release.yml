@@ -6,8 +6,10 @@ name: Fork Release
 #
 # To cut a release:
 #   1. Bump the version in a PR: `task fork:version -- 3.28.0+redesign.2`
-#   2. Once that is merged, tag the merge commit and push the tag:
+#   2. Once that is merged, either push a tag on the merge commit:
 #        git tag v3.28.0-redesign.2 && git push origin v3.28.0-redesign.2
+#      or publish a release from the GitHub UI with a new tag of that name,
+#      targeting mealie-next.
 #
 # The tag must match the package version, with `-` in place of `+`.
 
@@ -124,18 +126,27 @@ jobs:
       - name: Checkout 🛎
         uses: actions/checkout@v6
 
-      - name: Create release
+      # A release published from the GitHub UI creates the tag that starts
+      # this workflow, so the release may already exist: add the image line
+      # to its notes instead of creating a second one.
+      - name: Create or update release
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           IMAGE="ghcr.io/${GITHUB_REPOSITORY,,}:${GITHUB_REF_NAME}"
-          {
-            echo "Docker image: \`${IMAGE}\` (also tagged \`latest\`), for linux/amd64 and linux/arm64."
-            echo
-          } > notes.md
-          gh release create "$GITHUB_REF_NAME" \
-            --verify-tag \
-            --latest \
-            --title "$GITHUB_REF_NAME" \
-            --notes-file notes.md \
-            --generate-notes
+          IMAGE_LINE="Docker image: \`${IMAGE}\` (also tagged \`latest\`), for linux/amd64 and linux/arm64."
+          if gh release view "$GITHUB_REF_NAME" > /dev/null 2>&1; then
+            gh release view "$GITHUB_REF_NAME" --json body --jq .body > existing.md
+            if ! grep -qF "$IMAGE" existing.md; then
+              { echo "$IMAGE_LINE"; echo; cat existing.md; } > notes.md
+              gh release edit "$GITHUB_REF_NAME" --notes-file notes.md
+            fi
+          else
+            { echo "$IMAGE_LINE"; echo; } > notes.md
+            gh release create "$GITHUB_REF_NAME" \
+              --verify-tag \
+              --latest \
+              --title "$GITHUB_REF_NAME" \
+              --notes-file notes.md \
+              --generate-notes
+          fi
