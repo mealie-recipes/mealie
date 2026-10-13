@@ -19,7 +19,7 @@
       <button
         v-if="!xs"
         type="button"
-        class="mealie-app-bar__search"
+        class="mealie-app-bar__search mealie-hit-target"
         @click="activateSearch"
       >
         <v-icon size="16">

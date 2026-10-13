@@ -669,7 +669,7 @@ async function onFinish() {
 }
 
 .bg-off-white {
-  background: #f5f8fa;
+  background: var(--mealie-canvas);
 }
 
 .v-stepper-item__avatar.v-avatar.v-stepper-item__avatar.v-avatar {

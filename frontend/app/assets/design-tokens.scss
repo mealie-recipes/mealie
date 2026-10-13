@@ -392,3 +392,85 @@
   text-transform: uppercase;
   color: var(--mealie-text-tertiary);
 }
+
+// Touch targets: Apple's guidelines ask for at least 44×44pt. On touch screens Vuetify's buttons
+// grow to that, and smaller custom controls marked .mealie-hit-target get an invisible hit area
+// that reaches past their edges, so they keep their look
+@media (pointer: coarse) {
+  .v-btn {
+    min-height: 44px;
+  }
+
+  .v-btn--icon {
+    min-width: 44px;
+  }
+
+  .mealie-hit-target {
+    position: relative;
+  }
+
+  .mealie-hit-target::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+}
+
+// Safe areas: the viewport covers the whole screen (viewport-fit=cover), so content stays clear of
+// the notch, rounded corners and home indicator. The insets are zero everywhere else
+.mealie-safe-area {
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+}
+
+.v-app-bar .v-toolbar__content {
+  padding-right: env(safe-area-inset-right);
+  padding-left: env(safe-area-inset-left);
+}
+
+.v-navigation-drawer__content {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.v-navigation-drawer--left .v-navigation-drawer__content {
+  padding-left: env(safe-area-inset-left);
+}
+
+.v-footer {
+  padding-bottom: calc(8px + env(safe-area-inset-bottom));
+}
+
+.v-snackbar {
+  margin-bottom: calc(8px + env(safe-area-inset-bottom));
+}
+
+.v-bottom-sheet > .v-bottom-sheet__content.v-overlay__content > .v-card,
+.v-bottom-sheet > .v-bottom-sheet__content.v-overlay__content > .v-sheet {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.v-fab--app {
+  margin-right: env(safe-area-inset-right);
+  margin-bottom: env(safe-area-inset-bottom);
+}
+
+// Reduce Motion: shorten every transition and animation to an instant. 0.01ms rather than none,
+// so the transitionend and animationend events that Vue's <Transition> waits for still fire.
+// Loading spinners keep turning: there the motion is the message
+$mealie-moving: ":not(.v-progress-circular--indeterminate *, .v-progress-linear--indeterminate *)";
+
+@media (prefers-reduced-motion: reduce) {
+  *#{$mealie-moving},
+  *#{$mealie-moving}::before,
+  *#{$mealie-moving}::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

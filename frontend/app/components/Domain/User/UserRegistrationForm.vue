@@ -143,7 +143,7 @@ watch(
 }
 
 .bg-off-white {
-  background: #f5f8fa;
+  background: var(--mealie-canvas);
 }
 
 .preferred-width {

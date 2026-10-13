@@ -149,7 +149,7 @@ const { isOverDropZone } = useDropZone(el, (files, event) => onDrop(files, event
 
 <style lang="css">
 .over {
-  background-color: #f0f0f0;
+  background-color: var(--mealie-fill);
 }
 .overlay {
   position: absolute;

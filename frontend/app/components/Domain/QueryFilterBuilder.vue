@@ -7,7 +7,7 @@
         :delay="250"
         :delay-on-touch-only="true"
         v-bind="{
-          animation: 200,
+          animation: sortAnimation,
           group: 'recipe-instructions',
           ghostClass: 'ghost',
         }"
@@ -341,6 +341,9 @@ import type {
 import { useCategoryStore, useFoodStore, useHouseholdStore, useLabelStore, useTagStore, useToolStore } from "~/composables/store";
 import { useUserStore } from "~/composables/store/use-user-store";
 import { type Field, type FieldDefinition, type FieldValue, type OrganizerBase, useQueryFilterBuilder } from "~/composables/use-query-filter-builder";
+import { useSortAnimation } from "~/composables/use-utils";
+
+const sortAnimation = useSortAnimation();
 
 const props = defineProps({
   fieldDefs: {

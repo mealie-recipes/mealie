@@ -108,7 +108,7 @@
           </RouterLink>
           <button
             type="button"
-            class="lists__action"
+            class="lists__action mealie-hit-target"
             :aria-label="$t('general.owner')"
             :title="$t('general.owner')"
             @click="toggleOwnerDialog(list)"
@@ -119,7 +119,7 @@
           </button>
           <button
             type="button"
-            class="lists__action"
+            class="lists__action mealie-hit-target"
             :aria-label="$t('general.delete')"
             :title="$t('general.delete')"
             @click="openDelete(list.id)"

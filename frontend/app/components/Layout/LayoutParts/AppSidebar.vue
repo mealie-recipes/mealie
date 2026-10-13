@@ -18,7 +18,7 @@
         </RouterLink>
         <button
           type="button"
-          class="mealie-sidebar__icon-btn"
+          class="mealie-sidebar__icon-btn mealie-hit-target"
           :aria-label="$t('search.search')"
           :title="`${$t('search.search')} (${shortcutLabel})`"
           @click="globalSearch.openDialog()"
@@ -210,7 +210,7 @@
           <RouterLink
             v-if="isOwnGroup && userFavoritesLink"
             :to="userFavoritesLink"
-            class="mealie-sidebar__icon-btn"
+            class="mealie-sidebar__icon-btn mealie-hit-target"
             :aria-label="$t('user.favorite-recipes')"
             :title="$t('user.favorite-recipes')"
           >
@@ -449,6 +449,14 @@ async function logout() {
 .mealie-sidebar__item--compact {
   height: 32px;
   font-weight: 400;
+}
+
+/* stacked rows can't borrow space from their neighbours, so on touch screens they grow to 44px */
+@media (pointer: coarse) {
+  .mealie-sidebar__item,
+  .mealie-sidebar__item--compact {
+    height: 44px;
+  }
 }
 
 .mealie-sidebar__item--active,

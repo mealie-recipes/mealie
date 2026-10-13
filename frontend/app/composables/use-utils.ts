@@ -1,4 +1,4 @@
-import { useDark, useToggle } from "@vueuse/core";
+import { useDark, usePreferredReducedMotion, useToggle } from "@vueuse/core";
 import type { FilterFunction } from "vuetify";
 
 export const useToggleDarkMode = () => {
@@ -7,6 +7,16 @@ export const useToggleDarkMode = () => {
 
   return () => toggleDark();
 };
+
+/** Duration in ms of drag-and-drop reordering animations: none when the user has asked for reduced motion */
+export const useSortAnimation = () => {
+  const motion = usePreferredReducedMotion();
+  return computed(() => (motion.value === "reduce" ? 0 : 200));
+};
+
+/** Smooth scrolling, or an instant jump when the user has asked for reduced motion */
+export const scrollBehavior = (): ScrollBehavior =>
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 
 export const useAsyncKey = function () {
   return `${Date.now()}-${Math.random().toString(36).slice(2)}`;

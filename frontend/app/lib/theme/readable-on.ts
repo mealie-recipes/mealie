@@ -27,3 +27,15 @@ export function readableOn(color: string): string {
   }
   return contrast(color, ON_LIGHT) >= contrast(color, ON_DARK) ? ON_LIGHT : ON_DARK;
 }
+
+/**
+ * Adds an `on-<name>` label colour, chosen by readableOn, for each named colour in the palette,
+ * so text on any filled button, chip or alert stays legible whatever colours the theme sets
+ */
+export function withReadableOn<T extends Record<string, string>>(colors: T, names: readonly (keyof T & string)[]): Record<string, string> {
+  const result: Record<string, string> = { ...colors };
+  for (const name of names) {
+    result[`on-${name}`] = readableOn(colors[name]!);
+  }
+  return result;
+}

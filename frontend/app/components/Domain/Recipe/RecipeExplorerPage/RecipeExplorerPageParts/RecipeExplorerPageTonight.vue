@@ -254,7 +254,7 @@ watch(() => tonight.value?.entry.recipe?.id, () => {
 
 .tonight-hero__action,
 .tonight-hero__action:hover {
-  height: 40px;
+  height: 44px;
   padding: 0 20px;
   background: #fff;
   color: #1c1b19;

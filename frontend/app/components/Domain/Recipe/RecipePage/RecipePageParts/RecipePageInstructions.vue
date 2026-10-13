@@ -266,7 +266,7 @@
       :delay="250"
       :delay-on-touch-only="true"
       v-bind="{
-        animation: 200,
+        animation: sortAnimation,
         group: 'recipe-instructions',
         ghostClass: 'ghost',
       }"
@@ -584,7 +584,7 @@
 import { VueDraggable } from "vue-draggable-plus";
 import { computed, nextTick, onMounted, ref, watch } from "vue";
 import type { RecipeStep, RecipeNote, RecipeIngredient, RecipeAsset, Recipe } from "~/lib/api/types/recipe";
-import { uuid4 } from "~/composables/use-utils";
+import { useSortAnimation, uuid4 } from "~/composables/use-utils";
 import { useUserApi, useStaticRoutes } from "~/composables/api";
 import { usePageState } from "~/composables/recipe-page/shared-state";
 import { useExtractIngredientReferences } from "~/composables/recipe-page/use-extract-ingredient-references";
@@ -594,6 +594,8 @@ import { alert } from "~/composables/use-toast";
 import RecipeIngredients from "~/components/Domain/Recipe/RecipeIngredients.vue";
 import RecipeIngredientHtml from "~/components/Domain/Recipe/RecipeIngredientHtml.vue";
 import { parseStepTimers } from "~/composables/recipe-page/use-step-timers";
+
+const sortAnimation = useSortAnimation();
 
 interface MergerHistory {
   target: number;

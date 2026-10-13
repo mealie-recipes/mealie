@@ -27,7 +27,7 @@
       <div class="mealie-segmented" role="group" :aria-label="$t('recipe-edit.editor')">
         <button
           type="button"
-          class="mealie-segmented__item"
+          class="mealie-segmented__item mealie-hit-target"
           :class="{ 'mealie-segmented__item--active': !isEditJSON }"
           :aria-pressed="!isEditJSON"
           @click="isEditJSON && toggleEditMode()"
@@ -36,7 +36,7 @@
         </button>
         <button
           type="button"
-          class="mealie-segmented__item"
+          class="mealie-segmented__item mealie-hit-target"
           :class="{ 'mealie-segmented__item--active': isEditJSON }"
           :aria-pressed="isEditJSON"
           @click="!isEditJSON && toggleEditMode()"

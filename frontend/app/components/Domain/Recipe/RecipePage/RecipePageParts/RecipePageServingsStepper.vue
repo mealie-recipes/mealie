@@ -7,7 +7,7 @@
   >
     <button
       type="button"
-      class="servings-stepper__btn"
+      class="servings-stepper__btn mealie-hit-target"
       :disabled="!canScale || servings <= 1"
       :aria-label="$t('recipe-page.fewer-servings')"
       @click="step(-1)"
@@ -25,7 +25,7 @@
     </button>
     <button
       type="button"
-      class="servings-stepper__btn"
+      class="servings-stepper__btn mealie-hit-target"
       :disabled="!canScale"
       :aria-label="$t('recipe-page.more-servings')"
       @click="step(1)"

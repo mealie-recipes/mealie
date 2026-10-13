@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { readableOn } from "../readable-on";
+import { readableOn, withReadableOn } from "../readable-on";
 
 describe("readableOn", () => {
   test.each([
@@ -17,5 +17,19 @@ describe("readableOn", () => {
 
   test("falls back to white for anything that isn't a hex colour", () => {
     expect(readableOn("rgb(1, 2, 3)")).toBe("#FFFFFF");
+  });
+});
+
+describe("withReadableOn", () => {
+  test("adds a label colour for each named colour and leaves the rest alone", () => {
+    const colors = withReadableOn({ warning: "#FF6D00", info: "#1976D2", surface: "#FFFFFF" }, ["warning", "info"]);
+
+    expect(colors).toEqual({
+      "warning": "#FF6D00",
+      "on-warning": "#1C1B19",
+      "info": "#1976D2",
+      "on-info": "#FFFFFF",
+      "surface": "#FFFFFF",
+    });
   });
 });
