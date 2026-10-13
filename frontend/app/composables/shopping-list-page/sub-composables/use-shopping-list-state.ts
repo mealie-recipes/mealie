@@ -13,7 +13,6 @@ export function useShoppingListState() {
   const edit = ref(false);
   const threeDot = ref(false);
   const reorderLabelsDialog = ref(false);
-  const createEditorOpen = ref(false);
 
   // Dialog states
   const state = reactive({
@@ -60,7 +59,6 @@ export function useShoppingListState() {
     edit,
     threeDot,
     reorderLabelsDialog,
-    createEditorOpen,
     state,
     listItems,
     recipeMap,
