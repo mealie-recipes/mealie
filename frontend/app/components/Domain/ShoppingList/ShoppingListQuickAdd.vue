@@ -8,6 +8,7 @@
       :item-title="foodName"
       return-object
       :custom-filter="() => true"
+      :menu-props="{ location: menuDirection }"
       :label="$t('shopping-list.add-item')"
       :prepend-inner-icon="$globals.icons.foods"
       menu-icon=""
@@ -71,6 +72,7 @@ import type { IngredientUnit } from "~/lib/api/types/recipe";
 import ShoppingListItemDetails from "./ShoppingListItemDetails.vue";
 
 const listItem = defineModel<ShoppingListItemOut>({ required: true });
+const showDetails = defineModel<boolean>("details", { default: false });
 
 const props = defineProps({
   foods: {
@@ -93,9 +95,11 @@ const i18n = useI18n();
 
 const { createAssignFood } = useShoppingListItemEditor(listItem);
 
+const { smAndDown } = useDisplay();
+const menuDirection = computed(() => smAndDown.value ? "top" : "bottom");
+
 const inputRef = ref<{ focus: () => void } | null>(null);
 const selected = ref<IngredientFood | string | null>(null);
-const showDetails = ref(false);
 const tooltipOpen = ref(false);
 const tooltipText = ref("");
 

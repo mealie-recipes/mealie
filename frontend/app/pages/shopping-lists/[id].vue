@@ -189,7 +189,6 @@
         :labels="allLabels || []"
         :units="allUnits || []"
         :foods="allFoods || []"
-        @cancel="createEditorOpen = false"
         @save="createListItem"
       />
 
@@ -450,7 +449,6 @@ const {
   copyListItems,
   toggleReorderLabelsDialog,
   isOffline,
-  createEditorOpen,
   createListItemData,
   createListItem,
   itemsByLabel,
