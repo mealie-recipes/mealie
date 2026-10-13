@@ -2,6 +2,7 @@ import random
 from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
+import pytest
 from dateutil.tz import tzlocal
 from fastapi.testclient import TestClient
 
@@ -126,6 +127,87 @@ def test_create_mealplan_with_recipe(api_client: TestClient, unique_user: TestUs
     assert response.status_code == 201
 
     assert response_json["recipe"]["slug"] == recipe_name
+
+
+def create_mealplan_with_recipe(api_client: TestClient, unique_user: TestUser, **entry_fields) -> dict:
+    recipe = create_recipe(unique_user)
+    payload = {
+        "date": datetime.now(UTC).date().strftime("%Y-%m-%d"),
+        "entryType": "dinner",
+        "recipeId": str(recipe.id),
+        **entry_fields,
+    }
+
+    response = api_client.post(api_routes.households_mealplans, json=payload, headers=unique_user.token)
+    assert response.status_code == 201
+    return response.json()
+
+
+def test_create_mealplan_recipe_scale_defaults_to_one(api_client: TestClient, unique_user: TestUser):
+    plan = create_mealplan_with_recipe(api_client, unique_user)
+    assert plan["recipeScale"] == 1
+
+    # the default is what's stored, not just what the create response reports
+    response = api_client.get(api_routes.households_mealplans_item_id(plan["id"]), headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["recipeScale"] == 1
+
+    stored = unique_user.repos.meals.get_one(plan["id"])
+    assert stored is not None
+    assert stored.recipe_scale == 1
+
+
+def test_create_mealplan_with_recipe_scale(api_client: TestClient, unique_user: TestUser):
+    plan = create_mealplan_with_recipe(api_client, unique_user, recipeScale=2.5)
+    assert plan["recipeScale"] == 2.5
+
+    response = api_client.get(api_routes.households_mealplans_item_id(plan["id"]), headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["recipeScale"] == 2.5
+
+
+def test_update_mealplan_recipe_scale(api_client: TestClient, unique_user: TestUser):
+    plan = create_mealplan_with_recipe(api_client, unique_user, recipeScale=2)
+
+    plan["recipeScale"] = 0.5
+    response = api_client.put(api_routes.households_mealplans_item_id(plan["id"]), json=plan, headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["recipeScale"] == 0.5
+
+    response = api_client.get(api_routes.households_mealplans_item_id(plan["id"]), headers=unique_user.token)
+    assert response.json()["recipeScale"] == 0.5
+
+    # the scale belongs to the entry, so it's included when listing a date range
+    today = plan["date"]
+    response = api_client.get(route_all_slice(1, -1, today, today), headers=unique_user.token)
+    assert response.status_code == 200
+    listed = next(item for item in response.json()["items"] if item["id"] == plan["id"])
+    assert listed["recipeScale"] == 0.5
+
+
+@pytest.mark.parametrize("recipe_scale", [0, -1])
+def test_mealplan_recipe_scale_must_be_positive(api_client: TestClient, unique_user: TestUser, recipe_scale: float):
+    recipe = create_recipe(unique_user)
+    payload = {
+        "date": datetime.now(UTC).date().strftime("%Y-%m-%d"),
+        "entryType": "dinner",
+        "recipeId": str(recipe.id),
+        "recipeScale": recipe_scale,
+    }
+
+    response = api_client.post(api_routes.households_mealplans, json=payload, headers=unique_user.token)
+    assert response.status_code == 422
+
+    plan = create_mealplan_with_recipe(api_client, unique_user, recipeScale=2)
+    response = api_client.put(
+        api_routes.households_mealplans_item_id(plan["id"]),
+        json={**plan, "recipeScale": recipe_scale},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 422
+
+    response = api_client.get(api_routes.households_mealplans_item_id(plan["id"]), headers=unique_user.token)
+    assert response.json()["recipeScale"] == 2
 
 
 def test_crud_mealplan(api_client: TestClient, unique_user: TestUser):

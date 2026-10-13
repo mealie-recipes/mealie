@@ -27,9 +27,12 @@ import { useUserApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import type { PlanEntryType } from "~/lib/api/types/meal-plan";
 
-const props = defineProps<{
+const props = withDefaults(defineProps<{
   recipeId: string;
-}>();
+  recipeScale?: number;
+}>(), {
+  recipeScale: 1,
+});
 
 const mealplannerDialog = defineModel<boolean>({
   default: false,
@@ -58,6 +61,7 @@ async function addRecipeToPlan() {
     title: "",
     text: "",
     recipeId: props.recipeId,
+    recipeScale: props.recipeScale,
   });
 
   if (response?.status === 201) {
