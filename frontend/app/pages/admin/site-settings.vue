@@ -219,7 +219,7 @@
                   <a
                     class="text-primary"
                     target="_blank"
-                    :href="`https://github.com/mealie-recipes/mealie/commit/${property.value}`"
+                    :href="`https://github.com/TheShield2594/mealie/commit/${property.value}`"
                   >
                     {{ property.value }}
                   </a>
@@ -230,7 +230,7 @@
                   <a
                     class="text-primary"
                     target="_blank"
-                    :href="`https://github.com/mealie-recipes/mealie/releases/tag/${property.value}`"
+                    :href="`https://github.com/TheShield2594/mealie/releases/tag/${property.value}`"
                   >
                     {{ property.value }}
                   </a>

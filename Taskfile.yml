@@ -360,3 +360,15 @@ tasks:
       - defer: { task: e2e:stop-server }
       - task: e2e:test
         vars: { PREVENT_REPORT_OPEN: true }
+
+  fork:version:
+    desc: "set this fork's version, e.g. task fork:version -- 3.28.0+redesign.2"
+    preconditions:
+      - sh: echo "{{.CLI_ARGS}}" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+\+redesign\.[0-9]+$'
+        msg: "Pass a version like 3.28.0+redesign.2 (upstream version, then +redesign.N)"
+    cmds:
+      - |
+        sed -i 's/^version = "[^"]*"/version = "{{.CLI_ARGS}}"/' pyproject.toml
+        sed -i '/^name = "mealie"$/,/^version = / s/^version = "[^"]*"/version = "{{.CLI_ARGS}}"/' uv.lock
+        sed -i '0,/"version": "/{s/\("version": "\)[^"]*"/\1{{.CLI_ARGS}}"/}' frontend/package.json
+        echo "Version set to {{.CLI_ARGS}}. Once merged, tag the release as v{{.CLI_ARGS | replace "+" "-"}}"
