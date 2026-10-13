@@ -1,5 +1,5 @@
 <template>
-  <v-container class="elevation-3">
+  <v-container class="recipe-suggestion">
     <v-row no-gutters>
       <v-col cols="12">
         <RecipeCardMobile
@@ -9,6 +9,7 @@
           :rating="recipe.rating"
           :image="recipe.image"
           :recipe-id="recipe.id"
+          is-flat
         />
       </v-col>
       <div v-for="(organizer, idx) in missingOrganizers" :key="idx">
@@ -21,10 +22,9 @@
             <v-chip
               v-for="item in organizer.items"
               :key="item.item.id"
-              label
-              color="secondary custom-transparent"
+              color="primary"
               class="mr-2 my-1 pl-1"
-              variant="flat"
+              variant="tonal"
             >
               <v-checkbox dark :ripple="false" hide-details @click="handleCheckbox(item)">
                 <template #label>
@@ -46,10 +46,9 @@
           <v-chip
             v-for="(substituted, idx) in substitutedFoods"
             :key="idx"
-            label
-            color="info custom-transparent"
+            color="info"
             class="mr-2 my-1"
-            variant="flat"
+            variant="tonal"
             :prepend-icon="$globals.icons.swapHorizontal"
           >
             {{ $t("recipe-finder.substitute-for-food", {
@@ -155,3 +154,12 @@ function handleCheckbox(organizer: Organizer) {
   }
 }
 </script>
+
+<style scoped>
+.recipe-suggestion {
+  padding: 8px;
+  border-radius: 20px;
+  background: var(--mealie-surface);
+  box-shadow: inset 0 0 0 1px var(--mealie-hairline);
+}
+</style>

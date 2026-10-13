@@ -1,32 +1,23 @@
 <template>
-  <div>
-    <BasePageTitle
-      v-if="groupName"
-      class="mt-n4 pt-8"
-    >
-      <template #header>
-        <v-img
-          width="100%"
-          max-height="200"
-          max-width="150"
-          src="/svgs/manage-members.svg"
-        />
-      </template>
-      <template #title>
-        {{ $t("recipe.group-global-timeline", { groupName }) }}
-      </template>
-    </BasePageTitle>
-    <v-sheet
-      :class="$vuetify.display.smAndDown ? 'pa-0' : 'px-3 py-0'"
-      style="background-color: transparent;"
-    >
+  <div class="mealie-page">
+    <header class="mealie-page__header">
+      <div class="mealie-page__titles">
+        <div v-if="groupName" class="mealie-eyebrow">
+          {{ groupName }}
+        </div>
+        <h1 class="mealie-page__title">
+          {{ $t("recipe.timeline") }}
+        </h1>
+      </div>
+    </header>
+    <div class="mealie-page__body timeline-page">
       <RecipeTimeline
         v-if="queryFilter"
         v-model="ready"
         show-recipe-cards
         :query-filter="queryFilter"
       />
-    </v-sheet>
+    </div>
   </div>
 </template>
 
@@ -60,3 +51,10 @@ async function fetchHousehold() {
 
 useAsyncData("house-hold", fetchHousehold);
 </script>
+
+<style scoped>
+/* the timeline's own filter row sits right under the page header */
+.timeline-page :deep(> div > .v-row:first-child) {
+  margin: -64px 0 8px !important;
+}
+</style>

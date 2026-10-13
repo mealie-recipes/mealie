@@ -1,7 +1,7 @@
 <template>
   <v-timeline-item :class="attrs.class" fill-dot :small="attrs.small" :icon="icon" dot-color="primary">
     <template v-if="!useMobileFormat" #opposite>
-      <v-chip v-if="event.timestamp" label large>
+      <v-chip v-if="event.timestamp" variant="tonal" color="primary" class="timeline-date">
         <v-icon class="mr-1">
           {{ $globals.icons.calendar }}
         </v-icon>
@@ -11,7 +11,8 @@
     <v-card
       hover
       :to="$attrs.selected || !recipe ? undefined : `/g/${groupSlug}/r/${recipe.slug}`"
-      class="elevation-12"
+      class="timeline-card"
+      :elevation="0"
       @click="$emit('selected')"
     >
       <v-card-title class="background">
@@ -182,5 +183,37 @@ const eventImageUrl = computed<string>(() => {
 
 .break-word {
   overflow-wrap: anywhere;
+}
+</style>
+
+<style scoped>
+.timeline-card {
+  border-radius: 20px !important;
+  background: var(--mealie-surface) !important;
+  box-shadow: inset 0 0 0 1px var(--mealie-hairline) !important;
+}
+
+.timeline-card:hover {
+  box-shadow:
+    inset 0 0 0 1px var(--mealie-hairline-strong),
+    0 18px 40px -24px rgba(40, 30, 20, 0.35) !important;
+}
+
+/* the card's sections were tinted with the page background; on the white card they read as gaps */
+.timeline-card :deep(.background) {
+  background: transparent !important;
+}
+
+.timeline-card :deep(.v-card-title) {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.timeline-card :deep(.v-divider) {
+  opacity: 0.08;
+}
+
+.timeline-date {
+  font-weight: 600;
 }
 </style>
