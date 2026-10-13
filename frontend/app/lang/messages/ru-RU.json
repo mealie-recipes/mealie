@@ -1076,6 +1076,8 @@
     "share-recipe": "Поделиться рецептом",
     "default-30-days": "По умолчанию 30 дней",
     "expires-at": "Срок действия до",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Ссылка на рецепт скопирована в буфер обмена"
   },
   "banner-experimental": {

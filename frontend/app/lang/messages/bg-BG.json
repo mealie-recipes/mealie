@@ -1076,6 +1076,8 @@
     "share-recipe": "Споделяне на рецептата",
     "default-30-days": "По подразбиране 30 дни",
     "expires-at": "Изтича на",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Линкът към рецептата е копиран в клипборда"
   },
   "banner-experimental": {

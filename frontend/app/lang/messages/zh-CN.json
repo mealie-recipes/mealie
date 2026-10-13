@@ -1076,6 +1076,8 @@
     "share-recipe": "分享食谱",
     "default-30-days": "默认30天",
     "expires-at": "有效期至",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "已复制食谱链接到剪切板"
   },
   "banner-experimental": {

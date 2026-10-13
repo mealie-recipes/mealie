@@ -1076,6 +1076,8 @@
     "share-recipe": "שתף מתכון",
     "default-30-days": "30 ימים ברירת מחדל",
     "expires-at": "יפוג ב",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "קישור המתכון הועתק ללוח"
   },
   "banner-experimental": {

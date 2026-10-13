@@ -1076,6 +1076,8 @@
     "share-recipe": "مشاركة الوصفة",
     "default-30-days": "30 يوم افتراضي",
     "expires-at": "ينتهي في",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "تم نسخ رابط الوصفة إلى الحافظة"
   },
   "banner-experimental": {

@@ -1076,6 +1076,8 @@
     "share-recipe": "Del oppskrift",
     "default-30-days": "Standard 30 dager",
     "expires-at": "Utløper den",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Oppskriftslenke kopiert til utklippstavle"
   },
   "banner-experimental": {
