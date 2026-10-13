@@ -10,7 +10,7 @@
       "request": "launch",
       "module": "uvicorn",
       "args": [
-        "mealie.app:app",
+        "mealie.http.asgi:application",
         "--port",
         "9000"
       ],

@@ -2,9 +2,9 @@ from datetime import date
 from functools import cached_property
 
 from dateutil.tz import tzlocal
-from fastapi import APIRouter, Depends, HTTPException
 
 from mealie.core.exceptions import mealie_registered_exceptions
+from mealie.http.api import APIRouter, Depends, HTTPException
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_meals import RepositoryMeals
 from mealie.routes._base import controller

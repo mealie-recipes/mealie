@@ -5,10 +5,7 @@ from pathlib import Path
 from shutil import rmtree
 from uuid import uuid4
 
-import fastapi
 import jwt
-from fastapi import Depends, HTTPException, Request, status
-from fastapi.security import OAuth2PasswordBearer
 from jwt.exceptions import PyJWTError
 from sqlalchemy.orm.session import Session
 
@@ -16,6 +13,9 @@ from mealie.core import root_logger
 from mealie.core.config import get_app_dirs, get_app_settings
 from mealie.core.security.tokens import ALGORITHM
 from mealie.db.db_setup import generate_session
+from mealie.http import api as http
+from mealie.http.api import Depends, HTTPException, Request, status
+from mealie.http.requests import OAuth2PasswordBearer
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user import PrivateUser, TokenData
 from mealie.schema.user.user import DEFAULT_INTEGRATION_ID, GroupInDB
@@ -63,7 +63,7 @@ async def is_logged_in(token: str = Depends(oauth2_scheme_soft_fail), session=De
         return False
 
 
-async def get_public_group(group_slug: str = fastapi.Path(...), session=Depends(generate_session)) -> GroupInDB:
+async def get_public_group(group_slug: str = http.Path(...), session=Depends(generate_session)) -> GroupInDB:
     repos = get_repositories(session)
     group = repos.groups.get_by_slug_or_id(group_slug)
 
@@ -79,7 +79,7 @@ async def get_auth_token(
 ) -> str:
     """The raw bearer token for this request, from the Authorization header or the session cookie.
 
-    FastAPI caches dependency results per request, so routes that need the token itself as well as
+    Mealie caches dependency results per request, so routes that need the token itself as well as
     the user it resolves to share a single extraction.
     """
     if token is None and "mealie.access_token" in request.cookies:

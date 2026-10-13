@@ -1,7 +1,6 @@
 from functools import cached_property
 
-from fastapi import APIRouter, HTTPException
-
+from mealie.http.api import APIRouter, HTTPException
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.schema.group.group_seeder import SeederConfig

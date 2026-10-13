@@ -1,8 +1,8 @@
 from typing import Annotated
 
-from fastapi import Form
 from pydantic import UUID4, BaseModel, StringConstraints
 
+from mealie.http.api import Form
 from mealie.schema._mealie.mealie_model import MealieModel
 
 

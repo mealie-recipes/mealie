@@ -1,8 +1,8 @@
 from enum import Enum
 
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from tests.utils import api_routes

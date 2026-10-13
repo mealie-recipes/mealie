@@ -1,7 +1,7 @@
-from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
 from mealie.core.config import get_app_settings
+from mealie.http.testing import TestClient
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.user.user import GroupInDB

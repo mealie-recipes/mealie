@@ -3,10 +3,10 @@ import time
 
 import jwt
 import pytest
-from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
 from mealie.core.security import ALGORITHM
+from mealie.http.testing import TestClient
 from mealie.services.user_services.user_service import UserService
 from tests.utils import api_routes
 from tests.utils.factories import random_string

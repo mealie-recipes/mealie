@@ -2,10 +2,10 @@ import json
 
 import httpx
 import pytest
-from fastapi.testclient import TestClient
 
 import mealie.services.recipe.import_workflow.steps.compile_source as compile_source_module
 import mealie.services.scraper.recipe_scraper as recipe_scraper_module
+from mealie.http.testing import TestClient
 from mealie.pkgs.safehttp.fetch import FetchResult
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.schema.openai.compiled_source import OpenAICompiledSource

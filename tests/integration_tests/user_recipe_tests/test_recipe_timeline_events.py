@@ -2,8 +2,8 @@ from datetime import UTC, datetime, timedelta
 from uuid import uuid4
 
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.lang.providers import get_all_translations
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_timeline_events import (

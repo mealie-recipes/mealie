@@ -1,5 +1,4 @@
-from fastapi import HTTPException, status
-
+from mealie.http.api import HTTPException, status
 from mealie.schema.user.user import PrivateUser
 
 

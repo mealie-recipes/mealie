@@ -1,10 +1,10 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends
 from slugify import slugify
 from sqlalchemy.orm.session import Session
 
 from mealie.db.db_setup import generate_session
+from mealie.http.api import APIRouter, Depends
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.response import ValidationResponse
 

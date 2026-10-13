@@ -1,8 +1,8 @@
 from functools import cached_property
 
-from fastapi import HTTPException
 from pydantic import UUID4
 
+from mealie.http.api import HTTPException
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.mixins import HttpRepo

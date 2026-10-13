@@ -3,9 +3,8 @@ from enum import StrEnum
 from re import search as regex_search
 from uuid import uuid4
 
-from fastapi import HTTPException, status
-
 from mealie.core.root_logger import get_logger
+from mealie.http.api import HTTPException, status
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.repository_factory import AllRepositories

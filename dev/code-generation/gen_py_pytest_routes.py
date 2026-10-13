@@ -1,10 +1,11 @@
 import json
 from pathlib import Path
 
-from fastapi import FastAPI
 from jinja2 import Template
 from pydantic import BaseModel, ConfigDict
 from utils import PROJECT_DIR, CodeTemplates, HTTPRequest, RouteObject
+
+from mealie.http.lifecycle import DjangoApplication
 
 CWD = Path(__file__).parent
 
@@ -17,14 +18,14 @@ class PathObject(BaseModel):
     http_verbs: list[HTTPRequest]
 
 
-def force_include_in_schema(app: FastAPI):
+def force_include_in_schema(app: DjangoApplication):
     # clear schema cache
     app.openapi_schema = None
     for route in app.routes:
         route.include_in_schema = True
 
 
-def get_path_objects(app: FastAPI):
+def get_path_objects(app: DjangoApplication):
     force_include_in_schema(app)
     paths = []
     for key, value in app.openapi().items():
@@ -44,7 +45,7 @@ def get_path_objects(app: FastAPI):
     return paths
 
 
-def dump_open_api(app: FastAPI):
+def dump_open_api(app: DjangoApplication):
     """Writes the Open API as JSON to a json file"""
     OPEN_API_FILE = CWD / "openapi.json"
 

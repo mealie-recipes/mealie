@@ -2,8 +2,7 @@
 Integration tests for admin AI provider management across groups.
 """
 
-from fastapi.testclient import TestClient
-
+from mealie.http.testing import TestClient
 from mealie.schema.group.ai_providers import AIProviderCreate
 from tests.utils import api_routes
 from tests.utils.factories import random_string

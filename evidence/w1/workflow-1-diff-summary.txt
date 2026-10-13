@@ -1,0 +1,44 @@
+Workflow 1 Git diff summary
+Captured: 2026-10-13
+Branch: migration/fastapi-to-drf-w1
+HEAD / starting baseline: 63cf7468f39f2d7f4b3bad2c3fb9141a246c917e
+
+Important scope note
+--------------------
+This checkout contains unrelated/pre-existing dirty changes. The current tracked
+worktree diff below is a checkout snapshot, not a migration-only patch. The
+locale-sync workflow change was made separately during the current conversation
+and is not part of the FastAPI-to-DRF migration. New/untracked files are not
+included by `git diff --stat`; use validation/django-http/changed-files.json for
+the migration's captured file manifest and its stated limitations.
+
+Command: git diff --shortstat HEAD
+Result: 196 files changed, 552 insertions(+), 913 deletions(-)
+
+Command:
+git diff --stat HEAD -- mealie/app.py mealie/main.py mealie/http
+  mealie/routes/_base/controller.py mealie/routes/_base/routers.py
+  pyproject.toml uv.lock Taskfile.yml tests/unit_tests/test_django_http.py
+  tests/unit_tests/test_http_contract.py
+  docs/docs/contributors/developers-guide/django-http.md
+
+Result (tracked files in this selected list):
+ 7 files changed, 129 insertions(+), 449 deletions(-)
+
+Representative paths in the selected diff:
+  mealie/app.py                       172 lines changed
+  mealie/routes/_base/controller.py   229 lines changed
+  mealie/routes/_base/routers.py       75 lines changed
+  Taskfile.yml                          6 lines changed
+  pyproject.toml                        4 lines changed
+  uv.lock                              90 lines changed
+
+The selected diff only reports tracked changes; the new `mealie/http/` modules
+and test/doc files that are untracked in this checkout do not appear in its
+statistics. The migration manifest records 204 Python source paths with changes
+relative to captured starting hashes, 21 new HTTP modules, and 11 additional
+configuration, documentation, test, or generated paths. See
+`validation/django-http/changed-files.json` and
+`DJANGO_HTTP_MIGRATION_REPORT.md` for the fuller change description.
+
+Staged diff at capture: none.

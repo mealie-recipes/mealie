@@ -1,10 +1,10 @@
 import shutil
 from uuid import uuid4
 
-from fastapi import File, HTTPException, UploadFile, status
 from pydantic import UUID4
 
 from mealie.core.dependencies import get_temporary_path
+from mealie.http.api import File, HTTPException, UploadFile, status
 from mealie.pkgs import cache, img
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.routers import UserAPIRouter

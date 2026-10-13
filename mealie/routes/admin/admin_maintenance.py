@@ -2,8 +2,7 @@ import shutil
 import uuid
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException
-
+from mealie.http.api import APIRouter, HTTPException
 from mealie.pkgs.stats import fs_stats
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin import MaintenanceSummary

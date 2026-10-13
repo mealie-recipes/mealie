@@ -1,8 +1,8 @@
 import pytest
-from fastapi.testclient import TestClient
 
 from mealie.core.config import get_app_settings
 from mealie.core.settings.static import APP_VERSION
+from mealie.http.testing import TestClient
 from mealie.repos.repository_factory import AllRepositories
 from tests.utils import api_routes
 from tests.utils.fixture_schemas import TestUser

@@ -1,5 +1,4 @@
-from fastapi import APIRouter, Depends
-
+from mealie.http.api import APIRouter, Depends
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BasePublicGroupExploreController
 from mealie.schema.household.household import HouseholdSummary

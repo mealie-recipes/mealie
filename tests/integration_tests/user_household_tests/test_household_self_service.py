@@ -2,9 +2,9 @@ from datetime import UTC, datetime
 from uuid import UUID
 
 from dateutil.parser import parse as parse_dt
-from fastapi.testclient import TestClient
 
 from mealie.db.models.household import HouseholdToRecipe
+from mealie.http.testing import TestClient
 from mealie.schema.recipe.recipe import Recipe
 from tests.utils import api_routes
 from tests.utils.factories import random_string

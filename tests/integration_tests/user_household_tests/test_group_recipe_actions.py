@@ -1,8 +1,8 @@
 from uuid import UUID, uuid4
 
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.pkgs import safehttp
 from mealie.schema.household.group_recipe_action import (
     CreateGroupRecipeAction,

@@ -1,9 +1,9 @@
 from authlib.integrations.starlette_client import OAuthError
-from fastapi.testclient import TestClient
 from joserfc.errors import InvalidClaimError
 from pytest import MonkeyPatch
 
 from mealie.app import app
+from mealie.http.testing import TestClient
 from mealie.routes.auth import auth as auth_routes
 from tests.utils import api_routes
 

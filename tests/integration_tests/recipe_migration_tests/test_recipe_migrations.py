@@ -8,8 +8,8 @@ from tempfile import TemporaryDirectory
 from zipfile import ZipFile
 
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.schema.group.group_migration import SupportedMigrations
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.reports.reports import ReportEntryOut

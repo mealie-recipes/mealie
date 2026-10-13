@@ -1,7 +1,6 @@
 from typing import Protocol
 
-from fastapi.encoders import jsonable_encoder
-
+from mealie.http.encoding import jsonable_encoder
 from mealie.services.event_bus_service.event_types import Event
 
 

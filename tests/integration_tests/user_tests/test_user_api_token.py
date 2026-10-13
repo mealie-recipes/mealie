@@ -1,8 +1,8 @@
 import json
 
-from fastapi.testclient import TestClient
 from pytest import fixture
 
+from mealie.http.testing import TestClient
 from tests.utils import api_routes
 from tests.utils.fixture_schemas import TestUser
 

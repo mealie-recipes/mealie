@@ -1,8 +1,8 @@
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
 from pydantic import UUID4
 
+from mealie.http.api import APIRouter, Depends, HTTPException
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BasePublicHouseholdExploreController
 from mealie.schema.cookbook.cookbook import ReadCookBook

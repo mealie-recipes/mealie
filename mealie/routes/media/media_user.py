@@ -1,7 +1,7 @@
-from fastapi import APIRouter, HTTPException, status
 from pydantic import UUID4
-from starlette.responses import FileResponse
 
+from mealie.http.api import APIRouter, HTTPException, status
+from mealie.http.responses import FileResponse
 from mealie.schema.user import PrivateUser
 
 router = APIRouter(prefix="/users")

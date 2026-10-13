@@ -4,8 +4,7 @@ Integration tests for AI provider CRUD, settings, permissions, and API key secur
 
 from uuid import uuid4
 
-from fastapi.testclient import TestClient
-
+from mealie.http.testing import TestClient
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
 from mealie.services.openai import OpenAIService
 from tests.utils import api_routes

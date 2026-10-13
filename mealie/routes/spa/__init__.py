@@ -3,19 +3,15 @@ import json
 import pathlib
 from dataclasses import dataclass
 from typing import Any
-from urllib.parse import urlsplit, urlunsplit
 
-from fastapi import Depends, FastAPI, Response
-from fastapi.encoders import jsonable_encoder
-from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm.session import Session
-from starlette.exceptions import HTTPException
-from starlette.responses import RedirectResponse
 from text_unidecode import os
 
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies.dependencies import try_get_current_user
 from mealie.db.db_setup import generate_session
+from mealie.http.api import APIRouter, Depends, Response
+from mealie.http.encoding import jsonable_encoder
 from mealie.repos.repository_factory import AllRepositories
 from mealie.routes.spa.manifest import serve_manifest
 from mealie.schema.recipe.recipe import Recipe
@@ -32,40 +28,9 @@ class MetaTag:
         self.content = escape(self.content)  # escape HTML to prevent XSS attacks
 
 
-class SPAStaticFiles(StaticFiles):
-    async def get_response(self, path: str, scope):
-        try:
-            response = await super().get_response(path, scope)
-        except HTTPException as ex:
-            if ex.status_code == 404:
-                response = await super().get_response("index.html", scope)
-            else:
-                raise ex
+from mealie.http.static import SPAStaticFiles
 
-        # StaticFiles(html=True) redirects directory URLs without a trailing slash (e.g. /login -> /login/)
-        # to an absolute URL built from the request's Host header. That breaks behind reverse proxies that
-        # rewrite Host, and lets a spoofed Host pick the redirect target. Redirect to a relative path instead,
-        # collapsing leading slashes so it can't become a protocol-relative URL (//host/...).
-        if isinstance(response, RedirectResponse):
-            location = urlsplit(response.headers["location"])
-            response.headers["location"] = urlunsplit(("", "", "/" + location.path.lstrip("/"), location.query, ""))
-
-        # StaticFiles(html=True) serves 404.html (which IS the SPA shell) with
-        # status_code=404 for any unknown path, without raising HTTPException.
-        # Rewrite to 200 so reverse proxies that intercept 4xx don't replace the
-        # body with a generic error page.
-        if response.status_code == 404 and response.media_type == "text/html":
-            response.status_code = 200
-
-        # Hashed assets (_nuxt/*) are safe to cache forever since new builds produce new filenames.
-        # HTML must revalidate so browsers always fetch the correct bundle references after a
-        # container rebuild (prevents blank white page from stale index.html in HA iframes, etc).
-        if path.startswith("_nuxt/"):
-            response.headers["Cache-Control"] = "public, max-age=31536000, immutable"
-        elif path == "." or response.media_type == "text/html":
-            response.headers["Cache-Control"] = "no-cache"
-
-        return response
+static_files: SPAStaticFiles | None = None
 
 
 __app_settings = get_app_settings()
@@ -274,7 +239,7 @@ async def serve_shared_recipe_with_meta(group_slug: str, token_id: str, session:
         return response_404()
 
 
-def mount_spa(app: FastAPI):
+def mount_spa(app: APIRouter) -> None:
     if not os.path.exists(__app_settings.STATIC_FILES):
         return
 
@@ -284,4 +249,5 @@ def mount_spa(app: FastAPI):
     app.get("/g/{group_slug}/r/{recipe_slug}", include_in_schema=False)(serve_recipe_with_meta)
     app.get("/g/{group_slug}/shared/r/{token_id}", include_in_schema=False)(serve_shared_recipe_with_meta)
     app.get("/manifest.webmanifest", include_in_schema=False)(serve_manifest)
-    app.mount("/", SPAStaticFiles(directory=__app_settings.STATIC_FILES, html=True), name="spa")
+    global static_files
+    static_files = SPAStaticFiles(directory=__app_settings.STATIC_FILES, html=True)

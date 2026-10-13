@@ -1,9 +1,9 @@
-from fastapi import BackgroundTasks, Depends
 from pydantic import UUID4
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
 from mealie.db.db_setup import generate_session
+from mealie.http.api import BackgroundTasks, Depends
 from mealie.lang.providers import Translator, get_locale_provider
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.response.pagination import PaginationQuery

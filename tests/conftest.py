@@ -41,12 +41,11 @@ if _WORKER_ID:
             conn.execute(text(f'CREATE DATABASE "{worker_db}"'))
         mp.setenv("POSTGRES_DB", worker_db)
 
-from fastapi.testclient import TestClient
-
 from mealie.app import app
 from mealie.core import config
 from mealie.db.db_setup import SessionLocal, generate_session
 from mealie.db.init_db import main
+from mealie.http.testing import TestClient
 from tests import data as test_data
 from tests.fixtures import *  # noqa: F403 F401
 

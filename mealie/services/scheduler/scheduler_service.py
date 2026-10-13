@@ -4,7 +4,7 @@ from pathlib import Path
 
 from mealie.core import root_logger
 from mealie.core.config import get_app_settings
-from mealie.services.scheduler.runner import repeat_every
+from mealie.services.scheduler.runner import repeat_every, scheduler_tasks, track_task
 
 from .scheduler_registry import SchedulerRegistry
 
@@ -24,7 +24,14 @@ class SchedulerService:
         await run_hourly()
 
         # Wait to trigger our daily run until our given "daily time", so having asyncio handle it.
-        asyncio.create_task(schedule_daily())
+        track_task(asyncio.create_task(schedule_daily()))
+
+    @staticmethod
+    async def stop() -> None:
+        pending = list(scheduler_tasks)
+        for task in pending:
+            task.cancel()
+        await asyncio.gather(*pending, return_exceptions=True)
 
 
 async def schedule_daily():

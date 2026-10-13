@@ -1,9 +1,9 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
 
 from mealie.core import security
+from mealie.http.api import APIRouter, Depends, HTTPException, status
 from mealie.routes._base import BaseAdminController, controller
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.response.pagination import PaginationQuery

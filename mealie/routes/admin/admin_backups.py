@@ -2,11 +2,10 @@ import operator
 import shutil
 from pathlib import Path
 
-from fastapi import APIRouter, File, HTTPException, UploadFile, status
-
 from mealie.core.config import get_app_dirs
 from mealie.core.root_logger import get_logger
 from mealie.core.security import create_file_token
+from mealie.http.api import APIRouter, File, HTTPException, UploadFile, status
 from mealie.pkgs.stats.fs_stats import pretty_size
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin.backup import AllBackups, BackupFile
@@ -80,7 +79,7 @@ class AdminBackupController(BaseAdminController):
     @router.post("/upload", response_model=SuccessResponse)
     def upload_one(self, archive: UploadFile = File(...)):
         """Upload a .zip File to later be imported into Mealie"""
-        if "." not in archive.filename:
+        if not archive.filename or "." not in archive.filename:
             raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
         if archive.filename.split(".")[-1] != "zip":

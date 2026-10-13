@@ -1,9 +1,9 @@
 from collections.abc import Callable
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, HTTPException, Query, status
 from pydantic import UUID4
 
+from mealie.http.api import APIRouter, Depends, HTTPException, Query, status
 from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo

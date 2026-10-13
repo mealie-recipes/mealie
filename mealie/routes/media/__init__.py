@@ -1,7 +1,6 @@
-from fastapi import APIRouter, HTTPException
-from fastapi.responses import FileResponse
-
 from mealie.core.config import get_app_dirs
+from mealie.http.api import APIRouter, HTTPException
+from mealie.http.responses import FileResponse
 
 from . import media_recipe, media_user
 

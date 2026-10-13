@@ -8,12 +8,12 @@ from urllib.parse import parse_qsl, urlsplit
 import pytest
 import sqlalchemy as sa
 from dateutil.relativedelta import relativedelta
-from fastapi.testclient import TestClient
 from freezegun import freeze_time
 from humps import camelize
 from pydantic import UUID4
 
 from mealie.db.models.recipe.ingredient import IngredientUnitModel
+from mealie.http.testing import TestClient
 from mealie.repos.repository_factory import AllRepositories
 from mealie.repos.repository_units import RepositoryUnit
 from mealie.schema.household.group_shopping_list import (

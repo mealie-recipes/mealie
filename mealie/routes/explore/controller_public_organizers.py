@@ -1,6 +1,6 @@
-from fastapi import APIRouter, Depends, HTTPException
 from pydantic import UUID4
 
+from mealie.http.api import APIRouter, Depends, HTTPException
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BasePublicGroupExploreController
 from mealie.schema.make_dependable import make_dependable

@@ -1,9 +1,8 @@
 import json
 from urllib.parse import urlparse
 
-from fastapi import Response
-
 from mealie.core.config import get_app_settings
+from mealie.http.api import Response
 
 
 def serve_manifest():

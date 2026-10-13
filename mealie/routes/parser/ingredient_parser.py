@@ -1,5 +1,4 @@
-from fastapi import APIRouter
-
+from mealie.http.api import APIRouter
 from mealie.routes._base import BaseUserController, controller
 from mealie.schema.recipe import ParsedIngredient
 from mealie.schema.recipe.recipe_ingredient import IngredientRequest, IngredientsRequest

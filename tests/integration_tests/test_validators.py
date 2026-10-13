@@ -1,8 +1,7 @@
 from dataclasses import dataclass
 from uuid import UUID
 
-from fastapi.testclient import TestClient
-
+from mealie.http.testing import TestClient
 from mealie.schema.recipe.recipe import Recipe
 from tests.utils import random_string
 from tests.utils.fixture_schemas import TestUser

@@ -1,5 +1,6 @@
 import json
 import re
+from collections.abc import Generator
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -9,6 +10,25 @@ from pydantic import ValidationError
 
 from mealie.core.config import get_app_settings
 from mealie.core.settings.settings import AppSettings, determine_secrets
+
+
+@pytest.fixture(autouse=True)
+def isolate_postgres_connection_settings(monkeypatch: pytest.MonkeyPatch) -> Generator[None]:
+    """Test provider defaults independently of the integration database address."""
+    for name in (
+        "POSTGRES_USER",
+        "POSTGRES_PASSWORD",
+        "POSTGRES_SERVER",
+        "POSTGRES_PORT",
+        "POSTGRES_DB",
+        "POSTGRES_URL_OVERRIDE",
+    ):
+        monkeypatch.delenv(name, raising=False)
+
+    yield
+    # A configuration test can cache its temporary database address. Do not
+    # let later backup tests reuse it after monkeypatch restores the environment.
+    get_app_settings.cache_clear()
 
 
 def test_non_default_settings(monkeypatch):

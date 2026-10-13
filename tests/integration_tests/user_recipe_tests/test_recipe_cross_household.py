@@ -2,8 +2,8 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 from dateutil.parser import parse as parse_dt
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.schema.cookbook.cookbook import SaveCookBook
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_category import TagSave

@@ -1,5 +1,4 @@
-from fastapi.testclient import TestClient
-
+from mealie.http.testing import TestClient
 from mealie.schema.household.household_preferences import UpdateHouseholdPreferences
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_ignore_keys

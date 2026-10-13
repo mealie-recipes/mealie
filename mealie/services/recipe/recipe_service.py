@@ -11,9 +11,9 @@ from uuid import UUID, uuid4
 from zipfile import ZipFile
 
 import sqlalchemy as sa
-from fastapi import UploadFile
 
 from mealie.core import exceptions
+from mealie.http.api import UploadFile
 from mealie.lang.providers import Translator
 from mealie.pkgs import cache
 from mealie.repos.all_repositories import get_repositories

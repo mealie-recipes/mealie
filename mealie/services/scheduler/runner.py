@@ -4,13 +4,20 @@
 import asyncio
 import inspect
 import logging
-from asyncio import ensure_future
 from collections.abc import Callable, Coroutine
 from functools import wraps
 from traceback import format_exception
 from typing import Any
 
-from starlette.concurrency import run_in_threadpool
+from asgiref.sync import sync_to_async
+
+scheduler_tasks: set[asyncio.Task[Any]] = set()
+
+
+def track_task(task: asyncio.Task[Any]) -> None:
+    scheduler_tasks.add(task)
+    task.add_done_callback(scheduler_tasks.discard)
+
 
 NoArgsNoReturnFuncT = Callable[[], None]
 NoArgsNoReturnAsyncFuncT = Callable[[], Coroutine[Any, Any, None]]
@@ -67,7 +74,7 @@ def repeat_every(
                         if is_coroutine:
                             await func()  # type: ignore
                         else:
-                            await run_in_threadpool(func)
+                            await sync_to_async(func, thread_sensitive=False)()
                         repetitions += 1
                     except Exception as exc:
                         if logger is not None:
@@ -77,7 +84,7 @@ def repeat_every(
                             raise exc
                     await asyncio.sleep(minutes * 60)
 
-            ensure_future(loop())
+            track_task(asyncio.create_task(loop()))
 
         return wrapped
 

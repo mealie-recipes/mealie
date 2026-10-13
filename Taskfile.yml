@@ -214,7 +214,7 @@ tasks:
   py:
     desc: runs the backend server
     cmds:
-      - uv run python mealie/app.py
+      - uv run python -m mealie.app
 
   py:postgres:
     desc: runs the backend server configured for containerized postgres
@@ -226,7 +226,7 @@ tasks:
       POSTGRES_PORT: 5432
       POSTGRES_DB: mealie
     cmds:
-      - uv run python mealie/app.py
+      - uv run python -m mealie.app
 
   py:migrate:
     desc: generates a new database migration file e.g. task py:migrate -- "add new
@@ -278,7 +278,7 @@ tasks:
     desc: runs the frontend tests
     dir: frontend
     cmds:
-      - pnpm test
+      - pnpm test --watch=false {{ .CLI_ARGS }}
     sources:
       - "**"
       - exclude: .nuxt/**

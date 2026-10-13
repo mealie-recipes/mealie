@@ -1,8 +1,8 @@
-from fastapi import HTTPException, status
 from sqlalchemy.orm.session import Session
 
 from mealie.core.security import hash_password, url_safe_token
 from mealie.db.models.users.users import AuthMethod
+from mealie.http.api import HTTPException, status
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user.user_passwords import SavePasswordResetToken
 from mealie.services._base_service import BaseService

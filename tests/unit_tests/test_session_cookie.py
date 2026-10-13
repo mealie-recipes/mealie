@@ -1,22 +1,22 @@
 from datetime import timedelta
 
-from starlette.requests import Request
-from starlette.responses import Response
+from django.test import RequestFactory
+from rest_framework.request import Request as DRFRequest
 
+from mealie.http.requests import Request
+from mealie.http.responses import Response
 from mealie.routes.auth.auth import SESSION_COOKIE_NAME, session_cookie_attrs, set_session_cookie
 
 
 def build_request(scheme: str = "http", headers: dict[str, str] | None = None) -> Request:
     return Request(
-        {
-            "type": "http",
-            "scheme": scheme,
-            "path": "/",
-            "raw_path": b"/",
-            "query_string": b"",
-            "server": ("testserver", 80),
-            "headers": [(k.lower().encode(), v.encode()) for k, v in (headers or {}).items()],
-        }
+        DRFRequest(
+            RequestFactory().get(
+                "/",
+                secure=scheme == "https",
+                headers=headers or {},
+            )
+        )
     )
 
 

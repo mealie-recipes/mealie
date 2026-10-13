@@ -1,6 +1,6 @@
-from fastapi import HTTPException, status
 from pydantic import UUID4
 
+from mealie.http.api import HTTPException, status
 from mealie.schema.response.responses import ErrorResponse
 from mealie.schema.user.user import PrivateUser, UserBase
 

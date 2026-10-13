@@ -1,8 +1,8 @@
 from datetime import UTC, datetime
 
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.schema.household.webhook import ReadWebhook
 from mealie.services.scheduler.tasks.post_webhooks import post_test_webhook
 from tests.utils import api_routes, assert_deserialize, jsonify

@@ -4,9 +4,9 @@ from dataclasses import dataclass
 from uuid import UUID
 
 import pytest
-from fastapi.testclient import TestClient
 from pydantic import UUID4
 
+from mealie.http.testing import TestClient
 from mealie.schema.cookbook.cookbook import ReadCookBook, SaveCookBook
 from tests import utils
 from tests.utils import api_routes

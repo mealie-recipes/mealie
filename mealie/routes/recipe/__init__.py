@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from mealie.http.api import APIRouter
 
 from . import bulk_actions, comments, exports, recipe_crud_routes, shared_routes, timeline_events
 

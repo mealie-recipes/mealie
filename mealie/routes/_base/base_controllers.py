@@ -1,7 +1,6 @@
 from abc import ABC
 from logging import Logger
 
-from fastapi import Depends, HTTPException
 from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import Session
 
@@ -17,6 +16,7 @@ from mealie.core.root_logger import get_logger
 from mealie.core.settings.directories import AppDirectories
 from mealie.core.settings.settings import AppSettings
 from mealie.db.db_setup import generate_session
+from mealie.http.api import Depends, HTTPException
 from mealie.lang import get_locale_config, get_locale_provider
 from mealie.lang.locale_config import LocaleConfig
 from mealie.lang.providers import Translator

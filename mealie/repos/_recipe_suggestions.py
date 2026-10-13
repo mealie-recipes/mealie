@@ -2,7 +2,6 @@ import logging
 from typing import TYPE_CHECKING, Any, cast
 
 import sqlalchemy as sa
-from fastapi import HTTPException
 from pydantic import UUID4
 from sqlalchemy import orm
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -18,6 +17,7 @@ from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.settings import RecipeSettings
 from mealie.db.models.recipe.tool import Tool, households_to_tools, recipes_to_tools
 from mealie.db.models.users.users import User
+from mealie.http.api import HTTPException
 from mealie.schema.recipe.recipe import RecipeSummary
 from mealie.schema.recipe.recipe_ingredient import IngredientFood, IngredientFoodSummary
 from mealie.schema.recipe.recipe_suggestion import (

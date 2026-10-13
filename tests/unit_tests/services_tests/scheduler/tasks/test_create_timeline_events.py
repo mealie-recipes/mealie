@@ -2,9 +2,9 @@ from datetime import UTC, datetime, timedelta
 
 from dateutil.parser import parse as parse_dt
 from dateutil.tz import tzlocal
-from fastapi.testclient import TestClient
 from pydantic import UUID4
 
+from mealie.http.testing import TestClient
 from mealie.schema.household.household import HouseholdRecipeSummary
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from mealie.schema.recipe.recipe import RecipeLastMade, RecipeSummary

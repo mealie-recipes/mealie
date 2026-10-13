@@ -4,8 +4,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Protocol
 
-from fastapi import Header
-
+from mealie.http.api import Header
 from mealie.lang.locale_config import LOCALE_CONFIG, LocaleConfig
 from mealie.pkgs import i18n
 

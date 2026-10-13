@@ -3,10 +3,10 @@ from collections.abc import Callable
 from logging import Logger
 
 import sqlalchemy.exc
-from fastapi import HTTPException, status
 from pydantic import UUID4, BaseModel
 
 from mealie.core.config import get_app_settings
+from mealie.http.api import HTTPException, status
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.response import ErrorResponse
 

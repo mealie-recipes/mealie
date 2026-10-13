@@ -1,9 +1,9 @@
 from uuid import uuid4
 
-from fastapi import APIRouter
 from pydantic import UUID4
 
 from mealie.core.root_logger import get_logger
+from mealie.http.api import APIRouter
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.mixins import HttpRepo

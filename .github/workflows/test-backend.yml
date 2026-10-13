@@ -80,7 +80,7 @@ jobs:
         id: cache-validate
         if: steps.cached-python-dependencies.outputs.cache-hit == 'true'
         run: |
-          echo "import fastapi;print('venv good?')" > test.py && uv run python test.py && echo "cache-hit-success=true" >> $GITHUB_OUTPUT
+          echo "import django, rest_framework;print('venv good?')" > test.py && uv run python test.py && echo "cache-hit-success=true" >> $GITHUB_OUTPUT
           rm test.py
         continue-on-error: true
 

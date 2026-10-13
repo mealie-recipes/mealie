@@ -1,9 +1,9 @@
 from uuid import UUID
 
 import pytest
-from fastapi.testclient import TestClient
 from pydantic import UUID4
 
+from mealie.http.testing import TestClient
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from tests.utils import api_routes

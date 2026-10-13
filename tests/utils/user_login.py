@@ -1,7 +1,6 @@
 import json
 
-from fastapi.testclient import TestClient
-
+from mealie.http.testing import TestClient
 from tests.utils import api_routes
 
 

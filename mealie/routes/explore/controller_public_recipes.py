@@ -1,9 +1,9 @@
 from uuid import UUID
 
 import orjson
-from fastapi import APIRouter, Depends, HTTPException, Query, Request
 from pydantic import UUID4
 
+from mealie.http.api import APIRouter, Depends, HTTPException, Query, Request
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BasePublicHouseholdExploreController
 from mealie.routes.recipe.recipe_crud_routes import JSONBytes

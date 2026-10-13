@@ -4,12 +4,12 @@ from pathlib import Path
 
 import httpx
 import pytest
-from fastapi.testclient import TestClient
 from slugify import slugify
 
 import mealie.services.openai.transcription as transcription_module
 import mealie.services.recipe.import_workflow.steps.compile_source as compile_source_module
 from mealie.core import exceptions
+from mealie.http.testing import TestClient
 from mealie.lang import get_locale_provider
 from mealie.pkgs.safehttp.fetch import FetchResult
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate

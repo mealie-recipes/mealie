@@ -1,9 +1,8 @@
 from datetime import UTC, datetime
 
-from fastapi.testclient import TestClient
-
 from mealie.core.config import get_app_settings
 from mealie.db.models.users.users import AuthMethod
+from mealie.http.testing import TestClient
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from tests import utils
 from tests.utils import api_routes

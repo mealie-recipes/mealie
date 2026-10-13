@@ -1,8 +1,8 @@
 import sqlalchemy as sa
-from fastapi import HTTPException, status
 from pydantic import UUID4
 
 from mealie.db.models.group.ai_providers import AIProvider, AIProviderSettings
+from mealie.http.api import HTTPException, status
 from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderOut
 
 from .repository_generic import GroupRepositoryGeneric

@@ -1,15 +1,16 @@
 from types import SimpleNamespace
 
 import pytest
-from fastapi import HTTPException
-from starlette.requests import Request
+from django.test import RequestFactory
+from rest_framework.request import Request as DRFRequest
 
 from mealie.core.dependencies.dependencies import get_auth_token, validate_long_live_token
+from mealie.http.api import HTTPException
+from mealie.http.requests import Request
 
 
 def build_request(cookie: str | None = None) -> Request:
-    headers = [(b"cookie", cookie.encode())] if cookie else []
-    return Request({"type": "http", "headers": headers})
+    return Request(DRFRequest(RequestFactory().get("/", headers={"cookie": cookie} if cookie else {})))
 
 
 @pytest.mark.asyncio

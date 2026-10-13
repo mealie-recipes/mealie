@@ -1,11 +1,11 @@
 from functools import cached_property
 
-from fastapi import APIRouter, BackgroundTasks, Body, Depends, HTTPException, status
-from fastapi.encoders import jsonable_encoder
 from pydantic import UUID4
 
 from mealie.core.config import get_app_settings
 from mealie.core.exceptions import NoEntryFound
+from mealie.http.api import APIRouter, BackgroundTasks, Body, Depends, HTTPException, status
+from mealie.http.encoding import jsonable_encoder
 from mealie.pkgs import safehttp
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller

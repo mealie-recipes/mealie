@@ -1,6 +1,6 @@
-from fastapi import APIRouter
 from pydantic import UUID4
 
+from mealie.http.api import APIRouter
 from mealie.repos.repository_factory import AllRepositories
 from mealie.routes._base import BaseAdminController, controller
 from mealie.routes._base.mixins import HttpRepo

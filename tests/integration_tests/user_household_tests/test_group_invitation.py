@@ -1,8 +1,8 @@
 from uuid import uuid4
 
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from tests.utils import api_routes
 from tests.utils.factories import user_registration_factory
 from tests.utils.fixture_schemas import TestUser

@@ -1,9 +1,9 @@
 from functools import cached_property
 from uuid import UUID
 
-from fastapi import HTTPException, status
 from pydantic import UUID4
 
+from mealie.http.api import HTTPException, status
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.routers import UserAPIRouter

@@ -1,9 +1,9 @@
 import shutil
 from functools import cached_property
 
-from fastapi import Depends, File, Form, HTTPException
 from pydantic import UUID4
 
+from mealie.http.api import Depends, File, Form, HTTPException
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo

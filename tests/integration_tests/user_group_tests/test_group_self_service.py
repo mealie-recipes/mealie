@@ -1,8 +1,8 @@
 import random
 
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.repos.repository_factory import AllRepositories
 from tests.utils import api_routes, random_int, random_string
 from tests.utils.fixture_schemas import TestUser

@@ -6,7 +6,6 @@ from datetime import UTC, datetime
 from math import ceil
 from typing import Any
 
-from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import ColumnElement, Select, case, delete, func, nulls_first, nulls_last, select
 from sqlalchemy.ext.associationproxy import AssociationProxyInstance
@@ -14,6 +13,7 @@ from sqlalchemy.orm.session import Session
 
 from mealie.core.root_logger import get_logger
 from mealie.db.models._model_base import SqlAlchemyBase
+from mealie.http.api import HTTPException
 from mealie.schema._mealie import MealieModel
 from mealie.schema.response.pagination import (
     OrderByNullPosition,

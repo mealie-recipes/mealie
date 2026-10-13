@@ -8,7 +8,6 @@ from uuid import UUID
 import sqlalchemy as sa
 from dateutil import parser as date_parser
 from dateutil.parser import ParserError
-from fastapi import HTTPException
 from humps import decamelize
 from sqlalchemy.ext.associationproxy import AssociationProxyInstance
 from sqlalchemy.orm import InstrumentedAttribute, Mapper, RelationshipProperty
@@ -17,6 +16,7 @@ from sqlalchemy.sql import sqltypes
 from mealie.db.models._model_base import SqlAlchemyBase
 from mealie.db.models._model_utils.datetime import NaiveDateTime
 from mealie.db.models._model_utils.guid import GUID
+from mealie.http.api import HTTPException
 from mealie.schema._mealie.mealie_model import MealieModel
 
 from .keywords import PlaceholderKeyword, RelationalKeyword

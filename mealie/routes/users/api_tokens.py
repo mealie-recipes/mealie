@@ -1,8 +1,7 @@
 from datetime import timedelta
 
-from fastapi import HTTPException, status
-
 from mealie.core.security import create_access_token
+from mealie.http.api import HTTPException, status
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import (

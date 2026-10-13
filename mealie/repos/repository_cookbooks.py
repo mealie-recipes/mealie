@@ -1,12 +1,12 @@
 import re
 from collections.abc import Iterable
 
-from fastapi import HTTPException, status
 from pydantic import UUID4
 from slugify import slugify
 from sqlalchemy.exc import IntegrityError
 
 from mealie.db.models.household.cookbook import CookBook
+from mealie.http.api import HTTPException, status
 from mealie.repos.repository_generic import HouseholdRepositoryGeneric
 from mealie.schema.cookbook.cookbook import ReadCookBook, SaveCookBook
 from mealie.schema.response.responses import ErrorResponse

@@ -1,8 +1,8 @@
 from functools import cached_property
 
-from fastapi import Depends
 from pydantic import UUID4
 
+from mealie.http.api import Depends
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo

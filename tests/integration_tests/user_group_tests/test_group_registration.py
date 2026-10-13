@@ -1,5 +1,4 @@
-from fastapi.testclient import TestClient
-
+from mealie.http.testing import TestClient
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.response.pagination import PaginationQuery

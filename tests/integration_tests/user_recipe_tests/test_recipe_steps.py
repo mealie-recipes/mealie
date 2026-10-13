@@ -1,8 +1,7 @@
 import json
 import random
 
-from fastapi.testclient import TestClient
-
+from mealie.http.testing import TestClient
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_step import IngredientReferences
 from tests.utils import api_routes, jsonify

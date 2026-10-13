@@ -3,8 +3,8 @@ from datetime import UTC, datetime, timedelta
 from uuid import UUID
 
 from dateutil.tz import tzlocal
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.schema.household.household import HouseholdSummary
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelSave, MultiPurposeLabelSummary
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry

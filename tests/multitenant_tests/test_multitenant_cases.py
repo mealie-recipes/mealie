@@ -1,6 +1,6 @@
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.repos.repository_factory import AllRepositories
 from tests.fixtures.fixture_multitenant import MultiTenant
 from tests.multitenant_tests.case_abc import ABCMultiTenantTestCase

@@ -1,6 +1,7 @@
 import asyncio
 from collections import defaultdict
-from collections.abc import AsyncIterable, Awaitable, Callable
+from collections.abc import AsyncGenerator, Awaitable, Callable
+from contextlib import aclosing
 from pathlib import PurePosixPath
 from shutil import copyfileobj
 from typing import Annotated, Any, BinaryIO
@@ -10,7 +11,14 @@ from uuid import UUID, uuid4
 import orjson
 import sqlalchemy
 import sqlalchemy.exc
-from fastapi import (
+from pydantic import UUID4
+from slugify import slugify
+
+from mealie.core import exceptions
+from mealie.core.dependencies import (
+    get_temporary_zip_path,
+)
+from mealie.http.api import (
     BackgroundTasks,
     Depends,
     File,
@@ -21,15 +29,7 @@ from fastapi import (
     Request,
     status,
 )
-from fastapi.datastructures import UploadFile
-from fastapi.sse import EventSourceResponse, ServerSentEvent
-from pydantic import UUID4
-from slugify import slugify
-
-from mealie.core import exceptions
-from mealie.core.dependencies import (
-    get_temporary_zip_path,
-)
+from mealie.http.responses import EventSourceResponse, ServerSentEvent, UploadFile
 from mealie.pkgs import cache, safehttp
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import controller
@@ -199,7 +199,7 @@ class RecipeController(BaseRecipeController):
         raise HTTPException(status_code=500, detail=ErrorResponse.respond(message="Unknown Error"))
 
     @router.post("/create/html-or-json/stream", response_class=EventSourceResponse)
-    async def create_recipe_from_html_or_json_stream(self, req: ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
+    async def create_recipe_from_html_or_json_stream(self, req: ScrapeRecipeData) -> AsyncGenerator[ServerSentEvent]:
         """
         Takes in raw HTML or a https://schema.org/Recipe object as a JSON string and parses it like a URL,
         streaming progress via SSE
@@ -208,8 +208,9 @@ class RecipeController(BaseRecipeController):
         if req.data.startswith("{"):
             req.data = RecipeScraperPackage.ld_json_to_html(req.data)
 
-        async for event in self._create_recipe_from_web(req):
-            yield event
+        async with aclosing(self._create_recipe_from_web(req)) as events:
+            async for event in events:
+                yield event
 
     @router.post("/create/url", status_code=201, response_model=str)
     async def parse_recipe_url(self, req: ScrapeRecipe) -> str:
@@ -225,14 +226,15 @@ class RecipeController(BaseRecipeController):
         raise HTTPException(status_code=500, detail=ErrorResponse.respond(message="Unknown Error"))
 
     @router.post("/create/url/stream", response_class=EventSourceResponse)
-    async def parse_recipe_url_stream(self, req: ScrapeRecipe) -> AsyncIterable[ServerSentEvent]:
+    async def parse_recipe_url_stream(self, req: ScrapeRecipe) -> AsyncGenerator[ServerSentEvent]:
         """
         Takes in a URL and attempts to scrape data and load it into the database,
         streaming progress via SSE
         """
 
-        async for event in self._create_recipe_from_web(req):
-            yield event
+        async with aclosing(self._create_recipe_from_web(req)) as events:
+            async for event in events:
+                yield event
 
     def _error_message(self, ex: Exception) -> str:
         """
@@ -274,7 +276,7 @@ class RecipeController(BaseRecipeController):
 
     async def _stream_recipe_creation(
         self, create: Callable[[Callable[[str], Awaitable[None]]], Awaitable[str]]
-    ) -> AsyncIterable[ServerSentEvent]:
+    ) -> AsyncGenerator[ServerSentEvent]:
         """
         Run a recipe creation coroutine, returning progress via SSE.
 
@@ -318,11 +320,15 @@ class RecipeController(BaseRecipeController):
             finally:
                 await queue.put(None)
 
-        asyncio.create_task(run())
-        while (event := await queue.get()) is not None:
-            yield event
+        producer = asyncio.create_task(run())
+        try:
+            while (event := await queue.get()) is not None:
+                yield event
+        finally:
+            producer.cancel()
+            await asyncio.gather(producer, return_exceptions=True)
 
-    def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData) -> AsyncIterable[ServerSentEvent]:
+    def _create_recipe_from_web(self, req: ScrapeRecipe | ScrapeRecipeData) -> AsyncGenerator[ServerSentEvent]:
         """Create a recipe from the web, returning progress via SSE"""
 
         if isinstance(req, ScrapeRecipeData):
@@ -415,7 +421,7 @@ class RecipeController(BaseRecipeController):
         translate_language: Annotated[str | None, Form(alias="translateLanguage")] = None,
         create_new_organizers: Annotated[bool, Form(alias="createNewOrganizers")] = False,
         images: list[UploadFile] = File(default_factory=list),
-    ) -> AsyncIterable[ServerSentEvent]:
+    ) -> AsyncGenerator[ServerSentEvent]:
         """
         Create a recipe from any combination of content (HTML, JSON, or text), images, and a URL,
         using AI, streaming progress via SSE
@@ -427,10 +433,11 @@ class RecipeController(BaseRecipeController):
             translate_language=translate_language,
             create_new_organizers=create_new_organizers,
         )
-        async for event in self._create_recipe_with_ai(req, images):
-            yield event
+        async with aclosing(self._create_recipe_with_ai(req, images)) as events:
+            async for event in events:
+                yield event
 
-    def _create_recipe_with_ai(self, req: ScrapeRecipeAI, images: list[UploadFile]) -> AsyncIterable[ServerSentEvent]:
+    def _create_recipe_with_ai(self, req: ScrapeRecipeAI, images: list[UploadFile]) -> AsyncGenerator[ServerSentEvent]:
         """Create a recipe using AI, returning progress via SSE"""
 
         ai_service = AIRecipeService(self.repos, self.user, self.household, translator=self.translator)

@@ -1,9 +1,9 @@
 import random
 
 import pytest
-from fastapi.testclient import TestClient
 from pydantic import UUID4
 
+from mealie.http.testing import TestClient
 from mealie.schema.cookbook.cookbook import ReadCookBook, SaveCookBook
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_category import TagSave

@@ -1,8 +1,7 @@
 from abc import ABC, abstractmethod
 
-from fastapi import Response
-from fastapi.testclient import TestClient
-
+from mealie.http.api import Response
+from mealie.http.testing import TestClient
 from mealie.repos.repository_factory import AllRepositories
 
 

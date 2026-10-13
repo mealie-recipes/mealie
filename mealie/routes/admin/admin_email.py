@@ -1,7 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Header
-
+from mealie.http.api import APIRouter, Header
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin.email import EmailReady, EmailSuccess, EmailTest
 from mealie.services.email import EmailService

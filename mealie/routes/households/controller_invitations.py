@@ -1,9 +1,8 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Header, HTTPException, status
-
 from mealie.core.config import get_app_settings
 from mealie.core.security import url_safe_token
+from mealie.http.api import APIRouter, Header, HTTPException, status
 from mealie.routes._base import BaseUserController, controller
 from mealie.schema.household.invite_token import (
     CreateInviteToken,

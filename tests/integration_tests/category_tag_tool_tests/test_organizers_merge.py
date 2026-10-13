@@ -5,8 +5,7 @@ Integration tests for:
 - POST /organizers/categories/merge
 """
 
-from fastapi.testclient import TestClient
-
+from mealie.http.testing import TestClient
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser

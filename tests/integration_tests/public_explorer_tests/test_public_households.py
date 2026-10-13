@@ -1,8 +1,8 @@
 from uuid import UUID
 
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.schema.household.household import HouseholdCreate
 from mealie.schema.household.household_preferences import CreateHouseholdPreferences
 from mealie.services.household_services.household_service import HouseholdService

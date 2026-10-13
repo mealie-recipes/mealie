@@ -3,9 +3,9 @@ from math import ceil, floor
 from uuid import uuid4
 
 import pytest
-from fastapi.testclient import TestClient
 from pydantic import UUID4
 
+from mealie.http.testing import TestClient
 from mealie.schema.household.group_shopping_list import (
     ShoppingListItemCreate,
     ShoppingListItemOut,

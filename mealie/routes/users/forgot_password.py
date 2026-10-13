@@ -1,9 +1,9 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, Header
 from sqlalchemy.orm.session import Session
 
 from mealie.db.db_setup import generate_session
+from mealie.http.api import APIRouter, Depends, Header
 from mealie.schema.user.user_passwords import ForgotPassword, ResetPassword
 from mealie.services.user_services.password_reset_service import PasswordResetService
 

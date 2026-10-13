@@ -1,4 +1,4 @@
-from fastapi import APIRouter
+from mealie.http.api import APIRouter
 
 from . import controller_categories, controller_tags, controller_tools
 

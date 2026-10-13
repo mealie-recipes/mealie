@@ -4,7 +4,6 @@ from pathlib import Path
 import jwt
 import ldap
 import pytest
-from fastapi import HTTPException
 from pytest import MonkeyPatch
 
 from mealie.core import security
@@ -17,6 +16,7 @@ from mealie.core.security.providers.credentials_provider import (
 from mealie.core.security.providers.ldap_provider import LDAPProvider
 from mealie.db.db_setup import session_context
 from mealie.db.models.users.users import AuthMethod
+from mealie.http.api import HTTPException
 from mealie.repos.repository_factory import AllRepositories
 from mealie.routes.utility_routes import download_file
 from mealie.schema.user.auth import CredentialsRequestForm

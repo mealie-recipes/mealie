@@ -1,8 +1,8 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
 
+from mealie.http.api import APIRouter, Depends, HTTPException, status
 from mealie.schema.group.group import GroupAdminUpdate
 from mealie.schema.mapper import mapper
 from mealie.schema.response.pagination import PaginationQuery

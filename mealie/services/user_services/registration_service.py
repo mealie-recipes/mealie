@@ -1,11 +1,11 @@
 from logging import Logger
 from uuid import uuid4
 
-from fastapi import HTTPException, status
 from pydantic import UUID4
 
 from mealie.core.config import get_app_settings
 from mealie.core.security import hash_password
+from mealie.http.api import HTTPException, status
 from mealie.lang.providers import Translator
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories

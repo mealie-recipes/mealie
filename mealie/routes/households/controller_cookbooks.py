@@ -2,10 +2,10 @@ from collections import defaultdict
 from functools import cached_property
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
 from pydantic import UUID4
 
 from mealie.core.exceptions import mealie_registered_exceptions
+from mealie.http.api import APIRouter, Depends, HTTPException
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo

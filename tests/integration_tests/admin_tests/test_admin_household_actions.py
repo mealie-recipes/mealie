@@ -1,5 +1,4 @@
-from fastapi.testclient import TestClient
-
+from mealie.http.testing import TestClient
 from mealie.repos.repository_factory import AllRepositories
 from tests.utils import api_routes
 from tests.utils.assertion_helpers import assert_ignore_keys

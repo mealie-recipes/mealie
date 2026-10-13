@@ -1,6 +1,5 @@
-from fastapi.testclient import TestClient
-
 from mealie.core.config import get_app_dirs
+from mealie.http.testing import TestClient
 from tests import data
 from tests.utils.fixture_schemas import TestUser
 

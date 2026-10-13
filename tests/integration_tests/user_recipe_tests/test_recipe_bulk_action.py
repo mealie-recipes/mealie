@@ -3,9 +3,9 @@ from pathlib import Path
 
 import pytest
 import sqlalchemy
-from fastapi.testclient import TestClient
 
 from mealie.core.dependencies.dependencies import validate_file_token
+from mealie.http.testing import TestClient
 from mealie.schema.recipe.recipe_bulk_actions import ExportTypes
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
 from tests import utils

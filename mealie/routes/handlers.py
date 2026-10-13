@@ -1,31 +1,13 @@
-from fastapi import FastAPI, Request, status
-from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from typing import Any
 
-from mealie.core.config import get_app_settings
 from mealie.core.root_logger import get_logger
+from mealie.http.requests import Request
 
 logger = get_logger()
 
 
-def log_wrapper(request: Request, e):
+def log_wrapper(request: Request, error: Any) -> None:
     logger.error("Start 422 Error".center(60, "-"))
     logger.error(f"{request.method} {request.url}")
-    logger.error(f"error is {e}")
+    logger.error(f"error is {error}")
     logger.error("End 422 Error".center(60, "-"))
-
-
-def register_debug_handler(app: FastAPI):
-    settings = get_app_settings()
-
-    if settings.PRODUCTION and not settings.TESTING:
-        return
-
-    @app.exception_handler(RequestValidationError)
-    async def validation_exception_handler(request: Request, exc: RequestValidationError):
-        exc_str = f"{exc}".replace("\n", " ").replace("   ", " ")
-        log_wrapper(request, exc)
-        content = {"status_code": status.HTTP_422_UNPROCESSABLE_CONTENT, "message": exc_str, "data": None}
-        return JSONResponse(content=content, status_code=status.HTTP_422_UNPROCESSABLE_CONTENT)
-
-    return validation_exception_handler

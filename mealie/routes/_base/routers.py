@@ -1,52 +1,23 @@
-import contextlib
-import json
-from collections.abc import Callable
 from enum import Enum
-from json.decoder import JSONDecodeError
-
-from fastapi import APIRouter, Depends, Request, Response
-from fastapi.routing import APIRoute
+from typing import Any
 
 from mealie.core.dependencies import get_admin_user, get_current_user
+from mealie.http.api import APIRouter, Depends
 
 
 class AdminAPIRouter(APIRouter):
-    """Router for functions to be protected behind admin authentication"""
+    """Routes restricted to administrators by Mealie's existing user checks."""
 
-    def __init__(self, tags: list[str | Enum] | None = None, prefix: str = "", **kwargs):
+    def __init__(self, tags: list[str | Enum] | None = None, prefix: str = "", **kwargs: Any) -> None:
         super().__init__(tags=tags, prefix=prefix, dependencies=[Depends(get_admin_user)], **kwargs)
 
 
 class UserAPIRouter(APIRouter):
-    """Router for functions to be protected behind user authentication"""
-
-    def __init__(self, tags: list[str | Enum] | None = None, prefix: str = "", **kwargs):
+    def __init__(self, tags: list[str | Enum] | None = None, prefix: str = "", **kwargs: Any) -> None:
         super().__init__(tags=tags, prefix=prefix, dependencies=[Depends(get_current_user)], **kwargs)
 
 
-class MealieCrudRoute(APIRoute):
-    """Route class to include the last-modified header when returning a MealieModel, when available"""
+class MealieCrudRoute:
+    """Include modification and cache headers on CRUD responses."""
 
-    def get_route_handler(self) -> Callable:
-        original_route_handler = super().get_route_handler()
-
-        async def custom_route_handler(request: Request) -> Response:
-            with contextlib.suppress(JSONDecodeError):
-                response = await original_route_handler(request)
-
-                # StreamingResponse from starlette doesn't have a body attribute, even though it inherits from Response,
-                # so we may get an attribute error here even though our type hinting suggests otherwise.
-                try:
-                    response_body = json.loads(response.body)
-                except AttributeError:
-                    return response
-
-                if isinstance(response_body, dict):
-                    if last_modified := response_body.get("updatedAt"):
-                        response.headers["last-modified"] = last_modified
-
-                        # Force no-cache for all responses to prevent browser from caching API calls
-                        response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
-            return response
-
-        return custom_route_handler
+    last_modified = True

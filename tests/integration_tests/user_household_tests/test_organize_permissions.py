@@ -5,8 +5,8 @@ Read endpoints remain open; only POST/PUT/DELETE require the permission.
 """
 
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser

@@ -1,6 +1,6 @@
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.schema.recipe.recipe_ingredient import CreateIngredientUnit
 from tests.utils import api_routes
 from tests.utils.factories import random_bool, random_string

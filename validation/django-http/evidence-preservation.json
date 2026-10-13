@@ -1,0 +1,9 @@
+{
+  "unchanged": true,
+  "sha256": {
+    "evidence/w1/agent-start-time.txt": "270ed05c7109f3547b385df71ade05e15fb37d1118029ad00f953bf0674c4dae",
+    "evidence/w1/baseline-commit.txt": "c742460ad3821cbd0b9f437ee3d2e3498522af255451f7e05931b06ca762a86d",
+    "evidence/w1/baseline-mypy.txt": "94abe49bbf1472cb54680753a5f41bff15a511e3c070b42ce0ec4378a87cd6b9",
+    "evidence/w1/baseline-tests.txt": "6fb95343ed6db01127348734ef8b83cbff3ede0e0a7c662be7449555dc9b7571"
+  }
+}

@@ -1,10 +1,9 @@
 from pathlib import Path
 
-from fastapi import APIRouter, Depends, HTTPException, status
-from starlette.responses import FileResponse
-
 from mealie.core.config import get_app_dirs
 from mealie.core.dependencies import validate_file_token
+from mealie.http.api import APIRouter, Depends, HTTPException, status
+from mealie.http.responses import FileResponse
 
 router = APIRouter(prefix="/api/utils", tags=["Utils"], include_in_schema=True)
 

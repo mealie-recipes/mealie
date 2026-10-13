@@ -46,7 +46,6 @@ from .user_passwords import (
 )
 
 __all__ = [
-    "CreateUserRegistration",
     "CredentialsRequest",
     "CredentialsRequestForm",
     "NativeOIDCTokenRequest",
@@ -54,6 +53,7 @@ __all__ = [
     "Token",
     "TokenData",
     "UnlockResults",
+    "CreateUserRegistration",
     "ChangePassword",
     "CreateToken",
     "DeleteTokenResponse",

@@ -1,6 +1,6 @@
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.pkgs import safehttp
 from mealie.routes.recipe.recipe_crud_routes import ASSET_MAX_DOWNLOAD_BYTES
 from mealie.schema.recipe.recipe import Recipe

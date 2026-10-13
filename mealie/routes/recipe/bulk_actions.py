@@ -1,12 +1,12 @@
 from functools import cached_property
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException, status
 from pydantic import UUID4
 
 from mealie.core.dependencies.dependencies import get_temporary_zip_path
 from mealie.core.exceptions import PermissionDenied
 from mealie.core.security import create_file_token
+from mealie.http.api import APIRouter, HTTPException, status
 from mealie.routes._base import BaseUserController, controller
 from mealie.schema.group.group_exports import GroupDataExport
 from mealie.schema.recipe.recipe_bulk_actions import (

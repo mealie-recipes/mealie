@@ -8,7 +8,6 @@ from typing import Any
 
 from alembic import command
 from alembic.config import Config
-from fastapi.encoders import jsonable_encoder
 from pydantic import BaseModel
 from sqlalchemy import Connection, ForeignKey, ForeignKeyConstraint, MetaData, Table, create_engine, insert, text
 from sqlalchemy.engine import base
@@ -18,6 +17,7 @@ from mealie.db import init_db
 from mealie.db.fixes.fix_migration_data import fix_migration_data
 from mealie.db.init_db import ALEMBIC_DIR
 from mealie.db.models._model_utils.guid import GUID
+from mealie.http.encoding import jsonable_encoder
 from mealie.services._base_service import BaseService
 
 

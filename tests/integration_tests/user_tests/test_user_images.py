@@ -1,5 +1,4 @@
-from fastapi.testclient import TestClient
-
+from mealie.http.testing import TestClient
 from tests import data as test_data
 from tests.utils import api_routes
 from tests.utils.fixture_schemas import TestUser

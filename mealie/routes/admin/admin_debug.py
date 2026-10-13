@@ -2,10 +2,10 @@ import os
 import shutil
 from pathlib import Path
 
-from fastapi import APIRouter, File, UploadFile
 from pydantic import UUID4
 
 from mealie.core.dependencies.dependencies import get_temporary_path
+from mealie.http.api import APIRouter, File, UploadFile
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin.debug import DebugResponse
 

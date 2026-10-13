@@ -1,9 +1,8 @@
 import shutil
 
-from fastapi import File, Form
-from fastapi.datastructures import UploadFile
-
 from mealie.core.dependencies import get_temporary_zip_path
+from mealie.http.api import File, Form
+from mealie.http.responses import UploadFile
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.group.group_migration import SupportedMigrations

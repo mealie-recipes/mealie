@@ -1,8 +1,7 @@
 import random
 from uuid import uuid4
 
-from fastapi.testclient import TestClient
-
+from mealie.http.testing import TestClient
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_shopping_list import ShoppingListOut
 from mealie.schema.labels.multi_purpose_label import MultiPurposeLabelOut

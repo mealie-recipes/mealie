@@ -1,7 +1,8 @@
 from inspect import signature
 
-from fastapi.exceptions import HTTPException, RequestValidationError
 from pydantic import ValidationError
+
+from mealie.http.api import HTTPException, RequestValidationError
 
 
 def format_exception(ex: Exception) -> str:

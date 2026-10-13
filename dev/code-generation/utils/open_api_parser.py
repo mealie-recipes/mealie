@@ -3,9 +3,10 @@ import re
 from pathlib import Path
 from typing import Any
 
-from fastapi import FastAPI
 from humps import camelize
 from slugify import slugify
+
+from mealie.http.lifecycle import DjangoApplication
 
 from .static import Directories
 
@@ -60,7 +61,7 @@ class APIFunction:
 
 
 class OpenAPIParser:
-    def __init__(self, app: FastAPI) -> None:
+    def __init__(self, app: DjangoApplication) -> None:
         self.app = app
         self.spec = app.openapi()
 

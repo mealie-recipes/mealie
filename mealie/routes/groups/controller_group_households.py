@@ -1,5 +1,4 @@
-from fastapi import Depends, HTTPException
-
+from mealie.http.api import Depends, HTTPException
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.routers import UserAPIRouter

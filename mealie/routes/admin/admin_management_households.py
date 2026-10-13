@@ -1,10 +1,10 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
 from sqlalchemy import func, select
 
 from mealie.db.models.users.users import User
+from mealie.http.api import APIRouter, Depends, HTTPException, status
 from mealie.schema.household.household import (
     HouseholdCreate,
     HouseholdInDB,

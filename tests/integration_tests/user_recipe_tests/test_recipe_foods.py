@@ -1,8 +1,8 @@
 from collections.abc import Generator
 
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.schema.recipe.recipe_ingredient import CreateIngredientFood
 from tests import utils
 from tests.utils import api_routes

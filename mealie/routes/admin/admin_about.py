@@ -1,7 +1,6 @@
-from fastapi import APIRouter
-
 from mealie.core.release_checker import get_latest_version
 from mealie.core.settings.static import APP_VERSION
+from mealie.http.api import APIRouter
 from mealie.routes._base import BaseAdminController, controller
 from mealie.schema.admin.about import AdminAboutInfo, AppStatistics, CheckAppConfig
 

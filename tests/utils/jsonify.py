@@ -1,4 +1,4 @@
-from fastapi.encoders import jsonable_encoder
+from mealie.http.encoding import jsonable_encoder
 
 
 def jsonify(data):

@@ -1,7 +1,6 @@
 from functools import cached_property
 
-from fastapi import Depends, HTTPException, status
-
+from mealie.http.api import Depends, HTTPException, status
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.routers import UserAPIRouter

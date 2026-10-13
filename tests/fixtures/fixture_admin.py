@@ -2,9 +2,9 @@ from uuid import UUID
 
 from pytest import fixture
 from sqlalchemy.orm import Session
-from starlette.testclient import TestClient
 
 from mealie.core.config import get_app_settings
+from mealie.http.testing import TestClient
 from mealie.repos.all_repositories import get_repositories
 from tests import utils
 from tests.utils import api_routes

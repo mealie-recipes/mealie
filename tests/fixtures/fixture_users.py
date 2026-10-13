@@ -4,10 +4,10 @@ from uuid import UUID
 
 from pytest import fixture
 from sqlalchemy.orm import Session
-from starlette.testclient import TestClient
 
 from mealie.db.db_setup import session_context
 from mealie.db.models.users.users import AuthMethod
+from mealie.http.testing import TestClient
 from mealie.repos.all_repositories import get_repositories
 from tests import utils
 from tests.utils import api_routes

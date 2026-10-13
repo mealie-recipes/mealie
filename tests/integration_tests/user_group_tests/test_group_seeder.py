@@ -1,5 +1,4 @@
-from fastapi.testclient import TestClient
-
+from mealie.http.testing import TestClient
 from mealie.schema.response.pagination import PaginationQuery
 from tests.utils import api_routes
 from tests.utils.fixture_schemas import TestUser

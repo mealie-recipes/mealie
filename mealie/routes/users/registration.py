@@ -1,6 +1,5 @@
-from fastapi import APIRouter, Depends, HTTPException, status
-
 from mealie.core.config import get_app_settings
+from mealie.http.api import APIRouter, Depends, HTTPException, status
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BasePublicController, controller
 from mealie.schema.response import ErrorResponse

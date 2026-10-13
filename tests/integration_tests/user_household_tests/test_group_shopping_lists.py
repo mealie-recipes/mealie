@@ -1,8 +1,8 @@
 import random
 
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.schema.household.group_shopping_list import (
     ShoppingListAddRecipeParamsBulk,
     ShoppingListItemOut,

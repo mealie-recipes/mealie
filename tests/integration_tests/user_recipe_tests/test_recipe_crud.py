@@ -10,7 +10,6 @@ from zipfile import ZipFile
 
 import pytest
 from bs4 import BeautifulSoup
-from fastapi.testclient import TestClient
 from httpx import Headers, Response
 from pytest import MonkeyPatch
 from recipe_scrapers._schemaorg import SchemaOrg
@@ -19,6 +18,7 @@ from slugify import slugify
 
 import mealie.services.scraper.recipe_scraper as recipe_scraper_module
 from mealie.db.models.recipe import RecipeModel
+from mealie.http.testing import TestClient
 from mealie.pkgs.safehttp.fetch import FetchResult
 from mealie.pkgs.safehttp.transport import AsyncSafeTransport
 from mealie.schema.cookbook.cookbook import SaveCookBook

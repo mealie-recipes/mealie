@@ -2,9 +2,6 @@ from datetime import timedelta
 from typing import Annotated, Any
 
 import jwt
-from fastapi import APIRouter, Depends, Header, Request, Response, status
-from fastapi.exceptions import HTTPException
-from fastapi.responses import RedirectResponse
 from jwt.exceptions import PyJWTError
 from pydantic import BaseModel
 from sqlalchemy.orm.session import Session
@@ -16,6 +13,8 @@ from mealie.core.dependencies import get_auth_token, get_current_user
 from mealie.core.exceptions import MissingClaimException, UserLockedOut
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
+from mealie.http.api import APIRouter, Depends, Header, HTTPException, Request, Response, status
+from mealie.http.responses import RedirectResponse
 from mealie.lang import get_locale_provider
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser

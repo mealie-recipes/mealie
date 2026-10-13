@@ -1,8 +1,8 @@
 from uuid import UUID
 
 import pytest
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.schema.meal_plan.plan_rules import PlanRulesOut
 from mealie.schema.recipe.recipe import RecipeCategory
 from mealie.schema.recipe.recipe_category import CategorySave

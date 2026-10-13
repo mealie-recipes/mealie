@@ -5,7 +5,7 @@ from abc import ABC, abstractmethod
 from collections.abc import Awaitable, Callable
 from typing import TYPE_CHECKING, Any
 
-from fastapi import HTTPException, status
+from mealie.http.api import HTTPException, status
 
 if TYPE_CHECKING:
     from recipe_scrapers import SchemaScraperFactory

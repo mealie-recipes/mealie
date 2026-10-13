@@ -2,9 +2,8 @@ import shutil
 from collections.abc import Awaitable, Callable
 from pathlib import Path
 
-from fastapi import UploadFile
-
 from mealie.core.dependencies.dependencies import get_temporary_path
+from mealie.http.api import UploadFile
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services.openai import OpenAIService
 from mealie.services.scraper.scraper import finalize_scraped_recipe

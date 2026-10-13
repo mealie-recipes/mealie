@@ -1,9 +1,9 @@
-from fastapi import HTTPException, status
 from pydantic import UUID4
 
 from mealie.core.security import hash_password
 from mealie.core.security.providers.credentials_provider import CredentialsProvider
 from mealie.db.models.users.users import AuthMethod
+from mealie.http.api import HTTPException, status
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed

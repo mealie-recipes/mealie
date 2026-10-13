@@ -1,10 +1,10 @@
-from fastapi import APIRouter, Depends, Response
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
 from mealie.core.settings.static import APP_VERSION
 from mealie.db.db_setup import generate_session
 from mealie.db.models.users.users import User
+from mealie.http.api import APIRouter, Depends, Response
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.admin.about import AppInfo, AppStartupInfo, AppTheme
 

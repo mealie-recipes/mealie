@@ -1,9 +1,9 @@
 from dataclasses import dataclass
 
 import pytest
-from fastapi.testclient import TestClient
 from sqlalchemy.orm import Session
 
+from mealie.http.testing import TestClient
 from tests import utils
 from tests.fixtures.fixture_users import build_unique_user
 from tests.utils.factories import random_string

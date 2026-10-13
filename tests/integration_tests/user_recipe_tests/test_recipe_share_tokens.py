@@ -3,8 +3,8 @@ from datetime import UTC, datetime, timedelta
 
 import pytest
 import sqlalchemy
-from fastapi.testclient import TestClient
 
+from mealie.http.testing import TestClient
 from mealie.schema.recipe.recipe_share_token import RecipeShareToken, RecipeShareTokenSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string

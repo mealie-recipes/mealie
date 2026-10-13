@@ -5,7 +5,6 @@ from collections.abc import Generator
 from datetime import UTC, datetime
 from urllib.parse import parse_qs, urlencode, urlsplit, urlunsplit
 
-from fastapi.encoders import jsonable_encoder
 from pydantic import UUID4
 from sqlalchemy import and_, or_, select
 from sqlalchemy.orm.session import Session
@@ -13,6 +12,7 @@ from sqlalchemy.sql.elements import ColumnElement
 
 from mealie.db.db_setup import session_context
 from mealie.db.models.household.webhooks import GroupWebhooksModel
+from mealie.http.encoding import jsonable_encoder
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.household.group_events import GroupEventNotifierPrivate
 from mealie.schema.household.webhook import ReadWebhook

@@ -1,9 +1,9 @@
 from functools import cached_property
 
-from fastapi.responses import JSONResponse
 from pydantic import BaseModel, Field
 
 from mealie.db.models.household.cookbook import CookBook
+from mealie.http.responses import JSONResponse
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.repos.repository_recipes import RepositoryRecipes
@@ -25,7 +25,7 @@ class JSONBytes(JSONResponse):
 
     media_type = "application/json"
 
-    def render(self, content: bytes) -> bytes:
+    def render_content(self, content: bytes) -> bytes:
         return content
 
 

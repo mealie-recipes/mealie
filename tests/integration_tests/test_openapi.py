@@ -1,4 +1,4 @@
-from fastapi.testclient import TestClient
+from mealie.http.testing import TestClient
 
 
 def test_openapi_returns_json(api_client: TestClient):
