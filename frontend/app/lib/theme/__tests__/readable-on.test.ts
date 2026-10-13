@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { readableOn, withReadableOn } from "../readable-on";
+import { contrast, readableOn, withReadableOn } from "../readable-on";
 
 describe("readableOn", () => {
   test.each([
@@ -31,5 +31,19 @@ describe("withReadableOn", () => {
       "on-info": "#FFFFFF",
       "surface": "#FFFFFF",
     });
+  });
+});
+
+describe("default status colours", () => {
+  // alerts and status text draw these colours as text on the page, the sidebar and cards
+  test.each([
+    ["light", ["#2A7531", "#1565C0", "#A84B0A", "#B3261E"], ["#FAF9F7", "#F3F1ED", "#FFFFFF"]],
+    ["dark", ["#4CAF50", "#5E9BD1", "#FF6D00", "#F2706C"], ["#161513", "#1C1B19", "#1F1E1C"]],
+  ])("meet 4.5:1 as text in the %s theme", (_, colors, backgrounds) => {
+    for (const color of colors) {
+      for (const background of backgrounds) {
+        expect(contrast(color, background)).toBeGreaterThanOrEqual(4.5);
+      }
+    }
   });
 });
