@@ -86,6 +86,14 @@ function step(direction: 1 | -1) {
   cursor: pointer;
 }
 
+/* on touch screens the step buttons are a full 44px wide, so their hit areas (from
+   .mealie-hit-target) stop at their own edges instead of reaching over the reset label */
+@media (pointer: coarse) {
+  .servings-stepper__btn {
+    width: 44px;
+  }
+}
+
 .servings-stepper__btn:disabled {
   color: var(--mealie-text-quaternary);
   cursor: default;
