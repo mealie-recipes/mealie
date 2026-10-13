@@ -49,13 +49,19 @@
         :units="units"
         @save="submit()"
       />
-      <div v-if="search?.trim() && !resolveFood(search, foods)">
+      <div class="d-flex flex-wrap align-center ga-3">
         <BaseButton
+          v-if="search?.trim() && !pickedFood && !resolveFood(search, foods)"
           size="small"
           color="info"
           :icon="$globals.icons.foods"
           :text="$t('shopping-list.save-as-new-food', { text: search.trim() })"
           @click="createFoodAndSubmit"
+        />
+        <v-spacer />
+        <BaseButton
+          save
+          @click="submit()"
         />
       </div>
     </template>
@@ -125,17 +131,20 @@ function foodName(food: IngredientFood | string) {
 }
 
 // Picking a suggestion is an explicit choice of that food; typing only updates the model with a string
-function onSelect(val: IngredientFood | string | null) {
-  if (val && typeof val === "object") {
-    submit(val);
+const pickedFood = computed(() => selected.value && typeof selected.value === "object" ? selected.value : undefined);
+
+// With the options open, picking a food only fills it in so the other fields can still be set before saving
+function onSelect() {
+  if (pickedFood.value && !showDetails.value) {
+    submit();
   }
 }
 
 // Free text is a food only on an exact match; anything else is kept verbatim as a note,
 // combined with anything typed in the note field
-function submit(pickedFood?: IngredientFood) {
+function submit(createdFood?: IngredientFood) {
   const text = search.value?.trim() || "";
-  const food = pickedFood ?? resolveFood(text, props.foods);
+  const food = createdFood ?? pickedFood.value ?? resolveFood(text, props.foods);
   const note = food ? listItem.value.note : [text, listItem.value.note].filter(Boolean).join(", ");
   if (!food && !note) {
     return;
