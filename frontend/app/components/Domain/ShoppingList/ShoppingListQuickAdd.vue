@@ -1,30 +1,74 @@
 <template>
-  <v-combobox
-    ref="inputRef"
-    v-model="selected"
-    v-model:search="search"
-    :items="search ? filteredFoods : []"
-    :item-title="foodName"
-    return-object
-    :custom-filter="() => true"
-    :label="$t('shopping-list.add-item')"
-    :prepend-inner-icon="$globals.icons.foods"
-    menu-icon=""
-    variant="solo-filled"
-    rounded
-    clearable
-    hide-details
-    hide-no-data
-    @update:model-value="onSelect"
-    @keyup.enter="submitText"
-  />
+  <div class="d-flex flex-column ga-3">
+    <v-combobox
+      ref="inputRef"
+      v-model="selected"
+      v-model:search="search"
+      :items="search ? filteredFoods : []"
+      :item-title="foodName"
+      return-object
+      :custom-filter="() => true"
+      :label="$t('shopping-list.add-item')"
+      :prepend-inner-icon="$globals.icons.foods"
+      menu-icon=""
+      variant="solo-filled"
+      rounded
+      clearable
+      hide-details
+      hide-no-data
+      @update:model-value="onSelect"
+      @keyup.enter="submit()"
+    >
+      <template #append-inner>
+        <v-tooltip
+          v-model="tooltipOpen"
+          :text="tooltipText"
+          location="top"
+        >
+          <template #activator="{ props: tooltipProps }">
+            <v-btn
+              v-bind="tooltipProps"
+              :icon="$globals.icons.chevronDown"
+              :class="{ 'quick-add-toggle--open': showDetails }"
+              :aria-label="$t('shopping-list.more-options')"
+              :aria-expanded="showDetails"
+              variant="text"
+              size="small"
+              @click.stop="toggleDetails"
+            />
+          </template>
+        </v-tooltip>
+      </template>
+    </v-combobox>
+
+    <template v-if="showDetails">
+      <ShoppingListItemDetails
+        v-model="listItem"
+        :labels="labels"
+        :units="units"
+        @save="submit()"
+      />
+      <div v-if="search?.trim() && !resolveFood(search, foods)">
+        <BaseButton
+          size="small"
+          color="info"
+          :icon="$globals.icons.foods"
+          :text="$t('shopping-list.save-as-new-food', { text: search.trim() })"
+          @click="createFoodAndSubmit"
+        />
+      </div>
+    </template>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { useFoodName, useFoodPlurality } from "~/composables/recipes/use-recipe-ingredients";
-import { resolveFood } from "~/composables/shopping-list-page/use-shopping-list-item-editor";
+import { resolveFood, useShoppingListItemEditor } from "~/composables/shopping-list-page/use-shopping-list-item-editor";
 import { useSearch } from "~/composables/use-search";
 import type { IngredientFood, ShoppingListItemOut } from "~/lib/api/types/household";
+import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
+import type { IngredientUnit } from "~/lib/api/types/recipe";
+import ShoppingListItemDetails from "./ShoppingListItemDetails.vue";
 
 const listItem = defineModel<ShoppingListItemOut>({ required: true });
 
@@ -33,12 +77,40 @@ const props = defineProps({
     type: Array as () => IngredientFood[],
     required: true,
   },
+  labels: {
+    type: Array as () => MultiPurposeLabelOut[],
+    required: true,
+  },
+  units: {
+    type: Array as () => IngredientUnit[],
+    required: true,
+  },
 });
 
 const emit = defineEmits<{ (e: "save"): void }>();
 
+const i18n = useI18n();
+
+const { createAssignFood } = useShoppingListItemEditor(listItem);
+
 const inputRef = ref<{ focus: () => void } | null>(null);
 const selected = ref<IngredientFood | string | null>(null);
+const showDetails = ref(false);
+const tooltipOpen = ref(false);
+const tooltipText = ref("");
+
+// The wording is fixed when the tooltip opens, and the tooltip hides on toggle, so the text never
+// changes while it's visible or fading out; the next hover shows the new wording
+watch(tooltipOpen, (open) => {
+  if (open) {
+    tooltipText.value = showDetails.value ? i18n.t("shopping-list.fewer-options") : i18n.t("shopping-list.more-options");
+  }
+});
+
+function toggleDetails() {
+  showDetails.value = !showDetails.value;
+  tooltipOpen.value = false;
+}
 const { search, filtered: filteredFoods } = useSearch(computed(() => props.foods));
 
 // Show suggestions the way the list will display the new item (no quantity or unit)
@@ -51,31 +123,45 @@ function foodName(food: IngredientFood | string) {
 // Picking a suggestion is an explicit choice of that food; typing only updates the model with a string
 function onSelect(val: IngredientFood | string | null) {
   if (val && typeof val === "object") {
-    save(val, "");
+    submit(val);
   }
 }
 
-// Free text is a food only on an exact match; anything else is kept verbatim as a note
-function submitText() {
-  const text = search.value?.trim();
-  if (!text) {
+// Free text is a food only on an exact match; anything else is kept verbatim as a note,
+// combined with anything typed in the note field
+function submit(pickedFood?: IngredientFood) {
+  const text = search.value?.trim() || "";
+  const food = pickedFood ?? resolveFood(text, props.foods);
+  const note = food ? listItem.value.note : [text, listItem.value.note].filter(Boolean).join(", ");
+  if (!food && !note) {
     return;
   }
 
-  const food = resolveFood(text, props.foods);
-  save(food, food ? "" : text);
-}
-
-function save(food: IngredientFood | undefined, note: string) {
   listItem.value.food = food;
   listItem.value.foodId = food?.id;
-  listItem.value.label = food?.label;
-  listItem.value.labelId = food?.labelId;
+  if (food && !listItem.value.labelId) {
+    listItem.value.label = food.label;
+    listItem.value.labelId = food.labelId;
+  }
   listItem.value.note = note;
+  listItem.value.quantity ||= 0;
   emit("save");
 
   selected.value = null;
   search.value = "";
   inputRef.value?.focus();
 }
+
+async function createFoodAndSubmit() {
+  await createAssignFood(search.value.trim());
+  if (listItem.value.foodId) {
+    submit(listItem.value.food as IngredientFood);
+  }
+}
 </script>
+
+<style scoped>
+.quick-add-toggle--open {
+  transform: rotate(180deg);
+}
+</style>

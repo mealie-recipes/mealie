@@ -795,7 +795,10 @@
     "no-shopping-lists-found": "No Shopping Lists Found",
     "new-list-name": "List Name",
     "failed-to-create-shopping-list": "Failed to create shopping list",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Backups",

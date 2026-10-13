@@ -198,6 +198,8 @@
         v-model="createListItemData"
         class="mb-3"
         :foods="allFoods || []"
+        :labels="allLabels || []"
+        :units="allUnits || []"
         @save="createListItem"
       />
 
