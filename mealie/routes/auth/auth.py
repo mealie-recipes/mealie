@@ -63,7 +63,11 @@ def _register_native_oidc_client(oauth_registry, client_args: dict[str, Any]) ->
 
 oauth = None
 if settings.OIDC_READY:
+    import ssl 
     from authlib.integrations.starlette_client import OAuth
+
+    ssl_context = ssl.create_default_context()
+    ssl_context.verify_flags &= ~ssl.VERIFY_X509_STRICT
 
     oauth = OAuth(cache=AuthCache())
     scope = None
@@ -77,6 +81,8 @@ if settings.OIDC_READY:
         client_args["timeout"] = settings.OIDC_CLIENT_TIMEOUT if settings.OIDC_CLIENT_TIMEOUT != "None" else None
     if settings.OIDC_TLS_CACERTFILE:
         client_args["verify"] = settings.OIDC_TLS_CACERTFILE
+    if settings.OIDC_VERIFY_X509_STRICT is False:
+        client_args["verify"] = ssl_context
 
     oauth.register(
         "oidc",
