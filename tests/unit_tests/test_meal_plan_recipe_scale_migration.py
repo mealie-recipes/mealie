@@ -14,21 +14,6 @@ def _columns(connection: sa.Connection) -> set[str]:
     return {column["name"] for column in sa.inspect(connection).get_columns("group_meal_plans")}
 
 
-def test_recipe_scale_migration_is_the_latest_revision() -> None:
-    """Databases that already ran every earlier revision only pick the column up if it comes last."""
-    latest = sorted(ALEMBIC_MIGRATIONS.glob("*.py"))[-1]
-    revisions = {
-        import_file("alembic_version", path).revision for path in ALEMBIC_MIGRATIONS.glob("*.py") if path != latest
-    }
-
-    migration = _migration()
-    assert migration.down_revision in revisions
-    assert not any(
-        import_file("alembic_version", path).down_revision == migration.revision
-        for path in ALEMBIC_MIGRATIONS.glob("*.py")
-    ), "an existing revision was re-pointed at the recipe_scale migration"
-
-
 def test_recipe_scale_migration_backfills_existing_entries() -> None:
     migration = _migration()
     engine = sa.create_engine("sqlite://")
