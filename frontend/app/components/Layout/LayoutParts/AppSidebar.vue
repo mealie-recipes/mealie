@@ -31,8 +31,9 @@
 
       <slot />
 
-      <!-- Primary Links -->
-      <nav v-if="topLink" class="mealie-sidebar__nav">
+      <!-- Primary Links. The drawer itself is the navigation landmark, so the link
+           lists inside it are plain groups rather than nested <nav>s -->
+      <div v-if="topLink" class="mealie-sidebar__nav">
         <template v-for="nav in topLink" :key="nav.key || nav.title">
           <template v-if="!nav.restricted || isOwnGroup">
             <!-- Multi Items -->
@@ -83,14 +84,14 @@
             </RouterLink>
           </template>
         </template>
-      </nav>
+      </div>
 
       <!-- Secondary Links -->
       <template v-if="secondaryLinks && secondaryLinks.length > 0">
         <div class="mealie-sidebar__section">
           {{ secondaryHeader }}
         </div>
-        <nav class="mealie-sidebar__nav">
+        <div class="mealie-sidebar__nav">
           <template v-for="nav in secondaryLinks" :key="nav.key || nav.title">
             <template v-if="!nav.restricted || isOwnGroup">
               <!-- Multi Items, e.g. another household's cookbooks -->
@@ -143,13 +144,13 @@
               </RouterLink>
             </template>
           </template>
-        </nav>
+        </div>
       </template>
 
       <div class="mealie-sidebar__spacer" />
 
       <!-- Bottom Navigation Links -->
-      <nav class="mealie-sidebar__nav">
+      <div class="mealie-sidebar__nav">
         <button
           v-if="loggedIn && announcementsEnabled"
           type="button"
@@ -187,7 +188,7 @@
             <v-list-item v-if="loggedIn" :prepend-icon="$globals.icons.logout" :title="$t('user.logout')" @click="logout" />
           </v-list>
         </v-menu>
-      </nav>
+      </div>
 
       <!-- User Profile -->
       <div class="mealie-sidebar__user">
