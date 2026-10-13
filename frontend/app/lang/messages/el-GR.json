@@ -1076,6 +1076,8 @@
     "share-recipe": "Κοινή χρήση συνταγής",
     "default-30-days": "Προεπιλογή 30 Ημέρες",
     "expires-at": "Λήγει στις",
+    "show-qr-code": "Εμφάνιση QR Code",
+    "scan-qr-code": "Σαρώστε με την κάμερα ενός τηλεφώνου για να ανοίξετε αυτή τη συνταγή",
     "recipe-link-copied-message": "Ο σύνδεσμος συνταγής αντιγράφηκε στο πρόχειρο"
   },
   "banner-experimental": {
