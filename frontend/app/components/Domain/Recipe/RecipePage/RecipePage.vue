@@ -21,99 +21,82 @@
       @update:model-value="toggleIsParsing"
       @save="saveParsedIngredients"
     />
-    <v-container v-if="isEditMode" key="recipe-page" class="px-0" :class="{ 'pa-0': $vuetify.display.smAndDown }">
-      <v-card flat class="d-print-none">
-        <RecipePageHeader
-          ref="recipeToolbar"
-          :recipe="recipe"
-          :recipe-scale="scale"
-          :landscape="landscape"
-          @save="saveRecipe"
-          @delete="deleteRecipe"
-          @close="closeEditor"
-        />
-        <RecipeJsonEditor
-          v-if="isEditJSON"
-          v-model="recipe"
-          class="mt-10"
-          mode="text"
-          :main-menu-bar="false"
-        />
-        <v-card-text v-else>
-          <!--
-            This is where most of the main content is rendered. Some components include state for both Edit and View modes
-            which is why some have explicit v-if statements and others use the composition API to determine and manage
-            the shared state internally.
-
-            The global recipe object is shared down the tree of components and _is_ mutated by child components. This is
-            some-what of a hack of the system and goes against the principles of Vue, but it _does_ seem to work and streamline
-            a significant amount of prop management. When we move to Vue 3 and have access to some of the newer API's the plan to update this
-            data management and mutation system we're using.
-          -->
-          <div>
-            <RecipePageInfoEditor v-if="isEditMode" v-model="recipe" />
-          </div>
-          <div>
-            <RecipePageEditorToolbar v-if="isEditForm" v-model="recipe" />
-          </div>
-          <div>
-            <RecipePageIngredientEditor v-if="isEditForm" v-model="recipe" />
-          </div>
-          <div>
-            <RecipePageScale v-model="scale" :recipe="recipe" />
-          </div>
-
-          <!--
-            This section contains the 2 column layout for the recipe steps and other content.
-          -->
-          <v-row>
-            <!--
-              The left column is conditionally rendered based on cook mode.
-            -->
-            <v-col
-              v-if="!isCookMode || isEditForm"
-              cols="12"
-              sm="12"
-              md="4"
-              :class="$vuetify.display.mdAndUp ? 'border-e-thin' : null"
-            >
-              <RecipePageIngredientToolsView
-                v-if="!isEditForm"
-                :recipe="displayedRecipe"
-                :scale="scale"
-                :ingredient-storage-key="ingredientStorageKey"
-                class="pr-2"
-              />
-              <RecipePageOrganizers v-if="$vuetify.display.mdAndUp" v-model="recipe" class="pr-2" @item-selected="chipClicked" />
-            </v-col>
-            <!--
-              the right column is always rendered, but it's layout width is determined by where the left column is
-              rendered.
-            -->
-            <v-col cols="12" sm="12" :md="8 + (isCookMode ? 1 : 0) * 4">
-              <RecipePageInstructions
-                v-model="recipe.recipeInstructions"
-                v-model:assets="recipe.assets"
-                :recipe="displayedRecipe"
-                :scale="scale"
-                :ingredient-storage-key="ingredientStorageKey"
-              />
-              <div v-if="isEditForm" class="d-flex">
-                <RecipeDialogBulkAdd class="ml-auto my-2 mr-1" @bulk-data="addStep" />
-                <BaseButton class="my-2" @click="addStep()">
-                  {{ $t("general.add") }}
-                </BaseButton>
+    <!-- Editor -->
+    <div v-if="isEditMode" key="recipe-edit" class="recipe-edit">
+      <RecipePageEditBar
+        ref="recipeToolbar"
+        :recipe="recipe"
+        @save="saveRecipe"
+        @delete="deleteRecipe"
+        @close="closeEditor"
+      />
+      <div class="recipe-edit__body d-print-none">
+        <section v-if="isEditJSON" class="recipe-edit__card mealie-card">
+          <RecipeJsonEditor
+            v-model="recipe"
+            mode="text"
+            :main-menu-bar="false"
+          />
+        </section>
+        <template v-else>
+          <section class="recipe-edit__card mealie-card">
+            <h2 class="recipe-edit__heading">
+              {{ $t("recipe-edit.details") }}
+            </h2>
+            <div class="recipe-edit__details">
+              <div class="recipe-edit__photo-column">
+                <div class="recipe-edit__photo mealie-photo-placeholder">
+                  <img
+                    v-if="recipe.image && !editImageFailed"
+                    :key="imageKey"
+                    :src="recipeImage(recipe.id, recipe.image, imageKey)"
+                    alt=""
+                    @error="editImageFailed = true"
+                  >
+                </div>
+                <RecipePageEditorToolbar v-model="recipe" class="recipe-edit__photo-tools" />
               </div>
-              <div v-if="!$vuetify.display.mdAndUp">
-                <RecipePageOrganizers v-model="recipe" />
-              </div>
-              <RecipeNotes v-model="recipe.notes" :edit="isEditForm" />
-            </v-col>
-          </v-row>
-          <RecipePageFooter v-model="recipe" />
-        </v-card-text>
-      </v-card>
-    </v-container>
+              <RecipePageInfoEditor v-model="recipe" class="recipe-edit__fields" />
+            </div>
+          </section>
+
+          <section class="recipe-edit__card mealie-card">
+            <RecipePageIngredientEditor v-model="recipe" />
+          </section>
+
+          <section class="recipe-edit__card mealie-card">
+            <RecipePageInstructions
+              v-model="recipe.recipeInstructions"
+              v-model:assets="recipe.assets"
+              :recipe="displayedRecipe"
+              :scale="scale"
+              :ingredient-storage-key="ingredientStorageKey"
+            />
+            <div class="d-flex justify-end ga-2 mt-2">
+              <RecipeDialogBulkAdd @bulk-data="addStep" />
+              <BaseButton @click="addStep()">
+                {{ $t("general.add") }}
+              </BaseButton>
+            </div>
+          </section>
+
+          <section class="recipe-edit__card mealie-card">
+            <h2 class="recipe-edit__heading">
+              {{ $t("recipe-edit.organize") }}
+            </h2>
+            <RecipePageOrganizers v-model="recipe" @item-selected="chipClicked" />
+          </section>
+
+          <section class="recipe-edit__card mealie-card">
+            <h2 class="recipe-edit__heading">
+              {{ $t("recipe-edit.more") }}
+            </h2>
+            <RecipeNotes v-model="recipe.notes" edit />
+            <RecipePageFooter v-model="recipe" />
+          </section>
+        </template>
+      </div>
+    </div>
     <!-- Reading view -->
     <div v-else v-show="!isCookMode" key="recipe-view" class="recipe-view">
       <RecipePageHero :recipe="recipe" :scale="scale" />
@@ -189,17 +172,16 @@ import { invoke, until } from "@vueuse/core";
 import type { RouteLocationNormalized } from "vue-router";
 import RecipePageEditorToolbar from "./RecipePageParts/RecipePageEditorToolbar.vue";
 import RecipePageFooter from "./RecipePageParts/RecipePageFooter.vue";
-import RecipePageHeader from "./RecipePageParts/RecipePageHeader.vue";
 import RecipePageIngredientEditor from "./RecipePageParts/RecipePageIngredientEditor.vue";
 import RecipePageIngredientToolsView from "./RecipePageParts/RecipePageIngredientToolsView.vue";
 import RecipePageInstructions from "./RecipePageParts/RecipePageInstructions.vue";
 import RecipePageOrganizers from "./RecipePageParts/RecipePageOrganizers.vue";
 import RecipePageParseDialog from "./RecipePageParts/RecipeParseDialog/RecipePageParseDialog.vue";
-import RecipePageScale from "./RecipePageParts/RecipePageScale.vue";
 import RecipePageInfoEditor from "./RecipePageParts/RecipePageInfoEditor.vue";
 import RecipePageComments from "./RecipePageParts/RecipePageComments.vue";
 import RecipePageCookMode from "./RecipePageParts/RecipePageCookMode.vue";
 import RecipePageHero from "./RecipePageParts/RecipePageHero.vue";
+import RecipePageEditBar from "./RecipePageParts/RecipePageEditBar.vue";
 import RecipePageServingsStepper from "./RecipePageParts/RecipePageServingsStepper.vue";
 import RecipeUnitSystemButton from "~/components/Domain/Recipe/RecipeUnitSystemButton.vue";
 import RecipePrintContainer from "~/components/Domain/Recipe/RecipePrintContainer.vue";
@@ -212,7 +194,7 @@ import { useCookModeQuery, type BooleanString } from "~/composables/recipe-page/
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe, RecipeCategory, RecipeIngredient, RecipeTag, RecipeTool } from "~/lib/api/types/recipe";
 import { useRouteQuery } from "~/composables/use-router";
-import { useUserApi } from "~/composables/api";
+import { useStaticRoutes, useUserApi } from "~/composables/api";
 import { uuid4, deepCopy } from "~/composables/use-utils";
 import RecipeDialogBulkAdd from "~/components/Domain/Recipe/RecipeDialogBulkAdd.vue";
 import RecipeNotes from "~/components/Domain/Recipe/RecipeNotes.vue";
@@ -223,7 +205,6 @@ import { useHouseholdSelf } from "~/composables/use-households";
 
 const recipe = defineModel<NoUndefinedField<Recipe>>({ required: true });
 
-const display = useDisplay();
 const auth = useMealieAuth();
 const route = useRoute();
 const { isOwnGroup } = useLoggedInState();
@@ -241,8 +222,13 @@ const ingredientStorageKey = computed(() => `recipe-ingredients:${recipe.value.i
 
 const router = useRouter();
 const api = useUserApi();
-const { pageMode, setMode, isEditForm, isEditJSON, isCookMode, isEditMode, isParsing, toggleIsParsing }
+const { pageMode, setMode, isEditJSON, isCookMode, isEditMode, isParsing, toggleIsParsing, imageKey }
   = usePageState(recipe.value.slug);
+const { recipeImage } = useStaticRoutes();
+const editImageFailed = ref(false);
+watch(() => [recipe.value.image, imageKey.value], () => {
+  editImageFailed.value = false;
+});
 const { deactivateNavigationWarning } = useNavigationWarning();
 const scale = ref(1);
 
@@ -447,23 +433,6 @@ async function deleteRecipe() {
 }
 
 /** =============================================================
- * View Preferences
- */
-const landscape = computed(() => {
-  const preferLandscape = recipe.value.settings?.landscapeView;
-  const smallScreen = !display.smAndUp.value;
-
-  if (preferLandscape) {
-    return true;
-  }
-  else if (smallScreen) {
-    return true;
-  }
-
-  return false;
-});
-
-/** =============================================================
  * Bulk Step Editor
  * TODO: Move to RecipePageInstructions component
  */
@@ -508,6 +477,156 @@ function chipClicked(item: RecipeTag | RecipeCategory | RecipeTool, itemType: st
 </script>
 
 <style lang="css">
+.recipe-edit {
+  padding-bottom: 96px;
+}
+
+.recipe-edit__body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 32px 0;
+}
+
+.recipe-edit__card {
+  padding: 24px 28px;
+}
+
+.recipe-edit__heading {
+  margin: 0 0 16px;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--mealie-ink);
+}
+
+.recipe-edit__details {
+  display: grid;
+  grid-template-columns: minmax(0, 320px) minmax(0, 1fr);
+  gap: 32px;
+}
+
+.recipe-edit__photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  overflow: hidden;
+}
+
+.recipe-edit__photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipe-edit__photo-tools {
+  margin-top: 8px;
+}
+
+/* the owner picker sits under the photo rather than out to the side */
+.recipe-edit__photo-tools .v-spacer {
+  display: none;
+}
+
+.recipe-edit__photo-tools .v-select {
+  flex-basis: 100%;
+  max-width: none !important;
+}
+
+/* calmer fields: soft filled boxes instead of underlines, sized to the page's type */
+.recipe-edit .v-field--variant-underlined,
+.recipe-edit .v-field--variant-filled {
+  --v-field-padding-start: 12px;
+  --v-field-padding-end: 12px;
+  border-radius: 10px;
+  background: var(--mealie-fill-subtle);
+}
+
+/* the outline also carries the floating label, so only its lines are hidden */
+.recipe-edit .v-field--variant-underlined .v-field__outline::before,
+.recipe-edit .v-field--variant-underlined .v-field__outline::after,
+.recipe-edit .v-field--variant-filled .v-field__outline::before,
+.recipe-edit .v-field--variant-filled .v-field__outline::after {
+  border-color: transparent !important;
+}
+
+/* labels and text share the box's inner padding */
+.recipe-edit .v-field--variant-underlined .v-field-label {
+  margin-inline-start: 12px;
+}
+
+.recipe-edit .v-field--variant-underlined .v-field-label--floating {
+  top: 14px;
+}
+
+.recipe-edit .v-field--variant-underlined .v-field__input,
+.recipe-edit .v-field--variant-underlined .v-text-field__prefix,
+.recipe-edit .v-field--variant-underlined .v-text-field__suffix {
+  padding-top: 24px;
+  padding-bottom: 6px;
+}
+
+/* the editors' buttons, in the page's quieter colours */
+.recipe-edit__photo-tools .v-btn {
+  background: var(--mealie-fill-subtle) !important;
+  color: var(--mealie-ink) !important;
+  box-shadow: none !important;
+  border-radius: 999px !important;
+}
+
+.recipe-edit .split-main,
+.recipe-edit .split-dropdown {
+  background: rgb(var(--v-theme-primary)) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+.recipe-edit .v-field--variant-underlined.v-field--focused,
+.recipe-edit .v-field--variant-filled.v-field--focused {
+  box-shadow: 0 0 0 2px rgba(var(--v-theme-primary), 0.45);
+}
+
+.recipe-edit .v-field--variant-underlined .v-field__overlay,
+.recipe-edit .v-field--variant-filled .v-field__overlay {
+  opacity: 0 !important;
+}
+
+/* steps sit inside a card already, so their own cards drop the shadow for a hairline */
+.recipe-edit .list-group-item > .v-card {
+  border-radius: 16px !important;
+  background: var(--mealie-canvas) !important;
+  box-shadow: inset 0 0 0 1px var(--mealie-hairline-strong) !important;
+}
+
+/* the editors' own headings, matched to the cards' */
+.recipe-edit h2.text-h5,
+.recipe-edit .method-title {
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.02em;
+  opacity: 1 !important;
+  color: var(--mealie-ink);
+}
+
+@media (max-width: 960px) {
+  .recipe-edit__body {
+    padding: 20px 16px 0;
+  }
+
+  .recipe-edit__card {
+    padding: 20px 16px;
+  }
+
+  .recipe-edit__details {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+}
+
 .recipe-view {
   max-width: 1360px;
   margin: 0 auto;

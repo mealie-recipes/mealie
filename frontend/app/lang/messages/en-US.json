@@ -1294,5 +1294,14 @@
     "timer-done": "Timer done",
     "keyboard-hint": "Use ← → to move between steps",
     "no-steps": "This recipe has no steps yet."
+  },
+  "recipe-edit": {
+    "editing": "Editing",
+    "editor": "Editor",
+    "form": "Form",
+    "details": "Details",
+    "photo": "Photo",
+    "organize": "Organize",
+    "more": "Notes & Nutrition"
   }
 }

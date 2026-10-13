@@ -30,6 +30,12 @@
         >
           {{ $t("general.share") }}
         </button>
+        <RecipeTimelineBadge
+          v-if="isOwnGroup"
+          pill
+          :slug="recipe.slug"
+          :recipe-name="recipe.name!"
+        />
         <button
           v-if="isOwnGroup"
           type="button"
@@ -170,6 +176,7 @@ import RecipeContextMenuContent from "~/components/Domain/Recipe/RecipeContextMe
 import RecipeImageLightbox from "~/components/Domain/Recipe/RecipeImageLightbox.vue";
 import RecipeLastMade from "~/components/Domain/Recipe/RecipeLastMade.vue";
 import RecipeRating from "~/components/Domain/Recipe/RecipeRating.vue";
+import RecipeTimelineBadge from "~/components/Domain/Recipe/RecipeTimelineBadge.vue";
 import { useStaticRoutes, useUserApi } from "~/composables/api";
 import { useRecipePermissions, useRecipeTime } from "~/composables/recipes";
 import { PageMode, usePageState, usePageUser } from "~/composables/recipe-page/shared-state";
