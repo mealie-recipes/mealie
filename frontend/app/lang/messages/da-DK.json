@@ -918,8 +918,8 @@
       "food-data": "Oplysninger om fødevare",
       "label-overwrite-warning": "Dette vil tildele den valgte etiket til alle udvalgte fødevarer og potentielt overskrive dine eksisterende etiketter.",
       "on-hand-checkbox-label": "Ændring af dette flag ændrer markeringen, så denne fødevare ikke er markeret som standard, når du tilføjer en opskrift til en indkøbsliste.",
-      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
-      "no-unused-foods": "No unused foods to delete",
+      "delete-unused-confirm": "Er det OK at slette denne ubrugte ingrediens? Det kan ikke gøres om. | Er det OK at slette disse {count} ubrugte ingredienser? Det kan ikke gøres om.",
+      "no-unused-foods": "Ingen ubrugte ingredienser til sletning",
       "substitutions": "Erstatninger",
       "manage-substitutions": "Håndtér erstatninger",
       "substitution-dialog-text": "Foreslå ingredienser, der kan benyttes i stedet for {food}. En erstatningsterm kan være en ingrediens, en note, eller begge.",
@@ -959,13 +959,13 @@
       "new-label": "Ny etiket",
       "labels": "Etiketter",
       "assign-label": "Tildel etiket",
-      "combine-label": "Combine Label",
-      "source-label": "Source Label",
-      "target-label": "Target Label",
-      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
-      "merge-label-example": "Merging {label1} into {label2}",
-      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
-      "no-unused-labels": "No unused labels to delete"
+      "combine-label": "Kombinér etiketter",
+      "source-label": "Kildeetiket",
+      "target-label": "Måletiket",
+      "merge-dialog-text": "At kombinere de valgte etiketter vil flette kilde- og måletiketten sammen til en enkelt etiket. Kildeetiketten vil blive slettet, og alle referencer til den vil blive ændret til at pege på måletiketten.",
+      "merge-label-example": "Fletter {label1} sammen med {label2}",
+      "delete-unused-confirm": "Er det OK at slette denne ubrugte etiket? Det kan ikke gøres om. | Er det OK at slette disse {count} ubrugte etiketter? Det kan ikke gøres om.",
+      "no-unused-labels": "Ingen ubrugte etiketter at slette"
     },
     "recipes": {
       "purge-exports": "Slet eksporter",
@@ -1039,13 +1039,13 @@
       "new-tool": "Nyt redskab",
       "edit-tool": "Redigér redskaber",
       "tool-data": "Redskabsoplysninger",
-      "combine-tool": "Combine Tool",
-      "source-tool": "Source Tool",
-      "target-tool": "Target Tool",
-      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
-      "merge-tool-example": "Merging {tool1} into {tool2}",
-      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
-      "no-unused-tools": "No unused tools to delete"
+      "combine-tool": "Kombinér redskaber",
+      "source-tool": "Kilderedskab",
+      "target-tool": "Målredskab",
+      "merge-dialog-text": "At kombinere de valgte redskaber vil flette kilde- og målaredskabet sammen til et enkelt redskab. Kilderedskabet vil blive slettet, og alle referencer til den vil blive ændret til at pege på målredskabet.",
+      "merge-tool-example": "Fletter {tool1} sammen med {tool2}",
+      "delete-unused-confirm": "Er det OK at slette dette ubrugte redskab? Dette kan ikke omgøres. | Er det OK at slette disse {count} ubrugte redskaber? Dette kan ikke omgøres.",
+      "no-unused-tools": "Ingen ubrugte redskaber at slette"
     }
   },
   "user-registration": {
@@ -1222,8 +1222,8 @@
       "is-less-than-or-equal-to": "er mindre end eller lig med (Automatic Translation)",
       "is-older-than": "er ældre end",
       "is-newer-than": "er nyere end",
-      "has-a-value": "has a value",
-      "has-no-value": "has no value"
+      "has-a-value": "har værdien",
+      "has-no-value": "har ingen værdi"
     },
     "relational-keywords": {
       "is": "er",

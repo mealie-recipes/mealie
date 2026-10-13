@@ -605,10 +605,10 @@
     "recipe-actions": "Receptekkel kapcsolatos tevékenységek",
     "unit-system": {
       "as-written": "As written",
-      "metric": "Metric",
-      "metric-with-hint": "Metric (g, ml)",
-      "imperial": "Imperial",
-      "imperial-with-hint": "Imperial (cups, oz)"
+      "metric": "Metrikus",
+      "metric-with-hint": "Metrikus (g, ml)",
+      "imperial": "Angolszász",
+      "imperial-with-hint": "Angolszász (bögre, uncia)"
     },
     "parser": {
       "ingredient-parser": "Hozzávaló elemző",
@@ -960,7 +960,7 @@
       "labels": "Címkék",
       "assign-label": "Címke hozzárendelése",
       "combine-label": "Combine Label",
-      "source-label": "Source Label",
+      "source-label": "Forrás címke",
       "target-label": "Target Label",
       "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
       "merge-label-example": "Merging {label1} into {label2}",
@@ -1127,7 +1127,7 @@
     "ingredients-natural-language-processor-explanation-2": "Nem tökéletes, de általában nagyszerű eredményeket ad, és jó kiindulópont a hozzávalók kézi elemzésére az egyedi mezőkbe. Alternatívaként használhatja a \"Brute\" feldolgozót is, amely egy mintaillesztési technikát használ a hozzávalók azonosítására.",
     "nlp": "NLP",
     "brute": "Brute",
-    "ai-providers": "AI Providers",
+    "ai-providers": "AI szolgáltatók",
     "show-individual-confidence": "Mutasd az egyes elemek bizalmi szintjét",
     "ingredient-text": "Hozzávaló szöveg",
     "average-confident": "{0}-os bizonyosság",
@@ -1222,8 +1222,8 @@
       "is-less-than-or-equal-to": "kevesebb vagy egyenlő",
       "is-older-than": "régebbi, mint",
       "is-newer-than": "újabb, mint",
-      "has-a-value": "has a value",
-      "has-no-value": "has no value"
+      "has-a-value": "van értéke",
+      "has-no-value": "nincs értéke"
     },
     "relational-keywords": {
       "is": "van",

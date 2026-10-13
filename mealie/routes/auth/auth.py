@@ -29,6 +29,38 @@ logger = root_logger.get_logger("auth")
 
 
 settings = get_app_settings()
+
+
+def _register_native_oidc_client(oauth_registry, client_args: dict[str, Any]) -> None:
+    """Register the "oidc_native" client used by the native endpoints.
+
+    It is the web client unless OIDC_NATIVE_CLIENT_ID is set. The secretless (public) mode only applies
+    when that id is set and OIDC_NATIVE_CONFIDENTIAL is false; the web client is never affected.
+    """
+    client_id = settings.OIDC_NATIVE_CLIENT_ID or settings.OIDC_CLIENT_ID
+    client_secret = settings.OIDC_CLIENT_SECRET
+    native_client_args = client_args
+
+    if not settings.OIDC_NATIVE_CONFIDENTIAL:
+        if settings.OIDC_NATIVE_CLIENT_ID:
+            client_secret = None
+            native_client_args = {**client_args, "token_endpoint_auth_method": "none"}
+        else:
+            logger.warning(
+                "[OIDC] OIDC_NATIVE_CONFIDENTIAL=false has no effect without OIDC_NATIVE_CLIENT_ID; "
+                "the native endpoints will use the confidential client"
+            )
+
+    oauth_registry.register(
+        "oidc_native",
+        client_id=client_id,
+        client_secret=client_secret,
+        server_metadata_url=settings.OIDC_CONFIGURATION_URL,
+        client_kwargs=native_client_args,
+        code_challenge_method="S256",
+    )
+
+
 oauth = None
 if settings.OIDC_READY:
     from authlib.integrations.starlette_client import OAuth
@@ -54,6 +86,7 @@ if settings.OIDC_READY:
         client_kwargs=client_args,
         code_challenge_method="S256",
     )
+    _register_native_oidc_client(oauth, client_args)
 
 
 SESSION_COOKIE_NAME = "mealie.access_token"
@@ -232,7 +265,7 @@ async def oauth_native_config():
             detail="OIDC is not configured",
         )
 
-    client = oauth.create_client("oidc")
+    client = oauth.create_client("oidc_native")
     metadata = await client.load_server_metadata()
     return OIDCNativeConfig(
         authorization_endpoint=metadata["authorization_endpoint"],
@@ -262,7 +295,7 @@ async def oauth_native_token(
 
     from authlib.integrations.starlette_client import OAuthError
 
-    client = oauth.create_client("oidc")
+    client = oauth.create_client("oidc_native")
     try:
         token = await client.fetch_access_token(
             code=data.code,
