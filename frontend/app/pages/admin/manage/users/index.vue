@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container class="lg-container">
     <UserInviteDialog v-model="inviteDialog" />
     <BaseDialog
       v-model="state.deleteDialog"
@@ -23,7 +23,11 @@
       </v-card-text>
     </BaseDialog>
 
-    <BaseCardSectionTitle :title="$t('user.user-management')" />
+    <BasePageTitle>
+      <template #title>
+        {{ $t('user.user-management') }}
+      </template>
+    </BasePageTitle>
     <section>
       <v-toolbar
         color="transparent"

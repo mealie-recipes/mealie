@@ -229,7 +229,8 @@ const subpage = computed(() => route.path.split("/").pop() ?? "url");
 }
 
 /* the submit buttons: the page's primary pill */
-.create-panel .v-btn.bg-success {
+.create-panel .v-btn.bg-success,
+.create-panel .v-btn.bg-primary {
   background: rgb(var(--v-theme-primary)) !important;
   color: #fff !important;
   border-radius: 999px !important;
@@ -241,7 +242,8 @@ const subpage = computed(() => route.path.split("/").pop() ?? "url");
 }
 
 /* BaseButton swaps to a tonal variant while disabled, which would bring the green back */
-.create-panel .v-btn--variant-tonal.text-success {
+.create-panel .v-btn--variant-tonal.text-success,
+.create-panel .v-btn--variant-tonal.text-primary {
   background: rgba(var(--v-theme-primary), 0.14) !important;
   color: rgb(var(--v-theme-primary)) !important;
   border-radius: 999px !important;

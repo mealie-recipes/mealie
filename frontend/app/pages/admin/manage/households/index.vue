@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container class="lg-container">
     <BaseDialog
       v-model="createDialog"
       bottom-sheet
@@ -51,7 +51,11 @@
       </v-card-text>
     </BaseDialog>
 
-    <BaseCardSectionTitle :title="$t('household.household-management')" />
+    <BasePageTitle>
+      <template #title>
+        {{ $t('household.household-management') }}
+      </template>
+    </BasePageTitle>
     <section>
       <v-toolbar
         flat

@@ -181,6 +181,66 @@
   }
 }
 
+// Settings, data and admin pages are built from plain Vuetify cards and tables. Inside the
+// page (not in dialogs or menus, which render outside v-main) they become the redesign's
+// rounded hairline panels.
+.v-main {
+  .v-card.v-card--variant-elevated,
+  .v-card.v-card--variant-outlined {
+    border-radius: 20px;
+    border: 0;
+    box-shadow: inset 0 0 0 1px var(--mealie-hairline) !important;
+  }
+
+  .v-card.v-card--variant-elevated.v-card--hover:hover,
+  .v-card.v-card--variant-elevated.v-card--link:hover {
+    box-shadow:
+      inset 0 0 0 1px var(--mealie-hairline-strong),
+      0 14px 32px -22px rgba(40, 30, 20, 0.4) !important;
+  }
+
+  .v-table {
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--mealie-surface);
+    box-shadow: inset 0 0 0 1px var(--mealie-hairline);
+
+    > .v-table__wrapper > table > thead > tr > th {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--mealie-text-tertiary);
+    }
+  }
+
+  .v-expansion-panel {
+    border-radius: 16px !important;
+  }
+
+  // buttons written as plain v-btns: pill-shaped and flat, with Vuetify's blue and teal
+  // "info"/"accent" actions turned into the neutral secondary pill
+  .v-btn.v-btn--variant-elevated:not(.v-btn--icon) {
+    border-radius: 999px;
+  }
+
+  .v-btn.v-btn--variant-elevated {
+    box-shadow: none;
+  }
+
+  .v-btn.v-btn--variant-elevated.bg-info,
+  .v-btn.v-btn--variant-elevated.bg-accent,
+  .v-btn.v-btn--variant-flat.bg-info,
+  .v-btn.v-btn--variant-flat.bg-accent {
+    background: var(--mealie-fill) !important;
+    color: var(--mealie-ink) !important;
+  }
+
+  .v-expansion-panels .v-expansion-panel__shadow {
+    box-shadow: inset 0 0 0 1px var(--mealie-hairline);
+  }
+}
+
 // Striped stand-in shown wherever a recipe has no photo
 .mealie-photo-placeholder {
   background: repeating-linear-gradient(

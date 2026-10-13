@@ -175,7 +175,8 @@ defineProps({
 }
 
 /* BaseButton turns tonal while disabled, which would otherwise bring back its green */
-.auth-shell .v-btn--variant-tonal.text-success {
+.auth-shell .v-btn--variant-tonal.text-success,
+.auth-shell .v-btn--variant-tonal.text-primary {
   background: rgba(var(--v-theme-primary), 0.14) !important;
   color: rgb(var(--v-theme-primary)) !important;
 }
