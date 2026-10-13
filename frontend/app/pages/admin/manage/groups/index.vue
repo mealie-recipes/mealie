@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container class="lg-container">
     <BaseDialog
       v-model="state.createDialog"
       bottom-sheet
@@ -33,7 +33,11 @@
       </v-card-text>
     </BaseDialog>
 
-    <BaseCardSectionTitle :title="$t('group.group-management')" />
+    <BasePageTitle>
+      <template #title>
+        {{ $t('group.group-management') }}
+      </template>
+    </BasePageTitle>
     <section>
       <v-toolbar
         flat

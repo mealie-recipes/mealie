@@ -177,7 +177,8 @@
     "date-updated": "Date Updated",
     "key": "Key",
     "value": "Value",
-    "cant-create-permission": "Can't create. Please contact your administrator to get permission."
+    "cant-create-permission": "Can't create. Please contact your administrator to get permission.",
+    "previous": "Previous"
   },
   "group": {
     "create-group": "Create Group",
@@ -793,7 +794,8 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
     "no-shopping-lists-found": "No Shopping Lists Found",
-    "item-checked-off": "Checked off {item}"
+    "item-checked-off": "Checked off {item}",
+    "list-count": "No lists | One list | {count} lists"
   },
   "sidebar": {
     "backups": "Backups",
@@ -1254,5 +1256,71 @@
     "mark-all-as-read": "Mark All as Read",
     "show-announcements-from-mealie": "Show announcements from Mealie",
     "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+  },
+  "recipe-library": {
+    "new-recipe": "New Recipe",
+    "search-placeholder": "Search recipes or ingredients",
+    "all": "All",
+    "tonights-plan": "Tonight’s plan",
+    "nothing-planned-tonight": "Nothing planned for tonight",
+    "plan-a-meal": "Plan a Meal",
+    "this-week": "This Week",
+    "nothing-planned": "Nothing planned",
+    "recently-added": "Recently Added",
+    "see-all": "See All",
+    "all-recipes": "All Recipes",
+    "start-cooking": "Start Cooking",
+    "recipes-count": "No recipes | One recipe | {count} recipes"
+  },
+  "recipe-page": {
+    "prep": "Prep",
+    "cook": "Cook",
+    "total": "Total",
+    "serves": "Serves",
+    "servings-count": "{count} serving | {count} servings",
+    "fewer-servings": "Fewer servings",
+    "more-servings": "More servings"
+  },
+  "cook-mode": {
+    "exit": "Exit",
+    "step-of-total": "Step {step} of {total}",
+    "step-number": "Step {step}",
+    "all-steps": "All Steps",
+    "previous": "Previous",
+    "next-step": "Next Step",
+    "finish": "Finish",
+    "timer": "Timer",
+    "pause": "Pause",
+    "resume": "Resume",
+    "timer-done": "Timer done",
+    "keyboard-hint": "Use ← → to move between steps",
+    "no-steps": "This recipe has no steps yet."
+  },
+  "recipe-edit": {
+    "editing": "Editing",
+    "editor": "Editor",
+    "form": "Form",
+    "details": "Details",
+    "photo": "Photo",
+    "organize": "Organize",
+    "more": "Notes & Nutrition"
+  },
+  "recipe-create": {
+    "eyebrow": "New Recipe",
+    "how": "How would you like to add it?",
+    "url": "From a Link",
+    "url-desc": "Paste a recipe’s web address",
+    "bulk": "Many Links",
+    "bulk-desc": "Import a batch of URLs at once",
+    "html": "HTML or JSON",
+    "html-desc": "Paste a page’s source or recipe data",
+    "ai": "With AI",
+    "ai-desc": "Text, photos or a page Mealie can’t read",
+    "new": "From Scratch",
+    "new-desc": "Start with a name and fill in the rest",
+    "zip": "From a Zip",
+    "zip-desc": "Restore a recipe exported from Mealie",
+    "debug": "Debug Scraper",
+    "debug-desc": "See what Mealie finds on a page"
   }
 }

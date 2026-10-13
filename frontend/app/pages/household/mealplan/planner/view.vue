@@ -1,5 +1,5 @@
 <template>
-  <v-container class="mx-0 pa-0">
+  <div>
     <GroupMealPlanEntryDialog
       v-model="dialog.open"
       :entry="dialog.entry"
@@ -11,13 +11,11 @@
       <template #default="{ day }">
         <MealPlanDay :day="day.date" :actions="actions" :recipes="day.recipes">
           <SpinTransition>
-            <v-card v-if="day.sections.length" variant="flat" class="pl-4 pr-2">
+            <div v-if="day.sections.length" class="plan-day-meals">
               <SpinTransition>
                 <div v-for="section in day.sections" :key="section.title">
-                  <div class="py-2 d-flex flex-column">
-                    <p class="text-overline my-0">
-                      {{ section.title }}
-                    </p>
+                  <div class="plan-section">
+                    {{ section.title }}
                   </div>
                   <SpinTransition>
                     <RecipeCardMobile
@@ -60,12 +58,15 @@
                   </SpinTransition>
                 </div>
               </SpinTransition>
-            </v-card>
+            </div>
+            <div v-else class="plan-day-empty">
+              {{ $t("recipe-library.nothing-planned") }}
+            </div>
           </SpinTransition>
         </MealPlanDay>
       </template>
     </MealPlanLayout>
-  </v-container>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -95,13 +96,22 @@ function editMeal(mealplan: ReadPlanEntry) {
 </script>
 
 <style scoped>
-/*
-  RecipeCardMobile lays out a fixed-width thumbnail + a favorite/rating/menu action row
-  side-by-side. Below ~320px the action row no longer fits and the "..." menu button gets
-  clipped by the card's overflow:hidden. Enforcing a min-width here makes the day columns
-  wrap to fewer per row instead of shrinking past that point.
-*/
-.col-borders {
-  min-width: 340px;
+.plan-day-meals {
+  margin-top: 4px;
+}
+
+.plan-section {
+  padding: 12px 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--mealie-text-tertiary);
+}
+
+.plan-day-empty {
+  padding: 18px 2px 8px;
+  font-size: 14px;
+  color: var(--mealie-text-tertiary);
 }
 </style>

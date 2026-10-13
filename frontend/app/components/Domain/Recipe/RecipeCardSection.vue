@@ -5,13 +5,13 @@
       class="align-center pb-2"
     >
       <v-icon
-        v-if="title"
+        v-if="title && !hideIcon"
         size="large"
         start
       >
         {{ displayTitleIcon }}
       </v-icon>
-      <span class="text-headline-small">{{ title }}</span>
+      <span class="recipe-card-section__title">{{ title }}</span>
       <v-spacer />
       <v-btn
         :icon="$vuetify.display.xs"
@@ -182,6 +182,7 @@ interface Props {
   disableToolbar?: boolean;
   disableSort?: boolean;
   icon?: string | null;
+  hideIcon?: boolean;
   title?: string | null;
   singleColumn?: boolean;
   recipes?: Recipe[];
@@ -191,6 +192,7 @@ const props = withDefaults(defineProps<Props>(), {
   disableToolbar: false,
   disableSort: false,
   icon: null,
+  hideIcon: false,
   title: null,
   singleColumn: false,
   recipes: () => [],
@@ -460,6 +462,12 @@ function toggleMobileCards() {
 </script>
 
 <style>
+.recipe-card-section__title {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
 .transparent {
   opacity: 1;
 }

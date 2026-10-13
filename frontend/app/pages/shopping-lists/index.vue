@@ -1,7 +1,7 @@
 <template>
-  <v-container
+  <div
     v-if="shoppingListChoices && ready"
-    class="narrow-container"
+    class="mealie-page mealie-page--narrow"
   >
     <BaseDialog
       v-model="state.createDialog"
@@ -55,78 +55,86 @@
     >
       <v-card-text>{{ $t('shopping-list.are-you-sure-you-want-to-delete-this-item') }}</v-card-text>
     </BaseDialog>
-    <BasePageTitle divider>
-      <template #header>
-        <v-img
-          width="100%"
-          max-height="100"
-          max-width="100"
-          src="/svgs/shopping-cart.svg"
+    <header class="mealie-page__header">
+      <div class="mealie-page__titles">
+        <div class="mealie-eyebrow">
+          {{ $t("shopping-list.list-count", shoppingListChoices.length) }}
+        </div>
+        <h1 class="mealie-page__title">
+          {{ $t('shopping-list.shopping-lists') }}
+        </h1>
+      </div>
+      <div class="mealie-page__actions">
+        <v-checkbox
+          v-model="preferences.viewAllLists"
+          hide-details
+          density="compact"
+          color="primary"
+          :label="$t('general.show-all')"
+          class="my-0"
         />
-      </template>
-      <template #title>
-        {{ $t('shopping-list.shopping-lists') }}
-      </template>
-    </BasePageTitle>
-
-    <v-container class="d-flex align-center justify-end px-0 pt-0 pb-4">
-      <v-checkbox
-        v-model="preferences.viewAllLists"
-        hide-details
-        :label="$t('general.show-all')"
-        class="my-0 mr-4"
-      />
-      <BaseButton
-        create
-        class="my-0"
-        @click="state.createDialog = true"
-      />
-    </v-container>
-
-    <v-container v-if="!shoppingListChoices.length">
-      <BasePageTitle>
-        <template #title>
-          {{ $t('shopping-list.no-shopping-lists-found') }}
-        </template>
-      </BasePageTitle>
-    </v-container>
-
-    <section>
-      <v-card
-        v-for="list in shoppingListChoices"
-        :key="list.id"
-        class="my-2 left-border"
-        :to="`/shopping-lists/${list.id}`"
-      >
-        <v-card-title class="d-flex align-center">
-          <v-icon class="mr-2">
-            {{ $globals.icons.cartCheck }}
+        <button
+          type="button"
+          class="mealie-pill mealie-pill--primary"
+          @click="state.createDialog = true"
+        >
+          <v-icon size="16">
+            {{ $globals.icons.createAlt }}
           </v-icon>
-          <span class="flex-grow-1">
-            {{ list.name }}
-          </span>
-          <v-btn
-            icon
-            variant="plain"
-            @click.prevent="toggleOwnerDialog(list)"
+          {{ $t('shopping-list.new-list') }}
+        </button>
+      </div>
+    </header>
+
+    <div class="mealie-page__body">
+      <div v-if="!shoppingListChoices.length" class="lists-empty mealie-card">
+        {{ $t('shopping-list.no-shopping-lists-found') }}
+      </div>
+
+      <nav v-else class="lists mealie-card">
+        <div
+          v-for="list in shoppingListChoices"
+          :key="list.id"
+          class="lists__row"
+        >
+          <!-- the link and the row's buttons are siblings; the link's ::after covers the row -->
+          <RouterLink class="lists__link" :to="`/shopping-lists/${list.id}`">
+            <span class="lists__icon">
+              <v-icon size="18">
+                {{ $globals.icons.formatListBulleted }}
+              </v-icon>
+            </span>
+            <span class="lists__name">{{ list.name }}</span>
+          </RouterLink>
+          <button
+            type="button"
+            class="lists__action"
+            :aria-label="$t('general.owner')"
+            :title="$t('general.owner')"
+            @click="toggleOwnerDialog(list)"
           >
-            <v-icon>
+            <v-icon size="18">
               {{ $globals.icons.user }}
             </v-icon>
-          </v-btn>
-          <v-btn
-            icon
-            variant="plain"
-            @click.prevent="openDelete(list.id)"
+          </button>
+          <button
+            type="button"
+            class="lists__action"
+            :aria-label="$t('general.delete')"
+            :title="$t('general.delete')"
+            @click="openDelete(list.id)"
           >
-            <v-icon>
+            <v-icon size="18">
               {{ $globals.icons.delete }}
             </v-icon>
-          </v-btn>
-        </v-card-title>
-      </v-card>
-    </section>
-  </v-container>
+          </button>
+          <v-icon size="16" class="lists__chevron">
+            {{ $globals.icons.chevronRight }}
+          </v-icon>
+        </div>
+      </nav>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -282,3 +290,113 @@ async function deleteOne() {
   }
 }
 </script>
+
+<style scoped>
+.lists {
+  display: flex;
+  flex-direction: column;
+  padding: 6px;
+}
+
+.lists__row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 56px;
+  padding: 0 10px 0 12px;
+  border-radius: 16px;
+  color: var(--mealie-ink);
+}
+
+.lists__link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* the whole row is the link's hit area; the buttons sit above it */
+.lists__link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+}
+
+.lists__link:focus-visible {
+  outline: none;
+}
+
+.lists__link:focus-visible::after {
+  outline: 2px solid rgb(var(--v-theme-primary));
+  outline-offset: -2px;
+}
+
+.lists__action {
+  position: relative;
+  z-index: 1;
+}
+
+.lists__row + .lists__row {
+  box-shadow: 0 -1px 0 var(--mealie-hairline);
+}
+
+.lists__row:hover {
+  background: var(--mealie-fill-subtle);
+}
+
+.lists__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: rgba(var(--v-theme-primary), 0.12);
+  color: rgb(var(--v-theme-primary));
+}
+
+.lists__name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.lists__action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--mealie-text-tertiary);
+  cursor: pointer;
+}
+
+.lists__action:hover {
+  background: var(--mealie-fill);
+  color: var(--mealie-ink);
+}
+
+.lists__chevron {
+  color: var(--mealie-text-quaternary);
+}
+
+.lists-empty {
+  padding: 32px;
+  text-align: center;
+  color: var(--mealie-text-tertiary);
+}
+</style>

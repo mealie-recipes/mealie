@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <div>
     <RecipeOrganizerPage
       v-if="store"
       :items="store"
@@ -12,7 +12,7 @@
         {{ $t("category.categories") }}
       </template>
     </RecipeOrganizerPage>
-  </v-container>
+  </div>
 </template>
 
 <script setup lang="ts">

@@ -213,16 +213,16 @@ Setting the following environmental variables will change the theme of the front
 
 | Variables             | Default | Description                        |
 | --------------------- | :-----: | ---------------------------------- |
-| THEME_LIGHT_PRIMARY   | #E58325 | Main brand color and headers       |
+| THEME_LIGHT_PRIMARY   | #C4502A | Main brand color and headers       |
 | THEME_LIGHT_ACCENT    | #007A99 | Buttons and interactive elements   |
 | THEME_LIGHT_SECONDARY | #973542 | Secondary UI elements and interactive accents |
 | THEME_LIGHT_SUCCESS   | #43A047 | Success messages and confirmations |
 | THEME_LIGHT_INFO      | #1976D2 | Information alerts and tooltips    |
 | THEME_LIGHT_WARNING   | #FF6D00 | Warning notifications              |
 | THEME_LIGHT_ERROR     | #EF5350 | Error messages and alerts          |
-| THEME_DARK_PRIMARY    | #E58325 | Main brand color and headers       |
+| THEME_DARK_PRIMARY    | #E0683C | Main brand color and headers       |
 | THEME_DARK_ACCENT     | #007A99 | Buttons and interactive elements   |
-| THEME_DARK_SECONDARY  | #973542 | Secondary UI elements and interactive accents |
+| THEME_DARK_SECONDARY  | #E08A73 | Secondary UI elements and interactive accents |
 | THEME_DARK_SUCCESS    | #43A047 | Success messages and confirmations |
 | THEME_DARK_INFO       | #1976D2 | Information alerts and tooltips    |
 | THEME_DARK_WARNING    | #FF6D00 | Warning notifications              |

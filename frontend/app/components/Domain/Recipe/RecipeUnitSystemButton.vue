@@ -12,7 +12,20 @@
         color="secondary-darken-1"
       >
         <template #activator="{ props: tooltipProps }">
+          <button
+            v-if="compact"
+            type="button"
+            class="unit-system-pill"
+            :disabled="!hasConvertibleIngredients"
+            :aria-label="`${$t('general.units')}: ${activeLabel}`"
+            v-bind="{ ...activatorProps, ...tooltipProps }"
+          >
+            <v-icon size="16">
+              {{ $globals.icons.units }}
+            </v-icon>
+          </button>
           <v-card
+            v-else
             class="pa-1 px-2"
             dark
             color="secondary-darken-1"
@@ -26,7 +39,7 @@
             <span>{{ activeLabel }}</span>
           </v-card>
         </template>
-        <span>{{ $t("general.units") }}</span>
+        <span>{{ compact ? `${$t("general.units")}: ${activeLabel}` : $t("general.units") }}</span>
       </v-tooltip>
     </template>
     <v-list density="compact">
@@ -48,7 +61,11 @@ import type { UnitSystem } from "~/composables/recipes/unit-systems";
 import type { NoUndefinedField } from "~/lib/api/types/non-generated";
 import type { Recipe } from "~/lib/api/types/recipe";
 
-const props = defineProps<{ recipe: NoUndefinedField<Recipe> }>();
+const props = defineProps<{
+  recipe: NoUndefinedField<Recipe>;
+  /** a small icon pill that fits beside the servings stepper, with the active system in its tooltip */
+  compact?: boolean;
+}>();
 
 const i18n = useI18n();
 const { unitSystem } = useUnitSystem();
@@ -82,3 +99,28 @@ const hasConvertibleIngredients = computed(() =>
   props.recipe.recipeIngredient.some(canConvertIngredient),
 );
 </script>
+
+<style scoped>
+.unit-system-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 15px;
+  background: var(--mealie-fill);
+  color: var(--mealie-icon);
+  cursor: pointer;
+}
+
+.unit-system-pill:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.unit-system-pill:focus-visible {
+  outline: 2px solid rgb(var(--v-theme-primary));
+  outline-offset: 2px;
+}
+</style>

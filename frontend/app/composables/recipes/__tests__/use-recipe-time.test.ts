@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { durationUnitLabel, formatDuration, recipeTimeDisplay } from "../use-recipe-time";
+import { durationUnitLabel, formatDuration, recipeShortTime, recipeTimeDisplay } from "../use-recipe-time";
 
 describe("formatDuration", () => {
   test.each([
@@ -45,5 +45,23 @@ describe("recipeTimeDisplay", () => {
     [null, "", ""],
   ])("shows whichever is set for %j seconds and %j", (seconds, text, expected) => {
     expect(recipeTimeDisplay(seconds, text, "en-US")).toBe(expected);
+  });
+});
+
+describe("recipeShortTime", () => {
+  test("uses the total time in short units", () => {
+    expect(recipeShortTime({ totalTimeSeconds: 4200 }, "en-US")).toBe("1 hr 10 min");
+  });
+
+  test("adds prep and cook time when there is no total", () => {
+    expect(recipeShortTime({ prepTimeSeconds: 600, performTimeSeconds: 1500 }, "en-US")).toBe("35 min");
+  });
+
+  test("falls back to the free text", () => {
+    expect(recipeShortTime({ totalTime: " overnight " }, "en-US")).toBe("overnight");
+  });
+
+  test("is empty without any time", () => {
+    expect(recipeShortTime({}, "en-US")).toBe("");
   });
 });

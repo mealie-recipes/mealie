@@ -1,217 +1,149 @@
 <template>
-  <v-container
-    fluid
-    class="d-flex justify-center align-center flex-column fill-height"
-    :class="{
-      'bg-off-white': !$vuetify.theme.current.dark && !isDark,
-    }"
-  >
-    <v-alert
-      v-if="isFirstLogin"
-      class="my-4"
-      type="info"
-      :icon="$globals.icons.information"
-      :style="{ flex: 'none' }"
-    >
-      <div>
-        <p class="mb-3">
+  <AppAuthShell :title="$t('user.sign-in')">
+    <template #above>
+      <div v-if="isFirstLogin" class="login-first-time">
+        <p>
           {{ $t('user.it-looks-like-this-is-your-first-time-logging-in') }}
         </p>
-        <p class="mb-1">
-          <strong>{{ $t('user.username') }}: </strong>changeme@example.com
+        <p class="login-first-time__credential">
+          <strong>{{ $t('user.username') }}:</strong> changeme@example.com
           <AppButtonCopy
             copy-text="changeme@example.com"
-            color="info"
             btn-class="h-auto"
           />
         </p>
-        <p class="mb-3">
-          <strong>{{ $t('user.password') }}: </strong>MyPassword
+        <p class="login-first-time__credential">
+          <strong>{{ $t('user.password') }}:</strong> MyPassword
           <AppButtonCopy
             copy-text="MyPassword"
-            color="info"
             btn-class="h-auto"
           />
         </p>
-        <p>
+        <p class="login-first-time__note">
           {{ $t('user.dont-want-to-see-this-anymore-be-sure-to-change-your-email') }}
         </p>
       </div>
-    </v-alert>
-    <v-card
-      tag="section"
-      class="d-flex flex-column align-center w-100"
-      max-width="600"
-    >
-      <v-toolbar
-        color="primary"
-        class="d-flex justify-center mb-4"
-        dark
-      >
-        <v-toolbar-title class="text-h4 text-center">
-          Mealie
-        </v-toolbar-title>
-      </v-toolbar>
-      <AppLogo :size="100" />
-      <v-card-title class="text-h5 justify-center pb-3">
-        {{ $t('user.sign-in') }}
-      </v-card-title>
-      <v-card-text class="w-100">
-        <v-form @submit.prevent="authenticate">
-          <v-text-field
-            v-if="$appInfo.allowPasswordLogin"
-            id="username"
-            v-model="form.email"
-            :prepend-inner-icon="$globals.icons.email"
-            variant="solo-filled"
-            flat
-            width="100%"
-            autofocus
-            autocomplete="username"
-            name="username"
-            :label="$t('user.email-or-username')"
-            type="text"
-          />
-          <v-text-field
-            v-if="$appInfo.allowPasswordLogin"
-            id="password"
-            v-model="form.password"
-            :prepend-inner-icon="$globals.icons.lock"
-            :append-inner-icon="passwordIcon"
-            variant="solo-filled"
-            flat
-            autocomplete="current-password"
-            name="password"
-            :label="$t('user.password')"
-            :type="inputType"
-            @click:append-inner="togglePasswordShow"
-          />
+    </template>
+
+    <v-form class="login-form" @submit.prevent="authenticate">
+      <template v-if="$appInfo.allowPasswordLogin">
+        <v-text-field
+          id="username"
+          v-model="form.email"
+          :prepend-inner-icon="$globals.icons.email"
+          variant="solo-filled"
+          flat
+          width="100%"
+          autofocus
+          autocomplete="username"
+          name="username"
+          :label="$t('user.email-or-username')"
+          type="text"
+        />
+        <v-text-field
+          id="password"
+          v-model="form.password"
+          :prepend-inner-icon="$globals.icons.lock"
+          :append-inner-icon="passwordIcon"
+          variant="solo-filled"
+          flat
+          autocomplete="current-password"
+          name="password"
+          :label="$t('user.password')"
+          :type="inputType"
+          @click:append-inner="togglePasswordShow"
+        />
+        <div class="login-form__row">
           <v-checkbox
-            v-if="$appInfo.allowPasswordLogin"
             v-model="form.remember"
-            class="ml-2 mt-n2"
+            hide-details
+            density="compact"
+            color="primary"
             :label="$t('user.remember-me')"
           />
-          <v-card-actions v-if="$appInfo.allowPasswordLogin" class="justify-center pt-0">
-            <div class="max-button">
-              <v-btn
-                :loading="loggingIn"
-                :disabled="oidcLoggingIn"
-                variant="elevated"
-                color="primary"
-                type="submit"
-                size="large"
-                rounded
-                class="rounded-xl"
-                block
-              >
-                {{ $t("user.login") }}
-              </v-btn>
-            </div>
-          </v-card-actions>
-
-          <div
-            v-if="$appInfo.enableOidc && $appInfo.allowPasswordLogin"
-            class="d-flex my-4 justify-center align-center"
-            width="80%"
-          >
-            <v-divider class="div-width" />
-            <span
-              class="absolute px-2"
-              :class="{
-                'bg-white': !$vuetify.theme.current.dark && !isDark,
-                'bg-grey-darken-4': $vuetify.theme.current.dark || isDark,
-              }"
-            >
-              {{ $t("user.or") }}
-            </span>
-          </div>
-          <v-card-actions
-            v-if="$appInfo.enableOidc"
-            class="justify-center"
-          >
-            <div class="max-button">
-              <v-btn
-                :loading="oidcLoggingIn"
-                color="primary"
-                size="large"
-                variant="elevated"
-                rounded
-                class="rounded-xl"
-                block
-                @click="() => oidcAuthenticate()"
-              >
-                {{ $t("user.login-oidc") }} {{ $appInfo.oidcProviderName }}
-              </v-btn>
-            </div>
-          </v-card-actions>
-        </v-form>
-      </v-card-text>
-      <v-card-actions class="d-flex justify-center flex-column flex-sm-row">
-        <v-btn
-          v-if="$appInfo.allowSignup && $appInfo.allowPasswordLogin"
-          variant="text"
-          to="/register"
-        >
-          {{ $t("user.register") }}
-        </v-btn>
-        <v-btn
-          v-else
-          variant="text"
-          disabled
-        >
-          {{ $t("user.invite-only") }}
-        </v-btn>
-        <v-btn
-          v-if="$appInfo.allowPasswordLogin"
-          class="mr-auto"
-          variant="text"
-          to="/forgot-password"
-        >
-          {{ $t("user.reset-password") }}
-        </v-btn>
-      </v-card-actions>
-
-      <v-card-text class="d-flex justify-center flex-column flex-sm-row">
-        <div
-          v-for="link in [
-            {
-              text: $t('about.sponsor'),
-              icon: $globals.icons.heart,
-              href: 'https://github.com/sponsors/hay-kot',
-            },
-            {
-              text: $t('about.github'),
-              icon: $globals.icons.github,
-              href: 'https://github.com/mealie-recipes/mealie',
-            },
-            {
-              text: $t('about.docs'),
-              icon: $globals.icons.folderOutline,
-              href: 'https://docs.mealie.io/',
-            },
-          ]"
-          :key="link.text"
-          class="text-center"
-        >
-          <v-btn
-            variant="text"
-            :href="link.href"
-            target="_blank"
-          >
-            <v-icon start>
-              {{ link.icon }}
-            </v-icon>
-            {{ link.text }}
-          </v-btn>
+          <RouterLink to="/forgot-password" class="login-form__link">
+            {{ $t("user.reset-password") }}
+          </RouterLink>
         </div>
-      </v-card-text>
-    </v-card>
-  </v-container>
+        <v-btn
+          :loading="loggingIn"
+          :disabled="oidcLoggingIn"
+          variant="elevated"
+          color="primary"
+          type="submit"
+          size="large"
+          block
+        >
+          {{ $t("user.login") }}
+        </v-btn>
+      </template>
+
+      <div
+        v-if="$appInfo.enableOidc && $appInfo.allowPasswordLogin"
+        class="login-form__or"
+      >
+        <span>{{ $t("user.or") }}</span>
+      </div>
+      <v-btn
+        v-if="$appInfo.enableOidc"
+        :loading="oidcLoggingIn"
+        size="large"
+        variant="tonal"
+        block
+        @click="() => oidcAuthenticate()"
+      >
+        {{ $t("user.login-oidc") }} {{ $appInfo.oidcProviderName }}
+      </v-btn>
+    </v-form>
+
+    <div class="login-signup">
+      <RouterLink
+        v-if="$appInfo.allowSignup && $appInfo.allowPasswordLogin"
+        to="/register"
+        class="login-form__link"
+      >
+        {{ $t("user.register") }}
+      </RouterLink>
+      <span v-else>{{ $t("user.invite-only") }}</span>
+    </div>
+
+    <template #footer>
+      <a
+        v-for="link in [
+          {
+            text: $t('about.sponsor'),
+            icon: $globals.icons.heart,
+            href: 'https://github.com/sponsors/hay-kot',
+          },
+          {
+            text: $t('about.github'),
+            icon: $globals.icons.github,
+            href: 'https://github.com/mealie-recipes/mealie',
+          },
+          {
+            text: $t('about.docs'),
+            icon: $globals.icons.folderOutline,
+            href: 'https://docs.mealie.io/',
+          },
+        ]"
+        :key="link.text"
+        :href="link.href"
+        target="_blank"
+        rel="noopener"
+        class="login-footer-link"
+      >
+        <v-icon size="14">
+          {{ link.icon }}
+        </v-icon>
+        {{ link.text }}
+      </a>
+    </template>
+  </AppAuthShell>
 </template>
 
 <script setup lang="ts">
-import { useDark, useSessionStorage, whenever } from "@vueuse/core";
+import { useSessionStorage, whenever } from "@vueuse/core";
+import AppAuthShell from "~/components/Layout/LayoutParts/AppAuthShell.vue";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import { usePasswordField } from "~/composables/use-passwords";
 import { alert } from "~/composables/use-toast";
@@ -223,7 +155,6 @@ import { useUserActivityPreferences } from "~/composables/use-users/preferences"
 definePageMeta({
   layout: "blank",
 });
-const isDark = useDark();
 
 const router = useRouter();
 const route = useRoute();
@@ -398,47 +329,91 @@ function alertOnError(error: any) {
 }
 </style>
 
-<style lang="css">
-.max-button {
-  width: 300px;
-}
-
-.icon-white {
-  fill: white;
-}
-
-.icon-container {
+<style lang="css" scoped>
+.login-form {
   display: flex;
   flex-direction: column;
+  margin-top: 22px;
+}
+
+.login-form__row {
+  display: flex;
   align-items: center;
-  width: 100%;
-  position: relative;
-  margin-top: 3.5rem;
+  justify-content: space-between;
+  gap: 12px;
+  margin: -6px 0 16px;
 }
 
-.icon-divider {
-  width: 100%;
-  margin-bottom: -3.5rem;
+.login-form__link {
+  font-size: 14px;
+  color: rgb(var(--v-theme-primary));
+  text-decoration: none;
+  white-space: nowrap;
 }
 
-.icon-avatar {
-  border-color: rgba(0, 0, 0, 0.12);
-  border: 2px;
+.login-form__link:hover {
+  text-decoration: underline;
 }
 
-.bg-off-white {
-  background: #f5f8fa;
+.login-form__or {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 18px 0;
+  font-size: 13px;
+  color: var(--mealie-text-tertiary);
 }
 
-.absolute {
-  position: absolute;
+.login-form__or::before,
+.login-form__or::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--mealie-hairline-strong);
 }
 
-.div-width {
-  max-width: 75%;
+.login-signup {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--mealie-text-tertiary);
 }
 
-.bg-white {
-  background-color: #fff;
+.login-first-time {
+  padding: 16px 18px;
+  border-radius: 18px;
+  background: rgba(var(--v-theme-primary), 0.08);
+  box-shadow: inset 0 0 0 1px rgba(var(--v-theme-primary), 0.2);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--mealie-ink);
+}
+
+.login-first-time p + p {
+  margin-top: 4px;
+}
+
+.login-first-time__credential {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.login-first-time__note {
+  margin-top: 8px !important;
+  color: var(--mealie-text-secondary);
+}
+
+.login-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  color: var(--mealie-text-tertiary);
+  text-decoration: none;
+}
+
+.login-footer-link:hover {
+  color: var(--mealie-ink);
 }
 </style>

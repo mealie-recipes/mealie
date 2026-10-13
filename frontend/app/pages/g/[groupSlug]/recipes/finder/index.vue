@@ -1,26 +1,22 @@
 <template>
-  <v-container>
-    <BasePageTitle divider>
-      <template #header>
-        <v-img
-          width="100"
-          max-height="100"
-          max-width="100"
-          src="/svgs/manage-cookbooks.svg"
-        />
-      </template>
-      <template #title>
-        {{ $t('recipe-finder.recipe-finder') }}
-      </template>
-
-      <template #content>
-        {{ $t('recipe-finder.recipe-finder-description') }}
-      </template>
-    </BasePageTitle>
-    <v-container v-if="state.ready">
+  <div class="mealie-page finder-page">
+    <header class="mealie-page__header">
+      <div class="mealie-page__titles">
+        <div class="mealie-eyebrow">
+          {{ $t("general.recipes") }}
+        </div>
+        <h1 class="mealie-page__title">
+          {{ $t('recipe-finder.recipe-finder') }}
+        </h1>
+        <p class="finder-page__intro">
+          {{ $t('recipe-finder.recipe-finder-description') }}
+        </p>
+      </div>
+    </header>
+    <div v-if="state.ready" class="mealie-page__body">
       <v-row>
         <v-col :cols="useMobile ? 12 : 3">
-          <v-container class="ma-0 pa-0">
+          <v-container class="ma-0 finder-panel mealie-card">
             <v-row no-gutters>
               <v-col
                 cols="12"
@@ -58,8 +54,9 @@
                   >
                     <v-btn
                       size="small"
-                      color="accent"
-                      dark
+                      variant="flat"
+                      rounded="pill"
+                      class="mealie-filter-btn"
                       @click="state.queryFilterMenu = !state.queryFilterMenu"
                     >
                       <v-icon start>
@@ -121,8 +118,9 @@
                   <template #activator="{ props }">
                     <v-btn
                       size="small"
-                      color="primary"
-                      dark
+                      variant="flat"
+                      rounded="pill"
+                      class="mealie-filter-btn"
                       v-bind="props"
                     >
                       <v-icon start>
@@ -216,11 +214,10 @@
                       <v-chip
                         v-for="food in selectedFoods"
                         :key="food.id"
-                        label
                         class="ma-1"
-                        color="accent custom-transparent"
+                        color="primary"
                         closable
-                        variant="flat"
+                        variant="tonal"
                         @click:close="removeFood(food)"
                       >
                         <span class="text-hide-overflow">{{ food.pluralName || food.name }}</span>
@@ -237,9 +234,8 @@
                   >
                     <v-col cols="12">
                       <v-chip
-                        label
-                        color="accent custom-transparent"
-                        variant="flat"
+                        color="primary"
+                        variant="tonal"
                         closable
                         @click:close="removeFood(food)"
                       >
@@ -268,11 +264,10 @@
                       <v-chip
                         v-for="tool in selectedTools"
                         :key="tool.id"
-                        label
                         class="ma-1"
-                        color="accent custom-transparent"
+                        color="primary"
                         closeable
-                        variant="flat"
+                        variant="tonal"
                         @click:close="removeTool(tool)"
                       >
                         <span class="text-hide-overflow">{{ tool.name }}</span>
@@ -289,10 +284,9 @@
                   >
                     <v-col cols="12">
                       <v-chip
-                        label
-                        color="accent custom-transparent"
+                        color="primary"
                         closable
-                        variant="flat"
+                        variant="tonal"
                         @click:close="removeTool(tool)"
                       >
                         <span class="text-hide-overflow">{{ tool.name }}</span>
@@ -381,7 +375,7 @@
               </v-col>
             </v-row>
           </v-container>
-          <v-container v-else>
+          <v-container v-else class="finder-empty mealie-card">
             <v-row>
               <v-col
                 cols="12"
@@ -398,7 +392,7 @@
           </v-container>
         </v-col>
       </v-row>
-    </v-container>
+    </div>
     <v-container v-else>
       <v-row>
         <v-col
@@ -409,7 +403,7 @@
         </v-col>
       </v-row>
     </v-container>
-  </v-container>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -724,3 +718,33 @@ function saveQueryFilter() {
   state.queryFilterMenu = false;
 }
 </script>
+
+<style scoped>
+.finder-page__intro {
+  max-width: 640px;
+  margin-top: 8px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--mealie-text-secondary);
+}
+
+.finder-panel {
+  padding: 18px 18px 16px;
+}
+
+.finder-panel :deep(.v-card-title),
+.finder-page :deep(.v-card-title) {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--mealie-ink);
+}
+
+.finder-panel :deep(.v-divider) {
+  opacity: 0.08;
+}
+
+.finder-empty {
+  padding: 32px 16px;
+}
+</style>

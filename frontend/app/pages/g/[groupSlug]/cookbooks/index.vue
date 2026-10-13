@@ -38,38 +38,44 @@
       </v-card-text>
     </BaseDialog>
 
-    <!-- Cookbook Page -->
-    <!-- Page Title -->
-    <v-container class="lg-container">
-      <BasePageTitle divider>
-        <template #header>
-          <v-img width="100%" max-height="100" max-width="100" src="/svgs/manage-cookbooks.svg" />
-        </template>
-        <template #title>
-          {{ $t("cookbook.cookbooks") }}
-        </template>
+    <div class="mealie-page mealie-page--narrow">
+      <header class="mealie-page__header">
+        <div class="mealie-page__titles">
+          <div class="mealie-eyebrow">
+            {{ myCookbooks.length }} · {{ $t("cookbook.cookbooks") }}
+          </div>
+          <h1 class="mealie-page__title">
+            {{ $t("cookbook.cookbooks") }}
+          </h1>
+        </div>
+        <div class="mealie-page__actions">
+          <button type="button" class="mealie-pill mealie-pill--primary" @click="createCookbook">
+            <v-icon size="16">
+              {{ $globals.icons.createAlt }}
+            </v-icon>
+            {{ $t("general.create") }}
+          </button>
+        </div>
+      </header>
+      <p class="cookbooks-intro">
         {{ $t("cookbook.description") }}
-      </BasePageTitle>
+      </p>
 
-      <div class="my-6">
+      <div class="cookbooks-preference mealie-card">
         <v-checkbox
           v-model="cookbookPreferences.hideOtherHouseholds"
           :label="$t('cookbook.hide-cookbooks-from-other-households')"
           hide-details
+          density="compact"
           color="primary"
         />
-        <div class="ml-10 mt-n3">
-          <p class="text-subtitle-2 my-0 py-0">
-            {{ $t("cookbook.hide-cookbooks-from-other-households-description") }}
-          </p>
-        </div>
+        <p class="cookbooks-preference__hint">
+          {{ $t("cookbook.hide-cookbooks-from-other-households-description") }}
+        </p>
       </div>
 
-      <!-- Create New -->
-      <BaseButton create @click="createCookbook" />
-
       <!-- Cookbook List -->
-      <v-expansion-panels class="mt-2">
+      <v-expansion-panels class="cookbooks-list">
         <VueDraggable
           v-model="myCookbooks"
           handle=".handle"
@@ -81,13 +87,11 @@
           <v-expansion-panel
             v-for="(cookbook, index) in myCookbooks"
             :key="cookbook.id"
-            class="my-2 left-border rounded"
+            class="cookbooks-list__item"
           >
-            <v-expansion-panel-title disable-icon-rotate class="text-h6 opacity-80">
-              <div class="d-flex align-center">
-                <v-icon size="large" start>
-                  {{ $globals.icons.pages }}
-                </v-icon>
+            <v-expansion-panel-title disable-icon-rotate class="cookbooks-list__title">
+              <div class="d-flex align-center ga-3">
+                <span class="cookbooks-list__swatch" :style="{ background: cookbookColor(index) }" />
                 {{ cookbook.name }}
               </div>
               <template #actions>
@@ -97,7 +101,7 @@
                       {{ $globals.icons.edit }}
                     </v-icon>
                   </v-btn>
-                  <v-icon class="handle" :size="40">
+                  <v-icon class="handle" :size="24">
                     {{ $globals.icons.arrowUpDown }}
                   </v-icon>
                 </div>
@@ -132,12 +136,13 @@
           </v-expansion-panel>
         </VueDraggable>
       </v-expansion-panels>
-    </v-container>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { VueDraggable } from "vue-draggable-plus";
+import { cookbookColor } from "~/lib/cookbooks/colors";
 import { useCookbookStore } from "~/composables/store/use-cookbook-store";
 import { useHouseholdSelf } from "@/composables/use-households";
 import CookbookEditor from "~/components/Domain/Cookbook/CookbookEditor.vue";
@@ -240,3 +245,61 @@ onBeforeUnmount(() => {
   window.removeEventListener("beforeunload", handleUnmount);
 });
 </script>
+
+<style scoped>
+.cookbooks-intro {
+  max-width: 640px;
+  margin-top: 12px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--mealie-text-secondary);
+}
+
+.cookbooks-preference {
+  margin-top: 20px;
+  padding: 8px 18px 14px;
+}
+
+.cookbooks-preference__hint {
+  margin-left: 40px;
+  font-size: 13px;
+  color: var(--mealie-text-tertiary);
+}
+
+.cookbooks-list {
+  margin-top: 16px;
+}
+
+.cookbooks-list__item {
+  margin: 0 0 10px !important;
+  border-radius: 18px !important;
+  background: var(--mealie-surface) !important;
+  box-shadow: inset 0 0 0 1px var(--mealie-hairline);
+}
+
+.cookbooks-list__item::after {
+  display: none;
+}
+
+.cookbooks-list__item :deep(.v-expansion-panel__shadow) {
+  box-shadow: none;
+}
+
+.cookbooks-list__title {
+  min-height: 60px;
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--mealie-ink);
+}
+
+.cookbooks-list__title :deep(.v-icon) {
+  color: var(--mealie-icon);
+}
+
+.cookbooks-list__swatch {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  border-radius: 4px;
+}
+</style>

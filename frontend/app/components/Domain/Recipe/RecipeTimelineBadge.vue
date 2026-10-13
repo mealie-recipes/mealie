@@ -5,7 +5,20 @@
     :color="buttonStyle ? 'info' : 'secondary'"
   >
     <template #activator="{ props: activatorProps }">
+      <button
+        v-if="pill"
+        type="button"
+        class="mealie-pill mealie-pill--sm mealie-pill--icon"
+        :aria-label="$t('recipe.open-timeline')"
+        v-bind="{ ...activatorProps, ...$attrs }"
+        @click.prevent="toggleTimeline"
+      >
+        <v-icon size="16">
+          {{ $globals.icons.timelineText }}
+        </v-icon>
+      </button>
       <v-btn
+        v-else
         icon
         :variant="buttonStyle ? 'flat' : undefined"
         :rounded="buttonStyle ? 'circle' : undefined"
@@ -43,11 +56,14 @@ import RecipeTimeline from "./RecipeTimeline.vue";
 
 interface Props {
   buttonStyle?: boolean;
+  /** a small neutral pill, for the recipe page toolbar */
+  pill?: boolean;
   slug?: string;
   recipeName?: string;
 }
 const props = withDefaults(defineProps<Props>(), {
   buttonStyle: false,
+  pill: false,
   slug: "",
   recipeName: "",
 });

@@ -1,80 +1,28 @@
 <template>
-  <v-container
-    fill-height
-    fluid
-    class="d-flex justify-center align-center flex-column fill-height"
-    :class="{
-      'bg-off-white': !$vuetify.theme.current.dark && !isDark,
-    }"
-  >
-    <v-card
-      class="d-flex flex-column w-100"
-      max-width="1200px"
-      min-height="700px"
-    >
-      <div>
-        <v-toolbar
-          width="100%"
-          color="primary"
-          style="margin-bottom: 4rem"
-          dark
-        >
-          <v-toolbar-title class="text-h4 text-center">
-            Mealie
-          </v-toolbar-title>
-        </v-toolbar>
-        <AppLogo />
-      </div>
-
+  <AppAuthShell wide>
+    <div class="register">
       <!-- Form Container -->
-      <div class="d-flex justify-center grow items-center my-4">
+      <div class="register__step">
         <template v-if="state.ctx.state === States.Initial">
-          <v-container>
-            <v-card-title class="text-h5 my-4 mb-5 pb-0 text-center">
+          <div class="register-initial">
+            <h1 class="register-initial__title">
               {{ $t("user-registration.user-registration") }}
-            </v-card-title>
-
-            <div
-              class="d-flex flex-wrap justify-center flex-md-nowrap pa-4"
-              style="gap: 1em"
-            >
-              <v-card
-                color="primary"
-                dark
-                hover
-                width="320px"
-                @click="initial.joinGroup"
-              >
-                <v-card-title class="d-flex align-center justify-center py-3">
-                  <v-icon
-                    size="large"
-                    start
-                  >
-                    {{ $globals.icons.group }}
-                  </v-icon>
-                  {{ $t("user-registration.join-a-group") }}
-                </v-card-title>
-              </v-card>
-              <v-card
-                color="primary"
-                dark
-                hover
-                width="320px"
-                @click="initial.createGroup"
-              >
-                <v-card-title class="d-flex align-center justify-center py-3">
-                  <v-icon
-                    size="large"
-                    start
-                  >
-                    {{ $globals.icons.user }}
-                  </v-icon>
-
-                  {{ $t("user-registration.create-a-new-group") }}
-                </v-card-title>
-              </v-card>
+            </h1>
+            <div class="register-choices">
+              <button type="button" class="register-choice" @click="initial.joinGroup">
+                <span class="register-choice__icon">
+                  <v-icon size="22">{{ $globals.icons.group }}</v-icon>
+                </span>
+                <span class="register-choice__title">{{ $t("user-registration.join-a-group") }}</span>
+              </button>
+              <button type="button" class="register-choice" @click="initial.createGroup">
+                <span class="register-choice__icon">
+                  <v-icon size="22">{{ $globals.icons.user }}</v-icon>
+                </span>
+                <span class="register-choice__title">{{ $t("user-registration.create-a-new-group") }}</span>
+              </button>
             </div>
-          </v-container>
+          </div>
         </template>
 
         <template v-else-if="state.ctx.state === States.ProvideToken">
@@ -130,7 +78,7 @@
         </template>
 
         <template v-else-if="state.ctx.state === States.ProvideGroupDetails">
-          <div class="preferred-width">
+          <div>
             <v-card-title>
               <v-icon
                 size="large"
@@ -232,7 +180,7 @@
         </template>
 
         <template v-else-if="state.ctx.state === States.Confirmation">
-          <div class="preferred-width">
+          <div>
             <v-card-title class="mb-0 pb-0">
               <v-icon
                 size="large"
@@ -279,31 +227,24 @@
           </div>
         </template>
       </div>
+    </div>
 
-      <v-card-actions class="justify-center flex-column py-8">
-        <v-btn
-          variant="text"
-          class="mb-2"
-          to="/login"
-        >
-          {{ $t("user.login") }}
-        </v-btn>
-        <BaseButton
-          size="large"
-          color="primary"
-          :icon="$globals.icons.translate"
-          @click="langDialog = true"
-        >
-          {{ $t("language-dialog.choose-language") }}
-        </BaseButton>
-      </v-card-actions>
-    </v-card>
+    <template #footer>
+      <RouterLink to="/login" class="register-footer-link">
+        {{ $t("user.login") }}
+      </RouterLink>
+      <button type="button" class="register-footer-link" @click="langDialog = true">
+        <v-icon size="14">
+          {{ $globals.icons.translate }}
+        </v-icon>
+        {{ $t("language-dialog.choose-language") }}
+      </button>
+    </template>
     <LanguageDialog v-model="langDialog" />
-  </v-container>
+  </AppAuthShell>
 </template>
 
 <script setup lang="ts">
-import { useDark } from "@vueuse/core";
 import { States, RegistrationType, useRegistration } from "./states";
 import { useUserRegistrationForm } from "~/composables/use-users/user-registration-form";
 import { useRouteQuery } from "~/composables/use-router";
@@ -314,6 +255,7 @@ import type { CreateUserRegistration } from "~/lib/api/types/user";
 import { usePublicApi } from "~/composables/api/api-client";
 import { useLocales } from "~/composables/use-locales";
 import UserRegistrationForm from "~/components/Domain/User/UserRegistrationForm.vue";
+import AppAuthShell from "~/components/Layout/LayoutParts/AppAuthShell.vue";
 import type { VForm } from "~/types/auto-forms";
 
 definePageMeta({
@@ -326,7 +268,6 @@ const inputAttrs = {
 };
 
 const i18n = useI18n();
-const isDark = useDark();
 
 // Registration Context
 const state = useRegistration();
@@ -512,34 +453,114 @@ async function submitRegistration() {
 </script>
 
 <style lang="css" scoped>
-.icon-white {
-  fill: white;
+.register__step {
+  display: flex;
+  justify-content: center;
 }
 
-.icon-container {
+.register__step > * {
+  width: 100%;
+}
+
+.register-initial {
   display: flex;
   flex-direction: column;
   align-items: center;
+  gap: 20px;
+  padding: 4px 0 8px;
+}
+
+.register-initial__title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.register-choices {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
   width: 100%;
-  position: relative;
-  margin-top: 2.5rem;
 }
 
-.icon-divider {
-  width: 100%;
-  margin-bottom: -2.5rem;
+.register-choice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 22px 16px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--mealie-canvas);
+  box-shadow: inset 0 0 0 1px var(--mealie-hairline-strong);
+  color: var(--mealie-ink);
+  font: inherit;
+  cursor: pointer;
+  transition:
+    box-shadow 0.15s ease,
+    background-color 0.15s ease;
 }
 
-.icon-avatar {
-  border-color: rgba(0, 0, 0, 0.12);
-  border: 2px;
+.register-choice:hover {
+  background: rgba(var(--v-theme-primary), 0.06);
+  box-shadow: inset 0 0 0 2px rgb(var(--v-theme-primary));
 }
 
-.bg-off-white {
-  background: #f5f8fa;
+.register-choice:focus-visible {
+  outline: 2px solid rgb(var(--v-theme-primary));
+  outline-offset: 2px;
 }
 
-.preferred-width {
-  width: 840px;
+.register-choice__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgb(var(--v-theme-primary));
+  color: rgb(var(--v-theme-on-primary));
+}
+
+.register-choice__title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.register-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 6px;
+  border: 0;
+  background: none;
+  color: var(--mealie-text-tertiary);
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.register-footer-link:hover {
+  color: var(--mealie-ink);
+}
+
+/* the later steps keep their card titles and dividers, sized to the shell */
+.register :deep(.v-card-title) {
+  font-size: 20px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: normal;
+}
+
+.register :deep(.v-divider) {
+  opacity: 0.08;
+}
+
+@media (max-width: 600px) {
+  .register-choices {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container class="lg-container">
     <section>
       <!-- Delete Dialog -->
       <BaseDialog
@@ -71,11 +71,14 @@
       </BaseDialog>
 
       <section>
-        <BaseCardSectionTitle :title="$t('settings.backup-and-exports')">
+        <BasePageTitle>
+          <template #title>
+            {{ $t('settings.backup-and-exports') }}
+          </template>
           <v-card-text class="py-0 px-1">
             <i18n-t keypath="settings.backup.experimental-description" />
           </v-card-text>
-        </BaseCardSectionTitle>
+        </BasePageTitle>
         <v-toolbar
           color="transparent"
           flat

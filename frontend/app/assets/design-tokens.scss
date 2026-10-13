@@ -1,0 +1,394 @@
+// Design tokens for the redesigned shell, recipe library, recipe page and cook mode.
+// Colors that follow the user's theme (primary, success, ...) still come from Vuetify; these
+// tokens cover the warm neutrals around them, which Vuetify's palette has no slot for.
+
+:root {
+  --v-font-body:
+    -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --v-font-heading:
+    -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mealie-font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+
+:root,
+.v-theme--light {
+  --mealie-canvas: #faf9f7;
+  --mealie-sidebar: #f3f1ed;
+  --mealie-surface: #ffffff;
+  --mealie-ink: #1c1b19;
+  --mealie-ink-secondary: #3a3835;
+  --mealie-icon: #4a4844;
+  --mealie-text-secondary: #5c5954;
+  // tertiary is the faintest grey that still meets 4.5:1 on the canvas and the sidebar;
+  // quaternary falls below that, so it is kept for icons, rules and inactive text
+  --mealie-text-tertiary: #6f6c66;
+  --mealie-text-quaternary: #a8a49c;
+  --mealie-hairline: rgba(0, 0, 0, 0.06);
+  --mealie-hairline-strong: rgba(0, 0, 0, 0.08);
+  --mealie-fill: rgba(118, 118, 128, 0.12);
+  --mealie-fill-subtle: rgba(118, 118, 128, 0.1);
+  --mealie-checkbox-ring: #c9c5bd;
+  --mealie-avatar: #e6dfd4;
+  --mealie-avatar-ink: #6b5f4f;
+  --mealie-placeholder-a: #e6e1d8;
+  --mealie-placeholder-b: #ded9cf;
+  --mealie-placeholder-ink: #8d877c;
+  --mealie-shadow-card: 0 1px 2px rgba(40, 30, 20, 0.04);
+}
+
+.v-theme--dark {
+  --mealie-canvas: #161513;
+  --mealie-sidebar: #1c1b19;
+  --mealie-surface: #1f1e1c;
+  --mealie-ink: #f5f3ef;
+  --mealie-ink-secondary: #dcd8d1;
+  --mealie-icon: #c9c5bd;
+  --mealie-text-secondary: #a8a49c;
+  --mealie-text-tertiary: #9a978f;
+  --mealie-text-quaternary: #7d7a73;
+  --mealie-hairline: rgba(255, 255, 255, 0.06);
+  --mealie-hairline-strong: rgba(255, 255, 255, 0.1);
+  --mealie-fill: rgba(255, 255, 255, 0.1);
+  --mealie-fill-subtle: rgba(255, 255, 255, 0.08);
+  --mealie-checkbox-ring: #5a5751;
+  --mealie-avatar: #3a3631;
+  --mealie-avatar-ink: #d9cfc0;
+  --mealie-placeholder-a: #2a2825;
+  --mealie-placeholder-b: #25231f;
+  --mealie-placeholder-ink: #7d7a73;
+  --mealie-shadow-card: none;
+}
+
+// The redesigned screens set their own heading sizes and spacing
+.recipe-hero-wrap,
+.library,
+.recipe-view {
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+  }
+}
+
+// Page frame shared by the redesigned list pages (meal planner, shopping lists, ...):
+// an eyebrow and large title on the left, actions on the right, content below
+.mealie-page {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 36px 48px 96px;
+  box-sizing: border-box;
+  color: var(--mealie-ink);
+
+  h1,
+  h2,
+  h3 {
+    margin: 0;
+  }
+
+  &--narrow {
+    max-width: 880px;
+  }
+}
+
+.mealie-page__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px 24px;
+}
+
+.mealie-page__titles {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.mealie-page__title {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.mealie-page__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.mealie-page__body {
+  margin-top: 28px;
+}
+
+@media (max-width: 960px) {
+  .mealie-page {
+    padding: 24px 24px 80px;
+  }
+}
+
+@media (max-width: 600px) {
+  .mealie-page {
+    padding: 16px 16px 72px;
+  }
+
+  .mealie-page__title {
+    font-size: 28px;
+  }
+}
+
+// White rounded panel, as used for "This Week" and the planner's days
+.mealie-card {
+  border-radius: 24px;
+  background: var(--mealie-surface);
+  box-shadow: inset 0 0 0 1px var(--mealie-hairline);
+}
+
+// Two-or-three way switch, e.g. the planner's View / Edit
+.mealie-segmented {
+  display: inline-flex;
+  padding: 2px;
+  border-radius: 10px;
+  background: var(--mealie-fill);
+}
+
+.mealie-segmented__item {
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--mealie-ink);
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+
+  &--active {
+    background: var(--mealie-surface);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+    font-weight: 600;
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgb(var(--v-theme-primary));
+    outline-offset: 1px;
+  }
+}
+
+// Settings, data and admin pages are built from plain Vuetify cards and tables. Inside the
+// page (not in dialogs or menus, which render outside v-main) they become the redesign's
+// rounded hairline panels.
+.v-main {
+  .v-card.v-card--variant-elevated,
+  .v-card.v-card--variant-outlined {
+    border-radius: 20px;
+    border: 0;
+    box-shadow: inset 0 0 0 1px var(--mealie-hairline) !important;
+  }
+
+  .v-card.v-card--variant-elevated.v-card--hover:hover,
+  .v-card.v-card--variant-elevated.v-card--link:hover {
+    box-shadow:
+      inset 0 0 0 1px var(--mealie-hairline-strong),
+      0 14px 32px -22px rgba(40, 30, 20, 0.4) !important;
+  }
+
+  .v-table {
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--mealie-surface);
+    box-shadow: inset 0 0 0 1px var(--mealie-hairline);
+
+    > .v-table__wrapper > table > thead > tr > th {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      color: var(--mealie-text-tertiary);
+    }
+  }
+
+  .v-expansion-panel {
+    border-radius: 16px !important;
+  }
+
+  // buttons written as plain v-btns: pill-shaped and flat, with Vuetify's blue and teal
+  // "info"/"accent" actions turned into the neutral secondary pill
+  .v-btn.v-btn--variant-elevated:not(.v-btn--icon) {
+    border-radius: 999px;
+  }
+
+  .v-btn.v-btn--variant-elevated {
+    box-shadow: none;
+  }
+
+  .v-btn.v-btn--variant-elevated.bg-info,
+  .v-btn.v-btn--variant-elevated.bg-accent,
+  .v-btn.v-btn--variant-flat.bg-info,
+  .v-btn.v-btn--variant-flat.bg-accent {
+    background: var(--mealie-fill) !important;
+    color: var(--mealie-ink) !important;
+  }
+
+  .v-expansion-panels .v-expansion-panel__shadow {
+    box-shadow: inset 0 0 0 1px var(--mealie-hairline);
+  }
+}
+
+// Striped stand-in shown wherever a recipe has no photo
+.mealie-photo-placeholder {
+  background: repeating-linear-gradient(
+    135deg,
+    var(--mealie-placeholder-a) 0 9px,
+    var(--mealie-placeholder-b) 9px 18px
+  );
+}
+
+// Pill buttons used across the redesigned screens. Built on plain elements rather than
+// v-btn so they keep the exact shape and weight of the design at every size.
+.mealie-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--mealie-fill-subtle);
+  color: var(--mealie-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background-color 0.15s ease,
+    filter 0.15s ease,
+    transform 0.1s ease;
+
+  &:hover {
+    background: var(--mealie-fill);
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgb(var(--v-theme-primary));
+    outline-offset: 2px;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+    transform: none;
+  }
+
+  &--primary {
+    background: rgb(var(--v-theme-primary));
+    color: rgb(var(--v-theme-on-primary));
+    font-weight: 600;
+
+    &:hover {
+      background: rgb(var(--v-theme-primary));
+      filter: brightness(0.94);
+    }
+  }
+
+  &--tinted {
+    background: rgba(var(--v-theme-primary), 0.1);
+    color: rgb(var(--v-theme-primary));
+  }
+
+  &--lg {
+    height: 44px;
+    padding: 0 22px;
+    font-size: 15px;
+  }
+
+  &--sm {
+    height: 32px;
+    padding: 0 14px;
+    font-size: 13px;
+  }
+
+  &--icon {
+    padding: 0;
+    width: 32px;
+  }
+}
+
+// Filter chips on the recipe library
+.mealie-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border: 0;
+  border-radius: 17px;
+  background: var(--mealie-surface);
+  box-shadow: inset 0 0 0 1px var(--mealie-hairline-strong);
+  color: var(--mealie-ink);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color 0.15s ease;
+
+  &:hover {
+    background: var(--mealie-fill-subtle);
+  }
+
+  &:focus-visible {
+    outline: 2px solid rgb(var(--v-theme-primary));
+    outline-offset: 2px;
+  }
+
+  &--active,
+  &--active:hover {
+    background: var(--mealie-ink);
+    color: var(--mealie-canvas);
+    box-shadow: none;
+    font-weight: 600;
+  }
+}
+
+// Quiet dropdown buttons for search filters and sorting, sized to sit beside the chips
+.v-btn.mealie-filter-btn {
+  height: 34px !important;
+  padding: 0 14px !important;
+  background: var(--mealie-surface) !important;
+  box-shadow: inset 0 0 0 1px var(--mealie-hairline-strong) !important;
+  color: var(--mealie-ink) !important;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+
+  .v-icon {
+    color: var(--mealie-icon);
+  }
+}
+
+// Small uppercase label above titles and in section headers
+.mealie-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: var(--mealie-text-tertiary);
+}

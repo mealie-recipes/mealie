@@ -2,7 +2,7 @@
   <v-app dark>
     <TheSnackbar />
 
-    <AppHeader>
+    <AppHeader hide-on-desktop>
       <v-btn
         icon
         @click.stop="sidebar = !sidebar"
@@ -43,6 +43,10 @@ const { $globals } = useNuxtApp();
 const sidebar = ref<boolean>(false);
 onMounted(() => {
   sidebar.value = display.lgAndUp.value;
+});
+// the bar that toggles the sidebar is hidden on large screens, so keep it open there
+watch(display.lgAndUp, (lgAndUp) => {
+  sidebar.value = lgAndUp;
 });
 
 const topLinks: SidebarLinks = [

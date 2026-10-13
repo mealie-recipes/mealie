@@ -73,7 +73,7 @@ export default defineNuxtConfig({
     viewTransition: true,
   },
 
-  css: ["~/assets/main.css", "~/assets/style-overrides.scss"],
+  css: ["~/assets/main.css", "~/assets/style-overrides.scss", "~/assets/design-tokens.scss"],
 
   runtimeConfig: {
     sessionPassword: process.env.SESSION_PASSWORD || "password-with-at-least-32-characters",
@@ -87,17 +87,17 @@ export default defineNuxtConfig({
       useDark: Boolean(process.env.THEME_USE_DARK) || false,
       themes: {
         dark: {
-          primary: process.env.THEME_DARK_PRIMARY || "#E58325",
+          primary: process.env.THEME_DARK_PRIMARY || "#E0683C",
           accent: process.env.THEME_DARK_ACCENT || "#007A99",
-          secondary: process.env.THEME_DARK_SECONDARY || "#973542",
+          secondary: process.env.THEME_DARK_SECONDARY || "#E08A73",
           success: process.env.THEME_DARK_SUCCESS || "#43A047",
           info: process.env.THEME_DARK_INFO || "#1976d2",
           warning: process.env.THEME_DARK_WARNING || "#FF6D00",
           error: process.env.THEME_DARK_ERROR || "#EF5350",
-          background: "#1E1E1E",
+          background: "#161513",
         },
         light: {
-          primary: process.env.THEME_LIGHT_PRIMARY || "#E58325",
+          primary: process.env.THEME_LIGHT_PRIMARY || "#C4502A",
           accent: process.env.THEME_LIGHT_ACCENT || "#007A99",
           secondary: process.env.THEME_LIGHT_SECONDARY || "#973542",
           success: process.env.THEME_LIGHT_SUCCESS || "#43A047",
