@@ -15,7 +15,7 @@ def get_latest_github_release() -> str:
         str: The latest release from GitHub.
     """
 
-    url = "https://api.github.com/repos/mealie-recipes/mealie/releases/latest"
+    url = "https://api.github.com/repos/TheShield2594/mealie/releases/latest"
 
     # errors are returned rather than raised so lru_cache keeps them, otherwise an
     # unreachable GitHub would be retried (and waited on) on every request

@@ -1,3 +1,4 @@
+[![Latest Release][latest-release-shield]][latest-release-url]
 [![Based on Mealie][upstream-version-shield]][upstream-url]
 [![Last Commit][last-commit-shield]][last-commit-url]
 [![Stargazers][stars-shield]][stars-url]
@@ -21,6 +22,8 @@
     <br />
     <a href="https://docs.mealie.io/"><strong>Explore the docs »</strong></a>
     <br />
+    <a href="https://github.com/TheShield2594/mealie/releases">Releases</a>
+    ·
     <a href="https://github.com/TheShield2594/mealie/issues">Report Bug</a>
     ·
     <a href="https://github.com/mealie-recipes/mealie">Upstream Mealie</a>
@@ -76,7 +79,17 @@ Everything from upstream Mealie:
 
 ## Running This Fork
 
-This fork does not publish its own releases or container images, so the `hkotel/mealie` and `ghcr.io/mealie-recipes/mealie` images run upstream's design, not this one. Build the image from this repository instead:
+Each [release](https://github.com/TheShield2594/mealie/releases) publishes a Docker image for `linux/amd64` and `linux/arm64`:
+
+```yaml
+services:
+  mealie:
+    image: ghcr.io/theshield2594/mealie:v3.28.0-redesign.1 # or :latest
+```
+
+Follow the upstream [installation guide](https://docs.mealie.io/documentation/getting-started/installation/installation-checklist/) and swap in this image. Configuration, environment variables and backups work the same as upstream. The upstream images (`hkotel/mealie` and `ghcr.io/mealie-recipes/mealie`) run the original design, not this one.
+
+To build the image yourself instead:
 
 ```bash
 git clone https://github.com/TheShield2594/mealie.git
@@ -84,9 +97,24 @@ cd mealie
 docker build -f docker/Dockerfile -t mealie-redesign .
 ```
 
-Then follow the upstream [installation guide](https://docs.mealie.io/documentation/getting-started/installation/installation-checklist/), using `image: mealie-redesign` in your compose file. Configuration, environment variables and backups work the same as upstream.
-
 To run it for development, see the [Contributors Guide](https://nightly.mealie.io/contributors/developers-guide/code-contributions/). In short: `task setup`, then `task py` for the backend and `task ui` for the frontend.
+
+## Versioning and Releases
+
+Versions follow the upstream release they are based on, plus a redesign number: `v3.28.0-redesign.1` is the first release of the redesign on top of Mealie v3.28.0. The number resets when the fork is updated to a new upstream release. The Python package uses `3.28.0+redesign.1`, because Python versions can't contain `-redesign`.
+
+The About page under Admin Settings checks this fork's releases, not upstream's, to tell you whether an update is available.
+
+To cut a release:
+
+1. Bump the version in a pull request: `task fork:version -- 3.28.0+redesign.2`
+2. Once it is merged, tag the merge commit on `mealie-next` and push the tag:
+   ```bash
+   git tag v3.28.0-redesign.2
+   git push origin v3.28.0-redesign.2
+   ```
+
+The [Fork Release](.github/workflows/fork-release.yml) workflow then checks that the tag matches the version, runs the tests, publishes the image to `ghcr.io/theshield2594/mealie` and creates the GitHub release with generated notes.
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -106,6 +134,8 @@ Mealie is created and maintained by [Hayden](https://github.com/hay-kot) and the
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[latest-release-shield]: https://img.shields.io/github/v/release/TheShield2594/mealie?style=flat-square&label=latest%20release
+[latest-release-url]: https://github.com/TheShield2594/mealie/releases
 [upstream-version-shield]: https://img.shields.io/badge/based%20on-Mealie%20v3.28.0-C4502A?style=flat-square
 [upstream-url]: https://github.com/mealie-recipes/mealie
 [last-commit-shield]: https://img.shields.io/github/last-commit/TheShield2594/mealie/mealie-next?style=flat-square
