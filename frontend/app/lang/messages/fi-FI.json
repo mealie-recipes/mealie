@@ -1076,6 +1076,8 @@
     "share-recipe": "Reseptin kaappain",
     "default-30-days": "Oletus 30 Päivää",
     "expires-at": "Vanhenee",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Reseptin linkki kopioitu leikepöydälle"
   },
   "banner-experimental": {
