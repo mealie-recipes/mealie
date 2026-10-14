@@ -4,6 +4,7 @@ from .category import *
 from .comment import *
 from .ingredient import *
 from .instruction import *
+from .migration import *
 from .note import *
 from .nutrition import *
 from .recipe import *

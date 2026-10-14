@@ -4,6 +4,23 @@ This guide is a reference for developers maintaining custom integrations with Me
 
 While this guide aims to simplify the migration process for developers, it's not necessarily a comprehensive list of breaking changes. Starting with v2, a comprehensive list of breaking changes are highlighted in the release notes.
 
+## Recipe migration duplicate handling (unreleased)
+
+`POST /api/groups/migrations` now accepts the multipart form field `skip_duplicates`, defaulting to `true`.
+Set it to `false` to explicitly create copies, preserving the previous behavior. The migration page exposes both choices.
+
+Matching uses the import source and a normalized content fingerprint within the current household.
+The original fingerprint is stored separately, so importing the original file again does not overwrite user edits.
+Name alone is not a match: different ingredients or instructions create a separate recipe.
+Images, archive paths, generated IDs, tags and ratings are excluded from the fingerprint.
+Changing only these fields does not update an existing recipe when skipping duplicates.
+Skipped recipes are reported as successful skips with the existing recipe's name and slug; their images are untouched.
+
+Only imports made after this feature is enabled have a recorded identity. Existing recipes are not backfilled
+or deleted. Deleting a tracked recipe removes its import identity and allows it to be imported again.
+The recipe and its identity are committed atomically, with a database uniqueness constraint to prevent
+concurrent imports from creating duplicates. Intentional copies retain the first recipe as the matching target.
+
 ## Deprecations
 
 These still work, but are no longer the supported way of doing things, and may be removed in a future major version.

@@ -29,10 +29,8 @@ class NextcloudDir:
         except StopIteration:
             return None
 
-        try:  # TODO: There's got to be a better way to do this.
-            image_file = next(dir.glob("full.*"))
-        except StopIteration:
-            image_file = None
+        image_path = next((path for path in dir.glob("full.*") if path.is_file()), dir / "full")
+        image_file = image_path if image_path.is_file() else None
 
         return cls(name=dir.name, recipe=MigrationReaders.json(json_file), image=image_file)
 
@@ -73,13 +71,15 @@ class NextcloudMigrator(BaseMigrator):
 
             base_dir = self.get_zip_base_path(Path(tmpdir))
             potential_recipe_dirs = glob_walker(base_dir, glob_str="**/[!.]*.json", return_parent=True)
-            nextcloud_dirs = {y.slug: y for x in potential_recipe_dirs if (y := NextcloudDir.from_dir(x))}
+            nextcloud_dirs = [y for x in potential_recipe_dirs if (y := NextcloudDir.from_dir(x))]
 
             all_recipes = []
-            for _, nc_dir in nextcloud_dirs.items():
+            source_dirs = []
+            for nc_dir in nextcloud_dirs:
                 try:
                     recipe = self.clean_recipe_dictionary(nc_dir.recipe)
                     all_recipes.append(recipe)
+                    source_dirs.append(nc_dir)
                 except Exception as e:
                     self.logger.exception(e)
                     self.report_entries.append(
@@ -93,8 +93,6 @@ class NextcloudMigrator(BaseMigrator):
 
             all_statuses = self.import_recipes_to_database(all_recipes)
 
-            for slug, recipe_id, status in all_statuses:
-                if status:
-                    nc_dir = nextcloud_dirs[slug]
-                    if nc_dir.image:
-                        self.import_image(slug, nc_dir.image, recipe_id, extraction_root=base_dir)
+            for (slug, recipe_id, status), nc_dir in zip(all_statuses, source_dirs, strict=True):
+                if status and nc_dir.image:
+                    self.import_image(slug, nc_dir.image, recipe_id, extraction_root=base_dir)

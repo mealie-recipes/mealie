@@ -8,6 +8,7 @@ from mealie.core import root_logger
 from mealie.core.exceptions import UnexpectedNone
 from mealie.lang.providers import Translator
 from mealie.repos.all_repositories import AllRepositories
+from mealie.repos.repository_recipes import DuplicateRecipeImport
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.reports.reports import (
@@ -24,6 +25,7 @@ from mealie.services.scraper import cleaner
 
 from .._base_service import BaseService
 from .utils.database_helpers import DatabaseMigrationHelpers
+from .utils.fingerprint import recipe_fingerprint
 from .utils.migration_alias import MigrationAlias
 from .utils.migration_helpers import import_image, scrape_image
 
@@ -47,7 +49,9 @@ class BaseMigrator(BaseService):
         group_id: UUID4,
         add_migration_tag: bool,
         translator: Translator,
+        skip_duplicates: bool = True,
     ):
+        self.skip_duplicates = skip_duplicates
         self.archive = archive
         self.db = db
         self.session = session
@@ -161,6 +165,9 @@ class BaseMigrator(BaseService):
         database in a predictable way. If an error occurs the session is rolled back
         and the process will continue. All import information is appended to the
         'migration_report' attribute to be returned to the frontend for display.
+        Returns exactly one result per input, in input order, including failures.
+        Pair results with their source recipes rather than looking up by slug: creation
+        may rename a recipe when its slug already exists.
 
         Args:
             validated_recipes (list[Recipe]):
@@ -182,6 +189,11 @@ class BaseMigrator(BaseService):
         )
 
         for recipe in validated_recipes:
+            fingerprint = recipe_fingerprint(recipe)
+            if self.skip_duplicates and (existing := self.db.recipes.get_imported_recipe(self.name, fingerprint)):
+                self._report_duplicate(existing)
+                return_vars.append((existing.slug, existing.id, False))
+                continue
             recipe.settings = default_settings
 
             recipe.user_id = self.user.id
@@ -206,9 +218,17 @@ class BaseMigrator(BaseService):
                 # locate the file, so it is dropped from the persisted copy only. The key is
                 # recorded by `import_image`/`scrape_image` once a file actually lands, so a
                 # recipe never claims an image the media route cannot serve.
-                recipe = self.recipe_service.create_one(recipe.model_copy(update={"image": None}))
+                recipe = self.recipe_service.create_one(
+                    recipe.model_copy(update={"image": None}),
+                    migration_identity=(self.name, fingerprint),
+                    skip_duplicates=self.skip_duplicates,
+                )
                 status = True
 
+            except DuplicateRecipeImport as duplicate:
+                self._report_duplicate(duplicate.recipe)
+                return_vars.append((duplicate.recipe.slug, duplicate.recipe.id, False))
+                continue
             except Exception as inst:
                 exception = str(inst)
                 self.logger.exception(inst)
@@ -231,6 +251,17 @@ class BaseMigrator(BaseService):
             )
 
         return return_vars
+
+    def _report_duplicate(self, recipe: Recipe) -> None:
+        # The result's boolean means "created": skip all asset writes for existing recipes.
+        # A deliberate skip is successful in the migration report, not an import failure.
+        self.report_entries.append(
+            ReportEntryCreate(
+                report_id=self.report_id,
+                success=True,
+                message=f"Skipped duplicate: {recipe.name} (existing recipe: {recipe.slug})",
+            )
+        )
 
     def rewrite_alias(self, recipe_dict: dict) -> dict:
         """A helper function to reassign attributes by an alias using a list
@@ -288,8 +319,16 @@ class BaseMigrator(BaseService):
         try:
             if import_image(src, recipe_id, extraction_root=extraction_root) is not None:
                 self._record_image(slug)
-        except UnidentifiedImageError as e:
+        except (UnidentifiedImageError, OSError, ValueError) as e:
             self.logger.error(f"Failed to import image for {slug}: {e}")
+            self.report_entries.append(
+                ReportEntryCreate(
+                    report_id=self.report_id,
+                    success=False,
+                    message=f"Failed to import image for {slug}",
+                    exception=str(e),
+                )
+            )
 
     async def scrape_image(self, slug: str, image_url: str, recipe_id: UUID4) -> None:
         if await scrape_image(image_url, recipe_id) is not None:

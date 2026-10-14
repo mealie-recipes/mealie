@@ -75,11 +75,9 @@ class TandoorMigrator(BaseMigrator):
         recipe_data["recipeYieldQuantity"] = recipe_data.pop("servings", 0)
         recipe_data["recipeYield"] = recipe_data.pop("servings_text", "")
 
-        try:
-            recipe_image_path = next(source_dir.glob("image.*"))
+        recipe_image_path = next((path for path in source_dir.glob("image.*") if path.is_file()), source_dir / "image")
+        if recipe_image_path.is_file():
             recipe_data["image"] = str(recipe_image_path)
-        except StopIteration:
-            pass
         return recipe_data
 
     def _migrate(self) -> None:
@@ -119,15 +117,6 @@ class TandoorMigrator(BaseMigrator):
 
             recipes = [self.clean_recipe_dictionary(x) for x in recipes_as_dicts]
             results = self.import_recipes_to_database(recipes)
-            recipe_lookup = {r.slug: r for r in recipes}
-            for slug, recipe_id, status in results:
-                if status:
-                    try:
-                        r = recipe_lookup.get(slug)
-                        if not r or not r.image:
-                            continue
-
-                    except StopIteration:
-                        continue
-
-                    self.import_image(slug, r.image, recipe_id, extraction_root=source_dir)
+            for (slug, recipe_id, status), source_recipe in zip(results, recipes, strict=True):
+                if status and source_recipe.image:
+                    self.import_image(slug, source_recipe.image, recipe_id, extraction_root=source_dir)

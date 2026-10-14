@@ -11,6 +11,7 @@ from sqlalchemy.exc import IntegrityError
 from mealie.db.models.household import Household, HouseholdToRecipe
 from mealie.db.models.recipe.category import Category
 from mealie.db.models.recipe.ingredient import RecipeIngredientModel, RecipeIngredientSubstitutionModel
+from mealie.db.models.recipe.migration import RecipeMigrationModel
 from mealie.db.models.recipe.recipe import RecipeModel
 from mealie.db.models.recipe.tag import Tag
 from mealie.db.models.recipe.tool import Tool
@@ -26,6 +27,12 @@ from mealie.services.query_filter.builder import QueryFilterBuilder
 from ..db.models._model_base import SqlAlchemyBase
 from ._recipe_suggestions import RecipeSuggestionMixin
 from .repository_generic import HouseholdRepositoryGeneric
+
+
+class DuplicateRecipeImport(Exception):
+    def __init__(self, recipe: Recipe):
+        self.recipe = recipe
+        super().__init__(f"Recipe already imported: {recipe.slug}")
 
 
 class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe, RecipeModel]):
@@ -101,6 +108,57 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
 
                 if i >= max_retries:
                     raise
+
+    def get_imported_recipe(self, source: str, fingerprint: str) -> Recipe | None:
+        if not self.household_id or not self.group_id:
+            raise ValueError("Migration lookup requires household and group scope")
+        recipe_id = self.session.scalar(
+            sa.select(RecipeMigrationModel.recipe_id).where(
+                RecipeMigrationModel.household_id == self.household_id,
+                RecipeMigrationModel.source == source,
+                RecipeMigrationModel.fingerprint == fingerprint,
+            )
+        )
+        return self.get_one(recipe_id, "id") if recipe_id else None
+
+    def create_imported(self, document: Recipe, source: str, fingerprint: str, skip_duplicates: bool) -> Recipe:
+        """Commit the recipe and its identity together; uniqueness also protects concurrent imports."""
+        if existing := self.get_imported_recipe(source, fingerprint):
+            if skip_duplicates:
+                raise DuplicateRecipeImport(existing)
+            return self.create(document)
+
+        original_name = document.name
+        for attempt in range(10):
+            try:
+                new_recipe = self.model(session=self.session, **document.model_dump())
+                self.session.add(new_recipe)
+                self.session.flush()
+                self.session.add(
+                    RecipeMigrationModel(
+                        household_id=self.household_id,
+                        source=source,
+                        fingerprint=fingerprint,
+                        recipe_id=new_recipe.id,
+                    )
+                )
+                self.session.commit()
+                self.session.refresh(new_recipe)
+                return self.schema.model_validate(new_recipe)
+            except IntegrityError:
+                self.session.rollback()
+                if existing := self.get_imported_recipe(source, fingerprint):
+                    if skip_duplicates:
+                        raise DuplicateRecipeImport(existing) from None
+                    return self.create(document)
+                if attempt == 9:
+                    raise
+                document.name = f"{original_name} ({attempt + 1})"
+                document.slug = create_recipe_slug(document.name)
+            except Exception:
+                self.session.rollback()
+                raise
+        raise RuntimeError("Unable to create imported recipe")
 
     def _delete_recipe(self, recipe: RecipeModel) -> Recipe:
         recipe_as_model = self.schema.model_validate(recipe)

@@ -208,7 +208,13 @@ class RecipeService(RecipeServiceBase):
         else:
             return self._get_recipe(slug_or_id, "slug")
 
-    def create_one(self, create_data: Recipe | CreateRecipe) -> Recipe:
+    def create_one(
+        self,
+        create_data: Recipe | CreateRecipe,
+        *,
+        migration_identity: tuple[str, str] | None = None,
+        skip_duplicates: bool = True,
+    ) -> Recipe:
         if create_data.name is None:
             create_data.name = "New Recipe"
 
@@ -228,7 +234,11 @@ class RecipeService(RecipeServiceBase):
 
         rating_input = data.rating
         data.last_made = None
-        new_recipe = self.repos.recipes.create(data)
+        if migration_identity is None:
+            new_recipe = self.repos.recipes.create(data)
+        else:
+            source, fingerprint = migration_identity
+            new_recipe = self.repos.recipes.create_imported(data, source, fingerprint, skip_duplicates)
 
         # convert rating into user rating
         if rating_input:
