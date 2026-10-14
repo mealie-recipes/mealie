@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Сигурни ли сте, че искате да премахнете отметката от всички елементи?",
     "are-you-sure-you-want-to-delete-checked-items": "Сигурни ли сте, че искате да изтриете всички отметнати елементи?",
     "no-shopping-lists-found": "Не са намерени списъци за пазаруване",
-    "item-checked-off": "Неизбран елемент {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Неизбран елемент {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Архивиране",
