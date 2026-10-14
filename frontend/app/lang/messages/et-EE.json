@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Kas oled kindel, et tahad tühistada kõik valikud?",
     "are-you-sure-you-want-to-delete-checked-items": "Kas oled kindel, et tahad kustutada kõik valitud üksused?",
     "no-shopping-lists-found": "Poenimekirja ei leitud",
-    "item-checked-off": "Checked off {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Tagavarakoopiad",
