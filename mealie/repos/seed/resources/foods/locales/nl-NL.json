@@ -84,7 +84,7 @@
       },
       "heart of palm": {
         "name": "palmhart",
-        "plural_name": "hearts of palm"
+        "plural_name": "palmhart"
       },
       "pumpkin": {
         "name": "pompoen",
@@ -164,7 +164,7 @@
       },
       "poblano pepper": {
         "name": "poblano pepers",
-        "plural_name": "poblano peppers"
+        "plural_name": "poblano pepers"
       },
       "green tomato": {
         "name": "groene tomaat",
@@ -296,7 +296,7 @@
       },
       "grapefruit": {
         "name": "pompelmoes",
-        "plural_name": "grapefruits"
+        "plural_name": "pompelmoes"
       },
       "plum": {
         "name": "pruim",
@@ -352,7 +352,7 @@
       },
       "bean sprout": {
         "name": "tauge",
-        "plural_name": "bean sprouts"
+        "plural_name": "taugé"
       },
       "edamame": {
         "name": "edamame",
@@ -400,7 +400,7 @@
       },
       "chive": {
         "name": "bieslook",
-        "plural_name": "chives"
+        "plural_name": "bieslook"
       },
       "mint": {
         "name": "munt",
@@ -497,7 +497,7 @@
       },
       "steel cut oat": {
         "name": "grofgesneden havermout",
-        "plural_name": "steel cut oats"
+        "plural_name": "grofgesneden havermout"
       },
       "millet": {
         "name": "gierst",
@@ -617,7 +617,7 @@
       },
       "soba noodle": {
         "name": "sobanoedels",
-        "plural_name": "soba noodles"
+        "plural_name": "sobanoedels"
       },
       "ravioli": {
         "name": "ravioli",
@@ -670,7 +670,7 @@
       },
       "beef roast": {
         "name": "geroosterd rundvlees",
-        "plural_name": "beef roasts"
+        "plural_name": "geroosterd rundvlees"
       },
       "ground pork": {
         "name": "varkensgehakt",
@@ -682,7 +682,7 @@
       },
       "pork fillet": {
         "name": "varkensfilet",
-        "plural_name": "pork fillets"
+        "plural_name": "varkensfilet"
       },
       "pork shoulder": {
         "name": "varkensschouder",
@@ -710,7 +710,7 @@
       },
       "beef short rib": {
         "name": "runder shortribs",
-        "plural_name": "beef short ribs"
+        "plural_name": "runder shortribs"
       },
       "pork belly": {
         "name": "buikspek",
@@ -730,11 +730,11 @@
       },
       "chicken breast": {
         "name": "kipfilet",
-        "plural_name": "chicken breasts"
+        "plural_name": "kipfilet"
       },
       "chicken thigh": {
         "name": "kipdijfilet",
-        "plural_name": "chicken thighs"
+        "plural_name": "kipdijfilet"
       },
       "ground turkey": {
         "name": "kalkoengehakt",
@@ -864,7 +864,7 @@
     "foods": {
       "bonito flake": {
         "name": "bonitovlokken",
-        "plural_name": "bonito flakes"
+        "plural_name": "bonitovlokken"
       },
       "salmon": {
         "name": "zalm",
@@ -1118,7 +1118,7 @@
       },
       "puff pastry": {
         "name": "bladerdeeg",
-        "plural_name": "puff pastries"
+        "plural_name": "bladerdeeg gebakjes"
       },
       "pizza dough": {
         "name": "pizzadeeg",
@@ -1263,7 +1263,7 @@
       },
       "canned anchovy": {
         "name": "ansjovis uit blik",
-        "plural_name": "canned anchovies"
+        "plural_name": "ansjovis uit blik"
       },
       "roasted red pepper": {
         "name": "geroosterde rode paprika",
@@ -1271,7 +1271,7 @@
       },
       "canned artichoke": {
         "name": "artisjok in blik",
-        "plural_name": "canned artichokes"
+        "plural_name": "artisjok in blik"
       },
       "canned corn": {
         "name": "blik mais",
@@ -1279,11 +1279,11 @@
       },
       "canned kidney bean": {
         "name": "kidneybonen uit blik",
-        "plural_name": "canned kidney beans"
+        "plural_name": "kidneybonen uit blik"
       },
       "refried bean": {
         "name": "refried beans",
-        "plural_name": "refried beans"
+        "plural_name": "mexicaanse bonenpuree"
       },
       "canned whole tomato": {
         "name": "blik hele tomaat",
@@ -1307,7 +1307,7 @@
       },
       "diced green chile": {
         "name": "groene chilipeperblokjes",
-        "plural_name": "diced green chiles"
+        "plural_name": "groene chilipeperblokjes"
       },
       "sun-dried tomato in oil": {
         "name": "zon-gedroogde tomaat in olie",
@@ -1319,7 +1319,7 @@
       },
       "baked bean": {
         "name": "baked beans",
-        "plural_name": "baked beans"
+        "plural_name": "gebakken bonen"
       },
       "canned salmon": {
         "name": "zalm uit blik",
@@ -1335,7 +1335,7 @@
       },
       "canned sardine": {
         "name": "sardines uit blik",
-        "plural_name": "canned sardines"
+        "plural_name": "sardines uit blik"
       },
       "aquafaba": {
         "name": "aquafaba",
@@ -1741,7 +1741,7 @@
       },
       "fennel seed": {
         "name": "venkelzaad",
-        "plural_name": "fennel seeds"
+        "plural_name": "venkelzaad"
       },
       "tarragon": {
         "name": "dragon",

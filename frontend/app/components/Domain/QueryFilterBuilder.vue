@@ -98,12 +98,13 @@
               item-value="value"
               variant="underlined"
               class="text-center"
-              @update:model-value="setRelationalOperatorValue(field, index, $event as unknown as RelationalKeyword | RelationalOperator)"
+              @update:model-value="updateRelationalOperator(field, $event as unknown as RelationalKeyword | RelationalOperator)"
             />
           </v-col>
 
           <!-- field value -->
           <v-col
+            v-if="!isNullOperator(field.relationalOperatorValue)"
             :cols="config.items.fieldValue.cols(index)"
             :sm="config.items.fieldValue.sm(index)"
             :class="config.col.class"
@@ -365,6 +366,8 @@ const {
   buildQueryFilterString,
   getFieldFromFieldDef,
   isOrganizerType,
+  isNullOperator,
+  updateRelationalOperator,
 } = useQueryFilterBuilder();
 
 const firstDayOfWeek = computed(() => {
@@ -463,11 +466,6 @@ function setLogicalOperatorValue(field: FieldWithId, index: number, value: Logic
   }
 
   fields.value[index]!.logicalOperator = value ? logOps.value[value] : undefined;
-}
-
-function setRelationalOperatorValue(field: FieldWithId, index: number, value: RelationalKeyword | RelationalOperator) {
-  const relOps = getRelOps(field.type);
-  fields.value[index]!.relationalOperatorValue = relOps.value[value];
 }
 
 function setFieldValue(field: FieldWithId, index: number, value: FieldValue) {
@@ -583,7 +581,10 @@ async function initializeFields() {
       state.showAdvanced = true;
     }
 
-    if (field.fieldChoices?.length || isOrganizerType(field.type)) {
+    if (isNullOperator(field.relationalOperatorValue)) {
+      field.value = "";
+    }
+    else if (field.fieldChoices?.length || isOrganizerType(field.type)) {
       if (typeof part.value === "string") {
         field.values = part.value ? [part.value] : [];
       }
@@ -652,7 +653,10 @@ function buildQueryFilterJSON(): QueryFilterJSON {
       relationalOperator: field.relationalOperatorValue?.value,
     };
 
-    if (field.fieldChoices?.length || isOrganizerType(field.type)) {
+    if (isNullOperator(field.relationalOperatorValue)) {
+      part.value = null;
+    }
+    else if (field.fieldChoices?.length || isOrganizerType(field.type)) {
       part.value = field.values.map(value => value.toString());
     }
     else if (field.type === "boolean") {

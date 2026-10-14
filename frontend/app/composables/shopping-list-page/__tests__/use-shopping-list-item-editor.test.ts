@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, test, vi } from "vitest";
 import type { ModelRef } from "vue";
-import type { ShoppingListItemOut } from "~/lib/api/types/household";
+import type { IngredientFood, ShoppingListItemOut } from "~/lib/api/types/household";
 import { MOCK_ITEM } from "../sub-composables/__tests__/mocks";
-import { useShoppingListItemEditor } from "../use-shopping-list-item-editor";
+import { resolveFood, useShoppingListItemEditor } from "../use-shopping-list-item-editor";
 
 const foodStore = {
   actions: {
@@ -97,5 +97,35 @@ describe("useShoppingListItemEditor", () => {
       assignLabelToFood();
       expect(foodStore.actions.updateOne).not.toHaveBeenCalled();
     });
+  });
+});
+
+describe("resolveFood", () => {
+  const foods = [
+    { id: "tomato", name: "Tomato", pluralName: "Tomatoes" },
+    { id: "jalapeno", name: "Jalapeño" },
+    { id: "scallion", name: "Scallion", aliases: [{ name: "Green Onion" }] },
+    { id: "cornstarch", name: "Cornstarch" },
+  ] as IngredientFood[];
+
+  test("matches name", () => {
+    expect(resolveFood("Tomato", foods)?.id).toBe("tomato");
+  });
+  test("matches plural name", () => {
+    expect(resolveFood("tomatoes", foods)?.id).toBe("tomato");
+  });
+  test("matches alias", () => {
+    expect(resolveFood("green onion", foods)?.id).toBe("scallion");
+  });
+  test("ignores case, accents, and surrounding whitespace", () => {
+    expect(resolveFood("  JALAPENO ", foods)?.id).toBe("jalapeno");
+  });
+  test("does not match partial or fuzzy text", () => {
+    expect(resolveFood("corn", foods)).toBeUndefined();
+    expect(resolveFood("tomatos", foods)).toBeUndefined();
+  });
+  test("does not match empty text", () => {
+    expect(resolveFood("", foods)).toBeUndefined();
+    expect(resolveFood("   ", foods)).toBeUndefined();
   });
 });

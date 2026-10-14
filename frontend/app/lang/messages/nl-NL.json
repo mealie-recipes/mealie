@@ -352,7 +352,7 @@
       "title": "Paprika receptenbeheerder"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
+      "description-long": "Mealie kan recepten importeren uit de Mealie toepassing uit een pre v1.0 release. Exporteer uw recepten vanaf uw oude instantie en upload het zip-bestand hieronder. Merk op dat alleen recepten uit de export kunnen worden geïmporteerd. Dit geldt alleen voor gevallen ouder dan v1. Een reservekopie van v1.0 of hoger moet worden hersteld met de back-up en herstel middelen.",
       "title": "Oude versies van Mealie (vóór versie 1.0)"
     },
     "tandoor": {
@@ -364,7 +364,7 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Receptmigratie",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "recipe-data-migrations-explanation": "Recepten kunnen vanuit een andere ondersteunde applicatie naar Mealie worden overgezet. Dat is een uitstekende manier om met Mealie aan de slag te gaan. Gegevens overzetten tussen Mealie instanties of een eerdere Mealie back-up terugzetten doe je met de tools voor back-up en herstel.",
     "migration-description": "Kom je van een andere toepassing of een oudere versie van Mealie? Kijk eens naar de migraties. Misschien kunnen we je gegevens importeren.",
     "choose-migration-type": "Kies het migratietype",
     "tag-all-recipes": "Label alle recepten met het label {tag-name}",
@@ -590,8 +590,8 @@
     "report-deletion-failed": "Rapport verwijderen is mislukt",
     "recipe-debugger": "Recept debugger",
     "recipe-debugger-description": "Pak de URL van het recept dat u wilt debuggen en plak die hier. De URL zal door de receptenscraper worden gescrapet en de resultaten zullen worden weergegeven. Als u geen gegevens ziet, wordt de site die u probeert te scrapen niet ondersteund door Mealie of zijn scraperbibliotheek.",
-    "use-ai": "Use AI",
-    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-ai": "Gebruik AI",
+    "recipe-debugger-use-ai-description": "Gebruik AI om de resultaten te parsen in plaats van te vertrouwen op de scraper-bibliotheek. Bij het maken van een recept via een URL wordt dit automatisch gedaan als de scraper-bibliotheek mislukt, maar u kunt het hier handmatig testen.",
     "debug": "Debug",
     "tree-view": "Boomstructuurweergave",
     "recipe-servings": "Recept porties",
@@ -606,9 +606,9 @@
     "unit-system": {
       "as-written": "Zoals geschreven",
       "metric": "Waarde",
-      "metric-with-hint": "Metric (g, ml)",
-      "imperial": "Imperial",
-      "imperial-with-hint": "Imperial (cups, oz)"
+      "metric-with-hint": "Metrisch (g, ml)",
+      "imperial": "Imperiaal",
+      "imperial-with-hint": "Imperiaal (kopjes, oz)"
     },
     "parser": {
       "ingredient-parser": "Ingrediëntenontleder",
@@ -616,7 +616,7 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Natuurlijke taalverwerker",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
+      "natural-language-processor-english-only": "De Natural Language Processor is getraind op Engelse recepten. Bij recepten in andere talen herkent deze meestal wel de hoeveelheid, maar niet de eenheid, waardoor de Brute Parser of de AI Parser doorgaans betere resultaten oplevert.",
       "brute-parser": "Ruwe ontleder",
       "ai-parser": "AI Parser",
       "missing-unit": "Maak ontbrekende eenheid aan: {unit}",
@@ -918,6 +918,8 @@
       "food-data": "Levensmiddel-gegevens",
       "label-overwrite-warning": "Dit geeft alle geselecteerde levensmiddelen het gekozen label. Het kan bestaande labels overschrijven.",
       "on-hand-checkbox-label": "Door deze vlag in te stellen, wordt dit voedsel standaard niet aangevinkt bij het toevoegen van een recept aan een boodschappenlijst.",
+      "delete-unused-confirm": "Weet je zeker dat je dit ongebruikte voedingsmiddel wilt verwijderen? Dit kan niet ongedaan worden gemaakt. | Weet je zeker dat je deze {count} ongebruikte voedingsmiddelen wilt verwijderen? Dit kan niet ongedaan worden gemaakt.",
+      "no-unused-foods": "Geen ongebruikte voedingsmiddelen om te verwijderen",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -956,7 +958,14 @@
       "edit-label": "Bewerk label",
       "new-label": "Nieuw label",
       "labels": "Labels",
-      "assign-label": "Label toevoegen"
+      "assign-label": "Label toevoegen",
+      "combine-label": "Label samenvoegen",
+      "source-label": "Bron label",
+      "target-label": "Doel label",
+      "merge-dialog-text": "Door de geselecteerde labels samen te voegen, worden het bron label en het doel label samengevoegd tot één label. Het bron label wordt verwijderd en alle verwijzingen naar het bron label worden bijgewerkt zodat ze naar het doel label verwijzen.",
+      "merge-label-example": "{label1} wordt samengevoegd met {label2}",
+      "delete-unused-confirm": "Weet je zeker dat je dit ongebruikte label wilt verwijderen? Dit kan niet ongedaan worden gemaakt. | Weet je zeker dat je deze {count} ongebruikte labels wilt verwijderen? Dit kan niet ongedaan worden gemaakt.",
+      "no-unused-labels": "Geen ongebruikte labels te verwijderen"
     },
     "recipes": {
       "purge-exports": "Verwijder exports",
@@ -1029,7 +1038,14 @@
     "tools": {
       "new-tool": "Keukengerei Toevoegen",
       "edit-tool": "Keukengerei Bewerken",
-      "tool-data": "Keukengerei Overzicht"
+      "tool-data": "Keukengerei Overzicht",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "Geen ongebruikte gereedschappen om te verwijderen"
     }
   },
   "user-registration": {
@@ -1060,6 +1076,8 @@
     "share-recipe": "Deel recept",
     "default-30-days": "Standaard 30 dagen",
     "expires-at": "Vervalt op",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Link gekopieerd naar klembord"
   },
   "banner-experimental": {
@@ -1111,7 +1129,7 @@
     "ingredients-natural-language-processor-explanation-2": "Het is niet perfect, maar het levert over het algemeen uitstekende resultaten op en is een goed uitgangspunt voor het handmatig ontleden van ingrediënten in afzonderlijke velden. Je kunt ook de \"Ruwe\" ontleder gebruiken die een patroonovereenkomende techniek gebruikt om ingrediënten te identificeren.",
     "nlp": "NLP",
     "brute": "Ruw",
-    "ai-providers": "AI Providers",
+    "ai-providers": "AI aanbieders",
     "show-individual-confidence": "Individuele overtuiging tonen",
     "ingredient-text": "Ingrediënttekst",
     "average-confident": "{0} overtuigd",
@@ -1205,7 +1223,9 @@
       "is-less-than": "is kleiner dan",
       "is-less-than-or-equal-to": "is kleiner dan of gelijk aan",
       "is-older-than": "is ouder dan",
-      "is-newer-than": "is nieuwer dan"
+      "is-newer-than": "is nieuwer dan",
+      "has-a-value": "heeft een waarde",
+      "has-no-value": "heeft geen waarde"
     },
     "relational-keywords": {
       "is": "is",

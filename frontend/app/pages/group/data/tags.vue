@@ -8,6 +8,7 @@
       :title="$t('data-pages.tags.combine-tag')"
       can-confirm
       @confirm="mergeTags"
+      @close="resetMergeDialog"
     >
       <v-card-text>
         <div>
@@ -201,6 +202,11 @@ const toTag = ref<RecipeTag | null>(null);
 const canMerge = computed(() => {
   return fromTag.value && toTag.value && fromTag.value.id !== toTag.value.id;
 });
+
+function resetMergeDialog() {
+  fromTag.value = null;
+  toTag.value = null;
+}
 
 async function mergeTags() {
   if (!canMerge.value || !fromTag.value?.id || !toTag.value?.id) {

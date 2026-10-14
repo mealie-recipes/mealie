@@ -31,7 +31,7 @@ function getDay(day: MealsByDate): Days {
     sections: planTypeOptions
       .map(({ text, value }) => ({ title: text, meals: forSection(value) }))
       .filter(({ meals }) => meals.length > 0),
-    recipes: day.meals.flatMap(({ recipe }) => recipe ? [recipe] : []),
+    recipes: getScaledRecipes(day.meals),
   };
 }
 </script>

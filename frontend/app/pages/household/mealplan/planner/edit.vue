@@ -88,6 +88,15 @@
                       </v-list-item>
                     </v-list>
                   </v-menu>
+                  <v-chip
+                    v-if="mealplan.recipe && (mealplan.recipeScale ?? 1) !== 1"
+                    class="ml-2"
+                    label
+                    size="small"
+                    color="secondary"
+                  >
+                    {{ $n(mealplan.recipeScale ?? 1, { maximumFractionDigits: 2 }) }}x
+                  </v-chip>
                   <v-btn
                     v-if="mealplan.recipe && mealplan.entryType"
                     class="ml-auto"
