@@ -85,6 +85,9 @@ load_secrets() {
 
 change_user
 init
+# load_secrets yields on error with `return` not `exit` and set -e isn't in effect here so
+#    we catch any non-zero exit codes from load_secrets and exit instead of letting startup
+#    continue after missing/unreadable secrets.
 load_secrets || exit 1
 
 # Start API
