@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Ten a certeza de que pretende desmarcar todos os itens?",
     "are-you-sure-you-want-to-delete-checked-items": "Ten a certeza de que pretende eliminar todos os itens selecionados?",
     "no-shopping-lists-found": "Nengunha Lista de Compras Encontrada",
-    "item-checked-off": "Checked off {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Copias de Seguridade",
@@ -1076,6 +1081,8 @@
     "share-recipe": "Compartir receita",
     "default-30-days": "30 Dias por Defeito",
     "expires-at": "Expira en",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Link da receita copiado para a área de transferencia"
   },
   "banner-experimental": {

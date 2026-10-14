@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Да ли сте сигурни да желите да одзначите све ставке?",
     "are-you-sure-you-want-to-delete-checked-items": "Да ли сте сигурни да желите да обришете све означене ставке?",
     "no-shopping-lists-found": "Нису пронађени спискови за куповину",
-    "item-checked-off": "Checked off {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Резервне копије",
@@ -1076,6 +1081,8 @@
     "share-recipe": "Подели рецепт",
     "default-30-days": "Подразумевано 30 дана",
     "expires-at": "Истиче у",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Линк рецепта је копиран у привремену меморију"
   },
   "banner-experimental": {

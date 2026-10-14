@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
     "no-shopping-lists-found": "No Shopping Lists Found",
-    "item-checked-off": "Checked off {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Back-ups",
@@ -1076,6 +1081,8 @@
     "share-recipe": "Deel resep",
     "default-30-days": "Standaard 30 dae",
     "expires-at": "Verval op",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Resepskakel is na knipbord gekopieer"
   },
   "banner-experimental": {

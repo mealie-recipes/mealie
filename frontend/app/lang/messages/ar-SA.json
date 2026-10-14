@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "هل أنت متأكد من أنك تريد إلغاء تحديد جميع العناصر؟",
     "are-you-sure-you-want-to-delete-checked-items": "هل أنت متأكد أنك تريد حذف جميع العناصر المحددة؟",
     "no-shopping-lists-found": "لم يتم العثور على قوائم تسوق",
-    "item-checked-off": "Checked off {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "النسخ الاحتياطية",
@@ -1076,6 +1081,8 @@
     "share-recipe": "مشاركة الوصفة",
     "default-30-days": "30 يوم افتراضي",
     "expires-at": "ينتهي في",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "تم نسخ رابط الوصفة إلى الحافظة"
   },
   "banner-experimental": {

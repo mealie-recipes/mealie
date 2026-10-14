@@ -1,8 +1,9 @@
 <template>
   <RecipeDialogAddToShoppingList
     v-model="shoppingListDialog"
-    :recipes="recipesWithScales"
+    :recipes="recipes"
     :shopping-lists="shoppingLists"
+    @list-created="addShoppingList"
   />
   <GroupMealPlanEntryDialog
     v-model="dialog.open"
@@ -52,17 +53,17 @@
 import { format } from "date-fns";
 import { useUserApi } from "~/composables/api";
 import { useAddToShoppingListDialog } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
+import type { ScaledRecipe } from "~/composables/use-group-mealplan";
 import type { PlanEntryType, ReadPlanEntry } from "~/lib/api/types/meal-plan";
-import type { Recipe } from "~/lib/api/types/recipe";
 
 interface Props {
-  recipes?: Recipe[];
+  recipes?: ScaledRecipe[];
   day: Date;
   actions: ReturnType<typeof useMealplans>["actions"];
   inlineActions?: boolean;
 }
 
-const { open: shoppingListDialog, shoppingLists, addAllLoading, addAllToList } = useAddToShoppingListDialog();
+const { open: shoppingListDialog, shoppingLists, addAllLoading, addAllToList, addShoppingList } = useAddToShoppingListDialog();
 const { $globals } = useNuxtApp();
 const i18n = useI18n();
 const api = useUserApi();
@@ -128,10 +129,6 @@ const inlineButtons = [
     children: randomButtons,
   },
 ];
-
-const recipesWithScales = computed(() => {
-  return props.recipes.map(recipe => ({ scale: 1, ...recipe }));
-});
 
 async function randomMeal(date: Date, type: PlanEntryType) {
   const { data } = await api.mealplans.setRandom({
