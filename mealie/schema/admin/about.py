@@ -24,6 +24,8 @@ class AppInfo(MealieModel):
     enable_reverse_proxy_auth: bool
     token_time: int
     allowed_iframe_hosts: list[str] = []
+    branding_name: str = "Mealie"
+    branding_logo_url: str | None = None
 
 
 class AppTheme(MealieModel):

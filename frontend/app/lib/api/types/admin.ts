@@ -19,6 +19,8 @@ export interface AdminAboutInfo {
   enableReverseProxyAuth: boolean;
   tokenTime: number;
   allowedIframeHosts?: string[];
+  brandingName?: string;
+  brandingLogoUrl?: string | null;
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
@@ -52,6 +54,8 @@ export interface AppInfo {
   enableReverseProxyAuth: boolean;
   tokenTime: number;
   allowedIframeHosts?: string[];
+  brandingName?: string;
+  brandingLogoUrl?: string | null;
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;
