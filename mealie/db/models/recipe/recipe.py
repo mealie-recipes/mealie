@@ -95,6 +95,13 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     recipe_yield_quantity: FilterableColumn[float] = mapped_column(sa.Float, index=True, default=0)
     recipe_servings: FilterableColumn[float] = mapped_column(sa.Float, index=True, default=0)
 
+    # Cooking-method variants remain complete, independent recipes so every existing recipe
+    # workflow (shopping lists, meal plans, scaling, exports) continues to work unchanged.
+    # The first recipe's id is used as the stable group id; the first recipe itself therefore
+    # does not need to be mutated when its first variant is created.
+    cooking_method: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
+    variant_group_id: FilterableColumn[GUID | None] = mapped_column(GUID, index=True)
+
     assets: Mapped[list[RecipeAsset]] = orm.relationship("RecipeAsset", cascade="all, delete-orphan")
     nutrition: Mapped[Nutrition] = orm.relationship("Nutrition", uselist=False, cascade="all, delete-orphan")
     recipe_category: Mapped[list[Category]] = orm.relationship(

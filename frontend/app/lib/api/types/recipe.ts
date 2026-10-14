@@ -268,6 +268,8 @@ export interface Recipe {
   recipeServings?: number;
   recipeYieldQuantity?: number;
   recipeYield?: string | null;
+  cookingMethod?: string | null;
+  variantGroupId?: string | null;
   totalTime?: string | null;
   prepTime?: string | null;
   cookTime?: string | null;
@@ -368,6 +370,8 @@ export interface RecipeSummary {
   recipeServings?: number;
   recipeYieldQuantity?: number;
   recipeYield?: string | null;
+  cookingMethod?: string | null;
+  variantGroupId?: string | null;
   totalTime?: string | null;
   prepTime?: string | null;
   cookTime?: string | null;
@@ -402,6 +406,8 @@ export interface RecipeCommentUpdate {
 }
 export interface RecipeDuplicate {
   name?: string | null;
+  asVariant?: boolean;
+  cookingMethod?: string | null;
 }
 export interface RecipeIn {
   id?: string | null;
@@ -414,6 +420,8 @@ export interface RecipeIn {
   recipeServings?: number;
   recipeYieldQuantity?: number;
   recipeYield?: string | null;
+  cookingMethod?: string | null;
+  variantGroupId?: string | null;
   totalTime?: string | null;
   prepTime?: string | null;
   cookTime?: string | null;

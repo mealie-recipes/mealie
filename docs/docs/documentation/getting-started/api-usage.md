@@ -9,6 +9,22 @@ Mealie supports long-live api tokens in the user frontend. These can be created 
 ### Exploring Your Local API
 On your local installation you can access interactive API documentation that provides `curl` examples and expected results. This allows you to easily test and interact with your API to identify places to include your own functionality. You can visit the documentation at `http://<your-mealie-site>/docs` or see the example at the [Demo Site](https://demo.mealie.io/docs).
 
+### Cooking Method Variants
+
+Recipe responses include the optional `cookingMethod` and `variantGroupId` properties. To list every version linked to a recipe, request `GET /api/recipes/{slug}/variants`.
+
+Create a linked version through the duplicate endpoint with `asVariant` enabled and a cooking method:
+
+```json
+{
+  "name": "Pulled Pork",
+  "asVariant": true,
+  "cookingMethod": "Slow Cooker"
+}
+```
+
+Send this body to `POST /api/recipes/{slug}/duplicate`. The response is a complete, independently editable recipe linked to the same variant group.
+
 ### Extras
 #### Recipe Extras
 Recipes extras are a key feature of the Mealie API. They allow you to create custom json key/value pairs within a recipe to reference from 3rd part applications. You can use these keys to contain information to trigger automation or custom messages to relay to your desired device.

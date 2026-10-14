@@ -6,6 +6,7 @@ import { CommentsApi } from "./recipe-comments";
 import { RecipeShareApi } from "./recipe-share";
 import type {
   Recipe,
+  RecipeSummary,
   RecipeIn,
   CreateRecipe,
   RecipeAsset,
@@ -50,6 +51,7 @@ const routes = {
   recipesTimelineEvent: `${prefix}/recipes/timeline/events`,
 
   recipesRecipeSlug: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}`,
+  recipesRecipeSlugVariants: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/variants`,
   recipesRecipeSlugImage: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/image`,
   recipesRecipeSlugAssets: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets`,
   recipesRecipeSlugAssetsUrl: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets/url`,
@@ -108,6 +110,18 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
 
   async search(rsq: RecipeSearchQuery) {
     return await this.requests.get<PaginationData<Recipe>>(route(routes.recipesBase, rsq));
+  }
+
+  async getVariants(recipeSlug: string) {
+    return await this.requests.get<RecipeSummary[]>(routes.recipesRecipeSlugVariants(recipeSlug));
+  }
+
+  async createCookingMethodVariant(recipeSlug: string, name: string, cookingMethod: string) {
+    return await this.requests.post<Recipe>(`${routes.recipesRecipeSlug(recipeSlug)}/duplicate`, {
+      name,
+      asVariant: true,
+      cookingMethod,
+    });
   }
 
   async getAllByCategory(categories: string[]) {

@@ -446,6 +446,15 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             return None
         return self.schema.model_validate(dbrecipe)
 
+    def get_variants(self, variant_group_id: UUID) -> list[RecipeSummary]:
+        stmt = (
+            self._query(override_schema=RecipeSummary)
+            .where(sa.or_(self.model.id == variant_group_id, self.model.variant_group_id == variant_group_id))
+            .filter_by(**self._filter_builder())
+            .order_by(self.model.cooking_method.asc().nulls_first(), self.model.name.asc())
+        )
+        return [RecipeSummary.model_validate(recipe) for recipe in self.session.execute(stmt).scalars().unique().all()]
+
     def all_ids(self, group_id: UUID4) -> Sequence[UUID4]:
         stmt = sa.select(RecipeModel.id).filter(RecipeModel.group_id == group_id)
         return self.session.execute(stmt).scalars().all()
