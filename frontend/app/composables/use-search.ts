@@ -96,6 +96,20 @@ function rankItem(
   return { tier: bestTier, matchLength: bestLength };
 }
 
+/**
+ * True when `text` equals one of the item's searchable strings (name, plural,
+ * abbreviations, or aliases), ignoring case, accents, and surrounding whitespace.
+ * This is the same comparison as the exact-match ranking tier.
+ */
+export function isExactMatch(item: ISearchableItem, text: string): boolean {
+  const query = normalize(text.trim());
+  if (!query) {
+    return false;
+  }
+
+  return searchableStrings(item).some(raw => normalize(raw) === query);
+}
+
 function escapeRegExp(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 }

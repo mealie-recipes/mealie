@@ -59,10 +59,15 @@ def db_is_at_head(alembic_cfg: config.Config) -> bool:
         raise ValueError("No database url found")
 
     connectable = engine.create_engine(url)
-    directory = script.ScriptDirectory.from_config(alembic_cfg)
-    with connectable.begin() as connection:
-        context = migration.MigrationContext.configure(connection)
-        return set(context.get_current_heads()) == set(directory.get_heads())
+    try:
+        directory = script.ScriptDirectory.from_config(alembic_cfg)
+        with connectable.begin() as connection:
+            context = migration.MigrationContext.configure(connection)
+            return set(context.get_current_heads()) == set(directory.get_heads())
+    finally:
+        # Returning from inside the `with` only returns the connection to the pool;
+        # without this the underlying DBAPI connection stays open until GC.
+        connectable.dispose()
 
 
 def safe_try(func: Callable):

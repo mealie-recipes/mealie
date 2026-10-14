@@ -26,7 +26,7 @@ class ScraperProxyMode(StrEnum):
     """Try direct first; only retry through the proxy when a block is detected."""
 
     @classmethod
-    def _missing_(cls, value: object) -> "ScraperProxyMode":
+    def _missing_(cls, value: object) -> ScraperProxyMode:
         # Default any unrecognized configuration value to the safest, most useful mode.
         return cls.always
 
@@ -408,6 +408,14 @@ class AppSettings(AppLoggingSettings):
     OIDC_SCOPES_OVERRIDE: str | None = None
     OIDC_TLS_CACERTFILE: str | None = None
     OIDC_CLIENT_TIMEOUT: float | Literal["None", "default"] = "default"
+
+    OIDC_NATIVE_CLIENT_ID: str | None = None
+    """Client ID used by the native (mobile/desktop) OIDC endpoints. Falls back to OIDC_CLIENT_ID when unset."""
+
+    OIDC_NATIVE_CONFIDENTIAL: bool = True
+    """When false, the native client is treated as a public client: the client secret is omitted from the token
+    exchange and PKCE alone is relied on. Required for Google and Microsoft, which do not allow custom-scheme
+    redirects on confidential clients."""
 
     @property
     def OIDC_REQUIRES_GROUP_CLAIM(self) -> bool:

@@ -37,12 +37,13 @@
       />
     </v-card-text>
   </BaseDialog>
-  <MealPlanAddRecipeDialog v-model="mealplannerDialog" :recipe-id="recipeId" />
+  <MealPlanAddRecipeDialog v-model="mealplannerDialog" :recipe-id="recipeId" :recipe-scale="recipeScale" />
   <RecipeDialogAddToShoppingList
     v-if="shoppingLists && recipeRefWithScale"
     v-model="shoppingListDialog"
     :recipes="[recipeRefWithScale]"
     :shopping-lists="shoppingLists"
+    @list-created="addShoppingList"
   />
 
   <v-list density="compact">
@@ -158,7 +159,7 @@ const emit = defineEmits<{
 }>();
 
 const api = useUserApi();
-const { open: shoppingListDialog, shoppingLists, getShoppingLists } = useAddToShoppingListDialog();
+const { open: shoppingListDialog, shoppingLists, getShoppingLists, addShoppingList } = useAddToShoppingListDialog();
 
 const printPreferencesDialog = ref(false);
 const shareDialog = ref(false);
@@ -180,7 +181,7 @@ const route = useRoute();
 const groupSlug = computed(() => route.params.groupSlug as string || auth.user.value?.groupSlug || "");
 
 const { share, isSupported: shareIsSupported } = useShare();
-const { copy, copied, isSupported: clipboardIsSupported } = useClipboard();
+const { copy, copied, isSupported: clipboardIsSupported } = useClipboard({ legacy: true });
 
 function getPlainRecipeLink() {
   return `${window.location.origin}/g/${groupSlug.value}/r/${props.slug}`;

@@ -37,10 +37,10 @@ class Household(SqlAlchemyBase, BaseMixins):
     name: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
     slug: FilterableColumn[str | None] = mapped_column(sa.String, index=True)
 
-    invite_tokens: Mapped[list["GroupInviteToken"]] = orm.relationship(
+    invite_tokens: Mapped[list[GroupInviteToken]] = orm.relationship(
         "GroupInviteToken", back_populates="household", cascade="all, delete-orphan"
     )
-    preferences: Mapped["HouseholdPreferencesModel"] = orm.relationship(
+    preferences: Mapped[HouseholdPreferencesModel] = orm.relationship(
         "HouseholdPreferencesModel",
         back_populates="household",
         uselist=False,
@@ -49,8 +49,8 @@ class Household(SqlAlchemyBase, BaseMixins):
     )
 
     group_id: FilterableColumn[GUID] = mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
-    group: Mapped["Group"] = orm.relationship("Group", back_populates="households")
-    users: Mapped[list["User"]] = orm.relationship("User", back_populates="household")
+    group: Mapped[Group] = orm.relationship("Group", back_populates="households")
+    users: Mapped[list[User]] = orm.relationship("User", back_populates="household")
 
     COMMON_ARGS = {
         "back_populates": "household",
@@ -58,23 +58,23 @@ class Household(SqlAlchemyBase, BaseMixins):
         "single_parent": True,
     }
 
-    recipe_actions: Mapped[list["GroupRecipeAction"]] = orm.relationship("GroupRecipeAction", **COMMON_ARGS)
-    cookbooks: Mapped[list["CookBook"]] = orm.relationship("CookBook", **COMMON_ARGS)
+    recipe_actions: Mapped[list[GroupRecipeAction]] = orm.relationship("GroupRecipeAction", **COMMON_ARGS)
+    cookbooks: Mapped[list[CookBook]] = orm.relationship("CookBook", **COMMON_ARGS)
 
-    webhooks: Mapped[list["GroupWebhooksModel"]] = orm.relationship("GroupWebhooksModel", **COMMON_ARGS)
-    group_event_notifiers: Mapped[list["GroupEventNotifierModel"]] = orm.relationship(
+    webhooks: Mapped[list[GroupWebhooksModel]] = orm.relationship("GroupWebhooksModel", **COMMON_ARGS)
+    group_event_notifiers: Mapped[list[GroupEventNotifierModel]] = orm.relationship(
         "GroupEventNotifierModel", **COMMON_ARGS
     )
 
-    made_recipes: Mapped[list["RecipeModel"]] = orm.relationship(
+    made_recipes: Mapped[list[RecipeModel]] = orm.relationship(
         "RecipeModel", secondary=HouseholdToRecipe.__tablename__, back_populates="made_by"
     )
-    ingredient_foods_on_hand: Mapped[list["IngredientFoodModel"]] = orm.relationship(
+    ingredient_foods_on_hand: Mapped[list[IngredientFoodModel]] = orm.relationship(
         "IngredientFoodModel",
         secondary=households_to_ingredient_foods,
         back_populates="households_with_ingredient_food",
     )
-    tools_on_hand: Mapped[list["Tool"]] = orm.relationship(
+    tools_on_hand: Mapped[list[Tool]] = orm.relationship(
         "Tool", secondary=households_to_tools, back_populates="households_with_tool"
     )
 

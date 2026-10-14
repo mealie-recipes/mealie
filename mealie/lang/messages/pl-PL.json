@@ -68,7 +68,7 @@
         "report-deleted": "Raport usunięty."
     },
     "exceptions": {
-        "permission_denied": "Nie masz uprawnień do wykonania tej akcji",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Przepis nie może odnosić się do samego siebie bezpośrednio, ani pośrednio",
         "no-entry-found": "Wskazany zasób jest niedostępny",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

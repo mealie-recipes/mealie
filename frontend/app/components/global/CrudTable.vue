@@ -166,7 +166,6 @@ const emit = defineEmits<{
   (e: "bulk-action", event: string, items: any[]): void;
 }>();
 
-const i18n = useI18n();
 const sortBy = computed<{ key: string; order: "asc" | "desc" }[]>(() => [{
   key: props.initialSort,
   order: props.initialSortDesc ? "desc" : "asc",
@@ -191,7 +190,7 @@ const headersWithoutActions = computed(() =>
     .filter(header => filteredHeaders.value.includes(header.value))
     .map(header => ({
       ...header,
-      title: i18n.t(header.text),
+      title: header.text,
     })),
 );
 

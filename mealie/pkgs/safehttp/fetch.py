@@ -75,7 +75,7 @@ class FetchResult:
         # Mirrors the decoding behavior of requests' `text` property.
         try:
             return str(self.content, self.encoding, errors="replace")  # type: ignore[arg-type]
-        except (LookupError, TypeError):
+        except LookupError, TypeError:
             # LookupError: unknown encoding name. TypeError: encoding is None.
             return str(self.content, errors="replace")
 

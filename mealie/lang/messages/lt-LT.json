@@ -68,7 +68,7 @@
         "report-deleted": "Ataskaita ištrinta."
     },
     "exceptions": {
-        "permission_denied": "Neturite leidimo atlikti šį veiksmą",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "A recipe cannot reference itself, either directly or indirectly",
         "no-entry-found": "Ieškomo resurso nerasta",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

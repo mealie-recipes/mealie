@@ -6,6 +6,7 @@ import { CommentsApi } from "./recipe-comments";
 import { RecipeShareApi } from "./recipe-share";
 import type {
   Recipe,
+  RecipeIn,
   CreateRecipe,
   RecipeAsset,
   CreateRecipeByUrlBulk,
@@ -91,7 +92,7 @@ export type RecipeSearchQuery = {
   _searchSeed?: string;
 };
 
-export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
+export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
 

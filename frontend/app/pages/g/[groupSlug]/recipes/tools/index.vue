@@ -25,7 +25,7 @@ interface RecipeToolWithOnHand extends RecipeTool {
 }
 
 definePageMeta({
-  middleware: ["group-only"],
+  middleware: ["auth", "group-only"],
 });
 
 const auth = useMealieAuth();

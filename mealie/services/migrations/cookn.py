@@ -11,7 +11,7 @@ from mealie.services.parser_services._base import DataMatcher
 from mealie.services.parser_services.parser_utils.string_utils import extract_quantity_from_string
 
 from ._migration_base import BaseMigrator
-from .utils.migration_helpers import format_time, safe_local_path
+from .utils.migration_helpers import safe_local_path
 
 
 class DSVParser:
@@ -304,7 +304,7 @@ class CooknMigrator(BaseMigrator):
 
     def _process_recipe_document(self, _recipe_row: dict[str, Any], db: DSVParser) -> dict:
         """Parses recipe row from the Cook'n recipe table."""
-        recipe_data: dict[str, str | list[str] | list[RecipeIngredient]] = {}
+        recipe_data: dict[str, int | str | list[str] | list[RecipeIngredient]] = {}
 
         # Select db values
         _recipe_id = db.get_data(_recipe_row, "ID")
@@ -333,9 +333,10 @@ class CooknMigrator(BaseMigrator):
         recipe_data["name"] = name
         recipe_data["description"] = description
         recipe_data["recipeYield"] = serves
-        recipe_data["prepTime"] = format_time(prep_time)
-        recipe_data["performTime"] = format_time(cook_time)
-        recipe_data["totalTime"] = format_time(prep_time + cook_time)
+        # Minutes, which the cleaner converts to durations
+        recipe_data["prepTime"] = prep_time
+        recipe_data["performTime"] = cook_time
+        recipe_data["totalTime"] = prep_time + cook_time
 
         # Parse image file
         image_path = self._parse_media(_cookbook_id, _chapter_id, _recipe_id, db)

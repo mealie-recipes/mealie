@@ -68,7 +68,7 @@
         "report-deleted": "Raport kustutatud."
     },
     "exceptions": {
-        "permission_denied": "Sul puuduvad selle toimingu tegemiseks õigused",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Retsept ei saa viidata iseendale ei otseselt ega kaudselt",
         "no-entry-found": "Soovitud ressurssi ei leitud",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

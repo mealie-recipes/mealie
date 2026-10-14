@@ -31,6 +31,38 @@ logger = root_logger.get_logger("auth")
 
 
 settings = get_app_settings()
+
+
+def _register_native_oidc_client(oauth_registry, client_args: dict[str, Any]) -> None:
+    """Register the "oidc_native" client used by the native endpoints.
+
+    It is the web client unless OIDC_NATIVE_CLIENT_ID is set. The secretless (public) mode only applies
+    when that id is set and OIDC_NATIVE_CONFIDENTIAL is false; the web client is never affected.
+    """
+    client_id = settings.OIDC_NATIVE_CLIENT_ID or settings.OIDC_CLIENT_ID
+    client_secret = settings.OIDC_CLIENT_SECRET
+    native_client_args = client_args
+
+    if not settings.OIDC_NATIVE_CONFIDENTIAL:
+        if settings.OIDC_NATIVE_CLIENT_ID:
+            client_secret = None
+            native_client_args = {**client_args, "token_endpoint_auth_method": "none"}
+        else:
+            logger.warning(
+                "[OIDC] OIDC_NATIVE_CONFIDENTIAL=false has no effect without OIDC_NATIVE_CLIENT_ID; "
+                "the native endpoints will use the confidential client"
+            )
+
+    oauth_registry.register(
+        "oidc_native",
+        client_id=client_id,
+        client_secret=client_secret,
+        server_metadata_url=settings.OIDC_CONFIGURATION_URL,
+        client_kwargs=native_client_args,
+        code_challenge_method="S256",
+    )
+
+
 oauth = None
 if settings.OIDC_READY:
     from authlib.integrations.starlette_client import OAuth
@@ -56,6 +88,7 @@ if settings.OIDC_READY:
         client_kwargs=client_args,
         code_challenge_method="S256",
     )
+    _register_native_oidc_client(oauth, client_args)
 
 
 SESSION_COOKIE_NAME = "mealie.access_token"
@@ -84,9 +117,9 @@ def request_is_https(request: Request) -> bool:
 def session_cookie_attrs(request: Request) -> dict:
     """Cookie attributes that have to match between setting and clearing the session cookie.
 
-    Mealie is sometimes embedded in another site, which needs `SameSite=None`. The server can't
-    detect embedding, so the client flags it — and we only honour the flag over HTTPS, since
-    browsers reject `SameSite=None` without `Secure`.
+    Mealie is sometimes embedded in another site, which needs `SameSite=None` and a partitioned
+    cookie. The server can't detect embedding, so the client flags it — and we only honour the flag
+    over HTTPS, since browsers reject `SameSite=None` without `Secure`.
     """
     secure = request_is_https(request)
     embedded = secure and request.headers.get("x-mealie-embedded", "").lower() == "true"
@@ -95,6 +128,7 @@ def session_cookie_attrs(request: Request) -> dict:
         "path": "/",
         "secure": secure,
         "samesite": "none" if embedded else "lax",
+        "partitioned": embedded,
     }
 
 
@@ -233,7 +267,7 @@ async def oauth_native_config():
             detail="OIDC is not configured",
         )
 
-    client = oauth.create_client("oidc")
+    client = oauth.create_client("oidc_native")
     metadata = await client.load_server_metadata()
     return OIDCNativeConfig(
         authorization_endpoint=metadata["authorization_endpoint"],
@@ -263,7 +297,7 @@ async def oauth_native_token(
 
     from authlib.integrations.starlette_client import OAuthError
 
-    client = oauth.create_client("oidc")
+    client = oauth.create_client("oidc_native")
     try:
         token = await client.fetch_access_token(
             code=data.code,
@@ -368,7 +402,7 @@ async def logout(
     accept_language: Annotated[str | None, Header()] = None,
 ):
     # Clearing a cookie only works when the attributes match the ones it was set with, which the old
-    # bare delete_cookie() call didn't manage for embedded (SameSite=None) deployments.
+    # bare delete_cookie() call didn't manage for embedded (partitioned, SameSite=None) deployments.
     response.set_cookie(SESSION_COOKIE_NAME, "", max_age=0, expires=0, **session_cookie_attrs(request))
 
     translator = get_locale_provider(accept_language)

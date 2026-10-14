@@ -8,19 +8,19 @@
       },
       "onion": {
         "name": "čebula",
-        "plural_name": ""
+        "plural_name": "čebule"
       },
       "bell pepper": {
         "name": "paprika",
-        "plural_name": ""
+        "plural_name": "podolgovate paprike"
       },
       "carrot": {
         "name": "korenje",
-        "plural_name": ""
+        "plural_name": "korenje"
       },
       "scallion": {
         "name": "mlada čebula",
-        "plural_name": ""
+        "plural_name": "mlada čebula"
       },
       "zucchini": {
         "name": "bučka",
@@ -28,15 +28,15 @@
       },
       "potato": {
         "name": "krompir",
-        "plural_name": ""
+        "plural_name": "krompir"
       },
       "red onion": {
         "name": "rdeča čebula",
-        "plural_name": ""
+        "plural_name": "rdeča čebula"
       },
       "yellow onion": {
         "name": "rumena čebula",
-        "plural_name": ""
+        "plural_name": "rumena čebula"
       },
       "celery": {
         "name": "zelena",
@@ -48,19 +48,19 @@
       },
       "avocado": {
         "name": "avokado",
-        "plural_name": ""
+        "plural_name": "avokado"
       },
       "shallot": {
         "name": "šalotka",
-        "plural_name": ""
+        "plural_name": "šalotka"
       },
       "cherry tomato": {
         "name": "češnjev paradižnik",
-        "plural_name": ""
+        "plural_name": "češnjev paradižnik"
       },
       "cucumber": {
         "name": "kumara",
-        "plural_name": ""
+        "plural_name": "kumare"
       },
       "spinach": {
         "name": "špinača",
@@ -72,11 +72,11 @@
       },
       "chile pepper": {
         "name": "čili paprika",
-        "plural_name": ""
+        "plural_name": "čili paprika"
       },
       "sweet potato": {
         "name": "sladki krompir",
-        "plural_name": ""
+        "plural_name": "sladki krompir"
       },
       "broccoli": {
         "name": "brokoli",
@@ -92,27 +92,27 @@
       },
       "cauliflower": {
         "name": "cvetača",
-        "plural_name": "cvetače"
+        "plural_name": ""
       },
       "cabbage": {
         "name": "zelje",
-        "plural_name": ""
+        "plural_name": "zelje"
       },
       "asparagus": {
         "name": "špargelj",
-        "plural_name": "šparglji"
+        "plural_name": ""
       },
       "kale": {
         "name": "ohrovt",
-        "plural_name": "kodrolistni ohrovti"
+        "plural_name": ""
       },
       "arugula": {
         "name": "rukola",
-        "plural_name": "rukole"
+        "plural_name": ""
       },
       "leek": {
         "name": "por",
-        "plural_name": ""
+        "plural_name": "por"
       },
       "eggplant": {
         "name": "jajčevec",
@@ -120,7 +120,7 @@
       },
       "lettuce": {
         "name": "solata",
-        "plural_name": "solate"
+        "plural_name": ""
       },
       "butternut squash": {
         "name": "muškatna buča",
@@ -128,31 +128,31 @@
       },
       "romaine lettuce": {
         "name": "rimska solata",
-        "plural_name": "rimske solate"
+        "plural_name": ""
       },
       "beetroot": {
         "name": "pesa",
-        "plural_name": ""
+        "plural_name": "pesa"
       },
       "brussels sprout": {
         "name": "brstični ohrovt",
-        "plural_name": ""
+        "plural_name": "brstični ohrovt"
       },
       "fennel": {
         "name": "komarček",
-        "plural_name": "koromači"
+        "plural_name": ""
       },
       "sun dried tomato": {
         "name": "sušeni paradižnik",
-        "plural_name": ""
+        "plural_name": "sušeni paradižnik"
       },
       "radish": {
         "name": "redkev",
-        "plural_name": ""
+        "plural_name": "redkvice"
       },
       "red cabbage": {
         "name": "rdeče zelje",
-        "plural_name": ""
+        "plural_name": "rdeče zelje"
       },
       "artichoke": {
         "name": "artičoka",
@@ -160,7 +160,7 @@
       },
       "parsnip": {
         "name": "pastinak",
-        "plural_name": ""
+        "plural_name": "pastinak"
       },
       "poblano pepper": {
         "name": "poblano čili",
@@ -168,7 +168,7 @@
       },
       "green tomato": {
         "name": "zeleni paradižnik",
-        "plural_name": ""
+        "plural_name": "zeleni paradižnik"
       },
       "horseradish": {
         "name": "hren",
@@ -180,11 +180,11 @@
       },
       "spaghetti squash": {
         "name": "špageti buča",
-        "plural_name": ""
+        "plural_name": "buča špagetarica"
       },
       "napa cabbage": {
         "name": "zelje napa",
-        "plural_name": ""
+        "plural_name": "zelje napa"
       },
       "celeriac": {
         "name": "zelena",
@@ -192,7 +192,7 @@
       },
       "turnip": {
         "name": "repa",
-        "plural_name": ""
+        "plural_name": "repa"
       },
       "bok choy": {
         "name": "bok čoj",
@@ -208,23 +208,23 @@
       },
       "plantain": {
         "name": "trpotec",
-        "plural_name": ""
+        "plural_name": "trpotec"
       },
       "collard greens": {
         "name": "listnati ohrovt",
-        "plural_name": "listnati ohrovti"
+        "plural_name": ""
       },
       "baby corn": {
         "name": "mlada koruza",
-        "plural_name": "mlade koruze"
+        "plural_name": ""
       },
       "broccoli rabe": {
         "name": "rapin",
-        "plural_name": "rapini"
+        "plural_name": ""
       },
       "tomato": {
         "name": "paradižnik",
-        "plural_name": ""
+        "plural_name": "paradižnik"
       },
       "lemon": {
         "name": "limona",
@@ -316,7 +316,7 @@
       },
       "cantaloupe": {
         "name": "mrežasta melona",
-        "plural_name": ""
+        "plural_name": "mrežaste melone"
       },
       "tamarind": {
         "name": "tamarind",
@@ -324,7 +324,7 @@
       },
       "button mushroom": {
         "name": "dvotrosni kukmak",
-        "plural_name": ""
+        "plural_name": "dvotrosni kukmak"
       },
       "shiitake mushroom": {
         "name": "šitake goba",

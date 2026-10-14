@@ -8,7 +8,7 @@
       },
       "onion": {
         "name": "luk",
-        "plural_name": ""
+        "plural_name": "onions"
       },
       "bell pepper": {
         "name": "paprika",
@@ -48,7 +48,7 @@
       },
       "avocado": {
         "name": "avokado",
-        "plural_name": ""
+        "plural_name": "avocados"
       },
       "shallot": {
         "name": "shallot",

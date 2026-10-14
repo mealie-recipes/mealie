@@ -8,35 +8,35 @@
       },
       "onion": {
         "name": "양파",
-        "plural_name": ""
+        "plural_name": "onions"
       },
       "bell pepper": {
         "name": "피망",
-        "plural_name": ""
+        "plural_name": "bell peppers"
       },
       "carrot": {
         "name": "당근",
-        "plural_name": ""
+        "plural_name": "carrots"
       },
       "scallion": {
         "name": "파",
-        "plural_name": ""
+        "plural_name": "scallions"
       },
       "zucchini": {
         "name": "주키니",
-        "plural_name": ""
+        "plural_name": "zucchinis"
       },
       "potato": {
         "name": "감자",
-        "plural_name": ""
+        "plural_name": "potatoes"
       },
       "red onion": {
         "name": "적양파",
-        "plural_name": ""
+        "plural_name": "red onions"
       },
       "yellow onion": {
         "name": "노란 양파",
-        "plural_name": ""
+        "plural_name": "yellow onions"
       },
       "celery": {
         "name": "셀러리",
@@ -48,19 +48,19 @@
       },
       "avocado": {
         "name": "아보카도",
-        "plural_name": ""
+        "plural_name": "avocados"
       },
       "shallot": {
         "name": "샬롯",
-        "plural_name": ""
+        "plural_name": "shallots"
       },
       "cherry tomato": {
         "name": "방울토마토",
-        "plural_name": ""
+        "plural_name": "cherry tomatoes"
       },
       "cucumber": {
         "name": "오이",
-        "plural_name": ""
+        "plural_name": "cucumbers"
       },
       "spinach": {
         "name": "시금치",
@@ -76,7 +76,7 @@
       },
       "sweet potato": {
         "name": "고구마",
-        "plural_name": ""
+        "plural_name": "sweet potatoes"
       },
       "broccoli": {
         "name": "브로콜리",
@@ -88,7 +88,7 @@
       },
       "pumpkin": {
         "name": "호박",
-        "plural_name": ""
+        "plural_name": "pumpkins"
       },
       "cauliflower": {
         "name": "cauliflower",
@@ -380,7 +380,7 @@
       },
       "blackberry": {
         "name": "블랙베리",
-        "plural_name": ""
+        "plural_name": "blackberries"
       },
       "parsley": {
         "name": "parsley",

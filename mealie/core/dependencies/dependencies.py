@@ -206,7 +206,7 @@ def validate_file_token(token: str | None = None) -> Path:
 
 
 @contextmanager
-def get_temporary_zip_path(auto_unlink=True) -> Generator[Path, None, None]:
+def get_temporary_zip_path(auto_unlink=True) -> Generator[Path]:
     app_dirs.TEMP_DIR.mkdir(exist_ok=True, parents=True)
     temp_path = app_dirs.TEMP_DIR / f"{uuid4().hex}.zip"
     try:
@@ -217,7 +217,7 @@ def get_temporary_zip_path(auto_unlink=True) -> Generator[Path, None, None]:
 
 
 @contextmanager
-def get_temporary_path(auto_unlink=True) -> Generator[Path, None, None]:
+def get_temporary_path(auto_unlink=True) -> Generator[Path]:
     temp_path = app_dirs.TEMP_DIR.joinpath(uuid4().hex)
     temp_path.mkdir(exist_ok=True, parents=True)
     try:
@@ -227,7 +227,7 @@ def get_temporary_path(auto_unlink=True) -> Generator[Path, None, None]:
             rmtree(temp_path)
 
 
-def temporary_file(ext: str = "") -> Callable[[], Generator[tempfile._TemporaryFileWrapper, None, None]]:
+def temporary_file(ext: str = "") -> Callable[[], Generator[tempfile._TemporaryFileWrapper]]:
     """
     Returns a temporary file with the specified extension
     """

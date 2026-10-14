@@ -18,6 +18,7 @@ export interface CreatePlanEntry {
   title?: string;
   text?: string;
   recipeId?: string | null;
+  recipeScale?: number;
 }
 export interface CreateRandomEntry {
   date: string;
@@ -68,6 +69,7 @@ export interface ReadPlanEntry {
   title?: string;
   text?: string;
   recipeId?: string | null;
+  recipeScale?: number;
   id: number;
   groupId: string;
   userId: string;
@@ -89,6 +91,9 @@ export interface RecipeSummary {
   prepTime?: string | null;
   cookTime?: string | null;
   performTime?: string | null;
+  totalTimeSeconds?: number | null;
+  prepTimeSeconds?: number | null;
+  performTimeSeconds?: number | null;
   description?: string | null;
   recipeCategory?: RecipeCategory[] | null;
   tags?: RecipeTag[] | null;
@@ -129,6 +134,7 @@ export interface SavePlanEntry {
   title?: string;
   text?: string;
   recipeId?: string | null;
+  recipeScale?: number;
   groupId: string;
   userId: string;
 }
@@ -149,6 +155,7 @@ export interface UpdatePlanEntry {
   title?: string;
   text?: string;
   recipeId?: string | null;
+  recipeScale?: number;
   id: number;
   groupId: string;
   userId: string;

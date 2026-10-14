@@ -70,7 +70,7 @@ class AIProvider(SqlAlchemyBase, BaseMixins):
     settings_id: orm.Mapped[GUID] = orm.mapped_column(
         GUID, sa.ForeignKey("ai_provider_settings.id"), nullable=False, index=True
     )
-    settings: orm.Mapped["AIProviderSettings"] = orm.relationship(
+    settings: orm.Mapped[AIProviderSettings] = orm.relationship(
         "AIProviderSettings", foreign_keys="[AIProvider.settings_id]", back_populates="providers"
     )
 
@@ -99,7 +99,7 @@ class AIProviderSettings(SqlAlchemyBase, BaseMixins):
     id: orm.Mapped[GUID] = orm.mapped_column(GUID, primary_key=True, default=GUID.generate)
 
     group_id: orm.Mapped[GUID] = orm.mapped_column(GUID, sa.ForeignKey("groups.id"), nullable=False, index=True)
-    group: orm.Mapped["Group"] = orm.relationship("Group", back_populates="ai_provider_settings")
+    group: orm.Mapped[Group] = orm.relationship("Group", back_populates="ai_provider_settings")
     providers: orm.Mapped[list[AIProvider]] = orm.relationship(
         AIProvider,
         foreign_keys="[AIProvider.settings_id]",

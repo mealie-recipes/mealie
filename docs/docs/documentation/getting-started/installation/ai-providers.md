@@ -23,7 +23,7 @@ Note that some models are capable of handling multiple features (e.g. `gpt-5` ca
 While Mealie has prompts for each AI task, you can override these with your own prompts if you'd like. For more information, check out the [backend configuration](../installation/backend-config.md).
 
 ## AI Features
-- The OpenAI Ingredient Parser can be used as an alternative to the NLP and Brute Force parsers. Simply choose the OpenAI parser while parsing ingredients (:octicons-tag-24: v1.7.0)
+- The AI Ingredient Parser can be used as an alternative to the NLP and Brute Force parsers. Simply choose the AI parser while parsing ingredients (:octicons-tag-24: v1.7.0)
 - When importing a recipe via URL, if the default recipe scraper is unable to read the recipe data from a webpage, the webpage contents will be parsed by AI (:octicons-tag-24: v1.9.0)
 - The **Import with AI** page creates a recipe out of just about anything: pasted text, HTML, or JSON, photos of a recipe, a link, or any combination of them (:octicons-tag-24: v3.23.0)
 

@@ -8,7 +8,7 @@
       },
       "onion": {
         "name": "лук",
-        "plural_name": ""
+        "plural_name": "onions"
       },
       "bell pepper": {
         "name": "камба",
@@ -20,7 +20,7 @@
       },
       "scallion": {
         "name": "зелен лук",
-        "plural_name": ""
+        "plural_name": "scallions"
       },
       "zucchini": {
         "name": "тиквичка",
@@ -44,7 +44,7 @@
       },
       "jalapeño": {
         "name": "халапеньо",
-        "plural_name": ""
+        "plural_name": "jalapeños"
       },
       "avocado": {
         "name": "авокадо",
@@ -72,11 +72,11 @@
       },
       "chile pepper": {
         "name": "люти чушки",
-        "plural_name": ""
+        "plural_name": "chile peppers"
       },
       "sweet potato": {
         "name": "сладки картофи",
-        "plural_name": ""
+        "plural_name": "sweet potatoes"
       },
       "broccoli": {
         "name": "броколи",
@@ -84,11 +84,11 @@
       },
       "heart of palm": {
         "name": "палмова сърцевина",
-        "plural_name": ""
+        "plural_name": "hearts of palm"
       },
       "pumpkin": {
         "name": "тиква",
-        "plural_name": ""
+        "plural_name": "pumpkins"
       },
       "cauliflower": {
         "name": "карфиол",
@@ -96,7 +96,7 @@
       },
       "cabbage": {
         "name": "зеле",
-        "plural_name": ""
+        "plural_name": "cabbages"
       },
       "asparagus": {
         "name": "аспержи",
@@ -112,11 +112,11 @@
       },
       "leek": {
         "name": "праз",
-        "plural_name": ""
+        "plural_name": "leeks"
       },
       "eggplant": {
         "name": "патладжан",
-        "plural_name": ""
+        "plural_name": "eggplants"
       },
       "lettuce": {
         "name": "маруля",
@@ -124,7 +124,7 @@
       },
       "butternut squash": {
         "name": "тиква цигулка",
-        "plural_name": ""
+        "plural_name": "butternut squashes"
       },
       "romaine lettuce": {
         "name": "маруля ромен",
@@ -132,11 +132,11 @@
       },
       "beetroot": {
         "name": "цвекло",
-        "plural_name": ""
+        "plural_name": "beetroots"
       },
       "brussels sprout": {
         "name": "брюкселско зеле",
-        "plural_name": ""
+        "plural_name": "brussels sprouts"
       },
       "fennel": {
         "name": "копър",
@@ -144,19 +144,19 @@
       },
       "sun dried tomato": {
         "name": "сушени домати",
-        "plural_name": ""
+        "plural_name": "sun dried tomatoes"
       },
       "radish": {
         "name": "репички",
-        "plural_name": ""
+        "plural_name": "radishes"
       },
       "red cabbage": {
         "name": "червено зеле",
-        "plural_name": ""
+        "plural_name": "red cabbages"
       },
       "artichoke": {
         "name": "артишок",
-        "plural_name": ""
+        "plural_name": "artichokes"
       },
       "parsnip": {
         "name": "пащърнак",
@@ -184,15 +184,15 @@
       },
       "napa cabbage": {
         "name": "пекинско зеле",
-        "plural_name": ""
+        "plural_name": "napa cabbages"
       },
       "celeriac": {
         "name": "глава целина",
-        "plural_name": "глави целина"
+        "plural_name": ""
       },
       "turnip": {
         "name": "ряпа",
-        "plural_name": ""
+        "plural_name": "turnips"
       },
       "bok choy": {
         "name": "бок чой",
@@ -208,7 +208,7 @@
       },
       "plantain": {
         "name": "живовляк",
-        "plural_name": ""
+        "plural_name": "plantains"
       },
       "collard greens": {
         "name": "зелено зеле",
@@ -232,7 +232,7 @@
       },
       "lime": {
         "name": "лайм",
-        "plural_name": ""
+        "plural_name": "limes"
       },
       "apple": {
         "name": "ябълка",
@@ -256,7 +256,7 @@
       },
       "mango": {
         "name": "манго",
-        "plural_name": ""
+        "plural_name": "mangoes"
       },
       "peach": {
         "name": "праскова",
@@ -264,11 +264,11 @@
       },
       "date": {
         "name": "смокиня",
-        "plural_name": ""
+        "plural_name": "dates"
       },
       "coconut": {
         "name": "кокосов орех",
-        "plural_name": ""
+        "plural_name": "coconuts"
       },
       "pear": {
         "name": "круша",
@@ -276,15 +276,15 @@
       },
       "grape": {
         "name": "грозде",
-        "plural_name": ""
+        "plural_name": "grapes"
       },
       "pomegranate": {
         "name": "нар",
-        "plural_name": ""
+        "plural_name": "pomegranates"
       },
       "watermelon": {
         "name": "диня",
-        "plural_name": ""
+        "plural_name": "watermelons"
       },
       "rhubarb": {
         "name": "ревен",
@@ -292,11 +292,11 @@
       },
       "kiwi": {
         "name": "киви",
-        "plural_name": ""
+        "plural_name": "kiwis"
       },
       "grapefruit": {
         "name": "грейпфрут",
-        "plural_name": ""
+        "plural_name": "grapefruits"
       },
       "plum": {
         "name": "слива",
@@ -316,31 +316,31 @@
       },
       "cantaloupe": {
         "name": "пъпеш канталупа",
-        "plural_name": ""
+        "plural_name": "cantaloupes"
       },
       "tamarind": {
         "name": "тамаринд",
-        "plural_name": ""
+        "plural_name": "tamarinds"
       },
       "button mushroom": {
         "name": "култивирана печурка",
-        "plural_name": ""
+        "plural_name": "button mushrooms"
       },
       "shiitake mushroom": {
         "name": "гъба шийтаке",
-        "plural_name": ""
+        "plural_name": "shiitake mushrooms"
       },
       "portobello mushroom": {
         "name": "гъба Портобело",
-        "plural_name": ""
+        "plural_name": "portobello mushrooms"
       },
       "pea": {
         "name": "грах",
-        "plural_name": ""
+        "plural_name": "peas"
       },
       "green bean": {
         "name": "зелен фасул",
-        "plural_name": ""
+        "plural_name": "green beans"
       },
       "snow pea": {
         "name": "snow pea",
@@ -352,7 +352,7 @@
       },
       "bean sprout": {
         "name": "кълнове от боб",
-        "plural_name": ""
+        "plural_name": "bean sprouts"
       },
       "edamame": {
         "name": "едамаме",
@@ -400,7 +400,7 @@
       },
       "chive": {
         "name": "див лук",
-        "plural_name": ""
+        "plural_name": "chives"
       },
       "mint": {
         "name": "мента",
@@ -513,23 +513,23 @@
       },
       "chickpea": {
         "name": "грах",
-        "plural_name": ""
+        "plural_name": "chickpeas"
       },
       "black bean": {
         "name": "черен боб",
-        "plural_name": ""
+        "plural_name": "black beans"
       },
       "kidney bean": {
         "name": "зрял фасул",
-        "plural_name": ""
+        "plural_name": "kidney beans"
       },
       "white bean": {
         "name": "бял боб",
-        "plural_name": ""
+        "plural_name": "white beans"
       },
       "lentil": {
         "name": "леща",
-        "plural_name": ""
+        "plural_name": "lentils"
       },
       "pinto bean": {
         "name": "pinto bean",
@@ -537,11 +537,11 @@
       },
       "red lentil": {
         "name": "червена леща",
-        "plural_name": ""
+        "plural_name": "red lentils"
       },
       "cannellini bean": {
         "name": "боб канелини",
-        "plural_name": ""
+        "plural_name": "cannellini beans"
       },
       "black-eyed pea": {
         "name": "black-eyed pea",
@@ -593,7 +593,7 @@
       },
       "noodle": {
         "name": "юфка",
-        "plural_name": ""
+        "plural_name": "noodles"
       },
       "tortellini": {
         "name": "тортелини",
@@ -670,7 +670,7 @@
       },
       "beef roast": {
         "name": "телешко печено",
-        "plural_name": ""
+        "plural_name": "beef roasts"
       },
       "ground pork": {
         "name": "смляно свинско",
@@ -694,19 +694,19 @@
       },
       "pork rib": {
         "name": "свински ребра",
-        "plural_name": ""
+        "plural_name": "pork ribs"
       },
       "beef sirloin": {
         "name": "говеждо филе",
-        "plural_name": ""
+        "plural_name": "beef sirloins"
       },
       "brisket": {
         "name": "брискета",
-        "plural_name": "брискети"
+        "plural_name": ""
       },
       "leg of lamb": {
         "name": "агнешко бутче",
-        "plural_name": ""
+        "plural_name": "legs of lamb"
       },
       "beef short rib": {
         "name": "beef short rib",
@@ -718,7 +718,7 @@
       },
       "lamb chop": {
         "name": "агнешки котлети",
-        "plural_name": ""
+        "plural_name": "lamb chops"
       },
       "venison": {
         "name": "еленско месо",
@@ -726,11 +726,11 @@
       },
       "oxtail": {
         "name": "телешка опашка",
-        "plural_name": ""
+        "plural_name": "oxtails"
       },
       "chicken breast": {
         "name": "пилешки гърди",
-        "plural_name": ""
+        "plural_name": "chicken breasts"
       },
       "chicken thigh": {
         "name": "пилешко бутче",
@@ -742,11 +742,11 @@
       },
       "whole chicken": {
         "name": "цяло пиле",
-        "plural_name": ""
+        "plural_name": "whole chickens"
       },
       "whole turkey": {
         "name": "цяла пуйка",
-        "plural_name": ""
+        "plural_name": "whole turkeys"
       },
       "chicken leg": {
         "name": "пилешко бутче",
@@ -758,7 +758,7 @@
       },
       "turkey breast": {
         "name": "пуешки гърди",
-        "plural_name": ""
+        "plural_name": "turkey breasts"
       },
       "ground chicken": {
         "name": "смляно пилешко",
@@ -766,7 +766,7 @@
       },
       "rotisserie chicken": {
         "name": "пиле на грил",
-        "plural_name": ""
+        "plural_name": "rotisserie chickens"
       },
       "duck": {
         "name": "патица",
@@ -774,7 +774,7 @@
       },
       "chicken liver": {
         "name": "пилешки дробчета",
-        "plural_name": ""
+        "plural_name": "chicken livers"
       },
       "cornish hen": {
         "name": "cornish hen",
@@ -827,7 +827,7 @@
       },
       "pepperoni": {
         "name": "пеперони",
-        "plural_name": ""
+        "plural_name": "pepperonis"
       },
       "chorizo": {
         "name": "чоризо",
@@ -843,7 +843,7 @@
       },
       "hot dog": {
         "name": "хот дог",
-        "plural_name": ""
+        "plural_name": "hot dogs"
       },
       "salami": {
         "name": "салам",
@@ -908,7 +908,7 @@
       },
       "crab": {
         "name": "раци",
-        "plural_name": ""
+        "plural_name": "crabs"
       },
       "scallop": {
         "name": "морски гребен",
@@ -920,7 +920,7 @@
       },
       "clam": {
         "name": "черни миди",
-        "plural_name": ""
+        "plural_name": "clams"
       },
       "squid": {
         "name": "калмари",
@@ -1142,7 +1142,7 @@
       },
       "bread crumb": {
         "name": "трохи от хляб",
-        "plural_name": ""
+        "plural_name": "bread crumbs"
       },
       "panko": {
         "name": "panko",
@@ -1154,7 +1154,7 @@
       },
       "corn tortilla": {
         "name": "царевична тортия",
-        "plural_name": ""
+        "plural_name": "corn tortillas"
       },
       "baguette": {
         "name": "багета",
@@ -1170,7 +1170,7 @@
       },
       "crouton": {
         "name": "крутони",
-        "plural_name": ""
+        "plural_name": "croutons"
       },
       "english muffin": {
         "name": "english muffin",
@@ -1219,27 +1219,27 @@
     "foods": {
       "canned tomato": {
         "name": "домати от консерва",
-        "plural_name": ""
+        "plural_name": "canned tomatoes"
       },
       "caper": {
         "name": "каперси",
-        "plural_name": ""
+        "plural_name": "capers"
       },
       "green olive": {
         "name": "зелени маслини",
-        "plural_name": ""
+        "plural_name": "green olives"
       },
       "canned chickpea": {
         "name": "нахут от консерва",
-        "plural_name": ""
+        "plural_name": "canned chickpeas"
       },
       "black olive": {
         "name": "черни маслини",
-        "plural_name": ""
+        "plural_name": "black olives"
       },
       "canned black bean": {
         "name": "черен боб от консерва",
-        "plural_name": ""
+        "plural_name": "canned black beans"
       },
       "canned pumpkin": {
         "name": "тиква от консерва",
@@ -1247,7 +1247,7 @@
       },
       "kalamata olive": {
         "name": "маслини Каламата",
-        "plural_name": ""
+        "plural_name": "kalamata olives"
       },
       "canned tuna": {
         "name": "риба тон от консерва",
@@ -1255,7 +1255,7 @@
       },
       "pickle": {
         "name": "кисела краставичка",
-        "plural_name": ""
+        "plural_name": "pickles"
       },
       "chipotle in adobo": {
         "name": "chipotle in adobo",
@@ -1263,15 +1263,15 @@
       },
       "canned anchovy": {
         "name": "аншоа от консерва",
-        "plural_name": ""
+        "plural_name": "canned anchovies"
       },
       "roasted red pepper": {
         "name": "печени червени пиперки",
-        "plural_name": ""
+        "plural_name": "roasted red peppers"
       },
       "canned artichoke": {
         "name": "артишок от консерва",
-        "plural_name": ""
+        "plural_name": "canned artichokes"
       },
       "canned corn": {
         "name": "царевица от консерва",
@@ -1279,7 +1279,7 @@
       },
       "canned kidney bean": {
         "name": "червен боб от консерва",
-        "plural_name": ""
+        "plural_name": "canned kidney beans"
       },
       "refried bean": {
         "name": "refried bean",
@@ -1303,7 +1303,7 @@
       },
       "pickled jalapeño": {
         "name": "мариновано халапеньо",
-        "plural_name": ""
+        "plural_name": "pickled jalapeños"
       },
       "diced green chile": {
         "name": "diced green chile",
@@ -1319,7 +1319,7 @@
       },
       "baked bean": {
         "name": "печен боб",
-        "plural_name": ""
+        "plural_name": "baked beans"
       },
       "canned salmon": {
         "name": "сьомга от консерва",
@@ -1327,7 +1327,7 @@
       },
       "canned clam": {
         "name": "миди от консерва",
-        "plural_name": ""
+        "plural_name": "canned clams"
       },
       "canned baby corn": {
         "name": "бейби царевички от консерва",
@@ -1335,7 +1335,7 @@
       },
       "canned sardine": {
         "name": "сардини от консерва",
-        "plural_name": ""
+        "plural_name": "canned sardines"
       },
       "aquafaba": {
         "name": "aquafaba",
@@ -1424,7 +1424,7 @@
       },
       "hot sauce": {
         "name": "лютив сос",
-        "plural_name": "лютиви сосове"
+        "plural_name": ""
       },
       "worcestershire sauce": {
         "name": "сос Уорчестър",
@@ -1520,7 +1520,7 @@
       },
       "salsa": {
         "name": "салца",
-        "plural_name": ""
+        "plural_name": "salsas"
       },
       "tahini": {
         "name": "тахан",
@@ -1665,7 +1665,7 @@
       },
       "chili flake": {
         "name": "люспи чили",
-        "plural_name": ""
+        "plural_name": "chili flakes"
       },
       "chili powder": {
         "name": "чили на прах",
@@ -1681,7 +1681,7 @@
       },
       "bay leaf": {
         "name": "дафинов лист",
-        "plural_name": ""
+        "plural_name": "bay leaves"
       },
       "turmeric": {
         "name": "куркума",
@@ -1729,7 +1729,7 @@
       },
       "mustard seed": {
         "name": "синапено семе",
-        "plural_name": ""
+        "plural_name": "mustard seeds"
       },
       "white pepper": {
         "name": "бял пипер",
@@ -1741,7 +1741,7 @@
       },
       "fennel seed": {
         "name": "семена от копър",
-        "plural_name": ""
+        "plural_name": "fennel seeds"
       },
       "tarragon": {
         "name": "естрагон",
@@ -2145,7 +2145,7 @@
     "foods": {
       "walnut": {
         "name": "орехи",
-        "plural_name": ""
+        "plural_name": "walnuts"
       },
       "pecan": {
         "name": "пеканов орех",
@@ -2157,19 +2157,19 @@
       },
       "sesame seed": {
         "name": "сусамово семе",
-        "plural_name": ""
+        "plural_name": "sesame seeds"
       },
       "cashew": {
         "name": "кашу",
-        "plural_name": ""
+        "plural_name": "cashews"
       },
       "pine nut": {
         "name": "кедрови ядки",
-        "plural_name": ""
+        "plural_name": "pine nuts"
       },
       "pistachio": {
         "name": "пастачио",
-        "plural_name": ""
+        "plural_name": "pistachios"
       },
       "peanut": {
         "name": "фъстък",
@@ -2181,7 +2181,7 @@
       },
       "pumpkin seed": {
         "name": "тиквено семе",
-        "plural_name": ""
+        "plural_name": "pumpkin seeds"
       },
       "hazelnut": {
         "name": "лешник",
@@ -2189,7 +2189,7 @@
       },
       "sunflower seed": {
         "name": "слънчогледово семе",
-        "plural_name": ""
+        "plural_name": "sunflower seeds"
       },
       "graham cracker": {
         "name": "graham cracker",
@@ -2213,7 +2213,7 @@
       },
       "potato chip": {
         "name": "картофен чипс",
-        "plural_name": ""
+        "plural_name": "potato chips"
       },
       "nut": {
         "name": "nut",

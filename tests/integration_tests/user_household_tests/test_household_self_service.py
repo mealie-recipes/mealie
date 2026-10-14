@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from uuid import UUID
 
 from dateutil.parser import parse as parse_dt
@@ -55,7 +55,7 @@ def test_get_household_recipe_default(api_client: TestClient, unique_user: TestU
 
 
 def test_get_household_recipe(api_client: TestClient, unique_user: TestUser, h2_user: TestUser):
-    dt_now = datetime.now(tz=timezone.utc)
+    dt_now = datetime.now(tz=UTC)
     recipe = unique_user.repos.recipes.create(
         Recipe(
             user_id=unique_user.user_id,

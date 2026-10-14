@@ -68,7 +68,7 @@
         "report-deleted": "Докладът е изтрит."
     },
     "exceptions": {
-        "permission_denied": "Нямате разрешение да изпълните това действие",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Рецептата не може да се позовава на самата себе си, нито пряко, нито косвено",
         "no-entry-found": "Търсената страница не е намерена",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

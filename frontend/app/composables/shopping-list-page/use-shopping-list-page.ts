@@ -6,6 +6,7 @@ import { useShoppingListLabels } from "~/composables/shopping-list-page/sub-comp
 import { useShoppingListCopy } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-copy";
 import { useShoppingListCrud } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-crud";
 import { useShoppingListRecipes } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-recipes";
+import { useShoppingListSearch } from "~/composables/shopping-list-page/sub-composables/use-shopping-list-search";
 
 /**
  * Main composable that orchestrates all shopping list page functionality
@@ -28,6 +29,28 @@ export function useShoppingListPage(listId: string) {
 
   // Track items organized by label
   const itemsByLabel = ref<{ [key: string]: ShoppingListItemOut[] }>({});
+
+  // Initialize search over every item on the list, checked and unchecked alike,
+  // so a search can surface something that has already been checked off.
+  const searchManager = useShoppingListSearch(
+    computed(() => shoppingList.value?.listItems ?? []),
+  );
+  const { isSearching, matchesSearch, countMatches } = searchManager;
+
+  // Number of checked items currently visible, so the checked section can show
+  // how many of them the search matched rather than the total.
+  const visibleCheckedCount = computed(() => countMatches(listItems.checked));
+
+  // Whether the search matched anything at all, used to show an empty state.
+  const hasSearchResults = computed(() => {
+    if (!isSearching.value) {
+      return true;
+    }
+    return (
+      Object.values(itemsByLabel.value).some(items => items.some(matchesSearch))
+      || listItems.checked.some(matchesSearch)
+    );
+  });
 
   function updateListItemOrder() {
     if (!shoppingList.value) return;
@@ -165,6 +188,11 @@ export function useShoppingListPage(listId: string) {
   return {
     itemsByLabel,
     isOffline,
+
+    // Search
+    ...searchManager,
+    visibleCheckedCount,
+    hasSearchResults,
 
     // Sub-composables
     ...state,

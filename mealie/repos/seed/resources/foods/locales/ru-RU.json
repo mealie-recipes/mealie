@@ -24,7 +24,7 @@
       },
       "zucchini": {
         "name": "цукини",
-        "plural_name": ""
+        "plural_name": "цукини"
       },
       "potato": {
         "name": "картофель",
@@ -44,11 +44,11 @@
       },
       "jalapeño": {
         "name": "халапеньо",
-        "plural_name": ""
+        "plural_name": "халапеньо"
       },
       "avocado": {
         "name": "авокадо",
-        "plural_name": ""
+        "plural_name": "авокадо"
       },
       "shallot": {
         "name": "лук-шалот",
@@ -84,7 +84,7 @@
       },
       "heart of palm": {
         "name": "сердцевина пальмы",
-        "plural_name": ""
+        "plural_name": "сердцевины пальмы"
       },
       "pumpkin": {
         "name": "тыква",
@@ -104,7 +104,7 @@
       },
       "kale": {
         "name": "кудрявая капуста",
-        "plural_name": "кудрявая капуста (кале)"
+        "plural_name": ""
       },
       "arugula": {
         "name": "руккола",
@@ -128,7 +128,7 @@
       },
       "romaine lettuce": {
         "name": "салат романа",
-        "plural_name": "Салат романа"
+        "plural_name": ""
       },
       "beetroot": {
         "name": "свёкла",
@@ -164,7 +164,7 @@
       },
       "poblano pepper": {
         "name": "перец поблано",
-        "plural_name": ""
+        "plural_name": "перец поблано"
       },
       "green tomato": {
         "name": "зелёный помидор",
@@ -172,7 +172,7 @@
       },
       "horseradish": {
         "name": "хрен",
-        "plural_name": "хрена"
+        "plural_name": ""
       },
       "chard": {
         "name": "мангольд",
@@ -180,11 +180,11 @@
       },
       "spaghetti squash": {
         "name": "тыква-спагетти",
-        "plural_name": ""
+        "plural_name": "спагетти сквоши"
       },
       "napa cabbage": {
         "name": "пекинская капуста",
-        "plural_name": ""
+        "plural_name": "пекинская капуста"
       },
       "celeriac": {
         "name": "корень сельдерея",
@@ -192,11 +192,11 @@
       },
       "turnip": {
         "name": "репа",
-        "plural_name": ""
+        "plural_name": "репа"
       },
       "bok choy": {
         "name": "бок-чой, черешковая капуста",
-        "plural_name": "бок-чой, черешковых капуст"
+        "plural_name": ""
       },
       "okra": {
         "name": "бамия",
@@ -204,7 +204,7 @@
       },
       "radicchio": {
         "name": "радиччио, итальянский цикорий",
-        "plural_name": "радиччио, итальянских цикориев"
+        "plural_name": ""
       },
       "plantain": {
         "name": "плантан",
@@ -256,7 +256,7 @@
       },
       "mango": {
         "name": "манго",
-        "plural_name": ""
+        "plural_name": "манго"
       },
       "peach": {
         "name": "персик",
@@ -288,15 +288,15 @@
       },
       "rhubarb": {
         "name": "ревень",
-        "plural_name": "ревени"
+        "plural_name": ""
       },
       "kiwi": {
         "name": "киви",
-        "plural_name": ""
+        "plural_name": "киви"
       },
       "grapefruit": {
         "name": "грейпфрут",
-        "plural_name": ""
+        "plural_name": "грейпфруты"
       },
       "plum": {
         "name": "слива",
@@ -304,7 +304,7 @@
       },
       "fig": {
         "name": "инжир",
-        "plural_name": ""
+        "plural_name": "инжир"
       },
       "apricot": {
         "name": "абрикос",
@@ -316,23 +316,23 @@
       },
       "cantaloupe": {
         "name": "канталупа",
-        "plural_name": ""
+        "plural_name": "дыни"
       },
       "tamarind": {
         "name": "тамаринд",
-        "plural_name": ""
+        "plural_name": "тамаринды"
       },
       "button mushroom": {
         "name": "шампиньоны",
-        "plural_name": ""
+        "plural_name": "грибы"
       },
       "shiitake mushroom": {
         "name": "шиитаке",
-        "plural_name": ""
+        "plural_name": "шиитаке"
       },
       "portobello mushroom": {
         "name": "портобелло",
-        "plural_name": ""
+        "plural_name": "грибы портобелло"
       },
       "pea": {
         "name": "горох",
@@ -360,27 +360,27 @@
       },
       "strawberry": {
         "name": "клубника",
-        "plural_name": ""
+        "plural_name": "клубника"
       },
       "blueberry": {
         "name": "черника",
-        "plural_name": ""
+        "plural_name": "черника"
       },
       "raspberry": {
         "name": "малина",
-        "plural_name": ""
+        "plural_name": "малина"
       },
       "cranberry": {
         "name": "клюква",
-        "plural_name": ""
+        "plural_name": "клюква"
       },
       "cherry": {
         "name": "вишня",
-        "plural_name": ""
+        "plural_name": "вишня"
       },
       "blackberry": {
         "name": "ежевика",
-        "plural_name": ""
+        "plural_name": "ежевика"
       },
       "parsley": {
         "name": "петрушка",
@@ -654,7 +654,7 @@
     "foods": {
       "ground beef": {
         "name": "говяжий фарш",
-        "plural_name": "говяжьего фарша"
+        "plural_name": ""
       },
       "beef steak": {
         "name": "говяжий стейк",
@@ -670,11 +670,11 @@
       },
       "beef roast": {
         "name": "Жаренная говядина",
-        "plural_name": ""
+        "plural_name": "жареная говядина"
       },
       "ground pork": {
         "name": "свиной фарш",
-        "plural_name": "свиного фарша"
+        "plural_name": ""
       },
       "beef stew meat": {
         "name": "мясо для рагу из говядины",
@@ -682,15 +682,15 @@
       },
       "pork fillet": {
         "name": "свиное филе",
-        "plural_name": ""
+        "plural_name": "свиное филе"
       },
       "pork shoulder": {
         "name": "свиная лопатка",
-        "plural_name": "свиных лопаток"
+        "plural_name": ""
       },
       "ground lamb": {
         "name": "фарш из ягненка",
-        "plural_name": "фарша из ягненка"
+        "plural_name": ""
       },
       "pork rib": {
         "name": "свиные ребра",
@@ -702,11 +702,11 @@
       },
       "brisket": {
         "name": "грудинка",
-        "plural_name": "грудинки"
+        "plural_name": ""
       },
       "leg of lamb": {
         "name": "баранья нога",
-        "plural_name": ""
+        "plural_name": "бараньи ноги"
       },
       "beef short rib": {
         "name": "говяжьи ребрышки",
@@ -714,7 +714,7 @@
       },
       "pork belly": {
         "name": "свиная грудинка",
-        "plural_name": "свиных грудинок"
+        "plural_name": ""
       },
       "lamb chop": {
         "name": "баранья отбивная",
@@ -726,7 +726,7 @@
       },
       "oxtail": {
         "name": "говяжий хвост",
-        "plural_name": ""
+        "plural_name": "говяжьи хвосты"
       },
       "chicken breast": {
         "name": "Куриная грудка",
@@ -774,11 +774,11 @@
       },
       "chicken liver": {
         "name": "куриная печень",
-        "plural_name": ""
+        "plural_name": "куриная печень"
       },
       "cornish hen": {
         "name": "корниш‑курица\n",
-        "plural_name": ""
+        "plural_name": "корниш‑курица"
       },
       "veal": {
         "name": "veal",
@@ -811,11 +811,11 @@
     "foods": {
       "bacon": {
         "name": "бекон",
-        "plural_name": "бекона"
+        "plural_name": ""
       },
       "ham": {
         "name": "ветчина",
-        "plural_name": "ветчины"
+        "plural_name": ""
       },
       "prosciutto": {
         "name": "прошутто",
@@ -827,7 +827,7 @@
       },
       "pepperoni": {
         "name": "пеперони",
-        "plural_name": ""
+        "plural_name": "пеперони"
       },
       "chorizo": {
         "name": "чоризо",
@@ -839,7 +839,7 @@
       },
       "breakfast sausage": {
         "name": "сосиски для завтрака",
-        "plural_name": ""
+        "plural_name": "сосиски для завтрака"
       },
       "hot dog": {
         "name": "сосиска",
@@ -847,7 +847,7 @@
       },
       "salami": {
         "name": "салями",
-        "plural_name": "салами"
+        "plural_name": ""
       },
       "kielbasa": {
         "name": "кильбаса (польская колбаса)",
@@ -957,7 +957,7 @@
     "foods": {
       "parmesan cheese": {
         "name": "сыр пармезан",
-        "plural_name": "сыры пармезан"
+        "plural_name": ""
       },
       "cheddar cheese": {
         "name": "сыр чеддер",
@@ -965,15 +965,15 @@
       },
       "cream cheese": {
         "name": "сливочный сыр",
-        "plural_name": "сливочные сыры"
+        "plural_name": ""
       },
       "cheese": {
         "name": "сыр",
-        "plural_name": "сыры"
+        "plural_name": ""
       },
       "mozzarella cheese": {
         "name": "сыр моццарелла",
-        "plural_name": "сыры моццарелла"
+        "plural_name": ""
       },
       "feta cheese": {
         "name": "сыр фета",
@@ -981,31 +981,31 @@
       },
       "ricotta cheese": {
         "name": "сыр рикота",
-        "plural_name": "сыры рикота"
+        "plural_name": ""
       },
       "monterey jack cheese": {
         "name": "сыр Монтерей Джек",
-        "plural_name": "сыры Монтерей Джек"
+        "plural_name": ""
       },
       "blue cheese": {
         "name": "голубой сыр",
-        "plural_name": "голубые сыры"
+        "plural_name": ""
       },
       "goat cheese": {
         "name": "козий сыр",
-        "plural_name": "козьи сыры"
+        "plural_name": ""
       },
       "swiss cheese": {
         "name": "швейцарский сыр",
-        "plural_name": "швейцарские сыры"
+        "plural_name": ""
       },
       "gruyere cheese": {
         "name": "сыр грюэр (gruyere)",
-        "plural_name": "сыры грюэр (gruyere)"
+        "plural_name": ""
       },
       "mascarpone cheese": {
         "name": "сыр маскарпоне",
-        "plural_name": "сыры маскарпоне"
+        "plural_name": ""
       },
       "cottage cheese": {
         "name": "творог",
@@ -1013,35 +1013,35 @@
       },
       "american cheese": {
         "name": "американский сыр",
-        "plural_name": "американские сыры"
+        "plural_name": ""
       },
       "brie cheese": {
         "name": "сыр бри",
-        "plural_name": "сыры бри"
+        "plural_name": ""
       },
       "paneer cheese": {
         "name": "сыр панир (paneer)",
-        "plural_name": "сыры панир (paneer)"
+        "plural_name": ""
       },
       "fontina cheese": {
         "name": "сыр фета",
-        "plural_name": "сыры фета"
+        "plural_name": ""
       },
       "queso fresco cheese": {
         "name": "сыр свежий (Queso Fresco)",
-        "plural_name": "сыры свежие (Queso Fresco)"
+        "plural_name": ""
       },
       "halloumi cheese": {
         "name": "сыр халлуми ",
-        "plural_name": "сыры халлуми "
+        "plural_name": ""
       },
       "italian cheese blend": {
         "name": "итальянская сырная смесь",
-        "plural_name": "итальянские сырные смеси"
+        "plural_name": ""
       },
       "butter": {
         "name": "сливочное масло",
-        "plural_name": "сливочного масла"
+        "plural_name": ""
       },
       "egg": {
         "name": "яйцо",
@@ -1061,15 +1061,15 @@
       },
       "buttermilk": {
         "name": "пахта",
-        "plural_name": "кисломолочная сыворотка"
+        "plural_name": ""
       },
       "yogurt": {
         "name": "йогурт",
-        "plural_name": "йогурты"
+        "plural_name": ""
       },
       "greek yogurt": {
         "name": "греческий йогурт",
-        "plural_name": "греческие йогурты"
+        "plural_name": ""
       },
       "cream": {
         "name": "сливки",
@@ -1093,11 +1093,11 @@
       },
       "kefir": {
         "name": "кефир",
-        "plural_name": "кефира"
+        "plural_name": ""
       },
       "provolone cheese": {
         "name": "сыр проволоне",
-        "plural_name": "сыры проволоне"
+        "plural_name": ""
       },
       "egg white": {
         "name": "egg white",
@@ -1870,7 +1870,7 @@
     "foods": {
       "shortening": {
         "name": "кондитерский жир",
-        "plural_name": "кондитерские жиры"
+        "plural_name": ""
       },
       "olive oil": {
         "name": "оливковое масло",
@@ -2153,7 +2153,7 @@
       },
       "almond": {
         "name": "миндаль",
-        "plural_name": ""
+        "plural_name": "миндаль"
       },
       "sesame seed": {
         "name": "семя кунжута",
@@ -2161,7 +2161,7 @@
       },
       "cashew": {
         "name": "кешью",
-        "plural_name": ""
+        "plural_name": "кешью"
       },
       "pine nut": {
         "name": "кедровый орех",
@@ -2173,7 +2173,7 @@
       },
       "peanut": {
         "name": "арахис",
-        "plural_name": ""
+        "plural_name": "арахис"
       },
       "chia": {
         "name": "чиа",
@@ -2185,7 +2185,7 @@
       },
       "hazelnut": {
         "name": "фундук",
-        "plural_name": ""
+        "plural_name": "фундук"
       },
       "sunflower seed": {
         "name": "семя подсолнечника",
@@ -2275,11 +2275,11 @@
     "foods": {
       "white wine": {
         "name": "белое вино",
-        "plural_name": "белые вина"
+        "plural_name": ""
       },
       "red wine": {
         "name": "красное вино",
-        "plural_name": "красные вина"
+        "plural_name": ""
       },
       "whisky": {
         "name": "виски",
@@ -2299,11 +2299,11 @@
       },
       "orange liqueur": {
         "name": "апельсиновый ликер",
-        "plural_name": "апельсиновые ликеры"
+        "plural_name": ""
       },
       "tequila": {
         "name": "текила",
-        "plural_name": "текилы"
+        "plural_name": ""
       },
       "sherry": {
         "name": "sherry",
@@ -2311,7 +2311,7 @@
       },
       "gin": {
         "name": "джин",
-        "plural_name": "джины"
+        "plural_name": ""
       },
       "brandy": {
         "name": "brandy",

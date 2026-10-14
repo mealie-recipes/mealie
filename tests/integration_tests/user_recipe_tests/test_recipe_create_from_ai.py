@@ -44,7 +44,7 @@ def html_fetch_result(html: str, url: str) -> FetchResult:
 
 
 @pytest.fixture(autouse=True)
-def ai_providers(unique_user: TestUser) -> Generator[None, None, None]:
+def ai_providers(unique_user: TestUser) -> Generator[None]:
     """Enable both the default and image providers, restoring the original settings afterwards."""
 
     provider = unique_user.repos.group_ai_providers.create(
@@ -118,7 +118,7 @@ class AIResponses:
         self.prompts: list[str] = []
         self.messages: list[str] = []
 
-    def install(self, monkeypatch: pytest.MonkeyPatch) -> "AIResponses":
+    def install(self, monkeypatch: pytest.MonkeyPatch) -> AIResponses:
         responses = self
 
         async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
@@ -755,6 +755,41 @@ def test_create_translates_in_its_own_step(
     slug = json.loads(r.text)
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
     assert recipe["name"] == translated_name
+
+
+def test_create_structures_times_through_translation(
+    api_client: TestClient,
+    unique_user: TestUser,
+    monkeypatch: pytest.MonkeyPatch,
+    openai_recipe: OpenAIRecipe,
+):
+    """ISO times become structured durations, and survive a translation that never sees them."""
+
+    built = openai_recipe.model_copy(update={"total_time": "PT1H30M", "prep_time": "overnight"})
+    # structured times are left out of the translate request, so they can't come back in the response
+    translated = openai_recipe.model_copy(update={"total_time": None, "prep_time": "la nuit"})
+    messages: list[str] = []
+
+    async def mock_get_response(self, prompt, message, *args, response_schema=None, **kwargs):
+        if response_schema is not OpenAIRecipe:
+            return None
+
+        messages.append(message)
+        return translated if len(messages) > 1 else built
+
+    monkeypatch.setattr(OpenAIService, "get_response", mock_get_response)
+
+    r = post_ai(api_client, unique_user, {"content": random_string(), "translateLanguage": "French"})
+    assert r.status_code == 201
+    assert len(messages) == 2
+    assert "PT1H30M" not in messages[1]
+
+    slug = json.loads(r.text)
+    recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    assert recipe["totalTimeSeconds"] == 5400
+    assert recipe["totalTime"] is None
+    assert recipe["prepTimeSeconds"] is None
+    assert recipe["prepTime"] == "la nuit"
 
 
 def test_translation_is_skipped_when_the_source_is_already_in_the_language(

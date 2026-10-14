@@ -6,6 +6,7 @@ import gen_py_pytest_routes
 import gen_py_schema_exports
 import gen_ts_locales
 import gen_ts_types
+import gen_ts_unit_systems
 from utils import log
 
 CWD = Path(__file__).parent
@@ -16,7 +17,7 @@ def main():
     parser.add_argument(
         "generators",
         nargs="*",
-        help="Specific generators to run (schema, types, locales, data-paths, routes). If none specified, all will run.",  # noqa: E501 - long line
+        help="Specific generators to run (schema, types, locales, unit-systems, data-paths, routes). If none specified, all will run.",  # noqa: E501 - long line
     )
     args = parser.parse_args()
 
@@ -25,6 +26,7 @@ def main():
         "schema": (gen_py_schema_exports.main, "schema exports"),
         "types": (gen_ts_types.main, "frontend types"),
         "locales": (gen_ts_locales.main, "locales"),
+        "unit-systems": (gen_ts_unit_systems.main, "unit systems"),
         "data-paths": (gen_py_pytest_data_paths.main, "test data paths"),
         "routes": (gen_py_pytest_routes.main, "pytest routes"),
     }

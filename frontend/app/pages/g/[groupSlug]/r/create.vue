@@ -48,7 +48,7 @@ import AdvancedOnly from "~/components/global/AdvancedOnly.vue";
 import { useGroupSelf } from "~/composables/use-groups";
 
 definePageMeta({
-  middleware: ["group-only"],
+  middleware: ["auth", "group-only"],
 });
 
 const i18n = useI18n();

@@ -7,11 +7,12 @@ import re
 import typing
 from datetime import datetime, timedelta
 
+import isodate
 from slugify import slugify
 
 from mealie.core.root_logger import get_logger
 from mealie.lang.providers import Translator, get_all_translations
-from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe import MAX_DURATION_SECONDS, Recipe
 from mealie.services.parser_services.parser_utils import extract_quantity_from_string
 
 logger = get_logger("recipe-scraper")
@@ -20,14 +21,11 @@ NO_IMAGE = "no image"
 """Placeholder stored on a recipe that has no image. Not a URL, and must never be fetched."""
 
 
+MATCH_NUMBER = re.compile(r"\d+(?:\.\d+)?")
+""" A bare number, e.g. `30` or `1.5` """
+
 MATCH_DIGITS = re.compile(r"\d+([.,]\d+)?")
 """ Allow for commas as decimals (common in Europe) """
-
-MATCH_ISO_STR = re.compile(
-    r"^P((\d+)Y)?((\d+)M)?((?P<weeks>\d+)W)?((?P<days>\d+)D)?"
-    r"(T((?P<hours>\d+)H)?((?P<minutes>\d+)M)?((?P<seconds>\d+(?:\.\d+)?)S)?)?$",
-)
-""" Match Duration Strings """
 
 MATCH_HTML_TAGS = re.compile(r"<[^<]+?>")
 """ Matches HTML tags `<p>Text</p>` -> `Text` """
@@ -63,9 +61,14 @@ def clean(recipe_data: Recipe | dict, translator: Translator, url=None) -> Recip
     recipe_data["slug"] = slugify(recipe_data.get("name", ""))
     recipe_data["description"] = clean_string(recipe_data.get("description", ""))
 
-    recipe_data["prepTime"] = clean_time(recipe_data.get("prepTime"), translator)
-    recipe_data["performTime"] = clean_time(recipe_data.get("performTime"), translator)
-    recipe_data["totalTime"] = clean_time(recipe_data.get("totalTime"), translator)
+    for time_key in ("prepTime", "performTime", "totalTime"):
+        seconds_key = f"{time_key}Seconds"
+        seconds = clean_duration(recipe_data.get(time_key)) if recipe_data.get(seconds_key) is None else None
+        if seconds is not None:
+            recipe_data[seconds_key] = seconds
+            recipe_data[time_key] = None
+        else:
+            recipe_data[time_key] = clean_time(recipe_data.get(time_key), translator)
 
     recipe_data["recipeServings"], recipe_data["recipeYieldQuantity"], recipe_data["recipeYield"] = clean_yield(
         recipe_data.get("recipeYield")
@@ -469,6 +472,46 @@ def clean_yield(yields: str | list[str] | None) -> tuple[float, float, str]:
     return servings_qty, yld_qty, yld_str
 
 
+def clean_duration(time_entry: typing.Any) -> int | None:
+    """
+    The duration in seconds, when `time_entry` is structured. Anything else returns None,
+    and should be kept as text with `clean_time`.
+
+    Supported Structures:
+        - `"PT1H30M"` - returns 5400
+        - `30` or `"30"` - assumed to be in minutes, returns 1800
+        - `timedelta(hours=1)` - returns 3600
+        - `{"minValue": "PT1H"}` or `["PT1H", ...]` - the first value, returns 3600
+
+    Durations that aren't positive, or don't fit in the database, return None.
+    """
+    match time_entry:
+        case bool():
+            return None
+        case numbers.Number():
+            seconds = float(time_entry) * 60  # type: ignore
+        case str():
+            value = time_entry.strip()
+            if MATCH_NUMBER.fullmatch(value):
+                seconds = float(value) * 60
+            elif (delta := parse_duration(value)) is not None:
+                seconds = delta.total_seconds()
+            else:
+                return None
+        case timedelta():
+            seconds = time_entry.total_seconds()
+        case {"minValue": value}:
+            return clean_duration(value)
+        case [first, *_]:
+            return clean_duration(first)
+        case _:
+            return None
+
+    if not 0 < seconds <= MAX_DURATION_SECONDS:
+        return None
+    return round(seconds) or None
+
+
 def clean_time(time_entry: str | timedelta | int | float | None, translator: Translator) -> None | str:
     """_summary_
 
@@ -493,19 +536,19 @@ def clean_time(time_entry: str | timedelta | int | float | None, translator: Tra
     match time_entry:
         case numbers.Number():
             # type checked by case statement
-            time_delta = timedelta(minutes=time_entry)  # type: ignore
-            return pretty_print_timedelta(time_delta, translator)
+            return clean_time(timedelta(minutes=time_entry), translator)  # type: ignore
         case str(time_entry):
             if not time_entry.strip():
                 return None
 
-            try:
-                time_delta_instructionsect = parse_duration(time_entry)
-                return pretty_print_timedelta(time_delta_instructionsect, translator)
-            except ValueError:
+            # Anything that isn't a duration, or is a negative one, is kept as text
+            delta = parse_duration(time_entry)
+            if delta is None or delta < timedelta(0):
                 return str(time_entry)
+            return clean_time(timedelta(seconds=int(delta.total_seconds())), translator)
         case timedelta():
-            return pretty_print_timedelta(time_entry, translator)
+            # A zero or negative duration isn't a time worth showing
+            return pretty_print_timedelta(time_entry, translator) if time_entry > timedelta(0) else None
         case {"minValue": str(value)}:
             return clean_time(value, translator)
         case [str(), *_]:
@@ -520,34 +563,18 @@ def clean_time(time_entry: str | timedelta | int | float | None, translator: Tra
             return None
 
 
-def parse_duration(iso_duration: str) -> timedelta:
+def parse_duration(value: str) -> timedelta | None:
     """
-    Parses an ISO 8601 duration string into a datetime.timedelta instance.
+    Parses an ISO 8601 duration string, e.g. `"PT1H30M"`, into a timedelta.
 
-    Args:
-        iso_duration: an ISO 8601 duration string.
-
-    Raises:
-        ValueError: if the input string is not a valid ISO 8601 duration string.
+    Returns None if it isn't one, or if it has years or months, which have no fixed length.
     """
+    try:
+        delta = isodate.parse_duration(value.strip().upper())
+    except isodate.ISO8601Error, ValueError:
+        return None
 
-    m = MATCH_ISO_STR.match(iso_duration)
-
-    if m is None:
-        raise ValueError("invalid ISO 8601 duration string")
-
-    # Years and months are not being utilized here, as there is not enough
-    # information provided to determine which year and which month.
-    # Python's time_delta class stores durations as days, seconds and
-    # microseconds internally, and therefore we'd have to
-    # convert parsed years and months to specific number of days.
-
-    times = {"weeks": 0, "days": 0, "hours": 0, "minutes": 0, "seconds": 0}
-    for unit in times.keys():
-        if m.group(unit):
-            times[unit] = int(float(m.group(unit)))
-
-    return timedelta(**times)
+    return delta if isinstance(delta, timedelta) else None
 
 
 def pretty_print_timedelta(t: timedelta, translator: Translator, max_components=None, max_decimal_places=2):
