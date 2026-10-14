@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "לבטל את סימון כל הפריטים?",
     "are-you-sure-you-want-to-delete-checked-items": "למחוק את כל הפריטים המסומנים?",
     "no-shopping-lists-found": "לא נמצאה רשימת קניות",
-    "item-checked-off": "Checked off {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "גיבויים",

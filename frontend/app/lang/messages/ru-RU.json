@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Вы уверены, что хотите снять отметку со всех элементов?",
     "are-you-sure-you-want-to-delete-checked-items": "Вы уверены, что хотите удалить все отмеченные элементы?",
     "no-shopping-lists-found": "Списки покупок не найдены",
-    "item-checked-off": "Выключено {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Выключено {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Резервные копии",

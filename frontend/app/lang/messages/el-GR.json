@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Θέλετε σίγουρα να αποεπιλέξετε όλα τα αντικείμενα;",
     "are-you-sure-you-want-to-delete-checked-items": "Θέλετε σίγουρα να διαγράψετε όλα τα επιλεγμένα αντικείμενα;",
     "no-shopping-lists-found": "Δεν βρέθηκαν λίστες για ψώνια",
-    "item-checked-off": "Το {item} επισημάνθηκε ως ολοκληρωμένο"
+    "new-list-name": "Ονομα λίστας",
+    "failed-to-create-shopping-list": "Αποτυχία δημιουργίας λίστας για ψώνια",
+    "item-checked-off": "Το {item} επισημάνθηκε ως ολοκληρωμένο",
+    "more-options": "Περισσότερες επιλογές",
+    "fewer-options": "Λιγότερες επιλογές",
+    "save-as-new-food": "Αποθήκευση \"{text}\" ως νέο τρόφιμο"
   },
   "sidebar": {
     "backups": "Αντίγραφα ασφαλείας",

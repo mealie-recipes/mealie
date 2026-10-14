@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Bist du sicher, dass du die Auswahl aller Elemente aufheben möchtest?",
     "are-you-sure-you-want-to-delete-checked-items": "Bist du sicher, dass du alle ausgewählten Elemente löschen möchtest?",
     "no-shopping-lists-found": "Keine Einkaufslisten gefunden",
-    "item-checked-off": "{item} erledigt"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "{item} erledigt",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Sicherungen",

@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Naozaj chcete zrušiť označenie všetkých položiek?",
     "are-you-sure-you-want-to-delete-checked-items": "Naozaj chcete odstrániť všetky označené položky?",
     "no-shopping-lists-found": "Nenašli sa žiadne nákupné zoznamy",
-    "item-checked-off": "Označené ako vybavené: {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Označené ako vybavené: {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Zálohy",
