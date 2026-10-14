@@ -13,7 +13,18 @@
         icon
         color="white"
       >
-        <v-icon size="40"> {{ $globals.icons.primary }} </v-icon>
+        <v-img
+          v-if="$appInfo.brandingLogoUrl"
+          :src="$appInfo.brandingLogoUrl"
+          width="40"
+          height="40"
+        />
+        <v-icon
+          v-else
+          size="40"
+        >
+          {{ $globals.icons.primary }}
+        </v-icon>
       </v-btn>
     </RouterLink>
 
@@ -25,7 +36,7 @@
         style="cursor: pointer"
         @click="$router.push(routerLink)"
       >
-        Mealie
+        {{ $appInfo.brandingName }}
       </v-toolbar-title>
     </div>
     <RecipeDialogSearch ref="domSearchDialog" />
