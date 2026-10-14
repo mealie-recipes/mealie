@@ -77,6 +77,7 @@ def test_labels_empty_includes_unused_label_and_excludes_used_label(api_client: 
 def test_labels_empty_excludes_unused_label_from_other_group(
     api_client: TestClient, unique_user: TestUser, g2_user: TestUser
 ):
+    g2_user.repos.users.patch(g2_user.user_id, {"can_organize": True})
     own_label = _create_label(api_client, unique_user)
     other_group_label = _create_label(api_client, g2_user)
 

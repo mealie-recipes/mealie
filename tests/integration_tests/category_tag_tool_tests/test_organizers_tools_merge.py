@@ -97,6 +97,7 @@ def test_tools_empty_includes_unused_tool_and_excludes_used_tool(api_client: Tes
 def test_tools_empty_excludes_unused_tool_from_other_group(
     api_client: TestClient, unique_user: TestUser, g2_user: TestUser
 ):
+    g2_user.repos.users.patch(g2_user.user_id, {"can_organize": True})
     own_tool = _create_tool(api_client, unique_user)
     other_group_tool = _create_tool(api_client, g2_user)
 

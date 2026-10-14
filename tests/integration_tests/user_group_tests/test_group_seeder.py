@@ -1,3 +1,4 @@
+import pytest
 from fastapi.testclient import TestClient
 
 from mealie.schema.response.pagination import PaginationQuery
@@ -6,6 +7,42 @@ from tests.utils.fixture_schemas import TestUser
 from tests.utils.seed_data import seeded_food_names, seeded_label_names, seeded_unit_names
 
 LOCALE = "en-US"
+
+
+@pytest.mark.parametrize("resource", ["foods", "units"])
+def test_seed_requires_organize_permission(
+    api_client: TestClient, unique_user_fn_scoped: TestUser, resource: str
+) -> None:
+    user = unique_user_fn_scoped
+    routes = {"foods": api_routes.foods, "units": api_routes.units, "labels": api_routes.groups_labels}
+    seed_route = api_routes.groups_seeders_foods if resource == "foods" else api_routes.groups_seeders_units
+
+    def snapshot() -> dict[str, dict[str, dict]]:
+        state = {}
+        for name, route in routes.items():
+            response = api_client.get(route, params={"perPage": -1}, headers=user.token)
+            assert response.status_code == 200
+            state[name] = {item["id"]: item for item in response.json()["items"]}
+        return state
+
+    user.repos.users.patch(user.user_id, {"can_organize": False})
+    before = snapshot()
+    response = api_client.post(seed_route, json={"locale": LOCALE}, headers=user.token)
+    assert response.status_code == 403
+    assert snapshot() == before
+
+    user.repos.users.patch(user.user_id, {"can_organize": True})
+    response = api_client.post(seed_route, json={"locale": LOCALE}, headers=user.token)
+    assert response.status_code == 200
+    after = snapshot()
+    if resource == "foods":
+        assert {item["name"] for item in after["foods"].values()} == seeded_food_names(LOCALE)
+        assert {item["name"] for item in after["labels"].values()} == seeded_label_names(LOCALE)
+        assert after["units"] == before["units"]
+    else:
+        assert {item["name"] for item in after["units"].values()} == seeded_unit_names(LOCALE)
+        assert after["foods"] == before["foods"]
+        assert after["labels"] == before["labels"]
 
 
 def test_seed_invalid_locale(api_client: TestClient, unique_user: TestUser):
