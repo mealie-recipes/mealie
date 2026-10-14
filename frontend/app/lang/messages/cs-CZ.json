@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Opravdu chcete zrušit výběr všech položek?",
     "are-you-sure-you-want-to-delete-checked-items": "Opravdu chcete odstranit všechny vybrané položky?",
     "no-shopping-lists-found": "Nebyly nalezeny žádné nákupní seznamy",
-    "item-checked-off": "Odškrtnuta položka {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Odškrtnuta položka {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Zálohy",
@@ -957,7 +962,7 @@
     "labels": {
       "edit-label": "Upravit štítek",
       "new-label": "Nový štítek",
-      "labels": "Štítky",
+      "labels": "Popisky",
       "assign-label": "Přiřadit štítek",
       "combine-label": "Combine Label",
       "source-label": "Source Label",

@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Ali res ne želite izbrati vseh elementov?",
     "are-you-sure-you-want-to-delete-checked-items": "Ali ste prepričani, da želite izbrisati vse izbrane elemente?",
     "no-shopping-lists-found": "Ni nakupovalnih seznamov",
-    "item-checked-off": "Odkljukano {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Odkljukano {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Varnostne kopije",

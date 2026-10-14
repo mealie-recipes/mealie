@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Biztos, hogy minden elem kijelölését visszavonja?",
     "are-you-sure-you-want-to-delete-checked-items": "Biztosan törölni akarja az összes bejelölt elemet?",
     "no-shopping-lists-found": "Nem találhatók bevásárlólisták",
-    "item-checked-off": "{item} leellenőrzve"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "{item} leellenőrzve",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Biztonsági mentések",
