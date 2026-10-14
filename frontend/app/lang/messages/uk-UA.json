@@ -793,7 +793,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Ви впевнені, що хочете зняти відмітку з усіх елементів?",
     "are-you-sure-you-want-to-delete-checked-items": "Ви впевнені, що хочете видалити всі відмічені елементи?",
     "no-shopping-lists-found": "Списків покупок не знайдено",
-    "item-checked-off": "Позначено {item} як куплене"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Позначено {item} як куплене",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Резервні копії",
