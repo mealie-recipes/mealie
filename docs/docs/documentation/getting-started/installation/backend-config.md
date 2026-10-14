@@ -318,9 +318,9 @@ connect it with a Docker Compose secret, per the [Docker documentation][docker-s
 If both the base environment variable and the secret pattern of the environment variable are set, the secret will always
 take precedence.
 
-Each configured `_FILE` path must point to a readable regular file containing a nonempty value.
-Startup stops with an error message if the file is missing, unreadable, or empty, even when the base environment variable is also set.
-Files containing only trailing newlines are treated as empty; trailing newlines are otherwise removed as before.
+Each configured `_FILE` path must point to a readable regular file.
+Startup stops with an error message if the file is missing, is not a regular file, or cannot be read, even when the base environment variable is also set.
+Trailing newlines are removed from the file contents. If the resulting value is empty, startup logs a warning and continues with an empty value, overriding any base environment variable.
 
 The file must be readable by the application user after the container drops privileges (UID/GID 911 by default, or your configured runtime user).
 Kubernetes Secret volume symlinks are supported when their target is a readable

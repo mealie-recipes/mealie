@@ -76,8 +76,7 @@ load_secrets() {
                 return 1
             fi
             if [ -z "$secret_value" ]; then
-                echo "ERROR: The secret configured by $file_var must not be empty." >&2
-                return 1
+                echo "WARN: The secret configured by $file_var is empty; using an empty value." >&2
             fi
             export "$var=$secret_value"
         fi
