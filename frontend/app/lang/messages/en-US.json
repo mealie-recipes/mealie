@@ -274,6 +274,7 @@
     "private-household-description": "Setting your household to private will disable all public view options. This overrides any individual public view settings",
     "lock-recipe-edits-from-other-households": "Lock recipe edits from other households",
     "lock-recipe-edits-from-other-households-description": "When enabled only users in your household can edit recipes created by your household",
+    "lock-recipe-edits-from-other-households-admin-note": "Site administrators can always edit or delete recipes in any household, regardless of this setting.",
     "household-recipe-preferences": "Household Recipe Preferences",
     "default-recipe-preferences-description": "These are the default settings when a new recipe is created in your household. These can be changed for individual recipes in the recipe settings menu.",
     "household-preferences": "Household Preferences"
@@ -352,7 +353,7 @@
       "title": "Paprika Recipe Manager"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export.",
+      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +365,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Recipe Data Migrations",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie.",
-    "coming-from-another-application-or-an-even-older-version-of-mealie": "Coming from another application or an even older version of Mealie? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
+    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
     "choose-migration-type": "Choose Migration Type",
     "tag-all-recipes": "Tag all recipes with {tag-name} tag",
     "recipe-1": "Recipe 1",
@@ -445,6 +446,7 @@
     "prep-time": "Prep Time",
     "protein-content": "Protein",
     "public-recipe": "Public Recipe",
+    "public-recipe-visibility-note": "Also depends on your group and household privacy settings — a recipe won't be publicly visible if either is set to private.",
     "recipe-created": "Recipe created",
     "recipe-image": "Recipe Image",
     "delete-image": "Delete Recipe Image",
@@ -526,6 +528,8 @@
     "ingredients-not-parsed-description": "It looks like your ingredients aren't parsed yet. Click the \"{parse}\" button below to parse your ingredients into structured foods.",
     "attach-images-hint": "Attach images by dragging & dropping them into the editor",
     "drop-image": "Drop image",
+    "failed-to-attach-image": "Failed to attach image",
+    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Recipes with units or foods defined cannot be parsed.",
     "parse-ingredients": "Parse ingredients",
     "edit-markdown": "Edit Markdown",
@@ -588,8 +592,8 @@
     "report-deletion-failed": "Report deletion failed",
     "recipe-debugger": "Recipe Debugger",
     "recipe-debugger-description": "Grab the URL of the recipe you want to debug and paste it here. The URL will be scraped by the recipe scraper and the results will be displayed. If you don't see any data returned, the site you are trying to scrape is not supported by Mealie or its scraper library.",
-    "use-openai": "Use OpenAI",
-    "recipe-debugger-use-openai-description": "Use OpenAI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Debug",
     "tree-view": "Tree View",
     "recipe-servings": "Recipe Servings",
@@ -601,15 +605,22 @@
     "remove-image": "Remove image",
     "nextStep": "Next step",
     "recipe-actions": "Recipe Actions",
+    "unit-system": {
+      "as-written": "As written",
+      "metric": "Metric",
+      "metric-with-hint": "Metric (g, ml)",
+      "imperial": "Imperial",
+      "imperial-with-hint": "Imperial (cups, oz)"
+    },
     "parser": {
       "ingredient-parser": "Ingredient Parser",
       "select-parser": "Select Parser",
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Natural Language Processor",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Brute Parser",
-      "openai-parser": "OpenAI Parser",
+      "ai-parser": "AI Parser",
       "missing-unit": "Create missing unit: {unit}",
       "missing-food": "Create missing food: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
@@ -784,7 +795,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Are you sure you want to uncheck all items?",
     "are-you-sure-you-want-to-delete-checked-items": "Are you sure you want to delete all checked items?",
     "no-shopping-lists-found": "No Shopping Lists Found",
-    "item-checked-off": "Checked off {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Backups",
@@ -872,11 +888,17 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie'",
     "permissions": "Permissions",
     "administrator": "Administrator",
+    "administrator-hint": "Full access across every group and household on this instance.",
     "user-can-invite-other-to-group": "User can invite others to group",
+    "user-can-invite-other-to-group-hint": "User can invite new users to their own group and household.",
     "user-can-manage-group": "User can manage group settings",
+    "user-can-manage-group-hint": "User can manage the group's shared settings, like AI providers, and edit permissions for members of their household.",
     "user-can-manage-household": "User can manage household",
+    "user-can-manage-household-hint": "User can manage the settings of the household they belong to, like its name, privacy, and recipe-editing rules.",
     "user-can-organize-group-data": "User can manage foods, tags, and categories",
+    "user-can-organize-group-data-hint": "Create, edit, and delete foods, units, tags, and categories shared across the group.",
     "enable-advanced-features": "Enable advanced features",
+    "enable-advanced-features-hint": "Enables Webhooks, Notifiers, and Data Migrations",
     "it-looks-like-this-is-your-first-time-logging-in": "It looks like this is your first time logging in.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Don't want to see this anymore? Be sure to change your email in your user settings!",
     "forgot-password": "Forgot Password",
@@ -898,7 +920,7 @@
       "delete-affects-recipes-more": "View all {count} recipes",
       "merge-dialog-text": "Combining the selected foods will merge the source food and target food into a single food. The source food will be deleted and all of the references to the source food will be updated to point to the target food.",
       "merge-food-example": "Merging {food1} into {food2}",
-      "seed-dialog-text": "Seed the database with foods based on your local language. This will create ~2700 common foods that can be used to organize your database. Foods are translated via a community effort.",
+      "seed-dialog-text": "Seed the database with foods based on your local language. This will create over 500 common foods, along with the labels used to group them, that can be used to organize your database. Foods are translated via a community effort.",
       "seed-dialog-warning": "You already have some items in your database. A new item will not be added if an item with the same name already exists.",
       "combine-food": "Combine Food",
       "source-food": "Source Food",
@@ -909,6 +931,8 @@
       "food-data": "Food Data",
       "label-overwrite-warning": "This will assign the chosen label to all selected foods and potentially overwrite your existing labels.",
       "on-hand-checkbox-label": "Setting this flag will make this food unchecked by default when adding a recipe to a shopping list.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -944,11 +968,17 @@
       }
     },
     "labels": {
-      "seed-dialog-text": "Seed the database with common labels based on your local language.",
       "edit-label": "Edit Label",
       "new-label": "New Label",
       "labels": "Labels",
-      "assign-label": "Assign Label"
+      "assign-label": "Assign Label",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Purge Exports",
@@ -1021,7 +1051,14 @@
     "tools": {
       "new-tool": "New Tool",
       "edit-tool": "Edit Tool",
-      "tool-data": "Tool Data"
+      "tool-data": "Tool Data",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1052,6 +1089,8 @@
     "share-recipe": "Share Recipe",
     "default-30-days": "Default 30 Days",
     "expires-at": "Expires At",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Recipe link copied to clipboard"
   },
   "banner-experimental": {
@@ -1103,7 +1142,7 @@
     "ingredients-natural-language-processor-explanation-2": "It's not perfect, but it yields great results in general and is a good starting point for manually parsing ingredients into individual fields. Alternatively, you can also use the \"Brute\" processor that uses a pattern matching technique to identify ingredients.",
     "nlp": "NLP",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Show individual confidence",
     "ingredient-text": "Ingredient Text",
     "average-confident": "{0} Confident",
@@ -1120,8 +1159,8 @@
       "restore-from-v1-backup": "Have a backup from a previous instance of Mealie v1? You can restore it here.",
       "manage-profile-or-get-invite-link": "Manage your own profile, or grab an invite link to share with others."
     },
-    "debug-openai-services": "Debug OpenAI Services",
-    "debug-openai-services-description": "Use this page to debug OpenAI services. You can test your OpenAI connection and see the results here. If you have image services enabled, you can also provide an image.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Run Test",
     "test-results": "Test Results",
     "group-delete-note": "Groups with users or households cannot be deleted",
@@ -1197,7 +1236,9 @@
       "is-less-than": "is less than",
       "is-less-than-or-equal-to": "is less than or equal to",
       "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-newer-than": "is newer than",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "is",

@@ -64,10 +64,11 @@ const parsedIng = computed(() => {
 .ingredient-item {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
   // column only: the note takes a flex row of its own, and it reads as belonging to the
   // ingredient above it only if it sits tighter to that line than the rows sit to each other
   column-gap: 0.25em;
+  line-height: 1.5;
   word-break: break-word;
   min-width: 0;
 
@@ -122,8 +123,9 @@ const parsedIng = computed(() => {
   flex-basis: 100%;
   width: 100%;
   display: block;
-  line-height: 1.3em;
-  font-size: 0.8em;
+  margin-top: 2px;
+  line-height: 1.35em;
+  font-size: 0.85em;
   opacity: 0.7;
   white-space: normal;
   word-break: break-word;

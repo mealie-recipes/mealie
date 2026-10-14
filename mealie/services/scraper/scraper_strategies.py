@@ -87,6 +87,7 @@ class ABCScraperStrategy(ABC):
     """
 
     url: str
+    resolved_url: str | None
 
     def __init__(
         self,
@@ -96,9 +97,11 @@ class ABCScraperStrategy(ABC):
         raw_html: str | None = None,
         include_tags: bool = False,
         include_categories: bool = False,
+        resolved_url: str | None = None,
     ) -> None:
         self.logger = get_logger()
         self.url = url
+        self.resolved_url = resolved_url
         self.raw_html = raw_html
         self.translator = translator
         self.repos = repos
@@ -107,6 +110,11 @@ class ABCScraperStrategy(ABC):
         # out of the page's structured data
         self.include_tags = include_tags
         self.include_categories = include_categories
+
+    @property
+    def resource_url(self) -> str:
+        """Landing URL after redirects, or the URL the user supplied if we have not fetched."""
+        return self.resolved_url or self.url
 
     @abstractmethod
     def can_scrape(self) -> bool: ...
@@ -248,9 +256,17 @@ class RecipeScraperPackage(ABCScraperStrategy):
 
             return cleaned_notes
 
-        cook_time = try_get_default(
-            None, "performTime", None, cleaner.clean_time, translator=self.translator
-        ) or try_get_default(scraped_data.cook_time, "cookTime", None, cleaner.clean_time, translator=self.translator)
+        def get_time(raw_time: Any) -> tuple[int | None, str | None]:
+            """Seconds when the time is structured, otherwise the cleaned text"""
+            if (seconds := cleaner.clean_duration(raw_time)) is not None:
+                return seconds, None
+            return None, cleaner.clean_time(raw_time, translator=self.translator)
+
+        total_time_seconds, total_time = get_time(try_get_default(scraped_data.total_time, "totalTime", None))
+        prep_time_seconds, prep_time = get_time(try_get_default(scraped_data.prep_time, "prepTime", None))
+        perform_time_seconds, perform_time = get_time(
+            try_get_default(None, "performTime", None) or try_get_default(scraped_data.cook_time, "cookTime", None)
+        )
 
         extras = ScrapedExtras()
 
@@ -271,13 +287,12 @@ class RecipeScraperPackage(ABCScraperStrategy):
                 cleaner.clean_ingredients,
             ),
             recipe_instructions=get_instructions(),
-            total_time=try_get_default(
-                scraped_data.total_time, "totalTime", None, cleaner.clean_time, translator=self.translator
-            ),
-            prep_time=try_get_default(
-                scraped_data.prep_time, "prepTime", None, cleaner.clean_time, translator=self.translator
-            ),
-            perform_time=cook_time,
+            total_time=total_time,
+            total_time_seconds=total_time_seconds,
+            prep_time=prep_time,
+            prep_time_seconds=prep_time_seconds,
+            perform_time=perform_time,
+            perform_time_seconds=perform_time_seconds,
             org_url=url or try_get_default(None, "url", None, cleaner.clean_string),
             notes=get_notes(),
         )
@@ -292,7 +307,7 @@ class RecipeScraperPackage(ABCScraperStrategy):
         try:
             # scrape_html requires a URL, but we might not have one, so we default to a dummy URL
             scraped_schema = scrape_html(recipe_html, org_url=self.url or "https://example.com", supported_only=False)
-        except (NoSchemaFoundInWildMode, AttributeError):
+        except NoSchemaFoundInWildMode, AttributeError:
             self.logger.error(f"Recipe Scraper was unable to extract a recipe from {self.url}")
             return None
 
@@ -351,6 +366,7 @@ class RecipeScraperOpenAI(ABCScraperStrategy):
             # the HTML belongs to the URL, so it's passed as the page's content rather than as
             # extra material, which would compile the same page twice
             input=WorkflowInput(page_content=self.raw_html, url=self.url),
+            resolved_url=self.resolved_url,
             options=WorkflowOptions(
                 # organizers are only worth asking for if the caller intends to use them, and
                 # they're reported back through ScrapedExtras so the caller stays in control
@@ -386,7 +402,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             return False
 
         # Check if we can actually download something to transcribe
-        return transcription.is_video_url(self.url)
+        return transcription.is_video_url(self.resource_url)
 
     async def get_html(self, url: str) -> str:
         return self.raw_html or ""  # we don't use HTML with this scraper since we use ytdlp
@@ -401,7 +417,7 @@ class RecipeScraperOpenAITranscription(ABCScraperStrategy):
             if on_progress:
                 await on_progress(self.translator.t("recipe.create-progress.downloading-video"))
 
-            video_data = await asyncio.to_thread(transcription.download_video, self.url, temp_path)
+            video_data = await asyncio.to_thread(transcription.download_video, self.resource_url, temp_path)
 
             async def report_transcribing() -> None:
                 if on_progress:

@@ -63,6 +63,7 @@ def test_nlp_parser(unique_local_group_id: UUID4, test_ingredient: TestIngredien
         parsed = asyncio.run(parser.parse_one(test_ingredient.input))
         ing = parsed.ingredient
 
+        assert ing.original_text == test_ingredient.input
         assert ing.quantity == pytest.approx(test_ingredient.quantity)
         if ing.unit:
             assert ing.unit.name == test_ingredient.unit

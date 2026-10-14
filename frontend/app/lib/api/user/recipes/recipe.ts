@@ -6,6 +6,7 @@ import { CommentsApi } from "./recipe-comments";
 import { RecipeShareApi } from "./recipe-share";
 import type {
   Recipe,
+  RecipeIn,
   CreateRecipe,
   RecipeAsset,
   CreateRecipeByUrlBulk,
@@ -51,6 +52,7 @@ const routes = {
   recipesRecipeSlug: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}`,
   recipesRecipeSlugImage: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/image`,
   recipesRecipeSlugAssets: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets`,
+  recipesRecipeSlugAssetsUrl: (recipe_slug: string) => `${prefix}/recipes/${recipe_slug}/assets/url`,
 
   recipesSlugComments: (slug: string) => `${prefix}/recipes/${slug}/comments`,
   recipesSlugCommentsId: (slug: string, id: number) => `${prefix}/recipes/${slug}/comments/${id}`,
@@ -90,7 +92,7 @@ export type RecipeSearchQuery = {
   _searchSeed?: string;
 };
 
-export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
+export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
   baseRoute: string = routes.recipesBase;
   itemRoute = routes.recipesRecipeSlug;
 
@@ -128,6 +130,12 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, Recipe> {
     formData.append("icon", payload.icon);
 
     return await this.requests.post<RecipeAsset>(routes.recipesRecipeSlugAssets(recipeSlug), formData);
+  }
+
+  /** Stores a remote image as an asset. The server does the download, since the browser can't
+   * read cross-origin image bytes from a drag. */
+  async createAssetFromUrl(recipeSlug: string, url: string) {
+    return await this.requests.post<RecipeAsset>(routes.recipesRecipeSlugAssetsUrl(recipeSlug), { url });
   }
 
   updateImage(slug: string, fileObject: File) {

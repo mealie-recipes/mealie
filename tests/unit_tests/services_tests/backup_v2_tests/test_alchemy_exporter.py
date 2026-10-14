@@ -15,6 +15,8 @@ def test_alchemy_exporter():
     assert data["alembic_version"] == alembic_versions()
     assert json.dumps(data, indent=4)  # Make sure data is json-serializable
 
+    exporter.engine.dispose()
+
 
 def test_every_datetime_column_survives_a_backup():
     """Restores rebuild datetimes by column name, so an unregistered one comes back as a string.

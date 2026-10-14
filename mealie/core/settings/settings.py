@@ -26,7 +26,7 @@ class ScraperProxyMode(StrEnum):
     """Try direct first; only retry through the proxy when a block is detected."""
 
     @classmethod
-    def _missing_(cls, value: object) -> "ScraperProxyMode":
+    def _missing_(cls, value: object) -> ScraperProxyMode:
         # Default any unrecognized configuration value to the safest, most useful mode.
         return cls.always
 
@@ -337,20 +337,15 @@ class AppSettings(AppLoggingSettings):
             "SMTP_FROM_EMAIL": from_email,
             "SMTP_AUTH_STRATEGY": strategy,
         }
-        missing_values = [key for (key, value) in required.items() if value is None]
+        if user or password:
+            required["SMTP_USER"] = user
+            required["SMTP_PASSWORD"] = password
+
+        missing_values = [key for (key, value) in required.items() if value is None or value == ""]
         if missing_values:
             description = f"Missing required values for {missing_values}"
 
-        if strategy and strategy.upper() in {"TLS", "SSL"}:
-            required["SMTP_USER"] = user
-            required["SMTP_PASSWORD"] = password
-            if not description:
-                missing_values = [key for (key, value) in required.items() if value is None]
-                description = f"Missing required values for {missing_values} because SMTP_AUTH_STRATEGY is not None"
-
-        not_none = "" not in required.values() and None not in required.values()
-
-        return FeatureDetails(enabled=not_none, description=description)
+        return FeatureDetails(enabled=not missing_values, description=description)
 
     # ===============================================
     # LDAP Configuration
@@ -413,6 +408,14 @@ class AppSettings(AppLoggingSettings):
     OIDC_SCOPES_OVERRIDE: str | None = None
     OIDC_TLS_CACERTFILE: str | None = None
     OIDC_CLIENT_TIMEOUT: float | Literal["None", "default"] = "default"
+
+    OIDC_NATIVE_CLIENT_ID: str | None = None
+    """Client ID used by the native (mobile/desktop) OIDC endpoints. Falls back to OIDC_CLIENT_ID when unset."""
+
+    OIDC_NATIVE_CONFIDENTIAL: bool = True
+    """When false, the native client is treated as a public client: the client secret is omitted from the token
+    exchange and PKCE alone is relied on. Required for Google and Microsoft, which do not allow custom-scheme
+    redirects on confidential clients."""
 
     @property
     def OIDC_REQUIRES_GROUP_CLAIM(self) -> bool:

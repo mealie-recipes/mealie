@@ -108,6 +108,7 @@ def test_brute_parser(
         parsed = asyncio.run(parser.parse_one(input))
         ing = parsed.ingredient
 
+        assert ing.original_text == input
         if ing.quantity:
             assert ing.quantity == quantity
         else:

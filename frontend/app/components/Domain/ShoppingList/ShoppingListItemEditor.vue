@@ -21,15 +21,11 @@
     <v-card-actions class="justify-end pa-0">
       <BaseButtonGroup
         :buttons="[
-          ...(allowDelete
-            ? [
-              {
-                icon: $globals.icons.delete,
-                text: $t('general.delete'),
-                event: 'delete',
-              },
-            ]
-            : []),
+          {
+            icon: $globals.icons.delete,
+            text: $t('general.delete'),
+            event: 'delete',
+          },
           {
             icon: $globals.icons.close,
             text: $t('general.cancel'),
@@ -51,13 +47,13 @@
 
 <script setup lang="ts">
 import { useShoppingListItemEditor } from "~/composables/shopping-list-page/use-shopping-list-item-editor";
-import type { ShoppingListItemCreate, ShoppingListItemOut } from "~/lib/api/types/household";
+import type { ShoppingListItemOut } from "~/lib/api/types/household";
 import type { MultiPurposeLabelOut } from "~/lib/api/types/labels";
 import type { IngredientFood, IngredientUnit } from "~/lib/api/types/recipe";
 import ShoppingListItemDetails from "./ShoppingListItemDetails.vue";
 
 // modelValue as reactive v-model
-const listItem = defineModel<ShoppingListItemCreate | ShoppingListItemOut>({ required: true });
+const listItem = defineModel<ShoppingListItemOut>({ required: true });
 
 defineProps({
   labels: {
@@ -71,11 +67,6 @@ defineProps({
   foods: {
     type: Array as () => IngredientFood[],
     required: true,
-  },
-  allowDelete: {
-    type: Boolean,
-    required: false,
-    default: true,
   },
 });
 

@@ -52,7 +52,7 @@ logger = get_logger()
 
 
 @asynccontextmanager
-async def lifespan_fn(_: FastAPI) -> AsyncGenerator[None, None]:
+async def lifespan_fn(_: FastAPI) -> AsyncGenerator[None]:
     """
     lifespan_fn controls the startup and shutdown of the FastAPI Application.
     This function is called when the FastAPI application starts and stops.

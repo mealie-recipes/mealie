@@ -47,7 +47,6 @@
               :icon="false"
               color="info"
               :copy-text="generatedSignupLink"
-              :disabled="generatedSignupLink"
             />
           </v-col>
         </v-row>

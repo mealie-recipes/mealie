@@ -11,7 +11,7 @@ from tests.utils.fixture_schemas import TestUser
 
 
 @pytest.fixture(scope="function")
-def food(api_client: TestClient, unique_user: TestUser) -> Generator[dict, None, None]:
+def food(api_client: TestClient, unique_user: TestUser) -> Generator[dict]:
     data = CreateIngredientFood(
         name=random_string(10),
         description=random_string(10),

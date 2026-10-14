@@ -47,7 +47,7 @@ export function useParseIngredientsDialog(
         value: "brute",
       },
       {
-        text: i18n.t("recipe.parser.openai-parser"),
+        text: i18n.t("recipe.parser.ai-parser"),
         value: "openai",
         hide: !group.value?.aiProviderSettings?.aiEnabled,
       },

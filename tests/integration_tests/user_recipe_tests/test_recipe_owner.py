@@ -122,9 +122,7 @@ def test_user_update_last_made(api_client: TestClient, user_tuple: list[TestUser
     assert response.status_code == 200
     assert response.json()["lastMade"] == last_made_json["timestamp"]
 
-    earlier_last_made_json = {
-        "timestamp": (datetime.now(UTC) - timedelta(days=1)).isoformat().replace("+00:00", "Z")
-    }
+    earlier_last_made_json = {"timestamp": (datetime.now(UTC) - timedelta(days=1)).isoformat().replace("+00:00", "Z")}
     response = api_client.patch(
         api_routes.recipes_slug_last_made(recipe_name), json=earlier_last_made_json, headers=usr_2.token
     )

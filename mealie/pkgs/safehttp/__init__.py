@@ -3,6 +3,7 @@ from .fetch import (
     SCRAPER_TIMEOUT,
     FetchResult,
     ForceTimeoutException,
+    ResponseTooLargeError,
     resilient_fetch,
 )
 from .transport import (
@@ -25,5 +26,6 @@ __all__ = [
     "SCRAPER_TIMEOUT",
     "FetchResult",
     "ForceTimeoutException",
+    "ResponseTooLargeError",
     "resilient_fetch",
 ]

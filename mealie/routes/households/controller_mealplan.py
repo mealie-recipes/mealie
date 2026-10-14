@@ -33,6 +33,10 @@ class GroupMealplanController(BaseCrudController):
     def repo(self) -> RepositoryMeals:
         return self.repos.meals
 
+    def _translated_entry_type(self, entry_type) -> str:
+        value = getattr(entry_type, "value", entry_type)
+        return self.t(f"mealplan.entry-type.{value}", default=str(value))
+
     def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
             **mealie_registered_exceptions(self.translator),
@@ -113,7 +117,11 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Meal plan entry created for {data.date} for {data.entry_type}",
+            message=self.t(
+                "notifications.mealplan-entry-created",
+                date=data.date,
+                entry_type=self._translated_entry_type(data.entry_type),
+            ),
         )
 
         return result
@@ -162,7 +170,11 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Meal plan entry created for {data.date} for {data.entry_type}",
+            message=self.t(
+                "notifications.mealplan-entry-created",
+                date=data.date,
+                entry_type=self._translated_entry_type(data.entry_type),
+            ),
         )
 
         return result
@@ -187,7 +199,11 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Meal plan entry updated for {result.date} for {result.entry_type}",
+            message=self.t(
+                "notifications.mealplan-entry-updated",
+                date=result.date,
+                entry_type=self._translated_entry_type(result.entry_type),
+            ),
         )
 
         return result
@@ -208,7 +224,11 @@ class GroupMealplanController(BaseCrudController):
             ),
             group_id=result.group_id,
             household_id=result.household_id,
-            message=f"Meal plan entry deleted for {result.date} for {result.entry_type}",
+            message=self.t(
+                "notifications.mealplan-entry-deleted",
+                date=result.date,
+                entry_type=self._translated_entry_type(result.entry_type),
+            ),
         )
 
         return result

@@ -55,7 +55,7 @@ const props = defineProps({
   },
 });
 
-const { copy, copied, isSupported } = useClipboard();
+const { copy, copied, isSupported } = useClipboard({ legacy: true });
 const show = ref(false);
 const copiedSuccess = ref<boolean | null>(null);
 

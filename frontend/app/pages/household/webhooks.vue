@@ -74,7 +74,7 @@ import GroupWebhookEditor from "~/components/Domain/Household/GroupWebhookEditor
 import { alert } from "~/composables/use-toast";
 
 definePageMeta({
-  middleware: ["advanced-only"],
+  middleware: ["auth", "advanced-only"],
 });
 
 const i18n = useI18n();

@@ -23,8 +23,12 @@ depends_on: str | tuple[str, ...] | None = None
 def table_exists(table, schema=None):
     config = op.get_context().config
     engine = engine_from_config(config.get_section(config.config_ini_section), prefix="sqlalchemy.")
-    insp = sa.inspect(engine)
-    return insp.has_table(table, schema)
+    try:
+        insp = sa.inspect(engine)
+        return insp.has_table(table, schema)
+    finally:
+        # Without this the connection is only released when the engine is garbage collected.
+        engine.dispose()
 
 
 def upgrade():

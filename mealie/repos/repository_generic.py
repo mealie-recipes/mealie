@@ -80,7 +80,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         try:
             if isinstance(self.model.household_id, AssociationProxyInstance):
                 q.filter(self.model.household_id.is_not(None))
-        except (AttributeError, NotImplementedError):
+        except AttributeError, NotImplementedError:
             pass
 
         if with_options:
@@ -192,13 +192,17 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
     def create_many(self, data: Iterable[Schema | dict]) -> list[Schema]:
         new_documents = []
-        for document in data:
-            document = document if isinstance(document, dict) else document.model_dump()
-            new_document = self.model(session=self.session, **document)
-            new_documents.append(new_document)
+        try:
+            for document in data:
+                document = document if isinstance(document, dict) else document.model_dump()
+                new_document = self.model(session=self.session, **document)
+                new_documents.append(new_document)
 
-        self.session.add_all(new_documents)
-        self.session.commit()
+            self.session.add_all(new_documents)
+            self.session.commit()
+        except Exception:
+            self.session.rollback()
+            raise
 
         for created_document in new_documents:
             self.session.refresh(created_document)

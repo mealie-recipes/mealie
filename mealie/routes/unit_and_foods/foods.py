@@ -52,6 +52,11 @@ class IngredientFoodsController(BaseUserController):
         save_data = mapper.cast(data, SaveIngredientFood, group_id=self.group_id)
         return self.mixins.create_one(save_data)
 
+    @router.get("/empty", response_model=list[IngredientFood])
+    def get_all_empty(self):
+        """Returns a list of foods that are not used by any recipe"""
+        return self.repo.get_empty()
+
     @router.put("/merge", response_model=SuccessResponse)
     def merge_one(self, data: MergeFood):
         self.checks.can_organize()

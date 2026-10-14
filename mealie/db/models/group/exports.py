@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
 from sqlalchemy import ForeignKey, String, orm
 from sqlalchemy.orm import Mapped, mapped_column
@@ -15,7 +15,7 @@ class GroupDataExportsModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "group_data_exports"
     id: Mapped[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
 
-    group: Mapped[Optional["Group"]] = orm.relationship("Group", back_populates="data_exports", single_parent=True)
+    group: Mapped[Group | None] = orm.relationship("Group", back_populates="data_exports", single_parent=True)
     group_id: Mapped[GUID | None] = mapped_column(GUID, ForeignKey("groups.id"), index=True)
 
     name: Mapped[str] = mapped_column(String, nullable=False)
