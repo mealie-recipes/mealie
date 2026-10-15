@@ -178,13 +178,10 @@ const newTimelineEventTimestampString = computed(() => {
   return formatISO(newTimelineEventTimestamp.value, { representation: "date" });
 });
 
-const lastMade = ref(props.recipe.lastMade);
+const lastMade = ref<string>();
 const lastMadeReady = ref(false);
 onMounted(async () => {
-  if (!auth.user?.value?.householdSlug) {
-    lastMade.value = props.recipe.lastMade;
-  }
-  else {
+  if (auth.user?.value?.householdSlug) {
     const { data } = await userApi.households.getCurrentUserHouseholdRecipe(props.recipe.slug || "");
     lastMade.value = data?.lastMade;
   }
@@ -309,12 +306,12 @@ async function createTimelineEvent() {
       console.error(`Failed to create timeline event for child recipe ${childRecipe.slug}:`, error);
     }
 
-    if (
-      newTimelineEvent.value.timestamp
-      && (!childRecipe.lastMade || newTimelineEvent.value.timestamp > childRecipe.lastMade)
-    ) {
+    if (newTimelineEvent.value.timestamp) {
       try {
-        await userApi.recipes.updateLastMade(childRecipe.slug || "", newTimelineEvent.value.timestamp);
+        const { data } = await userApi.households.getCurrentUserHouseholdRecipe(childRecipe.slug || "");
+        if (!data?.lastMade || newTimelineEvent.value.timestamp > data.lastMade) {
+          await userApi.recipes.updateLastMade(childRecipe.slug || "", newTimelineEvent.value.timestamp);
+        }
       }
       catch (error) {
         console.error(`Failed to update last made date for child recipe ${childRecipe.slug}:`, error);
