@@ -9,7 +9,6 @@ import httpx
 import openai
 import pytest
 
-import mealie.services.openai.openai as openai_module
 from mealie.schema.group.ai_providers import AIPromptMode, AIPromptOverrideOut, AIProviderOut
 from mealie.schema.openai._base import OpenAIBase
 from mealie.services.openai.openai import GLOBAL_PROMPT_NAME, OpenAIDataInjection, OpenAIService
@@ -29,52 +28,18 @@ def _make_mock_repos() -> MagicMock:
     return repos
 
 
-class _SettingsStub:
-    OPENAI_CUSTOM_PROMPT_DIR: str | None = None
-
-
 @pytest.fixture()
 def settings_stub(tmp_path, monkeypatch):
-    s = _SettingsStub()
-
     prompts_dir = tmp_path / "prompts"
     (prompts_dir / "recipes").mkdir(parents=True)
     default_prompt = prompts_dir / "recipes" / "parse-recipe-ingredients.txt"
     default_prompt.write_text("DEFAULT PROMPT")
 
     monkeypatch.setattr(OpenAIService, "PROMPTS_DIR", prompts_dir)
-
-    def _fake_get_app_settings():
-        return s
-
-    monkeypatch.setattr(openai_module, "get_app_settings", _fake_get_app_settings)
-    return s
+    return prompts_dir
 
 
 def test_get_prompt_default_only(settings_stub):
-    svc = OpenAIService(_make_mock_repos())
-    out = svc.get_prompt("recipes.parse-recipe-ingredients")
-    assert out == "DEFAULT PROMPT"
-
-
-def test_get_prompt_custom_dir_used(settings_stub, tmp_path):
-    custom_dir = tmp_path / "custom"
-    (custom_dir / "recipes").mkdir(parents=True)
-    (custom_dir / "recipes" / "parse-recipe-ingredients.txt").write_text("CUSTOM PROMPT")
-
-    settings_stub.OPENAI_CUSTOM_PROMPT_DIR = str(custom_dir)
-
-    svc = OpenAIService(_make_mock_repos())
-    out = svc.get_prompt("recipes.parse-recipe-ingredients")
-    assert out == "CUSTOM PROMPT"
-
-
-def test_get_prompt_custom_empty_falls_back_to_default(settings_stub, tmp_path):
-    custom_dir = tmp_path / "custom"
-    (custom_dir / "recipes").mkdir(parents=True)
-    (custom_dir / "recipes" / "parse-recipe-ingredients.txt").write_text("")
-
-    settings_stub.OPENAI_CUSTOM_PROMPT_DIR = str(custom_dir)
     svc = OpenAIService(_make_mock_repos())
     out = svc.get_prompt("recipes.parse-recipe-ingredients")
     assert out == "DEFAULT PROMPT"

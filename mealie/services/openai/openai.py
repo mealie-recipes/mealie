@@ -20,8 +20,7 @@ if TYPE_CHECKING:
 from fastapi import HTTPException, status
 from pydantic import BaseModel, field_validator
 
-from mealie.core import exceptions, root_logger
-from mealie.core.config import get_app_settings
+from mealie.core import exceptions
 from mealie.pkgs import img
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.group.ai_providers import (
@@ -40,7 +39,6 @@ from mealie.schema.openai.general import OpenAIText
 from .._base_service import BaseService
 
 T = TypeVar("T", bound=OpenAIBase)
-logger = root_logger.get_logger(__name__)
 
 GLOBAL_PROMPT_NAME = "global"
 """Reserved override name for instructions appended to every user prompt"""
@@ -163,10 +161,6 @@ class OpenAIService(BaseService):
             if self.provider_settings and self.provider_settings.image_provider_id
             else None
         )
-
-        # Build client
-        settings = get_app_settings()
-        self.custom_prompt_dir = settings.OPENAI_CUSTOM_PROMPT_DIR
 
         super().__init__()
 
@@ -314,76 +308,14 @@ class OpenAIService(BaseService):
                 raise OpenAINotEnabledException("No default provider set")
             return self.default_provider
 
-    @staticmethod
-    def _get_prompt_relative_path(name: str) -> Path:
-        tree = name.split(".")
-        return Path(*tree[:-1], tree[-1] + ".txt")
-
     @classmethod
     def _get_default_prompt_file(cls, name: str) -> Path:
-        default_prompt_file = (cls.PROMPTS_DIR / cls._get_prompt_relative_path(name)).resolve()
+        tree = name.split(".")
+        default_prompt_file = (cls.PROMPTS_DIR / Path(*tree[:-1], tree[-1] + ".txt")).resolve()
         if not default_prompt_file.is_relative_to(cls.PROMPTS_DIR.resolve()):
             raise ValueError(f"Invalid prompt name '{name}': resolves outside prompts directory")
 
         return default_prompt_file
-
-    def _get_prompt_file_candidates(self, name: str) -> list[Path]:
-        """
-        Returns a list of prompt file path candidates.
-        First optional entry is the users custom prompt file, if configured and existing,
-        second one (or only one) is the systems default prompt file
-        """
-        relative_path = self._get_prompt_relative_path(name)
-        default_prompt_file = self._get_default_prompt_file(name)
-
-        try:
-            # Only include custom files if the custom_dir is configured, is a directory, and the prompt file exists
-            custom_dir = Path(self.custom_prompt_dir).resolve() if self.custom_prompt_dir else None
-            if custom_dir and not custom_dir.is_dir():
-                custom_dir = None
-        except Exception:
-            custom_dir = None
-
-        if custom_dir:
-            custom_prompt_file = (custom_dir / relative_path).resolve()
-            if not custom_prompt_file.is_relative_to(custom_dir):
-                logger.warning(f"Custom prompt file resolves outside custom dir, skipping: {custom_prompt_file}")
-            elif custom_prompt_file.exists():
-                logger.debug(f"Found valid custom prompt file: {custom_prompt_file}")
-                return [custom_prompt_file, default_prompt_file]
-            else:
-                logger.debug(f"Custom prompt file doesn't exist: {custom_prompt_file}")
-        else:
-            logger.debug(f"Custom prompt dir doesn't exist: {custom_dir}")
-
-        # Otherwise, only return the default internal prompt file
-        return [default_prompt_file]
-
-    def _load_prompt_from_file(self, name: str) -> str:
-        """Attempts to load custom prompt, otherwise falling back to the default"""
-        prompt_file_candidates = self._get_prompt_file_candidates(name)
-        content = None
-        last_error = None
-        for prompt_file in prompt_file_candidates:
-            try:
-                logger.debug(f"Trying to load prompt file: {prompt_file}")
-                with open(prompt_file) as f:
-                    content = f.read()
-                    if content:
-                        logger.debug(f"Successfully read prompt from {prompt_file}")
-                        break
-            except OSError as e:
-                last_error = e
-
-        if not content:
-            if last_error:
-                raise OSError(f"Unable to load prompt {name}") from last_error
-            else:
-                # This handles the case where the list was empty (no existing candidates found)
-                attempted_paths = ", ".join(map(str, prompt_file_candidates))
-                raise OSError(f"Unable to load prompt '{name}'. No valid content found in files: {attempted_paths}")
-
-        return content
 
     @staticmethod
     def is_system_prompt(name: str) -> bool:
@@ -400,7 +332,15 @@ class OpenAIService(BaseService):
     @classmethod
     def get_default_prompt(cls, name: str) -> str:
         """The built-in prompt, ignoring any customizations"""
-        return cls._get_default_prompt_file(name).read_text()
+        try:
+            content = cls._get_default_prompt_file(name).read_text()
+        except OSError as e:
+            raise OSError(f"Unable to load prompt '{name}'") from e
+
+        if not content:
+            raise OSError(f"Unable to load prompt '{name}': the prompt file is empty")
+
+        return content
 
     @staticmethod
     def _hash_prompt(content: str) -> str:
@@ -514,7 +454,7 @@ class OpenAIService(BaseService):
         if not name:
             raise ValueError("Prompt name cannot be empty")
 
-        content = self._apply_prompt_overrides(name, self._load_prompt_from_file(name))
+        content = self._apply_prompt_overrides(name, self.get_default_prompt(name))
 
         if not data_injections:
             return content
