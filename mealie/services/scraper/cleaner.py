@@ -554,8 +554,12 @@ def clean_time(time_entry: str | timedelta | int | float | None, translator: Tra
         case [str(), *_]:
             return clean_time(time_entry[0], translator)
         case datetime():
-            # TODO: Not sure what to do here
-            return str(time_entry)
+            # some upstream parsers misparse a bare duration (e.g. "PT1H30M") as a datetime
+            # whose time-of-day components hold the actual hours/minutes/seconds
+            return clean_time(
+                timedelta(hours=time_entry.hour, minutes=time_entry.minute, seconds=time_entry.second),
+                translator,
+            )
         case _:
             logger.warning(
                 "[SCRAPER] Unexpected type(%s) or structure for variable time_entry: %s", type(time_entry), time_entry
