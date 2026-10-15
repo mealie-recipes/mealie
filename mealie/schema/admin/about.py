@@ -21,8 +21,11 @@ class AppInfo(MealieModel):
     enable_oidc: bool
     oidc_redirect: bool
     oidc_provider_name: str
+    enable_reverse_proxy_auth: bool
     token_time: int
     allowed_iframe_hosts: list[str] = []
+    branding_name: str = "Mealie"
+    branding_logo_url: str | None = None
 
 
 class AppTheme(MealieModel):
@@ -72,5 +75,7 @@ class CheckAppConfig(MealieModel):
     ldap_disabled: bool
     oidc_ready: bool
     oidc_disabled: bool
+    reverse_proxy_auth_ready: bool
+    reverse_proxy_auth_disabled: bool
     base_url_set: bool
     is_up_to_date: bool

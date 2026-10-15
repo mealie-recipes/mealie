@@ -21,15 +21,11 @@
     <v-card-actions class="justify-end pa-0">
       <BaseButtonGroup
         :buttons="[
-          ...(allowDelete
-            ? [
-              {
-                icon: $globals.icons.delete,
-                text: $t('general.delete'),
-                event: 'delete',
-              },
-            ]
-            : []),
+          {
+            icon: $globals.icons.delete,
+            text: $t('general.delete'),
+            event: 'delete',
+          },
           {
             icon: $globals.icons.close,
             text: $t('general.cancel'),
@@ -71,11 +67,6 @@ defineProps({
   foods: {
     type: Array as () => IngredientFood[],
     required: true,
-  },
-  allowDelete: {
-    type: Boolean,
-    required: false,
-    default: true,
   },
 });
 

@@ -18,6 +18,7 @@ export interface CreatePlanEntry {
   title?: string;
   text?: string;
   recipeId?: string | null;
+  recipeScale?: number;
 }
 export interface CreateRandomEntry {
   date: string;
@@ -68,6 +69,7 @@ export interface ReadPlanEntry {
   title?: string;
   text?: string;
   recipeId?: string | null;
+  recipeScale?: number;
   id: number;
   groupId: string;
   userId: string;
@@ -102,7 +104,6 @@ export interface RecipeSummary {
   dateUpdated?: string | null;
   createdAt?: string | null;
   updatedAt?: string | null;
-  lastMade?: string | null;
 }
 export interface RecipeCategory {
   id?: string | null;
@@ -132,6 +133,7 @@ export interface SavePlanEntry {
   title?: string;
   text?: string;
   recipeId?: string | null;
+  recipeScale?: number;
   groupId: string;
   userId: string;
 }
@@ -152,6 +154,7 @@ export interface UpdatePlanEntry {
   title?: string;
   text?: string;
   recipeId?: string | null;
+  recipeScale?: number;
   id: number;
   groupId: string;
   userId: string;

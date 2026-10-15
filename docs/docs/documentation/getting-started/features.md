@@ -85,6 +85,8 @@ Mealie uses a calendar like view to help you plan your meals. It shows you the p
 !!! tip
     You can also add a "Note" type entry to your meal plan when you want to include something that might not have a specific recipes. This is great for leftovers, or for ordering out.
 
+Each recipe on your meal plan has its own serving size, which you can adjust right from the planner without changing the recipe itself. When you add a day or the whole plan to a shopping list, the ingredient quantities follow the serving sizes you've planned, and opening a recipe from the planner shows it at that size too.
+
 [Meal Planner Demo](https://demo.mealie.io/household/mealplan/planner/view){ .md-button .md-button--primary }
 
 ### Planner Rules
