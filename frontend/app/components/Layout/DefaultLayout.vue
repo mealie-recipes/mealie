@@ -1,5 +1,11 @@
 <template>
   <v-app dark>
+    <a
+      href="#main-content"
+      class="skip-link"
+    >
+      {{ $t("general.skip-to-content") }}
+    </a>
     <TheSnackbar />
 
     <AppHeader>
@@ -83,7 +89,11 @@
         </v-list>
       </v-menu>
     </AppSidebar>
-    <v-main class="pt-12">
+    <v-main
+      id="main-content"
+      class="pt-12"
+      tabindex="-1"
+    >
       <v-scroll-x-transition>
         <div>
           <NuxtPage />
@@ -287,3 +297,19 @@ const topLinks = computed<SideBarLink[]>(() => [
   },
 ]);
 </script>
+
+<style scoped>
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  z-index: 3000;
+  padding: 0.5rem 1rem;
+  background: rgb(var(--v-theme-background));
+  color: rgb(var(--v-theme-on-background));
+}
+
+.skip-link:focus {
+  top: 0;
+}
+</style>
