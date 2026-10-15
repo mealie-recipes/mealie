@@ -269,7 +269,7 @@ class AppSettings(AppLoggingSettings):
     DB_ENGINE: str = "sqlite"  # Options: 'sqlite', 'postgres'
     DB_PROVIDER: AbstractDBProvider | None = None
 
-    SQLITE_MIGRATE_JOURNAL_WAL: bool = False
+    SQLITE_MIGRATE_JOURNAL_WAL: bool = True
 
     @property
     def DB_URL(self) -> str | None:
