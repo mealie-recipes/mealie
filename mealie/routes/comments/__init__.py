@@ -34,6 +34,11 @@ class RecipeCommentRoutes(BaseUserController):
 
     def _check_comment_belongs_to_user(self, item_id: UUID4) -> None:
         comment = self.repo.get_one(item_id)
+        if comment is None:
+            raise HTTPException(
+                status_code=404,
+                detail=ErrorResponse(message="Comment not found"),
+            )
         if comment.user_id != self.user.id and not self.user.admin:
             raise HTTPException(
                 status_code=403,
