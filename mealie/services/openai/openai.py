@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 import base64
 import inspect
 import json
@@ -395,7 +396,9 @@ class OpenAIService(BaseService):
             provider = provider or self._get_provider(attachments)
             user_messages: list[dict] = [{"type": "text", "text": message}]
             for attachment in attachments or []:
-                user_messages.append(attachment.build_message())
+                # a local image's build_message does blocking Pillow resize/encode work,
+                # so it must not run on the event loop thread
+                user_messages.append(await asyncio.to_thread(attachment.build_message))
 
             return await self._get_raw_response(prompt, user_messages, response_schema, provider)
         except openai.RateLimitError as e:

@@ -6,6 +6,11 @@ from mealie.schema.user import PrivateUser
 
 router = APIRouter(prefix="/users")
 
+# the frontend busts this with a `?cacheKey=<user.cacheKey>` query param on re-upload
+# (see frontend/app/components/Domain/User/UserAvatar.vue), so the response at a given
+# URL never changes and can be cached indefinitely
+IMMUTABLE_IMAGE_HEADERS = {"Cache-Control": "public, max-age=31536000, immutable"}
+
 
 @router.get("/{user_id}/{file_name}", response_class=FileResponse)
 async def get_user_image(user_id: UUID4, file_name: str):
@@ -18,6 +23,6 @@ async def get_user_image(user_id: UUID4, file_name: str):
         raise HTTPException(status.HTTP_400_BAD_REQUEST)
 
     if recipe_image.exists():
-        return FileResponse(recipe_image, media_type="image/webp")
+        return FileResponse(recipe_image, media_type="image/webp", headers=IMMUTABLE_IMAGE_HEADERS)
     else:
         raise HTTPException(status.HTTP_404_NOT_FOUND)

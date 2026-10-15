@@ -142,6 +142,8 @@ class BaseUserController(_BaseController):
 
     # Manual Cache
     _checks: OperationChecks
+    _group: GroupInDB | None = None
+    _household: HouseholdInDB | None = None
 
     def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
@@ -159,11 +161,15 @@ class BaseUserController(_BaseController):
 
     @property
     def group(self) -> GroupInDB:
-        return self.repos.groups.get_one(self.group_id)
+        if not self._group:
+            self._group = self.repos.groups.get_one(self.group_id)
+        return self._group
 
     @property
     def household(self) -> HouseholdInDB:
-        return self.repos.households.get_one(self.household_id)
+        if not self._household:
+            self._household = self.repos.households.get_one(self.household_id)
+        return self._household
 
     @property
     def checks(self) -> OperationChecks:
