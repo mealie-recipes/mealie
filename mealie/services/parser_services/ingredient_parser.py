@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import asyncio
 from dataclasses import dataclass, field
 from fractions import Fraction
 from itertools import zip_longest
@@ -293,7 +294,8 @@ class NLPParser(ABCIngredientParser):
                 plural_abbr = ingredient_unit.plural_abbreviation or ingredient_unit.abbreviation
                 database_units[plural_abbr] = ingredient_unit.abbreviation
 
-        parsed_ingredient = parse_ingredient(ingredient_string, custom_units=database_units)
+        # parse_ingredient runs a synchronous CRF model, so it must not run on the event loop thread.
+        parsed_ingredient = await asyncio.to_thread(parse_ingredient, ingredient_string, custom_units=database_units)
         return self._convert_ingredient(parsed_ingredient)
 
     async def parse(self, ingredients: list[str]) -> list[ParsedIngredient]:

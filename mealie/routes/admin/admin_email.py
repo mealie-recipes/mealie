@@ -17,7 +17,7 @@ class AdminEmailController(BaseAdminController):
         return EmailReady(ready=self.settings.SMTP_ENABLE)
 
     @router.post("", response_model=EmailSuccess)
-    async def send_test_email(
+    def send_test_email(
         self,
         data: EmailTest,
         accept_language: Annotated[str | None, Header()] = None,
