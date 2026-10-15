@@ -155,10 +155,6 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 
 Mealie supports various integrations using AI. For more information, check out our [AI Providers documentation](./ai-providers.md).
 
-| Variables                                                               | Default     | Description                                                                                                                                                                                                                                                                                                            |
-|-------------------------------------------------------------------------|:-----------:|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| OPENAI_CUSTOM_PROMPT_DIR <br/> :octicons-tag-24: v3.10.0                |    None.    | Path to custom prompt files. Only existing files in your custom directory will override the defaults; any missing or empty custom files will automatically fall back to the system defaults. See https://github.com/mealie-recipes/mealie/tree/mealie-next/mealie/services/openai/prompts for expected file names.     |
-
 Recipe import can also transcribe a video's audio with AI (e.g. to import a recipe from a cooking video). This uses yt-dlp to download the video, which you can configure with the env variables below:
 
 | Variables | Default | Description |
