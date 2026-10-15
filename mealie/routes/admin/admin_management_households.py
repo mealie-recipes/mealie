@@ -63,6 +63,11 @@ class AdminHouseholdManagementRoutes(BaseAdminController):
     @router.put("/{item_id}", response_model=HouseholdInDB)
     def update_one(self, item_id: UUID4, data: UpdateHouseholdAdmin):
         household = self.repo.get_one(item_id)
+        if household is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=ErrorResponse.respond(message="Household not found"),
+            )
 
         if data.preferences:
             preferences = self.repos.household_preferences.get_one(value=item_id, key="household_id")
