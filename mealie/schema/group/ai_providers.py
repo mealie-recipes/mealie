@@ -1,3 +1,4 @@
+from enum import StrEnum
 from typing import Any, Self
 
 from pydantic import UUID4, ConfigDict, Field, ValidationInfo, computed_field, field_validator, model_validator
@@ -80,6 +81,39 @@ class AIProviderSummary(MealieModel):
     @classmethod
     def loader_options(cls) -> list[LoaderOption]:
         return []
+
+
+class AIPromptMode(StrEnum):
+    append = "append"
+    override = "override"
+
+
+class AIPromptOverrideUpdate(MealieModel):
+    mode: AIPromptMode
+    content: str = Field(..., max_length=20000)
+
+    @field_validator("content")
+    def validate_not_blank(val: str) -> str:
+        if not val.strip():
+            raise ValueError("content cannot be empty")
+
+        return val
+
+
+class AIPromptOverrideCreate(AIPromptOverrideUpdate):
+    name: str
+
+
+class AIPromptOverrideSave(AIPromptOverrideCreate):
+    settings_id: UUID4
+    base_prompt_hash: str | None = None
+
+
+class AIPromptOverrideOut(AIPromptOverrideCreate):
+    id: UUID4
+    base_prompt_hash: str | None = None
+
+    model_config = ConfigDict(from_attributes=True)
 
 
 class AIProviderSettingsCreate(MealieModel):
