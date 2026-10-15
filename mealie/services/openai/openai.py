@@ -17,6 +17,7 @@ from typing import TYPE_CHECKING, TypeVar
 if TYPE_CHECKING:
     from openai import AsyncOpenAI
 
+from fastapi import HTTPException, status
 from pydantic import BaseModel, field_validator
 
 from mealie.core import exceptions, root_logger
@@ -430,8 +431,16 @@ class OpenAIService(BaseService):
             prompts=prompts,
         )
 
+    def _validate_prompt_name(self, name: str) -> None:
+        if name != GLOBAL_PROMPT_NAME and name not in self.get_prompt_names():
+            raise HTTPException(status.HTTP_404_NOT_FOUND, detail=f"Unknown prompt '{name}'")
+
     def save_prompt_override(self, name: str, data: AIPromptOverrideUpdate) -> AIPromptsOut:
         """Create or replace the group's customization of a prompt, or of the group-wide instructions"""
+        self._validate_prompt_name(name)
+        if name == GLOBAL_PROMPT_NAME and data.mode != AIPromptMode.append:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Group-wide instructions can only be appended")
+
         base_prompt_hash = None if name == GLOBAL_PROMPT_NAME else self._hash_prompt(self.get_default_prompt(name))
         override = AIPromptOverrideCreate(
             name=name, mode=data.mode, content=data.content, base_prompt_hash=base_prompt_hash
@@ -447,6 +456,7 @@ class OpenAIService(BaseService):
 
     def delete_prompt_override(self, name: str) -> AIPromptsOut:
         """Reset a prompt, or the group-wide instructions, to the default"""
+        self._validate_prompt_name(name)
         if existing := self._prompt_overrides.get(name):
             self.repos.group_ai_prompt_overrides.delete(existing.id)
 

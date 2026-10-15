@@ -1,6 +1,6 @@
 from uuid import uuid4
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter
 from pydantic import UUID4
 
 from mealie.core.root_logger import get_logger
@@ -8,7 +8,6 @@ from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.group.ai_providers import (
-    AIPromptMode,
     AIPromptOverrideUpdate,
     AIPromptsOut,
     AIProviderCreate,
@@ -19,7 +18,6 @@ from mealie.schema.group.ai_providers import (
     AIProviderUpdate,
 )
 from mealie.services.openai import OpenAIService
-from mealie.services.openai.openai import GLOBAL_PROMPT_NAME
 
 logger = get_logger()
 settings_router = APIRouter(prefix="/groups/ai-providers/settings", tags=["Groups: AI Provider Settings"])
@@ -127,10 +125,6 @@ class GroupAIPromptController(BaseUserController):
     def service(self) -> OpenAIService:
         return OpenAIService(self.repos)
 
-    def _validate_prompt_name(self, prompt_name: str) -> None:
-        if prompt_name != GLOBAL_PROMPT_NAME and prompt_name not in OpenAIService.get_prompt_names():
-            raise HTTPException(status.HTTP_404_NOT_FOUND, detail=f"Unknown prompt '{prompt_name}'")
-
     @prompts_router.get("", response_model=AIPromptsOut)
     def get_ai_prompts(self) -> AIPromptsOut:
         self.checks.can_manage()
@@ -141,10 +135,6 @@ class GroupAIPromptController(BaseUserController):
     def update_ai_prompt(self, prompt_name: str, data: AIPromptOverrideUpdate) -> AIPromptsOut:
         """Append to or override a prompt. The group-wide instructions (`global`) can only be appended."""
         self.checks.can_manage()
-        self._validate_prompt_name(prompt_name)
-
-        if prompt_name == GLOBAL_PROMPT_NAME and data.mode != AIPromptMode.append:
-            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Group-wide instructions can only be appended")
 
         return self.service.save_prompt_override(prompt_name, data)
 
@@ -152,6 +142,5 @@ class GroupAIPromptController(BaseUserController):
     def delete_ai_prompt(self, prompt_name: str) -> AIPromptsOut:
         """Reset a prompt to the default"""
         self.checks.can_manage()
-        self._validate_prompt_name(prompt_name)
 
         return self.service.delete_prompt_override(prompt_name)
