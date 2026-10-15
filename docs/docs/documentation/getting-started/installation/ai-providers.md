@@ -63,7 +63,9 @@ Each AI task Mealie performs has its own prompt. Group managers can customize th
 - **Append** adds your own instructions to a single prompt. Mealie's prompt is kept, so you still get improvements to it in future updates, and your instructions take priority wherever the two conflict.
 - **Override** replaces a prompt entirely. Future updates to Mealie's prompt won't apply to yours, so Mealie lets you know when the prompt you replaced has changed. You can then compare it against yours, or reset to the default.
 
-Some prompts are *system* prompts. These transcribe your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to them. You can still append to or override them individually.
+Some prompts are *system* prompts. These transcribe your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to them. You can still append to or override them individually, but this usually isn't necessary, and can make imports less reliable.
+
+Mealie's prompts are written in English, but that doesn't change the language of your recipes: they keep the language of their source unless you choose to translate them. You can write your own instructions in any language.
 
 Whatever you write, Mealie still adds the data a task needs (such as your list of units when parsing ingredients) after your prompt.
 
