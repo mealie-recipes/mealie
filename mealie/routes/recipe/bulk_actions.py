@@ -1,7 +1,7 @@
 from functools import cached_property
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, BackgroundTasks, HTTPException, status
 from pydantic import UUID4
 
 from mealie.core.dependencies.dependencies import get_temporary_zip_path
@@ -58,9 +58,14 @@ class RecipeBulkActionsController(BaseUserController):
             ) from e
 
     @router.post("/export", status_code=202)
-    def bulk_export_recipes(self, export_recipes: ExportRecipes):
-        with get_temporary_zip_path() as temp_path:
-            self.service.export_recipes(temp_path, export_recipes.recipes)
+    def bulk_export_recipes(self, export_recipes: ExportRecipes, background_tasks: BackgroundTasks):
+        # building the zip can take a while for many recipes, so it must not block
+        # the response the 202 status already promises
+        def run_export() -> None:
+            with get_temporary_zip_path() as temp_path:
+                self.service.export_recipes(temp_path, export_recipes.recipes)
+
+        background_tasks.add_task(run_export)
 
     @router.get("/export/{export_id}/download")
     def get_exported_data_token(self, export_id: UUID4):
