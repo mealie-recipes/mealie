@@ -8,6 +8,7 @@
       :precision="null"
       style="flex: 5"
       inset
+      @keydown.enter.prevent="emit('save')"
     />
     <InputLabelType
       v-model="listItem.unit"

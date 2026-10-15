@@ -7,7 +7,7 @@
       :title="$t('recipe.add-to-list')"
       :icon="$globals.icons.cartCheck"
     >
-      <v-container v-if="!filteredShoppingLists.length">
+      <v-container v-if="!filteredShoppingLists.length && !newListForm.show">
         <BasePageTitle>
           <template #title>
             {{ $t('shopping-list.no-shopping-lists-found') }}
@@ -26,6 +26,41 @@
             {{ list.name }}
           </v-card-title>
         </v-card>
+
+        <v-expand-transition>
+          <div v-if="newListForm.show" class="mt-3">
+            <v-text-field
+              v-model="newListForm.name"
+              :label="$t('shopping-list.new-list-name')"
+              :loading="newListForm.loading"
+              autofocus
+              variant="outlined"
+              density="compact"
+              hide-details
+              @keyup.enter="createAndOpenList"
+            />
+            <div class="d-flex justify-end mt-2 ga-2">
+              <v-btn
+                variant="text"
+                color="grey"
+                size="small"
+                @click="resetNewListForm"
+              >
+                {{ $t("general.cancel") }}
+              </v-btn>
+              <v-btn
+                variant="tonal"
+                color="primary"
+                size="small"
+                :disabled="!newListForm.name.trim()"
+                :loading="newListForm.loading"
+                @click="createAndOpenList"
+              >
+                {{ $t("general.create") }}
+              </v-btn>
+            </div>
+          </div>
+        </v-expand-transition>
       </v-card-text>
       <template #card-actions>
         <v-btn
@@ -36,7 +71,7 @@
           {{ $t("general.cancel") }}
         </v-btn>
         <div
-          class="d-flex justify-end"
+          class="d-flex justify-end align-center"
           style="width: 100%;"
         >
           <v-checkbox
@@ -46,6 +81,16 @@
             class="my-auto mr-4"
             @click="setShowAllToggled()"
           />
+          <v-btn
+            v-if="!newListForm.show"
+            variant="tonal"
+            color="primary"
+            size="small"
+            :prepend-icon="$globals.icons.create"
+            @click="newListForm.show = true"
+          >
+            {{ $t("shopping-list.new-list") }}
+          </v-btn>
         </div>
       </template>
     </BaseDialog>
@@ -192,6 +237,7 @@
 <script setup lang="ts">
 import { toRefs } from "@vueuse/core";
 import { useUserApi } from "~/composables/api";
+import { useNewShoppingListForm } from "~/composables/shopping-list-page/use-add-to-shopping-list-dialog";
 import { alert } from "~/composables/use-toast";
 import { useShoppingListPreferences } from "~/composables/use-users/preferences";
 import type { RecipeIngredient, ShoppingListAddRecipeParamsBulk, ShoppingListSummary } from "~/lib/api/types/household";
@@ -229,6 +275,10 @@ const props = withDefaults(defineProps<Props>(), {
   shoppingLists: () => [],
 });
 
+const emit = defineEmits<{
+  "list-created": [list: ShoppingListSummary];
+}>();
+
 const dialog = defineModel<boolean>({ default: false });
 
 const i18n = useI18n();
@@ -236,6 +286,7 @@ const auth = useMealieAuth();
 const api = useUserApi();
 const preferences = useShoppingListPreferences();
 const router = useRouter();
+const { form: newListForm, reset: resetNewListForm, create: createShoppingList } = useNewShoppingListForm();
 const ready = ref(false);
 
 // Capture values at initialization to avoid reactive updates
@@ -398,12 +449,26 @@ async function consolidateRecipesIntoSections(recipes: RecipeWithScale[]) {
   recipeIngredientSections.value = Array.from(recipeSectionMap.values());
 }
 
+async function createAndOpenList() {
+  const list = await createShoppingList();
+  if (!list) {
+    return;
+  }
+
+  filteredShoppingLists.value.push(list);
+  // the parent owns `shoppingLists`, which this dialog re-filters from every time it's opened
+  emit("list-created", list);
+
+  await openShoppingListIngredientDialog(list);
+}
+
 function initState() {
   state.shoppingListDialog = false;
   state.shoppingListIngredientDialog = false;
   state.shoppingListShowAllToggled = false;
   recipeIngredientSections.value = [];
   selectedShoppingList.value = null;
+  resetNewListForm();
 }
 
 initState();

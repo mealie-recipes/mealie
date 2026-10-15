@@ -30,3 +30,19 @@ export function useScaledAmount(amount: number, scale = 1) {
     scaledAmountDisplay,
   };
 }
+
+/**
+ * Returns the scale needed for a recipe with `recipeServings` servings to yield `newYield`,
+ * or `null` if `newYield` isn't a usable yield and the current scale should be kept.
+ */
+export function calculateScaleFromYield(newYield: number, recipeServings: number): number | null {
+  if (isNaN(newYield) || newYield <= 0) {
+    return null;
+  }
+
+  if (recipeServings <= 0) {
+    return 1;
+  }
+
+  return newYield / recipeServings;
+}
