@@ -75,11 +75,6 @@ const parsedIng = computed(() => {
         letter-spacing: -0.05rem;
       }
     }
-    &:has(sub) {
-      &:after {
-        letter-spacing: -0.2rem;
-      }
-    }
     sup {
       & + span {
         letter-spacing: -0.05rem;
@@ -113,6 +108,7 @@ const parsedIng = computed(() => {
   // instead, so the box, the icon glyph and the line are all the same height -- the glyph
   // follows font-size, not the box, so it renders unchanged
   .v-btn--icon {
+    margin-inline-start: 0.25em;
     line-height: inherit;
     width: 1lh;
     height: 1lh;
