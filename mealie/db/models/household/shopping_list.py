@@ -72,13 +72,13 @@ class ShoppingListItem(SqlAlchemyBase, BaseMixins):
     )
 
     # Scaling Items
-    unit_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_units.id"))
+    unit_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_units.id"), index=True)
     unit: Mapped[IngredientUnitModel | None] = orm.relationship(IngredientUnitModel, uselist=False)
 
-    food_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_foods.id"))
+    food_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("ingredient_foods.id"), index=True)
     food: Mapped[IngredientFoodModel | None] = orm.relationship(IngredientFoodModel, uselist=False)
 
-    label_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"))
+    label_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("multi_purpose_labels.id"), index=True)
     label: Mapped[MultiPurposeLabel | None] = orm.relationship(
         MultiPurposeLabel, uselist=False, back_populates="shopping_list_items"
     )
