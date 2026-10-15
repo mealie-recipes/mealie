@@ -67,7 +67,7 @@ class AIProviderOut(AIProviderCreate):
 class AIProviderTestResult(MealieModel):
     success: bool
     message: str | None = None
-    # None if the check above didn't succeed, so image support was never checked.
+    # None when image support was never checked: the test failed, or an audio-only provider was tested by transcription.
     supports_images: bool | None = None
 
 

@@ -25,6 +25,19 @@
 
 ### Security
 
+#### Reverse proxy headers
+
+`HOST_IP` controls which connecting proxy IP addresses or CIDR ranges Uvicorn trusts for `X-Forwarded-For` and `X-Forwarded-Proto`.
+Set a comma-separated list matching your reverse proxy or Kubernetes ingress, for example `HOST_IP=127.0.0.1,10.42.1.0/24`.
+Depending on your container environment and network, the container's default gateway may not be the address of the proxy.
+
+The default is `*` for compatibility, which **trusts forwarding headers from every connecting source**.
+Use that setting only when access to the application is limited to trusted proxies!
+
+Set `HOST_IP` to an empty string to trust no forwarding proxies.
+
+#### Application security
+
 | Variables                   | Default | Description                                                                         |
 | --------------------------- | :-----: | ----------------------------------------------------------------------------------- |
 | SECURITY_MAX_LOGIN_ATTEMPTS |    5    | Maximum times a user can provide an invalid password before their account is locked |
@@ -127,7 +140,6 @@ For usage, see [Usage - OpenID Connect](../authentication/oidc-v2.md)
 | OIDC_AUTO_REDIRECT                                                                  |  False  | If `True`, then the login page will be bypassed an you will be sent directly to your Identity Provider. You can still get to the login page by adding `?direct=1` to the login URL                                                                                                                     |
 | OIDC_PROVIDER_NAME                                                                  |  OAuth  | The provider name is shown in SSO login button. "Login with <OIDC_PROVIDER_NAME\>"                                                                                                                                                                                                                     |
 | OIDC_REMEMBER_ME                                                                    |  False  | Because redirects bypass the login screen, you can't tick the "Remember Me" checkbox. Setting this to true treats an OIDC login as if it had been checked, so the session survives closing the browser                                                                                              |
-| OIDC_SIGNING_ALGORITHM                                                              |  RS256  | The algorithm used to sign the id token (examples: RS256, HS256)                                                                                                                                                                                                                                       |
 | OIDC_USER_CLAIM                                                                     |  email  | This is the claim which Mealie will use to look up an existing user by (e.g. "email", "preferred_username")                                                                                                                                                                                            |
 | OIDC_NAME_CLAIM                                                                     |  name   | This is the claim which Mealie will use for the users Full Name                                                                                                                                                                                                                                        |
 | OIDC_GROUPS_CLAIM                                                                   | groups  | Optional if not using `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP`. This is the claim Mealie will request from your IdP and will use to compare to `OIDC_USER_GROUP` or `OIDC_ADMIN_GROUP` to allow the user to log in to Mealie or is set as an admin. **Your IdP must be configured to grant this claim** |
@@ -358,6 +370,14 @@ connect it with a Docker Compose secret, per the [Docker documentation][docker-s
 
 If both the base environment variable and the secret pattern of the environment variable are set, the secret will always
 take precedence.
+
+Each configured `_FILE` path must point to a readable regular file.
+Startup stops with an error message if the file is missing, is not a regular file, or cannot be read, even when the base environment variable is also set.
+Trailing newlines are removed from the file contents. If the resulting value is empty, startup logs a warning and continues with an empty value, overriding any base environment variable.
+
+The file must be readable by the application user after the container drops privileges (UID/GID 911 by default, or your configured runtime user).
+Kubernetes Secret volume symlinks are supported when their target is a readable
+regular file. Omit the `_FILE` variable when an optional setting is unused.
 
 For example, a user that wishes to harden their operations by only giving some access to their database URL, but who
 wish to place additional security around their user access control, may have a Docker Compose configuration similar to:
