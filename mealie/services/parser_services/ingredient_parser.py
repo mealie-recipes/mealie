@@ -202,6 +202,15 @@ class NLPParser(ABCIngredientParser):
         ing_parts: list[_IngredientPart] = []
 
         for amount, ing_name in zip_longest(ingredient.amount, ingredient.name, fillvalue=None):
+            if amount and not ing_name and ing_parts:
+                # an amount with no name is another measurement of the primary ingredient
+                # (e.g. the "(42g)" in "3 tablespoons (42g) water"), not an alternative ingredient
+                if isinstance(amount, CompositeIngredientAmount):
+                    ing_parts[0].extra_amounts.extend(amount.amounts)
+                else:
+                    ing_parts[0].extra_amounts.append(amount)
+                continue
+
             part = _IngredientPart()
 
             if amount:

@@ -25,6 +25,19 @@
 
 ### Security
 
+#### Reverse proxy headers
+
+`HOST_IP` controls which connecting proxy IP addresses or CIDR ranges Uvicorn trusts for `X-Forwarded-For` and `X-Forwarded-Proto`.
+Set a comma-separated list matching your reverse proxy or Kubernetes ingress, for example `HOST_IP=127.0.0.1,10.42.1.0/24`.
+Depending on your container environment and network, the container's default gateway may not be the address of the proxy.
+
+The default is `*` for compatibility, which **trusts forwarding headers from every connecting source**.
+Use that setting only when access to the application is limited to trusted proxies!
+
+Set `HOST_IP` to an empty string to trust no forwarding proxies.
+
+#### Application security
+
 | Variables                   | Default | Description                                                                         |
 | --------------------------- | :-----: | ----------------------------------------------------------------------------------- |
 | SECURITY_MAX_LOGIN_ATTEMPTS |    5    | Maximum times a user can provide an invalid password before their account is locked |
@@ -358,6 +371,14 @@ connect it with a Docker Compose secret, per the [Docker documentation][docker-s
 
 If both the base environment variable and the secret pattern of the environment variable are set, the secret will always
 take precedence.
+
+Each configured `_FILE` path must point to a readable regular file.
+Startup stops with an error message if the file is missing, is not a regular file, or cannot be read, even when the base environment variable is also set.
+Trailing newlines are removed from the file contents. If the resulting value is empty, startup logs a warning and continues with an empty value, overriding any base environment variable.
+
+The file must be readable by the application user after the container drops privileges (UID/GID 911 by default, or your configured runtime user).
+Kubernetes Secret volume symlinks are supported when their target is a readable
+regular file. Omit the `_FILE` variable when an optional setting is unused.
 
 For example, a user that wishes to harden their operations by only giving some access to their database URL, but who
 wish to place additional security around their user access control, may have a Docker Compose configuration similar to:
