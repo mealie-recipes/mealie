@@ -8,6 +8,7 @@ import os
 import shutil
 import wave
 from abc import ABC, abstractmethod
+from functools import cached_property
 from pathlib import Path
 from textwrap import dedent
 from typing import TYPE_CHECKING, TypeVar
@@ -21,7 +22,7 @@ from mealie.core import exceptions, root_logger
 from mealie.core.config import get_app_settings
 from mealie.pkgs import img
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group.ai_providers import AIProviderOut, AIProviderTestResult
+from mealie.schema.group.ai_providers import AIPromptMode, AIPromptOverrideOut, AIProviderOut, AIProviderTestResult
 from mealie.schema.openai._base import OpenAIBase
 from mealie.schema.openai.general import OpenAIText
 
@@ -29,6 +30,15 @@ from .._base_service import BaseService
 
 T = TypeVar("T", bound=OpenAIBase)
 logger = root_logger.get_logger(__name__)
+
+GLOBAL_PROMPT_NAME = "global"
+"""Reserved override name for instructions appended to every user prompt"""
+
+SYSTEM_PROMPT_CATEGORY = "system"
+"""
+Prompts in this category faithfully transcribe the user's source rather than produce a recipe,
+so group-wide instructions (e.g. "use metric units") aren't applied to them
+"""
 
 
 class OpenAINotEnabledException(Exception):
@@ -164,7 +174,7 @@ class OpenAIService(BaseService):
         self, provider: AIProviderOut, message: str, images: list[OpenAILocalImage] | None = None
     ) -> OpenAIText | None:
         """Send a one-off chat message to a provider. Shared by the admin debug endpoint and test_connection."""
-        prompt = self.get_prompt("general.debug")
+        prompt = (self.TESTING_DIR / "debug.txt").read_text()
         return await self.get_response(
             prompt, message, response_schema=OpenAIText, attachments=images, provider=provider
         )
@@ -355,6 +365,46 @@ class OpenAIService(BaseService):
 
         return content
 
+    @cached_property
+    def _prompt_overrides(self) -> dict[str, AIPromptOverrideOut]:
+        # Admin-scoped repos aren't tied to a group, so they'd return every group's overrides
+        if not self.repos.group_id:
+            return {}
+
+        return {override.name: override for override in self.repos.group_ai_prompt_overrides.get_all()}
+
+    def _apply_prompt_overrides(self, name: str, content: str) -> str:
+        """
+        Apply the group's customizations to a prompt: an override replaces it, while appended
+        instructions (the group-wide ones first, then the prompt's own) are added after it.
+        Every prompt can be customized, but system prompts don't get the group-wide instructions.
+        """
+        extra_instructions: list[str] = []
+        is_system_prompt = name.split(".")[0] == SYSTEM_PROMPT_CATEGORY
+        if not is_system_prompt and (global_override := self._prompt_overrides.get(GLOBAL_PROMPT_NAME)):
+            extra_instructions.append(global_override.content)
+
+        if override := self._prompt_overrides.get(name):
+            if override.mode == AIPromptMode.override:
+                content = override.content
+            else:
+                extra_instructions.append(override.content)
+
+        if not extra_instructions:
+            return content
+
+        return "\n".join(
+            [
+                content,
+                "",
+                "###",
+                "Additional instructions. These take priority over any instructions above that conflict with them.",
+                "---",
+                "",
+                "\n\n".join(extra_instructions),
+            ]
+        )
+
     def get_prompt(self, name: str, data_injections: list[OpenAIDataInjection] | None = None) -> str:
         """
         Load stored prompt and inject data into it.
@@ -367,7 +417,7 @@ class OpenAIService(BaseService):
         if not name:
             raise ValueError("Prompt name cannot be empty")
 
-        content = self._load_prompt_from_file(name)
+        content = self._apply_prompt_overrides(name, self._load_prompt_from_file(name))
 
         if not data_injections:
             return content
@@ -486,7 +536,7 @@ class OpenAIService(BaseService):
         file_ext = path_obj.suffix.lstrip(".").lower()
         audio_attachment = OpenAILocalAudio(data=audio_data, format=file_ext)
         response = await self.get_response(
-            self.get_prompt("general.transcribe-audio"),
+            self.get_prompt("system.transcribe-audio"),
             "Attached is the audio data.",
             response_schema=OpenAIText,
             attachments=[audio_attachment],
