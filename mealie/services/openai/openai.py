@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import hashlib
 import inspect
 import io
 import json
@@ -22,7 +23,16 @@ from mealie.core import exceptions, root_logger
 from mealie.core.config import get_app_settings
 from mealie.pkgs import img
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group.ai_providers import AIPromptMode, AIPromptOverrideOut, AIProviderOut, AIProviderTestResult
+from mealie.schema.group.ai_providers import (
+    AIPromptMode,
+    AIPromptOut,
+    AIPromptOverrideCreate,
+    AIPromptOverrideOut,
+    AIPromptOverrideUpdate,
+    AIPromptsOut,
+    AIProviderOut,
+    AIProviderTestResult,
+)
 from mealie.schema.openai._base import OpenAIBase
 from mealie.schema.openai.general import OpenAIText
 
@@ -303,18 +313,27 @@ class OpenAIService(BaseService):
                 raise OpenAINotEnabledException("No default provider set")
             return self.default_provider
 
+    @staticmethod
+    def _get_prompt_relative_path(name: str) -> Path:
+        tree = name.split(".")
+        return Path(*tree[:-1], tree[-1] + ".txt")
+
+    @classmethod
+    def _get_default_prompt_file(cls, name: str) -> Path:
+        default_prompt_file = (cls.PROMPTS_DIR / cls._get_prompt_relative_path(name)).resolve()
+        if not default_prompt_file.is_relative_to(cls.PROMPTS_DIR.resolve()):
+            raise ValueError(f"Invalid prompt name '{name}': resolves outside prompts directory")
+
+        return default_prompt_file
+
     def _get_prompt_file_candidates(self, name: str) -> list[Path]:
         """
         Returns a list of prompt file path candidates.
         First optional entry is the users custom prompt file, if configured and existing,
         second one (or only one) is the systems default prompt file
         """
-        tree = name.split(".")
-        relative_path = Path(*tree[:-1], tree[-1] + ".txt")
-
-        default_prompt_file = (self.PROMPTS_DIR / relative_path).resolve()
-        if not default_prompt_file.is_relative_to(self.PROMPTS_DIR.resolve()):
-            raise ValueError(f"Invalid prompt name '{name}': resolves outside prompts directory")
+        relative_path = self._get_prompt_relative_path(name)
+        default_prompt_file = self._get_default_prompt_file(name)
 
         try:
             # Only include custom files if the custom_dir is configured, is a directory, and the prompt file exists
@@ -365,6 +384,75 @@ class OpenAIService(BaseService):
 
         return content
 
+    @staticmethod
+    def is_system_prompt(name: str) -> bool:
+        return name.split(".")[0] == SYSTEM_PROMPT_CATEGORY
+
+    @classmethod
+    def get_prompt_names(cls) -> list[str]:
+        """Every built-in prompt, user prompts first"""
+        names = [
+            ".".join(path.relative_to(cls.PROMPTS_DIR).with_suffix("").parts) for path in cls.PROMPTS_DIR.rglob("*.txt")
+        ]
+        return sorted(names, key=lambda name: (cls.is_system_prompt(name), name))
+
+    @classmethod
+    def get_default_prompt(cls, name: str) -> str:
+        """The built-in prompt, ignoring any customizations"""
+        return cls._get_default_prompt_file(name).read_text()
+
+    @staticmethod
+    def _hash_prompt(content: str) -> str:
+        return hashlib.sha256(content.encode()).hexdigest()
+
+    def get_prompts(self) -> AIPromptsOut:
+        """The group's customizations of every prompt, alongside the built-in prompts"""
+        global_override = self._prompt_overrides.get(GLOBAL_PROMPT_NAME)
+
+        prompts: list[AIPromptOut] = []
+        for name in self.get_prompt_names():
+            default_content = self.get_default_prompt(name)
+            prompt = AIPromptOut(name=name, is_system=self.is_system_prompt(name), default_content=default_content)
+
+            if override := self._prompt_overrides.get(name):
+                prompt.mode = override.mode
+                prompt.content = override.content
+                prompt.default_changed = bool(
+                    override.mode == AIPromptMode.override
+                    and override.base_prompt_hash
+                    and override.base_prompt_hash != self._hash_prompt(default_content)
+                )
+
+            prompts.append(prompt)
+
+        return AIPromptsOut(
+            global_instructions=global_override.content if global_override else None,
+            prompts=prompts,
+        )
+
+    def save_prompt_override(self, name: str, data: AIPromptOverrideUpdate) -> AIPromptsOut:
+        """Create or replace the group's customization of a prompt, or of the group-wide instructions"""
+        base_prompt_hash = None if name == GLOBAL_PROMPT_NAME else self._hash_prompt(self.get_default_prompt(name))
+        override = AIPromptOverrideCreate(
+            name=name, mode=data.mode, content=data.content, base_prompt_hash=base_prompt_hash
+        )
+
+        if existing := self._prompt_overrides.get(name):
+            self.repos.group_ai_prompt_overrides.update(existing.id, override)
+        else:
+            self.repos.group_ai_prompt_overrides.create(override)
+
+        self.__dict__.pop("_prompt_overrides", None)
+        return self.get_prompts()
+
+    def delete_prompt_override(self, name: str) -> AIPromptsOut:
+        """Reset a prompt, or the group-wide instructions, to the default"""
+        if existing := self._prompt_overrides.get(name):
+            self.repos.group_ai_prompt_overrides.delete(existing.id)
+
+        self.__dict__.pop("_prompt_overrides", None)
+        return self.get_prompts()
+
     @cached_property
     def _prompt_overrides(self) -> dict[str, AIPromptOverrideOut]:
         # Admin-scoped repos aren't tied to a group, so they'd return every group's overrides
@@ -380,8 +468,7 @@ class OpenAIService(BaseService):
         Every prompt can be customized, but system prompts don't get the group-wide instructions.
         """
         extra_instructions: list[str] = []
-        is_system_prompt = name.split(".")[0] == SYSTEM_PROMPT_CATEGORY
-        if not is_system_prompt and (global_override := self._prompt_overrides.get(GLOBAL_PROMPT_NAME)):
+        if not self.is_system_prompt(name) and (global_override := self._prompt_overrides.get(GLOBAL_PROMPT_NAME)):
             extra_instructions.append(global_override.content)
 
         if override := self._prompt_overrides.get(name):

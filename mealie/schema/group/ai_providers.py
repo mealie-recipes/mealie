@@ -102,18 +102,35 @@ class AIPromptOverrideUpdate(MealieModel):
 
 class AIPromptOverrideCreate(AIPromptOverrideUpdate):
     name: str
+    base_prompt_hash: str | None = None
 
 
 class AIPromptOverrideSave(AIPromptOverrideCreate):
     settings_id: UUID4
-    base_prompt_hash: str | None = None
 
 
 class AIPromptOverrideOut(AIPromptOverrideCreate):
     id: UUID4
-    base_prompt_hash: str | None = None
 
     model_config = ConfigDict(from_attributes=True)
+
+
+class AIPromptOut(MealieModel):
+    name: str
+    is_system: bool
+    default_content: str
+
+    # Unset when the prompt isn't customized
+    mode: AIPromptMode | None = None
+    content: str | None = None
+
+    # Whether the built-in prompt has changed since it was overridden
+    default_changed: bool = False
+
+
+class AIPromptsOut(MealieModel):
+    global_instructions: str | None = None
+    prompts: list[AIPromptOut]
 
 
 class AIProviderSettingsCreate(MealieModel):
