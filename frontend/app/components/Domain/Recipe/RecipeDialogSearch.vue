@@ -29,6 +29,7 @@
             hide-details
             single-line
             :placeholder="$t('search.search')"
+            :aria-label="$t('search.search')"
             :prepend-inner-icon="$globals.icons.search"
           />
 
@@ -36,6 +37,7 @@
             v-if="$vuetify.display.xs"
             icon
             size="x-small"
+            :title="$t('general.close')"
             @click="dialog = false"
           >
             <v-icon>

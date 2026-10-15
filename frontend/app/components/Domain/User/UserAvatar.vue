@@ -11,7 +11,7 @@
       >
         <v-img
           :src="imageURL"
-          :alt="userId"
+          :alt="user?.fullName ?? userId"
           @load="error = false"
           @error="error = true"
         />
@@ -23,7 +23,7 @@
       >
         <v-img
           :src="imageURL"
-          :alt="userId"
+          :alt="user?.fullName ?? userId"
           @load="error = false"
           @error="error = true"
         />

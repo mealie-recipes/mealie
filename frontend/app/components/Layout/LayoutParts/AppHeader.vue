@@ -12,6 +12,7 @@
       <v-btn
         icon
         color="white"
+        :aria-label="$t('general.home')"
       >
         <v-img
           v-if="$appInfo.brandingLogoUrl"
@@ -60,11 +61,13 @@
           :prepend-inner-icon="$globals.icons.search"
           bg-color="primary-darken-1"
           :placeholder="$t('search.search-hint')"
+          :aria-label="$t('search.search')"
         />
       </v-responsive>
       <v-btn
         v-else
         icon
+        :title="$t('search.search')"
         @click="activateSearch"
       >
         <v-icon> {{ $globals.icons.search }}</v-icon>

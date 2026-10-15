@@ -6,6 +6,7 @@
     :min-height="minHeight"
     max-height="fill-height"
     :src="getImage(recipeId)"
+    :alt="name ?? ''"
     @click="$emit('click')"
     @load="fallBackImage = false"
     @error="fallBackImage = true"
@@ -38,6 +39,7 @@ interface Props {
   iconSize?: number | string;
   slug?: string | null;
   recipeId: string;
+  name?: string | null;
   // Recipe.image is typed unknown in the generated API types, so callers
   // passing it directly cannot narrow to string here.
   imageVersion?: unknown;
@@ -50,6 +52,7 @@ const props = withDefaults(defineProps<Props>(), {
   large: null,
   iconSize: 100,
   slug: null,
+  name: null,
   imageVersion: null,
   height: "100%",
   minHeight: 125,

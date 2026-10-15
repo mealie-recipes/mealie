@@ -21,6 +21,7 @@
           :slug="slug"
           :recipe-id="recipeId"
           :image-version="image"
+          :name="name"
         >
           <v-expand-transition v-if="description">
             <div
