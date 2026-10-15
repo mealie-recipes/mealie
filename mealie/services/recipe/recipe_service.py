@@ -227,7 +227,6 @@ class RecipeService(RecipeServiceBase):
                 data.settings = RecipeSettings()
 
         rating_input = data.rating
-        data.last_made = None
         new_recipe = self.repos.recipes.create(data)
 
         # convert rating into user rating
@@ -500,7 +499,14 @@ class RecipeService(RecipeServiceBase):
         if recipe_dict is None:
             raise exceptions.UnexpectedNone("No json data found in Zip")
 
-        recipe = self.create_one(Recipe(**self.clean_recipe_dict(recipe_dict)))
+        recipe_data = Recipe(**self.clean_recipe_dict(recipe_dict))
+
+        if self.household.preferences is not None:
+            if recipe_data.settings is None:
+                recipe_data.settings = RecipeSettings()
+            recipe_data.settings.public = self.household.preferences.recipe_public
+
+        recipe = self.create_one(recipe_data)
 
         if recipe and recipe.id:
             data_service = RecipeDataService(recipe.id)
@@ -545,8 +551,6 @@ class RecipeService(RecipeServiceBase):
             if old_recipe.recipe_ingredient is None
             else list(map(copy_recipe_ingredient, old_recipe.recipe_ingredient))
         )
-        new_recipe.last_made = None
-
         new_recipe = self._recipe_creation_factory(new_name, additional_attrs=new_recipe.model_dump())
 
         new_recipe = self.repos.recipes.create(new_recipe)

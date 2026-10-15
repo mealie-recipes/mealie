@@ -146,7 +146,6 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
     date_added: FilterableColumn[date | None] = mapped_column(sa.Date, default=get_utc_today)
     date_updated: FilterableColumn[datetime | None] = mapped_column(NaiveDateTime)
 
-    last_made: FilterableColumn[datetime | None] = mapped_column(NaiveDateTime)
     made_by: Mapped[list[Household]] = orm.relationship(
         "Household", secondary=HouseholdToRecipe.__tablename__, back_populates="made_recipes"
     )
@@ -182,6 +181,8 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
     # Deprecated
     cook_time: Mapped[str | None] = mapped_column(sa.String)
+    # Kept as a query-filter anchor until aliases can be defined without a model column.
+    last_made: FilterableColumn[datetime | None] = mapped_column(NaiveDateTime)
     recipeCuisine: Mapped[str | None] = mapped_column(sa.String)
     is_ocr_recipe: Mapped[bool | None] = mapped_column(sa.Boolean, default=False)
 
