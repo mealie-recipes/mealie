@@ -3,6 +3,7 @@ from typing import Annotated
 from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
 from sqlalchemy.orm import Session
 
+from mealie.core.security import url_safe_token
 from mealie.db.db_setup import generate_session
 from mealie.lang import get_locale_provider
 from mealie.lang.providers import Translator
@@ -10,11 +11,7 @@ from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.schema.meal_plan.mealplan_ical import ReadMealPlanICalToken
 from mealie.schema.response.responses import ErrorResponse
-from mealie.services.household_services.mealplan_ical_service import (
-    MealPlanICalQuery,
-    MealPlanICalService,
-    generate_ical_token,
-)
+from mealie.services.household_services.mealplan_ical_service import MealPlanICalQuery, MealPlanICalService
 
 router = APIRouter(prefix="/households/mealplans/ical", tags=["Households: Meal Plans"])
 # the feed is public, so it can't share the controller's router
@@ -44,7 +41,7 @@ class MealplanICalController(BaseUserController):
     @router.post("", response_model=ReadMealPlanICalToken)
     def create_ical_token(self):
         """Enables the meal plan iCal feed, replacing any existing token so old feed URLs stop working"""
-        return self._set_token(generate_ical_token())
+        return self._set_token(url_safe_token())
 
     @router.delete("", response_model=ReadMealPlanICalToken)
     def delete_ical_token(self):

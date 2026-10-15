@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import UTC, date, datetime, timedelta
 from uuid import UUID
 
 from fastapi.testclient import TestClient
@@ -6,9 +6,14 @@ from fastapi.testclient import TestClient
 from mealie.schema.household.household_preferences import UpdateHouseholdPreferences
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from mealie.schema.recipe.recipe import Recipe
+from mealie.services.household_services.mealplan_ical_service import FEED_HISTORY_DAYS
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
+
+# a July date that never falls out of the feed's history window, so the Berlin offset below stays fixed
+JULY_1 = date(datetime.now(UTC).year + 1, 7, 1)
+JULY_2 = JULY_1 + timedelta(days=1)
 
 
 def enable_feed(api_client: TestClient, user: TestUser) -> str:
@@ -49,9 +54,9 @@ def test_ical_feed(api_client: TestClient, unique_user_fn_scoped: TestUser, h2_u
     group = user.repos.groups.get_one(UUID(user.group_id))
     assert group
 
-    create_entry(api_client, user, date=date(2026, 7, 1), entry_type="dinner", recipe_id=recipe.id)
-    create_entry(api_client, user, date=date(2026, 7, 2), entry_type="lunch", title="Leftovers, again; sorry")
-    other = create_entry(api_client, h2_user, date=date(2026, 7, 1), entry_type="dinner", title=random_string())
+    create_entry(api_client, user, date=JULY_1, entry_type="dinner", recipe_id=recipe.id)
+    create_entry(api_client, user, date=JULY_2, entry_type="lunch", title="Leftovers, again; sorry")
+    other = create_entry(api_client, h2_user, date=JULY_1, entry_type="dinner", title=random_string())
 
     token = enable_feed(api_client, user)
     response = get_feed(api_client, token)
@@ -67,7 +72,7 @@ def test_ical_feed(api_client: TestClient, unique_user_fn_scoped: TestUser, h2_u
     assert feed.count("BEGIN:VEVENT") == 2
     assert f"SUMMARY:Dinner: {recipe.name}\r\n" in feed
     assert f"URL:http://localhost:8080/g/{group.slug}/r/{recipe.slug}\r\n" in feed
-    assert "DTSTART;VALUE=DATE:20260701\r\nDTEND;VALUE=DATE:20260702\r\n" in feed
+    assert f"DTSTART;VALUE=DATE:{JULY_1:%Y%m%d}\r\nDTEND;VALUE=DATE:{JULY_2:%Y%m%d}\r\n" in feed
     assert "SUMMARY:Lunch: Leftovers\\, again\\; sorry\r\n" in feed
 
     # meals from other households are never included
@@ -77,9 +82,9 @@ def test_ical_feed(api_client: TestClient, unique_user_fn_scoped: TestUser, h2_u
 def test_ical_feed_filters_and_times(api_client: TestClient, unique_user_fn_scoped: TestUser):
     user = unique_user_fn_scoped
     recipe = user.repos.recipes.create(Recipe(user_id=user.user_id, group_id=UUID(user.group_id), name=random_string()))
-    create_entry(api_client, user, date=date(2026, 7, 1), entry_type="dinner", recipe_id=recipe.id)
-    create_entry(api_client, user, date=date(2026, 7, 1), entry_type="breakfast", recipe_id=recipe.id)
-    note = create_entry(api_client, user, date=date(2026, 7, 1), entry_type="dinner", title=random_string())
+    create_entry(api_client, user, date=JULY_1, entry_type="dinner", recipe_id=recipe.id)
+    create_entry(api_client, user, date=JULY_1, entry_type="breakfast", recipe_id=recipe.id)
+    note = create_entry(api_client, user, date=JULY_1, entry_type="dinner", title=random_string())
     token = enable_feed(api_client, user)
 
     feed = unfold(get_feed(api_client, token, {"types": ["dinner"]}).text)
@@ -92,11 +97,24 @@ def test_ical_feed_filters_and_times(api_client: TestClient, unique_user_fn_scop
 
     # Berlin is UTC+2 in July; types without a time stay all-day events
     feed = unfold(get_feed(api_client, token, {"tz": "Europe/Berlin", "dinner": "18:30"}).text)
-    assert "DTSTART:20260701T163000Z\r\nDTEND:20260701T173000Z\r\n" in feed
-    assert "DTSTART;VALUE=DATE:20260701\r\n" in feed
+    assert f"DTSTART:{JULY_1:%Y%m%d}T163000Z\r\nDTEND:{JULY_1:%Y%m%d}T173000Z\r\n" in feed
+    assert f"DTSTART;VALUE=DATE:{JULY_1:%Y%m%d}\r\n" in feed
 
     assert get_feed(api_client, token, {"tz": "Not/AZone"}).status_code == 422
     assert get_feed(api_client, token, {"types": ["brunch"]}).status_code == 422
+
+
+def test_ical_feed_skips_old_entries(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    user = unique_user_fn_scoped
+    oldest = datetime.now(UTC).date() - timedelta(days=FEED_HISTORY_DAYS)
+    kept = create_entry(api_client, user, date=oldest, entry_type="dinner", title=random_string())
+    too_old = oldest - timedelta(days=1)
+    dropped = create_entry(api_client, user, date=too_old, entry_type="dinner", title=random_string())
+    token = enable_feed(api_client, user)
+
+    feed = unfold(get_feed(api_client, token).text)
+    assert kept["title"] in feed
+    assert dropped["title"] not in feed
 
 
 def test_ical_token_rotate_and_disable(api_client: TestClient, unique_user_fn_scoped: TestUser):

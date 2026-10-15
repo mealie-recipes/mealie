@@ -1,4 +1,3 @@
-import secrets
 from collections.abc import Iterable
 from datetime import UTC, date, datetime, time, timedelta, tzinfo
 from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
@@ -17,6 +16,8 @@ from mealie.services._base_service import BaseService
 from mealie.services.urls.url_constructors import recipe_url
 
 EVENT_DURATION = timedelta(hours=1)
+FEED_HISTORY_DAYS = 90
+"""How many days of past entries the feed includes; future entries are always included"""
 
 
 class MealPlanICalQuery(MealieModel):
@@ -51,10 +52,6 @@ class MealPlanICalQuery(MealieModel):
 
     def time_for(self, entry_type: PlanEntryType) -> time | None:
         return getattr(self, entry_type.value)
-
-
-def generate_ical_token() -> str:
-    return secrets.token_urlsafe(32)
 
 
 def _escape_text(value: str) -> str:
@@ -118,7 +115,15 @@ class MealPlanICalService(BaseService):
             return None
 
         household_repos = get_repositories(self.session, group_id=group.id, household_id=household.id)
-        pagination = PaginationQuery(page=1, per_page=-1, order_by="date", order_direction=OrderDirection.asc)
+        # past entries would otherwise grow forever and be re-sent on every calendar poll
+        since = datetime.now(UTC).date() - timedelta(days=FEED_HISTORY_DAYS)
+        pagination = PaginationQuery(
+            page=1,
+            per_page=-1,
+            order_by="date",
+            order_direction=OrderDirection.asc,
+            query_filter=f"date >= {since}",
+        )
         entries = household_repos.meals.page_all(pagination).items
         entries = [e for e in entries if self._include(e, query)]
 
