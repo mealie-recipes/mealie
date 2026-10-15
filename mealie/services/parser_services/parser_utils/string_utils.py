@@ -4,6 +4,9 @@ from fractions import Fraction
 compiled_match = re.compile(r"(.){1,6}\s\((.[^\(\)])+\)\s")
 compiled_search = re.compile(r"\((.[^\(])+\)")
 compiled_footnote = re.compile(r"\s*\*+\s*$")
+compiled_mixed_fraction = re.compile(r"(\d+)\s+(\d+)/(\d+)")
+compiled_fraction = re.compile(r"(\d+)/(\d+)")
+compiled_number = re.compile(r"\d+(\.\d+)?")
 
 
 def move_parens_to_end(ing_str) -> str:
@@ -77,13 +80,9 @@ def extract_quantity_from_string(source_str: str) -> tuple[float, str]:
 
     source_str = convert_vulgar_fractions_to_regular_fractions(source_str)
 
-    mixed_fraction_pattern = re.compile(r"(\d+)\s+(\d+)/(\d+)")
-    fraction_pattern = re.compile(r"(\d+)/(\d+)")
-    number_pattern = re.compile(r"\d+(\.\d+)?")
-
     try:
         # Check for a mixed fraction (e.g. "1 1/2")
-        match = mixed_fraction_pattern.search(source_str)
+        match = compiled_mixed_fraction.search(source_str)
         if match:
             whole_number = int(match.group(1))
             numerator = int(match.group(2))
@@ -95,7 +94,7 @@ def extract_quantity_from_string(source_str: str) -> tuple[float, str]:
             return quantity, remaining_str
 
         # Check for a fraction (e.g. "1/2")
-        match = fraction_pattern.search(source_str)
+        match = compiled_fraction.search(source_str)
         if match:
             numerator = int(match.group(1))
             denominator = int(match.group(2))
@@ -106,7 +105,7 @@ def extract_quantity_from_string(source_str: str) -> tuple[float, str]:
             return quantity, remaining_str
 
         # Check for a number (integer or float)
-        match = number_pattern.search(source_str)
+        match = compiled_number.search(source_str)
         if match:
             quantity = float(match.group())
             remaining_str = source_str[: match.start()] + source_str[match.end() :]

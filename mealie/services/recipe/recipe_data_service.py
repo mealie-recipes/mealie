@@ -195,4 +195,5 @@ class RecipeDataService(BaseService):
 
         # The extension only labels the bytes on their way into the minifier, which sniffs the
         # real format and converts everything to webp regardless.
-        return self.write_image(content, extension)
+        # write_image does blocking Pillow work, so it must not run on the event loop thread.
+        return await asyncio.to_thread(self.write_image, content, extension)
