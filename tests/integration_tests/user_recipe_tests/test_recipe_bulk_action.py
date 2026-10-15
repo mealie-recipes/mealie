@@ -6,8 +6,10 @@ import sqlalchemy
 from fastapi.testclient import TestClient
 
 from mealie.core.dependencies.dependencies import validate_file_token
+from mealie.core.exceptions import UnexpectedNone
 from mealie.schema.recipe.recipe_bulk_actions import ExportTypes
 from mealie.schema.recipe.recipe_category import CategorySave, TagSave
+from mealie.schema.recipe.recipe_settings import RecipeSettings
 from tests import utils
 from tests.utils import api_routes
 from tests.utils.factories import random_string
@@ -88,6 +90,95 @@ def test_bulk_categorize_recipes(
 
         for cat in recipe.recipe_category:  # type: ignore
             assert cat.slug in [x["slug"] for x in categories]
+
+
+def test_bulk_set_settings(
+    api_client: TestClient,
+    unique_user: TestUser,
+    ten_slugs: list[str],
+):
+    database = unique_user.repos
+    new_settings = RecipeSettings(
+        public=True,
+        show_nutrition=True,
+        show_assets=True,
+        landscape_view=True,
+        disable_comments=False,
+    )
+
+    payload = {"recipes": ten_slugs, "settings": new_settings.model_dump(by_alias=True)}
+    response = api_client.post(
+        api_routes.recipes_bulk_actions_settings, json=utils.jsonify(payload), headers=unique_user.token
+    )
+    assert response.status_code == 200
+
+    for slug in ten_slugs:
+        recipe = database.recipes.get_one(slug)
+        assert recipe is not None
+        assert recipe.settings is not None
+        assert recipe.settings.public is True
+        assert recipe.settings.show_nutrition is True
+        assert recipe.settings.show_assets is True
+        assert recipe.settings.landscape_view is True
+        assert recipe.settings.disable_comments is False
+
+
+def test_bulk_set_settings_preserves_locked(
+    api_client: TestClient,
+    unique_user: TestUser,
+    ten_slugs: list[str],
+):
+    # "locked" guards who may edit a recipe, so a bulk settings change must never be able
+    # to silently unlock (or lock) a recipe - only a dedicated action should change it.
+    database = unique_user.repos
+    locked_slug = ten_slugs[0]
+
+    recipe = database.recipes.get_one(locked_slug)
+    assert recipe is not None
+    recipe.settings.locked = True  # type: ignore
+    database.recipes.update(locked_slug, recipe)
+
+    new_settings = RecipeSettings(public=True, locked=False)
+    payload = {"recipes": ten_slugs, "settings": new_settings.model_dump(by_alias=True)}
+    response = api_client.post(
+        api_routes.recipes_bulk_actions_settings, json=utils.jsonify(payload), headers=unique_user.token
+    )
+    assert response.status_code == 200
+
+    recipe = database.recipes.get_one(locked_slug)
+    assert recipe is not None
+    assert recipe.settings.locked is True  # type: ignore
+    assert recipe.settings.public is True  # type: ignore
+
+
+def test_bulk_set_settings_does_not_leak_across_groups(
+    api_client: TestClient,
+    unique_user: TestUser,
+    g2_user: TestUser,
+    ten_slugs: list[str],
+):
+    # g2_user belongs to a different group; its recipe must be unreachable through
+    # unique_user's bulk-settings call, even when its slug is included in the payload.
+    other_database = g2_user.repos
+    other_payload = {"name": random_string(length=20)}
+    response = api_client.post(api_routes.recipes, json=other_payload, headers=g2_user.token)
+    assert response.status_code == 201
+    other_slug = response.json()
+
+    new_settings = RecipeSettings(public=True)
+    payload = {"recipes": [*ten_slugs, other_slug], "settings": new_settings.model_dump(by_alias=True)}
+    # the foreign slug resolves to None under unique_user's group-scoped repos, which the
+    # service surfaces as an unhandled UnexpectedNone (a 500) rather than quietly skipping it
+    with pytest.raises(UnexpectedNone):
+        api_client.post(
+            api_routes.recipes_bulk_actions_settings, json=utils.jsonify(payload), headers=unique_user.token
+        )
+
+    other_recipe = other_database.recipes.get_one(other_slug)
+    assert other_recipe is not None
+    assert other_recipe.settings.public is False  # type: ignore
+
+    other_database.recipes.delete(other_slug)
 
 
 def test_bulk_delete_recipes(
