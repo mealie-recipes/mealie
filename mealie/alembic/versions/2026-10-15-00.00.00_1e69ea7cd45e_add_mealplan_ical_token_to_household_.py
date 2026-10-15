@@ -1,8 +1,8 @@
 """'add mealplan ical token to household preferences'
 
 Revision ID: 1e69ea7cd45e
-Revises: 3527efeeec34
-Create Date: 2026-09-19 16:41:13.023482
+Revises: f3a8b6c1d2e4
+Create Date: 2026-10-15 00:00:00.000000
 
 """
 
@@ -11,7 +11,7 @@ from alembic import op
 
 # revision identifiers, used by Alembic.
 revision = "1e69ea7cd45e"
-down_revision: str | None = "3527efeeec34"
+down_revision: str | None = "f3a8b6c1d2e4"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
 
