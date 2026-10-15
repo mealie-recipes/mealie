@@ -70,6 +70,13 @@
         <v-icon> {{ $globals.icons.search }}</v-icon>
       </v-btn>
       <v-btn
+        icon
+        :title="isDark ? $t('theme.switch-to-light-mode') : $t('theme.switch-to-dark-mode')"
+        @click="toggleTheme"
+      >
+        <v-icon>{{ isDark ? $globals.icons.weatherSunny : $globals.icons.weatherNight }}</v-icon>
+      </v-btn>
+      <v-btn
         v-if="loggedIn"
         :variant="smAndUp ? 'text' : undefined"
         :icon="xs"
@@ -96,6 +103,7 @@
 </template>
 
 <script setup lang="ts">
+import { useDark } from "@vueuse/core";
 import { useLoggedInState } from "~/composables/use-logged-in-state";
 import type RecipeDialogSearch from "~/components/Domain/Recipe/RecipeDialogSearch.vue";
 
@@ -113,6 +121,14 @@ const { xs, smAndUp } = useDisplay();
 
 const routerLink = computed(() => groupSlug.value ? `/g/${groupSlug.value}` : "/");
 const domSearchDialog = ref<InstanceType<typeof RecipeDialogSearch> | null>(null);
+
+// Shares state with app/plugins/dark-mode.client.ts, which owns applying this to Vuetify
+// and persisting it (via @vueuse/core's useDark, keyed on the same default storage key).
+const isDark = useDark();
+
+function toggleTheme() {
+  isDark.value = !isDark.value;
+}
 
 function activateSearch() {
   domSearchDialog.value?.open();

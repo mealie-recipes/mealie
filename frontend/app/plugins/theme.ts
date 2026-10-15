@@ -31,12 +31,15 @@ async function fetchTheme(): Promise<ThemeConfig | undefined> {
 }
 
 export default defineNuxtPlugin(async (nuxtApp) => {
-  nuxtApp.hook("vuetify:before-create", async ({ vuetifyOptions }) => {
-    let theme = __cachedTheme;
-    if (!theme) {
-      theme = await fetchTheme();
-      __cachedTheme = theme;
-    }
+  // Pre-warm the cache before Vuetify is created: `vuetify:before-create` runs
+  // synchronously, so an await inside it would race Vuetify reading vuetifyOptions.theme
+  // and lose - leaving every cold load on fallback colors regardless of server config.
+  if (!__cachedTheme) {
+    __cachedTheme = await fetchTheme();
+  }
+
+  nuxtApp.hook("vuetify:before-create", ({ vuetifyOptions }) => {
+    const theme = __cachedTheme;
     vuetifyOptions.theme = {
       defaultTheme: nuxtApp.$config.public.useDark ? "dark" : "light",
       variations: {

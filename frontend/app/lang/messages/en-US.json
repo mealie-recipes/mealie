@@ -1267,5 +1267,9 @@
     "mark-all-as-read": "Mark All as Read",
     "show-announcements-from-mealie": "Show announcements from Mealie",
     "show-announcements-setting-description": "Whether or not you want to allow users to see announcements from Mealie. When enabled users can still opt-out from seeing them in their user settings"
+  },
+  "theme": {
+    "switch-to-light-mode": "Switch to Light Mode",
+    "switch-to-dark-mode": "Switch to Dark Mode"
   }
 }
