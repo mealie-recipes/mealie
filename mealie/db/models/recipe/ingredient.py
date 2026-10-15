@@ -506,7 +506,7 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes_ingredients"
     id: FilterableColumn[int] = mapped_column(Integer, primary_key=True)
     position: FilterableColumn[int | None] = mapped_column(Integer, index=True)
-    recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"))
+    recipe_id: FilterableColumn[GUID | None] = mapped_column(GUID, ForeignKey("recipes.id"), index=True)
 
     title: FilterableColumn[str | None] = mapped_column(String)  # Section Header - Shows if Present
     note: FilterableColumn[str | None] = mapped_column(String)  # Force Show Text - Overrides Concat

@@ -43,9 +43,20 @@ class RequestQuery(MealieModel):
         return pagination_seed
 
 
+# -1 is a documented sentinel meaning "all results in one page" (used throughout the
+# frontend), so only an explicit, unreasonably large positive value is rejected here.
+MAX_PAGE_SIZE = 500
+
+
 class PaginationQuery(RequestQuery):
     page: int = 1
     per_page: int = 50
+
+    @field_validator("per_page")
+    def validate_per_page(cls, per_page: int) -> int:
+        if per_page > MAX_PAGE_SIZE:
+            raise ValueError(f"perPage must be -1 (all) or at most {MAX_PAGE_SIZE}")
+        return per_page
 
 
 class PaginationBase[DataT: BaseModel](BaseModel):
