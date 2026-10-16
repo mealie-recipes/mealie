@@ -33,6 +33,7 @@ from .user import (
     UserRatings,
     UserRatingSummary,
     UserRatingUpdate,
+    UserSelfUpdate,
     UserSummary,
     UserSummaryPagination,
 )
@@ -77,6 +78,7 @@ __all__ = [
     "UserRatingSummary",
     "UserRatingUpdate",
     "UserRatings",
+    "UserSelfUpdate",
     "UserSummary",
     "UserSummaryPagination",
     "ForgotPassword",

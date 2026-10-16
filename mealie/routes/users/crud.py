@@ -9,7 +9,7 @@ from mealie.routes._base.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.response import ErrorResponse, SuccessResponse
 from mealie.schema.user import ChangePassword, UserBase, UserOut
-from mealie.schema.user.user import UserRatings, UserRatingSummary
+from mealie.schema.user.user import UserRatings, UserRatingSummary, UserSelfUpdate
 
 user_router = UserAPIRouter(prefix="/users", tags=["Users: CRUD"])
 
@@ -64,10 +64,18 @@ class UserController(BaseUserController):
 
     @user_router.put("/{item_id}")
     def update_user(self, item_id: UUID4, new_data: UserBase):
+        # assert_user_change_allowed inspects the full submitted data, so permission-escalation
+        # attempts still get a 403 exactly as before. On top of that, as defense-in-depth, only
+        # fields in UserSelfUpdate are ever actually persisted - admin/permission/group/household
+        # always come from the caller's own current record, never from the request body, even if
+        # the equality check above had a bug.
         assert_user_change_allowed(item_id, self.user, new_data)
 
+        safe_update = UserSelfUpdate.model_validate(new_data.model_dump())
+        merged = UserBase(**self.user.model_dump()).model_copy(update=safe_update.model_dump(exclude_unset=True))
+
         try:
-            self.repos.users.update(item_id, new_data.model_dump())
+            self.repos.users.update(item_id, merged.model_dump())
         except Exception as e:
             raise HTTPException(
                 status.HTTP_400_BAD_REQUEST,
