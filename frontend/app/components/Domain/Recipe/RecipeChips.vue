@@ -11,7 +11,7 @@
       :key="category.name"
       label
       class="mr-1 mt-1"
-      color="accent"
+      :color="chipColor(category)"
       variant="flat"
       :size="small ? 'small' : 'default'"
       dark
@@ -49,6 +49,21 @@ const props = withDefaults(defineProps<Props>(), {
 });
 
 defineEmits(["item-selected"]);
+
+interface ColorableItem {
+  color?: string | null;
+}
+
+/**
+ * Tags and categories carry an optional display color; when unset the chip
+ * keeps the historical theme accent default. (The generated API types gain the
+ * optional `color` field after `task dev:generate`; the cast keeps this
+ * component type-safe either way.)
+ */
+function chipColor(item: RecipeCategory | RecipeTag | RecipeTool): string {
+  return (item as ColorableItem).color || "accent";
+}
+
 function truncateText(text: string, length = 20, clamp = "...") {
   if (!props.truncate) return text;
   return truncatePlainText(text, length, clamp);

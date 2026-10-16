@@ -17,6 +17,10 @@
             :rules="[rules.required]"
             autofocus
           />
+          <InputColor
+            v-if="itemType !== Organizer.Tool"
+            v-model="color"
+          />
           <v-checkbox
             v-if="itemType === Organizer.Tool"
             v-model="onHand"
@@ -58,11 +62,15 @@ const i18n = useI18n();
 
 const name = ref("");
 const onHand = ref(false);
+const color = ref(props.color ?? "");
 
 watch(
   dialog,
   (val: boolean) => {
-    if (!val) name.value = "";
+    if (!val) {
+      name.value = "";
+      color.value = props.color ?? "";
+    }
   },
 );
 
@@ -111,8 +119,16 @@ const rules = {
 
 async function select() {
   if (store) {
+    const payload: { name: string; onHand: boolean; color?: string } = {
+      name: name.value,
+      onHand: onHand.value,
+    };
+    // Tags and categories support an optional display color; tools do not.
+    if (props.itemType !== Organizer.Tool) {
+      payload.color = color.value || "";
+    }
     // @ts-expect-error the same state is used for different organizer types, which have different requirements
-    const newItem = await store.actions.createOne({ name: name.value, onHand: onHand.value });
+    const newItem = await store.actions.createOne(payload);
     emit(CREATED_ITEM_EVENT, newItem);
   }
   dialog.value = false;

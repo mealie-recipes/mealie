@@ -36,6 +36,10 @@
           v-model="updateTarget.name"
           :label="$t('general.name')"
         />
+        <InputColor
+          v-if="itemType !== Organizer.Tool"
+          v-model="updateTarget.color"
+        />
         <v-checkbox
           v-if="itemType === Organizer.Tool"
           v-model="updateTarget.onHand"
@@ -110,6 +114,12 @@
               <v-card-title class="py-1 text-truncate flex-shrink-1 flex-grow-1">
                 {{ item.name }}
               </v-card-title>
+              <v-avatar
+                v-if="itemType !== Organizer.Tool && item.color"
+                :color="item.color"
+                size="14"
+                class="mr-2"
+              />
               <ContextMenu
                 :items="[presets.delete, presets.edit]"
                 @delete="confirmDelete(item)"
@@ -136,6 +146,7 @@ interface GenericItem {
   name: string;
   slug: string;
   onHand: boolean;
+  color?: string;
 }
 
 const props = defineProps<{
