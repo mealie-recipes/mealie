@@ -71,6 +71,35 @@ def test_create_timeline_event(
     assert str(event.user_id) == str(user.user_id)
 
 
+def test_create_timeline_event_ignores_spoofed_user_id(
+    api_client: TestClient,
+    unique_user: TestUser,
+    h2_user: TestUser,
+    recipes: list[Recipe],
+):
+    # a client-supplied user_id must never be trusted: otherwise anyone could attribute a
+    # comment/event to another user just by putting their id in the request body
+    recipe = recipes[0]
+    new_event = {
+        "recipe_id": str(recipe.id),
+        "user_id": str(h2_user.user_id),
+        "subject": random_string(),
+        "event_type": "info",
+        "message": random_string(),
+    }
+
+    event_response = api_client.post(
+        api_routes.recipes_timeline_events,
+        json=new_event,
+        headers=unique_user.token,
+    )
+    assert event_response.status_code == 201
+
+    event = RecipeTimelineEventOut.model_validate(event_response.json())
+    assert str(event.user_id) == str(unique_user.user_id)
+    assert str(event.user_id) != str(h2_user.user_id)
+
+
 def test_create_timeline_event_defaults_timestamp_to_request_time(
     api_client: TestClient,
     unique_user: TestUser,
