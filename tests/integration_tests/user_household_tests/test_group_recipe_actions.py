@@ -134,6 +134,43 @@ def test_group_recipe_actions_update_one(api_client: TestClient, unique_user: Te
     assert updated_action.title == new_title
 
 
+def test_group_recipe_actions_update_cannot_reassign_tenant(
+    api_client: TestClient, unique_user: TestUser, g2_user: TestUser
+):
+    """Regression test: SaveGroupRecipeAction carries group_id/household_id as plain
+    client-settable fields (needed so create_one can stamp them), but update_one re-used the
+    same schema without re-pinning them - a caller could move their own recipe action into
+    another tenant's group/household just by submitting different ids."""
+    action_in = create_action()
+    response = api_client.post(
+        api_routes.households_recipe_actions,
+        json=action_in.model_dump(),
+        headers=unique_user.token,
+    )
+    data = assert_deserialize(response, 201)
+    action_id = data["id"]
+
+    data["groupId"] = g2_user.group_id
+    data["householdId"] = g2_user.household_id
+    response = api_client.put(
+        api_routes.households_recipe_actions_item_id(action_id),
+        json=data,
+        headers=unique_user.token,
+    )
+    data = assert_deserialize(response, 200)
+    updated_action = GroupRecipeActionOut(**data)
+
+    assert str(updated_action.group_id) == unique_user.group_id
+    assert str(updated_action.household_id) == unique_user.household_id
+
+    # g2_user must still not be able to see it - it wasn't actually reassigned to them
+    response = api_client.get(
+        api_routes.households_recipe_actions_item_id(action_id),
+        headers=g2_user.token,
+    )
+    assert response.status_code == 404
+
+
 def test_group_recipe_actions_delete_one(api_client: TestClient, unique_user: TestUser):
     action_in = create_action()
     response = api_client.post(

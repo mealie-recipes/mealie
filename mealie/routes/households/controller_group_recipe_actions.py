@@ -59,6 +59,11 @@ class GroupRecipeActionController(BaseUserController):
 
     @router.put("/{item_id}", response_model=GroupRecipeActionOut)
     def update_one(self, item_id: UUID4, data: SaveGroupRecipeAction):
+        # group_id/household_id are plain client-settable fields on SaveGroupRecipeAction
+        # (needed so create_one can stamp them below) - re-pin them here too, or a caller could
+        # reassign their own recipe action into another tenant's group/household.
+        data.group_id = self.group_id
+        data.household_id = self.household_id
         return self.mixins.update_one(data, item_id)
 
     @router.delete("/{item_id}", response_model=GroupRecipeActionOut)
