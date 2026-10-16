@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from jinja2 import Template
+from jinja2 import Environment, select_autoescape
 from pydantic import BaseModel
 
 from mealie.core.root_logger import get_logger
@@ -14,6 +14,10 @@ CWD = Path(__file__).parent
 
 logger = get_logger()
 
+# jinja2.Template() defaults to autoescape=False, which would otherwise let any
+# interpolated value (e.g. an invite URL) break out of its HTML context.
+_jinja_env = Environment(autoescape=select_autoescape(["html"]))
+
 
 class EmailTemplate(BaseModel):
     subject: str
@@ -24,7 +28,7 @@ class EmailTemplate(BaseModel):
     button_text: str
 
     def render_html(self, template: Path) -> str:
-        tmpl = Template(template.read_text())
+        tmpl = _jinja_env.from_string(template.read_text())
 
         return tmpl.render(data=self.model_dump())
 

@@ -96,6 +96,28 @@ def test_invitation_email(email_service):
     assert success
 
 
+def test_invitation_email_escapes_malicious_url(email_service):
+    # invitation_url ultimately comes from a client-supplied invite token (see
+    # controller_invitations.py), so it must not be able to break out of its
+    # href="..." attribute in the rendered email.
+    malicious_url = 'https://mealie.example/register?token=x" onmouseover="alert(1)'
+
+    captured_html = {}
+
+    class CapturingSender(ABCEmailSender):
+        def send(self, email_to: str, subject: str, html: str) -> bool:
+            captured_html["value"] = html
+            return True
+
+    email_service.sender = CapturingSender()
+    success = email_service.send_invitation(FAKE_ADDRESS, malicious_url)
+    assert success
+
+    html = captured_html["value"]
+    assert 'onmouseover="alert(1)' not in html
+    assert "&#34;" in html or "&quot;" in html
+
+
 def test_smtp_login_plain_non_ascii_credentials():
     server = FakeSMTPServer("PLAIN", replies=[(235, b"Authentication successful")])
 
