@@ -11,7 +11,7 @@ from mealie.pkgs import cache
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import create_recipe_slug
-from mealie.schema.recipe.recipe_ingredient import RegisteredParser
+from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, RegisteredParser
 from mealie.services.parser_services import get_parser
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper.scraped_extras import ScrapedExtras
@@ -121,6 +121,56 @@ async def _parse_unstructured_ingredients(
         ingredient.original_text = parsed_ingredient.original_text or ingredient.note
 
 
+def _merge_key(ingredient: RecipeIngredient) -> tuple | None:
+    """A key two ingredients must share to be considered the same measurement, or None if this
+    ingredient is never safe to merge (a sub-recipe reference, or one with substitutions - either
+    could silently drop information a plain quantity sum wouldn't)."""
+    if ingredient.referenced_recipe is not None or ingredient.substitutions:
+        return None
+
+    food = ingredient.food
+    unit = ingredient.unit
+    return (
+        ingredient.title,
+        food.id if food and food.id else food.name if food else None,
+        unit.id if unit and unit.id else unit.name if unit else None,
+        (ingredient.note or "").strip().lower(),
+    )
+
+
+def _merge_redundant_ingredients(recipe: Recipe) -> None:
+    """Combine ingredient lines that are really just the same measurement split in two.
+
+    Scraped sites sometimes list the same ingredient on separate lines because it's used at two
+    points in the method (e.g. "2 eggs" in the dough and, elsewhere, "1 egg" for the egg wash).
+    Once parsed, those become two lines for the same food with no distinguishing note, which reads
+    as a mistake rather than two separate uses - merging them into one "3 eggs" line matches what
+    a shopping list for this recipe would actually say.
+
+    Only lines with the same food, unit, note and section title are merged - any difference in
+    note is treated as the recipe intentionally keeping them apart, and is left untouched.
+    """
+    merged: dict[tuple, RecipeIngredient] = {}
+    result: list[RecipeIngredient] = []
+
+    for ingredient in recipe.recipe_ingredient:
+        key = _merge_key(ingredient)
+        if key is None:
+            result.append(ingredient)
+            continue
+
+        if existing := merged.get(key):
+            existing.quantity = (existing.quantity or 0) + (ingredient.quantity or 0)
+            if ingredient.original_text and ingredient.original_text not in (existing.original_text or ""):
+                existing.original_text = "; ".join(filter(None, [existing.original_text, ingredient.original_text]))
+            continue
+
+        merged[key] = ingredient
+        result.append(ingredient)
+
+    recipe.recipe_ingredient = result
+
+
 async def finalize_scraped_recipe(
     recipe: Recipe,
     translator: Translator,
@@ -135,6 +185,7 @@ async def finalize_scraped_recipe(
     recipe.id = uuid4()
 
     await _parse_unstructured_ingredients(recipe, repos, translator)
+    _merge_redundant_ingredients(recipe)
     logger = get_logger()
     logger.debug(f"Image {recipe.image}")
 

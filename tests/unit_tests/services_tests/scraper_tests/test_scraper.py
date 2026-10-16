@@ -9,9 +9,11 @@ from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import (
     CreateIngredientFood,
+    IngredientFood,
     IngredientUnit,
     ParsedIngredient,
     RecipeIngredient,
+    RecipeIngredientSubstitution,
 )
 from mealie.services.recipe.recipe_data_service import RecipeDataService
 from mealie.services.scraper import scraper
@@ -155,3 +157,60 @@ async def test_parse_unstructured_ingredients_noop_without_repos():
 
     assert recipe.recipe_ingredient[0].note == "2 eggs"
     assert recipe.recipe_ingredient[0].quantity == 0
+
+
+def test_merge_redundant_ingredients_sums_same_food_and_unit():
+    """Regression test (user-reported): a scraped recipe listed "2 eggs" for the dough and,
+    separately, "1 egg" for the egg wash - after parsing, two lines for the same food with no
+    distinguishing note, which reads as the import having split one measurement in two rather
+    than two deliberate uses. They should come out as one "3 eggs" line."""
+    egg = IngredientFood(id=uuid4(), name="egg")
+    recipe = Recipe(name="Test")
+    recipe.recipe_ingredient = [
+        RecipeIngredient(quantity=2, food=egg, original_text="2 eggs"),
+        RecipeIngredient(
+            quantity=200, unit=IngredientUnit(id=uuid4(), name="gram"), food=IngredientFood(id=uuid4(), name="flour")
+        ),
+        RecipeIngredient(quantity=1, food=egg, original_text="1 egg"),
+    ]
+
+    scraper._merge_redundant_ingredients(recipe)
+
+    assert len(recipe.recipe_ingredient) == 2
+    eggs, flour = recipe.recipe_ingredient
+    assert eggs.quantity == 3
+    assert eggs.original_text == "2 eggs; 1 egg"
+    assert flour.food is not None and flour.food.name == "flour"
+
+
+def test_merge_redundant_ingredients_leaves_differing_notes_and_sections_apart():
+    """A different note or section title means the recipe is keeping these apart on purpose
+    (e.g. "2 eggs" in the dough vs "1 egg, beaten, for the egg wash") - merging them would lose
+    that distinction, so only an exact match on food/unit/note/title is combined."""
+    egg = IngredientFood(id=uuid4(), name="egg")
+    recipe = Recipe(name="Test")
+    recipe.recipe_ingredient = [
+        RecipeIngredient(quantity=2, food=egg),
+        RecipeIngredient(quantity=1, food=egg, note="beaten, for the egg wash"),
+        RecipeIngredient(quantity=1, food=egg, title="Topping"),
+    ]
+
+    scraper._merge_redundant_ingredients(recipe)
+
+    assert len(recipe.recipe_ingredient) == 3
+
+
+def test_merge_redundant_ingredients_never_merges_substitutions_or_sub_recipes():
+    """Merging a line with substitutions or a sub-recipe reference could silently drop that
+    information even on an otherwise-exact match, so those are always left alone."""
+    egg = IngredientFood(id=uuid4(), name="egg")
+    with_sub = RecipeIngredient(
+        quantity=2, food=egg, substitutions=[RecipeIngredientSubstitution(substitute_food_id=uuid4())]
+    )
+    sub_recipe_ref = RecipeIngredient(quantity=1, food=egg, referenced_recipe=Recipe(name="Pastry Dough"))
+    recipe = Recipe(name="Test")
+    recipe.recipe_ingredient = [with_sub, RecipeIngredient(quantity=1, food=egg), sub_recipe_ref]
+
+    scraper._merge_redundant_ingredients(recipe)
+
+    assert len(recipe.recipe_ingredient) == 3
