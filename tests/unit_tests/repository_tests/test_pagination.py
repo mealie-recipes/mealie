@@ -998,6 +998,46 @@ def test_pagination_order_by_nulls(
         assert query.items[1] == food_without_label
 
 
+@pytest.mark.parametrize("order_direction", [OrderDirection.asc, OrderDirection.desc], ids=["asc", "desc"])
+def test_pagination_order_recipes_by_total_time_nulls_last(
+    api_client: TestClient, unique_user_fn_scoped: TestUser, order_direction: OrderDirection
+):
+    unique_user = unique_user_fn_scoped
+    times = [3600, None, 600, 5400, None, 1800]
+    recipes = [
+        unique_user.repos.recipes.create(
+            Recipe(
+                user_id=unique_user.user_id,
+                group_id=unique_user.group_id,
+                name=random_string(),
+                total_time_seconds=seconds,
+            )
+        )
+        for seconds in times
+    ]
+
+    params: dict[str, str | int] = {
+        "page": 1,
+        "perPage": -1,
+        "orderBy": "total_time_seconds",
+        "orderDirection": order_direction.value,
+        "orderByNullPosition": OrderByNullPosition.last.value,
+    }
+    response = api_client.get(api_routes.recipes, params=params, headers=unique_user.token)
+    assert response.status_code == 200
+    items = response.json()["items"]
+    assert len(items) == len(recipes)
+
+    with_time = sorted(
+        (r for r in recipes if r.total_time_seconds is not None),
+        key=lambda r: r.total_time_seconds or 0,
+        reverse=order_direction is OrderDirection.desc,
+    )
+    expected_ids = [str(r.id) for r in with_time]
+    assert [item["id"] for item in items[: len(with_time)]] == expected_ids
+    assert [item["totalTimeSeconds"] for item in items[len(with_time) :]] == [None, None]
+
+
 def test_pagination_shopping_list_items_with_labels(unique_user: TestUser):
     database = unique_user.repos
 
