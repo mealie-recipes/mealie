@@ -52,6 +52,14 @@ class Tool(SqlAlchemyBase, BaseMixins):
     slug: FilterableColumn[str] = mapped_column(String, index=True, nullable=False)
     recipe_count: Mapped[int] = query_expression(default_expr=literal(0))
 
+    # Broad kind of tool/appliance (e.g. "small_appliance", "manual_tool") - a short, fixed
+    # vocabulary enforced in the schema, not here, the same way other free-form-but-bounded
+    # fields in this codebase are.
+    family: FilterableColumn[str | None] = mapped_column(String, index=True)
+    category: FilterableColumn[str | None] = mapped_column(String, index=True)
+    brand: FilterableColumn[str | None] = mapped_column(String, index=True)
+    model: FilterableColumn[str | None] = mapped_column(String, index=True)
+
     households_with_tool: Mapped[list[Household]] = orm.relationship(
         "Household", secondary=households_to_tools, back_populates="tools_on_hand"
     )

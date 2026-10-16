@@ -1065,7 +1065,19 @@
       "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
       "merge-tool-example": "Merging {tool1} into {tool2}",
       "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
-      "no-unused-tools": "No unused tools to delete"
+      "no-unused-tools": "No unused tools to delete",
+      "seed-dialog-text": "Seed the database with a starter catalog of common kitchen tools and appliances, grouped by family and category.",
+      "seed-dialog-warning": "You already have some items in your database. A new item will not be added if an item with the same name already exists.",
+      "family": "Family",
+      "category": "Category",
+      "brand": "Brand",
+      "model": "Model",
+      "family-small-appliance": "Small Appliance",
+      "family-large-appliance": "Large Appliance",
+      "family-manual-tool": "Manual Tool",
+      "family-cookware": "Cookware",
+      "family-bakeware": "Bakeware",
+      "family-other": "Other"
     }
   },
   "user-registration": {

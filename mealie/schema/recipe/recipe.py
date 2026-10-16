@@ -86,6 +86,13 @@ class RecipeCategoryPagination(PaginationBase):
 class RecipeTool(RecipeTag):
     id: UUID4
     households_with_tool: list[str] = []
+    # Plain str rather than the ToolFamily enum from recipe_tool.py: importing it here would be
+    # circular (recipe_tool.py imports RecipeSummary from this module). Validated on write by
+    # RecipeToolCreate/RecipeToolSave; by the time it's read back here it's already a valid value.
+    family: str | None = None
+    category: str | None = None
+    brand: str | None = None
+    model: str | None = None
 
     @field_validator("households_with_tool", mode="before")
     def convert_households_to_slugs(cls, v):

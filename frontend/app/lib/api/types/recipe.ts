@@ -296,6 +296,9 @@ export interface Recipe {
   } | null;
   comments?: RecipeCommentOut[] | null;
 }
+// Hand-written: pydantic2ts codegen is broken in this environment (unquoted os.system() call
+// fails on paths with spaces). Keep in sync with mealie/schema/recipe/recipe_tool.py by hand.
+export type ToolFamily = "small_appliance" | "large_appliance" | "manual_tool" | "cookware" | "bakeware" | "other";
 export interface RecipeTool {
   id: string;
   groupId?: string | null;
@@ -303,6 +306,10 @@ export interface RecipeTool {
   slug: string;
   recipeCount?: number;
   householdsWithTool?: string[];
+  family?: ToolFamily | null;
+  category?: string | null;
+  brand?: string | null;
+  model?: string | null;
 }
 export interface RecipeStep {
   id?: string | null;
@@ -564,10 +571,18 @@ export interface RecipeTimelineEventUpdate {
 export interface RecipeToolCreate {
   name: string;
   householdsWithTool?: string[];
+  family?: ToolFamily | null;
+  category?: string | null;
+  brand?: string | null;
+  model?: string | null;
 }
 export interface RecipeToolOut {
   name: string;
   householdsWithTool?: string[];
+  family?: ToolFamily | null;
+  category?: string | null;
+  brand?: string | null;
+  model?: string | null;
   id: string;
   groupId: string;
   slug: string;
@@ -576,6 +591,10 @@ export interface RecipeToolOut {
 export interface RecipeToolResponse {
   name: string;
   householdsWithTool?: string[];
+  family?: ToolFamily | null;
+  category?: string | null;
+  brand?: string | null;
+  model?: string | null;
   id: string;
   groupId: string;
   slug: string;
@@ -585,6 +604,10 @@ export interface RecipeToolResponse {
 export interface RecipeToolSave {
   name: string;
   householdsWithTool?: string[];
+  family?: ToolFamily | null;
+  category?: string | null;
+  brand?: string | null;
+  model?: string | null;
   groupId: string;
 }
 export interface SaveIngredientFood {

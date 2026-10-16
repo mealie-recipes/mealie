@@ -60,6 +60,44 @@
       </v-card-text>
     </BaseDialog>
 
+    <!-- Seed Dialog -->
+    <BaseDialog
+      v-model="seedDialog"
+      bottom-sheet
+      :icon="$globals.icons.tools"
+      :title="$t('data-pages.seed-data')"
+      can-confirm
+      @confirm="seedDatabase"
+    >
+      <v-card-text>
+        <div class="pb-2">
+          {{ $t("data-pages.tools.seed-dialog-text") }}
+        </div>
+        <v-autocomplete
+          v-model="locale"
+          :items="locales"
+          item-title="name"
+          :custom-filter="normalizeFilter"
+          :label="$t('data-pages.select-language')"
+          class="my-3"
+          hide-details
+          variant="outlined"
+        >
+          <template #item="{ item, props }">
+            <v-list-item v-bind="props">
+              <v-list-item-subtitle>
+                {{ item.raw.progress }}% {{ $t("language-dialog.translated") }}
+              </v-list-item-subtitle>
+            </v-list-item>
+          </template>
+        </v-autocomplete>
+
+        <v-alert v-if="tools && tools.length > 0" type="error" class="mb-0 text-body-2">
+          {{ $t("data-pages.tools.seed-dialog-warning") }}
+        </v-alert>
+      </v-card-text>
+    </BaseDialog>
+
     <GroupDataPage
       :icon="$globals.icons.tools"
       :title="$t('data-pages.tools.tool-data')"
@@ -87,6 +125,10 @@
         </v-icon>
       </template>
 
+      <template #[`item.family`]="{ item }">
+        {{ item.family ? $t(`data-pages.tools.family-${item.family.replace(/_/g, '-')}`) : "" }}
+      </template>
+
       <template #table-button-row>
         <BaseButton @click="mergeDialog = true">
           <template #icon>
@@ -104,15 +146,26 @@
           {{ $t("data-pages.delete-unused") }}
         </BaseButton>
       </template>
+
+      <template #table-button-bottom>
+        <BaseButton @click="seedDialog = true">
+          <template #icon>
+            {{ $globals.icons.database }}
+          </template>
+          {{ $t("data-pages.seed") }}
+        </BaseButton>
+      </template>
     </GroupDataPage>
   </div>
 </template>
 
 <script setup lang="ts">
+import type { LocaleObject } from "@nuxtjs/i18n";
 import { validators } from "~/composables/use-validators";
 import { fieldTypes } from "~/composables/forms";
 import { normalizeFilter } from "~/composables/use-utils";
 import { alert } from "~/composables/use-toast";
+import { useLocales } from "~/composables/use-locales";
 import type { AutoFormItems } from "~/types/auto-forms";
 import { useToolStore } from "~/composables/store";
 import { useUserApi } from "~/composables/api";
@@ -156,6 +209,39 @@ const tableHeaders: TableHeaders[] = [
     show: true,
     sortable: true,
   },
+  {
+    text: i18n.t("data-pages.tools.family"),
+    value: "family",
+    show: true,
+    sortable: true,
+  },
+  {
+    text: i18n.t("data-pages.tools.category"),
+    value: "category",
+    show: true,
+    sortable: true,
+  },
+  {
+    text: i18n.t("data-pages.tools.brand"),
+    value: "brand",
+    show: true,
+    sortable: true,
+  },
+  {
+    text: i18n.t("data-pages.tools.model"),
+    value: "model",
+    show: true,
+    sortable: true,
+  },
+];
+
+const familyOptions = [
+  { text: i18n.t("data-pages.tools.family-small-appliance"), value: "small_appliance" },
+  { text: i18n.t("data-pages.tools.family-large-appliance"), value: "large_appliance" },
+  { text: i18n.t("data-pages.tools.family-manual-tool"), value: "manual_tool" },
+  { text: i18n.t("data-pages.tools.family-cookware"), value: "cookware" },
+  { text: i18n.t("data-pages.tools.family-bakeware"), value: "bakeware" },
+  { text: i18n.t("data-pages.tools.family-other"), value: "other" },
 ];
 
 const userHousehold = computed(() => auth.user.value?.householdSlug || "");
@@ -183,6 +269,28 @@ const formItems = [
     varName: "onHand",
     type: fieldTypes.BOOLEAN,
   },
+  {
+    label: i18n.t("data-pages.tools.family"),
+    varName: "family",
+    type: fieldTypes.SELECT,
+    options: familyOptions,
+    selectReturnValue: "value",
+  },
+  {
+    label: i18n.t("data-pages.tools.category"),
+    varName: "category",
+    type: fieldTypes.TEXT,
+  },
+  {
+    label: i18n.t("data-pages.tools.brand"),
+    varName: "brand",
+    type: fieldTypes.TEXT,
+  },
+  {
+    label: i18n.t("data-pages.tools.model"),
+    varName: "model",
+    type: fieldTypes.TEXT,
+  },
 ] as AutoFormItems;
 
 // ============================================================
@@ -194,7 +302,14 @@ const createForm = reactive({
 
 async function handleCreate(createFormData: RecipeToolCreate) {
   // @ts-expect-error createOne eroniusly expects id and slug which are not preset at time of creation
-  await toolStore.actions.createOne({ name: createFormData.name, householdsWithTool: createFormData.onHand ? [userHousehold.value] : [] } as RecipeToolCreate);
+  await toolStore.actions.createOne({
+    name: createFormData.name,
+    householdsWithTool: createFormData.onHand ? [userHousehold.value] : [],
+    family: createFormData.family,
+    category: createFormData.category,
+    brand: createFormData.brand,
+    model: createFormData.model,
+  } as RecipeToolCreate);
   createForm.data = { name: "", onHand: false } as RecipeToolCreate;
 }
 
@@ -289,5 +404,28 @@ async function openDeleteUnusedDialog() {
 async function confirmDeleteUnused() {
   await toolStore.actions.deleteMany(unusedToolIds.value);
   unusedTools.value = [];
+}
+
+// ============================================================
+// Seed
+const seedDialog = ref(false);
+const locale = ref("");
+
+const { locales: LOCALES, locale: currentLocale } = useLocales();
+
+onMounted(() => {
+  locale.value = currentLocale.value;
+});
+
+const locales = LOCALES.filter(locale =>
+  (i18n.locales.value as LocaleObject[]).map(i18nLocale => i18nLocale.code).includes(locale.value as any),
+);
+
+async function seedDatabase() {
+  const { data } = await userApi.seeders.tools({ locale: locale.value });
+
+  if (data) {
+    toolStore.actions.refresh();
+  }
 }
 </script>

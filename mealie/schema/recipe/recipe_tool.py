@@ -1,3 +1,5 @@
+import enum
+
 from pydantic import UUID4, ConfigDict, field_validator
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -6,9 +8,24 @@ from mealie.db.models.recipe import RecipeModel, Tool
 from mealie.schema._mealie import MealieModel
 
 
+class ToolFamily(enum.StrEnum):
+    """Broad kind of kitchen equipment a tool belongs to."""
+
+    small_appliance = "small_appliance"
+    large_appliance = "large_appliance"
+    manual_tool = "manual_tool"
+    cookware = "cookware"
+    bakeware = "bakeware"
+    other = "other"
+
+
 class RecipeToolCreate(MealieModel):
     name: str
     households_with_tool: list[str] = []
+    family: ToolFamily | None = None
+    category: str | None = None
+    brand: str | None = None
+    model: str | None = None
 
 
 class RecipeToolSave(RecipeToolCreate):
