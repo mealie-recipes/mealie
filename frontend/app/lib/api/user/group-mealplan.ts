@@ -7,12 +7,16 @@ const routes = {
   mealplan: `${prefix}/households/mealplans`,
   random: `${prefix}/households/mealplans/random`,
   ical: `${prefix}/households/mealplans/ical`,
+  reorder: `${prefix}/households/mealplans/reorder`,
   mealplanId: (id: string | number) => `${prefix}/households/mealplans/${id}`,
 };
 
 export class MealPlanAPI extends BaseCRUDAPI<PlanEntryCreate, PlanEntryOut, PlanEntryUpdate> {
   baseRoute = routes.mealplan;
   itemRoute = routes.mealplanId;
+export class MealPlanAPI extends BaseCRUDAPI<CreatePlanEntry, ReadPlanEntry, UpdatePlanEntry> {
+  override baseRoute = routes.mealplan;
+  override itemRoute = routes.mealplanId;
 
   async setRandom(payload: RandomPlanEntryCreate) {
     return await this.requests.post<PlanEntryOut>(routes.random, payload);
@@ -27,6 +31,14 @@ export class MealPlanAPI extends BaseCRUDAPI<PlanEntryCreate, PlanEntryOut, Plan
   }
 
   async deleteICalToken() {
-    return await this.requests.delete<MealPlanICalTokenOut>(routes.ical);
+        return await this.requests.delete<MealPlanICalTokenOut>(routes.ical);
+  }
+
+  async reorder(payload: ReorderPlanEntriesByDay[]) {
+    return await this.requests.put<undefined, ReorderPlanEntriesByDay[]>(routes.reorder, payload);
+  }
+
+  async reorder(payload: ReorderPlanEntriesByDay[]) {
+    return await this.requests.put<undefined, ReorderPlanEntriesByDay[]>(routes.reorder, payload);
   }
 }

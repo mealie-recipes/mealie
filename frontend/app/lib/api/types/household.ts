@@ -351,6 +351,7 @@ export interface IngredientFoodOut {
   extras: {
     [k: string]: unknown;
   } | null;
+<<<<<<< HEAD
   labelId: string | null;
   aliases: IngredientFoodAlias[];
   substitutions: IngredientFoodSubstitution[];
@@ -359,6 +360,16 @@ export interface IngredientFoodOut {
   recipeCount: number;
   createdAt: string | null;
   updatedAt: string | null;
+=======
+  labelId?: string | null;
+  aliases?: IngredientFoodAlias[];
+  substitutions?: IngredientFoodSubstitution[];
+  householdsWithIngredientFood?: string[];
+  label?: MultiPurposeLabelSummary | null;
+  recipeCount?: number;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+>>>>>>> d14831032 (fix(mealplanner): persist drag-and-drop meal ordering)
 }
 export interface IngredientFoodAlias {
   name: string;

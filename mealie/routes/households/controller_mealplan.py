@@ -3,7 +3,7 @@ from functools import cached_property
 from uuid import UUID
 
 from dateutil.tz import tzlocal
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, Request
 
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.repos.all_repositories import get_repositories
@@ -18,6 +18,9 @@ from mealie.schema.meal_plan.new_meal import PlanEntryPagination, PlanEntryType,
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay
 from mealie.schema.recipe.recipe import RecipeOut
 from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.response.pagination import OrderDirection, PaginationQuery
+from mealie.schema.response.responses import ErrorResponse
 from mealie.services.event_bus_service.event_types import (
     EventMealplanData,
     EventOperation,
@@ -109,6 +112,7 @@ class GroupMealplanController(BaseCrudController):
     @router.get("", response_model=PlanEntryPagination)
     def get_all(
         self,
+        request: Request,
         q: PaginationQuery = Depends(PaginationQuery),
         start_date: date | None = None,
         end_date: date | None = None,
@@ -127,6 +131,16 @@ class GroupMealplanController(BaseCrudController):
             date_filters.append(f"date <= {end_date}")
 
         q.query_filter = QueryFilterBuilder.combine_filters(q.query_filter, week_filter, *date_filters)
+
+        if not q.order_by:
+            q.order_by = "date,position"
+            if "orderDirection" not in request.query_params:
+                q.order_direction = OrderDirection.asc
+
+        if not q.order_by:
+            q.order_by = "date,position"
+            if "orderDirection" not in request.query_params:
+                q.order_direction = OrderDirection.asc
 
         return self.repo.page_all(pagination=q)
 
@@ -203,6 +217,11 @@ class GroupMealplanController(BaseCrudController):
 
         return result
 
+    @router.put("/reorder", status_code=204)
+    def reorder(self, days: list[ReorderPlanEntriesByDay]):
+        self.repo.reorder(days)
+
+    @router.get("/{item_id}", response_model=ReadPlanEntry)
     @router.get("/{item_id}", response_model=PlanEntryOut)
     def get_one(self, item_id: int):
         return self.mixins.get_one(item_id)

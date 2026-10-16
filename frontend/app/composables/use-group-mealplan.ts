@@ -3,7 +3,14 @@ import type { Day } from "date-fns";
 import { useHouseholdSelf } from "./use-households";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import type { PlanEntryCreate, PlanEntryType, PlanEntryOut, RecipeSummary, PlanEntryUpdate } from "~/lib/api/types/meal-plan";
+import type {
+  PlanEntryCreate,
+  PlanEntryType,
+  PlanEntryOut,
+  RecipeSummary,
+  ReorderPlanEntriesByDay,
+  PlanEntryUpdate,
+} from "~/lib/api/types/meal-plan";
 
 type PlanOption = {
   text: string;
@@ -83,7 +90,7 @@ export function useMealPlanEntryDates() {
 }
 export type DaySection = {
   title: string;
-  meals: PlanEntryOut[];
+  meals: [ReadPlanEntry, ...ReadPlanEntry[]];
 };
 
 export type ScaledRecipe = RecipeSummary & { scale: number };
@@ -192,6 +199,13 @@ export const useMealplans = function (range: Ref<DateRange>) {
       if (data) {
         this.refreshAll();
       }
+      loading.value = false;
+    },
+
+    async reorder(days: ReorderPlanEntriesByDay[]) {
+      loading.value = true;
+      await api.mealplans.reorder(days);
+      await this.refreshAll();
       loading.value = false;
     },
 

@@ -164,11 +164,24 @@ watch(
   { immediate: true, deep: true },
 );
 
-function onMoveCallback(evt: SortableEvent) {
-  // A Meal was moved, set the new date value and make an update request and refresh the meals
+async function onMoveCallback(evt: SortableEvent) {
+  // VueDraggable has already updated the source and destination arrays.
   const fromMealsByIndex = parseInt(evt.from.getAttribute("data-index") ?? "");
   const toMealsByIndex = parseInt(evt.to.getAttribute("data-index") ?? "");
 
+  if (Number.isNaN(fromMealsByIndex) || Number.isNaN(toMealsByIndex)) return;
+
+  const fromDay = props.mealplans[fromMealsByIndex];
+  const toDay = props.mealplans[toMealsByIndex];
+  if (!fromDay || !toDay) return;
+
+  const affectedDays = fromMealsByIndex === toMealsByIndex ? [toDay] : [fromDay, toDay];
+  const orderedDays = affectedDays.map(({ date }) => ({
+    date: format(date, "yyyy-MM-dd"),
+    entryIds: mealplansByDate[date.toString()].map(meal => meal.id),
+  }));
+
+  await props.actions.reorder(orderedDays);
   if (!isNaN(fromMealsByIndex) && !isNaN(toMealsByIndex)) {
     const dest = props.mealplans[toMealsByIndex];
     const mealData = mealplansByDate[planKey(dest)][evt.newIndex as number];

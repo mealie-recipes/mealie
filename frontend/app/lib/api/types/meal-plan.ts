@@ -150,5 +150,105 @@ export interface RandomPlanEntryCreate {
   date: string;
   endDate?: string | null;
   entryType?: PlanEntryType;
+<<<<<<< HEAD
+=======
+  title?: string;
+  text?: string;
+  recipeId?: string | null;
+  recipeScale?: number;
+  id: number;
+  groupId: string;
+  userId: string;
+  householdId: string;
+  position: number;
+  recipe?: RecipeSummary | null;
+}
+export interface RecipeSummary {
+  id?: string | null;
+  userId?: string;
+  householdId?: string;
+  groupId?: string;
+  name?: string | null;
+  slug?: string;
+  image?: unknown;
+  recipeServings?: number;
+  recipeYieldQuantity?: number;
+  recipeYield?: string | null;
+  totalTime?: string | null;
+  prepTime?: string | null;
+  cookTime?: string | null;
+  performTime?: string | null;
+  totalTimeSeconds?: number | null;
+  prepTimeSeconds?: number | null;
+  performTimeSeconds?: number | null;
+  description?: string | null;
+  recipeCategory?: RecipeCategory[] | null;
+  tags?: RecipeTag[] | null;
+  tools?: RecipeTool[];
+  rating?: number | null;
+  orgURL?: string | null;
+  dateAdded?: string | null;
+  dateUpdated?: string | null;
+  createdAt?: string | null;
+  updatedAt?: string | null;
+}
+export interface RecipeCategory {
+  id?: string | null;
+  groupId?: string | null;
+  name: string;
+  slug: string;
+  recipeCount?: number;
+}
+export interface RecipeTag {
+  id?: string | null;
+  groupId?: string | null;
+  name: string;
+  slug: string;
+  recipeCount?: number;
+}
+export interface RecipeTool {
+  id: string;
+  groupId?: string | null;
+  name: string;
+  slug: string;
+  recipeCount?: number;
+  householdsWithTool?: string[];
+}
+export interface ReorderPlanEntriesByDay {
+  date: string;
+  entryIds: number[];
+}
+export interface SavePlanEntry {
+  date: string;
+  entryType?: PlanEntryType;
+  title?: string;
+  text?: string;
+  recipeId?: string | null;
+  recipeScale?: number;
+  groupId: string;
+  userId: string;
+}
+export interface ShoppingListIn {
+  name: string;
+  group?: string | null;
+  items: ListItem[];
+}
+export interface ShoppingListOut {
+  name: string;
+  group?: string | null;
+  items: ListItem[];
+  id: number;
+}
+export interface UpdatePlanEntry {
+  date: string;
+  entryType?: PlanEntryType;
+  title?: string;
+  text?: string;
+  recipeId?: string | null;
+  recipeScale?: number;
+  id: number;
+  groupId: string;
+  userId: string;
+>>>>>>> d14831032 (fix(mealplanner): persist drag-and-drop meal ordering)
 }
 export interface MealieOutModel {}
