@@ -7,6 +7,8 @@
  */
 :root {
   --mealie-radius: 4px;
+  --mealie-font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mealie-font-size: 16px;
 }
 
 .v-card,
@@ -22,6 +24,21 @@
 
 .theme-flat-cards .v-card {
   box-shadow: none !important;
+}
+
+/*
+ * Typography - font-size is set on the root element because Vuetify's own sizing (spacing,
+ * component dimensions, most text) is defined in rem, so scaling the root scales the whole
+ * app proportionally instead of just body text. font-family is repeated on .v-application
+ * because Vuetify sets its own font-family there, which would otherwise win by specificity.
+ */
+html {
+  font-size: var(--mealie-font-size);
+}
+
+body,
+.v-application {
+  font-family: var(--mealie-font-family) !important;
 }
 
 .layout-enter-active,

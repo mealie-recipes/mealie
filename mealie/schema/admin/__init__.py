@@ -9,6 +9,8 @@ from .about import (
     CheckAppConfig,
     ThemeBorderRadius,
     ThemeCardStyle,
+    ThemeFontFamily,
+    ThemeFontSize,
 )
 from .backup import AllBackups, BackupFile, BackupOptions, CreateBackup, ImportJob
 from .debug import DebugResponse
@@ -35,6 +37,8 @@ __all__ = [
     "CheckAppConfig",
     "ThemeBorderRadius",
     "ThemeCardStyle",
+    "ThemeFontFamily",
+    "ThemeFontSize",
     "DebugResponse",
     "EmailReady",
     "EmailSuccess",

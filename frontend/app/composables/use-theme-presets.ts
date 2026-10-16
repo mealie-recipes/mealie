@@ -30,6 +30,8 @@ export const THEME_PRESETS: ThemePreset[] = [
       darkError: "#E63946",
       borderRadius: "round",
       cardStyle: "elevated",
+      fontFamily: "rounded",
+      fontSize: "medium",
     },
   },
   {
@@ -52,6 +54,8 @@ export const THEME_PRESETS: ThemePreset[] = [
       darkError: "#E76F51",
       borderRadius: "soft",
       cardStyle: "elevated",
+      fontFamily: "serif",
+      fontSize: "medium",
     },
   },
   {
@@ -74,6 +78,8 @@ export const THEME_PRESETS: ThemePreset[] = [
       darkError: "#FF5C5C",
       borderRadius: "round",
       cardStyle: "elevated",
+      fontFamily: "rounded",
+      fontSize: "medium",
     },
   },
   {
@@ -96,6 +102,8 @@ export const THEME_PRESETS: ThemePreset[] = [
       darkError: "#FF686B",
       borderRadius: "round",
       cardStyle: "flat",
+      fontFamily: "serif",
+      fontSize: "medium",
     },
   },
   {
@@ -118,6 +126,8 @@ export const THEME_PRESETS: ThemePreset[] = [
       darkError: "#E57373",
       borderRadius: "sharp",
       cardStyle: "flat",
+      fontFamily: "mono",
+      fontSize: "small",
     },
   },
   {
@@ -140,6 +150,8 @@ export const THEME_PRESETS: ThemePreset[] = [
       darkError: "#FF6B6B",
       borderRadius: "soft",
       cardStyle: "flat",
+      fontFamily: "sans",
+      fontSize: "medium",
     },
   },
 ];

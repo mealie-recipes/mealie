@@ -20,4 +20,6 @@ class Theme(BaseSettings):
 
     border_radius: str = "soft"
     card_style: str = "elevated"
+    font_family: str = "sans"
+    font_size: str = "medium"
     model_config = SettingsConfigDict(env_prefix="theme_", extra="allow")

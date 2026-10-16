@@ -16,6 +16,21 @@ class ThemeCardStyle(enum.StrEnum):
     flat = "flat"
 
 
+class ThemeFontFamily(enum.StrEnum):
+    """System font stacks only - no webfont is ever downloaded, matching the rest of the app."""
+
+    sans = "sans"
+    rounded = "rounded"
+    serif = "serif"
+    mono = "mono"
+
+
+class ThemeFontSize(enum.StrEnum):
+    small = "small"
+    medium = "medium"
+    large = "large"
+
+
 class AppStatistics(MealieModel):
     total_recipes: int
     total_users: int
@@ -62,6 +77,8 @@ class AppTheme(MealieModel):
 
     border_radius: ThemeBorderRadius = ThemeBorderRadius.soft
     card_style: ThemeCardStyle = ThemeCardStyle.elevated
+    font_family: ThemeFontFamily = ThemeFontFamily.sans
+    font_size: ThemeFontSize = ThemeFontSize.medium
 
 
 class AppThemeOut(AppTheme):

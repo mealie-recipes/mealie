@@ -90,6 +90,39 @@
                 hide-details
               />
             </v-col>
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <v-select
+                v-model="form.fontFamily"
+                :label="$t('admin.theme.font-family')"
+                :items="fontFamilyOptions"
+                variant="outlined"
+                density="compact"
+                hide-details
+              >
+                <template #item="{ item, props: itemProps }">
+                  <v-list-item
+                    v-bind="itemProps"
+                    :style="{ fontFamily: FONT_STACKS[item.value] }"
+                  />
+                </template>
+              </v-select>
+            </v-col>
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <v-select
+                v-model="form.fontSize"
+                :label="$t('admin.theme.font-size')"
+                :items="fontSizeOptions"
+                variant="outlined"
+                density="compact"
+                hide-details
+              />
+            </v-col>
           </v-row>
         </v-card-text>
       </v-card>
@@ -155,7 +188,7 @@ import { useTheme } from "vuetify";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { THEME_PRESETS, type ThemePreset } from "~/composables/use-theme-presets";
-import { applyDesignTokens, RADIUS_PX } from "~/composables/use-theme-design";
+import { applyDesignTokens, FONT_STACKS, RADIUS_PX } from "~/composables/use-theme-design";
 import type { AppTheme } from "~/lib/api/types/non-generated";
 
 definePageMeta({ layout: "admin" });
@@ -214,6 +247,19 @@ const borderRadiusOptions = [
 const cardStyleOptions = [
   { title: i18n.t("admin.theme.card-style-elevated"), value: "elevated" },
   { title: i18n.t("admin.theme.card-style-flat"), value: "flat" },
+];
+
+const fontFamilyOptions = [
+  { title: i18n.t("admin.theme.font-family-sans"), value: "sans" },
+  { title: i18n.t("admin.theme.font-family-rounded"), value: "rounded" },
+  { title: i18n.t("admin.theme.font-family-serif"), value: "serif" },
+  { title: i18n.t("admin.theme.font-family-mono"), value: "mono" },
+];
+
+const fontSizeOptions = [
+  { title: i18n.t("admin.theme.font-size-small"), value: "small" },
+  { title: i18n.t("admin.theme.font-size-medium"), value: "medium" },
+  { title: i18n.t("admin.theme.font-size-large"), value: "large" },
 ];
 
 async function applyPreset(preset: ThemePreset) {

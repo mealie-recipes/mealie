@@ -82,6 +82,8 @@ export type StandardizedUnitType
 // can't run in this environment.
 export type ThemeBorderRadius = "sharp" | "soft" | "round";
 export type ThemeCardStyle = "elevated" | "flat";
+export type ThemeFontFamily = "sans" | "rounded" | "serif" | "mono";
+export type ThemeFontSize = "small" | "medium" | "large";
 
 export interface AppTheme {
   lightPrimary: string;
@@ -100,4 +102,6 @@ export interface AppTheme {
   darkError: string;
   borderRadius: ThemeBorderRadius;
   cardStyle: ThemeCardStyle;
+  fontFamily: ThemeFontFamily;
+  fontSize: ThemeFontSize;
 }

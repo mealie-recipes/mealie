@@ -34,6 +34,11 @@ class AppThemeModel(SqlAlchemyBase, BaseMixins):
     border_radius: Mapped[str | None] = mapped_column(String)
     card_style: Mapped[str | None] = mapped_column(String)
 
+    # Typography - font_family is always a system font stack (see ThemeFontFamily), never a
+    # downloaded webfont, so this never adds a network dependency.
+    font_family: Mapped[str | None] = mapped_column(String)
+    font_size: Mapped[str | None] = mapped_column(String)
+
     @auto_init()
     def __init__(self, **_) -> None:
         pass
