@@ -810,16 +810,16 @@ wheels = [
 
 [[package]]
 name = "ingredient-parser-nlp"
-version = "2.8.0"
+version = "2.9.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "nltk" },
     { name = "numpy" },
     { name = "pint" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/67/c7/30c710b929b040b011f32b484b6c8eed3285f167da31e90a0c5bd0bc6276/ingredient_parser_nlp-2.8.0.tar.gz", hash = "sha256:689b83eba6153e85fc11f9c7a326783645a3853d7910e29060dc4c79561e7d4e", size = 4247573, upload-time = "2026-09-22T15:35:32.686Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/42/25/23faf6bc48c804c0efde55288c115eb435d3629222ceb42255e1345e8f50/ingredient_parser_nlp-2.9.0.tar.gz", hash = "sha256:afdbbc5dbaff57bab086131d5d0aa102f49c98d61c4d91d61d78993a4b4f2eb5", size = 4256035, upload-time = "2026-10-11T07:40:17.198Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/22/29/70c6dd43827f41445a1dcd73461a61993285f4c2700d6196668d80025c44/ingredient_parser_nlp-2.8.0-py3-none-any.whl", hash = "sha256:6a6bdaff56d7b782064da18d8d407555b33712b2d090011cdfaf5b4eb28b24d0", size = 4253140, upload-time = "2026-09-22T15:35:28.159Z" },
+    { url = "https://files.pythonhosted.org/packages/d6/ff/35651ddcc485fac13a4ea945a8112897292e9e4d270dfb6191820534e1df/ingredient_parser_nlp-2.9.0-py3-none-any.whl", hash = "sha256:f95630809a56bdfd184c7bb0ec5f27327b38cddeaa82110228905fff5741ac82", size = 4262479, upload-time = "2026-10-11T07:40:14.579Z" },
 ]
 
 [[package]]
@@ -1214,7 +1214,7 @@ requires-dist = [
     { name = "html2text", specifier = "==2025.4.15" },
     { name = "httpx", specifier = "==0.28.1" },
     { name = "httpx-curl-cffi", specifier = "==0.1.5" },
-    { name = "ingredient-parser-nlp", specifier = "==2.8.0" },
+    { name = "ingredient-parser-nlp", specifier = "==2.9.0" },
     { name = "isodate", specifier = "==0.7.2" },
     { name = "itsdangerous", specifier = "==2.2.0" },
     { name = "jinja2", specifier = "==3.1.6" },
