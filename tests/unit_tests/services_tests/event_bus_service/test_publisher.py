@@ -44,10 +44,12 @@ def test_assert_safe_destination_allows_custom_endpoint_targeting_public_host(mo
     "dest",
     [
         # hardcoded hosted-service schemes: the netloc is a token/channel id, not a network
-        # target, so these must be left alone even though they resolve to nothing real
-        "discord://123456789012345678/abcDEFghiJKLmnoPQRstuVWXyz1234567890abcDEFghiJKLmnoPQR",
-        "slack://T1JJ3T3L2/A1BRTD4JD/TIiajkdnlazkcOXrIdevi7FQ/",
-        "tgram://123456789:AAHrlJkRIhjfj0ABCrGptUA5AhFhb6QCtAA/",
+        # target, so these must be left alone even though they resolve to nothing real.
+        # These are shaped like real tokens only loosely - deliberately not real-looking
+        # enough to trip secret scanners, since the test doesn't need an authentic one.
+        "discord://not-a-real-webhook-id/not-a-real-webhook-token-NNNNNNNNNNNNNNNNNNNNNN",
+        "slack://not-a-real-team-id/not-a-real-bot-id/not-a-real-access-token/",
+        "tgram://not-a-real-chat-id:not-a-real-bot-token/",
     ],
 )
 def test_assert_safe_destination_ignores_hosted_service_schemes(dest: str):
