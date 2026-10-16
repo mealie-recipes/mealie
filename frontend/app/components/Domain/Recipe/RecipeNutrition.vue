@@ -24,25 +24,40 @@
           />
         </div>
       </v-card-text>
-      <v-list
+      <div
         v-if="showViewer"
-        density="compact"
-        class="mt-0 pt-0"
+        class="nutrition-list px-4 pb-2"
       >
-        <v-list-item
-          v-for="(item, key, index) in renderedList"
-          :key="index"
-          style="min-height: 25px"
+        <div
+          v-for="(item, key, index) in primaryList"
+          :key="`primary-${index}`"
+          class="nutrition-row"
         >
-          <v-list-item-title class="pl-2 d-flex">
-            <div>{{ item.label }}</div>
-            <div class="ml-auto mr-1">
-              {{ item.value }}
+          <span>{{ item.label }}</span>
+          <span class="font-weight-medium">{{ item.value }} {{ item.suffix }}</span>
+        </div>
+        <v-expand-transition>
+          <div v-if="showSecondary">
+            <div
+              v-for="(item, key, index) in secondaryList"
+              :key="`secondary-${index}`"
+              class="nutrition-row"
+            >
+              <span>{{ item.label }}</span>
+              <span class="font-weight-medium">{{ item.value }} {{ item.suffix }}</span>
             </div>
-            <div>{{ item.suffix }}</div>
-          </v-list-item-title>
-        </v-list-item>
-      </v-list>
+          </div>
+        </v-expand-transition>
+        <v-btn
+          v-if="hasSecondaryValues"
+          variant="text"
+          density="compact"
+          class="px-0 mt-1 text-none"
+          @click="showSecondary = !showSecondary"
+        >
+          {{ showSecondary ? $t("recipe.nutrition-less-details") : $t("recipe.nutrition-more-details") }}
+        </v-btn>
+      </div>
     </v-card>
   </div>
 </template>
@@ -51,6 +66,10 @@
 import { parseNutritionValue, useNutritionLabels } from "~/composables/recipes";
 import type { Nutrition } from "~/lib/api/types/recipe";
 import type { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrition";
+
+// The four macros shown up front, matching how most nutrition labels are read at a glance.
+// Everything else in the schema is secondary and hidden behind "more details".
+const PRIMARY_KEYS = ["calories", "proteinContent", "carbohydrateContent", "fatContent"];
 
 interface Props {
   edit?: boolean;
@@ -73,6 +92,7 @@ const valueNotNull = computed(() => {
 });
 
 const showViewer = computed(() => !props.edit && valueNotNull.value);
+const showSecondary = ref(false);
 
 function updateValue(key: number | string, value: number | null) {
   modelValue.value = { ...modelValue.value, [key]: value?.toString() ?? null };
@@ -90,6 +110,40 @@ const renderedList = computed(() => {
     return item;
   }, {});
 });
+
+const primaryList = computed(() => {
+  return PRIMARY_KEYS.reduce((item: NutritionLabelType, key) => {
+    if (renderedList.value[key]) {
+      item[key] = renderedList.value[key];
+    }
+    return item;
+  }, {});
+});
+
+const secondaryList = computed(() => {
+  return Object.entries(renderedList.value).reduce((item: NutritionLabelType, [key, label]) => {
+    if (!PRIMARY_KEYS.includes(key)) {
+      item[key] = label;
+    }
+    return item;
+  }, {});
+});
+
+const hasSecondaryValues = computed(() => Object.keys(secondaryList.value).length > 0);
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.nutrition-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  min-height: 36px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid rgba(var(--v-border-color), var(--v-border-opacity));
+
+  &:last-of-type {
+    border-bottom: none;
+  }
+}
+</style>

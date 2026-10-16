@@ -441,6 +441,8 @@
     "milligrams": "milligrams",
     "note": "Note",
     "nutrition": "Nutrition",
+    "nutrition-more-details": "More details",
+    "nutrition-less-details": "Less details",
     "linked-ingredients": "Linked Ingredients",
     "original-url": "Original URL",
     "perform-time": "Cook Time",
