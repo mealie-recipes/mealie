@@ -70,11 +70,19 @@ def get_startup_info(session: Session = Depends(generate_session)):
 
 
 @router.get("/theme", response_model=AppTheme)
-def get_app_theme(resp: Response):
+def get_app_theme(resp: Response, session: Session = Depends(generate_session)):
     """Get's the current theme settings"""
     settings = get_app_settings()
 
-    resp.headers["Cache-Control"] = "public, max-age=604800"
+    # Short-lived: an admin can now change this at runtime (see AdminThemeController),
+    # so a week-long cache would hide their change from everyone for that long.
+    resp.headers["Cache-Control"] = "public, max-age=300"
+
+    public_repos = get_repositories(session, group_id=None, household_id=None)
+    overrides = public_repos.app_theme.get_all(limit=1)
+    if overrides:
+        return overrides[0]
+
     return AppTheme(**settings.theme.model_dump())
 
 

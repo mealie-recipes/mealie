@@ -76,3 +76,23 @@ export type StandardizedUnitType
     | "liter"
     | "gram"
     | "kilogram";
+
+// TODO: move to types/admin.ts once `task dev:generate` can run again (mirrors
+// mealie.schema.admin.about.AppTheme) - hand-written because json2ts/pydantic2ts
+// can't run in this environment.
+export interface AppTheme {
+  lightPrimary: string;
+  lightAccent: string;
+  lightSecondary: string;
+  lightSuccess: string;
+  lightInfo: string;
+  lightWarning: string;
+  lightError: string;
+  darkPrimary: string;
+  darkAccent: string;
+  darkSecondary: string;
+  darkSuccess: string;
+  darkInfo: string;
+  darkWarning: string;
+  darkError: string;
+}

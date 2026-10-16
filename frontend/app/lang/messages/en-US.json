@@ -805,6 +805,7 @@
   },
   "sidebar": {
     "backups": "Backups",
+    "theme": "Theme",
     "categories": "Categories",
     "cookbooks": "Cookbooks",
     "manage-users": "Manage Users",
@@ -1165,7 +1166,24 @@
     "run-test": "Run Test",
     "test-results": "Test Results",
     "group-delete-note": "Groups with users or households cannot be deleted",
-    "household-delete-note": "Households with users cannot be deleted"
+    "household-delete-note": "Households with users cannot be deleted",
+    "theme": {
+      "theme": "Theme",
+      "description": "Customize the colors Mealie uses, for every user on this instance. Changes may take a few minutes to reach everyone, since the colors are cached in the browser.",
+      "light-mode": "Light Mode",
+      "dark-mode": "Dark Mode",
+      "primary": "Primary",
+      "accent": "Accent",
+      "secondary": "Secondary",
+      "success": "Success",
+      "info": "Info",
+      "warning": "Warning",
+      "error": "Error",
+      "reset-to-defaults": "Reset to Defaults",
+      "saved": "Theme saved",
+      "save-failed": "Failed to save the theme",
+      "reset-done": "Theme reset to the server defaults"
+    }
   },
   "profile": {
     "welcome-user": "👋 Welcome, {0}!",

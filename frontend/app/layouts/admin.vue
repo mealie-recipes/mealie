@@ -83,6 +83,12 @@ const topLinks: SidebarLinks = [
     title: i18n.t("sidebar.backups"),
     restricted: true,
   },
+  {
+    icon: $globals.icons.theme,
+    to: "/admin/theme",
+    title: i18n.t("sidebar.theme"),
+    restricted: true,
+  },
 ];
 
 const developerLinks: SidebarLinks = [

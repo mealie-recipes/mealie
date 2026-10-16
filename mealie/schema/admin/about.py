@@ -1,3 +1,5 @@
+from pydantic import UUID4, ConfigDict
+
 from mealie.schema._mealie import MealieModel
 
 
@@ -44,6 +46,14 @@ class AppTheme(MealieModel):
     dark_info: str = "#1976D2"
     dark_warning: str = "#FF6D00"
     dark_error: str = "#EF5350"
+
+
+class AppThemeOut(AppTheme):
+    # The id of the single stored row, if an instance-wide override has been saved.
+    # Internal to the admin theme repo/route - the public /app/about/theme endpoint
+    # only ever serves the plain AppTheme shape.
+    id: UUID4 | None = None
+    model_config = ConfigDict(from_attributes=True)
 
 
 class AppStartupInfo(MealieModel):
