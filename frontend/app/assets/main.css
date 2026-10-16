@@ -1,3 +1,29 @@
+/*
+ * Non-color theme tokens ("design"), set at runtime by plugins/theme.ts from the
+ * instance-wide AppTheme (border_radius/card_style). Default (4px / elevated) matches
+ * AppTheme's own pydantic defaults (soft/elevated), so the page looks right before the
+ * plugin runs too. "flat" only adds a class rather than overriding box-shadow directly,
+ * so "elevated" keeps using Vuetify's own per-component elevation untouched.
+ */
+:root {
+  --mealie-radius: 4px;
+}
+
+.v-card,
+.v-sheet,
+.v-btn:not(.v-btn--icon),
+.v-chip,
+.v-alert,
+.v-text-field .v-field,
+.v-select .v-field,
+.v-textarea .v-field {
+  border-radius: var(--mealie-radius) !important;
+}
+
+.theme-flat-cards .v-card {
+  box-shadow: none !important;
+}
+
 .layout-enter-active,
 .layout-leave-active {
   transition: opacity 0.2s;

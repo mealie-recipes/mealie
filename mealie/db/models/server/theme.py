@@ -28,6 +28,12 @@ class AppThemeModel(SqlAlchemyBase, BaseMixins):
     dark_warning: Mapped[str | None] = mapped_column(String)
     dark_error: Mapped[str | None] = mapped_column(String)
 
+    # Non-color "look and feel" - corner roundedness and whether cards cast a shadow.
+    # Applied as CSS custom properties rather than per-component Vuetify props, so one value
+    # consistently reaches every card/button/input without touching every component.
+    border_radius: Mapped[str | None] = mapped_column(String)
+    card_style: Mapped[str | None] = mapped_column(String)
+
     @auto_init()
     def __init__(self, **_) -> None:
         pass

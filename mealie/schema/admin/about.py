@@ -1,6 +1,19 @@
+import enum
+
 from pydantic import UUID4, ConfigDict
 
 from mealie.schema._mealie import MealieModel
+
+
+class ThemeBorderRadius(enum.StrEnum):
+    sharp = "sharp"
+    soft = "soft"
+    round = "round"
+
+
+class ThemeCardStyle(enum.StrEnum):
+    elevated = "elevated"
+    flat = "flat"
 
 
 class AppStatistics(MealieModel):
@@ -46,6 +59,9 @@ class AppTheme(MealieModel):
     dark_info: str = "#1976D2"
     dark_warning: str = "#FF6D00"
     dark_error: str = "#EF5350"
+
+    border_radius: ThemeBorderRadius = ThemeBorderRadius.soft
+    card_style: ThemeCardStyle = ThemeCardStyle.elevated
 
 
 class AppThemeOut(AppTheme):

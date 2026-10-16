@@ -1,19 +1,4 @@
-export interface ThemeConfig {
-  lightPrimary: string;
-  lightAccent: string;
-  lightSecondary: string;
-  lightSuccess: string;
-  lightInfo: string;
-  lightWarning: string;
-  lightError: string;
-  darkPrimary: string;
-  darkAccent: string;
-  darkSecondary: string;
-  darkSuccess: string;
-  darkInfo: string;
-  darkWarning: string;
-  darkError: string;
-}
+import { applyDesignTokens, type ThemeConfig } from "~/composables/use-theme-design";
 
 let __cachedTheme: ThemeConfig | undefined;
 
@@ -37,6 +22,8 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   if (!__cachedTheme) {
     __cachedTheme = await fetchTheme();
   }
+
+  applyDesignTokens(__cachedTheme);
 
   nuxtApp.hook("vuetify:before-create", ({ vuetifyOptions }) => {
     const theme = __cachedTheme;

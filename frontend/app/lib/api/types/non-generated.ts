@@ -80,6 +80,9 @@ export type StandardizedUnitType
 // TODO: move to types/admin.ts once `task dev:generate` can run again (mirrors
 // mealie.schema.admin.about.AppTheme) - hand-written because json2ts/pydantic2ts
 // can't run in this environment.
+export type ThemeBorderRadius = "sharp" | "soft" | "round";
+export type ThemeCardStyle = "elevated" | "flat";
+
 export interface AppTheme {
   lightPrimary: string;
   lightAccent: string;
@@ -95,4 +98,6 @@ export interface AppTheme {
   darkInfo: string;
   darkWarning: string;
   darkError: string;
+  borderRadius: ThemeBorderRadius;
+  cardStyle: ThemeCardStyle;
 }

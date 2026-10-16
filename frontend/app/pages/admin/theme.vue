@@ -31,6 +31,8 @@
           :key="preset.key"
           variant="outlined"
           class="preset-card pa-3"
+          :class="{ 'preset-card--flat': preset.theme.cardStyle === 'flat' }"
+          :style="{ borderRadius: previewRadiusPx(preset) }"
           :loading="applyingPreset === preset.key"
           @click="applyPreset(preset)"
         >
@@ -55,6 +57,43 @@
       v-if="form"
       @submit.prevent="save"
     >
+      <v-card
+        variant="outlined"
+        class="pa-2 mb-4"
+      >
+        <v-card-title>{{ $t("admin.theme.design") }}</v-card-title>
+        <v-card-text>
+          <v-row>
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <v-select
+                v-model="form.borderRadius"
+                :label="$t('admin.theme.border-radius')"
+                :items="borderRadiusOptions"
+                variant="outlined"
+                density="compact"
+                hide-details
+              />
+            </v-col>
+            <v-col
+              cols="12"
+              md="6"
+            >
+              <v-select
+                v-model="form.cardStyle"
+                :label="$t('admin.theme.card-style')"
+                :items="cardStyleOptions"
+                variant="outlined"
+                density="compact"
+                hide-details
+              />
+            </v-col>
+          </v-row>
+        </v-card-text>
+      </v-card>
+
       <v-row>
         <v-col
           v-for="section in sections"
@@ -116,6 +155,7 @@ import { useTheme } from "vuetify";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { THEME_PRESETS, type ThemePreset } from "~/composables/use-theme-presets";
+import { applyDesignTokens, RADIUS_PX } from "~/composables/use-theme-design";
 import type { AppTheme } from "~/lib/api/types/non-generated";
 
 definePageMeta({ layout: "admin" });
@@ -133,6 +173,10 @@ const applyingPreset = ref<string | null>(null);
 function previewColors(preset: ThemePreset): string[] {
   const { theme } = preset;
   return [theme.lightPrimary, theme.lightAccent, theme.lightSecondary, theme.lightSuccess];
+}
+
+function previewRadiusPx(preset: ThemePreset): string {
+  return RADIUS_PX[preset.theme.borderRadius] ?? RADIUS_PX.soft!;
 }
 
 // The theme colors are otherwise only read once, when Vuetify itself is created
@@ -158,7 +202,19 @@ function applyThemeLive(appTheme: AppTheme) {
     warning: appTheme.darkWarning,
     error: appTheme.darkError,
   });
+  applyDesignTokens(appTheme);
 }
+
+const borderRadiusOptions = [
+  { title: i18n.t("admin.theme.border-radius-sharp"), value: "sharp" },
+  { title: i18n.t("admin.theme.border-radius-soft"), value: "soft" },
+  { title: i18n.t("admin.theme.border-radius-round"), value: "round" },
+];
+
+const cardStyleOptions = [
+  { title: i18n.t("admin.theme.card-style-elevated"), value: "elevated" },
+  { title: i18n.t("admin.theme.card-style-flat"), value: "flat" },
+];
 
 async function applyPreset(preset: ThemePreset) {
   applyingPreset.value = preset.key;
@@ -249,6 +305,10 @@ onMounted(load);
 
 .preset-card:hover {
   transform: translateY(-2px);
+}
+
+.preset-card--flat {
+  box-shadow: none !important;
 }
 
 .preset-swatch {

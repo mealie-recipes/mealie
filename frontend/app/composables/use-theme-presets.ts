@@ -28,6 +28,8 @@ export const THEME_PRESETS: ThemePreset[] = [
       darkInfo: "#00B4D8",
       darkWarning: "#FFB703",
       darkError: "#E63946",
+      borderRadius: "round",
+      cardStyle: "elevated",
     },
   },
   {
@@ -48,6 +50,8 @@ export const THEME_PRESETS: ThemePreset[] = [
       darkInfo: "#80B9D8",
       darkWarning: "#FFB703",
       darkError: "#E76F51",
+      borderRadius: "soft",
+      cardStyle: "elevated",
     },
   },
   {
@@ -68,6 +72,8 @@ export const THEME_PRESETS: ThemePreset[] = [
       darkInfo: "#4CC9F0",
       darkWarning: "#FFD60A",
       darkError: "#FF5C5C",
+      borderRadius: "round",
+      cardStyle: "elevated",
     },
   },
   {
@@ -88,6 +94,8 @@ export const THEME_PRESETS: ThemePreset[] = [
       darkInfo: "#90E0EF",
       darkWarning: "#FFCA3A",
       darkError: "#FF686B",
+      borderRadius: "round",
+      cardStyle: "flat",
     },
   },
   {
@@ -108,6 +116,8 @@ export const THEME_PRESETS: ThemePreset[] = [
       darkInfo: "#64B5F6",
       darkWarning: "#FFB74D",
       darkError: "#E57373",
+      borderRadius: "sharp",
+      cardStyle: "flat",
     },
   },
   {
@@ -128,6 +138,8 @@ export const THEME_PRESETS: ThemePreset[] = [
       darkInfo: "#70B8FF",
       darkWarning: "#FFC971",
       darkError: "#FF6B6B",
+      borderRadius: "soft",
+      cardStyle: "flat",
     },
   },
 ];
