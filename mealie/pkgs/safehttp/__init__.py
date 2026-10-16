@@ -13,6 +13,7 @@ from .transport import (
     SafeTransport,
     is_blocked_ip,
     post,
+    resolve_and_validate_host,
 )
 
 __all__ = [
@@ -22,6 +23,7 @@ __all__ = [
     "InvalidDomainError",
     "is_blocked_ip",
     "post",
+    "resolve_and_validate_host",
     "BROWSER_IMPERSONATIONS",
     "SCRAPER_TIMEOUT",
     "FetchResult",

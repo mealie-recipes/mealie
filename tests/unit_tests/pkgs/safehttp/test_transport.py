@@ -239,3 +239,36 @@ def test_pin_and_proxy_options_coexist(monkeypatch):
     options = transport._session.curl_options
     assert options[CurlOpt.RESOLVE] == ["example.test:443:93.184.216.34"]
     assert options[CurlOpt.NOPROXY] == ""
+
+
+# resolve_and_validate_host: the standalone, non-httpx counterpart to _validate, used by callers
+# (e.g. the Apprise SSRF guard) that aren't making an httpx request at all.
+
+
+def test_resolve_and_validate_host_blocks_private_address(monkeypatch):
+    _patch_resolver(monkeypatch, ["10.0.0.5"])
+    with pytest.raises(InvalidDomainError):
+        safehttp.resolve_and_validate_host("evil.example", 443)
+
+
+def test_resolve_and_validate_host_allows_public_address(monkeypatch):
+    _patch_resolver(monkeypatch, ["93.184.216.34"])
+    ips = safehttp.resolve_and_validate_host("example.test", 443)
+    assert ips == [ipaddress.ip_address("93.184.216.34")]
+
+
+def test_resolve_and_validate_host_ip_literal_metadata_blocked():
+    with pytest.raises(InvalidDomainError):
+        safehttp.resolve_and_validate_host("169.254.169.254", 80)
+
+
+def test_resolve_and_validate_host_deny_list_blocks_public_host(monkeypatch):
+    _patch_resolver(monkeypatch, ["93.184.216.34"])
+    with pytest.raises(InvalidDomainError):
+        safehttp.resolve_and_validate_host("blocked.example", 443, deny_hosts=["blocked.example"])
+
+
+def test_resolve_and_validate_host_allow_list_bypasses_block(monkeypatch):
+    _patch_resolver(monkeypatch, ["10.0.0.5"])
+    ips = safehttp.resolve_and_validate_host("internal.example", 443, allow_hosts=["internal.example"])
+    assert ips == [ipaddress.ip_address("10.0.0.5")]

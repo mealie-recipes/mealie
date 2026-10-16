@@ -74,6 +74,55 @@ def _matches(host: str, ips: Sequence[IPAddress], hosts: set[str], networks: lis
     return False
 
 
+def resolve_and_validate_host(
+    host: str,
+    port: int,
+    *,
+    allow_hosts: Sequence[str] = (),
+    deny_hosts: Sequence[str] = (),
+) -> list[IPAddress]:
+    """Resolve `host` and raise InvalidDomainError if it's not a safe outbound target.
+
+    The host-validation half of `_SafeTransportMixin._validate`, usable on its own by callers
+    that aren't making an httpx request at all (e.g. validating an Apprise notification URL
+    before handing it to Apprise's own, unprotected networking).
+    """
+    try:
+        literal: IPAddress | None = ipaddress.ip_address(host)
+    except ValueError:
+        literal = None
+
+    if literal is not None:
+        ips: list[IPAddress] = [literal]
+    else:
+        try:
+            infos = socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
+        except (socket.gaierror, UnicodeError) as e:
+            # An unencodable hostname (e.g. an over-long label) raises UnicodeError, not
+            # gaierror. Either way the host is unusable, so it fails as an invalid domain.
+            raise InvalidDomainError(f"could not resolve host: {host}") from e
+
+        ips = []
+        seen: set[str] = set()
+        for info in infos:
+            addr = str(info[4][0]).split("%")[0]  # drop any IPv6 scope id
+            if addr not in seen:
+                seen.add(addr)
+                ips.append(ipaddress.ip_address(addr))
+
+    deny_hosts_set, deny_networks = _parse_host_list(deny_hosts)
+    if _matches(host, ips, deny_hosts_set, deny_networks):
+        raise InvalidDomainError(f"request blocked by disallow list: {host}")
+
+    allow_hosts_set, allow_networks = _parse_host_list(allow_hosts)
+    if not _matches(host, ips, allow_hosts_set, allow_networks):
+        for ip in ips:
+            if is_blocked_ip(ip):
+                raise InvalidDomainError(f"invalid request on local resource: {host} -> {ip}")
+
+    return ips
+
+
 class _SafeTransportMixin:
     """
     Shared SSRF protection for the sync and async curl transports.
