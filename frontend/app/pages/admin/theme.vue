@@ -112,6 +112,7 @@
 </template>
 
 <script setup lang="ts">
+import { useTheme } from "vuetify";
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
 import { THEME_PRESETS, type ThemePreset } from "~/composables/use-theme-presets";
@@ -122,6 +123,7 @@ definePageMeta({ layout: "admin" });
 const { $globals } = useNuxtApp();
 const i18n = useI18n();
 const adminApi = useAdminApi();
+const vuetifyTheme = useTheme();
 
 const form = ref<AppTheme | null>(null);
 const saving = ref(false);
@@ -133,12 +135,38 @@ function previewColors(preset: ThemePreset): string[] {
   return [theme.lightPrimary, theme.lightAccent, theme.lightSecondary, theme.lightSuccess];
 }
 
+// The theme colors are otherwise only read once, when Vuetify itself is created
+// (see plugins/theme.ts) - saving new ones here wouldn't be visible in this same tab without
+// this, even though they're already persisted and other tabs/users will pick them up on their
+// next load.
+function applyThemeLive(appTheme: AppTheme) {
+  Object.assign(vuetifyTheme.themes.value.light.colors, {
+    primary: appTheme.lightPrimary,
+    accent: appTheme.lightAccent,
+    secondary: appTheme.lightSecondary,
+    success: appTheme.lightSuccess,
+    info: appTheme.lightInfo,
+    warning: appTheme.lightWarning,
+    error: appTheme.lightError,
+  });
+  Object.assign(vuetifyTheme.themes.value.dark.colors, {
+    primary: appTheme.darkPrimary,
+    accent: appTheme.darkAccent,
+    secondary: appTheme.darkSecondary,
+    success: appTheme.darkSuccess,
+    info: appTheme.darkInfo,
+    warning: appTheme.darkWarning,
+    error: appTheme.darkError,
+  });
+}
+
 async function applyPreset(preset: ThemePreset) {
   applyingPreset.value = preset.key;
   const { data } = await adminApi.theme.update(preset.theme);
   applyingPreset.value = null;
   if (data) {
     form.value = data;
+    applyThemeLive(data);
     alert.success(i18n.t("admin.theme.preset-applied", { name: i18n.t(preset.labelKey) }));
   }
   else {
@@ -181,6 +209,7 @@ async function save() {
   saving.value = false;
   if (data) {
     form.value = data;
+    applyThemeLive(data);
     alert.success(i18n.t("admin.theme.saved"));
   }
   else {
@@ -193,6 +222,9 @@ async function reset() {
   await adminApi.theme.reset();
   resetting.value = false;
   await load();
+  if (form.value) {
+    applyThemeLive(form.value);
+  }
   alert.success(i18n.t("admin.theme.reset-done"));
 }
 
