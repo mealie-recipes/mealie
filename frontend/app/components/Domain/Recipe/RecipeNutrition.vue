@@ -28,6 +28,15 @@
         v-if="showViewer"
         class="nutrition-list px-4 pb-2"
       >
+        <v-switch
+          v-if="weightEstimate.matched > 0"
+          v-model="autoCalculate"
+          :label="$t('recipe.nutrition-auto-calculate')"
+          density="compact"
+          color="primary"
+          hide-details
+          class="mb-1"
+        />
         <div
           v-for="(item, key, index) in primaryList"
           :key="`primary-${index}`"
@@ -57,14 +66,25 @@
         >
           {{ showSecondary ? $t("recipe.nutrition-less-details") : $t("recipe.nutrition-more-details") }}
         </v-btn>
+        <div
+          v-if="autoCalculate"
+          class="text-caption text-medium-emphasis mt-2"
+        >
+          {{ $t('recipe.nutrition-auto-calculate-hint', {
+            matched: weightEstimate.matched,
+            total: weightEstimate.total,
+            weight: weightEstimate.grams.toFixed(0),
+            perServing: weightPerServing.toFixed(0),
+          }) }}
+        </div>
       </div>
     </v-card>
   </div>
 </template>
 
 <script setup lang="ts">
-import { parseNutritionValue, useNutritionLabels } from "~/composables/recipes";
-import type { Nutrition } from "~/lib/api/types/recipe";
+import { estimateNutritionPer100g, estimateRecipeWeightGrams, parseNutritionValue, useNutritionLabels } from "~/composables/recipes";
+import type { Nutrition, RecipeIngredient } from "~/lib/api/types/recipe";
 import type { NutritionLabelType } from "~/composables/recipes/use-recipe-nutrition";
 
 // The four macros shown up front, matching how most nutrition labels are read at a glance.
@@ -73,9 +93,13 @@ const PRIMARY_KEYS = ["calories", "proteinContent", "carbohydrateContent", "fatC
 
 interface Props {
   edit?: boolean;
+  ingredients?: RecipeIngredient[];
+  servings?: number;
 }
 const props = withDefaults(defineProps<Props>(), {
   edit: true,
+  ingredients: () => [],
+  servings: 1,
 });
 
 const modelValue = defineModel<Nutrition>({ required: true });
@@ -93,18 +117,31 @@ const valueNotNull = computed(() => {
 
 const showViewer = computed(() => !props.edit && valueNotNull.value);
 const showSecondary = ref(false);
+const autoCalculate = ref(false);
 
 function updateValue(key: number | string, value: number | null) {
   modelValue.value = { ...modelValue.value, [key]: value?.toString() ?? null };
 }
 
+// The nutrition values entered on a recipe are per serving - estimating a recipe's weight from
+// its ingredients gives the whole recipe's weight, so it's divided by the serving count here.
+const weightEstimate = computed(() => estimateRecipeWeightGrams(props.ingredients));
+const weightPerServing = computed(() => weightEstimate.value.grams / (props.servings || 1));
+
+const displayedNutrition = computed(() => {
+  if (!autoCalculate.value) {
+    return modelValue.value;
+  }
+  return estimateNutritionPer100g(modelValue.value, weightPerServing.value);
+});
+
 // Build a new list that only contains nutritional information that has a value
 const renderedList = computed(() => {
   return Object.entries(labels).reduce((item: NutritionLabelType, [key, label]) => {
-    if (modelValue.value[key]?.trim()) {
+    if (displayedNutrition.value[key]?.trim()) {
       item[key] = {
         ...label,
-        value: modelValue.value[key],
+        value: displayedNutrition.value[key],
       };
     }
     return item;

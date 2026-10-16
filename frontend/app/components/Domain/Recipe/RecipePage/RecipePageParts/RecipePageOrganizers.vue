@@ -73,6 +73,8 @@
       v-model="recipe.nutrition"
       class="mt-4"
       :edit="isEditForm"
+      :ingredients="recipe.recipeIngredient"
+      :servings="recipe.recipeServings"
     />
     <RecipeAssets
       v-if="recipe.settings.showAssets"
