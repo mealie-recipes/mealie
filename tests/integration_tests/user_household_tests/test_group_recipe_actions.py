@@ -3,7 +3,9 @@ from uuid import UUID, uuid4
 import pytest
 from fastapi.testclient import TestClient
 
+from mealie.core.config import get_app_settings
 from mealie.pkgs import safehttp
+from mealie.routes.households import controller_group_recipe_actions
 from mealie.schema.household.group_recipe_action import (
     CreateGroupRecipeAction,
     GroupRecipeActionOut,
@@ -15,10 +17,14 @@ from tests.utils import api_routes, assert_deserialize
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
 
+_real_validate_url = safehttp.validate_url
+
 
 @pytest.fixture(autouse=True)
 def mock_outbound_post(monkeypatch: pytest.MonkeyPatch):
     monkeypatch.setattr(safehttp, "post", lambda *args, **kwargs: None)
+    # the default action URLs point at example.com; skip the DNS lookup of the target check
+    monkeypatch.setattr(safehttp, "validate_url", lambda *args, **kwargs: None)
 
 
 def create_action(action_type: GroupRecipeActionType = GroupRecipeActionType.link) -> CreateGroupRecipeAction:
@@ -194,6 +200,51 @@ def test_group_recipe_actions_trigger_invalid_type(api_client: TestClient, uniqu
     )
 
     assert response.status_code == 400
+
+
+def _trigger_post_action(api_client: TestClient, user: TestUser, url: str):
+    action = save_action(user, GroupRecipeActionType.post).model_copy(update={"url": url})
+    recipe_action = user.repos.group_recipe_actions.create(action)
+    recipe = user.repos.recipes.create(new_recipe(user))
+    return api_client.post(
+        api_routes.households_recipe_actions_item_id_trigger_recipe_slug(recipe_action.id, recipe.slug),
+        headers=user.token,
+        json={"recipe_scale": 1.0},
+    )
+
+
+@pytest.mark.parametrize("url", ["http://127.0.0.1:8742/", "http://192.168.1.10/hook", "http://[::1]/"])
+def test_group_recipe_actions_trigger_post_blocked_target(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch, url: str
+):
+    # IP literals need no DNS lookup, so the real check can run here
+    monkeypatch.setattr(safehttp, "validate_url", _real_validate_url)
+    sent = []
+    monkeypatch.setattr(safehttp, "post", lambda *args, **kwargs: sent.append(kwargs))
+
+    response = _trigger_post_action(api_client, unique_user, url)
+
+    # previously this was accepted with 202 and the background POST was dropped silently
+    assert response.status_code == 400
+    assert "HTTP_ALLOW_LIST" in response.json()["detail"]["message"]
+    assert sent == []
+
+
+def test_group_recipe_actions_trigger_post_allow_listed_target(
+    api_client: TestClient, unique_user: TestUser, monkeypatch: pytest.MonkeyPatch
+):
+    monkeypatch.setattr(safehttp, "validate_url", _real_validate_url)
+    settings = get_app_settings().model_copy(update={"HTTP_ALLOW_LIST": "127.0.0.1"})
+    monkeypatch.setattr(controller_group_recipe_actions, "get_app_settings", lambda: settings)
+    sent = []
+    monkeypatch.setattr(safehttp, "post", lambda *args, **kwargs: sent.append(kwargs))
+
+    response = _trigger_post_action(api_client, unique_user, "http://127.0.0.1:8742/")
+
+    assert response.status_code == 202
+    assert len(sent) == 1
+    assert sent[0]["url"] == "http://127.0.0.1:8742/"
+    assert sent[0]["allow_hosts"] == ["127.0.0.1"]
 
 
 @pytest.mark.parametrize(
