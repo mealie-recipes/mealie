@@ -110,6 +110,13 @@ export class RecipeAPI extends BaseCRUDAPI<CreateRecipe, Recipe, RecipeIn> {
     return await this.requests.get<PaginationData<Recipe>>(route(routes.recipesBase, rsq));
   }
 
+  async exportRaw(slug: string) {
+    return await this.requests.get<Record<string, unknown>>(
+      `${routes.recipesRecipeSlug(encodeURIComponent(slug))}/exports`,
+      { template_name: "raw" },
+    );
+  }
+
   async getAllByCategory(categories: string[]) {
     return await this.requests.get<Recipe[]>(routes.recipesCategory, {
       categories,

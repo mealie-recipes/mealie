@@ -41,6 +41,16 @@ You can access these options on your installation at the `/group/migrations` pag
 [Import Demo](https://demo.mealie.io/group/migrations){ .md-button .md-button--primary }
 
 
+### Sharing a recipe file
+
+Signed-in users can choose **Share recipe file** from a recipe's action menu. Mealie prepares the file using the existing, authenticated raw JSON export endpoint; this does not create a public recipe link or change access permissions. Once the file is ready, choose **Share recipe file** again to open the operating system's share picker, or **Download JSON** to save it.
+
+File sharing requires a secure context (normally HTTPS), browser support, and a compatible installed share target. Some browsers or apps reject JSON files even when they support sharing other files. If sharing is unsupported or fails, Mealie shows a message without downloading anything. Cancelling the share picker does **not** trigger a download or an error message. **Download JSON** remains a separate, explicit choice. Browsers may treat HTTP loopback addresses as secure; ordinary HTTP installations can use the explicit download button.
+
+The file uses Mealie's JSON recipe field names, not schema.org JSON-LD. It preserves ingredients, instructions, recipe timing, yields, nutrition, notes, categories, tags and tools. It omits account/household/group ownership, comments, settings, arbitrary extras, ratings/history, images and attachments. It is therefore a recipe-content export, **not a complete backup or a byte-for-byte copy of the raw export**. Recipe IDs and ingredient references are retained. Review the recipe content, notes and source URL before sending: a recipient's copy cannot be revoked, and user-entered recipe text may itself contain private information.
+
+The share button runs directly from your click after preparation, as required by browser security. Mealie sends only the file to the share picker: no authorization headers, access tokens, public share token, cloud relay or AI service. The operating system controls which apps appear; this does not automatically open a website, register a receiving app, or guarantee that any particular app can import Mealie JSON.
+
 ### Organizing Recipes
 
 Mealie has a robust and flexible recipe organization system with a few different ways to organize your recipes in a way that fits your household.
