@@ -18,6 +18,39 @@
       {{ $t("admin.theme.description") }}
     </v-card-text>
 
+    <v-card-text class="pt-0">
+      <div class="text-subtitle-1 mb-1">
+        {{ $t("admin.theme.presets") }}
+      </div>
+      <div class="text-body-2 text-medium-emphasis mb-3">
+        {{ $t("admin.theme.presets-description") }}
+      </div>
+      <div class="d-flex flex-wrap ga-3">
+        <v-card
+          v-for="preset in THEME_PRESETS"
+          :key="preset.key"
+          variant="outlined"
+          class="preset-card pa-3"
+          :loading="applyingPreset === preset.key"
+          @click="applyPreset(preset)"
+        >
+          <div class="d-flex ga-1 mb-2">
+            <span
+              v-for="color in previewColors(preset)"
+              :key="color"
+              class="preset-swatch"
+              :style="{ backgroundColor: color }"
+            />
+          </div>
+          <div class="text-body-2">
+            {{ $t(preset.labelKey) }}
+          </div>
+        </v-card>
+      </div>
+    </v-card-text>
+
+    <v-divider class="my-4" />
+
     <v-form
       v-if="form"
       @submit.prevent="save"
@@ -81,6 +114,7 @@
 <script setup lang="ts">
 import { useAdminApi } from "~/composables/api";
 import { alert } from "~/composables/use-toast";
+import { THEME_PRESETS, type ThemePreset } from "~/composables/use-theme-presets";
 import type { AppTheme } from "~/lib/api/types/non-generated";
 
 definePageMeta({ layout: "admin" });
@@ -92,6 +126,25 @@ const adminApi = useAdminApi();
 const form = ref<AppTheme | null>(null);
 const saving = ref(false);
 const resetting = ref(false);
+const applyingPreset = ref<string | null>(null);
+
+function previewColors(preset: ThemePreset): string[] {
+  const { theme } = preset;
+  return [theme.lightPrimary, theme.lightAccent, theme.lightSecondary, theme.lightSuccess];
+}
+
+async function applyPreset(preset: ThemePreset) {
+  applyingPreset.value = preset.key;
+  const { data } = await adminApi.theme.update(preset.theme);
+  applyingPreset.value = null;
+  if (data) {
+    form.value = data;
+    alert.success(i18n.t("admin.theme.preset-applied", { name: i18n.t(preset.labelKey) }));
+  }
+  else {
+    alert.error(i18n.t("admin.theme.preset-apply-failed"));
+  }
+}
 
 const sections = [
   { key: "light", title: i18n.t("admin.theme.light-mode") },
@@ -154,5 +207,22 @@ onMounted(load);
   border: none;
   border-radius: 4px;
   flex-shrink: 0;
+}
+
+.preset-card {
+  width: 140px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.preset-card:hover {
+  transform: translateY(-2px);
+}
+
+.preset-swatch {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: inline-block;
 }
 </style>

@@ -1199,7 +1199,17 @@
       "reset-to-defaults": "Reset to Defaults",
       "saved": "Theme saved",
       "save-failed": "Failed to save the theme",
-      "reset-done": "Theme reset to the server defaults"
+      "reset-done": "Theme reset to the server defaults",
+      "presets": "Presets",
+      "presets-description": "Pick a ready-made palette to apply instantly, then fine-tune the colors below if you like.",
+      "preset-applied": "{name} theme applied",
+      "preset-apply-failed": "Failed to apply the theme",
+      "preset-ocean-breeze": "Ocean Breeze",
+      "preset-forest-canopy": "Forest Canopy",
+      "preset-sunset-blvd": "Sunset Blvd",
+      "preset-lavender-fields": "Lavender Fields",
+      "preset-slate-modern": "Slate Modern",
+      "preset-midnight-indigo": "Midnight Indigo"
     }
   },
   "profile": {
