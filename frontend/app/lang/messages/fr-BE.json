@@ -1063,7 +1063,19 @@
       "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
       "merge-tool-example": "Merging {tool1} into {tool2}",
       "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
-      "no-unused-tools": "No unused tools to delete"
+      "no-unused-tools": "No unused tools to delete",
+      "seed-dialog-text": "Préremplir la base avec un catalogue de départ d'ustensiles et d'appareils de cuisine courants, classés par famille et catégorie.",
+      "seed-dialog-warning": "Vous avez déjà des éléments dans votre base. Un nouvel élément ne sera pas ajouté si un élément du même nom existe déjà.",
+      "family": "Famille",
+      "category": "Catégorie",
+      "brand": "Marque",
+      "model": "Modèle",
+      "family-small-appliance": "Petit électroménager",
+      "family-large-appliance": "Gros électroménager",
+      "family-manual-tool": "Ustensile manuel",
+      "family-cookware": "Casserole & poêle",
+      "family-bakeware": "Moule & plaque de four",
+      "family-other": "Autre"
     }
   },
   "user-registration": {
