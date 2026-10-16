@@ -412,6 +412,14 @@
     "an-error-occurred": "An error occurred"
   },
   "recipe": {
+    "step-duration-minutes": "Duration (minutes)",
+    "step-duration-invalid": "Enter minutes equivalent to whole seconds, between 0 and 2147483647 seconds",
+    "step-duration-placeholder": "Minutes",
+    "step-duration-add": "Add time",
+    "step-duration-value-seconds": "{seconds}s",
+    "step-duration-value": "{hours}h {minutes}m",
+    "step-duration-value-hours": "{hours}h",
+    "step-duration-value-minutes": "{minutes}m",
     "add-to-favorites": "Add to Favorites",
     "api-extras": "API Extras",
     "calories": "Calories",

@@ -36,6 +36,7 @@ class RecipeInstruction(SqlAlchemyBase):
     title: Mapped[str | None] = mapped_column(String)  # This is the section title
     text: Mapped[str | None] = mapped_column(String)
     summary: Mapped[str | None] = mapped_column(String)
+    duration_seconds: Mapped[int | None] = mapped_column(Integer)
 
     ingredient_references: Mapped[list[RecipeIngredientRefLink]] = orm.relationship(
         RecipeIngredientRefLink, cascade="all, delete-orphan"
