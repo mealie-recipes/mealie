@@ -102,7 +102,7 @@ class AIRecipeService(RecipeService):
         )
 
         result = await RecipeImportWorkflow().run(ctx)
-        return await finalize_scraped_recipe(result.recipe, self.translator, on_progress=on_progress)
+        return await finalize_scraped_recipe(result.recipe, self.translator, repos=self.repos, on_progress=on_progress)
 
     @staticmethod
     def _store_images(images: list[UploadFile], temp_path: Path) -> list[Path]:
