@@ -61,6 +61,7 @@ class Category(SqlAlchemyBase, BaseMixins):
     id: FilterableColumn[GUID] = mapped_column(GUID, primary_key=True, default=GUID.generate)
     name: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
     slug: FilterableColumn[str] = mapped_column(sa.String, index=True, nullable=False)
+    color: FilterableColumn[str] = mapped_column(sa.String(10), nullable=False, default="")
     recipe_count: Mapped[int] = query_expression(default_expr=literal(0))
     recipes: Mapped[list[RecipeModel]] = orm.relationship(
         "RecipeModel", secondary=recipes_to_categories, back_populates="recipe_category"
@@ -71,7 +72,8 @@ class Category(SqlAlchemyBase, BaseMixins):
         assert name != ""
         return name
 
-    def __init__(self, name, group_id, **_) -> None:
+    def __init__(self, name, group_id, color: str = "", **_) -> None:
         self.group_id = group_id
         self.name = name.strip()
         self.slug = slugify(name)
+        self.color = color

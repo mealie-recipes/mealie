@@ -65,6 +65,7 @@ class RecipeTag(MealieModel):
     group_id: UUID4 | None = None
     name: str
     slug: str
+    color: str = ""
     recipe_count: int = 0
 
     _searchable_properties: ClassVar[list[str]] = ["name"]

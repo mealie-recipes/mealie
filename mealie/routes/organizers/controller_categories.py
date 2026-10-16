@@ -21,6 +21,7 @@ class CategorySummary(BaseModel):
     id: UUID4
     slug: str
     name: str
+    color: str = ""
     model_config = ConfigDict(from_attributes=True)
 
 

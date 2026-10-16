@@ -8,6 +8,7 @@ from mealie.schema._mealie import MealieModel
 
 class CategoryIn(MealieModel):
     name: str
+    color: str = ""
 
 
 class CategorySave(CategoryIn):

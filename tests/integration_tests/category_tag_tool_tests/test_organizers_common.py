@@ -82,6 +82,50 @@ def test_organizers_create_read(api_client: TestClient, unique_user: TestUser, r
     assert response.status_code == 200
 
 
+color_routes = [
+    (Categories),
+    (Tags),
+]
+
+
+@pytest.mark.parametrize("route", color_routes, ids=["category", "tags"])
+def test_organizer_color_create_update(
+    api_client: TestClient,
+    unique_user: TestUser,
+    route: RoutesBase,
+):
+    # color is optional on create
+    response = api_client.post(
+        route.base, json={"name": random_string(10), "color": "#ff0000"}, headers=unique_user.token
+    )
+    assert response.status_code == 201
+    item = response.json()
+    item_id = item["id"]
+    assert item["color"] == "#ff0000"
+
+    # default is the empty string (frontend renders the theme accent instead)
+    response = api_client.post(route.base, json={"name": random_string(10)}, headers=unique_user.token)
+    assert response.status_code == 201
+    default_item = response.json()
+    default_item_id = default_item["id"]
+    assert default_item["color"] == ""
+
+    # color survives a read and can be updated
+    response = api_client.get(route.item(item_id), headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["color"] == "#ff0000"
+
+    item["color"] = "#00ff00"
+    response = api_client.put(route.item(item_id), json=item, headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["color"] == "#00ff00"
+
+    response = api_client.delete(route.item(item_id), headers=unique_user.token)
+    assert response.status_code == 200
+    response = api_client.delete(route.item(default_item_id), headers=unique_user.token)
+    assert response.status_code == 200
+
+
 update_data = [
     (Categories, {"name": random_string(10)}),
     (Tags, {"name": random_string(10)}),
