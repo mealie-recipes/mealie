@@ -489,6 +489,7 @@ export interface RecipeStep {
   text: string;
   ingredientReferences?: IngredientReferences[];
   noteReferences?: NoteReference[];
+  durationSeconds?: number | null;
 }
 export interface IngredientReferences {
   referenceId?: string | null;
