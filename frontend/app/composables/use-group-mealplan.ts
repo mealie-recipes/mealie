@@ -1,7 +1,14 @@
 import { format } from "date-fns";
 import { useAsyncKey } from "./use-utils";
 import { useUserApi } from "~/composables/api";
-import type { CreatePlanEntry, PlanEntryType, ReadPlanEntry, RecipeSummary, UpdatePlanEntry } from "~/lib/api/types/meal-plan";
+import type {
+  CreatePlanEntry,
+  PlanEntryType,
+  ReadPlanEntry,
+  RecipeSummary,
+  ReorderPlanEntriesByDay,
+  UpdatePlanEntry,
+} from "~/lib/api/types/meal-plan";
 
 type PlanOption = {
   text: string;
@@ -31,7 +38,7 @@ export interface DateRange {
 }
 export type DaySection = {
   title: string;
-  meals: ReadPlanEntry[];
+  meals: [ReadPlanEntry, ...ReadPlanEntry[]];
 };
 
 export type ScaledRecipe = RecipeSummary & { scale: number };
@@ -128,6 +135,13 @@ export const useMealplans = function (range: Ref<DateRange>) {
       if (data) {
         this.refreshAll();
       }
+      loading.value = false;
+    },
+
+    async reorder(days: ReorderPlanEntriesByDay[]) {
+      loading.value = true;
+      await api.mealplans.reorder(days);
+      await this.refreshAll();
       loading.value = false;
     },
 

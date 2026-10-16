@@ -1,7 +1,7 @@
 import datetime
 from typing import TYPE_CHECKING
 
-from sqlalchemy import Column, Date, Float, ForeignKey, String, Table, UniqueConstraint, orm
+from sqlalchemy import Column, Date, Float, ForeignKey, Integer, String, Table, UniqueConstraint, orm
 from sqlalchemy.ext.associationproxy import AssociationProxy, association_proxy
 from sqlalchemy.orm import Mapped, mapped_column
 
@@ -56,6 +56,7 @@ class GroupMealPlan(SqlAlchemyBase, BaseMixins):
     __tablename__ = "group_meal_plans"
 
     date: FilterableColumn[datetime.date] = mapped_column(Date, index=True, nullable=False)
+    position: FilterableColumn[int] = mapped_column(Integer, nullable=False, default=0)
     entry_type: FilterableColumn[str] = mapped_column(String, index=True, nullable=False)
     title: FilterableColumn[str] = mapped_column(String, index=True, nullable=False)
     text: FilterableColumn[str] = mapped_column(String, nullable=False)

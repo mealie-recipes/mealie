@@ -31,6 +31,11 @@ class CreateRandomEntry(MealieModel):
     entry_type: PlanEntryType = PlanEntryType.dinner
 
 
+class ReorderPlanEntriesByDay(MealieModel):
+    date: date
+    entry_ids: list[int]
+
+
 class CreatePlanEntry(MealieModel):
     date: date
     entry_type: PlanEntryType = PlanEntryType.breakfast
@@ -62,6 +67,7 @@ class SavePlanEntry(CreatePlanEntry):
 
 class ReadPlanEntry(UpdatePlanEntry):
     household_id: UUID
+    position: int
     recipe: RecipeSummary | None = None
     model_config = ConfigDict(from_attributes=True)
 
