@@ -209,6 +209,8 @@ def test_create_from_images(
     assert ai.requested_schemas[:2] == ["OpenAICompiledSource", "OpenAIRecipe"]
 
     recipe = api_client.get(api_routes.recipes_slug(slug), headers=unique_user.token).json()
+    # the uploaded image is the recipe's cover, not just a file on disk
+    assert recipe["image"]
     r = api_client.get(
         api_routes.media_recipes_recipe_id_images_file_name(recipe["id"], "original.webp"),
         headers=unique_user.token,
