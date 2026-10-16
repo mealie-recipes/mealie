@@ -3,9 +3,11 @@ from uuid import UUID
 import pytest
 from fastapi.testclient import TestClient
 from pydantic import UUID4
+from sqlalchemy.orm import Session
 
 from mealie.repos.repository_factory import AllRepositories
 from mealie.schema.recipe.recipe import Recipe
+from tests.fixtures.fixture_users import _unique_user
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -142,6 +144,24 @@ def test_user_can_comment_on_other_household(api_client: TestClient, unique_reci
     response = api_client.get(api_routes.comments_item_id(comment_id), headers=h2_user.token)
 
     assert response.status_code == 404
+
+
+def test_user_cannot_comment_on_other_groups_recipe(
+    api_client: TestClient, session: Session, unique_recipe: Recipe, unique_user: TestUser
+) -> None:
+    # a user in a completely different group must not be able to attach a comment to someone
+    # else's recipe just by guessing/knowing its id - recipe_id is a client-supplied FK and
+    # comments are deliberately group- (not household-) scoped, so this must be checked
+    # explicitly rather than relying on the repo's own filtering
+    attacker = next(_unique_user(session, api_client))
+    create_data = random_comment(unique_recipe.id)
+
+    response = api_client.post(api_routes.comments, json=create_data, headers=attacker.token)
+    assert response.status_code == 404
+
+    response = api_client.get(api_routes.recipes_slug_comments(unique_recipe.slug), headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json() == []
 
 
 @pytest.mark.parametrize("text", ["", "   ", "\n\t  \n"])
