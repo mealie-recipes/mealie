@@ -3,6 +3,7 @@ from uuid import UUID
 
 from fastapi.testclient import TestClient
 
+from mealie.core.config import get_app_settings
 from mealie.schema.household.household_preferences import UpdateHouseholdPreferences
 from mealie.schema.meal_plan.new_meal import CreatePlanEntry
 from mealie.schema.recipe.recipe import Recipe
@@ -71,7 +72,8 @@ def test_ical_feed(api_client: TestClient, unique_user_fn_scoped: TestUser, h2_u
     feed = unfold(feed)
     assert feed.count("BEGIN:VEVENT") == 2
     assert f"SUMMARY:Dinner: {recipe.name}\r\n" in feed
-    assert f"URL:http://localhost:8080/g/{group.slug}/r/{recipe.slug}\r\n" in feed
+    base_url = get_app_settings().BASE_URL
+    assert f"URL:{base_url}/g/{group.slug}/r/{recipe.slug}\r\n" in feed
     assert f"DTSTART;VALUE=DATE:{JULY_1:%Y%m%d}\r\nDTEND;VALUE=DATE:{JULY_2:%Y%m%d}\r\n" in feed
     assert "SUMMARY:Lunch: Leftovers\\, again\\; sorry\r\n" in feed
 
