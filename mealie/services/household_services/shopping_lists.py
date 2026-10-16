@@ -1,5 +1,6 @@
 from typing import cast
 
+from fastapi import HTTPException, status
 from pydantic import UUID4
 from sqlalchemy import select
 
@@ -245,6 +246,15 @@ class ShoppingListService:
         Create a list of items, merging into existing ones where possible.
         Optionally try to find a label for each item if one isn't provided using the item's food data or display name.
         """
+
+        # shopping_list_id is client-supplied; create_many has no tenant scoping of its own (it
+        # just inserts whatever FK it's given), so an unchecked id from another group/household
+        # would let a user write items into a shopping list they can't see. self.shopping_lists
+        # is scoped to the caller's own group/household, so a ShoppingList that doesn't resolve
+        # through it either doesn't exist or isn't the caller's to write to.
+        for shopping_list_id in {item.shopping_list_id for item in create_items}:
+            if self.shopping_lists.get_one(shopping_list_id) is None:
+                raise HTTPException(status.HTTP_404_NOT_FOUND, detail=f"Shopping list {shopping_list_id} not found")
 
         # consolidate items to be created
         consolidated_create_items: list[ShoppingListItemCreate] = []

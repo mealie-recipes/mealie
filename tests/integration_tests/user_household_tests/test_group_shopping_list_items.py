@@ -5,6 +5,7 @@ from uuid import uuid4
 import pytest
 from fastapi.testclient import TestClient
 from pydantic import UUID4
+from sqlalchemy.orm import Session
 
 from mealie.schema.household.group_shopping_list import (
     ShoppingListItemCreate,
@@ -14,6 +15,7 @@ from mealie.schema.household.group_shopping_list import (
 )
 from mealie.schema.recipe.recipe_ingredient import IngredientUnit, SaveIngredientFood
 from tests import utils
+from tests.fixtures.fixture_users import _unique_user
 from tests.utils import api_routes
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -72,6 +74,25 @@ def test_shopping_list_items_create_one(
 
     # Check Item Ids
     assert response_list["listItems"][0]["id"] == created_item_id
+
+
+def test_shopping_list_items_create_rejects_foreign_shopping_list_id(
+    api_client: TestClient, session: Session, unique_user: TestUser, shopping_list: ShoppingListOut
+) -> None:
+    # a user in a completely different group must not be able to write items into someone
+    # else's shopping list just by guessing/knowing its id
+    attacker = next(_unique_user(session, api_client))
+    item = create_item(shopping_list.id)
+
+    response = api_client.post(api_routes.households_shopping_items, json=item, headers=attacker.token)
+    assert response.status_code == 404
+
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    response_list = utils.assert_deserialize(response, 200)
+    assert response_list["listItems"] == []
 
 
 def test_shopping_list_items_create_many(
