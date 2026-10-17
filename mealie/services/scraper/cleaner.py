@@ -336,12 +336,27 @@ def _sanitize_instruction_text(line: str | dict) -> str:
     return clean_line
 
 
+def unwrap_text_node(value: typing.Any) -> typing.Any:
+    """
+    schema.org permits any Text subtype wherever a plain string is expected, so an
+    ingredient may arrive as `{"@type": "PronounceableText", "textValue": "1 cup flour"}`
+    rather than `"1 cup flour"`. Instacart emits these. Returns the inner string when the
+    value is such a wrapper, otherwise returns it untouched.
+    """
+    if isinstance(value, dict) and "textValue" in value:
+        text = value.get("textValue")
+        if isinstance(text, str):
+            return text
+    return value
+
+
 def clean_ingredients(ingredients: list | str | None, default: list | None = None) -> list[str | dict]:
     """
     ingredient attempts to parse the ingredients field from a recipe and return a list of
 
     Supported Structures:
         - `["1 cup flour"]` - A list of strings
+        - `[{"@type": "PronounceableText", "textValue": "1 cup flour"}]` - schema.org Text nodes
         - `"1 cup flour"` - A string
         - `None` - returns an empty list
 
@@ -354,6 +369,7 @@ def clean_ingredients(ingredients: list | str | None, default: list | None = Non
         case list(ingredients):
             cleaned_ingredients: list[str | dict] = []
             for ing in ingredients:
+                ing = unwrap_text_node(ing)
                 if isinstance(ing, dict):
                     cleaned_ingredients.append({clean_string(k): clean_string(v) for k, v in ing.items()})
                 else:
