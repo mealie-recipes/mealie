@@ -17,14 +17,29 @@
         <v-btn
           color="white"
           icon
-          href="https://github.com/mealie-recipes/mealie"
+          :href="$appInfo.legalSourceUrl"
           target="_blank"
+          :aria-label="$t('legal.source-code')"
         >
           <v-icon>
             {{ $globals.icons.github }}
           </v-icon>
         </v-btn>
         {{ new Date().getFullYear() }} — <strong> Mealie </strong>
+        <span class="mx-2">·</span>
+        <nuxt-link
+          class="text-white"
+          to="/legal/mentions-legales"
+        >
+          {{ $t('legal.legal-notice') }}
+        </nuxt-link>
+        <span class="mx-2">·</span>
+        <nuxt-link
+          class="text-white"
+          to="/legal/confidentialite"
+        >
+          {{ $t('legal.privacy-policy') }}
+        </nuxt-link>
       </v-col>
     </v-row>
   </v-footer>

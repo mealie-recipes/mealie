@@ -56,6 +56,9 @@ class AppInfo(MealieModel):
     allowed_iframe_hosts: list[str] = []
     branding_name: str = "Mealie"
     branding_logo_url: str | None = None
+    legal_controller_name: str = ""
+    legal_contact_email: str = ""
+    legal_source_url: str = ""
 
 
 class AppTheme(MealieModel):

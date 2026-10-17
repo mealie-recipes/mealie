@@ -50,6 +50,9 @@ def get_app_info(session: Session = Depends(generate_session)):
         allowed_iframe_hosts=settings.allowed_iframe_hosts,
         branding_name=settings.branding.name,
         branding_logo_url="/api/app/about/branding-logo" if settings.branding.logo_file else None,
+        legal_controller_name=settings.legal.controller_name,
+        legal_contact_email=settings.legal.contact_email,
+        legal_source_url=settings.legal.source_url,
     )
 
 

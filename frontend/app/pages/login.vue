@@ -190,12 +190,22 @@
               {
                 text: $t('about.github'),
                 icon: $globals.icons.github,
-                href: 'https://github.com/mealie-recipes/mealie',
+                href: $appInfo.legalSourceUrl,
               },
               {
                 text: $t('about.docs'),
                 icon: $globals.icons.folderOutline,
                 href: 'https://docs.mealie.io/',
+              },
+              {
+                text: $t('legal.legal-notice'),
+                icon: $globals.icons.informationOutline,
+                href: '/legal/mentions-legales',
+              },
+              {
+                text: $t('legal.privacy-policy'),
+                icon: $globals.icons.lock,
+                href: '/legal/confidentialite',
               },
             ]"
             :key="link.text"
