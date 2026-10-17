@@ -1,9 +1,12 @@
 import json
+from datetime import timedelta
 
 import pytest
 from fastapi.testclient import TestClient
 
 from mealie.db.db_setup import session_context
+from mealie.db.models._model_utils.datetime import get_utc_now
+from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.schema.user.user import PrivateUser
 from mealie.services.user_services.password_reset_service import PasswordResetService
 from tests.utils import api_routes
@@ -55,6 +58,28 @@ def test_password_reset(api_client: TestClient, unique_user: TestUser, casing: s
     assert response.status_code == 200
 
     # Test successful password reset
+    response = api_client.post(api_routes.users_reset_password, json=payload)
+    assert response.status_code == 400
+
+
+def test_password_reset_expired_token(api_client: TestClient, unique_user: TestUser):
+    with session_context() as session:
+        service = PasswordResetService(session)
+        token = service.generate_reset_token(unique_user.email)
+        assert token is not None
+
+        model = session.query(PasswordResetModel).filter_by(token=token.token).one()
+        model.created_at = get_utc_now() - timedelta(hours=1)
+        session.commit()
+
+    new_password = random_string(15)
+    payload = {
+        "token": token.token,
+        "email": unique_user.email,
+        "password": new_password,
+        "passwordConfirm": new_password,
+    }
+
     response = api_client.post(api_routes.users_reset_password, json=payload)
     assert response.status_code == 400
 

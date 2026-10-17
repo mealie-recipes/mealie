@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from pydantic import UUID4, ConfigDict
 from sqlalchemy.orm import selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
@@ -33,6 +35,7 @@ class SavePasswordResetToken(MealieModel):
 
 class PrivatePasswordResetToken(SavePasswordResetToken):
     user: PrivateUser
+    created_at: datetime | None = None
     model_config = ConfigDict(from_attributes=True)
 
     @classmethod
