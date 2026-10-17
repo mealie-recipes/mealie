@@ -482,7 +482,7 @@ class ShoppingListService:
                 # since this is the same recipe, we combine the quanities, rather than the scales
                 # all items will have exactly one recipe reference
                 if ingredient.quantity:
-                    existing_item.quantity += ingredient.quantity
+                    existing_item.quantity += ingredient.quantity * scale
                     existing_item.recipe_references[0].recipe_quantity += ingredient.quantity  # type: ignore
 
                 # merge notes

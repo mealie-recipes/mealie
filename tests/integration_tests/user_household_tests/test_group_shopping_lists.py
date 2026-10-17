@@ -1054,6 +1054,51 @@ def test_shopping_list_add_recipe_scale(
         assert refs[0]["recipeScale"] == 1 + recipe_scale
 
 
+def test_shopping_list_add_recipe_scale_merges_duplicate_foods(
+    api_client: TestClient,
+    unique_user: TestUser,
+    shopping_list: ShoppingListOut,
+):
+    database = unique_user.repos
+    food = database.ingredient_foods.create(SaveIngredientFood(name=random_string(10), group_id=unique_user.group_id))
+    recipe: Recipe = database.recipes.create(
+        Recipe(
+            name=random_string(10),
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            recipe_ingredient=[
+                RecipeIngredient(note="batter", food=food, quantity=1),
+                RecipeIngredient(note="topping", food=food, quantity=2),
+            ],
+        )
+    )
+
+    response = api_client.post(
+        api_routes.households_shopping_lists_item_id_recipe(shopping_list.id),
+        json=utils.jsonify(
+            [ShoppingListAddRecipeParamsBulk(recipe_id=recipe.id, recipe_increment_quantity=2).model_dump()]
+        ),
+        headers=unique_user.token,
+    )
+    utils.assert_deserialize(response, 200)
+
+    response = api_client.get(
+        api_routes.households_shopping_lists_item_id(shopping_list.id),
+        headers=unique_user.token,
+    )
+    as_json = utils.assert_deserialize(response, 200)
+
+    assert len(as_json["listItems"]) == 1
+    item = as_json["listItems"][0]
+
+    # both lines are scaled before they are combined
+    assert item["quantity"] == 6
+    refs = item["recipeReferences"]
+    assert len(refs) == 1
+    assert refs[0]["recipeQuantity"] == 3
+    assert refs[0]["recipeScale"] == 2
+
+
 def test_shopping_lists_remove_recipe(
     api_client: TestClient,
     unique_user: TestUser,
