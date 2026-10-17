@@ -443,24 +443,11 @@ function alertOnError(error: any) {
   margin-bottom: -3.5rem;
 }
 
-.icon-avatar {
-  border-color: rgba(0, 0, 0, 0.12);
-  border: 2px;
-}
-
-.bg-off-white {
-  background: #f5f8fa;
-}
-
 .absolute {
   position: absolute;
 }
 
 .div-width {
   max-width: 75%;
-}
-
-.bg-white {
-  background-color: #fff;
 }
 </style>

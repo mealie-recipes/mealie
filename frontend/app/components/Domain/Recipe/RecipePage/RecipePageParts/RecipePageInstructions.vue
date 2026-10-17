@@ -219,7 +219,7 @@
             color="primary"
             class="mt-6 mb-2 d-flex align-center"
             :class="isEditForm ? 'pa-2' : 'pa-3'"
-            style="border-radius: 6px; cursor: pointer; width: 100%;"
+            style="cursor: pointer; width: 100%;"
             @click="toggleCollapseSection(index)"
           >
             <template v-if="isEditForm">

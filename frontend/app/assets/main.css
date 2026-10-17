@@ -18,12 +18,28 @@
 .v-alert,
 .v-text-field .v-field,
 .v-select .v-field,
+.v-autocomplete .v-field,
 .v-textarea .v-field {
   border-radius: var(--mealie-radius) !important;
 }
 
 .theme-flat-cards .v-card {
   box-shadow: none !important;
+}
+
+/* Shared by the auth/setup pages (login, register, admin setup) and AppLogo, which previously
+   each duplicated these exact rules in their own scoped <style>. */
+.icon-avatar {
+  border: 2px;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.bg-off-white {
+  background: #f5f8fa;
+}
+
+.bg-white {
+  background-color: #fff;
 }
 
 /*

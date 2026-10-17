@@ -48,8 +48,4 @@ withDefaults(defineProps<{ size?: number }>(), { size: 75 });
   width: 100%;
   margin-bottom: -2.5rem;
 }
-.icon-avatar {
-  border-color: rgba(0, 0, 0, 0.12);
-  border: 2px;
-}
 </style>

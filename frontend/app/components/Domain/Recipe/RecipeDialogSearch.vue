@@ -222,6 +222,6 @@ defineExpose({
 
 .keyboard-selected {
   outline: 2px solid rgb(var(--v-theme-primary));
-  border-radius: 4px;
+  border-radius: var(--mealie-radius);
 }
 </style>

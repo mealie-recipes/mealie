@@ -73,7 +73,7 @@
                       </v-icon>
                     </v-btn>
                   </template>
-                  <span>Toggle Recipes</span>
+                  <span>{{ $t("shopping-list.toggle-recipes") }}</span>
                 </v-tooltip>
                 <v-btn
                   size="small"
