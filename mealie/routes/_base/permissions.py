@@ -31,9 +31,11 @@ _GRANTED_BY: dict[Perm, Callable[[PrivateUser], bool]] = {
 }
 
 
-def forbidden() -> HTTPException:
+def forbidden(message: str | None = None) -> HTTPException:
     """The caller can see the resource but may not perform the action."""
-    return HTTPException(status.HTTP_403_FORBIDDEN)
+    if message is None:
+        return HTTPException(status.HTTP_403_FORBIDDEN)
+    return HTTPException(status.HTTP_403_FORBIDDEN, detail=ErrorResponse.respond(message=message))
 
 
 def not_found(message: str = "Not found.") -> HTTPException:
@@ -41,14 +43,21 @@ def not_found(message: str = "Not found.") -> HTTPException:
     return HTTPException(status.HTTP_404_NOT_FOUND, detail=ErrorResponse.respond(message=message))
 
 
-class RequirePermission:
+class RouteRequirement:
     """
-    Route dependency that answers 403 unless the current user holds `perm`. The instance stays on the
-    route's dependant, so the permission each route declares can be read back from `app.routes`.
+    Base class for route dependencies that gate access. The instance stays on the route's dependant, so
+    the requirement each route declares can be read back from `app.routes` by its `label`.
     """
+
+    label: str
+
+
+class RequirePermission(RouteRequirement):
+    """Route dependency that answers 403 unless the current user holds `perm`."""
 
     def __init__(self, perm: Perm) -> None:
         self.perm = perm
+        self.label = perm
 
     def __call__(self, user: PrivateUser = Depends(get_current_user)) -> None:
         if not _GRANTED_BY[self.perm](user):

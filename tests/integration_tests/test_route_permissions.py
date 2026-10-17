@@ -7,13 +7,17 @@ from fastapi.routing import APIRoute, iter_route_contexts
 from fastapi.testclient import TestClient
 
 from mealie.app import app
-from mealie.routes._base.permissions import Perm, RequirePermission
+from mealie.routes._base.permissions import Perm, RequirePermission, RouteRequirement
+from mealie.routes.recipe.permissions import RecipeAction
+from mealie.schema.recipe.recipe import Recipe
+from mealie.schema.recipe.recipe_settings import RecipeSettings
 from mealie.schema.user.user import PrivateUser
+from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
-# Every route that declares a permission, grouped by permission. A change here changes who can call a
+# Every route that declares a requirement, grouped by requirement. A change here changes who can call a
 # route, so it should be deliberate and visible in review.
-EXPECTED_ROUTE_PERMISSIONS: dict[Perm, set[str]] = {
+EXPECTED_ROUTE_REQUIREMENTS: dict[str, set[str]] = {
     Perm.GROUP_ORGANIZE: {
         "POST    /api/foods",
         "PUT     /api/foods/merge",
@@ -48,29 +52,44 @@ EXPECTED_ROUTE_PERMISSIONS: dict[Perm, set[str]] = {
         "DELETE  /api/households/mealplans/ical",
         "PUT     /api/households/preferences",
     },
+    RecipeAction.UPDATE: {
+        "PUT     /api/recipes/{slug}",
+        "PATCH   /api/recipes/{slug}",
+        "PUT     /api/recipes/{slug}/image",
+        "DELETE  /api/recipes/{slug}/image",
+    },
+    RecipeAction.DELETE: {
+        "DELETE  /api/recipes/{slug}",
+    },
 }
 
 
-def declared_route_permissions() -> dict[Perm, set[str]]:
+def declared_route_requirements() -> dict[str, set[str]]:
     # FastAPI includes routers lazily, so `app.routes` holds the included routers rather than their routes.
-    declared: dict[Perm, set[str]] = {}
+    declared: dict[str, set[str]] = {}
     for route in iter_route_contexts(app.routes):
         if not isinstance(route.route, APIRoute):
             continue
 
         for dependency in route.dependant.dependencies:
-            if isinstance(dependency.call, RequirePermission):
+            if isinstance(dependency.call, RouteRequirement):
                 for method in route.methods or ():
-                    declared.setdefault(dependency.call.perm, set()).add(f"{method:<8}{route.path}")
+                    declared.setdefault(dependency.call.label, set()).add(f"{method:<8}{route.path}")
 
     return declared
 
 
-def test_routes_declare_expected_permissions():
-    assert declared_route_permissions() == EXPECTED_ROUTE_PERMISSIONS
+def test_routes_declare_expected_requirements():
+    assert declared_route_requirements() == EXPECTED_ROUTE_REQUIREMENTS
 
 
-EXPECTED_ROUTES = sorted(route for routes in EXPECTED_ROUTE_PERMISSIONS.values() for route in routes)
+# Only user permissions: a recipe requirement looks up the recipe first, so a random slug answers 404.
+EXPECTED_ROUTES = sorted(
+    route
+    for requirement, routes in EXPECTED_ROUTE_REQUIREMENTS.items()
+    if isinstance(requirement, Perm)
+    for route in routes
+)
 
 
 def call_route(api_client: TestClient, route: str, user: TestUser):
@@ -89,6 +108,40 @@ def test_route_rejects_user_without_permission(api_client: TestClient, unprivile
 @pytest.mark.parametrize("route", EXPECTED_ROUTES)
 def test_route_allows_user_with_permission(api_client: TestClient, unique_user: TestUser, route: str):
     assert call_route(api_client, route, unique_user).status_code != 403
+
+
+RECIPE_ROUTES = sorted(route for action in RecipeAction for route in EXPECTED_ROUTE_REQUIREMENTS[action])
+
+
+@pytest.fixture(scope="module")
+def locked_recipe(unique_user: TestUser) -> Recipe:
+    return unique_user.repos.recipes.create(
+        Recipe(
+            user_id=unique_user.user_id,
+            group_id=unique_user.group_id,
+            name=random_string(),
+            settings=RecipeSettings(locked=True),
+        )
+    )
+
+
+def call_recipe_route(api_client: TestClient, route: str, recipe: Recipe, user: TestUser):
+    method, path = route.split()
+    return api_client.request(method, path.replace("{slug}", recipe.slug), json={}, headers=user.token)
+
+
+@pytest.mark.parametrize("route", RECIPE_ROUTES)
+def test_recipe_route_rejects_other_user_on_locked_recipe(
+    api_client: TestClient, unprivileged_user: TestUser, locked_recipe: Recipe, route: str
+):
+    assert call_recipe_route(api_client, route, locked_recipe, unprivileged_user).status_code == 403
+
+
+@pytest.mark.parametrize("route", RECIPE_ROUTES)
+def test_recipe_route_hides_recipe_from_other_group(
+    api_client: TestClient, g2_user: TestUser, locked_recipe: Recipe, route: str
+):
+    assert call_recipe_route(api_client, route, locked_recipe, g2_user).status_code == 404
 
 
 @pytest.mark.parametrize(
