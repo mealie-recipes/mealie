@@ -4,11 +4,12 @@ from pydantic import UUID4
 from mealie.core.security import hash_password
 from mealie.core.security.providers.credentials_provider import CredentialsProvider
 from mealie.db.models.users.users import AuthMethod
+from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseUserController, controller
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.response import ErrorResponse, SuccessResponse
-from mealie.schema.user import ChangePassword, UserBase, UserOut
+from mealie.schema.user import ChangePassword, DeleteSelf, UserBase, UserOut
 from mealie.schema.user.user import UserRatings, UserRatingSummary, UserSelfUpdate
 
 user_router = UserAPIRouter(prefix="/users", tags=["Users: CRUD"])
@@ -61,6 +62,27 @@ class UserController(BaseUserController):
             ) from e
 
         return SuccessResponse.respond(self.t("user.password-updated"))
+
+    @user_router.delete("/self")
+    def delete_self(self, data: DeleteSelf):
+        """Permanently deletes the logged-in user's own account (GDPR right to erasure)."""
+        if self.user.auth_method != AuthMethod.LDAP and not CredentialsProvider.verify_password(
+            data.current_password, self.user.password
+        ):
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST, ErrorResponse.respond(self.t("user.invalid-current-password"))
+            )
+
+        if self.user.admin:
+            # Instance-wide, not scoped to this user's group - admin is a superuser flag.
+            all_users = get_repositories(self.session, group_id=None, household_id=None).users.get_all()
+            if sum(1 for u in all_users if u.admin) <= 1:
+                raise HTTPException(
+                    status.HTTP_400_BAD_REQUEST, ErrorResponse.respond(self.t("user.cannot-delete-last-admin"))
+                )
+
+        self.repos.users.delete(self.user.id)
+        return SuccessResponse.respond(self.t("user.account-deleted"))
 
     @user_router.put("/{item_id}")
     def update_user(self, item_id: UUID4, new_data: UserBase):

@@ -219,6 +219,53 @@
         </v-btn>
       </div>
     </section>
+
+    <section>
+      <BaseCardSectionTitle
+        class="mt-10"
+        :title="$t('profile.danger-zone')"
+      />
+      <v-card variant="outlined" style="border-color: lightgrey;">
+        <v-card-text>
+          <p class="mb-3">
+            {{ $t('profile.delete-account-description') }}
+          </p>
+          <v-btn
+            color="error"
+            variant="outlined"
+            @click="deleteAccountDialog = true"
+          >
+            <v-icon start>
+              {{ $globals.icons.delete }}
+            </v-icon>
+            {{ $t('profile.delete-account') }}
+          </v-btn>
+        </v-card-text>
+      </v-card>
+    </section>
+
+    <BaseDialog
+      v-model="deleteAccountDialog"
+      :title="$t('profile.delete-account')"
+      :icon="$globals.icons.alertCircle"
+      color="error"
+      can-confirm
+      @confirm="deleteAccount"
+      @close="deleteAccountPassword = ''"
+    >
+      <v-card-text>
+        <p>{{ $t('profile.delete-account-confirm-text') }}</p>
+        <v-text-field
+          v-if="$appInfo.allowPasswordLogin"
+          v-model="deleteAccountPassword"
+          :prepend-icon="$globals.icons.lock"
+          :label="$t('user.current-password')"
+          type="password"
+          density="comfortable"
+          variant="underlined"
+        />
+      </v-card-text>
+    </BaseDialog>
   </v-container>
 </template>
 
@@ -306,6 +353,16 @@ async function updatePassword() {
   if (response?.status === 200) {
     // The new password invalidates this session server-side, so end it here rather than letting the
     // next request fail its way to the login page.
+    await auth.signOut();
+  }
+}
+
+const deleteAccountDialog = ref(false);
+const deleteAccountPassword = ref("");
+
+async function deleteAccount() {
+  const { response } = await api.users.deleteSelf({ currentPassword: deleteAccountPassword.value });
+  if (response?.status === 200) {
     await auth.signOut();
   }
 }

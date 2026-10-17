@@ -11,6 +11,7 @@ import type {
   UserRatingOut,
   UserRatingSummary,
 } from "~/lib/api/types/user";
+import type { DeleteSelf } from "~/lib/api/types/non-generated";
 
 export interface UserRatingsSummaries {
   ratings: UserRatingSummary[];
@@ -94,5 +95,9 @@ export class UserApi extends BaseCRUDAPI<UserIn, UserOut, UserBase> {
 
   async resetPassword(payload: ResetPassword) {
     return await this.requests.post(routes.passwordReset, payload);
+  }
+
+  async deleteSelf(payload: DeleteSelf) {
+    return await this.requests.delete(routes.usersSelf, { data: payload });
   }
 }

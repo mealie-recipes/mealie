@@ -63,6 +63,10 @@ class ChangePassword(MealieModel):
     new_password: str = Field(..., min_length=8)
 
 
+class DeleteSelf(MealieModel):
+    current_password: str = ""
+
+
 class GroupBase(MealieModel):
     name: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
     model_config = ConfigDict(from_attributes=True)

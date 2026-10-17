@@ -105,3 +105,10 @@ export interface AppTheme {
   fontFamily: ThemeFontFamily;
   fontSize: ThemeFontSize;
 }
+
+// TODO: move to types/user.ts once `task dev:generate` can run again (mirrors
+// mealie.schema.user.user.DeleteSelf) - hand-written because json2ts/pydantic2ts can't run in
+// this environment.
+export interface DeleteSelf {
+  currentPassword?: string;
+}

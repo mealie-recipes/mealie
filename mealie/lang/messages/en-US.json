@@ -62,7 +62,9 @@
         "user-updated": "User updated",
         "password-updated": "Password updated",
         "invalid-current-password": "Invalid current password",
-        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP"
+        "ldap-update-password-unavailable": "Unable to update password, user is controlled by LDAP",
+        "account-deleted": "Account deleted",
+        "cannot-delete-last-admin": "Cannot delete the last administrator account. Promote another user to admin first."
     },
     "group": {
         "report-deleted": "Report deleted."
