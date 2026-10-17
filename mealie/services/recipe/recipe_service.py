@@ -5,12 +5,10 @@ import shutil
 from datetime import UTC, datetime
 from pathlib import Path
 from shutil import copytree, rmtree
-from textwrap import dedent
 from typing import Any
 from uuid import UUID, uuid4
 from zipfile import ZipFile
 
-import sqlalchemy as sa
 from fastapi import UploadFile
 
 from mealie.core import exceptions
@@ -36,6 +34,7 @@ from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from mealie.schema.recipe.request_helpers import RecipeDuplicate
 from mealie.schema.user.user import PrivateUser, UserRatingCreate
 from mealie.services._base_service import BaseService
+from mealie.services.authz.recipes import RecipeAuthorizer, RecipePerm
 from mealie.services.household_services.household_service import HouseholdService
 from mealie.services.parser_services._base import DataMatcher
 from mealie.services.recipe.recipe_data_service import RecipeDataService
@@ -74,70 +73,10 @@ class RecipeService(RecipeServiceBase):
         return recipe
 
     def can_delete(self, recipe_slugs: list[str]) -> bool:
-        if self.user.admin:
-            return True
-
-        # Deletion requires ownership; collaborative editing rules (can_update) do not apply
-        model = self.group_recipes.model
-        owned_count = self.group_recipes.session.scalar(
-            sa.select(sa.func.count())
-            .select_from(model)
-            .where(
-                model.slug.in_(recipe_slugs),
-                model.group_id == self.user.group_id,
-                model.user_id == self.user.id,
-            )
-        )
-        return owned_count == len(recipe_slugs)
+        return RecipeAuthorizer(self.repos.session, self.user).allowed(RecipePerm.DELETE, recipe_slugs)
 
     def can_update(self, recipe_slugs: list[str]) -> bool:
-        if self.user.admin:
-            return True
-
-        sql = dedent(
-            """
-            SELECT
-                CASE
-                    WHEN COUNT(*) = SUM(
-                        CASE
-                            -- User owns the recipe
-                            WHEN r.user_id = :user_id THEN 1
-
-                            -- Not owner: check if recipe is locked
-                            WHEN COALESCE(rs.locked, TRUE) = TRUE THEN 0
-
-                            -- Different household: check household policy
-                            WHEN
-                                u.household_id != :household_id
-                                AND COALESCE(hp.lock_recipe_edits_from_other_households, TRUE) = TRUE
-                            THEN 0
-
-                            -- All other cases: can update
-                            ELSE 1
-                        END
-                    ) THEN 1
-                    ELSE 0
-                END AS all_can_update
-            FROM recipes r
-            LEFT JOIN recipe_settings rs ON rs.recipe_id = r.id
-            LEFT JOIN users u ON u.id = r.user_id
-            LEFT JOIN households h ON h.id = u.household_id
-            LEFT JOIN household_preferences hp ON hp.household_id = h.id
-            WHERE r.slug IN :recipe_slugs AND r.group_id = :group_id;
-            """
-        )
-
-        result = self.repos.session.execute(
-            sa.text(sql).bindparams(sa.bindparam("recipe_slugs", expanding=True)),
-            params={
-                "user_id": self.repos.uuid_to_str(self.user.id),
-                "household_id": self.repos.uuid_to_str(self.household.id),
-                "group_id": self.repos.uuid_to_str(self.user.group_id),
-                "recipe_slugs": recipe_slugs,
-            },
-        ).scalar()
-
-        return bool(result)
+        return RecipeAuthorizer(self.repos.session, self.user).allowed(RecipePerm.UPDATE, recipe_slugs)
 
     def can_lock_unlock(self, recipe: Recipe) -> bool:
         return recipe.user_id == self.user.id
