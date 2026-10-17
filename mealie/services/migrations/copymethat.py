@@ -1,5 +1,4 @@
 import tempfile
-import zipfile
 from datetime import UTC, datetime
 from pathlib import Path
 
@@ -11,7 +10,7 @@ from mealie.services.household_services.household_service import HouseholdServic
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import import_image, safe_local_path
+from .utils.migration_helpers import extract_zip, import_image, safe_local_path
 
 
 def parse_recipe_tags(tags: list) -> list[str]:
@@ -86,8 +85,7 @@ class CopyMeThatMigrator(BaseMigrator):
 
     def _migrate(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
-            with zipfile.ZipFile(self.archive) as zip_file:
-                zip_file.extractall(tmpdir)
+            extract_zip(self.archive, tmpdir)
 
             source_dir = self.get_zip_base_path(Path(tmpdir))
 
