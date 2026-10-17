@@ -6,6 +6,7 @@ from pydantic import UUID4
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import Perm, require
 from mealie.schema import mapper
 from mealie.schema.recipe.recipe import RecipeTool, RecipeToolPagination
 from mealie.schema.recipe.recipe_tool import (
@@ -51,11 +52,9 @@ class RecipeToolController(BaseUserController):
         """Returns a list of tools that are not used by any recipe"""
         return self.repo.get_empty()
 
-    @router.post("/merge", response_model=RecipeToolOut)
+    @router.post("/merge", response_model=RecipeToolOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def merge_tools(self, body: RecipeToolMerge):
         """Merges the from_id tool into the to_id tool, then deletes from_id."""
-        self.checks.can_organize()
-
         if body.from_id == body.to_id:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "from_id and to_id must be different")
 
