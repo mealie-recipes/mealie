@@ -1,4 +1,5 @@
 import errno
+import ipaddress
 import logging
 import socket
 import sys
@@ -105,9 +106,31 @@ def _serve_sockets(config: Config, sockets: list[socket.socket]) -> None:
         sys.exit(STARTUP_FAILURE)
 
 
+def _with_mapped_proxy_ips(allow_ips: str) -> str:
+    extras: list[str] = []
+    for token in (part.strip() for part in allow_ips.split(",")):
+        try:
+            parsed = ipaddress.ip_network(token) if "/" in token else ipaddress.ip_address(token)
+        except ValueError:
+            continue
+        if isinstance(parsed, ipaddress.IPv4Network):
+            extras.append(f"{parsed.network_address.ipv6_mapped}/{96 + parsed.prefixlen}")
+        elif isinstance(parsed, ipaddress.IPv4Address):
+            extras.append(str(parsed.ipv6_mapped))
+    return f"{allow_ips},{','.join(extras)}" if extras else allow_ips
+
+
 def _run_automatic(app: str, port: int, **options: Any) -> None:
-    listener = create_wildcard_listener(port)
     try:
+        listener = create_wildcard_listener(port)
+    except OSError as exc:
+        # Match uvicorn's own bind failure: log the error and exit with STARTUP_FAILURE, no traceback.
+        logger.error(exc)
+        sys.exit(STARTUP_FAILURE)
+    try:
+        allow_ips = options.get("forwarded_allow_ips")
+        if getattr(listener, "family", None) == socket.AF_INET6 and isinstance(allow_ips, str):
+            options["forwarded_allow_ips"] = _with_mapped_proxy_ips(allow_ips)
         config = Config(app, host="", port=port, **options)
     except BaseException:
         listener.close()

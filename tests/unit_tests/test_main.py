@@ -17,6 +17,7 @@ from pathlib import Path
 
 import pytest
 from uvicorn.config import STARTUP_FAILURE, Config
+from uvicorn.middleware.proxy_headers import ProxyHeadersMiddleware
 
 from mealie.core.config import get_app_settings
 from mealie.core.logger.config import log_config
@@ -263,6 +264,7 @@ def test_explicit_api_host_reaches_uvicorn_unchanged(
     host: str, monkeypatch: pytest.MonkeyPatch, restored_settings_cache: None
 ):
     monkeypatch.setenv("API_HOST", host)
+    monkeypatch.setenv("HOST_IP", "127.0.0.1")
     get_app_settings.cache_clear()
     captured: dict[str, object] = {}
 
@@ -350,6 +352,32 @@ def test_automatic_binding_preserves_server_options(monkeypatch: pytest.MonkeyPa
     assert config.ssl_certfile == "/tmp/mealie-cert.pem"
     assert config.ssl_keyfile == "/tmp/mealie-key.pem"
     assert config.log_config == log_config()
+
+
+def test_dualstack_listener_trusts_ipv4_mapped_proxies(monkeypatch: pytest.MonkeyPatch, restored_settings_cache: None):
+    cases = (
+        ("*", socket.AF_INET6, "*"),
+        ("127.0.0.1,10.42.1.0/24", socket.AF_INET6, "127.0.0.1,10.42.1.0/24,::ffff:127.0.0.1,::ffff:10.42.1.0/120"),
+        ("10.9.8.7", socket.AF_INET, "10.9.8.7"),
+    )
+    for host_ip, family, expected in cases:
+        monkeypatch.setenv("API_HOST", "")
+        monkeypatch.setenv("HOST_IP", host_ip)
+        get_app_settings.cache_clear()
+        captured: dict[str, object] = {}
+        listener = type("_Listener", (), {"family": family, "close": lambda self: None})()
+        monkeypatch.setattr("mealie.main.create_wildcard_listener", lambda port, listener=listener: listener)
+        monkeypatch.setattr(
+            "mealie.main._serve_sockets",
+            lambda config, sockets, captured=captured: captured.update(config=config),
+        )
+        main()
+        config = captured["config"]
+        assert isinstance(config, Config)
+        assert config.forwarded_allow_ips == expected
+    trusted = ProxyHeadersMiddleware(asgi_app, trusted_hosts=cases[1][2]).trusted_hosts
+    assert "::ffff:127.0.0.1" in trusted and "::ffff:10.42.1.5" in trusted
+    assert "10.42.1.5" in trusted and "203.0.113.7" not in trusted
 
 
 def test_dualstack_socket_disables_ipv6_only_when_supported():
@@ -514,6 +542,19 @@ def test_occupied_wildcard_port_fails_once_and_does_not_leak(monkeypatch: pytest
             held.close()
 
     _assert_port_is_free(port)
+
+
+def test_automatic_bind_error_logs_and_exits_like_uvicorn(
+    monkeypatch: pytest.MonkeyPatch, caplog: pytest.LogCaptureFixture
+):
+    def occupied(port: int) -> socket.socket:
+        raise OSError(errno.EADDRINUSE, "Address already in use")
+
+    monkeypatch.setattr("mealie.main.create_wildcard_listener", occupied)
+    with caplog.at_level("ERROR", logger="mealie.main"), pytest.raises(SystemExit) as caught:
+        _run_server(_ASGI_APP, host="", port=9000)
+    assert caught.value.code == STARTUP_FAILURE
+    assert "Address already in use" in caplog.text
 
 
 def test_normal_shutdown_closes_owned_socket():
