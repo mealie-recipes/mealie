@@ -14,6 +14,78 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # Detect which parts of the repository changed so expensive jobs can be
+  # skipped on PR runs that do not touch their area (a docs-only PR should not
+  # burn ~15 minutes of backend CI). merge_group runs are the gate into
+  # mealie-next, so they resolve every flag to true and run the full pipeline.
+  changes:
+    name: "Detect changes"
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      backend: ${{ steps.resolve.outputs.backend }}
+      frontend: ${{ steps.resolve.outputs.frontend }}
+      database: ${{ steps.resolve.outputs.database }}
+      cicd: ${{ steps.resolve.outputs.cicd }}
+      codeql_languages: ${{ steps.resolve.outputs.codeql_languages }}
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          # paths-filter diffs against the PR base, so it needs the history
+          fetch-depth: 0
+
+      - name: Detect changed paths
+        id: filter
+        if: github.event_name == 'pull_request'
+        uses: dorny/paths-filter@v3
+        with:
+          filters: |
+            backend:
+              - 'mealie/**'
+              - 'pyproject.toml'
+              - 'uv.lock'
+              - 'tests/unit_tests/**'
+              - 'tests/integration_tests/**'
+            frontend:
+              - 'frontend/**'
+            database:
+              - 'mealie/alembic/**'
+              - 'mealie/db/models/**'
+              - 'mealie/repos/**'
+              - 'mealie/schema/**'
+            cicd:
+              - '.github/**'
+              - 'Taskfile.yml'
+              - 'docker/**'
+              - 'tests/e2e/**'
+
+      - name: Resolve change flags
+        id: resolve
+        run: |
+          if [ "${{ github.event_name }}" = "merge_group" ]; then
+            echo "backend=true" >> "$GITHUB_OUTPUT"
+            echo "frontend=true" >> "$GITHUB_OUTPUT"
+            echo "database=true" >> "$GITHUB_OUTPUT"
+            echo "cicd=true" >> "$GITHUB_OUTPUT"
+            echo 'codeql_languages=["javascript-typescript", "python"]' >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          backend="${{ steps.filter.outputs.backend }}"
+          frontend="${{ steps.filter.outputs.frontend }}"
+          database="${{ steps.filter.outputs.database }}"
+          cicd="${{ steps.filter.outputs.cicd }}"
+          echo "backend=$backend" >> "$GITHUB_OUTPUT"
+          echo "frontend=$frontend" >> "$GITHUB_OUTPUT"
+          echo "database=$database" >> "$GITHUB_OUTPUT"
+          echo "cicd=$cicd" >> "$GITHUB_OUTPUT"
+          langs=()
+          if [ "$frontend" = "true" ] || [ "$cicd" = "true" ]; then langs+=('"javascript-typescript"'); fi
+          if [ "$backend" = "true" ] || [ "$cicd" = "true" ]; then langs+=('"python"'); fi
+          echo "codeql_languages=[$(IFS=,; echo "${langs[*]}")]" >> "$GITHUB_OUTPUT"
+
   pull-request-lint:
     name: "Lint PR"
     if: github.event_name == 'pull_request'
@@ -23,10 +95,16 @@ jobs:
 
   backend-tests:
     name: "Backend Server Tests"
+    needs: changes
+    if: needs.changes.outputs.backend == 'true' || needs.changes.outputs.cicd == 'true'
     uses: ./.github/workflows/test-backend.yml
+    with:
+      full_matrix: ${{ needs.changes.outputs.database == 'true' || needs.changes.outputs.cicd == 'true' }}
 
   frontend-tests:
     name: "Frontend Tests"
+    needs: changes
+    if: needs.changes.outputs.frontend == 'true' || needs.changes.outputs.cicd == 'true'
     uses: ./.github/workflows/test-frontend.yml
 
   container-scanning:
@@ -37,14 +115,20 @@ jobs:
 
   code-ql:
     name: "CodeQL"
+    needs: changes
+    if: needs.changes.outputs.frontend == 'true' || needs.changes.outputs.backend == 'true' || needs.changes.outputs.cicd == 'true'
     uses: ./.github/workflows/codeql.yml
     permissions:
       actions: read
       contents: read
       security-events: write
+    with:
+      languages: ${{ needs.changes.outputs.codeql_languages }}
 
   build-package:
     name: "Build Python package"
+    needs: changes
+    if: needs.changes.outputs.frontend == 'true' || needs.changes.outputs.backend == 'true' || needs.changes.outputs.cicd == 'true'
     uses: ./.github/workflows/build-package.yml
     with:
       tag: e2e
@@ -75,3 +159,39 @@ jobs:
     secrets:
       DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
       DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+
+  # Stable required check for branch protection: always runs, summarizes the
+  # run, and fails only if an executed job failed or was cancelled. Skipped
+  # jobs were not needed for this change set, so they never block the gate.
+  ci-gate:
+    name: "CI Gate"
+    if: always()
+    needs:
+      - changes
+      - pull-request-lint
+      - backend-tests
+      - frontend-tests
+      - container-scanning
+      - code-ql
+      - build-package
+      - end-to-end
+    runs-on: ubuntu-latest
+    steps:
+      - name: Summarize CI result
+        run: |
+          python3 - <<'PYEOF'
+          import json, os, sys
+          needs = json.loads(os.environ["NEEDS_JSON"])
+          bad = []
+          for name, info in needs.items():
+              result = info["result"]
+              print(f"{name}: {result}")
+              if result in ("failure", "cancelled", "timed_out"):
+                  bad.append(name)
+          if bad:
+              print(f"CI gate FAILED because of: {', '.join(bad)}", file=sys.stderr)
+              sys.exit(1)
+          print("CI gate passed: every executed job succeeded; skipped jobs were not needed for this change set.")
+          PYEOF
+        env:
+          NEEDS_JSON: ${{ toJSON(needs) }}

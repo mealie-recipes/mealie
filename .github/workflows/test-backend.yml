@@ -6,6 +6,11 @@ on:
       ref:
         required: false
         type: string
+      full_matrix:
+        description: 'Run the full sqlite + postgres database matrix'
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   tests:
@@ -21,8 +26,10 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        # Database ENV Variables as Specified by Mealie
-        Database: [sqlite, postgres]
+        # Database ENV Variables as Specified by Mealie. The postgres leg only
+        # runs when requested (DB/migration-touching PR changes, nightly,
+        # release); other PR runs execute the sqlite leg only.
+        Database: ${{ fromJSON(inputs.full_matrix && '["sqlite", "postgres"]' || '["sqlite"]') }}
 
     # Services
     services:
@@ -96,14 +103,19 @@ jobs:
         if: steps.cached-python-dependencies.outputs.cache-hit != 'true' || steps.cache-validate.outputs.cache-hit-success != 'true'
 
       - name: Formatting (Ruff)
+        # Lint and type checks do not depend on the database engine, so they
+        # run once on the sqlite leg instead of once per matrix leg.
+        if: matrix.Database == 'sqlite'
         run: |
           uv run ruff format . --check
 
       - name: Lint (Ruff)
+        if: matrix.Database == 'sqlite'
         run: |
           task py:lint
 
       - name: Mypy Typecheck
+        if: matrix.Database == 'sqlite'
         run: |
           task py:mypy
 
