@@ -51,6 +51,7 @@
                     color="error"
                     icon
                     class="mt-n4"
+                    :aria-label="$t('general.delete')"
                     @click="removeApiExtra(key)"
                   >
                     <v-icon> {{ $globals.icons.delete }} </v-icon>

@@ -49,6 +49,7 @@
           :elevation="props.elevation ?? undefined"
           :color="props.color"
           :icon="!props.fab"
+          :aria-label="$t('general.menu')"
           v-bind="btnProps"
           @click.prevent
         >

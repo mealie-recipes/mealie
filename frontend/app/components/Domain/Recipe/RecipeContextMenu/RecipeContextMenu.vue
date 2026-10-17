@@ -21,6 +21,7 @@
           :size="fab ? 'small' : undefined"
           :color="fab ? 'info' : 'secondary'"
           :fab="fab"
+          :aria-label="$t('general.menu')"
           v-bind="activatorProps"
           @click.prevent
         >

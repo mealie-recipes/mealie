@@ -212,6 +212,7 @@
       icon
       color="primary"
       style="position: fixed; right: 12px; top: 60px"
+      :aria-label="$t('general.close')"
       @click="toggleCookMode()"
     >
       <v-icon>{{ $globals.icons.close }}</v-icon>

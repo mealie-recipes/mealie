@@ -10,6 +10,7 @@
             v-if="edit"
             variant="plain"
             :icon="$globals.icons.create"
+            :aria-label="$t('asset.new-asset')"
             @click="state.newAssetDialog = true"
           />
         </template>
@@ -53,6 +54,7 @@
                   v-bind="menuProps"
                   icon
                   variant="plain"
+                  :aria-label="$t('general.menu')"
                 >
                   <v-icon :icon="$globals.icons.dotsVertical" />
                 </v-btn>
@@ -76,7 +78,7 @@
                   v-if="edit"
                   :prepend-icon="$globals.icons.contentCopy"
                   :title="$t('general.copy')"
-                  @click="copyText(assetEmbed(item.fileName ?? ''))"
+                  @click="copyText(assetEmbed(item.fileName ?? '', item.name))"
                 />
                 <v-list-item
                   v-if="edit"
@@ -91,6 +93,7 @@
               icon
               variant="plain"
               :href="assetURL(item.fileName ?? '')"
+              :aria-label="$t('general.download')"
               download
               @click.stop
             >
@@ -268,8 +271,9 @@ function assetURL(assetName: string) {
   return recipeAssetPath(props.recipeId, assetName);
 }
 
-function assetEmbed(name: string) {
-  return `<img src="${serverBase}${assetURL(name)}" height="100%" width="100%" />`;
+function assetEmbed(fileName: string, altText: string) {
+  const safeAlt = altText.replace(/"/g, "&quot;");
+  return `<img src="${serverBase}${assetURL(fileName)}" alt="${safeAlt}" height="100%" width="100%" />`;
 }
 
 function setFileObject(fileObject: File) {
