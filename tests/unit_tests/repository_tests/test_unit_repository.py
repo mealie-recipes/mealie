@@ -94,6 +94,14 @@ def test_dont_auto_inject_random(unique_db: AllRepositories):
     assert unit_out.standard_unit is None
 
 
+def test_centiliter_standardization(unique_db: AllRepositories):
+    unit_in = SaveIngredientUnit(name="cl", group_id=unique_db.group_id)
+    unit_out = unique_db.ingredient_units.create(unit_in)
+
+    assert unit_out.standard_unit == "milliliter"
+    assert unit_out.standard_quantity == 10
+
+
 def test_auto_inject_other_language(unique_db: AllRepositories):
     # Inject custom unit map
     GALLON = random_string()
