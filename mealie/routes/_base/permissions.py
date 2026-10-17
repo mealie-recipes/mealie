@@ -31,16 +31,21 @@ _GRANTED_BY: dict[Perm, Callable[[PrivateUser], bool]] = {
 }
 
 
+def _error(status_code: int, message: str | None) -> HTTPException:
+    # The frontend shows `detail.message` as a toast, so a message is only sent when one is given.
+    if message is None:
+        return HTTPException(status_code)
+    return HTTPException(status_code, detail=ErrorResponse.respond(message=message))
+
+
 def forbidden(message: str | None = None) -> HTTPException:
     """The caller can see the resource but may not perform the action."""
-    if message is None:
-        return HTTPException(status.HTTP_403_FORBIDDEN)
-    return HTTPException(status.HTTP_403_FORBIDDEN, detail=ErrorResponse.respond(message=message))
+    return _error(status.HTTP_403_FORBIDDEN, message)
 
 
-def not_found(message: str = "Not found.") -> HTTPException:
+def not_found(message: str | None = None) -> HTTPException:
     """The caller cannot see the resource. Use it for missing and inaccessible resources alike."""
-    return HTTPException(status.HTTP_404_NOT_FOUND, detail=ErrorResponse.respond(message=message))
+    return _error(status.HTTP_404_NOT_FOUND, message)
 
 
 class RouteRequirement:

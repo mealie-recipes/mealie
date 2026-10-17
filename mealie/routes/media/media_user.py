@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException, status
 from pydantic import UUID4
 from starlette.responses import FileResponse
 
+from mealie.routes._base.permissions import not_found
 from mealie.schema.user import PrivateUser
 
 router = APIRouter(prefix="/users")
@@ -20,4 +21,4 @@ async def get_user_image(user_id: UUID4, file_name: str):
     if recipe_image.exists():
         return FileResponse(recipe_image, media_type="image/webp")
     else:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
+        raise not_found()

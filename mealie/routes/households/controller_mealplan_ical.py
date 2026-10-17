@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
+from fastapi import APIRouter, Depends, Query, Response
 from sqlalchemy.orm import Session
 
 from mealie.core.security import url_safe_token
@@ -9,9 +9,8 @@ from mealie.lang import get_locale_provider
 from mealie.lang.providers import Translator
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
-from mealie.routes._base.permissions import Perm, require
+from mealie.routes._base.permissions import Perm, not_found, require
 from mealie.schema.meal_plan.mealplan_ical import ReadMealPlanICalToken
-from mealie.schema.response.responses import ErrorResponse
 from mealie.services.household_services.mealplan_ical_service import MealPlanICalQuery, MealPlanICalService
 
 router = APIRouter(prefix="/households/mealplans/ical", tags=["Households: Meal Plans"])
@@ -26,7 +25,7 @@ class MealplanICalController(BaseUserController):
             self.household_id, key="household_id", override_schema=ReadMealPlanICalToken
         )
         if not prefs:
-            raise HTTPException(status.HTTP_404_NOT_FOUND, detail=ErrorResponse.respond("Household not found"))
+            raise not_found("Household not found")
         return prefs
 
     def _set_token(self, token: str | None) -> ReadMealPlanICalToken:
@@ -62,7 +61,7 @@ def get_mealplan_ical_feed(
     """
     feed = MealPlanICalService(session, translator).get_feed(token, query)
     if feed is None:
-        raise HTTPException(status.HTTP_404_NOT_FOUND, detail=ErrorResponse.respond("Calendar not found"))
+        raise not_found("Calendar not found")
 
     return Response(
         content=feed,
