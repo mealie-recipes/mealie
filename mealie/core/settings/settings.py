@@ -409,6 +409,7 @@ class AppSettings(AppLoggingSettings):
     OIDC_GROUPS_CLAIM: str | None = "groups"
     OIDC_SCOPES_OVERRIDE: str | None = None
     OIDC_TLS_CACERTFILE: str | None = None
+    OIDC_VERIFY_X509_STRICT: bool = True
     OIDC_CLIENT_TIMEOUT: float | Literal["None", "default"] = "default"
 
     OIDC_NATIVE_CLIENT_ID: str | None = None
