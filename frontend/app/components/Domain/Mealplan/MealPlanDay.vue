@@ -30,7 +30,7 @@
         :buttons="[{
           icon: $globals.icons.dotsVertical,
           event: '',
-          text: '',
+          text: i18n.t('general.menu'),
           children: [
             {
               text: $t('meal-plan.add-day-to-list'),

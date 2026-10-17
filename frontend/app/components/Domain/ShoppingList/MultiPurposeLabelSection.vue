@@ -23,6 +23,7 @@
             variant="text"
             class="ml-2 handle"
             icon
+            :aria-label="$t('shopping-list.reorder-labels')"
             v-bind="hoverProps"
           >
             <v-icon>

@@ -1,7 +1,7 @@
 <template>
   <v-menu active-class="pa-0" offset-y top>
     <template #activator="{ props: hoverProps }">
-      <v-btn icon color="secondary" v-bind="hoverProps" class="ml-auto">
+      <v-btn icon color="secondary" :aria-label="$t('general.menu')" v-bind="hoverProps" class="ml-auto">
         <v-icon>
           {{ $globals.icons.dotsHorizontal }}
         </v-icon>
