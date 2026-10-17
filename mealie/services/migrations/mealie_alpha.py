@@ -1,7 +1,6 @@
 import contextlib
 import shutil
 import tempfile
-import zipfile
 from pathlib import Path
 
 from mealie.schema.recipe.recipe import Recipe
@@ -9,7 +8,7 @@ from mealie.schema.reports.reports import ReportEntryCreate
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import MigrationReaders, split_by_comma
+from .utils.migration_helpers import MigrationReaders, extract_zip, split_by_comma
 
 
 class MealieAlphaMigrator(BaseMigrator):
@@ -64,8 +63,7 @@ class MealieAlphaMigrator(BaseMigrator):
 
     def _migrate(self) -> None:
         with tempfile.TemporaryDirectory() as tmpdir:
-            with zipfile.ZipFile(self.archive) as zip_file:
-                zip_file.extractall(tmpdir)
+            extract_zip(self.archive, tmpdir)
 
             temp_path = self.get_zip_base_path(Path(tmpdir))
             recipe_lookup: dict[str, Path] = {}

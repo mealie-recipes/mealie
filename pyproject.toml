@@ -1,6 +1,6 @@
 [project]
 name = "mealie"
-version = "3.28.0"
+version = "3.29.0"
 description = "A Recipe Manager"
 authors = [{ name = "Hayden", email = "hay-kot@pm.me" }]
 license = "AGPL-3.0-only"
@@ -58,7 +58,7 @@ pgsql = [
 
 [dependency-groups]
 docs = [
-    "zensical==0.0.69",
+    "zensical==0.0.70",
 ]
 dev = [
     "coverage==7.16.2",
@@ -78,7 +78,7 @@ dev = [
     "pydantic-to-typescript2==1.0.6",
     "freezegun==1.5.5",
     "httpx2==2.13.1",
-    "zensical==0.0.69",
+    "zensical==0.0.70",
     "pytest-xdist==3.8.0",
 ]
 
