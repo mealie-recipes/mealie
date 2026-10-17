@@ -33,6 +33,7 @@ from mealie.core.dependencies import (
 from mealie.pkgs import cache, safehttp
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import controller
+from mealie.routes._base.permissions import require
 from mealie.routes._base.routers import MealieCrudRoute, UserAPIRouter
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.make_dependable import make_dependable
@@ -61,6 +62,7 @@ from mealie.schema.response.responses import (
     SuccessResponse,
 )
 from mealie.services import urls
+from mealie.services.authz.recipes import RecipePerm
 from mealie.services.event_bus_service.event_types import (
     EventOperation,
     EventRecipeBulkData,
@@ -667,7 +669,7 @@ class RecipeController(BaseRecipeController):
 
         return new_recipe
 
-    @router.put("/{slug}")
+    @router.put("/{slug}", dependencies=[require(RecipePerm.UPDATE)])
     def update_one(self, slug: str, data: RecipeIn):
         """Updates a recipe by existing slug and data."""
         try:
@@ -715,7 +717,7 @@ class RecipeController(BaseRecipeController):
 
         return all_updated
 
-    @router.patch("/{slug}")
+    @router.patch("/{slug}", dependencies=[require(RecipePerm.UPDATE)])
     def patch_one(self, slug: str, data: RecipeIn):
         """Updates a recipe by existing slug and data."""
         try:
@@ -787,7 +789,7 @@ class RecipeController(BaseRecipeController):
 
         return recipe
 
-    @router.delete("/{slug}")
+    @router.delete("/{slug}", dependencies=[require(RecipePerm.DELETE)])
     def delete_one(self, slug: str):
         """Deletes a recipe by slug"""
         try:
@@ -839,7 +841,12 @@ class RecipeController(BaseRecipeController):
         self.service.update_one(recipe.slug, recipe)
         return UpdateImageResponse(image=recipe.image)
 
-    @router.put("/{slug}/image", response_model=UpdateImageResponse, tags=["Recipe: Images and Assets"])
+    @router.put(
+        "/{slug}/image",
+        response_model=UpdateImageResponse,
+        tags=["Recipe: Images and Assets"],
+        dependencies=[require(RecipePerm.UPDATE)],
+    )
     def update_recipe_image(self, slug: str, image: bytes = File(...), extension: str = Form(...)):
         try:
             new_version = self.service.update_recipe_image(slug, image, extension)
@@ -848,7 +855,7 @@ class RecipeController(BaseRecipeController):
             self.handle_exceptions(e)
             return None
 
-    @router.delete("/{slug}/image", tags=["Recipe: Images and Assets"])
+    @router.delete("/{slug}/image", tags=["Recipe: Images and Assets"], dependencies=[require(RecipePerm.UPDATE)])
     def delete_recipe_image(self, slug: str):
         try:
             self.service.delete_recipe_image(slug)
