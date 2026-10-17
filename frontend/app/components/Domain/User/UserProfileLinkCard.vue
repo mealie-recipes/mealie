@@ -14,6 +14,7 @@
         width="150px"
         height="125"
         :src="image"
+        alt=""
       />
     </div>
     <div class="d-flex justify-space-between">
@@ -35,6 +36,7 @@
           width="150px"
           height="125"
           :src="image"
+          alt=""
         />
       </div>
     </div>
