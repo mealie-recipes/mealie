@@ -1,10 +1,15 @@
+import re
+from uuid import uuid4
+
 import pytest
 from fastapi import HTTPException
 from fastapi.routing import APIRoute, iter_route_contexts
+from fastapi.testclient import TestClient
 
 from mealie.app import app
 from mealie.routes._base.permissions import Perm, RequirePermission
 from mealie.schema.user.user import PrivateUser
+from tests.utils.fixture_schemas import TestUser
 
 # Every route that declares a permission, grouped by permission. A change here changes who can call a
 # route, so it should be deliberate and visible in review.
@@ -66,6 +71,27 @@ def declared_route_permissions() -> dict[Perm, set[str]]:
 
 def test_routes_declare_expected_permissions():
     assert declared_route_permissions() == EXPECTED_ROUTE_PERMISSIONS
+
+
+EXPECTED_ROUTES = sorted(route for routes in EXPECTED_ROUTE_PERMISSIONS.values() for route in routes)
+
+
+def call_route(api_client: TestClient, route: str, user: TestUser):
+    method, path = route.split()
+    # Random ids and an empty body are enough: the permission check runs before FastAPI loads or validates
+    # anything, so a caller without the permission gets 403 and any other status means the check passed.
+    path = re.sub(r"{[^}]+}", lambda _: str(uuid4()), path)
+    return api_client.request(method, path, json={}, headers=user.token)
+
+
+@pytest.mark.parametrize("route", EXPECTED_ROUTES)
+def test_route_rejects_user_without_permission(api_client: TestClient, unprivileged_user: TestUser, route: str):
+    assert call_route(api_client, route, unprivileged_user).status_code == 403
+
+
+@pytest.mark.parametrize("route", EXPECTED_ROUTES)
+def test_route_allows_user_with_permission(api_client: TestClient, unique_user: TestUser, route: str):
+    assert call_route(api_client, route, unique_user).status_code != 403
 
 
 @pytest.mark.parametrize(

@@ -374,113 +374,6 @@ def test_delete_image_provider_clears_settings(api_client: TestClient, unique_us
 
 
 # ==========================================
-# Permissions: can_manage required
-# ==========================================
-
-
-def test_providers_require_can_manage_get(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    # Ensure user does NOT have can_manage
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    # Create a provider so there's something to GET (using repos directly to bypass permission check)
-    provider = usr.repos.group_ai_providers.create(
-        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
-    )
-
-    try:
-        response = api_client.get(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=usr.token)
-        assert response.status_code == 403
-    finally:
-        usr.repos.group_ai_providers.delete(provider.id)
-
-
-def test_providers_require_can_manage_create(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
-    response = api_client.post(api_routes.groups_ai_providers_providers, json=data, headers=usr.token)
-    assert response.status_code == 403
-
-
-def test_providers_require_can_manage_update(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    provider = usr.repos.group_ai_providers.create(
-        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
-    )
-
-    try:
-        update_data = {"name": provider.name, "model": "gpt-4-turbo", "apiKey": "key"}
-        response = api_client.put(
-            api_routes.groups_ai_providers_providers_provider_id(provider.id), json=update_data, headers=usr.token
-        )
-        assert response.status_code == 403
-    finally:
-        usr.repos.group_ai_providers.delete(provider.id)
-
-
-def test_providers_require_can_manage_delete(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    provider = usr.repos.group_ai_providers.create(
-        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
-    )
-
-    try:
-        response = api_client.delete(
-            api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=usr.token
-        )
-        assert response.status_code == 403
-    finally:
-        usr.repos.group_ai_providers.delete(provider.id)
-
-
-def test_settings_require_can_manage_get(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    response = api_client.get(api_routes.groups_ai_providers_settings, headers=usr.token)
-    assert response.status_code == 403
-
-
-def test_settings_require_can_manage_update(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    update = {"defaultProviderId": None, "audioProviderId": None, "imageProviderId": None}
-    response = api_client.put(api_routes.groups_ai_providers_settings, json=update, headers=usr.token)
-    assert response.status_code == 403
-
-
-# ==========================================
 # API key not exposed in responses
 # ==========================================
 
@@ -698,40 +591,6 @@ def test_test_saved_provider_not_found(api_client: TestClient, unique_user: Test
         api_routes.groups_ai_providers_providers_provider_id_test(uuid4()), headers=unique_user.token
     )
     assert response.status_code == 404
-
-
-def test_test_unsaved_provider_requires_can_manage(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
-    response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=usr.token)
-    assert response.status_code == 403
-
-
-def test_test_saved_provider_requires_can_manage(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    provider = usr.repos.group_ai_providers.create(
-        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
-    )
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    try:
-        response = api_client.post(
-            api_routes.groups_ai_providers_providers_provider_id_test(provider.id), headers=usr.token
-        )
-        assert response.status_code == 403
-    finally:
-        usr.repos.group_ai_providers.delete(provider.id)
 
 
 # ==========================================
@@ -962,17 +821,3 @@ def test_prompts_are_scoped_to_group(api_client: TestClient, unique_user_fn_scop
 
     assert g2_user.repos.group_ai_prompt_overrides.get_all() == []
     assert OpenAIService(g2_user.repos).get_prompt(USER_PROMPT) == OpenAIService.get_default_prompt(USER_PROMPT)
-
-
-def test_prompts_require_can_manage(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    route = api_routes.groups_ai_providers_prompts_prompt_name(USER_PROMPT)
-    assert api_client.get(api_routes.groups_ai_providers_prompts, headers=usr.token).status_code == 403
-    assert api_client.put(route, json={"mode": "append", "content": "x"}, headers=usr.token).status_code == 403
-    assert api_client.delete(route, headers=usr.token).status_code == 403
