@@ -39,6 +39,42 @@ if TYPE_CHECKING:
     from . import Category, Tag, Tool
 
 
+def _reconcile_ingredient(
+    session: orm.Session, recipe_id: int | None, group_id: GUID | None, ingr: dict
+) -> RecipeIngredientModel:
+    """Build or update a RecipeIngredientModel for a recipe save.
+
+    Matches an existing row of *this* recipe by ``reference_id`` (stable across
+    saves and round-tripped by clients) and re-runs the ingredient's own
+    ``__init__`` on it, so the update path is exactly the create path applied
+    to the matched row. Dicts without a reference_id, or whose reference_id
+    matches nothing in this recipe, become new rows.
+
+    Without this, every save inserted a fresh copy of the ingredient list and
+    relied on delete-orphan to remove the old rows -- which only removes the
+    rows the current session loaded. Two overlapping saves therefore each kept
+    the other's rows and the ingredient list permanently duplicated
+    (mealie-recipes/mealie#8628).
+    """
+    reference_id = ingr.get("reference_id")
+    existing: RecipeIngredientModel | None = None
+    if reference_id is not None:
+        existing = (
+            session.execute(
+                sa.select(RecipeIngredientModel).filter_by(reference_id=reference_id, recipe_id=recipe_id)
+            )
+            .scalars()
+            .first()
+        )
+    if existing is None:
+        return RecipeIngredientModel(**ingr, session=session, group_id=group_id)
+    # Re-running __init__ on the matched row mirrors BaseMixins.update() and
+    # keeps create/update semantics identical (column assignment, relationship
+    # lookups, substitution refresh, note normalization).
+    existing.__init__(session=session, group_id=group_id, **ingr)
+    return existing
+
+
 class RecipeModel(SqlAlchemyBase, BaseMixins):
     __tablename__ = "recipes"
     __table_args__: tuple[sa.UniqueConstraint, ...] = (
@@ -213,9 +249,11 @@ class RecipeModel(SqlAlchemyBase, BaseMixins):
 
         if recipe_ingredient is not None:
             # group_id is passed down so ingredient substitutions can be scoped to this
-            # recipe's group; the ingredient itself has no group of its own
+            # recipe's group; the ingredient itself has no group of its own.
+            # Ingredients are reconciled by reference_id so overlapping saves update
+            # the same rows instead of duplicating the ingredient list.
             self.recipe_ingredient = [
-                RecipeIngredientModel(**ingr, session=session, group_id=self.group_id) for ingr in recipe_ingredient
+                _reconcile_ingredient(session, self.id, self.group_id, ingr) for ingr in recipe_ingredient
             ]
 
         if assets:

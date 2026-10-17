@@ -18,6 +18,9 @@ from mealie.schema.response import OrderDirection, PaginationQuery
 from mealie.schema.user.user import GroupBase, UserRatingCreate
 from tests.utils.factories import random_email, random_string
 from tests.utils.fixture_schemas import TestUser
+import warnings
+
+from sqlalchemy.exc import SAWarning
 
 
 def test_create_recipe_stops_retrying_integrity_errors(unique_user: TestUser, monkeypatch: pytest.MonkeyPatch) -> None:
@@ -1083,3 +1086,74 @@ def test_recipe_update_ignores_id_in_payload(unique_user: TestUser) -> None:
 
     assert updated.id == recipe.id
     assert updated.description == "changed"
+
+
+def test_concurrent_recipe_writes_do_not_duplicate_ingredients(unique_user: TestUser) -> None:
+    """Regression test for mealie-recipes/mealie#8628.
+
+    Two sessions load the same recipe, then each saves the full round-tripped
+    recipe JSON (what a browser PUT does) and commits. Ingredient rows carry a
+    stable `reference_id`, so each save must match and update them in place
+    instead of inserting fresh rows; otherwise the second session's commit
+    resurrects the rows the first session orphaned and the ingredient list
+    permanently duplicates.
+    """
+    with warnings.catch_warnings():
+        # SAWarnings are environmental noise here (eager-load duplicates in the
+        # shared test DB, and the old code path deleting rows another session
+        # already removed). The assertion on the row count is the real check.
+        warnings.simplefilter("ignore", SAWarning)
+
+        import copy
+
+        from sqlalchemy import select
+
+        from mealie.db.db_setup import SessionLocal
+        from mealie.db.models.recipe.ingredient import RecipeIngredientModel
+
+        database = unique_user.repos
+        recipe = database.recipes.create(
+            Recipe(
+                name=random_string(),
+                group_id=unique_user.group_id,
+                user_id=unique_user.user_id,
+                recipe_ingredient=[
+                    RecipeIngredient(quantity=1, note="a"),
+                    RecipeIngredient(quantity=1, note="b"),
+                    RecipeIngredient(quantity=1, note="c"),
+                ],
+            )
+        )
+        slug = recipe.slug
+        recipe_id = recipe.id
+
+        # the full round-tripped recipe JSON, including each ingredient's reference_id
+        payload = database.recipes.get_one(slug).model_dump()
+
+        session_b = SessionLocal()
+        try:
+            database_b = get_repositories(session_b, group_id=unique_user.group_id, household_id=unique_user.household_id)
+            # both sessions load the recipe before either commits: this is the race window.
+            # (SAWarning is expected on the old code path: session B tries to
+            # delete rows session A already removed. It is part of the repro.)
+            entry_a = database.recipes._query_one(slug)
+            entry_b = database_b.recipes._query_one(slug)
+
+            with warnings.catch_warnings():
+                warnings.simplefilter("ignore", SAWarning)
+                entry_a.update(session=database.session, **copy.deepcopy(payload))
+                database.session.commit()
+
+                entry_b.update(session=session_b, **copy.deepcopy(payload))
+                session_b.commit()
+        finally:
+            session_b.close()
+
+        rows = database.session.execute(
+            select(RecipeIngredientModel).where(RecipeIngredientModel.recipe_id == recipe_id)
+        ).scalars().all()
+        count = len(rows)
+
+        database.recipes.delete(slug)
+
+        assert count == 3, f"expected 3 ingredient rows after two overlapping saves, found {count}"

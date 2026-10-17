@@ -542,11 +542,17 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
     original_text_normalized: FilterableColumn[str | None] = mapped_column(String, index=True)
 
     model_config = ConfigDict(
+        # Match incoming ingredient dicts by reference_id (stable across saves and
+        # already round-tripped by clients) instead of the database id, which the
+        # write schema never carries. This lets auto_init update existing rows in
+        # place, so two overlapping saves cannot each insert their own copy of the
+        # ingredient list (mealie-recipes/mealie#8628).
+        get_attr="reference_id",
         exclude={
             "id",
             # substitutions are resolved explicitly, since auto_init creates rows it can't find
             "substitutions",
-        }
+        },
     )
 
     def _set_substitutions(self, session: Session, group_id: GUID | None, substitutions: list[dict] | None) -> None:
@@ -554,9 +560,10 @@ class RecipeIngredientModel(SqlAlchemyBase, BaseMixins):
         Builds the substitution rows by hand, since auto_init creates any related row it
         fails to look up and would manufacture a food out of an unrecognized id.
 
-        Rows are always built fresh rather than reused, unlike the food tier: ingredient rows
-        are destroyed and recreated on every recipe save, so there is never an existing set to
-        reconcile with, and no unique constraint for a re-insert to collide with.
+        Substitution rows are always built fresh rather than reused, unlike the food tier
+        and the ingredient rows themselves (which auto_init now reconciles by
+        reference_id): there is no unique constraint for a re-insert to collide with,
+        and no existing set to reconcile with.
         """
 
         self.substitutions = [
