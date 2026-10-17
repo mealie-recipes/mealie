@@ -22,7 +22,6 @@ from mealie.lang.locale_config import LocaleConfig
 from mealie.lang.providers import Translator
 from mealie.repos._utils import NOT_SET, NotSet
 from mealie.repos.all_repositories import AllRepositories, get_repositories
-from mealie.routes._base.checks import OperationChecks
 from mealie.schema.household.household import HouseholdInDB
 from mealie.schema.user.user import GroupInDB, PrivateUser
 from mealie.services.event_bus_service.event_bus_service import EventBusService
@@ -140,9 +139,6 @@ class BaseUserController(_BaseController):
     integration_id: str = Depends(get_integration_id)
     translator: Translator = Depends(get_locale_provider)
 
-    # Manual Cache
-    _checks: OperationChecks
-
     def registered_exceptions(self, ex: type[Exception]) -> str:
         registered = {
             **mealie_registered_exceptions(self.translator),
@@ -164,12 +160,6 @@ class BaseUserController(_BaseController):
     @property
     def household(self) -> HouseholdInDB:
         return self.repos.households.get_one(self.household_id)
-
-    @property
-    def checks(self) -> OperationChecks:
-        if not self._checks:
-            self._checks = OperationChecks(self.user)
-        return self._checks
 
 
 class BaseAdminController(BaseUserController):

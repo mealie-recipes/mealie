@@ -9,6 +9,7 @@ from mealie.lang import get_locale_provider
 from mealie.lang.providers import Translator
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
+from mealie.routes._base.permissions import Perm, require
 from mealie.schema.meal_plan.mealplan_ical import ReadMealPlanICalToken
 from mealie.schema.response.responses import ErrorResponse
 from mealie.services.household_services.mealplan_ical_service import MealPlanICalQuery, MealPlanICalService
@@ -29,7 +30,6 @@ class MealplanICalController(BaseUserController):
         return prefs
 
     def _set_token(self, token: str | None) -> ReadMealPlanICalToken:
-        self.checks.can_manage_household()
         self.repos.household_preferences.update(self.household_id, {"mealplan_ical_token": token})
         return self._get_token()
 
@@ -38,12 +38,12 @@ class MealplanICalController(BaseUserController):
         """Returns the token for the household's meal plan iCal feed, or null if the feed is disabled"""
         return self._get_token()
 
-    @router.post("", response_model=ReadMealPlanICalToken)
+    @router.post("", response_model=ReadMealPlanICalToken, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
     def create_ical_token(self):
         """Enables the meal plan iCal feed, replacing any existing token so old feed URLs stop working"""
         return self._set_token(url_safe_token())
 
-    @router.delete("", response_model=ReadMealPlanICalToken)
+    @router.delete("", response_model=ReadMealPlanICalToken, dependencies=[require(Perm.HOUSEHOLD_MANAGE)])
     def delete_ical_token(self):
         """Disables the meal plan iCal feed"""
         return self._set_token(None)

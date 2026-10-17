@@ -6,6 +6,7 @@ from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
+from mealie.routes._base.permissions import Perm, require
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.group.group_preferences import ReadGroupPreferences, UpdateGroupPreferences
 from mealie.schema.group.group_statistics import GroupStorage
@@ -54,9 +55,8 @@ class GroupSelfServiceController(BaseUserController):
     def get_group_preferences(self):
         return self.group.preferences
 
-    @router.put("/preferences", response_model=ReadGroupPreferences)
+    @router.put("/preferences", response_model=ReadGroupPreferences, dependencies=[require(Perm.GROUP_MANAGE)])
     def update_group_preferences(self, new_pref: UpdateGroupPreferences):
-        self.checks.can_manage()
         return self.repos.group_preferences.update(self.group_id, new_pref)
 
     @router.get("/storage", response_model=GroupStorage)
