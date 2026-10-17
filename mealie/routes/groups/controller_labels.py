@@ -54,6 +54,7 @@ class MultiPurposeLabelsController(BaseCrudController):
 
     @router.post("", response_model=MultiPurposeLabelOut)
     def create_one(self, data: MultiPurposeLabelCreate):
+        self.checks.can_organize()
         try:
             new_label = self.service.create_one(data)
         except Exception as ex:
@@ -94,6 +95,7 @@ class MultiPurposeLabelsController(BaseCrudController):
 
     @router.put("/{item_id}", response_model=MultiPurposeLabelOut)
     def update_one(self, item_id: UUID4, data: MultiPurposeLabelUpdate):
+        self.checks.can_organize()
         label = self.mixins.update_one(data, item_id)
         self.publish_event(
             event_type=EventTypes.label_updated,
@@ -106,6 +108,7 @@ class MultiPurposeLabelsController(BaseCrudController):
 
     @router.delete("/{item_id}", response_model=MultiPurposeLabelOut)
     def delete_one(self, item_id: UUID4):
+        self.checks.can_organize()
         label = self.mixins.delete_one(item_id)
         if label:
             self.publish_event(

@@ -48,11 +48,13 @@ class IngredientUnitsController(BaseUserController):
 
     @router.post("", response_model=IngredientUnit, status_code=201)
     def create_one(self, data: CreateIngredientUnit):
+        self.checks.can_organize()
         save_data = mapper.cast(data, SaveIngredientUnit, group_id=self.group_id)
         return self.mixins.create_one(save_data)
 
     @router.put("/merge", response_model=SuccessResponse)
     def merge_one(self, data: MergeUnit):
+        self.checks.can_organize()
         try:
             self.repo.merge(data.from_unit, data.to_unit)
             return SuccessResponse.respond("Successfully merged units")
@@ -66,8 +68,10 @@ class IngredientUnitsController(BaseUserController):
 
     @router.put("/{item_id}", response_model=IngredientUnit)
     def update_one(self, item_id: UUID4, data: CreateIngredientUnit):
+        self.checks.can_organize()
         return self.mixins.update_one(data, item_id)
 
     @router.delete("/{item_id}", response_model=IngredientUnit)
     def delete_one(self, item_id: UUID4):
+        self.checks.can_organize()
         return self.mixins.delete_one(item_id)  # type: ignore
