@@ -1,7 +1,6 @@
 import os
 import re
 import tempfile
-import zipfile
 from pathlib import Path
 from typing import Any
 
@@ -11,7 +10,7 @@ from mealie.services.parser_services._base import DataMatcher
 from mealie.services.parser_services.parser_utils.string_utils import extract_quantity_from_string
 
 from ._migration_base import BaseMigrator
-from .utils.migration_helpers import safe_local_path
+from .utils.migration_helpers import MAX_EXTRACTED_ARCHIVE_SIZE, extract_zip, safe_local_path
 
 
 class DSVParser:
@@ -409,17 +408,14 @@ class CooknMigrator(BaseMigrator):
     def _migrate(self) -> None:
         """Migrates recipes from Cook'n cookboop .zip. Also will handle a .zip folder of .zip folders"""
         with tempfile.TemporaryDirectory() as tmpdir:
-            with zipfile.ZipFile(self.archive) as zip_file:
-                zip_file.extractall(tmpdir)
+            budget = MAX_EXTRACTED_ARCHIVE_SIZE - extract_zip(self.archive, tmpdir)
 
-                # Process single zipped cookbook
-                if Path(f"{tmpdir}/temp_recipe.dsv").exists():
-                    self._process_cookbook(Path(tmpdir))
+            # Process single zipped cookbook
+            if Path(f"{tmpdir}/temp_recipe.dsv").exists():
+                self._process_cookbook(Path(tmpdir))
 
-                # Process a zip folder of zipped cookbooks
-                for file in Path(tmpdir).glob("*.zip"):
-                    with tempfile.TemporaryDirectory() as tmpdir2:
-                        with zipfile.ZipFile(file) as zip_file2:
-                            zip_file2.extractall(tmpdir2)
-
-                        self._process_cookbook(Path(tmpdir2))
+            # Process a zip folder of zipped cookbooks
+            for file in Path(tmpdir).glob("*.zip"):
+                with tempfile.TemporaryDirectory() as tmpdir2:
+                    budget -= extract_zip(file, tmpdir2, max_size=budget)
+                    self._process_cookbook(Path(tmpdir2))
