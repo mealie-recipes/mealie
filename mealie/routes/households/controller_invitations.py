@@ -5,6 +5,7 @@ from fastapi import APIRouter, Header, HTTPException, status
 from mealie.core.config import get_app_settings
 from mealie.core.security import url_safe_token
 from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base.permissions import Perm, require
 from mealie.schema.household.invite_token import (
     CreateInviteToken,
     EmailInitationResponse,
@@ -30,19 +31,18 @@ class GroupInvitationsController(BaseUserController):
 
         return self.repos.group_invite_tokens.page_all(PaginationQuery(page=1, per_page=-1)).items
 
-    @router.post("", response_model=ReadInviteToken, status_code=status.HTTP_201_CREATED)
+    @router.post(
+        "",
+        response_model=ReadInviteToken,
+        status_code=status.HTTP_201_CREATED,
+        dependencies=[require(Perm.GROUP_INVITE)],
+    )
     def create_invite_token(self, body: CreateInviteToken):
         settings = get_app_settings()
         if not settings.ALLOW_PASSWORD_LOGIN:
             raise HTTPException(
                 status.HTTP_403_FORBIDDEN,
                 detail="Invitation tokens are disabled when password login is not allowed",
-            )
-
-        if not self.user.can_invite:
-            raise HTTPException(
-                status.HTTP_403_FORBIDDEN,
-                detail="User is not allowed to create invite tokens",
             )
 
         body.group_id = body.group_id or self.group_id
@@ -59,7 +59,7 @@ class GroupInvitationsController(BaseUserController):
         )
         return self.repos.group_invite_tokens.create(token)
 
-    @router.post("/email", response_model=EmailInitationResponse)
+    @router.post("/email", response_model=EmailInitationResponse, dependencies=[require(Perm.GROUP_INVITE)])
     def email_invitation(
         self,
         invite: EmailInvitation,
@@ -70,12 +70,6 @@ class GroupInvitationsController(BaseUserController):
             raise HTTPException(
                 status.HTTP_403_FORBIDDEN,
                 detail="Invitation email are disabled when password login is not allowed",
-            )
-
-        if not self.user.can_invite:
-            raise HTTPException(
-                status.HTTP_403_FORBIDDEN,
-                detail="This user can't send email invitations",
             )
 
         email_service = EmailService(locale=accept_language)

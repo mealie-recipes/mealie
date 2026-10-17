@@ -47,6 +47,10 @@ EXPECTED_ROUTE_REQUIREMENTS: dict[str, set[str]] = {
         "GET     /api/households/members",
         "PUT     /api/households/permissions",
     },
+    Perm.GROUP_INVITE: {
+        "POST    /api/households/invitations",
+        "POST    /api/households/invitations/email",
+    },
     Perm.HOUSEHOLD_MANAGE: {
         "POST    /api/households/mealplans/ical",
         "DELETE  /api/households/mealplans/ical",

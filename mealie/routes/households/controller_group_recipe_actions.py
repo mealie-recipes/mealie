@@ -10,6 +10,7 @@ from mealie.pkgs import safehttp
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import not_found
 from mealie.schema.household.group_recipe_action import (
     CreateGroupRecipeAction,
     GroupRecipeActionOut,
@@ -74,10 +75,7 @@ class GroupRecipeActionController(BaseUserController):
     ) -> None:
         recipe_action = self.repos.group_recipe_actions.get_one(item_id)
         if not recipe_action:
-            raise HTTPException(
-                status.HTTP_404_NOT_FOUND,
-                detail=ErrorResponse.respond(message="Not found."),
-            )
+            raise not_found("Not found.")
 
         if recipe_action.action_type == GroupRecipeActionType.post.value:
             task_action = safehttp.post
@@ -91,10 +89,7 @@ class GroupRecipeActionController(BaseUserController):
         try:
             recipe = recipe_service.get_one(recipe_slug)
         except NoEntryFound as e:
-            raise HTTPException(
-                status.HTTP_404_NOT_FOUND,
-                detail=ErrorResponse.respond(message="Not found."),
-            ) from e
+            raise not_found("Not found.") from e
 
         settings = get_app_settings()
         payload = GroupRecipeActionPayload(action=recipe_action, content=recipe, recipe_scale=recipe_scale)

@@ -2,7 +2,7 @@ from datetime import date
 from functools import cached_property
 
 from dateutil.tz import tzlocal
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.repos.all_repositories import get_repositories
@@ -10,13 +10,13 @@ from mealie.repos.repository_meals import RepositoryMeals
 from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import not_found
 from mealie.schema import mapper
 from mealie.schema.meal_plan import CreatePlanEntry, ReadPlanEntry, SavePlanEntry, UpdatePlanEntry
 from mealie.schema.meal_plan.new_meal import CreateRandomEntry, PlanEntryPagination, PlanEntryType
 from mealie.schema.meal_plan.plan_rules import PlanRulesDay
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.response.pagination import PaginationQuery
-from mealie.schema.response.responses import ErrorResponse
 from mealie.services.event_bus_service.event_types import (
     EventMealplanData,
     EventOperation,
@@ -143,9 +143,7 @@ class GroupMealplanController(BaseCrudController):
         """
         random_recipes = self._get_random_recipes_from_mealplan(data.date, data.entry_type)
         if not random_recipes:
-            raise HTTPException(
-                status_code=404, detail=ErrorResponse.respond(message=self.t("mealplan.no-recipes-match-your-rules"))
-            )
+            raise not_found(self.t("mealplan.no-recipes-match-your-rules"))
 
         recipe = random_recipes[0]
         result = self.mixins.create_one(
