@@ -107,6 +107,10 @@ jobs:
         run: |
           task py:mypy
 
+      - name: Semgrep (authz rules)
+        run: |
+          task py:semgrep
+
       - name: Pytest
         env:
           DB_ENGINE: ${{ matrix.Database }}

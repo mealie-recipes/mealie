@@ -108,7 +108,7 @@ class HttpRepo[C: BaseModel, R: BaseModel, U: BaseModel]:
         item = self.repo.get_one(item_id, key)
 
         if not item:
-            raise not_found()
+            raise not_found("Not found.")
 
         return item
 
@@ -116,7 +116,7 @@ class HttpRepo[C: BaseModel, R: BaseModel, U: BaseModel]:
         item = self.repo.get_one(item_id)
 
         if not item:
-            raise not_found()
+            raise not_found("Not found.")
 
         try:
             item = self.repo.update(item_id, data)  # type: ignore
@@ -129,7 +129,7 @@ class HttpRepo[C: BaseModel, R: BaseModel, U: BaseModel]:
         item = self.repo.get_one(item_id)
 
         if not item:
-            raise not_found()
+            raise not_found("Not found.")
 
         try:
             item = self.repo.patch(item_id, data.model_dump(exclude_unset=True, exclude_defaults=True))
