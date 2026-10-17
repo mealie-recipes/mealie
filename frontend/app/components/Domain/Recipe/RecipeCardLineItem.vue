@@ -16,6 +16,7 @@
           :recipe-id="recipe.id!"
           :slug="recipe.slug"
           :image-version="recipe.image"
+          :name="recipe.name"
           height="40"
           min-height="0"
           :icon-size="24"

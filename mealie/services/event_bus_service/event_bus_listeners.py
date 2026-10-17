@@ -18,7 +18,7 @@ from mealie.schema.household.group_events import GroupEventNotifierPrivate
 from mealie.schema.household.webhook import ReadWebhook
 
 from .event_types import Event, EventDocumentType, EventTypes, EventWebhookData
-from .publisher import ApprisePublisher, PublisherLike, WebhookPublisher
+from .publisher import CUSTOM_ENDPOINT_SCHEMES, ApprisePublisher, PublisherLike, WebhookPublisher
 
 
 class EventListenerBase(ABC):
@@ -122,14 +122,7 @@ class AppriseEventListener(EventListenerBase):
 
     @staticmethod
     def is_custom_url(url: str):
-        return url.split(":", 1)[0].lower() in [
-            "form",
-            "forms",
-            "json",
-            "jsons",
-            "xml",
-            "xmls",
-        ]
+        return url.split(":", 1)[0].lower() in CUSTOM_ENDPOINT_SCHEMES
 
 
 class WebhookEventListener(EventListenerBase):

@@ -8,7 +8,6 @@
     return-object
     :items="filteredItems"
     :prepend-inner-icon="icon || $globals.icons.tags"
-    rounded="4px"
     :custom-filter="() => true"
     color="primary"
     auto-select-first

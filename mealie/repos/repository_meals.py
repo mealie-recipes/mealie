@@ -9,6 +9,20 @@ from .repository_generic import HouseholdRepositoryGeneric
 
 
 class RepositoryMeals(HouseholdRepositoryGeneric[ReadPlanEntry, GroupMealPlan]):
+    def update(self, match_value, new_data) -> ReadPlanEntry:
+        new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
+        entry = self._query_one(match_value=match_value)
+
+        # Always preserve identity/ownership fields from the existing DB entry. UpdatePlanEntry
+        # carries id/group_id/user_id as plain client-settable fields, but a user editing their
+        # own entry must never be able to reassign it to another group or user via the body.
+        for field in ("id", "group_id", "user_id"):
+            new_data[field] = getattr(entry, field)
+
+        entry.update(session=self.session, **new_data)
+        self.session.commit()
+        return self.schema.model_validate(entry)
+
     def get_today(self, tz=UTC) -> list[ReadPlanEntry]:
         if not self.household_id:
             raise Exception("household_id not set")

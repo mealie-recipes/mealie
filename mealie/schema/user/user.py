@@ -63,6 +63,10 @@ class ChangePassword(MealieModel):
     new_password: str = Field(..., min_length=8)
 
 
+class DeleteSelf(MealieModel):
+    current_password: str = ""
+
+
 class GroupBase(MealieModel):
     name: Annotated[str, StringConstraints(strip_whitespace=True, min_length=1)]
     model_config = ConfigDict(from_attributes=True)
@@ -159,6 +163,26 @@ class UserBase(MealieModel):
             return v.name
         except AttributeError:
             return v
+
+
+class UserSelfUpdate(MealieModel):
+    """What a user may change about their own profile via `PUT /users/{id}`.
+
+    Deliberately omits admin/permission/group/household/auth_method: those are
+    privileged or tenancy fields that only an admin (via the admin user API) or a
+    dedicated permissions endpoint should be able to change. UserBase itself was
+    being used here before, which is why those fields were only ever blocked by
+    the hand-written equality checks in `assert_user_change_allowed` - this schema
+    makes it impossible to submit them in the first place, as a second layer.
+    """
+
+    username: str | None = None
+    full_name: str | None = None
+    email: Annotated[str, StringConstraints(to_lower=True, strip_whitespace=True)]
+    advanced: bool = False
+    show_announcements: bool = True
+    last_read_announcement: str | None = None
+    model_config = ConfigDict(from_attributes=True)
 
 
 class UserIn(UserBase):

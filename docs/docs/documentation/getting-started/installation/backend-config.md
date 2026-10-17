@@ -51,7 +51,7 @@ Set `HOST_IP` to an empty string to trust no forwarding proxies.
  | Variables                                               | Default  | Description                                                                                                                                                                                                                      |
  |---------------------------------------------------------|:--------:|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
  | DB_ENGINE                                               |  sqlite  | Optional: 'sqlite', 'postgres'                                                                                                                                                                                                   |
- | SQLITE_MIGRATE_JOURNAL_WAL                              |  False   | If set to true, switches SQLite's journal mode to WAL, which allows for multiple concurrent accesses. This can be useful when you have a decent amount of concurrency or when using certain remote storage systems such as Ceph. |
+ | SQLITE_MIGRATE_JOURNAL_WAL                              |  True    | If set to true, switches SQLite's journal mode to WAL, which allows for multiple concurrent accesses. This can be useful when you have a decent amount of concurrency or when using certain remote storage systems such as Ceph. Set to false to keep the legacy rollback-journal mode, e.g. if your data directory is on a filesystem that doesn't support WAL's shared-memory locking. |
  | POSTGRES_USER<super>[&dagger;][secrets]</super>         |  mealie  | Postgres database user                                                                                                                                                                                                           |
  | POSTGRES_PASSWORD<super>[&dagger;][secrets]</super>     |  mealie  | Postgres database password                                                                                                                                                                                                       |
  | POSTGRES_SERVER<super>[&dagger;][secrets]</super>       | postgres | Postgres database server address                                                                                                                                                                                                 |
@@ -234,20 +234,20 @@ Setting the following environmental variables will change the theme of the front
 !!! info
     If you're setting these variables but not seeing these changes persist, try removing the `#` character. Also, depending on which syntax you're using, double-check you're using quotes correctly.
 
-    If using YAML mapping syntax, be sure to include quotes around these values, otherwise they will be treated as comments in your YAML file:<br>`THEME_LIGHT_PRIMARY: '#E58325'` or  `THEME_LIGHT_PRIMARY: 'E58325'`
+    If using YAML mapping syntax, be sure to include quotes around these values, otherwise they will be treated as comments in your YAML file:<br>`THEME_LIGHT_PRIMARY: '#A65F1B'` or  `THEME_LIGHT_PRIMARY: 'A65F1B'`
 
-    If using YAML sequence syntax, don't include any quotes:<br>`THEME_LIGHT_PRIMARY=#E58325` or `THEME_LIGHT_PRIMARY=E58325`
+    If using YAML sequence syntax, don't include any quotes:<br>`THEME_LIGHT_PRIMARY=#A65F1B` or `THEME_LIGHT_PRIMARY=A65F1B`
 
 | Variables             | Default | Description                        |
 | --------------------- | :-----: | ---------------------------------- |
-| THEME_LIGHT_PRIMARY   | #E58325 | Main brand color and headers       |
+| THEME_LIGHT_PRIMARY   | #A65F1B | Main brand color and headers       |
 | THEME_LIGHT_ACCENT    | #007A99 | Buttons and interactive elements   |
 | THEME_LIGHT_SECONDARY | #973542 | Secondary UI elements and interactive accents |
 | THEME_LIGHT_SUCCESS   | #43A047 | Success messages and confirmations |
 | THEME_LIGHT_INFO      | #1976D2 | Information alerts and tooltips    |
 | THEME_LIGHT_WARNING   | #FF6D00 | Warning notifications              |
 | THEME_LIGHT_ERROR     | #EF5350 | Error messages and alerts          |
-| THEME_DARK_PRIMARY    | #E58325 | Main brand color and headers       |
+| THEME_DARK_PRIMARY    | #A65F1B | Main brand color and headers       |
 | THEME_DARK_ACCENT     | #007A99 | Buttons and interactive elements   |
 | THEME_DARK_SECONDARY  | #973542 | Secondary UI elements and interactive accents |
 | THEME_DARK_SUCCESS    | #43A047 | Success messages and confirmations |

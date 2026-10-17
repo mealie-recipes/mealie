@@ -1,4 +1,34 @@
+import enum
+
+from pydantic import UUID4, ConfigDict
+
 from mealie.schema._mealie import MealieModel
+
+
+class ThemeBorderRadius(enum.StrEnum):
+    sharp = "sharp"
+    soft = "soft"
+    round = "round"
+
+
+class ThemeCardStyle(enum.StrEnum):
+    elevated = "elevated"
+    flat = "flat"
+
+
+class ThemeFontFamily(enum.StrEnum):
+    """System font stacks only - no webfont is ever downloaded, matching the rest of the app."""
+
+    sans = "sans"
+    rounded = "rounded"
+    serif = "serif"
+    mono = "mono"
+
+
+class ThemeFontSize(enum.StrEnum):
+    small = "small"
+    medium = "medium"
+    large = "large"
 
 
 class AppStatistics(MealieModel):
@@ -26,10 +56,13 @@ class AppInfo(MealieModel):
     allowed_iframe_hosts: list[str] = []
     branding_name: str = "Mealie"
     branding_logo_url: str | None = None
+    legal_controller_name: str = ""
+    legal_contact_email: str = ""
+    legal_source_url: str = ""
 
 
 class AppTheme(MealieModel):
-    light_primary: str = "#E58325"
+    light_primary: str = "#A65F1B"
     light_accent: str = "#007A99"
     light_secondary: str = "#973542"
     light_success: str = "#43A047"
@@ -37,13 +70,26 @@ class AppTheme(MealieModel):
     light_warning: str = "#FF6D00"
     light_error: str = "#EF5350"
 
-    dark_primary: str = "#E58325"
+    dark_primary: str = "#A65F1B"
     dark_accent: str = "#007A99"
     dark_secondary: str = "#973542"
     dark_success: str = "#43A047"
     dark_info: str = "#1976D2"
     dark_warning: str = "#FF6D00"
     dark_error: str = "#EF5350"
+
+    border_radius: ThemeBorderRadius = ThemeBorderRadius.soft
+    card_style: ThemeCardStyle = ThemeCardStyle.elevated
+    font_family: ThemeFontFamily = ThemeFontFamily.sans
+    font_size: ThemeFontSize = ThemeFontSize.medium
+
+
+class AppThemeOut(AppTheme):
+    # The id of the single stored row, if an instance-wide override has been saved.
+    # Internal to the admin theme repo/route - the public /app/about/theme endpoint
+    # only ever serves the plain AppTheme shape.
+    id: UUID4 | None = None
+    model_config = ConfigDict(from_attributes=True)
 
 
 class AppStartupInfo(MealieModel):

@@ -24,6 +24,7 @@
               icon
               class="mr-2"
               elevation="0"
+              :aria-label="$t('general.delete')"
               @click="removeByIndex(index)"
             >
               <v-icon>{{ $globals.icons.delete }}</v-icon>

@@ -167,7 +167,7 @@ function clearImage() {
 
 async function testOpenAI() {
   if (!selectedProviderId.value) {
-    alert.error("Please select a provider");
+    alert.error(i18n.t("admin.select-a-provider"));
     return;
   }
 
@@ -178,10 +178,10 @@ async function testOpenAI() {
   loading.value = false;
 
   if (!data) {
-    alert.error("Unable to test AI services");
+    alert.error(i18n.t("admin.unable-to-test-ai-services"));
   }
   else {
-    response.value = data.response || (data.success ? "Test Successful" : "Test Failed");
+    response.value = data.response || (data.success ? i18n.t("admin.test-successful") : i18n.t("admin.test-failed"));
   }
 }
 </script>

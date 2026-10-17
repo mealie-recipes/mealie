@@ -97,6 +97,7 @@ import {
   mdiMinusCircle,
   mdiNewBox,
   mdiOrderAlphabeticalAscending,
+  mdiPaletteOutline,
   mdiPlay,
   mdiPlus,
   mdiPlusCircle,
@@ -297,6 +298,7 @@ export const icons = {
   pages: mdiBookOutline,
   book: mdiBookOpenPageVariant,
   organizers: mdiFileCabinet,
+  theme: mdiPaletteOutline,
 
   // Admin
   user: mdiAccount,

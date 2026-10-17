@@ -4,3 +4,9 @@ allowBuilds:
   json-editor-vue: true
   unrs-resolver: true
   vue-demi: true
+
+overrides:
+  js-yaml: '>=4.1.1'
+  node-forge: '>=1.3.2'
+  simple-git: '>=4.0.1'
+  tinypool: '>=2.1.2'

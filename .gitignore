@@ -16,6 +16,8 @@ frontend/.yarnrc.yml
 
 dev/code-generation/generated/*
 dev/data/mealie.db-journal
+dev/data/mealie.db-wal
+dev/data/mealie.db-shm
 dev/data/backups/*
 dev/data/debug/*
 dev/data/img/*

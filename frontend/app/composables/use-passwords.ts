@@ -5,11 +5,15 @@ import { scorePassword } from "~/lib/validators";
 export function usePasswordField() {
   const show = ref(false);
   const { $globals } = useNuxtApp();
+  const i18n = useI18n();
 
   const passwordIcon = computed(() => {
     return show.value ? $globals.icons.eyeOff : $globals.icons.eye;
   });
   const inputType = computed(() => (show.value ? "text" : "password"));
+  const toggleLabel = computed(() => {
+    return show.value ? i18n.t("user.hide-password") : i18n.t("user.show-password");
+  });
 
   const togglePasswordShow = () => {
     show.value = !show.value;
@@ -19,6 +23,7 @@ export function usePasswordField() {
     inputType,
     togglePasswordShow,
     passwordIcon,
+    toggleLabel,
   };
 }
 

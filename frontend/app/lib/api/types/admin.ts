@@ -56,6 +56,11 @@ export interface AppInfo {
   allowedIframeHosts?: string[];
   brandingName?: string;
   brandingLogoUrl?: string | null;
+  // TODO: regenerate via `task dev:generate` once pydantic2ts can run in this environment
+  // (mirrors mealie.schema.admin.about.AppInfo.legal_*)
+  legalControllerName?: string;
+  legalContactEmail?: string;
+  legalSourceUrl?: string;
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;

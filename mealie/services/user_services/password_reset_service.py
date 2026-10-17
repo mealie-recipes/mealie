@@ -1,12 +1,20 @@
+from datetime import timedelta
+
 from fastapi import HTTPException, status
 from sqlalchemy.orm.session import Session
 
 from mealie.core.security import hash_password, url_safe_token
+from mealie.db.models._model_utils.datetime import get_utc_now
 from mealie.db.models.users.users import AuthMethod
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.user.user_passwords import SavePasswordResetToken
 from mealie.services._base_service import BaseService
 from mealie.services.email import EmailService
+
+# Tokens are also purged from the database after a longer delay (see
+# scheduler/tasks/purge_password_reset.py) - this is the actual usability window, independent
+# of when that cleanup job next runs.
+TOKEN_TIME_LIMIT = timedelta(minutes=30)
 
 
 class PasswordResetService(BaseService):
@@ -54,6 +62,11 @@ class PasswordResetService(BaseService):
 
         if token_entry is None:
             self.logger.error("failed to reset password: invalid token")
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid token")
+
+        if token_entry.created_at is None or get_utc_now() - token_entry.created_at > TOKEN_TIME_LIMIT:
+            self.db.tokens_pw_reset.delete(token_entry.token)
+            self.logger.error("failed to reset password: expired token")
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "Invalid token")
 
         user = self.db.users.get_one(token_entry.user_id)

@@ -1,4 +1,4 @@
-import { CUSTOMARY_SYSTEMS, STANDARDIZED_UNITS, UNIT_SYSTEMS, type StandardizedUnit, type UnitRung, type UnitSystem } from "./unit-systems";
+import { CUSTOMARY_SYSTEMS, STANDARDIZED_UNITS, UNIT_SYSTEMS, type StandardizedUnit, type UnitDimension, type UnitRung, type UnitSystem } from "./unit-systems";
 import type { CreateIngredientUnit, RecipeIngredient } from "~/lib/api/types/recipe";
 
 interface ConvertibleIngredient {
@@ -48,6 +48,21 @@ function resolveConvertible(ingredient: RecipeIngredient): ConvertibleIngredient
 
 export function canConvertIngredient(ingredient: RecipeIngredient): boolean {
   return resolveConvertible(ingredient) !== null;
+}
+
+/**
+ * The ingredient's quantity restated in its dimension's base unit (grams for mass, millilitres
+ * for volume), or null if it isn't convertible. No density assumption is made here - turning a
+ * volume into a weight is up to the caller, and only valid as an approximation.
+ */
+export function standardizedMagnitude(ingredient: RecipeIngredient): { dimension: UnitDimension; value: number } | null {
+  const convertible = resolveConvertible(ingredient);
+  if (!convertible) {
+    return null;
+  }
+
+  const { quantity, standardQuantity, standard } = convertible;
+  return { dimension: standard.dimension, value: quantity * standardQuantity * standard.base };
 }
 
 /**

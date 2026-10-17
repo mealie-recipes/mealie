@@ -190,12 +190,22 @@
               {
                 text: $t('about.github'),
                 icon: $globals.icons.github,
-                href: 'https://github.com/mealie-recipes/mealie',
+                href: $appInfo.legalSourceUrl,
               },
               {
                 text: $t('about.docs'),
                 icon: $globals.icons.folderOutline,
                 href: 'https://docs.mealie.io/',
+              },
+              {
+                text: $t('legal.legal-notice'),
+                icon: $globals.icons.informationOutline,
+                href: '/legal/mentions-legales',
+              },
+              {
+                text: $t('legal.privacy-policy'),
+                icon: $globals.icons.lock,
+                href: '/legal/confidentialite',
               },
             ]"
             :key="link.text"
@@ -443,24 +453,11 @@ function alertOnError(error: any) {
   margin-bottom: -3.5rem;
 }
 
-.icon-avatar {
-  border-color: rgba(0, 0, 0, 0.12);
-  border: 2px;
-}
-
-.bg-off-white {
-  background: #f5f8fa;
-}
-
 .absolute {
   position: absolute;
 }
 
 .div-width {
   max-width: 75%;
-}
-
-.bg-white {
-  background-color: #fff;
 }
 </style>

@@ -1,3 +1,4 @@
+import asyncio
 import hmac
 from datetime import timedelta
 from typing import Annotated, Any
@@ -236,16 +237,18 @@ async def oauth_callback(request: Request, response: Response, session: Session 
 
     from mealie.core.security.providers.openid_provider import OpenIDProvider
 
+    # authenticate() can block on a network fetch of the IdP's profile picture, so it
+    # must not run on the event loop thread.
     auth = None
     try:
         auth_provider = OpenIDProvider(session, token["userinfo"])
-        auth = auth_provider.authenticate()
+        auth = await asyncio.to_thread(auth_provider.authenticate)
     except MissingClaimException:
         try:
             logger.debug("[OIDC] Claims not present in the ID token, pulling user info")
             userinfo = await client.userinfo(token=token)
             auth_provider = OpenIDProvider(session, userinfo, use_default_groups=True)
-            auth = auth_provider.authenticate()
+            auth = await asyncio.to_thread(auth_provider.authenticate)
         except MissingClaimException:
             logger.error("[OIDC] Required claims not present in ID token or userinfo endpoint")
             auth = None

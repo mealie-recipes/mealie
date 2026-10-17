@@ -79,6 +79,20 @@ def test_group_invitation_link(api_client: TestClient, admin_user: TestUser, inv
     assert r.json()["householdId"] == admin_user.household_id
 
 
+def test_email_invitation_rejects_unknown_token(api_client: TestClient, unique_user: TestUser) -> None:
+    # the token is client-supplied and gets embedded in the email's link, so a string that
+    # doesn't correspond to a real invite must be rejected rather than emailed as-is
+    body = {"email": "someone@example.com", "token": "not-a-real-invite-token"}
+    r = api_client.post(api_routes.households_invitations_email, json=body, headers=unique_user.token)
+    assert r.status_code == 400
+
+
+def test_email_invitation_accepts_valid_token(api_client: TestClient, admin_user: TestUser, invite: str) -> None:
+    body = {"email": "someone@example.com", "token": invite}
+    r = api_client.post(api_routes.households_invitations_email, json=body, headers=admin_user.token)
+    assert r.status_code == 200
+
+
 def test_group_invitation_delete_after_uses(api_client: TestClient, invite: str) -> None:
     # Register First User
     _, r = register_user(api_client, invite)

@@ -89,6 +89,7 @@
         :color="btn.color"
         variant="elevated"
         :icon="$vuetify.display.xs"
+        :aria-label="btn.text"
         @click="emitHandler(btn.event)"
       >
         <v-icon :left="!$vuetify.display.xs">

@@ -1,7 +1,7 @@
 import random
 from collections.abc import Generator
 from dataclasses import dataclass
-from uuid import UUID
+from uuid import UUID, uuid4
 
 import pytest
 from fastapi.testclient import TestClient
@@ -175,6 +175,36 @@ def test_update_cookbooks_many(api_client: TestClient, unique_user: TestUser, co
 
     for know in known_ids:  # Hacky check, because other tests don't cleanup after themselves :(
         assert str(know) in server_ids
+
+
+def test_update_cookbooks_many_cannot_reassign_tenant(
+    api_client: TestClient, unique_user: TestUser, cookbooks: list[TestCookbook]
+):
+    """Regression test: UpdateCookBook (the bulk PUT schema) carries group_id/household_id as
+    plain client-settable fields, meant only for create_one() to stamp server-side. The bulk
+    route's existence check only confirms the cookbook id belongs to the caller, not that the
+    submitted group_id/household_id still do - without re-pinning them server-side, a caller
+    could reassign their own cookbook into an arbitrary other tenant."""
+    foreign_group_id = uuid4()
+    foreign_household_id = uuid4()
+
+    pages = [x.data for x in cookbooks]
+    for page in pages:
+        page["group_id"] = str(foreign_group_id)
+        page["household_id"] = str(foreign_household_id)
+
+    response = api_client.put(api_routes.households_cookbooks, json=utils.jsonify(pages), headers=unique_user.token)
+    assert response.status_code == 200
+
+    for item in response.json():
+        assert item["groupId"] == unique_user.group_id
+        assert item["householdId"] == unique_user.household_id
+
+    # persisted, not just the response payload
+    response = api_client.get(api_routes.households_cookbooks_item_id(cookbooks[0].id), headers=unique_user.token)
+    assert response.status_code == 200
+    assert response.json()["groupId"] == unique_user.group_id
+    assert response.json()["householdId"] == unique_user.household_id
 
 
 def test_update_cookbooks_many_other_household(

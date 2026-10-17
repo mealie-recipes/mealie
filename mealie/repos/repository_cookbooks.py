@@ -32,8 +32,21 @@ class RepositoryCookbooks(HouseholdRepositoryGeneric[ReadCookBook, CookBook]):
         return [self.create(entry) for entry in data]
 
     def update(self, match_value: str | int | UUID4, data: SaveCookBook | dict) -> ReadCookBook:
-        if isinstance(data, dict):
-            data = SaveCookBook(**data)
+        new_data: dict = data if isinstance(data, dict) else data.model_dump()
+
+        # UpdateCookBook (the bulk PUT /households/cookbooks route's schema) carries group_id/
+        # household_id as plain client-settable fields - they exist so create_one() can stamp
+        # them server-side, not so a caller can reassign an existing cookbook to another tenant.
+        # The existence check upstream (HttpRepo.update_one) only confirms this cookbook is in
+        # the caller's own scope, not that the submitted group_id/household_id still are. The
+        # single-item update route's schema (CreateCookBook) has neither field at all, so these
+        # are always added here rather than conditionally overwritten.
+        if self.group_id is not None:
+            new_data["group_id"] = self.group_id
+        if self.household_id is not None:
+            new_data["household_id"] = self.household_id
+
+        data = SaveCookBook(**new_data)
 
         new_slug = slugify(data.name)
         if not (data.slug and re.match(rf"^({new_slug})(-\d+)?$", data.slug)):

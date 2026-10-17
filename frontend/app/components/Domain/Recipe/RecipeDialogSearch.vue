@@ -29,6 +29,7 @@
             hide-details
             single-line
             :placeholder="$t('search.search')"
+            :aria-label="$t('search.search')"
             :prepend-inner-icon="$globals.icons.search"
           />
 
@@ -36,6 +37,7 @@
             v-if="$vuetify.display.xs"
             icon
             size="x-small"
+            :title="$t('general.close')"
             @click="dialog = false"
           >
             <v-icon>
@@ -220,6 +222,6 @@ defineExpose({
 
 .keyboard-selected {
   outline: 2px solid rgb(var(--v-theme-primary));
-  border-radius: 4px;
+  border-radius: var(--mealie-radius);
 }
 </style>

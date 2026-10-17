@@ -57,6 +57,11 @@ class AdminGroupManagementRoutes(BaseAdminController):
     @router.put("/{item_id}", response_model=GroupInDB)
     def update_one(self, item_id: UUID4, data: GroupAdminUpdate):
         group = self.repo.get_one(item_id)
+        if group is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=ErrorResponse.respond(message="Group not found"),
+            )
 
         if data.preferences:
             preferences = self.repos.group_preferences.get_one(value=item_id, key="group_id")

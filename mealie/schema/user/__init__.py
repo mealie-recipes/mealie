@@ -12,6 +12,7 @@ from .registration import CreateUserRegistration
 from .user import (
     ChangePassword,
     CreateToken,
+    DeleteSelf,
     DeleteTokenResponse,
     GroupBase,
     GroupHouseholdSummary,
@@ -33,6 +34,7 @@ from .user import (
     UserRatings,
     UserRatingSummary,
     UserRatingUpdate,
+    UserSelfUpdate,
     UserSummary,
     UserSummaryPagination,
 )
@@ -56,6 +58,7 @@ __all__ = [
     "UnlockResults",
     "ChangePassword",
     "CreateToken",
+    "DeleteSelf",
     "DeleteTokenResponse",
     "GroupBase",
     "GroupHouseholdSummary",
@@ -77,6 +80,7 @@ __all__ = [
     "UserRatingSummary",
     "UserRatingUpdate",
     "UserRatings",
+    "UserSelfUpdate",
     "UserSummary",
     "UserSummaryPagination",
     "ForgotPassword",

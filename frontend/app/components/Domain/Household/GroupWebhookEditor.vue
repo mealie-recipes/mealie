@@ -19,6 +19,7 @@
       <v-text-field
         v-model="scheduledTime"
         type="time"
+        :label="$t('settings.webhooks.scheduled-time')"
         clearable
         variant="underlined"
       />

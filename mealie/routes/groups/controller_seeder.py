@@ -32,3 +32,7 @@ class DataSeederController(BaseUserController):
     @router.post("/units", response_model=SuccessResponse)
     def seed_units(self, data: SeederConfig) -> dict:
         return self._wrap(lambda: self.service.seed_units(data.locale))
+
+    @router.post("/tools", response_model=SuccessResponse)
+    def seed_tools(self, data: SeederConfig) -> dict:
+        return self._wrap(lambda: self.service.seed_tools(data.locale))

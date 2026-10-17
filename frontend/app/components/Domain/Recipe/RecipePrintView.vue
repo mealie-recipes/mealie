@@ -13,6 +13,7 @@
             <img
               :key="imageKey"
               :src="recipeImageUrl"
+              :alt="recipe.name"
               style="min-height: 50; max-width: 100%;"
             >
           </v-col>

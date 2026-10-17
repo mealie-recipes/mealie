@@ -663,15 +663,6 @@ async function onFinish() {
   margin-bottom: -2.5rem;
 }
 
-.icon-avatar {
-  border-color: rgba(0, 0, 0, 0.12);
-  border: 2px;
-}
-
-.bg-off-white {
-  background: #f5f8fa;
-}
-
 .v-stepper-item__avatar.v-avatar.v-stepper-item__avatar.v-avatar {
   width: 3rem !important; /** Override inline style :( */
   height: 3rem !important; /** Override inline style :( */

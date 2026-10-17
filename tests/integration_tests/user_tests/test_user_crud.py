@@ -114,3 +114,30 @@ def test_admin_updates(api_client: TestClient, admin_user: TestUser, unique_user
         tmp_user[permission] = not admin[permission]
         response = api_client.put(api_routes.users_item_id(admin_user.user_id), json=tmp_user, headers=admin_user.token)
         assert response.status_code == 403
+
+
+def test_delete_self_wrong_password(api_client: TestClient, unique_user: TestUser):
+    response = api_client.request(
+        "DELETE",
+        api_routes.users_self,
+        json={"currentPassword": "not-the-password"},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 400
+
+    # user must still be able to log in
+    response = api_client.get(api_routes.users_self, headers=unique_user.token)
+    assert response.status_code == 200
+
+
+def test_delete_self(api_client: TestClient, unique_user: TestUser):
+    response = api_client.request(
+        "DELETE",
+        api_routes.users_self,
+        json={"currentPassword": unique_user.password},
+        headers=unique_user.token,
+    )
+    assert response.status_code == 200
+
+    response = api_client.get(api_routes.users_self, headers=unique_user.token)
+    assert response.status_code == 401

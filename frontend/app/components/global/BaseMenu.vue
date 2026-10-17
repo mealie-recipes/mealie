@@ -16,6 +16,7 @@
           icon
           :color="activator.color"
           variant="plain"
+          :aria-label="activator.text || undefined"
           v-bind="hoverProps"
           :loading="activator.loading || children.some(({ loading }) => loading)"
         >

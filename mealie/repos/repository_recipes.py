@@ -471,17 +471,6 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             fltr.append(RecipeModel.household_id.in_(households))
         return fltr
 
-    def get_random(self, limit=1) -> list[Recipe]:
-        stmt = (
-            sa.select(RecipeModel).filter(RecipeModel.household_id.is_not(None)).order_by(sa.func.random()).limit(limit)
-        )  # Postgres and SQLite specific
-        if self.group_id:
-            stmt = stmt.filter(RecipeModel.group_id == self.group_id)
-        if self.household_id:
-            stmt = stmt.filter(RecipeModel.household_id == self.household_id)
-
-        return [self.schema.model_validate(x) for x in self.session.execute(stmt).scalars().all()]
-
     def get_by_slug(self, group_id: UUID4, slug: str) -> Recipe | None:
         stmt = sa.select(RecipeModel).filter(RecipeModel.group_id == group_id, RecipeModel.slug == slug)
         dbrecipe = self.session.execute(stmt).scalars().one_or_none()

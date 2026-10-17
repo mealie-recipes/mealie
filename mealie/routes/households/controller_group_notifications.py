@@ -1,8 +1,9 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import UUID4
 
+from mealie.pkgs.safehttp import InvalidDomainError
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
@@ -17,6 +18,7 @@ from mealie.schema.household.group_events import (
 )
 from mealie.schema.mapper import cast
 from mealie.schema.response.pagination import PaginationQuery
+from mealie.schema.response.responses import ErrorResponse
 from mealie.services.event_bus_service.event_bus_listeners import AppriseEventListener
 from mealie.services.event_bus_service.event_bus_service import EventBusService
 from mealie.services.event_bus_service.event_types import (
@@ -73,9 +75,14 @@ class GroupEventsNotifierController(BaseUserController):
     @router.put("/{item_id}", response_model=GroupEventNotifierOut)
     def update_one(self, item_id: UUID4, data: GroupEventNotifierUpdate):
         if data.apprise_url is None:
-            current_data: GroupEventNotifierPrivate = self.repo.get_one(
+            current_data: GroupEventNotifierPrivate | None = self.repo.get_one(
                 item_id, override_schema=GroupEventNotifierPrivate
             )
+            if current_data is None:
+                raise HTTPException(
+                    status_code=status.HTTP_404_NOT_FOUND,
+                    detail=ErrorResponse.respond(message="Notifier not found"),
+                )
             data.apprise_url = current_data.apprise_url
 
         return self.mixins.update_one(data, item_id)
@@ -90,7 +97,12 @@ class GroupEventsNotifierController(BaseUserController):
     #  TODO: properly re-implement this with new event listeners
     @router.post("/{item_id}/test", status_code=204)
     def test_notification(self, item_id: UUID4):
-        item: GroupEventNotifierPrivate = self.repo.get_one(item_id, override_schema=GroupEventNotifierPrivate)
+        item: GroupEventNotifierPrivate | None = self.repo.get_one(item_id, override_schema=GroupEventNotifierPrivate)
+        if item is None:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=ErrorResponse.respond(message="Notifier not found"),
+            )
 
         event_type = EventTypes.test_message
         test_event = Event(
@@ -105,4 +117,10 @@ class GroupEventsNotifierController(BaseUserController):
         )
 
         test_listener = AppriseEventListener(self.group_id, self.household_id)
-        test_listener.publish_to_subscribers(test_event, [item.apprise_url])
+        try:
+            test_listener.publish_to_subscribers(test_event, [item.apprise_url])
+        except InvalidDomainError as e:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=ErrorResponse.respond(message="Notification URL targets a disallowed host"),
+            ) from e

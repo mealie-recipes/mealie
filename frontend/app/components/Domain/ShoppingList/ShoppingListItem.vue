@@ -73,13 +73,14 @@
                       </v-icon>
                     </v-btn>
                   </template>
-                  <span>Toggle Recipes</span>
+                  <span>{{ $t("shopping-list.toggle-recipes") }}</span>
                 </v-tooltip>
                 <v-btn
                   size="small"
                   variant="text"
                   class="ml-2"
                   icon
+                  :aria-label="$t('general.edit')"
                   @click="$emit('edit')"
                 >
                   <v-icon>
@@ -91,6 +92,7 @@
                   variant="text"
                   class="handle"
                   icon
+                  :aria-label="$t('general.menu')"
                   v-bind="hoverProps"
                 >
                   <v-icon>

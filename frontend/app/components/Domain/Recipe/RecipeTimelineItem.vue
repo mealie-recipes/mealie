@@ -72,6 +72,7 @@
             <v-img
               v-if="eventImageUrl"
               :src="eventImageUrl"
+              :alt="event.subject || ''"
               min-height="50"
               :height="hideImage ? undefined : 'auto'"
               :max-height="attrs.image.maxHeight"

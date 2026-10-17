@@ -219,7 +219,7 @@
             color="primary"
             class="mt-6 mb-2 d-flex align-center"
             :class="isEditForm ? 'pa-2' : 'pa-3'"
-            style="border-radius: 6px; cursor: pointer; width: 100%;"
+            style="cursor: pointer; width: 100%;"
             @click="toggleCollapseSection(index)"
           >
             <template v-if="isEditForm">
@@ -1034,7 +1034,8 @@ function notifyUnsupportedDrop() {
 function embedAsset(index: number, asset: RecipeAsset) {
   emit("update:assets", [...(assets.value ?? []), asset]);
   const assetUrl = recipeAssetPath(props.recipe.id, asset.fileName as string);
-  const text = `<img src="${assetUrl}" height="100%" width="100%"/>`;
+  const safeAlt = asset.name.replace(/"/g, "&quot;");
+  const text = `<img src="${assetUrl}" alt="${safeAlt}" height="100%" width="100%"/>`;
   instructionList.value[index].text += text;
 }
 

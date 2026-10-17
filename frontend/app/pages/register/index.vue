@@ -530,15 +530,6 @@ async function submitRegistration() {
   margin-bottom: -2.5rem;
 }
 
-.icon-avatar {
-  border-color: rgba(0, 0, 0, 0.12);
-  border: 2px;
-}
-
-.bg-off-white {
-  background: #f5f8fa;
-}
-
 .preferred-width {
   width: 840px;
 }

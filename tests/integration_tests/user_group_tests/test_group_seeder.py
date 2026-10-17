@@ -3,13 +3,13 @@ from fastapi.testclient import TestClient
 from mealie.schema.response.pagination import PaginationQuery
 from tests.utils import api_routes
 from tests.utils.fixture_schemas import TestUser
-from tests.utils.seed_data import seeded_food_names, seeded_label_names, seeded_unit_names
+from tests.utils.seed_data import seeded_food_names, seeded_label_names, seeded_tool_names, seeded_unit_names
 
 LOCALE = "en-US"
 
 
 def test_seed_invalid_locale(api_client: TestClient, unique_user: TestUser):
-    for route in (api_routes.groups_seeders_foods, api_routes.groups_seeders_units):
+    for route in (api_routes.groups_seeders_foods, api_routes.groups_seeders_units, api_routes.groups_seeders_tools):
         resp = api_client.post(route, json={"locale": "invalid"}, headers=unique_user.token)
         assert resp.status_code == 422
 
@@ -105,3 +105,37 @@ def test_seed_units(api_client: TestClient, unique_user: TestUser):
         assert unit.standard_unit == "cup"
 
     assert pint_found
+
+
+def test_seed_tools(api_client: TestClient, unique_user: TestUser):
+    database = unique_user.repos
+
+    existing_tools = database.tools.page_all(PaginationQuery(page=1, per_page=-1)).items
+    assert len(existing_tools) == 0
+
+    resp = api_client.post(api_routes.groups_seeders_tools, json={"locale": LOCALE}, headers=unique_user.token)
+    assert resp.status_code == 200
+
+    tools = database.tools.page_all(PaginationQuery(page=1, per_page=-1)).items
+    assert {tool.name for tool in tools} == seeded_tool_names(LOCALE)
+
+    # every seeded tool has a known family and no leftover brand/model (those are for the user's
+    # own inventory, not the starter catalog)
+    assert tools
+    assert all(tool.family is not None for tool in tools)
+    assert all(tool.brand is None and tool.model is None for tool in tools)
+
+
+def test_seed_tools_does_not_duplicate_existing_tools(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    unique_user = unique_user_fn_scoped
+    database = unique_user.repos
+
+    resp = api_client.post(api_routes.groups_seeders_tools, json={"locale": LOCALE}, headers=unique_user.token)
+    assert resp.status_code == 200
+    first_count = len(database.tools.page_all(PaginationQuery(page=1, per_page=-1)).items)
+
+    resp = api_client.post(api_routes.groups_seeders_tools, json={"locale": LOCALE}, headers=unique_user.token)
+    assert resp.status_code == 200
+    second_count = len(database.tools.page_all(PaginationQuery(page=1, per_page=-1)).items)
+
+    assert first_count == second_count

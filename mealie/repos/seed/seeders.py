@@ -4,16 +4,18 @@ from functools import cached_property
 
 from mealie.lang.locale_config import resolve_food_plural, resolve_plural
 from mealie.schema.labels import MultiPurposeLabelOut, MultiPurposeLabelSave
+from mealie.schema.recipe.recipe import RecipeTool
 from mealie.schema.recipe.recipe_ingredient import (
     IngredientFood,
     IngredientUnit,
     SaveIngredientFood,
     SaveIngredientUnit,
 )
+from mealie.schema.recipe.recipe_tool import RecipeToolSave, ToolFamily
 from mealie.services.group_services.labels_service import MultiPurposeLabelService
 
 from ._abstract_seeder import AbstractSeeder
-from .resources import foods, units
+from .resources import foods, tools, units
 
 
 class IngredientUnitsSeeder(AbstractSeeder):
@@ -148,3 +150,50 @@ class IngredientFoodsSeeder(AbstractSeeder):
                     self.repos.ingredient_foods.create(food)
                 except Exception as e:
                     self.logger.error(e)
+
+
+class RecipeToolsSeeder(AbstractSeeder):
+    """Seeds a starter catalog of common kitchen tools and appliances, categorized by family."""
+
+    @classmethod
+    def get_file(cls, locale: str | None = None) -> pathlib.Path:
+        locale_path = cls.resources / "tools" / "locales" / f"{locale}.json"
+        return locale_path if locale_path.exists() else tools.en_US
+
+    def get_all_tools(self) -> list[RecipeTool]:
+        return self.repos.tools.get_all()
+
+    def load_data(self, locale: str | None = None) -> Generator[RecipeToolSave]:
+        file = self.get_file(locale)
+
+        seen_tool_names = {tool.name for tool in self.get_all_tools()}
+        for tool in self.load_file(file).values():
+            if tool["name"] in seen_tool_names:
+                continue
+
+            seen_tool_names.add(tool["name"])
+
+            # an unrecognized family falls back to "other" rather than failing the whole seed
+            try:
+                family = ToolFamily(tool.get("family"))
+            except ValueError:
+                family = ToolFamily.other
+
+            yield RecipeToolSave(
+                group_id=self.repos.group_id,
+                name=tool["name"],
+                family=family,
+                category=tool.get("category") or None,
+            )
+
+    def seed(self, locale: str | None = None) -> None:
+        self.logger.info("Seeding Recipe Tools")
+        to_seed = list(self.load_data(locale))
+        if not to_seed:
+            return
+
+        for tool in to_seed:
+            try:
+                self.repos.tools.create(tool)
+            except Exception as e:
+                self.logger.error(e)

@@ -73,9 +73,5 @@
       "onFail": "warn"
     }
   },
-  "packageManager": "pnpm@11.23.0",
-  "resolutions": {
-    "js-yaml": ">=4.1.1",
-    "node-forge": ">=1.3.2"
-  }
+  "packageManager": "pnpm@11.23.0"
 }

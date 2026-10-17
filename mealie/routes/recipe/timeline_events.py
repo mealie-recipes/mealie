@@ -60,8 +60,10 @@ class RecipeTimelineEventsController(BaseCrudController):
 
     @router.post("", response_model=RecipeTimelineEventOut, status_code=201)
     def create_one(self, data: RecipeTimelineEventIn):
-        # if the user id is not specified, use the currently-authenticated user
-        data.user_id = data.user_id or self.user.id
+        # user_id is never trusted from the client: RecipeTimelineEventIn only allows it so other
+        # server-side callers (e.g. system-generated events) can pass one directly. A client
+        # submitting their own would let them attribute the event to any other user by id.
+        data.user_id = self.user.id
 
         recipe = self.group_recipes.get_one(data.recipe_id, "id")
         if not recipe:

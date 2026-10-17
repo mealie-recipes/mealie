@@ -1,3 +1,62 @@
+/*
+ * Non-color theme tokens ("design"), set at runtime by plugins/theme.ts from the
+ * instance-wide AppTheme (border_radius/card_style). Default (4px / elevated) matches
+ * AppTheme's own pydantic defaults (soft/elevated), so the page looks right before the
+ * plugin runs too. "flat" only adds a class rather than overriding box-shadow directly,
+ * so "elevated" keeps using Vuetify's own per-component elevation untouched.
+ */
+:root {
+  --mealie-radius: 4px;
+  --mealie-font-family: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --mealie-font-size: 16px;
+}
+
+.v-card,
+.v-sheet,
+.v-btn:not(.v-btn--icon),
+.v-chip,
+.v-alert,
+.v-text-field .v-field,
+.v-select .v-field,
+.v-autocomplete .v-field,
+.v-textarea .v-field {
+  border-radius: var(--mealie-radius) !important;
+}
+
+.theme-flat-cards .v-card {
+  box-shadow: none !important;
+}
+
+/* Shared by the auth/setup pages (login, register, admin setup) and AppLogo, which previously
+   each duplicated these exact rules in their own scoped <style>. */
+.icon-avatar {
+  border: 2px;
+  border-color: rgba(0, 0, 0, 0.12);
+}
+
+.bg-off-white {
+  background: #f5f8fa;
+}
+
+.bg-white {
+  background-color: #fff;
+}
+
+/*
+ * Typography - font-size is set on the root element because Vuetify's own sizing (spacing,
+ * component dimensions, most text) is defined in rem, so scaling the root scales the whole
+ * app proportionally instead of just body text. font-family is repeated on .v-application
+ * because Vuetify sets its own font-family there, which would otherwise win by specificity.
+ */
+html {
+  font-size: var(--mealie-font-size);
+}
+
+body,
+.v-application {
+  font-family: var(--mealie-font-family) !important;
+}
+
 .layout-enter-active,
 .layout-leave-active {
   transition: opacity 0.2s;

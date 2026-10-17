@@ -1,19 +1,4 @@
-export interface ThemeConfig {
-  lightPrimary: string;
-  lightAccent: string;
-  lightSecondary: string;
-  lightSuccess: string;
-  lightInfo: string;
-  lightWarning: string;
-  lightError: string;
-  darkPrimary: string;
-  darkAccent: string;
-  darkSecondary: string;
-  darkSuccess: string;
-  darkInfo: string;
-  darkWarning: string;
-  darkError: string;
-}
+import { applyDesignTokens, type ThemeConfig } from "~/composables/use-theme-design";
 
 let __cachedTheme: ThemeConfig | undefined;
 
@@ -31,12 +16,17 @@ async function fetchTheme(): Promise<ThemeConfig | undefined> {
 }
 
 export default defineNuxtPlugin(async (nuxtApp) => {
-  nuxtApp.hook("vuetify:before-create", async ({ vuetifyOptions }) => {
-    let theme = __cachedTheme;
-    if (!theme) {
-      theme = await fetchTheme();
-      __cachedTheme = theme;
-    }
+  // Pre-warm the cache before Vuetify is created: `vuetify:before-create` runs
+  // synchronously, so an await inside it would race Vuetify reading vuetifyOptions.theme
+  // and lose - leaving every cold load on fallback colors regardless of server config.
+  if (!__cachedTheme) {
+    __cachedTheme = await fetchTheme();
+  }
+
+  applyDesignTokens(__cachedTheme);
+
+  nuxtApp.hook("vuetify:before-create", ({ vuetifyOptions }) => {
+    const theme = __cachedTheme;
     vuetifyOptions.theme = {
       defaultTheme: nuxtApp.$config.public.useDark ? "dark" : "light",
       variations: {
@@ -48,7 +38,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         light: {
           dark: false,
           colors: {
-            primary: theme?.lightPrimary ?? "#E58325",
+            primary: theme?.lightPrimary ?? "#A65F1B",
             accent: theme?.lightAccent ?? "#007A99",
             secondary: theme?.lightSecondary ?? "#973542",
             success: theme?.lightSuccess ?? "#43A047",
@@ -60,7 +50,7 @@ export default defineNuxtPlugin(async (nuxtApp) => {
         dark: {
           dark: true,
           colors: {
-            primary: theme?.darkPrimary ?? "#E58325",
+            primary: theme?.darkPrimary ?? "#A65F1B",
             accent: theme?.darkAccent ?? "#007A99",
             secondary: theme?.darkSecondary ?? "#973542",
             success: theme?.darkSuccess ?? "#43A047",

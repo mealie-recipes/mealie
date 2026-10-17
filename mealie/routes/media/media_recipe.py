@@ -9,6 +9,11 @@ from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 
 router = APIRouter(prefix="/recipes")
 
+# the frontend busts this with a `?version=<cache_key>` query param on re-upload
+# (see frontend/app/composables/api/static-routes.ts), so the response at a given
+# URL never changes and can be cached indefinitely
+IMMUTABLE_IMAGE_HEADERS = {"Cache-Control": "public, max-age=31536000, immutable"}
+
 
 class ImageType(StrEnum):
     original = "original.webp"
@@ -25,7 +30,7 @@ async def get_recipe_img(recipe_id: UUID4, file_name: ImageType = ImageType.orig
     recipe_image = Recipe.directory_from_id(recipe_id).joinpath("images", file_name.value)
 
     if recipe_image.exists():
-        return FileResponse(recipe_image, media_type="image/webp")
+        return FileResponse(recipe_image, media_type="image/webp", headers=IMMUTABLE_IMAGE_HEADERS)
     else:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
 

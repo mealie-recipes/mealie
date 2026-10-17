@@ -78,6 +78,15 @@ class GroupInvitationsController(BaseUserController):
                 detail="This user can't send email invitations",
             )
 
+        # invite.token is client-supplied and gets embedded in the email's link, so it must be
+        # a real, usable invite for this household - not just any string an inviter can type.
+        existing_token = self.repos.group_invite_tokens.get_one(invite.token)
+        if existing_token is None or existing_token.uses_left < 1:
+            raise HTTPException(
+                status.HTTP_400_BAD_REQUEST,
+                detail="Invalid or expired invite token",
+            )
+
         email_service = EmailService(locale=accept_language)
         url = f"{self.settings.BASE_URL}/register?token={invite.token}"
 

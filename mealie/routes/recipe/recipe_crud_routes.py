@@ -2,7 +2,6 @@ import asyncio
 from collections import defaultdict
 from collections.abc import AsyncIterable, Awaitable, Callable
 from pathlib import PurePosixPath
-from shutil import copyfileobj
 from typing import Annotated, Any, BinaryIO
 from urllib.parse import unquote, urlparse
 from uuid import UUID, uuid4
@@ -121,6 +120,22 @@ ASSET_ALLOWED_EXTENSIONS = {
 # A downloaded asset is stored as-is rather than re-encoded, so the download needs its own
 # ceiling. Matches the budget `openid_provider` uses for remotely-fetched profile images.
 ASSET_MAX_DOWNLOAD_BYTES = 5 * 1024 * 1024
+
+# Direct uploads bypass fetch_image's max_bytes guard entirely (shutil.copyfileobj has no size
+# cap), so a user could otherwise fill the host's disk with repeated large uploads.
+ASSET_MAX_UPLOAD_BYTES = 5 * 1024 * 1024
+
+
+def _copy_upload_limited(src: BinaryIO, dst: BinaryIO, max_bytes: int) -> None:
+    total = 0
+    while chunk := src.read(1024 * 1024):
+        total += len(chunk)
+        if total > max_bytes:
+            raise HTTPException(
+                status_code=400,
+                detail=ErrorResponse.respond(f"File is larger than {max_bytes // (1024 * 1024)}MB"),
+            )
+        dst.write(chunk)
 
 
 def asset_name_from_url(url: str) -> str:
@@ -921,7 +936,9 @@ class RecipeController(BaseRecipeController):
         file: UploadFile = File(...),
     ):
         """Upload a file to store as a recipe asset"""
-        return self._save_recipe_asset(slug, name, icon, extension, lambda buffer: copyfileobj(file.file, buffer))
+        return self._save_recipe_asset(
+            slug, name, icon, extension, lambda buffer: _copy_upload_limited(file.file, buffer, ASSET_MAX_UPLOAD_BYTES)
+        )
 
     @router.post("/{slug}/assets/url", response_model=RecipeAsset, tags=["Recipe: Images and Assets"])
     async def create_recipe_asset_from_url(self, slug: str, url: ScrapeRecipe):

@@ -1,5 +1,5 @@
 from mealie.repos.repository_factory import AllRepositories
-from mealie.repos.seed.seeders import IngredientFoodsSeeder, IngredientUnitsSeeder
+from mealie.repos.seed.seeders import IngredientFoodsSeeder, IngredientUnitsSeeder, RecipeToolsSeeder
 from mealie.services._base_service import BaseService
 
 
@@ -15,4 +15,8 @@ class SeederService(BaseService):
 
     def seed_units(self, locale: str) -> None:
         seeder = IngredientUnitsSeeder(self.repos, self.logger)
+        seeder.seed(locale)
+
+    def seed_tools(self, locale: str) -> None:
+        seeder = RecipeToolsSeeder(self.repos, self.logger)
         seeder.seed(locale)

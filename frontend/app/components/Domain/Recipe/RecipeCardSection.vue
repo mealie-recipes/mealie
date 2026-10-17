@@ -17,6 +17,7 @@
         :icon="$vuetify.display.xs"
         variant="text"
         :disabled="recipes.length === 0"
+        :aria-label="$t('general.random')"
         @click="navigateRandom"
       >
         <v-icon :start="!$vuetify.display.xs">
@@ -33,6 +34,7 @@
           <v-btn
             variant="text"
             :icon="$vuetify.display.xs"
+            :aria-label="$t('general.sort')"
             v-bind="activatorProps"
             :loading="sortLoading"
           >

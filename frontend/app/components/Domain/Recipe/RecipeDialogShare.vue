@@ -99,6 +99,7 @@
               icon
               variant="text"
               class="ml-2"
+              :aria-label="$t('general.delete')"
               @click.stop="deleteToken(token.id)"
             >
               <v-icon color="error-lighten-1">
@@ -109,6 +110,7 @@
               icon
               variant="text"
               class="ml-2"
+              :aria-label="$t('general.copy')"
               @click.stop="copyTokenLink(token.id)"
             >
               <v-icon color="info-lighten-1">

@@ -12,6 +12,7 @@ from pydantic import PlainSerializer, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 from mealie.core.settings.branding import Branding
+from mealie.core.settings.legal import Legal
 from mealie.core.settings.themes import Theme
 
 from .db_providers import AbstractDBProvider, db_provider_factory
@@ -140,6 +141,7 @@ class AppLoggingSettings(BaseSettings):
 class AppSettings(AppLoggingSettings):
     theme: Theme = Theme()
     branding: Branding = Branding()
+    legal: Legal = Legal()
 
     BASE_URL: str = "http://localhost:8080"
     """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""
@@ -269,7 +271,7 @@ class AppSettings(AppLoggingSettings):
     DB_ENGINE: str = "sqlite"  # Options: 'sqlite', 'postgres'
     DB_PROVIDER: AbstractDBProvider | None = None
 
-    SQLITE_MIGRATE_JOURNAL_WAL: bool = False
+    SQLITE_MIGRATE_JOURNAL_WAL: bool = True
 
     @property
     def DB_URL(self) -> str | None:

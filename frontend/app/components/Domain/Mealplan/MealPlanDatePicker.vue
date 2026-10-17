@@ -13,7 +13,14 @@
   >
     <template #controls="{ yearText, monthYearText, prevMonth, nextMonth, disabled }">
       <div class="d-flex justify-space-between w-100">
-        <v-btn :disabled="disabled.includes('prev-month')" :icon="$globals.icons.chevronLeft" flat density="comfortable" @click="prevMonth" />
+        <v-btn
+          :disabled="disabled.includes('prev-month')"
+          :icon="$globals.icons.chevronLeft"
+          :aria-label="$t('general.previous-month')"
+          flat
+          density="comfortable"
+          @click="prevMonth"
+        />
         <div class="text-center">
           <div class="text-body-large">
             {{ monthYearText.split(' ')[0] }}
@@ -22,7 +29,14 @@
             {{ yearText }}
           </div>
         </div>
-        <v-btn :disabled="disabled.includes('next-month')" :icon="$globals.icons.chevronRight" flat density="comfortable" @click="nextMonth" />
+        <v-btn
+          :disabled="disabled.includes('next-month')"
+          :icon="$globals.icons.chevronRight"
+          :aria-label="$t('general.next-month')"
+          flat
+          density="comfortable"
+          @click="nextMonth"
+        />
       </div>
     </template>
   </v-date-picker>

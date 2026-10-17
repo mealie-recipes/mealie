@@ -1,5 +1,6 @@
 from typing import cast
 
+from fastapi import HTTPException, status
 from pydantic import UUID4
 from sqlalchemy import select
 
@@ -43,6 +44,9 @@ class ShoppingListService:
         self.list_item_refs = repos.group_shopping_list_item_references
         self.list_refs = repos.group_shopping_list_recipe_refs
         self.data_matcher = DataMatcher(self.repos, food_fuzzy_match_threshold=self.DEFAULT_FOOD_FUZZY_MATCH_THRESHOLD)
+        # _is_on_hand is called once per ingredient/item, so cache each list's household slug
+        # instead of re-fetching the shopping list and household on every call
+        self._household_slug_by_list_id: dict[UUID4, str | None] = {}
 
     def can_merge(self, item1: ShoppingListItemBase, item2: ShoppingListItemBase) -> bool:
         """Check to see if this item can be merged with another item"""
@@ -242,6 +246,15 @@ class ShoppingListService:
         Create a list of items, merging into existing ones where possible.
         Optionally try to find a label for each item if one isn't provided using the item's food data or display name.
         """
+
+        # shopping_list_id is client-supplied; create_many has no tenant scoping of its own (it
+        # just inserts whatever FK it's given), so an unchecked id from another group/household
+        # would let a user write items into a shopping list they can't see. self.shopping_lists
+        # is scoped to the caller's own group/household, so a ShoppingList that doesn't resolve
+        # through it either doesn't exist or isn't the caller's to write to.
+        for shopping_list_id in {item.shopping_list_id for item in create_items}:
+            if self.shopping_lists.get_one(shopping_list_id) is None:
+                raise HTTPException(status.HTTP_404_NOT_FOUND, detail=f"Shopping list {shopping_list_id} not found")
 
         # consolidate items to be created
         consolidated_create_items: list[ShoppingListItemCreate] = []
@@ -500,13 +513,21 @@ class ShoppingListService:
         return list_items
 
     def _is_on_hand(self, list_id: UUID4, food: IngredientFood) -> bool:
-        shopping_list = self.shopping_lists.get_one(list_id)
-        if shopping_list is None:
+        household_slug = self._get_household_slug_for_list(list_id)
+        if household_slug is None:
             return False
-        household = self.repos.households.get_by_slug_or_id(shopping_list.household_id)
-        if household is None:
-            return False
-        return household.slug in food.households_with_ingredient_food
+        return household_slug in food.households_with_ingredient_food
+
+    def _get_household_slug_for_list(self, list_id: UUID4) -> str | None:
+        if list_id not in self._household_slug_by_list_id:
+            household_slug = None
+            shopping_list = self.shopping_lists.get_one(list_id)
+            if shopping_list is not None:
+                household = self.repos.households.get_by_slug_or_id(shopping_list.household_id)
+                household_slug = household.slug if household is not None else None
+            self._household_slug_by_list_id[list_id] = household_slug
+
+        return self._household_slug_by_list_id[list_id]
 
     def add_recipe_ingredients_to_list(
         self,

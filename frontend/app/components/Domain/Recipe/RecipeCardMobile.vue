@@ -24,6 +24,7 @@
             :slug="slug"
             :recipe-id="recipeId"
             :image-version="image"
+            :name="name"
             :height="height"
           />
         </v-img>
@@ -46,6 +47,7 @@
                 :slug="slug"
                 :recipe-id="recipeId"
                 :image-version="image"
+                :name="name"
                 width="125"
                 :height="height"
               />

@@ -35,6 +35,7 @@ from mealie.db.models.recipe.recipe_timeline import RecipeTimelineEvent
 from mealie.db.models.recipe.shared import RecipeShareTokenModel
 from mealie.db.models.recipe.tag import Tag, recipes_to_tags
 from mealie.db.models.recipe.tool import Tool, recipes_to_tools
+from mealie.db.models.server.theme import AppThemeModel
 from mealie.db.models.users import LongLiveToken, User
 from mealie.db.models.users.password_reset import PasswordResetModel
 from mealie.db.models.users.user_to_recipe import UserToRecipe
@@ -44,6 +45,7 @@ from mealie.repos.repository_foods import RepositoryFood
 from mealie.repos.repository_household import RepositoryHousehold, RepositoryHouseholdRecipes
 from mealie.repos.repository_meal_plan_rules import RepositoryMealPlanRules
 from mealie.repos.repository_units import RepositoryUnit
+from mealie.schema.admin.about import AppThemeOut
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.group.ai_providers import AIProviderOut, AIProviderSettingsOut
 from mealie.schema.group.group_exports import GroupDataExport
@@ -75,7 +77,7 @@ from mealie.schema.user.user import UserRatingOut
 from mealie.schema.user.user_passwords import PrivatePasswordResetToken
 
 from ._utils import NOT_SET, NotSet
-from .repository_generic import GroupRepositoryGeneric, HouseholdRepositoryGeneric
+from .repository_generic import GroupRepositoryGeneric, HouseholdRepositoryGeneric, RepositoryGeneric
 from .repository_group import RepositoryGroup
 from .repository_meals import RepositoryMeals
 from .repository_recipes import RepositoryRecipes
@@ -352,6 +354,11 @@ class AllRepositories:
     @cached_property
     def groups(self) -> RepositoryGroup:
         return RepositoryGroup(self.session, PK_ID, Group, GroupInDB)
+
+    @cached_property
+    def app_theme(self) -> RepositoryGeneric[AppThemeOut, AppThemeModel]:
+        # Instance-wide, not scoped to any group/household - there is at most one row.
+        return RepositoryGeneric(self.session, PK_ID, AppThemeModel, AppThemeOut)
 
     @cached_property
     def group_preferences(self) -> GroupRepositoryGeneric[ReadGroupPreferences, GroupPreferencesModel]:

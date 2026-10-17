@@ -8,6 +8,7 @@ const routes = {
   base: `${prefix}/groups/seeders`,
   foods: `${prefix}/groups/seeders/foods`,
   units: `${prefix}/groups/seeders/units`,
+  tools: `${prefix}/groups/seeders/tools`,
 };
 
 export class GroupDataSeederApi extends BaseAPI {
@@ -17,5 +18,9 @@ export class GroupDataSeederApi extends BaseAPI {
 
   units(payload: SeederConfig) {
     return this.requests.post<SuccessResponse>(routes.units, payload);
+  }
+
+  tools(payload: SeederConfig) {
+    return this.requests.post<SuccessResponse>(routes.tools, payload);
   }
 }
