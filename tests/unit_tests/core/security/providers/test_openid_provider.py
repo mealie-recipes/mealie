@@ -431,7 +431,8 @@ def test_stores_picture_and_rotates_cache_key(_oidc_env, monkeypatch: MonkeyPatc
     before = unique_user.repos.users.patch(unique_user.user_id, {"external_avatar_hash": None})
 
     url = "https://cdn.example.com/avatar.png"
-    requested = _patch_network(monkeypatch, [_response(_png_bytes())])
+    content = _png_bytes()
+    requested = _patch_network(monkeypatch, [_response(content)])
 
     data = _picture_claims(url)
     data["email"] = unique_user.email
@@ -442,11 +443,11 @@ def test_stores_picture_and_rotates_cache_key(_oidc_env, monkeypatch: MonkeyPatc
     assert after is not None
     assert (PrivateUser.get_directory(unique_user.user_id) / "profile.webp").is_file()
     assert after.cache_key != before.cache_key
-    assert after.external_avatar_hash == hashlib.sha256(url.encode()).hexdigest()
+    assert after.external_avatar_hash == hashlib.sha256(content).hexdigest()
 
 
-def test_unchanged_picture_claim_skips_download(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser):
-    """Genson's point: a repeat login must not refetch an image that hasn't changed."""
+def test_unchanged_picture_url_is_refetched(_oidc_env, monkeypatch: MonkeyPatch, unique_user: TestUser):
+    """A stable picture URL may serve new content and must be fetched again."""
     _resolve_to(monkeypatch, "93.184.216.34")
     url = "https://cdn.example.com/avatar.png"
     unique_user.repos.users.patch(
@@ -459,7 +460,7 @@ def test_unchanged_picture_claim_skips_download(_oidc_env, monkeypatch: MonkeyPa
     data["email"] = unique_user.email
     assert OpenIDProvider(unique_user.repos.session, data).authenticate() is not None
 
-    assert requested == []
+    assert requested == [url]
 
 
 @pytest.mark.parametrize("picture", [None, 123, {"url": PICTURE_URL}, ""])
