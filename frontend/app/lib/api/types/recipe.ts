@@ -416,6 +416,9 @@ export interface RecipeIn {
   prepTime?: string | null;
   cookTime?: string | null;
   performTime?: string | null;
+  totalTimeSeconds?: number | null;
+  prepTimeSeconds?: number | null;
+  performTimeSeconds?: number | null;
   description?: string | null;
   recipeCategory?: RecipeCategoryIn[] | null;
   tags?: RecipeTagIn[] | null;
@@ -564,6 +567,10 @@ export interface RecipeTimelineEventUpdate {
 export interface RecipeToolCreate {
   name: string;
   householdsWithTool?: string[];
+}
+export interface RecipeToolMerge {
+  fromId: string;
+  toId: string;
 }
 export interface RecipeToolOut {
   name: string;

@@ -379,6 +379,7 @@ export interface IngredientFood {
   substitutions?: IngredientFoodSubstitution[];
   householdsWithIngredientFood?: string[];
   label?: MultiPurposeLabelSummary | null;
+  recipeCount?: number;
   createdAt?: string | null;
   updatedAt?: string | null;
 }
