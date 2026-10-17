@@ -46,12 +46,20 @@
           v-model="credentials.password1.value"
           v-bind="inputAttrs"
           :type="pwFields.inputType.value"
-          :append-inner-icon="pwFields.passwordIcon.value"
           :prepend-icon="$globals.icons.lock"
           :label="$t('user.password')"
           :rules="[validators.required, validators.minLength(8), validators.maxLength(258)]"
-          @click:append-inner="pwFields.togglePasswordShow"
-        />
+        >
+          <template #append-inner>
+            <v-btn
+              :icon="pwFields.passwordIcon.value"
+              :aria-label="pwFields.toggleLabel.value"
+              variant="text"
+              size="small"
+              @click="pwFields.togglePasswordShow"
+            />
+          </template>
+        </v-text-field>
 
         <UserPasswordStrength v-model="credentials.password1.value" />
 
@@ -59,12 +67,20 @@
           v-model="credentials.password2.value"
           v-bind="inputAttrs"
           :type="pwFields.inputType.value"
-          :append-inner-icon="pwFields.passwordIcon.value"
           :prepend-icon="$globals.icons.lock"
           :label="$t('user.confirm-password')"
           :rules="[validators.required, credentials.passwordMatch]"
-          @click:append-inner="pwFields.togglePasswordShow"
-        />
+        >
+          <template #append-inner>
+            <v-btn
+              :icon="pwFields.passwordIcon.value"
+              :aria-label="pwFields.toggleLabel.value"
+              variant="text"
+              size="small"
+              @click="pwFields.togglePasswordShow"
+            />
+          </template>
+        </v-text-field>
         <div class="px-2">
           <v-checkbox
             v-model="accountDetails.advancedOptions.value"
