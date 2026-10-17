@@ -1034,7 +1034,8 @@ function notifyUnsupportedDrop() {
 function embedAsset(index: number, asset: RecipeAsset) {
   emit("update:assets", [...(assets.value ?? []), asset]);
   const assetUrl = recipeAssetPath(props.recipe.id, asset.fileName as string);
-  const text = `<img src="${assetUrl}" height="100%" width="100%"/>`;
+  const safeAlt = asset.name.replace(/"/g, "&quot;");
+  const text = `<img src="${assetUrl}" alt="${safeAlt}" height="100%" width="100%"/>`;
   instructionList.value[index].text += text;
 }
 

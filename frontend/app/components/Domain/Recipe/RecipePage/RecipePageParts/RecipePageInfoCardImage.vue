@@ -7,6 +7,7 @@
     width="100%"
     :height="hideImage ? undefined : imageHeight"
     :src="recipeImageUrl"
+    :alt="recipe.name"
     class="d-print-none"
     :style="hideImage ? undefined : 'cursor: zoom-in'"
     v-bind="$attrs"
