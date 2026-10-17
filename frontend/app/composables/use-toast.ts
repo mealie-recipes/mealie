@@ -75,9 +75,23 @@ export const alert = {
  * The interceptor raises a toast only for errors that carry a Mealie error body. Anything else -
  * a rejection from the web server sitting in front of Mealie, a dropped connection, a timeout -
  * arrives without one, and would otherwise leave the user with no feedback at all.
+ *
+ * Some routes reject with a plain string `detail` (e.g. "Unsupported file extension"), which the
+ * interceptor also ignores. In that case the string is shown as the message, with `fallbackText`
+ * as the title. Anything else (validation error arrays, no detail, no response) shows `fallbackText` alone.
  */
-export function alertUnreportedError(error: { response?: { data?: { detail?: { message?: string } } } } | null, fallbackText: string) {
-  if (error?.response?.data?.detail?.message) {
+export function alertUnreportedError(
+  error: { response?: { data?: { detail?: string | { message?: string } } } } | null,
+  fallbackText: string,
+) {
+  const detail = error?.response?.data?.detail;
+
+  if (typeof detail === "object" && detail?.message) {
+    return;
+  }
+
+  if (typeof detail === "string" && detail.trim()) {
+    alert.error(detail, fallbackText);
     return;
   }
 
