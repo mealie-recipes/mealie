@@ -6,6 +6,7 @@ from pydantic import UUID4
 from mealie.routes._base.base_controllers import BaseCrudController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import Perm, require
 from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema.labels import (
     MultiPurposeLabelCreate,
@@ -73,11 +74,9 @@ class MultiPurposeLabelsController(BaseCrudController):
         """Returns a list of labels that are not used by any food or shopping list item"""
         return self.repo.get_empty()
 
-    @router.post("/merge", response_model=MultiPurposeLabelOut)
+    @router.post("/merge", response_model=MultiPurposeLabelOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def merge_labels(self, body: MultiPurposeLabelMerge):
         """Merges the from_id label into the to_id label, then deletes from_id."""
-        self.checks.can_organize()
-
         if body.from_id == body.to_id:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "from_id and to_id must be different")
 
