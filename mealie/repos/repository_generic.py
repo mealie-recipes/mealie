@@ -9,7 +9,6 @@ from typing import Any
 from fastapi import HTTPException
 from pydantic import UUID4, BaseModel
 from sqlalchemy import ColumnElement, Select, case, delete, func, nulls_first, nulls_last, select
-from sqlalchemy.ext.associationproxy import AssociationProxyInstance
 from sqlalchemy.orm.session import Session
 
 from mealie.core.root_logger import get_logger
@@ -76,13 +75,6 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
     def _query(self, override_schema: type[MealieModel] | None = None, with_options=True):
         q = select(self.model)
-
-        try:
-            if isinstance(self.model.household_id, AssociationProxyInstance):
-                q.filter(self.model.household_id.is_not(None))
-        except AttributeError, NotImplementedError:
-            pass
-
         if with_options:
             schema = override_schema or self.schema
             return q.options(*schema.loader_options())
@@ -98,6 +90,17 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
             dct["household_id"] = self.household_id
 
         return {**dct, **kwargs}
+
+    def _keep_scope(self, entry: Model, new_data: dict) -> dict:
+        """
+        Overwrites the scope fields in `new_data` with the stored values, so an update can't move a row
+        out of the group or household this repo is scoped to.
+        """
+        for field, scope in (("group_id", self.group_id), ("household_id", self.household_id)):
+            if scope and field in new_data:
+                new_data[field] = getattr(entry, field)
+
+        return new_data
 
     def get_all(
         self,
@@ -222,7 +225,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
         new_data = new_data if isinstance(new_data, dict) else new_data.model_dump()
 
         entry = self._query_one(match_value=match_value)
-        entry.update(session=self.session, **new_data)
+        entry.update(session=self.session, **self._keep_scope(entry, new_data))
 
         self.session.commit()
         return self.schema.model_validate(entry)
@@ -242,7 +245,7 @@ class RepositoryGeneric[Schema: MealieModel, Model: SqlAlchemyBase]:
 
         updated_documents = []
         for document_to_update in documents_to_update:
-            data = document_data_by_id[document_to_update.id]  # type: ignore
+            data = self._keep_scope(document_to_update, document_data_by_id[document_to_update.id])  # type: ignore
             document_to_update.update(session=self.session, **data)  # type: ignore
             updated_documents.append(document_to_update)
 
