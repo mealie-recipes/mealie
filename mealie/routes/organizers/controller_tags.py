@@ -5,6 +5,7 @@ from pydantic import UUID4
 
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import Perm, require
 from mealie.schema import mapper
 from mealie.schema.recipe import RecipeTagResponse, TagIn
 from mealie.schema.recipe.recipe import RecipeTag, RecipeTagPagination
@@ -43,11 +44,9 @@ class TagController(BaseCrudController):
         """Returns a list of tags that do not contain any recipes"""
         return self.repo.get_empty()
 
-    @router.post("/merge", response_model=TagOut)
+    @router.post("/merge", response_model=TagOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def merge_tags(self, body: TagMerge):
         """Merges the from_id tag into the to_id tag, then deletes from_id."""
-        self.checks.can_organize()
-
         if body.from_id == body.to_id:
             raise HTTPException(status.HTTP_400_BAD_REQUEST, "from_id and to_id must be different")
 
@@ -63,10 +62,9 @@ class TagController(BaseCrudController):
         """Returns a list of recipes associated with the provided tag."""
         return self.mixins.get_one(item_id)
 
-    @router.post("", status_code=201)
+    @router.post("", status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def create_one(self, tag: TagIn):
         """Creates a Tag in the database"""
-        self.checks.can_organize()
         save_data = mapper.cast(tag, TagSave, group_id=self.group_id)
         new_tag = self.mixins.create_one(save_data)
 
@@ -85,10 +83,9 @@ class TagController(BaseCrudController):
 
         return new_tag
 
-    @router.put("/{item_id}", response_model=RecipeTagResponse)
+    @router.put("/{item_id}", response_model=RecipeTagResponse, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def update_one(self, item_id: UUID4, new_tag: TagIn):
         """Updates an existing Tag in the database"""
-        self.checks.can_organize()
         save_data = mapper.cast(new_tag, TagSave, group_id=self.group_id)
         tag = self.repo.update(item_id, save_data)
 
@@ -107,15 +104,13 @@ class TagController(BaseCrudController):
 
         return tag
 
-    @router.delete("/{item_id}")
+    @router.delete("/{item_id}", dependencies=[require(Perm.GROUP_ORGANIZE)])
     def delete_recipe_tag(self, item_id: UUID4):
         """
         Removes a recipe tag from the database. Deleting a
         tag does not impact a recipe. The tag will be removed
         from any recipes that contain it
         """
-        self.checks.can_organize()
-
         try:
             tag = self.repo.delete(item_id)
         except Exception as e:
