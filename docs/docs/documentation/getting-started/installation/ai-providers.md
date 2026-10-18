@@ -20,7 +20,7 @@ If you have another provider you'd like to use, such as Azure, you can configure
 
 Note that some models are capable of handling multiple features (e.g. `gpt-5` can handle both normal chat requests and image recognition requests). You may configure one provider for multiple provider features.
 
-While Mealie has prompts for each AI task, you can override these with your own prompts if you'd like. For more information, check out the [backend configuration](../installation/backend-config.md).
+While Mealie has prompts for each AI task, you can customize them with your own instructions if you'd like. See [Custom prompts](#custom-prompts) below.
 
 ## AI Features
 - The AI Ingredient Parser can be used as an alternative to the NLP and Brute Force parsers. Simply choose the AI parser while parsing ingredients (:octicons-tag-24: v1.7.0)
@@ -52,3 +52,22 @@ Mealie only assigns an organizer that the recipe itself refers to. It won't gues
 Reading the source material is the only step that needs to understand images or audio, so that's the only step that uses your image or audio provider. Turning what it read into a recipe, and working out its organizers, always use your default provider.
 
 This means an import with photos attached is read by your image provider even if you also pasted text alongside them.
+
+## Custom prompts
+
+:octicons-tag-24: v3.30.0
+
+Each AI task Mealie performs has its own prompt. Group managers can customize them from the AI section of the group settings page, and admins can do the same for any group from the group management page.
+
+- **Instructions for all prompts** are added to every prompt that produces recipe data, such as building the recipe, parsing ingredients, or translating. This is the place for preferences that apply everywhere, like "use metric units".
+- **Append** adds your own instructions to a single prompt. Mealie's prompt is kept, so you still get improvements to it in future updates, and your instructions take priority wherever the two conflict.
+- **Override** replaces a prompt entirely. Future updates to Mealie's prompt won't apply to yours, so Mealie lets you know when the prompt you replaced has changed. You can then compare it against yours, or reset to the default.
+
+Some prompts are *system* prompts. These transcribe your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to them. You can still append to or override them individually, but this usually isn't necessary, and can make imports less reliable.
+
+Mealie's prompts are written in English, but that doesn't change the language of your recipes: they keep the language of their source unless you choose to translate them. You can write your own instructions in any language.
+
+Whatever you write, Mealie still adds the data a task needs (such as your list of units when parsing ingredients) after your prompt.
+
+!!! note
+    Custom prompts used to be configured with the `OPENAI_CUSTOM_PROMPT_DIR` environment variable. When you upgrade, any prompt files in that folder are imported into every group as overrides, after which the folder and the variable can be removed.

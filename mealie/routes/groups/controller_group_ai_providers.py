@@ -8,6 +8,8 @@ from mealie.routes._base import controller
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.mixins import HttpRepo
 from mealie.schema.group.ai_providers import (
+    AIPromptOverrideUpdate,
+    AIPromptsOut,
     AIProviderCreate,
     AIProviderOut,
     AIProviderSettingsOut,
@@ -20,6 +22,7 @@ from mealie.services.openai import OpenAIService
 logger = get_logger()
 settings_router = APIRouter(prefix="/groups/ai-providers/settings", tags=["Groups: AI Provider Settings"])
 providers_router = APIRouter(prefix="/groups/ai-providers/providers", tags=["Groups: AI Providers"])
+prompts_router = APIRouter(prefix="/groups/ai-providers/prompts", tags=["Groups: AI Prompts"])
 
 
 @controller(settings_router)
@@ -114,3 +117,30 @@ class GroupAIProviderController(BaseUserController):
         self.checks.can_manage()
 
         return self.mixins.delete_one(provider_id)
+
+
+@controller(prompts_router)
+class GroupAIPromptController(BaseUserController):
+    @property
+    def service(self) -> OpenAIService:
+        return OpenAIService(self.repos)
+
+    @prompts_router.get("", response_model=AIPromptsOut)
+    def get_ai_prompts(self) -> AIPromptsOut:
+        self.checks.can_manage()
+
+        return self.service.get_prompts()
+
+    @prompts_router.put("/{prompt_name}", response_model=AIPromptsOut)
+    def update_ai_prompt(self, prompt_name: str, data: AIPromptOverrideUpdate) -> AIPromptsOut:
+        """Append to or override a prompt. The group-wide instructions (`global`) can only be appended."""
+        self.checks.can_manage()
+
+        return self.service.save_prompt_override(prompt_name, data)
+
+    @prompts_router.delete("/{prompt_name}", response_model=AIPromptsOut)
+    def delete_ai_prompt(self, prompt_name: str) -> AIPromptsOut:
+        """Reset a prompt to the default"""
+        self.checks.can_manage()
+
+        return self.service.delete_prompt_override(prompt_name)

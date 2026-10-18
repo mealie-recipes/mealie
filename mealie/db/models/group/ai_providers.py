@@ -93,6 +93,32 @@ class AIProvider(SqlAlchemyBase, BaseMixins):
         pass
 
 
+class AIPromptOverride(SqlAlchemyBase, BaseMixins):
+    __tablename__ = "ai_prompt_overrides"
+    __table_args__ = (sa.UniqueConstraint("name", "settings_id", name="ai_prompt_overrides_name_settings_id_key"),)
+    id: orm.Mapped[GUID] = orm.mapped_column(GUID, primary_key=True, default=GUID.generate)
+    group_id: AssociationProxy[GUID] = association_proxy("settings", "group_id")
+
+    settings_id: orm.Mapped[GUID] = orm.mapped_column(
+        GUID, sa.ForeignKey("ai_provider_settings.id"), nullable=False, index=True
+    )
+    settings: orm.Mapped[AIProviderSettings] = orm.relationship(
+        "AIProviderSettings", foreign_keys="[AIPromptOverride.settings_id]", back_populates="prompt_overrides"
+    )
+
+    # Prompt name in dot notation, e.g. "recipes.build-recipe"
+    name: orm.Mapped[str] = orm.mapped_column(sa.String, index=True, nullable=False)
+    mode: orm.Mapped[str] = orm.mapped_column(sa.String, nullable=False)
+    content: orm.Mapped[str] = orm.mapped_column(sa.String, nullable=False)
+
+    # Hash of the built-in prompt when this override was saved, used to detect when the built-in prompt changes
+    base_prompt_hash: orm.Mapped[str | None] = orm.mapped_column(sa.String, nullable=True)
+
+    @auto_init()
+    def __init__(self, **_) -> None:
+        pass
+
+
 class AIProviderSettings(SqlAlchemyBase, BaseMixins):
     __tablename__ = "ai_provider_settings"
     __table_args__ = (sa.UniqueConstraint("group_id", name="ai_provider_settings_group_id_key"),)
@@ -103,6 +129,14 @@ class AIProviderSettings(SqlAlchemyBase, BaseMixins):
     providers: orm.Mapped[list[AIProvider]] = orm.relationship(
         AIProvider,
         foreign_keys="[AIProvider.settings_id]",
+        back_populates="settings",
+        uselist=True,
+        single_parent=True,
+        cascade="all, delete-orphan",
+    )
+    prompt_overrides: orm.Mapped[list[AIPromptOverride]] = orm.relationship(
+        AIPromptOverride,
+        foreign_keys="[AIPromptOverride.settings_id]",
         back_populates="settings",
         uselist=True,
         single_parent=True,

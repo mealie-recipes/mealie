@@ -5,6 +5,7 @@
 /* Do not modify it by hand - just update the pydantic models and then re-run the script
 */
 
+export type AIPromptMode = "append" | "override";
 export type SupportedMigrations =
   | "nextcloud"
   | "chowdown"
@@ -17,6 +18,42 @@ export type SupportedMigrations =
   | "recipekeeper"
   | "cookn";
 
+export interface AIPromptOut {
+  name: string;
+  isSystem: boolean;
+  defaultContent: string;
+  mode?: AIPromptMode | null;
+  content?: string | null;
+  defaultChanged?: boolean;
+}
+export interface AIPromptOverrideCreate {
+  mode: AIPromptMode;
+  content: string;
+  name: string;
+  basePromptHash?: string | null;
+}
+export interface AIPromptOverrideOut {
+  mode: AIPromptMode;
+  content: string;
+  name: string;
+  basePromptHash?: string | null;
+  id: string;
+}
+export interface AIPromptOverrideSave {
+  mode: AIPromptMode;
+  content: string;
+  name: string;
+  basePromptHash?: string | null;
+  settingsId: string;
+}
+export interface AIPromptOverrideUpdate {
+  mode: AIPromptMode;
+  content: string;
+}
+export interface AIPromptsOut {
+  globalInstructions?: string | null;
+  prompts: AIPromptOut[];
+}
 export interface AIProviderCreate {
   name: string;
   baseUrl?: string | null;

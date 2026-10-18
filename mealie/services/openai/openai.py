@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import base64
+import hashlib
 import inspect
 import io
 import json
@@ -8,6 +9,7 @@ import os
 import shutil
 import wave
 from abc import ABC, abstractmethod
+from functools import cached_property
 from pathlib import Path
 from textwrap import dedent
 from typing import TYPE_CHECKING, TypeVar
@@ -15,20 +17,37 @@ from typing import TYPE_CHECKING, TypeVar
 if TYPE_CHECKING:
     from openai import AsyncOpenAI
 
+from fastapi import HTTPException, status
 from pydantic import BaseModel, field_validator
 
-from mealie.core import exceptions, root_logger
-from mealie.core.config import get_app_settings
+from mealie.core import exceptions
 from mealie.pkgs import img
 from mealie.repos.repository_factory import AllRepositories
-from mealie.schema.group.ai_providers import AIProviderOut, AIProviderTestResult
+from mealie.schema.group.ai_providers import (
+    AIPromptMode,
+    AIPromptOut,
+    AIPromptOverrideCreate,
+    AIPromptOverrideOut,
+    AIPromptOverrideUpdate,
+    AIPromptsOut,
+    AIProviderOut,
+    AIProviderTestResult,
+)
 from mealie.schema.openai._base import OpenAIBase
 from mealie.schema.openai.general import OpenAIText
 
 from .._base_service import BaseService
 
 T = TypeVar("T", bound=OpenAIBase)
-logger = root_logger.get_logger(__name__)
+
+GLOBAL_PROMPT_NAME = "global"
+"""Reserved override name for instructions appended to every user prompt"""
+
+SYSTEM_PROMPT_CATEGORY = "system"
+"""
+Prompts in this category faithfully transcribe the user's source rather than produce a recipe,
+so group-wide instructions (e.g. "use metric units") aren't applied to them
+"""
 
 
 class OpenAINotEnabledException(Exception):
@@ -143,10 +162,6 @@ class OpenAIService(BaseService):
             else None
         )
 
-        # Build client
-        settings = get_app_settings()
-        self.custom_prompt_dir = settings.OPENAI_CUSTOM_PROMPT_DIR
-
         super().__init__()
 
     def get_client(self, provider: AIProviderOut) -> AsyncOpenAI:
@@ -164,7 +179,7 @@ class OpenAIService(BaseService):
         self, provider: AIProviderOut, message: str, images: list[OpenAILocalImage] | None = None
     ) -> OpenAIText | None:
         """Send a one-off chat message to a provider. Shared by the admin debug endpoint and test_connection."""
-        prompt = self.get_prompt("general.debug")
+        prompt = (self.TESTING_DIR / "debug.txt").read_text()
         return await self.get_response(
             prompt, message, response_schema=OpenAIText, attachments=images, provider=provider
         )
@@ -293,67 +308,139 @@ class OpenAIService(BaseService):
                 raise OpenAINotEnabledException("No default provider set")
             return self.default_provider
 
-    def _get_prompt_file_candidates(self, name: str) -> list[Path]:
-        """
-        Returns a list of prompt file path candidates.
-        First optional entry is the users custom prompt file, if configured and existing,
-        second one (or only one) is the systems default prompt file
-        """
+    @classmethod
+    def _get_default_prompt_file(cls, name: str) -> Path:
         tree = name.split(".")
-        relative_path = Path(*tree[:-1], tree[-1] + ".txt")
-
-        default_prompt_file = (self.PROMPTS_DIR / relative_path).resolve()
-        if not default_prompt_file.is_relative_to(self.PROMPTS_DIR.resolve()):
+        default_prompt_file = (cls.PROMPTS_DIR / Path(*tree[:-1], tree[-1] + ".txt")).resolve()
+        if not default_prompt_file.is_relative_to(cls.PROMPTS_DIR.resolve()):
             raise ValueError(f"Invalid prompt name '{name}': resolves outside prompts directory")
 
+        return default_prompt_file
+
+    @staticmethod
+    def is_system_prompt(name: str) -> bool:
+        return name.split(".")[0] == SYSTEM_PROMPT_CATEGORY
+
+    @classmethod
+    def get_prompt_names(cls) -> list[str]:
+        """Every built-in prompt, user prompts first"""
+        names = [
+            ".".join(path.relative_to(cls.PROMPTS_DIR).with_suffix("").parts) for path in cls.PROMPTS_DIR.rglob("*.txt")
+        ]
+        return sorted(names, key=lambda name: (cls.is_system_prompt(name), name))
+
+    @classmethod
+    def get_default_prompt(cls, name: str) -> str:
+        """The built-in prompt, ignoring any customizations"""
         try:
-            # Only include custom files if the custom_dir is configured, is a directory, and the prompt file exists
-            custom_dir = Path(self.custom_prompt_dir).resolve() if self.custom_prompt_dir else None
-            if custom_dir and not custom_dir.is_dir():
-                custom_dir = None
-        except Exception:
-            custom_dir = None
-
-        if custom_dir:
-            custom_prompt_file = (custom_dir / relative_path).resolve()
-            if not custom_prompt_file.is_relative_to(custom_dir):
-                logger.warning(f"Custom prompt file resolves outside custom dir, skipping: {custom_prompt_file}")
-            elif custom_prompt_file.exists():
-                logger.debug(f"Found valid custom prompt file: {custom_prompt_file}")
-                return [custom_prompt_file, default_prompt_file]
-            else:
-                logger.debug(f"Custom prompt file doesn't exist: {custom_prompt_file}")
-        else:
-            logger.debug(f"Custom prompt dir doesn't exist: {custom_dir}")
-
-        # Otherwise, only return the default internal prompt file
-        return [default_prompt_file]
-
-    def _load_prompt_from_file(self, name: str) -> str:
-        """Attempts to load custom prompt, otherwise falling back to the default"""
-        prompt_file_candidates = self._get_prompt_file_candidates(name)
-        content = None
-        last_error = None
-        for prompt_file in prompt_file_candidates:
-            try:
-                logger.debug(f"Trying to load prompt file: {prompt_file}")
-                with open(prompt_file) as f:
-                    content = f.read()
-                    if content:
-                        logger.debug(f"Successfully read prompt from {prompt_file}")
-                        break
-            except OSError as e:
-                last_error = e
+            content = cls._get_default_prompt_file(name).read_text()
+        except OSError as e:
+            raise OSError(f"Unable to load prompt '{name}'") from e
 
         if not content:
-            if last_error:
-                raise OSError(f"Unable to load prompt {name}") from last_error
-            else:
-                # This handles the case where the list was empty (no existing candidates found)
-                attempted_paths = ", ".join(map(str, prompt_file_candidates))
-                raise OSError(f"Unable to load prompt '{name}'. No valid content found in files: {attempted_paths}")
+            raise OSError(f"Unable to load prompt '{name}': the prompt file is empty")
 
         return content
+
+    @staticmethod
+    def _hash_prompt(content: str) -> str:
+        return hashlib.sha256(content.encode()).hexdigest()
+
+    def get_prompts(self) -> AIPromptsOut:
+        """The group's customizations of every prompt, alongside the built-in prompts"""
+        global_override = self._prompt_overrides.get(GLOBAL_PROMPT_NAME)
+
+        prompts: list[AIPromptOut] = []
+        for name in self.get_prompt_names():
+            default_content = self.get_default_prompt(name)
+            prompt = AIPromptOut(name=name, is_system=self.is_system_prompt(name), default_content=default_content)
+
+            if override := self._prompt_overrides.get(name):
+                prompt.mode = override.mode
+                prompt.content = override.content
+                prompt.default_changed = bool(
+                    override.mode == AIPromptMode.override
+                    and override.base_prompt_hash
+                    and override.base_prompt_hash != self._hash_prompt(default_content)
+                )
+
+            prompts.append(prompt)
+
+        return AIPromptsOut(
+            global_instructions=global_override.content if global_override else None,
+            prompts=prompts,
+        )
+
+    def _validate_prompt_name(self, name: str) -> None:
+        if name != GLOBAL_PROMPT_NAME and name not in self.get_prompt_names():
+            raise HTTPException(status.HTTP_404_NOT_FOUND, detail=f"Unknown prompt '{name}'")
+
+    def save_prompt_override(self, name: str, data: AIPromptOverrideUpdate) -> AIPromptsOut:
+        """Create or replace the group's customization of a prompt, or of the group-wide instructions"""
+        self._validate_prompt_name(name)
+        if name == GLOBAL_PROMPT_NAME and data.mode != AIPromptMode.append:
+            raise HTTPException(status.HTTP_400_BAD_REQUEST, detail="Group-wide instructions can only be appended")
+
+        base_prompt_hash = None if name == GLOBAL_PROMPT_NAME else self._hash_prompt(self.get_default_prompt(name))
+        override = AIPromptOverrideCreate(
+            name=name, mode=data.mode, content=data.content, base_prompt_hash=base_prompt_hash
+        )
+
+        if existing := self._prompt_overrides.get(name):
+            self.repos.group_ai_prompt_overrides.update(existing.id, override)
+        else:
+            self.repos.group_ai_prompt_overrides.create(override)
+
+        self.__dict__.pop("_prompt_overrides", None)
+        return self.get_prompts()
+
+    def delete_prompt_override(self, name: str) -> AIPromptsOut:
+        """Reset a prompt, or the group-wide instructions, to the default"""
+        self._validate_prompt_name(name)
+        if existing := self._prompt_overrides.get(name):
+            self.repos.group_ai_prompt_overrides.delete(existing.id)
+
+        self.__dict__.pop("_prompt_overrides", None)
+        return self.get_prompts()
+
+    @cached_property
+    def _prompt_overrides(self) -> dict[str, AIPromptOverrideOut]:
+        # Admin-scoped repos aren't tied to a group, so they'd return every group's overrides
+        if not self.repos.group_id:
+            return {}
+
+        return {override.name: override for override in self.repos.group_ai_prompt_overrides.get_all()}
+
+    def _apply_prompt_overrides(self, name: str, content: str) -> str:
+        """
+        Apply the group's customizations to a prompt: an override replaces it, while appended
+        instructions (the group-wide ones first, then the prompt's own) are added after it.
+        Every prompt can be customized, but system prompts don't get the group-wide instructions.
+        """
+        extra_instructions: list[str] = []
+        if not self.is_system_prompt(name) and (global_override := self._prompt_overrides.get(GLOBAL_PROMPT_NAME)):
+            extra_instructions.append(global_override.content)
+
+        if override := self._prompt_overrides.get(name):
+            if override.mode == AIPromptMode.override:
+                content = override.content
+            else:
+                extra_instructions.append(override.content)
+
+        if not extra_instructions:
+            return content
+
+        return "\n".join(
+            [
+                content,
+                "",
+                "###",
+                "Additional instructions. These take priority over any instructions above that conflict with them.",
+                "---",
+                "",
+                "\n\n".join(extra_instructions),
+            ]
+        )
 
     def get_prompt(self, name: str, data_injections: list[OpenAIDataInjection] | None = None) -> str:
         """
@@ -367,7 +454,7 @@ class OpenAIService(BaseService):
         if not name:
             raise ValueError("Prompt name cannot be empty")
 
-        content = self._load_prompt_from_file(name)
+        content = self._apply_prompt_overrides(name, self.get_default_prompt(name))
 
         if not data_injections:
             return content
@@ -486,7 +573,7 @@ class OpenAIService(BaseService):
         file_ext = path_obj.suffix.lstrip(".").lower()
         audio_attachment = OpenAILocalAudio(data=audio_data, format=file_ext)
         response = await self.get_response(
-            self.get_prompt("general.transcribe-audio"),
+            self.get_prompt("system.transcribe-audio"),
             "Attached is the audio data.",
             response_schema=OpenAIText,
             attachments=[audio_attachment],
