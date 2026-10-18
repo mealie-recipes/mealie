@@ -53,7 +53,7 @@ class MultiPurposeLabelsController(BaseCrudController):
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @router.post("", response_model=MultiPurposeLabelOut)
+    @router.post("", response_model=MultiPurposeLabelOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def create_one(self, data: MultiPurposeLabelCreate):
         try:
             new_label = self.service.create_one(data)
@@ -91,7 +91,7 @@ class MultiPurposeLabelsController(BaseCrudController):
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
-    @router.put("/{item_id}", response_model=MultiPurposeLabelOut)
+    @router.put("/{item_id}", response_model=MultiPurposeLabelOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def update_one(self, item_id: UUID4, data: MultiPurposeLabelUpdate):
         label = self.mixins.update_one(data, item_id)
         self.publish_event(
@@ -103,7 +103,7 @@ class MultiPurposeLabelsController(BaseCrudController):
         )
         return label
 
-    @router.delete("/{item_id}", response_model=MultiPurposeLabelOut)
+    @router.delete("/{item_id}", response_model=MultiPurposeLabelOut, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def delete_one(self, item_id: UUID4):
         label = self.mixins.delete_one(item_id)
         if label:
