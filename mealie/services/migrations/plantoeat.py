@@ -12,7 +12,7 @@ from mealie.services.scraper import cleaner
 
 from ._migration_base import BaseMigrator
 from .utils.migration_alias import MigrationAlias
-from .utils.migration_helpers import split_by_comma
+from .utils.migration_helpers import extract_zip, split_by_comma
 
 
 def plantoeat_recipes(file: Path):
@@ -22,8 +22,7 @@ def plantoeat_recipes(file: Path):
     """
     if zipfile.is_zipfile(file):
         with tempfile.TemporaryDirectory() as tmpdir:
-            with zipfile.ZipFile(file) as zip_file:
-                zip_file.extractall(tmpdir)
+            extract_zip(file, tmpdir)
 
             for name in Path(tmpdir).glob("**/[!.]*.csv"):
                 with open(name, newline="") as csvfile:

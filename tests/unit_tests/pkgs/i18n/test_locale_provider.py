@@ -59,30 +59,28 @@ def test_json_provider_nested_keys_not_found():
 def test_locale_provider_defaults():
     factory = ProviderFactory(locale_dir)
 
-    assert factory.get("en-US") is not None
-    assert factory.get("asdfadsf") is not None
-
-    assert factory._store["en-US"].locks == 1
-
-    factory.release("en-US")
-
-    assert "en-US" not in factory._store
+    assert factory.get("en-US") is factory.get("asdfadsf")
+    assert set(factory._store) == {"en-US"}
 
 
-def test_locale_providers_store_locks():
+def test_locale_provider_loads_supported_locale():
     factory = ProviderFactory(locale_dir)
 
-    factory.get("en-US")
-    factory.get("en-US")
-    factory.get("en-US")
+    assert factory.get("af-ZA") is not factory.get("en-US")
+    assert set(factory._store) == {"af-ZA", "en-US"}
 
-    assert factory._store["en-US"].locks == 3
 
-    factory.release("en-US")
+def test_locale_provider_rejects_path_traversal(tmp_path):
+    outside = tmp_path / "secret.json"
+    outside.write_text('{"secret": "leaked"}')
+    relative = "../" * len(locale_dir.resolve().parts) + str(outside.with_suffix("")).lstrip("/")
 
-    assert factory._store["en-US"].locks == 2
+    factory = ProviderFactory(locale_dir)
+    fallback = factory.get("en-US")
 
-    factory.release("en-US")
-    factory.release("en-US")
+    for locale in [str(outside.with_suffix("")), relative, "../en-US", "./en-US"]:
+        provider = factory.get(locale)
+        assert provider is fallback
+        assert provider.t("secret") == "secret"
 
-    assert "en-US" not in factory._store
+    assert set(factory._store) == {"en-US"}

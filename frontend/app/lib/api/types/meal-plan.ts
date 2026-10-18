@@ -63,6 +63,10 @@ export interface PlanRulesSave {
   groupId: string;
   householdId: string;
 }
+export interface ReadMealPlanICalToken {
+  householdId: string;
+  mealplanIcalToken?: string | null;
+}
 export interface ReadPlanEntry {
   date: string;
   entryType?: PlanEntryType;

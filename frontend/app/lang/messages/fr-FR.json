@@ -274,7 +274,7 @@
     "private-household-description": "Rendre votre foyer privé va désactiver toutes les options de vue publique. Cela écrase les paramètres de vue publique",
     "lock-recipe-edits-from-other-households": "Verrouiller les éditions de recettes de la part des autres foyers",
     "lock-recipe-edits-from-other-households-description": "Si activé, seuls les utilisateurs de votre foyer peuvent modifier les recettes créées par votre foyer",
-    "lock-recipe-edits-from-other-households-admin-note": "Site administrators can always edit or delete recipes in any household, regardless of this setting.",
+    "lock-recipe-edits-from-other-households-admin-note": "Les administrateurs du site peuvent toujours modifier ou supprimer des recettes dans n'importe quel foyer, indépendamment de ce paramètre.",
     "household-recipe-preferences": "Préférences de recette du foyer",
     "default-recipe-preferences-description": "Ce sont les paramètres par défaut utilisés pour la création d’une nouvelle recette dans votre foyer. Ils peuvent être modifiés individuellement dans le menu de configuration des recettes.",
     "household-preferences": "Préférences du foyer"
@@ -327,7 +327,18 @@
     "meal-plan-settings": "Paramètres des menus",
     "add-all-to-list": "Ajouter tout à la liste",
     "add-day-to-list": "Ajouter un jour à la liste",
-    "randomize-recipe": "Recette au hasard"
+    "randomize-recipe": "Recette au hasard",
+    "calendar-feed": "Subscribe to Calendar",
+    "calendar-feed-description": "Subscribe to your household's meal plan from Google Calendar, Apple Calendar, Home Assistant or any other app that supports iCal links. Anyone with the link can see your meal plan.",
+    "calendar-feed-off": "The calendar link is turned off for your household.",
+    "calendar-feed-ask-manager": "Ask someone who can manage your household to turn it on.",
+    "calendar-feed-turn-on": "Turn On",
+    "calendar-feed-turn-off": "Turn Off",
+    "calendar-feed-reset-hint": "Resetting or turning off the link stops existing subscriptions from updating.",
+    "calendar-feed-include-notes": "Include notes",
+    "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
+    "calendar-feed-timezone": "Timezone",
+    "calendar-feed-url": "Calendar Link"
   },
   "migration": {
     "new-migration": "Nouvelle migration",
@@ -798,9 +809,9 @@
     "new-list-name": "List Name",
     "failed-to-create-shopping-list": "Failed to create shopping list",
     "item-checked-off": "{item} coché",
-    "more-options": "More options",
+    "more-options": "Plus d'options",
     "fewer-options": "Fewer options",
-    "save-as-new-food": "Save \"{text}\" as a new food"
+    "save-as-new-food": "Enregistrer \"{text}\" en tant que nouvel aliment"
   },
   "sidebar": {
     "backups": "Sauvegardes",
