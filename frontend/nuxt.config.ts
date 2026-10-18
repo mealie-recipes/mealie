@@ -58,9 +58,10 @@ export default defineNuxtConfig({
         },
       ],
       link: [
-        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-        { rel: "shortcut icon", type: "image/png", href: "/icons/icon-x64.png" },
-        { rel: "apple-touch-icon", type: "image/png", href: "/icons/apple-touch-icon.png" },
+        // keyed so plugins/branding.client.ts can swap them for a custom logo
+        { key: "favicon", rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        { key: "shortcut-icon", rel: "shortcut icon", type: "image/png", href: "/icons/icon-x64.png" },
+        { key: "apple-touch-icon", rel: "apple-touch-icon", type: "image/png", href: "/icons/apple-touch-icon.png" },
         { rel: "mask-icon", href: "/icons/safari-pinned-tab.svg" },
         { rel: "manifest", href: "/manifest.webmanifest", crossorigin: "use-credentials" },
       ],

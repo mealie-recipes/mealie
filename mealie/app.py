@@ -24,6 +24,7 @@ from mealie.middleware.locale_context import LocaleContextMiddleware
 from mealie.routes import router, spa, utility_routes
 from mealie.routes.handlers import register_debug_handler
 from mealie.routes.media import media_router
+from mealie.services.branding.branding_service import get_branding
 from mealie.services.scheduler import SchedulerRegistry, SchedulerService, tasks
 
 settings = get_app_settings()
@@ -67,6 +68,9 @@ async def lifespan_fn(_: FastAPI) -> AsyncGenerator[None]:
     logger.info("end: database initialization")
 
     await start_scheduler()
+
+    if branding := get_branding():
+        logger.info(f"using custom logo (version {branding.version})")
 
     logger.info("-----SYSTEM STARTUP-----")
     logger.info("------APP SETTINGS------")

@@ -1,4 +1,5 @@
-from fastapi import APIRouter, Depends, Response
+from fastapi import APIRouter, Depends, HTTPException, Response
+from fastapi.responses import FileResponse
 from sqlalchemy.orm.session import Session
 
 from mealie.core.config import get_app_settings
@@ -7,6 +8,7 @@ from mealie.db.db_setup import generate_session
 from mealie.db.models.users.users import User
 from mealie.repos.all_repositories import get_repositories
 from mealie.schema.admin.about import AppInfo, AppStartupInfo, AppTheme
+from mealie.services.branding.branding_service import get_branding
 
 router = APIRouter(prefix="/about")
 
@@ -44,6 +46,7 @@ def get_app_info(session: Session = Depends(generate_session)):
         allow_password_login=settings.ALLOW_PASSWORD_LOGIN,
         token_time=settings.TOKEN_TIME,
         allowed_iframe_hosts=settings.allowed_iframe_hosts,
+        custom_logo_version=branding.version if (branding := get_branding()) else None,
     )
 
 
@@ -70,3 +73,15 @@ def get_app_theme(resp: Response):
 
     resp.headers["Cache-Control"] = "public, max-age=604800"
     return AppTheme(**settings.theme.model_dump())
+
+
+@router.get("/branding/{filename}", include_in_schema=False)
+def get_branding_file(filename: str):
+    """Serves the icons generated from a custom logo in DATA_DIR/branding"""
+    branding = get_branding()
+    path = branding.get_file(filename) if branding else None
+    if path is None or not path.is_file():
+        raise HTTPException(status_code=404)
+
+    # clients request these with ?v=<branding.version>, so a new logo gets a new URL
+    return FileResponse(path, headers={"Cache-Control": "public, max-age=31536000, immutable"})
