@@ -2,13 +2,14 @@ from collections import defaultdict
 from functools import cached_property
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from pydantic import UUID4
 
 from mealie.core.exceptions import mealie_registered_exceptions
 from mealie.repos.all_repositories import get_repositories
 from mealie.routes._base import BaseCrudController, controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import not_found
 from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema import mapper
 from mealie.schema.cookbook import CreateCookBook, ReadCookBook, SaveCookBook, UpdateCookBook
@@ -115,7 +116,7 @@ class GroupCookbookController(BaseCrudController):
         # Allow fetching other households' cookbooks
         cookbook = self.group_cookbooks.get_one(item_id, match_attr)
         if cookbook is None:
-            raise HTTPException(status_code=404)
+            raise not_found()
 
         return cookbook
 
