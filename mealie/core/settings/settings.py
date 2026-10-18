@@ -489,15 +489,6 @@ class AppSettings(AppLoggingSettings):
         return self.REVERSE_PROXY_AUTH_FEATURE.enabled
 
     # ===============================================
-    # OpenAI Configuration
-
-    OPENAI_CUSTOM_PROMPT_DIR: str | None = None
-    """
-    Path to a folder containing custom prompt files;
-    files are individually optional, each prompt name will fall back to the default if no custom file exists
-    """
-
-    # ===============================================
     # Scraper Configuration
 
     SCRAPER_PROXY_URL: str | None = None
