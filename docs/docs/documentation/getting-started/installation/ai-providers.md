@@ -55,7 +55,7 @@ This means an import with photos attached is read by your image provider even if
 
 ## Custom prompts
 
-:octicons-tag-24: v3.29.0
+:octicons-tag-24: v3.30.0
 
 Each AI task Mealie performs has its own prompt. Group managers can customize them from the AI section of the group settings page, and admins can do the same for any group from the group management page.
 
