@@ -1,7 +1,7 @@
 """add ai prompt overrides
 
 Revision ID: a91720b8a7e7
-Revises: f3a8b6c1d2e4
+Revises: 1e69ea7cd45e
 Create Date: 2026-10-15 20:11:05.993785
 
 """
@@ -21,7 +21,7 @@ from mealie.db.models._model_utils.guid import GUID
 
 # revision identifiers, used by Alembic.
 revision = "a91720b8a7e7"
-down_revision: str | None = "f3a8b6c1d2e4"
+down_revision: str | None = "1e69ea7cd45e"
 branch_labels: str | tuple[str, ...] | None = None
 depends_on: str | tuple[str, ...] | None = None
 
