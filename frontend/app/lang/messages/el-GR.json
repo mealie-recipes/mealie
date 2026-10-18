@@ -257,6 +257,47 @@
       "test-connection-failed": "Αποτυχία σύνδεσης",
       "supports-images": "Υποστηρίζει εικόνες",
       "text-only-provider": "Κείμενο-μόνο, δεν μπορεί να είναι πάροχος εικόνας"
+    },
+    "ai-prompts": {
+      "ai-prompts": "Προτροπές τεχνητής νοημοσύνης",
+      "ai-prompts-description": "Προσαρμόστε τις οδηγίες που το Mealie δίνει στον πάροχο τεχνητής νοημοσύνης για κάθε εργασία. Οι προτροπές του Mealie είναι γραμμένες στα αγγλικά, αλλά αυτό δεν αλλάζει τη γλώσσα των συνταγών σας: αυτές κρατούν την γλώσσα της πηγής τους, εκτός αν επιλέξετε να τις μεταφράσετε. Μπορείτε να γράψετε τις δικές σας οδηγίες σε οποιαδήποτε γλώσσα.",
+      "global-instructions": "Οδηγίες για όλες τις προτροπές",
+      "global-instructions-description": "Προστέθηκε σε κάθε προτροπή που παράγει δεδομένα συνταγών, δημιουργεί συνταγές, αναλύει συστατικά, και μεταφράζει. Οι προτροπές συστήματος δεν επηρεάζονται.",
+      "global-instructions-placeholder": "π.χ. Πάντα χρήση μετρικών μονάδων.",
+      "prompts": "Προτροπές",
+      "system": "Σύστημα",
+      "system-description": "Αυτή είναι μια προτροπή συστήματος. Απομαγνητοφωνεί το υλικό της πηγής σας όσο πιο πιστά γίνεται πριν μετατραπεί σε συνταγή, έτσι ώστε οι οδηγίες για όλες τις προτροπές δεν προστίθενται σε αυτό. Η αλλαγή της συνήθως δεν είναι απαραίτητη και μπορεί να καταστήσει τις εισαγωγές λιγότερο αξιόπιστες.",
+      "appended": "Προσαρτήθηκε",
+      "overridden": "Παρακάμφθηκε",
+      "mode-default": "Προεπιλογή",
+      "mode-append": "Προσάρτηση",
+      "mode-override": "Παράκαμψη",
+      "append-description": "Αυτές οι οδηγίες προστίθενται στην προτροπή του Mealie και έχουν προτεραιότητα όπου υπάρχει διένεξη.",
+      "override-description": "Η προτροπή σας αντικαθιστά πλήρως την προτροπή του Mealie, οπότε οι μελλοντικές ενημερώσεις για την προτροπή του Mealie δεν θα εφαρμοστούν σε αυτό. Τυχόν δεδομένα χρειάζεται η εργασία, όπως η λίστα των μονάδων σας, εξακολουθούν να προστίθενται μετά την προτροπή σας.",
+      "default-changed": "Η προτροπή του Mealie έχει αλλάξει από τότε που την παρακάμψατε. Συγκρίνετε τη με τη δική σας ή επιστρέψτε στην προεπιλογή για να χρησιμοποιήσετε τη νέα έκδοση.",
+      "view-default-prompt": "Προβολή προεπιλεγμένης προτροπής",
+      "hide-default-prompt": "Απόκρυψη προεπιλεγμένης προτροπής",
+      "default-prompt": "Προεπιλεγμένη προτροπή",
+      "prompt-saved": "Η προτροπή αποθηκεύτηκε",
+      "prompt-save-failed": "Αποτυχία αποθήκευσης προτροπής",
+      "prompt-titles": {
+        "recipes-build-recipe": "Δημιουργία συνταγής",
+        "recipes-parse-recipe-ingredients": "Ανάλυση συστατικών",
+        "recipes-parse-recipe-video": "Συνταγή από βίντεο",
+        "recipes-resolve-organizers": "Αντιστοίχιση οργανωτών",
+        "recipes-translate-recipe": "Μετάφραση συνταγής",
+        "system-compile-source": "Ανάγνωση υλικού πηγής",
+        "system-transcribe-audio": "Απομαγνητοφώνηση ήχου"
+      },
+      "prompt-descriptions": {
+        "recipes-build-recipe": "Μετατρέπει το αρχικό υλικό που διαβάζεται από μια ιστοσελίδα, μια φωτογραφία ή ένα κείμενο σε μια δομημένη συνταγή.",
+        "recipes-parse-recipe-ingredients": "Χρησιμοποιείται από τον αναλυτή συστατικών τεχνητής νοημοσύνης για να χωρίσει κάθε συστατικό σε ποσότητα, μονάδα, φαγητό και σημείωση.",
+        "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
+        "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
+        "recipes-translate-recipe": "Translates an imported recipe into the language you choose.",
+        "system-compile-source": "Reads webpages, photos, and text into a plain-text record of the recipe.",
+        "system-transcribe-audio": "Transcribes audio when your audio provider can't transcribe it directly."
+      }
     }
   },
   "household": {
