@@ -9,6 +9,7 @@ import uuid
 
 from fastapi.testclient import TestClient
 
+from mealie.schema.recipe.recipe_tool import RecipeToolSave
 from tests.utils import api_routes
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
@@ -98,16 +99,16 @@ def test_tools_empty_excludes_unused_tool_from_other_group(
     api_client: TestClient, unique_user: TestUser, g2_user: TestUser
 ):
     own_tool = _create_tool(api_client, unique_user)
-    other_group_tool = _create_tool(api_client, g2_user)
+    other_group_tool = g2_user.repos.tools.create(RecipeToolSave(name=random_string(10), group_id=g2_user.group_id))
 
     response = api_client.get(api_routes.organizers_tools_empty, headers=unique_user.token)
     assert response.status_code == 200
     ids = [item["id"] for item in response.json()]
     assert own_tool["id"] in ids
-    assert other_group_tool["id"] not in ids
+    assert str(other_group_tool.id) not in ids
 
     api_client.delete(api_routes.organizers_tools_item_id(own_tool["id"]), headers=unique_user.token)
-    api_client.delete(api_routes.organizers_tools_item_id(other_group_tool["id"]), headers=g2_user.token)
+    g2_user.repos.tools.delete(other_group_tool.id)
 
 
 # ---------------------------------------------------------------------------
