@@ -5,6 +5,7 @@ from mealie.core.security import hash_password
 from mealie.core.security.providers.credentials_provider import CredentialsProvider
 from mealie.db.models.users.users import AuthMethod
 from mealie.routes._base import BaseUserController, controller
+from mealie.routes._base.permissions import not_found
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.routes.users._helpers import assert_user_change_allowed
 from mealie.schema.response import ErrorResponse, SuccessResponse
@@ -30,10 +31,7 @@ class UserController(BaseUserController):
         if user_rating:
             return user_rating
         else:
-            raise HTTPException(
-                status.HTTP_404_NOT_FOUND,
-                ErrorResponse.respond("User has not rated this recipe"),
-            )
+            raise not_found("User has not rated this recipe")
 
     @user_router.get("/self/favorites", response_model=UserRatings[UserRatingSummary])
     def get_logged_in_user_favorites(self):

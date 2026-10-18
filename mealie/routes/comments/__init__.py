@@ -1,11 +1,12 @@
 from functools import cached_property
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from pydantic import UUID4
 
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import forbidden
 from mealie.schema.recipe.recipe_comments import (
     RecipeCommentCreate,
     RecipeCommentOut,
@@ -14,7 +15,7 @@ from mealie.schema.recipe.recipe_comments import (
     RecipeCommentUpdate,
 )
 from mealie.schema.response.pagination import PaginationQuery
-from mealie.schema.response.responses import ErrorResponse, SuccessResponse
+from mealie.schema.response.responses import SuccessResponse
 
 router = APIRouter(prefix="/comments", tags=["Recipe: Comments"])
 
@@ -35,10 +36,7 @@ class RecipeCommentRoutes(BaseUserController):
     def _check_comment_belongs_to_user(self, item_id: UUID4) -> None:
         comment = self.repo.get_one(item_id)
         if comment.user_id != self.user.id and not self.user.admin:
-            raise HTTPException(
-                status_code=403,
-                detail=ErrorResponse(message="Comment does not belong to user"),
-            )
+            raise forbidden("Comment does not belong to user")
 
     @router.get("", response_model=RecipeCommentPagination)
     def get_all(self, q: PaginationQuery = Depends(PaginationQuery)):

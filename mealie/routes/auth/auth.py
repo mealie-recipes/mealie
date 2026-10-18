@@ -19,6 +19,7 @@ from mealie.core.security.providers.reverse_proxy_provider import ReverseProxyPr
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
 from mealie.lang import get_locale_provider
+from mealie.routes._base.permissions import not_found
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
 from mealie.schema.user.auth import CredentialsRequestForm, NativeOIDCTokenRequest, OIDCNativeConfig
@@ -341,7 +342,7 @@ async def reverse_proxy_login(
 ):
     """Authenticate a user using a username forwarded by a trusted reverse proxy header"""
     if not settings.REVERSE_PROXY_AUTH_READY:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
+        raise not_found()
 
     if settings.REVERSE_PROXY_AUTH_SECRET:
         provided_secret = request.headers.get(settings.REVERSE_PROXY_AUTH_SECRET_HEADER, "")

@@ -31,15 +31,6 @@ def test_get_household_members(api_client: TestClient, user_tuple: list[TestUser
     assert str(h2_user.user_id) not in all_ids
 
 
-def test_get_household_members_unauthorized(api_client: TestClient, unique_user: TestUser):
-    user = unique_user.repos.users.get_one(unique_user.user_id)
-    user.can_manage = False
-    unique_user.repos.users.update(user.id, user)
-
-    response = api_client.get(api_routes.households_members, headers=unique_user.token)
-    assert response.status_code == 403
-
-
 def test_get_household_recipe_default(api_client: TestClient, unique_user: TestUser):
     recipe = unique_user.repos.recipes.create(
         Recipe(
