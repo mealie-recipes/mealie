@@ -13,7 +13,7 @@
       <!-- Brand -->
       <div class="mealie-sidebar__brand">
         <RouterLink :to="homeLink" class="mealie-sidebar__brand-link">
-          <span class="mealie-brand-mark">M</span>
+          <AppBrandLogo />
           <span class="mealie-sidebar__brand-name">Mealie</span>
         </RouterLink>
         <button

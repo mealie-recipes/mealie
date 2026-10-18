@@ -7,7 +7,14 @@
       :size="size"
     >
       <slot>
+        <img
+          v-if="logoUrl"
+          :src="logoUrl"
+          alt=""
+          class="icon-custom"
+        >
         <svg
+          v-else
           class="icon-white"
           viewBox="0 0 24 24"
           :style="{ width: size + 'px', height: size + 'px' }"
@@ -23,11 +30,19 @@
 
 <script setup lang="ts">
 withDefaults(defineProps<{ size?: number }>(), { size: 75 });
+
+const { brandingUrl } = useBranding();
+const logoUrl = brandingUrl("logo.png");
 </script>
 
 <style scoped>
 .icon-white {
   fill: white;
+}
+.icon-custom {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 .icon-container {
   display: flex;

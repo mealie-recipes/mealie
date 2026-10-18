@@ -18,6 +18,7 @@ export interface AdminAboutInfo {
   oidcProviderName: string;
   tokenTime: number;
   allowedIframeHosts?: string[];
+  customLogoVersion?: string | null;
   versionLatest: string;
   apiPort: number;
   apiDocs: boolean;
@@ -50,6 +51,7 @@ export interface AppInfo {
   oidcProviderName: string;
   tokenTime: number;
   allowedIframeHosts?: string[];
+  customLogoVersion?: string | null;
 }
 export interface AppStartupInfo {
   isFirstLogin: boolean;

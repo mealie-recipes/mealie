@@ -8,7 +8,7 @@
   >
     <slot />
     <RouterLink :to="routerLink" class="mealie-app-bar__brand">
-      <span class="mealie-brand-mark">M</span>
+      <AppBrandLogo />
       <span class="mealie-app-bar__title">Mealie</span>
     </RouterLink>
 
@@ -178,21 +178,6 @@ async function logout() {
 </style>
 
 <style>
-.mealie-brand-mark {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  flex-shrink: 0;
-  border-radius: 8px;
-  background: rgb(var(--v-theme-primary));
-  color: rgb(var(--v-theme-on-primary));
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1;
-}
-
 .mealie-kbd {
   font-family: inherit;
   font-size: 12px;

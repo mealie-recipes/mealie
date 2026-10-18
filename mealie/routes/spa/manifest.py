@@ -4,6 +4,32 @@ from urllib.parse import urlparse
 from fastapi import Response
 
 from mealie.core.config import get_app_settings
+from mealie.services.branding.branding_service import get_branding
+
+
+def app_icons() -> list[dict[str, str]]:
+    branding = get_branding()
+    if branding:
+        base, suffix = "/api/app/about/branding/", f"?v={branding.version}"
+    else:
+        base, suffix = "/icons/", ""
+
+    return [
+        {"src": f"{base}android-chrome-192x192.png{suffix}", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+        {"src": f"{base}android-chrome-512x512.png{suffix}", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+        {
+            "src": f"{base}android-chrome-maskable-192x192.png{suffix}",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable",
+        },
+        {
+            "src": f"{base}android-chrome-maskable-512x512.png{suffix}",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable",
+        },
+    ]
 
 
 def serve_manifest():
@@ -39,22 +65,7 @@ def serve_manifest():
                 "text": "recipe_import_text",
             },
         },
-        "icons": [
-            {"src": "/icons/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
-            {"src": "/icons/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
-            {
-                "src": "/icons/android-chrome-maskable-192x192.png",
-                "sizes": "192x192",
-                "type": "image/png",
-                "purpose": "maskable",
-            },
-            {
-                "src": "/icons/android-chrome-maskable-512x512.png",
-                "sizes": "512x512",
-                "type": "image/png",
-                "purpose": "maskable",
-            },
-        ],
+        "icons": app_icons(),
         "screenshots": [
             {
                 "src": "/screenshots/home-narrow.png",

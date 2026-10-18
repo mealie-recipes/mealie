@@ -89,6 +89,12 @@ services:
 
 Follow the upstream [installation guide](https://docs.mealie.io/documentation/getting-started/installation/installation-checklist/) and swap in this image. Configuration, environment variables and backups work the same as upstream. The upstream images (`hkotel/mealie` and `ghcr.io/mealie-recipes/mealie`) run the original design, not this one.
 
+### Custom logo
+
+To replace the Mealie logo, put a square image named `logo.png` (or `logo.webp`/`logo.jpg`) of at least 512×512 pixels in a `branding` folder inside Mealie's data folder, e.g. `/app/data/branding/logo.png` in the container, and restart Mealie. It is used in the sidebar, the browser tab and for the app's home screen icon. A transparent background works best.
+
+Remove the file and restart to go back to the default logo. Phones keep the home screen icon they installed with, so re-add the app to see a new one.
+
 To build the image yourself instead:
 
 ```bash
