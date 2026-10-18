@@ -1,0 +1,20 @@
+name: Crowdin Probe (temporary)
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+      - name: Probe Crowdin (read-only)
+        run: python dev/scripts/crowdin_probe.py
+        env:
+          CROWDIN_API_KEY: ${{ secrets.CROWDIN_API_KEY }}
