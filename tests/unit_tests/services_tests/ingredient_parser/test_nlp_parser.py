@@ -51,7 +51,7 @@ def normalize(val: str) -> str:
             2,
             "pound",
             "russet potatoes",
-            "peeled, and cut into 3/4 inch cubes",
+            "peeled, and cut into ¾ inch cubes",
         ),
         TestIngredient("2 teaspoons salt (to taste) ", 2, "teaspoon", "salt", "to taste"),
         TestIngredient("1/2 cup", 0.5, "cup", "", ""),
