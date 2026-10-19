@@ -16,11 +16,13 @@ import time
 import urllib.parse
 import urllib.request
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 
 PROJECT_ID = "451976"
 BASE_URL = f"https://api.crowdin.com/api/v2/projects/{PROJECT_ID}"
 HEADERS = {"Authorization": f"Bearer {os.environ['CROWDIN_API_KEY']}", "Content-Type": "application/json"}
 APPLY = os.environ.get("CROWDIN_CLEANUP_APPLY", "").lower() == "true"
+RUN_SALVAGE = False  # completed in run 39183780164
 
 CURRENT_FILE_ID = 100  # /mealie-next/frontend/app/lang/messages/en-US.json
 LEGACY_FILE_ID = 82  # /mealie-next/frontend/lang/messages/en-US.json (pre-Nuxt 4 path)
@@ -69,12 +71,6 @@ def get_all(path: str, **params) -> list[dict]:
 
 def section(title: str) -> None:
     print(f"\n===== {title} =====", flush=True)
-
-
-def count_approvals(files: list[dict], languages: list[str]) -> dict[int, int]:
-    return {
-        f["id"]: sum(len(get_all("/approvals", fileId=f["id"], languageId=lang)) for lang in languages) for f in files
-    }
 
 
 def salvage(languages: list[str]) -> None:
@@ -128,13 +124,35 @@ def salvage(languages: list[str]) -> None:
 
 def remove_approvals(files: list[dict], languages: list[str]) -> None:
     section("2. Remove all approvals")
-    before = count_approvals(files, languages)
+    # stringId -> languages with an approval; removal by fileId only works for asset files, so go string by string
+    approved: defaultdict[int, set[str]] = defaultdict(set)
+    total = 0
     for f in files:
-        print(f"  file {f['id']} {f['path']}: {before[f['id']]} approvals")
-        if APPLY and before[f["id"]]:
-            request("DELETE", "/approvals", fileId=f["id"])
-            print("    removed")
-    print(f"total before: {sum(before.values())}")
+        count = 0
+        for lang in languages:
+            for a in get_all("/approvals", fileId=f["id"], languageId=lang):
+                approved[a["stringId"]].add(lang)
+                count += 1
+        total += count
+        print(f"  file {f['id']} {f['path']}: {count} approvals")
+    print(f"total before: {total} across {len(approved)} strings")
+    if not APPLY:
+        return
+
+    string_ids = list(approved)
+    first = string_ids[0]
+    request("DELETE", "/approvals", stringId=first)
+    for lang in sorted(approved[first])[:2]:
+        if get_all("/approvals", stringId=first, languageId=lang):
+            raise RuntimeError(f"removing approvals for string {first} left {lang} approved; aborting")
+    print(f"  verified removal on string {first}; continuing")
+
+    # Crowdin allows 20 simultaneous requests per account; stay well under it
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        for i, _ in enumerate(pool.map(lambda sid: request("DELETE", "/approvals", stringId=sid), string_ids[1:]), 2):
+            if i % 250 == 0:
+                print(f"  removed {i}/{len(string_ids)}", flush=True)
+    print(f"  removed {len(string_ids)}/{len(string_ids)}")
 
 
 def reapprove_canaries() -> None:
@@ -167,7 +185,8 @@ def main() -> None:
     languages = request("GET", "")["data"]["targetLanguageIds"]
     files = [f for f in get_all("/files") if f["path"].endswith(".json")]
 
-    salvage(languages)
+    if RUN_SALVAGE:
+        salvage(languages)
     remove_approvals(files, languages)
     reapprove_canaries()
     if APPLY:
