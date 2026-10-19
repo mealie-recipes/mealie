@@ -25,6 +25,11 @@ APPLY = os.environ.get("CROWDIN_CLEANUP_APPLY", "").lower() == "true"
 CURRENT_FILE_ID = 100  # /mealie-next/frontend/app/lang/messages/en-US.json
 LEGACY_FILE_ID = 82  # /mealie-next/frontend/lang/messages/en-US.json (pre-Nuxt 4 path)
 
+# (languageId, identifier) -> text: salvaged translations corrected during review
+SALVAGE_OVERRIDES = {
+    ("it", "general.a-name-is-required"): "È necessario un nome",
+}
+
 # (languageId, identifier, translationId): approved imports the community has voted against
 CANARIES = [
     ("da", "recipe.yield-text", 439352),
@@ -96,9 +101,10 @@ def salvage(languages: list[str]) -> None:
                 or legacy["createdAt"] <= current["createdAt"]
             ):
                 continue
-            label = f"{lang} {legacy_string['identifier']}: {current['text']!r} -> {legacy['text']!r}"
+            text = SALVAGE_OVERRIDES.get((lang, legacy_string["identifier"]), legacy["text"])
+            label = f"{lang} {legacy_string['identifier']}: {current['text']!r} -> {text!r}"
             existing = get_all("/translations", stringId=current_string["id"], languageId=lang)
-            if any(t["text"] == legacy["text"] for t in existing):
+            if any(t["text"] == text for t in existing):
                 skipped += 1
                 print(f"  skip (already an alternative in current file) {label}")
                 continue
@@ -110,7 +116,7 @@ def salvage(languages: list[str]) -> None:
                 request(
                     "POST",
                     "/translations",
-                    {"stringId": current_string["id"], "languageId": lang, "text": legacy["text"]},
+                    {"stringId": current_string["id"], "languageId": lang, "text": text},
                 )
                 added += 1
                 print(f"  added {label}")
