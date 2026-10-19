@@ -11,6 +11,7 @@ from dateutil.tz import tzlocal
 from pydantic import PlainSerializer, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from mealie.core.settings.branding import Branding
 from mealie.core.settings.themes import Theme
 
 from .db_providers import AbstractDBProvider, db_provider_factory
@@ -138,6 +139,7 @@ class AppLoggingSettings(BaseSettings):
 
 class AppSettings(AppLoggingSettings):
     theme: Theme = Theme()
+    branding: Branding = Branding()
 
     BASE_URL: str = "http://localhost:8080"
     """trailing slashes are trimmed (ex. `http://localhost:8080/` becomes ``http://localhost:8080`)"""
@@ -452,13 +454,39 @@ class AppSettings(AppLoggingSettings):
         return self.OIDC_FEATURE.enabled
 
     # ===============================================
-    # OpenAI Configuration
+    # Reverse Proxy Auth Configuration
+    REVERSE_PROXY_AUTH_ENABLED: bool = False
+    REVERSE_PROXY_AUTH_HEADER: str = "X-Forwarded-User"
+    REVERSE_PROXY_AUTH_SIGNUP_ENABLED: bool = False
 
-    OPENAI_CUSTOM_PROMPT_DIR: str | None = None
-    """
-    Path to a folder containing custom prompt files;
-    files are individually optional, each prompt name will fall back to the default if no custom file exists
-    """
+    REVERSE_PROXY_AUTH_SECRET: str | None = None
+    """Shared secret the proxy must send in REVERSE_PROXY_AUTH_SECRET_HEADER on every request. Checking
+    the connecting IP instead doesn't work: with the default HOST_IP="*", uvicorn trusts every peer and
+    will happily replace request.client with whatever X-Forwarded-For a direct request supplies, letting
+    an attacker impersonate the proxy's address; narrowing HOST_IP to the proxy instead makes
+    request.client the *end user's* IP, which isn't a fixed value to allowlist. A shared secret isn't
+    forgeable either way. Strongly recommended in production; left unset for backwards compatibility
+    with simple setups that trust their whole network."""
+
+    REVERSE_PROXY_AUTH_SECRET_HEADER: str = "X-Mealie-Reverse-Proxy-Secret"
+    """The header REVERSE_PROXY_AUTH_SECRET is expected in."""
+
+    @property
+    def REVERSE_PROXY_AUTH_FEATURE(self) -> FeatureDetails:
+        description = None if self.REVERSE_PROXY_AUTH_ENABLED else "REVERSE_PROXY_AUTH_ENABLED is false"
+        has_header = bool(self.REVERSE_PROXY_AUTH_HEADER)
+        if not has_header and not description:
+            description = "REVERSE_PROXY_AUTH_HEADER is not set"
+
+        return FeatureDetails(
+            enabled=self.REVERSE_PROXY_AUTH_ENABLED and has_header,
+            description=description,
+        )
+
+    @property
+    def REVERSE_PROXY_AUTH_READY(self) -> bool:
+        """Validates reverse proxy auth settings are all set"""
+        return self.REVERSE_PROXY_AUTH_FEATURE.enabled
 
     # ===============================================
     # Scraper Configuration

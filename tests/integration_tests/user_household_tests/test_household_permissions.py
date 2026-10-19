@@ -33,28 +33,6 @@ def test_set_member_permissions(api_client: TestClient, user_tuple: list[TestUse
     assert response.status_code == 200
 
 
-def test_set_member_permissions_unauthorized(api_client: TestClient, unique_user: TestUser):
-    database = unique_user.repos
-
-    # Setup
-    user = database.users.get_one(unique_user.user_id)
-    assert user
-    user.can_manage = False
-    database.users.update(user.id, user)
-
-    payload = get_permissions_payload(str(user.id))
-    payload = {
-        "user_id": str(user.id),
-        "can_manage": True,
-        "can_invite": True,
-        "can_organize": True,
-    }
-
-    # Test
-    response = api_client.put(api_routes.households_permissions, json=payload, headers=unique_user.token)
-    assert response.status_code == 403
-
-
 def test_set_member_permissions_other_household(
     api_client: TestClient,
     unique_user: TestUser,

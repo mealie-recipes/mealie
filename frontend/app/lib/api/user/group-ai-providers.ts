@@ -1,5 +1,12 @@
 import { BaseAPI } from "../base/base-clients";
-import type { AIProviderCreate, AIProviderOut, AIProviderTestResult, AIProviderUpdate } from "~/lib/api/types/group";
+import type {
+  AIPromptOverrideUpdate,
+  AIPromptsOut,
+  AIProviderCreate,
+  AIProviderOut,
+  AIProviderTestResult,
+  AIProviderUpdate,
+} from "~/lib/api/types/group";
 
 const prefix = "/api/groups/ai-providers";
 
@@ -8,6 +15,8 @@ const routes = {
   providersId: (id: string) => `${prefix}/providers/${id}`,
   providersTest: `${prefix}/providers/test`,
   providersIdTest: (id: string) => `${prefix}/providers/${id}/test`,
+  prompts: `${prefix}/prompts`,
+  promptsName: (name: string) => `${prefix}/prompts/${name}`,
 };
 
 export class AIProvidersAPI extends BaseAPI {
@@ -33,5 +42,17 @@ export class AIProvidersAPI extends BaseAPI {
 
   async testSavedOne(id: string, overrides?: AIProviderUpdate & { apiKey?: string }) {
     return await this.requests.post<AIProviderTestResult, typeof overrides>(routes.providersIdTest(id), overrides);
+  }
+
+  async getPrompts() {
+    return await this.requests.get<AIPromptsOut>(routes.prompts);
+  }
+
+  async updatePrompt(name: string, payload: AIPromptOverrideUpdate) {
+    return await this.requests.put<AIPromptsOut, AIPromptOverrideUpdate>(routes.promptsName(name), payload);
+  }
+
+  async deletePrompt(name: string) {
+    return await this.requests.delete<AIPromptsOut>(routes.promptsName(name));
   }
 }

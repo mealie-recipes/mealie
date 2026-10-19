@@ -4,6 +4,7 @@ from fastapi import APIRouter, HTTPException, status
 from pydantic import UUID4
 from starlette.responses import FileResponse
 
+from mealie.routes._base.permissions import not_found
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe_timeline_events import RecipeTimelineEventOut
 
@@ -27,7 +28,7 @@ async def get_recipe_img(recipe_id: UUID4, file_name: ImageType = ImageType.orig
     if recipe_image.exists():
         return FileResponse(recipe_image, media_type="image/webp")
     else:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
+        raise not_found()
 
 
 @router.get("/{recipe_id}/images/timeline/{timeline_event_id}/{file_name}")
@@ -45,7 +46,7 @@ async def get_recipe_timeline_event_img(
     if timeline_event_image.exists():
         return FileResponse(timeline_event_image, media_type="image/webp")
     else:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
+        raise not_found()
 
 
 @router.get("/{recipe_id}/assets/{file_name}")
@@ -67,4 +68,4 @@ async def get_recipe_asset(recipe_id: UUID4, file_name: str):
             headers={"X-Content-Type-Options": "nosniff"},
         )
     else:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
+        raise not_found()

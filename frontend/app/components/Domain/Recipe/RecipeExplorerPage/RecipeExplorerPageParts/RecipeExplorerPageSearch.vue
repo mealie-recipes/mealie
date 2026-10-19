@@ -142,6 +142,7 @@ const emit = defineEmits<{
 }>();
 
 const auth = useMealieAuth();
+const { isOwnGroup } = useLoggedInState();
 const route = useRoute();
 const { $globals } = useNuxtApp();
 const i18n = useI18n();
@@ -177,7 +178,8 @@ onUnmounted(() => {
 });
 
 const sortText = computed(() => {
-  const sort = sortable.value.find(s => s.value === state.value.orderBy);
+  const orderBy = !isOwnGroup.value && state.value.orderBy === "last_made" ? "created_at" : state.value.orderBy;
+  const sort = sortable.value.find(s => s.value === orderBy);
   if (!sort) return "";
   return `${sort.name}`;
 });
@@ -213,7 +215,7 @@ const sortable = computed(() => [
     name: i18n.t("general.random"),
     value: "random",
   },
-]);
+].filter(item => isOwnGroup.value || item.value !== "last_made"));
 
 // Methods
 const input: Ref<any> = ref(null);

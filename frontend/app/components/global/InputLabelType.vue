@@ -7,11 +7,9 @@
     item-title="name"
     return-object
     :items="filteredItems"
-    :prepend-inner-icon="icon || (search ? $globals.icons.search : $globals.icons.tags)"
-    :menu-icon="search ? '' : undefined"
-    :rounded="search ? true : '4px'"
+    :prepend-inner-icon="icon || $globals.icons.tags"
+    rounded="4px"
     :custom-filter="() => true"
-    :variant="search ? 'solo-filled' : undefined"
     color="primary"
     auto-select-first
     clearable
@@ -58,10 +56,6 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  search: {
-    type: Boolean,
-    default: false,
-  },
 });
 
 const emit = defineEmits<{
@@ -93,8 +87,4 @@ function emitCreate() {
   emit("create", searchInput.value);
   autocompleteRef.value?.blur();
 }
-
-defineExpose({
-  focus: () => autocompleteRef.value?.focus(),
-});
 </script>

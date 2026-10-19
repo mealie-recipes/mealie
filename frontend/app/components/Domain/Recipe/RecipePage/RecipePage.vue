@@ -412,6 +412,7 @@ const hasLinkedIngredients = computed(() => {
 const paramsEdit = useRouteQuery<BooleanString>("edit", "");
 const paramsParse = useRouteQuery<BooleanString>("parse", "");
 const paramsCook = useRouteQuery<BooleanString>("cook", "");
+const paramsScale = useRouteQuery<string>("scale", "");
 const { hydrateCookMode } = useCookModeQuery({
   cookQuery: paramsCook,
   isEditMode,
@@ -426,6 +427,12 @@ onMounted(() => {
 
   if (paramsParse.value === "true" && isOwnGroup.value) {
     toggleIsParsing(true);
+  }
+
+  // e.g. set when opened from a meal plan entry, so the recipe starts at the entry's scale
+  const initialScale = parseFloat(paramsScale.value);
+  if (initialScale > 0 && isFinite(initialScale)) {
+    scale.value = initialScale;
   }
 
   hydrateCookMode();

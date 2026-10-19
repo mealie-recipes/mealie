@@ -35,6 +35,8 @@ admin_users_unlock = "/api/admin/users/unlock"
 """`/api/admin/users/unlock`"""
 app_about = "/api/app/about"
 """`/api/app/about`"""
+app_about_branding_logo = "/api/app/about/branding-logo"
+"""`/api/app/about/branding-logo`"""
 app_about_startup_info = "/api/app/about/startup-info"
 """`/api/app/about/startup-info`"""
 app_about_theme = "/api/app/about/theme"
@@ -51,6 +53,8 @@ auth_oauth_native_token = "/api/auth/oauth/native/token"
 """`/api/auth/oauth/native/token`"""
 auth_refresh = "/api/auth/refresh"
 """`/api/auth/refresh`"""
+auth_reverse_proxy = "/api/auth/reverse-proxy"
+"""`/api/auth/reverse-proxy`"""
 auth_token = "/api/auth/token"
 """`/api/auth/token`"""
 comments = "/api/comments"
@@ -61,6 +65,8 @@ foods_empty = "/api/foods/empty"
 """`/api/foods/empty`"""
 foods_merge = "/api/foods/merge"
 """`/api/foods/merge`"""
+groups_ai_providers_prompts = "/api/groups/ai-providers/prompts"
+"""`/api/groups/ai-providers/prompts`"""
 groups_ai_providers_providers = "/api/groups/ai-providers/providers"
 """`/api/groups/ai-providers/providers`"""
 groups_ai_providers_providers_test = "/api/groups/ai-providers/providers/test"
@@ -101,6 +107,8 @@ households_invitations_email = "/api/households/invitations/email"
 """`/api/households/invitations/email`"""
 households_mealplans = "/api/households/mealplans"
 """`/api/households/mealplans`"""
+households_mealplans_ical = "/api/households/mealplans/ical"
+"""`/api/households/mealplans/ical`"""
 households_mealplans_random = "/api/households/mealplans/random"
 """`/api/households/mealplans/random`"""
 households_mealplans_rules = "/api/households/mealplans/rules"
@@ -232,6 +240,16 @@ def admin_debug_openai_provider_id(provider_id):
     return f"{prefix}/admin/debug/openai/{provider_id}"
 
 
+def admin_groups_group_id_ai_providers_prompts(group_id):
+    """`/api/admin/groups/{group_id}/ai-providers/prompts`"""
+    return f"{prefix}/admin/groups/{group_id}/ai-providers/prompts"
+
+
+def admin_groups_group_id_ai_providers_prompts_prompt_name(group_id, prompt_name):
+    """`/api/admin/groups/{group_id}/ai-providers/prompts/{prompt_name}`"""
+    return f"{prefix}/admin/groups/{group_id}/ai-providers/prompts/{prompt_name}"
+
+
 def admin_groups_group_id_ai_providers_providers(group_id):
     """`/api/admin/groups/{group_id}/ai-providers/providers`"""
     return f"{prefix}/admin/groups/{group_id}/ai-providers/providers"
@@ -342,6 +360,11 @@ def foods_item_id(item_id):
     return f"{prefix}/foods/{item_id}"
 
 
+def groups_ai_providers_prompts_prompt_name(prompt_name):
+    """`/api/groups/ai-providers/prompts/{prompt_name}`"""
+    return f"{prefix}/groups/ai-providers/prompts/{prompt_name}"
+
+
 def groups_ai_providers_providers_provider_id(provider_id):
     """`/api/groups/ai-providers/providers/{provider_id}`"""
     return f"{prefix}/groups/ai-providers/providers/{provider_id}"
@@ -385,6 +408,11 @@ def households_events_notifications_item_id(item_id):
 def households_events_notifications_item_id_test(item_id):
     """`/api/households/events/notifications/{item_id}/test`"""
     return f"{prefix}/households/events/notifications/{item_id}/test"
+
+
+def households_mealplans_ical_token(token):
+    """`/api/households/mealplans/ical/{token}`"""
+    return f"{prefix}/households/mealplans/ical/{token}"
 
 
 def households_mealplans_item_id(item_id):

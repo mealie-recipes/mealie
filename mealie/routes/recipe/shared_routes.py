@@ -1,6 +1,6 @@
 from zipfile import ZipFile
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends
 from pydantic import UUID4
 from sqlalchemy.orm.session import Session
 from starlette.background import BackgroundTask
@@ -10,9 +10,9 @@ from mealie.core.dependencies import get_temporary_zip_path
 from mealie.core.root_logger import get_logger
 from mealie.db.db_setup import generate_session
 from mealie.repos.all_repositories import get_repositories
+from mealie.routes._base.permissions import not_found
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe_image_types import RecipeImageTypes
-from mealie.schema.response import ErrorResponse
 
 router = APIRouter()
 
@@ -34,7 +34,7 @@ def get_shared_recipe(token_id: UUID4, session: Session = Depends(generate_sessi
         token_summary = None
 
     if token_summary is None:
-        raise HTTPException(status_code=404, detail=ErrorResponse.respond("Token Not Found"))
+        raise not_found("Token Not Found")
 
     return token_summary.recipe
 

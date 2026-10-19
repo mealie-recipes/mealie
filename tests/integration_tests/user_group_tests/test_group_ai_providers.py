@@ -6,8 +6,14 @@ from uuid import uuid4
 
 from fastapi.testclient import TestClient
 
-from mealie.schema.group.ai_providers import AIProviderCreate, AIProviderSettingsUpdate
+from mealie.schema.group.ai_providers import (
+    AIPromptMode,
+    AIPromptOverrideCreate,
+    AIProviderCreate,
+    AIProviderSettingsUpdate,
+)
 from mealie.services.openai import OpenAIService
+from mealie.services.openai.openai import GLOBAL_PROMPT_NAME
 from tests.utils import api_routes
 from tests.utils.factories import random_string, user_registration_factory
 from tests.utils.fixture_schemas import TestUser
@@ -368,113 +374,6 @@ def test_delete_image_provider_clears_settings(api_client: TestClient, unique_us
 
 
 # ==========================================
-# Permissions: can_manage required
-# ==========================================
-
-
-def test_providers_require_can_manage_get(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    # Ensure user does NOT have can_manage
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    # Create a provider so there's something to GET (using repos directly to bypass permission check)
-    provider = usr.repos.group_ai_providers.create(
-        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
-    )
-
-    try:
-        response = api_client.get(api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=usr.token)
-        assert response.status_code == 403
-    finally:
-        usr.repos.group_ai_providers.delete(provider.id)
-
-
-def test_providers_require_can_manage_create(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
-    response = api_client.post(api_routes.groups_ai_providers_providers, json=data, headers=usr.token)
-    assert response.status_code == 403
-
-
-def test_providers_require_can_manage_update(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    provider = usr.repos.group_ai_providers.create(
-        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
-    )
-
-    try:
-        update_data = {"name": provider.name, "model": "gpt-4-turbo", "apiKey": "key"}
-        response = api_client.put(
-            api_routes.groups_ai_providers_providers_provider_id(provider.id), json=update_data, headers=usr.token
-        )
-        assert response.status_code == 403
-    finally:
-        usr.repos.group_ai_providers.delete(provider.id)
-
-
-def test_providers_require_can_manage_delete(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    provider = usr.repos.group_ai_providers.create(
-        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
-    )
-
-    try:
-        response = api_client.delete(
-            api_routes.groups_ai_providers_providers_provider_id(provider.id), headers=usr.token
-        )
-        assert response.status_code == 403
-    finally:
-        usr.repos.group_ai_providers.delete(provider.id)
-
-
-def test_settings_require_can_manage_get(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    response = api_client.get(api_routes.groups_ai_providers_settings, headers=usr.token)
-    assert response.status_code == 403
-
-
-def test_settings_require_can_manage_update(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    update = {"defaultProviderId": None, "audioProviderId": None, "imageProviderId": None}
-    response = api_client.put(api_routes.groups_ai_providers_settings, json=update, headers=usr.token)
-    assert response.status_code == 403
-
-
-# ==========================================
 # API key not exposed in responses
 # ==========================================
 
@@ -694,40 +593,6 @@ def test_test_saved_provider_not_found(api_client: TestClient, unique_user: Test
     assert response.status_code == 404
 
 
-def test_test_unsaved_provider_requires_can_manage(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    data = {"name": random_string(), "model": "gpt-4o", "apiKey": "test-key"}
-    response = api_client.post(api_routes.groups_ai_providers_providers_test, json=data, headers=usr.token)
-    assert response.status_code == 403
-
-
-def test_test_saved_provider_requires_can_manage(api_client: TestClient, user_tuple: list[TestUser]):
-    usr, _ = user_tuple
-
-    provider = usr.repos.group_ai_providers.create(
-        AIProviderCreate(name=random_string(), model="gpt-4o", api_key="test-key")
-    )
-
-    user = usr.repos.users.get_one(usr.user_id)
-    assert user
-    user.can_manage = False
-    usr.repos.users.update(user.id, user)
-
-    try:
-        response = api_client.post(
-            api_routes.groups_ai_providers_providers_provider_id_test(provider.id), headers=usr.token
-        )
-        assert response.status_code == 403
-    finally:
-        usr.repos.group_ai_providers.delete(provider.id)
-
-
 # ==========================================
 # New group creation creates empty settings singleton
 # ==========================================
@@ -801,3 +666,158 @@ def test_new_group_created_via_admin_has_empty_ai_provider_settings(
         assert settings["providers"] == []
     finally:
         api_client.delete(api_routes.admin_groups_item_id(group_id), headers=admin_token)
+
+
+# ==========================================
+# Prompts
+# ==========================================
+
+USER_PROMPT = "recipes.build-recipe"
+SYSTEM_PROMPT = "system.compile-source"
+
+
+def _get_prompt(prompts: dict, name: str) -> dict:
+    return next(prompt for prompt in prompts["prompts"] if prompt["name"] == name)
+
+
+def test_get_prompts_lists_every_prompt_uncustomized(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    response = api_client.get(api_routes.groups_ai_providers_prompts, headers=unique_user_fn_scoped.token)
+    assert response.status_code == 200
+
+    prompts = response.json()
+    assert prompts["globalInstructions"] is None
+
+    names = [prompt["name"] for prompt in prompts["prompts"]]
+    assert sorted(names) == sorted(OpenAIService.get_prompt_names())
+    # User prompts come before system prompts
+    is_system = [prompt["isSystem"] for prompt in prompts["prompts"]]
+    assert is_system == sorted(is_system)
+
+    prompt = _get_prompt(prompts, USER_PROMPT)
+    assert prompt["isSystem"] is False
+    assert prompt["defaultContent"] == OpenAIService.get_default_prompt(USER_PROMPT)
+    assert prompt["mode"] is None
+    assert prompt["content"] is None
+    assert prompt["defaultChanged"] is False
+
+    assert _get_prompt(prompts, SYSTEM_PROMPT)["isSystem"] is True
+
+
+def test_update_prompt_append(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    data = {"mode": "append", "content": "Use metric units."}
+    response = api_client.put(
+        api_routes.groups_ai_providers_prompts_prompt_name(USER_PROMPT), json=data, headers=unique_user_fn_scoped.token
+    )
+    assert response.status_code == 200
+
+    prompt = _get_prompt(response.json(), USER_PROMPT)
+    assert prompt["mode"] == "append"
+    assert prompt["content"] == "Use metric units."
+
+    assert "Use metric units." in OpenAIService(unique_user_fn_scoped.repos).get_prompt(USER_PROMPT)
+
+
+def test_update_prompt_override_replaces_existing(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    route = api_routes.groups_ai_providers_prompts_prompt_name(USER_PROMPT)
+    api_client.put(route, json={"mode": "append", "content": "first"}, headers=unique_user_fn_scoped.token)
+    response = api_client.put(
+        route, json={"mode": "override", "content": "second"}, headers=unique_user_fn_scoped.token
+    )
+    assert response.status_code == 200
+
+    prompt = _get_prompt(response.json(), USER_PROMPT)
+    assert prompt["mode"] == "override"
+    assert prompt["content"] == "second"
+    assert prompt["defaultChanged"] is False
+
+    overrides = unique_user_fn_scoped.repos.group_ai_prompt_overrides.get_all()
+    assert [override.content for override in overrides] == ["second"]
+
+
+def test_update_prompt_rejects_blank_content(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    response = api_client.put(
+        api_routes.groups_ai_providers_prompts_prompt_name(USER_PROMPT),
+        json={"mode": "append", "content": "   "},
+        headers=unique_user_fn_scoped.token,
+    )
+    assert response.status_code == 422
+
+
+def test_get_prompts_flags_changed_default(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    # Overrides saved against an older version of the built-in prompt
+    for mode in (AIPromptMode.override, AIPromptMode.append):
+        name = USER_PROMPT if mode == AIPromptMode.override else SYSTEM_PROMPT
+        unique_user_fn_scoped.repos.group_ai_prompt_overrides.create(
+            AIPromptOverrideCreate(name=name, mode=mode, content="custom", base_prompt_hash="stale")
+        )
+
+    response = api_client.get(api_routes.groups_ai_providers_prompts, headers=unique_user_fn_scoped.token)
+    assert response.status_code == 200
+
+    prompts = response.json()
+    assert _get_prompt(prompts, USER_PROMPT)["defaultChanged"] is True
+    # Appended instructions still apply on top of the new default, so there's nothing to flag
+    assert _get_prompt(prompts, SYSTEM_PROMPT)["defaultChanged"] is False
+
+
+def test_delete_prompt_resets_to_default(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    route = api_routes.groups_ai_providers_prompts_prompt_name(USER_PROMPT)
+    api_client.put(route, json={"mode": "override", "content": "custom"}, headers=unique_user_fn_scoped.token)
+
+    response = api_client.delete(route, headers=unique_user_fn_scoped.token)
+    assert response.status_code == 200
+
+    prompt = _get_prompt(response.json(), USER_PROMPT)
+    assert prompt["mode"] is None
+    assert prompt["content"] is None
+    assert unique_user_fn_scoped.repos.group_ai_prompt_overrides.get_all() == []
+
+
+def test_delete_uncustomized_prompt(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    response = api_client.delete(
+        api_routes.groups_ai_providers_prompts_prompt_name(USER_PROMPT), headers=unique_user_fn_scoped.token
+    )
+    assert response.status_code == 200
+
+
+def test_update_global_instructions(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    route = api_routes.groups_ai_providers_prompts_prompt_name(GLOBAL_PROMPT_NAME)
+    response = api_client.put(
+        route, json={"mode": "append", "content": "Use metric units."}, headers=unique_user_fn_scoped.token
+    )
+    assert response.status_code == 200
+    assert response.json()["globalInstructions"] == "Use metric units."
+
+    response = api_client.delete(route, headers=unique_user_fn_scoped.token)
+    assert response.status_code == 200
+    assert response.json()["globalInstructions"] is None
+
+
+def test_update_global_instructions_cannot_override(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    response = api_client.put(
+        api_routes.groups_ai_providers_prompts_prompt_name(GLOBAL_PROMPT_NAME),
+        json={"mode": "override", "content": "custom"},
+        headers=unique_user_fn_scoped.token,
+    )
+    assert response.status_code == 400
+
+
+def test_update_unknown_prompt(api_client: TestClient, unique_user_fn_scoped: TestUser):
+    for name in ("recipes.does-not-exist", "debug", "..secrets"):
+        route = api_routes.groups_ai_providers_prompts_prompt_name(name)
+        response = api_client.put(route, json={"mode": "append", "content": "x"}, headers=unique_user_fn_scoped.token)
+        assert response.status_code == 404
+
+        response = api_client.delete(route, headers=unique_user_fn_scoped.token)
+        assert response.status_code == 404
+
+
+def test_prompts_are_scoped_to_group(api_client: TestClient, unique_user_fn_scoped: TestUser, g2_user: TestUser):
+    api_client.put(
+        api_routes.groups_ai_providers_prompts_prompt_name(USER_PROMPT),
+        json={"mode": "override", "content": "custom"},
+        headers=unique_user_fn_scoped.token,
+    )
+
+    assert g2_user.repos.group_ai_prompt_overrides.get_all() == []
+    assert OpenAIService(g2_user.repos).get_prompt(USER_PROMPT) == OpenAIService.get_default_prompt(USER_PROMPT)

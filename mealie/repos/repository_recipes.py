@@ -5,6 +5,8 @@ from typing import Self
 from uuid import UUID
 
 import sqlalchemy as sa
+from fastapi import HTTPException
+from humps import decamelize
 from pydantic import UUID4
 from sqlalchemy.exc import IntegrityError
 
@@ -20,6 +22,7 @@ from mealie.pkgs import cache
 from mealie.schema.cookbook.cookbook import ReadCookBook
 from mealie.schema.recipe import Recipe
 from mealie.schema.recipe.recipe import RecipePagination, RecipeSummary, create_recipe_slug
+from mealie.schema.recipe.recipe_suggestion import RecipeSuggestionQuery
 from mealie.schema.response.pagination import PaginationQuery
 from mealie.services.query_filter.builder import QueryFilterBuilder
 
@@ -87,20 +90,58 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
         )
         return sa.cast(effective_rating, sa.Float)
 
+    def _validate_last_made_query(self, query: PaginationQuery | RecipeSuggestionQuery) -> None:
+        if self.user_id:
+            return
+
+        if query.order_by and any(
+            decamelize(value.split(":", 1)[0].strip()) == "last_made" for value in query.order_by.split(",")
+        ):
+            raise HTTPException(400, "last_made is only available for authenticated household queries")
+
+        if query.query_filter:
+            try:
+                builder = QueryFilterBuilder(query.query_filter)
+            except ValueError:
+                # Let the existing query filter handling return the API's normal 400 response.
+                return
+
+            if any(
+                getattr(component, "attribute_name", None) == "last_made" for component in builder.filter_components
+            ):
+                raise HTTPException(400, "last_made is only available for authenticated household queries")
+
     def create(self, document: Recipe) -> Recipe:  # type: ignore
         max_retries = 10
         original_name: str = document.name  # type: ignore
+        name_suffix = 0
 
-        for i in range(1, 11):
+        for i in range(1, max_retries + 1):
             try:
                 return super().create(document)
             except IntegrityError:
                 self.session.rollback()
-                document.name = f"{original_name} ({i})"
-                document.slug = create_recipe_slug(document.name)
-
                 if i >= max_retries:
                     raise
+
+                # Existing names must not consume retries reserved for failed writes.
+                # Slugs are unique across the group, including other households.
+                while True:
+                    name_suffix += 1
+                    suffix = f"-{name_suffix}"
+                    base_slug = create_recipe_slug(original_name, max_length=250 - len(suffix)).rstrip("-")
+                    document.name = f"{original_name} ({name_suffix})"
+                    document.slug = f"{base_slug}{suffix}"
+                    exists = self.session.scalar(
+                        sa.select(
+                            sa.exists().where(
+                                self.model.group_id == document.group_id,
+                                self.model.slug == document.slug,
+                            )
+                        )
+                    )
+                    if not exists:
+                        break
 
     def _delete_recipe(self, recipe: RecipeModel) -> Recipe:
         recipe_as_model = self.schema.model_validate(recipe)
@@ -337,6 +378,8 @@ class RepositoryRecipes(RecipeSuggestionMixin, HouseholdRepositoryGeneric[Recipe
             q = q.filter(*filters)
         if search:
             q = self.add_search_to_query(q, self.schema, search)
+
+        self._validate_last_made_query(pagination_result)
 
         if not pagination_result.order_by and not search:
             # default ordering if not searching

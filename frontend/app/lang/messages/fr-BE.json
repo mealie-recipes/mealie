@@ -257,6 +257,47 @@
       "test-connection-failed": "Connection failed",
       "supports-images": "Supports images",
       "text-only-provider": "Text-only, can't be your image provider"
+    },
+    "ai-prompts": {
+      "ai-prompts": "Instructions IA",
+      "ai-prompts-description": "Personnalisez les instructions que Mealie transmet à votre fournisseur d'IA pour chaque tâche. Les prompts de Mealie sont rédigés en anglais, mais cela ne modifie pas la langue de vos recettes : elles conservent leur langue d'origine à moins que vous ne choisissiez de les traduire. Vous pouvez écrire vos propres instructions dans la langue de votre choix.",
+      "global-instructions": "Instructions for All Prompts",
+      "global-instructions-description": "Added to every prompt that produces recipe data, such as building recipes, parsing ingredients, and translating. System prompts aren't affected.",
+      "global-instructions-placeholder": "par exemple toujours utiliser les unités métriques.",
+      "prompts": "Prompts",
+      "system": "Système",
+      "system-description": "This is a system prompt. It transcribes your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to it. Changing it usually isn't necessary, and can make imports less reliable.",
+      "appended": "Appended",
+      "overridden": "Overridden",
+      "mode-default": "Default",
+      "mode-append": "Append",
+      "mode-override": "Écraser",
+      "append-description": "These instructions are added to Mealie's prompt, and take priority wherever the two conflict.",
+      "override-description": "Your prompt replaces Mealie's prompt entirely, so future updates to Mealie's prompt won't apply to it. Any data the task needs, such as your list of units, is still added after your prompt.",
+      "default-changed": "Mealie's prompt has changed since you overrode it. Compare it with yours, or switch back to the default to use the new version.",
+      "view-default-prompt": "View Default Prompt",
+      "hide-default-prompt": "Hide Default Prompt",
+      "default-prompt": "Default Prompt",
+      "prompt-saved": "Instructions enregistrées",
+      "prompt-save-failed": "Échec de l'enregistrement des instructions",
+      "prompt-titles": {
+        "recipes-build-recipe": "Générer la recette",
+        "recipes-parse-recipe-ingredients": "Parse Ingredients",
+        "recipes-parse-recipe-video": "Recipe from Video",
+        "recipes-resolve-organizers": "Assign Organizers",
+        "recipes-translate-recipe": "Translate Recipe",
+        "system-compile-source": "Read Source Material",
+        "system-transcribe-audio": "Transcrire l'audio"
+      },
+      "prompt-descriptions": {
+        "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
+        "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
+        "recipes-resolve-organizers": "Sélectionne les étiquettes, catégories et outils pour une recette importée.",
+        "recipes-translate-recipe": "Translates an imported recipe into the language you choose.",
+        "system-compile-source": "Reads webpages, photos, and text into a plain-text record of the recipe.",
+        "system-transcribe-audio": "Transcribes audio when your audio provider can't transcribe it directly."
+      }
     }
   },
   "household": {
@@ -274,6 +315,7 @@
     "private-household-description": "Rendre votre foyer privé va désactiver toutes les options de vue publique. Cela écrase les paramètres de vue publique",
     "lock-recipe-edits-from-other-households": "Verrouiller les éditions de recettes de la part des autres foyers",
     "lock-recipe-edits-from-other-households-description": "Si activé, seuls les utilisateurs de votre foyer peuvent modifier les recettes créé par votre foyer",
+    "lock-recipe-edits-from-other-households-admin-note": "Les administrateurs du site peuvent toujours modifier ou supprimer des recettes dans n'importe quel foyer, indépendamment de ce paramètre.",
     "household-recipe-preferences": "Préférences de recette du foyer",
     "default-recipe-preferences-description": "Ce sont les paramètres par défaut utilisés pour la création d’une nouvelle recette dans votre foyer. Ils peuvent être modifiés individuellement dans le menu de configuration des recettes.",
     "household-preferences": "Préférences du foyer"
@@ -295,8 +337,8 @@
     "side": "Accompagnement",
     "rule-day": "Jour de la Règle",
     "meal-type": "Type de repas",
-    "breakfast": "Petit-déjeuner",
-    "lunch": "Déjeuner",
+    "breakfast": "Déjeuner",
+    "lunch": "Dîner",
     "dinner": "Souper",
     "snack": "Goûter",
     "drink": "Boissons",
@@ -326,7 +368,18 @@
     "meal-plan-settings": "Paramètres des menus",
     "add-all-to-list": "Tout ajouter a une liste",
     "add-day-to-list": "Ajouter un jour à la liste",
-    "randomize-recipe": "Recette au hasard"
+    "randomize-recipe": "Recette au hasard",
+    "calendar-feed": "S'abonner au calendrier",
+    "calendar-feed-description": "Abonnez-vous au planning des repas de votre foyer depuis Google Agenda, Apple Calendrier, Home Assistant ou toute autre application prenant en charge les liens iCal. Toute personne possédant le lien pourra voir votre planning de repas.",
+    "calendar-feed-off": "Le lien du calendrier est désactivé pour votre foyer.",
+    "calendar-feed-ask-manager": "Demandez à quelqu'un qui peut gérer votre foyer de l'activer.",
+    "calendar-feed-turn-on": "Activer",
+    "calendar-feed-turn-off": "Désactiver",
+    "calendar-feed-reset-hint": "La réinitialisation ou la désactivation du lien empêche les abonnements existants de se mettre à jour.",
+    "calendar-feed-include-notes": "Inclure des remarques",
+    "calendar-feed-times-hint": "Les repas sans heure précise apparaissent comme des événements d'une journée entière.",
+    "calendar-feed-timezone": "Fuseau horaire",
+    "calendar-feed-url": "Lien du calendrier"
   },
   "migration": {
     "new-migration": "Nouvelle migration",
@@ -445,6 +498,7 @@
     "prep-time": "Temps de préparation",
     "protein-content": "Protéines",
     "public-recipe": "Recette publique",
+    "public-recipe-visibility-note": "Dépend également des paramètres de confidentialité de votre groupe et de votre foyer. Une recette ne sera pas visible publiquement si elle est configurée en mode privé.",
     "recipe-created": "Recette créée",
     "recipe-image": "Image de la recette",
     "delete-image": "Supprimer l'image de la recette",
@@ -793,7 +847,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Voulez-vous vraiment désélectionner tous les éléments ?",
     "are-you-sure-you-want-to-delete-checked-items": "Voulez-vous vraiment supprimer tous les éléments sélectionnés ?",
     "no-shopping-lists-found": "Aucune liste de courses trouvée",
-    "item-checked-off": "{item} coché"
+    "new-list-name": "Nom de la liste",
+    "failed-to-create-shopping-list": "Impossible de créer la liste de courses",
+    "item-checked-off": "{item} coché",
+    "more-options": "Plus d'options",
+    "fewer-options": "Moins d'options",
+    "save-as-new-food": "Enregistrer \"{text}\" en tant que nouvel aliment"
   },
   "sidebar": {
     "backups": "Sauvegardes",
@@ -881,11 +940,17 @@
     "authentication-method-hint": "Ceci infique comment un utilisateur va s'authentifier sur Mealie. Si vous n'êtes pas sûr, choisissez 'Mealie'",
     "permissions": "Autorisations",
     "administrator": "Administrateur",
+    "administrator-hint": "Accès total à tous les groupes et foyers de cette instance.",
     "user-can-invite-other-to-group": "L’utilisateur peut inviter d’autres personnes dans le groupe",
+    "user-can-invite-other-to-group-hint": "L'utilisateur peut inviter de nouveaux utilisateurs dans son propre groupe et son propre foyer.",
     "user-can-manage-group": "L'utilisateur peut gérer les paramètres de groupe",
+    "user-can-manage-group-hint": "L'utilisateur peut gérer les paramètres partagés du groupe, comme les fournisseurs d'AI, et modifier les permissions des membres de son foyer.",
     "user-can-manage-household": "L’utilisateur peut gérer le foyer",
-    "user-can-organize-group-data": "L'utilisateur peut gérer les aliments, les mots-clés et les catégories",
+    "user-can-manage-household-hint": "L'utilisateur peut gérer les paramètres du foyer auquel il appartient, comme son nom, sa vie privée et les règles d'édition de recettes.",
+    "user-can-organize-group-data": "User can manage group data such as foods, units, tags, and categories",
+    "user-can-organize-group-data-hint": "Create, edit, and delete foods, units, tags, categories, tools, labels, and recipe actions shared across the group.",
     "enable-advanced-features": "Activer les fonctions avancées",
+    "enable-advanced-features-hint": "Activer les webhooks, les notifications et les migrations de données",
     "it-looks-like-this-is-your-first-time-logging-in": "Il semble que ce soit votre première connexion.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Vous ne voulez plus voir cela ? Assurez-vous de changer votre adresse e-mail dans vos paramètres d'utilisateur !",
     "forgot-password": "Mot de passe oublié",
@@ -918,8 +983,8 @@
       "food-data": "Données de l'aliment",
       "label-overwrite-warning": "Ceci affectera l’étiquette choisie à tous les aliments sélectionnés et remplacera potentiellement vos étiquettes existantes.",
       "on-hand-checkbox-label": "Appliquer cet attribut décochera cet aliment par défaut lorsqu'il est ajouté à une liste de courses.",
-      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
-      "no-unused-foods": "No unused foods to delete",
+      "delete-unused-confirm": "Voulez-vous supprimer les aliments inutilisés ? Cela ne peut pas être annulé. | Voulez-vous supprimer ces {count} aliments inutilisés ? Cela ne peut pas être annulé.",
+      "no-unused-foods": "Pas d'aliments inutilisés à supprimer",
       "substitutions": "Substitutions",
       "manage-substitutions": "Gérer les substitutions",
       "substitution-dialog-text": "Suggérer des aliments qui peuvent être utilisés à la place de {food}. Une substitution peut être un aliment, une note ou les deux.",
@@ -960,12 +1025,12 @@
       "labels": "Étiquettes",
       "assign-label": "Affecter une étiquette",
       "combine-label": "Combine Label",
-      "source-label": "Source Label",
-      "target-label": "Target Label",
-      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
-      "merge-label-example": "Merging {label1} into {label2}",
-      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
-      "no-unused-labels": "No unused labels to delete"
+      "source-label": "Étiquette source",
+      "target-label": "Étiquette cible",
+      "merge-dialog-text": "La combinaison des étiquettes sélectionnées fusionnera l'étiquette source et l'étiquette cible en une seule étiquette. L'étiquette source sera supprimé et toutes les références à l'étiquette source seront mises à jour pour pointer vers l'étiquette cible.",
+      "merge-label-example": "Fusionner {label1} vers {label2}",
+      "delete-unused-confirm": "Voulez-vous supprimer cette catégorie inutilisée ? Cela ne peut pas être annulé. | Voulez-vous supprimer ces {count} catégories inutilisées ? Cela ne peut pas être annulé.",
+      "no-unused-labels": "Aucunes étiquettes inutilisées à supprimer"
     },
     "recipes": {
       "purge-exports": "Purger les exports",
@@ -1039,13 +1104,13 @@
       "new-tool": "Nouvel ustensile",
       "edit-tool": "Modifier l'ustensile",
       "tool-data": "Données de l'ustensile",
-      "combine-tool": "Combine Tool",
-      "source-tool": "Source Tool",
-      "target-tool": "Target Tool",
-      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
-      "merge-tool-example": "Merging {tool1} into {tool2}",
-      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
-      "no-unused-tools": "No unused tools to delete"
+      "combine-tool": "Combiner les ustensiles",
+      "source-tool": "Ustensile source",
+      "target-tool": "Ustensile cible",
+      "merge-dialog-text": "La combinaison des ustensiles sélectionnés fusionnera l’ustensile source et l’ustensile cible en un seul ustensile . L’ustensile source sera supprimé et toutes les références à l’ustensile source seront mises à jour pour pointer vers l’ustensile cible.",
+      "merge-tool-example": "Combiner {tool1} vers {tool2}",
+      "delete-unused-confirm": "Voulez-vous supprimer les ustensiles inutilisés ? Cela ne peut pas être annulé. | Voulez-vous supprimer ces {count} ustensiles inutilisés ? Cela ne peut pas être annulé.",
+      "no-unused-tools": "Aucun ustensile inutilisé à supprimer"
     }
   },
   "user-registration": {
@@ -1076,6 +1141,8 @@
     "share-recipe": "Partager la recette",
     "default-30-days": "30 jours par défaut",
     "expires-at": "Expire le",
+    "show-qr-code": "Afficher le QR Code",
+    "scan-qr-code": "Scanner avec la caméra du téléphone pour afficher cette recette",
     "recipe-link-copied-message": "Lien de la recette copié dans le presse-papiers"
   },
   "banner-experimental": {
@@ -1222,8 +1289,8 @@
       "is-less-than-or-equal-to": "est inférieur ou égal à",
       "is-older-than": "est plus ancien que",
       "is-newer-than": "est plus récent que",
-      "has-a-value": "has a value",
-      "has-no-value": "has no value"
+      "has-a-value": "a une valeur",
+      "has-no-value": "n'a pas de valeur"
     },
     "relational-keywords": {
       "is": "est",

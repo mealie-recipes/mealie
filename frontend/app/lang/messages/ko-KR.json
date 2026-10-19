@@ -257,6 +257,47 @@
       "test-connection-failed": "Connection failed",
       "supports-images": "Supports images",
       "text-only-provider": "Text-only, can't be your image provider"
+    },
+    "ai-prompts": {
+      "ai-prompts": "AI Prompts",
+      "ai-prompts-description": "Customize the instructions Mealie gives your AI provider for each task. Mealie's prompts are written in English, but that doesn't change the language of your recipes: they keep the language of their source unless you choose to translate them. You can write your own instructions in any language.",
+      "global-instructions": "Instructions for All Prompts",
+      "global-instructions-description": "Added to every prompt that produces recipe data, such as building recipes, parsing ingredients, and translating. System prompts aren't affected.",
+      "global-instructions-placeholder": "e.g. Always use metric units.",
+      "prompts": "Prompts",
+      "system": "System",
+      "system-description": "This is a system prompt. It transcribes your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to it. Changing it usually isn't necessary, and can make imports less reliable.",
+      "appended": "Appended",
+      "overridden": "Overridden",
+      "mode-default": "Default",
+      "mode-append": "Append",
+      "mode-override": "Override",
+      "append-description": "These instructions are added to Mealie's prompt, and take priority wherever the two conflict.",
+      "override-description": "Your prompt replaces Mealie's prompt entirely, so future updates to Mealie's prompt won't apply to it. Any data the task needs, such as your list of units, is still added after your prompt.",
+      "default-changed": "Mealie's prompt has changed since you overrode it. Compare it with yours, or switch back to the default to use the new version.",
+      "view-default-prompt": "View Default Prompt",
+      "hide-default-prompt": "Hide Default Prompt",
+      "default-prompt": "Default Prompt",
+      "prompt-saved": "Prompt saved",
+      "prompt-save-failed": "Failed to save prompt",
+      "prompt-titles": {
+        "recipes-build-recipe": "Build Recipe",
+        "recipes-parse-recipe-ingredients": "Parse Ingredients",
+        "recipes-parse-recipe-video": "Recipe from Video",
+        "recipes-resolve-organizers": "Assign Organizers",
+        "recipes-translate-recipe": "Translate Recipe",
+        "system-compile-source": "Read Source Material",
+        "system-transcribe-audio": "Transcribe Audio"
+      },
+      "prompt-descriptions": {
+        "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
+        "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
+        "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
+        "recipes-translate-recipe": "Translates an imported recipe into the language you choose.",
+        "system-compile-source": "Reads webpages, photos, and text into a plain-text record of the recipe.",
+        "system-transcribe-audio": "Transcribes audio when your audio provider can't transcribe it directly."
+      }
     }
   },
   "household": {
@@ -274,6 +315,7 @@
     "private-household-description": "귀하의 가구를 비공개로 설정하면 모든 공개 보기 옵션이 비활성화됩니다. 이는 개별 공개 보기 설정을 재정의합니다.",
     "lock-recipe-edits-from-other-households": "다른 가구의 레시피 편집 잠금",
     "lock-recipe-edits-from-other-households-description": "이 기능을 활성화하면 귀하의 가구 구성원만 귀하의 가구가 만든 요리법을 편집할 수 있습니다.",
+    "lock-recipe-edits-from-other-households-admin-note": "Site administrators can always edit or delete recipes in any household, regardless of this setting.",
     "household-recipe-preferences": "가구 레시피 설정",
     "default-recipe-preferences-description": "이는 가구에서 새로운 레시피를 만들 때의 기본 설정입니다. 레시피 설정 메뉴에서 개별 레시피에 대해 이를 변경할 수 있습니다.",
     "household-preferences": "가구 설정"
@@ -326,7 +368,18 @@
     "meal-plan-settings": "식단 계획 설정",
     "add-all-to-list": "목록에 전체 추가",
     "add-day-to-list": "목록에 날짜 추가",
-    "randomize-recipe": "Randomize Recipe"
+    "randomize-recipe": "Randomize Recipe",
+    "calendar-feed": "Subscribe to Calendar",
+    "calendar-feed-description": "Subscribe to your household's meal plan from Google Calendar, Apple Calendar, Home Assistant or any other app that supports iCal links. Anyone with the link can see your meal plan.",
+    "calendar-feed-off": "The calendar link is turned off for your household.",
+    "calendar-feed-ask-manager": "Ask someone who can manage your household to turn it on.",
+    "calendar-feed-turn-on": "Turn On",
+    "calendar-feed-turn-off": "Turn Off",
+    "calendar-feed-reset-hint": "Resetting or turning off the link stops existing subscriptions from updating.",
+    "calendar-feed-include-notes": "Include notes",
+    "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
+    "calendar-feed-timezone": "Timezone",
+    "calendar-feed-url": "Calendar Link"
   },
   "migration": {
     "new-migration": "새 데이터 이전",
@@ -445,6 +498,7 @@
     "prep-time": "준비 시간",
     "protein-content": "단백질",
     "public-recipe": "공개 레시피",
+    "public-recipe-visibility-note": "Also depends on your group and household privacy settings — a recipe won't be publicly visible if either is set to private.",
     "recipe-created": "레시피 생성됨",
     "recipe-image": "레시피 이미지",
     "delete-image": "레시피 이미지 삭제",
@@ -793,7 +847,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "모든 항목을 선택 해제하시겠습니까?",
     "are-you-sure-you-want-to-delete-checked-items": "선택한 항목을 모두 삭제하시겠습니까?",
     "no-shopping-lists-found": "장보기 목록이 없습니다.",
-    "item-checked-off": "Checked off {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "백업",
@@ -881,11 +940,17 @@
     "authentication-method-hint": "이 설정은 사용자가 Mealie에 어떻게 인증할지 지정합니다. 잘 모르겠다면 'Mealie'를 선택하세요.",
     "permissions": "권한",
     "administrator": "관리자",
+    "administrator-hint": "Full access across every group and household on this instance.",
     "user-can-invite-other-to-group": "사용자는 다른 사용자를 그룹에 초대할 수 있습니다",
+    "user-can-invite-other-to-group-hint": "User can invite new users to their own group and household.",
     "user-can-manage-group": "User can manage group settings",
+    "user-can-manage-group-hint": "User can manage the group's shared settings, like AI providers, and edit permissions for members of their household.",
     "user-can-manage-household": "사용자는 가구를 관리할 수 있습니다",
-    "user-can-organize-group-data": "User can manage foods, tags, and categories",
+    "user-can-manage-household-hint": "User can manage the settings of the household they belong to, like its name, privacy, and recipe-editing rules.",
+    "user-can-organize-group-data": "User can manage group data such as foods, units, tags, and categories",
+    "user-can-organize-group-data-hint": "Create, edit, and delete foods, units, tags, categories, tools, labels, and recipe actions shared across the group.",
     "enable-advanced-features": "고급 기능 활성화",
+    "enable-advanced-features-hint": "Enables Webhooks, Notifiers, and Data Migrations",
     "it-looks-like-this-is-your-first-time-logging-in": "처음 로그인하시는 것 같네요.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "더 이상 이걸 보고 싶지 않으신가요? 사용자 설정에서 이메일 주소를 꼭 변경하세요!",
     "forgot-password": "비밀번호 찾기",
@@ -1076,6 +1141,8 @@
     "share-recipe": "레시피 공유",
     "default-30-days": "기본 30일",
     "expires-at": "만료 예정: ",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "레시피 링크가 클립보드에 복사되었습니다"
   },
   "banner-experimental": {
