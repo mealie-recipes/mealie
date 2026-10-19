@@ -17,7 +17,7 @@
     "production": "Produção",
     "version": "Versão",
     "unknown-version": "desconhecido",
-    "sponsor": "Patrocinar"
+    "sponsor": "Patrocínio"
   },
   "asset": {
     "assets": "Ativos",
@@ -140,7 +140,7 @@
     "toggle-view": "Alternar visualização",
     "date": "Data",
     "id": "Id",
-    "owner": "Proprietário",
+    "owner": "Dono",
     "change-owner": "Alterar Dono",
     "date-added": "Data de inclusão",
     "none": "Nenhum",
@@ -199,9 +199,9 @@
     "looking-to-update-your-profile": "Procurando atualizar seu perfil?",
     "group-preferences": "Preferências de Grupo",
     "private-group": "Grupo Privado",
-    "private-group-description": "Configurar seu grupo para privado irá desabilitar as opções de visualização pública. Isso substitui qualquer configuração pública individual.",
+    "private-group-description": "Configurar seu grupo para privado irá desabilitar as opções de visualização pública. Isso substitui qualquer configuração pública individual",
     "enable-public-access": "Ativar Acesso Público",
-    "enable-public-access-description": "Tornar receitas do grupo públicas por padrão, e permitir a sua visualização por visitantes não logados",
+    "enable-public-access-description": "Tornar receitas do grupo públicas por padrão e permitir a sua visualização por visitantes não logados",
     "allow-users-outside-of-your-group-to-see-your-recipes": "Permitir que usuários fora do seu grupo vejam suas receitas",
     "allow-users-outside-of-your-group-to-see-your-recipes-description": "Quando habilitado, você pode usar um link de compartilhamento público para compartilhar receitas específicas sem autorizar o usuário. Quando desativado, você pode apenas compartilhar receitas com usuários que estão em seu grupo ou com um link privado pré-gerado",
     "show-nutrition-information": "Mostrar informações nutricionais",
