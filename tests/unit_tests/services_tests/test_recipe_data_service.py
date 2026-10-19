@@ -6,7 +6,6 @@ import pytest
 from PIL import UnidentifiedImageError
 
 from mealie.pkgs import safehttp
-from tests import data
 from mealie.schema.recipe.recipe import Recipe
 from mealie.services.recipe import recipe_data_service
 from mealie.services.recipe.recipe_data_service import (
@@ -14,6 +13,7 @@ from mealie.services.recipe.recipe_data_service import (
     NotAnImageError,
     RecipeDataService,
 )
+from tests import data
 
 
 @pytest.fixture
