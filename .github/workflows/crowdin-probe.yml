@@ -7,14 +7,16 @@ permissions:
   contents: read
 
 jobs:
-  probe:
+  cleanup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
           python-version: "3.14"
-      - name: Probe Crowdin (read-only)
-        run: python dev/scripts/crowdin_probe.py
+      - name: Crowdin approval cleanup
+        run: python dev/scripts/crowdin_cleanup.py
         env:
           CROWDIN_API_KEY: ${{ secrets.CROWDIN_API_KEY }}
+          # Dry run unless "true"
+          CROWDIN_CLEANUP_APPLY: "false"
