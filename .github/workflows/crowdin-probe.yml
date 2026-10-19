@@ -19,4 +19,4 @@ jobs:
         env:
           CROWDIN_API_KEY: ${{ secrets.CROWDIN_API_KEY }}
           # Dry run unless "true"
-          CROWDIN_CLEANUP_APPLY: "false"
+          CROWDIN_CLEANUP_APPLY: "true"
