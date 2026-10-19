@@ -53,7 +53,7 @@ describe("recipe duration save validation", () => {
     addStep(["One", "Two"]);
     expect(recipe.value.recipeInstructions.map(step => step.durationSeconds)).toEqual([null, null, null]);
   });
-  it.each(["1.001", "-1", "35791395"])("blocks the actual save handler for %s and permits correction", async (invalid) => {
+  it.each(["1.5", "1.001", "-1", "35791395"])("blocks the actual save handler for %s and permits correction", async (invalid) => {
     for (const [corrected, expected] of [["42", 2520], ["", null], ["0", null]] as const) {
       const { wrapper, recipe, updateOne, setMode, save } = editor();
       await wrapper.find("input").setValue(invalid);
@@ -96,19 +96,21 @@ describe("recipe duration save validation", () => {
     badInput.mockRestore();
     wrapper.unmount();
   });
-  it.each([1048708914, 2094174799])("saves untouched imported %s seconds through the native field", async (value) => {
+  it.each([1, 61, 90, 1048708914, 2094174799, 2147483647])("saves untouched imported %s seconds through the native field", async (value) => {
     const { wrapper, recipe, updateOne, save } = editor(value);
     const field = wrapper.find("input");
     expect(field.attributes("type")).toBe("number");
-    expect(field.element.value).toBe(String(value / 60));
+    expect(field.element.value).toBe(String(Math.floor(value / 60)));
+    expect(field.attributes("step")).toBe("1");
+    expect(wrapper.text()).toContain("Saved duration:");
     await save();
     expect(updateOne).toHaveBeenCalledExactlyOnceWith("duration-test", recipe.value);
     expect(recipe.value.recipeInstructions[0]!.durationSeconds).toBe(value);
-    // Re-entering the same visible minutes must also retain the exact seconds.
-    await field.trigger("input");
+    // Deliberately editing replaces the imported duration with whole minutes.
+    await field.setValue("2");
     await save();
     expect(updateOne).toHaveBeenCalledTimes(2);
-    expect(recipe.value.recipeInstructions[0]!.durationSeconds).toBe(value);
+    expect(recipe.value.recipeInstructions[0]!.durationSeconds).toBe(120);
     wrapper.unmount();
   });
   it("fails closed without the edit form but preserves non-edit saves", async () => {

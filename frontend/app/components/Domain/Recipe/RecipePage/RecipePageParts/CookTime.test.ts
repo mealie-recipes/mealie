@@ -33,7 +33,7 @@ describe("instruction duration in minutes with seconds storage", () => {
   });
   it("converts minutes to seconds, edits, and clears", async () => {
     const wrapper = editor();
-    for (const [input, output] of [["60", 3600], ["1.5", 90], ["42", 2520], ["", null], ["0", null]] as const) {
+    for (const [input, output] of [["60", 3600], ["35791394", 2147483640], ["42", 2520], ["", null], ["0", null]] as const) {
       await wrapper.find("input").setValue(input);
       expect(wrapper.emitted("update:modelValue")?.at(-1)).toEqual([output]);
     }
@@ -44,11 +44,13 @@ describe("instruction duration in minutes with seconds storage", () => {
   it.each([1, 61, 3661, 2147483647])("preserves exact imported %s seconds on editing", async (value) => {
     const wrapper = editor(value);
     expect(wrapper.emitted("update:modelValue")).toBeUndefined();
-    await wrapper.find("input").setValue(String(value / 60));
-    expect(wrapper.emitted("update:modelValue")?.at(-1)).toEqual([value]);
+    expect(wrapper.find("input").element.value).toBe(String(Math.floor(value / 60)));
+    expect(wrapper.emitted("update:modelValue")).toBeUndefined();
+    await wrapper.find("input").setValue("2");
+    expect(wrapper.emitted("update:modelValue")?.at(-1)).toEqual([120]);
     wrapper.unmount();
   });
-  it.each(["-1", "1.001", "35791395"])("rejects invalid %s minutes", async (value) => {
+  it.each(["-1", "1.5", "1.001", "35791394.1", "35791395"])("rejects invalid %s minutes", async (value) => {
     const wrapper = editor(90);
     await wrapper.find("input").setValue(value);
     expect(wrapper.emitted("update:modelValue")).toBeUndefined();

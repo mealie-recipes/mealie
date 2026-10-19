@@ -10,20 +10,21 @@ rejected. Whole JSON numbers such as `1`, `1.0` and `1e0` are equivalent.
 {"text": "Let the dough rest", "durationSeconds": 90}
 ```
 
-The editor labels the field **Duration (minutes)**. For example, entering `1.5`
-minutes stores 90 seconds. Clearing the field removes the duration. Viewing or
-opening an empty field does not assign a time. Read-only instructions show units
-(hours, minutes and seconds) rather than an ambiguous `0:00`. A duration does not
-start a timer or introduce an external service dependency.
+The always-visible editor labels the optional field **Duration (minutes)** and
+accepts whole minutes only, from 0 to 35791394. For example, entering `2` minutes
+stores 120 seconds. Clearing the field (or entering zero) removes the duration.
+Viewing or opening an empty field does not assign a time. Imported seconds that
+are not an exact number of minutes remain unchanged on unrelated edits. The
+editor shows their whole-minute portion and an exact saved-duration hint; editing
+the field deliberately replaces that duration with whole minutes. Read-only
+instructions show hours, minutes and seconds. A duration does not start a timer
+or introduce an external service dependency.
 
 The nullable integer database column follows the seconds-based storage introduced
-for recipe times in #8539. This is a proposal, not a claim that the maintainers
-have selected instruction-duration units: earlier review of #8001 preferred
-integer minutes. Maintainers still need to approve seconds storage/minutes input,
-fractional-minute entry for exact seconds, and one of the two mutually exclusive
-editor presentations (always-visible field or **Add time** disclosure).
+for recipe times in #8539. Maintainer review selected seconds storage with a
+whole-minute, always-visible editor; sub-minute editing is not supported.
 
-The additive Alembic migration follows `27621d27c7e1`. Existing instructions receive
+The additive Alembic migration follows `a91720b8a7e7`. Existing instructions receive
 NULL without changing recipe content. Downgrade removes this new column and
 therefore loses instruction durations; other recipe data is retained. Previously
 unmerged experimental `cook_time` / `duration_minutes` schemas are not supported

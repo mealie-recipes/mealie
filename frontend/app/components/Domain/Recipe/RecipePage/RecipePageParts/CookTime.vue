@@ -4,8 +4,10 @@
     v-model="input"
     type="number"
     min="0"
-    :max="2147483647 / 60"
-    step="any"
+    max="35791394"
+    step="1"
+    :hint="modelValue && modelValue % 60 ? $t('recipe.step-duration-saved', { duration: formattedDuration }) : undefined"
+    persistent-hint
     :label="$t('recipe.step-duration-minutes')"
     :placeholder="$t('recipe.step-duration-placeholder')"
     :rules="[validDuration]"
@@ -29,30 +31,19 @@ const props = defineProps<{
 }>();
 const emit = defineEmits<{ "update:modelValue": [value: number | null] }>();
 const { t } = useI18n();
-const input = ref<string | number>(props.modelValue ? props.modelValue / 60 : "");
-watch(() => props.modelValue, value => input.value = value ? value / 60 : "");
+// Display whole minutes only; keep imported seconds untouched until an input event.
+// The hint exposes any remainder before the user deliberately replaces it.
+const input = ref<string | number>(props.modelValue ? Math.floor(props.modelValue / 60) : "");
+watch(() => props.modelValue, value => input.value = value ? Math.floor(value / 60) : "");
 
 const badInput = ref(false);
-
-function secondsFromMinutes(value: string | number | null) {
-  const original = props.modelValue;
-  // Division and multiplication need not round-trip at large magnitudes.
-  // Preserve the exact stored integer when the displayed minutes are unchanged.
-  if (typeof original === "number" && Number.isInteger(original)
-    && original > 0 && original <= 2147483647 && Number(value) === original / 60) {
-    return original;
-  }
-  return Number(value) * 60;
-}
 
 function validDuration(value: string | number | null) {
   if (badInput.value) return t("recipe.step-duration-invalid");
   if (value === "" || value === null) return true;
-  const seconds = secondsFromMinutes(value);
-  // Permit floating-point representation noise, never a fractional second.
-  return (Number.isFinite(seconds) && seconds >= 0 && seconds <= 2147483647
-    && Math.abs(seconds - Math.round(seconds)) < 1e-7)
-  || t("recipe.step-duration-invalid");
+  const minutes = Number(value);
+  return (Number.isInteger(minutes) && minutes >= 0 && minutes <= 35791394)
+    || t("recipe.step-duration-invalid");
 }
 
 function updateDuration(event: Event) {
@@ -62,7 +53,7 @@ function updateDuration(event: Event) {
   badInput.value = field.validity.badInput;
   const value = field.value;
   if (validDuration(value) !== true) return;
-  emit("update:modelValue", Math.round(secondsFromMinutes(value)) || null);
+  emit("update:modelValue", Number(value) * 60 || null);
 }
 
 const formattedDuration = computed(() => {

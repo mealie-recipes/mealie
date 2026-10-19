@@ -94,12 +94,12 @@ def test_additive_migration_sql_without_database(dialect):
 
     path = (
         Path(__file__).parents[2]
-        / "mealie/alembic/versions/2026-09-04-16.14.42_afdc42353aa4_add_cook_time_to_recipe_steps.py"
+        / "mealie/alembic/versions/2026-09-04-16.14.42_afdc42353aa4_add_duration_to_recipe_steps.py"
     )
     spec = spec_from_file_location("step_duration_migration", path)
     migration = module_from_spec(spec)
     spec.loader.exec_module(migration)
-    assert migration.down_revision == "27621d27c7e1"
+    assert migration.down_revision == "a91720b8a7e7"
     output = StringIO()
     context = MigrationContext.configure(dialect_name=dialect, opts={"as_sql": True, "output_buffer": output})
     with Operations.context(context):
