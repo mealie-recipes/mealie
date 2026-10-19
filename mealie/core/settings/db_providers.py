@@ -47,6 +47,8 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
         if not url.startswith("postgresql://"):
             raise ValueError("POSTGRES_URL_OVERRIDE scheme must be postgresql")
 
+        # SQLAlchemy resolves a bare postgresql:// to psycopg 3, so the installed driver is named explicitly
+        url = "postgresql+psycopg2://" + url.removeprefix("postgresql://")
         scheme, remainder = url.split("://", 1)
         if "@" in remainder and ":" in remainder.split("@")[0]:
             credentials, host_part = remainder.rsplit("@", 1)
@@ -62,7 +64,7 @@ class PostgresProvider(AbstractDBProvider, BaseSettings):
 
         return str(
             PostgresDsn.build(
-                scheme="postgresql",
+                scheme="postgresql+psycopg2",
                 username=self.POSTGRES_USER,
                 password=urlparse.quote(self.POSTGRES_PASSWORD),
                 host=f"{self.POSTGRES_SERVER}:{self.POSTGRES_PORT}",
