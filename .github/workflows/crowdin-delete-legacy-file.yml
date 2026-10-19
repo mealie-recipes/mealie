@@ -1,0 +1,22 @@
+name: Crowdin Delete Legacy File (temporary)
+
+on:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+      - name: Delete legacy Crowdin file 82
+        run: python dev/scripts/crowdin_delete_legacy_file.py
+        env:
+          CROWDIN_API_KEY: ${{ secrets.CROWDIN_API_KEY }}
+          # Dry run unless "true"
+          CROWDIN_APPLY: "false"
