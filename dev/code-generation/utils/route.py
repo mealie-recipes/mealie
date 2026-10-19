@@ -1,5 +1,5 @@
 import re
-from enum import Enum
+from enum import StrEnum
 
 from humps import camelize
 from pydantic import BaseModel, ConfigDict, Field
@@ -18,7 +18,7 @@ class RouteObject:
         self.router_camel = camelize(self.router_slug)
 
 
-class RequestType(str, Enum):
+class RequestType(StrEnum):
     get = "get"
     put = "put"
     post = "post"
@@ -26,7 +26,7 @@ class RequestType(str, Enum):
     delete = "delete"
 
 
-class ParameterIn(str, Enum):
+class ParameterIn(StrEnum):
     query = "query"
     path = "path"
     header = "header"
