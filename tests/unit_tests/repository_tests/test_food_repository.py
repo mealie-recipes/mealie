@@ -6,12 +6,14 @@ from mealie.db.models.recipe.ingredient import IngredientFoodSubstitutionModel
 from mealie.schema.household.group_shopping_list import ShoppingListItemCreate, ShoppingListSave
 from mealie.schema.recipe.recipe import Recipe
 from mealie.schema.recipe.recipe_ingredient import (
+    CreateIngredientFoodAlias,
     CreateIngredientFoodSubstitution,
     IngredientFood,
     RecipeIngredient,
     RecipeIngredientSubstitution,
     SaveIngredientFood,
 )
+from mealie.schema.response.pagination import PaginationQuery
 from tests.utils.factories import random_string
 from tests.utils.fixture_schemas import TestUser
 
@@ -326,3 +328,43 @@ def test_food_merger_collapses_duplicate_recipe_substitutions(unique_user: TestU
     unique_user.repos.ingredient_foods.merge(source.id, target.id)
 
     assert recipe_substitute_ids(unique_user, recipe) == [target.id]
+
+
+def test_food_listing_query_count_does_not_grow_with_foods(unique_user: TestUser):
+    """Aliases are loaded with the page, not one query per food (N+1)."""
+
+    repo = unique_user.repos.ingredient_foods
+
+    created: set = set()
+
+    def add_foods(n: int):
+        for _ in range(n):
+            created.add(
+                repo.create(
+                    SaveIngredientFood(
+                        name=random_string(10),
+                        group_id=unique_user.group_id,
+                        aliases=[CreateIngredientFoodAlias(name=random_string(10))],
+                    )
+                ).id
+            )
+
+    def statements_to_list_all() -> int:
+        statements: list[str] = []
+
+        def record(conn, cursor, statement, *args):
+            statements.append(statement)
+
+        engine = unique_user.repos.session.get_bind()
+        sa.event.listen(engine, "before_cursor_execute", record)
+        try:
+            page = repo.page_all(PaginationQuery(page=1, per_page=-1))
+        finally:
+            sa.event.remove(engine, "before_cursor_execute", record)
+        assert all(food.aliases for food in page.items if food.id in created)
+        return len(statements)
+
+    add_foods(3)
+    few = statements_to_list_all()
+    add_foods(12)
+    assert statements_to_list_all() == few

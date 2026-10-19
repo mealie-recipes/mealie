@@ -11,7 +11,7 @@ from pydantic import UUID4, ConfigDict, Field, field_validator, model_validator
 from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.orm.interfaces import LoaderOption
 
-from mealie.db.models.recipe import IngredientFoodModel, IngredientFoodSubstitutionModel
+from mealie.db.models.recipe import IngredientFoodModel, IngredientFoodSubstitutionModel, IngredientUnitModel
 from mealie.lang.locale_config import LocalePluralFoodHandling
 from mealie.lang.providers import get_locale_context
 from mealie.schema._mealie import MealieModel
@@ -238,6 +238,7 @@ class IngredientFood(CreateIngredientFood):
     def loader_options(cls) -> list[LoaderOption]:
         return [
             selectinload(IngredientFoodModel.households_with_ingredient_food),
+            selectinload(IngredientFoodModel.aliases),
             joinedload(IngredientFoodModel.extras),
             joinedload(IngredientFoodModel.label),
             selectinload(IngredientFoodModel.substitutions).joinedload(IngredientFoodSubstitutionModel.substitute_food),
@@ -295,6 +296,10 @@ class SaveIngredientUnit(CreateIngredientUnit):
 class IngredientUnit(CreateIngredientUnit):
     id: UUID4
     aliases: list[IngredientUnitAlias] = []
+
+    @classmethod
+    def loader_options(cls) -> list[LoaderOption]:
+        return [selectinload(IngredientUnitModel.aliases)]
 
     created_at: datetime.datetime | None = None
     updated_at: datetime.datetime | None = UpdatedAtField(None)
