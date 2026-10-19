@@ -8,11 +8,12 @@ repos:
         exclude: (.vscode|.devcontainer)
       - id: check-toml
       - id: end-of-file-fixer
+        exclude: ^(tests/data/|docs/docs/news/surveys/)
       - id: trailing-whitespace
         exclude: ^tests/data/
   - repo: https://github.com/astral-sh/ruff-pre-commit
     # Ruff version.
-    rev: v0.16.0
+    rev: v0.17.0
     hooks:
         # Linter
       - id: ruff-check
