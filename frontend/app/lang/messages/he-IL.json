@@ -37,12 +37,12 @@
     "category": "קטגוריה"
   },
   "events": {
-    "apprise-url": "קישור להודעה",
+    "apprise-url": "קישור לApprise",
     "delete-event": "מחיקת אירוע",
-    "event-delete-confirmation": "למחוק את האירוע?",
+    "event-delete-confirmation": "האם ברצונך למחוק את האירוע?",
     "event-deleted": "אירוע נמחק",
     "event-updated": "האירוע עודכן",
-    "new-notification-form-description": "Mקשךןק עושה שימוש בספריה בשם Apprise לשליחת התראות. Apprise מציעה אפשרויות רבות עבור התראות לבעלי שירותים. פנה לאתר הWiki של Apprise להסבר מלא על יצירת לינקים לשירות שלך.",
+    "new-notification-form-description": "מיילי עושה שימוש בספריה בשם Apprise לשליחת התראות. Apprise מציעה אפשרויות רבות עבור התראות לבעלי שירותים. פנה לאתר הוויקי של Apprise להסבר מלא על יצירת לינקים לשירות שלך. אם זמין, בחירת סוג ההתראה יכולה לכלול תכונות נוספות.",
     "something-went-wrong": "משהו השתבש!",
     "test-message-sent": "הודעת בדיקה נשלחה",
     "message-sent": "ההודעה נשלחה",

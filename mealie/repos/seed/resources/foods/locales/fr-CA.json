@@ -148,7 +148,7 @@
       },
       "radish": {
         "name": "radis",
-        "plural_name": "radishes"
+        "plural_name": "radis"
       },
       "red cabbage": {
         "name": "chou rouge",
@@ -160,7 +160,7 @@
       },
       "parsnip": {
         "name": "panais",
-        "plural_name": "parsnips"
+        "plural_name": "panais"
       },
       "poblano pepper": {
         "name": "piment poblano",
@@ -252,7 +252,7 @@
       },
       "pineapple": {
         "name": "ananas",
-        "plural_name": "pineapples"
+        "plural_name": "ananas"
       },
       "mango": {
         "name": "mangue",
@@ -268,7 +268,7 @@
       },
       "coconut": {
         "name": "noix de coco",
-        "plural_name": "coconuts"
+        "plural_name": "noix de coco"
       },
       "pear": {
         "name": "poire",
@@ -617,7 +617,7 @@
       },
       "soba noodle": {
         "name": "nouilles soba",
-        "plural_name": "soba noodles"
+        "plural_name": "nouilles soba"
       },
       "ravioli": {
         "name": "raviolis",
@@ -1231,7 +1231,7 @@
       },
       "canned chickpea": {
         "name": "pois chiches en conserve",
-        "plural_name": "canned chickpeas"
+        "plural_name": "pois chiches en boîte"
       },
       "black olive": {
         "name": "olives noires",

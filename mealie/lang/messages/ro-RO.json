@@ -12,12 +12,12 @@
             "step-text": "Pașii rețetei precum și alte domenii din sintaxa markdown de pe pagina de rețetă.\n\n**Adăugați un link**\n\n[Link-ul meu](https://demo.mealie.io)\n"
         },
         "servings-text": {
-            "makes": "Creează",
+            "makes": "Produce",
             "serves": "Servește",
             "serving": "Porție",
             "servings": "Porții",
-            "yield": "Recoltă",
-            "yields": "Producţii"
+            "yield": "Cantitate",
+            "yields": "Cantități"
         },
         "and-amount": "și {amount}",
         "import-errors": {

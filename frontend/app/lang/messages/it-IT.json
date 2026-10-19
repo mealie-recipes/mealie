@@ -146,7 +146,7 @@
     "none": "Nessuno",
     "run": "Avvia",
     "menu": "Menu",
-    "a-name-is-required": "E' necessario un nome",
+    "a-name-is-required": "È necessario un nome",
     "delete-with-name": "Elimina {name}",
     "confirm-delete-generic-with-name": "Sei sicuro di voler eliminare questo {name}?",
     "confirm-delete-own-admin-account": "Nota che stai cercando di eliminare il tuo account amministratore! Questa azione non può essere annullata e cancellerà definitivamente il tuo account?",
@@ -213,7 +213,7 @@
     "disable-users-from-commenting-on-recipes": "Impedisci agli utenti di commentare le ricette",
     "disable-users-from-commenting-on-recipes-description": "Nasconde la sezione commenti sulla pagina delle ricette e disabilita i commenti",
     "report": "Segnala",
-    "report-with-id": "ID Report: {id}",
+    "report-with-id": "Id Segnalazione: {id}",
     "group-management": "Gestione Gruppo",
     "admin-group-management": "Gestione Gruppo Amministratore",
     "group-id-value": "Id Gruppo: {0}",
@@ -921,7 +921,7 @@
     "email-or-username": "Email o nome utente",
     "remember-me": "Resta collegato",
     "please-enter-your-email-and-password": "Inserisci il tuo indirizzo e-mail e la password",
-    "invalid-credentials": "Credenziali errare",
+    "invalid-credentials": "Credenziali Non Valide",
     "account-locked-please-try-again-later": "Account bloccato. Riprova più tardi",
     "user-favorites": "Preferiti dall' utente",
     "password-strength-values": {
@@ -1219,7 +1219,7 @@
     "household-delete-note": "Le famiglie con utenti non possono essere eliminate"
   },
   "profile": {
-    "welcome-user": "👋 Benvenutǝ, {0}!",
+    "welcome-user": "👋 Benvenuti, {0}!",
     "description": "Gestisci il tuo profilo, le ricette e le impostazioni di gruppo.",
     "invite-link": "Collegamento d'invito",
     "get-invite-link": "Ottieni Link Di Invito",
