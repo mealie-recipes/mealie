@@ -54,8 +54,8 @@
         "abbreviation": "l"
     },
     "pound": {
-        "name": "pound",
-        "plural_name": "pound",
+        "name": "libre",
+        "plural_name": "libre",
         "description": "",
         "abbreviation": "lb",
         "plural_abbreviation": "lbs"
@@ -91,8 +91,8 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "tutam",
-        "plural_name": "tutam",
+        "name": "çimdik",
+        "plural_name": "çimdik",
         "description": "",
         "abbreviation": ""
     },
@@ -121,8 +121,8 @@
         "abbreviation": ""
     },
     "bunch": {
-        "name": "salkım",
-        "plural_name": "salkım",
+        "name": "demet",
+        "plural_name": "demet",
         "description": "",
         "abbreviation": ""
     },
