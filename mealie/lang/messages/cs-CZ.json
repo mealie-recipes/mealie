@@ -5,6 +5,13 @@
     "recipe": {
         "unique-name-error": "Názvy receptů musí být jedinečné",
         "recipe-created": "Recept byl vytvořen",
+        "made-this-as-side": "{name} udělal jako přílohu",
+        "made-this-for-breakfast": "{name} na snídani",
+        "made-this-for-lunch": "{name} udělal na oběd",
+        "made-this-for-dinner": "{name} udělal na večeři",
+        "made-this-for-snack": "{name} udělal ke svačině",
+        "made-this-for-drink": "{name} udělal k pití",
+        "made-this-for-dessert": "{name} udělal jako dezert",
         "recipe-image-deleted": "Obrázek receptu odstraněn",
         "recipe-defaults": {
             "ingredient-note": "1 hrnek mouky",
@@ -68,7 +75,7 @@
         "report-deleted": "Sestava odstraněna."
     },
     "exceptions": {
-        "permission-denied": "You do not have permission to perform this action",
+        "permission-denied": "Nemáte oprávnění k provedení této akce",
         "recursive-recipe-link": "Recept se nemůže sám sebe přímo ani nepřímo odkazovat",
         "no-entry-found": "Požadovaný prostředek nebyl nalezen",
         "rate-limit-error": "Poskytovatel AI momentálně limituje počet požadavků. Počkejte prosím chvíli a zkuste to znovu",

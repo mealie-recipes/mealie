@@ -5,6 +5,13 @@
     "recipe": {
         "unique-name-error": "Τα ονόματα συνταγών πρέπει να είναι μοναδικά",
         "recipe-created": "Η συνταγή δημιουργήθηκε",
+        "made-this-as-side": "{name} made this as a side",
+        "made-this-for-breakfast": "{name} made this for breakfast",
+        "made-this-for-lunch": "{name} made this for lunch",
+        "made-this-for-dinner": "{name} made this for dinner",
+        "made-this-for-snack": "{name} made this for a snack",
+        "made-this-for-drink": "{name} made this for a drink",
+        "made-this-for-dessert": "{name} made this for dessert",
         "recipe-image-deleted": "Η εικόνα συνταγής διαγράφηκε",
         "recipe-defaults": {
             "ingredient-note": "1 Κούπα Αλεύρι",

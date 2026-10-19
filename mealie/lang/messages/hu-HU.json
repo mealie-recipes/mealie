@@ -5,6 +5,13 @@
     "recipe": {
         "unique-name-error": "A receptek neveinek egyedi értéknek kell lenniük",
         "recipe-created": "Recept létrehozva",
+        "made-this-as-side": "{name} ezt főétel mellé készítette",
+        "made-this-for-breakfast": "{name} ezt készítette reggelire",
+        "made-this-for-lunch": "{name} ezt készítette ebédre",
+        "made-this-for-dinner": "{name} ezt készítette vacsorára",
+        "made-this-for-snack": "{name} ezt készítette uzsonnára",
+        "made-this-for-drink": "{name} ezt italhoz készítette",
+        "made-this-for-dessert": "{name} ezt készítette desszertnek",
         "recipe-image-deleted": "Receptkép törölve",
         "recipe-defaults": {
             "ingredient-note": "1 csésze liszt",
