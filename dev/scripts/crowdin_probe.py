@@ -1,7 +1,10 @@
-# ruff: noqa: T201
-"""Temporary read-only probe of Crowdin project state (issue #8721). Makes GET requests only.
+# ruff: noqa: T201, C901
+"""Temporary probe of Crowdin project state (issue #8721). Never modifies the project.
 
-Output is public (Actions logs): no usernames, user ids, or free-form project fields are printed.
+Only GET requests, plus file translation builds (POST .../translations/builds/files/{id}), which
+generate a downloadable export without changing any project data.
+
+Output is public (Actions logs): no usernames, user ids, or download URLs are printed.
 """
 
 import json
@@ -13,29 +16,35 @@ from collections import Counter, defaultdict
 
 PROJECT_ID = "451976"
 BASE_URL = f"https://api.crowdin.com/api/v2/projects/{PROJECT_ID}"
-HEADERS = {"Authorization": f"Bearer {os.environ['CROWDIN_API_KEY']}"}
+HEADERS = {"Authorization": f"Bearer {os.environ['CROWDIN_API_KEY']}", "Content-Type": "application/json"}
 
-CURRENT_FRONTEND_FILE_ID = 100  # /mealie-next/frontend/app/lang/messages/en-US.json
-LEGACY_FRONTEND_FILE_ID = 82  # /mealie-next/frontend/lang/messages/en-US.json (pre-Nuxt 4 path)
-YIELD_IDENTIFIERS = ["recipe.yield-text", "recipe.recipe-yield", "recipe.recipe-yield-text", "recipe.yield"]
-SAMPLE_LANGUAGES = ["da", "de", "fr", "nl", "es-ES"]
-SAMPLE_STRINGS_PER_LANGUAGE = 15
+CURRENT_FILE_ID = 100  # /mealie-next/frontend/app/lang/messages/en-US.json
+LEGACY_FILE_ID = 82  # /mealie-next/frontend/lang/messages/en-US.json (pre-Nuxt 4 path)
+EXAMPLES_PER_CATEGORY = 3
+EXPORT_RULE_LANGUAGES_MAX = 6
+
+
+def request(method: str, url: str, body: dict | None = None) -> dict:
+    data = json.dumps(body).encode() if body is not None else None
+    for attempt in range(5):
+        try:
+            req = urllib.request.Request(url, data=data, headers=HEADERS, method=method)
+            with urllib.request.urlopen(req) as r:
+                return json.loads(r.read())
+        except urllib.error.HTTPError as e:
+            if e.code == 429 and attempt < 4:
+                time.sleep(2**attempt)
+                continue
+            path = url.split("?")[0].replace(BASE_URL, "")
+            raise RuntimeError(f"{method} {path} -> {e.code}: {e.read().decode()[:300]}") from e
+    raise RuntimeError("unreachable")
 
 
 def get(path: str, **params) -> dict:
     url = f"{BASE_URL}{path}"
     if params:
         url += "?" + urllib.parse.urlencode(params)
-    for attempt in range(5):
-        try:
-            with urllib.request.urlopen(urllib.request.Request(url, headers=HEADERS)) as r:
-                return json.loads(r.read())
-        except urllib.error.HTTPError as e:
-            if e.code == 429 and attempt < 4:
-                time.sleep(2**attempt)
-                continue
-            raise RuntimeError(f"GET {path} {params} -> {e.code}: {e.read().decode()[:300]}") from e
-    raise RuntimeError("unreachable")
+    return request("GET", url)
 
 
 def get_all(path: str, **params) -> list[dict]:
@@ -61,108 +70,124 @@ def safe(step: str, fn) -> None:
         print(f"!! {step} failed: {type(e).__name__}: {e}", flush=True)
 
 
+def lookup(tree: dict, identifier: str) -> str | None:
+    """Resolve a dotted identifier ("recipe.yield-text") in an exported nested JSON file."""
+    node: object = tree
+    for part in identifier.split("."):
+        if not isinstance(node, dict) or part not in node:
+            return None
+        node = node[part]
+    return node if isinstance(node, str) else None
+
+
 def main() -> None:
     languages = get("")["data"]["targetLanguageIds"]
-    strings = {s["id"]: s["identifier"] for s in get_all("/strings", fileId=CURRENT_FRONTEND_FILE_ID)}
-    string_ids = {identifier: sid for sid, identifier in strings.items()}
+    strings = {f: {s["id"]: s for s in get_all("/strings", fileId=f)} for f in (LEGACY_FILE_ID, CURRENT_FILE_ID)}
+    current_by_identifier = {s["identifier"]: s for s in strings[CURRENT_FILE_ID].values()}
 
-    def shapes() -> None:
-        section("Response shapes (key names only)")
-        print("vote:", sorted(get_all("/votes", languageId="da", fileId=CURRENT_FRONTEND_FILE_ID)[0].keys()))
-        print("approval:", sorted(get_all("/approvals", languageId="da", fileId=CURRENT_FRONTEND_FILE_ID)[0].keys()))
-        lang_translations = get("/languages/da/translations", fileId=CURRENT_FRONTEND_FILE_ID, limit=1)["data"]
-        print("language translation:", sorted(lang_translations[0]["data"].keys()))
+    def approvals_by_file() -> None:
+        section("Approvals per file (all languages)")
+        for f in get_all("/files"):
+            total = sum(len(get_all("/approvals", fileId=f["id"], languageId=lang)) for lang in languages)
+            print(f"  file {f['id']} {f['path']}: {total}")
 
-    def legacy_file() -> None:
-        section("Legacy file 82 vs current file 100: translations created in 2026, per language")
-        legacy_total = current_total = 0
+    def salvage() -> None:
+        section("Legacy file 82 -> current file 100 salvage candidates")
+        print(f"strings: legacy={len(strings[LEGACY_FILE_ID])} current={len(strings[CURRENT_FILE_ID])}")
+        legacy_only_ids = {s["identifier"] for s in strings[LEGACY_FILE_ID].values()} - set(current_by_identifier)
+        print(f"identifiers only in legacy (removed keys, ignored): {len(legacy_only_ids)}")
+        totals: Counter[str] = Counter()
+        providers: Counter[str] = Counter()
+        examples: defaultdict[str, list[str]] = defaultdict(list)
         for lang in languages:
-            counts = []
-            for file_id in (LEGACY_FRONTEND_FILE_ID, CURRENT_FRONTEND_FILE_ID):
-                items = get_all(f"/languages/{lang}/translations", fileId=file_id)
-                counts.append(sum(1 for t in items if (t.get("createdAt") or "") >= "2026-01-01"))
-            legacy_total += counts[0]
-            current_total += counts[1]
-            if counts[0]:
-                print(f"  {lang}: legacy={counts[0]} current={counts[1]}")
-        print(f"totals: legacy={legacy_total} current={current_total}")
-
-    def yield_strings() -> None:
-        section("Issue strings (yield) in da, current file")
-        for identifier in YIELD_IDENTIFIERS:
-            sid = string_ids[identifier]
-            approvals = {a["translationId"] for a in get_all("/approvals", stringId=sid, languageId="da")}
-            print(f"\n{identifier} (string id={sid})")
-            for t in get_all("/translations", stringId=sid, languageId="da"):
-                print(
-                    f"  tid={t['id']} rating={t.get('rating')} created={t['createdAt']} "
-                    f"approved={t['id'] in approvals} text={t['text']!r}"
-                )
-
-    def export_pick() -> None:
-        section("Which translation does the API pick for unapproved strings with alternatives?")
-        for lang in SAMPLE_LANGUAGES:
             picked = {
-                t["stringId"]: t for t in get_all(f"/languages/{lang}/translations", fileId=CURRENT_FRONTEND_FILE_ID)
+                f: {t["stringId"]: t for t in get_all(f"/languages/{lang}/translations", fileId=f)}
+                for f in (LEGACY_FILE_ID, CURRENT_FILE_ID)
             }
-            approved_sids = {
-                a["stringId"] for a in get_all("/approvals", fileId=CURRENT_FRONTEND_FILE_ID, languageId=lang)
-            }
-            outcome: Counter[str] = Counter()
-            checked = 0
-            print(f"\n--- {lang}: {len(picked)} strings, {len(approved_sids)} approved")
-            for sid, chosen in picked.items():
-                if sid in approved_sids:
+            counts: Counter[str] = Counter()
+            for sid, legacy in picked[LEGACY_FILE_ID].items():
+                legacy_string = strings[LEGACY_FILE_ID].get(sid)
+                if not legacy_string or legacy_string["identifier"] not in current_by_identifier:
                     continue
-                if (
-                    checked >= 300
-                    or sum(v for k, v in outcome.items() if k != "newest+top") >= SAMPLE_STRINGS_PER_LANGUAGE
-                ):
-                    break
-                checked += 1
-                translations = get_all("/translations", stringId=sid, languageId=lang)
-                if len(translations) < 2:
-                    continue
-                newest = max(translations, key=lambda t: t["createdAt"])
-                top = max(translations, key=lambda t: (t.get("rating") or 0, t["createdAt"]))
-                tid = chosen.get("translationId")
-                if tid == newest["id"] == top["id"]:
-                    kind = "newest+top"
-                elif tid == newest["id"]:
-                    kind = "newest"
-                elif tid == top["id"]:
-                    kind = "top-voted"
+                current_string = current_by_identifier[legacy_string["identifier"]]
+                current = picked[CURRENT_FILE_ID].get(current_string["id"])
+                if legacy_string["text"] != current_string["text"]:
+                    kind = "source-changed"
+                elif current is None:
+                    kind = "missing-in-current"
+                elif current["text"] == legacy["text"]:
+                    kind = "identical"
+                elif legacy["createdAt"] > current["createdAt"]:
+                    kind = "newer-in-legacy"
                 else:
-                    kind = "other"
-                outcome[kind] += 1
-                if kind != "newest+top":
-                    print(f"  {strings.get(sid)} -> picked={kind} text={chosen.get('text')!r}")
-                    for t in sorted(translations, key=lambda t: t["createdAt"]):
-                        print(f"    rating={t.get('rating')} created={t['createdAt']} text={t['text']!r}")
-            print(f"  checked={checked} outcome counts: {dict(outcome)}")
+                    kind = "older-in-legacy"
+                counts[kind] += 1
+                if kind in ("missing-in-current", "newer-in-legacy"):
+                    pre = "pre-translated" if legacy.get("isPreTranslated") else "human"
+                    providers[f"{kind}/{legacy.get('provider') or 'none'}/{pre}"] += 1
+                    if len(examples[kind]) < EXAMPLES_PER_CATEGORY:
+                        examples[kind].append(
+                            f"{lang} {legacy_string['identifier']} legacy={legacy['text']!r} "
+                            f"({legacy['createdAt'][:10]}) current={current['text'] if current else None!r}"
+                        )
+            totals.update(counts)
+            print(f"  {lang}: {dict(counts)}")
+        print(f"totals: {dict(totals)}")
+        print("candidate provenance (category/provider/pre-translated):")
+        for key, count in providers.most_common():
+            print(f"  {key}: {count}")
+        for kind, lines in examples.items():
+            print(f"examples {kind}:")
+            for line in lines:
+                print(f"  {line}")
 
-    def contested() -> None:
-        section("Approved translations with net-negative votes, current file, all languages")
-        total = 0
-        for lang in languages:
-            approved = {
-                a["translationId"] for a in get_all("/approvals", fileId=CURRENT_FRONTEND_FILE_ID, languageId=lang)
-            }
-            net: defaultdict[int, int] = defaultdict(int)
-            for v in get_all("/votes", languageId=lang, fileId=CURRENT_FRONTEND_FILE_ID):
-                net[v["translationId"]] += 1 if v["mark"] == "up" else -1
-            count = sum(1 for tid, score in net.items() if tid in approved and score < 0)
-            total += count
-            print(f"  {lang}: approved={len(approved)} voted={len(net)} net_negative_approved={count}")
-        print(f"total net-negative approved: {total}")
+    def export_rule() -> None:
+        section("Export rule: which translation is exported for unapproved strings?")
+        shape = get("/translations", fileId=CURRENT_FILE_ID, languageId="da", limit=1)["data"]
+        keys = sorted(shape[0]["data"].keys()) if shape else []
+        print("string translation (by file) keys:", keys)
+        if "stringId" not in keys:
+            print("no stringId on file-scoped translation listing; cannot group cheaply, skipping")
+            return
+        tested = 0
+        outcome: Counter[str] = Counter()
+        for file_id in (CURRENT_FILE_ID, LEGACY_FILE_ID):
+            for lang in languages:
+                if tested >= EXPORT_RULE_LANGUAGES_MAX:
+                    break
+                approved = {a["stringId"] for a in get_all("/approvals", fileId=file_id, languageId=lang)}
+                by_string: defaultdict[int, list[dict]] = defaultdict(list)
+                for t in get_all("/translations", fileId=file_id, languageId=lang):
+                    by_string[t["stringId"]].append(t)
+                cases = []
+                for sid, translations in by_string.items():
+                    if sid in approved or len(translations) < 2:
+                        continue
+                    newest = max(translations, key=lambda t: t["createdAt"])
+                    top = max(translations, key=lambda t: (t.get("rating") or 0, t["createdAt"]))
+                    if newest["id"] != top["id"] and newest["text"] != top["text"]:
+                        cases.append((sid, newest, top))
+                if not cases:
+                    continue
+                tested += 1
+                build = request("POST", f"{BASE_URL}/translations/builds/files/{file_id}", {"targetLanguageId": lang})[
+                    "data"
+                ]
+                with urllib.request.urlopen(build["url"]) as r:
+                    exported = json.loads(r.read())
+                print(f"\n--- file {file_id} {lang}: {len(cases)} strings where newest != top-voted")
+                for sid, newest, top in cases:
+                    identifier = strings[file_id][sid]["identifier"]
+                    text = lookup(exported, identifier)
+                    kind = "newest" if text == newest["text"] else "top-voted" if text == top["text"] else "other"
+                    outcome[kind] += 1
+                    print(
+                        f"  {identifier}: exported={kind} | newest={newest['text']!r} ({newest.get('rating')}) "
+                        f"| top={top['text']!r} ({top.get('rating')})"
+                    )
+        print(f"\nexport rule outcome: {dict(outcome)}")
 
-    for step, fn in [
-        ("shapes", shapes),
-        ("yield strings", yield_strings),
-        ("export pick", export_pick),
-        ("contested", contested),
-        ("legacy file", legacy_file),
-    ]:
+    for step, fn in [("export rule", export_rule), ("salvage", salvage), ("approvals by file", approvals_by_file)]:
         safe(step, fn)
 
 
