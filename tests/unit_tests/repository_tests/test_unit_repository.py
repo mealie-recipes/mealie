@@ -1,12 +1,14 @@
 from uuid import UUID
 
 import pytest
+import sqlalchemy as sa
 from sqlalchemy.orm import Session
 
 from mealie.repos.all_repositories import AllRepositories, get_repositories
 from mealie.schema.household.group_shopping_list import ShoppingListItemCreate, ShoppingListSave
 from mealie.schema.recipe.recipe import Recipe
-from mealie.schema.recipe.recipe_ingredient import RecipeIngredient, SaveIngredientUnit
+from mealie.schema.recipe.recipe_ingredient import CreateIngredientUnitAlias, RecipeIngredient, SaveIngredientUnit
+from mealie.schema.response.pagination import PaginationQuery
 from mealie.schema.user.user import GroupBase
 from tests.utils.factories import random_int, random_string
 from tests.utils.fixture_schemas import TestUser
@@ -174,3 +176,43 @@ def test_unit_merger_with_shopping_list_reference(unique_user: TestUser):
     updated_item = database.group_shopping_list_item.get_one(item.id)
     assert updated_item
     assert updated_item.unit_id == unit_1.id
+
+
+def test_unit_listing_query_count_does_not_grow_with_units(unique_user: TestUser):
+    """Aliases are loaded with the page, not one query per unit (N+1)."""
+
+    repo = unique_user.repos.ingredient_units
+
+    created: set = set()
+
+    def add_units(n: int):
+        for _ in range(n):
+            created.add(
+                repo.create(
+                    SaveIngredientUnit(
+                        name=random_string(10),
+                        group_id=unique_user.group_id,
+                        aliases=[CreateIngredientUnitAlias(name=random_string(10))],
+                    )
+                ).id
+            )
+
+    def statements_to_list_all() -> int:
+        statements: list[str] = []
+
+        def record(conn, cursor, statement, *args):
+            statements.append(statement)
+
+        engine = unique_user.repos.session.get_bind()
+        sa.event.listen(engine, "before_cursor_execute", record)
+        try:
+            page = repo.page_all(PaginationQuery(page=1, per_page=-1))
+        finally:
+            sa.event.remove(engine, "before_cursor_execute", record)
+        assert all(unit.aliases for unit in page.items if unit.id in created)
+        return len(statements)
+
+    add_units(3)
+    few = statements_to_list_all()
+    add_units(12)
+    assert statements_to_list_all() == few
