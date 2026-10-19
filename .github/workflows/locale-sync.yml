@@ -61,12 +61,14 @@ jobs:
           uv sync --group dev
         if: steps.cached-python-dependencies.outputs.cache-hit != 'true'
 
-      - name: Run locale generation
+      - name: Remove Crowdin approvals and run locale generation
         run: |
           cd dev/code-generation
-          uv run python main.py locales
+          uv run python main.py crowdin-approvals locales
         env:
           CROWDIN_API_KEY: ${{ secrets.CROWDIN_API_KEY }}
+          # Codegen imports mealie, which otherwise defaults to production and its /app data dir
+          PRODUCTION: "false"
 
       - name: Check for changes
         id: changes
