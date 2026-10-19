@@ -1,4 +1,9 @@
+import re
+from collections import defaultdict
+from functools import cache
+
 from mealie.core.root_logger import get_logger
+from mealie.lang.locale_config import LOCALE_CONFIG
 from mealie.schema.openai.recipe import (
     OpenAIRecipe,
     OpenAIRecipeIngredient,
@@ -15,6 +20,53 @@ from ..recipe_conversion import to_recipe
 TRANSLATE_RECIPE_PROMPT = "recipes.translate-recipe"
 
 logger = get_logger()
+
+MATCH_LANGUAGE_TAG = re.compile(r"^([a-z]{2,3})(?:[-_][a-z0-9]+)*$")
+""" Matches ISO 639 codes and BCP 47 tags `de`, `de-DE`, `de_DE` and captures the language """
+
+MATCH_LOCALE_NAME = re.compile(r"^(?P<native>.+?)\s*\((?P<english>.+)\)$")
+""" Splits a locale name `Deutsch (German)` into its native and English names """
+
+
+@cache
+def _language_names() -> dict[str, str]:
+    """
+    Maps the language names known from the locale config, e.g. `deutsch` or `german`, to their
+    ISO 639 code.
+
+    Single words are included too, so that `English` matches `American English`, but only where
+    they point to one language.
+    """
+
+    candidates: defaultdict[str, set[str]] = defaultdict(set)
+    for key, config in LOCALE_CONFIG.items():
+        code = key.split("-")[0].lower()
+        name = config.name.lower()
+        match = MATCH_LOCALE_NAME.match(name)
+        names = [match["native"], match["english"]] if match else [name]
+
+        for value in names:
+            candidates[value].add(code)
+            for word in value.split():
+                candidates[word].add(code)
+
+    return {name: codes.pop() for name, codes in candidates.items() if len(codes) == 1}
+
+
+def language_code(language: str | None) -> str | None:
+    """
+    Normalizes a language to its ISO 639 code, so that a locale like `de-DE` and a name like
+    `German` compare equal. Returns None if the language isn't recognized.
+    """
+
+    value = (language or "").strip().lower()
+    if not value:
+        return None
+
+    if match := MATCH_LANGUAGE_TAG.match(value):
+        return match[1]
+
+    return _language_names().get(value)
 
 
 class TranslateRecipeStep(WorkflowStep):
@@ -39,9 +91,14 @@ class TranslateRecipeStep(WorkflowStep):
         if not (language and ctx.draft_recipe):
             return False
 
-        # nothing to do when the source is already written in the target language
+        # nothing to do when the source is already written in the target language. A source whose
+        # language is unknown is still translated, since it may well be written in another one
         source_language = ctx.compiled_source.language if ctx.compiled_source else None
-        return language.lower() != (source_language or "").lower()
+        target_code, source_code = language_code(language), language_code(source_language)
+        if target_code and source_code:
+            return target_code != source_code
+
+        return language.strip().lower() != (source_language or "").strip().lower()
 
     @staticmethod
     def _to_openai_recipe(recipe: Recipe) -> OpenAIRecipe:
@@ -107,4 +164,11 @@ class TranslateRecipeStep(WorkflowStep):
         translated.perform_time_seconds = recipe.perform_time_seconds
 
         # cleaning again is what parses the translated times and yield back out of their new wording
-        ctx.draft_recipe = cleaner.clean(translated, ctx.translator)
+        cleaned = cleaner.clean(translated, ctx.translator)
+
+        # the yield's numbers were parsed out before translating, so only its wording was sent.
+        # Cleaning the translated wording finds no number in it, so the parsed ones carry over too
+        cleaned.recipe_servings = recipe.recipe_servings
+        cleaned.recipe_yield_quantity = recipe.recipe_yield_quantity
+
+        ctx.draft_recipe = cleaned

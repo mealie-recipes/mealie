@@ -67,14 +67,25 @@ class StructuredDataCompiler(SourceCompiler):
 
         return cleaner.clean_image(data.get("image"), default="")[0] or None
 
+    def _language_from_html(self) -> str | None:
+        """The page's declared language, e.g. `<html lang="de">`, so translation can be skipped when it matches."""
+
+        lang = self.soup.html.get("lang") if self.soup.html else None
+        if not isinstance(lang, str):
+            return None
+
+        return lang.strip() or None
+
     async def compile(self) -> OpenAICompiledSource | None:
         content = self.content or ""
         image_url: str | None = None
+        language: str | None = None
 
         if _looks_like_json(content):
             image_url = self._image_from_json(content)
         elif _looks_like_html(content):
             image_url = find_image(self.soup)
+            language = self._language_from_html()
             content = self.soup.get_text(separator="\n", strip=True) + extract_json_ld_data_from_html(self.soup)
 
         content = content.strip()
@@ -84,6 +95,6 @@ class StructuredDataCompiler(SourceCompiler):
         return OpenAICompiledSource(
             contains_recipe=True,
             content=content,
-            language=None,
+            language=language,
             image_url=image_url,
         )
