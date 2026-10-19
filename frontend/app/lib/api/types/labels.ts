@@ -9,6 +9,10 @@ export interface MultiPurposeLabelCreate {
   name: string;
   color?: string;
 }
+export interface MultiPurposeLabelMerge {
+  fromId: string;
+  toId: string;
+}
 export interface MultiPurposeLabelOut {
   name: string;
   color?: string;

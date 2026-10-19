@@ -6,7 +6,7 @@ from mealie.schema.openai.compiled_source import OpenAICompiledSource
 
 from ..context import WorkflowContext
 
-COMPILE_SOURCE_PROMPT = "recipes.compile-source"
+COMPILE_SOURCE_PROMPT = "system.compile-source"
 
 
 class SourceType(StrEnum):

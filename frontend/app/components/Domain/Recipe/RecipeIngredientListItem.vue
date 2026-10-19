@@ -23,7 +23,7 @@
         class="text-bold d-inline"
         :source="parsedIng.name"
       />
-      <!-- sits before the note, which takes a full flex row of its own -->
+      <!-- sits before the note, which takes a full block row beneath -->
       <RecipeIngredientSubstitutions v-if="showSubstitutions" :ingredient="ingredient" :scale="scale" />
       <SafeMarkdown
         v-if="parsedIng.note"
@@ -61,27 +61,18 @@ const parsedIng = computed(() => {
 </script>
 
 <style lang="scss">
+// Ensure continuous inline flow to prevent orphan quantities on line wrap
 .ingredient-item {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  // column only: the note takes a flex row of its own, and it reads as belonging to the
-  // ingredient above it only if it sits tighter to that line than the rows sit to each other
-  column-gap: 0.25em;
+  display: block;
   line-height: 1.5;
-  word-break: break-word;
-  min-width: 0;
+  word-break: normal;
 
   .d-inline {
+    display: inline;
     & > p {
       display: inline;
       &:has(> sub) > sup {
         letter-spacing: -0.05rem;
-      }
-    }
-    &:has(sub) {
-      &:after {
-        letter-spacing: -0.2rem;
       }
     }
     sup {
@@ -92,12 +83,24 @@ const parsedIng = computed(() => {
         letter-spacing: 0rem;
       }
     }
+
+    &:not(.text-bold):not(.note)::after {
+      content: " ";
+    }
   }
 
   .text-bold {
+    display: inline;
     font-weight: bold;
     white-space: normal;
     word-break: break-word;
+
+    &::before {
+      content: " ";
+    }
+    & > p {
+      display: inline;
+    }
   }
 
   // vuetify sizes an icon button for a toolbar, far taller than the line of text this one
@@ -105,6 +108,7 @@ const parsedIng = computed(() => {
   // instead, so the box, the icon glyph and the line are all the same height -- the glyph
   // follows font-size, not the box, so it renders unchanged
   .v-btn--icon {
+    margin-inline-start: 0.25em;
     line-height: inherit;
     width: 1lh;
     height: 1lh;
@@ -120,7 +124,6 @@ const parsedIng = computed(() => {
 }
 
 .note {
-  flex-basis: 100%;
   width: 100%;
   display: block;
   margin-top: 2px;

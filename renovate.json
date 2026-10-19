@@ -17,9 +17,6 @@
   "addLabels": [
     "dependencies"
   ],
-  "ignoreDeps": [
-    "python"
-  ],
   "packageRules": [
     {
       "matchManagers": [
@@ -68,6 +65,31 @@
       "automerge": true,
       "automergeType": "pr",
       "automergeStrategy": "squash"
+    },
+    {
+      "description": "Keep requires-python where it is; Python upgrades are done by hand",
+      "matchManagers": [
+        "pep621"
+      ],
+      "matchPackageNames": [
+        "python"
+      ],
+      "enabled": false
+    },
+    {
+      "description": "Keep the Docker base on its Python version, but let its digest update so the base gets Debian security fixes",
+      "matchManagers": [
+        "dockerfile"
+      ],
+      "matchPackageNames": [
+        "python"
+      ],
+      "matchUpdateTypes": [
+        "major",
+        "minor",
+        "patch"
+      ],
+      "enabled": false
     }
   ]
 }

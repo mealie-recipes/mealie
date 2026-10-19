@@ -5,13 +5,17 @@ from .recipe import (
     CreateRecipeByUrlBulk,
     Recipe,
     RecipeCategory,
+    RecipeCategoryIn,
     RecipeCategoryPagination,
+    RecipeIn,
     RecipeLastMade,
     RecipePagination,
     RecipeSummary,
     RecipeTag,
+    RecipeTagIn,
     RecipeTagPagination,
     RecipeTool,
+    RecipeToolIn,
     RecipeToolPagination,
 )
 from .recipe_asset import RecipeAsset
@@ -99,11 +103,12 @@ from .recipe_timeline_events import (
     TimelineEventImage,
     TimelineEventType,
 )
-from .recipe_tool import RecipeToolCreate, RecipeToolOut, RecipeToolResponse, RecipeToolSave
+from .recipe_tool import RecipeToolCreate, RecipeToolMerge, RecipeToolOut, RecipeToolResponse, RecipeToolSave
 from .request_helpers import RecipeDuplicate, RecipeSlug, SlugResponse, UpdateImageResponse
 
 __all__ = [
     "RecipeToolCreate",
+    "RecipeToolMerge",
     "RecipeToolOut",
     "RecipeToolResponse",
     "RecipeToolSave",
@@ -193,13 +198,17 @@ __all__ = [
     "CreateRecipeByUrlBulk",
     "Recipe",
     "RecipeCategory",
+    "RecipeCategoryIn",
     "RecipeCategoryPagination",
+    "RecipeIn",
     "RecipeLastMade",
     "RecipePagination",
     "RecipeSummary",
     "RecipeTag",
+    "RecipeTagIn",
     "RecipeTagPagination",
     "RecipeTool",
+    "RecipeToolIn",
     "RecipeToolPagination",
     "ScrapeRecipe",
     "ScrapeRecipeAI",

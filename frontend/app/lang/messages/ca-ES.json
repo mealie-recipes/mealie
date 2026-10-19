@@ -257,6 +257,47 @@
       "test-connection-failed": "Connection failed",
       "supports-images": "Supports images",
       "text-only-provider": "Text-only, can't be your image provider"
+    },
+    "ai-prompts": {
+      "ai-prompts": "AI Prompts",
+      "ai-prompts-description": "Customize the instructions Mealie gives your AI provider for each task. Mealie's prompts are written in English, but that doesn't change the language of your recipes: they keep the language of their source unless you choose to translate them. You can write your own instructions in any language.",
+      "global-instructions": "Instructions for All Prompts",
+      "global-instructions-description": "Added to every prompt that produces recipe data, such as building recipes, parsing ingredients, and translating. System prompts aren't affected.",
+      "global-instructions-placeholder": "e.g. Always use metric units.",
+      "prompts": "Prompts",
+      "system": "System",
+      "system-description": "This is a system prompt. It transcribes your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to it. Changing it usually isn't necessary, and can make imports less reliable.",
+      "appended": "Appended",
+      "overridden": "Overridden",
+      "mode-default": "Default",
+      "mode-append": "Append",
+      "mode-override": "Override",
+      "append-description": "These instructions are added to Mealie's prompt, and take priority wherever the two conflict.",
+      "override-description": "Your prompt replaces Mealie's prompt entirely, so future updates to Mealie's prompt won't apply to it. Any data the task needs, such as your list of units, is still added after your prompt.",
+      "default-changed": "Mealie's prompt has changed since you overrode it. Compare it with yours, or switch back to the default to use the new version.",
+      "view-default-prompt": "View Default Prompt",
+      "hide-default-prompt": "Hide Default Prompt",
+      "default-prompt": "Default Prompt",
+      "prompt-saved": "Prompt saved",
+      "prompt-save-failed": "Failed to save prompt",
+      "prompt-titles": {
+        "recipes-build-recipe": "Build Recipe",
+        "recipes-parse-recipe-ingredients": "Parse Ingredients",
+        "recipes-parse-recipe-video": "Recipe from Video",
+        "recipes-resolve-organizers": "Assign Organizers",
+        "recipes-translate-recipe": "Translate Recipe",
+        "system-compile-source": "Read Source Material",
+        "system-transcribe-audio": "Transcribe Audio"
+      },
+      "prompt-descriptions": {
+        "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
+        "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
+        "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
+        "recipes-translate-recipe": "Translates an imported recipe into the language you choose.",
+        "system-compile-source": "Reads webpages, photos, and text into a plain-text record of the recipe.",
+        "system-transcribe-audio": "Transcribes audio when your audio provider can't transcribe it directly."
+      }
     }
   },
   "household": {
@@ -274,6 +315,7 @@
     "private-household-description": "Configurar la teva llar com a privada en desactivarà totes les opcions de vista pública. Això sobreescriu qualsevol configuració de vista pública individual",
     "lock-recipe-edits-from-other-households": "Bloqueja les edicions de receptes des d'altres llars",
     "lock-recipe-edits-from-other-households-description": "Quan activat, només els usuaris de la teva llar poden editar les receptes creades per la teva llar",
+    "lock-recipe-edits-from-other-households-admin-note": "Site administrators can always edit or delete recipes in any household, regardless of this setting.",
     "household-recipe-preferences": "Preferències de receptes de llar",
     "default-recipe-preferences-description": "Aquestes són les configuracions per defecte en crear una recepta en la teva llar. Podeu canviar-les de forma individual en el menú d'opcions de cada recepta.",
     "household-preferences": "Preferències de la llar"
@@ -326,7 +368,18 @@
     "meal-plan-settings": "Opcions de planificació de menús",
     "add-all-to-list": "Afegiu Tot a la llista",
     "add-day-to-list": "Afegiu Dia a la llista",
-    "randomize-recipe": "Randomize Recipe"
+    "randomize-recipe": "Randomize Recipe",
+    "calendar-feed": "Subscribe to Calendar",
+    "calendar-feed-description": "Subscribe to your household's meal plan from Google Calendar, Apple Calendar, Home Assistant or any other app that supports iCal links. Anyone with the link can see your meal plan.",
+    "calendar-feed-off": "The calendar link is turned off for your household.",
+    "calendar-feed-ask-manager": "Ask someone who can manage your household to turn it on.",
+    "calendar-feed-turn-on": "Turn On",
+    "calendar-feed-turn-off": "Turn Off",
+    "calendar-feed-reset-hint": "Resetting or turning off the link stops existing subscriptions from updating.",
+    "calendar-feed-include-notes": "Include notes",
+    "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
+    "calendar-feed-timezone": "Timezone",
+    "calendar-feed-url": "Calendar Link"
   },
   "migration": {
     "new-migration": "Nova migració",
@@ -445,6 +498,7 @@
     "prep-time": "Temps de preparació",
     "protein-content": "Proteïnes",
     "public-recipe": "Recepta pública",
+    "public-recipe-visibility-note": "Also depends on your group and household privacy settings — a recipe won't be publicly visible if either is set to private.",
     "recipe-created": "S'ha creat la recepta",
     "recipe-image": "Imatge de la recepta",
     "delete-image": "Suprimir la imatge de la recepta",
@@ -590,8 +644,8 @@
     "report-deletion-failed": "No s'ha pogut suprimir l'informe",
     "recipe-debugger": "Depuradora de receptes",
     "recipe-debugger-description": "Agafa l'URL de la recepta que vols depurar i enganxa-la aquí. L'URL serà reastrejada pel rastrejador de receptes i es mostraran els resultats. Si no veieu cap dada retornada, el lloc que esteu provant de rastrejar no és compatible amb Mealie ni la seva biblioteca de rastreig.",
-    "use-openai": "Fes servir OpenAI",
-    "recipe-debugger-use-openai-description": "Fes servir OpenAI per processar els resultats en comptes d'emprar la llibreria de processat. Quan creis una recepta via URL, es fa automàticament si la llibreria falla, però ho pots provar manualment aquí.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Depuració",
     "tree-view": "Vista en arbre",
     "recipe-servings": "Serveis per la recepta",
@@ -616,9 +670,9 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Processador de llenguatge natural",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Processador brut",
-      "openai-parser": "Analitzador d'OpenAI",
+      "ai-parser": "AI Parser",
       "missing-unit": "Crear unitat que manca: {unit}",
       "missing-food": "Crear menjar que manca: {food}",
       "this-unit-could-not-be-parsed-automatically": "Aquesta unitat no s'ha pogut analitzar automàticament",
@@ -793,7 +847,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Estàs segur que vols desmarcar tots els elements?",
     "are-you-sure-you-want-to-delete-checked-items": "Estàs segur que vols eliminar tots els elements marcats?",
     "no-shopping-lists-found": "No s'han trobat llistes de la compra",
-    "item-checked-off": "Checked off {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Còpies de seguretat",
@@ -881,11 +940,17 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Permisos",
     "administrator": "Administrador",
+    "administrator-hint": "Full access across every group and household on this instance.",
     "user-can-invite-other-to-group": "L'usuari pot convidar a altres al grup",
+    "user-can-invite-other-to-group-hint": "User can invite new users to their own group and household.",
     "user-can-manage-group": "User can manage group settings",
+    "user-can-manage-group-hint": "User can manage the group's shared settings, like AI providers, and edit permissions for members of their household.",
     "user-can-manage-household": "Usuari que pot gestionar la llar",
-    "user-can-organize-group-data": "User can manage foods, tags, and categories",
+    "user-can-manage-household-hint": "User can manage the settings of the household they belong to, like its name, privacy, and recipe-editing rules.",
+    "user-can-organize-group-data": "User can manage group data such as foods, units, tags, and categories",
+    "user-can-organize-group-data-hint": "Create, edit, and delete foods, units, tags, categories, tools, labels, and recipe actions shared across the group.",
     "enable-advanced-features": "Activa funcionalitats avançades",
+    "enable-advanced-features-hint": "Enables Webhooks, Notifiers, and Data Migrations",
     "it-looks-like-this-is-your-first-time-logging-in": "Sembla que és el primer cop que et registres.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "No vols tornar a veure això? Assegura't de canviar el teu correu electrònic a les configuracions del teu usuari!",
     "forgot-password": "Contrasenya oblidada",
@@ -918,6 +983,8 @@
       "food-data": "Dades de menjar",
       "label-overwrite-warning": "Això assignarà l'etiqueta escollida als menjars seleccionats i pot sobreescriure potencialment etiquetes ja existents.",
       "on-hand-checkbox-label": "Aplicar aquest atribut farà que aquest menjar no es marqui per defecte quan afegeixis una recepta a la llista de la compra.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -956,7 +1023,14 @@
       "edit-label": "Edita etiqueta",
       "new-label": "Nova etiqueta",
       "labels": "Etiquetes",
-      "assign-label": "Assigna L'etiqueta"
+      "assign-label": "Assigna L'etiqueta",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Purga exportacions",
@@ -1029,7 +1103,14 @@
     "tools": {
       "new-tool": "Nova eina",
       "edit-tool": "Edita eina",
-      "tool-data": "Dades d'eina"
+      "tool-data": "Dades d'eina",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1060,6 +1141,8 @@
     "share-recipe": "Comparteix la recepta",
     "default-30-days": "Per defecte, 30 dies",
     "expires-at": "Expira el",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "S'ha copiat l'enllaç al porta-retalls"
   },
   "banner-experimental": {
@@ -1111,7 +1194,7 @@
     "ingredients-natural-language-processor-explanation-2": "No és perfecte, però ofereix bons resultats en general i és un bon punt de partida per processar manualment ingredients a camps individuals. Alternativament, també pots fer servir el processador \"brut\" que fa servir una tècnica de reconeixement de patrons per identificar ingredients.",
     "nlp": "NLP",
     "brute": "Brut",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Mostra confiança individual",
     "ingredient-text": "Text d'ingredient",
     "average-confident": "{0} confiança",
@@ -1128,8 +1211,8 @@
       "restore-from-v1-backup": "Tens una còpia de seguretat d'una instància prèvia de Mealie v1? Pots restaurar-la aquí.",
       "manage-profile-or-get-invite-link": "Gestiona el teu propi perfil, o agafa un enllaç d'invitació per compartir amb altres."
     },
-    "debug-openai-services": "Depurar els serveis d'OpenAI",
-    "debug-openai-services-description": "Utilitza aquesta pàgina per depurar els serveis d'OpenAI. Pots provar la teva connexió amb OpenAI i veure els resultats aquí. Si tens els serveis d'imatge activats, també pots proporcionar una imatge.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Executar prova",
     "test-results": "Resultats de la prova",
     "group-delete-note": "Grups amb usuaris o llars no poden ser esborrats",
@@ -1205,7 +1288,9 @@
       "is-less-than": "és menys que",
       "is-less-than-or-equal-to": "és menor o igual a",
       "is-older-than": "és més antic que",
-      "is-newer-than": "és més nou que"
+      "is-newer-than": "és més nou que",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "és",

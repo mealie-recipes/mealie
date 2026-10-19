@@ -74,7 +74,7 @@
     },
     "kilogram": {
         "name": "kilo",
-        "plural_name": "kilogram",
+        "plural_name": "kilo",
         "description": "",
         "abbreviation": "kg"
     },

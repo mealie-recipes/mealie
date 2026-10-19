@@ -1,11 +1,14 @@
 from datetime import UTC, datetime, timedelta
+from unittest.mock import Mock
 from uuid import UUID, uuid4
 
 import pytest
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
 from mealie.repos.all_repositories import get_repositories
 from mealie.repos.repository_factory import AllRepositories
+from mealie.repos.repository_generic import RepositoryGeneric
 from mealie.schema.household.household import HouseholdCreate, HouseholdRecipeCreate
 from mealie.schema.recipe import RecipeIngredient, SaveIngredientFood
 from mealie.schema.recipe.recipe import Recipe
@@ -15,6 +18,17 @@ from mealie.schema.response import OrderDirection, PaginationQuery
 from mealie.schema.user.user import GroupBase, UserRatingCreate
 from tests.utils.factories import random_email, random_string
 from tests.utils.fixture_schemas import TestUser
+
+
+def test_create_recipe_stops_retrying_integrity_errors(unique_user: TestUser, monkeypatch: pytest.MonkeyPatch) -> None:
+    create = Mock(side_effect=IntegrityError("INSERT", {}, Exception("unrelated constraint failure")))
+    monkeypatch.setattr(RepositoryGeneric, "create", create)
+    recipe = Recipe(name=random_string(), group_id=unique_user.group_id, user_id=unique_user.user_id)
+
+    with pytest.raises(IntegrityError):
+        unique_user.repos.recipes.create(recipe)
+
+    assert create.call_count == 10
 
 
 @pytest.fixture()
@@ -569,6 +583,70 @@ def test_fuzzy_recipe_search(
     results = repo.page_all(pagination, search="Steinbuck").items
 
     assert results and results[0].name == "Steinbock Sloop"
+
+
+@pytest.mark.parametrize(
+    "search, expected_name",
+    [
+        ("Steinbuck", "Steinbock Sloop"),
+        ("delicous", "Steinbock Sloop"),
+        ("mosss", "Fiddlehead Fern Stir Fry"),
+        ("alpine animl", "Steinbock Sloop"),
+    ],
+    ids=["fuzzy_title", "fuzzy_description", "fuzzy_ingredient_note", "fuzzy_ingredient_phrase"],
+)
+def test_fuzzy_recipe_search_sources(
+    unique_db: AllRepositories,
+    search: str,
+    expected_name: str,
+    search_recipes: list[Recipe],  # required so database is populated
+):
+    # fuzzy search is postgres-only
+    if unique_db.session.get_bind().name != "postgresql":
+        return
+
+    repo = unique_db.recipes
+    pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    results = repo.page_all(pagination, search=search).items
+    names = [recipe.name for recipe in results]
+
+    assert expected_name in names
+    assert len(names) == len(set(names)), "a recipe matching in several places must be returned once"
+
+
+def test_fuzzy_recipe_search_no_match(
+    unique_db: AllRepositories,
+    search_recipes: list[Recipe],  # required so database is populated
+):
+    if unique_db.session.get_bind().name != "postgresql":
+        return
+
+    repo = unique_db.recipes
+    pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    assert repo.page_all(pagination, search="qzxwvjk").items == []
+
+
+def test_fuzzy_recipe_search_ingredient_threshold(
+    unique_db: AllRepositories,
+    unique_ids: tuple[str, str, str],
+):
+    # ingredients match at pg_trgm's default threshold: "salt" scores ~0.57 against "salmon"
+    if unique_db.session.get_bind().name != "postgresql":
+        return
+
+    group_id, _, user_id = unique_ids
+    unique_db.recipes.create(
+        Recipe(
+            group_id=group_id,
+            user_id=user_id,
+            name="Plain Toast",
+            recipe_ingredient=[RecipeIngredient(note="1 teaspoon salt")],
+        )
+    )
+
+    repo = unique_db.recipes
+    pagination = PaginationQuery(page=1, per_page=-1, order_by="created_at", order_direction=OrderDirection.asc)
+    assert "Plain Toast" not in [recipe.name for recipe in repo.page_all(pagination, search="salmon").items]
 
 
 def test_random_order_recipe_search(

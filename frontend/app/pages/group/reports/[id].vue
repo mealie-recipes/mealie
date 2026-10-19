@@ -33,14 +33,21 @@
         <template #[`item.timestamp`]="{ item }">
           {{ $d(Date.parse(item.timestamp!), "short") }}
         </template>
-        <template #[`expanded-item`]="{ headers, item }">
-          <td
+        <template #[`item.data-table-expand`]="{ item, props }">
+          <v-btn
             v-if="item.exception"
-            class="pa-6"
-            :colspan="headers.length"
-          >
-            {{ item.exception }}
-          </td>
+            v-bind="props"
+          />
+        </template>
+        <template #expanded-row="{ columns, item }">
+          <tr v-if="item.exception">
+            <td
+              class="pa-6"
+              :colspan="columns.length"
+            >
+              {{ item.exception }}
+            </td>
+          </tr>
         </template>
       </v-data-table>
     </v-container>

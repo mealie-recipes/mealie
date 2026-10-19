@@ -6,6 +6,7 @@ from pydantic import UUID4
 from mealie.routes._base.base_controllers import BaseUserController
 from mealie.routes._base.controller import controller
 from mealie.routes._base.mixins import HttpRepo
+from mealie.routes._base.permissions import Perm, require
 from mealie.routes._base.routers import MealieCrudRoute
 from mealie.schema import mapper
 from mealie.schema.recipe.recipe_ingredient import (
@@ -46,15 +47,18 @@ class IngredientFoodsController(BaseUserController):
         response.set_pagination_guides(router.url_path_for("get_all"), q.model_dump())
         return response
 
-    @router.post("", response_model=IngredientFood, status_code=201)
+    @router.post("", response_model=IngredientFood, status_code=201, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def create_one(self, data: CreateIngredientFood):
-        self.checks.can_organize()
         save_data = mapper.cast(data, SaveIngredientFood, group_id=self.group_id)
         return self.mixins.create_one(save_data)
 
-    @router.put("/merge", response_model=SuccessResponse)
+    @router.get("/empty", response_model=list[IngredientFood])
+    def get_all_empty(self):
+        """Returns a list of foods that are not used by any recipe"""
+        return self.repo.get_empty()
+
+    @router.put("/merge", response_model=SuccessResponse, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def merge_one(self, data: MergeFood):
-        self.checks.can_organize()
         try:
             self.repo.merge(data.from_food, data.to_food)
             return SuccessResponse.respond("Successfully merged foods")
@@ -66,13 +70,11 @@ class IngredientFoodsController(BaseUserController):
     def get_one(self, item_id: UUID4):
         return self.mixins.get_one(item_id)
 
-    @router.put("/{item_id}", response_model=IngredientFood)
+    @router.put("/{item_id}", response_model=IngredientFood, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def update_one(self, item_id: UUID4, data: CreateIngredientFood):
-        self.checks.can_organize()
         data = mapper.cast(data, SaveIngredientFood, group_id=self.group_id)
         return self.mixins.update_one(data, item_id)
 
-    @router.delete("/{item_id}", response_model=IngredientFood)
+    @router.delete("/{item_id}", response_model=IngredientFood, dependencies=[require(Perm.GROUP_ORGANIZE)])
     def delete_one(self, item_id: UUID4):
-        self.checks.can_organize()
         return self.mixins.delete_one(item_id)

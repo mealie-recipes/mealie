@@ -1,3 +1,4 @@
+import hmac
 from datetime import timedelta
 from typing import Annotated, Any
 
@@ -14,9 +15,11 @@ from mealie.core import root_logger, security
 from mealie.core.config import get_app_settings
 from mealie.core.dependencies import get_auth_token, get_current_user
 from mealie.core.exceptions import MissingClaimException, UserLockedOut
+from mealie.core.security.providers.reverse_proxy_provider import ReverseProxyProvider
 from mealie.core.security.security import get_auth_provider
 from mealie.db.db_setup import generate_session
 from mealie.lang import get_locale_provider
+from mealie.routes._base.permissions import not_found
 from mealie.routes._base.routers import UserAPIRouter
 from mealie.schema.user import PrivateUser
 from mealie.schema.user.auth import CredentialsRequestForm, NativeOIDCTokenRequest, OIDCNativeConfig
@@ -29,6 +32,38 @@ logger = root_logger.get_logger("auth")
 
 
 settings = get_app_settings()
+
+
+def _register_native_oidc_client(oauth_registry, client_args: dict[str, Any]) -> None:
+    """Register the "oidc_native" client used by the native endpoints.
+
+    It is the web client unless OIDC_NATIVE_CLIENT_ID is set. The secretless (public) mode only applies
+    when that id is set and OIDC_NATIVE_CONFIDENTIAL is false; the web client is never affected.
+    """
+    client_id = settings.OIDC_NATIVE_CLIENT_ID or settings.OIDC_CLIENT_ID
+    client_secret = settings.OIDC_CLIENT_SECRET
+    native_client_args = client_args
+
+    if not settings.OIDC_NATIVE_CONFIDENTIAL:
+        if settings.OIDC_NATIVE_CLIENT_ID:
+            client_secret = None
+            native_client_args = {**client_args, "token_endpoint_auth_method": "none"}
+        else:
+            logger.warning(
+                "[OIDC] OIDC_NATIVE_CONFIDENTIAL=false has no effect without OIDC_NATIVE_CLIENT_ID; "
+                "the native endpoints will use the confidential client"
+            )
+
+    oauth_registry.register(
+        "oidc_native",
+        client_id=client_id,
+        client_secret=client_secret,
+        server_metadata_url=settings.OIDC_CONFIGURATION_URL,
+        client_kwargs=native_client_args,
+        code_challenge_method="S256",
+    )
+
+
 oauth = None
 if settings.OIDC_READY:
     from authlib.integrations.starlette_client import OAuth
@@ -54,6 +89,7 @@ if settings.OIDC_READY:
         client_kwargs=client_args,
         code_challenge_method="S256",
     )
+    _register_native_oidc_client(oauth, client_args)
 
 
 SESSION_COOKIE_NAME = "mealie.access_token"
@@ -232,7 +268,7 @@ async def oauth_native_config():
             detail="OIDC is not configured",
         )
 
-    client = oauth.create_client("oidc")
+    client = oauth.create_client("oidc_native")
     metadata = await client.load_server_metadata()
     return OIDCNativeConfig(
         authorization_endpoint=metadata["authorization_endpoint"],
@@ -262,7 +298,7 @@ async def oauth_native_token(
 
     from authlib.integrations.starlette_client import OAuthError
 
-    client = oauth.create_client("oidc")
+    client = oauth.create_client("oidc_native")
     try:
         token = await client.fetch_access_token(
             code=data.code,
@@ -295,6 +331,37 @@ async def oauth_native_token(
 
     access_token, duration = auth
     set_session_cookie(response, request, access_token, duration, settings.OIDC_REMEMBER_ME)
+    return MealieAuthToken.respond(access_token, duration)
+
+
+@public_router.get("/reverse-proxy")
+async def reverse_proxy_login(
+    request: Request,
+    response: Response,
+    session: Session = Depends(generate_session),
+):
+    """Authenticate a user using a username forwarded by a trusted reverse proxy header"""
+    if not settings.REVERSE_PROXY_AUTH_READY:
+        raise not_found()
+
+    if settings.REVERSE_PROXY_AUTH_SECRET:
+        provided_secret = request.headers.get(settings.REVERSE_PROXY_AUTH_SECRET_HEADER, "")
+        # constant-time compare so a near-miss guess can't be refined via response timing
+        if not hmac.compare_digest(provided_secret, settings.REVERSE_PROXY_AUTH_SECRET):
+            logger.error("Rejected reverse proxy auth: missing or incorrect shared secret")
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+    username = request.headers.get(settings.REVERSE_PROXY_AUTH_HEADER)
+    if not username:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+    auth_provider = ReverseProxyProvider(session, username)
+    auth = auth_provider.authenticate()
+    if not auth:
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED)
+
+    access_token, duration = auth
+    set_session_cookie(response, request, access_token, duration, remember_me=True)
     return MealieAuthToken.respond(access_token, duration)
 
 

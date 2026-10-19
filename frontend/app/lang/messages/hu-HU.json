@@ -257,6 +257,47 @@
       "test-connection-failed": "Sikertelen kapcsolódás",
       "supports-images": "Képek támogatása",
       "text-only-provider": "Csak szöveges tartalom érhető el, képeket nem tud biztosítani"
+    },
+    "ai-prompts": {
+      "ai-prompts": "AI Prompts",
+      "ai-prompts-description": "Customize the instructions Mealie gives your AI provider for each task. Mealie's prompts are written in English, but that doesn't change the language of your recipes: they keep the language of their source unless you choose to translate them. You can write your own instructions in any language.",
+      "global-instructions": "Instructions for All Prompts",
+      "global-instructions-description": "Added to every prompt that produces recipe data, such as building recipes, parsing ingredients, and translating. System prompts aren't affected.",
+      "global-instructions-placeholder": "e.g. Always use metric units.",
+      "prompts": "Prompts",
+      "system": "System",
+      "system-description": "This is a system prompt. It transcribes your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to it. Changing it usually isn't necessary, and can make imports less reliable.",
+      "appended": "Appended",
+      "overridden": "Overridden",
+      "mode-default": "Default",
+      "mode-append": "Append",
+      "mode-override": "Override",
+      "append-description": "These instructions are added to Mealie's prompt, and take priority wherever the two conflict.",
+      "override-description": "Your prompt replaces Mealie's prompt entirely, so future updates to Mealie's prompt won't apply to it. Any data the task needs, such as your list of units, is still added after your prompt.",
+      "default-changed": "Mealie's prompt has changed since you overrode it. Compare it with yours, or switch back to the default to use the new version.",
+      "view-default-prompt": "View Default Prompt",
+      "hide-default-prompt": "Hide Default Prompt",
+      "default-prompt": "Default Prompt",
+      "prompt-saved": "Prompt saved",
+      "prompt-save-failed": "Failed to save prompt",
+      "prompt-titles": {
+        "recipes-build-recipe": "Build Recipe",
+        "recipes-parse-recipe-ingredients": "Parse Ingredients",
+        "recipes-parse-recipe-video": "Recipe from Video",
+        "recipes-resolve-organizers": "Assign Organizers",
+        "recipes-translate-recipe": "Translate Recipe",
+        "system-compile-source": "Read Source Material",
+        "system-transcribe-audio": "Transcribe Audio"
+      },
+      "prompt-descriptions": {
+        "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
+        "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
+        "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
+        "recipes-translate-recipe": "Translates an imported recipe into the language you choose.",
+        "system-compile-source": "Reads webpages, photos, and text into a plain-text record of the recipe.",
+        "system-transcribe-audio": "Transcribes audio when your audio provider can't transcribe it directly."
+      }
     }
   },
   "household": {
@@ -274,6 +315,7 @@
     "private-household-description": "A háztartás privátra állítása letiltja az összes nyilvános megtekintési lehetőséget. Ez felülírja az egyéni nyilvános megtekintési beállításokat",
     "lock-recipe-edits-from-other-households": "Receptmódosítások zárolása más háztartások elől",
     "lock-recipe-edits-from-other-households-description": "Ha engedélyezett, csak a háztartás felhasználói szerkeszthetik a háztartás által létrehozott recepteket",
+    "lock-recipe-edits-from-other-households-admin-note": "Az oldal rendszergazdái e beállítástól függetlenül bármikor szerkeszthetik vagy törölhetik a recepteket bármely háztartásban.",
     "household-recipe-preferences": "Háztartás recept preferenciái",
     "default-recipe-preferences-description": "Ezek az alapértelmezett beállítások, amikor egy új receptet hoz létre a háztartásában. Az egyes recepteknél ezek megváltoztathatók a receptbeállítások menüpontban.",
     "household-preferences": "Háztartás preferenciái"
@@ -326,7 +368,18 @@
     "meal-plan-settings": "Menütervező beállításai",
     "add-all-to-list": "Összes hozzáadása a listához",
     "add-day-to-list": "Nap hozzáadása a listához",
-    "randomize-recipe": "Véletlenszerű receptek"
+    "randomize-recipe": "Véletlenszerű receptek",
+    "calendar-feed": "Subscribe to Calendar",
+    "calendar-feed-description": "Subscribe to your household's meal plan from Google Calendar, Apple Calendar, Home Assistant or any other app that supports iCal links. Anyone with the link can see your meal plan.",
+    "calendar-feed-off": "The calendar link is turned off for your household.",
+    "calendar-feed-ask-manager": "Ask someone who can manage your household to turn it on.",
+    "calendar-feed-turn-on": "Turn On",
+    "calendar-feed-turn-off": "Turn Off",
+    "calendar-feed-reset-hint": "Resetting or turning off the link stops existing subscriptions from updating.",
+    "calendar-feed-include-notes": "Include notes",
+    "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
+    "calendar-feed-timezone": "Timezone",
+    "calendar-feed-url": "Calendar Link"
   },
   "migration": {
     "new-migration": "Új migráció",
@@ -445,6 +498,7 @@
     "prep-time": "Előkészítési idő",
     "protein-content": "Fehérje",
     "public-recipe": "Nyilvános recept",
+    "public-recipe-visibility-note": "Ez a csoport és a háztartás adatvédelmi beállításaitól is függ — egy recept nem lesz nyilvánosan látható, ha bármelyik beállítás privát.",
     "recipe-created": "Recept létrehozva",
     "recipe-image": "Recept képe",
     "delete-image": "Receptkép törlése",
@@ -551,7 +605,7 @@
     "create-new-organizers-hint": "A receptben szereplő címkék, kategóriák és eszközök mindig összehasonlításra kerülnek a már meglévő elemekkel. Aktiválja ezt a beállítást, ha a még nem létezőket is létre kívánja hozni.",
     "create-recipe": "Recept létrehozása",
     "create-recipe-description": "Adj hozzá egy új receptet a nulláról kezdve.",
-    "create-recipes": "Receptek létrehozása",
+    "create-recipes": "Recept létrehozása",
     "import-with-zip": "Importálás .zip formátummal",
     "crop-and-rotate-the-image": "Vágja ki és forgassa el a képet úgy, hogy csak a szöveg legyen látható, és megfelelő tájolásban legyen.",
     "should-translate-description": "Fordítsa le a receptet a saját nyelvemre",
@@ -590,8 +644,8 @@
     "report-deletion-failed": "Jelentés törlése sikertelen",
     "recipe-debugger": "Recept hibakereső",
     "recipe-debugger-description": "Fogja meg a hibakereséshez szükséges recept URL-címét, és illessze be ide. Az URL-t a receptkinyerő átemeli, és az eredmények megjelennek. Ha nem lát semmilyen visszaadott adatot, akkor a Mealie vagy a receptkinyerő nem támogatja az oldal formátumát.",
-    "use-openai": "OpenAI használata",
-    "recipe-debugger-use-openai-description": "Használja az OpenAI-t az eredmények elemzésére, ahelyett, hogy a scraper könyvtárra hagyatkozna. Ha URL-címen keresztül hoz létre receptet, ez automatikusan megtörténik, ha a scraper könyvtár nem működik, ám itt manuálisan is tesztelheti.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Hibakeresés",
     "tree-view": "Fa nézet",
     "recipe-servings": "Recept tálalások",
@@ -605,10 +659,10 @@
     "recipe-actions": "Receptekkel kapcsolatos tevékenységek",
     "unit-system": {
       "as-written": "As written",
-      "metric": "Metric",
-      "metric-with-hint": "Metric (g, ml)",
-      "imperial": "Imperial",
-      "imperial-with-hint": "Imperial (cups, oz)"
+      "metric": "Metrikus",
+      "metric-with-hint": "Metrikus (g, ml)",
+      "imperial": "Angolszász",
+      "imperial-with-hint": "Angolszász (bögre, uncia)"
     },
     "parser": {
       "ingredient-parser": "Hozzávaló elemző",
@@ -616,9 +670,9 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Természetes nyelvi feldolgozó",
-      "natural-language-processor-english-only": "A Természetes Nyelvfeldolgozó angol nyelvű receptek alapján lett betanítva. Más nyelvű receptek esetében általában felismeri a mennyiséget, de annak egységét nem, ezért a Brute Parser vagy az OpenAI Parser általában jobb eredményeket ad.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Brute elemző",
-      "openai-parser": "OpenAI elemző",
+      "ai-parser": "AI Parser",
       "missing-unit": "Hiányzó mértékegység létrehozása: {unit}",
       "missing-food": "Hiányzó élelmiszer létrehozása: {food}",
       "this-unit-could-not-be-parsed-automatically": "Ez az egység nem tudja automatikusan értelmezni",
@@ -793,7 +847,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Biztos, hogy minden elem kijelölését visszavonja?",
     "are-you-sure-you-want-to-delete-checked-items": "Biztosan törölni akarja az összes bejelölt elemet?",
     "no-shopping-lists-found": "Nem találhatók bevásárlólisták",
-    "item-checked-off": "{item} leellenőrzve"
+    "new-list-name": "Lista neve",
+    "failed-to-create-shopping-list": "Nem sikerült létrehozni a bevásárlólistát",
+    "item-checked-off": "{item} leellenőrzve",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Biztonsági mentések",
@@ -881,11 +940,17 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "Engedélyek",
     "administrator": "Adminisztrátor",
+    "administrator-hint": "Teljes hozzáférés az adott instancián található összes csoporthoz és háztartáshoz.",
     "user-can-invite-other-to-group": "A felhasználó meghívhat másokat a csoportba",
+    "user-can-invite-other-to-group-hint": "A felhasználó új felhasználókat hívhat meg a saját csoportjába és háztartásába.",
     "user-can-manage-group": "A felhasználó kezelheti a csoport beállításait",
+    "user-can-manage-group-hint": "A felhasználó kezelheti a csoport közös beállításait – például az AI-szolgáltatókat –, valamint szerkesztheti a háztartás tagjainak jogosultságait.",
     "user-can-manage-household": "A felhasználó a háztartást kezelheti",
-    "user-can-organize-group-data": "A felhasználó kezelheti az ételeket, a címkéket és a kategóriákat",
+    "user-can-manage-household-hint": "A felhasználó kezelheti annak a háztartásnak a beállításait, amelyhez tartozik, például a nevét, az adatvédelmi beállításokat és a receptek szerkesztésére vonatkozó szabályokat.",
+    "user-can-organize-group-data": "User can manage group data such as foods, units, tags, and categories",
+    "user-can-organize-group-data-hint": "Create, edit, and delete foods, units, tags, categories, tools, labels, and recipe actions shared across the group.",
     "enable-advanced-features": "Haladó funkciók engedélyezése",
+    "enable-advanced-features-hint": "Engedélyezi a webhookokat, az értesítéseket és az adatmigrációt",
     "it-looks-like-this-is-your-first-time-logging-in": "Úgy tűnik, most jelentkezik be először.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nem akarja ezt többé látni? Mindenképpen változtassa meg az e-mail címét a felhasználói beállítások között!",
     "forgot-password": "Elfelejtett jelszó",
@@ -918,6 +983,8 @@
       "food-data": "Étel adatai",
       "label-overwrite-warning": "Ez a kiválasztott címkét az összes kiválasztott élelmiszerhez hozzárendeli, és esetleg felülírja a meglévő címkéket.",
       "on-hand-checkbox-label": "Ha ezt a jelzőt beállítja, akkor ez az élelmiszer alapértelmezés szerint nem lesz bejelölve, amikor egy receptet hozzáad egy bevásárlólistához.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Helyettesítő alapanyagok",
       "manage-substitutions": "Helyettesítő alapanyagok kezelése",
       "substitution-dialog-text": "Ajánljon ételeket, amelyek a/az {food} helyettesítésére használhatók. A helyettesítő lehet egy élelmiszer, egy megjegyzés, vagy mindkettő.",
@@ -956,7 +1023,14 @@
       "edit-label": "Címke szerkesztése",
       "new-label": "Új címke",
       "labels": "Címkék",
-      "assign-label": "Címke hozzárendelése"
+      "assign-label": "Címke hozzárendelése",
+      "combine-label": "Combine Label",
+      "source-label": "Forrás címke",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Exportálás tisztítása",
@@ -1029,7 +1103,14 @@
     "tools": {
       "new-tool": "Új eszköz",
       "edit-tool": "Eszköz szerkesztése",
-      "tool-data": "Eszköz adatai"
+      "tool-data": "Eszköz adatai",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1060,6 +1141,8 @@
     "share-recipe": "Recept megosztása",
     "default-30-days": "Alapértelmezetten 30 nap",
     "expires-at": "Lejárat ekkor",
+    "show-qr-code": "QR kód megjelenítése",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Recept linkje a vágólapra másolva"
   },
   "banner-experimental": {
@@ -1111,7 +1194,7 @@
     "ingredients-natural-language-processor-explanation-2": "Nem tökéletes, de általában nagyszerű eredményeket ad, és jó kiindulópont a hozzávalók kézi elemzésére az egyedi mezőkbe. Alternatívaként használhatja a \"Brute\" feldolgozót is, amely egy mintaillesztési technikát használ a hozzávalók azonosítására.",
     "nlp": "NLP",
     "brute": "Brute",
-    "openai": "OpenAI",
+    "ai-providers": "AI szolgáltatók",
     "show-individual-confidence": "Mutasd az egyes elemek bizalmi szintjét",
     "ingredient-text": "Hozzávaló szöveg",
     "average-confident": "{0}-os bizonyosság",
@@ -1128,8 +1211,8 @@
       "restore-from-v1-backup": "Van egy korábbi Mealie v1 biztonsági másolatod? Itt visszaállíthatod.",
       "manage-profile-or-get-invite-link": "Alakítsa a profilját vagy szerezze meg a meghívó link-jét hogy megoszthassa másokkal."
     },
-    "debug-openai-services": "OpenAI-szolgáltatások hibakeresése",
-    "debug-openai-services-description": "Ezt az oldalt az OpenAI szolgáltatások hibakeresésére használhatja. Itt tesztelheti az OpenAI-kapcsolatot, és láthatja az eredményeket. Ha engedélyezte a képszolgáltatásokat, akkor képet is megadhat.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Teszt futtatása",
     "test-results": "Teszt eredmények",
     "group-delete-note": "A felhasználókkal vagy háztartásokkal rendelkező csoportok nem törölhetők",
@@ -1145,10 +1228,10 @@
     "household-statistics": "Háztartási statisztikák",
     "household-statistics-description": "Az Ön háztartási statisztikái betekintést nyújtanak abba, hogyan használja a Mealie-t.",
     "personal": "Személyes",
-    "personal-description": "Ezek a beállítások az Ön személyes beállításai. Az itt végzett változtatások nincsenek hatással más felhasználókra.",
+    "personal-description": "Ezek a beállítások személyre szabottak. Az itt végzett módosítások nem érintik a többi felhasználót.",
     "user-settings": "Felhasználói beállítások",
     "user-settings-description": "Itt kezelheti beállításait, módosíthatja jelszavát és frissítheti e-mail címét.",
-    "api-tokens-description": "API kulcsok kezelése külső alkalmazásokból.",
+    "api-tokens-description": "API tokenek kezelése külső alkalmazásokon keresztül történő hozzáféréshez.",
     "group-description": "Ezek az elemek a csoporton belül megosztottak. Az egyik szerkesztése az egész csoport számára megváltoztatja azt!",
     "group-settings": "Csoport beállításai",
     "group-settings-description": "Közös csoportbeállítások, például adatvédelmi beállítások kezelése.",
@@ -1205,7 +1288,9 @@
       "is-less-than": "kevesebb, mint",
       "is-less-than-or-equal-to": "kevesebb vagy egyenlő",
       "is-older-than": "régebbi, mint",
-      "is-newer-than": "újabb, mint"
+      "is-newer-than": "újabb, mint",
+      "has-a-value": "van értéke",
+      "has-no-value": "nincs értéke"
     },
     "relational-keywords": {
       "is": "van",

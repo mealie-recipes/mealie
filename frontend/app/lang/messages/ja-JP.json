@@ -257,6 +257,47 @@
       "test-connection-failed": "Connection failed",
       "supports-images": "Supports images",
       "text-only-provider": "Text-only, can't be your image provider"
+    },
+    "ai-prompts": {
+      "ai-prompts": "AI Prompts",
+      "ai-prompts-description": "Customize the instructions Mealie gives your AI provider for each task. Mealie's prompts are written in English, but that doesn't change the language of your recipes: they keep the language of their source unless you choose to translate them. You can write your own instructions in any language.",
+      "global-instructions": "Instructions for All Prompts",
+      "global-instructions-description": "Added to every prompt that produces recipe data, such as building recipes, parsing ingredients, and translating. System prompts aren't affected.",
+      "global-instructions-placeholder": "e.g. Always use metric units.",
+      "prompts": "Prompts",
+      "system": "System",
+      "system-description": "This is a system prompt. It transcribes your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to it. Changing it usually isn't necessary, and can make imports less reliable.",
+      "appended": "Appended",
+      "overridden": "Overridden",
+      "mode-default": "Default",
+      "mode-append": "Append",
+      "mode-override": "Override",
+      "append-description": "These instructions are added to Mealie's prompt, and take priority wherever the two conflict.",
+      "override-description": "Your prompt replaces Mealie's prompt entirely, so future updates to Mealie's prompt won't apply to it. Any data the task needs, such as your list of units, is still added after your prompt.",
+      "default-changed": "Mealie's prompt has changed since you overrode it. Compare it with yours, or switch back to the default to use the new version.",
+      "view-default-prompt": "View Default Prompt",
+      "hide-default-prompt": "Hide Default Prompt",
+      "default-prompt": "Default Prompt",
+      "prompt-saved": "Prompt saved",
+      "prompt-save-failed": "Failed to save prompt",
+      "prompt-titles": {
+        "recipes-build-recipe": "Build Recipe",
+        "recipes-parse-recipe-ingredients": "Parse Ingredients",
+        "recipes-parse-recipe-video": "Recipe from Video",
+        "recipes-resolve-organizers": "Assign Organizers",
+        "recipes-translate-recipe": "Translate Recipe",
+        "system-compile-source": "Read Source Material",
+        "system-transcribe-audio": "Transcribe Audio"
+      },
+      "prompt-descriptions": {
+        "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
+        "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
+        "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
+        "recipes-translate-recipe": "Translates an imported recipe into the language you choose.",
+        "system-compile-source": "Reads webpages, photos, and text into a plain-text record of the recipe.",
+        "system-transcribe-audio": "Transcribes audio when your audio provider can't transcribe it directly."
+      }
     }
   },
   "household": {
@@ -274,6 +315,7 @@
     "private-household-description": "世帯を非公開に設定すると、すべての公開表示オプションが無効になります。これは、個々の公開表示設定よりも優先されます。",
     "lock-recipe-edits-from-other-households": "他の世帯からのレシピの編集をロックする",
     "lock-recipe-edits-from-other-households-description": "有効にすると、あなたの世帯のユーザーのみがあなたの世帯で作成されたレシピを編集できます",
+    "lock-recipe-edits-from-other-households-admin-note": "Site administrators can always edit or delete recipes in any household, regardless of this setting.",
     "household-recipe-preferences": "家庭用レシピ設定",
     "default-recipe-preferences-description": "世帯で新しいレシピが作成された場合、これらがデフォルト設定になります。 これらはレシピ設定メニューで個々のレシピで変更できます。",
     "household-preferences": "世帯設定"
@@ -326,7 +368,18 @@
     "meal-plan-settings": "献立設定",
     "add-all-to-list": "Add All to List",
     "add-day-to-list": "Add Day to List",
-    "randomize-recipe": "Randomize Recipe"
+    "randomize-recipe": "Randomize Recipe",
+    "calendar-feed": "Subscribe to Calendar",
+    "calendar-feed-description": "Subscribe to your household's meal plan from Google Calendar, Apple Calendar, Home Assistant or any other app that supports iCal links. Anyone with the link can see your meal plan.",
+    "calendar-feed-off": "The calendar link is turned off for your household.",
+    "calendar-feed-ask-manager": "Ask someone who can manage your household to turn it on.",
+    "calendar-feed-turn-on": "Turn On",
+    "calendar-feed-turn-off": "Turn Off",
+    "calendar-feed-reset-hint": "Resetting or turning off the link stops existing subscriptions from updating.",
+    "calendar-feed-include-notes": "Include notes",
+    "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
+    "calendar-feed-timezone": "Timezone",
+    "calendar-feed-url": "Calendar Link"
   },
   "migration": {
     "new-migration": "新しい移行",
@@ -445,6 +498,7 @@
     "prep-time": "準備時間",
     "protein-content": "タンパク質",
     "public-recipe": "公開レシピ",
+    "public-recipe-visibility-note": "Also depends on your group and household privacy settings — a recipe won't be publicly visible if either is set to private.",
     "recipe-created": "レシピが作成されました",
     "recipe-image": "レシピの画像",
     "delete-image": "Delete Recipe Image",
@@ -590,8 +644,8 @@
     "report-deletion-failed": "レポートの削除に失敗しました",
     "recipe-debugger": "レシピのデバッガー",
     "recipe-debugger-description": "デバッグしたいレシピのURLを取得し、ここに貼り付けます。 URLはレシピスクレーパーによって削除され、結果が表示されます。 データが返されていない場合、スクレイプしようとしているサイトはMealieまたはそのスクレイパーライブラリではサポートされていません。",
-    "use-openai": "OpenAIを使用する",
-    "recipe-debugger-use-openai-description": "スクレーパーライブラリに依存するのではなく、結果を解析するためにOpenAIを使用してください。 URL経由でレシピを作成する場合は、スクレーパーライブラリが失敗した場合に自動的に行われますが、ここで手動でテストすることができます。",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "デバッグ",
     "tree-view": "ツリービュー",
     "recipe-servings": "レシピの分量",
@@ -616,9 +670,9 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "自然言語処理",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Bruteパーサ",
-      "openai-parser": "OpenAIパーサ",
+      "ai-parser": "AI Parser",
       "missing-unit": "欠けている単位を作成: {unit}",
       "missing-food": "欠けている食材を作成: {food}",
       "this-unit-could-not-be-parsed-automatically": "This unit could not be parsed automatically",
@@ -793,7 +847,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "すべてのアイテムのチェックを外してもよろしいですか？",
     "are-you-sure-you-want-to-delete-checked-items": "チェックされた項目をすべて削除してもよろしいですか？",
     "no-shopping-lists-found": "ショッピングリストが見つかりません",
-    "item-checked-off": "Checked off {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "バックアップ",
@@ -881,11 +940,17 @@
     "authentication-method-hint": "This specifies how a user will authenticate with Mealie. If you're not sure, choose 'Mealie",
     "permissions": "権限",
     "administrator": "管理者",
+    "administrator-hint": "Full access across every group and household on this instance.",
     "user-can-invite-other-to-group": "ユーザーは他のユーザーをグループに招待できます",
+    "user-can-invite-other-to-group-hint": "User can invite new users to their own group and household.",
     "user-can-manage-group": "User can manage group settings",
+    "user-can-manage-group-hint": "User can manage the group's shared settings, like AI providers, and edit permissions for members of their household.",
     "user-can-manage-household": "ユーザーは世帯を管理することができます",
-    "user-can-organize-group-data": "User can manage foods, tags, and categories",
+    "user-can-manage-household-hint": "User can manage the settings of the household they belong to, like its name, privacy, and recipe-editing rules.",
+    "user-can-organize-group-data": "User can manage group data such as foods, units, tags, and categories",
+    "user-can-organize-group-data-hint": "Create, edit, and delete foods, units, tags, categories, tools, labels, and recipe actions shared across the group.",
     "enable-advanced-features": "高度な機能を有効にする",
+    "enable-advanced-features-hint": "Enables Webhooks, Notifiers, and Data Migrations",
     "it-looks-like-this-is-your-first-time-logging-in": "初めてのログインのようですね。",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "これ以上表示したくないですか？ユーザー設定でメールアドレスを変更してください！",
     "forgot-password": "パスワードを忘れた",
@@ -918,6 +983,8 @@
       "food-data": "食品データ",
       "label-overwrite-warning": "選択したすべての食品に選択したラベルが割り当てられ、既存のラベルが上書きされます。",
       "on-hand-checkbox-label": "このフラグを設定すると、ショッピング リストにレシピを追加するときに、デフォルトでこの食品のチェックが外されます。",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -956,7 +1023,14 @@
       "edit-label": "ラベルの編集",
       "new-label": "新規ラベル",
       "labels": "ラベル",
-      "assign-label": "ラベルの割り当て"
+      "assign-label": "ラベルの割り当て",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "エクスポートの削除",
@@ -1029,7 +1103,14 @@
     "tools": {
       "new-tool": "新しい調理器具",
       "edit-tool": "調理器具の編集",
-      "tool-data": "調理器具データ"
+      "tool-data": "調理器具データ",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1060,6 +1141,8 @@
     "share-recipe": "レシピの共有",
     "default-30-days": "デフォルトの30日間",
     "expires-at": "有効期限は",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "レシピのリンクをクリップボードにコピーしました"
   },
   "banner-experimental": {
@@ -1111,7 +1194,7 @@
     "ingredients-natural-language-processor-explanation-2": "これは完璧ではありませんが、一般的に優れた結果が得られ、成分を手動で個別のフィールドに解析するための良い出発点となります。あるいは、パターン マッチング技術を使用して成分を識別する「Brute」プロセッサを使用することもできます。",
     "nlp": "NLP",
     "brute": "ブルート",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "個々の信頼性を表示",
     "ingredient-text": "材料テキスト",
     "average-confident": "{0} 自信あり",
@@ -1128,8 +1211,8 @@
       "restore-from-v1-backup": "Mealie v1以前のインスタンスからのバックアップはありますか？ここで復元できます。",
       "manage-profile-or-get-invite-link": "自分のプロフィールを管理するか、招待リンクを取得して他の人と共有します。"
     },
-    "debug-openai-services": "OpenAIサービスのデバッグ",
-    "debug-openai-services-description": "このページを使用して、OpenAIサービスをデバッグします。ここでOpenAI接続をテストし、結果を確認できます。画像サービスが有効になっている場合は、画像を提供することもできます。",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "テスト実行",
     "test-results": "テスト結果",
     "group-delete-note": "ユーザーまたは世帯を含むグループは削除できません",
@@ -1205,7 +1288,9 @@
       "is-less-than": "より小さい",
       "is-less-than-or-equal-to": "以下",
       "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-newer-than": "is newer than",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "は",

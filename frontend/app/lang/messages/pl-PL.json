@@ -257,6 +257,47 @@
       "test-connection-failed": "Connection failed",
       "supports-images": "Supports images",
       "text-only-provider": "Text-only, can't be your image provider"
+    },
+    "ai-prompts": {
+      "ai-prompts": "AI Prompts",
+      "ai-prompts-description": "Customize the instructions Mealie gives your AI provider for each task. Mealie's prompts are written in English, but that doesn't change the language of your recipes: they keep the language of their source unless you choose to translate them. You can write your own instructions in any language.",
+      "global-instructions": "Instructions for All Prompts",
+      "global-instructions-description": "Added to every prompt that produces recipe data, such as building recipes, parsing ingredients, and translating. System prompts aren't affected.",
+      "global-instructions-placeholder": "e.g. Always use metric units.",
+      "prompts": "Prompts",
+      "system": "System",
+      "system-description": "This is a system prompt. It transcribes your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to it. Changing it usually isn't necessary, and can make imports less reliable.",
+      "appended": "Appended",
+      "overridden": "Overridden",
+      "mode-default": "Default",
+      "mode-append": "Append",
+      "mode-override": "Override",
+      "append-description": "These instructions are added to Mealie's prompt, and take priority wherever the two conflict.",
+      "override-description": "Your prompt replaces Mealie's prompt entirely, so future updates to Mealie's prompt won't apply to it. Any data the task needs, such as your list of units, is still added after your prompt.",
+      "default-changed": "Mealie's prompt has changed since you overrode it. Compare it with yours, or switch back to the default to use the new version.",
+      "view-default-prompt": "View Default Prompt",
+      "hide-default-prompt": "Hide Default Prompt",
+      "default-prompt": "Default Prompt",
+      "prompt-saved": "Prompt saved",
+      "prompt-save-failed": "Failed to save prompt",
+      "prompt-titles": {
+        "recipes-build-recipe": "Build Recipe",
+        "recipes-parse-recipe-ingredients": "Parse Ingredients",
+        "recipes-parse-recipe-video": "Recipe from Video",
+        "recipes-resolve-organizers": "Assign Organizers",
+        "recipes-translate-recipe": "Translate Recipe",
+        "system-compile-source": "Read Source Material",
+        "system-transcribe-audio": "Transcribe Audio"
+      },
+      "prompt-descriptions": {
+        "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
+        "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
+        "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
+        "recipes-translate-recipe": "Translates an imported recipe into the language you choose.",
+        "system-compile-source": "Reads webpages, photos, and text into a plain-text record of the recipe.",
+        "system-transcribe-audio": "Transcribes audio when your audio provider can't transcribe it directly."
+      }
     }
   },
   "household": {
@@ -274,6 +315,7 @@
     "private-household-description": "Ustawienie gospodarstwa domowego na prywatne wyłączy wszystkie opcje widoku publicznego. To nadpisuje wszystkie indywidualne ustawienia widoku publicznego",
     "lock-recipe-edits-from-other-households": "Zablokuj możliwość edycji przepisów z innych gospodarstw domowych",
     "lock-recipe-edits-from-other-households-description": "Po włączeniu tylko użytkownicy w Twoim gospodarstwie domowym mogą edytować przepisy utworzone przez Twoje gospodarstwo domowe",
+    "lock-recipe-edits-from-other-households-admin-note": "Site administrators can always edit or delete recipes in any household, regardless of this setting.",
     "household-recipe-preferences": "Preferencje przepisów w gospodarstwie domowym",
     "default-recipe-preferences-description": "To są domyślne ustawienia, gdy nowy przepis jest tworzony w Twoim gospodarstwie domowym. Można je zmienić dla poszczególnych przepisów w menu ustawień przepisu.",
     "household-preferences": "Preferencje gospodarstwa domowego"
@@ -326,7 +368,18 @@
     "meal-plan-settings": "Ustawienia planera posiłków",
     "add-all-to-list": "Dodaj wszystko do listy",
     "add-day-to-list": "Dodaj dzień do listy",
-    "randomize-recipe": "Randomize Recipe"
+    "randomize-recipe": "Randomize Recipe",
+    "calendar-feed": "Subscribe to Calendar",
+    "calendar-feed-description": "Subscribe to your household's meal plan from Google Calendar, Apple Calendar, Home Assistant or any other app that supports iCal links. Anyone with the link can see your meal plan.",
+    "calendar-feed-off": "The calendar link is turned off for your household.",
+    "calendar-feed-ask-manager": "Ask someone who can manage your household to turn it on.",
+    "calendar-feed-turn-on": "Turn On",
+    "calendar-feed-turn-off": "Turn Off",
+    "calendar-feed-reset-hint": "Resetting or turning off the link stops existing subscriptions from updating.",
+    "calendar-feed-include-notes": "Include notes",
+    "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
+    "calendar-feed-timezone": "Timezone",
+    "calendar-feed-url": "Calendar Link"
   },
   "migration": {
     "new-migration": "Nowa migracja",
@@ -352,7 +405,7 @@
       "title": "Menedżer przepisów Paprika"
     },
     "mealie-pre-v1": {
-      "description-long": "Mealie can import recipes from the Mealie application from a pre v1.0 release. Export your recipes from your old instance, and upload the zip file below. Note that only recipes can be imported from the export. This applies only to instances older than v1.0. A backup taken from v1.0 or later should be restored with the backup and restore tools.",
+      "description-long": "Mealie może zaimportować przepisy z wersji Mealie starszej niż v1.0. Wyeksportuj przepisy ze swojej starej instancji i prześlij plik zip poniżej. Pamiętaj, że z pliku eksportu zostaną zaimportowane tylko przepisy. Dotyczy to wyłącznie instancji starszych niż v1.0. Kopię zapasową utworzoną w wersji v1.0 lub nowszej należy przywrócić za pomocą narzędzi do tworzenia i przywracania kopii zapasowych.",
       "title": "Mealie Pre v1.0"
     },
     "tandoor": {
@@ -364,8 +417,8 @@
       "title": "DVO Cook'n X3"
     },
     "recipe-data-migrations": "Migracja danych przepisów",
-    "recipe-data-migrations-explanation": "Recipes can be migrated from another supported application to Mealie. This is a great way to get started with Mealie. Moving data between Mealie instances, or restoring an earlier Mealie backup, is done with the backup and restore tools instead.",
-    "migration-description": "Coming from another application, or a version of Mealie older than v1.0? Check out migrations and see if your data can be imported.",
+    "recipe-data-migrations-explanation": "Przepisy można zaimportować z innej obsługiwanej aplikacji do Mealie. To świetny sposób na rozpoczęcie pracy z Mealie. Przenoszenie danych między instancjami Mealie lub przywracanie wcześniejszej kopii zapasowej odbywa się za pomocą narzędzi do tworzenia i przywracania kopii zapasowych.",
+    "migration-description": "Przechodzisz z innej aplikacji lub wersji Mealie starszej niż v1.0? Sprawdź sekcję migracji i zobacz, czy możesz zaimportować swoje dane.",
     "choose-migration-type": "Wybierz typ migracji",
     "tag-all-recipes": "Oznacz wszystkie przepisy tagiem {tag-name}",
     "recipe-1": "Przepis 1",
@@ -445,6 +498,7 @@
     "prep-time": "Czas przyrządzania",
     "protein-content": "Białka",
     "public-recipe": "Przepis publiczny",
+    "public-recipe-visibility-note": "Also depends on your group and household privacy settings — a recipe won't be publicly visible if either is set to private.",
     "recipe-created": "Przepis został utworzony",
     "recipe-image": "Zdjęcie do przepisu",
     "delete-image": "Usuń obrazek przepisu",
@@ -526,8 +580,8 @@
     "ingredients-not-parsed-description": "Wygląda na to, że Twoje składniki nie zostały jeszcze przeanalizowane. Kliknij przycisk \"{parse}\" poniżej, aby przetworzyć składniki w ustrukturyzowane jedzenie.",
     "attach-images-hint": "Dołącz obrazy przeciągając i upuszczając je do edytora",
     "drop-image": "Upuść zdjęcie",
-    "failed-to-attach-image": "Failed to attach image",
-    "image-drop-unsupported": "This image can't be attached directly. Save it to your device, then drag the file in.",
+    "failed-to-attach-image": "Nie udało się dołączyć obrazu",
+    "image-drop-unsupported": "Tego obrazu nie można dołączyć bezpośrednio. Zapisz go na urządzeniu, a następnie przeciągnij plik tutaj.",
     "recipes-with-units-or-foods-defined-cannot-be-parsed": "Nie można przeanalizować przepisów z już zdefiniowanymi jednostkami lub żywnością.",
     "parse-ingredients": "Analizuj tekst składników",
     "edit-markdown": "Edytuj Markdown",
@@ -590,8 +644,8 @@
     "report-deletion-failed": "Nie udało się usunąć raportu",
     "recipe-debugger": "Debugger przepisów",
     "recipe-debugger-description": "Skopiuj URL przepisu, który chcesz debugować i wklej go tutaj. URL zostanie przetworzony przez scraper przepisów, a wyniki zostaną wyświetlone. Jeśli nie zostaną zwrócone żadne dane, strona, którą próbujesz przetworzyć, nie jest obsługiwana przez Mealie lub jej bibliotekę scrapera.",
-    "use-openai": "Użyj OpenAI",
-    "recipe-debugger-use-openai-description": "Użyj OpenAI, aby dynamicznie analizować przepisy zamiast polegać na bibliotece scraperów. Podczas tworzenia przepisu za pomocą adresu URL jest to wykonywane automatycznie, jeśli scraperowi nie uda się przetworzyć przepisu, ale możesz przetestować go ręcznie tutaj.",
+    "use-ai": "Użyj AI",
+    "recipe-debugger-use-ai-description": "Użyj AI do przetworzenia wyników zamiast polegać na bibliotece scrapera. Podczas tworzenia przepisu z adresu URL dzieje się to automatycznie, jeśli biblioteka scrapera zawiedzie, ale możesz przetestować to ręcznie tutaj.",
     "debug": "Debuguj",
     "tree-view": "Widok drzewa",
     "recipe-servings": "Ilość porcji",
@@ -604,11 +658,11 @@
     "nextStep": "Następny krok",
     "recipe-actions": "Akcje przepisów",
     "unit-system": {
-      "as-written": "As written",
-      "metric": "Metric",
-      "metric-with-hint": "Metric (g, ml)",
-      "imperial": "Imperial",
-      "imperial-with-hint": "Imperial (cups, oz)"
+      "as-written": "Bez zmian",
+      "metric": "Metryczny",
+      "metric-with-hint": "Metryczny (g, ml)",
+      "imperial": "Imperialny",
+      "imperial-with-hint": "Imperialny (cup, oz)"
     },
     "parser": {
       "ingredient-parser": "Parser składników",
@@ -616,9 +670,9 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Procesor języka naturalnego",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "Model przetwarzania języka naturalnego (NLP) został wytrenowany na angielskich przepisach. W przypadku przepisów w innych językach zazwyczaj rozpoznaje ilość, ale nie jednostkę, dlatego lepsze wyniki daje prosty parser (Brute Parser) lub parser AI (AI Parser).",
       "brute-parser": "Parser brutalny",
-      "openai-parser": "Parser OpenAI",
+      "ai-parser": "Parser AI",
       "missing-unit": "Utwórz brakującą jednostkę: {unit}",
       "missing-food": "Utwórz brakującą potrawę: {food}",
       "this-unit-could-not-be-parsed-automatically": "Nie można przetworzyć tej jednostki automatycznie",
@@ -793,7 +847,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Czy na pewno chcesz odznaczyć wszystkie elementy?",
     "are-you-sure-you-want-to-delete-checked-items": "Czy jesteś pewien, że chcesz usunąć wszystkie zaznaczone elementy?",
     "no-shopping-lists-found": "Nie znaleziono list zakupów",
-    "item-checked-off": "Zaznaczono {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Zaznaczono {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Kopie zapasowe",
@@ -881,11 +940,17 @@
     "authentication-method-hint": "Określa jak użytkownik będzie uwierzytelniać się z Mealie. Jeśli nie jesteś pewien, wybierz 'Mealie'",
     "permissions": "Uprawnienia",
     "administrator": "Administrator",
+    "administrator-hint": "Full access across every group and household on this instance.",
     "user-can-invite-other-to-group": "Użytkownik może zaprosić innych do grupy",
+    "user-can-invite-other-to-group-hint": "User can invite new users to their own group and household.",
     "user-can-manage-group": "User can manage group settings",
+    "user-can-manage-group-hint": "User can manage the group's shared settings, like AI providers, and edit permissions for members of their household.",
     "user-can-manage-household": "Użytkownik może zarządzać gospodarstwem domowym",
-    "user-can-organize-group-data": "User can manage foods, tags, and categories",
+    "user-can-manage-household-hint": "User can manage the settings of the household they belong to, like its name, privacy, and recipe-editing rules.",
+    "user-can-organize-group-data": "User can manage group data such as foods, units, tags, and categories",
+    "user-can-organize-group-data-hint": "Create, edit, and delete foods, units, tags, categories, tools, labels, and recipe actions shared across the group.",
     "enable-advanced-features": "Włącz zaawansowane funkcje",
+    "enable-advanced-features-hint": "Enables Webhooks, Notifiers, and Data Migrations",
     "it-looks-like-this-is-your-first-time-logging-in": "Wygląda na to, że to jest twoje pierwsze logowanie.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Nie chcesz już tego widzieć? Pamiętaj, aby zmienić swój adres e-mail w ustawieniach użytkownika!",
     "forgot-password": "Nie pamiętam hasła",
@@ -918,6 +983,8 @@
       "food-data": "Dane Żywności",
       "label-overwrite-warning": "Spowoduje to przypisanie wybranej etykiety do wszystkich wybranych artykułów i może nadpisać istniejące etykiety.",
       "on-hand-checkbox-label": "Ustawienie tej flagi spowoduje domyślne odznaczenie tego jedzenia podczas dodawania przepisu do listy zakupów.",
+      "delete-unused-confirm": "Czy na pewno chcesz usunąć tę nieużywaną żywność? Tej operacji nie można cofnąć. | Czy na pewno chcesz usunąć te nieużywane produkty ({count})? Tej operacji nie można cofnąć.",
+      "no-unused-foods": "Brak nieużywanych produktów do usunięcia",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -956,7 +1023,14 @@
       "edit-label": "Edytuj Etykietę",
       "new-label": "Nowa Etykieta",
       "labels": "Etykiety",
-      "assign-label": "Przypisz etykietę"
+      "assign-label": "Przypisz etykietę",
+      "combine-label": "Połącz etykietę",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Wyczyść Eksport",
@@ -1029,7 +1103,14 @@
     "tools": {
       "new-tool": "Nowe Narzędzie",
       "edit-tool": "Edytuj Narzędzie",
-      "tool-data": "Dane przyborów kuchennych"
+      "tool-data": "Dane przyborów kuchennych",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1060,6 +1141,8 @@
     "share-recipe": "Udostępnij przepis",
     "default-30-days": "Domyślnie 30 dni",
     "expires-at": "Wygasa",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Link z przepisem został skopiowany do schowka"
   },
   "banner-experimental": {
@@ -1111,7 +1194,7 @@
     "ingredients-natural-language-processor-explanation-2": "Nie jest on idealny, ale na ogół daje świetne wyniki i jest dobrym punktem wyjścia do ręcznego przydzielania składników w poszczególne pola. Alternatywnie możesz również użyć procesora \"Brute\", który używa techniki dopasowywania wzorców do identyfikacji składników.",
     "nlp": "NLP",
     "brute": "Brut",
-    "openai": "OpenAI",
+    "ai-providers": "Dostawcy AI",
     "show-individual-confidence": "Pokaż pojedyncze pewności",
     "ingredient-text": "Tekst składnika",
     "average-confident": "Pewność {0}",
@@ -1128,8 +1211,8 @@
       "restore-from-v1-backup": "Masz kopię zapasową z poprzedniej instancji Mealie v1? Możesz ją tutaj przywrócić.",
       "manage-profile-or-get-invite-link": "Zarządzaj własnym profilem lub pobierz link z zaproszeniem, aby udostępnić go innym."
     },
-    "debug-openai-services": "Debugowanie usług OpenAI",
-    "debug-openai-services-description": "Użyj tej strony do debugowania usług OpenAI. Możesz przetestować połączenie z OpenAI i zobaczyć wyniki tutaj. Jeśli masz włączone usługi obrazów, możesz również przesłać obraz.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Uruchom test",
     "test-results": "Wyniki testu",
     "group-delete-note": "Nie można usunąć grup z użytkownikami lub gospodarstwami domowymi",
@@ -1205,7 +1288,9 @@
       "is-less-than": "jest mniejsze niż",
       "is-less-than-or-equal-to": "jest mniejsze lub równe",
       "is-older-than": "jest starsze niż",
-      "is-newer-than": "jest nowsze niż"
+      "is-newer-than": "jest nowsze niż",
+      "has-a-value": "ma wartość",
+      "has-no-value": "nie ma wartości"
     },
     "relational-keywords": {
       "is": "jest",

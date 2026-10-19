@@ -37,12 +37,12 @@
     "category": "קטגוריה"
   },
   "events": {
-    "apprise-url": "קישור להודעה",
+    "apprise-url": "קישור לApprise",
     "delete-event": "מחיקת אירוע",
-    "event-delete-confirmation": "למחוק את האירוע?",
+    "event-delete-confirmation": "האם ברצונך למחוק את האירוע?",
     "event-deleted": "אירוע נמחק",
     "event-updated": "האירוע עודכן",
-    "new-notification-form-description": "Mקשךןק עושה שימוש בספריה בשם Apprise לשליחת התראות. Apprise מציעה אפשרויות רבות עבור התראות לבעלי שירותים. פנה לאתר הWiki של Apprise להסבר מלא על יצירת לינקים לשירות שלך.",
+    "new-notification-form-description": "מיילי עושה שימוש בספריה בשם Apprise לשליחת התראות. Apprise מציעה אפשרויות רבות עבור התראות לבעלי שירותים. פנה לאתר הוויקי של Apprise להסבר מלא על יצירת לינקים לשירות שלך. אם זמין, בחירת סוג ההתראה יכולה לכלול תכונות נוספות.",
     "something-went-wrong": "משהו השתבש!",
     "test-message-sent": "הודעת בדיקה נשלחה",
     "message-sent": "ההודעה נשלחה",
@@ -257,6 +257,47 @@
       "test-connection-failed": "Connection failed",
       "supports-images": "Supports images",
       "text-only-provider": "Text-only, can't be your image provider"
+    },
+    "ai-prompts": {
+      "ai-prompts": "AI Prompts",
+      "ai-prompts-description": "Customize the instructions Mealie gives your AI provider for each task. Mealie's prompts are written in English, but that doesn't change the language of your recipes: they keep the language of their source unless you choose to translate them. You can write your own instructions in any language.",
+      "global-instructions": "Instructions for All Prompts",
+      "global-instructions-description": "Added to every prompt that produces recipe data, such as building recipes, parsing ingredients, and translating. System prompts aren't affected.",
+      "global-instructions-placeholder": "e.g. Always use metric units.",
+      "prompts": "Prompts",
+      "system": "System",
+      "system-description": "This is a system prompt. It transcribes your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to it. Changing it usually isn't necessary, and can make imports less reliable.",
+      "appended": "Appended",
+      "overridden": "Overridden",
+      "mode-default": "Default",
+      "mode-append": "Append",
+      "mode-override": "Override",
+      "append-description": "These instructions are added to Mealie's prompt, and take priority wherever the two conflict.",
+      "override-description": "Your prompt replaces Mealie's prompt entirely, so future updates to Mealie's prompt won't apply to it. Any data the task needs, such as your list of units, is still added after your prompt.",
+      "default-changed": "Mealie's prompt has changed since you overrode it. Compare it with yours, or switch back to the default to use the new version.",
+      "view-default-prompt": "View Default Prompt",
+      "hide-default-prompt": "Hide Default Prompt",
+      "default-prompt": "Default Prompt",
+      "prompt-saved": "Prompt saved",
+      "prompt-save-failed": "Failed to save prompt",
+      "prompt-titles": {
+        "recipes-build-recipe": "Build Recipe",
+        "recipes-parse-recipe-ingredients": "Parse Ingredients",
+        "recipes-parse-recipe-video": "Recipe from Video",
+        "recipes-resolve-organizers": "Assign Organizers",
+        "recipes-translate-recipe": "Translate Recipe",
+        "system-compile-source": "Read Source Material",
+        "system-transcribe-audio": "Transcribe Audio"
+      },
+      "prompt-descriptions": {
+        "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
+        "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
+        "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
+        "recipes-translate-recipe": "Translates an imported recipe into the language you choose.",
+        "system-compile-source": "Reads webpages, photos, and text into a plain-text record of the recipe.",
+        "system-transcribe-audio": "Transcribes audio when your audio provider can't transcribe it directly."
+      }
     }
   },
   "household": {
@@ -274,6 +315,7 @@
     "private-household-description": "הגדרת משק הבית כפרטית תבטל את כל אפשרויות התצוגה הפומביות. זה ידרוס את כל הגדרות התצוגה הפומביות הספציפיות",
     "lock-recipe-edits-from-other-households": "נעילת עריכה ממשקי בית אחרים",
     "lock-recipe-edits-from-other-households-description": "כאשר מופעל רק משתמשים ממשק הבית שלך יוכלו לערוך מתכונים שנוצרו במשק הבית שלך",
+    "lock-recipe-edits-from-other-households-admin-note": "Site administrators can always edit or delete recipes in any household, regardless of this setting.",
     "household-recipe-preferences": "העדפות מתכון במשק הבית",
     "default-recipe-preferences-description": "אלה הגדרות ברירת המחדל כאשר מתכון חדש נוצר במשק הבית שלך. ניתן לשנות אותם לכל מתכון בתפריט הגדרות המתכון.",
     "household-preferences": "העדפות משק בית"
@@ -326,7 +368,18 @@
     "meal-plan-settings": "הגדרות תכנון ארוחות",
     "add-all-to-list": "הוספת הכל לרשימה",
     "add-day-to-list": "הוספת יום לרשימה",
-    "randomize-recipe": "Randomize Recipe"
+    "randomize-recipe": "Randomize Recipe",
+    "calendar-feed": "Subscribe to Calendar",
+    "calendar-feed-description": "Subscribe to your household's meal plan from Google Calendar, Apple Calendar, Home Assistant or any other app that supports iCal links. Anyone with the link can see your meal plan.",
+    "calendar-feed-off": "The calendar link is turned off for your household.",
+    "calendar-feed-ask-manager": "Ask someone who can manage your household to turn it on.",
+    "calendar-feed-turn-on": "Turn On",
+    "calendar-feed-turn-off": "Turn Off",
+    "calendar-feed-reset-hint": "Resetting or turning off the link stops existing subscriptions from updating.",
+    "calendar-feed-include-notes": "Include notes",
+    "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
+    "calendar-feed-timezone": "Timezone",
+    "calendar-feed-url": "Calendar Link"
   },
   "migration": {
     "new-migration": "מיגרציה חדשה",
@@ -445,6 +498,7 @@
     "prep-time": "זמן הכנה",
     "protein-content": "חלבון",
     "public-recipe": "מתכון ציבורי",
+    "public-recipe-visibility-note": "Also depends on your group and household privacy settings — a recipe won't be publicly visible if either is set to private.",
     "recipe-created": "מתכון נוצר",
     "recipe-image": "תמונת המתכון",
     "delete-image": "מחק תמונת מתכון",
@@ -590,8 +644,8 @@
     "report-deletion-failed": "מחיקת דוח נכשלה",
     "recipe-debugger": "מנפה שגיאות למתכון",
     "recipe-debugger-description": "ניתן להדביק פה קישור למתכון שברצונך לנפות שגיאות עבורו. הכתובת תיסרק ע\"י סורק המתכונים והתוצאות יוצגו. אם לא חוזרות תוצאות, האתר לא נתמך ע\"י Mealie או ספריית הסריקה.",
-    "use-openai": "השתמש ב-OpenAI",
-    "recipe-debugger-use-openai-description": "ניתן להשתמש ב-OpenAI כדי לפענח את התוצאות במקום להסתמך על ספריית הסריקה. כאשר מייצרים מתכון באמצעות כתובת, זה נעשה אוטומטית אם ספריית הסריקה נכשלת, אך ניתן לבדוק זאת ידנית כאן.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "ניפוי שגיאות",
     "tree-view": "תצוגת עץ",
     "recipe-servings": "מנות למתכון",
@@ -616,9 +670,9 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "מעבד שפה טבעית",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "מפענח פראי",
-      "openai-parser": "מפענח OpenAI",
+      "ai-parser": "AI Parser",
       "missing-unit": "יצירת יחידה חסרה: {unit}",
       "missing-food": "יצירת אוכל חסר: {food}",
       "this-unit-could-not-be-parsed-automatically": "יחידת המידה הזאת לא יכלה להיות מחולצת אוטומטית",
@@ -793,7 +847,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "לבטל את סימון כל הפריטים?",
     "are-you-sure-you-want-to-delete-checked-items": "למחוק את כל הפריטים המסומנים?",
     "no-shopping-lists-found": "לא נמצאה רשימת קניות",
-    "item-checked-off": "Checked off {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "גיבויים",
@@ -881,11 +940,17 @@
     "authentication-method-hint": "זה מציין איך משתמש יתחבר ל״מילי״. אם אתה לא בטוח, בחר מילי",
     "permissions": "הרשאות",
     "administrator": "מנהל ראשי",
+    "administrator-hint": "Full access across every group and household on this instance.",
     "user-can-invite-other-to-group": "המשתמש יכול להזמין אחרים לקבוצה",
+    "user-can-invite-other-to-group-hint": "User can invite new users to their own group and household.",
     "user-can-manage-group": "User can manage group settings",
+    "user-can-manage-group-hint": "User can manage the group's shared settings, like AI providers, and edit permissions for members of their household.",
     "user-can-manage-household": "המשתמש יכול לנהל משק בית",
-    "user-can-organize-group-data": "User can manage foods, tags, and categories",
+    "user-can-manage-household-hint": "User can manage the settings of the household they belong to, like its name, privacy, and recipe-editing rules.",
+    "user-can-organize-group-data": "User can manage group data such as foods, units, tags, and categories",
+    "user-can-organize-group-data-hint": "Create, edit, and delete foods, units, tags, categories, tools, labels, and recipe actions shared across the group.",
     "enable-advanced-features": "אפשר אפשרויות מתקדמות",
+    "enable-advanced-features-hint": "Enables Webhooks, Notifiers, and Data Migrations",
     "it-looks-like-this-is-your-first-time-logging-in": "נראה שזו ההתחברות הראשונה שלך.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "לא רוצה לראות את זה יותר? ניתן לשנות את המייל שלך בהגדרות המשתמש!",
     "forgot-password": "שכחתי סיסמא",
@@ -918,6 +983,8 @@
       "food-data": "נתוני אוכל",
       "label-overwrite-warning": "זה יקצה את התווית שנבחרה לכל האוכל שנבחר ועלול לדרוס את התוויות הקיימות שלך.",
       "on-hand-checkbox-label": "הדלקת דגל זה תגרום לפריט אוכל זה להיות לא מסומן כברירת המחדל בהוספת המתכון לרשימת הקניות.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -956,7 +1023,14 @@
       "edit-label": "עריכת תווית",
       "new-label": "תוויות חדשה",
       "labels": "תוויות",
-      "assign-label": "הגדרת תווית"
+      "assign-label": "הגדרת תווית",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "נקה ייצואים",
@@ -1029,7 +1103,14 @@
     "tools": {
       "new-tool": "כלי חדש",
       "edit-tool": "ערוך כלי",
-      "tool-data": "נתוני כלים"
+      "tool-data": "נתוני כלים",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1060,6 +1141,8 @@
     "share-recipe": "שתף מתכון",
     "default-30-days": "30 ימים ברירת מחדל",
     "expires-at": "יפוג ב",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "קישור המתכון הועתק ללוח"
   },
   "banner-experimental": {
@@ -1111,7 +1194,7 @@
     "ingredients-natural-language-processor-explanation-2": "זה לא מושלם, אבל מספק תוצאות טובות באופן כללי ומספק נקודת התחלה טובה עבור עיבוד ידני של מרכיבים לשדות נפרדים. לחילופין ניתן להשתמש בעיבוד \"נוקשה\" לזיהוי המרכיבים.",
     "nlp": "NLP",
     "brute": "נוקשה",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "הראה תאימות בודדת",
     "ingredient-text": "טקסט מרכיב",
     "average-confident": "{0} דיוק",
@@ -1128,8 +1211,8 @@
       "restore-from-v1-backup": "יש לך גיבוי משרת Mealie v1? ניתן לשחזר אותו כאן.",
       "manage-profile-or-get-invite-link": "ניתן לנהל את הפרופיל שלך, או לשתף את לינק ההזמנה לאחרים."
     },
-    "debug-openai-services": "ניפוי שגיאות לשירותי OpenAI",
-    "debug-openai-services-description": "עמוד זה ישמש לניפוי שגיאות בשירותי OpenAI. ניתן לבדוק חיבור ל-OpenAI ולראות את התוצאות כאן. אם איפשרת את שירותי התמונה, ניתן גם לספק תמונה.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "הרצת בדיקה",
     "test-results": "תוצאות הבדיקה",
     "group-delete-note": "לא ניתן למחוק קבוצות עם משתמשים או משקי בית",
@@ -1205,7 +1288,9 @@
       "is-less-than": "קטן מ-",
       "is-less-than-or-equal-to": "קטן או שווה ל-",
       "is-older-than": "is older than",
-      "is-newer-than": "is newer than"
+      "is-newer-than": "is newer than",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "זהה ל-",

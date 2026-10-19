@@ -53,12 +53,21 @@
         </div>
       </v-form>
     </div>
+
+    <div class="mt-10">
+      <v-card variant="outlined" style="border-color: lightgray;">
+        <v-card-text>
+          <GroupAIPromptEditor />
+        </v-card-text>
+      </v-card>
+    </div>
   </v-container>
 </template>
 
 <script setup lang="ts">
 import GroupPreferencesEditor from "~/components/Domain/Group/GroupPreferencesEditor.vue";
 import GroupAIProviderSettingsEditor from "~/components/Domain/Group/GroupAIProviderSettingsEditor.vue";
+import GroupAIPromptEditor from "~/components/Domain/Group/GroupAIPromptEditor.vue";
 import { useGroupSelf } from "~/composables/use-groups";
 import { useAIProviders } from "~/composables/use-ai-providers";
 import { alert } from "~/composables/use-toast";

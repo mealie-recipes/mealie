@@ -70,7 +70,7 @@
         "name": "gram",
         "plural_name": "grame",
         "description": "",
-        "abbreviation": "h"
+        "abbreviation": "g"
     },
     "kilogram": {
         "name": "kilogram",
@@ -91,8 +91,8 @@
         "abbreviation": ""
     },
     "dash": {
-        "name": "linie",
-        "plural_name": "linii",
+        "name": "strop",
+        "plural_name": "stropi",
         "description": "",
         "abbreviation": ""
     },

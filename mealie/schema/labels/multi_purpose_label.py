@@ -32,3 +32,8 @@ class MultiPurposeLabelPagination(PaginationBase):
 
 class MultiPurposeLabelOut(MultiPurposeLabelUpdate):
     model_config = ConfigDict(from_attributes=True)
+
+
+class MultiPurposeLabelMerge(MealieModel):
+    from_id: UUID4
+    to_id: UUID4

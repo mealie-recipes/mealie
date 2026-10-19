@@ -257,6 +257,47 @@
       "test-connection-failed": "Connection failed",
       "supports-images": "Supports images",
       "text-only-provider": "Text-only, can't be your image provider"
+    },
+    "ai-prompts": {
+      "ai-prompts": "AI Prompts",
+      "ai-prompts-description": "Customize the instructions Mealie gives your AI provider for each task. Mealie's prompts are written in English, but that doesn't change the language of your recipes: they keep the language of their source unless you choose to translate them. You can write your own instructions in any language.",
+      "global-instructions": "Instructions for All Prompts",
+      "global-instructions-description": "Added to every prompt that produces recipe data, such as building recipes, parsing ingredients, and translating. System prompts aren't affected.",
+      "global-instructions-placeholder": "e.g. Always use metric units.",
+      "prompts": "Prompts",
+      "system": "System",
+      "system-description": "This is a system prompt. It transcribes your source material as faithfully as possible before it's turned into a recipe, so the instructions for all prompts aren't added to it. Changing it usually isn't necessary, and can make imports less reliable.",
+      "appended": "Appended",
+      "overridden": "Overridden",
+      "mode-default": "Default",
+      "mode-append": "Append",
+      "mode-override": "Override",
+      "append-description": "These instructions are added to Mealie's prompt, and take priority wherever the two conflict.",
+      "override-description": "Your prompt replaces Mealie's prompt entirely, so future updates to Mealie's prompt won't apply to it. Any data the task needs, such as your list of units, is still added after your prompt.",
+      "default-changed": "Mealie's prompt has changed since you overrode it. Compare it with yours, or switch back to the default to use the new version.",
+      "view-default-prompt": "View Default Prompt",
+      "hide-default-prompt": "Hide Default Prompt",
+      "default-prompt": "Default Prompt",
+      "prompt-saved": "Prompt saved",
+      "prompt-save-failed": "Failed to save prompt",
+      "prompt-titles": {
+        "recipes-build-recipe": "Build Recipe",
+        "recipes-parse-recipe-ingredients": "Parse Ingredients",
+        "recipes-parse-recipe-video": "Recipe from Video",
+        "recipes-resolve-organizers": "Assign Organizers",
+        "recipes-translate-recipe": "Translate Recipe",
+        "system-compile-source": "Read Source Material",
+        "system-transcribe-audio": "Transcribe Audio"
+      },
+      "prompt-descriptions": {
+        "recipes-build-recipe": "Turns the source material read from a webpage, photo, or text into a structured recipe.",
+        "recipes-parse-recipe-ingredients": "Used by the AI ingredient parser to split each ingredient into its quantity, unit, food, and note.",
+        "recipes-parse-recipe-video": "Turns a video's transcript and caption into a recipe.",
+        "recipes-resolve-organizers": "Picks the tags, categories, and tools for an imported recipe.",
+        "recipes-translate-recipe": "Translates an imported recipe into the language you choose.",
+        "system-compile-source": "Reads webpages, photos, and text into a plain-text record of the recipe.",
+        "system-transcribe-audio": "Transcribes audio when your audio provider can't transcribe it directly."
+      }
     }
   },
   "household": {
@@ -274,6 +315,7 @@
     "private-household-description": "Подешавање сопственог домаћинства као приватно ће онемогућити сав јавни преглед. Ово поништава сва индивидуална подешавања за преглед",
     "lock-recipe-edits-from-other-households": "Забрани измене рецепата од стране других домаћинстава",
     "lock-recipe-edits-from-other-households-description": "Када је опција укључена, само корисници из вашег домаћинства могу мењати рецепте креиране унутар њега",
+    "lock-recipe-edits-from-other-households-admin-note": "Site administrators can always edit or delete recipes in any household, regardless of this setting.",
     "household-recipe-preferences": "Подешавање рецепата за домаћинство",
     "default-recipe-preferences-description": "Ово су уобичајна подешавања када се нови рецепт креира у вашем домаћинству. Подешавања могу бити промењена за појединачне рецепте из менија за подешавања.",
     "household-preferences": "Подешавања домаћинства"
@@ -326,7 +368,18 @@
     "meal-plan-settings": "Подешавања јеловника",
     "add-all-to-list": "Додај све на списак",
     "add-day-to-list": "Додај дан на списак",
-    "randomize-recipe": "Randomize Recipe"
+    "randomize-recipe": "Randomize Recipe",
+    "calendar-feed": "Subscribe to Calendar",
+    "calendar-feed-description": "Subscribe to your household's meal plan from Google Calendar, Apple Calendar, Home Assistant or any other app that supports iCal links. Anyone with the link can see your meal plan.",
+    "calendar-feed-off": "The calendar link is turned off for your household.",
+    "calendar-feed-ask-manager": "Ask someone who can manage your household to turn it on.",
+    "calendar-feed-turn-on": "Turn On",
+    "calendar-feed-turn-off": "Turn Off",
+    "calendar-feed-reset-hint": "Resetting or turning off the link stops existing subscriptions from updating.",
+    "calendar-feed-include-notes": "Include notes",
+    "calendar-feed-times-hint": "Meals without a time are shown as all-day events.",
+    "calendar-feed-timezone": "Timezone",
+    "calendar-feed-url": "Calendar Link"
   },
   "migration": {
     "new-migration": "Нова миграција",
@@ -445,6 +498,7 @@
     "prep-time": "Време припреме",
     "protein-content": "Протеини",
     "public-recipe": "Јавни рецепт",
+    "public-recipe-visibility-note": "Also depends on your group and household privacy settings — a recipe won't be publicly visible if either is set to private.",
     "recipe-created": "Рецепт је направљен",
     "recipe-image": "Слика рецепта",
     "delete-image": "Обриши слику рецепта",
@@ -590,8 +644,8 @@
     "report-deletion-failed": "Брисање извештаја није успело",
     "recipe-debugger": "Дебагер рецепата",
     "recipe-debugger-description": "Узмите URL рецепта који желите да отклоните грешке и налепите га овде. URL ће бити преузет од стране алата за преузимање рецепата и резултати ће бити приказани. Ако не видите никакве податке, сајт који покушавате да преузмете није подржан од стране Mealieја или његове библиотеке за преузимање.",
-    "use-openai": "Користи OpenAI",
-    "recipe-debugger-use-openai-description": "Користите OpenAI да бисте анализирали резултате уместо да се ослањате на библиотеку за преузимање. Када креирате рецепт преко URL-а, ово се ради аутоматски ако библиотека не успе, али га можете ручно тестирати овде.",
+    "use-ai": "Use AI",
+    "recipe-debugger-use-ai-description": "Use AI to parse the results instead of relying on the scraper library. When creating a recipe via URL, this is done automatically if the scraper library fails, but you may test it manually here.",
     "debug": "Дебагуј (Debug)",
     "tree-view": "Преглед стабла",
     "recipe-servings": "Порције рецепта",
@@ -616,9 +670,9 @@
       "dont-show-again": "Don't show this again",
       "try-again-with-parser": "Try again with {parser}",
       "natural-language-processor": "Процесор природног језика (NLP)",
-      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the OpenAI Parser tends to give better results.",
+      "natural-language-processor-english-only": "The Natural Language Processor is trained on English recipes. For recipes in other languages it usually recognizes the amount but not the unit, so the Brute Parser or the AI Parser tends to give better results.",
       "brute-parser": "Брутални парсер (Brute)",
-      "openai-parser": "OpenAI парсер",
+      "ai-parser": "AI Parser",
       "missing-unit": "Креирај недостајућу јединицу: {unit}",
       "missing-food": "Креирај недостајућу храну: {food}",
       "this-unit-could-not-be-parsed-automatically": "Ова јединица се није могла аутоматски разложити",
@@ -793,7 +847,12 @@
     "are-you-sure-you-want-to-uncheck-all-items": "Да ли сте сигурни да желите да одзначите све ставке?",
     "are-you-sure-you-want-to-delete-checked-items": "Да ли сте сигурни да желите да обришете све означене ставке?",
     "no-shopping-lists-found": "Нису пронађени спискови за куповину",
-    "item-checked-off": "Checked off {item}"
+    "new-list-name": "List Name",
+    "failed-to-create-shopping-list": "Failed to create shopping list",
+    "item-checked-off": "Checked off {item}",
+    "more-options": "More options",
+    "fewer-options": "Fewer options",
+    "save-as-new-food": "Save \"{text}\" as a new food"
   },
   "sidebar": {
     "backups": "Резервне копије",
@@ -881,11 +940,17 @@
     "authentication-method-hint": "Ово одређује како ће се корисник аутентификовати са Mили. Ако нисте сигурни, изаберите 'Mealie'",
     "permissions": "Дозволе",
     "administrator": "Администратор",
+    "administrator-hint": "Full access across every group and household on this instance.",
     "user-can-invite-other-to-group": "Корисник може позивати друге у групу",
+    "user-can-invite-other-to-group-hint": "User can invite new users to their own group and household.",
     "user-can-manage-group": "User can manage group settings",
+    "user-can-manage-group-hint": "User can manage the group's shared settings, like AI providers, and edit permissions for members of their household.",
     "user-can-manage-household": "Корисник може управљати домаћинством",
-    "user-can-organize-group-data": "User can manage foods, tags, and categories",
+    "user-can-manage-household-hint": "User can manage the settings of the household they belong to, like its name, privacy, and recipe-editing rules.",
+    "user-can-organize-group-data": "User can manage group data such as foods, units, tags, and categories",
+    "user-can-organize-group-data-hint": "Create, edit, and delete foods, units, tags, categories, tools, labels, and recipe actions shared across the group.",
     "enable-advanced-features": "Омогући напредне функције",
+    "enable-advanced-features-hint": "Enables Webhooks, Notifiers, and Data Migrations",
     "it-looks-like-this-is-your-first-time-logging-in": "Изгледа да се први пут пријављујете.",
     "dont-want-to-see-this-anymore-be-sure-to-change-your-email": "Не желите више ово да видите? Обавезно промените е-пошту у корисничким подешавањима!",
     "forgot-password": "Заборављена лозинка",
@@ -918,6 +983,8 @@
       "food-data": "Подаци о храни",
       "label-overwrite-warning": "Ово ће доделити изабрани натпис свој изабраној храни и потенцијално заменити ваше постојеће натписе.",
       "on-hand-checkbox-label": "Постављањем ове опције, ова храна ће подразумевано бити неозначена приликом додавања рецепта на списак за куповину.",
+      "delete-unused-confirm": "Okay to delete this unused food? This cannot be undone. | Okay to delete these {count} unused foods? This cannot be undone.",
+      "no-unused-foods": "No unused foods to delete",
       "substitutions": "Substitutions",
       "manage-substitutions": "Manage Substitutions",
       "substitution-dialog-text": "Suggest foods that can be used in place of {food}. A substitution can be a food, a note, or both.",
@@ -956,7 +1023,14 @@
       "edit-label": "Уреди натпис",
       "new-label": "Нови натпис",
       "labels": "Натписи",
-      "assign-label": "Додели натпис"
+      "assign-label": "Додели натпис",
+      "combine-label": "Combine Label",
+      "source-label": "Source Label",
+      "target-label": "Target Label",
+      "merge-dialog-text": "Combining the selected labels will merge the source label and target label into a single label. The source label will be deleted and all of the references to the source label will be updated to point to the target label.",
+      "merge-label-example": "Merging {label1} into {label2}",
+      "delete-unused-confirm": "Okay to delete this unused label? This cannot be undone. | Okay to delete these {count} unused labels? This cannot be undone.",
+      "no-unused-labels": "No unused labels to delete"
     },
     "recipes": {
       "purge-exports": "Очисти извозе",
@@ -1029,7 +1103,14 @@
     "tools": {
       "new-tool": "Нови прибор",
       "edit-tool": "Уреди прибор",
-      "tool-data": "Подаци прибора"
+      "tool-data": "Подаци прибора",
+      "combine-tool": "Combine Tool",
+      "source-tool": "Source Tool",
+      "target-tool": "Target Tool",
+      "merge-dialog-text": "Combining the selected tools will merge the source tool and target tool into a single tool. The source tool will be deleted and all of the references to the source tool will be updated to point to the target tool.",
+      "merge-tool-example": "Merging {tool1} into {tool2}",
+      "delete-unused-confirm": "Okay to delete this unused tool? This cannot be undone. | Okay to delete these {count} unused tools? This cannot be undone.",
+      "no-unused-tools": "No unused tools to delete"
     }
   },
   "user-registration": {
@@ -1060,6 +1141,8 @@
     "share-recipe": "Подели рецепт",
     "default-30-days": "Подразумевано 30 дана",
     "expires-at": "Истиче у",
+    "show-qr-code": "Show QR Code",
+    "scan-qr-code": "Scan with a phone camera to open this recipe",
     "recipe-link-copied-message": "Линк рецепта је копиран у привремену меморију"
   },
   "banner-experimental": {
@@ -1111,7 +1194,7 @@
     "ingredients-natural-language-processor-explanation-2": "Није савршено, али даје одличне резултате и добра је почетна тачка за ручно разлагање саставних делова у појединачна поља. Као алтернативу, такође можете користити \"Брут\" процесор који користи технику усклађивања шаблона за идентификацију састојака.",
     "nlp": "NLP",
     "brute": "Brute (Брутални)",
-    "openai": "OpenAI",
+    "ai-providers": "AI Providers",
     "show-individual-confidence": "Прикажи појединачну сигурност",
     "ingredient-text": "Текст састојка",
     "average-confident": "{0} Сигурно",
@@ -1128,8 +1211,8 @@
       "restore-from-v1-backup": "Имате резервну копију из претходне инстанце Mealie v1? Можете је вратити овде.",
       "manage-profile-or-get-invite-link": "Управљајте сопственим профилом или узмите линк за позивницу да бисте га поделили са другима."
     },
-    "debug-openai-services": "Отклони грешке OpenAI сервиса",
-    "debug-openai-services-description": "Користите ову страницу да бисте отклонили грешке у OpenAI сервисима. Овде можете тестирати вашу OpenAI везу и видети резултате. Ако имате омогућене сервисе за слике, можете такође да обезбедите слику.",
+    "debug-ai-providers": "Debug AI Providers",
+    "debug-ai-providers-description": "Use this page to debug AI providers. You can test your AI connection and see the results here. If you have image services enabled, you can also provide an image.",
     "run-test": "Покрени тест",
     "test-results": "Резултати теста",
     "group-delete-note": "Групе са корисницима или домаћинствима не могу бити обрисане",
@@ -1205,7 +1288,9 @@
       "is-less-than": "је мање од",
       "is-less-than-or-equal-to": "је мање или једнако са",
       "is-older-than": "је старије од",
-      "is-newer-than": "је новије од"
+      "is-newer-than": "је новије од",
+      "has-a-value": "has a value",
+      "has-no-value": "has no value"
     },
     "relational-keywords": {
       "is": "је",

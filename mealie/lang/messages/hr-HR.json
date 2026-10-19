@@ -68,7 +68,7 @@
         "report-deleted": "Izvješće je obrisano."
     },
     "exceptions": {
-        "permission_denied": "Nemate dozvolu za izvođenje ove akcije",
+        "permission-denied": "You do not have permission to perform this action",
         "recursive-recipe-link": "Recept ne može upućivati sam na sebe, ni izravno ni neizravno.",
         "no-entry-found": "Traženi izvor nije pronađen",
         "rate-limit-error": "The AI provider is rate limiting requests. Please wait a moment and try again",

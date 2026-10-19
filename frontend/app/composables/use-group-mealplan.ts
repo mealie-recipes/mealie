@@ -34,11 +34,21 @@ export type DaySection = {
   meals: ReadPlanEntry[];
 };
 
+export type ScaledRecipe = RecipeSummary & { scale: number };
+
 export type Days = {
   date: Date;
   sections: DaySection[];
-  recipes: RecipeSummary[];
+  recipes: ScaledRecipe[];
 };
+
+/**
+ * The recipes of the given meal plan entries, each carrying the scale set on its entry.
+ * Entries without a recipe (notes) are skipped.
+ */
+export function getScaledRecipes(meals: ReadPlanEntry[]): ScaledRecipe[] {
+  return meals.flatMap(meal => meal.recipe ? [{ ...meal.recipe, scale: meal.recipeScale ?? 1 }] : []);
+}
 
 export type MealsByDate = {
   date: Date;
