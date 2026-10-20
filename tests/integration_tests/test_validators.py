@@ -47,6 +47,18 @@ def test_validators_email(api_client: TestClient, unique_user: TestUser):
         assert response_data["valid"] == user.is_valid
 
 
+def test_validators_user_allow_current_user(api_client: TestClient, unique_user: TestUser, g2_user: TestUser):
+    for route, value in [
+        (VALIDATORS_USER_NAME + "?name=" + unique_user.username, True),
+        (VALIDATORS_USER_EMAIL + "?email=" + unique_user.email, True),
+        (VALIDATORS_USER_NAME + "?name=" + g2_user.username, False),
+        (VALIDATORS_USER_EMAIL + "?email=" + g2_user.email, False),
+    ]:
+        response = api_client.get(route, headers=unique_user.token)
+        assert response.status_code == 200
+        assert response.json()["valid"] is value
+
+
 def test_validators_group_name(api_client: TestClient, unique_user: TestUser):
     database = unique_user.repos
     group = database.groups.get_one(unique_user.group_id)
