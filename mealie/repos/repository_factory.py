@@ -78,6 +78,7 @@ from ._utils import NOT_SET, NotSet
 from .repository_generic import GroupRepositoryGeneric, HouseholdRepositoryGeneric
 from .repository_group import RepositoryGroup
 from .repository_meals import RepositoryMeals
+from .repository_recipe_share_tokens import RepositoryRecipeShareTokens
 from .repository_recipes import RepositoryRecipes
 from .repository_shopping_list import RepositoryShoppingList
 from .repository_users import RepositoryUserRatings, RepositoryUsers
@@ -312,8 +313,8 @@ class AllRepositories:
         return RepositoryTags(self.session, PK_ID, Tag, TagOut, group_id=self.group_id)
 
     @cached_property
-    def recipe_share_tokens(self) -> GroupRepositoryGeneric[RecipeShareToken, RecipeShareTokenModel]:
-        return GroupRepositoryGeneric(
+    def recipe_share_tokens(self) -> RepositoryRecipeShareTokens:
+        return RepositoryRecipeShareTokens(
             self.session, PK_ID, RecipeShareTokenModel, RecipeShareToken, group_id=self.group_id
         )
 
