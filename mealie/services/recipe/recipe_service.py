@@ -477,6 +477,19 @@ class RecipeService(RecipeServiceBase):
         recipe = Recipe.model_validate(recipe).model_dump(mode="json")
         return self._process_recipe_data("recipe", self._replace_taken_id(recipe))
 
+    def _apply_household_visibility(self, recipe: Recipe) -> None:
+        """Make an imported recipe follow the household's `recipe_public` preference.
+
+        An export carries the visibility of the household it came from, which must not make a
+        recipe public in a household that keeps its recipes private. The other settings are kept
+        as exported.
+        """
+        if self.household.preferences is None:
+            return
+        if recipe.settings is None:
+            recipe.settings = RecipeSettings()
+        recipe.settings.public = self.household.preferences.recipe_public
+
     def create_from_mealie_export(self, recipe: dict[str, Any], include_tags: bool, include_categories: bool) -> Recipe:
         """Create a recipe from a pasted recipe dump produced by Mealie (see `parse_mealie_export`).
 
@@ -494,7 +507,9 @@ class RecipeService(RecipeServiceBase):
             if not include_categories:
                 cleaned["recipe_category"] = []
 
-            return self.create_one(Recipe(**cleaned))
+            recipe_data = Recipe(**cleaned)
+            self._apply_household_visibility(recipe_data)
+            return self.create_one(recipe_data)
         except Exception as e:
             # the paste was recognised as a Mealie export, so falling back to the web scraper would
             # only produce the degraded import this path exists to avoid
@@ -524,12 +539,7 @@ class RecipeService(RecipeServiceBase):
             raise exceptions.UnexpectedNone("No json data found in Zip")
 
         recipe_data = Recipe(**self.clean_recipe_dict(recipe_dict))
-
-        if self.household.preferences is not None:
-            if recipe_data.settings is None:
-                recipe_data.settings = RecipeSettings()
-            recipe_data.settings.public = self.household.preferences.recipe_public
-
+        self._apply_household_visibility(recipe_data)
         recipe = self.create_one(recipe_data)
 
         if recipe and recipe.id:

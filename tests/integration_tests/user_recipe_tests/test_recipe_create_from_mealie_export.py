@@ -113,8 +113,12 @@ def test_paste_mealie_export_keeps_contents(
     imported = api_client.get(api_routes.recipes_slug(r.json()), headers=unique_user.token).json()
     assert imported["id"] != original["id"]
     assert imported["slug"] != original["slug"]
-    for field in ["description", "recipeYield", "recipeServings", "orgURL", "extras", "settings", "nutrition"]:
+    for field in ["description", "recipeYield", "recipeServings", "orgURL", "extras", "nutrition"]:
         assert imported[field] == original[field], field
+    # `public` follows the household preference instead, see test_paste_mealie_export_follows_household_visibility
+    assert {k: v for k, v in imported["settings"].items() if k != "public"} == {
+        k: v for k, v in original["settings"].items() if k != "public"
+    }
 
     assert [c["name"] for c in imported["recipeCategory"]] == [c["name"] for c in original["recipeCategory"]]
     assert [t["name"] for t in imported["tags"]] == [t["name"] for t in original["tags"]]
@@ -170,6 +174,27 @@ def test_paste_mealie_export_from_another_group(api_client: TestClient, unique_u
     assert still_there_json["id"] == original["id"]
     for organizer_list in ("recipeCategory", "tags", "tools"):
         assert [o["id"] for o in still_there_json[organizer_list]] == [o["id"] for o in original[organizer_list]]
+
+
+@pytest.mark.parametrize("household_public", [True, False])
+def test_paste_mealie_export_follows_household_visibility(
+    api_client: TestClient, unique_user_fn_scoped: TestUser, household_public: bool
+):
+    """Like the zip import, a pasted export takes `public` from the household, not from the export."""
+    user = unique_user_fn_scoped
+    prefs = api_client.get(api_routes.households_preferences, headers=user.token).json()
+    prefs["recipePublic"] = household_public
+    assert api_client.put(api_routes.households_preferences, json=prefs, headers=user.token).status_code == 200
+
+    original = create_populated_recipe(api_client, user)
+    data = json.loads(camel_case_export(api_client, user, original["slug"]))
+    data["settings"]["public"] = not household_public
+
+    r = paste(api_client, user, json.dumps(data))
+    assert r.status_code == 201, r.text
+
+    imported = api_client.get(api_routes.recipes_slug(r.json()), headers=user.token).json()
+    assert imported["settings"]["public"] is household_public
 
 
 def test_paste_mealie_export_honours_organizer_options(api_client: TestClient, unique_user: TestUser):
