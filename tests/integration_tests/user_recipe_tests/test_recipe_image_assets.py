@@ -146,6 +146,8 @@ def test_recipe_asset_dangerous_extension_blocked(
             headers=unique_user.token,
         )
         assert response.status_code == 400, f"expected 400 for extension={ext}, got {response.status_code}"
+        # the frontend only shows an error toast when the response carries a message
+        assert response.json()["detail"]["message"] == "Unsupported file extension"
 
 
 def test_recipe_asset_served_as_attachment(

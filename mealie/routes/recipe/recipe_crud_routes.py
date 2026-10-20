@@ -868,11 +868,11 @@ class RecipeController(BaseRecipeController):
 
         extension = extension.lower()
         if extension not in ASSET_ALLOWED_EXTENSIONS:
-            raise HTTPException(status_code=400, detail="Unsupported file extension")
+            raise HTTPException(status_code=400, detail=ErrorResponse.respond("Unsupported file extension"))
 
         file_slug = slugify(name)
         if not extension or not file_slug:
-            raise HTTPException(status_code=400, detail="Missing required fields")
+            raise HTTPException(status_code=400, detail=ErrorResponse.respond("Missing required fields"))
 
         file_name = f"{file_slug}.{extension}"
 
@@ -890,7 +890,7 @@ class RecipeController(BaseRecipeController):
         if dest.absolute().parent != recipe.asset_dir:
             raise HTTPException(
                 status_code=400,
-                detail=f"File name {file_name} or extension {extension} not valid",
+                detail=ErrorResponse.respond(f"File name {file_name} or extension {extension} not valid"),
             )
 
         asset_in = RecipeAsset(name=name, icon=icon, file_name=file_name)
