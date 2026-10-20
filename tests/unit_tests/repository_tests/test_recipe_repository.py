@@ -1083,3 +1083,16 @@ def test_recipe_update_ignores_id_in_payload(unique_user: TestUser) -> None:
 
     assert updated.id == recipe.id
     assert updated.description == "changed"
+
+
+def test_recipe_repo_count_all(
+    unique_db: AllRepositories, unfiltered_database: AllRepositories, unique_ids: tuple[str, str, str]
+):
+    group_id, household_id, user_id = unique_ids
+    for _ in range(2):
+        unique_db.recipes.create(Recipe(group_id=group_id, user_id=user_id, name=random_string()))
+
+    # group_id is a column on recipes, household_id is an association proxy through the user
+    assert unfiltered_database.recipes.count_all("group_id", UUID(group_id)) == 2
+    assert unfiltered_database.recipes.count_all("household_id", UUID(household_id)) == 2
+    assert unfiltered_database.recipes.count_all("household_id", uuid4()) == 0
